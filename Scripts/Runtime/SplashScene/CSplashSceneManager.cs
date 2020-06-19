@@ -1,0 +1,38 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+//! 스플래시 씬 관리자
+public abstract class CSplashSceneManager : CSceneManager {
+	#region 프로퍼티
+	public override string SceneName => KDefine.B_SCENE_NAME_SPLASH;
+
+#if UNITY_EDITOR
+	public override int ScriptOrder => KDefine.U_SCRIPT_ORDER_SPLASH_SCENE_MANAGER;
+#endif			// #if UNITY_EDITOR
+	#endregion			// 프로퍼티
+
+	#region 추상 함수
+	//! 스플래시를 출력한다
+	protected abstract void ShowSplash();
+	#endregion			// 추상 함수
+
+	#region 함수
+	//! 초기화
+	public sealed override void Start() {
+		base.Start();
+		StartCoroutine(this.OnStart());
+	}
+
+	//! 다음 씬을 로드한다
+	protected void LoadNextScene() {
+		CSceneLoader.Instance.LoadScene(KDefine.B_SCENE_NAME_START, false, false);
+	}
+
+	//! 초기화
+	private IEnumerator OnStart() {
+		yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		this.ShowSplash();
+	}
+	#endregion			// 함수
+}
