@@ -49,10 +49,10 @@ public static partial class CScriptableObjectCreator {
 			m_oUserID = "dante",
 
 			m_oBranch = "master",
-			m_oSource = "00011.Library/01.Source",
-
 			m_oProjectName = "Library",
-			m_oProjectPath = "/Users/dante/Documents/jenkins/workspace/00011.Library/01.Source/Library",
+
+			m_oSourceRoot = "00011.Library",
+			m_oWorkspaceRoot = "/Users/dante/Documents/jenkins/workspace",
 			m_oDistributionPath = "/Users/dante/Documents/jenkins/builds",
 
 			m_oBuildToken = "JenkinsBuild",

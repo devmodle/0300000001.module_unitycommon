@@ -81,6 +81,7 @@ public static partial class KAppDefine {
 
 	// 이름
 	public const string G_NAME_PROJECT_ROOT = "Library";
+	public const string G_NAME_UNITY_PROJECT_ROOT = KAppDefine.G_NAME_PROJECT_ROOT;
 	#endregion			// 기본
 
 	#region 런타임 상수

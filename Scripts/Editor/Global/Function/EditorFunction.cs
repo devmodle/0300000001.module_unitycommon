@@ -375,7 +375,7 @@ public static partial class EditorFunction {
 	}
 
 	//! 젠킨스 빌드를 실행한다
-	public static void ExecuteJenkinsBuild(string a_oPipeline, Dictionary<string, string> a_oDataList = null) {
+	public static void ExecuteJenkinsBuild(string a_oPipeline, string a_oProjectName, Dictionary<string, string> a_oDataList = null) {
 		Function.Assert(a_oPipeline.ExIsValid() && CPlatformBuilder.BuildInfoTable != null);
 
 		var oStringBuilder = new System.Text.StringBuilder();
@@ -386,13 +386,19 @@ public static partial class EditorFunction {
 			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oUserID,
 			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oAccessToken,
 			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oBuildToken);
-
+			
 		// 매개 변수를 설정한다 {
+		string oSource = string.Format(KEditorDefine.B_JENKINS_SOURCE_PATH_FORMAT, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oSourceRoot,
+			a_oProjectName);
+
+		string oProjectPath = string.Format(KEditorDefine.B_JENKINS_PROJECT_PATH_FORMAT, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oWorkspaceRoot,
+			oSource, KAppDefine.G_NAME_UNITY_PROJECT_ROOT);
+
 		var oDataList = a_oDataList ?? new Dictionary<string, string>();
 
+		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_SOURCE, oSource);
+		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_PROJECT_PATH, oProjectPath);
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_BRANCH, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oBranch);
-		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_SOURCE, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oSource);
-		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_PROJECT_PATH, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oProjectPath);
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_DISTRIBUTION_PATH, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oDistributionPath);
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_PROJECT_NAME, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oProjectName);
 
@@ -407,7 +413,7 @@ public static partial class EditorFunction {
 
 	//! 독립 플랫폼 젠킨스 빌드를 실행한다
 	public static void ExecuteStandalonePlatformJenkinsBuild(string a_oPipeline, EStandalonePlatformType a_ePlatformType) {
-		EditorFunction.ExecuteJenkinsBuild(a_oPipeline, new Dictionary<string, string>() {
+		EditorFunction.ExecuteJenkinsBuild(a_oPipeline, KEditorDefine.B_JENKINS_STANDALONE_BUILD_PROJECT_NAME, new Dictionary<string, string>() {
 			[KEditorDefine.B_JENKINS_KEY_PLATFORM] = EditorFunction.GetStandalonePlatformName(a_ePlatformType)
 		});
 	}
@@ -416,7 +422,7 @@ public static partial class EditorFunction {
 	public static void ExecuteiOSPlatformJenkinsBuild(string a_oPipeline, string a_oProfileID) {
 		Function.Assert(CPlatformBuilder.ProjectInfoTable != null);
 
-		EditorFunction.ExecuteJenkinsBuild(a_oPipeline, new Dictionary<string, string>() {
+		EditorFunction.ExecuteJenkinsBuild(a_oPipeline, KEditorDefine.B_JENKINS_IOS_BUILD_PROJECT_NAME, new Dictionary<string, string>() {
 			[KEditorDefine.B_JENKINS_KEY_BUNDLE_ID] = CPlatformBuilder.ProjectInfoTable.iOSProjectInfo.m_oAppID,
 			[KEditorDefine.B_JENKINS_KEY_PROFILE_ID] = a_oProfileID
 		});
@@ -424,7 +430,7 @@ public static partial class EditorFunction {
 
 	//! 안드로이드 플랫폼 젠킨스 빌드를 실행한다
 	public static void ExecuteAndroidPlatformJenkinsBuild(string a_oPipeline, EAndroidPlatformType a_ePlatformType) {
-		EditorFunction.ExecuteJenkinsBuild(a_oPipeline, new Dictionary<string, string>() {
+		EditorFunction.ExecuteJenkinsBuild(a_oPipeline, KEditorDefine.B_JENKINS_ANDROID_BUILD_PROJECT_NAME, new Dictionary<string, string>() {
 			[KEditorDefine.B_JENKINS_KEY_PLATFORM] = EditorFunction.GetAndroidPlatformName(a_ePlatformType)
 		});
 	}
