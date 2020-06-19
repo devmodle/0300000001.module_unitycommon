@@ -141,7 +141,7 @@ public static partial class KEditorDefine {
 	public const string B_JENKINS_BUILD_DATA_FORMAT = "--data {0}={1}";
 	public const string B_JENKINS_BUILD_COMMAND_FORMAT = "curl -X POST {0} --user {1}:{2} --data token={3}";
 
-	public const string B_JENKINS_SOURCE_PATH_FORMAT = "{0}/{1}";
+	public const string B_JENKINS_SOURCE_FORMAT = "{0}/{1}";
 	public const string B_JENKINS_PROJECT_PATH_FORMAT = "{0}/{1}/{2}";
 
 	public const string B_JENKINS_STANDALONE_BUILD_PROJECT_NAME = "41.Standalone";
@@ -454,7 +454,11 @@ public static partial class KEditorDefine {
 
 	// 윈도우즈
 	public static readonly GraphicsDeviceType[] B_WINDOWS_GRAPHICS_DEVICE_TYPES = new GraphicsDeviceType[] {
-		GraphicsDeviceType.Direct3D12, GraphicsDeviceType.Direct3D11
+#if DIRECT_3D_12_ENABLE
+		GraphicsDeviceType.Direct3D12, 
+#endif			// #if DIRECT_3D_12_ENABLE
+		
+		GraphicsDeviceType.Direct3D11
 	};
 
 	// iOS {

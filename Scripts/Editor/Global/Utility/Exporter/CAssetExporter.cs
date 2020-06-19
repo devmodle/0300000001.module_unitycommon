@@ -6,31 +6,10 @@ using UnityEditor;
 //! 에셋 추출자
 public static partial class CAssetExporter {
 	#region 클래스 함수
-	//! 빌드 설정 파일을 추출한다
-	[MenuItem("Utility/Export/BuildOption")]
-	public static void ExportBuildOption() {
-		//! iOS 설정 파일을 복사한다
-		Function.CopyFile(KEditorDefine.B_IOS_DEST_MONO_MODULES_REGISTER_PATH, KEditorDefine.B_IOS_SRC_MONO_MODULES_REGISTER_PATH);
-
-		// 안드로이드 빌드 설정 파일을 복사한다
-		Function.CopyFile(KEditorDefine.B_ANDROID_DEST_MANIFEST_PATH, KEditorDefine.B_ANDROID_SRC_MANIFEST_PATH);
-		Function.CopyFile(KEditorDefine.B_ANDROID_DEST_MAIN_TEMPLATE_PATH, KEditorDefine.B_ANDROID_SRC_MAIN_TEMPLATE_PATH);
-		Function.CopyFile(KEditorDefine.B_ANDROID_DEST_PROGUARD_PATH, KEditorDefine.B_ANDROID_SRC_PROGUARD_PATH);
-
-		var oStringBuilder = new System.Text.StringBuilder();
-		oStringBuilder.AppendLine("빌드 설정 파일을 추출했습니다.");
-		oStringBuilder.AppendLine(KEditorDefine.B_IOS_SRC_MONO_MODULES_REGISTER_PATH);
-		oStringBuilder.AppendLine(KEditorDefine.B_ANDROID_SRC_MANIFEST_PATH);
-		oStringBuilder.AppendLine(KEditorDefine.B_ANDROID_SRC_MAIN_TEMPLATE_PATH);
-		oStringBuilder.AppendLine(KEditorDefine.B_ANDROID_SRC_PROGUARD_PATH);
-
-		CAssetExporter.ShowExportSuccessPopup(oStringBuilder.ToString());
-	}
-
 	//! 텍스처 -> PNG 이미지로 추출한다
 	[MenuItem("Utility/Export/Texture to PNGImage")]
 	public static void ExportTextureToPNGImage() {
-		var oTextureList = Selection.objects.ExToTypes<Texture2D>();
+		var oTextureList = Selection.objects.ExIsValid() ? Selection.objects.ExToTypes<Texture2D>() : null;
 
 		if(!oTextureList.ExIsValid()) {
 			CAssetExporter.ShowExportFailPopup(KEditorDefine.B_ALERT_P_EXPORT_TEXTURE_FAIL_MESSAGE);
@@ -56,7 +35,7 @@ public static partial class CAssetExporter {
 	//! 스프라이트 -> PNG 이미지로 추출한다
 	[MenuItem("Utility/Export/Sprite to PNGImage")]
 	public static void ExportSpriteToPNGImage() {
-		var oSpriteList = Selection.objects.ExToTypes<Sprite>();
+		var oSpriteList = Selection.objects.ExIsValid() ? Selection.objects.ExToTypes<Sprite>() : null;
 
 		if(!oSpriteList.ExIsValid()) {
 			CAssetExporter.ShowExportFailPopup(KEditorDefine.B_ALERT_P_EXPORT_SPRITE_FAIL_MESSAGE);

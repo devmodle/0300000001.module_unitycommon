@@ -11,7 +11,7 @@ using UnityEngine.Purchasing;
 public static partial class CScriptableObjectCreator {
 	#region 클래스 함수
 	//! 전처리기 심볼 테이블을 생성한다
-	[MenuItem("Utility/Create/Create DefineSymbolTable")]
+	[MenuItem("Utility/Create/DefineSymbolTable")]
 	public static void CreateDefineSymbolTable() {
 		var oDefineSymbolTable = EditorFunction.CreateScriptableObject<CDefineSymbolTable>();
 
@@ -23,7 +23,7 @@ public static partial class CScriptableObjectCreator {
 	}
 
 	//! 디바이스 정보 테이블을 생성한다
-	[MenuItem("Utility/Create/Create DeviceInfoTable")]
+	[MenuItem("Utility/Create/DeviceInfoTable")]
 	public static void CreateDeviceInfoTable() {
 		var oDeviceInfoTable = EditorFunction.CreateScriptableObject<CDeviceInfoTable>();
 
@@ -41,7 +41,7 @@ public static partial class CScriptableObjectCreator {
 	}
 
 	//! 빌드 정보 테이블을 생성한다
-	[MenuItem("Utility/Create/Create BuildInfoTable")]
+	[MenuItem("Utility/Create/BuildInfoTable")]
 	public static void CreateBuildInfoTable() {
 		var oBuildInfoTable = EditorFunction.CreateScriptableObject<CBuildInfoTable>();
 
@@ -94,7 +94,7 @@ public static partial class CScriptableObjectCreator {
 	}
 
 	//! 빌드 옵션 테이블을 생성한다
-	[MenuItem("Utility/Create/Create BuildOptionTable")]
+	[MenuItem("Utility/Create/BuildOptionTable")]
 	public static void CreateBuildOptionTable() {
 		var oBuildOptionTable = EditorFunction.CreateScriptableObject<CBuildOptionTable>();
 
@@ -184,7 +184,7 @@ public static partial class CScriptableObjectCreator {
 	}
 
 	//! 프로젝트 정보 테이블을 생성한다
-	[MenuItem("Utility/Create/Create ProjectInfoTable")]
+	[MenuItem("Utility/Create/ProjectInfoTable")]
 	public static void CreateProjectInfoTable() {
 		var oProjectInfoTable = EditorFunction.CreateScriptableObject<CProjectInfoTable>();
 		oProjectInfoTable.SetCompanyName("LKStudio");
@@ -253,7 +253,7 @@ public static partial class CScriptableObjectCreator {
 	}
 
 	//! 플러그인 정보 테이블을 생성한다
-	[MenuItem("Utility/Create/Create PluginInfoTable")]
+	[MenuItem("Utility/Create/PluginInfoTable")]
 	public static void CreatePluginInfoTable() {
 		var oPluginInfoTable = EditorFunction.CreateScriptableObject<CPluginInfoTable>();
 
@@ -342,7 +342,7 @@ public static partial class CScriptableObjectCreator {
 	#region 조건부 클래스 함수
 #if PURCHASE_ENABLE
 	//! 상품 정보 테이블을 생성한다
-	[MenuItem("Utility/Create/Create ProductInfoTable")]
+	[MenuItem("Utility/Create/ProductInfoTable")]
 	public static void CreateProductInfoTable() {
 		var oProductInfoTable = EditorFunction.CreateScriptableObject<CProductInfoTable>();
 

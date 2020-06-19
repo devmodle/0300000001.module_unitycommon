@@ -388,14 +388,13 @@ public static partial class EditorFunction {
 			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oBuildToken);
 			
 		// 매개 변수를 설정한다 {
-		string oSource = string.Format(KEditorDefine.B_JENKINS_SOURCE_PATH_FORMAT, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oSourceRoot,
-			a_oProjectName);
+		string oSource = string.Format(KEditorDefine.B_JENKINS_SOURCE_FORMAT, 
+			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oSourceRoot, a_oProjectName);
 
-		string oProjectPath = string.Format(KEditorDefine.B_JENKINS_PROJECT_PATH_FORMAT, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oWorkspaceRoot,
-			oSource, KAppDefine.G_NAME_UNITY_PROJECT_ROOT);
-
+		string oProjectPath = string.Format(KEditorDefine.B_JENKINS_PROJECT_PATH_FORMAT, 
+			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oWorkspaceRoot, oSource, KAppDefine.G_NAME_UNITY_PROJECT_ROOT);
+			
 		var oDataList = a_oDataList ?? new Dictionary<string, string>();
-
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_SOURCE, oSource);
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_PROJECT_PATH, oProjectPath);
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_BRANCH, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oBranch);

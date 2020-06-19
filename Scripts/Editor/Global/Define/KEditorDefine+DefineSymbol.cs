@@ -114,6 +114,9 @@ public static partial class KEditorDefine {
 	public const string DS_DEFINE_SYMBOL_GOOGLE_PLATFORM = "GOOGLE_PLATFORM";
 	public const string DS_DEFINE_SYMBOL_ONE_STORE_PLATFORM = "ONE_STORE_PLATFORM";
 	public const string DS_DEFINE_SYMBOL_GALAXY_STORE_PLATFORM = "GALAXY_STORE_PLATFORM";
+	
+	// 윈도우즈
+	public const string DS_DEFINE_SYMBOL_DIRECT_3D_12_ENABLE = "DIRECT_3D_12_ENABLE";
 
 	// 배포
 	public const string DS_DEFINE_SYMBOL_ADHOC_DISTRIBUTION_BUILD = "ADHOC_DISTRIBUTION_BUILD";

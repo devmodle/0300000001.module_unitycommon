@@ -285,8 +285,8 @@ public abstract partial class CSceneManager : CComponent {
 				CSceneManager.m_fDebugSkipTime = 0.0f;
 
 				if(CSceneManager.ScreenStaticDebugText != null) {
-					CSceneManager.ScreenStaticDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_MESSAGE, CSceneManager.m_oStaticDebugStringBuilder.ToString(),
-						CSceneManager.m_oExtraStaticDebugStringBuilder.ToString());
+					CSceneManager.ScreenStaticDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_MESSAGE, 
+						CSceneManager.m_oStaticDebugStringBuilder.ToString(), CSceneManager.m_oExtraStaticDebugStringBuilder.ToString());
 				}
 
 				if(CSceneManager.ScreenDynamicDebugText != null) {
@@ -312,8 +312,8 @@ public abstract partial class CSceneManager : CComponent {
 					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_D, dblTotalReservedMemory, dblTotalUnusedReservedMemory);
 					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_E, dblGPUAllocMemory);
 
-					CSceneManager.ScreenDynamicDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_MESSAGE, CSceneManager.m_oDynamicDebugStringBuilder.ToString(),
-						CSceneManager.m_oExtraDynamicDebugStringBuilder.ToString());
+					CSceneManager.ScreenDynamicDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_MESSAGE, 
+						CSceneManager.m_oDynamicDebugStringBuilder.ToString(), CSceneManager.m_oExtraDynamicDebugStringBuilder.ToString());
 				}
 			}
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
