@@ -209,6 +209,9 @@ public static partial class CPlatformBuilder {
 		}
 		// 빌드 옵션을 설정한다 }
 
+		// 빌드 디렉토리를 생성한다
+		Function.CreateDirectory(KEditorDefine.B_IOS_ABSOLUTE_BUILD_PATH);
+
 		// 플랫폼을 빌드한다
 		CPlatformBuilder.BuildPlatform(a_oPlayerOptions);
 	}

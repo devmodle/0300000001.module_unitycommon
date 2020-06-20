@@ -70,8 +70,8 @@ public static partial class Function {
 		Function.Assert(a_oFilepath.ExIsValid());
 		string oDirectoryPath = Path.GetDirectoryName(a_oFilepath);
 
-		if(a_bIsAutoCreateDirectory && !Directory.Exists(oDirectoryPath)) {
-			Directory.CreateDirectory(oDirectoryPath);
+		if(a_bIsAutoCreateDirectory) {
+			Function.CreateDirectory(oDirectoryPath);
 		}
 
 		// 자동 백업이 가능 할 경우
@@ -79,10 +79,8 @@ public static partial class Function {
 			string oFilename = Path.GetFileName(a_oFilepath);
 			string oBackupFilename = string.Format(KDefine.B_FILENAME_FORMAT_BACKUP, Path.GetFileNameWithoutExtension(a_oFilepath), System.DateTime.Now.ToString(KDefine.B_NAME_FORMAT_BACKUP));
 			string oBackupDirectoryPath = Path.Combine(oDirectoryPath, (a_oBackupDirectoryName.Length <= 0) ? KDefine.B_DIR_NAME_BACKUP : a_oBackupDirectoryName);
-
-			if(!Directory.Exists(oBackupDirectoryPath)) {
-				Directory.CreateDirectory(oBackupDirectoryPath);
-			}
+			
+			Function.CreateDirectory(oBackupDirectoryPath);
 
 			string oBackupFilepath = Path.Combine(oBackupDirectoryPath, 
 				oFilename.ExGetReplaceString(Path.GetFileNameWithoutExtension(a_oFilepath), oBackupFilename));
@@ -281,11 +279,9 @@ public static partial class Function {
 		if(Directory.Exists(a_oSrcPath)) {
 			// 파일을 복사한다
 			if(a_bIsOverwrite || !Directory.Exists(a_oDestPath)) {
-				if(Directory.Exists(a_oDestPath)) {
-					Directory.Delete(a_oDestPath, true);
-				}
-
+				Function.RemoveDirectory(a_oDestPath);
 				Directory.CreateDirectory(a_oDestPath);
+
 				var oFiles = Directory.GetFiles(a_oSrcPath);
 
 				for(int i = 0; i < oFiles.Length; ++i) {
@@ -441,6 +437,22 @@ public static partial class Function {
 
 		yield return Function.CreateWaitForSeconds(KDefine.B_DELTA_TIME_ASYNC_OPERATION, a_bIsRealtime);
 		a_oCallback?.Invoke(a_oAsyncOperation, true);
+	}
+
+	//! 디렉토리를 생성한다
+	public static DirectoryInfo CreateDirectory(string a_oFilepath) {
+		if(!Directory.Exists(a_oFilepath)) {
+			Directory.CreateDirectory(a_oFilepath);
+		}
+
+		return new DirectoryInfo(a_oFilepath);
+	}
+
+	//! 디렉토리를 제거한다
+	public static void RemoveDirectory(string a_oFilepath, bool a_bIsRecursive = true) {
+		if(Directory.Exists(a_oFilepath)) {
+			Directory.Delete(a_oFilepath, a_bIsRecursive);
+		}
 	}
 
 	//! 대기 객체를 생성한다

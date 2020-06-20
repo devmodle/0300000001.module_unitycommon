@@ -67,9 +67,14 @@ public static partial class EditorFunction {
 		Function.CopyFile(KEditorDefine.B_IOS_SRC_MONO_MODULES_REGISTER_PATH, KEditorDefine.B_IOS_DEST_MONO_MODULES_REGISTER_PATH);
 		Function.CopyDirectory(KEditorDefine.B_IOS_SRC_PLUGIN_PATH, KEditorDefine.B_IOS_DEST_PLUGIN_PATH);
 
-		// 안드로이드 플러그인을 복사한다
+		// 안드로이드 플러그인을 복사한다 {
 		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_PLUGIN_PATH, KEditorDefine.B_ANDROID_DEST_PLUGIN_PATH);
 		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_UNITY_PLUGIN_PATH, KEditorDefine.B_ANDROID_DEST_UNITY_PLUGIN_PATH);
+
+		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_MANIFEST_PATH, KEditorDefine.B_ANDROID_DEST_MANIFEST_PATH, false);
+		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_MAIN_TEMPLATE_PATH, KEditorDefine.B_ANDROID_DEST_MAIN_TEMPLATE_PATH, false);
+		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_PROGUARD_PATH, KEditorDefine.B_ANDROID_DEST_PROGUARD_PATH, false);
+		// 안드로이드 플러그인을 복사한다 }
 
 		EditorFunction.UpdateAssetDatabaseState();
 	}

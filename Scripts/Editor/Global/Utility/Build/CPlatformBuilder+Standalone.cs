@@ -154,6 +154,13 @@ public static partial class CPlatformBuilder {
 		}
 		// 빌드 옵션을 설정한다 }
 
+		// 빌드 디렉토리를 생성한다 {
+		string oBuildPath = string.Format(KEditorDefine.B_STANDALONE_ABSOLUTE_BUILD_PATH_FORMAT, 
+			EditorFunction.GetStandalonePlatformName(a_ePlatformType));
+
+		Function.CreateDirectory(oBuildPath);
+		// 빌드 디렉토리를 생성한다 }
+
 		// 플랫폼을 빌드한다
 		CPlatformBuilder.BuildPlatform(a_oPlayerOptions);
 	}

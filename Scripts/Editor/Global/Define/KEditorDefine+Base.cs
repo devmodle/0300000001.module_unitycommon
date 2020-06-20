@@ -447,6 +447,9 @@ public static partial class KEditorDefine {
 	public static readonly string B_JENKINS_ANDROID_STORE_DISTRIBUTION_PIPELINE = string.Format("{0}/14.AndroidStore", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
 	// 젠킨스 }
 
+	// 독립 플랫폼
+	public static readonly string B_STANDALONE_ABSOLUTE_BUILD_PATH_FORMAT = string.Format("{0}../Builds/Standalone/{1}", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, "{0}");
+
 	// 맥
 	public static readonly GraphicsDeviceType[] B_MAC_GRAPHICS_DEVICE_TYPES = new GraphicsDeviceType[] {
 		GraphicsDeviceType.Metal, GraphicsDeviceType.OpenGLCore
@@ -462,6 +465,8 @@ public static partial class KEditorDefine {
 	};
 
 	// iOS {
+	public static readonly string B_IOS_ABSOLUTE_BUILD_PATH = string.Format("{0}../Builds/iOS", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS);
+
 	public static readonly string B_IOS_SRC_PLUGIN_PATH = string.Format("{0}../PluginProjects/iOS/Classes/Plugin/", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS);
 	public static readonly string B_IOS_DEST_PLUGIN_PATH = string.Format("{0}Plugins/iOS/CustomiOSPlugin/", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS);
 
@@ -478,6 +483,8 @@ public static partial class KEditorDefine {
 	// iOS }
 
 	// 안드로이드 {
+	public static readonly string B_ANDROID_ABSOLUTE_BUILD_PATH_FORMAT = string.Format("{0}../Builds/Android/{1}", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, "{0}");
+
 	public static readonly string B_ANDROID_SRC_PLUGIN_PATH = string.Format("{0}../PluginProjects/Android/plugin/build/intermediates/packaged-classes/release/classes.jar", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS);
 	public static readonly string B_ANDROID_DEST_PLUGIN_PATH = string.Format("{0}Plugins/Android/libs/CustomAndroidPlugin.jar", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS);
 
