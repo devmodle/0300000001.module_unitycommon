@@ -82,14 +82,14 @@ public static partial class CScriptableObjectCreator {
 		});
 
 		oBuildInfoTable.SetAndroidBuildInfo(new STAndroidBuildInfo() {
-			m_oKeystorePath = "Library.keystore",
+			m_oKeystorePath = "Keystore.keystore",
 			m_oKeyaliasName = "Keystore",
 
-			m_oKeystorePassword = "duddnd1",
-			m_oKeyaliasPassword = "duddnd1",
+			m_oKeystorePassword = "NSString132!",
+			m_oKeyaliasPassword = "NSString132!",
 
 			m_eMinSDKVersion = AndroidSdkVersions.AndroidApiLevel21,
-			m_eTargetSDKVersion = AndroidSdkVersions.AndroidApiLevelAuto
+			m_eTargetSDKVersion = AndroidSdkVersions.AndroidApiLevel28
 		});
 	}
 

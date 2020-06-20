@@ -35,9 +35,9 @@ MonoBehaviour:
     m_eiPadLaunchScreenType: 0
     m_eiPhoneLaunchScreenType: 0
   m_stAndroidBuildInfo:
-    m_oKeystorePath: Library.keystore
+    m_oKeystorePath: Keystore.keystore
     m_oKeyaliasName: Keystore
-    m_oKeystorePassword: duddnd1
-    m_oKeyaliasPassword: duddnd1
+    m_oKeystorePassword: NSString132!
+    m_oKeyaliasPassword: NSString132!
     m_eMinSDKVersion: 21
-    m_eTargetSDKVersion: 0
+    m_eTargetSDKVersion: 28
