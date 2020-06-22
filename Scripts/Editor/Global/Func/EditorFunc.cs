@@ -431,7 +431,7 @@ public static partial class EditorFunc {
 		};
 
 		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_STANDALONE_PIPELINE, 
-			a_oBuildMode, a_oBuildFunc, a_oPipelineName, KEditorDefine.B_JENKINS_STANDALONE_BUILD_PROJECT_NAME, oDataList);
+			KEditorDefine.B_JENKINS_STANDALONE_BUILD_PROJECT_NAME, a_oBuildMode, a_oBuildFunc, a_oPipelineName, oDataList);
 	}
 
 	//! iOS 플랫폼 젠킨스 빌드를 실행한다
@@ -446,7 +446,7 @@ public static partial class EditorFunc {
 		};
 
 		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_IOS_PIPELINE, 
-			a_oBuildMode, a_oBuildFunc, a_oPipelineName, KEditorDefine.B_JENKINS_IOS_BUILD_PROJECT_NAME, oDataList);
+			KEditorDefine.B_JENKINS_IOS_BUILD_PROJECT_NAME, a_oBuildMode, a_oBuildFunc, a_oPipelineName, oDataList);
 	}
 
 	//! 안드로이드 플랫폼 젠킨스 빌드를 실행한다
@@ -458,7 +458,7 @@ public static partial class EditorFunc {
 		};
 
 		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_ANDROID_PIPELINE, 
-			a_oBuildMode, a_oBuildFunc, a_oPipelineName, KEditorDefine.B_JENKINS_ANDROID_BUILD_PROJECT_NAME, oDataList);
+			KEditorDefine.B_JENKINS_ANDROID_BUILD_PROJECT_NAME, a_oBuildMode, a_oBuildFunc, a_oPipelineName, oDataList);
 	}
 
 	//! 커맨드 라인을 실행한다
