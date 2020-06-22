@@ -10,16 +10,16 @@ public class CPermissionManager : CSingleton<CPermissionManager> {
 	#region 함수
 	//! 권한 유효 여부를 검사한다
 	public bool IsEnablePermission(string a_oPermission) {
-		Function.Assert(a_oPermission.ExIsValid());
+		Func.Assert(a_oPermission.ExIsValid());
 		return Permission.HasUserAuthorizedPermission(a_oPermission);
 	}
 
 	//! 권한을 요청한다
 	public void RequestPermission(string a_oPermission, System.Action<CPermissionManager, bool> a_oCallback) {
-		Function.Assert(a_oPermission.ExIsValid());
+		Func.Assert(a_oPermission.ExIsValid());
 		Permission.RequestUserPermission(a_oPermission);
 
-		Function.RepeatCallFunction(this,
+		Func.RepeatCallFunc(this,
 			KDefine.U_DELTA_TIME_PERMISSION_CHECK, KDefine.U_MAX_DELTA_TIME_PERMISSION_CHECK, (a_oComponent, a_oParams, a_bIsComplete) => {
 				if(a_bIsComplete) {
 					a_oCallback?.Invoke(this, this.IsEnablePermission(a_oPermission));

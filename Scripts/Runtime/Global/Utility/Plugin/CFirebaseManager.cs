@@ -55,11 +55,11 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 #endif			// #if UNITY_EDITOR && FIREBASE_DATABASE_ENABLE
 
 #if FIREBASE_ANALYTICS_ENABLE
-#if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 					FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
 #else
 					FirebaseAnalytics.SetAnalyticsCollectionEnabled(false);
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 #endif			// #if FIREBASE_ANALYTICS_ENABLE
 
 #if FIREBASE_REMOTE_CONFIG_ENABLE

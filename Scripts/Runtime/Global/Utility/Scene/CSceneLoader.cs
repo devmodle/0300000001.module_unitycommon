@@ -17,7 +17,7 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 			CLoadingSceneManager.IsAnimation = false;
 			this.DoLoadScene(a_oName, a_bIsStartActivityIndicator, a_bIsUseLoadingScene, a_eLoadSceneMode);
 		} else {
-			Function.Assert(CSceneManager.RootSceneManager != null);
+			Func.Assert(CSceneManager.RootSceneManager != null);
 
 			CSceneManager.RootSceneManager.StartScreenFadeInAnimation((a_oTouchResponder) => {
 				CLoadingSceneManager.IsAnimation = true;
@@ -70,7 +70,7 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 	//! 씬을 로드한다
 	private IEnumerator DoLoadSceneAsync(string a_oName,
 		float a_fDelay, bool a_bIsStartActivityIndicator, bool a_bIsAnimation, bool a_bIsUseLoadingScene, LoadSceneMode a_eLoadSceneMode, System.Action<AsyncOperation, bool> a_oCallback) {
-		yield return Function.CreateWaitForSeconds(a_fDelay);
+		yield return Func.CreateWaitForSeconds(a_fDelay);
 
 		if(!a_bIsUseLoadingScene) {
 			bool bIsActiveScene = false;
@@ -78,7 +78,7 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 			var oAsyncOperation = SceneManager.LoadSceneAsync(a_oName, a_eLoadSceneMode);
 			oAsyncOperation.allowSceneActivation = false;
 
-			yield return Function.WaitAsyncOperation(oAsyncOperation, (a_oAsyncOperation, a_bIsComplete) => {
+			yield return Func.WaitAsyncOperation(oAsyncOperation, (a_oAsyncOperation, a_bIsComplete) => {
 				a_oCallback?.Invoke(a_oAsyncOperation, a_bIsComplete);
 
 				if(!bIsActiveScene && a_oAsyncOperation.progress.ExIsGreateEquals(KDefine.U_MAX_PERCENT_ASYNC_SCENE_LOAD)) {
@@ -87,7 +87,7 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 					if(!a_bIsAnimation) {
 						a_oAsyncOperation.allowSceneActivation = true;
 					} else {
-						Function.Assert(CSceneManager.RootSceneManager != null);
+						Func.Assert(CSceneManager.RootSceneManager != null);
 
 						CSceneManager.RootSceneManager.StartScreenFadeInAnimation((a_oTouchResponder) => {
 							a_oAsyncOperation.allowSceneActivation = true;
@@ -102,7 +102,7 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 			if(!a_bIsAnimation) {
 				SceneManager.LoadScene(KDefine.B_SCENE_NAME_LOADING, a_eLoadSceneMode);
 			} else {
-				Function.Assert(CSceneManager.RootSceneManager != null);
+				Func.Assert(CSceneManager.RootSceneManager != null);
 
 				CSceneManager.RootSceneManager.StartScreenFadeInAnimation((a_oTouchResponder) => {
 					SceneManager.LoadScene(KDefine.B_SCENE_NAME_LOADING, a_eLoadSceneMode);
@@ -114,10 +114,10 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 	//! 씬을 제거한다
 	private IEnumerator DoUnloadSceneAsync(string a_oName,
 		float a_fDelay, System.Action<AsyncOperation, bool> a_oCallback) {
-		yield return Function.CreateWaitForSeconds(a_fDelay);
+		yield return Func.CreateWaitForSeconds(a_fDelay);
 		var oAsyncOperation = SceneManager.UnloadSceneAsync(a_oName, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
 
-		yield return Function.WaitAsyncOperation(oAsyncOperation, a_oCallback);
+		yield return Func.WaitAsyncOperation(oAsyncOperation, a_oCallback);
 	}
 	#endregion			// 함수
 }

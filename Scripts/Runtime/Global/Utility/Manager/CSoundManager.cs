@@ -61,7 +61,7 @@ public class CSoundManager : CSingleton<CSoundManager> {
 		base.Awake();
 
 		// 배경음을 생성한다 {
-		m_oBGSound = Function.CreateCloneGameObject<CSound>(KDefine.U_OBJ_NAME_SOUND_M_BG_SOUND,
+		m_oBGSound = Func.CreateCloneGameObject<CSound>(KDefine.U_OBJ_NAME_SOUND_M_BG_SOUND,
 			CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_BG_SOUND), this.gameObject);
 
 		m_oBGSound.transform.localPosition = Vector3.zero;
@@ -92,7 +92,7 @@ public class CSoundManager : CSingleton<CSoundManager> {
 
 	//! 단일음 재생힌다
 	public void PlayOneShotSound(string a_oFilepath, Vector3 a_stPos) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 		
 		if(!this.IsMuteFXSounds) {
 			AudioSource.PlayClipAtPoint(CResourceManager.Instance.GetAudioClip(a_oFilepath), a_stPos, this.FXSoundsVolume);
@@ -101,7 +101,7 @@ public class CSoundManager : CSingleton<CSoundManager> {
 
 	//! 배경음을 재생힌다
 	public CSound PlayBGSound(string a_oFilepath, bool a_bIsLoop = true) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 
 		if(!m_oBGSound.IsPlaying || !m_oBGSoundFilepath.ExIsEquals(a_oFilepath)) {
 			m_oBGSound.IsMute = this.IsMuteBGSound;
@@ -121,7 +121,7 @@ public class CSoundManager : CSingleton<CSoundManager> {
 
 	//! 효과음을 재생한다
 	public CSound PlayFXSound(string a_oFilepath, Vector3 a_stPos, float a_fVolume = 0.0f, bool a_bIsLoop = false) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 		var oSound = this.FindPlayableFXSound(a_oFilepath);
 
 		if(oSound != null) {
@@ -192,7 +192,7 @@ public class CSoundManager : CSingleton<CSoundManager> {
 		}
 
 		// 효과음을 생성한다 {
-		var oSound = Function.CreateCloneGameObject<CSound>(KDefine.U_OBJ_NAME_SOUND_M_FX_SOUND,
+		var oSound = Func.CreateCloneGameObject<CSound>(KDefine.U_OBJ_NAME_SOUND_M_FX_SOUND,
 			CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_FX_SOUND), this.gameObject);
 
 		oSound.transform.localPosition = Vector3.zero;
@@ -219,7 +219,7 @@ public class CSoundManager : CSingleton<CSoundManager> {
 		EVibrateType a_eType = EVibrateType.IMPACT, EVibrateStyle a_eStyle = EVibrateStyle.LIGHT, float a_fIntensity = KDefine.U_DEF_INTENSITY_VIBRATE) {
 		if(!this.IsDisableVibrate && SystemInfo.supportsVibration) {
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
-			if(!Function.IsSupportHapticFeedback()) {
+			if(!Func.IsSupportHapticFeedback()) {
 				this.Vibrate();
 			} else {
 				float fDuration = Mathf.Clamp01(a_fDuration);

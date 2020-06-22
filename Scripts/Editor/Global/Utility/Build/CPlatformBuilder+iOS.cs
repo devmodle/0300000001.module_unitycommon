@@ -74,10 +74,10 @@ public static partial class CPlatformBuilder {
 
 	//! iOS 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/iOS/Device/Distribution (Adhoc)")]
-	public static void BuildiOSDevicePlatformAdhocDistribution() {
+	public static void BuildiOSDevicePlatformAdhoc() {
 		// 전처리기 심볼을 추가한다
 		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.iOS, KEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.iOS, KEditorDefine.DS_DEFINE_SYMBOL_ADHOC_DISTRIBUTION_BUILD);
+		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.iOS, KEditorDefine.DS_DEFINE_SYMBOL_ADHOC_BUILD);
 
 		// 프로비저닝 파일 정보를 설정한다
 		PlayerSettings.iOS.iOSManualProvisioningProfileID = CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oAdhocProfileID;
@@ -89,16 +89,16 @@ public static partial class CPlatformBuilder {
 
 	//! iOS 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/iOS/Device/Distribution (Adhoc with Robo Test)")]
-	public static void BuildiOSDevicePlatformWithRoboTestAdhocDistribution() {
+	public static void BuildiOSDevicePlatformWithRoboTestAdhoc() {
 		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.iOS, KEditorDefine.DS_DEFINE_SYMBOL_ROBO_TEST_ENABLE);
-		CPlatformBuilder.BuildiOSDevicePlatformAdhocDistribution();
+		CPlatformBuilder.BuildiOSDevicePlatformAdhoc();
 	}
 
 	//! iOS 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/iOS/Device/Distribution (Store)")]
-	public static void BuildiOSDevicePlatformStoreDistribution() {
+	public static void BuildiOSDevicePlatformStore() {
 		CPlatformBuilder.IsDistributionBuild = true;
-		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.iOS, KEditorDefine.DS_DEFINE_SYMBOL_STORE_DISTRIBUTION_BUILD);
+		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.iOS, KEditorDefine.DS_DEFINE_SYMBOL_STORE_BUILD);
 
 		// 프로비저닝 파일 정보를 설정한다
 		PlayerSettings.iOS.iOSManualProvisioningProfileID = CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oStoreProfileID;
@@ -117,7 +117,7 @@ public static partial class CPlatformBuilder {
 
 		// 그래픽 API 를 설정한다
 		PlayerSettings.iOS.sdkVersion = iOSSdkVersion.SimulatorSDK;
-		EditorFunction.SetGraphicAPI(BuildTarget.iOS, KEditorDefine.B_IOS_SIMULATOR_GRAPHICS_DEVICE_TYPES);
+		EditorFunc.SetGraphicAPI(BuildTarget.iOS, KEditorDefine.B_IOS_SIMULATOR_GRAPHICS_DEVICE_TYPES);
 
 		CPlatformBuilder.BuildiOSDevicePlatformDebug();
 	}
@@ -138,7 +138,7 @@ public static partial class CPlatformBuilder {
 
 		// 그래픽 API 를 설정한다
 		PlayerSettings.iOS.sdkVersion = iOSSdkVersion.SimulatorSDK;
-		EditorFunction.SetGraphicAPI(BuildTarget.iOS, KEditorDefine.B_IOS_SIMULATOR_GRAPHICS_DEVICE_TYPES);
+		EditorFunc.SetGraphicAPI(BuildTarget.iOS, KEditorDefine.B_IOS_SIMULATOR_GRAPHICS_DEVICE_TYPES);
 
 		CPlatformBuilder.BuildiOSDevicePlatformRelease();
 	}
@@ -162,29 +162,29 @@ public static partial class CPlatformBuilder {
 	//! iOS 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/iOS/Debug")]
 	public static void RemoteBuildiOSPlatformDebug() {
-		EditorFunction.ExecuteiOSPlatformJenkinsBuild(KEditorDefine.B_JENKINS_IOS_DEBUG_PIPELINE,
-			CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oDevProfileID);
+		EditorFunc.ExecuteiOSPlatformJenkinsBuild(KDefine.B_BUILD_MODE_DEBUG,
+			KEditorDefine.B_JENKINS_DEBUG_BUILD_FUNC, KEditorDefine.B_JENKINS_IOS_DEBUG_PIPELINE_NAME, CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oDevProfileID, KEditorDefine.B_IOS_DEV_IPA_EXPORT_METHOD);
 	}
 
 	//! iOS 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/iOS/Release")]
 	public static void RemoteBuildiOSPlatformRelease() {
-		EditorFunction.ExecuteiOSPlatformJenkinsBuild(KEditorDefine.B_JENKINS_IOS_RELEASE_PIPELINE,
-			CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oDevProfileID);
+		EditorFunc.ExecuteiOSPlatformJenkinsBuild(KDefine.B_BUILD_MODE_RELEASE,
+			KEditorDefine.B_JENKINS_RELEASE_BUILD_FUNC, KEditorDefine.B_JENKINS_IOS_RELEASE_PIPELINE_NAME, CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oDevProfileID, KEditorDefine.B_IOS_DEV_IPA_EXPORT_METHOD);
 	}
 
 	//! iOS 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/iOS/Distribution (Adhoc)")]
-	public static void RemoteBuildiOSPlatformAdhocDistribution() {
-		EditorFunction.ExecuteiOSPlatformJenkinsBuild(KEditorDefine.B_JENKINS_IOS_ADHOC_DISTRIBUTION_PIPELINE,
-			CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oAdhocProfileID);
+	public static void RemoteBuildiOSPlatformAdhoc() {
+		EditorFunc.ExecuteiOSPlatformJenkinsBuild(KDefine.B_BUILD_MODE_RELEASE,
+			KEditorDefine.B_JENKINS_ADHOC_BUILD_FUNC, KEditorDefine.B_JENKINS_IOS_ADHOC_PIPELINE_NAME, CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oAdhocProfileID, KEditorDefine.B_IOS_ADHOC_IPA_EXPORT_METHOD);
 	}
 
 	//! iOS 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/iOS/Distribution (Store)")]
-	public static void RemoteBuildiOSPlatformStoreDistribution() {
-		EditorFunction.ExecuteiOSPlatformJenkinsBuild(KEditorDefine.B_JENKINS_IOS_STORE_DISTRIBUTION_PIPELINE,
-			CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oStoreProfileID);
+	public static void RemoteBuildiOSPlatformStore() {
+		EditorFunc.ExecuteiOSPlatformJenkinsBuild(KDefine.B_BUILD_MODE_RELEASE,
+			KEditorDefine.B_JENKINS_STORE_BUILD_FUNC, KEditorDefine.B_JENKINS_IOS_STORE_PIPELINE_NAME, CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oStoreProfileID, KEditorDefine.B_IOS_STORE_IPA_EXPORT_METHOD);
 	}
 
 	//! iOS 플랫폼을 빌드한다
@@ -192,10 +192,10 @@ public static partial class CPlatformBuilder {
 		CPlatformBuilder.IsEnableEditorScene = false;
 
 		// 플러그인 파일을 복사한다 {
-		Function.CopyFile(KEditorDefine.B_IOS_SRC_MONO_MODULES_REGISTER_PATH, KEditorDefine.B_IOS_DEST_MONO_MODULES_REGISTER_PATH);
+		Func.CopyFile(KEditorDefine.B_IOS_SRC_MONO_MODULES_REGISTER_PATH, KEditorDefine.B_IOS_DEST_MONO_MODULES_REGISTER_PATH);
 
 		if(!Application.isBatchMode) {
-			Function.CopyDirectory(KEditorDefine.B_IOS_SRC_PLUGIN_PATH, KEditorDefine.B_IOS_DEST_PLUGIN_PATH, false);
+			Func.CopyDirectory(KEditorDefine.B_IOS_SRC_PLUGIN_PATH, KEditorDefine.B_IOS_DEST_PLUGIN_PATH, false);
 		}
 		// 플러그인 파일을 복사한다 }
 
@@ -210,7 +210,7 @@ public static partial class CPlatformBuilder {
 		// 빌드 옵션을 설정한다 }
 
 		// 빌드 디렉토리를 생성한다
-		Function.CreateDirectory(KEditorDefine.B_IOS_ABSOLUTE_BUILD_PATH);
+		Func.CreateDirectory(KEditorDefine.B_IOS_ABSOLUTE_BUILD_PATH);
 
 		// 플랫폼을 빌드한다
 		CPlatformBuilder.BuildPlatform(a_oPlayerOptions);

@@ -156,9 +156,9 @@ public static partial class CPlatformBuilder {
 
 		// 빌드 디렉토리를 생성한다 {
 		string oBuildPath = string.Format(KEditorDefine.B_STANDALONE_ABSOLUTE_BUILD_PATH_FORMAT, 
-			EditorFunction.GetStandalonePlatformName(a_ePlatformType));
+			EditorFunc.GetStandalonePlatformName(a_ePlatformType));
 
-		Function.CreateDirectory(oBuildPath);
+		Func.CreateDirectory(oBuildPath);
 		// 빌드 디렉토리를 생성한다 }
 
 		// 플랫폼을 빌드한다
@@ -167,12 +167,14 @@ public static partial class CPlatformBuilder {
 
 	//! 독립 플랫폼을 원격 빌드한다
 	private static void RemoteBuildStandalonePlatformDebug(EStandalonePlatformType a_ePlatformType) {
-		EditorFunction.ExecuteStandalonePlatformJenkinsBuild(KEditorDefine.B_JENKINS_STANDALONE_DEBUG_PIPELINE, a_ePlatformType);
+		EditorFunc.ExecuteStandalonePlatformJenkinsBuild(KDefine.B_BUILD_MODE_DEBUG, 
+			KEditorDefine.B_JENKINS_DEBUG_BUILD_FUNC, KEditorDefine.B_JENKINS_STANDALONE_DEBUG_PIPELINE_NAME, a_ePlatformType);
 	}
 
 	//! 독립 플랫폼을 원격 빌드한다
 	private static void RemoteBuildStandalonePlatformRelease(EStandalonePlatformType a_ePlatformType) {
-		EditorFunction.ExecuteStandalonePlatformJenkinsBuild(KEditorDefine.B_JENKINS_STANDALONE_DEBUG_PIPELINE, a_ePlatformType);
+		EditorFunc.ExecuteStandalonePlatformJenkinsBuild(KDefine.B_BUILD_MODE_RELEASE, 
+			KEditorDefine.B_JENKINS_RELEASE_BUILD_FUNC, KEditorDefine.B_JENKINS_STANDALONE_RELEASE_PIPELINE_NAME, a_ePlatformType);
 	}
 	#endregion			// 클래스 함수
 }

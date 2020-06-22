@@ -117,9 +117,9 @@ public class CPopup : CUIComponent {
 			m_oCloseCallback = a_oCloseCallback;
 
 			if(this.ShowAnimationDelay.ExIsLessEquals(KDefine.B_DELTA_TIME_INTERMEDIATE)) {
-				Function.LateCallFunction(this, this.DoShowPopup);
+				Func.LateCallFunc(this, this.DoShowPopup);
 			} else {
-				Function.LateCallFunction(this, this.ShowAnimationDelay, this.DoShowPopup, true);
+				Func.LateCallFunc(this, this.ShowAnimationDelay, this.DoShowPopup, true);
 			}
 		}
 	}
@@ -144,7 +144,7 @@ public class CPopup : CUIComponent {
 
 	//! 터치 응답자를 생성한다
 	protected virtual GameObject CreateTouchResponder() {
-		return Function.CreateTouchResponder(KDefine.U_OBJ_NAME_POPUP_TOUCH_RESPONDER,
+		return Func.CreateTouchResponder(KDefine.U_OBJ_NAME_POPUP_TOUCH_RESPONDER,
 			CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
 			this.gameObject,
 			CSceneManager.CanvasSize,

@@ -83,7 +83,7 @@ public class CValueTable : CSingleton<CValueTable> {
 
 	//! 값을 로드한다
 	public void LoadValues(string a_oCSVString) {
-		Function.Assert(a_oCSVString.ExIsValid());
+		Func.Assert(a_oCSVString.ExIsValid());
 		var oStringInfoList = CSVParser.Parse(a_oCSVString);
 
 		for(int i = 0; i < oStringInfoList.Count; ++i) {
@@ -103,13 +103,13 @@ public class CValueTable : CSingleton<CValueTable> {
 
 	//! 값을 로드한다
 	public void LoadValuesFromFile(string a_oFilepath) {
-		this.LoadValues(Function.ReadString(a_oFilepath, System.Text.Encoding.Default));
+		this.LoadValues(Func.ReadString(a_oFilepath, System.Text.Encoding.Default));
 	}
 
 	//! 값을 로드한다
 	public void LoadValuesFromResource(string a_oFilepath) {
 		var oTextAsset = CResourceManager.Instance.GetTextAsset(a_oFilepath);
-		Function.Assert(oTextAsset.ExIsValid());
+		Func.Assert(oTextAsset.ExIsValid());
 
 		this.LoadValues(oTextAsset.text);
 		CResourceManager.Instance.RemoveTextAsset(a_oFilepath, true);

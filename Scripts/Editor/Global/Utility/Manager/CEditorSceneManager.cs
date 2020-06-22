@@ -53,18 +53,18 @@ public static partial class CEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		if(!Application.isBatchMode && CEditorSceneManager.IsEnableUpdateState()) {
-			EditorFunction.SetupPlayerOptions();
-			EditorFunction.SetupEditorOptions();
-			EditorFunction.SetupProjectOptions();
-			EditorFunction.SetupPluginProjects();
-			EditorFunction.SetupGraphicAPIs();
+			EditorFunc.SetupPlayerOptions();
+			EditorFunc.SetupEditorOptions();
+			EditorFunc.SetupProjectOptions();
+			EditorFunc.SetupPluginProjects();
+			EditorFunc.SetupGraphicAPIs();
 		}
 	}
 
 	//! 씬이 열렸을 경우
 	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		EditorFunction.SetupProjectOptions();
-		EditorFunction.SetupScene(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
+		EditorFunc.SetupProjectOptions();
+		EditorFunc.SetupScene(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
 	}
 
 	//! 상태를 갱신한다
@@ -181,18 +181,18 @@ public static partial class CEditorSceneManager {
 		}
 
 		if(!bIsExistsUICamera) {
-			Function.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KDefine.U_OBJ_NAME_SCENE_UI_CAMERA));
+			Func.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KDefine.U_OBJ_NAME_SCENE_UI_CAMERA));
 		} else if(!bIsExistsMainCamera) {
-			Function.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA));
+			Func.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA));
 		} else if(!bIsExistsMainLight) {
-			Function.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT));
+			Func.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT));
 		}
 
 		// FPS 카운터를 설정한다 {
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		string oFilter = Path.GetFileNameWithoutExtension(KDefine.U_OBJ_PATH_SS_FPS_COUNTER);
 
-		var oFPSCounterList = EditorFunction.FindAssets<GameObject>(oFilter, new string[] {
+		var oFPSCounterList = EditorFunc.FindAssets<GameObject>(oFilter, new string[] {
 			KEditorDefine.B_DIR_PATH_AUTO_CREATE_RESOURCES
 		});
 

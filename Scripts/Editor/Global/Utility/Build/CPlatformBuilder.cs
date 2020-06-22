@@ -143,14 +143,14 @@ public static partial class CPlatformBuilder {
 				}
 			}
 
-			EditorFunction.SetupDefineSymbols(CPlatformBuilder.DefineSymbolListContainer);
+			EditorFunc.SetupDefineSymbols(CPlatformBuilder.DefineSymbolListContainer);
 
 			string oFilepath = string.Format(KEditorDefine.B_ASSET_PATH_FORMAT_DEFINE_SYMBOL_OUTPUT, a_oPlayerOptions.targetGroup);
-			Function.WriteString(oFilepath, PlayerSettings.GetScriptingDefineSymbolsForGroup(a_oPlayerOptions.targetGroup), System.Text.Encoding.Default);
+			Func.WriteString(oFilepath, PlayerSettings.GetScriptingDefineSymbolsForGroup(a_oPlayerOptions.targetGroup), System.Text.Encoding.Default);
 			// 전처리기 심볼을 설정한다 }
 
 			// 플랫폼을 설정한다
-			EditorFunction.SetupPlayerOptions();
+			EditorFunc.SetupPlayerOptions();
 			EditorUserBuildSettings.SwitchActiveBuildTarget(a_oPlayerOptions.targetGroup, a_oPlayerOptions.target);
 
 			// 빌드 옵션을 설정한다 {
@@ -182,7 +182,7 @@ public static partial class CPlatformBuilder {
 			// 씬 경로를 설정한다 }
 
 			// 에셋 상태를 갱신한다
-			EditorFunction.UpdateAssetDatabaseState();
+			EditorFunc.UpdateAssetDatabaseState();
 
 			// 플랫폼을 빌드한다
 			if(!BuildPipeline.isBuildingPlayer) {
@@ -194,7 +194,7 @@ public static partial class CPlatformBuilder {
 			CPlatformBuilder.IsDistributionBuild = false;
 
 			// 그래픽 API 를 설정한다
-			EditorFunction.SetupGraphicAPIs();
+			EditorFunc.SetupGraphicAPIs();
 
 			// 전처리기 심볼을 리셋한다 {
 			CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_FPS_ENABLE);
@@ -203,10 +203,10 @@ public static partial class CPlatformBuilder {
 			CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
 			CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_RECEIPT_CHECK_ENABLE);
 
-			CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_ADHOC_DISTRIBUTION_BUILD);
-			CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_STORE_DISTRIBUTION_BUILD);
+			CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_ADHOC_BUILD);
+			CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_STORE_BUILD);
 
-			EditorFunction.SetupDefineSymbols(CPlatformBuilder.DefineSymbolListContainer);
+			EditorFunc.SetupDefineSymbols(CPlatformBuilder.DefineSymbolListContainer);
 			// 전처리기 심볼을 리셋한다 }
 		}
 	}

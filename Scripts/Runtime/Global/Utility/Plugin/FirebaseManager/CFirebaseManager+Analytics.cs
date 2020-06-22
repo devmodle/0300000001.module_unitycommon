@@ -40,7 +40,7 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 		Function.Assert(a_oName.ExIsValid() && a_oParameter.ExIsValid());
 		Function.ShowLog("CFirebaseManager.SendLog: {0}, {1}, {2}", Color.yellow, a_oName, a_oParameter, a_oDataList);
 
-#if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {
 			var oDataList = a_oDataList ?? new List<string>();
 
@@ -59,7 +59,7 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 			string oLog = oDataList.ExToString(KDefine.U_TOKEN_FIREBASE_ANALYTICS_LOG_DATA);
 			FirebaseAnalytics.LogEvent(a_oName, a_oParameter, oLog);
 		}
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 	}
 	#endregion			// 함수
 }

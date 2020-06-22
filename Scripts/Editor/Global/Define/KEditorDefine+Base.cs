@@ -135,6 +135,8 @@ public static partial class KEditorDefine {
 	public const string B_JENKINS_KEY_PROFILE_ID = "ProfileID";
 	public const string B_JENKINS_KEY_PLATFORM = "Platform";
 	public const string B_JENKINS_KEY_ANALYTICS = "Analytics";
+	public const string B_JENKINS_KEY_IPA_EXPORT_METHOD = "IPAExportMethod";
+	public const string B_JENKINS_KEY_BUILD_FILE_EXTENSION = "BuildFileExtension";
 
 	public const string B_JENKINS_PIPELINE_GROUP_NAME = "job/00001.Common/job/01.Pipelines/job";
 	public const string B_JENKINS_BUILD_PARAMETER_TOKEN = " ";
@@ -149,6 +151,24 @@ public static partial class KEditorDefine {
 	public const string B_JENKINS_STANDALONE_BUILD_PROJECT_NAME = "41.Standalone";
 	public const string B_JENKINS_IOS_BUILD_PROJECT_NAME = "01.iOS";
 	public const string B_JENKINS_ANDROID_BUILD_PROJECT_NAME = "11.Android";
+
+	public const string B_JENKINS_DEBUG_BUILD_FUNC = "Debug";
+	public const string B_JENKINS_RELEASE_BUILD_FUNC = "Release";
+	public const string B_JENKINS_ADHOC_BUILD_FUNC = "Adhoc";
+	public const string B_JENKINS_STORE_BUILD_FUNC = "Store";
+
+	public const string B_JENKINS_STANDALONE_DEBUG_PIPELINE_NAME = "41.StandaloneDebug";
+	public const string B_JENKINS_STANDALONE_RELEASE_PIPELINE_NAME = "42.StandaloneRelease";
+
+	public const string B_JENKINS_IOS_DEBUG_PIPELINE_NAME = "01.iOSDebug";
+	public const string B_JENKINS_IOS_RELEASE_PIPELINE_NAME = "02.iOSRelease";
+	public const string B_JENKINS_IOS_ADHOC_PIPELINE_NAME = "03.iOSAdhoc";
+	public const string B_JENKINS_IOS_STORE_PIPELINE_NAME = "04.iOSStore";
+
+	public const string B_JENKINS_ANDROID_DEBUG_PIPELINE_NAME = "11.iOSDebug";
+	public const string B_JENKINS_ANDROID_RELEASE_PIPELINE_NAME = "12.iOSRelease";
+	public const string B_JENKINS_ANDROID_ADHOC_PIPELINE_NAME = "13.iOSAdhoc";
+	public const string B_JENKINS_ANDROID_STORE_PIPELINE_NAME = "14.iOSStore";
 	// 젠킨스 }
 
 	// 맥
@@ -158,6 +178,10 @@ public static partial class KEditorDefine {
 	public const string B_WINDOWS_BUILD_PATH = "Builds/Standalone/Windows";
 
 	// iOS {
+	public const string B_IOS_DEV_IPA_EXPORT_METHOD = "development";
+	public const string B_IOS_ADHOC_IPA_EXPORT_METHOD = "ad-hoc";
+	public const string B_IOS_STORE_IPA_EXPORT_METHOD = "app-store";
+
 	public const string B_IOS_BUILD_PATH = "Builds/iOS";
 	public const string B_IOS_INFO_PLIST_PATH_FORMAT = "{0}/Info.plist";
 
@@ -165,10 +189,11 @@ public static partial class KEditorDefine {
 	// iOS }
 
 	// 안드로이드 {
-	public const string B_ANDROID_BUILD_FILENAME_FORMAT = "{0}BuildOutput";
+	public const string B_ANDROID_APK_BUILD_FILE_EXTENSION = "apk";
+	public const string B_ANDROID_AAB_BUILD_FILE_EXTENSION = "aab";
 
-	public const string B_ANDROID_APK_BUILD_PATH_FORMAT = "Builds/Android/{0}/{1}.apk";
-	public const string B_ANDROID_AAB_BUILD_PATH_FORMAT = "Builds/Android/{0}/{1}.aab";
+	public const string B_ANDROID_BUILD_PATH_FORMAT = "Builds/Android/{0}/{1}.{2}";
+	public const string B_ANDROID_BUILD_FILENAME_FORMAT = "{0}BuildOutput";
 	// 안드로이드 }
 	#endregion			// 기본
 
@@ -434,20 +459,10 @@ public static partial class KEditorDefine {
 		[KDefine.B_SCENE_NAME_AGREE] = typeof(CSubAgreeSceneManager)
 	};
 
-	// 젠킨스 {
-	public static readonly string B_JENKINS_STANDALONE_DEBUG_PIPELINE = string.Format("{0}/41.StandaloneDebug", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	public static readonly string B_JENKINS_STANDALONE_RELEASE_PIPELINE = string.Format("{0}/42.StandaloneRelease", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-
-	public static readonly string B_JENKINS_IOS_DEBUG_PIPELINE = string.Format("{0}/01.iOSDebug", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	public static readonly string B_JENKINS_IOS_RELEASE_PIPELINE = string.Format("{0}/02.iOSRelease", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	public static readonly string B_JENKINS_IOS_ADHOC_DISTRIBUTION_PIPELINE = string.Format("{0}/03.iOSAdhoc", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	public static readonly string B_JENKINS_IOS_STORE_DISTRIBUTION_PIPELINE = string.Format("{0}/04.iOSStore", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-
-	public static readonly string B_JENKINS_ANDROID_DEBUG_PIPELINE = string.Format("{0}/11.AndroidDebug", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	public static readonly string B_JENKINS_ANDROID_RELEASE_PIPELINE = string.Format("{0}/12.AndroidRelease", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	public static readonly string B_JENKINS_ANDROID_ADHOC_DISTRIBUTION_PIPELINE = string.Format("{0}/13.AndroidAdhoc", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	public static readonly string B_JENKINS_ANDROID_STORE_DISTRIBUTION_PIPELINE = string.Format("{0}/14.AndroidStore", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	// 젠킨스 }
+	// 젠킨스
+	public static readonly string B_JENKINS_STANDALONE_PIPELINE = string.Format("{0}/41.Standalone", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
+	public static readonly string B_JENKINS_IOS_PIPELINE = string.Format("{0}/01.iOS", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
+	public static readonly string B_JENKINS_ANDROID_PIPELINE = string.Format("{0}/11.Android", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
 
 	// 독립 플랫폼
 	public static readonly string B_STANDALONE_ABSOLUTE_BUILD_PATH_FORMAT = string.Format("{0}../Builds/Standalone/{1}", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, "{0}");

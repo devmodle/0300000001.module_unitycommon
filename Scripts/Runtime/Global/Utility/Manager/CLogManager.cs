@@ -18,7 +18,7 @@ public class CLogManager : CSingleton<CLogManager> {
 		Application.logMessageReceived += this.OnReceiveLog;
 
 		if(File.Exists(KDefine.B_DATA_PATH_LOG)) {
-			var oBytes = Function.ReadBytes(KDefine.B_DATA_PATH_LOG);
+			var oBytes = Func.ReadBytes(KDefine.B_DATA_PATH_LOG);
 			m_oStringBuilder.Append(System.Text.Encoding.Default.GetString(oBytes, 0, oBytes.Length));
 		}
 	}
@@ -42,9 +42,9 @@ public class CLogManager : CSingleton<CLogManager> {
 				m_oStringBuilder.Remove(0, m_oStringBuilder.Length - KDefine.U_MAX_LENGTH_LOG);
 			}
 
-			using(var oWriteStream = Function.GetWriteStream(KDefine.B_DATA_PATH_LOG)) {
+			using(var oWriteStream = Func.GetWriteStream(KDefine.B_DATA_PATH_LOG)) {
 				var oBytes = System.Text.Encoding.Default.GetBytes(m_oStringBuilder.ToString());
-				Function.WriteBytes(oWriteStream, oBytes);
+				Func.WriteBytes(oWriteStream, oBytes);
 			}
 		}
 	}

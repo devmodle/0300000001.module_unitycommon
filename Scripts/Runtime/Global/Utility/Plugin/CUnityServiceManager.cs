@@ -22,7 +22,7 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 			this.IsInit = true;
 
 #if UNITY_SERVICE_ANALYTICS_ENABLE
-#if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 			Analytics.enabled = true;
 			Analytics.deviceStatsEnabled = true;
 			Analytics.initializeOnStartup = true;
@@ -30,7 +30,7 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 			Analytics.enabled = false;
 			Analytics.deviceStatsEnabled = false;
 			Analytics.initializeOnStartup = false;
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 
 			Analytics.ResumeInitialization();
 #endif			// #if UNITY_SERVICE_ANALYTICS_ENABLE

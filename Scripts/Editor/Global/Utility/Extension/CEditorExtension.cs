@@ -13,7 +13,7 @@ public static partial class CEditorExtension {
 	//! 직렬화 속성 값을 변경한다
 	public static void ExSetPropertyValue(this SerializedObject a_oSender, string a_oName, System.Action<SerializedProperty> a_oCallback) {
 		var oProperty = a_oSender?.FindProperty(a_oName);
-		Function.Assert(oProperty != null);
+		Func.Assert(oProperty != null);
 
 		// 값을 갱신한다 {
 		a_oCallback?.Invoke(oProperty);

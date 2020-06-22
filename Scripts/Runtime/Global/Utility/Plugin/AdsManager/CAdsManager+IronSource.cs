@@ -153,7 +153,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 아이언 소스 배너 광고 로드 결과를 처리한다
 	private void HandleLoadIronSourceBannerAdsResult() {
-		Function.LateCallFunction(this, (a_oComponent, a_oParams) => {
+		Function.LateCallFunc(this, (a_oComponent, a_oParams) => {
 			this.ShowBannerAds(EAdsType.IRON_SOURCE, null);
 		});
 	}

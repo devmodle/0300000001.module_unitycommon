@@ -68,7 +68,7 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 컴포넌트를 추가한다
 	public void AddComponent(CComponent a_oComponent) {
-		Function.Assert(a_oComponent != null);
+		Func.Assert(a_oComponent != null);
 		int nID = a_oComponent.GetInstanceID();
 
 		int nIndex = m_oComponentInfoList.ExFindValue((a_stComponentInfo) => {
@@ -83,7 +83,7 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 콜백을 추가한다
 	public void AddCallback(string a_oKey, System.Action a_oCallback) {
-		Function.Assert(a_oKey.ExIsValid());
+		Func.Assert(a_oKey.ExIsValid());
 
 		lock(KDefine.U_LOCK_OBJECT_UPDATE_M_UPDATE) {
 			int nIndex = m_oCallbackInfoList.ExFindValue((a_stCallbackInfo) => {
@@ -99,13 +99,13 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 타이머를 추가한다
 	public void AddTimer(CComponent a_oComponent, float a_fDeltaTime, uint a_nRepeatTimes, UnityAction a_oCallback) {
-		Function.Assert(a_oComponent != null && a_oCallback != null);
+		Func.Assert(a_oComponent != null && a_oCallback != null);
 		TimersManager.SetTimer(a_oComponent, a_fDeltaTime, a_nRepeatTimes, a_oCallback);
 	}
 
 	//! 실시간 타이머를 추가한다
 	public void AddRealtimeTimer(CComponent a_oComponent, float a_fDeltaTime, uint a_nRepeatTimes, UnityAction a_oCallback) {
-		Function.Assert(a_oComponent != null && a_oCallback != null);
+		Func.Assert(a_oComponent != null && a_oCallback != null);
 
 		TimersManager.SetTimer(a_oComponent,
 			new Timer(a_fDeltaTime, a_nRepeatTimes, a_oCallback, TimerMode.REALTIME));
@@ -113,13 +113,13 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 반복 타이머를 추가한다
 	public void AddRepeatTimer(CComponent a_oComponent, float a_fDeltaTime, UnityAction a_oCallback) {
-		Function.Assert(a_oComponent != null && a_oCallback != null);
+		Func.Assert(a_oComponent != null && a_oCallback != null);
 		TimersManager.SetLoopableTimer(a_oComponent, a_fDeltaTime, a_oCallback);
 	}
 
 	//! 컴포넌트를 제거한다
 	public void RemoveComponent(CComponent a_oComponent) {
-		Function.Assert(a_oComponent != null);
+		Func.Assert(a_oComponent != null);
 		int nID = a_oComponent.GetInstanceID();
 
 		int nIndex = m_oComponentInfoList.ExFindValue((a_stComponentInfo) => {
@@ -134,7 +134,7 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 콜백을 제거한다
 	public void RemoveCallback(string a_oKey) {
-		Function.Assert(a_oKey.ExIsValid());
+		Func.Assert(a_oKey.ExIsValid());
 
 		lock(KDefine.U_LOCK_OBJECT_UPDATE_M_UPDATE) {
 			int nIndex = m_oCallbackInfoList.ExFindValue((a_stCallbackInfo) => {

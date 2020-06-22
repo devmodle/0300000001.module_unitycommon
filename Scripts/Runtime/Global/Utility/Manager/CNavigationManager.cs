@@ -17,7 +17,7 @@ public class CNavigationManager : CSingleton<CNavigationManager> {
 
 	//! 컴포넌트를 추가한다
 	public void AddComponent(CComponent a_oComponent) {
-		Function.Assert(a_oComponent != null);
+		Func.Assert(a_oComponent != null);
 		int nID = a_oComponent.GetInstanceID();
 
 		int nIndex = m_oComponentInfoList.ExFindValue((a_stComponentInfo) => {
@@ -35,7 +35,7 @@ public class CNavigationManager : CSingleton<CNavigationManager> {
 
 	//! 컴포넌트를 제거한다
 	public void RemoveComponent(CComponent a_oComponent) {
-		Function.Assert(a_oComponent != null);
+		Func.Assert(a_oComponent != null);
 		int nID = a_oComponent.GetInstanceID();
 
 		int nIndex = m_oComponentInfoList.ExFindValue((a_stComponentInfo) => {

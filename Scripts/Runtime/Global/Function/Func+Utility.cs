@@ -18,7 +18,7 @@ using UnityEngine.Rendering.Universal;
 #endif			// #if UNIVERSAL_RENDER_PIPELINE_ENABLE
 
 //! 유틸리티 함수
-public static partial class Function {
+public static partial class Func {
 	#region 클래스 함수
 	//! 약관 동의 필요 여부를 검사한다
 	public static bool IsNeedAgreement(string a_oCountryCode) {
@@ -29,37 +29,37 @@ public static partial class Function {
 	//! 업데이트 필요 여부를 검사한다
 	public static bool IsNeedUpdate(string a_oLatestVersion) {
 #if UNITY_ANDROID
-		return Function.IsNeedUpdateByBuildNumber(a_oLatestVersion);
+		return Func.IsNeedUpdateByBuildNumber(a_oLatestVersion);
 #else
-		return Function.IsNeedUpdateByBuildVersion(a_oLatestVersion);
+		return Func.IsNeedUpdateByBuildVersion(a_oLatestVersion);
 #endif			// #if UNITY_ANDROID
 	}
 
 	//! 업데이트 필요 여부를 검사한다
 	public static bool IsNeedUpdate(string a_oLatestBuildNumber, string a_oLatestBuildVersion) {
-		bool bIsNeedUpdate = Function.IsNeedUpdateByBuildNumber(a_oLatestBuildNumber);
-		return bIsNeedUpdate || Function.IsNeedUpdateByBuildVersion(a_oLatestBuildVersion);
+		bool bIsNeedUpdate = Func.IsNeedUpdateByBuildNumber(a_oLatestBuildNumber);
+		return bIsNeedUpdate || Func.IsNeedUpdateByBuildVersion(a_oLatestBuildVersion);
 	}
 
 	//! 업데이트 필요 여부를 검사한다
 	public static bool IsNeedUpdateByBuildNumber(string a_oLatestNumber) {
-		Function.Assert(a_oLatestNumber.ExIsValid());
+		Func.Assert(a_oLatestNumber.ExIsValid());
 
 		bool bIsValidNumberA = int.TryParse(a_oLatestNumber, out int nBuildNumberA);
 		bool bIsValidNumberB = int.TryParse(CProjectInfoTable.Instance.ProjectInfo.m_oBuildNumber, out int nBuildNumberB);
 
-		Function.Assert(bIsValidNumberA && bIsValidNumberB);
+		Func.Assert(bIsValidNumberA && bIsValidNumberB);
 		return nBuildNumberA > nBuildNumberB;
 	}
 
 	//! 업데이트 필요 여부를 검사한다
 	public static bool IsNeedUpdateByBuildVersion(string a_oLatestVersion) {
-		Function.Assert(a_oLatestVersion.ExIsValid());
+		Func.Assert(a_oLatestVersion.ExIsValid());
 
 		var bIsValidVersionA = System.Version.TryParse(a_oLatestVersion, out System.Version oVersionA);
 		var bIsValidVersionB = System.Version.TryParse(CProjectInfoTable.Instance.ProjectInfo.m_oBuildVersion, out System.Version oVersionB);
 
-		Function.Assert(bIsValidVersionA && bIsValidVersionB);
+		Func.Assert(bIsValidVersionA && bIsValidVersionB);
 		return oVersionA.CompareTo(oVersionB) >= KDefine.B_COMPARE_RESULT_GREATE;
 	}
 
@@ -80,7 +80,7 @@ public static partial class Function {
 
 	//! 해상도를 반환한다
 	public static Vector2 GetResolution(bool a_bIsRuntime = true) {
-		float fScale = Function.GetResolutionScale(a_bIsRuntime);
+		float fScale = Func.GetResolutionScale(a_bIsRuntime);
 		return new Vector2(KDefine.B_SCREEN_WIDTH, KDefine.B_SCREEN_HEIGHT) * fScale;
 	}
 
@@ -89,8 +89,8 @@ public static partial class Function {
 		float fScale = 1.0f;
 		float fAspect = KDefine.B_SCREEN_WIDTH / (float)KDefine.B_SCREEN_HEIGHT;
 
-		float fScreenWidth = Function.GetDeviceScreenSize(a_bIsRuntime).x;
-		float fScreenHeight = Function.GetDeviceScreenSize(a_bIsRuntime).y;
+		float fScreenWidth = Func.GetDeviceScreenSize(a_bIsRuntime).x;
+		float fScreenHeight = Func.GetDeviceScreenSize(a_bIsRuntime).y;
 
 		// 화면을 벗어났을 경우
 		if(fScreenWidth.ExIsLess(fScreenHeight * fAspect)) {
@@ -102,35 +102,35 @@ public static partial class Function {
 
 	//! 왼쪽 화면 비율을 반환한다
 	public static float GetLeftScreenScale(bool a_bIsRuntime = true) {
-		var stSafeArea = Function.GetSafeArea(a_bIsRuntime);
-		return stSafeArea.x / Function.GetDeviceScreenSize(a_bIsRuntime).x;
+		var stSafeArea = Func.GetSafeArea(a_bIsRuntime);
+		return stSafeArea.x / Func.GetDeviceScreenSize(a_bIsRuntime).x;
 	}
 
 	//! 오른쪽 화면 비율을 반환한다
 	public static float GetRightScreenScale(bool a_bIsRuntime = true) {
-		var stSafeArea = Function.GetSafeArea(a_bIsRuntime);
-		float fScreenWidth = Function.GetDeviceScreenSize(a_bIsRuntime).x;
+		var stSafeArea = Func.GetSafeArea(a_bIsRuntime);
+		float fScreenWidth = Func.GetDeviceScreenSize(a_bIsRuntime).x;
 
 		return (fScreenWidth - (stSafeArea.x + stSafeArea.width)) / fScreenWidth;
 	}
 
 	//! 상단 화면 비율을 반환한다
 	public static float GetTopScreenScale(bool a_bIsRuntime = true) {
-		var stSafeArea = Function.GetSafeArea(a_bIsRuntime);
-		float fScreenHeight = Function.GetDeviceScreenSize(a_bIsRuntime).y;
+		var stSafeArea = Func.GetSafeArea(a_bIsRuntime);
+		float fScreenHeight = Func.GetDeviceScreenSize(a_bIsRuntime).y;
 
 		return (fScreenHeight - (stSafeArea.y + stSafeArea.height)) / fScreenHeight;
 	}
 
 	//! 하단 화면 비율을 반환한다
 	public static float GetBottomScreenScale(bool a_bIsRuntime = true) {
-		var stSafeArea = Function.GetSafeArea(a_bIsRuntime);
-		return stSafeArea.y / Function.GetDeviceScreenSize(a_bIsRuntime).y;
+		var stSafeArea = Func.GetSafeArea(a_bIsRuntime);
+		return stSafeArea.y / Func.GetDeviceScreenSize(a_bIsRuntime).y;
 	}
 	
 	//! 메세지를 전송한다
 	public static void SendMessage(string a_oName, string a_oMessage, object a_oParams) {
-		var oGameObject = Function.FindGameObject(a_oName);
+		var oGameObject = Func.FindGameObject(a_oName);
 		oGameObject?.SendMessage(a_oMessage, a_oParams, SendMessageOptions.DontRequireReceiver);
 	}
 
@@ -289,31 +289,31 @@ public static partial class Function {
 
 	//! 게임 객체를 탐색한다
 	public static GameObject FindGameObject(string a_oName) {
-		Function.Assert(a_oName.ExIsValid());
+		Func.Assert(a_oName.ExIsValid());
 		return GameObject.Find(a_oName);
 	}
 
 	//! 추가 씬을 로드한다
 	public static void LoadAdditiveScene(string a_oName, bool a_bIsStartActivityIndicator = false) {
-		Function.Assert(a_oName.ExIsValid());
+		Func.Assert(a_oName.ExIsValid());
 		CSceneLoader.Instance.LoadScene(a_oName, a_bIsStartActivityIndicator, false, false, LoadSceneMode.Additive);
 	}
 
 	//! 추가 씬을 로드한다
 	public static void LoadAdditiveScenes(string[] a_oNames, bool a_bIsStartActivityIndicator = false) {
-		Function.Assert(a_oNames.ExIsValid());
+		Func.Assert(a_oNames.ExIsValid());
 
 		for(int i = 0; i < a_oNames.Length; ++i) {
-			Function.LoadAdditiveScene(a_oNames[i], a_bIsStartActivityIndicator);
+			Func.LoadAdditiveScene(a_oNames[i], a_bIsStartActivityIndicator);
 		}
 	}
 
 	//! 추가 씬을 로드한다
 	public static void LoadAdditiveScenes(List<string> a_oNameList, bool a_bIsStartActivityIndicator = false) {
-		Function.Assert(a_oNameList.ExIsValid());
+		Func.Assert(a_oNameList.ExIsValid());
 
 		for(int i = 0; i < a_oNameList.Count; ++i) {
-			Function.LoadAdditiveScene(a_oNameList[i], a_bIsStartActivityIndicator);
+			Func.LoadAdditiveScene(a_oNameList[i], a_bIsStartActivityIndicator);
 		}
 	}
 
@@ -329,7 +329,7 @@ public static partial class Function {
 	//! 사본 게임 객체를 생성한다
 	public static GameObject CreateCloneGameObject(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) {
-		Function.Assert(a_oOrigin != null);
+		Func.Assert(a_oOrigin != null);
 
 		var oGameObject = Object.Instantiate(a_oOrigin, a_oOrigin.transform.position, a_oOrigin.transform.rotation);
 		oGameObject.name = a_oName;
@@ -342,10 +342,10 @@ public static partial class Function {
 	//! 터치 응답자를 생성한다
 	public static GameObject CreateTouchResponder(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, Vector2 a_stSize, Vector2 a_stPos, Color a_stColor) {
-		var oGameObject = Function.CreateCloneGameObject(a_oName, a_oOrigin, a_oParent);
+		var oGameObject = Func.CreateCloneGameObject(a_oName, a_oOrigin, a_oParent);
 		var oImage = oGameObject.GetComponentInChildren<Image>();
 
-		Function.Assert(oImage != null);
+		Func.Assert(oImage != null);
 
 		var oTransform = oGameObject.transform as RectTransform;
 		oTransform.sizeDelta = a_stSize;
@@ -357,7 +357,7 @@ public static partial class Function {
 	
 	//! 객체 풀을 생성한다
 	public static ObjectPool CreateObjectPool(GameObject a_oOrigin, GameObject a_oParent, int a_nNumObjects = 0) {
-		Function.Assert(a_oOrigin != null);
+		Func.Assert(a_oOrigin != null);
 		return new ObjectPool(a_oOrigin, a_oParent?.transform, a_nNumObjects);
 	}
 	#endregion			// 클래스 함수
@@ -365,34 +365,34 @@ public static partial class Function {
 	#region 제네릭 클래스 함수
 	//! 컴포넌트를 탐색한다
 	public static T FindComponent<T>(string a_oName) where T : Component {
-		var oGameObject = Function.FindGameObject(a_oName);
+		var oGameObject = Func.FindGameObject(a_oName);
 		return oGameObject?.GetComponentInChildren<T>();
 	}
 
 	//! 컴포넌트를 탐색한다
 	public static T[] FindComponents<T>(string a_oName) where T : Component {
-		var oGameObject = Function.FindGameObject(a_oName);
+		var oGameObject = Func.FindGameObject(a_oName);
 		return oGameObject?.GetComponentsInChildren<T>();
 	}
 
 	//! 게임 객체를 생선한다
 	public static T CreateGameObject<T>(string a_oName,
 		GameObject a_oParent, bool a_bIsStayWorldState = false) where T : Component {
-		var oGameObject = Function.CreateGameObject(a_oName, a_oParent, a_bIsStayWorldState);
+		var oGameObject = Func.CreateGameObject(a_oName, a_oParent, a_bIsStayWorldState);
 		return oGameObject.ExAddComponent<T>();
 	}
 
 	//! 게임 객체 사본을 생성한다
 	public static T CreateCloneGameObject<T>(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) where T : Component {
-		var oGameObject = Function.CreateCloneGameObject(a_oName, a_oOrigin, a_oParent, a_bIsStayWorldState);
+		var oGameObject = Func.CreateCloneGameObject(a_oName, a_oOrigin, a_oParent, a_bIsStayWorldState);
 		return oGameObject?.GetComponentInChildren<T>();
 	}
 
 	//! 팝업을 생성한다
 	public static T CreatePopup<T>(string a_oName, 
 		GameObject a_oOrigin, GameObject a_oParent, Vector2 a_stPos) where T : CPopup {
-		var oPopup = Function.CreateCloneGameObject<T>(a_oName, a_oOrigin, a_oParent);
+		var oPopup = Func.CreateCloneGameObject<T>(a_oName, a_oOrigin, a_oParent);
 
 		if(oPopup != null) {
 			oPopup.m_oRectTransform.anchoredPosition = a_stPos;
@@ -404,7 +404,7 @@ public static partial class Function {
 	//! 알림 팝업을 생성한다
 	public static T CreateAlertPopup<T>(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, Dictionary<string, string> a_oDataList, System.Action<CAlertPopup, bool> a_oCallback) where T : CAlertPopup {
-		var oAlertPopup = Function.CreatePopup<T>(a_oName, a_oOrigin, a_oParent, KDefine.B_POS_MIDDLE_CENTER);
+		var oAlertPopup = Func.CreatePopup<T>(a_oName, a_oOrigin, a_oParent, KDefine.B_POS_MIDDLE_CENTER);
 		oAlertPopup?.Init(a_oDataList, a_oCallback);
 
 		return oAlertPopup;
@@ -413,7 +413,7 @@ public static partial class Function {
 	//! 토스트 팝업을 생성한다
 	public static T CreateToastPopup<T>(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, string a_oMessage, float a_fDuration) where T : CToastPopup {
-		var oToastPopup = Function.CreatePopup<T>(a_oName, a_oOrigin, a_oParent, KDefine.B_POS_MIDDLE_CENTER);
+		var oToastPopup = Func.CreatePopup<T>(a_oName, a_oOrigin, a_oParent, KDefine.B_POS_MIDDLE_CENTER);
 		oToastPopup?.Init(a_oMessage, a_fDuration);
 
 		return oToastPopup;
@@ -422,7 +422,7 @@ public static partial class Function {
 	//! 터치 응답자를 생성한다
 	public static T CreateTouchResponder<T>(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, Vector2 a_stSize, Vector2 a_stPos, Color a_stColor) where T : Component {
-		var oGameObject = Function.CreateTouchResponder(a_oName, a_oOrigin, a_oParent, a_stSize, a_stPos, a_stColor);
+		var oGameObject = Func.CreateTouchResponder(a_oName, a_oOrigin, a_oParent, a_stSize, a_stPos, a_stColor);
 		return oGameObject?.GetComponentInChildren<T>();
 	}
 	#endregion			// 제네릭 클래스 함수
@@ -431,7 +431,7 @@ public static partial class Function {
 #if UNITY_EDITOR
 	//! 객체를 선택한다
 	public static void SelectGameObject(GameObject a_oGameObject, bool a_bIsEnablePing = false) {
-		Function.Assert(a_oGameObject != null);
+		Func.Assert(a_oGameObject != null);
 		Selection.activeGameObject = a_oGameObject;
 
 		if(a_bIsEnablePing) {
@@ -464,7 +464,7 @@ public static partial class Function {
 		bool bIsEnable = CAppInfoStorage.Instance.IsLoadStoreVersion && 
 			CAppInfoStorage.Instance.IsValidStoreVersion;
 
-		return bIsEnable && Function.IsNeedUpdate(CAppInfoStorage.Instance.StoreVersion);
+		return bIsEnable && Func.IsNeedUpdate(CAppInfoStorage.Instance.StoreVersion);
 	}
 
 	//! 버전 정보를 생성한다

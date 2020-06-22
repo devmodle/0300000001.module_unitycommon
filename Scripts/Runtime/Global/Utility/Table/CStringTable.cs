@@ -32,7 +32,7 @@ public class CStringTable : CSingleton<CStringTable> {
 
 	//! 문자열을 로드한다
 	public void LoadStrings(string a_oCSVString) {
-		Function.Assert(a_oCSVString.ExIsValid());
+		Func.Assert(a_oCSVString.ExIsValid());
 		var oStringInfoList = CSVParser.Parse(a_oCSVString);
 
 		for(int i = 0; i < oStringInfoList.Count; ++i) {
@@ -45,13 +45,13 @@ public class CStringTable : CSingleton<CStringTable> {
 
 	//! 문자열을 로드한다
 	public void LoadStringsFromFile(string a_oFilepath) {
-		this.LoadStrings(Function.ReadString(a_oFilepath, System.Text.Encoding.Default));
+		this.LoadStrings(Func.ReadString(a_oFilepath, System.Text.Encoding.Default));
 	}
 
 	//! 문자열을 로드한다
 	public void LoadStringsFromResource(string a_oFilepath) {
 		var oTextAsset = CResourceManager.Instance.GetTextAsset(a_oFilepath);
-		Function.Assert(oTextAsset.ExIsValid());
+		Func.Assert(oTextAsset.ExIsValid());
 
 		this.LoadStrings(oTextAsset.text);
 		CResourceManager.Instance.RemoveTextAsset(a_oFilepath, true);

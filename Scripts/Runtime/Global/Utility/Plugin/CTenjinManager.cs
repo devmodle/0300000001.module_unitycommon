@@ -67,7 +67,7 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 	public void SendPurchaseLog(Product a_oProduct) {
 		Function.ShowLog("CTenjinManager.SendPurchaseLog: {0}", Color.yellow, a_oProduct);
 
-#if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {
 			var oDataList = MiniJson.JsonDecode(a_oProduct.receipt) as Dictionary<string, object>;
 
@@ -89,7 +89,7 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 #endif			// #if UNITY_IOS
 			}
 		}
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 	}
 #endif			// #if TENJIN_ANALYTICS_ENABLE && PURCHASE_ENABLE
 	#endregion			// 조건부 함수

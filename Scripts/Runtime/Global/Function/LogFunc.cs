@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //! 기본 로그 함수
-public static partial class LogFunction {
+public static partial class LogFunc {
 	#region 클래스 함수
 	//! 어플리케이션 시작 로그를 전송한다
 	public static void SendAppLaunchLog() {

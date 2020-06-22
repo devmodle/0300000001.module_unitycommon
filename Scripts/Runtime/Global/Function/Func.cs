@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 //! 기본 함수
-public static partial class Function {
+public static partial class Func {
 	#region 클래스 함수
 	//! 에디터 플랫폼 여부를 검사한다
 	public static bool IsEditorPlatform() {
@@ -16,7 +16,7 @@ public static partial class Function {
 
 	//! 데스크 탑 플랫폼 여부를 검사한다
 	public static bool IsDesktopPlatform() {
-		return Function.IsMacPlatform() || Function.IsWindowsPlatform();
+		return Func.IsMacPlatform() || Func.IsWindowsPlatform();
 	}
 
 	//! 독립 플랫폼 여부를 검사한다
@@ -52,26 +52,26 @@ public static partial class Function {
 	//! 동일 파일 여부를 검사한다
 	public static bool IsEqualsFile(string a_oFilepathA, 
 		string a_oFilepathB, System.Text.Encoding a_oEncodingA, System.Text.Encoding a_oEncodingB) {
-		string oStringA = Function.ReadString(a_oFilepathA, a_oEncodingA);
-		string oStringB = Function.ReadString(a_oFilepathB, a_oEncodingB);
+		string oStringA = Func.ReadString(a_oFilepathA, a_oEncodingA);
+		string oStringB = Func.ReadString(a_oFilepathB, a_oEncodingB);
 
 		return oStringA.ExIsEquals(oStringB);
 	}
 
 	//! 읽기용 스트림을 반환한다
 	public static FileStream GetReadStream(string a_oFilepath) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 		return File.Exists(a_oFilepath) ? File.Open(a_oFilepath, FileMode.Open, FileAccess.Read) : null;
 	}
 
 	//! 쓰기용 스트림을 반환한다
 	public static FileStream GetWriteStream(string a_oFilepath,
 		bool a_bIsAutoCreateDirectory = true, bool a_bIsAutoBackup = false, string a_oBackupDirectoryName = KDefine.B_EMPTY_STRING) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 		string oDirectoryPath = Path.GetDirectoryName(a_oFilepath);
 
 		if(a_bIsAutoCreateDirectory) {
-			Function.CreateDirectory(oDirectoryPath);
+			Func.CreateDirectory(oDirectoryPath);
 		}
 
 		// 자동 백업이 가능 할 경우
@@ -80,7 +80,7 @@ public static partial class Function {
 			string oBackupFilename = string.Format(KDefine.B_FILENAME_FORMAT_BACKUP, Path.GetFileNameWithoutExtension(a_oFilepath), System.DateTime.Now.ToString(KDefine.B_NAME_FORMAT_BACKUP));
 			string oBackupDirectoryPath = Path.Combine(oDirectoryPath, (a_oBackupDirectoryName.Length <= 0) ? KDefine.B_DIR_NAME_BACKUP : a_oBackupDirectoryName);
 			
-			Function.CreateDirectory(oBackupDirectoryPath);
+			Func.CreateDirectory(oBackupDirectoryPath);
 
 			string oBackupFilepath = Path.Combine(oBackupDirectoryPath, 
 				oFilename.ExGetReplaceString(Path.GetFileNameWithoutExtension(a_oFilepath), oBackupFilename));
@@ -102,7 +102,7 @@ public static partial class Function {
 				// 이전 파일을 제거한다 }
 
 				// 파일을 복사한다
-				Function.CopyFile(a_oFilepath, oBackupFilepath);
+				Func.CopyFile(a_oFilepath, oBackupFilepath);
 			}
 		}
 
@@ -111,28 +111,28 @@ public static partial class Function {
 
 	//! 정수 랜덤 값을 반환한다
 	public static int[] GetIntRandomValues(int a_nMin, int a_nMax, int a_nNumValues) {
-		Function.Assert(a_nMin <= a_nMax);
+		Func.Assert(a_nMin <= a_nMax);
 
-		return Function.MakeValues<int>(a_nNumValues, (a_nIndex) => {
+		return Func.MakeValues<int>(a_nNumValues, (a_nIndex) => {
 			return Random.Range(a_nMin, a_nMax + 1);
 		});
 	}
 
 	//! 실수 랜덤 값을 반환한다
 	public static float[] GetFloatRandomValues(float a_fMin, float a_fMax, int a_nNumValues) {
-		Function.Assert(a_fMin <= a_fMax);
+		Func.Assert(a_fMin <= a_fMax);
 
-		return Function.MakeValues<float>(a_nNumValues, (a_nIndex) => {
+		return Func.MakeValues<float>(a_nNumValues, (a_nIndex) => {
 			return Random.Range(a_fMin, a_fMax);
 		});
 	}
 
 	//! 정수 랜덤 분할 값을 반환한다
 	public static int[] GetIntRandomSplitValues(int a_nValue, int a_nNumValues) {
-		Function.Assert(a_nNumValues >= 1);
+		Func.Assert(a_nNumValues >= 1);
 		int nLeftValue = a_nValue;
 
-		return Function.MakeValues<int>(a_nNumValues, (a_nIndex) => {
+		return Func.MakeValues<int>(a_nNumValues, (a_nIndex) => {
 			if(a_nNumValues <= 1) {
 				return a_nValue;
 			} else if(a_nIndex + 1 >= a_nNumValues) {
@@ -154,18 +154,18 @@ public static partial class Function {
 
 	//! URL 을 개방한다
 	public static void OpenURL(string a_oURL) {
-		Function.Assert(a_oURL.ExIsValid());
+		Func.Assert(a_oURL.ExIsValid());
 		Application.OpenURL(a_oURL);
 	}
 
 	//! 메일을 전송한다
 	public static void SendMail(string a_oRecipient, string a_oTitle, string a_oMessage) {
-		Function.Assert(a_oTitle != null && a_oMessage != null && a_oRecipient.ExIsValid());
+		Func.Assert(a_oTitle != null && a_oMessage != null && a_oRecipient.ExIsValid());
 
 		string oURL = string.Format(KDefine.B_MAIL_URL_FORMAT,
 			a_oRecipient, System.Uri.EscapeUriString(a_oTitle), System.Uri.EscapeUriString(a_oMessage));
 
-		Function.OpenURL(oURL);
+		Func.OpenURL(oURL);
 	}
 
 	//! 조건을 검사한다
@@ -181,57 +181,57 @@ public static partial class Function {
 	//! 로그를 출력한다
 	[Conditional("DEBUG"), Conditional("DEVELOPMENT_BUILD")]
 	public static void ShowLog(string a_oFormat, params object[] a_oParams) {
-		Function.DoShowLog(string.Format(a_oFormat, a_oParams), LogType.Log);
+		Func.DoShowLog(string.Format(a_oFormat, a_oParams), LogType.Log);
 	}
 
 	//! 로그를 출력한다
 	[Conditional("DEBUG"), Conditional("DEVELOPMENT_BUILD")]
 	public static void ShowLog(string a_oFormat, Color a_stColor, params object[] a_oParams) {
 		string oFormat = a_oFormat.ExGetColorFormatString(a_stColor);
-		Function.DoShowLog(string.Format(oFormat, a_oParams), LogType.Log);
+		Func.DoShowLog(string.Format(oFormat, a_oParams), LogType.Log);
 	}
 
 	//! 경고 로그를 출력한다
 	public static void ShowLogWarning(string a_oFormat, params object[] a_oParams) {
-		Function.DoShowLog(string.Format(a_oFormat, a_oParams), LogType.Warning);
+		Func.DoShowLog(string.Format(a_oFormat, a_oParams), LogType.Warning);
 	}
 
 	//! 경고 로그를 출력한다
 	public static void ShowLogWarning(string a_oFormat, Color a_stColor, params object[] a_oParams) {
 		string oFormat = a_oFormat.ExGetColorFormatString(a_stColor);
-		Function.DoShowLog(string.Format(oFormat, a_oParams), LogType.Warning);
+		Func.DoShowLog(string.Format(oFormat, a_oParams), LogType.Warning);
 	}
 
 	//! 에러 로그를 출력한다
 	public static void ShowLogError(string a_oFormat, params object[] a_oParams) {
-		Function.DoShowLog(string.Format(a_oFormat, a_oParams), LogType.Error);
+		Func.DoShowLog(string.Format(a_oFormat, a_oParams), LogType.Error);
 	}
 
 	//! 에러 로그를 출력한다
 	public static void ShowLogError(string a_oFormat, Color a_stColor, params object[] a_oParams) {
 		string oFormat = a_oFormat.ExGetColorFormatString(a_stColor);
-		Function.DoShowLog(string.Format(oFormat, a_oParams), LogType.Error);
+		Func.DoShowLog(string.Format(oFormat, a_oParams), LogType.Error);
 	}
 
 	//! 파일을 복사한다
 	public static void CopyFile(string a_oSrcFilepath, string a_oDestFilepath, bool a_bIsOverwrite = true) {
-		Function.Assert(a_oSrcFilepath.ExIsValid() && a_oDestFilepath.ExIsValid());
+		Func.Assert(a_oSrcFilepath.ExIsValid() && a_oDestFilepath.ExIsValid());
 
 		// 파일 복사가 가능 할 경우
 		if(File.Exists(a_oSrcFilepath) && (a_bIsOverwrite || !File.Exists(a_oDestFilepath))) {
-			var oBytes = Function.ReadBytes(a_oSrcFilepath);
-			Function.WriteBytes(a_oDestFilepath, oBytes);
+			var oBytes = Func.ReadBytes(a_oSrcFilepath);
+			Func.WriteBytes(a_oDestFilepath, oBytes);
 		}
 	}
 
 	//! 파일을 복사한다
 	public static void CopyFile(string a_oSrcFilepath, 
 		string a_oDestFilepath, string a_oIgnore, System.Text.Encoding a_oEncoding, bool a_bIsOverwrite = true) {
-		Function.Assert(a_oSrcFilepath.ExIsValid() && a_oDestFilepath.ExIsValid() && a_oIgnore.ExIsValid());
+		Func.Assert(a_oSrcFilepath.ExIsValid() && a_oDestFilepath.ExIsValid() && a_oIgnore.ExIsValid());
 
 		// 파일 복사가 가능 할 경우
 		if(File.Exists(a_oSrcFilepath) && (a_bIsOverwrite || !File.Exists(a_oDestFilepath))) {
-			var oStringLines = Function.ReadStringLines(a_oSrcFilepath, a_oEncoding);
+			var oStringLines = Func.ReadStringLines(a_oSrcFilepath, a_oEncoding);
 
 			if(oStringLines.ExIsValid()) {
 				var oStringBuilder = new System.Text.StringBuilder();
@@ -242,7 +242,7 @@ public static partial class Function {
 					}
 				}
 
-				Function.WriteString(a_oDestFilepath, oStringBuilder.ToString(), a_oEncoding);
+				Func.WriteString(a_oDestFilepath, oStringBuilder.ToString(), a_oEncoding);
 			}
 		}
 	}
@@ -250,11 +250,11 @@ public static partial class Function {
 	//! 파일을 복사한다
 	public static void CopyFile(string a_oSrcFilepath, 
 		string a_oDestFilepath, string a_oSearch, string a_oReplace, System.Text.Encoding a_oEncoding, bool a_bIsOverwrite = true) {
-		Function.Assert(a_oSrcFilepath.ExIsValid() && a_oDestFilepath.ExIsValid() && a_oSearch.ExIsValid() && a_oReplace.ExIsValid());
+		Func.Assert(a_oSrcFilepath.ExIsValid() && a_oDestFilepath.ExIsValid() && a_oSearch.ExIsValid() && a_oReplace.ExIsValid());
 
 		// 파일 복사가 가능 할 경우
 		if(File.Exists(a_oSrcFilepath) && (a_bIsOverwrite || !File.Exists(a_oDestFilepath))) {
-			var oStringLines = Function.ReadStringLines(a_oSrcFilepath, a_oEncoding);
+			var oStringLines = Func.ReadStringLines(a_oSrcFilepath, a_oEncoding);
 
 			if(oStringLines.ExIsValid()) {
 				var oStringBuilder = new System.Text.StringBuilder();
@@ -266,27 +266,27 @@ public static partial class Function {
 					oStringBuilder.AppendLine(oString);
 				}
 
-				Function.WriteString(a_oDestFilepath, oStringBuilder.ToString(), a_oEncoding);
+				Func.WriteString(a_oDestFilepath, oStringBuilder.ToString(), a_oEncoding);
 			}
 		}
 	}
 
 	//! 디렉토리를 복사한다
 	public static void CopyDirectory(string a_oSrcPath, string a_oDestPath, bool a_bIsOverwrite = true) {
-		Function.Assert(a_oSrcPath.ExIsValid() && a_oDestPath.ExIsValid());
+		Func.Assert(a_oSrcPath.ExIsValid() && a_oDestPath.ExIsValid());
 
 		// 디렉토리 복사가 가능 할 경우
 		if(Directory.Exists(a_oSrcPath)) {
 			// 파일을 복사한다
 			if(a_bIsOverwrite || !Directory.Exists(a_oDestPath)) {
-				Function.RemoveDirectory(a_oDestPath);
+				Func.RemoveDirectory(a_oDestPath);
 				Directory.CreateDirectory(a_oDestPath);
 
 				var oFiles = Directory.GetFiles(a_oSrcPath);
 
 				for(int i = 0; i < oFiles.Length; ++i) {
 					string oFilename = Path.GetFileName(oFiles[i]);
-					Function.CopyFile(oFiles[i], Path.Combine(a_oDestPath, oFilename), a_bIsOverwrite);
+					Func.CopyFile(oFiles[i], Path.Combine(a_oDestPath, oFilename), a_bIsOverwrite);
 				}
 			}
 
@@ -295,7 +295,7 @@ public static partial class Function {
 
 			for(int i = 0; i < oDirectories.Length; ++i) {
 				string oDirectoryName = Path.GetFileNameWithoutExtension(oDirectories[i]);
-				Function.CopyDirectory(oDirectories[i], Path.Combine(a_oDestPath, oDirectoryName), a_bIsOverwrite);
+				Func.CopyDirectory(oDirectories[i], Path.Combine(a_oDestPath, oDirectoryName), a_bIsOverwrite);
 			}
 			// 하위 디렉토리를 복사한다 }
 		}
@@ -303,32 +303,32 @@ public static partial class Function {
 
 	//! 바이트를 읽어들인다
 	public static byte[] ReadBytes(string a_oFilepath) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 		return File.Exists(a_oFilepath) ? File.ReadAllBytes(a_oFilepath) : null;
 	}
 
 	//! 보안 바이트를 읽어들인다
 	public static byte[] ReadSecurityBytes(string a_oFilepath) {
-		var oBytes = Function.ReadBytes(a_oFilepath);
+		var oBytes = Func.ReadBytes(a_oFilepath);
 		return (oBytes != null) ? System.Convert.FromBase64String(System.Text.Encoding.Default.GetString(oBytes)) : null;
 	}
 
 	//! 문자열을 읽어들인다
 	public static string ReadString(string a_oFilepath, System.Text.Encoding a_oEncoding) {
-		Function.Assert(a_oEncoding != null && a_oFilepath.ExIsValid());
+		Func.Assert(a_oEncoding != null && a_oFilepath.ExIsValid());
 		return File.Exists(a_oFilepath) ? File.ReadAllText(a_oFilepath, a_oEncoding) : string.Empty;
 	}
 
 	//! 문자열 라인을 읽어들인다
 	public static string[] ReadStringLines(string a_oFilepath, System.Text.Encoding a_oEncoding) {
-		Function.Assert(a_oEncoding != null && a_oFilepath.ExIsValid());
+		Func.Assert(a_oEncoding != null && a_oFilepath.ExIsValid());
 		return File.ReadAllLines(a_oFilepath, a_oEncoding);
 	}
 
 	//! 보안 문자열을 읽어들인다
 	public static string ReadSecurityString(string a_oFilepath, System.Text.Encoding a_oEncoding) {
-		Function.Assert(a_oEncoding != null && a_oFilepath.ExIsValid());
-		var oBytes = Function.ReadSecurityBytes(a_oFilepath);
+		Func.Assert(a_oEncoding != null && a_oFilepath.ExIsValid());
+		var oBytes = Func.ReadSecurityBytes(a_oFilepath);
 
 		return (oBytes != null) ? a_oEncoding.GetString(oBytes) : string.Empty;
 	}
@@ -336,14 +336,14 @@ public static partial class Function {
 	//! 바이트를 기록한다
 	public static void WriteBytes(string a_oFilepath,
 		byte[] a_oBytes, bool a_bIsAutoCreateDirectory = true, bool a_bIsAutoBackup = false, string a_oBackupDirectoryName = KDefine.B_EMPTY_STRING) {
-		using(var oWriteStream = Function.GetWriteStream(a_oFilepath, a_bIsAutoCreateDirectory, a_bIsAutoBackup, a_oBackupDirectoryName)) {
-			Function.WriteBytes(oWriteStream, a_oBytes);
+		using(var oWriteStream = Func.GetWriteStream(a_oFilepath, a_bIsAutoCreateDirectory, a_bIsAutoBackup, a_oBackupDirectoryName)) {
+			Func.WriteBytes(oWriteStream, a_oBytes);
 		}
 	}
 
 	//! 바이트를 기록한다
 	public static void WriteBytes(FileStream a_oWriteStream, byte[] a_oBytes) {
-		Function.Assert(a_oBytes.ExIsValid());
+		Func.Assert(a_oBytes.ExIsValid());
 
 		a_oWriteStream?.Write(a_oBytes, 0, a_oBytes.Length);
 		a_oWriteStream?.Flush(true);
@@ -352,69 +352,69 @@ public static partial class Function {
 	//! 보안 바이트를 기록한다
 	public static void WriteSecurityBytes(string a_oFilepath,
 		byte[] a_oBytes, bool a_bIsAutoCreateDirectory = true, bool a_bIsAutoBackup = false, string a_oBackupDirectoryName = KDefine.B_EMPTY_STRING) {
-		using(var oWriteStream = Function.GetWriteStream(a_oFilepath, a_bIsAutoCreateDirectory, a_bIsAutoBackup, a_oBackupDirectoryName)) {
-			Function.WriteSecurityBytes(oWriteStream, a_oBytes);
+		using(var oWriteStream = Func.GetWriteStream(a_oFilepath, a_bIsAutoCreateDirectory, a_bIsAutoBackup, a_oBackupDirectoryName)) {
+			Func.WriteSecurityBytes(oWriteStream, a_oBytes);
 		}
 	}
 
 	//! 보안 바이트를 기록한다
 	public static void WriteSecurityBytes(FileStream a_oWriteStream, byte[] a_oBytes) {
-		Function.Assert(a_oBytes.ExIsValid());
+		Func.Assert(a_oBytes.ExIsValid());
 		var oString = System.Convert.ToBase64String(a_oBytes, 0, a_oBytes.Length);
 
-		Function.WriteBytes(a_oWriteStream, System.Text.Encoding.Default.GetBytes(oString));
+		Func.WriteBytes(a_oWriteStream, System.Text.Encoding.Default.GetBytes(oString));
 	}
 
 	//! 문자열을 기록한다
 	public static void WriteString(string a_oFilepath,
 		string a_oString, System.Text.Encoding a_oEncoding, bool a_bIsAutoCreateDirectory = true, bool a_bIsAutoBackup = false, string a_oBackupDirectoryName = KDefine.B_EMPTY_STRING) {
-		using(var oWriteStream = Function.GetWriteStream(a_oFilepath, a_bIsAutoCreateDirectory, a_bIsAutoBackup, a_oBackupDirectoryName)) {
-			Function.WriteString(oWriteStream, a_oString, a_oEncoding);
+		using(var oWriteStream = Func.GetWriteStream(a_oFilepath, a_bIsAutoCreateDirectory, a_bIsAutoBackup, a_oBackupDirectoryName)) {
+			Func.WriteString(oWriteStream, a_oString, a_oEncoding);
 		}
 	}
 
 	//! 문자열을 기록한다
 	public static void WriteString(FileStream a_oWriteStream, string a_oString, System.Text.Encoding a_oEncoding) {
-		Function.Assert(a_oEncoding != null && a_oString.ExIsValid());
-		Function.WriteBytes(a_oWriteStream, a_oEncoding.GetBytes(a_oString));
+		Func.Assert(a_oEncoding != null && a_oString.ExIsValid());
+		Func.WriteBytes(a_oWriteStream, a_oEncoding.GetBytes(a_oString));
 	}
 
 	//! 보안 문자열을 기록한다
 	public static void WriteSecurityString(string a_oFilepath,
 		string a_oString, System.Text.Encoding a_oEncoding, bool a_bIsAutoCreateDirectory = true, bool a_bIsAutoBackup = false, string a_oBackupDirectoryName = KDefine.B_EMPTY_STRING) {
-		using(var oWriteStream = Function.GetWriteStream(a_oFilepath, a_bIsAutoCreateDirectory, a_bIsAutoBackup, a_oBackupDirectoryName)) {
-			Function.WriteSecurityString(oWriteStream, a_oString, a_oEncoding);
+		using(var oWriteStream = Func.GetWriteStream(a_oFilepath, a_bIsAutoCreateDirectory, a_bIsAutoBackup, a_oBackupDirectoryName)) {
+			Func.WriteSecurityString(oWriteStream, a_oString, a_oEncoding);
 		}
 	}
 
 	//! 보안 문자열을 기록한다
 	public static void WriteSecurityString(FileStream a_oWriteStream, string a_oString, System.Text.Encoding a_oEncoding) {
-		Function.Assert(a_oEncoding != null && a_oString.ExIsValid());
-		Function.WriteSecurityBytes(a_oWriteStream, a_oEncoding.GetBytes(a_oString));
+		Func.Assert(a_oEncoding != null && a_oString.ExIsValid());
+		Func.WriteSecurityBytes(a_oWriteStream, a_oEncoding.GetBytes(a_oString));
 	}
 
 	//! 함수를 지연 호출한다
-	public static void LateCallFunction(CComponent a_oComponent,
+	public static void LateCallFunc(CComponent a_oComponent,
 		System.Action<CComponent, object[]> a_oCallback, object[] a_oParams = null) {
-		a_oComponent?.StartCoroutine(Function.DoLateCallFunction(a_oComponent, a_oCallback, a_oParams));
+		a_oComponent?.StartCoroutine(Func.DoLateCallFunc(a_oComponent, a_oCallback, a_oParams));
 	}
 
 	//! 함수를 지연 호출한다
-	public static void LateCallFunction(CComponent a_oComponent,
+	public static void LateCallFunc(CComponent a_oComponent,
 		float a_fDelay, System.Action<CComponent, object[]> a_oCallback, bool a_bIsRealtime = false, object[] a_oParams = null) {
-		a_oComponent?.StartCoroutine(Function.DoLateCallFunction(a_oComponent, a_fDelay, a_oCallback, a_bIsRealtime, a_oParams));
+		a_oComponent?.StartCoroutine(Func.DoLateCallFunc(a_oComponent, a_fDelay, a_oCallback, a_bIsRealtime, a_oParams));
 	}
 
 	//! 함수를 반복 호출한다
-	public static void RepeatCallFunction(CComponent a_oComponent,
+	public static void RepeatCallFunc(CComponent a_oComponent,
 		float a_fDeltaTime, float a_fMaxDeltaTime, System.Func<CComponent, object[], bool, bool> a_oCallback, bool a_bIsRealtime = false, object[] a_oParams = null) {
-		Function.Assert(a_oCallback != null);
-		a_oComponent?.StartCoroutine(Function.DoRepeatCallFunction(a_oComponent, a_fDeltaTime, a_fMaxDeltaTime, a_oCallback, a_bIsRealtime, a_oParams));
+		Func.Assert(a_oCallback != null);
+		a_oComponent?.StartCoroutine(Func.DoRepeatCallFunc(a_oComponent, a_fDeltaTime, a_fMaxDeltaTime, a_oCallback, a_bIsRealtime, a_oParams));
 	}
 
 	//! 비동기 작업을 대기한다
 	public static void WaitAsyncTask(Task a_oTask, System.Action<Task> a_oCallback) {
-		Function.Assert(a_oTask != null);
+		Func.Assert(a_oTask != null);
 
 		a_oTask.ContinueWith((a_oContinueTask) => {
 			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK,
@@ -428,14 +428,14 @@ public static partial class Function {
 
 	//! 비동기 작업을 대기한다
 	public static IEnumerator WaitAsyncOperation(AsyncOperation a_oAsyncOperation, System.Action<AsyncOperation, bool> a_oCallback, bool a_bIsRealtime = false) {
-		Function.Assert(a_oAsyncOperation != null);
+		Func.Assert(a_oAsyncOperation != null);
 
 		do {
-			yield return Function.CreateWaitForSeconds(KDefine.B_DELTA_TIME_ASYNC_OPERATION, a_bIsRealtime);
+			yield return Func.CreateWaitForSeconds(KDefine.B_DELTA_TIME_ASYNC_OPERATION, a_bIsRealtime);
 			a_oCallback?.Invoke(a_oAsyncOperation, false);
 		} while(!a_oAsyncOperation.isDone);
 
-		yield return Function.CreateWaitForSeconds(KDefine.B_DELTA_TIME_ASYNC_OPERATION, a_bIsRealtime);
+		yield return Func.CreateWaitForSeconds(KDefine.B_DELTA_TIME_ASYNC_OPERATION, a_bIsRealtime);
 		a_oCallback?.Invoke(a_oAsyncOperation, true);
 	}
 
@@ -476,27 +476,27 @@ public static partial class Function {
 	}
 
 	//! 함수를 지연 호출한다
-	private static IEnumerator DoLateCallFunction(CComponent a_oComponent,
+	private static IEnumerator DoLateCallFunc(CComponent a_oComponent,
 		System.Action<CComponent, object[]> a_oCallback, object[] a_oParams) {
 		yield return new WaitForEndOfFrame();
 		a_oCallback?.Invoke(a_oComponent, a_oParams);
 	}
 
 	//! 함수를 지연 호출한다
-	private static IEnumerator DoLateCallFunction(CComponent a_oComponent,
+	private static IEnumerator DoLateCallFunc(CComponent a_oComponent,
 		float a_fDelay, System.Action<CComponent, object[]> a_oCallback, bool a_bIsRealtime, object[] a_oParams) {
-		yield return Function.CreateWaitForSeconds(a_fDelay, a_bIsRealtime);
+		yield return Func.CreateWaitForSeconds(a_fDelay, a_bIsRealtime);
 		a_oCallback?.Invoke(a_oComponent, a_oParams);
 	}
 
 	//! 함수를 반복 호출한다
-	private static IEnumerator DoRepeatCallFunction(CComponent a_oComponent,
+	private static IEnumerator DoRepeatCallFunc(CComponent a_oComponent,
 		float a_fDeltaTime, double a_dblMaxDeltaTime, System.Func<CComponent, object[], bool, bool> a_oCallback, bool a_bIsRealtime, object[] a_oParams) {
 		var stStartTime = System.DateTime.Now;
 		System.TimeSpan stDeltaTime;
 
 		do {
-			yield return Function.CreateWaitForSeconds(a_fDeltaTime, a_bIsRealtime);
+			yield return Func.CreateWaitForSeconds(a_fDeltaTime, a_bIsRealtime);
 			stDeltaTime = System.DateTime.Now - stStartTime;
 		} while(a_oCallback(a_oComponent, a_oParams, false) && stDeltaTime.TotalSeconds.ExIsLess(a_dblMaxDeltaTime));
 
@@ -522,8 +522,8 @@ public static partial class Function {
 			int nRightIndex = nMiddle + 1;
 
 			// 정렬 범위를 분활한다
-			Function.StableSort<T>(a_oValues, oTempValues, a_nLeft, nMiddle, a_oCompare);
-			Function.StableSort<T>(a_oValues, oTempValues, nMiddle + 1, a_nRight, a_oCompare);
+			Func.StableSort<T>(a_oValues, oTempValues, a_nLeft, nMiddle, a_oCompare);
+			Func.StableSort<T>(a_oValues, oTempValues, nMiddle + 1, a_nRight, a_oCompare);
 
 			// 정렬을 수행한다 {
 			while(nLeftIndex <= nMiddle && nRightIndex <= a_nRight) {
@@ -561,8 +561,8 @@ public static partial class Function {
 			int nRightIndex = nMiddle + 1;
 
 			// 정렬 범위를 분활한다
-			Function.StableSort<T>(a_oValueList, oTempValues, a_nLeft, nMiddle, a_oCompare);
-			Function.StableSort<T>(a_oValueList, oTempValues, nMiddle + 1, a_nRight, a_oCompare);
+			Func.StableSort<T>(a_oValueList, oTempValues, a_nLeft, nMiddle, a_oCompare);
+			Func.StableSort<T>(a_oValueList, oTempValues, nMiddle + 1, a_nRight, a_oCompare);
 
 			// 정렬을 수행한다 {
 			while(nLeftIndex <= nMiddle && nRightIndex <= a_nRight) {
@@ -592,7 +592,7 @@ public static partial class Function {
 
 	//! 값을 생성한다
 	public static T[] MakeValues<T>(int a_nNumValues, System.Func<int, T> a_oCallback) {
-		Function.Assert(a_oCallback != null && a_nNumValues >= 1);
+		Func.Assert(a_oCallback != null && a_nNumValues >= 1);
 		var oValues = new T[a_nNumValues];
 
 		for(int i = 0; i < a_nNumValues; ++i) {
@@ -604,7 +604,7 @@ public static partial class Function {
 
 	//! 섞인 값을 생성한다
 	public static T[] MakeShuffleValues<T>(int a_nNumValues, System.Func<int, T> a_oCallback) {
-		var oValues = Function.MakeValues<T>(a_nNumValues, a_oCallback);
+		var oValues = Func.MakeValues<T>(a_nNumValues, a_oCallback);
 		oValues.ExShuffle();
 
 		return oValues;
@@ -612,7 +612,7 @@ public static partial class Function {
 	
 	//! 비동기 작업을 대기한다
 	public static void WaitAsyncTask<T>(Task<T> a_oTask, System.Action<Task<T>> a_oCallback) {
-		Function.Assert(a_oTask != null);
+		Func.Assert(a_oTask != null);
 
 		a_oTask.ContinueWith((a_oContinueTask) => {
 			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK,

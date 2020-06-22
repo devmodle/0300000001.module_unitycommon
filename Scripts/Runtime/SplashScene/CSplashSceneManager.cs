@@ -31,7 +31,7 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 		this.ShowSplash();
 	}
 	#endregion			// 함수

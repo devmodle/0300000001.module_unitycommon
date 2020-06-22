@@ -31,10 +31,10 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 
 		this.Setup();
-		Function.LoadAdditiveScene(KDefine.B_SCENE_NAME_SETUP);
+		Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_SETUP);
 	}
 	#endregion			// 함수
 }

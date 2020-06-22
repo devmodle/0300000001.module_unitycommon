@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 
 // 에디터 함수
-public static partial class EditorFunction {
+public static partial class EditorFunc {
 	#region 클래스 함수
 	//! 활성된 게임 객체를 반환한다
 	public static GameObject GetActiveGameObject(bool a_bIsInHierarchy = true) {
@@ -23,13 +23,13 @@ public static partial class EditorFunction {
 
 	//! 독립 플랫폼 이름을 반환한다
 	public static string GetStandalonePlatformName(EStandalonePlatformType a_ePlatformType) {
-		Function.Assert(a_ePlatformType > EStandalonePlatformType.NONE && a_ePlatformType < EStandalonePlatformType.MAX_VALUE);
+		Func.Assert(a_ePlatformType > EStandalonePlatformType.NONE && a_ePlatformType < EStandalonePlatformType.MAX_VALUE);
 		return (a_ePlatformType == EStandalonePlatformType.WINDOWS) ? KDefine.B_PLATFORM_NAME_WINDOWS : KDefine.B_PLATFORM_NAME_MAC;
 	}
 
 	//! 안드로이드 플랫폼 이름을 반환한다
 	public static string GetAndroidPlatformName(EAndroidPlatformType a_ePlatformType) {
-		Function.Assert(a_ePlatformType > EAndroidPlatformType.NONE && a_ePlatformType < EAndroidPlatformType.MAX_VALUE);
+		Func.Assert(a_ePlatformType > EAndroidPlatformType.NONE && a_ePlatformType < EAndroidPlatformType.MAX_VALUE);
 
 		if(a_ePlatformType == EAndroidPlatformType.ONE_STORE) {
 			return KDefine.B_PLATFORM_NAME_ONE_STORE;
@@ -64,26 +64,26 @@ public static partial class EditorFunction {
 	[MenuItem("Utility/Setup/PluginProjects")]
 	public static void SetupPluginProjects() {
 		// iOS 플러그인을 복사한다
-		Function.CopyFile(KEditorDefine.B_IOS_SRC_MONO_MODULES_REGISTER_PATH, KEditorDefine.B_IOS_DEST_MONO_MODULES_REGISTER_PATH);
-		Function.CopyDirectory(KEditorDefine.B_IOS_SRC_PLUGIN_PATH, KEditorDefine.B_IOS_DEST_PLUGIN_PATH);
+		Func.CopyFile(KEditorDefine.B_IOS_SRC_MONO_MODULES_REGISTER_PATH, KEditorDefine.B_IOS_DEST_MONO_MODULES_REGISTER_PATH);
+		Func.CopyDirectory(KEditorDefine.B_IOS_SRC_PLUGIN_PATH, KEditorDefine.B_IOS_DEST_PLUGIN_PATH);
 
 		// 안드로이드 플러그인을 복사한다 {
-		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_PLUGIN_PATH, KEditorDefine.B_ANDROID_DEST_PLUGIN_PATH);
-		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_UNITY_PLUGIN_PATH, KEditorDefine.B_ANDROID_DEST_UNITY_PLUGIN_PATH);
+		Func.CopyFile(KEditorDefine.B_ANDROID_SRC_PLUGIN_PATH, KEditorDefine.B_ANDROID_DEST_PLUGIN_PATH);
+		Func.CopyFile(KEditorDefine.B_ANDROID_SRC_UNITY_PLUGIN_PATH, KEditorDefine.B_ANDROID_DEST_UNITY_PLUGIN_PATH);
 
-		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_MANIFEST_PATH, KEditorDefine.B_ANDROID_DEST_MANIFEST_PATH, false);
-		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_MAIN_TEMPLATE_PATH, KEditorDefine.B_ANDROID_DEST_MAIN_TEMPLATE_PATH, false);
-		Function.CopyFile(KEditorDefine.B_ANDROID_SRC_PROGUARD_PATH, KEditorDefine.B_ANDROID_DEST_PROGUARD_PATH, false);
+		Func.CopyFile(KEditorDefine.B_ANDROID_SRC_MANIFEST_PATH, KEditorDefine.B_ANDROID_DEST_MANIFEST_PATH, false);
+		Func.CopyFile(KEditorDefine.B_ANDROID_SRC_MAIN_TEMPLATE_PATH, KEditorDefine.B_ANDROID_DEST_MAIN_TEMPLATE_PATH, false);
+		Func.CopyFile(KEditorDefine.B_ANDROID_SRC_PROGUARD_PATH, KEditorDefine.B_ANDROID_DEST_PROGUARD_PATH, false);
 		// 안드로이드 플러그인을 복사한다 }
 
-		EditorFunction.UpdateAssetDatabaseState();
+		EditorFunc.UpdateAssetDatabaseState();
 	}
 
 	//! 플레이어 옵션을 설정한다
 	[MenuItem("Utility/Setup/PlayerOptions")]
 	public static void SetupPlayerOptions() {
-		EditorFunction.SetupPlatformOptions();
-		EditorFunction.SetupBuildOptions();
+		EditorFunc.SetupPlatformOptions();
+		EditorFunc.SetupBuildOptions();
 	}
 
 	//! 에디터 옵션을 설정한다
@@ -105,11 +105,11 @@ public static partial class EditorFunction {
 		EditorSettings.projectGenerationRootNamespace = string.Empty;
 		EditorSettings.projectGenerationUserExtensions = KEditorDefine.B_EDITOR_OPTION_EXTENSIONS;
 
-		EditorSettings.prefabUIEnvironment = EditorFunction.FindAsset<SceneAsset>(KEditorDefine.B_SCENE_NAME_PATTERN, new string[] {
+		EditorSettings.prefabUIEnvironment = EditorFunc.FindAsset<SceneAsset>(KEditorDefine.B_SCENE_NAME_PATTERN, new string[] {
 			KEditorDefine.B_DIR_PATH_SCENES
 		});
 
-		EditorSettings.prefabRegularEnvironment = EditorFunction.FindAsset<SceneAsset>(KEditorDefine.B_SCENE_NAME_PATTERN, new string[] {
+		EditorSettings.prefabRegularEnvironment = EditorFunc.FindAsset<SceneAsset>(KEditorDefine.B_SCENE_NAME_PATTERN, new string[] {
 			KEditorDefine.B_DIR_PATH_SCENES
 		});
 
@@ -141,7 +141,7 @@ public static partial class EditorFunction {
 		// 에디터 옵션을 설정한다 }
 
 		// 사운드 옵션을 설정한다 {
-		var oSoundManager = EditorFunction.LoadAsset(KEditorDefine.B_ASSET_PATH_SOUND_MANAGER);
+		var oSoundManager = EditorFunc.LoadAsset(KEditorDefine.B_ASSET_PATH_SOUND_MANAGER);
 
 		if(oSoundManager != null && CPlatformBuilder.BuildOptionTable != null) {
 			var oConfiguration = AudioSettings.GetConfiguration();
@@ -178,7 +178,7 @@ public static partial class EditorFunction {
 
 		// 태그 옵션을 설정한다 {
 #if !CUSTOM_TAG_ENABLE || !CUSTOM_SORTING_LAYER_ENABLE
-		var oTagManager = EditorFunction.LoadAsset(KEditorDefine.B_ASSET_PATH_TAG_MANAGER);
+		var oTagManager = EditorFunc.LoadAsset(KEditorDefine.B_ASSET_PATH_TAG_MANAGER);
 
 		if(oTagManager != null) {
 			var oSerializeObject = new SerializedObject(oTagManager);
@@ -195,7 +195,7 @@ public static partial class EditorFunction {
 					}
 				}
 
-				Function.Assert(a_oProperty.arraySize >= KDefine.U_TAGS.Length);
+				Func.Assert(a_oProperty.arraySize >= KDefine.U_TAGS.Length);
 
 				for(int i = 0; i < a_oProperty.arraySize; ++i) {
 					var oProperty = a_oProperty.GetArrayElementAtIndex(i);
@@ -216,7 +216,7 @@ public static partial class EditorFunction {
 					}
 				}
 
-				Function.Assert(a_oProperty.arraySize >= KDefine.U_SORTING_LAYERS.Length);
+				Func.Assert(a_oProperty.arraySize >= KDefine.U_SORTING_LAYERS.Length);
 
 				for(int i = 0; i < a_oProperty.arraySize; ++i) {
 					var oEnumerator = a_oProperty.GetArrayElementAtIndex(i).GetEnumerator();
@@ -250,14 +250,14 @@ public static partial class EditorFunction {
 
 		for(int i = 0; i < KEditorDefine.B_PATH_SCRIPT_FILEPATH_INFOS.Length; ++i) {
 			var stFilepathInfo = KEditorDefine.B_PATH_SCRIPT_FILEPATH_INFOS[i];
-			Function.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, oSearch, oReplace, oEncoding, false);
+			Func.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, oSearch, oReplace, oEncoding, false);
 		}
 
 		for(int i = 0; i < KEditorDefine.B_PATH_COMPARE_SCRIPT_FILEPATH_INFOS.Length; ++i) {
 			var stFilepathInfo = KEditorDefine.B_PATH_COMPARE_SCRIPT_FILEPATH_INFOS[i];
 
-			if(!Function.IsEqualsFile(stFilepathInfo.Key, stFilepathInfo.Value, oEncoding, oEncoding)) {
-				Function.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value);
+			if(!Func.IsEqualsFile(stFilepathInfo.Key, stFilepathInfo.Value, oEncoding, oEncoding)) {
+				Func.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value);
 			}
 		}
 		// 스크립트를 복사한다 }
@@ -265,34 +265,34 @@ public static partial class EditorFunction {
 		// 데이터를 복사한다
 		for(int i = 0; i < KEditorDefine.B_PATH_DATA_FILEPATH_INFOS.Length; ++i) {
 			var stFilepathInfo = KEditorDefine.B_PATH_DATA_FILEPATH_INFOS[i];
-			Function.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
+			Func.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
 		}
 
 		// 프리팹을 복사한다
 		for(int i = 0; i < KEditorDefine.B_PATH_PREFAB_FILEPATH_INFOS.Length; ++i) {
 			var stFilepathInfo = KEditorDefine.B_PATH_PREFAB_FILEPATH_INFOS[i];
-			Function.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
+			Func.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
 		}
 		
 		// 테이블을 복사한다
 		for(int i = 0; i < KEditorDefine.B_PATH_TABLE_FILEPATH_INFOS.Length; ++i) {
 			var stFilepathInfo = KEditorDefine.B_PATH_TABLE_FILEPATH_INFOS[i];
-			Function.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
+			Func.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
 		}
 
 		// 스크립트 객체를 복사한다
 		for(int i = 0; i < KEditorDefine.B_PATH_SCRIPTABLE_FILEPATH_INFOS.Length; ++i) {
 			var stFilepathInfo = KEditorDefine.B_PATH_SCRIPTABLE_FILEPATH_INFOS[i];
-			Function.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
+			Func.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
 		}
 
 		// 씬을 복사한다
 		for(int i = 0; i < KEditorDefine.B_PATH_SCENE_FILEPATH_INFOS.Length; ++i) {
 			var stFilepathInfo = KEditorDefine.B_PATH_SCENE_FILEPATH_INFOS[i];
-			Function.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
+			Func.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
 		}
 
-		EditorFunction.UpdateAssetDatabaseState();
+		EditorFunc.UpdateAssetDatabaseState();
 	}
 
 	//! 전처리기 심볼을 설정한다
@@ -314,11 +314,11 @@ public static partial class EditorFunction {
 				CPlatformBuilder.RemoveDefineSymbol(stKeyValue.Key, KEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
 				CPlatformBuilder.RemoveDefineSymbol(stKeyValue.Key, KEditorDefine.DS_DEFINE_SYMBOL_RECEIPT_CHECK_ENABLE);
 
-				CPlatformBuilder.RemoveDefineSymbol(stKeyValue.Key, KEditorDefine.DS_DEFINE_SYMBOL_ADHOC_DISTRIBUTION_BUILD);
-				CPlatformBuilder.RemoveDefineSymbol(stKeyValue.Key, KEditorDefine.DS_DEFINE_SYMBOL_STORE_DISTRIBUTION_BUILD);
+				CPlatformBuilder.RemoveDefineSymbol(stKeyValue.Key, KEditorDefine.DS_DEFINE_SYMBOL_ADHOC_BUILD);
+				CPlatformBuilder.RemoveDefineSymbol(stKeyValue.Key, KEditorDefine.DS_DEFINE_SYMBOL_STORE_BUILD);
 			}
 
-			EditorFunction.SetupDefineSymbols(CPlatformBuilder.DefineSymbolListContainer);
+			EditorFunc.SetupDefineSymbols(CPlatformBuilder.DefineSymbolListContainer);
 		}
 		// 전처리기 심볼을 설정한다 }
 	}
@@ -327,21 +327,21 @@ public static partial class EditorFunction {
 	[MenuItem("Utility/Setup/GraphicAPIs")]
 	public static void SetupGraphicAPIs() {
 		// 독립 플랫폼 그래픽 API 를 설정한다
-		EditorFunction.SetGraphicAPI(BuildTarget.StandaloneOSX, KEditorDefine.B_MAC_GRAPHICS_DEVICE_TYPES);
-		EditorFunction.SetGraphicAPI(BuildTarget.StandaloneWindows, KEditorDefine.B_WINDOWS_GRAPHICS_DEVICE_TYPES);
-		EditorFunction.SetGraphicAPI(BuildTarget.StandaloneWindows64, KEditorDefine.B_WINDOWS_GRAPHICS_DEVICE_TYPES);
+		EditorFunc.SetGraphicAPI(BuildTarget.StandaloneOSX, KEditorDefine.B_MAC_GRAPHICS_DEVICE_TYPES);
+		EditorFunc.SetGraphicAPI(BuildTarget.StandaloneWindows, KEditorDefine.B_WINDOWS_GRAPHICS_DEVICE_TYPES);
+		EditorFunc.SetGraphicAPI(BuildTarget.StandaloneWindows64, KEditorDefine.B_WINDOWS_GRAPHICS_DEVICE_TYPES);
 
 		// iOS 그래픽 API 를 설정한다
 		PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK;
-		EditorFunction.SetGraphicAPI(BuildTarget.iOS, KEditorDefine.B_IOS_DEVICE_GRAPHICS_DEVICE_TYPES);
+		EditorFunc.SetGraphicAPI(BuildTarget.iOS, KEditorDefine.B_IOS_DEVICE_GRAPHICS_DEVICE_TYPES);
 
 		// 안드로이드 그래픽 API 를 설정한다
-		EditorFunction.SetGraphicAPI(BuildTarget.Android, KEditorDefine.B_ANDROID_GRAPHICS_DEVICE_TYPES);
+		EditorFunc.SetGraphicAPI(BuildTarget.Android, KEditorDefine.B_ANDROID_GRAPHICS_DEVICE_TYPES);
 	}
 
 	//! 전처리기 심볼을 설정한다
 	public static void SetupDefineSymbols(Dictionary<BuildTargetGroup, List<string>> a_oDefineSymbolListContainer) {
-		Function.Assert(a_oDefineSymbolListContainer.ExIsValid());
+		Func.Assert(a_oDefineSymbolListContainer.ExIsValid());
 
 		foreach(var stKeyValue in a_oDefineSymbolListContainer) {
 			var oDefineSymbolList = new List<string>();
@@ -357,7 +357,7 @@ public static partial class EditorFunction {
 
 	//! 에셋을 로드한다
 	public static Object LoadAsset(string a_oFilepath) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 		var oAssets = AssetDatabase.LoadAllAssetsAtPath(a_oFilepath);
 
 		return oAssets.ExIsValid() ? oAssets.First() : null;
@@ -380,8 +380,9 @@ public static partial class EditorFunction {
 	}
 
 	//! 젠킨스 빌드를 실행한다
-	public static void ExecuteJenkinsBuild(string a_oPipeline, string a_oProjectName, Dictionary<string, string> a_oDataList = null) {
-		Function.Assert(a_oPipeline.ExIsValid() && CPlatformBuilder.BuildInfoTable != null);
+	public static void ExecuteJenkinsBuild(string a_oPipeline, 
+		string a_oProjectName, string a_oBuildMode, string a_oBuildFunc, string a_oPipelineName, Dictionary<string, string> a_oDataList = null) {
+		Func.Assert(a_oPipeline.ExIsValid() && CPlatformBuilder.BuildInfoTable != null);
 
 		var oStringBuilder = new System.Text.StringBuilder();
 		string oURL = string.Format(CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oBuildURLFormat, a_oPipeline);
@@ -416,49 +417,63 @@ public static partial class EditorFunction {
 		}
 		// 매개 변수를 설정한다 }
 
-		EditorFunction.ExecuteCommandline(oStringBuilder.ToString());
+		EditorFunc.ExecuteCommandline(oStringBuilder.ToString());
 	}
 
 	//! 독립 플랫폼 젠킨스 빌드를 실행한다
-	public static void ExecuteStandalonePlatformJenkinsBuild(string a_oPipeline, EStandalonePlatformType a_ePlatformType) {
-		EditorFunction.ExecuteJenkinsBuild(a_oPipeline, KEditorDefine.B_JENKINS_STANDALONE_BUILD_PROJECT_NAME, new Dictionary<string, string>() {
-			[KEditorDefine.B_JENKINS_KEY_PLATFORM] = EditorFunction.GetStandalonePlatformName(a_ePlatformType)
-		});
+	public static void ExecuteStandalonePlatformJenkinsBuild(string a_oBuildMode, 
+		string a_oBuildFunc, string a_oPipelineName, EStandalonePlatformType a_ePlatformType) {
+		var oDataList = new Dictionary<string, string>() {
+			[KEditorDefine.B_JENKINS_KEY_PLATFORM] = EditorFunc.GetStandalonePlatformName(a_ePlatformType)
+		};
+
+		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_STANDALONE_PIPELINE, 
+			a_oBuildMode, a_oBuildFunc, a_oPipelineName, KEditorDefine.B_JENKINS_STANDALONE_BUILD_PROJECT_NAME, oDataList);
 	}
 
 	//! iOS 플랫폼 젠킨스 빌드를 실행한다
-	public static void ExecuteiOSPlatformJenkinsBuild(string a_oPipeline, string a_oProfileID) {
-		Function.Assert(CPlatformBuilder.ProjectInfoTable != null);
+	public static void ExecuteiOSPlatformJenkinsBuild(string a_oBuildMode, 
+		string a_oBuildFunc, string a_oPipelineName, string a_oProfileID, string a_oIPAExportMethod) {
+		Func.Assert(CPlatformBuilder.ProjectInfoTable != null);
 
-		EditorFunction.ExecuteJenkinsBuild(a_oPipeline, KEditorDefine.B_JENKINS_IOS_BUILD_PROJECT_NAME, new Dictionary<string, string>() {
+		var oDataList = new Dictionary<string, string>() {
 			[KEditorDefine.B_JENKINS_KEY_BUNDLE_ID] = CPlatformBuilder.ProjectInfoTable.iOSProjectInfo.m_oAppID,
-			[KEditorDefine.B_JENKINS_KEY_PROFILE_ID] = a_oProfileID
-		});
+			[KEditorDefine.B_JENKINS_KEY_PROFILE_ID] = a_oProfileID,
+			[KEditorDefine.B_JENKINS_KEY_IPA_EXPORT_METHOD] = a_oIPAExportMethod
+		};
+
+		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_ANDROID_PIPELINE, 
+			a_oBuildMode, a_oBuildFunc, a_oPipelineName, KEditorDefine.B_JENKINS_IOS_BUILD_PROJECT_NAME, oDataList);
 	}
 
 	//! 안드로이드 플랫폼 젠킨스 빌드를 실행한다
-	public static void ExecuteAndroidPlatformJenkinsBuild(string a_oPipeline, EAndroidPlatformType a_ePlatformType) {
-		EditorFunction.ExecuteJenkinsBuild(a_oPipeline, KEditorDefine.B_JENKINS_ANDROID_BUILD_PROJECT_NAME, new Dictionary<string, string>() {
-			[KEditorDefine.B_JENKINS_KEY_PLATFORM] = EditorFunction.GetAndroidPlatformName(a_ePlatformType)
-		});
+	public static void ExecuteAndroidPlatformJenkinsBuild(string a_oBuildMode, 
+		string a_oBuildFunc, string a_oPipelineName, string a_oBuildFileExtension, EAndroidPlatformType a_ePlatformType) {
+		var oDataList = new Dictionary<string, string>() {
+			[KEditorDefine.B_JENKINS_KEY_PLATFORM] = EditorFunc.GetAndroidPlatformName(a_ePlatformType),
+			[KEditorDefine.B_JENKINS_KEY_BUILD_FILE_EXTENSION] = a_oBuildFileExtension
+		};
+
+		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_IOS_PIPELINE, 
+			a_oBuildMode, a_oBuildFunc, a_oPipelineName, KEditorDefine.B_JENKINS_ANDROID_BUILD_PROJECT_NAME, oDataList);
 	}
 
 	//! 커맨드 라인을 실행한다
 	public static void ExecuteCommandline(string a_oParams) {
-		Function.Assert(a_oParams.ExIsValid());
+		Func.Assert(a_oParams.ExIsValid());
 
-		if(Function.IsMacPlatform()) {
-			EditorFunction.ExecuteCommandline(KEditorDefine.B_TOOL_PATH_SHELL,
+		if(Func.IsMacPlatform()) {
+			EditorFunc.ExecuteCommandline(KEditorDefine.B_TOOL_PATH_SHELL,
 				string.Format(KEditorDefine.B_COMMANDLINE_PARAMETER_FORMAT_SHELL, a_oParams));
-		} else if(Function.IsWindowsPlatform()) {
-			EditorFunction.ExecuteCommandline(KEditorDefine.B_TOOL_PATH_COMMAND_PROMPT,
+		} else if(Func.IsWindowsPlatform()) {
+			EditorFunc.ExecuteCommandline(KEditorDefine.B_TOOL_PATH_COMMAND_PROMPT,
 				string.Format(KEditorDefine.B_COMMANDLINE_PARAMETER_FORMAT_COMMAND_PROMPT, a_oParams));
 		}
 	}
 
 	//! 커맨드 라인을 실행한다
 	public static void ExecuteCommandline(string a_oFilepath, string a_oParams) {
-		Function.Assert(a_oFilepath.ExIsValid() && a_oParams.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid() && a_oParams.ExIsValid());
 
 		var oStartInfo = new ProcessStartInfo(a_oFilepath, a_oParams);
 		oStartInfo.UseShellExecute = true;
@@ -469,7 +484,7 @@ public static partial class EditorFunction {
 	//! 프리팹 인스턴스를 생성한다
 	public static GameObject CreatePrefabInstance(string a_oName, 
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) {
-		Function.Assert(a_oOrigin != null);
+		Func.Assert(a_oOrigin != null);
 
 		var oGameObject = PrefabUtility.InstantiatePrefab(a_oOrigin) as GameObject;
 		oGameObject.name = a_oName;
@@ -485,12 +500,12 @@ public static partial class EditorFunction {
 	private static void SetupPlatformOptions() {
 		CPlatformBuilder.EditorInitialize();
 
-		EditorFunction.SetupStandalonePlatform();
-		EditorFunction.SetupiOSPlatform();
-		EditorFunction.SetupAndroidPlatform();
+		EditorFunc.SetupStandalonePlatform();
+		EditorFunc.SetupiOSPlatform();
+		EditorFunc.SetupAndroidPlatform();
 
 		// 퀄리티를 설정한다
-		Function.SetupQuality(Screen.currentResolution.refreshRate, 
+		Func.SetupQuality(Screen.currentResolution.refreshRate, 
 			KAppDefine.G_MULTI_TOUCH_ENABLE, KAppDefine.G_DEF_QUALITY_LEVEL, true);
 
 		// 어플리케이션 식별자를 설정한다
@@ -522,7 +537,7 @@ public static partial class EditorFunction {
 #endif			// #if ONE_STORE_PLATFORM
 			}
 
-			Function.Assert(bIsValidNumber);
+			Func.Assert(bIsValidNumber);
 			PlayerSettings.Android.bundleVersionCode = nBuildNumber;
 
 			if(Application.isBatchMode) {
@@ -592,9 +607,9 @@ public static partial class EditorFunction {
 	private static void SetupBuildOptions() {
 		CPlatformBuilder.EditorInitialize();
 
-		EditorFunction.SetupStandaloneBuildOptions();
-		EditorFunction.SetupiOSBuildOptions();
-		EditorFunction.SetupAndroidBuildOptions();
+		EditorFunc.SetupStandaloneBuildOptions();
+		EditorFunc.SetupiOSBuildOptions();
+		EditorFunc.SetupAndroidBuildOptions();
 		
 		// 기본 옵션을 설정한다 {
 		PlayerSettings.usePlayerLog = true;
@@ -859,13 +874,13 @@ public static partial class EditorFunction {
 	#region 제네릭 클래스 함수
 	//! 에셋을 탐색한다
 	public static T FindAsset<T>(string a_oFilter, string[] a_oSearchPaths) where T : Object {
-		var oAssets = EditorFunction.FindAssets<T>(a_oFilter, a_oSearchPaths);
+		var oAssets = EditorFunc.FindAssets<T>(a_oFilter, a_oSearchPaths);
 		return oAssets.ExIsValid() ? oAssets.First() : null;
 	}
 
 	//! 에셋을 탐색한다
 	public static List<T> FindAssets<T>(string a_oFilter, string[] a_oSearchPaths) where T : Object {
-		Function.Assert(a_oFilter.ExIsValid() && a_oSearchPaths.ExIsValid());
+		Func.Assert(a_oFilter.ExIsValid() && a_oSearchPaths.ExIsValid());
 
 		var oAssetList = new List<T>();
 		var oAssetGUIDs = AssetDatabase.FindAssets(a_oFilter, a_oSearchPaths);
@@ -884,10 +899,10 @@ public static partial class EditorFunction {
 
 	//! 에셋을 생성한다
 	public static void CreateAsset<T>(T a_tAsset, string a_oFilepath, bool a_bIsFocus = true) where T : Object {
-		Function.Assert(a_tAsset != null && a_oFilepath.ExIsValid());
+		Func.Assert(a_tAsset != null && a_oFilepath.ExIsValid());
 
 		AssetDatabase.CreateAsset(a_tAsset, a_oFilepath);
-		EditorFunction.UpdateAssetDatabaseState();
+		EditorFunc.UpdateAssetDatabaseState();
 
 		if(a_bIsFocus) {
 			Selection.activeObject = a_tAsset;
@@ -900,7 +915,7 @@ public static partial class EditorFunction {
 		string oFilepath = string.Format(KEditorDefine.B_PATH_FORMAT_SCRIPTABLE_OBJECT, typeof(T).ToString());
 		var oScriptableObject = ScriptableObject.CreateInstance<T>();
 
-		EditorFunction.CreateAsset<T>(oScriptableObject, oFilepath);
+		EditorFunc.CreateAsset<T>(oScriptableObject, oFilepath);
 		return oScriptableObject;
 	}
 	#endregion			// 제네릭 클래스 함수

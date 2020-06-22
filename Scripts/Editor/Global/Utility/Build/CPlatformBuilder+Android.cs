@@ -99,56 +99,56 @@ public static partial class CPlatformBuilder {
 
 	//! 구글 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/Android/Google/Distribution (Adhoc)")]
-	public static void BuildGooglePlatformAdhocDistribution() {
-		CPlatformBuilder.BuildAndroidPlatformAdhocDistribution(EAndroidPlatformType.GOOGLE);
+	public static void BuildGooglePlatformAdhoc() {
+		CPlatformBuilder.BuildAndroidPlatformAdhoc(EAndroidPlatformType.GOOGLE);
 	}
 
 	//! 원 스토어 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/Android/OneStore/Distribution (Adhoc)")]
-	public static void BuildOneStorePlatformAdhocDistribution() {
-		CPlatformBuilder.BuildAndroidPlatformAdhocDistribution(EAndroidPlatformType.ONE_STORE);
+	public static void BuildOneStorePlatformAdhoc() {
+		CPlatformBuilder.BuildAndroidPlatformAdhoc(EAndroidPlatformType.ONE_STORE);
 	}
 
 	//! 갤럭시 스토어 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/Android/GalaxyStore/Distribution (Adhoc)")]
-	public static void BuildGalaxyStorePlatformAdhocDistribution() {
-		CPlatformBuilder.BuildAndroidPlatformAdhocDistribution(EAndroidPlatformType.GALAXY_STORE);
+	public static void BuildGalaxyStorePlatformAdhoc() {
+		CPlatformBuilder.BuildAndroidPlatformAdhoc(EAndroidPlatformType.GALAXY_STORE);
 	}
 
 	//! 구글 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/Android/Google/Distribution (Adhoc with Robo Test)")]
-	public static void BuildGooglePlatformWithRoboTestAdhocDistribution() {
-		CPlatformBuilder.BuildAndroidPlatformWithRoboTestAdhocDistribution(EAndroidPlatformType.GOOGLE);
+	public static void BuildGooglePlatformWithRoboTestAdhoc() {
+		CPlatformBuilder.BuildAndroidPlatformWithRoboTestAdhoc(EAndroidPlatformType.GOOGLE);
 	}
 
 	//! 원 스토어 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/Android/OneStore/Distribution (Adhoc with Robo Test)")]
-	public static void BuildOneStorePlatformWithRoboTestAdhocDistribution() {
-		CPlatformBuilder.BuildAndroidPlatformWithRoboTestAdhocDistribution(EAndroidPlatformType.ONE_STORE);
+	public static void BuildOneStorePlatformWithRoboTestAdhoc() {
+		CPlatformBuilder.BuildAndroidPlatformWithRoboTestAdhoc(EAndroidPlatformType.ONE_STORE);
 	}
 
 	//! 갤럭시 스토어 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/Android/GalaxyStore/Distribution (Adhoc with Robo Test)")]
-	public static void BuildGalaxyStorePlatformWithRoboTestAdhocDistribution() {
-		CPlatformBuilder.BuildAndroidPlatformWithRoboTestAdhocDistribution(EAndroidPlatformType.GALAXY_STORE);
+	public static void BuildGalaxyStorePlatformWithRoboTestAdhoc() {
+		CPlatformBuilder.BuildAndroidPlatformWithRoboTestAdhoc(EAndroidPlatformType.GALAXY_STORE);
 	}
 
 	//! 구글 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/Android/Google/Distribution (Store)")]
-	public static void BuildGooglePlatformStoreDistribution() {
-		CPlatformBuilder.BuildAndroidPlatformStoreDistribution(EAndroidPlatformType.GOOGLE);
+	public static void BuildGooglePlatformStore() {
+		CPlatformBuilder.BuildAndroidPlatformStore(EAndroidPlatformType.GOOGLE);
 	}
 
 	//! 원 스토어 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/Android/OneStore/Distribution (Store)")]
-	public static void BuildOneStorePlatformStoreDistribution() {
-		CPlatformBuilder.BuildAndroidPlatformStoreDistribution(EAndroidPlatformType.ONE_STORE);
+	public static void BuildOneStorePlatformStore() {
+		CPlatformBuilder.BuildAndroidPlatformStore(EAndroidPlatformType.ONE_STORE);
 	}
 
 	//! 갤럭시 스토어 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/Android/GalaxyStore/Distribution (Store)")]
-	public static void BuildGalaxyStorePlatformStoreDistribution() {
-		CPlatformBuilder.BuildAndroidPlatformStoreDistribution(EAndroidPlatformType.GALAXY_STORE);
+	public static void BuildGalaxyStorePlatformStore() {
+		CPlatformBuilder.BuildAndroidPlatformStore(EAndroidPlatformType.GALAXY_STORE);
 	}
 
 	//! 구글 플랫폼을 원격 빌드한다
@@ -189,38 +189,38 @@ public static partial class CPlatformBuilder {
 
 	//! 구글 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/Android/Google/Distribution (Adhoc)")]
-	public static void RemoteBuildAndroidPlatformAdhocDistribution() {
-		CPlatformBuilder.RemoteBuildAndroidPlatformAdhocDistribution(EAndroidPlatformType.GOOGLE);
+	public static void RemoteBuildGooglePlatformAdhoc() {
+		CPlatformBuilder.RemoteBuildAndroidPlatformAdhoc(EAndroidPlatformType.GOOGLE);
 	}
 
 	//! 원 스토어 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/Android/OneStore/Distribution (Adhoc)")]
-	public static void RemoteBuildOneStorePlatformAdhocDistribution() {
-		CPlatformBuilder.RemoteBuildAndroidPlatformAdhocDistribution(EAndroidPlatformType.ONE_STORE);
+	public static void RemoteBuildOneStorePlatformAdhoc() {
+		CPlatformBuilder.RemoteBuildAndroidPlatformAdhoc(EAndroidPlatformType.ONE_STORE);
 	}
 
 	//! 갤럭시 스토어 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/Android/GalaxyStore/Distribution (Adhoc)")]
-	public static void RemoteBuildGalaxyStorePlatformAdhocDistribution() {
-		CPlatformBuilder.RemoteBuildAndroidPlatformAdhocDistribution(EAndroidPlatformType.GALAXY_STORE);
+	public static void RemoteBuildGalaxyStorePlatformAdhoc() {
+		CPlatformBuilder.RemoteBuildAndroidPlatformAdhoc(EAndroidPlatformType.GALAXY_STORE);
 	}
 
 	//! 구글 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/Android/Google/Distribution (Store)")]
-	public static void RemoteBuildAndroidPlatformStoreDistribution() {
-		CPlatformBuilder.RemoteBuildAndroidPlatformStoreDistribution(EAndroidPlatformType.GOOGLE);
+	public static void RemoteBuildGooglePlatformStore() {
+		CPlatformBuilder.RemoteBuildAndroidPlatformStore(EAndroidPlatformType.GOOGLE);
 	}
 
 	//! 원 스토어 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/Android/OneStore/Distribution (Store)")]
-	public static void RemoteBuildOneStorePlatformStoreDistribution() {
-		CPlatformBuilder.RemoteBuildAndroidPlatformStoreDistribution(EAndroidPlatformType.ONE_STORE);
+	public static void RemoteBuildOneStorePlatformStore() {
+		CPlatformBuilder.RemoteBuildAndroidPlatformStore(EAndroidPlatformType.ONE_STORE);
 	}
 
 	//! 갤럭시 스토어 플랫폼을 원격 빌드한다
 	[MenuItem("Utility/Build/Remote (Jenkins)/Android/GalaxyStore/Distribution (Store)")]
-	public static void RemoteBuildGalaxyStorePlatformStoreDistribution() {
-		CPlatformBuilder.RemoteBuildAndroidPlatformStoreDistribution(EAndroidPlatformType.GALAXY_STORE);
+	public static void RemoteBuildGalaxyStorePlatformStore() {
+		CPlatformBuilder.RemoteBuildAndroidPlatformStore(EAndroidPlatformType.GALAXY_STORE);
 	}
 
 	//! 안드로이드 플랫폼을 빌드한다
@@ -274,25 +274,25 @@ public static partial class CPlatformBuilder {
 	}
 
 	//! 안드로이드 플랫폼을 빌드한다
-	private static void BuildAndroidPlatformAdhocDistribution(EAndroidPlatformType a_ePlatformType) {
+	private static void BuildAndroidPlatformAdhoc(EAndroidPlatformType a_ePlatformType) {
 		// 전처리기 심볼을 추가한다
 		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.Android, KEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.Android, KEditorDefine.DS_DEFINE_SYMBOL_ADHOC_DISTRIBUTION_BUILD);
+		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.Android, KEditorDefine.DS_DEFINE_SYMBOL_ADHOC_BUILD);
 
 		EditorUserBuildSettings.buildAppBundle = false;
 		CPlatformBuilder.BuildAndroidPlatform(new BuildPlayerOptions(), a_ePlatformType);
 	}
 
 	//! 안드로이드 플랫폼을 빌드한다
-	private static void BuildAndroidPlatformWithRoboTestAdhocDistribution(EAndroidPlatformType a_ePlatformType) {
+	private static void BuildAndroidPlatformWithRoboTestAdhoc(EAndroidPlatformType a_ePlatformType) {
 		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.Android, KEditorDefine.DS_DEFINE_SYMBOL_ROBO_TEST_ENABLE);
-		CPlatformBuilder.BuildAndroidPlatformAdhocDistribution(a_ePlatformType);
+		CPlatformBuilder.BuildAndroidPlatformAdhoc(a_ePlatformType);
 	}
 
 	//! 안드로이드 플랫폼을 빌드한다
-	private static void BuildAndroidPlatformStoreDistribution(EAndroidPlatformType a_ePlatformType) {
+	private static void BuildAndroidPlatformStore(EAndroidPlatformType a_ePlatformType) {
 		CPlatformBuilder.IsDistributionBuild = true;
-		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.Android, KEditorDefine.DS_DEFINE_SYMBOL_STORE_DISTRIBUTION_BUILD);
+		CPlatformBuilder.AddDefineSymbol(BuildTargetGroup.Android, KEditorDefine.DS_DEFINE_SYMBOL_STORE_BUILD);
 
 		EditorUserBuildSettings.buildAppBundle = true;
 		CPlatformBuilder.BuildAndroidPlatform(new BuildPlayerOptions(), a_ePlatformType);
@@ -305,21 +305,19 @@ public static partial class CPlatformBuilder {
 
 		// 플러그인 파일을 복사한다
 		if(!Application.isBatchMode) {
-			Function.CopyFile(KEditorDefine.B_ANDROID_SRC_PLUGIN_PATH, KEditorDefine.B_ANDROID_DEST_PLUGIN_PATH, false);
+			Func.CopyFile(KEditorDefine.B_ANDROID_SRC_PLUGIN_PATH, KEditorDefine.B_ANDROID_DEST_PLUGIN_PATH, false);
 		}
 
 		// 빌드 옵션을 설정한다 {
-		a_oPlayerOptions.target = BuildTarget.Android;
-		a_oPlayerOptions.targetGroup = BuildTargetGroup.Android;
-
-		string oPlatform = EditorFunction.GetAndroidPlatformName(a_ePlatformType);
+		string oPlatform = EditorFunc.GetAndroidPlatformName(a_ePlatformType);
 		string oFilename = string.Format(KEditorDefine.B_ANDROID_BUILD_FILENAME_FORMAT, oPlatform);
 
-		if(EditorUserBuildSettings.buildAppBundle) {
-			a_oPlayerOptions.locationPathName = string.Format(KEditorDefine.B_ANDROID_AAB_BUILD_PATH_FORMAT, oPlatform, oFilename);
-		} else {
-			a_oPlayerOptions.locationPathName = string.Format(KEditorDefine.B_ANDROID_APK_BUILD_PATH_FORMAT, oPlatform, oFilename);
-		}
+		string oBuildFileExtension = EditorUserBuildSettings.buildAppBundle ? KEditorDefine.B_ANDROID_AAB_BUILD_FILE_EXTENSION
+			: KEditorDefine.B_ANDROID_APK_BUILD_FILE_EXTENSION;
+
+		a_oPlayerOptions.target = BuildTarget.Android;
+		a_oPlayerOptions.targetGroup = BuildTargetGroup.Android;
+		a_oPlayerOptions.locationPathName = string.Format(KEditorDefine.B_ANDROID_BUILD_PATH_FORMAT, oPlatform, oFilename, oBuildFileExtension);
 
 		if(CPlatformBuilder.ProjectInfoTable != null) {
 			if(a_ePlatformType == EAndroidPlatformType.ONE_STORE) {
@@ -334,7 +332,7 @@ public static partial class CPlatformBuilder {
 
 		// 빌드 디렉토리를 생성한다
 		string oBuildPath = string.Format(KEditorDefine.B_ANDROID_ABSOLUTE_BUILD_PATH_FORMAT, oPlatform);
-		Function.CreateDirectory(oBuildPath);
+		Func.CreateDirectory(oBuildPath);
 
 		// 플랫폼을 빌드한다
 		CPlatformBuilder.BuildPlatform(a_oPlayerOptions);
@@ -342,22 +340,26 @@ public static partial class CPlatformBuilder {
 
 	//! 안드로이드 플랫폼을 원격 빌드한다
 	private static void RemoteBuildAndroidPlatformDebug(EAndroidPlatformType a_ePlatformType) {
-		EditorFunction.ExecuteAndroidPlatformJenkinsBuild(KEditorDefine.B_JENKINS_ANDROID_DEBUG_PIPELINE, a_ePlatformType);
+		EditorFunc.ExecuteAndroidPlatformJenkinsBuild(KDefine.B_BUILD_MODE_DEBUG, 
+			KEditorDefine.B_JENKINS_DEBUG_BUILD_FUNC, KEditorDefine.B_JENKINS_ANDROID_DEBUG_PIPELINE_NAME, KEditorDefine.B_ANDROID_APK_BUILD_FILE_EXTENSION, a_ePlatformType);
 	}
 
 	//! 안드로이드 플랫폼을 원격 빌드한다
 	private static void RemoteBuildAndroidPlatformRelease(EAndroidPlatformType a_ePlatformType) {
-		EditorFunction.ExecuteAndroidPlatformJenkinsBuild(KEditorDefine.B_JENKINS_ANDROID_RELEASE_PIPELINE, a_ePlatformType);
+		EditorFunc.ExecuteAndroidPlatformJenkinsBuild(KDefine.B_BUILD_MODE_RELEASE, 
+			KEditorDefine.B_JENKINS_RELEASE_BUILD_FUNC, KEditorDefine.B_JENKINS_ANDROID_RELEASE_PIPELINE_NAME, KEditorDefine.B_ANDROID_APK_BUILD_FILE_EXTENSION, a_ePlatformType);
 	}
 
 	//! 안드로이드 플랫폼을 원격 빌드한다
-	private static void RemoteBuildAndroidPlatformAdhocDistribution(EAndroidPlatformType a_ePlatformType) {
-		EditorFunction.ExecuteAndroidPlatformJenkinsBuild(KEditorDefine.B_JENKINS_ANDROID_ADHOC_DISTRIBUTION_PIPELINE, a_ePlatformType);
+	private static void RemoteBuildAndroidPlatformAdhoc(EAndroidPlatformType a_ePlatformType) {
+		EditorFunc.ExecuteAndroidPlatformJenkinsBuild(KDefine.B_BUILD_MODE_RELEASE, 
+			KEditorDefine.B_JENKINS_ADHOC_BUILD_FUNC, KEditorDefine.B_JENKINS_ANDROID_ADHOC_PIPELINE_NAME, KEditorDefine.B_ANDROID_APK_BUILD_FILE_EXTENSION, a_ePlatformType);
 	}
 
 	//! 안드로이드 플랫폼을 원격 빌드한다
-	private static void RemoteBuildAndroidPlatformStoreDistribution(EAndroidPlatformType a_ePlatformType) {
-		EditorFunction.ExecuteAndroidPlatformJenkinsBuild(KEditorDefine.B_JENKINS_ANDROID_STORE_DISTRIBUTION_PIPELINE, a_ePlatformType);
+	private static void RemoteBuildAndroidPlatformStore(EAndroidPlatformType a_ePlatformType) {
+		EditorFunc.ExecuteAndroidPlatformJenkinsBuild(KDefine.B_BUILD_MODE_RELEASE, 
+			KEditorDefine.B_JENKINS_STORE_BUILD_FUNC, KEditorDefine.B_JENKINS_ANDROID_STORE_PIPELINE_NAME, KEditorDefine.B_ANDROID_AAB_BUILD_FILE_EXTENSION, a_ePlatformType);
 	}
 	#endregion			// 클래스 함수
 }

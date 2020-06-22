@@ -37,7 +37,7 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 		Function.Assert(a_oName.ExIsValid());
 		Function.ShowLog("CUnityServiceManager.SendLog: {0}, {1}", Color.yellow, a_oName, a_oDataList);
 
-#if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {
 			var oDataList = a_oDataList ?? new Dictionary<string, object>();
 
@@ -56,7 +56,7 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 			Analytics.CustomEvent(a_oName, oDataList);
 			Analytics.FlushEvents();
 		}
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 	}
 	#endregion			// 함수
 }

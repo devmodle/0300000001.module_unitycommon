@@ -32,7 +32,7 @@ public abstract class CLoadingSceneManager : CSceneManager {
 	public override void Awake() {
 		base.Awake();
 		
-		Function.LateCallFunction(this, (a_oComponent, a_oParams) => {
+		Func.LateCallFunc(this, (a_oComponent, a_oParams) => {
 			// 비동기 로드가 아닐 경우
 			if(CLoadingSceneManager.Callback == null) {
 				CSceneLoader.Instance.LoadScene(CLoadingSceneManager.NextSceneName,

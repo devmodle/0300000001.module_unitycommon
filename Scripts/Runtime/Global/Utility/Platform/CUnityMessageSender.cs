@@ -30,7 +30,7 @@ public class CUnityMessageSender : CSingleton<CUnityMessageSender> {
 	//! 스토어 버전 반환 메세지를 전송한다
 	public void SendGetStoreVersionMessage(string a_oAppID,
 		  string a_oVersion, float a_fTimeout, System.Action<string, string> a_oCallback) {
-		Function.Assert(a_oAppID.ExIsValid() && a_oVersion.ExIsValid() && a_fTimeout.ExIsGreate(0.0f));
+		Func.Assert(a_oAppID.ExIsValid() && a_oVersion.ExIsValid() && a_fTimeout.ExIsGreate(0.0f));
 
 		var oDataList = new Dictionary<string, string>() {
 			[KDefine.U_KEY_UNITY_MS_APP_ID] = a_oAppID,
@@ -56,8 +56,8 @@ public class CUnityMessageSender : CSingleton<CUnityMessageSender> {
 	//! 알림 창 출력 메세지를 전송한다
 	public void SendShowAlertMessage(string a_oTitle,
 		string a_oMessage, string a_oOKButtonTitle, string a_oCancelButtonTitle, System.Action<string, string> a_oCallback) {
-		Function.Assert(a_oTitle != null && a_oCancelButtonTitle != null);
-		Function.Assert(a_oMessage.ExIsValid() && a_oOKButtonTitle.ExIsValid());
+		Func.Assert(a_oTitle != null && a_oCancelButtonTitle != null);
+		Func.Assert(a_oMessage.ExIsValid() && a_oOKButtonTitle.ExIsValid());
 
 		var oDataList = new Dictionary<string, string>() {
 			[KDefine.U_KEY_UNITY_MS_ALERT_TITLE] = a_oTitle,
@@ -74,7 +74,7 @@ public class CUnityMessageSender : CSingleton<CUnityMessageSender> {
 		bool bIsEnableType = a_eType > EVibrateType.NONE && a_eType < EVibrateType.MAX_VALUE;
 		bool bIsEnableStyle = a_eStyle > EVibrateStyle.NONE && a_eStyle < EVibrateStyle.MAX_VALUE;
 
-		Function.Assert(bIsEnableType && bIsEnableStyle && a_fDuration.ExIsGreate(0.0f));
+		Func.Assert(bIsEnableType && bIsEnableStyle && a_fDuration.ExIsGreate(0.0f));
 
 		var oDataList = new Dictionary<string, string>() {
 			[KDefine.U_KEY_UNITY_MS_VIBRATE_TYPE] = ((int)a_eType).ToString(),
@@ -93,7 +93,7 @@ public class CUnityMessageSender : CSingleton<CUnityMessageSender> {
 
 	//! 공유 메세지를 전송한다
 	public void SendShareMessage(string a_oMessage, string a_oFilepath = KDefine.B_EMPTY_STRING) {
-		Function.Assert(a_oMessage.ExIsValid());
+		Func.Assert(a_oMessage.ExIsValid());
 
 		var oNativeShare = new NativeShare();
 		oNativeShare.SetText(a_oMessage);
@@ -107,9 +107,9 @@ public class CUnityMessageSender : CSingleton<CUnityMessageSender> {
 
 	//! 메세지를 전송한다
 	private void SendMessage(string a_oCommand, string a_oMessage, System.Action<string, string> a_oCallback, bool a_bIsAutoRemove) {
-		Function.Assert(a_oMessage != null && a_oCommand.ExIsValid());
+		Func.Assert(a_oMessage != null && a_oCommand.ExIsValid());
 
-		if(!Function.IsMobilePlatform()) {
+		if(!Func.IsMobilePlatform()) {
 			a_oCallback?.Invoke(a_oCommand, string.Empty);
 		} else {
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)

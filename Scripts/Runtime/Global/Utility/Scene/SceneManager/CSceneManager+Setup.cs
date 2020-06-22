@@ -21,13 +21,13 @@ public abstract partial class CSceneManager : CComponent {
 			this.SetupSubScene();
 
 			if(Application.isPlaying) {
-				Function.ShowLog("CSceneManager.SubSceneAwake: {0}", Color.blue, this.SceneName);
+				Func.ShowLog("CSceneManager.SubSceneAwake: {0}", Color.blue, this.SceneName);
 			}
 		} else {
 			this.SetupRootScene();
 
 			if(Application.isPlaying) {
-				Function.ShowLog("CSceneManager.RootSceneAwake: {0}", Color.blue, this.SceneName);
+				Func.ShowLog("CSceneManager.RootSceneAwake: {0}", Color.blue, this.SceneName);
 			}
 		}
 		// 씬을 설정한다 }
@@ -87,7 +87,7 @@ public abstract partial class CSceneManager : CComponent {
 			var oRaycaster = this.SubMainCamera.gameObject.ExAddComponent<PhysicsRaycaster>();
 #endif			// #if MODE_2D_ENABLE
 
-			Function.SetEventMask(oRaycaster, KDefine.U_DEF_CULLING_MASK_MAIN_CAMERA.ToList());
+			Func.SetEventMask(oRaycaster, KDefine.U_DEF_CULLING_MASK_MAIN_CAMERA.ToList());
 #endif			// #if PHYSICS_RAYCASTER_ENABLE
 			
 #if UNIVERSAL_RENDER_PIPELINE_ENABLE
@@ -109,7 +109,7 @@ public abstract partial class CSceneManager : CComponent {
 				if(oUICameraData != null && oUICameraData.renderType == CameraRenderType.Overlay) {
 					int nID = this.SubUICamera.GetInstanceID();
 
-					int nIndex = Function.FindValue<Camera>(oCameraData.cameraStack, (a_oCamera) => {
+					int nIndex = Func.FindValue<Camera>(oCameraData.cameraStack, (a_oCamera) => {
 						return nID == a_oCamera.GetInstanceID();
 					});
 
@@ -280,10 +280,10 @@ public abstract partial class CSceneManager : CComponent {
 			CSceneManager.CanvasScale = oTransform.localScale;
 		}
 
-		float fLeftScale = Function.GetLeftScreenScale(Application.isPlaying);
-		float fRightScale = Function.GetRightScreenScale(Application.isPlaying);
-		float fTopScale = Function.GetTopScreenScale(Application.isPlaying);
-		float fBottomScale = Function.GetBottomScreenScale(Application.isPlaying);
+		float fLeftScale = Func.GetLeftScreenScale(Application.isPlaying);
+		float fRightScale = Func.GetRightScreenScale(Application.isPlaying);
+		float fTopScale = Func.GetTopScreenScale(Application.isPlaying);
+		float fBottomScale = Func.GetBottomScreenScale(Application.isPlaying);
 
 		// 간격을 설정한다 {
 		CSceneManager.LeftUIOffset = CSceneManager.CanvasSize.x * fLeftScale;
@@ -371,7 +371,7 @@ public abstract partial class CSceneManager : CComponent {
 	protected virtual void SetupDefaultObjects() {
 		// 씬 관리자를 설정한다
 		CSceneManager.m_oSubSceneManagerList.ExAddValue(this.SceneName, this);
-		CSceneManager.RootSceneManager = Function.FindComponent<CSceneManager>(KDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
+		CSceneManager.RootSceneManager = Func.FindComponent<CSceneManager>(KDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
 
 		// 기본 객체를 설정한다 {
 		var stScene = CSceneManager.RootSceneManager.gameObject.scene;
@@ -524,7 +524,7 @@ public abstract partial class CSceneManager : CComponent {
 
 					for(int j = 0; j < oImages.Length; ++j) {
 						var oImage = oImages[j];
-						oImage.color = Function.IsEditorPlatform() ? KDefine.U_DEF_COLOR_TRANSPARENT : KDefine.U_DEF_COLOR_BLIND_UI;
+						oImage.color = Func.IsEditorPlatform() ? KDefine.U_DEF_COLOR_TRANSPARENT : KDefine.U_DEF_COLOR_BLIND_UI;
 
 						oImage.rectTransform.pivot = oPivots[j];
 						oImage.rectTransform.anchorMin = oAnchors[j];
@@ -536,8 +536,8 @@ public abstract partial class CSceneManager : CComponent {
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 				if(oUIObjects[i] != null && oUIObjects[i].name.ExIsEquals(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT)) {
-					var stSafeArea = Function.GetSafeArea(Application.isPlaying);
-					var stScreenSize = Function.GetDeviceScreenSize(true);
+					var stSafeArea = Func.GetSafeArea(Application.isPlaying);
+					var stScreenSize = Func.GetDeviceScreenSize(true);
 
 					// 정적 텍스트를 설정한다
 					if(CSceneManager.ScreenStaticDebugText != null) {

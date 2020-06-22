@@ -109,7 +109,7 @@ public static partial class CExtension {
 
 	//! 유럽 연합 여부를 검사한다
 	public static bool ExIsEuropeanUnion(this string a_oSender) {
-		Function.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValid());
 		string oCountryCode = a_oSender.ToUpper();
 
 		int nIndex = KDefine.B_EUROPEAN_UNION_COUNTRY_CODES.ExFindValue((a_oString) => {
@@ -172,8 +172,8 @@ public static partial class CExtension {
 
 	//! 변경 된 문자열을 반환한다
 	public static string ExGetReplaceString(this string a_oSender, string a_oSearch, string a_oReplace, int a_nReplaceTimes = 1) {
-		Function.Assert(a_oSender.ExIsValid());
-		Function.Assert(a_nReplaceTimes >= 1 && (a_oSearch != null && a_oReplace != null));
+		Func.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_nReplaceTimes >= 1 && (a_oSearch != null && a_oReplace != null));
 
 		if(!a_oSearch.ExIsEquals(a_oReplace)) {
 			for(int i = 0; i < a_nReplaceTimes && a_oSender.Contains(a_oSearch); ++i) {
@@ -186,7 +186,7 @@ public static partial class CExtension {
 
 	//! 위치를 변경한다
 	public static void ExSetPos(this Transform a_oSender, Vector3 a_stPos, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_bIsWorld) {
 			a_oSender.position = a_stPos;
@@ -197,13 +197,13 @@ public static partial class CExtension {
 
 	//! 비율을 변경한다
 	public static void ExSetScale(this Transform a_oSender, Vector3 a_stScale) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.localScale = a_stScale;
 	}
 
 	//! 회전을 변경한다
 	public static void ExSetRotation(this Transform a_oSender, Vector3 a_stRotation, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_bIsWorld) {
 			a_oSender.eulerAngles = a_stRotation;
@@ -214,7 +214,7 @@ public static partial class CExtension {
 
 	//! X 축 위치를 변경한다
 	public static void ExSetPosX(this Transform a_oSender, float a_fValue, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		var stPos = a_bIsWorld ? a_oSender.position : a_oSender.localPosition;
 
 		a_oSender.ExSetPos(new Vector3(a_fValue, stPos.y, stPos.z), a_bIsWorld);
@@ -222,7 +222,7 @@ public static partial class CExtension {
 	
 	//! Y 축 위치를 변경한다
 	public static void ExSetPosY(this Transform a_oSender, float a_fValue, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		var stPos = a_bIsWorld ? a_oSender.position : a_oSender.localPosition;
 
 		a_oSender.ExSetPos(new Vector3(stPos.x, a_fValue, stPos.z), a_bIsWorld);
@@ -230,7 +230,7 @@ public static partial class CExtension {
 
 	//! Z 축 위치를 변경한다
 	public static void ExSetPosZ(this Transform a_oSender, float a_fValue, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		var stPos = a_bIsWorld ? a_oSender.position : a_oSender.localPosition;
 
 		a_oSender.ExSetPos(new Vector3(stPos.x, stPos.y, a_fValue), a_bIsWorld);
@@ -238,25 +238,25 @@ public static partial class CExtension {
 
 	//! X 축 비율을 변경한다
 	public static void ExSetScaleX(this Transform a_oSender, float a_fValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.ExSetScale(new Vector3(a_fValue, a_oSender.localScale.y, a_oSender.localScale.z));
 	}
 
 	//! Y 축 비율을 변경한다
 	public static void ExSetScaleY(this Transform a_oSender, float a_fValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.ExSetScale(new Vector3(a_oSender.localScale.x, a_fValue, a_oSender.localScale.z));
 	}
 
 	//! Z 축 비율을 변경한다
 	public static void ExSetScaleZ(this Transform a_oSender, float a_fValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.ExSetScale(new Vector3(a_oSender.localScale.x, a_oSender.localScale.y, a_fValue));
 	}
 
 	//! X 축 각도를 변경한다
 	public static void ExSetRotationX(this Transform a_oSender, float a_fValue, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		var stRotation = a_bIsWorld ? a_oSender.eulerAngles : a_oSender.localEulerAngles;
 
 		a_oSender.ExSetRotation(new Vector3(a_fValue, stRotation.y, stRotation.z), a_bIsWorld);
@@ -264,7 +264,7 @@ public static partial class CExtension {
 	
 	//! Y 축 각도를 변경한다
 	public static void ExSetRotationY(this Transform a_oSender, float a_fValue, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		var stRotation = a_bIsWorld ? a_oSender.eulerAngles : a_oSender.localEulerAngles;
 
 		a_oSender.ExSetRotation(new Vector3(stRotation.x, a_fValue, stRotation.z), a_bIsWorld);
@@ -272,7 +272,7 @@ public static partial class CExtension {
 
 	//! Z 축 각도를 변경한다
 	public static void ExSetRotationZ(this Transform a_oSender, float a_fValue, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		var stRotation = a_bIsWorld ? a_oSender.eulerAngles : a_oSender.localEulerAngles;
 
 		a_oSender.ExSetRotation(new Vector3(stRotation.x, stRotation.y, a_fValue), a_bIsWorld);
@@ -280,43 +280,43 @@ public static partial class CExtension {
 
 	//! 앵커 위치를 변경한다
 	public static void ExSetAnchorPos(this RectTransform a_oSender, Vector2 a_stPos) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.anchoredPosition = a_stPos;
 	}
 
 	//! 크기 간격을 변경한다
 	public static void ExSetSizeDelta(this RectTransform a_oSender, Vector2 a_stDelta) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.sizeDelta = a_stDelta;
 	}
 
 	//! X 축 앵커 위치를 변경한다
 	public static void ExSetAnchorPosX(this RectTransform a_oSender, float a_fValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.ExSetAnchorPos(new Vector2(a_fValue, a_oSender.anchoredPosition.y));
 	}
 
 	//! Y 축 앵커 위치를 변경한다
 	public static void ExSetAnchorPosY(this RectTransform a_oSender, float a_fValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.ExSetAnchorPos(new Vector2(a_oSender.anchoredPosition.x, a_fValue));
 	}
 
 	//! X 축 크기 간격을 변경한다
 	public static void ExSetSizeDeltaX(this RectTransform a_oSender, float a_fValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.ExSetSizeDelta(new Vector2(a_fValue, a_oSender.sizeDelta.y));
 	}
 
 	//! Y 축 크기 간격을 변경한다
 	public static void ExSetSizeDeltaY(this RectTransform a_oSender, float a_fValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.ExSetSizeDelta(new Vector2(a_oSender.sizeDelta.x, a_fValue));
 	}
 
 	//! 위치를 추가한다
 	public static void ExAddPos(this Transform a_oSender, Vector3 a_stPos, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_bIsWorld) {
 			a_oSender.position += a_stPos;
@@ -327,13 +327,13 @@ public static partial class CExtension {
 
 	//! 비율을 추가한다
 	public static void ExAddScale(this Transform a_oSender, Vector3 a_stScale) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.localScale += a_stScale;
 	}
 
 	//! 회전을 추가한다
 	public static void ExAddRotation(this Transform a_oSender, Vector3 a_stRotation, bool a_bIsWorld = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_bIsWorld) {
 			a_oSender.eulerAngles += a_stRotation;
@@ -389,13 +389,13 @@ public static partial class CExtension {
 
 	//! 앵커 위치를 추가한다
 	public static void ExAddAnchorPos(this RectTransform a_oSender, Vector2 a_stPos) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.anchoredPosition += a_stPos;
 	}
 
 	//! 크기 간격을 추가한다
 	public static void ExAddSizeDelta(this RectTransform a_oSender, Vector2 a_stDelta) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.sizeDelta += a_stDelta;
 	}
 
@@ -434,7 +434,7 @@ public static partial class CExtension {
 
 	//! 값을 순회한다
 	public static void ExEnumerate(this IEnumerator a_oSender, System.Action<object> a_oCallback) {
-		Function.Assert(a_oSender != null && a_oCallback != null);
+		Func.Assert(a_oSender != null && a_oCallback != null);
 
 		while(a_oSender.MoveNext()) {
 			a_oCallback?.Invoke(a_oSender.Current);
@@ -464,13 +464,13 @@ public static partial class CExtension {
 
 	//! 문자열 -> 시간으로 변환한다
 	public static System.DateTime ExToTime(this string a_oSender, string a_oFormat) {
-		Function.Assert(a_oSender.ExIsValid() && a_oFormat.ExIsValid());
+		Func.Assert(a_oSender.ExIsValid() && a_oFormat.ExIsValid());
 		return System.DateTime.ParseExact(a_oSender, a_oFormat, CultureInfo.InvariantCulture);
 	}
 
 	//! 시간 -> 문자열로 변환한다
 	public static string ExToString(this System.DateTime a_stSender, string a_oFormat) {
-		Function.Assert(a_oFormat.ExIsValid());
+		Func.Assert(a_oFormat.ExIsValid());
 		return a_stSender.ToString(a_oFormat, CultureInfo.InvariantCulture);
 	}
 
@@ -492,7 +492,7 @@ public static partial class CExtension {
 
 	//! 지역 시간 -> 특정 지역 시간으로 변환한다
 	public static System.DateTime ExToZoneTime(this System.DateTime a_stSender, string a_oTimeZoneID) {
-		Function.Assert(a_oTimeZoneID.ExIsValid());
+		Func.Assert(a_oTimeZoneID.ExIsValid());
 
 		var oTimeZoneInfo = System.TimeZoneInfo.FindSystemTimeZoneById(a_oTimeZoneID);
 		return System.TimeZoneInfo.ConvertTime(a_stSender, System.TimeZoneInfo.Local, oTimeZoneInfo);
@@ -506,7 +506,7 @@ public static partial class CExtension {
 
 	//! 특정 지역 시간 -> 지역 시간으로 변환한다
 	public static System.DateTime ExToLocalTime(this System.DateTime a_stSender, string a_oTimeZoneID) {
-		Function.Assert(a_oTimeZoneID.ExIsValid());
+		Func.Assert(a_oTimeZoneID.ExIsValid());
 
 		var oTimeZoneInfo = System.TimeZoneInfo.FindSystemTimeZoneById(a_oTimeZoneID);
 		return System.TimeZoneInfo.ConvertTime(a_stSender, oTimeZoneInfo, System.TimeZoneInfo.Local);
@@ -536,13 +536,13 @@ public static partial class CExtension {
 
 	//! 인덱스 유효 여부를 검사한다
 	public static bool ExIsValidIndex<T>(this T[] a_oSender, int a_nIndex) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		return a_nIndex > KDefine.B_INDEX_INVALID && a_nIndex < a_oSender.Length;
 	}
 
 	//! 인덱스 유효 여부룰 검사한다
 	public static bool ExIsValidIndex<T>(this List<T> a_oSender, int a_nIndex) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		return a_nIndex > KDefine.B_INDEX_INVALID && a_nIndex < a_oSender.Count;
 	}
 
@@ -554,7 +554,7 @@ public static partial class CExtension {
 
 	//! 값을 리셋한다
 	public static void ExResetValues<T>(this T[] a_oSender) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		for(int i = 0; i < a_oSender.Length; ++i) {
 			a_oSender[i] = default(T);
@@ -563,7 +563,7 @@ public static partial class CExtension {
 
 	//! 값을 리셋한다
 	public static void ExResetValues<T>(this T[,] a_oSender) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		for(int i = 0; i < a_oSender.GetLength(0); ++i) {
 			for(int j = 0; j < a_oSender.GetLength(1); ++j) {
@@ -574,19 +574,19 @@ public static partial class CExtension {
 
 	//! 값을 반환한다
 	public static T ExGetValue<T>(this T[] a_oSender, int a_nIndex, T a_tDefValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		return (a_nIndex < a_oSender.Length) ? a_oSender[a_nIndex] : a_tDefValue;
 	}
 
 	//! 값을 반환한다
 	public static T ExGetValue<T>(this List<T> a_oSender, int a_nIndex, T a_tDefValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		return (a_nIndex < a_oSender.Count) ? a_oSender[a_nIndex] : a_tDefValue;
 	}
 
 	//! 값을 반환한다
 	public static Value ExGetValue<Key, Value>(this Dictionary<Key, Value> a_oSender, Key a_tKey, Value a_tDefValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		return a_oSender.ContainsKey(a_tKey) ? a_oSender[a_tKey] : a_tDefValue;
 	}
 
@@ -595,7 +595,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oFieldInfo = oType.GetField(a_oName, a_eBindingFlags);
 
-		Function.Assert(oFieldInfo != null);
+		Func.Assert(oFieldInfo != null);
 		return oFieldInfo.GetValue(a_oSender);
 	}
 
@@ -604,7 +604,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oFieldInfos = oType.GetRuntimeFields();
 
-		Function.Assert(oFieldInfos != null);
+		Func.Assert(oFieldInfos != null);
 
 		foreach(var oFieldInfo in oFieldInfos) {
 			if(oFieldInfo.Name.ExIsEquals(a_oName)) {
@@ -620,7 +620,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oPropertyInfo = oType.GetProperty(a_oName, a_eBindingFlags);
 
-		Function.Assert(oPropertyInfo != null);
+		Func.Assert(oPropertyInfo != null);
 		return oPropertyInfo.GetValue(a_oSender);
 	}
 
@@ -629,7 +629,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oPropertyInfos = oType.GetRuntimeProperties();
 
-		Function.Assert(oPropertyInfos != null);
+		Func.Assert(oPropertyInfos != null);
 
 		foreach(var oPropertyInfo in oPropertyInfos) {
 			if(oPropertyInfo.Name.ExIsEquals(a_oName)) {
@@ -642,7 +642,7 @@ public static partial class CExtension {
 
 	//! 값을 변경한다
 	public static void ExSetValue<T>(this T[] a_oSender, int a_nIndex, T a_tValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_nIndex >= 0 && a_nIndex < a_oSender.Length) {
 			a_oSender[a_nIndex] = a_tValue;
@@ -651,7 +651,7 @@ public static partial class CExtension {
 
 	//! 값을 변경한다
 	public static void ExSetValue<T>(this List<T> a_oSender, int a_nIndex, T a_tValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_nIndex >= 0 && a_nIndex < a_oSender.Count) {
 			a_oSender[a_nIndex] = a_tValue;
@@ -660,7 +660,7 @@ public static partial class CExtension {
 
 	//! 값을 변경한다
 	public static void ExSetValue<Key, Value>(this Dictionary<Key, Value> a_oSender, Key a_tKey, Value a_tValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_oSender.ContainsKey(a_tKey)) {
 			a_oSender[a_tKey] = a_tValue;
@@ -672,7 +672,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oFieldInfo = oType.GetField(a_oName, a_eBindingFlags);
 
-		Function.Assert(oFieldInfo != null);
+		Func.Assert(oFieldInfo != null);
 		oFieldInfo.SetValue(a_oSender, a_oValue);
 	}
 
@@ -681,7 +681,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oFieldInfos = oType.GetRuntimeFields();
 
-		Function.Assert(oFieldInfos != null && a_oName.ExIsValid());
+		Func.Assert(oFieldInfos != null && a_oName.ExIsValid());
 
 		foreach(var oFieldInfo in oFieldInfos) {
 			if(oFieldInfo.Name.ExIsEquals(a_oName)) {
@@ -695,7 +695,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oPropertyInfo = oType.GetProperty(a_oName, a_eBindingFlags);
 
-		Function.Assert(oPropertyInfo != null);
+		Func.Assert(oPropertyInfo != null);
 		oPropertyInfo.SetValue(a_oSender, a_oValue);
 	}
 
@@ -704,7 +704,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oPropertyInfos = oType.GetRuntimeProperties();
 
-		Function.Assert(oPropertyInfos != null && a_oName.ExIsValid());
+		Func.Assert(oPropertyInfos != null && a_oName.ExIsValid());
 
 		foreach(var oPropertyInfo in oPropertyInfos) {
 			if(oPropertyInfo.Name.ExIsEquals(a_oName)) {
@@ -715,7 +715,7 @@ public static partial class CExtension {
 
 	//! 값을 추가한다
 	public static void ExAddValue<T>(this List<T> a_oSender, T a_tValue, bool a_bIsReplace = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		int nIndex = a_oSender.IndexOf(a_tValue);
 
 		if(nIndex <= KDefine.B_INDEX_INVALID) {
@@ -727,7 +727,7 @@ public static partial class CExtension {
 
 	//! 값을 추가한다
 	public static void ExAddValue<Key, Value>(this Dictionary<Key, Value> a_oSender, Key a_tKey, Value a_tValue, bool a_bIsReplace = false) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(!a_oSender.ContainsKey(a_tKey)) {
 			a_oSender.Add(a_tKey, a_tValue);
@@ -738,7 +738,7 @@ public static partial class CExtension {
 
 	//! 값을 추가한다
 	public static void ExAddValues<T>(this List<T> a_oSender, T[] a_oValues, bool a_bIsReplace = false) {
-		Function.Assert(a_oValues != null);
+		Func.Assert(a_oValues != null);
 
 		for(int i = 0; i < a_oValues.Length; ++i) {
 			a_oSender.ExAddValue(a_oValues[i], a_bIsReplace);
@@ -747,7 +747,7 @@ public static partial class CExtension {
 
 	//! 값을 추가한다
 	public static void ExAddValues<T>(this List<T> a_oSender, List<T> a_oValueList, bool a_bIsReplace = false) {
-		Function.Assert(a_oValueList != null);
+		Func.Assert(a_oValueList != null);
 
 		for(int i = 0; i < a_oValueList.Count; ++i) {
 			a_oSender.ExAddValue(a_oValueList[i], a_bIsReplace);
@@ -756,7 +756,7 @@ public static partial class CExtension {
 
 	//! 값을 추가한다
 	public static void ExAddValues<Key, Value>(this Dictionary<Key, Value> a_oSender, Dictionary<Key, Value> a_oValueList, bool a_bIsReplace = false) {
-		Function.Assert(a_oValueList != null);
+		Func.Assert(a_oValueList != null);
 
 		foreach(var stKeyValue in a_oValueList) {
 			a_oSender.ExAddValue(stKeyValue.Key, stKeyValue.Value, a_bIsReplace);
@@ -790,7 +790,7 @@ public static partial class CExtension {
 
 	//! 값을 제거한다
 	public static void ExRemoveValueAt<T>(this List<T> a_oSender, int a_nIndex) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_oSender.ExIsValidIndex(a_nIndex)) {
 			a_oSender.RemoveAt(a_nIndex);
@@ -799,7 +799,7 @@ public static partial class CExtension {
 
 	//! 값을 제거한다
 	public static void ExRemoveValue<T>(this List<T> a_oSender, T a_tValue) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_oSender.Contains(a_tValue)) {
 			int nIndex = a_oSender.IndexOf(a_tValue);
@@ -818,7 +818,7 @@ public static partial class CExtension {
 
 	//! 값을 제거한다
 	public static void ExRemoveValue<Key, Value>(this Dictionary<Key, Value> a_oSender, Key a_tKey) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		if(a_oSender.ContainsKey(a_tKey)) {
 			a_oSender.Remove(a_tKey);
@@ -836,7 +836,7 @@ public static partial class CExtension {
 
 	//! 값을 제거한다
 	public static void ExRemoveValues<T>(this List<T> a_oSender, T[] a_oValues) {
-		Function.Assert(a_oValues != null);
+		Func.Assert(a_oValues != null);
 
 		for(int i = 0; i < a_oValues.Length; ++i) {
 			a_oSender.ExRemoveValue(a_oValues[i]);
@@ -845,7 +845,7 @@ public static partial class CExtension {
 
 	//! 값을 제거한다
 	public static void ExRemoveValues<T>(this List<T> a_oSender, List<T> a_oValueList) {
-		Function.Assert(a_oValueList != null);
+		Func.Assert(a_oValueList != null);
 
 		for(int i = 0; i < a_oValueList.Count; ++i) {
 			a_oSender.ExRemoveValue(a_oValueList[i]);
@@ -854,7 +854,7 @@ public static partial class CExtension {
 
 	//! 값을 제거한다
 	public static void ExRemoveValues<Key, Value>(this Dictionary<Key, Value> a_oSender, Key[] a_oKeys) {
-		Function.Assert(a_oKeys != null);
+		Func.Assert(a_oKeys != null);
 
 		for(int i = 0; i < a_oKeys.Length; ++i) {
 			a_oSender.ExRemoveValue(a_oKeys[i]);
@@ -863,7 +863,7 @@ public static partial class CExtension {
 
 	//! 값을 제거한다
 	public static void ExRemoveValues<Key, Value>(this Dictionary<Key, Value> a_oSender, List<Key> a_oKeyList) {
-		Function.Assert(a_oKeyList != null);
+		Func.Assert(a_oKeyList != null);
 
 		for(int i = 0; i < a_oKeyList.Count; ++i) {
 			a_oSender.ExRemoveValue(a_oKeyList[i]);
@@ -872,16 +872,16 @@ public static partial class CExtension {
 
 	//! 값을 교환한다
 	public static void ExSwap<T>(this T[] a_oSender, int a_nIndexA, int a_nIndexB) {
-		Function.Assert(a_oSender.ExIsValid());
-		Function.Assert(a_oSender.ExIsValidIndex(a_nIndexA) && a_oSender.ExIsValidIndex(a_nIndexB));
+		Func.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValidIndex(a_nIndexA) && a_oSender.ExIsValidIndex(a_nIndexB));
 
-		Function.Swap(ref a_oSender[a_nIndexA], ref a_oSender[a_nIndexB]);
+		Func.Swap(ref a_oSender[a_nIndexA], ref a_oSender[a_nIndexB]);
 	}
 
 	//! 값을 교환한다
 	public static void ExSwap<T>(this List<T> a_oSender, int a_nIndexA, int a_nIndexB) {
-		Function.Assert(a_oSender.ExIsValid());
-		Function.Assert(a_oSender.ExIsValidIndex(a_nIndexA) && a_oSender.ExIsValidIndex(a_nIndexB));
+		Func.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValidIndex(a_nIndexA) && a_oSender.ExIsValidIndex(a_nIndexB));
 
 		T tTemp = a_oSender[a_nIndexA];
 		a_oSender[a_nIndexA] = a_oSender[a_nIndexB];
@@ -906,24 +906,24 @@ public static partial class CExtension {
 
 	//! 안전 정렬을 수행한다
 	public static void ExStableSort<T>(this T[] a_oSender, System.Comparison<T> a_oCompare) {
-		Function.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValid());
 		var oTempValues = new T[a_oSender.Length];
 
-		Function.StableSort(a_oSender, oTempValues, 0, a_oSender.Length - 1, a_oCompare);
+		Func.StableSort(a_oSender, oTempValues, 0, a_oSender.Length - 1, a_oCompare);
 	}
 
 	//! 안전 정렬을 수행한다
 	public static void ExStableSort<T>(this List<T> a_oSender, System.Comparison<T> a_oCompare) {
-		Function.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValid());
 		var oTempValues = new T[a_oSender.Count];
 
-		Function.StableSort(a_oSender, oTempValues, 0, a_oSender.Count - 1, a_oCompare);
+		Func.StableSort(a_oSender, oTempValues, 0, a_oSender.Count - 1, a_oCompare);
 	}
 
 	//! 1 차원 배열 -> 2 차원 배열로 복사한다
 	public static void ExCopyToMultiArray<T>(this T[] a_oSender, T[,] a_oDestValues) {
 		bool bIsEnable = a_oSender.ExIsValid() && a_oDestValues.ExIsValid(); 
-		Function.Assert(bIsEnable && a_oSender.Length == a_oDestValues.Length);
+		Func.Assert(bIsEnable && a_oSender.Length == a_oDestValues.Length);
 
 		for(int i = 0; i < a_oSender.Length; ++i) {
 			int nRow = i / a_oDestValues.GetLength(1);
@@ -936,7 +936,7 @@ public static partial class CExtension {
 	//! 2 차원 배열 -> 1 차원 배열로 복사한다
 	public static void ExCopyToSingleArray<T>(this T[,] a_oSender, T[] a_oDestValues) {
 		bool bIsEnable = a_oSender.ExIsValid() && a_oDestValues.ExIsValid(); 
-		Function.Assert(bIsEnable && a_oSender.Length == a_oDestValues.Length);
+		Func.Assert(bIsEnable && a_oSender.Length == a_oDestValues.Length);
 
 		for(int i = 0; i < a_oSender.GetLength(0); ++i) {
 			for(int j = 0; j < a_oSender.GetLength(1); ++j) {
@@ -948,7 +948,7 @@ public static partial class CExtension {
 
 	//! 값을 순회한다
 	public static void ExEnumerate<T>(this T[] a_oSender, System.Action<int, T> a_oCallback) {
-		Function.Assert(a_oCallback != null && a_oSender.ExIsValid());
+		Func.Assert(a_oCallback != null && a_oSender.ExIsValid());
 
 		for(int i = 0; i < a_oSender.Length; ++i) {
 			a_oCallback(i, a_oSender[i]);
@@ -957,7 +957,7 @@ public static partial class CExtension {
 
 	//! 값을 순회한다
 	public static void ExEnumerate<T>(this T[,] a_oSender, System.Action<int, int, T> a_oCallback) {
-		Function.Assert(a_oCallback != null && a_oSender.ExIsValid());
+		Func.Assert(a_oCallback != null && a_oSender.ExIsValid());
 
 		for(int i = 0; i < a_oSender.GetLength(0); ++i) {
 			for(int j = 0; j < a_oSender.GetLength(1); ++j) {
@@ -968,7 +968,7 @@ public static partial class CExtension {
 
 	//! 값을 순회한다
 	public static void ExEnumerate<T>(this List<T> a_oSender, System.Action<int, T> a_oCallback) {
-		Function.Assert(a_oCallback != null && a_oSender.ExIsValid());
+		Func.Assert(a_oCallback != null && a_oSender.ExIsValid());
 
 		for(int i = 0; i < a_oSender.Count; ++i) {
 			a_oCallback(i, a_oSender[i]);
@@ -977,7 +977,7 @@ public static partial class CExtension {
 
 	//! 값을 순회한다
 	public static void ExEnumerate<Key, Value>(this Dictionary<Key, Value> a_oSender, System.Action<Key, Value> a_oCallback) {
-		Function.Assert(a_oCallback != null && a_oSender.ExIsValid());
+		Func.Assert(a_oCallback != null && a_oSender.ExIsValid());
 
 		foreach(var stKeyValue in a_oSender) {
 			a_oCallback(stKeyValue.Key, stKeyValue.Value);
@@ -986,7 +986,7 @@ public static partial class CExtension {
 
 	//! 값을 탐색한다
 	public static int ExFindValue<T>(this T[] a_oSender, System.Func<T, bool> a_oCompare) {
-		Function.Assert(a_oSender != null && a_oCompare != null);
+		Func.Assert(a_oSender != null && a_oCompare != null);
 
 		for(int i = 0; i < a_oSender.Length; ++i) {
 			if(a_oCompare(a_oSender[i])) {
@@ -999,7 +999,7 @@ public static partial class CExtension {
 
 	//! 값을 탐색한다
 	public static int ExFindValue<T>(this List<T> a_oSender, System.Func<T, bool> a_oCompare) {
-		Function.Assert(a_oSender != null && a_oCompare != null);
+		Func.Assert(a_oSender != null && a_oCompare != null);
 
 		for(int i = 0; i < a_oSender.Count; ++i) {
 			if(a_oCompare(a_oSender[i])) {
@@ -1012,7 +1012,7 @@ public static partial class CExtension {
 
 	//! 값을 탐색한다
 	public static KeyValuePair<bool, Key> ExFindValue<Key, Value>(this Dictionary<Key, Value> a_oSender, System.Func<Value, bool> a_oCompare) {
-		Function.Assert(a_oSender != null && a_oCompare != null);
+		Func.Assert(a_oSender != null && a_oCompare != null);
 
 		foreach(var stKeyValue in a_oSender) {
 			if(a_oCompare(stKeyValue.Value)) {
@@ -1025,7 +1025,7 @@ public static partial class CExtension {
 
 	//! 1 차원 배열 -> 2 차원 배열로 변환한다
 	public static T[,] ExToMultiArray<T>(this T[] a_oSender, int a_nNumRows, int a_nNumCols) {
-		Function.Assert(a_oSender.ExIsValid() && (a_nNumRows * a_nNumCols >= a_oSender.Length));
+		Func.Assert(a_oSender.ExIsValid() && (a_nNumRows * a_nNumCols >= a_oSender.Length));
 
 		var oConvertValues = new T[a_nNumRows, a_nNumCols];
 		a_oSender.ExCopyToMultiArray(oConvertValues);
@@ -1035,7 +1035,7 @@ public static partial class CExtension {
 
 	//! 2 차원 배열 -> 1 차원 배열로 변환한다
 	public static T[] ExToSingleArray<T>(this T[,] a_oSender) {
-		Function.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValid());
 
 		var oConvertValues = new T[a_oSender.Length];
 		a_oSender.ExCopyToSingleArray(oConvertValues);
@@ -1045,7 +1045,7 @@ public static partial class CExtension {
 
 	//! 배열 -> 문자열로 변환한다
 	public static string ExToString<T>(this T[] a_oSender, string a_oSeparateToken) {
-		Function.Assert(a_oSeparateToken != null && a_oSender.ExIsValid());
+		Func.Assert(a_oSeparateToken != null && a_oSender.ExIsValid());
 		var oStringBuilder = new System.Text.StringBuilder();
 
 		for(int i = 0; i < a_oSender.Length; ++i) {
@@ -1061,7 +1061,7 @@ public static partial class CExtension {
 
 	//! 리스트 -> 문자열로 변환한다
 	public static string ExToString<T>(this List<T> a_oSender, string a_oSeparateToken) {
-		Function.Assert(a_oSeparateToken != null && a_oSender.ExIsValid());
+		Func.Assert(a_oSeparateToken != null && a_oSender.ExIsValid());
 		var oStringBuilder = new System.Text.StringBuilder();
 
 		for(int i = 0; i < a_oSender.Count; ++i) {
@@ -1077,7 +1077,7 @@ public static partial class CExtension {
 
 	//! 사전 -> 문자열로 변환한다
 	public static string ExToString<Key, Value>(this Dictionary<Key, Value> a_oSender, string a_oSeparateToken) {
-		Function.Assert(a_oSeparateToken != null && a_oSender.ExIsValid());
+		Func.Assert(a_oSeparateToken != null && a_oSender.ExIsValid());
 
 		int i = 0;
 		var oStringBuilder = new System.Text.StringBuilder();
@@ -1098,7 +1098,7 @@ public static partial class CExtension {
 
 	//! 유니티 객체 -> 특정 타입으로 변환한다
 	public static List<T> ExToTypes<T>(this Object[] a_oSender) where T : class {
-		Function.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValid());
 		var oConvertTypes = new List<T>();
 
 		for(int i = 0; i < a_oSender.Length; ++i) {
@@ -1114,7 +1114,7 @@ public static partial class CExtension {
 
 	//! 유니티 객체 -> 특정 타입으로 변환한다
 	public static List<T> ExToTypes<T>(this List<Object> a_oSender) where T : class {
-		Function.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValid());
 		var oConvertTypeList = new List<T>();
 
 		for(int i = 0; i < a_oSender.Count; ++i) {
@@ -1143,7 +1143,7 @@ public static partial class CExtension {
 
 	//! JSON 문자열 -> 객체로 변환한다
 	public static T ExJSONStringToObject<T>(this string a_oSender) {
-		Function.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValid());
 		return JSON.ParseString(a_oSender).Deserialize<T>();
 	}
 
@@ -1152,7 +1152,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oMethodInfo = oType.GetMethod(a_oName, a_eBindingFlags);
 
-		Function.Assert(oMethodInfo != null);
+		Func.Assert(oMethodInfo != null);
 		return oMethodInfo.Invoke(a_oSender, a_oParams);
 	}
 
@@ -1161,7 +1161,7 @@ public static partial class CExtension {
 		var oType = typeof(T);
 		var oMethodInfos = oType.GetRuntimeMethods();
 
-		Function.Assert(oMethodInfos != null && a_oName.ExIsValid());
+		Func.Assert(oMethodInfos != null && a_oName.ExIsValid());
 
 		foreach(var oMethodInfo in oMethodInfos) {
 			if(oMethodInfo.Name.ExIsEquals(a_oName)) {
@@ -1177,7 +1177,7 @@ public static partial class CExtension {
 #if MESSAGE_PACK_ENABLE
 	//! 문자열 -> 압축 된 문자열로 변환한다
 	public static string ExToCompressString(this string a_oSender, System.Text.Encoding a_oEncoding) {
-		Function.Assert(a_oEncoding != null && a_oSender.ExIsValid());
+		Func.Assert(a_oEncoding != null && a_oSender.ExIsValid());
 
 #if UNITY_STANDALONE
 		var oBytes = MessagePackSerializer.Serialize<string>(a_oSender);
@@ -1206,7 +1206,7 @@ public static partial class CExtension {
 
 	//! 압축 된 문자열 -> 문자열로 변환한다
 	public static string ExCompressStringToString(this string a_oSender, System.Text.Encoding a_oEncoding) {
-		Function.Assert(a_oEncoding != null && a_oSender.ExIsValid());
+		Func.Assert(a_oEncoding != null && a_oSender.ExIsValid());
 		var oBytes = System.Convert.FromBase64String(a_oSender);
 
 #if UNITY_STANDALONE
@@ -1251,7 +1251,7 @@ public static partial class CExtension {
 
 	//! YAML -> 객체로 변환한다
 	public static T ExYAMLStringToObject<T>(this string a_oSender) {
-		Function.Assert(a_oSender.ExIsValid());
+		Func.Assert(a_oSender.ExIsValid());
 		var oBuilder = new DeserializerBuilder().Build();
 
 		return oBuilder.Deserialize<T>(a_oSender);

@@ -34,7 +34,7 @@ public class CToastPopup : CPopup {
 
 	//! 토스트 팝업 출력 애니메이션이 완료 되었을 경우
 	public void OnCompleteToastPopupShowAnimation() {
-		Function.LateCallFunction(this, m_fDuration, (a_oComponent, a_oParams) => {
+		Func.LateCallFunc(this, m_fDuration, (a_oComponent, a_oParams) => {
 			this.ClosePopup();
 		}, true);
 	}

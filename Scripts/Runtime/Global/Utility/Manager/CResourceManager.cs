@@ -127,7 +127,7 @@ public class CResourceManager : CSingleton<CResourceManager> {
 
 	//! 리소스 생성자를 추가한다
 	public void AddResourceCreator(System.Type a_oType, System.Func<string, Object> a_oCreator) {
-		Function.Assert(a_oType != null && a_oCreator != null);
+		Func.Assert(a_oType != null && a_oCreator != null);
 		this.ResourceCreatorList.ExReplaceValue(a_oType, a_oCreator);
 	}
 
@@ -178,7 +178,7 @@ public class CResourceManager : CSingleton<CResourceManager> {
 
 	//! 다중 스프라이트를 로드한다
 	public void LoadMultiSprite(string a_oFilepath) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 		var oSprites = Resources.LoadAll<Sprite>(a_oFilepath);
 
 		for(int i = 0; i < oSprites.Length; ++i) {
@@ -193,7 +193,7 @@ public class CResourceManager : CSingleton<CResourceManager> {
 
 	//! 스프라이트 아틀라스를 로드한다
 	public void LoadSpriteAtlas(string a_oFilepath) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 
 		if(!m_oSpriteAtlasList.ContainsKey(a_oFilepath)) {
 			var oSpriteAtlas = Resources.Load<SpriteAtlas>(a_oFilepath);
@@ -263,14 +263,14 @@ public class CResourceManager : CSingleton<CResourceManager> {
 
 	//! 리소스를 반환한다
 	private T GetResource<T>(Dictionary<string, T> a_oResourceList, string a_oKey, bool a_bIsAutoCreate) where T : Object {
-		Function.Assert(a_oResourceList != null && a_oKey.ExIsValid());
-		Function.Assert(a_bIsAutoCreate || a_oResourceList.ContainsKey(a_oKey));
+		Func.Assert(a_oResourceList != null && a_oKey.ExIsValid());
+		Func.Assert(a_bIsAutoCreate || a_oResourceList.ContainsKey(a_oKey));
 
 		if(a_bIsAutoCreate && !a_oResourceList.ContainsKey(a_oKey)) {
 			var oType = typeof(T);
 			bool bIsContainsCreator = this.ResourceCreatorList.ContainsKey(oType);
 
-			Function.Assert(bIsContainsCreator && this.ResourceCreatorList[oType] != null);
+			Func.Assert(bIsContainsCreator && this.ResourceCreatorList[oType] != null);
 
 			var oResource = this.ResourceCreatorList[oType](a_oKey) as T;
 			a_oResourceList.ExAddValue(a_oKey, oResource);
@@ -281,7 +281,7 @@ public class CResourceManager : CSingleton<CResourceManager> {
 
 	//! 리소스를 제거한다
 	private void RemoveResource<T>(Dictionary<string, T> a_oResourceList, string a_oKey, bool a_bIsAutoUnload) where T : Object {
-		Function.Assert(a_oResourceList != null && a_oKey.ExIsValid());
+		Func.Assert(a_oResourceList != null && a_oKey.ExIsValid());
 
 		if(a_oResourceList.ContainsKey(a_oKey)) {
 			var oResource = a_oResourceList[a_oKey];

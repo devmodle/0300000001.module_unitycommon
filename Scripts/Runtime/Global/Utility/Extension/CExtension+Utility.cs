@@ -42,8 +42,8 @@ public static partial class CExtension {
 
 	//! 캔버스 월드 위치를 반환한다
 	public static Vector3 ExGetWorldPos(this PointerEventData a_oSender) {
-		Function.Assert(a_oSender != null);
-		var stScreenSize = Function.GetDeviceScreenSize();
+		Func.Assert(a_oSender != null);
+		var stScreenSize = Func.GetDeviceScreenSize();
 
 		float fAspect = stScreenSize.x / stScreenSize.y;
 		float fScreenWidth = KDefine.B_SCREEN_HEIGHT * fAspect;
@@ -77,7 +77,7 @@ public static partial class CExtension {
 
 	//! 보정된 캔버스 월드 위치를 반환한다
 	public static Vector3 ExGetCorrectWorldPos(this Vector3 a_stSender) {
-		var stResolution = Function.GetResolution();
+		var stResolution = Func.GetResolution();
 
 		float fPosX = Mathf.Clamp(a_stSender.x, (stResolution.x / -2.0f) * KDefine.B_UNIT_SCALE, (stResolution.x / 2.0f) * KDefine.B_UNIT_SCALE);
 		float fPosY = Mathf.Clamp(a_stSender.y, (stResolution.y / -2.0f) * KDefine.B_UNIT_SCALE, (stResolution.y / 2.0f) * KDefine.B_UNIT_SCALE);
@@ -126,7 +126,7 @@ public static partial class CExtension {
 		var oTransform = a_oViewport?.transform as RectTransform;
 		var oContentTransform = a_oContent?.transform as RectTransform;
 
-		Function.Assert(oTransform != null && oContentTransform != null);
+		Func.Assert(oTransform != null && oContentTransform != null);
 
 		float fPosY = oContentTransform.rect.height - a_stPos.y;
 		return Mathf.Clamp01((fPosY - oTransform.rect.height) / (oContentTransform.rect.height - oTransform.rect.height));
@@ -137,7 +137,7 @@ public static partial class CExtension {
 		var oTransform = a_oViewport?.transform as RectTransform;
 		var oContentTransform = a_oContent?.transform as RectTransform;
 
-		Function.Assert(oTransform != null && oContentTransform != null);
+		Func.Assert(oTransform != null && oContentTransform != null);
 		return Mathf.Clamp01((a_stPos.x - oTransform.rect.width) / (oContentTransform.rect.width - oTransform.rect.width));
 	}
 
@@ -146,7 +146,7 @@ public static partial class CExtension {
 		var oTransform = a_oViewport?.transform as RectTransform;
 		var oContentTransform = a_oContent?.transform as RectTransform;
 
-		Function.Assert(oTransform != null && oContentTransform != null);
+		Func.Assert(oTransform != null && oContentTransform != null);
 
 		float fMaxPosY = oContentTransform.rect.height - oContentTransform.anchoredPosition.y;
 		float fMinPosY = oContentTransform.rect.height - (oContentTransform.anchoredPosition.y + oTransform.rect.height);
@@ -160,7 +160,7 @@ public static partial class CExtension {
 		var oTransform = a_oViewport?.transform as RectTransform;
 		var oContentTransform = a_oContent?.transform as RectTransform;
 
-		Function.Assert(oTransform != null && oContentTransform != null);
+		Func.Assert(oTransform != null && oContentTransform != null);
 
 		return new KeyValuePair<float, float>(Mathf.Clamp01((oContentTransform.anchoredPosition.x - oTransform.rect.width) / (oContentTransform.rect.width - oTransform.rect.width)),
 			Mathf.Clamp01(((oContentTransform.anchoredPosition.x + oTransform.rect.width) - oTransform.rect.width) / (oContentTransform.rect.width - oTransform.rect.width)));
@@ -168,7 +168,7 @@ public static partial class CExtension {
 
 	//! 활성화 여부를 변경한다
 	public static void ExSetEnable(this Button a_oSender, bool a_bIsEnable) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		a_oSender.interactable = a_bIsEnable;
 		var oGameObject = a_oSender.gameObject;
@@ -180,7 +180,7 @@ public static partial class CExtension {
 
 	//! 컬링 마스크를 변경한다
 	public static void ExSetCullingMask(this Camera a_oSender, List<int> a_oLayerList, bool a_bIsResetCullingMask = true) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.cullingMask = a_bIsResetCullingMask ? 0 : a_oSender.cullingMask;
 
 		if(a_oLayerList != null) {
@@ -190,7 +190,7 @@ public static partial class CExtension {
 
 	//! 컬링 마스크를 변경한다
 	public static void ExSetCullingMask(this Light a_oSender, List<int> a_oLayerList, bool a_bIsResetCullingMask = true) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		a_oSender.cullingMask = a_bIsResetCullingMask ? 0 : a_oSender.cullingMask;
 
 		for(int i = 0; i < a_oLayerList?.Count; ++i) {
@@ -200,7 +200,7 @@ public static partial class CExtension {
 
 	//! 이벤트 마스크를 변경한다
 	public static void ExSetEventMask(this PhysicsRaycaster a_oSender, List<int> a_oLayerList, bool a_bIsResetEventMask = true) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		var stLayerMask = a_oSender.eventMask;
 		stLayerMask.value = a_bIsResetEventMask ? 0 : a_oSender.eventMask.value;
@@ -214,7 +214,7 @@ public static partial class CExtension {
 
 	//! 캔버스 정렬 순서를 변경한다
 	public static void ExSetSortingOrder(this Canvas a_oSender, string a_oSortingLayer, int a_nSortingOrder) {
-		Function.Assert(a_oSender != null && a_oSortingLayer.ExIsValid());
+		Func.Assert(a_oSender != null && a_oSortingLayer.ExIsValid());
 
 		a_oSender.sortingLayerName = a_oSortingLayer;
 		a_oSender.sortingOrder = a_nSortingOrder;
@@ -222,7 +222,7 @@ public static partial class CExtension {
 
 	//! 2 차원 카메라를 설정한다
 	public static void ExSetup2D(this Camera a_oSender, float a_fPlaneHeight) {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 
 		a_oSender.orthographic = true;
 		a_oSender.orthographicSize = a_fPlaneHeight * 0.5f;
@@ -230,7 +230,7 @@ public static partial class CExtension {
 
 	//! 3 차원 카메라를 설정한다
 	public static void ExSetup3D(this Camera a_oSender, float a_fPlaneHeight, float a_fPlaneDistance) {
-		Function.Assert(a_oSender != null && a_fPlaneDistance.ExIsGreate(0.0f));
+		Func.Assert(a_oSender != null && a_fPlaneDistance.ExIsGreate(0.0f));
 		float fFieldOfView = Mathf.Atan((a_fPlaneHeight * 0.5f) / a_fPlaneDistance);
 
 		a_oSender.orthographic = false;
@@ -254,7 +254,7 @@ public static partial class CExtension {
 
 	//! 자식 게임 객체를 탐색한다
 	public static GameObject ExFindChild(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
-		Function.Assert(a_oSender != null && a_oName.ExIsValid());
+		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.DescendantsAndSelf() : a_oSender.Descendants();
 
 		foreach(var oGameObject in oEnumerator) {
@@ -284,7 +284,7 @@ public static partial class CExtension {
 
 	//! 자식 게임 객체를 탐색한다
 	public static List<GameObject> ExFindChildren(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
-		Function.Assert(a_oSender != null && a_oName.ExIsValid());
+		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 
 		var oGameObjectList = new List<GameObject>();
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.DescendantsAndSelf() : a_oSender.Descendants();
@@ -300,7 +300,7 @@ public static partial class CExtension {
 
 	//! 부모 게임 객체를 탐색한다
 	public static GameObject ExFindParent(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
-		Function.Assert(a_oSender != null && a_oName.ExIsValid());
+		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.AncestorsAndSelf() : a_oSender.Ancestors();
 
 		foreach(var oGameObject in oEnumerator) {
@@ -314,7 +314,7 @@ public static partial class CExtension {
 
 	//! 부모 게임 객체를 탐색한다
 	public static List<GameObject> ExFindParents(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
-		Function.Assert(a_oSender != null && a_oName.ExIsValid());
+		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 
 		var oGameObjectList = new List<GameObject>();
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.AncestorsAndSelf() : a_oSender.Ancestors();
@@ -351,13 +351,13 @@ public static partial class CExtension {
 
 	//! 메세지를 전파한다
 	public static void ExBroadcastMessage(this GameObject a_oSender, string a_oMessage, object a_oParams) {
-		Function.Assert(a_oSender != null && a_oMessage.ExIsValid());
+		Func.Assert(a_oSender != null && a_oMessage.ExIsValid());
 		a_oSender.BroadcastMessage(a_oMessage, a_oParams, SendMessageOptions.DontRequireReceiver);
 	}
 
 	//! 로컬 -> 월드로 변환한다
 	public static Vector3 ExToWorld(this Vector3 a_stSender, GameObject a_oGameObject, bool a_bIsCoordinate = true) {
-		Function.Assert(a_oGameObject != null);
+		Func.Assert(a_oGameObject != null);
 		var stVector = new Vector4(a_stSender.x, a_stSender.y, a_stSender.z, a_bIsCoordinate ? 1.0f : 0.0f);
 
 		return a_oGameObject.transform.localToWorldMatrix * stVector;
@@ -365,7 +365,7 @@ public static partial class CExtension {
 
 	//! 월드 -> 로컬로 변환한다
 	public static Vector3 ExToLocal(this Vector3 a_stSender, GameObject a_oGameObject, bool a_bIsCoordinate = true) {
-		Function.Assert(a_oGameObject != null);
+		Func.Assert(a_oGameObject != null);
 		var stVector = new Vector4(a_stSender.x, a_stSender.y, a_stSender.z, a_bIsCoordinate ? 1.0f : 0.0f);
 
 		return a_oGameObject.transform.worldToLocalMatrix * stVector;
@@ -375,7 +375,7 @@ public static partial class CExtension {
 	#region 제네릭 클래스 함수
 	//! 컴포넌트 활성 여부를 변경한다
 	public static void ExSetEnableComponent<T>(this GameObject a_oSender, bool a_bIsEnable) where T : Component {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		var oComponent = a_oSender.GetComponentInChildren<T>() as MonoBehaviour;
 
 		if(oComponent != null) {
@@ -397,7 +397,7 @@ public static partial class CExtension {
 
 	//! 컴포넌트를 추가한다
 	public static T ExAddComponent<T>(this GameObject a_oSender) where T : Component {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		var oComponent = a_oSender.GetComponent<T>();
 
 		return (oComponent != null) ? oComponent : a_oSender.AddComponent<T>();
@@ -405,7 +405,7 @@ public static partial class CExtension {
 
 	//! 컴포넌트를 제거한다
 	public static void ExRemoveComponent<T>(this GameObject a_oSender, bool a_bIsFindChildren = false) where T : Component {
-		Function.Assert(a_oSender != null);
+		Func.Assert(a_oSender != null);
 		var oComponent = a_bIsFindChildren ? a_oSender.GetComponentInChildren<T>() : a_oSender.GetComponent<T>();
 
 		if(oComponent != null) {
@@ -458,7 +458,7 @@ public static partial class CExtension {
 #if UNITY_EDITOR
 	//! 스크립트 순서를 변경한다
 	public static void ExSetScriptOrder(this MonoBehaviour a_oSender, int a_nOrder) {
-		Function.Assert(a_oSender != null && (a_nOrder >= short.MinValue && a_nOrder <= short.MaxValue));
+		Func.Assert(a_oSender != null && (a_nOrder >= short.MinValue && a_nOrder <= short.MaxValue));
 		
 		var oMonoScript = MonoScript.FromMonoBehaviour(a_oSender);
 		int nCurrentOrder = MonoImporter.GetExecutionOrder(oMonoScript);

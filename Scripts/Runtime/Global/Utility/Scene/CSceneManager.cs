@@ -214,9 +214,9 @@ public abstract partial class CSceneManager : CComponent {
 		// 처음 씬을 생성했을 경우
 		if(!CSceneManager.IsAwake) {
 #if DEBUG || DEVELOPMENT_BUILD
-			Function.ShowLog("Platform: {0}", Color.red, Application.platform);
-			Function.ShowLog("Data Path: {0}", Color.red, Application.dataPath);
-			Function.ShowLog("Persistent Data Path: {0}", Color.red, Application.persistentDataPath);
+			Func.ShowLog("Platform: {0}", Color.red, Application.platform);
+			Func.ShowLog("Data Path: {0}", Color.red, Application.dataPath);
+			Func.ShowLog("Persistent Data Path: {0}", Color.red, Application.persistentDataPath);
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 			CSceneManager.IsInit = false;
@@ -235,7 +235,7 @@ public abstract partial class CSceneManager : CComponent {
 		
 #if UNITY_EDITOR
 		if(this.IsRootScene) {
-			Function.SelectGameObject(this.gameObject, true);
+			Func.SelectGameObject(this.gameObject, true);
 		}
 #endif			// #if UNITY_EDITOR
 	}
@@ -346,19 +346,19 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 객체 풀을 반환한다
 	public ObjectPool GetObjectPool(string a_oKey) {
-		Function.Assert(a_oKey.ExIsValid());
+		Func.Assert(a_oKey.ExIsValid());
 		return m_oObjectPoolList.ExGetValue(a_oKey, null);
 	}
 
 	//! 객체 풀을 추가한다
 	public void AddObjectPool(string a_oKey, ObjectPool a_oObjectPool) {
-		Function.Assert(a_oObjectPool != null && a_oKey.ExIsValid());
+		Func.Assert(a_oObjectPool != null && a_oKey.ExIsValid());
 		m_oObjectPoolList.ExAddValue(a_oKey, a_oObjectPool);
 	}
 
 	//! 객체 풀을 제거한다
 	public void RemoveObjectPool(string a_oKey, bool a_bIsDestroy = true) {
-		Function.Assert(a_oKey.ExIsValid());
+		Func.Assert(a_oKey.ExIsValid());
 
 		if(m_oObjectPoolList.ContainsKey(a_oKey)) {
 			var oObjectPool = m_oObjectPoolList.ExGetValue(a_oKey, null);
@@ -372,7 +372,7 @@ public abstract partial class CSceneManager : CComponent {
 	//! 게임 객체를 활성화한다
 	public GameObject SpawnGameObject(string a_oKey, 
 		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) {
-		Function.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
+		Func.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
 		
 		var oGameObject = m_oObjectPoolList[a_oKey].Spawn();
 		oGameObject.transform.localScale = a_stScale;
@@ -394,7 +394,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 게임 객체를 비활성화한다
 	public void DespawnGameObject(string a_oKey, GameObject a_oGameObject, bool a_bIsDestroy = false) {
-		Function.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
+		Func.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
 
 		if(m_oObjectPoolList.ContainsKey(a_oKey)) {
 			m_oObjectPoolList[a_oKey].Despawn(a_oGameObject, a_bIsDestroy);
@@ -417,17 +417,17 @@ public abstract partial class CSceneManager : CComponent {
 	#region 클래스 함수
 	//! 터치 응답자를 반환한다
 	public static GameObject GetTouchResponder(string a_oKey) {
-		Function.Assert(a_oKey.ExIsValid());
+		Func.Assert(a_oKey.ExIsValid());
 		return CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey) ? CSceneManager.m_oTouchResponderInfoList[a_oKey].Key : null;
 	}
 
 	//! 터치 응답자를 출력한다
 	public static void ShowTouchResponder(string a_oKey,
 		GameObject a_oParent, Color a_stColor, System.Action<GameObject> a_oCallback, bool a_bIsAnimation = true, bool a_bIsEnableNavigation = false, float a_fDuration = 0.0f) {
-		Function.Assert(a_oKey.ExIsValid());
+		Func.Assert(a_oKey.ExIsValid());
 
 		if(!CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey)) {
-			var oTouchResponder = Function.CreateTouchResponder(string.Format(KDefine.U_KEY_FORMAT_SCENE_M_TOUCH_RESPONDER, a_oKey),
+			var oTouchResponder = Func.CreateTouchResponder(string.Format(KDefine.U_KEY_FORMAT_SCENE_M_TOUCH_RESPONDER, a_oKey),
 				CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
 				a_oParent,
 				CSceneManager.CanvasSize,
@@ -474,7 +474,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 터치 응답자를 닫는다
 	public static void CloseTouchResponder(string a_oKey, Color a_stColor, bool a_bIsAnimation = false, float a_fDuration = 0.0f) {
-		Function.Assert(a_oKey.ExIsValid());
+		Func.Assert(a_oKey.ExIsValid());
 
 		if(CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey)) {
 			var oTouchResponderInfo = CSceneManager.m_oTouchResponderInfoList[a_oKey];
@@ -533,7 +533,7 @@ public abstract partial class CSceneManager : CComponent {
 	public void EditorSetupScene() {
 #if UNIVERSAL_RENDER_PIPELINE_ENABLE
 		if(QualitySettings.renderPipeline == null || GraphicsSettings.renderPipelineAsset == null) {
-			Function.SetupQuality(Screen.currentResolution.refreshRate, 
+			Func.SetupQuality(Screen.currentResolution.refreshRate, 
 				KAppDefine.G_MULTI_TOUCH_ENABLE, KAppDefine.G_DEF_QUALITY_LEVEL, true);
 		}
 #endif			// #if UNIVERSAL_RENDER_PIPELINE_ENABLE
@@ -547,7 +547,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 가이드 라인을 그린다
 	public void EditorDrawGuideline() {
-		float fScale = Function.GetResolutionScale(Application.isPlaying);
+		float fScale = Func.GetResolutionScale(Application.isPlaying);
 
 		var oScreenPositions = new Vector3[] {
 			new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / -2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
@@ -594,13 +594,13 @@ public abstract partial class CSceneManager : CComponent {
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! 디버그 버튼을 눌렀을 경우
 	public static void OnTouchDebugButton() {
-		Function.Assert(CSceneManager.ScreenDebugTextRoot != null);
+		Func.Assert(CSceneManager.ScreenDebugTextRoot != null);
 		CSceneManager.ScreenDebugTextRoot.SetActive(!CSceneManager.ScreenDebugTextRoot.activeSelf);
 	}
 
 	//! 정적 문자열을 변경한다
 	public static void SetStaticString(string a_oString) {
-		Function.Assert(CSceneManager.m_oExtraStaticDebugStringBuilder != null && a_oString != null);
+		Func.Assert(CSceneManager.m_oExtraStaticDebugStringBuilder != null && a_oString != null);
 
 		CSceneManager.m_oExtraStaticDebugStringBuilder.Clear();
 		CSceneManager.m_oExtraStaticDebugStringBuilder.Append(a_oString);
@@ -608,7 +608,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 동적 문자열을 변경한다
 	public static void SetDynamicString(string a_oString) {
-		Function.Assert(CSceneManager.m_oExtraDynamicDebugStringBuilder != null && a_oString != null);
+		Func.Assert(CSceneManager.m_oExtraDynamicDebugStringBuilder != null && a_oString != null);
 
 		CSceneManager.m_oExtraDynamicDebugStringBuilder.Clear();
 		CSceneManager.m_oExtraDynamicDebugStringBuilder.Append(a_oString);
@@ -618,8 +618,8 @@ public abstract partial class CSceneManager : CComponent {
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! FPS 버튼을 눌렀을 경우
 	public static void OnTouchFPSButton() {
-		Function.Assert(CSceneManager.ScreenStaticFPSText != null);
-		Function.Assert(CSceneManager.ScreenDynamicFPSText != null);
+		Func.Assert(CSceneManager.ScreenStaticFPSText != null);
+		Func.Assert(CSceneManager.ScreenDynamicFPSText != null);
 
 		CSceneManager.ScreenStaticFPSText.enabled = !CSceneManager.ScreenStaticFPSText.enabled;
 		CSceneManager.ScreenDynamicFPSText.enabled = !CSceneManager.ScreenDynamicFPSText.enabled;
@@ -633,7 +633,7 @@ public abstract partial class CSceneManager : CComponent {
 			var oCameraData = CSceneManager.MainCamera.GetComponentInChildren<UniversalAdditionalCameraData>();
 
 			if(oCameraData != null && oCameraData.cameraStack.ExIsValid()) {
-				Function.StableSort(oCameraData.cameraStack, (a_oLhs, a_oRhs) => {
+				Func.StableSort(oCameraData.cameraStack, (a_oLhs, a_oRhs) => {
 					float fDepthA = a_oLhs.depth;
 					float fDepthB = a_oRhs.depth;
 

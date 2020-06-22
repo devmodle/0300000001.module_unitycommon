@@ -26,7 +26,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		Function.BroadcastMessage(KDefine.AS_FUNC_NAME_AGREE_SCENE_MANAGER_EVENT, 
+		Func.BroadcastMessage(KDefine.AS_FUNC_NAME_AGREE_SCENE_MANAGER_EVENT, 
 			EAgreeSceneManagerEventType.LOAD_NEXT_SCENE);
 
 #if MESSAGE_PACK_ENABLE
@@ -41,7 +41,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_AGREE);
 
 		if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene) {
-			Function.LoadAdditiveScene(KDefine.B_SCENE_NAME_INTRO);
+			Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_INTRO);
 		} else {
 			CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
 		}
@@ -49,10 +49,10 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 
 		this.SetupRootScene();
-		yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();
@@ -61,7 +61,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 #if MESSAGE_PACK_ENABLE
 		bIsAgree = CUserInfoStorage.Instance.UserInfo.IsAgree ||
-			!Function.IsNeedAgreement(CAppInfoStorage.Instance.CountryCode);
+			!Func.IsNeedAgreement(CAppInfoStorage.Instance.CountryCode);
 #endif			// #if MESSAGE_PACK_ENABLE
 
 		if(bIsAgree) {
@@ -77,13 +77,13 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			}
 #endif			// #if MESSAGE_PACK_ENABLE
 
-			Function.BroadcastMessage(KDefine.AS_FUNC_NAME_AGREE_SCENE_MANAGER_EVENT, 
+			Func.BroadcastMessage(KDefine.AS_FUNC_NAME_AGREE_SCENE_MANAGER_EVENT, 
 				EAgreeSceneManagerEventType.SHOW_AGREE_POPUP);
 			
 			this.ShowAgreePopup(CResourceManager.Instance.GetTextAsset(oServiceFilepath).text,
 				CResourceManager.Instance.GetTextAsset(oPersonalFilepath).text);
 
-			Function.LateCallFunction(this, KDefine.U_DEF_DURATION_ANIMATION, (a_oComponent, a_oParams) => {
+			Func.LateCallFunc(this, KDefine.U_DEF_DURATION_ANIMATION, (a_oComponent, a_oParams) => {
 				CResourceManager.Instance.RemoveTextAsset(oServiceFilepath, true);
 				CResourceManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
 			});

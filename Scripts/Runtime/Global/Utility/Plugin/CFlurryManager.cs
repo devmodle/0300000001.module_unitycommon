@@ -23,7 +23,7 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 			var oBuilder = new Flurry.Builder();
 
 #if FLURRY_ANALYTICS_ENABLE
-#if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 			oBuilder.WithLogEnabled(true);
 			oBuilder.WithCrashReporting(true);
 			oBuilder.WithIncludeBackgroundSessionsInMetrics(true);
@@ -31,7 +31,7 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 			oBuilder.WithLogEnabled(false);
 			oBuilder.WithCrashReporting(false);
 			oBuilder.WithIncludeBackgroundSessionsInMetrics(false);
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 
 			oBuilder.WithMessaging(false);
 			oBuilder.WithLogLevel(Flurry.LogLevel.VERBOSE);
@@ -83,7 +83,7 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 		Function.Assert(a_oName.ExIsValid());
 		Function.ShowLog("CFlurryManager.SendLog: {0}, {1}", Color.yellow, a_oName, a_oDataList);
 
-#if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {
 			var oDataList = a_oDataList ?? new Dictionary<string, string>();
 
@@ -101,7 +101,7 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 
 			Flurry.LogEvent(a_oName, oDataList);
 		}
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 	}
 #endif			// #if FLURRY_ANALYTICS_ENABLE
 	#endregion			// 조건부 함수

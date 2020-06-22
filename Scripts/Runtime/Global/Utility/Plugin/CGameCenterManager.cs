@@ -62,17 +62,17 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 #elif UNITY_ANDROID
 			var oBuilder = new PlayGamesClientConfiguration.Builder();
 			
-#if SAVED_GAME_ENABLE && STORE_DISTRIBUTION_BUILD
+#if SAVED_GAME_ENABLE && STORE_BUILD
 			oBuilder.EnableSavedGames();
-#endif			// #if SAVED_GAME_ENABLE && STORE_DISTRIBUTION_BUILD
+#endif			// #if SAVED_GAME_ENABLE && STORE_BUILD
 
 			PlayGamesPlatform.InitializeInstance(oBuilder.Build());
 
-#if ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD
+#if ADHOC_BUILD || STORE_BUILD
 			PlayGamesPlatform.DebugLogEnabled = false;
 #else
 			PlayGamesPlatform.DebugLogEnabled = false;
-#endif			// #if ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD
+#endif			// #if ADHOC_BUILD || STORE_BUILD
 
 			PlayGamesPlatform.Activate();
 #endif			// #if UNITY_IOS

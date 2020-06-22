@@ -244,7 +244,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 애드몹 배너 광고 로드 결과를 처리한다
 	private void HandleLoadAdmobBannerAdsResult() {
-		Function.LateCallFunction(this, (a_oComponent, a_oParams) => {
+		Function.LateCallFunc(this, (a_oComponent, a_oParams) => {
 			this.ShowBannerAds(EAdsType.ADMOB, null);
 		});
 	}

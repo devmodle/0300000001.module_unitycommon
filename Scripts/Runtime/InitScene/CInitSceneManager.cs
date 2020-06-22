@@ -37,13 +37,13 @@ public abstract class CInitSceneManager : CSceneManager {
 		// 디바이스 정보를 설정한다 {
 		int nTargetFrameRate = KAppDefine.G_DESKTOP_TARGET_FRAME_RATE;
 
-		if(Function.IsDesktopPlatform()) {
+		if(Func.IsDesktopPlatform()) {
 			Screen.SetResolution(KDefine.B_DESKTOP_WINDOW_WIDTH, 
 				KDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
 		} else {
-			if(Function.IsMobilePlatform()) {
+			if(Func.IsMobilePlatform()) {
 				nTargetFrameRate = KAppDefine.G_MOBILE_TARGET_FRAME_RATE;
-			} else if(Function.IsConsolePlatform()) {
+			} else if(Func.IsConsolePlatform()) {
 				nTargetFrameRate = KAppDefine.G_CONSOLE_TARGET_FRAME_RATE;
 			} else {
 				nTargetFrameRate = KAppDefine.G_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
@@ -52,7 +52,7 @@ public abstract class CInitSceneManager : CSceneManager {
 			Screen.SetResolution(Screen.width, Screen.height, true);
 		}
 
-		Function.SetupQuality(nTargetFrameRate, 
+		Func.SetupQuality(nTargetFrameRate, 
 			KAppDefine.G_MULTI_TOUCH_ENABLE, KAppDefine.G_DEF_QUALITY_LEVEL);
 		// 디바이스 정보를 설정한다 }
 
@@ -83,12 +83,12 @@ public abstract class CInitSceneManager : CSceneManager {
 	//! 초기화
 	private IEnumerator OnStart() {
 		if(!CSceneManager.IsInit) {
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			CActivityIndicatorManager.Instance.StartActivityIndicator(true, false);
 
 			// 간격을 설정한다
 			this.SetupOffsets();
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 
 			// iOS 플랫폼을 설정한다 {
 #if UNITY_IOS
@@ -96,7 +96,7 @@ public abstract class CInitSceneManager : CSceneManager {
 			Device.SetNoBackupFlag(KDefine.U_IMG_PATH_SCREENSHOT);
 
 			Device.hideHomeButton = false;
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 #endif			// #if UNITY_IOS
 			// iOS 플랫폼을 설정한다 }
 
@@ -145,14 +145,14 @@ public abstract class CInitSceneManager : CSceneManager {
 			CUnityServiceManager.Create();
 #endif			// #if UNITY_SERVICE_ENABLE
 
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			// 관리자를 생성한다 }
 
 			// 디바이스 연동 객체를 생성한다 {
 			CUnityMessageSender.Create();
 			CDeviceMessageReceiver.Create();
 
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			// 디바이스 연동 객체를 생성한다 }
 
 			// 테이블을 생성한다 {
@@ -170,7 +170,7 @@ public abstract class CInitSceneManager : CSceneManager {
 			CProductInfoTable.Create(KDefine.U_SCRIPTABLE_PATH_G_PRODUCT_INFO_TABLE);
 #endif			// #if PURCHASE_ENABLE
 
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			// 테이블을 생성한다 }
 
 			// 저장소를 생성한다 {
@@ -179,12 +179,12 @@ public abstract class CInitSceneManager : CSceneManager {
 			CUserInfoStorage.Create();
 #endif			// #if MESSAGE_PACK_ENABLE
 
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			// 저장소를 생성한다 }
 		}
 
 		this.Setup();
-		yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 		
 		CSceneManager.IsInit = true;
 		CSceneLoader.Instance.LoadScene(KDefine.B_SCENE_NAME_SPLASH, false, false);
@@ -193,7 +193,7 @@ public abstract class CInitSceneManager : CSceneManager {
 	//! 블라인드 UI 를 설정한다
 	private void SetupBlindUI() {
 		if(CInitSceneManager.m_oBlindUI == null) {
-			var oBlindUI = Function.CreateCloneGameObject(KDefine.IS_NAME_BLIND_UI,
+			var oBlindUI = Func.CreateCloneGameObject(KDefine.IS_NAME_BLIND_UI,
 				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_BLIND_UI), null);
 
 			CInitSceneManager.m_oBlindUI = oBlindUI;
@@ -214,13 +214,13 @@ public abstract class CInitSceneManager : CSceneManager {
 			// 블라인드 이미지를 생성한다 }
 
 			DontDestroyOnLoad(oBlindUI);
-			Function.SetupScreenUI(oBlindUI, KDefine.U_SORTING_ORDER_SCREEN_BLIND_UI);
+			Func.SetupScreenUI(oBlindUI, KDefine.U_SORTING_ORDER_SCREEN_BLIND_UI);
 		}
 	}
 
 	//! 블라인드 이미지를 생성한다
 	private Image CreateBlindImage(string a_oName, GameObject a_oParent) {
-		var oGameObject = Function.CreateCloneGameObject(a_oName,
+		var oGameObject = Func.CreateCloneGameObject(a_oName,
 			CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_BLIND_IMAGE), a_oParent);
 
 		return oGameObject.GetComponentInChildren<Image>();

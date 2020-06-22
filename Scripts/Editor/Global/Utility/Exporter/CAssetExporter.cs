@@ -50,7 +50,7 @@ public static partial class CAssetExporter {
 				oTexture.Apply();
 
 				var oBytes = oTexture.EncodeToPNG();
-				Function.WriteBytes(string.Format(KEditorDefine.B_IMG_PATH_FORMAT_TEXTURE_TO_IMAGE, oSpriteList[i].name), oBytes);
+				Func.WriteBytes(string.Format(KEditorDefine.B_IMG_PATH_FORMAT_TEXTURE_TO_IMAGE, oSpriteList[i].name), oBytes);
 			}
 
 			CAssetExporter.ShowExportSuccessPopup(KEditorDefine.B_ALERT_P_EXPORT_IMAGE_SUCCESS_MESSAGE);
@@ -66,18 +66,18 @@ public static partial class CAssetExporter {
 		oTexture.Apply();
 
 		var oBytes = oTexture.EncodeToPNG();
-		Function.WriteBytes(a_oFilepath, oBytes);		
+		Func.WriteBytes(a_oFilepath, oBytes);		
 	}
 
 	//! 추출 성공 팝업을 출력한다
 	private static void ShowExportSuccessPopup(string a_oMessage) {
-		EditorFunction.ShowAlertPopup(KEditorDefine.B_ALERT_P_TITLE,
+		EditorFunc.ShowAlertPopup(KEditorDefine.B_ALERT_P_TITLE,
 			a_oMessage, KEditorDefine.B_ALERT_P_OK_BUTTON_TEXT, string.Empty);
 	}
 
 	//! 추출 에러 팝업을 출력한다
 	private static void ShowExportFailPopup(string a_oMessage) {
-		EditorFunction.ShowAlertPopup(KEditorDefine.B_ALERT_P_TITLE,
+		EditorFunc.ShowAlertPopup(KEditorDefine.B_ALERT_P_TITLE,
 			a_oMessage, KEditorDefine.B_ALERT_P_OK_BUTTON_TEXT, string.Empty);
 	}
 	#endregion			// 클래스 함수

@@ -48,13 +48,13 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 			Function.ShowLog("CFacebookManager.OnInit: {0}", Color.yellow, this.IsInit);
 
 #if FACEBOOK_ANALYTICS_ENABLE
-#if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 			FB.Mobile.SetAutoLogAppEventsEnabled(true);
 			FB.Mobile.SetAdvertiserIDCollectionEnabled(true);
 #else
 			FB.Mobile.SetAutoLogAppEventsEnabled(false);
 			FB.Mobile.SetAdvertiserIDCollectionEnabled(false);
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 #endif			// #if FACEBOOK_ANALYTICS_ENABLE
 
 			FB.ActivateApp();
@@ -137,7 +137,7 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 		Function.Assert(a_oName.ExIsValid());
 		Function.ShowLog("CFacebookManager.SendLog: {0}, {1}", Color.yellow, a_oName, a_oDataList);
 
-#if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {
 			var oDataList = a_oDataList ?? new Dictionary<string, object>();
 
@@ -155,7 +155,7 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 
 			FB.LogAppEvent(a_oName, a_oValue, oDataList);
 		}
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_DISTRIBUTION_BUILD || STORE_DISTRIBUTION_BUILD)
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 	}
 #endif			// #if FACEBOOK_ANALYTICS_ENABLE
 	#endregion			// 조건부 함수

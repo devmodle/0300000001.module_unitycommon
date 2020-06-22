@@ -63,7 +63,7 @@ public abstract class CSetupSceneManager : CSceneManager {
 	//! 초기화
 	private IEnumerator OnStart() {
 		if(!CSceneManager.IsSetup) {
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 
 #if DEBUG || DEVELOPMENT_BUILD
 			CUnityMessageSender.Instance.SendSetBuildModeMessage(true);
@@ -71,7 +71,7 @@ public abstract class CSetupSceneManager : CSceneManager {
 			CUnityMessageSender.Instance.SendSetBuildModeMessage(false);
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			
 			// 저장소를 설정한다 {
 #if MESSAGE_PACK_ENABLE
@@ -79,7 +79,7 @@ public abstract class CSetupSceneManager : CSceneManager {
 			CAppInfoStorage.Instance.LoadAppInfo(KDefine.B_DATA_PATH_APP_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			// 저장소를 설정한다 }
 
 			// 테이블을 로드한다
@@ -87,7 +87,7 @@ public abstract class CSetupSceneManager : CSceneManager {
 				CValueTable.Instance.LoadValuesFromResource(KDefine.U_TABLE_PATH_G_COMMON_VALUE_TABLE);
 				CStringTable.Instance.LoadStringsFromResource(KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE);
 
-				yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			}
 
 			// 관리자를 초기화한다
@@ -147,12 +147,12 @@ public abstract class CSetupSceneManager : CSceneManager {
 #endif			// #if IRON_SOURCE_ENABLE
 				}, null);
 
-				yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 #endif			// #if ADS_ENABLE
 
 #if FACEBOOK_ENABLE
 				CFacebookManager.Instance.Init(null);
-				yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 #endif			// #if FACEBOOK_ENABLE
 
 #if FIREBASE_ENABLE
@@ -202,27 +202,27 @@ public abstract class CSetupSceneManager : CSceneManager {
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 
 				CFirebaseManager.Instance.Init(oConfigDataList, null);
-				yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 #endif			// #if FIREBASE_ENABLE
 
 #if GAME_CENTER_ENABLE
 				CGameCenterManager.Instance.Init(null);
-				yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 #endif			// #if GAME_CENTER_ENABLE
 
 #if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
 				CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, null);
-				yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 #endif			// #if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
 
 #if UNITY_SERVICE_ENABLE
 				CUnityServiceManager.Instance.Init(null);
-				yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 #endif			// #if UNITY_SERVICE_ENABLE
 			}
 
 			this.Setup();
-			yield return Function.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 
 			// 디바이스 식별자 반환 메세지를 전송한다
 			CUnityMessageSender.Instance.SendGetDeviceIDMessage(this.OnReceiveDeviceMessage);
@@ -232,49 +232,49 @@ public abstract class CSetupSceneManager : CSceneManager {
 	//! 팝업 UI 를 설정한다
 	private void SetupPopupUI() {
 		if(CSetupSceneManager.m_oPopupUI == null) {
-			var oPopupUI = Function.CreateCloneGameObject(KDefine.SS_NAME_POPUP_UI,
+			var oPopupUI = Func.CreateCloneGameObject(KDefine.SS_NAME_POPUP_UI,
 				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_POPUP_UI), null);
 
 			CSetupSceneManager.m_oPopupUI = oPopupUI;
 			CSceneManager.ScreenPopupUIRoot = oPopupUI.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_POPUP_UI_ROOT);
 
 			DontDestroyOnLoad(oPopupUI);
-			Function.SetupScreenUI(oPopupUI, KDefine.U_SORTING_ORDER_SCREEN_POPUP_UI);
+			Func.SetupScreenUI(oPopupUI, KDefine.U_SORTING_ORDER_SCREEN_POPUP_UI);
 		}
 	}
 
 	//! 최상위 UI 를 설정한다
 	private void SetupTopmostUI() {
 		if(CSetupSceneManager.m_oTopmostUI == null) {
-			var oTopmostUI = Function.CreateCloneGameObject(KDefine.SS_NAME_TOPMOST_UI,
+			var oTopmostUI = Func.CreateCloneGameObject(KDefine.SS_NAME_TOPMOST_UI,
 				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_TOPMOST_UI), null);
 
 			CSetupSceneManager.m_oTopmostUI = oTopmostUI;
 			CSceneManager.ScreenTopmostUIRoot = oTopmostUI.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_TOPMOST_UI_ROOT);
 
 			DontDestroyOnLoad(oTopmostUI);
-			Function.SetupScreenUI(oTopmostUI, KDefine.U_SORTING_ORDER_SCREEN_TOPMOST_UI);
+			Func.SetupScreenUI(oTopmostUI, KDefine.U_SORTING_ORDER_SCREEN_TOPMOST_UI);
 		}
 	}
 
 	//! 절대 UI 를 설정한다
 	private void SetupAbsoluteUI() {
 		if(CSetupSceneManager.m_oAbsoluteUI == null) {
-			var oAbsoluteUI = Function.CreateCloneGameObject(KDefine.SS_NAME_ABSOLUTE_UI,
+			var oAbsoluteUI = Func.CreateCloneGameObject(KDefine.SS_NAME_ABSOLUTE_UI,
 				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_ABSOLUTE_UI), null);
 
 			CSetupSceneManager.m_oAbsoluteUI = oAbsoluteUI;
 			CSceneManager.ScreenAbsoluteUIRoot = oAbsoluteUI.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT);
 
 			DontDestroyOnLoad(oAbsoluteUI);
-			Function.SetupScreenUI(oAbsoluteUI, KDefine.U_SORTING_ORDER_SCREEN_ABSOLUTE_UI);
+			Func.SetupScreenUI(oAbsoluteUI, KDefine.U_SORTING_ORDER_SCREEN_ABSOLUTE_UI);
 		}
 	}
 
 	//! 타이머 관리자를 설정한다
 	private void SetupTimerManager() {
 		if(CSetupSceneManager.m_oTimerManager == null) {
-			var oTimerManager = Function.CreateCloneGameObject(KDefine.SS_NAME_TIMER_MANAGER,
+			var oTimerManager = Func.CreateCloneGameObject(KDefine.SS_NAME_TIMER_MANAGER,
 				CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_SS_TIMER_MANAGER), null);
 
 			CSetupSceneManager.m_oTimerManager = oTimerManager;
@@ -302,8 +302,8 @@ public abstract class CSetupSceneManager : CSceneManager {
 		string oCountryCode = a_oMessage;
 
 		// 국가 코드가 유효하지 않을 경우
-		if(!Function.IsMobilePlatform() || !a_oMessage.ExIsValid()) {
-			oCountryCode = !Function.IsMobilePlatform() ? KDefine.B_KOREA_COUNTRY_CODE : KDefine.B_UNKNOWN_COUNTRY_CODE;
+		if(!Func.IsMobilePlatform() || !a_oMessage.ExIsValid()) {
+			oCountryCode = !Func.IsMobilePlatform() ? KDefine.B_KOREA_COUNTRY_CODE : KDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
 
 #if MESSAGE_PACK_ENABLE
@@ -366,8 +366,8 @@ public abstract class CSetupSceneManager : CSceneManager {
 
 		CSceneManager.IsSetup = true;
 
-		LogFunction.SendAppLaunchLog();
-		Function.LoadAdditiveScene(KDefine.B_SCENE_NAME_AGREE, false);
+		LogFunc.SendAppLaunchLog();
+		Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_AGREE, false);
 	}
 	#endregion			// 함수
 
@@ -376,7 +376,7 @@ public abstract class CSetupSceneManager : CSceneManager {
 	//! 디버그 UI 를 설정한다
 	private void SetupDebugUI() {
 		if(CSetupSceneManager.m_oDebugUI == null) {
-			var oDebugUI = Function.CreateCloneGameObject(KDefine.SS_NAME_DEBUG_UI,
+			var oDebugUI = Func.CreateCloneGameObject(KDefine.SS_NAME_DEBUG_UI,
 				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_DEBUG_UI), null);
 
 			CSetupSceneManager.m_oDebugUI = oDebugUI;
@@ -396,7 +396,7 @@ public abstract class CSetupSceneManager : CSceneManager {
 			DontDestroyOnLoad(oDebugUI);
 
 			CSceneManager.ScreenDebugTextRoot.SetActive(false);
-			Function.SetupScreenUI(oDebugUI, KDefine.U_SORTING_ORDER_SCREEN_DEBUG_UI);
+			Func.SetupScreenUI(oDebugUI, KDefine.U_SORTING_ORDER_SCREEN_DEBUG_UI);
 		}
 	}
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
@@ -405,7 +405,7 @@ public abstract class CSetupSceneManager : CSceneManager {
 	//! FPS 카운터를 설정한다
 	private void SetupFPSCounter() {
 		if(CSetupSceneManager.m_oFPSCounter == null) {
-			var oFPSCounter = Function.CreateCloneGameObject(KDefine.SS_NAME_FPS_COUNTER,
+			var oFPSCounter = Func.CreateCloneGameObject(KDefine.SS_NAME_FPS_COUNTER,
 				CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_SS_FPS_COUNTER), null);
 
 			CSetupSceneManager.m_oFPSCounter = oFPSCounter;
@@ -419,7 +419,7 @@ public abstract class CSetupSceneManager : CSceneManager {
 			CSetupSceneManager.ScreenDynamicFPSText.raycastTarget = false;
 
 			DontDestroyOnLoad(oFPSCounter);
-			Function.SetupScreenUI(oFPSCounter, KDefine.U_SORTING_ORDER_FPS_COUNTER);
+			Func.SetupScreenUI(oFPSCounter, KDefine.U_SORTING_ORDER_FPS_COUNTER);
 		}
 	}
 #endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)

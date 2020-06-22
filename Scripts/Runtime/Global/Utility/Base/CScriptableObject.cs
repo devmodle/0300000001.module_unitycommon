@@ -16,7 +16,7 @@ public class CScriptableObject<T> : ScriptableObject where T : CScriptableObject
 		get {
 			if(m_tInstance == null) {
 				CScriptableObject<T>.m_tInstance = CResourceManager.Instance.GetScriptableObject<T>(CScriptableObject<T>.m_oFilepath);
-				Function.Assert(CScriptableObject<T>.m_tInstance != null);
+				Func.Assert(CScriptableObject<T>.m_tInstance != null);
 				
 				CScriptableObject<T>.m_tInstance.Awake();
 			}
@@ -36,7 +36,7 @@ public class CScriptableObject<T> : ScriptableObject where T : CScriptableObject
 	#region 클래스 함수
 	//! 인스턴스를 생성한다
 	public static T Create(string a_oFilepath) {
-		Function.Assert(a_oFilepath.ExIsValid());
+		Func.Assert(a_oFilepath.ExIsValid());
 		CScriptableObject<T>.m_oFilepath = a_oFilepath;
 
 		return CScriptableObject<T>.Instance;

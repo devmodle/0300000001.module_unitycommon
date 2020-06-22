@@ -104,10 +104,10 @@ public static partial class CGameObjectCreator {
 
 	//! 게임 객체를 생성한다
 	private static GameObject CreateGameObject(string a_oName, string a_oFilepath) {
-		var oGameObject = EditorFunction.CreatePrefabInstance(a_oName,
-			Resources.Load<GameObject>(a_oFilepath), EditorFunction.GetActiveGameObject());
+		var oGameObject = EditorFunc.CreatePrefabInstance(a_oName,
+			Resources.Load<GameObject>(a_oFilepath), EditorFunc.GetActiveGameObject());
 
-		Function.SelectGameObject(oGameObject);
+		Func.SelectGameObject(oGameObject);
 		return oGameObject;
 	}
 	#endregion			// 클래스 함수
