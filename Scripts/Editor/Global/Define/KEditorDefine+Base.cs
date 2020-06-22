@@ -135,6 +135,9 @@ public static partial class KEditorDefine {
 	public const string B_JENKINS_KEY_PROFILE_ID = "ProfileID";
 	public const string B_JENKINS_KEY_PLATFORM = "Platform";
 	public const string B_JENKINS_KEY_ANALYTICS = "Analytics";
+	public const string B_JENKINS_KEY_BUILD_MODE = "BuildMode";
+	public const string B_JENKINS_KEY_BUILD_FUNC = "BuildFunc";
+	public const string B_JENKINS_KEY_PIPELINE_NAME = "PipelineName";
 	public const string B_JENKINS_KEY_IPA_EXPORT_METHOD = "IPAExportMethod";
 	public const string B_JENKINS_KEY_BUILD_FILE_EXTENSION = "BuildFileExtension";
 

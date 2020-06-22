@@ -410,6 +410,9 @@ public static partial class EditorFunc {
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_DISTRIBUTION_PATH, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oDistributionPath);
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_PROJECT_NAME, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oProjectName);
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_ANALYTICS, oAnalytics);
+		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_BUILD_MODE, a_oBuildMode);
+		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_BUILD_FUNC, a_oBuildFunc);
+		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_PIPELINE_NAME, a_oPipelineName);
 
 		foreach(var stKeyValue in oDataList) {
 			oStringBuilder.Append(KEditorDefine.B_JENKINS_BUILD_PARAMETER_TOKEN);
@@ -442,7 +445,7 @@ public static partial class EditorFunc {
 			[KEditorDefine.B_JENKINS_KEY_IPA_EXPORT_METHOD] = a_oIPAExportMethod
 		};
 
-		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_ANDROID_PIPELINE, 
+		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_IOS_PIPELINE, 
 			a_oBuildMode, a_oBuildFunc, a_oPipelineName, KEditorDefine.B_JENKINS_IOS_BUILD_PROJECT_NAME, oDataList);
 	}
 
@@ -454,7 +457,7 @@ public static partial class EditorFunc {
 			[KEditorDefine.B_JENKINS_KEY_BUILD_FILE_EXTENSION] = a_oBuildFileExtension
 		};
 
-		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_IOS_PIPELINE, 
+		EditorFunc.ExecuteJenkinsBuild(KEditorDefine.B_JENKINS_ANDROID_PIPELINE, 
 			a_oBuildMode, a_oBuildFunc, a_oPipelineName, KEditorDefine.B_JENKINS_ANDROID_BUILD_PROJECT_NAME, oDataList);
 	}
 
