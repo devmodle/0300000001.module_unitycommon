@@ -398,6 +398,9 @@ public static partial class EditorFunction {
 
 		string oProjectPath = string.Format(KEditorDefine.B_JENKINS_PROJECT_PATH_FORMAT, 
 			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oWorkspaceRoot, oSource, KAppDefine.G_NAME_UNITY_PROJECT_ROOT);
+
+		string oAnalytics = string.Format(KEditorDefine.B_JENKINS_ANALYTICS_FORMAT,
+			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oSourceRoot);
 			
 		var oDataList = a_oDataList ?? new Dictionary<string, string>();
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_SOURCE, oSource);
@@ -405,6 +408,7 @@ public static partial class EditorFunction {
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_BRANCH, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oBranch);
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_DISTRIBUTION_PATH, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oDistributionPath);
 		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_PROJECT_NAME, CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oProjectName);
+		oDataList.ExAddValue(KEditorDefine.B_JENKINS_KEY_ANALYTICS, oAnalytics);
 
 		foreach(var stKeyValue in oDataList) {
 			oStringBuilder.Append(KEditorDefine.B_JENKINS_BUILD_PARAMETER_TOKEN);

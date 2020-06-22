@@ -134,6 +134,7 @@ public static partial class KEditorDefine {
 	public const string B_JENKINS_KEY_BUNDLE_ID = "BundleID";
 	public const string B_JENKINS_KEY_PROFILE_ID = "ProfileID";
 	public const string B_JENKINS_KEY_PLATFORM = "Platform";
+	public const string B_JENKINS_KEY_ANALYTICS = "Analytics";
 
 	public const string B_JENKINS_PIPELINE_GROUP_NAME = "job/00001.Common/job/01.Pipelines/job";
 	public const string B_JENKINS_BUILD_PARAMETER_TOKEN = " ";
@@ -143,6 +144,7 @@ public static partial class KEditorDefine {
 
 	public const string B_JENKINS_SOURCE_FORMAT = "{0}/{1}";
 	public const string B_JENKINS_PROJECT_PATH_FORMAT = "{0}/{1}/{2}";
+	public const string B_JENKINS_ANALYTICS_FORMAT = "{0}/00.Analytics";
 
 	public const string B_JENKINS_STANDALONE_BUILD_PROJECT_NAME = "41.Standalone";
 	public const string B_JENKINS_IOS_BUILD_PROJECT_NAME = "01.iOS";
