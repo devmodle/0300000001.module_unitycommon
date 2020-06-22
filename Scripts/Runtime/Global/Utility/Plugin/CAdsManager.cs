@@ -322,15 +322,15 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 초기화
 	public virtual void Init(STParameters a_stParameters, System.Action<CAdsManager, bool> a_oCallback) {
-		Function.ShowLog("CAdsManager.Init: {0}", Color.yellow, a_stParameters.m_eBannerAdsType);
+		Func.ShowLog("CAdsManager.Init: {0}", Color.yellow, a_stParameters.m_eBannerAdsType);
 
-		if(!this.IsInit && Function.IsMobilePlatform()) {
+		if(!this.IsInit && Func.IsMobilePlatform()) {
 #if UNITY_ADS_ENABLE
-			Function.Assert(a_stParameters.m_stUnityAdsParameters.m_oGameID.ExIsValid());
+			Func.Assert(a_stParameters.m_stUnityAdsParameters.m_oGameID.ExIsValid());
 #endif			// #if UNITY_ADS_ENABLE
 
 #if IRON_SOURCE_ENABLE
-			Function.Assert(a_stParameters.m_stIronSourceParameters.m_oAppKey.ExIsValid());
+			Func.Assert(a_stParameters.m_stIronSourceParameters.m_oAppKey.ExIsValid());
 #endif			// #if IRON_SOURCE_ENABLE
 
 			this.IsInit = true;
@@ -421,40 +421,40 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 배너 광고 로드 여부를 검사한다
 	public bool IsLoadBannerAds(EAdsType a_eAdsType) {
-		Function.Assert(m_oBannerAdsCheckerList.ContainsKey(a_eAdsType));
-		bool bIsEnableAds = this.IsInit && this.IsEnableBannerAds && Function.IsMobilePlatform();
+		Func.Assert(m_oBannerAdsCheckerList.ContainsKey(a_eAdsType));
+		bool bIsEnableAds = this.IsInit && this.IsEnableBannerAds && Func.IsMobilePlatform();
 
 		return bIsEnableAds && m_oBannerAdsCheckerList[a_eAdsType]();
 	}
 
 	//! 보상 광고 로드 여부를 검사한다
 	public bool IsLoadRewardAds(EAdsType a_eAdsType) {
-		Function.Assert(m_oRewardAdsCheckerList.ContainsKey(a_eAdsType));
-		bool bIsEnableAds = this.IsInit && this.IsEnableRewardAds && Function.IsMobilePlatform();
+		Func.Assert(m_oRewardAdsCheckerList.ContainsKey(a_eAdsType));
+		bool bIsEnableAds = this.IsInit && this.IsEnableRewardAds && Func.IsMobilePlatform();
 
 		return bIsEnableAds && m_oRewardAdsCheckerList[a_eAdsType]();
 	}
 
 	//! 전면 광고 로드 여부를 검사한다
 	public bool IsLoadFullscreenAds(EAdsType a_eAdsType) {
-		Function.Assert(m_oFullscreenAdsCheckerList.ContainsKey(a_eAdsType));
-		bool bIsEnableAds = this.IsInit && this.IsEnableFullscreenAds && Function.IsMobilePlatform();
+		Func.Assert(m_oFullscreenAdsCheckerList.ContainsKey(a_eAdsType));
+		bool bIsEnableAds = this.IsInit && this.IsEnableFullscreenAds && Func.IsMobilePlatform();
 
 		return bIsEnableAds && m_oFullscreenAdsCheckerList[a_eAdsType]();
 	}
 
 	//! 네이티브 광고 로드 여부를 검사한다
 	public bool IsLoadNativeAds(EAdsType a_eAdsType) {
-		Function.Assert(m_oNativeAdsCheckerList.ContainsKey(a_eAdsType));
-		bool bIsEnableAds = this.IsInit && this.IsEnableNativeAds && Function.IsMobilePlatform();
+		Func.Assert(m_oNativeAdsCheckerList.ContainsKey(a_eAdsType));
+		bool bIsEnableAds = this.IsInit && this.IsEnableNativeAds && Func.IsMobilePlatform();
 
 		return bIsEnableAds && m_oNativeAdsCheckerList[a_eAdsType]();
 	}
 
 	//! 배너 광고를 로드한다
 	public void LoadBannerAds(EAdsType a_eAdsType) {
-		Function.ShowLog("CAdsManager.LoadBannerAds: {0}", Color.yellow, a_eAdsType);
-		Function.Assert(m_oBannerAdsLoaderList.ContainsKey(a_eAdsType));
+		Func.ShowLog("CAdsManager.LoadBannerAds: {0}", Color.yellow, a_eAdsType);
+		Func.Assert(m_oBannerAdsLoaderList.ContainsKey(a_eAdsType));
 
 		bool bIsEnableLoad = this.IsInit && this.IsEnableBannerAds;
 
@@ -465,8 +465,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 보상 광고를 로드한다
 	public void LoadRewardAds(EAdsType a_eAdsType) {
-		Function.ShowLog("CAdsManager.LoadRewardAds: {0}", Color.yellow, a_eAdsType);
-		Function.Assert(m_oRewardAdsLoaderList.ContainsKey(a_eAdsType));
+		Func.ShowLog("CAdsManager.LoadRewardAds: {0}", Color.yellow, a_eAdsType);
+		Func.Assert(m_oRewardAdsLoaderList.ContainsKey(a_eAdsType));
 
 		bool bIsEnableLoad = this.IsInit && this.IsEnableRewardAds;
 
@@ -477,8 +477,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 전면 광고를 로드한다
 	public void LoadFullscreenAds(EAdsType a_eAdsType) {
-		Function.ShowLog("CAdsManager.LoadFullscreenAds: {0}", Color.yellow, a_eAdsType);
-		Function.Assert(m_oFullscreenAdsLoaderList.ContainsKey(a_eAdsType));
+		Func.ShowLog("CAdsManager.LoadFullscreenAds: {0}", Color.yellow, a_eAdsType);
+		Func.Assert(m_oFullscreenAdsLoaderList.ContainsKey(a_eAdsType));
 
 		bool bIsEnableLoad = this.IsInit && this.IsEnableFullscreenAds;
 
@@ -489,8 +489,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 네이티브 광고를 로드한다
 	public void LoadNativeAds(EAdsType a_eAdsType) {
-		Function.ShowLog("CAdsManager.LoadNativeAds: {0}", Color.yellow, a_eAdsType);
-		Function.Assert(m_oNativeAdsLoaderList.ContainsKey(a_eAdsType));
+		Func.ShowLog("CAdsManager.LoadNativeAds: {0}", Color.yellow, a_eAdsType);
+		Func.Assert(m_oNativeAdsLoaderList.ContainsKey(a_eAdsType));
 
 		bool bIsEnableLoad = this.IsInit && this.IsEnableNativeAds;
 
@@ -501,8 +501,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 배너 광고를 출력한다
 	public void ShowBannerAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
-		Function.ShowLog("CAdsManager.ShowBannerAds: {0}", Color.yellow, a_eAdsType);
-		Function.Assert(m_oBannerAdsShowerList.ContainsKey(a_eAdsType));
+		Func.ShowLog("CAdsManager.ShowBannerAds: {0}", Color.yellow, a_eAdsType);
+		Func.Assert(m_oBannerAdsShowerList.ContainsKey(a_eAdsType));
 
 		bool bIsSuccess = false;
 
@@ -517,8 +517,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 보상 광고를 출력한다
 	public void ShowRewardAds(EAdsType a_eAdsType, 
 		System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback, System.Action<CAdsManager> a_oCloseCallback = null) {
-		Function.ShowLog("CAdsManager.ShowRewardAds: {0}", Color.yellow, a_eAdsType);
-		Function.Assert(m_oRewardAdsShowerList.ContainsKey(a_eAdsType));
+		Func.ShowLog("CAdsManager.ShowRewardAds: {0}", Color.yellow, a_eAdsType);
+		Func.Assert(m_oRewardAdsShowerList.ContainsKey(a_eAdsType));
 
 		if(this.IsLoadRewardAds(a_eAdsType)) {
 			m_oRewardAdsCallbackList.ExAddValue(a_eAdsType, a_oCallback);
@@ -533,8 +533,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 전면 광고를 출력한다
 	public void ShowFullscreenAds(EAdsType a_eAdsType, 
 		System.Action<CAdsManager, bool> a_oCallback, System.Action<CAdsManager> a_oCloseCallback = null) {
-		Function.ShowLog("CAdsManager.ShowFullscreenAds: {0}", Color.yellow, a_eAdsType);
-		Function.Assert(m_oFullscreenAdsShowerList.ContainsKey(a_eAdsType));
+		Func.ShowLog("CAdsManager.ShowFullscreenAds: {0}", Color.yellow, a_eAdsType);
+		Func.Assert(m_oFullscreenAdsShowerList.ContainsKey(a_eAdsType));
 
 		bool bIsSuccess = false;
 
@@ -550,8 +550,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 배너 광고를 닫는다
 	public void CloseBannerAds(EAdsType a_eAdsType, bool a_bIsRemove = false) {
-		Function.ShowLog("CAdsManager.CloseBannerAds: {0}, {1}", Color.yellow, a_eAdsType, a_bIsRemove);
-		Function.Assert(m_oBannerAdsCloserList.ContainsKey(a_eAdsType));
+		Func.ShowLog("CAdsManager.CloseBannerAds: {0}, {1}", Color.yellow, a_eAdsType, a_bIsRemove);
+		Func.Assert(m_oBannerAdsCloserList.ContainsKey(a_eAdsType));
 
 		bool bIsEnable = this.IsInit && !this.IsEnableBannerAds;
 
@@ -575,7 +575,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 보상 광고 결과를 처리한다
 	private void HandleRewardAdsResult(EAdsType a_eAdsType, STAdsRewardInfo a_stRewardInfo, bool a_bIsSuccess) {
-		Function.ShowLog("CAdsManager.HandleRewardAdsResult: {0}, {1}, {2}", Color.yellow, a_eAdsType, a_stRewardInfo, a_bIsSuccess);
+		Func.ShowLog("CAdsManager.HandleRewardAdsResult: {0}, {1}, {2}", Color.yellow, a_eAdsType, a_stRewardInfo, a_bIsSuccess);
 
 		if(m_oRewardAdsCallbackList.ContainsKey(a_eAdsType)) {
 			var oCallback = m_oRewardAdsCallbackList[a_eAdsType];
@@ -587,7 +587,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 전면 광고 닫힘 결과를 처리한다
 	private void HandleCloseFullscreenAdsResult(EAdsType a_eAdsType) {
-		Function.ShowLog("CAdsManager.HandleCloseFullscreenAdsResult: {0}", Color.yellow, a_eAdsType);
+		Func.ShowLog("CAdsManager.HandleCloseFullscreenAdsResult: {0}", Color.yellow, a_eAdsType);
 
 		if(m_oFullscreenAdsCloseCallbackList.ContainsKey(a_eAdsType)) {
 			var oCallback = m_oFullscreenAdsCloseCallbackList[a_eAdsType];

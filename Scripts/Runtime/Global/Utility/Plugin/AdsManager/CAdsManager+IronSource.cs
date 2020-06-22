@@ -9,7 +9,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 아이언 소스 배너 광고를 로드했을 경우
 	public void OnLoadIronSourceBannerAds() {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_IRON_SOURCE_BANNER_ADS_LOAD_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnLoadIronSourceBannerAds", Color.yellow);
+			Func.ShowLog("CAdsManager.OnLoadIronSourceBannerAds", Color.yellow);
 
 			m_stVariable.m_stIronSourceVariable.m_bIsLoadBannerAds = true;
 			m_stVariable.m_stIronSourceVariable.m_nBannerAdsLoadTryTimes = 0;
@@ -21,7 +21,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 아이언 소스 배너 광고 로드에 실패했을 경우
 	public void OnLoadFailIronSourceBannerAds(IronSourceError a_oError) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_IRON_SOURCE_BANNER_ADS_LOAD_FAIL_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnLoadFailIronSourceBannerAds: {0}", Color.yellow, a_oError);
+			Func.ShowLog("CAdsManager.OnLoadFailIronSourceBannerAds: {0}", Color.yellow, a_oError);
 			m_stVariable.m_stIronSourceVariable.m_nBannerAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stIronSourceVariable.m_nBannerAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
@@ -33,7 +33,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 아이언 소스 보상 광고가 닫혔을 경우
 	public void OnCloseIronSourceRewardAds() {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_CLOSE_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnCloseIronSourceRewardAds", Color.yellow);
+			Func.ShowLog("CAdsManager.OnCloseIronSourceRewardAds", Color.yellow);
 			m_stVariable.m_stIronSourceVariable.m_nRewardAdsLoadTryTimes = 0;
 
 			this.HandleCloseRewardAdsResult(EAdsType.IRON_SOURCE);
@@ -44,7 +44,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 아이언 소스 유저 보상을 수신했을 경우
 	public void OnReceiveIronSourceUserReward(IronSourcePlacement a_oPlacement) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_GET_REWARD_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnReceiveIronSourceUserReward: {0}", Color.yellow, a_oPlacement);
+			Func.ShowLog("CAdsManager.OnReceiveIronSourceUserReward: {0}", Color.yellow, a_oPlacement);
 
 			this.HandleRewardAdsResult(EAdsType.IRON_SOURCE, new STAdsRewardInfo() {
 				m_oName = a_oPlacement.getRewardName(),
@@ -56,7 +56,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 아이언 소스 보상 광고 상태가 변경 되었을 경우
 	public void OnChangeIronSourceRewardAdsState(bool a_bIsActive) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_CHANGE_STATE_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnChangeIronSourceRewardAdsState: {0}", Color.yellow, a_bIsActive);
+			Func.ShowLog("CAdsManager.OnChangeIronSourceRewardAdsState: {0}", Color.yellow, a_bIsActive);
 
 			if(!a_bIsActive) {
 				m_stVariable.m_stIronSourceVariable.m_nRewardAdsLoadTryTimes += 1;
@@ -71,7 +71,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 아이언 소스 전면 광고 로드에 실패했을 경우
 	public void OnLoadFailIronSourceFullscreenAds(IronSourceError a_oError) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_IRON_SOURCE_FULLSCREEN_ADS_LOAD_FAIL_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnLoadFailIronSourceFullscreenAds: {0}", Color.yellow, a_oError);
+			Func.ShowLog("CAdsManager.OnLoadFailIronSourceFullscreenAds: {0}", Color.yellow, a_oError);
 			m_stVariable.m_stIronSourceVariable.m_nFullscreenAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stIronSourceVariable.m_nFullscreenAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
@@ -83,7 +83,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 아이언 소스 전면 광고가 닫혔을 경우
 	public void OnCloseIronSourceFullscreenAds() {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_IRON_SOURCE_FULLSCREEN_ADS_CLOSE_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnCloseIronSourceFullscreenAds", Color.yellow);
+			Func.ShowLog("CAdsManager.OnCloseIronSourceFullscreenAds", Color.yellow);
 			m_stVariable.m_stIronSourceVariable.m_nFullscreenAdsLoadTryTimes = 0;
 
 			this.HandleCloseFullscreenAdsResult(EAdsType.IRON_SOURCE);
@@ -93,19 +93,19 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 아이언 소스 배너 광고 로드 여부를 검사한다
 	private bool IsLoadIronSourceBannerAds() {
-		Function.Assert(m_stParameters.m_stIronSourceParameters.m_oAdsPlacementList.ContainsKey(KDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT));
+		Func.Assert(m_stParameters.m_stIronSourceParameters.m_oAdsPlacementList.ContainsKey(KDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT));
 		return m_stVariable.m_stIronSourceVariable.m_bIsLoadBannerAds;
 	}
 
 	//! 아이언 소스 보상 광고 로드 여부를 검사한다
 	private bool IsLoadIronSourceRewardAds() {
-		Function.Assert(m_stParameters.m_stIronSourceParameters.m_oAdsPlacementList.ContainsKey(KDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT));
+		Func.Assert(m_stParameters.m_stIronSourceParameters.m_oAdsPlacementList.ContainsKey(KDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT));
 		return IronSource.Agent.isRewardedVideoAvailable();
 	}
 
 	//! 아이언 소스 전면 광고 로드 여부를 검사한다
 	private bool IsLoadIronSourceFullscreenAds() {
-		Function.Assert(m_stParameters.m_stIronSourceParameters.m_oAdsPlacementList.ContainsKey(KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT));
+		Func.Assert(m_stParameters.m_stIronSourceParameters.m_oAdsPlacementList.ContainsKey(KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT));
 		return IronSource.Agent.isInterstitialReady();
 	}
 
@@ -153,7 +153,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 아이언 소스 배너 광고 로드 결과를 처리한다
 	private void HandleLoadIronSourceBannerAdsResult() {
-		Function.LateCallFunc(this, (a_oComponent, a_oParams) => {
+		Func.LateCallFunc(this, (a_oComponent, a_oParams) => {
 			this.ShowBannerAds(EAdsType.IRON_SOURCE, null);
 		});
 	}

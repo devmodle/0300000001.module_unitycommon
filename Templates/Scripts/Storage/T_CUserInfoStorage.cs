@@ -129,9 +129,9 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		var oBytes = MessagePackSerializer.Serialize<CUserInfo>(this.UserInfo);
 
 #if SECURITY_ENABLE
-		Function.WriteSecurityBytes(a_oFilepath, oBytes);
+		Func.WriteSecurityBytes(a_oFilepath, oBytes);
 #else
-		Function.WriteBytes(a_oFilepath, oBytes);
+		Func.WriteBytes(a_oFilepath, oBytes);
 #endif			// #if SECURITY_ENABLE
 	}
 
@@ -139,15 +139,15 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	public void LoadUserInfo(string a_oFilepath) {
 		if(File.Exists(a_oFilepath)) {
 #if SECURITY_ENABLE
-			var oBytes = Function.ReadSecurityBytes(a_oFilepath);
+			var oBytes = Func.ReadSecurityBytes(a_oFilepath);
 #else
-			var oBytes = Function.ReadBytes(a_oFilepath);
+			var oBytes = Func.ReadBytes(a_oFilepath);
 #endif			// #if SECURITY_ENABLE
 
 			try {
 				this.UserInfo = MessagePackSerializer.Deserialize<CUserInfo>(oBytes);
 			} catch(System.Exception oException) {
-				Function.ShowLogWarning("CUserInfoStorage.LoadUserInfo Exception : {0}", Color.yellow, oException);
+				Func.ShowLogWarning("CUserInfoStorage.LoadUserInfo Exception : {0}", Color.yellow, oException);
 
 				this.Reset();
 				this.SaveUserInfo(a_oFilepath);

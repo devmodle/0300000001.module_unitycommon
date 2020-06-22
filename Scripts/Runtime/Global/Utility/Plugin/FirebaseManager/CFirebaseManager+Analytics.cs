@@ -10,8 +10,8 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 	#region 함수
 	//! 분석 유저 식별자를 변경한다
 	public void SetAnalyticsUserID(string a_oID) {
-		Function.Assert(a_oID.ExIsValid());
-		Function.ShowLog("CFirebaseManager.SetAnalyticsUserID: {0}", Color.yellow, a_oID);
+		Func.Assert(a_oID.ExIsValid());
+		Func.ShowLog("CFirebaseManager.SetAnalyticsUserID: {0}", Color.yellow, a_oID);
 
 		if(this.IsInit) {
 			FirebaseAnalytics.SetUserId(a_oID);
@@ -20,8 +20,8 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 
 	//! 분석 데이터를 변경한다
 	public void SetAnalyticsDatas(Dictionary<string, string> a_oDataList) {
-		Function.Assert(a_oDataList.ExIsValid());
-		Function.ShowLog("CFirebaseManager.SetAnalyticsDatas: {0}", Color.yellow, a_oDataList);
+		Func.Assert(a_oDataList.ExIsValid());
+		Func.ShowLog("CFirebaseManager.SetAnalyticsDatas: {0}", Color.yellow, a_oDataList);
 
 		if(this.IsInit) {
 			foreach(var stKeyValue in a_oDataList) {
@@ -37,8 +37,8 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 
 	//! 로그를 전송한다
 	public void SendLog(string a_oName, string a_oParameter, List<string> a_oDataList) {
-		Function.Assert(a_oName.ExIsValid() && a_oParameter.ExIsValid());
-		Function.ShowLog("CFirebaseManager.SendLog: {0}, {1}, {2}", Color.yellow, a_oName, a_oParameter, a_oDataList);
+		Func.Assert(a_oName.ExIsValid() && a_oParameter.ExIsValid());
+		Func.ShowLog("CFirebaseManager.SendLog: {0}, {1}, {2}", Color.yellow, a_oName, a_oParameter, a_oDataList);
 
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {

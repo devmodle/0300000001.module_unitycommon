@@ -13,13 +13,13 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		var oStatusList = a_oStatus.getAdapterStatusMap();
 		string oString = oStatusList.ExToString(KDefine.B_TOKEN_CSV_STRING);
 
-		Function.ShowLog("CAdsManager.OnInitAdmob : {0}", oString);
+		Func.ShowLog("CAdsManager.OnInitAdmob : {0}", oString);
 	}
 
 	//! 애드몹 배너 광고를 로드했을 경우
 	public void OnLoadAdmobBannerAds(object a_oSender, System.EventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_BANNER_ADS_LOAD_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnLoadAdmobBannerAds", Color.yellow);
+			Func.ShowLog("CAdsManager.OnLoadAdmobBannerAds", Color.yellow);
 
 			m_stVariable.m_stAdmobVariable.m_bIsLoadBannerAds = true;
 			m_stVariable.m_stAdmobVariable.m_nBannerAdsLoadTryTimes = 0;
@@ -31,7 +31,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 배너 광고 로드에 실패했을 경우
 	public void OnLoadFailAdmobBannerAds(object a_oSender, AdFailedToLoadEventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_BANNER_ADS_LOAD_FAIL_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnLoadFailAdmobBannerAds: {0}", Color.yellow, a_oEventArgs.Message);
+			Func.ShowLog("CAdsManager.OnLoadFailAdmobBannerAds: {0}", Color.yellow, a_oEventArgs.Message);
 			m_stVariable.m_stAdmobVariable.m_nBannerAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stAdmobVariable.m_nBannerAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
@@ -43,7 +43,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 배너 광고가 닫혔을 경우
 	public void OnCloseAdmobBannerAds(object a_oSender, System.EventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_BANNER_ADS_CLOSE_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnCloseAdmobBannerAds: {0}", Color.yellow, m_stVariable.m_stAdmobVariable.m_bIsShowBannerAds);
+			Func.ShowLog("CAdsManager.OnCloseAdmobBannerAds: {0}", Color.yellow, m_stVariable.m_stAdmobVariable.m_bIsShowBannerAds);
 
 			if(!m_stVariable.m_stAdmobVariable.m_bIsShowBannerAds) {
 				this.BannerAdsHeight = 0.0f;
@@ -54,7 +54,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 보상 광고 로드에 실패했을 경우
 	public void OnLoadFailAdmobRewardAds(object a_oSender, AdErrorEventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_REWARD_ADS_LOAD_FAIL_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnLoadFailAdmobRewardAds: {0}", Color.yellow, a_oEventArgs.Message);
+			Func.ShowLog("CAdsManager.OnLoadFailAdmobRewardAds: {0}", Color.yellow, a_oEventArgs.Message);
 			m_stVariable.m_stAdmobVariable.m_nRewardAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stAdmobVariable.m_nRewardAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
@@ -67,7 +67,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 보상 광고가 닫혔을 경우
 	public void OnCloseAdmobRewardAds(object a_oSender, System.EventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_REWARD_ADS_CLOSE_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnCloseAdmobRewardAds", Color.yellow);
+			Func.ShowLog("CAdsManager.OnCloseAdmobRewardAds", Color.yellow);
 			
 			m_stVariable.m_stAdmobVariable.m_oRewardAds = null;
 			m_stVariable.m_stAdmobVariable.m_nRewardAdsLoadTryTimes = 0;
@@ -80,7 +80,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 유저 보상을 수신했을 경우
 	public void OnReceiveAdmobUserReward(object a_oSender, Reward a_oReward) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_REWARD_ADS_GET_REWARD_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnReceiveAdmobUserReward: {0}", Color.yellow, a_oReward);
+			Func.ShowLog("CAdsManager.OnReceiveAdmobUserReward: {0}", Color.yellow, a_oReward);
 
 			this.HandleRewardAdsResult(EAdsType.ADMOB, new STAdsRewardInfo() {
 				m_oName = a_oReward.Type,
@@ -92,7 +92,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 전면 광고 로드에 실패했을 경우
 	public void OnLoadFailAdmobFullscreenAds(object a_oSender, AdFailedToLoadEventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_FULLSCREEN_ADS_LOAD_FAIL_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnLoadFailAdmobFullscreenAds: {0}", Color.yellow, a_oEventArgs.Message);
+			Func.ShowLog("CAdsManager.OnLoadFailAdmobFullscreenAds: {0}", Color.yellow, a_oEventArgs.Message);
 			m_stVariable.m_stAdmobVariable.m_nFullscreenAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stAdmobVariable.m_nFullscreenAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
@@ -104,7 +104,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 전면 광고가 닫혔을 경우
 	public void OnCloseAdmobFullscreenAds(object a_oSender, System.EventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_FULLSCREEN_ADS_CLOSE_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnCloseAdmobFullscreenAds", Color.yellow);
+			Func.ShowLog("CAdsManager.OnCloseAdmobFullscreenAds", Color.yellow);
 			m_stVariable.m_stAdmobVariable.m_oFullscreenAds.Destroy();
 
 			m_stVariable.m_stAdmobVariable.m_oFullscreenAds = null;
@@ -118,7 +118,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 네이티브 광고를 로드했을 경우
 	public void OnLoadAdmobNativeAds(object a_oSender, CustomNativeEventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_NATIVE_ADS_LOAD_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnLoadAdmobNativeAds", Color.yellow);
+			Func.ShowLog("CAdsManager.OnLoadAdmobNativeAds", Color.yellow);
 
 			var oNativeAds = a_oEventArgs.nativeAd;
 			m_stVariable.m_stAdmobVariable.m_oNativeAdsList.ExAddValue(oNativeAds.GetCustomTemplateId(), oNativeAds);
@@ -133,7 +133,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 네이티브 광고 로드에 실패했을 경우
 	public void OnLoadFailAdmobNativeAds(object a_oSender, AdFailedToLoadEventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_NATIVE_ADS_LOAD_FAIL_CALLBACK, () => {
-			Function.ShowLog("CAdsManager.OnLoadFailAdmobNativeAds: {0}", Color.yellow, a_oEventArgs.Message);
+			Func.ShowLog("CAdsManager.OnLoadFailAdmobNativeAds: {0}", Color.yellow, a_oEventArgs.Message);
 			m_stVariable.m_stAdmobVariable.m_nNativeAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stAdmobVariable.m_nNativeAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
@@ -144,13 +144,13 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 애드몹 네이티브 광고를 반환한다
 	public CustomNativeTemplateAd GetAdmobNativeAds(string a_oTemplateID) {
-		Function.Assert(a_oTemplateID.ExIsValid());
+		Func.Assert(a_oTemplateID.ExIsValid());
 		return m_stVariable.m_stAdmobVariable.m_oNativeAdsList.ExGetValue(a_oTemplateID, null);
 	}
 
 	//! 애드몹 배너 광고 로드 여부를 검사한다
 	private bool IsLoadAdmobBannerAds() {
-		Function.Assert(m_stParameters.m_stAdmobParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_BANNER_ADS_ID));
+		Func.Assert(m_stParameters.m_stAdmobParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_BANNER_ADS_ID));
 		bool bIsEnableAds = m_stVariable.m_stAdmobVariable.m_oBannerAds != null;
 
 		return bIsEnableAds && m_stVariable.m_stAdmobVariable.m_bIsLoadBannerAds;
@@ -158,7 +158,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 애드몹 보상 광고 로드 여부를 검사한다
 	private bool IsLoadAdmobRewardAds() {
-		Function.Assert(m_stParameters.m_stAdmobParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_REWARD_ADS_ID));
+		Func.Assert(m_stParameters.m_stAdmobParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_REWARD_ADS_ID));
 		bool bIsEnableAds = m_stVariable.m_stAdmobVariable.m_oRewardAds != null;
 
 		return bIsEnableAds && m_stVariable.m_stAdmobVariable.m_oRewardAds.IsLoaded();
@@ -166,7 +166,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 애드몹 전면 광고 로드 여부를 검사한다
 	private bool IsLoadAdmobFullscreenAds() {
-		Function.Assert(m_stParameters.m_stAdmobParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID));
+		Func.Assert(m_stParameters.m_stAdmobParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID));
 		bool bIsEnableAds = m_stVariable.m_stAdmobVariable.m_oFullscreenAds != null;
 
 		return bIsEnableAds && m_stVariable.m_stAdmobVariable.m_oFullscreenAds.IsLoaded();
@@ -174,7 +174,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 애드몹 네이티브 광고 로드 여부를 검사한다
 	private bool IsLoadAdmobNativeAds() {
-		Function.Assert(m_stParameters.m_stAdmobParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_NATIVE_ADS_ID));
+		Func.Assert(m_stParameters.m_stAdmobParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_NATIVE_ADS_ID));
 		bool bIsEnableAds = m_stVariable.m_stAdmobVariable.m_oAdsLoader != null;
 
 		return bIsEnableAds && m_stVariable.m_stAdmobVariable.m_bIsLoadNativeAds;
@@ -182,38 +182,38 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 애드몹 배너 광고를 로드한다
 	private void LoadAdmobBannerAds() {
-		Function.Assert(this.AdmobBannerAds != null);
+		Func.Assert(this.AdmobBannerAds != null);
 		this.AdmobBannerAds.LoadAd(this.AdmobRequestBuilder.Build());
 	}
 
 	//! 애드몹 보상 광고를 로드한다
 	private void LoadAdmobRewardAds() {
-		Function.Assert(this.AdmobRewardAds != null);
+		Func.Assert(this.AdmobRewardAds != null);
 		this.AdmobRewardAds.LoadAd(this.AdmobRequestBuilder.Build());
 	}
 
 	//! 애드몹 전면 광고를 로드한다
 	private void LoadAdmobFullscreenAds() {
-		Function.Assert(this.AdmobFullscreenAds != null);
+		Func.Assert(this.AdmobFullscreenAds != null);
 		this.AdmobFullscreenAds.LoadAd(this.AdmobRequestBuilder.Build());
 	}
 
 	//! 애드몹 네이티브 광고를 로드한다
 	private void LoadAdmobNativeAds() {
-		Function.Assert(this.AdmobAdsLoader != null);
+		Func.Assert(this.AdmobAdsLoader != null);
 		this.AdmobAdsLoader.LoadAd(this.AdmobRequestBuilder.Build());
 	}
 
 	//! 애드몹 배너 광고를 출력한다
 	private void ShowAdmobBannerAds() {
-		Function.Assert(this.AdmobBannerAds != null);
+		Func.Assert(this.AdmobBannerAds != null);
 
 		if(m_stParameters.m_eBannerAdsType == EAdsType.ADMOB) {
 			this.AdmobBannerAds.Show();
 			m_stVariable.m_stAdmobVariable.m_bIsShowBannerAds = true;
 
-			float fScale = Function.GetResolutionScale(Application.isPlaying);
-			float fPercent = KDefine.B_SCREEN_HEIGHT / Function.GetDeviceScreenSize().y;
+			float fScale = Func.GetResolutionScale(Application.isPlaying);
+			float fPercent = KDefine.B_SCREEN_HEIGHT / Func.GetDeviceScreenSize().y;
 
 			this.BannerAdsHeight = (this.AdmobBannerAds.GetHeightInPixels() * fPercent) / fScale;
 		}
@@ -221,13 +221,13 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 애드몹 보상 광고를 출력한다
 	private void ShowAdmobRewardAds() {
-		Function.Assert(this.AdmobRewardAds != null);
+		Func.Assert(this.AdmobRewardAds != null);
 		this.AdmobRewardAds.Show();
 	}
 
 	//! 애드몹 전면 광고를 출력한다
 	private void ShowAdmobFullscreenAds() {
-		Function.Assert(this.AdmobFullscreenAds != null);
+		Func.Assert(this.AdmobFullscreenAds != null);
 		this.AdmobFullscreenAds.Show();
 	}
 
@@ -244,7 +244,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 애드몹 배너 광고 로드 결과를 처리한다
 	private void HandleLoadAdmobBannerAdsResult() {
-		Function.LateCallFunc(this, (a_oComponent, a_oParams) => {
+		Func.LateCallFunc(this, (a_oComponent, a_oParams) => {
 			this.ShowBannerAds(EAdsType.ADMOB, null);
 		});
 	}

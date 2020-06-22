@@ -52,9 +52,9 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(System.Action<CGameCenterManager, bool> a_oCallback) {
-		Function.ShowLog("CGameCenterManager.Init", Color.yellow);
+		Func.ShowLog("CGameCenterManager.Init", Color.yellow);
 
-		if(!this.IsInit && Function.IsMobilePlatform()) {
+		if(!this.IsInit && Func.IsMobilePlatform()) {
 			this.IsInit = true;
 
 #if UNITY_IOS
@@ -84,7 +84,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 	//! 로그인 되었을 경우
 	public void OnLogin(bool a_bIsSuccess) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_GAME_CM_LOGIN_CALLBACK, () => {
-			Function.ShowLog("CGameCenterManager.OnLogin: {0}", Color.yellow, a_bIsSuccess);
+			Func.ShowLog("CGameCenterManager.OnLogin: {0}", Color.yellow, a_bIsSuccess);
 			m_oLoginCallback?.Invoke(this, a_bIsSuccess);
 		});
 	}
@@ -92,7 +92,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 	//! 점수를 갱신했을 경우
 	public void OnUpdateScore(bool a_bIsSuccess) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_GAME_CM_UPDATE_SCORE_CALLBACK, () => {
-			Function.ShowLog("CGameCenterManager.OnUpdateScore: {0}", Color.yellow, a_bIsSuccess);
+			Func.ShowLog("CGameCenterManager.OnUpdateScore: {0}", Color.yellow, a_bIsSuccess);
 			m_oUpdateScoreCallback?.Invoke(this, a_bIsSuccess);
 		});
 	}
@@ -100,14 +100,14 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 	//! 업적을 갱신했을 경우
 	public void OnUpdateAchievement(bool a_bIsSuccess) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_GAME_CM_UPDATE_ACHIEVEMENT_CALLBACK, () => {
-			Function.ShowLog("CGameCenterManager.OnUpdateAchievement: {0}", Color.yellow, a_bIsSuccess);
+			Func.ShowLog("CGameCenterManager.OnUpdateAchievement: {0}", Color.yellow, a_bIsSuccess);
 			m_oUpdateAchievementCallback?.Invoke(this, a_bIsSuccess);
 		});
 	}
 
 	//! 로그인을 처리한다
 	public void Login(System.Action<CGameCenterManager, bool> a_oCallback) {
-		Function.ShowLog("CGameCenterManager.Login", Color.yellow);
+		Func.ShowLog("CGameCenterManager.Login", Color.yellow);
 
 		if(!this.IsInit || this.IsLogin) {
 			a_oCallback?.Invoke(this, this.IsLogin);
@@ -124,7 +124,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 로그아웃을 처리한다
 	public void Logout(System.Action<CGameCenterManager> a_oCallback) {
-		Function.ShowLog("CGameCenterManager.Logout", Color.yellow);
+		Func.ShowLog("CGameCenterManager.Logout", Color.yellow);
 
 #if UNITY_ANDROID
 		if(this.IsInit) {
@@ -137,7 +137,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 리더보드 UI 를 출력한다
 	public void ShowLeaderboardUI() {
-		Function.ShowLog("CGameCenterManager.ShowLeaderboardUI", Color.yellow);
+		Func.ShowLog("CGameCenterManager.ShowLeaderboardUI", Color.yellow);
 
 		if(this.IsInit) {
 #if UNITY_IOS
@@ -150,7 +150,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 업적 UI 를 출력한다
 	public void ShowAchievementUI() {
-		Function.ShowLog("CGameCenterManager.ShowAchievementUI", Color.yellow);
+		Func.ShowLog("CGameCenterManager.ShowAchievementUI", Color.yellow);
 
 		if(this.IsInit) {
 #if UNITY_IOS
@@ -163,8 +163,8 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 점수를 갱신한다
 	public void UpdateScore(string a_oLeaderboardID, long a_nScore, System.Action<CGameCenterManager, bool> a_oCallback) {
-		Function.Assert(a_oLeaderboardID.ExIsValid());
-		Function.ShowLog("CGameCenterManager.UpdateScore: {0}, {1}", Color.yellow, a_oLeaderboardID, a_nScore);
+		Func.Assert(a_oLeaderboardID.ExIsValid());
+		Func.ShowLog("CGameCenterManager.UpdateScore: {0}, {1}", Color.yellow, a_oLeaderboardID, a_nScore);
 
 		if(!this.IsInit) {
 			a_oCallback?.Invoke(this, false);
@@ -181,8 +181,8 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 업적을 갱신한다
 	public void UpdateAchievement(string a_oAchievementID, double a_dblPercent, System.Action<CGameCenterManager, bool> a_oCallback) {
-		Function.Assert(a_oAchievementID.ExIsValid());
-		Function.ShowLog("CGameCenterManager.UpdateAchievement: {0}, {1}", Color.yellow, a_oAchievementID, a_dblPercent);
+		Func.Assert(a_oAchievementID.ExIsValid());
+		Func.ShowLog("CGameCenterManager.UpdateAchievement: {0}, {1}", Color.yellow, a_oAchievementID, a_dblPercent);
 
 		if(!this.IsInit) {
 			a_oCallback?.Invoke(this, false);

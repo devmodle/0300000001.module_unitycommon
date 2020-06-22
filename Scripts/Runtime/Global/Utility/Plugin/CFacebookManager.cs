@@ -13,7 +13,7 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public bool IsInit => !Function.IsMobilePlatform() ? false : FB.IsInitialized;
+	public bool IsInit => !Func.IsMobilePlatform() ? false : FB.IsInitialized;
 	public string UserID => this.IsLogin ? Facebook.Unity.AccessToken.CurrentAccessToken.UserId : string.Empty;
 	public string AccessToken => this.IsLogin ? Facebook.Unity.AccessToken.CurrentAccessToken.TokenString : string.Empty;
 
@@ -32,9 +32,9 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(System.Action<CFacebookManager, bool> a_oCallback) {
-		Function.ShowLog("CFacebookManager.Init", Color.yellow);
+		Func.ShowLog("CFacebookManager.Init", Color.yellow);
 
-		if(this.IsInit || !Function.IsMobilePlatform()) {
+		if(this.IsInit || !Func.IsMobilePlatform()) {
 			a_oCallback?.Invoke(this, this.IsInit);
 		} else {
 			m_oInitCallback = a_oCallback;
@@ -45,7 +45,7 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 	//! 초기화 되었을 경우
 	public void OnInit() {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_FACEBOOK_M_INIT_CALLBACK, () => {
-			Function.ShowLog("CFacebookManager.OnInit: {0}", Color.yellow, this.IsInit);
+			Func.ShowLog("CFacebookManager.OnInit: {0}", Color.yellow, this.IsInit);
 
 #if FACEBOOK_ANALYTICS_ENABLE
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
@@ -65,7 +65,7 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 	//! 로그인 되었을 경우
 	public void OnLogin(ILoginResult a_oResult) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_FACEBOOK_M_LOGIN_CALLBACK, () => {
-			Function.ShowLog("CFacebookManager.OnLogin: {0}, {1}", Color.yellow, this.IsLogin, a_oResult);
+			Func.ShowLog("CFacebookManager.OnLogin: {0}, {1}", Color.yellow, this.IsLogin, a_oResult);
 			CActivityIndicatorManager.Instance.StopActivityIndicator();
 
 			m_oLoginCallback?.Invoke(this, this.IsLogin);
@@ -79,7 +79,7 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 			: KDefine.U_KEY_FACEBOOK_M_VIEW_STATE_CLOSE_CALLBACK;
 
 		CScheduleManager.Instance.AddCallback(oKey, () => {
-			Function.ShowLog("CFacebookManager.OnChangeViewState: {0}", Color.yellow, a_bIsShow);
+			Func.ShowLog("CFacebookManager.OnChangeViewState: {0}", Color.yellow, a_bIsShow);
 
 			if(a_bIsShow) {
 				CActivityIndicatorManager.Instance.StopActivityIndicator();
@@ -94,7 +94,7 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 
 	//! 로그인을 처리한다
 	public void Login(List<string> a_oPermissionList, System.Action<CFacebookManager, bool> a_oCallback) {
-		Function.ShowLog("CFacebookManager.Login: {0}", Color.yellow, a_oPermissionList);
+		Func.ShowLog("CFacebookManager.Login: {0}", Color.yellow, a_oPermissionList);
 
 		if(!this.IsInit || this.IsLogin) {
 			a_oCallback?.Invoke(this, this.IsLogin);
@@ -106,7 +106,7 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 
 	//! 로그아웃을 처리한다
 	public void Logout(System.Action<CFacebookManager> a_oLogoutCallback) {
-		Function.ShowLog("CFacebookManager.Logout", Color.yellow);
+		Func.ShowLog("CFacebookManager.Logout", Color.yellow);
 
 		if(this.IsInit) {
 			FB.LogOut();
@@ -125,7 +125,7 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 
 	//! 로그를 전송한다
 	public void SendLog(string a_oName, string a_oParameter, List<string> a_oDataList, float? a_oValue = null) {
-		Function.Assert(a_oParameter.ExIsValid());
+		Func.Assert(a_oParameter.ExIsValid());
 
 		this.SendLog(a_oName, new Dictionary<string, object>() {
 			[a_oParameter] = a_oDataList.ExToString(KDefine.U_TOKEN_FACEBOOK_ANALYTICS_LOG_DATA)
@@ -134,8 +134,8 @@ public class CFacebookManager : CSingleton<CFacebookManager> {
 
 	//! 로그를 전송한다
 	public void SendLog(string a_oName, Dictionary<string, object> a_oDataList, float? a_oValue = null) {
-		Function.Assert(a_oName.ExIsValid());
-		Function.ShowLog("CFacebookManager.SendLog: {0}, {1}", Color.yellow, a_oName, a_oDataList);
+		Func.Assert(a_oName.ExIsValid());
+		Func.ShowLog("CFacebookManager.SendLog: {0}, {1}", Color.yellow, a_oName, a_oDataList);
 
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {

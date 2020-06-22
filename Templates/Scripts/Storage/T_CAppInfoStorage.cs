@@ -101,9 +101,9 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	//! 디바이스 메세지를 수신했을 경우
 	public void OnReceiveDeviceMessage(string a_oCommand, string a_oMessage) {
-		Function.Assert(!Function.IsMobilePlatform() || a_oMessage.ExIsValid());
+		Func.Assert(!Func.IsMobilePlatform() || a_oMessage.ExIsValid());
 
-		if(Function.IsMobilePlatform()) {
+		if(Func.IsMobilePlatform()) {
 			var oDataList = a_oMessage.ExJSONStringToObject<Dictionary<string, string>>();
 			this.StoreVersion = oDataList[KDefine.U_KEY_DEVICE_MR_VERSION];
 
@@ -129,9 +129,9 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		var oBytes = MessagePackSerializer.Serialize<CAppInfo>(this.AppInfo);
 
 #if SECURITY_ENABLE
-		Function.WriteSecurityBytes(a_oFilepath, oBytes);
+		Func.WriteSecurityBytes(a_oFilepath, oBytes);
 #else
-		Function.WriteBytes(a_oFilepath, oBytes);
+		Func.WriteBytes(a_oFilepath, oBytes);
 #endif			// #if SECURITY_ENABLE
 	}
 
@@ -139,15 +139,15 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	public void LoadAppInfo(string a_oFilepath) {
 		if(File.Exists(a_oFilepath)) {
 #if SECURITY_ENABLE
-			var oBytes = Function.ReadSecurityBytes(a_oFilepath);
+			var oBytes = Func.ReadSecurityBytes(a_oFilepath);
 #else
-			var oBytes = Function.ReadBytes(a_oFilepath);
+			var oBytes = Func.ReadBytes(a_oFilepath);
 #endif			// #if SECURITY_ENABLE
 
 			try {
 				this.AppInfo = MessagePackSerializer.Deserialize<CAppInfo>(oBytes);
 			} catch(System.Exception oException) {
-				Function.ShowLog("CAppInfoStorage.LoadAppInfo Exception: {0}", oException);
+				Func.ShowLog("CAppInfoStorage.LoadAppInfo Exception: {0}", oException);
 
 				this.Reset();
 				this.SaveAppInfo(a_oFilepath);

@@ -16,9 +16,9 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(System.Action<CUnityServiceManager, bool> a_oCallback) {
-		Function.ShowLog("CUnityServiceManager.Init", Color.yellow);
+		Func.ShowLog("CUnityServiceManager.Init", Color.yellow);
 
-		if(!this.IsInit && Function.IsMobilePlatform()) {
+		if(!this.IsInit && Func.IsMobilePlatform()) {
 			this.IsInit = true;
 
 #if UNITY_SERVICE_ANALYTICS_ENABLE

@@ -10,8 +10,8 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 	#region 함수
 	//! 분석 유저 식별자를 변경한다
 	public void SetAnalyticsUserID(string a_oID) {
-		Function.Assert(a_oID.ExIsValid());
-		Function.ShowLog("CUnityServiceManager.SetAnalyticsUserID: {0}", Color.yellow, a_oID);
+		Func.Assert(a_oID.ExIsValid());
+		Func.ShowLog("CUnityServiceManager.SetAnalyticsUserID: {0}", Color.yellow, a_oID);
 
 		if(this.IsInit) {
 			Analytics.SetUserId(a_oID);
@@ -25,7 +25,7 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 
 	//! 로그를 전송한다
 	public void SendLog(string a_oName, string a_oParameter, List<string> a_oDataList) {
-		Function.Assert(a_oParameter.ExIsValid());
+		Func.Assert(a_oParameter.ExIsValid());
 
 		this.SendLog(a_oName, new Dictionary<string, object>() {
 			[a_oParameter] = a_oDataList.ExToString(KDefine.U_TOKEN_UNITY_SERVICE_ANALYTICS_LOG_DATA)
@@ -34,8 +34,8 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 
 	//! 로그를 전송한다
 	public void SendLog(string a_oName, Dictionary<string, object> a_oDataList) {
-		Function.Assert(a_oName.ExIsValid());
-		Function.ShowLog("CUnityServiceManager.SendLog: {0}, {1}", Color.yellow, a_oName, a_oDataList);
+		Func.Assert(a_oName.ExIsValid());
+		Func.ShowLog("CUnityServiceManager.SendLog: {0}, {1}", Color.yellow, a_oName, a_oDataList);
 
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {

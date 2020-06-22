@@ -10,8 +10,8 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 	#region 함수
 	//! 데이터를 저장한다
 	public void SaveData(List<string> a_oNodeNameList, string a_oJSONString, System.Action<CFirebaseManager, bool> a_oCallback) {
-		Function.Assert(a_oJSONString.ExIsValid());
-		Function.ShowLog("CFirebaseManager.SaveData: {0}, {1}", Color.yellow, a_oNodeNameList, a_oJSONString);
+		Func.Assert(a_oJSONString.ExIsValid());
+		Func.ShowLog("CFirebaseManager.SaveData: {0}, {1}", Color.yellow, a_oNodeNameList, a_oJSONString);
 
 		if(!this.IsInit) {
 			a_oCallback?.Invoke(this, false);
@@ -23,8 +23,8 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 				oDatabaseReference = oDatabaseReference.Child(a_oNodeNameList[i]);
 			}
 
-			Function.WaitAsyncTask(oDatabaseReference.SetRawJsonValueAsync(a_oJSONString), (a_oTask) => {
-				Function.ShowLog("CFirebaseManager.OnSaveData: {0}", Color.yellow, a_oTask.Exception?.Message);
+			Func.WaitAsyncTask(oDatabaseReference.SetRawJsonValueAsync(a_oJSONString), (a_oTask) => {
+				Func.ShowLog("CFirebaseManager.OnSaveData: {0}", Color.yellow, a_oTask.Exception?.Message);
 				a_oCallback?.Invoke(this, a_oTask.ExIsComplete());
 			});
 		}
@@ -32,7 +32,7 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 
 	//! 데이터를 로드한다
 	public void LoadData(List<string> a_oNodeNameList, System.Action<CFirebaseManager, string, bool> a_oCallback) {
-		Function.ShowLog("CFirebaseManager.LoadData: {0}", Color.yellow, a_oNodeNameList);
+		Func.ShowLog("CFirebaseManager.LoadData: {0}", Color.yellow, a_oNodeNameList);
 
 		if(!this.IsInit) {
 			a_oCallback?.Invoke(this, string.Empty, false);
@@ -44,8 +44,8 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 				oDatabaseReference = oDatabaseReference.Child(a_oNodeNameList[i]);
 			}
 
-			Function.WaitAsyncTask(oDatabaseReference.GetValueAsync(), (a_oTask) => {
-				Function.ShowLog("CFirebaseManager.OnLoadData: {0}", Color.yellow, a_oTask.Exception?.Message);
+			Func.WaitAsyncTask(oDatabaseReference.GetValueAsync(), (a_oTask) => {
+				Func.ShowLog("CFirebaseManager.OnLoadData: {0}", Color.yellow, a_oTask.Exception?.Message);
 
 				if(!a_oTask.ExIsComplete()) {
 					a_oCallback?.Invoke(this, string.Empty, false);

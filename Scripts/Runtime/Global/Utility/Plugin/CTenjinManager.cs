@@ -19,7 +19,7 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 	private BaseTenjin TenjinInstance {
 		get {
 			var oInstance = Tenjin.getInstance(m_oAPIKey);
-			Function.Assert(oInstance != null);
+			Func.Assert(oInstance != null);
 
 			return oInstance;
 		}
@@ -29,10 +29,10 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(string a_oAPIKey, System.Action<CTenjinManager, bool> a_oCallback) {
-		Function.ShowLog("CTenjinManager.Init: {0}", Color.yellow, a_oAPIKey);
+		Func.ShowLog("CTenjinManager.Init: {0}", Color.yellow, a_oAPIKey);
 
-		if(!this.IsInit && Function.IsMobilePlatform()) {
-			Function.Assert(a_oAPIKey.ExIsValid());
+		if(!this.IsInit && Func.IsMobilePlatform()) {
+			Func.Assert(a_oAPIKey.ExIsValid());
 
 			this.IsInit = true;
 			m_oAPIKey = a_oAPIKey;
@@ -65,7 +65,7 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 #if TENJIN_ANALYTICS_ENABLE && PURCHASE_ENABLE
 	//! 결제 로그를 전송한다
 	public void SendPurchaseLog(Product a_oProduct) {
-		Function.ShowLog("CTenjinManager.SendPurchaseLog: {0}", Color.yellow, a_oProduct);
+		Func.ShowLog("CTenjinManager.SendPurchaseLog: {0}", Color.yellow, a_oProduct);
 
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {
