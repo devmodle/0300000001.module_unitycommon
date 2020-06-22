@@ -99,7 +99,7 @@ OUTPUT_LANGUAGE        = Korean
 # Possible values are: None, LTR, RTL and Context.
 # The default value is: None.
 
-OUTPUT_TEXT_DIRECTION  =
+OUTPUT_TEXT_DIRECTION  = None
 
 # If the BRIEF_MEMBER_DESC tag is set to YES, doxygen will include brief member
 # descriptions after the members that are listed in the file and class
@@ -823,7 +823,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = /Users/dante/Workspace/Projects/Library/Unity/Client/Library/Assets/00.Application/Common/Scripts
+INPUT                  = Scripts
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1568,7 +1568,7 @@ EXT_LINKS_IN_WINDOW    = NO
 # The default value is: png.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_FORMULA_FORMAT    =
+HTML_FORMULA_FORMAT    = png
 
 # Use this tag to change the font size of LaTeX formulas included as images in
 # the HTML documentation. When you change the font size after a successful
@@ -1778,7 +1778,7 @@ MAKEINDEX_CMD_NAME     = makeindex
 # The default value is: makeindex.
 # This tag requires that the tag GENERATE_LATEX is set to YES.
 
-LATEX_MAKEINDEX_CMD    =
+LATEX_MAKEINDEX_CMD    = makeindex
 
 # If the COMPACT_LATEX tag is set to YES, doxygen generates more compact LaTeX
 # documents. This may be useful for small projects and may help to save some
