@@ -25,67 +25,43 @@ public class CUserInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[IgnoreMember] public bool IsAgree {
-		get {
-			return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_AGREE, false);
-		} set {
-			m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_AGREE, value);
-		}
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_AGREE, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_AGREE, value); }
 	}
 
 	[IgnoreMember] public bool IsMuteBGSound {
-		get {
-			return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_MUTE_BG_SOUND, false);
-		} set {
-			m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_MUTE_BG_SOUND, value);
-		}
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_MUTE_BG_SOUND, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_MUTE_BG_SOUND, value); }
 	}
 
 	[IgnoreMember] public bool IsMuteFXSounds {
-		get {
-			return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_MUTE_FX_SOUNDS, false);
-		} set {
-			m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_MUTE_FX_SOUNDS, value);
-		}
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_MUTE_FX_SOUNDS, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_MUTE_FX_SOUNDS, value); }
 	}
 
 	[IgnoreMember] public bool IsDisableVibrate {
-		get {
-			return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_DISABLE_VIBRATE, false);
-		} set {
-			m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_DISABLE_VIBRATE, value);
-		}
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_DISABLE_VIBRATE, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_DISABLE_VIBRATE, value); }
 	}
 
 	[IgnoreMember] public bool IsDisableNotification {
-		get {
-			return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, false);
-		} set {
-			m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, value);
-		}
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, value); }
 	}
 
 	[IgnoreMember] public bool IsDisableNotification {
-		get {
-			return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, false);
-		} set {
-			m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, value);
-		}
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, value); }
 	}
 
 	[IgnoreMember] public bool IsRemoveAds {
-		get {
-			return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_REMOVE_ADS, false);
-		} set {
-			m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_REMOVE_ADS, value);
-		}
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_REMOVE_ADS, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_REMOVE_ADS, value); }
 	}
 
 	[IgnoreMember] public EUserType UserType {
-		get {
-			return (EUserType)m_oIntList.ExGetValue(CUserInfo.KEY_USER_TYPE, (int)EUserType.NONE);
-		} set {
-			m_oIntList.ExReplaceValue(CUserInfo.KEY_USER_TYPE, (int)value);
-		}
+		get { return (EUserType)m_oIntList.ExGetValue(CUserInfo.KEY_USER_TYPE, (int)EUserType.NONE); } 
+		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_USER_TYPE, (int)value); }
 	}
 	#endregion			// 프로퍼티
 	

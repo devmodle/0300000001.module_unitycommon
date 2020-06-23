@@ -23,11 +23,8 @@ public class CAppInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[IgnoreMember] public string DeviceID {
-		get {
-			return m_oStringList.ExGetValue(CAppInfo.KEY_DEVICE_ID, string.Empty);
-		} set {
-			m_oStringList.ExReplaceValue(CAppInfo.KEY_DEVICE_ID, value);
-		}
+		get { return m_oStringList.ExGetValue(CAppInfo.KEY_DEVICE_ID, string.Empty); } 
+		set { m_oStringList.ExReplaceValue(CAppInfo.KEY_DEVICE_ID, value); }
 	}
 
 	[IgnoreMember] private string InstallTimeString => m_oStringList.ExGetValue(CAppInfo.KEY_INSTALL_TIME, string.Empty);
