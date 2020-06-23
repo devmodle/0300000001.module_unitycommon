@@ -43,7 +43,7 @@ public class CActivityIndicatorManager : CSingleton<CActivityIndicatorManager> {
 				var oGameObject = CSceneManager.ScreenTopmostUIRoot ?? CSceneManager.TopmostUIRoot;
 
 				CSceneManager.ShowTouchResponder(KDefine.U_OBJ_NAME_ACTIVITY_I_TOUCH_RESPONDER,
-					oGameObject, KDefine.U_DEF_COLOR_ACTIVITY_INDICATOR_BG, null, false, true);
+					oGameObject, KAppDefine.G_DEF_COLOR_ACTIVITY_INDICATOR_BG, null, false, true);
 			}
 		}
 	}

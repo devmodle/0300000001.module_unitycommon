@@ -85,8 +85,12 @@ public static partial class KAppDefine {
 	#endregion			// 기본
 
 	#region 런타임 상수
-	// 색상
+	// 색상 {
 	public static readonly Color G_DEF_COLOR_CAMERA_BG = Color.black;
+
+	public static readonly Color G_DEF_COLOR_POPUP_BG = new Color(0.0f, 0.0f, 0.0f, 0.785f);
+	public static readonly Color G_DEF_COLOR_ACTIVITY_INDICATOR_BG = new Color(0.0f, 0.0f, 0.0f, 0.785f);
+	// 색상 }
 
 	// 회전
 	public static readonly Vector3 G_ROTATION_MAIN_LIGHT = new Vector3(45.0f, 45.0f, 0.0f);

@@ -263,9 +263,6 @@ public static partial class KDefine {
 
 	public static readonly Color U_DEF_COLOR_BLIND_UI = Color.black;
 	public static readonly Color U_DEF_COLOR_SCREEN_FADE = Color.black;
-
-	public static readonly Color U_DEF_COLOR_POPUP_BG = new Color(0.0f, 0.0f, 0.0f, 0.785f);
-	public static readonly Color U_DEF_COLOR_ACTIVITY_INDICATOR_BG = new Color(0.0f, 0.0f, 0.0f, 0.785f);
 	// 색상 }
 
 	// 동기화 객체

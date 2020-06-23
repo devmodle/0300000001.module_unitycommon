@@ -34,7 +34,7 @@ public class CPopup : CUIComponent {
 	public float CloseTimeScale { get; set; } = KDefine.U_DEF_TIME_SCALE;
 
 	public float ShowAnimationDelay { get; set; } = KDefine.U_DEF_DELAY_POPUP_SHOW_ANIMATION;
-	public virtual Color BGColor => KDefine.U_DEF_COLOR_POPUP_BG;
+	public virtual Color BGColor => KAppDefine.G_DEF_COLOR_POPUP_BG;
 	#endregion			// 프로퍼티
 
 	#region 함수
