@@ -339,8 +339,8 @@ public static partial class KDefine {
 	public static readonly string U_OBJ_PATH_IMAGE_TEXT_BUTTON = string.Format("{0}{1}{2}U_ImageTextButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 	public static readonly string U_OBJ_PATH_IMAGE_TEXT_SCALE_BUTTON = string.Format("{0}{1}{2}U_ImageTextScaleButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 
-	public static readonly string U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_BUTTON = string.Format("{0}{1}{2}U_ImageLocalizeTextButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SCROLL_VIEW_BASE);
-	public static readonly string U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_SCALE_BUTTON = string.Format("{0}{1}{2}U_ImageLocalizeTextScaleButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SCROLL_VIEW_BASE);
+	public static readonly string U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_BUTTON = string.Format("{0}{1}{2}U_ImageLocalizeTextButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_SCALE_BUTTON = string.Format("{0}{1}{2}U_ImageLocalizeTextScaleButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 
 	public static readonly string U_OBJ_PATH_SCROLL_VIEW = string.Format("{0}{1}{2}U_ScrollView", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SCROLL_VIEW_BASE);
 	public static readonly string U_OBJ_PATH_PAGE_SCROLL_VIEW = string.Format("{0}{1}{2}U_PageScrollView", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SCROLL_VIEW_BASE);

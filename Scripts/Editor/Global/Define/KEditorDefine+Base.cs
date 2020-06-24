@@ -233,7 +233,7 @@ public static partial class KEditorDefine {
 
 	public static readonly string B_PATH_FORMAT_SCRIPTABLE_OBJECT = string.Format("{0}{1}", KEditorDefine.B_DIR_PATH_ASSETS, "{0}.asset");
 	public static readonly string B_ASSET_PATH_FORMAT_DEFINE_SYMBOL_OUTPUT = string.Format("{0}/BuildOutput/{1}", KDefine.B_DIR_PATH_WRITABLE, "{0}DefineSymbol.txt");
-
+	
 	public static readonly KeyValuePair<string, string>[] B_PATH_DATA_FILEPATH_INFOS = new KeyValuePair<string, string>[] {
 		new KeyValuePair<string, string>(string.Format("{0}T_Service_KO.txt", KEditorDefine.B_ABSOLUTE_DIR_PATH_DATA_TEMPLATES),
 			string.Format("{0}{1}Resources/{2}.txt", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.AS_DATA_PATH_KOREAN_SERVICE_TEXT)),

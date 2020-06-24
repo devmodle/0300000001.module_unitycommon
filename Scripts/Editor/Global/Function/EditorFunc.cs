@@ -291,7 +291,7 @@ public static partial class EditorFunc {
 			var stFilepathInfo = KEditorDefine.B_PATH_SCENE_FILEPATH_INFOS[i];
 			Func.CopyFile(stFilepathInfo.Key, stFilepathInfo.Value, false);
 		}
-
+		
 		EditorFunc.UpdateAssetDatabaseState();
 	}
 
