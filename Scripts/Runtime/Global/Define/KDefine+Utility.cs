@@ -247,6 +247,12 @@ public static partial class KDefine {
 
 	public const string U_CLS_NAME_UNITY_MS_MESSAGE_RECEIVER = "dante.distribution.plugin.CAndroidPlugin";
 	public const string U_FUNC_NAME_UNITY_MS_MESSAGE_HANDLER = "handleUnityMessage";
+
+	public const string U_FUNC_NAME_ON_DRAG = "OnDrag";
+	public const string U_FUNC_NAME_ON_POINTER_UP = "OnPointerUp";
+	public const string U_FUNC_NAME_ON_POINTER_DOWN = "OnPointerDown";
+	public const string U_FUNC_NAME_ON_POINTER_ENTER = "OnPointerEnter";
+	public const string U_FUNC_NAME_ON_POINTER_EXIT = "OnPointerExit";
 	// 이름 }
 	#endregion			// 기본
 

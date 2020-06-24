@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 #if UNIVERSAL_RENDER_PIPELINE_ENABLE
 using UnityEngine.Rendering.Universal;
@@ -691,4 +692,29 @@ public abstract partial class CSceneManager : CComponent {
 		}
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if UNITY_EDITOR
+	//! 에디터 씬을 설정한다
+	public void EditorSetupScene() {
+#if UNIVERSAL_RENDER_PIPELINE_ENABLE
+		if(QualitySettings.renderPipeline == null || GraphicsSettings.renderPipelineAsset == null) {
+			Func.SetupQuality(Screen.currentResolution.refreshRate, 
+				KAppDefine.G_MULTI_TOUCH_ENABLE, KAppDefine.G_DEF_QUALITY_LEVEL, true);
+		}
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_ENABLE
+
+		this.SetupScene();
+
+		if(Camera.main != null) {
+			this.SetupOffsets();
+		}
+	}
+
+	//! 스크립트 순서를 설정한다
+	protected sealed override void SetupScriptOrder() {
+		this.ExSetScriptOrder(this.ScriptOrder);
+	}
+#endif			// #if UNITY_EDITOR
+	#endregion			// 조건부 함수
 }

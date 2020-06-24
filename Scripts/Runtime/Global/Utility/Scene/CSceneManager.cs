@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
@@ -526,69 +525,6 @@ public abstract partial class CSceneManager : CComponent {
 		return CSceneManager.m_oSubSceneManagerList.ExGetValue(a_oKey, null) as T;
 	}
 	#endregion			// 제네릭 클래스 함수
-
-	#region 조건부 함수
-#if UNITY_EDITOR
-	//! 에디터 씬을 설정한다
-	public void EditorSetupScene() {
-#if UNIVERSAL_RENDER_PIPELINE_ENABLE
-		if(QualitySettings.renderPipeline == null || GraphicsSettings.renderPipelineAsset == null) {
-			Func.SetupQuality(Screen.currentResolution.refreshRate, 
-				KAppDefine.G_MULTI_TOUCH_ENABLE, KAppDefine.G_DEF_QUALITY_LEVEL, true);
-		}
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_ENABLE
-
-		this.SetupScene();
-
-		if(Camera.main != null) {
-			this.SetupOffsets();
-		}
-	}
-
-	//! 가이드 라인을 그린다
-	public void EditorDrawGuideline() {
-		float fScale = Func.GetResolutionScale(Application.isPlaying);
-
-		var oScreenPositions = new Vector3[] {
-			new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / -2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / 2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3(KDefine.B_SCREEN_WIDTH / 2.0f, KDefine.B_SCREEN_HEIGHT / 2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3(KDefine.B_SCREEN_WIDTH / 2.0f, KDefine.B_SCREEN_HEIGHT / -2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale)
-		};
-
-#if ADS_ENABLE
-		var oAdsPositions = new Vector3[] {
-			new Vector3((KDefine.B_SCREEN_WIDTH / -2.0f) * fScale, (KDefine.B_SCREEN_HEIGHT / -2.0f) + KDefine.U_OFFSET_BANNER_ADS, 0.0f) * KDefine.B_UNIT_SCALE,
-			new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / 2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3(KDefine.B_SCREEN_WIDTH / 2.0f, KDefine.B_SCREEN_HEIGHT / 2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3((KDefine.B_SCREEN_WIDTH / 2.0f) * fScale, (KDefine.B_SCREEN_HEIGHT / -2.0f) + KDefine.U_OFFSET_BANNER_ADS, 0.0f) * KDefine.B_UNIT_SCALE
-		};
-#endif			// #if ADS_ENABLE
-
-		for(int i = 0; i < oScreenPositions.Length; ++i) {
-			var stPrevColor = Gizmos.color;
-
-			int nIndexA = (i + 0) % oScreenPositions.Length;
-			int nIndexB = (i + 1) % oScreenPositions.Length;
-
-			Gizmos.color = Color.green;
-			Gizmos.DrawLine(oScreenPositions[nIndexA], oScreenPositions[nIndexB]);
-
-#if ADS_ENABLE
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(oAdsPositions[nIndexA], oAdsPositions[nIndexB]);
-#endif			// #if ADS_ENABLE
-
-			Gizmos.color = stPrevColor;
-		}
-	}
-
-	//! 스크립트 순서를 설정한다
-	protected sealed override void SetupScriptOrder() {
-		this.ExSetScriptOrder(this.ScriptOrder);
-	}
-#endif			// #if UNITY_EDITOR
-	#endregion			// 조건부 함수
 	
 	#region 조건부 클래스 함수
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
