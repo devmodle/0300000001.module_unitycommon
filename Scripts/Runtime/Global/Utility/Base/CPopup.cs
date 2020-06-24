@@ -105,8 +105,7 @@ public class CPopup : CUIComponent {
 		if(!a_bIsAnimation) {
 			m_oBGImage.color = a_stColor;
 		} else {
-			m_oBGAnimation = m_oBGImage.DOColor(a_stColor, 
-				KDefine.U_DEF_DURATION_ANIMATION).SetUpdate(true);
+			m_oBGAnimation = m_oBGImage.DOColor(a_stColor, KDefine.U_DEF_DURATION_ANIMATION).SetUpdate(true);
 		}
 	}
 
@@ -144,7 +143,7 @@ public class CPopup : CUIComponent {
 
 	//! 터치 응답자를 생성한다
 	protected virtual GameObject CreateTouchResponder() {
-		return Func.CreateTouchResponder(KDefine.U_OBJ_NAME_POPUP_TOUCH_RESPONDER,
+		return Func.CreateTouchResponder(string.Format(KDefine.U_OBJ_NAME_FORMAT_POPUP_TOUCH_RESPONDER, this.gameObject.name),
 			CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
 			this.gameObject,
 			CSceneManager.CanvasSize,

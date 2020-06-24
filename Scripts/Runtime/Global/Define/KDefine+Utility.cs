@@ -165,7 +165,7 @@ public static partial class KDefine {
 	public const string U_KEY_DEVICE_MR_RESULT = "Result";
 	public const string U_KEY_DEVICE_MR_VERSION = KDefine.U_KEY_UNITY_MS_VERSION;
 
-	public const string U_KEY_FORMAT_SCENE_M_TOUCH_RESPONDER = "TouchResponder_{0}";
+	public const string U_KEY_FORMAT_SCENE_M_TOUCH_RESPONDER = "SceneMTouchResponder_{0}";
 	// 키 }
 
 	// 이름 {
@@ -213,7 +213,7 @@ public static partial class KDefine {
 
 	public const string U_OBJ_NAME_POPUP_CONTENT_ROOT = "Contents";
 	public const string U_OBJ_NAME_POPUP_CLOSE_BUTTON = "CloseButton";
-	public const string U_OBJ_NAME_POPUP_TOUCH_RESPONDER = "PopupTouchResponder";
+	public const string U_OBJ_NAME_FORMAT_POPUP_TOUCH_RESPONDER = "PopupTouchResponder_{0}";
 
 	public const string U_OBJ_NAME_ALERT_POPUP = "AlertPopup";
 	public const string U_OBJ_NAME_TOAST_POPUP = "ToastPopup";
