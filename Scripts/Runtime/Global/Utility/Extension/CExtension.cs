@@ -1148,16 +1148,17 @@ public static partial class CExtension {
 	}
 
 	//! 함수를 호출한다
-	public static object ExCallFunction<T>(this object a_oSender, string a_oName, BindingFlags a_eBindingFlags, object[] a_oParams) {
+	public static object ExCallFunc<T>(this object a_oSender, string a_oName, BindingFlags a_eBindingFlags, object[] a_oParams) {
 		var oType = typeof(T);
 		var oMethodInfo = oType.GetMethod(a_oName, a_eBindingFlags);
 
 		Func.Assert(oMethodInfo != null);
 		return oMethodInfo.Invoke(a_oSender, a_oParams);
 	}
+	
 
 	//! 런타임 함수를 호출한다
-	public static object ExRuntimeCallFunction<T>(this object a_oSender, string a_oName, object[] a_oParams) {
+	public static object ExRuntimeCallFunc<T>(this object a_oSender, string a_oName, object[] a_oParams) {
 		var oType = typeof(T);
 		var oMethodInfos = oType.GetRuntimeMethods();
 

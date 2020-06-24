@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 #if !UNITY_EDITOR
 using UnityEngine.Scripting;
@@ -12,7 +11,7 @@ using UnityEngine.iOS;
 #endif			// #if UNITY_IOS
 
 //! 초기화 씬 관리자
-public abstract class CInitSceneManager : CSceneManager {
+public abstract partial class CInitSceneManager : CSceneManager {
 	#region 클래스 객체
 	private static GameObject m_oBlindUI = null;
 	#endregion			// 클래스 객체
@@ -188,42 +187,6 @@ public abstract class CInitSceneManager : CSceneManager {
 		
 		CSceneManager.IsInit = true;
 		CSceneLoader.Instance.LoadScene(KDefine.B_SCENE_NAME_SPLASH, false, false);
-	}
-
-	//! 블라인드 UI 를 설정한다
-	private void SetupBlindUI() {
-		if(CInitSceneManager.m_oBlindUI == null) {
-			var oBlindUI = Func.CreateCloneGameObject(KDefine.IS_NAME_BLIND_UI,
-				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_BLIND_UI), null);
-
-			CInitSceneManager.m_oBlindUI = oBlindUI;
-			CSceneManager.ScreenBlindUIRoot = oBlindUI.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT);
-
-			// 블라인드 이미지를 생성한다 {
-			var oImages = new Image[] {
-				this.CreateBlindImage(KDefine.U_OBJ_NAME_LEFT_BLIND_IMAGE, CSceneManager.ScreenBlindUIRoot),
-				this.CreateBlindImage(KDefine.U_OBJ_NAME_RIGHT_BLIND_IMAGE, CSceneManager.ScreenBlindUIRoot),
-				this.CreateBlindImage(KDefine.U_OBJ_NAME_TOP_BLIND_IMAGE, CSceneManager.ScreenBlindUIRoot),
-				this.CreateBlindImage(KDefine.U_OBJ_NAME_BOTTOM_BLIND_IMAGE, CSceneManager.ScreenBlindUIRoot)
-			};
-
-			for(int i = 0; i < oImages.Length; ++i) {
-				oImages[i].color = KDefine.U_DEF_COLOR_TRANSPARENT;
-				oImages[i].raycastTarget = false;
-			}
-			// 블라인드 이미지를 생성한다 }
-
-			DontDestroyOnLoad(oBlindUI);
-			Func.SetupScreenUI(oBlindUI, KDefine.U_SORTING_ORDER_SCREEN_BLIND_UI);
-		}
-	}
-
-	//! 블라인드 이미지를 생성한다
-	private Image CreateBlindImage(string a_oName, GameObject a_oParent) {
-		var oGameObject = Func.CreateCloneGameObject(a_oName,
-			CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_BLIND_IMAGE), a_oParent);
-
-		return oGameObject.GetComponentInChildren<Image>();
 	}
 	#endregion			// 함수
 }

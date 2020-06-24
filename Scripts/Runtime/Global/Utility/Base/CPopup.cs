@@ -55,6 +55,7 @@ public class CPopup : CUIComponent {
 
 		// 이미지를 생성한다
 		m_oBGImage = m_oTouchResponder.GetComponentInChildren<Image>();
+		m_oBGImage.color = this.BGColor.ExGetAlphaColor(0.0f);
 
 		// 버튼을 생성한다
 		var oCloseButton = m_oContentRoot.ExFindComponent<Button>(KDefine.U_OBJ_NAME_POPUP_CLOSE_BUTTON);

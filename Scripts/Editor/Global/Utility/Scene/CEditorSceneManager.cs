@@ -1,0 +1,137 @@
+﻿using System.Collections.Generic;
+using System.Collections;
+using System.Reflection;
+using System.IO;
+using UnityEngine.UI;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using Unity.Linq;
+
+//! 에디터 씬 관리자
+[InitializeOnLoad]
+public static partial class CEditorSceneManager {
+	#region 변수
+	private static float m_fSkipTime = 0.0f;
+	private static float m_fHierarchySkipTime = 0.0f;
+
+	private static GUIStyle m_oHierarchyGUIStyle = null;
+	#endregion			// 변수
+
+	#region 클래스 함수
+	//! 생성자
+	static CEditorSceneManager() {
+		if(!Application.isBatchMode) {
+			// GUI 스타일을 생성한다 {
+			CEditorSceneManager.m_oHierarchyGUIStyle = new GUIStyle();
+			CEditorSceneManager.m_oHierarchyGUIStyle.alignment = TextAnchor.MiddleLeft;
+			CEditorSceneManager.m_oHierarchyGUIStyle.fontStyle = FontStyle.BoldAndItalic;
+
+			CEditorSceneManager.m_oHierarchyGUIStyle.normal = new GUIStyleState() {
+				textColor = KEditorDefine.B_HIERARCHY_TEXT_COLOR
+			};
+			// GUI 스타일을 생성한다 }
+
+			EditorApplication.update -= CEditorSceneManager.Update;
+			EditorApplication.update += CEditorSceneManager.Update;
+
+			EditorApplication.hierarchyWindowItemOnGUI -= CEditorSceneManager.UpdateHierarchyUIState;
+			EditorApplication.hierarchyWindowItemOnGUI += CEditorSceneManager.UpdateHierarchyUIState;
+
+			EditorSceneManager.sceneOpened -= CEditorSceneManager.OnSceneOpen;
+			EditorSceneManager.sceneOpened += CEditorSceneManager.OnSceneOpen;
+		}
+	}
+	
+	//! 스크립트가 로드 되었을 경우
+	[UnityEditor.Callbacks.DidReloadScripts]
+	public static void OnLoadScript() {
+		if(!Application.isBatchMode && CEditorSceneManager.IsEnableUpdateState()) {
+			EditorFunc.SetupPlayerOptions();
+			EditorFunc.SetupEditorOptions();
+			EditorFunc.SetupProjectOptions();
+			EditorFunc.SetupPluginProjects();
+			EditorFunc.SetupGraphicAPIs();
+		}
+	}
+
+	//! 씬이 열렸을 경우
+	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
+		EditorFunc.SetupProjectOptions();
+		EditorFunc.SetupScene(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
+	}
+
+	//! 상태를 갱신한다
+	public static void Update() {
+		if(CEditorSceneManager.IsEnableUpdateState()) {
+			CEditorSceneManager.m_fSkipTime += Time.unscaledDeltaTime;
+			CEditorSceneManager.m_fHierarchySkipTime += Time.unscaledDeltaTime;
+
+			// 씬 갱신이 필요 할 경우
+			if(CEditorSceneManager.m_fSkipTime >= KEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
+				CEditorSceneManager.m_fSkipTime = 0.0f;
+
+				CEditorSceneManager.SetupScene();
+				CEditorSceneManager.SetupLightOptions();
+
+#if FILE_BROWSER_ENABLE
+				CEditorSceneManager.SetupFileBrowserUI();
+#endif			// #if FILE_BROWSER_ENABLE
+
+				// 계층 뷰 갱신이 필요 할 경우
+				if(CEditorSceneManager.m_fHierarchySkipTime >= KEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE) {
+					CEditorSceneManager.m_fHierarchySkipTime = 0.0f;
+
+					for(int i = 0; i < SceneManager.sceneCount; ++i) {
+						var stScene = SceneManager.GetSceneAt(i);
+						var oGameObjects = stScene.GetRootGameObjects();
+
+						for(int j = 0; j < oGameObjects.Length; ++j) {
+							var oEnumerator = oGameObjects[j].DescendantsAndSelf();
+
+							foreach(var oGameObject in oEnumerator) {
+								if(GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oGameObject) >= 1) {
+									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oGameObject);
+									EditorSceneManager.MarkSceneDirty(stScene);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	//! 계층 뷰 UI 상태를 갱신한다
+	private static void UpdateHierarchyUIState(int a_nInstanceID, Rect a_stRect) {
+		var oGameObject = EditorUtility.InstanceIDToObject(a_nInstanceID) as GameObject;
+
+		if(oGameObject != null) {
+			a_stRect.size = new Vector2(KEditorDefine.B_HIERARCHY_WIDTH, a_stRect.size.y);
+			a_stRect.position += new Vector2(KEditorDefine.B_HIERARCHY_OFFSET_X, 0.0f);
+
+			var oComponents = oGameObject.GetComponents<Component>();
+
+			for(int i = 0; i < oComponents.Length; ++i) {
+				if(oComponents[i] != null) {
+					var oType = oComponents[i].GetType();
+					
+					var oSortingLayerProperty = oType.GetProperty(KEditorDefine.B_PROPERTY_NAME_SORTING_LAYER,
+						BindingFlags.Public | BindingFlags.Instance);
+
+					var oSortingOrderProperty = oType.GetProperty(KEditorDefine.B_PROPERTY_NAME_SORTING_ORDER,
+						BindingFlags.Public | BindingFlags.Instance);
+
+					if(oSortingLayerProperty != null && oSortingOrderProperty != null) {
+						string oString = string.Format(KEditorDefine.U_SORTING_ORDER_INFO_FORMAT, oSortingLayerProperty.GetValue(oComponents[i]),
+							oSortingOrderProperty.GetValue(oComponents[i]));
+
+						GUI.Label(a_stRect, oString, m_oHierarchyGUIStyle);
+					}
+				}
+			}
+		}
+	}
+	#endregion			// 클래스 함수
+}

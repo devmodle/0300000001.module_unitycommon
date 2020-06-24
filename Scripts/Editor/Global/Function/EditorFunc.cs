@@ -676,15 +676,15 @@ public static partial class EditorFunc {
 		PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.Android, ManagedStrippingLevel.Low);
 
 		// 리소스 압축 방식을 변경한다 {
-		CExtension.ExCallFunction<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+		CExtension.ExCallFunc<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 			BuildTargetGroup.Standalone, (int)CompressionType.None
 		});
 
-		CExtension.ExCallFunction<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+		CExtension.ExCallFunc<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 			BuildTargetGroup.iOS, (int)CompressionType.None
 		});
 
-		CExtension.ExCallFunction<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+		CExtension.ExCallFunc<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 			BuildTargetGroup.Android, (int)CompressionType.None
 		});
 		// 리소스 압축 방식을 변경한다 }
@@ -717,43 +717,43 @@ public static partial class EditorFunc {
 			// 멀티 쓰레드 렌더링을 설정한다 }
 
 			// 광원 맵 엔코딩 퀄리티를 설정한다 {
-			CExtension.ExCallFunction<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 				BuildTargetGroup.Standalone, (int)CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_eLightmapEncodingQuality
 			});
 
-			CExtension.ExCallFunction<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 				BuildTargetGroup.iOS, (int)CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_eLightmapEncodingQuality
 			});
 
-			CExtension.ExCallFunction<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 				BuildTargetGroup.Android, (int)CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_eLightmapEncodingQuality
 			});
 			// 광원 맵 엔코딩 퀄리티를 설정한다 }
 
 			// 광원 맵 스트리밍 여부를 설정한다 {
-			CExtension.ExCallFunction<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 				BuildTargetGroup.Standalone, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_bIsEnableLightmapStreaming
 			});
 
-			CExtension.ExCallFunction<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 				BuildTargetGroup.iOS, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_bIsEnableLightmapStreaming
 			});
 
-			CExtension.ExCallFunction<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 				BuildTargetGroup.Android, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_bIsEnableLightmapStreaming
 			});
 			// 광원 맵 스트리밍 여부를 설정한다 }
 
 			// 광원 맵 스트리밍 우선 순위를 설정한다 {
-			CExtension.ExCallFunction<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 				BuildTargetGroup.Standalone, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_nLightmapStreamingPriority
 			});
 
-			CExtension.ExCallFunction<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 				BuildTargetGroup.iOS, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_nLightmapStreamingPriority
 			});
 
-			CExtension.ExCallFunction<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
 				BuildTargetGroup.Android, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_nLightmapStreamingPriority
 			});
 			// 광원 맵 스트리밍 우선 순위를 설정한다 }
