@@ -91,7 +91,7 @@ public class CAlertPopup : CPopup {
 	}
 
 	//! 팝업 컨텐츠를 설정한다
-	protected override void SetupPopupContent() {
+	protected override void SetupPopupContents() {
 		var oBGTransform = m_oAlertPopupBGImage.rectTransform;
 		oBGTransform.pivot = KDefine.B_ANCHOR_MIDDLE_CENTER;
 

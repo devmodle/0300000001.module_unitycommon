@@ -167,15 +167,21 @@ public static partial class CExtension {
 	}
 
 	//! 활성화 여부를 변경한다
-	public static void ExSetEnable(this Button a_oSender, bool a_bIsEnable) {
+	public static void ExSetEnable(this LayoutGroup a_oSender, bool a_bIsEnable) {
 		Func.Assert(a_oSender != null);
 
-		a_oSender.interactable = a_bIsEnable;
-		var oGameObject = a_oSender.gameObject;
+		a_oSender.enabled = false;
+		a_oSender.gameObject.ExSetEnableComponent<ContentSizeFitter>(a_bIsEnable);
+	}
 
-		oGameObject.ExSetEnableComponent<CTouchFader>(a_bIsEnable);
-		oGameObject.ExSetEnableComponent<CTouchScaler>(a_bIsEnable);
-		oGameObject.ExSetEnableComponent<CTouchSoundPlayer>(a_bIsEnable);
+	//! 상호 작용 여부를 변경한다
+	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable) {
+		Func.Assert(a_oSender != null);
+		
+		a_oSender.interactable = a_bIsEnable;
+		a_oSender.gameObject.ExSetEnableComponent<CTouchFader>(a_bIsEnable);
+		a_oSender.gameObject.ExSetEnableComponent<CTouchScaler>(a_bIsEnable);
+		a_oSender.gameObject.ExSetEnableComponent<CTouchSoundPlayer>(a_bIsEnable);
 	}
 
 	//! 컬링 마스크를 변경한다

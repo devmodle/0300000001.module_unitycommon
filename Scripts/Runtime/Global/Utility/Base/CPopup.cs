@@ -138,7 +138,7 @@ public class CPopup : CUIComponent {
 	}
 
 	//! 팝업 컨텐츠를 설정한다
-	protected virtual void SetupPopupContent() {
+	protected virtual void SetupPopupContents() {
 		// Do Nothing
 	}
 
@@ -167,7 +167,7 @@ public class CPopup : CUIComponent {
 	//! 팝업을 출력한다
 	private void DoShowPopup(CComponent a_oComponent, object[] a_oParams) {
 		if(!this.IsClose && !this.IsDestroy) {
-			this.SetupPopupContent();
+			this.SetupPopupContents();
 			this.StartShowAnimation();
 
 			this.SetBGColor(this.BGColor, this.IsEnableBGAnimation);
