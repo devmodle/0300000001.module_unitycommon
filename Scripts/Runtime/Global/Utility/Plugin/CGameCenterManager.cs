@@ -153,12 +153,12 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 			a_oCallback?.Invoke(this, null, false);
 		} else {
 			m_oLoadScoresCallback = a_oCallback;
-			
+
 #if UNITY_IOS
 			Social.LoadScores(a_oLeaderboardID, this.OnLoadScores);
-#else
+#elif UNITY_ANDROID
 			PlayGamesPlatform.Instance.LoadScores(a_oLeaderboardID, this.OnLoadScores);
-#endif			// #if UNITY_IOS
+#endif          // #if UNITY_IOS
 		}
 	}
 
