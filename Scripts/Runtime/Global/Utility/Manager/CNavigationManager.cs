@@ -28,8 +28,8 @@ public class CNavigationManager : CSingleton<CNavigationManager> {
 			a_oComponent.NavigationCallback = this.OnReceiveNavigationCallback;
 			var stKeyValue = new KeyValuePair<int, CComponent>(nID, a_oComponent);
 
-			a_oComponent.OnReceiveNavigationEvent(ENavigationEventType.TOP);
 			m_oComponentInfoList.ExAddValue(stKeyValue);
+			a_oComponent.OnReceiveNavigationEvent(ENavigationEventType.TOP);
 		}
 	}
 

@@ -48,7 +48,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 				nTargetFrameRate = KAppDefine.G_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
 			}
 
-			Screen.SetResolution(Screen.width, Screen.height, true);
+			var stScreenSize = Func.GetDeviceScreenSize(Application.isPlaying);
+			Screen.SetResolution((int)stScreenSize.x, (int)stScreenSize.y, true);
 		}
 
 		Func.SetupQuality(nTargetFrameRate, 
