@@ -158,7 +158,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 			Social.LoadScores(a_oLeaderboardID, this.OnLoadScores);
 #elif UNITY_ANDROID
 			PlayGamesPlatform.Instance.LoadScores(a_oLeaderboardID, this.OnLoadScores);
-#endif          // #if UNITY_IOS
+#endif			// #if UNITY_IOS
 		}
 	}
 
