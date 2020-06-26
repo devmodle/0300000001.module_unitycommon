@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if GAME_CENTER_ENABLE
-#if UNITY_IOS
 using UnityEngine.SocialPlatforms;
+
+#if UNITY_IOS
 using UnityEngine.SocialPlatforms.GameCenter;
 #elif UNITY_ANDROID
 using GooglePlayGames;
@@ -17,6 +18,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 	private System.Action<CGameCenterManager, bool> m_oLoginCallback = null;
 	private System.Action<CGameCenterManager, bool> m_oUpdateScoreCallback = null;
 	private System.Action<CGameCenterManager, bool> m_oUpdateAchievementCallback = null;
+	private System.Action<CGameCenterManager, IScore[], bool> m_oLoadScoresCallback = null;
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -89,6 +91,14 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 		});
 	}
 
+	//! 점수를 로드했을 경우
+	public void OnLoadScores(IScore[] a_oScores) {
+		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_GAME_CM_LOAD_SCORES_CALLBACK, () => {
+			Func.ShowLog("CGameCenterManager.OnLoadScores: {0}", Color.yellow, a_oScores);
+			m_oLoadScoresCallback?.Invoke(this, a_oScores, a_oScores != null);
+		});	
+	}
+
 	//! 점수를 갱신했을 경우
 	public void OnUpdateScore(bool a_bIsSuccess) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_GAME_CM_UPDATE_SCORE_CALLBACK, () => {
@@ -126,13 +136,30 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 	public void Logout(System.Action<CGameCenterManager> a_oCallback) {
 		Func.ShowLog("CGameCenterManager.Logout", Color.yellow);
 
-#if UNITY_ANDROID
 		if(this.IsInit) {
+#if UNITY_ANDROID
 			PlayGamesPlatform.Instance.SignOut();
-		}
 #endif			// #if UNITY_ANDROID
+		}
 
 		a_oCallback?.Invoke(this);
+	}
+
+	//! 점수를 로드한다
+	public void LoadScores(string a_oLeaderboardID, System.Action<CGameCenterManager, IScore[], bool> a_oCallback) {
+		Func.ShowLog("CGameCenterManager.LoadScores", Color.yellow);
+
+		if(!this.IsInit) {
+			a_oCallback?.Invoke(this, null, false);
+		} else {
+			m_oLoadScoresCallback = a_oCallback;
+			
+#if UNITY_IOS
+			Social.LoadScores(a_oLeaderboardID, this.OnLoadScores);
+#else
+			PlayGamesPlatform.Instance.LoadScores(a_oLeaderboardID, this.OnLoadScores);
+#endif			// #if UNITY_IOS
+		}
 	}
 
 	//! 리더보드 UI 를 출력한다

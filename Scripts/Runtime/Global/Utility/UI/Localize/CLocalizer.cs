@@ -29,6 +29,11 @@ public class CLocalizer : CComponent {
 		this.SetString(m_oKey);
 	}
 
+	//! 지역화를 리셋한다
+	public void ResetLocalize() {
+		this.SetString(m_oKey);
+	}
+
 	//! 문자열을 변경한다
 	public void SetString(string a_oKey) {
 		if(m_oInputField == null) {

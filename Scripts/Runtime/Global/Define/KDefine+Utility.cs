@@ -253,6 +253,8 @@ public static partial class KDefine {
 	public const string U_FUNC_NAME_ON_POINTER_DOWN = "OnPointerDown";
 	public const string U_FUNC_NAME_ON_POINTER_ENTER = "OnPointerEnter";
 	public const string U_FUNC_NAME_ON_POINTER_EXIT = "OnPointerExit";
+
+	public const string U_FUNC_NAME_RESET_LOCALIZE = "ResetLocalize";
 	// 이름 }
 	#endregion			// 기본
 
@@ -679,6 +681,7 @@ public static partial class KDefine {
 #if GAME_CENTER_ENABLE
 	// 키
 	public const string U_KEY_GAME_CM_LOGIN_CALLBACK = "GameCMLoginCallback";
+	public const string U_KEY_GAME_CM_LOAD_SCORES_CALLBACK = "GameCMLoadScoresCallback";
 	public const string U_KEY_GAME_CM_UPDATE_SCORE_CALLBACK = "GameCMUpdateScoreCallback";
 	public const string U_KEY_GAME_CM_UPDATE_ACHIEVEMENT_CALLBACK = "GameCMUpdateAchievementCallback";
 
