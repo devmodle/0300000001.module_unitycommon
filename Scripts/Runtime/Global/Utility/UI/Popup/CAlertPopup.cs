@@ -33,7 +33,6 @@ public class CAlertPopup : CPopup {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		this.ShowTimeScale = KDefine.U_DEF_TIME_SCALE;
 
 		// 버튼을 설정한다 {
 		var oOKButton = m_oButtonRoot.ExFindComponent<Button>(KDefine.U_OBJ_NAME_ALERT_P_OK_BUTTON);
