@@ -1085,7 +1085,7 @@ namespace Leguar.TotalJSON {
 			int jsonValuesUsed = 0;
 			FieldInfo[] fieldInfos = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 			foreach (FieldInfo fieldInfo in fieldInfos) {
-				if (InternalTools.isSerializing(fieldInfo)) {
+				if (InternalTools.isSerializing(fieldInfo, deserializeSettings.IgnoreSystemAndUnitySerializeAttributes)) {
 					string fieldName = fieldInfo.Name;
 					if (this.ContainsKey(fieldName)) {
 						JValue jValue = this[fieldName];
