@@ -47,6 +47,7 @@ namespace Leguar.TotalJSON.Internal {
 			}
 #endif			// #if MESSAGE_PACK_ENABLE
 
+
 			JValue singleValue=singleObjectAsJValue(obj);
 			if (singleValue!=null) {
 				return singleValue;
@@ -96,7 +97,7 @@ namespace Leguar.TotalJSON.Internal {
 
 			FieldInfo[] fieldInfos = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 			foreach (FieldInfo fieldInfo in fieldInfos) {
-				if (isSerializing(fieldInfo, serializeSettings.IgnoreSystemAndUnitySerializeAttributes)) {
+				if (isSerializing(fieldInfo)) {
 					string fieldName = fieldInfo.Name;
 					object fieldToSerialize = fieldInfo.GetValue(obj);
 					JValue jValue=serializeObject(fieldToSerialize, serializeSettings);
@@ -111,35 +112,16 @@ namespace Leguar.TotalJSON.Internal {
 
 		}
 
-		internal static bool isSerializing(FieldInfo fieldInfo, bool ignoreNonJSONSpecificAttributes) {
-			object[] attributes = fieldInfo.GetCustomAttributes(false);
-			if (containsType(attributes,typeof(ExcludeFromJSONSerializeAttribute))) {
+		internal static bool isSerializing(FieldInfo fieldInfo) {
+			if (fieldInfo.GetCustomAttributes(typeof(System.NonSerializedAttribute),false).Length>0) {
 				return false;
 			}
-			if (!ignoreNonJSONSpecificAttributes) {
-				if (containsType(attributes,typeof(System.NonSerializedAttribute))) {
-					return false;
-				}
-			}
+
 			if (fieldInfo.IsPublic && !fieldInfo.IsLiteral) {
 				return true;
 			}
-			if (containsType(attributes,typeof(IncludeToJSONSerializeAttribute))) {
+			if (fieldInfo.GetCustomAttributes(typeof(UnityEngine.SerializeField),false).Length>0) {
 				return true;
-			}
-			if (!ignoreNonJSONSpecificAttributes) {
-				if (containsType(attributes,typeof(UnityEngine.SerializeField))) {
-					return true;
-				}
-			}
-			return false;
-		}
-
-		private static bool containsType(object[] attributes, Type type) {
-			foreach (object attribute in attributes) {
-				if (attribute.GetType()==type) {
-					return true;
-				}
 			}
 			return false;
 		}
