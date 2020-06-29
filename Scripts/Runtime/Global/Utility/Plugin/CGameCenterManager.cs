@@ -144,24 +144,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 		a_oCallback?.Invoke(this);
 	}
-
-	//! 점수를 로드한다
-	public void LoadScores(string a_oLeaderboardID, System.Action<CGameCenterManager, IScore[], bool> a_oCallback) {
-		Func.ShowLog("CGameCenterManager.LoadScores", Color.yellow);
-
-		if(!this.IsInit) {
-			a_oCallback?.Invoke(this, null, false);
-		} else {
-			m_oLoadScoresCallback = a_oCallback;
-
-#if UNITY_IOS
-			Social.LoadScores(a_oLeaderboardID, this.OnLoadScores);
-#elif UNITY_ANDROID
-			PlayGamesPlatform.Instance.LoadScores(a_oLeaderboardID, this.OnLoadScores);
-#endif			// #if UNITY_IOS
-		}
-	}
-
+	
 	//! 리더보드 UI 를 출력한다
 	public void ShowLeaderboardUI() {
 		Func.ShowLog("CGameCenterManager.ShowLeaderboardUI", Color.yellow);
