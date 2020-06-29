@@ -243,6 +243,17 @@ public static partial class CExtension {
 		a_oSender.fieldOfView = (fFieldOfView * 2.0f) * Mathf.Rad2Deg;
 	}
 
+	//! 파티클을 재생한다
+	public static void ExPlay(this ParticleSystem a_oSender, bool a_bIsReset = true) {
+		Func.Assert(a_oSender != null);
+
+		if(a_bIsReset) {
+			a_oSender.Stop();
+		}
+
+		a_oSender.Play();
+	}
+
 	//! 자식 게임 객체를 탐색한다
 	public static GameObject ExFindChild(this Scene a_stSender, string a_oName) {
 		var oGameObjects = a_stSender.GetRootGameObjects();
