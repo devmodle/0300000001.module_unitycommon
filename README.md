@@ -1,7 +1,8 @@
 # 유니티 공용 라이브러리
 1. **필수 에셋 및 플러그인 리스트**
-	- *DOTween (Ver.1.2.335 - Fab 3, 2020)*
+	- *DOTween Pro (Ver.1.0.178 - Fab 3, 2020)*
 2. **외부 에셋 및 플러그인 리스트**
+	- *iTween (Ver.2.0.10 - Apr 17, 2019)*
 	- *Total JSON (Ver.1.6.0 - Jun 3, 2020)*
 	- *Smart Timers Manager (Ver.1.0.0 - Jul 6, 2016)*
 	- *Advance Object Pool (Ver.1.1.0 - May 6, 2019)*
