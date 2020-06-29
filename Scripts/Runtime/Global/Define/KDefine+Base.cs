@@ -209,7 +209,6 @@ public static partial class KDefine {
 	// 앵커 }
 
 	// 비율
-	public static readonly Vector3 B_SCALE_ZERO = Vector3.zero;
 	public static readonly Vector3 B_SCALE_NORMAL = new Vector3(1.0f, 1.0f, 1.0f);
 
 	// 위치 {
