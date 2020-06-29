@@ -184,6 +184,14 @@ public static partial class CExtension {
 		a_oSender.gameObject.ExSetEnableComponent<CTouchSoundPlayer>(a_bIsEnable);
 	}
 
+	//! 스프라이트를 변경한다
+	public static void ExSetSprite(this Button a_oSender, Sprite a_oSprite) {
+		var oImage = a_oSender?.GetComponentInChildren<Image>();
+		Func.Assert(oImage != null);
+		
+		oImage.sprite = a_oSprite;
+	}
+
 	//! 컬링 마스크를 변경한다
 	public static void ExSetCullingMask(this Camera a_oSender, List<int> a_oLayerList, bool a_bIsResetCullingMask = true) {
 		Func.Assert(a_oSender != null);
