@@ -39,6 +39,18 @@ public struct STIronSourcePluginInfo {
 	public string m_oFullscreenAdsPlacement;
 }
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+//! 앱 로빈 플러그인 정보
+[System.Serializable]
+public struct STAppLovinPluginInfo {
+	public string m_oSDKKey;
+
+	public string m_oBannerAdsID;
+	public string m_oRewardAdsID;
+	public string m_oFullscreenAdsID;
+}
+#endif			// APP_LOVIN_ENABLE
 #endif			// #if ADS_ENABLE
 
 #if TENJIN_ENABLE
@@ -86,6 +98,11 @@ public class CPluginInfoTable : CScriptableObject<CPluginInfoTable> {
 	[SerializeField] private STIronSourcePluginInfo m_stiOSIronSourcePluginInfo;
 	[SerializeField] private STIronSourcePluginInfo m_stAndroidIronSourcePluginInfo;
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+	[SerializeField] private STAppLovinPluginInfo m_stiOSAppLovinPluginInfo;
+	[SerializeField] private STAppLovinPluginInfo m_stAndroidAppLovinPluginInfo;
+#endif			// #if APP_LOVIN_ENABLE
 #endif			// #if ADS_ENABLE
 
 #if TENJIN_ENABLE
@@ -118,6 +135,10 @@ public class CPluginInfoTable : CScriptableObject<CPluginInfoTable> {
 #if IRON_SOURCE_ENABLE
 	public STIronSourcePluginInfo IronSourcePluginInfo { get; private set; }
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+	public STAppLovinPluginInfo AppLovinPluginInfo { get; private set; }
+#endif			// #if APP_LOVIN_ENABLE
 #endif			// #if ADS_ENABLE
 
 #if TENJIN_ENABLE
@@ -148,6 +169,11 @@ public class CPluginInfoTable : CScriptableObject<CPluginInfoTable> {
 	public STIronSourcePluginInfo iOSIronSourcePluginInfo => m_stiOSIronSourcePluginInfo;
 	public STIronSourcePluginInfo AndroidIronSourcePluginInfo => m_stAndroidIronSourcePluginInfo;
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+	public STAppLovinPluginInfo iOSAppLovinPluginInfo => m_stiOSAppLovinPluginInfo;
+	public STAppLovinPluginInfo AndroidAppLovinPluginInfo => m_stAndroidAppLovinPluginInfo;
+#endif			// #if APP_LOVIN_ENABLE
 #endif			// #if ADS_ENABLE
 
 #if FLURRY_ENABLE
@@ -222,6 +248,22 @@ public class CPluginInfoTable : CScriptableObject<CPluginInfoTable> {
 		};
 #endif			// #if UNITY_IOS
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+#if UNITY_IOS
+		this.AppLovinPluginInfo = m_stiOSAppLovinPluginInfo;
+#elif UNITY_ANDROID
+		this.AppLovinPluginInfo = m_stAndroidAppLovinPluginInfo;
+#else
+		this.AppLovinPluginInfo = new STAppLovinPluginInfo() {
+			m_oSDKKey = string.Empty,
+
+			m_oBannerAdsID = string.Empty,
+			m_oRewardAdsID = string.Empty,
+			m_oFullscreenAdsID = string.Empty,
+		};
+#endif			// #if UNITY_IOS
+#endif			// #if APP_LOVIN_ENABLE
 #endif			// #if ADS_ENABLE
 
 #if TENJIN_ENABLE
@@ -286,6 +328,18 @@ public class CPluginInfoTable : CScriptableObject<CPluginInfoTable> {
 		m_stAndroidIronSourcePluginInfo = a_stPluginInfo;
 	}
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+	//! iOS 앱 로빈 플러그인 정보를 변경한다
+	public void SetiOSAppLovinPluginInfo(STAppLovinPluginInfo a_stPluginInfo) {
+		m_stiOSAppLovinPluginInfo = a_stPluginInfo;
+	}
+
+	//! 안드로이드 앱 로빈 플러그인 정보를 변경한다
+	public void SetAndroidAppLovinPluginInfo(STAppLovinPluginInfo a_stPluginInfo) {
+		m_stAndroidAppLovinPluginInfo = a_stPluginInfo;
+	}
+#endif			// #if APP_LOVIN_ENABLE
 #endif			// #if ADS_ENABLE
 
 #if TENJIN_ENABLE

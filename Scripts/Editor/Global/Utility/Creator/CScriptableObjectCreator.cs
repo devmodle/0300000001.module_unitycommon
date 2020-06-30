@@ -313,6 +313,24 @@ public static partial class CScriptableObjectCreator {
 			m_oFullscreenAdsPlacement = "DefaultRewardedVideo"
 		});
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+		oPluginInfoTable.SetiOSAppLovinPluginInfo(new STAppLovinPluginInfo() {
+			m_oSDKKey = "",
+			
+			m_oBannerAdsID = "",
+			m_oRewardAdsID = "",
+			m_oFullscreenAdsID = ""
+		});
+
+		oPluginInfoTable.SetAndroidAppLovinPluginInfo(new STAppLovinPluginInfo() {
+			m_oSDKKey = "",
+
+			m_oBannerAdsID = "",
+			m_oRewardAdsID = "",
+			m_oFullscreenAdsID = ""
+		});
+#endif			// #if APP_LOVIN_ENABLE
 #endif			// #if ADS_ENABLE
 
 #if TENJIN_ENABLE

@@ -88,6 +88,7 @@ public static partial class KEditorDefine {
 	public const string DS_DEFINE_SYMBOL_ADMOB_ENABLE = "ADMOB_ENABLE";
 	public const string DS_DEFINE_SYMBOL_UNITY_ADS_ENABLE = "UNITY_ADS_ENABLE";
 	public const string DS_DEFINE_SYMBOL_IRON_SOURCE_ENABLE = "IRON_SOURCE_ENABLE";
+	public const string DS_DEFINE_SYMBOL_APP_LOVIN_ENABLE = "APP_LOVIN_ENABLE";
 
 	// 분석 {
 	public const string DS_DEFINE_SYMBOL_AUTO_LOG_PARAMETER_ENABLE = "AUTO_LOG_PARAMETER_ENABLE";
