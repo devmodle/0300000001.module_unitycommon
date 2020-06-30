@@ -111,6 +111,10 @@ public enum EAdsType {
 	IRON_SOURCE,
 #endif			// #if IRON_SOURCE_ENABLE
 
+#if APP_LOVIN_ENABLE
+	APP_LOVIN,
+#endif			// #if APP_LOVIN_ENABLE
+
 	MAX_VALUE
 }
 #endregion			// 기본

@@ -518,7 +518,7 @@ public static partial class KDefine {
 	public const string U_KEY_ADS_M_ADMOB_REWARD_ADS_LOAD_FAIL_CALLBACK = "AdsMAdmobRewardAdsLoadFailCallback";
 	public const string U_KEY_ADS_M_ADMOB_REWARD_ADS_SHOW_CALLBACK = "AdsMAdmobRewardAdsShowCallback";
 	public const string U_KEY_ADS_M_ADMOB_REWARD_ADS_CLOSE_CALLBACK = "AdsMAdmobRewardAdsCloseCallback";
-	public const string U_KEY_ADS_M_ADMOB_REWARD_ADS_GET_REWARD_CALLBACK = "AdsMAdmobRewardAdsGetRewardCallback";
+	public const string U_KEY_ADS_M_ADMOB_REWARD_ADS_RECEIVE_REWARD_CALLBACK = "AdsMAdmobRewardAdsReceiveRewardCallback";
 
 	public const string U_KEY_ADS_M_ADMOB_FULLSCREEN_ADS_LOAD_FAIL_CALLBACK = "AdsMAdmobFullscreenAdsLoadFailCallback";
 	public const string U_KEY_ADS_M_ADMOB_FULLSCREEN_ADS_SHOW_CALLBACK = "AdsMAdmobFullscreenAdsShowCallback";
@@ -543,12 +543,23 @@ public static partial class KDefine {
 
 	public const string U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_LOAD_FAIL_CALLBACK = "AdsMIronSourceRewardAdsLoadFailCallback";
 	public const string U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_CLOSE_CALLBACK = "AdsMIronSourceRewardAdsCloseCallback";
-	public const string U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_GET_REWARD_CALLBACK = "AdsMIronSourceRewardAdsGetRewardCallback";
+	public const string U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_RECEIVE_REWARD_CALLBACK = "AdsMIronSourceRewardAdsReceiveRewardCallback";
 	public const string U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_CHANGE_STATE_CALLBACK = "AdsMIronSourceRewardAdsChangeStateCallback";
 
 	public const string U_KEY_ADS_M_IRON_SOURCE_FULLSCREEN_ADS_LOAD_FAIL_CALLBACK = "AdsMIronSourceFullscreenAdsLoadFailCallback";
 	public const string U_KEY_ADS_M_IRON_SOURCE_FULLSCREEN_ADS_CLOSE_CALLBACK = "AdsMIronSourceFullscreenAdsCloseCallback";
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_LOAD_FAIL_CALLBACK = "AdsMAppLovinRewardAdsLoadFailCallback";
+	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_SHOW_CALLBACK = "AdsMAppLovinRewardAdsShowCallback";
+	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_CLOSE_CALLBACK = "AdsMAppLovinRewardAdsCloseCallback";
+	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_RECEIVE_REWARD_CALLBACK = "AdsMAppLovinRewardAdsReceiveRewardCallback";
+
+	public const string U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_LOAD_FAIL_CALLBACK = "AdsMAppLovinFullscreenAdsLoadFailCallback";
+	public const string U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_SHOW_CALLBACK = "AdsMAppLovinFullscreenAdsShowCallback";
+	public const string U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_CLOSE_CALLBACK = "AdsMAppLovinFullscreenAdsCloseCallback";
+#endif			// #if APP_LOVIN_ENABLE
 	// 키 }
 
 	// 식별자 {

@@ -43,7 +43,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 아이언 소스 유저 보상을 수신했을 경우
 	public void OnReceiveIronSourceUserReward(IronSourcePlacement a_oPlacement) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_GET_REWARD_CALLBACK, () => {
+		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_IRON_SOURCE_REWARD_ADS_RECEIVE_REWARD_CALLBACK, () => {
 			Func.ShowLog("CAdsManager.OnReceiveIronSourceUserReward: {0}", Color.yellow, a_oPlacement);
 
 			this.HandleRewardAdsResult(EAdsType.IRON_SOURCE, new STAdsRewardInfo() {

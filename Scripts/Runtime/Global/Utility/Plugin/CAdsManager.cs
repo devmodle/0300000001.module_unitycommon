@@ -103,6 +103,21 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	}
 #endif			// #if IRON_SOURCE_ENABLE
 
+#if APP_LOVIN_ENABLE
+	//! 앱 로빈 매개 변수
+	public struct STAppLovinParameters {
+		public string m_oSDKKey;
+		public Dictionary<string, string> m_oAdsIDList;
+	}
+
+	//! 앱 로빈 변수
+	public struct STAppLovinVariable {
+		public int m_nBannerAdsLoadTryTimes;
+		public int m_nRewardAdsLoadTryTimes;
+		public int m_nFullscreenAdsLoadTryTimes;
+	}
+#endif			// #if APP_LOVIN_ENABLE
+
 	//! 매개 변수
 	public struct STParameters {
 		public EAdsType m_eBannerAdsType;
@@ -119,6 +134,10 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 #if IRON_SOURCE_ENABLE
 		public STIronSourceParameters m_stIronSourceParameters;
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+		public STAppLovinParameters m_stAppLovinParameters;
+#endif			// #if APP_LOVIN_ENABLE
 	}
 
 	//! 변수
@@ -134,6 +153,10 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 #if IRON_SOURCE_ENABLE
 		public STIronSourceVariable m_stIronSourceVariable;
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+		public STAppLovinVariable m_stAppLovinVariable;
+#endif			// #if APP_LOVIN_ENABLE
 	}
 
 	#region 변수

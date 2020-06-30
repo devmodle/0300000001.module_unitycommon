@@ -66,7 +66,7 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 	//! 결제 로그를 전송한다
 	public void SendPurchaseLog(Product a_oProduct) {
 		Func.ShowLog("CTenjinManager.SendPurchaseLog: {0}", Color.yellow, a_oProduct);
-
+		
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {
 			var oDataList = MiniJson.JsonDecode(a_oProduct.receipt) as Dictionary<string, object>;

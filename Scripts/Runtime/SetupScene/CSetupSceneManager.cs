@@ -142,8 +142,20 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 							[KDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oRewardAdsPlacement,
 							[KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oFullscreenAdsPlacement
 						}
-					}
+					},
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+					m_stAppLovinParameters = new CAdsManager.STAppLovinParameters() {
+						m_oSDKKey = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oSDKKey,
+
+						m_oAdsIDList = new List<string>() {
+							[KDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oBannerAdsID,
+							[KDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oRewardAdsID,
+							[KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oFullscreenAdsID
+						}
+					}
+#endif			// #if APP_LOVIN_ENABLE
 				}, null);
 
 				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
@@ -227,7 +239,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CUnityMessageSender.Instance.SendGetDeviceIDMessage(this.OnReceiveDeviceMessage);
 		}
 	}
-
+	
 	//! 디바이스 식별자 반환 메세지를 처리한다
 	private void HandleGetDeviceIDMessage(string a_oMessage) {
 #if MESSAGE_PACK_ENABLE

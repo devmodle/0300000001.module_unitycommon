@@ -86,7 +86,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 애드몹 유저 보상을 수신했을 경우
 	public void OnReceiveAdmobUserReward(object a_oSender, Reward a_oReward) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_REWARD_ADS_GET_REWARD_CALLBACK, () => {
+		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_REWARD_ADS_RECEIVE_REWARD_CALLBACK, () => {
 			Func.ShowLog("CAdsManager.OnReceiveAdmobUserReward: {0}", Color.yellow, a_oReward);
 
 			this.HandleRewardAdsResult(EAdsType.ADMOB, new STAdsRewardInfo() {
