@@ -48,7 +48,36 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		});
 	}
 
+	//! 앱 로빈 전면 광고 로드에 실패했을 경우
+	public void OnLoadFailAppLovinFullscreenAds(string a_oAdsID, int a_nErrorCode) {
+		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_LOAD_FAIL_CALLBACK, () => {
+			Func.ShowLog("CAdsManager.OnLoadFailAppLovinFullscreenAds: {0}, {1}", a_oAdsID, a_nErrorCode);
+			m_stVariable.m_stAppLovinVariable.m_nFullscreenAdsLoadTryTimes += 1;
 
+			if(m_stVariable.m_stAppLovinVariable.m_nFullscreenAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
+				this.LoadFullscreenAds(EAdsType.APP_LOVIN);
+			}			
+		});
+	}
+
+	//! 앱 로빈 전면 광고가 출력 될 경우
+	public void OnShowAppLovinFullscreenAds(string a_oAdsID) {
+		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_SHOW_CALLBACK, () => {
+			Func.ShowLog("CAdsManager.OnShowAppLovinFullscreenAds: {0}", a_oAdsID);
+			m_stVariable.m_stAppLovinVariable.m_nFullscreenAdsLoadTryTimes = 0;
+
+			
+		});
+	}
+
+	//! 앱 로빈 전면 광고가 닫혔을 경우
+	public void OnCloseAppLovinFullscreenAds(string a_oAdsID) {
+		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_SHOW_CALLBACK, () => {
+			Func.ShowLog("CAdsManager.OnCloseAppLovinFullscreenAds: {0}", Color.yellow, a_oAdsID);
+
+
+		});
+	}
 	#endregion			// 함수
 }
 #endif			// #if ADS_ENABLE && APP_LOVIN_ENABLE
