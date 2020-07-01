@@ -9,7 +9,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 팝업 UI 를 설정한다
 	private void SetupPopupUI() {
 		if(CSetupSceneManager.m_oPopupUI == null) {
-			var oPopupUI = Func.CreateCloneGameObject(KDefine.SS_NAME_POPUP_UI,
+			var oPopupUI = Func.CreateCloneObject(KDefine.SS_NAME_POPUP_UI,
 				CResourceManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_POPUP_UI), null);
 
 			CSetupSceneManager.m_oPopupUI = oPopupUI;
@@ -23,7 +23,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 최상위 UI 를 설정한다
 	private void SetupTopmostUI() {
 		if(CSetupSceneManager.m_oTopmostUI == null) {
-			var oTopmostUI = Func.CreateCloneGameObject(KDefine.SS_NAME_TOPMOST_UI,
+			var oTopmostUI = Func.CreateCloneObject(KDefine.SS_NAME_TOPMOST_UI,
 				CResourceManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_TOPMOST_UI), null);
 
 			CSetupSceneManager.m_oTopmostUI = oTopmostUI;
@@ -37,7 +37,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 절대 UI 를 설정한다
 	private void SetupAbsoluteUI() {
 		if(CSetupSceneManager.m_oAbsoluteUI == null) {
-			var oAbsoluteUI = Func.CreateCloneGameObject(KDefine.SS_NAME_ABSOLUTE_UI,
+			var oAbsoluteUI = Func.CreateCloneObject(KDefine.SS_NAME_ABSOLUTE_UI,
 				CResourceManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_ABSOLUTE_UI), null);
 
 			CSetupSceneManager.m_oAbsoluteUI = oAbsoluteUI;
@@ -51,7 +51,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 타이머 관리자를 설정한다
 	private void SetupTimerManager() {
 		if(CSetupSceneManager.m_oTimerManager == null) {
-			var oTimerManager = Func.CreateCloneGameObject(KDefine.SS_NAME_TIMER_MANAGER,
+			var oTimerManager = Func.CreateCloneObject(KDefine.SS_NAME_TIMER_MANAGER,
 				CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_SS_TIMER_MANAGER), null);
 
 			CSetupSceneManager.m_oTimerManager = oTimerManager;
@@ -64,7 +64,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 디버그 UI 를 설정한다
 	private void SetupDebugUI() {
 		if(CSetupSceneManager.m_oDebugUI == null) {
-			var oDebugUI = Func.CreateCloneGameObject(KDefine.SS_NAME_DEBUG_UI,
+			var oDebugUI = Func.CreateCloneObject(KDefine.SS_NAME_DEBUG_UI,
 				CResourceManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_DEBUG_UI), null);
 
 			CSetupSceneManager.m_oDebugUI = oDebugUI;
@@ -93,7 +93,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! FPS 카운터를 설정한다
 	private void SetupFPSCounter() {
 		if(CSetupSceneManager.m_oFPSCounter == null) {
-			var oFPSCounter = Func.CreateCloneGameObject(KDefine.SS_NAME_FPS_COUNTER,
+			var oFPSCounter = Func.CreateCloneObject(KDefine.SS_NAME_FPS_COUNTER,
 				CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_SS_FPS_COUNTER), null);
 
 			CSetupSceneManager.m_oFPSCounter = oFPSCounter;

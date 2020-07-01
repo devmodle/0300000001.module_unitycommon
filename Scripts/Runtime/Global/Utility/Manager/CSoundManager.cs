@@ -61,7 +61,7 @@ public class CSoundManager : CSingleton<CSoundManager> {
 		base.Awake();
 
 		// 배경음을 생성한다 {
-		m_oBGSound = Func.CreateCloneGameObject<CSound>(KDefine.U_OBJ_NAME_SOUND_M_BG_SOUND,
+		m_oBGSound = Func.CreateCloneObject<CSound>(KDefine.U_OBJ_NAME_SOUND_M_BG_SOUND,
 			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_BG_SOUND), this.gameObject);
 
 		m_oBGSound.transform.localPosition = Vector3.zero;
@@ -192,7 +192,7 @@ public class CSoundManager : CSingleton<CSoundManager> {
 		}
 
 		// 효과음을 생성한다 {
-		var oSound = Func.CreateCloneGameObject<CSound>(KDefine.U_OBJ_NAME_SOUND_M_FX_SOUND,
+		var oSound = Func.CreateCloneObject<CSound>(KDefine.U_OBJ_NAME_SOUND_M_FX_SOUND,
 			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_FX_SOUND), this.gameObject);
 
 		oSound.transform.localPosition = Vector3.zero;

@@ -14,10 +14,10 @@ using UnityEditor.SceneManagement;
 public static partial class EditorFunc {
 	#region 클래스 함수
 	//! 활성된 객체를 반환한다
-	public static GameObject GetActiveGameObject(bool a_bIsInHierarchy = true) {
-		var oGameObject = Selection.activeGameObject;
+	public static GameObject GetActiveObject(bool a_bIsInHierarchy = true) {
+		var oObject = Selection.activeGameObject;
 
-		return (oGameObject == null || (a_bIsInHierarchy && !oGameObject.activeInHierarchy)) ? null 
+		return (oObject == null || (a_bIsInHierarchy && !oObject.activeInHierarchy)) ? null 
 			: Selection.activeGameObject;
 	}
 
@@ -489,14 +489,14 @@ public static partial class EditorFunc {
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) {
 		Func.Assert(a_oOrigin != null);
 
-		var oGameObject = PrefabUtility.InstantiatePrefab(a_oOrigin) as GameObject;
-		oGameObject.name = a_oName;
-		oGameObject.transform.localScale = a_oOrigin.transform.localScale;
+		var oObject = PrefabUtility.InstantiatePrefab(a_oOrigin) as GameObject;
+		oObject.name = a_oName;
+		oObject.transform.localScale = a_oOrigin.transform.localScale;
 
-		oGameObject.transform.SetParent(a_oParent?.transform, a_bIsStayWorldState);
-		oGameObject.transform.SetAsLastSibling();
+		oObject.transform.SetParent(a_oParent?.transform, a_bIsStayWorldState);
+		oObject.transform.SetAsLastSibling();
 		
-		return oGameObject;
+		return oObject;
 	}
 
 	//! 플랫폼 옵션을 설정한다

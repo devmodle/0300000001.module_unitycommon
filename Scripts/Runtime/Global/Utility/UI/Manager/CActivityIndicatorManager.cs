@@ -40,10 +40,10 @@ public class CActivityIndicatorManager : CSingleton<CActivityIndicatorManager> {
 
 			// 블라인드 UI 를 출력한다
 			if(a_bIsShowBlindUI) {
-				var oGameObject = CSceneManager.ScreenTopmostUIRoot ?? CSceneManager.TopmostUIRoot;
+				var oParent = CSceneManager.ScreenTopmostUIRoot ?? CSceneManager.TopmostUIRoot;
 
 				CSceneManager.ShowTouchResponder(KDefine.U_OBJ_NAME_ACTIVITY_I_TOUCH_RESPONDER,
-					oGameObject, KAppDefine.G_DEF_COLOR_ACTIVITY_INDICATOR_BG, null, false, true);
+					oParent, KAppDefine.G_DEF_COLOR_ACTIVITY_INDICATOR_BG, null, false, true);
 			}
 		}
 	}

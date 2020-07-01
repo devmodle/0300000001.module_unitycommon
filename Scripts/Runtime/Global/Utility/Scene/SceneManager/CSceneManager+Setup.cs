@@ -229,10 +229,10 @@ public abstract partial class CSceneManager : CComponent {
 		this.SetupRootObjects();
 
 		// 사운드 객체를 설정한다 {
-		var oGameObjects = this.gameObject.scene.GetRootGameObjects();
+		var oObjects = this.gameObject.scene.GetRootGameObjects();
 
-		for(int i = 0; i < oGameObjects.Length; ++i) {
-			var oAudioListeners = oGameObjects[i].GetComponentsInChildren<AudioListener>(true);
+		for(int i = 0; i < oObjects.Length; ++i) {
+			var oAudioListeners = oObjects[i].GetComponentsInChildren<AudioListener>(true);
 
 			for(int j = 0; j < oAudioListeners.Length; ++j) {
 				if(Application.isPlaying) {
@@ -247,10 +247,10 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 광원을 설정한다
 	protected virtual void SetupLights() {
-		var oGameObjects = this.gameObject.scene.GetRootGameObjects();
+		var oObjects = this.gameObject.scene.GetRootGameObjects();
 
-		for(int i = 0; i < oGameObjects.Length; ++i) {
-			var oLights = oGameObjects[i].GetComponentsInChildren<Light>(true);
+		for(int i = 0; i < oObjects.Length; ++i) {
+			var oLights = oObjects[i].GetComponentsInChildren<Light>(true);
 
 			for(int j = 0; j < oLights.Length; ++j) {
 				bool bIsDirectional = oLights[j].type == LightType.Directional;
@@ -415,30 +415,30 @@ public abstract partial class CSceneManager : CComponent {
 	//! 캔버스를 설정한다
 	protected virtual void SetupCanvas(Canvas a_oCanvas) {
 		if(a_oCanvas != null) {
-			var oGameObject = a_oCanvas.gameObject;
+			var oObject = a_oCanvas.gameObject;
 
 			// UI 객체를 설정한다 {
 			var oUIObjects = new GameObject[] {
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_ROOT),
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_UI_ROOT),
 
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT),
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT),
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT),
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT),
 
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_POPUP_UI_ROOT),
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOPMOST_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_POPUP_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOPMOST_UI_ROOT),
 
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJECT_CANVAS_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJECT_CANVAS_ROOT),
 
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT),
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_POPUP_UI_ROOT),
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_TOPMOST_UI_ROOT),
-				oGameObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_POPUP_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_TOPMOST_UI_ROOT),
+				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT),
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-				oGameObject.ExFindChild(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT)
+				oObject.ExFindChild(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT)
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 			};
 

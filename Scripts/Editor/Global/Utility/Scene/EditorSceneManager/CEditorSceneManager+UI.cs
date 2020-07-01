@@ -11,9 +11,8 @@ public static partial class CEditorSceneManager {
 	[DrawGizmo(GizmoType.Active | GizmoType.Selected | GizmoType.NonSelected | GizmoType.Pickable | GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
 	public static void DrawGizmos(CSceneManager a_oSceneManager, GizmoType a_oGizmoType) {
 		if(CEditorSceneManager.IsEnableDrawGizmos()) {
-			for(int i = 0; i < SceneManager.sceneCount; ++i) {
-				var stScene = SceneManager.GetSceneAt(i);
-				var oSceneManager = stScene.ExFindComponent<CSceneManager>(KDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
+			Func.EnumerateScenes((a_stScene) => {
+				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
 
 				if(oSceneManager != null) {
 					if(CEditorSceneManager.IsEnableUpdateState()) {
@@ -24,7 +23,7 @@ public static partial class CEditorSceneManager {
 						oSceneManager.EditorDrawGuideline();
 					}
 				}
-			}
+			});
 		}
 	}
 	#endregion			// 클래스 함수

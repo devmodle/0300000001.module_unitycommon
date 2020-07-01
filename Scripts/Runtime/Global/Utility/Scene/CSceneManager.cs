@@ -234,7 +234,7 @@ public abstract partial class CSceneManager : CComponent {
 		
 #if UNITY_EDITOR
 		if(this.IsRootScene) {
-			Func.SelectGameObject(this.gameObject, true);
+			Func.SelectObject(this.gameObject, true);
 		}
 #endif			// #if UNITY_EDITOR
 	}
@@ -369,34 +369,34 @@ public abstract partial class CSceneManager : CComponent {
 	}
 
 	//! 객체를 활성화한다
-	public GameObject SpawnGameObject(string a_oKey, 
+	public GameObject SpawnObject(string a_oKey, 
 		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) {
 		Func.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
 		
-		var oGameObject = m_oObjectPoolList[a_oKey].Spawn();
-		oGameObject.transform.localScale = a_stScale;
+		var oObject = m_oObjectPoolList[a_oKey].Spawn();
+		oObject.transform.localScale = a_stScale;
 
 		if(a_oName.ExIsValid()) {
-			oGameObject.name = a_oName;
+			oObject.name = a_oName;
 		}
 
 		if(a_bIsWorld) {
-			oGameObject.transform.position = a_stPos;
-			oGameObject.transform.eulerAngles = a_stRotation;
+			oObject.transform.position = a_stPos;
+			oObject.transform.eulerAngles = a_stRotation;
 		} else {
-			oGameObject.transform.localPosition = a_stPos;
-			oGameObject.transform.localEulerAngles = a_stRotation;
+			oObject.transform.localPosition = a_stPos;
+			oObject.transform.localEulerAngles = a_stRotation;
 		}
 
-		return oGameObject;
+		return oObject;
 	}
 
 	//! 객체를 비활성화한다
-	public void DespawnGameObject(string a_oKey, GameObject a_oGameObject, bool a_bIsDestroy = false) {
+	public void DespawnObject(string a_oKey, GameObject a_oObject, bool a_bIsDestroy = false) {
 		Func.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
 
 		if(m_oObjectPoolList.ContainsKey(a_oKey)) {
-			m_oObjectPoolList[a_oKey].Despawn(a_oGameObject, a_bIsDestroy);
+			m_oObjectPoolList[a_oKey].Despawn(a_oObject, a_bIsDestroy);
 		}
 	}
 
@@ -512,10 +512,10 @@ public abstract partial class CSceneManager : CComponent {
 
 	#region 제네릭 함수
 	//! 객체를 활성화한다
-	public T SpawnGameObject<T>(string a_oKey,
+	public T SpawnObject<T>(string a_oKey,
 		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) where T : Component {
-		var oGameObject = this.SpawnGameObject(a_oKey, a_stPos, a_stScale, a_stRotation, a_oName, a_bIsWorld);
-		return oGameObject?.GetComponentInChildren<T>();
+		var oObject = this.SpawnObject(a_oKey, a_stPos, a_stScale, a_stRotation, a_oName, a_bIsWorld);
+		return oObject?.GetComponentInChildren<T>();
 	}
 	#endregion			// 제네릭 함수
 
