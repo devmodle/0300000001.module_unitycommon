@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-//! 기본 게임 객체 생성자
+//! 기본 객체 생성자
 public static partial class CGameObjectCreator {
 	#region 클래스 함수
 	//! 텍스트를 생성한다
@@ -200,7 +200,7 @@ public static partial class CGameObjectCreator {
 		CGameObjectCreator.CreateGameObject(KEditorDefine.B_OBJ_NAME_DRAG_RESPONDER, KDefine.U_OBJ_PATH_DRAG_RESPONDER, true);
 	}
 
-	//! 게임 객체를 생성한다
+	//! 객체를 생성한다
 	private static GameObject CreateGameObject(string a_oName, string a_oFilepath, bool a_bIsOriginal = true) {
 		GameObject oGameObject = null;
 		GameObject oOriginObject = Resources.Load<GameObject>(a_oFilepath);

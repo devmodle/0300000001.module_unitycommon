@@ -10,7 +10,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupPopupUI() {
 		if(CSetupSceneManager.m_oPopupUI == null) {
 			var oPopupUI = Func.CreateCloneGameObject(KDefine.SS_NAME_POPUP_UI,
-				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_POPUP_UI), null);
+				CResourceManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_POPUP_UI), null);
 
 			CSetupSceneManager.m_oPopupUI = oPopupUI;
 			CSceneManager.ScreenPopupUIRoot = oPopupUI.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_POPUP_UI_ROOT);
@@ -24,7 +24,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupTopmostUI() {
 		if(CSetupSceneManager.m_oTopmostUI == null) {
 			var oTopmostUI = Func.CreateCloneGameObject(KDefine.SS_NAME_TOPMOST_UI,
-				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_TOPMOST_UI), null);
+				CResourceManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_TOPMOST_UI), null);
 
 			CSetupSceneManager.m_oTopmostUI = oTopmostUI;
 			CSceneManager.ScreenTopmostUIRoot = oTopmostUI.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_TOPMOST_UI_ROOT);
@@ -38,7 +38,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupAbsoluteUI() {
 		if(CSetupSceneManager.m_oAbsoluteUI == null) {
 			var oAbsoluteUI = Func.CreateCloneGameObject(KDefine.SS_NAME_ABSOLUTE_UI,
-				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_ABSOLUTE_UI), null);
+				CResourceManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_ABSOLUTE_UI), null);
 
 			CSetupSceneManager.m_oAbsoluteUI = oAbsoluteUI;
 			CSceneManager.ScreenAbsoluteUIRoot = oAbsoluteUI.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT);
@@ -52,7 +52,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupTimerManager() {
 		if(CSetupSceneManager.m_oTimerManager == null) {
 			var oTimerManager = Func.CreateCloneGameObject(KDefine.SS_NAME_TIMER_MANAGER,
-				CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_SS_TIMER_MANAGER), null);
+				CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_SS_TIMER_MANAGER), null);
 
 			CSetupSceneManager.m_oTimerManager = oTimerManager;
 		}
@@ -65,7 +65,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupDebugUI() {
 		if(CSetupSceneManager.m_oDebugUI == null) {
 			var oDebugUI = Func.CreateCloneGameObject(KDefine.SS_NAME_DEBUG_UI,
-				CResourceManager.Instance.GetGameObject(KDefine.IS_PATH_SCREEN_DEBUG_UI), null);
+				CResourceManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_DEBUG_UI), null);
 
 			CSetupSceneManager.m_oDebugUI = oDebugUI;
 
@@ -94,7 +94,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupFPSCounter() {
 		if(CSetupSceneManager.m_oFPSCounter == null) {
 			var oFPSCounter = Func.CreateCloneGameObject(KDefine.SS_NAME_FPS_COUNTER,
-				CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_SS_FPS_COUNTER), null);
+				CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_SS_FPS_COUNTER), null);
 
 			CSetupSceneManager.m_oFPSCounter = oFPSCounter;
 

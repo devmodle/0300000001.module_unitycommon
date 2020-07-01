@@ -368,7 +368,7 @@ public abstract partial class CSceneManager : CComponent {
 		}
 	}
 
-	//! 게임 객체를 활성화한다
+	//! 객체를 활성화한다
 	public GameObject SpawnGameObject(string a_oKey, 
 		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) {
 		Func.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
@@ -391,7 +391,7 @@ public abstract partial class CSceneManager : CComponent {
 		return oGameObject;
 	}
 
-	//! 게임 객체를 비활성화한다
+	//! 객체를 비활성화한다
 	public void DespawnGameObject(string a_oKey, GameObject a_oGameObject, bool a_bIsDestroy = false) {
 		Func.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
 
@@ -427,7 +427,7 @@ public abstract partial class CSceneManager : CComponent {
 
 		if(!CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey)) {
 			var oTouchResponder = Func.CreateTouchResponder(string.Format(KDefine.U_KEY_FORMAT_SCENE_M_TOUCH_RESPONDER, a_oKey),
-				CResourceManager.Instance.GetGameObject(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
+				CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
 				a_oParent,
 				CSceneManager.CanvasSize,
 				KDefine.B_POS_MIDDLE_CENTER,
@@ -511,7 +511,7 @@ public abstract partial class CSceneManager : CComponent {
 	#endregion			// 클래스 함수
 
 	#region 제네릭 함수
-	//! 게임 객체를 활성화한다
+	//! 객체를 활성화한다
 	public T SpawnGameObject<T>(string a_oKey,
 		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) where T : Component {
 		var oGameObject = this.SpawnGameObject(a_oKey, a_stPos, a_stScale, a_stRotation, a_oName, a_bIsWorld);

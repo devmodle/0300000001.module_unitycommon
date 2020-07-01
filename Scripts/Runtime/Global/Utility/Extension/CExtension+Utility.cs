@@ -262,7 +262,7 @@ public static partial class CExtension {
 		a_oSender.Play();
 	}
 
-	//! 자식 게임 객체를 탐색한다
+	//! 자식 객체를 탐색한다
 	public static GameObject ExFindChild(this Scene a_stSender, string a_oName) {
 		var oGameObjects = a_stSender.GetRootGameObjects();
 
@@ -277,7 +277,7 @@ public static partial class CExtension {
 		return null;
 	}
 
-	//! 자식 게임 객체를 탐색한다
+	//! 자식 객체를 탐색한다
 	public static GameObject ExFindChild(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
 		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.DescendantsAndSelf() : a_oSender.Descendants();
@@ -291,7 +291,7 @@ public static partial class CExtension {
 		return null;
 	}
 
-	//! 자식 게임 객체를 탐색한다
+	//! 자식 객체를 탐색한다
 	public static List<GameObject> ExFindChildren(this Scene a_stSender, string a_oName) {
 		var oGameObjects = a_stSender.GetRootGameObjects();
 		var oTotalGameObjectList = new List<GameObject>();
@@ -307,7 +307,7 @@ public static partial class CExtension {
 		return oTotalGameObjectList;
 	}
 
-	//! 자식 게임 객체를 탐색한다
+	//! 자식 객체를 탐색한다
 	public static List<GameObject> ExFindChildren(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
 		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 
@@ -323,7 +323,7 @@ public static partial class CExtension {
 		return oGameObjectList;
 	}
 
-	//! 부모 게임 객체를 탐색한다
+	//! 부모 객체를 탐색한다
 	public static GameObject ExFindParent(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
 		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.AncestorsAndSelf() : a_oSender.Ancestors();
@@ -337,7 +337,7 @@ public static partial class CExtension {
 		return null;
 	}
 
-	//! 부모 게임 객체를 탐색한다
+	//! 부모 객체를 탐색한다
 	public static List<GameObject> ExFindParents(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
 		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 

@@ -13,7 +13,7 @@ public class CResourceManager : CSingleton<CResourceManager> {
 	private Dictionary<string, Material> m_oMaterialList = new Dictionary<string, Material>();
 	private Dictionary<string, AudioClip> m_oAudioClipList = new Dictionary<string, AudioClip>();
 	private Dictionary<string, TextAsset> m_oTextAssetList = new Dictionary<string, TextAsset>();
-	private Dictionary<string, GameObject> m_oGameObjectList = new Dictionary<string, GameObject>();
+	private Dictionary<string, GameObject> m_oPrefabList = new Dictionary<string, GameObject>();
 	private Dictionary<string, SpriteAtlas> m_oSpriteAtlasList = new Dictionary<string, SpriteAtlas>();
 	private Dictionary<string, AssetBundle> m_oAssetBundleList = new Dictionary<string, AssetBundle>();
 	private Dictionary<string, ScriptableObject> m_oScriptableObjectList = new Dictionary<string, ScriptableObject>();
@@ -75,9 +75,9 @@ public class CResourceManager : CSingleton<CResourceManager> {
 		return this.GetResource<TextAsset>(m_oTextAssetList, a_oKey, a_bIsAutoCreate);
 	}
 
-	//! 게임 객체를 반환한다
-	public GameObject GetGameObject(string a_oKey, bool a_bIsAutoCreate = true) {
-		return this.GetResource<GameObject>(m_oGameObjectList, a_oKey, a_bIsAutoCreate);
+	//! 프리팹을 반환한다
+	public GameObject GetPrefab(string a_oKey, bool a_bIsAutoCreate = true) {
+		return this.GetResource<GameObject>(m_oPrefabList, a_oKey, a_bIsAutoCreate);
 	}
 
 	//! 메시를 추가한다
@@ -115,9 +115,9 @@ public class CResourceManager : CSingleton<CResourceManager> {
 		m_oTextAssetList.ExAddValue(a_oKey, a_oTextAsset);
 	}
 
-	//! 게임 객체를 추가한다
-	public void AddGameObject(string a_oKey, GameObject a_oGameObject) {
-		m_oGameObjectList.ExAddValue(a_oKey, a_oGameObject);
+	//! 객체를 추가한다
+	public void AddPrefab(string a_oKey, GameObject a_oPrefab) {
+		m_oPrefabList.ExAddValue(a_oKey, a_oPrefab);
 	}
 
 	//! 스크립트 객체를 추가한다
@@ -166,9 +166,9 @@ public class CResourceManager : CSingleton<CResourceManager> {
 		this.RemoveResource(m_oTextAssetList, a_oKey, a_bIsAutoUnload);
 	}
 
-	//! 게임 객체를 제거한다
-	public void RemoveGameObject(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveResource(m_oGameObjectList, a_oKey, a_bIsAutoUnload);
+	//! 프리팹을 제거한다
+	public void RemovePrefab(string a_oKey, bool a_bIsAutoUnload = false) {
+		this.RemoveResource(m_oPrefabList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 스크립트 객체를 제거한다

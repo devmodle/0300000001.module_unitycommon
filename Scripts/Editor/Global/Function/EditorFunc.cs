@@ -13,7 +13,7 @@ using UnityEditor.SceneManagement;
 // 에디터 함수
 public static partial class EditorFunc {
 	#region 클래스 함수
-	//! 활성된 게임 객체를 반환한다
+	//! 활성된 객체를 반환한다
 	public static GameObject GetActiveGameObject(bool a_bIsInHierarchy = true) {
 		var oGameObject = Selection.activeGameObject;
 

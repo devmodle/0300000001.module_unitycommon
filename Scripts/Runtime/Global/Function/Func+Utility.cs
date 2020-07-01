@@ -287,7 +287,7 @@ public static partial class Func {
 #endif			// #if PIXEL_PERFECT_ENABLE
 	}
 
-	//! 게임 객체를 탐색한다
+	//! 객체를 탐색한다
 	public static GameObject FindGameObject(string a_oName) {
 		Func.Assert(a_oName.ExIsValid());
 		return GameObject.Find(a_oName);
@@ -317,7 +317,7 @@ public static partial class Func {
 		}
 	}
 
-	//! 게임 객체를 생선한다
+	//! 객체를 생선한다
 	public static GameObject CreateGameObject(string a_oName, 
 		GameObject a_oParent, bool a_bIsStayWorldState = false) {
 		var oGameObject = new GameObject(a_oName);
@@ -326,7 +326,7 @@ public static partial class Func {
 		return oGameObject;
 	}
 
-	//! 사본 게임 객체를 생성한다
+	//! 사본 객체를 생성한다
 	public static GameObject CreateCloneGameObject(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) {
 		Func.Assert(a_oOrigin != null);
@@ -375,14 +375,14 @@ public static partial class Func {
 		return oGameObject?.GetComponentsInChildren<T>();
 	}
 
-	//! 게임 객체를 생선한다
+	//! 객체를 생선한다
 	public static T CreateGameObject<T>(string a_oName,
 		GameObject a_oParent, bool a_bIsStayWorldState = false) where T : Component {
 		var oGameObject = Func.CreateGameObject(a_oName, a_oParent, a_bIsStayWorldState);
 		return oGameObject.ExAddComponent<T>();
 	}
 
-	//! 게임 객체 사본을 생성한다
+	//! 객체 사본을 생성한다
 	public static T CreateCloneGameObject<T>(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) where T : Component {
 		var oGameObject = Func.CreateCloneGameObject(a_oName, a_oOrigin, a_oParent, a_bIsStayWorldState);
