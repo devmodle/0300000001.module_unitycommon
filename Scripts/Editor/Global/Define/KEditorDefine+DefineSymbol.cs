@@ -49,6 +49,7 @@ public static partial class KEditorDefine {
 	public const string DS_DEFINE_SYMBOL_AB_TEST_ENABLE = "AB_TEST_ENABLE";
 	public const string DS_DEFINE_SYMBOL_ADS_TEST_ENABLE = "ADS_TEST_ENABLE";
 	public const string DS_DEFINE_SYMBOL_ROBO_TEST_ENABLE = "ROBO_TEST_ENABLE";
+	public const string DS_DEFINE_SYMBOL_PLAY_TEST_ENABLE = "PLAY_TEST_ENABLE";
 	public const string DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE = "LOGIC_TEST_ENABLE";
 	public const string DS_DEFINE_SYMBOL_ANALYTICS_TEST_ENABLE = "ANALYTICS_TEST_ENABLE";
 

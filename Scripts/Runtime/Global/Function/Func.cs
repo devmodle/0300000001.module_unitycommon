@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
@@ -417,8 +418,7 @@ public static partial class Func {
 		Func.Assert(a_oTask != null);
 
 		a_oTask.ContinueWith((a_oContinueTask) => {
-			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK,
-				System.Threading.Thread.CurrentThread.ManagedThreadId);
+			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK, Thread.CurrentThread.ManagedThreadId);
 
 			CScheduleManager.Instance.AddCallback(oKey, () => {
 				a_oCallback?.Invoke(a_oContinueTask);
@@ -616,7 +616,7 @@ public static partial class Func {
 
 		a_oTask.ContinueWith((a_oContinueTask) => {
 			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK,
-				System.Threading.Thread.CurrentThread.ManagedThreadId);
+				Thread.CurrentThread.ManagedThreadId);
 
 			CScheduleManager.Instance.AddCallback(oKey, () => {
 				a_oCallback?.Invoke(a_oContinueTask);
