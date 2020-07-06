@@ -63,7 +63,7 @@ public struct STAndroidBuildInfo {
 }
 
 //! 빌드 정보 테이블
-public class CBuildInfoTable : CScriptableObject<CBuildInfoTable> {
+public class CBuildInfoTable : CScriptableObj<CBuildInfoTable> {
 	#region 변수
 	[Header("Jenkins Info")]
 	[SerializeField] private STJenkinsInfo m_stJenkinsInfo;

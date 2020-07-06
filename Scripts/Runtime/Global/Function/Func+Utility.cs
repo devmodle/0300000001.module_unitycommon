@@ -130,8 +130,8 @@ public static partial class Func {
 	
 	//! 메세지를 전송한다
 	public static void SendMsg(string a_oName, string a_oMsg, object a_oParams) {
-		var oObject = Func.FindObject(a_oName);
-		oObject?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
+		var oObj = Func.FindObj(a_oName);
+		oObj?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
 	}
 
 	//! 메세지를 전파한다
@@ -194,8 +194,8 @@ public static partial class Func {
 			oRenderPipeline.ExSetRuntimeFieldValue<UniversalRenderPipelineAsset>(KDefine.U_FIELD_NAME_UNIVERSAL_RP_DEBUG_LEVEL, 
 				PipelineDebugLevel.Disabled);
 
-			oRenderPipeline.ExSetRuntimeFieldValue<UniversalRenderPipelineAsset>(KDefine.U_FIELD_NAME_UNIVERSAL_RP_ADDITIONAL_LIGHT_PER_OBJECT_LIMIT, 
-				KDefine.U_MAX_NUM_UNIVERSAL_RP_ADDITIONAL_LIGHT_PER_OBJECT);
+			oRenderPipeline.ExSetRuntimeFieldValue<UniversalRenderPipelineAsset>(KDefine.U_FIELD_NAME_UNIVERSAL_RP_ADDITIONAL_LIGHT_PER_OBJ_LIMIT, 
+				KDefine.U_MAX_NUM_UNIVERSAL_RP_ADDITIONAL_LIGHT_PER_OBJ);
 
 			oRenderPipeline.ExSetRuntimeFieldValue<UniversalRenderPipelineAsset>(KDefine.U_FIELD_NAME_UNIVERSAL_RP_MAIN_LIGHT_SHADOW_MAP_RESOLUTION, 
 				UnityEngine.Rendering.Universal.ShadowResolution._2048);
@@ -287,31 +287,31 @@ public static partial class Func {
 	}
 
 	//! 객체를 탐색한다
-	public static GameObject FindObject(string a_oName) {
+	public static GameObject FindObj(string a_oName) {
 		Func.Assert(a_oName.ExIsValid());
-		GameObject oObject = null;
+		GameObject oObj = null;
 
 		Func.EnumerateScenes((a_stScene) => {
-			oObject = (oObject != null) ? oObject : a_stScene.ExFindChild(a_oName);
+			oObj = (oObj != null) ? oObj : a_stScene.ExFindChild(a_oName);
 		});
 
-		return oObject;
+		return oObj;
 	}
 
 	//! 객체를 탐색한다
-	public static List<GameObject> FindObjects(string a_oName) {
+	public static List<GameObject> FindObjs(string a_oName) {
 		Func.Assert(a_oName.ExIsValid());
-		var oObjectList = new List<GameObject>();
+		var oObjList = new List<GameObject>();
 
 		Func.EnumerateScenes((a_stScene) => {
-			var oChildObjectList = a_stScene.ExFindChildren(a_oName);
+			var oChildObjList = a_stScene.ExFindChildren(a_oName);
 
-			if(oChildObjectList != null) {
-				oObjectList.AddRange(oChildObjectList);
+			if(oChildObjList != null) {
+				oObjList.AddRange(oChildObjList);
 			}
 		});
 		
-		return oObjectList;
+		return oObjList;
 	}
 
 	//! 씬을 순회한다
@@ -346,81 +346,81 @@ public static partial class Func {
 	}
 
 	//! 객체를 생선한다
-	public static GameObject CreateObject(string a_oName, 
+	public static GameObject CreateObj(string a_oName, 
 		GameObject a_oParent, bool a_bIsStayWorldState = false) {
-		var oObject = new GameObject(a_oName);
-		oObject.transform.SetParent(a_oParent?.transform, a_bIsStayWorldState);
+		var oObj = new GameObject(a_oName);
+		oObj.transform.SetParent(a_oParent?.transform, a_bIsStayWorldState);
 
-		return oObject;
+		return oObj;
 	}
 
 	//! 사본 객체를 생성한다
-	public static GameObject CreateCloneObject(string a_oName,
+	public static GameObject CreateCloneObj(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) {
 		Func.Assert(a_oOrigin != null);
 
-		var oObject = Object.Instantiate(a_oOrigin, a_oOrigin.transform.position, a_oOrigin.transform.rotation);
-		oObject.name = a_oName;
-		oObject.transform.localScale = a_oOrigin.transform.localScale;
+		var oObj = Object.Instantiate(a_oOrigin, a_oOrigin.transform.position, a_oOrigin.transform.rotation);
+		oObj.name = a_oName;
+		oObj.transform.localScale = a_oOrigin.transform.localScale;
 
-		oObject.transform.SetParent(a_oParent?.transform, a_bIsStayWorldState);
-		return oObject;
+		oObj.transform.SetParent(a_oParent?.transform, a_bIsStayWorldState);
+		return oObj;
 	}
 
 	//! 터치 응답자를 생성한다
 	public static GameObject CreateTouchResponder(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, Vector2 a_stSize, Vector2 a_stPos, Color a_stColor) {
-		var oObject = Func.CreateCloneObject(a_oName, a_oOrigin, a_oParent);
-		var oImg = oObject.GetComponentInChildren<Image>();
+		var oObj = Func.CreateCloneObj(a_oName, a_oOrigin, a_oParent);
+		var oImg = oObj.GetComponentInChildren<Image>();
 
 		Func.Assert(oImg != null);
 
-		var oTransform = oObject.transform as RectTransform;
+		var oTransform = oObj.transform as RectTransform;
 		oTransform.sizeDelta = a_stSize;
 		oTransform.anchoredPosition = a_stPos;
 
 		oImg.color = a_stColor;
-		return oObject;
+		return oObj;
 	}
 	
 	//! 객체 풀을 생성한다
-	public static ObjectPool CreateObjectPool(GameObject a_oOrigin, GameObject a_oParent, int a_nNumObjects = 0) {
+	public static ObjectPool CreateObjPool(GameObject a_oOrigin, GameObject a_oParent, int a_nNumObjs = 0) {
 		Func.Assert(a_oOrigin != null);
-		return new ObjectPool(a_oOrigin, a_oParent?.transform, a_nNumObjects);
+		return new ObjectPool(a_oOrigin, a_oParent?.transform, a_nNumObjs);
 	}
 	#endregion			// 클래스 함수
 
 	#region 제네릭 클래스 함수
 	//! 컴포넌트를 탐색한다
 	public static T FindComponent<T>(string a_oName) where T : Component {
-		var oObject = Func.FindObject(a_oName);
-		return oObject?.GetComponentInChildren<T>();
+		var oObj = Func.FindObj(a_oName);
+		return oObj?.GetComponentInChildren<T>();
 	}
 
 	//! 컴포넌트를 탐색한다
 	public static T[] FindComponents<T>(string a_oName) where T : Component {
-		var oObject = Func.FindObject(a_oName);
-		return oObject?.GetComponentsInChildren<T>();
+		var oObj = Func.FindObj(a_oName);
+		return oObj?.GetComponentsInChildren<T>();
 	}
 
 	//! 객체를 생선한다
-	public static T CreateObject<T>(string a_oName,
+	public static T CreateObj<T>(string a_oName,
 		GameObject a_oParent, bool a_bIsStayWorldState = false) where T : Component {
-		var oObject = Func.CreateObject(a_oName, a_oParent, a_bIsStayWorldState);
-		return oObject.ExAddComponent<T>();
+		var oObj = Func.CreateObj(a_oName, a_oParent, a_bIsStayWorldState);
+		return oObj.ExAddComponent<T>();
 	}
 
 	//! 객체 사본을 생성한다
-	public static T CreateCloneObject<T>(string a_oName,
+	public static T CreateCloneObj<T>(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) where T : Component {
-		var oObject = Func.CreateCloneObject(a_oName, a_oOrigin, a_oParent, a_bIsStayWorldState);
-		return oObject?.GetComponentInChildren<T>();
+		var oObj = Func.CreateCloneObj(a_oName, a_oOrigin, a_oParent, a_bIsStayWorldState);
+		return oObj?.GetComponentInChildren<T>();
 	}
 
 	//! 팝업을 생성한다
 	public static T CreatePopup<T>(string a_oName, 
 		GameObject a_oOrigin, GameObject a_oParent, Vector2 a_stPos) where T : CPopup {
-		var oPopup = Func.CreateCloneObject<T>(a_oName, a_oOrigin, a_oParent);
+		var oPopup = Func.CreateCloneObj<T>(a_oName, a_oOrigin, a_oParent);
 
 		if(oPopup != null) {
 			oPopup.m_oRectTransform.anchoredPosition = a_stPos;
@@ -450,20 +450,20 @@ public static partial class Func {
 	//! 터치 응답자를 생성한다
 	public static T CreateTouchResponder<T>(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, Vector2 a_stSize, Vector2 a_stPos, Color a_stColor) where T : Component {
-		var oObject = Func.CreateTouchResponder(a_oName, a_oOrigin, a_oParent, a_stSize, a_stPos, a_stColor);
-		return oObject?.GetComponentInChildren<T>();
+		var oObj = Func.CreateTouchResponder(a_oName, a_oOrigin, a_oParent, a_stSize, a_stPos, a_stColor);
+		return oObj?.GetComponentInChildren<T>();
 	}
 	#endregion			// 제네릭 클래스 함수
 
 	#region 조건부 클래스 함수
 #if UNITY_EDITOR
 	//! 객체를 선택한다
-	public static void SelectObject(GameObject a_oObject, bool a_bIsEnablePing = false) {
-		Func.Assert(a_oObject != null);
-		Selection.activeGameObject = a_oObject;
+	public static void SelectObj(GameObject a_oObj, bool a_bIsEnablePing = false) {
+		Func.Assert(a_oObj != null);
+		Selection.activeGameObject = a_oObj;
 
 		if(a_bIsEnablePing) {
-			EditorGUIUtility.PingObject(a_oObject);
+			EditorGUIUtility.PingObject(a_oObj);
 		}
 	}
 #endif			// #if UNITY_EDITOR

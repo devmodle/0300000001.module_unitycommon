@@ -12,7 +12,7 @@ public abstract class CSingleton<T> : CComponent where T : CSingleton<T> {
 	public static T Instance {
 		get {
 			if(CSingleton<T>.m_tInstance == null) {
-				CSingleton<T>.m_tInstance = Func.CreateObject<T>(typeof(T).ToString(), null);
+				CSingleton<T>.m_tInstance = Func.CreateObj<T>(typeof(T).ToString(), null);
 				Func.Assert(CSingleton<T>.m_tInstance != null);
 
 				DontDestroyOnLoad(CSingleton<T>.m_tInstance.gameObject);

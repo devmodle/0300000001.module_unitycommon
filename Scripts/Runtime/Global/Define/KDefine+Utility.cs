@@ -411,7 +411,7 @@ public static partial class KDefine {
 
 #if UNIVERSAL_RENDER_PIPELINE_ENABLE
 	// 개수
-	public const int U_MAX_NUM_UNIVERSAL_RP_ADDITIONAL_LIGHT_PER_OBJECT = 4;
+	public const int U_MAX_NUM_UNIVERSAL_RP_ADDITIONAL_LIGHT_PER_OBJ = 4;
 
 	// 크기
 	public const int U_SIZE_UNIVERSAL_RP_COLOR_GRADING_LUT = 32;
@@ -431,7 +431,7 @@ public static partial class KDefine {
 
 	public const string U_FIELD_NAME_UNIVERSAL_RP_ADDITIONAL_LIGHT_RENDERING_MODE = "m_AdditionalLightsRenderingMode";
 	public const string U_FIELD_NAME_UNIVERSAL_RP_ADDITIONAL_LIGHT_SUPPORT_SHADOW = "m_AdditionalLightShadowsSupported";
-	public const string U_FIELD_NAME_UNIVERSAL_RP_ADDITIONAL_LIGHT_PER_OBJECT_LIMIT = "m_AdditionalLightsPerObjectLimit";
+	public const string U_FIELD_NAME_UNIVERSAL_RP_ADDITIONAL_LIGHT_PER_OBJ_LIMIT = "m_AdditionalLightsPerObjectLimit";
 	public const string U_FIELD_NAME_UNIVERSAL_RP_ADDITIONAL_LIGHT_SHADOW_MAP_RESOLUTION = "m_AdditionalLightShadowmapResolution";
 	// 이름 }
 #endif			// #if UNIVERSAL_RENDER_PIPELINE_ENABLE

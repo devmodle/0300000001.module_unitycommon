@@ -15,7 +15,7 @@ public struct STProductInfo {
 #endif			// #if PURCHASE_ENABLE
 
 //! 상품 정보 테이블
-public class CProductInfoTable : CScriptableObject<CProductInfoTable> {
+public class CProductInfoTable : CScriptableObj<CProductInfoTable> {
 #if PURCHASE_ENABLE
 	#region 변수
 	[Header("Common Product Info")]

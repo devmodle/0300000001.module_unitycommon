@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 //! 전처리기 심볼 테이블
-public class CDefineSymbolTable : CScriptableObject<CDefineSymbolTable> {
+public class CDefineSymbolTable : CScriptableObj<CDefineSymbolTable> {
 	#region 변수
 	[Header("Common Define Symbol")]
 	[SerializeField] private List<string> m_oCommonDefineSymbolList = new List<string>();

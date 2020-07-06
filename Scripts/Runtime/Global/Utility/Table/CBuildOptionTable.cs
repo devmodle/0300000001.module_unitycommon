@@ -114,7 +114,7 @@ public struct STAndroidBuildOption {
 }
 
 //! 빌드 옵션 테이블
-public class CBuildOptionTable : CScriptableObject<CBuildOptionTable> {
+public class CBuildOptionTable : CScriptableObj<CBuildOptionTable> {
 	#region 변수
 	[Header("Editor Option")]
 	[SerializeField] private STEditorOption m_stEditorOption;

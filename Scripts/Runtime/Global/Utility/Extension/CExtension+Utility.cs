@@ -58,9 +58,9 @@ public static partial class CExtension {
 	}
 
 	//! 캔버스 로컬 위치를 반환한다
-	public static Vector3 ExGetLocalPos(this PointerEventData a_oSender, GameObject a_oObject) {
+	public static Vector3 ExGetLocalPos(this PointerEventData a_oSender, GameObject a_oObj) {
 		var stPos = a_oSender.ExGetWorldPos();
-		return stPos.ExToLocal(a_oObject);
+		return stPos.ExToLocal(a_oObj);
 	}
 
 	//! 캔버스 월드 비율 위치를 반환한다
@@ -70,9 +70,9 @@ public static partial class CExtension {
 	}
 
 	//! 캔버스 로컬 비율 위치를 반환한다
-	public static Vector3 ExGetLocalScalePos(this PointerEventData a_oSender, GameObject a_oObject, Vector3 a_stScale) {
+	public static Vector3 ExGetLocalScalePos(this PointerEventData a_oSender, GameObject a_oObj, Vector3 a_stScale) {
 		var stPos = a_oSender.ExGetWorldScalePos(a_stScale);
-		return stPos.ExToLocal(a_oObject);
+		return stPos.ExToLocal(a_oObj);
 	}
 
 	//! 보정된 캔버스 월드 위치를 반환한다
@@ -92,9 +92,9 @@ public static partial class CExtension {
 	}
 
 	//! 보정된 캔버스 로컬 위치를 반환한다
-	public static Vector3 ExGetCorrectLocalPos(this PointerEventData a_oSender, GameObject a_oObject) {
+	public static Vector3 ExGetCorrectLocalPos(this PointerEventData a_oSender, GameObject a_oObj) {
 		var stPos = a_oSender.ExGetCorrectWorldPos();
-		return stPos.ExToLocal(a_oObject);
+		return stPos.ExToLocal(a_oObj);
 	}
 
 	//! 보정된 캔버스 월드 비율 위치를 반환한다
@@ -110,9 +110,9 @@ public static partial class CExtension {
 	}
 
 	//! 보정된 캔버스 로컬 비율 위치를 반환한다
-	public static Vector3 ExGetCorrectLocalScalePos(this PointerEventData a_oSender, GameObject a_oObject, Vector3 a_stScale) {
+	public static Vector3 ExGetCorrectLocalScalePos(this PointerEventData a_oSender, GameObject a_oObj, Vector3 a_stScale) {
 		var stPos = a_oSender.ExGetCorrectWorldScalePos(a_stScale);
-		return stPos.ExToLocal(a_oObject);
+		return stPos.ExToLocal(a_oObj);
 	}
 
 	//! 스크롤 뷰 정규 위치를 반환한다
@@ -264,13 +264,13 @@ public static partial class CExtension {
 
 	//! 자식 객체를 탐색한다
 	public static GameObject ExFindChild(this Scene a_stSender, string a_oName) {
-		var oObjects = a_stSender.GetRootGameObjects();
+		var oObjs = a_stSender.GetRootGameObjects();
 
-		for(int i = 0; i < oObjects?.Length; ++i) {
-			var oObject = oObjects[i].ExFindChild(a_oName);
+		for(int i = 0; i < oObjs?.Length; ++i) {
+			var oObj = oObjs[i].ExFindChild(a_oName);
 
-			if(oObject != null) {
-				return oObject;
+			if(oObj != null) {
+				return oObj;
 			}
 		}
 
@@ -282,9 +282,9 @@ public static partial class CExtension {
 		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.DescendantsAndSelf() : a_oSender.Descendants();
 
-		foreach(var oObject in oEnumerator) {
-			if(oObject.name.ExIsEquals(a_oName)) {
-				return oObject;
+		foreach(var oObj in oEnumerator) {
+			if(oObj.name.ExIsEquals(a_oName)) {
+				return oObj;
 			}
 		}
 
@@ -293,34 +293,34 @@ public static partial class CExtension {
 
 	//! 자식 객체를 탐색한다
 	public static List<GameObject> ExFindChildren(this Scene a_stSender, string a_oName) {
-		var oObjects = a_stSender.GetRootGameObjects();
-		var oObjectList = new List<GameObject>();
+		var oObjs = a_stSender.GetRootGameObjects();
+		var oObjList = new List<GameObject>();
 
-		for(int i = 0; i < oObjects?.Length; ++i) {
-			var oChildObjectList = oObjects[i].ExFindChildren(a_oName);
+		for(int i = 0; i < oObjs?.Length; ++i) {
+			var oChildObjectList = oObjs[i].ExFindChildren(a_oName);
 
 			if(oChildObjectList != null) {
-				oObjectList.AddRange(oChildObjectList);
+				oObjList.AddRange(oChildObjectList);
 			}
 		}
 
-		return oObjectList;
+		return oObjList;
 	}
 
 	//! 자식 객체를 탐색한다
 	public static List<GameObject> ExFindChildren(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
 		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 
-		var oObjectList = new List<GameObject>();
+		var oObjList = new List<GameObject>();
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.DescendantsAndSelf() : a_oSender.Descendants();
 
-		foreach(var oObject in oEnumerator) {
-			if(oObject.name.ExIsEquals(a_oName)) {
-				oObjectList.Add(oObject);
+		foreach(var oObj in oEnumerator) {
+			if(oObj.name.ExIsEquals(a_oName)) {
+				oObjList.Add(oObj);
 			}
 		}
 
-		return oObjectList;
+		return oObjList;
 	}
 
 	//! 부모 객체를 탐색한다
@@ -328,9 +328,9 @@ public static partial class CExtension {
 		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.AncestorsAndSelf() : a_oSender.Ancestors();
 
-		foreach(var oObject in oEnumerator) {
-			if(oObject.name.ExIsEquals(a_oName)) {
-				return oObject;
+		foreach(var oObj in oEnumerator) {
+			if(oObj.name.ExIsEquals(a_oName)) {
+				return oObj;
 			}
 		}
 
@@ -341,36 +341,36 @@ public static partial class CExtension {
 	public static List<GameObject> ExFindParents(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) {
 		Func.Assert(a_oSender != null && a_oName.ExIsValid());
 
-		var oObjectList = new List<GameObject>();
+		var oObjList = new List<GameObject>();
 		var oEnumerator = a_bIsIncludeSelf ? a_oSender.AncestorsAndSelf() : a_oSender.Ancestors();
 
-		foreach(var oObject in oEnumerator) {
-			if(oObject.name.ExIsEquals(a_oName)) {
-				oObjectList.Add(oObject);
+		foreach(var oObj in oEnumerator) {
+			if(oObj.name.ExIsEquals(a_oName)) {
+				oObjList.Add(oObj);
 			}
 		}
 
-		return oObjectList;
+		return oObjList;
 	}
 
 	//! 메세지를 전송한다
 	public static void ExSendMsg(this Scene a_stSender, string a_oName, string a_oMsg, object a_oParams) {
-		var oObject = a_stSender.ExFindChild(a_oName);
-		oObject?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
+		var oObj = a_stSender.ExFindChild(a_oName);
+		oObj?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
 	}
 
 	//! 메세지를 전송한다
 	public static void ExSendMsg(this GameObject a_oSender, string a_oName, string a_oMsg, object a_oParams) {
-		var oObject = a_oSender.ExFindChild(a_oName);
-		oObject?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
+		var oObj = a_oSender.ExFindChild(a_oName);
+		oObj?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
 	}
 
 	//! 메세지를 전파한다
 	public static void ExBroadcastMsg(this Scene a_stSender, string a_oMsg, object a_oParams) {
-		var oObjects = a_stSender.GetRootGameObjects();
+		var oObjs = a_stSender.GetRootGameObjects();
 
-		for(int i = 0; i < oObjects?.Length; ++i) {
-			oObjects[i].ExBroadcastMsg(a_oMsg, a_oParams);
+		for(int i = 0; i < oObjs?.Length; ++i) {
+			oObjs[i].ExBroadcastMsg(a_oMsg, a_oParams);
 		}
 	}
 
@@ -381,19 +381,19 @@ public static partial class CExtension {
 	}
 
 	//! 로컬 -> 월드로 변환한다
-	public static Vector3 ExToWorld(this Vector3 a_stSender, GameObject a_oObject, bool a_bIsCoordinate = true) {
-		Func.Assert(a_oObject != null);
+	public static Vector3 ExToWorld(this Vector3 a_stSender, GameObject a_oObj, bool a_bIsCoordinate = true) {
+		Func.Assert(a_oObj != null);
 		var stVector = new Vector4(a_stSender.x, a_stSender.y, a_stSender.z, a_bIsCoordinate ? 1.0f : 0.0f);
 
-		return a_oObject.transform.localToWorldMatrix * stVector;
+		return a_oObj.transform.localToWorldMatrix * stVector;
 	}
 
 	//! 월드 -> 로컬로 변환한다
-	public static Vector3 ExToLocal(this Vector3 a_stSender, GameObject a_oObject, bool a_bIsCoordinate = true) {
-		Func.Assert(a_oObject != null);
+	public static Vector3 ExToLocal(this Vector3 a_stSender, GameObject a_oObj, bool a_bIsCoordinate = true) {
+		Func.Assert(a_oObj != null);
 		var stVector = new Vector4(a_stSender.x, a_stSender.y, a_stSender.z, a_bIsCoordinate ? 1.0f : 0.0f);
 
-		return a_oObject.transform.worldToLocalMatrix * stVector;
+		return a_oObj.transform.worldToLocalMatrix * stVector;
 	}
 	#endregion			// 클래스 함수
 
@@ -410,14 +410,14 @@ public static partial class CExtension {
 
 	//! 컴포넌트 활성 여부를 변경한다
 	public static void ExSetEnableComponent<T>(this Scene a_stSender, string a_oName, bool a_bIsEnable) where T : Component {
-		var oObject = a_stSender.ExFindChild(a_oName);
-		oObject.ExSetEnableComponent<T>(a_bIsEnable);
+		var oObj = a_stSender.ExFindChild(a_oName);
+		oObj.ExSetEnableComponent<T>(a_bIsEnable);
 	}
 
 	//! 컴포넌트 활성 여부를 변경한다
 	public static void ExSetEnableComponent<T>(this GameObject a_oSender, string a_oName, bool a_bIsEnable, bool a_bIsIncludeSelf = true) where T : Component {
-		var oObject = a_oSender.ExFindChild(a_oName, a_bIsIncludeSelf);
-		oObject.ExSetEnableComponent<T>(a_bIsEnable);
+		var oObj = a_oSender.ExFindChild(a_oName, a_bIsIncludeSelf);
+		oObj.ExSetEnableComponent<T>(a_bIsEnable);
 	}
 
 	//! 컴포넌트를 추가한다
@@ -444,38 +444,38 @@ public static partial class CExtension {
 
 	//! 컴포넌트를 탐색한다
 	public static T ExFindComponent<T>(this Scene a_stSender, string a_oName) where T : Component {
-		var oObject = a_stSender.ExFindChild(a_oName);
-		return oObject?.GetComponentInChildren<T>();
+		var oObj = a_stSender.ExFindChild(a_oName);
+		return oObj?.GetComponentInChildren<T>();
 	}
 
 	//! 컴포넌트를 탐색한다
 	public static T ExFindComponent<T>(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) where T : Component {
-		var oObject = a_oSender.ExFindChild(a_oName, a_bIsIncludeSelf);
-		return oObject?.GetComponentInChildren<T>();
+		var oObj = a_oSender.ExFindChild(a_oName, a_bIsIncludeSelf);
+		return oObj?.GetComponentInChildren<T>();
 	}
 
 	//! 컴포넌트를 반환한다
 	public static T[] ExFindComponents<T>(this Scene a_stSender, string a_oName) where T : Component {
-		var oObject = a_stSender.ExFindChild(a_oName);
-		return oObject?.GetComponentsInChildren<T>();
+		var oObj = a_stSender.ExFindChild(a_oName);
+		return oObj?.GetComponentsInChildren<T>();
 	}
 
 	//! 컴포넌트를 반환한다
 	public static T[] ExFindComponents<T>(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) where T : Component {
-		var oObject = a_oSender.ExFindChild(a_oName, a_bIsIncludeSelf);
-		return oObject?.GetComponentsInChildren<T>();
+		var oObj = a_oSender.ExFindChild(a_oName, a_bIsIncludeSelf);
+		return oObj?.GetComponentsInChildren<T>();
 	}
 
 	//! 부모 컴포넌트를 탐색한다
 	public static T ExFindComponentInParent<T>(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) where T : Component {
-		var oObject = a_oSender.ExFindParent(a_oName, a_bIsIncludeSelf);
-		return oObject?.GetComponentInParent<T>();
+		var oObj = a_oSender.ExFindParent(a_oName, a_bIsIncludeSelf);
+		return oObj?.GetComponentInParent<T>();
 	}
 
 	//! 부모 컴포넌트를 탐색한다
 	public static T[] ExFindComponentsInParent<T>(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) where T : Component {
-		var oObject = a_oSender.ExFindParent(a_oName, a_bIsIncludeSelf);
-		return oObject?.GetComponentsInParent<T>();
+		var oObj = a_oSender.ExFindParent(a_oName, a_bIsIncludeSelf);
+		return oObj?.GetComponentsInParent<T>();
 	}
 	#endregion			// 제네릭 클래스 함수
 

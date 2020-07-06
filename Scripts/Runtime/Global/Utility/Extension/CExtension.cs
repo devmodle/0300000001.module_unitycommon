@@ -1130,11 +1130,11 @@ public static partial class CExtension {
 
 	//! 객체 -> JSON 문자열로 변환한다
 	public static string ExToJSONString<T>(this T a_tSender, bool a_bIsNeedRoot = false, bool a_bIsPretty = false) {
-		object oObject = !a_bIsNeedRoot ? a_tSender as object : new Dictionary<string, object>() {
+		object oObj = !a_bIsNeedRoot ? a_tSender as object : new Dictionary<string, object>() {
 			[KDefine.B_KEY_JSON_ROOT_DATA] = a_tSender
 		};
 
-		var oJSON = JSON.Serialize(oObject, new SerializeSettings() {
+		var oJSON = JSON.Serialize(oObj, new SerializeSettings() {
 			AllowNonStringDictionaryKeys = true
 		});
 
@@ -1142,7 +1142,7 @@ public static partial class CExtension {
 	}
 
 	//! JSON 문자열 -> 객체로 변환한다
-	public static T ExJSONStringToObject<T>(this string a_oSender) {
+	public static T ExJSONStringToObj<T>(this string a_oSender) {
 		Func.Assert(a_oSender.ExIsValid());
 		return JSON.ParseString(a_oSender).Deserialize<T>();
 	}
@@ -1237,7 +1237,7 @@ public static partial class CExtension {
 	}
 
 	//! JSON 문자열 -> 객체로 변환한다
-	public static T ExMessagePackJSONStringToObject<T>(string a_oSender) {
+	public static T ExMessagePackJSONStringToObj<T>(string a_oSender) {
 		var oBytes = MessagePackSerializer.ConvertFromJson(a_oSender);
 		return MessagePackSerializer.Deserialize<T>(oBytes);
 	}
@@ -1251,7 +1251,7 @@ public static partial class CExtension {
 	}
 
 	//! YAML -> 객체로 변환한다
-	public static T ExYAMLStringToObject<T>(this string a_oSender) {
+	public static T ExYAMLStringToObj<T>(this string a_oSender) {
 		Func.Assert(a_oSender.ExIsValid());
 		var oBuilder = new DeserializerBuilder().Build();
 

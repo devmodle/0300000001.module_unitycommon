@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //! 디바이스 정보 테이블
-public class CDeviceInfoTable : CScriptableObject<CDeviceInfoTable> {
+public class CDeviceInfoTable : CScriptableObj<CDeviceInfoTable> {
 	#region 변수
 #if ADS_ENABLE && ADMOB_ENABLE
 	[Header("Admob Device Info")]

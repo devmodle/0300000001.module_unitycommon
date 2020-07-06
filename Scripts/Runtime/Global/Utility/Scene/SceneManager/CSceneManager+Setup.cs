@@ -229,10 +229,10 @@ public abstract partial class CSceneManager : CComponent {
 		this.SetupRootObjects();
 
 		// 사운드 객체를 설정한다 {
-		var oObjects = this.gameObject.scene.GetRootGameObjects();
+		var oObjs = this.gameObject.scene.GetRootGameObjects();
 
-		for(int i = 0; i < oObjects.Length; ++i) {
-			var oAudioListeners = oObjects[i].GetComponentsInChildren<AudioListener>(true);
+		for(int i = 0; i < oObjs.Length; ++i) {
+			var oAudioListeners = oObjs[i].GetComponentsInChildren<AudioListener>(true);
 
 			for(int j = 0; j < oAudioListeners.Length; ++j) {
 				if(Application.isPlaying) {
@@ -247,10 +247,10 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 광원을 설정한다
 	protected virtual void SetupLights() {
-		var oObjects = this.gameObject.scene.GetRootGameObjects();
+		var oObjs = this.gameObject.scene.GetRootGameObjects();
 
-		for(int i = 0; i < oObjects.Length; ++i) {
-			var oLights = oObjects[i].GetComponentsInChildren<Light>(true);
+		for(int i = 0; i < oObjs.Length; ++i) {
+			var oLights = oObjs[i].GetComponentsInChildren<Light>(true);
 
 			for(int j = 0; j < oLights.Length; ++j) {
 				bool bIsDirectional = oLights[j].type == LightType.Directional;
@@ -415,30 +415,30 @@ public abstract partial class CSceneManager : CComponent {
 	//! 캔버스를 설정한다
 	protected virtual void SetupCanvas(Canvas a_oCanvas) {
 		if(a_oCanvas != null) {
-			var oObject = a_oCanvas.gameObject;
+			var oObj = a_oCanvas.gameObject;
 
 			// UI 객체를 설정한다 {
 			var oUIObjects = new GameObject[] {
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_ROOT),
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_UI_ROOT),
 
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT),
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT),
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT),
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT),
 
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_POPUP_UI_ROOT),
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOPMOST_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_POPUP_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOPMOST_UI_ROOT),
 
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJECT_CANVAS_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJECT_CANVAS_ROOT),
 
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT),
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_POPUP_UI_ROOT),
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_TOPMOST_UI_ROOT),
-				oObject.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_POPUP_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_TOPMOST_UI_ROOT),
+				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT),
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-				oObject.ExFindChild(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT)
+				oObj.ExFindChild(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT)
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 			};
 
@@ -516,15 +516,15 @@ public abstract partial class CSceneManager : CComponent {
 					};
 #endif			// #if PORTRAIT_ENABLE
 
-					var oImages = new Image[] {
+					var oImgs = new Image[] {
 						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_LEFT_BLIND_IMG),
 						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_RIGHT_BLIND_IMG),
 						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_TOP_BLIND_IMG),
 						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_BOTTOM_BLIND_IMG)
 					};
 
-					for(int j = 0; j < oImages.Length; ++j) {
-						var oImg = oImages[j];
+					for(int j = 0; j < oImgs.Length; ++j) {
+						var oImg = oImgs[j];
 						oImg.color = Func.IsEditorPlatform() ? KDefine.U_DEF_COLOR_TRANSPARENT : KDefine.U_DEF_COLOR_BLIND_UI;
 
 						oImg.rectTransform.pivot = oPivots[j];

@@ -17,7 +17,7 @@ using SimpleFileBrowser;
 //! 씬 관리자
 public abstract partial class CSceneManager : CComponent {
 	#region 변수
-	private Dictionary<string, ObjectPool> m_oObjectPoolList = new Dictionary<string, ObjectPool>();
+	private Dictionary<string, ObjectPool> m_oObjPoolList = new Dictionary<string, ObjectPool>();
 	#endregion			// 변수
 
 	#region 클래스 변수
@@ -234,7 +234,7 @@ public abstract partial class CSceneManager : CComponent {
 		
 #if UNITY_EDITOR
 		if(this.IsRootScene) {
-			Func.SelectObject(this.gameObject, true);
+			Func.SelectObj(this.gameObject, true);
 		}
 #endif			// #if UNITY_EDITOR
 	}
@@ -346,57 +346,57 @@ public abstract partial class CSceneManager : CComponent {
 	//! 객체 풀을 반환한다
 	public ObjectPool GetObjectPool(string a_oKey) {
 		Func.Assert(a_oKey.ExIsValid());
-		return m_oObjectPoolList.ExGetValue(a_oKey, null);
+		return m_oObjPoolList.ExGetValue(a_oKey, null);
 	}
 
 	//! 객체 풀을 추가한다
-	public void AddObjectPool(string a_oKey, ObjectPool a_oObjectPool) {
-		Func.Assert(a_oObjectPool != null && a_oKey.ExIsValid());
-		m_oObjectPoolList.ExAddValue(a_oKey, a_oObjectPool);
+	public void AddObjectPool(string a_oKey, ObjectPool a_oObjPool) {
+		Func.Assert(a_oObjPool != null && a_oKey.ExIsValid());
+		m_oObjPoolList.ExAddValue(a_oKey, a_oObjPool);
 	}
 
 	//! 객체 풀을 제거한다
 	public void RemoveObjectPool(string a_oKey, bool a_bIsDestroy = true) {
 		Func.Assert(a_oKey.ExIsValid());
 
-		if(m_oObjectPoolList.ContainsKey(a_oKey)) {
-			var oObjectPool = m_oObjectPoolList.ExGetValue(a_oKey, null);
-			oObjectPool.DeAllocate(oObjectPool.CountInactive);
-			oObjectPool.DespawnAllActiveObjects(a_bIsDestroy);
+		if(m_oObjPoolList.ContainsKey(a_oKey)) {
+			var oObjPool = m_oObjPoolList.ExGetValue(a_oKey, null);
+			oObjPool.DeAllocate(oObjPool.CountInactive);
+			oObjPool.DespawnAllActiveObjects(a_bIsDestroy);
 
-			m_oObjectPoolList.Remove(a_oKey);
+			m_oObjPoolList.Remove(a_oKey);
 		}
 	}
 
 	//! 객체를 활성화한다
 	public GameObject SpawnObject(string a_oKey, 
 		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) {
-		Func.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
+		Func.Assert(a_oKey.ExIsValid() && m_oObjPoolList.ContainsKey(a_oKey));
 		
-		var oObject = m_oObjectPoolList[a_oKey].Spawn();
-		oObject.transform.localScale = a_stScale;
+		var oObj = m_oObjPoolList[a_oKey].Spawn();
+		oObj.transform.localScale = a_stScale;
 
 		if(a_oName.ExIsValid()) {
-			oObject.name = a_oName;
+			oObj.name = a_oName;
 		}
 
 		if(a_bIsWorld) {
-			oObject.transform.position = a_stPos;
-			oObject.transform.eulerAngles = a_stRotation;
+			oObj.transform.position = a_stPos;
+			oObj.transform.eulerAngles = a_stRotation;
 		} else {
-			oObject.transform.localPosition = a_stPos;
-			oObject.transform.localEulerAngles = a_stRotation;
+			oObj.transform.localPosition = a_stPos;
+			oObj.transform.localEulerAngles = a_stRotation;
 		}
 
-		return oObject;
+		return oObj;
 	}
 
 	//! 객체를 비활성화한다
-	public void DespawnObject(string a_oKey, GameObject a_oObject, bool a_bIsDestroy = false) {
-		Func.Assert(a_oKey.ExIsValid() && m_oObjectPoolList.ContainsKey(a_oKey));
+	public void DespawnObject(string a_oKey, GameObject a_oObj, bool a_bIsDestroy = false) {
+		Func.Assert(a_oKey.ExIsValid() && m_oObjPoolList.ContainsKey(a_oKey));
 
-		if(m_oObjectPoolList.ContainsKey(a_oKey)) {
-			m_oObjectPoolList[a_oKey].Despawn(a_oObject, a_bIsDestroy);
+		if(m_oObjPoolList.ContainsKey(a_oKey)) {
+			m_oObjPoolList[a_oKey].Despawn(a_oObj, a_bIsDestroy);
 		}
 	}
 
@@ -514,8 +514,8 @@ public abstract partial class CSceneManager : CComponent {
 	//! 객체를 활성화한다
 	public T SpawnObject<T>(string a_oKey,
 		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) where T : Component {
-		var oObject = this.SpawnObject(a_oKey, a_stPos, a_stScale, a_stRotation, a_oName, a_bIsWorld);
-		return oObject?.GetComponentInChildren<T>();
+		var oObj = this.SpawnObject(a_oKey, a_stPos, a_stScale, a_stRotation, a_oName, a_bIsWorld);
+		return oObj?.GetComponentInChildren<T>();
 	}
 	#endregion			// 제네릭 함수
 

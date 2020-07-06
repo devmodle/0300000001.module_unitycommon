@@ -8,7 +8,7 @@ using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_ENABLE
 
 //! 기본 스크립트 객체 생성자
-public static partial class CScriptableObjectCreator {
+public static partial class CScriptableObjCreator {
 	#region 클래스 함수
 	//! 전처리기 심볼 테이블을 생성한다
 	[MenuItem("Utility/Create/DefineSymbolTable")]

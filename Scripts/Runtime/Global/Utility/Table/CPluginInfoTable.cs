@@ -78,7 +78,7 @@ public struct STFirebasePluginInfo {
 #endif			// #if FIREBASE_ENABLE && FIREBASE_DATABASE_ENABLE
 
 //! 플러그인 정보 테이블
-public class CPluginInfoTable : CScriptableObject<CPluginInfoTable> {
+public class CPluginInfoTable : CScriptableObj<CPluginInfoTable> {
 	#region 변수
 #if ADS_ENABLE
 	[Header("Ads Plugin Info")]

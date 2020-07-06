@@ -61,7 +61,7 @@ public class CSndManager : CSingleton<CSndManager> {
 		base.Awake();
 
 		// 배경음을 생성한다 {
-		m_oBGSnd = Func.CreateCloneObject<CSnd>(KDefine.U_OBJ_NAME_SND_M_BG_SND,
+		m_oBGSnd = Func.CreateCloneObj<CSnd>(KDefine.U_OBJ_NAME_SND_M_BG_SND,
 			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_BG_SND), this.gameObject);
 
 		m_oBGSnd.transform.localPosition = Vector3.zero;
@@ -192,7 +192,7 @@ public class CSndManager : CSingleton<CSndManager> {
 		}
 
 		// 효과음을 생성한다 {
-		var oSnd = Func.CreateCloneObject<CSnd>(KDefine.U_OBJ_NAME_SND_M_FX_SND,
+		var oSnd = Func.CreateCloneObj<CSnd>(KDefine.U_OBJ_NAME_SND_M_FX_SND,
 			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_FX_SND), this.gameObject);
 
 		oSnd.transform.localPosition = Vector3.zero;

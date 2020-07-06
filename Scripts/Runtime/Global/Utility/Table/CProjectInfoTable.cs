@@ -15,7 +15,7 @@ public struct STProjectInfo {
 }
 
 //! 프로젝터 정보 테이블
-public class CProjectInfoTable : CScriptableObject<CProjectInfoTable> {
+public class CProjectInfoTable : CScriptableObj<CProjectInfoTable> {
 	#region 변수
 	[Header("Common Project Info")]
 	[SerializeField] private string m_oCompanyName = string.Empty;

@@ -84,14 +84,14 @@ public static partial class CEditorSceneManager {
 					CEditorSceneManager.m_fHierarchySkipTime = 0.0f;
 
 					Func.EnumerateScenes((a_stScene) => {
-						var oObjects = a_stScene.GetRootGameObjects();
+						var oObjs = a_stScene.GetRootGameObjects();
 
-						for(int j = 0; j < oObjects.Length; ++j) {
-							var oEnumerator = oObjects[j].DescendantsAndSelf();
+						for(int j = 0; j < oObjs.Length; ++j) {
+							var oEnumerator = oObjs[j].DescendantsAndSelf();
 
-							foreach(var oObject in oEnumerator) {
-								if(GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObject) >= 1) {
-									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObject);
+							foreach(var oObj in oEnumerator) {
+								if(GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj) >= 1) {
+									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
 									EditorSceneManager.MarkSceneDirty(a_stScene);
 								}
 							}
@@ -104,13 +104,13 @@ public static partial class CEditorSceneManager {
 	
 	//! 계층 뷰 UI 상태를 갱신한다
 	private static void UpdateHierarchyUIState(int a_nInstanceID, Rect a_stRect) {
-		var oObject = EditorUtility.InstanceIDToObject(a_nInstanceID) as GameObject;
+		var oObj = EditorUtility.InstanceIDToObject(a_nInstanceID) as GameObject;
 
-		if(oObject != null) {
+		if(oObj != null) {
 			a_stRect.size = new Vector2(KEditorDefine.B_HIERARCHY_WIDTH, a_stRect.size.y);
 			a_stRect.position += new Vector2(KEditorDefine.B_HIERARCHY_OFFSET_X, 0.0f);
 
-			var oComponents = oObject.GetComponents<Component>();
+			var oComponents = oObj.GetComponents<Component>();
 
 			for(int i = 0; i < oComponents.Length; ++i) {
 				if(oComponents[i] != null) {
