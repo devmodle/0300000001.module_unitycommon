@@ -97,11 +97,11 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	}
 
 	//! 디바이스 메세지를 수신했을 경우
-	public void OnReceiveDeviceMessage(string a_oCommand, string a_oMessage) {
-		Func.Assert(!Func.IsMobilePlatform() || a_oMessage.ExIsValid());
+	public void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
+		Func.Assert(!Func.IsMobilePlatform() || a_oMsg.ExIsValid());
 
 		if(Func.IsMobilePlatform()) {
-			var oDataList = a_oMessage.ExJSONStringToObject<Dictionary<string, string>>();
+			var oDataList = a_oMsg.ExJSONStringToObject<Dictionary<string, string>>();
 			this.StoreVersion = oDataList[KDefine.U_KEY_DEVICE_MR_VERSION];
 
 			this.IsLoadStoreVersion = true;
@@ -117,8 +117,8 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		string oVersion = CProjectInfoTable.Instance.ProjectInfo.m_oBuildVersion;
 #endif			// #if UNITY_ANDROID
 
-		CUnityMessageSender.Instance.SendGetStoreVersionMessage(CProjectInfoTable.Instance.ProjectInfo.m_oAppID,
-			oVersion, KDefine.U_DEF_TIMEOUT_NETWORK_CONNECTION, this.OnReceiveDeviceMessage);
+		CUnityMsgSender.Instance.SendGetStoreVersionMessage(CProjectInfoTable.Instance.ProjectInfo.m_oAppID,
+			oVersion, KDefine.U_DEF_TIMEOUT_NETWORK_CONNECTION, this.OnReceiveDeviceMsg);
 	}
 
 	//! 어플리케이션 정보를 저장한다

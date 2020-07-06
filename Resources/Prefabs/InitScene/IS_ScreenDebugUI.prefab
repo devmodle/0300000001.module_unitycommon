@@ -568,7 +568,7 @@ PrefabInstance:
     - target: {fileID: 9122242653978104542, guid: 8d1e6c63bef3b4bd997a8c1cf73edf2c,
         type: 3}
       propertyPath: m_Name
-      value: DebugButton
+      value: DebugBtn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d1e6c63bef3b4bd997a8c1cf73edf2c, type: 3}
@@ -729,7 +729,7 @@ PrefabInstance:
     - target: {fileID: 9122242653978104542, guid: 8d1e6c63bef3b4bd997a8c1cf73edf2c,
         type: 3}
       propertyPath: m_Name
-      value: FPSButton
+      value: FPSBtn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d1e6c63bef3b4bd997a8c1cf73edf2c, type: 3}

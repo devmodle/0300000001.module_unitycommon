@@ -181,15 +181,15 @@ public static partial class CExtension {
 		a_oSender.interactable = a_bIsEnable;
 		a_oSender.gameObject.ExSetEnableComponent<CTouchFader>(a_bIsEnable);
 		a_oSender.gameObject.ExSetEnableComponent<CTouchScaler>(a_bIsEnable);
-		a_oSender.gameObject.ExSetEnableComponent<CTouchSoundPlayer>(a_bIsEnable);
+		a_oSender.gameObject.ExSetEnableComponent<CTouchSndPlayer>(a_bIsEnable);
 	}
 
 	//! 스프라이트를 변경한다
 	public static void ExSetSprite(this Button a_oSender, Sprite a_oSprite) {
-		var oImage = a_oSender?.GetComponentInChildren<Image>();
-		Func.Assert(oImage != null);
+		var oImg = a_oSender?.GetComponentInChildren<Image>();
+		Func.Assert(oImg != null);
 		
-		oImage.sprite = a_oSprite;
+		oImg.sprite = a_oSprite;
 	}
 
 	//! 컬링 마스크를 변경한다
@@ -354,30 +354,30 @@ public static partial class CExtension {
 	}
 
 	//! 메세지를 전송한다
-	public static void ExSendMessage(this Scene a_stSender, string a_oName, string a_oMessage, object a_oParams) {
+	public static void ExSendMsg(this Scene a_stSender, string a_oName, string a_oMsg, object a_oParams) {
 		var oObject = a_stSender.ExFindChild(a_oName);
-		oObject?.SendMessage(a_oMessage, a_oParams, SendMessageOptions.DontRequireReceiver);
+		oObject?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
 	}
 
 	//! 메세지를 전송한다
-	public static void ExSendMessage(this GameObject a_oSender, string a_oName, string a_oMessage, object a_oParams) {
+	public static void ExSendMsg(this GameObject a_oSender, string a_oName, string a_oMsg, object a_oParams) {
 		var oObject = a_oSender.ExFindChild(a_oName);
-		oObject?.SendMessage(a_oMessage, a_oParams, SendMessageOptions.DontRequireReceiver);
+		oObject?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
 	}
 
 	//! 메세지를 전파한다
-	public static void ExBroadcastMessage(this Scene a_stSender, string a_oMessage, object a_oParams) {
+	public static void ExBroadcastMsg(this Scene a_stSender, string a_oMsg, object a_oParams) {
 		var oObjects = a_stSender.GetRootGameObjects();
 
 		for(int i = 0; i < oObjects?.Length; ++i) {
-			oObjects[i].ExBroadcastMessage(a_oMessage, a_oParams);
+			oObjects[i].ExBroadcastMsg(a_oMsg, a_oParams);
 		}
 	}
 
 	//! 메세지를 전파한다
-	public static void ExBroadcastMessage(this GameObject a_oSender, string a_oMessage, object a_oParams) {
-		Func.Assert(a_oSender != null && a_oMessage.ExIsValid());
-		a_oSender.BroadcastMessage(a_oMessage, a_oParams, SendMessageOptions.DontRequireReceiver);
+	public static void ExBroadcastMsg(this GameObject a_oSender, string a_oMsg, object a_oParams) {
+		Func.Assert(a_oSender != null && a_oMsg.ExIsValid());
+		a_oSender.BroadcastMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
 	}
 
 	//! 로컬 -> 월드로 변환한다

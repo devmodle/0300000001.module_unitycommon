@@ -11,7 +11,7 @@ public class CToastPopup : CPopup {
 	#endregion			// 변수
 
 	#region 컴포넌트
-	protected Text m_oMessageText = null;
+	protected Text m_oMsgText = null;
 	#endregion			// 컴포넌트
 
 	#region 함수
@@ -22,14 +22,14 @@ public class CToastPopup : CPopup {
 		this.IsIgnoreNavigationEvent = true;
 		CNavigationManager.Instance.RemoveComponent(this);
 
-		m_oMessageText = this.gameObject.ExFindComponent<Text>(KDefine.U_OBJ_NAME_TOAST_P_MESSAGE_TEXT);
+		m_oMsgText = this.gameObject.ExFindComponent<Text>(KDefine.U_OBJ_NAME_TOAST_P_MSG_TEXT);
 		m_oRootTransform.sizeDelta = CSceneManager.CanvasSize;
 	}
 
 	//! 초기화
-	public virtual void Init(string a_oMessage, float a_fDuration) {
+	public virtual void Init(string a_oMsg, float a_fDuration) {
 		m_fDuration = a_fDuration;
-		m_oMessageText.text = a_oMessage;
+		m_oMsgText.text = a_oMsg;
 	}
 
 	//! 토스트 팝업 출력 애니메이션이 완료 되었을 경우

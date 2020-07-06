@@ -4,7 +4,7 @@ using UnityEngine;
 
 #region 기본
 //! 마우스 버튼
-public enum EMouseButton {
+public enum EMouseBtn {
 	NONE = -1,
 	LEFT,
 	RIGHT,

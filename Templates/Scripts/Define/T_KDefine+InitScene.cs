@@ -18,7 +18,7 @@ public static partial class KDefine {
 	public static readonly string IS_PATH_SCREEN_TOPMOST_UI = string.Format("{0}{1}IS_ScreenTopmostUI", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_INIT_SCENE_BASE);
 	public static readonly string IS_PATH_SCREEN_ABSOLUTE_UI = string.Format("{0}{1}IS_ScreenAbsoluteUI", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_INIT_SCENE_BASE);
 
-	public static readonly string IS_PATH_SCREEN_BLIND_IMAGE = string.Format("{0}{1}IS_ScreenBlindImage", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_INIT_SCENE_BASE);
+	public static readonly string IS_PATH_SCREEN_BLIND_IMG = string.Format("{0}{1}IS_ScreenBlindImg", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_INIT_SCENE_BASE);
 	// 경로 }
 	#endregion			// 런타임 상수
 }

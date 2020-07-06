@@ -189,8 +189,8 @@ public abstract partial class CSceneManager : CComponent {
 	public static Text ScreenStaticDebugText { get; protected set; } = null;
 	public static Text ScreenDynamicDebugText { get; protected set; } = null;
 
-	public static Button ScreenFPSButton { get; protected set; } = null;
-	public static Button ScreenDebugButton { get; protected set; } = null;
+	public static Button ScreenFPSBtn { get; protected set; } = null;
+	public static Button ScreenDebugBtn { get; protected set; } = null;
 
 	public static GameObject ScreenDebugUIRoot { get; protected set; } = null;
 	public static GameObject ScreenDebugTextRoot { get; protected set; } = null;
@@ -263,14 +263,14 @@ public abstract partial class CSceneManager : CComponent {
 			}
 
 			if(Input.GetKeyDown(KeyCode.Escape)) {
-				CSoundManager.Instance.PlayFXSound(KDefine.U_SOUND_PATH_G_TOUCH_ENDED);
+				CSndManager.Instance.PlayFXSnd(KDefine.U_SND_PATH_G_TOUCH_ENDED);
 				CNavigationManager.Instance.SendNavigationEvent(ENavigationEventType.BACK_KEY_DOWN);
 			}
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 			if(CSceneManager.ScreenDebugUIRoot != null) {
 				if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha1)) {
-					CSceneManager.OnTouchDebugButton();
+					CSceneManager.OnTouchDebugBtn();
 				}
 
 				if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha2)) {
@@ -284,7 +284,7 @@ public abstract partial class CSceneManager : CComponent {
 				CSceneManager.m_fDebugSkipTime = 0.0f;
 
 				if(CSceneManager.ScreenStaticDebugText != null) {
-					CSceneManager.ScreenStaticDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_MESSAGE, 
+					CSceneManager.ScreenStaticDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_MSG, 
 						CSceneManager.m_oStaticDebugStringBuilder.ToString(), CSceneManager.m_oExtraStaticDebugStringBuilder.ToString());
 				}
 
@@ -311,7 +311,7 @@ public abstract partial class CSceneManager : CComponent {
 					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_D, dblTotalReservedMemory, dblTotalUnusedReservedMemory);
 					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_E, dblGPUAllocMemory);
 
-					CSceneManager.ScreenDynamicDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_MESSAGE, 
+					CSceneManager.ScreenDynamicDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_MSG, 
 						CSceneManager.m_oDynamicDebugStringBuilder.ToString(), CSceneManager.m_oExtraDynamicDebugStringBuilder.ToString());
 				}
 			}
@@ -434,18 +434,18 @@ public abstract partial class CSceneManager : CComponent {
 				KDefine.U_DEF_COLOR_TRANSPARENT);
 
 			// 배경색을 설정한다 {
-			var oImage = oTouchResponder.GetComponentInChildren<Image>();
+			var oImg = oTouchResponder.GetComponentInChildren<Image>();
 			Sequence oSequence = null;
 
 			if(!a_bIsAnimation) {
-				oImage.color = a_stColor;
+				oImg.color = a_stColor;
 				a_oCallback?.Invoke(oTouchResponder);
 			} else {
 				a_fDuration = a_fDuration.ExIsLessEquals(0.0f) ? KDefine.U_DEF_DURATION_ANIMATION 
 					: a_fDuration;
 
 				oSequence = DOTween.Sequence().SetAutoKill().SetEase(Ease.Linear).SetUpdate(true);
-				oSequence.Append(oImage.DOColor(a_stColor, a_fDuration));
+				oSequence.Append(oImg.DOColor(a_stColor, a_fDuration));
 
 				oSequence.AppendCallback(() => {
 					oSequence.Kill();
@@ -488,7 +488,7 @@ public abstract partial class CSceneManager : CComponent {
 			}
 
 			// 배경색을 설정한다 {
-			var oImage = oTouchResponderInfo.Key.GetComponentInChildren<Image>();
+			var oImg = oTouchResponderInfo.Key.GetComponentInChildren<Image>();
 			oTouchResponderInfo.Value?.Kill();
 
 			if(!a_bIsAnimation) {
@@ -498,7 +498,7 @@ public abstract partial class CSceneManager : CComponent {
 					: a_fDuration;
 
 				var oSequence = DOTween.Sequence().SetAutoKill().SetEase(Ease.Linear).SetUpdate(true);
-				oSequence.Append(oImage.DOColor(a_stColor, a_fDuration));
+				oSequence.Append(oImg.DOColor(a_stColor, a_fDuration));
 
 				oSequence.AppendCallback(() => {
 					oSequence.Kill();
@@ -529,7 +529,7 @@ public abstract partial class CSceneManager : CComponent {
 	#region 조건부 클래스 함수
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! 디버그 버튼을 눌렀을 경우
-	public static void OnTouchDebugButton() {
+	public static void OnTouchDebugBtn() {
 		Func.Assert(CSceneManager.ScreenDebugTextRoot != null);
 		CSceneManager.ScreenDebugTextRoot.SetActive(!CSceneManager.ScreenDebugTextRoot.activeSelf);
 	}
@@ -553,7 +553,7 @@ public abstract partial class CSceneManager : CComponent {
 
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! FPS 버튼을 눌렀을 경우
-	public static void OnTouchFPSButton() {
+	public static void OnTouchFPSBtn() {
 		Func.Assert(CSceneManager.ScreenStaticFPSText != null);
 		Func.Assert(CSceneManager.ScreenDynamicFPSText != null);
 

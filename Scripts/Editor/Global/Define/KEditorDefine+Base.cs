@@ -23,38 +23,38 @@ public static partial class KEditorDefine {
 	public const string U_SORTING_ORDER_INFO_FORMAT = "[{0}:{1}]";
 
 	// 커맨드 라인
-	public const string B_COMMANDLINE_PARAMETER_FORMAT_SHELL = "-c \"{0}\"";
-	public const string B_COMMANDLINE_PARAMETER_FORMAT_COMMAND_PROMPT = "/c \"{0}\"";
+	public const string B_CMDLINE_PARAMETER_FORMAT_SHELL = "-c \"{0}\"";
+	public const string B_CMDLINE_PARAMETER_FORMAT_CMD_PROMPT = "/c \"{0}\"";
 
 	// 알림 팝업 {
 	public const string B_ALERT_P_TITLE = "알림";
-	public const string B_ALERT_P_OK_BUTTON_TEXT = "확인";
-	public const string B_ALERT_P_CANCEL_BUTTON_TEXT = "취소";
+	public const string B_ALERT_P_OK_BTN_TEXT = "확인";
+	public const string B_ALERT_P_CANCEL_BTN_TEXT = "취소";
 
-	public const string B_ALERT_P_EXPORT_IMAGE_SUCCESS_MESSAGE = "이미지를 추출했습니다.";
+	public const string B_ALERT_P_EXPORT_IMG_SUCCESS_MSG = "이미지를 추출했습니다.";
 
-	public const string B_ALERT_P_EXPORT_TEXTURE_FAIL_MESSAGE = "텍스처를 선택해주세요.";
-	public const string B_ALERT_P_EXPORT_SPRITE_FAIL_MESSAGE = "스프라이트를 선택해주세요.";
+	public const string B_ALERT_P_EXPORT_TEXTURE_FAIL_MSG = "텍스처를 선택해주세요.";
+	public const string B_ALERT_P_EXPORT_SPRITE_FAIL_MSG = "스프라이트를 선택해주세요.";
 	// 알림 팝업 }
 
 	// 이름 {
 	public const string B_OBJ_NAME_TEXT = "Text";
 	public const string B_OBJ_NAME_LOCALIZE_TEXT = "LocalizeText";
 
-	public const string B_OBJ_NAME_TEXT_BUTTON = "TextButton";
-	public const string B_OBJ_NAME_TEXT_SCALE_BUTTON = "TextScaleButton";
+	public const string B_OBJ_NAME_TEXT_BTN = "TextBtn";
+	public const string B_OBJ_NAME_TEXT_SCALE_BTN = "TextScaleBtn";
 
-	public const string B_OBJ_NAME_LOCALIZE_TEXT_BUTTON = "LocalizeTextButton";
-	public const string B_OBJ_NAME_LOCALIZE_TEXT_SCALE_BUTTON = "LocalizeTextScaleButton";
+	public const string B_OBJ_NAME_LOCALIZE_TEXT_BTN = "LocalizeTextBtn";
+	public const string B_OBJ_NAME_LOCALIZE_TEXT_SCALE_BTN = "LocalizeTextScaleBtn";
 
-	public const string B_OBJ_NAME_IMAGE_BUTTON = "ImageButton";
-	public const string B_OBJ_NAME_IMAGE_SCALE_BUTTON = "ImageScaleButton";
+	public const string B_OBJ_NAME_IMG_BTN = "ImgBtn";
+	public const string B_OBJ_NAME_IMG_SCALE_BTN = "ImgScaleBtn";
 
-	public const string B_OBJ_NAME_IMAGE_TEXT_BUTTON = "ImageTextButton";
-	public const string B_OBJ_NAME_IMAGE_TEXT_SCALE_BUTTON = "ImageTextScaleButton";
+	public const string B_OBJ_NAME_IMG_TEXT_BTN = "ImgTextBtn";
+	public const string B_OBJ_NAME_IMG_TEXT_SCALE_BTN = "ImgTextScaleBtn";
 
-	public const string B_OBJ_NAME_IMAGE_LOCALIZE_TEXT_BUTTON = "ImageLocalizeTextButton";
-	public const string B_OBJ_NAME_IMAGE_LOCALIZE_TEXT_SCALE_BUTTON = "ImageLocalizeTextScaleButton";
+	public const string B_OBJ_NAME_IMG_LOCALIZE_TEXT_BTN = "ImgLocalizeTextBtn";
+	public const string B_OBJ_NAME_IMG_LOCALIZE_TEXT_SCALE_BTN = "ImgLocalizeTextScaleBtn";
 
 	public const string B_OBJ_NAME_SCROLL_VIEW = "ScrollView";
 	public const string B_OBJ_NAME_PAGE_SCROLL_VIEW = "PageScrollView";
@@ -82,11 +82,11 @@ public static partial class KEditorDefine {
 	public const string B_PROPERTY_NAME_TAG_M_UNIQUE_ID = "uniqueID";
 	public const string B_PROPERTY_NAME_TAG_M_SORTING_LAYER = "m_SortingLayers";
 
-	public const string B_PROPERTY_NAME_SOUND_M_GLOBAL_VOLUME = "m_Volume";
-	public const string B_PROPERTY_NAME_SOUND_M_ROLLOFF_SCALE = "Rolloff Scale";
-	public const string B_PROPERTY_NAME_SOUND_M_DOPPLER_FACTOR = "Doppler Factor";
-	public const string B_PROPERTY_NAME_SOUND_M_DISABLE_AUDIO = "m_DisableAudio";
-	public const string B_PROPERTY_NAME_SOUND_M_VIRTUALIZE_EFFECT = "m_VirtualizeEffects";
+	public const string B_PROPERTY_NAME_SND_M_GLOBAL_VOLUME = "m_Volume";
+	public const string B_PROPERTY_NAME_SND_M_ROLLOFF_SCALE = "Rolloff Scale";
+	public const string B_PROPERTY_NAME_SND_M_DOPPLER_FACTOR = "Doppler Factor";
+	public const string B_PROPERTY_NAME_SND_M_DISABLE_AUDIO = "m_DisableAudio";
+	public const string B_PROPERTY_NAME_SND_M_VIRTUALIZE_EFFECT = "m_VirtualizeEffects";
 
 	public const string B_PROPERTY_NAME_ENABLE_BAKE_LIGHTMAPS = "m_GISettings.m_EnableBakedLightmaps";
 	public const string B_PROPERTY_NAME_ENABLE_REALTIME_LIGHTMAPS = "m_GISettings.m_EnableRealtimeLightmaps";
@@ -105,13 +105,13 @@ public static partial class KEditorDefine {
 
 	// 경로 {
 	public const string B_TOOL_PATH_SHELL = "/bin/zsh";
-	public const string B_TOOL_PATH_COMMAND_PROMPT = "cmd.exe";
+	public const string B_TOOL_PATH_CMD_PROMPT = "cmd.exe";
 
 	public const string B_DIR_PATH_ASSETS = "Assets/";
 	public const string B_DIR_PATH_AUTO_CREATE = "00.AutoCreate/";
 	public const string B_DIR_PATH_PROJECT_SETTINGS = "ProjectSettings/";
 
-	public const string B_DIR_PATH_EXPORT_IMAGE_BASE = "Export/Images/";
+	public const string B_DIR_PATH_EXPORT_IMG_BASE = "Export/Images/";
 	// 경로 }
 	
 	// 에디터 옵션 {
@@ -145,7 +145,7 @@ public static partial class KEditorDefine {
 	public const string B_JENKINS_BUILD_PARAMETER_TOKEN = " ";
 
 	public const string B_JENKINS_BUILD_DATA_FORMAT = "--data {0}={1}";
-	public const string B_JENKINS_BUILD_COMMAND_FORMAT = "curl -X POST {0} --user {1}:{2} --data token={3}";
+	public const string B_JENKINS_BUILD_CMD_FORMAT = "curl -X POST {0} --user {1}:{2} --data token={3}";
 
 	public const string B_JENKINS_SOURCE_FORMAT = "{0}/{1}";
 	public const string B_JENKINS_PROJECT_PATH_FORMAT = "{0}/{1}/{2}";
@@ -222,16 +222,16 @@ public static partial class KEditorDefine {
 	public static readonly string B_ABSOLUTE_DIR_PATH_TABLE_TEMPLATES = string.Format("{0}Tables/", KEditorDefine.B_ABSOLUTE_DIR_PATH_TEMPLATES);
 
 	public static readonly string B_ASSET_PATH_TAG_MANAGER = string.Format("{0}TagManager.asset", KEditorDefine.B_DIR_PATH_PROJECT_SETTINGS);
-	public static readonly string B_ASSET_PATH_SOUND_MANAGER = string.Format("{0}AudioManager.asset", KEditorDefine.B_DIR_PATH_PROJECT_SETTINGS);
+	public static readonly string B_ASSET_PATH_SND_MANAGER = string.Format("{0}AudioManager.asset", KEditorDefine.B_DIR_PATH_PROJECT_SETTINGS);
 
 	public static readonly string B_DIR_PATH_SCENES = string.Format("{0}{1}/Scenes", KEditorDefine.B_DIR_PATH_ASSETS, KAppDefine.G_NAME_PROJECT_ROOT);
 	public static readonly string B_DIR_PATH_AUTO_SCENES = string.Format("{0}{1}Scenes", KEditorDefine.B_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE);
 	public static readonly string B_DIR_PATH_EDITOR_SCENES = string.Format("{0}{1}_Editor/Scenes", KEditorDefine.B_DIR_PATH_ASSETS, KAppDefine.G_NAME_PROJECT_ROOT);
 
-	public static readonly string B_IMG_PATH_FORMAT_TEXTURE_TO_IMAGE = string.Format("{0}{1}", KEditorDefine.B_DIR_PATH_EXPORT_IMAGE_BASE, "Textures/{0}.png");
-	public static readonly string B_IMG_PATH_FORMAT_SPRITE_TO_IMAGE = string.Format("{0}{1}", KEditorDefine.B_DIR_PATH_EXPORT_IMAGE_BASE, "Sprites/{0}.png");
+	public static readonly string B_IMG_PATH_FORMAT_TEXTURE_TO_IMG = string.Format("{0}{1}", KEditorDefine.B_DIR_PATH_EXPORT_IMG_BASE, "Textures/{0}.png");
+	public static readonly string B_IMG_PATH_FORMAT_SPRITE_TO_IMG = string.Format("{0}{1}", KEditorDefine.B_DIR_PATH_EXPORT_IMG_BASE, "Sprites/{0}.png");
 
-	public static readonly string B_PATH_FORMAT_SCRIPTABLE_OBJECT = string.Format("{0}{1}", KEditorDefine.B_DIR_PATH_ASSETS, "{0}.asset");
+	public static readonly string B_PATH_FORMAT_SCRIPTABLE_OBJ = string.Format("{0}{1}", KEditorDefine.B_DIR_PATH_ASSETS, "{0}.asset");
 	public static readonly string B_ASSET_PATH_FORMAT_DEFINE_SYMBOL_OUTPUT = string.Format("{0}/BuildOutput/{1}", KDefine.B_DIR_PATH_WRITABLE, "{0}DefineSymbol.txt");
 	
 	public static readonly KeyValuePair<string, string>[] B_PATH_DATA_FILEPATH_INFOS = new KeyValuePair<string, string>[] {
@@ -319,38 +319,38 @@ public static partial class KEditorDefine {
 		new KeyValuePair<string, string>(string.Format("{0}{1}T_Text.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_TEXT_BASE),
 			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_TEXT)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_TextButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_TEXT_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_TextBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_TEXT_BTN)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_TextScaleButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_TEXT_SCALE_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_TextScaleBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_TEXT_SCALE_BTN)),
 
 		new KeyValuePair<string, string>(string.Format("{0}{1}T_LocalizeText.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_TEXT_BASE),
 			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_LOCALIZE_TEXT)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_LocalizeTextButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_LocalizeTextBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_BTN)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_LocalizeTextScaleButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_LocalizeTextScaleBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BTN)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImageButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMAGE_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImgBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMG_BTN)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImageScaleButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMAGE_SCALE_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImgScaleBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMG_SCALE_BTN)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImageTextButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMAGE_TEXT_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImgTextBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMG_TEXT_BTN)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImageTextScaleButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMAGE_TEXT_SCALE_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImgTextScaleBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMG_TEXT_SCALE_BTN)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImageLocalizeTextButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImgLocalizeTextBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_BTN)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImageLocalizeTextScaleButton.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_SCALE_BUTTON)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_ImgLocalizeTextScaleBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_SCALE_BTN)),
 
 		new KeyValuePair<string, string>(string.Format("{0}{1}T_ScrollView.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_SCROLL_VIEW_BASE),
 			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_SCROLL_VIEW)),
@@ -370,11 +370,11 @@ public static partial class KEditorDefine {
 		new KeyValuePair<string, string>(string.Format("{0}{1}T_ToastPopup.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_POPUP_BASE),
 			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_TOAST_POPUP)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_BGSound.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_SOUND_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_BG_SOUND)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_BGSnd.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_SOUND_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_BG_SND)),
 
-		new KeyValuePair<string, string>(string.Format("{0}{1}T_FXSound.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_SOUND_BASE),
-			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_FX_SOUND)),
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_FXSnd.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_SOUND_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_FX_SND)),
 
 		new KeyValuePair<string, string>(string.Format("{0}00.Application/Common/External/SmartTimersManager/TimerManager/TimersManager.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
 			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_SS_TIMER_MANAGER)),

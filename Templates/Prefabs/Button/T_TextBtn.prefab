@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2457942837457250584}
   - component: {fileID: 9122242653978104528}
   m_Layer: 5
-  m_Name: T_TextButton
+  m_Name: T_TextBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9122242653978104542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 006afb1f653134a9f93fea40ccc8563d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_oRectTransform: {fileID: 0}

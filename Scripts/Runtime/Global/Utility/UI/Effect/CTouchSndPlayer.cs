@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 //! 터치 사운드 재생자
-public class CTouchSoundPlayer : CUIComponent, 
+public class CTouchSndPlayer : CUIComponent, 
 	IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
 	#region 변수
 	private bool m_bIsTouch = false;
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public string TouchBeganSoundFilepath { get; set; } = string.Empty;
-	public string TouchEndedSoundFilepath { get; set; } = string.Empty;
+	public string TouchBeganSndFilepath { get; set; } = string.Empty;
+	public string TouchEndedSndFilepath { get; set; } = string.Empty;
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
@@ -28,15 +28,15 @@ public class CTouchSoundPlayer : CUIComponent,
 
 	//! 터치를 시작했을 경우
 	public virtual void OnPointerDown(PointerEventData a_oEventData) {
-		if(this.TouchBeganSoundFilepath.ExIsValid()) {
-			CSoundManager.Instance.PlayFXSound(this.TouchBeganSoundFilepath);
+		if(this.TouchBeganSndFilepath.ExIsValid()) {
+			CSndManager.Instance.PlayFXSnd(this.TouchBeganSndFilepath);
 		}
 	}
 
 	//! 터치를 종료했을 경우
 	public virtual void OnPointerUp(PointerEventData a_oEventData) {
-		if(m_bIsTouch && this.TouchEndedSoundFilepath.ExIsValid()) {
-			CSoundManager.Instance.PlayFXSound(this.TouchEndedSoundFilepath);
+		if(m_bIsTouch && this.TouchEndedSndFilepath.ExIsValid()) {
+			CSndManager.Instance.PlayFXSnd(this.TouchEndedSndFilepath);
 		}
 	}
 	#endregion			// 인터페이스
@@ -46,8 +46,8 @@ public class CTouchSoundPlayer : CUIComponent,
 	public override void Awake() {
 		base.Awake();
 
-		this.TouchBeganSoundFilepath = KDefine.U_SOUND_PATH_G_TOUCH_BEGAN;
-		this.TouchEndedSoundFilepath = KDefine.U_SOUND_PATH_G_TOUCH_ENDED;
+		this.TouchBeganSndFilepath = KDefine.U_SND_PATH_G_TOUCH_BEGAN;
+		this.TouchEndedSndFilepath = KDefine.U_SND_PATH_G_TOUCH_ENDED;
 	}
 	#endregion			// 함수
 }

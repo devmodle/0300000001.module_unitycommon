@@ -15,7 +15,7 @@ public static partial class KDefine {
 	#region 기본
 	// 개수
 	public const int U_MAX_NUM_LAYERS = 32;
-	public const int U_MAX_NUM_DUPLICATE_FX_SOUNDS = 5;
+	public const int U_MAX_NUM_DUPLICATE_FX_SNDS = 5;
 
 	// 길이
 	public const int U_MAX_LENGTH_LOG = 100000000;
@@ -130,11 +130,8 @@ public static partial class KDefine {
 	// 정렬 레이어 }
 
 	// 키 {
-	public const string U_KEY_UNITY_COMMAND = "Command";
-	public const string U_KEY_UNITY_MESSAGE = "Message";
-
-	public const string U_KEY_DEVICE_COMMAND = "Command";
-	public const string U_KEY_DEVICE_MESSAGE = "Message";
+	public const string U_KEY_DEVICE_CMD = "Cmd";
+	public const string U_KEY_DEVICE_MSG = "Msg";
 
 	public const string U_KEY_STRING_T_ID = "ID";
 	public const string U_KEY_STRING_T_STRING = "String";
@@ -144,18 +141,18 @@ public static partial class KDefine {
 	public const string U_KEY_VALUE_T_VALUE_TYPE = "ValueType";
 
 	public const string U_KEY_ALERT_P_TITLE = "Title";
-	public const string U_KEY_ALERT_P_MESSAGE = "Message";
-	public const string U_KEY_ALERT_P_OK_BUTTON_TEXT = "OKButtonText";
-	public const string U_KEY_ALERT_P_CANCEL_BUTTON_TEXT = "CancelButtonText";
+	public const string U_KEY_ALERT_P_MSG = "Msg";
+	public const string U_KEY_ALERT_P_OK_BTN_TEXT = "OKBtnText";
+	public const string U_KEY_ALERT_P_CANCEL_BTN_TEXT = "CancelBtnText";
 
 	public const string U_KEY_UNITY_MS_APP_ID = "AppID";
 	public const string U_KEY_UNITY_MS_VERSION = "Version";
 	public const string U_KEY_UNITY_MS_TIMEOUT = "Timeout";
 
 	public const string U_KEY_UNITY_MS_ALERT_TITLE = KDefine.U_KEY_ALERT_P_TITLE;
-	public const string U_KEY_UNITY_MS_ALERT_MESSAGE = KDefine.U_KEY_ALERT_P_MESSAGE;
-	public const string U_KEY_UNITY_MS_ALERT_OK_BUTTON_TEXT = KDefine.U_KEY_ALERT_P_OK_BUTTON_TEXT;
-	public const string U_KEY_UNITY_MS_ALERT_CANCEL_BUTTON_TEXT = KDefine.U_KEY_ALERT_P_CANCEL_BUTTON_TEXT;
+	public const string U_KEY_UNITY_MS_ALERT_MSG = KDefine.U_KEY_ALERT_P_MSG;
+	public const string U_KEY_UNITY_MS_ALERT_OK_BTN_TEXT = KDefine.U_KEY_ALERT_P_OK_BTN_TEXT;
+	public const string U_KEY_UNITY_MS_ALERT_CANCEL_BTN_TEXT = KDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT;
 
 	public const string U_KEY_UNITY_MS_VIBRATE_TYPE = "Type";
 	public const string U_KEY_UNITY_MS_VIBRATE_STYLE = "Style";
@@ -206,32 +203,32 @@ public static partial class KDefine {
 	public const string U_OBJ_NAME_SCREEN_TOPMOST_UI_ROOT = "ScreenTopmostUIs";
 	public const string U_OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT = "ScreenAbsoluteUIs";
 
-	public const string U_OBJ_NAME_LEFT_BLIND_IMAGE = "LeftBlindImage";
-	public const string U_OBJ_NAME_RIGHT_BLIND_IMAGE = "RightBlindImage";
-	public const string U_OBJ_NAME_TOP_BLIND_IMAGE = "TopBlindImage";
-	public const string U_OBJ_NAME_BOTTOM_BLIND_IMAGE = "BottomBlindImage";
+	public const string U_OBJ_NAME_LEFT_BLIND_IMG = "LeftBlindImg";
+	public const string U_OBJ_NAME_RIGHT_BLIND_IMG = "RightBlindImg";
+	public const string U_OBJ_NAME_TOP_BLIND_IMG = "TopBlindImg";
+	public const string U_OBJ_NAME_BOTTOM_BLIND_IMG = "BottomBlindImg";
 
 	public const string U_OBJ_NAME_POPUP_CONTENT_ROOT = "Contents";
-	public const string U_OBJ_NAME_POPUP_CLOSE_BUTTON = "CloseButton";
+	public const string U_OBJ_NAME_POPUP_CLOSE_BTN = "CloseBtn";
 	public const string U_OBJ_NAME_FORMAT_POPUP_TOUCH_RESPONDER = "PopupTouchResponder_{0}";
 
 	public const string U_OBJ_NAME_ALERT_POPUP = "AlertPopup";
 	public const string U_OBJ_NAME_TOAST_POPUP = "ToastPopup";
 
 	public const string U_OBJ_NAME_ALERT_P_TITLE_TEXT = "TitleText";
-	public const string U_OBJ_NAME_ALERT_P_MESSAGE_TEXT = "MessageText";
-	public const string U_OBJ_NAME_ALERT_P_BUTTON_TEXT = "Text";
+	public const string U_OBJ_NAME_ALERT_P_MSG_TEXT = "MsgText";
+	public const string U_OBJ_NAME_ALERT_P_BTN_TEXT = "Text";
 
-	public const string U_OBJ_NAME_ALERT_P_BG_IMAGE = "BGImage";
+	public const string U_OBJ_NAME_ALERT_P_BG_IMG = "BGImg";
 
-	public const string U_OBJ_NAME_ALERT_P_OK_BUTTON = "OKButton";
-	public const string U_OBJ_NAME_ALERT_P_CANCEL_BUTTON = "CancelButton";
+	public const string U_OBJ_NAME_ALERT_P_OK_BTN = "OKBtn";
+	public const string U_OBJ_NAME_ALERT_P_CANCEL_BTN = "CancelBtn";
 
-	public const string U_OBJ_NAME_TOAST_P_MESSAGE_TEXT = "MessageText";
+	public const string U_OBJ_NAME_TOAST_P_MSG_TEXT = "MsgText";
 	public const string U_OBJ_NAME_TOAST_P_TOAST_POPUP = "ToastPopup";
 
-	public const string U_OBJ_NAME_SOUND_M_BG_SOUND = "BGSound";
-	public const string U_OBJ_NAME_SOUND_M_FX_SOUND = "FXSound";
+	public const string U_OBJ_NAME_SND_M_BG_SND = "BGSnd";
+	public const string U_OBJ_NAME_SND_M_FX_SND = "FXSnd";
 
 	public const string U_OBJ_NAME_SCROLL_V_CONTENT = "Content";
 	public const string U_OBJ_NAME_SCROLL_V_VIEWPORT = "Viewport";
@@ -245,8 +242,8 @@ public static partial class KDefine {
 
 	public const string U_MESH_NAME_DEF_MESH = "DefaultMesh";
 
-	public const string U_CLS_NAME_UNITY_MS_MESSAGE_RECEIVER = "dante.distribution.plugin.CAndroidPlugin";
-	public const string U_FUNC_NAME_UNITY_MS_MESSAGE_HANDLER = "handleUnityMessage";
+	public const string U_CLS_NAME_UNITY_MS_MSG_RECEIVER = "dante.distribution.plugin.CAndroidPlugin";
+	public const string U_FUNC_NAME_UNITY_MS_MSG_HANDLER = "handleUnityMsg";
 
 	public const string U_FUNC_NAME_ON_DRAG = "OnDrag";
 	public const string U_FUNC_NAME_ON_POINTER_UP = "OnPointerUp";
@@ -328,21 +325,21 @@ public static partial class KDefine {
 
 	// 경로 {
 	public static readonly string U_OBJ_PATH_TEXT = string.Format("{0}{1}{2}U_Text", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_TEXT_BASE);
-	public static readonly string U_OBJ_PATH_TEXT_BUTTON = string.Format("{0}{1}{2}U_TextButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
-	public static readonly string U_OBJ_PATH_TEXT_SCALE_BUTTON = string.Format("{0}{1}{2}U_TextScaleButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_TEXT_BTN = string.Format("{0}{1}{2}U_TextBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_TEXT_SCALE_BTN = string.Format("{0}{1}{2}U_TextScaleBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 
 	public static readonly string U_OBJ_PATH_LOCALIZE_TEXT = string.Format("{0}{1}{2}U_LocalizeText", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_TEXT_BASE);
-	public static readonly string U_OBJ_PATH_LOCALIZE_TEXT_BUTTON = string.Format("{0}{1}{2}U_LocalizeTextButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
-	public static readonly string U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BUTTON = string.Format("{0}{1}{2}U_LocalizeTextScaleButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_LOCALIZE_TEXT_BTN = string.Format("{0}{1}{2}U_LocalizeTextBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BTN = string.Format("{0}{1}{2}U_LocalizeTextScaleBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 
-	public static readonly string U_OBJ_PATH_IMAGE_BUTTON = string.Format("{0}{1}{2}U_ImageButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
-	public static readonly string U_OBJ_PATH_IMAGE_SCALE_BUTTON = string.Format("{0}{1}{2}U_ImageScaleButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_IMG_BTN = string.Format("{0}{1}{2}U_ImgBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_IMG_SCALE_BTN = string.Format("{0}{1}{2}U_ImgScaleBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 
-	public static readonly string U_OBJ_PATH_IMAGE_TEXT_BUTTON = string.Format("{0}{1}{2}U_ImageTextButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
-	public static readonly string U_OBJ_PATH_IMAGE_TEXT_SCALE_BUTTON = string.Format("{0}{1}{2}U_ImageTextScaleButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_IMG_TEXT_BTN = string.Format("{0}{1}{2}U_ImgTextBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_IMG_TEXT_SCALE_BTN = string.Format("{0}{1}{2}U_ImgTextScaleBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 
-	public static readonly string U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_BUTTON = string.Format("{0}{1}{2}U_ImageLocalizeTextButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
-	public static readonly string U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_SCALE_BUTTON = string.Format("{0}{1}{2}U_ImageLocalizeTextScaleButton", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_IMG_LOCALIZE_TEXT_BTN = string.Format("{0}{1}{2}U_ImgLocalizeTextBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
+	public static readonly string U_OBJ_PATH_IMG_LOCALIZE_TEXT_SCALE_BTN = string.Format("{0}{1}{2}U_ImgLocalizeTextScaleBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 
 	public static readonly string U_OBJ_PATH_SCROLL_VIEW = string.Format("{0}{1}{2}U_ScrollView", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SCROLL_VIEW_BASE);
 	public static readonly string U_OBJ_PATH_PAGE_SCROLL_VIEW = string.Format("{0}{1}{2}U_PageScrollView", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SCROLL_VIEW_BASE);
@@ -353,8 +350,8 @@ public static partial class KDefine {
 	public static readonly string U_OBJ_PATH_DRAG_RESPONDER = string.Format("{0}{1}{2}U_DragResponder", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_RESPONDER_BASE);
 	public static readonly string U_OBJ_PATH_TOUCH_RESPONDER = string.Format("{0}{1}{2}U_TouchResponder", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_RESPONDER_BASE);
 
-	public static readonly string U_OBJ_PATH_FX_SOUND = string.Format("{0}{1}{2}U_FXSound", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SOUND_BASE);
-	public static readonly string U_OBJ_PATH_BG_SOUND = string.Format("{0}{1}{2}U_BGSound", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SOUND_BASE);
+	public static readonly string U_OBJ_PATH_BG_SND = string.Format("{0}{1}{2}U_BGSnd", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SOUND_BASE);
+	public static readonly string U_OBJ_PATH_FX_SND = string.Format("{0}{1}{2}U_FXSnd", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SOUND_BASE);
 
 	public static readonly string U_OBJ_PATH_SS_FPS_COUNTER = string.Format("{0}{1}SS_FPSCounter", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_SETUP_SCENE_BASE);
 	public static readonly string U_OBJ_PATH_SS_TIMER_MANAGER = string.Format("{0}{1}SS_TimerManager", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_SETUP_SCENE_BASE);
@@ -371,8 +368,8 @@ public static partial class KDefine {
 	public static readonly string U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common_KO", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
 	public static readonly string U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common_EN", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
 
-	public static readonly string U_SOUND_PATH_G_TOUCH_BEGAN = string.Format("{0}{1}G_TouchBegan", KDefine.B_DIR_PATH_SOUNDS, KDefine.B_DIR_PATH_GLOBAL_BASE);
-	public static readonly string U_SOUND_PATH_G_TOUCH_ENDED = string.Format("{0}{1}G_TouchEnded", KDefine.B_DIR_PATH_SOUNDS, KDefine.B_DIR_PATH_GLOBAL_BASE);
+	public static readonly string U_SND_PATH_G_TOUCH_BEGAN = string.Format("{0}{1}G_TouchBegan", KDefine.B_DIR_PATH_SOUNDS, KDefine.B_DIR_PATH_GLOBAL_BASE);
+	public static readonly string U_SND_PATH_G_TOUCH_ENDED = string.Format("{0}{1}G_TouchEnded", KDefine.B_DIR_PATH_SOUNDS, KDefine.B_DIR_PATH_GLOBAL_BASE);
 
 	public static readonly string U_PIPELINE_PATH_UNIVERSAL_RENDER_PIPELINE = string.Format("{0}{1}U_UniversalRPAsset", KDefine.B_DIR_PATH_PIPELINES, KDefine.B_DIR_PATH_UTILITY_BASE);
 	public static readonly string U_PIPELINE_PATH_UNIVERSAL_RENDER_PIPELINE_RENDERER = string.Format("{0}{1}U_UniversalRPRenderer", KDefine.B_DIR_PATH_PIPELINES, KDefine.B_DIR_PATH_UTILITY_BASE);
@@ -450,8 +447,8 @@ public static partial class KDefine {
 	public const float U_DELTA_TIME_DYNAMIC_DEBUG = 1.0f;
 
 	// 형식 {
-	public const string U_FORMAT_SCENE_M_STATIC_DEBUG_MESSAGE = "{0}\n\n{1}";
-	public const string U_FORMAT_SCENE_M_DYNAMIC_DEBUG_MESSAGE = "{0}\n\n{1}";
+	public const string U_FORMAT_SCENE_M_STATIC_DEBUG_MSG = "{0}\n\n{1}";
+	public const string U_FORMAT_SCENE_M_DYNAMIC_DEBUG_MSG = "{0}\n\n{1}";
 
 	public const string U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_A = "Resolution: <color=orange>{0:0.0}</color>, <color=orange>{1:0.0}</color>\n";
 	public const string U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_B = "Design Resolution: <color=orange>{0:0.0}</color>, <color=orange>{1:0.0}</color>\n";
@@ -479,8 +476,8 @@ public static partial class KDefine {
 	public const string U_NAME_SCREEN_STATIC_DEBUG_TEXT = "StaticDebugText";
 	public const string U_NAME_SCREEN_DYNAMIC_DEBUG_TEXT = "DynamicDebugText";
 
-	public const string U_NAME_SCREEN_FPS_BUTTON = "FPSButton";
-	public const string U_NAME_SCREEN_DEBUG_BUTTON = "DebugButton";
+	public const string U_NAME_SCREEN_FPS_BTN = "FPSBtn";
+	public const string U_NAME_SCREEN_DEBUG_BTN = "DebugBtn";
 	// 이름 }
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
@@ -683,7 +680,7 @@ public static partial class KDefine {
 
 #if PURCHASE_ENABLE
 	// 메세지
-	public const string U_MESSAGE_INVALID_PRODUCT_TYPE = "해당 상품 타입을 지원하지않습니다.";
+	public const string U_MSG_INVALID_PRODUCT_TYPE = "해당 상품 타입을 지원하지않습니다.";
 
 	// 키
 	public const string U_KEY_PURCHASE_M_RESTORE_CALLBACK = "PurchaseMRestoreCallback";
@@ -702,7 +699,7 @@ public static partial class KDefine {
 
 #if !MESSAGE_PACK_ENABLE
 	// 메세지
-	public const string U_MESSAGE_NEED_MESSAGE_PACK = "MessagePack 라이브러리가 필요합니다.";
+	public const string U_MSG_NEED_MESSAGE_PACK = "MessagePack 라이브러리가 필요합니다.";
 #endif			// #if !MESSAGE_PACK_ENABLE
 	#endregion			// 조건부 상수
 

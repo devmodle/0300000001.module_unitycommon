@@ -121,15 +121,15 @@ public static partial class KDefine {
 	public const string B_BUILD_MODE_RELEASE = "Release";
 
 	// 명령어
-	public const string B_COMMAND_GET_DEVICE_ID = "GetDeviceID";
-	public const string B_COMMAND_GET_COUNTRY_CODE = "GetCountryCode";
-	public const string B_COMMAND_GET_SYSTEM_VERSION = "GetSystemVersion";
-	public const string B_COMMAND_GET_STORE_VERSION = "GetStoreVersion";
-	public const string B_COMMAND_SET_BUILD_MODE = "SetBuildMode";
-	public const string B_COMMAND_SHOW_ALERT = "ShowAlert";
-	public const string B_COMMAND_SHOW_TOAST = "ShowToast";
-	public const string B_COMMAND_VIBRATE = "Vibrate";
-	public const string B_COMMAND_ACTIVITY_INDICATOR = "ActivityIndicator";
+	public const string B_CMD_GET_DEVICE_ID = "GetDeviceID";
+	public const string B_CMD_GET_COUNTRY_CODE = "GetCountryCode";
+	public const string B_CMD_GET_SYSTEM_VERSION = "GetSystemVersion";
+	public const string B_CMD_GET_STORE_VERSION = "GetStoreVersion";
+	public const string B_CMD_SET_BUILD_MODE = "SetBuildMode";
+	public const string B_CMD_SHOW_ALERT = "ShowAlert";
+	public const string B_CMD_SHOW_TOAST = "ShowToast";
+	public const string B_CMD_VIBRATE = "Vibrate";
+	public const string B_CMD_ACTIVITY_INDICATOR = "ActivityIndicator";
 
 	// 경로 {
 	public const string B_DIR_PATH_FONTS = "Fonts/";

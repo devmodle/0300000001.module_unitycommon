@@ -129,15 +129,15 @@ public static partial class Func {
 	}
 	
 	//! 메세지를 전송한다
-	public static void SendMessage(string a_oName, string a_oMessage, object a_oParams) {
+	public static void SendMsg(string a_oName, string a_oMsg, object a_oParams) {
 		var oObject = Func.FindObject(a_oName);
-		oObject?.SendMessage(a_oMessage, a_oParams, SendMessageOptions.DontRequireReceiver);
+		oObject?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
 	}
 
 	//! 메세지를 전파한다
-	public static void BroadcastMessage(string a_oMessage, object a_oParams) {
+	public static void BroadcastMsg(string a_oMsg, object a_oParams) {
 		Func.EnumerateScenes((a_stScene) => {
-			a_stScene.ExBroadcastMessage(a_oMessage, a_oParams);
+			a_stScene.ExBroadcastMsg(a_oMsg, a_oParams);
 		});
 	}
 
@@ -371,15 +371,15 @@ public static partial class Func {
 	public static GameObject CreateTouchResponder(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, Vector2 a_stSize, Vector2 a_stPos, Color a_stColor) {
 		var oObject = Func.CreateCloneObject(a_oName, a_oOrigin, a_oParent);
-		var oImage = oObject.GetComponentInChildren<Image>();
+		var oImg = oObject.GetComponentInChildren<Image>();
 
-		Func.Assert(oImage != null);
+		Func.Assert(oImg != null);
 
 		var oTransform = oObject.transform as RectTransform;
 		oTransform.sizeDelta = a_stSize;
 		oTransform.anchoredPosition = a_stPos;
 
-		oImage.color = a_stColor;
+		oImg.color = a_stColor;
 		return oObject;
 	}
 	
@@ -440,9 +440,9 @@ public static partial class Func {
 
 	//! 토스트 팝업을 생성한다
 	public static T CreateToastPopup<T>(string a_oName,
-		GameObject a_oOrigin, GameObject a_oParent, string a_oMessage, float a_fDuration) where T : CToastPopup {
+		GameObject a_oOrigin, GameObject a_oParent, string a_oMsg, float a_fDuration) where T : CToastPopup {
 		var oToastPopup = Func.CreatePopup<T>(a_oName, a_oOrigin, a_oParent, KDefine.B_POS_MIDDLE_CENTER);
-		oToastPopup?.Init(a_oMessage, a_fDuration);
+		oToastPopup?.Init(a_oMsg, a_fDuration);
 
 		return oToastPopup;
 	}

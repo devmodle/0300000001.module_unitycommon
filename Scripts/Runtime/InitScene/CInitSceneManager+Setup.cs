@@ -17,10 +17,10 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 			// 블라인드 이미지를 생성한다 {
 			var oImages = new Image[] {
-				this.CreateBlindImage(KDefine.U_OBJ_NAME_LEFT_BLIND_IMAGE, CSceneManager.ScreenBlindUIRoot),
-				this.CreateBlindImage(KDefine.U_OBJ_NAME_RIGHT_BLIND_IMAGE, CSceneManager.ScreenBlindUIRoot),
-				this.CreateBlindImage(KDefine.U_OBJ_NAME_TOP_BLIND_IMAGE, CSceneManager.ScreenBlindUIRoot),
-				this.CreateBlindImage(KDefine.U_OBJ_NAME_BOTTOM_BLIND_IMAGE, CSceneManager.ScreenBlindUIRoot)
+				this.CreateBlindImg(KDefine.U_OBJ_NAME_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIRoot),
+				this.CreateBlindImg(KDefine.U_OBJ_NAME_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIRoot),
+				this.CreateBlindImg(KDefine.U_OBJ_NAME_TOP_BLIND_IMG, CSceneManager.ScreenBlindUIRoot),
+				this.CreateBlindImg(KDefine.U_OBJ_NAME_BOTTOM_BLIND_IMG, CSceneManager.ScreenBlindUIRoot)
 			};
 
 			for(int i = 0; i < oImages.Length; ++i) {

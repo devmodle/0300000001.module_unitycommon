@@ -69,13 +69,13 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		// 저장소를 로드한다 }
 
 		// 사운드를 설정한다 {
-		CSoundManager.Instance.BGSoundVolume = 1.0f;
-		CSoundManager.Instance.FXSoundsVolume = 1.0f;
+		CSndManager.Instance.BGSndVolume = 1.0f;
+		CSndManager.Instance.FXSndsVolume = 1.0f;
 
 #if MESSAGE_PACK_ENABLE
-		CSoundManager.Instance.IsMuteBGSound = CUserInfoStorage.Instance.UserInfo.IsMuteBGSound;
-		CSoundManager.Instance.IsMuteFXSounds = CUserInfoStorage.Instance.UserInfo.IsMuteFXSounds;
-		CSoundManager.Instance.IsDisableVibrate = CUserInfoStorage.Instance.UserInfo.IsDisableVibrate;
+		CSndManager.Instance.IsMuteBGSnd = CUserInfoStorage.Instance.UserInfo.IsMuteBGSnd;
+		CSndManager.Instance.IsMuteFXSnds = CUserInfoStorage.Instance.UserInfo.IsMuteFXSnds;
+		CSndManager.Instance.IsDisableVibrate = CUserInfoStorage.Instance.UserInfo.IsDisableVibrate;
 #endif			// #if MESSAGE_PACK_ENABLE
 		// 사운드를 설정한다 }
 	}
@@ -102,7 +102,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 			// 관리자를 생성한다 {
 			CLogManager.Create();
-			CSoundManager.Create();
+			CSndManager.Create();
 			CScheduleManager.Create();
 			CResourceManager.Create();
 			CNavigationManager.Create();
@@ -149,8 +149,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			// 관리자를 생성한다 }
 
 			// 디바이스 연동 객체를 생성한다 {
-			CUnityMessageSender.Create();
-			CDeviceMessageReceiver.Create();
+			CUnityMsgSender.Create();
+			CDeviceMsgReceiver.Create();
 
 			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			// 디바이스 연동 객체를 생성한다 }

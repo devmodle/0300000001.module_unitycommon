@@ -160,20 +160,20 @@ public static partial class Func {
 	}
 
 	//! 메일을 전송한다
-	public static void SendMail(string a_oRecipient, string a_oTitle, string a_oMessage) {
-		Func.Assert(a_oTitle != null && a_oMessage != null && a_oRecipient.ExIsValid());
+	public static void SendMail(string a_oRecipient, string a_oTitle, string a_oMsg) {
+		Func.Assert(a_oTitle != null && a_oMsg != null && a_oRecipient.ExIsValid());
 
 		string oURL = string.Format(KDefine.B_MAIL_URL_FORMAT,
-			a_oRecipient, System.Uri.EscapeUriString(a_oTitle), System.Uri.EscapeUriString(a_oMessage));
+			a_oRecipient, System.Uri.EscapeUriString(a_oTitle), System.Uri.EscapeUriString(a_oMsg));
 
 		Func.OpenURL(oURL);
 	}
 
 	//! 조건을 검사한다
 	[Conditional("DEBUG"), Conditional("DEVELOPMENT_BUILD")]
-	public static void Assert(bool a_bIsTrue, string a_oMessage = KDefine.B_EMPTY_STRING) {
-		if(a_oMessage.ExIsValid()) {
-			UnityEngine.Assertions.Assert.IsTrue(a_bIsTrue, a_oMessage);
+	public static void Assert(bool a_bIsTrue, string a_oMsg = KDefine.B_EMPTY_STRING) {
+		if(a_oMsg.ExIsValid()) {
+			UnityEngine.Assertions.Assert.IsTrue(a_bIsTrue, a_oMsg);
 		} else {
 			UnityEngine.Assertions.Assert.IsTrue(a_bIsTrue);
 		}

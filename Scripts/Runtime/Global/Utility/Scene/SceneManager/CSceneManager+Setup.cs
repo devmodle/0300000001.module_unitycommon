@@ -153,16 +153,16 @@ public abstract partial class CSceneManager : CComponent {
 		this.SetupRootObjects();
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-		if(CSceneManager.ScreenDebugButton != null) {
-			CSceneManager.ScreenDebugButton.onClick.RemoveAllListeners();
-			CSceneManager.ScreenDebugButton.onClick.AddListener(CSceneManager.OnTouchDebugButton);
+		if(CSceneManager.ScreenDebugBtn != null) {
+			CSceneManager.ScreenDebugBtn.onClick.RemoveAllListeners();
+			CSceneManager.ScreenDebugBtn.onClick.AddListener(CSceneManager.OnTouchDebugBtn);
 		}
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-		if(CSceneManager.ScreenFPSButton != null) {
-			CSceneManager.ScreenFPSButton.onClick.RemoveAllListeners();
-			CSceneManager.ScreenFPSButton.onClick.AddListener(CSceneManager.OnTouchFPSButton);
+		if(CSceneManager.ScreenFPSBtn != null) {
+			CSceneManager.ScreenFPSBtn.onClick.RemoveAllListeners();
+			CSceneManager.ScreenFPSBtn.onClick.AddListener(CSceneManager.OnTouchFPSBtn);
 		}
 #endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
@@ -517,21 +517,21 @@ public abstract partial class CSceneManager : CComponent {
 #endif			// #if PORTRAIT_ENABLE
 
 					var oImages = new Image[] {
-						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_LEFT_BLIND_IMAGE),
-						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_RIGHT_BLIND_IMAGE),
-						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_TOP_BLIND_IMAGE),
-						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_BOTTOM_BLIND_IMAGE)
+						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_LEFT_BLIND_IMG),
+						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_RIGHT_BLIND_IMG),
+						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_TOP_BLIND_IMG),
+						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_BOTTOM_BLIND_IMG)
 					};
 
 					for(int j = 0; j < oImages.Length; ++j) {
-						var oImage = oImages[j];
-						oImage.color = Func.IsEditorPlatform() ? KDefine.U_DEF_COLOR_TRANSPARENT : KDefine.U_DEF_COLOR_BLIND_UI;
+						var oImg = oImages[j];
+						oImg.color = Func.IsEditorPlatform() ? KDefine.U_DEF_COLOR_TRANSPARENT : KDefine.U_DEF_COLOR_BLIND_UI;
 
-						oImage.rectTransform.pivot = oPivots[j];
-						oImage.rectTransform.anchorMin = oAnchors[j];
-						oImage.rectTransform.anchorMax = oAnchors[j];
-						oImage.rectTransform.sizeDelta = CSceneManager.CanvasSize;
-						oImage.rectTransform.anchoredPosition = oPositions[j];
+						oImg.rectTransform.pivot = oPivots[j];
+						oImg.rectTransform.anchorMin = oAnchors[j];
+						oImg.rectTransform.anchorMax = oAnchors[j];
+						oImg.rectTransform.sizeDelta = CSceneManager.CanvasSize;
+						oImg.rectTransform.anchoredPosition = oPositions[j];
 					}
 				}
 

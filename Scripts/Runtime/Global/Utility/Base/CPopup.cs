@@ -17,7 +17,7 @@ public class CPopup : CUIComponent {
 	#endregion			// 변수
 
 	#region 컴포넌트
-	protected Image m_oBGImage = null;
+	protected Image m_oBGImg = null;
 	protected RectTransform m_oRootTransform = null;
 	#endregion			// 컴포넌트
 
@@ -54,12 +54,12 @@ public class CPopup : CUIComponent {
 		m_oRootTransform.localScale = new Vector3(KDefine.U_MIN_SCALE_POPUP, KDefine.U_MIN_SCALE_POPUP, KDefine.U_MIN_SCALE_POPUP);
 
 		// 이미지를 생성한다
-		m_oBGImage = m_oTouchResponder.GetComponentInChildren<Image>();
-		m_oBGImage.color = this.BGColor.ExGetAlphaColor(0.0f);
+		m_oBGImg = m_oTouchResponder.GetComponentInChildren<Image>();
+		m_oBGImg.color = this.BGColor.ExGetAlphaColor(0.0f);
 
 		// 버튼을 생성한다
-		var oCloseButton = m_oContentRoot.ExFindComponent<Button>(KDefine.U_OBJ_NAME_POPUP_CLOSE_BUTTON);
-		oCloseButton?.onClick.AddListener(this.OnTouchCloseButton);
+		var oCloseBtn = m_oContentRoot.ExFindComponent<Button>(KDefine.U_OBJ_NAME_POPUP_CLOSE_BTN);
+		oCloseBtn?.onClick.AddListener(this.OnTouchCloseBtn);
 	}
 
 	//! 제거 되었을 경우
@@ -72,7 +72,7 @@ public class CPopup : CUIComponent {
 	}
 
 	//! 닫기 버튼을 눌렀을 경우
-	public virtual void OnTouchCloseButton() {
+	public virtual void OnTouchCloseBtn() {
 		this.ClosePopup();
 	}
 
@@ -104,9 +104,9 @@ public class CPopup : CUIComponent {
 		m_oBGAnimation?.Kill();
 		
 		if(!a_bIsAnimation) {
-			m_oBGImage.color = a_stColor;
+			m_oBGImg.color = a_stColor;
 		} else {
-			m_oBGAnimation = m_oBGImage.DOColor(a_stColor, KDefine.U_DEF_DURATION_ANIMATION).SetUpdate(true);
+			m_oBGAnimation = m_oBGImg.DOColor(a_stColor, KDefine.U_DEF_DURATION_ANIMATION).SetUpdate(true);
 		}
 	}
 

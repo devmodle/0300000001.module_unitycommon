@@ -24,7 +24,7 @@ public struct STEditorOption {
 
 //! 사운드 옵션
 [System.Serializable]
-public struct STSoundOption {
+public struct STSndOption {
 	public bool m_bIsDisable;
 	public bool m_bIsVirtualizeEffect;
 
@@ -120,7 +120,7 @@ public class CBuildOptionTable : CScriptableObject<CBuildOptionTable> {
 	[SerializeField] private STEditorOption m_stEditorOption;
 
 	[Header("Sound Option")]
-	[SerializeField] private STSoundOption m_stSoundOption;
+	[SerializeField] private STSndOption m_stSoundOption;
 
 	[Header("Build Option")]
 	[SerializeField] private STCommonBuildOption m_stCommonBuildOption;
@@ -131,7 +131,7 @@ public class CBuildOptionTable : CScriptableObject<CBuildOptionTable> {
 
 	#region 프로퍼티
 	public STEditorOption EditorOption => m_stEditorOption;
-	public STSoundOption SoundOption => m_stSoundOption;
+	public STSndOption SndOption => m_stSoundOption;
 
 	public STCommonBuildOption CommonBuildOption => m_stCommonBuildOption;
 	public STStandaloneBuildOption StandaloneBuildOption => m_stStandaloneBuildOption;
@@ -147,8 +147,8 @@ public class CBuildOptionTable : CScriptableObject<CBuildOptionTable> {
 	}
 
 	//! 사운드 옵션을 변경한다
-	public void SetSoundOption(STSoundOption a_stSoundOption) {
-		m_stSoundOption = a_stSoundOption;
+	public void SetSndOption(STSndOption a_stSndOption) {
+		m_stSoundOption = a_stSndOption;
 	}
 
 	//! 공용 빌드 옵션 변경한다

@@ -141,37 +141,37 @@ public static partial class EditorFunc {
 		// 에디터 옵션을 설정한다 }
 
 		// 사운드 옵션을 설정한다 {
-		var oSoundManager = EditorFunc.LoadAsset(KEditorDefine.B_ASSET_PATH_SOUND_MANAGER);
+		var oSndManager = EditorFunc.LoadAsset(KEditorDefine.B_ASSET_PATH_SND_MANAGER);
 
-		if(oSoundManager != null && CPlatformBuilder.BuildOptionTable != null) {
+		if(oSndManager != null && CPlatformBuilder.BuildOptionTable != null) {
 			var oConfiguration = AudioSettings.GetConfiguration();
-			oConfiguration.sampleRate = CPlatformBuilder.BuildOptionTable.SoundOption.m_nSampleRate;
-			oConfiguration.numRealVoices = CPlatformBuilder.BuildOptionTable.SoundOption.m_nNumRealVoices;
-			oConfiguration.numVirtualVoices = CPlatformBuilder.BuildOptionTable.SoundOption.m_nNumVirtualVoices;
-			oConfiguration.speakerMode = CPlatformBuilder.BuildOptionTable.SoundOption.m_eSpeakerMode;
-			oConfiguration.dspBufferSize = (int)CPlatformBuilder.BuildOptionTable.SoundOption.m_eDSPBufferSize;
+			oConfiguration.sampleRate = CPlatformBuilder.BuildOptionTable.SndOption.m_nSampleRate;
+			oConfiguration.numRealVoices = CPlatformBuilder.BuildOptionTable.SndOption.m_nNumRealVoices;
+			oConfiguration.numVirtualVoices = CPlatformBuilder.BuildOptionTable.SndOption.m_nNumVirtualVoices;
+			oConfiguration.speakerMode = CPlatformBuilder.BuildOptionTable.SndOption.m_eSpeakerMode;
+			oConfiguration.dspBufferSize = (int)CPlatformBuilder.BuildOptionTable.SndOption.m_eDSPBufferSize;
 
 			AudioSettings.Reset(oConfiguration);
-			var oSerializeObject = new SerializedObject(oSoundManager);
+			var oSerializeObject = new SerializedObject(oSndManager);
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SOUND_M_DISABLE_AUDIO, (a_oProperty) => {
-				a_oProperty.boolValue = CPlatformBuilder.BuildOptionTable.SoundOption.m_bIsDisable;
+			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_DISABLE_AUDIO, (a_oProperty) => {
+				a_oProperty.boolValue = CPlatformBuilder.BuildOptionTable.SndOption.m_bIsDisable;
 			});
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SOUND_M_VIRTUALIZE_EFFECT, (a_oProperty) => {
-				a_oProperty.boolValue = CPlatformBuilder.BuildOptionTable.SoundOption.m_bIsVirtualizeEffect;
+			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_VIRTUALIZE_EFFECT, (a_oProperty) => {
+				a_oProperty.boolValue = CPlatformBuilder.BuildOptionTable.SndOption.m_bIsVirtualizeEffect;
 			});
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SOUND_M_GLOBAL_VOLUME, (a_oProperty) => {
-				a_oProperty.floatValue = CPlatformBuilder.BuildOptionTable.SoundOption.m_fGlobalVolume;
+			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_GLOBAL_VOLUME, (a_oProperty) => {
+				a_oProperty.floatValue = CPlatformBuilder.BuildOptionTable.SndOption.m_fGlobalVolume;
 			});
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SOUND_M_ROLLOFF_SCALE, (a_oProperty) => {
-				a_oProperty.floatValue = CPlatformBuilder.BuildOptionTable.SoundOption.m_fRolloffScale;
+			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_ROLLOFF_SCALE, (a_oProperty) => {
+				a_oProperty.floatValue = CPlatformBuilder.BuildOptionTable.SndOption.m_fRolloffScale;
 			});
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SOUND_M_DOPPLER_FACTOR, (a_oProperty) => {
-				a_oProperty.floatValue = CPlatformBuilder.BuildOptionTable.SoundOption.m_fDopplerFactor;
+			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_DOPPLER_FACTOR, (a_oProperty) => {
+				a_oProperty.floatValue = CPlatformBuilder.BuildOptionTable.SndOption.m_fDopplerFactor;
 			});
 		}
 		// 사운드 옵션을 설정한다 }
@@ -365,12 +365,12 @@ public static partial class EditorFunc {
 
 	//! 알림 팝업을 출력한다
 	public static bool ShowAlertPopup(string a_oTitle,
-		string a_oMessage, string a_oOKButtonTitle, string a_oCancelButtonTitle) {
-		if(!a_oCancelButtonTitle.ExIsValid()) {
-			return EditorUtility.DisplayDialog(a_oTitle, a_oMessage, a_oOKButtonTitle);
+		string a_oMsg, string a_oOKBtnText, string a_oCancelBtnText) {
+		if(!a_oCancelBtnText.ExIsValid()) {
+			return EditorUtility.DisplayDialog(a_oTitle, a_oMsg, a_oOKBtnText);
 		}
 
-		return EditorUtility.DisplayDialog(a_oTitle, a_oMessage, a_oOKButtonTitle, a_oCancelButtonTitle);
+		return EditorUtility.DisplayDialog(a_oTitle, a_oMsg, a_oOKBtnText, a_oCancelBtnText);
 	}
 
 	//! 에셋 데이터 베이스를 갱신한다
@@ -387,7 +387,7 @@ public static partial class EditorFunc {
 		var oStringBuilder = new System.Text.StringBuilder();
 		string oURL = string.Format(CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oBuildURLFormat, a_oPipeline);
 
-		oStringBuilder.AppendFormat(KEditorDefine.B_JENKINS_BUILD_COMMAND_FORMAT,
+		oStringBuilder.AppendFormat(KEditorDefine.B_JENKINS_BUILD_CMD_FORMAT,
 			oURL,
 			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oUserID,
 			CPlatformBuilder.BuildInfoTable.JenkinsInfo.m_oAccessToken,
@@ -420,7 +420,7 @@ public static partial class EditorFunc {
 		}
 		// 매개 변수를 설정한다 }
 
-		EditorFunc.ExecuteCommandline(oStringBuilder.ToString());
+		EditorFunc.ExecuteCmdline(oStringBuilder.ToString());
 	}
 
 	//! 독립 플랫폼 젠킨스 빌드를 실행한다
@@ -462,20 +462,20 @@ public static partial class EditorFunc {
 	}
 
 	//! 커맨드 라인을 실행한다
-	public static void ExecuteCommandline(string a_oParams) {
+	public static void ExecuteCmdline(string a_oParams) {
 		Func.Assert(a_oParams.ExIsValid());
 
 		if(Func.IsMacPlatform()) {
-			EditorFunc.ExecuteCommandline(KEditorDefine.B_TOOL_PATH_SHELL,
-				string.Format(KEditorDefine.B_COMMANDLINE_PARAMETER_FORMAT_SHELL, a_oParams));
+			EditorFunc.ExecuteCmdline(KEditorDefine.B_TOOL_PATH_SHELL,
+				string.Format(KEditorDefine.B_CMDLINE_PARAMETER_FORMAT_SHELL, a_oParams));
 		} else if(Func.IsWindowsPlatform()) {
-			EditorFunc.ExecuteCommandline(KEditorDefine.B_TOOL_PATH_COMMAND_PROMPT,
-				string.Format(KEditorDefine.B_COMMANDLINE_PARAMETER_FORMAT_COMMAND_PROMPT, a_oParams));
+			EditorFunc.ExecuteCmdline(KEditorDefine.B_TOOL_PATH_CMD_PROMPT,
+				string.Format(KEditorDefine.B_CMDLINE_PARAMETER_FORMAT_CMD_PROMPT, a_oParams));
 		}
 	}
 
 	//! 커맨드 라인을 실행한다
-	public static void ExecuteCommandline(string a_oFilepath, string a_oParams) {
+	public static void ExecuteCmdline(string a_oFilepath, string a_oParams) {
 		Func.Assert(a_oFilepath.ExIsValid() && a_oParams.ExIsValid());
 
 		var oStartInfo = new ProcessStartInfo(a_oFilepath, a_oParams);
@@ -914,8 +914,8 @@ public static partial class EditorFunc {
 	}
 
 	//! 스크립트 객체를 생성한다
-	public static T CreateScriptableObject<T>() where T : ScriptableObject {
-		string oFilepath = string.Format(KEditorDefine.B_PATH_FORMAT_SCRIPTABLE_OBJECT, typeof(T).ToString());
+	public static T CreateScriptableObj<T>() where T : ScriptableObject {
+		string oFilepath = string.Format(KEditorDefine.B_PATH_FORMAT_SCRIPTABLE_OBJ, typeof(T).ToString());
 		var oScriptableObject = ScriptableObject.CreateInstance<T>();
 
 		EditorFunc.CreateAsset<T>(oScriptableObject, oFilepath);

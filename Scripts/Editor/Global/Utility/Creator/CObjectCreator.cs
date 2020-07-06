@@ -22,62 +22,62 @@ public static partial class CObjectCreator {
 
 	//! 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/Text + Button/TextButton")]
-	public static void CreateTextButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_TEXT_BUTTON, KDefine.U_OBJ_PATH_TEXT_BUTTON);
+	public static void CreateTextBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_TEXT_BTN, KDefine.U_OBJ_PATH_TEXT_BTN);
 	}
 
 	//! 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/Text + Button/TextScaleButton")]
-	public static void CreateTextScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_TEXT_SCALE_BUTTON, KDefine.U_OBJ_PATH_TEXT_SCALE_BUTTON);
+	public static void CreateTextScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_TEXT_SCALE_BTN);
 	}
 
 	//! 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/LocalizeText + Button/LocalizeTextButton")]
-	public static void CreateLocalizeTextButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_BUTTON, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_BUTTON);
+	public static void CreateLocalizeTextBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_BTN, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_BTN);
 	}
 
 	//! 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/LocalizeText + Button/LocalizeTextScaleButton")]
-	public static void CreateLocalizeTextScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_SCALE_BUTTON, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BUTTON);
+	public static void CreateLocalizeTextScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BTN);
 	}
 
 	//! 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/Image + Button/ImageButton")]
-	public static void CreateImageButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_BUTTON, KDefine.U_OBJ_PATH_IMAGE_BUTTON);
+	public static void CreateImgBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_BTN, KDefine.U_OBJ_PATH_IMG_BTN);
 	}
 
 	//! 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/Image + Button/ImageScaleButton")]
-	public static void CreateImageScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_SCALE_BUTTON, KDefine.U_OBJ_PATH_IMAGE_SCALE_BUTTON);
+	public static void CreateImgScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_SCALE_BTN);
 	}
 
 	//! 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/Image + Text + Button/ImageTextButton")]
-	public static void CreateImageTextButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_TEXT_BUTTON, KDefine.U_OBJ_PATH_IMAGE_TEXT_BUTTON);
+	public static void CreateImgTextBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_TEXT_BTN, KDefine.U_OBJ_PATH_IMG_TEXT_BTN);
 	}
 
 	//! 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/Image + Text + Button/ImageTextScaleButton")]
-	public static void CreateImageTextScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_TEXT_SCALE_BUTTON, KDefine.U_OBJ_PATH_IMAGE_TEXT_SCALE_BUTTON);
+	public static void CreateImgTextScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_TEXT_SCALE_BTN);
 	}
 
 	//! 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/Image + LocalizeText + Button/ImageLocalizeTextButton")]
-	public static void CreateImageLocalizeTextButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_LOCALIZE_TEXT_BUTTON, KDefine.U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_BUTTON);
+	public static void CreateImgLocalizeTextBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_LOCALIZE_TEXT_BTN, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_BTN);
 	}
 
 	//! 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Button/Image + LocalizeText + Button/ImageLocalizeTextScaleButton")]
-	public static void CreateImageLocalizeTextScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_LOCALIZE_TEXT_SCALE_BUTTON, KDefine.U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_SCALE_BUTTON);
+	public static void CreateImgLocalizeTextScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_LOCALIZE_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_SCALE_BTN);
 	}
 
 	//! 스크롤 뷰를 생성한다
@@ -118,62 +118,62 @@ public static partial class CObjectCreator {
 	
 	//! 원본 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Text + Button/TextButton")]
-	public static void CreateOriginTextButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_TEXT_BUTTON, KDefine.U_OBJ_PATH_TEXT_BUTTON, true);
+	public static void CreateOriginTextBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_TEXT_BTN, KDefine.U_OBJ_PATH_TEXT_BTN, true);
 	}
 
 	//! 원본 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Text + Button/TextScaleButton")]
-	public static void CreateOriginTextScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_TEXT_SCALE_BUTTON, KDefine.U_OBJ_PATH_TEXT_SCALE_BUTTON, true);
+	public static void CreateOriginTextScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_TEXT_SCALE_BTN, true);
 	}
 
 	//! 원본 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/LocalizeText + Button/LocalizeTextButton")]
-	public static void CreateOriginLocalizeTextButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_BUTTON, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_BUTTON, true);
+	public static void CreateOriginLocalizeTextBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_BTN, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_BTN, true);
 	}
 
 	//! 원본 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/LocalizeText + Button/LocalizeTextScaleButton")]
-	public static void CreateOriginLocalizeTextScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_SCALE_BUTTON, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BUTTON, true);
+	public static void CreateOriginLocalizeTextScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BTN, true);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + Button/ImageButton")]
-	public static void CreateOriginImageButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_BUTTON, KDefine.U_OBJ_PATH_IMAGE_BUTTON, true);
+	public static void CreateOriginImgBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_BTN, KDefine.U_OBJ_PATH_IMG_BTN, true);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + Button/ImageScaleButton")]
-	public static void CreateOriginImageScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_SCALE_BUTTON, KDefine.U_OBJ_PATH_IMAGE_SCALE_BUTTON, true);
+	public static void CreateOriginImgScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_SCALE_BTN, true);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + Text + Button/ImageTextButton")]
-	public static void CreateOriginImageTextButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_TEXT_BUTTON, KDefine.U_OBJ_PATH_IMAGE_TEXT_BUTTON, true);
+	public static void CreateOriginImgTextBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_TEXT_BTN, KDefine.U_OBJ_PATH_IMG_TEXT_BTN, true);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + Text + Button/ImageTextScaleButton")]
-	public static void CreateOriginImageTextScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_TEXT_SCALE_BUTTON, KDefine.U_OBJ_PATH_IMAGE_TEXT_SCALE_BUTTON, true);
+	public static void CreateOriginImgTextScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_TEXT_SCALE_BTN, true);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + LocalizeText + Button/ImageLocalizeTextButton")]
-	public static void CreateOriginImageLocalizeTextButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_LOCALIZE_TEXT_BUTTON, KDefine.U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_BUTTON, true);
+	public static void CreateOriginImgLocalizeTextBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_LOCALIZE_TEXT_BTN, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_BTN, true);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + LocalizeText + Button/ImageLocalizeTextScaleButton")]
-	public static void CreateOriginImageLocalizeTextScaleButton() {
-		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMAGE_LOCALIZE_TEXT_SCALE_BUTTON, KDefine.U_OBJ_PATH_IMAGE_LOCALIZE_TEXT_SCALE_BUTTON, true);
+	public static void CreateOriginImgLocalizeTextScaleBtn() {
+		CObjectCreator.CreateObject(KEditorDefine.B_OBJ_NAME_IMG_LOCALIZE_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_SCALE_BTN, true);
 	}
 
 	//! 원본 스크롤 뷰를 생성한다

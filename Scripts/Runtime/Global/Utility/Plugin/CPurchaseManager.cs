@@ -15,7 +15,7 @@ using UnityEngine.Purchasing.Security;
 #endif			// #if RECEIPT_CHECK_ENABLE
 
 #if !MESSAGE_PACK_ENABLE
-[System.Obsolete(KDefine.U_MESSAGE_NEED_MESSAGE_PACK, true)]
+[System.Obsolete(KDefine.U_MSG_NEED_MESSAGE_PACK, true)]
 #endif			// #if !MESSAGE_PACK_ENABLE
 
 //! 인앱 결제 관리자
@@ -140,7 +140,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 
 			for(int i = 0; i < a_oProductInfoList.Count; ++i) {
 				var stProductInfo = a_oProductInfoList[i];
-				Func.Assert(stProductInfo.m_eProductType != ProductType.Subscription, KDefine.U_MESSAGE_INVALID_PRODUCT_TYPE);
+				Func.Assert(stProductInfo.m_eProductType != ProductType.Subscription, KDefine.U_MSG_INVALID_PRODUCT_TYPE);
 
 				oProductDefinitionList.Add(new ProductDefinition(stProductInfo.m_oID, stProductInfo.m_eProductType));
 			}

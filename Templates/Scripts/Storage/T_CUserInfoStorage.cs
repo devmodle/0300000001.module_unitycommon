@@ -13,8 +13,8 @@ using MessagePack;
 public class CUserInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_IS_AGREE = "IsAgree";
-	private const string KEY_IS_MUTE_BG_SOUND = "IsMuteBGSound";
-	private const string KEY_IS_MUTE_FX_SOUNDS = "IsMuteFXSounds";
+	private const string KEY_IS_MUTE_BG_SND = "IsMuteBGSnd";
+	private const string KEY_IS_MUTE_FX_SNDS = "IsMuteFXSnds";
 	private const string KEY_IS_DISABLE_VIBRATE = "IsDisableVibrate";
 	private const string KEY_IS_DISABLE_NOTIFICATION = "IsDisableNotification";
 	private const string KEY_IS_ENABLE_TUTORIAL = "IsEnableTutorial";
@@ -29,14 +29,14 @@ public class CUserInfo : CBaseInfo {
 		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_AGREE, value); }
 	}
 
-	[IgnoreMember] public bool IsMuteBGSound {
-		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_MUTE_BG_SOUND, false); } 
-		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_MUTE_BG_SOUND, value); }
+	[IgnoreMember] public bool IsMuteBGSnd {
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_MUTE_BG_SND, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_MUTE_BG_SND, value); }
 	}
 
-	[IgnoreMember] public bool IsMuteFXSounds {
-		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_MUTE_FX_SOUNDS, false); } 
-		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_MUTE_FX_SOUNDS, value); }
+	[IgnoreMember] public bool IsMuteFXSnds {
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_MUTE_FX_SNDS, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_MUTE_FX_SNDS, value); }
 	}
 
 	[IgnoreMember] public bool IsDisableVibrate {

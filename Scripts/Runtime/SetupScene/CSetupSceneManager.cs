@@ -35,11 +35,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	}
 
 	//! 디바이스 메세지를 수신했을 경우
-	public void OnReceiveDeviceMessage(string a_oCommand, string a_oMessage) {
-		if(a_oCommand.ExIsEquals(KDefine.B_COMMAND_GET_DEVICE_ID)) {
-			this.HandleGetDeviceIDMessage(a_oMessage);
-		} else if(a_oCommand.ExIsEquals(KDefine.B_COMMAND_GET_COUNTRY_CODE)) {
-			this.HandleGetCountryCodeMessage(a_oMessage);
+	public void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
+		if(a_oCmd.ExIsEquals(KDefine.B_CMD_GET_DEVICE_ID)) {
+			this.HandleGetDeviceIDMsg(a_oMsg);
+		} else if(a_oCmd.ExIsEquals(KDefine.B_CMD_GET_COUNTRY_CODE)) {
+			this.HandleGetCountryCodeMsg(a_oMsg);
 		}
 	}
 
@@ -65,9 +65,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 
 #if DEBUG || DEVELOPMENT_BUILD
-			CUnityMessageSender.Instance.SendSetBuildModeMessage(true);
+			CUnityMsgSender.Instance.SendSetBuildModeMsg(true);
 #else
-			CUnityMessageSender.Instance.SendSetBuildModeMessage(false);
+			CUnityMsgSender.Instance.SendSetBuildModeMsg(false);
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
@@ -236,32 +236,32 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 
 			// 디바이스 식별자 반환 메세지를 전송한다
-			CUnityMessageSender.Instance.SendGetDeviceIDMessage(this.OnReceiveDeviceMessage);
+			CUnityMsgSender.Instance.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
 		}
 	}
 	
 	//! 디바이스 식별자 반환 메세지를 처리한다
-	private void HandleGetDeviceIDMessage(string a_oMessage) {
+	private void HandleGetDeviceIDMsg(string a_oMsg) {
 #if MESSAGE_PACK_ENABLE
 		bool bIsValid = CAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid();
 
 		if(!bIsValid || CAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KDefine.B_UNKNOWN_DEVICE_ID)) {
-			CAppInfoStorage.Instance.AppInfo.DeviceID = a_oMessage.ExIsValid() ? a_oMessage : KDefine.B_UNKNOWN_DEVICE_ID;
+			CAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KDefine.B_UNKNOWN_DEVICE_ID;
 		}
 
 		CAppInfoStorage.Instance.SaveAppInfo(KDefine.B_DATA_PATH_APP_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 
 		// 국가 코드 반환 메세지를 전송한다
-		CUnityMessageSender.Instance.SendGetCountryCodeMessage(this.OnReceiveDeviceMessage);
+		CUnityMsgSender.Instance.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 	}
 
 	//! 국가 코드 반환 메세지를 처리한다
-	private void HandleGetCountryCodeMessage(string a_oMessage) {
-		string oCountryCode = a_oMessage;
+	private void HandleGetCountryCodeMsg(string a_oMsg) {
+		string oCountryCode = a_oMsg;
 
 		// 국가 코드가 유효하지 않을 경우
-		if(!Func.IsMobilePlatform() || !a_oMessage.ExIsValid()) {
+		if(!Func.IsMobilePlatform() || !a_oMsg.ExIsValid()) {
 			oCountryCode = !Func.IsMobilePlatform() ? KDefine.B_KOREA_COUNTRY_CODE : KDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
 

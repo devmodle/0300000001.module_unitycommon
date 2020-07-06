@@ -69,8 +69,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 			m_oLoadCallback?.Invoke(a_oPlacement);
 		}
 
-		public void OnUnityAdsDidError(string a_oMessage) {
-			m_oLoadFailCallback?.Invoke(a_oMessage);
+		public void OnUnityAdsDidError(string a_oMsg) {
+			m_oLoadFailCallback?.Invoke(a_oMsg);
 		}
 
 		public void OnUnityAdsDidStart(string a_oPlacement) {

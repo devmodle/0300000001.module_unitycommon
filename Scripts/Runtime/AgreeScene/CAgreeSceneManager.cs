@@ -26,7 +26,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		Func.BroadcastMessage(KDefine.AS_FUNC_NAME_AGREE_SCENE_MANAGER_EVENT, 
+		Func.BroadcastMsg(KDefine.AS_FUNC_NAME_AGREE_SCENE_MANAGER_EVENT, 
 			EAgreeSceneManagerEventType.LOAD_NEXT_SCENE);
 
 #if MESSAGE_PACK_ENABLE
@@ -77,7 +77,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			}
 #endif			// #if MESSAGE_PACK_ENABLE
 
-			Func.BroadcastMessage(KDefine.AS_FUNC_NAME_AGREE_SCENE_MANAGER_EVENT, 
+			Func.BroadcastMsg(KDefine.AS_FUNC_NAME_AGREE_SCENE_MANAGER_EVENT, 
 				EAgreeSceneManagerEventType.SHOW_AGREE_POPUP);
 			
 			this.ShowAgreePopup(CResourceManager.Instance.GetTextAsset(oServiceFilepath).text,

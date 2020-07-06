@@ -32,7 +32,7 @@ public class CActivityIndicatorManager : CSingleton<CActivityIndicatorManager> {
 		if(m_nRefCount >= 1) {
 			if(a_bIsShowActivityIndicator) {
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
-				CUnityMessageSender.Instance.SendActivityIndicatorMessage(true);
+				CUnityMsgSender.Instance.SendActivityIndicatorMsg(true);
 #else
 				Func.ShowLog("CActivityIndicatorManager.StartActivityIndicator: {0}", Color.blue, m_nRefCount);
 #endif			// #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
@@ -55,7 +55,7 @@ public class CActivityIndicatorManager : CSingleton<CActivityIndicatorManager> {
 
 		if(m_nRefCount <= 0) {
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
-			CUnityMessageSender.Instance.SendActivityIndicatorMessage(false);
+			CUnityMsgSender.Instance.SendActivityIndicatorMsg(false);
 #else
 			Func.ShowLog("CActivityIndicatorManager.StopActivityIndicator: {0}", Color.blue, m_nRefCount);
 #endif			// #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)

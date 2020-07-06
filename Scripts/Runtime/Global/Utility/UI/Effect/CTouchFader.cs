@@ -78,10 +78,10 @@ public class CTouchFader : CUIComponent,
 		// 그래픽을 설정한다 }
 
 		// 버튼을 설정한다 {
-		var oButton = this.GetComponentInChildren<Button>();
+		var oBtn = this.GetComponentInChildren<Button>();
 
-		if(oButton != null && oButton.transition == Selectable.Transition.ColorTint) {
-			oButton.transition = Selectable.Transition.None;
+		if(oBtn != null && oBtn.transition == Selectable.Transition.ColorTint) {
+			oBtn.transition = Selectable.Transition.None;
 		}
 		// 버튼을 설정한다 }
 	}

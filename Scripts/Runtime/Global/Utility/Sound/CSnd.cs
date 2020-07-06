@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //! 사운드
-public class CSound : CComponent {
+public class CSnd : CComponent {
 	#region 컴포넌트
 	private AudioSource m_oAudioSource = null;
 	#endregion			// 컴포넌트
@@ -39,31 +39,31 @@ public class CSound : CComponent {
 	}
 
 	//! 사운드를 재생한다
-	public void PlaySound(AudioClip a_oAudioClip, bool a_bIsLoop, bool a_bIs3DSound) {
+	public void PlaySnd(AudioClip a_oAudioClip, bool a_bIsLoop, bool a_bIs3DSnd) {
 		m_oAudioSource.clip = a_oAudioClip;
 		m_oAudioSource.loop = a_bIsLoop;
-		m_oAudioSource.dopplerLevel = a_bIs3DSound ? m_oAudioSource.dopplerLevel : 0.0f;
-		m_oAudioSource.spatialBlend = a_bIs3DSound ? m_oAudioSource.spatialBlend : 0.0f;
-		m_oAudioSource.reverbZoneMix = a_bIs3DSound ? m_oAudioSource.reverbZoneMix : 0.0f;
+		m_oAudioSource.dopplerLevel = a_bIs3DSnd ? m_oAudioSource.dopplerLevel : 0.0f;
+		m_oAudioSource.spatialBlend = a_bIs3DSnd ? m_oAudioSource.spatialBlend : 0.0f;
+		m_oAudioSource.reverbZoneMix = a_bIs3DSnd ? m_oAudioSource.reverbZoneMix : 0.0f;
 		
 		this.IsPause = false;
 		m_oAudioSource.Play();
 	}
 
 	//! 사운드를 재개한다
-	public void ResumeSound() {
+	public void ResumeSnd() {
 		this.IsPause = false;
 		m_oAudioSource.UnPause();
 	}
 
 	//! 사운드를 정지한다
-	public void PauseSound() {
+	public void PauseSnd() {
 		this.IsPause = true;
 		m_oAudioSource.Pause();
 	}
 
 	//! 사운드를 중지한다
-	public void StopSound() {
+	public void StopSnd() {
 		this.IsPause = false;
 		m_oAudioSource.Stop();
 	}

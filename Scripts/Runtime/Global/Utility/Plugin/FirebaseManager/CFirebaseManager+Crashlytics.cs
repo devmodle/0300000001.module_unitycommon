@@ -31,9 +31,9 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 	}
 
 	//! 크래시 로그를 전송한다
-	public void SendCrashLog(string a_oMessage) {
-		Func.Assert(a_oMessage.ExIsValid());
-		this.SendCrashLog(new System.Exception(a_oMessage));
+	public void SendCrashLog(string a_oMsg) {
+		Func.Assert(a_oMsg.ExIsValid());
+		this.SendCrashLog(new System.Exception(a_oMsg));
 	}
 
 	//! 크래시 로그를 전송한다

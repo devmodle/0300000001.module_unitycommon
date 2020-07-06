@@ -4,7 +4,7 @@ using UnityEngine;
 using SimpleJSON;
 
 //! 디바이스 메세지 수신자
-public class CDeviceMessageReceiver : CSingleton<CDeviceMessageReceiver> {
+public class CDeviceMsgReceiver : CSingleton<CDeviceMsgReceiver> {
 	#region 변수
 	private Dictionary<string, KeyValuePair<bool, System.Action<string, string>>> m_oCallbackInfoList = new Dictionary<string, KeyValuePair<bool, System.Action<string, string>>>();
 	#endregion			// 변수
@@ -23,19 +23,19 @@ public class CDeviceMessageReceiver : CSingleton<CDeviceMessageReceiver> {
 	}
 
 	//! 디바이스 메세지를 처리한다
-	private void HandleDeviceMessage(string a_oMessage) {
-		Func.Assert(a_oMessage.ExIsValid());
-		Func.ShowLog("CDeviceMessageReceiver.HandleDeviceMessage: {0}", Color.yellow, a_oMessage);
+	private void HandleDeviceMsg(string a_oMsg) {
+		Func.Assert(a_oMsg.ExIsValid());
+		Func.ShowLog("CDeviceMsgReceiver.HandleDeviceMsg: {0}", Color.yellow, a_oMsg);
 
-		var oJSONNode = JSON.Parse(a_oMessage);
-		string oCommand = oJSONNode[KDefine.U_KEY_DEVICE_COMMAND];
+		var oJSONNode = JSON.Parse(a_oMsg);
+		string oCmd = oJSONNode[KDefine.U_KEY_DEVICE_CMD];
 
-		if(m_oCallbackInfoList.ContainsKey(oCommand)) {
-			string oMessage = oJSONNode[KDefine.U_KEY_DEVICE_MESSAGE];
-			m_oCallbackInfoList[oCommand].Value?.Invoke(oCommand, oMessage);
+		if(m_oCallbackInfoList.ContainsKey(oCmd)) {
+			string oMsg = oJSONNode[KDefine.U_KEY_DEVICE_MSG];
+			m_oCallbackInfoList[oCmd].Value?.Invoke(oCmd, oMsg);
 
-			if(m_oCallbackInfoList[oCommand].Key) {
-				this.RemoveCallbackInfo(oCommand);
+			if(m_oCallbackInfoList[oCmd].Key) {
+				this.RemoveCallbackInfo(oCmd);
 			}
 		}
 	}

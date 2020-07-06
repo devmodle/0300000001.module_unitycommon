@@ -68,12 +68,12 @@ public static partial class KAppDefine {
 	// 간격 {
 	public const float G_V_OFFSET_ALERT_P_TITLE = 70.0f;
 
-	public const float G_V_OFFSET_ALERT_P_BUTTON = 45.0f;
-	public const float G_H_OFFSET_ALERT_P_BUTTON = 45.0f;
+	public const float G_V_OFFSET_ALERT_P_BTN = 45.0f;
+	public const float G_H_OFFSET_ALERT_P_BTN = 45.0f;
 
 	public const float G_V_EXTRA_OFFSET_ALERT_P_TITLE = 0.0f;
-	public const float G_V_EXTRA_OFFSET_ALERT_P_MESSAGE = 15.0f;
-	public const float G_V_EXTRA_OFFSET_ALERT_P_BUTTON = 0.0f;
+	public const float G_V_EXTRA_OFFSET_ALERT_P_MSG = 15.0f;
+	public const float G_V_EXTRA_OFFSET_ALERT_P_BTN = 0.0f;
 
 	public const float G_V_OFFSET_ALERT_P_BG = 25.0f;
 	public const float G_H_OFFSET_ALERT_P_BG = 165.0f;
