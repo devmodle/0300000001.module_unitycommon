@@ -67,7 +67,6 @@ public abstract partial class CSceneManager : CComponent {
 			}
 #else
 			this.SubUICamera.clearFlags = CameraClearFlags.Depth;
-			this.SubUICamera.gameObject.SetActive(true);
 #endif			// #if UNIVERSAL_RENDER_PIPELINE_ENABLE
 		}
 
