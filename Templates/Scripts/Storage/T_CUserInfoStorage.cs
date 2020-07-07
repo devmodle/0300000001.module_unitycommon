@@ -49,9 +49,9 @@ public class CUserInfo : CBaseInfo {
 		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, value); }
 	}
 
-	[IgnoreMember] public bool IsDisableNotification {
-		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, false); } 
-		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_DISABLE_NOTIFICATION, value); }
+	[IgnoreMember] public bool IsEnableTutorial {
+		get { return m_oBoolList.ExGetValue(CUserInfo.KEY_IS_ENABLE_TUTORIAL, false); } 
+		set { m_oBoolList.ExReplaceValue(CUserInfo.KEY_IS_ENABLE_TUTORIAL, value); }
 	}
 
 	[IgnoreMember] public bool IsRemoveAds {
