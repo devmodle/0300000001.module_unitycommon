@@ -512,82 +512,32 @@ public static partial class Func {
 		a_tRhs = tTemp;
 	}
 
-	//! 안전 정렬을 수행한다
-	public static void StableSort<T>(T[] a_oValues, T[] oTempValues, int a_nLeft, int a_nRight, System.Comparison<T> a_oCompare) {
-		if(a_nLeft < a_nRight) {
-			int nCount = 0;
-			int nMiddle = (a_nLeft + a_nRight) / 2;
+	//! 정렬을 수행한다
+	public static void Sort<T>(T[] a_oValues, System.Comparison<T> a_oCompare) {
+		Func.Assert(a_oCompare != null && a_oValues.ExIsValid());
+		System.Array.Sort(a_oValues, a_oCompare);
+	}
 
-			int nLeftIndex = a_nLeft;
-			int nRightIndex = nMiddle + 1;
-
-			// 정렬 범위를 분활한다
-			Func.StableSort<T>(a_oValues, oTempValues, a_nLeft, nMiddle, a_oCompare);
-			Func.StableSort<T>(a_oValues, oTempValues, nMiddle + 1, a_nRight, a_oCompare);
-
-			// 정렬을 수행한다 {
-			while(nLeftIndex <= nMiddle && nRightIndex <= a_nRight) {
-				while(nLeftIndex <= nMiddle && a_oCompare?.Invoke(a_oValues[nLeftIndex], a_oValues[nRightIndex]) <= 0) {
-					oTempValues[nCount++] = a_oValues[nLeftIndex++];
-				}
-
-				while(nRightIndex <= a_nRight && !(a_oCompare?.Invoke(a_oValues[nLeftIndex], a_oValues[nRightIndex]) <= 0)) {
-					oTempValues[nCount++] = a_oValues[nRightIndex++];
-				}
-			}
-
-			while(nLeftIndex <= nMiddle) {
-				oTempValues[nCount++] = a_oValues[nLeftIndex++];
-			}
-
-			while(nRightIndex <= a_nRight) {
-				oTempValues[nCount++] = a_oValues[nRightIndex++];
-			}
-
-			for(int i = 0; i < nCount; ++i) {
-				a_oValues[a_nLeft + i] = oTempValues[i];
-			}
-			// 정렬을 수행한다 }
-		}
+	//! 정렬을 수행한다
+	public static void Sort<T>(List<T> a_oValueList, System.Comparison<T> a_oCompare) {
+		Func.Assert(a_oCompare != null && a_oValueList.ExIsValid());
+		a_oValueList.Sort(a_oCompare);
 	}
 
 	//! 안전 정렬을 수행한다
-	public static void StableSort<T>(List<T> a_oValueList, T[] oTempValues, int a_nLeft, int a_nRight, System.Comparison<T> a_oCompare) {
-		if(a_nLeft < a_nRight) {
-			int nCount = 0;
-			int nMiddle = (a_nLeft + a_nRight) / 2;
+	public static void StableSort<T>(T[] a_oValues, System.Comparison<T> a_oCompare) {
+		Func.Assert(a_oCompare != null && a_oValues.ExIsValid());
+		var oTempValues = new T[a_oValues.Length];
 
-			int nLeftIndex = a_nLeft;
-			int nRightIndex = nMiddle + 1;
+		Func.DoStableSort(a_oValues, oTempValues, 0, a_oValues.Length - 1, a_oCompare);
+	}
 
-			// 정렬 범위를 분활한다
-			Func.StableSort<T>(a_oValueList, oTempValues, a_nLeft, nMiddle, a_oCompare);
-			Func.StableSort<T>(a_oValueList, oTempValues, nMiddle + 1, a_nRight, a_oCompare);
+	//! 안전 정렬을 수행한다
+	public static void StableSort<T>(List<T> a_oValueList, System.Comparison<T> a_oCompare) {
+		Func.Assert(a_oCompare != null && a_oValueList.ExIsValid());
+		var oTempValues = new T[a_oValueList.Count];
 
-			// 정렬을 수행한다 {
-			while(nLeftIndex <= nMiddle && nRightIndex <= a_nRight) {
-				while(nLeftIndex <= nMiddle && a_oCompare?.Invoke(a_oValueList[nLeftIndex], a_oValueList[nRightIndex]) <= 0) {
-					oTempValues[nCount++] = a_oValueList[nLeftIndex++];
-				}
-
-				while(nRightIndex <= a_nRight && !(a_oCompare?.Invoke(a_oValueList[nLeftIndex], a_oValueList[nRightIndex]) <= 0)) {
-					oTempValues[nCount++] = a_oValueList[nRightIndex++];
-				}
-			}
-
-			while(nLeftIndex <= nMiddle) {
-				oTempValues[nCount++] = a_oValueList[nLeftIndex++];
-			}
-
-			while(nRightIndex <= a_nRight) {
-				oTempValues[nCount++] = a_oValueList[nRightIndex++];
-			}
-
-			for(int i = 0; i < nCount; ++i) {
-				a_oValueList[a_nLeft + i] = oTempValues[i];
-			}
-			// 정렬을 수행한다 }
-		}
+		Func.DoStableSort(a_oValueList, oTempValues, 0, a_oValueList.Count - 1, a_oCompare);
 	}
 
 	//! 값을 생성한다
@@ -623,5 +573,83 @@ public static partial class Func {
 			});
 		});
 	}
+
+	//! 안전 정렬을 수행한다
+	private static void DoStableSort<T>(T[] a_oValues, T[] a_oTempValues, int a_nLeft, int a_nRight, System.Comparison<T> a_oCompare) {
+		if(a_nLeft < a_nRight) {
+			int nCount = 0;
+			int nMiddle = (a_nLeft + a_nRight) / 2;
+
+			int nLeftIndex = a_nLeft;
+			int nRightIndex = nMiddle + 1;
+
+			// 정렬 범위를 분활한다
+			Func.DoStableSort<T>(a_oValues, a_oTempValues, a_nLeft, nMiddle, a_oCompare);
+			Func.DoStableSort<T>(a_oValues, a_oTempValues, nMiddle + 1, a_nRight, a_oCompare);
+
+			// 정렬을 수행한다 {
+			while(nLeftIndex <= nMiddle && nRightIndex <= a_nRight) {
+				while(nLeftIndex <= nMiddle && a_oCompare.Invoke(a_oValues[nLeftIndex], a_oValues[nRightIndex]) <= KDefine.B_COMPARE_RESULT_EQUALS) {
+					a_oTempValues[nCount++] = a_oValues[nLeftIndex++];
+				}
+
+				while(nRightIndex <= a_nRight && !(a_oCompare.Invoke(a_oValues[nLeftIndex], a_oValues[nRightIndex]) <= KDefine.B_COMPARE_RESULT_EQUALS)) {
+					a_oTempValues[nCount++] = a_oValues[nRightIndex++];
+				}
+			}
+
+			while(nLeftIndex <= nMiddle) {
+				a_oTempValues[nCount++] = a_oValues[nLeftIndex++];
+			}
+
+			while(nRightIndex <= a_nRight) {
+				a_oTempValues[nCount++] = a_oValues[nRightIndex++];
+			}
+
+			for(int i = 0; i < nCount; ++i) {
+				a_oValues[a_nLeft + i] = a_oTempValues[i];
+			}
+			// 정렬을 수행한다 }
+		}
+	}
+
+	//! 안정 정렬을 수행한다
+	private static void DoStableSort<T>(List<T> a_oValueList, T[] a_oTempValues, int a_nLeft, int a_nRight, System.Comparison<T> a_oCompare) {
+		if(a_nLeft < a_nRight) {
+			int nCount = 0;
+			int nMiddle = (a_nLeft + a_nRight) / 2;
+
+			int nLeftIndex = a_nLeft;
+			int nRightIndex = nMiddle + 1;
+
+			// 정렬 범위를 분활한다
+			Func.DoStableSort<T>(a_oValueList, a_oTempValues, a_nLeft, nMiddle, a_oCompare);
+			Func.DoStableSort<T>(a_oValueList, a_oTempValues, nMiddle + 1, a_nRight, a_oCompare);
+
+			// 정렬을 수행한다 {
+			while(nLeftIndex <= nMiddle && nRightIndex <= a_nRight) {
+				while(nLeftIndex <= nMiddle && a_oCompare.Invoke(a_oValueList[nLeftIndex], a_oValueList[nRightIndex]) <= KDefine.B_COMPARE_RESULT_EQUALS) {
+					a_oTempValues[nCount++] = a_oValueList[nLeftIndex++];
+				}
+
+				while(nRightIndex <= a_nRight && !(a_oCompare.Invoke(a_oValueList[nLeftIndex], a_oValueList[nRightIndex]) <= KDefine.B_COMPARE_RESULT_EQUALS)) {
+					a_oTempValues[nCount++] = a_oValueList[nRightIndex++];
+				}
+			}
+
+			while(nLeftIndex <= nMiddle) {
+				a_oTempValues[nCount++] = a_oValueList[nLeftIndex++];
+			}
+
+			while(nRightIndex <= a_nRight) {
+				a_oTempValues[nCount++] = a_oValueList[nRightIndex++];
+			}
+
+			for(int i = 0; i < nCount; ++i) {
+				a_oValueList[a_nLeft + i] = a_oTempValues[i];
+			}
+			// 정렬을 수행한다 }
+		}
+	}	
 	#endregion			// 제네릭 클래스 함수
 }

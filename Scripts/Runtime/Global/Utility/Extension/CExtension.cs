@@ -904,20 +904,24 @@ public static partial class CExtension {
 		}
 	}
 
+	//! 정렬을 수행한다
+	public static void ExSort<T>(this T[] a_oSender, System.Comparison<T> a_oCompare) {
+		Func.Sort(a_oSender, a_oCompare);
+	}
+
+	//! 정렬을 수행한다
+	public static void ExSort<T>(this List<T> a_oSender, System.Comparison<T> a_oCompare) {
+		Func.Sort(a_oSender, a_oCompare);
+	}
+
 	//! 안전 정렬을 수행한다
 	public static void ExStableSort<T>(this T[] a_oSender, System.Comparison<T> a_oCompare) {
-		Func.Assert(a_oSender.ExIsValid());
-		var oTempValues = new T[a_oSender.Length];
-
-		Func.StableSort(a_oSender, oTempValues, 0, a_oSender.Length - 1, a_oCompare);
+		Func.StableSort(a_oSender, a_oCompare);
 	}
 
 	//! 안전 정렬을 수행한다
 	public static void ExStableSort<T>(this List<T> a_oSender, System.Comparison<T> a_oCompare) {
-		Func.Assert(a_oSender.ExIsValid());
-		var oTempValues = new T[a_oSender.Count];
-
-		Func.StableSort(a_oSender, oTempValues, 0, a_oSender.Count - 1, a_oCompare);
+		Func.StableSort(a_oSender, a_oCompare);
 	}
 
 	//! 1 차원 배열 -> 2 차원 배열로 복사한다
