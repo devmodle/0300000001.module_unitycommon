@@ -74,8 +74,15 @@ public static partial class Func {
 
 	//! 디바이스 화면 크기를 반환한다
 	public static Vector2 GetDeviceScreenSize(bool a_bIsRuntime = true) {
-		return new Vector2(a_bIsRuntime ? Screen.width : Camera.main.pixelWidth,
-			a_bIsRuntime ? Screen.height : Camera.main.pixelHeight);
+		if(a_bIsRuntime) {
+#if UNITY_EDITOR
+			return new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
+#else
+			return new Vector2(Screen.width, Screen.height);
+#endif			// #if UNITY_EDITOR			
+		}
+
+		return new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
 	}
 
 	//! 해상도를 반환한다

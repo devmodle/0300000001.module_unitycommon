@@ -348,6 +348,16 @@ public abstract partial class CSceneManager : CComponent {
 			this.SubObjectCanvasTop.transform.localEulerAngles = Vector3.zero;
 		}
 
+#if MODE_CENTER_ENABLE
+		this.SubObjectRoot.transform.localPosition = Vector3.zero;
+
+		this.SubLeftObjectRoot.transform.ExSetPosY(0.0f);
+		this.SubRightObjectRoot.transform.ExSetPosY(0.0f);
+
+		this.SubTopObjectRoot.transform.ExSetPosX(0.0f);
+		this.SubBottomObjectRoot.transform.ExSetPosX(0.0f);
+#endif			// #if MODE_CENTER_ENABLE
+
 		// 루트 객체 간격을 설정한다 {
 		var oUITransform = CSceneManager.UIRoot.transform as RectTransform;
 		var oLeftUITransform = CSceneManager.LeftUIRoot.transform as RectTransform;
@@ -417,7 +427,7 @@ public abstract partial class CSceneManager : CComponent {
 			var oObj = a_oCanvas.gameObject;
 
 			// UI 객체를 설정한다 {
-			var oUIObjects = new GameObject[] {
+			var oUIObjs = new GameObject[] {
 				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_ROOT),
 				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_UI_ROOT),
 
@@ -441,22 +451,42 @@ public abstract partial class CSceneManager : CComponent {
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 			};
 
-			for(int i = 0; i < oUIObjects.Length; ++i) {
-				if(oUIObjects[i] != null) {
-					string oName = oUIObjects[i].name;
+			for(int i = 0; i < oUIObjs.Length; ++i) {
+				if(oUIObjs[i] != null) {
+					string oName = oUIObjs[i].name;
+					var stPivot = KDefine.B_ANCHOR_MIDDLE_CENTER;
 
 					var stPos = Vector2.zero;
 					var stSize = Vector2.zero;
 					var stRotation = Vector3.zero;
 
-					if(oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT)) {
-						stPos = new Vector2((CSceneManager.CanvasSize.x / -2.0f) + CSceneManager.LeftUIOffset, KDefine.B_SCREEN_HEIGHT / -2.0f);
-					} else if(oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT)) {
-						stPos = new Vector2((CSceneManager.CanvasSize.x / 2.0f) + CSceneManager.RightUIOffset, KDefine.B_SCREEN_HEIGHT / -2.0f);
-					} else if(oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT)) {
-						stPos = new Vector2(KDefine.B_SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / 2.0f) + CSceneManager.TopUIOffset);
-					} else if(oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT)) {
-						stPos = new Vector2(KDefine.B_SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / -2.0f) + CSceneManager.BottomUIOffset);
+					bool bIsLeftUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT);
+					bool bIsRightUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT);
+					bool bIsTopUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT);
+					bool bIsBottomUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT);
+
+					if(bIsLeftUIRoot || bIsRightUIRoot) {
+						if(bIsLeftUIRoot) {
+							stPos = new Vector2((CSceneManager.CanvasSize.x / -2.0f) + CSceneManager.LeftUIOffset, KDefine.B_SCREEN_HEIGHT / -2.0f);
+						} else {
+							stPos = new Vector2((CSceneManager.CanvasSize.x / 2.0f) + CSceneManager.RightUIOffset, KDefine.B_SCREEN_HEIGHT / -2.0f);
+						}
+
+#if MODE_CENTER_ENABLE
+						stPos.y = 0.0f;
+						stSize = new Vector2(0.0f, KDefine.B_SCREEN_HEIGHT);
+#endif			// #if MODE_CENTER_ENABLE
+					} else if(bIsTopUIRoot || bIsBottomUIRoot) {
+						if(bIsTopUIRoot) {
+							stPos = new Vector2(KDefine.B_SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / 2.0f) + CSceneManager.TopUIOffset);
+						} else {
+							stPos = new Vector2(KDefine.B_SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / -2.0f) + CSceneManager.BottomUIOffset);
+						}
+
+#if MODE_CENTER_ENABLE
+						stPos.x = 0.0f;
+						stSize = new Vector2(KDefine.B_SCREEN_WIDTH, 0.0f);
+#endif			// #if MODE_CENTER_ENABLE
 					} else {
 						bool bIsDebugUIRoot = false;
 						
@@ -470,21 +500,26 @@ public abstract partial class CSceneManager : CComponent {
 						if(bIsFixUIRoot || bIsDebugUIRoot || bIsBlindUIRoot) {
 							stSize = CSceneManager.CanvasSize;
 						} else {
+#if MODE_CENTER_ENABLE
+							stSize = new Vector2(KDefine.B_SCREEN_WIDTH, KDefine.B_SCREEN_HEIGHT);
+#else
 							stPos = new Vector2(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / -2.0f);
+#endif			// #if !MODE_CENTER_ENABLE
 						}
 					}
 
-					var oTransform = oUIObjects[i].transform as RectTransform;
+					var oTransform = oUIObjs[i].transform as RectTransform;
 					oTransform.anchorMin = KDefine.B_ANCHOR_MIDDLE_CENTER;
 					oTransform.anchorMax = KDefine.B_ANCHOR_MIDDLE_CENTER;
-					
+
+					oTransform.pivot = stPivot;
 					oTransform.sizeDelta = stSize;
 					oTransform.anchoredPosition = stPos;
 					oTransform.localEulerAngles = stRotation;
 				}
 
 				// 블라인드 이미지를 설정한다
-				if(oUIObjects[i] != null && oUIObjects[i].name.ExIsEquals(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT)) {
+				if(oUIObjs[i] != null && oUIObjs[i].name.ExIsEquals(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT)) {
 					var oPivots = new Vector2[] {
 						KDefine.B_ANCHOR_MIDDLE_RIGHT,
 						KDefine.B_ANCHOR_MIDDLE_LEFT,
@@ -516,10 +551,10 @@ public abstract partial class CSceneManager : CComponent {
 #endif			// #if PORTRAIT_ENABLE
 
 					var oImgs = new Image[] {
-						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_LEFT_BLIND_IMG),
-						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_RIGHT_BLIND_IMG),
-						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_TOP_BLIND_IMG),
-						oUIObjects[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_BOTTOM_BLIND_IMG)
+						oUIObjs[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_LEFT_BLIND_IMG),
+						oUIObjs[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_RIGHT_BLIND_IMG),
+						oUIObjs[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_TOP_BLIND_IMG),
+						oUIObjs[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_BOTTOM_BLIND_IMG)
 					};
 
 					for(int j = 0; j < oImgs.Length; ++j) {
@@ -535,7 +570,7 @@ public abstract partial class CSceneManager : CComponent {
 				}
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-				if(oUIObjects[i] != null && oUIObjects[i].name.ExIsEquals(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT)) {
+				if(oUIObjs[i] != null && oUIObjs[i].name.ExIsEquals(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT)) {
 					var stSafeArea = Func.GetSafeArea(Application.isPlaying);
 					var stScreenSize = Func.GetDeviceScreenSize(true);
 
