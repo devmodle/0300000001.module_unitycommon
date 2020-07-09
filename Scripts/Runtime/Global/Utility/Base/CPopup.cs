@@ -78,13 +78,17 @@ public class CPopup : CUIComponent {
 
 	//! 출력 애니메이션이 완료 되었을 경우
 	public void OnCompleteShowAnimation() {
+		this.OnShowPopup();
 		m_oShowCallback?.Invoke(this);
+
 		m_oRootTransform.localScale = new Vector3(KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_SCALE_POPUP);
 	}
 
 	//! 닫기 애니메이션이 완료 되었을 경우
 	public void OnCompleteCloseAnimation() {
+		this.OnClosePopup();
 		m_oCloseCallback?.Invoke(this);
+
 		Destroy(this.gameObject);
 	}
 
@@ -135,6 +139,16 @@ public class CPopup : CUIComponent {
 				CNavigationManager.Instance.RemoveComponent(this);
 			}
 		}
+	}
+
+	//! 출력 되었을 경우
+	protected virtual void OnShowPopup() {
+		// Do Nothing
+	}
+
+	//! 닫혔을 경우
+	protected virtual void OnClosePopup() {
+		// Do Nothing
 	}
 
 	//! 팝업 컨텐츠를 설정한다
