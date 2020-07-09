@@ -34,9 +34,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 		public BannerView m_oBannerAds;
 		public RewardedAd m_oRewardAds;
-
 		public InterstitialAd m_oFullscreenAds;
-		public InterstitialAd m_oPrevFullscreenAds;
 
 		public AdLoader m_oAdsLoader;
 		public AdRequest.Builder m_oRequestBuilder;
@@ -226,9 +224,6 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 				m_stVariable.m_stAdmobVariable.m_oRewardAds.OnAdFailedToLoad -= this.OnLoadFailAdmobRewardAds;
 				m_stVariable.m_stAdmobVariable.m_oRewardAds.OnAdFailedToLoad += this.OnLoadFailAdmobRewardAds;
 
-				m_stVariable.m_stAdmobVariable.m_oRewardAds.OnAdOpening -= this.OnShowAdmobRewardAds;
-				m_stVariable.m_stAdmobVariable.m_oRewardAds.OnAdOpening += this.OnShowAdmobRewardAds;
-
 				m_stVariable.m_stAdmobVariable.m_oRewardAds.OnAdClosed -= this.OnCloseAdmobRewardAds;
 				m_stVariable.m_stAdmobVariable.m_oRewardAds.OnAdClosed += this.OnCloseAdmobRewardAds;
 
@@ -248,10 +243,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 				m_stVariable.m_stAdmobVariable.m_oFullscreenAds.OnAdFailedToLoad -= this.OnLoadFailAdmobFullscreenAds;
 				m_stVariable.m_stAdmobVariable.m_oFullscreenAds.OnAdFailedToLoad += this.OnLoadFailAdmobFullscreenAds;
-
-				m_stVariable.m_stAdmobVariable.m_oFullscreenAds.OnAdOpening -= this.OnShowAdmobFullscreenAds;
-				m_stVariable.m_stAdmobVariable.m_oFullscreenAds.OnAdOpening += this.OnShowAdmobFullscreenAds;
-
+				
 				m_stVariable.m_stAdmobVariable.m_oFullscreenAds.OnAdClosed -= this.OnCloseAdmobFullscreenAds;
 				m_stVariable.m_stAdmobVariable.m_oFullscreenAds.OnAdClosed += this.OnCloseAdmobFullscreenAds;
 			}

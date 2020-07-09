@@ -513,12 +513,10 @@ public static partial class KDefine {
 	public const string U_KEY_ADS_M_ADMOB_BANNER_ADS_CLOSE_CALLBACK = "AdsMAdmobBannerAdsCloseCallback";
 
 	public const string U_KEY_ADS_M_ADMOB_REWARD_ADS_LOAD_FAIL_CALLBACK = "AdsMAdmobRewardAdsLoadFailCallback";
-	public const string U_KEY_ADS_M_ADMOB_REWARD_ADS_SHOW_CALLBACK = "AdsMAdmobRewardAdsShowCallback";
 	public const string U_KEY_ADS_M_ADMOB_REWARD_ADS_CLOSE_CALLBACK = "AdsMAdmobRewardAdsCloseCallback";
 	public const string U_KEY_ADS_M_ADMOB_REWARD_ADS_RECEIVE_REWARD_CALLBACK = "AdsMAdmobRewardAdsReceiveRewardCallback";
 
 	public const string U_KEY_ADS_M_ADMOB_FULLSCREEN_ADS_LOAD_FAIL_CALLBACK = "AdsMAdmobFullscreenAdsLoadFailCallback";
-	public const string U_KEY_ADS_M_ADMOB_FULLSCREEN_ADS_SHOW_CALLBACK = "AdsMAdmobFullscreenAdsShowCallback";
 	public const string U_KEY_ADS_M_ADMOB_FULLSCREEN_ADS_CLOSE_CALLBACK = "AdsMAdmobFullscreenAdsCloseCallback";
 
 	public const string U_KEY_ADS_M_ADMOB_NATIVE_ADS_LOAD_CALLBACK = "AdsMAdmobNativeAdsLoadCallback";

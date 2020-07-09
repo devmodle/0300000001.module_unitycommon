@@ -64,23 +64,16 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		});
 	}
 
-	//! 애드몹 보상 광고가 출력 될 경우
-	public void OnShowAdmobRewardAds(object a_oSender, System.EventArgs a_oEventArgs) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_REWARD_ADS_SHOW_CALLBACK, () => {
-			Func.ShowLog("CAdsManager.OnShowAdmobRewardAds", Color.yellow);
-			
-			m_stVariable.m_stAdmobVariable.m_oRewardAds = null;
-			m_stVariable.m_stAdmobVariable.m_nRewardAdsLoadTryTimes = 0;
-
-			this.LoadRewardAds(EAdsType.ADMOB);
-		});
-	}
-
 	//! 애드몹 보상 광고가 닫혔을 경우
 	public void OnCloseAdmobRewardAds(object a_oSender, System.EventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_REWARD_ADS_CLOSE_CALLBACK, () => {
 			Func.ShowLog("CAdsManager.OnCloseAdmobRewardAds", Color.yellow);
+
+			m_stVariable.m_stAdmobVariable.m_oRewardAds = null;
+			m_stVariable.m_stAdmobVariable.m_nRewardAdsLoadTryTimes = 0;
+
 			this.HandleCloseRewardAdsResult(EAdsType.ADMOB);
+			this.LoadRewardAds(EAdsType.ADMOB);
 		});
 	}
 
@@ -107,27 +100,18 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 			}
 		});
 	}
-
-	//! 애드몹 전면 광고가 출력 될 경우
-	public void OnShowAdmobFullscreenAds(object a_oSender, System.EventArgs a_oEventArgs) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_FULLSCREEN_ADS_SHOW_CALLBACK, () => {
-			Func.ShowLog("CAdsManager.OnShowAdmobFullscreenAds", Color.yellow);
-			m_stVariable.m_stAdmobVariable.m_oPrevFullscreenAds = m_stVariable.m_stAdmobVariable.m_oFullscreenAds;
-
-			m_stVariable.m_stAdmobVariable.m_oFullscreenAds = null;
-			m_stVariable.m_stAdmobVariable.m_nFullscreenAdsLoadTryTimes = 0;
-
-			this.LoadFullscreenAds(EAdsType.ADMOB);
-		});
-	}
-
+	
 	//! 애드몹 전면 광고가 닫혔을 경우
 	public void OnCloseAdmobFullscreenAds(object a_oSender, System.EventArgs a_oEventArgs) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_FULLSCREEN_ADS_CLOSE_CALLBACK, () => {
 			Func.ShowLog("CAdsManager.OnCloseAdmobFullscreenAds", Color.yellow);
+			m_stVariable.m_stAdmobVariable.m_oFullscreenAds?.Destroy();
 
-			m_stVariable.m_stAdmobVariable.m_oPrevFullscreenAds?.Destroy();
+			m_stVariable.m_stAdmobVariable.m_oFullscreenAds = null;
+			m_stVariable.m_stAdmobVariable.m_nFullscreenAdsLoadTryTimes = 0;
+
 			this.HandleCloseFullscreenAdsResult(EAdsType.ADMOB);
+			this.LoadFullscreenAds(EAdsType.ADMOB);
 		});
 	}
 
