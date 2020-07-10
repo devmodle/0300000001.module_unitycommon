@@ -74,9 +74,9 @@ public class CPageScrollView : CUIComponent {
 
 		// 드래그 전달자를 설정한다
 		var oDragDispatcher = this.GetComponentInChildren<CDragDispatcher>();
-		oDragDispatcher.DragBeganCallback = this.OnDragBegan;
+		oDragDispatcher.BeganCallback = this.OnDragBegan;
 		oDragDispatcher.DragCallback = this.OnDrag;
-		oDragDispatcher.DragEndedCallback = this.OnDragEnded;
+		oDragDispatcher.EndedCallback = this.OnDragEnded;
 	}
 
 	//! 활성화 되었을 경우

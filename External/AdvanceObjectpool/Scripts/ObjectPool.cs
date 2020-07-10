@@ -299,7 +299,7 @@ public class ObjectPool
 
         if (Parent != null)
         {
-            go.transform.parent = Parent;
+            go.transform.SetParent(Parent, false);
         }
         if (go.GetComponent<ISpawnEvent>() != null)
         {
@@ -333,7 +333,7 @@ public class ObjectPool
             com.gameObject.SetActive(false);
             if (Parent != null)
             {
-                com.transform.parent = Parent;
+                com.transform.SetParent(Parent, false);
             }
             DespawnedElements.Enqueue(com);
         }

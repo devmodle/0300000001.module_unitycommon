@@ -312,7 +312,10 @@ public static partial class KEditorDefine {
 			string.Format("{0}00.Application/Common/External/TotalJSON/Internal/InternalTools.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS)),
 
 		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/Timer.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
-			string.Format("{0}00.Application/Common/External/SmartTimersManager/TimerManager/Timer.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS))
+			string.Format("{0}00.Application/Common/External/SmartTimersManager/TimerManager/Timer.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS)),
+
+		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/ObjectPool.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
+			string.Format("{0}00.Application/Common/External/AdvanceObjectpool/Scripts/ObjectPool.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS))
 	};
 
 	public static readonly KeyValuePair<string, string>[] B_PATH_PREFAB_FILEPATH_INFOS = new KeyValuePair<string, string>[] {

@@ -252,11 +252,11 @@ public static partial class CExtension {
 	}
 
 	//! 파티클을 재생한다
-	public static void ExPlay(this ParticleSystem a_oSender, bool a_bIsReset = true) {
+	public static void ExPlay(this ParticleSystem a_oSender, bool a_bIsReset = true, bool a_bIsRemoveChildren = false) {
 		Func.Assert(a_oSender != null);
 
 		if(a_bIsReset) {
-			a_oSender.Stop();
+			a_oSender.Stop(a_bIsRemoveChildren);
 		}
 
 		a_oSender.Play();
@@ -454,13 +454,13 @@ public static partial class CExtension {
 		return oObj?.GetComponentInChildren<T>();
 	}
 
-	//! 컴포넌트를 반환한다
+	//! 컴포넌트를 탐색한다
 	public static T[] ExFindComponents<T>(this Scene a_stSender, string a_oName) where T : Component {
 		var oObj = a_stSender.ExFindChild(a_oName);
 		return oObj?.GetComponentsInChildren<T>();
 	}
 
-	//! 컴포넌트를 반환한다
+	//! 컴포넌트를 탐색한다
 	public static T[] ExFindComponents<T>(this GameObject a_oSender, string a_oName, bool a_bIsIncludeSelf = true) where T : Component {
 		var oObj = a_oSender.ExFindChild(a_oName, a_bIsIncludeSelf);
 		return oObj?.GetComponentsInChildren<T>();
