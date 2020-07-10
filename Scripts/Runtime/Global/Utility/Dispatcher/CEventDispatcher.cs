@@ -11,7 +11,7 @@ public class CEventDispatcher : CComponent {
 
 	#region 함수
 	//! 파티클 이벤트를 수신했을 경우
-	public void OnReceiveParticleEvent() {
+	public void OnParticleSystemStopped() {
 		this.ParticleCallback?.Invoke(this);
 	}
 

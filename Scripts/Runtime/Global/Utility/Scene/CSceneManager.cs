@@ -68,15 +68,15 @@ public abstract partial class CSceneManager : CComponent {
 
 	// 객체 루트
 	public GameObject SubBase { get; private set; } = null;
-	public GameObject SubObjectBase { get; private set; } = null;
-	public GameObject SubObjectRoot { get; private set; } = null;
-	public GameObject SubFixObjectRoot { get; private set; } = null;
+	public GameObject SubObjBase { get; private set; } = null;
+	public GameObject SubObjRoot { get; private set; } = null;
+	public GameObject SubFixObjRoot { get; private set; } = null;
 
 	// 고정 객체 루트
-	public GameObject SubLeftObjectRoot { get; private set; } = null;
-	public GameObject SubRightObjectRoot { get; private set; } = null;
-	public GameObject SubTopObjectRoot { get; private set; } = null;
-	public GameObject SubBottomObjectRoot { get; private set; } = null;
+	public GameObject SubLeftObjRoot { get; private set; } = null;
+	public GameObject SubRightObjRoot { get; private set; } = null;
+	public GameObject SubTopObjRoot { get; private set; } = null;
+	public GameObject SubBottomObjRoot { get; private set; } = null;
 
 	// 객체 캔버스 루트
 	public GameObject SubObjectCanvasTop { get; private set; } = null;
@@ -92,7 +92,7 @@ public abstract partial class CSceneManager : CComponent {
 	public virtual Color ClearColor => KAppDefine.G_DEF_COLOR_CAMERA_BG;
 
 	public virtual KeyValuePair<string, int> UICanvasSortingOrderInfo => KAppDefine.G_SORTING_ORDER_INFO_UI_CANVAS;
-	public virtual KeyValuePair<string, int> ObjectCanvasSortingOrderInfo => KAppDefine.G_SORTING_ORDER_INFO_OBJECT_CANVAS;
+	public virtual KeyValuePair<string, int> ObjCanvasSortingOrderInfo => KAppDefine.G_SORTING_ORDER_INFO_OBJ_CANVAS;
 	
 #if UNITY_EDITOR
 	public virtual int ScriptOrder => KDefine.U_SCRIPT_ORDER_SCENE_MANAGER;
@@ -344,19 +344,19 @@ public abstract partial class CSceneManager : CComponent {
 	}
 
 	//! 객체 풀을 반환한다
-	public ObjectPool GetObjectPool(string a_oKey) {
+	public ObjectPool GetObjPool(string a_oKey) {
 		Func.Assert(a_oKey.ExIsValid());
 		return m_oObjPoolList.ExGetValue(a_oKey, null);
 	}
 
 	//! 객체 풀을 추가한다
-	public void AddObjectPool(string a_oKey, ObjectPool a_oObjPool) {
+	public void AddObjPool(string a_oKey, ObjectPool a_oObjPool) {
 		Func.Assert(a_oObjPool != null && a_oKey.ExIsValid());
 		m_oObjPoolList.ExAddValue(a_oKey, a_oObjPool);
 	}
 
 	//! 객체 풀을 제거한다
-	public void RemoveObjectPool(string a_oKey, bool a_bIsDestroy = true) {
+	public void RemoveObjPool(string a_oKey, bool a_bIsDestroy = true) {
 		Func.Assert(a_oKey.ExIsValid());
 
 		if(m_oObjPoolList.ContainsKey(a_oKey)) {
@@ -369,7 +369,7 @@ public abstract partial class CSceneManager : CComponent {
 	}
 
 	//! 객체를 활성화한다
-	public GameObject SpawnObject(string a_oKey, 
+	public GameObject SpawnObj(string a_oKey, 
 		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) {
 		Func.Assert(a_oKey.ExIsValid() && m_oObjPoolList.ContainsKey(a_oKey));
 		
@@ -392,7 +392,7 @@ public abstract partial class CSceneManager : CComponent {
 	}
 
 	//! 객체를 비활성화한다
-	public void DespawnObject(string a_oKey, GameObject a_oObj, bool a_bIsDestroy = false) {
+	public void DespawnObj(string a_oKey, GameObject a_oObj, bool a_bIsDestroy = false) {
 		Func.Assert(a_oKey.ExIsValid() && m_oObjPoolList.ContainsKey(a_oKey));
 
 		if(m_oObjPoolList.ContainsKey(a_oKey)) {
@@ -512,9 +512,9 @@ public abstract partial class CSceneManager : CComponent {
 
 	#region 제네릭 함수
 	//! 객체를 활성화한다
-	public T SpawnObject<T>(string a_oKey,
+	public T SpawnObj<T>(string a_oKey,
 		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) where T : Component {
-		var oObj = this.SpawnObject(a_oKey, a_stPos, a_stScale, a_stRotation, a_oName, a_bIsWorld);
+		var oObj = this.SpawnObj(a_oKey, a_stPos, a_stScale, a_stRotation, a_oName, a_bIsWorld);
 		return oObj?.GetComponentInChildren<T>();
 	}
 	#endregion			// 제네릭 함수

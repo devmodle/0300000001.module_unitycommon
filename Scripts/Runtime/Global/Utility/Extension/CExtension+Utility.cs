@@ -166,6 +166,43 @@ public static partial class CExtension {
 			Mathf.Clamp01(((oContentTransform.anchoredPosition.x + oTransform.rect.width) - oTransform.rect.width) / (oContentTransform.rect.width - oTransform.rect.width)));
 	}
 
+	//! 자식을 반환한다
+	public static List<GameObject> ExGetChildren(this Scene a_stSender) {
+		var oObjs = a_stSender.GetRootGameObjects();
+		var oObjList = new List<GameObject>();
+
+		for(int i = 0; i < oObjs?.Length; ++i) {
+			var oChildObjList = oObjs[i].ExGetChildren();
+			oObjList.AddRange(oChildObjList);
+		}
+
+		return oObjList;
+	}
+
+	//! 자식을 반환한다
+	public static List<GameObject> ExGetChildren(this GameObject a_oSender, bool a_bIsIncludeSelf = true) {
+		var oObjList = new List<GameObject>();
+		var oEnumerator = a_bIsIncludeSelf ? a_oSender.DescendantsAndSelf() : a_oSender.Descendants();
+
+		foreach(var oObj in oEnumerator) {
+			oObjList.Add(oObj);
+		}
+
+		return oObjList;
+	}
+
+	//! 부모를 반환한다
+	public static List<GameObject> ExGetParents(this GameObject a_oSender, bool a_bIsIncludeSelf = true) {
+		var oObjList = new List<GameObject>();
+		var oEnumerator = a_bIsIncludeSelf ? a_oSender.AncestorsAndSelf() : a_oSender.Ancestors();
+
+		foreach(var oObj in oEnumerator) {
+			oObjList.Add(oObj);
+		}
+
+		return oObjList;
+	}
+
 	//! 활성화 여부를 변경한다
 	public static void ExSetEnable(this LayoutGroup a_oSender, bool a_bIsEnable) {
 		Func.Assert(a_oSender != null);

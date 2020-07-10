@@ -15,6 +15,13 @@ public static partial class KEditorDefine {
 	public const float B_HIERARCHY_WIDTH = 250.0f;
 	public const float B_HIERARCHY_OFFSET_X = 125.0f;
 
+	// 크기 {
+	public const float B_WIDTH_EDITOR_W_NAME_TEXT_FIELD = 100.0f;
+	public const float B_TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD = 200.0f;
+
+	public const float B_WIDTH_EDITOR_W_APPLY_BUTTON = 100.0f;
+	// 크기 }
+
 	// 토큰
 	public const string B_TOKEN_EXTENSION = ";";
 	public const string B_TOKEN_DEFINE_SYMBOL = ";";
@@ -64,7 +71,7 @@ public static partial class KEditorDefine {
 
 	public const string B_OBJ_NAME_SCENE_EDITOR_CAMERA = "SceneCamera";
 	public const string B_OBJ_NAME_SCENE_EDITOR_LIGHT = "SceneLight";
-
+	
 	public const string B_PROPERTY_NAME_CATEGORY = "applicationCategoryType";
 	public const string B_PROPERTY_NAME_OPTIMIZE_FRAME_PACING = "optimizedFramePacing";
 	public const string B_PROPERTY_NAME_REQUIRE_AR_KIT_SUPPORT = "requiresARKitSupport";

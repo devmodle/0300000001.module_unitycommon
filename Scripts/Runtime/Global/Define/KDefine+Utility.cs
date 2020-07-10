@@ -180,18 +180,18 @@ public static partial class KDefine {
 	public const string U_OBJ_NAME_SCENE_TOPMOST_UI_ROOT = "TopmostUIs";
 
 	public const string U_OBJ_NAME_SCENE_BASE = "Base";
-	public const string U_OBJ_NAME_SCENE_OBJECT_BASE = "ObjectRoot";
-	public const string U_OBJ_NAME_SCENE_OBJECT_ROOT = "Objects";
-	public const string U_OBJ_NAME_SCENE_FIX_OBJECT_ROOT = "FixObjects";
+	public const string U_OBJ_NAME_SCENE_OBJ_BASE = "ObjRoot";
+	public const string U_OBJ_NAME_SCENE_OBJ_ROOT = "Objs";
+	public const string U_OBJ_NAME_SCENE_FIX_OBJ_ROOT = "FixObjs";
 
-	public const string U_OBJ_NAME_SCENE_LEFT_OBJECT_ROOT = "LeftObjects";
-	public const string U_OBJ_NAME_SCENE_RIGHT_OBJECT_ROOT = "RightObjects";
-	public const string U_OBJ_NAME_SCENE_TOP_OBJECT_ROOT = "TopObjects";
-	public const string U_OBJ_NAME_SCENE_BOTTOM_OBJECT_ROOT = "BottomObjects";
+	public const string U_OBJ_NAME_SCENE_LEFT_OBJ_ROOT = "LeftObjs";
+	public const string U_OBJ_NAME_SCENE_RIGHT_OBJ_ROOT = "RightObjs";
+	public const string U_OBJ_NAME_SCENE_TOP_OBJ_ROOT = "TopObjs";
+	public const string U_OBJ_NAME_SCENE_BOTTOM_OBJ_ROOT = "BottomObjs";
 
-	public const string U_OBJ_NAME_SCENE_OBJECT_CANVAS_TOP = "ObjectCanvasRoot";
-	public const string U_OBJ_NAME_SCENE_OBJECT_CANVAS_BASE = "ObjectCanvas";
-	public const string U_OBJ_NAME_SCENE_OBJECT_CANVAS_ROOT = "CanvasObjects";
+	public const string U_OBJ_NAME_SCENE_OBJECT_CANVAS_TOP = "ObjCanvasRoot";
+	public const string U_OBJ_NAME_SCENE_OBJECT_CANVAS_BASE = "ObjCanvas";
+	public const string U_OBJ_NAME_SCENE_OBJECT_CANVAS_ROOT = "CanvasObjs";
 
 	public const string U_OBJ_NAME_SCENE_UI_CAMERA = "UI Camera";
 	public const string U_OBJ_NAME_SCENE_MAIN_CAMERA = "Main Camera";
