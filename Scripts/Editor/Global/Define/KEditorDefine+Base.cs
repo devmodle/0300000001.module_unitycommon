@@ -216,6 +216,9 @@ public static partial class KEditorDefine {
 	// 색상
 	public static readonly Color B_COLOR_UNITY_LOGO_BG = new Color(0.137f, 0.121f, 0.125f, 1.0f);
 
+	// 크기
+	public static readonly Vector2 B_MIN_SIZE_EDITOR_WINDOW = new Vector2(350.0f, 350.0f);
+
 	// 경로 {
 	public static readonly string B_DIR_PATH_AUTO_CREATE_RESOURCES = string.Format("{0}{1}Resources", KEditorDefine.B_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE);
 

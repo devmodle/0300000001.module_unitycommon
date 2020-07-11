@@ -47,7 +47,7 @@ public class CObjNameEditorWindow : CEditorWindow<CObjNameEditorWindow> {
 	[MenuItem("Utility/Editor Window/Show ObjNameEditorWindow")]
 	public static void ShowObjNameEditorWindow() {
 		CObjNameEditorWindow.ShowEditorWindow(KEditorDefine.B_OBJ_NAME_OBJ_NAME_EDITOR_POPUP, 
-			KDefine.B_SCREEN_SIZE / 2.0f);
+			KEditorDefine.B_MIN_SIZE_EDITOR_WINDOW);
 	}
 	#endregion			// 클래스 함수
 }
