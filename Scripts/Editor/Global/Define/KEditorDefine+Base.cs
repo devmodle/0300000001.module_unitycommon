@@ -45,6 +45,8 @@ public static partial class KEditorDefine {
 	// 알림 팝업 }
 
 	// 이름 {
+	public const string B_OBJ_NAME_OBJ_NAME_EDITOR_POPUP = "ObjNameEditorPopup";
+
 	public const string B_OBJ_NAME_TEXT = "Text";
 	public const string B_OBJ_NAME_LOCALIZE_TEXT = "LocalizeText";
 

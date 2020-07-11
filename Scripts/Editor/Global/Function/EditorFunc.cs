@@ -188,17 +188,6 @@ public static partial class EditorFunc {
 	#endregion			// 클래스 함수
 
 	#region 제네릭 클래스 함수
-	//! 팝업을 출력한다
-	public static T ShowPopup<T>(Vector2 a_stMinSize, bool a_bIsImmediate = true) where T : EditorWindow {
-		var oPopup = EditorWindow.CreateInstance<T>();
-		Func.Assert(oPopup != null);
-
-		oPopup.minSize = a_stMinSize;
-		oPopup.Show(a_bIsImmediate);
-		
-		return oPopup;
-	}
-
 	//! 에셋을 탐색한다
 	public static T FindAsset<T>(string a_oFilter, string[] a_oSearchPaths) where T : Object {
 		var oAssets = EditorFunc.FindAssets<T>(a_oFilter, a_oSearchPaths);
@@ -222,6 +211,16 @@ public static partial class EditorFunc {
 		}
 
 		return oAssetList;
+	}
+
+	//! 에디터 윈도우를 생성한다
+	public static T CreateEditorWindow<T>(string a_oName, Vector2 a_stMinSize) where T : EditorWindow {
+		Func.Assert(a_oName.ExIsValid());
+
+		var oPopup = EditorWindow.CreateWindow<T>(a_oName);
+		oPopup.minSize = a_stMinSize;
+
+		return oPopup;
 	}
 
 	//! 에셋을 생성한다

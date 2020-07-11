@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-//! 편집 팝업
-public class CEditorPopup : EditorWindow {
+//! 객체 이름 에디터 윈도우
+public class CObjNameEditorWindow : CEditorWindow<CObjNameEditorWindow> {
 	#region 변수
 	private string m_oOriginObjName = string.Empty;
 	private string m_oReplaceObjName = string.Empty;
@@ -43,10 +43,11 @@ public class CEditorPopup : EditorWindow {
 	#endregion			// 함수
 
 	#region 클래스 함수
-	[MenuItem("Utility/Popup/Show EditorPopup")]
-	//! 편집 윈도우를 출력한다
-	public static void ShowEditorPopup() {
-		EditorFunc.ShowPopup<CEditorPopup>(KDefine.B_SCREEN_SIZE / 2.0f);
+	//! 객체 이름 에디터 윈도우를 출력한다
+	[MenuItem("Utility/Editor Window/Show ObjNameEditorWindow")]
+	public static void ShowObjNameEditorWindow() {
+		CObjNameEditorWindow.ShowEditorWindow(KEditorDefine.B_OBJ_NAME_OBJ_NAME_EDITOR_POPUP, 
+			KDefine.B_SCREEN_SIZE / 2.0f);
 	}
-	#endregion			// 클래스 함수	
+	#endregion			// 클래스 함수
 }
