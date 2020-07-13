@@ -334,7 +334,6 @@ public static partial class EditorFunc {
 		// 어플리케이션 식별자를 설정한다
 		if(CPlatformBuilder.ProjectInfoTable != null) {
 			PlayerSettings.macOS.buildNumber = CPlatformBuilder.ProjectInfoTable.MacProjectInfo.m_oBuildNumber;
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuilder.ProjectInfoTable.MacProjectInfo.m_oAppID);
 
 			PlayerSettings.iOS.buildNumber = CPlatformBuilder.ProjectInfoTable.iOSProjectInfo.m_oBuildNumber;
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, CPlatformBuilder.ProjectInfoTable.iOSProjectInfo.m_oAppID);
@@ -343,6 +342,12 @@ public static partial class EditorFunc {
 			bool bIsValidNumber = false;
 
 			if(Application.isBatchMode) {
+				if(CPlatformBuilder.StandalonePlatformType == EStandalonePlatformType.WINDOWS) {
+					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuilder.ProjectInfoTable.WindowsProjectInfo.m_oAppID);
+				} else {
+					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuilder.ProjectInfoTable.MacProjectInfo.m_oAppID);
+				}
+
 				if(CPlatformBuilder.AndroidPlatformType == EAndroidPlatformType.ONE_STORE) {
 					bIsValidNumber = int.TryParse(CPlatformBuilder.ProjectInfoTable.OneStoreProjectInfo.m_oBuildNumber, out nBuildNumber);
 				} else if(CPlatformBuilder.AndroidPlatformType == EAndroidPlatformType.GALAXY_STORE) {
@@ -351,6 +356,12 @@ public static partial class EditorFunc {
 					bIsValidNumber = int.TryParse(CPlatformBuilder.ProjectInfoTable.GoogleProjectInfo.m_oBuildNumber, out nBuildNumber);
 				}
 			} else {
+#if WINDOWS_PLATFORM
+				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuilder.ProjectInfoTable.WindowsProjectInfo.m_oAppID);
+#else
+				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuilder.ProjectInfoTable.MacProjectInfo.m_oAppID);
+#endif			// #if WINDOWS_PLATFORM
+
 #if ONE_STORE_PLATFORM
 				bIsValidNumber = int.TryParse(CPlatformBuilder.ProjectInfoTable.OneStoreProjectInfo.m_oBuildNumber, out nBuildNumber);
 #elif GALAXY_STORE_PLATFORM

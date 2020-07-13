@@ -129,7 +129,13 @@ public static partial class CPlatformBuilder {
 				CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_ANALYTICS_TEST_ENABLE);
 			}
 
-			if(a_oPlayerOptions.targetGroup == BuildTargetGroup.iOS || a_oPlayerOptions.targetGroup == BuildTargetGroup.Android) {
+			if(a_oPlayerOptions.targetGroup == BuildTargetGroup.Standalone) {
+				if(CPlatformBuilder.StandalonePlatformType == EStandalonePlatformType.WINDOWS) {
+					CPlatformBuilder.AddDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_WINDOWS_PLATFORM);
+				} else {
+					CPlatformBuilder.AddDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_MAC_PLATFORM);
+				}
+			} if(a_oPlayerOptions.targetGroup == BuildTargetGroup.iOS || a_oPlayerOptions.targetGroup == BuildTargetGroup.Android) {
 				CPlatformBuilder.AddDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_RECEIPT_CHECK_ENABLE);
 
 				if(a_oPlayerOptions.targetGroup == BuildTargetGroup.Android) {
@@ -205,6 +211,15 @@ public static partial class CPlatformBuilder {
 
 			CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_ADHOC_BUILD);
 			CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_STORE_BUILD);
+
+			if(a_oPlayerOptions.targetGroup == BuildTargetGroup.Standalone) {
+				CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_MAC_PLATFORM);
+				CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_WINDOWS_PLATFORM);
+			} else if(a_oPlayerOptions.targetGroup == BuildTargetGroup.Android) {
+				CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_GOOGLE_PLATFORM);
+				CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_ONE_STORE_PLATFORM);
+				CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_GALAXY_STORE_PLATFORM);
+			}
 
 			EditorFunc.SetupDefineSymbols(CPlatformBuilder.DefineSymbolListContainer);
 			// 전처리기 심볼을 리셋한다 }

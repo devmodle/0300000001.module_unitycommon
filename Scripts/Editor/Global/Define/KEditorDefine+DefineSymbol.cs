@@ -114,10 +114,14 @@ public static partial class KEditorDefine {
 	// 게임 센터
 	public const string DS_DEFINE_SYMBOL_SAVED_GAME_ENABLE = "SAVED_GAME_ENABLE";
 
-	// 플랫폼
+	// 플랫폼 {
+	public const string DS_DEFINE_SYMBOL_MAC_PLATFORM = "MAC_PLATFORM";
+	public const string DS_DEFINE_SYMBOL_WINDOWS_PLATFORM = "WINDOWS_PLATFORM";
+
 	public const string DS_DEFINE_SYMBOL_GOOGLE_PLATFORM = "GOOGLE_PLATFORM";
 	public const string DS_DEFINE_SYMBOL_ONE_STORE_PLATFORM = "ONE_STORE_PLATFORM";
 	public const string DS_DEFINE_SYMBOL_GALAXY_STORE_PLATFORM = "GALAXY_STORE_PLATFORM";
+	// 플랫폼 }
 	
 	// 윈도우즈
 	public const string DS_DEFINE_SYMBOL_DIRECT_3D_12_ENABLE = "DIRECT_3D_12_ENABLE";
