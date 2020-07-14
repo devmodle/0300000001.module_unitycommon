@@ -150,10 +150,11 @@ public static partial class CPlatformBuilder {
 			}
 
 			EditorFunc.SetupDefineSymbols(CPlatformBuilder.DefineSymbolListContainer);
+			// 전처리기 심볼을 설정한다 }
 
+			// 전처리기 심볼을 저장한다
 			string oFilepath = string.Format(KEditorDefine.B_ASSET_PATH_FORMAT_DEFINE_SYMBOL_OUTPUT, a_oPlayerOptions.targetGroup);
 			Func.WriteString(oFilepath, PlayerSettings.GetScriptingDefineSymbolsForGroup(a_oPlayerOptions.targetGroup), System.Text.Encoding.Default);
-			// 전처리기 심볼을 설정한다 }
 
 			// 플랫폼을 설정한다
 			EditorFunc.SetupPlayerOptions();
