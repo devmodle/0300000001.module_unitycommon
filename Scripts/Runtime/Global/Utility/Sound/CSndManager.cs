@@ -9,10 +9,13 @@ public class CSndManager : CSingleton<CSndManager> {
 	private bool m_bIsMuteFXSnds = false;
 	private float m_fFXSndsVolume = 0.0f;
 
-	private CSnd m_oBGSnd = null;
 	private string m_oBGSndFilepath = string.Empty;
-	private Dictionary<string, List<CSnd>> m_oFXSndListContainer = new Dictionary<string, List<CSnd>>();
 	#endregion			// 변수
+
+	#region 컴포넌트
+	private CSnd m_oBGSnd = null;
+	private Dictionary<string, List<CSnd>> m_oFXSndListContainer = new Dictionary<string, List<CSnd>>();
+	#endregion			// 컴포넌트
 
 	#region 프로퍼티
 	public bool IsDisableVibrate { get; set; } = false;

@@ -9,6 +9,7 @@
 	- *LINQ to GameObject (Ver.2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (Ver.1.0.0 - Jan 11, 2019)*
 	- *Native Share (Ver.1.2.0 - Oct 10, 2019)*
+	- *Sign in with Apple (Ver.1.0.3 - Feb 14, 2020)*
 3. **기타 추가 에셋 및 플러그인 리스트**
 	- *Admob*
 	- *Tenjin*

@@ -153,6 +153,8 @@ public abstract partial class CSceneManager : CComponent {
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		if(CSceneManager.ScreenDebugBtn != null) {
+			CSceneManager.ScreenDebugBtn.gameObject.SetActive(true);
+
 			CSceneManager.ScreenDebugBtn.onClick.RemoveAllListeners();
 			CSceneManager.ScreenDebugBtn.onClick.AddListener(CSceneManager.OnTouchDebugBtn);
 		}
@@ -160,6 +162,8 @@ public abstract partial class CSceneManager : CComponent {
 
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		if(CSceneManager.ScreenFPSBtn != null) {
+			CSceneManager.ScreenFPSBtn.gameObject.SetActive(true);
+
 			CSceneManager.ScreenFPSBtn.onClick.RemoveAllListeners();
 			CSceneManager.ScreenFPSBtn.onClick.AddListener(CSceneManager.OnTouchFPSBtn);
 		}

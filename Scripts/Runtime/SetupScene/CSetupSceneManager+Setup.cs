@@ -73,7 +73,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CSceneManager.ScreenDebugTextRoot = oDebugUI.ExFindChild(KDefine.U_NAME_SCREEN_DEBUG_TEXT_ROOT);
 
 			CSceneManager.ScreenFPSBtn = oDebugUI.ExFindComponent<Button>(KDefine.U_NAME_SCREEN_FPS_BTN);
+			CSceneManager.ScreenFPSBtn.gameObject.SetActive(false);
+
 			CSceneManager.ScreenDebugBtn = oDebugUI.ExFindComponent<Button>(KDefine.U_NAME_SCREEN_DEBUG_BTN);
+			CSceneManager.ScreenDebugBtn.gameObject.SetActive(false);
 
 			CSceneManager.ScreenStaticDebugText = oDebugUI.ExFindComponent<Text>(KDefine.U_NAME_SCREEN_STATIC_DEBUG_TEXT);
 			CSceneManager.ScreenStaticDebugText.raycastTarget = false;

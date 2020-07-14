@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
+#if UNITY_IOS
+using UnityEngine.SignInWithApple;
+#endif			// #if UNITY_IOS
+
 //! 유니티 메세지 전송자
 public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 	#region 변수
@@ -11,7 +15,24 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 #endif			// #if !UNITY_EDITOR && UNITY_ANDROID
 	#endregion			// 변수
 
+	#region 컴포넌트
+#if UNITY_IOS
+	private SignInWithApple m_oSignInWithApple = null;
+#endif			// #if UNITY_IOS
+	#endregion			// 컴포넌트
+
 	#region 함수
+	//! 초기화
+	public override void Awake() {
+		base.Awake();
+
+#if UNITY_IOS
+		m_oSignInWithApple = Func.CreateCloneObj<SignInWithApple>(KDefine.U_OBJ_NAME_SIGN_IN_WITH_APPLE,
+			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_SIGN_IN_WITH_APPLE),
+			this.gameObject);
+#endif			// #if UNITY_IOS
+	}
+
 	//! 디바이스 식별자 반환 메세지를 전송한다
 	public void SendGetDeviceIDMsg(System.Action<string, string> a_oCallback) {
 		this.SendMsg(KDefine.B_CMD_GET_DEVICE_ID, string.Empty, a_oCallback, true);
@@ -20,11 +41,6 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 	//! 국가 코드 반환 메세지를 전송한다
 	public void SendGetCountryCodeMsg(System.Action<string, string> a_oCallback) {
 		this.SendMsg(KDefine.B_CMD_GET_COUNTRY_CODE, string.Empty, a_oCallback, true);
-	}
-
-	//! 시스템 버전 반환 메세지를 전송한다
-	public void SendGetSystemVersionMsg(System.Action<string, string> a_oCallback) {
-		this.SendMsg(KDefine.B_CMD_GET_SYSTEM_VERSION, string.Empty, a_oCallback, true);
 	}
 
 	//! 스토어 버전 반환 메세지를 전송한다
@@ -52,7 +68,7 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 	public void SendShowToastMsg(string a_oMsg) {
 		this.SendMsg(KDefine.B_CMD_SHOW_TOAST, a_oMsg, null, true);
 	}
-
+	
 	//! 알림 창 출력 메세지를 전송한다
 	public void SendShowAlertMsg(string a_oTitle,
 		string a_oMsg, string a_oOKBtnText, string a_oCancelBtnText, System.Action<string, string> a_oCallback) {
@@ -90,6 +106,13 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 	public void SendActivityIndicatorMsg(bool a_bIsStart) {
 		this.SendMsg(KDefine.B_CMD_ACTIVITY_INDICATOR, a_bIsStart.ToString(), null, true);
 	}
+
+#if UNITY_IOS
+	//! 로그인 메세지를 전송한다
+	public void SendLoginMsg(System.Action<SignInWithApple.CallbackArgs> a_oCallback) {
+
+	}
+#endif			// #if UNITY_IOS
 
 	//! 공유 메세지를 전송한다
 	public void SendShareMsg(string a_oMsg, string a_oFilepath = KDefine.B_EMPTY_STRING) {
