@@ -361,5 +361,12 @@ public static partial class CPlatformBuilder {
 		EditorFunc.ExecuteAndroidPlatformJenkinsBuild(KDefine.B_BUILD_MODE_RELEASE, 
 			KEditorDefine.B_JENKINS_STORE_BUILD_FUNC, KEditorDefine.B_JENKINS_ANDROID_STORE_PIPELINE_NAME, KEditorDefine.B_ANDROID_AAB_BUILD_FILE_EXTENSION, a_ePlatformType);
 	}
+
+	//! 안드로이드 빌드가 완료 되었을 경우
+	private static void OnPostProcessAndroidBuild(BuildTarget a_eTarget, string a_oPath) {
+#if UNITY_ANDROID
+
+#endif			// #if UNITY_ANDROID
+	}
 	#endregion			// 클래스 함수
 }

@@ -4,10 +4,6 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
 
-#if UNITY_IOS
-using UnityEditor.iOS.Xcode;
-#endif			// #if UNITY_IOS
-
 //! 플랫폼 빌더
 public static partial class CPlatformBuilder {
 	#region 클래스 프로퍼티
@@ -92,18 +88,14 @@ public static partial class CPlatformBuilder {
 	//! 빌드가 완료 되었을 경우
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
-		if(a_eTarget == BuildTarget.iOS) {
-#if UNITY_IOS
-			string oFilepath = string.Format(KEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
-			
-			var oDocument = new PlistDocument();
-			oDocument.ReadFromFile(oFilepath);
+		bool bIsWindows = a_eTarget == BuildTarget.StandaloneWindows || a_eTarget == BuildTarget.StandaloneWindows64;
 
-			if(oDocument.ExIsValid()) {
-				oDocument.root.SetBoolean(KEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, false);
-				oDocument.WriteToFile(oFilepath);
-			}
-#endif			// #if UNITY_IOS
+		if(bIsWindows || a_eTarget == BuildTarget.StandaloneOSX) {
+			CPlatformBuilder.OnPostProcessStandaloneBuild(a_eTarget, a_oPath);
+		} else if(a_eTarget == BuildTarget.iOS) {
+			CPlatformBuilder.OnPostProcessiOSBuild(a_eTarget, a_oPath);
+		} else if(a_eTarget == BuildTarget.Android) {
+			CPlatformBuilder.OnPostProcessAndroidBuild(a_eTarget, a_oPath);
 		}
 	}
 

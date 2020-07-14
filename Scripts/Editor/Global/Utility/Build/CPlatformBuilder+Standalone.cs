@@ -176,5 +176,12 @@ public static partial class CPlatformBuilder {
 		EditorFunc.ExecuteStandalonePlatformJenkinsBuild(KDefine.B_BUILD_MODE_RELEASE, 
 			KEditorDefine.B_JENKINS_RELEASE_BUILD_FUNC, KEditorDefine.B_JENKINS_STANDALONE_RELEASE_PIPELINE_NAME, a_ePlatformType);
 	}
+
+	//! 독립 플랫폼 빌드가 완료 되었을 경우
+	private static void OnPostProcessStandaloneBuild(BuildTarget a_eTarget, string a_oPath) {
+#if UNITY_STANDALONE
+
+#endif			// #if UNITY_STANDALONE
+	}
 	#endregion			// 클래스 함수
 }

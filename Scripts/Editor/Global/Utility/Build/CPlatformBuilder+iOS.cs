@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_IOS
+using UnityEditor.iOS.Xcode;
+#endif			// #if UNITY_IOS
+
 //! 플랫폼 빌더 - iOS
 public static partial class CPlatformBuilder {
 	#region 클래스 함수
@@ -214,6 +218,21 @@ public static partial class CPlatformBuilder {
 
 		// 플랫폼을 빌드한다
 		CPlatformBuilder.BuildPlatform(a_oPlayerOptions);
+	}
+
+	//! iOS 빌드가 완료 되었을 경우
+	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
+#if UNITY_IOS
+		string oFilepath = string.Format(KEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
+
+		var oDocument = new PlistDocument();
+		oDocument.ReadFromFile(oFilepath);
+
+		if(oDocument.ExIsValid()) {
+			oDocument.root.SetBoolean(KEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, false);
+			oDocument.WriteToFile(oFilepath);
+		}
+#endif			// #if UNITY_IOS
 	}
 	#endregion			// 클래스 함수
 }
