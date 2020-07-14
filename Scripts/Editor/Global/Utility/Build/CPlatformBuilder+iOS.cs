@@ -223,15 +223,33 @@ public static partial class CPlatformBuilder {
 	//! iOS 빌드가 완료 되었을 경우
 	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
-		string oFilepath = string.Format(KEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
+		string oPlistFilepath = string.Format(KEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
+		string oProjectFilepath = PBXProject.GetPBXProjectPath(a_oPath);
 
+		// Plist 옵션을 설정한다 {
 		var oDocument = new PlistDocument();
-		oDocument.ReadFromFile(oFilepath);
+		oDocument.ReadFromFile(oPlistFilepath);
 
 		if(oDocument.ExIsValid()) {
 			oDocument.root.SetBoolean(KEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, false);
-			oDocument.WriteToFile(oFilepath);
+			oDocument.WriteToFile(oPlistFilepath);
 		}
+		// Plist 옵션을 설정한다 }
+
+		// 프로젝트 옵션을 설정한다 {
+		var oProject = new PBXProject();
+		oProject.ReadFromFile(oProjectFilepath);
+
+		if(oProject != null) {
+			string oGUID = oProject.GetUnityMainTargetGuid();
+
+			for(int i = 0; i < KAppDefine.G_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
+				oProject.AddFrameworkToProject(oGUID, KAppDefine.G_EXTRA_FRAMEWORKS_IOS[i], false);
+			}
+
+			oProject.WriteToFile(oProjectFilepath);
+		}
+		// 프로젝트 옵션을 설정한다 }
 #endif			// #if UNITY_IOS
 	}
 	#endregion			// 클래스 함수
