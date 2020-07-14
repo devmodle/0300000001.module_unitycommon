@@ -34,17 +34,19 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		CUserInfoStorage.Instance.SaveUserInfo(KDefine.B_DATA_PATH_USER_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 
-		bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_INIT);
-		bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_SETUP);
-		bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_START);
-		bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_SPLASH);
-		bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_AGREE);
+		Func.LateCallFunc(this, KDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
+			bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_INIT);
+			bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_SETUP);
+			bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_START);
+			bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_SPLASH);
+			bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_AGREE);
 
-		if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene) {
-			Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_INTRO);
-		} else {
-			CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
-		}
+			if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene) {
+				Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_INTRO);
+			} else {
+				CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
+			}
+		});
 	}
 
 	//! 초기화

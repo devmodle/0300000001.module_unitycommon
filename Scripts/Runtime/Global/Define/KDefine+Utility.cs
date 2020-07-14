@@ -707,7 +707,7 @@ public static partial class KDefine {
 	public static readonly DeviceGeneration[] U_HAPTIC_FEEDBACK_SUPPORT_MODELS = new DeviceGeneration[] {
 		DeviceGeneration.iPhone7, DeviceGeneration.iPhone7Plus, DeviceGeneration.iPhone8, DeviceGeneration.iPhone8Plus,
 		DeviceGeneration.iPhoneX, DeviceGeneration.iPhoneXR, DeviceGeneration.iPhoneXS, DeviceGeneration.iPhoneXSMax,
-		DeviceGeneration.iPhone11, DeviceGeneration.iPhone11Pro, DeviceGeneration.iPhone11ProMax, DeviceGeneration.Unknown
+		DeviceGeneration.iPhone11, DeviceGeneration.iPhone11Pro, DeviceGeneration.iPhone11ProMax, DeviceGeneration.iPhoneUnknown
 	};
 #endif			// #if UNITY_IOS && HAPTIC_FEEDBACK_ENABLE
 

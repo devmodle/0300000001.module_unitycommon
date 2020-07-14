@@ -324,9 +324,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 
 		CSceneManager.IsSetup = true;
-
 		LogFunc.SendAppLaunchLog();
-		Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_AGREE, false);
+
+		Func.LateCallFunc(this, KDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
+			Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_AGREE, false);
+		});
 	}
 	#endregion			// 함수
 }

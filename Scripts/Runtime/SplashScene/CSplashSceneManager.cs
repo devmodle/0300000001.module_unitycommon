@@ -26,7 +26,9 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		CSceneLoader.Instance.LoadScene(KDefine.B_SCENE_NAME_START, false, false);
+		Func.LateCallFunc(this, KDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
+			CSceneLoader.Instance.LoadScene(KDefine.B_SCENE_NAME_START, false, false);
+		});
 	}
 
 	//! 초기화
