@@ -182,7 +182,7 @@ public static partial class Func {
 	//! 로그를 출력한다
 	[Conditional("DEBUG"), Conditional("DEVELOPMENT_BUILD")]
 	public static void ShowLog(string a_oFormat, params object[] a_oParams) {
-		Func.DoShowLog(string.Format(a_oFormat, a_oParams), LogType.Log);
+		Func.ShowLog(a_oFormat, KDefine.B_LOG_COLOR_INFO, a_oParams);
 	}
 
 	//! 로그를 출력한다
@@ -194,7 +194,7 @@ public static partial class Func {
 
 	//! 경고 로그를 출력한다
 	public static void ShowLogWarning(string a_oFormat, params object[] a_oParams) {
-		Func.DoShowLog(string.Format(a_oFormat, a_oParams), LogType.Warning);
+		Func.ShowLog(a_oFormat, KDefine.B_LOG_COLOR_WARNING, a_oParams);
 	}
 
 	//! 경고 로그를 출력한다
@@ -205,7 +205,7 @@ public static partial class Func {
 
 	//! 에러 로그를 출력한다
 	public static void ShowLogError(string a_oFormat, params object[] a_oParams) {
-		Func.DoShowLog(string.Format(a_oFormat, a_oParams), LogType.Error);
+		Func.ShowLog(a_oFormat, KDefine.B_LOG_COLOR_ERROR, a_oParams);
 	}
 
 	//! 에러 로그를 출력한다
