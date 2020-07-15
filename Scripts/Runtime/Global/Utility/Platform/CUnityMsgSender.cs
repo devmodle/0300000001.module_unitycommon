@@ -115,17 +115,22 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 #endif			// #if UNITY_IOS
 
 	//! 공유 메세지를 전송한다
-	public void SendShareMsg(string a_oMsg, string a_oFilepath = KDefine.B_EMPTY_STRING) {
+	public void SendShareMsg(string a_oMsg, 
+		System.Action<NativeShare.ShareResult, string> a_oCallback, string a_oFilepath = KDefine.B_EMPTY_STRING) {
 		Func.Assert(a_oMsg.ExIsValid());
 
-		var oNativeShare = new NativeShare();
-		oNativeShare.SetText(a_oMsg);
+		var oShare = new NativeShare();
+		oShare.SetText(a_oMsg);
 
 		if(a_oFilepath.ExIsValid()) {
-			oNativeShare.AddFile(a_oFilepath);
+			oShare.AddFile(a_oFilepath);
 		}
+		
+		oShare.SetCallback((a_eResult, a_oTarget) => {
+			a_oCallback?.Invoke(a_eResult, a_oTarget);	
+		});
 
-		oNativeShare.Share();
+		oShare.Share();
 	}
 
 	//! 메세지를 전송한다
