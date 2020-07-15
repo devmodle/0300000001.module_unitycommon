@@ -18,21 +18,14 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		});
 	}
 
-	//! 앱 로빈 보상 광고가 출력 될 경우
-	public void OnShowAppLovinRewardAds(string a_oAdsID) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_SHOW_CALLBACK, () => {
-			Func.ShowLog("CAdsManager.OnShowAppLovinRewardAds: {0}", a_oAdsID);
-			m_stVariable.m_stAppLovinVariable.m_nRewardAdsLoadTryTimes = 0;
-
-			this.LoadRewardAds(EAdsType.APP_LOVIN);
-		});
-	}
-
 	//! 앱 로빈 보상 광고가 닫혔을 경우
 	public void OnCloseAppLovinRewardAds(string a_oAdsID) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_CLOSE_CALLBACK, () => {
 			Func.ShowLog("CAdsManager.OnCloseAppLovinRewardAds: {0}", a_oAdsID);
+			m_stVariable.m_stAppLovinVariable.m_nRewardAdsLoadTryTimes = 0;
+
 			this.HandleCloseRewardAdsResult(EAdsType.APP_LOVIN);
+			this.LoadRewardAds(EAdsType.APP_LOVIN);
 		});
 	}
 
@@ -56,17 +49,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 			if(m_stVariable.m_stAppLovinVariable.m_nFullscreenAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
 				this.LoadFullscreenAds(EAdsType.APP_LOVIN);
-			}			
-		});
-	}
-
-	//! 앱 로빈 전면 광고가 출력 될 경우
-	public void OnShowAppLovinFullscreenAds(string a_oAdsID) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_SHOW_CALLBACK, () => {
-			Func.ShowLog("CAdsManager.OnShowAppLovinFullscreenAds: {0}", a_oAdsID);
-			m_stVariable.m_stAppLovinVariable.m_nFullscreenAdsLoadTryTimes = 0;
-
-			
+			}
 		});
 	}
 
@@ -74,8 +57,10 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	public void OnCloseAppLovinFullscreenAds(string a_oAdsID) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_SHOW_CALLBACK, () => {
 			Func.ShowLog("CAdsManager.OnCloseAppLovinFullscreenAds: {0}", Color.yellow, a_oAdsID);
+			m_stVariable.m_stAppLovinVariable.m_nFullscreenAdsLoadTryTimes = 0;
 
-
+			this.HandleCloseFullscreenAdsResult(EAdsType.APP_LOVIN);
+			this.LoadFullscreenAds(EAdsType.APP_LOVIN);
 		});
 	}
 	#endregion			// 함수

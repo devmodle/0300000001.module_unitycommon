@@ -552,12 +552,10 @@ public static partial class KDefine {
 
 #if APP_LOVIN_ENABLE
 	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_LOAD_FAIL_CALLBACK = "AdsMAppLovinRewardAdsLoadFailCallback";
-	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_SHOW_CALLBACK = "AdsMAppLovinRewardAdsShowCallback";
 	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_CLOSE_CALLBACK = "AdsMAppLovinRewardAdsCloseCallback";
 	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_RECEIVE_REWARD_CALLBACK = "AdsMAppLovinRewardAdsReceiveRewardCallback";
 
 	public const string U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_LOAD_FAIL_CALLBACK = "AdsMAppLovinFullscreenAdsLoadFailCallback";
-	public const string U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_SHOW_CALLBACK = "AdsMAppLovinFullscreenAdsShowCallback";
 	public const string U_KEY_ADS_M_APP_LOVIN_FULLSCREEN_ADS_CLOSE_CALLBACK = "AdsMAppLovinFullscreenAdsCloseCallback";
 #endif			// #if APP_LOVIN_ENABLE
 	// 키 }

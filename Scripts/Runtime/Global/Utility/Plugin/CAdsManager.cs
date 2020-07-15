@@ -356,6 +356,10 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 			Func.Assert(a_stParameters.m_stIronSourceParameters.m_oAppKey.ExIsValid());
 #endif			// #if IRON_SOURCE_ENABLE
 
+#if APP_LOVIN_ENABLE
+			Func.Assert(a_stParameters.m_stAppLovinParameters.m_oSDKKey.ExIsValid());
+#endif			// #if APP_LOVIN_ENABLE
+
 			this.IsInit = true;
 			m_stParameters = a_stParameters;
 
@@ -416,6 +420,10 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 				IronSource.Agent.shouldTrackNetworkState(true);
 			}
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+
+#endif			// #if APP_LOVIN_ENABLE
 		}
 
 		a_oCallback?.Invoke(this, this.IsInit);
