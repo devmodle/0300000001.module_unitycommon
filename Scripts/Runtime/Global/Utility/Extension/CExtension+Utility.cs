@@ -521,13 +521,9 @@ public static partial class CExtension {
 	//! 스크립트 순서를 변경한다
 	public static void ExSetScriptOrder(this MonoBehaviour a_oSender, int a_nOrder) {
 		Func.Assert(a_oSender != null && (a_nOrder >= short.MinValue && a_nOrder <= short.MaxValue));
-		
 		var oMonoScript = MonoScript.FromMonoBehaviour(a_oSender);
-		int nCurrentOrder = MonoImporter.GetExecutionOrder(oMonoScript);
 
-		if(nCurrentOrder != a_nOrder) {
-			MonoImporter.SetExecutionOrder(oMonoScript, a_nOrder);
-		}
+		Func.SetScriptOrder(oMonoScript, a_nOrder);
 	}
 #endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 클래스 함수

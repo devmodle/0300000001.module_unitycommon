@@ -156,6 +156,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			// 디바이스 연동 객체를 생성한다 }
 
 			// 테이블을 생성한다 {
+			CStringTable.Create();
+			CValueTable.Create();
+
 			CBuildInfoTable.Create(KDefine.U_SCRIPTABLE_PATH_G_BUILD_INFO_TABLE);
 			CBuildOptionTable.Create(KDefine.U_SCRIPTABLE_PATH_G_BUILD_OPTION_TABLE);
 			CDefineSymbolTable.Create(KDefine.U_SCRIPTABLE_PATH_G_DEFINE_SYMBOL_TABLE);

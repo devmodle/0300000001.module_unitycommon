@@ -397,7 +397,6 @@ public static partial class KDefine {
 	// 퀄리티 }
 
 	// 스크립트 순서 {
-	public const int U_SCRIPT_ORDER_POPUP = -5;
 	public const int U_SCRIPT_ORDER_SINGLETON = -10;
 
 	public const int U_SCRIPT_ORDER_INIT_SCENE_MANAGER = -20;

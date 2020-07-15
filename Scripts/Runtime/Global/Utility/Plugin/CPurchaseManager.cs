@@ -40,7 +40,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	#region 인터페이스
 	//! 초기화 되었을 경우
 	public void OnInitialized(IStoreController a_oController, IExtensionProvider a_oProvider) {
-		Func.ShowLog("CPurchaseManager.OnInitialized", Color.yellow);
+		Func.ShowLog("CPurchaseManager.OnInitialized", KDefine.B_LOG_COLOR_PLUGIN);
 
 		m_oStoreController = a_oController;
 		m_oExtensionProvider = a_oProvider;
@@ -50,14 +50,14 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 
 	//! 초기화에 실패했을 경우
 	public void OnInitializeFailed(InitializationFailureReason a_eReason) {
-		Func.ShowLogWarning("CPurchaseManager.OnInitializeFailed: {0}", Color.yellow, a_eReason);
+		Func.ShowLogWarning("CPurchaseManager.OnInitializeFailed: {0}", a_eReason);
 		m_oInitCallback?.Invoke(this, false);
 	}
 
 	//! 결제를 진행 중 일 경우
 	public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs a_oArgs) {
 		string oID = a_oArgs.purchasedProduct.definition.id;
-		Func.ShowLog("CPurchaseManager.ProcessPurchase: {0}", Color.yellow, a_oArgs.purchasedProduct.definition.id);
+		Func.ShowLog("CPurchaseManager.ProcessPurchase: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oArgs.purchasedProduct.definition.id);
 
 		try {
 			if(m_bIsPurchasing) {
@@ -90,7 +90,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 			return PurchaseProcessingResult.Pending;
 #endif			// #if RECEIPT_CHECK_ENABLE
 		} catch(System.Exception oException) {
-			Func.ShowLogWarning("CPurchaseManager.ProcessPurchase Exception: {0}", Color.yellow, oException);
+			Func.ShowLogWarning("CPurchaseManager.ProcessPurchase Exception: {0}", oException);
 			this.PurchaseProductIDList.ExRemoveValue(oID);
 
 #if MESSAGE_PACK_ENABLE
@@ -106,7 +106,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	//! 결제에 실패했을 경우
 	public void OnPurchaseFailed(Product a_oProduct, PurchaseFailureReason a_eReason) {
 		string oID = a_oProduct.definition.id;
-		Func.ShowLogWarning("CPurchaseManager.OnPurchaseFailed: {0}, {1}", Color.yellow, oID, a_eReason);
+		Func.ShowLogWarning("CPurchaseManager.OnPurchaseFailed: {0}, {1}", oID, a_eReason);
 
 		if(a_eReason == PurchaseFailureReason.DuplicateTransaction) {
 			this.HandlePurchaseResult(oID, true, true);
@@ -128,7 +128,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 
 	//! 초기화
 	public virtual void Init(List<STProductInfo> a_oProductInfoList, System.Action<CPurchaseManager, bool> a_oCallback) {
-		Func.ShowLog("CPurchaseManager.Init: {0}", Color.yellow, a_oProductInfoList);
+		Func.ShowLog("CPurchaseManager.Init: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oProductInfoList);
 
 		if(this.IsInit || (!Func.IsEditorPlatform() && !Func.IsMobilePlatform())) {
 			a_oCallback?.Invoke(this, this.IsInit);
@@ -155,7 +155,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	//! 상품이 복원 되었을 경우
 	public void OnRestoreProducts(bool a_bIsSuccess) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_PURCHASE_M_RESTORE_CALLBACK, () => {
-			Func.ShowLog("CPurchaseManager.OnRestoreProducts: {0}", Color.yellow, a_bIsSuccess);
+			Func.ShowLog("CPurchaseManager.OnRestoreProducts: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_bIsSuccess);
 			m_bIsPurchasing = false;
 
 			if(!a_bIsSuccess) {
@@ -201,7 +201,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 
 	//! 상품을 결제한다
 	public void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
-		Func.ShowLog("CPurchaseManager.PurchaseProduct: {0}", Color.yellow, a_oID);
+		Func.ShowLog("CPurchaseManager.PurchaseProduct: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oID);
 		
 		var oProduct = this.GetProduct(a_oID);
 		bool bIsEnablePurchase = oProduct != null && oProduct.availableToPurchase;
@@ -222,7 +222,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 
 	//! 상품을 복구한다
 	public void RestoreProducts(System.Action<CPurchaseManager, List<Product>, bool> a_oCallback) {
-		Func.ShowLog("CPurchaseManager.RestoreProduct", Color.yellow);
+		Func.ShowLog("CPurchaseManager.RestoreProduct", KDefine.B_LOG_COLOR_PLUGIN);
 
 		if(!this.IsInit) {
 			a_oCallback?.Invoke(this, null, false);
@@ -246,7 +246,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 
 	//! 결제를 확정한다
 	public void ConfirmPurchase(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
-		Func.ShowLog("CPurchaseManager.ConfirmPurchase: {0}", Color.yellow, a_oID);
+		Func.ShowLog("CPurchaseManager.ConfirmPurchase: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oID);
 
 		var oProduct = this.GetProduct(a_oID);
 		bool bIsEnablePurchase = oProduct != null && oProduct.availableToPurchase;
@@ -288,7 +288,8 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 #if MESSAGE_PACK_ENABLE
 	//! 결제 상품 아이디를 저장한다
 	private void SavePurchaseProductIDs() {
-		Func.ShowLog("CPurchaseManager.SavePurchaseProductIDs: {0}, {1}", Color.yellow, this.PurchaseProductIDList, this.PurchaseProductIDList.Count);
+		Func.ShowLog("CPurchaseManager.SavePurchaseProductIDs: {0}, {1}", 
+			KDefine.B_LOG_COLOR_PLUGIN, this.PurchaseProductIDList, this.PurchaseProductIDList.Count);
 
 		using(var oWriteStream = Func.GetWriteStream(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST)) {
 			var oBytes = MessagePackSerializer.Serialize<List<string>>(this.PurchaseProductIDList);
@@ -303,7 +304,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 
 	//! 결제 상품 아이디를 로드한다
 	private void LoadPurchaseProductIDs() {
-		Func.ShowLog("CPurchaseManager.LoadPurchaseProductIDs", Color.yellow);
+		Func.ShowLog("CPurchaseManager.LoadPurchaseProductIDs", KDefine.B_LOG_COLOR_PLUGIN);
 
 		if(File.Exists(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST)) {
 #if SECURITY_ENABLE
@@ -313,7 +314,9 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 #endif			// #if SECURITY_ENABLE
 
 			this.PurchaseProductIDList = MessagePackSerializer.Deserialize<List<string>>(oBytes);
-			Func.ShowLog("CPurchaseManager.OnLoadPurchaseProductIDs: {0}, {1}", Color.yellow, this.PurchaseProductIDList, this.PurchaseProductIDList.Count);
+			
+			Func.ShowLog("CPurchaseManager.OnLoadPurchaseProductIDs: {0}, {1}", 
+				KDefine.B_LOG_COLOR_PLUGIN, this.PurchaseProductIDList, this.PurchaseProductIDList.Count);
 		}
 	}
 #endif			// #if MESSAGE_PACK_ENABLE

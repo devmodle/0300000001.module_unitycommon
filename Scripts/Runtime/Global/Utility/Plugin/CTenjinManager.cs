@@ -29,7 +29,7 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(string a_oAPIKey, System.Action<CTenjinManager, bool> a_oCallback) {
-		Func.ShowLog("CTenjinManager.Init: {0}", Color.yellow, a_oAPIKey);
+		Func.ShowLog("CTenjinManager.Init: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oAPIKey);
 
 		if(!this.IsInit && Func.IsMobilePlatform()) {
 			Func.Assert(a_oAPIKey.ExIsValid());
@@ -65,7 +65,7 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 #if TENJIN_ANALYTICS_ENABLE && PURCHASE_ENABLE
 	//! 결제 로그를 전송한다
 	public void SendPurchaseLog(Product a_oProduct) {
-		Func.ShowLog("CTenjinManager.SendPurchaseLog: {0}", Color.yellow, a_oProduct);
+		Func.ShowLog("CTenjinManager.SendPurchaseLog: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oProduct);
 		
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {

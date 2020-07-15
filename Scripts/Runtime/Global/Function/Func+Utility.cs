@@ -314,6 +314,16 @@ public static partial class Func {
 
 	#region 조건부 클래스 함수
 #if UNITY_EDITOR
+	//! 스크립트 순서를 변경한다
+	public static void SetScriptOrder(MonoScript a_oScript, int a_nOrder) {
+		Func.Assert(a_oScript != null && (a_nOrder >= short.MinValue && a_nOrder <= short.MaxValue));
+		int nOrder = MonoImporter.GetExecutionOrder(a_oScript);
+
+		if(nOrder != a_nOrder) {
+			MonoImporter.SetExecutionOrder(a_oScript, a_nOrder);
+		}
+	}
+
 	//! 객체를 선택한다
 	public static void SelectObj(GameObject a_oObj, bool a_bIsEnablePing = false) {
 		Func.Assert(a_oObj != null);

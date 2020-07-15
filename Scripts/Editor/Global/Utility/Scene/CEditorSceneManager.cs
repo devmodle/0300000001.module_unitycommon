@@ -73,6 +73,7 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_fSkipTime = 0.0f;
 
 				CEditorSceneManager.SetupScene();
+				CEditorSceneManager.SetupScriptOrders();
 				CEditorSceneManager.SetupLightOptions();
 
 #if FILE_BROWSER_ENABLE

@@ -11,7 +11,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 유니티 애즈 배너 광고를 로드했을 경우
 	public void OnLoadUnityAdsBannerAds() {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_UNITY_ADS_BANNER_ADS_LOAD_CALLBACK, () => {
-			Func.ShowLog("CAdsManager.OnLoadUnityAdsBannerAds", Color.yellow);
+			Func.ShowLog("CAdsManager.OnLoadUnityAdsBannerAds", KDefine.B_LOG_COLOR_PLUGIN);
 			m_stVariable.m_stUnityAdsVariable.m_nBannerAdsLoadTryTimes = 0;
 
 			this.HandleLoadUnityAdsBannerAdsResult();
@@ -21,7 +21,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 유니티 애즈 배너 광고 로드에 실패했을 경우
 	public void OnLoadFailUnityAdsBannerAds(string a_oMsg) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_UNITY_ADS_BANNER_ADS_LOAD_FAIL_CALLBACK, () => {
-			Func.ShowLog("CAdsManager.OnLoadFailUnityAdsBannerAds: {0}", Color.yellow, a_oMsg);
+			Func.ShowLog("CAdsManager.OnLoadFailUnityAdsBannerAds: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oMsg);
 			m_stVariable.m_stUnityAdsVariable.m_nBannerAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stUnityAdsVariable.m_nBannerAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
@@ -33,7 +33,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 유니티 애즈 광고를 로드했을 경우
 	public void OnLoadUnityAds(string a_oPlacement) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_UNITY_ADS_LOAD_CALLBACK, () => {
-			Func.ShowLog("CAdsManager.OnLoadUnityAds: {0}", Color.yellow, a_oPlacement);
+			Func.ShowLog("CAdsManager.OnLoadUnityAds: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oPlacement);
 			m_stVariable.m_stUnityAdsVariable.m_oLoadingAdsPlacementList.ExRemoveValue(a_oPlacement);
 
 			var stResult = Func.FindValue<string, string>(m_stParameters.m_stUnityAdsParameters.m_oAdsPlacementList, (a_oUnityAdsPlacement) => {
@@ -49,7 +49,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 유니티 애즈 광고 로드에 실패했을 경우
 	public void OnLoadFailUnityAds(string a_oMsg) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_UNITY_ADS_LOAD_FAIL_CALLBACK, () => {
-			Func.ShowLog("CAdsManager.OnLoadFailUnityAds: {0}", Color.yellow, a_oMsg);
+			Func.ShowLog("CAdsManager.OnLoadFailUnityAds: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oMsg);
 
 			for(int i = 0; i < m_stVariable.m_stUnityAdsVariable.m_oLoadingAdsPlacementList.Count; ++i) {
 				string oPlacement = m_stVariable.m_stUnityAdsVariable.m_oLoadingAdsPlacementList[i];
@@ -82,7 +82,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 유니티 애즈 광고가 닫혔을 경우
 	public void OnCloseUnityAds(string a_oPlacement, ShowResult a_eShowResult) {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_UNITY_ADS_CLOSE_CALLBACK, () => {
-			Func.ShowLog("CAdsManager.OnCloseUnityAds: {0}, {1}", Color.yellow, a_oPlacement, a_eShowResult);
+			Func.ShowLog("CAdsManager.OnCloseUnityAds: {0}, {1}", KDefine.B_LOG_COLOR_PLUGIN, a_oPlacement, a_eShowResult);
 
 			var stResult = Func.FindValue<string, string>(m_stParameters.m_stUnityAdsParameters.m_oAdsPlacementList, (a_oUnityAdsPlacement) => {
 				return a_oPlacement.ExIsEquals(a_oUnityAdsPlacement);
