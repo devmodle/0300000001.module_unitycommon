@@ -50,7 +50,7 @@ public class CToastPopupManager : CSingleton<CToastPopupManager> {
 	//! 토스트 팝업을 생성한다
 	private CToastPopup CreateToastPopup(string a_oMsg, float a_fDuration) {
 		return Func.CreateToastPopup<CToastPopup>(KDefine.U_OBJ_NAME_TOAST_P_TOAST_POPUP,
-			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOAST_POPUP), CSceneManager.ScreenTopmostUIRoot, a_oMsg, a_fDuration);
+			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOAST_POPUP), CSceneManager.ScreenTopmostUIRoot, a_oMsg, a_fDuration);
 	}
 	#endregion			// 함수
 }

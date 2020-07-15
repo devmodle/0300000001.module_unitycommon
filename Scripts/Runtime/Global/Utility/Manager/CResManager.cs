@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.U2D;
 
 //! 리소스 관리자
-public class CResourceManager : CSingleton<CResourceManager> {
+public class CResManager : CSingleton<CResManager> {
 	#region 변수
 	private Dictionary<string, Mesh> m_oMeshList = new Dictionary<string, Mesh>();
 	private Dictionary<string, Shader> m_oShaderList = new Dictionary<string, Shader>();

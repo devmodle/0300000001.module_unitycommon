@@ -159,7 +159,7 @@ public class CPopup : CUIComponent {
 	//! 터치 응답자를 생성한다
 	protected virtual GameObject CreateTouchResponder() {
 		return Func.CreateTouchResponder(string.Format(KDefine.U_OBJ_NAME_FORMAT_POPUP_TOUCH_RESPONDER, this.gameObject.name),
-			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
+			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
 			this.gameObject,
 			CSceneManager.CanvasSize,
 			Vector3.zero.ExToLocal(this.gameObject),
