@@ -11,7 +11,7 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 	//! 크래시 데이터를 변경한다
 	public void SetCrashDatas(Dictionary<string, string> a_oDataList) {
 		Func.Assert(a_oDataList.ExIsValid());
-		Func.ShowLog("CUnityServiceManager.SetCrashDatas: {0}", Color.yellow, a_oDataList);
+		Func.ShowLog("CUnityServiceManager.SetCrashDatas: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oDataList);
 
 		if(this.IsInit) {
 			foreach(var stKeyValue in a_oDataList) {

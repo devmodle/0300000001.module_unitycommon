@@ -25,7 +25,7 @@ public class CDeviceMsgReceiver : CSingleton<CDeviceMsgReceiver> {
 	//! 디바이스 메세지를 처리한다
 	private void HandleDeviceMsg(string a_oMsg) {
 		Func.Assert(a_oMsg.ExIsValid());
-		Func.ShowLog("CDeviceMsgReceiver.HandleDeviceMsg: {0}", Color.yellow, a_oMsg);
+		Func.ShowLog("CDeviceMsgReceiver.HandleDeviceMsg: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oMsg);
 
 		var oJSONNode = JSON.Parse(a_oMsg);
 		string oCmd = oJSONNode[KDefine.U_KEY_DEVICE_CMD];

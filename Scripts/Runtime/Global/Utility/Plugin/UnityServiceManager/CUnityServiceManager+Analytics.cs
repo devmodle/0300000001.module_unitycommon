@@ -11,7 +11,7 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 	//! 분석 유저 식별자를 변경한다
 	public void SetAnalyticsUserID(string a_oID) {
 		Func.Assert(a_oID.ExIsValid());
-		Func.ShowLog("CUnityServiceManager.SetAnalyticsUserID: {0}", Color.yellow, a_oID);
+		Func.ShowLog("CUnityServiceManager.SetAnalyticsUserID: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oID);
 
 		if(this.IsInit) {
 			Analytics.SetUserId(a_oID);
@@ -35,7 +35,7 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 	//! 로그를 전송한다
 	public void SendLog(string a_oName, Dictionary<string, object> a_oDataList) {
 		Func.Assert(a_oName.ExIsValid());
-		Func.ShowLog("CUnityServiceManager.SendLog: {0}, {1}", Color.yellow, a_oName, a_oDataList);
+		Func.ShowLog("CUnityServiceManager.SendLog: {0}, {1}", KDefine.B_LOG_COLOR_PLUGIN, a_oName, a_oDataList);
 
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {

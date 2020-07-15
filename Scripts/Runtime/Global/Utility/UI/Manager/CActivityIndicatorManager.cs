@@ -34,7 +34,7 @@ public class CActivityIndicatorManager : CSingleton<CActivityIndicatorManager> {
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 				CUnityMsgSender.Instance.SendActivityIndicatorMsg(true);
 #else
-				Func.ShowLog("CActivityIndicatorManager.StartActivityIndicator: {0}", Color.blue, m_nRefCount);
+				Func.ShowLog("CActivityIndicatorManager.StartActivityIndicator: {0}", KDefine.B_LOG_COLOR_SETUP, m_nRefCount);
 #endif			// #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 			}
 
@@ -57,7 +57,7 @@ public class CActivityIndicatorManager : CSingleton<CActivityIndicatorManager> {
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 			CUnityMsgSender.Instance.SendActivityIndicatorMsg(false);
 #else
-			Func.ShowLog("CActivityIndicatorManager.StopActivityIndicator: {0}", Color.blue, m_nRefCount);
+			Func.ShowLog("CActivityIndicatorManager.StopActivityIndicator: {0}", KDefine.B_LOG_COLOR_SETUP, m_nRefCount);
 #endif			// #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 
 			CSceneManager.CloseTouchResponder(KDefine.U_OBJ_NAME_ACTIVITY_I_TOUCH_RESPONDER, 

@@ -213,9 +213,9 @@ public abstract partial class CSceneManager : CComponent {
 		// 처음 씬을 생성했을 경우
 		if(!CSceneManager.IsAwake) {
 #if DEBUG || DEVELOPMENT_BUILD
-			Func.ShowLog("Platform: {0}", Color.red, Application.platform);
-			Func.ShowLog("Data Path: {0}", Color.red, Application.dataPath);
-			Func.ShowLog("Persistent Data Path: {0}", Color.red, Application.persistentDataPath);
+			Func.ShowLog("Platform: {0}", KDefine.B_LOG_COLOR_PLATFORM_INFO, Application.platform);
+			Func.ShowLog("Data Path: {0}", KDefine.B_LOG_COLOR_PLATFORM_INFO, Application.dataPath);
+			Func.ShowLog("Persistent Data Path: {0}", KDefine.B_LOG_COLOR_PLATFORM_INFO, Application.persistentDataPath);
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 			CSceneManager.IsInit = false;

@@ -16,7 +16,7 @@ public partial class CUnityServiceManager : CSingleton<CUnityServiceManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(System.Action<CUnityServiceManager, bool> a_oCallback) {
-		Func.ShowLog("CUnityServiceManager.Init", Color.yellow);
+		Func.ShowLog("CUnityServiceManager.Init", KDefine.B_LOG_COLOR_PLUGIN);
 
 		if(!this.IsInit && Func.IsMobilePlatform()) {
 			this.IsInit = true;

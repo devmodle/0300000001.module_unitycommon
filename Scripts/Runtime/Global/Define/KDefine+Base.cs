@@ -194,10 +194,15 @@ public static partial class KDefine {
 	public static readonly Vector2 B_WORLD_SCREEN_SIZE = new Vector2(KDefine.B_WORLD_SCREEN_WIDTH, KDefine.B_WORLD_SCREEN_HEIGHT);
 	// 디바이스 }
 
-	// 색상
+	// 색상 {
 	public static readonly Color B_LOG_COLOR_INFO = Color.black;
 	public static readonly Color B_LOG_COLOR_WARNING = new Color(0xff / 255.0f, 0x7f / 2.0f, 0.0f);
 	public static readonly Color B_LOG_COLOR_ERROR = Color.red;
+
+	public static readonly Color B_LOG_COLOR_SETUP = Color.blue;
+	public static readonly Color B_LOG_COLOR_PLUGIN = Color.yellow;
+	public static readonly Color B_LOG_COLOR_PLATFORM_INFO = Color.red;
+	// 색상 }
 
 	// 앵커 {
 	public static readonly Vector2 B_ANCHOR_TOP_LEFT = new Vector2(0.0f, 1.0f);

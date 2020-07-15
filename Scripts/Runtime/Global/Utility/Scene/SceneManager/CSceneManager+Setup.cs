@@ -22,13 +22,13 @@ public abstract partial class CSceneManager : CComponent {
 			this.SetupSubScene();
 
 			if(Application.isPlaying) {
-				Func.ShowLog("CSceneManager.SubSceneAwake: {0}", Color.blue, this.SceneName);
+				Func.ShowLog("CSceneManager.SubSceneAwake: {0}", KDefine.B_LOG_COLOR_SETUP, this.SceneName);
 			}
 		} else {
 			this.SetupRootScene();
 
 			if(Application.isPlaying) {
-				Func.ShowLog("CSceneManager.RootSceneAwake: {0}", Color.blue, this.SceneName);
+				Func.ShowLog("CSceneManager.RootSceneAwake: {0}", KDefine.B_LOG_COLOR_SETUP, this.SceneName);
 			}
 		}
 		// 씬을 설정한다 }

@@ -14,7 +14,7 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(string a_oAPIKey, System.Action<CFlurryManager, bool> a_oCallback) {
-		Func.ShowLog("CFlurryManager.Init: {0}", Color.yellow, a_oAPIKey);
+		Func.ShowLog("CFlurryManager.Init: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oAPIKey);
 
 		if(!this.IsInit && Func.IsMobilePlatform()) {
 			Func.Assert(a_oAPIKey.ExIsValid());
@@ -57,7 +57,7 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 	//! 유저 식별자를 변경한다
 	public void SetUserID(string a_oID) {
 		Func.Assert(a_oID.ExIsValid());
-		Func.ShowLog("CFlurryManager.SetUserID: {0}", Color.yellow, a_oID);
+		Func.ShowLog("CFlurryManager.SetUserID: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oID);
 
 		if(this.IsInit) {
 			Flurry.SetUserId(a_oID);
@@ -81,7 +81,7 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 	//! 로그를 전송한다
 	public void SendLog(string a_oName, Dictionary<string, string> a_oDataList) {
 		Func.Assert(a_oName.ExIsValid());
-		Func.ShowLog("CFlurryManager.SendLog: {0}, {1}", Color.yellow, a_oName, a_oDataList);
+		Func.ShowLog("CFlurryManager.SendLog: {0}, {1}", KDefine.B_LOG_COLOR_PLUGIN, a_oName, a_oDataList);
 
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {

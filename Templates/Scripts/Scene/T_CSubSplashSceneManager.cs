@@ -8,7 +8,7 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 	#region 함수
 	//! 스플래시를 출력한다
 	protected override void ShowSplash() {
-		// Do Nothing
+		this.LoadNextScene();
 	}
 	#endregion			// 함수
 }
