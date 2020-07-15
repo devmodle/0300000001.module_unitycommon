@@ -257,7 +257,7 @@ public static partial class KEditorDefine {
 		[typeof(CLogManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CSndManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CScheduleManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CResourceManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CResManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CNavigationManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CToastPopupManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CActivityIndicatorManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
