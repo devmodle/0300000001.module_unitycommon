@@ -9,7 +9,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	//! 블라인드 이미지를 생성한다
 	private Image CreateBlindImg(string a_oName, GameObject a_oParent) {
 		var oObj = Func.CreateCloneObj(a_oName,
-			CResourceManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_BLIND_IMG), a_oParent);
+			CResManager.Instance.GetPrefab(KDefine.IS_PATH_SCREEN_BLIND_IMG), a_oParent);
 
 		return oObj.GetComponentInChildren<Image>();
 	}

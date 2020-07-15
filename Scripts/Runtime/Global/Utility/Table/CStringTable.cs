@@ -50,11 +50,11 @@ public class CStringTable : CSingleton<CStringTable> {
 
 	//! 문자열을 로드한다
 	public void LoadStringsFromRes(string a_oFilepath) {
-		var oTextAsset = CResourceManager.Instance.GetTextAsset(a_oFilepath);
+		var oTextAsset = CResManager.Instance.GetTextAsset(a_oFilepath);
 		Func.Assert(oTextAsset.ExIsValid());
 
 		this.LoadStrings(oTextAsset.text);
-		CResourceManager.Instance.RemoveTextAsset(a_oFilepath, true);
+		CResManager.Instance.RemoveTextAsset(a_oFilepath, true);
 	}
 	#endregion			// 함수
 }

@@ -104,7 +104,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CLogManager.Create();
 			CSndManager.Create();
 			CScheduleManager.Create();
-			CResourceManager.Create();
+			CResManager.Create();
 			CNavigationManager.Create();
 			CToastPopupManager.Create();
 			CActivityIndicatorManager.Create();

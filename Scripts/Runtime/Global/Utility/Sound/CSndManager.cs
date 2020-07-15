@@ -65,7 +65,7 @@ public class CSndManager : CSingleton<CSndManager> {
 
 		// 배경음을 생성한다 {
 		m_oBGSnd = Func.CreateCloneObj<CSnd>(KDefine.U_OBJ_NAME_SND_M_BG_SND,
-			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_BG_SND), this.gameObject);
+			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_BG_SND), this.gameObject);
 
 		m_oBGSnd.transform.localPosition = Vector3.zero;
 		// 배경음을 생성한다 }
@@ -98,7 +98,7 @@ public class CSndManager : CSingleton<CSndManager> {
 		Func.Assert(a_oFilepath.ExIsValid());
 		
 		if(!this.IsMuteFXSnds) {
-			AudioSource.PlayClipAtPoint(CResourceManager.Instance.GetAudioClip(a_oFilepath), a_stPos, this.FXSndsVolume);
+			AudioSource.PlayClipAtPoint(CResManager.Instance.GetAudioClip(a_oFilepath), a_stPos, this.FXSndsVolume);
 		}
 	}
 
@@ -111,7 +111,7 @@ public class CSndManager : CSingleton<CSndManager> {
 			m_oBGSnd.Volume = this.BGSndVolume;
 			
 			m_oBGSndFilepath = a_oFilepath;
-			m_oBGSnd.PlaySnd(CResourceManager.Instance.GetAudioClip(a_oFilepath), a_bIsLoop, false);
+			m_oBGSnd.PlaySnd(CResManager.Instance.GetAudioClip(a_oFilepath), a_bIsLoop, false);
 		}
 
 		return m_oBGSnd;
@@ -133,7 +133,7 @@ public class CSndManager : CSingleton<CSndManager> {
 			oSnd.transform.position = a_stPos;
 
 			bool bIs3DSnd = !CSceneManager.MainCamera.transform.position.ExIsEquals(a_stPos);
-			oSnd.PlaySnd(CResourceManager.Instance.GetAudioClip(a_oFilepath), a_bIsLoop, bIs3DSnd);
+			oSnd.PlaySnd(CResManager.Instance.GetAudioClip(a_oFilepath), a_bIsLoop, bIs3DSnd);
 		}
 
 		return oSnd;
@@ -196,7 +196,7 @@ public class CSndManager : CSingleton<CSndManager> {
 
 		// 효과음을 생성한다 {
 		var oSnd = Func.CreateCloneObj<CSnd>(KDefine.U_OBJ_NAME_SND_M_FX_SND,
-			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_FX_SND), this.gameObject);
+			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_FX_SND), this.gameObject);
 
 		oSnd.transform.localPosition = Vector3.zero;
 		oFXSndList.Add(oSnd);

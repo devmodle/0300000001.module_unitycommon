@@ -82,12 +82,12 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			Func.BroadcastMsg(KDefine.AS_FUNC_NAME_AGREE_SCENE_MANAGER_EVENT, 
 				EAgreeSceneManagerEventType.SHOW_AGREE_POPUP);
 			
-			this.ShowAgreePopup(CResourceManager.Instance.GetTextAsset(oServiceFilepath).text,
-				CResourceManager.Instance.GetTextAsset(oPersonalFilepath).text);
+			this.ShowAgreePopup(CResManager.Instance.GetTextAsset(oServiceFilepath).text,
+				CResManager.Instance.GetTextAsset(oPersonalFilepath).text);
 
 			Func.LateCallFunc(this, KDefine.U_DEF_DURATION_ANIMATION, (a_oComponent, a_oParams) => {
-				CResourceManager.Instance.RemoveTextAsset(oServiceFilepath, true);
-				CResourceManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
+				CResManager.Instance.RemoveTextAsset(oServiceFilepath, true);
+				CResManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
 			});
 		}
 #endif			// #if ROBO_TEST_ENABLE

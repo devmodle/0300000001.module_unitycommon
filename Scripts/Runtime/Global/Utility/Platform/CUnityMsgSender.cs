@@ -32,8 +32,8 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 		base.Awake();
 
 #if UNITY_IOS
-		m_oLoginWithApple = Func.CreateCloneObj<SignInWithApple>(KDefine.U_OBJ_NAME_LOGIN_WITH_APPLE,
-			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_LOGIN_WITH_APPLE),
+		m_oLoginWithApple = Func.CreateCloneObj<SignInWithApple>(KDefine.U_OBJ_NAME_LOGIN_IN_WITH_APPLE,
+			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_LOGIN_IN_WITH_APPLE),
 			this.gameObject);
 #endif			// #if UNITY_IOS
 	}

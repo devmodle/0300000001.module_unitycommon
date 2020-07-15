@@ -108,11 +108,11 @@ public class CValueTable : CSingleton<CValueTable> {
 
 	//! 값을 로드한다
 	public void LoadValuesFromRes(string a_oFilepath) {
-		var oTextAsset = CResourceManager.Instance.GetTextAsset(a_oFilepath);
+		var oTextAsset = CResManager.Instance.GetTextAsset(a_oFilepath);
 		Func.Assert(oTextAsset.ExIsValid());
 
 		this.LoadValues(oTextAsset.text);
-		CResourceManager.Instance.RemoveTextAsset(a_oFilepath, true);
+		CResManager.Instance.RemoveTextAsset(a_oFilepath, true);
 	}
 	#endregion			// 함수
 }

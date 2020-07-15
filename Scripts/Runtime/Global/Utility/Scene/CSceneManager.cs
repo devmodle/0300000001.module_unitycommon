@@ -427,7 +427,7 @@ public abstract partial class CSceneManager : CComponent {
 
 		if(!CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey)) {
 			var oTouchResponder = Func.CreateTouchResponder(string.Format(KDefine.U_KEY_FORMAT_SCENE_M_TOUCH_RESPONDER, a_oKey),
-				CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
+				CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
 				a_oParent,
 				CSceneManager.CanvasSize,
 				KDefine.B_POS_MIDDLE_CENTER,
