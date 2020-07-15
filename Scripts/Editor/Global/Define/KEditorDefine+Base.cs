@@ -384,16 +384,16 @@ public static partial class KEditorDefine {
 	};
 
 	public static readonly KeyValuePair<string, string>[] B_PATH_COMPARE_SCRIPT_FILEPATH_INFOS = new KeyValuePair<string, string>[] {
-		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/JSON.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
+		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/TotalJSON/JSON.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
 			string.Format("{0}00.Application/Common/External/TotalJSON/Scripts/JSON.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS)),
 
-		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/InternalTools.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
+		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/TotalJSON/InternalTools.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
 			string.Format("{0}00.Application/Common/External/TotalJSON/Internal/InternalTools.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS)),
 
-		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/Timer.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
+		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/SmartTimer/Timer.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
 			string.Format("{0}00.Application/Common/External/SmartTimersManager/TimerManager/Timer.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS)),
 
-		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/ObjectPool.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
+		new KeyValuePair<string, string>(string.Format("{0}../Packages/Scripts/ObjectPool/ObjectPool.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS),
 			string.Format("{0}00.Application/Common/External/AdvanceObjectpool/Scripts/ObjectPool.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS))
 	};
 
