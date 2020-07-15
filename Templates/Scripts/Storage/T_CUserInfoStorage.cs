@@ -123,7 +123,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 			try {
 				this.UserInfo = MessagePackSerializer.Deserialize<CUserInfo>(oBytes);
 			} catch(System.Exception oException) {
-				Func.ShowLogWarning("CUserInfoStorage.LoadUserInfo Exception: {0}", oException);
+				Func.ShowLogWarning("CUserInfoStorage.LoadUserInfo Exception: {0}", oException.Message);
 
 				this.Reset();
 				this.SaveUserInfo(a_oFilepath);

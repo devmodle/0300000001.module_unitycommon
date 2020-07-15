@@ -438,7 +438,7 @@ public static partial class KDefine {
 
 #if UNITY_IOS
 	// 이름 {
-	public const string U_OBJ_NAME_SIGN_IN_WITH_APPLE = "SignInWithApple";
+	public const string U_OBJ_NAME_LOGIN_WITH_APPLE = "LoginWithApple";
 
 #if HAPTIC_FEEDBACK_ENABLE
 	public const string U_MODEL_NAME_IPHONE = "iPhone";
@@ -706,7 +706,7 @@ public static partial class KDefine {
 	#region 조건부 런타임 상수
 #if UNITY_IOS
 	// 경로
-	public static readonly string U_OBJ_PATH_SIGN_IN_WITH_APPLE = string.Format("{0}{1}U_SignInWithApple", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE);
+	public static readonly string U_OBJ_PATH_LOGIN_WITH_APPLE = string.Format("{0}{1}U_LogInWithApple", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE);
 
 #if HAPTIC_FEEDBACK_ENABLE
 	// 햅틱 피드백 지원 모델

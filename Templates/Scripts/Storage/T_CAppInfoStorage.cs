@@ -144,7 +144,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 			try {
 				this.AppInfo = MessagePackSerializer.Deserialize<CAppInfo>(oBytes);
 			} catch(System.Exception oException) {
-				Func.ShowLogWarning("CAppInfoStorage.LoadAppInfo Exception: {0}", oException);
+				Func.ShowLogWarning("CAppInfoStorage.LoadAppInfo Exception: {0}", oException.Message);
 
 				this.Reset();
 				this.SaveAppInfo(a_oFilepath);

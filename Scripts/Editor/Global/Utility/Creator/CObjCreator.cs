@@ -107,108 +107,108 @@ public static partial class CObjCreator {
 	//! 원본 텍스트를 생성한다
 	[MenuItem("GameObject/Create Other/Original/Text/Text")]
 	public static void CreateOriginText() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_TEXT, KDefine.U_OBJ_PATH_TEXT, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_TEXT, KDefine.U_OBJ_PATH_TEXT, false);
 	}
 
 	//! 원본 텍스트를 생성한다
 	[MenuItem("GameObject/Create Other/Original/Text/LocalizeText")]
 	public static void CreateOriginLocalizeText() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT, KDefine.U_OBJ_PATH_LOCALIZE_TEXT, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT, KDefine.U_OBJ_PATH_LOCALIZE_TEXT, false);
 	}
 	
 	//! 원본 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Text + Button/TextButton")]
 	public static void CreateOriginTextBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_TEXT_BTN, KDefine.U_OBJ_PATH_TEXT_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_TEXT_BTN, KDefine.U_OBJ_PATH_TEXT_BTN, false);
 	}
 
 	//! 원본 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Text + Button/TextScaleButton")]
 	public static void CreateOriginTextScaleBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_TEXT_SCALE_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_TEXT_SCALE_BTN, false);
 	}
 
 	//! 원본 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/LocalizeText + Button/LocalizeTextButton")]
 	public static void CreateOriginLocalizeTextBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_BTN, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_BTN, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_BTN, false);
 	}
 
 	//! 원본 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/LocalizeText + Button/LocalizeTextScaleButton")]
 	public static void CreateOriginLocalizeTextScaleBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BTN, false);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + Button/ImageButton")]
 	public static void CreateOriginImgBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_BTN, KDefine.U_OBJ_PATH_IMG_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_BTN, KDefine.U_OBJ_PATH_IMG_BTN, false);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + Button/ImageScaleButton")]
 	public static void CreateOriginImgScaleBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_SCALE_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_SCALE_BTN, false);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + Text + Button/ImageTextButton")]
 	public static void CreateOriginImgTextBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_TEXT_BTN, KDefine.U_OBJ_PATH_IMG_TEXT_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_TEXT_BTN, KDefine.U_OBJ_PATH_IMG_TEXT_BTN, false);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + Text + Button/ImageTextScaleButton")]
 	public static void CreateOriginImgTextScaleBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_TEXT_SCALE_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_TEXT_SCALE_BTN, false);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + LocalizeText + Button/ImageLocalizeTextButton")]
 	public static void CreateOriginImgLocalizeTextBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_LOCALIZE_TEXT_BTN, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_LOCALIZE_TEXT_BTN, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_BTN, false);
 	}
 
 	//! 원본 이미지 버튼을 생성한다
 	[MenuItem("GameObject/Create Other/Original/Button/Image + LocalizeText + Button/ImageLocalizeTextScaleButton")]
 	public static void CreateOriginImgLocalizeTextScaleBtn() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_LOCALIZE_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_SCALE_BTN, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG_LOCALIZE_TEXT_SCALE_BTN, KDefine.U_OBJ_PATH_IMG_LOCALIZE_TEXT_SCALE_BTN, false);
 	}
 
 	//! 원본 스크롤 뷰를 생성한다
 	[MenuItem("GameObject/Create Other/Original/ScrollView/ScrollView")]
 	public static void CreateOriginScrollView() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_SCROLL_VIEW, KDefine.U_OBJ_PATH_SCROLL_VIEW, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_SCROLL_VIEW, KDefine.U_OBJ_PATH_SCROLL_VIEW, false);
 	}
 
 	//! 원본 페이지 스크롤 뷰를 생성한다
 	[MenuItem("GameObject/Create Other/Original/ScrollView/PageScrollView")]
 	public static void CreateOriginPageScrollView() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_PAGE_SCROLL_VIEW, KDefine.U_OBJ_PATH_PAGE_SCROLL_VIEW, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_PAGE_SCROLL_VIEW, KDefine.U_OBJ_PATH_PAGE_SCROLL_VIEW, false);
 	}
 
 	//! 원본 터치 응답자를 생성한다
 	[MenuItem("GameObject/Create Other/Original/Responder/TouchResponder")]
 	public static void CreateOriginTouchResponder() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_TOUCH_RESPONDER, KDefine.U_OBJ_PATH_TOUCH_RESPONDER, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_TOUCH_RESPONDER, KDefine.U_OBJ_PATH_TOUCH_RESPONDER, false);
 	}
 
 	//! 원본 드래그 응답자를 생성한다
 	[MenuItem("GameObject/Create Other/Original/Responder/DragResponder")]
 	public static void CreateOriginDragResponder() {
-		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_DRAG_RESPONDER, KDefine.U_OBJ_PATH_DRAG_RESPONDER, true);
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_DRAG_RESPONDER, KDefine.U_OBJ_PATH_DRAG_RESPONDER, false);
 	}
 
 	//! 객체를 생성한다
-	private static GameObject CreateObj(string a_oName, string a_oFilepath, bool a_bIsOriginal = true) {
+	private static GameObject CreateObj(string a_oName, string a_oFilepath, bool a_bIsPrefab = true) {
 		GameObject oObj = null;
 		GameObject oOrigin = Resources.Load<GameObject>(a_oFilepath);
 		
-		if(a_bIsOriginal) {
-			oObj = Func.CreateCloneObj(a_oName, oOrigin, EditorFunc.GetActiveObj());
-		} else {
+		if(a_bIsPrefab) {
 			oObj = EditorFunc.CreatePrefabInstance(a_oName, oOrigin, EditorFunc.GetActiveObj());
+		} else {
+			oObj = Func.CreateCloneObj(a_oName, oOrigin, EditorFunc.GetActiveObj());
 		}
 
 		Func.SelectObj(oObj);

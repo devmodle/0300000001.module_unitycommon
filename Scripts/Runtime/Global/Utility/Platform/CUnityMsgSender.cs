@@ -10,6 +10,11 @@ using UnityEngine.SignInWithApple;
 //! 유니티 메세지 전송자
 public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 	#region 변수
+#if UNITY_IOS
+	private System.Action<SignInWithApple.CallbackArgs, bool> m_oLoginCallback = null;
+	private System.Action<SignInWithApple.CallbackArgs, bool> m_oCredentialCallback = null;
+#endif			// #if UNITY_IOS
+
 #if !UNITY_EDITOR && UNITY_ANDROID
 	private AndroidJavaClass m_oAndroidPlugin = new AndroidJavaClass(KDefine.U_CLS_NAME_UNITY_MS_MSG_RECEIVER);
 #endif			// #if !UNITY_EDITOR && UNITY_ANDROID
@@ -17,7 +22,7 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 
 	#region 컴포넌트
 #if UNITY_IOS
-	private SignInWithApple m_oSignInWithApple = null;
+	private SignInWithApple m_oLoginWithApple = null;
 #endif			// #if UNITY_IOS
 	#endregion			// 컴포넌트
 
@@ -27,8 +32,8 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 		base.Awake();
 
 #if UNITY_IOS
-		m_oSignInWithApple = Func.CreateCloneObj<SignInWithApple>(KDefine.U_OBJ_NAME_SIGN_IN_WITH_APPLE,
-			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_SIGN_IN_WITH_APPLE),
+		m_oLoginWithApple = Func.CreateCloneObj<SignInWithApple>(KDefine.U_OBJ_NAME_LOGIN_WITH_APPLE,
+			CResourceManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_LOGIN_WITH_APPLE),
 			this.gameObject);
 #endif			// #if UNITY_IOS
 	}
@@ -151,11 +156,44 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 
 	#region 조건부 함수
 #if UNITY_IOS
-	//! 로그인 메세지를 전송한다
-	public void SendLoginMsg(System.Action<SignInWithApple.CallbackArgs> a_oCallback) {
-		m_oSignInWithApple.Login((a_oArgs) => {
-			a_oCallback?.Invoke(a_oArgs);	
-		});
+	//! 애플 로그인 메세지를 처리한다
+	public void HandleLoginWithAppleMsg(SignInWithApple.CallbackArgs a_oArgs) {
+		m_oLoginCallback?.Invoke(a_oArgs, !a_oArgs.error.ExIsValid());
+	}
+
+	//! 인증 상태 반환 메세지를 처리한다
+	public void HandleGetCredentialStateMsg(SignInWithApple.CallbackArgs a_oArgs) {
+		m_oCredentialCallback?.Invoke(a_oArgs, !a_oArgs.error.ExIsValid());
+	}
+
+	//! 애플 로그인 메세지를 전송한다
+	public void SendLoginWithAppleMsg(System.Action<SignInWithApple.CallbackArgs, bool> a_oCallback) {
+		m_oLoginCallback = a_oCallback;
+
+		try {
+			m_oLoginWithApple.Login(this.HandleLoginWithAppleMsg);
+		} catch(System.Exception oException) {
+			Func.ShowLogWarning("CUnityMsgSender.SendLoginWithAppleMsg Exception: {0}", oException.Message);
+
+			this.HandleLoginWithAppleMsg(new SignInWithApple.CallbackArgs() {
+				error = oException.Message
+			});
+		}
+	}
+
+	//! 인증 상태 반환 메세지를 전송한다
+	public void SendGetCredentialStateMsg(string a_oUserID, System.Action<SignInWithApple.CallbackArgs, bool> a_oCallback) {
+		m_oCredentialCallback = a_oCallback;
+
+		try {
+			m_oLoginWithApple.GetCredentialState(a_oUserID, this.HandleGetCredentialStateMsg);
+		} catch(System.Exception oException) {
+			Func.ShowLogWarning("CUnityMsgSender.SendGetCredentialStateMsg Exception: {0}", oException.Message);
+
+			this.HandleGetCredentialStateMsg(new SignInWithApple.CallbackArgs() {
+				error = oException.Message
+			});
+		}
 	}
 #endif			// #if UNITY_IOS
 	#endregion			// 조건부 함수

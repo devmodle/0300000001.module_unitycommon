@@ -90,7 +90,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 			return PurchaseProcessingResult.Pending;
 #endif			// #if RECEIPT_CHECK_ENABLE
 		} catch(System.Exception oException) {
-			Func.ShowLogWarning("CPurchaseManager.ProcessPurchase Exception: {0}", oException);
+			Func.ShowLogWarning("CPurchaseManager.ProcessPurchase Exception: {0}", oException.Message);
 			this.PurchaseProductIDList.ExRemoveValue(oID);
 
 #if MESSAGE_PACK_ENABLE

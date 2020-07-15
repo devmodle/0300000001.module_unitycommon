@@ -83,8 +83,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 			// 테이블을 로드한다
 			if(this.IsAutoLoadTable) {
-				CValueTable.Instance.LoadValuesFromResource(KDefine.U_TABLE_PATH_G_COMMON_VALUE_TABLE);
-				CStringTable.Instance.LoadStringsFromResource(KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE);
+				CValueTable.Instance.LoadValuesFromRes(KDefine.U_TABLE_PATH_G_COMMON_VALUE_TABLE);
+				CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE);
 
 				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 			}
@@ -306,9 +306,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 		if(this.IsAutoLoadTable) {
 			if(CAppInfoStorage.Instance.CountryCode.ExIsEquals(KDefine.B_KOREA_COUNTRY_CODE)) {
-				CStringTable.Instance.LoadStringsFromResource(KDefine.U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
+				CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
 			} else {
-				CStringTable.Instance.LoadStringsFromResource(KDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);
+				CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);
 			}	
 		}
 #endif			// #if MESSAGE_PACK_ENABLE

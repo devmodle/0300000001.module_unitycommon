@@ -220,7 +220,7 @@ public static partial class KEditorDefine {
 	public static readonly Vector2 B_MIN_SIZE_EDITOR_WINDOW = new Vector2(350.0f, 350.0f);
 
 	// 경로 {
-	public static readonly string B_DIR_PATH_AUTO_CREATE_RESOURCES = string.Format("{0}{1}Resources", KEditorDefine.B_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE);
+	public static readonly string B_DIR_PATH_AUTO_CREATE_RESES = string.Format("{0}{1}Resources", KEditorDefine.B_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE);
 
 	public static readonly string B_ABSOLUTE_DIR_PATH_ASSETS = string.Format("{0}/", Application.dataPath);
 	public static readonly string B_ABSOLUTE_DIR_PATH_UNITY_ENGINE = string.Format("{0}/", EditorApplication.applicationPath);
@@ -576,9 +576,6 @@ public static partial class KEditorDefine {
 	public static readonly string B_IOS_SRC_PLUGIN_PATH = string.Format("{0}../PluginProjects/iOS/Classes/Plugin/", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS);
 	public static readonly string B_IOS_DEST_PLUGIN_PATH = string.Format("{0}Plugins/iOS/CustomiOSPlugin/", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS);
 
-	public static readonly string B_IOS_SRC_MONO_MODULES_REGISTER_PATH = string.Format("{0}../Packages/Builds/Options/iOS/RegisterMonoModules.h", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS);
-	public static readonly string B_IOS_DEST_MONO_MODULES_REGISTER_PATH = string.Format("{0}../PlaybackEngines/iOSSupport/Trampoline/Libraries/RegisterMonoModules.h", KEditorDefine.B_ABSOLUTE_DIR_PATH_UNITY_ENGINE);
-
 	public static readonly GraphicsDeviceType[] B_IOS_DEVICE_GRAPHICS_DEVICE_TYPES = new GraphicsDeviceType[] {
 		GraphicsDeviceType.Metal
 	};
@@ -636,6 +633,11 @@ public static partial class KEditorDefine {
 	#endregion			// 조건부 상수
 
 	#region 조건부 런타임 상수
+#if UNITY_IOS
+	// 경로
+	public static readonly string B_PATH_CAPABILITY_ENTITLEMENTS_IOS = string.Format("{0}.entitlements", KAppDefine.G_NAME_PROJECT_ROOT);
+#endif			// #if UNITY_IOS
+
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	// 위치
 	public static readonly Vector2 B_POSITION_STATIC_TEXT = new Vector2(-10.0f, 0.0f);

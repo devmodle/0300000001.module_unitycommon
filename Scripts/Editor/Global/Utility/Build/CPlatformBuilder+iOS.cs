@@ -195,13 +195,10 @@ public static partial class CPlatformBuilder {
 	private static void BuildiOSPlatform(BuildPlayerOptions a_oPlayerOptions) {
 		CPlatformBuilder.IsEnableEditorScene = false;
 
-		// 플러그인 파일을 복사한다 {
-		Func.CopyFile(KEditorDefine.B_IOS_SRC_MONO_MODULES_REGISTER_PATH, KEditorDefine.B_IOS_DEST_MONO_MODULES_REGISTER_PATH);
-
+		// 플러그인 파일을 복사한다
 		if(!Application.isBatchMode) {
 			Func.CopyDirectory(KEditorDefine.B_IOS_SRC_PLUGIN_PATH, KEditorDefine.B_IOS_DEST_PLUGIN_PATH, false);
 		}
-		// 플러그인 파일을 복사한다 }
 
 		// 빌드 옵션을 설정한다 {
 		a_oPlayerOptions.target = BuildTarget.iOS;
@@ -243,10 +240,29 @@ public static partial class CPlatformBuilder {
 		if(oProject != null) {
 			string oGUID = oProject.GetUnityMainTargetGuid();
 
+			var oCapability = new ProjectCapabilityManager(oProjectFilepath,
+				KEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oGUID);
+
 			for(int i = 0; i < KAppDefine.G_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
 				oProject.AddFrameworkToProject(oGUID, KAppDefine.G_EXTRA_FRAMEWORKS_IOS[i], false);
 			}
 
+			for(int i = 0; i < KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
+				var oCapabilityType = KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS[i];
+
+				if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
+					oCapability.AddGameCenter();
+				} else if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
+					oCapability.AddSignInWithApple();
+				} else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
+					oCapability.AddPushNotifications(!CPlatformBuilder.IsDistributionBuild);
+				}
+
+				oProject.AddCapability(oGUID, KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS[i], 
+					KEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS);
+			}
+
+			oCapability.WriteToFile();
 			oProject.WriteToFile(oProjectFilepath);
 		}
 		// 프로젝트 옵션을 설정한다 }

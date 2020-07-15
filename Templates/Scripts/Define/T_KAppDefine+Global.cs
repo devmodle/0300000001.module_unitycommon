@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR && UNITY_IOS
+using UnityEditor.iOS.Xcode;
+#endif			// #if UNITY_EDITOR && UNITY_IOS
+
 #if !USE_CUSTOM_PROJECT_OPTION
 #if MESSAGE_PACK_ENABLE
 using MessagePack;
@@ -132,12 +136,19 @@ public static partial class KAppDefine {
 	#endregion			// 조건부 상수
 
 	#region 조건부 런타임 상수
-#if UNITY_IOS
+#if UNITY_EDITOR && UNITY_IOS
 	// 프레임워크
 	public static readonly string[] G_EXTRA_FRAMEWORKS_IOS = new string[] {
 		"AuthenticationServices.framework"
 	};
-#endif			// #if UNITY_IOS
+
+	// 호환성 타입
+	public static readonly PBXCapabilityType[] G_EXTRA_CAPABILITY_TYPES_IOS = new PBXCapabilityType[] {
+		PBXCapabilityType.GameCenter,
+		PBXCapabilityType.SignInWithApple,
+		PBXCapabilityType.PushNotifications
+	};
+#endif			// #if UNITY_EDITOR && UNITY_IOS
 	#endregion			// 조건부 런타임 상수
 }
 #endif			// #if !USE_CUSTOM_PROJECT_OPTION

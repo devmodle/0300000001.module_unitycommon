@@ -49,7 +49,7 @@ public class CStringTable : CSingleton<CStringTable> {
 	}
 
 	//! 문자열을 로드한다
-	public void LoadStringsFromResource(string a_oFilepath) {
+	public void LoadStringsFromRes(string a_oFilepath) {
 		var oTextAsset = CResourceManager.Instance.GetTextAsset(a_oFilepath);
 		Func.Assert(oTextAsset.ExIsValid());
 

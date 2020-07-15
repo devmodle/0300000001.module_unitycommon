@@ -44,7 +44,6 @@ public static partial class EditorFunc {
 	[MenuItem("Utility/Setup/PluginProjects")]
 	public static void SetupPluginProjects() {
 		// iOS 플러그인을 복사한다
-		Func.CopyFile(KEditorDefine.B_IOS_SRC_MONO_MODULES_REGISTER_PATH, KEditorDefine.B_IOS_DEST_MONO_MODULES_REGISTER_PATH);
 		Func.CopyDirectory(KEditorDefine.B_IOS_SRC_PLUGIN_PATH, KEditorDefine.B_IOS_DEST_PLUGIN_PATH);
 
 		// 안드로이드 플러그인을 복사한다 {

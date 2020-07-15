@@ -107,7 +107,7 @@ public class CValueTable : CSingleton<CValueTable> {
 	}
 
 	//! 값을 로드한다
-	public void LoadValuesFromResource(string a_oFilepath) {
+	public void LoadValuesFromRes(string a_oFilepath) {
 		var oTextAsset = CResourceManager.Instance.GetTextAsset(a_oFilepath);
 		Func.Assert(oTextAsset.ExIsValid());
 

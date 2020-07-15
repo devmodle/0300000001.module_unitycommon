@@ -20,7 +20,7 @@ public class CResourceManager : CSingleton<CResourceManager> {
 	#endregion			// 변수
 	
 	#region 프로퍼티
-	public Dictionary<System.Type, System.Func<string, Object>> ResourceCreatorList { get; private set; } = new Dictionary<System.Type, System.Func<string, Object>>() {
+	public Dictionary<System.Type, System.Func<string, Object>> ResCreatorList { get; private set; } = new Dictionary<System.Type, System.Func<string, Object>>() {
 		[typeof(Mesh)] = Resources.Load<Mesh>,
 		[typeof(Shader)] = Resources.Load<Shader>,
 		[typeof(Sprite)] = Resources.Load<Sprite>,
@@ -37,47 +37,47 @@ public class CResourceManager : CSingleton<CResourceManager> {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		this.SetupDefaultResources();
+		this.SetupDefaultReses();
 	}
 
 	//! 메시를 반환한다
 	public Mesh GetMesh(string a_oKey) {
-		return this.GetResource<Mesh>(m_oMeshList, a_oKey, false);
+		return this.GetRes<Mesh>(m_oMeshList, a_oKey, false);
 	}
 
 	//! 쉐이더를 반환한다
 	public Shader GetShader(string a_oKey, bool a_bIsAutoCreate = true) {
-		return this.GetResource<Shader>(m_oShaderList, a_oKey, a_bIsAutoCreate);
+		return this.GetRes<Shader>(m_oShaderList, a_oKey, a_bIsAutoCreate);
 	}
 
 	//! 스프라이트를 반환한다
 	public Sprite GetSprite(string a_oKey, bool a_bIsAutoCreate = true) {
-		return this.GetResource<Sprite>(m_oSpriteList, a_oKey, a_bIsAutoCreate);
+		return this.GetRes<Sprite>(m_oSpriteList, a_oKey, a_bIsAutoCreate);
 	}
 
 	//! 텍스처를 반환한다
 	public Texture GetTexture(string a_oKey, bool a_bIsAutoCreate = true) {
-		return this.GetResource<Texture>(m_oTextureList, a_oKey, a_bIsAutoCreate);
+		return this.GetRes<Texture>(m_oTextureList, a_oKey, a_bIsAutoCreate);
 	}
 
 	//! 재질을 반환한다
 	public Material GetMaterial(string a_oKey, bool a_bIsAutoCreate = true) {
-		return this.GetResource<Material>(m_oMaterialList, a_oKey, a_bIsAutoCreate);
+		return this.GetRes<Material>(m_oMaterialList, a_oKey, a_bIsAutoCreate);
 	}
 
 	//! 오디오 클립을 반환한다
 	public AudioClip GetAudioClip(string a_oKey, bool a_bIsAutoCreate = true) {
-		return this.GetResource<AudioClip>(m_oAudioClipList, a_oKey, a_bIsAutoCreate);
+		return this.GetRes<AudioClip>(m_oAudioClipList, a_oKey, a_bIsAutoCreate);
 	}
 
 	//! 텍스트 에셋을 반환한다
 	public TextAsset GetTextAsset(string a_oKey, bool a_bIsAutoCreate = true) {
-		return this.GetResource<TextAsset>(m_oTextAssetList, a_oKey, a_bIsAutoCreate);
+		return this.GetRes<TextAsset>(m_oTextAssetList, a_oKey, a_bIsAutoCreate);
 	}
 
 	//! 프리팹을 반환한다
 	public GameObject GetPrefab(string a_oKey, bool a_bIsAutoCreate = true) {
-		return this.GetResource<GameObject>(m_oPrefabList, a_oKey, a_bIsAutoCreate);
+		return this.GetRes<GameObject>(m_oPrefabList, a_oKey, a_bIsAutoCreate);
 	}
 
 	//! 메시를 추가한다
@@ -126,54 +126,54 @@ public class CResourceManager : CSingleton<CResourceManager> {
 	}
 
 	//! 리소스 생성자를 추가한다
-	public void AddResourceCreator(System.Type a_oType, System.Func<string, Object> a_oCreator) {
+	public void AddResCreator(System.Type a_oType, System.Func<string, Object> a_oCreator) {
 		Func.Assert(a_oType != null && a_oCreator != null);
-		this.ResourceCreatorList.ExReplaceValue(a_oType, a_oCreator);
+		this.ResCreatorList.ExReplaceValue(a_oType, a_oCreator);
 	}
 
 	//! 메시를 제거한다
 	public void RemoveMesh(string a_oKey) {
-		this.RemoveResource(m_oMeshList, a_oKey, false);
+		this.RemoveRes(m_oMeshList, a_oKey, false);
 	}
 
 	//! 쉐이더를 제거한다
 	public void RemoveShader(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveResource(m_oShaderList, a_oKey, a_bIsAutoUnload);
+		this.RemoveRes(m_oShaderList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 스프라이트를 제거한다
 	public void RemoveSprite(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveResource(m_oSpriteList, a_oKey, a_bIsAutoUnload);
+		this.RemoveRes(m_oSpriteList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 텍스처를 제거한다
 	public void RemoveTexture(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveResource(m_oTextureList, a_oKey, a_bIsAutoUnload);
+		this.RemoveRes(m_oTextureList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 재질을 제거한다
 	public void RemoveMaterial(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveResource(m_oMaterialList, a_oKey, a_bIsAutoUnload);
+		this.RemoveRes(m_oMaterialList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 오디오 클립을 제거한다
 	public void RemoveAudioClip(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveResource(m_oAudioClipList, a_oKey, a_bIsAutoUnload);
+		this.RemoveRes(m_oAudioClipList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 텍스트 에셋을 제거한다
 	public void RemoveTextAsset(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveResource(m_oTextAssetList, a_oKey, a_bIsAutoUnload);
+		this.RemoveRes(m_oTextAssetList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 프리팹을 제거한다
 	public void RemovePrefab(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveResource(m_oPrefabList, a_oKey, a_bIsAutoUnload);
+		this.RemoveRes(m_oPrefabList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 스크립트 객체를 제거한다
 	public void RemoveScriptableObject(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveResource(m_oScriptableObjectList, a_oKey, a_bIsAutoUnload);
+		this.RemoveRes(m_oScriptableObjectList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 다중 스프라이트를 로드한다
@@ -214,7 +214,7 @@ public class CResourceManager : CSingleton<CResourceManager> {
 	}
 
 	//! 기본 리소스를 설정한다
-	private void SetupDefaultResources() {
+	private void SetupDefaultReses() {
 		this.SetupDefaultMeshes();
 		this.SetupDefaultSprites();
 	}
@@ -258,37 +258,37 @@ public class CResourceManager : CSingleton<CResourceManager> {
 	#region 제네릭 함수
 	//! 스크립트 객체를 반환한다
 	public T GetScriptableObject<T>(string a_oKey, bool a_bIsAutoCreate = true) where T : ScriptableObject {
-		return this.GetResource<ScriptableObject>(m_oScriptableObjectList, a_oKey, a_bIsAutoCreate) as T;
+		return this.GetRes<ScriptableObject>(m_oScriptableObjectList, a_oKey, a_bIsAutoCreate) as T;
 	}
 
 	//! 리소스를 반환한다
-	private T GetResource<T>(Dictionary<string, T> a_oResourceList, string a_oKey, bool a_bIsAutoCreate) where T : Object {
-		Func.Assert(a_oResourceList != null && a_oKey.ExIsValid());
-		Func.Assert(a_bIsAutoCreate || a_oResourceList.ContainsKey(a_oKey));
+	private T GetRes<T>(Dictionary<string, T> a_oResList, string a_oKey, bool a_bIsAutoCreate) where T : Object {
+		Func.Assert(a_oResList != null && a_oKey.ExIsValid());
+		Func.Assert(a_bIsAutoCreate || a_oResList.ContainsKey(a_oKey));
 
-		if(a_bIsAutoCreate && !a_oResourceList.ContainsKey(a_oKey)) {
+		if(a_bIsAutoCreate && !a_oResList.ContainsKey(a_oKey)) {
 			var oType = typeof(T);
-			bool bIsContainsCreator = this.ResourceCreatorList.ContainsKey(oType);
+			bool bIsContainsCreator = this.ResCreatorList.ContainsKey(oType);
 
-			Func.Assert(bIsContainsCreator && this.ResourceCreatorList[oType] != null);
+			Func.Assert(bIsContainsCreator && this.ResCreatorList[oType] != null);
 
-			var oResource = this.ResourceCreatorList[oType](a_oKey) as T;
-			a_oResourceList.ExAddValue(a_oKey, oResource);
+			var oRes = this.ResCreatorList[oType](a_oKey) as T;
+			a_oResList.ExAddValue(a_oKey, oRes);
 		}
 
-		return a_oResourceList[a_oKey];
+		return a_oResList[a_oKey];
 	}
 
 	//! 리소스를 제거한다
-	private void RemoveResource<T>(Dictionary<string, T> a_oResourceList, string a_oKey, bool a_bIsAutoUnload) where T : Object {
-		Func.Assert(a_oResourceList != null && a_oKey.ExIsValid());
+	private void RemoveRes<T>(Dictionary<string, T> a_oResList, string a_oKey, bool a_bIsAutoUnload) where T : Object {
+		Func.Assert(a_oResList != null && a_oKey.ExIsValid());
 
-		if(a_oResourceList.ContainsKey(a_oKey)) {
-			var oResource = a_oResourceList[a_oKey];
-			a_oResourceList.Remove(a_oKey);
+		if(a_oResList.ContainsKey(a_oKey)) {
+			var oRes = a_oResList[a_oKey];
+			a_oResList.Remove(a_oKey);
 
 			if(a_bIsAutoUnload) {
-				Resources.UnloadAsset(oResource);
+				Resources.UnloadAsset(oRes);
 			}
 		}
 	}

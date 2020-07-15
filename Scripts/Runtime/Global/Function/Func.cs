@@ -151,7 +151,7 @@ public static partial class Func {
 
 	//! 경고 로그를 출력한다
 	public static void ShowLogWarning(string a_oFormat, params object[] a_oParams) {
-		Func.ShowLog(a_oFormat, KDefine.B_LOG_COLOR_WARNING, a_oParams);
+		Func.ShowLogWarning(a_oFormat, KDefine.B_LOG_COLOR_WARNING, a_oParams);
 	}
 
 	//! 경고 로그를 출력한다
@@ -162,7 +162,7 @@ public static partial class Func {
 
 	//! 에러 로그를 출력한다
 	public static void ShowLogError(string a_oFormat, params object[] a_oParams) {
-		Func.ShowLog(a_oFormat, KDefine.B_LOG_COLOR_ERROR, a_oParams);
+		Func.ShowLogError(a_oFormat, KDefine.B_LOG_COLOR_ERROR, a_oParams);
 	}
 
 	//! 에러 로그를 출력한다

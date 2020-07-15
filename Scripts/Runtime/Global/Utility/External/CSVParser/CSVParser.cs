@@ -41,7 +41,7 @@ public class CSVParser
         return list;
 	}
 
-    public static List<Dictionary<string, string>> ParseFromResource(string file)
+    public static List<Dictionary<string, string>> ParseFromRes(string file)
     {
         TextAsset data = Resources.Load (file) as TextAsset;
 		return Parse(data.text);
