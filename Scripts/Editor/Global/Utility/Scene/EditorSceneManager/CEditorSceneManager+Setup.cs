@@ -112,6 +112,19 @@ public static partial class CEditorSceneManager {
 		// FPS 카운터를 설정한다 }
 	}
 
+	//! 스크립트 순서를 설정한다
+	private static void SetupScriptOrders() {
+		var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
+
+		for(int i = 0; i < oMonoScripts.Length; ++i) {
+			var oType = oMonoScripts[i].GetClass();
+
+			if(oType != null && KEditorDefine.G_SCRIPT_ORDERS.ContainsKey(oType)) {
+				Func.SetScriptOrder(oMonoScripts[i], KEditorDefine.G_SCRIPT_ORDERS[oType]);
+			}
+		}
+	}
+
 	//! 광원 옵션을 설정한다
 	private static void SetupLightOptions() {
 		var oType = typeof(LightmapEditorSettings);

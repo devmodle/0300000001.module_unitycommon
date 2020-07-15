@@ -245,6 +245,70 @@ public static partial class KEditorDefine {
 
 	public static readonly string B_PATH_FORMAT_SCRIPTABLE_OBJ = string.Format("{0}{1}", KEditorDefine.B_DIR_PATH_ASSETS, "{0}.asset");
 	public static readonly string B_ASSET_PATH_FORMAT_DEFINE_SYMBOL_OUTPUT = string.Format("{0}/BuildOutput/{1}", KDefine.B_DIR_PATH_WRITABLE, "{0}DefineSymbol.txt");
+
+	// 스크립트 순서
+	public static readonly Dictionary<System.Type, int> G_SCRIPT_ORDERS = new Dictionary<System.Type, int>() {
+		[typeof(CStringTable)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CValueTable)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+
+		[typeof(CUnityMsgSender)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CDeviceMsgReceiver)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+
+		[typeof(CLogManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CSndManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CScheduleManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CResourceManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CNavigationManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CToastPopupManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CActivityIndicatorManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+
+#if USE_CUSTOM_PROJECT_OPTION
+		[typeof(CSubInitSceneManager)] = KDefine.U_SCRIPT_ORDER_INIT_SCENE_MANAGER,
+		[typeof(CSubSetupSceneManager)] = KDefine.U_SCRIPT_ORDER_SETUP_SCENE_MANAGER,
+		[typeof(CSubStartSceneManager)] = KDefine.U_SCRIPT_ORDER_START_SCENE_MANAGER,
+		[typeof(CSubLoadingSceneManager)] = KDefine.U_SCRIPT_ORDER_LOADING_SCENE_MANAGER,
+		[typeof(CSubSplashSceneManager)] = KDefine.U_SCRIPT_ORDER_SPLASH_SCENE_MANAGER,
+		[typeof(CSubAgreeSceneManager)] = KDefine.U_SCRIPT_ORDER_AGREE_SCENE_MANAGER,
+		[typeof(CSubIntroSceneManager)] = KDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
+
+#if MESSAGE_PACK_ENABLE
+		[typeof(CAppInfoStorage)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CUserInfoStorage)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if MESSAGE_PACK_ENABLE
+#endif			// #if USE_CUSTOM_PROJECT_OPTION
+
+#if UNITY_ANDROID
+		[typeof(CPermissionManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if UNITY_ANDROID
+
+#if ADS_ENABLE
+		[typeof(CAdsManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if ADS_ENABLE
+
+#if TENJIN_ENABLE
+		[typeof(CTenjinManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if TENJIN_ENABLE
+
+#if FLURRY_ENABLE
+		[typeof(CFlurryManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if FLURRY_ENABLE
+
+#if FACEBOOK_ENABLE
+		[typeof(CFacebookManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if FACEBOOK_ENABLE
+
+#if FIREBASE_ENABLE
+		[typeof(CFirebaseManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if FIREBASE_ENABLE
+
+#if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
+		[typeof(CPurchaseManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
+
+#if UNITY_SERVICE_ENABLE
+		[typeof(CUnityServiceManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON
+#endif			// #if UNITY_SERVICE_ENABLE
+	};
 	
 	public static readonly KeyValuePair<string, string>[] B_PATH_DATA_FILEPATH_INFOS = new KeyValuePair<string, string>[] {
 		new KeyValuePair<string, string>(string.Format("{0}T_Service_KO.txt", KEditorDefine.B_ABSOLUTE_DIR_PATH_DATA_TEMPLATES),
@@ -313,7 +377,10 @@ public static partial class KEditorDefine {
 			string.Format("{0}{1}Scripts/Runtime/SubSplashScene/CSubSplashSceneManager.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE)),
 
 		new KeyValuePair<string, string>(string.Format("{0}Scene/T_CSubAgreeSceneManager.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_SCRIPT_TEMPLATES),
-			string.Format("{0}{1}Scripts/Runtime/SubAgreeScene/CSubAgreeSceneManager.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE))
+			string.Format("{0}{1}Scripts/Runtime/SubAgreeScene/CSubAgreeSceneManager.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE)),
+
+		new KeyValuePair<string, string>(string.Format("{0}Scene/T_CSubIntroSceneManager.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_SCRIPT_TEMPLATES),
+			string.Format("{0}{1}Scripts/Runtime/SubIntroScene/CSubIntroSceneManager.cs", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE))
 	};
 
 	public static readonly KeyValuePair<string, string>[] B_PATH_COMPARE_SCRIPT_FILEPATH_INFOS = new KeyValuePair<string, string>[] {
@@ -458,7 +525,10 @@ public static partial class KEditorDefine {
 			string.Format("{0}{1}Scenes/{2}.unity", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.B_SCENE_NAME_SPLASH)),
 
 		new KeyValuePair<string, string>(KEditorDefine.B_ABSOLUTE_DIR_PATH_SAMPLE_SCENE,
-			string.Format("{0}{1}Scenes/{2}.unity", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.B_SCENE_NAME_AGREE))
+			string.Format("{0}{1}Scenes/{2}.unity", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.B_SCENE_NAME_AGREE)),
+
+		new KeyValuePair<string, string>(KEditorDefine.B_ABSOLUTE_DIR_PATH_SAMPLE_SCENE,
+			string.Format("{0}{1}Scenes/{2}.unity", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.B_SCENE_NAME_INTRO))
 	};
 	// 경로 }
 
@@ -474,7 +544,8 @@ public static partial class KEditorDefine {
 		[KDefine.B_SCENE_NAME_START] = typeof(CSubStartSceneManager),
 		[KDefine.B_SCENE_NAME_LOADING] = typeof(CSubLoadingSceneManager),
 		[KDefine.B_SCENE_NAME_SPLASH] = typeof(CSubSplashSceneManager),
-		[KDefine.B_SCENE_NAME_AGREE] = typeof(CSubAgreeSceneManager)
+		[KDefine.B_SCENE_NAME_AGREE] = typeof(CSubAgreeSceneManager),
+		[KDefine.B_SCENE_NAME_INTRO] = typeof(CSubIntroSceneManager)
 	};
 
 	// 젠킨스
