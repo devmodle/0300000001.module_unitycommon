@@ -110,49 +110,6 @@ public static partial class Func {
 		return File.Open(a_oFilepath, FileMode.Create, FileAccess.Write);
 	}
 
-	//! 정수 랜덤 값을 반환한다
-	public static int[] GetIntRandomValues(int a_nMin, int a_nMax, int a_nNumValues) {
-		Func.Assert(a_nMin <= a_nMax);
-
-		return Func.MakeValues<int>(a_nNumValues, (a_nIndex) => {
-			return Random.Range(a_nMin, a_nMax + 1);
-		});
-	}
-
-	//! 실수 랜덤 값을 반환한다
-	public static float[] GetFloatRandomValues(float a_fMin, float a_fMax, int a_nNumValues) {
-		Func.Assert(a_fMin <= a_fMax);
-
-		return Func.MakeValues<float>(a_nNumValues, (a_nIndex) => {
-			return Random.Range(a_fMin, a_fMax);
-		});
-	}
-
-	//! 정수 랜덤 분할 값을 반환한다
-	public static int[] GetIntRandomSplitValues(int a_nValue, int a_nNumValues) {
-		Func.Assert(a_nNumValues >= 1);
-		int nLeftValue = a_nValue;
-
-		return Func.MakeValues<int>(a_nNumValues, (a_nIndex) => {
-			if(a_nNumValues <= 1) {
-				return a_nValue;
-			} else if(a_nIndex + 1 >= a_nNumValues) {
-				return nLeftValue;
-			}
-
-			int nNumValues = a_nNumValues - a_nIndex;
-			int nValue = Random.Range(1, (nLeftValue / nNumValues) + 1);
-
-			if(a_nIndex + 1 >= a_nNumValues - 1) {
-				nValue = nLeftValue / 2;
-			} else if(nValue < (nLeftValue / nNumValues) / 2) {
-				nValue = nValue * 2;
-			}
-
-			return nValue;
-		});
-	}
-
 	//! URL 을 개방한다
 	public static void OpenURL(string a_oURL) {
 		Func.Assert(a_oURL.ExIsValid());
@@ -439,6 +396,48 @@ public static partial class Func {
 		a_oCallback?.Invoke(a_oAsyncOperation, true);
 	}
 
+	//! 정수 랜덤 값을 생성한다
+	public static int[] MakeIntRandomValues(int a_nMin, int a_nMax, int a_nNumValues) {
+		Func.Assert(a_nMin <= a_nMax);
+
+		return Func.MakeValues<int>(a_nNumValues, (a_nIndex) => {
+			return Random.Range(a_nMin, a_nMax + 1);
+		});
+	}
+
+	//! 실수 랜덤 값을 생성한다
+	public static float[] MakeFloatRandomValues(float a_fMin, float a_fMax, int a_nNumValues) {
+		Func.Assert(a_fMin <= a_fMax);
+
+		return Func.MakeValues<float>(a_nNumValues, (a_nIndex) => {
+			return Random.Range(a_fMin, a_fMax);
+		});
+	}
+
+	//! 정수 랜덤 분할 값을 생성한다
+	public static int[] MakeIntRandomSplitValues(int a_nValue, int a_nNumValues) {
+		Func.Assert(a_nNumValues >= 1);
+		int nSumValue = 0;
+
+		var oValues = Func.MakeValues<int>(a_nNumValues, (a_nIndex) => {
+			int nValue = a_nValue / a_nNumValues;
+			nSumValue += nValue;
+
+			return (a_nIndex < a_nNumValues - 1) ? nValue : a_nValue - nSumValue;
+		});
+
+		for(int i = 0; i < oValues.Length; ++i) {
+			int nIndex = Random.Range(0, oValues.Length);
+
+			if(oValues[i] > 1 && oValues[nIndex] > 1) {
+				oValues[i] += 1;
+				oValues[nIndex] -= 1;
+			}
+		}
+
+		return oValues;
+	}
+
 	//! 디렉토리를 생성한다
 	public static DirectoryInfo CreateDirectory(string a_oFilepath) {
 		if(!Directory.Exists(a_oFilepath)) {
@@ -540,6 +539,20 @@ public static partial class Func {
 		Func.DoStableSort(a_oValueList, oTempValues, 0, a_oValueList.Count - 1, a_oCompare);
 	}
 
+	//! 비동기 작업을 대기한다
+	public static void WaitAsyncTask<T>(Task<T> a_oTask, System.Action<Task<T>> a_oCallback) {
+		Func.Assert(a_oTask != null);
+
+		a_oTask.ContinueWith((a_oContinueTask) => {
+			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK,
+				Thread.CurrentThread.ManagedThreadId);
+
+			CScheduleManager.Instance.AddCallback(oKey, () => {
+				a_oCallback?.Invoke(a_oContinueTask);
+			});
+		});
+	}
+
 	//! 값을 생성한다
 	public static T[] MakeValues<T>(int a_nNumValues, System.Func<int, T> a_oCallback) {
 		Func.Assert(a_oCallback != null && a_nNumValues >= 1);
@@ -558,20 +571,6 @@ public static partial class Func {
 		oValues.ExShuffle();
 
 		return oValues;
-	}
-	
-	//! 비동기 작업을 대기한다
-	public static void WaitAsyncTask<T>(Task<T> a_oTask, System.Action<Task<T>> a_oCallback) {
-		Func.Assert(a_oTask != null);
-
-		a_oTask.ContinueWith((a_oContinueTask) => {
-			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK,
-				Thread.CurrentThread.ManagedThreadId);
-
-			CScheduleManager.Instance.AddCallback(oKey, () => {
-				a_oCallback?.Invoke(a_oContinueTask);
-			});
-		});
 	}
 
 	//! 안전 정렬을 수행한다

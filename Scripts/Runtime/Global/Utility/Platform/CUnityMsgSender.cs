@@ -107,13 +107,6 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 		this.SendMsg(KDefine.B_CMD_ACTIVITY_INDICATOR, a_bIsStart.ToString(), null, true);
 	}
 
-#if UNITY_IOS
-	//! 로그인 메세지를 전송한다
-	public void SendLoginMsg(System.Action<SignInWithApple.CallbackArgs> a_oCallback) {
-
-	}
-#endif			// #if UNITY_IOS
-
 	//! 공유 메세지를 전송한다
 	public void SendShareMsg(string a_oMsg, 
 		System.Action<NativeShare.ShareResult, string> a_oCallback, string a_oFilepath = KDefine.B_EMPTY_STRING) {
@@ -155,6 +148,17 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 		}
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if UNITY_IOS
+	//! 로그인 메세지를 전송한다
+	public void SendLoginMsg(System.Action<SignInWithApple.CallbackArgs> a_oCallback) {
+		m_oSignInWithApple.Login((a_oArgs) => {
+			a_oCallback?.Invoke(a_oArgs);	
+		});
+	}
+#endif			// #if UNITY_IOS
+	#endregion			// 조건부 함수
 
 	#region 조건부 클래스 함수
 #if !UNITY_EDITOR && UNITY_IOS

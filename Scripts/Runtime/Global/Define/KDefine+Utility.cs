@@ -233,7 +233,6 @@ public static partial class KDefine {
 	public const string U_OBJ_NAME_SCROLL_V_CONTENT = "Content";
 	public const string U_OBJ_NAME_SCROLL_V_VIEWPORT = "Viewport";
 
-	public const string U_OBJ_NAME_SIGN_IN_WITH_APPLE = "SignInWithApple";
 	public const string U_OBJ_NAME_DIALOG_TOUCH_RESPONDER = "DialogTouchResponder";
 	public const string U_OBJ_NAME_SCREEN_F_TOUCH_RESPONDER = "ScreenFadeTouchResponder";
 	public const string U_OBJ_NAME_ACTIVITY_I_TOUCH_RESPONDER = "ActivityIndicatorTouchResponder";
@@ -353,7 +352,6 @@ public static partial class KDefine {
 
 	public static readonly string U_OBJ_PATH_BG_SND = string.Format("{0}{1}{2}U_BGSnd", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SOUND_BASE);
 	public static readonly string U_OBJ_PATH_FX_SND = string.Format("{0}{1}{2}U_FXSnd", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_SOUND_BASE);
-	public static readonly string U_OBJ_PATH_SIGN_IN_WITH_APPLE = string.Format("{0}{1}U_SignInWithApple", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE);
 
 	public static readonly string U_OBJ_PATH_SS_FPS_COUNTER = string.Format("{0}{1}SS_FPSCounter", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_SETUP_SCENE_BASE);
 	public static readonly string U_OBJ_PATH_SS_TIMER_MANAGER = string.Format("{0}{1}SS_TimerManager", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_SETUP_SCENE_BASE);
@@ -439,10 +437,15 @@ public static partial class KDefine {
 #endif			// #if UNIVERSAL_RENDER_PIPELINE_ENABLE
 #endif			// #if UNITY_EDITOR
 
-#if UNITY_IOS && HAPTIC_FEEDBACK_ENABLE
-	// 이름
+#if UNITY_IOS
+	// 이름 {
+	public const string U_OBJ_NAME_SIGN_IN_WITH_APPLE = "SignInWithApple";
+
+#if HAPTIC_FEEDBACK_ENABLE
 	public const string U_MODEL_NAME_IPHONE = "iPhone";
-#endif			// #if UNITY_IOS && HAPTIC_FEEDBACK_ENABLE
+#endif			// #if HAPTIC_FEEDBACK_ENABLE
+	// 이름 }
+#endif			// #if UNITY_IOS
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	// 시간
@@ -704,14 +707,19 @@ public static partial class KDefine {
 	#endregion			// 조건부 상수
 
 	#region 조건부 런타임 상수
-#if UNITY_IOS && HAPTIC_FEEDBACK_ENABLE
+#if UNITY_IOS
+	// 경로
+	public static readonly string U_OBJ_PATH_SIGN_IN_WITH_APPLE = string.Format("{0}{1}U_SignInWithApple", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE);
+
+#if HAPTIC_FEEDBACK_ENABLE
 	// 햅틱 피드백 지원 모델
 	public static readonly DeviceGeneration[] U_HAPTIC_FEEDBACK_SUPPORT_MODELS = new DeviceGeneration[] {
 		DeviceGeneration.iPhone7, DeviceGeneration.iPhone7Plus, DeviceGeneration.iPhone8, DeviceGeneration.iPhone8Plus,
 		DeviceGeneration.iPhoneX, DeviceGeneration.iPhoneXR, DeviceGeneration.iPhoneXS, DeviceGeneration.iPhoneXSMax,
 		DeviceGeneration.iPhone11, DeviceGeneration.iPhone11Pro, DeviceGeneration.iPhone11ProMax, DeviceGeneration.iPhoneUnknown
 	};
-#endif			// #if UNITY_IOS && HAPTIC_FEEDBACK_ENABLE
+#endif			// #if HAPTIC_FEEDBACK_ENABLE
+#endif			// #if UNITY_IOS
 
 #if ADS_ENABLE
 #if ADMOB_ENABLE
