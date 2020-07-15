@@ -437,6 +437,9 @@ public static partial class KDefine {
 #endif			// #if UNITY_EDITOR
 
 #if UNITY_IOS
+	// 버전
+	public const float U_MIN_VERSION_LOGIN_WITH_APPLE = 13.0f;
+
 	// 이름 {
 	public const string U_OBJ_NAME_LOGIN_WITH_APPLE = "LoginWithApple";
 

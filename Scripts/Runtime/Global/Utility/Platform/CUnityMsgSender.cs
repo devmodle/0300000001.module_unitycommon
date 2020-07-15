@@ -32,8 +32,8 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 		base.Awake();
 
 #if UNITY_IOS
-		m_oLoginWithApple = Func.CreateCloneObj<SignInWithApple>(KDefine.U_OBJ_NAME_LOGIN_IN_WITH_APPLE,
-			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_LOGIN_IN_WITH_APPLE),
+		m_oLoginWithApple = Func.CreateCloneObj<SignInWithApple>(KDefine.U_OBJ_NAME_LOGIN_WITH_APPLE,
+			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_LOGIN_WITH_APPLE),
 			this.gameObject);
 #endif			// #if UNITY_IOS
 	}
@@ -171,13 +171,14 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 		m_oLoginCallback = a_oCallback;
 
 		try {
-			m_oLoginWithApple.Login(this.HandleLoginWithAppleMsg);
+			if(!Func.IsSupportLoginWithApple()) {
+				this.HandleLoginWithAppleMsg(this.MakeErrorCallbackArgs(KDefine.B_UNKNOWN_ERROR_MSG));
+			} else {
+				m_oLoginWithApple.Login(this.HandleLoginWithAppleMsg);
+			}
 		} catch(System.Exception oException) {
 			Func.ShowLogWarning("CUnityMsgSender.SendLoginWithAppleMsg Exception: {0}", oException.Message);
-
-			this.HandleLoginWithAppleMsg(new SignInWithApple.CallbackArgs() {
-				error = oException.Message
-			});
+			this.HandleLoginWithAppleMsg(this.MakeErrorCallbackArgs(oException.Message));
 		}
 	}
 
@@ -186,14 +187,22 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 		m_oCredentialCallback = a_oCallback;
 
 		try {
-			m_oLoginWithApple.GetCredentialState(a_oUserID, this.HandleGetCredentialStateMsg);
+			if(!Func.IsSupportLoginWithApple()) {
+				this.HandleGetCredentialStateMsg(this.MakeErrorCallbackArgs(KDefine.B_UNKNOWN_ERROR_MSG));
+			} else {
+				m_oLoginWithApple.GetCredentialState(a_oUserID, this.HandleGetCredentialStateMsg);
+			}
 		} catch(System.Exception oException) {
 			Func.ShowLogWarning("CUnityMsgSender.SendGetCredentialStateMsg Exception: {0}", oException.Message);
-
-			this.HandleGetCredentialStateMsg(new SignInWithApple.CallbackArgs() {
-				error = oException.Message
-			});
+			this.HandleGetCredentialStateMsg(this.MakeErrorCallbackArgs(oException.Message));
 		}
+	}
+
+	//! 에러 콜백 인자를 생성한다
+	private SignInWithApple.CallbackArgs MakeErrorCallbackArgs(string a_oMsg) {
+		return new SignInWithApple.CallbackArgs() {
+			error = a_oMsg
+		};
 	}
 #endif			// #if UNITY_IOS
 	#endregion			// 조건부 함수

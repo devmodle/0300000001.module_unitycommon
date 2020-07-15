@@ -335,6 +335,18 @@ public static partial class Func {
 	}
 #endif			// #if UNITY_EDITOR
 
+#if UNITY_IOS
+	//! 애플 로그인 지원 여부를 검사한다
+	public static bool IsSupportLoginWithApple() {
+		if(!Func.IsMobilePlatform()) {
+			return false;
+		}
+		
+		float fVersion = float.Parse(Device.systemVersion);
+		return fVersion.ExIsGreateEquals(KDefine.U_MIN_VERSION_LOGIN_WITH_APPLE);
+	}
+#endif			// UNITY_IOS
+
 #if HAPTIC_FEEDBACK_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 	//! 햅틱 피드백 지원 여부를 검사한다
 	public static bool IsSupportHapticFeedback() {
