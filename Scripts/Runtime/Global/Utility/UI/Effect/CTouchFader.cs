@@ -11,7 +11,7 @@ public class CTouchFader : CUIComponent,
 	IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
 	#region 변수
 	private bool m_bIsTouch = false;
-	private Tweener[] m_oAnimations = null;
+	private Tweener[] m_oAnis = null;
 
 	[SerializeField] private bool m_bIsRecursive = false;
 	#endregion			// 변수
@@ -21,7 +21,7 @@ public class CTouchFader : CUIComponent,
 	#endregion			// 컴포넌트
 
 	#region 프로퍼티
-	public bool IsEnableAnimation { get; set; } = true;
+	public bool IsEnableAni { get; set; } = true;
 
 	public Color OriginColor { get; set; } = Color.black;
 	public Color NormalColor { get; set; } = Color.black;
@@ -35,27 +35,27 @@ public class CTouchFader : CUIComponent,
 	//! 영역에 들어왔을 경우
 	public void OnPointerEnter(PointerEventData a_oEventData) {
 		if(m_bIsTouch) {
-			this.SetColor(this.OriginColor * this.SelectColor, this.IsEnableAnimation);
+			this.SetColor(this.OriginColor * this.SelectColor, this.IsEnableAni);
 		}
 	}
 
 	//! 영역에서 벗어났을 경우
 	public void OnPointerExit(PointerEventData a_oEventData) {
 		if(m_bIsTouch) {
-			this.SetColor(this.OriginColor * this.NormalColor, this.IsEnableAnimation);
+			this.SetColor(this.OriginColor * this.NormalColor, this.IsEnableAni);
 		}
 	}
 
 	//! 터치를 시작했을 경우
 	public void OnPointerDown(PointerEventData a_oEventData) {
 		m_bIsTouch = true;
-		this.SetColor(this.OriginColor * this.SelectColor, this.IsEnableAnimation);
+		this.SetColor(this.OriginColor * this.SelectColor, this.IsEnableAni);
 	}
 
 	//! 터치를 종료했을 경우
 	public void OnPointerUp(PointerEventData a_oEventData) {
 		m_bIsTouch = false;
-		this.SetColor(this.OriginColor * this.NormalColor, this.IsEnableAnimation);
+		this.SetColor(this.OriginColor * this.NormalColor, this.IsEnableAni);
 	}
 	#endregion			// 인터페이스
 
@@ -72,7 +72,7 @@ public class CTouchFader : CUIComponent,
 		m_oGraphics = this.GetComponentsInChildren<Graphic>();
 
 		if(m_oGraphics.ExIsValid()) {
-			m_oAnimations = new Tweener[m_oGraphics.Length];
+			m_oAnis = new Tweener[m_oGraphics.Length];
 			this.OriginColor = m_oGraphics.First().color;
 		}
 		// 그래픽을 설정한다 }
@@ -89,7 +89,7 @@ public class CTouchFader : CUIComponent,
 	//! 활성화 되었을 경우
 	public override void OnEnable() {
 		base.OnEnable();
-		this.SetColor(this.OriginColor * this.NormalColor, this.IsEnableAnimation);
+		this.SetColor(this.OriginColor * this.NormalColor, this.IsEnableAni);
 	}
 
 	//! 비활성화 되었을 경우
@@ -97,7 +97,7 @@ public class CTouchFader : CUIComponent,
 		base.OnDisable();
 
 		if(!CSceneManager.IsAppQuit) {
-			this.SetColor(this.OriginColor * this.DisableColor, this.IsEnableAnimation);
+			this.SetColor(this.OriginColor * this.DisableColor, this.IsEnableAni);
 		}
 	}
 
@@ -106,7 +106,7 @@ public class CTouchFader : CUIComponent,
 		base.OnDestroy();
 		
 		if(!CSceneManager.IsAppQuit) {
-			this.ResetAnimation();
+			this.ResetAni();
 		}
 	}
 
@@ -116,13 +116,13 @@ public class CTouchFader : CUIComponent,
 	}
 
 	//! 색상을 변경한다
-	public void SetColor(Color a_stColor, bool a_bIsAnimation = true) {
-		this.ResetAnimation();
+	public void SetColor(Color a_stColor, bool a_bIsAni = true) {
+		this.ResetAni();
 
 		for(int i = 0; i < this.NumGraphics; ++i) {
-			if(!this.IsIgnoreAnimation && a_bIsAnimation) {
-				m_oAnimations[i] = m_oGraphics[i].DOColor(a_stColor, 
-					KDefine.U_DEF_DURATION_ANIMATION).SetUpdate(true);
+			if(!this.IsIgnoreAni && a_bIsAni) {
+				m_oAnis[i] = m_oGraphics[i].DOColor(a_stColor, 
+					KDefine.U_DEF_DURATION_ANI).SetUpdate(true);
 			} else {
 				m_oGraphics[i].color = a_stColor;
 			}
@@ -130,9 +130,9 @@ public class CTouchFader : CUIComponent,
 	}
 
 	//! 애니메이션을 리셋한다
-	private void ResetAnimation() {
+	private void ResetAni() {
 		for(int i = 0; i < this.NumGraphics; ++i) {
-			m_oAnimations[i]?.Kill();
+			m_oAnis[i]?.Kill();
 		}
 	}
 	#endregion			// 함수

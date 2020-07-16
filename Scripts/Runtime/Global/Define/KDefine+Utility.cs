@@ -72,19 +72,19 @@ public static partial class KDefine {
 	public const float U_DELTA_TIME_PERMISSION_CHECK = 0.15f;
 	public const float U_MAX_DELTA_TIME_PERMISSION_CHECK = 15.0f;
 
-	public const float U_DEF_DURATION_ANIMATION = 0.25f;
+	public const float U_DEF_DURATION_ANI = 0.25f;
+	public const float U_DEF_DURATION_POPUP_ANI = 0.15f;
+	public const float U_DEF_DURATION_SCROLL_ANI = 0.25f;
+	public const float U_DEF_DURATION_SCREEN_FADE_IN_ANI = 0.15f;
+	public const float U_DEF_DURATION_SCREEN_FADE_OUT_ANI = 0.15f;
 	public const float U_DEF_DURATION_TOAST_POPUP = 2.0f;
-	public const float U_DEF_DURATION_POPUP_ANIMATION = 0.15f;
-	public const float U_DEF_DURATION_SCROLL_ANIMATION = 0.25f;
-	public const float U_DEF_DURATION_SCREEN_FADE_IN_ANIMATION = 0.15f;
-	public const float U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION = 0.15f;
 
 	public const float U_DEF_DURATION_LIGHT_VIBRATE = 0.05f;
 	public const float U_DEF_DURATION_MEDIUM_VIBRATE = 0.1f;
 	public const float U_DEF_DURATION_HEAVY_VIBRATE = 0.15f;
 
 	public const float U_DELAY_INIT = 0.15f;
-	public const float U_DEF_DELAY_POPUP_SHOW_ANIMATION = KDefine.B_DELTA_TIME_INTERMEDIATE;
+	public const float U_DEF_DELAY_POPUP_SHOW_ANI = KDefine.B_DELTA_TIME_INTERMEDIATE;
 
 	public const float U_DEF_TIMEOUT_NETWORK_CONNECTION = 30.0f;
 	// 시간 }

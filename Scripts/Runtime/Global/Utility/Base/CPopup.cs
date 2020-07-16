@@ -7,10 +7,10 @@ using DG.Tweening;
 //! 팝업
 public class CPopup : CUIComponent {
 	#region 변수
-	protected Tweener m_oBGAnimation = null;
+	protected Tweener m_oBGAni = null;
 
-	protected Sequence m_oShowAnimation = null;
-	protected Sequence m_oCloseAnimation = null;
+	protected Sequence m_oShowAni = null;
+	protected Sequence m_oCloseAni = null;
 
 	protected System.Action<CPopup> m_oShowCallback = null;
 	protected System.Action<CPopup> m_oCloseCallback = null;
@@ -28,12 +28,12 @@ public class CPopup : CUIComponent {
 
 	#region 프로퍼티
 	public bool IsClose { get; private set; } = false;
-	public bool IsEnableBGAnimation { get; set; } = true;
+	public bool IsEnableBGAni { get; set; } = true;
 
 	public float ShowTimeScale { get; set; } = KDefine.U_ZERO_TIME_SCALE;
 	public float CloseTimeScale { get; set; } = KDefine.U_DEF_TIME_SCALE;
 
-	public float ShowAnimationDelay { get; set; } = KDefine.U_DEF_DELAY_POPUP_SHOW_ANIMATION;
+	public float ShowAniDelay { get; set; } = KDefine.U_DEF_DELAY_POPUP_SHOW_ANI;
 	public virtual Color BGColor => KAppDefine.G_DEF_COLOR_POPUP_BG;
 	#endregion			// 프로퍼티
 
@@ -67,7 +67,7 @@ public class CPopup : CUIComponent {
 		base.OnDestroy();
 
 		if(!CSceneManager.IsAppQuit) {
-			this.ResetAnimation();
+			this.ResetAni();
 		}
 	}
 
@@ -77,7 +77,7 @@ public class CPopup : CUIComponent {
 	}
 
 	//! 출력 애니메이션이 완료 되었을 경우
-	public void OnCompleteShowAnimation() {
+	public void OnCompleteShowAni() {
 		this.OnShowPopup();
 		m_oShowCallback?.Invoke(this);
 
@@ -85,7 +85,7 @@ public class CPopup : CUIComponent {
 	}
 
 	//! 닫기 애니메이션이 완료 되었을 경우
-	public void OnCompleteCloseAnimation() {
+	public void OnCompleteCloseAni() {
 		this.OnClosePopup();
 		m_oCloseCallback?.Invoke(this);
 
@@ -104,13 +104,13 @@ public class CPopup : CUIComponent {
 	}
 
 	//! 배경 색상을 변경한다
-	public void SetBGColor(Color a_stColor, bool a_bIsAnimation = true) {
-		m_oBGAnimation?.Kill();
+	public void SetBGColor(Color a_stColor, bool a_bIsAni = true) {
+		m_oBGAni?.Kill();
 		
-		if(!a_bIsAnimation) {
+		if(!a_bIsAni) {
 			m_oBGImg.color = a_stColor;
 		} else {
-			m_oBGAnimation = m_oBGImg.DOColor(a_stColor, KDefine.U_DEF_DURATION_ANIMATION).SetUpdate(true);
+			m_oBGAni = m_oBGImg.DOColor(a_stColor, KDefine.U_DEF_DURATION_ANI).SetUpdate(true);
 		}
 	}
 
@@ -120,10 +120,10 @@ public class CPopup : CUIComponent {
 			m_oShowCallback = a_oShowCallback;
 			m_oCloseCallback = a_oCloseCallback;
 
-			if(this.ShowAnimationDelay.ExIsLessEquals(KDefine.B_DELTA_TIME_INTERMEDIATE)) {
+			if(this.ShowAniDelay.ExIsLessEquals(KDefine.B_DELTA_TIME_INTERMEDIATE)) {
 				Func.LateCallFunc(this, this.DoShowPopup);
 			} else {
-				Func.LateCallFunc(this, this.ShowAnimationDelay, this.DoShowPopup, true);
+				Func.LateCallFunc(this, this.ShowAniDelay, this.DoShowPopup, true);
 			}
 		}
 	}
@@ -132,7 +132,7 @@ public class CPopup : CUIComponent {
 	public virtual void ClosePopup() {
 		if(!this.IsClose && !this.IsDestroy) {
 			this.IsClose = true;
-			this.StartCloseAnimation();
+			this.StartCloseAni();
 
 			if(this.NavigationCallback != null) {
 				this.NavigationCallback = null;
@@ -167,53 +167,53 @@ public class CPopup : CUIComponent {
 	}
 
 	//! 출력 애니메이션을 생성한다
-	protected virtual Sequence CreateShowAnimation() {
-		var oAnimation = m_oRootTransform.DOScale(KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_DURATION_POPUP_ANIMATION);
-		return DOTween.Sequence().SetEase(Ease.OutExpo).Append(oAnimation);
+	protected virtual Sequence CreateShowAni() {
+		var oAni = m_oRootTransform.DOScale(KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_DURATION_POPUP_ANI);
+		return DOTween.Sequence().SetEase(Ease.OutExpo).Append(oAni);
 	}
 
 	//! 닫기 애니메이션을 생성한다
-	protected virtual Sequence CreateCloseAnimation() {
-		var oAnimation = m_oRootTransform.DOScale(KDefine.U_MIN_SCALE_POPUP, KDefine.U_DEF_DURATION_POPUP_ANIMATION);
-		return DOTween.Sequence().SetEase(Ease.InExpo).Append(oAnimation);
+	protected virtual Sequence CreateCloseAni() {
+		var oAni = m_oRootTransform.DOScale(KDefine.U_MIN_SCALE_POPUP, KDefine.U_DEF_DURATION_POPUP_ANI);
+		return DOTween.Sequence().SetEase(Ease.InExpo).Append(oAni);
 	}
 
 	//! 팝업을 출력한다
 	private void DoShowPopup(CComponent a_oComponent, object[] a_oParams) {
 		if(!this.IsClose && !this.IsDestroy) {
 			this.SetupPopupContents();
-			this.StartShowAnimation();
+			this.StartShowAni();
 
-			this.SetBGColor(this.BGColor, this.IsEnableBGAnimation);
+			this.SetBGColor(this.BGColor, this.IsEnableBGAni);
 		}
 	}
 
 	//! 애니메이션을 리셋한다
-	private void ResetAnimation() {
-		m_oBGAnimation?.Kill();
+	private void ResetAni() {
+		m_oBGAni?.Kill();
 
-		m_oShowAnimation?.Kill();
-		m_oCloseAnimation?.Kill();
+		m_oShowAni?.Kill();
+		m_oCloseAni?.Kill();
 	}
 
 	//! 출력 애니메이션을 시작한다
-	private void StartShowAnimation() {
-		this.ResetAnimation();
+	private void StartShowAni() {
+		this.ResetAni();
 		Time.timeScale = this.ShowTimeScale;
 
-		m_oShowAnimation = this.CreateShowAnimation();
-		m_oShowAnimation?.SetAutoKill().SetUpdate(true);
-		m_oShowAnimation?.AppendCallback(this.OnCompleteShowAnimation);
+		m_oShowAni = this.CreateShowAni();
+		m_oShowAni?.SetAutoKill().SetUpdate(true);
+		m_oShowAni?.AppendCallback(this.OnCompleteShowAni);
 	}
 
 	//! 닫기 애니메이션을 시작한다
-	private void StartCloseAnimation() {
-		this.ResetAnimation();
+	private void StartCloseAni() {
+		this.ResetAni();
 		Time.timeScale = this.CloseTimeScale;
 		
-		m_oCloseAnimation = this.CreateCloseAnimation();
-		m_oCloseAnimation?.SetAutoKill().SetUpdate(true);
-		m_oCloseAnimation?.AppendCallback(this.OnCompleteCloseAnimation);
+		m_oCloseAni = this.CreateCloseAni();
+		m_oCloseAni?.SetAutoKill().SetUpdate(true);
+		m_oCloseAni?.AppendCallback(this.OnCompleteCloseAni);
 	}
 	#endregion			// 함수
 }

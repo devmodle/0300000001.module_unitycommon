@@ -86,7 +86,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			this.ShowAgreePopup(CResManager.Instance.GetTextAsset(oServiceFilepath).text,
 				CResManager.Instance.GetTextAsset(oPersonalFilepath).text);
 
-			Func.LateCallFunc(this, KDefine.U_DEF_DURATION_ANIMATION, (a_oComponent, a_oParams) => {
+			Func.LateCallFunc(this, KDefine.U_DEF_DURATION_ANI, (a_oComponent, a_oParams) => {
 				CResManager.Instance.RemoveTextAsset(oServiceFilepath, true);
 				CResManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
 			});

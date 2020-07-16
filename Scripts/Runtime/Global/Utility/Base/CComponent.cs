@@ -13,7 +13,7 @@ public class CComponent : MonoBehaviour {
 
 	#region 프로퍼티
 	public bool IsDestroy { get; private set; } = false;
-	public bool IsIgnoreAnimation { get; set; } = false;
+	public bool IsIgnoreAni { get; set; } = false;
 	public bool IsIgnoreNavigationEvent { get; set; } = false;
 
 	public System.Action<CComponent> DestroyCallback { get; set; } = null;

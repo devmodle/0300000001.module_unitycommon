@@ -12,7 +12,7 @@ public class CPageScrollView : CUIComponent {
 	private bool m_bIsPaging = false;
 	private Vector2 m_stDragStartPos = Vector2.zero;
 
-	private Tweener m_oAnimation = null;
+	private Tweener m_oAni = null;
 
 	[SerializeField] private float m_fPageDistance = KDefine.U_DEF_DISTANCE_PAGE;
 	[SerializeField] private EScrollDirection m_eDirection = EScrollDirection.NONE;
@@ -96,7 +96,7 @@ public class CPageScrollView : CUIComponent {
 		base.OnDisable();
 
 		if(!CSceneManager.IsAppQuit) {
-			this.ResetAnimation();
+			this.ResetAni();
 		}
 	}
 
@@ -158,8 +158,8 @@ public class CPageScrollView : CUIComponent {
 	}
 
 	//! 애니메이션을 리셋한다
-	private void ResetAnimation() {
-		m_oAnimation?.Kill();
+	private void ResetAni() {
+		m_oAni?.Kill();
 	}
 
 	//! 스크롤 뷰 상태를 갱신한다
@@ -170,14 +170,14 @@ public class CPageScrollView : CUIComponent {
 
 	//! 스크롤 뷰를 페이지한다
 	private void PageScrollView(int a_nPage) {
-		this.ResetAnimation();
+		this.ResetAni();
 
 		if(m_eDirection == EScrollDirection.VERTICAL) {
-			m_oAnimation = m_oContentTransform.DOAnchorPos(new Vector3(0.0f, a_nPage * m_oViewportTransform.rect.height, 0.0f),
-				KDefine.U_DEF_DURATION_SCROLL_ANIMATION).SetEase(Ease.Linear);
+			m_oAni = m_oContentTransform.DOAnchorPos(new Vector3(0.0f, a_nPage * m_oViewportTransform.rect.height, 0.0f),
+				KDefine.U_DEF_DURATION_SCROLL_ANI).SetEase(Ease.Linear);
 		} else if(m_eDirection == EScrollDirection.HORIZONTAL) {
-			m_oAnimation = m_oContentTransform.DOAnchorPos(new Vector3(a_nPage * -m_oViewportTransform.rect.width, 0.0f, 0.0f),
-				KDefine.U_DEF_DURATION_SCROLL_ANIMATION).SetEase(Ease.Linear);
+			m_oAni = m_oContentTransform.DOAnchorPos(new Vector3(a_nPage * -m_oViewportTransform.rect.width, 0.0f, 0.0f),
+				KDefine.U_DEF_DURATION_SCROLL_ANI).SetEase(Ease.Linear);
 		}
 	}
 	#endregion			// 함수

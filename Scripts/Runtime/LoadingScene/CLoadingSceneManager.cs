@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 //! 로딩 씬 관리자
 public abstract class CLoadingSceneManager : CSceneManager {
 	#region 프로퍼티
-	public virtual float FadeInAnimationDuration => KDefine.U_DEF_DURATION_SCREEN_FADE_IN_ANIMATION;
+	public virtual float FadeInAniDuration => KDefine.U_DEF_DURATION_SCREEN_FADE_IN_ANI;
 	public override string SceneName => KDefine.B_SCENE_NAME_LOADING;
 
 #if UNITY_EDITOR
@@ -15,7 +15,7 @@ public abstract class CLoadingSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 클래스 프로퍼티
-	public static bool IsAnimation { get; set; } = false;
+	public static bool IsAni { get; set; } = false;
 	public static bool IsStartActivityIndicator { get; set; } = false;
 
 	public static string NextSceneName { get; set; } = KDefine.B_EMPTY_STRING;
@@ -37,7 +37,7 @@ public abstract class CLoadingSceneManager : CSceneManager {
 			// 비동기 로드가 아닐 경우
 			if(CLoadingSceneManager.Callback == null) {
 				CSceneLoader.Instance.LoadScene(CLoadingSceneManager.NextSceneName,
-					false, CLoadingSceneManager.IsAnimation, false, this.FadeInAnimationDuration, CLoadingSceneManager.LoadSceneMode);
+					false, CLoadingSceneManager.IsAni, false, this.FadeInAniDuration, CLoadingSceneManager.LoadSceneMode);
 
 				// 씬을 추가했을 경우
 				if(CLoadingSceneManager.LoadSceneMode == LoadSceneMode.Additive) {
@@ -52,7 +52,7 @@ public abstract class CLoadingSceneManager : CSceneManager {
 					if(a_bIsComplete && CLoadingSceneManager.LoadSceneMode == LoadSceneMode.Additive) {
 						CSceneLoader.Instance.UnloadSceneAsync(KDefine.B_SCENE_NAME_LOADING, null);
 					}
-				}, 0.0f, false, CLoadingSceneManager.IsAnimation, false, this.FadeInAnimationDuration, CLoadingSceneManager.LoadSceneMode);
+				}, 0.0f, false, CLoadingSceneManager.IsAni, false, this.FadeInAniDuration, CLoadingSceneManager.LoadSceneMode);
 			}
 		});
 	}

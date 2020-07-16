@@ -86,7 +86,7 @@ public abstract partial class CSceneManager : CComponent {
 	public bool IsRootScene => CSceneManager.RootSceneName.ExIsEquals(this.SceneName);
 	
 	public virtual float PlaneDistance => KDefine.U_DEF_DISTANCE_CAMERA_PLANE;
-	public virtual float FadeOutAnimationDuration => KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION;
+	public virtual float FadeOutAniDuration => KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANI;
 
 	public virtual float UICameraDepth => KDefine.U_DEPTH_UI_CAMERA;
 	public virtual float MainCameraDepth => KDefine.U_DEPTH_MAIN_CAMERA;
@@ -403,14 +403,14 @@ public abstract partial class CSceneManager : CComponent {
 	}
 
 	//! 화면 페이드 인 애니메이션을 시작한다
-	public virtual void StartScreenFadeInAnimation(System.Action<GameObject> a_oCallback, 
-		float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION) {
+	public virtual void StartScreenFadeInAni(System.Action<GameObject> a_oCallback, 
+		float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANI) {
 		CSceneManager.ShowTouchResponder(KDefine.U_OBJ_NAME_SCREEN_F_TOUCH_RESPONDER,
 			CSceneManager.ScreenAbsoluteUIRoot, KDefine.U_DEF_COLOR_SCREEN_FADE, a_oCallback, true, false, a_fDuration);
 	}
 
 	//! 화면 페이드 아웃 애니메이션을 시작한다
-	public virtual void StartScreenFadeOutAnimation(float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION) {
+	public virtual void StartScreenFadeOutAni(float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANI) {
 		CSceneManager.CloseTouchResponder(KDefine.U_OBJ_NAME_SCREEN_F_TOUCH_RESPONDER, KDefine.U_DEF_COLOR_TRANSPARENT, true, a_fDuration);
 	}
 	#endregion			// 함수
@@ -424,7 +424,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 터치 응답자를 출력한다
 	public static void ShowTouchResponder(string a_oKey,
-		GameObject a_oParent, Color a_stColor, System.Action<GameObject> a_oCallback, bool a_bIsAnimation = true, bool a_bIsEnableNavigation = false, float a_fDuration = 0.0f) {
+		GameObject a_oParent, Color a_stColor, System.Action<GameObject> a_oCallback, bool a_bIsAni = true, bool a_bIsEnableNavigation = false, float a_fDuration = 0.0f) {
 		Func.Assert(a_oKey.ExIsValid());
 
 		if(!CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey)) {
@@ -439,11 +439,11 @@ public abstract partial class CSceneManager : CComponent {
 			var oImg = oTouchResponder.GetComponentInChildren<Image>();
 			Sequence oSequence = null;
 
-			if(!a_bIsAnimation) {
+			if(!a_bIsAni) {
 				oImg.color = a_stColor;
 				a_oCallback?.Invoke(oTouchResponder);
 			} else {
-				a_fDuration = a_fDuration.ExIsLessEquals(0.0f) ? KDefine.U_DEF_DURATION_ANIMATION 
+				a_fDuration = a_fDuration.ExIsLessEquals(0.0f) ? KDefine.U_DEF_DURATION_ANI 
 					: a_fDuration;
 
 				oSequence = DOTween.Sequence().SetAutoKill().SetEase(Ease.Linear).SetUpdate(true);
@@ -474,7 +474,7 @@ public abstract partial class CSceneManager : CComponent {
 	}
 
 	//! 터치 응답자를 닫는다
-	public static void CloseTouchResponder(string a_oKey, Color a_stColor, bool a_bIsAnimation = false, float a_fDuration = 0.0f) {
+	public static void CloseTouchResponder(string a_oKey, Color a_stColor, bool a_bIsAni = false, float a_fDuration = 0.0f) {
 		Func.Assert(a_oKey.ExIsValid());
 
 		if(CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey)) {
@@ -493,10 +493,10 @@ public abstract partial class CSceneManager : CComponent {
 			var oImg = oTouchResponderInfo.Key.GetComponentInChildren<Image>();
 			oTouchResponderInfo.Value?.Kill();
 
-			if(!a_bIsAnimation) {
+			if(!a_bIsAni) {
 				Destroy(oTouchResponderInfo.Key);
 			} else {
-				a_fDuration = a_fDuration.ExIsLessEquals(0.0f) ? KDefine.U_DEF_DURATION_ANIMATION 
+				a_fDuration = a_fDuration.ExIsLessEquals(0.0f) ? KDefine.U_DEF_DURATION_ANI 
 					: a_fDuration;
 
 				var oSequence = DOTween.Sequence().SetAutoKill().SetEase(Ease.Linear).SetUpdate(true);
