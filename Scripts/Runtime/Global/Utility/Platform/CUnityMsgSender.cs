@@ -116,6 +116,7 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 	public void SendShareMsg(string a_oMsg, 
 		System.Action<NativeShare.ShareResult, string> a_oCallback, string a_oFilepath = KDefine.B_EMPTY_STRING) {
 		Func.Assert(a_oMsg.ExIsValid());
+		Func.ShowLog("CUnityMsgSender.SendShareMsg", KDefine.B_LOG_COLOR_PLUGIN, a_oMsg);
 
 		var oShare = new NativeShare();
 		oShare.SetText(a_oMsg);
@@ -134,6 +135,7 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 	//! 메세지를 전송한다
 	private void SendMsg(string a_oCmd, string a_oMsg, System.Action<string, string> a_oCallback, bool a_bIsAutoRemove) {
 		Func.Assert(a_oMsg != null && a_oCmd.ExIsValid());
+		Func.ShowLog("CUnityMsgSender.SendMsg: {0}, {1}", KDefine.B_LOG_COLOR_PLUGIN, a_oCmd, a_oMsg);
 
 		if(!Func.IsMobilePlatform()) {
 			a_oCallback?.Invoke(a_oCmd, string.Empty);
@@ -157,20 +159,27 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 	#region 조건부 함수
 #if UNITY_IOS
 	//! 애플 로그인 메세지를 처리한다
-	public void HandleLoginWithAppleMsg(SignInWithApple.CallbackArgs a_oArgs) {
-		m_oLoginCallback?.Invoke(a_oArgs, !a_oArgs.error.ExIsValid());
+	public void HandleLoginWithAppleMsg(SignInWithApple.CallbackArgs a_stArgs) {
+		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_UNITY_MS_LOGIN_WITH_APPLE_CALLBACK, () => {
+			Func.ShowLog("CUnityMsgSender.HandleLoginWithAppleMsg: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_stArgs.ExIsValidUserInfo());
+			m_oLoginCallback?.Invoke(a_stArgs, a_stArgs.ExIsValidUserInfo());
+		});
 	}
 
 	//! 인증 상태 반환 메세지를 처리한다
-	public void HandleGetCredentialStateMsg(SignInWithApple.CallbackArgs a_oArgs) {
-		m_oCredentialCallback?.Invoke(a_oArgs, !a_oArgs.error.ExIsValid());
+	public void HandleGetCredentialStateMsg(SignInWithApple.CallbackArgs a_stArgs) {
+		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_UNITY_MS_GET_CREDENTIAL_STATE_CALLBACK, () => {
+			Func.ShowLog("CUnityMsgSender.HandleGetCredentialStateMsg: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_stArgs.ExIsValidCredentialState());
+			m_oCredentialCallback?.Invoke(a_stArgs, a_stArgs.ExIsValidCredentialState());
+		});
 	}
 
 	//! 애플 로그인 메세지를 전송한다
 	public void SendLoginWithAppleMsg(System.Action<SignInWithApple.CallbackArgs, bool> a_oCallback) {
-		m_oLoginCallback = a_oCallback;
-
 		try {
+			Func.ShowLog("CUnityMsgSender.SendLoginWithAppleMsg", KDefine.B_LOG_COLOR_PLUGIN);
+			m_oLoginCallback = a_oCallback;
+
 			if(!Func.IsSupportLoginWithApple()) {
 				this.HandleLoginWithAppleMsg(this.MakeErrorCallbackArgs(KDefine.B_UNKNOWN_ERROR_MSG));
 			} else {
@@ -184,9 +193,10 @@ public class CUnityMsgSender : CSingleton<CUnityMsgSender> {
 
 	//! 인증 상태 반환 메세지를 전송한다
 	public void SendGetCredentialStateMsg(string a_oUserID, System.Action<SignInWithApple.CallbackArgs, bool> a_oCallback) {
-		m_oCredentialCallback = a_oCallback;
-
 		try {
+			Func.ShowLog("CUnityMsgSender.SendGetCredentialStateMsg: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oUserID);
+			m_oCredentialCallback = a_oCallback;
+
 			if(!Func.IsSupportLoginWithApple()) {
 				this.HandleGetCredentialStateMsg(this.MakeErrorCallbackArgs(KDefine.B_UNKNOWN_ERROR_MSG));
 			} else {

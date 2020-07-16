@@ -8,7 +8,10 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 	#region 함수
 	//! 씬을 로드한다
 	public void LoadScene(string a_oName,
-		bool a_bIsStartActivityIndicator = false, bool a_bIsAnimation = true, bool a_bIsUseLoadingScene = false, LoadSceneMode a_eLoadSceneMode = LoadSceneMode.Single) {
+		bool a_bIsStartActivityIndicator = false, 
+		bool a_bIsAnimation = true, 
+		bool a_bIsUseLoadingScene = false, 
+		float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_IN_ANIMATION, LoadSceneMode a_eLoadSceneMode = LoadSceneMode.Single) {
 		if(a_bIsStartActivityIndicator) {
 			CActivityIndicatorManager.Instance.StartActivityIndicator(true);
 		}
@@ -22,19 +25,24 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 			CSceneManager.RootSceneManager.StartScreenFadeInAnimation((a_oTouchResponder) => {
 				CLoadingSceneManager.IsAnimation = true;
 				this.DoLoadScene(a_oName, a_bIsStartActivityIndicator, a_bIsUseLoadingScene, a_eLoadSceneMode);
-			});
+			}, a_fDuration);
 		}
 	}
 
 	//! 씬을 로드한다
 	public void LoadSceneAsync(string a_oName,
-		System.Action<AsyncOperation, bool> a_oCallback, float a_fDelay = 0.0f, bool a_bIsStartActivityIndicator = false, bool a_bIsAnimation = true, bool a_bIsUseLoadingScene = true, LoadSceneMode a_eLoadSceneMode = LoadSceneMode.Single) {
+		System.Action<AsyncOperation, bool> a_oCallback, 
+		float a_fDelay = 0.0f, 
+		bool a_bIsStartActivityIndicator = false, 
+		bool a_bIsAnimation = true, 
+		bool a_bIsUseLoadingScene = true, 
+		float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_IN_ANIMATION, LoadSceneMode a_eLoadSceneMode = LoadSceneMode.Single) {
 		if(a_bIsStartActivityIndicator) {
 			CActivityIndicatorManager.Instance.StartActivityIndicator(true);
 		}
 
 		StartCoroutine(this.DoLoadSceneAsync(a_oName,
-			a_fDelay, a_bIsStartActivityIndicator, a_bIsAnimation, a_bIsUseLoadingScene, a_eLoadSceneMode, a_oCallback));
+			a_fDelay, a_bIsStartActivityIndicator, a_bIsAnimation, a_bIsUseLoadingScene, a_fDuration, a_eLoadSceneMode, a_oCallback));
 	}
 
 	//! 씬을 제거한다
@@ -69,7 +77,12 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 
 	//! 씬을 로드한다
 	private IEnumerator DoLoadSceneAsync(string a_oName,
-		float a_fDelay, bool a_bIsStartActivityIndicator, bool a_bIsAnimation, bool a_bIsUseLoadingScene, LoadSceneMode a_eLoadSceneMode, System.Action<AsyncOperation, bool> a_oCallback) {
+		float a_fDelay, 
+		bool a_bIsStartActivityIndicator, 
+		bool a_bIsAnimation, 
+		bool a_bIsUseLoadingScene, 
+		float a_fDuration, 
+		LoadSceneMode a_eLoadSceneMode, System.Action<AsyncOperation, bool> a_oCallback) {
 		yield return Func.CreateWaitForSeconds(a_fDelay);
 
 		if(!a_bIsUseLoadingScene) {
@@ -91,7 +104,7 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 
 						CSceneManager.RootSceneManager.StartScreenFadeInAnimation((a_oTouchResponder) => {
 							a_oAsyncOperation.allowSceneActivation = true;
-						});
+						}, a_fDuration);
 					}
 				}
 			});
@@ -106,7 +119,7 @@ public class CSceneLoader : CSingleton<CSceneLoader> {
 
 				CSceneManager.RootSceneManager.StartScreenFadeInAnimation((a_oTouchResponder) => {
 					SceneManager.LoadScene(KDefine.B_SCENE_NAME_LOADING, a_eLoadSceneMode);
-				});
+				}, a_fDuration);
 			}
 		}
 	}

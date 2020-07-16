@@ -170,8 +170,8 @@ public abstract partial class CSceneManager : CComponent {
 #endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
 		if(Application.isPlaying) {
-			this.StartScreenFadeOutAnimation();
-
+			this.StartScreenFadeOutAnimation(this.FadeOutAnimationDuration);
+			
 			CScheduleManager.Instance.AddComponent(this);
 			CNavigationManager.Instance.AddComponent(this);
 

@@ -38,7 +38,7 @@ public class CToastPopupManager : CSingleton<CToastPopupManager> {
 	}
 
 	//! 토스트 팝업을 출력한다
-	public void ShowToastPopup(string a_oMsg, float a_fDuration) {
+	public void ShowToastPopup(string a_oMsg, float a_fDuration = KDefine.U_DEF_DURATION_TOAST_POPUP) {
 		Func.Assert(this.ToastPopupCreator != null);
 
 		var oToastPopup = this.ToastPopupCreator(a_oMsg, a_fDuration);

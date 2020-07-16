@@ -181,7 +181,7 @@ public static partial class Func {
 	//! 추가 씬을 로드한다
 	public static void LoadAdditiveScene(string a_oName, bool a_bIsStartActivityIndicator = false) {
 		Func.Assert(a_oName.ExIsValid());
-		CSceneLoader.Instance.LoadScene(a_oName, a_bIsStartActivityIndicator, false, false, LoadSceneMode.Additive);
+		CSceneLoader.Instance.LoadScene(a_oName, a_bIsStartActivityIndicator, false, false, 0.0f, LoadSceneMode.Additive);
 	}
 
 	//! 추가 씬을 로드한다
@@ -341,9 +341,9 @@ public static partial class Func {
 		if(!Func.IsMobilePlatform()) {
 			return false;
 		}
-		
-		float fVersion = float.Parse(Device.systemVersion);
-		return fVersion.ExIsGreateEquals(KDefine.U_MIN_VERSION_LOGIN_WITH_APPLE);
+
+		var oVersion = new System.Version(Device.systemVersion);
+		return oVersion.CompareTo(KDefine.U_MIN_VERSION_LOGIN_WITH_APPLE) >= KDefine.B_COMPARE_RESULT_EQUALS;
 	}
 #endif			// UNITY_IOS
 

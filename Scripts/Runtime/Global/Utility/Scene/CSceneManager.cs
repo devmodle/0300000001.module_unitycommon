@@ -84,7 +84,9 @@ public abstract partial class CSceneManager : CComponent {
 	public GameObject SubObjectCanvasRoot { get; private set; } = null;
 	
 	public bool IsRootScene => CSceneManager.RootSceneName.ExIsEquals(this.SceneName);
+	
 	public virtual float PlaneDistance => KDefine.U_DEF_DISTANCE_CAMERA_PLANE;
+	public virtual float FadeOutAnimationDuration => KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION;
 
 	public virtual float UICameraDepth => KDefine.U_DEPTH_UI_CAMERA;
 	public virtual float MainCameraDepth => KDefine.U_DEPTH_MAIN_CAMERA;
@@ -401,15 +403,15 @@ public abstract partial class CSceneManager : CComponent {
 	}
 
 	//! 화면 페이드 인 애니메이션을 시작한다
-	public virtual void StartScreenFadeInAnimation(System.Action<GameObject> a_oCallback) {
+	public virtual void StartScreenFadeInAnimation(System.Action<GameObject> a_oCallback, 
+		float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION) {
 		CSceneManager.ShowTouchResponder(KDefine.U_OBJ_NAME_SCREEN_F_TOUCH_RESPONDER,
-			CSceneManager.ScreenAbsoluteUIRoot, KDefine.U_DEF_COLOR_SCREEN_FADE, a_oCallback, true, false, KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION);
+			CSceneManager.ScreenAbsoluteUIRoot, KDefine.U_DEF_COLOR_SCREEN_FADE, a_oCallback, true, false, a_fDuration);
 	}
 
 	//! 화면 페이드 아웃 애니메이션을 시작한다
-	public virtual void StartScreenFadeOutAnimation() {
-		CSceneManager.CloseTouchResponder(KDefine.U_OBJ_NAME_SCREEN_F_TOUCH_RESPONDER,
-			KDefine.U_DEF_COLOR_TRANSPARENT, true, KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION);
+	public virtual void StartScreenFadeOutAnimation(float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION) {
+		CSceneManager.CloseTouchResponder(KDefine.U_OBJ_NAME_SCREEN_F_TOUCH_RESPONDER, KDefine.U_DEF_COLOR_TRANSPARENT, true, a_fDuration);
 	}
 	#endregion			// 함수
 

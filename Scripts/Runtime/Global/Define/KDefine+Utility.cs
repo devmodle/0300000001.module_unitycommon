@@ -73,7 +73,7 @@ public static partial class KDefine {
 	public const float U_MAX_DELTA_TIME_PERMISSION_CHECK = 15.0f;
 
 	public const float U_DEF_DURATION_ANIMATION = 0.25f;
-	public const float U_DEF_DURATION_TOAST_POPUP = 1.5f;
+	public const float U_DEF_DURATION_TOAST_POPUP = 2.0f;
 	public const float U_DEF_DURATION_POPUP_ANIMATION = 0.15f;
 	public const float U_DEF_DURATION_SCROLL_ANIMATION = 0.25f;
 	public const float U_DEF_DURATION_SCREEN_FADE_IN_ANIMATION = 0.15f;
@@ -437,8 +437,9 @@ public static partial class KDefine {
 #endif			// #if UNITY_EDITOR
 
 #if UNITY_IOS
-	// 버전
-	public const float U_MIN_VERSION_LOGIN_WITH_APPLE = 13.0f;
+	// 키
+	public const string U_KEY_UNITY_MS_LOGIN_WITH_APPLE_CALLBACK = "UnityMSLoginWithAppleCallback";
+	public const string U_KEY_UNITY_MS_GET_CREDENTIAL_STATE_CALLBACK = "UnityMSGetCredentialStateCallback";
 
 	// 이름 {
 	public const string U_OBJ_NAME_LOGIN_WITH_APPLE = "LoginWithApple";
@@ -708,6 +709,9 @@ public static partial class KDefine {
 
 	#region 조건부 런타임 상수
 #if UNITY_IOS
+	// 버전
+	public static readonly System.Version U_MIN_VERSION_LOGIN_WITH_APPLE = new System.Version(13, 0, 0);
+
 	// 경로
 	public static readonly string U_OBJ_PATH_LOGIN_WITH_APPLE = string.Format("{0}{1}U_LogInWithApple", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE);
 

@@ -8,6 +8,10 @@ using System.IO.Compression;
 using UnityEngine;
 using Leguar.TotalJSON;
 
+#if UNITY_IOS
+using UnityEngine.SignInWithApple;
+#endif			// #if UNITY_IOS
+
 #if MESSAGE_PACK_ENABLE
 using MessagePack;
 #endif			// #if MESSAGE_PACK_ENABLE
@@ -1179,6 +1183,18 @@ public static partial class CExtension {
 	#endregion			// 제네릭 클래스 함수
 
 	#region 조건부 클래스 함수
+#if UNITY_IOS
+	//! 유효 여부를 검사한다
+	public static bool ExIsValidUserInfo(this SignInWithApple.CallbackArgs a_stSender) {
+		return !a_stSender.error.ExIsValid() && a_stSender.userInfo.userId.ExIsValid();
+	}
+
+	//! 유효 여부를 검사한다
+	public static bool ExIsValidCredentialState(this SignInWithApple.CallbackArgs a_stSender) {
+		return !a_stSender.error.ExIsValid() && a_stSender.credentialState == UserCredentialState.Authorized;
+	}
+#endif			// #if UNITY_IOS
+
 #if MESSAGE_PACK_ENABLE
 	//! 문자열 -> 압축 된 문자열로 변환한다
 	public static string ExToCompressString(this string a_oSender, System.Text.Encoding a_oEncoding) {
