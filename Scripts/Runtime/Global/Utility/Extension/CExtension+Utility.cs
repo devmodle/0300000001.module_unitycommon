@@ -466,15 +466,45 @@ public static partial class CExtension {
 	}
 
 	//! 컴포넌트를 제거한다
-	public static void ExRemoveComponent<T>(this GameObject a_oSender, bool a_bIsFindChildren = false) where T : Component {
+	public static void ExRemoveComponent<T>(this GameObject a_oSender, bool a_bIsFindChildren = true) where T : Component {
 		Func.Assert(a_oSender != null);
 		var oComponent = a_bIsFindChildren ? a_oSender.GetComponentInChildren<T>() : a_oSender.GetComponent<T>();
 
 		if(oComponent != null) {
-			if(Application.isPlaying) {
-				GameObject.Destroy(oComponent);
-			} else {
-				GameObject.DestroyImmediate(oComponent);
+			Func.RemoveComponent(oComponent);
+		}
+	}
+
+	//! 컴포넌트를 제거한다
+	public static void ExRemoveComponents<T>(this GameObject a_oSender, bool a_bIsIncludeSelf = true) where T : Component {
+		Func.Assert(a_oSender != null);
+		var oComponents = a_oSender.GetComponentsInChildren<T>();
+
+		for(int i = 0; i < oComponents?.Length; ++i) {
+			if(a_bIsIncludeSelf || a_oSender != oComponents[i].gameObject) {
+				Func.RemoveComponent(oComponents[i]);
+			}
+		}
+	}
+
+	//! 컴포넌트를 제거한다
+	public static void ExRemoveComponentInParent<T>(this GameObject a_oSender) where T : Component {
+		Func.Assert(a_oSender != null);
+		var oComponent = a_oSender.GetComponentInParent<T>();
+
+		if(oComponent != null) {
+			Func.RemoveComponent(oComponent);
+		}
+	}
+
+	//! 컴포넌트를 제거한다
+	public static void ExRemoveComponentsInParent<T>(this GameObject a_oSender, bool a_bIsIncludeSelf = true) where T : Component {
+		Func.Assert(a_oSender != null);
+		var oComponents = a_oSender.GetComponentsInParent<T>();
+
+		for(int i = 0; i < oComponents?.Length; ++i) {
+			if(a_bIsIncludeSelf || a_oSender != oComponents[i].gameObject) {
+				Func.RemoveComponent(oComponents[i]);
 			}
 		}
 	}

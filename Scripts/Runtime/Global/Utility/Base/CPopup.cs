@@ -41,10 +41,11 @@ public class CPopup : CUIComponent {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		
 		CNavigationManager.Instance.AddComponent(this);
-		m_oContentRoot = this.gameObject.ExFindChild(KDefine.U_OBJ_NAME_POPUP_CONTENT_ROOT);
 
+		// 루트를 설정한다
+		m_oContentRoot = this.gameObject.ExFindChild(KDefine.U_OBJ_NAME_POPUP_CONTENT_ROOT);
+		
 		// 터치 응답자를 생성한다
 		m_oTouchResponder = this.CreateTouchResponder();
 		m_oTouchResponder.transform.SetAsFirstSibling();

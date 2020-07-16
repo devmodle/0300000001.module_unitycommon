@@ -54,7 +54,7 @@ public class CTouchScaler : CUIComponent,
 		base.Awake();
 		this.OriginScale = KDefine.B_SCALE_NORMAL;
 	}
-
+	
 	//! 제거 되었을 경우
 	public override void OnDestroy() {
 		base.OnDestroy();

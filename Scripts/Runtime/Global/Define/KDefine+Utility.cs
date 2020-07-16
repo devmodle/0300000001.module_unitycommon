@@ -398,6 +398,7 @@ public static partial class KDefine {
 
 	// 스크립트 순서 {
 	public const int U_SCRIPT_ORDER_SINGLETON = -10;
+	public const int U_SCRIPT_ORDER_BANNER_ADS_CORRECTOR = 5;
 
 	public const int U_SCRIPT_ORDER_INIT_SCENE_MANAGER = -20;
 	public const int U_SCRIPT_ORDER_SETUP_SCENE_MANAGER = KDefine.U_SCRIPT_ORDER_INIT_SCENE_MANAGER + 1;

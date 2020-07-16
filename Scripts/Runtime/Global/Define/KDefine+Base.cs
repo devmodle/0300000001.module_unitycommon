@@ -75,7 +75,7 @@ public static partial class KDefine {
 
 	public const float B_WORLD_SCREEN_WIDTH = KDefine.B_SCREEN_WIDTH * KDefine.B_UNIT_SCALE;
 	public const float B_WORLD_SCREEN_HEIGHT = KDefine.B_SCREEN_HEIGHT * KDefine.B_UNIT_SCALE;
-
+	
 	public const string B_EMPTY_STRING = "";
 	public const string B_UNKNOWN_ERROR_MSG = "Unknown";
 	public const string B_UNKNOWN_DEVICE_ID = "Unknown";

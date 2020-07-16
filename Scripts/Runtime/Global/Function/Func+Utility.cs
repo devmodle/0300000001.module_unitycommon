@@ -129,18 +129,16 @@ public static partial class Func {
 		var stSafeArea = Func.GetSafeArea(a_bIsRuntime);
 		return stSafeArea.y / Func.GetDeviceScreenSize(a_bIsRuntime).y;
 	}
-	
-	//! 메세지를 전송한다
-	public static void SendMsg(string a_oName, string a_oMsg, object a_oParams) {
-		var oObj = Func.FindObj(a_oName);
-		oObj?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
-	}
 
-	//! 메세지를 전파한다
-	public static void BroadcastMsg(string a_oMsg, object a_oParams) {
-		Func.EnumerateScenes((a_stScene) => {
-			a_stScene.ExBroadcastMsg(a_oMsg, a_oParams);
-		});
+	//! 컴포넌트를 제거한다
+	public static void RemoveComponent(Component a_oComponent) {
+		Func.Assert(a_oComponent != null);
+
+		if(Application.isPlaying) {
+			GameObject.Destroy(a_oComponent);
+		} else {
+			GameObject.DestroyImmediate(a_oComponent);
+		}
 	}
 
 	//! 객체를 탐색한다
@@ -169,6 +167,19 @@ public static partial class Func {
 		});
 		
 		return oObjList;
+	}
+	
+	//! 메세지를 전송한다
+	public static void SendMsg(string a_oName, string a_oMsg, object a_oParams) {
+		var oObj = Func.FindObj(a_oName);
+		oObj?.SendMessage(a_oMsg, a_oParams, SendMessageOptions.DontRequireReceiver);
+	}
+
+	//! 메세지를 전파한다
+	public static void BroadcastMsg(string a_oMsg, object a_oParams) {
+		Func.EnumerateScenes((a_stScene) => {
+			a_stScene.ExBroadcastMsg(a_oMsg, a_oParams);
+		});
 	}
 
 	//! 씬을 순회한다
@@ -205,20 +216,34 @@ public static partial class Func {
 	//! 객체를 생선한다
 	public static GameObject CreateObj(string a_oName, 
 		GameObject a_oParent, bool a_bIsStayWorldState = false) {
+		return Func.CreateObj(a_oName, a_oParent, Vector3.zero, a_bIsStayWorldState);
+	}
+
+	//! 객체를 생선한다
+	public static GameObject CreateObj(string a_oName, 
+		GameObject a_oParent, Vector3 a_stPos, bool a_bIsStayWorldState = false) {
 		var oObj = new GameObject(a_oName);
 		oObj.transform.SetParent(a_oParent?.transform, a_bIsStayWorldState);
 
+		oObj.transform.localPosition = a_stPos;
 		return oObj;
 	}
 
 	//! 사본 객체를 생성한다
 	public static GameObject CreateCloneObj(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) {
+		return Func.CreateCloneObj(a_oName, a_oOrigin, a_oParent, Vector3.zero, a_bIsStayWorldState);
+	}
+
+	//! 사본 객체를 생성한다
+	public static GameObject CreateCloneObj(string a_oName,
+		GameObject a_oOrigin, GameObject a_oParent, Vector3 a_stPos, bool a_bIsStayWorldState = false) {
 		Func.Assert(a_oOrigin != null);
 
 		var oObj = Object.Instantiate(a_oOrigin, a_oOrigin.transform.position, a_oOrigin.transform.rotation);
 		oObj.name = a_oName;
 		oObj.transform.localScale = a_oOrigin.transform.localScale;
+		oObj.transform.localPosition = a_stPos;
 
 		oObj.transform.SetParent(a_oParent?.transform, a_bIsStayWorldState);
 		return oObj;
@@ -267,6 +292,13 @@ public static partial class Func {
 		return oObj.ExAddComponent<T>();
 	}
 
+	//! 객체를 생선한다
+	public static T CreateObj<T>(string a_oName,
+		GameObject a_oParent, Vector3 a_stPos, bool a_bIsStayWorldState = false) where T : Component {
+		var oObj = Func.CreateObj(a_oName, a_oParent, a_stPos, a_bIsStayWorldState);
+		return oObj.ExAddComponent<T>();
+	}
+
 	//! 객체 사본을 생성한다
 	public static T CreateCloneObj<T>(string a_oName,
 		GameObject a_oOrigin, GameObject a_oParent, bool a_bIsStayWorldState = false) where T : Component {
@@ -274,15 +306,19 @@ public static partial class Func {
 		return oObj?.GetComponentInChildren<T>();
 	}
 
+	//! 객체 사본을 생성한다
+	public static T CreateCloneObj<T>(string a_oName,
+		GameObject a_oOrigin, GameObject a_oParent, Vector3 a_stPos, bool a_bIsStayWorldState = false) where T : Component {
+		var oObj = Func.CreateCloneObj(a_oName, a_oOrigin, a_oParent, a_stPos, a_bIsStayWorldState);
+		return oObj?.GetComponentInChildren<T>();
+	}
+
 	//! 팝업을 생성한다
 	public static T CreatePopup<T>(string a_oName, 
 		GameObject a_oOrigin, GameObject a_oParent, Vector2 a_stPos) where T : CPopup {
 		var oPopup = Func.CreateCloneObj<T>(a_oName, a_oOrigin, a_oParent);
-
-		if(oPopup != null) {
-			oPopup.m_oRectTransform.anchoredPosition = a_stPos;
-		}
-
+		oPopup.m_oRectTransform.anchoredPosition = a_stPos;
+		
 		return oPopup;
 	}
 

@@ -85,7 +85,7 @@ public class CTouchFader : CUIComponent,
 		}
 		// 버튼을 설정한다 }
 	}
-
+	
 	//! 활성화 되었을 경우
 	public override void OnEnable() {
 		base.OnEnable();
