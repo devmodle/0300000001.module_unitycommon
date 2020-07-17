@@ -1,0 +1,9 @@
+{
+	"name": "dante.distribution.individual.unity.module.common",
+	"version": "1.0.0",
+	"displayName": "Unity Common Module",
+	"author": {
+		"name": "dante",
+		"email": "are2341@nate.com"
+	}
+}
