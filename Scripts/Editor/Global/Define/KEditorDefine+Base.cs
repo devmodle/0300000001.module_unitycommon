@@ -51,6 +51,9 @@ public static partial class KEditorDefine {
 	public const string B_OBJ_NAME_TEXT = "Text";
 	public const string B_OBJ_NAME_LOCALIZE_TEXT = "LocalizeText";
 
+	public const string B_OBJ_NAME_IMG = "Img";
+	public const string B_OBJ_NAME_RAW_IMG = "RawImg";
+
 	public const string B_OBJ_NAME_TEXT_BTN = "TextBtn";
 	public const string B_OBJ_NAME_TEXT_SCALE_BTN = "TextScaleBtn";
 
@@ -407,6 +410,12 @@ public static partial class KEditorDefine {
 
 		new KeyValuePair<string, string>(string.Format("{0}{1}T_TextBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
 			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_TEXT_BTN)),
+
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_Img.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_IMAGE_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_IMG)),
+
+		new KeyValuePair<string, string>(string.Format("{0}{1}T_RawImg.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_IMAGE_BASE),
+			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_RAW_IMG)),
 
 		new KeyValuePair<string, string>(string.Format("{0}{1}T_TextScaleBtn.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_PREFAB_TEMPLATES, KDefine.B_DIR_PATH_BUTTON_BASE),
 			string.Format("{0}{1}Resources/{2}.prefab", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, KEditorDefine.B_DIR_PATH_AUTO_CREATE, KDefine.U_OBJ_PATH_TEXT_SCALE_BTN)),

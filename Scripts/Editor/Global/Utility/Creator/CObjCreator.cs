@@ -32,6 +32,18 @@ public static partial class CObjCreator {
 		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT, KDefine.U_OBJ_PATH_LOCALIZE_TEXT);
 	}
 
+	//! 이미지를 생성한다
+	[MenuItem("GameObject/Create/Prefab/Image/Image")]
+	public static void CreateImg() {
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG, KDefine.U_OBJ_PATH_IMG);
+	}
+
+	//! 이미지를 생성한다
+	[MenuItem("GameObject/Create/Prefab/Image/RawImage")]
+	public static void CreateRawImg() {
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG, KDefine.U_OBJ_PATH_RAW_IMG);
+	}
+
 	//! 텍스트 버튼을 생성한다
 	[MenuItem("GameObject/Create/Prefab/Button/Text + Button/TextButton")]
 	public static void CreateTextBtn() {
@@ -126,6 +138,18 @@ public static partial class CObjCreator {
 	[MenuItem("GameObject/Create/Original/Text/LocalizeText")]
 	public static void CreateOriginLocalizeText() {
 		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_LOCALIZE_TEXT, KDefine.U_OBJ_PATH_LOCALIZE_TEXT, false);
+	}
+
+	//! 원본 이미지를 생성한다
+	[MenuItem("GameObject/Create/Original/Image/Image")]
+	public static void CreateOriginImg() {
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG, KDefine.U_OBJ_PATH_IMG, false);
+	}
+
+	//! 원본 이미지를 생성한다
+	[MenuItem("GameObject/Create/Original/Image/RawImage")]
+	public static void CreateOriginRawImg() {
+		CObjCreator.CreateObj(KEditorDefine.B_OBJ_NAME_IMG, KDefine.U_OBJ_PATH_RAW_IMG, false);
 	}
 	
 	//! 원본 텍스트 버튼을 생성한다
@@ -238,19 +262,25 @@ public static partial class CObjCreator {
 			oTransform.sizeDelta = Vector2.zero;
 
 #if !MODE_CENTER_ENABLE
+			bool bIsUIRoot = oParent.name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_UI_ROOT);
+			bool bIsLeftUIRoot = oParent.name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT);
 			bool bIsRightUIRoot = oParent.name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT);
 			bool bIsTopUIRoot = oParent.name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT);
+			bool bIsBottomUIRoot = oParent.name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT);
+			bool bIsCanvasObjRoot = oParent.name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_CANVAS_OBJ_ROOT);
 
-			Vector2 stAnchor = KDefine.B_ANCHOR_BOTTOM_LEFT;
-			
-			if(bIsRightUIRoot) {
-				stAnchor = KDefine.B_ANCHOR_BOTTOM_RIGHT;
-			} else if(bIsTopUIRoot) {
-				stAnchor = KDefine.B_ANCHOR_TOP_LEFT;
+			if(bIsUIRoot || bIsLeftUIRoot || bIsRightUIRoot || bIsTopUIRoot || bIsBottomUIRoot || bIsCanvasObjRoot) {
+				Vector2 stAnchor = KDefine.B_ANCHOR_BOTTOM_LEFT;
+				
+				if(bIsRightUIRoot) {
+					stAnchor = KDefine.B_ANCHOR_BOTTOM_RIGHT;
+				} else if(bIsTopUIRoot) {
+					stAnchor = KDefine.B_ANCHOR_TOP_LEFT;
+				}
+
+				oTransform.anchorMin = stAnchor;
+				oTransform.anchorMax = stAnchor;
 			}
-
-			oTransform.anchorMin = stAnchor;
-			oTransform.anchorMax = stAnchor;
 #endif			// #if !MODE_CENTER_ENABLE
 		}
 

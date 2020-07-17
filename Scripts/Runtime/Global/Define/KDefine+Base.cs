@@ -164,6 +164,7 @@ public static partial class KDefine {
 	public const string B_DIR_PATH_INTRO_SCENE_BASE = "IntroScene/";
 
 	public const string B_DIR_PATH_TEXT_BASE = "Text/";
+	public const string B_DIR_PATH_IMAGE_BASE = "Image/";
 	public const string B_DIR_PATH_BUTTON_BASE = "Button/";
 	public const string B_DIR_PATH_SCROLL_VIEW_BASE = "ScrollView/";
 	public const string B_DIR_PATH_POPUP_BASE = "Popup/";

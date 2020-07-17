@@ -332,6 +332,9 @@ public static partial class KDefine {
 	public static readonly string U_OBJ_PATH_LOCALIZE_TEXT_BTN = string.Format("{0}{1}{2}U_LocalizeTextBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 	public static readonly string U_OBJ_PATH_LOCALIZE_TEXT_SCALE_BTN = string.Format("{0}{1}{2}U_LocalizeTextScaleBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 
+	public static readonly string U_OBJ_PATH_IMG = string.Format("{0}{1}{2}U_Img", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_IMAGE_BASE);
+	public static readonly string U_OBJ_PATH_RAW_IMG = string.Format("{0}{1}{2}U_RawImg", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_IMAGE_BASE);
+
 	public static readonly string U_OBJ_PATH_IMG_BTN = string.Format("{0}{1}{2}U_ImgBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 	public static readonly string U_OBJ_PATH_IMG_SCALE_BTN = string.Format("{0}{1}{2}U_ImgScaleBtn", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE, KDefine.B_DIR_PATH_BUTTON_BASE);
 
