@@ -136,7 +136,13 @@ public static partial class KAppDefine {
 	#endregion			// 조건부 상수
 
 	#region 조건부 런타임 상수
-#if UNITY_EDITOR && UNITY_IOS
+#if UNITY_EDITOR
+	// 스크립트 순서
+	public static readonly Dictionary<System.Type, int> G_SCRIPT_ORDERS = new Dictionary<System.Type, int>() {
+		
+	};
+
+#if UNITY_IOS
 	// 프레임워크
 	public static readonly string[] G_EXTRA_FRAMEWORKS_IOS = new string[] {
 		"AuthenticationServices.framework"
@@ -144,11 +150,18 @@ public static partial class KAppDefine {
 
 	// 호환성 타입
 	public static readonly PBXCapabilityType[] G_EXTRA_CAPABILITY_TYPES_IOS = new PBXCapabilityType[] {
-		PBXCapabilityType.GameCenter,
 		PBXCapabilityType.SignInWithApple,
+
+#if GAME_CENTER_ENABLE
+		PBXCapabilityType.GameCenter,
+#endif			// #if GAME_CENTER_ENABLE
+
+#if FIREBASE_ENABLE && FIREBASE_MESSAGING_ENABLE
 		PBXCapabilityType.PushNotifications
+#endif			// #if FIREBASE_ENABLE && FIREBASE_MESSAGING_ENABLE
 	};
-#endif			// #if UNITY_EDITOR && UNITY_IOS
+#endif			// #if UNITY_IOS
+#endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 런타임 상수
 }
 #endif			// #if !USE_CUSTOM_PROJECT_OPTION

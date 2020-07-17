@@ -248,8 +248,8 @@ public static partial class KEditorDefine {
 
 	// 스크립트 순서
 	public static readonly Dictionary<System.Type, int> G_SCRIPT_ORDERS = new Dictionary<System.Type, int>() {
-		[typeof(CStringTable)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CValueTable)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CStringTable)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 
 		[typeof(CUnityMsgSender)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CDeviceMsgReceiver)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
@@ -283,6 +283,7 @@ public static partial class KEditorDefine {
 
 #if ADS_ENABLE
 		[typeof(CAdsManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CBannerAdsCorrector)] = KDefine.U_SCRIPT_ORDER_BANNER_ADS_CORRECTOR,
 #endif			// #if ADS_ENABLE
 
 #if TENJIN_ENABLE

@@ -119,8 +119,12 @@ public static partial class CEditorSceneManager {
 		for(int i = 0; i < oMonoScripts.Length; ++i) {
 			var oType = oMonoScripts[i].GetClass();
 
-			if(oType != null && KEditorDefine.G_SCRIPT_ORDERS.ContainsKey(oType)) {
-				Func.SetScriptOrder(oMonoScripts[i], KEditorDefine.G_SCRIPT_ORDERS[oType]);
+			if(oType != null) {
+				if(KAppDefine.G_SCRIPT_ORDERS.ContainsKey(oType)) {
+					Func.SetScriptOrder(oMonoScripts[i], KAppDefine.G_SCRIPT_ORDERS[oType]);
+				} else if(KEditorDefine.G_SCRIPT_ORDERS.ContainsKey(oType)) {
+					Func.SetScriptOrder(oMonoScripts[i], KEditorDefine.G_SCRIPT_ORDERS[oType]);
+				}
 			}
 		}
 	}

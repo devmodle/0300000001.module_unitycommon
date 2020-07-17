@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if ADS_ENABLE
 //! 배너 광고 보정자
 public class CBannerAdsCorrector : CComponent {
 	#region 프로퍼티
@@ -26,7 +27,6 @@ public class CBannerAdsCorrector : CComponent {
 
 	//! 상태를 갱신한다
 	public override void OnUpdate(float a_fDeltaTime) {
-#if ADS_ENABLE
 		var stPos = this.OriginPos;
 		stPos.y += CAdsManager.Instance.BannerAdsHeight;
 
@@ -34,7 +34,6 @@ public class CBannerAdsCorrector : CComponent {
 			this.CorrectPos = stPos;
 			this.transform.localPosition = stPos;
 		}
-#endif			// #if ADS_ENABLE
 	}
 
 	//! 제거 되었을 경우
@@ -56,3 +55,4 @@ public class CBannerAdsCorrector : CComponent {
 #endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 함수
 }
+#endif			// #if ADS_ENABLE
