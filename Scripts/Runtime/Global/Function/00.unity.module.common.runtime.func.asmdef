@@ -1,0 +1,15 @@
+{
+    "name": "00.unity.module.common.runtime.func",
+    "references": [
+        "GUID:231f302941b9f4b44bc107bc8fd231be"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

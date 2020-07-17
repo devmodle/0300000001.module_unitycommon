@@ -66,9 +66,9 @@ namespace Timers
             else
             {
 				if(m_TimerMode == TimerMode.NORMAL) {
-                	m_ElapsedTime += CScheduleManager.Instance.DeltaTime;
+                	m_ElapsedTime += Mathf.Min(Time.deltaTime, (1.0f / Application.targetFrameRate) * 2.0f);
 				} else {
-					m_ElapsedTime += CScheduleManager.Instance.UnscaleDeltaTime;
+					m_ElapsedTime += Time.unscaledDeltaTime;
 				}
 
                 m_CurrentCycleElapsedTime = m_ElapsedTime - m_CurrentLoopsCount * m_Interval;

@@ -1,0 +1,16 @@
+{
+    "name": "00.unity.module.common.runtime.utility",
+    "references": [
+        "GUID:231f302941b9f4b44bc107bc8fd231be",
+        "GUID:8068b9e58f98b4e3eaf03d6597bc83a9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
