@@ -189,9 +189,9 @@ public static partial class KDefine {
 	public const string U_OBJ_NAME_SCENE_TOP_OBJ_ROOT = "TopObjs";
 	public const string U_OBJ_NAME_SCENE_BOTTOM_OBJ_ROOT = "BottomObjs";
 
-	public const string U_OBJ_NAME_SCENE_OBJECT_CANVAS_TOP = "ObjCanvasRoot";
-	public const string U_OBJ_NAME_SCENE_OBJECT_CANVAS_BASE = "ObjCanvas";
-	public const string U_OBJ_NAME_SCENE_OBJECT_CANVAS_ROOT = "CanvasObjs";
+	public const string U_OBJ_NAME_SCENE_OBJ_CANVAS_TOP = "ObjCanvasRoot";
+	public const string U_OBJ_NAME_SCENE_OBJ_CANVAS_BASE = "ObjCanvas";
+	public const string U_OBJ_NAME_SCENE_CANVAS_OBJ_ROOT = "CanvasObjs";
 
 	public const string U_OBJ_NAME_SCENE_UI_CAMERA = "UI Camera";
 	public const string U_OBJ_NAME_SCENE_MAIN_CAMERA = "Main Camera";
@@ -271,8 +271,8 @@ public static partial class KDefine {
 	// 색상 }
 
 	// 동기화 객체
-	public static readonly object U_LOCK_OBJECT = new object();
-	public static readonly object U_LOCK_OBJECT_UPDATE_M_UPDATE = new object();
+	public static readonly object U_LOCK_OBJ_COMMON = new object();
+	public static readonly object U_LOCK_OBJ_SCHEDULE_M_UPDATE = new object();
 
 	// 레이어 마스크 {
 	public static readonly int[] U_DEF_LAYER_MASK_UI_CAMERA = new int[] {

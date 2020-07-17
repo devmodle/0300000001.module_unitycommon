@@ -239,10 +239,10 @@ public static partial class EditorFunc {
 	//! 스크립트 객체를 생성한다
 	public static T CreateScriptableObj<T>() where T : ScriptableObject {
 		string oFilepath = string.Format(KEditorDefine.B_PATH_FORMAT_SCRIPTABLE_OBJ, typeof(T).ToString());
-		var oScriptableObject = ScriptableObject.CreateInstance<T>();
+		var oScriptableObj = ScriptableObject.CreateInstance<T>();
 
-		EditorFunc.CreateAsset<T>(oScriptableObject, oFilepath);
-		return oScriptableObject;
+		EditorFunc.CreateAsset<T>(oScriptableObj, oFilepath);
+		return oScriptableObj;
 	}
 	#endregion			// 제네릭 클래스 함수
 }

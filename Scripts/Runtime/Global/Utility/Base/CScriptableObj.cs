@@ -15,7 +15,7 @@ public class CScriptableObj<T> : ScriptableObject where T : CScriptableObj<T> {
 	public static T Instance {
 		get {
 			if(m_tInstance == null) {
-				CScriptableObj<T>.m_tInstance = CResManager.Instance.GetScriptableObject<T>(CScriptableObj<T>.m_oFilepath);
+				CScriptableObj<T>.m_tInstance = CResManager.Instance.GetScriptableObj<T>(CScriptableObj<T>.m_oFilepath);
 				Func.Assert(CScriptableObj<T>.m_tInstance != null);
 				
 				CScriptableObj<T>.m_tInstance.Awake();

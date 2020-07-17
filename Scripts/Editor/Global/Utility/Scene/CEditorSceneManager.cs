@@ -23,7 +23,7 @@ public static partial class CEditorSceneManager {
 	//! 생성자
 	static CEditorSceneManager() {
 		if(!Application.isBatchMode) {
-			// GUI 스타일을 생성한다 {
+			// GUI 스타일을 설정한다 {
 			CEditorSceneManager.m_oHierarchyGUIStyle = new GUIStyle();
 			CEditorSceneManager.m_oHierarchyGUIStyle.alignment = TextAnchor.MiddleLeft;
 			CEditorSceneManager.m_oHierarchyGUIStyle.fontStyle = FontStyle.BoldAndItalic;
@@ -31,8 +31,9 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_oHierarchyGUIStyle.normal = new GUIStyleState() {
 				textColor = KEditorDefine.B_HIERARCHY_TEXT_COLOR
 			};
-			// GUI 스타일을 생성한다 }
+			// GUI 스타일을 설정한다 }
 
+			// 이벤트 함수를 설정한다 {
 			EditorApplication.update -= CEditorSceneManager.Update;
 			EditorApplication.update += CEditorSceneManager.Update;
 
@@ -41,6 +42,7 @@ public static partial class CEditorSceneManager {
 
 			EditorSceneManager.sceneOpened -= CEditorSceneManager.OnSceneOpen;
 			EditorSceneManager.sceneOpened += CEditorSceneManager.OnSceneOpen;
+			// 이벤트 함수를 설정한다 }
 		}
 	}
 	
@@ -118,14 +120,14 @@ public static partial class CEditorSceneManager {
 					var oType = oComponents[i].GetType();
 					
 					var oSortingLayerProperty = oType.GetProperty(KEditorDefine.B_PROPERTY_NAME_SORTING_LAYER,
-						BindingFlags.Public | BindingFlags.Instance);
+						KDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
 
 					var oSortingOrderProperty = oType.GetProperty(KEditorDefine.B_PROPERTY_NAME_SORTING_ORDER,
-						BindingFlags.Public | BindingFlags.Instance);
+						KDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
 
 					if(oSortingLayerProperty != null && oSortingOrderProperty != null) {
-						string oString = string.Format(KEditorDefine.U_SORTING_ORDER_INFO_FORMAT, oSortingLayerProperty.GetValue(oComponents[i]),
-							oSortingOrderProperty.GetValue(oComponents[i]));
+						string oString = string.Format(KEditorDefine.U_SORTING_ORDER_INFO_FORMAT, 
+							oSortingLayerProperty.GetValue(oComponents[i]), oSortingOrderProperty.GetValue(oComponents[i]));
 
 						GUI.Label(a_stRect, oString, m_oHierarchyGUIStyle);
 					}

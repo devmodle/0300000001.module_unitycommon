@@ -240,7 +240,7 @@ public static partial class Func {
 		GameObject a_oOrigin, GameObject a_oParent, Vector3 a_stPos, bool a_bIsStayWorldState = false) {
 		Func.Assert(a_oOrigin != null);
 
-		var oObj = Object.Instantiate(a_oOrigin, a_oOrigin.transform.position, a_oOrigin.transform.rotation);
+		var oObj = GameObject.Instantiate(a_oOrigin, a_oOrigin.transform.position, a_oOrigin.transform.rotation);
 		oObj.name = a_oName;
 		oObj.transform.localScale = a_oOrigin.transform.localScale;
 		oObj.transform.localPosition = a_stPos;

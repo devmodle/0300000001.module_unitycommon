@@ -48,7 +48,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	// 캔버스
 	public Canvas SubUICanvas { get; private set; } = null;
-	public Canvas SubObjectCanvas { get; private set; } = null;
+	public Canvas SubObjCanvas { get; private set; } = null;
 
 	// UI 루트
 	public GameObject SubUITop { get; private set; } = null;
@@ -79,9 +79,9 @@ public abstract partial class CSceneManager : CComponent {
 	public GameObject SubBottomObjRoot { get; private set; } = null;
 
 	// 객체 캔버스 루트
-	public GameObject SubObjectCanvasTop { get; private set; } = null;
-	public GameObject SubObjectCanvasBase { get; private set; } = null;
-	public GameObject SubObjectCanvasRoot { get; private set; } = null;
+	public GameObject SubObjCanvasTop { get; private set; } = null;
+	public GameObject SubObjCanvasBase { get; private set; } = null;
+	public GameObject SubCanvasObjRoot { get; private set; } = null;
 	
 	public bool IsRootScene => CSceneManager.RootSceneName.ExIsEquals(this.SceneName);
 	
@@ -116,10 +116,10 @@ public abstract partial class CSceneManager : CComponent {
 	public static float BottomUIOffset { get; private set; } = 0.0f;
 
 	// 고정 객체 간격
-	public static float LeftObjectOffset { get; private set; } = 0.0f;
-	public static float RightObjectOffset { get; private set; } = 0.0f;
-	public static float TopObjectOffset { get; private set; } = 0.0f;
-	public static float BottomObjectOffset { get; private set; } = 0.0f;
+	public static float LeftObjOffset { get; private set; } = 0.0f;
+	public static float RightObjOffset { get; private set; } = 0.0f;
+	public static float TopObjOffset { get; private set; } = 0.0f;
+	public static float BottomObjOffset { get; private set; } = 0.0f;
 
 	// 고정 UI 루트 간격
 	public static float LeftUIRootOffset { get; private set; } = 0.0f;
@@ -128,10 +128,10 @@ public abstract partial class CSceneManager : CComponent {
 	public static float BottomUIRootOffset { get; private set; } = 0.0f;
 
 	// 고정 객체 루트 간격
-	public static float LeftObjectRootOffset { get; private set; } = 0.0f;
-	public static float RightObjectRootOffset { get; private set; } = 0.0f;
-	public static float TopObjectRootOffset { get; private set; } = 0.0f;
-	public static float BottomObjectRootOffset { get; private set; } = 0.0f;
+	public static float LeftObjRootOffset { get; private set; } = 0.0f;
+	public static float RightObjRootOffset { get; private set; } = 0.0f;
+	public static float TopObjRootOffset { get; private set; } = 0.0f;
+	public static float BottomObjRootOffset { get; private set; } = 0.0f;
 
 	// 캔버스 크기
 	public static Vector2 CanvasSize { get; protected set; } = Vector2.zero;
@@ -159,20 +159,20 @@ public abstract partial class CSceneManager : CComponent {
 
 	// 객체 루트
 	public static GameObject Base { get; private set; } = null;
-	public static GameObject ObjectBase { get; private set; } = null;
-	public static GameObject ObjectRoot { get; private set; } = null;
-	public static GameObject FixObjectRoot { get; private set; } = null;
+	public static GameObject ObjBase { get; private set; } = null;
+	public static GameObject ObjRoot { get; private set; } = null;
+	public static GameObject FixObjRoot { get; private set; } = null;
 
 	// 고정 객체 루트
-	public static GameObject LeftObjectRoot { get; private set; } = null;
-	public static GameObject RightObjectRoot { get; private set; } = null;
-	public static GameObject TopObjectRoot { get; private set; } = null;
-	public static GameObject BottomObjectRoot { get; private set; } = null;
+	public static GameObject LeftObjRoot { get; private set; } = null;
+	public static GameObject RightObjRoot { get; private set; } = null;
+	public static GameObject TopObjRoot { get; private set; } = null;
+	public static GameObject BottomObjRoot { get; private set; } = null;
 
 	// 객체 캔버스 루트
-	public static GameObject ObjectCanvasTop { get; private set; } = null;
-	public static GameObject ObjectCanvasBase { get; private set; } = null;
-	public static GameObject ObjectCanvasRoot { get; private set; } = null;
+	public static GameObject ObjCanvasTop { get; private set; } = null;
+	public static GameObject ObjCanvasBase { get; private set; } = null;
+	public static GameObject CanvasObjRoot { get; private set; } = null;
 
 	// 화면 UI 루트
 	public static GameObject ScreenBlindUIRoot { get; protected set; } = null;
@@ -181,7 +181,7 @@ public abstract partial class CSceneManager : CComponent {
 	public static GameObject ScreenAbsoluteUIRoot { get; protected set; } = null;
 
 	public static Canvas UICanvas { get; private set; } = null;
-	public static Canvas ObjectCanvas { get; private set; } = null;
+	public static Canvas ObjCanvas { get; private set; } = null;
 	public static CSceneManager RootSceneManager { get; private set; } = null;
 
 	public static string AwakeSceneName { get; private set; } = string.Empty;

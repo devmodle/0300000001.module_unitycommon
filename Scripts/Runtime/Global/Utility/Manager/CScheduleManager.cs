@@ -49,7 +49,7 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 		bool bIsEnableUpdate = m_oAddCallbackInfoList.Count >= 1 || m_oRemoveCallbackInfoList.Count >= 1;
 
 		if(bIsEnableUpdate || m_oCallbackInfoList.Count >= 1) {
-			lock(KDefine.U_LOCK_OBJECT_UPDATE_M_UPDATE) {
+			lock(KDefine.U_LOCK_OBJ_SCHEDULE_M_UPDATE) {
 				this.UpdateCallbackState();
 
 				for(int i = 0; i < m_oCallbackInfoList.Count; ++i) {
@@ -85,7 +85,7 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 	public void AddCallback(string a_oKey, System.Action a_oCallback) {
 		Func.Assert(a_oKey.ExIsValid());
 
-		lock(KDefine.U_LOCK_OBJECT_UPDATE_M_UPDATE) {
+		lock(KDefine.U_LOCK_OBJ_SCHEDULE_M_UPDATE) {
 			int nIndex = m_oCallbackInfoList.ExFindValue((a_stCallbackInfo) => {
 				return a_stCallbackInfo.Key.ExIsEquals(a_oKey);
 			});
@@ -136,7 +136,7 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 	public void RemoveCallback(string a_oKey) {
 		Func.Assert(a_oKey.ExIsValid());
 
-		lock(KDefine.U_LOCK_OBJECT_UPDATE_M_UPDATE) {
+		lock(KDefine.U_LOCK_OBJ_SCHEDULE_M_UPDATE) {
 			int nIndex = m_oCallbackInfoList.ExFindValue((a_stCallbackInfo) => {
 				return a_stCallbackInfo.Key.ExIsEquals(a_oKey);
 			});

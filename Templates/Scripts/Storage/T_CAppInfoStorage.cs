@@ -101,7 +101,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		Func.Assert(!Func.IsMobilePlatform() || a_oMsg.ExIsValid());
 
 		if(Func.IsMobilePlatform()) {
-			var oDataList = a_oMsg.ExJSONStringToObject<Dictionary<string, string>>();
+			var oDataList = a_oMsg.ExJSONStringToObj<Dictionary<string, string>>();
 			this.StoreVersion = oDataList[KDefine.U_KEY_DEVICE_MR_VERSION];
 
 			this.IsLoadStoreVersion = true;

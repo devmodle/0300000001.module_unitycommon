@@ -16,7 +16,7 @@ public class CResManager : CSingleton<CResManager> {
 	private Dictionary<string, GameObject> m_oPrefabList = new Dictionary<string, GameObject>();
 	private Dictionary<string, SpriteAtlas> m_oSpriteAtlasList = new Dictionary<string, SpriteAtlas>();
 	private Dictionary<string, AssetBundle> m_oAssetBundleList = new Dictionary<string, AssetBundle>();
-	private Dictionary<string, ScriptableObject> m_oScriptableObjectList = new Dictionary<string, ScriptableObject>();
+	private Dictionary<string, ScriptableObject> m_oScriptableObjList = new Dictionary<string, ScriptableObject>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
@@ -121,8 +121,8 @@ public class CResManager : CSingleton<CResManager> {
 	}
 
 	//! 스크립트 객체를 추가한다
-	public void AddScriptableObject(string a_oKey, ScriptableObject a_oScriptableObject) {
-		m_oScriptableObjectList.ExAddValue(a_oKey, a_oScriptableObject);
+	public void AddScriptableObj(string a_oKey, ScriptableObject a_oScriptableObj) {
+		m_oScriptableObjList.ExAddValue(a_oKey, a_oScriptableObj);
 	}
 
 	//! 리소스 생성자를 추가한다
@@ -172,8 +172,8 @@ public class CResManager : CSingleton<CResManager> {
 	}
 
 	//! 스크립트 객체를 제거한다
-	public void RemoveScriptableObject(string a_oKey, bool a_bIsAutoUnload = false) {
-		this.RemoveRes(m_oScriptableObjectList, a_oKey, a_bIsAutoUnload);
+	public void RemoveScriptableObj(string a_oKey, bool a_bIsAutoUnload = false) {
+		this.RemoveRes(m_oScriptableObjList, a_oKey, a_bIsAutoUnload);
 	}
 
 	//! 다중 스프라이트를 로드한다
@@ -257,8 +257,8 @@ public class CResManager : CSingleton<CResManager> {
 
 	#region 제네릭 함수
 	//! 스크립트 객체를 반환한다
-	public T GetScriptableObject<T>(string a_oKey, bool a_bIsAutoCreate = true) where T : ScriptableObject {
-		return this.GetRes<ScriptableObject>(m_oScriptableObjectList, a_oKey, a_bIsAutoCreate) as T;
+	public T GetScriptableObj<T>(string a_oKey, bool a_bIsAutoCreate = true) where T : ScriptableObject {
+		return this.GetRes<ScriptableObject>(m_oScriptableObjList, a_oKey, a_bIsAutoCreate) as T;
 	}
 
 	//! 리소스를 반환한다

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 #if MESSAGE_PACK_ENABLE
@@ -60,6 +61,10 @@ public static partial class KDefine {
 	public const double B_DELTA_TIME_UTC_TO_PST = -8.0;
 	// 시간 }
 
+	// 플래그
+	public const BindingFlags B_BINDING_FLAG_PUBLIC_INSTANCE = BindingFlags.Public | BindingFlags.Instance;
+	public const BindingFlags B_BINDING_FLAG_NON_PUBLIC_STATIC = BindingFlags.NonPublic | BindingFlags.Static;
+
 	// 디바이스 {
 #if PORTRAIT_ENABLE
 	public const int B_SCREEN_WIDTH = 720;
@@ -99,7 +104,9 @@ public static partial class KDefine {
 	public const string B_PLATFORM_NAME_GALAXY_STORE = "GalaxyStore";
 	// 이름 }
 
-	// 씬 이름
+	// 씬 이름 {
+	public const string B_SCENE_NAME_SAMPLE = "SampleScene";
+
 	public const string B_SCENE_NAME_INIT = "00.InitScene";
 	public const string B_SCENE_NAME_SETUP = "00.SetupScene";
 	public const string B_SCENE_NAME_START = "01.StartScene";
@@ -107,6 +114,7 @@ public static partial class KDefine {
 	public const string B_SCENE_NAME_SPLASH = "01.SplashScene";
 	public const string B_SCENE_NAME_AGREE = "01.AgreeScene";
 	public const string B_SCENE_NAME_INTRO = "01.IntroScene";
+	// 씬 이름 }
 
 	// 키
 	public const string B_KEY_JSON_ROOT_DATA = "Root";

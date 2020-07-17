@@ -18,6 +18,8 @@ public static partial class EditorFunc {
 
 				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyValue.Value) == null) {
 					oSceneManager.AddComponent(stKeyValue.Value);
+					oSceneManager.ExRemoveComponent<CSampleSceneManager>();
+
 					EditorSceneManager.MarkSceneDirty(a_stScene);
 				}
 			}
@@ -133,25 +135,25 @@ public static partial class EditorFunc {
 			oConfiguration.dspBufferSize = (int)CPlatformBuilder.BuildOptionTable.SndOption.m_eDSPBufferSize;
 
 			AudioSettings.Reset(oConfiguration);
-			var oSerializeObject = new SerializedObject(oSndManager);
+			var oSerializeObj = new SerializedObject(oSndManager);
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_DISABLE_AUDIO, (a_oProperty) => {
+			oSerializeObj.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_DISABLE_AUDIO, (a_oProperty) => {
 				a_oProperty.boolValue = CPlatformBuilder.BuildOptionTable.SndOption.m_bIsDisable;
 			});
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_VIRTUALIZE_EFFECT, (a_oProperty) => {
+			oSerializeObj.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_VIRTUALIZE_EFFECT, (a_oProperty) => {
 				a_oProperty.boolValue = CPlatformBuilder.BuildOptionTable.SndOption.m_bIsVirtualizeEffect;
 			});
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_GLOBAL_VOLUME, (a_oProperty) => {
+			oSerializeObj.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_GLOBAL_VOLUME, (a_oProperty) => {
 				a_oProperty.floatValue = CPlatformBuilder.BuildOptionTable.SndOption.m_fGlobalVolume;
 			});
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_ROLLOFF_SCALE, (a_oProperty) => {
+			oSerializeObj.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_ROLLOFF_SCALE, (a_oProperty) => {
 				a_oProperty.floatValue = CPlatformBuilder.BuildOptionTable.SndOption.m_fRolloffScale;
 			});
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_DOPPLER_FACTOR, (a_oProperty) => {
+			oSerializeObj.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_SND_M_DOPPLER_FACTOR, (a_oProperty) => {
 				a_oProperty.floatValue = CPlatformBuilder.BuildOptionTable.SndOption.m_fDopplerFactor;
 			});
 		}
@@ -162,10 +164,10 @@ public static partial class EditorFunc {
 		var oTagManager = EditorFunc.LoadAsset(KEditorDefine.B_ASSET_PATH_TAG_MANAGER);
 
 		if(oTagManager != null) {
-			var oSerializeObject = new SerializedObject(oTagManager);
+			var oSerializeObj = new SerializedObject(oTagManager);
 
 #if !CUSTOM_TAG_ENABLE
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_TAG_M_TAG, (a_oProperty) => {
+			oSerializeObj.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_TAG_M_TAG, (a_oProperty) => {
 #if !EXTRA_TAG_ENABLE
 				a_oProperty.ClearArray();
 #endif			// #if !EXTRA_TAG_ENABLE
@@ -186,7 +188,7 @@ public static partial class EditorFunc {
 #endif			// #if !CUSTOM_TAG_ENABLE
 
 #if !CUSTOM_SORTING_LAYER_ENABLE
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_TAG_M_SORTING_LAYER, (a_oProperty) => {
+			oSerializeObj.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_TAG_M_SORTING_LAYER, (a_oProperty) => {
 #if !EXTRA_SORTING_LAYER_ENABLE
 				a_oProperty.ClearArray();
 #endif			// #if !EXTRA_TAG_ENABLE
@@ -413,7 +415,7 @@ public static partial class EditorFunc {
 	private static void SetupStandalonePlatform() {
 		if(CPlatformBuilder.BuildInfoTable != null) {
 			CExtension.ExSetPropertyValue<PlayerSettings.macOS>(null,
-				KEditorDefine.B_PROPERTY_NAME_CATEGORY, BindingFlags.NonPublic | BindingFlags.Static, CPlatformBuilder.BuildInfoTable.StandaloneBuildInfo.m_oCategory);
+				KEditorDefine.B_PROPERTY_NAME_CATEGORY, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, CPlatformBuilder.BuildInfoTable.StandaloneBuildInfo.m_oCategory);
 		}
 	}
 
@@ -508,15 +510,15 @@ public static partial class EditorFunc {
 		PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.Android, ManagedStrippingLevel.Low);
 
 		// 리소스 압축 방식을 변경한다 {
-		CExtension.ExCallFunc<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+		CExtension.ExCallFunc<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 			BuildTargetGroup.Standalone, (int)CompressionType.None
 		});
 
-		CExtension.ExCallFunc<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+		CExtension.ExCallFunc<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 			BuildTargetGroup.iOS, (int)CompressionType.None
 		});
 
-		CExtension.ExCallFunc<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+		CExtension.ExCallFunc<EditorUserBuildSettings>(null, KEditorDefine.B_FUNC_NAME_SET_COMPRESSION_TYPE, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 			BuildTargetGroup.Android, (int)CompressionType.None
 		});
 		// 리소스 압축 방식을 변경한다 }
@@ -549,43 +551,43 @@ public static partial class EditorFunc {
 			// 멀티 쓰레드 렌더링을 설정한다 }
 
 			// 광원 맵 엔코딩 퀄리티를 설정한다 {
-			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 				BuildTargetGroup.Standalone, (int)CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_eLightmapEncodingQuality
 			});
 
-			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 				BuildTargetGroup.iOS, (int)CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_eLightmapEncodingQuality
 			});
 
-			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_ENCODING_QUALITY, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 				BuildTargetGroup.Android, (int)CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_eLightmapEncodingQuality
 			});
 			// 광원 맵 엔코딩 퀄리티를 설정한다 }
 
 			// 광원 맵 스트리밍 여부를 설정한다 {
-			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 				BuildTargetGroup.Standalone, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_bIsEnableLightmapStreaming
 			});
 
-			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 				BuildTargetGroup.iOS, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_bIsEnableLightmapStreaming
 			});
 
-			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_ENABLE, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 				BuildTargetGroup.Android, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_bIsEnableLightmapStreaming
 			});
 			// 광원 맵 스트리밍 여부를 설정한다 }
 
 			// 광원 맵 스트리밍 우선 순위를 설정한다 {
-			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 				BuildTargetGroup.Standalone, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_nLightmapStreamingPriority
 			});
 
-			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 				BuildTargetGroup.iOS, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_nLightmapStreamingPriority
 			});
 
-			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, BindingFlags.NonPublic | BindingFlags.Static, new object[] {
+			CExtension.ExCallFunc<PlayerSettings>(null, KEditorDefine.B_FUNC_NAME_SET_LIGHTMAP_STREAMING_PRIORITY, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, new object[] {
 				BuildTargetGroup.Android, CPlatformBuilder.BuildOptionTable.CommonBuildOption.m_nLightmapStreamingPriority
 			});
 			// 광원 맵 스트리밍 우선 순위를 설정한다 }
@@ -651,13 +653,13 @@ public static partial class EditorFunc {
 			PlayerSettings.iOS.microphoneUsageDescription = CPlatformBuilder.BuildOptionTable.iOSBuildOption.m_oMicrophoneDescription;
 
 			CExtension.ExSetPropertyValue<PlayerSettings.iOS>(null,
-				KEditorDefine.B_PROPERTY_NAME_APPLE_ENABLE_PRO_MOTION, BindingFlags.NonPublic | BindingFlags.Static, CPlatformBuilder.BuildOptionTable.iOSBuildOption.m_bIsEnableProMotion);
+				KEditorDefine.B_PROPERTY_NAME_APPLE_ENABLE_PRO_MOTION, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, CPlatformBuilder.BuildOptionTable.iOSBuildOption.m_bIsEnableProMotion);
 
 			CExtension.ExSetPropertyValue<PlayerSettings.iOS>(null,
-				KEditorDefine.B_PROPERTY_NAME_REQUIRE_AR_KIT_SUPPORT, BindingFlags.NonPublic | BindingFlags.Static, CPlatformBuilder.BuildOptionTable.iOSBuildOption.m_bIsRequreARKitSupport);
+				KEditorDefine.B_PROPERTY_NAME_REQUIRE_AR_KIT_SUPPORT, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, CPlatformBuilder.BuildOptionTable.iOSBuildOption.m_bIsRequreARKitSupport);
 
 			CExtension.ExSetPropertyValue<PlayerSettings.iOS>(null,
-				KEditorDefine.B_PROPERTY_NAME_AUTO_ADD_CAPABILITIES, BindingFlags.NonPublic | BindingFlags.Static, CPlatformBuilder.BuildOptionTable.iOSBuildOption.m_bIsAutoAddCapabilities);
+				KEditorDefine.B_PROPERTY_NAME_AUTO_ADD_CAPABILITIES, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, CPlatformBuilder.BuildOptionTable.iOSBuildOption.m_bIsAutoAddCapabilities);
 		}
 	}
 
@@ -687,7 +689,7 @@ public static partial class EditorFunc {
 		}
 
 		CExtension.ExSetPropertyValue<PlayerSettings.Android>(null,
-			KEditorDefine.B_PROPERTY_NAME_VALIDATE_APP_BUNDLE_SIZE, BindingFlags.NonPublic | BindingFlags.Static, true);
+			KEditorDefine.B_PROPERTY_NAME_VALIDATE_APP_BUNDLE_SIZE, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, true);
 
 		if(CPlatformBuilder.BuildOptionTable != null) {
 			PlayerSettings.Android.blitType = CPlatformBuilder.BuildOptionTable.AndroidBuildOption.m_eBlitType;
@@ -695,13 +697,13 @@ public static partial class EditorFunc {
 			PlayerSettings.Android.preferredInstallLocation = CPlatformBuilder.BuildOptionTable.AndroidBuildOption.m_ePreferredInstallLocation;
 
 			CExtension.ExSetPropertyValue<PlayerSettings.Android>(null,
-				KEditorDefine.B_PROPERTY_NAME_OPTIMIZE_FRAME_PACING, BindingFlags.NonPublic | BindingFlags.Static, CPlatformBuilder.BuildOptionTable.AndroidBuildOption.m_bIsOptimizeFramePacing);
+				KEditorDefine.B_PROPERTY_NAME_OPTIMIZE_FRAME_PACING, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, CPlatformBuilder.BuildOptionTable.AndroidBuildOption.m_bIsOptimizeFramePacing);
 
 			CExtension.ExSetPropertyValue<PlayerSettings.Android>(null,
-				KEditorDefine.B_PROPERTY_NAME_APP_BUNDLE_SIZE_TO_VALIDATE, BindingFlags.NonPublic | BindingFlags.Static, CPlatformBuilder.BuildOptionTable.AndroidBuildOption.m_nAppBundleSize);
+				KEditorDefine.B_PROPERTY_NAME_APP_BUNDLE_SIZE_TO_VALIDATE, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, CPlatformBuilder.BuildOptionTable.AndroidBuildOption.m_nAppBundleSize);
 
 			CExtension.ExSetPropertyValue<PlayerSettings.Android>(null,
-				KEditorDefine.B_PROPERTY_NAME_SUPPORTED_ASPECT_RATIO_MODE, BindingFlags.NonPublic | BindingFlags.Static, (int)CPlatformBuilder.BuildOptionTable.AndroidBuildOption.m_eAspectRatioMode);
+				KEditorDefine.B_PROPERTY_NAME_SUPPORTED_ASPECT_RATIO_MODE, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC, (int)CPlatformBuilder.BuildOptionTable.AndroidBuildOption.m_eAspectRatioMode);
 		}
 	}
 	#endregion			// 클래스 함수

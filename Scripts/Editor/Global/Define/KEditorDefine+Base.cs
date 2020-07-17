@@ -45,6 +45,7 @@ public static partial class KEditorDefine {
 	// 알림 팝업 }
 
 	// 이름 {
+	public const string B_OBJ_NAME_GAME_OBJ = "GameObj";
 	public const string B_OBJ_NAME_OBJ_NAME_EDITOR_POPUP = "ObjNameEditorPopup";
 
 	public const string B_OBJ_NAME_TEXT = "Text";
@@ -261,6 +262,8 @@ public static partial class KEditorDefine {
 		[typeof(CNavStackManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CToastPopupManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CActivityIndicatorManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+
+		[typeof(CSampleSceneManager)] = KDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 
 #if USE_CUSTOM_PROJECT_OPTION
 		[typeof(CSubInitSceneManager)] = KDefine.U_SCRIPT_ORDER_INIT_SCENE_MANAGER,

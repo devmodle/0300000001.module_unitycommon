@@ -334,10 +334,10 @@ public static partial class CExtension {
 		var oObjList = new List<GameObject>();
 
 		for(int i = 0; i < oObjs?.Length; ++i) {
-			var oChildObjectList = oObjs[i].ExFindChildren(a_oName);
+			var oChildObjList = oObjs[i].ExFindChildren(a_oName);
 
-			if(oChildObjectList != null) {
-				oObjList.AddRange(oChildObjectList);
+			if(oChildObjList != null) {
+				oObjList.AddRange(oChildObjList);
 			}
 		}
 

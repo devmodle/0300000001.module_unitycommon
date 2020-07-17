@@ -132,13 +132,13 @@ public static partial class CEditorSceneManager {
 	//! 광원 옵션을 설정한다
 	private static void SetupLightOptions() {
 		var oType = typeof(LightmapEditorSettings);
-		var oMethodInfo = oType.GetMethod(KEditorDefine.B_FUNC_NAME_GET_LIGHTMAP_SETTINGS, BindingFlags.Static | BindingFlags.NonPublic);
+		var oMethodInfo = oType.GetMethod(KEditorDefine.B_FUNC_NAME_GET_LIGHTMAP_SETTINGS, KDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC);
 		var oLightmapSettings = oMethodInfo?.Invoke(null, null) as LightmapSettings;
 
 		if(oLightmapSettings != null) {
-			var oSerializeObject = new SerializedObject(oLightmapSettings);
+			var oSerializeObj = new SerializedObject(oLightmapSettings);
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_ENABLE_BAKE_LIGHTMAPS, (a_oProperty) => {
+			oSerializeObj.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_ENABLE_BAKE_LIGHTMAPS, (a_oProperty) => {
 #if LIGHTMAP_BAKE_ENABLE
 				a_oProperty.boolValue = true;
 #else
@@ -146,7 +146,7 @@ public static partial class CEditorSceneManager {
 #endif			// #if LIGHTMAP_BAKE_ENABLE
 			});
 
-			oSerializeObject.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_ENABLE_REALTIME_LIGHTMAPS, (a_oProperty) => {
+			oSerializeObj.ExSetPropertyValue(KEditorDefine.B_PROPERTY_NAME_ENABLE_REALTIME_LIGHTMAPS, (a_oProperty) => {
 #if REALTIME_LIGHTMAP_ENABLE
 				a_oProperty.boolValue = true;
 #else
