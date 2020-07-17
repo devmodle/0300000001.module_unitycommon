@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//! 내비게이션 관리자
-public class CNavigationManager : CSingleton<CNavigationManager> {
+//! 내비게이션 스택 관리자
+public class CNavStackManager : CSingleton<CNavStackManager> {
 	#region 변수
 	private List<KeyValuePair<int, CComponent>> m_oComponentInfoList = new List<KeyValuePair<int, CComponent>>();
 	#endregion			// 변수
 
 	#region 함수
-	//! 내비게이션 콜백을 수신했을 경우
+	//! 내비게이션 스택 콜백을 수신했을 경우
 	public void OnReceiveNavigationCallback(CComponent a_oSender) {
 		this.RemoveComponent(a_oSender);
 	}
@@ -29,7 +29,7 @@ public class CNavigationManager : CSingleton<CNavigationManager> {
 			var stKeyValue = new KeyValuePair<int, CComponent>(nID, a_oComponent);
 
 			m_oComponentInfoList.ExAddValue(stKeyValue);
-			a_oComponent.OnReceiveNavigationEvent(ENavigationEventType.TOP);
+			a_oComponent.OnReceiveNavStackEvent(ENavStackEventType.TOP);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class CNavigationManager : CSingleton<CNavigationManager> {
 				m_oComponentInfoList[i].Value.NavigationCallback = null;
 
 				if(!m_oComponentInfoList[i].Value.IsDestroy) {
-					m_oComponentInfoList[i].Value.OnReceiveNavigationEvent(ENavigationEventType.REMOVE);
+					m_oComponentInfoList[i].Value.OnReceiveNavStackEvent(ENavStackEventType.REMOVE);
 				}
 			}
 
@@ -56,16 +56,16 @@ public class CNavigationManager : CSingleton<CNavigationManager> {
 			// 최상위 컴포넌트 정보가 변경 되었을 경우
 			if(m_oComponentInfoList.ExIsValid()) {
 				var oComponentInfo = m_oComponentInfoList.Last();
-				oComponentInfo.Value.OnReceiveNavigationEvent(ENavigationEventType.TOP);
+				oComponentInfo.Value.OnReceiveNavStackEvent(ENavStackEventType.TOP);
 			}
 		}
 	}
 
-	//! 내비게이션 이벤트를 전송한다
-	public void SendNavigationEvent(ENavigationEventType a_eEventType) {
+	//! 내비게이션 스택 이벤트를 전송한다
+	public void SendNavigationEvent(ENavStackEventType a_eEventType) {
 		if(m_oComponentInfoList.Count >= 1) {
 			int nIndex = m_oComponentInfoList.Count - 1;
-			m_oComponentInfoList[nIndex].Value.OnReceiveNavigationEvent(a_eEventType);
+			m_oComponentInfoList[nIndex].Value.OnReceiveNavStackEvent(a_eEventType);
 		}
 	}
 	#endregion			// 함수

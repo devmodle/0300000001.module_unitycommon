@@ -173,7 +173,7 @@ public abstract partial class CSceneManager : CComponent {
 			this.StartScreenFadeOutAni(this.FadeOutAniDuration);
 			
 			CScheduleManager.Instance.AddComponent(this);
-			CNavigationManager.Instance.AddComponent(this);
+			CNavStackManager.Instance.AddComponent(this);
 
 			// 캔버스를 설정한다 {
 			this.SetupCanvas(CSceneManager.ScreenBlindUIRoot?.GetComponentInParent<Canvas>());

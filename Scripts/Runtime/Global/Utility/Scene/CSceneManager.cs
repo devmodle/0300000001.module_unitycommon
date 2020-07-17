@@ -266,7 +266,7 @@ public abstract partial class CSceneManager : CComponent {
 
 			if(Input.GetKeyDown(KeyCode.Escape)) {
 				CSndManager.Instance.PlayFXSnd(KDefine.U_SND_PATH_G_TOUCH_ENDED);
-				CNavigationManager.Instance.SendNavigationEvent(ENavigationEventType.BACK_KEY_DOWN);
+				CNavStackManager.Instance.SendNavigationEvent(ENavStackEventType.BACK_KEY_DOWN);
 			}
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
@@ -332,7 +332,7 @@ public abstract partial class CSceneManager : CComponent {
 
 			if(this.IsRootScene) {
 				CScheduleManager.Instance.RemoveComponent(this);
-				CNavigationManager.Instance.RemoveComponent(this);
+				CNavStackManager.Instance.RemoveComponent(this);
 			}
 
 			CSceneManager.m_oSubSceneManagerList.ExRemoveValue(this.SceneName);
@@ -464,7 +464,7 @@ public abstract partial class CSceneManager : CComponent {
 			};
 
 			if(a_bIsEnableNavigation) {
-				CNavigationManager.Instance.AddComponent(oTouchDispatcher);
+				CNavStackManager.Instance.AddComponent(oTouchDispatcher);
 			}
 			// 터치 전달자를 설정한다 }
 
@@ -484,9 +484,9 @@ public abstract partial class CSceneManager : CComponent {
 			var oTouchDispatcher = oTouchResponderInfo.Key.GetComponentInChildren<CTouchDispatcher>();
 			oTouchDispatcher.DestroyCallback = null;
 
-			// 내비게이션 관리자에 추가되어있을 경우
+			// 내비게이션 스택 관리자에 추가되어있을 경우
 			if(oTouchDispatcher.NavigationCallback != null) {
-				CNavigationManager.Instance.RemoveComponent(oTouchDispatcher);
+				CNavStackManager.Instance.RemoveComponent(oTouchDispatcher);
 			}
 
 			// 배경색을 설정한다 {

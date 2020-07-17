@@ -20,7 +20,7 @@ public class CToastPopup : CPopup {
 		base.Awake();
 
 		this.IsIgnoreNavigationEvent = true;
-		CNavigationManager.Instance.RemoveComponent(this);
+		CNavStackManager.Instance.RemoveComponent(this);
 
 		m_oMsgText = this.gameObject.ExFindComponent<Text>(KDefine.U_OBJ_NAME_TOAST_P_MSG_TEXT);
 		m_oRootTransform.sizeDelta = CSceneManager.CanvasSize;

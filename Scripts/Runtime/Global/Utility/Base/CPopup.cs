@@ -41,7 +41,7 @@ public class CPopup : CUIComponent {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		CNavigationManager.Instance.AddComponent(this);
+		CNavStackManager.Instance.AddComponent(this);
 
 		// 루트를 설정한다
 		m_oContentRoot = this.gameObject.ExFindChild(KDefine.U_OBJ_NAME_POPUP_CONTENT_ROOT);
@@ -93,13 +93,13 @@ public class CPopup : CUIComponent {
 		Destroy(this.gameObject);
 	}
 
-	//! 내비게이션 이벤트를 수신했을 경우
-	public override void OnReceiveNavigationEvent(ENavigationEventType a_eEventType) {
-		base.OnReceiveNavigationEvent(a_eEventType);
+	//! 내비게이션 스택 이벤트를 수신했을 경우
+	public override void OnReceiveNavStackEvent(ENavStackEventType a_eEventType) {
+		base.OnReceiveNavStackEvent(a_eEventType);
 
-		if(a_eEventType == ENavigationEventType.TOP) {
+		if(a_eEventType == ENavStackEventType.TOP) {
 			Time.timeScale = this.ShowTimeScale;
-		} else if(!this.IsIgnoreNavigationEvent && a_eEventType == ENavigationEventType.REMOVE) {
+		} else if(!this.IsIgnoreNavigationEvent && a_eEventType == ENavStackEventType.REMOVE) {
 			this.ClosePopup();
 		}
 	}
@@ -137,7 +137,7 @@ public class CPopup : CUIComponent {
 
 			if(this.NavigationCallback != null) {
 				this.NavigationCallback = null;
-				CNavigationManager.Instance.RemoveComponent(this);
+				CNavStackManager.Instance.RemoveComponent(this);
 			}
 		}
 	}

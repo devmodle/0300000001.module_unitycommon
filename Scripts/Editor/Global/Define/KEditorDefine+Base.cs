@@ -19,7 +19,7 @@ public static partial class KEditorDefine {
 	public const float B_WIDTH_EDITOR_W_NAME_TEXT_FIELD = 100.0f;
 	public const float B_TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD = 200.0f;
 
-	public const float B_WIDTH_EDITOR_W_APPLY_BUTTON = 100.0f;
+	public const float B_WIDTH_EDITOR_W_APPLY_BTN = 100.0f;
 	// 크기 }
 
 	// 토큰
@@ -258,7 +258,7 @@ public static partial class KEditorDefine {
 		[typeof(CSndManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CScheduleManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CResManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CNavigationManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CNavStackManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CToastPopupManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CActivityIndicatorManager)] = KDefine.U_SCRIPT_ORDER_SINGLETON,
 

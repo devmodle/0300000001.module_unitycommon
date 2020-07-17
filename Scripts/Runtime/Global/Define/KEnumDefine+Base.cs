@@ -78,8 +78,8 @@ public enum EVibrateStyle {
 	MAX_VALUE
 }
 
-//! 네비게이션 이벤트 타입
-public enum ENavigationEventType {
+//! 내비게이션 스택 이벤트 타입
+public enum ENavStackEventType {
 	NONE = -1,
 	TOP,
 	REMOVE,

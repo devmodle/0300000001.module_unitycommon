@@ -53,10 +53,10 @@ public class CComponent : MonoBehaviour {
 		}
 	}
 
-	//! 내비게이션 이벤트를 수신했을 경우
-	public virtual void OnReceiveNavigationEvent(ENavigationEventType a_eEventType) {
-		if(!this.IsIgnoreNavigationEvent && a_eEventType == ENavigationEventType.BACK_KEY_DOWN) {
-			CNavigationManager.Instance.RemoveComponent(this);
+	//! 내비게이션 스택 이벤트를 수신했을 경우
+	public virtual void OnReceiveNavStackEvent(ENavStackEventType a_eEventType) {
+		if(!this.IsIgnoreNavigationEvent && a_eEventType == ENavStackEventType.BACK_KEY_DOWN) {
+			CNavStackManager.Instance.RemoveComponent(this);
 		}
 	}
 	#endregion			// 함수

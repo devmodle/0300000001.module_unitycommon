@@ -22,7 +22,7 @@ public class CObjNameEditorWindow : CEditorWindow<CObjNameEditorWindow> {
 		m_oOriginObjName = EditorGUILayout.TextField("검색 문자열", m_oOriginObjName, GUILayout.Width(KEditorDefine.B_TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD));
 		m_oReplaceObjName = EditorGUILayout.TextField("변경 문자열", m_oReplaceObjName, GUILayout.Width(KEditorDefine.B_TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD));
 
-		if(GUILayout.Button("적용", GUILayout.Width(KEditorDefine.B_WIDTH_EDITOR_W_APPLY_BUTTON))) {
+		if(GUILayout.Button("적용", GUILayout.Width(KEditorDefine.B_WIDTH_EDITOR_W_APPLY_BTN))) {
 			if(m_oOriginObjName.ExIsValid() && m_oReplaceObjName.ExIsValid()) {
 				Func.EnumerateScenes((a_stScene) => {
 					this.ReplaceSceneObjsName(a_stScene, m_oOriginObjName, m_oReplaceObjName);
