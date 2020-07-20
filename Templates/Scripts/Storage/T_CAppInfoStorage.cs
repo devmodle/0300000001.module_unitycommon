@@ -40,7 +40,7 @@ public class CAppInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 
-		this.InstallTime = this.InstallTimeString.ExToTime(KBDefine.DATE_TIME_FORMAT_YYYY_MM_DD_HH_MM_SS);
+		this.InstallTime = this.InstallTimeString.ExToTime(KCDefine.DATE_TIME_FORMAT_YYYY_MM_DD_HH_MM_SS);
 		this.UTCInstallTime = this.InstallTime.ToUniversalTime();
 	}
 	#endregion			// 인터페이스
@@ -73,20 +73,20 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		this.Reset();
 
 #if UNITY_IOS
-		this.PlatformName = KBDefine.PLATFORM_NAME_IOS;
+		this.PlatformName = KCDefine.PLATFORM_NAME_IOS;
 #elif UNITY_ANDROID
 #if ONE_STORE_PLATFORM
-		this.PlatformName = KBDefine.PLATFORM_NAME_STORE;
+		this.PlatformName = KCDefine.PLATFORM_NAME_STORE;
 #elif GALAXY_STORE_PLATFORM
-		this.PlatformName = KBDefine.PLATFORM_NAME_GALAXY_STORE;
+		this.PlatformName = KCDefine.PLATFORM_NAME_GALAXY_STORE;
 #else
-		this.PlatformName = KBDefine.PLATFORM_NAME_GOOGLE;
+		this.PlatformName = KCDefine.PLATFORM_NAME_GOOGLE;
 #endif			// #if ONE_STORE_PLATFORM
 #else
 #if UNITY_STANDALONE_WIN
-		this.PlatformName = KBDefine.PLATFORM_NAME_WINDOWS;
+		this.PlatformName = KCDefine.PLATFORM_NAME_WINDOWS;
 #else
-		this.PlatformName = KBDefine.PLATFORM_NAME_MAC;
+		this.PlatformName = KCDefine.PLATFORM_NAME_MAC;
 #endif			// #if UNITY_STANDALONE_WIN
 #endif			// #if UNITY_IOS
 	}
@@ -99,56 +99,56 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	//! 약관 동의 필요 여부를 검사한다
 	public static bool IsNeedAgreement(string a_oCountryCode) {
 		string oCountryCode = a_oCountryCode.ToUpper();
-		return oCountryCode.ExIsEuropeanUnion() || oCountryCode.ExIsEquals(KBDefine.KOREA_COUNTRY_CODE);
+		return oCountryCode.ExIsEuropeanUnion() || oCountryCode.ExIsEquals(KCDefine.KOREA_COUNTRY_CODE);
 	}
 
 	//! 업데이트 필요 여부를 검사한다
 	public static bool IsNeedUpdate(string a_oLatestVersion) {
 #if UNITY_ANDROID
-		return Func.IsNeedUpdateByBuildNumber(a_oLatestVersion);
+		return CFunc.IsNeedUpdateByBuildNumber(a_oLatestVersion);
 #else
-		return Func.IsNeedUpdateByBuildVersion(a_oLatestVersion);
+		return CFunc.IsNeedUpdateByBuildVersion(a_oLatestVersion);
 #endif			// #if UNITY_ANDROID
 	}
 
 	//! 업데이트 필요 여부를 검사한다
 	public static bool IsNeedUpdate(string a_oLatestBuildNumber, string a_oLatestBuildVersion) {
-		bool bIsNeedUpdate = Func.IsNeedUpdateByBuildNumber(a_oLatestBuildNumber);
-		return bIsNeedUpdate || Func.IsNeedUpdateByBuildVersion(a_oLatestBuildVersion);
+		bool bIsNeedUpdate = CFunc.IsNeedUpdateByBuildNumber(a_oLatestBuildNumber);
+		return bIsNeedUpdate || CFunc.IsNeedUpdateByBuildVersion(a_oLatestBuildVersion);
 	}
 
 	//! 업데이트 필요 여부를 검사한다
 	public static bool IsNeedUpdateByBuildNumber(string a_oLatestNumber) {
-		CBAccess.Assert(a_oLatestNumber.ExIsValid());
+		CAccess.Assert(a_oLatestNumber.ExIsValid());
 
 		bool bIsValidNumberA = int.TryParse(a_oLatestNumber, out int nBuildNumberA);
 		bool bIsValidNumberB = int.TryParse(CProjectInfoTable.Instance.ProjectInfo.m_oBuildNumber, out int nBuildNumberB);
 
-		CBAccess.Assert(bIsValidNumberA && bIsValidNumberB);
+		CAccess.Assert(bIsValidNumberA && bIsValidNumberB);
 		return nBuildNumberA > nBuildNumberB;
 	}
 
 	//! 업데이트 필요 여부를 검사한다
 	public static bool IsNeedUpdateByBuildVersion(string a_oLatestVersion) {
-		CBAccess.Assert(a_oLatestVersion.ExIsValid());
+		CAccess.Assert(a_oLatestVersion.ExIsValid());
 
 		var bIsValidVersionA = System.Version.TryParse(a_oLatestVersion, out System.Version oVersionA);
 		var bIsValidVersionB = System.Version.TryParse(CProjectInfoTable.Instance.ProjectInfo.m_oBuildVersion, out System.Version oVersionB);
 
-		CBAccess.Assert(bIsValidVersionA && bIsValidVersionB);
-		return oVersionA.CompareTo(oVersionB) >= KBDefine.COMPARE_RESULT_GREATE;
+		CAccess.Assert(bIsValidVersionA && bIsValidVersionB);
+		return oVersionA.CompareTo(oVersionB) >= KCDefine.COMPARE_RESULT_GREATE;
 	}
 
 	//! 디바이스 메세지를 수신했을 경우
 	public void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
-		CBAccess.Assert(!CBAccess.IsMobilePlatform() || a_oMsg.ExIsValid());
+		CAccess.Assert(!CAccess.IsMobilePlatform() || a_oMsg.ExIsValid());
 
-		if(CBAccess.IsMobilePlatform()) {
+		if(CAccess.IsMobilePlatform()) {
 			var oDataList = a_oMsg.ExJSONStringToObj<Dictionary<string, string>>();
-			this.StoreVersion = oDataList[KUDefine.KEY_DEVICE_MR_VERSION];
+			this.StoreVersion = oDataList[KCDefine.KEY_DEVICE_MR_VERSION];
 
 			this.IsLoadStoreVersion = true;
-			this.IsValidStoreVersion = bool.Parse(oDataList[KUDefine.KEY_DEVICE_MR_RESULT]);
+			this.IsValidStoreVersion = bool.Parse(oDataList[KCDefine.KEY_DEVICE_MR_RESULT]);
 		}
 	}
 
@@ -161,7 +161,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 #endif			// #if UNITY_ANDROID
 
 		CUnityMsgSender.Instance.SendGetStoreVersionMessage(CProjectInfoTable.Instance.ProjectInfo.m_oAppID,
-			oVersion, KUDefine.DEF_TIMEOUT_NETWORK_CONNECTION, this.OnReceiveDeviceMsg);
+			oVersion, KCDefine.DEF_TIMEOUT_NETWORK_CONNECTION, this.OnReceiveDeviceMsg);
 	}
 
 	//! 어플리케이션 정보를 저장한다
@@ -169,9 +169,9 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		var oBytes = MessagePackSerializer.Serialize<CAppInfo>(this.AppInfo);
 
 #if SECURITY_ENABLE
-		Func.WriteSecurityBytes(a_oFilepath, oBytes);
+		CFunc.WriteSecurityBytes(a_oFilepath, oBytes);
 #else
-		CBAccess.WriteBytes(a_oFilepath, oBytes);
+		CAccess.WriteBytes(a_oFilepath, oBytes);
 #endif			// #if SECURITY_ENABLE
 	}
 
@@ -179,15 +179,15 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	public void LoadAppInfo(string a_oFilepath) {
 		if(File.Exists(a_oFilepath)) {
 #if SECURITY_ENABLE
-			var oBytes = Func.ReadSecurityBytes(a_oFilepath);
+			var oBytes = CFunc.ReadSecurityBytes(a_oFilepath);
 #else
-			var oBytes = CBAccess.ReadBytes(a_oFilepath);
+			var oBytes = CAccess.ReadBytes(a_oFilepath);
 #endif			// #if SECURITY_ENABLE
 
 			try {
 				this.AppInfo = MessagePackSerializer.Deserialize<CAppInfo>(oBytes);
 			} catch(System.Exception oException) {
-				Func.ShowLogWarning("CAppInfoStorage.LoadAppInfo Exception: {0}", oException.Message);
+				CFunc.ShowLogWarning("CAppInfoStorage.LoadAppInfo Exception: {0}", oException.Message);
 
 				this.Reset();
 				this.SaveAppInfo(a_oFilepath);

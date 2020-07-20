@@ -11,11 +11,11 @@ public static partial class KDefine {
 
 	#region 런타임 상수
 	// 경로 {
-	public static readonly string AS_DATA_PATH_KOREAN_SERVICE_TEXT = string.Format("{0}{1}AS_Service_KO", KBDefine.DIR_PATH_DATAS, KBDefine.DIR_PATH_AGREE_SCENE_BASE);
-	public static readonly string AS_DATA_PATH_KOREAN_PERSONAL_TEXT = string.Format("{0}{1}AS_Personal_KO", KBDefine.DIR_PATH_DATAS, KBDefine.DIR_PATH_AGREE_SCENE_BASE);
+	public static readonly string AS_DATA_PATH_KOREAN_SERVICE_TEXT = string.Format("{0}{1}AS_Service_KO", KCDefine.DIR_PATH_DATAS, KCDefine.DIR_PATH_AGREE_SCENE_BASE);
+	public static readonly string AS_DATA_PATH_KOREAN_PERSONAL_TEXT = string.Format("{0}{1}AS_Personal_KO", KCDefine.DIR_PATH_DATAS, KCDefine.DIR_PATH_AGREE_SCENE_BASE);
 
-	public static readonly string AS_DATA_PATH_ENGLISH_SERVICE_TEXT = string.Format("{0}{1}AS_Service_EN", KBDefine.DIR_PATH_DATAS, KBDefine.DIR_PATH_AGREE_SCENE_BASE);
-	public static readonly string AS_DATA_PATH_ENGLISH_PERSONAL_TEXT = string.Format("{0}{1}AS_Personal_EN", KBDefine.DIR_PATH_DATAS, KBDefine.DIR_PATH_AGREE_SCENE_BASE);	
+	public static readonly string AS_DATA_PATH_ENGLISH_SERVICE_TEXT = string.Format("{0}{1}AS_Service_EN", KCDefine.DIR_PATH_DATAS, KCDefine.DIR_PATH_AGREE_SCENE_BASE);
+	public static readonly string AS_DATA_PATH_ENGLISH_PERSONAL_TEXT = string.Format("{0}{1}AS_Personal_EN", KCDefine.DIR_PATH_DATAS, KCDefine.DIR_PATH_AGREE_SCENE_BASE);	
 	// 경로 }
 	#endregion			// 런타임 상수
 }

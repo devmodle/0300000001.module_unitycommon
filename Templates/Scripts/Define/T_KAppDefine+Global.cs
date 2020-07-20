@@ -43,7 +43,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 함수
 	//! 생성자
 	public CBaseInfo(string a_oVersion) {
-		m_stVersionInfo = Func.MakeDefVersionInfo(a_oVersion);
+		m_stVersionInfo = CFunc.MakeDefVersionInfo(a_oVersion);
 	}
 	#endregion			// 함수
 }
@@ -100,12 +100,12 @@ public static partial class KAppDefine {
 	public static readonly Vector3 G_ROTATION_MAIN_LIGHT = new Vector3(45.0f, 45.0f, 0.0f);
 
 	// 정렬 순서 정보 {
-	public static readonly KeyValuePair<string, int> G_SORTING_ORDER_INFO_OBJ_CANVAS = new KeyValuePair<string, int>(KUDefine.SORTING_LAYER_DEF, 0);
+	public static readonly KeyValuePair<string, int> G_SORTING_ORDER_INFO_OBJ_CANVAS = new KeyValuePair<string, int>(KCDefine.SORTING_LAYER_DEF, 0);
 
 #if CAMERA_STACK_ENABLE
-	public static readonly KeyValuePair<string, int> G_SORTING_ORDER_INFO_UI_CANVAS = new KeyValuePair<string, int>(KUDefine.SORTING_LAYER_DEF, 0);
+	public static readonly KeyValuePair<string, int> G_SORTING_ORDER_INFO_UI_CANVAS = new KeyValuePair<string, int>(KCDefine.SORTING_LAYER_DEF, 0);
 #else
-	public static readonly KeyValuePair<string, int> G_SORTING_ORDER_INFO_UI_CANVAS = new KeyValuePair<string, int>(KUDefine.SORTING_LAYER_DEF_UI, 0);
+	public static readonly KeyValuePair<string, int> G_SORTING_ORDER_INFO_UI_CANVAS = new KeyValuePair<string, int>(KCDefine.SORTING_LAYER_DEF_UI, 0);
 #endif			// #if CAMERA_STACK_ENABLE
 	// 정렬 순서 정보 }
 	#endregion			// 런타임 상수
