@@ -5,10 +5,10 @@ using UnityEngine;
 //! 스플래시 씬 관리자
 public abstract class CSplashSceneManager : CSceneManager {
 	#region 프로퍼티
-	public override string SceneName => KDefine.B_SCENE_NAME_SPLASH;
+	public override string SceneName => KBDefine.SCENE_NAME_SPLASH;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KDefine.U_SCRIPT_ORDER_SPLASH_SCENE_MANAGER;
+	public override int ScriptOrder => KUDefine.SCRIPT_ORDER_SPLASH_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -26,14 +26,14 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		Func.LateCallFunc(this, KDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
-			CSceneLoader.Instance.LoadScene(KDefine.B_SCENE_NAME_START, false, false);
+		Func.LateCallFunc(this, KUDefine.DELAY_INIT, (a_oComponent, a_oParams) => {
+			CSceneLoader.Instance.LoadScene(KBDefine.SCENE_NAME_START, false, false);
 		});
 	}
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 		this.ShowSplash();
 	}
 	#endregion			// 함수

@@ -19,7 +19,7 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 	private BaseTenjin TenjinInstance {
 		get {
 			var oInstance = Tenjin.getInstance(m_oAPIKey);
-			Func.Assert(oInstance != null);
+			CBAccess.Assert(oInstance != null);
 
 			return oInstance;
 		}
@@ -29,10 +29,10 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(string a_oAPIKey, System.Action<CTenjinManager, bool> a_oCallback) {
-		Func.ShowLog("CTenjinManager.Init: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oAPIKey);
+		Func.ShowLog("CTenjinManager.Init: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oAPIKey);
 
-		if(!this.IsInit && Func.IsMobilePlatform()) {
-			Func.Assert(a_oAPIKey.ExIsValid());
+		if(!this.IsInit && CBAccess.IsMobilePlatform()) {
+			CBAccess.Assert(a_oAPIKey.ExIsValid());
 
 			this.IsInit = true;
 			m_oAPIKey = a_oAPIKey;
@@ -65,14 +65,14 @@ public class CTenjinManager : CSingleton<CTenjinManager> {
 #if TENJIN_ANALYTICS_ENABLE && PURCHASE_ENABLE
 	//! 결제 로그를 전송한다
 	public void SendPurchaseLog(Product a_oProduct) {
-		Func.ShowLog("CTenjinManager.SendPurchaseLog: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oProduct);
+		Func.ShowLog("CTenjinManager.SendPurchaseLog: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oProduct);
 		
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {
 			var oDataList = MiniJson.JsonDecode(a_oProduct.receipt) as Dictionary<string, object>;
 
 			if(oDataList != null) {
-				var oPayload = oDataList[KDefine.U_KEY_TENJIN_M_PAYLOAD] as string;
+				var oPayload = oDataList[KUDefine.KEY_TENJIN_M_PAYLOAD] as string;
 				double dblPrice = decimal.ToDouble(a_oProduct.metadata.localizedPrice);
 
 #if UNITY_IOS

@@ -20,10 +20,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	public bool IsAutoLoadTable { get; protected set; } = false;
 	public bool IsAutoInitManager { get; protected set; } = false;
 
-	public override string SceneName => KDefine.B_SCENE_NAME_SETUP;
+	public override string SceneName => KBDefine.SCENE_NAME_SETUP;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KDefine.U_SCRIPT_ORDER_SETUP_SCENE_MANAGER;
+	public override int ScriptOrder => KUDefine.SCRIPT_ORDER_SETUP_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -36,9 +36,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 디바이스 메세지를 수신했을 경우
 	public void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
-		if(a_oCmd.ExIsEquals(KDefine.B_CMD_GET_DEVICE_ID)) {
+		if(a_oCmd.ExIsEquals(KBDefine.CMD_GET_DEVICE_ID)) {
 			this.HandleGetDeviceIDMsg(a_oMsg);
-		} else if(a_oCmd.ExIsEquals(KDefine.B_CMD_GET_COUNTRY_CODE)) {
+		} else if(a_oCmd.ExIsEquals(KBDefine.CMD_GET_COUNTRY_CODE)) {
 			this.HandleGetCountryCodeMsg(a_oMsg);
 		}
 	}
@@ -62,7 +62,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 초기화
 	private IEnumerator OnStart() {
 		if(!CSceneManager.IsSetup) {
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 
 #if DEBUG || DEVELOPMENT_BUILD
 			CUnityMsgSender.Instance.SendSetBuildModeMsg(true);
@@ -70,23 +70,23 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CUnityMsgSender.Instance.SendSetBuildModeMsg(false);
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 			
 			// 저장소를 설정한다 {
 #if MESSAGE_PACK_ENABLE
 			CAppInfoStorage.Instance.SetupStoreVersion();
-			CAppInfoStorage.Instance.LoadAppInfo(KDefine.B_DATA_PATH_APP_INFO);
+			CAppInfoStorage.Instance.LoadAppInfo(KBDefine.DATA_PATH_APP_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 			// 저장소를 설정한다 }
 
 			// 테이블을 로드한다
 			if(this.IsAutoLoadTable) {
-				CValueTable.Instance.LoadValuesFromRes(KDefine.U_TABLE_PATH_G_COMMON_VALUE_TABLE);
-				CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE);
+				CValueTable.Instance.LoadValuesFromRes(KUDefine.TABLE_PATH_G_COMMON_VALUE_TABLE);
+				CStringTable.Instance.LoadStringsFromRes(KUDefine.TABLE_PATH_G_COMMON_STRING_TABLE);
 
-				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 			}
 
 			// 관리자를 초기화한다
@@ -107,10 +107,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 						m_oTemplateIDList = new List<string>(CPluginInfoTable.Instance.AdmobPluginInfo.m_oTemplateIDList),
 
 						m_oAdsIDList = new Dictionary<string, string>() {
-							[KDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oBannerAdsID,
-							[KDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oRewardAdsID,
-							[KDefine.U_KEY_ADS_M_NATIVE_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oNativeAdsID,
-							[KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oFullscreenAdsID
+							[KUDefine.KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oBannerAdsID,
+							[KUDefine.KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oRewardAdsID,
+							[KUDefine.KEY_ADS_M_NATIVE_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oNativeAdsID,
+							[KUDefine.KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oFullscreenAdsID
 						}
 					},
 #endif			// #if ADMOB_ENABLE
@@ -120,9 +120,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 						m_oGameID = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oGameID,
 
 						m_oAdsPlacementList = new Dictionary<string, string>() {
-							[KDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oBannerAdsPlacement,
-							[KDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oRewardAdsPlacement,
-							[KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oFullscreenAdsPlacement
+							[KUDefine.KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oBannerAdsPlacement,
+							[KUDefine.KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oRewardAdsPlacement,
+							[KUDefine.KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oFullscreenAdsPlacement
 						}
 					},
 #endif			// #if UNITY_ADS_ENABLE
@@ -138,9 +138,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 						},
 
 						m_oAdsPlacementList = new Dictionary<string, string>() {
-							[KDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oBannerAdsPlacement,
-							[KDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oRewardAdsPlacement,
-							[KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oFullscreenAdsPlacement
+							[KUDefine.KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oBannerAdsPlacement,
+							[KUDefine.KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oRewardAdsPlacement,
+							[KUDefine.KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oFullscreenAdsPlacement
 						}
 					},
 #endif			// #if IRON_SOURCE_ENABLE
@@ -150,90 +150,90 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 						m_oSDKKey = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oSDKKey,
 
 						m_oAdsIDList = new List<string>() {
-							[KDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oBannerAdsID,
-							[KDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oRewardAdsID,
-							[KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oFullscreenAdsID
+							[KUDefine.KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oBannerAdsID,
+							[KUDefine.KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oRewardAdsID,
+							[KUDefine.KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oFullscreenAdsID
 						}
 					}
 #endif			// #if APP_LOVIN_ENABLE
 				}, null);
 
-				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 #endif			// #if ADS_ENABLE
 
 #if FACEBOOK_ENABLE
 				CFacebookManager.Instance.Init(null);
-				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 #endif			// #if FACEBOOK_ENABLE
 
 #if FIREBASE_ENABLE
 #if FIREBASE_REMOTE_CONFIG_ENABLE
 				var oMacVersionInfo = new Dictionary<string, string>() {
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.MacProjectInfo.m_oBuildNumber,
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.MacProjectInfo.m_oBuildVersion
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.MacProjectInfo.m_oBuildNumber,
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.MacProjectInfo.m_oBuildVersion
 				};
 
 				var oWindowsVersionInfo = new Dictionary<string, string>() {
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.WindowsProjectInfo.m_oBuildNumber,
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.WindowsProjectInfo.m_oBuildVersion
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.WindowsProjectInfo.m_oBuildNumber,
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.WindowsProjectInfo.m_oBuildVersion
 				};
 
 				var oiOSVersionInfo = new Dictionary<string, string>() {
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.iOSProjectInfo.m_oBuildNumber,
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.iOSProjectInfo.m_oBuildVersion
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.iOSProjectInfo.m_oBuildNumber,
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.iOSProjectInfo.m_oBuildVersion
 				};
 
 				var oGoogleVersionInfo = new Dictionary<string, string>() {
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.GoogleProjectInfo.m_oBuildNumber,
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.GoogleProjectInfo.m_oBuildVersion
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.GoogleProjectInfo.m_oBuildNumber,
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.GoogleProjectInfo.m_oBuildVersion
 				};
 
 				var oOneStoreVersionInfo = new Dictionary<string, string>() {
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.OneStoreProjectInfo.m_oBuildNumber,
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.OneStoreProjectInfo.m_oBuildVersion
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.OneStoreProjectInfo.m_oBuildNumber,
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.OneStoreProjectInfo.m_oBuildVersion
 				};
 
 				var oGalaxyStoreVersionInfo = new Dictionary<string, string>() {
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.GalaxyStoreProjectInfo.m_oBuildNumber,
-					[KDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.GalaxyStoreProjectInfo.m_oBuildVersion
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.GalaxyStoreProjectInfo.m_oBuildNumber,
+					[KUDefine.CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.GalaxyStoreProjectInfo.m_oBuildVersion
 				};
 
 				var oConfigDataList = new Dictionary<string, object>() {
-					[KDefine.U_CONFIG_KEY_FIREBASE_MAC_VERSION_INFO] = oMacVersionInfo.ExToJSONString(),
-					[KDefine.U_CONFIG_KEY_FIREBASE_WINDOWS_VERSION_INFO] = oWindowsVersionInfo.ExToJSONString(),
+					[KUDefine.CONFIG_KEY_FIREBASE_MAC_VERSION_INFO] = oMacVersionInfo.ExToJSONString(),
+					[KUDefine.CONFIG_KEY_FIREBASE_WINDOWS_VERSION_INFO] = oWindowsVersionInfo.ExToJSONString(),
 
-					[KDefine.U_CONFIG_KEY_FIREBASE_IOS_VERSION_INFO] = oiOSVersionInfo.ExToJSONString(),
+					[KUDefine.CONFIG_KEY_FIREBASE_IOS_VERSION_INFO] = oiOSVersionInfo.ExToJSONString(),
 
-					[KDefine.U_CONFIG_KEY_FIREBASE_GOOGLE_VERSION_INFO] = oGoogleVersionInfo.ExToJSONString(),
-					[KDefine.U_CONFIG_KEY_FIREBASE_ONE_STORE_VERSION_INFO] = oOneStoreVersionInfo.ExToJSONString(),
-					[KDefine.U_CONFIG_KEY_FIREBASE_GALAXY_STORE_VERSION_INFO] = oGalaxyStoreVersionInfo.ExToJSONString()
+					[KUDefine.CONFIG_KEY_FIREBASE_GOOGLE_VERSION_INFO] = oGoogleVersionInfo.ExToJSONString(),
+					[KUDefine.CONFIG_KEY_FIREBASE_ONE_STORE_VERSION_INFO] = oOneStoreVersionInfo.ExToJSONString(),
+					[KUDefine.CONFIG_KEY_FIREBASE_GALAXY_STORE_VERSION_INFO] = oGalaxyStoreVersionInfo.ExToJSONString()
 				};
 #else
 				var oConfigDataList = new Dictionary<string, object>();
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 
 				CFirebaseManager.Instance.Init(oConfigDataList, null);
-				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 #endif			// #if FIREBASE_ENABLE
 
 #if GAME_CENTER_ENABLE
 				CGameCenterManager.Instance.Init(null);
-				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 #endif			// #if GAME_CENTER_ENABLE
 
 #if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
 				CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, null);
-				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 #endif			// #if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
 
 #if UNITY_SERVICE_ENABLE
 				CUnityServiceManager.Instance.Init(null);
-				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+				yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 #endif			// #if UNITY_SERVICE_ENABLE
 			}
 
 			this.Setup();
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 
 			// 디바이스 식별자 반환 메세지를 전송한다
 			CUnityMsgSender.Instance.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
@@ -245,11 +245,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #if MESSAGE_PACK_ENABLE
 		bool bIsValid = CAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid();
 
-		if(!bIsValid || CAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KDefine.B_UNKNOWN_DEVICE_ID)) {
-			CAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KDefine.B_UNKNOWN_DEVICE_ID;
+		if(!bIsValid || CAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KBDefine.UNKNOWN_DEVICE_ID)) {
+			CAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KBDefine.UNKNOWN_DEVICE_ID;
 		}
 
-		CAppInfoStorage.Instance.SaveAppInfo(KDefine.B_DATA_PATH_APP_INFO);
+		CAppInfoStorage.Instance.SaveAppInfo(KBDefine.DATA_PATH_APP_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 
 		// 국가 코드 반환 메세지를 전송한다
@@ -261,13 +261,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		string oCountryCode = a_oMsg;
 
 		// 국가 코드가 유효하지 않을 경우
-		if(!Func.IsMobilePlatform() || !a_oMsg.ExIsValid()) {
-			oCountryCode = !Func.IsMobilePlatform() ? KDefine.B_KOREA_COUNTRY_CODE : KDefine.B_UNKNOWN_COUNTRY_CODE;
+		if(!CBAccess.IsMobilePlatform() || !a_oMsg.ExIsValid()) {
+			oCountryCode = !CBAccess.IsMobilePlatform() ? KBDefine.KOREA_COUNTRY_CODE : KBDefine.UNKNOWN_COUNTRY_CODE;
 		}
 
 #if MESSAGE_PACK_ENABLE
 		CAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
-		CAppInfoStorage.Instance.SaveAppInfo(KDefine.B_DATA_PATH_APP_INFO);
+		CAppInfoStorage.Instance.SaveAppInfo(KBDefine.DATA_PATH_APP_INFO);
 
 #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
 		CFlurryManager.Instance.SetUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
@@ -278,7 +278,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CFirebaseManager.Instance.SetAnalyticsUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
 
 		CFirebaseManager.Instance.SetAnalyticsDatas(new Dictionary<string, string>() {
-			[KDefine.U_LOG_KEY_COUNTRY_CODE] = CAppInfoStorage.Instance.CountryCode
+			[KUDefine.LOG_KEY_COUNTRY_CODE] = CAppInfoStorage.Instance.CountryCode
 		});
 #endif			// #if FIREBASE_ANALYTICS_ENABLE
 
@@ -286,7 +286,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CFirebaseManager.Instance.SetCrashUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
 
 		CFirebaseManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
-			[KDefine.U_LOG_KEY_COUNTRY_CODE] = CAppInfoStorage.Instance.CountryCode
+			[KUDefine.LOG_KEY_COUNTRY_CODE] = CAppInfoStorage.Instance.CountryCode
 		});
 #endif			// #if FIREBASE_CRASHLYTICS_ENABLE
 #endif			// #if FIREBASE_ENABLE
@@ -298,17 +298,17 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 #if UNITY_SERVICE_CRASHLYTICS_ENABLE
 		CUnityServiceManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
-			[KDefine.U_LOG_KEY_USER_ID] = CAppInfoStorage.Instance.AppInfo.DeviceID,
-			[KDefine.U_LOG_KEY_COUNTRY_CODE] = CAppInfoStorage.Instance.CountryCode
+			[KUDefine.LOG_KEY_USER_ID] = CAppInfoStorage.Instance.AppInfo.DeviceID,
+			[KUDefine.LOG_KEY_COUNTRY_CODE] = CAppInfoStorage.Instance.CountryCode
 		});
 #endif			// #if UNITY_SERVICE_CRASHLYTICS_ENABLE
 #endif			// #if UNITY_SERVICE_ENABLE
 
 		if(this.IsAutoLoadTable) {
-			if(CAppInfoStorage.Instance.CountryCode.ExIsEquals(KDefine.B_KOREA_COUNTRY_CODE)) {
-				CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
+			if(CAppInfoStorage.Instance.CountryCode.ExIsEquals(KBDefine.KOREA_COUNTRY_CODE)) {
+				CStringTable.Instance.LoadStringsFromRes(KUDefine.TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
 			} else {
-				CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);
+				CStringTable.Instance.LoadStringsFromRes(KUDefine.TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);
 			}	
 		}
 #endif			// #if MESSAGE_PACK_ENABLE
@@ -326,8 +326,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CSceneManager.IsSetup = true;
 		LogFunc.SendAppLaunchLog();
 
-		Func.LateCallFunc(this, KDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
-			Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_AGREE, false);
+		Func.LateCallFunc(this, KUDefine.DELAY_INIT, (a_oComponent, a_oParams) => {
+			CSceneLoader.Instance.LoadAdditiveScene(KBDefine.SCENE_NAME_AGREE, false);
 		});
 	}
 	#endregion			// 함수

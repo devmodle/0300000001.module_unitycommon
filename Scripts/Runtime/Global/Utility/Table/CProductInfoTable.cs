@@ -64,7 +64,7 @@ public class CProductInfoTable : CScriptableObj<CProductInfoTable> {
 #if UNITY_EDITOR
 	//! 공용 상품 정보를 변경한다
 	public void SetCommonProductInfoList(List<STProductInfo> a_oProductInfoList) {
-		Func.Assert(a_oProductInfoList != null);
+		CBAccess.Assert(a_oProductInfoList != null);
 		m_oCommonProductInfoList = a_oProductInfoList;
 	}
 #endif			// #if UNITY_EDITOR

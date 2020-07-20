@@ -85,11 +85,11 @@ public abstract partial class CSceneManager : CComponent {
 	
 	public bool IsRootScene => CSceneManager.RootSceneName.ExIsEquals(this.SceneName);
 	
-	public virtual float PlaneDistance => KDefine.U_DEF_DISTANCE_CAMERA_PLANE;
-	public virtual float FadeOutAniDuration => KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANI;
+	public virtual float PlaneDistance => KUDefine.DEF_DISTANCE_CAMERA_PLANE;
+	public virtual float FadeOutAniDuration => KUDefine.DEF_DURATION_SCREEN_FADE_OUT_ANI;
 
-	public virtual float UICameraDepth => KDefine.U_DEPTH_UI_CAMERA;
-	public virtual float MainCameraDepth => KDefine.U_DEPTH_MAIN_CAMERA;
+	public virtual float UICameraDepth => KUDefine.DEPTH_UI_CAMERA;
+	public virtual float MainCameraDepth => KUDefine.DEPTH_MAIN_CAMERA;
 
 	public virtual Color ClearColor => KAppDefine.G_DEF_COLOR_CAMERA_BG;
 
@@ -97,7 +97,7 @@ public abstract partial class CSceneManager : CComponent {
 	public virtual KeyValuePair<string, int> ObjCanvasSortingOrderInfo => KAppDefine.G_SORTING_ORDER_INFO_OBJ_CANVAS;
 	
 #if UNITY_EDITOR
-	public virtual int ScriptOrder => KDefine.U_SCRIPT_ORDER_SCENE_MANAGER;
+	public virtual int ScriptOrder => KUDefine.SCRIPT_ORDER_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -215,9 +215,9 @@ public abstract partial class CSceneManager : CComponent {
 		// 처음 씬을 생성했을 경우
 		if(!CSceneManager.IsAwake) {
 #if DEBUG || DEVELOPMENT_BUILD
-			Func.ShowLog("Platform: {0}", KDefine.B_LOG_COLOR_PLATFORM_INFO, Application.platform);
-			Func.ShowLog("Data Path: {0}", KDefine.B_LOG_COLOR_PLATFORM_INFO, Application.dataPath);
-			Func.ShowLog("Persistent Data Path: {0}", KDefine.B_LOG_COLOR_PLATFORM_INFO, Application.persistentDataPath);
+			Func.ShowLog("Platform: {0}", KBDefine.LOG_COLOR_PLATFORM_INFO, Application.platform);
+			Func.ShowLog("Data Path: {0}", KBDefine.LOG_COLOR_PLATFORM_INFO, Application.dataPath);
+			Func.ShowLog("Persistent Data Path: {0}", KBDefine.LOG_COLOR_PLATFORM_INFO, Application.persistentDataPath);
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 			CSceneManager.IsInit = false;
@@ -227,8 +227,8 @@ public abstract partial class CSceneManager : CComponent {
 			CSceneManager.AwakeSceneName = CSceneManager.RootSceneName;
 
 			// 초기화 씬이 아닐 경우
-			if(!CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_INIT)) {
-				CSceneLoader.Instance.LoadScene(KDefine.B_SCENE_NAME_INIT, false, false);
+			if(!CSceneManager.AwakeSceneName.ExIsEquals(KBDefine.SCENE_NAME_INIT)) {
+				CSceneLoader.Instance.LoadScene(KBDefine.SCENE_NAME_INIT, false, false);
 			}
 		}
 
@@ -258,14 +258,14 @@ public abstract partial class CSceneManager : CComponent {
 			if(CSceneManager.IsAutoGC) {
 				CSceneManager.m_fGCSkipTime += CScheduleManager.Instance.UnscaleDeltaTime;
 
-				if(CSceneManager.m_fGCSkipTime >= KDefine.U_DELTA_TIME_GC) {
+				if(CSceneManager.m_fGCSkipTime >= KUDefine.DELTA_TIME_GC) {
 					CSceneManager.m_fGCSkipTime = 0.0f;
 					System.GC.Collect();
 				}
 			}
 
 			if(Input.GetKeyDown(KeyCode.Escape)) {
-				CSndManager.Instance.PlayFXSnd(KDefine.U_SND_PATH_G_TOUCH_ENDED);
+				CSndManager.Instance.PlayFXSnd(KUDefine.SND_PATH_G_TOUCH_ENDED);
 				CNavStackManager.Instance.SendNavigationEvent(ENavStackEventType.BACK_KEY_DOWN);
 			}
 
@@ -282,11 +282,11 @@ public abstract partial class CSceneManager : CComponent {
 
 			CSceneManager.m_fDebugSkipTime += CScheduleManager.Instance.UnscaleDeltaTime;
 
-			if(CSceneManager.m_fDebugSkipTime >= KDefine.U_DELTA_TIME_DYNAMIC_DEBUG) {
+			if(CSceneManager.m_fDebugSkipTime >= KUDefine.DELTA_TIME_DYNAMIC_DEBUG) {
 				CSceneManager.m_fDebugSkipTime = 0.0f;
 
 				if(CSceneManager.ScreenStaticDebugText != null) {
-					CSceneManager.ScreenStaticDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_MSG, 
+					CSceneManager.ScreenStaticDebugText.text = string.Format(KUDefine.FORMAT_SCENE_M_STATIC_DEBUG_MSG, 
 						CSceneManager.m_oStaticDebugStringBuilder.ToString(), CSceneManager.m_oExtraStaticDebugStringBuilder.ToString());
 				}
 
@@ -307,13 +307,13 @@ public abstract partial class CSceneManager : CComponent {
 					double dblGPUAllocMemory = Profiler.GetAllocatedMemoryForGraphicsDriver().ExToMegaByte();
 
 					CSceneManager.m_oDynamicDebugStringBuilder.Clear();
-					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_A, dblGCMemory, dblUsedHeapMemory);
-					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_B, dblMonoHeapMemory, dblMonoUsedMemory);
-					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_C, dblTempAllocMemory, dblTotalAllocMemory);
-					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_D, dblTotalReservedMemory, dblTotalUnusedReservedMemory);
-					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_E, dblGPUAllocMemory);
+					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_A, dblGCMemory, dblUsedHeapMemory);
+					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_B, dblMonoHeapMemory, dblMonoUsedMemory);
+					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_C, dblTempAllocMemory, dblTotalAllocMemory);
+					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_D, dblTotalReservedMemory, dblTotalUnusedReservedMemory);
+					CSceneManager.m_oDynamicDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_DYNAMIC_DEBUG_INFO_E, dblGPUAllocMemory);
 
-					CSceneManager.ScreenDynamicDebugText.text = string.Format(KDefine.U_FORMAT_SCENE_M_DYNAMIC_DEBUG_MSG, 
+					CSceneManager.ScreenDynamicDebugText.text = string.Format(KUDefine.FORMAT_SCENE_M_DYNAMIC_DEBUG_MSG, 
 						CSceneManager.m_oDynamicDebugStringBuilder.ToString(), CSceneManager.m_oExtraDynamicDebugStringBuilder.ToString());
 				}
 			}
@@ -347,19 +347,19 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 객체 풀을 반환한다
 	public ObjectPool GetObjPool(string a_oKey) {
-		Func.Assert(a_oKey.ExIsValid());
+		CBAccess.Assert(a_oKey.ExIsValid());
 		return m_oObjPoolList.ExGetValue(a_oKey, null);
 	}
 
 	//! 객체 풀을 추가한다
 	public void AddObjPool(string a_oKey, ObjectPool a_oObjPool) {
-		Func.Assert(a_oObjPool != null && a_oKey.ExIsValid());
+		CBAccess.Assert(a_oObjPool != null && a_oKey.ExIsValid());
 		m_oObjPoolList.ExAddValue(a_oKey, a_oObjPool);
 	}
 
 	//! 객체 풀을 제거한다
 	public void RemoveObjPool(string a_oKey, bool a_bIsDestroy = true) {
-		Func.Assert(a_oKey.ExIsValid());
+		CBAccess.Assert(a_oKey.ExIsValid());
 
 		if(m_oObjPoolList.ContainsKey(a_oKey)) {
 			var oObjPool = m_oObjPoolList.ExGetValue(a_oKey, null);
@@ -372,8 +372,8 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 객체를 활성화한다
 	public GameObject SpawnObj(string a_oKey, 
-		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) {
-		Func.Assert(a_oKey.ExIsValid() && m_oObjPoolList.ContainsKey(a_oKey));
+		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KBDefine.EMPTY_STRING, bool a_bIsWorld = false) {
+		CBAccess.Assert(a_oKey.ExIsValid() && m_oObjPoolList.ContainsKey(a_oKey));
 		
 		var oObj = m_oObjPoolList[a_oKey].Spawn();
 		oObj.transform.localScale = a_stScale;
@@ -395,7 +395,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 객체를 비활성화한다
 	public void DespawnObj(string a_oKey, GameObject a_oObj, bool a_bIsDestroy = false) {
-		Func.Assert(a_oKey.ExIsValid() && m_oObjPoolList.ContainsKey(a_oKey));
+		CBAccess.Assert(a_oKey.ExIsValid() && m_oObjPoolList.ContainsKey(a_oKey));
 
 		if(m_oObjPoolList.ContainsKey(a_oKey)) {
 			m_oObjPoolList[a_oKey].Despawn(a_oObj, a_bIsDestroy);
@@ -404,36 +404,36 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 화면 페이드 인 애니메이션을 시작한다
 	public virtual void StartScreenFadeInAni(System.Action<GameObject> a_oCallback, 
-		float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANI) {
-		CSceneManager.ShowTouchResponder(KDefine.U_OBJ_NAME_SCREEN_F_TOUCH_RESPONDER,
-			CSceneManager.ScreenAbsoluteUIRoot, KDefine.U_DEF_COLOR_SCREEN_FADE, a_oCallback, true, false, a_fDuration);
+		float a_fDuration = KUDefine.DEF_DURATION_SCREEN_FADE_OUT_ANI) {
+		CSceneManager.ShowTouchResponder(KUDefine.OBJ_NAME_SCREEN_F_TOUCH_RESPONDER,
+			CSceneManager.ScreenAbsoluteUIRoot, KUDefine.DEF_COLOR_SCREEN_FADE, a_oCallback, true, false, a_fDuration);
 	}
 
 	//! 화면 페이드 아웃 애니메이션을 시작한다
-	public virtual void StartScreenFadeOutAni(float a_fDuration = KDefine.U_DEF_DURATION_SCREEN_FADE_OUT_ANI) {
-		CSceneManager.CloseTouchResponder(KDefine.U_OBJ_NAME_SCREEN_F_TOUCH_RESPONDER, KDefine.U_DEF_COLOR_TRANSPARENT, true, a_fDuration);
+	public virtual void StartScreenFadeOutAni(float a_fDuration = KUDefine.DEF_DURATION_SCREEN_FADE_OUT_ANI) {
+		CSceneManager.CloseTouchResponder(KUDefine.OBJ_NAME_SCREEN_F_TOUCH_RESPONDER, KUDefine.DEF_COLOR_TRANSPARENT, true, a_fDuration);
 	}
 	#endregion			// 함수
 
 	#region 클래스 함수
 	//! 터치 응답자를 반환한다
 	public static GameObject GetTouchResponder(string a_oKey) {
-		Func.Assert(a_oKey.ExIsValid());
+		CBAccess.Assert(a_oKey.ExIsValid());
 		return CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey) ? CSceneManager.m_oTouchResponderInfoList[a_oKey].Key : null;
 	}
 
 	//! 터치 응답자를 출력한다
 	public static void ShowTouchResponder(string a_oKey,
 		GameObject a_oParent, Color a_stColor, System.Action<GameObject> a_oCallback, bool a_bIsAni = true, bool a_bIsEnableNavigation = false, float a_fDuration = 0.0f) {
-		Func.Assert(a_oKey.ExIsValid());
+		CBAccess.Assert(a_oKey.ExIsValid());
 
 		if(!CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey)) {
-			var oTouchResponder = Func.CreateTouchResponder(string.Format(KDefine.U_KEY_FORMAT_SCENE_M_TOUCH_RESPONDER, a_oKey),
-				CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
+			var oTouchResponder = CUFactory.CreateTouchResponder(string.Format(KUDefine.KEY_FORMAT_SCENE_M_TOUCH_RESPONDER, a_oKey),
+				CResManager.Instance.GetPrefab(KUDefine.OBJ_PATH_TOUCH_RESPONDER),
 				a_oParent,
 				CSceneManager.CanvasSize,
-				KDefine.B_POS_MIDDLE_CENTER,
-				KDefine.U_DEF_COLOR_TRANSPARENT);
+				KBDefine.POS_MIDDLE_CENTER,
+				KUDefine.DEF_COLOR_TRANSPARENT);
 
 			// 배경색을 설정한다 {
 			var oImg = oTouchResponder.GetComponentInChildren<Image>();
@@ -443,7 +443,7 @@ public abstract partial class CSceneManager : CComponent {
 				oImg.color = a_stColor;
 				a_oCallback?.Invoke(oTouchResponder);
 			} else {
-				a_fDuration = a_fDuration.ExIsLessEquals(0.0f) ? KDefine.U_DEF_DURATION_ANI 
+				a_fDuration = a_fDuration.ExIsLessEquals(0.0f) ? KUDefine.DEF_DURATION_ANI 
 					: a_fDuration;
 
 				oSequence = DOTween.Sequence().SetAutoKill().SetEase(Ease.Linear).SetUpdate(true);
@@ -475,7 +475,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 터치 응답자를 닫는다
 	public static void CloseTouchResponder(string a_oKey, Color a_stColor, bool a_bIsAni = false, float a_fDuration = 0.0f) {
-		Func.Assert(a_oKey.ExIsValid());
+		CBAccess.Assert(a_oKey.ExIsValid());
 
 		if(CSceneManager.m_oTouchResponderInfoList.ContainsKey(a_oKey)) {
 			var oTouchResponderInfo = CSceneManager.m_oTouchResponderInfoList[a_oKey];
@@ -496,7 +496,7 @@ public abstract partial class CSceneManager : CComponent {
 			if(!a_bIsAni) {
 				Destroy(oTouchResponderInfo.Key);
 			} else {
-				a_fDuration = a_fDuration.ExIsLessEquals(0.0f) ? KDefine.U_DEF_DURATION_ANI 
+				a_fDuration = a_fDuration.ExIsLessEquals(0.0f) ? KUDefine.DEF_DURATION_ANI 
 					: a_fDuration;
 
 				var oSequence = DOTween.Sequence().SetAutoKill().SetEase(Ease.Linear).SetUpdate(true);
@@ -515,7 +515,7 @@ public abstract partial class CSceneManager : CComponent {
 	#region 제네릭 함수
 	//! 객체를 활성화한다
 	public T SpawnObj<T>(string a_oKey,
-		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KDefine.B_EMPTY_STRING, bool a_bIsWorld = false) where T : Component {
+		Vector3 a_stPos, Vector3 a_stScale, Vector3 a_stRotation, string a_oName = KBDefine.EMPTY_STRING, bool a_bIsWorld = false) where T : Component {
 		var oObj = this.SpawnObj(a_oKey, a_stPos, a_stScale, a_stRotation, a_oName, a_bIsWorld);
 		return oObj?.GetComponentInChildren<T>();
 	}
@@ -532,13 +532,13 @@ public abstract partial class CSceneManager : CComponent {
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! 디버그 버튼을 눌렀을 경우
 	public static void OnTouchDebugBtn() {
-		Func.Assert(CSceneManager.ScreenDebugTextRoot != null);
+		CBAccess.Assert(CSceneManager.ScreenDebugTextRoot != null);
 		CSceneManager.ScreenDebugTextRoot.SetActive(!CSceneManager.ScreenDebugTextRoot.activeSelf);
 	}
 
 	//! 정적 문자열을 변경한다
 	public static void SetStaticString(string a_oString) {
-		Func.Assert(CSceneManager.m_oExtraStaticDebugStringBuilder != null && a_oString != null);
+		CBAccess.Assert(CSceneManager.m_oExtraStaticDebugStringBuilder != null && a_oString != null);
 
 		CSceneManager.m_oExtraStaticDebugStringBuilder.Clear();
 		CSceneManager.m_oExtraStaticDebugStringBuilder.Append(a_oString);
@@ -546,7 +546,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 동적 문자열을 변경한다
 	public static void SetDynamicString(string a_oString) {
-		Func.Assert(CSceneManager.m_oExtraDynamicDebugStringBuilder != null && a_oString != null);
+		CBAccess.Assert(CSceneManager.m_oExtraDynamicDebugStringBuilder != null && a_oString != null);
 
 		CSceneManager.m_oExtraDynamicDebugStringBuilder.Clear();
 		CSceneManager.m_oExtraDynamicDebugStringBuilder.Append(a_oString);
@@ -556,8 +556,8 @@ public abstract partial class CSceneManager : CComponent {
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! FPS 버튼을 눌렀을 경우
 	public static void OnTouchFPSBtn() {
-		Func.Assert(CSceneManager.ScreenStaticFPSText != null);
-		Func.Assert(CSceneManager.ScreenDynamicFPSText != null);
+		CBAccess.Assert(CSceneManager.ScreenStaticFPSText != null);
+		CBAccess.Assert(CSceneManager.ScreenDynamicFPSText != null);
 
 		CSceneManager.ScreenStaticFPSText.enabled = !CSceneManager.ScreenStaticFPSText.enabled;
 		CSceneManager.ScreenDynamicFPSText.enabled = !CSceneManager.ScreenDynamicFPSText.enabled;
@@ -586,30 +586,30 @@ public abstract partial class CSceneManager : CComponent {
 	//! 저장 경로 창을 출력한다
 	public static void ShowSaveDialog(FileBrowser.OnSuccess a_oSuccessCallback,
 		FileBrowser.OnCancel a_oCancelCallback, string a_oDefaultFilepath, bool a_bIsDirectoryMode = false) {
-		CSceneManager.ShowTouchResponder(KDefine.U_NAME_DIALOG_TOUCH_RESPONDER,
-			CSceneManager.ScreenTopmostUIRoot, KDefine.U_DEF_COLOR_POPUP_BG, null);
+		CSceneManager.ShowTouchResponder(KUDefine.NAME_DIALOG_TOUCH_RESPONDER,
+			CSceneManager.ScreenTopmostUIRoot, KUDefine.DEF_COLOR_POPUP_BG, null);
 
 		FileBrowser.ShowSaveDialog((a_oFilepath) => {
 			a_oSuccessCallback?.Invoke(a_oFilepath);
-			CSceneManager.CloseTouchResponder(KDefine.U_NAME_DIALOG_TOUCH_RESPONDER, KDefine.U_DEF_COLOR_TRANSPARENT);
+			CSceneManager.CloseTouchResponder(KUDefine.NAME_DIALOG_TOUCH_RESPONDER, KUDefine.DEF_COLOR_TRANSPARENT);
 		}, () => {
 			a_oCancelCallback?.Invoke();
-			CSceneManager.CloseTouchResponder(KDefine.U_NAME_DIALOG_TOUCH_RESPONDER, KDefine.U_DEF_COLOR_TRANSPARENT);
+			CSceneManager.CloseTouchResponder(KUDefine.NAME_DIALOG_TOUCH_RESPONDER, KUDefine.DEF_COLOR_TRANSPARENT);
 		}, a_bIsDirectoryMode, a_oDefaultFilepath);
 	}
 
 	//! 로드 경로 창을 출력한다
 	public static void ShowLoadDialog(FileBrowser.OnSuccess a_oSuccessCallback,
 		FileBrowser.OnCancel a_oCancelCallback, string a_oDefaultFilepath, bool a_bIsDirectoryMode = false) {
-		CSceneManager.ShowTouchResponder(KDefine.U_NAME_DIALOG_TOUCH_RESPONDER,
-			CSceneManager.ScreenTopmostUIRoot, KDefine.U_DEF_COLOR_POPUP_BG, null);
+		CSceneManager.ShowTouchResponder(KUDefine.NAME_DIALOG_TOUCH_RESPONDER,
+			CSceneManager.ScreenTopmostUIRoot, KUDefine.DEF_COLOR_POPUP_BG, null);
 
 		FileBrowser.ShowLoadDialog((a_oFilepath) => {
 			a_oSuccessCallback?.Invoke(a_oFilepath);
-			CSceneManager.CloseTouchResponder(KDefine.U_NAME_DIALOG_TOUCH_RESPONDER, KDefine.U_DEF_COLOR_TRANSPARENT);
+			CSceneManager.CloseTouchResponder(KUDefine.NAME_DIALOG_TOUCH_RESPONDER, KUDefine.DEF_COLOR_TRANSPARENT);
 		}, () => {
 			a_oCancelCallback?.Invoke();
-			CSceneManager.CloseTouchResponder(KDefine.U_NAME_DIALOG_TOUCH_RESPONDER, KDefine.U_DEF_COLOR_TRANSPARENT);
+			CSceneManager.CloseTouchResponder(KUDefine.NAME_DIALOG_TOUCH_RESPONDER, KUDefine.DEF_COLOR_TRANSPARENT);
 		}, a_bIsDirectoryMode, a_oDefaultFilepath);
 	}
 #endif			// #if FILE_BROWSER_ENABLE

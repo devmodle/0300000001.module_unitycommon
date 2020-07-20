@@ -5,10 +5,10 @@ using UnityEngine;
 //! 약관 동의 씬 관리자
 public abstract class CAgreeSceneManager : CSceneManager {
 	#region 프로퍼티
-	public override string SceneName => KDefine.B_SCENE_NAME_AGREE;
+	public override string SceneName => KBDefine.SCENE_NAME_AGREE;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KDefine.U_SCRIPT_ORDER_AGREE_SCENE_MANAGER;
+	public override int ScriptOrder => KUDefine.SCRIPT_ORDER_AGREE_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -31,19 +31,19 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 #if MESSAGE_PACK_ENABLE
 		CUserInfoStorage.Instance.UserInfo.IsAgree = true;
-		CUserInfoStorage.Instance.SaveUserInfo(KDefine.B_DATA_PATH_USER_INFO);
+		CUserInfoStorage.Instance.SaveUserInfo(KBDefine.DATA_PATH_USER_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 
-		Func.LateCallFunc(this, KDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
-			bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_INIT);
-			bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_SETUP);
-			bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_START);
-			bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_SPLASH);
-			bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_AGREE);
-			bool bIsIntroScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_INTRO);
+		Func.LateCallFunc(this, KUDefine.DELAY_INIT, (a_oComponent, a_oParams) => {
+			bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KBDefine.SCENE_NAME_INIT);
+			bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KBDefine.SCENE_NAME_SETUP);
+			bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KBDefine.SCENE_NAME_START);
+			bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KBDefine.SCENE_NAME_SPLASH);
+			bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KBDefine.SCENE_NAME_AGREE);
+			bool bIsIntroScene = CSceneManager.AwakeSceneName.ExIsEquals(KBDefine.SCENE_NAME_INTRO);
 
 			if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene || bIsIntroScene) {
-				Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_INTRO);
+				CSceneLoader.Instance.LoadAdditiveScene(KBDefine.SCENE_NAME_INTRO);
 			} else {
 				CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
 			}
@@ -52,10 +52,10 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 
 		this.SetupRootScene();
-		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();
@@ -74,7 +74,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			string oPersonalFilepath = KDefine.AS_DATA_PATH_KOREAN_PERSONAL_TEXT;
 
 #if MESSAGE_PACK_ENABLE
-			if(!CAppInfoStorage.Instance.CountryCode.ExIsEquals(KDefine.B_KOREA_COUNTRY_CODE)) {
+			if(!CAppInfoStorage.Instance.CountryCode.ExIsEquals(KBDefine.KOREA_COUNTRY_CODE)) {
 				oServiceFilepath = KDefine.AS_DATA_PATH_ENGLISH_SERVICE_TEXT;
 				oPersonalFilepath = KDefine.AS_DATA_PATH_ENGLISH_PERSONAL_TEXT;
 			}
@@ -86,7 +86,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			this.ShowAgreePopup(CResManager.Instance.GetTextAsset(oServiceFilepath).text,
 				CResManager.Instance.GetTextAsset(oPersonalFilepath).text);
 
-			Func.LateCallFunc(this, KDefine.U_DEF_DURATION_ANI, (a_oComponent, a_oParams) => {
+			Func.LateCallFunc(this, KUDefine.DEF_DURATION_ANI, (a_oComponent, a_oParams) => {
 				CResManager.Instance.RemoveTextAsset(oServiceFilepath, true);
 				CResManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
 			});

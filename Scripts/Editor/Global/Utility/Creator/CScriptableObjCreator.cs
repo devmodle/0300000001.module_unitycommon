@@ -13,19 +13,19 @@ public static partial class CScriptableObjCreator {
 	//! 전처리기 심볼 테이블을 생성한다
 	[MenuItem("Utility/Create/DefineSymbolTable")]
 	public static void CreateDefineSymbolTable() {
-		var oDefineSymbolTable = EditorFunc.CreateScriptableObj<CDefineSymbolTable>();
+		var oDefineSymbolTable = CBEditorFactory.CreateScriptableObj<CDefineSymbolTable>();
 
 		oDefineSymbolTable.SetCommonDefineSymbolList(new List<string>() {
-			KEditorDefine.DS_DEFINE_SYMBOL_SECURITY_ENABLE,
-			KEditorDefine.DS_DEFINE_SYMBOL_DYNAMIC_BATCHING_ENABLE,
-			KEditorDefine.DS_DEFINE_SYMBOL_UNIVERSAL_RENDER_PIPELINE_ENABLE
+			KDSEditorDefine.DEFINE_SYMBOL_SECURITY_ENABLE,
+			KDSEditorDefine.DEFINE_SYMBOL_DYNAMIC_BATCHING_ENABLE,
+			KDSEditorDefine.DEFINE_SYMBOL_UNIVERSAL_RENDER_PIPELINE_ENABLE
 		});
 	}
 
 	//! 디바이스 정보 테이블을 생성한다
 	[MenuItem("Utility/Create/DeviceInfoTable")]
 	public static void CreateDeviceInfoTable() {
-		var oDeviceInfoTable = EditorFunc.CreateScriptableObj<CDeviceInfoTable>();
+		var oDeviceInfoTable = CBEditorFactory.CreateScriptableObj<CDeviceInfoTable>();
 
 #if ADS_ENABLE && ADMOB_ENABLE
 		oDeviceInfoTable.SetiOSAdmobDeviceIDList(new List<string>() {
@@ -43,7 +43,7 @@ public static partial class CScriptableObjCreator {
 	//! 빌드 정보 테이블을 생성한다
 	[MenuItem("Utility/Create/BuildInfoTable")]
 	public static void CreateBuildInfoTable() {
-		var oBuildInfoTable = EditorFunc.CreateScriptableObj<CBuildInfoTable>();
+		var oBuildInfoTable = CBEditorFactory.CreateScriptableObj<CBuildInfoTable>();
 
 		oBuildInfoTable.SetJenkinsInfo(new STJenkinsInfo() {
 			m_oUserID = "dante",
@@ -96,7 +96,7 @@ public static partial class CScriptableObjCreator {
 	//! 빌드 옵션 테이블을 생성한다
 	[MenuItem("Utility/Create/BuildOptionTable")]
 	public static void CreateBuildOptionTable() {
-		var oBuildOptionTable = EditorFunc.CreateScriptableObj<CBuildOptionTable>();
+		var oBuildOptionTable = CBEditorFactory.CreateScriptableObj<CBuildOptionTable>();
 
 		oBuildOptionTable.SetEditorOption(new STEditorOption() {
 			m_bIsAsyncShaderCompile = true,
@@ -186,7 +186,7 @@ public static partial class CScriptableObjCreator {
 	//! 프로젝트 정보 테이블을 생성한다
 	[MenuItem("Utility/Create/ProjectInfoTable")]
 	public static void CreateProjectInfoTable() {
-		var oProjectInfoTable = EditorFunc.CreateScriptableObj<CProjectInfoTable>();
+		var oProjectInfoTable = CBEditorFactory.CreateScriptableObj<CProjectInfoTable>();
 		oProjectInfoTable.SetCompanyName("LKStudio");
 		oProjectInfoTable.SetProjectName("Library");
 		oProjectInfoTable.SetProductName("Library");
@@ -255,7 +255,7 @@ public static partial class CScriptableObjCreator {
 	//! 플러그인 정보 테이블을 생성한다
 	[MenuItem("Utility/Create/PluginInfoTable")]
 	public static void CreatePluginInfoTable() {
-		var oPluginInfoTable = EditorFunc.CreateScriptableObj<CPluginInfoTable>();
+		var oPluginInfoTable = CBEditorFactory.CreateScriptableObj<CPluginInfoTable>();
 
 #if ADS_ENABLE
 #if ADMOB_ENABLE
@@ -362,7 +362,7 @@ public static partial class CScriptableObjCreator {
 	//! 상품 정보 테이블을 생성한다
 	[MenuItem("Utility/Create/ProductInfoTable")]
 	public static void CreateProductInfoTable() {
-		var oProductInfoTable = EditorFunc.CreateScriptableObj<CProductInfoTable>();
+		var oProductInfoTable = CBEditorFactory.CreateScriptableObj<CProductInfoTable>();
 
 		oProductInfoTable.SetCommonProductInfoList(new List<STProductInfo>() {
 			new STProductInfo {

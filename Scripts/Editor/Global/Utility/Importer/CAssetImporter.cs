@@ -34,7 +34,7 @@ public partial class CAssetImporter : AssetPostprocessor {
 			oTextureImporter.wrapMode = TextureWrapMode.Repeat;
 			oTextureImporter.sRGBTexture = true;
 			oTextureImporter.mipmapEnabled = false;
-			oTextureImporter.spritePixelsPerUnit = KDefine.B_REF_PIXELS_UNIT;
+			oTextureImporter.spritePixelsPerUnit = KBDefine.REF_PIXELS_UNIT;
 		}
 	}
 	#endregion			// 함수

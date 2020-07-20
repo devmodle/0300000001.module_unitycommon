@@ -208,10 +208,10 @@ public class CPluginInfoTable : CScriptableObj<CPluginInfoTable> {
 #endif			// #if UNITY_IOS
 
 #if ADS_TEST_ENABLE
-		stAdmobPluginInfo.m_oBannerAdsID = KDefine.U_TEST_ADS_ID_ADMOB_BANNER_ADS;
-		stAdmobPluginInfo.m_oRewardAdsID = KDefine.U_TEST_ADS_ID_ADMOB_REWARD_ADS;
-		stAdmobPluginInfo.m_oNativeAdsID = KDefine.U_TEST_ADS_ID_ADMOB_NATIVE_ADS;
-		stAdmobPluginInfo.m_oFullscreenAdsID = KDefine.U_TEST_ADS_ID_ADMOB_FULLSCREEN_ADS;
+		stAdmobPluginInfo.m_oBannerAdsID = KUDefine.TEST_ADS_ID_ADMOB_BANNER_ADS;
+		stAdmobPluginInfo.m_oRewardAdsID = KUDefine.TEST_ADS_ID_ADMOB_REWARD_ADS;
+		stAdmobPluginInfo.m_oNativeAdsID = KUDefine.TEST_ADS_ID_ADMOB_NATIVE_ADS;
+		stAdmobPluginInfo.m_oFullscreenAdsID = KUDefine.TEST_ADS_ID_ADMOB_FULLSCREEN_ADS;
 #endif			// #if ADS_TEST_ENABLE
 
 		this.AdmobPluginInfo = stAdmobPluginInfo;

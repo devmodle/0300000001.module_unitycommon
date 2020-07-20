@@ -32,12 +32,12 @@ public class CStringTable : CSingleton<CStringTable> {
 
 	//! 문자열을 로드한다
 	public void LoadStrings(string a_oCSVString) {
-		Func.Assert(a_oCSVString.ExIsValid());
+		CBAccess.Assert(a_oCSVString.ExIsValid());
 		var oStringInfoList = CSVParser.Parse(a_oCSVString);
 
 		for(int i = 0; i < oStringInfoList.Count; ++i) {
-			string oKey = oStringInfoList[i][KDefine.U_KEY_STRING_T_ID];
-			string oString = oStringInfoList[i][KDefine.U_KEY_STRING_T_STRING];
+			string oKey = oStringInfoList[i][KUDefine.KEY_STRING_T_ID];
+			string oString = oStringInfoList[i][KUDefine.KEY_STRING_T_STRING];
 
 			this.AddString(oKey, oString);
 		}
@@ -45,13 +45,13 @@ public class CStringTable : CSingleton<CStringTable> {
 
 	//! 문자열을 로드한다
 	public void LoadStringsFromFile(string a_oFilepath) {
-		this.LoadStrings(Func.ReadString(a_oFilepath, System.Text.Encoding.Default));
+		this.LoadStrings(CBAccess.ReadString(a_oFilepath, System.Text.Encoding.Default));
 	}
 
 	//! 문자열을 로드한다
 	public void LoadStringsFromRes(string a_oFilepath) {
 		var oTextAsset = CResManager.Instance.GetTextAsset(a_oFilepath);
-		Func.Assert(oTextAsset.ExIsValid());
+		CBAccess.Assert(oTextAsset.ExIsValid());
 
 		this.LoadStrings(oTextAsset.text);
 		CResManager.Instance.RemoveTextAsset(a_oFilepath, true);

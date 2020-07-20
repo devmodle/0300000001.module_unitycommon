@@ -127,7 +127,7 @@ public class CResManager : CSingleton<CResManager> {
 
 	//! 리소스 생성자를 추가한다
 	public void AddResCreator(System.Type a_oType, System.Func<string, Object> a_oCreator) {
-		Func.Assert(a_oType != null && a_oCreator != null);
+		CBAccess.Assert(a_oType != null && a_oCreator != null);
 		this.ResCreatorList.ExReplaceValue(a_oType, a_oCreator);
 	}
 
@@ -178,7 +178,7 @@ public class CResManager : CSingleton<CResManager> {
 
 	//! 다중 스프라이트를 로드한다
 	public void LoadMultiSprite(string a_oFilepath) {
-		Func.Assert(a_oFilepath.ExIsValid());
+		CBAccess.Assert(a_oFilepath.ExIsValid());
 		var oSprites = Resources.LoadAll<Sprite>(a_oFilepath);
 
 		for(int i = 0; i < oSprites.Length; ++i) {
@@ -193,7 +193,7 @@ public class CResManager : CSingleton<CResManager> {
 
 	//! 스프라이트 아틀라스를 로드한다
 	public void LoadSpriteAtlas(string a_oFilepath) {
-		Func.Assert(a_oFilepath.ExIsValid());
+		CBAccess.Assert(a_oFilepath.ExIsValid());
 
 		if(!m_oSpriteAtlasList.ContainsKey(a_oFilepath)) {
 			var oSpriteAtlas = Resources.Load<SpriteAtlas>(a_oFilepath);
@@ -205,7 +205,7 @@ public class CResManager : CSingleton<CResManager> {
 			m_oSpriteAtlasList[a_oFilepath].GetSprites(oSprites);
 
 			for(int i = 0; i < m_oSpriteAtlasList[a_oFilepath].spriteCount; ++i) {
-				string oKey = oSprites[i].name.ExGetReplaceString(KDefine.U_IMG_NAME_SPRITE_CLONE, 
+				string oKey = oSprites[i].name.ExGetReplaceString(KUDefine.IMG_NAME_SPRITE_CLONE, 
 					string.Empty);
 
 				this.AddSprite(oKey, oSprites[i]);
@@ -222,7 +222,7 @@ public class CResManager : CSingleton<CResManager> {
 	//! 기본 메시를 설정한다
 	private void SetupDefaultMeshes() {
 		var oMesh = new Mesh();
-		oMesh.name = KDefine.U_MESH_NAME_DEF_MESH;
+		oMesh.name = KUDefine.MESH_NAME_DEF_MESH;
 
 		oMesh.SetVertices(new List<Vector3> {
 			new Vector3(-0.5f, -0.5f, 0.0f),
@@ -243,15 +243,15 @@ public class CResManager : CSingleton<CResManager> {
 		});
 
 		oMesh.Optimize();
-		this.AddMesh(KDefine.U_MESH_NAME_DEF_MESH, oMesh);
+		this.AddMesh(KUDefine.MESH_NAME_DEF_MESH, oMesh);
 	}
 
 	//! 기본 스프라이트를 설정한다
 	private void SetupDefaultSprites() {
-		var oSprite = Sprite.Create(Texture2D.whiteTexture, Rect.MinMaxRect(0.0f, 0.0f, 1.0f, 1.0f), KDefine.B_ANCHOR_MIDDLE_CENTER, 1.0f);
-		oSprite.name = KDefine.U_IMG_NAME_DEF_SPRITE;
+		var oSprite = Sprite.Create(Texture2D.whiteTexture, Rect.MinMaxRect(0.0f, 0.0f, 1.0f, 1.0f), KBDefine.ANCHOR_MIDDLE_CENTER, 1.0f);
+		oSprite.name = KUDefine.IMG_NAME_DEF_SPRITE;
 
-		this.AddSprite(KDefine.U_IMG_NAME_DEF_SPRITE, oSprite);
+		this.AddSprite(KUDefine.IMG_NAME_DEF_SPRITE, oSprite);
 	}
 	#endregion			// 함수
 
@@ -263,14 +263,14 @@ public class CResManager : CSingleton<CResManager> {
 
 	//! 리소스를 반환한다
 	private T GetRes<T>(Dictionary<string, T> a_oResList, string a_oKey, bool a_bIsAutoCreate) where T : Object {
-		Func.Assert(a_oResList != null && a_oKey.ExIsValid());
-		Func.Assert(a_bIsAutoCreate || a_oResList.ContainsKey(a_oKey));
+		CBAccess.Assert(a_oResList != null && a_oKey.ExIsValid());
+		CBAccess.Assert(a_bIsAutoCreate || a_oResList.ContainsKey(a_oKey));
 
 		if(a_bIsAutoCreate && !a_oResList.ContainsKey(a_oKey)) {
 			var oType = typeof(T);
 			bool bIsContainsCreator = this.ResCreatorList.ContainsKey(oType);
 
-			Func.Assert(bIsContainsCreator && this.ResCreatorList[oType] != null);
+			CBAccess.Assert(bIsContainsCreator && this.ResCreatorList[oType] != null);
 
 			var oRes = this.ResCreatorList[oType](a_oKey) as T;
 			a_oResList.ExAddValue(a_oKey, oRes);
@@ -281,7 +281,7 @@ public class CResManager : CSingleton<CResManager> {
 
 	//! 리소스를 제거한다
 	private void RemoveRes<T>(Dictionary<string, T> a_oResList, string a_oKey, bool a_bIsAutoUnload) where T : Object {
-		Func.Assert(a_oResList != null && a_oKey.ExIsValid());
+		CBAccess.Assert(a_oResList != null && a_oKey.ExIsValid());
 
 		if(a_oResList.ContainsKey(a_oKey)) {
 			var oRes = a_oResList[a_oKey];

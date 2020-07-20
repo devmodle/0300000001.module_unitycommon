@@ -14,10 +14,10 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(string a_oAPIKey, System.Action<CFlurryManager, bool> a_oCallback) {
-		Func.ShowLog("CFlurryManager.Init: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oAPIKey);
+		Func.ShowLog("CFlurryManager.Init: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oAPIKey);
 
-		if(!this.IsInit && Func.IsMobilePlatform()) {
-			Func.Assert(a_oAPIKey.ExIsValid());
+		if(!this.IsInit && CBAccess.IsMobilePlatform()) {
+			CBAccess.Assert(a_oAPIKey.ExIsValid());
 
 			this.IsInit = true;
 			var oBuilder = new Flurry.Builder();
@@ -36,7 +36,7 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 			oBuilder.WithMessaging(false);
 			oBuilder.WithLogLevel(Flurry.LogLevel.VERBOSE);
 			oBuilder.WithAppVersion(CProjectInfoTable.Instance.ProjectInfo.m_oBuildVersion);
-			oBuilder.WithContinueSessionMillis((long)(KDefine.U_TIMEOUT_FLURRY_NETWORK_CONNECTION * 1000.0f));
+			oBuilder.WithContinueSessionMillis((long)(KUDefine.TIMEOUT_FLURRY_NETWORK_CONNECTION * 1000.0f));
 #endif			// #if FLURRY_ANALYTICS_ENABLE
 
 #if MESSAGE_PACK_ENABLE
@@ -56,8 +56,8 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 #if FLURRY_ANALYTICS_ENABLE
 	//! 유저 식별자를 변경한다
 	public void SetUserID(string a_oID) {
-		Func.Assert(a_oID.ExIsValid());
-		Func.ShowLog("CFlurryManager.SetUserID: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oID);
+		CBAccess.Assert(a_oID.ExIsValid());
+		Func.ShowLog("CFlurryManager.SetUserID: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oID);
 
 		if(this.IsInit) {
 			Flurry.SetUserId(a_oID);
@@ -71,31 +71,31 @@ public class CFlurryManager : CSingleton<CFlurryManager> {
 
 	//! 로그를 전송한다
 	public void SendLog(string a_oName, string a_oParameter, List<string> a_oDataList) {
-		Func.Assert(a_oParameter.ExIsValid());
+		CBAccess.Assert(a_oParameter.ExIsValid());
 
 		this.SendLog(a_oName, new Dictionary<string, string>() {
-			[a_oParameter] = a_oDataList.ExToString(KDefine.U_TOKEN_FLURRY_ANALYTICS_LOG_DATA)
+			[a_oParameter] = a_oDataList.ExToString(KUDefine.TOKEN_FLURRY_ANALYTICS_LOG_DATA)
 		});
 	}
 
 	//! 로그를 전송한다
 	public void SendLog(string a_oName, Dictionary<string, string> a_oDataList) {
-		Func.Assert(a_oName.ExIsValid());
-		Func.ShowLog("CFlurryManager.SendLog: {0}, {1}", KDefine.B_LOG_COLOR_PLUGIN, a_oName, a_oDataList);
+		CBAccess.Assert(a_oName.ExIsValid());
+		Func.ShowLog("CFlurryManager.SendLog: {0}, {1}", KBDefine.LOG_COLOR_PLUGIN, a_oName, a_oDataList);
 
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 		if(this.IsInit) {
 			var oDataList = a_oDataList ?? new Dictionary<string, string>();
 
 #if MESSAGE_PACK_ENABLE
-			oDataList.ExAddValue(KDefine.U_LOG_KEY_DEVICE_ID, CAppInfoStorage.Instance.AppInfo.DeviceID);
+			oDataList.ExAddValue(KUDefine.LOG_KEY_DEVICE_ID, CAppInfoStorage.Instance.AppInfo.DeviceID);
 
 #if AUTO_LOG_PARAMETER_ENABLE
-			oDataList.ExAddValue(KDefine.U_LOG_KEY_PLATFORM, CAppInfoStorage.Instance.PlatformName);
-			oDataList.ExAddValue(KDefine.U_LOG_KEY_USER_TYPE, CUserInfoStorage.Instance.UserInfo.UserType.ToString());
+			oDataList.ExAddValue(KUDefine.LOG_KEY_PLATFORM, CAppInfoStorage.Instance.PlatformName);
+			oDataList.ExAddValue(KUDefine.LOG_KEY_USER_TYPE, CUserInfoStorage.Instance.UserInfo.UserType.ToString());
 			
-			oDataList.ExAddValue(KDefine.U_LOG_KEY_LOG_TIME, System.DateTime.UtcNow.ExToLongString());
-			oDataList.ExAddValue(KDefine.U_LOG_KEY_INSTALL_TIME, CAppInfoStorage.Instance.AppInfo.m_stUTCInstallTime.ExToLongString());
+			oDataList.ExAddValue(KUDefine.LOG_KEY_LOG_TIME, System.DateTime.UtcNow.ExToLongString());
+			oDataList.ExAddValue(KUDefine.LOG_KEY_INSTALL_TIME, CAppInfoStorage.Instance.AppInfo.m_stUTCInstallTime.ExToLongString());
 #endif			// #if AUTO_LOG_PARAMETER_ENABLE
 #endif			// #if MESSAGE_PACK_ENABLE
 

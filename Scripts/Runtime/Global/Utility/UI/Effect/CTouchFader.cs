@@ -64,9 +64,9 @@ public class CTouchFader : CUIComponent,
 	public override void Awake() {
 		base.Awake();
 
-		this.NormalColor = KDefine.U_DEF_COLOR_NORMAL;
-		this.SelectColor = KDefine.U_DEF_COLOR_SELECT;
-		this.DisableColor = KDefine.U_DEF_COLOR_DISABLE;
+		this.NormalColor = KUDefine.DEF_COLOR_NORMAL;
+		this.SelectColor = KUDefine.DEF_COLOR_SELECT;
+		this.DisableColor = KUDefine.DEF_COLOR_DISABLE;
 
 		// 그래픽을 설정한다 {
 		m_oGraphics = this.GetComponentsInChildren<Graphic>();
@@ -122,7 +122,7 @@ public class CTouchFader : CUIComponent,
 		for(int i = 0; i < this.NumGraphics; ++i) {
 			if(!this.IsIgnoreAni && a_bIsAni) {
 				m_oAnis[i] = m_oGraphics[i].DOColor(a_stColor, 
-					KDefine.U_DEF_DURATION_ANI).SetUpdate(true);
+					KUDefine.DEF_DURATION_ANI).SetUpdate(true);
 			} else {
 				m_oGraphics[i].color = a_stColor;
 			}

@@ -12,8 +12,8 @@ public abstract class CSingleton<T> : CComponent where T : CSingleton<T> {
 	public static T Instance {
 		get {
 			if(CSingleton<T>.m_tInstance == null) {
-				CSingleton<T>.m_tInstance = Func.CreateObj<T>(typeof(T).ToString(), null);
-				Func.Assert(CSingleton<T>.m_tInstance != null);
+				CSingleton<T>.m_tInstance = CUFactory.CreateObj<T>(typeof(T).ToString(), null);
+				CBAccess.Assert(CSingleton<T>.m_tInstance != null);
 
 				DontDestroyOnLoad(CSingleton<T>.m_tInstance.gameObject);
 			}
@@ -34,7 +34,7 @@ public abstract class CSingleton<T> : CComponent where T : CSingleton<T> {
 #if UNITY_EDITOR
 	//! 스크립트 순서를 설정한다
 	protected override void SetupScriptOrder() {
-		CSingleton<T>.m_tInstance.ExSetScriptOrder(KDefine.U_SCRIPT_ORDER_SINGLETON);
+		CSingleton<T>.m_tInstance.ExSetScriptOrder(KUDefine.SCRIPT_ORDER_SINGLETON);
 	}
 #endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 함수

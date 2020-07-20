@@ -45,7 +45,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 #if UNITY_ANDROID
 			return this.IsLogin ? PlayGamesPlatform.Instance.GetServerAuthCode() : string.Empty;
 #else
-			return KDefine.U_AUTH_CODE_GAME_CM_UNKNOWN;
+			return KUDefine.AUTH_CODE_GAME_CM_UNKNOWN;
 #endif			// #if UNITY_ANDROID
 		}
 	}
@@ -54,9 +54,9 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(System.Action<CGameCenterManager, bool> a_oCallback) {
-		Func.ShowLog("CGameCenterManager.Init", KDefine.B_LOG_COLOR_PLUGIN);
+		Func.ShowLog("CGameCenterManager.Init", KBDefine.LOG_COLOR_PLUGIN);
 
-		if(!this.IsInit && Func.IsMobilePlatform()) {
+		if(!this.IsInit && CBAccess.IsMobilePlatform()) {
 			this.IsInit = true;
 
 #if UNITY_IOS
@@ -85,39 +85,39 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 로그인 되었을 경우
 	public void OnLogin(bool a_bIsSuccess) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_GAME_CM_LOGIN_CALLBACK, () => {
-			Func.ShowLog("CGameCenterManager.OnLogin: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_bIsSuccess);
+		CScheduleManager.Instance.AddCallback(KUDefine.KEY_GAME_CM_LOGIN_CALLBACK, () => {
+			Func.ShowLog("CGameCenterManager.OnLogin: {0}", KBDefine.LOG_COLOR_PLUGIN, a_bIsSuccess);
 			m_oLoginCallback?.Invoke(this, a_bIsSuccess);
 		});
 	}
 
 	//! 점수를 로드했을 경우
 	public void OnLoadScores(IScore[] a_oScores) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_GAME_CM_LOAD_SCORES_CALLBACK, () => {
-			Func.ShowLog("CGameCenterManager.OnLoadScores: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oScores);
+		CScheduleManager.Instance.AddCallback(KUDefine.KEY_GAME_CM_LOAD_SCORES_CALLBACK, () => {
+			Func.ShowLog("CGameCenterManager.OnLoadScores: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oScores);
 			m_oLoadScoresCallback?.Invoke(this, a_oScores, a_oScores != null);
 		});	
 	}
 
 	//! 점수를 갱신했을 경우
 	public void OnUpdateScore(bool a_bIsSuccess) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_GAME_CM_UPDATE_SCORE_CALLBACK, () => {
-			Func.ShowLog("CGameCenterManager.OnUpdateScore: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_bIsSuccess);
+		CScheduleManager.Instance.AddCallback(KUDefine.KEY_GAME_CM_UPDATE_SCORE_CALLBACK, () => {
+			Func.ShowLog("CGameCenterManager.OnUpdateScore: {0}", KBDefine.LOG_COLOR_PLUGIN, a_bIsSuccess);
 			m_oUpdateScoreCallback?.Invoke(this, a_bIsSuccess);
 		});
 	}
 
 	//! 업적을 갱신했을 경우
 	public void OnUpdateAchievement(bool a_bIsSuccess) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_GAME_CM_UPDATE_ACHIEVEMENT_CALLBACK, () => {
-			Func.ShowLog("CGameCenterManager.OnUpdateAchievement: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_bIsSuccess);
+		CScheduleManager.Instance.AddCallback(KUDefine.KEY_GAME_CM_UPDATE_ACHIEVEMENT_CALLBACK, () => {
+			Func.ShowLog("CGameCenterManager.OnUpdateAchievement: {0}", KBDefine.LOG_COLOR_PLUGIN, a_bIsSuccess);
 			m_oUpdateAchievementCallback?.Invoke(this, a_bIsSuccess);
 		});
 	}
 
 	//! 로그인을 처리한다
 	public void Login(System.Action<CGameCenterManager, bool> a_oCallback) {
-		Func.ShowLog("CGameCenterManager.Login", KDefine.B_LOG_COLOR_PLUGIN);
+		Func.ShowLog("CGameCenterManager.Login", KBDefine.LOG_COLOR_PLUGIN);
 
 		if(!this.IsInit || this.IsLogin) {
 			a_oCallback?.Invoke(this, this.IsLogin);
@@ -134,7 +134,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 로그아웃을 처리한다
 	public void Logout(System.Action<CGameCenterManager> a_oCallback) {
-		Func.ShowLog("CGameCenterManager.Logout", KDefine.B_LOG_COLOR_PLUGIN);
+		Func.ShowLog("CGameCenterManager.Logout", KBDefine.LOG_COLOR_PLUGIN);
 
 		if(this.IsInit) {
 #if UNITY_ANDROID
@@ -147,7 +147,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 	
 	//! 리더보드 UI 를 출력한다
 	public void ShowLeaderboardUI() {
-		Func.ShowLog("CGameCenterManager.ShowLeaderboardUI", KDefine.B_LOG_COLOR_PLUGIN);
+		Func.ShowLog("CGameCenterManager.ShowLeaderboardUI", KBDefine.LOG_COLOR_PLUGIN);
 
 		if(this.IsInit) {
 #if UNITY_IOS
@@ -160,7 +160,7 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 업적 UI 를 출력한다
 	public void ShowAchievementUI() {
-		Func.ShowLog("CGameCenterManager.ShowAchievementUI", KDefine.B_LOG_COLOR_PLUGIN);
+		Func.ShowLog("CGameCenterManager.ShowAchievementUI", KBDefine.LOG_COLOR_PLUGIN);
 
 		if(this.IsInit) {
 #if UNITY_IOS
@@ -173,8 +173,8 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 점수를 갱신한다
 	public void UpdateScore(string a_oLeaderboardID, long a_nScore, System.Action<CGameCenterManager, bool> a_oCallback) {
-		Func.Assert(a_oLeaderboardID.ExIsValid());
-		Func.ShowLog("CGameCenterManager.UpdateScore: {0}, {1}", KDefine.B_LOG_COLOR_PLUGIN, a_oLeaderboardID, a_nScore);
+		CBAccess.Assert(a_oLeaderboardID.ExIsValid());
+		Func.ShowLog("CGameCenterManager.UpdateScore: {0}, {1}", KBDefine.LOG_COLOR_PLUGIN, a_oLeaderboardID, a_nScore);
 
 		if(!this.IsInit) {
 			a_oCallback?.Invoke(this, false);
@@ -191,8 +191,8 @@ public class CGameCenterManager : CSingleton<CGameCenterManager> {
 
 	//! 업적을 갱신한다
 	public void UpdateAchievement(string a_oAchievementID, double a_dblPercent, System.Action<CGameCenterManager, bool> a_oCallback) {
-		Func.Assert(a_oAchievementID.ExIsValid());
-		Func.ShowLog("CGameCenterManager.UpdateAchievement: {0}, {1}", KDefine.B_LOG_COLOR_PLUGIN, a_oAchievementID, a_dblPercent);
+		CBAccess.Assert(a_oAchievementID.ExIsValid());
+		Func.ShowLog("CGameCenterManager.UpdateAchievement: {0}, {1}", KBDefine.LOG_COLOR_PLUGIN, a_oAchievementID, a_dblPercent);
 
 		if(!this.IsInit) {
 			a_oCallback?.Invoke(this, false);

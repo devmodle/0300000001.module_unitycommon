@@ -49,7 +49,7 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 		bool bIsEnableUpdate = m_oAddCallbackInfoList.Count >= 1 || m_oRemoveCallbackInfoList.Count >= 1;
 
 		if(bIsEnableUpdate || m_oCallbackInfoList.Count >= 1) {
-			lock(KDefine.U_LOCK_OBJ_SCHEDULE_M_UPDATE) {
+			lock(KUDefine.LOCK_OBJ_SCHEDULE_M_UPDATE) {
 				this.UpdateCallbackState();
 
 				for(int i = 0; i < m_oCallbackInfoList.Count; ++i) {
@@ -68,14 +68,14 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 컴포넌트를 추가한다
 	public void AddComponent(CComponent a_oComponent) {
-		Func.Assert(a_oComponent != null);
+		CBAccess.Assert(a_oComponent != null);
 		int nID = a_oComponent.GetInstanceID();
 
 		int nIndex = m_oComponentInfoList.ExFindValue((a_stComponentInfo) => {
 			return nID == a_stComponentInfo.Key;
 		});
 
-		if(nIndex <= KDefine.B_INDEX_INVALID) {
+		if(nIndex <= KBDefine.INDEX_INVALID) {
 			var stKeyValue = new KeyValuePair<int, CComponent>(nID, a_oComponent);
 			m_oAddComponentInfoList.Add(stKeyValue);
 		}
@@ -83,14 +83,14 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 콜백을 추가한다
 	public void AddCallback(string a_oKey, System.Action a_oCallback) {
-		Func.Assert(a_oKey.ExIsValid());
+		CBAccess.Assert(a_oKey.ExIsValid());
 
-		lock(KDefine.U_LOCK_OBJ_SCHEDULE_M_UPDATE) {
+		lock(KUDefine.LOCK_OBJ_SCHEDULE_M_UPDATE) {
 			int nIndex = m_oCallbackInfoList.ExFindValue((a_stCallbackInfo) => {
 				return a_stCallbackInfo.Key.ExIsEquals(a_oKey);
 			});
 
-			if(nIndex <= KDefine.B_INDEX_INVALID) {
+			if(nIndex <= KBDefine.INDEX_INVALID) {
 				var stKeyValue = new KeyValuePair<string, System.Action>(a_oKey, a_oCallback);
 				m_oAddCallbackInfoList.Add(stKeyValue);
 			}
@@ -99,13 +99,13 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 타이머를 추가한다
 	public void AddTimer(CComponent a_oComponent, float a_fDeltaTime, uint a_nRepeatTimes, UnityAction a_oCallback) {
-		Func.Assert(a_oComponent != null && a_oCallback != null);
+		CBAccess.Assert(a_oComponent != null && a_oCallback != null);
 		TimersManager.SetTimer(a_oComponent, a_fDeltaTime, a_nRepeatTimes, a_oCallback);
 	}
 
 	//! 실시간 타이머를 추가한다
 	public void AddRealtimeTimer(CComponent a_oComponent, float a_fDeltaTime, uint a_nRepeatTimes, UnityAction a_oCallback) {
-		Func.Assert(a_oComponent != null && a_oCallback != null);
+		CBAccess.Assert(a_oComponent != null && a_oCallback != null);
 
 		TimersManager.SetTimer(a_oComponent,
 			new Timer(a_fDeltaTime, a_nRepeatTimes, a_oCallback, TimerMode.REALTIME));
@@ -113,20 +113,20 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 반복 타이머를 추가한다
 	public void AddRepeatTimer(CComponent a_oComponent, float a_fDeltaTime, UnityAction a_oCallback) {
-		Func.Assert(a_oComponent != null && a_oCallback != null);
+		CBAccess.Assert(a_oComponent != null && a_oCallback != null);
 		TimersManager.SetLoopableTimer(a_oComponent, a_fDeltaTime, a_oCallback);
 	}
 
 	//! 컴포넌트를 제거한다
 	public void RemoveComponent(CComponent a_oComponent) {
-		Func.Assert(a_oComponent != null);
+		CBAccess.Assert(a_oComponent != null);
 		int nID = a_oComponent.GetInstanceID();
 
 		int nIndex = m_oComponentInfoList.ExFindValue((a_stComponentInfo) => {
 			return nID == a_stComponentInfo.Key;
 		});
 
-		if(nIndex > KDefine.B_INDEX_INVALID) {
+		if(nIndex > KBDefine.INDEX_INVALID) {
 			var stKeyValue = new KeyValuePair<int, CComponent>(nID, a_oComponent);
 			m_oRemoveComponentInfoList.Add(stKeyValue);
 		}
@@ -134,14 +134,14 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 
 	//! 콜백을 제거한다
 	public void RemoveCallback(string a_oKey) {
-		Func.Assert(a_oKey.ExIsValid());
+		CBAccess.Assert(a_oKey.ExIsValid());
 
-		lock(KDefine.U_LOCK_OBJ_SCHEDULE_M_UPDATE) {
+		lock(KUDefine.LOCK_OBJ_SCHEDULE_M_UPDATE) {
 			int nIndex = m_oCallbackInfoList.ExFindValue((a_stCallbackInfo) => {
 				return a_stCallbackInfo.Key.ExIsEquals(a_oKey);
 			});
 
-			if(nIndex > KDefine.B_INDEX_INVALID) {
+			if(nIndex > KBDefine.INDEX_INVALID) {
 				var stKeyValue = new KeyValuePair<string, System.Action>(a_oKey, null);
 				m_oRemoveCallbackInfoList.Add(stKeyValue);
 			}

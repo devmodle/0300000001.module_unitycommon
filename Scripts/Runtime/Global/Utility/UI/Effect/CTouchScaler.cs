@@ -11,8 +11,8 @@ public class CTouchScaler : CUIComponent,
 	private bool m_bIsTouch = false;
 	private Tweener m_oAni = null;
 
-	[SerializeField] private float m_fDuration = KDefine.U_DEF_DURATION_ANI;
-	[SerializeField] private float m_fTouchScale = KDefine.U_DEF_SCALE_TOUCH;
+	[SerializeField] private float m_fDuration = KUDefine.DEF_DURATION_ANI;
+	[SerializeField] private float m_fTouchScale = KUDefine.DEF_SCALE_TOUCH;
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -52,7 +52,7 @@ public class CTouchScaler : CUIComponent,
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		this.OriginScale = KDefine.B_SCALE_NORMAL;
+		this.OriginScale = KBDefine.SCALE_NORMAL;
 	}
 	
 	//! 제거 되었을 경우

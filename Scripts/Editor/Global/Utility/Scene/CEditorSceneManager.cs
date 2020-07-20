@@ -29,7 +29,7 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_oHierarchyGUIStyle.fontStyle = FontStyle.BoldAndItalic;
 
 			CEditorSceneManager.m_oHierarchyGUIStyle.normal = new GUIStyleState() {
-				textColor = KEditorDefine.B_HIERARCHY_TEXT_COLOR
+				textColor = KBEditorDefine.HIERARCHY_TEXT_COLOR
 			};
 			// GUI 스타일을 설정한다 }
 
@@ -50,18 +50,18 @@ public static partial class CEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		if(!Application.isBatchMode && CEditorSceneManager.IsEnableUpdateState()) {
-			EditorFunc.SetupPlayerOptions();
-			EditorFunc.SetupEditorOptions();
-			EditorFunc.SetupProjectOptions();
-			EditorFunc.SetupPluginProjects();
-			EditorFunc.SetupGraphicAPIs();
+			CPlatformBuildOption.SetupPlayerOptions();
+			CPlatformBuildOption.SetupEditorOptions();
+			CPlatformBuildOption.SetupProjectOptions();
+			CPlatformBuildOption.SetupPluginProjects();
+			CPlatformBuildOption.SetupGraphicAPIs();
 		}
 	}
 
 	//! 씬이 열렸을 경우
 	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		EditorFunc.SetupProjectOptions();
-		EditorFunc.SetupScene(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
+		CPlatformBuildOption.SetupProjectOptions();
+		EditorFunc.SetupScene(a_stScene, KBEditorDefine.SCENE_MANAGER_TYPE_LIST);
 	}
 
 	//! 상태를 갱신한다
@@ -71,7 +71,7 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_fHierarchySkipTime += Time.unscaledDeltaTime;
 
 			// 씬 갱신이 필요 할 경우
-			if(CEditorSceneManager.m_fSkipTime >= KEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
+			if(CEditorSceneManager.m_fSkipTime >= KBEditorDefine.DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
 				CEditorSceneManager.m_fSkipTime = 0.0f;
 
 				CEditorSceneManager.SetupScene();
@@ -83,7 +83,7 @@ public static partial class CEditorSceneManager {
 #endif			// #if FILE_BROWSER_ENABLE
 
 				// 계층 뷰 갱신이 필요 할 경우
-				if(CEditorSceneManager.m_fHierarchySkipTime >= KEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE) {
+				if(CEditorSceneManager.m_fHierarchySkipTime >= KBEditorDefine.DELTA_TIME_HIERARCHY_UPDATE) {
 					CEditorSceneManager.m_fHierarchySkipTime = 0.0f;
 
 					Func.EnumerateScenes((a_stScene) => {
@@ -110,8 +110,8 @@ public static partial class CEditorSceneManager {
 		var oObj = EditorUtility.InstanceIDToObject(a_nInstanceID) as GameObject;
 
 		if(oObj != null) {
-			a_stRect.size = new Vector2(KEditorDefine.B_HIERARCHY_WIDTH, a_stRect.size.y);
-			a_stRect.position += new Vector2(KEditorDefine.B_HIERARCHY_OFFSET_X, 0.0f);
+			a_stRect.size = new Vector2(KBEditorDefine.HIERARCHY_WIDTH, a_stRect.size.y);
+			a_stRect.position += new Vector2(KBEditorDefine.HIERARCHY_OFFSET_X, 0.0f);
 
 			var oComponents = oObj.GetComponents<Component>();
 
@@ -119,14 +119,14 @@ public static partial class CEditorSceneManager {
 				if(oComponents[i] != null) {
 					var oType = oComponents[i].GetType();
 					
-					var oSortingLayerProperty = oType.GetProperty(KEditorDefine.B_PROPERTY_NAME_SORTING_LAYER,
-						KDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
+					var oSortingLayerProperty = oType.GetProperty(KBEditorDefine.PROPERTY_NAME_SORTING_LAYER,
+						KBDefine.BINDING_FLAG_PUBLIC_INSTANCE);
 
-					var oSortingOrderProperty = oType.GetProperty(KEditorDefine.B_PROPERTY_NAME_SORTING_ORDER,
-						KDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
+					var oSortingOrderProperty = oType.GetProperty(KBEditorDefine.PROPERTY_NAME_SORTING_ORDER,
+						KBDefine.BINDING_FLAG_PUBLIC_INSTANCE);
 
 					if(oSortingLayerProperty != null && oSortingOrderProperty != null) {
-						string oString = string.Format(KEditorDefine.U_SORTING_ORDER_INFO_FORMAT, 
+						string oString = string.Format(KBEditorDefine.SORTING_ORDER_INFO_FORMAT, 
 							oSortingLayerProperty.GetValue(oComponents[i]), oSortingOrderProperty.GetValue(oComponents[i]));
 
 						GUI.Label(a_stRect, oString, m_oHierarchyGUIStyle);

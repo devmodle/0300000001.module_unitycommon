@@ -10,21 +10,21 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 	#region 함수
 	//! 속성 데이터를 반환한다
 	public string GetConfigData(string a_oKey) {
-		Func.Assert(a_oKey.ExIsValid());
-		Func.ShowLog("CFirebaseManager.GetConfigData: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oKey);
+		CBAccess.Assert(a_oKey.ExIsValid());
+		Func.ShowLog("CFirebaseManager.GetConfigData: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oKey);
 
 		return this.IsInit ? FirebaseRemoteConfig.GetValue(a_oKey).StringValue : string.Empty;
 	}
 
 	//! 설정 데이터를 로드한다
 	public void LoadConfigData(System.Action<CFirebaseManager, bool> a_oCallback) {
-		Func.ShowLog("CFirebaseManager.LoadConfigData", KDefine.B_LOG_COLOR_PLUGIN);
+		Func.ShowLog("CFirebaseManager.LoadConfigData", KBDefine.LOG_COLOR_PLUGIN);
 
 		if(!this.IsInit) {
 			a_oCallback?.Invoke(this, false);
 		} else {
-			Func.WaitAsyncTask(FirebaseRemoteConfig.FetchAsync(KDefine.U_DEF_TIMEOUT_FIREBASE_FETCH_CONFIG_DATA), (a_oTask) => {
-				Func.ShowLog("CFirebaseManager.OnLoadConfigData: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oTask.Exception?.Message);
+			Func.WaitAsyncTask(FirebaseRemoteConfig.FetchAsync(KUDefine.DEF_TIMEOUT_FIREBASE_FETCH_CONFIG_DATA), (a_oTask) => {
+				Func.ShowLog("CFirebaseManager.OnLoadConfigData: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oTask.Exception?.Message);
 
 				if(!Func.IsCompleteAsyncTask(a_oTask)) {
 					a_oCallback?.Invoke(this, false);

@@ -22,7 +22,7 @@ public class CToastPopup : CPopup {
 		this.IsIgnoreNavigationEvent = true;
 		CNavStackManager.Instance.RemoveComponent(this);
 
-		m_oMsgText = this.gameObject.ExFindComponent<Text>(KDefine.U_OBJ_NAME_TOAST_P_MSG_TEXT);
+		m_oMsgText = this.gameObject.ExFindComponent<Text>(KUDefine.OBJ_NAME_TOAST_P_MSG_TEXT);
 		m_oRootTransform.sizeDelta = CSceneManager.CanvasSize;
 	}
 
@@ -47,4 +47,15 @@ public class CToastPopup : CPopup {
 		return oAni;
 	}
 	#endregion			// 함수
+
+	#region 클래스 제네릭 함수
+	//! 토스트 팝업을 생성한다
+	public static T CreateToastPopup<T>(string a_oName,
+		GameObject a_oOrigin, GameObject a_oParent, string a_oMsg, float a_fDuration) where T : CToastPopup {
+		var oToastPopup = CPopup.CreatePopup<T>(a_oName, a_oOrigin, a_oParent, KBDefine.POS_MIDDLE_CENTER);
+		oToastPopup?.Init(a_oMsg, a_fDuration);
+
+		return oToastPopup;
+	}
+	#endregion			// 클래스 제네릭 함수
 }

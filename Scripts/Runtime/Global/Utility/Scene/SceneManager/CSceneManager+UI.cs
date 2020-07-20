@@ -8,21 +8,21 @@ public abstract partial class CSceneManager : CComponent {
 #if UNITY_EDITOR
 	//! 가이드 라인을 그린다
 	public void EditorDrawGuideline() {
-		float fScale = Func.GetResolutionScale(Application.isPlaying);
+		float fScale = CUAccess.GetResolutionScale(Application.isPlaying);
 
 		var oScreenPositions = new Vector3[] {
-			new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / -2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / 2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3(KDefine.B_SCREEN_WIDTH / 2.0f, KDefine.B_SCREEN_HEIGHT / 2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3(KDefine.B_SCREEN_WIDTH / 2.0f, KDefine.B_SCREEN_HEIGHT / -2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale)
+			new Vector3(KBDefine.SCREEN_WIDTH / -2.0f, KBDefine.SCREEN_HEIGHT / -2.0f, 0.0f) * (KBDefine.UNIT_SCALE * fScale),
+			new Vector3(KBDefine.SCREEN_WIDTH / -2.0f, KBDefine.SCREEN_HEIGHT / 2.0f, 0.0f) * (KBDefine.UNIT_SCALE * fScale),
+			new Vector3(KBDefine.SCREEN_WIDTH / 2.0f, KBDefine.SCREEN_HEIGHT / 2.0f, 0.0f) * (KBDefine.UNIT_SCALE * fScale),
+			new Vector3(KBDefine.SCREEN_WIDTH / 2.0f, KBDefine.SCREEN_HEIGHT / -2.0f, 0.0f) * (KBDefine.UNIT_SCALE * fScale)
 		};
 
 #if ADS_ENABLE
 		var oAdsPositions = new Vector3[] {
-			new Vector3((KDefine.B_SCREEN_WIDTH / -2.0f) * fScale, (KDefine.B_SCREEN_HEIGHT / -2.0f) + KDefine.U_OFFSET_BANNER_ADS, 0.0f) * KDefine.B_UNIT_SCALE,
-			new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / 2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3(KDefine.B_SCREEN_WIDTH / 2.0f, KDefine.B_SCREEN_HEIGHT / 2.0f, 0.0f) * (KDefine.B_UNIT_SCALE * fScale),
-			new Vector3((KDefine.B_SCREEN_WIDTH / 2.0f) * fScale, (KDefine.B_SCREEN_HEIGHT / -2.0f) + KDefine.U_OFFSET_BANNER_ADS, 0.0f) * KDefine.B_UNIT_SCALE
+			new Vector3((KBDefine.SCREEN_WIDTH / -2.0f) * fScale, (KBDefine.SCREEN_HEIGHT / -2.0f) + KUDefine.OFFSET_BANNER_ADS, 0.0f) * KBDefine.UNIT_SCALE,
+			new Vector3(KBDefine.SCREEN_WIDTH / -2.0f, KBDefine.SCREEN_HEIGHT / 2.0f, 0.0f) * (KBDefine.UNIT_SCALE * fScale),
+			new Vector3(KBDefine.SCREEN_WIDTH / 2.0f, KBDefine.SCREEN_HEIGHT / 2.0f, 0.0f) * (KBDefine.UNIT_SCALE * fScale),
+			new Vector3((KBDefine.SCREEN_WIDTH / 2.0f) * fScale, (KBDefine.SCREEN_HEIGHT / -2.0f) + KUDefine.OFFSET_BANNER_ADS, 0.0f) * KBDefine.UNIT_SCALE
 		};
 #endif			// #if ADS_ENABLE
 

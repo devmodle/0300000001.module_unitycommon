@@ -107,7 +107,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 #if SECURITY_ENABLE
 		Func.WriteSecurityBytes(a_oFilepath, oBytes);
 #else
-		Func.WriteBytes(a_oFilepath, oBytes);
+		CBAccess.WriteBytes(a_oFilepath, oBytes);
 #endif			// #if SECURITY_ENABLE
 	}
 
@@ -117,7 +117,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 #if SECURITY_ENABLE
 			var oBytes = Func.ReadSecurityBytes(a_oFilepath);
 #else
-			var oBytes = Func.ReadBytes(a_oFilepath);
+			var oBytes = CBAccess.ReadBytes(a_oFilepath);
 #endif			// #if SECURITY_ENABLE
 
 			try {

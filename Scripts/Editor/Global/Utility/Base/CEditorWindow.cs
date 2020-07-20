@@ -20,7 +20,7 @@ public class CEditorWindow<T> : EditorWindow where T : CEditorWindow<T> {
 	//! 에디터 윈도우를 출력한다
 	public static void ShowEditorWindow(string a_oName, Vector2 a_stMinSize, bool a_bIsImmediate = true) {
 		if(CEditorWindow<T>.m_tInstance == null) {
-			CEditorWindow<T>.m_tInstance = EditorFunc.CreateEditorWindow<T>(a_oName,a_stMinSize);
+			CEditorWindow<T>.m_tInstance = CBEditorFactory.CreateEditorWindow<T>(a_oName,a_stMinSize);
 		}
 
 		CEditorWindow<T>.m_tInstance.Show(a_bIsImmediate);

@@ -22,13 +22,13 @@ public abstract partial class CSceneManager : CComponent {
 			this.SetupSubScene();
 
 			if(Application.isPlaying) {
-				Func.ShowLog("CSceneManager.SubSceneAwake: {0}", KDefine.B_LOG_COLOR_SETUP, this.SceneName);
+				Func.ShowLog("CSceneManager.SubSceneAwake: {0}", KBDefine.LOG_COLOR_SETUP, this.SceneName);
 			}
 		} else {
 			this.SetupRootScene();
 
 			if(Application.isPlaying) {
-				Func.ShowLog("CSceneManager.RootSceneAwake: {0}", KDefine.B_LOG_COLOR_SETUP, this.SceneName);
+				Func.ShowLog("CSceneManager.RootSceneAwake: {0}", KBDefine.LOG_COLOR_SETUP, this.SceneName);
 			}
 		}
 		// 씬을 설정한다 }
@@ -38,7 +38,7 @@ public abstract partial class CSceneManager : CComponent {
 			this.SubUICamera.gameObject.ExRemoveComponent<AudioListener>();
 
 			this.SubUICamera.backgroundColor = this.ClearColor;
-			this.SubUICamera.ExSetCullingMask(KDefine.U_DEF_LAYER_MASK_UI_CAMERA.ToList());
+			this.SubUICamera.ExSetCullingMask(KUDefine.DEF_LAYER_MASK_UI_CAMERA.ToList());
 
 #if CAMERA_STACK_ENABLE
 			this.SubUICamera.gameObject.SetActive(true);
@@ -78,7 +78,7 @@ public abstract partial class CSceneManager : CComponent {
 			this.SubMainCamera.clearFlags = this.IsRootScene ? CameraClearFlags.SolidColor : CameraClearFlags.Nothing;
 
 			this.SubMainCamera.gameObject.SetActive(this.IsRootScene);
-			this.SubMainCamera.ExSetCullingMask(KDefine.U_DEF_LAYER_MASK_MAIN_CAMERA.ToList());
+			this.SubMainCamera.ExSetCullingMask(KUDefine.DEF_LAYER_MASK_MAIN_CAMERA.ToList());
 			
 #if PHYSICS_RAYCASTER_ENABLE
 #if MODE_2D_ENABLE
@@ -87,7 +87,7 @@ public abstract partial class CSceneManager : CComponent {
 			var oRaycaster = this.SubMainCamera.gameObject.ExAddComponent<PhysicsRaycaster>();
 #endif			// #if MODE_2D_ENABLE
 
-			Func.SetEventMask(oRaycaster, KDefine.U_DEF_CULLING_MASK_MAIN_CAMERA.ToList());
+			Func.SetEventMask(oRaycaster, KUDefine.DEF_CULLING_MASK_MAIN_CAMERA.ToList());
 #endif			// #if PHYSICS_RAYCASTER_ENABLE
 			
 #if UNIVERSAL_RENDER_PIPELINE_ENABLE
@@ -113,7 +113,7 @@ public abstract partial class CSceneManager : CComponent {
 						return nID == a_oCamera.GetInstanceID();
 					});
 
-					if(nIndex <= KDefine.B_INDEX_INVALID) {					
+					if(nIndex <= KBDefine.INDEX_INVALID) {					
 						oCameraData.cameraStack.ExReplaceValue(this.SubUICamera);
 					}
 				}
@@ -193,35 +193,35 @@ public abstract partial class CSceneManager : CComponent {
 		// 서브 객체를 설정한다 {
 		var stScene = this.gameObject.scene;
 
-		this.SubUITop = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_TOP);
-		this.SubUIBase = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_BASE);
-		this.SubUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_ROOT);
-		this.SubFixUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_UI_ROOT);
+		this.SubUITop = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_UI_TOP);
+		this.SubUIBase = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_UI_BASE);
+		this.SubUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_UI_ROOT);
+		this.SubFixUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_FIX_UI_ROOT);
 
-		this.SubLeftUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT);
-		this.SubRightUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT);
-		this.SubTopUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT);
-		this.SubBottomUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT);
+		this.SubLeftUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_LEFT_UI_ROOT);
+		this.SubRightUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_RIGHT_UI_ROOT);
+		this.SubTopUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_TOP_UI_ROOT);
+		this.SubBottomUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_BOTTOM_UI_ROOT);
 
-		this.SubPopupUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_POPUP_UI_ROOT);
-		this.SubTopmostUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOPMOST_UI_ROOT);
+		this.SubPopupUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_POPUP_UI_ROOT);
+		this.SubTopmostUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_TOPMOST_UI_ROOT);
 
-		this.SubBase = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BASE);
-		this.SubObjBase = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJ_BASE);
-		this.SubObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJ_ROOT);
-		this.SubFixObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_OBJ_ROOT);
+		this.SubBase = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_BASE);
+		this.SubObjBase = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_OBJ_BASE);
+		this.SubObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_OBJ_ROOT);
+		this.SubFixObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_FIX_OBJ_ROOT);
 
-		this.SubLeftObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_LEFT_OBJ_ROOT);
-		this.SubRightObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_RIGHT_OBJ_ROOT);
-		this.SubTopObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOP_OBJ_ROOT);
-		this.SubBottomObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BOTTOM_OBJ_ROOT);
+		this.SubLeftObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_LEFT_OBJ_ROOT);
+		this.SubRightObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_RIGHT_OBJ_ROOT);
+		this.SubTopObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_TOP_OBJ_ROOT);
+		this.SubBottomObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_BOTTOM_OBJ_ROOT);
 
-		this.SubObjCanvasTop = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJ_CANVAS_TOP);
-		this.SubObjCanvasBase = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJ_CANVAS_BASE);
-		this.SubCanvasObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_CANVAS_OBJ_ROOT);
+		this.SubObjCanvasTop = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_OBJ_CANVAS_TOP);
+		this.SubObjCanvasBase = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_OBJ_CANVAS_BASE);
+		this.SubCanvasObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_CANVAS_OBJ_ROOT);
 
-		this.SubUICamera = stScene.ExFindComponent<Camera>(KDefine.U_OBJ_NAME_SCENE_UI_CAMERA);
-		this.SubMainCamera = stScene.ExFindComponent<Camera>(KDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA);
+		this.SubUICamera = stScene.ExFindComponent<Camera>(KUDefine.OBJ_NAME_SCENE_UI_CAMERA);
+		this.SubMainCamera = stScene.ExFindComponent<Camera>(KUDefine.OBJ_NAME_SCENE_MAIN_CAMERA);
 
 		this.SubUICanvas = this.SubUIBase.GetComponentInChildren<Canvas>();
 		this.SubObjCanvas = this.SubObjCanvasBase?.GetComponentInChildren<Canvas>();
@@ -259,8 +259,8 @@ public abstract partial class CSceneManager : CComponent {
 				bool bIsDirectional = oLights[j].type == LightType.Directional;
 				oLights[j].shadows = KAppDefine.G_DEF_LIGHT_SHADOW_TYPE;
 
-				if(bIsDirectional && oLights[j].name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT)) {
-					oLights[j].transform.localScale = KDefine.B_SCALE_NORMAL;
+				if(bIsDirectional && oLights[j].name.ExIsEquals(KUDefine.OBJ_NAME_SCENE_MAIN_LIGHT)) {
+					oLights[j].transform.localScale = KBDefine.SCALE_NORMAL;
 					oLights[j].transform.localPosition = new Vector3(0.0f, 0.0f, -this.PlaneDistance);
 					oLights[j].transform.localEulerAngles = KAppDefine.G_ROTATION_MAIN_LIGHT;
 				}
@@ -284,10 +284,10 @@ public abstract partial class CSceneManager : CComponent {
 			CSceneManager.CanvasScale = oTransform.localScale;
 		}
 
-		float fLeftScale = Func.GetLeftScreenScale(Application.isPlaying);
-		float fRightScale = Func.GetRightScreenScale(Application.isPlaying);
-		float fTopScale = Func.GetTopScreenScale(Application.isPlaying);
-		float fBottomScale = Func.GetBottomScreenScale(Application.isPlaying);
+		float fLeftScale = CUAccess.GetLeftScreenScale(Application.isPlaying);
+		float fRightScale = CUAccess.GetRightScreenScale(Application.isPlaying);
+		float fTopScale = CUAccess.GetTopScreenScale(Application.isPlaying);
+		float fBottomScale = CUAccess.GetBottomScreenScale(Application.isPlaying);
 
 		// 간격을 설정한다 {
 		CSceneManager.LeftUIOffset = CSceneManager.CanvasSize.x * fLeftScale;
@@ -306,15 +306,15 @@ public abstract partial class CSceneManager : CComponent {
 
 	//! 루트 객체를 설정한다
 	protected virtual void SetupRootObjs() {
-		this.transform.localScale = KDefine.B_SCALE_NORMAL;
+		this.transform.localScale = KBDefine.SCALE_NORMAL;
 		this.transform.localPosition = Vector3.zero;
 		this.transform.localEulerAngles = Vector3.zero;
 
-		this.SubBase.transform.localScale = KDefine.B_SCALE_NORMAL;
+		this.SubBase.transform.localScale = KBDefine.SCALE_NORMAL;
 		this.SubBase.transform.localPosition = Vector3.zero;
 		this.SubBase.transform.localEulerAngles = Vector3.zero;
 
-		this.SubUITop.transform.localScale = KDefine.B_SCALE_NORMAL;
+		this.SubUITop.transform.localScale = KBDefine.SCALE_NORMAL;
 		this.SubUITop.transform.localPosition = Vector3.zero;
 		this.SubUITop.transform.localEulerAngles = Vector3.zero;
 
@@ -322,32 +322,32 @@ public abstract partial class CSceneManager : CComponent {
 		this.SubObjBase.transform.localPosition = Vector3.zero;
 		this.SubObjBase.transform.localEulerAngles = Vector3.zero;
 
-		this.SubObjRoot.transform.localScale = KDefine.B_SCALE_NORMAL;
-		this.SubObjRoot.transform.localPosition = new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / -2.0f, 0.0f);
+		this.SubObjRoot.transform.localScale = KBDefine.SCALE_NORMAL;
+		this.SubObjRoot.transform.localPosition = new Vector3(KBDefine.SCREEN_WIDTH / -2.0f, KBDefine.SCREEN_HEIGHT / -2.0f, 0.0f);
 		this.SubObjRoot.transform.localEulerAngles = Vector3.zero;
 
-		this.SubFixObjRoot.transform.localScale = KDefine.B_SCALE_NORMAL;
+		this.SubFixObjRoot.transform.localScale = KBDefine.SCALE_NORMAL;
 		this.SubFixObjRoot.transform.localPosition = Vector3.zero;
 		this.SubFixObjRoot.transform.localEulerAngles = Vector3.zero;
 
-		this.SubLeftObjRoot.transform.localScale = KDefine.B_SCALE_NORMAL;
-		this.SubLeftObjRoot.transform.localPosition = new Vector3((CSceneManager.CanvasSize.x / -2.0f) + CSceneManager.LeftObjOffset, KDefine.B_SCREEN_HEIGHT / -2.0f, 0.0f);
+		this.SubLeftObjRoot.transform.localScale = KBDefine.SCALE_NORMAL;
+		this.SubLeftObjRoot.transform.localPosition = new Vector3((CSceneManager.CanvasSize.x / -2.0f) + CSceneManager.LeftObjOffset, KBDefine.SCREEN_HEIGHT / -2.0f, 0.0f);
 		this.SubLeftObjRoot.transform.localEulerAngles = Vector3.zero;
 
-		this.SubRightObjRoot.transform.localScale = KDefine.B_SCALE_NORMAL;
-		this.SubRightObjRoot.transform.localPosition = new Vector3((CSceneManager.CanvasSize.x / 2.0f) + CSceneManager.RightObjOffset, KDefine.B_SCREEN_HEIGHT / -2.0f, 0.0f);
+		this.SubRightObjRoot.transform.localScale = KBDefine.SCALE_NORMAL;
+		this.SubRightObjRoot.transform.localPosition = new Vector3((CSceneManager.CanvasSize.x / 2.0f) + CSceneManager.RightObjOffset, KBDefine.SCREEN_HEIGHT / -2.0f, 0.0f);
 		this.SubRightObjRoot.transform.localEulerAngles = Vector3.zero;
 
-		this.SubTopObjRoot.transform.localScale = KDefine.B_SCALE_NORMAL;
-		this.SubTopObjRoot.transform.localPosition = new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / 2.0f) + CSceneManager.TopObjOffset, 0.0f);
+		this.SubTopObjRoot.transform.localScale = KBDefine.SCALE_NORMAL;
+		this.SubTopObjRoot.transform.localPosition = new Vector3(KBDefine.SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / 2.0f) + CSceneManager.TopObjOffset, 0.0f);
 		this.SubTopObjRoot.transform.localEulerAngles = Vector3.zero;
 
-		this.SubBottomObjRoot.transform.localScale = KDefine.B_SCALE_NORMAL;
-		this.SubBottomObjRoot.transform.localPosition = new Vector3(KDefine.B_SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / -2.0f) + CSceneManager.BottomObjOffset, 0.0f);
+		this.SubBottomObjRoot.transform.localScale = KBDefine.SCALE_NORMAL;
+		this.SubBottomObjRoot.transform.localPosition = new Vector3(KBDefine.SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / -2.0f) + CSceneManager.BottomObjOffset, 0.0f);
 		this.SubBottomObjRoot.transform.localEulerAngles = Vector3.zero;
 
 		if(this.SubObjCanvasTop != null) {
-			this.SubObjCanvasTop.transform.localScale = KDefine.B_SCALE_NORMAL;
+			this.SubObjCanvasTop.transform.localScale = KBDefine.SCALE_NORMAL;
 			this.SubObjCanvasTop.transform.localPosition = Vector3.zero;
 			this.SubObjCanvasTop.transform.localEulerAngles = Vector3.zero;
 		}
@@ -370,13 +370,13 @@ public abstract partial class CSceneManager : CComponent {
 		var oBottomUITransform = CSceneManager.BottomUIRoot.transform as RectTransform;
 
 		CSceneManager.LeftUIRootOffset = oUITransform.anchoredPosition.x - oLeftUITransform.anchoredPosition.x;
-		CSceneManager.RightUIRootOffset = (oUITransform.anchoredPosition.x + KDefine.B_SCREEN_WIDTH) - oRightUITransform.anchoredPosition.x;
-		CSceneManager.TopUIRootOffset = (oUITransform.anchoredPosition.y + KDefine.B_SCREEN_HEIGHT) - oTopUITransform.anchoredPosition.y;
+		CSceneManager.RightUIRootOffset = (oUITransform.anchoredPosition.x + KBDefine.SCREEN_WIDTH) - oRightUITransform.anchoredPosition.x;
+		CSceneManager.TopUIRootOffset = (oUITransform.anchoredPosition.y + KBDefine.SCREEN_HEIGHT) - oTopUITransform.anchoredPosition.y;
 		CSceneManager.BottomUIRootOffset = oUITransform.anchoredPosition.y - oBottomUITransform.anchoredPosition.y;
 
 		CSceneManager.LeftObjRootOffset = CSceneManager.ObjRoot.transform.localPosition.x - CSceneManager.LeftObjRoot.transform.localPosition.x;
-		CSceneManager.RightObjRootOffset = (CSceneManager.ObjRoot.transform.localPosition.x + KDefine.B_SCREEN_WIDTH) - CSceneManager.RightObjRoot.transform.localPosition.x;
-		CSceneManager.TopObjRootOffset = (CSceneManager.ObjRoot.transform.localPosition.y + KDefine.B_SCREEN_HEIGHT) - CSceneManager.TopObjRoot.transform.localPosition.y;
+		CSceneManager.RightObjRootOffset = (CSceneManager.ObjRoot.transform.localPosition.x + KBDefine.SCREEN_WIDTH) - CSceneManager.RightObjRoot.transform.localPosition.x;
+		CSceneManager.TopObjRootOffset = (CSceneManager.ObjRoot.transform.localPosition.y + KBDefine.SCREEN_HEIGHT) - CSceneManager.TopObjRoot.transform.localPosition.y;
 		CSceneManager.BottomObjRootOffset = CSceneManager.ObjRoot.transform.localPosition.y - CSceneManager.BottomObjRoot.transform.localPosition.y;
 		// 루트 객체 간격을 설정한다 }
 	}
@@ -385,40 +385,40 @@ public abstract partial class CSceneManager : CComponent {
 	protected virtual void SetupDefaultObjs() {
 		// 씬 관리자를 설정한다
 		CSceneManager.m_oSubSceneManagerList.ExAddValue(this.SceneName, this);
-		CSceneManager.RootSceneManager = Func.FindComponent<CSceneManager>(KDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
+		CSceneManager.RootSceneManager = Func.FindComponent<CSceneManager>(KUDefine.OBJ_NAME_SCENE_SCENE_MANAGER);
 
 		// 기본 객체를 설정한다 {
 		var stScene = CSceneManager.RootSceneManager.gameObject.scene;
 
-		this.SubUITop = CSceneManager.UITop = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_TOP);
-		this.SubUIBase = CSceneManager.UIBase = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_BASE);
-		this.SubUIRoot = CSceneManager.UIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_ROOT);
-		this.SubFixUIRoot = CSceneManager.FixUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_UI_ROOT);
+		this.SubUITop = CSceneManager.UITop = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_UI_TOP);
+		this.SubUIBase = CSceneManager.UIBase = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_UI_BASE);
+		this.SubUIRoot = CSceneManager.UIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_UI_ROOT);
+		this.SubFixUIRoot = CSceneManager.FixUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_FIX_UI_ROOT);
 
-		this.SubLeftUIRoot = CSceneManager.LeftUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT);
-		this.SubRightUIRoot = CSceneManager.RightUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT);
-		this.SubTopUIRoot = CSceneManager.TopUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT);
-		this.SubBottomUIRoot = CSceneManager.BottomUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT);
+		this.SubLeftUIRoot = CSceneManager.LeftUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_LEFT_UI_ROOT);
+		this.SubRightUIRoot = CSceneManager.RightUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_RIGHT_UI_ROOT);
+		this.SubTopUIRoot = CSceneManager.TopUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_TOP_UI_ROOT);
+		this.SubBottomUIRoot = CSceneManager.BottomUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_BOTTOM_UI_ROOT);
 
-		this.SubPopupUIRoot = CSceneManager.PopupUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_POPUP_UI_ROOT);
-		this.SubTopmostUIRoot = CSceneManager.TopmostUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOPMOST_UI_ROOT);
+		this.SubPopupUIRoot = CSceneManager.PopupUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_POPUP_UI_ROOT);
+		this.SubTopmostUIRoot = CSceneManager.TopmostUIRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_TOPMOST_UI_ROOT);
 
-		this.SubBase = CSceneManager.Base = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BASE);
-		this.SubObjBase = CSceneManager.ObjBase = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJ_BASE);
-		this.SubObjRoot = CSceneManager.ObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJ_ROOT);
-		this.SubFixObjRoot = CSceneManager.FixObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_OBJ_ROOT);
+		this.SubBase = CSceneManager.Base = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_BASE);
+		this.SubObjBase = CSceneManager.ObjBase = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_OBJ_BASE);
+		this.SubObjRoot = CSceneManager.ObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_OBJ_ROOT);
+		this.SubFixObjRoot = CSceneManager.FixObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_FIX_OBJ_ROOT);
 
-		this.SubLeftObjRoot = CSceneManager.LeftObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_LEFT_OBJ_ROOT);
-		this.SubRightObjRoot = CSceneManager.RightObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_RIGHT_OBJ_ROOT);
-		this.SubTopObjRoot = CSceneManager.TopObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOP_OBJ_ROOT);
-		this.SubBottomObjRoot = CSceneManager.BottomObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BOTTOM_OBJ_ROOT);
+		this.SubLeftObjRoot = CSceneManager.LeftObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_LEFT_OBJ_ROOT);
+		this.SubRightObjRoot = CSceneManager.RightObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_RIGHT_OBJ_ROOT);
+		this.SubTopObjRoot = CSceneManager.TopObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_TOP_OBJ_ROOT);
+		this.SubBottomObjRoot = CSceneManager.BottomObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_BOTTOM_OBJ_ROOT);
 
-		this.SubObjCanvasTop = CSceneManager.ObjCanvasTop = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJ_CANVAS_TOP);
-		this.SubObjCanvasBase = CSceneManager.ObjCanvasBase = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_OBJ_CANVAS_BASE);
-		this.SubCanvasObjRoot = CSceneManager.CanvasObjRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_CANVAS_OBJ_ROOT);
+		this.SubObjCanvasTop = CSceneManager.ObjCanvasTop = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_OBJ_CANVAS_TOP);
+		this.SubObjCanvasBase = CSceneManager.ObjCanvasBase = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_OBJ_CANVAS_BASE);
+		this.SubCanvasObjRoot = CSceneManager.CanvasObjRoot = stScene.ExFindChild(KUDefine.OBJ_NAME_SCENE_CANVAS_OBJ_ROOT);
 
-		this.SubUICamera = CSceneManager.UICamera = stScene.ExFindComponent<Camera>(KDefine.U_OBJ_NAME_SCENE_UI_CAMERA);
-		this.SubMainCamera = CSceneManager.MainCamera = stScene.ExFindComponent<Camera>(KDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA);
+		this.SubUICamera = CSceneManager.UICamera = stScene.ExFindComponent<Camera>(KUDefine.OBJ_NAME_SCENE_UI_CAMERA);
+		this.SubMainCamera = CSceneManager.MainCamera = stScene.ExFindComponent<Camera>(KUDefine.OBJ_NAME_SCENE_MAIN_CAMERA);
 
 		this.SubUICanvas = CSceneManager.UICanvas = CSceneManager.UIBase.GetComponentInChildren<Canvas>();
 		this.SubObjCanvas = CSceneManager.ObjCanvas = CSceneManager.ObjCanvasBase?.GetComponentInChildren<Canvas>();
@@ -432,26 +432,26 @@ public abstract partial class CSceneManager : CComponent {
 
 			// UI 객체를 설정한다 {
 			var oUIObjs = new GameObject[] {
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_ROOT),
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_FIX_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCENE_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCENE_FIX_UI_ROOT),
 
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT),
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT),
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT),
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCENE_LEFT_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCENE_RIGHT_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCENE_TOP_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCENE_BOTTOM_UI_ROOT),
 
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_POPUP_UI_ROOT),
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_TOPMOST_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCENE_POPUP_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCENE_TOPMOST_UI_ROOT),
 
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCENE_CANVAS_OBJ_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCENE_CANVAS_OBJ_ROOT),
 
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT),
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_POPUP_UI_ROOT),
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_TOPMOST_UI_ROOT),
-				oObj.ExFindChild(KDefine.U_OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCREEN_BLIND_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCREEN_POPUP_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCREEN_TOPMOST_UI_ROOT),
+				oObj.ExFindChild(KUDefine.OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT),
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-				oObj.ExFindChild(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT)
+				oObj.ExFindChild(KUDefine.NAME_SCREEN_DEBUG_UI_ROOT)
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 			};
 
@@ -462,64 +462,64 @@ public abstract partial class CSceneManager : CComponent {
 					var stPos = Vector2.zero;
 					var stSize = Vector2.zero;
 
-					var stPivot = KDefine.B_ANCHOR_MIDDLE_CENTER;
+					var stPivot = KBDefine.ANCHOR_MIDDLE_CENTER;
 
-					bool bIsLeftUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_LEFT_UI_ROOT);
-					bool bIsRightUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_RIGHT_UI_ROOT);
-					bool bIsTopUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_TOP_UI_ROOT);
-					bool bIsBottomUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_BOTTOM_UI_ROOT);
+					bool bIsLeftUIRoot = oName.ExIsEquals(KUDefine.OBJ_NAME_SCENE_LEFT_UI_ROOT);
+					bool bIsRightUIRoot = oName.ExIsEquals(KUDefine.OBJ_NAME_SCENE_RIGHT_UI_ROOT);
+					bool bIsTopUIRoot = oName.ExIsEquals(KUDefine.OBJ_NAME_SCENE_TOP_UI_ROOT);
+					bool bIsBottomUIRoot = oName.ExIsEquals(KUDefine.OBJ_NAME_SCENE_BOTTOM_UI_ROOT);
 
 					if(bIsLeftUIRoot || bIsRightUIRoot) {
-						stSize = new Vector2(0.0f, KDefine.B_SCREEN_HEIGHT);
+						stSize = new Vector2(0.0f, KBDefine.SCREEN_HEIGHT);
 
 						if(bIsLeftUIRoot) {
-							stPos = new Vector2((CSceneManager.CanvasSize.x / -2.0f) + CSceneManager.LeftUIOffset, KDefine.B_SCREEN_HEIGHT / -2.0f);
-							stPivot = KDefine.B_ANCHOR_BOTTOM_LEFT;
+							stPos = new Vector2((CSceneManager.CanvasSize.x / -2.0f) + CSceneManager.LeftUIOffset, KBDefine.SCREEN_HEIGHT / -2.0f);
+							stPivot = KBDefine.ANCHOR_BOTTOM_LEFT;
 						} else {
-							stPos = new Vector2((CSceneManager.CanvasSize.x / 2.0f) + CSceneManager.RightUIOffset, KDefine.B_SCREEN_HEIGHT / -2.0f);
-							stPivot = KDefine.B_ANCHOR_BOTTOM_RIGHT;
+							stPos = new Vector2((CSceneManager.CanvasSize.x / 2.0f) + CSceneManager.RightUIOffset, KBDefine.SCREEN_HEIGHT / -2.0f);
+							stPivot = KBDefine.ANCHOR_BOTTOM_RIGHT;
 						}
 					} else if(bIsTopUIRoot || bIsBottomUIRoot) {
-						stSize = new Vector2(KDefine.B_SCREEN_WIDTH, 0.0f);
+						stSize = new Vector2(KBDefine.SCREEN_WIDTH, 0.0f);
 
 						if(bIsTopUIRoot) {
-							stPos = new Vector2(KDefine.B_SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / 2.0f) + CSceneManager.TopUIOffset);
-							stPivot = KDefine.B_ANCHOR_TOP_LEFT;
+							stPos = new Vector2(KBDefine.SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / 2.0f) + CSceneManager.TopUIOffset);
+							stPivot = KBDefine.ANCHOR_TOP_LEFT;
 						} else {
-							stPos = new Vector2(KDefine.B_SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / -2.0f) + CSceneManager.BottomUIOffset);
-							stPivot = KDefine.B_ANCHOR_BOTTOM_LEFT;
+							stPos = new Vector2(KBDefine.SCREEN_WIDTH / -2.0f, (CSceneManager.CanvasSize.y / -2.0f) + CSceneManager.BottomUIOffset);
+							stPivot = KBDefine.ANCHOR_BOTTOM_LEFT;
 						}
 					} else {
-						bool bIsUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_UI_ROOT);
-						bool bIsFixUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_FIX_UI_ROOT);
-						bool bIsBlindUIRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT);
-						bool bIsCanvasObjRoot = oName.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_CANVAS_OBJ_ROOT);
+						bool bIsUIRoot = oName.ExIsEquals(KUDefine.OBJ_NAME_SCENE_UI_ROOT);
+						bool bIsFixUIRoot = oName.ExIsEquals(KUDefine.OBJ_NAME_SCENE_FIX_UI_ROOT);
+						bool bIsBlindUIRoot = oName.ExIsEquals(KUDefine.OBJ_NAME_SCREEN_BLIND_UI_ROOT);
+						bool bIsCanvasObjRoot = oName.ExIsEquals(KUDefine.OBJ_NAME_SCENE_CANVAS_OBJ_ROOT);
 
 						bool bIsDebugUIRoot = false;
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-						bIsDebugUIRoot = oName.ExIsEquals(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT);
+						bIsDebugUIRoot = oName.ExIsEquals(KUDefine.NAME_SCREEN_DEBUG_UI_ROOT);
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
 						if(bIsUIRoot || bIsFixUIRoot || bIsBlindUIRoot || bIsCanvasObjRoot || bIsDebugUIRoot) {
 							if(bIsUIRoot || bIsCanvasObjRoot) {
-								stSize = new Vector2(KDefine.B_SCREEN_WIDTH, KDefine.B_SCREEN_HEIGHT);
+								stSize = new Vector2(KBDefine.SCREEN_WIDTH, KBDefine.SCREEN_HEIGHT);
 
 								if(bIsCanvasObjRoot) {
-									stPos = new Vector2(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / -2.0f);
-									stPivot = KDefine.B_ANCHOR_BOTTOM_LEFT;
+									stPos = new Vector2(KBDefine.SCREEN_WIDTH / -2.0f, KBDefine.SCREEN_HEIGHT / -2.0f);
+									stPivot = KBDefine.ANCHOR_BOTTOM_LEFT;
 								}
 							} else {
 								stSize = CSceneManager.CanvasSize;
 							}
 						} else {
-							stPos = new Vector2(KDefine.B_SCREEN_WIDTH / -2.0f, KDefine.B_SCREEN_HEIGHT / -2.0f);
+							stPos = new Vector2(KBDefine.SCREEN_WIDTH / -2.0f, KBDefine.SCREEN_HEIGHT / -2.0f);
 						}
 					}
 
 					var oTransform = oUIObjs[i].transform as RectTransform;
-					oTransform.anchorMin = KDefine.B_ANCHOR_MIDDLE_CENTER;
-					oTransform.anchorMax = KDefine.B_ANCHOR_MIDDLE_CENTER;
+					oTransform.anchorMin = KBDefine.ANCHOR_MIDDLE_CENTER;
+					oTransform.anchorMax = KBDefine.ANCHOR_MIDDLE_CENTER;
 
 					oTransform.pivot = stPivot;
 					oTransform.sizeDelta = stSize;
@@ -528,19 +528,19 @@ public abstract partial class CSceneManager : CComponent {
 				}
 
 				// 블라인드 이미지를 설정한다
-				if(oUIObjs[i] != null && oUIObjs[i].name.ExIsEquals(KDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT)) {
+				if(oUIObjs[i] != null && oUIObjs[i].name.ExIsEquals(KUDefine.OBJ_NAME_SCREEN_BLIND_UI_ROOT)) {
 					var oPivots = new Vector2[] {
-						KDefine.B_ANCHOR_MIDDLE_RIGHT,
-						KDefine.B_ANCHOR_MIDDLE_LEFT,
-						KDefine.B_ANCHOR_BOTTOM_CENTER,
-						KDefine.B_ANCHOR_TOP_CENTER
+						KBDefine.ANCHOR_MIDDLE_RIGHT,
+						KBDefine.ANCHOR_MIDDLE_LEFT,
+						KBDefine.ANCHOR_BOTTOM_CENTER,
+						KBDefine.ANCHOR_TOP_CENTER
 					};
 
 					var oAnchors = new Vector2[] {
-						KDefine.B_ANCHOR_MIDDLE_LEFT,
-						KDefine.B_ANCHOR_MIDDLE_RIGHT,
-						KDefine.B_ANCHOR_TOP_CENTER,
-						KDefine.B_ANCHOR_BOTTOM_CENTER
+						KBDefine.ANCHOR_MIDDLE_LEFT,
+						KBDefine.ANCHOR_MIDDLE_RIGHT,
+						KBDefine.ANCHOR_TOP_CENTER,
+						KBDefine.ANCHOR_BOTTOM_CENTER
 					};
 
 #if PORTRAIT_ENABLE
@@ -560,15 +560,15 @@ public abstract partial class CSceneManager : CComponent {
 #endif			// #if PORTRAIT_ENABLE
 
 					var oImgs = new Image[] {
-						oUIObjs[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_LEFT_BLIND_IMG),
-						oUIObjs[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_RIGHT_BLIND_IMG),
-						oUIObjs[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_TOP_BLIND_IMG),
-						oUIObjs[i].ExFindComponent<Image>(KDefine.U_OBJ_NAME_BOTTOM_BLIND_IMG)
+						oUIObjs[i].ExFindComponent<Image>(KUDefine.OBJ_NAME_LEFT_BLIND_IMG),
+						oUIObjs[i].ExFindComponent<Image>(KUDefine.OBJ_NAME_RIGHT_BLIND_IMG),
+						oUIObjs[i].ExFindComponent<Image>(KUDefine.OBJ_NAME_TOP_BLIND_IMG),
+						oUIObjs[i].ExFindComponent<Image>(KUDefine.OBJ_NAME_BOTTOM_BLIND_IMG)
 					};
 
 					for(int j = 0; j < oImgs.Length; ++j) {
 						var oImg = oImgs[j];
-						oImg.color = Func.IsEditorPlatform() ? KDefine.U_DEF_COLOR_TRANSPARENT : KDefine.U_DEF_COLOR_BLIND_UI;
+						oImg.color = CBAccess.IsEditorPlatform() ? KUDefine.DEF_COLOR_TRANSPARENT : KUDefine.DEF_COLOR_BLIND_UI;
 
 						oImg.rectTransform.pivot = oPivots[j];
 						oImg.rectTransform.anchorMin = oAnchors[j];
@@ -579,36 +579,36 @@ public abstract partial class CSceneManager : CComponent {
 				}
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-				if(oUIObjs[i] != null && oUIObjs[i].name.ExIsEquals(KDefine.U_NAME_SCREEN_DEBUG_UI_ROOT)) {
-					var stSafeArea = Func.GetSafeArea(Application.isPlaying);
-					var stScreenSize = Func.GetDeviceScreenSize(true);
+				if(oUIObjs[i] != null && oUIObjs[i].name.ExIsEquals(KUDefine.NAME_SCREEN_DEBUG_UI_ROOT)) {
+					var stSafeArea = CUAccess.GetSafeArea(Application.isPlaying);
+					var stScreenSize = CUAccess.GetDeviceScreenSize(true);
 
 					// 정적 텍스트를 설정한다
 					if(CSceneManager.ScreenStaticDebugText != null) {
 						var oTransform = CSceneManager.ScreenStaticDebugText.rectTransform;
-						oTransform.pivot = KDefine.B_ANCHOR_TOP_LEFT;
-						oTransform.anchorMin = KDefine.B_ANCHOR_TOP_LEFT;
-						oTransform.anchorMax = KDefine.B_ANCHOR_TOP_LEFT;
+						oTransform.pivot = KBDefine.ANCHOR_TOP_LEFT;
+						oTransform.anchorMin = KBDefine.ANCHOR_TOP_LEFT;
+						oTransform.anchorMax = KBDefine.ANCHOR_TOP_LEFT;
 						oTransform.sizeDelta = new Vector2(CSceneManager.CanvasSize.x, CSceneManager.CanvasSize.y / 2.0f);
 						oTransform.anchoredPosition = Vector2.zero;
 
 						CSceneManager.m_oStaticDebugStringBuilder.Clear();
-						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_A, stScreenSize.x, stScreenSize.y);
-						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_B, KDefine.B_SCREEN_WIDTH, KDefine.B_SCREEN_HEIGHT);
-						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_C, CSceneManager.CanvasSize.x, CSceneManager.CanvasSize.y);
-						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_D, CSceneManager.LeftUIOffset, CSceneManager.RightUIOffset, CSceneManager.TopUIOffset, CSceneManager.BottomUIOffset);
-						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_E, CSceneManager.LeftObjOffset, CSceneManager.RightObjOffset, CSceneManager.TopObjOffset, CSceneManager.BottomObjOffset);
-						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_F, CSceneManager.LeftUIRootOffset, CSceneManager.RightUIRootOffset, CSceneManager.TopUIRootOffset, CSceneManager.BottomUIRootOffset);
-						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_G, CSceneManager.LeftObjRootOffset, CSceneManager.RightObjRootOffset, CSceneManager.TopObjRootOffset, CSceneManager.BottomObjRootOffset);
-						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KDefine.U_FORMAT_SCENE_M_STATIC_DEBUG_INFO_H, stSafeArea.x, stSafeArea.y, stSafeArea.width, stSafeArea.height);
+						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_STATIC_DEBUG_INFO_A, stScreenSize.x, stScreenSize.y);
+						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_STATIC_DEBUG_INFO_B, KBDefine.SCREEN_WIDTH, KBDefine.SCREEN_HEIGHT);
+						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_STATIC_DEBUG_INFO_C, CSceneManager.CanvasSize.x, CSceneManager.CanvasSize.y);
+						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_STATIC_DEBUG_INFO_D, CSceneManager.LeftUIOffset, CSceneManager.RightUIOffset, CSceneManager.TopUIOffset, CSceneManager.BottomUIOffset);
+						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_STATIC_DEBUG_INFO_E, CSceneManager.LeftObjOffset, CSceneManager.RightObjOffset, CSceneManager.TopObjOffset, CSceneManager.BottomObjOffset);
+						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_STATIC_DEBUG_INFO_F, CSceneManager.LeftUIRootOffset, CSceneManager.RightUIRootOffset, CSceneManager.TopUIRootOffset, CSceneManager.BottomUIRootOffset);
+						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_STATIC_DEBUG_INFO_G, CSceneManager.LeftObjRootOffset, CSceneManager.RightObjRootOffset, CSceneManager.TopObjRootOffset, CSceneManager.BottomObjRootOffset);
+						CSceneManager.m_oStaticDebugStringBuilder.AppendFormat(KUDefine.FORMAT_SCENE_M_STATIC_DEBUG_INFO_H, stSafeArea.x, stSafeArea.y, stSafeArea.width, stSafeArea.height);
 					}
 
 					// 동적 텍스트를 설정한다
 					if(CSceneManager.ScreenDynamicDebugText != null) {
 						var oTransform = CSceneManager.ScreenDynamicDebugText.rectTransform;
-						oTransform.pivot = KDefine.B_ANCHOR_BOTTOM_LEFT;
-						oTransform.anchorMin = KDefine.B_ANCHOR_BOTTOM_LEFT;
-						oTransform.anchorMax = KDefine.B_ANCHOR_BOTTOM_LEFT;
+						oTransform.pivot = KBDefine.ANCHOR_BOTTOM_LEFT;
+						oTransform.anchorMin = KBDefine.ANCHOR_BOTTOM_LEFT;
+						oTransform.anchorMax = KBDefine.ANCHOR_BOTTOM_LEFT;
 						oTransform.sizeDelta = new Vector2(CSceneManager.CanvasSize.x, CSceneManager.CanvasSize.y / 2.0f);
 						oTransform.anchoredPosition = Vector2.zero;
 
@@ -621,7 +621,7 @@ public abstract partial class CSceneManager : CComponent {
 
 			// 캔버스를 설정한다 {
 #if CAMERA_STACK_ENABLE
-			if(this.SubUICamera != null && !a_oCanvas.name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_OBJ_CANVAS_BASE)) {
+			if(this.SubUICamera != null && !a_oCanvas.name.ExIsEquals(KUDefine.OBJ_NAME_SCENE_OBJ_CANVAS_BASE)) {
 				a_oCanvas.worldCamera = this.SubUICamera;
 			} else {
 				a_oCanvas.worldCamera = CSceneManager.MainCamera;
@@ -632,7 +632,7 @@ public abstract partial class CSceneManager : CComponent {
 
 			if(a_oCanvas.renderMode == RenderMode.ScreenSpaceCamera) {
 				a_oCanvas.planeDistance = this.PlaneDistance;
-				a_oCanvas.sortingLayerName = KDefine.U_SORTING_LAYER_DEF;
+				a_oCanvas.sortingLayerName = KUDefine.SORTING_LAYER_DEF;
 			}
 
 #if PIXEL_PERFECT_ENABLE
@@ -644,16 +644,16 @@ public abstract partial class CSceneManager : CComponent {
 
 			// 캔버스 비율 처리자를 설정한다 {
 			var oCanvasScaler = a_oCanvas.GetComponentInChildren<CanvasScaler>();
-			bool bIsUICanvas = a_oCanvas.name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_UI_BASE);
+			bool bIsUICanvas = a_oCanvas.name.ExIsEquals(KUDefine.OBJ_NAME_SCENE_UI_BASE);
 
-			if(bIsUICanvas || a_oCanvas.name.ExIsEquals(KDefine.U_OBJ_NAME_SCENE_OBJ_CANVAS_BASE)) {
+			if(bIsUICanvas || a_oCanvas.name.ExIsEquals(KUDefine.OBJ_NAME_SCENE_OBJ_CANVAS_BASE)) {
 				oCanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
 			}
 
 			if(oCanvasScaler != null && oCanvasScaler.uiScaleMode == CanvasScaler.ScaleMode.ScaleWithScreenSize) {
 				oCanvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-				oCanvasScaler.referenceResolution = new Vector2(KDefine.B_SCREEN_WIDTH, KDefine.B_SCREEN_HEIGHT);
-				oCanvasScaler.referencePixelsPerUnit = KDefine.B_REF_PIXELS_UNIT;
+				oCanvasScaler.referenceResolution = new Vector2(KBDefine.SCREEN_WIDTH, KBDefine.SCREEN_HEIGHT);
+				oCanvasScaler.referencePixelsPerUnit = KBDefine.REF_PIXELS_UNIT;
 			}
 			// 캔버스 비율 처리자를 설정한다 }
 		}
@@ -685,18 +685,18 @@ public abstract partial class CSceneManager : CComponent {
 #endif			// #if !CUSTOM_CAMERA_POS_ENABLE
 
 			// 트랜스 폼을 설정한다
-			a_oCamera.transform.localScale = KDefine.B_SCALE_NORMAL;
+			a_oCamera.transform.localScale = KBDefine.SCALE_NORMAL;
 			a_oCamera.transform.localEulerAngles = Vector3.zero;
 
 			// 카메라 영역을 설정한다
-			a_oCamera.farClipPlane = KDefine.U_DISTANCE_CAMERA_FAR_PLANE;
-			a_oCamera.nearClipPlane = KDefine.U_DISTANCE_CAMERA_NEAR_PLANE;
+			a_oCamera.farClipPlane = KUDefine.DISTANCE_CAMERA_FAR_PLANE;
+			a_oCamera.nearClipPlane = KUDefine.DISTANCE_CAMERA_NEAR_PLANE;
 
 			// 카메라 투영을 설정한다 {
-			a_oCamera.rect = KDefine.U_RECT_UI_CAMERA;
-			a_oCamera.depth = KDefine.U_DEPTH_UI_CAMERA;
+			a_oCamera.rect = KUDefine.RECT_UI_CAMERA;
+			a_oCamera.depth = KUDefine.DEPTH_UI_CAMERA;
 
-			a_oCamera.ExSetup2D(KDefine.B_SCREEN_HEIGHT * KDefine.B_UNIT_SCALE);
+			a_oCamera.ExSetup2D(KBDefine.SCREEN_HEIGHT * KBDefine.UNIT_SCALE);
 			// 카메라 투영을 설정한다 }
 		}
 	}
@@ -711,7 +711,7 @@ public abstract partial class CSceneManager : CComponent {
 #endif			// #if !CUSTOM_CAMERA_POS_ENABLE
 
 			// 트랜스 폼을 설정한다 {
-			a_oCamera.transform.localScale = KDefine.B_SCALE_NORMAL;
+			a_oCamera.transform.localScale = KBDefine.SCALE_NORMAL;
 
 #if MODE_2D_ENABLE
 			a_oCamera.transform.localEulerAngles = Vector3.zero;
@@ -719,17 +719,17 @@ public abstract partial class CSceneManager : CComponent {
 			// 트랜스 폼을 설정한다 }
 
 			// 카메라 영역을 설정한다
-			a_oCamera.farClipPlane = KDefine.U_DISTANCE_CAMERA_FAR_PLANE;
-			a_oCamera.nearClipPlane = KDefine.U_DISTANCE_CAMERA_NEAR_PLANE;
+			a_oCamera.farClipPlane = KUDefine.DISTANCE_CAMERA_FAR_PLANE;
+			a_oCamera.nearClipPlane = KUDefine.DISTANCE_CAMERA_NEAR_PLANE;
 
 			// 카메라 투영을 설정한다 {
-			a_oCamera.rect = KDefine.U_RECT_MAIN_CAMERA;
-			a_oCamera.depth = KDefine.U_DEPTH_MAIN_CAMERA;
+			a_oCamera.rect = KUDefine.RECT_MAIN_CAMERA;
+			a_oCamera.depth = KUDefine.DEPTH_MAIN_CAMERA;
 			
 #if MODE_2D_ENABLE
-			a_oCamera.ExSetup2D(KDefine.B_SCREEN_HEIGHT * KDefine.B_UNIT_SCALE);
+			a_oCamera.ExSetup2D(KBDefine.SCREEN_HEIGHT * KBDefine.UNIT_SCALE);
 #else
-			a_oCamera.ExSetup3D(KDefine.B_SCREEN_HEIGHT * KDefine.B_UNIT_SCALE, this.PlaneDistance);
+			a_oCamera.ExSetup3D(KBDefine.SCREEN_HEIGHT * KBDefine.UNIT_SCALE, this.PlaneDistance);
 #endif			// #if MODE_2D_ENABLE
 			// 카메라 투영을 설정한다 }
 		}

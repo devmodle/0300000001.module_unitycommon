@@ -14,7 +14,7 @@ public class CPageScrollView : CUIComponent {
 
 	private Tweener m_oAni = null;
 
-	[SerializeField] private float m_fPageDistance = KDefine.U_DEF_DISTANCE_PAGE;
+	[SerializeField] private float m_fPageDistance = KUDefine.DEF_DISTANCE_PAGE;
 	[SerializeField] private EScrollDirection m_eDirection = EScrollDirection.NONE;
 	#endregion			// 변수
 
@@ -65,8 +65,8 @@ public class CPageScrollView : CUIComponent {
 		m_oScrollView = this.GetComponentInChildren<ScrollRect>();
 
 		// 트랜스 폼을 설정한다 {
-		var oContent = this.gameObject.ExFindChild(KDefine.U_OBJ_NAME_SCROLL_V_CONTENT);
-		var oViewport = this.gameObject.ExFindChild(KDefine.U_OBJ_NAME_SCROLL_V_VIEWPORT);
+		var oContent = this.gameObject.ExFindChild(KUDefine.OBJ_NAME_SCROLL_V_CONTENT);
+		var oViewport = this.gameObject.ExFindChild(KUDefine.OBJ_NAME_SCROLL_V_VIEWPORT);
 
 		m_oContentTransform = oContent.transform as RectTransform;
 		m_oViewportTransform = oViewport.transform as RectTransform;
@@ -120,9 +120,9 @@ public class CPageScrollView : CUIComponent {
 	public void OnDrag(CDragDispatcher a_oSender, PointerEventData a_oEventData) {
 		if(m_bIsPaging) {
 			if(m_eDirection == EScrollDirection.VERTICAL) {
-				m_oContentTransform.anchoredPosition += new Vector2(0.0f, a_oEventData.delta.y * KDefine.U_DEF_SCALE_PAGE_SCROLL);
+				m_oContentTransform.anchoredPosition += new Vector2(0.0f, a_oEventData.delta.y * KUDefine.DEF_SCALE_PAGE_SCROLL);
 			} else if(m_eDirection == EScrollDirection.HORIZONTAL) {
-				m_oContentTransform.anchoredPosition += new Vector2(a_oEventData.delta.x * KDefine.U_DEF_SCALE_PAGE_SCROLL, 0.0f);
+				m_oContentTransform.anchoredPosition += new Vector2(a_oEventData.delta.x * KUDefine.DEF_SCALE_PAGE_SCROLL, 0.0f);
 			}
 		}
 	}
@@ -174,10 +174,10 @@ public class CPageScrollView : CUIComponent {
 
 		if(m_eDirection == EScrollDirection.VERTICAL) {
 			m_oAni = m_oContentTransform.DOAnchorPos(new Vector3(0.0f, a_nPage * m_oViewportTransform.rect.height, 0.0f),
-				KDefine.U_DEF_DURATION_SCROLL_ANI).SetEase(Ease.Linear);
+				KUDefine.DEF_DURATION_SCROLL_ANI).SetEase(Ease.Linear);
 		} else if(m_eDirection == EScrollDirection.HORIZONTAL) {
 			m_oAni = m_oContentTransform.DOAnchorPos(new Vector3(a_nPage * -m_oViewportTransform.rect.width, 0.0f, 0.0f),
-				KDefine.U_DEF_DURATION_SCROLL_ANI).SetEase(Ease.Linear);
+				KUDefine.DEF_DURATION_SCROLL_ANI).SetEase(Ease.Linear);
 		}
 	}
 	#endregion			// 함수

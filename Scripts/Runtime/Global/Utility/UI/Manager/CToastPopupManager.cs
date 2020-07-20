@@ -38,8 +38,8 @@ public class CToastPopupManager : CSingleton<CToastPopupManager> {
 	}
 
 	//! 토스트 팝업을 출력한다
-	public void ShowToastPopup(string a_oMsg, float a_fDuration = KDefine.U_DEF_DURATION_TOAST_POPUP) {
-		Func.Assert(this.ToastPopupCreator != null);
+	public void ShowToastPopup(string a_oMsg, float a_fDuration = KUDefine.DEF_DURATION_TOAST_POPUP) {
+		CBAccess.Assert(this.ToastPopupCreator != null);
 
 		var oToastPopup = this.ToastPopupCreator(a_oMsg, a_fDuration);
 		oToastPopup.gameObject.SetActive(false);
@@ -49,8 +49,8 @@ public class CToastPopupManager : CSingleton<CToastPopupManager> {
 
 	//! 토스트 팝업을 생성한다
 	private CToastPopup CreateToastPopup(string a_oMsg, float a_fDuration) {
-		return Func.CreateToastPopup<CToastPopup>(KDefine.U_OBJ_NAME_TOAST_P_TOAST_POPUP,
-			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOAST_POPUP), CSceneManager.ScreenTopmostUIRoot, a_oMsg, a_fDuration);
+		return CToastPopup.CreateToastPopup<CToastPopup>(KUDefine.OBJ_NAME_TOAST_P_TOAST_POPUP,
+			CResManager.Instance.GetPrefab(KUDefine.OBJ_PATH_TOAST_POPUP), CSceneManager.ScreenTopmostUIRoot, a_oMsg, a_fDuration);
 	}
 	#endregion			// 함수
 }

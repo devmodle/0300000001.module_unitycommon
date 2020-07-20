@@ -17,8 +17,8 @@ public class CLogManager : CSingleton<CLogManager> {
 		Application.logMessageReceived -= this.OnReceiveLog;
 		Application.logMessageReceived += this.OnReceiveLog;
 
-		if(File.Exists(KDefine.B_DATA_PATH_LOG)) {
-			var oBytes = Func.ReadBytes(KDefine.B_DATA_PATH_LOG);
+		if(File.Exists(KBDefine.DATA_PATH_LOG)) {
+			var oBytes = CBAccess.ReadBytes(KBDefine.DATA_PATH_LOG);
 			m_oStringBuilder.Append(System.Text.Encoding.Default.GetString(oBytes, 0, oBytes.Length));
 		}
 	}
@@ -35,16 +35,16 @@ public class CLogManager : CSingleton<CLogManager> {
 	//! 로그를 수신했을 경우
 	public void OnReceiveLog(string a_oCondition, string a_oStackTrace, LogType a_eLogType) {
 		if(a_eLogType != LogType.Log && a_eLogType != LogType.Warning) {
-			m_oStringBuilder.AppendFormat(KDefine.U_FORMAT_LOG_M_LOG, 
+			m_oStringBuilder.AppendFormat(KUDefine.FORMAT_LOG_M_LOG, 
 				System.DateTime.Now.ToString(), a_eLogType, a_oCondition, a_oStackTrace);
 
-			if(m_oStringBuilder.Length > KDefine.U_MAX_LENGTH_LOG) {
-				m_oStringBuilder.Remove(0, m_oStringBuilder.Length - KDefine.U_MAX_LENGTH_LOG);
+			if(m_oStringBuilder.Length > KUDefine.MAX_LENGTH_LOG) {
+				m_oStringBuilder.Remove(0, m_oStringBuilder.Length - KUDefine.MAX_LENGTH_LOG);
 			}
 
-			using(var oWriteStream = Func.GetWriteStream(KDefine.B_DATA_PATH_LOG)) {
+			using(var oWriteStream = CBAccess.GetWriteStream(KBDefine.DATA_PATH_LOG)) {
 				var oBytes = System.Text.Encoding.Default.GetBytes(m_oStringBuilder.ToString());
-				Func.WriteBytes(oWriteStream, oBytes);
+				CBAccess.WriteBytes(oWriteStream, oBytes);
 			}
 		}
 	}

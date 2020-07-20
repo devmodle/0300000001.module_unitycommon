@@ -15,12 +15,12 @@ public static class CAutoSceneImporter {
 
 	//! 모든 씬을 추가한다
 	private static void ImportAllScenes() {
-		var oAssetGUIDs = AssetDatabase.FindAssets(KEditorDefine.B_SCENE_NAME_PATTERN, new string[] {
-			KEditorDefine.B_DIR_PATH_AUTO_SCENES,
-			KEditorDefine.B_DIR_PATH_SCENES,
+		var oAssetGUIDs = AssetDatabase.FindAssets(KBEditorDefine.SCENE_NAME_PATTERN, new string[] {
+			KBEditorDefine.DIR_PATH_AUTO_SCENES,
+			KBEditorDefine.DIR_PATH_SCENES,
 
 #if EDITOR_ENABLE
-			KEditorDefine.B_DIR_PATH_EDITOR_SCENES
+			KBEditorDefine.DIR_PATH_EDITOR_SCENES
 #endif			// #if EDITOR_ENABLE
 		});
 

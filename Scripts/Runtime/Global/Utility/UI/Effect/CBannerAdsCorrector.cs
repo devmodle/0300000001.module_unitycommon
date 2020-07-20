@@ -50,7 +50,7 @@ public class CBannerAdsCorrector : CComponent {
 #if UNITY_EDITOR
 	//! 스크립트 순서를 설정한다
 	protected override void SetupScriptOrder() {
-		this.ExSetScriptOrder(KDefine.U_SCRIPT_ORDER_BANNER_ADS_CORRECTOR);
+		this.ExSetScriptOrder(KUDefine.SCRIPT_ORDER_BANNER_ADS_CORRECTOR);
 	}
 #endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 함수

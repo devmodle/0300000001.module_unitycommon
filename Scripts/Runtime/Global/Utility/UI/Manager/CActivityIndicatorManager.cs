@@ -34,7 +34,7 @@ public class CActivityIndicatorManager : CSingleton<CActivityIndicatorManager> {
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 				CUnityMsgSender.Instance.SendActivityIndicatorMsg(true);
 #else
-				Func.ShowLog("CActivityIndicatorManager.StartActivityIndicator: {0}", KDefine.B_LOG_COLOR_SETUP, m_nRefCount);
+				Func.ShowLog("CActivityIndicatorManager.StartActivityIndicator: {0}", KBDefine.LOG_COLOR_SETUP, m_nRefCount);
 #endif			// #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 			}
 
@@ -42,7 +42,7 @@ public class CActivityIndicatorManager : CSingleton<CActivityIndicatorManager> {
 			if(a_bIsShowBlindUI) {
 				var oParent = CSceneManager.ScreenTopmostUIRoot ?? CSceneManager.TopmostUIRoot;
 
-				CSceneManager.ShowTouchResponder(KDefine.U_OBJ_NAME_ACTIVITY_I_TOUCH_RESPONDER,
+				CSceneManager.ShowTouchResponder(KUDefine.OBJ_NAME_ACTIVITY_I_TOUCH_RESPONDER,
 					oParent, KAppDefine.G_DEF_COLOR_ACTIVITY_INDICATOR_BG, null, false, true);
 			}
 		}
@@ -57,11 +57,11 @@ public class CActivityIndicatorManager : CSingleton<CActivityIndicatorManager> {
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 			CUnityMsgSender.Instance.SendActivityIndicatorMsg(false);
 #else
-			Func.ShowLog("CActivityIndicatorManager.StopActivityIndicator: {0}", KDefine.B_LOG_COLOR_SETUP, m_nRefCount);
+			Func.ShowLog("CActivityIndicatorManager.StopActivityIndicator: {0}", KBDefine.LOG_COLOR_SETUP, m_nRefCount);
 #endif			// #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 
-			CSceneManager.CloseTouchResponder(KDefine.U_OBJ_NAME_ACTIVITY_I_TOUCH_RESPONDER, 
-				KDefine.U_DEF_COLOR_TRANSPARENT);
+			CSceneManager.CloseTouchResponder(KUDefine.OBJ_NAME_ACTIVITY_I_TOUCH_RESPONDER, 
+				KUDefine.DEF_COLOR_TRANSPARENT);
 		}
 	}
 	#endregion			// 함수

@@ -11,7 +11,7 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 	#region 함수
 	//! 익명 로그인을 처리한다
 	public void Login(System.Action<CFirebaseManager, bool> a_oCallback) {
-		Func.ShowLog("CFirebaseManager.Login", KDefine.B_LOG_COLOR_PLUGIN);
+		Func.ShowLog("CFirebaseManager.Login", KBDefine.LOG_COLOR_PLUGIN);
 
 		if(!this.IsInit || this.IsLogin) {
 			a_oCallback?.Invoke(this, this.IsLogin);
@@ -20,7 +20,7 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 				bool bIsComplete = a_oTask.ExIsComplete();
 
 				Func.ShowLog("CFirebaseManager.OnLogin: {0}, {1}, {2}", 
-					KDefine.B_LOG_COLOR_PLUGIN, bIsComplete, bIsComplete ? a_oTask.Result.UserId : string.Empty, a_oTask.Exception?.Message);
+					KBDefine.LOG_COLOR_PLUGIN, bIsComplete, bIsComplete ? a_oTask.Result.UserId : string.Empty, a_oTask.Exception?.Message);
 
 				a_oCallback?.Invoke(this, this.IsLogin);
 			});
@@ -29,8 +29,8 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 
 	//! 인증 로그인을 처리한다
 	public void LoginWithCredential(Credential a_oCredential, System.Action<CFirebaseManager, bool> a_oCallback) {
-		Func.Assert(a_oCredential != null);
-		Func.ShowLog("CFirebaseManager.LoginWithCredential", KDefine.B_LOG_COLOR_PLUGIN);
+		CBAccess.Assert(a_oCredential != null);
+		Func.ShowLog("CFirebaseManager.LoginWithCredential", KBDefine.LOG_COLOR_PLUGIN);
 
 		if(!this.IsInit || this.IsLogin) {
 			a_oCallback?.Invoke(this, this.IsLogin);
@@ -39,7 +39,7 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 				bool bIsComplete = a_oTask.ExIsComplete();
 
 				Func.ShowLog("CFirebaseManager.OnLoginWithCredential: {0}, {1}. {2}", 
-					KDefine.B_LOG_COLOR_PLUGIN, bIsComplete, bIsComplete ? a_oTask.Result.UserId : string.Empty, a_oTask.Exception?.Message);
+					KBDefine.LOG_COLOR_PLUGIN, bIsComplete, bIsComplete ? a_oTask.Result.UserId : string.Empty, a_oTask.Exception?.Message);
 
 				a_oCallback?.Invoke(this, this.IsLogin);
 			});
@@ -48,7 +48,7 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 
 	//! 로그아웃을 처리한다
 	public void Logout(System.Action<CFirebaseManager> a_oCallback) {
-		Func.ShowLog("CFirebaseManager.Logout", KDefine.B_LOG_COLOR_PLUGIN);
+		Func.ShowLog("CFirebaseManager.Logout", KBDefine.LOG_COLOR_PLUGIN);
 
 		if(this.IsInit) {
 			FirebaseAuth.DefaultInstance.SignOut();
@@ -62,10 +62,10 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 #if FACEBOOK_ENABLE
 	//! 페이스 북 로그인을 처리한다
 	public void LoginWithFacebook(string a_oAccessToken, System.Action<CFirebaseManager, bool> a_oCallback) {
-		Func.Assert(a_oAccessToken.ExIsValid());
-		Func.ShowLog("CFirebaseManager.LoginWithFacebook: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oAccessToken);
+		CBAccess.Assert(a_oAccessToken.ExIsValid());
+		Func.ShowLog("CFirebaseManager.LoginWithFacebook: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oAccessToken);
 
-		if(!this.IsInit || !Func.IsMobilePlatform()) {
+		if(!this.IsInit || !CBAccess.IsMobilePlatform()) {
 			a_oCallback?.Invoke(this, false);
 		} else {
 			var oAuth = FirebaseAuth.DefaultInstance;
@@ -88,10 +88,10 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 
 	//! 게임 로그인을 처리한다
 	public void LoginWithGameCenter(string a_oAuthCode, System.Action<CFirebaseManager, bool> a_oCallback) {
-		Func.Assert(a_oAuthCode.ExIsValid());
-		Func.ShowLog("CFirebaseManager.LoginWithGameCenter: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oAuthCode);
+		CBAccess.Assert(a_oAuthCode.ExIsValid());
+		Func.ShowLog("CFirebaseManager.LoginWithGameCenter: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oAuthCode);
 
-		if(!this.IsInit || !Func.IsMobilePlatform()) {
+		if(!this.IsInit || !CBAccess.IsMobilePlatform()) {
 			a_oCallback?.Invoke(this, false);
 		} else {
 			var oAuth = FirebaseAuth.DefaultInstance;

@@ -39,14 +39,14 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 	#region 함수
 	//! 초기화
 	public virtual void Init(Dictionary<string, object> a_oConfigDataList, System.Action<CFirebaseManager, bool> a_oCallback) {
-		Func.ShowLog("CFirebaseManager.Init: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oConfigDataList);
+		Func.ShowLog("CFirebaseManager.Init: {0}", KBDefine.LOG_COLOR_PLUGIN, a_oConfigDataList);
 
-		if(this.IsInit || !Func.IsMobilePlatform()) {
+		if(this.IsInit || !CBAccess.IsMobilePlatform()) {
 			a_oCallback?.Invoke(this, this.IsInit);
 		} else {
 			Func.WaitAsyncTask(FirebaseApp.CheckAndFixDependenciesAsync(), (a_oTask) => {
 				this.IsInit = a_oTask.Result == DependencyStatus.Available;
-				Func.ShowLog("CFirebaseManager.OnInit: {0}, {1}", KDefine.B_LOG_COLOR_PLUGIN, this.IsInit, a_oTask.Exception?.Message);
+				Func.ShowLog("CFirebaseManager.OnInit: {0}, {1}", KBDefine.LOG_COLOR_PLUGIN, this.IsInit, a_oTask.Exception?.Message);
 
 				if(this.IsInit) {
 #if UNITY_EDITOR && FIREBASE_DATABASE_ENABLE

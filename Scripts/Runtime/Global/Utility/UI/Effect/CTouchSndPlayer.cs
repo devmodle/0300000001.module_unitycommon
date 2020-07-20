@@ -46,8 +46,8 @@ public class CTouchSndPlayer : CUIComponent,
 	public override void Awake() {
 		base.Awake();
 
-		this.TouchBeganSndFilepath = KDefine.U_SND_PATH_G_TOUCH_BEGAN;
-		this.TouchEndedSndFilepath = KDefine.U_SND_PATH_G_TOUCH_ENDED;
+		this.TouchBeganSndFilepath = KUDefine.SND_PATH_G_TOUCH_BEGAN;
+		this.TouchEndedSndFilepath = KUDefine.SND_PATH_G_TOUCH_ENDED;
 	}
 	#endregion			// 함수
 }

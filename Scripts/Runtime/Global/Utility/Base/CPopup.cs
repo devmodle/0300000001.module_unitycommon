@@ -30,10 +30,10 @@ public class CPopup : CUIComponent {
 	public bool IsClose { get; private set; } = false;
 	public bool IsEnableBGAni { get; set; } = true;
 
-	public float ShowTimeScale { get; set; } = KDefine.U_ZERO_TIME_SCALE;
-	public float CloseTimeScale { get; set; } = KDefine.U_DEF_TIME_SCALE;
+	public float ShowTimeScale { get; set; } = KUDefine.ZERO_TIME_SCALE;
+	public float CloseTimeScale { get; set; } = KUDefine.DEF_TIME_SCALE;
 
-	public float ShowAniDelay { get; set; } = KDefine.U_DEF_DELAY_POPUP_SHOW_ANI;
+	public float ShowAniDelay { get; set; } = KUDefine.DEF_DELAY_POPUP_SHOW_ANI;
 	public virtual Color BGColor => KAppDefine.G_DEF_COLOR_POPUP_BG;
 	#endregion			// 프로퍼티
 
@@ -44,7 +44,7 @@ public class CPopup : CUIComponent {
 		CNavStackManager.Instance.AddComponent(this);
 
 		// 루트를 설정한다
-		m_oContentRoot = this.gameObject.ExFindChild(KDefine.U_OBJ_NAME_POPUP_CONTENT_ROOT);
+		m_oContentRoot = this.gameObject.ExFindChild(KUDefine.OBJ_NAME_POPUP_CONTENT_ROOT);
 		
 		// 터치 응답자를 생성한다
 		m_oTouchResponder = this.CreateTouchResponder();
@@ -52,14 +52,14 @@ public class CPopup : CUIComponent {
 
 		// 컨텐츠 크기를 설정한다
 		m_oRootTransform = m_oContentRoot.transform as RectTransform;
-		m_oRootTransform.localScale = new Vector3(KDefine.U_MIN_SCALE_POPUP, KDefine.U_MIN_SCALE_POPUP, KDefine.U_MIN_SCALE_POPUP);
+		m_oRootTransform.localScale = new Vector3(KUDefine.MIN_SCALE_POPUP, KUDefine.MIN_SCALE_POPUP, KUDefine.MIN_SCALE_POPUP);
 
 		// 이미지를 생성한다
 		m_oBGImg = m_oTouchResponder.GetComponentInChildren<Image>();
 		m_oBGImg.color = this.BGColor.ExGetAlphaColor(0.0f);
 
 		// 버튼을 생성한다
-		var oCloseBtn = m_oContentRoot.ExFindComponent<Button>(KDefine.U_OBJ_NAME_POPUP_CLOSE_BTN);
+		var oCloseBtn = m_oContentRoot.ExFindComponent<Button>(KUDefine.OBJ_NAME_POPUP_CLOSE_BTN);
 		oCloseBtn?.onClick.AddListener(this.OnTouchCloseBtn);
 	}
 
@@ -82,7 +82,7 @@ public class CPopup : CUIComponent {
 		this.OnShowPopup();
 		m_oShowCallback?.Invoke(this);
 
-		m_oRootTransform.localScale = new Vector3(KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_SCALE_POPUP);
+		m_oRootTransform.localScale = new Vector3(KUDefine.DEF_SCALE_POPUP, KUDefine.DEF_SCALE_POPUP, KUDefine.DEF_SCALE_POPUP);
 	}
 
 	//! 닫기 애니메이션이 완료 되었을 경우
@@ -111,7 +111,7 @@ public class CPopup : CUIComponent {
 		if(!a_bIsAni) {
 			m_oBGImg.color = a_stColor;
 		} else {
-			m_oBGAni = m_oBGImg.DOColor(a_stColor, KDefine.U_DEF_DURATION_ANI).SetUpdate(true);
+			m_oBGAni = m_oBGImg.DOColor(a_stColor, KUDefine.DEF_DURATION_ANI).SetUpdate(true);
 		}
 	}
 
@@ -121,7 +121,7 @@ public class CPopup : CUIComponent {
 			m_oShowCallback = a_oShowCallback;
 			m_oCloseCallback = a_oCloseCallback;
 
-			if(this.ShowAniDelay.ExIsLessEquals(KDefine.B_DELTA_TIME_INTERMEDIATE)) {
+			if(this.ShowAniDelay.ExIsLessEquals(KBDefine.DELTA_TIME_INTERMEDIATE)) {
 				Func.LateCallFunc(this, this.DoShowPopup);
 			} else {
 				Func.LateCallFunc(this, this.ShowAniDelay, this.DoShowPopup, true);
@@ -159,28 +159,28 @@ public class CPopup : CUIComponent {
 
 	//! 터치 응답자를 생성한다
 	protected virtual GameObject CreateTouchResponder() {
-		return Func.CreateTouchResponder(string.Format(KDefine.U_OBJ_NAME_FORMAT_POPUP_TOUCH_RESPONDER, this.gameObject.name),
-			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_TOUCH_RESPONDER),
+		return CUFactory.CreateTouchResponder(string.Format(KUDefine.OBJ_NAME_FORMAT_POPUP_TOUCH_RESPONDER, this.gameObject.name),
+			CResManager.Instance.GetPrefab(KUDefine.OBJ_PATH_TOUCH_RESPONDER),
 			this.gameObject,
 			CSceneManager.CanvasSize,
 			Vector3.zero.ExToLocal(this.gameObject),
-			KDefine.U_DEF_COLOR_TRANSPARENT);
+			KUDefine.DEF_COLOR_TRANSPARENT);
 	}
 
 	//! 출력 애니메이션을 생성한다
 	protected virtual Sequence CreateShowAni() {
-		var oAni = m_oRootTransform.DOScale(KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_DURATION_POPUP_ANI);
+		var oAni = m_oRootTransform.DOScale(KUDefine.DEF_SCALE_POPUP, KUDefine.DEF_DURATION_POPUP_ANI);
 		return DOTween.Sequence().SetEase(Ease.OutExpo).Append(oAni);
 	}
 
 	//! 닫기 애니메이션을 생성한다
 	protected virtual Sequence CreateCloseAni() {
-		var oAni = m_oRootTransform.DOScale(KDefine.U_MIN_SCALE_POPUP, KDefine.U_DEF_DURATION_POPUP_ANI);
+		var oAni = m_oRootTransform.DOScale(KUDefine.MIN_SCALE_POPUP, KUDefine.DEF_DURATION_POPUP_ANI);
 		return DOTween.Sequence().SetEase(Ease.InExpo).Append(oAni);
 	}
 
 	//! 팝업을 출력한다
-	private void DoShowPopup(CComponent a_oComponent, object[] a_oParams) {
+	private void DoShowPopup(MonoBehaviour a_oComponent, object[] a_oParams) {
 		if(!this.IsClose && !this.IsDestroy) {
 			this.SetupPopupContents();
 			this.StartShowAni();
@@ -217,4 +217,14 @@ public class CPopup : CUIComponent {
 		m_oCloseAni?.AppendCallback(this.OnCompleteCloseAni);
 	}
 	#endregion			// 함수
+
+	#region 클래스 제네릭 함수
+	//! 팝업을 생성한다
+	public static T CreatePopup<T>(string a_oName, GameObject a_oOrigin, GameObject a_oParent, Vector2 a_stPos) where T : CPopup {
+		var oPopup = CUFactory.CreateCloneObj<T>(a_oName, a_oOrigin, a_oParent);
+		oPopup.m_oRectTransform.anchoredPosition = a_stPos;
+		
+		return oPopup;
+	}
+	#endregion			// 클래스 제네릭 함수
 }

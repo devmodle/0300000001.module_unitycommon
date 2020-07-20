@@ -17,10 +17,10 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	#endregion			// 클래스 객체
 
 	#region 프로퍼티
-	public override string SceneName => KDefine.B_SCENE_NAME_INIT;
+	public override string SceneName => KBDefine.SCENE_NAME_INIT;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KDefine.U_SCRIPT_ORDER_INIT_SCENE_MANAGER;
+	public override int ScriptOrder => KUDefine.SCRIPT_ORDER_INIT_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -36,19 +36,19 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		// 디바이스 정보를 설정한다 {
 		int nTargetFrameRate = KAppDefine.G_DESKTOP_TARGET_FRAME_RATE;
 
-		if(Func.IsDesktopPlatform()) {
-			Screen.SetResolution(KDefine.B_DESKTOP_WINDOW_WIDTH, 
-				KDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
+		if(CBAccess.IsDesktopPlatform()) {
+			Screen.SetResolution(KBDefine.DESKTOP_WINDOW_WIDTH, 
+				KBDefine.DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
 		} else {
-			if(Func.IsMobilePlatform()) {
+			if(CBAccess.IsMobilePlatform()) {
 				nTargetFrameRate = KAppDefine.G_MOBILE_TARGET_FRAME_RATE;
-			} else if(Func.IsConsolePlatform()) {
+			} else if(CBAccess.IsConsolePlatform()) {
 				nTargetFrameRate = KAppDefine.G_CONSOLE_TARGET_FRAME_RATE;
 			} else {
 				nTargetFrameRate = KAppDefine.G_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
 			}
 
-			var stScreenSize = Func.GetDeviceScreenSize(Application.isPlaying);
+			var stScreenSize = CUAccess.GetDeviceScreenSize(Application.isPlaying);
 			Screen.SetResolution((int)stScreenSize.x, (int)stScreenSize.y, true);
 		}
 
@@ -64,7 +64,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 		// 저장소를 로드한다 {
 #if MESSAGE_PACK_ENABLE
-		CUserInfoStorage.Instance.LoadUserInfo(KDefine.B_DATA_PATH_USER_INFO);
+		CUserInfoStorage.Instance.LoadUserInfo(KBDefine.DATA_PATH_USER_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 		// 저장소를 로드한다 }
 
@@ -83,20 +83,20 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	//! 초기화
 	private IEnumerator OnStart() {
 		if(!CSceneManager.IsInit) {
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 			CActivityIndicatorManager.Instance.StartActivityIndicator(true, false);
 
 			// 간격을 설정한다
 			this.SetupOffsets();
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 
 			// iOS 플랫폼을 설정한다 {
 #if UNITY_IOS
-			Device.SetNoBackupFlag(KDefine.B_DIR_PATH_WRITABLE);
-			Device.SetNoBackupFlag(KDefine.U_IMG_PATH_SCREENSHOT);
+			Device.SetNoBackupFlag(KBDefine.DIR_PATH_WRITABLE);
+			Device.SetNoBackupFlag(KUDefine.IMG_PATH_SCREENSHOT);
 
 			Device.hideHomeButton = false;
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 #endif			// #if UNITY_IOS
 			// iOS 플랫폼을 설정한다 }
 
@@ -145,35 +145,35 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CUnityServiceManager.Create();
 #endif			// #if UNITY_SERVICE_ENABLE
 
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 			// 관리자를 생성한다 }
 
 			// 디바이스 연동 객체를 생성한다 {
 			CUnityMsgSender.Create();
 			CDeviceMsgReceiver.Create();
 
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 			// 디바이스 연동 객체를 생성한다 }
 
 			// 테이블을 생성한다 {
 			CValueTable.Create();
 			CStringTable.Create();
 
-			CBuildInfoTable.Create(KDefine.U_SCRIPTABLE_PATH_G_BUILD_INFO_TABLE);
-			CBuildOptionTable.Create(KDefine.U_SCRIPTABLE_PATH_G_BUILD_OPTION_TABLE);
-			CDefineSymbolTable.Create(KDefine.U_SCRIPTABLE_PATH_G_DEFINE_SYMBOL_TABLE);
-			CProjectInfoTable.Create(KDefine.U_SCRIPTABLE_PATH_G_PROJECT_INFO_TABLE);
-			CDeviceInfoTable.Create(KDefine.U_SCRIPTABLE_PATH_G_DEVICE_INFO_TABLE);
+			CBuildInfoTable.Create(KUDefine.SCRIPTABLE_PATH_G_BUILD_INFO_TABLE);
+			CBuildOptionTable.Create(KUDefine.SCRIPTABLE_PATH_G_BUILD_OPTION_TABLE);
+			CDefineSymbolTable.Create(KUDefine.SCRIPTABLE_PATH_G_DEFINE_SYMBOL_TABLE);
+			CProjectInfoTable.Create(KUDefine.SCRIPTABLE_PATH_G_PROJECT_INFO_TABLE);
+			CDeviceInfoTable.Create(KUDefine.SCRIPTABLE_PATH_G_DEVICE_INFO_TABLE);
 
 #if ADS_ENABLE || TENJIN_ENABLE || FLURRY_ENABLE || FIREBASE_ENABLE
-			CPluginInfoTable.Create(KDefine.U_SCRIPTABLE_PATH_G_PLUGIN_INFO_TABLE);
+			CPluginInfoTable.Create(KUDefine.SCRIPTABLE_PATH_G_PLUGIN_INFO_TABLE);
 #endif			// #if ADS_ENABLE || TENJIN_ENABLE || FLURRY_ENABLE || FIREBASE_ENABLE
 
 #if PURCHASE_ENABLE
-			CProductInfoTable.Create(KDefine.U_SCRIPTABLE_PATH_G_PRODUCT_INFO_TABLE);
+			CProductInfoTable.Create(KUDefine.SCRIPTABLE_PATH_G_PRODUCT_INFO_TABLE);
 #endif			// #if PURCHASE_ENABLE
 
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 			// 테이블을 생성한다 }
 
 			// 저장소를 생성한다 {
@@ -182,15 +182,15 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CUserInfoStorage.Create();
 #endif			// #if MESSAGE_PACK_ENABLE
 
-			yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+			yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 			// 저장소를 생성한다 }
 		}
 
 		this.Setup();
-		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 		
 		CSceneManager.IsInit = true;
-		CSceneLoader.Instance.LoadScene(KDefine.B_SCENE_NAME_SPLASH, false, false);
+		CSceneLoader.Instance.LoadScene(KBDefine.SCENE_NAME_SPLASH, false, false);
 	}
 	#endregion			// 함수
 }

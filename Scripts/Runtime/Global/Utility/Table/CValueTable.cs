@@ -37,7 +37,7 @@ public class CValueTable : CSingleton<CValueTable> {
 	}
 
 	//! 문자열을 반환한다
-	public string GetString(string a_oKey, string a_oDefValue = KDefine.B_EMPTY_STRING) {
+	public string GetString(string a_oKey, string a_oDefValue = KBDefine.EMPTY_STRING) {
 		return m_oStringList.ExGetValue(a_oKey, a_oDefValue);
 	}
 
@@ -83,14 +83,14 @@ public class CValueTable : CSingleton<CValueTable> {
 
 	//! 값을 로드한다
 	public void LoadValues(string a_oCSVString) {
-		Func.Assert(a_oCSVString.ExIsValid());
+		CBAccess.Assert(a_oCSVString.ExIsValid());
 		var oStringInfoList = CSVParser.Parse(a_oCSVString);
 
 		for(int i = 0; i < oStringInfoList.Count; ++i) {
-			string oKey = oStringInfoList[i][KDefine.U_KEY_VALUE_T_ID];
-			string oValue = oStringInfoList[i][KDefine.U_KEY_VALUE_T_VALUE];
+			string oKey = oStringInfoList[i][KUDefine.KEY_VALUE_T_ID];
+			string oValue = oStringInfoList[i][KUDefine.KEY_VALUE_T_VALUE];
 
-			var eValueType = (EValueType)int.Parse(oStringInfoList[i][KDefine.U_KEY_VALUE_T_VALUE_TYPE]);
+			var eValueType = (EValueType)int.Parse(oStringInfoList[i][KUDefine.KEY_VALUE_T_VALUE_TYPE]);
 
 			switch(eValueType) {
 			case EValueType.BOOL: this.AddBool(oKey, bool.Parse(oValue)); break;
@@ -103,13 +103,13 @@ public class CValueTable : CSingleton<CValueTable> {
 
 	//! 값을 로드한다
 	public void LoadValuesFromFile(string a_oFilepath) {
-		this.LoadValues(Func.ReadString(a_oFilepath, System.Text.Encoding.Default));
+		this.LoadValues(CBAccess.ReadString(a_oFilepath, System.Text.Encoding.Default));
 	}
 
 	//! 값을 로드한다
 	public void LoadValuesFromRes(string a_oFilepath) {
 		var oTextAsset = CResManager.Instance.GetTextAsset(a_oFilepath);
-		Func.Assert(oTextAsset.ExIsValid());
+		CBAccess.Assert(oTextAsset.ExIsValid());
 
 		this.LoadValues(oTextAsset.text);
 		CResManager.Instance.RemoveTextAsset(a_oFilepath, true);

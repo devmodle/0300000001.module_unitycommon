@@ -5,10 +5,10 @@ using UnityEngine;
 //! 시작 씬 관리자
 public abstract class CStartSceneManager : CSceneManager {
 	#region 프로퍼티
-	public override string SceneName => KDefine.B_SCENE_NAME_START;
+	public override string SceneName => KBDefine.SCENE_NAME_START;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KDefine.U_SCRIPT_ORDER_START_SCENE_MANAGER;
+	public override int ScriptOrder => KUDefine.SCRIPT_ORDER_START_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -31,10 +31,10 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+		yield return CBFactory.CreateWaitForSeconds(KUDefine.DELAY_INIT);
 
 		this.Setup();
-		Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_SETUP);
+		CSceneLoader.Instance.LoadAdditiveScene(KBDefine.SCENE_NAME_SETUP);
 	}
 	#endregion			// 함수
 }

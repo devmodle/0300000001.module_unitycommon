@@ -35,23 +35,23 @@ public class CAlertPopup : CPopup {
 		base.Awake();
 
 		// 버튼을 설정한다 {
-		var oOKBtn = m_oBtnRoot.ExFindComponent<Button>(KDefine.U_OBJ_NAME_ALERT_P_OK_BTN);
+		var oOKBtn = m_oBtnRoot.ExFindComponent<Button>(KUDefine.OBJ_NAME_ALERT_P_OK_BTN);
 		oOKBtn.onClick.AddListener(this.OnTouchOKBtn);
 
-		var oCancelBtn = m_oBtnRoot.ExFindComponent<Button>(KDefine.U_OBJ_NAME_ALERT_P_CANCEL_BTN);
+		var oCancelBtn = m_oBtnRoot.ExFindComponent<Button>(KUDefine.OBJ_NAME_ALERT_P_CANCEL_BTN);
 		oCancelBtn.onClick.AddListener(this.OnTouchCancelBtn);
 		// 버튼을 설정한다 }
 
 		// 텍스트를 설정한다 {
-		m_oTitleText = m_oTextRoot.ExFindComponent<Text>(KDefine.U_OBJ_NAME_ALERT_P_TITLE_TEXT);
-		m_oMsgText = m_oTextRoot.ExFindComponent<Text>(KDefine.U_OBJ_NAME_ALERT_P_MSG_TEXT);
+		m_oTitleText = m_oTextRoot.ExFindComponent<Text>(KUDefine.OBJ_NAME_ALERT_P_TITLE_TEXT);
+		m_oMsgText = m_oTextRoot.ExFindComponent<Text>(KUDefine.OBJ_NAME_ALERT_P_MSG_TEXT);
 
 		m_oOKBtnText = oOKBtn.GetComponentInChildren<Text>();
 		m_oCancelBtnText = oCancelBtn.GetComponentInChildren<Text>();
 		// 텍스트를 설정한다 }
 
 		// 이미지를 설정한다 {
-		m_oAlertPopupBGImg = m_oContentRoot.ExFindComponent<Image>(KDefine.U_OBJ_NAME_ALERT_P_BG_IMG);
+		m_oAlertPopupBGImg = m_oContentRoot.ExFindComponent<Image>(KUDefine.OBJ_NAME_ALERT_P_BG_IMG);
 
 		m_oOKBtnImg = oOKBtn.GetComponentInChildren<Image>();
 		m_oCancelBtnImg = oCancelBtn.GetComponentInChildren<Image>();
@@ -63,16 +63,16 @@ public class CAlertPopup : CPopup {
 		m_oCallback = a_oCallback;
 
 		// 텍스트를 설정한다 {
-		m_oTitleText.text = a_oDataList.ContainsKey(KDefine.U_KEY_ALERT_P_TITLE) ? a_oDataList[KDefine.U_KEY_ALERT_P_TITLE] 
+		m_oTitleText.text = a_oDataList.ContainsKey(KUDefine.KEY_ALERT_P_TITLE) ? a_oDataList[KUDefine.KEY_ALERT_P_TITLE] 
 			: string.Empty;
 
-		m_oMsgText.text = a_oDataList.ContainsKey(KDefine.U_KEY_ALERT_P_MSG) ? a_oDataList[KDefine.U_KEY_ALERT_P_MSG] 
+		m_oMsgText.text = a_oDataList.ContainsKey(KUDefine.KEY_ALERT_P_MSG) ? a_oDataList[KUDefine.KEY_ALERT_P_MSG] 
 			: string.Empty;
 
-		m_oOKBtnText.text = a_oDataList.ContainsKey(KDefine.U_KEY_ALERT_P_OK_BTN_TEXT) ? a_oDataList[KDefine.U_KEY_ALERT_P_OK_BTN_TEXT] 
+		m_oOKBtnText.text = a_oDataList.ContainsKey(KUDefine.KEY_ALERT_P_OK_BTN_TEXT) ? a_oDataList[KUDefine.KEY_ALERT_P_OK_BTN_TEXT] 
 			: string.Empty;
 
-		m_oCancelBtnText.text = a_oDataList.ContainsKey(KDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT) ? a_oDataList[KDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] 
+		m_oCancelBtnText.text = a_oDataList.ContainsKey(KUDefine.KEY_ALERT_P_CANCEL_BTN_TEXT) ? a_oDataList[KUDefine.KEY_ALERT_P_CANCEL_BTN_TEXT] 
 			: string.Empty;
 		// 텍스트를 설정한다 }
 	}
@@ -92,19 +92,19 @@ public class CAlertPopup : CPopup {
 	//! 팝업 컨텐츠를 설정한다
 	protected override void SetupPopupContents() {
 		var oBGTransform = m_oAlertPopupBGImg.rectTransform;
-		oBGTransform.pivot = KDefine.B_ANCHOR_MIDDLE_CENTER;
+		oBGTransform.pivot = KBDefine.ANCHOR_MIDDLE_CENTER;
 
 		var oTitleTransform = m_oTitleText.rectTransform;
-		oTitleTransform.pivot = KDefine.B_ANCHOR_MIDDLE_CENTER;
+		oTitleTransform.pivot = KBDefine.ANCHOR_MIDDLE_CENTER;
 
 		var oMsgTransform = m_oMsgText.rectTransform;
-		oMsgTransform.pivot = KDefine.B_ANCHOR_MIDDLE_CENTER;
+		oMsgTransform.pivot = KBDefine.ANCHOR_MIDDLE_CENTER;
 
 		var oOKBtnTransform = m_oOKBtnImg.rectTransform;
-		oOKBtnTransform.pivot = KDefine.B_ANCHOR_MIDDLE_CENTER;
+		oOKBtnTransform.pivot = KBDefine.ANCHOR_MIDDLE_CENTER;
 
 		var oCancelBtnTransform = m_oCancelBtnImg.rectTransform;
-		oCancelBtnTransform.pivot = KDefine.B_ANCHOR_MIDDLE_CENTER;
+		oCancelBtnTransform.pivot = KBDefine.ANCHOR_MIDDLE_CENTER;
 
 		var stTitleRect = oTitleTransform.rect;
 		var stMsgRect = oMsgTransform.rect;
@@ -156,4 +156,15 @@ public class CAlertPopup : CPopup {
 		// 위치를 보정한다 }
 	}
 	#endregion			// 함수
+
+	#region 클래스 제네릭 함수
+	//! 알림 팝업을 생성한다
+	public static T CreateAlertPopup<T>(string a_oName,
+		GameObject a_oOrigin, GameObject a_oParent, Dictionary<string, string> a_oDataList, System.Action<CAlertPopup, bool> a_oCallback) where T : CAlertPopup {
+		var oAlertPopup = CPopup.CreatePopup<T>(a_oName, a_oOrigin, a_oParent, KBDefine.POS_MIDDLE_CENTER);
+		oAlertPopup?.Init(a_oDataList, a_oCallback);
+
+		return oAlertPopup;
+	}
+	#endregion			// 클래스 제네릭 함수
 }

@@ -17,14 +17,14 @@ public class CNavStackManager : CSingleton<CNavStackManager> {
 
 	//! 컴포넌트를 추가한다
 	public void AddComponent(CComponent a_oComponent) {
-		Func.Assert(a_oComponent != null);
+		CBAccess.Assert(a_oComponent != null);
 		int nID = a_oComponent.GetInstanceID();
 
 		int nIndex = m_oComponentInfoList.ExFindValue((a_stComponentInfo) => {
 			return nID == a_stComponentInfo.Key;
 		});
 
-		if(nIndex <= KDefine.B_INDEX_INVALID) {
+		if(nIndex <= KBDefine.INDEX_INVALID) {
 			a_oComponent.NavigationCallback = this.OnReceiveNavigationCallback;
 			var stKeyValue = new KeyValuePair<int, CComponent>(nID, a_oComponent);
 
@@ -35,14 +35,14 @@ public class CNavStackManager : CSingleton<CNavStackManager> {
 
 	//! 컴포넌트를 제거한다
 	public void RemoveComponent(CComponent a_oComponent) {
-		Func.Assert(a_oComponent != null);
+		CBAccess.Assert(a_oComponent != null);
 		int nID = a_oComponent.GetInstanceID();
 
 		int nIndex = m_oComponentInfoList.ExFindValue((a_stComponentInfo) => {
 			return nID == a_stComponentInfo.Key;
 		});
 
-		if(nIndex > KDefine.B_INDEX_INVALID) {
+		if(nIndex > KBDefine.INDEX_INVALID) {
 			for(int i = nIndex; i < m_oComponentInfoList.Count; ++i) {
 				m_oComponentInfoList[i].Value.NavigationCallback = null;
 

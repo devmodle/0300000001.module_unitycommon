@@ -64,8 +64,8 @@ public class CSndManager : CSingleton<CSndManager> {
 		base.Awake();
 
 		// 배경음을 생성한다 {
-		m_oBGSnd = Func.CreateCloneObj<CSnd>(KDefine.U_OBJ_NAME_SND_M_BG_SND,
-			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_BG_SND), this.gameObject);
+		m_oBGSnd = CUFactory.CreateCloneObj<CSnd>(KUDefine.OBJ_NAME_SND_M_BG_SND,
+			CResManager.Instance.GetPrefab(KUDefine.OBJ_PATH_BG_SND), this.gameObject);
 
 		m_oBGSnd.transform.localPosition = Vector3.zero;
 		// 배경음을 생성한다 }
@@ -95,7 +95,7 @@ public class CSndManager : CSingleton<CSndManager> {
 
 	//! 단일음 재생힌다
 	public void PlayOneShotSnd(string a_oFilepath, Vector3 a_stPos) {
-		Func.Assert(a_oFilepath.ExIsValid());
+		CBAccess.Assert(a_oFilepath.ExIsValid());
 		
 		if(!this.IsMuteFXSnds) {
 			AudioSource.PlayClipAtPoint(CResManager.Instance.GetAudioClip(a_oFilepath), a_stPos, this.FXSndsVolume);
@@ -104,7 +104,7 @@ public class CSndManager : CSingleton<CSndManager> {
 
 	//! 배경음을 재생힌다
 	public CSnd PlayBGSnd(string a_oFilepath, bool a_bIsLoop = true) {
-		Func.Assert(a_oFilepath.ExIsValid());
+		CBAccess.Assert(a_oFilepath.ExIsValid());
 
 		if(!m_oBGSnd.IsPlaying || !m_oBGSndFilepath.ExIsEquals(a_oFilepath)) {
 			m_oBGSnd.IsMute = this.IsMuteBGSnd;
@@ -124,7 +124,7 @@ public class CSndManager : CSingleton<CSndManager> {
 
 	//! 효과음을 재생한다
 	public CSnd PlayFXSnd(string a_oFilepath, Vector3 a_stPos, float a_fVolume = 0.0f, bool a_bIsLoop = false) {
-		Func.Assert(a_oFilepath.ExIsValid());
+		CBAccess.Assert(a_oFilepath.ExIsValid());
 		var oSnd = this.FindPlayableFXSnd(a_oFilepath);
 
 		if(oSnd != null) {
@@ -184,7 +184,7 @@ public class CSndManager : CSingleton<CSndManager> {
 		var oFXSndList = m_oFXSndListContainer[a_oKey];
 
 		// 최대 중첩 가능한 개수를 벗어났을 경우
-		if(oFXSndList.Count >= KDefine.U_MAX_NUM_DUPLICATE_FX_SNDS) {
+		if(oFXSndList.Count >= KUDefine.MAX_NUM_DUPLICATE_FX_SNDS) {
 			for(int i = 0; i < oFXSndList.Count; ++i) {
 				if(!oFXSndList[i].IsPause && !oFXSndList[i].IsPlaying) {
 					return oFXSndList[i];
@@ -195,8 +195,8 @@ public class CSndManager : CSingleton<CSndManager> {
 		}
 
 		// 효과음을 생성한다 {
-		var oSnd = Func.CreateCloneObj<CSnd>(KDefine.U_OBJ_NAME_SND_M_FX_SND,
-			CResManager.Instance.GetPrefab(KDefine.U_OBJ_PATH_FX_SND), this.gameObject);
+		var oSnd = CUFactory.CreateCloneObj<CSnd>(KUDefine.OBJ_NAME_SND_M_FX_SND,
+			CResManager.Instance.GetPrefab(KUDefine.OBJ_PATH_FX_SND), this.gameObject);
 
 		oSnd.transform.localPosition = Vector3.zero;
 		oFXSndList.Add(oSnd);
@@ -219,7 +219,7 @@ public class CSndManager : CSingleton<CSndManager> {
 #if HAPTIC_FEEDBACK_ENABLE
 	//! 진동을 시작한다
 	public void Vibrate(float a_fDuration, 
-		EVibrateType a_eType = EVibrateType.IMPACT, EVibrateStyle a_eStyle = EVibrateStyle.LIGHT, float a_fIntensity = KDefine.U_DEF_INTENSITY_VIBRATE) {
+		EVibrateType a_eType = EVibrateType.IMPACT, EVibrateStyle a_eStyle = EVibrateStyle.LIGHT, float a_fIntensity = KUDefine.DEF_INTENSITY_VIBRATE) {
 		if(!this.IsDisableVibrate && SystemInfo.supportsVibration) {
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
 			if(!Func.IsSupportHapticFeedback()) {

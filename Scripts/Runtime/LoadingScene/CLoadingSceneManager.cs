@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 //! 로딩 씬 관리자
 public abstract class CLoadingSceneManager : CSceneManager {
 	#region 프로퍼티
-	public virtual float FadeInAniDuration => KDefine.U_DEF_DURATION_SCREEN_FADE_IN_ANI;
-	public override string SceneName => KDefine.B_SCENE_NAME_LOADING;
+	public virtual float FadeInAniDuration => KUDefine.DEF_DURATION_SCREEN_FADE_IN_ANI;
+	public override string SceneName => KBDefine.SCENE_NAME_LOADING;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KDefine.U_SCRIPT_ORDER_LOADING_SCENE_MANAGER;
+	public override int ScriptOrder => KUDefine.SCRIPT_ORDER_LOADING_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -18,7 +18,7 @@ public abstract class CLoadingSceneManager : CSceneManager {
 	public static bool IsAni { get; set; } = false;
 	public static bool IsStartActivityIndicator { get; set; } = false;
 
-	public static string NextSceneName { get; set; } = KDefine.B_EMPTY_STRING;
+	public static string NextSceneName { get; set; } = KBDefine.EMPTY_STRING;
 	public static LoadSceneMode LoadSceneMode { get; set; } = LoadSceneMode.Single;
 	public static System.Action<AsyncOperation, bool> Callback { get; set; } = null;
 	#endregion			// 클래스 프로퍼티
@@ -41,7 +41,7 @@ public abstract class CLoadingSceneManager : CSceneManager {
 
 				// 씬을 추가했을 경우
 				if(CLoadingSceneManager.LoadSceneMode == LoadSceneMode.Additive) {
-					CSceneLoader.Instance.UnloadSceneAsync(KDefine.B_SCENE_NAME_LOADING, null);
+					CSceneLoader.Instance.UnloadSceneAsync(KBDefine.SCENE_NAME_LOADING, null);
 				}
 			} else {
 				CSceneLoader.Instance.LoadSceneAsync(CLoadingSceneManager.NextSceneName, (a_oAsyncOperation, a_bIsComplete) => {
@@ -50,7 +50,7 @@ public abstract class CLoadingSceneManager : CSceneManager {
 
 					// 씬을 추가했을 경우
 					if(a_bIsComplete && CLoadingSceneManager.LoadSceneMode == LoadSceneMode.Additive) {
-						CSceneLoader.Instance.UnloadSceneAsync(KDefine.B_SCENE_NAME_LOADING, null);
+						CSceneLoader.Instance.UnloadSceneAsync(KBDefine.SCENE_NAME_LOADING, null);
 					}
 				}, 0.0f, false, CLoadingSceneManager.IsAni, false, this.FadeInAniDuration, CLoadingSceneManager.LoadSceneMode);
 			}

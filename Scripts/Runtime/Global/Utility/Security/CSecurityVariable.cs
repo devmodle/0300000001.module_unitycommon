@@ -9,7 +9,7 @@ using MessagePack;
 #endif			// #if MESSAGE_PACK_ENABLE
 
 #if !MESSAGE_PACK_ENABLE
-[System.Obsolete(KDefine.U_MSG_NEED_MESSAGE_PACK, true)]
+[System.Obsolete(KUDefine.MSG_NEED_MESSAGE_PACK, true)]
 #endif			// #if !MESSAGE_PACK_ENABLE
 
 //! 보안 변수
