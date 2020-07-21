@@ -1,0 +1,35 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+#endif			// #if UNITY_EDITOR
+
+//! 샘플 씬 관리자
+public class CSampleSceneManager : CSceneManager {
+	#region 프로퍼티
+	public override string SceneName => KCDefine.SCENE_NAME_SAMPLE;
+	#endregion			// 프로퍼티
+
+	#region 조건부 클래스 함수
+#if UNITY_EDITOR
+	//! 씬 관리자를 설정한다
+	public static void SetupSceneManager(Scene a_stScene, Dictionary<string, System.Type> a_oSceneManagerTypeList) {
+		foreach(var stKeyValue in a_oSceneManagerTypeList) {
+			if(a_stScene.name.ExIsEquals(stKeyValue.Key)) {
+				var oSceneManager = a_stScene.ExFindChild(KCDefine.OBJ_NAME_SCENE_SCENE_MANAGER);
+
+				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyValue.Value) == null) {
+					oSceneManager.ExRemoveComponent<CSampleSceneManager>();
+					oSceneManager.AddComponent(stKeyValue.Value);
+					
+					EditorSceneManager.MarkSceneDirty(a_stScene);
+				}
+			}
+		}
+	}
+#endif			// #if UNITY_EDITOR
+	#endregion			// 조건부 클래스 함수
+}

@@ -1,0 +1,23 @@
+{
+    "name": "00.Unity.Module.Common",
+    "references": [
+        "00.Unity.Module.Common.Define",
+        "00.Unity.Module.Common.Access",
+        "00.Unity.Module.Common.Func",
+        "00.Unity.Module.Common.Extension",
+        "00.Unity.Module.Common.Factory",
+        "00.Unity.Module.Common.Utility",
+        "00.Unity.Module.Common.Externals",
+        "00.Unity.Module.Common.Ads",
+        "00.Unity.Module.Common.Facebook"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
