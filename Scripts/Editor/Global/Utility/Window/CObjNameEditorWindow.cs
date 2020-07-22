@@ -16,13 +16,13 @@ public class CObjNameEditorWindow : CEditorWindow<CObjNameEditorWindow> {
 	//! GUI 를 그린다
 	public void OnGUI() {
 #if NGUI_ENABLE
-		NGUIEditorTools.SetLabelWidth(KCEditorDefine.WIDTH_EDITOR_W_NAME_TEXT_FIELD);
+		NGUIEditorTools.SetLabelWidth(KCEditorDefine.B_WIDTH_EDITOR_W_NAME_TEXT_FIELD);
 #endif			// #if NGUI_ENABLE
 
-		m_oOriginObjName = EditorGUILayout.TextField("검색 문자열", m_oOriginObjName, GUILayout.Width(KCEditorDefine.TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD));
-		m_oReplaceObjName = EditorGUILayout.TextField("변경 문자열", m_oReplaceObjName, GUILayout.Width(KCEditorDefine.TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD));
+		m_oOriginObjName = EditorGUILayout.TextField("검색 문자열", m_oOriginObjName, GUILayout.Width(KCEditorDefine.B_TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD));
+		m_oReplaceObjName = EditorGUILayout.TextField("변경 문자열", m_oReplaceObjName, GUILayout.Width(KCEditorDefine.B_TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD));
 
-		if(GUILayout.Button("적용", GUILayout.Width(KCEditorDefine.WIDTH_EDITOR_W_APPLY_BTN))) {
+		if(GUILayout.Button("적용", GUILayout.Width(KCEditorDefine.B_WIDTH_EDITOR_W_APPLY_BTN))) {
 			if(m_oOriginObjName.ExIsValid() && m_oReplaceObjName.ExIsValid()) {
 				CFunc.EnumerateScenes((a_stScene) => {
 					this.ReplaceSceneObjsName(a_stScene, m_oOriginObjName, m_oReplaceObjName);
@@ -46,8 +46,8 @@ public class CObjNameEditorWindow : CEditorWindow<CObjNameEditorWindow> {
 	//! 객체 이름 에디터 윈도우를 출력한다
 	[MenuItem("Utility/Editor Window/Show ObjNameEditorWindow")]
 	public static void ShowObjNameEditorWindow() {
-		CObjNameEditorWindow.ShowEditorWindow(KCEditorDefine.OBJ_NAME_OBJ_NAME_EDITOR_POPUP, 
-			KCEditorDefine.MIN_SIZE_EDITOR_WINDOW);
+		CObjNameEditorWindow.ShowEditorWindow(KCEditorDefine.B_OBJ_NAME_OBJ_NAME_EDITOR_POPUP, 
+			KCEditorDefine.B_MIN_SIZE_EDITOR_WINDOW);
 	}
 	#endregion			// 클래스 함수
 }

@@ -22,16 +22,16 @@ public static partial class CPlatformBuildOption {
 	//! 초기화
 	public static void EditorInitialize() {
 		// 테이블을 로드한다 {
-		CPlatformBuildOption.BuildInfoTable = Resources.Load<CBuildInfoTable>(KCDefine.SCRIPTABLE_PATH_G_BUILD_INFO_TABLE);
+		CPlatformBuildOption.BuildInfoTable = Resources.Load<CBuildInfoTable>(KCDefine.U_SCRIPTABLE_PATH_G_BUILD_INFO_TABLE);
 		CPlatformBuildOption.BuildInfoTable?.Awake();
 
-		CPlatformBuildOption.BuildOptionTable = Resources.Load<CBuildOptionTable>(KCDefine.SCRIPTABLE_PATH_G_BUILD_OPTION_TABLE);
+		CPlatformBuildOption.BuildOptionTable = Resources.Load<CBuildOptionTable>(KCDefine.U_SCRIPTABLE_PATH_G_BUILD_OPTION_TABLE);
 		CPlatformBuildOption.BuildOptionTable?.Awake();
 
-		CPlatformBuildOption.ProjectInfoTable = Resources.Load<CProjectInfoTable>(KCDefine.SCRIPTABLE_PATH_G_PROJECT_INFO_TABLE);
+		CPlatformBuildOption.ProjectInfoTable = Resources.Load<CProjectInfoTable>(KCDefine.U_SCRIPTABLE_PATH_G_PROJECT_INFO_TABLE);
 		CPlatformBuildOption.ProjectInfoTable?.Awake();
 
-		CPlatformBuildOption.DefineSymbolTable = Resources.Load<CDefineSymbolTable>(KCDefine.SCRIPTABLE_PATH_G_DEFINE_SYMBOL_TABLE);
+		CPlatformBuildOption.DefineSymbolTable = Resources.Load<CDefineSymbolTable>(KCDefine.U_SCRIPTABLE_PATH_G_DEFINE_SYMBOL_TABLE);
 		CPlatformBuildOption.DefineSymbolTable?.Awake();
 		// 테이블을 로드한다 }
 

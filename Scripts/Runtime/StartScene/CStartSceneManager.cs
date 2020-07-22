@@ -8,7 +8,7 @@ public abstract class CStartSceneManager : CSceneManager {
 	public override string SceneName => KCDefine.B_SCENE_NAME_START;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.SCRIPT_ORDER_START_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_START_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -31,7 +31,7 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return CFactory.CreateWaitForSeconds(KCDefine.DELAY_INIT);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.Setup();
 		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_SETUP);

@@ -8,7 +8,7 @@ public abstract class CSplashSceneManager : CSceneManager {
 	public override string SceneName => KCDefine.B_SCENE_NAME_SPLASH;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.SCRIPT_ORDER_SPLASH_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_SPLASH_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -26,14 +26,14 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		CFunc.LateCallFunc(this, KCDefine.DELAY_INIT, (a_oComponent, a_oParams) => {
+		CFunc.LateCallFunc(this, KCDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
 			CSceneLoader.Instance.LoadScene(KCDefine.B_SCENE_NAME_START, false, false);
 		});
 	}
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return CFactory.CreateWaitForSeconds(KCDefine.DELAY_INIT);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		this.ShowSplash();
 	}
 	#endregion			// 함수

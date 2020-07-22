@@ -47,7 +47,7 @@ public static partial class CPlatformBuilder {
 			// 전처리기 심볼을 설정한다 }
 
 			// 전처리기 심볼을 저장한다
-			string oFilepath = string.Format(KCEditorDefine.ASSET_PATH_FORMAT_DEFINE_SYMBOL_OUTPUT, a_oPlayerOptions.targetGroup);
+			string oFilepath = string.Format(KCEditorDefine.B_ASSET_PATH_FORMAT_DEFINE_SYMBOL_OUTPUT, a_oPlayerOptions.targetGroup);
 			CFunc.WriteString(oFilepath, PlayerSettings.GetScriptingDefineSymbolsForGroup(a_oPlayerOptions.targetGroup), System.Text.Encoding.Default);
 
 			// 플랫폼을 설정한다
@@ -71,8 +71,8 @@ public static partial class CPlatformBuilder {
 			var oScenePathList = new List<string>();
 
 			for(int i = 0; i < EditorBuildSettings.scenes.Length; ++i) {
-				bool bIsContainsA = EditorBuildSettings.scenes[i].path.Contains(KCEditorDefine.SCENE_NAME_PATTERN_EDITOR_A);
-				bool bIsContainsB = EditorBuildSettings.scenes[i].path.Contains(KCEditorDefine.SCENE_NAME_PATTERN_EDITOR_B);
+				bool bIsContainsA = EditorBuildSettings.scenes[i].path.Contains(KCEditorDefine.B_SCENE_NAME_PATTERN_EDITOR_A);
+				bool bIsContainsB = EditorBuildSettings.scenes[i].path.Contains(KCEditorDefine.B_SCENE_NAME_PATTERN_EDITOR_B);
 
 				if(CPlatformBuilder.IsEnableEditorScene || (!bIsContainsA && !bIsContainsB)) {
 					oScenePathList.Add(EditorBuildSettings.scenes[i].path);

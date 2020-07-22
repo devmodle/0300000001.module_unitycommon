@@ -8,7 +8,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 	public override string SceneName => KCDefine.B_SCENE_NAME_AGREE;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.SCRIPT_ORDER_AGREE_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_AGREE_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -31,10 +31,10 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 #if MESSAGE_PACK_ENABLE
 		CUserInfoStorage.Instance.UserInfo.IsAgree = true;
-		CUserInfoStorage.Instance.SaveUserInfo(KCDefine.DATA_PATH_USER_INFO);
+		CUserInfoStorage.Instance.SaveUserInfo(KCDefine.B_DATA_PATH_USER_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 
-		CFunc.LateCallFunc(this, KCDefine.DELAY_INIT, (a_oComponent, a_oParams) => {
+		CFunc.LateCallFunc(this, KCDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
 			bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_INIT);
 			bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SETUP);
 			bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_START);
@@ -52,10 +52,10 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return CFactory.CreateWaitForSeconds(KCDefine.DELAY_INIT);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.SetupRootScene();
-		yield return CFactory.CreateWaitForSeconds(KCDefine.DELAY_INIT);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();
@@ -74,7 +74,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			string oPersonalFilepath = KCDefine.AS_DATA_PATH_KOREAN_PERSONAL_TEXT;
 
 #if MESSAGE_PACK_ENABLE
-			if(!CAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.KOREA_COUNTRY_CODE)) {
+			if(!CAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
 				oServiceFilepath = KCDefine.AS_DATA_PATH_ENGLISH_SERVICE_TEXT;
 				oPersonalFilepath = KCDefine.AS_DATA_PATH_ENGLISH_PERSONAL_TEXT;
 			}
@@ -86,7 +86,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			this.ShowAgreePopup(CResManager.Instance.GetTextAsset(oServiceFilepath).text,
 				CResManager.Instance.GetTextAsset(oPersonalFilepath).text);
 
-			CFunc.LateCallFunc(this, KCDefine.DEF_DURATION_ANI, (a_oComponent, a_oParams) => {
+			CFunc.LateCallFunc(this, KCDefine.U_DEF_DURATION_ANI, (a_oComponent, a_oParams) => {
 				CResManager.Instance.RemoveTextAsset(oServiceFilepath, true);
 				CResManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
 			});

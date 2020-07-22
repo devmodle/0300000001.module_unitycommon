@@ -13,24 +13,24 @@ public abstract partial class CInitSceneManager : CSceneManager {
 				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_BLIND_UI), null);
 
 			CInitSceneManager.m_oBlindUI = oBlindUI;
-			CSceneManager.ScreenBlindUIRoot = oBlindUI.ExFindChild(KCDefine.OBJ_NAME_SCREEN_BLIND_UI_ROOT);
+			CSceneManager.ScreenBlindUIRoot = oBlindUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT);
 
 			// 블라인드 이미지를 생성한다 {
 			var oImgs = new Image[] {
-				this.CreateBlindImg(KCDefine.OBJ_NAME_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIRoot),
-				this.CreateBlindImg(KCDefine.OBJ_NAME_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIRoot),
-				this.CreateBlindImg(KCDefine.OBJ_NAME_TOP_BLIND_IMG, CSceneManager.ScreenBlindUIRoot),
-				this.CreateBlindImg(KCDefine.OBJ_NAME_BOTTOM_BLIND_IMG, CSceneManager.ScreenBlindUIRoot)
+				this.CreateBlindImg(KCDefine.U_OBJ_NAME_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIRoot),
+				this.CreateBlindImg(KCDefine.U_OBJ_NAME_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIRoot),
+				this.CreateBlindImg(KCDefine.U_OBJ_NAME_TOP_BLIND_IMG, CSceneManager.ScreenBlindUIRoot),
+				this.CreateBlindImg(KCDefine.U_OBJ_NAME_BOTTOM_BLIND_IMG, CSceneManager.ScreenBlindUIRoot)
 			};
 
 			for(int i = 0; i < oImgs.Length; ++i) {
-				oImgs[i].color = KCDefine.DEF_COLOR_TRANSPARENT;
+				oImgs[i].color = KCDefine.U_DEF_COLOR_TRANSPARENT;
 				oImgs[i].raycastTarget = false;
 			}
 			// 블라인드 이미지를 생성한다 }
 
 			DontDestroyOnLoad(oBlindUI);
-			CFunc.SetupScreenUI(oBlindUI, KCDefine.SORTING_ORDER_SCREEN_BLIND_UI);
+			CFunc.SetupScreenUI(oBlindUI, KCDefine.U_SORTING_ORDER_SCREEN_BLIND_UI);
 		}
 	}
 	#endregion			// 함수

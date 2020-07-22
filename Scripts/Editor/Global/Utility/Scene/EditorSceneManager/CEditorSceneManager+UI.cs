@@ -12,7 +12,7 @@ public static partial class CEditorSceneManager {
 	public static void DrawGizmos(CSceneManager a_oSceneManager, GizmoType a_oGizmoType) {
 		if(CEditorSceneManager.IsEnableDrawGizmos()) {
 			CFunc.EnumerateScenes((a_stScene) => {
-				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.OBJ_NAME_SCENE_SCENE_MANAGER);
+				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
 
 				if(oSceneManager != null) {
 					if(CEditorSceneManager.IsEnableUpdateState()) {

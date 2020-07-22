@@ -26,7 +26,7 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_oHierarchyGUIStyle.fontStyle = FontStyle.BoldAndItalic;
 
 			CEditorSceneManager.m_oHierarchyGUIStyle.normal = new GUIStyleState() {
-				textColor = KCEditorDefine.HIERARCHY_TEXT_COLOR
+				textColor = KCEditorDefine.B_HIERARCHY_TEXT_COLOR
 			};
 			// GUI 스타일을 설정한다 }
 
@@ -67,7 +67,7 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_fHierarchySkipTime += Time.unscaledDeltaTime;
 
 			// 씬 갱신이 필요 할 경우
-			if(CEditorSceneManager.m_fSkipTime >= KCEditorDefine.DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
+			if(CEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
 				CEditorSceneManager.m_fSkipTime = 0.0f;
 
 				CEditorSceneManager.SetupScene();
@@ -78,7 +78,7 @@ public static partial class CEditorSceneManager {
 #endif			// #if FILE_BROWSER_ENABLE
 
 				// 계층 뷰 갱신이 필요 할 경우
-				if(CEditorSceneManager.m_fHierarchySkipTime >= KCEditorDefine.DELTA_TIME_HIERARCHY_UPDATE) {
+				if(CEditorSceneManager.m_fHierarchySkipTime >= KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE) {
 					CEditorSceneManager.m_fHierarchySkipTime = 0.0f;
 
 					CFunc.EnumerateScenes((a_stScene) => {
@@ -105,8 +105,8 @@ public static partial class CEditorSceneManager {
 		var oObj = EditorUtility.InstanceIDToObject(a_nInstanceID) as GameObject;
 
 		if(oObj != null) {
-			a_stRect.size = new Vector2(KCEditorDefine.HIERARCHY_WIDTH, a_stRect.size.y);
-			a_stRect.position += new Vector2(KCEditorDefine.HIERARCHY_OFFSET_X, 0.0f);
+			a_stRect.size = new Vector2(KCEditorDefine.B_HIERARCHY_WIDTH, a_stRect.size.y);
+			a_stRect.position += new Vector2(KCEditorDefine.B_HIERARCHY_OFFSET_X, 0.0f);
 
 			var oComponents = oObj.GetComponents<Component>();
 
@@ -114,14 +114,14 @@ public static partial class CEditorSceneManager {
 				if(oComponents[i] != null) {
 					var oType = oComponents[i].GetType();
 					
-					var oSortingLayerProperty = oType.GetProperty(KCEditorDefine.PROPERTY_NAME_SORTING_LAYER,
-						KCDefine.BINDING_FLAG_PUBLIC_INSTANCE);
+					var oSortingLayerProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_NAME_SORTING_LAYER,
+						KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
 
-					var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.PROPERTY_NAME_SORTING_ORDER,
-						KCDefine.BINDING_FLAG_PUBLIC_INSTANCE);
+					var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_NAME_SORTING_ORDER,
+						KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
 
 					if(oSortingLayerProperty != null && oSortingOrderProperty != null) {
-						string oString = string.Format(KCEditorDefine.SORTING_ORDER_INFO_FORMAT, 
+						string oString = string.Format(KCEditorDefine.B_SORTING_ORDER_INFO_FORMAT, 
 							oSortingLayerProperty.GetValue(oComponents[i]), oSortingOrderProperty.GetValue(oComponents[i]));
 
 						GUI.Label(a_stRect, oString, m_oHierarchyGUIStyle);

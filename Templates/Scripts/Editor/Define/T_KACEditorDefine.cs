@@ -8,70 +8,70 @@ public static partial class KACEditorDefine {
 	#region 런타임 상수
 	// 스크립트 순서
 	public static Dictionary<System.Type, int> B_SCRIPT_ORDERS = new Dictionary<System.Type, int>() {
-		[typeof(CValueTable)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CStringTable)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CValueTable)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CStringTable)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 
-		[typeof(CUnityMsgSender)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CDeviceMsgReceiver)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 
-		[typeof(CLogManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CSndManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CScheduleManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CResManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CNavStackManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CToastPopupManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CActivityIndicatorManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CLogManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CSndManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CResManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CToastPopupManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CActivityIndicatorManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 
-		[typeof(CSampleSceneManager)] = KCDefine.SCRIPT_ORDER_SCENE_MANAGER,
+		[typeof(CSampleSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 		
-		[typeof(CSubInitSceneManager)] = KCDefine.SCRIPT_ORDER_INIT_SCENE_MANAGER,
-		[typeof(CSubSetupSceneManager)] = KCDefine.SCRIPT_ORDER_SETUP_SCENE_MANAGER,
-		[typeof(CSubStartSceneManager)] = KCDefine.SCRIPT_ORDER_START_SCENE_MANAGER,
-		[typeof(CSubLoadingSceneManager)] = KCDefine.SCRIPT_ORDER_LOADING_SCENE_MANAGER,
-		[typeof(CSubSplashSceneManager)] = KCDefine.SCRIPT_ORDER_SPLASH_SCENE_MANAGER,
-		[typeof(CSubAgreeSceneManager)] = KCDefine.SCRIPT_ORDER_AGREE_SCENE_MANAGER,
-		[typeof(CSubIntroSceneManager)] = KCDefine.SCRIPT_ORDER_SCENE_MANAGER,
+		[typeof(CSubInitSceneManager)] = KCDefine.U_SCRIPT_ORDER_INIT_SCENE_MANAGER,
+		[typeof(CSubSetupSceneManager)] = KCDefine.U_SCRIPT_ORDER_SETUP_SCENE_MANAGER,
+		[typeof(CSubStartSceneManager)] = KCDefine.U_SCRIPT_ORDER_START_SCENE_MANAGER,
+		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_ORDER_LOADING_SCENE_MANAGER,
+		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_ORDER_SPLASH_SCENE_MANAGER,
+		[typeof(CSubAgreeSceneManager)] = KCDefine.U_SCRIPT_ORDER_AGREE_SCENE_MANAGER,
+		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 
 #if STUDY_MODULE_ENABLE
-		[typeof(CMenuSceneManager)] = KCDefine.SCRIPT_ORDER_SCENE_MANAGER,
+		[typeof(CMenuSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 #endif			// #if STUDY_MODULE_ENABLE
 
 #if MESSAGE_PACK_ENABLE
-		[typeof(CAppInfoStorage)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CUserInfoStorage)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if MESSAGE_PACK_ENABLE
 
 #if UNITY_ANDROID
-		[typeof(CPermissionManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CPermissionManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if UNITY_ANDROID
 
 #if ADS_ENABLE
-		[typeof(CAdsManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
-		[typeof(CBannerAdsCorrector)] = KCDefine.SCRIPT_ORDER_BANNER_ADS_CORRECTOR,
+		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CBannerAdsCorrector)] = KCDefine.U_SCRIPT_ORDER_BANNER_ADS_CORRECTOR,
 #endif			// #if ADS_ENABLE
 
 #if TENJIN_ENABLE
-		[typeof(CTenjinManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CTenjinManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if TENJIN_ENABLE
 
 #if FLURRY_ENABLE
-		[typeof(CFlurryManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CFlurryManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if FLURRY_ENABLE
 
 #if FACEBOOK_ENABLE
-		[typeof(CFacebookManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CFacebookManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if FACEBOOK_ENABLE
 
 #if FIREBASE_ENABLE
-		[typeof(CFirebaseManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if FIREBASE_ENABLE
 
 #if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
-		[typeof(CPurchaseManager)] = KCDefine.SCRIPT_ORDER_SINGLETON,
+		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
 
 #if UNITY_SERVICE_ENABLE
-		[typeof(CUnityServiceManager)] = KCDefine.SCRIPT_ORDER_SINGLETON
+		[typeof(CUnityServiceManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON
 #endif			// #if UNITY_SERVICE_ENABLE
 	};
 

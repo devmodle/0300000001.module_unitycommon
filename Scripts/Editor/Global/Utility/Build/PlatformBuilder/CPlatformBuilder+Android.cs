@@ -305,19 +305,19 @@ public static partial class CPlatformBuilder {
 
 		// 플러그인 파일을 복사한다
 		if(!Application.isBatchMode) {
-			CFunc.CopyFile(KCEditorDefine.ANDROID_SRC_PLUGIN_PATH, KCEditorDefine.ANDROID_DEST_PLUGIN_PATH, false);
+			CFunc.CopyFile(KCEditorDefine.B_ANDROID_SRC_PLUGIN_PATH, KCEditorDefine.B_ANDROID_DEST_PLUGIN_PATH, false);
 		}
 
 		// 빌드 옵션을 설정한다 {
 		string oPlatform = CEditorAccess.GetAndroidPlatformName(a_ePlatformType);
-		string oFilename = string.Format(KCEditorDefine.ANDROID_BUILD_FILENAME_FORMAT, oPlatform);
+		string oFilename = string.Format(KCEditorDefine.B_ANDROID_BUILD_FILENAME_FORMAT, oPlatform);
 
-		string oBuildFileExtension = EditorUserBuildSettings.buildAppBundle ? KCEditorDefine.ANDROID_AAB_BUILD_FILE_EXTENSION
-			: KCEditorDefine.ANDROID_APK_BUILD_FILE_EXTENSION;
+		string oBuildFileExtension = EditorUserBuildSettings.buildAppBundle ? KCEditorDefine.B_ANDROID_AAB_BUILD_FILE_EXTENSION
+			: KCEditorDefine.B_ANDROID_APK_BUILD_FILE_EXTENSION;
 
 		a_oPlayerOptions.target = BuildTarget.Android;
 		a_oPlayerOptions.targetGroup = BuildTargetGroup.Android;
-		a_oPlayerOptions.locationPathName = string.Format(KCEditorDefine.ANDROID_BUILD_PATH_FORMAT, oPlatform, oFilename, oBuildFileExtension);
+		a_oPlayerOptions.locationPathName = string.Format(KCEditorDefine.B_ANDROID_BUILD_PATH_FORMAT, oPlatform, oFilename, oBuildFileExtension);
 
 		if(CPlatformBuildOption.ProjectInfoTable != null) {
 			if(a_ePlatformType == EAndroidPlatformType.ONE_STORE) {
@@ -331,7 +331,7 @@ public static partial class CPlatformBuilder {
 		// 빌드 옵션을 설정한다 }
 
 		// 빌드 디렉토리를 생성한다
-		string oBuildPath = string.Format(KCEditorDefine.ANDROID_ABSOLUTE_BUILD_PATH_FORMAT, oPlatform);
+		string oBuildPath = string.Format(KCEditorDefine.B_ANDROID_ABSOLUTE_BUILD_PATH_FORMAT, oPlatform);
 		CAccess.CreateDirectory(oBuildPath);
 
 		// 플랫폼을 빌드한다
@@ -340,26 +340,26 @@ public static partial class CPlatformBuilder {
 
 	//! 안드로이드 플랫폼을 원격 빌드한다
 	private static void RemoteBuildAndroidPlatformDebug(EAndroidPlatformType a_ePlatformType) {
-		CPlatformBuilder.ExecuteAndroidPlatformJenkinsBuild(KCDefine.BUILD_MODE_DEBUG, 
-			KCEditorDefine.JENKINS_DEBUG_BUILD_FUNC, KCEditorDefine.JENKINS_ANDROID_DEBUG_PIPELINE_NAME, KCEditorDefine.ANDROID_APK_BUILD_FILE_EXTENSION, a_ePlatformType);
+		CPlatformBuilder.ExecuteAndroidPlatformJenkinsBuild(KCDefine.B_BUILD_MODE_DEBUG, 
+			KCEditorDefine.B_JENKINS_DEBUG_BUILD_FUNC, KCEditorDefine.B_JENKINS_ANDROID_DEBUG_PIPELINE_NAME, KCEditorDefine.B_ANDROID_APK_BUILD_FILE_EXTENSION, a_ePlatformType);
 	}
 
 	//! 안드로이드 플랫폼을 원격 빌드한다
 	private static void RemoteBuildAndroidPlatformRelease(EAndroidPlatformType a_ePlatformType) {
-		CPlatformBuilder.ExecuteAndroidPlatformJenkinsBuild(KCDefine.BUILD_MODE_RELEASE, 
-			KCEditorDefine.JENKINS_RELEASE_BUILD_FUNC, KCEditorDefine.JENKINS_ANDROID_RELEASE_PIPELINE_NAME, KCEditorDefine.ANDROID_APK_BUILD_FILE_EXTENSION, a_ePlatformType);
+		CPlatformBuilder.ExecuteAndroidPlatformJenkinsBuild(KCDefine.B_BUILD_MODE_RELEASE, 
+			KCEditorDefine.B_JENKINS_RELEASE_BUILD_FUNC, KCEditorDefine.B_JENKINS_ANDROID_RELEASE_PIPELINE_NAME, KCEditorDefine.B_ANDROID_APK_BUILD_FILE_EXTENSION, a_ePlatformType);
 	}
 
 	//! 안드로이드 플랫폼을 원격 빌드한다
 	private static void RemoteBuildAndroidPlatformAdhoc(EAndroidPlatformType a_ePlatformType) {
-		CPlatformBuilder.ExecuteAndroidPlatformJenkinsBuild(KCDefine.BUILD_MODE_RELEASE, 
-			KCEditorDefine.JENKINS_ADHOC_BUILD_FUNC, KCEditorDefine.JENKINS_ANDROID_ADHOC_PIPELINE_NAME, KCEditorDefine.ANDROID_APK_BUILD_FILE_EXTENSION, a_ePlatformType);
+		CPlatformBuilder.ExecuteAndroidPlatformJenkinsBuild(KCDefine.B_BUILD_MODE_RELEASE, 
+			KCEditorDefine.B_JENKINS_ADHOC_BUILD_FUNC, KCEditorDefine.B_JENKINS_ANDROID_ADHOC_PIPELINE_NAME, KCEditorDefine.B_ANDROID_APK_BUILD_FILE_EXTENSION, a_ePlatformType);
 	}
 
 	//! 안드로이드 플랫폼을 원격 빌드한다
 	private static void RemoteBuildAndroidPlatformStore(EAndroidPlatformType a_ePlatformType) {
-		CPlatformBuilder.ExecuteAndroidPlatformJenkinsBuild(KCDefine.BUILD_MODE_RELEASE, 
-			KCEditorDefine.JENKINS_STORE_BUILD_FUNC, KCEditorDefine.JENKINS_ANDROID_STORE_PIPELINE_NAME, KCEditorDefine.ANDROID_AAB_BUILD_FILE_EXTENSION, a_ePlatformType);
+		CPlatformBuilder.ExecuteAndroidPlatformJenkinsBuild(KCDefine.B_BUILD_MODE_RELEASE, 
+			KCEditorDefine.B_JENKINS_STORE_BUILD_FUNC, KCEditorDefine.B_JENKINS_ANDROID_STORE_PIPELINE_NAME, KCEditorDefine.B_ANDROID_AAB_BUILD_FILE_EXTENSION, a_ePlatformType);
 	}
 	#endregion			// 클래스 함수
 }

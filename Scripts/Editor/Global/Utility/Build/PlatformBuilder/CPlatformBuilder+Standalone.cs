@@ -147,15 +147,15 @@ public static partial class CPlatformBuilder {
 
 		if(a_ePlatformType == EStandalonePlatformType.WINDOWS) {
 			a_oPlayerOptions.target = BuildTarget.StandaloneWindows;
-			a_oPlayerOptions.locationPathName = KCEditorDefine.WINDOWS_BUILD_PATH;
+			a_oPlayerOptions.locationPathName = KCEditorDefine.B_WINDOWS_BUILD_PATH;
 		} else {
 			a_oPlayerOptions.target = BuildTarget.StandaloneOSX;
-			a_oPlayerOptions.locationPathName = KCEditorDefine.MAC_BUILD_PATH;
+			a_oPlayerOptions.locationPathName = KCEditorDefine.B_MAC_BUILD_PATH;
 		}
 		// 빌드 옵션을 설정한다 }
 
 		// 빌드 디렉토리를 생성한다 {
-		string oBuildPath = string.Format(KCEditorDefine.STANDALONE_ABSOLUTE_BUILD_PATH_FORMAT, 
+		string oBuildPath = string.Format(KCEditorDefine.B_STANDALONE_ABSOLUTE_BUILD_PATH_FORMAT, 
 			CEditorAccess.GetStandalonePlatformName(a_ePlatformType));
 
 		CAccess.CreateDirectory(oBuildPath);
@@ -167,14 +167,14 @@ public static partial class CPlatformBuilder {
 
 	//! 독립 플랫폼을 원격 빌드한다
 	private static void RemoteBuildStandalonePlatformDebug(EStandalonePlatformType a_ePlatformType) {
-		CPlatformBuilder.ExecuteStandalonePlatformJenkinsBuild(KCDefine.BUILD_MODE_DEBUG, 
-			KCEditorDefine.JENKINS_DEBUG_BUILD_FUNC, KCEditorDefine.JENKINS_STANDALONE_DEBUG_PIPELINE_NAME, a_ePlatformType);
+		CPlatformBuilder.ExecuteStandalonePlatformJenkinsBuild(KCDefine.B_BUILD_MODE_DEBUG, 
+			KCEditorDefine.B_JENKINS_DEBUG_BUILD_FUNC, KCEditorDefine.B_JENKINS_STANDALONE_DEBUG_PIPELINE_NAME, a_ePlatformType);
 	}
 
 	//! 독립 플랫폼을 원격 빌드한다
 	private static void RemoteBuildStandalonePlatformRelease(EStandalonePlatformType a_ePlatformType) {
-		CPlatformBuilder.ExecuteStandalonePlatformJenkinsBuild(KCDefine.BUILD_MODE_RELEASE, 
-			KCEditorDefine.JENKINS_RELEASE_BUILD_FUNC, KCEditorDefine.JENKINS_STANDALONE_RELEASE_PIPELINE_NAME, a_ePlatformType);
+		CPlatformBuilder.ExecuteStandalonePlatformJenkinsBuild(KCDefine.B_BUILD_MODE_RELEASE, 
+			KCEditorDefine.B_JENKINS_RELEASE_BUILD_FUNC, KCEditorDefine.B_JENKINS_STANDALONE_RELEASE_PIPELINE_NAME, a_ePlatformType);
 	}
 	#endregion			// 클래스 함수
 }

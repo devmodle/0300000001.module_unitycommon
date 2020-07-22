@@ -12,24 +12,24 @@ public static partial class CAssetExporter {
 		var oTextureList = Selection.objects.ExIsValid() ? Selection.objects.ExToTypes<Texture2D>() : null;
 
 		if(!oTextureList.ExIsValid()) {
-			CAssetExporter.ShowExportFailPopup(KCEditorDefine.ALERT_P_EXPORT_TEXTURE_FAIL_MSG);
+			CAssetExporter.ShowExportFailPopup(KCEditorDefine.B_ALERT_P_EXPORT_TEXTURE_FAIL_MSG);
 		} else {
 			for(int i = 0; i < oTextureList.Count; ++i) {
-				string oFilepath = string.Format(KCEditorDefine.IMG_PATH_FORMAT_TEXTURE_TO_IMG, oTextureList[i].name);
+				string oFilepath = string.Format(KCEditorDefine.B_IMG_PATH_FORMAT_TEXTURE_TO_IMG, oTextureList[i].name);
 				CAssetExporter.SaveTexture(oFilepath, oTextureList[i]);
 			}
 
-			CAssetExporter.ShowExportSuccessPopup(KCEditorDefine.ALERT_P_EXPORT_IMG_SUCCESS_MSG);
+			CAssetExporter.ShowExportSuccessPopup(KCEditorDefine.B_ALERT_P_EXPORT_IMG_SUCCESS_MSG);
 		}
 	}
 
 	//! 기본 텍스처 -> PNG 이미지로 추출한다
 	[MenuItem("Utility/Export/DefTexture to PNGImage")]
 	public static void ExportDefTextureToPNGImg() {
-		string oFilepath = string.Format(KCEditorDefine.IMG_PATH_FORMAT_TEXTURE_TO_IMG, Texture2D.whiteTexture.name);
+		string oFilepath = string.Format(KCEditorDefine.B_IMG_PATH_FORMAT_TEXTURE_TO_IMG, Texture2D.whiteTexture.name);
 		CAssetExporter.SaveTexture(oFilepath, Texture2D.whiteTexture);
 
-		CAssetExporter.ShowExportSuccessPopup(KCEditorDefine.ALERT_P_EXPORT_IMG_SUCCESS_MSG);
+		CAssetExporter.ShowExportSuccessPopup(KCEditorDefine.B_ALERT_P_EXPORT_IMG_SUCCESS_MSG);
 	}
 
 	//! 스프라이트 -> PNG 이미지로 추출한다
@@ -38,7 +38,7 @@ public static partial class CAssetExporter {
 		var oSpriteList = Selection.objects.ExIsValid() ? Selection.objects.ExToTypes<Sprite>() : null;
 
 		if(!oSpriteList.ExIsValid()) {
-			CAssetExporter.ShowExportFailPopup(KCEditorDefine.ALERT_P_EXPORT_SPRITE_FAIL_MSG);
+			CAssetExporter.ShowExportFailPopup(KCEditorDefine.B_ALERT_P_EXPORT_SPRITE_FAIL_MSG);
 		} else {
 			for(int i = 0; i < oSpriteList.Count; ++i) {
 				var oTexture = new Texture2D((int)oSpriteList[i].textureRect.width,
@@ -50,10 +50,10 @@ public static partial class CAssetExporter {
 				oTexture.Apply();
 
 				var oBytes = oTexture.EncodeToPNG();
-				CFunc.WriteBytes(string.Format(KCEditorDefine.IMG_PATH_FORMAT_TEXTURE_TO_IMG, oSpriteList[i].name), oBytes);
+				CFunc.WriteBytes(string.Format(KCEditorDefine.B_IMG_PATH_FORMAT_TEXTURE_TO_IMG, oSpriteList[i].name), oBytes);
 			}
 
-			CAssetExporter.ShowExportSuccessPopup(KCEditorDefine.ALERT_P_EXPORT_IMG_SUCCESS_MSG);
+			CAssetExporter.ShowExportSuccessPopup(KCEditorDefine.B_ALERT_P_EXPORT_IMG_SUCCESS_MSG);
 		}
 	}
 
@@ -71,14 +71,14 @@ public static partial class CAssetExporter {
 
 	//! 추출 성공 팝업을 출력한다
 	private static void ShowExportSuccessPopup(string a_oMsg) {
-		CEditorFunc.ShowAlertPopup(KCEditorDefine.ALERT_P_TITLE,
-			a_oMsg, KCEditorDefine.ALERT_P_OK_BTN_TEXT, string.Empty);
+		CEditorFunc.ShowAlertPopup(KCEditorDefine.B_ALERT_P_TITLE,
+			a_oMsg, KCEditorDefine.B_ALERT_P_OK_BTN_TEXT, string.Empty);
 	}
 
 	//! 추출 에러 팝업을 출력한다
 	private static void ShowExportFailPopup(string a_oMsg) {
-		CEditorFunc.ShowAlertPopup(KCEditorDefine.ALERT_P_TITLE,
-			a_oMsg, KCEditorDefine.ALERT_P_OK_BTN_TEXT, string.Empty);
+		CEditorFunc.ShowAlertPopup(KCEditorDefine.B_ALERT_P_TITLE,
+			a_oMsg, KCEditorDefine.B_ALERT_P_OK_BTN_TEXT, string.Empty);
 	}
 	#endregion			// 클래스 함수
 }
