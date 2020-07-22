@@ -3,8 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
-//! 서브 약관 동의 씬 관리자
+//! 서브 인트로 씬 관리자
 public class CSubIntroSceneManager : CIntroSceneManager {
-	
+	#region 함수
+	//! 초기화
+	public override void Awake() {
+		base.Awake();
+
+		if(CSceneManager.IsInit) {
+			
+		}
+	}
+	#endregion			// 함수
 }
 #endif			// #if NEVER_USE_THIS

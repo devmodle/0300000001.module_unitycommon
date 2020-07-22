@@ -6,6 +6,15 @@ using UnityEngine;
 //! 서브 약관 동의 씬 관리자
 public class CSubAgreeSceneManager : CAgreeSceneManager {
 	#region 함수
+	//! 초기화
+	public override void Awake() {
+		base.Awake();
+
+		if(CSceneManager.IsInit) {
+			
+		}
+	}
+
 	//! 약관 동의 팝업을 출력한다
 	protected override void ShowAgreePopup(string a_oServiceString, string a_oPersonalString) {
 		this.LoadNextScene();
