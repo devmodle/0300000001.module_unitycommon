@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
+#if UNITY_EDITOR
+using UnityEditor;
+
+#if UNITY_IOS
+using UnityEditor.iOS.Xcode;
+#endif			// #if UNITY_IOS
+
 //! 자동 생성 상수
 public static partial class KACEditorDefine {
 	#region 런타임 상수
@@ -113,4 +120,5 @@ public static partial class KACEditorDefine {
 #endif			// #if UNITY_IOS
 	#endregion			// 조건부 런타임 상수
 }
+#endif			// #if UNITY_EDITOR
 #endif			// #if NEVER_USE_THIS

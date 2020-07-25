@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 #if PURCHASE_ENABLE
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_ENABLE
+
+#if UNITY_EDITOR
+using UnityEditor;
 
 //! 기본 스크립트 객체 생성자
 public static partial class CScriptableObjCreator {
@@ -16,9 +18,9 @@ public static partial class CScriptableObjCreator {
 		var oDefineSymbolTable = CEditorFactory.CreateScriptableObj<CDefineSymbolTable>();
 
 		oDefineSymbolTable.SetCommonDefineSymbolList(new List<string>() {
-			KCEditorDefine.DS_DEFINE_SYMBOL_SECURITY_ENABLE,
-			KCEditorDefine.DS_DEFINE_SYMBOL_DYNAMIC_BATCHING_ENABLE,
-			KCEditorDefine.DS_DEFINE_SYMBOL_UNIVERSAL_RENDER_PIPELINE_ENABLE
+			KCEditorDefine.DS_DEFINE_S_SECURITY_ENABLE,
+			KCEditorDefine.DS_DEFINE_S_DYNAMIC_BATCHING_ENABLE,
+			KCEditorDefine.DS_DEFINE_S_UNIVERSAL_RENDER_PIPELINE_ENABLE
 		});
 	}
 
@@ -49,8 +51,6 @@ public static partial class CScriptableObjCreator {
 			m_oUserID = "dante",
 
 			m_oBranch = "master",
-			m_oProjectName = "Library",
-
 			m_oSourceRoot = "00011.Library",
 			m_oWorkspaceRoot = "/Users/dante/Documents/jenkins/workspace",
 			m_oDistributionPath = "/Users/dante/Documents/jenkins/builds",
@@ -105,7 +105,6 @@ public static partial class CScriptableObjCreator {
 			m_bIsEnableTextureStreamingInEditMode = true,
 
 			m_eCacheServerMode = CacheServerMode.AsPreferences,
-			m_eAssetPipelineMode = AssetPipelineMode.Version2,
 			m_eLineEndingMode = LineEndingsMode.Windows,
 			m_eTextureCompressionType = ETextureCompressionType.DEFAULT
 		});
@@ -185,13 +184,13 @@ public static partial class CScriptableObjCreator {
 
 	//! 프로젝트 정보 테이블을 생성한다
 	[MenuItem("Utility/Create/ProjectInfoTable")]
-	public static void CreateProjectInfoTable() {
-		var oProjectInfoTable = CEditorFactory.CreateScriptableObj<CProjectInfoTable>();
-		oProjectInfoTable.SetCompanyName("LKStudio");
-		oProjectInfoTable.SetProjectName("Library");
-		oProjectInfoTable.SetProductName("Library");
+	public static void CreateProjInfoTable() {
+		var oProjInfoTable = CEditorFactory.CreateScriptableObj<CProjInfoTable>();
+		oProjInfoTable.SetCompanyName("LKStudio");
+		oProjInfoTable.SetProjName("Library");
+		oProjInfoTable.SetProductName("Library");
 
-		oProjectInfoTable.SetMacProjectInfo(new STProjectInfo() {
+		oProjInfoTable.SetMacProjInfo(new STProjInfo() {
 			m_oAppID = "dante.distribution.library",
 
 			m_oBuildNumber = "1",
@@ -201,7 +200,7 @@ public static partial class CScriptableObjCreator {
 			m_oSupportMail = "are2341@nate.com"
 		});
 
-		oProjectInfoTable.SetWindowsProjectInfo(new STProjectInfo() {
+		oProjInfoTable.SetWindowsProjInfo(new STProjInfo() {
 			m_oAppID = "dante.distribution.library",
 
 			m_oBuildNumber = "1",
@@ -211,7 +210,7 @@ public static partial class CScriptableObjCreator {
 			m_oSupportMail = "are2341@nate.com"
 		});
 
-		oProjectInfoTable.SetiOSProjectInfo(new STProjectInfo() {
+		oProjInfoTable.SetiOSProjInfo(new STProjInfo() {
 			m_oAppID = "dante.distribution.library",
 
 			m_oBuildNumber = "1",
@@ -221,7 +220,7 @@ public static partial class CScriptableObjCreator {
 			m_oSupportMail = "are2341@nate.com"
 		});
 
-		oProjectInfoTable.SetGoogleProjectInfo(new STProjectInfo() {
+		oProjInfoTable.SetGoogleProjInfo(new STProjInfo() {
 			m_oAppID = "dante.distribution.library",
 
 			m_oBuildNumber = "1",
@@ -231,7 +230,7 @@ public static partial class CScriptableObjCreator {
 			m_oSupportMail = "are2341@nate.com"
 		});
 
-		oProjectInfoTable.SetOneStoreProjectInfo(new STProjectInfo() {
+		oProjInfoTable.SetOneStoreProjInfo(new STProjInfo() {
 			m_oAppID = "dante.distribution.library",
 
 			m_oBuildNumber = "1",
@@ -241,7 +240,7 @@ public static partial class CScriptableObjCreator {
 			m_oSupportMail = "are2341@nate.com"
 		});
 
-		oProjectInfoTable.SetGalaxyStoreProjectInfo(new STProjectInfo() {
+		oProjInfoTable.SetGalaxyStoreProjInfo(new STProjInfo() {
 			m_oAppID = "dante.distribution.library",
 
 			m_oBuildNumber = "1",
@@ -379,3 +378,4 @@ public static partial class CScriptableObjCreator {
 #endif			// #if PURCHASE_ENABLE
 	#endregion			// 조건부 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

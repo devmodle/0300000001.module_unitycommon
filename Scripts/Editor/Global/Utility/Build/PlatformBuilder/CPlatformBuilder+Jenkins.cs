@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+
 //! 플랫폼 빌더 - 젠킨스
 public static partial class CPlatformBuilder {
 	#region 클래스 함수
 	//! 젠킨스 빌드를 실행한다
 	public static void ExecuteJenkinsBuild(string a_oPipeline, 
-		string a_oProjectName, string a_oBuildMode, string a_oBuildFunc, string a_oPipelineName, Dictionary<string, string> a_oDataList = null) {
+		string a_oProjName, string a_oBuildMode, string a_oBuildFunc, string a_oPipelineName, Dictionary<string, string> a_oDataList = null) {
 		CAccess.Assert(a_oPipeline.ExIsValid() && CPlatformBuildOption.BuildInfoTable != null);
 
 		var oStringBuilder = new System.Text.StringBuilder();
@@ -21,20 +24,20 @@ public static partial class CPlatformBuilder {
 			
 		// 매개 변수를 설정한다 {
 		string oSource = string.Format(KCEditorDefine.B_JENKINS_SOURCE_FORMAT, 
-			CPlatformBuildOption.BuildInfoTable.JenkinsInfo.m_oSourceRoot, a_oProjectName);
+			CPlatformBuildOption.BuildInfoTable.JenkinsInfo.m_oSourceRoot, a_oProjName);
 
-		string oProjectPath = string.Format(KCEditorDefine.B_JENKINS_PROJECT_PATH_FORMAT, 
-			CPlatformBuildOption.BuildInfoTable.JenkinsInfo.m_oWorkspaceRoot, oSource, CPlatformBuildOption.BuildInfoTable.JenkinsInfo.m_oProjectName);
+		string oProjPath = string.Format(KCEditorDefine.B_JENKINS_PROJ_PATH_FORMAT, 
+			CPlatformBuildOption.BuildInfoTable.JenkinsInfo.m_oWorkspaceRoot, oSource, CPlatformBuildOption.ProjInfoTable.ProjName);
 			
 		string oAnalytics = string.Format(KCEditorDefine.B_JENKINS_ANALYTICS_FORMAT,
 			CPlatformBuildOption.BuildInfoTable.JenkinsInfo.m_oSourceRoot);
 			
 		var oDataList = a_oDataList ?? new Dictionary<string, string>();
 		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_SOURCE, oSource);
-		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_PROJECT_PATH, oProjectPath);
+		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_PROJ_PATH, oProjPath);
 		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_BRANCH, CPlatformBuildOption.BuildInfoTable.JenkinsInfo.m_oBranch);
 		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_DISTRIBUTION_PATH, CPlatformBuildOption.BuildInfoTable.JenkinsInfo.m_oDistributionPath);
-		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_PROJECT_NAME, CPlatformBuildOption.BuildInfoTable.JenkinsInfo.m_oProjectName);
+		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_PROJ_NAME, CPlatformBuildOption.ProjInfoTable.ProjName);
 		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_ANALYTICS, oAnalytics);
 		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_BUILD_MODE, a_oBuildMode);
 		oDataList.ExAddValue(KCEditorDefine.B_JENKINS_KEY_BUILD_FUNC, a_oBuildFunc);
@@ -57,22 +60,22 @@ public static partial class CPlatformBuilder {
 		};
 
 		CPlatformBuilder.ExecuteJenkinsBuild(KCEditorDefine.B_JENKINS_STANDALONE_PIPELINE, 
-			KCEditorDefine.B_JENKINS_STANDALONE_BUILD_PROJECT_NAME, a_oBuildMode, a_oBuildFunc, a_oPipelineName, oDataList);
+			KCEditorDefine.B_JENKINS_STANDALONE_BUILD_PROJ_NAME, a_oBuildMode, a_oBuildFunc, a_oPipelineName, oDataList);
 	}
 
 	//! iOS 플랫폼 젠킨스 빌드를 실행한다
 	public static void ExecuteiOSPlatformJenkinsBuild(string a_oBuildMode, 
 		string a_oBuildFunc, string a_oPipelineName, string a_oProfileID, string a_oIPAExportMethod) {
-		CAccess.Assert(CPlatformBuildOption.ProjectInfoTable != null);
+		CAccess.Assert(CPlatformBuildOption.ProjInfoTable != null);
 
 		var oDataList = new Dictionary<string, string>() {
-			[KCEditorDefine.B_JENKINS_KEY_BUNDLE_ID] = CPlatformBuildOption.ProjectInfoTable.iOSProjectInfo.m_oAppID,
+			[KCEditorDefine.B_JENKINS_KEY_BUNDLE_ID] = CPlatformBuildOption.ProjInfoTable.iOSProjInfo.m_oAppID,
 			[KCEditorDefine.B_JENKINS_KEY_PROFILE_ID] = a_oProfileID,
 			[KCEditorDefine.B_JENKINS_KEY_IPA_EXPORT_METHOD] = a_oIPAExportMethod
 		};
 
 		CPlatformBuilder.ExecuteJenkinsBuild(KCEditorDefine.B_JENKINS_IOS_PIPELINE, 
-			KCEditorDefine.B_JENKINS_IOS_BUILD_PROJECT_NAME, a_oBuildMode, a_oBuildFunc, a_oPipelineName, oDataList);
+			KCEditorDefine.B_JENKINS_IOS_BUILD_PROJ_NAME, a_oBuildMode, a_oBuildFunc, a_oPipelineName, oDataList);
 	}
 
 	//! 안드로이드 플랫폼 젠킨스 빌드를 실행한다
@@ -84,7 +87,8 @@ public static partial class CPlatformBuilder {
 		};
 
 		CPlatformBuilder.ExecuteJenkinsBuild(KCEditorDefine.B_JENKINS_ANDROID_PIPELINE, 
-			KCEditorDefine.B_JENKINS_ANDROID_BUILD_PROJECT_NAME, a_oBuildMode, a_oBuildFunc, a_oPipelineName, oDataList);
+			KCEditorDefine.B_JENKINS_ANDROID_BUILD_PROJ_NAME, a_oBuildMode, a_oBuildFunc, a_oPipelineName, oDataList);
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

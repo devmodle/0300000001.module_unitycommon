@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+#if NEVER_USE_THIS
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-#if NEVER_USE_THIS
-//! 씬 관리자 등록자
+//! 스크립트 관리자
 [InitializeOnLoad]
 public static partial class CScriptManager {
 	#region 클래스 함수
@@ -23,7 +25,7 @@ public static partial class CScriptManager {
 
 	//! 상태를 갱신한다
 	public static void Update() {
-		if(CEditorSceneManager.IsEnableUpdateState()) {
+		if(CEditorAccess.IsEnableUpdateState()) {
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
 			for(int i = 0; i < oMonoScripts.Length; ++i) {
@@ -42,4 +44,5 @@ public static partial class CScriptManager {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR
 #endif			// #if NEVER_USE_THIS

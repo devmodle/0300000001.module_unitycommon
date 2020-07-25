@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 //! 플랫폼 빌더 - 독립 플랫폼
@@ -94,8 +95,8 @@ public static partial class CPlatformBuilder {
 	//! 독립 플랫폼을 빌드한다
 	private static void BuildStandalonePlatformDebug(EStandalonePlatformType a_ePlatformType) {
 		// 전처리기 심볼을 추가한다
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
 
 		// 빌드 옵션을 설정한다
 		var oPlayerOptions = new BuildPlayerOptions();
@@ -113,10 +114,10 @@ public static partial class CPlatformBuilder {
 	//! 독립 플랫폼을 빌드한다
 	private static void BuildStandalonePlatformRelease(EStandalonePlatformType a_ePlatformType) {
 		// 전처리기 심볼을 추가한다 {
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
 
 		if(CPlatformBuilder.IsAutoPlay) {
-			CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
+			CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
 		}
 		// 전처리기 심볼을 추가한다 }
 
@@ -125,7 +126,7 @@ public static partial class CPlatformBuilder {
 
 	//! 독립 플랫폼을 빌드한다
 	private static void BuildStandalonePlatformWithAutoPlayRelease(EStandalonePlatformType a_ePlatformType) {
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_SYMBOL_FPS_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Standalone, KCEditorDefine.DS_DEFINE_S_FPS_ENABLE);
 
 		CPlatformBuilder.IsAutoPlay = true;
 		CPlatformBuilder.BuildStandalonePlatformRelease(a_ePlatformType);
@@ -178,3 +179,4 @@ public static partial class CPlatformBuilder {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

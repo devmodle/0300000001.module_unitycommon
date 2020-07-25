@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 //! 플랫폼 빌더 - 안드로이드
@@ -226,8 +227,8 @@ public static partial class CPlatformBuilder {
 	//! 안드로이드 플랫폼을 빌드한다
 	private static void BuildAndroidPlatformDebug(EAndroidPlatformType a_ePlatformType) {
 		// 전처리기 심볼을 추가한다
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
 
 		// 빌드 옵션을 설정한다 {
 		var oPlayerOptions = new BuildPlayerOptions();
@@ -248,10 +249,10 @@ public static partial class CPlatformBuilder {
 	//! 안드로이드 플랫폼을 빌드한다
 	private static void BuildAndroidPlatformRelease(EAndroidPlatformType a_ePlatformType) {
 		// 전처리기 심볼을 추가한다 {
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
 
 		if(CPlatformBuilder.IsAutoPlay) {
-			CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
+			CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
 		}
 		// 전처리기 심볼을 추가한다 }
 
@@ -261,7 +262,7 @@ public static partial class CPlatformBuilder {
 
 	//! 안드로이드 플랫폼을 빌드한다
 	private static void BuildAndroidPlatformWithAutoPlayRelease(EAndroidPlatformType a_ePlatformType) {
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_SYMBOL_FPS_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_FPS_ENABLE);
 
 		CPlatformBuilder.IsAutoPlay = true;
 		CPlatformBuilder.BuildAndroidPlatformRelease(a_ePlatformType);
@@ -276,8 +277,8 @@ public static partial class CPlatformBuilder {
 	//! 안드로이드 플랫폼을 빌드한다
 	private static void BuildAndroidPlatformAdhoc(EAndroidPlatformType a_ePlatformType) {
 		// 전처리기 심볼을 추가한다
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_SYMBOL_ADHOC_BUILD);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_ADHOC_BUILD);
 
 		EditorUserBuildSettings.buildAppBundle = false;
 		CPlatformBuilder.BuildAndroidPlatform(new BuildPlayerOptions(), a_ePlatformType);
@@ -285,14 +286,14 @@ public static partial class CPlatformBuilder {
 
 	//! 안드로이드 플랫폼을 빌드한다
 	private static void BuildAndroidPlatformWithRoboTestAdhoc(EAndroidPlatformType a_ePlatformType) {
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_SYMBOL_ROBO_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_ROBO_TEST_ENABLE);
 		CPlatformBuilder.BuildAndroidPlatformAdhoc(a_ePlatformType);
 	}
 
 	//! 안드로이드 플랫폼을 빌드한다
 	private static void BuildAndroidPlatformStore(EAndroidPlatformType a_ePlatformType) {
 		CPlatformBuilder.IsDistributionBuild = true;
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_SYMBOL_STORE_BUILD);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_STORE_BUILD);
 
 		EditorUserBuildSettings.buildAppBundle = true;
 		CPlatformBuilder.BuildAndroidPlatform(new BuildPlayerOptions(), a_ePlatformType);
@@ -319,13 +320,13 @@ public static partial class CPlatformBuilder {
 		a_oPlayerOptions.targetGroup = BuildTargetGroup.Android;
 		a_oPlayerOptions.locationPathName = string.Format(KCEditorDefine.B_ANDROID_BUILD_PATH_FORMAT, oPlatform, oFilename, oBuildFileExtension);
 
-		if(CPlatformBuildOption.ProjectInfoTable != null) {
+		if(CPlatformBuildOption.ProjInfoTable != null) {
 			if(a_ePlatformType == EAndroidPlatformType.ONE_STORE) {
-				PlayerSettings.bundleVersion = CPlatformBuildOption.ProjectInfoTable.OneStoreProjectInfo.m_oBuildVersion;
+				PlayerSettings.bundleVersion = CPlatformBuildOption.ProjInfoTable.OneStoreProjInfo.m_oBuildVersion;
 			} else if(a_ePlatformType == EAndroidPlatformType.GALAXY_STORE) {
-				PlayerSettings.bundleVersion = CPlatformBuildOption.ProjectInfoTable.GalaxyStoreProjectInfo.m_oBuildVersion;
+				PlayerSettings.bundleVersion = CPlatformBuildOption.ProjInfoTable.GalaxyStoreProjInfo.m_oBuildVersion;
 			} else {
-				PlayerSettings.bundleVersion = CPlatformBuildOption.ProjectInfoTable.GoogleProjectInfo.m_oBuildVersion;
+				PlayerSettings.bundleVersion = CPlatformBuildOption.ProjInfoTable.GoogleProjInfo.m_oBuildVersion;
 			}
 		}
 		// 빌드 옵션을 설정한다 }
@@ -363,3 +364,4 @@ public static partial class CPlatformBuilder {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

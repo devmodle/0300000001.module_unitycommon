@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 //! 자동 씬 추가자
@@ -35,3 +37,4 @@ public static class CAutoSceneImporter {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

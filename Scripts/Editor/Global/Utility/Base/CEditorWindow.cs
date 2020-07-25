@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 //! 에디터 윈도우
@@ -28,3 +30,4 @@ public class CEditorWindow<T> : EditorWindow where T : CEditorWindow<T> {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

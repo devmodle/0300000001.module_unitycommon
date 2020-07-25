@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 //! 플랫폼 빌더
@@ -20,25 +22,25 @@ public static partial class CPlatformBuilder {
 		try {
 			// 전처리기 심볼을 설정한다 {
 			if(CPlatformBuilder.IsDistributionBuild) {
-				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_ANALYTICS_TEST_ENABLE);
+				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_ANALYTICS_TEST_ENABLE);
 			}
 
 			if(a_oPlayerOptions.targetGroup == BuildTargetGroup.Standalone) {
 				if(CPlatformBuilder.StandalonePlatformType == EStandalonePlatformType.WINDOWS) {
-					CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_WINDOWS_PLATFORM);
+					CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_WINDOWS_PLATFORM);
 				} else {
-					CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_MAC_PLATFORM);
+					CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_MAC_PLATFORM);
 				}
 			} if(a_oPlayerOptions.targetGroup == BuildTargetGroup.iOS || a_oPlayerOptions.targetGroup == BuildTargetGroup.Android) {
-				CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_RECEIPT_CHECK_ENABLE);
+				CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_RECEIPT_CHECK_ENABLE);
 
 				if(a_oPlayerOptions.targetGroup == BuildTargetGroup.Android) {
 					if(CPlatformBuilder.AndroidPlatformType == EAndroidPlatformType.ONE_STORE) {
-						CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_ONE_STORE_PLATFORM);
+						CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_ONE_STORE_PLATFORM);
 					} else if(CPlatformBuilder.AndroidPlatformType == EAndroidPlatformType.GALAXY_STORE) {
-						CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_GALAXY_STORE_PLATFORM);
+						CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_GALAXY_STORE_PLATFORM);
 					} else {
-						CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_GOOGLE_PLATFORM);
+						CPlatformBuildOption.AddDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_GOOGLE_PLATFORM);
 					}
 				}
 			}
@@ -98,22 +100,22 @@ public static partial class CPlatformBuilder {
 			CPlatformBuildOption.SetupGraphicAPIs();
 
 			// 전처리기 심볼을 리셋한다 {
-			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_FPS_ENABLE);
-			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_ROBO_TEST_ENABLE);
-			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
-			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_RECEIPT_CHECK_ENABLE);
+			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_FPS_ENABLE);
+			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_ROBO_TEST_ENABLE);
+			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
+			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_RECEIPT_CHECK_ENABLE);
 
-			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_ADHOC_BUILD);
-			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_STORE_BUILD);
+			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_ADHOC_BUILD);
+			CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_STORE_BUILD);
 
 			if(a_oPlayerOptions.targetGroup == BuildTargetGroup.Standalone) {
-				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_MAC_PLATFORM);
-				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_WINDOWS_PLATFORM);
+				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_MAC_PLATFORM);
+				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_WINDOWS_PLATFORM);
 			} else if(a_oPlayerOptions.targetGroup == BuildTargetGroup.Android) {
-				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_GOOGLE_PLATFORM);
-				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_ONE_STORE_PLATFORM);
-				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_SYMBOL_GALAXY_STORE_PLATFORM);
+				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_GOOGLE_PLATFORM);
+				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_ONE_STORE_PLATFORM);
+				CPlatformBuildOption.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KCEditorDefine.DS_DEFINE_S_GALAXY_STORE_PLATFORM);
 			}
 
 			CEditorFunc.SetupDefineSymbols(CPlatformBuildOption.DefineSymbolListContainer);
@@ -122,3 +124,4 @@ public static partial class CPlatformBuilder {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

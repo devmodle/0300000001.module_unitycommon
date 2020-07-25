@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
@@ -289,3 +291,4 @@ public static partial class CObjCreator {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

@@ -161,33 +161,33 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #if FIREBASE_ENABLE
 #if FIREBASE_REMOTE_CONFIG_ENABLE
 				var oMacVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.MacProjectInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.MacProjectInfo.m_oBuildVersion
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.MacProjInfo.m_oBuildNumber,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.MacProjInfo.m_oBuildVersion
 				};
 
 				var oWindowsVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.WindowsProjectInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.WindowsProjectInfo.m_oBuildVersion
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.WindowsProjInfo.m_oBuildNumber,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.WindowsProjInfo.m_oBuildVersion
 				};
 
 				var oiOSVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.iOSProjectInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.iOSProjectInfo.m_oBuildVersion
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.iOSProjInfo.m_oBuildNumber,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.iOSProjInfo.m_oBuildVersion
 				};
 
 				var oGoogleVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.GoogleProjectInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.GoogleProjectInfo.m_oBuildVersion
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.GoogleProjInfo.m_oBuildNumber,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.GoogleProjInfo.m_oBuildVersion
 				};
 
 				var oOneStoreVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.OneStoreProjectInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.OneStoreProjectInfo.m_oBuildVersion
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.OneStoreProjInfo.m_oBuildNumber,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.OneStoreProjInfo.m_oBuildVersion
 				};
 
 				var oGalaxyStoreVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjectInfoTable.Instance.GalaxyStoreProjectInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjectInfoTable.Instance.GalaxyStoreProjectInfo.m_oBuildVersion
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.GalaxyStoreProjInfo.m_oBuildNumber,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.GalaxyStoreProjInfo.m_oBuildVersion
 				};
 
 				var oConfigDataList = new Dictionary<string, object>() {

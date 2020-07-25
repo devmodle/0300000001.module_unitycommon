@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if NEVER_USE_THIS
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Callbacks;
 
-#if NEVER_USE_THIS
 #if UNITY_IOS
 using UnityEditor.iOS.Xcode;
 #endif			// #if UNITY_IOS
@@ -36,7 +38,7 @@ public static partial class CPlatformBuildHandler {
 	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
 		string oPlistFilepath = string.Format(KCEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
-		string oProjectFilepath = PBXProject.GetPBXProjectPath(a_oPath);
+		string oProjFilepath = PBXProject.GetPBXProjectPath(a_oPath);
 
 		// Plist 옵션을 설정한다 {
 		var oDocument = new PlistDocument();
@@ -49,17 +51,17 @@ public static partial class CPlatformBuildHandler {
 		// Plist 옵션을 설정한다 }
 
 		// 프로젝트 옵션을 설정한다 {
-		var oProject = new PBXProject();
-		oProject.ReadFromFile(oProjectFilepath);
+		var oProj = new PBXProject();
+		oProj.ReadFromFile(oProjFilepath);
 
-		if(oProject != null) {
-			string oGUID = oProject.GetUnityMainTargetGuid();
+		if(oProj != null) {
+			string oGUID = oProj.GetUnityMainTargetGuid();
 
-			var oCapability = new ProjectCapabilityManager(oProjectFilepath,
+			var oCapability = new ProjectCapabilityManager(oProjFilepath,
 				KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oGUID);
 
 			for(int i = 0; i < KACEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
-				oProject.AddFrameworkToProject(oGUID, KACEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
+				oProj.AddFrameworkToProj(oGUID, KACEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
 			}
 
 			for(int i = 0; i < KACEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
@@ -73,12 +75,12 @@ public static partial class CPlatformBuildHandler {
 					oCapability.AddPushNotifications(!CPlatformBuilder.IsDistributionBuild);
 				}
 
-				oProject.AddCapability(oGUID, KACEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i], 
+				oProj.AddCapability(oGUID, KACEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i], 
 					KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS);
 			}
 
 			oCapability.WriteToFile();
-			oProject.WriteToFile(oProjectFilepath);
+			oProj.WriteToFile(oProjFilepath);
 		}
 		// 프로젝트 옵션을 설정한다 }
 #endif			// #if UNITY_IOS
@@ -91,4 +93,5 @@ public static partial class CPlatformBuildHandler {
 #endif			// #if UNITY_ANDROID
 	}
 }
+#endif			// #if UNITY_EDITOR
 #endif			// #if NEVER_USE_THIS

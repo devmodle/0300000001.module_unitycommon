@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 //! 플랫폼 빌더 - iOS
@@ -10,8 +12,8 @@ public static partial class CPlatformBuilder {
 	[MenuItem("Utility/Build/Local/iOS/Device/Debug")]
 	public static void BuildiOSDevicePlatformDebug() {
 		// 전처리기 심볼을 추가한다
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
 
 		// 프로비저닝 파일 정보를 설정한다
 		PlayerSettings.iOS.iOSManualProvisioningProfileID = CPlatformBuildOption.BuildInfoTable.iOSBuildInfo.m_oDevProfileID;
@@ -38,10 +40,10 @@ public static partial class CPlatformBuilder {
 	[MenuItem("Utility/Build/Local/iOS/Device/Release")]
 	public static void BuildiOSDevicePlatformRelease() {
 		// 전처리기 심볼을 추가한다 {
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
 
 		if(CPlatformBuilder.IsAutoPlay) {
-			CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
+			CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
 		}
 		// 전처리기 심볼을 추가한다 }
 
@@ -59,7 +61,7 @@ public static partial class CPlatformBuilder {
 	//! iOS 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/iOS/Device/Release with AutoPlay")]
 	public static void BuildiOSDevicePlatformWithAutoPlayRelease() {
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_FPS_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_FPS_ENABLE);
 
 		CPlatformBuilder.IsAutoPlay = true;
 		CPlatformBuilder.BuildiOSDevicePlatformRelease();
@@ -76,8 +78,8 @@ public static partial class CPlatformBuilder {
 	[MenuItem("Utility/Build/Local/iOS/Device/Distribution (Adhoc)")]
 	public static void BuildiOSDevicePlatformAdhoc() {
 		// 전처리기 심볼을 추가한다
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_ADHOC_BUILD);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_ADHOC_BUILD);
 
 		// 프로비저닝 파일 정보를 설정한다
 		PlayerSettings.iOS.iOSManualProvisioningProfileID = CPlatformBuildOption.BuildInfoTable.iOSBuildInfo.m_oAdhocProfileID;
@@ -90,7 +92,7 @@ public static partial class CPlatformBuilder {
 	//! iOS 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/iOS/Device/Distribution (Adhoc with Robo Test)")]
 	public static void BuildiOSDevicePlatformWithRoboTestAdhoc() {
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_ROBO_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_ROBO_TEST_ENABLE);
 		CPlatformBuilder.BuildiOSDevicePlatformAdhoc();
 	}
 
@@ -98,7 +100,7 @@ public static partial class CPlatformBuilder {
 	[MenuItem("Utility/Build/Local/iOS/Device/Distribution (Store)")]
 	public static void BuildiOSDevicePlatformStore() {
 		CPlatformBuilder.IsDistributionBuild = true;
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_STORE_BUILD);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_STORE_BUILD);
 
 		// 프로비저닝 파일 정보를 설정한다
 		PlayerSettings.iOS.iOSManualProvisioningProfileID = CPlatformBuildOption.BuildInfoTable.iOSBuildInfo.m_oStoreProfileID;
@@ -112,8 +114,8 @@ public static partial class CPlatformBuilder {
 	[MenuItem("Utility/Build/Local/iOS/Simulator/Debug")]
 	public static void BuildiOSSimulatorPlatformDebug() {
 		// 전처리기 심볼을 추가한다
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
 
 		// 그래픽 API 를 설정한다
 		PlayerSettings.iOS.sdkVersion = iOSSdkVersion.SimulatorSDK;
@@ -133,8 +135,8 @@ public static partial class CPlatformBuilder {
 	[MenuItem("Utility/Build/Local/iOS/Simulator/Release")]
 	public static void BuildiOSSimulatorPlatformRelease() {
 		// 전처리기 심볼을 추가한다
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
 
 		// 그래픽 API 를 설정한다
 		PlayerSettings.iOS.sdkVersion = iOSSdkVersion.SimulatorSDK;
@@ -146,7 +148,7 @@ public static partial class CPlatformBuilder {
 	//! iOS 플랫폼을 빌드한다
 	[MenuItem("Utility/Build/Local/iOS/Simulator/Release with AutoPlay")]
 	public static void BuildiOSSimulatorPlatformWithAutoPlayRelease() {
-		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_SYMBOL_FPS_ENABLE);
+		CPlatformBuildOption.AddDefineSymbol(BuildTargetGroup.iOS, KCEditorDefine.DS_DEFINE_S_FPS_ENABLE);
 
 		CPlatformBuilder.IsAutoPlay = true;
 		CPlatformBuilder.BuildiOSSimulatorPlatformRelease();
@@ -201,8 +203,8 @@ public static partial class CPlatformBuilder {
 		a_oPlayerOptions.targetGroup = BuildTargetGroup.iOS;
 		a_oPlayerOptions.locationPathName = KCEditorDefine.B_IOS_BUILD_PATH;
 
-		if(CPlatformBuildOption.ProjectInfoTable != null) {
-			PlayerSettings.bundleVersion = CPlatformBuildOption.ProjectInfoTable.iOSProjectInfo.m_oBuildVersion;
+		if(CPlatformBuildOption.ProjInfoTable != null) {
+			PlayerSettings.bundleVersion = CPlatformBuildOption.ProjInfoTable.iOSProjInfo.m_oBuildVersion;
 		}
 		// 빌드 옵션을 설정한다 }
 
@@ -214,3 +216,4 @@ public static partial class CPlatformBuilder {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

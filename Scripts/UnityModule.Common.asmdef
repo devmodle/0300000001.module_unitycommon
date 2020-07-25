@@ -3,9 +3,9 @@
     "references": [
         "UnityModule.Common.Define",
         "UnityModule.Common.Access",
-        "UnityModule.Common.Func",
-        "UnityModule.Common.Extension",
         "UnityModule.Common.Factory",
+        "UnityModule.Common.Extension",
+        "UnityModule.Common.Func",
         "UnityModule.Common.Utility",
         "UnityModule.Common.Externals",
         "UnityModule.Common.Ads",

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 //! 플랫폼 빌드 옵션 - 설정
@@ -8,7 +10,7 @@ public static partial class CPlatformBuildOption {
 	#region 클래스 함수
 	//! 플러그인 프로젝트를 설정한다
 	[MenuItem("Utility/Setup/PluginProjects")]
-	public static void SetupPluginProjects() {
+	public static void SetupPluginProjs() {
 		// iOS 플러그인을 복사한다
 		CFunc.CopyDirectory(KCEditorDefine.B_IOS_SRC_PLUGIN_PATH, KCEditorDefine.B_IOS_DEST_PLUGIN_PATH);
 
@@ -81,7 +83,6 @@ public static partial class CPlatformBuildOption {
 			EditorSettings.enableTextureStreamingInEditMode = CPlatformBuildOption.BuildOptionTable.EditorOption.m_bIsEnableTextureStreamingInEditMode;
 
 			EditorSettings.cacheServerMode = CPlatformBuildOption.BuildOptionTable.EditorOption.m_eCacheServerMode;	
-			EditorSettings.assetPipelineMode = CPlatformBuildOption.BuildOptionTable.EditorOption.m_eAssetPipelineMode;
 			EditorSettings.lineEndingsForNewScripts = CPlatformBuildOption.BuildOptionTable.EditorOption.m_eLineEndingMode;
 			EditorSettings.etcTextureCompressorBehavior = (int)CPlatformBuildOption.BuildOptionTable.EditorOption.m_eTextureCompressionType;
 		}
@@ -188,12 +189,12 @@ public static partial class CPlatformBuildOption {
 
 	//! 프로젝트 옵션을 설정한다
 	[MenuItem("Utility/Setup/ProjectOptions")]
-	public static void SetupProjectOptions() {
+	public static void SetupProjOptions() {
 		// 스크립트를 복사한다 {
 		var oEncoding = System.Text.Encoding.Default;
 
-		string oSearch = KCEditorDefine.DS_DEFINE_SYMBOL_NEVER_USE_THIS;
-		string oReplace = KCEditorDefine.DS_DEFINE_SYMBOL_USE_CUSTOM_PROJECT_OPTION;
+		string oSearch = KCEditorDefine.DS_DEFINE_S_NEVER_USE_THIS;
+		string oReplace = KCEditorDefine.DS_DEFINE_S_USE_CUSTOM_PROJ_OPTION;
 
 		for(int i = 0; i < KCEditorDefine.B_PATH_SCRIPT_FILEPATH_INFOS.Length; ++i) {
 			var stFilepathInfo = KCEditorDefine.B_PATH_SCRIPT_FILEPATH_INFOS[i];
@@ -240,7 +241,7 @@ public static partial class CPlatformBuildOption {
 		// 테이블을 제거한다
 		Resources.UnloadAsset(CPlatformBuildOption.BuildInfoTable);
 		Resources.UnloadAsset(CPlatformBuildOption.BuildOptionTable);
-		Resources.UnloadAsset(CPlatformBuildOption.ProjectInfoTable);
+		Resources.UnloadAsset(CPlatformBuildOption.ProjInfoTable);
 		Resources.UnloadAsset(CPlatformBuildOption.DefineSymbolTable);
 
 		// 전처리기 심볼을 설정한다 {
@@ -248,13 +249,13 @@ public static partial class CPlatformBuildOption {
 
 		if(CPlatformBuildOption.DefineSymbolListContainer.ExIsValid()) {
 			foreach(var stKeyValue in CPlatformBuildOption.DefineSymbolListContainer) {
-				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_SYMBOL_FPS_ENABLE);
-				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_SYMBOL_ADS_TEST_ENABLE);
-				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_SYMBOL_LOGIC_TEST_ENABLE);
-				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_SYMBOL_RECEIPT_CHECK_ENABLE);
+				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_S_FPS_ENABLE);
+				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_S_LOGIC_TEST_ENABLE);
+				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_S_RECEIPT_CHECK_ENABLE);
 
-				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_SYMBOL_ADHOC_BUILD);
-				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_SYMBOL_STORE_BUILD);
+				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_S_ADHOC_BUILD);
+				CPlatformBuildOption.RemoveDefineSymbol(stKeyValue.Key, KCEditorDefine.DS_DEFINE_S_STORE_BUILD);
 			}
 
 			CEditorFunc.SetupDefineSymbols(CPlatformBuildOption.DefineSymbolListContainer);
@@ -291,42 +292,42 @@ public static partial class CPlatformBuildOption {
 			KCDefine.U_DEF_MULTI_TOUCH_ENABLE, KCDefine.U_DEF_QUALITY_LEVEL, true);
 
 		// 어플리케이션 식별자를 설정한다
-		if(CPlatformBuildOption.ProjectInfoTable != null) {
-			PlayerSettings.macOS.buildNumber = CPlatformBuildOption.ProjectInfoTable.MacProjectInfo.m_oBuildNumber;
+		if(CPlatformBuildOption.ProjInfoTable != null) {
+			PlayerSettings.macOS.buildNumber = CPlatformBuildOption.ProjInfoTable.MacProjInfo.m_oBuildNumber;
 
-			PlayerSettings.iOS.buildNumber = CPlatformBuildOption.ProjectInfoTable.iOSProjectInfo.m_oBuildNumber;
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, CPlatformBuildOption.ProjectInfoTable.iOSProjectInfo.m_oAppID);
+			PlayerSettings.iOS.buildNumber = CPlatformBuildOption.ProjInfoTable.iOSProjInfo.m_oBuildNumber;
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, CPlatformBuildOption.ProjInfoTable.iOSProjInfo.m_oAppID);
 
 			int nBuildNumber = 0;
 			bool bIsValidNumber = false;
 
 			if(Application.isBatchMode) {
 				if(CPlatformBuilder.StandalonePlatformType == EStandalonePlatformType.WINDOWS) {
-					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuildOption.ProjectInfoTable.WindowsProjectInfo.m_oAppID);
+					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuildOption.ProjInfoTable.WindowsProjInfo.m_oAppID);
 				} else {
-					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuildOption.ProjectInfoTable.MacProjectInfo.m_oAppID);
+					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuildOption.ProjInfoTable.MacProjInfo.m_oAppID);
 				}
 
 				if(CPlatformBuilder.AndroidPlatformType == EAndroidPlatformType.ONE_STORE) {
-					bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjectInfoTable.OneStoreProjectInfo.m_oBuildNumber, out nBuildNumber);
+					bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjInfoTable.OneStoreProjInfo.m_oBuildNumber, out nBuildNumber);
 				} else if(CPlatformBuilder.AndroidPlatformType == EAndroidPlatformType.GALAXY_STORE) {
-					bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjectInfoTable.GalaxyStoreProjectInfo.m_oBuildNumber, out nBuildNumber);
+					bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjInfoTable.GalaxyStoreProjInfo.m_oBuildNumber, out nBuildNumber);
 				} else {
-					bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjectInfoTable.GoogleProjectInfo.m_oBuildNumber, out nBuildNumber);
+					bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjInfoTable.GoogleProjInfo.m_oBuildNumber, out nBuildNumber);
 				}
 			} else {
 #if WINDOWS_PLATFORM
-				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuildOption.ProjectInfoTable.WindowsProjectInfo.m_oAppID);
+				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuildOption.ProjInfoTable.WindowsProjInfo.m_oAppID);
 #else
-				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuildOption.ProjectInfoTable.MacProjectInfo.m_oAppID);
+				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, CPlatformBuildOption.ProjInfoTable.MacProjInfo.m_oAppID);
 #endif			// #if WINDOWS_PLATFORM
 
 #if ONE_STORE_PLATFORM
-				bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjectInfoTable.OneStoreProjectInfo.m_oBuildNumber, out nBuildNumber);
+				bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjInfoTable.OneStoreProjInfo.m_oBuildNumber, out nBuildNumber);
 #elif GALAXY_STORE_PLATFORM
-				bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjectInfoTable.GalaxyStoreProjectInfo.m_oBuildNumber, out nBuildNumber);
+				bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjInfoTable.GalaxyStoreProjInfo.m_oBuildNumber, out nBuildNumber);
 #else
-				bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjectInfoTable.GoogleProjectInfo.m_oBuildNumber, out nBuildNumber);
+				bIsValidNumber = int.TryParse(CPlatformBuildOption.ProjInfoTable.GoogleProjInfo.m_oBuildNumber, out nBuildNumber);
 #endif			// #if ONE_STORE_PLATFORM
 			}
 
@@ -335,19 +336,19 @@ public static partial class CPlatformBuildOption {
 
 			if(Application.isBatchMode) {
 				if(CPlatformBuilder.AndroidPlatformType == EAndroidPlatformType.ONE_STORE) {
-					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjectInfoTable.OneStoreProjectInfo.m_oAppID);
+					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjInfoTable.OneStoreProjInfo.m_oAppID);
 				} else if(CPlatformBuilder.AndroidPlatformType == EAndroidPlatformType.GALAXY_STORE) {
-					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjectInfoTable.OneStoreProjectInfo.m_oAppID);
+					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjInfoTable.OneStoreProjInfo.m_oAppID);
 				} else {
-					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjectInfoTable.GoogleProjectInfo.m_oAppID);
+					PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjInfoTable.GoogleProjInfo.m_oAppID);
 				}
 			} else {
 #if ONE_STORE_PLATFORM
-				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjectInfoTable.OneStoreProjectInfo.m_oAppID);
+				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjInfoTable.OneStoreProjInfo.m_oAppID);
 #elif GALAXY_STORE_PLATFORM
-				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjectInfoTable.GalaxyStoreProjectInfo.m_oAppID);
+				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjInfoTable.GalaxyStoreProjInfo.m_oAppID);
 #else
-				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjectInfoTable.GoogleProjectInfo.m_oAppID);
+				PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, CPlatformBuildOption.ProjInfoTable.GoogleProjInfo.m_oAppID);
 #endif			// #if ONE_STORE_PLATFORM
 			}
 		}
@@ -420,9 +421,9 @@ public static partial class CPlatformBuildOption {
 
 		PlayerSettings.actionOnDotNetUnhandledException = ActionOnDotNetUnhandledException.Crash;
 
-		if(CPlatformBuildOption.ProjectInfoTable != null) {
-			PlayerSettings.companyName = CPlatformBuildOption.ProjectInfoTable.CompanyName;
-			PlayerSettings.productName = CPlatformBuildOption.ProjectInfoTable.ProductName;
+		if(CPlatformBuildOption.ProjInfoTable != null) {
+			PlayerSettings.companyName = CPlatformBuildOption.ProjInfoTable.CompanyName;
+			PlayerSettings.productName = CPlatformBuildOption.ProjInfoTable.ProductName;
 		}
 
 #if LINEAR_PIPELINE_ENABLE
@@ -664,3 +665,4 @@ public static partial class CPlatformBuildOption {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

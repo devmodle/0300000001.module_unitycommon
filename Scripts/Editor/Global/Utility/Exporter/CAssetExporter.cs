@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 //! 에셋 추출자
@@ -82,3 +84,4 @@ public static partial class CAssetExporter {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR

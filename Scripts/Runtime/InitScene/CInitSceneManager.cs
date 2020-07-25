@@ -167,7 +167,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CBuildInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_BUILD_INFO_TABLE);
 			CBuildOptionTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_BUILD_OPTION_TABLE);
 			CDefineSymbolTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_DEFINE_SYMBOL_TABLE);
-			CProjectInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PROJECT_INFO_TABLE);
+			CProjInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PROJ_INFO_TABLE);
 			CDeviceInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_DEVICE_INFO_TABLE);
 
 #if ADS_ENABLE || TENJIN_ENABLE || FLURRY_ENABLE || FIREBASE_ENABLE

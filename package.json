@@ -9,9 +9,9 @@
   "dependencies": {
     "unitymodule.common.define": "https://gitlab.com/9tap.repository/unitymodule_common_define_client.git#v1.0.0",
     "unitymodule.common.access": "https://gitlab.com/9tap.repository/unitymodule_common_access_client.git#v1.0.0",
-    "unitymodule.common.func": "https://gitlab.com/9tap.repository/unitymodule_common_func_client.git#v1.0.0",
-    "unitymodule.common.extension": "https://gitlab.com/9tap.repository/unitymodule_common_extension_client.git#v1.0.0",
     "unitymodule.common.factory": "https://gitlab.com/9tap.repository/unitymodule_common_factory_client.git#v1.0.0",
+    "unitymodule.common.extension": "https://gitlab.com/9tap.repository/unitymodule_common_extension_client.git#v1.0.0",
+    "unitymodule.common.func": "https://gitlab.com/9tap.repository/unitymodule_common_func_client.git#v1.0.0",
     "unitymodule.common.utility": "https://gitlab.com/9tap.repository/unitymodule_common_utility_client.git#v1.0.0",
     "unitymodule.common.externals": "https://gitlab.com/9tap.repository/unitymodule_common_externals_client.git#v1.0.0",
     "unitymodule.common.ads": "https://gitlab.com/9tap.repository/unitymodule_common_ads_client.git#v1.0.0",

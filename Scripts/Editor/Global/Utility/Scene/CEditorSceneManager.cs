@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Linq;
+
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using Unity.Linq;
 
 //! 에디터 씬 관리자
 [InitializeOnLoad]
@@ -46,23 +48,23 @@ public static partial class CEditorSceneManager {
 	//! 스크립트가 로드 되었을 경우
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
-		if(!Application.isBatchMode && CEditorSceneManager.IsEnableUpdateState()) {
+		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
 			CPlatformBuildOption.SetupPlayerOptions();
 			CPlatformBuildOption.SetupEditorOptions();
-			CPlatformBuildOption.SetupProjectOptions();
-			CPlatformBuildOption.SetupPluginProjects();
+			CPlatformBuildOption.SetupProjOptions();
+			CPlatformBuildOption.SetupPluginProjs();
 			CPlatformBuildOption.SetupGraphicAPIs();
 		}
 	}
 
 	//! 씬이 열렸을 경우
 	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		CPlatformBuildOption.SetupProjectOptions();
+		CPlatformBuildOption.SetupProjOptions();
 	}
 
 	//! 상태를 갱신한다
 	public static void Update() {
-		if(CEditorSceneManager.IsEnableUpdateState()) {
+		if(CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.m_fSkipTime += Time.unscaledDeltaTime;
 			CEditorSceneManager.m_fHierarchySkipTime += Time.unscaledDeltaTime;
 
@@ -132,3 +134,4 @@ public static partial class CEditorSceneManager {
 	}
 	#endregion			// 클래스 함수
 }
+#endif			// #if UNITY_EDITOR
