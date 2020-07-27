@@ -1,4 +1,4 @@
-# 유니티 공용 라이브러리
+# 유니티 공용 모듈
 1. **필수 에셋 및 플러그인 리스트**
 	- *DOTween Pro (Ver.1.0.178 - Fab 3, 2020)*
 2. **외부 에셋 및 플러그인 리스트**
@@ -19,6 +19,5 @@
 	- *Message Pack*
 	- *Google Play Services*
 	- *Runtime File Browser*
-	- *YamlDotNet for Unity*
 	- *Unity Services (Analytics, Remote Config)*
 	- *Firebase (Auth, Database, Analytics, Remote Config)*

@@ -6,6 +6,8 @@ using Unity.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.PackageManager;
+using UnityEditor.PackageManager.Requests;
 using UnityEditor.SceneManagement;
 
 //! 에디터 씬 관리자
@@ -15,7 +17,8 @@ public static partial class CEditorSceneManager {
 	private static float m_fSkipTime = 0.0f;
 	private static float m_fHierarchySkipTime = 0.0f;
 
-	private static GUIStyle m_oHierarchyGUIStyle = null;
+	private static GUIStyle m_oGUIStyle = null;
+	private static ListRequest m_oListRequest = null;
 	#endregion			// 변수
 
 	#region 클래스 함수
@@ -23,25 +26,16 @@ public static partial class CEditorSceneManager {
 	static CEditorSceneManager() {
 		if(!Application.isBatchMode) {
 			// GUI 스타일을 설정한다 {
-			CEditorSceneManager.m_oHierarchyGUIStyle = new GUIStyle();
-			CEditorSceneManager.m_oHierarchyGUIStyle.alignment = TextAnchor.MiddleLeft;
-			CEditorSceneManager.m_oHierarchyGUIStyle.fontStyle = FontStyle.BoldAndItalic;
+			CEditorSceneManager.m_oGUIStyle = new GUIStyle();
+			CEditorSceneManager.m_oGUIStyle.alignment = TextAnchor.MiddleLeft;
+			CEditorSceneManager.m_oGUIStyle.fontStyle = FontStyle.BoldAndItalic;
 
-			CEditorSceneManager.m_oHierarchyGUIStyle.normal = new GUIStyleState() {
+			CEditorSceneManager.m_oGUIStyle.normal = new GUIStyleState() {
 				textColor = KCEditorDefine.B_HIERARCHY_TEXT_COLOR
 			};
 			// GUI 스타일을 설정한다 }
 
-			// 이벤트 함수를 설정한다 {
-			EditorApplication.update -= CEditorSceneManager.Update;
-			EditorApplication.update += CEditorSceneManager.Update;
-
-			EditorApplication.hierarchyWindowItemOnGUI -= CEditorSceneManager.UpdateHierarchyUIState;
-			EditorApplication.hierarchyWindowItemOnGUI += CEditorSceneManager.UpdateHierarchyUIState;
-
-			EditorSceneManager.sceneOpened -= CEditorSceneManager.OnSceneOpen;
-			EditorSceneManager.sceneOpened += CEditorSceneManager.OnSceneOpen;
-			// 이벤트 함수를 설정한다 }
+			CEditorSceneManager.SetupCallbacks();
 		}
 	}
 	
@@ -49,6 +43,9 @@ public static partial class CEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+			CEditorSceneManager.SetupCallbacks();
+			CEditorSceneManager.m_oListRequest = Client.List();
+
 			CPlatformBuildOption.SetupPlayerOptions();
 			CPlatformBuildOption.SetupEditorOptions();
 			CPlatformBuildOption.SetupProjOptions();
@@ -59,7 +56,12 @@ public static partial class CEditorSceneManager {
 
 	//! 씬이 열렸을 경우
 	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		CPlatformBuildOption.SetupProjOptions();
+		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+			CEditorSceneManager.SetupCallbacks();
+			CPlatformBuildOption.SetupProjOptions();
+
+			CEditorSceneManager.m_oListRequest = Client.List();
+		}
 	}
 
 	//! 상태를 갱신한다
@@ -101,6 +103,24 @@ public static partial class CEditorSceneManager {
 			}
 		}
 	}
+
+	//! 독립 패키지 상태를 갱신한다
+	private static void UpdateDependencyState() {
+		if(m_oListRequest.ExIsComplete()) {
+			try {
+				CEditorSceneManager.SetupDependencies();
+			} finally {
+				m_oListRequest = null;
+				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
+			}
+		}
+	}
+
+	//! 범위 레지스트리 상태를 갱신한다
+	private static void UpdateScopedRegistryState() {
+		CEditorSceneManager.SetupScopedRegistries();
+		EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
+	}
 	
 	//! 계층 뷰 UI 상태를 갱신한다
 	private static void UpdateHierarchyUIState(int a_nInstanceID, Rect a_stRect) {
@@ -126,7 +146,7 @@ public static partial class CEditorSceneManager {
 						string oString = string.Format(KCEditorDefine.B_SORTING_ORDER_INFO_FORMAT, 
 							oSortingLayerProperty.GetValue(oComponents[i]), oSortingOrderProperty.GetValue(oComponents[i]));
 
-						GUI.Label(a_stRect, oString, m_oHierarchyGUIStyle);
+						GUI.Label(a_stRect, oString, m_oGUIStyle);
 					}
 				}
 			}

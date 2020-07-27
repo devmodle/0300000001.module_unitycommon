@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: T_ProjInfoTable
   m_EditorClassIdentifier: 
   m_oCompanyName: LKStudio
+  m_oProjectName: Library
   m_oProductName: Library
   m_stMacProjectInfo:
     m_oAppID: dante.distribution.library

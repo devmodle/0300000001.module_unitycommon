@@ -316,7 +316,24 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 
 		CSceneManager.IsSetup = true;
-		CLogFunc.SendAppLaunchLog();
+
+		// 로그를 전송한다 {
+#if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+		CFlurryManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+
+#if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
+		CFacebookManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+#endif			// #if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
+
+#if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
+		CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, KCDefine.U_LOG_KEY_USER_INFO, null);
+#endif			// #if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
+
+#if UNITY_SERVICE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
+		CUnityServiceManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+#endif			// #if UNITY_SERVICE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
+		// 로그를 전송한다 }
 
 		CFunc.LateCallFunc(this, KCDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
 			CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_AGREE, false);
