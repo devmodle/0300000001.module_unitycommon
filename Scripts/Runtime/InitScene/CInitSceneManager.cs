@@ -68,20 +68,20 @@ public abstract partial class CInitSceneManager : CSceneManager {
 #endif			// #if !UNITY_EDITOR
 
 		// 저장소를 로드한다 {
-#if MESSAGE_PACK_ENABLE
+#if MSG_PACK_ENABLE
 		CUserInfoStorage.Instance.LoadUserInfo(KCDefine.B_DATA_PATH_USER_INFO);
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 		// 저장소를 로드한다 }
 
 		// 사운드를 설정한다 {
 		CSndManager.Instance.BGSndVolume = 1.0f;
 		CSndManager.Instance.FXSndsVolume = 1.0f;
 
-#if MESSAGE_PACK_ENABLE
+#if MSG_PACK_ENABLE
 		CSndManager.Instance.IsMuteBGSnd = CUserInfoStorage.Instance.UserInfo.IsMuteBGSnd;
 		CSndManager.Instance.IsMuteFXSnds = CUserInfoStorage.Instance.UserInfo.IsMuteFXSnds;
 		CSndManager.Instance.IsDisableVibrate = CUserInfoStorage.Instance.UserInfo.IsDisableVibrate;
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 		// 사운드를 설정한다 }
 	}
 
@@ -142,9 +142,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CGameCenterManager.Create();
 #endif			// #if GAME_CENTER_ENABLE
 
-#if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
+#if PURCHASE_ENABLE && MSG_PACK_ENABLE
 			CPurchaseManager.Create();
-#endif			// #if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
+#endif			// #if PURCHASE_ENABLE && MSG_PACK_ENABLE
 
 #if UNITY_SERVICE_ENABLE
 			CUnityServiceManager.Create();
@@ -182,10 +182,10 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			// 테이블을 생성한다 }
 
 			// 저장소를 생성한다 {
-#if MESSAGE_PACK_ENABLE
+#if MSG_PACK_ENABLE
 			CAppInfoStorage.Create();
 			CUserInfoStorage.Create();
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 			// 저장소를 생성한다 }

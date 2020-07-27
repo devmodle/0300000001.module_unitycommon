@@ -73,10 +73,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 			
 			// 저장소를 설정한다 {
-#if MESSAGE_PACK_ENABLE
+#if MSG_PACK_ENABLE
 			CAppInfoStorage.Instance.SetupStoreVersion();
 			CAppInfoStorage.Instance.LoadAppInfo(KCDefine.B_DATA_PATH_APP_INFO);
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 			// 저장소를 설정한다 }
@@ -213,10 +213,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if GAME_CENTER_ENABLE
 
-#if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
+#if PURCHASE_ENABLE && MSG_PACK_ENABLE
 				CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if PURCHASE_ENABLE && MESSAGE_PACK_ENABLE
+#endif			// #if PURCHASE_ENABLE && MSG_PACK_ENABLE
 
 #if UNITY_SERVICE_ENABLE
 				CUnityServiceManager.Instance.Init(null);
@@ -234,7 +234,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	
 	//! 디바이스 식별자 반환 메세지를 처리한다
 	private void HandleGetDeviceIDMsg(string a_oMsg) {
-#if MESSAGE_PACK_ENABLE
+#if MSG_PACK_ENABLE
 		bool bIsValid = CAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid();
 
 		if(!bIsValid || CAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
@@ -242,7 +242,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 
 		CAppInfoStorage.Instance.SaveAppInfo(KCDefine.B_DATA_PATH_APP_INFO);
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 
 		// 국가 코드 반환 메세지를 전송한다
 		CUnityMsgSender.Instance.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
@@ -257,7 +257,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			oCountryCode = !CAccess.IsMobilePlatform() ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
 
-#if MESSAGE_PACK_ENABLE
+#if MSG_PACK_ENABLE
 		CAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
 		CAppInfoStorage.Instance.SaveAppInfo(KCDefine.B_DATA_PATH_APP_INFO);
 
@@ -303,7 +303,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);
 			}	
 		}
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 
 		if(this.IsAutoInitManager) {
 #if FLURRY_ENABLE

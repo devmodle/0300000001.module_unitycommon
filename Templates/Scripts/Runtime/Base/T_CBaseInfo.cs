@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
-#if MESSAGE_PACK_ENABLE
+#if MSG_PACK_ENABLE
 using MessagePack;
 
 //! 기본 정보
@@ -41,5 +41,5 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	}
 	#endregion			// 함수
 }
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 #endif			// #if NEVER_USE_THIS

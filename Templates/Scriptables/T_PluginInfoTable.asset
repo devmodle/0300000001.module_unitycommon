@@ -15,17 +15,19 @@ MonoBehaviour:
   m_eBannerAdsType: 0
   m_stiOSAdmobPluginInfo:
     m_oBannerAdsID: ca-app-pub-4429226069711533/9321907041
-    m_oNativeAdsID: ca-app-pub-4429226069711533/7205442808
     m_oRewardAdsID: ca-app-pub-4429226069711533/1443417026
+    m_oNativeAdsID: ca-app-pub-4429226069711533/7205442808
     m_oFullscreenAdsID: ca-app-pub-4429226069711533/6695743706
+    m_oTemplateIDList: []
   m_stAndroidAdmobPluginInfo:
     m_oBannerAdsID: ca-app-pub-4429226069711533/6026208607
-    m_oNativeAdsID: ca-app-pub-4429226069711533/8775112138
     m_oRewardAdsID: ca-app-pub-4429226069711533/1279765492
+    m_oNativeAdsID: ca-app-pub-4429226069711533/8775112138
     m_oFullscreenAdsID: ca-app-pub-4429226069711533/8460800259
+    m_oTemplateIDList: []
+  m_stTenjinPluginInfo:
+    m_oAPIKey: ZAI7IG4Y9G6YW1H3DTMNUX7GBFT8FLWS
   m_stiOSFlurryPluginInfo:
-    m_oAPIKey: 94J595GYKRYCJ6XSWR29
+    m_oAPIKey: KMVH2DR22CBQWMZJ6XJ8
   m_stAndroidFlurryPluginInfo:
-    m_oAPIKey: FZ3K7T8FB4476688BXD5
-  m_stFirebasePluginInfo:
-    m_oDatabaseURL: https://library-97927303.firebaseio.com
+    m_oAPIKey: 9B4TJSM4BFJ9N4J2X83D

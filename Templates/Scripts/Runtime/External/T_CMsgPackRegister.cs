@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
-#if MESSAGE_PACK_ENABLE
+#if MSG_PACK_ENABLE
 using MessagePack;
 using MessagePack.Resolvers;
 
 //! 메세지 팩 등록자
-public static class CMessagePackRegister {
+public static class CMsgPackRegister {
 	#region 클래스 변수
 	private static bool m_bIsInit = false;
 	#endregion			// 클래스 변수
@@ -16,9 +16,9 @@ public static class CMessagePackRegister {
 	#region 클래스 함수
 	//! 메세지 팩을 등록한다
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-	public static void RegisterMessagePack() {
-		if(!CMessagePackRegister.m_bIsInit) {
-			CMessagePackRegister.m_bIsInit = true;
+	public static void RegisterMsgPack() {
+		if(!CMsgPackRegister.m_bIsInit) {
+			CMsgPackRegister.m_bIsInit = true;
 
 			StaticCompositeResolver.Instance.Register(MessagePack.Resolvers.GeneratedResolver.Instance,
 				MessagePack.Resolvers.StandardResolver.Instance);
@@ -34,10 +34,10 @@ public static class CMessagePackRegister {
 	//! 초기화
 	[UnityEditor.InitializeOnLoadMethod]
 	public static void EditorInitialize() {
-		CMessagePackRegister.RegisterMessagePack();
+		CMsgPackRegister.RegisterMsgPack();
 	}
 #endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 클래스 함수
 }
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 #endif			// #if NEVER_USE_THIS

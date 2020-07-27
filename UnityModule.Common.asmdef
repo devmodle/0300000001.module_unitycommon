@@ -9,6 +9,8 @@
         "UnityModule.Common.Utility",
         "UnityModule.Common.Externals",
         "UnityModule.Common.Ads",
+        "UnityModule.Common.Flurry",
+        "UnityModule.Common.Tenjin",
         "UnityModule.Common.Facebook"
     ],
     "includePlatforms": [],
