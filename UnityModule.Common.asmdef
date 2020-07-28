@@ -11,7 +11,8 @@
         "UnityModule.Common.Ads",
         "UnityModule.Common.Flurry",
         "UnityModule.Common.Tenjin",
-        "UnityModule.Common.Facebook"
+        "UnityModule.Common.Facebook",
+        "UnityModule.Common.Firebase"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
