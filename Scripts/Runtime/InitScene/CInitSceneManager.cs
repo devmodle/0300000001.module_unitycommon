@@ -108,8 +108,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			// 관리자를 생성한다 {
 			CLogManager.Create();
 			CSndManager.Create();
-			CScheduleManager.Create();
 			CResManager.Create();
+			CTaskManager.Create();
+			CScheduleManager.Create();
 			CNavStackManager.Create();
 			CToastPopupManager.Create();
 			CActivityIndicatorManager.Create();
@@ -170,9 +171,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CProjInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PROJ_INFO_TABLE);
 			CDeviceInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_DEVICE_INFO_TABLE);
 
-#if ADS_ENABLE || TENJIN_ENABLE || FLURRY_ENABLE || FIREBASE_ENABLE
+#if ADS_ENABLE || FLURRY_ENABLE || TENJIN_ENABLE || FIREBASE_ENABLE
 			CPluginInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PLUGIN_INFO_TABLE);
-#endif			// #if ADS_ENABLE || TENJIN_ENABLE || FLURRY_ENABLE || FIREBASE_ENABLE
+#endif			// #if ADS_ENABLE || FLURRY_ENABLE || TENJIN_ENABLE || FIREBASE_ENABLE
 
 #if PURCHASE_ENABLE
 			CProductInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PRODUCT_INFO_TABLE);

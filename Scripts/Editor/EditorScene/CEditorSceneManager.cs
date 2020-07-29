@@ -54,16 +54,6 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	//! 씬이 열렸을 경우
-	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
-			CEditorSceneManager.SetupCallbacks();
-			CPlatformBuildOption.SetupProjOptions();
-
-			CEditorSceneManager.m_oListRequest = Client.List();
-		}
-	}
-
 	//! 상태를 갱신한다
 	public static void Update() {
 		if(CEditorAccess.IsEnableUpdateState()) {
@@ -150,6 +140,16 @@ public static partial class CEditorSceneManager {
 					}
 				}
 			}
+		}
+	}
+
+	//! 씬이 열렸을 경우
+	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
+		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+			CEditorSceneManager.SetupCallbacks();
+			CPlatformBuildOption.SetupProjOptions();
+
+			CEditorSceneManager.m_oListRequest = Client.List();
 		}
 	}
 	#endregion			// 클래스 함수

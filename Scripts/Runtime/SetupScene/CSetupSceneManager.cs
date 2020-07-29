@@ -90,12 +90,12 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				oDeviceIDList.AddRange(CDeviceInfoTable.Instance.AdmobDeviceIDList);
 #endif			// #if ADMOB_ENABLE
 
-				CAdsManager.Instance.Init(new CAdsManager.STParameters() {
+				CAdsManager.Instance.Init(new CAdsManager.STParams() {
 					m_eBannerAdsType = CPluginInfoTable.Instance.m_eBannerAdsType,
 					m_oDeviceIDList = oDeviceIDList,
 
 #if ADMOB_ENABLE
-					m_stAdmobParameters = new CAdsManager.STAdmobParameters() {
+					m_stAdmobParams = new CAdsManager.STAdmobParams() {
 						m_oTemplateIDList = new List<string>(CPluginInfoTable.Instance.AdmobPluginInfo.m_oTemplateIDList),
 
 						m_oAdsIDList = new Dictionary<string, string>() {
@@ -108,7 +108,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if ADMOB_ENABLE
 
 #if UNITY_ADS_ENABLE
-					m_stUnityAdsParameters = new CAdsManager.STUnityAdsParameters() {
+					m_stUnityAdsParams = new CAdsManager.STUnityAdsParams() {
 						m_oGameID = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oGameID,
 
 						m_oAdsPlacementList = new Dictionary<string, string>() {
@@ -120,7 +120,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if UNITY_ADS_ENABLE
 
 #if IRON_SOURCE_ENABLE
-					m_stIronSourceParameters = new CAdsManager.STIronSourceParameters() {
+					m_stIronSourceParams = new CAdsManager.STIronSourceParams() {
 						m_oAppKey = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oAppKey,
 
 						m_oAdsUnitList = new List<string>() {
@@ -138,7 +138,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if IRON_SOURCE_ENABLE
 
 #if APP_LOVIN_ENABLE
-					m_stAppLovinParameters = new CAdsManager.STAppLovinParameters() {
+					m_stAppLovinParams = new CAdsManager.STAppLovinParams() {
 						m_oSDKKey = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oSDKKey,
 
 						m_oAdsIDList = new List<string>() {
@@ -322,12 +322,16 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CFlurryManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 #endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
 
+#if TENJIN_ENABLE && TENJIN_ANALYTICS_ENABLE
+		CTenjinManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+
 #if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
 		CFacebookManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 #endif			// #if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
 
 #if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
-		CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, KCDefine.U_LOG_KEY_USER_INFO, null);
+		CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, KCDefine.U_LOG_PARAM_USER_INFO, null);
 #endif			// #if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
 
 #if UNITY_SERVICE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE

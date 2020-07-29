@@ -12,7 +12,8 @@
         "UnityModule.Common.Flurry",
         "UnityModule.Common.Tenjin",
         "UnityModule.Common.Facebook",
-        "UnityModule.Common.Firebase"
+        "UnityModule.Common.Firebase",
+        "UnityModule.Common.GameCenter"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
