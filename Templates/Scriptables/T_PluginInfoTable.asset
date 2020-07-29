@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58fe7bf1704a94c71bb2465f76ce9aa9, type: 3}
+  m_Name: T_PluginInfoTable
+  m_EditorClassIdentifier: 
+  m_eBannerAdsType: 0
+  m_stiOSAdmobPluginInfo:
+    m_oBannerAdsID: ca-app-pub-4429226069711533/9321907041
+    m_oRewardAdsID: ca-app-pub-4429226069711533/1443417026
+    m_oNativeAdsID: ca-app-pub-4429226069711533/7205442808
+    m_oFullscreenAdsID: ca-app-pub-4429226069711533/6695743706
+    m_oTemplateIDList: []
+  m_stAndroidAdmobPluginInfo:
+    m_oBannerAdsID: ca-app-pub-4429226069711533/6026208607
+    m_oRewardAdsID: ca-app-pub-4429226069711533/1279765492
+    m_oNativeAdsID: ca-app-pub-4429226069711533/8775112138
+    m_oFullscreenAdsID: ca-app-pub-4429226069711533/8460800259
+    m_oTemplateIDList: []
+  m_stTenjinPluginInfo:
+    m_oAPIKey: ZAI7IG4Y9G6YW1H3DTMNUX7GBFT8FLWS
+  m_stiOSFlurryPluginInfo:
+    m_oAPIKey: KMVH2DR22CBQWMZJ6XJ8
+  m_stAndroidFlurryPluginInfo:
+    m_oAPIKey: 9B4TJSM4BFJ9N4J2X83D
+  m_stFirebasePluginInfo:
+    m_oDatabaseURL: https://library-97927303.firebaseio.com
