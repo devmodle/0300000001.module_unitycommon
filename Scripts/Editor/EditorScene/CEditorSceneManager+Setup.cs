@@ -199,12 +199,16 @@ public static partial class CEditorSceneManager {
 					string oScopedRegistryString = CFunc.ReadString(stKeyValue.Value, 
 						System.Text.Encoding.Default);
 
-					bIsNeedUpdate = true;
-					oScopedRegistryList.Add(SimpleJSON.JSON.Parse(oScopedRegistryString));
+					var oScopedRegistryNode = SimpleJSON.JSON.Parse(oScopedRegistryString);
+
+					if(oScopedRegistryNode != null) {
+						bIsNeedUpdate = true;
+						oScopedRegistryList.Add(SimpleJSON.JSON.Parse(oScopedRegistryString));
+					}
 				}
 			}
 
-			if(bIsNeedUpdate) {
+			if(bIsNeedUpdate && oScopedRegistryList.Count >= 1) {
 				oJSONNode.Add(KCEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY, oScopedRegistryList);
 				CFunc.WriteString(KCEditorDefine.B_DATA_PATH_UNITY_PKGS, oJSONNode.ToString(), System.Text.Encoding.Default);
 
