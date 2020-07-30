@@ -56,6 +56,7 @@ public static partial class CBuildProcessHandler {
 
 		if(oProj != null) {
 			string oGUID = oProj.GetUnityMainTargetGuid();
+			oProj.SetBuildProperty(oGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_BITCODE);
 
 			var oCapability = new ProjectCapabilityManager(oProjFilepath,
 				KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oGUID);
