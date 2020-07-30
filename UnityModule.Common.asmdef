@@ -13,7 +13,9 @@
         "UnityModule.Common.Tenjin",
         "UnityModule.Common.Facebook",
         "UnityModule.Common.Firebase",
-        "UnityModule.Common.GameCenter"
+        "UnityModule.Common.UnityService",
+        "UnityModule.Common.GameCenter",
+        "UnityModule.Common.Purchase"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

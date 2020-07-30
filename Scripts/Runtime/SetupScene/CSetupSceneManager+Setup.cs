@@ -35,16 +35,16 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	}
 
 	//! 절대 UI 를 설정한다
-	private void SetupAbsoluteUI() {
-		if(CSetupSceneManager.m_oAbsoluteUI == null) {
-			var oAbsoluteUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_ABSOLUTE_UI,
-				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_ABSOLUTE_UI), null);
+	private void SetupAbsUI() {
+		if(CSetupSceneManager.m_oAbsUI == null) {
+			var oAbsUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_ABS_UI,
+				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_ABS_UI), null);
 
-			CSetupSceneManager.m_oAbsoluteUI = oAbsoluteUI;
-			CSceneManager.ScreenAbsoluteUIRoot = oAbsoluteUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_ABSOLUTE_UI_ROOT);
+			CSetupSceneManager.m_oAbsUI = oAbsUI;
+			CSceneManager.ScreenAbsUIRoot = oAbsUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_ABS_UI_ROOT);
 
-			DontDestroyOnLoad(oAbsoluteUI);
-			CFunc.SetupScreenUI(oAbsoluteUI, KCDefine.U_SORTING_ORDER_SCREEN_ABSOLUTE_UI);
+			DontDestroyOnLoad(oAbsUI);
+			CFunc.SetupScreenUI(oAbsUI, KCDefine.U_SORTING_ORDER_SCREEN_ABS_UI);
 		}
 	}
 

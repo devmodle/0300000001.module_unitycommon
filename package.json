@@ -17,6 +17,10 @@
     "unitymodule.common.ads": "https://gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",
 	"unitymodule.common.flurry": "https://gitlab.com/9tapmodule.repository/unitymodule_common_flurry_client.git#v1.0.0",
 	"unitymodule.common.tenjin": "https://gitlab.com/9tapmodule.repository/unitymodule_common_tenjin_client.git#v1.0.0",
-	"unitymodule.common.facebook": "https://gitlab.com/9tapmodule.repository/unitymodule_common_facebook_client.git#v1.0.0"
+	"unitymodule.common.facebook": "https://gitlab.com/9tapmodule.repository/unitymodule_common_facebook_client.git#v1.0.0",
+	"unitymodule.common.firebase": "https://gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#v1.0.0",
+	"unitymodule.common.unityservice": "https://gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#v1.0.0",
+	"unitymodule.common.gamecenter": "https://gitlab.com/9tapmodule.repository/unitymodule_common_gamecenter_client.git#v1.0.0",
+	"unitymodule.common.purchase": "https://gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0"
   }
 }
