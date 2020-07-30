@@ -46,11 +46,11 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();
 
-			CPlatformBuildOption.SetupPlayerOptions();
-			CPlatformBuildOption.SetupEditorOptions();
-			CPlatformBuildOption.SetupProjOptions();
-			CPlatformBuildOption.SetupPluginProjs();
-			CPlatformBuildOption.SetupGraphicAPIs();
+			CPlatformOptionSetter.SetupPlayerOptions();
+			CPlatformOptionSetter.SetupEditorOptions();
+			CPlatformOptionSetter.SetupProjOptions();
+			CPlatformOptionSetter.SetupPluginProjs();
+			CPlatformOptionSetter.SetupGraphicAPIs();
 		}
 	}
 
@@ -147,7 +147,7 @@ public static partial class CEditorSceneManager {
 	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.SetupCallbacks();
-			CPlatformBuildOption.SetupProjOptions();
+			CPlatformOptionSetter.SetupProjOptions();
 
 			CEditorSceneManager.m_oListRequest = Client.List();
 		}
