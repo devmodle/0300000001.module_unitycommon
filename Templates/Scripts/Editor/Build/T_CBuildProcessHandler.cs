@@ -11,19 +11,19 @@ using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
 #endif			// #if UNITY_IOS
 
-//! 플랫폼 빌드 처리자
-public static partial class CPlatformBuildHandler {
+//! 빌드 프로세스 처리자
+public static partial class CBuildProcessHandler {
 	//! 빌드가 완료 되었을 경우
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 		bool bIsWindows = a_eTarget == BuildTarget.StandaloneWindows || a_eTarget == BuildTarget.StandaloneWindows64;
 
 		if(bIsWindows || a_eTarget == BuildTarget.StandaloneOSX) {
-			CPlatformBuildHandler.OnPostProcessStandaloneBuild(a_eTarget, a_oPath);
+			CBuildProcessHandler.OnPostProcessStandaloneBuild(a_eTarget, a_oPath);
 		} else if(a_eTarget == BuildTarget.iOS) {
-			CPlatformBuildHandler.OnPostProcessiOSBuild(a_eTarget, a_oPath);
+			CBuildProcessHandler.OnPostProcessiOSBuild(a_eTarget, a_oPath);
 		} else if(a_eTarget == BuildTarget.Android) {
-			CPlatformBuildHandler.OnPostProcessAndroidBuild(a_eTarget, a_oPath);
+			CBuildProcessHandler.OnPostProcessAndroidBuild(a_eTarget, a_oPath);
 		}
 	}
 

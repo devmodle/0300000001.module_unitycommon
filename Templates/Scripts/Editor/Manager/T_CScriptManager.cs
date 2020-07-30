@@ -11,15 +11,16 @@ using UnityEditor.SceneManagement;
 //! 스크립트 관리자
 [InitializeOnLoad]
 public static partial class CScriptManager {
+	#region 클래스 변수
+	private static float m_fSkipTime = 0.0f;
+	#endregion			// 클래스 변수
+
 	#region 클래스 함수
 	//! 생성자
 	static CScriptManager() {
 		if(!Application.isBatchMode) {
 			EditorApplication.update -= CScriptManager.Update;
 			EditorApplication.update += CScriptManager.Update;
-
-			EditorSceneManager.sceneOpened -= CScriptManager.OnSceneOpen;
-			EditorSceneManager.sceneOpened += CScriptManager.OnSceneOpen;
 		}
 	}
 
@@ -27,6 +28,7 @@ public static partial class CScriptManager {
 	public static void Update() {
 		if(CEditorAccess.IsEnableUpdateState()) {
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
+			CScriptManager.m_fSkipTime += Time.unscaledDeltaTime;
 
 			for(int i = 0; i < oMonoScripts.Length; ++i) {
 				var oType = oMonoScripts[i].GetClass();
@@ -35,12 +37,15 @@ public static partial class CScriptManager {
 					CAccess.SetScriptOrder(oMonoScripts[i], KEditorDefine.B_SCRIPT_ORDERS[oType]);
 				}
 			}
-		}
-	}
 
-	//! 씬이 열렸을 경우
-	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
+			if(CScriptManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_SCRIPT_M_SCENE_UPDATE) {
+				CScriptManager.m_fSkipTime = 0.0f;
+				
+				CFunc.EnumerateScenes((a_stScene) => {
+					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
+				});
+			}
+		}
 	}
 	#endregion			// 클래스 함수
 }
