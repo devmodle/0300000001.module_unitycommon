@@ -687,7 +687,9 @@ public static partial class KDefine {
 	public const string U_MSG_INVALID_PRODUCT_TYPE = "해당 상품 타입을 지원하지않습니다.";
 
 	// 키
+	public const string U_KEY_PURCHASE_M_CONFIRM_CALLBACK = "PurchaseMConfirmCallback";
 	public const string U_KEY_PURCHASE_M_RESTORE_CALLBACK = "PurchaseMRestoreCallback";
+	public const string U_KEY_PURCHASE_M_PURCHASE_RESULT_CALLBACK = "PurchaseMPurchaseResultCallback";
 #endif			// #if PURCHASE_ENABLE
 
 #if GAME_CENTER_ENABLE
