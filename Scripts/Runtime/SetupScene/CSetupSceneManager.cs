@@ -294,7 +294,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CAppInfoStorage.Instance.SaveAppInfo(KCDefine.B_DATA_PATH_APP_INFO);
 
 #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
-		CFlurryManager.Instance.SetUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
+		CFlurryManager.Instance.SetAnalyticsUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
 #endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
 
 #if FIREBASE_ENABLE
@@ -327,6 +327,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		});
 #endif			// #if UNITY_SERVICE_CRASHLYTICS_ENABLE
 #endif			// #if UNITY_SERVICE_ENABLE
+
+#if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
+		CSingularManager.Instance.SetAnalyticsUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
+#endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
 
 		if(this.IsAutoLoadTable) {
 			if(CAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
