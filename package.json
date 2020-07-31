@@ -20,6 +20,7 @@
 	"unitymodule.common.facebook": "https://gitlab.com/9tapmodule.repository/unitymodule_common_facebook_client.git#v1.0.0",
 	"unitymodule.common.firebase": "https://gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#v1.0.0",
 	"unitymodule.common.unityservice": "https://gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#v1.0.0",
+	"unitymodule.common.singular": "https://gitlab.com/9tapmodule.repository/unitymodule_common_singular_client.git#v1.0.0",
 	"unitymodule.common.gamecenter": "https://gitlab.com/9tapmodule.repository/unitymodule_common_gamecenter_client.git#v1.0.0",
 	"unitymodule.common.purchase": "https://gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0"
   }
