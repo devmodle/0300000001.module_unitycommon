@@ -123,13 +123,13 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CAdsManager.Create();
 #endif			// #if ADS_ENABLE
 
-#if TENJIN_ENABLE
-			CTenjinManager.Create();
-#endif			// #if TENJIN_ENABLE
-
 #if FLURRY_ENABLE
 			CFlurryManager.Create();
 #endif			// #if FLURRY_ENABLE
+
+#if TENJIN_ENABLE
+			CTenjinManager.Create();
+#endif			// #if TENJIN_ENABLE
 
 #if FACEBOOK_ENABLE
 			CFacebookManager.Create();
@@ -139,6 +139,14 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CFirebaseManager.Create();
 #endif			// #if FIREBASE_ENABLE
 
+#if UNITY_SERVICE_ENABLE
+			CUnityServiceManager.Create();
+#endif			// #if UNITY_SERVICE_ENABLE
+
+#if SINGULAR_ENABLE
+			CSingularManager.Create();
+#endif			// #if SINGULAR_ENABLE
+
 #if GAME_CENTER_ENABLE
 			CGameCenterManager.Create();
 #endif			// #if GAME_CENTER_ENABLE
@@ -146,10 +154,6 @@ public abstract partial class CInitSceneManager : CSceneManager {
 #if PURCHASE_ENABLE && MSG_PACK_ENABLE
 			CPurchaseManager.Create();
 #endif			// #if PURCHASE_ENABLE && MSG_PACK_ENABLE
-
-#if UNITY_SERVICE_ENABLE
-			CUnityServiceManager.Create();
-#endif			// #if UNITY_SERVICE_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 			// 관리자를 생성한다 }

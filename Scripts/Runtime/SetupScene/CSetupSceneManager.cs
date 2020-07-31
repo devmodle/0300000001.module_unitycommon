@@ -208,6 +208,16 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FIREBASE_ENABLE
 
+#if UNITY_SERVICE_ENABLE
+				CUnityServiceManager.Instance.Init(null);
+				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+#endif			// #if UNITY_SERVICE_ENABLE
+
+#if SINGULAR_ENABLE
+				CSingularManager.Instance.Init(null);
+				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_TIME);
+#endif			// #if SINGULAR_ENABLE
+
 #if GAME_CENTER_ENABLE
 				CGameCenterManager.Instance.Init(null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
@@ -217,11 +227,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if PURCHASE_ENABLE && MSG_PACK_ENABLE
-
-#if UNITY_SERVICE_ENABLE
-				CUnityServiceManager.Instance.Init(null);
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if UNITY_SERVICE_ENABLE
 			}
 
 			this.Setup();
@@ -230,6 +235,33 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			// 디바이스 식별자 반환 메세지를 전송한다
 			CUnityMsgSender.Instance.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
 		}
+	}
+
+	//! 어플리케이션 시작 로그를 전송한다
+	private void SendAppLaunchLog() {
+#if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+		CFlurryManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+
+#if TENJIN_ENABLE && TENJIN_ANALYTICS_ENABLE
+		CTenjinManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+
+#if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
+		CFacebookManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+#endif			// #if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
+
+#if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
+		CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, KCDefine.U_LOG_PARAM_USER_INFO, null);
+#endif			// #if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
+
+#if UNITY_SERVICE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
+		CUnityServiceManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+#endif			// #if UNITY_SERVICE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
+
+#if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
+		CSingularManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+#endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
 	}
 	
 	//! 디바이스 식별자 반환 메세지를 처리한다
@@ -316,28 +348,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 
 		CSceneManager.IsSetup = true;
-
-		// 로그를 전송한다 {
-#if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
-		CFlurryManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
-
-#if TENJIN_ENABLE && TENJIN_ANALYTICS_ENABLE
-		CTenjinManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
-
-#if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
-		CFacebookManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-#endif			// #if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
-
-#if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
-		CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, KCDefine.U_LOG_PARAM_USER_INFO, null);
-#endif			// #if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
-
-#if UNITY_SERVICE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
-		CUnityServiceManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-#endif			// #if UNITY_SERVICE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
-		// 로그를 전송한다 }
+		this.SendAppLaunchLog();
 
 		CFunc.LateCallFunc(this, KCDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
 			CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_AGREE, false);
