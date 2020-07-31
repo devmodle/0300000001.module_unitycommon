@@ -103,16 +103,17 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 프레임워크
 	public static readonly string[] B_EXTRA_FRAMEWORKS_IOS = new string[] {
+#if TENJIN_ENABLE
 		"iAd.framework",
+#endif			// #if TENJIN_ENABLE
+
+#if APPLE_LOGIN_ENABLE
 		"AuthenticationServices.framework"
+#endif			// #if APPLE_LOGIN_ENABLE
 	};
 
 	// 호환성 타입
 	public static readonly PBXCapabilityType[] B_EXTRA_CAPABILITY_TYPES_IOS = new PBXCapabilityType[] {
-#if GAME_CENTER_ENABLE
-		PBXCapabilityType.GameCenter,
-#endif			// #if GAME_CENTER_ENABLE
-
 #if APPLE_LOGIN_ENABLE
 		PBXCapabilityType.SignInWithApple,
 #endif			// #if APPLE_LOGIN_ENABLE

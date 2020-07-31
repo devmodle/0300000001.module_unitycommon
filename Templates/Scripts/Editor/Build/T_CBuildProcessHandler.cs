@@ -58,19 +58,19 @@ public static partial class CBuildProcessHandler {
 			string oGUID = oProj.GetUnityMainTargetGuid();
 			oProj.SetBuildProperty(oGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_BITCODE);
 
-			var oCapability = new ProjectCapabilityManager(oProjFilepath,
-				KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oGUID);
-
 			for(int i = 0; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
 				oProj.AddFrameworkToProject(oGUID, KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
 			}
 
+			oProj.WriteToFile(oProjFilepath);
+
+			var oCapability = new ProjectCapabilityManager(oProjFilepath,
+				KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oGUID);
+
 			for(int i = 0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 				var oCapabilityType = KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i];
-
-				if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
-					oCapability.AddGameCenter();
-				} else if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
+				
+				if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
 					oCapability.AddSignInWithApple();
 				} else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
 					oCapability.AddPushNotifications(!CPlatformBuilder.IsDistributionBuild);
@@ -79,9 +79,8 @@ public static partial class CBuildProcessHandler {
 				oProj.AddCapability(oGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i], 
 					KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS);
 			}
-
+			
 			oCapability.WriteToFile();
-			oProj.WriteToFile(oProjFilepath);
 		}
 		// 프로젝트 옵션을 설정한다 }
 #endif			// #if UNITY_IOS
