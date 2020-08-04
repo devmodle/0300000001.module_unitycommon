@@ -135,7 +135,7 @@ public static partial class CEditorSceneManager {
 	}
 	
 	//! 광원 옵션을 설정한다
-	private static void SetupLightOptions() {
+	private static void SetupLightOpts() {
 		var oType = typeof(LightmapEditorSettings);
 		var oMethodInfo = oType.GetMethod(KCEditorDefine.B_FUNC_NAME_GET_LIGHTMAP_SETTINGS, KCDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC);
 		var oLightmapSettings = oMethodInfo?.Invoke(null, null) as LightmapSettings;

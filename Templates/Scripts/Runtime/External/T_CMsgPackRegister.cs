@@ -23,8 +23,8 @@ public static class CMsgPackRegister {
 			StaticCompositeResolver.Instance.Register(MessagePack.Resolvers.GeneratedResolver.Instance,
 				MessagePack.Resolvers.StandardResolver.Instance);
 
-			var oOptions = MessagePackSerializerOptions.Standard.WithResolver(StaticCompositeResolver.Instance);
-			MessagePackSerializer.DefaultOptions = oOptions;
+			var oOpts = MessagePackSerializerOptions.Standard.WithResolver(StaticCompositeResolver.Instance);
+			MessagePackSerializer.DefaultOptions = oOpts;
 		}
 	}
 	#endregion			// 클래스 함수
