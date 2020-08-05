@@ -142,7 +142,7 @@ public static partial class CEditorSceneManager {
 			}
 		}
 	}
-
+	
 	//! 씬이 열렸을 경우
 	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {

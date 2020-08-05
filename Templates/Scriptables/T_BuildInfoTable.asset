@@ -15,7 +15,6 @@ MonoBehaviour:
   m_stJenkinsInfo:
     m_oUserID: dante
     m_oBranch: master
-    m_oProjectName: Library
     m_oSourceRoot: 00011.Library
     m_oWorkspaceRoot: /Users/dante/Documents/jenkins/workspace
     m_oDistributionPath: /Users/dante/Documents/jenkins/builds

@@ -26,7 +26,7 @@ public static partial class CEditorSceneManager {
 
 		EditorApplication.hierarchyWindowItemOnGUI -= CEditorSceneManager.UpdateHierarchyUIState;
 		EditorApplication.hierarchyWindowItemOnGUI += CEditorSceneManager.UpdateHierarchyUIState;
-
+		
 		EditorSceneManager.sceneOpened -= CEditorSceneManager.OnSceneOpen;
 		EditorSceneManager.sceneOpened += CEditorSceneManager.OnSceneOpen;
 	}
