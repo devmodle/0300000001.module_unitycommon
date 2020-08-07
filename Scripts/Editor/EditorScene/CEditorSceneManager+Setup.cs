@@ -150,14 +150,6 @@ public static partial class CEditorSceneManager {
 				a_oProperty.boolValue = false;
 #endif			// #if LIGHTMAP_BAKE_ENABLE
 			});
-
-			oSerializeObj.ExSetPropertyValue(KCEditorDefine.B_PROPERTY_NAME_ENABLE_REALTIME_LIGHTMAPS, (a_oProperty) => {
-#if REALTIME_LIGHTMAP_ENABLE
-				a_oProperty.boolValue = true;
-#else
-				a_oProperty.boolValue = false;
-#endif			// #if REALTIME_LIGHTMAP_ENABLE
-			});
 		}
 	}
 
