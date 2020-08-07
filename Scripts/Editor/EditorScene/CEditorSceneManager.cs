@@ -106,7 +106,7 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	//! 범위 레지스트리 상태를 갱신한다
+	//! 패키지 레지스트리 상태를 갱신한다
 	private static void UpdateScopedRegistryState() {
 		CEditorSceneManager.SetupScopedRegistries();
 		EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
