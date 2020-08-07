@@ -74,8 +74,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			
 			// 저장소를 설정한다 {
 #if MSG_PACK_ENABLE
-			CAppInfoStorage.Instance.SetupStoreVersion();
-			CAppInfoStorage.Instance.LoadAppInfo(KCDefine.B_DATA_PATH_APP_INFO);
+			CCommonAppInfoStorage.Instance.SetupStoreVersion();
+			CCommonAppInfoStorage.Instance.LoadAppInfo(KCDefine.B_DATA_PATH_COMMON_APP_INFO);
 #endif			// #if MSG_PACK_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
@@ -267,13 +267,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 디바이스 식별자 반환 메세지를 처리한다
 	private void HandleGetDeviceIDMsg(string a_oMsg) {
 #if MSG_PACK_ENABLE
-		bool bIsValid = CAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid();
+		bool bIsValid = CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid();
 
-		if(!bIsValid || CAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
-			CAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
+		if(!bIsValid || CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
+			CCommonAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
 		}
 
-		CAppInfoStorage.Instance.SaveAppInfo(KCDefine.B_DATA_PATH_APP_INFO);
+		CCommonAppInfoStorage.Instance.SaveAppInfo(KCDefine.B_DATA_PATH_COMMON_APP_INFO);
 #endif			// #if MSG_PACK_ENABLE
 
 		// 국가 코드 반환 메세지를 전송한다
@@ -290,50 +290,50 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 
 #if MSG_PACK_ENABLE
-		CAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
-		CAppInfoStorage.Instance.SaveAppInfo(KCDefine.B_DATA_PATH_APP_INFO);
+		CCommonAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
+		CCommonAppInfoStorage.Instance.SaveAppInfo(KCDefine.B_DATA_PATH_COMMON_APP_INFO);
 
 #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
-		CFlurryManager.Instance.SetAnalyticsUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
+		CFlurryManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
 #endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
 
 #if FIREBASE_ENABLE
 #if FIREBASE_ANALYTICS_ENABLE
-		CFirebaseManager.Instance.SetAnalyticsUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
+		CFirebaseManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
 
 		CFirebaseManager.Instance.SetAnalyticsDatas(new Dictionary<string, string>() {
-			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CAppInfoStorage.Instance.CountryCode
+			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
 		});
 #endif			// #if FIREBASE_ANALYTICS_ENABLE
 
 #if FIREBASE_CRASHLYTICS_ENABLE
-		CFirebaseManager.Instance.SetCrashUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
+		CFirebaseManager.Instance.SetCrashUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
 
 		CFirebaseManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
-			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CAppInfoStorage.Instance.CountryCode
+			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
 		});
 #endif			// #if FIREBASE_CRASHLYTICS_ENABLE
 #endif			// #if FIREBASE_ENABLE
 
 #if UNITY_SERVICE_ENABLE
 #if UNITY_SERVICE_ANALYTICS_ENABLE
-		CUnityServiceManager.Instance.SetAnalyticsUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
+		CUnityServiceManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
 #endif			// #if UNITY_SERVICE_ANALYTICS_ENABLE
 
 #if UNITY_SERVICE_CRASHLYTICS_ENABLE
 		CUnityServiceManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
-			[KCDefine.U_LOG_KEY_USER_ID] = CAppInfoStorage.Instance.AppInfo.DeviceID,
-			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CAppInfoStorage.Instance.CountryCode
+			[KCDefine.U_LOG_KEY_USER_ID] = CCommonAppInfoStorage.Instance.AppInfo.DeviceID,
+			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
 		});
 #endif			// #if UNITY_SERVICE_CRASHLYTICS_ENABLE
 #endif			// #if UNITY_SERVICE_ENABLE
 
 #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
-		CSingularManager.Instance.SetAnalyticsUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
+		CSingularManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
 #endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
 
 		if(this.IsAutoLoadTable) {
-			if(CAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
+			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
 				CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
 			} else {
 				CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);

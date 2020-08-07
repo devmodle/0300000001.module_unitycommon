@@ -47,6 +47,10 @@ public static partial class KEditorDefine {
 #if MSG_PACK_ENABLE
 		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+
+		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if MSG_PACK_ENABLE
 
 #if UNITY_ANDROID

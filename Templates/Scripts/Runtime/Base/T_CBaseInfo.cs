@@ -7,7 +7,9 @@ using UnityEngine;
 using MessagePack;
 
 //! 기본 정보
-[Union(0, typeof(CGameInfo))]
+[Union(0, typeof(CAppInfo))]
+[Union(1, typeof(CUserInfo))]
+[Union(2, typeof(CGameInfo))]
 [MessagePackObject]
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {

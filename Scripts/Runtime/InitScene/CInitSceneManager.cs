@@ -69,7 +69,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 		// 저장소를 로드한다 {
 #if MSG_PACK_ENABLE
-		CUserInfoStorage.Instance.LoadUserInfo(KCDefine.B_DATA_PATH_USER_INFO);
+		CCommonUserInfoStorage.Instance.LoadUserInfo(KCDefine.B_DATA_PATH_COMMON_USER_INFO);
 #endif			// #if MSG_PACK_ENABLE
 		// 저장소를 로드한다 }
 
@@ -78,9 +78,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CSndManager.Instance.FXSndsVolume = 1.0f;
 
 #if MSG_PACK_ENABLE
-		CSndManager.Instance.IsMuteBGSnd = CUserInfoStorage.Instance.UserInfo.IsMuteBGSnd;
-		CSndManager.Instance.IsMuteFXSnds = CUserInfoStorage.Instance.UserInfo.IsMuteFXSnds;
-		CSndManager.Instance.IsDisableVibrate = CUserInfoStorage.Instance.UserInfo.IsDisableVibrate;
+		CSndManager.Instance.IsMuteBGSnd = CCommonUserInfoStorage.Instance.UserInfo.IsMuteBGSnd;
+		CSndManager.Instance.IsMuteFXSnds = CCommonUserInfoStorage.Instance.UserInfo.IsMuteFXSnds;
+		CSndManager.Instance.IsDisableVibrate = CCommonUserInfoStorage.Instance.UserInfo.IsDisableVibrate;
 #endif			// #if MSG_PACK_ENABLE
 		// 사운드를 설정한다 }
 	}
@@ -188,8 +188,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 			// 저장소를 생성한다 {
 #if MSG_PACK_ENABLE
-			CAppInfoStorage.Create();
-			CUserInfoStorage.Create();
+			CCommonAppInfoStorage.Create();
+			CCommonUserInfoStorage.Create();
 #endif			// #if MSG_PACK_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);

@@ -9,6 +9,13 @@ public class CSubInitSceneManager : CInitSceneManager {
 	//! 씬을 설정한다
 	protected override void Setup() {
 		base.Setup();
+
+#if MSG_PACK_ENABLE
+		// 저장소를 생성한다
+		CAppInfoStorage.Create();
+		CUserInfoStorage.Create();
+		CGameInfoStorage.Create();
+#endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
 }

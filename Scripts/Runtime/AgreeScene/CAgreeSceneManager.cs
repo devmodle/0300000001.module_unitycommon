@@ -30,8 +30,8 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			EAgreeSceneManagerEventType.LOAD_NEXT_SCENE);
 
 #if MSG_PACK_ENABLE
-		CUserInfoStorage.Instance.UserInfo.IsAgree = true;
-		CUserInfoStorage.Instance.SaveUserInfo(KCDefine.B_DATA_PATH_USER_INFO);
+		CCommonUserInfoStorage.Instance.UserInfo.IsAgree = true;
+		CCommonUserInfoStorage.Instance.SaveUserInfo(KCDefine.B_DATA_PATH_COMMON_USER_INFO);
 #endif			// #if MSG_PACK_ENABLE
 
 		CFunc.LateCallFunc(this, KCDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
@@ -62,8 +62,8 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		bool bIsAgree = false;
 
 #if MSG_PACK_ENABLE
-		bIsAgree = CUserInfoStorage.Instance.UserInfo.IsAgree ||
-			!CAppInfoStorage.Instance.IsNeedAgreement(CAppInfoStorage.Instance.CountryCode);
+		bIsAgree = CCommonUserInfoStorage.Instance.UserInfo.IsAgree ||
+			!CCommonAppInfoStorage.Instance.IsNeedAgreement(CCommonAppInfoStorage.Instance.CountryCode);
 #endif			// #if MSG_PACK_ENABLE
 
 		if(bIsAgree) {
@@ -73,7 +73,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			string oPersonalFilepath = KCDefine.AS_DATA_PATH_KOREAN_PERSONAL_TEXT;
 
 #if MSG_PACK_ENABLE
-			if(!CAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
+			if(!CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
 				oServiceFilepath = KCDefine.AS_DATA_PATH_ENGLISH_SERVICE_TEXT;
 				oPersonalFilepath = KCDefine.AS_DATA_PATH_ENGLISH_PERSONAL_TEXT;
 			}

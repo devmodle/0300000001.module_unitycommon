@@ -7,22 +7,22 @@ using UnityEngine;
 #if MSG_PACK_ENABLE
 using MessagePack;
 
-//! 게임 정보
+//! 어플리케이션 정보
 [MessagePackObject]
 [System.Serializable]
-public sealed class CGameInfo : CBaseInfo {
+public sealed class CAppInfo : CBaseInfo {
 	#region 함수
 	//! 생성자
-	public CGameInfo() : base(KDefine.B_VERSION_GAME_INFO) {
+	public CAppInfo() : base(KDefine.B_VERSION_APP_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수
 }
 
-//! 게임 정보 저장소
-public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
+//! 어플리케이션 정보 저장소
+public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 프로퍼티
-	public CGameInfo GameInfo { get; private set; } = null;
+	public CAppInfo AppInfo { get; private set; } = null;
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -34,12 +34,12 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 상태를 리셋한다
 	public virtual void Reset() {
-		this.GameInfo = new CGameInfo();
+		this.AppInfo = new CAppInfo();
 	}
 
-	//! 게임 정보를 저장한다
-	public void SaveGameInfo(string a_oFilepath) {
-		var oBytes = MessagePackSerializer.Serialize<CGameInfo>(this.GameInfo);
+	//! 어플리케이션 정보를 저장한다
+	public void SaveAppInfo(string a_oFilepath) {
+		var oBytes = MessagePackSerializer.Serialize<CAppInfo>(this.AppInfo);
 
 #if SECURITY_ENABLE
 		CFunc.WriteSecurityBytes(a_oFilepath, oBytes);
@@ -48,8 +48,8 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 #endif			// #if SECURITY_ENABLE
 	}
 
-	//! 게임 정보를 로드한다
-	public void LoadGameInfo(string a_oFilepath) {
+	//! 어플리케이션 정보를 로드한다
+	public void LoadAppInfo(string a_oFilepath) {
 		if(File.Exists(a_oFilepath)) {
 			try {
 #if SECURITY_ENABLE
@@ -58,12 +58,12 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 				var oBytes = CFunc.ReadBytes(a_oFilepath);
 #endif			// #if SECURITY_ENABLE
 
-				this.GameInfo = MessagePackSerializer.Deserialize<CGameInfo>(oBytes);
+				this.AppInfo = MessagePackSerializer.Deserialize<CAppInfo>(oBytes);
 			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning("CGameInfoStorage.LoadGameInfo Exception: {0}", oException.Message);
+				CFunc.ShowLogWarning("CAppInfoStorage.LoadAppInfo Exception: {0}", oException.Message);
 
 				this.Reset();
-				this.SaveGameInfo(a_oFilepath);
+				this.SaveAppInfo(a_oFilepath);
 			}
 		}
 	}

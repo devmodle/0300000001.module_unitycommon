@@ -17,6 +17,7 @@ MonoBehaviour:
   - DYNAMIC_BATCHING_ENABLE
   - UNIVERSAL_RENDER_PIPELINE_ENABLE
   - DOTWEEN_EXTENSION_ENABLE
+  - HAPTIC_FEEDBACK_ENABLE
   m_oSubCommonDefineSymbolList: []
   m_oStandaloneDefineSymbolList: []
   m_oMacDefineSymbolList: []
