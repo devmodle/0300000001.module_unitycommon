@@ -12,6 +12,16 @@ using UnityEditor.iOS.Xcode;
 
 //! 에디터 상수
 public static partial class KEditorDefine {
+	#region 기본
+	// 유니티 패키지 {
+	public const string B_UNITY_PKGS_NAME_KEY = "name";
+	public const string B_UNITY_PKGS_SCOPED_REGISTRIES_KEY = "scopedRegistries";
+
+	public const string B_UNITY_PKGS_ID_FORMAT = "{0}@{1}";
+	public const string B_UNITY_PKGS_GOOGLE_REGISTRY_NAME = "Game Package Registry by Google";
+	// 유니티 패키지 }
+	#endregion			// 기본
+	
 	#region 런타임 상수
 	// 스크립트 순서
 	public static Dictionary<System.Type, int> B_SCRIPT_ORDERS = new Dictionary<System.Type, int>() {
@@ -87,7 +97,7 @@ public static partial class KEditorDefine {
 #endif			// #if UNITY_SERVICE_ENABLE
 	};
 
-	// 타입
+	// 데이터 타입
 	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPE_LIST = new Dictionary<string, System.Type>() {
 		[KCDefine.B_SCENE_NAME_INIT] = typeof(CSubInitSceneManager),
 		[KCDefine.B_SCENE_NAME_SETUP] = typeof(CSubSetupSceneManager),
@@ -101,6 +111,60 @@ public static partial class KEditorDefine {
 		[KSDefine.B_SCENE_NAME_MENU] = typeof(CMenuSceneManager)
 #endif			// #if STUDY_MODULE_ENABLE
 	};
+
+	// 유니티 패키지 {
+	public static readonly string B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}../UnityPackages/Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_PATH_ASSETS);
+	public static readonly string B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_PATH_PACKAGES);
+
+	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
+		["com.unity.2d.sprite"] = "1.0.0",
+		["com.unity.2d.tilemap"] = "1.0.0",
+		["com.unity.assetbundlebrowser"] = "1.7.0",
+		["com.unity.mobile.android-logcat"] = "1.1.1",
+		["com.unity.render-pipelines.universal"] = "7.3.1",
+		["com.google.external-dependency-manager"] = "1.2.157",
+
+#if ADS_ENABLE
+		["unitymodule.common.ads"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",
+#endif			// #if ADS_ENABLE
+
+#if FLURRY_ENABLE
+		["unitymodule.common.flurry"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_flurry_client.git#v1.0.0",
+#endif			// #if FLURRY_ENABLE
+
+#if TENJIN_ENABLE
+		["unitymodule.common.tenjin"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_tenjin_client.git#v1.0.0",
+#endif			// #if TENJIN_ENABLE
+
+#if FACEBOOK_ENABLE
+		["unitymodule.common.facebook"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_facebook_client.git#v1.0.0",
+#endif			// #if FACEBOOK_ENABLE
+
+#if FIREBASE_ENABLE
+		["unitymodule.common.firebase"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#v1.0.0",
+#endif			// #if FIREBASE_ENABLE
+
+#if UNITY_SERVICE_ENABLE
+		["unitymodule.common.unityservice"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#v1.0.0",
+#endif			// #if UNITY_SERVICE_ENABLE
+
+#if SINGULAR_ENABLE
+		["unitymodule.common.singular"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_singular_client.git#v1.0.0",
+#endif			// #if SINGULAR_ENABLE
+
+#if GAME_CENTER_ENABLE
+		["unitymodule.common.gamecenter"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_gamecenter_client.git#v1.0.0",
+#endif			// #if GAME_CENTER_ENABLE
+
+#if PURCHASE_ENABLE
+		["unitymodule.common.purchase"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0"
+#endif			// #if PURCHASE_ENABLE
+	};
+
+	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {
+		[KCEditorDefine.B_UNITY_PKGS_GOOGLE_REGISTRY_NAME] = KCEditorDefine.B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH
+	};
+	// 유니티 패키지 }
 	#endregion			// 런타임 상수
 
 	#region 조건부 런타임 상수

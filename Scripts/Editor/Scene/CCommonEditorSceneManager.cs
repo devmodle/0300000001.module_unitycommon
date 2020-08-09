@@ -6,74 +6,56 @@ using Unity.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.PackageManager;
-using UnityEditor.PackageManager.Requests;
 using UnityEditor.SceneManagement;
 
-//! 에디터 씬 관리자
+//! 공용 에디터 씬 관리자
 [InitializeOnLoad]
-public static partial class CEditorSceneManager {
+public static partial class CCommonEditorSceneManager {
 	#region 변수
 	private static float m_fSkipTime = 0.0f;
 	private static float m_fHierarchySkipTime = 0.0f;
 
 	private static GUIStyle m_oGUIStyle = null;
-	private static ListRequest m_oListRequest = null;
 	#endregion			// 변수
 
 	#region 클래스 함수
 	//! 생성자
-	static CEditorSceneManager() {
+	static CCommonEditorSceneManager() {
 		if(!Application.isBatchMode) {
 			// GUI 스타일을 설정한다 {
-			CEditorSceneManager.m_oGUIStyle = new GUIStyle();
-			CEditorSceneManager.m_oGUIStyle.alignment = TextAnchor.MiddleLeft;
-			CEditorSceneManager.m_oGUIStyle.fontStyle = FontStyle.BoldAndItalic;
+			CCommonEditorSceneManager.m_oGUIStyle = new GUIStyle();
+			CCommonEditorSceneManager.m_oGUIStyle.alignment = TextAnchor.MiddleLeft;
+			CCommonEditorSceneManager.m_oGUIStyle.fontStyle = FontStyle.BoldAndItalic;
 
-			CEditorSceneManager.m_oGUIStyle.normal = new GUIStyleState() {
+			CCommonEditorSceneManager.m_oGUIStyle.normal = new GUIStyleState() {
 				textColor = KCEditorDefine.B_HIERARCHY_TEXT_COLOR
 			};
 			// GUI 스타일을 설정한다 }
 
-			CEditorSceneManager.SetupCallbacks();
-		}
-	}
-	
-	//! 스크립트가 로드 되었을 경우
-	[UnityEditor.Callbacks.DidReloadScripts]
-	public static void OnLoadScript() {
-		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
-			CEditorSceneManager.SetupCallbacks();
-			CEditorSceneManager.m_oListRequest = Client.List();
-
-			CPlatformOptSetter.SetupPlayerOpts();
-			CPlatformOptSetter.SetupEditorOpts();
-			CPlatformOptSetter.SetupProjOpts();
-			CPlatformOptSetter.SetupPluginProjs();
-			CPlatformOptSetter.SetupGraphicAPIs();
+			CCommonEditorSceneManager.SetupCallbacks();
 		}
 	}
 
 	//! 상태를 갱신한다
 	public static void Update() {
 		if(CEditorAccess.IsEnableUpdateState()) {
-			CEditorSceneManager.m_fSkipTime += Time.unscaledDeltaTime;
-			CEditorSceneManager.m_fHierarchySkipTime += Time.unscaledDeltaTime;
+			CCommonEditorSceneManager.m_fSkipTime += Time.unscaledDeltaTime;
+			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.unscaledDeltaTime;
 
 			// 씬 갱신이 필요 할 경우
-			if(CEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
-				CEditorSceneManager.m_fSkipTime = 0.0f;
+			if(CCommonEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
+				CCommonEditorSceneManager.m_fSkipTime = 0.0f;
 
-				CEditorSceneManager.SetupScene();
-				CEditorSceneManager.SetupLightOpts();
+				CCommonEditorSceneManager.SetupScene();
+				CCommonEditorSceneManager.SetupLightOpts();
 
 #if FILE_BROWSER_ENABLE
-				CEditorSceneManager.SetupFileBrowserUI();
+				CCommonEditorSceneManager.SetupFileBrowserUI();
 #endif			// #if FILE_BROWSER_ENABLE
 
 				// 계층 뷰 갱신이 필요 할 경우
-				if(CEditorSceneManager.m_fHierarchySkipTime >= KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE) {
-					CEditorSceneManager.m_fHierarchySkipTime = 0.0f;
+				if(CCommonEditorSceneManager.m_fHierarchySkipTime >= KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE) {
+					CCommonEditorSceneManager.m_fHierarchySkipTime = 0.0f;
 
 					CFunc.EnumerateScenes((a_stScene) => {
 						var oObjs = a_stScene.GetRootGameObjects();
@@ -94,26 +76,8 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	//! 독립 패키지 상태를 갱신한다
-	private static void UpdateDependencyState() {
-		if(m_oListRequest.ExIsComplete()) {
-			try {
-				CEditorSceneManager.SetupDependencies();
-			} finally {
-				m_oListRequest = null;
-				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
-			}
-		}
-	}
-
-	//! 패키지 레지스트리 상태를 갱신한다
-	private static void UpdateScopedRegistryState() {
-		CEditorSceneManager.SetupScopedRegistries();
-		EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
-	}
-	
 	//! 계층 뷰 UI 상태를 갱신한다
-	private static void UpdateHierarchyUIState(int a_nInstanceID, Rect a_stRect) {
+	public static void UpdateHierarchyUIState(int a_nInstanceID, Rect a_stRect) {
 		var oObj = EditorUtility.InstanceIDToObject(a_nInstanceID) as GameObject;
 
 		if(oObj != null) {
@@ -142,15 +106,22 @@ public static partial class CEditorSceneManager {
 			}
 		}
 	}
+
+	//! 스크립트가 로드 되었을 경우
+	[UnityEditor.Callbacks.DidReloadScripts]
+	public static void OnLoadScript() {
+		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+			CCommonPlatformOptSetter.SetupPlayerOpts();
+			CCommonPlatformOptSetter.SetupEditorOpts();
+			CCommonPlatformOptSetter.SetupProjOpts();
+			CCommonPlatformOptSetter.SetupPluginProjs();
+			CCommonPlatformOptSetter.SetupGraphicAPIs();
+		}
+	}
 	
 	//! 씬이 열렸을 경우
 	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
-			CEditorSceneManager.SetupCallbacks();
-			CPlatformOptSetter.SetupProjOpts();
-
-			CEditorSceneManager.m_oListRequest = Client.List();
-		}
+		CCommonEditorSceneManager.OnLoadScript();
 	}
 	#endregion			// 클래스 함수
 }

@@ -73,7 +73,7 @@ public static partial class CBuildProcessHandler {
 				if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
 					oCapability.AddSignInWithApple();
 				} else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
-					oCapability.AddPushNotifications(!CPlatformBuilder.IsDistributionBuild);
+					oCapability.AddPushNotifications(!CCommonPlatformBuilder.IsDistributionBuild);
 				}
 
 				oProj.AddCapability(oGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i], 
