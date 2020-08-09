@@ -162,7 +162,7 @@ public static partial class KEditorDefine {
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {
-		[KCEditorDefine.B_UNITY_PKGS_GOOGLE_REGISTRY_NAME] = KCEditorDefine.B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH
+		[KEditorDefine.B_UNITY_PKGS_GOOGLE_REGISTRY_NAME] = KEditorDefine.B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH
 	};
 	// 유니티 패키지 }
 	#endregion			// 런타임 상수
