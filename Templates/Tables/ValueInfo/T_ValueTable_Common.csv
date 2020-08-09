@@ -1,15 +1,15 @@
 ID,Value,ValueType,Replace,Description
-QUALITY_LEVEL,6,1,False,퀄리티 레벨
-MULTI_TOUCH_ENABLE,False,0,False,다중 터치 지원 여부,
-MOBILE_TARGET_FRAME_RATE,60,1,False,모바일 플랫폼 타겟 프레임
-DESKTOP_TARGET_FRAME_RATE,60,1,False,데스크 탑 플랫폼 타겟 프레임
-CONSOLE_TARGET_FRAME_RATE,60,1,False,콘솔 플랫폼 타겟 프레임
-HANDHELD_CONSOLE_TARGET_FRAME_RATE,60,1,False,휴대용 콘솔 플랫폼 타겟 프레임
-V_OFFSET_ALERT_P_TITLE,70,2,False,알림 팝업 타이틀 수직 간격
-V_OFFSET_ALERT_P_BTN,45,2,False,알림 팝업 버튼 수직 간격
-H_OFFSET_ALERT_P_BTN,45,2,False,알림 팝업 버튼 수평 간격
-V_EXTRA_OFFSET_ALERT_P_TITLE,0,2,False,알림 팝업 타이틀 추가 수직 간격
-V_EXTRA_OFFSET_ALERT_P_MSG,15,2,False,알림 팝업 메세지 추가 수직 간격
-V_EXTRA_OFFSET_ALERT_P_BTN,0,2,False,알림 팝업 버튼 추가 수직 간격
-V_OFFSET_ALERT_P_BG,25,2,False,알림 팝업 배경 수직 간격
-H_OFFSET_ALERT_P_BG,165,2,False,알림 팝업 배경 수평 간격
+QUALITY_LEVEL,6,1,0,퀄리티 레벨
+MULTI_TOUCH_ENABLE,False,0,0,다중 터치 지원 여부,
+MOBILE_TARGET_FRAME_RATE,60,1,0,모바일 플랫폼 타겟 프레임
+DESKTOP_TARGET_FRAME_RATE,60,1,0,데스크 탑 플랫폼 타겟 프레임
+CONSOLE_TARGET_FRAME_RATE,60,1,0,콘솔 플랫폼 타겟 프레임
+HANDHELD_CONSOLE_TARGET_FRAME_RATE,60,1,0,휴대용 콘솔 플랫폼 타겟 프레임
+V_OFFSET_ALERT_P_TITLE,70,2,0,알림 팝업 타이틀 수직 간격
+V_OFFSET_ALERT_P_BTN,45,2,0,알림 팝업 버튼 수직 간격
+H_OFFSET_ALERT_P_BTN,45,2,0,알림 팝업 버튼 수평 간격
+V_EXTRA_OFFSET_ALERT_P_TITLE,0,2,0,알림 팝업 타이틀 추가 수직 간격
+V_EXTRA_OFFSET_ALERT_P_MSG,15,2,0,알림 팝업 메세지 추가 수직 간격
+V_EXTRA_OFFSET_ALERT_P_BTN,0,2,0,알림 팝업 버튼 추가 수직 간격
+V_OFFSET_ALERT_P_BG,25,2,0,알림 팝업 배경 수직 간격
+H_OFFSET_ALERT_P_BG,165,2,0,알림 팝업 배경 수평 간격
