@@ -34,46 +34,48 @@ public static partial class CCommonEditorSceneManager {
 		var oSceneManagers = Resources.FindObjectsOfTypeAll<CSceneManager>();
 
 		// 광원을 설정한다
-		for(int j = 0; j < oLights.Length; ++j) {
-			if(oLights[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT)) {
+		for(int i = 0; i < oLights.Length; ++i) {
+			if(oLights[i].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT)) {
 				bIsExistsMainLight = true;
 
-				oLights[j].type = LightType.Directional;
-				oLights[j].lightmapBakeType = KCDefine.U_DEF_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
+				oLights[i].type = LightType.Directional;
+				oLights[i].lightmapBakeType = KCDefine.U_DEF_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
 
-				if(!oLights[j].CompareTag(KCDefine.U_TAG_MAIN_LIGHT)) {
-					oLights[j].tag = KCDefine.U_TAG_MAIN_LIGHT;
+				if(!oLights[i].CompareTag(KCDefine.U_TAG_MAIN_LIGHT)) {
+					oLights[i].tag = KCDefine.U_TAG_MAIN_LIGHT;
 				}
-			}
-		}
-
-		// 카메라를 설정한다
-		for(int j = 0; j < oCameras.Length; ++j) {
-			if(!oCameras[j].name.ExIsEquals(KCEditorDefine.B_OBJ_NAME_SCENE_EDITOR_CAMERA)) {
-				bool bIsUICamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA);
-				bool bIsMainCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA);
-
-				bIsExistsUICamera = bIsUICamera ? true : bIsExistsUICamera;
-				bIsExistsMainCamera = bIsMainCamera ? true : bIsExistsMainCamera;
-				
-				if(bIsUICamera && !oCameras[j].CompareTag(KCDefine.U_TAG_UI_CAMERA)) {
-					oCameras[j].tag = KCDefine.U_TAG_UI_CAMERA;
-				} else if(bIsMainCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_MAIN_CAMERA)) {
-					oCameras[j].tag = KCDefine.U_TAG_MAIN_CAMERA;
-				}
-				
-#if CAMERA_STACK_ENABLE
-				oCameras[j].gameObject.SetActive(bIsUICamera || bIsMainCamera);
-#else
-				oCameras[j].gameObject.SetActive(bIsMainCamera);
-#endif			// #if CAMERA_STACK_ENABLE
 			}
 		}
 
 		// 씬 관리자를 설정한다
-		for(int j = 0; j < oSceneManagers.Length; ++j) {
-			if(!oSceneManagers[j].CompareTag(KCDefine.U_TAG_SCENE_MANAGER)) {
-				oSceneManagers[j].tag = KCDefine.U_TAG_SCENE_MANAGER;
+		for(int i = 0; i < oSceneManagers.Length; ++i) {
+			if(!oSceneManagers[i].CompareTag(KCDefine.U_TAG_SCENE_MANAGER)) {
+				oSceneManagers[i].tag = KCDefine.U_TAG_SCENE_MANAGER;
+			}
+
+			// 카메라를 설정한다
+			for(int j = 0; j < oCameras.Length; ++j) {
+				if(!oCameras[j].name.ExIsEquals(KCEditorDefine.B_OBJ_NAME_SCENE_EDITOR_CAMERA)) {
+					bool bIsUICamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA);
+					bool bIsMainCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA);
+
+					bIsExistsUICamera = bIsUICamera ? true : bIsExistsUICamera;
+					bIsExistsMainCamera = bIsMainCamera ? true : bIsExistsMainCamera;
+					
+					if(bIsUICamera && !oCameras[j].CompareTag(KCDefine.U_TAG_UI_CAMERA)) {
+						oCameras[j].tag = KCDefine.U_TAG_UI_CAMERA;
+					} else if(bIsMainCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_MAIN_CAMERA)) {
+						oCameras[j].tag = KCDefine.U_TAG_MAIN_CAMERA;
+					}
+
+					if(oSceneManagers[i].SceneName.ExIsEquals(oSceneManagers[i].gameObject.scene.name)) {
+#if CAMERA_STACK_ENABLE
+						oCameras[j].gameObject.SetActive(bIsUICamera || bIsMainCamera);
+#else
+						oCameras[j].gameObject.SetActive(bIsMainCamera);
+#endif			// #if CAMERA_STACK_ENABLE
+					}
+				}
 			}
 		}
 
