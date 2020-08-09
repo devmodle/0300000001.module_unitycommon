@@ -18,6 +18,7 @@ MonoBehaviour:
   - UNIVERSAL_RENDER_PIPELINE_ENABLE
   - DOTWEEN_EXTENSION_ENABLE
   - HAPTIC_FEEDBACK_ENABLE
+  - MSG_PACK_ENABLE
   m_oSubCommonDefineSymbolList: []
   m_oStandaloneDefineSymbolList: []
   m_oMacDefineSymbolList: []
