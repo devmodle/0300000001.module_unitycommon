@@ -31,13 +31,13 @@ public static partial class CEditorSceneManager {
 	private static void SetupDependencies() {
 		var oPackageInfoList = m_oListRequest.Result.ToList();
 
-		foreach(var stKeyValue in KCEditorDefine.B_UNITY_PKGS_DEPENDENCY_LIST) {
+		foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_LIST) {
 			int nIndex = oPackageInfoList.ExFindValue((a_oPackageInfo) => {
 				return a_oPackageInfo.name.ExIsEquals(stKeyValue.Key);
 			});
 
 			if(nIndex <= KCDefine.B_INDEX_INVALID) {
-				Client.Add(string.Format(KCEditorDefine.B_UNITY_PKGS_ID_FORMAT,
+				Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FORMAT,
 					stKeyValue.Key, stKeyValue.Value));
 			}
 		}
@@ -53,12 +53,12 @@ public static partial class CEditorSceneManager {
 		if(oJSONNode != null) {
 			bool bIsNeedUpdate = false;
 
-			var oScopedRegistryList = oJSONNode[KCEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY].AsArray;
+			var oScopedRegistryList = oJSONNode[KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY].AsArray;
 			oScopedRegistryList = oScopedRegistryList ?? new SimpleJSON.JSONArray();
 
-			foreach(var stKeyValue in KCEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_LIST) {
+			foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_LIST) {
 				int nIndex = oScopedRegistryList.AsArray.ExFindValue((a_oJSONNode) => {
-					return stKeyValue.Key.ExIsEquals(a_oJSONNode[KCEditorDefine.B_UNITY_PKGS_NAME_KEY]);
+					return stKeyValue.Key.ExIsEquals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_NAME_KEY]);
 				});
 
 				if(nIndex <= KCDefine.B_INDEX_INVALID) {
@@ -75,7 +75,7 @@ public static partial class CEditorSceneManager {
 			}
 
 			if(bIsNeedUpdate && oScopedRegistryList.Count >= 1) {
-				oJSONNode.Add(KCEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY, oScopedRegistryList);
+				oJSONNode.Add(KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY, oScopedRegistryList);
 				CFunc.WriteString(KCEditorDefine.B_DATA_PATH_UNITY_PKGS, oJSONNode.ToString(), System.Text.Encoding.Default);
 
 				CEditorFunc.UpdateAssetDatabaseState();
