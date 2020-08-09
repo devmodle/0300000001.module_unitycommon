@@ -84,8 +84,6 @@ public static partial class CEditorSceneManager {
 		// 패키지 레지스트리를 복사한다
 		CFunc.CopyFile(KEditorDefine.B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH, 
 			KEditorDefine.B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH, false);
-
-		CEditorFunc.UpdateAssetDatabaseState();
 	}
 	#endregion			// 클래스 함수
 }
