@@ -121,7 +121,9 @@ public static partial class CCommonEditorSceneManager {
 	
 	//! 씬이 열렸을 경우
 	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		CCommonEditorSceneManager.OnLoadScript();
+		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+			CCommonPlatformOptSetter.SetupProjOpts();
+		}
 	}
 	#endregion			// 클래스 함수
 }
