@@ -59,6 +59,101 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	}
 
+	//! 디바이스 식별자 반환 메세지를 처리한다
+	private void HandleGetDeviceIDMsg(string a_oMsg) {
+#if MSG_PACK_ENABLE
+		bool bIsValid = CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid();
+
+		if(!bIsValid || CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
+			CCommonAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
+		}
+
+		CCommonAppInfoStorage.Instance.SaveAppInfo();
+#endif			// #if MSG_PACK_ENABLE
+
+		// 국가 코드 반환 메세지를 전송한다
+		CUnityMsgSender.Instance.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
+	}
+
+	//! 국가 코드 반환 메세지를 처리한다
+	private void HandleGetCountryCodeMsg(string a_oMsg) {
+		string oCountryCode = a_oMsg;
+
+		// 국가 코드가 유효하지 않을 경우
+		if(!CAccess.IsMobilePlatform() || !a_oMsg.ExIsValid()) {
+			oCountryCode = !CAccess.IsMobilePlatform() ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
+		}
+
+#if MSG_PACK_ENABLE
+		CCommonAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
+		CCommonAppInfoStorage.Instance.SaveAppInfo();
+
+#if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+		CFlurryManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
+#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+
+#if FIREBASE_ENABLE
+#if FIREBASE_ANALYTICS_ENABLE
+		CFirebaseManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
+
+		CFirebaseManager.Instance.SetAnalyticsDatas(new Dictionary<string, string>() {
+			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
+		});
+#endif			// #if FIREBASE_ANALYTICS_ENABLE
+
+#if FIREBASE_CRASHLYTICS_ENABLE
+		CFirebaseManager.Instance.SetCrashUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
+
+		CFirebaseManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
+			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
+		});
+#endif			// #if FIREBASE_CRASHLYTICS_ENABLE
+#endif			// #if FIREBASE_ENABLE
+
+#if UNITY_SERVICE_ENABLE
+#if UNITY_SERVICE_ANALYTICS_ENABLE
+		CUnityServiceManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
+#endif			// #if UNITY_SERVICE_ANALYTICS_ENABLE
+
+#if UNITY_SERVICE_CRASHLYTICS_ENABLE
+		CUnityServiceManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
+			[KCDefine.U_LOG_KEY_USER_ID] = CCommonAppInfoStorage.Instance.AppInfo.DeviceID,
+			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
+		});
+#endif			// #if UNITY_SERVICE_CRASHLYTICS_ENABLE
+#endif			// #if UNITY_SERVICE_ENABLE
+
+#if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
+		CSingularManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
+#endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
+
+		if(this.IsAutoLoadTable) {
+			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
+				CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
+			} else {
+				CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);
+			}	
+		}
+#endif			// #if MSG_PACK_ENABLE
+
+		if(this.IsAutoInitManager) {
+#if FLURRY_ENABLE
+			CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryPluginInfo.m_oAPIKey, null);
+#endif			// #if FLURRY_ENABLE
+
+#if TENJIN_ENABLE
+			CTenjinManager.Instance.Init(CPluginInfoTable.Instance.TenjinPluginInfo.m_oAPIKey, null);
+#endif			// #if TENJIN_ENABLE
+		}
+
+		CSceneManager.IsSetup = true;
+		this.SendAppLaunchLog();
+
+		CFunc.LateCallFunc(this, KCDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
+			CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_AGREE, false);
+		});
+	}
+
 	//! 초기화
 	private IEnumerator OnStart() {
 		if(!CSceneManager.IsSetup) {
@@ -262,101 +357,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
 		CSingularManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 #endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
-	}
-	
-	//! 디바이스 식별자 반환 메세지를 처리한다
-	private void HandleGetDeviceIDMsg(string a_oMsg) {
-#if MSG_PACK_ENABLE
-		bool bIsValid = CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid();
-
-		if(!bIsValid || CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
-			CCommonAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
-		}
-
-		CCommonAppInfoStorage.Instance.SaveAppInfo();
-#endif			// #if MSG_PACK_ENABLE
-
-		// 국가 코드 반환 메세지를 전송한다
-		CUnityMsgSender.Instance.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
-	}
-
-	//! 국가 코드 반환 메세지를 처리한다
-	private void HandleGetCountryCodeMsg(string a_oMsg) {
-		string oCountryCode = a_oMsg;
-
-		// 국가 코드가 유효하지 않을 경우
-		if(!CAccess.IsMobilePlatform() || !a_oMsg.ExIsValid()) {
-			oCountryCode = !CAccess.IsMobilePlatform() ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
-		}
-
-#if MSG_PACK_ENABLE
-		CCommonAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
-		CCommonAppInfoStorage.Instance.SaveAppInfo();
-
-#if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
-		CFlurryManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
-
-#if FIREBASE_ENABLE
-#if FIREBASE_ANALYTICS_ENABLE
-		CFirebaseManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-
-		CFirebaseManager.Instance.SetAnalyticsDatas(new Dictionary<string, string>() {
-			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
-		});
-#endif			// #if FIREBASE_ANALYTICS_ENABLE
-
-#if FIREBASE_CRASHLYTICS_ENABLE
-		CFirebaseManager.Instance.SetCrashUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-
-		CFirebaseManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
-			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
-		});
-#endif			// #if FIREBASE_CRASHLYTICS_ENABLE
-#endif			// #if FIREBASE_ENABLE
-
-#if UNITY_SERVICE_ENABLE
-#if UNITY_SERVICE_ANALYTICS_ENABLE
-		CUnityServiceManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-#endif			// #if UNITY_SERVICE_ANALYTICS_ENABLE
-
-#if UNITY_SERVICE_CRASHLYTICS_ENABLE
-		CUnityServiceManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
-			[KCDefine.U_LOG_KEY_USER_ID] = CCommonAppInfoStorage.Instance.AppInfo.DeviceID,
-			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
-		});
-#endif			// #if UNITY_SERVICE_CRASHLYTICS_ENABLE
-#endif			// #if UNITY_SERVICE_ENABLE
-
-#if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
-		CSingularManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-#endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
-
-		if(this.IsAutoLoadTable) {
-			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
-				CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
-			} else {
-				CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);
-			}	
-		}
-#endif			// #if MSG_PACK_ENABLE
-
-		if(this.IsAutoInitManager) {
-#if FLURRY_ENABLE
-			CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryPluginInfo.m_oAPIKey, null);
-#endif			// #if FLURRY_ENABLE
-
-#if TENJIN_ENABLE
-			CTenjinManager.Instance.Init(CPluginInfoTable.Instance.TenjinPluginInfo.m_oAPIKey, null);
-#endif			// #if TENJIN_ENABLE
-		}
-
-		CSceneManager.IsSetup = true;
-		this.SendAppLaunchLog();
-
-		CFunc.LateCallFunc(this, KCDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
-			CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_AGREE, false);
-		});
 	}
 	#endregion			// 함수
 }
