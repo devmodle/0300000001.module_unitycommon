@@ -69,7 +69,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 		// 저장소를 로드한다 {
 #if MSG_PACK_ENABLE
-		CCommonUserInfoStorage.Instance.LoadUserInfo(KCDefine.B_DATA_PATH_COMMON_USER_INFO);
+		CCommonUserInfoStorage.Instance.LoadUserInfo();
 #endif			// #if MSG_PACK_ENABLE
 		// 저장소를 로드한다 }
 

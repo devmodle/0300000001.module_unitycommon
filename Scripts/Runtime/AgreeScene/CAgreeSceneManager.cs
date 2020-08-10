@@ -31,7 +31,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 #if MSG_PACK_ENABLE
 		CCommonUserInfoStorage.Instance.UserInfo.IsAgree = true;
-		CCommonUserInfoStorage.Instance.SaveUserInfo(KCDefine.B_DATA_PATH_COMMON_USER_INFO);
+		CCommonUserInfoStorage.Instance.SaveUserInfo();
 #endif			// #if MSG_PACK_ENABLE
 
 		CFunc.LateCallFunc(this, KCDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {

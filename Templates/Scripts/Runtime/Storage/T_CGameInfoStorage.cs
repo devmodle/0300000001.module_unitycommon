@@ -38,6 +38,11 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	}
 
 	//! 게임 정보를 저장한다
+	public void SaveGameInfo() {
+		this.SaveGameInfo(KDefine.B_DATA_PATH_GAME_INFO);
+	}
+
+	//! 게임 정보를 저장한다
 	public void SaveGameInfo(string a_oFilepath) {
 		var oBytes = MessagePackSerializer.Serialize<CGameInfo>(this.GameInfo);
 
@@ -46,6 +51,11 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 #else
 		CFunc.WriteBytes(a_oFilepath, oBytes);
 #endif			// #if SECURITY_ENABLE
+	}
+
+	//! 게임 정보를 로드한다
+	public void LoadGameInfo() {
+		this.LoadGameInfo(KDefine.B_DATA_PATH_GAME_INFO);
 	}
 
 	//! 게임 정보를 로드한다

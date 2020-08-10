@@ -38,6 +38,11 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	}
 
 	//! 어플리케이션 정보를 저장한다
+	public void SaveAppInfo() {
+		this.SaveAppInfo(KDefine.B_DATA_PATH_APP_INFO);
+	}
+
+	//! 어플리케이션 정보를 저장한다
 	public void SaveAppInfo(string a_oFilepath) {
 		var oBytes = MessagePackSerializer.Serialize<CAppInfo>(this.AppInfo);
 
@@ -46,6 +51,11 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 #else
 		CFunc.WriteBytes(a_oFilepath, oBytes);
 #endif			// #if SECURITY_ENABLE
+	}
+
+	//! 어플리케이션 정보를 로드한다
+	public void LoadAppInfo() {
+		this.LoadAppInfo(KDefine.B_DATA_PATH_APP_INFO);
 	}
 
 	//! 어플리케이션 정보를 로드한다

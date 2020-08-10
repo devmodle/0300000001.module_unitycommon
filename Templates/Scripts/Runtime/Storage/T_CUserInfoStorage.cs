@@ -38,6 +38,11 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	//! 유저 정보를 저장한다
+	public void SaveUserInfo() {
+		this.SaveUserInfo(KDefine.B_DATA_PATH_USER_INFO);
+	}
+
+	//! 유저 정보를 저장한다
 	public void SaveUserInfo(string a_oFilepath) {
 		var oBytes = MessagePackSerializer.Serialize<CUserInfo>(this.UserInfo);
 
@@ -46,6 +51,11 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 #else
 		CFunc.WriteBytes(a_oFilepath, oBytes);
 #endif			// #if SECURITY_ENABLE
+	}
+
+	//! 유저 정보를 로드한다
+	public void LoadUserInfo() {
+		this.LoadUserInfo(KDefine.B_DATA_PATH_USER_INFO);
 	}
 
 	//! 유저 정보를 로드한다

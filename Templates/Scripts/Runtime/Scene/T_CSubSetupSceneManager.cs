@@ -22,9 +22,9 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 
 #if MSG_PACK_ENABLE
 		// 저장소를 로드한다
-		CAppInfoStorage.Instance.LoadAppInfo(KDefine.B_DATA_PATH_APP_INFO);
-		CUserInfoStorage.Instance.LoadUserInfo(KDefine.B_DATA_PATH_USER_INFO);
-		CGameInfoStorage.Instance.LoadGameInfo(KDefine.B_DATA_PATH_GAME_INFO);
+		CAppInfoStorage.Instance.LoadAppInfo();
+		CUserInfoStorage.Instance.LoadUserInfo();
+		CGameInfoStorage.Instance.LoadGameInfo();
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수

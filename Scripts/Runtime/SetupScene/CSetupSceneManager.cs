@@ -75,7 +75,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			// 저장소를 설정한다 {
 #if MSG_PACK_ENABLE
 			CCommonAppInfoStorage.Instance.SetupStoreVersion();
-			CCommonAppInfoStorage.Instance.LoadAppInfo(KCDefine.B_DATA_PATH_COMMON_APP_INFO);
+			CCommonAppInfoStorage.Instance.LoadAppInfo();
 #endif			// #if MSG_PACK_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
@@ -273,7 +273,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CCommonAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
 		}
 
-		CCommonAppInfoStorage.Instance.SaveAppInfo(KCDefine.B_DATA_PATH_COMMON_APP_INFO);
+		CCommonAppInfoStorage.Instance.SaveAppInfo();
 #endif			// #if MSG_PACK_ENABLE
 
 		// 국가 코드 반환 메세지를 전송한다
@@ -291,7 +291,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 #if MSG_PACK_ENABLE
 		CCommonAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
-		CCommonAppInfoStorage.Instance.SaveAppInfo(KCDefine.B_DATA_PATH_COMMON_APP_INFO);
+		CCommonAppInfoStorage.Instance.SaveAppInfo();
 
 #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
 		CFlurryManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
