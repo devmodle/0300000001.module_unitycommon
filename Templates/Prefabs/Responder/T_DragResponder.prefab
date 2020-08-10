@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4164878208595072809}
   - component: {fileID: 3000285408706837424}
+  - component: {fileID: -3111094514649338842}
   - component: {fileID: 4164878208595072791}
   - component: {fileID: 1701368979272342275}
   m_Layer: 5
-  m_Name: U_DragResponder
+  m_Name: T_DragResponder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,6 +54,22 @@ MonoBehaviour:
   m_oRectTransform: {fileID: 0}
   m_oRigidbody: {fileID: 0}
   m_oRigidbody2D: {fileID: 0}
+--- !u!114 &-3111094514649338842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4164878208595072810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c5c565eea0a41af950e2335b16cd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oRectTransform: {fileID: 0}
+  m_oRigidbody: {fileID: 0}
+  m_oRigidbody2D: {fileID: 0}
+  m_fSizeRate: 1
 --- !u!222 &4164878208595072791
 CanvasRenderer:
   m_ObjectHideFlags: 0

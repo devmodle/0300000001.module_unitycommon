@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7854453751169407071}
   - component: {fileID: 6127443639007278092}
+  - component: {fileID: -4029436317842451443}
   - component: {fileID: 7854453751169407073}
   - component: {fileID: 2830991861941815715}
   m_Layer: 5
-  m_Name: U_TouchResponder
+  m_Name: T_TouchResponder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,6 +54,22 @@ MonoBehaviour:
   m_oRectTransform: {fileID: 0}
   m_oRigidbody: {fileID: 0}
   m_oRigidbody2D: {fileID: 0}
+--- !u!114 &-4029436317842451443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854453751169407068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c5c565eea0a41af950e2335b16cd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oRectTransform: {fileID: 0}
+  m_oRigidbody: {fileID: 0}
+  m_oRigidbody2D: {fileID: 0}
+  m_fSizeRate: 1
 --- !u!222 &7854453751169407073
 CanvasRenderer:
   m_ObjectHideFlags: 0
