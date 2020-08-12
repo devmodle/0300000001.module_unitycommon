@@ -169,13 +169,17 @@ public class CPopup : CUIComponent {
 	//! 출력 애니메이션을 생성한다
 	protected virtual Sequence CreateShowAnimation() {
 		var oAnimation = m_oRootTransform.DOScale(KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_DURATION_POPUP_ANIMATION);
-		return DOTween.Sequence().SetEase(Ease.OutExpo).Append(oAnimation);
+		oAnimation.SetEase(Ease.OutBack);;
+
+		return DOTween.Sequence().Append(oAnimation);
 	}
 
 	//! 닫기 애니메이션을 생성한다
 	protected virtual Sequence CreateCloseAnimation() {
 		var oAnimation = m_oRootTransform.DOScale(KDefine.U_MIN_SCALE_POPUP, KDefine.U_DEF_DURATION_POPUP_ANIMATION);
-		return DOTween.Sequence().SetEase(Ease.InExpo).Append(oAnimation);
+		oAnimation.SetEase(Ease.InBack);
+
+		return DOTween.Sequence().Append(oAnimation);
 	}
 
 	//! 팝업을 출력한다

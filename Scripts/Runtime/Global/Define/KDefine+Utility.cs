@@ -74,7 +74,7 @@ public static partial class KDefine {
 
 	public const float U_DEF_DURATION_ANIMATION = 0.25f;
 	public const float U_DEF_DURATION_TOAST_POPUP = 2.0f;
-	public const float U_DEF_DURATION_POPUP_ANIMATION = 0.15f;
+	public const float U_DEF_DURATION_POPUP_ANIMATION = 0.35f;
 	public const float U_DEF_DURATION_SCROLL_ANIMATION = 0.25f;
 	public const float U_DEF_DURATION_SCREEN_FADE_IN_ANIMATION = 0.15f;
 	public const float U_DEF_DURATION_SCREEN_FADE_OUT_ANIMATION = 0.15f;
