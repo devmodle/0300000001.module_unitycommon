@@ -62,6 +62,10 @@ public static partial class CBuildProcessHandler {
 				oProj.AddFrameworkToProject(oGUID, KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
 			}
 
+			for(int i = 0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
+				oProj.AddCapability(oGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i]);
+			}
+			
 			oProj.WriteToFile(oProjFilepath);
 
 			var oCapability = new ProjectCapabilityManager(oProjFilepath,
@@ -74,12 +78,13 @@ public static partial class CBuildProcessHandler {
 					oCapability.AddSignInWithApple();
 				} else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
 					oCapability.AddPushNotifications(!CCommonPlatformBuilder.IsDistributionBuild);
+				} else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
+					oCapability.AddGameCenter();
+				} else if(oCapabilityType.Equals(PBXCapabilityType.InAppPurchase)) {
+					oCapability.AddInAppPurchase();
 				}
-
-				oProj.AddCapability(oGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i], 
-					KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS);
 			}
-			
+
 			oCapability.WriteToFile();
 		}
 		// 프로젝트 옵션을 설정한다 }

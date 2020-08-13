@@ -171,13 +171,21 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 프레임워크
 	public static readonly string[] B_EXTRA_FRAMEWORKS_IOS = new string[] {
+#if APPLE_LOGIN_ENABLE
+		"AuthenticationServices.framework",
+#endif			// #if APPLE_LOGIN_ENABLE
+
 #if TENJIN_ENABLE
 		"iAd.framework",
 #endif			// #if TENJIN_ENABLE
 
-#if APPLE_LOGIN_ENABLE
-		"AuthenticationServices.framework"
-#endif			// #if APPLE_LOGIN_ENABLE
+#if GAME_CENTER_ENABLE
+		"GameKit.framework",
+#endif			// #if GAME_CENTER_ENABLE
+
+#if PURCHASE_ENABLE
+		"StoreKit.framework"
+#endif			// #if PURCHASE_ENABLE
 	};
 
 	// 호환성 타입
@@ -187,8 +195,16 @@ public static partial class KEditorDefine {
 #endif			// #if APPLE_LOGIN_ENABLE
 
 #if FIREBASE_ENABLE && FIREBASE_MSG_ENABLE
-		PBXCapabilityType.PushNotifications
+		PBXCapabilityType.PushNotifications,
 #endif			// #if FIREBASE_ENABLE && FIREBASE_MSG_ENABLE
+
+#if GAME_CENTER_ENABLE
+		PBXCapabilityType.GameCenter,
+#endif			// #if GAME_CENTER_ENABLE
+
+#if PURCHASE_ENABLE
+		PBXCapabilityType.InAppPurchase
+#endif			// #if PURCHASE_ENABLE
 	};
 #endif			// #if UNITY_IOS
 	#endregion			// 조건부 런타임 상수
