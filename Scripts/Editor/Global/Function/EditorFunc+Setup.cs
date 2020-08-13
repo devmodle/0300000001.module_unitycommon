@@ -85,11 +85,11 @@ public static partial class EditorFunc {
 		EditorSettings.projectGenerationUserExtensions = KEditorDefine.B_EDITOR_OPTION_EXTENSIONS;
 
 		EditorSettings.prefabUIEnvironment = EditorFunc.FindAsset<SceneAsset>(KEditorDefine.B_SCENE_NAME_PATTERN, new string[] {
-			KEditorDefine.B_DIR_PATH_SCENES
+			KEditorDefine.B_DIR_PATH_AUTO_SCENES
 		});
 
 		EditorSettings.prefabRegularEnvironment = EditorFunc.FindAsset<SceneAsset>(KEditorDefine.B_SCENE_NAME_PATTERN, new string[] {
-			KEditorDefine.B_DIR_PATH_SCENES
+			KEditorDefine.B_DIR_PATH_AUTO_SCENES
 		});
 
 #if MODE_2D_ENABLE
