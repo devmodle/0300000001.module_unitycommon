@@ -124,6 +124,14 @@ public static partial class KEditorDefine {
 		["com.unity.render-pipelines.universal"] = "7.3.1",
 		["com.google.external-dependency-manager"] = "1.2.157",
 
+#if POST_PROCESSING_ENABLE
+    	["com.unity.postprocessing"] = "2.3.0",
+#endif			// #if POST_PROCESSING_ENABLE
+
+#if LOCAL_NOTI_ENABLE
+		["com.unity.mobile.notifications"] = "1.0.3",
+#endif			// #if LOCAL_NOTI_ENABLE
+
 #if ADS_ENABLE
 		["unitymodule.common.ads"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",
 #endif			// #if ADS_ENABLE
@@ -194,9 +202,9 @@ public static partial class KEditorDefine {
 		PBXCapabilityType.SignInWithApple,
 #endif			// #if APPLE_LOGIN_ENABLE
 
-#if FIREBASE_ENABLE && FIREBASE_MSG_ENABLE
+#if FIREBASE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 		PBXCapabilityType.PushNotifications,
-#endif			// #if FIREBASE_ENABLE && FIREBASE_MSG_ENABLE
+#endif			// #if FIREBASE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 
 #if GAME_CENTER_ENABLE
 		PBXCapabilityType.GameCenter,
