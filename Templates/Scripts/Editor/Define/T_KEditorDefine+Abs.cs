@@ -165,8 +165,12 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE
 
 #if PURCHASE_ENABLE
-		["unitymodule.common.purchase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0"
+		["unitymodule.common.purchase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0",
 #endif			// #if PURCHASE_ENABLE
+
+#if LOCAL_NOTI_ENABLE
+		["unitymodule.common.localnoti"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_localnoti_client.git#v1.0.0"
+#endif			// #if LOCAL_NOTI_ENABLE
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {

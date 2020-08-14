@@ -322,6 +322,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if PURCHASE_ENABLE && MSG_PACK_ENABLE
+
+#if LOCAL_NOTI_ENABLE
+				CLocalNotiManager.Instance.Init(null);
+				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+#endif			// #if LOCAL_NOTI_ENABLE
 			}
 
 			this.Setup();
