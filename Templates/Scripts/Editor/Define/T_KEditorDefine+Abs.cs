@@ -125,39 +125,39 @@ public static partial class KEditorDefine {
 		["com.google.external-dependency-manager"] = "1.2.157",
 
 #if ADS_ENABLE
-		["unitymodule.common.ads"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",
+		["unitymodule.common.ads"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",
 #endif			// #if ADS_ENABLE
 
 #if FLURRY_ENABLE
-		["unitymodule.common.flurry"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_flurry_client.git#v1.0.0",
+		["unitymodule.common.flurry"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_flurry_client.git#v1.0.0",
 #endif			// #if FLURRY_ENABLE
 
 #if TENJIN_ENABLE
-		["unitymodule.common.tenjin"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_tenjin_client.git#v1.0.0",
+		["unitymodule.common.tenjin"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_tenjin_client.git#v1.0.0",
 #endif			// #if TENJIN_ENABLE
 
 #if FACEBOOK_ENABLE
-		["unitymodule.common.facebook"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_facebook_client.git#v1.0.0",
+		["unitymodule.common.facebook"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_facebook_client.git#v1.0.0",
 #endif			// #if FACEBOOK_ENABLE
 
 #if FIREBASE_ENABLE
-		["unitymodule.common.firebase"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#v1.0.0",
+		["unitymodule.common.firebase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#v1.0.0",
 #endif			// #if FIREBASE_ENABLE
 
 #if UNITY_SERVICE_ENABLE
-		["unitymodule.common.unityservice"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#v1.0.0",
+		["unitymodule.common.unityservice"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#v1.0.0",
 #endif			// #if UNITY_SERVICE_ENABLE
 
 #if SINGULAR_ENABLE
-		["unitymodule.common.singular"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_singular_client.git#v1.0.0",
+		["unitymodule.common.singular"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_singular_client.git#v1.0.0",
 #endif			// #if SINGULAR_ENABLE
 
 #if GAME_CENTER_ENABLE
-		["unitymodule.common.gamecenter"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_gamecenter_client.git#v1.0.0",
+		["unitymodule.common.gamecenter"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_gamecenter_client.git#v1.0.0",
 #endif			// #if GAME_CENTER_ENABLE
 
 #if PURCHASE_ENABLE
-		["unitymodule.common.purchase"] = "https://gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0"
+		["unitymodule.common.purchase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0"
 #endif			// #if PURCHASE_ENABLE
 	};
 
