@@ -9,7 +9,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-
+		
 		if(CSceneManager.IsInit) {
 			
 		}

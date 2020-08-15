@@ -70,10 +70,10 @@ public static partial class CBuildProcessHandler {
 
 			var oCapability = new ProjectCapabilityManager(oProjFilepath,
 				KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oGUID);
-
+			
 			for(int i = 0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 				var oCapabilityType = KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i];
-				
+
 				if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
 					oCapability.AddSignInWithApple();
 				} else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {

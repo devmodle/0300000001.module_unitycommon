@@ -19,7 +19,7 @@ public static partial class CCommonEditorSceneManager {
 					if(CEditorAccess.IsEnableUpdateState()) {
 						oSceneManager.EditorSetupScene();
 					}
-
+					
 					if(Camera.main != null) {
 						oSceneManager.EditorDrawGuideline();
 					}

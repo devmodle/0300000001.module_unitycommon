@@ -73,7 +73,7 @@ public static partial class CEditorSceneManager {
 					}
 				}
 			}
-
+			
 			if(bIsNeedUpdate && oScopedRegistryList.Count >= 1) {
 				oJSONNode.Add(KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY, oScopedRegistryList);
 				CFunc.WriteString(KCEditorDefine.B_DATA_PATH_UNITY_PKGS, oJSONNode.ToString(), System.Text.Encoding.Default);

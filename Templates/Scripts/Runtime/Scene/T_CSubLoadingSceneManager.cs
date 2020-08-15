@@ -9,7 +9,7 @@ public class CSubLoadingSceneManager : CLoadingSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-
+		
 		if(CSceneManager.IsInit) {
 			
 		}

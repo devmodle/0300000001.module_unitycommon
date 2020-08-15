@@ -79,7 +79,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void HandleGetCountryCodeMsg(string a_oMsg) {
 		string oCountryCode = a_oMsg;
 
-		// 국가 코드가 유효하지 않을 경우
 		if(!CAccess.IsMobilePlatform() || !a_oMsg.ExIsValid()) {
 			oCountryCode = !CAccess.IsMobilePlatform() ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
@@ -176,7 +175,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 			// 저장소를 설정한다 }
 			
-			// 관리자를 초기화한다
 			if(this.IsAutoInitManager) {
 #if ADS_ENABLE
 				var oDeviceIDList = new List<string>();

@@ -11,12 +11,12 @@ using UnityEditor.SceneManagement;
 //! 공용 에디터 씬 관리자
 [InitializeOnLoad]
 public static partial class CCommonEditorSceneManager {
-	#region 변수
+	#region 클래스 변수
 	private static float m_fSkipTime = 0.0f;
 	private static float m_fHierarchySkipTime = 0.0f;
 
 	private static GUIStyle m_oGUIStyle = null;
-	#endregion			// 변수
+	#endregion			// 클래스 변수
 
 	#region 클래스 함수
 	//! 생성자
@@ -42,7 +42,6 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.m_fSkipTime += Time.unscaledDeltaTime;
 			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.unscaledDeltaTime;
 
-			// 씬 갱신이 필요 할 경우
 			if(CCommonEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
 				CCommonEditorSceneManager.m_fSkipTime = 0.0f;
 
@@ -53,7 +52,6 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupFileBrowserUI();
 #endif			// #if FILE_BROWSER_ENABLE
 
-				// 계층 뷰 갱신이 필요 할 경우
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime >= KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE) {
 					CCommonEditorSceneManager.m_fHierarchySkipTime = 0.0f;
 

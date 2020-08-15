@@ -20,7 +20,7 @@ public class CSampleSceneManager : CSceneManager {
 		foreach(var stKeyValue in a_oSceneManagerTypeList) {
 			if(a_stScene.name.ExIsEquals(stKeyValue.Key)) {
 				var oSceneManager = a_stScene.ExFindChild(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
-
+				
 				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyValue.Value) == null) {
 					oSceneManager.ExRemoveComponent<CSampleSceneManager>();
 					oSceneManager.AddComponent(stKeyValue.Value);

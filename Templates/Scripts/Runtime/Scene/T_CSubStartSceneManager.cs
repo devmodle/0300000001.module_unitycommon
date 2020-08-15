@@ -9,7 +9,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-
+		
 		if(CSceneManager.IsInit) {
 			
 		}
