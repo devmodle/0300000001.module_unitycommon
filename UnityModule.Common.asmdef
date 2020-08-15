@@ -16,7 +16,8 @@
         "UnityModule.Common.UnityService",
         "UnityModule.Common.Singular",
         "UnityModule.Common.GameCenter",
-        "UnityModule.Common.Purchase"
+        "UnityModule.Common.Purchase",
+        "UnityModule.Common.LocalNoti"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
