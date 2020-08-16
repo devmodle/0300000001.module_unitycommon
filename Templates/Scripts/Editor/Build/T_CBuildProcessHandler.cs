@@ -55,21 +55,27 @@ public static partial class CBuildProcessHandler {
 		oProj.ReadFromFile(oProjFilepath);
 
 		if(oProj != null) {
-			string oGUID = oProj.GetUnityMainTargetGuid();
-			oProj.SetBuildProperty(oGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_BITCODE);
+			string oMainGUID = oProj.GetUnityMainTargetGuid();
+			string oFrameworkGUID = oProj.GetUnityFrameworkTargetGuid();
+
+			oProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_BITCODE);
+			oProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_DEBUG_SYMBOL, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_DEBUG_SYMBOL);
+
+			oProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_BITCODE);
+			oProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_DEBUG_SYMBOL, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_DEBUG_SYMBOL);
 
 			for(int i = 0; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
-				oProj.AddFrameworkToProject(oGUID, KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
+				oProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
 			}
 
 			for(int i = 0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
-				oProj.AddCapability(oGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i]);
+				oProj.AddCapability(oMainGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i]);
 			}
 			
 			oProj.WriteToFile(oProjFilepath);
 
 			var oCapability = new ProjectCapabilityManager(oProjFilepath,
-				KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oGUID);
+				KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oMainGUID);
 			
 			for(int i = 0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 				var oCapabilityType = KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i];
