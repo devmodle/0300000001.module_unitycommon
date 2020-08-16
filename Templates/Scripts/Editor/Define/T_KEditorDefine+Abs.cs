@@ -128,10 +128,6 @@ public static partial class KEditorDefine {
     	["com.unity.postprocessing"] = "2.3.0",
 #endif			// #if POST_PROCESSING_ENABLE
 
-#if LOCAL_NOTI_ENABLE
-		["com.unity.mobile.notifications"] = "1.0.3",
-#endif			// #if LOCAL_NOTI_ENABLE
-
 #if ADS_ENABLE
 		["unitymodule.common.ads"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",
 #endif			// #if ADS_ENABLE
@@ -170,6 +166,7 @@ public static partial class KEditorDefine {
 #endif			// #if PURCHASE_ENABLE
 
 #if LOCAL_NOTI_ENABLE
+		["com.unity.mobile.notifications"] = "1.0.3",
 		["unitymodule.common.localnoti"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_localnoti_client.git#v1.0.0"
 #endif			// #if LOCAL_NOTI_ENABLE
 	};
@@ -190,6 +187,8 @@ public static partial class KEditorDefine {
 
 #if TENJIN_ENABLE
 		"iAd.framework",
+		"StoreKit.framework",
+		"AdSupport.framework",
 #endif			// #if TENJIN_ENABLE
 
 #if GAME_CENTER_ENABLE
