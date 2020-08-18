@@ -59,10 +59,7 @@ public static partial class CBuildProcessHandler {
 			string oFrameworkGUID = oProj.GetUnityFrameworkTargetGuid();
 
 			oProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_BITCODE);
-			oProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_DEBUG_SYMBOL, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_DEBUG_SYMBOL);
-
 			oProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_BITCODE);
-			oProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_NAME_ENABLE_DEBUG_SYMBOL, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_DEBUG_SYMBOL);
 
 			for(int i = 0; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
 				oProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
