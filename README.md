@@ -10,7 +10,7 @@
 	- *LINQ to GameObject (Ver.2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (Ver.1.0.0 - Jan 11, 2019)*
 	- *Native Share (Ver.1.3.6 - Agu 10, 2020)*
-	- *Sign in with Apple (Ver.1.0.3 - Feb 14, 2020)*
+	- *Sign in with Apple (Ver.1.1.0 - Aug 13, 2020)*
 	- *Rest Client for Unity (Ver.2.6.1 - Jun 11, 2020)*
 	- *Runtime File Browser (Ver.1.3.0 - Jun 9, 2020)*
 	- *Bitmap Font Importer (Ver.2.4.1 - May 6, 2019)*

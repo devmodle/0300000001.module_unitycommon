@@ -67,34 +67,46 @@ public static partial class KEditorDefine {
 		[typeof(CPermissionManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if UNITY_ANDROID
 
-#if ADS_ENABLE
+#if ADS_MODULE_ENABLE
 		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CBannerAdsCorrector)] = KCDefine.U_SCRIPT_ORDER_BANNER_ADS_CORRECTOR,
-#endif			// #if ADS_ENABLE
+#endif			// #if ADS_MODULE_ENABLE
 
-#if FLURRY_ENABLE
+#if FLURRY_MODULE_ENABLE
 		[typeof(CFlurryManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-#endif			// #if FLURRY_ENABLE
+#endif			// #if FLURRY_MODULE_ENABLE
 
-#if TENJIN_ENABLE
+#if TENJIN_MODULE_ENABLE
 		[typeof(CTenjinManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-#endif			// #if TENJIN_ENABLE
+#endif			// #if TENJIN_MODULE_ENABLE
 
-#if FACEBOOK_ENABLE
+#if FACEBOOK_MODULE_ENABLE
 		[typeof(CFacebookManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-#endif			// #if FACEBOOK_ENABLE
+#endif			// #if FACEBOOK_MODULE_ENABLE
 
-#if FIREBASE_ENABLE
+#if FIREBASE_MODULE_ENABLE
 		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-#endif			// #if FIREBASE_ENABLE
+#endif			// #if FIREBASE_MODULE_ENABLE
 
-#if PURCHASE_ENABLE && MSG_PACK_ENABLE
+#if UNITY_SERVICE_MODULE_ENABLE
+		[typeof(CUnityServiceManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if UNITY_SERVICE_MODULE_ENABLE
+
+#if SINGULAR_MODULE_ENABLE
+		[typeof(CSingularManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if SINGULAR_MODULE_ENABLE
+
+#if GAME_CENTER_MODULE_ENABLE
+		[typeof(CGameCenterManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if GAME_CENTER_MODULE_ENABLE
+
+#if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
 		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-#endif			// #if PURCHASE_ENABLE && MSG_PACK_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
 
-#if UNITY_SERVICE_ENABLE
-		[typeof(CUnityServiceManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON
-#endif			// #if UNITY_SERVICE_ENABLE
+#if LOCAL_NOTI_MODULE_ENABLE
+		[typeof(CLocalNotiManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON
+#endif			// #if LOCAL_NOTI_MODULE_ENABLE
 	};
 
 	// 데이터 타입
@@ -185,19 +197,19 @@ public static partial class KEditorDefine {
 		"AuthenticationServices.framework",
 #endif			// #if APPLE_LOGIN_ENABLE
 
-#if TENJIN_ENABLE
+#if TENJIN_MODULE_ENABLE
 		"iAd.framework",
 		"StoreKit.framework",
 		"AdSupport.framework",
-#endif			// #if TENJIN_ENABLE
+#endif			// #if TENJIN_MODULE_ENABLE
 
-#if GAME_CENTER_ENABLE
+#if GAME_CENTER_MODULE_ENABLE
 		"GameKit.framework",
-#endif			// #if GAME_CENTER_ENABLE
+#endif			// #if GAME_CENTER_MODULE_ENABLE
 
-#if PURCHASE_ENABLE
+#if PURCHASE_MODULE_ENABLE
 		"StoreKit.framework"
-#endif			// #if PURCHASE_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE
 	};
 
 	// 호환성 타입
@@ -206,17 +218,17 @@ public static partial class KEditorDefine {
 		PBXCapabilityType.SignInWithApple,
 #endif			// #if APPLE_LOGIN_ENABLE
 
-#if FIREBASE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
+#if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 		PBXCapabilityType.PushNotifications,
-#endif			// #if FIREBASE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
+#endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 
-#if GAME_CENTER_ENABLE
+#if GAME_CENTER_MODULE_ENABLE
 		PBXCapabilityType.GameCenter,
-#endif			// #if GAME_CENTER_ENABLE
+#endif			// #if GAME_CENTER_MODULE_ENABLE
 
-#if PURCHASE_ENABLE
+#if PURCHASE_MODULE_ENABLE
 		PBXCapabilityType.InAppPurchase
-#endif			// #if PURCHASE_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE
 	};
 #endif			// #if UNITY_IOS
 	#endregion			// 조건부 런타임 상수

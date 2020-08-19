@@ -13,3 +13,4 @@ V_EXTRA_OFFSET_ALERT_P_MSG,15,2,0,알림 팝업 메세지 추가 수직 간격
 V_EXTRA_OFFSET_ALERT_P_BTN,0,2,0,알림 팝업 버튼 추가 수직 간격
 V_OFFSET_ALERT_P_BG,25,2,0,알림 팝업 배경 수직 간격
 H_OFFSET_ALERT_P_BG,165,2,0,알림 팝업 배경 수평 간격
+DELAY_COMMON_GIS_ADS,60,2,0,공용 게임 정보 저장소 광고 딜레이

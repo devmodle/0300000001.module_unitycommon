@@ -92,7 +92,7 @@ public static partial class CCommonEditorSceneManager {
 		string oFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_SS_FPS_COUNTER);
 
 		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFilter, new string[] {
-			KCEditorDefine.B_DIR_PATH_AUTO_CREATE_RESES
+			KCEditorDefine.B_DIR_PATH_FILTER_AUTO_CREATE_RESES
 		});
 
 		for(int i = 0; i < oFPSCounterList?.Count; ++i) {

@@ -119,45 +119,45 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CPermissionManager.Create();
 #endif			// #if UNITY_ANDROID
 
-#if ADS_ENABLE
+#if ADS_MODULE_ENABLE
 			CAdsManager.Create();
-#endif			// #if ADS_ENABLE
+#endif			// #if ADS_MODULE_ENABLE
 
-#if FLURRY_ENABLE
+#if FLURRY_MODULE_ENABLE
 			CFlurryManager.Create();
-#endif			// #if FLURRY_ENABLE
+#endif			// #if FLURRY_MODULE_ENABLE
 
-#if TENJIN_ENABLE
+#if TENJIN_MODULE_ENABLE
 			CTenjinManager.Create();
-#endif			// #if TENJIN_ENABLE
+#endif			// #if TENJIN_MODULE_ENABLE
 
-#if FACEBOOK_ENABLE
+#if FACEBOOK_MODULE_ENABLE
 			CFacebookManager.Create();
-#endif			// #if FACEBOOK_ENABLE
+#endif			// #if FACEBOOK_MODULE_ENABLE
 
-#if FIREBASE_ENABLE
+#if FIREBASE_MODULE_ENABLE
 			CFirebaseManager.Create();
-#endif			// #if FIREBASE_ENABLE
+#endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_ENABLE
+#if UNITY_SERVICE_MODULE_ENABLE
 			CUnityServiceManager.Create();
-#endif			// #if UNITY_SERVICE_ENABLE
+#endif			// #if UNITY_SERVICE_MODULE_ENABLE
 
-#if SINGULAR_ENABLE
+#if SINGULAR_MODULE_ENABLE
 			CSingularManager.Create();
-#endif			// #if SINGULAR_ENABLE
+#endif			// #if SINGULAR_MODULE_ENABLE
 
-#if GAME_CENTER_ENABLE
+#if GAME_CENTER_MODULE_ENABLE
 			CGameCenterManager.Create();
-#endif			// #if GAME_CENTER_ENABLE
+#endif			// #if GAME_CENTER_MODULE_ENABLE
 
-#if PURCHASE_ENABLE && MSG_PACK_ENABLE
+#if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
 			CPurchaseManager.Create();
-#endif			// #if PURCHASE_ENABLE && MSG_PACK_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
 
-#if LOCAL_NOTI_ENABLE
+#if LOCAL_NOTI_MODULE_ENABLE
 			CLocalNotiManager.Create();
-#endif			// #if LOCAL_NOTI_ENABLE
+#endif			// #if LOCAL_NOTI_MODULE_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 			// 관리자를 생성한다 }
@@ -179,13 +179,13 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CProjInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PROJ_INFO_TABLE);
 			CDeviceInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_DEVICE_INFO_TABLE);
 
-#if ADS_ENABLE || FLURRY_ENABLE || TENJIN_ENABLE || FIREBASE_ENABLE
+#if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE
 			CPluginInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PLUGIN_INFO_TABLE);
-#endif			// #if ADS_ENABLE || FLURRY_ENABLE || TENJIN_ENABLE || FIREBASE_ENABLE
+#endif			// #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE
 
-#if PURCHASE_ENABLE
+#if PURCHASE_MODULE_ENABLE
 			CProductInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PRODUCT_INFO_TABLE);
-#endif			// #if PURCHASE_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 			// 테이블을 생성한다 }

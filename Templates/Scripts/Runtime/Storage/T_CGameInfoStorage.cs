@@ -22,6 +22,7 @@ public sealed class CGameInfo : CBaseInfo {
 //! 게임 정보 저장소
 public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
+	public System.DateTime PrevAdsTime { get; set; } = System.DateTime.Now;
 	public CGameInfo GameInfo { get; private set; } = null;
 	#endregion			// 프로퍼티
 

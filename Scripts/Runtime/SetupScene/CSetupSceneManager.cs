@@ -87,11 +87,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
 		CCommonAppInfoStorage.Instance.SaveAppInfo();
 
-#if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+#if FLURRY_MODULE_ENABLE && FLURRY_ANALYTICS_ENABLE
 		CFlurryManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+#endif			// #if FLURRY_MODULE_ENABLE && FLURRY_ANALYTICS_ENABLE
 
-#if FIREBASE_ENABLE
+#if FIREBASE_MODULE_ENABLE
 #if FIREBASE_ANALYTICS_ENABLE
 		CFirebaseManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
 
@@ -107,9 +107,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
 		});
 #endif			// #if FIREBASE_CRASHLYTICS_ENABLE
-#endif			// #if FIREBASE_ENABLE
+#endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_ENABLE
+#if UNITY_SERVICE_MODULE_ENABLE
 #if UNITY_SERVICE_ANALYTICS_ENABLE
 		CUnityServiceManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
 #endif			// #if UNITY_SERVICE_ANALYTICS_ENABLE
@@ -120,11 +120,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
 		});
 #endif			// #if UNITY_SERVICE_CRASHLYTICS_ENABLE
-#endif			// #if UNITY_SERVICE_ENABLE
+#endif			// #if UNITY_SERVICE_MODULE_ENABLE
 
-#if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
+#if SINGULAR_MODULE_ENABLE && SINGULAR_ANALYTICS_ENABLE
 		CSingularManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-#endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
+#endif			// #if SINGULAR_MODULE_ENABLE && SINGULAR_ANALYTICS_ENABLE
 
 		if(this.IsAutoLoadTable) {
 			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
@@ -136,13 +136,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if MSG_PACK_ENABLE
 
 		if(this.IsAutoInitManager) {
-#if FLURRY_ENABLE
+#if FLURRY_MODULE_ENABLE
 			CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryPluginInfo.m_oAPIKey, null);
-#endif			// #if FLURRY_ENABLE
+#endif			// #if FLURRY_MODULE_ENABLE
 
-#if TENJIN_ENABLE
+#if TENJIN_MODULE_ENABLE
 			CTenjinManager.Instance.Init(CPluginInfoTable.Instance.TenjinPluginInfo.m_oAPIKey, null);
-#endif			// #if TENJIN_ENABLE
+#endif			// #if TENJIN_MODULE_ENABLE
 		}
 
 		CSceneManager.IsSetup = true;
@@ -176,7 +176,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			// 저장소를 설정한다 }
 			
 			if(this.IsAutoInitManager) {
-#if ADS_ENABLE
+#if ADS_MODULE_ENABLE
 				var oDeviceIDList = new List<string>();
 
 #if ADMOB_ENABLE
@@ -244,14 +244,14 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				}, null);
 
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if ADS_ENABLE
+#endif			// #if ADS_MODULE_ENABLE
 
-#if FACEBOOK_ENABLE
+#if FACEBOOK_MODULE_ENABLE
 				CFacebookManager.Instance.Init(null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if FACEBOOK_ENABLE
+#endif			// #if FACEBOOK_MODULE_ENABLE
 
-#if FIREBASE_ENABLE
+#if FIREBASE_MODULE_ENABLE
 #if FIREBASE_REMOTE_CONFIG_ENABLE
 				var oMacVersionInfo = new Dictionary<string, string>() {
 					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.MacProjInfo.m_oBuildNumber,
@@ -299,32 +299,32 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 				CFirebaseManager.Instance.Init(oConfigDataList, null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if FIREBASE_ENABLE
+#endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_ENABLE
+#if UNITY_SERVICE_MODULE_ENABLE
 				CUnityServiceManager.Instance.Init(null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if UNITY_SERVICE_ENABLE
+#endif			// #if UNITY_SERVICE_MODULE_ENABLE
 
-#if SINGULAR_ENABLE
+#if SINGULAR_MODULE_ENABLE
 				CSingularManager.Instance.Init(null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_TIME);
-#endif			// #if SINGULAR_ENABLE
+#endif			// #if SINGULAR_MODULE_ENABLE
 
-#if GAME_CENTER_ENABLE
+#if GAME_CENTER_MODULE_ENABLE
 				CGameCenterManager.Instance.Init(null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if GAME_CENTER_ENABLE
+#endif			// #if GAME_CENTER_MODULE_ENABLE
 
-#if PURCHASE_ENABLE && MSG_PACK_ENABLE
+#if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
 				CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if PURCHASE_ENABLE && MSG_PACK_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
 
-#if LOCAL_NOTI_ENABLE
+#if LOCAL_NOTI_MODULE_ENABLE
 				CLocalNotiManager.Instance.Init(null);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if LOCAL_NOTI_ENABLE
+#endif			// #if LOCAL_NOTI_MODULE_ENABLE
 			}
 
 			this.Setup();
@@ -337,29 +337,29 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 어플리케이션 시작 로그를 전송한다
 	private void SendAppLaunchLog() {
-#if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+#if FLURRY_MODULE_ENABLE && FLURRY_ANALYTICS_ENABLE
 		CFlurryManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+#endif			// #if FLURRY_MODULE_ENABLE && FLURRY_ANALYTICS_ENABLE
 
-#if TENJIN_ENABLE && TENJIN_ANALYTICS_ENABLE
+#if TENJIN_MODULE_ENABLE && TENJIN_ANALYTICS_ENABLE
 		CTenjinManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-#endif			// #if FLURRY_ENABLE && FLURRY_ANALYTICS_ENABLE
+#endif			// #if TENJIN_MODULE_ENABLE && TENJIN_ANALYTICS_ENABLE
 
-#if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
+#if FACEBOOK_MODULE_ENABLE && FACEBOOK_ANALYTICS_ENABLE
 		CFacebookManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-#endif			// #if FACEBOOK_ENABLE && FACEBOOK_ANALYTICS_ENABLE
+#endif			// #if FACEBOOK_MODULE_ENABLE && FACEBOOK_ANALYTICS_ENABLE
 
-#if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
+#if FIREBASE_MODULE_ENABLE && FIREBASE_ANALYTICS_ENABLE
 		CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, KCDefine.U_LOG_PARAM_USER_INFO, null);
-#endif			// #if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
+#endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_ANALYTICS_ENABLE
 
-#if UNITY_SERVICE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
+#if UNITY_SERVICE_MODULE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
 		CUnityServiceManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-#endif			// #if UNITY_SERVICE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
+#endif			// #if UNITY_SERVICE_MODULE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
 
-#if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
+#if SINGULAR_MODULE_ENABLE && SINGULAR_ANALYTICS_ENABLE
 		CSingularManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-#endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
+#endif			// #if SINGULAR_MODULE_ENABLE && SINGULAR_ANALYTICS_ENABLE
 	}
 	#endregion			// 함수
 }
