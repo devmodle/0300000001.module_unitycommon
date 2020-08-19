@@ -256,6 +256,8 @@ public static partial class CPlatformBuilder {
 					oCapability.AddSignInWithApple();
 				} else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
 					oCapability.AddPushNotifications(!CPlatformBuilder.IsDistributionBuild);
+				} else if(oCapabilityType.Equals(PBXCapabilityType.InAppPurchase)) {
+					oCapability.AddInAppPurchase();
 				}
 
 				oProject.AddCapability(oGUID, KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS[i], 
