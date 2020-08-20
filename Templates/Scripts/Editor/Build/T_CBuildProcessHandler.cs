@@ -77,9 +77,7 @@ public static partial class CBuildProcessHandler {
 			for(int i = 0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 				var oCapabilityType = KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i];
 
-				if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
-					oCapability.AddSignInWithApple();
-				} else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
+				if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
 					oCapability.AddPushNotifications(!CCommonPlatformBuilder.IsDistributionBuild);
 				} else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
 					oCapability.AddGameCenter();

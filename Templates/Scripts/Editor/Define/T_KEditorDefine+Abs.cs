@@ -133,54 +133,61 @@ public static partial class KEditorDefine {
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.1.1",
-		["com.unity.render-pipelines.universal"] = "7.3.1",
 		["com.google.external-dependency-manager"] = "1.2.157",
+
+#if CINEMACHINE_ENABLE
+		["com.unity.cinemachine"] = "2.3.4",
+#endif			// #if CINEMACHINE_ENABLE
 
 #if POST_PROCESSING_ENABLE
     	["com.unity.postprocessing"] = "2.3.0",
 #endif			// #if POST_PROCESSING_ENABLE
 
-#if ADS_ENABLE
+#if ADS_ENABLE || ADS_MODULE_ENABLE
 		["unitymodule.common.ads"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",
-#endif			// #if ADS_ENABLE
+#endif			// #if ADS_ENABLE || ADS_MODULE_ENABLE
 
-#if FLURRY_ENABLE
+#if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
 		["unitymodule.common.flurry"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_flurry_client.git#v1.0.0",
-#endif			// #if FLURRY_ENABLE
+#endif			// #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
 
-#if TENJIN_ENABLE
+#if TENJIN_ENABLE || TENJIN_MODULE_ENABLE
 		["unitymodule.common.tenjin"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_tenjin_client.git#v1.0.0",
-#endif			// #if TENJIN_ENABLE
+#endif			// #if TENJIN_ENABLE || TENJIN_MODULE_ENABLE
 
-#if FACEBOOK_ENABLE
+#if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 		["unitymodule.common.facebook"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_facebook_client.git#v1.0.0",
-#endif			// #if FACEBOOK_ENABLE
+#endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
-#if FIREBASE_ENABLE
+#if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 		["unitymodule.common.firebase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#v1.0.0",
-#endif			// #if FIREBASE_ENABLE
+#endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_ENABLE
+#if UNITY_SERVICE_ENABLE || UNITY_SERVICE_MODULE_ENABLE
 		["unitymodule.common.unityservice"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#v1.0.0",
-#endif			// #if UNITY_SERVICE_ENABLE
+#endif			// #if UNITY_SERVICE_ENABLE || UNITY_SERVICE_MODULE_ENABLE
 
-#if SINGULAR_ENABLE
+#if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
 		["unitymodule.common.singular"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_singular_client.git#v1.0.0",
-#endif			// #if SINGULAR_ENABLE
+#endif			// #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
 
-#if GAME_CENTER_ENABLE
+#if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 		["unitymodule.common.gamecenter"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_gamecenter_client.git#v1.0.0",
-#endif			// #if GAME_CENTER_ENABLE
+#endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
-#if PURCHASE_ENABLE
+#if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "2.0.6",
 		["unitymodule.common.purchase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0",
-#endif			// #if PURCHASE_ENABLE
+#endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
-#if LOCAL_NOTI_ENABLE
+#if LOCAL_NOTI_ENABLE || LOCAL_NOTI_MODULE_ENABLE
 		["com.unity.mobile.notifications"] = "1.0.3",
-		["unitymodule.common.localnoti"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_localnoti_client.git#v1.0.0"
-#endif			// #if LOCAL_NOTI_ENABLE
+		["unitymodule.common.localnoti"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_localnoti_client.git#v1.0.0",
+#endif			// #if LOCAL_NOTI_ENABLE || LOCAL_NOTI_MODULE_ENABLE
+
+#if UNIVERSAL_RENDER_PIPELINE_ENABLE || UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+		["com.unity.render-pipelines.universal"] = "7.3.1",
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_ENABLE || UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {
@@ -193,10 +200,6 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 프레임워크
 	public static readonly string[] B_EXTRA_FRAMEWORKS_IOS = new string[] {
-#if APPLE_LOGIN_ENABLE
-		"AuthenticationServices.framework",
-#endif			// #if APPLE_LOGIN_ENABLE
-
 #if TENJIN_MODULE_ENABLE
 		"iAd.framework",
 		"StoreKit.framework",
@@ -214,10 +217,6 @@ public static partial class KEditorDefine {
 
 	// 호환성 타입
 	public static readonly PBXCapabilityType[] B_EXTRA_CAPABILITY_TYPES_IOS = new PBXCapabilityType[] {
-#if APPLE_LOGIN_ENABLE
-		PBXCapabilityType.SignInWithApple,
-#endif			// #if APPLE_LOGIN_ENABLE
-
 #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 		PBXCapabilityType.PushNotifications,
 #endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
