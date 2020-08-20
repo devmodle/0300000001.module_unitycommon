@@ -260,8 +260,10 @@ public static partial class CPlatformBuilder {
 					oCapability.AddInAppPurchase();
 				}
 
-				oProject.AddCapability(oGUID, KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS[i], 
-					KEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS);
+				oProject.AddCapability(oGUID, KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS[i]);
+
+				// oProject.AddCapability(oGUID, KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS[i], 
+				// 	KEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS);
 			}
 
 			oCapability.WriteToFile();
