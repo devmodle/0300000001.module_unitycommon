@@ -15,10 +15,6 @@ public class CObjNameEditorWindow : CEditorWindow<CObjNameEditorWindow> {
 	#region 함수
 	//! GUI 를 그린다
 	public void OnGUI() {
-#if NGUI_ENABLE
-		NGUIEditorTools.SetLabelWidth(KEditorDefine.B_WIDTH_EDITOR_W_NAME_TEXT_FIELD);
-#endif			// #if NGUI_ENABLE
-
 		m_oOriginObjName = EditorGUILayout.TextField("검색 문자열", m_oOriginObjName, GUILayout.Width(KEditorDefine.B_TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD));
 		m_oReplaceObjName = EditorGUILayout.TextField("변경 문자열", m_oReplaceObjName, GUILayout.Width(KEditorDefine.B_TOTAL_WIDTH_EDITOR_W_NAME_TEXT_FIELD));
 

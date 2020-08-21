@@ -177,10 +177,10 @@ public static partial class KEditorDefine {
 	public const string B_JENKINS_IOS_ADHOC_PIPELINE_NAME = "03.iOSAdhoc";
 	public const string B_JENKINS_IOS_STORE_PIPELINE_NAME = "04.iOSStore";
 
-	public const string B_JENKINS_ANDROID_DEBUG_PIPELINE_NAME = "11.iOSDebug";
-	public const string B_JENKINS_ANDROID_RELEASE_PIPELINE_NAME = "12.iOSRelease";
-	public const string B_JENKINS_ANDROID_ADHOC_PIPELINE_NAME = "13.iOSAdhoc";
-	public const string B_JENKINS_ANDROID_STORE_PIPELINE_NAME = "14.iOSStore";
+	public const string B_JENKINS_ANDROID_DEBUG_PIPELINE_NAME = "11.AndroidDebug";
+	public const string B_JENKINS_ANDROID_RELEASE_PIPELINE_NAME = "12.AndroidRelease";
+	public const string B_JENKINS_ANDROID_ADHOC_PIPELINE_NAME = "13.AndroidAdhoc";
+	public const string B_JENKINS_ANDROID_STORE_PIPELINE_NAME = "14.AndroidStore";
 	// 젠킨스 }
 
 	// 맥
