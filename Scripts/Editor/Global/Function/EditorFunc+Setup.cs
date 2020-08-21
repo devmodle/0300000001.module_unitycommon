@@ -630,7 +630,7 @@ public static partial class EditorFunc {
 		PlayerSettings.iOS.showActivityIndicatorOnLoading = iOSShowActivityIndicatorOnLoading.DontShow;
 
 		EditorUserBuildSettings.symlinkLibraries = false;
-		PlayerSettings.SetArchitecture(BuildTargetGroup.iOS, (int)AppleMobileArchitecture.Universal);
+		PlayerSettings.SetArchitecture(BuildTargetGroup.iOS, (int)AppleMobileArchitecture.ARM64);
 
 		if(CPlatformBuilder.BuildInfoTable != null) {
 			PlayerSettings.iOS.appleDeveloperTeamID = CPlatformBuilder.BuildInfoTable.iOSBuildInfo.m_oTeamID;
