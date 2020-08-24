@@ -41,6 +41,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SPLASH);
 			bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_AGREE);
 
+			// 인트로 씬 로드가 필요 할 경우
 			if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene) {
 				CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
 			} else {
@@ -66,6 +67,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			!CCommonAppInfoStorage.Instance.IsNeedAgreement(CCommonAppInfoStorage.Instance.CountryCode);
 #endif			// #if MSG_PACK_ENABLE
 
+		// 약관 동의 상태 일 경우
 		if(bIsAgree) {
 			this.LoadNextScene();
 		} else {
@@ -73,6 +75,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			string oPersonalFilepath = KCDefine.AS_DATA_PATH_KOREAN_PERSONAL_TEXT;
 
 #if MSG_PACK_ENABLE
+			// 대한민국이 아닐 경우
 			if(!CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
 				oServiceFilepath = KCDefine.AS_DATA_PATH_ENGLISH_SERVICE_TEXT;
 				oPersonalFilepath = KCDefine.AS_DATA_PATH_ENGLISH_PERSONAL_TEXT;

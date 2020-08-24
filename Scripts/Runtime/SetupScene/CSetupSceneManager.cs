@@ -36,9 +36,12 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 디바이스 메세지를 수신했을 경우
 	public void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
+		// 디바이스 식별자 반환 메세지 일 경우
 		if(a_oCmd.ExIsEquals(KCDefine.B_CMD_GET_DEVICE_ID)) {
 			this.HandleGetDeviceIDMsg(a_oMsg);
-		} else if(a_oCmd.ExIsEquals(KCDefine.B_CMD_GET_COUNTRY_CODE)) {
+		}
+		// 국가 코드 반환 메세지 일 경우
+		else if(a_oCmd.ExIsEquals(KCDefine.B_CMD_GET_COUNTRY_CODE)) {
 			this.HandleGetCountryCodeMsg(a_oMsg);
 		}
 	}
@@ -64,6 +67,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #if MSG_PACK_ENABLE
 		bool bIsValid = CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid();
 
+		// 국가 코드 설정이 가능 할 경우
 		if(!bIsValid || CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
 			CCommonAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
 		}
@@ -79,6 +83,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void HandleGetCountryCodeMsg(string a_oMsg) {
 		string oCountryCode = a_oMsg;
 
+		// 국가 코드 설정이 필요 할 경우
 		if(!CAccess.IsMobilePlatform() || !a_oMsg.ExIsValid()) {
 			oCountryCode = !CAccess.IsMobilePlatform() ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
@@ -126,7 +131,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CSingularManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
 #endif			// #if SINGULAR_MODULE_ENABLE && SINGULAR_ANALYTICS_ENABLE
 
+		// 테이블 자동 로드 모드 일 경우
 		if(this.IsAutoLoadTable) {
+			// 대한민국 일 경우
 			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
 				CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
 			} else {
@@ -135,6 +142,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 #endif			// #if MSG_PACK_ENABLE
 
+		// 관리자 자동 초기화 모드 일 경우
 		if(this.IsAutoInitManager) {
 #if FLURRY_MODULE_ENABLE
 			CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryPluginInfo.m_oAPIKey, null);
@@ -155,6 +163,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
+		// 설정이 필요 할 경우
 		if(!CSceneManager.IsSetup) {
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
@@ -168,13 +177,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			
 			// 저장소를 설정한다 {
 #if MSG_PACK_ENABLE
-			CCommonAppInfoStorage.Instance.SetupStoreVersion();
 			CCommonAppInfoStorage.Instance.LoadAppInfo();
 #endif			// #if MSG_PACK_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 			// 저장소를 설정한다 }
 			
+			// 관리자 자동 초기화 모드 일 경우
 			if(this.IsAutoInitManager) {
 #if ADS_MODULE_ENABLE
 				var oDeviceIDList = new List<string>();
@@ -335,7 +344,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 어플리케이션 시작 로그를 전송한다
+	//! 앱 시작 로그를 전송한다
 	private void SendAppLaunchLog() {
 #if FLURRY_MODULE_ENABLE && FLURRY_ANALYTICS_ENABLE
 		CFlurryManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);

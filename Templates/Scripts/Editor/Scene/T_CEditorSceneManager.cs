@@ -21,6 +21,7 @@ public static partial class CEditorSceneManager {
 	#region 클래스 함수
 	//! 생성자
 	static CEditorSceneManager() {
+		// 배치 모드가 아닐 경우
 		if(!Application.isBatchMode) {
 			CEditorSceneManager.SetupCallbacks();
 		}
@@ -28,6 +29,7 @@ public static partial class CEditorSceneManager {
 
 	//! 상태를 갱신한다
 	public static void Update() {
+		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState()) {
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 			CEditorSceneManager.m_fSkipTime += Time.unscaledDeltaTime;
@@ -35,11 +37,13 @@ public static partial class CEditorSceneManager {
 			for(int i = 0; i < oMonoScripts.Length; ++i) {
 				var oType = oMonoScripts[i].GetClass();
 
+				// 스크립트 순서 설정이 가능 할 경우
 				if(oType != null && KEditorDefine.B_SCRIPT_ORDERS.ContainsKey(oType)) {
 					CAccess.SetScriptOrder(oMonoScripts[i], KEditorDefine.B_SCRIPT_ORDERS[oType]);
 				}
 			}
 
+			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_SCRIPT_M_SCENE_UPDATE) {
 				CEditorSceneManager.m_fSkipTime = 0.0f;
 
@@ -52,6 +56,7 @@ public static partial class CEditorSceneManager {
 
 	//! 독립 패키지 상태를 갱신한다
 	public static void UpdateDependencyState() {
+		// 리스트 요청이 완료 되었을 경우
 		if(m_oListRequest.ExIsComplete()) {
 			try {
 				CEditorSceneManager.SetupDependencies();
@@ -71,6 +76,7 @@ public static partial class CEditorSceneManager {
 	//! 스크립트가 로드 되었을 경우
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
+		// 상태 갱신이 가능 할 경우
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();

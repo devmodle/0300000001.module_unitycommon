@@ -18,9 +18,11 @@ public class CSampleSceneManager : CSceneManager {
 	//! 씬 관리자를 설정한다
 	public static void SetupSceneManager(Scene a_stScene, Dictionary<string, System.Type> a_oSceneManagerTypeList) {
 		foreach(var stKeyValue in a_oSceneManagerTypeList) {
+			// 씬 관리자 타입과 일치 할 경우
 			if(a_stScene.name.ExIsEquals(stKeyValue.Key)) {
 				var oSceneManager = a_stScene.ExFindChild(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
-				
+
+				// 씬 관리자 추가가 필요 할 경우
 				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyValue.Value) == null) {
 					oSceneManager.ExRemoveComponent<CSampleSceneManager>();
 					oSceneManager.AddComponent(stKeyValue.Value);

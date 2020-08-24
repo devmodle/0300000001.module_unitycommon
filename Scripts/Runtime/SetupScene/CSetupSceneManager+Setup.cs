@@ -8,6 +8,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	#region 함수
 	//! 팝업 UI 를 설정한다
 	private void SetupPopupUI() {
+		// 팝업 UI 가 없을 경우
 		if(CSetupSceneManager.m_oPopupUI == null) {
 			var oPopupUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_POPUP_UI,
 				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_POPUP_UI), null);
@@ -22,6 +23,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 최상위 UI 를 설정한다
 	private void SetupTopmostUI() {
+		// 최상위 UI 가 없을 경우
 		if(CSetupSceneManager.m_oTopmostUI == null) {
 			var oTopmostUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_TOPMOST_UI,
 				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_TOPMOST_UI), null);
@@ -36,6 +38,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 절대 UI 를 설정한다
 	private void SetupAbsUI() {
+		// 절대 UI 가 없을 경우
 		if(CSetupSceneManager.m_oAbsUI == null) {
 			var oAbsUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_ABS_UI,
 				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_ABS_UI), null);
@@ -50,6 +53,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 타이머 관리자를 설정한다
 	private void SetupTimerManager() {
+		// 타이머 관리자가 없을 경우
 		if(CSetupSceneManager.m_oTimerManager == null) {
 			var oTimerManager = CFactory.CreateCloneObj(KCDefine.SS_NAME_TIMER_MANAGER,
 				CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_SS_TIMER_MANAGER), null);
@@ -63,6 +67,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! 디버그 UI 를 설정한다
 	private void SetupDebugUI() {
+		// 디버그 UI 가 없을 경우
 		if(CSetupSceneManager.m_oDebugUI == null) {
 			var oDebugUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_DEBUG_UI,
 				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_DEBUG_UI), null);
@@ -95,6 +100,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! FPS 카운터를 설정한다
 	private void SetupFPSCounter() {
+		// FPS 카운터가 없을 경우
 		if(CSetupSceneManager.m_oFPSCounter == null) {
 			var oFPSCounter = CFactory.CreateCloneObj(KCDefine.SS_NAME_FPS_COUNTER,
 				CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_SS_FPS_COUNTER), null);

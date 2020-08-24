@@ -10,6 +10,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 	public override void Awake() {
 		base.Awake();
 		
+		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
 			this.IsAutoLoadTable = true;
 			this.IsAutoInitManager = true;

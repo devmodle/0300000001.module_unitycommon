@@ -18,11 +18,16 @@ public static partial class CBuildProcessHandler {
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 		bool bIsWindows = a_eTarget == BuildTarget.StandaloneWindows || a_eTarget == BuildTarget.StandaloneWindows64;
 
+		// 테스크 탑 플랫폼 일 경우
 		if(bIsWindows || a_eTarget == BuildTarget.StandaloneOSX) {
 			CBuildProcessHandler.OnPostProcessStandaloneBuild(a_eTarget, a_oPath);
-		} else if(a_eTarget == BuildTarget.iOS) {
+		}
+		// iOS 플랫폼 일 경우
+		else if(a_eTarget == BuildTarget.iOS) {
 			CBuildProcessHandler.OnPostProcessiOSBuild(a_eTarget, a_oPath);
-		} else if(a_eTarget == BuildTarget.Android) {
+		}
+		// 안드로이드 플랫폼 일 경우
+		else if(a_eTarget == BuildTarget.Android) {
 			CBuildProcessHandler.OnPostProcessAndroidBuild(a_eTarget, a_oPath);
 		}
 	}
@@ -44,6 +49,7 @@ public static partial class CBuildProcessHandler {
 		var oDocument = new PlistDocument();
 		oDocument.ReadFromFile(oPlistFilepath);
 
+		// Plist 가 존재 할 경우
 		if(oDocument.ExIsValid()) {
 			oDocument.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, false);
 			oDocument.WriteToFile(oPlistFilepath);
@@ -54,6 +60,7 @@ public static partial class CBuildProcessHandler {
 		var oProj = new PBXProject();
 		oProj.ReadFromFile(oProjFilepath);
 
+		// 프로젝트가 존재 할 경우
 		if(oProj != null) {
 			string oMainGUID = oProj.GetUnityMainTargetGuid();
 			string oFrameworkGUID = oProj.GetUnityFrameworkTargetGuid();
@@ -77,11 +84,16 @@ public static partial class CBuildProcessHandler {
 			for(int i = 0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 				var oCapabilityType = KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i];
 
+				// 푸시 알림 추가가 가능 할 경우
 				if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
 					oCapability.AddPushNotifications(!CCommonPlatformBuilder.IsDistributionBuild);
-				} else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
+				}
+				// 게임 센터 추가가 가능 할 경우
+				else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
 					oCapability.AddGameCenter();
-				} else if(oCapabilityType.Equals(PBXCapabilityType.InAppPurchase)) {
+				}
+				// 결제 추가가 가능 할 경우
+				else if(oCapabilityType.Equals(PBXCapabilityType.InAppPurchase)) {
 					oCapability.AddInAppPurchase();
 				}
 			}

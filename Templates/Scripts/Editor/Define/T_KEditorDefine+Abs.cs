@@ -139,9 +139,9 @@ public static partial class KEditorDefine {
 		["com.unity.cinemachine"] = "2.3.4",
 #endif			// #if CINEMACHINE_ENABLE
 
-#if POST_PROCESSING_ENABLE
+#if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
     	["com.unity.postprocessing"] = "2.3.0",
-#endif			// #if POST_PROCESSING_ENABLE
+#endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
 		["unitymodule.common.ads"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",

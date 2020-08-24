@@ -8,6 +8,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	#region 함수
 	//! 블라인드 UI 를 설정한다
 	private void SetupBlindUI() {
+		// 블라인드 UI 가 없을 경우
 		if(CInitSceneManager.m_oBlindUI == null) {
 			var oBlindUI = CFactory.CreateCloneObj(KCDefine.IS_NAME_BLIND_UI,
 				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_BLIND_UI), null);

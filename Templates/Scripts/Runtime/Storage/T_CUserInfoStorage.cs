@@ -60,6 +60,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	//! 유저 정보를 로드한다
 	public void LoadUserInfo(string a_oFilepath) {
+		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilepath)) {
 			try {
 #if SECURITY_ENABLE

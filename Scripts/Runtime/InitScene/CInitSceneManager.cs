@@ -41,13 +41,17 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		int nQualityLevel = CValueTable.Instance.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
 		int nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE);
 
+		// 데스크 탑 플랫폼 일 경우
 		if(CAccess.IsDesktopPlatform()) {
 			Screen.SetResolution(KCDefine.B_DESKTOP_WINDOW_WIDTH, 
 				KCDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
 		} else {
+			// 모바일 플랫폼 일 경우
 			if(CAccess.IsMobilePlatform()) {
 				nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
-			} else if(CAccess.IsConsolePlatform()) {
+			} 
+			// 콘솔 플랫폼 일 경우
+			else if(CAccess.IsConsolePlatform()) {
 				nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE);
 			} else {
 				nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE);
@@ -87,6 +91,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
+		// 초기화가 필요 할 경우
 		if(!CSceneManager.IsInit) {
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 			CActivityIndicatorManager.Instance.StartActivityIndicator(true, false);

@@ -17,6 +17,7 @@ public static class CMsgPackRegister {
 	//! 메세지 팩을 등록한다
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	public static void RegisterMsgPack() {
+		// 초기화가 필요 할 경우
 		if(!CMsgPackRegister.m_bIsInit) {
 			CMsgPackRegister.m_bIsInit = true;
 

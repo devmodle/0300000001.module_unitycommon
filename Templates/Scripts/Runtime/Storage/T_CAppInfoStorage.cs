@@ -7,7 +7,7 @@ using UnityEngine;
 #if MSG_PACK_ENABLE
 using MessagePack;
 
-//! 어플리케이션 정보
+//! 앱 정보
 [MessagePackObject]
 [System.Serializable]
 public sealed class CAppInfo : CBaseInfo {
@@ -19,7 +19,7 @@ public sealed class CAppInfo : CBaseInfo {
 	#endregion			// 함수
 }
 
-//! 어플리케이션 정보 저장소
+//! 앱 정보 저장소
 public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 프로퍼티
 	public CAppInfo AppInfo { get; private set; } = null;
@@ -37,12 +37,12 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		this.AppInfo = new CAppInfo();
 	}
 
-	//! 어플리케이션 정보를 저장한다
+	//! 앱 정보를 저장한다
 	public void SaveAppInfo() {
 		this.SaveAppInfo(KDefine.B_DATA_PATH_APP_INFO);
 	}
 
-	//! 어플리케이션 정보를 저장한다
+	//! 앱 정보를 저장한다
 	public void SaveAppInfo(string a_oFilepath) {
 		var oBytes = MessagePackSerializer.Serialize<CAppInfo>(this.AppInfo);
 
@@ -53,13 +53,14 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 #endif			// #if SECURITY_ENABLE
 	}
 
-	//! 어플리케이션 정보를 로드한다
+	//! 앱 정보를 로드한다
 	public void LoadAppInfo() {
 		this.LoadAppInfo(KDefine.B_DATA_PATH_APP_INFO);
 	}
 
-	//! 어플리케이션 정보를 로드한다
+	//! 앱 정보를 로드한다
 	public void LoadAppInfo(string a_oFilepath) {
+		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilepath)) {
 			try {
 #if SECURITY_ENABLE

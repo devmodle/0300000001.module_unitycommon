@@ -61,6 +61,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 게임 정보를 로드한다
 	public void LoadGameInfo(string a_oFilepath) {
+		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilepath)) {
 			try {
 #if SECURITY_ENABLE

@@ -36,6 +36,7 @@ public static partial class CEditorSceneManager {
 				return a_oPackageInfo.name.ExIsEquals(stKeyValue.Key);
 			});
 
+			// 독립 패키지 추가가 가능 할 경우
 			if(nIndex <= KCDefine.B_INDEX_INVALID) {
 				Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FORMAT,
 					stKeyValue.Key, stKeyValue.Value));
@@ -50,6 +51,7 @@ public static partial class CEditorSceneManager {
 
 		var oJSONNode = SimpleJSON.JSON.Parse(oString);
 
+		// JSON 노드가 유효 할 경우
 		if(oJSONNode != null) {
 			bool bIsNeedUpdate = false;
 
@@ -61,19 +63,22 @@ public static partial class CEditorSceneManager {
 					return stKeyValue.Key.ExIsEquals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_NAME_KEY]);
 				});
 
+				// 패키지 레지스트리 추가가 가능 할 경우
 				if(nIndex <= KCDefine.B_INDEX_INVALID) {
 					string oScopedRegistryString = CFunc.ReadString(stKeyValue.Value, 
 						System.Text.Encoding.Default);
 
 					var oScopedRegistryNode = SimpleJSON.JSON.Parse(oScopedRegistryString);
 
+					// 패키지 레지스트리 노드가 유효 할 경우
 					if(oScopedRegistryNode != null) {
 						bIsNeedUpdate = true;
 						oScopedRegistryList.Add(SimpleJSON.JSON.Parse(oScopedRegistryString));
 					}
 				}
 			}
-			
+
+			// 패키지 레지스트리 갱신이 필요 할 경우
 			if(bIsNeedUpdate && oScopedRegistryList.Count >= 1) {
 				oJSONNode.Add(KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY, oScopedRegistryList);
 				CFunc.WriteString(KCEditorDefine.B_DATA_PATH_UNITY_PKGS, oJSONNode.ToString(), System.Text.Encoding.Default);

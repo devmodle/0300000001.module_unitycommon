@@ -35,12 +35,14 @@ public static partial class CCommonEditorSceneManager {
 
 		// 광원을 설정한다
 		for(int i = 0; i < oLights.Length; ++i) {
+			// 메인 광원 일 경우
 			if(oLights[i].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT)) {
 				bIsExistsMainLight = true;
 
 				oLights[i].type = LightType.Directional;
 				oLights[i].lightmapBakeType = KCDefine.U_DEF_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
 
+				// 태그 설정이 필요 할 경우
 				if(!oLights[i].CompareTag(KCDefine.U_TAG_MAIN_LIGHT)) {
 					oLights[i].tag = KCDefine.U_TAG_MAIN_LIGHT;
 				}
@@ -49,25 +51,31 @@ public static partial class CCommonEditorSceneManager {
 
 		// 씬 관리자를 설정한다
 		for(int i = 0; i < oSceneManagers.Length; ++i) {
+			// 태그 설정이 필요 할 경우
 			if(!oSceneManagers[i].CompareTag(KCDefine.U_TAG_SCENE_MANAGER)) {
 				oSceneManagers[i].tag = KCDefine.U_TAG_SCENE_MANAGER;
 			}
 
 			// 카메라를 설정한다
 			for(int j = 0; j < oCameras.Length; ++j) {
+				// 에디터 카메라가 아닐 경우
 				if(!oCameras[j].name.ExIsEquals(KCEditorDefine.B_OBJ_NAME_SCENE_EDITOR_CAMERA)) {
 					bool bIsUICamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA);
 					bool bIsMainCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA);
 
 					bIsExistsUICamera = bIsUICamera ? true : bIsExistsUICamera;
 					bIsExistsMainCamera = bIsMainCamera ? true : bIsExistsMainCamera;
-					
+
+					// UI 카메라 태그 설정이 가능 할 경우
 					if(bIsUICamera && !oCameras[j].CompareTag(KCDefine.U_TAG_UI_CAMERA)) {
 						oCameras[j].tag = KCDefine.U_TAG_UI_CAMERA;
-					} else if(bIsMainCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_MAIN_CAMERA)) {
+					}
+					// 메인 카메라 태그 설정이 가능 할 경우
+					else if(bIsMainCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_MAIN_CAMERA)) {
 						oCameras[j].tag = KCDefine.U_TAG_MAIN_CAMERA;
 					}
 
+					// 현재 씬 관리자 일 경우
 					if(oSceneManagers[i].SceneName.ExIsEquals(oSceneManagers[i].gameObject.scene.name)) {
 #if CAMERA_STACK_ENABLE
 						oCameras[j].gameObject.SetActive(bIsUICamera || bIsMainCamera);
@@ -79,11 +87,16 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 
+		// UI 카메라가 없을 경우
 		if(!bIsExistsUICamera) {
 			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA));
-		} else if(!bIsExistsMainCamera) {
+		}
+		// 메인 카메라가 없을 경우
+		else if(!bIsExistsMainCamera) {
 			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KCDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA));
-		} else if(!bIsExistsMainLight) {
+		}
+		// 메인 광원이 없을 경우
+		else if(!bIsExistsMainLight) {
 			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT));
 		}
 
@@ -134,6 +147,7 @@ public static partial class CCommonEditorSceneManager {
 		var oMethodInfo = oType.GetMethod(KCEditorDefine.B_FUNC_NAME_GET_LIGHTMAP_SETTINGS, KCDefine.B_BINDING_FLAG_NON_PUBLIC_STATIC);
 		var oLightmapSettings = oMethodInfo?.Invoke(null, null) as LightmapSettings;
 
+		// 광원 맵 설정이 존재 할 경우
 		if(oLightmapSettings != null) {
 			var oSerializeObj = new SerializedObject(oLightmapSettings);
 
@@ -154,6 +168,7 @@ public static partial class CCommonEditorSceneManager {
 	private static void SetupFileBrowserUI() {
 		var oFileBrowserUI = Resources.Load<GameObject>(KCEditorDefine.B_OBJ_PATH_FILE_BROWSER_UI);
 
+		// 파일 브라우저 UI 가 존재 할 경우
 		if(oFileBrowserUI != null) {
 			var oCanvas = oFileBrowserUI.GetComponentInChildren<Canvas>();
 			oCanvas.sortingOrder = KCDefine.U_SORTING_ORDER_FILE_BROWSER_UI;
