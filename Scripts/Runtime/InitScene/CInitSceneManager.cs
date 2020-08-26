@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-#if !UNITY_EDITOR
-using UnityEngine.Scripting;
-#endif			// #if !UNITY_EDITOR
-
 #if UNITY_IOS
 using UnityEngine.iOS;
 #endif			// #if UNITY_IOS
@@ -33,43 +29,11 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 	//! 씬을 설정한다
 	protected virtual void Setup() {
+		this.SetupBlindUI();
+
 		// 테이블을 로드한다
 		CValueTable.Instance.LoadValuesFromRes(KCDefine.U_TABLE_PATH_G_COMMON_VALUE_TABLE);
 		CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE);
-
-		// 디바이스 정보를 설정한다 {
-		int nQualityLevel = CValueTable.Instance.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
-		int nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE);
-
-		// 데스크 탑 플랫폼 일 경우
-		if(CAccess.IsDesktopPlatform()) {
-			Screen.SetResolution(KCDefine.B_DESKTOP_WINDOW_WIDTH, 
-				KCDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
-		} else {
-			// 모바일 플랫폼 일 경우
-			if(CAccess.IsMobilePlatform()) {
-				nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
-			} 
-			// 콘솔 플랫폼 일 경우
-			else if(CAccess.IsConsolePlatform()) {
-				nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE);
-			} else {
-				nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE);
-			}
-
-			var stScreenSize = CAccess.GetDeviceScreenSize(Application.isPlaying);
-			Screen.SetResolution((int)stScreenSize.x, (int)stScreenSize.y, true);
-		}
-
-		CFunc.SetupQuality(nTargetFrameRate,
-			CValueTable.Instance.GetBool(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE), (EQualityLevel)nQualityLevel);
-		// 디바이스 정보를 설정한다 }
-
-		this.SetupBlindUI();
-
-#if !UNITY_EDITOR
-		GarbageCollector.GCMode = GarbageCollector.Mode.Enabled;
-#endif			// #if !UNITY_EDITOR
 
 		// 저장소를 로드한다 {
 #if MSG_PACK_ENABLE
