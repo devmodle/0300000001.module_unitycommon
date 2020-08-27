@@ -573,7 +573,7 @@ public static partial class KDefine {
 	// 식별자 }
 #endif			// #if ADS_ENABLE
 
-#if FLURRY_ENABLE || FACEBOOK_ENABLE || FIREBASE_ENABLE || UNITY_SERVICE_ENABLE
+#if FLURRY_ENABLE || FACEBOOK_ENABLE || FIREBASE_ENABLE || UNITY_SERVICE_ENABLE || SINGULAR_ENABLE
 	// 시간
 	public const float U_TIMEOUT_FLURRY_NETWORK_CONNECTION = 60.0f;
 
@@ -680,7 +680,15 @@ public static partial class KDefine {
 	public const string U_TOKEN_UNITY_SERVICE_ANALYTICS_LOG_DATA = ",";
 #endif			// #if UNITY_SERVICE_ANALYTICS_ENABLE
 #endif			// #if UNITY_SERVICE_ENABLE
-#endif			// #if FLURRY_ENABLE || FACEBOOK_ENABLE || FIREBASE_ENABLE || UNITY_SERVICE_ENABLE
+
+#if SINGULAR_ENABLE
+	// 이름
+	public const string U_OBJ_NAME_SINGULAR = "Singular";
+
+	// 토큰
+	public const string U_TOKEN_SINGULAR_ANALYTICS_LOG_DATA = ",";
+#endif			// #if SINGULAR_ENABLE
+#endif			// #if FLURRY_ENABLE || FACEBOOK_ENABLE || FIREBASE_ENABLE || UNITY_SERVICE_ENABLE || SINGULAR_ENABLE
 
 #if PURCHASE_ENABLE
 	// 메세지
@@ -750,6 +758,11 @@ public static partial class KDefine {
 		"public_profile", "email"
 	};
 #endif			// #if FACEBOOK_ENABLE
+
+#if SINGULAR_ENABLE
+	// 경로
+	public static readonly string U_OBJ_PATH_SINGULAR = string.Format("{0}{1}U_Singular", KDefine.B_DIR_PATH_PREFABS, KDefine.B_DIR_PATH_UTILITY_BASE);
+#endif			// #if SINGULAR_ENABLE
 
 #if PURCHASE_ENABLE
 	// 경로

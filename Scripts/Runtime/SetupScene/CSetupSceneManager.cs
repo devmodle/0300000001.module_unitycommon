@@ -230,6 +230,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				CUnityServiceManager.Instance.Init(null);
 				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
 #endif			// #if UNITY_SERVICE_ENABLE
+
+#if SINGULAR_ENABLE
+				CSingularManager.Instance.Init(null);
+				yield return Func.CreateWaitForSeconds(KDefine.U_DELAY_INIT);
+#endif			// #if SINGULAR_ENABLE
 			}
 
 			this.Setup();
@@ -303,6 +308,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		});
 #endif			// #if UNITY_SERVICE_CRASHLYTICS_ENABLE
 #endif			// #if UNITY_SERVICE_ENABLE
+
+#if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
+		CSingularManager.Instance.SetAnalyticsUserID(CAppInfoStorage.Instance.AppInfo.DeviceID);
+#endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
 
 		if(this.IsAutoLoadTable) {
 			if(CAppInfoStorage.Instance.CountryCode.ExIsEquals(KDefine.B_KOREA_COUNTRY_CODE)) {
