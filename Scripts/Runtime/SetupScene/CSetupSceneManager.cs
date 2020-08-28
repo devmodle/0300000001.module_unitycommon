@@ -74,7 +74,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			
 			// 저장소를 설정한다 {
 #if MESSAGE_PACK_ENABLE
-			CAppInfoStorage.Instance.SetupStoreVersion();
+			// FIXME: 임시 주석 처리
+			// CAppInfoStorage.Instance.SetupStoreVersion();
 			CAppInfoStorage.Instance.LoadAppInfo(KDefine.B_DATA_PATH_APP_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 
