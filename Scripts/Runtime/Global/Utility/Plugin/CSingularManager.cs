@@ -29,6 +29,14 @@ public class CSingularManager : CSingleton<CSingularManager> {
 
 			this.IsInit = true;
 			SingularSDK.InitializeSingularSDK();
+			
+// #if MESSAGE_PACK_ENABLE
+// 			if(!CUserInfoStorage.Instance.UserInfo.IsAgree) {
+// 				SingularSDK.TrackingOptIn();
+// 			}
+// #else
+// 			SingularSDK.TrackingOptIn();
+// #endif			// #if MESSAGE_PACK_ENABLE
 		}
 
 		a_oCallback?.Invoke(this, this.IsInit);
@@ -90,6 +98,7 @@ public class CSingularManager : CSingleton<CSingularManager> {
 #if PURCHASE_ENABLE
 	//! 결제 로그를 전송한다
 	public void SendPurchaseLog(Product a_oProduct, bool a_bIsRestore = false) {
+		Func.Assert(a_oProduct != null);
 		Func.ShowLog("CSingularManager.SendPurchaseLog: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oProduct);
 
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
