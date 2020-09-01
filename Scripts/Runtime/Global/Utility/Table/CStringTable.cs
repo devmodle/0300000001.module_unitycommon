@@ -22,7 +22,8 @@ public class CStringTable : CSingleton<CStringTable> {
 
 	//! 문자열을 추가한다
 	public void AddString(string a_oKey, string a_oString) {
-		m_oStringList.ExAddValue(a_oKey, a_oString);
+		// 키가 존재하면 Replace, 없으면 Add
+		m_oStringList.ExAddValue(a_oKey, a_oString, true);
 	}
 
 	//! 문자열을 제거한다
