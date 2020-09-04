@@ -32,7 +32,7 @@ public class CScheduleManager : CSingleton<CScheduleManager> {
 			this.UpdateComponentState();
 
 			this.DeltaTime = Mathf.Min(Time.deltaTime, (1.0f / Application.targetFrameRate) * 2.0f);
-			this.UnscaleDeltaTime = Time.unscaledDeltaTime;
+			this.UnscaleDeltaTime = Mathf.Min(Time.unscaledDeltaTime, (1.0f / Application.targetFrameRate) * 2.0f);
 
 			for(int i = 0; i < m_oComponentInfoList.Count; ++i) {
 				bool bIsDestroy = m_oComponentInfoList[i].Value.IsDestroy;
