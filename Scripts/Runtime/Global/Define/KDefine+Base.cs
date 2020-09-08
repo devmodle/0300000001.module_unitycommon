@@ -82,9 +82,12 @@ public static partial class KDefine {
 	public const string B_VERSION_STRING_FORMAT = "Ver.{0}";
 	// 디바이스 }
 
-	// 국가 코드
+	// 지역화 {
 	public const string B_KOREA_COUNTRY_CODE = "KR";
 	public const string B_UNKNOWN_COUNTRY_CODE = "Unknown";
+
+	public const string B_DEF_PATH_FORMAT_LOCALIZE = "{0}_{1}";
+	// 지역화 }
 
 	// 이름 {
 	public const string B_DIR_NAME_BACKUP = "Backup";

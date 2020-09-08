@@ -36,7 +36,7 @@ public class CLocalizer : CComponent {
 
 	//! 문자열을 변경한다
 	public void SetString(string a_oKey) {
-		if(m_oInputField == null) {
+		if(m_oText != null && m_oInputField == null) {
 			m_oText.text = CStringTable.Instance.GetString(a_oKey);
 		}
 	}

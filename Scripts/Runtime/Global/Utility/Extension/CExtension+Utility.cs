@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -13,6 +14,11 @@ using UnityEditor;
 //! 유틸리티 확장 클래스
 public static partial class CExtension {
 	#region 클래스 함수
+	//! 언어 유효 여부를 검사한다
+	public static bool ExIsValidLanguage(this SystemLanguage a_eLanguage) {
+		return a_eLanguage >= SystemLanguage.Afrikaans && a_eLanguage < SystemLanguage.Unknown;
+	}
+
 	//! 비율 벡터를 반환한다
 	public static Vector2 ExGetScaleVector(this Vector2 a_stSender, Vector2 a_stScale) {
 		a_stSender.x *= a_stScale.x;

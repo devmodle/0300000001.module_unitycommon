@@ -515,6 +515,24 @@ public static partial class CExtension {
 		var oTimeZoneInfo = System.TimeZoneInfo.FindSystemTimeZoneById(a_oTimeZoneID);
 		return System.TimeZoneInfo.ConvertTime(a_stSender, oTimeZoneInfo, System.TimeZoneInfo.Local);
 	}
+
+	//! 파일 이름 치환 경로를 반환한다
+	public static string ExGetReplaceFilenamePath(this string a_oSender, string a_oFilename) {
+		Func.Assert(a_oSender.ExIsValid() && a_oFilename.ExIsValid());
+		var oFilename = Path.GetFileNameWithoutExtension(a_oSender);
+
+		return a_oSender.ExGetReplaceString(oFilename, a_oFilename);
+	}
+
+	//! 경로 -> 지역화 경로로 변환한다
+	public static string ExPathToLocalizePath(this string a_oSender, string a_oLanguage) {
+		Func.Assert(a_oSender.ExIsValid() && a_oLanguage.ExIsValid());
+
+		var oFilename = Path.GetFileNameWithoutExtension(a_oSender);
+		var oLocalizeFilename = string.Format(KDefine.B_DEF_PATH_FORMAT_LOCALIZE, oFilename, a_oLanguage);
+
+		return a_oSender.ExGetReplaceFilenamePath(oLocalizeFilename);
+	}
 	#endregion			// 클래스 함수
 
 	#region 제네릭 클래스 함수

@@ -315,11 +315,26 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
 
 		if(this.IsAutoLoadTable) {
-			if(CAppInfoStorage.Instance.CountryCode.ExIsEquals(KDefine.B_KOREA_COUNTRY_CODE)) {
-				CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
+			string oFilepath = string.Empty;
+
+			// 언어가 유효 하지 않을 경우
+			if(!Application.systemLanguage.ExIsValidLanguage()) {
+				oFilepath = KDefine.U_TABLE_PATH_FORMAT_G_LOCALIZE_STRING.ExPathToLocalizePath(oCountryCode);
 			} else {
-				CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);
-			}	
+				oFilepath = KDefine.U_TABLE_PATH_FORMAT_G_LOCALIZE_STRING.ExPathToLocalizePath(Application.systemLanguage.ToString());
+			}
+
+			oFilepath = Func.IsExistsRes<TextAsset>(oFilepath) ? oFilepath
+				: KDefine.U_TABLE_PATH_FORMAT_G_LOCALIZE_STRING.ExPathToLocalizePath(Application.systemLanguage.ToString());
+
+			CStringTable.Instance.LoadStringsFromRes(oFilepath);
+
+			// FIXME: 임시 주석 처리 (불필요시 제거)
+			// if(CAppInfoStorage.Instance.CountryCode.ExIsEquals(KDefine.B_KOREA_COUNTRY_CODE)) {
+			// 	CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE);
+			// } else {
+			// 	CStringTable.Instance.LoadStringsFromRes(KDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE);
+			// }	
 		}
 #endif			// #if MESSAGE_PACK_ENABLE
 

@@ -365,6 +365,8 @@ public static partial class KDefine {
 	public static readonly string U_TABLE_PATH_G_COMMON_VALUE_TABLE = string.Format("{0}{1}{2}G_ValueTable_Common", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_VALUE_INFO_BASE);
 	public static readonly string U_TABLE_PATH_G_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
 
+	public static readonly string U_TABLE_PATH_FORMAT_G_LOCALIZE_STRING = string.Format("{0}{1}{2}{3}", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE, "G_StringTable_{0}");
+
 	public static readonly string U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common_KO", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
 	public static readonly string U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common_EN", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
 

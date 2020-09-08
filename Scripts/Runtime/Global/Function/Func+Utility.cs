@@ -248,6 +248,11 @@ public static partial class Func {
 	#endregion			// 클래스 함수
 
 	#region 제네릭 클래스 함수
+	//! 리소스 존재 여부를 검사한다
+	public static bool IsExistsRes<T>(string a_oFilepath) where T : Object {
+		return Resources.Load<T>(a_oFilepath) != null;
+	}
+
 	//! 컴포넌트를 탐색한다
 	public static T FindComponent<T>(string a_oName) where T : Component {
 		var oObj = Func.FindObj(a_oName);
