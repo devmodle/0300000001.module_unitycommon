@@ -319,13 +319,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 			// 언어가 유효 하지 않을 경우
 			if(!Application.systemLanguage.ExIsValidLanguage()) {
-				oFilepath = KDefine.U_TABLE_PATH_FORMAT_G_LOCALIZE_STRING.ExPathToLocalizePath(oCountryCode);
+				oFilepath = KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(oCountryCode);
 			} else {
-				oFilepath = KDefine.U_TABLE_PATH_FORMAT_G_LOCALIZE_STRING.ExPathToLocalizePath(Application.systemLanguage.ToString());
+				oFilepath = KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(Application.systemLanguage.ToString());
 			}
 
 			oFilepath = Func.IsExistsRes<TextAsset>(oFilepath) ? oFilepath
-				: KDefine.U_TABLE_PATH_FORMAT_G_LOCALIZE_STRING.ExPathToLocalizePath(Application.systemLanguage.ToString());
+				: KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(Application.systemLanguage.ToString());
 
 			CStringTable.Instance.LoadStringsFromRes(oFilepath);
 
