@@ -12,8 +12,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			this.IsAutoLoadTable = true;
-			this.IsAutoInitManager = true;
+			// Do Nothing
 		}
 	}
 

@@ -34,20 +34,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		CCommonUserInfoStorage.Instance.SaveUserInfo();
 #endif			// #if MSG_PACK_ENABLE
 
-		CFunc.LateCallFunc(this, KCDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
-			bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_INIT);
-			bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SETUP);
-			bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_START);
-			bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SPLASH);
-			bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_AGREE);
-
-			// 인트로 씬 로드가 필요 할 경우
-			if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene) {
-				CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
-			} else {
-				CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
-			}
-		});
+		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_LATE_SETUP);
 	}
 
 	//! 초기화
@@ -88,7 +75,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			this.ShowAgreePopup(CResManager.Instance.GetTextAsset(oServiceFilepath).text,
 				CResManager.Instance.GetTextAsset(oPersonalFilepath).text);
 
-			CFunc.LateCallFunc(this, KCDefine.U_DEF_DURATION_ANI, (a_oComponent, a_oParams) => {
+			CFunc.LateCallFunc(this, (a_oComponent, a_oParams) => {
 				CResManager.Instance.RemoveTextAsset(oServiceFilepath, true);
 				CResManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
 			});

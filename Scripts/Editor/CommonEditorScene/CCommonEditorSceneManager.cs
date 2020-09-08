@@ -77,6 +77,17 @@ public static partial class CCommonEditorSceneManager {
 				}
 			}
 		}
+
+		// 기즈모를 그릴 수 있을 경우
+		if(CEditorAccess.IsEnableDrawGizmos()) {
+			// 상태 갱신이 가능 할 경우
+			if(CEditorAccess.IsEnableUpdateState()) {
+				CFunc.EnumerateScenes((a_stScene) => {
+					var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
+					oSceneManager?.EditorSetupScene();
+				});
+			}
+		}
 	}
 
 	//! 계층 뷰 UI 상태를 갱신한다
@@ -125,7 +136,20 @@ public static partial class CCommonEditorSceneManager {
 			CCommonPlatformOptSetter.SetupGraphicAPIs();
 		}
 	}
-	
+
+	//! 플레이 모드가 변경 되었을 경우
+	public static void OnChangePlayMode(PlayModeStateChange a_eStateChange) {
+		if(a_eStateChange == PlayModeStateChange.EnteredEditMode) {
+			CFunc.EnumerateScenes((a_stScene) => {
+				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
+
+				if(oSceneManager != null) {
+					CFunc.SelectObj(oSceneManager.gameObject);
+				}
+			});
+		}
+	}
+
 	//! 씬이 열렸을 경우
 	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		// 상태 갱신이 가능 할 경우

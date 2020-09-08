@@ -11,6 +11,10 @@ public static partial class KDefine {
 	public const string ST_KEY_ALERT_P_MSG = "ALERT_P_MSG";
 	public const string ST_KEY_ALERT_P_OK_BTN_TEXT = "ALERT_P_OK_BTN_TEXT";
 	public const string ST_KEY_ALERT_P_CANCEL_BTN_TEXT = "ALERT_P_CANCEL_BTN_TEXT";
+
+	// 시작 씬 관리자
+	public const string ST_KEY_START_SM_DOT_TEXT = "START_SM_DOT_TEXT";
+	public const string ST_KEY_START_SM_LOADING_TEXT = "START_SM_LOADING_TEXT";
 	#endregion			// 기본
 }
 #endif			// #if NEVER_USE_THIS

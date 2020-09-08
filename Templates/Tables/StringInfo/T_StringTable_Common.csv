@@ -1,5 +1,2 @@
-ID,String,Replace,Description
-ALERT_P_TITLE,Notice,0,알림 팝업 제목
-ALERT_P_MSG,Are you sure you want to quit the game?,0,알림 팝업 메세지
-ALERT_P_OK_BTN_TEXT,OK,0,알림 팝업 확인 버튼 텍스트
-ALERT_P_CANCEL_BTN_TEXT,Cancel,0,알림 팝업 취소 버튼 텍스트
+ID,Replace,Description,String
+START_SM_DOT_TEXT,0,시작 씬 관리자 점 텍스트,.

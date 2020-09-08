@@ -44,13 +44,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	//! 유저 정보를 저장한다
 	public void SaveUserInfo(string a_oFilepath) {
-		var oBytes = MessagePackSerializer.Serialize<CUserInfo>(this.UserInfo);
-
-#if SECURITY_ENABLE
-		CFunc.WriteSecurityBytes(a_oFilepath, oBytes);
-#else
-		CFunc.WriteBytes(a_oFilepath, oBytes);
-#endif			// #if SECURITY_ENABLE
+		this.SaveUserInfo(KDefine.B_DATA_PATH_USER_INFO);
 	}
 
 	//! 유저 정보를 로드한다
@@ -63,13 +57,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilepath)) {
 			try {
-#if SECURITY_ENABLE
-				var oBytes = CFunc.ReadSecurityBytes(a_oFilepath);
-#else
-				var oBytes = CFunc.ReadBytes(a_oFilepath);
-#endif			// #if SECURITY_ENABLE
-
-				this.UserInfo = MessagePackSerializer.Deserialize<CUserInfo>(oBytes);
+				this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilepath);
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning("CUserInfoStorage.LoadUserInfo Exception: {0}", oException.Message);
 

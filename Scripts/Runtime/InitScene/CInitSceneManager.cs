@@ -32,8 +32,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		this.SetupBlindUI();
 
 		// 테이블을 로드한다
-		CValueTable.Instance.LoadValuesFromRes(KCDefine.U_TABLE_PATH_G_COMMON_VALUE_TABLE);
-		CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE);
+		CValueTable.Instance.LoadValuesFromRes(KCDefine.U_TABLE_PATH_G_COMMON_VALUE);
+		CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_COMMON_STRING);
 
 		// 저장소를 로드한다 {
 #if MSG_PACK_ENABLE
@@ -142,18 +142,18 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CValueTable.Create();
 			CStringTable.Create();
 
-			CBuildInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_BUILD_INFO_TABLE);
-			CBuildOptTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_BUILD_OPT_TABLE);
-			CDefineSymbolTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_DEFINE_SYMBOL_TABLE);
-			CProjInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PROJ_INFO_TABLE);
-			CDeviceInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_DEVICE_INFO_TABLE);
+			CBuildInfoTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_INFO_TABLE);
+			CBuildOptTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_OPT_TABLE);
+			CDefineSymbolTable.Create(KCDefine.U_ASSET_PATH_G_DEFINE_SYMBOL_TABLE);
+			CProjInfoTable.Create(KCDefine.U_ASSET_PATH_G_PROJ_INFO_TABLE);
+			CDeviceInfoTable.Create(KCDefine.U_ASSET_PATH_G_DEVICE_INFO_TABLE);
 
 #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE
-			CPluginInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PLUGIN_INFO_TABLE);
+			CPluginInfoTable.Create(KCDefine.U_ASSET_PATH_G_PLUGIN_INFO_TABLE);
 #endif			// #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			CProductInfoTable.Create(KCDefine.U_SCRIPTABLE_PATH_G_PRODUCT_INFO_TABLE);
+			CProductInfoTable.Create(KCDefine.U_ASSET_PATH_G_PRODUCT_INFO_TABLE);
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);

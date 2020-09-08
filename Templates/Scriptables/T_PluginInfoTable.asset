@@ -25,6 +25,26 @@ MonoBehaviour:
     m_oNativeAdsID: ca-app-pub-4429226069711533/8775112138
     m_oFullscreenAdsID: ca-app-pub-4429226069711533/8460800259
     m_oTemplateIDList: []
+  m_stiOSUnityAdsPluginInfo:
+    m_oGameID: 3258360
+    m_oBannerAdsPlacement: banner
+    m_oRewardAdsPlacement: rewardedVideo
+    m_oFullscreenAdsPlacement: video
+  m_stAndroidUnityAdsPluginInfo:
+    m_oGameID: 3258361
+    m_oBannerAdsPlacement: banner
+    m_oRewardAdsPlacement: rewardedVideo
+    m_oFullscreenAdsPlacement: video
+  m_stiOSIronSourcePluginInfo:
+    m_oAppKey: aca5425d
+    m_oBannerAdsPlacement: DefaultBanner
+    m_oRewardAdsPlacement: DefaultRewardedVideo
+    m_oFullscreenAdsPlacement: DefaultInterstitial
+  m_stAndroidIronSourcePluginInfo:
+    m_oAppKey: b8c2c725
+    m_oBannerAdsPlacement: DefaultBanner
+    m_oRewardAdsPlacement: DefaultRewardedVideo
+    m_oFullscreenAdsPlacement: DefaultInterstitial
   m_stTenjinPluginInfo:
     m_oAPIKey: ZAI7IG4Y9G6YW1H3DTMNUX7GBFT8FLWS
   m_stiOSFlurryPluginInfo:

@@ -29,11 +29,11 @@ public static partial class CEditorSceneManager {
 
 	//! 독립 패키지를 설정한다
 	private static void SetupDependencies() {
-		var oPackageInfoList = m_oListRequest.Result.ToList();
+		var oPkgInfoList = m_oListRequest.Result.ToList();
 
 		foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_LIST) {
-			int nIndex = oPackageInfoList.ExFindValue((a_oPackageInfo) => {
-				return a_oPackageInfo.name.ExIsEquals(stKeyValue.Key);
+			int nIndex = oPkgInfoList.ExFindValue((a_oPkgInfo) => {
+				return a_oPkgInfo.name.ExIsEquals(stKeyValue.Key);
 			});
 
 			// 독립 패키지 추가가 가능 할 경우

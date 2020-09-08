@@ -7,6 +7,10 @@ using UnityEngine;
 using MessagePack;
 using MessagePack.Resolvers;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif			// #if UNITY_EDITOR
+
 //! 메세지 팩 등록자
 public static class CMsgPackRegister {
 	#region 클래스 변수
@@ -33,7 +37,7 @@ public static class CMsgPackRegister {
 	#region 조건부 클래스 함수
 #if UNITY_EDITOR
 	//! 초기화
-	[UnityEditor.InitializeOnLoadMethod]
+	[InitializeOnLoadMethod]
 	public static void EditorInitialize() {
 		CMsgPackRegister.RegisterMsgPack();
 	}

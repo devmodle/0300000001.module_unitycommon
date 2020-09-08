@@ -10,8 +10,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupPopupUI() {
 		// 팝업 UI 가 없을 경우
 		if(CSetupSceneManager.m_oPopupUI == null) {
-			var oPopupUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_POPUP_UI,
-				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_POPUP_UI), null);
+			var oPopupUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_POPUP_UI,
+				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_SCREEN_POPUP_UI), null);
 
 			CSetupSceneManager.m_oPopupUI = oPopupUI;
 			CSceneManager.ScreenPopupUIRoot = oPopupUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_POPUP_UI_ROOT);
@@ -25,8 +25,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupTopmostUI() {
 		// 최상위 UI 가 없을 경우
 		if(CSetupSceneManager.m_oTopmostUI == null) {
-			var oTopmostUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_TOPMOST_UI,
-				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_TOPMOST_UI), null);
+			var oTopmostUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_TOPMOST_UI,
+				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_SCREEN_TOPMOST_UI), null);
 
 			CSetupSceneManager.m_oTopmostUI = oTopmostUI;
 			CSceneManager.ScreenTopmostUIRoot = oTopmostUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_TOPMOST_UI_ROOT);
@@ -40,8 +40,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupAbsUI() {
 		// 절대 UI 가 없을 경우
 		if(CSetupSceneManager.m_oAbsUI == null) {
-			var oAbsUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_ABS_UI,
-				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_ABS_UI), null);
+			var oAbsUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_ABS_UI,
+				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_SCREEN_ABS_UI), null);
 
 			CSetupSceneManager.m_oAbsUI = oAbsUI;
 			CSceneManager.ScreenAbsUIRoot = oAbsUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_ABS_UI_ROOT);
@@ -55,8 +55,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupTimerManager() {
 		// 타이머 관리자가 없을 경우
 		if(CSetupSceneManager.m_oTimerManager == null) {
-			var oTimerManager = CFactory.CreateCloneObj(KCDefine.SS_NAME_TIMER_MANAGER,
-				CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_SS_TIMER_MANAGER), null);
+			var oTimerManager = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_TIMER_MANAGER,
+				CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_TIMER_MANAGER), null);
 
 			CSetupSceneManager.m_oTimerManager = oTimerManager;
 		}
@@ -69,8 +69,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupDebugUI() {
 		// 디버그 UI 가 없을 경우
 		if(CSetupSceneManager.m_oDebugUI == null) {
-			var oDebugUI = CFactory.CreateCloneObj(KCDefine.SS_NAME_DEBUG_UI,
-				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_DEBUG_UI), null);
+			var oDebugUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_DEBUG_UI,
+				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_SCREEN_DEBUG_UI), null);
 
 			CSetupSceneManager.m_oDebugUI = oDebugUI;
 
@@ -102,8 +102,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupFPSCounter() {
 		// FPS 카운터가 없을 경우
 		if(CSetupSceneManager.m_oFPSCounter == null) {
-			var oFPSCounter = CFactory.CreateCloneObj(KCDefine.SS_NAME_FPS_COUNTER,
-				CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_SS_FPS_COUNTER), null);
+			var oFPSCounter = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_FPS_COUNTER,
+				CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_FPS_COUNTER), null);
 
 			CSetupSceneManager.m_oFPSCounter = oFPSCounter;
 

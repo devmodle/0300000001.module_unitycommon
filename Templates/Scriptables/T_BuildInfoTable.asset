@@ -39,4 +39,4 @@ MonoBehaviour:
     m_oKeystorePassword: NSString132!
     m_oKeyaliasPassword: NSString132!
     m_eMinSDKVersion: 21
-    m_eTargetSDKVersion: 28
+    m_eTargetSDKVersion: 29

@@ -44,13 +44,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	//! 앱 정보를 저장한다
 	public void SaveAppInfo(string a_oFilepath) {
-		var oBytes = MessagePackSerializer.Serialize<CAppInfo>(this.AppInfo);
-
-#if SECURITY_ENABLE
-		CFunc.WriteSecurityBytes(a_oFilepath, oBytes);
-#else
-		CFunc.WriteBytes(a_oFilepath, oBytes);
-#endif			// #if SECURITY_ENABLE
+		CFunc.WriteMsgPackObj(a_oFilepath, this.AppInfo);
 	}
 
 	//! 앱 정보를 로드한다
@@ -63,13 +57,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilepath)) {
 			try {
-#if SECURITY_ENABLE
-				var oBytes = CFunc.ReadSecurityBytes(a_oFilepath);
-#else
-				var oBytes = CFunc.ReadBytes(a_oFilepath);
-#endif			// #if SECURITY_ENABLE
-
-				this.AppInfo = MessagePackSerializer.Deserialize<CAppInfo>(oBytes);
+				this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilepath);
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning("CAppInfoStorage.LoadAppInfo Exception: {0}", oException.Message);
 

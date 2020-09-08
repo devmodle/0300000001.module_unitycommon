@@ -48,6 +48,7 @@ public static partial class KEditorDefine {
 		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_ORDER_LOADING_SCENE_MANAGER,
 		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_ORDER_SPLASH_SCENE_MANAGER,
 		[typeof(CSubAgreeSceneManager)] = KCDefine.U_SCRIPT_ORDER_AGREE_SCENE_MANAGER,
+		[typeof(CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_ORDER_LATE_SETUP_SCENE_MANAGER,
 		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 
 #if STUDY_MODULE_ENABLE
@@ -117,6 +118,7 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_NAME_LOADING] = typeof(CSubLoadingSceneManager),
 		[KCDefine.B_SCENE_NAME_SPLASH] = typeof(CSubSplashSceneManager),
 		[KCDefine.B_SCENE_NAME_AGREE] = typeof(CSubAgreeSceneManager),
+		[KCDefine.B_SCENE_NAME_LATE_SETUP] = typeof(CSubLateSetupSceneManager),
 		[KCDefine.B_SCENE_NAME_INTRO] = typeof(CSubIntroSceneManager),
 
 #if STUDY_MODULE_ENABLE
@@ -136,14 +138,19 @@ public static partial class KEditorDefine {
 		["com.google.external-dependency-manager"] = "1.2.157",
 
 #if CINEMACHINE_ENABLE
-		["com.unity.cinemachine"] = "2.3.4",
+		["com.unity.cinemachine"] = "2.6.2",
 #endif			// #if CINEMACHINE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
     	["com.unity.postprocessing"] = "2.3.0",
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
+#if UNIVERSAL_PIPELINE_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+		["com.unity.render-pipelines.universal"] = "8.2.0",
+#endif			// #if UNIVERSAL_PIPELINE_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+
 #if ADS_ENABLE || ADS_MODULE_ENABLE
+		["com.unity.ads"] = "3.4.9",
 		["unitymodule.common.ads"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",
 #endif			// #if ADS_ENABLE || ADS_MODULE_ENABLE
 
@@ -177,17 +184,14 @@ public static partial class KEditorDefine {
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "2.0.6",
+		["com.unity.purchasing.udp"] = "2.0.0",
 		["unitymodule.common.purchase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if LOCAL_NOTI_ENABLE || LOCAL_NOTI_MODULE_ENABLE
-		["com.unity.mobile.notifications"] = "1.0.3",
-		["unitymodule.common.localnoti"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_localnoti_client.git#v1.0.0",
+		["com.unity.mobile.notifications"] = "1.3.0",
+		["unitymodule.common.localnoti"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_localnoti_client.git#v1.0.0"
 #endif			// #if LOCAL_NOTI_ENABLE || LOCAL_NOTI_MODULE_ENABLE
-
-#if UNIVERSAL_RENDER_PIPELINE_ENABLE || UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-		["com.unity.render-pipelines.universal"] = "7.3.1",
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_ENABLE || UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {

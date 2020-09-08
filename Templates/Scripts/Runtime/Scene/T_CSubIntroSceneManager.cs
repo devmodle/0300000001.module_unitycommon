@@ -12,7 +12,7 @@ public class CSubIntroSceneManager : CIntroSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			
+			// Do Nothing
 		}
 	}
 	#endregion			// 함수

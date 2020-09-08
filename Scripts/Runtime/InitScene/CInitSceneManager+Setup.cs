@@ -10,8 +10,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	private void SetupBlindUI() {
 		// 블라인드 UI 가 없을 경우
 		if(CInitSceneManager.m_oBlindUI == null) {
-			var oBlindUI = CFactory.CreateCloneObj(KCDefine.IS_NAME_BLIND_UI,
-				CResManager.Instance.GetPrefab(KCDefine.IS_PATH_SCREEN_BLIND_UI), null);
+			var oBlindUI = CFactory.CreateCloneObj(KCDefine.IS_OBJ_NAME_BLIND_UI,
+				CResManager.Instance.GetPrefab(KCDefine.IS_OBJ_PATH_SCREEN_BLIND_UI), null);
 
 			CInitSceneManager.m_oBlindUI = oBlindUI;
 			CSceneManager.ScreenBlindUIRoot = oBlindUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT);

@@ -45,13 +45,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 게임 정보를 저장한다
 	public void SaveGameInfo(string a_oFilepath) {
-		var oBytes = MessagePackSerializer.Serialize<CGameInfo>(this.GameInfo);
-
-#if SECURITY_ENABLE
-		CFunc.WriteSecurityBytes(a_oFilepath, oBytes);
-#else
-		CFunc.WriteBytes(a_oFilepath, oBytes);
-#endif			// #if SECURITY_ENABLE
+		CFunc.WriteMsgPackObj(a_oFilepath, this.GameInfo);
 	}
 
 	//! 게임 정보를 로드한다
@@ -64,13 +58,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilepath)) {
 			try {
-#if SECURITY_ENABLE
-				var oBytes = CFunc.ReadSecurityBytes(a_oFilepath);
-#else
-				var oBytes = CFunc.ReadBytes(a_oFilepath);
-#endif			// #if SECURITY_ENABLE
-
-				this.GameInfo = MessagePackSerializer.Deserialize<CGameInfo>(oBytes);
+				this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilepath);
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning("CGameInfoStorage.LoadGameInfo Exception: {0}", oException.Message);
 

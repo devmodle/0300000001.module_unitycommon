@@ -6,7 +6,26 @@ using UnityEngine;
 //! 기본 함수
 public static partial class Func {
 	#region 클래스 함수
+	//! 지역화 문자열을 설정한다
+	public static void SetupLocalizeStrings() {
+		string oFilepath = string.Empty;
 
+		// 언어가 유효 할 경우
+		if(Application.systemLanguage.ExIsValid()) {
+			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
+				Application.systemLanguage.ToString());
+		} else {
+#if MSG_PACK_ENABLE
+			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
+				CCommonAppInfoStorage.Instance.CountryCode);
+#endif			// #if MSG_PACK_ENABLE
+		}
+
+		oFilepath = CAccess.IsExistsRes<TextAsset>(oFilepath) ? oFilepath
+			: KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING;
+
+		CStringTable.Instance.LoadStringsFromRes(oFilepath);
+	}
 	#endregion			// 클래스 함수
 
 	#region 조건부 클래스 함수
