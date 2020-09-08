@@ -21,7 +21,6 @@ public abstract partial class CSceneManager : CComponent {
 	#endregion			// 변수
 
 	#region 클래스 변수
-	private static float m_fGCSkipTime = 0.0f;
 	private static Dictionary<string, KeyValuePair<GameObject, Sequence>> m_oTouchResponderInfoList = new Dictionary<string, KeyValuePair<GameObject, Sequence>>();
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
@@ -104,7 +103,6 @@ public abstract partial class CSceneManager : CComponent {
 	#region 클래스 프로퍼티
 	public static bool IsInit { get; set; } = false;
 	public static bool IsSetup { get; set; } = false;
-	public static bool IsAutoGC { get; set; } = false;
 
 	public static bool IsAwake { get; private set; } = false;
 	public static bool IsAppQuit { get; private set; } = false;
@@ -208,8 +206,6 @@ public abstract partial class CSceneManager : CComponent {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-
-		CSceneManager.IsAutoGC = true;
 		this.IsIgnoreNavigationEvent = true;
 
 		// 처음 씬을 생성했을 경우
@@ -255,15 +251,6 @@ public abstract partial class CSceneManager : CComponent {
 	public override void OnUpdate(float a_fDeltaTime) {
 #if !ROBO_TEST_ENABLE
 		if(this.IsRootScene) {
-			if(CSceneManager.IsAutoGC) {
-				CSceneManager.m_fGCSkipTime += CScheduleManager.Instance.UnscaleDeltaTime;
-
-				if(CSceneManager.m_fGCSkipTime >= KDefine.U_DELTA_TIME_GC) {
-					CSceneManager.m_fGCSkipTime = 0.0f;
-					System.GC.Collect();
-				}
-			}
-
 			if(Input.GetKeyDown(KeyCode.Escape)) {
 				CSndManager.Instance.PlayFXSnd(KDefine.U_SND_PATH_G_TOUCH_ENDED);
 				CNavigationManager.Instance.SendNavigationEvent(ENavigationEventType.BACK_KEY_DOWN);
