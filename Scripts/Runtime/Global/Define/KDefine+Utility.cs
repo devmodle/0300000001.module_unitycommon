@@ -84,6 +84,7 @@ public static partial class KDefine {
 	public const float U_DEF_DURATION_HEAVY_VIBRATE = 0.15f;
 
 	public const float U_DELAY_INIT = 0.15f;
+	public const float U_DELAY_INTRO_SCENE_LOAD = 1.0f;
 	public const float U_DEF_DELAY_POPUP_SHOW_ANIMATION = KDefine.B_DELTA_TIME_INTERMEDIATE;
 
 	public const float U_DEF_TIMEOUT_NETWORK_CONNECTION = 30.0f;

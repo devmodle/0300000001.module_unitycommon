@@ -34,7 +34,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		CUserInfoStorage.Instance.SaveUserInfo(KDefine.B_DATA_PATH_USER_INFO);
 #endif			// #if MESSAGE_PACK_ENABLE
 
-		Func.LateCallFunc(this, KDefine.U_DELAY_INIT, (a_oComponent, a_oParams) => {
+		Func.LateCallFunc(this, KDefine.U_DELAY_INTRO_SCENE_LOAD, (a_oComponent, a_oParams) => {
 			bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_INIT);
 			bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_SETUP);
 			bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_START);

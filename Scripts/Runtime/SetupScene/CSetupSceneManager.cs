@@ -321,25 +321,30 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if SINGULAR_ENABLE && SINGULAR_ANALYTICS_ENABLE
 
 		if(this.IsAutoLoadTable) {
-			string oFilepath = string.Empty;
+			string oLanguage = CAppInfoStorage.Instance.AppInfo.Language;
 
+			// 언어가 유효하지 않을 경우
+			if(!oLanguage.ExIsValid() || oLanguage.ExIsEquals(KDefine.B_UNKNOWN_COUNTRY_CODE)) {
 #if LOCALIZE_TEST_ENABLE
-			var eLanguage = m_eLanguage;
+				var eSystemLanguage = m_eLanguage;
 #else
-			var eLanguage = Application.systemLanguage;
+				var eSystemLanguage = Application.systemLanguage;
 #endif			// #if LOCALIZE_TEST_ENABLE
 
-			// 언어가 유효 하지 않을 경우
-			if(!eLanguage.ExIsValidLanguage()) {
-				oFilepath = KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(oCountryCode);
-			} else {
-				oFilepath = KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(eLanguage.ToString());
+				oLanguage = eSystemLanguage.ExIsValidLanguage() ? eSystemLanguage.ToString() 
+					: oCountryCode;
+				
+				string oFilepath = KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(oLanguage);
+				oLanguage = Func.IsExistsRes<TextAsset>(oFilepath) ? oLanguage : SystemLanguage.English.ToString();
 			}
 
-			oFilepath = Func.IsExistsRes<TextAsset>(oFilepath) ? oFilepath
-				: KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(SystemLanguage.English.ToString());
+			string oLocalizeFilepath = KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(oLanguage);
 
-			CStringTable.Instance.LoadStringsFromRes(oFilepath);
+			CAppInfoStorage.Instance.AppInfo.Language = oLanguage;
+			CAppInfoStorage.Instance.SaveAppInfo(KDefine.B_DATA_PATH_APP_INFO);
+
+			Func.BroadcastMsg(KDefine.U_FUNC_NAME_RESET_LOCALIZE, null);
+			CStringTable.Instance.LoadStringsFromRes(oLocalizeFilepath);
 
 			// FIXME: 임시 주석 처리 (불필요시 제거)
 			// if(CAppInfoStorage.Instance.CountryCode.ExIsEquals(KDefine.B_KOREA_COUNTRY_CODE)) {
