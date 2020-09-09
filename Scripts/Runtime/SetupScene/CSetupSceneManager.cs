@@ -4,6 +4,12 @@ using UnityEngine;
 
 //! 설정 씬 관리자
 public abstract partial class CSetupSceneManager : CSceneManager {
+	#region 변수
+#if LOCALIZE_TEST_ENABLE
+	[SerializeField] protected SystemLanguage m_eLanguage = SystemLanguage.Unknown;
+#endif			// #if LOCALIZE_TEST_ENABLE
+	#endregion			// 변수
+
 	#region 클래스 객체
 	private static GameObject m_oDebugUI = null;
 	private static GameObject m_oPopupUI = null;
@@ -317,15 +323,21 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		if(this.IsAutoLoadTable) {
 			string oFilepath = string.Empty;
 
+#if LOCALIZE_TEST_ENABLE
+			var eLanguage = m_eLanguage;
+#else
+			var eLanguage = Application.systemLanguage;
+#endif			// #if LOCALIZE_TEST_ENABLE
+
 			// 언어가 유효 하지 않을 경우
-			if(!Application.systemLanguage.ExIsValidLanguage()) {
+			if(!eLanguage.ExIsValidLanguage()) {
 				oFilepath = KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(oCountryCode);
 			} else {
-				oFilepath = KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(Application.systemLanguage.ToString());
+				oFilepath = KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(eLanguage.ToString());
 			}
 
 			oFilepath = Func.IsExistsRes<TextAsset>(oFilepath) ? oFilepath
-				: KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(Application.systemLanguage.ToString());
+				: KDefine.U_TABLE_PATH_G_COMMON_STRING_TABLE.ExPathToLocalizePath(SystemLanguage.English.ToString());
 
 			CStringTable.Instance.LoadStringsFromRes(oFilepath);
 
