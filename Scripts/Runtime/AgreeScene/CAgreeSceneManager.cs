@@ -41,7 +41,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_SPLASH);
 			bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_AGREE);
 			bool bIsIntroScene = CSceneManager.AwakeSceneName.ExIsEquals(KDefine.B_SCENE_NAME_INTRO);
-
+			
 			if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene || bIsIntroScene) {
 				Func.LoadAdditiveScene(KDefine.B_SCENE_NAME_INTRO);
 			} else {
