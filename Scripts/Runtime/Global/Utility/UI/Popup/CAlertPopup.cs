@@ -56,6 +56,16 @@ public class CAlertPopup : CPopup {
 		m_oOKBtnImg = oOKBtn.GetComponentInChildren<Image>();
 		m_oCancelBtnImg = oCancelBtn.GetComponentInChildren<Image>();
 		// 이미지를 설정한다 }
+
+#if MESSAGE_PACK_ENABLE
+		// 태국어 일 경우
+		if(CAppInfoStorage.Instance.AppInfo.Language.ExIsEquals(SystemLanguage.Thai.ToString())) {
+			m_oTitleText.font = CResManager.Instance.GetFont(KDefine.G_FONT_PATH_THAI);
+			m_oMsgText.font = CResManager.Instance.GetFont(KDefine.G_FONT_PATH_THAI);
+			m_oOKBtnText.font = CResManager.Instance.GetFont(KDefine.G_FONT_PATH_THAI);
+			m_oCancelBtnText.font = CResManager.Instance.GetFont(KDefine.G_FONT_PATH_THAI);
+		}
+#endif			// #if MESSAGE_PACK_ENABLE
 	}
 
 	//! 초기화

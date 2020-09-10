@@ -6,6 +6,7 @@ using UnityEngine.UI;
 //! 지역화
 public class CLocalizer : CComponent {
 	#region 변수
+	private Font m_oPrevFont = null;
 	[SerializeField] private string m_oKey = string.Empty;
 	#endregion			// 변수
 
@@ -21,16 +22,30 @@ public class CLocalizer : CComponent {
 
 		m_oText = this.GetComponentInChildren<Text>();
 		m_oInputField = this.GetComponentInChildren<InputField>();
+
+		// 텍스트가 존재 할 경우
+		if(m_oText != null && m_oInputField == null) {
+			m_oPrevFont = m_oText.font;
+		}
 	}
 
 	//! 초기화
 	public override void Start() {
 		base.Start();
-		this.SetString(m_oKey);
+		this.ResetLocalize();
 	}
 
 	//! 지역화를 리셋한다
 	public void ResetLocalize() {
+#if MESSAGE_PACK_ENABLE
+		// 태국어 일 경우
+		if(CAppInfoStorage.Instance.AppInfo.Language.ExIsEquals(SystemLanguage.Thai.ToString())) {
+			m_oText.font = CResManager.Instance.GetFont(KDefine.G_FONT_PATH_THAI);
+		} else {
+			m_oText.font = m_oPrevFont;
+		}
+#endif			// #if MESSAGE_PACK_ENABLE
+
 		this.SetString(m_oKey);
 	}
 

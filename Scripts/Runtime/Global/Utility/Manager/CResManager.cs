@@ -6,6 +6,7 @@ using UnityEngine.U2D;
 //! 리소스 관리자
 public class CResManager : CSingleton<CResManager> {
 	#region 변수
+	private Dictionary<string, Font> m_oFontList = new Dictionary<string, Font>();
 	private Dictionary<string, Mesh> m_oMeshList = new Dictionary<string, Mesh>();
 	private Dictionary<string, Shader> m_oShaderList = new Dictionary<string, Shader>();
 	private Dictionary<string, Sprite> m_oSpriteList = new Dictionary<string, Sprite>();
@@ -22,6 +23,7 @@ public class CResManager : CSingleton<CResManager> {
 	#region 프로퍼티
 	public Dictionary<System.Type, System.Func<string, Object>> ResCreatorList { get; private set; } = new Dictionary<System.Type, System.Func<string, Object>>() {
 		[typeof(Mesh)] = Resources.Load<Mesh>,
+		[typeof(Font)] = Resources.Load<Font>,
 		[typeof(Shader)] = Resources.Load<Shader>,
 		[typeof(Sprite)] = Resources.Load<Sprite>,
 		[typeof(Texture)] = Resources.Load<Texture>,
@@ -43,6 +45,11 @@ public class CResManager : CSingleton<CResManager> {
 	//! 메시를 반환한다
 	public Mesh GetMesh(string a_oKey) {
 		return this.GetRes<Mesh>(m_oMeshList, a_oKey, false);
+	}
+
+	//! 폰트를 반환한다
+	public Font GetFont(string a_oKey, bool a_bIsAutoCreate = true) {
+		return this.GetRes<Font>(m_oFontList, a_oKey, a_bIsAutoCreate);
 	}
 
 	//! 쉐이더를 반환한다
@@ -78,6 +85,11 @@ public class CResManager : CSingleton<CResManager> {
 	//! 프리팹을 반환한다
 	public GameObject GetPrefab(string a_oKey, bool a_bIsAutoCreate = true) {
 		return this.GetRes<GameObject>(m_oPrefabList, a_oKey, a_bIsAutoCreate);
+	}
+
+	//! 폰트를 추가한다
+	public void AddFont(string a_oKey, Font a_oFont) {
+		m_oFontList.ExAddValue(a_oKey, a_oFont);
 	}
 
 	//! 메시를 추가한다
@@ -129,6 +141,11 @@ public class CResManager : CSingleton<CResManager> {
 	public void AddResCreator(System.Type a_oType, System.Func<string, Object> a_oCreator) {
 		Func.Assert(a_oType != null && a_oCreator != null);
 		this.ResCreatorList.ExReplaceValue(a_oType, a_oCreator);
+	}
+
+	//! 폰트를 제거한다
+	public void RemoveFont(string a_oKey) {
+		this.RemoveRes(m_oFontList, a_oKey, false);
 	}
 
 	//! 메시를 제거한다

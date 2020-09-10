@@ -136,8 +136,8 @@ public static partial class KDefine {
 	public const string B_CMD_ACTIVITY_INDICATOR = "ActivityIndicator";
 
 	// 경로 {
-	public const string B_DIR_PATH_FONTS = "Fonts/";
 	public const string B_DIR_PATH_DATAS = "Datas/";
+	public const string B_DIR_PATH_FONTS = "Fonts/";
 	public const string B_DIR_PATH_IMAGES = "Images/";
 	public const string B_DIR_PATH_SOUNDS = "Sounds/";
 	public const string B_DIR_PATH_TABLES = "Tables/";
