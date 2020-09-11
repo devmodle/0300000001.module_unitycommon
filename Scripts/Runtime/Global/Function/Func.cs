@@ -543,14 +543,14 @@ public static partial class Func {
 	public static void WaitAsyncTask<T>(Task<T> a_oTask, System.Action<Task<T>> a_oCallback) {
 		Func.Assert(a_oTask != null);
 
-		a_oTask.ContinueWith((a_oContinueTask) => {
+		a_oTask.ContinueWith((a_oContinueTask, a_oObj) => {
 			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK,
 				Thread.CurrentThread.ManagedThreadId);
 
 			CScheduleManager.Instance.AddCallback(oKey, () => {
-				a_oCallback?.Invoke(a_oContinueTask);
+				a_oCallback?.Invoke(a_oContinueTask as Task<T>);
 			});
-		});
+		}, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously);
 	}
 
 	//! 값을 생성한다
