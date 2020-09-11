@@ -27,6 +27,7 @@ public class CPopup : CUIComponent {
 	#endregion			// 객체
 
 	#region 프로퍼티
+	public bool IsShow { get; private set; } = false;
 	public bool IsClose { get; private set; } = false;
 	public bool IsEnableBGAnimation { get; set; } = true;
 
@@ -81,6 +82,7 @@ public class CPopup : CUIComponent {
 		this.OnShowPopup();
 		m_oShowCallback?.Invoke(this);
 
+		this.IsShow = true;
 		m_oRootTransform.localScale = new Vector3(KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_SCALE_POPUP, KDefine.U_DEF_SCALE_POPUP);
 	}
 
