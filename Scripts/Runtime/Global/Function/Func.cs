@@ -374,13 +374,14 @@ public static partial class Func {
 	public static void WaitAsyncTask(Task a_oTask, System.Action<Task> a_oCallback) {
 		Func.Assert(a_oTask != null);
 
-		a_oTask.ContinueWith((a_oContinueTask) => {
-			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK, Thread.CurrentThread.ManagedThreadId);
+		a_oTask.ContinueWith((a_oContinueTask, a_oState) => {
+			string oKey = string.Format(KDefine.B_KEY_FORMAT_ASYNC_TASK_CALLBACK, 
+				Thread.CurrentThread.ManagedThreadId);
 
 			CScheduleManager.Instance.AddCallback(oKey, () => {
 				a_oCallback?.Invoke(a_oContinueTask);
 			});
-		});
+		}, CancellationToken.None, TaskContinuationOptions.RunContinuationsAsynchronously);
 	}
 
 	//! 비동기 작업을 대기한다
