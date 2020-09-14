@@ -681,7 +681,7 @@ public static partial class EditorFunc {
 
 		if(CPlatformBuilder.BuildInfoTable != null) {
 			PlayerSettings.Android.minSdkVersion = CPlatformBuilder.BuildInfoTable.AndroidBuildInfo.m_eMinSDKVersion;
-			PlayerSettings.Android.targetSdkVersion = CPlatformBuilder.BuildInfoTable.AndroidBuildInfo.m_eTargetSDKVersion;
+			PlayerSettings.Android.targetSdkVersion = (AndroidSdkVersions)(CPlatformBuilder.BuildInfoTable.AndroidBuildInfo.m_eTargetSDKVersion + 1);
 		}
 
 		CExtension.ExSetPropertyValue<PlayerSettings.Android>(null,
