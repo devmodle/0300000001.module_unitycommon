@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 //! 서브 시작 씬 관리자
@@ -27,6 +28,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 				CResManager.Instance.GetPrefab(KDefine.SS_OBJ_PATH_STATE_TEXT), 
 				this.SubUIRoot);
 
+			m_oStateText.text = string.Empty;
 			this.UpdateUIState();
 		}
 	}

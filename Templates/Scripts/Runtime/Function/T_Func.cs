@@ -32,7 +32,8 @@ public static partial class Func {
 #if ADS_MODULE_ENABLE && MSG_PACK_ENABLE
 	//! 보상 광고를 출력한다
 	public static void ShowRewardAds(EAdsType a_eAdsType, 
-		System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback, System.Action<CAdsManager> a_oCloseCallback = null) {
+		System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback, System.Action<CAdsManager> a_oCloseCallback = null) 
+	{
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Instance.IsLoadRewardAds(a_eAdsType)) {
 			bool bIsWatchAds = false;
@@ -52,7 +53,8 @@ public static partial class Func {
 
 	//! 전면 광고를 출력한다
 	public static void ShowFullscreenAds(EAdsType a_eAdsType, 
-		System.Action<CAdsManager, bool> a_oCallback, System.Action<CAdsManager> a_oCloseCallback = null) {
+		System.Action<CAdsManager, bool> a_oCallback, System.Action<CAdsManager> a_oCloseCallback = null) 
+	{
 		var stDeltaTime = System.DateTime.Now - CGameInfoStorage.Instance.PrevAdsTime;
 		float fDelay = CValueTable.Instance.GetFloat(KCDefine.VT_KEY_DELAY_COMMON_GIS_ADS);
 

@@ -184,12 +184,12 @@ public static partial class KEditorDefine {
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "2.0.6",
-		["com.unity.purchasing.udp"] = "2.0.0",
+		["com.unity.purchasing.udp"] = "1.2.0",
 		["unitymodule.common.purchase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if LOCAL_NOTI_ENABLE || LOCAL_NOTI_MODULE_ENABLE
-		["com.unity.mobile.notifications"] = "1.3.0",
+		["com.unity.mobile.notifications"] = "1.0.3",
 		["unitymodule.common.localnoti"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_localnoti_client.git#v1.0.0"
 #endif			// #if LOCAL_NOTI_ENABLE || LOCAL_NOTI_MODULE_ENABLE
 	};

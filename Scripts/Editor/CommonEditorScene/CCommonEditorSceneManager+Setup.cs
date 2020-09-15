@@ -111,34 +111,37 @@ public static partial class CCommonEditorSceneManager {
 			KCEditorDefine.B_DIR_PATH_FILTER_FPS_COUNTER
 		});
 
-		for(int i = 0; i < oFPSCounterList?.Count; ++i) {
-			var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_STATIC_TEXT);
-			oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_STATIC_TEXT;
+		// FPS 카운터가 존재 할 경우
+		if(oFPSCounterList.ExIsValid()) {
+			for(int i = 0; i < oFPSCounterList.Count; ++i) {
+				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_STATIC_TEXT);
+				oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_STATIC_TEXT;
 
-			var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_DYNAMIC_TEXT);
-			oDynamicText.fontSize = KCEditorDefine.B_FONT_SIZE_DYNAMIC_TEXT;
+				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_DYNAMIC_TEXT);
+				oDynamicText.fontSize = KCEditorDefine.B_FONT_SIZE_DYNAMIC_TEXT;
 
-			// 크기를 설정한다 {
-			var oStaticSizeFitter = oStaticText.gameObject.ExAddComponent<ContentSizeFitter>();
-			oStaticSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-			oStaticSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+				// 크기를 설정한다 {
+				var oStaticSizeFitter = oStaticText.gameObject.ExAddComponent<ContentSizeFitter>();
+				oStaticSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+				oStaticSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-			var oDynamicSizeFitter = oDynamicText.gameObject.ExAddComponent<ContentSizeFitter>();
-			oDynamicSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-			oDynamicSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-			// 크기를 설정한다 }
+				var oDynamicSizeFitter = oDynamicText.gameObject.ExAddComponent<ContentSizeFitter>();
+				oDynamicSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+				oDynamicSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+				// 크기를 설정한다 }
 
-			// 위치를 설정한다 {
-			oStaticText.rectTransform.pivot = KCDefine.B_ANCHOR_BOTTOM_RIGHT;
-			oStaticText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
-			oStaticText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
-			oStaticText.rectTransform.anchoredPosition = KCEditorDefine.B_POSITION_STATIC_TEXT;
+				// 위치를 설정한다 {
+				oStaticText.rectTransform.pivot = KCDefine.B_ANCHOR_BOTTOM_RIGHT;
+				oStaticText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
+				oStaticText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
+				oStaticText.rectTransform.anchoredPosition = KCEditorDefine.B_POSITION_STATIC_TEXT;
 
-			oDynamicText.rectTransform.pivot = KCDefine.B_ANCHOR_BOTTOM_RIGHT;
-			oDynamicText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
-			oDynamicText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
-			oDynamicText.rectTransform.anchoredPosition = KCEditorDefine.B_POSITION_DYNAMIC_TEXT;
-			// 위치를 설정한다 }
+				oDynamicText.rectTransform.pivot = KCDefine.B_ANCHOR_BOTTOM_RIGHT;
+				oDynamicText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
+				oDynamicText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
+				oDynamicText.rectTransform.anchoredPosition = KCEditorDefine.B_POSITION_DYNAMIC_TEXT;
+				// 위치를 설정한다 }
+			}
 		}
 #endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		// FPS 카운터를 설정한다 }

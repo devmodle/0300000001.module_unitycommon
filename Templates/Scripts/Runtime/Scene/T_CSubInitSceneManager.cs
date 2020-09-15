@@ -19,9 +19,8 @@ public class CSubInitSceneManager : CInitSceneManager {
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		CCommonUserInfoStorage.Instance.UserInfo.UserType = EUserType.NONE;
 #else
-		// 유저 타입 설정이 필요 할 경우
-		if(CCommonUserInfoStorage.Instance.UserInfo.UserType <= EUserType.NONE ||
-			CCommonUserInfoStorage.Instance.UserInfo.UserType >= EUserType.MAX_VALUE) {
+		// 유저 타입이 유효하지 않을 경우
+		if(!CCommonUserInfoStorage.Instance.UserInfo.UserType.ExIsValid()) {
 #if AB_TEST_ENABLE
 			var eUserType = (EUserType)Random.Range((int)(EUserType.NONE + 1), (int)EUserType.MAX_VALUE);
 			CCommonUserInfoStorage.Instance.UserInfo.UserType = eUserType;
@@ -30,6 +29,8 @@ public class CSubInitSceneManager : CInitSceneManager {
 #endif			// #if AB_TEST_ENABLE
 		}
 #endif			// #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
+
+		CCommonUserInfoStorage.Instance.SaveUserInfo();
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수

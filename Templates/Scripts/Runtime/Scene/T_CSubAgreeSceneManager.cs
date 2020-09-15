@@ -12,7 +12,12 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			Func.SetupLocalizeStrings();
+#if LOCALIZE_TEST_ENABLE
+			CCommonAppInfoStorage.Instance.AppInfo.Language = m_eLanguage;
+			CCommonAppInfoStorage.Instance.SaveAppInfo();
+#else
+
+#endif			// #if LOCALIZE_TEST_ENABLE
 		}
 	}
 
