@@ -46,55 +46,34 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if ADMOB_ENABLE
 					m_stAdmobParams = new CAdsManager.STAdmobParams() {
-						m_oTemplateIDList = new List<string>(CPluginInfoTable.Instance.AdmobPluginInfo.m_oTemplateIDList),
-
 						m_oAdsIDList = new Dictionary<string, string>() {
 							[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oBannerAdsID,
 							[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oRewardAdsID,
-							[KCDefine.U_KEY_ADS_M_NATIVE_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oNativeAdsID,
 							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oFullscreenAdsID
 						}
 					},
 #endif			// #if ADMOB_ENABLE
 
-#if UNITY_ADS_ENABLE
-					m_stUnityAdsParams = new CAdsManager.STUnityAdsParams() {
-						m_oGameID = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oGameID,
-
-						m_oAdsPlacementList = new Dictionary<string, string>() {
-							[KCDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oBannerAdsPlacement,
-							[KCDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oRewardAdsPlacement,
-							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.UnityAdsPluginInfo.m_oFullscreenAdsPlacement
-						}
-					},
-#endif			// #if UNITY_ADS_ENABLE
-
 #if IRON_SOURCE_ENABLE
 					m_stIronSourceParams = new CAdsManager.STIronSourceParams() {
 						m_oAppKey = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oAppKey,
 
-						m_oAdsUnitList = new List<string>() {
-							CPluginInfoTable.Instance.IronSourcePluginInfo.m_oBannerAdsPlacement.ExIsValid() ? IronSourceAdUnits.BANNER : string.Empty,
-							CPluginInfoTable.Instance.IronSourcePluginInfo.m_oRewardAdsPlacement.ExIsValid() ? IronSourceAdUnits.REWARDED_VIDEO : string.Empty,
-							CPluginInfoTable.Instance.IronSourcePluginInfo.m_oFullscreenAdsPlacement.ExIsValid() ? IronSourceAdUnits.INTERSTITIAL : string.Empty
-						},
-
-						m_oAdsPlacementList = new Dictionary<string, string>() {
-							[KCDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oBannerAdsPlacement,
-							[KCDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oRewardAdsPlacement,
-							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oFullscreenAdsPlacement
+						m_oAdsIDList = new Dictionary<string, string>() {
+							[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oBannerAdsID,
+							[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oRewardAdsID,
+							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oFullscreenAdsID
 						}
 					},
 #endif			// #if IRON_SOURCE_ENABLE
 
 #if APP_LOVIN_ENABLE
 					m_stAppLovinParams = new CAdsManager.STAppLovinParams() {
-						m_oSDKKey = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oSDKKey,
+						m_oSDKKey = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oSDKKey,
 
-						m_oAdsIDList = new List<string>() {
-							[KCDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oBannerAdsID,
-							[KCDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oRewardAdsID,
-							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oFullscreenAdsID
+						m_oAdsIDList = new Dictionary<string, string>() {
+							[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oBannerAdsID,
+							[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oRewardAdsID,
+							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oFullscreenAdsID
 						}
 					}
 #endif			// #if APP_LOVIN_ENABLE

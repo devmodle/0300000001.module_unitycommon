@@ -70,7 +70,7 @@ public static partial class KEditorDefine {
 
 #if ADS_MODULE_ENABLE
 		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CBannerAdsCorrector)] = KCDefine.U_SCRIPT_ORDER_BANNER_ADS_CORRECTOR,
+		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_ORDER_BANNER_ADS_CORRECTOR,
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
@@ -135,7 +135,7 @@ public static partial class KEditorDefine {
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.1.1",
-		["com.google.external-dependency-manager"] = "1.2.157",
+		["com.google.external-dependency-manager"] = "1.2.159",
 
 #if CINEMACHINE_ENABLE
 		["com.unity.cinemachine"] = "2.6.2",
@@ -150,7 +150,6 @@ public static partial class KEditorDefine {
 #endif			// #if UNIVERSAL_PIPELINE_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
-		["com.unity.ads"] = "3.4.9",
 		["unitymodule.common.ads"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#v1.0.0",
 #endif			// #if ADS_ENABLE || ADS_MODULE_ENABLE
 
@@ -183,7 +182,7 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "2.0.6",
+		["com.unity.purchasing"] = "2.1.1",
 		["com.unity.purchasing.udp"] = "1.2.0",
 		["unitymodule.common.purchase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
