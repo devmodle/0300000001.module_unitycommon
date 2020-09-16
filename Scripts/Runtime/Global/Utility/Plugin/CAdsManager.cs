@@ -536,8 +536,9 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		Func.Assert(m_oBannerAdsShowerList.ContainsKey(a_eAdsType));
 
 		bool bIsSuccess = false;
+		bool bIsEnableLoad = this.IsInit && this.IsEnableBannerAds;
 
-		if(this.IsLoadBannerAds(a_eAdsType)) {
+		if(bIsEnableLoad && this.IsLoadBannerAds(a_eAdsType)) {
 			bIsSuccess = true;
 			m_oBannerAdsShowerList[a_eAdsType]();
 		}
@@ -551,13 +552,16 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		Func.ShowLog("CAdsManager.ShowRewardAds: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_eAdsType);
 		Func.Assert(m_oRewardAdsShowerList.ContainsKey(a_eAdsType));
 
-		if(this.IsLoadRewardAds(a_eAdsType)) {
+		bool bIsEnableLoad = this.IsInit && this.IsEnableRewardAds;
+
+		if(bIsEnableLoad && this.IsLoadRewardAds(a_eAdsType)) {
 			m_oRewardAdsCallbackList.ExAddValue(a_eAdsType, a_oCallback);
 			m_oRewardAdsCloseCallbackList.ExAddValue(a_eAdsType, a_oCloseCallback);
 
 			m_oRewardAdsShowerList[a_eAdsType]();
 		} else {
 			a_oCallback?.Invoke(this, default(STAdsRewardInfo), false);
+			a_oCloseCallback?.Invoke(this);
 		}
 	}
 
@@ -567,16 +571,17 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		Func.ShowLog("CAdsManager.ShowFullscreenAds: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_eAdsType);
 		Func.Assert(m_oFullscreenAdsShowerList.ContainsKey(a_eAdsType));
 
-		bool bIsSuccess = false;
+		bool bIsEnableLoad = this.IsInit && this.IsEnableFullscreenAds;
 
-		if(this.IsLoadFullscreenAds(a_eAdsType)) {
-			bIsSuccess = true;
+		if(bIsEnableLoad && this.IsLoadFullscreenAds(a_eAdsType)) {
 			m_oFullscreenAdsCloseCallbackList.ExAddValue(a_eAdsType, a_oCloseCallback);
-
 			m_oFullscreenAdsShowerList[a_eAdsType]();
-		}
 
-		a_oCallback?.Invoke(this, bIsSuccess);
+			a_oCallback?.Invoke(this, true);
+		} else {
+			a_oCallback?.Invoke(this, false);
+			a_oCloseCallback?.Invoke(this);
+		}
 	}
 
 	//! 배너 광고를 닫는다
