@@ -39,7 +39,7 @@ public static partial class CBuildProcessHandler {
 #endif			// #if UNITY_STANDALONE
 	}
 
-	//! iOS 빌드가 완료 되었을 경우
+	//! iOS 플랫폼 빌드가 완료 되었을 경우
 	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
 		string oPlistFilepath = string.Format(KCEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
@@ -104,7 +104,7 @@ public static partial class CBuildProcessHandler {
 #endif			// #if UNITY_IOS
 	}
 
-	//! 안드로이드 빌드가 완료 되었을 경우
+	//! 안드로이드 플랫폼 빌드가 완료 되었을 경우
 	private static void OnPostProcessAndroidBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_ANDROID
 

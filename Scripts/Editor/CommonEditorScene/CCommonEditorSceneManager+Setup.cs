@@ -36,7 +36,6 @@ public static partial class CCommonEditorSceneManager {
 		var oCameras = Resources.FindObjectsOfTypeAll<Camera>();
 		var oSceneManagers = Resources.FindObjectsOfTypeAll<CSceneManager>();
 
-		// 광원을 설정한다
 		for(int i = 0; i < oLights.Length; ++i) {
 			// 메인 광원 일 경우
 			if(oLights[i].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT)) {
@@ -52,14 +51,12 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 
-		// 씬 관리자를 설정한다
 		for(int i = 0; i < oSceneManagers.Length; ++i) {
 			// 태그 설정이 필요 할 경우
 			if(!oSceneManagers[i].CompareTag(KCDefine.U_TAG_SCENE_MANAGER)) {
 				oSceneManagers[i].tag = KCDefine.U_TAG_SCENE_MANAGER;
 			}
-
-			// 카메라를 설정한다
+			
 			for(int j = 0; j < oCameras.Length; ++j) {
 				// 에디터 카메라가 아닐 경우
 				if(!oCameras[j].name.ExIsEquals(KCEditorDefine.B_OBJ_NAME_SCENE_EDITOR_CAMERA)) {

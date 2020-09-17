@@ -46,7 +46,7 @@ public static partial class CEditorSceneManager {
 			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_SCRIPT_M_SCENE_UPDATE) {
 				CEditorSceneManager.m_fSkipTime = 0.0f;
-
+				
 				CFunc.EnumerateScenes((a_stScene) => {
 					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
 				});
