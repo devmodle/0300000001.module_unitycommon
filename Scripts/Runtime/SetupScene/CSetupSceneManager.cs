@@ -154,12 +154,12 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 #if APP_LOVIN_ENABLE
 					m_stAppLovinParameters = new CAdsManager.STAppLovinParameters() {
-						m_oSDKKey = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oSDKKey,
+						m_oSDKKey = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oSDKKey,
 
-						m_oAdsIDList = new List<string>() {
-							[KDefine.U_KEY_ADS_M_BANNER_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oBannerAdsID,
-							[KDefine.U_KEY_ADS_M_REWARD_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oRewardAdsID,
-							[KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT] = CPluginInfoTable.Instance.AppLoginPluginInfo.m_oFullscreenAdsID
+						m_oAdsIDList = new Dictionary<string, string>() {
+							[KDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oBannerAdsID,
+							[KDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oRewardAdsID,
+							[KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oFullscreenAdsID
 						}
 					}
 #endif			// #if APP_LOVIN_ENABLE

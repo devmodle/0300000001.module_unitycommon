@@ -35,7 +35,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 			m_stVariable.m_stAdmobVariable.m_nBannerAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stAdmobVariable.m_nBannerAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
-				this.LoadBannerAds(EAdsType.ADMOB);
+				this.LoadBannerAds(EAdsType.APP_LOVIN);
 			}
 		});
 	}
@@ -60,7 +60,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 			if(m_stVariable.m_stAdmobVariable.m_nRewardAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
 				m_stVariable.m_stAdmobVariable.m_oRewardAds = null;
-				this.LoadRewardAds(EAdsType.ADMOB);
+				this.LoadRewardAds(EAdsType.APP_LOVIN);
 			}
 		});
 	}
@@ -73,8 +73,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 			m_stVariable.m_stAdmobVariable.m_oRewardAds = null;
 			m_stVariable.m_stAdmobVariable.m_nRewardAdsLoadTryTimes = 0;
 
-			this.HandleCloseRewardAdsResult(EAdsType.ADMOB);
-			this.LoadRewardAds(EAdsType.ADMOB);
+			this.HandleCloseRewardAdsResult(EAdsType.APP_LOVIN);
+			this.LoadRewardAds(EAdsType.APP_LOVIN);
 		});
 	}
 
@@ -83,7 +83,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_ADMOB_REWARD_ADS_RECEIVE_REWARD_CALLBACK, () => {
 			Func.ShowLog("CAdsManager.OnReceiveAdmobUserReward: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oReward);
 
-			this.HandleRewardAdsResult(EAdsType.ADMOB, new STAdsRewardInfo() {
+			this.HandleRewardAdsResult(EAdsType.APP_LOVIN, new STAdsRewardInfo() {
 				m_oName = a_oReward.Type,
 				m_oValue = a_oReward.Amount.ToString()
 			}, true);
@@ -97,7 +97,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 			m_stVariable.m_stAdmobVariable.m_nFullscreenAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stAdmobVariable.m_nFullscreenAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
-				this.LoadFullscreenAds(EAdsType.ADMOB);
+				this.LoadFullscreenAds(EAdsType.APP_LOVIN);
 			}
 		});
 	}
@@ -111,8 +111,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 			m_stVariable.m_stAdmobVariable.m_oFullscreenAds = null;
 			m_stVariable.m_stAdmobVariable.m_nFullscreenAdsLoadTryTimes = 0;
 
-			this.HandleCloseFullscreenAdsResult(EAdsType.ADMOB);
-			this.LoadFullscreenAds(EAdsType.ADMOB);
+			this.HandleCloseFullscreenAdsResult(EAdsType.APP_LOVIN);
+			this.LoadFullscreenAds(EAdsType.APP_LOVIN);
 		});
 	}
 
@@ -138,7 +138,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 			m_stVariable.m_stAdmobVariable.m_nNativeAdsLoadTryTimes += 1;
 
 			if(m_stVariable.m_stAdmobVariable.m_nNativeAdsLoadTryTimes < KDefine.U_MAX_TIMES_ADS_LOAD_TRY) {
-				this.LoadNativeAds(EAdsType.ADMOB);
+				this.LoadNativeAds(EAdsType.APP_LOVIN);
 			}
 		});
 	}
@@ -209,7 +209,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	private void ShowAdmobBannerAds() {
 		Func.Assert(this.AdmobBannerAds != null);
 
-		if(m_stParameters.m_eBannerAdsType == EAdsType.ADMOB) {
+		if(m_stParameters.m_eBannerAdsType == EAdsType.APP_LOVIN) {
 			this.AdmobBannerAds.Show();
 			m_stVariable.m_stAdmobVariable.m_bIsShowBannerAds = true;
 
@@ -246,7 +246,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 애드몹 배너 광고 로드 결과를 처리한다
 	private void HandleLoadAdmobBannerAdsResult() {
 		Func.LateCallFunc(this, (a_oComponent, a_oParams) => {
-			this.ShowBannerAds(EAdsType.ADMOB, null);
+			this.ShowBannerAds(EAdsType.APP_LOVIN, null);
 		});
 	}
 	#endregion			// 함수

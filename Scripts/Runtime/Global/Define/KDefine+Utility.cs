@@ -499,7 +499,7 @@ public static partial class KDefine {
 
 #if ADS_ENABLE
 	// 횟수
-	public const int U_MAX_TIMES_ADS_LOAD_TRY = 15;
+	public const int U_MAX_TIMES_ADS_LOAD_TRY = 50;
 
 	// 간격
 	public const float U_OFFSET_BANNER_ADS = 110.0f;
@@ -555,6 +555,9 @@ public static partial class KDefine {
 #endif			// #if IRON_SOURCE_ENABLE
 
 #if APP_LOVIN_ENABLE
+	public const string U_KEY_ADS_M_APP_LOVIN_BANNER_ADS_LOAD_CALLBACK = "AdsMAppLovinBannerAdsLoadCallback";
+	public const string U_KEY_ADS_M_APP_LOVIN_BANNER_ADS_LOAD_FAIL_CALLBACK = "AdsMAppLovinBannerAdsLoadFailCallback";
+
 	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_LOAD_FAIL_CALLBACK = "AdsMAppLovinRewardAdsLoadFailCallback";
 	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_CLOSE_CALLBACK = "AdsMAppLovinRewardAdsCloseCallback";
 	public const string U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_RECEIVE_REWARD_CALLBACK = "AdsMAppLovinRewardAdsReceiveRewardCallback";
@@ -746,6 +749,15 @@ public static partial class KDefine {
 	// 크기
 	public static readonly IronSourceBannerSize U_SIZE_IRON_SOURCE_BANNER = new IronSourceBannerSize(320, 50);
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+	// 크기
+	public static readonly float U_HEIGHT_APP_LOVIN_PHONE_BANNER = 50.0f;
+	public static readonly float U_HEIGHT_APP_LOVIN_TABLE_BANNER = 90.0f;
+
+	// 색상
+	public static readonly Color U_COLOR_APP_LOVIN_BANNER_BG = Color.black;
+#endif			// #if APP_LOVIN_ENABLE
 #endif			// #if ADS_ENABLE
 
 #if ADS_ENABLE || TENJIN_ENABLE || FLURRY_ENABLE || FIREBASE_ENABLE

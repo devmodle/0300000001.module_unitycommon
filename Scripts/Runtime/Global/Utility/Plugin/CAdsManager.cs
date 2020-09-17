@@ -110,6 +110,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 	//! 앱 로빈 변수
 	public struct STAppLovinVariable {
+		public bool m_bIsLoadBannerAds;
+
 		public int m_nBannerAdsLoadTryTimes;
 		public int m_nRewardAdsLoadTryTimes;
 		public int m_nFullscreenAdsLoadTryTimes;
@@ -176,8 +178,6 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	private Dictionary<EAdsType, System.Action> m_oFullscreenAdsShowerList = new Dictionary<EAdsType, System.Action>();
 
 	private Dictionary<EAdsType, System.Action<bool>> m_oBannerAdsCloserList = new Dictionary<EAdsType, System.Action<bool>>();
-	private Dictionary<EAdsType, System.Func<string, CustomNativeTemplateAd>> m_oNativeAdsGetterList = new Dictionary<EAdsType, System.Func<string, CustomNativeTemplateAd>>();
-
 	private Dictionary<EAdsType, System.Action<CAdsManager>> m_oRewardAdsCloseCallbackList = new Dictionary<EAdsType, System.Action<CAdsManager>>();
 	private Dictionary<EAdsType, System.Action<CAdsManager, STAdsRewardInfo, bool>> m_oRewardAdsCallbackList = new Dictionary<EAdsType, System.Action<CAdsManager, STAdsRewardInfo, bool>>();
 
@@ -284,6 +284,29 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		}
 	}
 #endif			// #if ADMOB_ENABLE
+
+#if APP_LOVIN_ENABLE
+	public bool IsContainsAppLovinBannerAdsID {
+		get {
+			bool bIsContains = m_stParameters.m_stAppLovinParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_BANNER_ADS_ID);
+			return bIsContains && m_stParameters.m_stAppLovinParameters.m_oAdsIDList[KDefine.U_KEY_ADS_M_BANNER_ADS_ID].ExIsValid();
+		}
+	}
+
+	public bool IsContainsAppLovinRewardAdsID {
+		get {
+			bool bIsContains = m_stParameters.m_stAppLovinParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_REWARD_ADS_ID);
+			return bIsContains && m_stParameters.m_stAppLovinParameters.m_oAdsIDList[KDefine.U_KEY_ADS_M_REWARD_ADS_ID].ExIsValid();
+		}
+	}
+
+	public bool IsContainsAppLovinFullscreenAdsID {
+		get {
+			bool bIsContains = m_stParameters.m_stAppLovinParameters.m_oAdsIDList.ContainsKey(KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID);
+			return bIsContains && m_stParameters.m_stAppLovinParameters.m_oAdsIDList[KDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID].ExIsValid();
+		}
+	}
+#endif			// #if APP_LOVIN_ENABLE
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -292,22 +315,21 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		base.Awake();
 
 #if ADMOB_ENABLE
-		m_oBannerAdsLoaderList.Add(EAdsType.ADMOB, this.LoadAdmobBannerAds);
-		m_oRewardAdsLoaderList.Add(EAdsType.ADMOB, this.LoadAdmobRewardAds);
-		m_oNativeAdsLoaderList.Add(EAdsType.ADMOB, this.LoadAdmobNativeAds);
-		m_oFullscreenAdsLoaderList.Add(EAdsType.ADMOB, this.LoadAdmobFullscreenAds);
+		m_oBannerAdsLoaderList.Add(EAdsType.APP_LOVIN, this.LoadAdmobBannerAds);
+		m_oRewardAdsLoaderList.Add(EAdsType.APP_LOVIN, this.LoadAdmobRewardAds);
+		m_oNativeAdsLoaderList.Add(EAdsType.APP_LOVIN, this.LoadAdmobNativeAds);
+		m_oFullscreenAdsLoaderList.Add(EAdsType.APP_LOVIN, this.LoadAdmobFullscreenAds);
 
-		m_oBannerAdsCheckerList.Add(EAdsType.ADMOB, this.IsLoadAdmobBannerAds);
-		m_oRewardAdsCheckerList.Add(EAdsType.ADMOB, this.IsLoadAdmobRewardAds);
-		m_oNativeAdsCheckerList.Add(EAdsType.ADMOB, this.IsLoadAdmobNativeAds);
-		m_oFullscreenAdsCheckerList.Add(EAdsType.ADMOB, this.IsLoadAdmobFullscreenAds);
+		m_oBannerAdsCheckerList.Add(EAdsType.APP_LOVIN, this.IsLoadAdmobBannerAds);
+		m_oRewardAdsCheckerList.Add(EAdsType.APP_LOVIN, this.IsLoadAdmobRewardAds);
+		m_oNativeAdsCheckerList.Add(EAdsType.APP_LOVIN, this.IsLoadAdmobNativeAds);
+		m_oFullscreenAdsCheckerList.Add(EAdsType.APP_LOVIN, this.IsLoadAdmobFullscreenAds);
 
-		m_oBannerAdsShowerList.Add(EAdsType.ADMOB, this.ShowAdmobBannerAds);
-		m_oRewardAdsShowerList.Add(EAdsType.ADMOB, this.ShowAdmobRewardAds);
-		m_oFullscreenAdsShowerList.Add(EAdsType.ADMOB, this.ShowAdmobFullscreenAds);
+		m_oBannerAdsShowerList.Add(EAdsType.APP_LOVIN, this.ShowAdmobBannerAds);
+		m_oRewardAdsShowerList.Add(EAdsType.APP_LOVIN, this.ShowAdmobRewardAds);
+		m_oFullscreenAdsShowerList.Add(EAdsType.APP_LOVIN, this.ShowAdmobFullscreenAds);
 
-		m_oBannerAdsCloserList.Add(EAdsType.ADMOB, this.CloseAdmobBannerAds);
-		m_oNativeAdsGetterList.Add(EAdsType.ADMOB, this.GetAdmobNativeAds);
+		m_oBannerAdsCloserList.Add(EAdsType.APP_LOVIN, this.CloseAdmobBannerAds);
 #endif			// #if ADMOB_ENABLE
 
 #if UNITY_ADS_ENABLE
@@ -341,6 +363,22 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 
 		m_oBannerAdsCloserList.Add(EAdsType.IRON_SOURCE, this.CloseIronSourceBannerAds);
 #endif			// #if IRON_SOURCE_ENABLE
+
+#if APP_LOVIN_ENABLE
+		m_oBannerAdsLoaderList.Add(EAdsType.APP_LOVIN, this.LoadAppLovinBannerAds);
+		m_oRewardAdsLoaderList.Add(EAdsType.APP_LOVIN, this.LoadAppLovinRewardAds);
+		m_oFullscreenAdsLoaderList.Add(EAdsType.APP_LOVIN, this.LoadAppLovinFullscreenAds);
+
+		m_oBannerAdsCheckerList.Add(EAdsType.APP_LOVIN, this.IsLoadAppLovinBannerAds);
+		m_oRewardAdsCheckerList.Add(EAdsType.APP_LOVIN, this.IsLoadAppLovinRewardAds);
+		m_oFullscreenAdsCheckerList.Add(EAdsType.APP_LOVIN, this.IsLoadAppLovinFullscreenAds);
+
+		m_oBannerAdsShowerList.Add(EAdsType.APP_LOVIN, this.ShowAppLovinBannerAds);
+		m_oRewardAdsShowerList.Add(EAdsType.APP_LOVIN, this.ShowAppLovinRewardAds);
+		m_oFullscreenAdsShowerList.Add(EAdsType.APP_LOVIN, this.ShowAppLovinFullscreenAds);
+
+		m_oBannerAdsCloserList.Add(EAdsType.APP_LOVIN, this.CloseAppLovinBannerAds);
+#endif			// #if APP_LOVIN_ENABLE
 	}
 
 	//! 초기화
@@ -394,35 +432,37 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 					}
 				}
 
-				IronSourceEvents.onBannerAdLoadedEvent -= this.OnLoadIronSourceBannerAds;
-				IronSourceEvents.onBannerAdLoadedEvent += this.OnLoadIronSourceBannerAds;
-
-				IronSourceEvents.onBannerAdLoadFailedEvent -= this.OnLoadFailIronSourceBannerAds;
-				IronSourceEvents.onBannerAdLoadFailedEvent += this.OnLoadFailIronSourceBannerAds;
-
-				IronSourceEvents.onRewardedVideoAdClosedEvent -= this.OnCloseIronSourceRewardAds;
-				IronSourceEvents.onRewardedVideoAdClosedEvent += this.OnCloseIronSourceRewardAds;
-
-				IronSourceEvents.onRewardedVideoAdRewardedEvent -= this.OnReceiveIronSourceUserReward;
-				IronSourceEvents.onRewardedVideoAdRewardedEvent += this.OnReceiveIronSourceUserReward;
-
-				IronSourceEvents.onRewardedVideoAvailabilityChangedEvent -= this.OnChangeIronSourceRewardAdsState;
-				IronSourceEvents.onRewardedVideoAvailabilityChangedEvent += this.OnChangeIronSourceRewardAdsState;
-
-				IronSourceEvents.onInterstitialAdLoadFailedEvent -= this.OnLoadFailIronSourceFullscreenAds;
-				IronSourceEvents.onInterstitialAdLoadFailedEvent += this.OnLoadFailIronSourceFullscreenAds;
-
-				IronSourceEvents.onInterstitialAdClosedEvent -= this.OnCloseIronSourceFullscreenAds;
-				IronSourceEvents.onInterstitialAdClosedEvent += this.OnCloseIronSourceFullscreenAds;
-
 				IronSource.Agent.init(a_stParameters.m_stIronSourceParameters.m_oAppKey, oUnitAdsList.ToArray());
 				IronSource.Agent.validateIntegration();
 				IronSource.Agent.shouldTrackNetworkState(true);
+
+				IronSourceEvents.onBannerAdLoadedEvent += this.OnLoadIronSourceBannerAds;
+				IronSourceEvents.onBannerAdLoadFailedEvent += this.OnLoadFailIronSourceBannerAds;
+
+				IronSourceEvents.onRewardedVideoAdClosedEvent += this.OnCloseIronSourceRewardAds;
+				IronSourceEvents.onRewardedVideoAdRewardedEvent += this.OnReceiveIronSourceUserReward;
+				IronSourceEvents.onRewardedVideoAvailabilityChangedEvent += this.OnChangeIronSourceRewardAdsState;
+
+				IronSourceEvents.onInterstitialAdLoadFailedEvent += this.OnLoadFailIronSourceFullscreenAds;
+				IronSourceEvents.onInterstitialAdClosedEvent += this.OnCloseIronSourceFullscreenAds;
 			}
 #endif			// #if IRON_SOURCE_ENABLE
 
 #if APP_LOVIN_ENABLE
+			MaxSdk.SetSdkKey(a_stParameters.m_stAppLovinParameters.m_oSDKKey);
+			MaxSdk.InitializeSdk();
 
+			MaxSdkCallbacks.OnSdkInitializedEvent += this.OnInitAppLovin;
+
+			MaxSdkCallbacks.OnBannerAdLoadedEvent += this.OnLoadAppLovinBannerAds;
+			MaxSdkCallbacks.OnBannerAdLoadFailedEvent += this.OnLoadFailAppLovinBannerAds;
+
+			MaxSdkCallbacks.OnRewardedAdLoadFailedEvent += this.OnLoadFailAppLovinRewardAds;
+			MaxSdkCallbacks.OnRewardedAdHiddenEvent += this.OnCloseAppLovinRewardAds;
+			MaxSdkCallbacks.OnRewardedAdReceivedRewardEvent += this.OnReceiveAppLovinUserReward;
+
+			MaxSdkCallbacks.OnInterstitialLoadFailedEvent += this.OnLoadFailAppLovinFullscreenAds;
+			MaxSdkCallbacks.OnInterstitialHiddenEvent += this.OnCloseAppLovinFullscreenAds;
 #endif			// #if APP_LOVIN_ENABLE
 		}
 
