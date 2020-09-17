@@ -15,7 +15,7 @@ MonoBehaviour:
   m_stJenkinsInfo:
     m_oUserID: dante
     m_oBranch: master
-    m_oSourceRoot: 00011.Library
+    m_oSourceRoot: 00011.Sample
     m_oWorkspaceRoot: /Users/dante/Documents/jenkins/workspace
     m_oDistributionPath: /Users/dante/Documents/jenkins/builds
     m_oBuildToken: JenkinsBuild
@@ -26,7 +26,7 @@ MonoBehaviour:
   m_stiOSBuildInfo:
     m_oTeamID: 8XBEE2A299
     m_oTargetOSVersion: 10.0
-    m_oDevProfileID: 
+    m_oDevProfileID: 60abc74c-3470-4d6d-a06b-2d02caaf98dd
     m_oAdhocProfileID: 
     m_oStoreProfileID: 
     m_oURLSchemeList:

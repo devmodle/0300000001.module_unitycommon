@@ -171,31 +171,34 @@ public static partial class CCommonEditorSceneManager {
 		} else {
 			var stScene = EditorSceneManager.GetActiveScene();
 
-			var oScenePath = Path.GetDirectoryName(stScene.path);
-			var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
+			// 경로가 유효 할 경우
+			if(stScene.path.ExIsValid()) {
+				var oScenePath = Path.GetDirectoryName(stScene.path);
+				var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
 
-			string oFilepath = string.Format(KCEditorDefine.B_ASSET_PATH_FORMAT_LIGHTING_SETTINGS, 
-				oScenePath, oSceneName);
-			
-			var oLightingSettingsAsset = CEditorFunc.FindAsset<LightingSettings>(oFilepath);
+				string oFilepath = string.Format(KCEditorDefine.B_ASSET_PATH_FORMAT_LIGHTING_SETTINGS, 
+					oScenePath, oSceneName);
+				
+				var oLightingSettingsAsset = CEditorFunc.FindAsset<LightingSettings>(oFilepath);
 
-			// 광원 맵 설정 에셋이 존재 할 경우
-			if(oLightingSettingsAsset != null) {
-				Lightmapping.lightingSettings = oLightingSettingsAsset;
-			} else {
-				var oSettings = Resources.Load<LightingSettings>(KCDefine.U_ASSET_PATH_LIGHTING_SETTINGS);
-				var oPropertyInfos = oSettings.GetType().GetProperties(KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
+				// 광원 맵 설정 에셋이 존재 할 경우
+				if(oLightingSettingsAsset != null) {
+					Lightmapping.lightingSettings = oLightingSettingsAsset;
+				} else {
+					var oSettings = Resources.Load<LightingSettings>(KCDefine.U_ASSET_PATH_LIGHTING_SETTINGS);
+					var oPropertyInfos = oSettings.GetType().GetProperties(KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
 
-				oLightingSettingsAsset = new LightingSettings();
+					oLightingSettingsAsset = new LightingSettings();
 
-				for(int i = 0; i < oPropertyInfos.Length; ++i) {
-					var oPropertyInfo = oPropertyInfos[i];
+					for(int i = 0; i < oPropertyInfos.Length; ++i) {
+						var oPropertyInfo = oPropertyInfos[i];
 
-					oLightingSettings.ExSetPropertyValue<LightingSettings>(oPropertyInfo.Name, 
-						KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
+						oLightingSettings.ExSetPropertyValue<LightingSettings>(oPropertyInfo.Name, 
+							KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
+					}
+
+					CEditorFactory.CreateAsset(oLightingSettingsAsset, oFilepath, false);
 				}
-
-				CEditorFactory.CreateAsset(oLightingSettingsAsset, oFilepath, false);
 			}
 		}
 	}

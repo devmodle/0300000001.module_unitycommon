@@ -12,41 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9bed7b0cc0da472a9c36f5f407c1344, type: 3}
   m_Name: T_ProjInfoTable
   m_EditorClassIdentifier: 
-  m_oCompanyName: LKStudio
-  m_oProjectName: Library
-  m_oProductName: Library
+  m_oCompanyName: LK Studio
+  m_oProjectName: Module
+  m_oProductName: Sample
   m_stMacProjectInfo:
-    m_oAppID: dante.distribution.library
+    m_oAppID: dante.distribution.sample
     m_oBuildNumber: 1
     m_oBuildVersion: 1.0.0
     m_oStoreURL: 
     m_oSupportMail: are2341@nate.com
   m_stWindowsProjectInfo:
-    m_oAppID: dante.distribution.library
+    m_oAppID: dante.distribution.sample
     m_oBuildNumber: 1
     m_oBuildVersion: 1.0.0
     m_oStoreURL: 
     m_oSupportMail: are2341@nate.com
   m_stiOSProjectInfo:
-    m_oAppID: dante.distribution.library
+    m_oAppID: dante.distribution.sample
     m_oBuildNumber: 1
     m_oBuildVersion: 1.0.0
     m_oStoreURL: https://itunes.apple.com/app/id1197115495
     m_oSupportMail: are2341@nate.com
   m_stGoogleProjectInfo:
-    m_oAppID: dante.distribution.library
+    m_oAppID: dante.distribution.sample
     m_oBuildNumber: 1
     m_oBuildVersion: 1.0.0
     m_oStoreURL: https://play.google.com/store/apps/details?id=dante.distribution.library
     m_oSupportMail: are2341@nate.com
   m_stOneStoreProjectInfo:
-    m_oAppID: dante.distribution.library
+    m_oAppID: dante.distribution.sample
     m_oBuildNumber: 1
     m_oBuildVersion: 1.0.0
     m_oStoreURL: 
     m_oSupportMail: are2341@nate.com
   m_stGalaxyStoreProjectInfo:
-    m_oAppID: dante.distribution.library
+    m_oAppID: dante.distribution.sample
     m_oBuildNumber: 1
     m_oBuildVersion: 1.0.0
     m_oStoreURL: 

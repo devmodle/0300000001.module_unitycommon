@@ -41,7 +41,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if ADMOB_ENABLE
 
 				CAdsManager.Instance.Init(new CAdsManager.STParams() {
-					m_eBannerAdsType = CPluginInfoTable.Instance.m_eBannerAdsType,
+					m_eBannerAdsType = CPluginInfoTable.Instance.BannerAdsType,
 					m_oDeviceIDList = oDeviceIDList,
 
 #if ADMOB_ENABLE
@@ -68,7 +68,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if APP_LOVIN_ENABLE
 					m_stAppLovinParams = new CAdsManager.STAppLovinParams() {
-						m_oSDKKey = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oSDKKey,
+						m_oSDKKey = CPluginInfoTable.Instance.AppLovinSDKKey,
 
 						m_oAdsIDList = new Dictionary<string, string>() {
 							[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oBannerAdsID,
