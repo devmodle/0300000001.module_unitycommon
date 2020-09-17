@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if LOCAL_NOTI_MODULE_ENABLE
+#if UNITY_IOS
+using Unity.Notifications.iOS;
+#elif UNITY_ANDROID
+using Unity.Notifications.Android;
+#endif			// #if UNITY_IOS
+#endif			// #if LOCAL_NOTI_MODULE_ENABLE
+
 //! 지연 설정 씬 관리자
 public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 프로퍼티
@@ -34,15 +42,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			// 관리자 자동 초기화 모드 일 경우
 			if(this.IsAutoInitManager) {
 #if ADS_MODULE_ENABLE
-				var oDeviceIDList = new List<string>();
-
-#if ADMOB_ENABLE
-				oDeviceIDList.AddRange(CDeviceInfoTable.Instance.AdmobDeviceIDList);
-#endif			// #if ADMOB_ENABLE
-
-				CAdsManager.Instance.Init(new CAdsManager.STParams() {
+				var stAdsParams = new CAdsManager.STParams() {
 					m_eBannerAdsType = CPluginInfoTable.Instance.BannerAdsType,
-					m_oDeviceIDList = oDeviceIDList,
 
 #if ADMOB_ENABLE
 					m_stAdmobParams = new CAdsManager.STAdmobParams() {
@@ -52,6 +53,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oFullscreenAdsID
 						}
 					},
+
+					m_oDeviceIDList = CDeviceInfoTable.Instance.AdmobDeviceIDList,
+#else
+					m_oDeviceIDList = new List<string>(),
 #endif			// #if ADMOB_ENABLE
 
 #if IRON_SOURCE_ENABLE
@@ -77,8 +82,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 						}
 					}
 #endif			// #if APP_LOVIN_ENABLE
-				}, CLateSetupSceneManager.OnInitAdsManager);
+				};
 
+				CAdsManager.Instance.Init(stAdsParams, CLateSetupSceneManager.OnInitAdsManager);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if ADS_MODULE_ENABLE
 
@@ -157,7 +163,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if UNITY_SERVICE_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-				CSingularManager.Instance.Init(CLateSetupSceneManager.OnInitSingularManager);
+				CSingularManager.Instance.Init(CPluginInfoTable.Instance.SingularPluginInfo.m_oAPIKey,
+					CPluginInfoTable.Instance.SingularPluginInfo.m_oAPISecret, CLateSetupSceneManager.OnInitSingularManager);
+					
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if SINGULAR_MODULE_ENABLE
 
@@ -174,7 +182,19 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
 
 #if LOCAL_NOTI_MODULE_ENABLE
-				CLocalNotiManager.Instance.Init(CLateSetupSceneManager.OnInitLocalNotiManager);
+				var stLocalNotiParams = new CLocalNotiManager.STParams() {
+#if UNITY_IOS
+					m_eNotiOptions = KCDefine.U_DEF_NOTI_OPTS_LOCAL_NM
+#elif UNITY_ANDROID
+					m_eImportance = KCDefine.U_DEF_IMPORTANCE_LOCAL_NM,
+
+					m_oGroupID = KCDefine.U_DEF_GROUP_ID_LOCAL_NM,
+					m_oGroupName = KCDefine.U_DEF_GROUP_NAME_LOCAL_NM,
+					m_oGroupDesc = KCDefine.U_DEF_GROUP_DESC_LOCAL_NM
+#endif			// #if UNITY_IOS
+				};
+
+				CLocalNotiManager.Instance.Init(stLocalNotiParams, CLateSetupSceneManager.OnInitLocalNotiManager);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if LOCAL_NOTI_MODULE_ENABLE
 			}

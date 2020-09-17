@@ -13,38 +13,33 @@ MonoBehaviour:
   m_Name: T_PluginInfoTable
   m_EditorClassIdentifier: 
   m_eBannerAdsType: 0
+  m_oAppLovinSDKKey: gm7zw3BUJMWFTir5p0V4te3D0DJ3UDoardRwcO5sMe_wZ30rUdsIoqT7sNGN-kn1uJQ9RnUvTmzwUED5qR0zWs
   m_stiOSAdmobPluginInfo:
     m_oBannerAdsID: ca-app-pub-4429226069711533/9321907041
     m_oRewardAdsID: ca-app-pub-4429226069711533/1443417026
-    m_oNativeAdsID: ca-app-pub-4429226069711533/7205442808
     m_oFullscreenAdsID: ca-app-pub-4429226069711533/6695743706
-    m_oTemplateIDList: []
   m_stAndroidAdmobPluginInfo:
     m_oBannerAdsID: ca-app-pub-4429226069711533/6026208607
     m_oRewardAdsID: ca-app-pub-4429226069711533/1279765492
-    m_oNativeAdsID: ca-app-pub-4429226069711533/8775112138
     m_oFullscreenAdsID: ca-app-pub-4429226069711533/8460800259
-    m_oTemplateIDList: []
-  m_stiOSUnityAdsPluginInfo:
-    m_oGameID: 3258360
-    m_oBannerAdsPlacement: banner
-    m_oRewardAdsPlacement: rewardedVideo
-    m_oFullscreenAdsPlacement: video
-  m_stAndroidUnityAdsPluginInfo:
-    m_oGameID: 3258361
-    m_oBannerAdsPlacement: banner
-    m_oRewardAdsPlacement: rewardedVideo
-    m_oFullscreenAdsPlacement: video
   m_stiOSIronSourcePluginInfo:
     m_oAppKey: aca5425d
-    m_oBannerAdsPlacement: DefaultBanner
-    m_oRewardAdsPlacement: DefaultRewardedVideo
-    m_oFullscreenAdsPlacement: DefaultInterstitial
+    m_oBannerAdsID: banner
+    m_oRewardAdsID: rewardedvideo
+    m_oFullscreenAdsID: interstitial
   m_stAndroidIronSourcePluginInfo:
     m_oAppKey: b8c2c725
-    m_oBannerAdsPlacement: DefaultBanner
-    m_oRewardAdsPlacement: DefaultRewardedVideo
-    m_oFullscreenAdsPlacement: DefaultInterstitial
+    m_oBannerAdsID: banner
+    m_oRewardAdsID: rewardedvideo
+    m_oFullscreenAdsID: interstitial
+  m_stiOSAppLovinPluginInfo:
+    m_oBannerAdsID: bbd3eb620243f823
+    m_oRewardAdsID: 277b41dd4180b98b
+    m_oFullscreenAdsID: f07bc6294e4af3e6
+  m_stAndroidAppLovinPluginInfo:
+    m_oBannerAdsID: fbc504b21fdcca9f
+    m_oRewardAdsID: 9a8845a7af7cafd5
+    m_oFullscreenAdsID: beae22f5270aff1d
   m_stTenjinPluginInfo:
     m_oAPIKey: ZAI7IG4Y9G6YW1H3DTMNUX7GBFT8FLWS
   m_stiOSFlurryPluginInfo:

@@ -18,6 +18,8 @@
         "UnityModule.Common.GameCenter",
         "UnityModule.Common.Purchase",
         "UnityModule.Common.LocalNoti",
+        "Unity.Notifications.iOS",
+        "Unity.Notifications.Android",
         "UnityModule.IronSource"
     ],
     "includePlatforms": [],
