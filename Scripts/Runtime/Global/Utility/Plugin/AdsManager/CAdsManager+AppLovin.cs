@@ -9,6 +9,10 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	//! 앱 로빈이 초기화 되었을 경우
 	public void OnInitAppLovin(MaxSdkBase.SdkConfiguration a_oConfiguration) {
 		Func.ShowLog("CAdsManager.OnInitAppLovin: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oConfiguration);
+
+#if DEBUG || DEVELOPMENT_BUILD
+		MaxSdk.ShowMediationDebugger();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
 	//! 앱 로빈 배너 광고를 로드했을 경우
@@ -65,13 +69,10 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_ADS_M_APP_LOVIN_REWARD_ADS_RECEIVE_REWARD_CALLBACK, () => {
 			Func.ShowLog("CAdsManager.OnReceiveAppLovinUserReward: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oAdsID);
 
-			// 보상이 유효 할 경우
-			if(a_oReward.IsValid()) {
-				this.HandleRewardAdsResult(EAdsType.APP_LOVIN, new STAdsRewardInfo() {
-					m_oName = a_oAdsID, 
-					m_oValue = string.Empty
-				}, true);
-			}
+			this.HandleRewardAdsResult(EAdsType.APP_LOVIN, new STAdsRewardInfo() {
+				m_oName = a_oAdsID, 
+				m_oValue = string.Empty
+			}, true);
 		});
 	}
 

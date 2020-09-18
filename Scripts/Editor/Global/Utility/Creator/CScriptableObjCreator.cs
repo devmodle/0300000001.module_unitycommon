@@ -27,7 +27,7 @@ public static partial class CScriptableObjCreator {
 	public static void CreateDeviceInfoTable() {
 		var oDeviceInfoTable = EditorFunc.CreateScriptableObj<CDeviceInfoTable>();
 
-#if ADS_ENABLE && ADMOB_ENABLE
+#if ADS_ENABLE && (ADMOB_ENABLE || APP_LOVIN_ENABLE)
 		oDeviceInfoTable.SetiOSAdmobDeviceIDList(new List<string>() {
 			"cda4cbaf3ee1d95d96c9316c45ca1163",
 			"b18f2566214cc419bac71a7c3df368ad"
@@ -37,7 +37,7 @@ public static partial class CScriptableObjCreator {
 			"20883ADA1C122EA63419F9AF1FAD52F0",
 			"3E2176530B8BACFCD9C26AD844C0B3C3"
 		});
-#endif			// #if ADS_ENABLE && ADMOB_ENABLE
+#endif			// #if ADS_ENABLE && (ADMOB_ENABLE || APP_LOVIN_ENABLE)
 	}
 
 	//! 빌드 정보 테이블을 생성한다
