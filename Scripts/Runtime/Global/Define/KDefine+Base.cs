@@ -196,7 +196,7 @@ public static partial class KDefine {
 	// 디바이스 }
 
 	// 색상 {
-	public static readonly Color B_LOG_COLOR_INFO = Color.black;
+	public static readonly Color B_LOG_COLOR_INFO = Color.green;
 	public static readonly Color B_LOG_COLOR_WARNING = new Color(0xff / 255.0f, 0xa5 / 255.0f, 0.0f, 1.0f);
 	public static readonly Color B_LOG_COLOR_ERROR = Color.red;
 
