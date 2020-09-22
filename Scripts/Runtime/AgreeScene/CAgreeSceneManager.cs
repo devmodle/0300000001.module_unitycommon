@@ -75,10 +75,8 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			this.ShowAgreePopup(CResManager.Instance.GetTextAsset(oServiceFilepath).text,
 				CResManager.Instance.GetTextAsset(oPersonalFilepath).text);
 
-			CFunc.LateCallFunc(this, (a_oComponent, a_oParams) => {
-				CResManager.Instance.RemoveTextAsset(oServiceFilepath, true);
-				CResManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
-			});
+			CResManager.Instance.RemoveTextAsset(oServiceFilepath, true);
+			CResManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
 		}
 #endif			// #if ROBO_TEST_ENABLE
 	}

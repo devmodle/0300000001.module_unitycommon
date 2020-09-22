@@ -25,7 +25,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			};
 			
 			for(int i = 0; i < oImgs.Length; ++i) {
-				oImgs[i].color = KCDefine.U_DEF_COLOR_TRANSPARENT;
+				oImgs[i].color = KCDefine.U_COLOR_TRANSPARENT;
 				oImgs[i].raycastTarget = false;
 			}
 			// 블라인드 이미지를 생성한다 }

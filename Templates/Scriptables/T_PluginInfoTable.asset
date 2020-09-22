@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: T_PluginInfoTable
   m_EditorClassIdentifier: 
   m_eBannerAdsType: 0
-  m_oAppLovinSDKKey: gm7zw3BUJMWFTir5p0V4te3D0DJ3UDoardRwcO5sMe_wZ30rUdsIoqT7sNGN-kn1uJQ9RnUvTmzwUED5qR0zWs
+  m_oAppLovinSDKKey: 
   m_stiOSAdmobPluginInfo:
     m_oBannerAdsID: ca-app-pub-4429226069711533/9321907041
     m_oRewardAdsID: ca-app-pub-4429226069711533/1443417026
@@ -47,4 +47,7 @@ MonoBehaviour:
   m_stAndroidFlurryPluginInfo:
     m_oAPIKey: 9B4TJSM4BFJ9N4J2X83D
   m_stFirebasePluginInfo:
-    m_oDatabaseURL: https://library-97927303.firebaseio.com
+    m_oDatabaseURL: https://sample-61739440.firebaseio.com
+  m_stSingularPluginInfo:
+    m_oAPIKey: 
+    m_oAPISecret: 

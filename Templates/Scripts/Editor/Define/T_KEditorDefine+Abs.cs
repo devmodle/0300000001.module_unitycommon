@@ -136,6 +136,7 @@ public static partial class KEditorDefine {
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.1.1",
 		["com.google.external-dependency-manager"] = "1.2.159",
+		["com.google.play.review"] = "1.2.0",
 
 #if CINEMACHINE_ENABLE
 		["com.unity.cinemachine"] = "2.6.2",
@@ -166,6 +167,13 @@ public static partial class KEditorDefine {
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
+		["com.google.firebase.auth"] = "6.15.2",
+		["com.google.firebase.analytics"] = "6.15.2",
+		["com.google.firebase.crashlytics"] = "6.15.2",
+		["com.google.firebase.database"] = "6.15.2",
+		["com.google.firebase.messaging"] = "6.15.2",
+		["com.google.firebase.remote-config"] = "6.15.2",
+
 		["unitymodule.common.firebase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#v1.0.0",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
@@ -184,6 +192,7 @@ public static partial class KEditorDefine {
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "2.1.1",
 		["com.unity.purchasing.udp"] = "1.2.0",
+		
 		["unitymodule.common.purchase"] = "https://sd.lee:NSString!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#v1.0.0",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 

@@ -21,8 +21,8 @@ public static partial class Func {
 #endif			// #if MSG_PACK_ENABLE
 		}
 
-		oFilepath = CAccess.IsExistsRes<TextAsset>(oFilepath) ? oFilepath
-			: KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING;
+		oFilepath = CAccess.IsExistsRes<TextAsset>(oFilepath) ? 
+			oFilepath : KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING;
 
 		CStringTable.Instance.LoadStringsFromRes(oFilepath);
 	}

@@ -14,7 +14,7 @@ using MessagePack;
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 변수
-	[Key(0)] public STVersionInfo m_stVersionInfo;
+	[Key(0)] public STVersion m_stVersion;
 
 	[Key(1)] public Dictionary<string, bool> m_oBoolList = new Dictionary<string, bool>();
 	[Key(2)] public Dictionary<string, int> m_oIntList = new Dictionary<string, int>();
@@ -40,7 +40,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 함수
 	//! 생성자
 	public CBaseInfo(string a_oVersion) {
-		m_stVersionInfo = CFunc.MakeDefVersionInfo(a_oVersion);
+		m_stVersion = CFunc.MakeDefVersion(a_oVersion);
 	}
 	#endregion			// 함수
 }

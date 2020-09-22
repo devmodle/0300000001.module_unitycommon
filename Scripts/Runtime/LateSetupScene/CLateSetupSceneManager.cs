@@ -54,9 +54,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 						}
 					},
 
-					m_oDeviceIDList = CDeviceInfoTable.Instance.AdmobDeviceIDList,
+					m_oAdmobIDList = CDeviceInfoTable.Instance.AdmobIDList,
 #else
-					m_oDeviceIDList = new List<string>(),
+					m_oAdmobIDList = new List<string>(),
 #endif			// #if ADMOB_ENABLE
 
 #if IRON_SOURCE_ENABLE
@@ -109,51 +109,27 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if FIREBASE_MODULE_ENABLE
 #if FIREBASE_REMOTE_CONFIG_ENABLE
-				var oMacVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.MacProjInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.MacProjInfo.m_oBuildVersion
+				var oGameConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG);
+				var oDeviceConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_DEVICE_CONFIG);
+				var oBuildVersionConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
+
+				CAccess.Assert(oGameConfig.ExIsValid() && 
+					oDeviceConfig.ExIsValid() && oBuildVersionConfig.ExIsValid());
+
+				var oConfigList = new Dictionary<string, object>() {
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = oDeviceConfig.text,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
 				};
 
-				var oWindowsVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.WindowsProjInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.WindowsProjInfo.m_oBuildVersion
-				};
-
-				var oiOSVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.iOSProjInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.iOSProjInfo.m_oBuildVersion
-				};
-
-				var oGoogleVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.GoogleProjInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.GoogleProjInfo.m_oBuildVersion
-				};
-
-				var oOneStoreVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.OneStoreProjInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.OneStoreProjInfo.m_oBuildVersion
-				};
-
-				var oGalaxyStoreVersionInfo = new Dictionary<string, string>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_NUMBER] = CProjInfoTable.Instance.GalaxyStoreProjInfo.m_oBuildNumber,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_BUILD_VERSION] = CProjInfoTable.Instance.GalaxyStoreProjInfo.m_oBuildVersion
-				};
-
-				var oConfigDataList = new Dictionary<string, object>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_MAC_VERSION_INFO] = oMacVersionInfo.ExToJSONString(),
-					[KCDefine.U_CONFIG_KEY_FIREBASE_WINDOWS_VERSION_INFO] = oWindowsVersionInfo.ExToJSONString(),
-
-					[KCDefine.U_CONFIG_KEY_FIREBASE_IOS_VERSION_INFO] = oiOSVersionInfo.ExToJSONString(),
-
-					[KCDefine.U_CONFIG_KEY_FIREBASE_GOOGLE_VERSION_INFO] = oGoogleVersionInfo.ExToJSONString(),
-					[KCDefine.U_CONFIG_KEY_FIREBASE_ONE_STORE_VERSION_INFO] = oOneStoreVersionInfo.ExToJSONString(),
-					[KCDefine.U_CONFIG_KEY_FIREBASE_GALAXY_STORE_VERSION_INFO] = oGalaxyStoreVersionInfo.ExToJSONString()
-				};
+				CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
+				CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_DEVICE_CONFIG, true);
+				CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
 #else
-				var oConfigDataList = new Dictionary<string, object>();
+				var oConfigList = new Dictionary<string, object>();
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 
-				CFirebaseManager.Instance.Init(oConfigDataList, CLateSetupSceneManager.OnInitFirebaseManager);
+				CFirebaseManager.Instance.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
 				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
@@ -202,7 +178,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			this.Setup();
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-			CFunc.LateCallFunc(this, KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oComponent, a_oParams) => {
+			this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oComponent, a_oParams) => {
 				bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_INIT);
 				bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SETUP);
 				bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_START);

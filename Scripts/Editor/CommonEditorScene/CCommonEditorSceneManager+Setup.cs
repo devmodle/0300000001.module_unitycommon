@@ -42,7 +42,7 @@ public static partial class CCommonEditorSceneManager {
 				bIsExistsMainLight = true;
 
 				oLights[i].type = LightType.Directional;
-				oLights[i].lightmapBakeType = KCDefine.U_DEF_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
+				oLights[i].lightmapBakeType = KCDefine.U_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
 
 				// 태그 설정이 필요 할 경우
 				if(!oLights[i].CompareTag(KCDefine.U_TAG_MAIN_LIGHT)) {

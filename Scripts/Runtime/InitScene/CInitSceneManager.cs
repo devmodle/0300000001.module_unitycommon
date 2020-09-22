@@ -64,7 +64,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			this.SetupOffsets();
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-			// iOS 플랫폼을 설정한다 {
+			// iOS를 설정한다 {
 #if UNITY_IOS
 			Device.SetNoBackupFlag(KCDefine.B_DIR_PATH_WRITABLE);
 			Device.SetNoBackupFlag(KCDefine.U_IMG_PATH_SCREENSHOT);
@@ -72,7 +72,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			Device.hideHomeButton = false;
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if UNITY_IOS
-			// iOS 플랫폼을 설정한다 }
+			// iOS를 설정한다 }
 
 			// 관리자를 생성한다 {
 			CLogManager.Create();

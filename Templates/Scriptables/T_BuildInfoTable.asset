@@ -26,11 +26,11 @@ MonoBehaviour:
   m_stiOSBuildInfo:
     m_oTeamID: 8XBEE2A299
     m_oTargetOSVersion: 10.0
-    m_oDevProfileID: 60abc74c-3470-4d6d-a06b-2d02caaf98dd
+    m_oDevProfileID: ba2539e1-bf43-4f23-aa01-44904040cf45
     m_oAdhocProfileID: 
     m_oStoreProfileID: 
     m_oURLSchemeList:
-    - library
+    - sample
     m_eiPadLaunchScreenType: 0
     m_eiPhoneLaunchScreenType: 0
   m_stAndroidBuildInfo:

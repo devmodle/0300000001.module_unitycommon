@@ -66,7 +66,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 		// 디바이스 식별자 설정이 필요 할 경우
 		if(!bIsValid || CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
-			CCommonAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
+			CCommonAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? 
+				a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
 		}
 		
 		CCommonAppInfoStorage.Instance.SaveAppInfo();
@@ -82,7 +83,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 		// 국가 코드 설정이 필요 할 경우
 		if(!CAccess.IsMobilePlatform() || !a_oMsg.ExIsValid()) {
-			oCountryCode = !CAccess.IsMobilePlatform() ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
+			oCountryCode = !CAccess.IsMobilePlatform() ? 
+				KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
 		
 #if MSG_PACK_ENABLE
@@ -113,8 +115,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				if(CAccess.IsMobilePlatform()) {
 					nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
 				} else {
-					string oKey = CAccess.IsConsolePlatform() ? KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE
-						: KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
+					string oKey = CAccess.IsConsolePlatform() ? 
+						KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
 
 					nTargetFrameRate = CValueTable.Instance.GetInt(oKey);
 				}
