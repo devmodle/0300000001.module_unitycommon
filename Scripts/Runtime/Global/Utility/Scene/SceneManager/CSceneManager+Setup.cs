@@ -192,7 +192,7 @@ public abstract partial class CSceneManager : CComponent {
 	protected virtual void SetupSubScene() {
 		// 서브 객체를 설정한다 {
 		var stScene = this.gameObject.scene;
-
+		
 		this.SubUITop = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_TOP);
 		this.SubUIBase = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_BASE);
 		this.SubUIRoot = stScene.ExFindChild(KDefine.U_OBJ_NAME_SCENE_UI_ROOT);
@@ -625,7 +625,9 @@ public abstract partial class CSceneManager : CComponent {
 			a_oCanvas.worldCamera = CSceneManager.MainCamera;
 #endif			// #if CAMERA_STACK_ENABLE
 
-			if(a_oCanvas.renderMode == RenderMode.ScreenSpaceCamera) {
+			bool bIsBaseCanvas = a_oCanvas == this.SubUICanvas || a_oCanvas == this.SubObjectCanvas;
+
+			if(!bIsBaseCanvas && a_oCanvas.renderMode == RenderMode.ScreenSpaceCamera) {
 				a_oCanvas.planeDistance = this.PlaneDistance;
 				a_oCanvas.sortingLayerName = KDefine.U_SORTING_LAYER_DEF;
 			}
