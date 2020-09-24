@@ -71,7 +71,7 @@ public static partial class CEditorSceneManager {
 			// 씬 갱신이 필요 할 경우
 			if(CEditorSceneManager.m_fSkipTime >= KEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
 				CEditorSceneManager.m_fSkipTime = 0.0f;
-
+				
 				CEditorSceneManager.SetupScene();
 				CEditorSceneManager.SetupScriptOrders();
 				CEditorSceneManager.SetupLightOptions();
