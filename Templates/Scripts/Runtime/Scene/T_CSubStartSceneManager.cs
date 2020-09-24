@@ -10,13 +10,10 @@ public class CSubStartSceneManager : CStartSceneManager {
 	private int m_nNumDots = 0;
 	private float m_fSkipTime = 0.0f;
 
+	private Text m_oStateText = null;
 	private System.Text.StringBuilder m_oStringBuilder = new System.Text.StringBuilder();
 	#endregion			// 변수
-
-	#region 컴포넌트
-	private Text m_oStateText = null;
-	#endregion			// 컴포넌트
-
+	
 	#region 함수
 	//! 초기화
 	public override void Awake() {
