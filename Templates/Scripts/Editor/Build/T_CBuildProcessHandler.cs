@@ -18,7 +18,7 @@ public static partial class CBuildProcessHandler {
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 		bool bIsWindows = a_eTarget == BuildTarget.StandaloneWindows || a_eTarget == BuildTarget.StandaloneWindows64;
 
-		// 데스크 탑 플랫폼 일 경우
+		// 독립 플랫폼 일 경우
 		if(bIsWindows || a_eTarget == BuildTarget.StandaloneOSX) {
 			CBuildProcessHandler.OnPostProcessStandaloneBuild(a_eTarget, a_oPath);
 		}

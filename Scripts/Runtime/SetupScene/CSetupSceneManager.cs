@@ -82,8 +82,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		string oCountryCode = a_oMsg;
 
 		// 국가 코드 설정이 필요 할 경우
-		if(!CAccess.IsMobilePlatform() || !a_oMsg.ExIsValid()) {
-			oCountryCode = !CAccess.IsMobilePlatform() ? 
+		if(!CAccess.IsMobile() || !a_oMsg.ExIsValid()) {
+			oCountryCode = !CAccess.IsMobile() ? 
 				KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
 		
@@ -106,16 +106,16 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			int nQualityLevel = CValueTable.Instance.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
 			int nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE);
 
-			// 데스크 탑 플랫폼 일 경우
-			if(CAccess.IsDesktopPlatform()) {
+			// 데스크 탑 일 경우
+			if(CAccess.IsDesktop()) {
 				Screen.SetResolution(KCDefine.B_DESKTOP_WINDOW_WIDTH, 
 					KCDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
 			} else {
-				// 모바일 플랫폼 일 경우
-				if(CAccess.IsMobilePlatform()) {
+				// 모바일 일 경우
+				if(CAccess.IsMobile()) {
 					nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
 				} else {
-					string oKey = CAccess.IsConsolePlatform() ? 
+					string oKey = CAccess.IsConsole() ? 
 						KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
 
 					nTargetFrameRate = CValueTable.Instance.GetInt(oKey);
