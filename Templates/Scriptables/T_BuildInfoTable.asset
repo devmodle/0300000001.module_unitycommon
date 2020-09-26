@@ -25,7 +25,7 @@ MonoBehaviour:
     m_oCategory: public.app-category.games
   m_stiOSBuildInfo:
     m_oTeamID: 8XBEE2A299
-    m_oTargetOSVersion: 10.0
+    m_oTargetOSVersion: 11.0
     m_oDevProfileID: ba2539e1-bf43-4f23-aa01-44904040cf45
     m_oAdhocProfileID: 
     m_oStoreProfileID: 
