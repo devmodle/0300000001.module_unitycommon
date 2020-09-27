@@ -46,6 +46,14 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 					m_eBannerAdsType = CPluginInfoTable.Instance.BannerAdsType,
 
 #if ADMOB_ENABLE
+#if UNITY_IOS
+					m_oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oiOSAdmobIDList,
+#elif UNITY_ANDROID
+					m_oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oAndroidAdmobIDList,
+#else
+					m_oAdmobIDList = new List<string>(),
+#endif			// #if UNITY_IOS
+
 					m_stAdmobParams = new CAdsManager.STAdmobParams() {
 						m_oAdsIDList = new Dictionary<string, string>() {
 							[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oBannerAdsID,
@@ -53,10 +61,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oFullscreenAdsID
 						}
 					},
-
-					m_oAdmobIDList = CDeviceInfoTable.Instance.AdmobIDList,
-#else
-					m_oAdmobIDList = new List<string>(),
 #endif			// #if ADMOB_ENABLE
 
 #if IRON_SOURCE_ENABLE
@@ -110,20 +114,20 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if FIREBASE_MODULE_ENABLE
 #if FIREBASE_REMOTE_CONFIG_ENABLE
 				var oGameConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG);
-				var oDeviceConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_DEVICE_CONFIG);
 				var oBuildVersionConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
 
+				string oDeviceConfig = CDeviceInfoTable.Instance.DeviceConfig.ExToJSONString();
+				
 				CAccess.Assert(oGameConfig.ExIsValid() && 
-					oDeviceConfig.ExIsValid() && oBuildVersionConfig.ExIsValid());
+					oBuildVersionConfig.ExIsValid() && oDeviceConfig.ExIsValid());
 
 				var oConfigList = new Dictionary<string, object>() {
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = oDeviceConfig.text,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = oDeviceConfig,
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
 				};
 
 				CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
-				CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_DEVICE_CONFIG, true);
 				CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
 #else
 				var oConfigList = new Dictionary<string, object>();
