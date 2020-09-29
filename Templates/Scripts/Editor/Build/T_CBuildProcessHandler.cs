@@ -13,23 +13,23 @@ using UnityEditor.iOS.Xcode;
 
 //! 빌드 프로세스 처리자
 public static partial class CBuildProcessHandler {
+	#region 클래스 변수
+	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessBuildList = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
+		[BuildTarget.StandaloneOSX] = CBuildProcessHandler.OnPostProcessStandaloneBuild,
+		[BuildTarget.StandaloneWindows] = CBuildProcessHandler.OnPostProcessStandaloneBuild,
+		[BuildTarget.StandaloneWindows64] = CBuildProcessHandler.OnPostProcessStandaloneBuild,
+
+		[BuildTarget.iOS] = CBuildProcessHandler.OnPostProcessiOSBuild,
+		[BuildTarget.Android] = CBuildProcessHandler.OnPostProcessAndroidBuild
+	};
+	#endregion			// 클래스 변수
+
+	#region 클래스 함수
 	//! 빌드가 완료 되었을 경우
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
-		bool bIsWindows = a_eTarget == BuildTarget.StandaloneWindows || a_eTarget == BuildTarget.StandaloneWindows64;
-
-		// 독립 플랫폼 일 경우
-		if(bIsWindows || a_eTarget == BuildTarget.StandaloneOSX) {
-			CBuildProcessHandler.OnPostProcessStandaloneBuild(a_eTarget, a_oPath);
-		}
-		// iOS 일 경우
-		else if(a_eTarget == BuildTarget.iOS) {
-			CBuildProcessHandler.OnPostProcessiOSBuild(a_eTarget, a_oPath);
-		}
-		// 안드로이드 일 경우
-		else if(a_eTarget == BuildTarget.Android) {
-			CBuildProcessHandler.OnPostProcessAndroidBuild(a_eTarget, a_oPath);
-		}
+		CAccess.Assert(CBuildProcessHandler.m_oPostProcessBuildList.ContainsKey(a_eTarget));
+		CBuildProcessHandler.m_oPostProcessBuildList[a_eTarget](a_eTarget, a_oPath);
 	}
 
 	//! 독립 플랫폼 빌드가 완료 되었을 경우
@@ -90,7 +90,10 @@ public static partial class CBuildProcessHandler {
 
 			// 푸시 알림 추가가 가능 할 경우
 			if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
-				oCapability.AddPushNotifications(!CCommonPlatformBuilder.IsDistributionBuild);
+				bool bIsDevBuild = CCommonPlatformBuilder.BuildType != EBuildType.ADHOC && 
+					CCommonPlatformBuilder.BuildType != EBuildType.STORE;
+
+				oCapability.AddPushNotifications(bIsDevBuild);
 			}
 			// 게임 센터 추가가 가능 할 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
@@ -113,6 +116,7 @@ public static partial class CBuildProcessHandler {
 
 #endif			// #if UNITY_ANDROID
 	}
+	#endregion			// 클래스 함수
 }
 #endif			// #if UNITY_EDITOR
 #endif			// #if NEVER_USE_THIS

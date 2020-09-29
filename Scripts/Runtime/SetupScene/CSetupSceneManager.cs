@@ -4,6 +4,10 @@ using UnityEngine;
 
 //! 설정 씬 관리자
 public abstract partial class CSetupSceneManager : CSceneManager {
+	#region 변수
+	private new Dictionary<string, System.Action<string>> m_oDeviceMsgHandlerList = new Dictionary<string, System.Action<string>>();
+	#endregion			// 변수
+
 	#region 클래스 객체
 	private static GameObject m_oDebugUI = null;
 	private static GameObject m_oPopupUI = null;
@@ -26,6 +30,14 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	#region 함수
 	//! 초기화
+	public override void Awake() {
+		base.Awake();
+
+		m_oDeviceMsgHandlerList.Add(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
+		m_oDeviceMsgHandlerList.Add(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
+	}
+
+	//! 초기화
 	public sealed override void Start() {
 		base.Start();
 		StartCoroutine(this.OnStart());
@@ -33,14 +45,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 디바이스 메세지를 수신했을 경우
 	public void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
-		// 디바이스 식별자 반환 메세지 일 경우
-		if(a_oCmd.ExIsEquals(KCDefine.B_CMD_GET_DEVICE_ID)) {
-			this.HandleGetDeviceIDMsg(a_oMsg);
-		}
-		// 국가 코드 반환 메세지 일 경우
-		else if(a_oCmd.ExIsEquals(KCDefine.B_CMD_GET_COUNTRY_CODE)) {
-			this.HandleGetCountryCodeMsg(a_oMsg);
-		}
+		CAccess.Assert(m_oDeviceMsgHandlerList.ContainsKey(a_oCmd));
+		m_oDeviceMsgHandlerList[a_oCmd](a_oMsg);
 	}
 
 	//! 씬을 설정한다
