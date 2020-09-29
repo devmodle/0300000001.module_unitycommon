@@ -35,175 +35,173 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		// 지연 설정이 필요 할 경우
-		if(!CSceneManager.IsLateSetup) {
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		CAccess.Assert(!CSceneManager.IsLateSetup);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-			// 관리자 자동 초기화 모드 일 경우
-			if(this.IsAutoInitManager) {
+		// 관리자 자동 초기화 모드 일 경우
+		if(this.IsAutoInitManager) {
 #if ADS_MODULE_ENABLE
-				var stAdsParams = new CAdsManager.STParams() {
-					m_eBannerAdsType = CPluginInfoTable.Instance.BannerAdsType,
+			var stAdsParams = new CAdsManager.STParams() {
+				m_eBannerAdsType = CPluginInfoTable.Instance.BannerAdsType,
 
 #if ADMOB_ENABLE
 #if UNITY_IOS
-					m_oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oiOSAdmobIDList,
+				m_oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oiOSAdmobIDList,
 #elif UNITY_ANDROID
-					m_oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oAndroidAdmobIDList,
+				m_oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oAndroidAdmobIDList,
 #else
-					m_oAdmobIDList = new List<string>(),
+				m_oAdmobIDList = new List<string>(),
 #endif			// #if UNITY_IOS
 
-					m_stAdmobParams = new CAdsManager.STAdmobParams() {
-						m_oAdsIDList = new Dictionary<string, string>() {
-							[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oBannerAdsID,
-							[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oRewardAdsID,
-							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oFullscreenAdsID
-						}
-					},
+				m_stAdmobParams = new CAdsManager.STAdmobParams() {
+					m_oAdsIDList = new Dictionary<string, string>() {
+						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oBannerAdsID,
+						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oRewardAdsID,
+						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oFullscreenAdsID
+					}
+				},
 #endif			// #if ADMOB_ENABLE
 
 #if IRON_SOURCE_ENABLE
-					m_stIronSourceParams = new CAdsManager.STIronSourceParams() {
-						m_oAppKey = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oAppKey,
+				m_stIronSourceParams = new CAdsManager.STIronSourceParams() {
+					m_oAppKey = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oAppKey,
 
-						m_oAdsIDList = new Dictionary<string, string>() {
-							[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oBannerAdsID,
-							[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oRewardAdsID,
-							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oFullscreenAdsID
-						}
-					},
+					m_oAdsIDList = new Dictionary<string, string>() {
+						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oBannerAdsID,
+						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oRewardAdsID,
+						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oFullscreenAdsID
+					}
+				},
 #endif			// #if IRON_SOURCE_ENABLE
 
 #if APP_LOVIN_ENABLE
-					m_stAppLovinParams = new CAdsManager.STAppLovinParams() {
-						m_oSDKKey = CPluginInfoTable.Instance.AppLovinSDKKey,
+				m_stAppLovinParams = new CAdsManager.STAppLovinParams() {
+					m_oSDKKey = CPluginInfoTable.Instance.AppLovinSDKKey,
 
-						m_oAdsIDList = new Dictionary<string, string>() {
-							[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oBannerAdsID,
-							[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oRewardAdsID,
-							[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oFullscreenAdsID
-						}
+					m_oAdsIDList = new Dictionary<string, string>() {
+						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oBannerAdsID,
+						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oRewardAdsID,
+						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oFullscreenAdsID
 					}
+				}
 #endif			// #if APP_LOVIN_ENABLE
-				};
+			};
 
-				CAdsManager.Instance.Init(stAdsParams, CLateSetupSceneManager.OnInitAdsManager);
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+			CAdsManager.Instance.Init(stAdsParams, CLateSetupSceneManager.OnInitAdsManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-				CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryPluginInfo.m_oAPIKey, 
-					CLateSetupSceneManager.OnInitFlurryManager);
+			CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryPluginInfo.m_oAPIKey, 
+				CLateSetupSceneManager.OnInitFlurryManager);
 
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
-				CTenjinManager.Instance.Init(CPluginInfoTable.Instance.TenjinPluginInfo.m_oAPIKey,
-					CLateSetupSceneManager.OnInitTenjinManager);
+			CTenjinManager.Instance.Init(CPluginInfoTable.Instance.TenjinPluginInfo.m_oAPIKey,
+				CLateSetupSceneManager.OnInitTenjinManager);
 
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-				CFacebookManager.Instance.Init(CLateSetupSceneManager.OnInitFacebookManager);
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+			CFacebookManager.Instance.Init(CLateSetupSceneManager.OnInitFacebookManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 #if FIREBASE_REMOTE_CONFIG_ENABLE
-				var oGameConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG);
-				var oBuildVersionConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
+			var oGameConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG);
+			var oBuildVersionConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
 
-				string oDeviceConfig = CDeviceInfoTable.Instance.DeviceConfig.ExToJSONString();
+			string oDeviceConfig = CDeviceInfoTable.Instance.DeviceConfig.ExToJSONString();
 
-				CAccess.Assert(oGameConfig.ExIsValid() && 
-					oBuildVersionConfig.ExIsValid() && oDeviceConfig.ExIsValid());
+			CAccess.Assert(oGameConfig.ExIsValid() && 
+				oBuildVersionConfig.ExIsValid() && oDeviceConfig.ExIsValid());
 
-				var oConfigList = new Dictionary<string, object>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = oDeviceConfig,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
-				};
+			var oConfigList = new Dictionary<string, object>() {
+				[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
+				[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = oDeviceConfig,
+				[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
+			};
 
-				CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
-				CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
+			CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
+			CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
 
 #if MSG_PACK_ENABLE
-				CCommonAppInfoStorage.Instance.DeviceConfig = oDeviceConfig.ExJSONStringToObj<STDeviceConfig>();
+			CCommonAppInfoStorage.Instance.DeviceConfig = oDeviceConfig.ExJSONStringToObj<STDeviceConfig>();
 #endif			// #if MSG_PACK_ENABLE
 #else
-				var oConfigList = new Dictionary<string, object>();
+			var oConfigList = new Dictionary<string, object>();
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 
-				CFirebaseManager.Instance.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+			CFirebaseManager.Instance.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if UNITY_SERVICE_MODULE_ENABLE
-				CUnityServiceManager.Instance.Init(CLateSetupSceneManager.OnInitUnityServiceManager);
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+			CUnityServiceManager.Instance.Init(CLateSetupSceneManager.OnInitUnityServiceManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if UNITY_SERVICE_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-				CSingularManager.Instance.Init(CPluginInfoTable.Instance.SingularPluginInfo.m_oAPIKey,
-					CPluginInfoTable.Instance.SingularPluginInfo.m_oAPISecret, CLateSetupSceneManager.OnInitSingularManager);
-					
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+			CSingularManager.Instance.Init(CPluginInfoTable.Instance.SingularPluginInfo.m_oAPIKey,
+				CPluginInfoTable.Instance.SingularPluginInfo.m_oAPISecret, CLateSetupSceneManager.OnInitSingularManager);
+				
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-				CGameCenterManager.Instance.Init(CLateSetupSceneManager.OnInitGameCenterManager);
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+			CGameCenterManager.Instance.Init(CLateSetupSceneManager.OnInitGameCenterManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
-				CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, 
-					CLateSetupSceneManager.OnInitPurchaseManager);
+			CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, 
+				CLateSetupSceneManager.OnInitPurchaseManager);
 
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
 
 #if LOCAL_NOTI_MODULE_ENABLE
-				var stLocalNotiParams = new CLocalNotiManager.STParams() {
+			var stLocalNotiParams = new CLocalNotiManager.STParams() {
 #if UNITY_IOS
-					m_eNotiOptions = KCDefine.U_DEF_NOTI_OPTS_LOCAL_NM
+				m_eNotiOptions = KCDefine.U_DEF_NOTI_OPTS_LOCAL_NM
 #elif UNITY_ANDROID
-					m_eImportance = KCDefine.U_DEF_IMPORTANCE_LOCAL_NM,
+				m_eImportance = KCDefine.U_DEF_IMPORTANCE_LOCAL_NM,
 
-					m_oGroupID = KCDefine.U_DEF_GROUP_ID_LOCAL_NM,
-					m_oGroupName = KCDefine.U_DEF_GROUP_NAME_LOCAL_NM,
-					m_oGroupDesc = KCDefine.U_DEF_GROUP_DESC_LOCAL_NM
+				m_oGroupID = KCDefine.U_DEF_GROUP_ID_LOCAL_NM,
+				m_oGroupName = KCDefine.U_DEF_GROUP_NAME_LOCAL_NM,
+				m_oGroupDesc = KCDefine.U_DEF_GROUP_DESC_LOCAL_NM
 #endif			// #if UNITY_IOS
-				};
+			};
 
-				CLocalNotiManager.Instance.Init(stLocalNotiParams, CLateSetupSceneManager.OnInitLocalNotiManager);
-				yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if LOCAL_NOTI_MODULE_ENABLE
-			}
-
-			this.Setup();
+			CLocalNotiManager.Instance.Init(stLocalNotiParams, CLateSetupSceneManager.OnInitLocalNotiManager);
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-
-			this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oComponent, a_oParams) => {
-				bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_INIT);
-				bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SETUP);
-				bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_START);
-				bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SPLASH);
-				bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_AGREE);
-				bool bIsLateSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_LATE_SETUP);
-
-				CSceneManager.IsLateSetup = true;
-
-				// 인트로 씬 로드가 필요 할 경우
-				if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene || bIsLateSetupScene) {
-					CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
-				} else {
-					CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
-				}
-			});
+#endif			// #if LOCAL_NOTI_MODULE_ENABLE
 		}
+
+		this.Setup();
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+
+		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oComponent, a_oParams) => {
+			bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_INIT);
+			bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SETUP);
+			bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_START);
+			bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SPLASH);
+			bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_AGREE);
+			bool bIsLateSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_LATE_SETUP);
+			
+			CSceneManager.IsLateSetup = true;
+
+			// 인트로 씬 로드가 필요 할 경우
+			if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene || bIsLateSetupScene) {
+				CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
+			} else {
+				CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
+			}
+		});
 	}
 	#endregion			// 함수
 

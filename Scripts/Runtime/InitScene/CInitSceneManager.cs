@@ -55,119 +55,118 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		// 초기화가 필요 할 경우
-		if(!CSceneManager.IsInit) {
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-			CActivityIndicatorManager.Instance.StartActivityIndicator(true, false);
+		CAccess.Assert(!CSceneManager.IsInit);
 
-			// 간격을 설정한다
-			this.SetupOffsets();
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		CActivityIndicatorManager.Instance.StartActivityIndicator(true, false);
 
-			// iOS 를 설정한다 {
+		// 간격을 설정한다
+		this.SetupOffsets();
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+
+		// iOS 를 설정한다 {
 #if UNITY_IOS
-			Device.SetNoBackupFlag(KCDefine.B_DIR_PATH_WRITABLE);
-			Device.SetNoBackupFlag(KCDefine.U_IMG_PATH_SCREENSHOT);
+		Device.SetNoBackupFlag(KCDefine.B_DIR_PATH_WRITABLE);
+		Device.SetNoBackupFlag(KCDefine.U_IMG_PATH_SCREENSHOT);
 
-			Device.hideHomeButton = false;
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		Device.hideHomeButton = false;
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if UNITY_IOS
-			// iOS 를 설정한다 }
+		// iOS 를 설정한다 }
 
-			// 관리자를 생성한다 {
-			CLogManager.Create();
-			CSndManager.Create();
-			CResManager.Create();
-			CTaskManager.Create();
-			CScheduleManager.Create();
-			CNavStackManager.Create();
-			CToastPopupManager.Create();
-			CActivityIndicatorManager.Create();
+		// 관리자를 생성한다 {
+		CLogManager.Create();
+		CSndManager.Create();
+		CResManager.Create();
+		CTaskManager.Create();
+		CScheduleManager.Create();
+		CNavStackManager.Create();
+		CToastPopupManager.Create();
+		CActivityIndicatorManager.Create();
 
 #if UNITY_ANDROID
-			CPermissionManager.Create();
+		CPermissionManager.Create();
 #endif			// #if UNITY_ANDROID
 
 #if ADS_MODULE_ENABLE
-			CAdsManager.Create();
+		CAdsManager.Create();
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-			CFlurryManager.Create();
+		CFlurryManager.Create();
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
-			CTenjinManager.Create();
+		CTenjinManager.Create();
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-			CFacebookManager.Create();
+		CFacebookManager.Create();
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-			CFirebaseManager.Create();
+		CFirebaseManager.Create();
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if UNITY_SERVICE_MODULE_ENABLE
-			CUnityServiceManager.Create();
+		CUnityServiceManager.Create();
 #endif			// #if UNITY_SERVICE_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-			CSingularManager.Create();
+		CSingularManager.Create();
 #endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-			CGameCenterManager.Create();
+		CGameCenterManager.Create();
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
-			CPurchaseManager.Create();
+		CPurchaseManager.Create();
 #endif			// #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
 
 #if LOCAL_NOTI_MODULE_ENABLE
-			CLocalNotiManager.Create();
+		CLocalNotiManager.Create();
 #endif			// #if LOCAL_NOTI_MODULE_ENABLE
 
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-			// 관리자를 생성한다 }
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		// 관리자를 생성한다 }
 
-			// 디바이스 연동 객체를 생성한다 {
-			CUnityMsgSender.Create();
-			CDeviceMsgReceiver.Create();
+		// 디바이스 연동 객체를 생성한다 {
+		CUnityMsgSender.Create();
+		CDeviceMsgReceiver.Create();
 
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-			// 디바이스 연동 객체를 생성한다 }
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		// 디바이스 연동 객체를 생성한다 }
 
-			// 테이블을 생성한다 {
-			CValueTable.Create();
-			CStringTable.Create();
+		// 테이블을 생성한다 {
+		CValueTable.Create();
+		CStringTable.Create();
 
-			CBuildInfoTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_INFO_TABLE);
-			CBuildOptTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_OPT_TABLE);
-			CDefineSymbolTable.Create(KCDefine.U_ASSET_PATH_G_DEFINE_SYMBOL_TABLE);
-			CProjInfoTable.Create(KCDefine.U_ASSET_PATH_G_PROJ_INFO_TABLE);
-			CDeviceInfoTable.Create(KCDefine.U_ASSET_PATH_G_DEVICE_INFO_TABLE);
+		CBuildInfoTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_INFO_TABLE);
+		CBuildOptTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_OPT_TABLE);
+		CDefineSymbolTable.Create(KCDefine.U_ASSET_PATH_G_DEFINE_SYMBOL_TABLE);
+		CProjInfoTable.Create(KCDefine.U_ASSET_PATH_G_PROJ_INFO_TABLE);
+		CDeviceInfoTable.Create(KCDefine.U_ASSET_PATH_G_DEVICE_INFO_TABLE);
 
 #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE
-			CPluginInfoTable.Create(KCDefine.U_ASSET_PATH_G_PLUGIN_INFO_TABLE);
+		CPluginInfoTable.Create(KCDefine.U_ASSET_PATH_G_PLUGIN_INFO_TABLE);
 #endif			// #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			CProductInfoTable.Create(KCDefine.U_ASSET_PATH_G_PRODUCT_INFO_TABLE);
+		CProductInfoTable.Create(KCDefine.U_ASSET_PATH_G_PRODUCT_INFO_TABLE);
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-			// 테이블을 생성한다 }
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		// 테이블을 생성한다 }
 
-			// 저장소를 생성한다 {
+		// 저장소를 생성한다 {
 #if MSG_PACK_ENABLE
-			CCommonAppInfoStorage.Create();
-			CCommonUserInfoStorage.Create();
+		CCommonAppInfoStorage.Create();
+		CCommonUserInfoStorage.Create();
 #endif			// #if MSG_PACK_ENABLE
 
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-			// 저장소를 생성한다 }
-		}
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		// 저장소를 생성한다 }
 
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);

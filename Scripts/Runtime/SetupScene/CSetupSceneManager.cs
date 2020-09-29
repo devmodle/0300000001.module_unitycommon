@@ -104,58 +104,56 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		// 설정이 필요 할 경우
-		if(!CSceneManager.IsSetup) {
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		CAccess.Assert(!CSceneManager.IsSetup);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-			// 디바이스 정보를 설정한다 {
-			int nQualityLevel = CValueTable.Instance.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
-			int nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE);
+		// 디바이스 정보를 설정한다 {
+		int nQualityLevel = CValueTable.Instance.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
+		int nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE);
 
-			// 데스크 탑 일 경우
-			if(CAccess.IsDesktop()) {
-				Screen.SetResolution(KCDefine.B_DESKTOP_WINDOW_WIDTH, 
-					KCDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
+		// 데스크 탑 일 경우
+		if(CAccess.IsDesktop()) {
+			Screen.SetResolution(KCDefine.B_DESKTOP_WINDOW_WIDTH, 
+				KCDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
+		} else {
+			// 모바일 일 경우
+			if(CAccess.IsMobile()) {
+				nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
 			} else {
-				// 모바일 일 경우
-				if(CAccess.IsMobile()) {
-					nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
-				} else {
-					string oKey = CAccess.IsConsole() ? 
-						KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
+				string oKey = CAccess.IsConsole() ? 
+					KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
 
-					nTargetFrameRate = CValueTable.Instance.GetInt(oKey);
-				}
+				nTargetFrameRate = CValueTable.Instance.GetInt(oKey);
 			}
+		}
 
-			Input.multiTouchEnabled = CValueTable.Instance.GetBool(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE);
-			Application.targetFrameRate = Mathf.Min(nTargetFrameRate, Screen.currentResolution.refreshRate);
-			
-			CFunc.SetupQuality((EQualityLevel)nQualityLevel, true);
-			// 디바이스 정보를 설정한다 }
+		Input.multiTouchEnabled = CValueTable.Instance.GetBool(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE);
+		Application.targetFrameRate = Mathf.Min(nTargetFrameRate, Screen.currentResolution.refreshRate);
+		
+		CFunc.SetupQuality((EQualityLevel)nQualityLevel, true);
+		// 디바이스 정보를 설정한다 }
 
 #if DEBUG || DEVELOPMENT_BUILD
-			CUnityMsgSender.Instance.SendSetBuildModeMsg(true);
+		CUnityMsgSender.Instance.SendSetBuildModeMsg(true);
 #else
-			CUnityMsgSender.Instance.SendSetBuildModeMsg(false);
+		CUnityMsgSender.Instance.SendSetBuildModeMsg(false);
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-			
-			// 저장소를 설정한다 {
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		
+		// 저장소를 설정한다 {
 #if MSG_PACK_ENABLE
-			CCommonAppInfoStorage.Instance.LoadAppInfo();
+		CCommonAppInfoStorage.Instance.LoadAppInfo();
 #endif			// #if MSG_PACK_ENABLE
 
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-			// 저장소를 설정한다 }
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		// 저장소를 설정한다 }
 
-			this.Setup();
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		this.Setup();
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-			// 디바이스 식별자 반환 메세지를 전송한다
-			CUnityMsgSender.Instance.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
-		}
+		// 디바이스 식별자 반환 메세지를 전송한다
+		CUnityMsgSender.Instance.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
 	}
 	#endregion			// 함수
 }

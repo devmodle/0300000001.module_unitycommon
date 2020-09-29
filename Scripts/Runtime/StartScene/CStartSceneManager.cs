@@ -31,13 +31,13 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		// 시작이 필요 할 경우
-		if(!CSceneManager.IsStart) {
-			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		CAccess.Assert(!CSceneManager.IsStart);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-			this.Setup();
-			CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_SETUP);
-		}
+		this.Setup();
+
+		CSceneManager.IsStart = true;
+		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_SETUP);
 	}
 	#endregion			// 함수
 }
