@@ -139,7 +139,7 @@ public static partial class KEditorDefine {
 		["com.google.play.review"] = "1.2.0",
 
 #if CINEMACHINE_ENABLE
-		["com.unity.cinemachine"] = "2.6.2",
+		["com.unity.cinemachine"] = "2.6.3",
 #endif			// #if CINEMACHINE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
