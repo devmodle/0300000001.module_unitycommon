@@ -509,9 +509,6 @@ public static partial class KDefine {
 	public const string U_KEY_ADS_M_FULLSCREEN_ADS_ID = "AdsMFullscreenAdsID";
 	public const string U_KEY_ADS_M_NATIVE_ADS_ID = "AdsMNativeAdsID";
 
-	public const string U_KEY_ADS_M_BANNER_ADS_PLACEMENT = "AdsMBannerAdsPlacement";
-	public const string U_KEY_ADS_M_REWARD_ADS_PLACEMENT = "AdsMRewardAdsPlacement";
-	public const string U_KEY_ADS_M_FULLSCREEN_ADS_PLACEMENT = "AdsMFullscreenAdsPlacement";
 
 #if ADMOB_ENABLE
 	public const float U_OFFSET_ADMOB_BANNER_ADS = 5.0f;
