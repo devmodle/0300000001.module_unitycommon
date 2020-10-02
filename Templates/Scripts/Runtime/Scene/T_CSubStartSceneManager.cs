@@ -45,7 +45,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	}
 
 	//! 약관 동의 씬 관리자 이벤트를 수신했을 경우
-	public override void OnReceiveAgreeSceneManagerEvent(EAgreeSceneManagerEventType a_eEventType) {
+	protected override void OnReceiveAgreeSceneManagerEvent(EAgreeSceneManagerEventType a_eEventType) {
 		// Do Nothing
 	}
 
@@ -59,7 +59,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 			m_oStringBuilder.Clear();
 			m_oStringBuilder.Append(oLoading);
-
+			
 			for(int i = 0; i < m_nNumDots + 1; ++i) {
 				m_oStringBuilder.Append(oDot);
 			}

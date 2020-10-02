@@ -101,9 +101,9 @@ public static partial class KEditorDefine {
 		[typeof(CGameCenterManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
-#if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
+#if PURCHASE_MODULE_ENABLE
 		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-#endif			// #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE
 
 #if LOCAL_NOTI_MODULE_ENABLE
 		[typeof(CLocalNotiManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON

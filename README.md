@@ -1,26 +1,31 @@
 # 유니티 공용 모듈
 1. **필수 에셋 및 플러그인 리스트**
-	- *DOTween Pro (Ver.1.0.244 - Jul 28, 2020)*
+	- *DOTween Pro (v1.0.244 - Jul 28, 2020)*
 2. **외부 에셋 및 플러그인 리스트**
-	- *Message Pack (Ver.2.1.152)*
-	- *iTween (Ver.2.0.10 - Apr 17, 2019)*
-	- *Total JSON (Ver.1.6.0 - Jun 3, 2020)*
-	- *Smart Timers Manager (Ver.1.0.0 - Jul 6, 2016)*
-	- *Advance Object Pool (Ver.1.1.0 - May 6, 2019)*
-	- *LINQ to GameObject (Ver.2.3.1 - Jan 9, 2018)*
-	- *Lite FPS Counter (Ver.1.0.0 - Jan 11, 2019)*
-	- *Native Share (Ver.1.3.6 - Agu 10, 2020)*
-	- *Sign in with Apple (Ver.1.1.0 - Aug 13, 2020)*
-	- *Rest Client for Unity (Ver.2.6.1 - Jun 11, 2020)*
-	- *Runtime File Browser (Ver.1.3.0 - Jun 9, 2020)*
-	- *Bitmap Font Importer (Ver.2.4.1 - May 6, 2019)*
-	- *UniRx (Ver.7.1.0 - Jul 4, 2019)*
+	- *Message Pack (v2.1.194)*
+	- *Excel Importer (v1.1.0)*
+	- *iTween (v2.0.10 - Apr 17, 2019)*
+	- *Total JSON (v1.6.0 - Jun 3, 2020)*
+	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
+	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
+	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
+	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
+	- *Native Share (v1.3.6 - Agu 10, 2020)*
+	- *Sign in with Apple (v1.1.0 - Aug 13, 2020)*
+	- *Rest Client for Unity (v2.6.1 - Jun 11, 2020)*
+	- *Runtime File Browser (v1.3.0 - Jun 9, 2020)*
+	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
+	- *UniRx (v7.1.0 - Jul 4, 2019)*
 3. **기타 추가 에셋 및 플러그인 리스트**
-	- *Admob*
-	- *Tenjin*
-	- *Flurry*
-	- *Facebook*
-	- *Unity IAP*
-	- *Google Play Services*
-	- *Unity Services (Analytics, Remote Config)*
-	- *Firebase (Auth, Database, Analytics, Remote Config, Cloud Messaging)*
+	- *Admob (v5.3.0)*
+	- *Iron Source (v7.0.1.1)*
+	- *App Lovin (v.3.1.3)*
+	- *Flurry (v3.1.0)*
+	- *Tenjin (v1.9.4)*
+	- *Facebook (v8.0.0)*
+	- *Firebase (v6.15.2 - Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging)*
+	- *Unity Services (Analytics, Crashlytics)*
+	- *Singular (v2.1.0)*
+	- *Google Play Services (v0.10.11)*
+	- *Unity IAP (v2.1.1)*
+	- *Unity Notification (v1.0.3)*

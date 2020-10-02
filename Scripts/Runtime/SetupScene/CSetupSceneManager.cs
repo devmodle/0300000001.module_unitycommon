@@ -5,7 +5,7 @@ using UnityEngine;
 //! 설정 씬 관리자
 public abstract partial class CSetupSceneManager : CSceneManager {
 	#region 변수
-	private new Dictionary<string, System.Action<string>> m_oDeviceMsgHandlerList = new Dictionary<string, System.Action<string>>();
+	private Dictionary<string, System.Action<string>> m_oDeviceMsgHandlerList = new Dictionary<string, System.Action<string>>();
 	#endregion			// 변수
 
 	#region 클래스 객체
@@ -44,7 +44,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	}
 
 	//! 디바이스 메세지를 수신했을 경우
-	public void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
+	private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
 		CAccess.Assert(m_oDeviceMsgHandlerList.ContainsKey(a_oCmd));
 		m_oDeviceMsgHandlerList[a_oCmd](a_oMsg);
 	}

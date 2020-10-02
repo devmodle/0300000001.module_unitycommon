@@ -14,7 +14,7 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	#region 추상 함수
 	//! 약관 동의 씬 관리자 이벤트를 수신했을 경우
-	public abstract void OnReceiveAgreeSceneManagerEvent(EAgreeSceneManagerEventType a_eEventType);
+	protected abstract void OnReceiveAgreeSceneManagerEvent(EAgreeSceneManagerEventType a_eEventType);
 	#endregion			// 추상 함수
 
 	#region 함수

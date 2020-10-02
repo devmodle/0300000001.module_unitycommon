@@ -120,9 +120,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CGameCenterManager.Create();
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
-#if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
+#if PURCHASE_MODULE_ENABLE
 		CPurchaseManager.Create();
-#endif			// #if PURCHASE_MODULE_ENABLE && MSG_PACK_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE
 
 #if LOCAL_NOTI_MODULE_ENABLE
 		CLocalNotiManager.Create();

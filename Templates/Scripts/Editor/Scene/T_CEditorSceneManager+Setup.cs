@@ -32,9 +32,8 @@ public static partial class CEditorSceneManager {
 		var oPkgInfoList = m_oListRequest.Result.ToList();
 
 		foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_LIST) {
-			int nIndex = oPkgInfoList.ExFindValue((a_oPkgInfo) => {
-				return a_oPkgInfo.name.ExIsEquals(stKeyValue.Key);
-			});
+			int nIndex = oPkgInfoList.ExFindValue((a_oPkgInfo) => 
+				a_oPkgInfo.name.ExIsEquals(stKeyValue.Key));
 
 			// 독립 패키지 추가가 가능 할 경우
 			if(nIndex <= KCDefine.B_INDEX_INVALID) {
@@ -59,9 +58,8 @@ public static partial class CEditorSceneManager {
 			oScopedRegistryList = oScopedRegistryList ?? new SimpleJSON.JSONArray();
 
 			foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_LIST) {
-				int nIndex = oScopedRegistryList.AsArray.ExFindValue((a_oJSONNode) => {
-					return stKeyValue.Key.ExIsEquals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_NAME_KEY]);
-				});
+				int nIndex = oScopedRegistryList.AsArray.ExFindValue((a_oJSONNode) => 
+					tKeyValue.Key.ExIsEquals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_NAME_KEY]));
 
 				// 패키지 레지스트리 추가가 가능 할 경우
 				if(nIndex <= KCDefine.B_INDEX_INVALID) {

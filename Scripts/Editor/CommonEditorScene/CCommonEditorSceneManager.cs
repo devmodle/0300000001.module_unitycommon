@@ -37,8 +37,21 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
+	//! 스크립트가 로드 되었을 경우
+	[UnityEditor.Callbacks.DidReloadScripts]
+	public static void OnLoadScript() {
+		// 상태 갱신이 가능 할 경우
+		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+			CCommonPlatformOptSetter.SetupPlayerOpts();
+			CCommonPlatformOptSetter.SetupEditorOpts();
+			CCommonPlatformOptSetter.SetupProjOpts();
+			CCommonPlatformOptSetter.SetupPluginProjs();
+			CCommonPlatformOptSetter.SetupGraphicAPIs();
+		}
+	}
+
 	//! 상태를 갱신한다
-	public static void Update() {
+	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState()) {
 			CCommonEditorSceneManager.m_fSkipTime += Time.unscaledDeltaTime;
@@ -91,7 +104,7 @@ public static partial class CCommonEditorSceneManager {
 	}
 
 	//! 계층 뷰 UI 상태를 갱신한다
-	public static void UpdateHierarchyUIState(int a_nInstanceID, Rect a_stRect) {
+	private static void UpdateHierarchyUIState(int a_nInstanceID, Rect a_stRect) {
 		var oObj = EditorUtility.InstanceIDToObject(a_nInstanceID) as GameObject;
 
 		// 객체가 존재 할 경우
@@ -124,21 +137,8 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	//! 스크립트가 로드 되었을 경우
-	[UnityEditor.Callbacks.DidReloadScripts]
-	public static void OnLoadScript() {
-		// 상태 갱신이 가능 할 경우
-		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
-			CCommonPlatformOptSetter.SetupPlayerOpts();
-			CCommonPlatformOptSetter.SetupEditorOpts();
-			CCommonPlatformOptSetter.SetupProjOpts();
-			CCommonPlatformOptSetter.SetupPluginProjs();
-			CCommonPlatformOptSetter.SetupGraphicAPIs();
-		}
-	}
-
 	//! 플레이 모드가 변경 되었을 경우
-	public static void OnChangePlayMode(PlayModeStateChange a_eStateChange) {
+	private static void OnChangePlayMode(PlayModeStateChange a_eStateChange) {
 		if(a_eStateChange == PlayModeStateChange.EnteredEditMode) {
 			CFunc.EnumerateScenes((a_stScene) => {
 				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
@@ -151,7 +151,7 @@ public static partial class CCommonEditorSceneManager {
 	}
 
 	//! 씬이 열렸을 경우
-	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
+	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		// 상태 갱신이 가능 할 경우
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
 			CCommonPlatformOptSetter.SetupProjOpts();

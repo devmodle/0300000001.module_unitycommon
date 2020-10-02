@@ -27,8 +27,18 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
+	//! 스크립트가 로드 되었을 경우
+	[UnityEditor.Callbacks.DidReloadScripts]
+	public static void OnLoadScript() {
+		// 상태 갱신이 가능 할 경우
+		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+			CEditorSceneManager.SetupCallbacks();
+			CEditorSceneManager.m_oListRequest = Client.List();
+		}
+	}
+
 	//! 상태를 갱신한다
-	public static void Update() {
+	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState()) {
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
@@ -47,15 +57,14 @@ public static partial class CEditorSceneManager {
 			if(CEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_SCRIPT_M_SCENE_UPDATE) {
 				CEditorSceneManager.m_fSkipTime = 0.0f;
 				
-				CFunc.EnumerateScenes((a_stScene) => {
-					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
-				});
+				CFunc.EnumerateScenes((a_stScene) => 
+					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST));
 			}
 		}
 	}
 
 	//! 독립 패키지 상태를 갱신한다
-	public static void UpdateDependencyState() {
+	private static void UpdateDependencyState() {
 		// 리스트 요청이 완료 되었을 경우
 		if(m_oListRequest.ExIsComplete()) {
 			try {
@@ -68,23 +77,13 @@ public static partial class CEditorSceneManager {
 	}
 
 	//! 패키지 레지스트리 상태를 갱신한다
-	public static void UpdateScopedRegistryState() {
+	private static void UpdateScopedRegistryState() {
 		CEditorSceneManager.SetupScopedRegistries();
 		EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
 	}
 
-	//! 스크립트가 로드 되었을 경우
-	[UnityEditor.Callbacks.DidReloadScripts]
-	public static void OnLoadScript() {
-		// 상태 갱신이 가능 할 경우
-		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
-			CEditorSceneManager.SetupCallbacks();
-			CEditorSceneManager.m_oListRequest = Client.List();
-		}
-	}
-
 	//! 씬이 열렸을 경우
-	public static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
+	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		CEditorSceneManager.OnLoadScript();
 
 		// 패키지 레지스트리를 복사한다
