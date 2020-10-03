@@ -61,6 +61,23 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CSetupSceneManager.m_oTimerManager = oTimerManager;
 		}
 	}
+
+	//! 디버그 콘솔을 설정한다
+	private void SetupDebugConsole() {
+		// 디버그 콘솔이 없을 경우
+		if(CSetupSceneManager.m_oDebugConsole == null) {
+			var oDebugConsole = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_DEBUG_CONSOLE,
+				CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_DEBUG_CONSOLE), null);
+
+			CSetupSceneManager.m_oDebugConsole = oDebugConsole;
+
+			CSceneManager.ScreenDebugConsole = oDebugConsole;
+			CSceneManager.ScreenDebugConsole.SetActive(false);
+
+			DontDestroyOnLoad(oDebugConsole);
+			CFunc.SetupScreenUI(oDebugConsole, KCDefine.U_SORTING_ORDER_DEBUG_CONSOLE);
+		}
+	}
 	#endregion			// 함수
 
 		#region 조건부 함수
@@ -73,25 +90,24 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_SCREEN_DEBUG_UI), null);
 
 			CSetupSceneManager.m_oDebugUI = oDebugUI;
+			CSceneManager.ScreenDebugUIRoot = oDebugUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_DEBUG_UI_ROOT);
 
-			CSceneManager.ScreenDebugUIRoot = oDebugUI.ExFindChild(KCDefine.U_NAME_SCREEN_DEBUG_UI_ROOT);
-			CSceneManager.ScreenDebugTextRoot = oDebugUI.ExFindChild(KCDefine.U_NAME_SCREEN_DEBUG_TEXT_ROOT);
+			CSceneManager.ScreenDebugTextRoot = oDebugUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_DEBUG_TEXT_ROOT);
+			CSceneManager.ScreenDebugTextRoot.SetActive(false);
 
-			CSceneManager.ScreenFPSBtn = oDebugUI.ExFindComponent<Button>(KCDefine.U_NAME_SCREEN_FPS_BTN);
+			CSceneManager.ScreenFPSBtn = oDebugUI.ExFindComponent<Button>(KCDefine.U_OBJ_NAME_SCREEN_FPS_BTN);
 			CSceneManager.ScreenFPSBtn.gameObject.SetActive(false);
 
-			CSceneManager.ScreenDebugBtn = oDebugUI.ExFindComponent<Button>(KCDefine.U_NAME_SCREEN_DEBUG_BTN);
+			CSceneManager.ScreenDebugBtn = oDebugUI.ExFindComponent<Button>(KCDefine.U_OBJ_NAME_SCREEN_DEBUG_BTN);
 			CSceneManager.ScreenDebugBtn.gameObject.SetActive(false);
 
-			CSceneManager.ScreenStaticDebugText = oDebugUI.ExFindComponent<Text>(KCDefine.U_NAME_SCREEN_STATIC_DEBUG_TEXT);
+			CSceneManager.ScreenStaticDebugText = oDebugUI.ExFindComponent<Text>(KCDefine.U_OBJ_NAME_SCREEN_STATIC_DEBUG_TEXT);
 			CSceneManager.ScreenStaticDebugText.raycastTarget = false;
 
-			CSceneManager.ScreenDynamicDebugText = oDebugUI.ExFindComponent<Text>(KCDefine.U_NAME_SCREEN_DYNAMIC_DEBUG_TEXT);
+			CSceneManager.ScreenDynamicDebugText = oDebugUI.ExFindComponent<Text>(KCDefine.U_OBJ_NAME_SCREEN_DYNAMIC_DEBUG_TEXT);
 			CSceneManager.ScreenDynamicDebugText.raycastTarget = false;
 
 			DontDestroyOnLoad(oDebugUI);
-
-			CSceneManager.ScreenDebugTextRoot.SetActive(false);
 			CFunc.SetupScreenUI(oDebugUI, KCDefine.U_SORTING_ORDER_SCREEN_DEBUG_UI);
 		}
 	}
@@ -107,13 +123,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 			CSetupSceneManager.m_oFPSCounter = oFPSCounter;
 
-			CSetupSceneManager.ScreenStaticFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_NAME_SCREEN_STATIC_FPS_TEXT);
-			CSetupSceneManager.ScreenStaticFPSText.enabled = false;
-			CSetupSceneManager.ScreenStaticFPSText.raycastTarget = false;
+			CSceneManager.ScreenStaticFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_OBJ_NAME_FPS_C_STATIC_TEXT);
+			CSceneManager.ScreenStaticFPSText.enabled = false;
+			CSceneManager.ScreenStaticFPSText.raycastTarget = false;
 
-			CSetupSceneManager.ScreenDynamicFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_NAME_SCREEN_DYNAMIC_FPS_TEXT);
-			CSetupSceneManager.ScreenDynamicFPSText.enabled = false;
-			CSetupSceneManager.ScreenDynamicFPSText.raycastTarget = false;
+			CSceneManager.ScreenDynamicFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_OBJ_NAME_FPS_C_DYNAMIC_TEXT);
+			CSceneManager.ScreenDynamicFPSText.enabled = false;
+			CSceneManager.ScreenDynamicFPSText.raycastTarget = false;
 
 			DontDestroyOnLoad(oFPSCounter);
 			CFunc.SetupScreenUI(oFPSCounter, KCDefine.U_SORTING_ORDER_FPS_COUNTER);

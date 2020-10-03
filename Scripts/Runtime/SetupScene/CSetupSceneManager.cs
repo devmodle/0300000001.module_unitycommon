@@ -13,7 +13,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private static GameObject m_oPopupUI = null;
 	private static GameObject m_oTopmostUI = null;
 	private static GameObject m_oAbsUI = null;
-	private static GameObject m_oTimerManager = null;
+	private static GameObject m_oTimerManager = null;	
+	private static GameObject m_oDebugConsole = null;	
 
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	private static GameObject m_oFPSCounter = null;
@@ -55,6 +56,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		this.SetupTopmostUI();
 		this.SetupAbsUI();
 		this.SetupTimerManager();
+		this.SetupDebugConsole();
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		this.SetupDebugUI();

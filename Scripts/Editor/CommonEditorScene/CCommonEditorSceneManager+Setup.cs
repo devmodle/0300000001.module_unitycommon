@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using IngameDebugConsole;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -100,20 +101,76 @@ public static partial class CCommonEditorSceneManager {
 			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT));
 		}
 
-		// FPS 카운터를 설정한다 {
-		string oFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_FPS_COUNTER);
+		// 디버그 콘솔을 설정한다 {
+		string oDebugConsoleFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_DEBUG_CONSOLE);
+		string oDebugLogItemFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_DEBUG_LOG_ITEM);
 
-		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFilter, new string[] {
+		var oDebugConsoleList = CEditorFunc.FindAssets<GameObject>(oDebugConsoleFilter, new string[] {
+			KCEditorDefine.B_DIR_PATH_FILTER_DEBUG_CONSOLE
+		});
+
+		var oDebugLogItemList = CEditorFunc.FindAssets<GameObject>(oDebugLogItemFilter, new string[] {
+			KCEditorDefine.B_DIR_PATH_FILTER_DEBUG_LOG_ITEM
+		});
+
+		// 디버그 콘솔이 존재 할 경우
+		if(oDebugConsoleList.ExIsValid()) {
+			for(int i = 0; i < oDebugConsoleList.Count; ++i) {
+				var oLogWindow = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_NAME_DEBUG_C_LOG_WINDOW);
+				var oEventSystem = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_NAME_SCENE_EVENT_SYSTEM);
+
+				var oLogManager = oDebugConsoleList[i].GetComponentInChildren<DebugLogManager>();
+
+				var oWindowTransform = oLogWindow.transform as RectTransform;
+				oWindowTransform.pivot = KCDefine.B_ANCHOR_MIDDLE_CENTER;
+				oWindowTransform.anchorMin = KCDefine.B_ANCHOR_BOTTOM_LEFT;
+				oWindowTransform.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
+				oWindowTransform.anchoredPosition = Vector2.zero;
+				
+				// 이벤트 시스템이 존재 할 경우
+				if(oEventSystem != null) {
+					CAccess.RemoveObj(oEventSystem, true);
+				}
+
+				// 로그 관리자가 존재 할 경우
+				if(oLogManager != null && oDebugLogItemList.ExIsValid()) {
+					var oSerializeObj = new SerializedObject(oLogManager);
+
+					oSerializeObj.ExSetPropertyValue(KCEditorDefine.B_PROPERTY_NAME_DEBUG_C_LOG_ITEM_PREFAB, (a_oProperty) => 
+						a_oProperty.objectReferenceValue = oDebugLogItemList[KCDefine.B_INDEX_FIRST]);
+				}
+			}
+		}
+
+		// 디버그 로그 아이템이 존재 할 경우
+		if(oDebugLogItemList.ExIsValid()) {
+			for(int i = 0; i < oDebugLogItemList.Count; ++i) {
+				var oText = oDebugLogItemList[i].GetComponentInChildren<Text>();
+				oText.fontSize = KCEditorDefine.B_FONT_SIZE_DEBUG_C_TEXT;
+
+				var oTransform = oDebugLogItemList[i].transform as RectTransform;
+				oTransform.pivot = KCDefine.B_ANCHOR_TOP_LEFT;
+				oTransform.anchorMin = KCDefine.B_ANCHOR_TOP_LEFT;
+				oTransform.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
+				oTransform.sizeDelta = KCEditorDefine.B_SIZE_DEBUG_C_LOG_ITEM;
+			}
+		}
+		// 디버그 콘솔을 설정한다 }
+
+		// FPS 카운터를 설정한다 {
+		string oFPSCounterFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_FPS_COUNTER);
+
+		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFPSCounterFilter, new string[] {
 			KCEditorDefine.B_DIR_PATH_FILTER_FPS_COUNTER
 		});
 
 		// FPS 카운터가 존재 할 경우
 		if(oFPSCounterList.ExIsValid()) {
 			for(int i = 0; i < oFPSCounterList.Count; ++i) {
-				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_FPS_C_STATIC_TEXT);
+				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_NAME_FPS_C_STATIC_TEXT);
 				oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_STATIC_TEXT;
 
-				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_FPS_C_DYNAMIC_TEXT);
+				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_NAME_FPS_C_DYNAMIC_TEXT);
 				oDynamicText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_DYNAMIC_TEXT;
 
 				// 크기를 설정한다 {

@@ -31,6 +31,7 @@ public class CSubInitSceneManager : CInitSceneManager {
 #endif			// #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
 		CCommonUserInfoStorage.Instance.SaveUserInfo();
+		CCommonAppInfoStorage.Instance.DeviceConfig = CDeviceInfoTable.Instance.DeviceConfig;
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637f54d9f02384306b8cee6c0fac65de, type: 3}
   m_Name: T_DeviceInfoTable
   m_EditorClassIdentifier: 
-  m_oiOSAdmobDeviceIDList:
-  - cda4cbaf3ee1d95d96c9316c45ca1163
-  - b18f2566214cc419bac71a7c3df368ad
-  m_oAndroidAdmobDeviceIDList:
-  - 20883ADA1C122EA63419F9AF1FAD52F0
-  - 3E2176530B8BACFCD9C26AD844C0B3C3
+  m_stDeviceConfig:
+    m_oiOSAdsIDList:
+    - 843D04C1-BA66-4CAA-8C28-42CE142E36F7
+    m_oAndroidAdsIDList:
+    - 2e9584fb-838a-4885-9ec4-2527eab41ad1
+    - b1db7f05-768b-4060-aa0e-e0424faedfb5
+    - ac5dfbfd-0501-4d6d-a1fc-4fc10aa6d823
