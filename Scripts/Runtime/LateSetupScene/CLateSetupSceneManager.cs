@@ -185,7 +185,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oComponent, a_oParams) => {
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
+			EStartSceneEvent.LOAD_INTRO_SCENE);
+
+		this.ExLateCallFunc(KCDefine.U_DELAY_INIT, (a_oSender, a_oParams) => {
 			bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_INIT);
 			bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SETUP);
 			bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_START);

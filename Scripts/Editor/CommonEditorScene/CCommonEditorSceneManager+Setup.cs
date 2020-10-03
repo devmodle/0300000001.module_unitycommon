@@ -101,7 +101,6 @@ public static partial class CCommonEditorSceneManager {
 		}
 
 		// FPS 카운터를 설정한다 {
-#if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		string oFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_FPS_COUNTER);
 
 		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFilter, new string[] {
@@ -111,11 +110,11 @@ public static partial class CCommonEditorSceneManager {
 		// FPS 카운터가 존재 할 경우
 		if(oFPSCounterList.ExIsValid()) {
 			for(int i = 0; i < oFPSCounterList.Count; ++i) {
-				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_STATIC_TEXT);
-				oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_STATIC_TEXT;
+				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_FPS_C_STATIC_TEXT);
+				oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_STATIC_TEXT;
 
-				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_DYNAMIC_TEXT);
-				oDynamicText.fontSize = KCEditorDefine.B_FONT_SIZE_DYNAMIC_TEXT;
+				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCEditorDefine.B_OBJ_NAME_FPS_C_DYNAMIC_TEXT);
+				oDynamicText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_DYNAMIC_TEXT;
 
 				// 크기를 설정한다 {
 				var oStaticSizeFitter = oStaticText.gameObject.ExAddComponent<ContentSizeFitter>();
@@ -131,16 +130,15 @@ public static partial class CCommonEditorSceneManager {
 				oStaticText.rectTransform.pivot = KCDefine.B_ANCHOR_BOTTOM_RIGHT;
 				oStaticText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
 				oStaticText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
-				oStaticText.rectTransform.anchoredPosition = KCEditorDefine.B_POSITION_STATIC_TEXT;
+				oStaticText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_STATIC_TEXT;
 
 				oDynamicText.rectTransform.pivot = KCDefine.B_ANCHOR_BOTTOM_RIGHT;
 				oDynamicText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
 				oDynamicText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
-				oDynamicText.rectTransform.anchoredPosition = KCEditorDefine.B_POSITION_DYNAMIC_TEXT;
+				oDynamicText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_DYNAMIC_TEXT;
 				// 위치를 설정한다 }
 			}
 		}
-#endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		// FPS 카운터를 설정한다 }
 	}
 	

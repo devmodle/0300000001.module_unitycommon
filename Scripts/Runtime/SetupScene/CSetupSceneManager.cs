@@ -98,6 +98,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Instance.SaveAppInfo();
 #endif			// #if MSG_PACK_ENABLE
 
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
+			EStartSceneEvent.LOAD_AGREE_SCENE);
+
 		CSceneManager.IsSetup = true;
 		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_AGREE);
 	}

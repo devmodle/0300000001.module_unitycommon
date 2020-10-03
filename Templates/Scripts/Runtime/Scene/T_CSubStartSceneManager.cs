@@ -7,12 +7,20 @@ using UnityEngine.UI;
 //! 서브 시작 씬 관리자
 public class CSubStartSceneManager : CStartSceneManager {
 	#region 변수
-	private int m_nNumDots = 0;
-	private float m_fSkipTime = 0.0f;
+	protected Text m_oLoadingText = null;
+	protected Image m_oGaugeImg = null;
 
-	private Text m_oLoadingText = null;
+	private int m_nNumDots = 0;
+
+	private float m_fSkipTime = 0.0f;
+	private float m_fMaxPercent = 0.0f;
+
 	private System.Text.StringBuilder m_oStringBuilder = new System.Text.StringBuilder();
 	#endregion			// 변수
+
+	#region 객체
+	protected GameObject m_oLoadingImgObj = null;
+	#endregion			// 객체
 	
 	#region 함수
 	//! 초기화
@@ -21,12 +29,26 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
+			// 텍스트를 설정한다 {
 			m_oLoadingText = CFactory.CreateCloneObj<Text>(KDefine.SS_OBJ_NAME_LOADING_TEXT,
-				CResManager.Instance.GetPrefab(KDefine.SS_OBJ_PATH_LOADING_TEXT), 
-				this.SubUIRoot);
+				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_LOADING_TEXT), 
+				this.SubUIRoot,
+				KDefine.SS_POS_LOADING_TEXT);
 
 			m_oLoadingText.text = string.Empty;
-			this.UpdateUIState();
+			// 텍스트를 설정한다 }
+
+			// 이미지를 설정한다 {
+			m_oLoadingImgObj = CFactory.CreateCloneObj(KDefine.SS_OBJ_NAME_LOADING_IMG_OBJ,
+				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_LOADING_IMG_OBJ),
+				this.SubUIRoot,
+				KDefine.SS_POS_LOADING_IMG_OBJ);
+
+			m_oGaugeImg = m_oLoadingImgObj.ExFindComponent<Image>(KDefine.SS_OBJ_NAME_GAUGE_IMG);
+			m_oGaugeImg.fillAmount = KCDefine.B_MIN_VALUE_NORMAL;
+			// 이미지를 설정한다 }
+
+			this.UpdateTextState();
 		}
 	}
 
@@ -35,22 +57,26 @@ public class CSubStartSceneManager : CStartSceneManager {
 		base.OnUpdate(a_fDeltaTime);
 		m_fSkipTime += Time.deltaTime;
 
+		m_oGaugeImg.fillAmount = Mathf.Clamp(m_oGaugeImg.fillAmount + (KCDefine.B_MAX_VALUE_NORMAL * a_fDeltaTime),
+			KCDefine.B_MIN_VALUE_NORMAL, m_fMaxPercent);
+
 		// 상태 텍스트 갱신 주기가 지났을 경우
 		if(m_fSkipTime.ExIsGreateEquals(KDefine.SS_DELTA_TIME_UPDATE_STATE)) {
 			m_nNumDots = (m_nNumDots + 1) % KDefine.SS_MAX_NUM_DOTS;
 			m_fSkipTime = 0.0f;
 
-			this.UpdateUIState();
+			this.UpdateTextState();
 		}
 	}
 
 	//! 시작 씬 이벤트를 수신했을 경우
 	protected override void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent) {
-		// Do Nothing
+		m_fMaxPercent = Mathf.Clamp((int)a_eEvent / (float)((int)EStartSceneEvent.MAX_VALUE - 1), 
+			KCDefine.B_MIN_VALUE_NORMAL, KCDefine.B_MAX_VALUE_NORMAL);
 	}
 
-	//! UI 상태를 갱신한다
-	private void UpdateUIState() {
+	//! 텍스트 상태를 갱신한다
+	private void UpdateTextState() {
 #if MSG_PACK_ENABLE
 		// 국가 코드가 유효 할 경우
 		if(CCommonAppInfoStorage.Instance.CountryCode.ExIsValid()) {
