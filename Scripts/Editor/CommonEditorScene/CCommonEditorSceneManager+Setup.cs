@@ -118,15 +118,17 @@ public static partial class CCommonEditorSceneManager {
 			for(int i = 0; i < oDebugConsoleList.Count; ++i) {
 				var oLogWindow = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_NAME_DEBUG_C_LOG_WINDOW);
 				var oEventSystem = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_NAME_SCENE_EVENT_SYSTEM);
-
 				var oLogManager = oDebugConsoleList[i].GetComponentInChildren<DebugLogManager>();
+
+				var oScrollView = oDebugConsoleList[i].GetComponentInChildren<ScrollRect>();
+				oScrollView.movementType = ScrollRect.MovementType.Clamped;
 
 				var oWindowTransform = oLogWindow.transform as RectTransform;
 				oWindowTransform.pivot = KCDefine.B_ANCHOR_MIDDLE_CENTER;
 				oWindowTransform.anchorMin = KCDefine.B_ANCHOR_BOTTOM_LEFT;
 				oWindowTransform.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
 				oWindowTransform.anchoredPosition = Vector2.zero;
-				
+
 				// 이벤트 시스템이 존재 할 경우
 				if(oEventSystem != null) {
 					CAccess.RemoveObj(oEventSystem, true);
@@ -254,10 +256,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-	#endregion			// 클래스 함수
 
-	#region 조건부 클래스 함수
-#if FILE_BROWSER_ENABLE
 	//! 파일 브라우저 UI 를 설정한다
 	private static void SetupFileBrowserUI() {
 		var oFileBrowserUI = Resources.Load<GameObject>(KCEditorDefine.B_OBJ_PATH_FILE_BROWSER_UI);
@@ -277,7 +276,6 @@ public static partial class CCommonEditorSceneManager {
 			oFileBrowserWindow.transform.localScale = KCDefine.B_SCALE_NORMAL * KCEditorDefine.B_SCALE_FILE_BROWSER_WINDOW;
 		}
 	}
-#endif			// #if FILE_BROWSER_ENABLE
-	#endregion			// 조건부 클래스 함수
+	#endregion			// 클래스 함수
 }
 #endif			// #if UNITY_EDITOR

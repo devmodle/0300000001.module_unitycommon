@@ -63,10 +63,7 @@ public static partial class CCommonEditorSceneManager {
 
 				CCommonEditorSceneManager.SetupScene();
 				CCommonEditorSceneManager.SetupLightOpts();
-
-#if FILE_BROWSER_ENABLE
 				CCommonEditorSceneManager.SetupFileBrowserUI();
-#endif			// #if FILE_BROWSER_ENABLE
 
 				// 갱신 주기가 지났을 경우
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime >= KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE) {

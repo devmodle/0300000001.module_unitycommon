@@ -21,6 +21,12 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
+	#region 클래스 프로퍼티
+#if ADS_MODULE_ENABLE
+	public static bool IsAutoLoadAds { get; protected set; } = false;
+#endif			// #if ADS_MODULE_ENABLE
+	#endregion			// 클래스 프로퍼티
+
 	#region 함수
 	//! 초기화
 	public sealed override void Start() {
@@ -211,8 +217,20 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 광고 관리자가 초기화 되었을 경우
-	private static void OnInitAdsManager(CAdsManager a_oSender, bool a_bIsSuccess) {
-		CFunc.ShowLog("CLateSetupSceneManager.OnInitAdsManager: {0}", a_bIsSuccess);
+	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
+		CFunc.ShowLog("CLateSetupSceneManager.OnInitAdsManager: {0}, {1}", a_eAdsType, a_bIsSuccess);
+
+		// 광고 자동 로드 모드 일 경우
+		if(a_bIsSuccess && CLateSetupSceneManager.IsAutoLoadAds) {
+			CAdsManager.Instance.LoadRewardAds(a_eAdsType);
+
+#if MSG_PACK_ENABLE
+			// 전면 광고 로드가 가능 할 경우
+			if(!CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds) {
+				CAdsManager.Instance.LoadFullscreenAds(a_eAdsType);
+			}
+#endif			// #if MSG_PACK_ENABLE
+		}
 	}
 #endif			// #if ADS_MODULE_ENABLE
 

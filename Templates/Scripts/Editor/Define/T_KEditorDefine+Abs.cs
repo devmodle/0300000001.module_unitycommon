@@ -135,8 +135,8 @@ public static partial class KEditorDefine {
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.1.1",
-		["com.google.external-dependency-manager"] = "1.2.159",
-		["com.google.play.review"] = "1.2.0",
+		["com.google.external-dependency-manager"] = "1.2.160",
+		["com.google.play.review"] = "1.3.0",
 
 #if CINEMACHINE_ENABLE
 		["com.unity.cinemachine"] = "2.6.3",
