@@ -13,12 +13,12 @@ public static partial class KDefine {
 	public const float SS_DELTA_TIME_UPDATE_STATE = 0.5f;
 
 	// 이름
-	public const string SS_OBJ_NAME_STATE_TEXT = "StateText";
+	public const string SS_OBJ_NAME_LOADING_TEXT = "StateText";
 	#endregion			// 기본
 
 	#region 런타임 상수
 	// 경로
-	public static readonly string U_START_SM_STATE_TEXT_OBJ_PATH = string.Format("{0}{1}SS_StateText", KCDefine.B_DIR_PATH_PREFABS, KCDefine.B_DIR_PATH_START_SCENE_BASE);
+	public static readonly string SS_OBJ_PATH_LOADING_TEXT = string.Format("{0}{1}SS_StateText", KCDefine.B_DIR_PATH_PREFABS, KCDefine.B_DIR_PATH_START_SCENE_BASE);
 	#endregion			// 런타임 상수
 }
 #endif			// #if NEVER_USE_THIS

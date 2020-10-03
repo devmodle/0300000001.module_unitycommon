@@ -59,7 +59,7 @@ public static partial class CEditorSceneManager {
 
 			foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_LIST) {
 				int nIndex = oScopedRegistryList.AsArray.ExFindValue((a_oJSONNode) => 
-					tKeyValue.Key.ExIsEquals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_NAME_KEY]));
+					stKeyValue.Key.ExIsEquals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_NAME_KEY]));
 
 				// 패키지 레지스트리 추가가 가능 할 경우
 				if(nIndex <= KCDefine.B_INDEX_INVALID) {

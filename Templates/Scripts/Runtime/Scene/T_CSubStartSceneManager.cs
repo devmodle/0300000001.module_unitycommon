@@ -10,7 +10,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	private int m_nNumDots = 0;
 	private float m_fSkipTime = 0.0f;
 
-	private Text m_oStateText = null;
+	private Text m_oLoadingText = null;
 	private System.Text.StringBuilder m_oStringBuilder = new System.Text.StringBuilder();
 	#endregion			// 변수
 	
@@ -21,11 +21,11 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			m_oStateText = CFactory.CreateCloneObj<Text>(KDefine.SS_OBJ_NAME_STATE_TEXT,
-				CResManager.Instance.GetPrefab(KDefine.SS_OBJ_PATH_STATE_TEXT), 
+			m_oLoadingText = CFactory.CreateCloneObj<Text>(KDefine.SS_OBJ_NAME_LOADING_TEXT,
+				CResManager.Instance.GetPrefab(KDefine.SS_OBJ_PATH_LOADING_TEXT), 
 				this.SubUIRoot);
 
-			m_oStateText.text = string.Empty;
+			m_oLoadingText.text = string.Empty;
 			this.UpdateUIState();
 		}
 	}
@@ -44,8 +44,8 @@ public class CSubStartSceneManager : CStartSceneManager {
 		}
 	}
 
-	//! 약관 동의 씬 관리자 이벤트를 수신했을 경우
-	protected override void OnReceiveAgreeSceneManagerEvent(EAgreeSceneManagerEventType a_eEventType) {
+	//! 시작 씬 이벤트를 수신했을 경우
+	protected override void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent) {
 		// Do Nothing
 	}
 
@@ -64,7 +64,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 				m_oStringBuilder.Append(oDot);
 			}
 
-			m_oStateText.text = m_oStringBuilder.ToString();
+			m_oLoadingText.text = m_oStringBuilder.ToString();
 		}
 #endif			// #if MSG_PACK_ENABLE
 	}
