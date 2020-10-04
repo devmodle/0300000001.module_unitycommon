@@ -8,10 +8,12 @@ public static partial class Func {
 	#region 클래스 변수
 #if ADS_MODULE_ENABLE	
 	private static bool m_bIsWatchRewardAds = false;
+	private static bool m_bIsWatchFullscreenAds = false;
+
 	private static STAdsRewardInfo m_stRewardInfo;
 
 	private static System.Action<CAdsManager, STAdsRewardInfo, bool> m_oRewardAdsCallback = null;
-	private static System.Action<CAdsManager> m_oRewardAdsCloseCallback = null;
+	private static System.Action<CAdsManager, bool> m_oFullscreenAdsCallback = null;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
@@ -54,7 +56,7 @@ public static partial class Func {
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
 	public static void ShowRewardAds(EAdsType a_eAdsType, 
-		System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback, System.Action<CAdsManager> a_oCloseCallback = null) 
+		System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback) 
 	{
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Instance.IsLoadRewardAds(a_eAdsType)) {
@@ -62,7 +64,6 @@ public static partial class Func {
 			Func.m_stRewardInfo = default(STAdsRewardInfo);
 
 			Func.m_oRewardAdsCallback = a_oCallback;
-			Func.m_oRewardAdsCloseCallback = a_oCloseCallback;
 
 			CAdsManager.Instance.ShowRewardAds(a_eAdsType, 
 				Func.OnReceiveUserReward, Func.OnCloseRewardAds);
@@ -73,7 +74,7 @@ public static partial class Func {
 
 	//! 전면 광고를 출력한다
 	public static void ShowFullscreenAds(EAdsType a_eAdsType, 
-		System.Action<CAdsManager, bool> a_oCallback, System.Action<CAdsManager> a_oCloseCallback = null) 
+		System.Action<CAdsManager, bool> a_oCallback) 
 	{
 #if MSG_PACK_ENABLE
 		var stDeltaTime = System.DateTime.Now - CGameInfoStorage.Instance.PrevAdsTime;
@@ -83,8 +84,10 @@ public static partial class Func {
 
 		// 전면 광고 출력이 가능 할 경우
 		if(bIsEnable && CAdsManager.Instance.IsLoadFullscreenAds(a_eAdsType)) {
-			CGameInfoStorage.Instance.PrevAdsTime = System.DateTime.Now;
-			CAdsManager.Instance.ShowFullscreenAds(a_eAdsType, a_oCallback, a_oCloseCallback);
+			Func.m_bIsWatchFullscreenAds = true;
+			Func.m_oFullscreenAdsCallback = a_oCallback;
+			
+			CAdsManager.Instance.ShowFullscreenAds(a_eAdsType, null, Func.OnCloseFullscreenAds);
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Instance, false);
 		}
@@ -93,10 +96,9 @@ public static partial class Func {
 #endif			// #if MSG_PACK_ENABLE
 	}
 
-	//! 애드 몹 보상 광고가 닫혔을 경우
+	//! 보상 광고가 닫혔을 경우
 	private static void OnCloseRewardAds(CAdsManager a_oSender) {
-		Func.m_oRewardAdsCallback?.Invoke(a_oSender, m_stRewardInfo, m_bIsWatchRewardAds);
-		Func.m_oRewardAdsCloseCallback?.Invoke(a_oSender);
+		Func.m_oRewardAdsCallback?.Invoke(a_oSender, Func.m_stRewardInfo, Func.m_bIsWatchRewardAds);
 	}
 
 	//! 유저 보상을 수신했을 경우
@@ -105,6 +107,12 @@ public static partial class Func {
 	{
 		Func.m_bIsWatchRewardAds = a_bIsSuccess;
 		Func.m_stRewardInfo = a_stRewardInfo;
+	}
+
+	//! 전면 광고가 닫혔을 경우
+	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
+		CGameInfoStorage.Instance.PrevAdsTime = System.DateTime.Now;
+		Func.m_oFullscreenAdsCallback?.Invoke(a_oSender, Func.m_bIsWatchFullscreenAds);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 
