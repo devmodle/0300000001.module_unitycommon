@@ -13,7 +13,10 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
 			this.IsAutoInitManager = true;
+
+#if ADS_MODULE_ENABLE
 			CLateSetupSceneManager.IsAutoLoadAds = true;
+#endif			// #if ADS_MODULE_ENABLE
 		}
 	}
 	#endregion			// 함수

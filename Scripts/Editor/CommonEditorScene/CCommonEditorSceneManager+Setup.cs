@@ -9,6 +9,10 @@ using IngameDebugConsole;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
+#if UNIVERSAL_PIPELINE_MODULE_ENABLE
+using UnityEngine.Rendering.Universal;
+#endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
+
 //! 공용 에디터 씬 관리자 - 설정
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
@@ -74,6 +78,15 @@ public static partial class CCommonEditorSceneManager {
 					// 메인 카메라 태그 설정이 가능 할 경우
 					else if(bIsMainCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_MAIN_CAMERA)) {
 						oCameras[j].tag = KCDefine.U_TAG_MAIN_CAMERA;
+					}
+
+					// UI, 메인 카메라가 존재 할 경우
+					if(bIsExistsUICamera || bIsExistsMainCamera) {
+#if UNIVERSAL_PIPELINE_MODULE_ENABLE
+						oCameras[j].gameObject.ExAddComponent<UniversalAdditionalCameraData>();
+#else
+						oCameras[j].gameObject.ExRemoveComponent<UniversalAdditionalCameraData>();
+#endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 					}
 
 					// 현재 씬 관리자 일 경우
