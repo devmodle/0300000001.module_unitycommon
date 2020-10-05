@@ -12,7 +12,9 @@ public class CSubIntroSceneManager : CIntroSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			// Do Nothing
+			this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
+				// Do Nothing
+			});
 		}
 	}
 	#endregion			// 함수
