@@ -31,7 +31,7 @@ public static partial class CEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		// 상태 갱신이 가능 할 경우
-		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+		if(!Application.isBatchMode) {
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();
 		}
