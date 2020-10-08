@@ -5,17 +5,13 @@ using UnityEngine;
 #if NEVER_USE_THIS
 //! 서브 설정 씬 관리자
 public class CSubSetupSceneManager : CSetupSceneManager {
-	#region 함수
-	//! 초기화
-	public override void Awake() {
-		base.Awake();
-		
-		// 초기화 되었을 경우
-		if(CSceneManager.IsInit) {
-			// Do Nothing
-		}
-	}
+	#region 변수
+#if LOCALIZE_TEST_ENABLE
+	[SerializeField] private SystemLanguage m_eLanguage = SystemLanguage.Unknown;
+#endif			// #if LOCALIZE_TEST_ENABLE
+	#endregion			// 변수
 
+	#region 함수
 	//! 씬을 설정한다
 	protected override void Setup() {
 		base.Setup();
@@ -25,6 +21,17 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		CAppInfoStorage.Instance.LoadAppInfo();
 		CUserInfoStorage.Instance.LoadUserInfo();
 		CGameInfoStorage.Instance.LoadGameInfo();
+
+#if LOCALIZE_TEST_ENABLE
+		CCommonAppInfoStorage.Instance.AppInfo.Language = m_eLanguage;
+#endif			// #if LOCALIZE_TEST_ENABLE
+
+		// 언어가 유효하지 않을 경우
+		if(!CCommonAppInfoStorage.Instance.AppInfo.Language.ExIsValid()) {
+			CCommonAppInfoStorage.Instance.AppInfo.Language = Application.systemLanguage;
+		}
+
+		CCommonAppInfoStorage.Instance.SaveAppInfo();
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수

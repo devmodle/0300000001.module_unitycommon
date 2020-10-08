@@ -15,6 +15,9 @@ public abstract class CAgreeSceneManager : CSceneManager {
 	#region 추상 함수
 	//! 약관 동의 팝업을 출력한다
 	protected abstract void ShowAgreePopup(string a_oServiceString, string a_oPersonalString);
+
+	//! 유럽 연합 약관 동의 팝업을 출력한다
+	protected abstract void ShowEuropeanUnionAgreePopup(string a_oServiceURL, string a_oPersonalURL);
 	#endregion			// 추상 함수
 
 	#region 함수
@@ -58,22 +61,18 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		if(bIsAgree) {
 			this.LoadNextScene();
 		} else {
-			string oServiceFilepath = KCDefine.AS_DATA_PATH_KOREAN_SERVICE_TEXT;
-			string oPersonalFilepath = KCDefine.AS_DATA_PATH_KOREAN_PERSONAL_TEXT;
+			// 한국 일 경우
+			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
+				this.ShowAgreePopup(CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_SERVICE_TEXT).text,
+					CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_PERSONAL_TEXT).text);
 
-#if MSG_PACK_ENABLE
-			// 대한민국이 아닐 경우
-			if(!CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
-				oServiceFilepath = KCDefine.AS_DATA_PATH_ENGLISH_SERVICE_TEXT;
-				oPersonalFilepath = KCDefine.AS_DATA_PATH_ENGLISH_PERSONAL_TEXT;
-			}
-#endif			// #if MSG_PACK_ENABLE
+				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_SERVICE_TEXT, true);
+				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_PERSONAL_TEXT, true);
 
-			this.ShowAgreePopup(CResManager.Instance.GetTextAsset(oServiceFilepath).text,
-				CResManager.Instance.GetTextAsset(oPersonalFilepath).text);
-
-			CResManager.Instance.RemoveTextAsset(oServiceFilepath, true);
-			CResManager.Instance.RemoveTextAsset(oPersonalFilepath, true);
+			} else {
+				this.ShowEuropeanUnionAgreePopup(CProjInfoTable.Instance.ServiceURL, 
+					CProjInfoTable.Instance.PersonalURL);
+			}			
 		}
 #endif			// #if ROBO_TEST_ENABLE
 	}

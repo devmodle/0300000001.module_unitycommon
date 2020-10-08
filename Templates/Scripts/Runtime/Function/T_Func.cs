@@ -6,7 +6,7 @@ using UnityEngine;
 //! 기본 함수
 public static partial class Func {
 	#region 클래스 변수
-#if ADS_MODULE_ENABLE	
+#if ADS_MODULE_ENABLE
 	private static bool m_bIsWatchRewardAds = false;
 	private static bool m_bIsWatchFullscreenAds = false;
 
@@ -21,38 +21,33 @@ public static partial class Func {
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 클래스 변수
 
-	#region 조건부 클래스 함수
-#if MSG_PACK_ENABLE
+	#region 클래스 함수
 	//! 지역화 문자열을 설정한다
 	public static void SetupLocalizeStrings() {
-// 		string oLanguage = CCommonAppInfoStorage.Instance.AppInfo.Language;
+		string oFilepath = string.Empty;
+		string oLanguage = SystemLanguage.English.ToString();
 
-// 		// 언어가 유효 할 경우
-// 		if(Application.systemLanguage.ExIsValid()) {
+#if MSG_PACK_ENABLE
+		oLanguage = CCommonAppInfoStorage.Instance.AppInfo.Language.ToString();
 
-// 		} else {
-
-// 		}
-// #endif			// #if LOCALIZE_TEST_ENABLE
-
-// 		string oFilepath = string.Empty;
-
-// 		// 언어가 유효 할 경우
-// 		if(Application.systemLanguage.ExIsValid()) {
-// 			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
-// 				Application.systemLanguage.ToString());
-// 		} else {
-// 			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
-// 				CCommonAppInfoStorage.Instance.CountryCode);
-// 		}
-
-// 		oFilepath = CAccess.IsExistsRes<TextAsset>(oFilepath) ? oFilepath
-// 			: KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING;
-		
-// 		CStringTable.Instance.LoadStringsFromRes(oFilepath);
-	}
+		// 언어가 유효 할 경우
+		if(oLanguage.ExIsValidLanguage()) {
+			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
+				oLanguage);
+		} else {
+			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
+				CCommonAppInfoStorage.Instance.CountryCode);
+		}
 #endif			// #if MSG_PACK_ENABLE
 
+		oFilepath = CAccess.IsExistsRes<TextAsset>(oFilepath) ? 
+			oFilepath : KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING;
+
+		CStringTable.Instance.LoadStringsFromRes(oFilepath);
+	}
+	#endregion			// 클래스 함수
+
+	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
 	public static void ShowRewardAds(EAdsType a_eAdsType, 

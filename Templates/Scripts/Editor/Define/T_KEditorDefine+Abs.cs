@@ -14,7 +14,7 @@ using UnityEditor.iOS.Xcode;
 public static partial class KEditorDefine {
 	#region 기본
 	// 시간
-	public const float B_DELAY_DEFINE_S_UPDATE = 2.5f;
+	public const float B_DELAY_DEFINE_S_UPDATE = 1.5f;
 
 	// 유니티 패키지 {
 	public const string B_UNITY_PKGS_NAME_KEY = "name";
@@ -137,7 +137,7 @@ public static partial class KEditorDefine {
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.assetbundlebrowser"] = "1.7.0",
-		["com.unity.mobile.android-logcat"] = "1.1.1",
+		["com.unity.mobile.android-logcat"] = "1.2.0",
 		["com.google.external-dependency-manager"] = "1.2.160",
 		["com.google.play.review"] = "1.3.0",
 		["com.unity.render-pipelines.universal"] = "8.2.0",
@@ -167,12 +167,13 @@ public static partial class KEditorDefine {
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["com.google.firebase.auth"] = "6.15.2",
-		["com.google.firebase.analytics"] = "6.15.2",
-		["com.google.firebase.crashlytics"] = "6.15.2",
-		["com.google.firebase.database"] = "6.15.2",
-		["com.google.firebase.messaging"] = "6.15.2",
-		["com.google.firebase.remote-config"] = "6.15.2",
+		["com.google.firebase.auth"] = "6.16.0",
+		["com.google.firebase.analytics"] = "6.16.0",
+		["com.google.firebase.crashlytics"] = "6.16.0",
+		["com.google.firebase.database"] = "6.16.0",
+		["com.google.firebase.firestore"] = "6.16.0",
+		["com.google.firebase.messaging"] = "6.16.0",
+		["com.google.firebase.remote-config"] = "6.16.0",
 
 		["unitymodule.common.firebase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.0.0",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE

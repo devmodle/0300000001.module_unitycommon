@@ -12,17 +12,17 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-#if LOCALIZE_TEST_ENABLE
-			CCommonAppInfoStorage.Instance.AppInfo.Language = m_eLanguage;
-			CCommonAppInfoStorage.Instance.SaveAppInfo();
-#else
-
-#endif			// #if LOCALIZE_TEST_ENABLE
+			Func.SetupLocalizeStrings();
 		}
 	}
 
 	//! 약관 동의 팝업을 출력한다
 	protected override void ShowAgreePopup(string a_oServiceString, string a_oPersonalString) {
+		this.LoadNextScene();
+	}
+
+	//! 유럽 연합 약관 동의 팝업을 출력한다
+	protected override void ShowEuropeanUnionAgreePopup(string a_oServiceURL, string a_oPersonalURL) {
 		this.LoadNextScene();
 	}
 	#endregion			// 함수

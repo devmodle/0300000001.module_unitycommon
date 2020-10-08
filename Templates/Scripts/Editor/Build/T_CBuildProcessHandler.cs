@@ -48,13 +48,13 @@ public static partial class CBuildProcessHandler {
 		string oProjFilepath = PBXProject.GetPBXProjectPath(a_oPath);
 
 		// Plist 옵션을 설정한다 {
-		var oDocument = new PlistDocument();
-		oDocument.ReadFromFile(oPlistFilepath);
+		var oDoc = new PlistDocument();
+		oDoc.ReadFromFile(oPlistFilepath);
 
 		// Plist 가 존재 할 경우
-		if(oDocument.ExIsValid()) {
-			oDocument.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, false);
-			oDocument.WriteToFile(oPlistFilepath);
+		if(oDoc.ExIsValid()) {
+			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, false);
+			oDoc.WriteToFile(oPlistFilepath);
 		}
 		// Plist 옵션을 설정한다 }
 
