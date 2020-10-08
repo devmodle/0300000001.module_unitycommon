@@ -42,6 +42,13 @@ public static partial class CEditorSceneManager {
 			if(nIndex <= KCDefine.B_INDEX_INVALID) {
 				Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FORMAT,
 					stKeyValue.Key, stKeyValue.Value));
+
+#if !SAMPLE_PROJ
+				// Git 저장소 일 경우
+				if(!System.Version.TryParse(stKeyValue.Value, out System.Version stVersion)) {
+					Client.Add(stKeyValue.Value);
+				}
+#endif			// #if !SAMPLE_PROJ
 			}
 		}
 	}
