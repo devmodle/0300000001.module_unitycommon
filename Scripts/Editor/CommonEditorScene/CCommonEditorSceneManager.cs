@@ -54,8 +54,8 @@ public static partial class CCommonEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState()) {
-			CCommonEditorSceneManager.m_fSkipTime += Time.unscaledDeltaTime;
-			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.unscaledDeltaTime;
+			CCommonEditorSceneManager.m_fSkipTime += Time.deltaTime;
+			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
 
 			// 갱신 주기가 지났을 경우
 			if(CCommonEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {

@@ -31,7 +31,7 @@ public static partial class CEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		// 상태 갱신이 가능 할 경우
-		if(!Application.isBatchMode) {
+		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();
 		}
@@ -41,8 +41,8 @@ public static partial class CEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState()) {
+			CEditorSceneManager.m_fSkipTime += Time.deltaTime;
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
-			CEditorSceneManager.m_fSkipTime += Time.unscaledDeltaTime;
 
 			for(int i = 0; i < oMonoScripts.Length; ++i) {
 				var oType = oMonoScripts[i].GetClass();
