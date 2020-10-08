@@ -13,6 +13,9 @@ using UnityEditor.iOS.Xcode;
 //! 에디터 상수
 public static partial class KEditorDefine {
 	#region 기본
+	// 시간
+	public const float B_DELAY_DEFINE_S_UPDATE = 5.0f;
+
 	// 유니티 패키지 {
 	public const string B_UNITY_PKGS_NAME_KEY = "name";
 	public const string B_UNITY_PKGS_SCOPED_REGISTRIES_KEY = "scopedRegistries";

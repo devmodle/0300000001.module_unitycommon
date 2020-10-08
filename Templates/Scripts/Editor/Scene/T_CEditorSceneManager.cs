@@ -95,7 +95,7 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_fDefineSymbolSkipTime += Time.deltaTime;
 
 			var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_PATH_DEFINE_SYMBOL_TABLE);
-			bool bIsEnable = CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELAY_DEFINE_S_UPDATE);
+			bool bIsEnable = CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE);
 
 			// 전처리기 심볼 테이블 갱신이 가능 할 경우
 			if(bIsEnable && oAsset != null && CCommonPlatformOptSetter.DefineSymbolTable != null) {
