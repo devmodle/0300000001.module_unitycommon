@@ -23,13 +23,16 @@ public static partial class CEditorSceneManager {
 		EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
 		EditorApplication.update += CEditorSceneManager.UpdateScopedRegistryState;
 
+		EditorApplication.update -= CEditorSceneManager.LateUpdate;
+		EditorApplication.update += CEditorSceneManager.LateUpdate;
+
 		EditorSceneManager.sceneOpened -= CEditorSceneManager.OnSceneOpen;
 		EditorSceneManager.sceneOpened += CEditorSceneManager.OnSceneOpen;
 	}
 
 	//! 독립 패키지를 설정한다
 	private static void SetupDependencies() {
-		var oPkgInfoList = m_oListRequest.Result.ToList();
+		var oPkgInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
 
 		foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_LIST) {
 			int nIndex = oPkgInfoList.ExFindValue((a_oPkgInfo) => 

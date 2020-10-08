@@ -14,7 +14,11 @@ using UnityEditor.SceneManagement;
 [InitializeOnLoad]
 public static partial class CEditorSceneManager {
 	#region 클래스 변수
+	private static bool m_bIsSetupDependencies = false;
+
 	private static float m_fSkipTime = 0.0f;
+	private static float m_fDefineSymbolSkipTime = 0.0f;
+
 	private static ListRequest m_oListRequest = null;
 	#endregion			// 클래스 변수
 
@@ -70,7 +74,9 @@ public static partial class CEditorSceneManager {
 			try {
 				CEditorSceneManager.SetupDependencies();
 			} finally {
-				m_oListRequest = null;
+				CEditorSceneManager.m_oListRequest = null;
+				CEditorSceneManager.m_bIsSetupDependencies = true;
+
 				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
 			}
 		}
@@ -80,6 +86,61 @@ public static partial class CEditorSceneManager {
 	private static void UpdateScopedRegistryState() {
 		CEditorSceneManager.SetupScopedRegistries();
 		EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
+	}
+
+	//! 상태를 갱신한다
+	private static void LateUpdate() {
+		// 상태 갱신이 가능 할 경우
+		if(CEditorSceneManager.m_bIsSetupDependencies && CEditorAccess.IsEnableUpdateState()) {
+			CEditorSceneManager.m_fDefineSymbolSkipTime += Time.deltaTime;
+
+			var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_PATH_DEFINE_SYMBOL_TABLE);
+			bool bIsEnable = CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELAY_DEFINE_S_UPDATE);
+
+			// 전처리기 심볼 테이블 갱신이 가능 할 경우
+			if(bIsEnable && oAsset != null && CCommonPlatformOptSetter.DefineSymbolTable != null) {
+				bool bIsNeedUpdate = false;
+
+				CEditorSceneManager.m_bIsSetupDependencies = false;
+				CEditorSceneManager.m_fDefineSymbolSkipTime = 0.0f;
+
+				var oDefineSymbolListContainer = new List<string>[] {
+					CCommonPlatformOptSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
+					CCommonPlatformOptSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
+					
+					CCommonPlatformOptSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList,
+					CCommonPlatformOptSetter.DefineSymbolTable.EditorMacDefineSymbolList,
+					CCommonPlatformOptSetter.DefineSymbolTable.EditorWindowsDefineSymbolList,
+
+					CCommonPlatformOptSetter.DefineSymbolTable.EditoriOSDefineSymbolList,
+					
+					CCommonPlatformOptSetter.DefineSymbolTable.EditorAndroidDefineSymbolList,
+					CCommonPlatformOptSetter.DefineSymbolTable.EditorGoogleDefineSymbolList,
+					CCommonPlatformOptSetter.DefineSymbolTable.EditorOneStoreDefineSymbolList,
+					CCommonPlatformOptSetter.DefineSymbolTable.EditorGalaxyStoreDefineSymbolList
+				};
+
+				foreach(var stKeyValue in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULE_LIST) {
+					for(int i = 0; i < oDefineSymbolListContainer.Length; ++i) {
+						var oDefineSymbolList = oDefineSymbolListContainer[i];
+
+						// 전처리기 심볼 갱신이 필요 할 경우
+						if(oDefineSymbolList.Contains(stKeyValue.Key)) {
+							bIsNeedUpdate = true;
+							oDefineSymbolList.ExReplaceValue(stKeyValue.Key, stKeyValue.Value);
+						}
+					}
+				}
+				
+				// 전처리기 심볼 갱신이 필요 할 경우
+				if(bIsNeedUpdate) {
+					EditorUtility.SetDirty(oAsset);
+					
+					CEditorFunc.UpdateAssetDatabaseState();
+					CCommonPlatformOptSetter.SetupDefineSymbols();
+				}
+			}
+		}
 	}
 
 	//! 씬이 열렸을 경우
