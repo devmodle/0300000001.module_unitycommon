@@ -291,7 +291,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			});
 			
 			CFirebaseManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-			CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, KCDefine.U_LOG_PARAM_USER_INFO, null);
+			CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 #endif			// #if FIREBASE_ANALYTICS_ENABLE
 
 #if FIREBASE_CRASHLYTICS_ENABLE
