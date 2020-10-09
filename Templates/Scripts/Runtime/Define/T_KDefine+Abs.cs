@@ -6,7 +6,10 @@ using UnityEngine;
 //! 기본 상수
 public static partial class KDefine {
 	#region 기본
-	
+	// 버전
+	public const string B_VERSION_APP_INFO = "1.0.0";
+	public const string B_VERSION_USER_INFO = "1.0.0";
+	public const string B_VERSION_GAME_INFO = "1.0.0";
 	#endregion			// 기본
 
 	#region 런타임 상수
@@ -25,14 +28,5 @@ public static partial class KDefine {
 	};
 	// 디바이스 }
 	#endregion			// 런타임 상수
-
-	#region 조건부 상수
-#if MSG_PACK_ENABLE
-	// 버전
-	public const string B_VERSION_APP_INFO = "1.0.0";
-	public const string B_VERSION_USER_INFO = "1.0.0";
-	public const string B_VERSION_GAME_INFO = "1.0.0";
-#endif			// #if MSG_PACK_ENABLE
-	#endregion			// 조건부 상수
 }
 #endif			// #if NEVER_USE_THIS

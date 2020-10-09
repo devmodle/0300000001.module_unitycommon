@@ -31,6 +31,13 @@ public static partial class KEditorDefine {
 		[typeof(CValueTable)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CStringTable)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 
+		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+
+		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+
 		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 
@@ -57,15 +64,6 @@ public static partial class KEditorDefine {
 #if STUDY_MODULE_ENABLE
 		[typeof(CMenuSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 #endif			// #if STUDY_MODULE_ENABLE
-
-#if MSG_PACK_ENABLE
-		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-
-		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-#endif			// #if MSG_PACK_ENABLE
 
 #if UNITY_ANDROID
 		[typeof(CPermissionManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,

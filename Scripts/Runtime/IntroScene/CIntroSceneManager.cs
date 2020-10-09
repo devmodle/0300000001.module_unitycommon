@@ -15,10 +15,8 @@ public class CIntroSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-#if MSG_PACK_ENABLE
 			CCommonAppInfoStorage.Instance.SetupAdsID();
 			CCommonAppInfoStorage.Instance.SetupStoreVersion();
-#endif			// #if MSG_PACK_ENABLE
 		}
 	}
 	#endregion			// 함수

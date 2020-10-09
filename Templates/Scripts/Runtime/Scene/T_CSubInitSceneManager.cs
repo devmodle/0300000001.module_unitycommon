@@ -10,7 +10,6 @@ public class CSubInitSceneManager : CInitSceneManager {
 	protected override void Setup() {
 		base.Setup();
 
-#if MSG_PACK_ENABLE
 		// 저장소를 생성한다
 		CAppInfoStorage.Create();
 		CUserInfoStorage.Create();
@@ -32,7 +31,6 @@ public class CSubInitSceneManager : CInitSceneManager {
 
 		CCommonUserInfoStorage.Instance.SaveUserInfo();
 		CCommonAppInfoStorage.Instance.DeviceConfig = CDeviceInfoTable.Instance.DeviceConfig;
-#endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
 }

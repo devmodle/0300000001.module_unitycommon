@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
-#if NEVER_USE_THIS
-#if MSG_PACK_ENABLE
 using MessagePack;
 
+#if NEVER_USE_THIS
 //! 앱 정보
 [MessagePackObject]
 [System.Serializable]
@@ -68,5 +66,4 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	}
 	#endregion			// 함수
 }
-#endif			// #if MSG_PACK_ENABLE
 #endif			// #if NEVER_USE_THIS

@@ -77,7 +77,6 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	//! 텍스트 상태를 갱신한다
 	private void UpdateTextState() {
-#if MSG_PACK_ENABLE
 		// 국가 코드가 유효 할 경우
 		if(CCommonAppInfoStorage.Instance.CountryCode.ExIsValid()) {
 			string oDot = CStringTable.Instance.GetString(KDefine.ST_KEY_START_SM_DOT_TEXT);
@@ -92,7 +91,6 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 			m_oLoadingText.text = m_oStringBuilder.ToString();
 		}
-#endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
 }

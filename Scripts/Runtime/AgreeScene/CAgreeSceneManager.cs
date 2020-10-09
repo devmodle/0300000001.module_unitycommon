@@ -29,10 +29,8 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-#if MSG_PACK_ENABLE
 		CCommonUserInfoStorage.Instance.UserInfo.IsAgree = true;
 		CCommonUserInfoStorage.Instance.SaveUserInfo();
-#endif			// #if MSG_PACK_ENABLE
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_LATE_SETUP_SCENE);
@@ -50,13 +48,9 @@ public abstract class CAgreeSceneManager : CSceneManager {
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();
 #else
-		bool bIsAgree = false;
-
-#if MSG_PACK_ENABLE
-		bIsAgree = CCommonUserInfoStorage.Instance.UserInfo.IsAgree ||
+		bool bIsAgree = CCommonUserInfoStorage.Instance.UserInfo.IsAgree ||
 			!CCommonAppInfoStorage.Instance.IsNeedAgreement(CCommonAppInfoStorage.Instance.CountryCode);
-#endif			// #if MSG_PACK_ENABLE
-
+			
 		// 약관 동의 상태 일 경우
 		if(bIsAgree) {
 			this.LoadNextScene();

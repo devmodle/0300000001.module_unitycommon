@@ -25,10 +25,7 @@ public static partial class Func {
 	//! 지역화 문자열을 설정한다
 	public static void SetupLocalizeStrings() {
 		string oFilepath = string.Empty;
-		string oLanguage = SystemLanguage.English.ToString();
-
-#if MSG_PACK_ENABLE
-		oLanguage = CCommonAppInfoStorage.Instance.AppInfo.Language.ToString();
+		string oLanguage = CCommonAppInfoStorage.Instance.AppInfo.Language.ToString();
 
 		// 언어가 유효 할 경우
 		if(oLanguage.ExIsValidLanguage()) {
@@ -38,7 +35,6 @@ public static partial class Func {
 			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
 				CCommonAppInfoStorage.Instance.CountryCode);
 		}
-#endif			// #if MSG_PACK_ENABLE
 
 		oFilepath = CAccess.IsExistsRes<TextAsset>(oFilepath) ? 
 			oFilepath : KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING;
@@ -71,7 +67,6 @@ public static partial class Func {
 	public static void ShowFullscreenAds(EAdsType a_eAdsType, 
 		System.Action<CAdsManager, bool> a_oCallback) 
 	{
-#if MSG_PACK_ENABLE
 		var stDeltaTime = System.DateTime.Now - CGameInfoStorage.Instance.PrevAdsTime;
 		float fDelay = CValueTable.Instance.GetFloat(KCDefine.VT_KEY_DEF_DELAY_ADS);
 
@@ -86,9 +81,6 @@ public static partial class Func {
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Instance, false);
 		}
-#else
-		a_oCallback?.Invoke(CAdsManager.Instance, false);
-#endif			// #if MSG_PACK_ENABLE
 	}
 
 	//! 보상 광고가 닫혔을 경우

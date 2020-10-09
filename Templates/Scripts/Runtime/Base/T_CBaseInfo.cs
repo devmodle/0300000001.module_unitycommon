@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-#if NEVER_USE_THIS
-#if MSG_PACK_ENABLE
 using MessagePack;
 
+#if NEVER_USE_THIS
 //! 기본 정보
 [Union(0, typeof(CAppInfo))]
 [Union(1, typeof(CUserInfo))]
@@ -44,5 +42,4 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	}
 	#endregion			// 함수
 }
-#endif			// #if MSG_PACK_ENABLE
 #endif			// #if NEVER_USE_THIS

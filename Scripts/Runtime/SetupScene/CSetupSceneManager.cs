@@ -69,19 +69,15 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 디바이스 식별자 반환 메세지를 처리한다
 	private void HandleGetDeviceIDMsg(string a_oMsg) {
-#if MSG_PACK_ENABLE
-		bool bIsValid = CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid();
-
 		// 디바이스 식별자 설정이 필요 할 경우
-		if(!bIsValid || CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
+		if(!CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid() || 
+			CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) 
+		{
 			CCommonAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? 
 				a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
 		}
 		
 		CCommonAppInfoStorage.Instance.SaveAppInfo();
-#endif			// #if MSG_PACK_ENABLE
-
-		// 국가 코드 반환 메세지를 전송한다
 		CUnityMsgSender.Instance.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 	}
 
@@ -94,11 +90,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			oCountryCode = !CAccess.IsMobile() ? 
 				KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
-		
-#if MSG_PACK_ENABLE
+
 		CCommonAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
 		CCommonAppInfoStorage.Instance.SaveAppInfo();
-#endif			// #if MSG_PACK_ENABLE
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_AGREE_SCENE);
@@ -145,13 +139,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		
-		// 저장소를 설정한다 {
-#if MSG_PACK_ENABLE
+		// 저장소를 설정한다
 		CCommonAppInfoStorage.Instance.LoadAppInfo();
-#endif			// #if MSG_PACK_ENABLE
-
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-		// 저장소를 설정한다 }
 
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);

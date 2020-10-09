@@ -16,7 +16,6 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 	protected override void Setup() {
 		base.Setup();
 
-#if MSG_PACK_ENABLE
 		// 저장소를 로드한다
 		CAppInfoStorage.Instance.LoadAppInfo();
 		CUserInfoStorage.Instance.LoadUserInfo();
@@ -32,7 +31,6 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		}
 
 		CCommonAppInfoStorage.Instance.SaveAppInfo();
-#endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
 }

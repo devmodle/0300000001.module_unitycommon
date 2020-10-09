@@ -35,21 +35,16 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CValueTable.Instance.LoadValuesFromRes(KCDefine.U_TABLE_PATH_G_COMMON_VALUE);
 		CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_COMMON_STRING);
 
-		// 저장소를 로드한다 {
-#if MSG_PACK_ENABLE
+		// 저장소를 로드한다
 		CCommonUserInfoStorage.Instance.LoadUserInfo();
-#endif			// #if MSG_PACK_ENABLE
-		// 저장소를 로드한다 }
 
 		// 사운드를 설정한다 {
 		CSndManager.Instance.BGSndVolume = 1.0f;
 		CSndManager.Instance.FXSndsVolume = 1.0f;
-
-#if MSG_PACK_ENABLE
+		
 		CSndManager.Instance.IsMuteBGSnd = CCommonUserInfoStorage.Instance.UserInfo.IsMuteBGSnd;
 		CSndManager.Instance.IsMuteFXSnds = CCommonUserInfoStorage.Instance.UserInfo.IsMuteFXSnds;
 		CSndManager.Instance.IsDisableVibrate = CCommonUserInfoStorage.Instance.UserInfo.IsDisableVibrate;
-#endif			// #if MSG_PACK_ENABLE
 		// 사운드를 설정한다 }
 	}
 
@@ -160,10 +155,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		// 테이블을 생성한다 }
 
 		// 저장소를 생성한다 {
-#if MSG_PACK_ENABLE
 		CCommonAppInfoStorage.Create();
 		CCommonUserInfoStorage.Create();
-#endif			// #if MSG_PACK_ENABLE
 
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		// 저장소를 생성한다 }

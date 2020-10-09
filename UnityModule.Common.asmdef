@@ -21,7 +21,8 @@
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.Notifications.iOS",
         "Unity.Notifications.Android",
-        "UnityModule.IronSource"
+        "UnityModule.IronSource",
+        "MessagePack"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
