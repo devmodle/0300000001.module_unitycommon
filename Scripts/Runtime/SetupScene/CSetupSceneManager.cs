@@ -126,7 +126,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if UNITY_IOS || UNITY_ANDROID
 
 		Input.multiTouchEnabled = CValueTable.Instance.GetBool(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE);
-		Application.targetFrameRate = Mathf.Min(nTargetFrameRate, Screen.currentResolution.refreshRate);
+		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);
 		
 		CFunc.SetupQuality((EQualityLevel)nQualityLevel, true);
 		// 디바이스 정보를 설정한다 }

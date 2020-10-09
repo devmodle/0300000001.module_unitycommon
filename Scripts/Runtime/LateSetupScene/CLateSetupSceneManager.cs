@@ -98,14 +98,14 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-			CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryPluginInfo.m_oAPIKey, 
+			CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryAPIKey, 
 				CLateSetupSceneManager.OnInitFlurryManager);
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
-			CTenjinManager.Instance.Init(CPluginInfoTable.Instance.TenjinPluginInfo.m_oAPIKey,
+			CTenjinManager.Instance.Init(CPluginInfoTable.Instance.TenjinAPIKey, 
 				CLateSetupSceneManager.OnInitTenjinManager);
 
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
