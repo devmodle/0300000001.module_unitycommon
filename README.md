@@ -10,12 +10,14 @@
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
-	- *Native Share (v1.3.6 - Agu 10, 2020)*
+	- *Native Share (v1.3.8 - Oct 7, 2020)*
 	- *Sign in with Apple (v1.1.0 - Aug 13, 2020)*
 	- *Rest Client for Unity (v2.6.1 - Jun 11, 2020)*
-	- *Runtime File Browser (v1.3.0 - Jun 9, 2020)*
+	- *Runtime File Browser (v1.3.1 - Oct 7, 2020)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
+	- *Ingame Debug Console (v.1.3.5 - Oct 7, 2020)*
+	- *Asset Usage Detector (v.1.8.8 - Oct 7, 2020)*
 3. **기타 추가 에셋 및 플러그인 리스트**
 	- *Admob (v5.3.0)*
 	- *Iron Source (v7.0.1.1)*
