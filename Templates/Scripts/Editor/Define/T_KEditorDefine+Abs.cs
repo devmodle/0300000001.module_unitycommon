@@ -172,8 +172,8 @@ public static partial class KEditorDefine {
 		["com.google.firebase.crashlytics"] = "6.16.0",
 		["com.google.firebase.database"] = "6.16.0",
 		["com.google.firebase.firestore"] = "6.16.0",
-		["com.google.firebase.messaging"] = "6.16.0",
 		["com.google.firebase.remote-config"] = "6.16.0",
+		["com.google.firebase.messaging"] = "6.16.0",
 
 		["unitymodule.common.firebase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.0.0",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE

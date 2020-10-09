@@ -284,7 +284,7 @@ public static partial class CCommonEditorSceneManager {
 			oCanvasScaler.referencePixelsPerUnit = KCDefine.B_REF_PIXELS_UNIT;
 
 			var oFileBrowserWindow = oFileBrowserUI.ExFindChild(KCEditorDefine.B_OBJ_NAME_FILE_BROWSER_WINDOW);
-			oFileBrowserWindow.transform.localScale = KCDefine.B_SCALE_NORMAL * KCEditorDefine.B_SCALE_FILE_BROWSER_WINDOW;
+			oFileBrowserWindow.transform.localScale = KCDefine.B_SCALE_NORM * KCEditorDefine.B_SCALE_FILE_BROWSER_WINDOW;
 		}
 	}
 	#endregion			// 클래스 함수
