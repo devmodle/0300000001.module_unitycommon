@@ -42,11 +42,11 @@ public static partial class CCommonEditorSceneManager {
 	public static void OnLoadScript() {
 		// 상태 갱신이 가능 할 경우
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
-			CCommonPlatformOptSetter.SetupPlayerOpts();
-			CCommonPlatformOptSetter.SetupEditorOpts();
-			CCommonPlatformOptSetter.SetupProjOpts();
-			CCommonPlatformOptSetter.SetupPluginProjs();
-			CCommonPlatformOptSetter.SetupGraphicAPIs();
+			CCommonPlatformOptsSetter.SetupPlayerOpts();
+			CCommonPlatformOptsSetter.SetupEditorOpts();
+			CCommonPlatformOptsSetter.SetupProjOpts();
+			CCommonPlatformOptsSetter.SetupPluginProjs();
+			CCommonPlatformOptsSetter.SetupGraphicAPIs();
 		}
 	}
 
@@ -58,26 +58,28 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
 
 			// 갱신 주기가 지났을 경우
-			if(CCommonEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE) {
-				CCommonEditorSceneManager.m_fSkipTime = 0.0f;
+			if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE)) {
+				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_MIN_VALUE_NORM;
 
 				CCommonEditorSceneManager.SetupScene();
 				CCommonEditorSceneManager.SetupLightOpts();
 				CCommonEditorSceneManager.SetupFileBrowserUI();
 
 				// 갱신 주기가 지났을 경우
-				if(CCommonEditorSceneManager.m_fHierarchySkipTime >= KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE) {
-					CCommonEditorSceneManager.m_fHierarchySkipTime = 0.0f;
+				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE)) {
+					CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_MIN_VALUE_NORM;
 
 					CFunc.EnumerateScenes((a_stScene) => {
 						var oObjs = a_stScene.GetRootGameObjects();
 
-						for(int j = 0; j < oObjs.Length; ++j) {
+						for(int j = KCDefine.B_INDEX_START; j < oObjs.Length; ++j) {
 							var oEnumerator = oObjs[j].DescendantsAndSelf();
 
 							foreach(var oObj in oEnumerator) {
+								int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
+
 								// 스크립트 제거가 필요 할 경우
-								if(GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj) >= 1) {
+								if(nNumMissingScripts > KCDefine.B_ZERO_VALUE_INT) {
 									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
 									EditorSceneManager.MarkSceneDirty(a_stScene);
 								}
@@ -107,11 +109,11 @@ public static partial class CCommonEditorSceneManager {
 		// 객체가 존재 할 경우
 		if(oObj != null) {
 			a_stRect.size = new Vector2(KCEditorDefine.B_HIERARCHY_WIDTH, a_stRect.size.y);
-			a_stRect.position += new Vector2(KCEditorDefine.B_HIERARCHY_OFFSET_X, 0.0f);
+			a_stRect.position += new Vector2(KCEditorDefine.B_HIERARCHY_OFFSET_X, KCDefine.B_MIN_VALUE_NORM);
 
 			var oComponents = oObj.GetComponents<Component>();
 
-			for(int i = 0; i < oComponents.Length; ++i) {
+			for(int i = KCDefine.B_INDEX_START; i < oComponents.Length; ++i) {
 				// 컴포넌트가 존재 할 경우
 				if(oComponents[i] != null) {
 					var oType = oComponents[i].GetType();
@@ -151,7 +153,7 @@ public static partial class CCommonEditorSceneManager {
 	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		// 상태 갱신이 가능 할 경우
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
-			CCommonPlatformOptSetter.SetupProjOpts();
+			CCommonPlatformOptsSetter.SetupProjOpts();
 		}
 	}
 	#endregion			// 클래스 함수

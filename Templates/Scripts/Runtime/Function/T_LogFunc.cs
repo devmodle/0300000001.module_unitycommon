@@ -19,30 +19,30 @@ public static partial class LogFunc {
 	public static void SendPurchaseLog(Product a_oProduct, 
 		int a_nNumProducts, Dictionary<string, object> a_oDataList) 
 	{
-#if FLURRY_MODULE_ENABLE && FLURRY_ANALYTICS_ENABLE
+#if FLURRY_MODULE_ENABLE
 		var oDataList = (a_oDataList != null) ? a_oDataList.ExToTypes<string, string>() : null;
 		CFlurryManager.Instance.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataList);
-#endif			// #if FLURRY_MODULE_ENABLE && FLURRY_ANALYTICS_ENABLE
+#endif			// #if FLURRY_MODULE_ENABLE
 
-#if TENJIN_MODULE_ENABLE && TENJIN_ANALYTICS_ENABLE
+#if TENJIN_MODULE_ENABLE
 		CTenjinManager.Instance.SendPurchaseLog(a_oProduct);
-#endif			// #if TENJIN_MODULE_ENABLE && TENJIN_ANALYTICS_ENABLE
+#endif			// #if TENJIN_MODULE_ENABLE
 
-#if FACEBOOK_MODULE_ENABLE && FACEBOOK_ANALYTICS_ENABLE
+#if FACEBOOK_MODULE_ENABLE
 		CFacebookManager.Instance.SendPurchaseLog(a_oProduct, a_oDataList);
-#endif			// #if FACEBOOK_MODULE_ENABLE && FACEBOOK_ANALYTICS_ENABLE
+#endif			// #if FACEBOOK_MODULE_ENABLE
 
-#if FIREBASE_MODULE_ENABLE && FIREBASE_ANALYTICS_ENABLE
+#if FIREBASE_MODULE_ENABLE
 		CFirebaseManager.Instance.SendPurchaseLog(a_oProduct);
-#endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_ANALYTICS_ENABLE
+#endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_MODULE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
+#if UNITY_SERVICE_MODULE_ENABLE
 		CUnityServiceManager.Instance.SendPurchaseLog(a_oProduct, a_oDataList);
-#endif			// #if UNITY_SERVICE_MODULE_ENABLE && UNITY_SERVICE_ANALYTICS_ENABLE
+#endif			// #if UNITY_SERVICE_MODULE_ENABLE
 
-#if SINGULAR_MODULE_ENABLE && SINGULAR_ANALYTICS_ENABLE
+#if SINGULAR_MODULE_ENABLE
 		CSingularManager.Instance.SendPurchaseLog(a_oProduct, a_oDataList);
-#endif			// #if SINGULAR_MODULE_ENABLE && SINGULAR_ANALYTICS_ENABLE
+#endif			// #if SINGULAR_MODULE_ENABLE
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

@@ -5,23 +5,22 @@ using UnityEngine;
 using MessagePack;
 
 #if NEVER_USE_THIS
-//! 게임 정보
+//! 유저 정보
 [MessagePackObject]
 [System.Serializable]
-public sealed class CGameInfo : CBaseInfo {
+public sealed class CUserInfo : CBaseInfo {
 	#region 함수
 	//! 생성자
-	public CGameInfo() : base(KDefine.B_VERSION_GAME_INFO) {
+	public CUserInfo() : base(KDefine.B_VERSION_USER_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수
 }
 
-//! 게임 정보 저장소
-public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
+//! 유저 정보 저장소
+public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 프로퍼티
-	public System.DateTime PrevAdsTime { get; set; } = System.DateTime.Now;
-	public CGameInfo GameInfo { get; private set; } = null;
+	public CUserInfo UserInfo { get; private set; } = null;
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -33,35 +32,35 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 상태를 리셋한다
 	public virtual void Reset() {
-		this.GameInfo = new CGameInfo();
+		this.UserInfo = new CUserInfo();
 	}
 
-	//! 게임 정보를 저장한다
-	public void SaveGameInfo() {
-		this.SaveGameInfo(KDefine.B_DATA_PATH_GAME_INFO);
+	//! 유저 정보를 저장한다
+	public void SaveUserInfo() {
+		this.SaveUserInfo(KDefine.B_DATA_PATH_USER_INFO);
 	}
 
-	//! 게임 정보를 저장한다
-	public void SaveGameInfo(string a_oFilepath) {
-		CFunc.WriteMsgPackObj(a_oFilepath, this.GameInfo);
+	//! 유저 정보를 저장한다
+	public void SaveUserInfo(string a_oFilepath) {
+		this.SaveUserInfo(KDefine.B_DATA_PATH_USER_INFO);
 	}
 
-	//! 게임 정보를 로드한다
-	public void LoadGameInfo() {
-		this.LoadGameInfo(KDefine.B_DATA_PATH_GAME_INFO);
+	//! 유저 정보를 로드한다
+	public void LoadUserInfo() {
+		this.LoadUserInfo(KDefine.B_DATA_PATH_USER_INFO);
 	}
 
-	//! 게임 정보를 로드한다
-	public void LoadGameInfo(string a_oFilepath) {
+	//! 유저 정보를 로드한다
+	public void LoadUserInfo(string a_oFilepath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilepath)) {
 			try {
-				this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilepath);
+				this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilepath);
 			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning("CGameInfoStorage.LoadGameInfo Exception: {0}", oException.Message);
+				CFunc.ShowLogWarning("CUserInfoStorage.LoadUserInfo Exception: {0}", oException.Message);
 
 				this.Reset();
-				this.SaveGameInfo(a_oFilepath);
+				this.SaveUserInfo(a_oFilepath);
 			}
 		}
 	}

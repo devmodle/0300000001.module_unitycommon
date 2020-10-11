@@ -13,7 +13,7 @@ public class CSubIntroSceneManager : CIntroSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
 			this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
-				// Do Nothing
+				CSceneLoader.Instance.LoadScene(KCDefine.B_SCENE_NAME_MENU);
 			});
 		}
 	}

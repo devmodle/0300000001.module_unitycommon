@@ -39,8 +39,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CCommonUserInfoStorage.Instance.LoadUserInfo();
 
 		// 사운드를 설정한다 {
-		CSndManager.Instance.BGSndVolume = 1.0f;
-		CSndManager.Instance.FXSndsVolume = 1.0f;
+		CSndManager.Instance.BGSndVolume = KCDefine.B_MAX_VALUE_NORM;
+		CSndManager.Instance.FXSndsVolume = KCDefine.B_MAX_VALUE_NORM;
 		
 		CSndManager.Instance.IsMuteBGSnd = CCommonUserInfoStorage.Instance.UserInfo.IsMuteBGSnd;
 		CSndManager.Instance.IsMuteFXSnds = CCommonUserInfoStorage.Instance.UserInfo.IsMuteFXSnds;
@@ -138,14 +138,14 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CStringTable.Create();
 
 		CBuildInfoTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_INFO_TABLE);
-		CBuildOptTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_OPT_TABLE);
+		CBuildOptsTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_OPTS_TABLE);
 		CDefineSymbolTable.Create(KCDefine.U_ASSET_PATH_G_DEFINE_SYMBOL_TABLE);
 		CProjInfoTable.Create(KCDefine.U_ASSET_PATH_G_PROJ_INFO_TABLE);
 		CDeviceInfoTable.Create(KCDefine.U_ASSET_PATH_G_DEVICE_INFO_TABLE);
 
-#if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE
+#if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
 		CPluginInfoTable.Create(KCDefine.U_ASSET_PATH_G_PLUGIN_INFO_TABLE);
-#endif			// #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE
+#endif			// #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 		CProductInfoTable.Create(KCDefine.U_ASSET_PATH_G_PRODUCT_INFO_TABLE);

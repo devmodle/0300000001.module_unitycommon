@@ -24,7 +24,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 				this.CreateBlindImg(KCDefine.U_OBJ_NAME_BOTTOM_BLIND_IMG, CSceneManager.ScreenBlindUIRoot)
 			};
 			
-			for(int i = 0; i < oImgs.Length; ++i) {
+			for(int i = KCDefine.B_INDEX_START; i < oImgs.Length; ++i) {
 				oImgs[i].color = KCDefine.U_COLOR_TRANSPARENT;
 				oImgs[i].raycastTarget = false;
 			}

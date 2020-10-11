@@ -78,15 +78,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CFunc.SetupScreenUI(oDebugConsole, KCDefine.U_SORTING_ORDER_DEBUG_CONSOLE);
 		}
 	}
-	#endregion			// 함수
 
-		#region 조건부 함수
-#if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! 디버그 UI 를 설정한다
 	private void SetupDebugUI() {
+#if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		// 디버그 UI 가 없을 경우
 		if(CSetupSceneManager.m_oDebugUI == null) {
-			var oDebugUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_DEBUG_UI,
+			var oDebugUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_DEBUG_UI, 
 				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_SCREEN_DEBUG_UI), null);
 
 			CSetupSceneManager.m_oDebugUI = oDebugUI;
@@ -110,15 +108,15 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			DontDestroyOnLoad(oDebugUI);
 			CFunc.SetupScreenUI(oDebugUI, KCDefine.U_SORTING_ORDER_SCREEN_DEBUG_UI);
 		}
-	}
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
+	}
 
-#if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	//! FPS 카운터를 설정한다
 	private void SetupFPSCounter() {
+#if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		// FPS 카운터가 없을 경우
 		if(CSetupSceneManager.m_oFPSCounter == null) {
-			var oFPSCounter = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_FPS_COUNTER,
+			var oFPSCounter = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_FPS_COUNTER, 
 				CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_FPS_COUNTER), null);
 
 			CSetupSceneManager.m_oFPSCounter = oFPSCounter;
@@ -134,7 +132,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			DontDestroyOnLoad(oFPSCounter);
 			CFunc.SetupScreenUI(oFPSCounter, KCDefine.U_SORTING_ORDER_FPS_COUNTER);
 		}
-	}
 #endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-	#endregion			// 조건부 함수
+	}
+	#endregion			// 함수
 }

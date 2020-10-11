@@ -63,7 +63,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		// 상태 텍스트 갱신 주기가 지났을 경우
 		if(m_fSkipTime.ExIsGreateEquals(KDefine.SS_DELTA_TIME_UPDATE_STATE)) {
 			m_nNumDots = (m_nNumDots + 1) % KDefine.SS_MAX_NUM_DOTS;
-			m_fSkipTime = 0.0f;
+			m_fSkipTime = KCDefine.B_MIN_VALUE_NORM;
 
 			this.UpdateTextState();
 		}

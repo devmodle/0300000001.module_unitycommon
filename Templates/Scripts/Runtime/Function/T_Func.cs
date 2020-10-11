@@ -24,19 +24,24 @@ public static partial class Func {
 	#region 클래스 함수
 	//! 지역화 문자열을 설정한다
 	public static void SetupLocalizeStrings() {
-		string oFilepath = string.Empty;
 		string oLanguage = CCommonAppInfoStorage.Instance.AppInfo.Language.ToString();
+		Func.SetupLocalizeStrings(oLanguage);
+	}
+
+	//! 지역화 문자열을 설정한다
+	public static void SetupLocalizeStrings(string a_oLanguage) {
+		string oFilepath = string.Empty;
 
 		// 언어가 유효 할 경우
-		if(oLanguage.ExIsValidLanguage()) {
+		if(a_oLanguage.ExIsValidLanguage()) {
 			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
-				oLanguage);
+				a_oLanguage);
 		} else {
 			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
 				CCommonAppInfoStorage.Instance.CountryCode);
 		}
 
-		oFilepath = CAccess.IsExistsRes<TextAsset>(oFilepath) ? 
+		oFilepath = CAccess.IsExistsRes<TextAsset>(oFilepath, true) ? 
 			oFilepath : KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING;
 
 		CStringTable.Instance.LoadStringsFromRes(oFilepath);

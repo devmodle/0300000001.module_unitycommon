@@ -57,14 +57,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		this.SetupAbsUI();
 		this.SetupTimerManager();
 		this.SetupDebugConsole();
-
-#if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		this.SetupDebugUI();
-#endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-
-#if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		this.SetupFPSCounter();
-#endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	//! 디바이스 식별자 반환 메세지를 처리한다

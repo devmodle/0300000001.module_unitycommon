@@ -59,7 +59,7 @@ public static partial class CEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fSkipTime >= KCEditorDefine.B_DELTA_TIME_SCRIPT_M_SCENE_UPDATE) {
-				CEditorSceneManager.m_fSkipTime = 0.0f;
+				CEditorSceneManager.m_fSkipTime = KCDefine.B_MIN_VALUE_NORM;
 				
 				CFunc.EnumerateScenes((a_stScene) => 
 					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST));
@@ -98,26 +98,26 @@ public static partial class CEditorSceneManager {
 			bool bIsEnable = CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE);
 
 			// 전처리기 심볼 테이블 갱신이 가능 할 경우
-			if(bIsEnable && oAsset != null && CCommonPlatformOptSetter.DefineSymbolTable != null) {
+			if(bIsEnable && oAsset != null && CCommonPlatformOptsSetter.DefineSymbolTable != null) {
 				bool bIsNeedUpdate = false;
 
 				CEditorSceneManager.m_bIsSetupDependencies = false;
-				CEditorSceneManager.m_fDefineSymbolSkipTime = 0.0f;
+				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_MIN_VALUE_NORM;
 
 				var oDefineSymbolListContainer = new List<string>[] {
-					CCommonPlatformOptSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
-					CCommonPlatformOptSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
 					
-					CCommonPlatformOptSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList,
-					CCommonPlatformOptSetter.DefineSymbolTable.EditorMacDefineSymbolList,
-					CCommonPlatformOptSetter.DefineSymbolTable.EditorWindowsDefineSymbolList,
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList,
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList,
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditorWindowsDefineSymbolList,
 
-					CCommonPlatformOptSetter.DefineSymbolTable.EditoriOSDefineSymbolList,
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList,
 					
-					CCommonPlatformOptSetter.DefineSymbolTable.EditorAndroidDefineSymbolList,
-					CCommonPlatformOptSetter.DefineSymbolTable.EditorGoogleDefineSymbolList,
-					CCommonPlatformOptSetter.DefineSymbolTable.EditorOneStoreDefineSymbolList,
-					CCommonPlatformOptSetter.DefineSymbolTable.EditorGalaxyStoreDefineSymbolList
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList,
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList,
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditorOneStoreDefineSymbolList,
+					CCommonPlatformOptsSetter.DefineSymbolTable.EditorGalaxyStoreDefineSymbolList
 				};
 
 				foreach(var stKeyValue in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULE_LIST) {
@@ -137,7 +137,7 @@ public static partial class CEditorSceneManager {
 					EditorUtility.SetDirty(oAsset);
 					
 					CEditorFunc.UpdateAssetDatabaseState();
-					CCommonPlatformOptSetter.SetupDefineSymbols();
+					CCommonPlatformOptsSetter.SetupDefineSymbols();
 				}
 			}
 		}

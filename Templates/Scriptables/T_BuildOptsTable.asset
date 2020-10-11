@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a62c9032bda434cd083a8b2cc260951c, type: 3}
-  m_Name: T_BuildOptTable
+  m_Script: {fileID: 11500000, guid: 9457836c66e524122b874a45fda55767, type: 3}
+  m_Name: T_BuildOptsTable
   m_EditorClassIdentifier: 
-  m_stEditorOption:
+  m_stEditorOptions:
     m_bIsAsyncShaderCompile: 1
     m_bIsUseLegacyProbeSampleCount: 1
     m_bIsEnableTextureStreamingInPlayMode: 1
@@ -20,7 +20,7 @@ MonoBehaviour:
     m_eCacheServerMode: 0
     m_eLineEndingMode: 2
     m_eTextureCompressionType: 1
-  m_stSoundOption:
+  m_stSoundOptions:
     m_bIsDisable: 0
     m_bIsVirtualizeEffect: 1
     m_nSampleRate: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
     m_fDopplerFactor: 1
     m_eSpeakerMode: 1
     m_eDSPBufferSize: 1024
-  m_stCommonBuildOption:
+  m_stCommonBuildOptions:
     m_bIsGPUSkinning: 1
     m_bIsMTRendering: 1
     m_bIsRunInBackground: 0
@@ -49,11 +49,11 @@ MonoBehaviour:
     m_oPreloadAssetList: []
     m_eAccelerometerFrequency: 60
     m_eLightmapEncodingQuality: 0
-  m_stStandaloneBuildOption:
+  m_stStandaloneBuildOptions:
     m_bIsForceSingleInstance: 1
     m_bIsCaptureSingleScreen: 0
     m_eFullscreenMode: 3
-  m_stiOSBuildOption:
+  m_stiOSBuildOptions:
     m_bIsEnableProMotion: 0
     m_bIsRequreARKitSupport: 0
     m_bIsRequirePersistentWIFI: 0
@@ -64,10 +64,9 @@ MonoBehaviour:
     m_eTargetDevice: 2
     m_eStatusBarStyle: 0
     m_eBackgroundBehavior: 0
-  m_stAndroidBuildOption:
+  m_stAndroidBuildOptions:
     m_bIsRenderOutside: 1
     m_bIsTVCompatibility: 0
-    m_bIsOptimizeFramePacing: 0
     m_nAppBundleSize: 150
     m_eBlitType: 0
     m_eAspectRatioMode: 1
