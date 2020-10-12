@@ -13,20 +13,23 @@ MonoBehaviour:
   m_Name: T_BuildInfoTable
   m_EditorClassIdentifier: 
   m_stJenkinsInfo:
-    m_oUserID: dante
+    m_oUserID: sdlee
     m_oBranch: master
-    m_oSourceRoot: 00011.Sample
-    m_oWorkspaceRoot: /Users/dante/Documents/jenkins/workspace
-    m_oDistributionPath: /Users/dante/Documents/jenkins/builds
+    m_oSourceRoot: 00002.Sample
+    m_oWorkspaceRoot: /Users/9tapstudio/Documents/jenkins/workspace
+    m_oDebugDistPath: 
+    m_oReleaseDistPath: 
+    m_oAdhocDistPath: 
+    m_oStoreDistPath: 
     m_oBuildToken: JenkinsBuild
-    m_oAccessToken: 116037dbf725a41cff3fe98b951aa2cd42
-    m_oBuildURLFormat: http://localhost:8080/{0}/buildWithParameters
+    m_oAccessToken: 116162953dad20b69b734f219053ba9710
+    m_oBuildURLFormat: http://192.168.0.47:8080/{0}/buildWithParameters
   m_stStandaloneBuildInfo:
     m_oCategory: public.app-category.games
   m_stiOSBuildInfo:
-    m_oTeamID: 8XBEE2A299
+    m_oTeamID: A9997B8HR5
     m_oTargetOSVersion: 11.0
-    m_oDevProfileID: ba2539e1-bf43-4f23-aa01-44904040cf45
+    m_oDevProfileID: 
     m_oAdhocProfileID: 
     m_oStoreProfileID: 
     m_oURLSchemeList:
@@ -36,7 +39,7 @@ MonoBehaviour:
   m_stAndroidBuildInfo:
     m_oKeystorePath: Keystore.keystore
     m_oKeyaliasName: Keystore
-    m_oKeystorePassword: NSString132!
-    m_oKeyaliasPassword: NSString132!
+    m_oKeystorePassword: NT9studio!
+    m_oKeyaliasPassword: NT9studio!
     m_eMinSDKVersion: 21
     m_eTargetSDKVersion: 29

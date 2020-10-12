@@ -12,48 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9bed7b0cc0da472a9c36f5f407c1344, type: 3}
   m_Name: T_ProjInfoTable
   m_EditorClassIdentifier: 
-  m_oCompanyName: LK Studio
+  m_oCompanyName: 9tap
+  m_oServiceURL: https://www.ninetap.com/terms_of_service.html
+  m_oPrivacyURL: https://www.ninetap.com/privacy_policy.html
   m_oProjectName: Sample
   m_oProductName: Sample
   m_stMacProjectInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
-    m_oAppID: dante.distribution.sample
+    m_oAppID: com.ninetap.sample
     m_oStoreURL: 
-    m_oSupportMail: are2341@nate.com
+    m_oSupportMail: cs@ninetap.com
   m_stWindowsProjectInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
-    m_oAppID: dante.distribution.sample
+    m_oAppID: com.ninetap.sample
     m_oStoreURL: 
-    m_oSupportMail: are2341@nate.com
+    m_oSupportMail: cs@ninetap.com
   m_stiOSProjectInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
-    m_oAppID: dante.distribution.sample
+    m_oAppID: com.ninetap.sample
     m_oStoreURL: https://itunes.apple.com/app/id1197115495
-    m_oSupportMail: are2341@nate.com
+    m_oSupportMail: cs@ninetap.com
   m_stGoogleProjectInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
-    m_oAppID: dante.distribution.sample
-    m_oStoreURL: https://play.google.com/store/apps/details?id=dante.distribution.library
-    m_oSupportMail: are2341@nate.com
+    m_oAppID: com.ninetap.sample
+    m_oStoreURL: https://play.google.com/store/apps/details?id=com.ninetap.sample
+    m_oSupportMail: cs@ninetap.com
   m_stOneStoreProjectInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
-    m_oAppID: dante.distribution.sample
+    m_oAppID: com.ninetap.sample
     m_oStoreURL: 
-    m_oSupportMail: are2341@nate.com
+    m_oSupportMail: cs@ninetap.com
   m_stGalaxyStoreProjectInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
-    m_oAppID: dante.distribution.sample
+    m_oAppID: com.ninetap.sample
     m_oStoreURL: 
-    m_oSupportMail: are2341@nate.com
+    m_oSupportMail: cs@ninetap.com

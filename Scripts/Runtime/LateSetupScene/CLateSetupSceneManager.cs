@@ -113,7 +113,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			var oBuildVersionConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
 
 			string oDeviceConfig = CDeviceInfoTable.Instance.DeviceConfig.ExToJSONString();
-
+			
 			CAccess.Assert(oGameConfig.ExIsValid() && 
 				oBuildVersionConfig.ExIsValid() && oDeviceConfig.ExIsValid());
 
@@ -126,9 +126,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
 			CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
 
-			CCommonAppInfoStorage.Instance.DeviceConfig = oDeviceConfig.ExJSONStringToObj<STDeviceConfig>();
 			CFirebaseManager.Instance.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
-
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
