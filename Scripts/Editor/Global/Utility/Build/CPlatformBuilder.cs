@@ -119,6 +119,7 @@ public static partial class CPlatformBuilder {
 			// 전처리기 심볼을 설정한다 {
 			if(CPlatformBuilder.IsDistributionBuild) {
 				CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_ANALYTICS_TEST_ENABLE);
+				CPlatformBuilder.RemoveDefineSymbol(a_oPlayerOptions.targetGroup, KEditorDefine.DS_DEFINE_SYMBOL_CHEAT_ENABLE);
 			}
 
 			if(a_oPlayerOptions.targetGroup == BuildTargetGroup.Standalone) {

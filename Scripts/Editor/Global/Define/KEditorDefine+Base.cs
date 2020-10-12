@@ -550,8 +550,8 @@ public static partial class KEditorDefine {
 
 	// 젠킨스
 	public static readonly string B_JENKINS_STANDALONE_PIPELINE = string.Format("{0}/41.Standalone", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	public static readonly string B_JENKINS_IOS_PIPELINE = string.Format("{0}/01.iOS", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
-	public static readonly string B_JENKINS_ANDROID_PIPELINE = string.Format("{0}/11.Android", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
+	public static readonly string B_JENKINS_IOS_PIPELINE = string.Format("{0}/01.iOS_Legacy", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
+	public static readonly string B_JENKINS_ANDROID_PIPELINE = string.Format("{0}/11.Android_Legacy", KEditorDefine.B_JENKINS_PIPELINE_GROUP_NAME);
 
 	// 독립 플랫폼
 	public static readonly string B_STANDALONE_ABSOLUTE_BUILD_PATH_FORMAT = string.Format("{0}../Builds/Standalone/{1}", KEditorDefine.B_ABSOLUTE_DIR_PATH_ASSETS, "{0}");
