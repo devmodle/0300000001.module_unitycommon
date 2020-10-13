@@ -159,11 +159,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if UNITY_IOS
 				m_eAuthOpts = KCDefine.U_AUTH_OPTS_LOCAL_NOTI
 #elif UNITY_ANDROID
-				m_eImportance = KCDefine.U_IMPORTANCE_LOCAL_NOTI,
-
-				m_oGroupID = KCDefine.U_GROUP_ID_LOCAL_NOTI,
-				m_oGroupName = KCDefine.U_GROUP_NAME_LOCAL_NOTI,
-				m_oGroupDesc = KCDefine.U_GROUP_DESC_LOCAL_NOTI
+				m_eImportance = KCDefine.U_IMPORTANCE_LOCAL_NOTI
 #endif			// #if UNITY_IOS
 			};
 
