@@ -154,18 +154,18 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if LOCAL_NOTI_MODULE_ENABLE
-			var stLocalNotiParams = new CLocalNotiManager.STParams() {
+#if NOTI_MODULE_ENABLE
+			var stNotiParams = new CNotiManager.STParams() {
 #if UNITY_IOS
-				m_eAuthOpts = KCDefine.U_AUTH_OPTS_LOCAL_NOTI
+				m_eAuthOpts = KCDefine.U_AUTH_OPTS_NOTI
 #elif UNITY_ANDROID
-				m_eImportance = KCDefine.U_IMPORTANCE_LOCAL_NOTI
+				m_eImportance = KCDefine.U_IMPORTANCE_NOTI
 #endif			// #if UNITY_IOS
 			};
 
-			CLocalNotiManager.Instance.Init(stLocalNotiParams, CLateSetupSceneManager.OnInitLocalNotiManager);
+			CNotiManager.Instance.Init(stNotiParams, CLateSetupSceneManager.OnInitNotiManager);
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if LOCAL_NOTI_MODULE_ENABLE
+#endif			// #if NOTI_MODULE_ENABLE
 		}
 
 		this.Setup();
@@ -331,11 +331,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if LOCAL_NOTI_MODULE_ENABLE
-	//! 로컬 알림 관리자가 초기화 되었을 경우
-	private static void OnInitLocalNotiManager(CLocalNotiManager a_oSender, bool a_bIsSuccess) {
-		CFunc.ShowLog("CLateSetupSceneManager.OnInitLocalNotiManager: {0}", a_bIsSuccess);
+#if NOTI_MODULE_ENABLE
+	//! 알림 관리자가 초기화 되었을 경우
+	private static void OnInitNotiManager(CNotiManager a_oSender, bool a_bIsSuccess) {
+		CFunc.ShowLog("CLateSetupSceneManager.OnInitNotiManager: {0}", a_bIsSuccess);
 	}
-#endif			// #if LOCAL_NOTI_MODULE_ENABLE
+#endif			// #if NOTI_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수
 }

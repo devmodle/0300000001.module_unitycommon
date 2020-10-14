@@ -119,9 +119,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CPurchaseManager.Create();
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if LOCAL_NOTI_MODULE_ENABLE
-		CLocalNotiManager.Create();
-#endif			// #if LOCAL_NOTI_MODULE_ENABLE
+#if NOTI_MODULE_ENABLE
+		CNotiManager.Create();
+#endif			// #if NOTI_MODULE_ENABLE
 
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		// 관리자를 생성한다 }

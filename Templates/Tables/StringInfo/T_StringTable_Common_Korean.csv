@@ -1,6 +1,6 @@
 ID,Replace,Description,String
-ALERT_P_TITLE,0,알림 팝업 제목,알림
-ALERT_P_MSG,0,알림 팝업 메세지,게임을 종료하시겠습니까?
-ALERT_P_OK_BTN_TEXT,0,알림 팝업 확인 버튼 텍스트,확인
-ALERT_P_CANCEL_BTN_TEXT,0,알림 팝업 취소 버튼 텍스트,취소
+ALERT_P_TITLE,0,경고 팝업 제목,알림
+ALERT_P_MSG,0,경고 팝업 메세지,게임을 종료하시겠습니까?
+ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,확인
+ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,취소
 START_SM_LOADING_TEXT,0,시작 씬 관리자 로딩 텍스트,로딩 중

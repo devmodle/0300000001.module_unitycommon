@@ -106,9 +106,9 @@ public static partial class KEditorDefine {
 		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if LOCAL_NOTI_MODULE_ENABLE
-		[typeof(CLocalNotiManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON
-#endif			// #if LOCAL_NOTI_MODULE_ENABLE
+#if NOTI_MODULE_ENABLE
+		[typeof(CNotiManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON
+#endif			// #if NOTI_MODULE_ENABLE
 	};
 
 	// 데이터 타입
@@ -195,10 +195,10 @@ public static partial class KEditorDefine {
 		["unitymodule.common.purchase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#1.0.0",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
-#if LOCAL_NOTI_ENABLE || LOCAL_NOTI_MODULE_ENABLE
+#if NOTI_ENABLE || NOTI_MODULE_ENABLE
 		["com.unity.mobile.notifications"] = "1.0.3",
-		["unitymodule.common.localnoti"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_localnoti_client.git#1.0.0"
-#endif			// #if LOCAL_NOTI_ENABLE || LOCAL_NOTI_MODULE_ENABLE
+		["unitymodule.common.Noti"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_Noti_client.git#1.0.0"
+#endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {

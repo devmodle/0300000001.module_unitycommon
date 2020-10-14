@@ -17,7 +17,7 @@
         "UnityModule.Common.Singular",
         "UnityModule.Common.GameCenter",
         "UnityModule.Common.Purchase",
-        "UnityModule.Common.LocalNoti",
+        "UnityModule.Common.Noti",
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.Notifications.iOS",
         "Unity.Notifications.Android",
