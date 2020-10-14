@@ -91,7 +91,7 @@ public static partial class CEditorSceneManager {
 				oJSONNode.Add(KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY, oScopedRegistryList);
 				CFunc.WriteString(KCEditorDefine.B_DATA_PATH_UNITY_PKGS, oJSONNode.ToString(), System.Text.Encoding.Default);
 
-				CEditorFunc.UpdateAssetDatabaseState();
+				CEditorFunc.UpdateAssetDBState();
 			}
 		}
 	}

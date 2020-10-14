@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: T_PluginInfoTable
   m_EditorClassIdentifier: 
   m_eBannerAdsType: -1
-  m_oAppLovinSDKKey: 
   m_stiOSAdmobPluginInfo:
     m_oBannerAdsID: 
     m_oRewardAdsID: 
@@ -32,18 +31,7 @@ MonoBehaviour:
     m_oBannerAdsID: banner
     m_oRewardAdsID: rewardedvideo
     m_oFullscreenAdsID: interstitial
-  m_stiOSAppLovinPluginInfo:
-    m_oBannerAdsID: 
-    m_oRewardAdsID: 
-    m_oFullscreenAdsID: 
-  m_stAndroidAppLovinPluginInfo:
-    m_oBannerAdsID: 
-    m_oRewardAdsID: 
-    m_oFullscreenAdsID: 
   m_oiOSFlurryAPIKey: 
   m_oAndroidFlurryAPIKey: 
   m_oTenjinAPIKey: 
-  m_oFirebaseDatabaseURL: 
-  m_stSingularPluginInfo:
-    m_oAPIKey: ninetap_aade7eb2
-    m_oAPISecret: 32aa4d325f71fc58b1c30ad7446709f8
+  m_oFirebaseDBURL: https://sample-61739440.firebaseio.com

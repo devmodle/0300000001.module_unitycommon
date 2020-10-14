@@ -136,7 +136,7 @@ public static partial class CEditorSceneManager {
 				if(bIsNeedUpdate) {
 					EditorUtility.SetDirty(oAsset);
 					
-					CEditorFunc.UpdateAssetDatabaseState();
+					CEditorFunc.UpdateAssetDBState();
 					CCommonPlatformOptsSetter.SetupDefineSymbols();
 				}
 			}
