@@ -42,9 +42,7 @@ public static partial class CBuildProcessHandler {
 	//! iOS 빌드가 완료 되었을 경우
 	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
-		string oPlistFilepath = string.Format(KCEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, 
-			a_oPath);
-			
+		string oPlistFilepath = string.Format(KCEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
 		string oProjFilepath = PBXProject.GetPBXProjectPath(a_oPath);
 
 		// Plist 옵션을 설정한다 {
@@ -70,7 +68,7 @@ public static partial class CBuildProcessHandler {
 
 		oProj.SetBuildProperty(oFrameworkGUID, 
 			KCEditorDefine.B_IOS_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
-
+			
 		for(int i = KCDefine.B_INDEX_START; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
 			oProj.AddFrameworkToProject(oMainGUID, 
 				KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
