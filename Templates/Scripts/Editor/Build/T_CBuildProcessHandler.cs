@@ -71,12 +71,12 @@ public static partial class CBuildProcessHandler {
 		oProj.SetBuildProperty(oFrameworkGUID, 
 			KCEditorDefine.B_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_PROPERTY_VALUE_ENABLE_BITCODE);
 
-		for(int i = 0; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
+		for(int i = KCDefine.B_INDEX_START; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
 			oProj.AddFrameworkToProject(oMainGUID, 
 				KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
 		}
 
-		for(int i = 0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
+		for(int i = KCDefine.B_INDEX_START; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 			oProj.AddCapability(oMainGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i]);
 		}
 
@@ -85,7 +85,7 @@ public static partial class CBuildProcessHandler {
 		var oCapability = new ProjectCapabilityManager(oProjFilepath,
 			KCEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oMainGUID);
 		
-		for(int i = 0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
+		for(int i = KCDefine.B_INDEX_START; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 			var oCapabilityType = KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i];
 
 			// 푸시 알림 추가가 가능 할 경우
@@ -113,7 +113,12 @@ public static partial class CBuildProcessHandler {
 	//! 안드로이드 빌드가 완료 되었을 경우
 	private static void OnPostProcessAndroidBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_ANDROID
+		string oPlatform = CEditorAccess.GetAndroidName(CCommonPlatformBuilder.AndroidType);
+		
+		string oDirname = string.Format(KCEditorDefine.B_ANDROID_LIBRARY_DIRNAME_FORMAT, oPlatform);
+		string oDestPath = string.Format(KCEditorDefine.B_ANDROID_DEST_LIBRARY_PATH_FORMAT, oPlatform, oDirname);
 
+		CFunc.CopyDir(KCEditorDefine.B_ANDROID_SRC_LIBRARY_PATH, oDestPath);
 #endif			// #if UNITY_ANDROID
 	}
 	#endregion			// 클래스 함수

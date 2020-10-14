@@ -16,7 +16,7 @@
 	- *Runtime File Browser (v1.3.1 - Oct 7, 2020)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
-	- *Ingame Debug Console (v.1.3.5 - Oct 7, 2020)*
+	- *Ingame Debug Console (v.1.3.6 - Oct 13, 2020)*
 	- *Asset Usage Detector (v.1.8.8 - Oct 7, 2020)*
 3. **기타 추가 에셋 및 플러그인 리스트**
 	- *Admob (v5.3.0)*

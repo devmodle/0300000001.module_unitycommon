@@ -136,7 +136,7 @@ public static partial class KEditorDefine {
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.2.0",
-		["com.google.external-dependency-manager"] = "1.2.160",
+		["com.google.external-dependency-manager"] = "1.2.161",
 		["com.google.play.review"] = "1.3.0",
 		["com.unity.render-pipelines.universal"] = "8.2.0",
 
