@@ -5,43 +5,56 @@ using UnityEngine;
 #if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
 using Firebase.Analytics;
 
+#if PURCHASE_ENABLE
+using UnityEngine.Purchasing;
+#endif         // #if PURCHASE_MODULE_ENABLE
+
 //! 파이어 베이스 관리자 - 분석
-public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
+public partial class CFirebaseManager : CSingleton<CFirebaseManager>
+{
 	#region 함수
 	//! 분석 유저 식별자를 변경한다
-	public void SetAnalyticsUserID(string a_oID) {
+	public void SetAnalyticsUserID(string a_oID)
+	{
 		Func.Assert(a_oID.ExIsValid());
 		Func.ShowLog("CFirebaseManager.SetAnalyticsUserID: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oID);
 
-		if(this.IsInit) {
+		if (this.IsInit)
+		{
 			FirebaseAnalytics.SetUserId(a_oID);
 		}
 	}
 
 	//! 분석 데이터를 변경한다
-	public void SetAnalyticsDatas(Dictionary<string, string> a_oDataList) {
+	public void SetAnalyticsDatas(Dictionary<string, string> a_oDataList)
+	{
 		Func.Assert(a_oDataList.ExIsValid());
 		Func.ShowLog("CFirebaseManager.SetAnalyticsDatas: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oDataList);
 
-		if(this.IsInit) {
-			foreach(var stKeyValue in a_oDataList) {
+		if (this.IsInit)
+		{
+			foreach (var stKeyValue in a_oDataList)
+			{
 				FirebaseAnalytics.SetUserProperty(stKeyValue.Key, stKeyValue.Value);
 			}
 		}
 	}
 
 	//! 로그를 전송한다
-	public void SendLog(string a_oName, string a_oParameter) {
+	public void SendLog(string a_oName, string a_oParameter)
+	{
 		this.SendLog(a_oName, a_oParameter, null);
 	}
 
 	//! 로그를 전송한다
-	public void SendLog(string a_oName, string a_oParameter, List<string> a_oDataList) {
+	public void SendLog(string a_oName, string a_oParameter, List<string> a_oDataList)
+	{
 		Func.Assert(a_oName.ExIsValid() && a_oParameter.ExIsValid());
 		Func.ShowLog("CFirebaseManager.SendLog: {0}, {1}, {2}", KDefine.B_LOG_COLOR_PLUGIN, a_oName, a_oParameter, a_oDataList);
 
 #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
-		if(this.IsInit) {
+		if (this.IsInit)
+		{
 			var oDataList = a_oDataList ?? new List<string>();
 
 #if MESSAGE_PACK_ENABLE
@@ -53,14 +66,60 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 
 			oDataList.ExAddValue(System.DateTime.UtcNow.ExToLongString());
 			oDataList.ExAddValue(CAppInfoStorage.Instance.AppInfo.m_stUTCInstallTime.ExToLongString());
-#endif			// #if AUTO_LOG_PARAMETER_ENABLE
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif          // #if AUTO_LOG_PARAMETER_ENABLE
+#endif          // #if MESSAGE_PACK_ENABLE
 
 			string oLog = oDataList.ExToString(KDefine.U_TOKEN_FIREBASE_ANALYTICS_LOG_DATA);
 			FirebaseAnalytics.LogEvent(a_oName, a_oParameter, oLog);
 		}
-#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
+#endif         // #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 	}
-	#endregion			// 함수
+	#endregion         // 함수
+
+	#region 조건부 함수
+#if FIREBASE_ANALYTICS_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+	//! 매개 변수를 생성한다
+	private Parameter[] MakeParams(Dictionary<string, string> a_oDataList)
+	{
+		var oParamList = new List<Parameter>();
+
+		foreach (var stKeyValue in a_oDataList)
+		{
+			var oParam = new Parameter(stKeyValue.Key, stKeyValue.Value);
+			oParamList.Add(oParam);
+		}
+
+		return oParamList.ToArray();
+	}
+#endif         // #if FIREBASE_ANALYTICS_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+
+#if PURCHASE_ENABLE
+	//! 결제 로그를 전송한다
+	public void SendPurchaseLog(Product a_oProduct)
+	{
+		Func.Assert(a_oProduct != null);
+		Func.ShowLog("CFirebaseManager.SendPurchaseLog: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oProduct);
+
+#if FIREBASE_ANALYTICS_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
+		// 초기화 되었을 경우
+		if (this.IsInit)
+		{
+			var oParams = this.MakeParams(new Dictionary<string, string>()
+			{
+				[FirebaseAnalytics.ParameterItemId] = a_oProduct.definition.id,
+				[FirebaseAnalytics.ParameterItemName] = a_oProduct.metadata.localizedTitle,
+				[FirebaseAnalytics.ParameterCurrency] = a_oProduct.metadata.isoCurrencyCode,
+				[FirebaseAnalytics.ParameterPrice] = a_oProduct.metadata.localizedPrice.ToString(),
+				[FirebaseAnalytics.ParameterTransactionId] = a_oProduct.transactionID
+			});
+
+			FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventPurchase, oParams);
+		}
+#endif         // #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
+#endif         // #if FIREBASE_ANALYTICS_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+	}
+#endif         // #if PURCHASE_ENABLE
+	#endregion         // 조건부 함수
 }
-#endif			// #if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
+#endif         // #if FIREBASE_ENABLE && FIREBASE_ANALYTICS_ENABLE
