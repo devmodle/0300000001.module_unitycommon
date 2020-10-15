@@ -139,6 +139,7 @@ public static partial class KEditorDefine {
 		["com.google.external-dependency-manager"] = "1.2.161",
 		["com.google.play.review"] = "1.3.0",
 		["com.unity.render-pipelines.universal"] = "8.2.0",
+		["com.unity.visualeffectgraph"] = "8.2.0",
 
 #if CINEMACHINE_ENABLE
 		["com.unity.cinemachine"] = "2.6.3",
@@ -169,7 +170,6 @@ public static partial class KEditorDefine {
 		["com.google.firebase.analytics"] = "6.16.0",
 		["com.google.firebase.crashlytics"] = "6.16.0",
 		["com.google.firebase.database"] = "6.16.0",
-		["com.google.firebase.firestore"] = "6.16.0",
 		["com.google.firebase.remote-config"] = "6.16.0",
 		["com.google.firebase.messaging"] = "6.16.0",
 

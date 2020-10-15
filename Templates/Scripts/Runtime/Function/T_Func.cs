@@ -10,9 +10,9 @@ public static partial class Func {
 	private static bool m_bIsWatchRewardAds = false;
 	private static bool m_bIsWatchFullscreenAds = false;
 
-	private static STAdsRewardInfo m_stRewardInfo;
+	private static STPostItem m_stRewardItem;
 
-	private static System.Action<CAdsManager, STAdsRewardInfo, bool> m_oRewardAdsCallback = null;
+	private static System.Action<CAdsManager, STPostItem, bool> m_oRewardAdsCallback = null;
 	private static System.Action<CAdsManager, bool> m_oFullscreenAdsCallback = null;
 #endif			// #if ADS_MODULE_ENABLE
 
@@ -52,19 +52,19 @@ public static partial class Func {
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
 	public static void ShowRewardAds(EAdsType a_eAdsType, 
-		System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback) 
+		System.Action<CAdsManager, STPostItem, bool> a_oCallback) 
 	{
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Instance.IsLoadRewardAds(a_eAdsType)) {
 			Func.m_bIsWatchRewardAds = false;
-			Func.m_stRewardInfo = default(STAdsRewardInfo);
+			Func.m_stRewardItem = default(STPostItem);
 
 			Func.m_oRewardAdsCallback = a_oCallback;
 
 			CAdsManager.Instance.ShowRewardAds(a_eAdsType, 
 				Func.OnReceiveUserReward, Func.OnCloseRewardAds);
 		} else {
-			a_oCallback?.Invoke(CAdsManager.Instance, default(STAdsRewardInfo), false);
+			a_oCallback?.Invoke(CAdsManager.Instance, default(STPostItem), false);
 		}
 	}
 
@@ -90,15 +90,15 @@ public static partial class Func {
 
 	//! 보상 광고가 닫혔을 경우
 	private static void OnCloseRewardAds(CAdsManager a_oSender) {
-		Func.m_oRewardAdsCallback?.Invoke(a_oSender, Func.m_stRewardInfo, Func.m_bIsWatchRewardAds);
+		Func.m_oRewardAdsCallback?.Invoke(a_oSender, Func.m_stRewardItem, Func.m_bIsWatchRewardAds);
 	}
 
 	//! 유저 보상을 수신했을 경우
 	private static void OnReceiveUserReward(CAdsManager a_oSender, 
-		STAdsRewardInfo a_stRewardInfo, bool a_bIsSuccess) 
+		STPostItem a_stRewardItem, bool a_bIsSuccess) 
 	{
 		Func.m_bIsWatchRewardAds = a_bIsSuccess;
-		Func.m_stRewardInfo = a_stRewardInfo;
+		Func.m_stRewardItem = a_stRewardItem;
 	}
 
 	//! 전면 광고가 닫혔을 경우
@@ -107,6 +107,67 @@ public static partial class Func {
 		Func.m_oFullscreenAdsCallback?.Invoke(a_oSender, Func.m_bIsWatchFullscreenAds);
 	}
 #endif			// #if ADS_MODULE_ENABLE
+
+#if FIREBASE_MODULE_ENABLE
+	//! 지급 아이템을 저장한다
+	public static void SavePostItem(List<STPostItem> a_oPostItem, 
+		System.Action<CFirebaseManager, bool> a_oCallback) 
+	{
+		// 로그인 되었을 경우
+		if(CFirebaseManager.Instance.IsLogin) {
+			var oNodeList = Func.MakePostItemNodeList();
+			string oJSONString = a_oPostItem.ExToJSONString();
+
+			CFirebaseManager.Instance.SaveDB(oNodeList, oJSONString, a_oCallback);
+		} else {
+			a_oCallback?.Invoke(CFirebaseManager.Instance, false);
+		}
+	}
+
+	//! 지급 아이템을 로드한다
+	public static void LoadPostItem(System.Action<CFirebaseManager, string, bool> a_oCallback) {
+		// 로그인 되었을 경우
+		if(CFirebaseManager.Instance.IsLogin) {
+			var oNodeList = Func.MakePostItemNodeList();
+			CFirebaseManager.Instance.LoadDB(oNodeList, a_oCallback);
+		} else {
+			a_oCallback?.Invoke(CFirebaseManager.Instance, string.Empty, false);
+		}
+	}
+
+	//! 지급 아이템 노드를 생성한다
+	public static List<string> MakePostItemNodeList() {
+#if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+		return new List<string>() {
+			KCDefine.U_NODE_FIREBASE_POST_ITEM_LIST
+		};
+#else
+		return null;
+#endif			// #if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+	}
+
+	//! 유저 정보 노드를 생성한다
+	public static List<string> MakeUserInfoNodeList() {
+#if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+		return new List<string>() {
+			KCDefine.U_NODE_FIREBASE_USER_INFO_LIST
+		};
+#else
+		return null;
+#endif			// #if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+	}
+
+	//! 결제 정보 노드를 생성한다
+	public static List<string> MakePurchaseInfoList() {
+#if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+		return new List<string>() {
+			KCDefine.U_NODE_FIREBASE_PURCHASE_INFO_LIST
+		};
+#else
+		return null;
+#endif			// #if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+	}
+#endif			// #if FIREBASE_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 	//! 상품을 결제한다
