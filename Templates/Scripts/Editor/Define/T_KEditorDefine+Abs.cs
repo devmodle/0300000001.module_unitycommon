@@ -139,11 +139,18 @@ public static partial class KEditorDefine {
 		["com.google.external-dependency-manager"] = "1.2.161",
 		["com.google.play.review"] = "1.3.0",
 		["com.unity.render-pipelines.universal"] = "8.2.0",
-		["com.unity.visualeffectgraph"] = "8.2.0",
+		
+#if ML_AGENTS_ENABLE
+		["com.unity.ml-agents"] = "1.0.5",
+#endif			// #if ML_AGENTS_ENABLE
 
 #if CINEMACHINE_ENABLE
 		["com.unity.cinemachine"] = "2.6.3",
 #endif			// #if CINEMACHINE_ENABLE
+
+#if VISUAL_FX_GRAPH_ENABLE
+		["com.unity.visualeffectgraph"] = "8.2.0",
+#endif			// #if VISUAL_FX_GRAPH_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
     	["com.unity.postprocessing"] = "2.3.0",
