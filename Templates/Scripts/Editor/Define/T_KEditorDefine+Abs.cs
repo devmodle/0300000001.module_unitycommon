@@ -65,10 +65,6 @@ public static partial class KEditorDefine {
 		[typeof(CMenuSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 #endif			// #if STUDY_MODULE_ENABLE
 
-#if UNITY_ANDROID
-		[typeof(CPermissionManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-#endif			// #if UNITY_ANDROID
-
 #if ADS_MODULE_ENABLE
 		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_ORDER_BANNER_ADS_CORRECTOR,
@@ -139,7 +135,7 @@ public static partial class KEditorDefine {
 		["com.google.external-dependency-manager"] = "1.2.161",
 		["com.google.play.review"] = "1.3.0",
 		["com.unity.render-pipelines.universal"] = "8.2.0",
-		
+
 #if ML_AGENTS_ENABLE
 		["com.unity.ml-agents"] = "1.0.5",
 #endif			// #if ML_AGENTS_ENABLE

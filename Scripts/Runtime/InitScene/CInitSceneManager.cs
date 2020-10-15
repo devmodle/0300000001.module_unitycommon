@@ -78,11 +78,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CNavStackManager.Create();
 		CToastPopupManager.Create();
 		CActivityIndicatorManager.Create();
-
-#if UNITY_ANDROID
-		CPermissionManager.Create();
-#endif			// #if UNITY_ANDROID
-
+		
 #if ADS_MODULE_ENABLE
 		CAdsManager.Create();
 #endif			// #if ADS_MODULE_ENABLE
