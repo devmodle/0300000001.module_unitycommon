@@ -157,7 +157,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if NOTI_MODULE_ENABLE
 			var stNotiParams = new CNotiManager.STParams() {
 #if UNITY_IOS
-				m_eAuthOpts = KCDefine.U_AUTH_OPTS_NOTI
+				m_eAuthOpts = KCDefine.U_AUTH_OPTS_NOTI,
+				m_ePresentOpts = KCDefine.U_PRESENT_OPTS_NOTI
 #elif UNITY_ANDROID
 				m_eImportance = KCDefine.U_IMPORTANCE_NOTI
 #endif			// #if UNITY_IOS
