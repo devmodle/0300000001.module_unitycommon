@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEditor;
 
 //! 전처리기 심볼 테이블
-public class CDefineSymbolTable : CScriptableObj<CDefineSymbolTable> {
+public class CDefineSymbolTable : CScriptableObj<CDefineSymbolTable>
+{
 	#region 변수
 	[Header("Common Define Symbol")]
 	[SerializeField] private List<string> m_oCommonDefineSymbolList = new List<string>();
@@ -23,7 +24,7 @@ public class CDefineSymbolTable : CScriptableObj<CDefineSymbolTable> {
 	[SerializeField] private List<string> m_oGoogleDefineSymbolList = new List<string>();
 	[SerializeField] private List<string> m_oOneStoreDefineSymbolList = new List<string>();
 	[SerializeField] private List<string> m_oGalaxyStoreDefineSymbolList = new List<string>();
-	#endregion			// 변수
+	#endregion            // 변수
 
 	#region 프로퍼티
 	public List<string> StandaloneDefineSymbolList { get; private set; } = new List<string>();
@@ -37,12 +38,13 @@ public class CDefineSymbolTable : CScriptableObj<CDefineSymbolTable> {
 	public List<string> GoogleDefineSymbolList => m_oGoogleDefineSymbolList;
 	public List<string> OneStoreDefineSymbolList => m_oOneStoreDefineSymbolList;
 	public List<string> GalaxyStoreDefineSymbolList => m_oGalaxyStoreDefineSymbolList;
-#endif			// #if UNITY_EDITOR
-	#endregion			// 프로퍼티
+#endif            // #if UNITY_EDITOR
+	#endregion            // 프로퍼티
 
 	#region 함수
 	//! 초기화
-	public override void Awake() {
+	public override void Awake()
+	{
 		base.Awake();
 
 		this.StandaloneDefineSymbolList.ExAddValues(m_oCommonDefineSymbolList);
@@ -51,13 +53,13 @@ public class CDefineSymbolTable : CScriptableObj<CDefineSymbolTable> {
 
 		this.iOSDefineSymbolList.ExAddValues(m_oCommonDefineSymbolList);
 		this.iOSDefineSymbolList.ExAddValues(m_oSubCommonDefineSymbolList);
+		this.iOSDefineSymbolList.ExAddValues(m_oiOSDefineSymbolList);
 
 		this.AndroidDefineSymbolList.ExAddValues(m_oCommonDefineSymbolList);
 		this.AndroidDefineSymbolList.ExAddValues(m_oSubCommonDefineSymbolList);
 		this.AndroidDefineSymbolList.ExAddValues(m_oAndroidDefineSymbolList);
 
 #if UNITY_IOS
-		this.iOSDefineSymbolList.ExAddValues(m_oiOSDefineSymbolList);
 #elif UNITY_ANDROID
 #if ONE_STORE_PLATFORM
 		this.AndroidDefineSymbolList.ExAddValues(m_oOneStoreDefineSymbolList);
@@ -65,21 +67,22 @@ public class CDefineSymbolTable : CScriptableObj<CDefineSymbolTable> {
 		this.AndroidDefineSymbolList.ExAddValues(m_oGalaxyStoreDefineSymbolList);
 #else
 		this.AndroidDefineSymbolList.ExAddValues(m_oGoogleDefineSymbolList);
-#endif			// #if ONE_STORE_PLATFORM
+#endif         // #if ONE_STORE_PLATFORM
 #else
 #if UNITY_STANDALONE_WIN
 		this.StandaloneDefineSymbolList.ExAddValues(m_oWindowsDefineSymbolList);
 #else
 		this.StandaloneDefineSymbolList.ExAddValues(m_oMacDefineSymbolList);
-#endif			// #if UNITY_STANDALONE_WIN
-#endif			// #if UNITY_ANDROID
+#endif         // #if UNITY_STANDALONE_WIN
+#endif         // #if UNITY_IOS
 	}
-	#endregion			// 함수
+	#endregion         // 함수
 
 	#region 조건부 함수
 	//! 공용 전처리기 심볼 리스트를 변경한다
-	public void SetCommonDefineSymbolList(List<string> a_oDefineSymbolList) {
+	public void SetCommonDefineSymbolList(List<string> a_oDefineSymbolList)
+	{
 		m_oCommonDefineSymbolList = a_oDefineSymbolList;
 	}
-	#endregion			// 조건부 함수
+	#endregion         // 조건부 함수
 }
