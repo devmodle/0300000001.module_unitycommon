@@ -69,12 +69,12 @@ public static partial class CBuildProcessHandler {
 		oProj.SetBuildProperty(oFrameworkGUID, 
 			KCEditorDefine.B_IOS_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
 			
-		for(int i = KCDefine.B_INDEX_START; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
+		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
 			oProj.AddFrameworkToProject(oMainGUID, 
 				KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
 		}
 
-		for(int i = KCDefine.B_INDEX_START; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
+		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 			oProj.AddCapability(oMainGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i]);
 		}
 
@@ -83,7 +83,7 @@ public static partial class CBuildProcessHandler {
 		var oCapability = new ProjectCapabilityManager(oProjFilepath,
 			KCEditorDefine.B_IOS_CAPABILITY_ENTITLEMENTS_PATH, null, oMainGUID);
 		
-		for(int i = KCDefine.B_INDEX_START; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
+		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 			var oCapabilityType = KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i];
 
 			// 푸시 알림 추가가 가능 할 경우

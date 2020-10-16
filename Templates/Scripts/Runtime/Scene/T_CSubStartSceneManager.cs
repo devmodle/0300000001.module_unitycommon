@@ -62,7 +62,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 		// 상태 텍스트 갱신 주기가 지났을 경우
 		if(m_fSkipTime.ExIsGreateEquals(KDefine.SS_DELTA_TIME_UPDATE_STATE)) {
-			m_nNumDots = (m_nNumDots + 1) % KDefine.SS_MAX_NUM_DOTS;
+			m_nNumDots = (m_nNumDots + KCDefine.B_VALUE_INT_1) % KDefine.SS_MAX_NUM_DOTS;
 			m_fSkipTime = KCDefine.B_MIN_VALUE_NORM;
 
 			this.UpdateTextState();
@@ -71,7 +71,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	//! 시작 씬 이벤트를 수신했을 경우
 	protected override void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent) {
-		m_fMaxPercent = Mathf.Clamp((int)a_eEvent / (float)((int)EStartSceneEvent.MAX_VALUE - 1), 
+		m_fMaxPercent = Mathf.Clamp((int)a_eEvent / (float)((int)EStartSceneEvent.MAX_VALUE - KCDefine.B_VALUE_INT_1), 
 			KCDefine.B_MIN_VALUE_NORM, KCDefine.B_MAX_VALUE_NORM);
 	}
 
@@ -85,7 +85,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 			m_oStringBuilder.Clear();
 			m_oStringBuilder.Append(oLoading);
 			
-			for(int i = 0; i < m_nNumDots + 1; ++i) {
+			for(int i = 0; i < m_nNumDots + KCDefine.B_VALUE_INT_1; ++i) {
 				m_oStringBuilder.Append(oDot);
 			}
 

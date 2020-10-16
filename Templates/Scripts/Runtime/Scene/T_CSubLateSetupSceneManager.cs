@@ -26,7 +26,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 #if AB_TEST_ENABLE
 				int nSumValue = CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExToSumValue();
 			
-				CCommonUserInfoStorage.Instance.UserInfo.UserType = (nSumValue % 2 != KCDefine.B_ZERO_VALUE_INT) ? 
+				CCommonUserInfoStorage.Instance.UserInfo.UserType = (nSumValue % 2 != KCDefine.B_VALUE_INT_0) ? 
 					EUserType.USER_A : EUserType.USER_B;
 #else
 				CCommonUserInfoStorage.Instance.UserInfo.UserType = EUserType.USER_A;

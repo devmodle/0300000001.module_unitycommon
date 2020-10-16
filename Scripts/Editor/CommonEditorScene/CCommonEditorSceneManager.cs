@@ -72,14 +72,14 @@ public static partial class CCommonEditorSceneManager {
 					CFunc.EnumerateScenes((a_stScene) => {
 						var oObjs = a_stScene.GetRootGameObjects();
 
-						for(int j = KCDefine.B_INDEX_START; j < oObjs.Length; ++j) {
+						for(int j = KCDefine.B_VALUE_INT_0; j < oObjs.Length; ++j) {
 							var oEnumerator = oObjs[j].DescendantsAndSelf();
 
 							foreach(var oObj in oEnumerator) {
 								int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
 
 								// 스크립트 제거가 필요 할 경우
-								if(nNumMissingScripts > KCDefine.B_ZERO_VALUE_INT) {
+								if(nNumMissingScripts > KCDefine.B_VALUE_INT_0) {
 									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
 									EditorSceneManager.MarkSceneDirty(a_stScene);
 								}
@@ -113,7 +113,7 @@ public static partial class CCommonEditorSceneManager {
 
 			var oComponents = oObj.GetComponents<Component>();
 
-			for(int i = KCDefine.B_INDEX_START; i < oComponents.Length; ++i) {
+			for(int i = KCDefine.B_VALUE_INT_0; i < oComponents.Length; ++i) {
 				// 컴포넌트가 존재 할 경우
 				if(oComponents[i] != null) {
 					var oType = oComponents[i].GetType();

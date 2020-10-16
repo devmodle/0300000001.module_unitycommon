@@ -87,7 +87,7 @@ public static partial class CEditorSceneManager {
 			}
 
 			// 패키지 레지스트리 갱신이 필요 할 경우
-			if(bIsNeedUpdate && oScopedRegistryList.Count >= 1) {
+			if(bIsNeedUpdate && oScopedRegistryList.Count > KCDefine.B_VALUE_INT_0) {
 				oJSONNode.Add(KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY, oScopedRegistryList);
 				CFunc.WriteString(KCEditorDefine.B_DATA_PATH_UNITY_PKGS, oJSONNode.ToString(), System.Text.Encoding.Default);
 
