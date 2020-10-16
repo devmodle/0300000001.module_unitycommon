@@ -74,6 +74,41 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager>
 		}
 #endif         // #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
 	}
+
+	//! 로그를 전송한다
+	public void SendLog(string a_oName, Dictionary<string, string> a_oDataList) {
+		Func.ShowLog("CFirebaseManager.SendLog: {0}, {1}", 
+			KDefine.B_LOG_COLOR_PLUGIN, a_oName, a_oDataList);
+
+#if FIREBASE_ANALYTICS_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+#if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
+		// 초기화 되었을 경우
+		if(this.IsInit) {
+			var oDataList = a_oDataList ?? new Dictionary<string, string>();
+
+			oDataList.ExAddValue(KDefine.U_LOG_KEY_DEVICE_ID, 
+				CAppInfoStorage.Instance.AppInfo.DeviceID);
+
+#if AUTO_LOG_PARAMS_ENABLE
+			oDataList.ExAddValue(KDefine.U_LOG_KEY_PLATFORM, 
+				CAppInfoStorage.Instance.PlatformName);
+
+			oDataList.ExAddValue(KDefine.U_LOG_KEY_USER_TYPE, 
+				CUserInfoStorage.Instance.UserInfo.UserType.ToString());
+
+			oDataList.ExAddValue(KDefine.U_LOG_KEY_LOG_TIME, 
+				System.DateTime.UtcNow.ExToLongString());
+
+			oDataList.ExAddValue(KDefine.U_LOG_KEY_INSTALL_TIME, 
+				CAppInfoStorage.Instance.AppInfo.UTCInstallTime.ExToLongString());
+#endif			// #if AUTO_LOG_PARAMS_ENABLE
+
+			var oParams = this.MakeParams(oDataList);
+			FirebaseAnalytics.LogEvent(a_oName, oParams);
+		}
+#endif			// #if ANALYTICS_TEST_ENABLE || (ADHOC_BUILD || STORE_BUILD)
+#endif			// #if FIREBASE_ANALYTICS_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+	}
 	#endregion         // 함수
 
 	#region 조건부 함수

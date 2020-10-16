@@ -621,7 +621,7 @@ public abstract partial class CSceneManager : CComponent
 					for (int j = 0; j < oImgs.Length; ++j)
 					{
 						var oImg = oImgs[j];
-						oImg.color = Func.IsEditorPlatform() ? KDefine.U_DEF_COLOR_TRANSPARENT : KDefine.U_DEF_COLOR_BLIND_UI;
+						oImg.color = Func.IsEditorPlatform() ? KDefine.U_DEF_COLOR_BLIND_UI : KDefine.U_DEF_COLOR_BLIND_UI;
 
 						oImg.rectTransform.pivot = oPivots[j];
 						oImg.rectTransform.anchorMin = oAnchors[j];
