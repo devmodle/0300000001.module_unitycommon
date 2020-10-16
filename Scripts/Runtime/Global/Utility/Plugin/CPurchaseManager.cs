@@ -310,7 +310,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 #if SECURITY_ENABLE
 			var oBytes = Func.ReadSecurityBytes(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST);
 #else
-			var oBytes = Func.ReadBytes(KDefine.U_PATH_PURCHASE_M_PRODUCT_ID_LIST);
+			var oBytes = Func.ReadBytes(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST);
 #endif			// #if SECURITY_ENABLE
 
 			this.PurchaseProductIDList = MessagePackSerializer.Deserialize<List<string>>(oBytes);
