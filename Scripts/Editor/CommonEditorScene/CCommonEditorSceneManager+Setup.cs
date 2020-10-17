@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Rendering.Universal;
 using IngameDebugConsole;
 
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
+
+#if UNIVERSAL_PIPELINE_MODULE_ENABLE
+using UnityEngine.Rendering.Universal;
+#endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 
 //! 공용 에디터 씬 관리자 - 설정
 public static partial class CCommonEditorSceneManager {
@@ -77,22 +80,20 @@ public static partial class CCommonEditorSceneManager {
 						oCameras[j].tag = KCDefine.U_TAG_MAIN_CAMERA;
 					}
 
+#if UNIVERSAL_PIPELINE_MODULE_ENABLE
 					// UI, 메인 카메라가 존재 할 경우
 					if(bIsExistsUICamera || bIsExistsMainCamera) {
-#if UNIVERSAL_PIPELINE_ENABLE
 						oCameras[j].gameObject.ExAddComponent<UniversalAdditionalCameraData>();
-#else
-						oCameras[j].gameObject.ExRemoveComponent<UniversalAdditionalCameraData>();
-#endif			// #if UNIVERSAL_PIPELINE_ENABLE
 					}
+#endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 
 					// 현재 씬 관리자 일 경우
 					if(oSceneManagers[i].SceneName.ExIsEquals(oSceneManagers[i].gameObject.scene.name)) {
-#if UNIVERSAL_PIPELINE_ENABLE
+#if UNIVERSAL_PIPELINE_MODULE_ENABLE
 						oCameras[j].gameObject.SetActive(bIsMainCamera);
 #else
 						oCameras[j].gameObject.SetActive(bIsUICamera || bIsMainCamera);
-#endif			// #if UNIVERSAL_PIPELINE_ENABLE
+#endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 					}
 				}
 			}
@@ -100,15 +101,18 @@ public static partial class CCommonEditorSceneManager {
 
 		// UI 카메라가 없을 경우
 		if(!bIsExistsUICamera) {
-			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA));
+			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", 
+				KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA));
 		}
 		// 메인 카메라가 없을 경우
 		else if(!bIsExistsMainCamera) {
-			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KCDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA));
+			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", 
+				KCDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA));
 		}
 		// 메인 광원이 없을 경우
 		else if(!bIsExistsMainLight) {
-			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT));
+			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", 
+				KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT));
 		}
 
 		// 디버그 콘솔을 설정한다 {
