@@ -23,6 +23,7 @@ MonoBehaviour:
   - LIGHTMAP_SHADOW_BAKE_ENABLE
   - MODE_2D_ENABLE
   - LZ4_COMPRESS_ENABLE
+  - FIREBASE_ENABLE
   m_oSubCommonDefineSymbolList: []
   m_oStandaloneDefineSymbolList: []
   m_oMacDefineSymbolList: []
