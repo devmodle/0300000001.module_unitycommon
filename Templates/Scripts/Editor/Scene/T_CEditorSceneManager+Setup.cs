@@ -45,7 +45,7 @@ public static partial class CEditorSceneManager {
 
 #if !SAMPLE_PROJ
 				// Git 저장소 일 경우
-				if(!System.Version.TryParse(stKeyValue.Value, out System.Version stVersion)) {
+				if(!stKeyValue.Value.ExIsValidBuildVersion()) {
 					Client.Add(stKeyValue.Value);
 				}
 #endif			// #if !SAMPLE_PROJ
@@ -59,7 +59,7 @@ public static partial class CEditorSceneManager {
 			System.Text.Encoding.Default);
 
 		var oJSONNode = SimpleJSON.JSON.Parse(oString);
-
+		
 		// JSON 노드가 유효 할 경우
 		if(oJSONNode != null) {
 			bool bIsNeedUpdate = false;
