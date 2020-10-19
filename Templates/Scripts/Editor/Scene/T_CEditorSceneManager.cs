@@ -90,8 +90,11 @@ public static partial class CEditorSceneManager {
 
 	//! 상태를 갱신한다
 	private static void LateUpdate() {
+		bool bIsEnableUpdate = CEditorSceneManager.m_bIsSetupDependencies && 
+			CEditorAccess.IsEnableUpdateState();
+
 		// 상태 갱신이 가능 할 경우
-		if(CEditorSceneManager.m_bIsSetupDependencies && CEditorAccess.IsEnableUpdateState()) {
+		if(bIsEnableUpdate && m_oListRequest == null) {
 			CEditorSceneManager.m_fDefineSymbolSkipTime += Time.deltaTime;
 
 			var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_PATH_DEFINE_SYMBOL_TABLE);
