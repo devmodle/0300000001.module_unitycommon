@@ -90,18 +90,16 @@ public static partial class CEditorSceneManager {
 
 	//! 상태를 갱신한다
 	private static void LateUpdate() {
-		bool bIsEnableUpdate = CEditorSceneManager.m_bIsSetupDependencies && 
-			CEditorAccess.IsEnableUpdateState();
-
 		// 상태 갱신이 가능 할 경우
-		if(bIsEnableUpdate && m_oListRequest == null) {
+		if(CEditorSceneManager.m_bIsSetupDependencies && CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.m_fDefineSymbolSkipTime += Time.deltaTime;
-
 			var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_PATH_DEFINE_SYMBOL_TABLE);
-			bool bIsEnable = CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE);
+
+			bool bIsEnable = oAsset != null && 
+				CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE);
 
 			// 전처리기 심볼 테이블 갱신이 가능 할 경우
-			if(bIsEnable && oAsset != null && CCommonPlatformOptsSetter.DefineSymbolTable != null) {
+			if(bIsEnable && CCommonPlatformOptsSetter.DefineSymbolTable != null) {
 				bool bIsNeedUpdate = false;
 
 				CEditorSceneManager.m_bIsSetupDependencies = false;
