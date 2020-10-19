@@ -72,13 +72,13 @@ public static partial class Func {
 	public static void ShowFullscreenAds(EAdsType a_eAdsType, 
 		System.Action<CAdsManager, bool> a_oCallback) 
 	{
-		var stDeltaTime = System.DateTime.Now - CGameInfoStorage.Instance.PrevAdsTime;
 		float fDelay = CValueTable.Instance.GetFloat(KCDefine.VT_KEY_DEF_DELAY_ADS);
-
-		bool bIsEnable = stDeltaTime.TotalSeconds.ExIsGreateEquals(fDelay);
+		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Instance.PrevAdsTime);
 
 		// 전면 광고 출력이 가능 할 경우
-		if(bIsEnable && CAdsManager.Instance.IsLoadFullscreenAds(a_eAdsType)) {
+		if(dblDeltaTime.ExIsGreateEquals(fDelay) && 
+			CAdsManager.Instance.IsLoadFullscreenAds(a_eAdsType)) 
+		{
 			Func.m_bIsWatchFullscreenAds = true;
 			Func.m_oFullscreenAdsCallback = a_oCallback;
 			

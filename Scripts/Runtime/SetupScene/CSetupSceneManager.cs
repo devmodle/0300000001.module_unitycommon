@@ -46,7 +46,12 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 디바이스 메세지를 수신했을 경우
 	private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
+		CAccess.Assert(a_oCmd.ExIsValid() && a_oMsg != null);
 		CAccess.Assert(m_oDeviceMsgHandlerList.ContainsKey(a_oCmd));
+
+		CFunc.ShowLog("CSetupSceneManager.OnReceiveDeviceMsg: {0}, {1}", 
+			KCDefine.B_LOG_COLOR_SETUP, a_oCmd, a_oMsg);		
+
 		m_oDeviceMsgHandlerList[a_oCmd](a_oMsg);
 	}
 

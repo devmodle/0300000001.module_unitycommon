@@ -39,8 +39,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CCommonUserInfoStorage.Instance.LoadUserInfo();
 
 		// 사운드를 설정한다 {
-		CSndManager.Instance.BGSndVolume = KCDefine.B_MAX_VALUE_NORM;
-		CSndManager.Instance.FXSndsVolume = KCDefine.B_MAX_VALUE_NORM;
+		CSndManager.Instance.BGSndVolume = KCDefine.B_VALUE_FLOAT_1;
+		CSndManager.Instance.FXSndsVolume = KCDefine.B_VALUE_FLOAT_1;
 		
 		CSndManager.Instance.IsMuteBGSnd = CCommonUserInfoStorage.Instance.UserInfo.IsMuteBGSnd;
 		CSndManager.Instance.IsMuteFXSnds = CCommonUserInfoStorage.Instance.UserInfo.IsMuteFXSnds;

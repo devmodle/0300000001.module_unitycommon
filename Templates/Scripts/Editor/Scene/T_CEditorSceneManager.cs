@@ -59,7 +59,7 @@ public static partial class CEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_SCRIPT_M_SCENE_UPDATE)) {
-				CEditorSceneManager.m_fSkipTime = KCDefine.B_MIN_VALUE_NORM;
+				CEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLOAT_0;
 				
 				CFunc.EnumerateScenes((a_stScene) => 
 					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST));
@@ -102,7 +102,7 @@ public static partial class CEditorSceneManager {
 				bool bIsNeedUpdate = false;
 
 				CEditorSceneManager.m_bIsSetupDependencies = false;
-				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_MIN_VALUE_NORM;
+				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VALUE_FLOAT_0;
 
 				var oDefineSymbolListContainer = new List<string>[] {
 					CCommonPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,

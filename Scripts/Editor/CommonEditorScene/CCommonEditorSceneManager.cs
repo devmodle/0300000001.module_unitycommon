@@ -59,7 +59,7 @@ public static partial class CCommonEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE)) {
-				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_MIN_VALUE_NORM;
+				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLOAT_0;
 
 				CCommonEditorSceneManager.SetupScene();
 				CCommonEditorSceneManager.SetupLightOpts();
@@ -67,7 +67,7 @@ public static partial class CCommonEditorSceneManager {
 
 				// 갱신 주기가 지났을 경우
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE)) {
-					CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_MIN_VALUE_NORM;
+					CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VALUE_FLOAT_0;
 
 					CFunc.EnumerateScenes((a_stScene) => {
 						var oObjs = a_stScene.GetRootGameObjects();
@@ -109,7 +109,7 @@ public static partial class CCommonEditorSceneManager {
 		// 객체가 존재 할 경우
 		if(oObj != null) {
 			a_stRect.size = new Vector2(KCEditorDefine.B_HIERARCHY_WIDTH, a_stRect.size.y);
-			a_stRect.position += new Vector2(KCEditorDefine.B_HIERARCHY_OFFSET_X, KCDefine.B_MIN_VALUE_NORM);
+			a_stRect.position += new Vector2(KCEditorDefine.B_HIERARCHY_OFFSET_X, KCDefine.B_VALUE_FLOAT_0);
 
 			var oComponents = oObj.GetComponents<Component>();
 
