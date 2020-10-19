@@ -128,13 +128,13 @@ public static partial class KEditorDefine {
 	public static readonly string B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_PATH_PACKAGES);
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
+		["com.google.external-dependency-manager"] = "1.2.161",
+		["com.unity.render-pipelines.universal"] = "8.2.0",
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.2.0",
-		["com.google.external-dependency-manager"] = "1.2.161",
 		["com.google.play.review"] = "1.3.0",
-		["com.unity.render-pipelines.universal"] = "8.2.0",
 
 #if ML_AGENTS_ENABLE
 		["com.unity.ml-agents"] = "1.0.5",
@@ -169,14 +169,14 @@ public static partial class KEditorDefine {
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["unitymodule.common.firebase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.0.2",
-
 		["com.google.firebase.auth"] = "6.16.0",
 		["com.google.firebase.analytics"] = "6.16.0",
 		["com.google.firebase.crashlytics"] = "6.16.0",
 		["com.google.firebase.database"] = "6.16.0",
 		["com.google.firebase.remote-config"] = "6.16.0",
 		["com.google.firebase.messaging"] = "6.16.0",
+
+		["unitymodule.common.firebase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.0.2",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if UNITY_SERVICE_ENABLE || UNITY_SERVICE_MODULE_ENABLE
@@ -192,15 +192,15 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["unitymodule.common.purchase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#1.0.2",
-
 		["com.unity.purchasing"] = "2.1.1",
 		["com.unity.purchasing.udp"] = "1.2.0",
+
+		["unitymodule.common.purchase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#1.0.2",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["unitymodule.common.Noti"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_Noti_client.git#1.0.2",
-		["com.unity.mobile.notifications"] = "1.0.3"
+		["com.unity.mobile.notifications"] = "1.0.3",
+		["unitymodule.common.Noti"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_Noti_client.git#1.0.2"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 	};
 
