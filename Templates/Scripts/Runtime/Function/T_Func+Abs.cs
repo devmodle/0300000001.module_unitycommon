@@ -137,35 +137,23 @@ public static partial class Func {
 
 	//! 지급 아이템 노드를 생성한다
 	public static List<string> MakePostItemNodeList() {
-#if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 		return new List<string>() {
 			KCDefine.U_NODE_FIREBASE_POST_ITEM_LIST
 		};
-#else
-		return null;
-#endif			// #if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 	}
 
 	//! 유저 정보 노드를 생성한다
 	public static List<string> MakeUserInfoNodeList() {
-#if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 		return new List<string>() {
 			KCDefine.U_NODE_FIREBASE_USER_INFO_LIST
 		};
-#else
-		return null;
-#endif			// #if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 	}
 
 	//! 결제 정보 노드를 생성한다
 	public static List<string> MakePurchaseInfoList() {
-#if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 		return new List<string>() {
 			KCDefine.U_NODE_FIREBASE_PURCHASE_INFO_LIST
 		};
-#else
-		return null;
-#endif			// #if FIREBASE_DB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 

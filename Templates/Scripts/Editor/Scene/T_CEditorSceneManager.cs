@@ -20,6 +20,7 @@ public static partial class CEditorSceneManager {
 	private static float m_fDefineSymbolSkipTime = 0.0f;
 
 	private static ListRequest m_oListRequest = null;
+	private static List<AddRequest> m_oAddRequestList = new List<AddRequest>();
 	#endregion			// 클래스 변수
 
 	#region 클래스 함수
@@ -90,8 +91,11 @@ public static partial class CEditorSceneManager {
 
 	//! 상태를 갱신한다
 	private static void LateUpdate() {
+		bool bIsEnableUpdate = CEditorSceneManager.m_bIsSetupDependencies && 
+			CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VALUE_INT_0;
+
 		// 상태 갱신이 가능 할 경우
-		if(CEditorSceneManager.m_bIsSetupDependencies && CEditorAccess.IsEnableUpdateState()) {
+		if(bIsEnableUpdate && CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.m_fDefineSymbolSkipTime += Time.deltaTime;
 			var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_PATH_DEFINE_SYMBOL_TABLE);
 

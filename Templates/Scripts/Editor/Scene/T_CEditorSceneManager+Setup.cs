@@ -40,15 +40,16 @@ public static partial class CEditorSceneManager {
 
 			// 독립 패키지 추가가 가능 할 경우
 			if(nIndex <= KCDefine.B_INDEX_INVALID) {
-				CEditorSceneManager.m_bIsSetupDependencies = false;
-
 				// 버전이 유효 할 경우
 				if(stKeyValue.Value.ExIsValidBuildVersion()) {
-					Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FORMAT,
+					var oAddRequest = Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FORMAT,
 						stKeyValue.Key, stKeyValue.Value));
+
+					CEditorSceneManager.m_oAddRequestList.Add(oAddRequest);
 				} else {
 #if !SAMPLE_PROJ
-					Client.Add(stKeyValue.Value);
+					var oAddRequest = Client.Add(stKeyValue.Value);
+					CEditorSceneManager.m_oAddRequestList.Add(oAddRequest);
 #endif			// #if !SAMPLE_PROJ
 				}
 			}
