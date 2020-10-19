@@ -43,7 +43,7 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_bIsSetupDependencies = false;
 
 				// 버전이 유효 할 경우
-				if(!stKeyValue.Value.ExIsValidBuildVersion()) {
+				if(stKeyValue.Value.ExIsValidBuildVersion()) {
 					Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FORMAT,
 						stKeyValue.Key, stKeyValue.Value));
 				} else {
