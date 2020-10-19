@@ -169,14 +169,14 @@ public static partial class KEditorDefine {
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
+		["unitymodule.common.firebase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.0.1",
+
 		["com.google.firebase.auth"] = "6.16.0",
 		["com.google.firebase.analytics"] = "6.16.0",
 		["com.google.firebase.crashlytics"] = "6.16.0",
 		["com.google.firebase.database"] = "6.16.0",
 		["com.google.firebase.remote-config"] = "6.16.0",
 		["com.google.firebase.messaging"] = "6.16.0",
-
-		["unitymodule.common.firebase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.0.1",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if UNITY_SERVICE_ENABLE || UNITY_SERVICE_MODULE_ENABLE
@@ -192,15 +192,15 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
+		["unitymodule.common.purchase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#1.0.1",
+
 		["com.unity.purchasing"] = "2.1.1",
 		["com.unity.purchasing.udp"] = "1.2.0",
-		
-		["unitymodule.common.purchase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#1.0.1",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["com.unity.mobile.notifications"] = "1.0.3",
-		["unitymodule.common.Noti"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_Noti_client.git#1.0.1"
+		["unitymodule.common.Noti"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_Noti_client.git#1.0.1",
+		["com.unity.mobile.notifications"] = "1.0.3"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 	};
 
