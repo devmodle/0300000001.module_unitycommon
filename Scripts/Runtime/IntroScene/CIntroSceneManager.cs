@@ -15,7 +15,7 @@ public class CIntroSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			CCommonAppInfoStorage.Instance.SetupMobileType();
+			CCommonAppInfoStorage.Instance.SetupDeviceType();
 			CCommonAppInfoStorage.Instance.SetupAdsID();
 			CCommonAppInfoStorage.Instance.SetupStoreVersion();
 		}
