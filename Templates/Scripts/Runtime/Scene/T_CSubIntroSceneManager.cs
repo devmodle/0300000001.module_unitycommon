@@ -7,8 +7,8 @@ using UnityEngine;
 public class CSubIntroSceneManager : CIntroSceneManager {
 	#region 함수
 	//! 초기화
-	public override void Awake() {
-		base.Awake();
+	public override void Start() {
+		base.Start();
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {

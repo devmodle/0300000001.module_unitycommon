@@ -173,25 +173,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
-			EStartSceneEvent.LOAD_INTRO_SCENE);
+			EStartSceneEvent.LOAD_PERMISSION_SCENE);
 
-		this.ExLateCallFunc(KCDefine.U_DELAY_INIT, (a_oSender, a_oParams) => {
-			bool bIsInitScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_INIT);
-			bool bIsSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SETUP);
-			bool bIsStartScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_START);
-			bool bIsSplashScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_SPLASH);
-			bool bIsAgreeScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_AGREE);
-			bool bIsLateSetupScene = CSceneManager.AwakeSceneName.ExIsEquals(KCDefine.B_SCENE_NAME_LATE_SETUP);
-			
-			CSceneManager.IsLateSetup = true;
-
-			// 인트로 씬 로드가 필요 할 경우
-			if(bIsInitScene || bIsSetupScene || bIsStartScene || bIsSplashScene || bIsAgreeScene || bIsLateSetupScene) {
-				CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
-			} else {
-				CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
-			}
-		});
+		CSceneManager.IsLateSetup = true;
+		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_PERMISSION);
 	}
 	#endregion			// 함수
 
