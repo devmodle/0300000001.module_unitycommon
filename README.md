@@ -18,6 +18,7 @@
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
 	- *Ingame Debug Console (v.1.3.6 - Oct 13, 2020)*
 	- *Asset Usage Detector (v.1.8.8 - Oct 7, 2020)*
+	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
 3. **기타 추가 에셋 및 플러그인 리스트**
 	- *Admob (v5.3.0)*
 	- *Iron Source (v7.0.1.1)*
@@ -25,7 +26,7 @@
 	- *Flurry (v3.1.0)*
 	- *Tenjin (v1.9.4)*
 	- *Facebook (v8.0.0)*
-	- *Firebase (v6.15.2 - Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging)*
+	- *Firebase (v6.16.1 - Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging)*
 	- *Unity Services (Analytics, Crashlytics)*
 	- *Singular (v2.1.0)*
 	- *Google Play Services (v0.10.11)*

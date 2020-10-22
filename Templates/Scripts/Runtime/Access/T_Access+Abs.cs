@@ -8,6 +8,7 @@ public static partial class Access {
 	#region 클래스 함수
 	//! 배너 광고 높이를 반환한다
 	public static float GetBannerAdsHeight() {
+#if ADS_MODULE_ENABLE
 		// 디바이스 타입이 유효 할 경우
 		if(CCommonAppInfoStorage.Instance.DeviceType.ExIsValid()) {
 			var stBannerAdsSize = (CCommonAppInfoStorage.Instance.DeviceType == EDeviceType.PHONE) ? 
@@ -17,6 +18,9 @@ public static partial class Access {
 		}
 
 		return KCDefine.B_VALUE_FLOAT_0;
+#else
+		return KCDefine.B_VALUE_FLOAT_0;
+#endif			// #if ADS_MODULE_ENABLE
 	}
 	#endregion			// 클래스 함수
 }
