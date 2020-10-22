@@ -137,11 +137,11 @@ public static partial class CCommonEditorSceneManager {
 				var oScrollView = oDebugConsoleList[i].GetComponentInChildren<ScrollRect>();
 				oScrollView.movementType = ScrollRect.MovementType.Clamped;
 
-				var oWindowTransform = oLogWindow.transform as RectTransform;
-				oWindowTransform.pivot = KCDefine.B_ANCHOR_MIDDLE_CENTER;
-				oWindowTransform.anchorMin = KCDefine.B_ANCHOR_BOTTOM_LEFT;
-				oWindowTransform.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
-				oWindowTransform.anchoredPosition = Vector2.zero;
+				var oWindowTrans = oLogWindow.transform as RectTransform;
+				oWindowTrans.pivot = KCDefine.B_ANCHOR_MIDDLE_CENTER;
+				oWindowTrans.anchorMin = KCDefine.B_ANCHOR_BOTTOM_LEFT;
+				oWindowTrans.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
+				oWindowTrans.anchoredPosition = Vector2.zero;
 
 				// 이벤트 시스템이 존재 할 경우
 				if(oEventSystem != null) {
@@ -164,11 +164,11 @@ public static partial class CCommonEditorSceneManager {
 				var oText = oDebugLogItemList[i].GetComponentInChildren<Text>();
 				oText.fontSize = KCEditorDefine.B_FONT_SIZE_DEBUG_C_TEXT;
 
-				var oTransform = oDebugLogItemList[i].transform as RectTransform;
-				oTransform.pivot = KCDefine.B_ANCHOR_TOP_LEFT;
-				oTransform.anchorMin = KCDefine.B_ANCHOR_TOP_LEFT;
-				oTransform.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
-				oTransform.sizeDelta = KCEditorDefine.B_SIZE_DEBUG_C_LOG_ITEM;
+				var oTrans = oDebugLogItemList[i].transform as RectTransform;
+				oTrans.pivot = KCDefine.B_ANCHOR_TOP_LEFT;
+				oTrans.anchorMin = KCDefine.B_ANCHOR_TOP_LEFT;
+				oTrans.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
+				oTrans.sizeDelta = KCEditorDefine.B_SIZE_DEBUG_C_LOG_ITEM;
 			}
 		}
 		// 디버그 콘솔을 설정한다 }

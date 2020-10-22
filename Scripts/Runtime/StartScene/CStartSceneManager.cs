@@ -19,6 +19,12 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	#region 함수
 	//! 초기화
+	public override void Awake() {
+		base.Awake();
+		CResManager.Instance.LoadSpriteAtlas(KCDefine.U_ASSET_PATH_G_SPRITE_ATLAS_01);
+	}
+
+	//! 초기화
 	public sealed override void Start() {
 		base.Start();
 		StartCoroutine(this.OnStart());
