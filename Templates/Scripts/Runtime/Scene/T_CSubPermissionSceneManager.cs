@@ -28,8 +28,8 @@ public class CSubPermissionSceneManager : CPermissionSceneManager {
 
 	#region 조건부 함수
 #if UNITY_ANDROID
-	//! 권한 설명을 출력한다
-	protected override void ShowPermissionDesc(string a_oPermission, System.Action<string, bool> a_oCallback) {
+	//! 권한을 요청한다
+	protected override void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback) {
 		CFunc.RequestPermission(this, a_oPermission, a_oCallback);
 	}
 #endif			// #if UNITY_ANDROID

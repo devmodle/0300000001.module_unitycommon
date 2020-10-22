@@ -35,8 +35,8 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 	#region 추상 함수
 #if UNITY_ANDROID
-	//! 권한 설명을 출력한다
-	protected abstract void ShowPermissionDesc(string a_oPermission, System.Action<string, bool> a_oCallback);
+	//! 권한을 요청한다
+	protected abstract void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
 #endif			// #if UNITY_ANDROID
 	#endregion			// 추상 함수
 
@@ -52,7 +52,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 #if UNITY_ANDROID
-		this.RequestPermission();
+		this.CheckPermission();
 #else
 		this.LoadNextScene();
 #endif			// #if UNITY_ANDROID
@@ -65,7 +65,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_INTRO_SCENE);
-
+			
 		int nIndex = m_oSceneNameList.ExFindValue((a_oSceneName) => 
 			CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));
 
@@ -85,11 +85,11 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		CAccess.Assert(a_oPermission.ExIsValid());
 		this.PermissionList.ExRemoveValue(a_oPermission);
 
-		this.RequestPermission();
+		this.CheckPermission();
 	}
 
-	//! 권한을 요청한다
-	private void RequestPermission() {
+	//! 권한을 검사한다
+	private void CheckPermission() {
 		// 권한이 필요 할 경우
 		if(this.PermissionList.ExIsValid()) {
 			this.RequestPermission(this.PermissionList[KCDefine.B_VALUE_INT_0]);
@@ -106,7 +106,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		if(CAccess.IsEnablePermission(a_oPermission)) {
 			this.OnReceivePermission(a_oPermission, true);
 		} else {
-			this.ShowPermissionDesc(a_oPermission, this.OnReceivePermission);
+			this.RequestPermission(a_oPermission, this.OnReceivePermission);
 		}
 	}
 #endif			// #if UNITY_ANDROID
