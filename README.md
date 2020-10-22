@@ -4,6 +4,7 @@
 2. **외부 에셋 및 플러그인 리스트**
 	- *Message Pack (v2.1.194)*
 	- *Excel Importer (v1.1.0)*
+	- *Thai Font Adjuster (v1.0.0)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *Total JSON (v1.6.0 - Jun 3, 2020)*
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
