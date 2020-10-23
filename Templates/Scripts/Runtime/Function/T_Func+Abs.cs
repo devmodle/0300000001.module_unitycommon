@@ -25,26 +25,17 @@ public static partial class Func {
 	//! 지역화 문자열을 설정한다
 	public static void SetupLocalizeStrings() {
 		string oLanguage = CCommonAppInfoStorage.Instance.AppInfo.Language.ToString();
-		Func.SetupLocalizeStrings(oLanguage);
+		string oCountryCode = CCommonAppInfoStorage.Instance.CountryCode;
+
+		Func.SetupLocalizeStrings(oLanguage, oCountryCode);
 	}
 
 	//! 지역화 문자열을 설정한다
-	public static void SetupLocalizeStrings(string a_oLanguage) {
-		string oFilepath = string.Empty;
+	public static void SetupLocalizeStrings(string a_oLanguage, string a_oCountryCode) {
+		string oFilepath = CFunc.MakeLocalizePath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING, 
+			KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING, a_oLanguage, a_oCountryCode);
 
-		// 언어가 유효 할 경우
-		if(a_oLanguage.ExIsValidLanguage()) {
-			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
-				a_oLanguage);
-		} else {
-			oFilepath = CFunc.MakeLocalizeFilepath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING,
-				CCommonAppInfoStorage.Instance.CountryCode);
-		}
-
-		oFilepath = CAccess.IsExistsRes<TextAsset>(oFilepath, true) ? 
-			oFilepath : KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING;
-
-		CStringTable.Instance.LoadStringsFromRes(oFilepath);
+		CStringTable.Instance.LoadStringsFromRes(oFilepath);		
 	}
 	#endregion			// 클래스 함수
 

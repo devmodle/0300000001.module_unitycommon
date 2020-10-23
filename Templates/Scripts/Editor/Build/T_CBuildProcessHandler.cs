@@ -42,23 +42,23 @@ public static partial class CBuildProcessHandler {
 	//! iOS 빌드가 완료 되었을 경우
 	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
-		string oPlistFilepath = string.Format(KCEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
-		string oProjFilepath = PBXProject.GetPBXProjectPath(a_oPath);
+		string oPlistPath = string.Format(KCEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
+		string oProjPath = PBXProject.GetPBXProjectPath(a_oPath);
 
 		// Plist 옵션을 설정한다 {
 		var oDoc = new PlistDocument();
-		oDoc.ReadFromFile(oPlistFilepath);
+		oDoc.ReadFromFile(oPlistPath);
 
 		// Plist 가 존재 할 경우
 		if(oDoc.ExIsValid()) {
 			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, false);
-			oDoc.WriteToFile(oPlistFilepath);
+			oDoc.WriteToFile(oPlistPath);
 		}
 		// Plist 옵션을 설정한다 }
 
 		// 프로젝트 옵션을 설정한다 {
 		var oProj = new PBXProject();
-		oProj.ReadFromFile(oProjFilepath);
+		oProj.ReadFromFile(oProjPath);
 
 		string oMainGUID = oProj.GetUnityMainTargetGuid();
 		string oFrameworkGUID = oProj.GetUnityFrameworkTargetGuid();
@@ -78,9 +78,9 @@ public static partial class CBuildProcessHandler {
 			oProj.AddCapability(oMainGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i]);
 		}
 
-		oProj.WriteToFile(oProjFilepath);
+		oProj.WriteToFile(oProjPath);
 		
-		var oCapability = new ProjectCapabilityManager(oProjFilepath,
+		var oCapability = new ProjectCapabilityManager(oProjPath,
 			KCEditorDefine.B_IOS_CAPABILITY_ENTITLEMENTS_PATH, null, oMainGUID);
 		
 		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
