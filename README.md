@@ -6,6 +6,8 @@
 	- *Excel Importer (v1.1.0)*
 	- *Thai Font Adjuster (v1.0.0)*
 	- *UI Effect (v3.2.0)*
+	- *UI Particle (v2.3.0)*
+	- *Soft Mask (v0.9.1)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *Total JSON (v1.6.0 - Jun 3, 2020)*
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
@@ -21,6 +23,7 @@
 	- *Ingame Debug Console (v.1.3.6 - Oct 13, 2020)*
 	- *Asset Usage Detector (v.1.8.8 - Oct 7, 2020)*
 	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
+	- *UI Tween (v1.0.0 - Apr 8, 2016)*
 3. **기타 추가 에셋 및 플러그인 리스트**
 	- *Admob (v5.3.0)*
 	- *Iron Source (v7.0.1.1)*
