@@ -10,11 +10,9 @@ public class CSubIntroSceneManager : CIntroSceneManager {
 	protected override void Setup() {
 		base.Setup();
 
-		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
 #if STUDY_MODULE_ENABLE
-			CSceneLoader.Instance.LoadScene(KCDefine.B_SCENE_NAME_MENU);
+		CSceneLoader.Instance.LoadScene(KCDefine.B_SCENE_NAME_MENU);
 #endif			// #if STUDY_MODULE_ENABLE
-		});
 	}
 	#endregion			// 함수
 }

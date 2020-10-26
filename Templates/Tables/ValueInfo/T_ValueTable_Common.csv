@@ -9,8 +9,8 @@ V_OFFSET_ALERT_P_TITLE,2,0,경고 팝업 타이틀 수직 간격,70
 V_OFFSET_ALERT_P_BTN,2,0,경고 팝업 버튼 수직 간격,45
 H_OFFSET_ALERT_P_BTN,2,0,경고 팝업 버튼 수평 간격,45
 V_EXTRA_OFFSET_ALERT_P_TITLE,2,0,경고 팝업 타이틀 추가 수직 간격,0
-V_EXTRA_OFFSET_ALERT_P_MSG,2,0,경고 팝업 메세지 추가 수직 간격,15
-V_EXTRA_OFFSET_ALERT_P_BTN,2,0,경고 팝업 버튼 추가 수직 간격,0
-V_OFFSET_ALERT_P_BG,2,0,경고 팝업 배경 수직 간격,25
-H_OFFSET_ALERT_P_BG,2,0,경고 팝업 배경 수평 간격,165
-DEF_DELAY_ADS,2,0,광고 기본 딜레이,60
+V_EXTRA_OFFSET_ALERT_P_MSG,2,0,경고 팝업 메세지 추가 수직 간격,10
+V_EXTRA_OFFSET_ALERT_P_BTN,2,0,경고 팝업 버튼 추가 수직 간격,15
+V_OFFSET_ALERT_P_BG,2,0,경고 팝업 배경 수직 간격,45
+H_OFFSET_ALERT_P_BG,2,0,경고 팝업 배경 수평 간격,145
+DEF_DELAY_FULLSCREEN_ADS,2,0,전면 광고 기본 딜레이,60

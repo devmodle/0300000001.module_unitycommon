@@ -37,13 +37,15 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CAccess.Assert(!CSceneManager.IsStart);
+		CAccess.Assert(CSceneManager.IsInit);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.Setup();
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-		CSceneManager.IsStart = true;
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
+			EStartSceneEvent.LOAD_SETUP_SCENE);
+
 		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_SETUP);
 	}
 	#endregion			// 함수

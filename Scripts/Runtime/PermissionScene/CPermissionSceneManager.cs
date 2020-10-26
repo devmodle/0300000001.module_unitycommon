@@ -72,12 +72,14 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		int nIndex = m_oSceneNameList.ExFindValue((a_oSceneName) => 
 			CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));
 
-		// 인트로 씬 로드가 필요 할 경우
-		if(nIndex > KCDefine.B_INDEX_INVALID) {
-			CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
-		} else {
-			CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
-		}
+		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
+			// 인트로 씬 로드가 필요 할 경우
+			if(nIndex > KCDefine.B_INDEX_INVALID) {
+				CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
+			} else {
+				CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
+			}
+		});
 	}
 	#endregion			// 함수
 

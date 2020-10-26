@@ -52,8 +52,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	private IEnumerator OnStart() {
 		CAccess.Assert(!CSceneManager.IsInit);
 
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		CActivityIndicatorManager.Instance.StartActivityIndicator(true, false);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		// 간격을 설정한다
 		this.SetupOffsets();
