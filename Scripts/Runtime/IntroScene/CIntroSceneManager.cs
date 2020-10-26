@@ -20,5 +20,26 @@ public class CIntroSceneManager : CSceneManager {
 			CCommonAppInfoStorage.Instance.SetupStoreVersion();
 		}
 	}
+
+	//! 초기화
+	public sealed override void Start() {
+		base.Start();
+		StartCoroutine(this.OnStart());
+	}
+
+	//! 씬을 설정한다
+	protected virtual void Setup() {
+		// Do Nothing
+	}
+
+	//! 초기화
+	private IEnumerator OnStart() {
+		CAccess.Assert(CSceneManager.IsInit);
+
+		CSceneLoader.Instance.UnloadSceneAsync(KCDefine.B_SCENE_NAME_PERMISSION, null);
+		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+
+		this.Setup();
+	}
 	#endregion			// 함수
 }

@@ -40,6 +40,9 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
+		CAccess.Assert(CSceneManager.IsInit);
+
+		CSceneLoader.Instance.UnloadSceneAsync(KCDefine.B_SCENE_NAME_SETUP, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.SetupRootScene();

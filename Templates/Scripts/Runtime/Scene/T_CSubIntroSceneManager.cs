@@ -6,16 +6,15 @@ using UnityEngine;
 //! 서브 인트로 씬 관리자
 public class CSubIntroSceneManager : CIntroSceneManager {
 	#region 함수
-	//! 초기화
-	public override void Start() {
-		base.Start();
-		
-		// 초기화 되었을 경우
-		if(CSceneManager.IsInit) {
-			this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
-				// Do Nothing
-			});
-		}
+	//! 씬을 설정한다
+	protected override void Setup() {
+		base.Setup();
+
+		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
+#if STUDY_MODULE_ENABLE
+			CSceneLoader.Instance.LoadScene(KCDefine.B_SCENE_NAME_MENU);
+#endif			// #if STUDY_MODULE_ENABLE
+		});
 	}
 	#endregion			// 함수
 }
