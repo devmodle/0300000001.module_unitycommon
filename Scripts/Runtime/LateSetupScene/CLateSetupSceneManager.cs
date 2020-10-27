@@ -188,13 +188,35 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
 		CFunc.ShowLog("CLateSetupSceneManager.OnInitAdsManager: {0}, {1}", a_eAdsType, a_bIsSuccess);
 
+#if ADMOB_ENABLE
+		// 애드 몹이 초기화 되었을 경우
+		if(a_eAdsType == EAdsType.ADMOB) {
+#if UNITY_IOS
+			var oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oiOSAdmobIDList;
+#elif UNITY_ANDROID
+			var oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oAndroidAdmobIDList;
+#else
+			var oAdmobIDList = new List<string>();
+#endif			// #if UNITY_IOS
+
+			CUnityMsgSender.Instance.SendSetupAdsMsg(CPluginInfoTable.Instance.AdmobPluginInfo.m_oResumeAdsID,
+				oAdmobIDList);
+		}
+#endif			// #if ADMOB_ENABLE
+
 		// 광고 자동 로드 모드 일 경우
 		if(a_bIsSuccess && CLateSetupSceneManager.IsAutoLoadAds) {
 			CAdsManager.Instance.LoadRewardAds(a_eAdsType);
 
-			// 전면 광고 로드가 가능 할 경우
+			// 광고 로드가 가능 할 경우
 			if(!CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds) {
-				CAdsManager.Instance.LoadFullscreenAds(a_eAdsType);
+				// FIXME:
+				// CAdsManager.Instance.LoadFullscreenAds(a_eAdsType);
+
+				// 복귀 광고 로드가 가능 할 경우
+				if(CPluginInfoTable.Instance.AdmobPluginInfo.m_oResumeAdsID.ExIsValid()) {
+					CUnityMsgSender.Instance.SendLoadResumeAdsMsg();
+				}
 			}
 		}
 	}

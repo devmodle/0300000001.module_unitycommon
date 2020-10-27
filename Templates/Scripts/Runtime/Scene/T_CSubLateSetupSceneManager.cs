@@ -38,6 +38,17 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 			CCommonAppInfoStorage.Instance.DeviceConfig = CDeviceInfoTable.Instance.DeviceConfig;
 		}
 	}
+
+	//! 씬을 설정한다
+	protected override void Setup() {
+		base.Setup();
+
+#if ADS_MODULE_ENABLE
+		CAdsManager.Instance.IsEnableBannerAds = !CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds;
+		CAdsManager.Instance.IsEnableFullscreenAds = !CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds;
+		CAdsManager.Instance.IsEnableResumeAds = !CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds;
+#endif			// #if ADS_MODULE_ENABLE
+	}
 	#endregion			// 함수
 }
 #endif			// #if NEVER_USE_THIS
