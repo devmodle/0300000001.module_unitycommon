@@ -135,10 +135,11 @@ public static partial class KEditorDefine {
 
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.tilemap"] = "1.0.0",
+		["com.unity.addressables"] = "1.8.5",
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.2.0",
 		["com.unity.render-pipelines.universal"] = "8.2.0",
-
+		
 #if ML_AGENTS_ENABLE
 		["com.unity.ml-agents"] = "1.0.5",
 #endif			// #if ML_AGENTS_ENABLE
