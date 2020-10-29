@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: T_BuildInfoTable
   m_EditorClassIdentifier: 
   m_stJenkinsInfo:
-    m_oUserID: sdlee
+    m_oUserID: studio
     m_oBranch: master
     m_oSourceRoot: 00002.Sample
     m_oWorkspaceRoot: /Users/9tapstudio/Documents/jenkins/workspace
@@ -22,8 +22,8 @@ MonoBehaviour:
     m_oAdhocDistPath: 
     m_oStoreDistPath: 
     m_oBuildToken: JenkinsBuild
-    m_oAccessToken: 116162953dad20b69b734f219053ba9710
-    m_oBuildURLFormat: http://192.168.0.47:8080/{0}/buildWithParameters
+    m_oAccessToken: 1157dad5f9db2d0615036ebc6da282c251
+    m_oBuildURLFormat: http://59.11.2.140:18081/{0}/buildWithParameters
   m_stStandaloneBuildInfo:
     m_oCategory: public.app-category.games
   m_stiOSBuildInfo:

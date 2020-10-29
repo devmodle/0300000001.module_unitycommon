@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Linq;
@@ -155,6 +156,13 @@ public static partial class CCommonEditorSceneManager {
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
 			CCommonPlatformOptsSetter.SetupProjOpts();
 		}
+
+#if UNITY_ANDROID
+		// 플러그인이 없을 경우
+		if(!File.Exists(KCEditorDefine.B_ANDROID_DEST_PLUGIN_PATH)) {
+			CEditorFunc.ExecuteCmdline(KCEditorDefine.B_ANDROID_PLUGIN_BUILD_CMD);
+		}
+#endif			// #if UNITY_ANDROID
 	}
 	#endregion			// 클래스 함수
 }
