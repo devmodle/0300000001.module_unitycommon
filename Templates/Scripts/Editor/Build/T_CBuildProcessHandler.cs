@@ -51,7 +51,7 @@ public static partial class CBuildProcessHandler {
 
 		// Plist 가 존재 할 경우
 		if(oDoc.ExIsValid()) {
-			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, false);
+			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, KEditorDefine.B_ENCRYPTION_ENABLE_IOS);
 			oDoc.WriteToFile(oPlistPath);
 		}
 		// Plist 옵션을 설정한다 }
@@ -68,7 +68,7 @@ public static partial class CBuildProcessHandler {
 
 		oProj.SetBuildProperty(oFrameworkGUID, 
 			KCEditorDefine.B_IOS_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
-			
+
 		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
 			oProj.AddFrameworkToProject(oMainGUID, 
 				KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
@@ -76,6 +76,18 @@ public static partial class CBuildProcessHandler {
 
 		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 			oProj.AddCapability(oMainGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i]);
+		}
+
+		// 전처리기 심볼 테이블이 존재 할 경우
+		if(CCommonPlatformOptsSetter.DefineSymbolListContainer != null && 
+			CCommonPlatformOptsSetter.DefineSymbolListContainer.ContainsKey(BuildTargetGroup.iOS)) 
+		{
+			var oDefineSymbolList = CCommonPlatformOptsSetter.DefineSymbolListContainer[BuildTargetGroup.iOS];
+
+			for(int i = 0; i < oDefineSymbolList.Count; ++i) {
+				oProj.AddBuildProperty(oMainGUID, 
+					KCEditorDefine.B_IOS_PROPERTY_NAME_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+			}
 		}
 
 		oProj.WriteToFile(oProjPath);

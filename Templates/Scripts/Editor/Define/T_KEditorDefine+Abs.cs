@@ -214,6 +214,13 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 }
 	#endregion			// 런타임 상수
 
+	#region 조건부 상수
+#if UNITY_IOS
+	// 암호화 여부
+	public const bool B_ENCRYPTION_ENABLE_IOS = false;
+#endif			// #if UNITY_IOS
+	#endregion			// 조건부 상수
+
 	#region 조건부 런타임 상수
 #if UNITY_IOS
 	// 프레임워크
@@ -223,6 +230,16 @@ public static partial class KEditorDefine {
 		"StoreKit.framework",
 		"AdSupport.framework",
 #endif			// #if TENJIN_MODULE_ENABLE
+
+#if SINGULAR_MODULE_ENABLE
+		"Security.framework",
+		"SystemConfiguration.framework",
+		"iAd.framework",
+		"AdSupport.framework",
+		"WebKit.framework",
+		"libsqlite3.0.tbd",
+		"libz.tbd",
+#endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
 		"GameKit.framework",
