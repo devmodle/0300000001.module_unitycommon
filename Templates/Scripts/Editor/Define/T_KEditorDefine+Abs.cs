@@ -184,7 +184,7 @@ public static partial class KEditorDefine {
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if UNITY_SERVICES_ENABLE || UNITY_SERVICES_MODULE_ENABLE
-		["unitymodule.common.unityservice"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#1.1.1",
+		["unitymodule.common.unityservices"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_unityservices_client.git#1.1.1",
 #endif			// #if UNITY_SERVICES_ENABLE || UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE

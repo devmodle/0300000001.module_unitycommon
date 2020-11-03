@@ -9,11 +9,13 @@ public static partial class Func {
 #if ADS_MODULE_ENABLE
 	private static bool m_bIsWatchRewardAds = false;
 	private static bool m_bIsWatchFullscreenAds = false;
+	private static bool m_bIsWatchResumeAds = false;
 
 	private static STPostItem m_stRewardItem;
 
 	private static System.Action<CAdsManager, STPostItem, bool> m_oRewardAdsCallback = null;
 	private static System.Action<CAdsManager, bool> m_oFullscreenAdsCallback = null;
+	private static System.Action<CAdsManager, bool> m_oResumeAdsCallback = null;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
@@ -64,7 +66,7 @@ public static partial class Func {
 		System.Action<CAdsManager, bool> a_oCallback) 
 	{
 		float fDelay = CValueTable.Instance.GetFloat(KCDefine.VT_KEY_DEF_DELAY_FULLSCREEN_ADS);
-		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Instance.PrevAdsTime);
+		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Instance.PrevFullscreenAdsTime);
 
 		// 전면 광고 출력이 가능 할 경우
 		if(dblDeltaTime.ExIsGreateEquals(fDelay) && 
@@ -74,6 +76,26 @@ public static partial class Func {
 			Func.m_oFullscreenAdsCallback = a_oCallback;
 			
 			CAdsManager.Instance.ShowFullscreenAds(a_eAdsType, null, Func.OnCloseFullscreenAds);
+		} else {
+			a_oCallback?.Invoke(CAdsManager.Instance, false);
+		}
+	}
+
+	//! 재개 광고를 출력한다
+	public static void ShowResumeAds(EAdsType a_eAdsType, 
+		System.Action<CAdsManager, bool> a_oCallback) 
+	{
+		float fDelay = CValueTable.Instance.GetFloat(KCDefine.VT_KEY_DEF_DELAY_RESUME_ADS);
+		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Instance.PrevResumeAdsTime);
+
+		// 재개 광고 출력이 가능 할 경우
+		if(dblDeltaTime.ExIsGreateEquals(fDelay) && 
+			CAdsManager.Instance.IsLoadResumeAds(a_eAdsType)) 
+		{
+			Func.m_bIsWatchResumeAds = true;
+			Func.m_oResumeAdsCallback = a_oCallback;
+			
+			CAdsManager.Instance.ShowResumeAds(a_eAdsType, null, Func.OnCloseResumeAds);
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Instance, false);
 		}
@@ -94,8 +116,14 @@ public static partial class Func {
 
 	//! 전면 광고가 닫혔을 경우
 	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
-		CGameInfoStorage.Instance.PrevAdsTime = System.DateTime.Now;
+		CGameInfoStorage.Instance.PrevFullscreenAdsTime = System.DateTime.Now;
 		Func.m_oFullscreenAdsCallback?.Invoke(a_oSender, Func.m_bIsWatchFullscreenAds);
+	}
+
+	//! 재개 광고가 닫혔을 경우
+	private static void OnCloseResumeAds(CAdsManager a_oSender) {
+		CGameInfoStorage.Instance.PrevResumeAdsTime = System.DateTime.Now;
+		Func.m_oResumeAdsCallback?.Invoke(a_oSender, Func.m_bIsWatchResumeAds);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 
