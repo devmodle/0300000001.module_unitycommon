@@ -133,10 +133,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_MODULE_ENABLE
-			CUnityServiceManager.Instance.Init(CLateSetupSceneManager.OnInitUnityServiceManager);
+#if UNITY_SERVICES_MODULE_ENABLE
+			CUnityServicesManager.Instance.Init(CLateSetupSceneManager.OnInitUnityServicesManager);
 			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-#endif			// #if UNITY_SERVICE_MODULE_ENABLE
+#endif			// #if UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 			CSingularManager.Instance.Init(CPluginInfoTable.Instance.SingularPluginInfo.m_oAPIKey,
@@ -314,23 +314,23 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 #endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_MODULE_ENABLE
+#if UNITY_SERVICES_MODULE_ENABLE
 	//! 유니티 서비스 관리자가 초기화 되었을 경우
-	private static void OnInitUnityServiceManager(CUnityServiceManager a_oSender, bool a_bIsSuccess) {
-		CFunc.ShowLog("CLateSetupSceneManager.OnInitUnityServiceManager: {0}", a_bIsSuccess);
+	private static void OnInitUnityServicesManager(CUnityServicesManager a_oSender, bool a_bIsSuccess) {
+		CFunc.ShowLog("CLateSetupSceneManager.OnInitUnityServicesManager: {0}", a_bIsSuccess);
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CUnityServiceManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
+			CUnityServicesManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
 				[KCDefine.U_LOG_KEY_USER_ID] = CCommonAppInfoStorage.Instance.AppInfo.DeviceID,
 				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
 			});
 
-			CUnityServiceManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-			CUnityServiceManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CUnityServicesManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
+			CUnityServicesManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 		}
 	}
-#endif			// #if UNITY_SERVICE_MODULE_ENABLE
+#endif			// #if UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 	//! 싱귤러 관리자가 초기화 되었을 경우

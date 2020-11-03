@@ -176,13 +176,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1599228759494086974}
-  - component: {fileID: 176299820594026790}
-  - component: {fileID: 3315525149503228497}
-  - component: {fileID: 927462552195844882}
   - component: {fileID: 5246094552302654841}
   - component: {fileID: 4370007925767142227}
   - component: {fileID: 463743459500783313}
   - component: {fileID: 4458244235622522377}
+  - component: {fileID: 176299820594026790}
+  - component: {fileID: 3315525149503228497}
+  - component: {fileID: 927462552195844882}
   m_Layer: 5
   m_Name: DebugBtn
   m_TagString: Untagged
@@ -209,52 +209,6 @@ RectTransform:
   m_AnchoredPosition: {x: -105, y: -80.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &176299820594026790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4793382880383136266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
-  m_bIsRecursive: 0
---- !u!114 &3315525149503228497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4793382880383136266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
---- !u!114 &927462552195844882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4793382880383136266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!222 &5246094552302654841
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -354,6 +308,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &176299820594026790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793382880383136266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oRectTrans: {fileID: 0}
+  m_oRigidbody: {fileID: 0}
+  m_oRigidbody2D: {fileID: 0}
+  m_bIsRecursive: 0
+  m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
+  m_stDisableColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
+--- !u!114 &3315525149503228497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793382880383136266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oRectTrans: {fileID: 0}
+  m_oRigidbody: {fileID: 0}
+  m_oRigidbody2D: {fileID: 0}
+  m_oBeginSoundPath: Sounds/Global/G_TouchBegin
+  m_oEndSoundPath: Sounds/Global/G_TouchEnd
+--- !u!114 &927462552195844882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793382880383136266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oRectTrans: {fileID: 0}
+  m_oRigidbody: {fileID: 0}
+  m_oRigidbody2D: {fileID: 0}
 --- !u!1 &6256282941400414331
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,13 +596,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2793961045270255752}
-  - component: {fileID: 1506974616938777965}
-  - component: {fileID: 2260077662974294867}
-  - component: {fileID: 2348679812522282819}
   - component: {fileID: 642238296561035326}
   - component: {fileID: 1633469642590934525}
   - component: {fileID: 228028019637300165}
   - component: {fileID: 6506208654373797701}
+  - component: {fileID: 1506974616938777965}
+  - component: {fileID: 2260077662974294867}
+  - component: {fileID: 2348679812522282819}
   m_Layer: 5
   m_Name: FPSBtn
   m_TagString: Untagged
@@ -624,52 +629,6 @@ RectTransform:
   m_AnchoredPosition: {x: -105, y: -30.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1506974616938777965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9042458282040697223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
-  m_bIsRecursive: 0
---- !u!114 &2260077662974294867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9042458282040697223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
---- !u!114 &2348679812522282819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9042458282040697223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!222 &642238296561035326
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -769,3 +728,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &1506974616938777965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042458282040697223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oRectTrans: {fileID: 0}
+  m_oRigidbody: {fileID: 0}
+  m_oRigidbody2D: {fileID: 0}
+  m_bIsRecursive: 0
+  m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
+  m_stDisableColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
+--- !u!114 &2260077662974294867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042458282040697223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oRectTrans: {fileID: 0}
+  m_oRigidbody: {fileID: 0}
+  m_oRigidbody2D: {fileID: 0}
+  m_oBeginSoundPath: Sounds/Global/G_TouchBegin
+  m_oEndSoundPath: Sounds/Global/G_TouchEnd
+--- !u!114 &2348679812522282819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042458282040697223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oRectTrans: {fileID: 0}
+  m_oRigidbody: {fileID: 0}
+  m_oRigidbody2D: {fileID: 0}

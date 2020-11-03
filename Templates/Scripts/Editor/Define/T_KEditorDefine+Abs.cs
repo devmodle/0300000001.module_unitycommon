@@ -87,9 +87,9 @@ public static partial class KEditorDefine {
 		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 #endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_MODULE_ENABLE
-		[typeof(CUnityServiceManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-#endif			// #if UNITY_SERVICE_MODULE_ENABLE
+#if UNITY_SERVICES_MODULE_ENABLE
+		[typeof(CUnityServicesManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+#endif			// #if UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 		[typeof(CSingularManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
@@ -183,9 +183,9 @@ public static partial class KEditorDefine {
 		["unitymodule.common.firebase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.1.1",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_ENABLE || UNITY_SERVICE_MODULE_ENABLE
+#if UNITY_SERVICES_ENABLE || UNITY_SERVICES_MODULE_ENABLE
 		["unitymodule.common.unityservice"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#1.1.1",
-#endif			// #if UNITY_SERVICE_ENABLE || UNITY_SERVICE_MODULE_ENABLE
+#endif			// #if UNITY_SERVICES_ENABLE || UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
 		["unitymodule.common.singular"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_singular_client.git#1.1.1",

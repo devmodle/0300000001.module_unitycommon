@@ -41,9 +41,9 @@ public static partial class LogFunc {
 			CFirebaseManager.Instance.SendLog(a_oName, oFirebaseDataList);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_MODULE_ENABLE
-			CUnityServiceManager.Instance.SendLog(a_oName, a_oDataList);
-#endif			// #if UNITY_SERVICE_MODULE_ENABLE
+#if UNITY_SERVICES_MODULE_ENABLE
+			CUnityServicesManager.Instance.SendLog(a_oName, a_oDataList);
+#endif			// #if UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 			CSingularManager.Instance.SendLog(a_oName, a_oDataList);
@@ -79,9 +79,9 @@ public static partial class LogFunc {
 			CFirebaseManager.Instance.SendPurchaseLog(a_oProduct);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICE_MODULE_ENABLE
-			CUnityServiceManager.Instance.SendPurchaseLog(a_oProduct, a_oDataList);
-#endif			// #if UNITY_SERVICE_MODULE_ENABLE
+#if UNITY_SERVICES_MODULE_ENABLE
+			CUnityServicesManager.Instance.SendPurchaseLog(a_oProduct, a_oDataList);
+#endif			// #if UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 			CSingularManager.Instance.SendPurchaseLog(a_oProduct, a_oDataList);
