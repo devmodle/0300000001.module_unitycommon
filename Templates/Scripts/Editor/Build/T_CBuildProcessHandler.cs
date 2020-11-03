@@ -51,7 +51,9 @@ public static partial class CBuildProcessHandler {
 
 		// Plist 가 존재 할 경우
 		if(oDoc.ExIsValid()) {
-			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, KEditorDefine.B_ENCRYPTION_ENABLE_IOS);
+			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, 
+				KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
+
 			oDoc.WriteToFile(oPlistPath);
 		}
 		// Plist 옵션을 설정한다 }
@@ -69,13 +71,13 @@ public static partial class CBuildProcessHandler {
 		oProj.SetBuildProperty(oFrameworkGUID, 
 			KCEditorDefine.B_IOS_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
 
-		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
+		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
 			oProj.AddFrameworkToProject(oMainGUID, 
-				KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
+				KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
 		}
 
-		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
-			oProj.AddCapability(oMainGUID, KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i]);
+		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
+			oProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i]);
 		}
 
 		// 전처리기 심볼 테이블이 존재 할 경우
@@ -87,6 +89,9 @@ public static partial class CBuildProcessHandler {
 			for(int i = 0; i < oDefineSymbolList.Count; ++i) {
 				oProj.AddBuildProperty(oMainGUID, 
 					KCEditorDefine.B_IOS_PROPERTY_NAME_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+
+				oProj.AddBuildProperty(oFrameworkGUID, 
+					KCEditorDefine.B_IOS_PROPERTY_NAME_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
 			}
 		}
 
@@ -95,8 +100,8 @@ public static partial class CBuildProcessHandler {
 		var oCapability = new ProjectCapabilityManager(oProjPath,
 			KCEditorDefine.B_IOS_CAPABILITY_ENTITLEMENTS_PATH, null, oMainGUID);
 		
-		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
-			var oCapabilityType = KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i];
+		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
+			var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i];
 
 			// 푸시 알림 추가가 가능 할 경우
 			if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
@@ -104,6 +109,10 @@ public static partial class CBuildProcessHandler {
 					CCommonPlatformBuilder.BuildType != EBuildType.STORE;
 
 				oCapability.AddPushNotifications(bIsDevBuild);
+
+#if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
+				oCapability.AddBackgroundModes(KEditorDefine.B_IOS_BACKGROUND_MODES_OPTS);
+#endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 			}
 			// 게임 센터 추가가 가능 할 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {

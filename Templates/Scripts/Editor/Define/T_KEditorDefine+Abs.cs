@@ -217,19 +217,26 @@ public static partial class KEditorDefine {
 	#region 조건부 상수
 #if UNITY_IOS
 	// 암호화 여부
-	public const bool B_ENCRYPTION_ENABLE_IOS = false;
+	public const bool B_IOS_ENCRYPTION_ENABLE = false;
+
+	// 백 그라운드 옵션
+	public const BackgroundModesOptions B_IOS_BACKGROUND_MODES_OPTS = BackgroundModesOptions.BackgroundFetch | BackgroundModesOptions.RemoteNotifications;
 #endif			// #if UNITY_IOS
 	#endregion			// 조건부 상수
 
 	#region 조건부 런타임 상수
 #if UNITY_IOS
 	// 프레임워크
-	public static readonly string[] B_EXTRA_FRAMEWORKS_IOS = new string[] {
+	public static readonly string[] B_IOS_EXTRA_FRAMEWORKS = new string[] {
 #if TENJIN_MODULE_ENABLE
 		"iAd.framework",
 		"StoreKit.framework",
 		"AdSupport.framework",
 #endif			// #if TENJIN_MODULE_ENABLE
+
+#if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
+		"UserNotifications.framework",
+#endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 		"Security.framework",
@@ -251,8 +258,9 @@ public static partial class KEditorDefine {
 	};
 
 	// 호환성 타입
-	public static readonly PBXCapabilityType[] B_EXTRA_CAPABILITY_TYPES_IOS = new PBXCapabilityType[] {
+	public static readonly PBXCapabilityType[] B_IOS_EXTRA_CAPABILITY_TYPES = new PBXCapabilityType[] {
 #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
+		PBXCapabilityType.BackgroundModes,
 		PBXCapabilityType.PushNotifications,
 #endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 
