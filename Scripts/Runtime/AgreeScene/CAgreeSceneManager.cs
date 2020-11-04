@@ -64,11 +64,10 @@ public abstract class CAgreeSceneManager : CSceneManager {
 				var oPrivacy = CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_PRIVACY);
 
 				CAccess.Assert(oServices.ExIsValid() && oPrivacy.ExIsValid());
-				this.ShowAgreePopup(oServices.text, oPrivacy.text);
+				this.ShowNormAgreePopup(oServices.text, oPrivacy.text);
 
 				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_SERVICES, true);
 				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_PRIVACY, true);
-
 			} else {
 				this.ShowEUAgreePopup(CProjInfoTable.Instance.ServicesURL, 
 					CProjInfoTable.Instance.PrivacyURL);
