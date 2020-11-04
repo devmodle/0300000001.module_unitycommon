@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: T_ProjInfoTable
   m_EditorClassIdentifier: 
   m_oCompanyName: 9tap
-  m_oServiceURL: https://www.ninetap.com/terms_of_service.html
+  m_oServicesURL: https://www.ninetap.com/terms_of_service.html
   m_oPrivacyURL: https://www.ninetap.com/privacy_policy.html
   m_oProjectName: Sample
   m_oProductName: Sample

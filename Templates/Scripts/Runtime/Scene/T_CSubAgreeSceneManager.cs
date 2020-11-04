@@ -17,12 +17,12 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 	}
 
 	//! 약관 동의 팝업을 출력한다
-	protected override void ShowAgreePopup(string a_oServiceString, string a_oPrivacyString) {
+	protected override void ShowAgreePopup(string a_oServicesString, string a_oPrivacyString) {
 		this.LoadNextScene();
 	}
 
 	//! 유럽 연합 약관 동의 팝업을 출력한다
-	protected override void ShowEuropeanUnionAgreePopup(string a_oServiceURL, string a_oPrivacyURL) {
+	protected override void ShowEuropeanUnionAgreePopup(string a_oServicesURL, string a_oPrivacyURL) {
 		this.LoadNextScene();
 	}
 	#endregion			// 함수
