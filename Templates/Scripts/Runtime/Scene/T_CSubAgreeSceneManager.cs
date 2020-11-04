@@ -16,8 +16,8 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 		}
 	}
 
-	//! 약관 동의 팝업을 출력한다
-	protected override void ShowAgreePopup(string a_oServices, string a_oPrivacy) {
+	//! 일반 약관 동의 팝업을 출력한다
+	protected override void ShowNormAgreePopup(string a_oServices, string a_oPrivacy) {
 		this.ShowAgreePopup(a_oServices, a_oPrivacy, EAgreePopupType.NORM);
 	}
 

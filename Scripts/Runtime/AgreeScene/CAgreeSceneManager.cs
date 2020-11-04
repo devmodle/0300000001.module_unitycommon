@@ -13,8 +13,8 @@ public abstract class CAgreeSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 추상 함수
-	//! 약관 동의 팝업을 출력한다
-	protected abstract void ShowAgreePopup(string a_oServices, string a_oPrivacy);
+	//! 일반 약관 동의 팝업을 출력한다
+	protected abstract void ShowNormAgreePopup(string a_oServices, string a_oPrivacy);
 
 	//! 유럽 연합 약관 동의 팝업을 출력한다
 	protected abstract void ShowEUAgreePopup(string a_oServicesURL, string a_oPrivacyURL);
