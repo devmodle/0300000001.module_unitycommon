@@ -17,13 +17,29 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 	}
 
 	//! 약관 동의 팝업을 출력한다
-	protected override void ShowAgreePopup(string a_oServicesString, string a_oPrivacyString) {
-		this.LoadNextScene();
+	protected override void ShowAgreePopup(string a_oServices, string a_oPrivacy) {
+		this.ShowAgreePopup(a_oServices, a_oPrivacy, EAgreePopupType.NORM);
 	}
 
 	//! 유럽 연합 약관 동의 팝업을 출력한다
-	protected override void ShowEuropeanUnionAgreePopup(string a_oServicesURL, string a_oPrivacyURL) {
+	protected override void ShowEUAgreePopup(string a_oServicesURL, string a_oPrivacyURL) {
+		this.ShowAgreePopup(a_oServicesURL, a_oPrivacyURL, EAgreePopupType.EU);
+	}
+
+	//! 약관 동의 팝업이 닫혔을 경우
+	private void OnCloseAgreePopup(CPopup a_oSender) {
 		this.LoadNextScene();
+	}
+
+	//! 약관 동의 팝업을 출력한다
+	private void ShowAgreePopup(string a_oServices, string a_oPrivacy, EAgreePopupType a_ePopupType) {
+		var oAgreePopup = CPopup.CreatePopup<CAgreePopup>(KCDefine.AS_OBJ_NAME_AGREE_POPUP,
+			CResManager.Instance.GetPrefab(KCDefine.AS_OBJ_PATH_AGREE_POPUP),
+			this.SubPopupUIRoot,
+			KCDefine.B_POS_MIDDLE_CENTER);
+
+		oAgreePopup.Init(a_oServices, a_oPrivacy, a_ePopupType);
+		oAgreePopup.ShowPopup(null, this.OnCloseAgreePopup);
 	}
 	#endregion			// 함수
 }

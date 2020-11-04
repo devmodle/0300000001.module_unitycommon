@@ -14,10 +14,10 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	#region 추상 함수
 	//! 약관 동의 팝업을 출력한다
-	protected abstract void ShowAgreePopup(string a_oServicesString, string a_oPrivacyString);
+	protected abstract void ShowAgreePopup(string a_oServices, string a_oPrivacy);
 
 	//! 유럽 연합 약관 동의 팝업을 출력한다
-	protected abstract void ShowEuropeanUnionAgreePopup(string a_oServicesURL, string a_oPrivacyURL);
+	protected abstract void ShowEUAgreePopup(string a_oServicesURL, string a_oPrivacyURL);
 	#endregion			// 추상 함수
 
 	#region 함수
@@ -60,17 +60,17 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		} else {
 			// 한국 일 경우
 			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
-				var oServicesText = CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_SERVICES_TEXT);
-				var oPrivacyText = CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_PRIVACY_TEXT);
+				var oServices = CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_SERVICES);
+				var oPrivacy = CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_PRIVACY);
 
-				CAccess.Assert(oServicesText.ExIsValid() && oPrivacyText.ExIsValid());
-				this.ShowAgreePopup(oServicesText.text, oPrivacyText.text);
+				CAccess.Assert(oServices.ExIsValid() && oPrivacy.ExIsValid());
+				this.ShowAgreePopup(oServices.text, oPrivacy.text);
 
-				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_SERVICES_TEXT, true);
-				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_PRIVACY_TEXT, true);
+				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_SERVICES, true);
+				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_PRIVACY, true);
 
 			} else {
-				this.ShowEuropeanUnionAgreePopup(CProjInfoTable.Instance.ServicesURL, 
+				this.ShowEUAgreePopup(CProjInfoTable.Instance.ServicesURL, 
 					CProjInfoTable.Instance.PrivacyURL);
 			}			
 		}
