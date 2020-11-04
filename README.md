@@ -6,8 +6,9 @@
 	- *Excel Importer (v1.1.0)*
 	- *Thai Font Adjuster (v1.0.0)*
 	- *UI Effect (v3.2.0)*
-	- *UI Particle (v2.3.0)*
+	- *UI Particle (v3.1.0)*
 	- *Soft Mask (v0.9.1)*
+	- *Unmask (v1.2.0)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *Total JSON (v1.6.0 - Jun 3, 2020)*
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
@@ -17,7 +18,7 @@
 	- *Native Share (v1.3.8 - Oct 7, 2020)*
 	- *Sign in with Apple (v1.1.0 - Aug 13, 2020)*
 	- *Rest Client for Unity (v2.6.1 - Jun 11, 2020)*
-	- *Runtime File Browser (v1.3.1 - Oct 7, 2020)*
+	- *Runtime File Browser (v1.3.5 - Oct 28, 2020)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
 	- *Ingame Debug Console (v.1.3.6 - Oct 13, 2020)*
