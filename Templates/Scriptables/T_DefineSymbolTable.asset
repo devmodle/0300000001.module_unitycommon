@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: T_DefineSymbolTable
   m_EditorClassIdentifier: 
   m_oCommonDefineSymbolList:
+  - DOTWEEN_ENABLE
+  - GOOGLE_REVIEW_ENABLE
   - SECURITY_ENABLE
   - DYNAMIC_BATCHING_ENABLE
   - UNIVERSAL_PIPELINE_ENABLE
-  - DOTWEEN_MODULE_ENABLE
   - HAPTIC_FEEDBACK_ENABLE
   - LIGHTMAP_BAKE_ENABLE
   - LIGHTMAP_AUTO_BAKE_ENABLE
   - LIGHTMAP_SHADOW_BAKE_ENABLE
-  - MODE_2D_ENABLE
   - LZ4_COMPRESS_ENABLE
+  - MODE_2D_ENABLE
   m_oSubCommonDefineSymbolList: []
   m_oStandaloneDefineSymbolList: []
   m_oMacDefineSymbolList: []
