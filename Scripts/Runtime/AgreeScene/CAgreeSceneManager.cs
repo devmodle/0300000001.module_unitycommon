@@ -46,7 +46,6 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.SetupRootScene();
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();

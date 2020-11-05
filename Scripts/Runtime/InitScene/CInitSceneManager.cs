@@ -36,6 +36,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_COMMON_STRING);
 
 		// 저장소를 로드한다
+		CCommonAppInfoStorage.Instance.LoadAppInfo();
 		CCommonUserInfoStorage.Instance.LoadUserInfo();
 
 		// 사운드를 설정한다 {
@@ -55,9 +56,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CActivityIndicatorManager.Instance.StartActivityIndicator(true, false);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-		// 간격을 설정한다
 		this.SetupOffsets();
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		// iOS 를 설정한다 {
 #if UNITY_IOS
@@ -65,7 +64,6 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		Device.SetNoBackupFlag(KCDefine.U_IMG_PATH_SCREENSHOT);
 
 		Device.hideHomeButton = false;
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if UNITY_IOS
 		// iOS 를 설정한다 }
 
@@ -118,16 +116,11 @@ public abstract partial class CInitSceneManager : CSceneManager {
 #if NOTI_MODULE_ENABLE
 		CNotiManager.Create();
 #endif			// #if NOTI_MODULE_ENABLE
-
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		// 관리자를 생성한다 }
 
-		// 디바이스 연동 객체를 생성한다 {
+		// 디바이스 연동 객체를 생성한다
 		CUnityMsgSender.Create();
 		CDeviceMsgReceiver.Create();
-
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-		// 디바이스 연동 객체를 생성한다 }
 
 		// 테이블을 생성한다 {
 		CValueTable.Create();
@@ -146,16 +139,11 @@ public abstract partial class CInitSceneManager : CSceneManager {
 #if PURCHASE_MODULE_ENABLE
 		CProductInfoTable.Create(KCDefine.U_ASSET_PATH_G_PRODUCT_INFO_TABLE);
 #endif			// #if PURCHASE_MODULE_ENABLE
-
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		// 테이블을 생성한다 }
 
-		// 저장소를 생성한다 {
+		// 저장소를 생성한다
 		CCommonAppInfoStorage.Create();
 		CCommonUserInfoStorage.Create();
-
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-		// 저장소를 생성한다 }
 
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
