@@ -89,20 +89,26 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			};
 
 			CAdsManager.Instance.Init(stAdsParams, CLateSetupSceneManager.OnInitAdsManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
 			CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryAPIKey, 
 				CLateSetupSceneManager.OnInitFlurryManager);
+
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
 			CTenjinManager.Instance.Init(CPluginInfoTable.Instance.TenjinAPIKey, 
 				CLateSetupSceneManager.OnInitTenjinManager);
+
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
 			CFacebookManager.Instance.Init(CLateSetupSceneManager.OnInitFacebookManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
@@ -124,24 +130,31 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
 
 			CFirebaseManager.Instance.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if UNITY_SERVICES_MODULE_ENABLE
 			CUnityServicesManager.Instance.Init(CLateSetupSceneManager.OnInitUnityServicesManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 			CSingularManager.Instance.Init(CPluginInfoTable.Instance.SingularPluginInfo.m_oAPIKey,
 				CPluginInfoTable.Instance.SingularPluginInfo.m_oAPISecret, CLateSetupSceneManager.OnInitSingularManager);
+
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
 			CGameCenterManager.Instance.Init(CLateSetupSceneManager.OnInitGameCenterManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 			CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, 
 				CLateSetupSceneManager.OnInitPurchaseManager);
+
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
@@ -155,6 +168,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			};
 
 			CNotiManager.Instance.Init(stNotiParams, CLateSetupSceneManager.OnInitNotiManager);
+			yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 #endif			// #if NOTI_MODULE_ENABLE
 		}
 
@@ -209,9 +223,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	//! 광고가 초기화 되었을 경우
 	private static void OnInitAds(string a_oCmd, string a_oMsg) {
 		CFunc.ShowLog("CLateSetupSceneManager.OnInitAds: {0}", a_oMsg);
-
 		bool bIsValid = bool.TryParse(a_oMsg, out bool bIsSuccess);
-		bool bIsEnableLoadAds = bIsValid && bIsSuccess && CLateSetupSceneManager.IsAutoLoadAds;
+
+		bool bIsEnableLoadAds = bIsValid && 
+			bIsSuccess && CLateSetupSceneManager.IsAutoLoadAds && !CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds;
 
 		// 재개 광고 로드가 가능 할 경우
 		if(bIsEnableLoadAds && 

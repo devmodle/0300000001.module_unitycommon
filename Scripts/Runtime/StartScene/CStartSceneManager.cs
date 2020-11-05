@@ -45,7 +45,7 @@ public abstract class CStartSceneManager : CSceneManager {
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_SETUP_SCENE);
-
+			
 		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_SETUP);
 	}
 	#endregion			// 함수
