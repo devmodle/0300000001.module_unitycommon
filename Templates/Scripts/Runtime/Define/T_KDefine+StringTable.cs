@@ -17,7 +17,7 @@ public static partial class KDefine {
 	public const string ST_KEY_START_SM_LOADING_TEXT = "START_SM_LOADING_TEXT";
 
 	// 약관 동의 팝업
-	public const string ST_KEY_AGREE_P_TITLE_TEXT = "AGREE_P_TITLE_TEXT";
+	public const string ST_KEY_AGREE_P_SERVICES_TITLE = "AGREE_P_SERVICES_TITLE";
 	public const string ST_KEY_AGREE_P_AGREE_TEXT = "AGREE_P_AGREE_TEXT";
 	#endregion			// 기본
 }
