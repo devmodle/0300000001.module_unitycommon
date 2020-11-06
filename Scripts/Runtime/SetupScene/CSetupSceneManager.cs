@@ -145,7 +145,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if MODE_PORTRAIT_ENABLE
 
 		CUnityMsgSender.Instance.SendInitMsg(oBuildMode, eOrientation);
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		// 네이티브 플러그인을 초기화한다 }
 		
 		this.Setup();

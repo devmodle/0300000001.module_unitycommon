@@ -15,6 +15,10 @@ public static partial class KDefine {
 	// 시작 씬 관리자
 	public const string ST_KEY_START_SM_DOT_TEXT = "START_SM_DOT_TEXT";
 	public const string ST_KEY_START_SM_LOADING_TEXT = "START_SM_LOADING_TEXT";
+
+	// 약관 동의 팝업
+	public const string ST_KEY_AGREE_P_TITLE_TEXT = "AGREE_P_TITLE_TEXT";
+	public const string ST_KEY_AGREE_P_AGREE_TEXT = "AGREE_P_AGREE_TEXT";
 	#endregion			// 기본
 }
 #endif			// #if NEVER_USE_THIS

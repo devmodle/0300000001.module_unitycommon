@@ -4,3 +4,5 @@ ALERT_P_MSG,0,경고 팝업 메세지,Are you sure you want to quit the game?
 ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,OK
 ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,Cancel
 START_SM_LOADING_TEXT,0,시작 씬 관리자 로딩 텍스트,Loading
+AGREE_P_TITLE_TEXT,0,약관 동의 팝업 제목 텍스트,Terms of services
+AGREE_P_AGREE_TEXT,0,약관 동의 팝업 동의 텍스트,Agree

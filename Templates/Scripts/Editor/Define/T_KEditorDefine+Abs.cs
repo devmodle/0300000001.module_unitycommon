@@ -139,7 +139,9 @@ public static partial class KEditorDefine {
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.2.0",
 		["com.unity.render-pipelines.universal"] = "8.2.0",
-		
+		["com.unity.performance.profile-analyzer"] = "1.0.3",
+		["com.unity.quicksearch"] = "1.5.4",
+
 #if ML_AGENTS_ENABLE
 		["com.unity.ml-agents"] = "1.0.5",
 #endif			// #if ML_AGENTS_ENABLE
@@ -151,6 +153,14 @@ public static partial class KEditorDefine {
 #if VISUAL_FX_GRAPH_ENABLE
 		["com.unity.visualeffectgraph"] = "8.2.0",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
+
+#if SPRITE_SHAPE_ENABLE || SPRITE_SHAPE_MODULE_ENABLE
+		["com.unity.2d.spriteshape"] = "4.1.4",
+#endif			// #if SPRITE_SHAPE_ENABLE || SPRITE_SHAPE_MODULE_ENABLE
+
+#if SKELETON_ANI_ENABLE || SKELETON_ANI_MODULE_ENABLE
+		["com.unity.2d.animation"] = "4.2.6",
+#endif			// #if SKELETON_ANI_ENABLE || SKELETON_ANI_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
     	["com.unity.postprocessing"] = "2.3.0",
