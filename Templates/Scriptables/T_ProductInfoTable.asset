@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: T_ProductInfoTable
   m_EditorClassIdentifier: 
   m_oCommonProductInfoList:
-  - m_oID: dante.distribution.sample.iap.consumable.consumable
+  - m_oID: dante.distribution.sample.iap.c.sample
     m_eProductType: 0
-  - m_oID: dante.distribution.sample.iap.nonconsumable.nonconsumable
+  - m_oID: dante.distribution.sample.iap.nc.sample
     m_eProductType: 1
   m_oiOSProductInfoList: []
   m_oGoogleProductInfoList: []

@@ -23,7 +23,7 @@
         "Unity.Notifications.Android",
         "MessagePack",
         "IngameDebugConsole.Runtime",
-        "UnityModule.IronSource"
+        "UnityModule.IronSrc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

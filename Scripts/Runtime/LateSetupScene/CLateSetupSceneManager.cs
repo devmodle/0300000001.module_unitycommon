@@ -63,17 +63,17 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				},
 #endif			// #if ADMOB_ENABLE
 
-#if IRON_SOURCE_ENABLE
-				m_stIronSourceParams = new CAdsManager.STIronSourceParams() {
-					m_oAppKey = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oAppKey,
+#if IRON_SRC_ENABLE
+				m_stIronSrcParams = new CAdsManager.STIronSrcParams() {
+					m_oAppKey = CPluginInfoTable.Instance.IronSrcPluginInfo.m_oAppKey,
 
 					m_oAdsIDList = new Dictionary<string, string>() {
-						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oBannerAdsID,
-						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oRewardAdsID,
-						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.IronSourcePluginInfo.m_oFullscreenAdsID
+						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.IronSrcPluginInfo.m_oBannerAdsID,
+						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.IronSrcPluginInfo.m_oRewardAdsID,
+						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.IronSrcPluginInfo.m_oFullscreenAdsID
 					}
 				},
-#endif			// #if IRON_SOURCE_ENABLE
+#endif			// #if IRON_SRC_ENABLE
 
 #if APP_LOVIN_ENABLE
 				m_stAppLovinParams = new CAdsManager.STAppLovinParams() {

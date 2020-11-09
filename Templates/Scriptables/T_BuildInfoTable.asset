@@ -29,9 +29,9 @@ MonoBehaviour:
   m_stiOSBuildInfo:
     m_oTeamID: A9997B8HR5
     m_oTargetOSVersion: 11.0
-    m_oDevProfileID: 123b44ae-d69f-482a-970d-8865c735fc9c
-    m_oAdhocProfileID: 648008ea-4a08-40b0-9a97-0322fc1aced0
-    m_oStoreProfileID: 9a1d3311-92f5-44e9-ba9c-9f6fdee474d8
+    m_oDevProfileID: 
+    m_oAdhocProfileID: 
+    m_oStoreProfileID: 
     m_oURLSchemeList:
     - sample
     m_eiPadLaunchScreenType: 0
