@@ -7,3 +7,9 @@ START_SM_LOADING_TEXT,0,시작 씬 관리자 로딩 텍스트,로딩 중
 AGREE_P_SERVICES_TITLE,0,약관 동의 팝업 서비스 제목,서비스 이용약관
 AGREE_P_PRIVACY_TITLE,0,약관 동의 팝업 개인 정보 제목,개인정보 보호정책
 AGREE_P_AGREE_TEXT,0,약관 동의 팝업 동의 텍스트,동의
+AGREE_P_EU_TITLE,0,약관 동의 팝업 EU 제목,Notice
+AGREE_P_DESC_TEXT_01,0,약관 동의 팝업 설명 텍스트 1,Tap OK to accept our
+AGREE_P_DESC_TEXT_02,0,약관 동의 팝업 설명 텍스트 2,and
+AGREE_P_SERVICES_URL_TEXT,0,약관 동의 팝업 서비스 URL 텍스트,Terms of Service
+AGREE_P_PRIVACY_URL_TEXT,0,약관 동의 팝업 개인 정보 URL 텍스트,Privacy Policy
+AGREE_P_OK_BTN_TEXT,0,약관 동의 팝업 확인 버튼 텍스트,OK

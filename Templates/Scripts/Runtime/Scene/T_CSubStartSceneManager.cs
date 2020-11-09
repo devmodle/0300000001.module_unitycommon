@@ -57,7 +57,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		base.OnUpdate(a_fDeltaTime);
 		m_fSkipTime += Time.deltaTime;
 
-		m_oGaugeImg.fillAmount = Mathf.Clamp(m_oGaugeImg.fillAmount + (KCDefine.B_VALUE_FLOAT_1 * a_fDeltaTime),
+		m_oGaugeImg.fillAmount = Mathf.Clamp(m_oGaugeImg.fillAmount + (KCDefine.B_VALUE_FLOAT_1 * a_fDeltaTime) * 1.5f,
 			KCDefine.B_VALUE_FLOAT_0, m_fMaxPercent);
 
 		// 상태 텍스트 갱신 주기가 지났을 경우
@@ -71,8 +71,10 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	//! 시작 씬 이벤트를 수신했을 경우
 	protected override void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent) {
-		m_fMaxPercent = Mathf.Clamp((int)a_eEvent / (float)((int)EStartSceneEvent.MAX_VALUE - KCDefine.B_VALUE_INT_1), 
-			KCDefine.B_VALUE_FLOAT_0, KCDefine.B_VALUE_FLOAT_1);
+		int nEvent = (int)a_eEvent + KCDefine.B_VALUE_INT_1;
+		float fPercent = nEvent / (float)((int)EStartSceneEvent.MAX_VALUE - KCDefine.B_VALUE_INT_1);
+		
+		m_fMaxPercent = Mathf.Clamp(fPercent, KCDefine.B_VALUE_FLOAT_0, KCDefine.B_VALUE_FLOAT_1);
 	}
 
 	//! 텍스트 상태를 갱신한다

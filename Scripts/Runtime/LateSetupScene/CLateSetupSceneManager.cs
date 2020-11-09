@@ -280,10 +280,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CFirebaseManager.Instance.SetCrashUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
 
 			CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-
-#if UNITY_IOS
-			CFirebaseManager.Instance.StartTracking(KCDefine.U_TRACKING_NAME_APP_START, null);
-#endif			// #if UNITY_IOS
+			CFirebaseManager.Instance.StartTracking(KCDefine.U_TRACKING_NAME_APP_LAUNCH, null);
 
 #if FIREBASE_REMOTE_CONFIG_ENABLE
 			CFirebaseManager.Instance.LoadConfig(CLateSetupSceneManager.OnLoadConfig);

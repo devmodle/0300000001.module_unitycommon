@@ -16,9 +16,19 @@ public static partial class KDefine {
 	public const string ST_KEY_START_SM_DOT_TEXT = "START_SM_DOT_TEXT";
 	public const string ST_KEY_START_SM_LOADING_TEXT = "START_SM_LOADING_TEXT";
 
-	// 약관 동의 팝업
+	// 약관 동의 팝업 {
 	public const string ST_KEY_AGREE_P_SERVICES_TITLE = "AGREE_P_SERVICES_TITLE";
+	public const string ST_KEY_AGREE_P_PRIVACY_TITLE = "AGREE_P_PRIVACY_TITLE";
 	public const string ST_KEY_AGREE_P_AGREE_TEXT = "AGREE_P_AGREE_TEXT";
+
+	public const string ST_KEY_AGREE_P_EU_TITLE = "AGREE_P_EU_TITLE";
+	public const string ST_KEY_AGREE_P_DESC_TEXT_01 = "AGREE_P_DESC_TEXT_01";
+	public const string ST_KEY_AGREE_P_DESC_TEXT_02 = "AGREE_P_DESC_TEXT_02";
+	public const string ST_KEY_AGREE_P_SERVICES_URL_TEXT = "AGREE_P_SERVICES_URL_TEXT";
+	public const string ST_KEY_AGREE_P_PRIVACY_URL_TEXT = "AGREE_P_PRIVACY_URL_TEXT";
+
+	public const string ST_KEY_AGREE_P_OK_BTN_TEXT = "AGREE_P_OK_BTN_TEXT";
+	// 약관 동의 팝업 }
 	#endregion			// 기본
 }
 #endif			// #if NEVER_USE_THIS

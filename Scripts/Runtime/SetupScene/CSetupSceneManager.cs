@@ -89,7 +89,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			oCountryCode = !CAccess.IsMobile() ? 
 				KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
-
+		
 		CCommonAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
 		CCommonAppInfoStorage.Instance.SaveAppInfo();
 

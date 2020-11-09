@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6216905414391328573}
-  - component: {fileID: 42273391446087120}
   - component: {fileID: 6216905414391328574}
   - component: {fileID: 6216905414391328575}
   - component: {fileID: 6216905414391328572}
+  - component: {fileID: 42273391446087120}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -39,22 +39,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &42273391446087120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6216905414391328562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
-  m_oKey: 
 --- !u!222 &6216905414391328574
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -111,6 +95,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &42273391446087120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216905414391328562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oRectTrans: {fileID: 0}
+  m_oRigidbody: {fileID: 0}
+  m_oRigidbody2D: {fileID: 0}
+  m_oKey: 
 --- !u!1 &8656266775954721300
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,10 +247,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
+  m_oRectTrans: {fileID: 0}
   m_oRigidbody: {fileID: 0}
   m_oRigidbody2D: {fileID: 0}
   m_bIsRecursive: 0
+  m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
+  m_stDisableColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
 --- !u!114 &-4272775295816125831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422937e48162444d4ac2c51e360f83f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
+  m_oRectTrans: {fileID: 0}
   m_oRigidbody: {fileID: 0}
   m_oRigidbody2D: {fileID: 0}
   m_fDuration: 0.25
@@ -280,9 +283,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
+  m_oRectTrans: {fileID: 0}
   m_oRigidbody: {fileID: 0}
   m_oRigidbody2D: {fileID: 0}
+  m_oBeginSoundPath: Sounds/Global/G_TouchBegin
+  m_oEndSoundPath: Sounds/Global/G_TouchEnd
 --- !u!114 &2615080384381106416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTransform: {fileID: 0}
+  m_oRectTrans: {fileID: 0}
   m_oRigidbody: {fileID: 0}
   m_oRigidbody2D: {fileID: 0}
