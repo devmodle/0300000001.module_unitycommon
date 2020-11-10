@@ -17,16 +17,6 @@ public static partial class KDefine {
 	public static readonly string B_DATA_PATH_APP_INFO = string.Format("{0}AppInfo.bytes", KCDefine.B_DIR_PATH_WRITABLE);
 	public static readonly string B_DATA_PATH_USER_INFO = string.Format("{0}UserInfo.bytes", KCDefine.B_DIR_PATH_WRITABLE);
 	public static readonly string B_DATA_PATH_GAME_INFO = string.Format("{0}GameInfo.bytes", KCDefine.B_DIR_PATH_WRITABLE);
-
-	// 디바이스 {
-	public static readonly SystemLanguage[] B_SUPPORT_LANGUAGES = new SystemLanguage[] {
-		SystemLanguage.Korean, SystemLanguage.English
-	};
-	
-	public static readonly string[] B_SUPPORT_COUNTRY_CODES = new string[] {
-		KCDefine.B_KOREA_COUNTRY_CODE
-	};
-	// 디바이스 }
 	#endregion			// 런타임 상수
 }
 #endif			// #if NEVER_USE_THIS
