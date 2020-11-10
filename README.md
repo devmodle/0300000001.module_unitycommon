@@ -6,8 +6,8 @@
 	- *Excel Importer (v1.1.0)*
 	- *Thai Font Adjuster (v1.0.0)*
 	- *UI Effect (v3.2.0)*
-	- *UI Particle (v3.1.0)*
-	- *Soft Mask (v0.9.1)*
+	- *Particle For GUI (v3.1.0)*
+	- *Soft Mask For GUI (v0.9.1)*
 	- *Unmask (v1.2.0)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *Total JSON (v1.6.0 - Jun 3, 2020)*
@@ -25,6 +25,7 @@
 	- *Asset Usage Detector (v.1.8.8 - Oct 7, 2020)*
 	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
 	- *UI Tween (v1.0.0 - Apr 8, 2016)*
+	- *Reuse Scroller (v1.0.0 - Jan 10, 2018)*
 3. **기타 추가 에셋 및 플러그인 리스트**
 	- *Admob (v5.3.0)*
 	- *Iron Source (v7.0.1.1)*
