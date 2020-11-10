@@ -75,15 +75,25 @@ public static partial class CCommonEditorSceneManager {
 
 						for(int j = KCDefine.B_VALUE_INT_0; j < oObjs.Length; ++j) {
 							var oEnumerator = oObjs[j].DescendantsAndSelf();
+							var oRemoveObjList = new List<GameObject>();
 
 							foreach(var oObj in oEnumerator) {
 								int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
+
+								// 객체 제거가 필요 할 경우
+								if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
+									oRemoveObjList.ExAddValue(oObj);
+								}
 
 								// 스크립트 제거가 필요 할 경우
 								if(nNumMissingScripts > KCDefine.B_VALUE_INT_0) {
 									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
 									EditorSceneManager.MarkSceneDirty(a_stScene);
 								}
+							}
+
+							for(int i = 0; i < oRemoveObjList.Count; ++i) {
+								CAccess.RemoveObj(oRemoveObjList[i]);
 							}
 						}
 					});

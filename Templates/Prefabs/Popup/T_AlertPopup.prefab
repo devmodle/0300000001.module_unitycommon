@@ -140,9 +140,9 @@ MonoBehaviour:
   m_oRigidbody: {fileID: 0}
   m_oRigidbody2D: {fileID: 0}
   m_bIsRecursive: 0
-  m_stNormalColor2: {r: 1, g: 1, b: 1, a: 1}
-  m_stSelectColor2: {r: 0.75, g: 0.75, b: 0.75, a: 1}
-  m_stDisableColor2: {r: 0.35, g: 0.35, b: 0.35, a: 1}
+  m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
+  m_stDisableColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
 --- !u!114 &8559943905523781965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -912,9 +912,9 @@ MonoBehaviour:
   m_oRigidbody: {fileID: 0}
   m_oRigidbody2D: {fileID: 0}
   m_bIsRecursive: 0
-  m_stNormalColor2: {r: 1, g: 1, b: 1, a: 1}
-  m_stSelectColor2: {r: 0.75, g: 0.75, b: 0.75, a: 1}
-  m_stDisableColor2: {r: 0.35, g: 0.35, b: 0.35, a: 1}
+  m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
+  m_stDisableColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
 --- !u!114 &1502649315077456379
 MonoBehaviour:
   m_ObjectHideFlags: 0
