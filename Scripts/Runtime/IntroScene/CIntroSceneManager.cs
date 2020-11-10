@@ -10,18 +10,6 @@ public class CIntroSceneManager : CSceneManager {
 
 	#region 함수
 	//! 초기화
-	public override void Awake() {
-		base.Awake();
-
-		// 초기화 되었을 경우
-		if(CSceneManager.IsInit) {
-			CCommonAppInfoStorage.Instance.SetupDeviceType();
-			CCommonAppInfoStorage.Instance.SetupAdsID();
-			CCommonAppInfoStorage.Instance.SetupStoreVersion();
-		}
-	}
-
-	//! 초기화
 	public sealed override void Start() {
 		base.Start();
 		StartCoroutine(this.OnStart());

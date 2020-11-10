@@ -63,6 +63,10 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	private void LoadNextScene() {
+		CCommonAppInfoStorage.Instance.SetupDeviceType();
+		CCommonAppInfoStorage.Instance.SetupAdsID();
+		CCommonAppInfoStorage.Instance.SetupStoreVersion();
+		
 		CCommonUserInfoStorage.Instance.UserInfo.IsAgree = true;
 		CCommonUserInfoStorage.Instance.SaveUserInfo();
 
