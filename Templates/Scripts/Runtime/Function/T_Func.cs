@@ -39,7 +39,7 @@ public static partial class Func {
 			oDataList,
 			a_oCallback);
 
-		oAlertPopup.ShowPopup(null, null);
+		oAlertPopup.Show(null, null);
 	}
 	
 	//! 지역화 문자열을 설정한다
