@@ -211,9 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_bIsRecursive: 0
   m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
   m_stSelectColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -230,9 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422937e48162444d4ac2c51e360f83f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_fDuration: 0.25
   m_fTouchScale: 1.05
 --- !u!114 &5747689920029594547
@@ -247,9 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oBeginSoundPath: Sounds/Global/G_TouchBegin
   m_oEndSoundPath: Sounds/Global/G_TouchEnd
 --- !u!114 &6212507170387702357
@@ -264,9 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!1 &695780845950207763
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,9 +827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_OK_BTN_TEXT
 --- !u!1 &2481042778929251808
 GameObject:
@@ -963,9 +948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d07c82703e504d97809c06cf16c8153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!1 &2564687714632787958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,9 +1055,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_SERVICES_TITLE
 --- !u!1 &3070524852517513671
 GameObject:
@@ -1305,9 +1284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_AGREE_TEXT
 --- !u!1 &4618025157548654175
 GameObject:
@@ -1480,9 +1456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_DESC_TEXT_01
 --- !u!1 &4752944900012347159
 GameObject:
@@ -1623,9 +1596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_SERVICES_URL_TEXT
 --- !u!114 &176623405900425368
 MonoBehaviour:
@@ -1639,9 +1609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_bIsRecursive: 0
   m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
   m_stSelectColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -1658,9 +1625,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oBeginSoundPath: Sounds/Global/G_TouchBegin
   m_oEndSoundPath: Sounds/Global/G_TouchEnd
 --- !u!114 &2966593625773423290
@@ -1675,9 +1639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!1 &5047267430272642817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,9 +1905,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_EU_TITLE
 --- !u!1 &6369264970568034401
 GameObject:
@@ -2267,9 +2225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_PRIVACY_URL_TEXT
 --- !u!114 &4585187505915832349
 MonoBehaviour:
@@ -2283,9 +2238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_bIsRecursive: 0
   m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
   m_stSelectColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -2302,9 +2254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oBeginSoundPath: Sounds/Global/G_TouchBegin
   m_oEndSoundPath: Sounds/Global/G_TouchEnd
 --- !u!114 &8407429475803206360
@@ -2319,9 +2268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!1 &7343988653249306473
 GameObject:
   m_ObjectHideFlags: 0
@@ -2507,9 +2453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_PRIVACY_TITLE
 --- !u!1 &7781183095238534159
 GameObject:
@@ -2711,9 +2654,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf3b717576f645b6b0bb0c01dbbe564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oNormUI: {fileID: 8019310881904857024}
   m_oEUUI: {fileID: 8019310881260844047}
   m_oServicesUI: {fileID: 8019310881728972570}
@@ -2914,9 +2854,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d07c82703e504d97809c06cf16c8153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!1 &8756468453672069586
 GameObject:
   m_ObjectHideFlags: 0
@@ -3084,9 +3021,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_DESC_TEXT_02
 --- !u!1 &9093940035420632393
 GameObject:
@@ -3195,7 +3129,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oKey: AGREE_P_AGREE_TEXT

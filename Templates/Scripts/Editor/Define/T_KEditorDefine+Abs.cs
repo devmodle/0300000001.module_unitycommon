@@ -121,7 +121,7 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_NAME_INTRO] = typeof(CSubIntroSceneManager),
 
 #if STUDY_MODULE_ENABLE
-		[KSDefine.B_SCENE_NAME_MENU] = typeof(CMenuSceneManager)
+		[KCDefine.B_SCENE_NAME_MENU] = typeof(CMenuSceneManager)
 #endif			// #if STUDY_MODULE_ENABLE
 	};
 

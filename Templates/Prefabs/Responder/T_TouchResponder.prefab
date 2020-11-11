@@ -89,9 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea33a907fa144ed492979b014b6a543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!114 &-4029436317842451443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +101,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c5c565eea0a41af950e2335b16cd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_fSizeRate: 1

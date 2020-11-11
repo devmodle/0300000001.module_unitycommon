@@ -136,9 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_bIsRecursive: 0
   m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
   m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
@@ -155,9 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422937e48162444d4ac2c51e360f83f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_fDuration: 0.25
   m_fTouchScale: 1.05
 --- !u!114 &8014779231793552598
@@ -172,9 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oBeginSoundPath: Sounds/Global/G_TouchBegin
   m_oEndSoundPath: Sounds/Global/G_TouchEnd
 --- !u!114 &5247955111576082066
@@ -189,9 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!1 &1516988602486528363
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,9 +661,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316bc29c48db2437d8362a5a405b33d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oTexts: {fileID: 2845395944852706275}
   m_oBtns: {fileID: 8063847896424549972}
 --- !u!1 &7178956650463880034
@@ -908,9 +893,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_bIsRecursive: 0
   m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
   m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
@@ -927,9 +909,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422937e48162444d4ac2c51e360f83f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_fDuration: 0.25
   m_fTouchScale: 1.05
 --- !u!114 &6870148625544973621
@@ -944,9 +923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_oBeginSoundPath: Sounds/Global/G_TouchBegin
   m_oEndSoundPath: Sounds/Global/G_TouchEnd
 --- !u!114 &5753002291992730143
@@ -961,9 +937,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!1 &8063847896424549972
 GameObject:
   m_ObjectHideFlags: 0

@@ -120,9 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d07c82703e504d97809c06cf16c8153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!1 &1515028130523910649
 GameObject:
   m_ObjectHideFlags: 0

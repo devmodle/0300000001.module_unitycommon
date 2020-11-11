@@ -246,9 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d07c82703e504d97809c06cf16c8153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
 --- !u!114 &7818104620216425534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,8 +258,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decd45c0f13b14ff286163adf35de3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oRectTrans: {fileID: 0}
-  m_oRigidbody: {fileID: 0}
-  m_oRigidbody2D: {fileID: 0}
   m_fPageDistance: 25
   m_eDirection: -1
