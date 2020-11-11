@@ -92,8 +92,8 @@ public abstract class CPermissionSceneManager : CSceneManager {
 	//! 권한을 수신했을 경우
 	private void OnReceivePermission(string a_oPermission, bool a_bIsSuccess) {
 		CAccess.Assert(a_oPermission.ExIsValid());
-		this.PermissionList.ExRemoveValue(a_oPermission);
 
+		this.PermissionList.ExRemoveValue(a_oPermission);
 		this.CheckPermission();
 	}
 
