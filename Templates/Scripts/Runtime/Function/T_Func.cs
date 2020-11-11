@@ -33,7 +33,7 @@ public static partial class Func {
 			[KCDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] = CStringTable.Instance.GetString(KDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
 		};
 
-		var oAlertPopup = CAlertPopup.CreateAlertPopup<CSubAlertPopup>(KCDefine.U_OBJ_NAME_ALERT_POPUP,
+		var oAlertPopup = CAlertPopup.CreateAlertPopup<CAlertPopup>(KCDefine.U_OBJ_NAME_ALERT_POPUP,
 			CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_G_ALERT_POPUP),
 			CSceneManager.ScreenPopupUIRoot,
 			oDataList,
