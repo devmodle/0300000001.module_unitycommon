@@ -121,7 +121,7 @@ public static partial class Func {
 
 	//! 보상 광고가 닫혔을 경우
 	private static void OnCloseRewardAds(CAdsManager a_oSender) {
-		Func.m_oRewardAdsCallback?.Invoke(a_oSender, Func.m_stRewardItem, Func.m_bIsWatchRewardAds);
+		CFunc.Invoke(ref Func.m_oRewardAdsCallback, a_oSender, Func.m_stRewardItem, Func.m_bIsWatchRewardAds);
 	}
 
 	//! 유저 보상을 수신했을 경우
@@ -135,13 +135,13 @@ public static partial class Func {
 	//! 전면 광고가 닫혔을 경우
 	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
 		CGameInfoStorage.Instance.PrevFullscreenAdsTime = System.DateTime.Now;
-		Func.m_oFullscreenAdsCallback?.Invoke(a_oSender, Func.m_bIsWatchFullscreenAds);
+		CFunc.Invoke(ref Func.m_oFullscreenAdsCallback, a_oSender, Func.m_bIsWatchFullscreenAds);
 	}
 
 	//! 재개 광고가 닫혔을 경우
 	private static void OnCloseResumeAds(CAdsManager a_oSender) {
 		CGameInfoStorage.Instance.PrevResumeAdsTime = System.DateTime.Now;
-		Func.m_oResumeAdsCallback?.Invoke(a_oSender, Func.m_bIsWatchResumeAds);
+		CFunc.Invoke(ref Func.m_oResumeAdsCallback, a_oSender, Func.m_bIsWatchResumeAds);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 
@@ -213,6 +213,8 @@ public static partial class Func {
 		} else {
 			Func.m_oPurchaseCallback?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 		}
+
+		Func.m_oPurchaseCallback = null;
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수
