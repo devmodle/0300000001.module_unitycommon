@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public abstract partial class CInitSceneManager : CSceneManager {
 	#region 함수
 	//! 블라인드 이미지를 생성한다
-	private Image CreateBlindImg(string a_oName, GameObject a_oParent) {
+	protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
 		var oObj = CFactory.CreateCloneObj(a_oName,
 			CResManager.Instance.GetPrefab(KCDefine.IS_OBJ_PATH_SCREEN_BLIND_IMG), a_oParent);
 
