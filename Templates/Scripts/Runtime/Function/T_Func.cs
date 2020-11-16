@@ -27,10 +27,10 @@ public static partial class Func {
 	//! 앱 종료 팝업을 출력한다
 	public static void ShowAppQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var oDataList = new Dictionary<string, string>() {
-			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Instance.GetString(KDefine.ST_KEY_ALERT_P_TITLE),
-			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Instance.GetString(KDefine.ST_KEY_ALERT_P_MSG),
-			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Instance.GetString(KDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
-			[KCDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] = CStringTable.Instance.GetString(KDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
+			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Instance.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
+			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Instance.GetString(KCDefine.ST_KEY_ALERT_P_MSG),
+			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Instance.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			[KCDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] = CStringTable.Instance.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
 		};
 
 		var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_NAME_ALERT_POPUP,

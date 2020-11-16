@@ -41,7 +41,7 @@ public static partial class CCommonEditorSceneManager {
 		var oCameras = Resources.FindObjectsOfTypeAll<Camera>();
 		var oSceneManagers = Resources.FindObjectsOfTypeAll<CSceneManager>();
 
-		for(int i = KCDefine.B_VALUE_INT_0; i < oLights.Length; ++i) {
+		for(int i = 0; i < oLights.Length; ++i) {
 			// 메인 광원 일 경우
 			if(oLights[i].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT)) {
 				bIsExistsMainLight = true;
@@ -56,13 +56,13 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 
-		for(int i = KCDefine.B_VALUE_INT_0; i < oSceneManagers.Length; ++i) {
+		for(int i = 0; i < oSceneManagers.Length; ++i) {
 			// 태그 설정이 필요 할 경우
 			if(!oSceneManagers[i].CompareTag(KCDefine.U_TAG_SCENE_MANAGER)) {
 				oSceneManagers[i].tag = KCDefine.U_TAG_SCENE_MANAGER;
 			}
 			
-			for(int j = KCDefine.B_VALUE_INT_0; j < oCameras.Length; ++j) {
+			for(int j = 0; j < oCameras.Length; ++j) {
 				// 에디터 카메라가 아닐 경우
 				if(!oCameras[j].name.ExIsEquals(KCEditorDefine.B_OBJ_NAME_SCENE_EDITOR_CAMERA)) {
 					bool bIsUICamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA);
@@ -129,7 +129,7 @@ public static partial class CCommonEditorSceneManager {
 
 		// 디버그 콘솔이 존재 할 경우
 		if(oDebugConsoleList.ExIsValid()) {
-			for(int i = KCDefine.B_VALUE_INT_0; i < oDebugConsoleList.Count; ++i) {
+			for(int i = 0; i < oDebugConsoleList.Count; ++i) {
 				var oLogWindow = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_NAME_DEBUG_C_LOG_WINDOW);
 				var oEventSystem = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_NAME_SCENE_EVENT_SYSTEM);
 				var oLogManager = oDebugConsoleList[i].GetComponentInChildren<DebugLogManager>();
@@ -160,7 +160,7 @@ public static partial class CCommonEditorSceneManager {
 
 		// 디버그 로그 아이템이 존재 할 경우
 		if(oDebugLogItemList.ExIsValid()) {
-			for(int i = KCDefine.B_VALUE_INT_0; i < oDebugLogItemList.Count; ++i) {
+			for(int i = 0; i < oDebugLogItemList.Count; ++i) {
 				var oText = oDebugLogItemList[i].GetComponentInChildren<Text>();
 				oText.fontSize = KCEditorDefine.B_FONT_SIZE_DEBUG_C_TEXT;
 
@@ -182,7 +182,7 @@ public static partial class CCommonEditorSceneManager {
 
 		// FPS 카운터가 존재 할 경우
 		if(oFPSCounterList.ExIsValid()) {
-			for(int i = KCDefine.B_VALUE_INT_0; i < oFPSCounterList.Count; ++i) {
+			for(int i = 0; i < oFPSCounterList.Count; ++i) {
 				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_NAME_FPS_C_STATIC_TEXT);
 				oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_STATIC_TEXT;
 
@@ -259,7 +259,7 @@ public static partial class CCommonEditorSceneManager {
 
 				oLightingSettingsAsset = new LightingSettings();
 
-				for(int i = KCDefine.B_VALUE_INT_0; i < oPropertyInfos.Length; ++i) {
+				for(int i = 0; i < oPropertyInfos.Length; ++i) {
 					var oPropertyInfo = oPropertyInfos[i];
 
 					oLightingSettingsAsset.ExSetPropertyValue<LightingSettings>(oPropertyInfo.Name, 

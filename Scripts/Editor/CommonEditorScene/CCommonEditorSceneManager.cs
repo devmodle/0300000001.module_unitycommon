@@ -73,7 +73,7 @@ public static partial class CCommonEditorSceneManager {
 					CFunc.EnumerateScenes((a_stScene) => {
 						var oObjs = a_stScene.GetRootGameObjects();
 
-						for(int j = KCDefine.B_VALUE_INT_0; j < oObjs.Length; ++j) {
+						for(int j = 0; j < oObjs.Length; ++j) {
 							var oEnumerator = oObjs[j].DescendantsAndSelf();
 							var oRemoveObjList = new List<GameObject>();
 
@@ -124,7 +124,7 @@ public static partial class CCommonEditorSceneManager {
 
 			var oComponents = oObj.GetComponents<Component>();
 
-			for(int i = KCDefine.B_VALUE_INT_0; i < oComponents.Length; ++i) {
+			for(int i = 0; i < oComponents.Length; ++i) {
 				// 컴포넌트가 존재 할 경우
 				if(oComponents[i] != null) {
 					var oType = oComponents[i].GetType();

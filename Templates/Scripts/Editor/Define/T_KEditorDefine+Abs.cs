@@ -126,7 +126,7 @@ public static partial class KEditorDefine {
 	};
 
 	// 유니티 패키지 {
-	public static readonly string B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}../UnityPackages/Options/Templates/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_PATH_ASSETS);
+	public static readonly string B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}../UnityPackages/Templates/Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_PATH_ASSETS);
 	public static readonly string B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_PATH_PACKAGES);
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
@@ -143,7 +143,7 @@ public static partial class KEditorDefine {
 		["com.unity.quicksearch"] = "1.5.4",
 
 #if ML_AGENTS_ENABLE
-		["com.unity.ml-agents"] = "1.0.5",
+		["com.unity.ml-agents"] = "1.0.6",
 #endif			// #if ML_AGENTS_ENABLE
 
 #if CINEMACHINE_ENABLE

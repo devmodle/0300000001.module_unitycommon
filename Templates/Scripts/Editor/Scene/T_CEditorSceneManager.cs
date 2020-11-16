@@ -49,7 +49,7 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_fSkipTime += Time.deltaTime;
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
-			for(int i = KCDefine.B_VALUE_INT_0; i < oMonoScripts.Length; ++i) {
+			for(int i = 0; i < oMonoScripts.Length; ++i) {
 				var oType = oMonoScripts[i].GetClass();
 
 				// 스크립트 순서 설정이 가능 할 경우
@@ -126,7 +126,7 @@ public static partial class CEditorSceneManager {
 				};
 
 				foreach(var stKeyValue in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULE_LIST) {
-					for(int i = KCDefine.B_VALUE_INT_0; i < oDefineSymbolListContainer.Length; ++i) {
+					for(int i = 0; i < oDefineSymbolListContainer.Length; ++i) {
 						var oDefineSymbolList = oDefineSymbolListContainer[i];
 
 						// 전처리기 심볼 갱신이 필요 할 경우

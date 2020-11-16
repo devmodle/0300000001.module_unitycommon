@@ -81,13 +81,13 @@ public class CSubStartSceneManager : CStartSceneManager {
 	private void UpdateTextState() {
 		// 국가 코드가 유효 할 경우
 		if(CCommonAppInfoStorage.Instance.CountryCode.ExIsValid()) {
-			string oDot = CStringTable.Instance.GetString(KDefine.ST_KEY_START_SM_DOT_TEXT);
-			string oLoading = CStringTable.Instance.GetString(KDefine.ST_KEY_START_SM_LOADING_TEXT);
+			string oDot = CStringTable.Instance.GetString(KCDefine.ST_KEY_START_SM_DOT_TEXT);
+			string oLoading = CStringTable.Instance.GetString(KCDefine.ST_KEY_START_SM_LOADING_TEXT);
 
 			m_oStringBuilder.Clear();
 			m_oStringBuilder.Append(oLoading);
 			
-			for(int i = KCDefine.B_VALUE_INT_0; i < m_nNumDots + KCDefine.B_VALUE_INT_1; ++i) {
+			for(int i = 0; i < m_nNumDots + KCDefine.B_VALUE_INT_1; ++i) {
 				m_oStringBuilder.Append(oDot);
 			}
 
