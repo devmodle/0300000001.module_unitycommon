@@ -16,7 +16,11 @@ public class CSampleSceneManager : CSceneManager {
 	#region 조건부 클래스 함수
 #if UNITY_EDITOR
 	//! 씬 관리자를 설정한다
-	public static void SetupSceneManager(Scene a_stScene, Dictionary<string, System.Type> a_oSceneManagerTypeList) {
+	public static void SetupSceneManager(Scene a_stScene, 
+		Dictionary<string, System.Type> a_oSceneManagerTypeList) 
+	{
+		CAccess.Assert(a_oSceneManagerTypeList != null);
+
 		foreach(var stKeyValue in a_oSceneManagerTypeList) {
 			// 씬 관리자 타입과 일치 할 경우
 			if(a_stScene.name.ExIsEquals(stKeyValue.Key)) {

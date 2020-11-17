@@ -280,10 +280,12 @@ public static partial class CCommonEditorSceneManager {
 			var oCanvas = oFileBrowserUI.GetComponentInChildren<Canvas>();
 			oCanvas.sortingOrder = KCDefine.U_SORTING_ORDER_FILE_BROWSER_UI;
 
+			var stResolution = new Vector2(KCDefine.B_SCREEN_WIDTH, KCDefine.B_SCREEN_HEIGHT);
+
 			var oCanvasScaler = oFileBrowserUI.GetComponentInChildren<CanvasScaler>();
 			oCanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
 			oCanvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-			oCanvasScaler.referenceResolution = new Vector2(KCDefine.B_SCREEN_WIDTH, KCDefine.B_SCREEN_HEIGHT);
+			oCanvasScaler.referenceResolution = stResolution;
 			oCanvasScaler.referencePixelsPerUnit = KCDefine.B_REF_PIXELS_UNIT;
 
 			var oFileBrowserWindow = oFileBrowserUI.ExFindChild(KCEditorDefine.B_OBJ_NAME_FILE_BROWSER_WINDOW);

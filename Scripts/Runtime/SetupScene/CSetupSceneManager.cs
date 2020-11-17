@@ -118,7 +118,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				KCDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
 		} else {
 			string oKey = CAccess.IsConsole() ? 
-				KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
+				KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : 
+				KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
 
 			nTargetFrameRate = CValueTable.Instance.GetInt(oKey);
 		}

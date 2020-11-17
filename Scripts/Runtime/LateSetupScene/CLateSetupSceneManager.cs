@@ -132,7 +132,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if SINGULAR_MODULE_ENABLE
 			CSingularManager.Instance.Init(CPluginInfoTable.Instance.SingularPluginInfo.m_oAPIKey,
-				CPluginInfoTable.Instance.SingularPluginInfo.m_oAPISecret, CLateSetupSceneManager.OnInitSingularManager);
+				CPluginInfoTable.Instance.SingularPluginInfo.m_oAPISecret, 
+				CLateSetupSceneManager.OnInitSingularManager);
 #endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
@@ -172,7 +173,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 광고 관리자가 초기화 되었을 경우
-	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
+	private static void OnInitAdsManager(CAdsManager a_oSender, 
+		EAdsType a_eAdsType, bool a_bIsSuccess) 
+	{
 		CFunc.ShowLog("CLateSetupSceneManager.OnInitAdsManager: {0}, {1}", a_eAdsType, a_bIsSuccess);
 
 #if ADMOB_ENABLE
@@ -209,10 +212,13 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	//! 광고가 초기화 되었을 경우
 	private static void OnInitAds(string a_oCmd, string a_oMsg) {
 		CFunc.ShowLog("CLateSetupSceneManager.OnInitAds: {0}", a_oMsg);
+
 		bool bIsValid = bool.TryParse(a_oMsg, out bool bIsSuccess);
+		bIsValid = bIsValid && bIsSuccess;
 
 		bool bIsEnableLoadAds = bIsValid && 
-			bIsSuccess && CLateSetupSceneManager.IsAutoLoadAds && !CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds;
+			CLateSetupSceneManager.IsAutoLoadAds && 
+			!CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds;
 
 		// 재개 광고 로드가 가능 할 경우
 		if(bIsEnableLoadAds && 
@@ -304,7 +310,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if UNITY_SERVICES_MODULE_ENABLE
 	//! 유니티 서비스 관리자가 초기화 되었을 경우
-	private static void OnInitUnityServicesManager(CUnityServicesManager a_oSender, bool a_bIsSuccess) {
+	private static void OnInitUnityServicesManager(CUnityServicesManager a_oSender, 
+		bool a_bIsSuccess) 
+	{
 		CFunc.ShowLog("CLateSetupSceneManager.OnInitUnityServicesManager: {0}", a_bIsSuccess);
 
 		// 초기화 되었을 경우

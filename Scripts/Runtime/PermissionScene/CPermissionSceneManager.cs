@@ -36,7 +36,8 @@ public abstract class CPermissionSceneManager : CSceneManager {
 	#region 추상 함수
 #if UNITY_ANDROID
 	//! 권한을 요청한다
-	protected abstract void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
+	protected abstract void RequestPermission(string a_oPermission, 
+		System.Action<string, bool> a_oCallback);
 #endif			// #if UNITY_ANDROID
 	#endregion			// 추상 함수
 

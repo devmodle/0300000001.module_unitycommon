@@ -119,10 +119,11 @@ public static partial class CCommonEditorSceneManager {
 
 		// 객체가 존재 할 경우
 		if(oObj != null) {
-			a_stRect.size = new Vector2(KCEditorDefine.B_HIERARCHY_WIDTH, a_stRect.size.y);
-			a_stRect.position += new Vector2(KCEditorDefine.B_HIERARCHY_OFFSET_X, KCDefine.B_VALUE_FLOAT_0);
-
 			var oComponents = oObj.GetComponents<Component>();
+			a_stRect.size = new Vector2(KCEditorDefine.B_HIERARCHY_WIDTH, a_stRect.size.y);
+
+			a_stRect.position += new Vector2(KCEditorDefine.B_HIERARCHY_OFFSET_X, 
+				KCDefine.B_VALUE_FLOAT_0);
 
 			for(int i = 0; i < oComponents.Length; ++i) {
 				// 컴포넌트가 존재 할 경우
@@ -138,7 +139,8 @@ public static partial class CCommonEditorSceneManager {
 					// 프로퍼티가 존재 할 경우
 					if(oSortingLayerProperty != null && oSortingOrderProperty != null) {
 						string oString = string.Format(KCEditorDefine.B_SORTING_ORDER_INFO_FORMAT, 
-							oSortingLayerProperty.GetValue(oComponents[i]), oSortingOrderProperty.GetValue(oComponents[i]));
+							oSortingLayerProperty.GetValue(oComponents[i]), 
+							oSortingOrderProperty.GetValue(oComponents[i]));
 
 						GUI.Label(a_stRect, oString, m_oGUIStyle);
 					}
@@ -153,6 +155,7 @@ public static partial class CCommonEditorSceneManager {
 			CFunc.EnumerateScenes((a_stScene) => {
 				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
 
+				// 씬 관리자가 존재 할 경우
 				if(oSceneManager != null) {
 					CFunc.SelectObj(oSceneManager.gameObject);
 				}

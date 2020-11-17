@@ -12,7 +12,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		if(CSetupSceneManager.m_oPopupUI == null) {
 			var oPopupUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_POPUP_UI,
 				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_SCREEN_POPUP_UI), null);
-
+				
 			CSetupSceneManager.m_oPopupUI = oPopupUI;
 			CSceneManager.ScreenPopupUIRoot = oPopupUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_POPUP_UI_ROOT);
 
