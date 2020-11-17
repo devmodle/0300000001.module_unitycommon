@@ -30,21 +30,21 @@ public class CSubStartSceneManager : CStartSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
 			// 텍스트를 설정한다 {
-			m_oLoadingText = CFactory.CreateCloneObj<Text>(KDefine.SS_OBJ_NAME_LOADING_TEXT,
+			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_NAME_LOADING_TEXT,
 				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_LOADING_TEXT), 
 				this.SubUIRoot,
-				KDefine.SS_POS_LOADING_TEXT);
+				KCDefine.SS_POS_LOADING_TEXT);
 
 			m_oLoadingText.text = string.Empty;
 			// 텍스트를 설정한다 }
 
 			// 이미지를 설정한다 {
-			m_oLoadingImgObj = CFactory.CreateCloneObj(KDefine.SS_OBJ_NAME_LOADING_IMG_OBJ,
+			m_oLoadingImgObj = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_LOADING_IMG_OBJ,
 				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_LOADING_IMG_OBJ),
 				this.SubUIRoot,
-				KDefine.SS_POS_LOADING_IMG_OBJ);
+				KCDefine.SS_POS_LOADING_IMG_OBJ);
 
-			m_oGaugeImg = m_oLoadingImgObj.ExFindComponent<Image>(KDefine.SS_OBJ_NAME_GAUGE_IMG);
+			m_oGaugeImg = m_oLoadingImgObj.ExFindComponent<Image>(KCDefine.SS_OBJ_NAME_GAUGE_IMG);
 			m_oGaugeImg.fillAmount = KCDefine.B_VALUE_FLOAT_0;
 			// 이미지를 설정한다 }
 
@@ -61,8 +61,8 @@ public class CSubStartSceneManager : CStartSceneManager {
 			KCDefine.B_VALUE_FLOAT_0, m_fMaxPercent);
 
 		// 상태 텍스트 갱신 주기가 지났을 경우
-		if(m_fSkipTime.ExIsGreateEquals(KDefine.SS_DELTA_TIME_UPDATE_STATE)) {
-			m_nNumDots = (m_nNumDots + KCDefine.B_VALUE_INT_1) % KDefine.SS_MAX_NUM_DOTS;
+		if(m_fSkipTime.ExIsGreateEquals(KCDefine.SS_DELTA_TIME_UPDATE_STATE)) {
+			m_nNumDots = (m_nNumDots + KCDefine.B_VALUE_INT_1) % KCDefine.SS_MAX_NUM_DOTS;
 			m_fSkipTime = KCDefine.B_VALUE_FLOAT_0;
 
 			this.UpdateTextState();

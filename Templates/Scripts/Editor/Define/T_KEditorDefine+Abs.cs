@@ -63,7 +63,7 @@ public static partial class KEditorDefine {
 		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 
 #if STUDY_MODULE_ENABLE
-		[typeof(CMenuSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
+		[typeof(CSubMenuSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 #endif			// #if STUDY_MODULE_ENABLE
 
 #if ADS_MODULE_ENABLE
@@ -121,7 +121,7 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_NAME_INTRO] = typeof(CSubIntroSceneManager),
 
 #if STUDY_MODULE_ENABLE
-		[KCDefine.B_SCENE_NAME_MENU] = typeof(CMenuSceneManager)
+		[KCDefine.B_SCENE_NAME_MENU] = typeof(CSubMenuSceneManager)
 #endif			// #if STUDY_MODULE_ENABLE
 	};
 

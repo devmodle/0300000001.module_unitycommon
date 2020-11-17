@@ -11,7 +11,7 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public override Color ClearColor => KDefine.SS_COLOR_SPLASH_SM_BG;
+	public override Color ClearColor => KCDefine.SS_COLOR_SPLASH_SM_BG;
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -21,10 +21,10 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			m_oSplashImg = CFactory.CreateCloneObj<Image>(KDefine.SS_OBJ_NAME_SPLASH_SM_LOGO_IMG,
+			m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.SS_OBJ_NAME_SPLASH_SM_LOGO_IMG,
 				CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_IMG),
 				this.SubUIRoot,
-				KDefine.SS_POS_SPLASH_SM_LOGO_IMG);
+				KCDefine.SS_POS_SPLASH_SM_LOGO_IMG);
 
 			m_oSplashImg.sprite = CResManager.Instance.GetSprite(KCDefine.U_IMG_PATH_G_SPLASH);
 			m_oSplashImg.gameObject.SetActive(false);
@@ -36,7 +36,7 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 		m_oSplashImg.SetNativeSize();
 		m_oSplashImg.gameObject.SetActive(true);
 
-		this.ExLateCallFunc(KDefine.SS_DELAY_SPLASH_SM_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => 
+		this.ExLateCallFunc(KCDefine.SS_DELAY_SPLASH_SM_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => 
 			this.LoadNextScene());
 	}
 	#endregion			// 함수
