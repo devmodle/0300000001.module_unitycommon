@@ -16,9 +16,9 @@
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
 	- *Native Share (v1.3.8 - Oct 7, 2020)*
-	- *Sign in with Apple (v1.1.0 - Aug 13, 2020)*
+	- *Sign in with Apple (v1.1.1 - Nov 09, 2020)*
 	- *Rest Client for Unity (v2.6.1 - Jun 11, 2020)*
-	- *Runtime File Browser (v1.3.5 - Oct 28, 2020)*
+	- *Runtime File Browser (v1.3.6 - Nov 05, 2020)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
 	- *Ingame Debug Console (v.1.3.6 - Oct 13, 2020)*
