@@ -72,11 +72,7 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.SetupScene();
 			CCommonEditorSceneManager.SetupLightOpts();
 			CCommonEditorSceneManager.SetupFileBrowserUI();
-
-#if NOTI_MODULE_ENABLE
-			CCommonEditorSceneManager.SetupNotiOpts();
-#endif			// #if NOTI_MODULE_ENABLE
-
+			
 			// 갱신 주기가 지났을 경우
 			if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE)) {
 				CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VALUE_FLOAT_0;
