@@ -22,7 +22,7 @@ public class CSampleSceneManager : CSceneManager {
 		CAccess.Assert(a_oSceneManagerTypeList != null);
 
 		foreach(var stKeyValue in a_oSceneManagerTypeList) {
-			// 씬 관리자 타입과 일치 할 경우
+			// 씬 관리자 타입과 동일 할 경우
 			if(a_stScene.name.ExIsEquals(stKeyValue.Key)) {
 				var oSceneManager = a_stScene.ExFindChild(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
 
