@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: 
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!114 &7146203260892832233
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: 
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &8656266775954721300
 GameObject:
   m_ObjectHideFlags: 0

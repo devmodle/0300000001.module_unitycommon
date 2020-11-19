@@ -828,6 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_OK_BTN_TEXT
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &2481042778929251808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,6 +1057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_SERVICES_TITLE
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &3070524852517513671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_AGREE_TEXT
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &4618025157548654175
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,6 +1460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_DESC_TEXT_01
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &4752944900012347159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,6 +1601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_SERVICES_URL_TEXT
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!114 &176623405900425368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1906,6 +1911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_EU_TITLE
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &6369264970568034401
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,6 +2232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_PRIVACY_URL_TEXT
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!114 &4585187505915832349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2454,6 +2461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_PRIVACY_TITLE
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &7781183095238534159
 GameObject:
   m_ObjectHideFlags: 0
@@ -3022,6 +3030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_DESC_TEXT_02
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &9093940035420632393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,3 +3139,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: AGREE_P_AGREE_TEXT
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
