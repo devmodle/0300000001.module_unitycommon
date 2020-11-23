@@ -33,8 +33,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CAccess.Assert(!CSceneManager.IsLateSetup);
-
 		CSceneLoader.Instance.UnloadSceneAsync(KCDefine.B_SCENE_NAME_AGREE, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 

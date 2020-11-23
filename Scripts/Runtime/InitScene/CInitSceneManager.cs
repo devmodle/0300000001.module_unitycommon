@@ -51,8 +51,6 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CAccess.Assert(!CSceneManager.IsInit);
-
 		CActivityIndicatorManager.Instance.StartActivityIndicator(true, false);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 

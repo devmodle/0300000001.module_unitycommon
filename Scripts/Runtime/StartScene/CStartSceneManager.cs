@@ -37,7 +37,6 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CAccess.Assert(CSceneManager.IsInit);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.Setup();

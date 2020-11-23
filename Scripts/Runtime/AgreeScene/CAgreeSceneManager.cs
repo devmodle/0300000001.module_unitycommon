@@ -40,8 +40,6 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CAccess.Assert(CSceneManager.IsInit);
-
 		CSceneLoader.Instance.UnloadSceneAsync(KCDefine.B_SCENE_NAME_SETUP, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
@@ -62,8 +60,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
 				var oServices = CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_SERVICES);
 				var oPrivacy = CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_PRIVACY);
-
-				CAccess.Assert(oServices.ExIsValid() && oPrivacy.ExIsValid());
+				
 				this.ShowNormAgreePopup(oServices.text, oPrivacy.text);
 
 				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_SERVICES, true);

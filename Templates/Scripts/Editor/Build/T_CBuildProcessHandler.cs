@@ -28,7 +28,6 @@ public static partial class CBuildProcessHandler {
 	//! 빌드가 완료 되었을 경우
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
-		CAccess.Assert(CBuildProcessHandler.m_oPostProcessBuildList.ContainsKey(a_eTarget));
 		CBuildProcessHandler.m_oPostProcessBuildList[a_eTarget](a_eTarget, a_oPath);
 	}
 

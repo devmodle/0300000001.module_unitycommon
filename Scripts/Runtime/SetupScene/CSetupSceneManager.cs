@@ -46,9 +46,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 디바이스 메세지를 수신했을 경우
 	private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
-		CAccess.Assert(a_oCmd.ExIsValid() && a_oMsg != null);
-		CAccess.Assert(m_oDeviceMsgHandlerList.ContainsKey(a_oCmd));
-
 		CFunc.ShowLog("CSetupSceneManager.OnReceiveDeviceMsg: {0}, {1}", 
 			KCDefine.B_LOG_COLOR_SETUP, a_oCmd, a_oMsg);		
 
@@ -102,7 +99,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CAccess.Assert(!CSceneManager.IsSetup);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		// 디바이스 정보를 설정한다 {
