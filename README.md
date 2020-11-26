@@ -18,11 +18,11 @@
 	- *Native Share (v1.3.8 - Oct 7, 2020)*
 	- *Sign in with Apple (v1.1.1 - Nov 09, 2020)*
 	- *Rest Client for Unity (v2.6.1 - Jun 11, 2020)*
-	- *Runtime File Browser (v1.3.6 - Nov 05, 2020)*
+	- *Runtime File Browser (v1.3.7 - Nov 23, 2020)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
 	- *Ingame Debug Console (v.1.3.6 - Oct 13, 2020)*
-	- *Asset Usage Detector (v.1.8.8 - Oct 7, 2020)*
+	- *Asset Usage Detector (v.1.8.9 - Nov 18, 2020)*
 	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
 	- *UI Tween (v1.0.0 - Apr 8, 2016)*
 	- *Reuse Scroller (v1.0.0 - Jan 10, 2018)*
