@@ -134,13 +134,20 @@ public static partial class KEditorDefine {
 		["com.google.play.review"] = "1.3.0",
 
 		["com.unity.2d.sprite"] = "1.0.0",
+		["com.unity.2d.spriteshape"] = "4.1.4",
+		["com.unity.2d.animation"] = "4.2.6",
 		["com.unity.2d.tilemap"] = "1.0.0",
+		["com.unity.2d.psdimporter"] = "3.1.6",
+
+		["com.unity.polybrush"] = "1.0.2",
+		["com.unity.probuilder"] = "4.4.0",
+		["com.unity.quicksearch"] = "1.5.4",
+		["com.unity.performance.profile-analyzer"] = "1.0.3",
+
 		["com.unity.addressables"] = "1.8.5",
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.2.0",
 		["com.unity.render-pipelines.universal"] = "8.2.0",
-		["com.unity.performance.profile-analyzer"] = "1.0.3",
-		["com.unity.quicksearch"] = "1.5.4",
 
 #if ML_AGENTS_ENABLE
 		["com.unity.ml-agents"] = "1.0.6",
@@ -153,14 +160,6 @@ public static partial class KEditorDefine {
 #if VISUAL_FX_GRAPH_ENABLE
 		["com.unity.visualeffectgraph"] = "8.2.0",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
-
-#if SPRITE_SHAPE_ENABLE || SPRITE_SHAPE_MODULE_ENABLE
-		["com.unity.2d.spriteshape"] = "4.1.4",
-#endif			// #if SPRITE_SHAPE_ENABLE || SPRITE_SHAPE_MODULE_ENABLE
-
-#if SKELETON_ANI_ENABLE || SKELETON_ANI_MODULE_ENABLE
-		["com.unity.2d.animation"] = "4.2.6",
-#endif			// #if SKELETON_ANI_ENABLE || SKELETON_ANI_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
     	["com.unity.postprocessing"] = "2.3.0",
@@ -213,7 +212,7 @@ public static partial class KEditorDefine {
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["com.unity.mobile.notifications"] = "1.0.3",
+		["com.unity.mobile.notifications"] = "1.3.2",
 		["unitymodule.common.Noti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/unitymodule_common_Noti_client.git#1.2.0"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 	};
