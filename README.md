@@ -23,6 +23,7 @@
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
 	- *Ingame Debug Console (v.1.3.6 - Oct 13, 2020)*
 	- *Asset Usage Detector (v.1.8.9 - Nov 18, 2020)*
+	- *NGUI (v2020.1.5 - Oct 14, 2020)*
 	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
 	- *UI Tween (v1.0.0 - Apr 8, 2016)*
 	- *Reuse Scroller (v1.0.0 - Jan 10, 2018)*
