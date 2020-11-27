@@ -25,9 +25,6 @@ public static partial class CEditorSceneManager {
 
 		EditorApplication.update -= CEditorSceneManager.LateUpdate;
 		EditorApplication.update += CEditorSceneManager.LateUpdate;
-
-		EditorSceneManager.sceneOpened -= CEditorSceneManager.OnSceneOpen;
-		EditorSceneManager.sceneOpened += CEditorSceneManager.OnSceneOpen;
 	}
 
 	//! 독립 패키지를 설정한다

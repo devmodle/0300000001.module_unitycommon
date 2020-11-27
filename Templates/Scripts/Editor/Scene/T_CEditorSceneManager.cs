@@ -37,6 +37,10 @@ public static partial class CEditorSceneManager {
 	public static void OnLoadScript() {
 		// 상태 갱신이 가능 할 경우
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+			// 패키지 레지스트리를 복사한다
+			CFunc.CopyFile(KEditorDefine.B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH, 
+				KEditorDefine.B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH, false);
+				
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();
 		}
@@ -146,15 +150,6 @@ public static partial class CEditorSceneManager {
 				}
 			}
 		}
-	}
-
-	//! 씬이 열렸을 경우
-	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		CEditorSceneManager.OnLoadScript();
-
-		// 패키지 레지스트리를 복사한다
-		CFunc.CopyFile(KEditorDefine.B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH, 
-			KEditorDefine.B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH, false);
 	}
 	#endregion			// 클래스 함수
 }

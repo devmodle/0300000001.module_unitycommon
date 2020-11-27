@@ -219,10 +219,10 @@ public static partial class CCommonEditorSceneManager {
 	private static void SetupLightOpts() {
 		var stScene = EditorSceneManager.GetActiveScene();
 		LightingSettings oLightingSettings = null;
-
+		
 		// 광원 맵 설정이 존재 할 경우
 		if(Lightmapping.TryGetLightingSettings(out oLightingSettings) && 
-			stScene.name.ExIsEquals(oLightingSettings.name)) 
+			oLightingSettings.name.ExIsContains(stScene.name)) 
 		{
 			oLightingSettings.realtimeGI = false;
 			oLightingSettings.realtimeEnvironmentLighting = false;
@@ -254,10 +254,11 @@ public static partial class CCommonEditorSceneManager {
 			if(oLightingSettingsAsset != null) {
 				Lightmapping.lightingSettings = oLightingSettingsAsset;
 			} else {
-				var oSettings = Resources.Load<LightingSettings>(KCDefine.U_ASSET_PATH_LIGHTING_SETTINGS);
-				var oPropertyInfos = oSettings.GetType().GetProperties(KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
-
 				oLightingSettingsAsset = new LightingSettings();
+				var oSettings = Resources.Load<LightingSettings>(KCDefine.U_ASSET_PATH_LIGHTING_SETTINGS);
+
+				var oType = oSettings.GetType();
+				var oPropertyInfos = oType.GetProperties(KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
 
 				for(int i = 0; i < oPropertyInfos.Length; ++i) {
 					var oPropertyInfo = oPropertyInfos[i];
