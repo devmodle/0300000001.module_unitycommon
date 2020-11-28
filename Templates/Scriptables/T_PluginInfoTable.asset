@@ -17,10 +17,12 @@ MonoBehaviour:
     m_oBannerAdsID: 
     m_oRewardAdsID: 
     m_oFullscreenAdsID: 
+    m_oResumeAdsID: 
   m_stAndroidAdmobPluginInfo:
     m_oBannerAdsID: 
     m_oRewardAdsID: 
     m_oFullscreenAdsID: 
+    m_oResumeAdsID: 
   m_stiOSIronSourcePluginInfo:
     m_oAppKey: 
     m_oBannerAdsID: banner
@@ -34,4 +36,4 @@ MonoBehaviour:
   m_oiOSFlurryAPIKey: 
   m_oAndroidFlurryAPIKey: 
   m_oTenjinAPIKey: 
-  m_oFirebaseDBURL: https://sample-61739440.firebaseio.com
+  m_oFirebaseDBURL: 

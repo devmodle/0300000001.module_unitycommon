@@ -27,6 +27,8 @@
 	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
 	- *UI Tween (v1.0.0 - Apr 8, 2016)*
 	- *Reuse Scroller (v1.0.0 - Jan 10, 2018)*
+	- *Forge Networking Remastered (v.26.0.0 - Mar 20, 2019)*
+	- *Extenject Dependency Injection (v.9.2.0 - My 26, 2020)*
 3. **기타 추가 에셋 및 플러그인 리스트**
 	- *Admob (v5.3.0)*
 	- *Iron Source (v7.0.1.1)*

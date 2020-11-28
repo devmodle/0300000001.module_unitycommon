@@ -15,7 +15,7 @@ MonoBehaviour:
   m_stJenkinsInfo:
     m_oUserID: studio
     m_oBranch: master
-    m_oSourceRoot: 00002.Sample
+    m_oSourceRoot: 00002.SampleUnity
     m_oWorkspaceRoot: /Users/9tapstudio/Documents/jenkins/workspace
     m_oDebugDistPath: 
     m_oReleaseDistPath: 
