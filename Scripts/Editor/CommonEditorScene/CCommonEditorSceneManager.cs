@@ -48,11 +48,11 @@ public static partial class CCommonEditorSceneManager {
 			return;
 		}
 
-		CCommonPlatformOptsSetter.SetupPlayerOpts();
-		CCommonPlatformOptsSetter.SetupEditorOpts();
-		CCommonPlatformOptsSetter.SetupProjOpts();
-		CCommonPlatformOptsSetter.SetupPluginProjs();
-		CCommonPlatformOptsSetter.SetupGraphicAPIs();
+		CPlatformOptsSetter.SetupPlayerOpts();
+		CPlatformOptsSetter.SetupEditorOpts();
+		CPlatformOptsSetter.SetupProjOpts();
+		CPlatformOptsSetter.SetupPluginProjs();
+		CPlatformOptsSetter.SetupGraphicAPIs();
 	}
 
 	//! 상태를 갱신한다
@@ -177,7 +177,7 @@ public static partial class CCommonEditorSceneManager {
 	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		// 상태 갱신이 가능 할 경우
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
-			CCommonPlatformOptsSetter.SetupProjOpts();
+			CPlatformOptsSetter.SetupProjOpts();
 		}
 
 #if UNITY_ANDROID

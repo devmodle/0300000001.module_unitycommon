@@ -80,10 +80,10 @@ public static partial class CBuildProcessHandler {
 		}
 
 		// 전처리기 심볼 테이블이 존재 할 경우
-		if(CCommonPlatformOptsSetter.DefineSymbolListContainer != null && 
-			CCommonPlatformOptsSetter.DefineSymbolListContainer.ContainsKey(BuildTargetGroup.iOS)) 
+		if(CPlatformOptsSetter.DefineSymbolListContainer != null && 
+			CPlatformOptsSetter.DefineSymbolListContainer.ContainsKey(BuildTargetGroup.iOS)) 
 		{
-			var oDefineSymbolList = CCommonPlatformOptsSetter.DefineSymbolListContainer[BuildTargetGroup.iOS];
+			var oDefineSymbolList = CPlatformOptsSetter.DefineSymbolListContainer[BuildTargetGroup.iOS];
 
 			for(int i = 0; i < oDefineSymbolList.Count; ++i) {
 				oProj.AddBuildProperty(oMainGUID, 
@@ -104,8 +104,8 @@ public static partial class CBuildProcessHandler {
 
 			// 푸시 알림 추가가 가능 할 경우
 			if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
-				bool bIsDevBuild = CCommonPlatformBuilder.BuildType != EBuildType.ADHOC && 
-					CCommonPlatformBuilder.BuildType != EBuildType.STORE;
+				bool bIsDevBuild = CPlatformBuilder.BuildType != EBuildType.ADHOC && 
+					CPlatformBuilder.BuildType != EBuildType.STORE;
 
 				oCapability.AddPushNotifications(bIsDevBuild);
 
@@ -131,7 +131,7 @@ public static partial class CBuildProcessHandler {
 	//! 안드로이드 빌드가 완료 되었을 경우
 	private static void OnPostProcessAndroidBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_ANDROID
-		string oPlatform = CEditorAccess.GetAndroidName(CCommonPlatformBuilder.AndroidType);
+		string oPlatform = CEditorAccess.GetAndroidName(CPlatformBuilder.AndroidType);
 		
 		string oDirname = string.Format(KCEditorDefine.B_ANDROID_LIBRARY_DIRNAME_FORMAT, oPlatform);
 		string oDestPath = string.Format(KCEditorDefine.B_ANDROID_DEST_LIBRARY_PATH_FORMAT, oPlatform, oDirname);

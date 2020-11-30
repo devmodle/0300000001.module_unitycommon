@@ -107,26 +107,26 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE);
 
 			// 전처리기 심볼 테이블 갱신이 가능 할 경우
-			if(bIsEnable && CCommonPlatformOptsSetter.DefineSymbolTable != null) {
+			if(bIsEnable && CPlatformOptsSetter.DefineSymbolTable != null) {
 				bool bIsNeedUpdate = false;
 
 				CEditorSceneManager.m_bIsSetupDependencies = false;
 				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VALUE_FLOAT_0;
 
 				var oDefineSymbolListContainer = new List<string>[] {
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
 					
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList,
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList,
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditorWindowsDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorWindowsDefineSymbolList,
 
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList,
 					
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList,
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList,
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditorOneStoreDefineSymbolList,
-					CCommonPlatformOptsSetter.DefineSymbolTable.EditorGalaxyStoreDefineSymbolList
+					CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorOneStoreDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorGalaxyStoreDefineSymbolList
 				};
 
 				foreach(var stKeyValue in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULE_LIST) {
@@ -146,7 +146,7 @@ public static partial class CEditorSceneManager {
 					EditorUtility.SetDirty(oAsset);
 					
 					CEditorFunc.UpdateAssetDBState();
-					CCommonPlatformOptsSetter.SetupDefineSymbols();
+					CPlatformOptsSetter.SetupDefineSymbols();
 				}
 			}
 		}
