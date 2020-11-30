@@ -135,9 +135,7 @@ public static partial class KEditorDefine {
 
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.spriteshape"] = "4.1.4",
-		["com.unity.2d.animation"] = "4.2.6",
 		["com.unity.2d.tilemap"] = "1.0.0",
-		["com.unity.2d.psdimporter"] = "3.1.6",
 
 		["com.unity.polybrush"] = "1.0.2",
 		["com.unity.probuilder"] = "4.4.0",
