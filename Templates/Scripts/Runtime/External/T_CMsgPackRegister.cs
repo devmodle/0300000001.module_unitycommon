@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if NEVER_USE_THIS
+#if MSG_PACK_ENABLE
 using MessagePack;
 using MessagePack.Resolvers;
 
-#if NEVER_USE_THIS
 #if UNITY_EDITOR
 using UnityEditor;
 #endif			// #if UNITY_EDITOR
@@ -42,4 +44,5 @@ public static class CMsgPackRegister {
 #endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 클래스 함수
 }
+#endif			// #if MSG_PACK_ENABLE
 #endif			// #if NEVER_USE_THIS
