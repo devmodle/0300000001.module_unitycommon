@@ -3,12 +3,12 @@
 	- *DOTween Pro (v1.0.244 - Jul 28, 2020)*
 2. **외부 에셋 및 플러그인 리스트**
 	- *Message Pack (v2.1.194)*
-	- *Excel Importer (v1.1.0)*
 	- *Thai Font Adjuster (v1.0.0)*
 	- *UI Effect (v3.2.0)*
 	- *Particle For GUI (v3.1.0)*
 	- *Soft Mask For GUI (v0.9.1)*
 	- *Unmask (v1.2.0)*
+	- *Spine (v3.8.0)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *Total JSON (v1.6.0 - Jun 3, 2020)*
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
@@ -18,27 +18,29 @@
 	- *Native Share (v1.3.8 - Oct 7, 2020)*
 	- *Sign in with Apple (v1.1.1 - Nov 09, 2020)*
 	- *Rest Client for Unity (v2.6.1 - Jun 11, 2020)*
-	- *Runtime File Browser (v1.3.7 - Nov 23, 2020)*
+	- *Runtime File Browser (v1.3.9 - Dec 03, 2020)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
-	- *Ingame Debug Console (v.1.3.6 - Oct 13, 2020)*
-	- *Asset Usage Detector (v.1.8.9 - Nov 18, 2020)*
-	- *NGUI (v2020.1.5 - Oct 14, 2020)*
+	- *Ingame Debug Console (v1.3.7 - Nov 30, 2020)*
+	- *Asset Usage Detector (v1.8.9 - Nov 18, 2020)*
+	- *NGUI (v2020.1.5 - Apr 03, 2020)*
 	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
 	- *UI Tween (v1.0.0 - Apr 8, 2016)*
 	- *Reuse Scroller (v1.0.0 - Jan 10, 2018)*
-	- *Forge Networking Remastered (v.26.0.0 - Mar 20, 2019)*
-	- *Extenject Dependency Injection (v.9.2.0 - My 26, 2020)*
+	- *Bezier Solution (v1.27.0 - Apr 09, 2020)*
+	- *Forge Networking Remastered (v26.0.0 - Mar 20, 2019)*
+	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
+	- *Simple Scroll Snap (v1.2.0 - Jul 15, 2020)*
 3. **기타 추가 에셋 및 플러그인 리스트**
-	- *Admob (v5.3.0)*
-	- *Iron Source (v7.0.1.1)*
-	- *App Lovin (v.3.1.3)*
+	- *Unity Services (Analytics, Crashlytics)*
+	- *Firebase (Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.0.0)*
+	- *Admob (v5.4.0)*
+	- *Iron Source (v7.0.4)*
+	- *App Lovin (v3.1.17)*
 	- *Flurry (v3.1.0)*
 	- *Tenjin (v1.9.4)*
 	- *Facebook (v8.0.0)*
-	- *Firebase (v6.16.1 - Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging)*
-	- *Unity Services (Analytics, Crashlytics)*
-	- *Singular (v2.1.0)*
-	- *Google Play Services (v0.10.11)*
+	- *Singular (v2.1.1)*
+	- *Google Play Services (v0.10.12)*
 	- *Unity IAP (v2.1.1)*
-	- *Unity Notification (v1.0.3)*
+	- *Unity Notification (v1.3.2)*

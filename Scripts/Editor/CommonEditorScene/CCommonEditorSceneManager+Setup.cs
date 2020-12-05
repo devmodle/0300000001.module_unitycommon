@@ -33,10 +33,6 @@ public static partial class CCommonEditorSceneManager {
 
 	//! 씬을 설정한다
 	private static void SetupScene() {
-		bool bIsExistsUICamera = false;
-		bool bIsExistsMainCamera = false;
-		bool bIsExistsMainLight = false;
-
 		var oLights = Resources.FindObjectsOfTypeAll<Light>();
 		var oCameras = Resources.FindObjectsOfTypeAll<Camera>();
 		var oSceneManagers = Resources.FindObjectsOfTypeAll<CSceneManager>();
@@ -44,8 +40,6 @@ public static partial class CCommonEditorSceneManager {
 		for(int i = 0; i < oLights.Length; ++i) {
 			// 메인 광원 일 경우
 			if(oLights[i].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT)) {
-				bIsExistsMainLight = true;
-
 				oLights[i].type = LightType.Directional;
 				oLights[i].lightmapBakeType = KCDefine.U_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
 
@@ -68,9 +62,6 @@ public static partial class CCommonEditorSceneManager {
 					bool bIsUICamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA);
 					bool bIsMainCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA);
 
-					bIsExistsUICamera = bIsUICamera ? true : bIsExistsUICamera;
-					bIsExistsMainCamera = bIsMainCamera ? true : bIsExistsMainCamera;
-
 					// UI 카메라 태그 설정이 가능 할 경우
 					if(bIsUICamera && !oCameras[j].CompareTag(KCDefine.U_TAG_UI_CAMERA)) {
 						oCameras[j].tag = KCDefine.U_TAG_UI_CAMERA;
@@ -82,39 +73,23 @@ public static partial class CCommonEditorSceneManager {
 
 #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 					// UI, 메인 카메라가 존재 할 경우
-					if(bIsExistsUICamera || bIsExistsMainCamera) {
+					if(bIsUICamera || bIsMainCamera) {
 						oCameras[j].gameObject.ExAddComponent<UniversalAdditionalCameraData>();
 					}
 #endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 
 					// 현재 씬 관리자 일 경우
 					if(oSceneManagers[i].SceneName.ExIsEquals(oSceneManagers[i].gameObject.scene.name)) {
-#if UNIVERSAL_PIPELINE_MODULE_ENABLE
+#if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
 						oCameras[j].gameObject.SetActive(bIsMainCamera);
 #else
 						oCameras[j].gameObject.SetActive(bIsUICamera || bIsMainCamera);
-#endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
+#endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
 					}
 				}
 			}
 		}
-
-		// UI 카메라가 없을 경우
-		if(!bIsExistsUICamera) {
-			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", 
-				KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA));
-		}
-		// 메인 카메라가 없을 경우
-		else if(!bIsExistsMainCamera) {
-			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", 
-				KCDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA));
-		}
-		// 메인 광원이 없을 경우
-		else if(!bIsExistsMainLight) {
-			CFunc.ShowLogWarning(string.Format("{0} 객체가 없습니다.", 
-				KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT));
-		}
-
+		
 		// 디버그 콘솔을 설정한다 {
 		string oDebugConsoleFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_DEBUG_CONSOLE);
 		string oDebugLogItemFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_DEBUG_LOG_ITEM);

@@ -134,20 +134,20 @@ public static partial class KEditorDefine {
 		["com.google.play.review"] = "1.3.0",
 
 		["com.unity.2d.sprite"] = "1.0.0",
-		["com.unity.2d.spriteshape"] = "4.1.4",
 		["com.unity.2d.tilemap"] = "1.0.0",
-		["com.unity.2d.psdimporter"] = "3.1.6",
+		["com.unity.2d.spriteshape"] = "4.1.4",
 		["com.unity.2d.pixel-perfect"] = "3.0.2",
 
 		["com.unity.polybrush"] = "1.0.2",
 		["com.unity.probuilder"] = "4.4.0",
-		["com.unity.quicksearch"] = "1.5.4",
+		["com.unity.quicksearch"] = "2.0.2",
+		["com.unity.adaptiveperformance"] = "1.2.0",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
-		["com.unity.addressables"] = "1.8.5",
+		["com.unity.addressables"] = "1.16.15",
 		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.2.0",
-		["com.unity.render-pipelines.universal"] = "8.2.0",
+		["com.unity.render-pipelines.universal"] = "8.3.1",
 
 #if ML_AGENTS_ENABLE
 		["com.unity.ml-agents"] = "1.0.6",
@@ -158,11 +158,15 @@ public static partial class KEditorDefine {
 #endif			// #if CINEMACHINE_ENABLE
 
 #if VISUAL_FX_GRAPH_ENABLE
-		["com.unity.visualeffectgraph"] = "8.2.0",
+		["com.unity.visualeffectgraph"] = "8.3.1",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
 
+#if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
+		["com.unity.2d.psdimporter"] = "3.1.6",
+#endif			// #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
+
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
-    	["com.unity.postprocessing"] = "2.3.0",
+    	["com.unity.postprocessing"] = "3.0.1",
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
@@ -182,12 +186,12 @@ public static partial class KEditorDefine {
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["com.google.firebase.auth"] = "6.16.1",
-		["com.google.firebase.analytics"] = "6.16.1",
-		["com.google.firebase.crashlytics"] = "6.16.1",
-		["com.google.firebase.database"] = "6.16.1",
-		["com.google.firebase.remote-config"] = "6.16.1",
-		["com.google.firebase.messaging"] = "6.16.1",
+		["com.google.firebase.auth"] = "7.0.0",
+		["com.google.firebase.analytics"] = "7.0.0",
+		["com.google.firebase.crashlytics"] = "7.0.0",
+		["com.google.firebase.database"] = "7.0.0",
+		["com.google.firebase.remote-config"] = "7.0.0",
+		["com.google.firebase.messaging"] = "7.0.0",
 
 		["unitymodule.common.firebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.2.0",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
