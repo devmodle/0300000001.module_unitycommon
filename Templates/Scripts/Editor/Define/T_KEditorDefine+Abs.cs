@@ -141,8 +141,8 @@ public static partial class KEditorDefine {
 		["com.unity.polybrush"] = "1.0.2",
 		["com.unity.probuilder"] = "4.4.0",
 		["com.unity.quicksearch"] = "2.0.2",
-		["com.unity.adaptiveperformance"] = "1.2.0",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
+		["com.unity.adaptiveperformance.samsung.android"] = "1.2.1",
 
 		["com.unity.addressables"] = "1.16.15",
 		["com.unity.assetbundlebrowser"] = "1.7.0",

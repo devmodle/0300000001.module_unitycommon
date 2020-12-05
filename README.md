@@ -28,7 +28,6 @@
 	- *UI Tween (v1.0.0 - Apr 8, 2016)*
 	- *Reuse Scroller (v1.0.0 - Jan 10, 2018)*
 	- *Bezier Solution (v1.27.0 - Apr 09, 2020)*
-	- *Forge Networking Remastered (v26.0.0 - Mar 20, 2019)*
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *Simple Scroll Snap (v1.2.0 - Jul 15, 2020)*
 3. **기타 추가 에셋 및 플러그인 리스트**
