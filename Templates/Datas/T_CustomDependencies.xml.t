@@ -6,6 +6,6 @@
 		<androidPackage spec="androidx.lifecycle:lifecycle-extensions:2.2.0" />
     </androidPackages>
     <iosPods>
-        <iosPod name="Firebase/Performance" />
+        <iosPod name="Firebase/Performance" version="7.0.0" />
     </iosPods>
 </dependencies>
