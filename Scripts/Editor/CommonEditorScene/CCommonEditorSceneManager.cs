@@ -145,11 +145,12 @@ public static partial class CCommonEditorSceneManager {
 			var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_NAME_SORTING_ORDER,
 				KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
 
+			string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
+
 			// 프로퍼티가 존재 할 경우
-			if(oSortingLayerProperty != null && oSortingOrderProperty != null) {
+			if(oSortingLayer.ExIsValid() && oSortingOrderProperty != null) {
 				string oString = string.Format(KCEditorDefine.B_SORTING_ORDER_INFO_FORMAT, 
-					oSortingLayerProperty.GetValue(oComponents[i]), 
-					oSortingOrderProperty.GetValue(oComponents[i]));
+					oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 				GUI.Label(a_stRect, oString, m_oGUIStyle);
 			}
