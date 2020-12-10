@@ -31,7 +31,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		if(CSceneManager.IsInit) {
 			// 텍스트를 설정한다 {
 			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_NAME_LOADING_TEXT,
-				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_LOADING_TEXT), 
+				CResManager.Instance.GetRes<GameObject>(KCDefine.SS_OBJ_PATH_LOADING_TEXT), 
 				this.SubUIRoot,
 				KCDefine.SS_POS_LOADING_TEXT);
 
@@ -40,7 +40,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 			// 이미지를 설정한다 {
 			m_oLoadingImgObj = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_LOADING_IMG_OBJ,
-				CResManager.Instance.GetPrefab(KCDefine.SS_OBJ_PATH_LOADING_IMG_OBJ),
+				CResManager.Instance.GetRes<GameObject>(KCDefine.SS_OBJ_PATH_LOADING_IMG_OBJ),
 				this.SubUIRoot,
 				KCDefine.SS_POS_LOADING_IMG_OBJ);
 

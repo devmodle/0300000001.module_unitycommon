@@ -104,8 +104,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-			var oGameConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG);
-			var oBuildVersionConfig = CResManager.Instance.GetTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
+			var oGameConfig = CResManager.Instance.GetRes<TextAsset>(KCDefine.U_DATA_PATH_G_GAME_CONFIG);
+			var oBuildVersionConfig = CResManager.Instance.GetRes<TextAsset>(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
 
 			string oDeviceConfig = CDeviceInfoTable.Instance.DeviceConfig.ExToJSONString();
 			
@@ -118,8 +118,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
 			};
 
-			CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
-			CResManager.Instance.RemoveTextAsset(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
+			CResManager.Instance.RemoveRes<TextAsset>(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
+			CResManager.Instance.RemoveRes<TextAsset>(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
 
 			CFirebaseManager.Instance.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
 #endif			// #if FIREBASE_MODULE_ENABLE

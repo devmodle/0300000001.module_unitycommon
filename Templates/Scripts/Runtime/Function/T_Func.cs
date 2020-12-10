@@ -34,7 +34,7 @@ public static partial class Func {
 		};
 
 		var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_NAME_ALERT_POPUP,
-			CResManager.Instance.GetPrefab(KCDefine.U_OBJ_PATH_G_ALERT_POPUP),
+			CResManager.Instance.GetRes<GameObject>(KCDefine.U_OBJ_PATH_G_ALERT_POPUP),
 			CSceneManager.ScreenPopupUIRoot,
 			oDataList,
 			a_oCallback);

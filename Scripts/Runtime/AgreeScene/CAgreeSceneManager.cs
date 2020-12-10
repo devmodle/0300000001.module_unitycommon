@@ -58,13 +58,13 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		} else {
 			// 한국 일 경우
 			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
-				var oServices = CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_SERVICES);
-				var oPrivacy = CResManager.Instance.GetTextAsset(KCDefine.AS_DATA_PATH_PRIVACY);
+				var oServices = CResManager.Instance.GetRes<TextAsset>(KCDefine.AS_DATA_PATH_SERVICES);
+				var oPrivacy = CResManager.Instance.GetRes<TextAsset>(KCDefine.AS_DATA_PATH_PRIVACY);
 				
 				this.ShowNormAgreePopup(oServices.text, oPrivacy.text);
 
-				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_SERVICES, true);
-				CResManager.Instance.RemoveTextAsset(KCDefine.AS_DATA_PATH_PRIVACY, true);
+				CResManager.Instance.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_SERVICES, true);
+				CResManager.Instance.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_PRIVACY, true);
 			} else {
 				CAccess.Assert(CProjInfoTable.Instance.ServicesURL.ExIsValid() && 
 					CProjInfoTable.Instance.PrivacyURL.ExIsValid());
