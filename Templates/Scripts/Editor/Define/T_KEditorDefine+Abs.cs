@@ -48,7 +48,7 @@ public static partial class KEditorDefine {
 		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CToastPopupManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CActivityIndicatorManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 
 		[typeof(CSampleSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
 		
@@ -135,19 +135,11 @@ public static partial class KEditorDefine {
 
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.tilemap"] = "1.0.0",
-		["com.unity.2d.spriteshape"] = "4.1.4",
-		["com.unity.2d.pixel-perfect"] = "3.0.2",
 
-		["com.unity.polybrush"] = "1.0.2",
-		["com.unity.probuilder"] = "4.4.0",
 		["com.unity.quicksearch"] = "2.0.2",
-		["com.unity.performance.profile-analyzer"] = "1.0.3",
-		["com.unity.adaptiveperformance.samsung.android"] = "1.2.1",
-
-		["com.unity.addressables"] = "1.16.15",
-		["com.unity.assetbundlebrowser"] = "1.7.0",
 		["com.unity.mobile.android-logcat"] = "1.2.0",
 		["com.unity.render-pipelines.universal"] = "8.3.1",
+		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
 #if ML_AGENTS_ENABLE
 		["com.unity.ml-agents"] = "1.0.6",
@@ -160,6 +152,31 @@ public static partial class KEditorDefine {
 #if VISUAL_FX_GRAPH_ENABLE
 		["com.unity.visualeffectgraph"] = "8.3.1",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
+
+#if SPRITE_SHAPES_ENABLE
+		["com.unity.2d.spriteshape"] = "4.1.4",
+#endif			// #if SPRITE_SHAPES_ENABLE
+
+#if PIXELS_PERFECT_ENABLE
+		["com.unity.2d.pixel-perfect"] = "3.0.2",
+#endif			// #if PIXELS_PERFECT_ENABLE
+
+#if POLY_BRUSH_ENABLE
+		["com.unity.polybrush"] = "1.0.2",
+#endif			// #if POLY_BRUSH_ENABLE
+
+#if PRO_BUILDER_ENABLE
+		["com.unity.probuilder"] = "4.4.0",
+#endif			// #if PRO_BUILDER_ENABLE
+
+#if ASSET_BUNDLE_ENABLE
+		["com.unity.addressables"] = "1.16.15",
+		["com.unity.assetbundlebrowser"] = "1.7.0",
+#endif			// #if ASSET_BUNDLE_ENABLE
+
+#if ADAPTIVE_PERFORMANCE_ENABLE
+		["com.unity.adaptiveperformance.samsung.android"] = "1.2.1",
+#endif			// #if ADAPTIVE_PERFORMANCE_ENABLE
 
 #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
 		["com.unity.2d.psdimporter"] = "3.1.6",

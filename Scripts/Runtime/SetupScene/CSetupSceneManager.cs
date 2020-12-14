@@ -66,15 +66,15 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 디바이스 식별자 반환 메세지를 처리한다
 	private void HandleGetDeviceIDMsg(string a_oMsg) {
 		// 디바이스 식별자 설정이 필요 할 경우
-		if(!CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsValid() || 
-			CCommonAppInfoStorage.Instance.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) 
+		if(!CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid() || 
+			CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) 
 		{
-			CCommonAppInfoStorage.Instance.AppInfo.DeviceID = a_oMsg.ExIsValid() ? 
+			CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? 
 				a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
 		}
 		
-		CCommonAppInfoStorage.Instance.SaveAppInfo();
-		CUnityMsgSender.Instance.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
+		CCommonAppInfoStorage.Inst.SaveAppInfo();
+		CUnityMsgSender.Inst.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 	}
 
 	//! 국가 코드 반환 메세지를 처리한다
@@ -87,14 +87,14 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
 		
-		CCommonAppInfoStorage.Instance.CountryCode = oCountryCode.ToUpper();
-		CCommonAppInfoStorage.Instance.SaveAppInfo();
+		CCommonAppInfoStorage.Inst.CountryCode = oCountryCode.ToUpper();
+		CCommonAppInfoStorage.Inst.SaveAppInfo();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_AGREE_SCENE);
 
 		CSceneManager.IsSetup = true;
-		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_AGREE);
+		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_AGREE);
 	}
 
 	//! 초기화
@@ -102,26 +102,25 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		// 디바이스 정보를 설정한다 {
-		int nQualityLevel = CValueTable.Instance.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
-		int nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE);
+		int nQualityLevel = CValueTable.Inst.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
+		int nTargetFrameRate = CValueTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE);
 
 #if UNITY_IOS || UNITY_ANDROID
-		nTargetFrameRate = CValueTable.Instance.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
+		nTargetFrameRate = CValueTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
 #else
 		// 데스크 탑 일 경우
 		if(CAccess.IsDesktop()) {
 			Screen.SetResolution(KCDefine.B_DESKTOP_WINDOW_WIDTH, 
 				KCDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
 		} else {
-			string oKey = CAccess.IsConsole() ? 
-				KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : 
-				KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
-
-			nTargetFrameRate = CValueTable.Instance.GetInt(oKey);
+			string oKey = CAccess.IsConsole() ? KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE 
+				: KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
+				
+			nTargetFrameRate = CValueTable.Inst.GetInt(oKey);
 		}
 #endif			// #if UNITY_IOS || UNITY_ANDROID
 
-		Input.multiTouchEnabled = CValueTable.Instance.GetBool(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE);
+		Input.multiTouchEnabled = CValueTable.Inst.GetBool(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE);
 		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);
 		
 		CFunc.SetupQuality((EQualityLevel)nQualityLevel, true);
@@ -141,14 +140,14 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		var eOrientation = EOrientation.LANDSCAPE;
 #endif			// #if MODE_PORTRAIT_ENABLE
 
-		CUnityMsgSender.Instance.SendInitMsg(oBuildMode, eOrientation);
+		CUnityMsgSender.Inst.SendInitMsg(oBuildMode, eOrientation);
 		// 네이티브 플러그인을 초기화한다 }
 		
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		// 디바이스 식별자 반환 메세지를 전송한다
-		CUnityMsgSender.Instance.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
+		CUnityMsgSender.Inst.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
 	}
 	#endregion			// 함수
 }

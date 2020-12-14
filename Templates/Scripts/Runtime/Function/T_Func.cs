@@ -27,14 +27,14 @@ public static partial class Func {
 	//! 앱 종료 팝업을 출력한다
 	public static void ShowAppQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var oDataList = new Dictionary<string, string>() {
-			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Instance.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Instance.GetString(KCDefine.ST_KEY_ALERT_P_MSG),
-			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Instance.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
-			[KCDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] = CStringTable.Instance.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
+			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
+			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_MSG),
+			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			[KCDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
 		};
 
 		var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_NAME_ALERT_POPUP,
-			CResManager.Instance.GetRes<GameObject>(KCDefine.U_OBJ_PATH_G_ALERT_POPUP),
+			CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_PATH_G_ALERT_POPUP),
 			CSceneManager.ScreenPopupUIRoot,
 			oDataList,
 			a_oCallback);
@@ -44,8 +44,8 @@ public static partial class Func {
 	
 	//! 지역화 문자열을 설정한다
 	public static void SetupLocalizeStrings() {
-		string oLanguage = CCommonAppInfoStorage.Instance.AppInfo.Language.ToString();
-		string oCountryCode = CCommonAppInfoStorage.Instance.CountryCode;
+		string oLanguage = CCommonAppInfoStorage.Inst.AppInfo.Language.ToString();
+		string oCountryCode = CCommonAppInfoStorage.Inst.CountryCode;
 
 		Func.SetupLocalizeStrings(oLanguage, oCountryCode);
 	}
@@ -57,7 +57,7 @@ public static partial class Func {
 		string oFilePath = CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING, 
 			KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING, a_oLanguage, a_oCountryCode);
 
-		CStringTable.Instance.LoadStringsFromRes(oFilePath);		
+		CStringTable.Inst.LoadStringsFromRes(oFilePath);		
 	}
 	#endregion			// 클래스 함수
 
@@ -68,16 +68,16 @@ public static partial class Func {
 		System.Action<CAdsManager, STPostItem, bool> a_oCallback) 
 	{
 		// 보상 광고 출력이 가능 할 경우
-		if(CAdsManager.Instance.IsLoadRewardAds(a_eAdsType)) {
+		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsType)) {
 			Func.m_bIsWatchRewardAds = false;
 			Func.m_stRewardItem = default(STPostItem);
 
 			Func.m_oRewardAdsCallback = a_oCallback;
 
-			CAdsManager.Instance.ShowRewardAds(a_eAdsType, 
+			CAdsManager.Inst.ShowRewardAds(a_eAdsType, 
 				Func.OnReceiveUserReward, Func.OnCloseRewardAds);
 		} else {
-			a_oCallback?.Invoke(CAdsManager.Instance, default(STPostItem), false);
+			a_oCallback?.Invoke(CAdsManager.Inst, default(STPostItem), false);
 		}
 	}
 
@@ -85,19 +85,19 @@ public static partial class Func {
 	public static void ShowFullscreenAds(EAdsType a_eAdsType, 
 		System.Action<CAdsManager, bool> a_oCallback) 
 	{
-		float fDelay = CValueTable.Instance.GetFloat(KCDefine.VT_KEY_DEF_DELAY_FULLSCREEN_ADS);
-		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Instance.PrevFullscreenAdsTime);
+		float fDelay = CValueTable.Inst.GetFloat(KCDefine.VT_KEY_DEF_DELAY_FULLSCREEN_ADS);
+		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevFullscreenAdsTime);
 
 		// 전면 광고 출력이 가능 할 경우
 		if(dblDeltaTime.ExIsGreateEquals(fDelay) && 
-			CAdsManager.Instance.IsLoadFullscreenAds(a_eAdsType)) 
+			CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsType)) 
 		{
 			Func.m_bIsWatchFullscreenAds = true;
 			Func.m_oFullscreenAdsCallback = a_oCallback;
 			
-			CAdsManager.Instance.ShowFullscreenAds(a_eAdsType, null, Func.OnCloseFullscreenAds);
+			CAdsManager.Inst.ShowFullscreenAds(a_eAdsType, null, Func.OnCloseFullscreenAds);
 		} else {
-			a_oCallback?.Invoke(CAdsManager.Instance, false);
+			a_oCallback?.Invoke(CAdsManager.Inst, false);
 		}
 	}
 
@@ -105,19 +105,19 @@ public static partial class Func {
 	public static void ShowResumeAds(EAdsType a_eAdsType, 
 		System.Action<CAdsManager, bool> a_oCallback) 
 	{
-		float fDelay = CValueTable.Instance.GetFloat(KCDefine.VT_KEY_DEF_DELAY_RESUME_ADS);
-		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Instance.PrevResumeAdsTime);
+		float fDelay = CValueTable.Inst.GetFloat(KCDefine.VT_KEY_DEF_DELAY_RESUME_ADS);
+		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevResumeAdsTime);
 
 		// 재개 광고 출력이 가능 할 경우
 		if(dblDeltaTime.ExIsGreateEquals(fDelay) && 
-			CAdsManager.Instance.IsLoadResumeAds(a_eAdsType)) 
+			CAdsManager.Inst.IsLoadResumeAds(a_eAdsType)) 
 		{
 			Func.m_bIsWatchResumeAds = true;
 			Func.m_oResumeAdsCallback = a_oCallback;
 			
-			CAdsManager.Instance.ShowResumeAds(a_eAdsType, null, Func.OnCloseResumeAds);
+			CAdsManager.Inst.ShowResumeAds(a_eAdsType, null, Func.OnCloseResumeAds);
 		} else {
-			a_oCallback?.Invoke(CAdsManager.Instance, false);
+			a_oCallback?.Invoke(CAdsManager.Inst, false);
 		}
 	}
 
@@ -136,13 +136,13 @@ public static partial class Func {
 
 	//! 전면 광고가 닫혔을 경우
 	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
-		CGameInfoStorage.Instance.PrevFullscreenAdsTime = System.DateTime.Now;
+		CGameInfoStorage.Inst.PrevFullscreenAdsTime = System.DateTime.Now;
 		CFunc.Invoke(ref Func.m_oFullscreenAdsCallback, a_oSender, Func.m_bIsWatchFullscreenAds);
 	}
 
 	//! 재개 광고가 닫혔을 경우
 	private static void OnCloseResumeAds(CAdsManager a_oSender) {
-		CGameInfoStorage.Instance.PrevResumeAdsTime = System.DateTime.Now;
+		CGameInfoStorage.Inst.PrevResumeAdsTime = System.DateTime.Now;
 		CFunc.Invoke(ref Func.m_oResumeAdsCallback, a_oSender, Func.m_bIsWatchResumeAds);
 	}
 #endif			// #if ADS_MODULE_ENABLE
@@ -155,24 +155,24 @@ public static partial class Func {
 		CAccess.Assert(a_oPostItemList != null);
 
 		// 로그인 되었을 경우
-		if(CFirebaseManager.Instance.IsLogin) {
+		if(CFirebaseManager.Inst.IsLogin) {
 			var oNodeList = CFactory.MakePostItemNodeList();
 			string oJSONString = a_oPostItemList.ExToJSONString();
 
-			CFirebaseManager.Instance.SaveDB(oNodeList, oJSONString, a_oCallback);
+			CFirebaseManager.Inst.SaveDB(oNodeList, oJSONString, a_oCallback);
 		} else {
-			a_oCallback?.Invoke(CFirebaseManager.Instance, false);
+			a_oCallback?.Invoke(CFirebaseManager.Inst, false);
 		}
 	}
 
 	//! 지급 아이템을 로드한다
 	public static void LoadPostItem(System.Action<CFirebaseManager, string, bool> a_oCallback) {
 		// 로그인 되었을 경우
-		if(CFirebaseManager.Instance.IsLogin) {
+		if(CFirebaseManager.Inst.IsLogin) {
 			var oNodeList = CFactory.MakePostItemNodeList();
-			CFirebaseManager.Instance.LoadDB(oNodeList, a_oCallback);
+			CFirebaseManager.Inst.LoadDB(oNodeList, a_oCallback);
 		} else {
-			a_oCallback?.Invoke(CFirebaseManager.Instance, string.Empty, false);
+			a_oCallback?.Invoke(CFirebaseManager.Inst, string.Empty, false);
 		}
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
@@ -185,7 +185,7 @@ public static partial class Func {
 		CAccess.Assert(a_oID.ExIsValid());
 		Func.m_oPurchaseCallback = a_oCallback;
 
-		CPurchaseManager.Instance.PurchaseProduct(a_oID, Func.OnCompletePurchase);
+		CPurchaseManager.Inst.PurchaseProduct(a_oID, Func.OnCompletePurchase);
 	}
 
 	//! 결제가 완료 되었을 경우
@@ -194,7 +194,7 @@ public static partial class Func {
 	{
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			CPurchaseManager.Instance.ConfirmPurchase(a_oProductID, Func.m_oPurchaseCallback);
+			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, Func.m_oPurchaseCallback);
 		} else {
 			Func.m_oPurchaseCallback?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 		}

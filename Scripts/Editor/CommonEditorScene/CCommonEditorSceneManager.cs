@@ -190,7 +190,7 @@ public static partial class CCommonEditorSceneManager {
 #if UNITY_ANDROID
 		// 플러그인이 없을 경우
 		if(!File.Exists(KCEditorDefine.B_ANDROID_DEST_PLUGIN_PATH)) {
-			CEditorFunc.ExecuteCmdline(KCEditorDefine.B_ANDROID_PLUGIN_BUILD_CMD);
+			CEditorFunc.ExecuteCmdLine(KCEditorDefine.B_ANDROID_PLUGIN_BUILD_CMD);
 		}
 #endif			// #if UNITY_ANDROID
 	}

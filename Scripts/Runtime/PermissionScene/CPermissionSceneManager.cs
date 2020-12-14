@@ -50,7 +50,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CSceneLoader.Instance.UnloadSceneAsync(KCDefine.B_SCENE_NAME_LATE_SETUP, null);
+		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_NAME_LATE_SETUP, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 #if UNITY_ANDROID
@@ -62,12 +62,12 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	private void LoadNextScene() {
-		CCommonAppInfoStorage.Instance.SetupDeviceType();
-		CCommonAppInfoStorage.Instance.SetupAdsID();
-		CCommonAppInfoStorage.Instance.SetupStoreVersion();
+		CCommonAppInfoStorage.Inst.SetupDeviceType();
+		CCommonAppInfoStorage.Inst.SetupAdsID();
+		CCommonAppInfoStorage.Inst.SetupStoreVersion();
 		
-		CCommonUserInfoStorage.Instance.UserInfo.IsAgree = true;
-		CCommonUserInfoStorage.Instance.SaveUserInfo();
+		CCommonUserInfoStorage.Inst.UserInfo.IsAgree = true;
+		CCommonUserInfoStorage.Inst.SaveUserInfo();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_INTRO_SCENE);
@@ -78,9 +78,9 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
 			// 인트로 씬 로드가 필요 할 경우
 			if(nIndex > KCDefine.B_INDEX_INVALID) {
-				CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
+				CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
 			} else {
-				CSceneLoader.Instance.LoadScene(CSceneManager.AwakeSceneName, false, false);
+				CSceneLoader.Inst.LoadScene(CSceneManager.AwakeSceneName, false, false);
 			}
 		});
 	}

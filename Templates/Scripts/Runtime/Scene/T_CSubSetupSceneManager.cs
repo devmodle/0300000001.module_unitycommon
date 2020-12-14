@@ -17,20 +17,20 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		base.Setup();
 
 		// 저장소를 로드한다
-		CAppInfoStorage.Instance.LoadAppInfo();
-		CUserInfoStorage.Instance.LoadUserInfo();
-		CGameInfoStorage.Instance.LoadGameInfo();
+		CAppInfoStorage.Inst.LoadAppInfo();
+		CUserInfoStorage.Inst.LoadUserInfo();
+		CGameInfoStorage.Inst.LoadGameInfo();
 
 #if LOCALIZE_TEST_ENABLE
-		CCommonAppInfoStorage.Instance.AppInfo.Language = m_eLanguage;
+		CCommonAppInfoStorage.Inst.AppInfo.Language = m_eLanguage;
 #endif			// #if LOCALIZE_TEST_ENABLE
 
 		// 언어가 유효하지 않을 경우
-		if(!CCommonAppInfoStorage.Instance.AppInfo.Language.ExIsValid()) {
-			CCommonAppInfoStorage.Instance.AppInfo.Language = Application.systemLanguage;
+		if(!CCommonAppInfoStorage.Inst.AppInfo.Language.ExIsValid()) {
+			CCommonAppInfoStorage.Inst.AppInfo.Language = Application.systemLanguage;
 		}
 
-		CCommonAppInfoStorage.Instance.SaveAppInfo();
+		CCommonAppInfoStorage.Inst.SaveAppInfo();
 	}
 	#endregion			// 함수
 }

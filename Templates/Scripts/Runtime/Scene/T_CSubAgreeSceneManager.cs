@@ -40,7 +40,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 #endif			// #if MODE_PORTRAIT_ENABLE
 
 		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_NAME_AGREE_POPUP,
-			CResManager.Instance.GetRes<GameObject>(oObjPath),
+			CResManager.Inst.GetRes<GameObject>(oObjPath),
 			this.SubPopupUIRoot,
 			KCDefine.B_POS_MIDDLE_CENTER);
 

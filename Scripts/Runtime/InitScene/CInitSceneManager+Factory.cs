@@ -9,7 +9,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	//! 블라인드 이미지를 생성한다
 	protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
 		var oObj = CFactory.CreateCloneObj(a_oName,
-			CResManager.Instance.GetRes<GameObject>(KCDefine.IS_OBJ_PATH_SCREEN_BLIND_IMG), a_oParent);
+			CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_PATH_SCREEN_BLIND_IMG), a_oParent);
 
 		return oObj.GetComponentInChildren<Image>();
 	}

@@ -26,7 +26,7 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		CSceneLoader.Instance.LoadScene(KCDefine.B_SCENE_NAME_START, false, false);
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_NAME_START, false, false);
 	}
 
 	//! 초기화

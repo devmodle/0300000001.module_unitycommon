@@ -32,26 +32,26 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		this.SetupBlindUI();
 
 		// 테이블을 로드한다
-		CValueTable.Instance.LoadValuesFromRes(KCDefine.U_TABLE_PATH_G_COMMON_VALUE);
-		CStringTable.Instance.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_COMMON_STRING);
+		CValueTable.Inst.LoadValuesFromRes(KCDefine.U_TABLE_PATH_G_COMMON_VALUE);
+		CStringTable.Inst.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_COMMON_STRING);
 
 		// 저장소를 로드한다
-		CCommonAppInfoStorage.Instance.LoadAppInfo();
-		CCommonUserInfoStorage.Instance.LoadUserInfo();
+		CCommonAppInfoStorage.Inst.LoadAppInfo();
+		CCommonUserInfoStorage.Inst.LoadUserInfo();
 
 		// 사운드를 설정한다 {
-		CSndManager.Instance.BGSndVolume = KCDefine.B_VALUE_FLOAT_1;
-		CSndManager.Instance.FXSndsVolume = KCDefine.B_VALUE_FLOAT_1;
+		CSndManager.Inst.BGSndVolume = KCDefine.B_VALUE_FLOAT_1;
+		CSndManager.Inst.FXSndsVolume = KCDefine.B_VALUE_FLOAT_1;
 		
-		CSndManager.Instance.IsMuteBGSnd = CCommonUserInfoStorage.Instance.UserInfo.IsMuteBGSnd;
-		CSndManager.Instance.IsMuteFXSnds = CCommonUserInfoStorage.Instance.UserInfo.IsMuteFXSnds;
-		CSndManager.Instance.IsDisableVibrate = CCommonUserInfoStorage.Instance.UserInfo.IsDisableVibrate;
+		CSndManager.Inst.IsMuteBGSnd = CCommonUserInfoStorage.Inst.UserInfo.IsMuteBGSnd;
+		CSndManager.Inst.IsMuteFXSnds = CCommonUserInfoStorage.Inst.UserInfo.IsMuteFXSnds;
+		CSndManager.Inst.IsDisableVibrate = CCommonUserInfoStorage.Inst.UserInfo.IsDisableVibrate;
 		// 사운드를 설정한다 }
 	}
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CActivityIndicatorManager.Instance.StartActivityIndicator(true, false);
+		CIndicatorManager.Inst.Show(true, false);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.SetupOffsets();
@@ -74,7 +74,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CScheduleManager.Create();
 		CNavStackManager.Create();
 		CToastPopupManager.Create();
-		CActivityIndicatorManager.Create();
+		CIndicatorManager.Create();
 		
 #if ADS_MODULE_ENABLE
 		CAdsManager.Create();
@@ -148,7 +148,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		
 		CSceneManager.IsInit = true;
-		CSceneLoader.Instance.LoadScene(KCDefine.B_SCENE_NAME_SPLASH, false, false);
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_NAME_SPLASH, false, false);
 	}
 	#endregion			// 함수
 }

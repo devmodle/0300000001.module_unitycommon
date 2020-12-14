@@ -29,18 +29,18 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		CCommonUserInfoStorage.Instance.UserInfo.IsAgree = true;
-		CCommonUserInfoStorage.Instance.SaveUserInfo();
+		CCommonUserInfoStorage.Inst.UserInfo.IsAgree = true;
+		CCommonUserInfoStorage.Inst.SaveUserInfo();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_LATE_SETUP_SCENE);
 
-		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_LATE_SETUP);
+		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_LATE_SETUP);
 	}
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CSceneLoader.Instance.UnloadSceneAsync(KCDefine.B_SCENE_NAME_SETUP, null);
+		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_NAME_SETUP, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.SetupRootScene();
@@ -49,25 +49,25 @@ public abstract class CAgreeSceneManager : CSceneManager {
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();
 #else
-		bool bIsAgree = CCommonUserInfoStorage.Instance.UserInfo.IsAgree ||
-			!CCommonAppInfoStorage.Instance.IsNeedAgreement(CCommonAppInfoStorage.Instance.CountryCode);
+		bool bIsAgree = CCommonUserInfoStorage.Inst.UserInfo.IsAgree ||
+			!CCommonAppInfoStorage.Inst.IsNeedAgree(CCommonAppInfoStorage.Inst.CountryCode);
 			
 		// 약관 동의 상태 일 경우
 		if(bIsAgree) {
 			this.LoadNextScene();
 		} else {
 			// 한국 일 경우
-			if(CCommonAppInfoStorage.Instance.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
-				var oServices = CResManager.Instance.GetRes<TextAsset>(KCDefine.AS_DATA_PATH_SERVICES);
-				var oPrivacy = CResManager.Instance.GetRes<TextAsset>(KCDefine.AS_DATA_PATH_PRIVACY);
+			if(CCommonAppInfoStorage.Inst.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
+				var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_PATH_SERVICES);
+				var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_PATH_PRIVACY);
 				
 				this.ShowNormAgreePopup(oServices.text, oPrivacy.text);
 
-				CResManager.Instance.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_SERVICES, true);
-				CResManager.Instance.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_PRIVACY, true);
+				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_SERVICES, true);
+				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_PRIVACY, true);
 			} else {
-				this.ShowEUAgreePopup(CProjInfoTable.Instance.ServicesURL, 
-					CProjInfoTable.Instance.PrivacyURL);
+				this.ShowEUAgreePopup(CProjInfoTable.Inst.ServicesURL, 
+					CProjInfoTable.Inst.PrivacyURL);
 			}			
 		}
 #endif			// #if ROBO_TEST_ENABLE

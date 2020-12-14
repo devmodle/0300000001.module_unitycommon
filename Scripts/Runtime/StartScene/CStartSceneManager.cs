@@ -21,7 +21,7 @@ public abstract class CStartSceneManager : CSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		CResManager.Instance.LoadSpriteAtlas(KCDefine.U_ASSET_PATH_G_SPRITE_ATLAS_01);
+		CResManager.Inst.LoadSpriteAtlas(KCDefine.U_ASSET_PATH_G_SPRITE_ATLAS_01);
 	}
 
 	//! 초기화
@@ -45,7 +45,7 @@ public abstract class CStartSceneManager : CSceneManager {
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_SETUP_SCENE);
 			
-		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_SETUP);
+		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_SETUP);
 	}
 	#endregion			// 함수
 }

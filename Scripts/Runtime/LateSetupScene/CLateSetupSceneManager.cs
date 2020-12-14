@@ -33,81 +33,81 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CSceneLoader.Instance.UnloadSceneAsync(KCDefine.B_SCENE_NAME_AGREE, null);
+		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_NAME_AGREE, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		// 관리자 자동 초기화 모드 일 경우
 		if(this.IsAutoInitManager) {
 #if ADS_MODULE_ENABLE
 			var stAdsParams = new CAdsManager.STParams() {
-				m_eBannerAdsType = CPluginInfoTable.Instance.BannerAdsType,
+				m_eBannerAdsType = CPluginInfoTable.Inst.BannerAdsType,
 
 #if ADMOB_ENABLE
 				m_stAdmobParams = new CAdsManager.STAdmobParams() {
 #if UNITY_IOS
-					m_oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oiOSAdmobIDList,
+					m_oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobIDList,
 #elif UNITY_ANDROID
-					m_oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oAndroidAdmobIDList,
+					m_oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobIDList,
 #else
 					m_oAdmobIDList = new List<string>(),
 #endif			// #if UNITY_IOS
 
 					m_oAdsIDList = new Dictionary<string, string>() {
-						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oBannerAdsID,
-						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oRewardAdsID,
-						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oFullscreenAdsID,
-						[KCDefine.U_KEY_ADS_M_RESUME_ADS_ID] = CPluginInfoTable.Instance.AdmobPluginInfo.m_oResumeAdsID
+						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oBannerAdsID,
+						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oRewardAdsID,
+						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oFullscreenAdsID,
+						[KCDefine.U_KEY_ADS_M_RESUME_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID
 					}
 				},
 #endif			// #if ADMOB_ENABLE
 
 #if IRON_SRC_ENABLE
 				m_stIronSrcParams = new CAdsManager.STIronSrcParams() {
-					m_oAppKey = CPluginInfoTable.Instance.IronSrcPluginInfo.m_oAppKey,
+					m_oAppKey = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oAppKey,
 
 					m_oAdsIDList = new Dictionary<string, string>() {
-						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.IronSrcPluginInfo.m_oBannerAdsID,
-						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.IronSrcPluginInfo.m_oRewardAdsID,
-						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.IronSrcPluginInfo.m_oFullscreenAdsID
+						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oBannerAdsID,
+						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oRewardAdsID,
+						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oFullscreenAdsID
 					}
 				},
 #endif			// #if IRON_SRC_ENABLE
 
 #if APP_LOVIN_ENABLE
 				m_stAppLovinParams = new CAdsManager.STAppLovinParams() {
-					m_oSDKKey = CPluginInfoTable.Instance.AppLovinSDKKey,
+					m_oSDKKey = CPluginInfoTable.Inst.AppLovinSDKKey,
 
 					m_oAdsIDList = new Dictionary<string, string>() {
-						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oBannerAdsID,
-						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oRewardAdsID,
-						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Instance.AppLovinPluginInfo.m_oFullscreenAdsID
+						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.AppLovinPluginInfo.m_oBannerAdsID,
+						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.AppLovinPluginInfo.m_oRewardAdsID,
+						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.AppLovinPluginInfo.m_oFullscreenAdsID
 					}
 				}
 #endif			// #if APP_LOVIN_ENABLE
 			};
 
-			CAdsManager.Instance.Init(stAdsParams, CLateSetupSceneManager.OnInitAdsManager);
+			CAdsManager.Inst.Init(stAdsParams, CLateSetupSceneManager.OnInitAdsManager);
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-			CFlurryManager.Instance.Init(CPluginInfoTable.Instance.FlurryAPIKey, 
+			CFlurryManager.Inst.Init(CPluginInfoTable.Inst.FlurryAPIKey, 
 				CLateSetupSceneManager.OnInitFlurryManager);
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
-			CTenjinManager.Instance.Init(CPluginInfoTable.Instance.TenjinAPIKey, 
+			CTenjinManager.Inst.Init(CPluginInfoTable.Inst.TenjinAPIKey, 
 				CLateSetupSceneManager.OnInitTenjinManager);
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-			CFacebookManager.Instance.Init(CLateSetupSceneManager.OnInitFacebookManager);
+			CFacebookManager.Inst.Init(CLateSetupSceneManager.OnInitFacebookManager);
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-			var oGameConfig = CResManager.Instance.GetRes<TextAsset>(KCDefine.U_DATA_PATH_G_GAME_CONFIG);
-			var oBuildVersionConfig = CResManager.Instance.GetRes<TextAsset>(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
+			var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_PATH_G_GAME_CONFIG);
+			var oBuildVersionConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
 
-			string oDeviceConfig = CDeviceInfoTable.Instance.DeviceConfig.ExToJSONString();
+			string oDeviceConfig = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONString();
 			
 			var oConfigList = new Dictionary<string, object>() {
 				[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
@@ -115,28 +115,28 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
 			};
 
-			CResManager.Instance.RemoveRes<TextAsset>(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
-			CResManager.Instance.RemoveRes<TextAsset>(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
+			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
+			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
 
-			CFirebaseManager.Instance.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
+			CFirebaseManager.Inst.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if UNITY_SERVICES_MODULE_ENABLE
-			CUnityServicesManager.Instance.Init(CLateSetupSceneManager.OnInitUnityServicesManager);
+			CUnityServicesManager.Inst.Init(CLateSetupSceneManager.OnInitUnityServicesManager);
 #endif			// #if UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-			CSingularManager.Instance.Init(CPluginInfoTable.Instance.SingularPluginInfo.m_oAPIKey,
-				CPluginInfoTable.Instance.SingularPluginInfo.m_oAPISecret, 
+			CSingularManager.Inst.Init(CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey,
+				CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret, 
 				CLateSetupSceneManager.OnInitSingularManager);
 #endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-			CGameCenterManager.Instance.Init(CLateSetupSceneManager.OnInitGameCenterManager);
+			CGameCenterManager.Inst.Init(CLateSetupSceneManager.OnInitGameCenterManager);
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			CPurchaseManager.Instance.Init(CProductInfoTable.Instance.ProductInfoList, 
+			CPurchaseManager.Inst.Init(CProductInfoTable.Inst.ProductInfoList, 
 				CLateSetupSceneManager.OnInitPurchaseManager);
 #endif			// #if PURCHASE_MODULE_ENABLE
 
@@ -150,7 +150,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if UNITY_IOS
 			};
 
-			CNotiManager.Instance.Init(stNotiParams, CLateSetupSceneManager.OnInitNotiManager);
+			CNotiManager.Inst.Init(stNotiParams, CLateSetupSceneManager.OnInitNotiManager);
 #endif			// #if NOTI_MODULE_ENABLE
 		}
 
@@ -161,7 +161,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			EStartSceneEvent.LOAD_PERMISSION_SCENE);
 
 		CSceneManager.IsLateSetup = true;
-		CSceneLoader.Instance.LoadAdditiveScene(KCDefine.B_SCENE_NAME_PERMISSION);
+		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_PERMISSION);
 	}
 	#endregion			// 함수
 
@@ -180,12 +180,12 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			// 애드 몹 일 경우
 			if(a_eAdsType == EAdsType.ADMOB) {
 #if UNITY_IOS
-				var oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oiOSAdmobIDList;
+				var oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobIDList;
 #else
-				var oAdmobIDList = CDeviceInfoTable.Instance.DeviceInfo.m_oAndroidAdmobIDList;
+				var oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobIDList;
 #endif			// #if UNITY_IOS
 
-				CUnityMsgSender.Instance.SendInitAdsMsg(CPluginInfoTable.Instance.AdmobPluginInfo.m_oResumeAdsID,
+				CUnityMsgSender.Inst.SendInitAdsMsg(CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID,
 					oAdmobIDList, CLateSetupSceneManager.OnInitAds);
 			}
 #endif			// #if UNITY_IOS || UNITY_ANDROID
@@ -193,11 +193,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 			// 광고 자동 로드 모드 일 경우
 			if(CLateSetupSceneManager.IsAutoLoadAds) {
-				CAdsManager.Instance.LoadRewardAds(a_eAdsType);
+				CAdsManager.Inst.LoadRewardAds(a_eAdsType);
 
 				// 광고 로드가 가능 할 경우
-				if(!CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds) {
-					CAdsManager.Instance.LoadFullscreenAds(a_eAdsType);
+				if(!CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds) {
+					CAdsManager.Inst.LoadFullscreenAds(a_eAdsType);
 				}
 			}
 		}
@@ -213,13 +213,13 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		bool bIsEnableLoadAds = bIsValid && 
 			CLateSetupSceneManager.IsAutoLoadAds && 
-			!CCommonUserInfoStorage.Instance.UserInfo.IsRemoveAds;
+			!CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 
 		// 재개 광고 로드가 가능 할 경우
 		if(bIsEnableLoadAds && 
-			CPluginInfoTable.Instance.AdmobPluginInfo.m_oResumeAdsID.ExIsValid()) 
+			CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID.ExIsValid()) 
 		{
-			CAdsManager.Instance.LoadResumeAds(EAdsType.ADMOB);
+			CAdsManager.Inst.LoadResumeAds(EAdsType.ADMOB);
 		}
 	}
 #endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
@@ -232,8 +232,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CFlurryManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-			CFlurryManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CFlurryManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+			CFlurryManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if FLURRY_MODULE_ENABLE
@@ -245,7 +245,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CTenjinManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CTenjinManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if TENJIN_MODULE_ENABLE
@@ -257,7 +257,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CFacebookManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CFacebookManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if FACEBOOK_MODULE_ENABLE
@@ -269,22 +269,22 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CFirebaseManager.Instance.SetAnalyticsDatas(new Dictionary<string, string>() {
-				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
+			CFirebaseManager.Inst.SetAnalyticsDatas(new Dictionary<string, string>() {
+				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 			});
 
-			CFirebaseManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
-				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
+			CFirebaseManager.Inst.SetCrashDatas(new Dictionary<string, string>() {
+				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 			});
 
-			CFirebaseManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-			CFirebaseManager.Instance.SetCrashUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
+			CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+			CFirebaseManager.Inst.SetCrashUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 
-			CFirebaseManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-			CFirebaseManager.Instance.StartTracking(KCDefine.U_TRACKING_NAME_APP_LAUNCH, null);
+			CFirebaseManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CFirebaseManager.Inst.StartTracking(KCDefine.U_TRACKING_NAME_APP_LAUNCH, null);
 
 #if FIREBASE_REMOTE_CONFIG_ENABLE
-			CFirebaseManager.Instance.LoadConfig(CLateSetupSceneManager.OnLoadConfig);
+			CFirebaseManager.Inst.LoadConfig(CLateSetupSceneManager.OnLoadConfig);
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 		}
 	}
@@ -296,8 +296,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 속성이 로드 되었을 경우
 		if(a_bIsSuccess) {
-			string oDeviceConfig = CFirebaseManager.Instance.GetConfig(KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE);
-			CCommonAppInfoStorage.Instance.DeviceConfig = oDeviceConfig.ExJSONStringToObj<STDeviceConfig>();
+			string oDeviceConfig = CFirebaseManager.Inst.GetConfig(KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE);
+			CCommonAppInfoStorage.Inst.DeviceConfig = oDeviceConfig.ExJSONStringToObj<STDeviceConfig>();
 		}
 	}
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
@@ -312,13 +312,13 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CUnityServicesManager.Instance.SetCrashDatas(new Dictionary<string, string>() {
-				[KCDefine.U_LOG_KEY_USER_ID] = CCommonAppInfoStorage.Instance.AppInfo.DeviceID,
-				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Instance.CountryCode
+			CUnityServicesManager.Inst.SetCrashDatas(new Dictionary<string, string>() {
+				[KCDefine.U_LOG_KEY_USER_ID] = CCommonAppInfoStorage.Inst.AppInfo.DeviceID,
+				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 			});
 
-			CUnityServicesManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-			CUnityServicesManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CUnityServicesManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+			CUnityServicesManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if UNITY_SERVICES_MODULE_ENABLE
@@ -330,8 +330,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CSingularManager.Instance.SetAnalyticsUserID(CCommonAppInfoStorage.Instance.AppInfo.DeviceID);
-			CSingularManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CSingularManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+			CSingularManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if SINGULAR_MODULE_ENABLE
