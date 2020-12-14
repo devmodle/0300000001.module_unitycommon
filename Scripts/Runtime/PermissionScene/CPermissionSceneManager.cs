@@ -90,8 +90,6 @@ public abstract class CPermissionSceneManager : CSceneManager {
 #if UNITY_ANDROID
 	//! 권한을 수신했을 경우
 	private void OnReceivePermission(string a_oPermission, bool a_bIsSuccess) {
-		CAccess.Assert(a_oPermission.ExIsValid());
-
 		this.PermissionList.ExRemoveValue(a_oPermission);
 		this.CheckPermission();
 	}
@@ -109,8 +107,6 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 	//! 권한을 요청한다
 	private void RequestPermission(string a_oPermission) {
-		CAccess.Assert(a_oPermission.ExIsValid());
-
 		// 권한이 유효 할 경우
 		if(CAccess.IsEnablePermission(a_oPermission)) {
 			this.OnReceivePermission(a_oPermission, true);

@@ -100,9 +100,11 @@ public static partial class CCommonEditorSceneManager {
 						}
 
 						for(int i = 0; i < oRemoveObjList.Count; ++i) {
-							CAccess.RemoveObj(oRemoveObjList[i]);
+							CFactory.RemoveObj(oRemoveObjList[i]);
 						}
 					}
+
+					return true;
 				});
 			}
 		}
@@ -112,6 +114,8 @@ public static partial class CCommonEditorSceneManager {
 			CFunc.EnumerateScenes((a_stScene) => {
 				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
 				oSceneManager?.EditorSetupScene();
+
+				return true;
 			});
 		}
 	}
@@ -148,7 +152,7 @@ public static partial class CCommonEditorSceneManager {
 			string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
 
 			// 프로퍼티가 존재 할 경우
-			if(oSortingLayer.ExIsValid() && oSortingOrderProperty != null) {
+			if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
 				string oString = string.Format(KCEditorDefine.B_SORTING_ORDER_INFO_FORMAT, 
 					oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
@@ -171,6 +175,8 @@ public static partial class CCommonEditorSceneManager {
 			if(oSceneManager != null) {
 				CFunc.SelectObj(oSceneManager.gameObject);
 			}
+
+			return true;
 		});
 	}
 

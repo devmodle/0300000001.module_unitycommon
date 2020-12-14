@@ -133,8 +133,8 @@ public static partial class CBuildProcessHandler {
 #if UNITY_ANDROID
 		string oPlatform = CEditorAccess.GetAndroidName(CPlatformBuilder.AndroidType);
 		
-		string oDirname = string.Format(KCEditorDefine.B_ANDROID_LIBRARY_DIRNAME_FORMAT, oPlatform);
-		string oDestPath = string.Format(KCEditorDefine.B_ANDROID_DEST_LIBRARY_PATH_FORMAT, oPlatform, oDirname);
+		string oDirName = string.Format(KCEditorDefine.B_ANDROID_LIBRARY_DIR_NAME_FORMAT, oPlatform);
+		string oDestPath = string.Format(KCEditorDefine.B_ANDROID_DEST_LIBRARY_PATH_FORMAT, oPlatform, oDirName);
 
 		CFunc.CopyDir(KCEditorDefine.B_ANDROID_SRC_LIBRARY_PATH, oDestPath);
 #endif			// #if UNITY_ANDROID

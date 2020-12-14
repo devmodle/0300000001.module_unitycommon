@@ -38,7 +38,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 함수
 	//! 생성자
 	public CBaseInfo(string a_oVersion) {
-		m_stVersion = CFunc.MakeDefVersion(a_oVersion);
+		m_stVersion = CFactory.MakeDefVersion(a_oVersion);
 	}
 	#endregion			// 함수
 }

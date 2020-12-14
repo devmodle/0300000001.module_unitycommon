@@ -37,10 +37,6 @@ public static partial class CEditorSceneManager {
 	public static void OnLoadScript() {
 		// 상태 갱신이 가능 할 경우
 		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
-			// 패키지 레지스트리를 복사한다
-			CFunc.CopyFile(KEditorDefine.B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH, 
-				KEditorDefine.B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH, false);
-				
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();
 		}
@@ -54,6 +50,11 @@ public static partial class CEditorSceneManager {
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
 			for(int i = 0; i < oMonoScripts.Length; ++i) {
+				// 스크립트가 유효하지 않을 경우
+				if(oMonoScripts[i] == null) {
+					continue;
+				}
+
 				var oType = oMonoScripts[i].GetClass();
 
 				// 스크립트 순서 설정이 가능 할 경우
@@ -66,8 +67,10 @@ public static partial class CEditorSceneManager {
 			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_SCRIPT_M_SCENE_UPDATE)) {
 				CEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLOAT_0;
 				
-				CFunc.EnumerateScenes((a_stScene) => 
-					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST));
+				CFunc.EnumerateScenes((a_stScene) => {
+					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
+					return true;
+				});
 			}
 		}
 	}
@@ -132,7 +135,7 @@ public static partial class CEditorSceneManager {
 				foreach(var stKeyValue in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULE_LIST) {
 					for(int i = 0; i < oDefineSymbolListContainer.Length; ++i) {
 						var oDefineSymbolList = oDefineSymbolListContainer[i];
-
+						
 						// 전처리기 심볼 갱신이 필요 할 경우
 						if(oDefineSymbolList.Contains(stKeyValue.Key)) {
 							bIsNeedUpdate = true;
@@ -150,6 +153,15 @@ public static partial class CEditorSceneManager {
 				}
 			}
 		}
+	}
+
+	//! 씬이 열렸을 경우
+	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
+		CEditorSceneManager.OnLoadScript();
+
+		// 패키지 레지스트리를 복사한다
+		CFunc.CopyFile(KEditorDefine.B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH, 
+			KEditorDefine.B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH, false);
 	}
 	#endregion			// 클래스 함수
 }

@@ -120,7 +120,7 @@ public static partial class CCommonEditorSceneManager {
 
 				// 이벤트 시스템이 존재 할 경우
 				if(oEventSystem != null) {
-					CAccess.RemoveObj(oEventSystem, true);
+					CFactory.RemoveObj(oEventSystem, true);
 				}
 
 				// 로그 관리자가 존재 할 경우
@@ -220,10 +220,10 @@ public static partial class CCommonEditorSceneManager {
 			var oScenePath = Path.GetDirectoryName(stScene.path);
 			var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
 
-			string oFilepath = string.Format(KCEditorDefine.B_ASSET_PATH_FORMAT_LIGHTING_SETTINGS, 
+			string oFilePath = string.Format(KCEditorDefine.B_ASSET_PATH_FORMAT_LIGHTING_SETTINGS, 
 				oScenePath, oSceneName);
 			
-			var oLightingSettingsAsset = CEditorFunc.FindAsset<LightingSettings>(oFilepath);
+			var oLightingSettingsAsset = CEditorFunc.FindAsset<LightingSettings>(oFilePath);
 
 			// 광원 맵 설정 에셋이 존재 할 경우
 			if(oLightingSettingsAsset != null) {
@@ -242,7 +242,7 @@ public static partial class CCommonEditorSceneManager {
 						KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
 				}
 
-				CEditorFactory.CreateAsset(oLightingSettingsAsset, oFilepath, false);
+				CEditorFactory.CreateAsset(oLightingSettingsAsset, oFilePath, false);
 			}
 		}
 	}

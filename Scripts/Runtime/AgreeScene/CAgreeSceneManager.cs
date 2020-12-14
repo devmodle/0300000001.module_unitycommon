@@ -66,9 +66,6 @@ public abstract class CAgreeSceneManager : CSceneManager {
 				CResManager.Instance.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_SERVICES, true);
 				CResManager.Instance.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_PRIVACY, true);
 			} else {
-				CAccess.Assert(CProjInfoTable.Instance.ServicesURL.ExIsValid() && 
-					CProjInfoTable.Instance.PrivacyURL.ExIsValid());
-
 				this.ShowEUAgreePopup(CProjInfoTable.Instance.ServicesURL, 
 					CProjInfoTable.Instance.PrivacyURL);
 			}			

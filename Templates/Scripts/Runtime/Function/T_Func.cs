@@ -52,10 +52,12 @@ public static partial class Func {
 
 	//! 지역화 문자열을 설정한다
 	public static void SetupLocalizeStrings(string a_oLanguage, string a_oCountryCode) {
-		string oFilepath = CFunc.MakeLocalizePath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING, 
+		CAccess.Assert(a_oCountryCode.ExIsValid());
+
+		string oFilePath = CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING, 
 			KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING, a_oLanguage, a_oCountryCode);
 
-		CStringTable.Instance.LoadStringsFromRes(oFilepath);		
+		CStringTable.Instance.LoadStringsFromRes(oFilePath);		
 	}
 	#endregion			// 클래스 함수
 
@@ -147,13 +149,15 @@ public static partial class Func {
 
 #if FIREBASE_MODULE_ENABLE
 	//! 지급 아이템을 저장한다
-	public static void SavePostItem(List<STPostItem> a_oPostItem, 
+	public static void SavePostItem(List<STPostItem> a_oPostItemList, 
 		System.Action<CFirebaseManager, bool> a_oCallback) 
 	{
+		CAccess.Assert(a_oPostItemList != null);
+
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Instance.IsLogin) {
-			var oNodeList = Func.MakePostItemNodeList();
-			string oJSONString = a_oPostItem.ExToJSONString();
+			var oNodeList = CFactory.MakePostItemNodeList();
+			string oJSONString = a_oPostItemList.ExToJSONString();
 
 			CFirebaseManager.Instance.SaveDB(oNodeList, oJSONString, a_oCallback);
 		} else {
@@ -165,32 +169,11 @@ public static partial class Func {
 	public static void LoadPostItem(System.Action<CFirebaseManager, string, bool> a_oCallback) {
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Instance.IsLogin) {
-			var oNodeList = Func.MakePostItemNodeList();
+			var oNodeList = CFactory.MakePostItemNodeList();
 			CFirebaseManager.Instance.LoadDB(oNodeList, a_oCallback);
 		} else {
 			a_oCallback?.Invoke(CFirebaseManager.Instance, string.Empty, false);
 		}
-	}
-
-	//! 지급 아이템 노드를 생성한다
-	public static List<string> MakePostItemNodeList() {
-		return new List<string>() {
-			KCDefine.U_NODE_FIREBASE_POST_ITEM_LIST
-		};
-	}
-
-	//! 유저 정보 노드를 생성한다
-	public static List<string> MakeUserInfoNodeList() {
-		return new List<string>() {
-			KCDefine.U_NODE_FIREBASE_USER_INFO_LIST
-		};
-	}
-
-	//! 결제 정보 노드를 생성한다
-	public static List<string> MakePurchaseInfoList() {
-		return new List<string>() {
-			KCDefine.U_NODE_FIREBASE_PURCHASE_INFO_LIST
-		};
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 
@@ -199,7 +182,9 @@ public static partial class Func {
 	public static void PurchaseProduct(string a_oID, 
 		System.Action<CPurchaseManager, string, bool> a_oCallback) 
 	{
+		CAccess.Assert(a_oID.ExIsValid());
 		Func.m_oPurchaseCallback = a_oCallback;
+
 		CPurchaseManager.Instance.PurchaseProduct(a_oID, Func.OnCompletePurchase);
 	}
 

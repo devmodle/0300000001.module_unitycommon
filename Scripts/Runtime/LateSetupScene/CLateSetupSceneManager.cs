@@ -109,9 +109,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 			string oDeviceConfig = CDeviceInfoTable.Instance.DeviceConfig.ExToJSONString();
 			
-			CAccess.Assert(oGameConfig.ExIsValid() && 
-				oBuildVersionConfig.ExIsValid() && oDeviceConfig.ExIsValid());
-
 			var oConfigList = new Dictionary<string, object>() {
 				[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
 				[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = oDeviceConfig,
