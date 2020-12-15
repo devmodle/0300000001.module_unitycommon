@@ -41,10 +41,6 @@ public static partial class LogFunc {
 			CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataList);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICES_MODULE_ENABLE
-			CUnityServicesManager.Inst.SendLog(a_oName, a_oDataList);
-#endif			// #if UNITY_SERVICES_MODULE_ENABLE
-
 #if SINGULAR_MODULE_ENABLE
 			CSingularManager.Inst.SendLog(a_oName, a_oDataList);
 #endif			// #if SINGULAR_MODULE_ENABLE
@@ -55,16 +51,11 @@ public static partial class LogFunc {
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	//! 결제 로그를 전송한다
-	public static void SendPurchaseLog(Product a_oProduct, 
-		int a_nNumProducts, Dictionary<string, object> a_oDataList) 
-	{
+	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts) {
 		// 테스트 디바이스가 아닐 경우
 		if(!CCommonAppInfoStorage.Inst.IsTestDevice()) {
 #if FLURRY_MODULE_ENABLE
-			var oDataList = (a_oDataList != null) ? 
-				a_oDataList.ExToTypes<string, object, string, string>() : null;
-
-			CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataList);
+			CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
@@ -72,19 +63,15 @@ public static partial class LogFunc {
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-			CFacebookManager.Inst.SendPurchaseLog(a_oProduct, a_oDataList);
+			CFacebookManager.Inst.SendPurchaseLog(a_oProduct);
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 			CFirebaseManager.Inst.SendPurchaseLog(a_oProduct);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICES_MODULE_ENABLE
-			CUnityServicesManager.Inst.SendPurchaseLog(a_oProduct, a_oDataList);
-#endif			// #if UNITY_SERVICES_MODULE_ENABLE
-
 #if SINGULAR_MODULE_ENABLE
-			CSingularManager.Inst.SendPurchaseLog(a_oProduct, a_oDataList);
+			CSingularManager.Inst.SendPurchaseLog(a_oProduct);
 #endif			// #if SINGULAR_MODULE_ENABLE
 		}
 	}

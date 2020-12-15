@@ -96,10 +96,6 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CFirebaseManager.Create();
 #endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICES_MODULE_ENABLE
-		CUnityServicesManager.Create();
-#endif			// #if UNITY_SERVICES_MODULE_ENABLE
-
 #if SINGULAR_MODULE_ENABLE
 		CSingularManager.Create();
 #endif			// #if SINGULAR_MODULE_ENABLE

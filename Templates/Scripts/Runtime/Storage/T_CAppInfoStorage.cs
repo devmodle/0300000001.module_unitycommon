@@ -20,21 +20,10 @@ public sealed class CAppInfo : CBaseInfo {
 //! 앱 정보 저장소
 public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 프로퍼티
-	public CAppInfo AppInfo { get; private set; } = null;
+	public CAppInfo AppInfo { get; private set; } = new CAppInfo();
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 초기화
-	public override void Awake() {
-		base.Awake();
-		this.Reset();
-	}
-
-	//! 상태를 리셋한다
-	public virtual void Reset() {
-		this.AppInfo = new CAppInfo();
-	}
-
 	//! 앱 정보를 저장한다
 	public void SaveAppInfo() {
 		this.SaveAppInfo(KDefine.B_DATA_PATH_APP_INFO);
@@ -54,14 +43,8 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	public void LoadAppInfo(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
-			try {
-				this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath);
-			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning("CAppInfoStorage.LoadAppInfo Exception: {0}", oException.Message);
-
-				this.Reset();
-				this.SaveAppInfo(a_oFilePath);
-			}
+			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath);
+			CAccess.Assert(this.AppInfo != null);
 		}
 	}
 	#endregion			// 함수

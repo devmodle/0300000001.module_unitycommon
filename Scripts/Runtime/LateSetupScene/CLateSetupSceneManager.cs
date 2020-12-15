@@ -121,10 +121,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CFirebaseManager.Inst.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
-#if UNITY_SERVICES_MODULE_ENABLE
-			CUnityServicesManager.Inst.Init(CLateSetupSceneManager.OnInitUnityServicesManager);
-#endif			// #if UNITY_SERVICES_MODULE_ENABLE
-
 #if SINGULAR_MODULE_ENABLE
 			CSingularManager.Inst.Init(CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey,
 				CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret, 
@@ -302,26 +298,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	}
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 #endif			// #if FIREBASE_MODULE_ENABLE
-
-#if UNITY_SERVICES_MODULE_ENABLE
-	//! 유니티 서비스 관리자가 초기화 되었을 경우
-	private static void OnInitUnityServicesManager(CUnityServicesManager a_oSender, 
-		bool a_bIsSuccess) 
-	{
-		CFunc.ShowLog("CLateSetupSceneManager.OnInitUnityServicesManager: {0}", a_bIsSuccess);
-
-		// 초기화 되었을 경우
-		if(a_bIsSuccess) {
-			CUnityServicesManager.Inst.SetCrashDatas(new Dictionary<string, string>() {
-				[KCDefine.U_LOG_KEY_USER_ID] = CCommonAppInfoStorage.Inst.AppInfo.DeviceID,
-				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
-			});
-
-			CUnityServicesManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-			CUnityServicesManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-		}
-	}
-#endif			// #if UNITY_SERVICES_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 	//! 싱귤러 관리자가 초기화 되었을 경우

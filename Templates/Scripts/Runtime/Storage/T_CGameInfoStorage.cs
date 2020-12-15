@@ -23,21 +23,10 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public System.DateTime PrevFullscreenAdsTime { get; set; } = System.DateTime.Now;
 	public System.DateTime PrevResumeAdsTime { get; set; } = System.DateTime.Now;
 
-	public CGameInfo GameInfo { get; private set; } = null;
+	public CGameInfo GameInfo { get; private set; } = new CGameInfo();
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 초기화
-	public override void Awake() {
-		base.Awake();
-		this.Reset();
-	}
-
-	//! 상태를 리셋한다
-	public virtual void Reset() {
-		this.GameInfo = new CGameInfo();
-	}
-
 	//! 게임 정보를 저장한다
 	public void SaveGameInfo() {
 		this.SaveGameInfo(KDefine.B_DATA_PATH_GAME_INFO);
@@ -57,14 +46,8 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public void LoadGameInfo(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
-			try {
-				this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath);
-			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning("CGameInfoStorage.LoadGameInfo Exception: {0}", oException.Message);
-
-				this.Reset();
-				this.SaveGameInfo(a_oFilePath);
-			}
+			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath);
+			CAccess.Assert(this.GameInfo != null);
 		}
 	}
 	#endregion			// 함수

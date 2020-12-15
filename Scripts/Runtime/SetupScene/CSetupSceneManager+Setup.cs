@@ -62,23 +62,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 디버그 콘솔을 설정한다
-	private void SetupDebugConsole() {
-		// 디버그 콘솔이 없을 경우
-		if(CSetupSceneManager.m_oDebugConsole == null) {
-			var oDebugConsole = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_DEBUG_CONSOLE,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_PATH_DEBUG_CONSOLE), null);
-
-			CSetupSceneManager.m_oDebugConsole = oDebugConsole;
-
-			CSceneManager.ScreenDebugConsole = oDebugConsole;
-			CSceneManager.ScreenDebugConsole.SetActive(false);
-
-			DontDestroyOnLoad(oDebugConsole);
-			CFunc.SetupScreenUI(oDebugConsole, KCDefine.U_SORTING_ORDER_DEBUG_CONSOLE);
-		}
-	}
-
 	//! 디버그 UI 를 설정한다
 	private void SetupDebugUI() {
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
@@ -107,6 +90,25 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 			DontDestroyOnLoad(oDebugUI);
 			CFunc.SetupScreenUI(oDebugUI, KCDefine.U_SORTING_ORDER_SCREEN_DEBUG_UI);
+		}
+#endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
+	}
+
+	//! 디버그 콘솔을 설정한다
+	private void SetupDebugConsole() {
+#if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
+		// 디버그 콘솔이 없을 경우
+		if(CSetupSceneManager.m_oDebugConsole == null) {
+			var oDebugConsole = CFactory.CreateCloneObj(KCDefine.SS_OBJ_NAME_DEBUG_CONSOLE,
+				CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_PATH_DEBUG_CONSOLE), null);
+
+			CSetupSceneManager.m_oDebugConsole = oDebugConsole;
+
+			CSceneManager.ScreenDebugConsole = oDebugConsole;
+			CSceneManager.ScreenDebugConsole.SetActive(false);
+
+			DontDestroyOnLoad(oDebugConsole);
+			CFunc.SetupScreenUI(oDebugConsole, KCDefine.U_SORTING_ORDER_DEBUG_CONSOLE);
 		}
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	}

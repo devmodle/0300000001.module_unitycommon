@@ -33,7 +33,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_NAME_LOADING_TEXT,
 				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_PATH_LOADING_TEXT), this.SubUIRoot, KCDefine.SS_POS_LOADING_TEXT);
 
-			m_oLoadingText.text = string.Empty;
+			m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;
 			// 텍스트를 설정한다 }
 
 			// 이미지를 설정한다 {
