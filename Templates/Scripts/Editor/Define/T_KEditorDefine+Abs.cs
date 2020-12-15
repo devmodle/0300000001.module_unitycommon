@@ -134,7 +134,7 @@ public static partial class KEditorDefine {
 
 		["com.unity.quicksearch"] = "2.0.2",
 		["com.unity.mobile.android-logcat"] = "1.2.0",
-		["com.unity.render-pipelines.universal"] = "8.3.1",
+		["com.unity.render-pipelines.universal"] = "10.2.2",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
 #if ML_AGENTS_ENABLE
@@ -146,15 +146,15 @@ public static partial class KEditorDefine {
 #endif			// #if CINEMACHINE_ENABLE
 
 #if VISUAL_FX_GRAPH_ENABLE
-		["com.unity.visualeffectgraph"] = "8.3.1",
+		["com.unity.visualeffectgraph"] = "10.2.2",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
 
 #if SPRITE_SHAPES_ENABLE
-		["com.unity.2d.spriteshape"] = "4.1.4",
+		["com.unity.2d.spriteshape"] = "5.1.0",
 #endif			// #if SPRITE_SHAPES_ENABLE
 
 #if PIXELS_PERFECT_ENABLE
-		["com.unity.2d.pixel-perfect"] = "3.0.2",
+		["com.unity.2d.pixel-perfect"] = "4.0.1",
 #endif			// #if PIXELS_PERFECT_ENABLE
 
 #if POLY_BRUSH_ENABLE
@@ -171,15 +171,15 @@ public static partial class KEditorDefine {
 #endif			// #if ASSET_BUNDLE_ENABLE
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
-		["com.unity.adaptiveperformance.samsung.android"] = "1.2.1",
+		["com.unity.adaptiveperformance.samsung.android"] = "2.0.2",
 #endif			// #if ADAPTIVE_PERFORMANCE_ENABLE
 
 #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
-		["com.unity.2d.psdimporter"] = "3.1.6",
+		["com.unity.2d.psdimporter"] = "4.0.2",
 #endif			// #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
-    	["com.unity.postprocessing"] = "3.0.1",
+    	["com.unity.postprocessing"] = "2.3.0",
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
@@ -218,8 +218,8 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "2.2.1",
-		["com.unity.purchasing.udp"] = "1.2.0",
+		["com.unity.purchasing"] = "2.1.1",
+		["com.unity.purchasing.udp"] = "2.0.0",
 
 		["unitymodule.common.purchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#1.2.1",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
