@@ -74,6 +74,9 @@ public static partial class CBuildProcessHandler {
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
 			oProj.AddFrameworkToProject(oMainGUID, 
 				KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
+
+			oProj.AddFrameworkToProject(oFrameworkGUID, 
+				KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
 		}
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
