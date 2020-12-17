@@ -250,6 +250,8 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 프레임워크
 	public static readonly string[] B_IOS_EXTRA_FRAMEWORKS = new string[] {
+		"AuthenticationServices.framework",
+
 #if TENJIN_MODULE_ENABLE
 		"iAd.framework",
 		"StoreKit.framework",
@@ -281,6 +283,10 @@ public static partial class KEditorDefine {
 
 	// 호환성 타입
 	public static readonly PBXCapabilityType[] B_IOS_EXTRA_CAPABILITY_TYPES = new PBXCapabilityType[] {
+#if APPLE_LOGIN_ENABLE
+		PBXCapabilityType.SignInWithApple,
+#endif			// #if APPLE_LOGIN_ENABLE
+
 #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 		PBXCapabilityType.BackgroundModes,
 		PBXCapabilityType.PushNotifications,

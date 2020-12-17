@@ -28,6 +28,7 @@ public static partial class CBuildProcessHandler {
 	//! 빌드가 완료 되었을 경우
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
+		CAccess.Assert(CBuildProcessHandler.m_oPostProcessBuildList.ContainsKey(a_eTarget));
 		CBuildProcessHandler.m_oPostProcessBuildList[a_eTarget](a_eTarget, a_oPath);
 	}
 
@@ -102,8 +103,12 @@ public static partial class CBuildProcessHandler {
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
 			var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i];
 
-			// 푸시 알림 추가가 가능 할 경우
-			if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
+			// 애플 로그인 타입 일 경우
+			if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
+				oCapability.AddSignInWithApple();
+			}
+			// 푸시 알림 타입 일 경우
+			else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
 				bool bIsDevBuild = CPlatformBuilder.BuildType != EBuildType.ADHOC && 
 					CPlatformBuilder.BuildType != EBuildType.STORE;
 
@@ -113,11 +118,11 @@ public static partial class CBuildProcessHandler {
 				oCapability.AddBackgroundModes(KEditorDefine.B_IOS_BACKGROUND_MODES_OPTS);
 #endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 			}
-			// 게임 센터 추가가 가능 할 경우
+			// 게임 센터 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
 				oCapability.AddGameCenter();
 			}
-			// 결제 추가가 가능 할 경우
+			// 결제 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.InAppPurchase)) {
 				oCapability.AddInAppPurchase();
 			}
