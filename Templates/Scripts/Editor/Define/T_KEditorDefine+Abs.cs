@@ -156,19 +156,19 @@ public static partial class KEditorDefine {
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
-		["unitymodule.common.ads"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#1.1.0",
+		["unitymodule.common.ads"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_ads_client.git#1.1.1",
 #endif			// #if ADS_ENABLE || ADS_MODULE_ENABLE
 
 #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
-		["unitymodule.common.flurry"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_flurry_client.git#1.1.0",
+		["unitymodule.common.flurry"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_flurry_client.git#1.1.1",
 #endif			// #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
 
 #if TENJIN_ENABLE || TENJIN_MODULE_ENABLE
-		["unitymodule.common.tenjin"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_tenjin_client.git#1.1.0",
+		["unitymodule.common.tenjin"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_tenjin_client.git#1.1.1",
 #endif			// #if TENJIN_ENABLE || TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
-		["unitymodule.common.facebook"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_facebook_client.git#1.1.0",
+		["unitymodule.common.facebook"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_facebook_client.git#1.1.1",
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
@@ -179,31 +179,31 @@ public static partial class KEditorDefine {
 		["com.google.firebase.remote-config"] = "6.16.1",
 		["com.google.firebase.messaging"] = "6.16.1",
 
-		["unitymodule.common.firebase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.1.0",
+		["unitymodule.common.firebase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.1.1",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if UNITY_SERVICE_ENABLE || UNITY_SERVICE_MODULE_ENABLE
-		["unitymodule.common.unityservice"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#1.1.0",
+		["unitymodule.common.unityservice"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_unityservice_client.git#1.1.1",
 #endif			// #if UNITY_SERVICE_ENABLE || UNITY_SERVICE_MODULE_ENABLE
 
 #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
-		["unitymodule.common.singular"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_singular_client.git#1.1.0",
+		["unitymodule.common.singular"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_singular_client.git#1.1.1",
 #endif			// #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
-		["unitymodule.common.gamecenter"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_gamecenter_client.git#1.1.0",
+		["unitymodule.common.gamecenter"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_gamecenter_client.git#1.1.1",
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "2.1.1",
 		["com.unity.purchasing.udp"] = "1.2.0",
 
-		["unitymodule.common.purchase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#1.1.0",
+		["unitymodule.common.purchase"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#1.1.1",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 		["com.unity.mobile.notifications"] = "1.0.3",
-		["unitymodule.common.Noti"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_Noti_client.git#1.1.0"
+		["unitymodule.common.Noti"] = "https://sd.lee:NSString132!@gitlab.com/9tapmodule.repository/unitymodule_common_Noti_client.git#1.1.1"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 	};
 
@@ -217,6 +217,8 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 프레임워크
 	public static readonly string[] B_EXTRA_FRAMEWORKS_IOS = new string[] {
+		"AuthenticationServices.framework",
+
 #if TENJIN_MODULE_ENABLE
 		"iAd.framework",
 		"StoreKit.framework",
@@ -234,6 +236,10 @@ public static partial class KEditorDefine {
 
 	// 호환성 타입
 	public static readonly PBXCapabilityType[] B_EXTRA_CAPABILITY_TYPES_IOS = new PBXCapabilityType[] {
+#if APPLE_LOGIN_ENABLE
+		PBXCapabilityType.SignInWithApple,
+#endif			// #if APPLE_LOGIN_ENABLE
+
 #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 		PBXCapabilityType.PushNotifications,
 #endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE

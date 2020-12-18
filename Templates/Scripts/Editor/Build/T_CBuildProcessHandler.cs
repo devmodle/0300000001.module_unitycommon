@@ -72,6 +72,9 @@ public static partial class CBuildProcessHandler {
 		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
 			oProj.AddFrameworkToProject(oMainGUID, 
 				KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
+
+			oProj.AddFrameworkToProject(oFrameworkGUID, 
+				KEditorDefine.B_EXTRA_FRAMEWORKS_IOS[i], false);
 		}
 
 		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
@@ -86,18 +89,22 @@ public static partial class CBuildProcessHandler {
 		for(int i = KCDefine.B_VALUE_INT_0; i < KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
 			var oCapabilityType = KEditorDefine.B_EXTRA_CAPABILITY_TYPES_IOS[i];
 
-			// 푸시 알림 추가가 가능 할 경우
-			if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
+			// 애플 로그인 타입 일 경우
+			if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
+				oCapability.AddSignInWithApple();
+			}
+			// 푸시 알림 타입 일 경우
+			else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
 				bool bIsDevBuild = CCommonPlatformBuilder.BuildType != EBuildType.ADHOC && 
 					CCommonPlatformBuilder.BuildType != EBuildType.STORE;
 
 				oCapability.AddPushNotifications(bIsDevBuild);
 			}
-			// 게임 센터 추가가 가능 할 경우
+			// 게임 센터 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
 				oCapability.AddGameCenter();
 			}
-			// 결제 추가가 가능 할 경우
+			// 결제 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.InAppPurchase)) {
 				oCapability.AddInAppPurchase();
 			}
