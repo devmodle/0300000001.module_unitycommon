@@ -16,7 +16,32 @@ public static partial class CCommonEditorSceneManager {
 	private static float m_fSkipTime = 0.0f;
 	private static float m_fHierarchySkipTime = 0.0f;
 
-	private static GUIStyle m_oGUIStyle = null;
+	private static GUIStyle m_oGUIStyle = new GUIStyle() {
+		alignment = TextAnchor.MiddleRight,
+		fontStyle = FontStyle.BoldAndItalic
+	};
+
+	private static Dictionary<string, string> m_oSortingLayerList = new Dictionary<string, string>() {
+		[KCDefine.U_SORTING_LAYER_UNDERGROUND] = "U",
+		[KCDefine.U_SORTING_LAYER_BACKGROUND] = "B",
+		[KCDefine.U_SORTING_LAYER_DEF] = "D",
+		[KCDefine.U_SORTING_LAYER_FOREGROUND] = "F",
+		[KCDefine.U_SORTING_LAYER_OVERGROUND] = "O",
+		[KCDefine.U_SORTING_LAYER_TOP] = "T",
+		[KCDefine.U_SORTING_LAYER_TOPMOST] = "TM",
+		[KCDefine.U_SORTING_LAYER_ABS] = "A",
+		
+#if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+		[KCDefine.U_SORTING_LAYER_UNDERGROUND_UI] = "UUI",
+		[KCDefine.U_SORTING_LAYER_BACKGROUND_UI] = "BUI",
+		[KCDefine.U_SORTING_LAYER_DEF_UI] = "DUI",
+		[KCDefine.U_SORTING_LAYER_FOREGROUND_UI] = "FUI",
+		[KCDefine.U_SORTING_LAYER_OVERGROUND_UI] = "OUI",
+		[KCDefine.U_SORTING_LAYER_TOP_UI] = "TUI",
+		[KCDefine.U_SORTING_LAYER_TOPMOST_UI] = "TMUI",
+		[KCDefine.U_SORTING_LAYER_ABS_UI] = "AUI"
+#endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+	};
 	#endregion			// 클래스 변수
 
 	#region 클래스 함수
@@ -27,15 +52,10 @@ public static partial class CCommonEditorSceneManager {
 			return;
 		}
 
-		// GUI 스타일을 설정한다 {
-		CCommonEditorSceneManager.m_oGUIStyle = new GUIStyle();
-		CCommonEditorSceneManager.m_oGUIStyle.alignment = TextAnchor.MiddleLeft;
-		CCommonEditorSceneManager.m_oGUIStyle.fontStyle = FontStyle.BoldAndItalic;
-
+		// GUI 스타일을 설정한다
 		CCommonEditorSceneManager.m_oGUIStyle.normal = new GUIStyleState() {
 			textColor = KCEditorDefine.B_HIERARCHY_TEXT_COLOR
 		};
-		// GUI 스타일을 설정한다 }
 
 		CCommonEditorSceneManager.SetupCallbacks();
 	}
@@ -130,10 +150,6 @@ public static partial class CCommonEditorSceneManager {
 		}
 
 		var oComponents = oObj.GetComponents<Component>();
-		a_stRect.size = new Vector2(KCEditorDefine.B_HIERARCHY_WIDTH, a_stRect.size.y);
-
-		a_stRect.position += new Vector2(KCEditorDefine.B_HIERARCHY_OFFSET_X, 
-			KCDefine.B_VALUE_FLOAT_0);
 
 		for(int i = 0; i < oComponents.Length; ++i) {
 			// 컴포넌트가 없을 경우
@@ -142,7 +158,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			var oType = oComponents[i].GetType();
-			
+
 			var oSortingLayerProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_NAME_SORTING_LAYER,
 				KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
 
@@ -151,8 +167,14 @@ public static partial class CCommonEditorSceneManager {
 
 			string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
 
+			oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerList.ExGetValue(oSortingLayer, string.Empty) 
+				: string.Empty;
+
 			// 프로퍼티가 존재 할 경우
 			if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
+				a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_HIERARCHY_OFFSET_X) * -1.0f, 
+					KCDefine.B_VALUE_FLOAT_0);
+
 				string oString = string.Format(KCEditorDefine.B_SORTING_ORDER_INFO_FORMAT, 
 					oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
