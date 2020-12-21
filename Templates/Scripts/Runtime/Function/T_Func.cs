@@ -24,22 +24,38 @@ public static partial class Func {
 	#endregion			// 클래스 변수
 
 	#region 클래스 함수
-	//! 앱 종료 팝업을 출력한다
-	public static void ShowAppQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+	//! 경고 팝업을 출력한다
+	public static void ShowAlertPopup(Dictionary<string, string> a_oDataList, 
+		System.Action<CAlertPopup, bool> a_oCallback)
+	{
+		var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_NAME_ALERT_POPUP,
+			CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_PATH_G_ALERT_POPUP), CSceneManager.ScreenPopupUIRoot, a_oDataList, a_oCallback);
+
+		oAlertPopup.Show(null, null);
+	}
+
+	//! 종료 팝업을 출력한다
+	public static void ShowQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var oDataList = new Dictionary<string, string>() {
 			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_MSG),
+			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_QUIT_P_MSG),
 			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
 			[KCDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
 		};
 
-		var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_NAME_ALERT_POPUP,
-			CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_PATH_G_ALERT_POPUP),
-			CSceneManager.ScreenPopupUIRoot,
-			oDataList,
-			a_oCallback);
+		Func.ShowAlertPopup(oDataList, a_oCallback);
+	}
 
-		oAlertPopup.Show(null, null);
+	//! 업데이트 팝업을 출력한다
+	public static void ShowUpdatePopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		var oDataList = new Dictionary<string, string>() {
+			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
+			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_UPDATE_P_MSG),
+			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			[KCDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
+		};
+
+		Func.ShowAlertPopup(oDataList, a_oCallback);
 	}
 	
 	//! 지역화 문자열을 설정한다

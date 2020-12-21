@@ -130,8 +130,7 @@ public static partial class KEditorDefine {
 		["com.google.play.review"] = "1.3.0",
 
 		["com.unity.2d.sprite"] = "1.0.0",
-		["com.unity.2d.tilemap"] = "1.0.0",
-
+		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.quicksearch"] = "2.0.2",
 		["com.unity.mobile.android-logcat"] = "1.2.0",
 		["com.unity.render-pipelines.universal"] = "10.2.2",
@@ -148,6 +147,10 @@ public static partial class KEditorDefine {
 #if VISUAL_FX_GRAPH_ENABLE
 		["com.unity.visualeffectgraph"] = "10.2.2",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
+
+#if TILEMAP_2D_ENABLE
+		["com.unity.2d.tilemap"] = "1.0.0",
+#endif			// #if TILEMAP_2D_ENABLE
 
 #if SPRITE_SHAPES_ENABLE
 		["com.unity.2d.spriteshape"] = "5.1.0",
