@@ -1,6 +1,8 @@
 {
     "name": "UnityModule.Common",
+    "rootNamespace": "",
     "references": [
+        "UnityModule.IronSrc",
         "UnityModule.Common.Define",
         "UnityModule.Common.Access",
         "UnityModule.Common.Factory",
@@ -17,12 +19,11 @@
         "UnityModule.Common.GameCenter",
         "UnityModule.Common.Purchase",
         "UnityModule.Common.Noti",
-        "Unity.RenderPipelines.Universal.Runtime",
         "Unity.Notifications.iOS",
         "Unity.Notifications.Android",
+        "Unity.RenderPipelines.Universal.Runtime",
         "MessagePack",
-        "IngameDebugConsole.Runtime",
-        "UnityModule.IronSrc"
+        "IngameDebugConsole.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
