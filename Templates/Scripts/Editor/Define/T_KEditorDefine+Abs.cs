@@ -170,7 +170,6 @@ public static partial class KEditorDefine {
 
 #if ASSET_BUNDLE_ENABLE
 		["com.unity.addressables"] = "1.16.15",
-		["com.unity.assetbundlebrowser"] = "1.7.0",
 #endif			// #if ASSET_BUNDLE_ENABLE
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
