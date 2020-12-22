@@ -140,6 +140,11 @@ public static partial class CEditorSceneManager {
 						if(oDefineSymbolList.Contains(stKeyValue.Key)) {
 							bIsNeedUpdate = true;
 							oDefineSymbolList.ExReplaceValue(stKeyValue.Key, stKeyValue.Value);
+
+							// 결제 전처리기 심볼 일 경우
+							if(stKeyValue.Key.ExIsEquals(KCEditorDefine.DS_DEFINE_S_PURCHASE_ENABLE)) {
+								oDefineSymbolList.ExAddValue(KCEditorDefine.DS_DEFINE_S_UNITY_PURCHASING);
+							}
 						}
 					}
 				}
