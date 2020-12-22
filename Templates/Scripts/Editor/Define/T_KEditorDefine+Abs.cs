@@ -37,6 +37,7 @@ public static partial class KEditorDefine {
 
 		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CCommonGameInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 
 		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
 		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,

@@ -38,14 +38,15 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		// 저장소를 로드한다
 		CCommonAppInfoStorage.Inst.LoadAppInfo();
 		CCommonUserInfoStorage.Inst.LoadUserInfo();
+		CCommonGameInfoStorage.Inst.LoadGameInfo();
 
 		// 사운드를 설정한다 {
 		CSndManager.Inst.BGSndVolume = KCDefine.B_VALUE_FLOAT_1;
 		CSndManager.Inst.FXSndsVolume = KCDefine.B_VALUE_FLOAT_1;
 		
-		CSndManager.Inst.IsMuteBGSnd = CCommonUserInfoStorage.Inst.UserInfo.IsMuteBGSnd;
-		CSndManager.Inst.IsMuteFXSnds = CCommonUserInfoStorage.Inst.UserInfo.IsMuteFXSnds;
-		CSndManager.Inst.IsDisableVibrate = CCommonUserInfoStorage.Inst.UserInfo.IsDisableVibrate;
+		CSndManager.Inst.IsMuteBGSnd = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
+		CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
+		CSndManager.Inst.IsDisableVibrate = CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate;
 		// 사운드를 설정한다 }
 	}
 
@@ -139,6 +140,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		// 저장소를 생성한다
 		CCommonAppInfoStorage.Create();
 		CCommonUserInfoStorage.Create();
+		CCommonGameInfoStorage.Create();
 
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
