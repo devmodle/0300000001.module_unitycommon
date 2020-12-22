@@ -29,8 +29,8 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		CCommonUserInfoStorage.Inst.UserInfo.IsAgree = true;
-		CCommonUserInfoStorage.Inst.SaveUserInfo();
+		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
+		CCommonGameInfoStorage.Inst.SaveGameInfo();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_LATE_SETUP_SCENE);
@@ -49,7 +49,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();
 #else
-		bool bIsAgree = CCommonUserInfoStorage.Inst.UserInfo.IsAgree ||
+		bool bIsAgree = CCommonGameInfoStorage.Inst.GameInfo.IsAgree ||
 			!CCommonAppInfoStorage.Inst.IsNeedAgree(CCommonAppInfoStorage.Inst.CountryCode);
 			
 		// 약관 동의 상태 일 경우

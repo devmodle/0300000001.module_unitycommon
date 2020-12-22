@@ -40,14 +40,14 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CCommonUserInfoStorage.Inst.LoadUserInfo();
 		CCommonGameInfoStorage.Inst.LoadGameInfo();
 
-		// 사운드를 설정한다 {
-		CSndManager.Inst.BGSndVolume = KCDefine.B_VALUE_FLOAT_1;
-		CSndManager.Inst.FXSndsVolume = KCDefine.B_VALUE_FLOAT_1;
+		// 사운드 관리자를 설정한다 {
+		CSndManager.Inst.BGSndVolume = CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume;
+		CSndManager.Inst.FXSndsVolume = CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume;
 		
 		CSndManager.Inst.IsMuteBGSnd = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
 		CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
 		CSndManager.Inst.IsDisableVibrate = CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate;
-		// 사운드를 설정한다 }
+		// 사운드 관리자를 설정한다 }
 	}
 
 	//! 초기화

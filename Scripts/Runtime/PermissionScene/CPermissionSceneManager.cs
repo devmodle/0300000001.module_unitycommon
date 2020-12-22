@@ -66,8 +66,8 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Inst.SetupAdsID();
 		CCommonAppInfoStorage.Inst.SetupStoreVersion();
 		
-		CCommonUserInfoStorage.Inst.UserInfo.IsAgree = true;
-		CCommonUserInfoStorage.Inst.SaveUserInfo();
+		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
+		CCommonGameInfoStorage.Inst.SaveGameInfo();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_INTRO_SCENE);
