@@ -42,7 +42,7 @@ public static partial class CEditorSceneManager {
 			if(nIndex <= KCDefine.B_INDEX_INVALID) {
 				// 버전이 유효 할 경우
 				if(stKeyValue.Value.ExIsValidBuildVersion()) {
-					var oAddRequest = Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FORMAT,
+					var oAddRequest = Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT,
 						stKeyValue.Key, stKeyValue.Value));
 
 					CEditorSceneManager.m_oAddRequestList.Add(oAddRequest);
@@ -72,7 +72,7 @@ public static partial class CEditorSceneManager {
 
 			foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_LIST) {
 				int nIndex = oScopedRegistryList.AsArray.ExFindValue((a_oJSONNode) => 
-					stKeyValue.Key.ExIsEquals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_NAME_KEY]));
+					stKeyValue.Key.ExIsEquals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_N_KEY]));
 
 				// 패키지 레지스트리 추가가 가능 할 경우
 				if(nIndex <= KCDefine.B_INDEX_INVALID) {

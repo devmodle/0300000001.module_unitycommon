@@ -42,7 +42,7 @@ public static partial class CBuildProcessHandler {
 	//! iOS 빌드가 완료 되었을 경우
 	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
-		string oPlistPath = string.Format(KCEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
+		string oPlistPath = string.Format(KCEditorDefine.B_IOS_INFO_PLIST_P_FMT, a_oPath);
 		string oProjPath = PBXProject.GetPBXProjectPath(a_oPath);
 
 		// Plist 옵션을 설정한다 {

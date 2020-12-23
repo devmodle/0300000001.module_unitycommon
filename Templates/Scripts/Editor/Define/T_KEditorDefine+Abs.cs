@@ -17,10 +17,10 @@ public static partial class KEditorDefine {
 	public const float B_DELAY_DEFINE_S_UPDATE = 1.0f;
 
 	// 유니티 패키지 {
-	public const string B_UNITY_PKGS_NAME_KEY = "name";
+	public const string B_UNITY_PKGS_N_KEY = "name";
 	public const string B_UNITY_PKGS_SCOPED_REGISTRIES_KEY = "scopedRegistries";
 
-	public const string B_UNITY_PKGS_ID_FORMAT = "{0}@{1}";
+	public const string B_UNITY_PKGS_ID_FMT = "{0}@{1}";
 	public const string B_UNITY_PKGS_GOOGLE_REGISTRY_NAME = "Game Package Registry by Google";
 	// 유니티 패키지 }
 	#endregion			// 기본

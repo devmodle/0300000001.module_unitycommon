@@ -70,8 +70,8 @@ public static partial class Func {
 	public static void SetupLocalizeStrings(string a_oLanguage, string a_oCountryCode) {
 		CAccess.Assert(a_oCountryCode.ExIsValid());
 
-		string oFilePath = CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_PATH_G_LOCALIZE_COMMON_STRING, 
-			KCDefine.U_TABLE_PATH_G_ENGLISH_COMMON_STRING, a_oLanguage, a_oCountryCode);
+		string oFilePath = CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STRING, 
+			KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STRING, a_oLanguage, a_oCountryCode);
 
 		CStringTable.Inst.LoadStringsFromRes(oFilePath);		
 	}

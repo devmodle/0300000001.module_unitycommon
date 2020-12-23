@@ -191,7 +191,7 @@ public static partial class CCommonEditorSceneManager {
 					new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
 				};
 
-				string oString = string.Format(KCEditorDefine.B_SORTING_OI_FORMAT, 
+				string oString = string.Format(KCEditorDefine.B_SORTING_OI_FMT, 
 					oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 				for(int j = 0; j < oRects.Length; ++j) {

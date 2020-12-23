@@ -32,8 +32,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		this.SetupBlindUI();
 
 		// 테이블을 로드한다
-		CValueTable.Inst.LoadValuesFromRes(KCDefine.U_TABLE_PATH_G_COMMON_VALUE);
-		CStringTable.Inst.LoadStringsFromRes(KCDefine.U_TABLE_PATH_G_COMMON_STRING);
+		CValueTable.Inst.LoadValuesFromRes(KCDefine.U_TABLE_P_G_COMMON_VALUE);
+		CStringTable.Inst.LoadStringsFromRes(KCDefine.U_TABLE_P_G_COMMON_STRING);
 
 		// 저장소를 로드한다
 		CCommonAppInfoStorage.Inst.LoadAppInfo();
@@ -61,7 +61,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		// iOS 를 설정한다 {
 #if UNITY_IOS
 		Device.SetNoBackupFlag(KCDefine.B_DIR_P_WRITABLE);
-		Device.SetNoBackupFlag(KCDefine.U_IMG_PATH_SCREENSHOT);
+		Device.SetNoBackupFlag(KCDefine.U_IMG_P_SCREENSHOT);
 
 		Device.hideHomeButton = false;
 #endif			// #if UNITY_IOS

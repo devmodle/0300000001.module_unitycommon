@@ -229,7 +229,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
 			CFlurryManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-			CFlurryManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CFlurryManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if FLURRY_MODULE_ENABLE
@@ -241,7 +241,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CTenjinManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CTenjinManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if TENJIN_MODULE_ENABLE
@@ -253,7 +253,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CFacebookManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CFacebookManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if FACEBOOK_MODULE_ENABLE
@@ -276,8 +276,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 			CFirebaseManager.Inst.SetCrashUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 
-			CFirebaseManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-			CFirebaseManager.Inst.StartTracking(KCDefine.U_TRACKING_NAME_APP_LAUNCH, null);
+			CFirebaseManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
+			CFirebaseManager.Inst.StartTracking(KCDefine.U_TRACKING_N_APP_LAUNCH, null);
 
 #if FIREBASE_REMOTE_CONFIG_ENABLE
 			CFirebaseManager.Inst.LoadConfig(CLateSetupSceneManager.OnLoadConfig);
@@ -307,7 +307,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
 			CSingularManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-			CSingularManager.Inst.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
+			CSingularManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if SINGULAR_MODULE_ENABLE

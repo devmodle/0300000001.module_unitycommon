@@ -18,7 +18,7 @@ public class CIntroSceneManager : CSceneManager {
 	//! 씬을 설정한다
 	protected virtual void Setup() {
 #if FIREBASE_MODULE_ENABLE
-		CFirebaseManager.Inst.StopTracking(KCDefine.U_TRACKING_NAME_APP_LAUNCH);
+		CFirebaseManager.Inst.StopTracking(KCDefine.U_TRACKING_N_APP_LAUNCH);
 #endif			// #if FIREBASE_MODULE_ENABLE
 	}
 
