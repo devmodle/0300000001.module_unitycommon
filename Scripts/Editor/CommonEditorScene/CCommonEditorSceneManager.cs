@@ -10,15 +10,19 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 
 //! 공용 에디터 씬 관리자
-[InitializeOnLoad]
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 변수
 	private static float m_fSkipTime = 0.0f;
 	private static float m_fHierarchySkipTime = 0.0f;
-
-	private static GUIStyle m_oGUIStyle = new GUIStyle() {
+	
+	private static GUIStyle m_oTextGUIStyle = new GUIStyle() {
 		alignment = TextAnchor.MiddleRight,
-		fontStyle = FontStyle.BoldAndItalic
+		fontStyle = FontStyle.Bold
+	};
+
+	private static GUIStyle m_oOutlineGUIStyle = new GUIStyle() {
+		alignment = TextAnchor.MiddleRight,
+		fontStyle = FontStyle.Bold
 	};
 
 	private static Dictionary<string, string> m_oSortingLayerList = new Dictionary<string, string>() {
@@ -52,10 +56,15 @@ public static partial class CCommonEditorSceneManager {
 			return;
 		}
 
-		// GUI 스타일을 설정한다
-		CCommonEditorSceneManager.m_oGUIStyle.normal = new GUIStyleState() {
+		// GUI 스타일을 설정한다 {
+		CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState() {
 			textColor = KCEditorDefine.B_HIERARCHY_TEXT_COLOR
 		};
+
+		CCommonEditorSceneManager.m_oOutlineGUIStyle.normal = new GUIStyleState() {
+			textColor = KCEditorDefine.B_HIERARCHY_OUTLINE_COLOR
+		};
+		// GUI 스타일을 설정한다 }
 
 		CCommonEditorSceneManager.SetupCallbacks();
 	}
@@ -172,13 +181,24 @@ public static partial class CCommonEditorSceneManager {
 
 			// 프로퍼티가 존재 할 경우
 			if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
-				a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_HIERARCHY_OFFSET_X) * -1.0f, 
+				a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_HIERARCHY_TEXT_OFFSET_X) * -1.0f, 
 					KCDefine.B_VALUE_FLOAT_0);
+
+				var oRects = new Rect[] {
+					new Rect(a_stRect.x + KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.y, a_stRect.width, a_stRect.height),
+					new Rect(a_stRect.x - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.y, a_stRect.width, a_stRect.height),
+					new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
+					new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
+				};
 
 				string oString = string.Format(KCEditorDefine.B_SORTING_ORDER_INFO_FORMAT, 
 					oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
-				GUI.Label(a_stRect, oString, m_oGUIStyle);
+				for(int j = 0; j < oRects.Length; ++j) {
+					GUI.Label(oRects[j], oString, CCommonEditorSceneManager.m_oOutlineGUIStyle);
+				}
+
+				GUI.Label(a_stRect, oString, CCommonEditorSceneManager.m_oTextGUIStyle);
 			}
 		}
 	}

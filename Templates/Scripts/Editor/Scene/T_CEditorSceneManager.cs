@@ -11,7 +11,6 @@ using UnityEditor.PackageManager.Requests;
 using UnityEditor.SceneManagement;
 
 //! 에디터 씬 관리자
-[InitializeOnLoad]
 public static partial class CEditorSceneManager {
 	#region 클래스 변수
 	private static bool m_bIsSetupDependencies = false;
