@@ -6,10 +6,10 @@ using UnityEngine;
 public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 프로퍼티
 	public bool IsAutoInitManager { get; protected set; } = false;
-	public override string SceneName => KCDefine.B_SCENE_NAME_LATE_SETUP;
+	public override string SceneName => KCDefine.B_SCENE_N_LATE_SETUP;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_LATE_SETUP_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -33,7 +33,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_NAME_AGREE, null);
+		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_AGREE, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		// 관리자 자동 초기화 모드 일 경우
@@ -104,8 +104,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-			var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_PATH_G_GAME_CONFIG);
-			var oBuildVersionConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG);
+			var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG);
+			var oBuildVersionConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VERSION_CONFIG);
 
 			string oDeviceConfig = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONString();
 			
@@ -115,8 +115,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
 			};
 
-			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_PATH_G_GAME_CONFIG, true);
-			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_PATH_G_BUILD_VERSION_CONFIG, true);
+			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG, true);
+			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VERSION_CONFIG, true);
 
 			CFirebaseManager.Inst.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
 #endif			// #if FIREBASE_MODULE_ENABLE
@@ -153,11 +153,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_PERMISSION_SCENE);
 
 		CSceneManager.IsLateSetup = true;
-		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_PERMISSION);
+		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_PERMISSION);
 	}
 	#endregion			// 함수
 

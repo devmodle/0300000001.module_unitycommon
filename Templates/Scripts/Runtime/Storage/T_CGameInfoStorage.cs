@@ -29,7 +29,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 함수
 	//! 게임 정보를 저장한다
 	public void SaveGameInfo() {
-		this.SaveGameInfo(KDefine.B_DATA_PATH_GAME_INFO);
+		this.SaveGameInfo(KDefine.B_DATA_P_GAME_INFO);
 	}
 
 	//! 게임 정보를 저장한다
@@ -39,7 +39,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 게임 정보를 로드한다
 	public void LoadGameInfo() {
-		this.LoadGameInfo(KDefine.B_DATA_PATH_GAME_INFO);
+		this.LoadGameInfo(KDefine.B_DATA_P_GAME_INFO);
 	}
 
 	//! 게임 정보를 로드한다

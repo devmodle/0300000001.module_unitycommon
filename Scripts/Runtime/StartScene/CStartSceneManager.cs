@@ -5,10 +5,10 @@ using UnityEngine;
 //! 시작 씬 관리자
 public abstract class CStartSceneManager : CSceneManager {
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_NAME_START;
+	public override string SceneName => KCDefine.B_SCENE_N_START;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_START_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_O_START_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -21,7 +21,7 @@ public abstract class CStartSceneManager : CSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		CResManager.Inst.LoadSpriteAtlas(KCDefine.U_ASSET_PATH_G_SPRITE_ATLAS_01);
+		CResManager.Inst.LoadSpriteAtlas(KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01);
 	}
 
 	//! 초기화
@@ -42,10 +42,10 @@ public abstract class CStartSceneManager : CSceneManager {
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_SETUP_SCENE);
 			
-		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_SETUP);
+		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_SETUP);
 	}
 	#endregion			// 함수
 }

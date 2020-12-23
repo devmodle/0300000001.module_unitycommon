@@ -34,12 +34,12 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 	//! 약관 동의 팝업을 출력한다
 	private void ShowAgreePopup(string a_oServices, string a_oPrivacy, EAgreePopupType a_ePopupType) {
 #if MODE_PORTRAIT_ENABLE
-		string oObjPath = KCDefine.AS_OBJ_PATH_PORTRAIT_AGREE_POPUP;
+		string oObjPath = KCDefine.AS_OBJ_P_PORTRAIT_AGREE_POPUP;
 #else
-		string oObjPath = KCDefine.AS_OBJ_PATH_LANDSCAPE_AGREE_POPUP;
+		string oObjPath = KCDefine.AS_OBJ_P_LANDSCAPE_AGREE_POPUP;
 #endif			// #if MODE_PORTRAIT_ENABLE
 
-		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_NAME_AGREE_POPUP,
+		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP,
 			CResManager.Inst.GetRes<GameObject>(oObjPath),
 			this.SubPopupUIRoot,
 			KCDefine.B_POS_MIDDLE_CENTER);

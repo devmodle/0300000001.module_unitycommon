@@ -21,8 +21,8 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.SS_OBJ_NAME_SPLASH_SM_LOGO_IMG,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_PATH_IMG), this.SubUIRoot, KCDefine.SS_POS_SPLASH_SM_LOGO_IMG);
+			m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.SS_OBJ_N_SPLASH_SM_LOGO_IMG,
+				CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG), this.SubUIRoot, KCDefine.SS_POS_SPLASH_SM_LOGO_IMG);
 
 			m_oSplashImg.sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_PATH_G_SPLASH);
 			m_oSplashImg.gameObject.SetActive(false);

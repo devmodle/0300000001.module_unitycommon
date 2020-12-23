@@ -26,24 +26,24 @@ public static partial class CCommonEditorSceneManager {
 	};
 
 	private static Dictionary<string, string> m_oSortingLayerList = new Dictionary<string, string>() {
-		[KCDefine.U_SORTING_LAYER_UNDERGROUND] = "U",
-		[KCDefine.U_SORTING_LAYER_BACKGROUND] = "B",
-		[KCDefine.U_SORTING_LAYER_DEF] = "D",
-		[KCDefine.U_SORTING_LAYER_FOREGROUND] = "F",
-		[KCDefine.U_SORTING_LAYER_OVERGROUND] = "O",
-		[KCDefine.U_SORTING_LAYER_TOP] = "T",
-		[KCDefine.U_SORTING_LAYER_TOPMOST] = "TM",
-		[KCDefine.U_SORTING_LAYER_ABS] = "A",
+		[KCDefine.U_SORTING_L_UNDERGROUND] = "U",
+		[KCDefine.U_SORTING_L_BACKGROUND] = "B",
+		[KCDefine.U_SORTING_L_DEF] = "D",
+		[KCDefine.U_SORTING_L_FOREGROUND] = "F",
+		[KCDefine.U_SORTING_L_OVERGROUND] = "O",
+		[KCDefine.U_SORTING_L_TOP] = "T",
+		[KCDefine.U_SORTING_L_TOPMOST] = "TM",
+		[KCDefine.U_SORTING_L_ABS] = "A",
 		
 #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
-		[KCDefine.U_SORTING_LAYER_UNDERGROUND_UI] = "UUI",
-		[KCDefine.U_SORTING_LAYER_BACKGROUND_UI] = "BUI",
-		[KCDefine.U_SORTING_LAYER_DEF_UI] = "DUI",
-		[KCDefine.U_SORTING_LAYER_FOREGROUND_UI] = "FUI",
-		[KCDefine.U_SORTING_LAYER_OVERGROUND_UI] = "OUI",
-		[KCDefine.U_SORTING_LAYER_TOP_UI] = "TUI",
-		[KCDefine.U_SORTING_LAYER_TOPMOST_UI] = "TMUI",
-		[KCDefine.U_SORTING_LAYER_ABS_UI] = "AUI"
+		[KCDefine.U_SORTING_L_UNDERGROUND_UI] = "UUI",
+		[KCDefine.U_SORTING_L_BACKGROUND_UI] = "BUI",
+		[KCDefine.U_SORTING_L_DEF_UI] = "DUI",
+		[KCDefine.U_SORTING_L_FOREGROUND_UI] = "FUI",
+		[KCDefine.U_SORTING_L_OVERGROUND_UI] = "OUI",
+		[KCDefine.U_SORTING_L_TOP_UI] = "TUI",
+		[KCDefine.U_SORTING_L_TOPMOST_UI] = "TMUI",
+		[KCDefine.U_SORTING_L_ABS_UI] = "AUI"
 #endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
 	};
 	#endregion			// 클래스 변수
@@ -95,16 +95,16 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
 
 		// 갱신 주기가 지났을 경우
-		if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_EDITOR_SM_SCENE_UPDATE)) {
-			CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLOAT_0;
+		if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
+			CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLT_0;
 
 			CCommonEditorSceneManager.SetupScene();
 			CCommonEditorSceneManager.SetupLightOpts();
 			CCommonEditorSceneManager.SetupFileBrowserUI();
 			
 			// 갱신 주기가 지났을 경우
-			if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_HIERARCHY_UPDATE)) {
-				CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VALUE_FLOAT_0;
+			if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {
+				CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VALUE_FLT_0;
 
 				CFunc.EnumerateScenes((a_stScene) => {
 					var oObjs = a_stScene.GetRootGameObjects();
@@ -141,7 +141,7 @@ public static partial class CCommonEditorSceneManager {
 		// 기즈모를 그릴 수 있을 경우
 		if(CEditorAccess.IsEnableDrawGizmos()) {
 			CFunc.EnumerateScenes((a_stScene) => {
-				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
+				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_N_SCENE_MANAGER);
 				oSceneManager?.EditorSetupScene();
 
 				return true;
@@ -168,11 +168,11 @@ public static partial class CCommonEditorSceneManager {
 
 			var oType = oComponents[i].GetType();
 
-			var oSortingLayerProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_NAME_SORTING_LAYER,
-				KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
+			var oSortingLayerProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_LAYER,
+				KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
 
-			var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_NAME_SORTING_ORDER,
-				KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
+			var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_ORDER,
+				KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
 
 			string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
 
@@ -182,7 +182,7 @@ public static partial class CCommonEditorSceneManager {
 			// 프로퍼티가 존재 할 경우
 			if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
 				a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_HIERARCHY_TEXT_OFFSET_X) * -1.0f, 
-					KCDefine.B_VALUE_FLOAT_0);
+					KCDefine.B_VALUE_FLT_0);
 
 				var oRects = new Rect[] {
 					new Rect(a_stRect.x + KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.y, a_stRect.width, a_stRect.height),
@@ -191,7 +191,7 @@ public static partial class CCommonEditorSceneManager {
 					new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
 				};
 
-				string oString = string.Format(KCEditorDefine.B_SORTING_ORDER_INFO_FORMAT, 
+				string oString = string.Format(KCEditorDefine.B_SORTING_OI_FORMAT, 
 					oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 				for(int j = 0; j < oRects.Length; ++j) {
@@ -211,7 +211,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 
 		CFunc.EnumerateScenes((a_stScene) => {
-			var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
+			var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_N_SCENE_MANAGER);
 
 			// 씬 관리자가 존재 할 경우
 			if(oSceneManager != null) {

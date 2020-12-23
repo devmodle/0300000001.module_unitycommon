@@ -5,10 +5,10 @@ using UnityEngine;
 //! 스플래시 씬 관리자
 public abstract class CSplashSceneManager : CSceneManager {
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_NAME_SPLASH;
+	public override string SceneName => KCDefine.B_SCENE_N_SPLASH;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_SPLASH_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_O_SPLASH_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -26,7 +26,7 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_NAME_START, false, false);
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_START, false, false);
 	}
 
 	//! 초기화

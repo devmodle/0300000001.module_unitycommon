@@ -26,17 +26,17 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 함수
 	//! 유저 정보를 저장한다
 	public void SaveUserInfo() {
-		this.SaveUserInfo(KDefine.B_DATA_PATH_USER_INFO);
+		this.SaveUserInfo(KDefine.B_DATA_P_USER_INFO);
 	}
 
 	//! 유저 정보를 저장한다
 	public void SaveUserInfo(string a_oFilePath) {
-		this.SaveUserInfo(KDefine.B_DATA_PATH_USER_INFO);
+		this.SaveUserInfo(KDefine.B_DATA_P_USER_INFO);
 	}
 
 	//! 유저 정보를 로드한다
 	public void LoadUserInfo() {
-		this.LoadUserInfo(KDefine.B_DATA_PATH_USER_INFO);
+		this.LoadUserInfo(KDefine.B_DATA_P_USER_INFO);
 	}
 
 	//! 유저 정보를 로드한다

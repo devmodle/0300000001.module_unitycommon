@@ -17,9 +17,9 @@ public static partial class Access {
 			return CAccess.GetBannerAdsHeight(stBannerAdsSize.y);
 		}
 
-		return KCDefine.B_VALUE_FLOAT_0;
+		return KCDefine.B_VALUE_FLT_0;
 #else
-		return KCDefine.B_VALUE_FLOAT_0;
+		return KCDefine.B_VALUE_FLT_0;
 #endif			// #if ADS_MODULE_ENABLE
 	}
 	#endregion			// 클래스 함수

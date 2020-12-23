@@ -63,8 +63,8 @@ public static partial class CEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_TIME_SCRIPT_M_SCENE_UPDATE)) {
-				CEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLOAT_0;
+			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
+				CEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLT_0;
 				
 				CFunc.EnumerateScenes((a_stScene) => {
 					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
@@ -103,7 +103,7 @@ public static partial class CEditorSceneManager {
 		// 상태 갱신이 가능 할 경우
 		if(bIsEnableUpdate && CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.m_fDefineSymbolSkipTime += Time.deltaTime;
-			var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_PATH_DEFINE_SYMBOL_TABLE);
+			var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_P_DEFINE_S_TABLE);
 
 			bool bIsEnable = oAsset != null && 
 				CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE);
@@ -113,7 +113,7 @@ public static partial class CEditorSceneManager {
 				bool bIsNeedUpdate = false;
 
 				CEditorSceneManager.m_bIsSetupDependencies = false;
-				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VALUE_FLOAT_0;
+				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VALUE_FLT_0;
 
 				var oDefineSymbolListContainer = new List<string>[] {
 					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,

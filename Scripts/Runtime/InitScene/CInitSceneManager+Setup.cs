@@ -10,24 +10,24 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	private void SetupBlindUI() {
 		// 블라인드 UI 가 없을 경우
 		if(CInitSceneManager.m_oBlindUI == null) {
-			var oBlindUI = CFactory.CreateCloneObj(KCDefine.IS_OBJ_NAME_BLIND_UI,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_PATH_SCREEN_BLIND_UI), null);
+			var oBlindUI = CFactory.CreateCloneObj(KCDefine.IS_OBJ_N_BLIND_UI,
+				CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UI), null);
 
 			CInitSceneManager.m_oBlindUI = oBlindUI;
-			CSceneManager.ScreenBlindUIRoot = oBlindUI.ExFindChild(KCDefine.U_OBJ_NAME_SCREEN_BLIND_UI_ROOT);
+			CSceneManager.ScreenBlindUIRoot = oBlindUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UI_ROOT);
 
 			// 블라인드 이미지를 생성한다 {
 			var oImgs = new Image[] {
-				this.CreateBlindImg(KCDefine.U_OBJ_NAME_LEFT_BLIND_IMG, 
+				this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, 
 					CSceneManager.ScreenBlindUIRoot),
 
-				this.CreateBlindImg(KCDefine.U_OBJ_NAME_RIGHT_BLIND_IMG, 
+				this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, 
 					CSceneManager.ScreenBlindUIRoot),
 
-				this.CreateBlindImg(KCDefine.U_OBJ_NAME_TOP_BLIND_IMG, 
+				this.CreateBlindImg(KCDefine.U_OBJ_N_TOP_BLIND_IMG, 
 					CSceneManager.ScreenBlindUIRoot),
 
-				this.CreateBlindImg(KCDefine.U_OBJ_NAME_BOTTOM_BLIND_IMG, 
+				this.CreateBlindImg(KCDefine.U_OBJ_N_BOTTOM_BLIND_IMG, 
 					CSceneManager.ScreenBlindUIRoot)
 			};
 			
@@ -38,7 +38,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			// 블라인드 이미지를 생성한다 }
 
 			DontDestroyOnLoad(oBlindUI);
-			CFunc.SetupScreenUI(oBlindUI, KCDefine.U_SORTING_ORDER_SCREEN_BLIND_UI);
+			CFunc.SetupScreenUI(oBlindUI, KCDefine.U_SORTING_O_SCREEN_BLIND_UI);
 		}
 	}
 	#endregion			// 함수

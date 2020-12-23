@@ -39,7 +39,7 @@ public static partial class CCommonEditorSceneManager {
 
 		for(int i = 0; i < oLights.Length; ++i) {
 			// 메인 광원 일 경우
-			if(oLights[i].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_LIGHT)) {
+			if(oLights[i].name.ExIsEquals(KCDefine.U_OBJ_N_SCENE_MAIN_LIGHT)) {
 				oLights[i].type = LightType.Directional;
 				oLights[i].lightmapBakeType = KCDefine.U_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
 
@@ -58,9 +58,9 @@ public static partial class CCommonEditorSceneManager {
 			
 			for(int j = 0; j < oCameras.Length; ++j) {
 				// 에디터 카메라가 아닐 경우
-				if(!oCameras[j].name.ExIsEquals(KCEditorDefine.B_OBJ_NAME_SCENE_EDITOR_CAMERA)) {
-					bool bIsUICamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_UI_CAMERA);
-					bool bIsMainCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_NAME_SCENE_MAIN_CAMERA);
+				if(!oCameras[j].name.ExIsEquals(KCEditorDefine.B_OBJ_N_SCENE_EDITOR_CAMERA)) {
+					bool bIsUICamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_N_SCENE_UI_CAMERA);
+					bool bIsMainCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA);
 
 					// UI 카메라 태그 설정이 가능 할 경우
 					if(bIsUICamera && !oCameras[j].CompareTag(KCDefine.U_TAG_UI_CAMERA)) {
@@ -91,22 +91,22 @@ public static partial class CCommonEditorSceneManager {
 		}
 		
 		// 디버그 콘솔을 설정한다 {
-		string oDebugConsoleFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_DEBUG_CONSOLE);
-		string oDebugLogItemFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_DEBUG_LOG_ITEM);
+		string oDebugConsoleFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_DEBUG_CONSOLE);
+		string oDebugLogItemFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_DEBUG_LOG_ITEM);
 
 		var oDebugConsoleList = CEditorFunc.FindAssets<GameObject>(oDebugConsoleFilter, new string[] {
-			KCEditorDefine.B_DIR_PATH_FILTER_DEBUG_CONSOLE
+			KCEditorDefine.B_DIR_P_FILTER_DEBUG_CONSOLE
 		});
 
 		var oDebugLogItemList = CEditorFunc.FindAssets<GameObject>(oDebugLogItemFilter, new string[] {
-			KCEditorDefine.B_DIR_PATH_FILTER_DEBUG_LOG_ITEM
+			KCEditorDefine.B_DIR_P_FILTER_DEBUG_LOG_ITEM
 		});
 
 		// 디버그 콘솔이 존재 할 경우
 		if(oDebugConsoleList.ExIsValid()) {
 			for(int i = 0; i < oDebugConsoleList.Count; ++i) {
-				var oLogWindow = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_NAME_DEBUG_C_LOG_WINDOW);
-				var oEventSystem = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_NAME_SCENE_EVENT_SYSTEM);
+				var oLogWindow = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_N_DEBUG_C_LOG_WINDOW);
+				var oEventSystem = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_N_SCENE_EVENT_SYSTEM);
 				var oLogManager = oDebugConsoleList[i].GetComponentInChildren<DebugLogManager>();
 
 				var oScrollView = oDebugConsoleList[i].GetComponentInChildren<ScrollRect>();
@@ -127,7 +127,7 @@ public static partial class CCommonEditorSceneManager {
 				if(oLogManager != null && oDebugLogItemList.ExIsValid()) {
 					var oSerializeObj = new SerializedObject(oLogManager);
 
-					oSerializeObj.ExSetPropertyValue(KCEditorDefine.B_PROPERTY_NAME_DEBUG_C_LOG_ITEM_PREFAB, (a_oProperty) => 
+					oSerializeObj.ExSetPropertyValue(KCEditorDefine.B_PROPERTY_N_DEBUG_C_LOG_ITEM_PREFAB, (a_oProperty) => 
 						a_oProperty.objectReferenceValue = oDebugLogItemList[KCDefine.B_VALUE_INT_0]);
 				}
 			}
@@ -149,19 +149,19 @@ public static partial class CCommonEditorSceneManager {
 		// 디버그 콘솔을 설정한다 }
 
 		// FPS 카운터를 설정한다 {
-		string oFPSCounterFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_PATH_FPS_COUNTER);
+		string oFPSCounterFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_FPS_COUNTER);
 
 		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFPSCounterFilter, new string[] {
-			KCEditorDefine.B_DIR_PATH_FILTER_FPS_COUNTER
+			KCEditorDefine.B_DIR_P_FILTER_FPS_COUNTER
 		});
 
 		// FPS 카운터가 존재 할 경우
 		if(oFPSCounterList.ExIsValid()) {
 			for(int i = 0; i < oFPSCounterList.Count; ++i) {
-				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_NAME_FPS_C_STATIC_TEXT);
+				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_STATIC_TEXT);
 				oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_STATIC_TEXT;
 
-				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_NAME_FPS_C_DYNAMIC_TEXT);
+				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_DYNAMIC_TEXT);
 				oDynamicText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_DYNAMIC_TEXT;
 
 				// 크기를 설정한다 {
@@ -220,7 +220,7 @@ public static partial class CCommonEditorSceneManager {
 			var oScenePath = Path.GetDirectoryName(stScene.path);
 			var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
 
-			string oFilePath = string.Format(KCEditorDefine.B_ASSET_PATH_FORMAT_LIGHTING_SETTINGS, 
+			string oFilePath = string.Format(KCEditorDefine.B_ASSET_P_FMT_LIGHTING_SETTINGS, 
 				oScenePath, oSceneName);
 			
 			var oLightingSettingsAsset = CEditorFunc.FindAsset<LightingSettings>(oFilePath);
@@ -230,16 +230,16 @@ public static partial class CCommonEditorSceneManager {
 				Lightmapping.lightingSettings = oLightingSettingsAsset;
 			} else {
 				oLightingSettingsAsset = new LightingSettings();
-				var oSettings = Resources.Load<LightingSettings>(KCDefine.U_ASSET_PATH_LIGHTING_SETTINGS);
+				var oSettings = Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_LIGHTING_SETTINGS);
 
 				var oType = oSettings.GetType();
-				var oPropertyInfos = oType.GetProperties(KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE);
+				var oPropertyInfos = oType.GetProperties(KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
 
 				for(int i = 0; i < oPropertyInfos.Length; ++i) {
 					var oPropertyInfo = oPropertyInfos[i];
 
 					oLightingSettingsAsset.ExSetPropertyValue<LightingSettings>(oPropertyInfo.Name, 
-						KCDefine.B_BINDING_FLAG_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
+						KCDefine.B_BINDING_F_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
 				}
 
 				CEditorFactory.CreateAsset(oLightingSettingsAsset, oFilePath, false);
@@ -249,12 +249,12 @@ public static partial class CCommonEditorSceneManager {
 
 	//! 파일 브라우저 UI 를 설정한다
 	private static void SetupFileBrowserUI() {
-		var oFileBrowserUI = Resources.Load<GameObject>(KCEditorDefine.B_OBJ_PATH_FILE_BROWSER_UI);
+		var oFileBrowserUI = Resources.Load<GameObject>(KCEditorDefine.B_OBJ_P_FILE_BROWSER_UI);
 
 		// 파일 브라우저 UI 가 존재 할 경우
 		if(oFileBrowserUI != null) {
 			var oCanvas = oFileBrowserUI.GetComponentInChildren<Canvas>();
-			oCanvas.sortingOrder = KCDefine.U_SORTING_ORDER_FILE_BROWSER_UI;
+			oCanvas.sortingOrder = KCDefine.U_SORTING_O_FILE_BROWSER_UI;
 
 			var stResolution = new Vector2(KCDefine.B_SCREEN_WIDTH, KCDefine.B_SCREEN_HEIGHT);
 
@@ -264,7 +264,7 @@ public static partial class CCommonEditorSceneManager {
 			oCanvasScaler.referenceResolution = stResolution;
 			oCanvasScaler.referencePixelsPerUnit = KCDefine.B_REF_PIXELS_UNIT;
 
-			var oFileBrowserWindow = oFileBrowserUI.ExFindChild(KCEditorDefine.B_OBJ_NAME_FILE_BROWSER_WINDOW);
+			var oFileBrowserWindow = oFileBrowserUI.ExFindChild(KCEditorDefine.B_OBJ_N_FILE_BROWSER_WINDOW);
 			oFileBrowserWindow.transform.localScale = KCDefine.B_SCALE_NORM * KCEditorDefine.B_SCALE_FILE_BROWSER_WINDOW;
 		}
 	}

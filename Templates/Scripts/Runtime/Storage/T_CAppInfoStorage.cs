@@ -26,7 +26,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 함수
 	//! 앱 정보를 저장한다
 	public void SaveAppInfo() {
-		this.SaveAppInfo(KDefine.B_DATA_PATH_APP_INFO);
+		this.SaveAppInfo(KDefine.B_DATA_P_APP_INFO);
 	}
 
 	//! 앱 정보를 저장한다
@@ -36,7 +36,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	//! 앱 정보를 로드한다
 	public void LoadAppInfo() {
-		this.LoadAppInfo(KDefine.B_DATA_PATH_APP_INFO);
+		this.LoadAppInfo(KDefine.B_DATA_P_APP_INFO);
 	}
 
 	//! 앱 정보를 로드한다

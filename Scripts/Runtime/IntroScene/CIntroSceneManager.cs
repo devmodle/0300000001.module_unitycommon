@@ -5,7 +5,7 @@ using UnityEngine;
 //! 인트로 씬 관리자
 public class CIntroSceneManager : CSceneManager {
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_NAME_INTRO;
+	public override string SceneName => KCDefine.B_SCENE_N_INTRO;
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -24,7 +24,7 @@ public class CIntroSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_NAME_PERMISSION, null);
+		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_PERMISSION, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.Setup();

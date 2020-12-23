@@ -10,7 +10,7 @@ using UnityEditor.SceneManagement;
 //! 샘플 씬 관리자
 public class CSampleSceneManager : CSceneManager {
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_NAME_SAMPLE;
+	public override string SceneName => KCDefine.B_SCENE_N_SAMPLE;
 	#endregion			// 프로퍼티
 
 	#region 조건부 클래스 함수
@@ -22,7 +22,7 @@ public class CSampleSceneManager : CSceneManager {
 		foreach(var stKeyValue in a_oSceneManagerTypeList) {
 			// 씬 관리자 타입과 동일 할 경우
 			if(a_stScene.name.ExIsEquals(stKeyValue.Key)) {
-				var oSceneManager = a_stScene.ExFindChild(KCDefine.U_OBJ_NAME_SCENE_SCENE_MANAGER);
+				var oSceneManager = a_stScene.ExFindChild(KCDefine.U_OBJ_N_SCENE_MANAGER);
 
 				// 씬 관리자 추가가 필요 할 경우
 				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyValue.Value) == null) {

@@ -5,10 +5,10 @@ using UnityEngine;
 //! 약관 동의 씬 관리자
 public abstract class CAgreeSceneManager : CSceneManager {
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_NAME_AGREE;
+	public override string SceneName => KCDefine.B_SCENE_N_AGREE;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_AGREE_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_O_AGREE_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -32,15 +32,15 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_LATE_SETUP_SCENE);
 
-		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_LATE_SETUP);
+		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
 	}
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_NAME_SETUP, null);
+		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_SETUP, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.SetupRootScene();
@@ -58,13 +58,13 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		} else {
 			// 한국 일 경우
 			if(CCommonAppInfoStorage.Inst.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
-				var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_PATH_SERVICES);
-				var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_PATH_PRIVACY);
+				var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_P_SERVICES);
+				var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_P_PRIVACY);
 				
 				this.ShowNormAgreePopup(oServices.text, oPrivacy.text);
 
-				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_SERVICES, true);
-				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_PATH_PRIVACY, true);
+				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_P_SERVICES, true);
+				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_P_PRIVACY, true);
 			} else {
 				this.ShowEUAgreePopup(CProjInfoTable.Inst.ServicesURL, 
 					CProjInfoTable.Inst.PrivacyURL);

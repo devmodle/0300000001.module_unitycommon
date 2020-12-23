@@ -25,10 +25,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	#endregion			// 클래스 객체
 
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_NAME_SETUP;
+	public override string SceneName => KCDefine.B_SCENE_N_SETUP;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_SETUP_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -93,11 +93,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Inst.CountryCode = oCountryCode.ToUpper();
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_AGREE_SCENE);
 
 		CSceneManager.IsSetup = true;
-		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_AGREE);
+		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_AGREE);
 	}
 
 	//! 초기화

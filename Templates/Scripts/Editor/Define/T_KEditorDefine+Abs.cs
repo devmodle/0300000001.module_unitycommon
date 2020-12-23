@@ -28,103 +28,103 @@ public static partial class KEditorDefine {
 	#region 런타임 상수
 	// 스크립트 순서
 	public static Dictionary<System.Type, int> B_SCRIPT_ORDERS = new Dictionary<System.Type, int>() {
-		[typeof(CValueTable)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CStringTable)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CValueTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CStringTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CCommonGameInfoStorage)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CCommonGameInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CLogManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CSndManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CResManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CTaskManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CToastPopupManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CLogManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CSndManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CResManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CTaskManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CToastPopupManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CSampleSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
+		[typeof(CSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		
-		[typeof(CSubInitSceneManager)] = KCDefine.U_SCRIPT_ORDER_INIT_SCENE_MANAGER,
-		[typeof(CSubSetupSceneManager)] = KCDefine.U_SCRIPT_ORDER_SETUP_SCENE_MANAGER,
-		[typeof(CSubStartSceneManager)] = KCDefine.U_SCRIPT_ORDER_START_SCENE_MANAGER,
-		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_ORDER_LOADING_SCENE_MANAGER,
-		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_ORDER_SPLASH_SCENE_MANAGER,
-		[typeof(CSubAgreeSceneManager)] = KCDefine.U_SCRIPT_ORDER_AGREE_SCENE_MANAGER,
-		[typeof(CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_ORDER_LATE_SETUP_SCENE_MANAGER,
-		[typeof(CSubPermissionSceneManager)] = KCDefine.U_SCRIPT_ORDER_PERMISSION_SCENE_MANAGER,
-		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
+		[typeof(CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,
+		[typeof(CSubSetupSceneManager)] = KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER,
+		[typeof(CSubStartSceneManager)] = KCDefine.U_SCRIPT_O_START_SCENE_MANAGER,
+		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
+		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_O_SPLASH_SCENE_MANAGER,
+		[typeof(CSubAgreeSceneManager)] = KCDefine.U_SCRIPT_O_AGREE_SCENE_MANAGER,
+		[typeof(CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER,
+		[typeof(CSubPermissionSceneManager)] = KCDefine.U_SCRIPT_O_PERMISSION_SCENE_MANAGER,
+		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 
 #if STUDY_MODULE_ENABLE
-		[typeof(CSubMenuSceneManager)] = KCDefine.U_SCRIPT_ORDER_SCENE_MANAGER,
+		[typeof(CSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 #endif			// #if STUDY_MODULE_ENABLE
 
 #if ADS_MODULE_ENABLE
-		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
-		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_ORDER_BANNER_ADS_CORRECTOR,
+		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_O_BANNER_ADS_CORRECTOR,
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-		[typeof(CFlurryManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CFlurryManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
-		[typeof(CTenjinManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CTenjinManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-		[typeof(CFacebookManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CFacebookManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-		[typeof(CSingularManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CSingularManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-		[typeof(CGameCenterManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CGameCenterManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON,
+		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
-		[typeof(CNotiManager)] = KCDefine.U_SCRIPT_ORDER_SINGLETON
+		[typeof(CNotiManager)] = KCDefine.U_SCRIPT_O_SINGLETON
 #endif			// #if NOTI_MODULE_ENABLE
 	};
 
 	// 데이터 타입
 	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPE_LIST = new Dictionary<string, System.Type>() {
-		[KCDefine.B_SCENE_NAME_INIT] = typeof(CSubInitSceneManager),
-		[KCDefine.B_SCENE_NAME_SETUP] = typeof(CSubSetupSceneManager),
-		[KCDefine.B_SCENE_NAME_START] = typeof(CSubStartSceneManager),
-		[KCDefine.B_SCENE_NAME_LOADING] = typeof(CSubLoadingSceneManager),
-		[KCDefine.B_SCENE_NAME_SPLASH] = typeof(CSubSplashSceneManager),
-		[KCDefine.B_SCENE_NAME_AGREE] = typeof(CSubAgreeSceneManager),
-		[KCDefine.B_SCENE_NAME_LATE_SETUP] = typeof(CSubLateSetupSceneManager),
-		[KCDefine.B_SCENE_NAME_PERMISSION] = typeof(CSubPermissionSceneManager),
-		[KCDefine.B_SCENE_NAME_INTRO] = typeof(CSubIntroSceneManager),
+		[KCDefine.B_SCENE_N_INIT] = typeof(CSubInitSceneManager),
+		[KCDefine.B_SCENE_N_SETUP] = typeof(CSubSetupSceneManager),
+		[KCDefine.B_SCENE_N_START] = typeof(CSubStartSceneManager),
+		[KCDefine.B_SCENE_N_LOADING] = typeof(CSubLoadingSceneManager),
+		[KCDefine.B_SCENE_N_SPLASH] = typeof(CSubSplashSceneManager),
+		[KCDefine.B_SCENE_N_AGREE] = typeof(CSubAgreeSceneManager),
+		[KCDefine.B_SCENE_N_LATE_SETUP] = typeof(CSubLateSetupSceneManager),
+		[KCDefine.B_SCENE_N_PERMISSION] = typeof(CSubPermissionSceneManager),
+		[KCDefine.B_SCENE_N_INTRO] = typeof(CSubIntroSceneManager),
 
 #if STUDY_MODULE_ENABLE
-		[KCDefine.B_SCENE_NAME_MENU] = typeof(CSubMenuSceneManager)
+		[KCDefine.B_SCENE_N_MENU] = typeof(CSubMenuSceneManager)
 #endif			// #if STUDY_MODULE_ENABLE
 	};
 
 	// 유니티 패키지 {
-	public static readonly string B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}../UnityPackages/Templates/Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_PATH_ASSETS);
-	public static readonly string B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_PATH_PACKAGES);
+	public static readonly string B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}../UnityPackages/Templates/Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_P_ASSETS);
+	public static readonly string B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_P_PACKAGES);
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
 		["com.google.external-dependency-manager"] = "1.2.163",

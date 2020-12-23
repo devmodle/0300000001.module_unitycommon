@@ -11,7 +11,7 @@ public class CSubIntroSceneManager : CIntroSceneManager {
 		base.Setup();
 
 #if STUDY_MODULE_ENABLE
-		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_NAME_MENU);
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #endif			// #if STUDY_MODULE_ENABLE
 	}
 	#endregion			// 함수

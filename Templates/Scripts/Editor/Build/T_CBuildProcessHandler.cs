@@ -66,10 +66,10 @@ public static partial class CBuildProcessHandler {
 		string oFrameworkGUID = oProj.GetUnityFrameworkTargetGuid();
 
 		oProj.SetBuildProperty(oMainGUID, 
-			KCEditorDefine.B_IOS_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
+			KCEditorDefine.B_IOS_PROPERTY_N_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
 
 		oProj.SetBuildProperty(oFrameworkGUID, 
-			KCEditorDefine.B_IOS_PROPERTY_NAME_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
+			KCEditorDefine.B_IOS_PROPERTY_N_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
 			oProj.AddFrameworkToProject(oMainGUID, 
@@ -91,10 +91,10 @@ public static partial class CBuildProcessHandler {
 
 			for(int i = 0; i < oDefineSymbolList.Count; ++i) {
 				oProj.AddBuildProperty(oMainGUID, 
-					KCEditorDefine.B_IOS_PROPERTY_NAME_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+					KCEditorDefine.B_IOS_PROPERTY_N_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
 
 				oProj.AddBuildProperty(oFrameworkGUID, 
-					KCEditorDefine.B_IOS_PROPERTY_NAME_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+					KCEditorDefine.B_IOS_PROPERTY_N_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
 			}
 		}
 
@@ -141,8 +141,8 @@ public static partial class CBuildProcessHandler {
 #if UNITY_ANDROID
 		string oPlatform = CEditorAccess.GetAndroidName(CPlatformBuilder.AndroidType);
 		
-		string oDirName = string.Format(KCEditorDefine.B_ANDROID_LIBRARY_DIR_NAME_FORMAT, oPlatform);
-		string oDestPath = string.Format(KCEditorDefine.B_ANDROID_DEST_LIBRARY_PATH_FORMAT, oPlatform, oDirName);
+		string oDirName = string.Format(KCEditorDefine.B_ANDROID_LIBRARY_DIR_N_FMT, oPlatform);
+		string oDestPath = string.Format(KCEditorDefine.B_ANDROID_DEST_LIBRARY_P_FMT, oPlatform, oDirName);
 
 		CFunc.CopyDir(KCEditorDefine.B_ANDROID_SRC_LIBRARY_PATH, oDestPath);
 #endif			// #if UNITY_ANDROID

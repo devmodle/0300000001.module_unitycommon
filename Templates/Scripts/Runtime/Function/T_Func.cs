@@ -28,8 +28,8 @@ public static partial class Func {
 	public static void ShowAlertPopup(Dictionary<string, string> a_oDataList, 
 		System.Action<CAlertPopup, bool> a_oCallback)
 	{
-		var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_NAME_ALERT_POPUP,
-			CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_PATH_G_ALERT_POPUP), CSceneManager.ScreenPopupUIRoot, a_oDataList, a_oCallback);
+		var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP,
+			CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_ALERT_POPUP), CSceneManager.ScreenPopupUIRoot, a_oDataList, a_oCallback);
 
 		oAlertPopup.Show(null, null);
 	}

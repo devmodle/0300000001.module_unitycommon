@@ -14,9 +14,9 @@ public static partial class KDefine {
 
 	#region 런타임 상수
 	// 경로
-	public static readonly string B_DATA_PATH_APP_INFO = string.Format("{0}AppInfo.bytes", KCDefine.B_DIR_PATH_WRITABLE);
-	public static readonly string B_DATA_PATH_USER_INFO = string.Format("{0}UserInfo.bytes", KCDefine.B_DIR_PATH_WRITABLE);
-	public static readonly string B_DATA_PATH_GAME_INFO = string.Format("{0}GameInfo.bytes", KCDefine.B_DIR_PATH_WRITABLE);
+	public static readonly string B_DATA_P_APP_INFO = string.Format("{0}AppInfo.bytes", KCDefine.B_DIR_P_WRITABLE);
+	public static readonly string B_DATA_P_USER_INFO = string.Format("{0}UserInfo.bytes", KCDefine.B_DIR_P_WRITABLE);
+	public static readonly string B_DATA_P_GAME_INFO = string.Format("{0}GameInfo.bytes", KCDefine.B_DIR_P_WRITABLE);
 	#endregion			// 런타임 상수
 }
 #endif			// #if NEVER_USE_THIS

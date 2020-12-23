@@ -13,10 +13,10 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	#endregion			// 클래스 객체
 
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_NAME_INIT;
+	public override string SceneName => KCDefine.B_SCENE_N_INIT;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_INIT_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 	#endregion			// 프로퍼티
 
@@ -60,7 +60,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 		// iOS 를 설정한다 {
 #if UNITY_IOS
-		Device.SetNoBackupFlag(KCDefine.B_DIR_PATH_WRITABLE);
+		Device.SetNoBackupFlag(KCDefine.B_DIR_P_WRITABLE);
 		Device.SetNoBackupFlag(KCDefine.U_IMG_PATH_SCREENSHOT);
 
 		Device.hideHomeButton = false;
@@ -122,18 +122,18 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CValueTable.Create();
 		CStringTable.Create();
 
-		CBuildInfoTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_INFO_TABLE);
-		CBuildOptsTable.Create(KCDefine.U_ASSET_PATH_G_BUILD_OPTS_TABLE);
-		CDefineSymbolTable.Create(KCDefine.U_ASSET_PATH_G_DEFINE_SYMBOL_TABLE);
-		CProjInfoTable.Create(KCDefine.U_ASSET_PATH_G_PROJ_INFO_TABLE);
-		CDeviceInfoTable.Create(KCDefine.U_ASSET_PATH_G_DEVICE_INFO_TABLE);
+		CBuildInfoTable.Create(KCDefine.U_ASSET_P_G_BUILD_INFO_TABLE);
+		CBuildOptsTable.Create(KCDefine.U_ASSET_P_G_BUILD_OPTS_TABLE);
+		CDefineSymbolTable.Create(KCDefine.U_ASSET_P_G_DEFINE_S_TABLE);
+		CProjInfoTable.Create(KCDefine.U_ASSET_P_G_PROJ_INFO_TABLE);
+		CDeviceInfoTable.Create(KCDefine.U_ASSET_P_G_DEVICE_INFO_TABLE);
 
 #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
-		CPluginInfoTable.Create(KCDefine.U_ASSET_PATH_G_PLUGIN_INFO_TABLE);
+		CPluginInfoTable.Create(KCDefine.U_ASSET_P_G_PLUGIN_INFO_TABLE);
 #endif			// #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-		CProductInfoTable.Create(KCDefine.U_ASSET_PATH_G_PRODUCT_INFO_TABLE);
+		CProductInfoTable.Create(KCDefine.U_ASSET_P_G_PRODUCT_INFO_TABLE);
 #endif			// #if PURCHASE_MODULE_ENABLE
 		// 테이블을 생성한다 }
 
@@ -146,7 +146,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 		
 		CSceneManager.IsInit = true;
-		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_NAME_SPLASH, false, false);
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_SPLASH, false, false);
 	}
 	#endregion			// 함수
 }

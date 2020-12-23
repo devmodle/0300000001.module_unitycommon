@@ -10,22 +10,22 @@ using UnityEngine.Android;
 public abstract class CPermissionSceneManager : CSceneManager {
 	#region 변수
 	private List<string> m_oSceneNameList = new List<string>() {
-		KCDefine.B_SCENE_NAME_INIT,
-		KCDefine.B_SCENE_NAME_SETUP,
-		KCDefine.B_SCENE_NAME_START,
-		KCDefine.B_SCENE_NAME_SPLASH,
-		KCDefine.B_SCENE_NAME_AGREE,
-		KCDefine.B_SCENE_NAME_LATE_SETUP,
-		KCDefine.B_SCENE_NAME_PERMISSION,
-		KCDefine.B_SCENE_NAME_INTRO
+		KCDefine.B_SCENE_N_INIT,
+		KCDefine.B_SCENE_N_SETUP,
+		KCDefine.B_SCENE_N_START,
+		KCDefine.B_SCENE_N_SPLASH,
+		KCDefine.B_SCENE_N_AGREE,
+		KCDefine.B_SCENE_N_LATE_SETUP,
+		KCDefine.B_SCENE_N_PERMISSION,
+		KCDefine.B_SCENE_N_INTRO
 	};
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_NAME_PERMISSION;
+	public override string SceneName => KCDefine.B_SCENE_N_PERMISSION;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.U_SCRIPT_ORDER_PERMISSION_SCENE_MANAGER;
+	public override int ScriptOrder => KCDefine.U_SCRIPT_O_PERMISSION_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 
 #if UNITY_ANDROID
@@ -50,7 +50,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_NAME_LATE_SETUP, null);
+		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_LATE_SETUP, null);
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 #if UNITY_ANDROID
@@ -69,7 +69,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_NAME_START_SCENE_EVENT, 
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_INTRO_SCENE);
 			
 		int nIndex = m_oSceneNameList.ExFindValue((a_oSceneName) => 
@@ -78,7 +78,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
 			// 인트로 씬 로드가 필요 할 경우
 			if(nIndex > KCDefine.B_INDEX_INVALID) {
-				CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_NAME_INTRO);
+				CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_INTRO);
 			} else {
 				CSceneLoader.Inst.LoadScene(CSceneManager.AwakeSceneName, false, false);
 			}
