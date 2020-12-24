@@ -37,8 +37,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	public override void Awake() {
 		base.Awake();
 
-		m_oDeviceMsgHandlerList.Add(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
-		m_oDeviceMsgHandlerList.Add(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
+		// 초기화 되었을 경우
+		if(CSceneManager.IsInit) {
+			m_oDeviceMsgHandlerList.Add(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
+			m_oDeviceMsgHandlerList.Add(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
+		}
 	}
 
 	//! 초기화

@@ -5,6 +5,10 @@ using UnityEngine;
 //! 시작 씬 관리자
 public abstract class CStartSceneManager : CSceneManager {
 	#region 프로퍼티
+	public List<string> SpriteAtlasList { get; protected set; } = new List<string>() {
+		KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01
+	};
+
 	public override string SceneName => KCDefine.B_SCENE_N_START;
 
 #if UNITY_EDITOR
@@ -19,12 +23,6 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	#region 함수
 	//! 초기화
-	public override void Awake() {
-		base.Awake();
-		CResManager.Inst.LoadSpriteAtlas(KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01);
-	}
-
-	//! 초기화
 	public sealed override void Start() {
 		base.Start();
 		StartCoroutine(this.OnStart());
@@ -32,7 +30,9 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 씬을 설정한다
 	protected virtual void Setup() {
-		// Do Nothing
+		for(int i = 0; i < this.SpriteAtlasList.Count; ++i) {
+			CResManager.Inst.LoadSpriteAtlas(this.SpriteAtlasList[i]);
+		}
 	}
 
 	//! 초기화
