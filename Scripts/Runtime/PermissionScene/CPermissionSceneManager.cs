@@ -72,8 +72,9 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_INTRO_SCENE);
 			
-		int nIndex = m_oSceneNameList.ExFindValue((a_oSceneName) => 
-			CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));
+		int nIndex = m_oSceneNameList.ExFindValue((a_oSceneName) => {
+			return CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName);
+		});
 
 		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
 			// 인트로 씬 로드가 필요 할 경우
