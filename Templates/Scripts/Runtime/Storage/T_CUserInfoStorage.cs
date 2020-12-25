@@ -25,22 +25,22 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	#region 함수
 	//! 유저 정보를 저장한다
-	public void SaveUserInfo() {
-		this.SaveUserInfo(KDefine.B_DATA_P_USER_INFO);
+	public void SaveUserInfos() {
+		this.SaveUserInfos(KDefine.B_DATA_P_USER_INFO);
 	}
 
 	//! 유저 정보를 저장한다
-	public void SaveUserInfo(string a_oFilePath) {
-		this.SaveUserInfo(KDefine.B_DATA_P_USER_INFO);
+	public void SaveUserInfos(string a_oFilePath) {
+		this.SaveUserInfos(KDefine.B_DATA_P_USER_INFO);
 	}
 
 	//! 유저 정보를 로드한다
-	public void LoadUserInfo() {
-		this.LoadUserInfo(KDefine.B_DATA_P_USER_INFO);
+	public void LoadUserInfos() {
+		this.LoadUserInfos(KDefine.B_DATA_P_USER_INFO);
 	}
 
 	//! 유저 정보를 로드한다
-	public void LoadUserInfo(string a_oFilePath) {
+	public void LoadUserInfos(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath);

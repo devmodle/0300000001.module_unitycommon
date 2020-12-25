@@ -36,9 +36,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CStringTable.Inst.LoadStringsFromRes(KCDefine.U_TABLE_P_G_COMMON_STRING);
 
 		// 저장소를 로드한다
-		CCommonAppInfoStorage.Inst.LoadAppInfo();
-		CCommonUserInfoStorage.Inst.LoadUserInfo();
-		CCommonGameInfoStorage.Inst.LoadGameInfo();
+		CCommonAppInfoStorage.Inst.LoadAppInfos();
+		CCommonUserInfoStorage.Inst.LoadUserInfos();
+		CCommonGameInfoStorage.Inst.LoadGameInfos();
 
 		// 사운드 관리자를 설정한다 {
 		CSndManager.Inst.BGSndVolume = CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume;

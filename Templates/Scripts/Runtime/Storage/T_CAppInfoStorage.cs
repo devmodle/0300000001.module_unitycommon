@@ -25,22 +25,22 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	#region 함수
 	//! 앱 정보를 저장한다
-	public void SaveAppInfo() {
-		this.SaveAppInfo(KDefine.B_DATA_P_APP_INFO);
+	public void SaveAppInfos() {
+		this.SaveAppInfos(KDefine.B_DATA_P_APP_INFO);
 	}
 
 	//! 앱 정보를 저장한다
-	public void SaveAppInfo(string a_oFilePath) {
+	public void SaveAppInfos(string a_oFilePath) {
 		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo);
 	}
 
 	//! 앱 정보를 로드한다
-	public void LoadAppInfo() {
-		this.LoadAppInfo(KDefine.B_DATA_P_APP_INFO);
+	public void LoadAppInfos() {
+		this.LoadAppInfos(KDefine.B_DATA_P_APP_INFO);
 	}
 
 	//! 앱 정보를 로드한다
-	public void LoadAppInfo(string a_oFilePath) {
+	public void LoadAppInfos(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath);

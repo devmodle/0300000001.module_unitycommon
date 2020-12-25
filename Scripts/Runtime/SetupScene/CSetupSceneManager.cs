@@ -79,7 +79,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 				a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
 		}
 		
-		CCommonAppInfoStorage.Inst.SaveAppInfo();
+		CCommonAppInfoStorage.Inst.SaveAppInfos();
 		CUnityMsgSender.Inst.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 	}
 
@@ -94,7 +94,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 		
 		CCommonAppInfoStorage.Inst.CountryCode = oCountryCode.ToUpper();
-		CCommonAppInfoStorage.Inst.SaveAppInfo();
+		CCommonAppInfoStorage.Inst.SaveAppInfos();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
 			EStartSceneEvent.LOAD_AGREE_SCENE);
