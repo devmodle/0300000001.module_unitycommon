@@ -139,12 +139,7 @@ public static partial class CBuildProcessHandler {
 	//! 안드로이드 빌드가 완료 되었을 경우
 	private static void OnPostProcessAndroidBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_ANDROID
-		string oPlatform = CEditorAccess.GetAndroidName(CPlatformBuilder.AndroidType);
-		
-		string oDirName = string.Format(KCEditorDefine.B_ANDROID_LIBRARY_DIR_N_FMT, oPlatform);
-		string oDestPath = string.Format(KCEditorDefine.B_ANDROID_DEST_LIBRARY_P_FMT, oPlatform, oDirName);
 
-		CFunc.CopyDir(KCEditorDefine.B_ANDROID_SRC_LIBRARY_PATH, oDestPath);
 #endif			// #if UNITY_ANDROID
 	}
 	#endregion			// 클래스 함수
