@@ -12,6 +12,7 @@ using UnityEditor.iOS.Xcode;
 #endif			// #if UNITY_IOS
 
 //! 빌드 프로세스 처리자
+[InitializeOnLoad]
 public static partial class CBuildProcessHandler {
 	#region 클래스 변수
 	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessBuildList = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
