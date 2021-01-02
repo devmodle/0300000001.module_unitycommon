@@ -178,10 +178,12 @@ public static partial class KEditorDefine {
 #endif			// #if UNITY_RECORDER_ENABLE
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
+		["com.unity.adaptiveperformance"] = "2.0.2",
 		["com.unity.adaptiveperformance.samsung.android"] = "2.0.2",
 #endif			// #if ADAPTIVE_PERFORMANCE_ENABLE
 
 #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
+		["com.unity.2d.animation"] = "5.0.3",
 		["com.unity.2d.psdimporter"] = "4.0.2",
 		["com.unity.animation.rigging"] = "1.0.3",
 #endif			// #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
