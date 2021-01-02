@@ -51,11 +51,6 @@ public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
 	//! 생성자
 	static CCommonEditorSceneManager() {
-		// 배치 모드 일 경우
-		if(Application.isBatchMode) {
-			return;
-		}
-
 		// GUI 스타일을 설정한다 {
 		CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState() {
 			textColor = KCEditorDefine.B_HIERARCHY_TEXT_COLOR
@@ -72,16 +67,14 @@ public static partial class CCommonEditorSceneManager {
 	//! 스크립트가 로드 되었을 경우
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
-		// 상태 갱신이 불가능 할 경우
-		if(Application.isBatchMode || !CEditorAccess.IsEnableUpdateState()) {
-			return;
+		// 상태 갱신이 가능 할 경우
+		if(CEditorAccess.IsEnableUpdateState()) {
+			CPlatformOptsSetter.SetupPlayerOpts();
+			CPlatformOptsSetter.SetupEditorOpts();
+			CPlatformOptsSetter.SetupProjOpts();
+			CPlatformOptsSetter.SetupPluginProjs();
+			CPlatformOptsSetter.SetupGraphicAPIs();
 		}
-
-		CPlatformOptsSetter.SetupPlayerOpts();
-		CPlatformOptsSetter.SetupEditorOpts();
-		CPlatformOptsSetter.SetupProjOpts();
-		CPlatformOptsSetter.SetupPluginProjs();
-		CPlatformOptsSetter.SetupGraphicAPIs();
 	}
 
 	//! 상태를 갱신한다
@@ -225,7 +218,7 @@ public static partial class CCommonEditorSceneManager {
 	//! 씬이 열렸을 경우
 	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		// 상태 갱신이 가능 할 경우
-		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+		if(CEditorAccess.IsEnableUpdateState()) {
 			CPlatformOptsSetter.SetupProjOpts();
 		}
 

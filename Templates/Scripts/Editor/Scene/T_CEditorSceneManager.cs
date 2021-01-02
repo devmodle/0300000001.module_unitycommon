@@ -26,17 +26,14 @@ public static partial class CEditorSceneManager {
 	#region 클래스 함수
 	//! 생성자
 	static CEditorSceneManager() {
-		// 배치 모드가 아닐 경우
-		if(!Application.isBatchMode) {
-			CEditorSceneManager.SetupCallbacks();
-		}
+		CEditorSceneManager.SetupCallbacks();
 	}
 
 	//! 스크립트가 로드 되었을 경우
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		// 상태 갱신이 가능 할 경우
-		if(!Application.isBatchMode && CEditorAccess.IsEnableUpdateState()) {
+		if(CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();
 		}
