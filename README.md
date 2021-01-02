@@ -1,25 +1,20 @@
 # 유니티 공용 모듈
 1. **필수 에셋 리스트**
+	- *TextMesh Pro*
 	- *DOTween Pro (v1.0.244 - Jul 28, 2020)*
 2. **에셋 스토어 리스트**
-	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
 	- *Asset Hunter Pro (v1.3.4 - May 4, 2020)*
 	- *Asset Usage Detector (v1.8.9 - Nov 18, 2020)*
 	- *Bezier Solution (v1.27.0 - Apr 09, 2020)*
-	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
-	- *Build Report Tool (v3.5.2 - Agu 10, 2020)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
 	- *Enhanced Scroller (v2.26.0 - Oct 06, 2020)*
-	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
-	- *Ingame Debug Console (v1.3.9 - Dec 17, 2020)*
+	- *Ingame Debug Console (v1.4.1 - Dec 30, 2020)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *Lean Touch (v2.1.7 - Dec 2, 2020)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
 	- *Native Share (v1.3.8 - Oct 7, 2020)*
-	- *NGUI (v2020.2.0 - Dec 3, 2020)*
-	- *Odin Inspector (v3.0.3 - Dec 19, 2020)*
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*
 	- *Runtime File Browser (v1.3.9 - Dec 3, 2020)*
 	- *Signin with Apple (v1.1.1 - Nov 9, 2020)*
@@ -29,7 +24,14 @@
 	- *Total JSON (v1.6.0 - Jun 3, 2020)*
 	- *UI Tween (v1.0.0 - Apr 8, 2016)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
-3. **외부 에셋 및 플러그인 리스트**
+3. **추가 에셋 스토어 리스트**
+	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
+	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
+	- *Build Report Tool (v3.5.2 - Agu 10, 2020)*
+	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
+	- *NGUI (v2020.2.0 - Dec 3, 2020)*
+	- *Odin Inspector (v3.0.3 - Dec 19, 2020)*
+4. **외부 에셋 및 플러그인 리스트**
 	- *Message Pack (v2.1.194)*
 	- *Thai Font Adjuster (v1.0.0)*
 	- *UI Effect (v3.2.0)*
@@ -37,7 +39,7 @@
 	- *Soft Mask For GUI (v0.9.1)*
 	- *Unmask For GUI (v1.2.0)*
 	- *Spine (v3.8.0)*
-4. **기타 추가 에셋 및 플러그인 리스트**
+5. **기타 추가 에셋 및 플러그인 리스트**
 	- *Firebase (Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.0.1)*
 	- *Admob (v5.4.0)*
 	- *Iron Source (v7.0.4)*
