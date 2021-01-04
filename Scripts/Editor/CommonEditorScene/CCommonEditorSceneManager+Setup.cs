@@ -217,7 +217,9 @@ public static partial class CCommonEditorSceneManager {
 #else
 			oLightingSettings.autoGenerate = false;
 #endif			// #if LIGHTMAP_AUTO_BAKE_ENABLE
-		} else {
+		} 
+		// 씬 경로가 유효 할 경우
+		else if(stScene.path.ExIsValid()) {
 			var oScenePath = Path.GetDirectoryName(stScene.path);
 			var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
 
