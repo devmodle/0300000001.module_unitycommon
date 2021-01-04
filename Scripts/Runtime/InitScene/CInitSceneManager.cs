@@ -124,7 +124,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 		CBuildInfoTable.Create(KCDefine.U_ASSET_P_G_BUILD_INFO_TABLE);
 		CBuildOptsTable.Create(KCDefine.U_ASSET_P_G_BUILD_OPTS_TABLE);
-		CDefineSymbolTable.Create(KCDefine.U_ASSET_P_G_DEFINE_S_TABLE);
+		CDefineSymbolTable.Create(KCDefine.U_ASSET_P_G_DEFINE_SYMBOL_TABLE);
 		CProjInfoTable.Create(KCDefine.U_ASSET_P_G_PROJ_INFO_TABLE);
 		CDeviceInfoTable.Create(KCDefine.U_ASSET_P_G_DEVICE_INFO_TABLE);
 
