@@ -11,6 +11,7 @@ using UnityEditor.iOS.Xcode;
 #endif			// #if UNITY_IOS
 
 //! 에디터 상수
+[InitializeOnLoad]
 public static partial class KEditorDefine {
 	#region 기본
 	// 시간
