@@ -123,8 +123,8 @@ public static partial class KEditorDefine {
 	};
 
 	// 유니티 패키지 {
-	public static readonly string B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}../UnityPackages/Templates/Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_P_ASSETS);
-	public static readonly string B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH = string.Format("{0}Options/Project/GoogleScopedRegistry.json", KCEditorDefine.B_ABS_DIR_P_PACKAGES);
+	public static readonly string B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_ASSETS}../UnityPackages/Templates/Options/Project/GoogleScopedRegistry.json";
+	public static readonly string B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_PACKAGES}Options/Project/GoogleScopedRegistry.json";
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
 		["com.google.external-dependency-manager"] = "1.2.163",
