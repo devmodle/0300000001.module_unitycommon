@@ -260,6 +260,7 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 프레임워크
 	public static readonly string[] B_IOS_EXTRA_FRAMEWORKS = new string[] {
+		"GameKit.framework",
 		"AuthenticationServices.framework",
 
 #if TENJIN_MODULE_ENABLE
@@ -281,10 +282,6 @@ public static partial class KEditorDefine {
 		"libsqlite3.0.tbd",
 		"libz.tbd",
 #endif			// #if SINGULAR_MODULE_ENABLE
-
-#if GAME_CENTER_MODULE_ENABLE
-		"GameKit.framework",
-#endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 		"StoreKit.framework"
