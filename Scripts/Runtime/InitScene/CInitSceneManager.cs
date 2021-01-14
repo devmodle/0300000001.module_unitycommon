@@ -114,6 +114,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 #endif			// #if NOTI_MODULE_ENABLE
 		// 관리자를 생성한다 }
 
+		// 로더를 생성한다
+		CSceneLoader.Create();
+
 		// 디바이스 연동 객체를 생성한다
 		CUnityMsgSender.Create();
 		CDeviceMsgReceiver.Create();
