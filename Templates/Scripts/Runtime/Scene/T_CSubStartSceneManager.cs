@@ -75,20 +75,19 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	//! 텍스트 상태를 갱신한다
 	private void UpdateTextState() {
-		// 국가 코드가 유효 할 경우
-		if(CCommonAppInfoStorage.Inst.CountryCode.ExIsValid()) {
-			string oDot = CStringTable.Inst.GetString(KCDefine.ST_KEY_START_SM_DOT_TEXT);
-			string oLoading = CStringTable.Inst.GetString(KCDefine.ST_KEY_START_SM_LOADING_TEXT);
+		string oDot = CStringTable.Inst.GetString(KCDefine.ST_KEY_START_SM_DOT_TEXT);
 
-			m_oStringBuilder.Clear();
-			m_oStringBuilder.Append(oLoading);
-			
-			for(int i = 0; i < m_nNumDots + KCDefine.B_VALUE_INT_1; ++i) {
-				m_oStringBuilder.Append(oDot);
-			}
+		string oLoading = CCommonAppInfoStorage.Inst.CountryCode.ExIsValid() ? CStringTable.Inst.GetString(KCDefine.ST_KEY_START_SM_LOADING_TEXT) 
+			: KCDefine.SS_TEXT_LOADING;
 
-			m_oLoadingText.text = m_oStringBuilder.ToString();
+		m_oStringBuilder.Clear();
+		m_oStringBuilder.Append(oLoading);
+		
+		for(int i = 0; i < m_nNumDots + KCDefine.B_VALUE_INT_1; ++i) {
+			m_oStringBuilder.Append(oDot);
 		}
+
+		m_oLoadingText.text = m_oStringBuilder.ToString();
 	}
 	#endregion			// 함수
 }
