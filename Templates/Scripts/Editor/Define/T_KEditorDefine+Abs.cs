@@ -209,12 +209,12 @@ public static partial class KEditorDefine {
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["com.google.firebase.auth"] = "7.0.1",
-		["com.google.firebase.analytics"] = "7.0.1",
-		["com.google.firebase.crashlytics"] = "7.0.1",
-		["com.google.firebase.database"] = "7.0.1",
-		["com.google.firebase.remote-config"] = "7.0.1",
-		["com.google.firebase.messaging"] = "7.0.1",
+		["com.google.firebase.auth"] = "7.0.2",
+		["com.google.firebase.analytics"] = "7.0.2",
+		["com.google.firebase.crashlytics"] = "7.0.2",
+		["com.google.firebase.database"] = "7.0.2",
+		["com.google.firebase.remote-config"] = "7.0.2",
+		["com.google.firebase.messaging"] = "7.0.2",
 
 		["unitymodule.common.firebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.2.2",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE

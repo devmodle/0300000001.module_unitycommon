@@ -39,7 +39,7 @@
 	- *Unmask For GUI (v1.2.0)*
 	- *Spine (v3.8.0)*
 5. **기타 추가 에셋 및 플러그인 리스트**
-	- *Firebase (Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.0.1)*
+	- *Firebase (Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.0.2)*
 	- *Admob (v5.4.0)*
 	- *Iron Source (v7.0.4)*
 	- *App Lovin (v3.1.18)*
