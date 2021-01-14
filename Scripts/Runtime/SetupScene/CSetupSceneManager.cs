@@ -116,8 +116,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #else
 		// 데스크 탑 일 경우
 		if(CAccess.IsDesktop()) {
-			Screen.SetResolution(KCDefine.B_DESKTOP_WINDOW_WIDTH, 
-				KCDefine.B_DESKTOP_WINDOW_HEIGHT, FullScreenMode.Windowed);
+			Screen.SetResolution(KCDefine.B_DESKTOP_WND_WIDTH, 
+				KCDefine.B_DESKTOP_WND_HEIGHT, CBuildOptsTable.Inst.StandaloneBuildOpts.m_eFullscreenMode);
 		} else {
 			string oKey = CAccess.IsConsole() ? KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE 
 				: KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;

@@ -105,18 +105,18 @@ public static partial class CCommonEditorSceneManager {
 		// 디버그 콘솔이 존재 할 경우
 		if(oDebugConsoleList.ExIsValid()) {
 			for(int i = 0; i < oDebugConsoleList.Count; ++i) {
-				var oLogWindow = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_N_DEBUG_C_LOG_WINDOW);
+				var oLogWnd = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_N_DEBUG_C_LOG_WND);
 				var oEventSystem = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_N_SCENE_EVENT_SYSTEM);
 				var oLogManager = oDebugConsoleList[i].GetComponentInChildren<DebugLogManager>();
 
 				var oScrollView = oDebugConsoleList[i].GetComponentInChildren<ScrollRect>();
 				oScrollView.movementType = ScrollRect.MovementType.Clamped;
 
-				var oWindowTrans = oLogWindow.transform as RectTransform;
-				oWindowTrans.pivot = KCDefine.B_ANCHOR_MIDDLE_CENTER;
-				oWindowTrans.anchorMin = KCDefine.B_ANCHOR_BOTTOM_LEFT;
-				oWindowTrans.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
-				oWindowTrans.anchoredPosition = Vector2.zero;
+				var oWndTrans = oLogWnd.transform as RectTransform;
+				oWndTrans.pivot = KCDefine.B_ANCHOR_MIDDLE_CENTER;
+				oWndTrans.anchorMin = KCDefine.B_ANCHOR_BOTTOM_LEFT;
+				oWndTrans.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
+				oWndTrans.anchoredPosition = Vector2.zero;
 
 				// 이벤트 시스템이 존재 할 경우
 				if(oEventSystem != null) {
@@ -267,8 +267,8 @@ public static partial class CCommonEditorSceneManager {
 			oCanvasScaler.referenceResolution = stResolution;
 			oCanvasScaler.referencePixelsPerUnit = KCDefine.B_REF_PIXELS_UNIT;
 
-			var oFileBrowserWindow = oFileBrowserUI.ExFindChild(KCEditorDefine.B_OBJ_N_FILE_BROWSER_WINDOW);
-			oFileBrowserWindow.transform.localScale = KCDefine.B_SCALE_NORM * KCEditorDefine.B_SCALE_FILE_BROWSER_WINDOW;
+			var oFileBrowserWnd = oFileBrowserUI.ExFindChild(KCEditorDefine.B_OBJ_N_FILE_BROWSER_WND);
+			oFileBrowserWnd.transform.localScale = KCDefine.B_SCALE_NORM * KCEditorDefine.B_SCALE_FILE_BROWSER_WND;
 		}
 	}
 	#endregion			// 클래스 함수
