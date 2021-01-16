@@ -106,7 +106,6 @@ GameObject:
   - component: {fileID: 8656266775954721304}
   - component: {fileID: 8656266775954721305}
   - component: {fileID: 8656266775954721302}
-  - component: {fileID: 8675190649292621706}
   - component: {fileID: -4272775295816125831}
   - component: {fileID: 8693165784409384768}
   - component: {fileID: 2615080384381106416}
@@ -189,11 +188,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -218,22 +218,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8675190649292621706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8656266775954721300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_bIsRecursive: 0
-  m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
-  m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
-  m_stDisableColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
 --- !u!114 &-4272775295816125831
 MonoBehaviour:
   m_ObjectHideFlags: 0

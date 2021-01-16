@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6732462627278761070}
   - component: {fileID: 6326035588221316246}
   - component: {fileID: 7004910233284106410}
-  - component: {fileID: 5463069344770465087}
   - component: {fileID: 8559943905523781965}
   - component: {fileID: 8014779231793552598}
   - component: {fileID: 5247955111576082066}
@@ -95,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -124,22 +124,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5463069344770465087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 876095180957787691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_bIsRecursive: 0
-  m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
-  m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
-  m_stDisableColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
 --- !u!114 &8559943905523781965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -661,8 +645,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316bc29c48db2437d8362a5a405b33d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oTexts: {fileID: 2845395944852706275}
-  m_oBtns: {fileID: 8063847896424549972}
 --- !u!1 &7178956650463880034
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,7 +751,6 @@ GameObject:
   - component: {fileID: 6800882234588134976}
   - component: {fileID: 2167967222687452049}
   - component: {fileID: 3672811545808706373}
-  - component: {fileID: 8508903730602633862}
   - component: {fileID: 1502649315077456379}
   - component: {fileID: 6870148625544973621}
   - component: {fileID: 5753002291992730143}
@@ -852,6 +833,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -881,22 +863,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8508903730602633862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7314365102206777576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce0883286aa24c1fa1f07bcc3cea93e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_bIsRecursive: 0
-  m_stNormalColor: {r: 1, g: 1, b: 1, a: 1}
-  m_stSelectColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
-  m_stDisableColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
 --- !u!114 &1502649315077456379
 MonoBehaviour:
   m_ObjectHideFlags: 0
