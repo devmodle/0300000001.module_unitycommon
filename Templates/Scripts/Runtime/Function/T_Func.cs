@@ -76,7 +76,7 @@ public static partial class Func {
 		CStringTable.Inst.LoadStringsFromRes(oFilePath);		
 	}
 	#endregion			// 클래스 함수
-
+	
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
