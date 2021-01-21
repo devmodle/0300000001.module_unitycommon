@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_stEditorOptions:
     m_bIsAsyncShaderCompile: 1
+    m_bIsBurstCompileEnable: 1
+    m_bIsCacheShaderPreprocessor: 0
     m_bIsUseLegacyProbeSampleCount: 1
     m_bIsEnableTextureStreamingInPlayMode: 1
     m_bIsEnableTextureStreamingInEditMode: 1
