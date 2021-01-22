@@ -32,15 +32,13 @@ public static partial class CEditorSceneManager {
 
 	//! 독립 패키지를 설정한다
 	private static void SetupDependencies() {
-		var oPkgInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
+		var oPkgsInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
 
 		foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_LIST) {
-			int nIndex = oPkgInfoList.ExFindValue((a_oPkgInfo) => {
-				return a_oPkgInfo.name.ExIsEquals(stKeyValue.Key);
-			});
+			int nIdx = oPkgsInfoList.ExFindValue((a_oPkgsInfo) => a_oPkgsInfo.name.ExIsEquals(stKeyValue.Key));
 
 			// 독립 패키지 추가가 가능 할 경우
-			if(nIndex <= KCDefine.B_INDEX_INVALID) {
+			if(nIdx <= KCDefine.B_IDX_INVALID) {
 				// 버전이 유효 할 경우
 				if(stKeyValue.Value.ExIsValidBuildVersion()) {
 					var oAddRequest = Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT,
@@ -70,12 +68,13 @@ public static partial class CEditorSceneManager {
 			oScopedRegistryList = oScopedRegistryList ?? new SimpleJSON.JSONArray();
 
 			foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_LIST) {
-				int nIndex = oScopedRegistryList.AsArray.ExFindValue((a_oJSONNode) => {
-					return stKeyValue.Key.ExIsEquals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_N_KEY]);
+				int nIdx = oScopedRegistryList.AsArray.ExFindValue((a_oJSONNode) => {
+					string oScopedRegistry = a_oJSONNode[KEditorDefine.B_UNITY_PKGS_N_KEY];
+					return stKeyValue.Key.ExIsEquals(oScopedRegistry);
 				});
 
 				// 패키지 레지스트리 추가가 가능 할 경우
-				if(nIndex <= KCDefine.B_INDEX_INVALID) {
+				if(nIdx <= KCDefine.B_IDX_INVALID) {
 					string oScopedRegistryString = CFunc.ReadString(stKeyValue.Value);
 					var oScopedRegistryNode = SimpleJSON.JSON.Parse(oScopedRegistryString);
 

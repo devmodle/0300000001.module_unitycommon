@@ -91,13 +91,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-			CFlurryManager.Inst.Init(CPluginInfoTable.Inst.FlurryAPIKey, 
-				CLateSetupSceneManager.OnInitFlurryManager);
+			CFlurryManager.Inst.Init(CPluginInfoTable.Inst.FlurryAPIKey, CLateSetupSceneManager.OnInitFlurryManager);
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
-			CTenjinManager.Inst.Init(CPluginInfoTable.Inst.TenjinAPIKey, 
-				CLateSetupSceneManager.OnInitTenjinManager);
+			CTenjinManager.Inst.Init(CPluginInfoTable.Inst.TenjinAPIKey, CLateSetupSceneManager.OnInitTenjinManager);
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
@@ -123,9 +121,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-			CSingularManager.Inst.Init(CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey,
-				CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret, 
-				CLateSetupSceneManager.OnInitSingularManager);
+			string oAPIKey = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey;
+			string oAPISecret = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret;
+
+			CSingularManager.Inst.Init(oAPIKey, oAPISecret, CLateSetupSceneManager.OnInitSingularManager);
 #endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
@@ -133,8 +132,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			CPurchaseManager.Inst.Init(CProductInfoTable.Inst.ProductInfoList, 
-				CLateSetupSceneManager.OnInitPurchaseManager);
+			CPurchaseManager.Inst.Init(CProductInfoTable.Inst.ProductInfoList, CLateSetupSceneManager.OnInitPurchaseManager);
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
@@ -154,8 +152,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
-			EStartSceneEvent.LOAD_PERMISSION_SCENE);
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_PERMISSION_SCENE);
 
 		CSceneManager.IsLateSetup = true;
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_PERMISSION);
@@ -165,9 +162,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 광고 관리자가 초기화 되었을 경우
-	private static void OnInitAdsManager(CAdsManager a_oSender, 
-		EAdsType a_eAdsType, bool a_bIsSuccess) 
-	{
+	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
 		CFunc.ShowLog("CLateSetupSceneManager.OnInitAdsManager: {0}, {1}", a_eAdsType, a_bIsSuccess);
 
 #if ADMOB_ENABLE
@@ -208,14 +203,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		bool bIsValid = bool.TryParse(a_oMsg, out bool bIsSuccess);
 		bIsValid = bIsValid && bIsSuccess;
 
-		bool bIsEnableLoadAds = bIsValid && 
-			CLateSetupSceneManager.IsAutoLoadAds && 
-			!CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
+		bool bIsEnableLoadAds = bIsValid && CLateSetupSceneManager.IsAutoLoadAds;
+		bIsEnableLoadAds = bIsEnableLoadAds && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 
 		// 재개 광고 로드가 가능 할 경우
-		if(bIsEnableLoadAds && 
-			CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID.ExIsValid()) 
-		{
+		if(bIsEnableLoadAds && CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID.ExIsValid()) {
 			CAdsManager.Inst.LoadResumeAds(EAdsType.ADMOB);
 		}
 	}

@@ -123,14 +123,14 @@ public static partial class KEditorDefine {
 	};
 
 	// 유니티 패키지 {
-	public static readonly string B_UNITY_PKG_SRC_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_ASSETS}../UnityPackages/Templates/Options/Project/GoogleScopedRegistry.json";
-	public static readonly string B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_PACKAGES}Options/Project/GoogleScopedRegistry.json";
+	public static readonly string B_UNITY_PKGS_SRC_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_ASSETS}../UnityPackages/Templates/Options/Project/GoogleScopedRegistry.json";
+	public static readonly string B_UNITY_PKGS_DEST_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_PACKAGES}Options/Project/GoogleScopedRegistry.json";
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
 		["com.google.external-dependency-manager"] = "1.2.163",
 		["com.google.play.review"] = "1.3.0",
 
-		["com.unity.burst"] = "1.4.3",
+		["com.unity.burst"] = "1.4.4",
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.quicksearch"] = "2.0.2",
@@ -190,7 +190,7 @@ public static partial class KEditorDefine {
 #endif			// #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
-    	["com.unity.postprocessing"] = "2.3.0",
+    	["com.unity.postprocessing"] = "3.0.1",
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
@@ -242,7 +242,7 @@ public static partial class KEditorDefine {
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {
-		[KEditorDefine.B_UNITY_PKGS_GOOGLE_REGISTRY_NAME] = KEditorDefine.B_UNITY_PKG_DEST_GOOGLE_SCOPED_REGISTRY_PATH
+		[KEditorDefine.B_UNITY_PKGS_GOOGLE_REGISTRY_NAME] = KEditorDefine.B_UNITY_PKGS_DEST_GOOGLE_SCOPED_REGISTRY_PATH
 	};
 	// 유니티 패키지 }
 	#endregion			// 런타임 상수

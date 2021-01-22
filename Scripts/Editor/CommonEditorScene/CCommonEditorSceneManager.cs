@@ -79,66 +79,64 @@ public static partial class CCommonEditorSceneManager {
 
 	//! 상태를 갱신한다
 	private static void Update() {
-		// 상태 갱신이 불가능 할 경우
-		if(!CEditorAccess.IsEnableUpdateState()) {
-			return;
-		}
+		// 상태 갱신이 가능 할 경우
+		if(CEditorAccess.IsEnableUpdateState()) {
+			CCommonEditorSceneManager.m_fSkipTime += Time.deltaTime;
+			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
 
-		CCommonEditorSceneManager.m_fSkipTime += Time.deltaTime;
-		CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
-
-		// 갱신 주기가 지났을 경우
-		if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
-			CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLT_0;
-
-			CCommonEditorSceneManager.SetupScene();
-			CCommonEditorSceneManager.SetupLightOpts();
-			CCommonEditorSceneManager.SetupFileBrowserUI();
-			
 			// 갱신 주기가 지났을 경우
-			if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {
-				CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VALUE_FLT_0;
+			if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
+				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLT_0;
 
+				CCommonEditorSceneManager.SetupScene();
+				CCommonEditorSceneManager.SetupLightOpts();
+				CCommonEditorSceneManager.SetupFileBrowserUI();
+				
+				// 갱신 주기가 지났을 경우
+				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {
+					CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VALUE_FLT_0;
+
+					CFunc.EnumerateScenes((a_stScene) => {
+						var oObjs = a_stScene.GetRootGameObjects();
+
+						for(int j = 0; j < oObjs.Length; ++j) {
+							var oEnumerator = oObjs[j].DescendantsAndSelf();
+							var oRemoveObjList = new List<GameObject>();
+
+							foreach(var oObj in oEnumerator) {
+								int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
+
+								// 객체 제거가 필요 할 경우
+								if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
+									oRemoveObjList.ExAddValue(oObj);
+								}
+
+								// 스크립트 제거가 필요 할 경우
+								if(nNumMissingScripts > KCDefine.B_VALUE_INT_0) {
+									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
+									EditorSceneManager.MarkSceneDirty(a_stScene);
+								}
+							}
+
+							for(int i = 0; i < oRemoveObjList.Count; ++i) {
+								CFactory.RemoveObj(oRemoveObjList[i]);
+							}
+						}
+
+						return true;
+					});
+				}
+			}
+
+			// 기즈모를 그릴 수 있을 경우
+			if(CEditorAccess.IsEnableDrawGizmos()) {
 				CFunc.EnumerateScenes((a_stScene) => {
-					var oObjs = a_stScene.GetRootGameObjects();
-
-					for(int j = 0; j < oObjs.Length; ++j) {
-						var oEnumerator = oObjs[j].DescendantsAndSelf();
-						var oRemoveObjList = new List<GameObject>();
-
-						foreach(var oObj in oEnumerator) {
-							int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
-
-							// 객체 제거가 필요 할 경우
-							if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
-								oRemoveObjList.ExAddValue(oObj);
-							}
-
-							// 스크립트 제거가 필요 할 경우
-							if(nNumMissingScripts > KCDefine.B_VALUE_INT_0) {
-								GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
-								EditorSceneManager.MarkSceneDirty(a_stScene);
-							}
-						}
-
-						for(int i = 0; i < oRemoveObjList.Count; ++i) {
-							CFactory.RemoveObj(oRemoveObjList[i]);
-						}
-					}
+					var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_N_SCENE_MANAGER);
+					oSceneManager?.EditorSetupScene();
 
 					return true;
 				});
 			}
-		}
-
-		// 기즈모를 그릴 수 있을 경우
-		if(CEditorAccess.IsEnableDrawGizmos()) {
-			CFunc.EnumerateScenes((a_stScene) => {
-				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_N_SCENE_MANAGER);
-				oSceneManager?.EditorSetupScene();
-
-				return true;
-			});
 		}
 	}
 
@@ -146,73 +144,59 @@ public static partial class CCommonEditorSceneManager {
 	private static void UpdateHierarchyUIState(int a_nInstanceID, Rect a_stRect) {
 		var oObj = EditorUtility.InstanceIDToObject(a_nInstanceID) as GameObject;
 
-		// 객체가 없을 경우
-		if(oObj == null) {
-			return;
-		}
+		// 객체가 존재 할 경우
+		if(oObj != null) {
+			var oComponents = oObj.GetComponents<Component>();
 
-		var oComponents = oObj.GetComponents<Component>();
+			for(int i = 0; i < oComponents.Length; ++i) {
+				// 컴포넌트가 존재 할 경우
+				if(oComponents[i] != null) {
+					var oType = oComponents[i].GetType();
 
-		for(int i = 0; i < oComponents.Length; ++i) {
-			// 컴포넌트가 없을 경우
-			if(oComponents[i] == null) {
-				continue;
-			}
+					var oSortingLayerProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_LAYER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
+					var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_ORDER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
 
-			var oType = oComponents[i].GetType();
+					string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
+					oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerList.ExGetValue(oSortingLayer, string.Empty) : string.Empty;
 
-			var oSortingLayerProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_LAYER,
-				KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
+					// 프로퍼티가 존재 할 경우
+					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
+						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_HIERARCHY_TEXT_OFFSET_X) * -1.0f, KCDefine.B_VALUE_FLT_0);
+						string oString = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
-			var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_ORDER,
-				KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
+						var oRects = new Rect[] {
+							new Rect(a_stRect.x + KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
+						};
 
-			string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
+						for(int j = 0; j < oRects.Length; ++j) {
+							GUI.Label(oRects[j], oString, CCommonEditorSceneManager.m_oOutlineGUIStyle);
+						}
 
-			oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerList.ExGetValue(oSortingLayer, string.Empty) 
-				: string.Empty;
-
-			// 프로퍼티가 존재 할 경우
-			if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
-				a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_HIERARCHY_TEXT_OFFSET_X) * -1.0f, 
-					KCDefine.B_VALUE_FLT_0);
-
-				var oRects = new Rect[] {
-					new Rect(a_stRect.x + KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.y, a_stRect.width, a_stRect.height),
-					new Rect(a_stRect.x - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.y, a_stRect.width, a_stRect.height),
-					new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
-					new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
-				};
-
-				string oString = string.Format(KCEditorDefine.B_SORTING_OI_FMT, 
-					oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
-
-				for(int j = 0; j < oRects.Length; ++j) {
-					GUI.Label(oRects[j], oString, CCommonEditorSceneManager.m_oOutlineGUIStyle);
+						GUI.Label(a_stRect, oString, CCommonEditorSceneManager.m_oTextGUIStyle);
+					}
 				}
-
-				GUI.Label(a_stRect, oString, CCommonEditorSceneManager.m_oTextGUIStyle);
 			}
 		}
 	}
 
 	//! 플레이 모드가 변경 되었을 경우
 	private static void OnChangePlayMode(PlayModeStateChange a_eStateChange) {
-		// 에디터 진입 모드가 아닐 경우
-		if(a_eStateChange != PlayModeStateChange.EnteredEditMode) {
-			return;
+		// 에디터 진입 모드 일 경우
+		if(a_eStateChange == PlayModeStateChange.EnteredEditMode) {
+			CFunc.EnumerateScenes((a_stScene) => {
+				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_N_SCENE_MANAGER);
+
+				// 씬 관리자가 존재 할 경우
+				if(oSceneManager != null) {
+					CFunc.SelectObj(oSceneManager.gameObject);
+				}
+
+				return true;
+			});
 		}
-
-		CFunc.EnumerateScenes((a_stScene) => {
-			var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_N_SCENE_MANAGER);
-
-			// 씬 관리자가 존재 할 경우
-			if(oSceneManager != null) {
-				CFunc.SelectObj(oSceneManager.gameObject);
-			}
-
-			return true;
-		});
 	}
 
 	//! 씬이 열렸을 경우

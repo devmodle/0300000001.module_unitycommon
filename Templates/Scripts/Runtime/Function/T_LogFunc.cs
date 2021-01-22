@@ -59,7 +59,7 @@ public static partial class LogFunc {
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
-			CTenjinManager.Inst.SendPurchaseLog(a_oProduct);
+			CTenjinManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE

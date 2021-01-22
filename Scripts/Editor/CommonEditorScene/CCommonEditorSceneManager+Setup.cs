@@ -128,7 +128,8 @@ public static partial class CCommonEditorSceneManager {
 					var oSerializeObj = new SerializedObject(oLogManager);
 
 					oSerializeObj.ExSetPropertyValue(KCEditorDefine.B_PROPERTY_N_DEBUG_C_LOG_ITEM_PREFAB, (a_oProperty) => {
-						a_oProperty.objectReferenceValue = oDebugLogItemList[KCDefine.B_VALUE_INT_0];
+						var oDebugLogItem = oDebugLogItemList[KCDefine.B_VALUE_INT_0];
+						a_oProperty.objectReferenceValue = oDebugLogItem;
 					});
 				}
 			}
@@ -197,9 +198,7 @@ public static partial class CCommonEditorSceneManager {
 		LightingSettings oLightingSettings = null;
 		
 		// 광원 맵 설정이 존재 할 경우
-		if(Lightmapping.TryGetLightingSettings(out oLightingSettings) && 
-			oLightingSettings.name.ExIsContains(stScene.name)) 
-		{
+		if(Lightmapping.TryGetLightingSettings(out oLightingSettings) && oLightingSettings.name.ExIsContains(stScene.name)) {
 			oLightingSettings.realtimeGI = false;
 			oLightingSettings.realtimeEnvironmentLighting = false;
 			
@@ -223,9 +222,7 @@ public static partial class CCommonEditorSceneManager {
 			var oScenePath = Path.GetDirectoryName(stScene.path);
 			var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
 
-			string oFilePath = string.Format(KCEditorDefine.B_ASSET_P_FMT_LIGHTING_SETTINGS, 
-				oScenePath, oSceneName);
-			
+			string oFilePath = string.Format(KCEditorDefine.B_ASSET_P_FMT_LIGHTING_SETTINGS, oScenePath, oSceneName);
 			var oLightingSettingsAsset = CEditorFunc.FindAsset<LightingSettings>(oFilePath);
 
 			// 광원 맵 설정 에셋이 존재 할 경우
@@ -240,9 +237,7 @@ public static partial class CCommonEditorSceneManager {
 
 				for(int i = 0; i < oPropertyInfos.Length; ++i) {
 					var oPropertyInfo = oPropertyInfos[i];
-
-					oLightingSettingsAsset.ExSetPropertyValue<LightingSettings>(oPropertyInfo.Name, 
-						KCDefine.B_BINDING_F_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
+					oLightingSettingsAsset.ExSetPropertyValue<LightingSettings>(oPropertyInfo.Name, KCDefine.B_BINDING_F_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
 				}
 
 				CEditorFactory.CreateAsset(oLightingSettingsAsset, oFilePath, false);

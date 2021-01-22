@@ -32,9 +32,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
 		CCommonGameInfoStorage.Inst.SaveGameInfos();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
-			EStartSceneEvent.LOAD_LATE_SETUP_SCENE);
-
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_LATE_SETUP_SCENE);
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
 	}
 
@@ -49,11 +47,10 @@ public abstract class CAgreeSceneManager : CSceneManager {
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();
 #else
-		bool bIsAgree = CCommonGameInfoStorage.Inst.GameInfo.IsAgree ||
-			!CCommonAppInfoStorage.Inst.IsNeedAgree(CCommonAppInfoStorage.Inst.CountryCode);
+		bool bIsAgree = CCommonGameInfoStorage.Inst.GameInfo.IsAgree;
 			
 		// 약관 동의 상태 일 경우
-		if(bIsAgree) {
+		if(bIsAgree || !CCommonAppInfoStorage.Inst.IsNeedAgree(CCommonAppInfoStorage.Inst.CountryCode)) {
 			this.LoadNextScene();
 		} else {
 			// 한국 일 경우
@@ -66,8 +63,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_P_SERVICES, true);
 				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_P_PRIVACY, true);
 			} else {
-				this.ShowEUAgreePopup(CProjInfoTable.Inst.ServicesURL, 
-					CProjInfoTable.Inst.PrivacyURL);
+				this.ShowEUAgreePopup(CProjInfoTable.Inst.ServicesURL, CProjInfoTable.Inst.PrivacyURL);
 			}			
 		}
 #endif			// #if ROBO_TEST_ENABLE

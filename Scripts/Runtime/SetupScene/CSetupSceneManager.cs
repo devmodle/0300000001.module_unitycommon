@@ -52,9 +52,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 디바이스 메세지를 수신했을 경우
 	private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
-		CFunc.ShowLog("CSetupSceneManager.OnReceiveDeviceMsg: {0}, {1}", 
-			KCDefine.B_LOG_COLOR_SETUP, a_oCmd, a_oMsg);		
-
+		CFunc.ShowLog("CSetupSceneManager.OnReceiveDeviceMsg: {0}, {1}", KCDefine.B_LOG_COLOR_SETUP, a_oCmd, a_oMsg);
 		m_oDeviceMsgHandlerList[a_oCmd](a_oMsg);
 	}
 
@@ -71,12 +69,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 디바이스 식별자 반환 메세지를 처리한다
 	private void HandleGetDeviceIDMsg(string a_oMsg) {
+		bool bIsValid = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid();
+
 		// 디바이스 식별자 설정이 필요 할 경우
-		if(!CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid() || 
-			CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) 
-		{
-			CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? 
-				a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
+		if(!bIsValid || CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
+			CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
 		}
 		
 		CCommonAppInfoStorage.Inst.SaveAppInfos();
@@ -89,15 +86,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 		// 국가 코드 설정이 필요 할 경우
 		if(!CAccess.IsMobile() || !a_oMsg.ExIsValid()) {
-			oCountryCode = !CAccess.IsMobile() ? 
-				KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
+			oCountryCode = !CAccess.IsMobile() ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
 		
 		CCommonAppInfoStorage.Inst.CountryCode = oCountryCode.ToUpper();
 		CCommonAppInfoStorage.Inst.SaveAppInfos();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
-			EStartSceneEvent.LOAD_AGREE_SCENE);
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_AGREE_SCENE);
 
 		CSceneManager.IsSetup = true;
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_AGREE);
@@ -116,12 +111,12 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #else
 		// 데스크 탑 일 경우
 		if(CAccess.IsDesktop()) {
-			Screen.SetResolution(KCDefine.B_DESKTOP_SCREEN_WIDTH, 
-				KCDefine.B_DESKTOP_SCREEN_HEIGHT, CBuildOptsTable.Inst.StandaloneBuildOpts.m_eFullscreenMode);
+			int nScreenWidth = KCDefine.B_DESKTOP_SCREEN_WIDTH;
+			int nScreenHeight = KCDefine.B_DESKTOP_SCREEN_HEIGHT;
+
+			Screen.SetResolution(nScreenWidth, nScreenHeight, CBuildOptsTable.Inst.StandaloneBuildOpts.m_eFullscreenMode);
 		} else {
-			string oKey = CAccess.IsConsole() ? KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE 
-				: KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;
-				
+			string oKey = CAccess.IsConsole() ? KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;	
 			nTargetFrameRate = CValueTable.Inst.GetInt(oKey);
 		}
 #endif			// #if UNITY_IOS || UNITY_ANDROID
@@ -151,8 +146,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		
 		this.Setup();
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
-
-		// 디바이스 식별자 반환 메세지를 전송한다
+		
 		CUnityMsgSender.Inst.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
 	}
 	#endregion			// 함수

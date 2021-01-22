@@ -69,16 +69,12 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
 		CCommonGameInfoStorage.Inst.SaveGameInfos();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, 
-			EStartSceneEvent.LOAD_INTRO_SCENE);
-			
-		int nIndex = m_oSceneNameList.ExFindValue((a_oSceneName) => {
-			return CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName);
-		});
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_INTRO_SCENE);
+		int nIdx = m_oSceneNameList.ExFindValue((a_oSceneName) => CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));
 
 		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
 			// 인트로 씬 로드가 필요 할 경우
-			if(nIndex > KCDefine.B_INDEX_INVALID) {
+			if(nIdx > KCDefine.B_IDX_INVALID) {
 				CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_INTRO);
 			} else {
 				CSceneLoader.Inst.LoadScene(CSceneManager.AwakeSceneName, false, false);

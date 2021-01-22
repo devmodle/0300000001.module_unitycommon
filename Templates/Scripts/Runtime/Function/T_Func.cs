@@ -25,9 +25,7 @@ public static partial class Func {
 
 	#region 클래스 함수
 	//! 경고 팝업을 출력한다
-	public static void ShowAlertPopup(Dictionary<string, string> a_oDataList, 
-		System.Action<CAlertPopup, bool> a_oCallback)
-	{
+	public static void ShowAlertPopup(Dictionary<string, string> a_oDataList, System.Action<CAlertPopup, bool> a_oCallback) {
 		var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP,
 			CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_ALERT_POPUP), CSceneManager.ScreenPopupUIRoot, a_oDataList, a_oCallback);
 
@@ -76,13 +74,11 @@ public static partial class Func {
 		CStringTable.Inst.LoadStringsFromRes(oFilePath);		
 	}
 	#endregion			// 클래스 함수
-	
+
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
-	public static void ShowRewardAds(EAdsType a_eAdsType, 
-		System.Action<CAdsManager, STPostItem, bool> a_oCallback) 
-	{
+	public static void ShowRewardAds(EAdsType a_eAdsType, System.Action<CAdsManager, STPostItem, bool> a_oCallback) {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsType)) {
 			Func.m_bIsWatchRewardAds = false;
@@ -98,16 +94,12 @@ public static partial class Func {
 	}
 
 	//! 전면 광고를 출력한다
-	public static void ShowFullscreenAds(EAdsType a_eAdsType, 
-		System.Action<CAdsManager, bool> a_oCallback) 
-	{
+	public static void ShowFullscreenAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
 		float fDelay = CValueTable.Inst.GetFloat(KCDefine.VT_KEY_DEF_DELAY_FULLSCREEN_ADS);
 		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevFullscreenAdsTime);
 
 		// 전면 광고 출력이 가능 할 경우
-		if(dblDeltaTime.ExIsGreateEquals(fDelay) && 
-			CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsType)) 
-		{
+		if(dblDeltaTime.ExIsGreateEquals(fDelay) && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsType)) {
 			Func.m_bIsWatchFullscreenAds = true;
 			Func.m_oFullscreenAdsCallback = a_oCallback;
 			
@@ -118,16 +110,12 @@ public static partial class Func {
 	}
 
 	//! 재개 광고를 출력한다
-	public static void ShowResumeAds(EAdsType a_eAdsType, 
-		System.Action<CAdsManager, bool> a_oCallback) 
-	{
+	public static void ShowResumeAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
 		float fDelay = CValueTable.Inst.GetFloat(KCDefine.VT_KEY_DEF_DELAY_RESUME_ADS);
 		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevResumeAdsTime);
 
 		// 재개 광고 출력이 가능 할 경우
-		if(dblDeltaTime.ExIsGreateEquals(fDelay) && 
-			CAdsManager.Inst.IsLoadResumeAds(a_eAdsType)) 
-		{
+		if(dblDeltaTime.ExIsGreateEquals(fDelay) && CAdsManager.Inst.IsLoadResumeAds(a_eAdsType)) {
 			Func.m_bIsWatchResumeAds = true;
 			Func.m_oResumeAdsCallback = a_oCallback;
 			
@@ -143,9 +131,7 @@ public static partial class Func {
 	}
 
 	//! 유저 보상을 수신했을 경우
-	private static void OnReceiveUserReward(CAdsManager a_oSender, 
-		STPostItem a_stRewardItem, bool a_bIsSuccess) 
-	{
+	private static void OnReceiveUserReward(CAdsManager a_oSender, STPostItem a_stRewardItem, bool a_bIsSuccess) {
 		Func.m_bIsWatchRewardAds = a_bIsSuccess;
 		Func.m_stRewardItem = a_stRewardItem;
 	}
@@ -165,9 +151,7 @@ public static partial class Func {
 
 #if FIREBASE_MODULE_ENABLE
 	//! 지급 아이템을 저장한다
-	public static void SavePostItem(List<STPostItem> a_oPostItemList, 
-		System.Action<CFirebaseManager, bool> a_oCallback) 
-	{
+	public static void SavePostItem(List<STPostItem> a_oPostItemList, System.Action<CFirebaseManager, bool> a_oCallback) {
 		CAccess.Assert(a_oPostItemList != null);
 
 		// 로그인 되었을 경우
@@ -195,9 +179,7 @@ public static partial class Func {
 
 #if PURCHASE_MODULE_ENABLE
 	//! 상품을 결제한다
-	public static void PurchaseProduct(string a_oID, 
-		System.Action<CPurchaseManager, string, bool> a_oCallback) 
-	{
+	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
 		CAccess.Assert(a_oID.ExIsValid());
 		Func.m_oPurchaseCallback = a_oCallback;
 
@@ -205,9 +187,7 @@ public static partial class Func {
 	}
 
 	//! 결제가 완료 되었을 경우
-	private static void OnCompletePurchase(CPurchaseManager a_oSender,
-		string a_oProductID, bool a_bIsSuccess)
-	{
+	private static void OnCompletePurchase(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
 			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, Func.m_oPurchaseCallback);

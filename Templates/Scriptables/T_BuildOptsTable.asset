@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9457836c66e524122b874a45fda55767, type: 3}
   m_Name: T_BuildOptsTable
   m_EditorClassIdentifier: 
-  m_stEditorOptions:
+  m_stEditorOpts:
     m_bIsAsyncShaderCompile: 1
     m_bIsBurstCompileEnable: 1
     m_bIsCacheShaderPreprocessor: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
     m_eCacheServerMode: 0
     m_eLineEndingMode: 2
     m_eTextureCompressionType: 1
-  m_stSoundOptions:
+  m_stSndOpts:
     m_bIsDisable: 0
     m_bIsVirtualizeEffect: 1
     m_nSampleRate: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     m_fDopplerFactor: 1
     m_eSpeakerMode: 1
     m_eDSPBufferSize: 1024
-  m_stCommonBuildOptions:
+  m_stCommonBuildOpts:
     m_bIsGPUSkinning: 1
     m_bIsMTRendering: 1
     m_bIsRunInBackground: 0
@@ -51,11 +51,11 @@ MonoBehaviour:
     m_oPreloadAssetList: []
     m_eAccelerometerFrequency: 60
     m_eLightmapEncodingQuality: 0
-  m_stStandaloneBuildOptions:
+  m_stStandaloneBuildOpts:
     m_bIsForceSingleInstance: 1
     m_bIsCaptureSingleScreen: 0
     m_eFullscreenMode: 3
-  m_stiOSBuildOptions:
+  m_stiOSBuildOpts:
     m_bIsEnableProMotion: 0
     m_bIsRequreARKitSupport: 0
     m_bIsRequirePersistentWIFI: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
     m_eTargetDevice: 2
     m_eStatusBarStyle: 0
     m_eBackgroundBehavior: 0
-  m_stAndroidBuildOptions:
+  m_stAndroidBuildOpts:
     m_bIsRenderOutside: 1
     m_bIsTVCompatibility: 0
     m_nAppBundleSize: 150
