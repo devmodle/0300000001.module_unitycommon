@@ -259,6 +259,12 @@ public static partial class KEditorDefine {
 
 	#region 조건부 런타임 상수
 #if UNITY_IOS
+	// 광고 네트워크 식별자
+	public static readonly string[] B_IOS_ADS_NETWORK_IDS = new string[] {
+		"v9wttpbfk9.skadnetwork",
+		"n38lu8286q.skadnetwork"
+	};
+
 	// 프레임워크
 	public static readonly string[] B_IOS_EXTRA_FRAMEWORKS = new string[] {
 		"GameKit.framework",

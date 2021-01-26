@@ -52,8 +52,15 @@ public static partial class CBuildProcessHandler {
 
 		// Plist 가 존재 할 경우
 		if(oDoc.ExIsValid()) {
-			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, 
-				KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
+			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
+			var oAdsNetworkItemList = oDoc.root.CreateArray(KCEditorDefine.B_IOS_ADS_NETWORK_ITEMS_KEY);
+
+			for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
+				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
+				string oID = KEditorDefine.B_IOS_ADS_NETWORK_IDS[i];
+
+				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_IOS_ADS_NETWORK_ID_KEY, oID);
+			}
 
 			oDoc.WriteToFile(oPlistPath);
 		}
@@ -66,18 +73,12 @@ public static partial class CBuildProcessHandler {
 		string oMainGUID = oProj.GetUnityMainTargetGuid();
 		string oFrameworkGUID = oProj.GetUnityFrameworkTargetGuid();
 
-		oProj.SetBuildProperty(oMainGUID, 
-			KCEditorDefine.B_IOS_PROPERTY_N_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
-
-		oProj.SetBuildProperty(oFrameworkGUID, 
-			KCEditorDefine.B_IOS_PROPERTY_N_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
+		oProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_IOS_PROPERTY_N_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
+		oProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_IOS_PROPERTY_N_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
-			oProj.AddFrameworkToProject(oMainGUID, 
-				KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
-
-			oProj.AddFrameworkToProject(oFrameworkGUID, 
-				KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
+			oProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
+			oProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
 		}
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
@@ -85,24 +86,17 @@ public static partial class CBuildProcessHandler {
 		}
 
 		// 전처리기 심볼 테이블이 존재 할 경우
-		if(CPlatformOptsSetter.DefineSymbolListContainer != null && 
-			CPlatformOptsSetter.DefineSymbolListContainer.ContainsKey(BuildTargetGroup.iOS)) 
-		{
+		if(CPlatformOptsSetter.DefineSymbolListContainer != null && CPlatformOptsSetter.DefineSymbolListContainer.ContainsKey(BuildTargetGroup.iOS)) {
 			var oDefineSymbolList = CPlatformOptsSetter.DefineSymbolListContainer[BuildTargetGroup.iOS];
 
 			for(int i = 0; i < oDefineSymbolList.Count; ++i) {
-				oProj.AddBuildProperty(oMainGUID, 
-					KCEditorDefine.B_IOS_PROPERTY_N_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
-
-				oProj.AddBuildProperty(oFrameworkGUID, 
-					KCEditorDefine.B_IOS_PROPERTY_N_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+				oProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_IOS_PROPERTY_N_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+				oProj.AddBuildProperty(oFrameworkGUID, KCEditorDefine.B_IOS_PROPERTY_N_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
 			}
 		}
 
 		oProj.WriteToFile(oProjPath);
-		
-		var oCapability = new ProjectCapabilityManager(oProjPath,
-			KCEditorDefine.B_IOS_CAPABILITY_ENTITLEMENTS_PATH, null, oMainGUID);
+		var oCapability = new ProjectCapabilityManager(oProjPath, KCEditorDefine.B_IOS_CAPABILITY_ENTITLEMENTS_PATH, null, oMainGUID);
 		
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
 			var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i];
@@ -113,9 +107,7 @@ public static partial class CBuildProcessHandler {
 			}
 			// 푸시 알림 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
-				bool bIsDevBuild = CPlatformBuilder.BuildType != EBuildType.ADHOC && 
-					CPlatformBuilder.BuildType != EBuildType.STORE;
-
+				bool bIsDevBuild = CPlatformBuilder.BuildType != EBuildType.ADHOC && CPlatformBuilder.BuildType != EBuildType.STORE;
 				oCapability.AddPushNotifications(bIsDevBuild);
 
 #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
