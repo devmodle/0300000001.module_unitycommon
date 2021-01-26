@@ -87,6 +87,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if APP_LOVIN_ENABLE
 			};
 
+			CUnityMsgSender.Inst.SendSetAdsTrackingEnableMsg(true);
 			CAdsManager.Inst.Init(stAdsParams, CLateSetupSceneManager.OnInitAdsManager);
 #endif			// #if ADS_MODULE_ENABLE
 
