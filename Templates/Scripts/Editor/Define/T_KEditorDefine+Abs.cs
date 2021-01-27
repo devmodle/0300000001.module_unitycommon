@@ -261,10 +261,10 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 광고 네트워크 식별자
 	public static readonly string[] B_IOS_ADS_NETWORK_IDS = new string[] {
-#if ADS_MODULE_ENABLE && IRON_SRC_ENABLE
+#if ADS_MODULE_ENABLE && FACEBOOK_ADS_ENABLE
 		"v9wttpbfk9.skadnetwork",
 		"n38lu8286q.skadnetwork"
-#endif			// #if ADS_MODULE_ENABLE && IRON_SRC_ENABLE
+#endif			// #if ADS_MODULE_ENABLE && FACEBOOK_ADS_ENABLE
 	};
 
 	// 프레임워크

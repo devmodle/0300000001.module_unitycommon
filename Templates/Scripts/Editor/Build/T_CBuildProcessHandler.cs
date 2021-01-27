@@ -53,8 +53,8 @@ public static partial class CBuildProcessHandler {
 		// Plist 가 존재 할 경우
 		if(oDoc.ExIsValid()) {
 			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
-			var oAdsNetworkItemList = oDoc.root.CreateArray(KCEditorDefine.B_IOS_ADS_NETWORK_ITEMS_KEY);
-
+			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_IOS_ADS_NETWORK_ITEMS_KEY);
+			
 			for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
 				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
 				string oID = KEditorDefine.B_IOS_ADS_NETWORK_IDS[i];
