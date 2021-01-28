@@ -11,7 +11,6 @@ public class CSubStartSceneManager : CStartSceneManager {
 	protected Image m_oGaugeImg = null;
 
 	private int m_nNumDots = 0;
-
 	private float m_fSkipTime = 0.0f;
 	private float m_fMaxPercent = 0.0f;
 
@@ -30,15 +29,15 @@ public class CSubStartSceneManager : CStartSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
 			// 텍스트를 설정한다 {
-			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_N_LOADING_TEXT,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT), this.SubUIRoot, KCDefine.SS_POS_LOADING_TEXT);
+			var oTextObj = CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT);
 
+			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_N_LOADING_TEXT, oTextObj, this.SubUIRoot, KCDefine.B_SCALE_NORM, Vector3.zero, KCDefine.SS_POS_LOADING_TEXT);
 			m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;
 			// 텍스트를 설정한다 }
 
 			// 이미지를 설정한다 {
-			m_oLoadingImgObj = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_IMG_OBJ,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_IMG_OBJ), this.SubUIRoot, KCDefine.SS_POS_LOADING_IMG_OBJ);
+			var oImgObj = CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_IMG_OBJ);
+			m_oLoadingImgObj = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_IMG_OBJ, oImgObj, this.SubUIRoot, KCDefine.B_SCALE_NORM, Vector3.zero, KCDefine.SS_POS_LOADING_IMG_OBJ);
 
 			m_oGaugeImg = m_oLoadingImgObj.ExFindComponent<Image>(KCDefine.SS_OBJ_N_GAUGE_IMG);
 			m_oGaugeImg.fillAmount = KCDefine.B_VALUE_FLT_0;
@@ -53,8 +52,8 @@ public class CSubStartSceneManager : CStartSceneManager {
 		base.OnUpdate(a_fDeltaTime);
 		m_fSkipTime += Time.deltaTime;
 
-		m_oGaugeImg.fillAmount = Mathf.Clamp(m_oGaugeImg.fillAmount + (KCDefine.B_VALUE_FLT_1 * a_fDeltaTime) * 1.5f,
-			KCDefine.B_VALUE_FLT_0, m_fMaxPercent);
+		float fPercent = (KCDefine.B_VALUE_FLT_1 * a_fDeltaTime) * KCDefine.SS_SCALE_LOADING;
+		m_oGaugeImg.fillAmount = Mathf.Clamp(m_oGaugeImg.fillAmount + fPercent, KCDefine.B_VALUE_FLT_0, m_fMaxPercent);
 
 		// 상태 텍스트 갱신 주기가 지났을 경우
 		if(m_fSkipTime.ExIsGreateEquals(KCDefine.SS_DELTA_T_UPDATE_STATE)) {
@@ -76,9 +75,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	//! 텍스트 상태를 갱신한다
 	private void UpdateTextState() {
 		string oDot = CStringTable.Inst.GetString(KCDefine.ST_KEY_START_SM_DOT_TEXT);
-
-		string oLoading = CCommonAppInfoStorage.Inst.CountryCode.ExIsValid() ? CStringTable.Inst.GetString(KCDefine.ST_KEY_START_SM_LOADING_TEXT) 
-			: KCDefine.SS_TEXT_LOADING;
+		string oLoading = CCommonAppInfoStorage.Inst.CountryCode.ExIsValid() ? CStringTable.Inst.GetString(KCDefine.ST_KEY_START_SM_LOADING_TEXT) : KCDefine.SS_TEXT_LOADING;
 
 		m_oStringBuilder.Clear();
 		m_oStringBuilder.Append(oLoading);
