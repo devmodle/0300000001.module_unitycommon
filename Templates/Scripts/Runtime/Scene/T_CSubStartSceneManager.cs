@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 //! 서브 시작 씬 관리자
 public class CSubStartSceneManager : CStartSceneManager {
-	#region 변수
+		#region 변수
 	protected Text m_oLoadingText = null;
 	protected Image m_oGaugeImg = null;
 
@@ -18,7 +18,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	#endregion			// 변수
 
 	#region 객체
-	protected GameObject m_oLoadingImgObj = null;
+	protected GameObject m_oLoadingImg = null;
 	#endregion			// 객체
 	
 	#region 함수
@@ -31,15 +31,15 @@ public class CSubStartSceneManager : CStartSceneManager {
 			// 텍스트를 설정한다 {
 			var oTextObj = CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT);
 
-			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_N_LOADING_TEXT, oTextObj, this.SubUIRoot, KCDefine.B_SCALE_NORM, Vector3.zero, KCDefine.SS_POS_LOADING_TEXT);
+			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_N_LOADING_TEXT, oTextObj, this.SubUIRoot, KCDefine.SS_POS_LOADING_TEXT);
 			m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;
 			// 텍스트를 설정한다 }
 
 			// 이미지를 설정한다 {
 			var oImgObj = CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_IMG_OBJ);
-			m_oLoadingImgObj = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_IMG_OBJ, oImgObj, this.SubUIRoot, KCDefine.B_SCALE_NORM, Vector3.zero, KCDefine.SS_POS_LOADING_IMG_OBJ);
+			m_oLoadingImg = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_IMG_OBJ, oImgObj, this.SubUIRoot, KCDefine.SS_POS_LOADING_IMG_OBJ);
 
-			m_oGaugeImg = m_oLoadingImgObj.ExFindComponent<Image>(KCDefine.SS_OBJ_N_GAUGE_IMG);
+			m_oGaugeImg = m_oLoadingImg.ExFindComponent<Image>(KCDefine.SS_OBJ_N_GAUGE_IMG);
 			m_oGaugeImg.fillAmount = KCDefine.B_VALUE_FLT_0;
 			// 이미지를 설정한다 }
 

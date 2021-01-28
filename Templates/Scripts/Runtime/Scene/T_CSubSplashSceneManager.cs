@@ -23,7 +23,7 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 		if(CSceneManager.IsInit) {
 			var oObj = CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG);
 
-			m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.SS_OBJ_N_SPLASH_SM_LOGO_IMG, oObj, this.SubUIRoot, KCDefine.B_SCALE_NORM, Vector3.zero, KCDefine.SS_POS_SPLASH_SM_LOGO_IMG);
+			m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.SS_OBJ_N_SPLASH_SM_LOGO_IMG, oObj, this.SubUIRoot, KCDefine.SS_POS_SPLASH_SM_LOGO_IMG);
 			m_oSplashImg.sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_G_SPLASH);
 			m_oSplashImg.gameObject.SetActive(false);
 		}
