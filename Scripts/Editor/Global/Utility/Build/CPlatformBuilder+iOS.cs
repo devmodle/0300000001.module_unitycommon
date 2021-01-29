@@ -239,12 +239,14 @@ public static partial class CPlatformBuilder {
 
 		if(oProject != null) {
 			string oGUID = oProject.GetUnityMainTargetGuid();
+			string oFrameworkGUID = oProject.GetUnityFrameworkTargetGuid();
 
 			var oCapability = new ProjectCapabilityManager(oProjectFilepath,
 				KEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oGUID);
 
 			for(int i = 0; i < KAppDefine.G_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
 				oProject.AddFrameworkToProject(oGUID, KAppDefine.G_EXTRA_FRAMEWORKS_IOS[i], false);
+				oProject.AddFrameworkToProject(oFrameworkGUID, KAppDefine.G_EXTRA_FRAMEWORKS_IOS[i], false);
 			}
 
 			for(int i = 0; i < KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
