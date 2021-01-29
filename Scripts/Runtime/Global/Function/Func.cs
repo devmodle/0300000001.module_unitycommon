@@ -6,7 +6,10 @@ using System.Diagnostics;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+
+#if FIREBASE_ENABLE
 using Firebase.Extensions;
+#endif // FIREBASE_ENABLE
 
 //! 기본 함수
 public static partial class Func
@@ -642,6 +645,7 @@ public static partial class Func
 		Func.DoStableSort(a_oValueList, oTempValues, 0, a_oValueList.Count - 1, a_oCompare);
 	}
 
+#if FIREBASE_ENABLE
 	//! 비동기 작업을 대기한다
 	public static void WaitAsyncTask<T>(Task<T> a_oTask, System.Action<Task<T>> a_oCallback)
 	{
@@ -658,6 +662,7 @@ public static partial class Func
 			});
 		});
 	}
+#endif // FIREBASE_ENABLE
 
 	//! 값을 생성한다
 	public static T[] MakeValues<T>(int a_nNumValues, System.Func<int, T> a_oCallback)
