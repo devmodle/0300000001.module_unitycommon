@@ -17,6 +17,7 @@ MonoBehaviour:
   m_oPrivacyURL: https://www.ninetap.com/privacy_policy.html
   m_oProjName: Sample_Unity
   m_oProductName: Sample
+  m_oShortProductName: Sample
   m_stMacProjInfo:
     m_stBuildVersion:
       m_nNumber: 1
