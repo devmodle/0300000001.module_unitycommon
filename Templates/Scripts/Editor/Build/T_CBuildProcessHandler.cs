@@ -43,7 +43,7 @@ public static partial class CBuildProcessHandler {
 	//! iOS 빌드가 완료 되었을 경우
 	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
-		string oPlistPath = string.Format(KCEditorDefine.B_IOS_INFO_PLIST_P_FMT, a_oPath);
+		string oPlistPath = string.Format(KCEditorDefine.B_PLIST_P_FMT_IOS, a_oPath);
 		string oProjPath = PBXProject.GetPBXProjectPath(a_oPath);
 
 		// Plist 옵션을 설정한다 {
@@ -52,14 +52,14 @@ public static partial class CBuildProcessHandler {
 
 		// Plist 가 존재 할 경우
 		if(oDoc.ExIsValid()) {
-			oDoc.root.SetBoolean(KCEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
-			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_IOS_ADS_NETWORK_ITEMS_KEY);
+			oDoc.root.SetBoolean(KCEditorDefine.B_KEY_IOS_ENCRYPTION_ENABLE, KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
+			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
 			
 			for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
 				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
 				string oID = KEditorDefine.B_IOS_ADS_NETWORK_IDS[i];
 
-				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_IOS_ADS_NETWORK_ID_KEY, oID);
+				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, oID);
 			}
 
 			oDoc.WriteToFile(oPlistPath);
@@ -73,8 +73,8 @@ public static partial class CBuildProcessHandler {
 		string oMainGUID = oProj.GetUnityMainTargetGuid();
 		string oFrameworkGUID = oProj.GetUnityFrameworkTargetGuid();
 
-		oProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_IOS_PROPERTY_N_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
-		oProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_IOS_PROPERTY_N_ENABLE_BITCODE, KCEditorDefine.B_IOS_PROPERTY_VALUE_ENABLE_BITCODE);
+		oProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_YES);
+		oProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_YES);
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
 			oProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
@@ -90,13 +90,13 @@ public static partial class CBuildProcessHandler {
 			var oDefineSymbolList = CPlatformOptsSetter.DefineSymbolListContainer[BuildTargetGroup.iOS];
 
 			for(int i = 0; i < oDefineSymbolList.Count; ++i) {
-				oProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_IOS_PROPERTY_N_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
-				oProj.AddBuildProperty(oFrameworkGUID, KCEditorDefine.B_IOS_PROPERTY_N_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+				oProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+				oProj.AddBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
 			}
 		}
 
 		oProj.WriteToFile(oProjPath);
-		var oCapability = new ProjectCapabilityManager(oProjPath, KCEditorDefine.B_IOS_CAPABILITY_ENTITLEMENTS_PATH, null, oMainGUID);
+		var oCapability = new ProjectCapabilityManager(oProjPath, KCEditorDefine.B_ENTITLEMENTS_P_IOS_CAPABILITY, null, oMainGUID);
 		
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
 			var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i];

@@ -53,11 +53,11 @@ public static partial class CCommonEditorSceneManager {
 	static CCommonEditorSceneManager() {
 		// GUI 스타일을 설정한다 {
 		CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState() {
-			textColor = KCEditorDefine.B_HIERARCHY_TEXT_COLOR
+			textColor = KCEditorDefine.B_COLOR_HIERARCHY_TEXT
 		};
 
 		CCommonEditorSceneManager.m_oOutlineGUIStyle.normal = new GUIStyleState() {
-			textColor = KCEditorDefine.B_HIERARCHY_OUTLINE_COLOR
+			textColor = KCEditorDefine.B_COLOR_HIERARCHY_OUTLINE
 		};
 		// GUI 스타일을 설정한다 }
 
@@ -161,14 +161,14 @@ public static partial class CCommonEditorSceneManager {
 
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
-						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_HIERARCHY_TEXT_OFFSET_X) * -1.0f, KCDefine.B_VALUE_FLT_0);
+						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_X_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VALUE_FLT_0);
 						string oString = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 						var oRects = new Rect[] {
-							new Rect(a_stRect.x + KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.y, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.y, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_HIERARCHY_OUTLINE_OFFSET_X, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x + KCEditorDefine.B_OFFSET_X_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x - KCEditorDefine.B_OFFSET_X_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_OFFSET_Y_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_OFFSET_Y_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
 						};
 
 						for(int j = 0; j < oRects.Length; ++j) {
@@ -208,8 +208,8 @@ public static partial class CCommonEditorSceneManager {
 
 #if UNITY_ANDROID
 		// 플러그인이 없을 경우
-		if(!File.Exists(KCEditorDefine.B_ANDROID_DEST_PLUGIN_PATH)) {
-			CEditorFunc.ExecuteCmdLine(KCEditorDefine.B_ANDROID_PLUGIN_BUILD_CMD);
+		if(!File.Exists(KCEditorDefine.B_DEST_PLUGIN_P_ANDROID)) {
+			CEditorFunc.ExecuteCmdLine(KCEditorDefine.B_PLUGIN_BUILD_CMD_ANDROID);
 		}
 #endif			// #if UNITY_ANDROID
 	}
