@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if UNITY_IOS
 using UnityEngine.iOS;
@@ -150,6 +151,12 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		
 		CSceneManager.IsInit = true;
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_SPLASH, false, false);
+	}
+
+	//! 블라인드 이미지를 생성한다
+	protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
+		var oObj = CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG);
+		return CFactory.CreateCloneObj<Image>(a_oName, oObj, a_oParent);
 	}
 	#endregion			// 함수
 }
