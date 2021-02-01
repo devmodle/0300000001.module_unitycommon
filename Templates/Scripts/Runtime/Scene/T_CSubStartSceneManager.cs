@@ -11,6 +11,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	protected Image m_oGaugeImg = null;
 
 	private int m_nNumDots = 0;
+
 	private float m_fSkipTime = 0.0f;
 	private float m_fMaxPercent = 0.0f;
 
@@ -38,9 +39,13 @@ public class CSubStartSceneManager : CStartSceneManager {
 			m_oGaugeImg = m_oLoadingImg.ExFindComponent<Image>(KCDefine.SS_OBJ_N_GAUGE_IMG);
 			m_oGaugeImg.fillAmount = KCDefine.B_VALUE_FLT_0;
 			// 이미지를 설정한다 }
-
-			this.UpdateTextState();
 		}
+	}
+
+	//! 씬을 설정한다
+	protected override void Setup() {
+		base.Setup();
+		this.UpdateTextState();
 	}
 
 	//! 상태를 갱신한다
@@ -51,7 +56,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		float fPercent = (KCDefine.B_VALUE_FLT_1 * a_fDeltaTime) * KCDefine.SS_SCALE_LOADING;
 		m_oGaugeImg.fillAmount = Mathf.Clamp(m_oGaugeImg.fillAmount + fPercent, KCDefine.B_VALUE_FLT_0, m_fMaxPercent);
 
-		// 상태 텍스트 갱신 주기가 지났을 경우
+		// 텍스트 상태 갱신 주기가 지났을 경우
 		if(m_fSkipTime.ExIsGreateEquals(KCDefine.SS_DELTA_T_UPDATE_STATE)) {
 			m_nNumDots = (m_nNumDots + KCDefine.B_VALUE_INT_1) % KCDefine.SS_MAX_NUM_DOTS;
 			m_fSkipTime = KCDefine.B_VALUE_FLT_0;
@@ -64,7 +69,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	protected override void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent) {
 		int nEvent = (int)a_eEvent + KCDefine.B_VALUE_INT_1;
 		float fPercent = nEvent / (float)((int)EStartSceneEvent.MAX_VALUE - KCDefine.B_VALUE_INT_1);
-		
+
 		m_fMaxPercent = Mathf.Clamp(fPercent, KCDefine.B_VALUE_FLT_0, KCDefine.B_VALUE_FLT_1);
 	}
 
@@ -75,7 +80,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 		m_oStringBuilder.Clear();
 		m_oStringBuilder.Append(oLoading);
-		
+
 		for(int i = 0; i < m_nNumDots + KCDefine.B_VALUE_INT_1; ++i) {
 			m_oStringBuilder.Append(oDot);
 		}
