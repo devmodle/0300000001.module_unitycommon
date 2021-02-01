@@ -24,39 +24,39 @@ MonoBehaviour:
       m_oVersion: 1.0.0
     m_oAppID: dante.distribution.sample
     m_oStoreURL: 
-    m_oSupportMail: cs@ninetap.com
+    m_oSupportsMail: cs@ninetap.com
   m_stWndsProjInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
     m_oAppID: dante.distribution.sample
     m_oStoreURL: 
-    m_oSupportMail: cs@ninetap.com
+    m_oSupportsMail: cs@ninetap.com
   m_stiOSProjInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
     m_oAppID: dante.distribution.sample
     m_oStoreURL: https://itunes.apple.com/app/id1309472470
-    m_oSupportMail: cs@ninetap.com
+    m_oSupportsMail: cs@ninetap.com
   m_stGoogleProjInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
     m_oAppID: dante.distribution.sample
     m_oStoreURL: https://play.google.com/store/apps/details?id=dante.distribution.sample
-    m_oSupportMail: cs@ninetap.com
+    m_oSupportsMail: cs@ninetap.com
   m_stOneStoreProjInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
     m_oAppID: dante.distribution.sample
     m_oStoreURL: 
-    m_oSupportMail: cs@ninetap.com
+    m_oSupportsMail: cs@ninetap.com
   m_stGalaxyStoreProjInfo:
     m_stBuildVersion:
       m_nNumber: 1
       m_oVersion: 1.0.0
     m_oAppID: dante.distribution.sample
     m_oStoreURL: 
-    m_oSupportMail: cs@ninetap.com
+    m_oSupportsMail: cs@ninetap.com
