@@ -26,6 +26,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
+		m_fSkipTime = KCDefine.SS_DELTA_T_UPDATE_STATE;
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
