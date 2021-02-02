@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
+#if PURCHASE_MODULE_ENABLE
+using UnityEngine.Purchasing;
+#endif			// #if PURCHASE_MODULE_ENABLE
+
 //! 기본 접근자
 public static partial class Access {
 	#region 클래스 함수
@@ -23,5 +27,15 @@ public static partial class Access {
 #endif			// #if ADS_MODULE_ENABLE
 	}
 	#endregion			// 클래스 함수
+
+	#region 조건부 클래스 함수
+#if PURCHASE_MODULE_ENABLE
+	//! 상품을 반환한다
+	public static Product GetProduct(int a_nIdx) {
+		var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_nIdx);
+		return CPurchaseManager.Inst.GetProduct(stProductInfo.m_oID);
+	}
+#endif			// #if PURCHASE_MODULE_ENABLE
+	#endregion			// 조건부 클래스 함수
 }
 #endif			// #if NEVER_USE_THIS
