@@ -40,7 +40,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		if(this.IsAutoInitManager) {
 #if ADS_MODULE_ENABLE
 			var stAdsParams = new CAdsManager.STParams() {
-				m_eBannerAdsType = CPluginInfoTable.Inst.BannerAdsType,
+				m_eDefAdsType = CPluginInfoTable.Inst.DefAdsType,
 				m_eBannerAdsPos = CPluginInfoTable.Inst.BannerAdsPos,
 
 #if ADMOB_ENABLE
