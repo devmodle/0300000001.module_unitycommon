@@ -35,17 +35,19 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	}
 
 	//! 앱 정보를 로드한다
-	public void LoadAppInfos() {
-		this.LoadAppInfos(KDefine.B_DATA_P_APP_INFO);
+	public CAppInfo LoadAppInfos() {
+		return this.LoadAppInfos(KDefine.B_DATA_P_APP_INFO);
 	}
 
 	//! 앱 정보를 로드한다
-	public void LoadAppInfos(string a_oFilePath) {
+	public CAppInfo LoadAppInfos(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath);
 			CAccess.Assert(this.AppInfo != null);
 		}
+
+		return this.AppInfo;
 	}
 	#endregion			// 함수
 }

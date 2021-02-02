@@ -38,17 +38,19 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	}
 
 	//! 게임 정보를 로드한다
-	public void LoadGameInfos() {
-		this.LoadGameInfos(KDefine.B_DATA_P_GAME_INFO);
+	public CGameInfo LoadGameInfos() {
+		return this.LoadGameInfos(KDefine.B_DATA_P_GAME_INFO);
 	}
 
 	//! 게임 정보를 로드한다
-	public void LoadGameInfos(string a_oFilePath) {
+	public CGameInfo LoadGameInfos(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath);
 			CAccess.Assert(this.GameInfo != null);
 		}
+
+		return this.GameInfo;
 	}
 	#endregion			// 함수
 }
