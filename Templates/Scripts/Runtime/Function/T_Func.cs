@@ -53,7 +53,7 @@ public static partial class Func {
 
 		Func.ShowAlertPopup(oDataList, a_oCallback);
 	}
-	
+
 	//! 지역화 문자열을 설정한다
 	public static void SetupLocalizeStrings() {
 		string oLanguage = CCommonAppInfoStorage.Inst.AppInfo.Language.ToString();
@@ -66,8 +66,8 @@ public static partial class Func {
 	public static void SetupLocalizeStrings(string a_oLanguage, string a_oCountryCode) {
 		CAccess.Assert(a_oCountryCode.ExIsValid());
 
-		string oFilePath = CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STRING, 
-			KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STRING, a_oLanguage, a_oCountryCode);
+		string oBasePath = KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STRING;
+		string oFilePath = CFactory.MakeLocalizePath(oBasePath, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STRING, a_oLanguage, a_oCountryCode);
 
 		CStringTable.Inst.LoadStringsFromRes(oFilePath);		
 	}
@@ -83,9 +83,7 @@ public static partial class Func {
 			Func.m_stRewardItem = default(STPostItem);
 
 			Func.m_oRewardAdsCallback = a_oCallback;
-
-			CAdsManager.Inst.ShowRewardAds(a_eAdsType, 
-				Func.OnReceiveUserReward, Func.OnCloseRewardAds);
+			CAdsManager.Inst.ShowRewardAds(a_eAdsType, Func.OnReceiveUserReward, Func.OnCloseRewardAds);
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Inst, default(STPostItem), false);
 		}
@@ -176,6 +174,28 @@ public static partial class Func {
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
+	//! 결제 성공 팝업을 출력한다
+	public static void ShowPurchaseSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		var oDataList = new Dictionary<string, string>() {
+			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
+			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_PURCHASE_P_SUCCESS_MSG),
+			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+		};
+
+		Func.ShowAlertPopup(oDataList, a_oCallback);
+	}
+
+	//! 결제 실패 팝업을 출력한다
+	public static void ShowPurchaseFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		var oDataList = new Dictionary<string, string>() {
+			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
+			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_PURCHASE_P_FAIL_MSG),
+			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+		};
+
+		Func.ShowAlertPopup(oDataList, a_oCallback);
+	}
+	
 	//! 상품을 결제한다
 	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
 		CAccess.Assert(a_oID.ExIsValid());

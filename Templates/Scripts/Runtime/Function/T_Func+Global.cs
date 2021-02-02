@@ -16,8 +16,13 @@ public static partial class Func {
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	//! 상품 결제가 완료 되었을 경우
-	public static void OnCompletePurchaseProduct(CPurchaseManager a_oSender, string a_oID, bool a_bIsSuccess) {
-		
+	public static void OnCompletePurchaseProduct(CPurchaseManager a_oSender, string a_oID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+		// 상품 결제에 성공했을 경우
+		if(a_bIsSuccess) {
+			Func.ShowPurchaseSuccessPopup(a_oCallback);
+		} else {
+			Func.ShowPurchaseFailPopup(a_oCallback);
+		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

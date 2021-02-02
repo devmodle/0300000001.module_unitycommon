@@ -4,6 +4,8 @@ ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,OK
 ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,Cancel
 QUIT_P_MSG,0,종료 팝업 메세지,Are you sure you want to quit the game?
 UPDATE_P_MSG,0,업데이트 팝업 메세지,A new version has been released.\nWould you like to update it?
+PURCHASE_P_SUCCESS_MSG,0,결제 성공 팝업 메세지,You have successfully purchased this product.
+PURCHASE_P_FAIL_MSG,0,결제 실패 팝업 메세지,You have failed to purchase this product.
 START_SM_LOADING_TEXT,0,시작 씬 관리자 로딩 텍스트,Loading
 AGREE_P_SERVICES_TITLE,0,약관 동의 팝업 서비스 제목,Terms of Service
 AGREE_P_PRIVACY_TITLE,0,약관 동의 팝업 개인 정보 제목,Privacy Policy
