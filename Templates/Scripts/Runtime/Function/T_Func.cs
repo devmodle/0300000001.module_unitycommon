@@ -11,9 +11,9 @@ public static partial class Func {
 	private static bool m_bIsWatchFullscreenAds = false;
 	private static bool m_bIsWatchResumeAds = false;
 
-	private static STPostItem m_stRewardItem;
+	private static STAdsRewardItem m_stRewardItem;
 
-	private static System.Action<CAdsManager, STPostItem, bool> m_oRewardAdsCallback = null;
+	private static System.Action<CAdsManager, STAdsRewardItem, bool> m_oRewardAdsCallback = null;
 	private static System.Action<CAdsManager, bool> m_oFullscreenAdsCallback = null;
 	private static System.Action<CAdsManager, bool> m_oResumeAdsCallback = null;
 #endif			// #if ADS_MODULE_ENABLE
@@ -76,16 +76,16 @@ public static partial class Func {
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
-	public static void ShowRewardAds(EAdsType a_eAdsType, System.Action<CAdsManager, STPostItem, bool> a_oCallback) {
+	public static void ShowRewardAds(EAdsType a_eAdsType, System.Action<CAdsManager, STAdsRewardItem, bool> a_oCallback) {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsType)) {
 			Func.m_bIsWatchRewardAds = false;
-			Func.m_stRewardItem = default(STPostItem);
+			Func.m_stRewardItem = default(STAdsRewardItem);
 
 			Func.m_oRewardAdsCallback = a_oCallback;
 			CAdsManager.Inst.ShowRewardAds(a_eAdsType, Func.OnReceiveUserReward, Func.OnCloseRewardAds);
 		} else {
-			a_oCallback?.Invoke(CAdsManager.Inst, default(STPostItem), false);
+			a_oCallback?.Invoke(CAdsManager.Inst, default(STAdsRewardItem), false);
 		}
 	}
 
@@ -127,7 +127,7 @@ public static partial class Func {
 	}
 
 	//! 유저 보상을 수신했을 경우
-	private static void OnReceiveUserReward(CAdsManager a_oSender, STPostItem a_stRewardItem, bool a_bIsSuccess) {
+	private static void OnReceiveUserReward(CAdsManager a_oSender, STAdsRewardItem a_stRewardItem, bool a_bIsSuccess) {
 		Func.m_bIsWatchRewardAds = a_bIsSuccess;
 		Func.m_stRewardItem = a_stRewardItem;
 	}
