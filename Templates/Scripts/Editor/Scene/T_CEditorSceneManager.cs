@@ -36,6 +36,8 @@ public static partial class CEditorSceneManager {
 		if(CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();
+
+			EditorFactory.CreateSaleProductInfoTable();
 		}
 	}
 
