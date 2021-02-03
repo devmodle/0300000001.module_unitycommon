@@ -17,9 +17,9 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		base.Setup();
 
 		// 저장소를 로드한다
-		CAppInfoStorage.Inst.LoadAppInfos();
-		CUserInfoStorage.Inst.LoadUserInfos();
-		CGameInfoStorage.Inst.LoadGameInfos();
+		CAppInfoStorage.Inst.LoadAppInfo();
+		CUserInfoStorage.Inst.LoadUserInfo();
+		CGameInfoStorage.Inst.LoadGameInfo();
 
 #if LOCALIZE_TEST_ENABLE
 		CCommonAppInfoStorage.Inst.AppInfo.Language = m_eLanguage;
@@ -30,7 +30,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 			CCommonAppInfoStorage.Inst.AppInfo.Language = Application.systemLanguage;
 		}
 
-		CCommonAppInfoStorage.Inst.SaveAppInfos();
+		CCommonAppInfoStorage.Inst.SaveAppInfo();
 	}
 	#endregion			// 함수
 }

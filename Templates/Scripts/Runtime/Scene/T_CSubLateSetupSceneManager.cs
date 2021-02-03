@@ -34,7 +34,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 			}
 #endif			// #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
-			CCommonUserInfoStorage.Inst.SaveUserInfos();
+			CCommonUserInfoStorage.Inst.SaveUserInfo();
 			CCommonAppInfoStorage.Inst.DeviceConfig = CDeviceInfoTable.Inst.DeviceConfig;
 		}
 	}

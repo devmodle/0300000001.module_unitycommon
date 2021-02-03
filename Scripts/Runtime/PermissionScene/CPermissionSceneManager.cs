@@ -67,7 +67,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Inst.SetupStoreVersion();
 		
 		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
-		CCommonGameInfoStorage.Inst.SaveGameInfos();
+		CCommonGameInfoStorage.Inst.SaveGameInfo();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_INTRO_SCENE);
 		int nIdx = m_oSceneNameList.ExFindValue((a_oSceneName) => CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));

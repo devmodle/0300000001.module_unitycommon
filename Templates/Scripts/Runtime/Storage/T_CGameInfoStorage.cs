@@ -28,22 +28,22 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	#region 함수
 	//! 게임 정보를 저장한다
-	public void SaveGameInfos() {
-		this.SaveGameInfos(KDefine.B_DATA_P_GAME_INFO);
+	public void SaveGameInfo() {
+		this.SaveGameInfo(KDefine.B_DATA_P_GAME_INFO);
 	}
 
 	//! 게임 정보를 저장한다
-	public void SaveGameInfos(string a_oFilePath) {
+	public void SaveGameInfo(string a_oFilePath) {
 		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo);
 	}
 
 	//! 게임 정보를 로드한다
-	public CGameInfo LoadGameInfos() {
-		return this.LoadGameInfos(KDefine.B_DATA_P_GAME_INFO);
+	public CGameInfo LoadGameInfo() {
+		return this.LoadGameInfo(KDefine.B_DATA_P_GAME_INFO);
 	}
 
 	//! 게임 정보를 로드한다
-	public CGameInfo LoadGameInfos(string a_oFilePath) {
+	public CGameInfo LoadGameInfo(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath);

@@ -30,7 +30,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
 		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
-		CCommonGameInfoStorage.Inst.SaveGameInfos();
+		CCommonGameInfoStorage.Inst.SaveGameInfo();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_LATE_SETUP_SCENE);
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
