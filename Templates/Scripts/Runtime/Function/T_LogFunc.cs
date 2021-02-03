@@ -11,9 +11,7 @@ using UnityEngine.Purchasing;
 public static partial class LogFunc {
 	#region 클래스 함수
 	//! 로그를 전송한다
-	public static void SendLog(string a_oName, 
-		Dictionary<string, object> a_oDataList, float? a_oValue = null) 
-	{
+	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataList, float? a_oValue = null) {
 		// 테스트 디바이스가 아닐 경우
 		if(!CCommonAppInfoStorage.Inst.IsTestDevice()) {
 #if FLURRY_MODULE_ENABLE
