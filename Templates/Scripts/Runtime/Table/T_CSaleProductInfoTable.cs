@@ -11,7 +11,7 @@ public struct STSaleProductInfoTable {
 }
 
 //! 판매 상품 정보 테이블
-public class CSaleProductInfoTable : CScriptableObj<CProductInfoTable> {
+public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	#region 변수
 	[Header("Sale Product Info")]
 	[SerializeField] private List<STSaleProductInfoTable> m_oSaleProductInfoList = new List<STSaleProductInfoTable>();
