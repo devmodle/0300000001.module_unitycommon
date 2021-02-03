@@ -36,8 +36,6 @@ public static partial class CEditorSceneManager {
 		if(CEditorAccess.IsEnableUpdateState()) {
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();
-
-			EditorFactory.CreateSaleProductInfoTable();
 		}
 	}
 
@@ -64,6 +62,7 @@ public static partial class CEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
+				EditorFactory.CreateSaleProductInfoTable();
 				CEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLT_0;
 				
 				CFunc.EnumerateScenes((a_stScene) => {

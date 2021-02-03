@@ -10,6 +10,9 @@ public class CSubInitSceneManager : CInitSceneManager {
 	protected override void Setup() {
 		base.Setup();
 
+		// 테이블을 생성한다
+		CSaleProductInfoTable.Create(KCDefine.U_ASSET_P_G_SALE_PRODUCT_INFO_TABLE);
+
 		// 저장소를 생성한다
 		CAppInfoStorage.Create();
 		CUserInfoStorage.Create();
