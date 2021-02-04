@@ -8,6 +8,9 @@ using UnityEngine;
 public struct STSaleProductInfo {
 	public string m_oName;
 	public string m_oDesc;
+
+	public EPriceType m_ePriceType;
+	public List<STSaleItemInfo> m_oSaleItemInfoList;
 }
 
 //! 판매 상품 정보 테이블

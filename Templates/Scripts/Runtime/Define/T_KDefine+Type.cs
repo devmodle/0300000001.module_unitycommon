@@ -37,6 +37,13 @@ public struct STGameConfig {
 
 }
 
+//! 판매 아이템 정보
+[System.Serializable]
+public struct STSaleItemInfo {
+	public int m_nNumItems;
+	public EItemKinds m_eItemKinds;
+}
+
 //! 커스터 타입 랩퍼
 [MessagePackObject]
 public struct STCustomTypeWrapper {
