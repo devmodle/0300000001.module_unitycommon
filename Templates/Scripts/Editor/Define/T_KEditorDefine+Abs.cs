@@ -134,7 +134,7 @@ public static partial class KEditorDefine {
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.quicksearch"] = "2.0.2",
-		["com.unity.mobile.android-logcat"] = "1.2.0",
+		["com.unity.mobile.android-logcat"] = "1.2.1",
 		["com.unity.render-pipelines.universal"] = "10.2.2",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 

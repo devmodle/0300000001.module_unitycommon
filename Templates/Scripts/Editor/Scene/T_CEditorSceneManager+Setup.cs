@@ -41,14 +41,12 @@ public static partial class CEditorSceneManager {
 			if(nIdx <= KCDefine.B_IDX_INVALID) {
 				// 버전이 유효 할 경우
 				if(stKeyValue.Value.ExIsValidBuildVersion()) {
-					var oAddRequest = Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT,
-						stKeyValue.Key, stKeyValue.Value));
-
-					CEditorSceneManager.m_oAddRequestList.Add(oAddRequest);
+					var oAddRequest = Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyValue.Key, stKeyValue.Value));
+					CEditorSceneManager.m_oAddRequestList.ExAddValue(oAddRequest);
 				} else {
 #if !SAMPLE_PROJ
 					var oAddRequest = Client.Add(stKeyValue.Value);
-					CEditorSceneManager.m_oAddRequestList.Add(oAddRequest);
+					CEditorSceneManager.m_oAddRequestList.ExAddValue(oAddRequest);
 #endif			// #if !SAMPLE_PROJ
 				}
 			}

@@ -14,7 +14,7 @@ public struct STItemInfo {
 }
 
 //! 아이템 정보 테이블
-public class CItemInfoTable : CScriptableObj<CSaleProductInfoTable> {
+public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	#region 변수
 	[Header("Item Info")]
 	[SerializeField] private List<STItemInfo> m_oItemInfoList = new List<STItemInfo>();

@@ -5,7 +5,7 @@
 2. **에셋 스토어 리스트**
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
 	- *Asset Hunter Pro (v1.3.4 - May 4, 2020)*
-	- *Asset Usage Detector (v1.8.9 - Nov 18, 2020)*
+	- *Asset Usage Detector (v1.8.9 - Dec 29, 2020)*
 	- *Bezier Solution (v1.27.0 - Apr 09, 2020)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
 	- *Enhanced Scroller (v2.27.0 - Jan 20, 2021)*
@@ -16,7 +16,7 @@
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
 	- *Native Share (v1.3.8 - Oct 7, 2020)*
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*
-	- *Runtime File Browser (v1.4.2 - Jan 20, 2021)*
+	- *Runtime File Browser (v1.4.3 - Jan 27, 2021)*
 	- *Signin with Apple (v1.1.1 - Nov 9, 2020)*
 	- *Simple Scroll Snap (v1.2.1 - Dec 14, 2020)*
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
