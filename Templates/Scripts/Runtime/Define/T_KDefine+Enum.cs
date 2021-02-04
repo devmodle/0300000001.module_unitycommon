@@ -7,6 +7,7 @@ using UnityEngine;
 Kinds 값 지정 방식
 :
 - Type 별로 1,000,000 단위로 값 지정
+- Kinds Type 별로 1,000 단위로 값 지정
 */
 #region 기본
 //! 아이템 타입
