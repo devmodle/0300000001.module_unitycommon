@@ -10,7 +10,30 @@ using UnityEngine.Purchasing;
 //! 전역 함수
 public static partial class Func {
 	#region 클래스 함수
+	//! 아이템을 구입한다
+	public static void BuyItem(EItemKinds a_eKinds) {
+		var stItemInfo = CItemInfoTable.Inst.GetItemInfo(a_eKinds);
 
+		switch(a_eKinds) {
+			case EItemKinds.GOODS_COIN: {
+				CCommonUserInfoStorage.Inst.UserInfo.NumCoins += stItemInfo.m_stSaleItemInfo.m_nNumItems;
+			} break;
+			case EItemKinds.NON_CONSUMABLE_REMOVE_ADS: {
+				CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds = true;
+
+#if ADS_MODULE_ENABLE
+				CAdsManager.Inst.IsEnableBannerAds = false;
+				CAdsManager.Inst.IsEnableFullscreenAds = false;
+				CAdsManager.Inst.IsEnableResumeAds = false;
+				
+				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.DefAdsType, true);
+#endif			// #if ADS_MODULE_ENABLE
+			} break;
+			default: {
+				CUserInfoStorage.Inst.AddNumItems(a_eKinds, stItemInfo.m_stSaleItemInfo.m_nNumItems);
+			} break;
+		}
+	}
 	#endregion			// 클래스 함수
 
 	#region 조건부 클래스 함수

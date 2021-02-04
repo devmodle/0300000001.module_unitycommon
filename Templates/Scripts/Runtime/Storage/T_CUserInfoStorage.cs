@@ -9,6 +9,25 @@ using MessagePack;
 [MessagePackObject]
 [System.Serializable]
 public sealed class CUserInfo : CBaseInfo {
+	#region 상수
+	private const string KEY_NUM_CHANGES = "NumChanges";
+	private const string KEY_FREE_COIN_TIMES = "FreeCoinTimes";
+	#endregion			// 상수
+
+	#region 프로퍼티
+	[Key(71)] public Dictionary<EItemKinds, int> m_oNumItemsList { get; set; } = new Dictionary<EItemKinds, int>();
+
+	[IgnoreMember] public int NumChanges {
+		get { return m_oIntList.ExGetValue(CUserInfo.KEY_NUM_CHANGES, 0); }
+		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_NUM_CHANGES, value); }
+	}
+
+	[IgnoreMember] public int FreeCoinTimes {
+		get { return m_oIntList.ExGetValue(CUserInfo.KEY_FREE_COIN_TIMES, 0); }
+		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_FREE_COIN_TIMES, value); }
+	}
+	#endregion			// 프로퍼티
+
 	#region 함수
 	//! 생성자
 	public CUserInfo() : base(KDefine.B_VERSION_USER_INFO) {
@@ -24,6 +43,31 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 아이템 개수를 반환한다
+	public int GetNumItems(EItemKinds a_eItemKinds) {
+		return this.UserInfo.m_oNumItemsList.ExGetValue(a_eItemKinds, KCDefine.B_VALUE_INT_0);
+	}
+
+	//! 잔돈 개수를 추가한다
+	public void AddNumChanges(int a_nNumChanges) {
+		int nNumChanges = this.UserInfo.NumChanges + a_nNumChanges;
+		this.UserInfo.NumChanges = Mathf.Clamp(nNumChanges, KCDefine.B_VALUE_INT_0, KDefine.G_MAX_NUM_CHANGES);
+	}
+
+	//! 무료 코인 횟수를 추가한다
+	public void AddFreeCoinTimes(int a_nFreeCoinTimes) {
+		int nFreeCoinTimes = this.UserInfo.FreeCoinTimes + a_nFreeCoinTimes;
+		this.UserInfo.FreeCoinTimes = Mathf.Clamp(nFreeCoinTimes, KCDefine.B_VALUE_INT_0, KDefine.G_MAX_TIMES_FREE_COIN);
+	}
+	
+	//! 아이템 개수를 추가한다
+	public void AddNumItems(EItemKinds a_eItemKinds, int a_nNumItems) {
+		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
+		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VALUE_INT_0, int.MaxValue);
+
+		this.UserInfo.m_oNumItemsList.ExReplaceValue(a_eItemKinds, nNumItems);
+	}
+	
 	//! 유저 정보를 저장한다
 	public void SaveUserInfo() {
 		this.SaveUserInfo(KDefine.B_DATA_P_USER_INFO);
