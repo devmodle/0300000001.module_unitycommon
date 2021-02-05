@@ -16,7 +16,7 @@ public static partial class Func {
 
 		switch(a_eKinds) {
 			case EItemKinds.GOODS_COIN: {
-				CCommonUserInfoStorage.Inst.UserInfo.NumCoins += stItemInfo.m_stSaleItemInfo.m_nNumItems;
+				CCommonUserInfoStorage.Inst.AddNumCoins(stItemInfo.m_stSaleItemInfo.m_nNumItems);
 			} break;
 			case EItemKinds.NON_CONSUMABLE_REMOVE_ADS: {
 				CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds = true;
@@ -32,6 +32,21 @@ public static partial class Func {
 			default: {
 				CUserInfoStorage.Inst.AddNumItems(a_eKinds, stItemInfo.m_stSaleItemInfo.m_nNumItems);
 			} break;
+		}
+
+		// 비용이 존재 할 경우
+		if(stItemInfo.m_ePriceType == EPriceType.COIN && stItemInfo.m_nPrice > KCDefine.B_VALUE_INT_1) {
+			CCommonUserInfoStorage.Inst.AddNumCoins(-stItemInfo.m_nPrice);
+		}
+	}
+
+	//! 상점 팝업을 출력한다
+	public static void ShowStorePopup(string a_oName, string a_oObjPath, GameObject a_oParent) {
+		// 상점 팝업이 없을 경우
+		if(a_oParent.ExFindChild(a_oObjPath) == null) {
+			var oStorePopup = CPopup.Create<CStorePopup>(a_oName, a_oObjPath, a_oParent);
+			oStorePopup.Init();
+			oStorePopup.Show(null, null);
 		}
 	}
 	#endregion			// 클래스 함수
