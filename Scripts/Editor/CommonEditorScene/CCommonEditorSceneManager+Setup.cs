@@ -195,42 +195,18 @@ public static partial class CCommonEditorSceneManager {
 	//! 광원 옵션을 설정한다
 	private static void SetupLightOpts() {
 		var stScene = EditorSceneManager.GetActiveScene();
-		LightingSettings oLightingSettings = null;
-		
-		// 광원 맵 설정이 존재 할 경우
-		if(Lightmapping.TryGetLightingSettings(out oLightingSettings) && oLightingSettings.name.ExIsContains(stScene.name)) {
-			oLightingSettings.realtimeGI = false;
-			oLightingSettings.realtimeEnvironmentLighting = false;
-			
-			oLightingSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
-			oLightingSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
 
-#if LIGHTMAP_BAKE_ENABLE
-			oLightingSettings.bakedGI = true;
-#else
-			oLightingSettings.bakedGI = false;
-#endif			// #if LIGHTMAP_BAKE_ENABLE
+		// 광원 설정이 가능 할 경우
+		if(stScene.name.ExIsValid()) {
+			bool bIsValid = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 
-#if LIGHTMAP_AUTO_BAKE_ENABLE
-			oLightingSettings.autoGenerate = true;
-#else
-			oLightingSettings.autoGenerate = false;
-#endif			// #if LIGHTMAP_AUTO_BAKE_ENABLE
-		} 
-		// 씬 경로가 유효 할 경우
-		else if(stScene.path.ExIsValid()) {
-			var oScenePath = Path.GetDirectoryName(stScene.path);
-			var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
+			// 광원 설정이 유효하지 않을 경우
+			if(!bIsValid || !oLightingSettings.name.ExIsContains(stScene.name)) {
+				var oScenePath = Path.GetDirectoryName(stScene.path);
+				var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
 
-			string oFilePath = string.Format(KCEditorDefine.B_ASSET_P_FMT_LIGHTING_SETTINGS, oScenePath, oSceneName);
-			var oLightingSettingsAsset = CEditorFunc.FindAsset<LightingSettings>(oFilePath);
-
-			// 광원 맵 설정 에셋이 존재 할 경우
-			if(oLightingSettingsAsset != null) {
-				Lightmapping.lightingSettings = oLightingSettingsAsset;
-			} else {
-				oLightingSettingsAsset = new LightingSettings();
 				var oSettings = Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_LIGHTING_SETTINGS);
+				var oLightingSettingsAsset = new LightingSettings();
 
 				var oType = oSettings.GetType();
 				var oPropertyInfos = oType.GetProperties(KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
@@ -240,7 +216,41 @@ public static partial class CCommonEditorSceneManager {
 					oLightingSettingsAsset.ExSetPropertyValue<LightingSettings>(oPropertyInfo.Name, KCDefine.B_BINDING_F_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
 				}
 
+				oLightingSettings = oLightingSettingsAsset;
+				string oFilePath = string.Format(KCEditorDefine.B_ASSET_P_FMT_LIGHTING_SETTINGS, oScenePath, oSceneName);
+
+				Lightmapping.lightingSettings = oLightingSettingsAsset;
 				CEditorFactory.CreateAsset(oLightingSettingsAsset, oFilePath, false);
+			}
+
+			// GI 설정이 필요 할 경우
+			if(oLightingSettings.realtimeGI || oLightingSettings.realtimeEnvironmentLighting) {
+				oLightingSettings.realtimeGI = false;
+				oLightingSettings.realtimeEnvironmentLighting = false;
+			}
+
+			// 라이트맵 설정이 필요 할 경우
+			if(oLightingSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || oLightingSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE) {
+				oLightingSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
+				oLightingSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
+			}
+
+#if LIGHTMAP_BAKE_ENABLE
+			bool bIsBakedGI = true;
+#else
+			bool bIsBakedGI = false;
+#endif			// #if LIGHTMAP_BAKE_ENABLE
+
+#if LIGHTMAP_AUTO_BAKE_ENABLE
+			bool bIsAutoGenerate = true;
+#else
+			bool bIsAutoGenerate = false;
+#endif			// #if LIGHTMAP_AUTO_BAKE_ENABLE
+
+			// GI 설정이 필요 할 경우
+			if(oLightingSettings.bakedGI != bIsBakedGI || oLightingSettings.autoGenerate != bIsAutoGenerate) {
+				oLightingSettings.bakedGI = bIsBakedGI;
+				oLightingSettings.autoGenerate = bIsAutoGenerate;
 			}
 		}
 	}

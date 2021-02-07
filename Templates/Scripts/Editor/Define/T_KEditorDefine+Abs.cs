@@ -127,7 +127,7 @@ public static partial class KEditorDefine {
 	public static readonly string B_UNITY_PKGS_DEST_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_PACKAGES}Options/Project/GoogleScopedRegistry.json";
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
-		["com.google.external-dependency-manager"] = "1.2.163",
+		["com.google.external-dependency-manager"] = "1.2.164",
 		["com.google.play.review"] = "1.3.0",
 
 		["com.unity.burst"] = "1.4.4",
