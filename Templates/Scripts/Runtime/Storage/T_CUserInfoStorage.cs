@@ -11,7 +11,7 @@ using MessagePack;
 public sealed class CUserInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_NUM_CHANGES = "NumChanges";
-	private const string KEY_FREE_COIN_TIMES = "FreeCoinTimes";
+	private const string KEY_FREE_REWARD_TIMES = "FreeRewardTimes";
 	#endregion			// 상수
 
 	#region 프로퍼티
@@ -22,9 +22,9 @@ public sealed class CUserInfo : CBaseInfo {
 		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_NUM_CHANGES, value); }
 	}
 
-	[IgnoreMember] public int FreeCoinTimes {
-		get { return m_oIntList.ExGetValue(CUserInfo.KEY_FREE_COIN_TIMES, 0); }
-		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_FREE_COIN_TIMES, value); }
+	[IgnoreMember] public int FreeRewardTimes {
+		get { return m_oIntList.ExGetValue(CUserInfo.KEY_FREE_REWARD_TIMES, 0); }
+		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_FREE_REWARD_TIMES, value); }
 	}
 	#endregion			// 프로퍼티
 
@@ -54,10 +54,10 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		this.UserInfo.NumChanges = Mathf.Clamp(nNumChanges, KCDefine.B_VALUE_INT_0, KDefine.G_MAX_NUM_CHANGES);
 	}
 
-	//! 무료 코인 횟수를 추가한다
-	public void AddFreeCoinTimes(int a_nFreeCoinTimes) {
-		int nFreeCoinTimes = this.UserInfo.FreeCoinTimes + a_nFreeCoinTimes;
-		this.UserInfo.FreeCoinTimes = Mathf.Clamp(nFreeCoinTimes, KCDefine.B_VALUE_INT_0, KDefine.G_MAX_TIMES_FREE_COIN);
+	//! 무료 보상 횟수를 추가한다
+	public void AddFreeRewardTimes(int a_nRewardTimes) {
+		int nFreeRewardTimes = this.UserInfo.FreeRewardTimes + a_nRewardTimes;
+		this.UserInfo.FreeRewardTimes = Mathf.Clamp(nFreeRewardTimes, KCDefine.B_VALUE_INT_0, KDefine.G_MAX_TIMES_FREE_REWARD);
 	}
 	
 	//! 아이템 개수를 추가한다

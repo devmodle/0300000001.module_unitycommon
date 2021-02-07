@@ -10,7 +10,7 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_CHANGES = 0;
 
 	// 횟수
-	public const int G_MAX_TIMES_FREE_COIN = 0;
+	public const int G_MAX_TIMES_FREE_REWARD = 0;
 	#endregion			// 기본
 }
 #endif			// #if NEVER_USE_THIS
