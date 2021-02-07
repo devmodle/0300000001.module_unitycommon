@@ -9,6 +9,28 @@ using MessagePack;
 [MessagePackObject]
 [System.Serializable]
 public sealed class CAppInfo : CBaseInfo {
+	#region 상수
+	private const string KEY_LAST_FREE_COIN_TIME = "LastFreeCoinTime";
+	#endregion			// 상수
+
+	#region 프로퍼티
+	[IgnoreMember] public System.DateTime LastFreeCoinTime { get; set; } = System.DateTime.Now;
+	[IgnoreMember] private string LastFreeCoinTimeString => m_oStringList.ExGetValue(CAppInfo.KEY_LAST_FREE_COIN_TIME, string.Empty);
+	#endregion			// 프로퍼티
+
+	#region 인터페이스
+	//! 직렬화 될 경우
+	public override void OnBeforeSerialize() {
+		m_oStringList.ExReplaceValue(CAppInfo.KEY_LAST_FREE_COIN_TIME, this.LastFreeCoinTime.ExToLongString());
+	}
+
+	//! 역직렬화 되었을 경우
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+		this.LastFreeCoinTime = this.LastFreeCoinTime.ExIsValid() ? this.LastFreeCoinTimeString.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VALUE_INT_1);
+	}
+	#endregion			// 인터페이스
+
 	#region 함수
 	//! 생성자
 	public CAppInfo() : base(KDefine.B_VERSION_APP_INFO) {
@@ -20,7 +42,9 @@ public sealed class CAppInfo : CBaseInfo {
 //! 앱 정보 저장소
 public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 프로퍼티
-	public CAppInfo AppInfo { get; private set; } = new CAppInfo();
+	public CAppInfo AppInfo { get; private set; } = new CAppInfo() {
+		LastFreeCoinTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_INT_1)
+	};
 	#endregion			// 프로퍼티
 
 	#region 함수
