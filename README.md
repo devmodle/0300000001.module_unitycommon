@@ -30,7 +30,7 @@
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.0 - Dec 3, 2020)*
 	- *Odin Inspector (v3.0.3 - Dec 19, 2020)*
-	- *Spine (v3.8.0 - Jan 19, 2021)*
+	- *Spine (v3.8.0 - Feb 03, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Message Pack (v2.2.85)*
 	- *Thai Font Adjuster (v1.0.0)*
