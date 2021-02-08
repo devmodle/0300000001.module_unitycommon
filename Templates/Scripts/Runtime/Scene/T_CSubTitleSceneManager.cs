@@ -4,7 +4,7 @@ using UnityEngine;
 
 #if NEVER_USE_THIS
 //! 서브 타이틀 씬 관리자
-public class CSubTitleSceneManager : CTitleSceneManager {
+public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#region 함수
 	//! 초기화
 	public override void Start() {
