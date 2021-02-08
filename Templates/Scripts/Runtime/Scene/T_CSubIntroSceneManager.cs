@@ -9,10 +9,6 @@ public class CSubIntroSceneManager : CIntroSceneManager {
 	//! 씬을 설정한다
 	protected override void Setup() {
 		base.Setup();
-
-#if STUDY_MODULE_ENABLE
-		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
-#endif			// #if STUDY_MODULE_ENABLE
 	}
 	#endregion			// 함수
 }
