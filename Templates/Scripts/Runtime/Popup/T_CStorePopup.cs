@@ -13,7 +13,7 @@ public class CStorePopup : CPopup {
 
 	//! 초기화
 	public virtual void Init() {
-		
+		// Do Nothing
 	}
 	#endregion			// 함수
 }
