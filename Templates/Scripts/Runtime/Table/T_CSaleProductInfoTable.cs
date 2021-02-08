@@ -6,6 +6,8 @@ using UnityEngine;
 //! 판매 상품 정보
 [System.Serializable]
 public struct STSaleProductInfo {
+	[HideInInspector] public int m_nID;
+
 	public string m_oName;
 	public string m_oDesc;
 
@@ -25,6 +27,18 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 초기화
+	public override void Awake() {
+		base.Awake();
+
+		for(int i = 0; i < m_oSaleProductInfoList.Count; ++i) {
+			var stSaleProductInfo = m_oSaleProductInfoList[i];
+			stSaleProductInfo.m_nID = i;
+
+			m_oSaleProductInfoList[i] = stSaleProductInfo;
+		}
+	}
+
 	//! 판매 상품 정보를 반환한다
 	public STSaleProductInfo GetSaleProductInfo(int a_nIdx) {
 		CAccess.Assert(m_oSaleProductInfoList.ExIsValidIdx(a_nIdx));

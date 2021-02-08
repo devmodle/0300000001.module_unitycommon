@@ -198,6 +198,12 @@ public static partial class Func {
 
 		Func.ShowAlertPopup(oDataList, a_oCallback);
 	}
+
+	//! 상품을 결제한다
+	public static void PurchaseProduct(int a_nID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+		var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_nID);
+		Func.PurchaseProduct(stProductInfo.m_oID, a_oCallback);
+	}
 	
 	//! 상품을 결제한다
 	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback) {

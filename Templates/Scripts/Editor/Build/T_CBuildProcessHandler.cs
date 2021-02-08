@@ -36,7 +36,8 @@ public static partial class CBuildProcessHandler {
 	//! 독립 플랫폼 빌드가 완료 되었을 경우
 	private static void OnPostProcessStandaloneBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_STANDALONE
-
+		string oDestPath = string.Format(KCEditorDefine.B_DIR_P_FMT_STANDALONE_EXTERNAL_DATAS, a_oPath);
+		CFunc.CopyDir(KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS, oDestPath);
 #endif			// #if UNITY_STANDALONE
 	}
 

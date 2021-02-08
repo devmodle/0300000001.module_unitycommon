@@ -75,7 +75,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	//! 유저 정보를 저장한다
 	public void SaveUserInfo(string a_oFilePath) {
-		this.SaveUserInfo(KDefine.B_DATA_P_USER_INFO);
+		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo);
 	}
 
 	//! 유저 정보를 로드한다
