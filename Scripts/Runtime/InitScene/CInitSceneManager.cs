@@ -57,7 +57,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
+		CIndicatorManager.Create();
 		CIndicatorManager.Inst.Show(true, false);
+		
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		this.SetupOffsets();
@@ -80,7 +82,6 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CScheduleManager.Create();
 		CNavStackManager.Create();
 		CToastPopupManager.Create();
-		CIndicatorManager.Create();
 		
 #if ADS_MODULE_ENABLE
 		CAdsManager.Create();

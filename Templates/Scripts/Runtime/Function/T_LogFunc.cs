@@ -49,7 +49,7 @@ public static partial class LogFunc {
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	//! 결제 로그를 전송한다
-	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts) {
+	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VALUE_INT_1) {
 		// 테스트 디바이스가 아닐 경우
 		if(!CCommonAppInfoStorage.Inst.IsTestDevice()) {
 #if FLURRY_MODULE_ENABLE
