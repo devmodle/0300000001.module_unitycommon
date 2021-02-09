@@ -15,6 +15,7 @@ public sealed class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
+	[Key(51)] public List<string> m_oNonProductIDList { get; set; } = new List<string>();
 	[Key(71)] public Dictionary<EItemKinds, int> m_oNumItemsList { get; set; } = new Dictionary<EItemKinds, int>();
 
 	[IgnoreMember] public int NumChanges {

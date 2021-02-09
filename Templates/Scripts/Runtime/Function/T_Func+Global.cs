@@ -43,7 +43,7 @@ public static partial class Func {
 	//! 상점 팝업을 출력한다
 	public static void ShowStorePopup(string a_oName, string a_oObjPath, GameObject a_oParent) {
 		// 상점 팝업이 없을 경우
-		if(a_oParent.ExFindChild(a_oObjPath) == null) {
+		if(a_oParent.ExFindChild(a_oName) == null) {
 			var oStorePopup = CPopup.Create<CStorePopup>(a_oName, a_oObjPath, a_oParent);
 			oStorePopup.Init();
 			oStorePopup.Show(null, null);
