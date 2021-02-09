@@ -39,10 +39,43 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		}
 	}
 
+	//! 판매 아이템 정보 포함 여부를 검사한다
+	public bool IsContainsSaleItemInfo(int a_nID, EItemKinds a_eItemKinds) {
+		return this.TryGetSaleItemInfo(a_nID, a_eItemKinds, out STSaleItemInfo stSaleItemInfo);
+	}
+	
+	//! 판매 코인 개수를 반환한다
+	public int GetNumSaleCoins(int a_nID) {
+		bool bIsValid = this.TryGetSaleItemInfo(a_nID, EItemKinds.GOODS_COIN, out STSaleItemInfo stSaleItemInfo);
+		return bIsValid ? stSaleItemInfo.m_nNumItems : KCDefine.B_VALUE_INT_0;
+	}
+
 	//! 판매 상품 정보를 반환한다
-	public STSaleProductInfo GetSaleProductInfo(int a_nIdx) {
-		CAccess.Assert(m_oSaleProductInfoList.ExIsValidIdx(a_nIdx));
-		return m_oSaleProductInfoList[a_nIdx];
+	public STSaleProductInfo GetSaleProductInfo(int a_nID) {
+		CAccess.Assert(this.TryGetSaleProductInfo(a_nID, out STSaleProductInfo stSaleProductInfo));
+		return stSaleProductInfo;
+	}
+
+	//! 판매 아이템 정보를 반환한다
+	public STSaleItemInfo GetSaleItemInfo(int a_nID, EItemKinds a_eItemKinds) {
+		CAccess.Assert(this.TryGetSaleItemInfo(a_nID, a_eItemKinds, out STSaleItemInfo stSaleItemInfo));
+		return stSaleItemInfo;
+	}
+
+	//! 판매 상품 정보를 반환한다
+	public bool TryGetSaleProductInfo(int a_nID, out STSaleProductInfo a_stOutSaleProductInfo) {
+		a_stOutSaleProductInfo = m_oSaleProductInfoList.ExIsValidIdx(a_nID) ? m_oSaleProductInfoList[a_nID] : default(STSaleProductInfo);
+		return m_oSaleProductInfoList.ExIsValidIdx(a_nID);
+	}
+
+	//! 판매 아이템 정보를 반환한다
+	public bool TryGetSaleItemInfo(int a_nID, EItemKinds a_eItemKinds, out STSaleItemInfo a_stOutSaleItemInfo) {
+		CAccess.Assert(this.TryGetSaleProductInfo(a_nID, out STSaleProductInfo stSaleProductInfo));
+
+		int nIdx = stSaleProductInfo.m_oSaleItemInfoList.ExFindValue((a_stSaleItemInfo) => a_stSaleItemInfo.m_eItemKinds == a_eItemKinds);
+		a_stOutSaleItemInfo = stSaleProductInfo.m_oSaleItemInfoList.ExIsValidIdx(nIdx) ? stSaleProductInfo.m_oSaleItemInfoList[nIdx] : default(STSaleItemInfo);
+
+		return stSaleProductInfo.m_oSaleItemInfoList.ExIsValidIdx(nIdx);
 	}
 	#endregion			// 함수
 }

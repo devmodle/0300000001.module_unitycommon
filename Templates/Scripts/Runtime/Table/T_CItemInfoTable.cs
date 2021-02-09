@@ -29,10 +29,16 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	#region 함수
 	//! 아이템 정보를 반환한다
 	public STItemInfo GetItemInfo(EItemKinds a_eItemKinds) {
+		CAccess.Assert(this.TryGetItemInfo(a_eItemKinds, out STItemInfo stItemInfo));
+		return stItemInfo;
+	}
+	
+	//! 아이템 정보를 반환한다
+	public bool TryGetItemInfo(EItemKinds a_eItemKinds, out STItemInfo a_stOutItemInfo) {
 		int nIdx = m_oItemInfoList.ExFindValue((a_stItemInfo) => a_stItemInfo.m_stSaleItemInfo.m_eItemKinds == a_eItemKinds);
-		CAccess.Assert(m_oItemInfoList.ExIsValidIdx(nIdx));
+		a_stOutItemInfo = m_oItemInfoList.ExIsValidIdx(nIdx) ? m_oItemInfoList[nIdx] : default(STItemInfo);
 
-		return m_oItemInfoList[nIdx];
+		return m_oItemInfoList.ExIsValidIdx(nIdx);
 	}
 	#endregion			// 함수
 }
