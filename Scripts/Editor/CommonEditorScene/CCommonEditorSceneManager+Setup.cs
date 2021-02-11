@@ -13,6 +13,10 @@ using UnityEditor.SceneManagement;
 using UnityEngine.Rendering.Universal;
 #endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 
+#if INPUT_SYSTEM_MODULE_ENABLE
+using UnityEngine.InputSystem;
+#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+
 //! 공용 에디터 씬 관리자 - 설정
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
@@ -255,27 +259,40 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	//! 파일 브라우저 UI 를 설정한다
-	private static void SetupFileBrowserUI() {
-		var oFileBrowserUI = Resources.Load<GameObject>(KCEditorDefine.B_OBJ_P_FILE_BROWSER_UI);
+	//! 파일 브라우저를 설정한다
+	private static void SetupFileBrowser() {
+		var oFileBrowser = Resources.Load<GameObject>(KCEditorDefine.B_OBJ_P_FILE_BROWSER);
 
-		// 파일 브라우저 UI 가 존재 할 경우
-		if(oFileBrowserUI != null) {
-			var oCanvas = oFileBrowserUI.GetComponentInChildren<Canvas>();
-			oCanvas.sortingOrder = KCDefine.U_SORTING_O_FILE_BROWSER_UI;
+		// 파일 브라우저가 존재 할 경우
+		if(oFileBrowser != null) {
+			var oCanvas = oFileBrowser.GetComponentInChildren<Canvas>();
+			oCanvas.sortingOrder = KCDefine.U_SORTING_O_FILE_BROWSER;
 
-			var stResolution = new Vector2(KCDefine.B_SCREEN_WIDTH, KCDefine.B_SCREEN_HEIGHT);
-
-			var oCanvasScaler = oFileBrowserUI.GetComponentInChildren<CanvasScaler>();
+			var oCanvasScaler = oFileBrowser.GetComponentInChildren<CanvasScaler>();
 			oCanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
 			oCanvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-			oCanvasScaler.referenceResolution = stResolution;
+			oCanvasScaler.referenceResolution = KCDefine.B_SCREEN_SIZE;
 			oCanvasScaler.referencePixelsPerUnit = KCDefine.B_REF_PIXELS_UNIT;
 
-			var oFileBrowserWnd = oFileBrowserUI.ExFindChild(KCEditorDefine.B_OBJ_N_FILE_BROWSER_WND);
+			var oFileBrowserWnd = oFileBrowser.ExFindChild(KCEditorDefine.B_OBJ_N_FILE_BROWSER_WND);
 			oFileBrowserWnd.transform.localScale = KCDefine.B_SCALE_NORM * KCEditorDefine.B_SCALE_FILE_BROWSER_WND;
 		}
 	}
 	#endregion			// 클래스 함수
+
+	#region 클래스 조건부 함수
+#if INPUT_SYSTEM_MODULE_ENABLE
+	//! 입력 시스템을 설정한다
+	private static void SetupInputSystem() {
+		// 입력 시스템 설정이 없을 경우
+		if(!EditorBuildSettings.TryGetConfigObject<InputSettings>(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, out InputSettings oInputSettings)) {
+			var oAsset = AssetDatabase.LoadAssetAtPath<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
+			oAsset = oAsset ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
+
+			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, oAsset, true);
+		}
+	}
+#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+	#endregion			// 클래스 조건부 함수
 }
 #endif			// #if UNITY_EDITOR

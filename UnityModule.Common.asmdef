@@ -19,6 +19,7 @@
         "UnityModule.Common.GameCenter",
         "UnityModule.Common.Purchase",
         "UnityModule.Common.Noti",
+        "Unity.InputSystem",
         "Unity.Notifications.iOS",
         "Unity.Notifications.Android",
         "Unity.RenderPipelines.Universal.Runtime",

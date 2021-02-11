@@ -185,6 +185,10 @@ public static partial class KEditorDefine {
 		["com.unity.adaptiveperformance.samsung.android"] = "2.0.2",
 #endif			// #if ADAPTIVE_PERFORMANCE_ENABLE
 
+#if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
+		["com.unity.inputsystem"] = "1.0.2",
+#endif			// #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
+
 #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
 		["com.unity.2d.animation"] = "5.0.3",
 		["com.unity.2d.psdimporter"] = "4.0.2",
@@ -232,8 +236,6 @@ public static partial class KEditorDefine {
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "2.2.2",
-		["com.unity.purchasing.udp"] = "2.0.0",
-
 		["unitymodule.common.purchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/unitymodule_common_purchase_client.git#1.2.4",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
