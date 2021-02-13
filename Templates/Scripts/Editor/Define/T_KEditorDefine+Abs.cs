@@ -136,8 +136,8 @@ public static partial class KEditorDefine {
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.quicksearch"] = "2.0.2",
-		["com.unity.mobile.android-logcat"] = "1.2.1",
-		["com.unity.render-pipelines.universal"] = "10.2.2",
+		["com.unity.mobile.android-logcat"] = "1.1.1",
+		["com.unity.render-pipelines.universal"] = "10.3.1",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
 #if ML_AGENTS_ENABLE
@@ -149,7 +149,7 @@ public static partial class KEditorDefine {
 #endif			// #if CINEMACHINE_ENABLE
 
 #if VISUAL_FX_GRAPH_ENABLE
-		["com.unity.visualeffectgraph"] = "10.2.2",
+		["com.unity.visualeffectgraph"] = "10.3.1",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
 
 #if TILEMAP_2D_ENABLE
@@ -157,7 +157,7 @@ public static partial class KEditorDefine {
 #endif			// #if TILEMAP_2D_ENABLE
 
 #if SPRITE_SHAPES_ENABLE
-		["com.unity.2d.spriteshape"] = "5.1.0",
+		["com.unity.2d.spriteshape"] = "5.1.1",
 #endif			// #if SPRITE_SHAPES_ENABLE
 
 #if PIXELS_PERFECT_ENABLE
@@ -169,15 +169,15 @@ public static partial class KEditorDefine {
 #endif			// #if POLY_BRUSH_ENABLE
 
 #if PRO_BUILDER_ENABLE
-		["com.unity.probuilder"] = "4.4.0",
+		["com.unity.probuilder"] = "4.5.0",
 #endif			// #if PRO_BUILDER_ENABLE
 
 #if ASSET_BUNDLE_ENABLE
-		["com.unity.addressables"] = "1.16.15",
+		["com.unity.addressables"] = "1.16.16",
 #endif			// #if ASSET_BUNDLE_ENABLE
 
 #if UNITY_RECORDER_ENABLE
-		["com.unity.recorder"] = "2.5.2",
+		["com.unity.recorder"] = "2.5.4",
 #endif			// #if UNITY_RECORDER_ENABLE
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
@@ -190,7 +190,7 @@ public static partial class KEditorDefine {
 #endif			// #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
 
 #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
-		["com.unity.2d.animation"] = "5.0.3",
+		["com.unity.2d.animation"] = "5.0.4",
 		["com.unity.2d.psdimporter"] = "4.0.2",
 		["com.unity.animation.rigging"] = "1.0.3",
 #endif			// #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
