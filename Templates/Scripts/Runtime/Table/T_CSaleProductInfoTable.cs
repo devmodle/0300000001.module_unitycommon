@@ -52,13 +52,17 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 
 	//! 판매 상품 정보를 반환한다
 	public STSaleProductInfo GetSaleProductInfo(int a_nID) {
-		CAccess.Assert(this.TryGetSaleProductInfo(a_nID, out STSaleProductInfo stSaleProductInfo));
+		bool bIsValid = this.TryGetSaleProductInfo(a_nID, out STSaleProductInfo stSaleProductInfo);
+		CAccess.Assert(bIsValid);
+
 		return stSaleProductInfo;
 	}
 
 	//! 판매 아이템 정보를 반환한다
 	public STSaleItemInfo GetSaleItemInfo(int a_nID, EItemKinds a_eItemKinds) {
-		CAccess.Assert(this.TryGetSaleItemInfo(a_nID, a_eItemKinds, out STSaleItemInfo stSaleItemInfo));
+		bool bIsValid = this.TryGetSaleItemInfo(a_nID, a_eItemKinds, out STSaleItemInfo stSaleItemInfo);
+		CAccess.Assert(bIsValid);
+
 		return stSaleItemInfo;
 	}
 
@@ -70,12 +74,16 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 
 	//! 판매 아이템 정보를 반환한다
 	public bool TryGetSaleItemInfo(int a_nID, EItemKinds a_eItemKinds, out STSaleItemInfo a_stOutSaleItemInfo) {
-		CAccess.Assert(this.TryGetSaleProductInfo(a_nID, out STSaleProductInfo stSaleProductInfo));
+		// 판매 상품 정보가 존재 할 경우
+		if(this.TryGetSaleProductInfo(a_nID, out STSaleProductInfo stSaleProductInfo)) {
+			int nIdx = stSaleProductInfo.m_oSaleItemInfoList.ExFindValue((a_stSaleItemInfo) => a_stSaleItemInfo.m_eItemKinds == a_eItemKinds);
+			a_stOutSaleItemInfo = stSaleProductInfo.m_oSaleItemInfoList.ExIsValidIdx(nIdx) ? stSaleProductInfo.m_oSaleItemInfoList[nIdx] : default(STSaleItemInfo);
 
-		int nIdx = stSaleProductInfo.m_oSaleItemInfoList.ExFindValue((a_stSaleItemInfo) => a_stSaleItemInfo.m_eItemKinds == a_eItemKinds);
-		a_stOutSaleItemInfo = stSaleProductInfo.m_oSaleItemInfoList.ExIsValidIdx(nIdx) ? stSaleProductInfo.m_oSaleItemInfoList[nIdx] : default(STSaleItemInfo);
+			return stSaleProductInfo.m_oSaleItemInfoList.ExIsValidIdx(nIdx);
+		}
 
-		return stSaleProductInfo.m_oSaleItemInfoList.ExIsValidIdx(nIdx);
+		a_stOutSaleItemInfo = default(STSaleItemInfo);
+		return false;
 	}
 	#endregion			// 함수
 }

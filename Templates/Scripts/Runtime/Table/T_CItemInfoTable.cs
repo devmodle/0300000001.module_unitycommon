@@ -29,7 +29,9 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	#region 함수
 	//! 아이템 정보를 반환한다
 	public STItemInfo GetItemInfo(EItemKinds a_eItemKinds) {
-		CAccess.Assert(this.TryGetItemInfo(a_eItemKinds, out STItemInfo stItemInfo));
+		bool bIsValid = this.TryGetItemInfo(a_eItemKinds, out STItemInfo stItemInfo);
+		CAccess.Assert(bIsValid);
+
 		return stItemInfo;
 	}
 	

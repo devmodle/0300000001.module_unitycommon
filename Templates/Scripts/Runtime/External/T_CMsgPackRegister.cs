@@ -24,9 +24,7 @@ public static class CMsgPackRegister {
 		// 초기화가 필요 할 경우
 		if(!CMsgPackRegister.m_bIsInit) {
 			CMsgPackRegister.m_bIsInit = true;
-
-			StaticCompositeResolver.Instance.Register(MessagePack.Resolvers.GeneratedResolver.Instance,
-				MessagePack.Resolvers.StandardResolver.Instance);
+			StaticCompositeResolver.Instance.Register(MessagePack.Resolvers.GeneratedResolver.Instance, MessagePack.Resolvers.StandardResolver.Instance);
 
 			var oOpts = MessagePackSerializerOptions.Standard.WithResolver(StaticCompositeResolver.Instance);
 			MessagePackSerializer.DefaultOptions = oOpts;
