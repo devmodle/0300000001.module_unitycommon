@@ -6,12 +6,12 @@ using UnityEngine;
 //! 판매 상품 정보
 [System.Serializable]
 public struct STSaleProductInfo {
-	[HideInInspector] public int m_nID;
+	public EPriceType m_ePriceType;
+	public EPriceKinds m_ePriceKinds;
 
 	public string m_oName;
 	public string m_oDesc;
 
-	public EPriceType m_ePriceType;
 	public List<STSaleItemInfo> m_oSaleItemInfoList;
 }
 
@@ -27,18 +27,6 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 초기화
-	public override void Awake() {
-		base.Awake();
-
-		for(int i = 0; i < m_oSaleProductInfoList.Count; ++i) {
-			var stSaleProductInfo = m_oSaleProductInfoList[i];
-			stSaleProductInfo.m_nID = i;
-
-			m_oSaleProductInfoList[i] = stSaleProductInfo;
-		}
-	}
-
 	//! 판매 아이템 정보 포함 여부를 검사한다
 	public bool IsContainsSaleItemInfo(int a_nID, EItemKinds a_eItemKinds) {
 		return this.TryGetSaleItemInfo(a_nID, a_eItemKinds, out STSaleItemInfo stSaleItemInfo);

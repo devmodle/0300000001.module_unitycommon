@@ -7,7 +7,8 @@ using UnityEngine;
 Kinds 값 지정 방식
 :
 - Type 별로 1,000,000 단위로 값 지정
-- Kinds Type 별로 1,000 단위로 값 지정
+- Kinds Type 별로 10,000 단위로 값 지정
+- Sub Kinds Type 별로 100 단위로 값 지정
 */
 #region 기본
 //! 아이템 타입
@@ -31,8 +32,16 @@ public enum EItemKinds {
 public enum EPriceType {
 	NONE = -1,
 	ADS,
-	COIN,
+	GOODS,
 	PURCHASE,
+	MAX_VALUE
+}
+
+//! 가격 종류
+public enum EPriceKinds {
+	NONE = -1,
+	ADS_REWARD,
+	GOODS_COIN = 2000000,
 	MAX_VALUE
 }
 #endregion			// 기본

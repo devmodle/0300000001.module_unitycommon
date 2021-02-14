@@ -11,6 +11,20 @@ public static partial class KDefine {
 
 	// 횟수
 	public const int G_MAX_TIMES_FREE_REWARD = 0;
+
+	// 아이템 정보 테이블 {
+	public const string G_KEY_ITEM_IT_NAME = "Name";
+	public const string G_KEY_ITEM_IT_DESC = "Desc";
+
+	public const string G_KEY_ITEM_IT_PRICE = "Price";
+	public const string G_KEY_ITEM_IT_PRICE_TYPE = "PriceType";
+	public const string G_KEY_ITEM_IT_PRICE_KINDS = "PriceKinds";
+
+	public const string G_KEY_ITEM_IT_NUM_ITEMS = "NumItems";
+	public const string G_KEY_ITEM_IT_ITEM_KINDS = "ItemKinds";
+
+	public const string G_KEY_ITEM_IT_REPLACE = "Replace";
+	// 아이템 정보 테이블 }
 	#endregion			// 기본
 }
 #endif			// #if NEVER_USE_THIS

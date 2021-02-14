@@ -74,7 +74,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 		this.ExLateCallFunc(KCDefine.U_DELAY_NEXT_SCENE_LOAD, (a_oSender, a_oParams) => {
 			// 인트로 씬 로드가 필요 할 경우
-			if(nIdx > KCDefine.B_IDX_INVALID) {
+			if(m_oSceneNameList.ExIsValidIdx(nIdx)) {
 				CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_INTRO);
 			} else {
 				CSceneLoader.Inst.LoadScene(CSceneManager.AwakeSceneName, false, false);
