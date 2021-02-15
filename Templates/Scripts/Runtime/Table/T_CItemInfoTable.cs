@@ -49,6 +49,8 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 
 	#region 함수
 	public List<STItemInfo> LoadItemInfos(string a_oJSONString) {
+		CAccess.Assert(a_oJSONString.ExIsValid());
+		
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONString);
 		var oItemInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
 

@@ -19,8 +19,13 @@ public class CSubInitSceneManager : CInitSceneManager {
 		CUserInfoStorage.Create();
 		CGameInfoStorage.Create();
 
-		// 테이블을 로드한다
+		// 테이블을 로드한다 {
+#if UNITY_EDITOR || UNITY_STANDALONE
+		CItemInfoTable.Inst.LoadItemInfosFromFile(KDefine.G_RUNTIME_TABLE_P_ITEM_INFO);
+#else
 		CItemInfoTable.Inst.LoadItemInfosFromRes(KCDefine.U_TABLE_P_G_ITEM_INFO);
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+		// 테이블을 로드한다 }
 	}
 	#endregion			// 함수
 }
