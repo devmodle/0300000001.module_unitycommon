@@ -75,7 +75,7 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	//! 아이템 정보를 로드한다
 	public List<STItemInfo> LoadItemInfosFromFile(string a_oFilePath) {
 		string oString = CFunc.ReadString(a_oFilePath);
-		return this.LoadItemInfos(a_oFilePath);
+		return this.LoadItemInfos(oString);
 	}
 
 	//! 아이템 정보를 로드한다
