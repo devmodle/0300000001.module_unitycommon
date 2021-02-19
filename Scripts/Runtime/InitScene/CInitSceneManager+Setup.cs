@@ -13,7 +13,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			var oBlindUI = CFactory.CreateCloneObj(KCDefine.IS_OBJ_N_BLIND_UI, KCDefine.IS_OBJ_P_SCREEN_BLIND_UI, null);
 
 			CInitSceneManager.m_oBlindUI = oBlindUI;
-			CSceneManager.ScreenBlindUIs = oBlindUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UI_ROOT);
+			CSceneManager.ScreenBlindUIs = oBlindUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS);
 
 			// 블라인드 이미지를 생성한다 {
 			var oImgs = new Image[] {
