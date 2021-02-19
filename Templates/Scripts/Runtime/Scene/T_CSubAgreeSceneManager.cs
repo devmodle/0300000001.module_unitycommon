@@ -39,7 +39,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 		string oObjPath = KCDefine.AS_OBJ_P_LANDSCAPE_AGREE_POPUP;
 #endif			// #if MODE_PORTRAIT_ENABLE
 
-		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.SubPopupUIRoot, KCDefine.B_POS_POPUP);
+		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.SubPopupUIs, KCDefine.B_POS_POPUP);
 		oAgreePopup.Init(a_oServices, a_oPrivacy, a_ePopupType);
 		oAgreePopup.Show(null, this.OnCloseAgreePopup);
 	}

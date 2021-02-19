@@ -31,11 +31,11 @@ public class CSubStartSceneManager : CStartSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
 			// 텍스트를 설정한다
-			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIRoot, KCDefine.SS_POS_LOADING_TEXT);
+			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, KCDefine.SS_POS_LOADING_TEXT);
 			m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;
 
 			// 이미지를 설정한다 {
-			m_oLoadingImg = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_IMG_OBJ, KCDefine.SS_OBJ_P_LOADING_IMG_OBJ, this.SubUIRoot, KCDefine.SS_POS_LOADING_IMG_OBJ);
+			m_oLoadingImg = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_IMG_OBJ, KCDefine.SS_OBJ_P_LOADING_IMG_OBJ, this.SubUIs, KCDefine.SS_POS_LOADING_IMG_OBJ);
 
 			m_oGaugeImg = m_oLoadingImg.ExFindComponent<Image>(KCDefine.SS_OBJ_N_GAUGE_IMG);
 			m_oGaugeImg.fillAmount = KCDefine.B_VALUE_FLT_0;

@@ -136,7 +136,7 @@ public static partial class KEditorDefine {
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.quicksearch"] = "2.0.2",
-		["com.unity.mobile.android-logcat"] = "1.1.1",
+		["com.unity.mobile.android-logcat"] = "1.2.1",
 		["com.unity.render-pipelines.universal"] = "10.3.1",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
@@ -216,12 +216,12 @@ public static partial class KEditorDefine {
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["com.google.firebase.auth"] = "7.0.2",
-		["com.google.firebase.analytics"] = "7.0.2",
-		["com.google.firebase.crashlytics"] = "7.0.2",
-		["com.google.firebase.database"] = "7.0.2",
-		["com.google.firebase.remote-config"] = "7.0.2",
-		["com.google.firebase.messaging"] = "7.0.2",
+		["com.google.firebase.auth"] = "7.1.0",
+		["com.google.firebase.analytics"] = "7.1.0",
+		["com.google.firebase.crashlytics"] = "7.1.0",
+		["com.google.firebase.database"] = "7.1.0",
+		["com.google.firebase.remote-config"] = "7.1.0",
+		["com.google.firebase.messaging"] = "7.1.0",
 
 		["unitymodule.common.firebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.2.4",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE

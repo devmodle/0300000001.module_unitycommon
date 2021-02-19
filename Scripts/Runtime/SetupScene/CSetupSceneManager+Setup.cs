@@ -13,7 +13,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			var oPopupUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_POPUP_UI, KCDefine.SS_OBJ_P_SCREEN_POPUP_UI, null);
 				
 			CSetupSceneManager.m_oPopupUI = oPopupUI;
-			CSceneManager.ScreenPopupUIRoot = oPopupUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UI_ROOT);
+			CSceneManager.ScreenPopupUIs = oPopupUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UI_ROOT);
 
 			DontDestroyOnLoad(oPopupUI);
 			CFunc.SetupScreenUI(oPopupUI, KCDefine.U_SORTING_O_SCREEN_POPUP_UI);
@@ -27,7 +27,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			var oTopmostUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_TOPMOST_UI, KCDefine.SS_OBJ_P_SCREEN_TOPMOST_UI, null);
 
 			CSetupSceneManager.m_oTopmostUI = oTopmostUI;
-			CSceneManager.ScreenTopmostUIRoot = oTopmostUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UI_ROOT);
+			CSceneManager.ScreenTopmostUIs = oTopmostUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UI_ROOT);
 
 			DontDestroyOnLoad(oTopmostUI);
 			CFunc.SetupScreenUI(oTopmostUI, KCDefine.U_SORTING_O_SCREEN_TOPMOST_UI);
@@ -41,7 +41,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			var oAbsUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_ABS_UI, KCDefine.SS_OBJ_P_SCREEN_ABS_UI, null);
 
 			CSetupSceneManager.m_oAbsUI = oAbsUI;
-			CSceneManager.ScreenAbsUIRoot = oAbsUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UI_ROOT);
+			CSceneManager.ScreenAbsUIs = oAbsUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UI_ROOT);
 
 			DontDestroyOnLoad(oAbsUI);
 			CFunc.SetupScreenUI(oAbsUI, KCDefine.U_SORTING_O_SCREEN_ABS_UI);
@@ -65,10 +65,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			var oDebugUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_UI, KCDefine.SS_OBJ_P_SCREEN_DEBUG_UI, null);
 
 			CSetupSceneManager.m_oDebugUI = oDebugUI;
-			CSceneManager.ScreenDebugUIRoot = oDebugUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UI_ROOT);
+			CSceneManager.ScreenDebugUIs = oDebugUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UI_ROOT);
 
-			CSceneManager.ScreenDebugTextRoot = oDebugUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXT_ROOT);
-			CSceneManager.ScreenDebugTextRoot.SetActive(false);
+			CSceneManager.ScreenDebugTexts = oDebugUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXT_ROOT);
+			CSceneManager.ScreenDebugTexts.SetActive(false);
 
 			CSceneManager.ScreenFPSBtn = oDebugUI.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_BTN);
 			CSceneManager.ScreenFPSBtn.gameObject.SetActive(false);
