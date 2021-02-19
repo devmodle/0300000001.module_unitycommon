@@ -22,13 +22,21 @@ public abstract class CStartSceneManager : CSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		SpriteAtlasList.ExAddValue(KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01);
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsInit) {
+			SpriteAtlasList.ExAddValue(KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01);
+		}
 	}
 
 	//! 초기화
 	public sealed override void Start() {
 		base.Start();
-		StartCoroutine(this.OnStart());
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsInit) {
+			StartCoroutine(this.OnStart());
+		}
 	}
 
 	//! 씬을 설정한다

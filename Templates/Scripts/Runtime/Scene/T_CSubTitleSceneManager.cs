@@ -9,20 +9,24 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	//! 초기화
 	public override void Start() {
 		base.Start();
-		var stLastFreeRewardTime = CAppInfoStorage.Inst.AppInfo.LastFreeRewardTime;
 
-		// 업데이트가 필요 할 경우
-		if(CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
-			Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult);
-		}
+		// 초기화 되었을 경우
+		if(CSceneManager.IsAppInit) {
+			var stLastFreeRewardTime = CAppInfoStorage.Inst.AppInfo.LastFreeRewardTime;
 
-		// 무료 코인 리셋 주기가 지났을 경우
-		if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_DBL_1)) {
-			CAppInfoStorage.Inst.AppInfo.LastFreeRewardTime = System.DateTime.Today;
-			CAppInfoStorage.Inst.SaveAppInfo();
+			// 업데이트가 필요 할 경우
+			if(CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
+				Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult);
+			}
 
-			CUserInfoStorage.Inst.UserInfo.FreeRewardTimes = KCDefine.B_VALUE_INT_0;
-			CUserInfoStorage.Inst.SaveUserInfo();
+			// 무료 코인 리셋 주기가 지났을 경우
+			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_DBL_1)) {
+				CAppInfoStorage.Inst.AppInfo.LastFreeRewardTime = System.DateTime.Today;
+				CAppInfoStorage.Inst.SaveAppInfo();
+
+				CUserInfoStorage.Inst.UserInfo.FreeRewardTimes = KCDefine.B_VALUE_INT_0;
+				CUserInfoStorage.Inst.SaveUserInfo();
+			}
 		}
 	}
 

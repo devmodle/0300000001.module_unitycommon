@@ -21,7 +21,11 @@ public abstract class CSplashSceneManager : CSceneManager {
 	//! 초기화
 	public sealed override void Start() {
 		base.Start();
-		StartCoroutine(this.OnStart());
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsInit) {
+			StartCoroutine(this.OnStart());
+		}
 	}
 
 	//! 다음 씬을 로드한다

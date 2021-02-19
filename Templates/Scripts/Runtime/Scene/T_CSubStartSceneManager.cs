@@ -26,10 +26,11 @@ public class CSubStartSceneManager : CStartSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		m_fSkipTime = KCDefine.SS_DELTA_T_UPDATE_STATE;
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
+			m_fSkipTime = KCDefine.SS_DELTA_T_UPDATE_STATE;
+			
 			// 텍스트를 설정한다
 			m_oLoadingText = CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, KCDefine.SS_POS_LOADING_TEXT);
 			m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;

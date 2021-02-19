@@ -25,7 +25,11 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	//! 초기화
 	public sealed override void Start() {
 		base.Start();
-		StartCoroutine(this.OnStart());
+
+		// 초기화가 필요 할 경우
+		if(!CSceneManager.IsInit) {
+			StartCoroutine(this.OnStart());
+		}
 	}
 
 	//! 씬을 설정한다

@@ -23,7 +23,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	//! 초기화
 	public sealed override void Start() {
 		base.Start();
-		StartCoroutine(this.OnStart());
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsInit) {
+			StartCoroutine(this.OnStart());
+		}
 	}
 
 	//! 씬을 설정한다

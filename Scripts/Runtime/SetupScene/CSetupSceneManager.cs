@@ -47,7 +47,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 초기화
 	public sealed override void Start() {
 		base.Start();
-		StartCoroutine(this.OnStart());
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsInit) {
+			StartCoroutine(this.OnStart());
+		}
 	}
 
 	//! 디바이스 메세지를 수신했을 경우
