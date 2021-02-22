@@ -6,9 +6,9 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 //! 서브 스플래시 씬 관리자
 public class CSubSplashSceneManager : CSplashSceneManager {
-	#region 변수
+	#region UI 변수
 	private Image m_oSplashImg = null;
-	#endregion			// 변수
+	#endregion			// UI 변수
 
 	#region 프로퍼티
 	public override Color ClearColor => KCDefine.SS_COLOR_SPLASH_SM_BG;
