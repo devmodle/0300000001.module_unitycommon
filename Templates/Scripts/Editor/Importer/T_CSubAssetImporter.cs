@@ -16,7 +16,7 @@ public class CSubAssetImporter : CAssetImporter {
 	}
 
 	//! 텍스처를 추가했을 경우
-	public virtual void OnPreprocessTexture() {
+	public override void OnPreprocessTexture() {
 		base.OnPreprocessTexture();
 	}
 	#endregion			// 함수
