@@ -22,6 +22,7 @@ public static partial class KDefine {
 
 	public const string G_KEY_ITEM_IT_NUM_ITEMS = "NumItems";
 	public const string G_KEY_ITEM_IT_ITEM_KINDS = "ItemKinds";
+	public const string G_KEY_ITEM_IT_SALE_ITEM_KINDS = "SaleItemKinds";
 
 	public const string G_KEY_ITEM_IT_REPLACE = "Replace";
 	// 아이템 정보 테이블 }

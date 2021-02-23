@@ -6,11 +6,11 @@ using UnityEngine;
 //! 판매 상품 정보
 [System.Serializable]
 public struct STSaleProductInfo {
-	public EPriceType m_ePriceType;
-	public EPriceKinds m_ePriceKinds;
-
 	public string m_oName;
 	public string m_oDesc;
+
+	public EPriceType m_ePriceType;
+	public EPriceKinds m_ePriceKinds;
 
 	public List<STSaleItemInfo> m_oSaleItemInfoList;
 }
@@ -64,7 +64,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	public bool TryGetSaleItemInfo(int a_nID, EItemKinds a_eItemKinds, out STSaleItemInfo a_stOutSaleItemInfo) {
 		// 판매 상품 정보가 존재 할 경우
 		if(this.TryGetSaleProductInfo(a_nID, out STSaleProductInfo stSaleProductInfo)) {
-			int nIdx = stSaleProductInfo.m_oSaleItemInfoList.ExFindValue((a_stSaleItemInfo) => a_stSaleItemInfo.m_eItemKinds == a_eItemKinds);
+			int nIdx = stSaleProductInfo.m_oSaleItemInfoList.ExFindValue((a_stSaleItemInfo) => a_stSaleItemInfo.m_eSaleItemKinds == a_eItemKinds);
 			a_stOutSaleItemInfo = stSaleProductInfo.m_oSaleItemInfoList.ExIsValidIdx(nIdx) ? stSaleProductInfo.m_oSaleItemInfoList[nIdx] : default(STSaleItemInfo);
 
 			return stSaleProductInfo.m_oSaleItemInfoList.ExIsValidIdx(nIdx);

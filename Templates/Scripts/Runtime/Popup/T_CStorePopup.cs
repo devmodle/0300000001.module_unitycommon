@@ -9,11 +9,6 @@ public class CStorePopup : CPopup {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-
-		// 초기화 되었을 경우
-		if(CSceneManager.IsAppInit) {
-			// Do Nothing
-		}
 	}
 	
 	//! 초기화
@@ -44,7 +39,7 @@ public class CStorePopup : CPopup {
 			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nIdx);
 
 			for(int i = 0; i < stSaleProductInfo.m_oSaleItemInfoList.Count; ++i) {
-				Func.BuyItem(stSaleProductInfo.m_oSaleItemInfoList[i].m_eItemKinds);
+				Func.BuyItem(stSaleProductInfo.m_oSaleItemInfoList[i].m_eSaleItemKinds);
 			}
 		}
 	}
