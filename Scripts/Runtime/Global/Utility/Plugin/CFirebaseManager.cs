@@ -5,7 +5,6 @@ using UnityEngine;
 
 #if FIREBASE_ENABLE
 using Firebase;
-using Firebase.Unity.Editor;
 
 #if FIREBASE_AUTH_ENABLE
 using Firebase.Auth;
@@ -49,9 +48,11 @@ public partial class CFirebaseManager : CSingleton<CFirebaseManager> {
 				Func.ShowLog("CFirebaseManager.OnInit: {0}, {1}", KDefine.B_LOG_COLOR_PLUGIN, this.IsInit, a_oTask.Exception?.Message);
 
 				if(this.IsInit) {
+					var oApp = FirebaseApp.DefaultInstance;
+
 #if UNITY_EDITOR && FIREBASE_DATABASE_ENABLE
 					string oFirebaseURL = CPluginInfoTable.Instance.FirebasePluginInfo.m_oDatabaseURL;
-					FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(oFirebaseURL);
+					oApp.Options.DatabaseUrl = new System.Uri(oFirebaseURL);
 #endif			// #if UNITY_EDITOR && FIREBASE_DATABASE_ENABLE
 
 #if FIREBASE_ANALYTICS_ENABLE
