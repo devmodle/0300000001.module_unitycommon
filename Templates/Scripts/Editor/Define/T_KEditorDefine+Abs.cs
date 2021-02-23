@@ -265,10 +265,146 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 광고 네트워크 식별자
 	public static readonly string[] B_IOS_ADS_NETWORK_IDS = new string[] {
-#if ADS_MODULE_ENABLE && FACEBOOK_ADS_ENABLE
+#if ADS_MODULE_ENABLE
+#if ADMOB_ENABLE || ADMOB_ADAPTER_ENABLE
+		"cstr6suwn9.skadnetwork",
+#endif			// #if ADMOB_ENABLE || ADMOB_ADAPTER_ENABLE
+
+#if IRON_SRC_ENABLE || IRON_SRC_ADAPTER_ENABLE
+		"su67r6k2v3.skadnetwork",
+#endif			// #if IRON_SRC_ENABLE || IRON_SRC_ADAPTER_ENABLE
+
+#if APP_LOVIN_ENABLE || APP_LOVIN_ADAPTER_ENABLE
+		"2u9pt9hc89.skadnetwork",
+		"4468km3ulz.skadnetwork",
+		"4fzdc2evr5.skadnetwork",
+		"7ug5zh24hu.skadnetwork",
+		"8s468mfl3y.skadnetwork",
+		"9rd848q2bz.skadnetwork",
+		"9t245vhmpl.skadnetwork",
+		"av6w8kgt66.skadnetwork",
+		"f38h382jlk.skadnetwork",
+		"hs6bdukanm.skadnetwork",
+		"kbd757ywx3.skadnetwork",
+		"ludvb6z3bs.skadnetwork",
+		"m8dbw4sv7c.skadnetwork",
+		"mlmmfzh3r3.skadnetwork",
+		"prcb7njmu6.skadnetwork",
+		"t38b2kh725.skadnetwork",
+		"tl55sbb4fm.skadnetwork",
+		"wzmmz9fp6w.skadnetwork",
+		"yclnxrl5pm.skadnetwork",
+		"ydx93a7ass.skadnetwork",
+#endif			// #if APP_LOVIN_ENABLE || APP_LOVIN_ADAPTER_ENABLE
+
+#if FACEBOOK_ADS_ADAPTER_ENABLE
+		"n38lu8286q.skadnetwork",
 		"v9wttpbfk9.skadnetwork",
-		"n38lu8286q.skadnetwork"
-#endif			// #if ADS_MODULE_ENABLE && FACEBOOK_ADS_ENABLE
+#endif			// #if FACEBOOK_ADS_ADAPTER_ENABLE
+
+#if UNITY_ADS_ADAPTER_ENABLE
+		"22mmun2rn5.skadnetwork",
+		"238da6jt44.skadnetwork",
+		"24t9a8vw3c.skadnetwork",
+		"2u9pt9hc89.skadnetwork",
+		"3qy4746246.skadnetwork",
+		"3rd42ekr43.skadnetwork",
+		"3sh42y64q3.skadnetwork",
+		"424m5254lk.skadnetwork",
+		"4468km3ulz.skadnetwork",
+		"44jx6755aq.skadnetwork",
+		"44n7hlldy6.skadnetwork",
+		"488r3q3dtq.skadnetwork",
+		"4dzt52r2t5.skadnetwork",
+		"4fzdc2evr5.skadnetwork",
+		"4pfyvq9l8r.skadnetwork",
+		"578prtvx9j.skadnetwork",
+		"5a6flpkh64.skadnetwork",
+		"5lm9lj6jb7.skadnetwork",
+		"5tjdwbrq8w.skadnetwork",
+		"7ug5zh24hu.skadnetwork",
+		"8s468mfl3y.skadnetwork",
+		"9rd848q2bz.skadnetwork",
+		"9t245vhmpl.skadnetwork",
+		"av6w8kgt66.skadnetwork",
+		"bvpn9ufa9b.skadnetwork",
+		"c6k4g5qg8m.skadnetwork",
+		"cstr6suwn9.skadnetwork",
+		"f38h382jlk.skadnetwork",
+		"f73kdq92p3.skadnetwork",
+		"g28c52eehv.skadnetwork",
+		"glqzh8vgby.skadnetwork",
+		"hs6bdukanm.skadnetwork",
+		"kbd757ywx3.skadnetwork",
+		"lr83yxwka7.skadnetwork",
+		"m8dbw4sv7c.skadnetwork",
+		"mlmmfzh3r3.skadnetwork",
+		"ppxm28t8ap.skadnetwork",
+		"prcb7njmu6.skadnetwork",
+		"s39g8k73mm.skadnetwork",
+		"t38b2kh725.skadnetwork",
+		"tl55sbb4fm.skadnetwork",
+		"v72qych5uu.skadnetwork",
+		"v79kvwwj4g.skadnetwork",
+		"wg4vff78zm.skadnetwork",
+		"wzmmz9fp6w.skadnetwork",
+		"yclnxrl5pm.skadnetwork",
+		"ydx93a7ass.skadnetwork",
+		"zmvfpc5aq8.skadnetwork",
+#endif			// #if UNITY_ADS_ADAPTER_ENABLE
+
+#if VUNGLE_ADAPTER_ENABLE
+		"22mmun2rn5.skadnetwork",
+		"2u9pt9hc89.skadnetwork",
+		"3rd42ekr43.skadnetwork",
+		"4fzdc2evr5.skadnetwork",
+		"4pfyvq9l8r.skadnetwork",
+		"5lm9lj6jb7.skadnetwork",
+		"8s468mfl3y.skadnetwork",
+		"c6k4g5qg8m.skadnetwork",
+		"glqzh8vgby.skadnetwork",
+		"gta9lk7p23.skadnetwork",
+		"mlmmfzh3r3.skadnetwork",
+		"n9x2a789qt.skadnetwork",
+		"tl55sbb4fm.skadnetwork",
+		"v72qych5uu.skadnetwork",
+		"yclnxrl5pm.skadnetwork",
+		"ydx93a7ass.skadnetwork",
+#endif			// #if VUNGLE_ADAPTER_ENABLE
+
+#if PANGLE_ADAPTER_ENABLE
+		"22mmun2rn5.skadnetwork",
+		"238da6jt44.skadnetwork",
+#endif			// #if PANGLE_ADAPTER_ENABLE
+
+#if AD_COLONY_ADAPTER_ENABLE
+		"2u9pt9hc89.skadnetwork",
+		"3rd42ekr43.skadnetwork",
+		"4468km3ulz.skadnetwork",
+		"44jx6755aq.skadnetwork",
+		"4fzdc2evr5.skadnetwork",
+		"4pfyvq9l8r.skadnetwork",
+		"5lm9lj6jb7.skadnetwork",
+		"7rz58n8ntl.skadnetwork",
+		"7ug5zh24hu.skadnetwork",
+		"8s468mfl3y.skadnetwork",
+		"9rd848q2bz.skadnetwork",
+		"9t245vhmpl.skadnetwork",
+		"c6k4g5qg8m.skadnetwork",
+		"ejvt5qm6ak.skadnetwork",
+		"hs6bdukanm.skadnetwork",
+		"klf5c3l5u5.skadnetwork",
+		"m8dbw4sv7c.skadnetwork",
+		"mlmmfzh3r3.skadnetwork",
+		"mtkv5xtk9e.skadnetwork",
+		"ppxm28t8ap.skadnetwork",
+		"prcb7njmu6.skadnetwork",
+		"t38b2kh725.skadnetwork",
+		"tl55sbb4fm.skadnetwork",
+		"v72qych5uu.skadnetwork",
+		"yclnxrl5pm.skadnetwork"
+#endif			// #if AD_COLONY_ADAPTER_ENABLE
+#endif			// #if ADS_MODULE_ENABLE
 	};
 
 	// 프레임워크

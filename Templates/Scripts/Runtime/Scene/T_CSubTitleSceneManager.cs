@@ -5,9 +5,9 @@ using UnityEngine;
 #if NEVER_USE_THIS
 //! 서브 타이틀 씬 관리자
 public partial class CSubTitleSceneManager : CTitleSceneManager {
-	#region 변수
+	#region UI 변수
 	private Text m_oVersionText = null;
-	#endregion			// 변수
+	#endregion			// UI 변수
 
 	#region 함수
 	//! 초기화
