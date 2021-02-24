@@ -25,36 +25,36 @@ public static partial class Func {
 
 	#region 클래스 함수
 	//! 경고 팝업을 출력한다
-	public static void ShowAlertPopup(Dictionary<string, string> a_oDataList, System.Action<CAlertPopup, bool> a_oCallback) {
+	public static void ShowAlertPopup(CAlertPopup.STParams a_stParams, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 경고 팝업이 없을 경우
 		if(CSceneManager.ScreenPopupUIs.ExFindChild(KCDefine.U_OBJ_N_ALERT_POPUP) == null) {
-			var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP, KCDefine.U_OBJ_P_G_ALERT_POPUP, CSceneManager.ScreenPopupUIs, a_oDataList, a_oCallback);
+			var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP, KCDefine.U_OBJ_P_G_ALERT_POPUP, CSceneManager.ScreenPopupUIs, a_stParams, a_oCallback);
 			oAlertPopup.Show(null, null);
 		}
 	}
 
 	//! 종료 팝업을 출력한다
 	public static void ShowQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		var oDataList = new Dictionary<string, string>() {
-			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_QUIT_P_MSG),
-			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
-			[KCDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
+		var stParams = new CAlertPopup.STParams() {
+			m_oTitle = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStringTable.Inst.GetString(KCDefine.ST_KEY_QUIT_P_MSG),
+			m_oOKBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oCancelBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
 		};
 
-		Func.ShowAlertPopup(oDataList, a_oCallback);
+		Func.ShowAlertPopup(stParams, a_oCallback);
 	}
 
 	//! 업데이트 팝업을 출력한다
 	public static void ShowUpdatePopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		var oDataList = new Dictionary<string, string>() {
-			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_UPDATE_P_MSG),
-			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
-			[KCDefine.U_KEY_ALERT_P_CANCEL_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
+		var stParams = new CAlertPopup.STParams() {
+			m_oTitle = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStringTable.Inst.GetString(KCDefine.ST_KEY_UPDATE_P_MSG),
+			m_oOKBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oCancelBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
 		};
 
-		Func.ShowAlertPopup(oDataList, a_oCallback);
+		Func.ShowAlertPopup(stParams, a_oCallback);
 	}
 
 	//! 지역화 문자열을 설정한다
@@ -191,24 +191,26 @@ public static partial class Func {
 #if PURCHASE_MODULE_ENABLE
 	//! 결제 성공 팝업을 출력한다
 	public static void ShowPurchaseSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		var oDataList = new Dictionary<string, string>() {
-			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_PURCHASE_P_SUCCESS_MSG),
-			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+		var stParams = new CAlertPopup.STParams() {
+			m_oTitle = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStringTable.Inst.GetString(KCDefine.ST_KEY_PURCHASE_P_SUCCESS_MSG),
+			m_oOKBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oCancelBtnText = string.Empty
 		};
 
-		Func.ShowAlertPopup(oDataList, a_oCallback);
+		Func.ShowAlertPopup(stParams, a_oCallback);
 	}
 
 	//! 결제 실패 팝업을 출력한다
 	public static void ShowPurchaseFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		var oDataList = new Dictionary<string, string>() {
-			[KCDefine.U_KEY_ALERT_P_TITLE] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			[KCDefine.U_KEY_ALERT_P_MSG] = CStringTable.Inst.GetString(KCDefine.ST_KEY_PURCHASE_P_FAIL_MSG),
-			[KCDefine.U_KEY_ALERT_P_OK_BTN_TEXT] = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+		var stParams = new CAlertPopup.STParams() {
+			m_oTitle = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStringTable.Inst.GetString(KCDefine.ST_KEY_PURCHASE_P_FAIL_MSG),
+			m_oOKBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oCancelBtnText = string.Empty
 		};
 
-		Func.ShowAlertPopup(oDataList, a_oCallback);
+		Func.ShowAlertPopup(stParams, a_oCallback);
 	}
 
 	//! 상품을 결제한다
