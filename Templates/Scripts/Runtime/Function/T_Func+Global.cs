@@ -45,26 +45,6 @@ public static partial class Func {
 		CUserInfoStorage.Inst.SaveUserInfo();
 		CCommonUserInfoStorage.Inst.SaveUserInfo();
 	}
-	
-	//! 상점 팝업을 출력한다
-	public static void ShowStorePopup(string a_oName, string a_oObjPath, GameObject a_oParent) {
-		// 상점 팝업이 없을 경우
-		if(a_oParent.ExFindChild(a_oName) == null) {
-			var oStorePopup = CPopup.Create<CStorePopup>(a_oName, a_oObjPath, a_oParent);
-			oStorePopup.Init();
-			oStorePopup.Show(null, null);
-		}
-	}
-
-	//! 무료 코인 팝업을 출력한다
-	public static void ShowFreeCoinPopup(string a_oName, string a_oObjPath, GameObject a_oParent) {
-		// 무료 코인 팝업이 없을 경우
-		if(a_oParent.ExFindChild(a_oName) == null) {
-			var oFreeCoinPopup = CPopup.Create<CFreeCoinPopup>(a_oName, a_oObjPath, a_oParent);
-			oFreeCoinPopup.Init();
-			oFreeCoinPopup.Show(null, null);
-		}
-	}
 	#endregion			// 클래스 함수
 
 	#region 조건부 클래스 함수

@@ -76,6 +76,18 @@ public static partial class Func {
 	}
 	#endregion			// 클래스 함수
 
+	#region 제네릭 클래스 함수
+	//! 팝업을 출력한다
+	public static void ShowPopup<T>(string a_oName, string a_oObjPath, GameObject a_oParent, System.Action<CPopup> a_oShowCallback, System.Action<CPopup> a_oCloseCallback) where T : CPopup {
+		// 팝업이 없을 경우
+		if(a_oParent.ExFindChild(a_oName) == null) {
+			var oPopup = CPopup.Create<T>(a_oName, a_oObjPath, a_oParent);
+			oPopup.gameObject.ExSendMsg(KCDefine.U_FUNC_N_INIT, null);
+			oPopup.Show(a_oShowCallback, a_oCloseCallback);
+		}
+	}
+	#endregion			// 제네릭 클래스 함수
+
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
