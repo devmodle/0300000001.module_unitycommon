@@ -390,9 +390,15 @@ public static partial class CPlatformBuilder
 			var oAdsNetworkItemList = oDocument.ExGetArray(B_IOS_ADS_NETWORK_ITEMS_KEY);
 			for (int i = 0; i < gAdsNetworkIDs.Length; ++i)
 			{
-				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
-				string oID = gAdsNetworkIDs[i];
-				oAdsNetworkIDInfo.SetString(B_IOS_ADS_NETWORK_ID_KEY, oID);
+				bool isExistId = oAdsNetworkItemList.
+					ExIsContainsAdsNetworkID(gAdsNetworkIDs[i]);
+				if (isExistId == false)
+				{
+					var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
+					string oID = gAdsNetworkIDs[i];
+
+					oAdsNetworkIDInfo.SetString(B_IOS_ADS_NETWORK_ID_KEY, oID);
+				}
 			}
 
 			oDocument.WriteToFile(oPlistFilepath);
@@ -460,6 +466,24 @@ public static partial class CPlatformBuilder
 		{
 			return a_oSender.root.CreateArray(a_oKey);
 		}
+	}
+
+	//! 포함 여부를 검사한다
+	public static bool ExIsContainsAdsNetworkID(this PlistElementArray a_oSender, string a_oNetworkID)
+	{
+		for (int i = 0; i < a_oSender.values.Count; ++i)
+		{
+			var oAdsNetworkIDInfo = a_oSender.values[i].AsDict();
+			var oAdsNetworkIDs = oAdsNetworkIDInfo.values;
+			// 광고 네트워크 식별자가 존재 할 경우
+			if (oAdsNetworkIDs.TryGetValue(
+				B_IOS_ADS_NETWORK_ID_KEY, out PlistElement oValue) &&
+				oValue.AsString().Equals(a_oNetworkID))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 #endif // UNITY_IOS
 	#endregion
