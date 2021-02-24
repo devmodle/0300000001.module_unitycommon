@@ -58,9 +58,7 @@ public static partial class CBuildProcessHandler {
 			
 			for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
 				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
-				string oID = KEditorDefine.B_IOS_ADS_NETWORK_IDS[i];
-
-				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, oID);
+				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_IDS[i]);
 			}
 
 			oDoc.WriteToFile(oPlistPath);
