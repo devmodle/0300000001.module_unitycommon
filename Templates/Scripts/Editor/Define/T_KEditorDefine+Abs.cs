@@ -132,7 +132,7 @@ public static partial class KEditorDefine {
 		["com.google.external-dependency-manager"] = "1.2.164",
 		["com.google.play.review"] = "1.3.0",
 
-		["com.unity.burst"] = "1.4.4",
+		["com.unity.burst"] = "1.4.5",
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.quicksearch"] = "2.0.2",
@@ -196,7 +196,7 @@ public static partial class KEditorDefine {
 #endif			// #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
-    	["com.unity.postprocessing"] = "3.0.1",
+    	["com.unity.postprocessing"] = "3.0.3",
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE

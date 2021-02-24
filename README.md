@@ -29,7 +29,7 @@
 	- *Build Report Tool (v3.5.3 - Jan 4, 2021)*
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.1 - Feb 15, 2021)*
-	- *Odin Inspector (v3.0.3 - Dec 19, 2020)*
+	- *Odin Inspector (v3.0.4 - Feb 23, 2021)*
 	- *Spine (v3.8.0 - Feb 03, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Message Pack (v2.2.85)*
