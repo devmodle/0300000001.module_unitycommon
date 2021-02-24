@@ -57,8 +57,11 @@ public static partial class CBuildProcessHandler {
 			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
 			
 			for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
-				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
-				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_IDS[i]);
+				// 광고 네트워크 식별자가 없을 경우
+				if(!oAdsNetworkItemList.ExIsContainsAdsNetworkID(KEditorDefine.B_IOS_ADS_NETWORK_IDS[i])) {
+					var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
+					oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_IDS[i]);
+				}
 			}
 
 			oDoc.WriteToFile(oPlistPath);
