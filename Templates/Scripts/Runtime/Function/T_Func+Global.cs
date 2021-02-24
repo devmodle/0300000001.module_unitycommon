@@ -38,7 +38,7 @@ public static partial class Func {
 		}
 
 		// 비용이 존재 할 경우
-		if(stItemInfo.m_ePriceType == EPriceType.COIN && stItemInfo.m_nPrice > KCDefine.B_VALUE_INT_1) {
+		if(stItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COIN && stItemInfo.m_nPrice > KCDefine.B_VALUE_INT_1) {
 			CCommonUserInfoStorage.Inst.AddNumCoins(-stItemInfo.m_nPrice);
 		}
 

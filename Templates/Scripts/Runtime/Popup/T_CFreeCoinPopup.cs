@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+#if NEVER_USE_THIS
+//! 무료 코인 팝업
+public class CFreeCoinPopup : CPopup {
+	#region 함수
+	//! 초기화
+	public override void Awake() {
+		base.Awake();
+	}
+	
+	//! 초기화
+	public virtual void Init() {
+		// Do Nothing
+	}
+
+	//! 광고 버튼을 눌렀을 경우
+	private void OnTouchAdsBtn() {
+#if ADS_MODULE_ENABLE
+		Func.ShowRewardAds(CPluginInfoTable.Inst.DefAdsType, this.OnCloseRewardAds);
+#endif			// #if ADS_MODULE_ENABLE
+	}
+	#endregion			// 함수
+
+	#region 조건부 함수
+#if ADS_MODULE_ENABLE
+	//! 보상 광고가 닫혔을 경우
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItem a_stRewardItem, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			Func.BuyItem(EItemKinds.GOODS_COIN_FREE);
+		}
+	}
+#endif			// #if ADS_MODULE_ENABLE
+	#endregion			// 조건부 함수
+}
+#endif			// #if NEVER_USE_THIS

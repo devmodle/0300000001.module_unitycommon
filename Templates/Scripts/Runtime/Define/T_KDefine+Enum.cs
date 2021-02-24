@@ -24,6 +24,7 @@ public enum EItemType {
 public enum EItemKinds {
 	NONE = -1,
 	GOODS_COIN,
+	GOODS_COIN_FREE,
 	NON_CONSUMABLE_REMOVE_ADS = 2000000,
 	MAX_VALUE
 }
