@@ -11,37 +11,41 @@ using UnityEngine.Purchasing;
 public static partial class Func {
 	#region 클래스 함수
 	//! 아이템을 구입한다
-	public static void BuyItem(EItemKinds a_eKinds) {
+	public static void BuyItem(EItemKinds a_eKinds, bool a_bIsIgnoreAction = false) {
 		var stItemInfo = CItemInfoTable.Inst.GetItemInfo(a_eKinds);
 
-		switch(a_eKinds) {
-			case EItemKinds.GOODS_COIN: {
-				CCommonUserInfoStorage.Inst.AddNumCoins(stItemInfo.m_stSaleItemInfo.m_nNumItems);
-			} break;
-			case EItemKinds.NON_CONSUMABLE_REMOVE_ADS: {
-				CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds = true;
+		// 구입 처리가 가능 할 경우
+		if(!a_bIsIgnoreAction) {
+			switch(a_eKinds) {
+				case EItemKinds.GOODS_COIN: {
+					CCommonUserInfoStorage.Inst.AddNumCoins(stItemInfo.m_stSaleItemInfo.m_nNumItems);
+				} break;
+				case EItemKinds.NON_CONSUMABLE_REMOVE_ADS: {
+					CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds = true;
 
 #if ADS_MODULE_ENABLE
-				CAdsManager.Inst.IsEnableBannerAds = false;
-				CAdsManager.Inst.IsEnableFullscreenAds = false;
-				CAdsManager.Inst.IsEnableResumeAds = false;
-				
-				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.DefAdsType, true);
+					CAdsManager.Inst.IsEnableBannerAds = false;
+					CAdsManager.Inst.IsEnableFullscreenAds = false;
+					CAdsManager.Inst.IsEnableResumeAds = false;
+					
+					CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.DefAdsType, true);
 #endif			// #if ADS_MODULE_ENABLE
-			} break;
-			default: {
-				CUserInfoStorage.Inst.AddNumItems(a_eKinds, stItemInfo.m_stSaleItemInfo.m_nNumItems);
-			} break;
+				} break;
+				default: {
+					CUserInfoStorage.Inst.AddNumItems(a_eKinds, stItemInfo.m_stSaleItemInfo.m_nNumItems);
+				} break;
+			}
 		}
 
 		// 비용이 존재 할 경우
-		if(stItemInfo.m_ePriceType == EPriceType.GOODS && stItemInfo.m_nPrice > KCDefine.B_VALUE_INT_0) {
-			switch(stItemInfo.m_ePriceKinds) {
-				case EPriceKinds.GOODS_COIN: CCommonUserInfoStorage.Inst.AddNumCoins(-stItemInfo.m_nPrice); break;
-			}
+		if(stItemInfo.m_ePriceType == EPriceType.COIN && stItemInfo.m_nPrice > KCDefine.B_VALUE_INT_1) {
+			CCommonUserInfoStorage.Inst.AddNumCoins(-stItemInfo.m_nPrice);
 		}
-	}
 
+		CUserInfoStorage.Inst.SaveUserInfo();
+		CCommonUserInfoStorage.Inst.SaveUserInfo();
+	}
+	
 	//! 상점 팝업을 출력한다
 	public static void ShowStorePopup(string a_oName, string a_oObjPath, GameObject a_oParent) {
 		// 상점 팝업이 없을 경우
@@ -49,6 +53,16 @@ public static partial class Func {
 			var oStorePopup = CPopup.Create<CStorePopup>(a_oName, a_oObjPath, a_oParent);
 			oStorePopup.Init();
 			oStorePopup.Show(null, null);
+		}
+	}
+
+	//! 무료 코인 팝업을 출력한다
+	public static void ShowFreeCoinPopup(string a_oName, string a_oObjPath, GameObject a_oParent) {
+		// 무료 코인 팝업이 없을 경우
+		if(a_oParent.ExFindChild(a_oName) == null) {
+			var oFreeCoinPopup = CPopup.Create<CFreeCoinPopup>(a_oName, a_oObjPath, a_oParent);
+			oFreeCoinPopup.Init();
+			oFreeCoinPopup.Show(null, null);
 		}
 	}
 	#endregion			// 클래스 함수
