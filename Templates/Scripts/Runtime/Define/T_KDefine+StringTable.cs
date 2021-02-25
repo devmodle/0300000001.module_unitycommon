@@ -6,7 +6,7 @@ using UnityEngine;
 //! 문자열 테이블 상수
 public static partial class KDefine {
 	#region 기본
-	
+	//*** Make KDefine+AutoCreateStringTable.cs By LocalizeGenerator ***//
 	#endregion			// 기본
 }
 #endif			// #if NEVER_USE_THIS
