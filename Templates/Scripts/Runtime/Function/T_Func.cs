@@ -22,7 +22,7 @@ public static partial class Func {
 	private static System.Action<CPurchaseManager, string, bool> m_oPurchaseCallback = null;
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 클래스 변수
-
+	
 	#region 클래스 함수
 	//! 경고 팝업을 출력한다
 	public static void ShowAlertPopup(CAlertPopup.STParams a_stParams, System.Action<CAlertPopup, bool> a_oCallback) {
@@ -91,6 +91,11 @@ public static partial class Func {
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
+	public static void ShowRewardAds(System.Action<CAdsManager, STAdsRewardItem, bool> a_oCallback) {
+		Func.ShowRewardAds(CPluginInfoTable.Inst.DefAdsType, a_oCallback);
+	}
+	
+	//! 보상 광고를 출력한다
 	public static void ShowRewardAds(EAdsType a_eAdsType, System.Action<CAdsManager, STAdsRewardItem, bool> a_oCallback) {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsType)) {
@@ -102,6 +107,11 @@ public static partial class Func {
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Inst, default(STAdsRewardItem), false);
 		}
+	}
+
+	//! 전면 광고를 출력한다
+	public static void ShowFullscreenAds(System.Action<CAdsManager, bool> a_oCallback) {
+		Func.ShowFullscreenAds(CPluginInfoTable.Inst.DefAdsType, a_oCallback);
 	}
 
 	//! 전면 광고를 출력한다
@@ -118,6 +128,11 @@ public static partial class Func {
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Inst, false);
 		}
+	}
+
+	//! 재개 광고를 출력한다
+	public static void ShowResumeAds(System.Action<CAdsManager, bool> a_oCallback) {
+		Func.ShowResumeAds(CPluginInfoTable.Inst.DefAdsType, a_oCallback);
 	}
 
 	//! 재개 광고를 출력한다

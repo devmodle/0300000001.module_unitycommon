@@ -15,12 +15,8 @@ MonoBehaviour:
   m_stJenkinsInfo:
     m_oUserID: studio
     m_oBranch: master
-    m_oSourceRoot: 00002.SampleUnity
-    m_oWorkspaceRoot: /Users/9tapstudio/Documents/jenkins/workspace
-    m_oDebugDistPath: 
-    m_oReleaseDistPath: 
-    m_oAdhocDistPath: 
-    m_oStoreDistPath: 
+    m_oSrcRoot: 
+    m_oWorkspaceRoot: /Volumes/LaCie/jenkins/workspace
     m_oBuildToken: JenkinsBuild
     m_oAccessToken: 1157dad5f9db2d0615036ebc6da282c251
     m_oBuildURLFormat: http://59.11.2.140:18081/{0}/buildWithParameters
