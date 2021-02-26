@@ -22,6 +22,7 @@
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
 	- *Sprite Trail (v1.4.0 - Aug 2, 2019)*
 	- *Total JSON (v1.6.0 - Jun 3, 2020)*
+	- *Ultimate Status Bar (v2.6.0 - Jun 3, 2020)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
 	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
