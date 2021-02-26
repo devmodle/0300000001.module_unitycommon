@@ -16,8 +16,8 @@ public class CStorePopup : CPopup {
 	}
 	
 	//! 초기화
-	public virtual void Init() {
-		// Do Nothing
+	public override void Init() {
+		base.Init();
 	}
 
 	//! 광고 버튼을 눌렀을 경우

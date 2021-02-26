@@ -82,7 +82,7 @@ public static partial class Func {
 		// 팝업이 없을 경우
 		if(a_oParent.ExFindChild(a_oName) == null) {
 			var oPopup = CPopup.Create<T>(a_oName, a_oObjPath, a_oParent);
-			oPopup.gameObject.ExSendMsg(KCDefine.U_FUNC_N_INIT, null);
+			oPopup.Init();
 			oPopup.Show(a_oShowCallback, a_oCloseCallback);
 		}
 	}
