@@ -132,7 +132,7 @@ public static partial class KEditorDefine {
 		["com.google.external-dependency-manager"] = "1.2.164",
 		["com.google.play.review"] = "1.3.0",
 
-		["com.unity.burst"] = "1.4.5",
+		["com.unity.burst"] = "1.4.6",
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.quicksearch"] = "2.0.2",

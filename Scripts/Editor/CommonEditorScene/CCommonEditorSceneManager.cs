@@ -165,14 +165,14 @@ public static partial class CCommonEditorSceneManager {
 
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
-						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_X_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VALUE_FLT_0);
+						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VALUE_FLT_0);
 						string oString = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 						var oRects = new Rect[] {
-							new Rect(a_stRect.x + KCEditorDefine.B_OFFSET_X_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x - KCEditorDefine.B_OFFSET_X_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_OFFSET_Y_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_OFFSET_Y_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x - KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
 						};
 
 						for(int j = 0; j < oRects.Length; ++j) {
