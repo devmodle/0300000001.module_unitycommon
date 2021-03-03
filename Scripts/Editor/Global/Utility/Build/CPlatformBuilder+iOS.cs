@@ -5,6 +5,33 @@ using UnityEditor;
 
 #if UNITY_IOS
 using UnityEditor.iOS.Xcode;
+
+//! 확장 클래스
+public static class CExtensions {
+	//! 포함 여부를 검사한다
+	public static bool ExIsContainsAdsNetworkID(this PlistElementArray a_oSender, string a_oNetworkID) {
+		for(int i = 0; i < a_oSender.values.Count; ++i) {
+			var oAdsNetworkIDInfo = a_oSender.values[i].AsDict();
+			var oAdsNetworkIDs = oAdsNetworkIDInfo.values;
+
+			// 광고 네트워크 식별자가 존재 할 경우
+			if(oAdsNetworkIDs.TryGetValue("SKAdNetworkIdentifier", out PlistElement oValue) && oValue.AsString().Equals(a_oNetworkID)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	//! 배열을 반환한다
+	public static PlistElementArray ExGetArray(this PlistDocument a_oSender, string a_oKey) {
+		try {
+			return a_oSender.root[a_oKey].AsArray();
+		} catch {
+			return a_oSender.root.CreateArray(a_oKey);
+		}
+	}
+}
 #endif			// #if UNITY_IOS
 
 //! 플랫폼 빌더 - iOS
@@ -219,6 +246,139 @@ public static partial class CPlatformBuilder {
 
 	//! iOS 빌드가 완료 되었을 경우
 	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
+		var oAdsNetworkIDs = new string[] {
+			// Admob
+			"cstr6suwn9.skadnetwork",
+
+			// Iron Source
+			"su67r6k2v3.skadnetwork",
+
+			// App Lovin
+			"2u9pt9hc89.skadnetwork",
+			"4468km3ulz.skadnetwork",
+			"4fzdc2evr5.skadnetwork",
+			"7ug5zh24hu.skadnetwork",
+			"8s468mfl3y.skadnetwork",
+			"9rd848q2bz.skadnetwork",
+			"9t245vhmpl.skadnetwork",
+			"av6w8kgt66.skadnetwork",
+			"f38h382jlk.skadnetwork",
+			"hs6bdukanm.skadnetwork",
+			"kbd757ywx3.skadnetwork",
+			"ludvb6z3bs.skadnetwork",
+			"m8dbw4sv7c.skadnetwork",
+			"mlmmfzh3r3.skadnetwork",
+			"prcb7njmu6.skadnetwork",
+			"t38b2kh725.skadnetwork",
+			"tl55sbb4fm.skadnetwork",
+			"wzmmz9fp6w.skadnetwork",
+			"yclnxrl5pm.skadnetwork",
+			"ydx93a7ass.skadnetwork",
+
+			// Facebook Ads
+			"n38lu8286q.skadnetwork",
+			"v9wttpbfk9.skadnetwork",
+
+			// Unity Ads
+			"22mmun2rn5.skadnetwork",
+			"238da6jt44.skadnetwork",
+			"24t9a8vw3c.skadnetwork",
+			"2u9pt9hc89.skadnetwork",
+			"3qy4746246.skadnetwork",
+			"3rd42ekr43.skadnetwork",
+			"3sh42y64q3.skadnetwork",
+			"424m5254lk.skadnetwork",
+			"4468km3ulz.skadnetwork",
+			"44jx6755aq.skadnetwork",
+			"44n7hlldy6.skadnetwork",
+			"488r3q3dtq.skadnetwork",
+			"4dzt52r2t5.skadnetwork",
+			"4fzdc2evr5.skadnetwork",
+			"4pfyvq9l8r.skadnetwork",
+			"578prtvx9j.skadnetwork",
+			"5a6flpkh64.skadnetwork",
+			"5lm9lj6jb7.skadnetwork",
+			"5tjdwbrq8w.skadnetwork",
+			"7ug5zh24hu.skadnetwork",
+			"8s468mfl3y.skadnetwork",
+			"9rd848q2bz.skadnetwork",
+			"9t245vhmpl.skadnetwork",
+			"av6w8kgt66.skadnetwork",
+			"bvpn9ufa9b.skadnetwork",
+			"c6k4g5qg8m.skadnetwork",
+			"cstr6suwn9.skadnetwork",
+			"f38h382jlk.skadnetwork",
+			"f73kdq92p3.skadnetwork",
+			"g28c52eehv.skadnetwork",
+			"glqzh8vgby.skadnetwork",
+			"hs6bdukanm.skadnetwork",
+			"kbd757ywx3.skadnetwork",
+			"lr83yxwka7.skadnetwork",
+			"m8dbw4sv7c.skadnetwork",
+			"mlmmfzh3r3.skadnetwork",
+			"ppxm28t8ap.skadnetwork",
+			"prcb7njmu6.skadnetwork",
+			"s39g8k73mm.skadnetwork",
+			"t38b2kh725.skadnetwork",
+			"tl55sbb4fm.skadnetwork",
+			"v72qych5uu.skadnetwork",
+			"v79kvwwj4g.skadnetwork",
+			"wg4vff78zm.skadnetwork",
+			"wzmmz9fp6w.skadnetwork",
+			"yclnxrl5pm.skadnetwork",
+			"ydx93a7ass.skadnetwork",
+			"zmvfpc5aq8.skadnetwork",
+
+			// Vungle
+			"22mmun2rn5.skadnetwork",
+			"2u9pt9hc89.skadnetwork",
+			"3rd42ekr43.skadnetwork",
+			"4fzdc2evr5.skadnetwork",
+			"4pfyvq9l8r.skadnetwork",
+			"5lm9lj6jb7.skadnetwork",
+			"8s468mfl3y.skadnetwork",
+			"c6k4g5qg8m.skadnetwork",
+			"glqzh8vgby.skadnetwork",
+			"gta9lk7p23.skadnetwork",
+			"mlmmfzh3r3.skadnetwork",
+			"n9x2a789qt.skadnetwork",
+			"tl55sbb4fm.skadnetwork",
+			"v72qych5uu.skadnetwork",
+			"yclnxrl5pm.skadnetwork",
+			"ydx93a7ass.skadnetwork",
+
+			// Pangle
+			"22mmun2rn5.skadnetwork",
+			"238da6jt44.skadnetwork",
+
+			// Ad Colony
+			"2u9pt9hc89.skadnetwork",
+			"3rd42ekr43.skadnetwork",
+			"4468km3ulz.skadnetwork",
+			"44jx6755aq.skadnetwork",
+			"4fzdc2evr5.skadnetwork",
+			"4pfyvq9l8r.skadnetwork",
+			"5lm9lj6jb7.skadnetwork",
+			"7rz58n8ntl.skadnetwork",
+			"7ug5zh24hu.skadnetwork",
+			"8s468mfl3y.skadnetwork",
+			"9rd848q2bz.skadnetwork",
+			"9t245vhmpl.skadnetwork",
+			"c6k4g5qg8m.skadnetwork",
+			"ejvt5qm6ak.skadnetwork",
+			"hs6bdukanm.skadnetwork",
+			"klf5c3l5u5.skadnetwork",
+			"m8dbw4sv7c.skadnetwork",
+			"mlmmfzh3r3.skadnetwork",
+			"mtkv5xtk9e.skadnetwork",
+			"ppxm28t8ap.skadnetwork",
+			"prcb7njmu6.skadnetwork",
+			"t38b2kh725.skadnetwork",
+			"tl55sbb4fm.skadnetwork",
+			"v72qych5uu.skadnetwork",
+			"yclnxrl5pm.skadnetwork"
+		};
+
 #if UNITY_IOS
 		string oPlistFilepath = string.Format(KEditorDefine.B_IOS_INFO_PLIST_PATH_FORMAT, a_oPath);
 		string oProjectFilepath = PBXProject.GetPBXProjectPath(a_oPath);
@@ -228,7 +388,17 @@ public static partial class CPlatformBuilder {
 		oDocument.ReadFromFile(oPlistFilepath);
 
 		if(oDocument.ExIsValid()) {
+			var oAdsNetworkItemList = oDocument.ExGetArray("SKAdNetworkItems");
 			oDocument.root.SetBoolean(KEditorDefine.B_IOS_ENCRYPTION_ENABLE_KEY, false);
+
+			for(int i = 0; i < oAdsNetworkIDs.Length; ++i) {
+				// 광고 네트워크 식별자가 없을 경우
+				if(!oAdsNetworkItemList.ExIsContainsAdsNetworkID(oAdsNetworkIDs[i])) {
+					var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
+					oAdsNetworkIDInfo.SetString("SKAdNetworkIdentifier", oAdsNetworkIDs[i]);
+				}
+			}
+			
 			oDocument.WriteToFile(oPlistFilepath);
 		}
 		// Plist 옵션을 설정한다 }
@@ -238,13 +408,15 @@ public static partial class CPlatformBuilder {
 		oProject.ReadFromFile(oProjectFilepath);
 
 		if(oProject != null) {
-			string oGUID = oProject.GetUnityMainTargetGuid();
+			string oMainGUID = oProject.GetUnityMainTargetGuid();
+			string oFrameworkGUID = oProject.GetUnityFrameworkTargetGuid();
 
-			var oCapability = new ProjectCapabilityManager(oProjectFilepath,
-				KEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oGUID);
+			var oCapability = new ProjectCapabilityManager(oProjectFilepath, 
+				KEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS, null, oMainGUID);
 
 			for(int i = 0; i < KAppDefine.G_EXTRA_FRAMEWORKS_IOS.Length; ++i) {
-				oProject.AddFrameworkToProject(oGUID, KAppDefine.G_EXTRA_FRAMEWORKS_IOS[i], false);
+				oProject.AddFrameworkToProject(oMainGUID, KAppDefine.G_EXTRA_FRAMEWORKS_IOS[i], false);
+				oProject.AddFrameworkToProject(oFrameworkGUID, KAppDefine.G_EXTRA_FRAMEWORKS_IOS[i], false);
 			}
 
 			for(int i = 0; i < KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS.Length; ++i) {
@@ -260,10 +432,7 @@ public static partial class CPlatformBuilder {
 					oCapability.AddInAppPurchase();
 				}
 
-				oProject.AddCapability(oGUID, KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS[i]);
-
-				// oProject.AddCapability(oGUID, KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS[i], 
-				// 	KEditorDefine.B_PATH_CAPABILITY_ENTITLEMENTS_IOS);
+				oProject.AddCapability(oMainGUID, KAppDefine.G_EXTRA_CAPABILITY_TYPES_IOS[i]);
 			}
 
 			oCapability.WriteToFile();
