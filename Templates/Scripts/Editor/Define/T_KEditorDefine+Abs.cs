@@ -216,12 +216,12 @@ public static partial class KEditorDefine {
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["com.google.firebase.auth"] = "7.1.0",
-		["com.google.firebase.analytics"] = "7.1.0",
-		["com.google.firebase.crashlytics"] = "7.1.0",
-		["com.google.firebase.database"] = "7.1.0",
-		["com.google.firebase.remote-config"] = "7.1.0",
-		["com.google.firebase.messaging"] = "7.1.0",
+		["com.google.firebase.auth"] = "7.0.2",
+		["com.google.firebase.analytics"] = "7.0.2",
+		["com.google.firebase.crashlytics"] = "7.0.2",
+		["com.google.firebase.database"] = "7.0.2",
+		["com.google.firebase.remote-config"] = "7.0.2",
+		["com.google.firebase.messaging"] = "7.0.2",
 
 		["unitymodule.common.firebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/unitymodule_common_firebase_client.git#1.2.5",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
@@ -410,6 +410,7 @@ public static partial class KEditorDefine {
 	// 프레임워크
 	public static readonly string[] B_IOS_EXTRA_FRAMEWORKS = new string[] {
 		"GameKit.framework",
+		"StoreKit.framework",
 		"AuthenticationServices.framework",
 
 #if TENJIN_MODULE_ENABLE
@@ -429,12 +430,8 @@ public static partial class KEditorDefine {
 		"AdSupport.framework",
 		"WebKit.framework",
 		"libsqlite3.0.tbd",
-		"libz.tbd",
+		"libz.tbd"
 #endif			// #if SINGULAR_MODULE_ENABLE
-
-#if PURCHASE_MODULE_ENABLE
-		"StoreKit.framework"
-#endif			// #if PURCHASE_MODULE_ENABLE
 	};
 
 	// 호환성 타입
