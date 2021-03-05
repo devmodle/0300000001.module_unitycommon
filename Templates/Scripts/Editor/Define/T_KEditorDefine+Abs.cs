@@ -137,7 +137,7 @@ public static partial class KEditorDefine {
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.quicksearch"] = "2.0.2",
 		["com.unity.mobile.android-logcat"] = "1.2.1",
-		["com.unity.render-pipelines.universal"] = "10.3.1",
+		["com.unity.render-pipelines.universal"] = "10.3.2",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
 #if ML_AGENTS_ENABLE
@@ -149,7 +149,7 @@ public static partial class KEditorDefine {
 #endif			// #if CINEMACHINE_ENABLE
 
 #if VISUAL_FX_GRAPH_ENABLE
-		["com.unity.visualeffectgraph"] = "10.3.1",
+		["com.unity.visualeffectgraph"] = "10.3.2",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
 
 #if TILEMAP_2D_ENABLE
