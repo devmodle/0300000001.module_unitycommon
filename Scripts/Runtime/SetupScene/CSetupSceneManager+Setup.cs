@@ -7,44 +7,44 @@ using UnityEngine.UI;
 public abstract partial class CSetupSceneManager : CSceneManager {
 	#region 함수
 	//! 팝업 UI 를 설정한다
-	private void SetupPopupUI() {
+	private void SetupPopupUIs() {
 		// 팝업 UI 가 없을 경우
-		if(CSetupSceneManager.m_oPopupUI == null) {
-			var oPopupUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_POPUP_UI, KCDefine.SS_OBJ_P_SCREEN_POPUP_UI, null);
+		if(CSetupSceneManager.m_oPopupUIs == null) {
+			var oPopupUIs = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_POPUP_UIS, KCDefine.SS_OBJ_P_SCREEN_POPUP_UIS, null);
 				
-			CSetupSceneManager.m_oPopupUI = oPopupUI;
-			CSceneManager.ScreenPopupUIs = oPopupUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS);
+			CSetupSceneManager.m_oPopupUIs = oPopupUIs;
+			CSceneManager.ScreenPopupUIs = oPopupUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS);
 
-			DontDestroyOnLoad(oPopupUI);
-			CFunc.SetupScreenUI(oPopupUI, KCDefine.U_SORTING_O_SCREEN_POPUP_UI);
+			DontDestroyOnLoad(oPopupUIs);
+			CFunc.SetupScreenUIs(oPopupUIs, KCDefine.U_SORTING_O_SCREEN_POPUP_UIS);
 		}
 	}
 
 	//! 최상위 UI 를 설정한다
-	private void SetupTopmostUI() {
+	private void SetupTopmostUIs() {
 		// 최상위 UI 가 없을 경우
-		if(CSetupSceneManager.m_oTopmostUI == null) {
-			var oTopmostUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_TOPMOST_UI, KCDefine.SS_OBJ_P_SCREEN_TOPMOST_UI, null);
+		if(CSetupSceneManager.m_oTopmostUIs == null) {
+			var oTopmostUIs = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_TOPMOST_UIS, KCDefine.SS_OBJ_P_SCREEN_TOPMOST_UIS, null);
 
-			CSetupSceneManager.m_oTopmostUI = oTopmostUI;
-			CSceneManager.ScreenTopmostUIs = oTopmostUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS);
+			CSetupSceneManager.m_oTopmostUIs = oTopmostUIs;
+			CSceneManager.ScreenTopmostUIs = oTopmostUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS);
 
-			DontDestroyOnLoad(oTopmostUI);
-			CFunc.SetupScreenUI(oTopmostUI, KCDefine.U_SORTING_O_SCREEN_TOPMOST_UI);
+			DontDestroyOnLoad(oTopmostUIs);
+			CFunc.SetupScreenUIs(oTopmostUIs, KCDefine.U_SORTING_O_SCREEN_TOPMOST_UIS);
 		}
 	}
 
 	//! 절대 UI 를 설정한다
-	private void SetupAbsUI() {
+	private void SetupAbsUIs() {
 		// 절대 UI 가 없을 경우
-		if(CSetupSceneManager.m_oAbsUI == null) {
-			var oAbsUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_ABS_UI, KCDefine.SS_OBJ_P_SCREEN_ABS_UI, null);
+		if(CSetupSceneManager.m_oAbsUIs == null) {
+			var oAbsUIs = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_ABS_UIS, KCDefine.SS_OBJ_P_SCREEN_ABS_UIS, null);
 
-			CSetupSceneManager.m_oAbsUI = oAbsUI;
-			CSceneManager.ScreenAbsUIs = oAbsUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UIS);
+			CSetupSceneManager.m_oAbsUIs = oAbsUIs;
+			CSceneManager.ScreenAbsUIs = oAbsUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UIS);
 
-			DontDestroyOnLoad(oAbsUI);
-			CFunc.SetupScreenUI(oAbsUI, KCDefine.U_SORTING_O_SCREEN_ABS_UI);
+			DontDestroyOnLoad(oAbsUIs);
+			CFunc.SetupScreenUIs(oAbsUIs, KCDefine.U_SORTING_O_SCREEN_ABS_UIS);
 		}
 	}
 
@@ -58,32 +58,32 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	}
 
 	//! 디버그 UI 를 설정한다
-	private void SetupDebugUI() {
+	private void SetupDebugUIs() {
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		// 디버그 UI 가 없을 경우
-		if(CSetupSceneManager.m_oDebugUI == null) {
-			var oDebugUI = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_UI, KCDefine.SS_OBJ_P_SCREEN_DEBUG_UI, null);
+		if(CSetupSceneManager.m_oDebugUIs == null) {
+			var oDebugUIs = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_UIS, KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS, null);
 
-			CSetupSceneManager.m_oDebugUI = oDebugUI;
-			CSceneManager.ScreenDebugUIs = oDebugUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS);
+			CSetupSceneManager.m_oDebugUIs = oDebugUIs;
+			CSceneManager.ScreenDebugUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS);
 
-			CSceneManager.ScreenDebugTexts = oDebugUI.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXTS);
+			CSceneManager.ScreenDebugTexts = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXTS);
 			CSceneManager.ScreenDebugTexts.SetActive(false);
 
-			CSceneManager.ScreenFPSBtn = oDebugUI.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_BTN);
+			CSceneManager.ScreenFPSBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_BTN);
 			CSceneManager.ScreenFPSBtn.gameObject.SetActive(false);
 
-			CSceneManager.ScreenDebugBtn = oDebugUI.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_BTN);
+			CSceneManager.ScreenDebugBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_BTN);
 			CSceneManager.ScreenDebugBtn.gameObject.SetActive(false);
 
-			CSceneManager.ScreenStaticDebugText = oDebugUI.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
+			CSceneManager.ScreenStaticDebugText = oDebugUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
 			CSceneManager.ScreenStaticDebugText.raycastTarget = false;
 
-			CSceneManager.ScreenDynamicDebugText = oDebugUI.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
+			CSceneManager.ScreenDynamicDebugText = oDebugUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
 			CSceneManager.ScreenDynamicDebugText.raycastTarget = false;
 
-			DontDestroyOnLoad(oDebugUI);
-			CFunc.SetupScreenUI(oDebugUI, KCDefine.U_SORTING_O_SCREEN_DEBUG_UI);
+			DontDestroyOnLoad(oDebugUIs);
+			CFunc.SetupScreenUIs(oDebugUIs, KCDefine.U_SORTING_O_SCREEN_DEBUG_UIS);
 		}
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	}
@@ -100,7 +100,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CSceneManager.ScreenDebugConsole.SetActive(false);
 
 			DontDestroyOnLoad(oDebugConsole);
-			CFunc.SetupScreenUI(oDebugConsole, KCDefine.U_SORTING_O_DEBUG_CONSOLE);
+			CFunc.SetupScreenUIs(oDebugConsole, KCDefine.U_SORTING_O_DEBUG_CONSOLE);
 		}
 #endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	}
@@ -122,7 +122,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CSceneManager.ScreenDynamicFPSText.raycastTarget = false;
 
 			DontDestroyOnLoad(oFPSCounter);
-			CFunc.SetupScreenUI(oFPSCounter, KCDefine.U_SORTING_O_FPS_COUNTER);
+			CFunc.SetupScreenUIs(oFPSCounter, KCDefine.U_SORTING_O_FPS_COUNTER);
 		}
 #endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	}

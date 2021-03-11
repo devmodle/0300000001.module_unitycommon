@@ -9,11 +9,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	#endregion			// 변수
 
 	#region 클래스 객체
-	private static GameObject m_oDebugUI = null;
-	private static GameObject m_oPopupUI = null;
-	private static GameObject m_oTopmostUI = null;
-	private static GameObject m_oAbsUI = null;
+	private static GameObject m_oPopupUIs = null;
+	private static GameObject m_oTopmostUIs = null;
+	private static GameObject m_oAbsUIs = null;
 	private static GameObject m_oTimerManager = null;
+	private static GameObject m_oDebugUIs = null;
 
 #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	private static GameObject m_oDebugConsole = null;
@@ -62,11 +62,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 씬을 설정한다
 	protected virtual void Setup() {
-		this.SetupPopupUI();
-		this.SetupTopmostUI();
-		this.SetupAbsUI();
+		this.SetupPopupUIs();
+		this.SetupTopmostUIs();
+		this.SetupAbsUIs();
 		this.SetupTimerManager();
-		this.SetupDebugUI();
+		this.SetupDebugUIs();
 		this.SetupDebugConsole();
 		this.SetupFPSCounter();
 	}

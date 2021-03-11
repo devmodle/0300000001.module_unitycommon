@@ -60,12 +60,12 @@ public static partial class CCommonEditorSceneManager {
 			for(int j = 0; j < oCameras.Length; ++j) {
 				// 에디터 카메라가 아닐 경우
 				if(!oCameras[j].name.ExIsEquals(KCEditorDefine.B_OBJ_N_SCENE_EDITOR_CAMERA)) {
-					bool bIsUICamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_N_SCENE_UI_CAMERA);
+					bool bIsUIsCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_N_SCENE_UIS_CAMERA);
 					bool bIsMainCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA);
 
 					// UI 카메라 태그 설정이 가능 할 경우
-					if(bIsUICamera && !oCameras[j].CompareTag(KCDefine.U_TAG_UI_CAMERA)) {
-						oCameras[j].tag = KCDefine.U_TAG_UI_CAMERA;
+					if(bIsUIsCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_UIS_CAMERA)) {
+						oCameras[j].tag = KCDefine.U_TAG_UIS_CAMERA;
 					}
 					// 메인 카메라 태그 설정이 가능 할 경우
 					else if(bIsMainCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_MAIN_CAMERA)) {
@@ -74,7 +74,7 @@ public static partial class CCommonEditorSceneManager {
 
 #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 					// UI, 메인 카메라가 존재 할 경우
-					if(bIsUICamera || bIsMainCamera) {
+					if(bIsUIsCamera || bIsMainCamera) {
 						oCameras[j].gameObject.ExAddComponent<UniversalAdditionalCameraData>();
 					}
 #endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
@@ -84,7 +84,7 @@ public static partial class CCommonEditorSceneManager {
 #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
 						oCameras[j].gameObject.SetActive(bIsMainCamera);
 #else
-						oCameras[j].gameObject.SetActive(bIsUICamera || bIsMainCamera);
+						oCameras[j].gameObject.SetActive(bIsUIsCamera || bIsMainCamera);
 #endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
 					}
 				}

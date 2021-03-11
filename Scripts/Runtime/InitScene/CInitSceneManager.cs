@@ -10,7 +10,7 @@ using UnityEngine.iOS;
 //! 초기화 씬 관리자
 public abstract partial class CInitSceneManager : CSceneManager {
 	#region 클래스 객체
-	private static GameObject m_oBlindUI = null;
+	private static GameObject m_oBlindUIs = null;
 	#endregion			// 클래스 객체
 
 	#region 프로퍼티
@@ -34,7 +34,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 	//! 씬을 설정한다
 	protected virtual void Setup() {
-		this.SetupBlindUI();
+		this.SetupBlindUIs();
 
 		// 테이블을 로드한다
 		CValueTable.Inst.LoadValuesFromRes(KCDefine.U_TABLE_P_G_COMMON_VALUE);

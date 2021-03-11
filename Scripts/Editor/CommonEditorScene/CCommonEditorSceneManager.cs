@@ -36,14 +36,14 @@ public static partial class CCommonEditorSceneManager {
 		[KCDefine.U_SORTING_L_ABS] = "A",
 		
 #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
-		[KCDefine.U_SORTING_L_UNDERGROUND_UI] = "UUI",
-		[KCDefine.U_SORTING_L_BACKGROUND_UI] = "BUI",
-		[KCDefine.U_SORTING_L_DEF_UI] = "DUI",
-		[KCDefine.U_SORTING_L_FOREGROUND_UI] = "FUI",
-		[KCDefine.U_SORTING_L_OVERGROUND_UI] = "OUI",
-		[KCDefine.U_SORTING_L_TOP_UI] = "TUI",
-		[KCDefine.U_SORTING_L_TOPMOST_UI] = "TMUI",
-		[KCDefine.U_SORTING_L_ABS_UI] = "AUI"
+		[KCDefine.U_SORTING_L_UNDERGROUND_UIS] = "UUIs",
+		[KCDefine.U_SORTING_L_BACKGROUND_UIS] = "BUIs",
+		[KCDefine.U_SORTING_L_DEF_UIS] = "DUIs",
+		[KCDefine.U_SORTING_L_FOREGROUND_UIS] = "FUIs",
+		[KCDefine.U_SORTING_L_OVERGROUND_UIS] = "OUIs",
+		[KCDefine.U_SORTING_L_TOP_UIS] = "TUIs",
+		[KCDefine.U_SORTING_L_TOPMOST_UIS] = "TMUIs",
+		[KCDefine.U_SORTING_L_ABS_UIS] = "AUIs"
 #endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
 	};
 	#endregion			// 클래스 변수
