@@ -27,9 +27,6 @@ public static partial class CCommonEditorSceneManager {
 
 		EditorApplication.hierarchyWindowItemOnGUI -= CCommonEditorSceneManager.UpdateHierarchyUIState;
 		EditorApplication.hierarchyWindowItemOnGUI += CCommonEditorSceneManager.UpdateHierarchyUIState;
-
-		EditorApplication.playModeStateChanged -= CCommonEditorSceneManager.OnChangePlayMode;
-		EditorApplication.playModeStateChanged += CCommonEditorSceneManager.OnChangePlayMode;
 		
 		EditorSceneManager.sceneOpened -= CCommonEditorSceneManager.OnSceneOpen;
 		EditorSceneManager.sceneOpened += CCommonEditorSceneManager.OnSceneOpen;

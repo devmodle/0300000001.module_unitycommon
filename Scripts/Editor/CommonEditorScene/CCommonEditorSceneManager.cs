@@ -185,24 +185,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-
-	//! 플레이 모드가 변경 되었을 경우
-	private static void OnChangePlayMode(PlayModeStateChange a_eStateChange) {
-		// 에디터 진입 모드 일 경우
-		if(a_eStateChange == PlayModeStateChange.EnteredEditMode) {
-			CFunc.EnumerateScenes((a_stScene) => {
-				var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_N_SCENE_MANAGER);
-
-				// 씬 관리자가 존재 할 경우
-				if(oSceneManager != null) {
-					CFunc.SelectObj(oSceneManager.gameObject);
-				}
-
-				return true;
-			});
-		}
-	}
-
+	
 	//! 씬이 열렸을 경우
 	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		// 상태 갱신이 가능 할 경우

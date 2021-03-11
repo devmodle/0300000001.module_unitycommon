@@ -705,7 +705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8606111270297475581}
   m_Layer: 0
-  m_Name: PrivacyUI
+  m_Name: PrivacyUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2594,7 +2594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8019310881260844046}
   m_Layer: 0
-  m_Name: EUUI
+  m_Name: EUUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2672,10 +2672,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf3b717576f645b6b0bb0c01dbbe564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oNormUI: {fileID: 8019310881904857024}
-  m_oEUUI: {fileID: 8019310881260844047}
-  m_oServicesUI: {fileID: 8019310881728972570}
-  m_oPrivacyUI: {fileID: 2205614760928724013}
+  m_oShowSndPath: Sounds/Global/G_PopupShow
+  m_oCloseSndPath: Sounds/Global/G_PopupClose
+  m_oNormUIs: {fileID: 8019310881904857024}
+  m_oEUUIs: {fileID: 8019310881260844047}
+  m_oServicesUIs: {fileID: 8019310881728972570}
+  m_oPrivacyUIs: {fileID: 2205614760928724013}
 --- !u!1 &8019310881728972570
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,7 +2688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8019310881728972569}
   m_Layer: 0
-  m_Name: ServicesUI
+  m_Name: ServicesUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2724,7 +2726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8019310881904857023}
   m_Layer: 0
-  m_Name: NormUI
+  m_Name: NormUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
