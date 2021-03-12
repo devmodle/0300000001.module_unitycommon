@@ -46,25 +46,25 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 함수
 	//! 아이템 개수를 반환한다
 	public int GetNumItems(EItemKinds a_eItemKinds) {
-		return this.UserInfo.m_oNumItemsList.ExGetValue(a_eItemKinds, KCDefine.B_VALUE_INT_0);
+		return this.UserInfo.m_oNumItemsList.ExGetValue(a_eItemKinds, KCDefine.B_VALUE_0_INT);
 	}
 
 	//! 잔돈 개수를 추가한다
 	public void AddNumChanges(int a_nNumChanges) {
 		int nNumChanges = this.UserInfo.NumChanges + a_nNumChanges;
-		this.UserInfo.NumChanges = Mathf.Clamp(nNumChanges, KCDefine.B_VALUE_INT_0, KDefine.G_MAX_NUM_CHANGES);
+		this.UserInfo.NumChanges = Mathf.Clamp(nNumChanges, KCDefine.B_VALUE_0_INT, KDefine.G_MAX_NUM_CHANGES);
 	}
 
 	//! 무료 보상 횟수를 추가한다
 	public void AddFreeRewardTimes(int a_nRewardTimes) {
 		int nFreeRewardTimes = this.UserInfo.FreeRewardTimes + a_nRewardTimes;
-		this.UserInfo.FreeRewardTimes = Mathf.Clamp(nFreeRewardTimes, KCDefine.B_VALUE_INT_0, KDefine.G_MAX_TIMES_FREE_REWARD);
+		this.UserInfo.FreeRewardTimes = Mathf.Clamp(nFreeRewardTimes, KCDefine.B_VALUE_0_INT, KDefine.G_MAX_TIMES_FREE_REWARD);
 	}
 	
 	//! 아이템 개수를 추가한다
 	public void AddNumItems(EItemKinds a_eItemKinds, int a_nNumItems) {
 		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
-		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VALUE_INT_0, int.MaxValue);
+		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VALUE_0_INT, int.MaxValue);
 
 		this.UserInfo.m_oNumItemsList.ExReplaceValue(a_eItemKinds, nNumItems);
 	}

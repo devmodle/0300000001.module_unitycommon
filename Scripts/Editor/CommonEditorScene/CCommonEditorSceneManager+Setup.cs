@@ -129,7 +129,7 @@ public static partial class CCommonEditorSceneManager {
 					var oSerializeObj = new SerializedObject(oLogManager);
 
 					oSerializeObj.ExSetPropertyValue(KCEditorDefine.B_PROPERTY_N_DEBUG_C_LOG_ITEM_PREFAB, (a_oProperty) => {
-						var oDebugLogItem = oDebugLogItemList[KCDefine.B_VALUE_INT_0];
+						var oDebugLogItem = oDebugLogItemList[KCDefine.B_VALUE_0_INT];
 						a_oProperty.objectReferenceValue = oDebugLogItem;
 					});
 				}

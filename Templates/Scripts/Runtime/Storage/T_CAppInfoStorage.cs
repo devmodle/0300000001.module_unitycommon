@@ -27,7 +27,7 @@ public sealed class CAppInfo : CBaseInfo {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		this.LastFreeRewardTime = this.LastFreeRewardTimeString.ExIsValid() ? this.LastFreeRewardTimeString.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VALUE_INT_1);
+		this.LastFreeRewardTime = this.LastFreeRewardTimeString.ExIsValid() ? this.LastFreeRewardTimeString.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT);
 	}
 	#endregion			// 인터페이스
 
@@ -43,7 +43,7 @@ public sealed class CAppInfo : CBaseInfo {
 public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 프로퍼티
 	public CAppInfo AppInfo { get; private set; } = new CAppInfo() {
-		LastFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_INT_1)
+		LastFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT)
 	};
 	#endregion			// 프로퍼티
 
@@ -51,7 +51,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	//! 무료 보상 횟수 리셋 가능 여부를 검사한다
 	public bool IsEnableResetFreeRewardTimes() {
 		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTimePerDays(this.AppInfo.LastFreeRewardTime);
-		return dblDeltaTime.ExIsGreateEquals(KCDefine.B_VALUE_DBL_1);
+		return dblDeltaTime.ExIsGreateEquals(KCDefine.B_VALUE_1_DBL);
 	}
 
 	//! 앱 정보를 저장한다

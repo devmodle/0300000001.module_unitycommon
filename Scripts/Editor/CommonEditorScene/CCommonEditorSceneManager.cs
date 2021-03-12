@@ -86,7 +86,7 @@ public static partial class CCommonEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
-				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_FLT_0;
+				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_0_FLT;
 
 				CCommonEditorSceneManager.SetupScene();
 				CCommonEditorSceneManager.SetupLightOpts();
@@ -98,7 +98,7 @@ public static partial class CCommonEditorSceneManager {
 				
 				// 갱신 주기가 지났을 경우
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {
-					CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VALUE_FLT_0;
+					CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VALUE_0_FLT;
 
 					CFunc.EnumerateScenes((a_stScene) => {
 						var oObjs = a_stScene.GetRootGameObjects();
@@ -116,7 +116,7 @@ public static partial class CCommonEditorSceneManager {
 								}
 
 								// 스크립트 제거가 필요 할 경우
-								if(nNumMissingScripts > KCDefine.B_VALUE_INT_0) {
+								if(nNumMissingScripts > KCDefine.B_VALUE_0_INT) {
 									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
 									EditorSceneManager.MarkSceneDirty(a_stScene);
 								}
@@ -165,7 +165,7 @@ public static partial class CCommonEditorSceneManager {
 
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
-						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VALUE_FLT_0);
+						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VALUE_0_FLT);
 						string oString = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 						var oRects = new Rect[] {

@@ -39,11 +39,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			}
 
 			// 무료 코인 리셋 주기가 지났을 경우
-			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_DBL_1)) {
+			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL)) {
 				CAppInfoStorage.Inst.AppInfo.LastFreeRewardTime = System.DateTime.Today;
 				CAppInfoStorage.Inst.SaveAppInfo();
 
-				CUserInfoStorage.Inst.UserInfo.FreeRewardTimes = KCDefine.B_VALUE_INT_0;
+				CUserInfoStorage.Inst.UserInfo.FreeRewardTimes = KCDefine.B_VALUE_0_INT;
 				CUserInfoStorage.Inst.SaveUserInfo();
 			}
 		}

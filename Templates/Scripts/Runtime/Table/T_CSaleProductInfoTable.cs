@@ -35,7 +35,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	//! 판매 코인 개수를 반환한다
 	public int GetNumSaleCoins(int a_nID) {
 		bool bIsValid = this.TryGetSaleItemInfo(a_nID, EItemKinds.GOODS_COIN, out STSaleItemInfo stSaleItemInfo);
-		return bIsValid ? stSaleItemInfo.m_nNumItems : KCDefine.B_VALUE_INT_0;
+		return bIsValid ? stSaleItemInfo.m_nNumItems : KCDefine.B_VALUE_0_INT;
 	}
 
 	//! 판매 상품 정보를 반환한다

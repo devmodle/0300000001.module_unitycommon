@@ -66,7 +66,7 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 			// 아이템 정보가 없을 경우
 			if(!m_oItemInfoList.ExIsValidIdx(nIdx)) {
 				m_oItemInfoList.Add(stItemInfo);
-			} else if(nReplace != KCDefine.B_VALUE_INT_0) {
+			} else if(nReplace != KCDefine.B_VALUE_0_INT) {
 				m_oItemInfoList[nIdx] = stItemInfo;
 			}
 		}
