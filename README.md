@@ -8,7 +8,7 @@
 	- *Asset Usage Detector (v1.8.9 - Dec 29, 2020)*
 	- *Bezier Solution (v1.27.0 - Apr 09, 2020)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
-	- *Enhanced Scroller (v2.27.1 - Feb 05, 2021)*
+	- *Enhanced Scroller (v2.28.1 - Mar 11, 2021)*
 	- *Ingame Debug Console (v1.4.1 - Jan 22, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *Lean Touch (v2.1.8 - Jan 25, 2021)*
