@@ -130,7 +130,7 @@ public static partial class KEditorDefine {
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
 		["com.google.external-dependency-manager"] = "1.2.164",
-		["com.google.play.review"] = "1.3.0",
+		["com.google.play.review"] = "1.4.0",
 
 		["com.unity.burst"] = "1.4.6",
 		["com.unity.2d.sprite"] = "1.0.0",
@@ -141,7 +141,7 @@ public static partial class KEditorDefine {
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
 #if ML_AGENTS_ENABLE
-		["com.unity.ml-agents"] = "1.0.6",
+		["com.unity.ml-agents"] = "1.0.7",
 #endif			// #if ML_AGENTS_ENABLE
 
 #if CINEMACHINE_ENABLE
