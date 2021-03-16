@@ -9,6 +9,42 @@ using MessagePack;
 [MessagePackObject]
 [System.Serializable]
 public sealed class CGameInfo : CBaseInfo {
+	#region 상수
+	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
+
+	private const string KEY_LAST_FREE_REWARD_TIME = "LastFreeRewardTime";
+	private const string KEY_LAST_DAILY_REWARD_TIME = "LastDailyRewardTime";
+	#endregion			// 상수
+
+	#region 프로퍼티
+	[IgnoreMember] public System.DateTime LastFreeRewardTime { get; set; } = System.DateTime.Now;
+	[IgnoreMember] public System.DateTime LastDailyRewardTime { get; set; } = System.DateTime.Now;
+
+	[IgnoreMember] private string LastFreeRewardTimeString => m_oStringList.ExGetValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string LastDailyRewardTimeString => m_oStringList.ExGetValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, string.Empty);
+
+	[IgnoreMember] public int DailyRewardID {
+		get { return m_oIntList.ExGetValue(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VALUE_0_INT); }
+		set { m_oIntList.ExReplaceValue(CGameInfo.KEY_DAILY_REWARD_ID, value); }
+	}
+	#endregion			// 프로퍼티
+
+	#region 인터페이스
+	//! 직렬화 될 경우
+	public override void OnBeforeSerialize() {
+		m_oStringList.ExReplaceValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, this.LastFreeRewardTime.ExToLongString());
+		m_oStringList.ExReplaceValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, this.LastDailyRewardTime.ExToLongString());
+	}
+
+	//! 역직렬화 되었을 경우
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+
+		this.LastFreeRewardTime = this.LastFreeRewardTimeString.ExIsValid() ? this.LastFreeRewardTimeString.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT);
+		this.LastDailyRewardTime = this.LastDailyRewardTimeString.ExIsValid() ? this.LastDailyRewardTimeString.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT);
+	}
+	#endregion			// 인터페이스
+
 	#region 함수
 	//! 생성자
 	public CGameInfo() : base(KDefine.B_VERSION_GAME_INFO) {
@@ -23,10 +59,19 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public System.DateTime PrevFullscreenAdsTime { get; set; } = System.DateTime.Now;
 	public System.DateTime PrevResumeAdsTime { get; set; } = System.DateTime.Now;
 
-	public CGameInfo GameInfo { get; private set; } = new CGameInfo();
+	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
+		LastFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT),
+		LastDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT)
+	};
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 일일 보상 식별자를 변경한다
+	public void SetDailyRewardID(int a_nID) {
+		CAccess.Assert(a_nID >= KCDefine.B_VALUE_0_INT && a_nID < KDefine.G_MAX_NUM_DAILY_REWARDS);
+		this.GameInfo.DailyRewardID = a_nID;
+	}
+
 	//! 게임 정보를 저장한다
 	public void SaveGameInfo() {
 		this.SaveGameInfo(KDefine.B_DATA_P_GAME_INFO);

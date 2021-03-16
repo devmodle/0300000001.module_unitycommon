@@ -14,7 +14,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-
+		
 		//! 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			m_oVersionText = CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VERSION_TEXT, KCDefine.TS_OBJ_P_VERSION_TEXT, this.SubTopUIs, KCDefine.TS_POS_VERSION_TEXT);
@@ -23,14 +23,16 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			m_oVersionText.rectTransform.anchorMax = KCDefine.B_ANCHOR_TOP_LEFT;
 		}
 	}
-
+	
 	//! 초기화
 	public override void Start() {
 		base.Start();
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			var stLastFreeRewardTime = CAppInfoStorage.Inst.AppInfo.LastFreeRewardTime;
+			var stLastFreeRewardTime = CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime;
+			var stLastDailyRewardTime = CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime;
+
 			m_oVersionText.text = CAccess.GetVersionString(CProjInfoTable.Inst.ProjInfo.m_stBuildVersion.m_oVersion, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 
 			// 업데이트가 필요 할 경우
@@ -40,11 +42,17 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 			// 무료 코인 리셋 주기가 지났을 경우
 			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL)) {
-				CAppInfoStorage.Inst.AppInfo.LastFreeRewardTime = System.DateTime.Today;
-				CAppInfoStorage.Inst.SaveAppInfo();
-
 				CUserInfoStorage.Inst.UserInfo.FreeRewardTimes = KCDefine.B_VALUE_0_INT;
 				CUserInfoStorage.Inst.SaveUserInfo();
+
+				CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
+				CGameInfoStorage.Inst.SaveGameInfo();
+			}
+
+			// 일일 보상 획득 주기가 지났을 경우
+			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastDailyRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL)) {
+				CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime = System.DateTime.Today;
+				CGameInfoStorage.Inst.SaveGameInfo();
 			}
 		}
 	}
@@ -55,7 +63,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		if(a_bIsOK) {
 			CFunc.OpenURL(CProjInfoTable.Inst.ProjInfo.m_oStoreURL);
 		}
-	}	
+	}
 	#endregion			// 함수
 }
 #endif			// #if NEVER_USE_THIS

@@ -6,9 +6,9 @@ using UnityEngine;
 //! 상점 팝업
 public class CStorePopup : CPopup {
 	#region 변수
-	private int m_nSelectID = 0;
+	private int m_nSelectProductID = 0;
 	#endregion			// 변수
-
+	
 	#region 함수
 	//! 초기화
 	public override void Awake() {
@@ -23,7 +23,7 @@ public class CStorePopup : CPopup {
 	//! 광고 버튼을 눌렀을 경우
 	private void OnTouchAdsBtn(int a_nID) {
 #if ADS_MODULE_ENABLE
-		m_nSelectID = a_nID;
+		m_nSelectProductID = a_nID;
 		Func.ShowRewardAds(CPluginInfoTable.Inst.DefAdsType, this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 	}
@@ -31,6 +31,7 @@ public class CStorePopup : CPopup {
 	//! 결제 버튼을 눌렀을 경우
 	private void OnTouchPurchaseBtn(int a_nID) {
 #if PURCHASE_MODULE_ENABLE
+		m_nSelectProductID = a_nID;
 		Func.PurchaseProduct(a_nID, this.OnCompletePurchase);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
@@ -42,7 +43,7 @@ public class CStorePopup : CPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItem a_stRewardItem, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(m_nSelectID);
+			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(m_nSelectProductID);
 
 			for(int i = 0; i < stSaleProductInfo.m_oSaleItemInfoList.Count; ++i) {
 				Func.BuyItem(stSaleProductInfo.m_oSaleItemInfoList[i].m_eSaleItemKinds);

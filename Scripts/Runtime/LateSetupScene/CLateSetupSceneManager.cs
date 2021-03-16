@@ -96,11 +96,19 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-			CFlurryManager.Inst.Init(CPluginInfoTable.Inst.FlurryAPIKey, CLateSetupSceneManager.OnInitFlurryManager);
+			var stFlurryParams = new CFlurryManager.STParams() {
+				m_oAPIKey = CPluginInfoTable.Inst.FlurryAPIKey
+			};
+
+			CFlurryManager.Inst.Init(stFlurryParams, CLateSetupSceneManager.OnInitFlurryManager);
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if TENJIN_MODULE_ENABLE
-			CTenjinManager.Inst.Init(CPluginInfoTable.Inst.TenjinAPIKey, CLateSetupSceneManager.OnInitTenjinManager);
+			var stTenjinParams = new CTenjinManager.STParams() {
+				m_oAPIKey = CPluginInfoTable.Inst.TenjinAPIKey
+			};
+
+			CTenjinManager.Inst.Init(stTenjinParams, CLateSetupSceneManager.OnInitTenjinManager);
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
@@ -111,25 +119,27 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG);
 			var oBuildVersionConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VERSION_CONFIG);
 
-			string oDeviceConfig = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONString();
-			
-			var oConfigList = new Dictionary<string, object>() {
-				[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
-				[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = oDeviceConfig,
-				[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
+			var stFirebaseParams = new CFirebaseManager.STParams() {
+				m_oConfigList = new Dictionary<string, object>() {
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONString(),
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
+				}
 			};
 
 			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG, true);
 			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VERSION_CONFIG, true);
 
-			CFirebaseManager.Inst.Init(oConfigList, CLateSetupSceneManager.OnInitFirebaseManager);
+			CFirebaseManager.Inst.Init(stFirebaseParams, CLateSetupSceneManager.OnInitFirebaseManager);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-			string oAPIKey = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey;
-			string oAPISecret = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret;
+			var stSingularParams = new CSingularManager.STParams() {
+				m_oAPIKey = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey,
+				m_oAPISecret = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret;
+			};
 
-			CSingularManager.Inst.Init(oAPIKey, oAPISecret, CLateSetupSceneManager.OnInitSingularManager);
+			CSingularManager.Inst.Init(stSingularParams, CLateSetupSceneManager.OnInitSingularManager);
 #endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
@@ -137,7 +147,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			CPurchaseManager.Inst.Init(CProductInfoTable.Inst.ProductInfoList, CLateSetupSceneManager.OnInitPurchaseManager);
+			var stPurchaseParams = new CPurchaseManager.STParams() {
+				m_oProductInfoList = CProductInfoTable.Inst.ProductInfoList
+			};
+			
+			CPurchaseManager.Inst.Init(stPurchaseParams, CLateSetupSceneManager.OnInitPurchaseManager);
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE

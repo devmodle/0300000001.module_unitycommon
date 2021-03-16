@@ -19,12 +19,12 @@ public sealed class CUserInfo : CBaseInfo {
 	[Key(71)] public Dictionary<EItemKinds, int> m_oNumItemsList { get; set; } = new Dictionary<EItemKinds, int>();
 
 	[IgnoreMember] public int NumChanges {
-		get { return m_oIntList.ExGetValue(CUserInfo.KEY_NUM_CHANGES, 0); }
+		get { return m_oIntList.ExGetValue(CUserInfo.KEY_NUM_CHANGES, KCDefine.B_VALUE_0_INT); }
 		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_NUM_CHANGES, value); }
 	}
 
 	[IgnoreMember] public int FreeRewardTimes {
-		get { return m_oIntList.ExGetValue(CUserInfo.KEY_FREE_REWARD_TIMES, 0); }
+		get { return m_oIntList.ExGetValue(CUserInfo.KEY_FREE_REWARD_TIMES, KCDefine.B_VALUE_0_INT); }
 		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_FREE_REWARD_TIMES, value); }
 	}
 	#endregion			// 프로퍼티

@@ -8,6 +8,7 @@ public static partial class KDefine {
 	#region 기본
 	// 개수
 	public const int G_MAX_NUM_CHANGES = 0;
+	public const int G_MAX_NUM_DAILY_REWARDS = 0;
 
 	// 횟수
 	public const int G_MAX_TIMES_FREE_REWARD = 0;
