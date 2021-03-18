@@ -20,6 +20,7 @@ public sealed class CAppInfo : CBaseInfo {
 //! 앱 정보 저장소
 public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 프로퍼티
+	public bool IsIgnoreUpdate { get; set; } = false;
 	public CAppInfo AppInfo { get; private set; } = new CAppInfo();
 	#endregion			// 프로퍼티
 

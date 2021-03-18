@@ -27,6 +27,15 @@ public static partial class KDefine {
 
 	public const string G_KEY_ITEM_IT_REPLACE = "Replace";
 	// 아이템 정보 테이블 }
+
+	// 상점 팝업
+	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
+
+	// 무료 보상 팝업
+	public const string G_OBJ_N_FREE_REWARD_POPUP = "FreeRewardPopup";
+
+	// 일일 보상 팝업
+	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DailyRewardPopup";
 	#endregion			// 기본
 
 	#region 런타임 상수

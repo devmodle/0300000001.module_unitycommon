@@ -268,7 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5383875685150043323}
   m_Layer: 0
-  m_Name: Texts
+  m_Name: TextUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,6 +645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316bc29c48db2437d8362a5a405b33d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oShowSndPath: Sounds/Global/G_PopupShow
+  m_oCloseSndPath: Sounds/Global/G_PopupClose
 --- !u!1 &7178956650463880034
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 154385946300632596}
   m_Layer: 0
-  m_Name: Btns
+  m_Name: BtnUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
-//! 무료 코인 팝업
-public class CFreeCoinPopup : CPopup {
+//! 무료 보상 팝업
+public class CFreeRewardPopup : CSubPopup {
 	#region 함수
 	//! 초기화
 	public override void Awake() {
@@ -19,7 +19,7 @@ public class CFreeCoinPopup : CPopup {
 	//! 광고 버튼을 눌렀을 경우
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
-		Func.ShowRewardAds(CPluginInfoTable.Inst.DefAdsType, this.OnCloseRewardAds);
+		Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 	}
 	#endregion			// 함수

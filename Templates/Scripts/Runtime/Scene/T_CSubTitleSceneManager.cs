@@ -36,7 +36,8 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			m_oVersionText.text = CAccess.GetVersionString(CProjInfoTable.Inst.ProjInfo.m_stBuildVersion.m_oVersion, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 
 			// 업데이트가 필요 할 경우
-			if(CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
+			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
+				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
 				Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult);
 			}
 
@@ -51,6 +52,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 			// 일일 보상 획득 주기가 지났을 경우
 			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastDailyRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL)) {
+				
 				CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime = System.DateTime.Today;
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}
