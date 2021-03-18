@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using IngameDebugConsole;
 
 #if UNITY_EDITOR
@@ -272,7 +273,9 @@ public static partial class CCommonEditorSceneManager {
 			oCanvasScaler.referencePixelsPerUnit = KCDefine.B_REF_PIXELS_UNIT;
 
 			var oFileBrowserWnd = oFileBrowser.ExFindChild(KCEditorDefine.B_OBJ_N_FILE_BROWSER_WND);
-			oFileBrowserWnd.transform.localScale = KCDefine.B_SCALE_NORM * KCEditorDefine.B_SCALE_FILE_BROWSER_WND;
+			oFileBrowserWnd.transform.localScale = KCDefine.B_SCALE_NORM;
+
+			oFileBrowser.ExSetEnableComponents<EventSystem>(false);
 		}
 	}
 	#endregion			// 클래스 함수
