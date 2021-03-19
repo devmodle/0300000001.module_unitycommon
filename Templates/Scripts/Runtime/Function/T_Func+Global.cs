@@ -47,26 +47,26 @@ public static partial class Func {
 	}
 
 	//! 상점 팝업을 출력한다
-	public static void ShowStorePopup(GameObject a_oParent, System.Action<CPopup> a_oShowCallback, System.Action<CPopup> a_oCloseCallback) {
+	public static void ShowStorePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback, System.Action<CPopup> a_oCloseCallback) {
 		// 상점 팝업이 없을 경우
 		if(a_oParent.ExFindChild(KDefine.G_OBJ_N_STORE_POPUP) == null) {
-			Func.ShowPopup<CStorePopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oShowCallback, a_oCloseCallback);
+			Func.ShowPopup<CStorePopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 		}
 	}
 
 	//! 무료 보상 팝업을 출력한다
-	public static void ShowFreeRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oShowCallback, System.Action<CPopup> a_oCloseCallback) {
+	public static void ShowFreeRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback, System.Action<CPopup> a_oCloseCallback) {
 		// 무료 보상 팝업이 없을 경우
 		if(a_oParent.ExFindChild(KDefine.G_OBJ_N_FREE_REWARD_POPUP) == null) {
-			Func.ShowPopup<CFreeRewardPopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oShowCallback, a_oCloseCallback);
+			Func.ShowPopup<CFreeRewardPopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 		}
 	}
 
 	//! 일일 보상 팝업을 출력한다
-	public static void ShowDailyRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oShowCallback, System.Action<CPopup> a_oCloseCallback) {
+	public static void ShowDailyRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback, System.Action<CPopup> a_oCloseCallback) {
 		// 일일 보상 팝업이 없을 경우
 		if(a_oParent.ExFindChild(KDefine.G_OBJ_N_DAILY_REWARD_POPUP) == null) {
-			Func.ShowPopup<CDailyRewardPopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oShowCallback, a_oCloseCallback);
+			Func.ShowPopup<CDailyRewardPopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 		}
 	}
 	#endregion			// 클래스 함수
