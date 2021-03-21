@@ -9,6 +9,7 @@ public class CSubIntroSceneManager : CIntroSceneManager {
 	//! 씬을 설정한다
 	protected override void Setup() {
 		base.Setup();
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 	}
 	#endregion			// 함수
 }
