@@ -30,10 +30,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
+			m_oVersionText.text = CAccess.GetVersionString(CProjInfoTable.Inst.ProjInfo.m_stBuildVersion.m_oVersion, CCommonUserInfoStorage.Inst.UserInfo.UserType);
+
 			var stLastFreeRewardTime = CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime;
 			var stLastDailyRewardTime = CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime;
-
-			m_oVersionText.text = CAccess.GetVersionString(CProjInfoTable.Inst.ProjInfo.m_stBuildVersion.m_oVersion, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 
 			// 업데이트가 필요 할 경우
 			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
@@ -52,6 +53,10 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 			// 일일 보상 획득 주기가 지났을 경우
 			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastDailyRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL)) {
+				Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oPopup) => {
+					var oDailyRewardPopup = a_oPopup as CDailyRewardPopup;
+					oDailyRewardPopup.Init();
+				});
 				
 				CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime = System.DateTime.Today;
 				CGameInfoStorage.Inst.SaveGameInfo();

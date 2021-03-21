@@ -39,6 +39,25 @@ public static partial class KDefine {
 	#endregion			// 기본
 
 	#region 런타임 상수
+	// 정렬 순서 {
+	public static readonly STSortingOrderInfo U_SORTING_OI_OVERLAY_SCENE_OBJS_CANVAS = new STSortingOrderInfo() {
+		m_nOrder = 0,
+		m_oLayer = KCDefine.U_SORTING_L_TOP
+	};
+
+#if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+	public static readonly STSortingOrderInfo U_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
+		m_nOrder = 0,
+		m_oLayer = KCDefine.U_SORTING_L_TOP_UIS
+	};
+#else
+	public static readonly STSortingOrderInfo U_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
+		m_nOrder = 0,
+		m_oLayer = KCDefine.U_SORTING_L_TOP
+	};
+#endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+	// 정렬 순서 }
+	
 	// 경로 {
 #if UNITY_EDITOR
 	public static readonly string G_RUNTIME_TABLE_P_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
