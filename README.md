@@ -5,10 +5,10 @@
 2. **에셋 스토어 리스트**
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
 	- *Asset Hunter Pro (v1.3.4 - May 4, 2020)*
-	- *Asset Usage Detector (v1.8.9 - Dec 29, 2020)*
-	- *Bezier Solution (v1.27.0 - Apr 09, 2020)*
+	- *Asset Usage Detector (v1.9.2 - Mar 18, 2021)*
+	- *Bezier Solution (v2.0.1 - Mar 15, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
-	- *Enhanced Scroller (v2.28.2 - Mar 14, 2021)*
+	- *Enhanced Scroller (v2.29.1 - Mar 21, 2021)*
 	- *Ingame Debug Console (v1.4.1 - Jan 22, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *Lean Touch (v2.1.8 - Jan 25, 2021)*
@@ -31,7 +31,7 @@
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.1 - Feb 15, 2021)*
 	- *Odin Inspector (v3.0.4 - Feb 23, 2021)*
-	- *Spine (v3.8.0 - Feb 03, 2021)*
+	- *Spine (v3.8.0 - Mar 19, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Message Pack (v2.2.85)*
 	- *Thai Font Adjuster (v1.0.0)*
@@ -39,7 +39,7 @@
 	- *Particle For GUI (v3.3.0)*
 	- *Soft Mask For GUI (v0.9.1)*
 	- *Unmask For GUI (v1.2.0)*
-	- *Spine Shader (v3.8.0 - Dec 9, 2020)*
+	- *Spine Shader (v3.8.0 - Mar 4, 2021)*
 5. **기타 추가 에셋 및 플러그인 리스트**
 	- *Firebase (Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.0.2)*
 	- *Admob (v5.4.0)*
