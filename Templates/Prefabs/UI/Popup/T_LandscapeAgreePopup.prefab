@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 6180357608938399331}
   - component: {fileID: 2336695763018441466}
   - component: {fileID: 5747689920029594547}
-  - component: {fileID: 6212507170387702357}
+  - component: {fileID: 4108746237718946739}
   m_Layer: 5
   m_Name: OKBtn
   m_TagString: Untagged
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oBeginSndPath: Sounds/Global/G_TouchBegin
   m_oEndSndPath: Sounds/Global/G_TouchEnd
---- !u!114 &6212507170387702357
+--- !u!114 &4108746237718946739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 118175786189027969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &695780845950207763
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 7464567976057913464}
   - component: {fileID: 427249996195149981}
   - component: {fileID: 2454690878946935188}
-  - component: {fileID: 7942537519360478080}
+  - component: {fileID: 5808072553864403016}
   m_Layer: 0
   m_Name: AgreeBtn
   m_TagString: Untagged
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oBeginSndPath: Sounds/Global/G_TouchBegin
   m_oEndSndPath: Sounds/Global/G_TouchEnd
---- !u!114 &7942537519360478080
+--- !u!114 &5808072553864403016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1212373080923679727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1406431526565860709
@@ -1084,7 +1084,7 @@ GameObject:
   - component: {fileID: 5690612826418562365}
   - component: {fileID: 1834454231965899317}
   - component: {fileID: 210587195890275679}
-  - component: {fileID: 938791640004683602}
+  - component: {fileID: 1502564117613407964}
   m_Layer: 0
   m_Name: AgreeBtn
   m_TagString: Untagged
@@ -1209,7 +1209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oBeginSndPath: Sounds/Global/G_TouchBegin
   m_oEndSndPath: Sounds/Global/G_TouchEnd
---- !u!114 &938791640004683602
+--- !u!114 &1502564117613407964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1218,7 +1218,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3070524852517513671}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4306264158695617577
@@ -1517,7 +1517,7 @@ GameObject:
   - component: {fileID: 3471598275372941005}
   - component: {fileID: 8403668440262607685}
   - component: {fileID: 8160468018173961778}
-  - component: {fileID: 2966593625773423290}
+  - component: {fileID: 2438816208155098304}
   m_Layer: 5
   m_Name: ServicesURLText
   m_TagString: Untagged
@@ -1658,7 +1658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oBeginSndPath: Sounds/Global/G_TouchBegin
   m_oEndSndPath: Sounds/Global/G_TouchEnd
---- !u!114 &2966593625773423290
+--- !u!114 &2438816208155098304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1667,7 +1667,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4752944900012347159}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5047267430272642817
@@ -1760,7 +1760,7 @@ GameObject:
   - component: {fileID: 7708881939653373919}
   - component: {fileID: 115702021061325534}
   m_Layer: 0
-  m_Name: Texts
+  m_Name: TextUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2132,7 +2132,7 @@ GameObject:
   - component: {fileID: 848060466392602558}
   - component: {fileID: 8907660949853037549}
   - component: {fileID: 7678737019809333161}
-  - component: {fileID: 8407429475803206360}
+  - component: {fileID: 4243490179608514779}
   m_Layer: 5
   m_Name: PrivacyURLText
   m_TagString: Untagged
@@ -2273,7 +2273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oBeginSndPath: Sounds/Global/G_TouchBegin
   m_oEndSndPath: Sounds/Global/G_TouchEnd
---- !u!114 &8407429475803206360
+--- !u!114 &4243490179608514779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2282,7 +2282,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7285125421900723307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7343988653249306473

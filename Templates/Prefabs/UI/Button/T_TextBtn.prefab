@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2457942837457250584}
   - component: {fileID: 9122242653978104528}
   - component: {fileID: 7404281246984562420}
-  - component: {fileID: 800770981912435082}
+  - component: {fileID: 8327409702097020205}
   m_Layer: 5
   m_Name: T_TextBtn
   m_TagString: Untagged
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oBeginSndPath: Sounds/Global/G_TouchBegin
   m_oEndSndPath: Sounds/Global/G_TouchEnd
---- !u!114 &800770981912435082
+--- !u!114 &8327409702097020205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,6 +164,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9122242653978104542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7004910233284106410}
   - component: {fileID: 8559943905523781965}
   - component: {fileID: 8014779231793552598}
-  - component: {fileID: 5247955111576082066}
+  - component: {fileID: 6698162762040421289}
   m_Layer: 0
   m_Name: CancelBtn
   m_TagString: Untagged
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oBeginSndPath: Sounds/Global/G_TouchBegin
   m_oEndSndPath: Sounds/Global/G_TouchEnd
---- !u!114 &5247955111576082066
+--- !u!114 &6698162762040421289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 876095180957787691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1516988602486528363
@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 3672811545808706373}
   - component: {fileID: 1502649315077456379}
   - component: {fileID: 6870148625544973621}
-  - component: {fileID: 5753002291992730143}
+  - component: {fileID: 1539494714283162610}
   m_Layer: 0
   m_Name: OKBtn
   m_TagString: Untagged
@@ -893,7 +893,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oBeginSndPath: Sounds/Global/G_TouchBegin
   m_oEndSndPath: Sounds/Global/G_TouchEnd
---- !u!114 &5753002291992730143
+--- !u!114 &1539494714283162610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -902,7 +902,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7314365102206777576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8063847896424549972

@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 7325180939113123958}
   - component: {fileID: -3293313467915460812}
   - component: {fileID: 7290533661618601248}
-  - component: {fileID: -7529207633316000644}
+  - component: {fileID: 5274675263856951031}
   m_Layer: 5
   m_Name: T_ImgTextScaleBtn
   m_TagString: Untagged
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oBeginSndPath: Sounds/Global/G_TouchBegin
   m_oEndSndPath: Sounds/Global/G_TouchEnd
---- !u!114 &-7529207633316000644
+--- !u!114 &5274675263856951031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,6 +240,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7325180939113123956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfbc20323a2c4de3a5db1075142ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
