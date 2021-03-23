@@ -1,0 +1,13 @@
+{
+	"Common": [
+	  {
+		"Name": "Sample",
+		"Desc": "Sample",
+		"PriceType": "0",
+		"PriceKinds": "0",
+		"NumItems_01": "0",
+		"SaleItemKinds_01": "0",
+		"Description": "샘플 판매 상품 정보"
+	  }
+	]
+  }

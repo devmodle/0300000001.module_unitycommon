@@ -1,15 +1,15 @@
 {
-  "Common": [
-    {
-      "Name": "Sample",
-      "Desc": "Sample",
-      "Replace": "0",
-      "Price": "0",
-      "PriceType": "0",
-      "PriceKinds": "0",
-      "NumItems": "1",
-      "ItemKinds": "0",
-      "Description": "샘플 아이템 정보"
-    }
-  ]
-}
+	"Common": [
+	  {
+		"Name": "Sample",
+		"Desc": "Sample",
+		"Price": "0",
+		"PriceType": "0",
+		"PriceKinds": "0",
+		"NumItems": "0",
+		"ItemKinds": "0",
+		"SaleItemKinds": "0",
+		"Description": "샘플 아이템 정보"
+	  }
+	]
+  }

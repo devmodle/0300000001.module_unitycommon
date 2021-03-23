@@ -70,11 +70,11 @@ public static partial class KDefine {
 	
 	// 경로 {
 #if UNITY_EDITOR
-	public static readonly string G_RUNTIME_TABLE_P_ITEM_INFOS = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
-	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFOS = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
 #else
-	public static readonly string G_RUNTIME_TABLE_P_ITEM_INFOS = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
-	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFOS = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
 #endif			// #if UNITY_EDITOR
 	// 경로 }
 	#endregion			// 런타임 상수
