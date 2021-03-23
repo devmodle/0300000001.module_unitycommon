@@ -9,6 +9,7 @@ public static partial class KDefine {
 	// 개수
 	public const int G_MAX_NUM_CHANGES = 0;
 	public const int G_MAX_NUM_DAILY_REWARDS = 0;
+	public const int G_MAX_NUM_SALE_ITEM_INFOS = 0;
 
 	// 횟수
 	public const int G_MAX_TIMES_FREE_REWARD = 0;
@@ -24,9 +25,18 @@ public static partial class KDefine {
 	public const string G_KEY_ITEM_IT_NUM_ITEMS = "NumItems";
 	public const string G_KEY_ITEM_IT_ITEM_KINDS = "ItemKinds";
 	public const string G_KEY_ITEM_IT_SALE_ITEM_KINDS = "SaleItemKinds";
-
-	public const string G_KEY_ITEM_IT_REPLACE = "Replace";
 	// 아이템 정보 테이블 }
+
+	// 판매 상품 정보 테이블 {
+	public const string G_KEY_SALE_PIT_NAME = "Name";
+	public const string G_KEY_SALE_PIT_DESC = "Desc";
+
+	public const string G_KEY_SALE_PIT_PRICE_TYPE = "PriceType";
+	public const string G_KEY_SALE_PIT_PRICE_KINDS = "PriceKinds";
+
+	public const string G_KEY_FMT_SALE_PIT_NUM_ITEMS = "NumItems_{0:00}";
+	public const string G_KEY_FMT_SALE_PIT_SALE_ITEM_KINDS = "SaleItemKinds_{0:00}";
+	// 판매 상품 정보 테이블 }
 
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
@@ -60,9 +70,11 @@ public static partial class KDefine {
 	
 	// 경로 {
 #if UNITY_EDITOR
-	public static readonly string G_RUNTIME_TABLE_P_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_ITEM_INFOS = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFOS = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
 #else
-	public static readonly string G_RUNTIME_TABLE_P_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_ITEM_INFOS = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFOS = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_ITEM_INFO}.json";
 #endif			// #if UNITY_EDITOR
 	// 경로 }
 	#endregion			// 런타임 상수

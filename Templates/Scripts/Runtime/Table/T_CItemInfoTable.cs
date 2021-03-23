@@ -32,7 +32,7 @@ public struct STItemInfo {
 
 		m_stSaleItemInfo = new STSaleItemInfo() {
 			m_nNumItems = a_oNode[KDefine.G_KEY_ITEM_IT_NUM_ITEMS].AsInt,
-			m_eSaleItemKinds = (EItemKinds)a_oNode[KDefine.G_KEY_ITEM_IT_SALE_ITEM_KINDS].AsInt
+			m_eItemKinds = (EItemKinds)a_oNode[KDefine.G_KEY_ITEM_IT_SALE_ITEM_KINDS].AsInt
 		};
 	}
 	#endregion			// 함수
@@ -50,46 +50,6 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	public List<STItemInfo> LoadItemInfos(string a_oJSONString) {
-		CAccess.Assert(a_oJSONString.ExIsValid());
-
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONString);
-		var oItemInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
-
-		for(int i = 0; i < oItemInfos.Count; ++i) {
-			var oItemInfo = oItemInfos[i];
-			var stItemInfo = new STItemInfo(oItemInfo);
-
-			int nIdx = m_oItemInfoList.ExFindValue((a_stItemInfo) => a_stItemInfo.m_eItemKinds == stItemInfo.m_eItemKinds);
-			int nReplace = int.Parse(oItemInfo[KDefine.G_KEY_ITEM_IT_REPLACE]);
-
-			// 아이템 정보가 없을 경우
-			if(!m_oItemInfoList.ExIsValidIdx(nIdx)) {
-				m_oItemInfoList.Add(stItemInfo);
-			} else if(nReplace != KCDefine.B_VALUE_0_INT) {
-				m_oItemInfoList[nIdx] = stItemInfo;
-			}
-		}
-
-		return m_oItemInfoList;
-	}
-
-	//! 아이템 정보를 로드한다
-	public List<STItemInfo> LoadItemInfosFromFile(string a_oFilePath) {
-		string oString = CFunc.ReadString(a_oFilePath);
-		return this.LoadItemInfos(oString);
-	}
-
-	//! 아이템 정보를 로드한다
-	public List<STItemInfo> LoadItemInfosFromRes(string a_oFilePath) {
-		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.LoadItemInfos(oTextAsset.text);
-		} finally {
-			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}
-	}
-
 	//! 아이템 정보를 반환한다
 	public STItemInfo GetItemInfo(EItemKinds a_eItemKinds) {
 		bool bIsValid = this.TryGetItemInfo(a_eItemKinds, out STItemInfo stItemInfo);
@@ -104,6 +64,36 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 		a_stOutItemInfo = m_oItemInfoList.ExIsValidIdx(nIdx) ? m_oItemInfoList[nIdx] : default(STItemInfo);
 
 		return m_oItemInfoList.ExIsValidIdx(nIdx);
+	}
+
+	public List<STItemInfo> LoadItemInfos(string a_oJSONString) {
+		CAccess.Assert(a_oJSONString.ExIsValid());
+
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONString);
+		var oItemInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
+
+		for(int i = 0; i < oItemInfos.Count; ++i) {
+			var stItemInfo = new STItemInfo(oItemInfos[i]);
+			m_oItemInfoList.Add(stItemInfo);
+		}
+
+		return m_oItemInfoList;
+	}
+
+	//! 아이템 정보를 로드한다
+	public List<STItemInfo> LoadItemInfosFromFile(string a_oFilePath) {
+		string oJSONString = CFunc.ReadString(a_oFilePath);
+		return this.LoadItemInfos(oJSONString);
+	}
+
+	//! 아이템 정보를 로드한다
+	public List<STItemInfo> LoadItemInfosFromRes(string a_oFilePath) {
+		try {
+			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
+			return this.LoadItemInfos(oTextAsset.text);
+		} finally {
+			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
+		}
 	}
 	#endregion			// 함수
 }

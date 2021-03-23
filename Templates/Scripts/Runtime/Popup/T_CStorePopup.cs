@@ -46,7 +46,7 @@ public class CStorePopup : CSubPopup {
 			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(m_nSelProductID);
 
 			for(int i = 0; i < stSaleProductInfo.m_oSaleItemInfoList.Count; ++i) {
-				Func.BuyItem(stSaleProductInfo.m_oSaleItemInfoList[i].m_eSaleItemKinds);
+				Func.BuyItem(stSaleProductInfo.m_oSaleItemInfoList[i].m_eItemKinds);
 			}
 		}
 	}
@@ -61,7 +61,7 @@ public class CStorePopup : CSubPopup {
 			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nID);
 
 			for(int i = 0; i < stSaleProductInfo.m_oSaleItemInfoList.Count; ++i) {
-				Func.BuyItem(stSaleProductInfo.m_oSaleItemInfoList[i].m_eSaleItemKinds);
+				Func.BuyItem(stSaleProductInfo.m_oSaleItemInfoList[i].m_eItemKinds);
 			}
 		}
 	}

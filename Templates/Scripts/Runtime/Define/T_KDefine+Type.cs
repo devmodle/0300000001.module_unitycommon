@@ -41,7 +41,7 @@ public struct STGameConfig {
 [System.Serializable]
 public struct STSaleItemInfo {
 	public int m_nNumItems;
-	public EItemKinds m_eSaleItemKinds;
+	public EItemKinds m_eItemKinds;
 }
 
 //! 커스터 타입 랩퍼
