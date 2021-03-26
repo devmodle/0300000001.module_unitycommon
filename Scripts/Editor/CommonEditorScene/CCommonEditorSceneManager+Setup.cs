@@ -256,28 +256,6 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-
-	//! 파일 브라우저를 설정한다
-	private static void SetupFileBrowser() {
-		var oFileBrowser = Resources.Load<GameObject>(KCEditorDefine.B_OBJ_P_FILE_BROWSER);
-
-		// 파일 브라우저가 존재 할 경우
-		if(oFileBrowser != null) {
-			var oCanvas = oFileBrowser.GetComponentInChildren<Canvas>();
-			oCanvas.sortingOrder = KCDefine.U_SORTING_O_FILE_BROWSER;
-
-			var oCanvasScaler = oFileBrowser.GetComponentInChildren<CanvasScaler>();
-			oCanvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-			oCanvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-			oCanvasScaler.referenceResolution = KCDefine.B_SCREEN_SIZE;
-			oCanvasScaler.referencePixelsPerUnit = KCDefine.B_REF_PIXELS_UNIT;
-
-			var oFileBrowserWnd = oFileBrowser.ExFindChild(KCEditorDefine.B_OBJ_N_FILE_BROWSER_WND);
-			oFileBrowserWnd.transform.localScale = KCDefine.B_SCALE_NORM;
-
-			oFileBrowser.ExSetEnableComponents<EventSystem>(false);
-		}
-	}
 	#endregion			// 클래스 함수
 
 	#region 클래스 조건부 함수

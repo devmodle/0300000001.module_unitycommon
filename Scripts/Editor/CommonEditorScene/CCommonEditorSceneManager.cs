@@ -90,7 +90,6 @@ public static partial class CCommonEditorSceneManager {
 
 				CCommonEditorSceneManager.SetupScene();
 				CCommonEditorSceneManager.SetupLightOpts();
-				CCommonEditorSceneManager.SetupFileBrowser();
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupInputSystem();

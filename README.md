@@ -16,7 +16,6 @@
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
 	- *Native Share (v1.3.8 - Oct 7, 2020)*
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*
-	- *Runtime File Browser (v1.4.3 - Jan 27, 2021)*
 	- *Signin with Apple (v1.1.1 - Nov 9, 2020)*
 	- *Simple Scroll Snap (v1.2.1 - Dec 14, 2020)*
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*

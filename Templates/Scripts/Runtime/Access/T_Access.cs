@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if PURCHASE_MODULE_ENABLE
@@ -25,15 +24,6 @@ public static partial class Access {
 		return KCDefine.B_VALUE_0_FLT;
 #endif			// #if ADS_MODULE_ENABLE
 	}
-
-	//! 컴포넌트 상호 작용 여부를 변경한다
-	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable) {
-		CAccess.Assert(a_oSender != null);
-
-		var oTouchInteractable = a_oSender.GetComponentInChildren<CTouchInteractable>();
-		oTouchInteractable?.SetInteractable(a_bIsEnable);
-	}
-	
 	#endregion			// 클래스 함수
 
 	#region 조건부 클래스 함수
