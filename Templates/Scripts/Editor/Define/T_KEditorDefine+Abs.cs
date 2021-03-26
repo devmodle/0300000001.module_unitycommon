@@ -181,7 +181,7 @@ public static partial class KEditorDefine {
 #endif			// #if ASSET_BUNDLE_ENABLE
 
 #if UNITY_RECORDER_ENABLE
-		["com.unity.recorder"] = "2.5.4",
+		["com.unity.recorder"] = "2.5.5",
 #endif			// #if UNITY_RECORDER_ENABLE
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
