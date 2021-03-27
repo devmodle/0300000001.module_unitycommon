@@ -100,10 +100,10 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	}
 
 	//! 판매 아이템 정보를 로드한다
-	public List<STSaleProductInfo> LoadSaleProductInfos(string a_oJSONString) {
-		CAccess.Assert(a_oJSONString.ExIsValid());
+	public List<STSaleProductInfo> LoadSaleProductInfos(string a_oJSONStr) {
+		CAccess.Assert(a_oJSONStr.ExIsValid());
 
-		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONString);
+		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 		var oSaleProductInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
 
 		for(int i = 0; i < oSaleProductInfos.Count; ++i) {
@@ -116,8 +116,8 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 
 	//! 판매 아이템 정보를 로드한다
 	public List<STSaleProductInfo> LoadSaleProductInfosFromFile(string a_oFilePath) {
-		string oJSONString = CFunc.ReadString(a_oFilePath);
-		return this.LoadSaleProductInfos(oJSONString);
+		string oJSONStr = CFunc.ReadString(a_oFilePath);
+		return this.LoadSaleProductInfos(oJSONStr);
 	}
 
 	//! 판매 아이템 정보를 로드한다

@@ -12,7 +12,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			Func.SetupLocalizeStrings();
+			Func.SetupLocalizeStrs();
 		}
 	}
 

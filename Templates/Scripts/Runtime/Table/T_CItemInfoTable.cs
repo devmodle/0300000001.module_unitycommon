@@ -66,10 +66,10 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 		return m_oItemInfoList.ExIsValidIdx(nIdx);
 	}
 
-	public List<STItemInfo> LoadItemInfos(string a_oJSONString) {
-		CAccess.Assert(a_oJSONString.ExIsValid());
+	public List<STItemInfo> LoadItemInfos(string a_oJSONStr) {
+		CAccess.Assert(a_oJSONStr.ExIsValid());
 
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONString);
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
 		var oItemInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
 
 		for(int i = 0; i < oItemInfos.Count; ++i) {
@@ -82,8 +82,8 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 
 	//! 아이템 정보를 로드한다
 	public List<STItemInfo> LoadItemInfosFromFile(string a_oFilePath) {
-		string oJSONString = CFunc.ReadString(a_oFilePath);
-		return this.LoadItemInfos(oJSONString);
+		string oJSONStr = CFunc.ReadString(a_oFilePath);
+		return this.LoadItemInfos(oJSONStr);
 	}
 
 	//! 아이템 정보를 로드한다

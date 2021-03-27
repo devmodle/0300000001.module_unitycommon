@@ -122,7 +122,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			var stFirebaseParams = new CFirebaseManager.STParams() {
 				m_oConfigList = new Dictionary<string, object>() {
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONString(),
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONStr(),
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VER] = oBuildVerConfig.text
 				}
 			};
@@ -305,7 +305,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		// 속성이 로드 되었을 경우
 		if(a_bIsSuccess) {
 			string oDeviceConfig = CFirebaseManager.Inst.GetConfig(KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE);
-			CCommonAppInfoStorage.Inst.DeviceConfig = oDeviceConfig.ExJSONStringToObj<STDeviceConfig>();
+			CCommonAppInfoStorage.Inst.DeviceConfig = oDeviceConfig.ExJSONStrToObj<STDeviceConfig>();
 		}
 	}
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE

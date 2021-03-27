@@ -165,7 +165,7 @@ public static partial class CCommonEditorSceneManager {
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
 						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VALUE_0_FLT);
-						string oString = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
+						string oStr = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 						var oRects = new Rect[] {
 							new Rect(a_stRect.x + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
@@ -175,10 +175,10 @@ public static partial class CCommonEditorSceneManager {
 						};
 
 						for(int j = 0; j < oRects.Length; ++j) {
-							GUI.Label(oRects[j], oString, CCommonEditorSceneManager.m_oOutlineGUIStyle);
+							GUI.Label(oRects[j], oStr, CCommonEditorSceneManager.m_oOutlineGUIStyle);
 						}
 
-						GUI.Label(a_stRect, oString, CCommonEditorSceneManager.m_oTextGUIStyle);
+						GUI.Label(a_stRect, oStr, CCommonEditorSceneManager.m_oTextGUIStyle);
 					}
 				}
 			}

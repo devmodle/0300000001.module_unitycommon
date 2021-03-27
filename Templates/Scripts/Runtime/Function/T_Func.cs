@@ -58,15 +58,15 @@ public static partial class Func {
 	}
 
 	//! 지역화 문자열을 설정한다
-	public static void SetupLocalizeStrings() {
+	public static void SetupLocalizeStrs() {
 		string oLanguage = CCommonAppInfoStorage.Inst.AppInfo.Language.ToString();
 		string oCountryCode = CCommonAppInfoStorage.Inst.CountryCode;
 
-		Func.SetupLocalizeStrings(oLanguage, oCountryCode);
+		Func.SetupLocalizeStrs(oLanguage, oCountryCode);
 	}
 
 	//! 지역화 문자열을 설정한다
-	public static void SetupLocalizeStrings(string a_oLanguage, string a_oCountryCode) {
+	public static void SetupLocalizeStrs(string a_oLanguage, string a_oCountryCode) {
 		CAccess.Assert(a_oCountryCode.ExIsValid());
 
 		string oBasePath = KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR;
@@ -184,9 +184,9 @@ public static partial class Func {
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
 			var oNodeList = CFactory.MakePostItemNodeList();
-			string oJSONString = a_oPostItemList.ExToJSONString();
+			string oJSONStr = a_oPostItemList.ExToJSONStr();
 
-			CFirebaseManager.Inst.SaveDB(oNodeList, oJSONString, a_oCallback);
+			CFirebaseManager.Inst.SaveDB(oNodeList, oJSONStr, a_oCallback);
 		} else {
 			a_oCallback?.Invoke(CFirebaseManager.Inst, false);
 		}

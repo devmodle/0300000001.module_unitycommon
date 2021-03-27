@@ -12,7 +12,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	private float m_fSkipTime = 0.0f;
 	private float m_fMaxPercent = 0.0f;
 
-	private System.Text.StringBuilder m_oStringBuilder = new System.Text.StringBuilder();
+	private System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
 	#endregion			// 변수
 
 	#region UI 변수
@@ -88,14 +88,14 @@ public class CSubStartSceneManager : CStartSceneManager {
 		string oDot = CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_DOT_TEXT);
 		string oLoading = CCommonAppInfoStorage.Inst.CountryCode.ExIsValid() ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT) : KCDefine.SS_TEXT_LOADING;
 
-		m_oStringBuilder.Clear();
-		m_oStringBuilder.Append(oLoading);
+		m_oStrBuilder.Clear();
+		m_oStrBuilder.Append(oLoading);
 
 		for(int i = 0; i < m_nNumDots + KCDefine.B_VALUE_1_INT; ++i) {
-			m_oStringBuilder.Append(oDot);
+			m_oStrBuilder.Append(oDot);
 		}
 
-		m_oLoadingText.text = m_oStringBuilder.ToString();
+		m_oLoadingText.text = m_oStrBuilder.ToString();
 	}
 	#endregion			// 함수
 }
