@@ -82,7 +82,7 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 
 	//! 아이템 정보를 로드한다
 	public List<STItemInfo> LoadItemInfosFromFile(string a_oFilePath) {
-		string oJSONStr = CFunc.ReadString(a_oFilePath);
+		string oJSONStr = CFunc.ReadStr(a_oFilePath);
 		return this.LoadItemInfos(oJSONStr);
 	}
 

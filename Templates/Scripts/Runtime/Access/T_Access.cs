@@ -29,9 +29,9 @@ public static partial class Access {
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	//! 가격 문자열을 반환한다
-	public static string GetPriceString(int a_nID) {
+	public static string GetPriceStr(int a_nID) {
 		var oProduct = Access.GetProduct(a_nID);
-		return (oProduct != null) ? CAccess.GetPriceString(oProduct) : string.Empty;
+		return (oProduct != null) ? CAccess.GetPriceStr(oProduct) : string.Empty;
 	}
 
 	//! 상품을 반환한다
