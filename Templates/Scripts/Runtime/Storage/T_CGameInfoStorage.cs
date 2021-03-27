@@ -20,8 +20,8 @@ public sealed class CGameInfo : CBaseInfo {
 	[IgnoreMember] public System.DateTime LastFreeRewardTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastDailyRewardTime { get; set; } = System.DateTime.Now;
 
-	[IgnoreMember] private string LastFreeRewardTimeString => m_oStringList.ExGetValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, string.Empty);
-	[IgnoreMember] private string LastDailyRewardTimeString => m_oStringList.ExGetValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string LastFreeRewardTimeString => m_oStrList.ExGetValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string LastDailyRewardTimeString => m_oStrList.ExGetValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, string.Empty);
 
 	[IgnoreMember] public int DailyRewardID {
 		get { return m_oIntList.ExGetValue(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VALUE_0_INT); }
@@ -32,8 +32,8 @@ public sealed class CGameInfo : CBaseInfo {
 	#region 인터페이스
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
-		m_oStringList.ExReplaceValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, this.LastFreeRewardTime.ExToLongString());
-		m_oStringList.ExReplaceValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, this.LastDailyRewardTime.ExToLongString());
+		m_oStrList.ExReplaceValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, this.LastFreeRewardTime.ExToLongString());
+		m_oStrList.ExReplaceValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, this.LastDailyRewardTime.ExToLongString());
 	}
 
 	//! 역직렬화 되었을 경우
@@ -47,7 +47,7 @@ public sealed class CGameInfo : CBaseInfo {
 
 	#region 함수
 	//! 생성자
-	public CGameInfo() : base(KDefine.B_VERSION_GAME_INFO) {
+	public CGameInfo() : base(KDefine.B_VER_GAME_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수

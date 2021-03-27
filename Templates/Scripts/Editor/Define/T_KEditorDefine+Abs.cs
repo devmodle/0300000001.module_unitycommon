@@ -28,8 +28,8 @@ public static partial class KEditorDefine {
 	#region 런타임 상수
 	// 스크립트 순서
 	public static Dictionary<System.Type, int> B_SCRIPT_ORDERS = new Dictionary<System.Type, int>() {
+		[typeof(CStrTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CValueTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CStringTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
 		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,

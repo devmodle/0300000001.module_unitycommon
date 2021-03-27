@@ -31,7 +31,7 @@ public sealed class CUserInfo : CBaseInfo {
 
 	#region 함수
 	//! 생성자
-	public CUserInfo() : base(KDefine.B_VERSION_USER_INFO) {
+	public CUserInfo() : base(KDefine.B_VER_USER_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수

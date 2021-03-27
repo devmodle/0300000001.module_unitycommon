@@ -11,7 +11,7 @@ using MessagePack;
 public sealed class CAppInfo : CBaseInfo {
 	#region 함수
 	//! 생성자
-	public CAppInfo() : base(KDefine.B_VERSION_APP_INFO) {
+	public CAppInfo() : base(KDefine.B_VER_APP_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수

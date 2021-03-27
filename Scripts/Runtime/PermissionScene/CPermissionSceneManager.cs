@@ -68,7 +68,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 	private void LoadNextScene() {
 		CCommonAppInfoStorage.Inst.SetupDeviceType();
 		CCommonAppInfoStorage.Inst.SetupAdsID();
-		CCommonAppInfoStorage.Inst.SetupStoreVersion();
+		CCommonAppInfoStorage.Inst.SetupStoreVer();
 		
 		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();

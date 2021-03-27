@@ -36,10 +36,10 @@ public static partial class Func {
 	//! 종료 팝업을 출력한다
 	public static void ShowQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
-			m_oTitle = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			m_oMsg = CStringTable.Inst.GetString(KCDefine.ST_KEY_QUIT_P_MSG),
-			m_oOKBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
-			m_oCancelBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
+			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_QUIT_P_MSG),
+			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oCancelBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
 		};
 
 		Func.ShowAlertPopup(stParams, a_oCallback);
@@ -48,10 +48,10 @@ public static partial class Func {
 	//! 업데이트 팝업을 출력한다
 	public static void ShowUpdatePopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
-			m_oTitle = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			m_oMsg = CStringTable.Inst.GetString(KCDefine.ST_KEY_UPDATE_P_MSG),
-			m_oOKBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
-			m_oCancelBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
+			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG),
+			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oCancelBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
 		};
 
 		Func.ShowAlertPopup(stParams, a_oCallback);
@@ -69,10 +69,10 @@ public static partial class Func {
 	public static void SetupLocalizeStrings(string a_oLanguage, string a_oCountryCode) {
 		CAccess.Assert(a_oCountryCode.ExIsValid());
 
-		string oBasePath = KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STRING;
-		string oFilePath = CFactory.MakeLocalizePath(oBasePath, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STRING, a_oLanguage, a_oCountryCode);
+		string oBasePath = KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR;
+		string oFilePath = CFactory.MakeLocalizePath(oBasePath, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STR, a_oLanguage, a_oCountryCode);
 
-		CStringTable.Inst.LoadStringsFromRes(oFilePath);		
+		CStrTable.Inst.LoadStrsFromRes(oFilePath);		
 	}
 	#endregion			// 클래스 함수
 
@@ -117,7 +117,7 @@ public static partial class Func {
 
 	//! 전면 광고를 출력한다
 	public static void ShowFullscreenAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
-		float fDelay = CValueTable.Inst.GetFloat(KCDefine.VT_KEY_DEF_DELAY_FULLSCREEN_ADS);
+		float fDelay = CValueTable.Inst.GetFlt(KCDefine.VT_KEY_DEF_DELAY_FULLSCREEN_ADS);
 		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevFullscreenAdsTime);
 
 		// 전면 광고 출력이 가능 할 경우
@@ -138,7 +138,7 @@ public static partial class Func {
 
 	//! 재개 광고를 출력한다
 	public static void ShowResumeAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
-		float fDelay = CValueTable.Inst.GetFloat(KCDefine.VT_KEY_DEF_DELAY_RESUME_ADS);
+		float fDelay = CValueTable.Inst.GetFlt(KCDefine.VT_KEY_DEF_DELAY_RESUME_ADS);
 		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevResumeAdsTime);
 
 		// 재개 광고 출력이 가능 할 경우
@@ -208,9 +208,9 @@ public static partial class Func {
 	//! 결제 성공 팝업을 출력한다
 	public static void ShowPurchaseSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
-			m_oTitle = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			m_oMsg = CStringTable.Inst.GetString(KCDefine.ST_KEY_PURCHASE_P_SUCCESS_MSG),
-			m_oOKBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_PURCHASE_P_SUCCESS_MSG),
+			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
 			m_oCancelBtnText = string.Empty
 		};
 
@@ -220,9 +220,9 @@ public static partial class Func {
 	//! 결제 실패 팝업을 출력한다
 	public static void ShowPurchaseFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
-			m_oTitle = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_TITLE),
-			m_oMsg = CStringTable.Inst.GetString(KCDefine.ST_KEY_PURCHASE_P_FAIL_MSG),
-			m_oOKBtnText = CStringTable.Inst.GetString(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_PURCHASE_P_FAIL_MSG),
+			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
 			m_oCancelBtnText = string.Empty
 		};
 

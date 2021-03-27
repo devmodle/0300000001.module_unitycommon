@@ -20,7 +20,7 @@ public class CSubInitSceneManager : CInitSceneManager {
 		CGameInfoStorage.Create();
 
 		// 테이블을 로드한다 {
-		CStringTable.Inst.LoadEnumStrings<EUserType>();
+		CStrTable.Inst.LoadEnumStrs<EUserType>();
 
 #if UNITY_EDITOR || UNITY_STANDALONE
 		CItemInfoTable.Inst.LoadItemInfosFromFile(KDefine.G_RUNTIME_TABLE_P_ITEM_INFO);

@@ -40,7 +40,7 @@ public static partial class CEditorSceneManager {
 			// 독립 패키지가 없을 경우
 			if(!oPkgsInfoList.ExIsValidIdx(nIdx)) {
 				// 버전이 유효 할 경우
-				if(stKeyValue.Value.ExIsValidBuildVersion()) {
+				if(stKeyValue.Value.ExIsValidBuildVer()) {
 					var oAddRequest = Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyValue.Key, stKeyValue.Value));
 					CEditorSceneManager.m_oAddRequestList.ExAddValue(oAddRequest);
 				} else {

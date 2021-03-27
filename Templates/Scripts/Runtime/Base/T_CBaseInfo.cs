@@ -12,12 +12,12 @@ using MessagePack;
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 변수
-	[Key(0)] public STVersion m_stVersion;
+	[Key(0)] public STVer m_stVer;
 
 	[Key(1)] public Dictionary<string, bool> m_oBoolList = new Dictionary<string, bool>();
 	[Key(2)] public Dictionary<string, int> m_oIntList = new Dictionary<string, int>();
-	[Key(3)] public Dictionary<string, float> m_oFloatList = new Dictionary<string, float>();
-	[Key(4)] public Dictionary<string, string> m_oStringList = new Dictionary<string, string>();
+	[Key(3)] public Dictionary<string, float> m_oFltList = new Dictionary<string, float>();
+	[Key(4)] public Dictionary<string, string> m_oStrList = new Dictionary<string, string>();
 	#endregion			// 변수
 
 	#region 인터페이스
@@ -30,15 +30,15 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	public virtual void OnAfterDeserialize() {
 		m_oBoolList = m_oBoolList ?? new Dictionary<string, bool>();
 		m_oIntList = m_oIntList ?? new Dictionary<string, int>();
-		m_oFloatList = m_oFloatList ?? new Dictionary<string, float>();
-		m_oStringList = m_oStringList ?? new Dictionary<string, string>();
+		m_oFltList = m_oFltList ?? new Dictionary<string, float>();
+		m_oStrList = m_oStrList ?? new Dictionary<string, string>();
 	}
 	#endregion			// 인터페이스
 
 	#region 함수
 	//! 생성자
-	public CBaseInfo(string a_oVersion) {
-		m_stVersion = CFactory.MakeDefVersion(a_oVersion);
+	public CBaseInfo(string a_oVer) {
+		m_stVer = CFactory.MakeDefVer(a_oVer);
 	}
 	#endregion			// 함수
 }

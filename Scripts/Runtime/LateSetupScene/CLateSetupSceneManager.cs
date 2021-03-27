@@ -91,7 +91,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if APP_LOVIN_ENABLE
 			};
 
-			CUnityMsgSender.Inst.SendSetAdsTrackingEnableMsg(true);
+			CUnityMsgSender.Inst.SendSetEnableAdsTrackingMsg(true);
 			CAdsManager.Inst.Init(stAdsParams, CLateSetupSceneManager.OnInitAdsManager);
 #endif			// #if ADS_MODULE_ENABLE
 
@@ -117,18 +117,18 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if FIREBASE_MODULE_ENABLE
 			var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG);
-			var oBuildVersionConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VERSION_CONFIG);
+			var oBuildVerConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG);
 
 			var stFirebaseParams = new CFirebaseManager.STParams() {
 				m_oConfigList = new Dictionary<string, object>() {
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONString(),
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VERSION] = oBuildVersionConfig.text
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VER] = oBuildVerConfig.text
 				}
 			};
 
 			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG, true);
-			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VERSION_CONFIG, true);
+			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG, true);
 
 			CFirebaseManager.Inst.Init(stFirebaseParams, CLateSetupSceneManager.OnInitFirebaseManager);
 #endif			// #if FIREBASE_MODULE_ENABLE

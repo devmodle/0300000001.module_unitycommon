@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //! 서브 타이틀 씬 관리자
 public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#region UI 변수
-	private Text m_oVersionText = null;
+	private Text m_oVerText = null;
 	#endregion			// UI 변수
 
 	#region 함수
@@ -17,10 +17,10 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		
 		//! 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			m_oVersionText = CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VERSION_TEXT, KCDefine.TS_OBJ_P_VERSION_TEXT, this.SubTopUIs, KCDefine.TS_POS_VERSION_TEXT);
-			m_oVersionText.rectTransform.pivot = KCDefine.B_ANCHOR_TOP_LEFT;
-			m_oVersionText.rectTransform.anchorMin = KCDefine.B_ANCHOR_TOP_LEFT;
-			m_oVersionText.rectTransform.anchorMax = KCDefine.B_ANCHOR_TOP_LEFT;
+			m_oVerText = CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubTopUIs, KCDefine.TS_POS_VER_TEXT);
+			m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_TOP_LEFT;
+			m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_TOP_LEFT;
+			m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_TOP_LEFT;
 		}
 	}
 	
@@ -31,7 +31,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
-			m_oVersionText.text = CAccess.GetVersionString(CProjInfoTable.Inst.ProjInfo.m_stBuildVersion.m_oVersion, CCommonUserInfoStorage.Inst.UserInfo.UserType);
+			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 
 			var stLastFreeRewardTime = CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime;
 			var stLastDailyRewardTime = CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime;

@@ -1,4 +1,4 @@
-ID,Replace,Description,String
+ID,Replace,Description,Str
 ALERT_P_TITLE,0,경고 팝업 제목,Notice
 ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,OK
 ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,Cancel

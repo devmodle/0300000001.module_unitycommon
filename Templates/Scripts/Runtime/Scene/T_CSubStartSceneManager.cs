@@ -85,8 +85,8 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	//! 텍스트 상태를 갱신한다
 	private void UpdateTextState() {
-		string oDot = CStringTable.Inst.GetString(KCDefine.ST_KEY_START_SM_DOT_TEXT);
-		string oLoading = CCommonAppInfoStorage.Inst.CountryCode.ExIsValid() ? CStringTable.Inst.GetString(KCDefine.ST_KEY_START_SM_LOADING_TEXT) : KCDefine.SS_TEXT_LOADING;
+		string oDot = CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_DOT_TEXT);
+		string oLoading = CCommonAppInfoStorage.Inst.CountryCode.ExIsValid() ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT) : KCDefine.SS_TEXT_LOADING;
 
 		m_oStringBuilder.Clear();
 		m_oStringBuilder.Append(oLoading);
