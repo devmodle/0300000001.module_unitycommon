@@ -24,7 +24,7 @@ MonoBehaviour:
     m_oCategory: public.app-category.games
   m_stiOSBuildInfo:
     m_oTeamID: A9997B8HR5
-    m_oTargetOSVersion: 11.0
+    m_oTargetOSVer: 11.0
     m_oDevProfileID: 
     m_oAdhocProfileID: 
     m_oStoreProfileID: 
@@ -37,5 +37,5 @@ MonoBehaviour:
     m_oKeyaliasName: Keystore
     m_oKeystorePassword: NT9studio!
     m_oKeyaliasPassword: NT9studio!
-    m_eMinSDKVersion: 21
-    m_eTargetSDKVersion: 29
+    m_eMinSDKVer: 21
+    m_eTargetSDKVer: 29
