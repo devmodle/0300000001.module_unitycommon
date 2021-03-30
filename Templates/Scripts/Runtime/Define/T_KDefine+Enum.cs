@@ -45,5 +45,11 @@ public enum EPriceKinds {
 	GOODS_COIN = 2000000,
 	MAX_VALUE
 }
+
+//! 보상 팝업 타입
+public enum ERewardPopupType {
+	NONE = -1,
+	MAX_VALUE
+}
 #endregion			// 기본
 #endif			// #if NEVER_USE_THIS

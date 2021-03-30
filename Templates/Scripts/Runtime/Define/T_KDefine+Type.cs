@@ -37,6 +37,13 @@ public struct STGameConfig {
 
 }
 
+//! 보상 아이템 정보
+[System.Serializable]
+public struct STRewardItemInfo {
+	public int m_nNumItems;
+	public EItemKinds m_eItemKinds;
+}
+
 //! 판매 아이템 정보
 [System.Serializable]
 public struct STSaleItemInfo {

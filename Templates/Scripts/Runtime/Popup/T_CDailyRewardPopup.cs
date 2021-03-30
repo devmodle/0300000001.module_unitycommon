@@ -27,7 +27,7 @@ public class CDailyRewardPopup : CSubPopup {
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	//! 보상 광고가 닫혔을 경우
-	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItem a_stRewardItem, bool a_bIsSuccess) {
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
 			// Do Nothing

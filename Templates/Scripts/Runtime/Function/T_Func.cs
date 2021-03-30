@@ -11,9 +11,9 @@ public static partial class Func {
 	private static bool m_bIsWatchFullscreenAds = false;
 	private static bool m_bIsWatchResumeAds = false;
 
-	private static STAdsRewardItem m_stRewardItem;
+	private static STAdsRewardItemInfo m_stRewardItemInfo;
 
-	private static System.Action<CAdsManager, STAdsRewardItem, bool> m_oRewardAdsCallback = null;
+	private static System.Action<CAdsManager, STAdsRewardItemInfo, bool> m_oRewardAdsCallback = null;
 	private static System.Action<CAdsManager, bool> m_oFullscreenAdsCallback = null;
 	private static System.Action<CAdsManager, bool> m_oResumeAdsCallback = null;
 #endif			// #if ADS_MODULE_ENABLE
@@ -92,21 +92,21 @@ public static partial class Func {
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
-	public static void ShowRewardAds(System.Action<CAdsManager, STAdsRewardItem, bool> a_oCallback) {
+	public static void ShowRewardAds(System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
 		Func.ShowRewardAds(CPluginInfoTable.Inst.DefAdsType, a_oCallback);
 	}
 	
 	//! 보상 광고를 출력한다
-	public static void ShowRewardAds(EAdsType a_eAdsType, System.Action<CAdsManager, STAdsRewardItem, bool> a_oCallback) {
+	public static void ShowRewardAds(EAdsType a_eAdsType, System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsType)) {
 			Func.m_bIsWatchRewardAds = false;
-			Func.m_stRewardItem = default(STAdsRewardItem);
+			Func.m_stRewardItemInfo = default(STAdsRewardItemInfo);
 
 			Func.m_oRewardAdsCallback = a_oCallback;
 			CAdsManager.Inst.ShowRewardAds(a_eAdsType, Func.OnReceiveUserReward, Func.OnCloseRewardAds);
 		} else {
-			a_oCallback?.Invoke(CAdsManager.Inst, default(STAdsRewardItem), false);
+			a_oCallback?.Invoke(CAdsManager.Inst, default(STAdsRewardItemInfo), false);
 		}
 	}
 
@@ -154,13 +154,13 @@ public static partial class Func {
 
 	//! 보상 광고가 닫혔을 경우
 	private static void OnCloseRewardAds(CAdsManager a_oSender) {
-		CFunc.Invoke(ref Func.m_oRewardAdsCallback, a_oSender, Func.m_stRewardItem, Func.m_bIsWatchRewardAds);
+		CFunc.Invoke(ref Func.m_oRewardAdsCallback, a_oSender, Func.m_stRewardItemInfo, Func.m_bIsWatchRewardAds);
 	}
 
 	//! 유저 보상을 수신했을 경우
-	private static void OnReceiveUserReward(CAdsManager a_oSender, STAdsRewardItem a_stRewardItem, bool a_bIsSuccess) {
+	private static void OnReceiveUserReward(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		Func.m_bIsWatchRewardAds = a_bIsSuccess;
-		Func.m_stRewardItem = a_stRewardItem;
+		Func.m_stRewardItemInfo = a_stRewardItemInfo;
 	}
 
 	//! 전면 광고가 닫혔을 경우
@@ -177,14 +177,27 @@ public static partial class Func {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-	//! 지급 아이템을 저장한다
-	public static void SavePostItem(List<STPostItem> a_oPostItemList, System.Action<CFirebaseManager, bool> a_oCallback) {
-		CAccess.Assert(a_oPostItemList != null);
+	//! 유저 정보를 저장한다
+	public static void SaveUserInfo(System.Action<CFirebaseManager, bool> a_oCallback) {
+		// 로그인 되었을 경우
+		if(CFirebaseManager.Inst.IsLogin) {
+			// var oNodeList = CFactory.MakeUserInfoNodeList();
+			// string oJSONStr = a_oPostItemInfoList.ExToJSONStr();
+
+			// CFirebaseManager.Inst.SaveDB(oNodeList, oJSONStr, a_oCallback);
+		} else {
+			a_oCallback?.Invoke(CFirebaseManager.Inst, false);
+		}
+	}
+
+	//! 지급 아이템 정보를 저장한다
+	public static void SavePostItemInfo(List<STPostItemInfo> a_oPostItemInfoList, System.Action<CFirebaseManager, bool> a_oCallback) {
+		CAccess.Assert(a_oPostItemInfoList != null);
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = CFactory.MakePostItemNodeList();
-			string oJSONStr = a_oPostItemList.ExToJSONStr();
+			var oNodeList = CFactory.MakePostItemInfoNodeList();
+			string oJSONStr = a_oPostItemInfoList.ExToJSONStr();
 
 			CFirebaseManager.Inst.SaveDB(oNodeList, oJSONStr, a_oCallback);
 		} else {
@@ -192,11 +205,22 @@ public static partial class Func {
 		}
 	}
 
-	//! 지급 아이템을 로드한다
-	public static void LoadPostItem(System.Action<CFirebaseManager, string, bool> a_oCallback) {
+	//! 유저 정보를 로드한다
+	public static void LoadUserInfo(System.Action<CFirebaseManager, string, bool> a_oCallback) {
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = CFactory.MakePostItemNodeList();
+			var oNodeList = CFactory.MakeUserInfoNodeList();
+			CFirebaseManager.Inst.LoadDB(oNodeList, a_oCallback);
+		} else {
+			a_oCallback?.Invoke(CFirebaseManager.Inst, string.Empty, false);
+		}
+	}
+
+	//! 지급 아이템 정보를 로드한다
+	public static void LoadPostItemInfo(System.Action<CFirebaseManager, string, bool> a_oCallback) {
+		// 로그인 되었을 경우
+		if(CFirebaseManager.Inst.IsLogin) {
+			var oNodeList = CFactory.MakePostItemInfoNodeList();
 			CFirebaseManager.Inst.LoadDB(oNodeList, a_oCallback);
 		} else {
 			a_oCallback?.Invoke(CFirebaseManager.Inst, string.Empty, false);

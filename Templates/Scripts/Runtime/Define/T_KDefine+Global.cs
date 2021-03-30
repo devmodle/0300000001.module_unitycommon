@@ -41,6 +41,9 @@ public static partial class KDefine {
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
 
+	// 보상 팝업
+	public const string G_OBJ_N_REWARD_POPUP = "RewardPopup";
+
 	// 무료 보상 팝업
 	public const string G_OBJ_N_FREE_REWARD_POPUP = "FreeRewardPopup";
 
