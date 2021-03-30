@@ -141,7 +141,7 @@ public static partial class KEditorDefine {
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.quicksearch"] = "2.0.2",
 		["com.unity.mobile.android-logcat"] = "1.2.1",
-		["com.unity.render-pipelines.universal"] = "10.3.2",
+		["com.unity.render-pipelines.universal"] = "10.4.0",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
 #if ML_AGENTS_ENABLE
@@ -149,11 +149,11 @@ public static partial class KEditorDefine {
 #endif			// #if ML_AGENTS_ENABLE
 
 #if CINEMACHINE_ENABLE
-		["com.unity.cinemachine"] = "2.6.3",
+		["com.unity.cinemachine"] = "2.6.4",
 #endif			// #if CINEMACHINE_ENABLE
 
 #if VISUAL_FX_GRAPH_ENABLE
-		["com.unity.visualeffectgraph"] = "10.3.2",
+		["com.unity.visualeffectgraph"] = "10.4.0",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
 
 #if TILEMAP_2D_ENABLE
@@ -185,8 +185,8 @@ public static partial class KEditorDefine {
 #endif			// #if UNITY_RECORDER_ENABLE
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
-		["com.unity.adaptiveperformance"] = "2.0.2",
-		["com.unity.adaptiveperformance.samsung.android"] = "2.0.2",
+		["com.unity.adaptiveperformance"] = "2.1.1",
+		["com.unity.adaptiveperformance.samsung.android"] = "2.1.1",
 #endif			// #if ADAPTIVE_PERFORMANCE_ENABLE
 
 #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
@@ -200,7 +200,7 @@ public static partial class KEditorDefine {
 #endif			// #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
-    	["com.unity.postprocessing"] = "3.0.3",
+    	["com.unity.postprocessing"] = "3.1.0",
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
