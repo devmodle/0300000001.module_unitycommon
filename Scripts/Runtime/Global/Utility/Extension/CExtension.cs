@@ -591,7 +591,20 @@ public static partial class CExtension {
 	//! 값을 반환한다
 	public static Value ExGetValue<Key, Value>(this Dictionary<Key, Value> a_oSender, Key a_tKey, Value a_tDefValue) {
 		Func.Assert(a_oSender != null);
-		return a_oSender.ContainsKey(a_tKey) ? a_oSender[a_tKey] : a_tDefValue;
+
+		Value returnValue = default;
+		if(a_oSender.ContainsKey(a_tKey))
+        {
+			returnValue = a_oSender[a_tKey];
+        }
+		else
+        {
+			returnValue = a_tDefValue;
+        }
+		return returnValue;
+
+		// DELETE:
+		//return a_oSender.ContainsKey(a_tKey) ? a_oSender[a_tKey] : a_tDefValue;
 	}
 
 	//! 필드 값을 반환한다
