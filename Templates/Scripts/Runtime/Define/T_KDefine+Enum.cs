@@ -24,8 +24,23 @@ public enum EItemType {
 public enum EItemKinds {
 	NONE = -1,
 	GOODS_COIN,
-	GOODS_COIN_FREE,
 	NON_CONSUMABLE_REMOVE_ADS = 2000000,
+	MAX_VALUE
+}
+
+//! 보상 타입
+public enum ERewardType {
+	NONE = -1,
+	FREE,
+	DAILY,
+	MAX_VALUE
+}
+
+//! 보상 종류
+public enum ERewardKinds {
+	NONE = -1,
+	FREE_GOODS_COIN,
+	DAILY_GOODS_COIN = 1000000,
 	MAX_VALUE
 }
 

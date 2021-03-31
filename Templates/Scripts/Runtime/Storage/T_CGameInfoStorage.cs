@@ -68,7 +68,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 함수
 	//! 일일 보상 식별자를 변경한다
 	public void SetDailyRewardID(int a_nID) {
-		CAccess.Assert(a_nID >= KCDefine.B_VALUE_0_INT && a_nID < KDefine.G_MAX_NUM_DAILY_REWARDS);
+		CAccess.Assert(a_nID >= KCDefine.B_VALUE_0_INT && a_nID < CRewardInfoTable.Inst.DailyRewardInfoList.Count);
 		this.GameInfo.DailyRewardID = a_nID;
 	}
 

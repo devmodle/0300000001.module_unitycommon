@@ -25,9 +25,9 @@ public struct STSaleProductInfo {
 
 		m_oItemInfoList = new List<STItemInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_SALE_ITEM_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_SALE_PIT_ITEM_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_NUM_ITEMS, i + KCDefine.B_VALUE_1_INT);
-			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_SALE_ITEM_KINDS, i + KCDefine.B_VALUE_1_INT);
+			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_ITEM_KINDS, i + KCDefine.B_VALUE_1_INT);
 
 			var stItemInfo = new STItemInfo() {
 				m_nNumItems = a_oNode[oNumItemsKey].AsInt,
@@ -81,7 +81,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 
 	//! 판매 상품 정보를 반환한다
 	public bool TryGetSaleProductInfo(int a_nID, out STSaleProductInfo a_stOutSaleProductInfo) {
-		a_stOutSaleProductInfo = m_oSaleProductInfoList.ExIsValidIdx(a_nID) ? m_oSaleProductInfoList[a_nID] : default(STSaleProductInfo);
+		a_stOutSaleProductInfo = m_oSaleProductInfoList.ExIsValidIdx(a_nID) ? m_oSaleProductInfoList[a_nID] : KDefine.G_INVALID_SALE_PRODUCT_INFO;
 		return m_oSaleProductInfoList.ExIsValidIdx(a_nID);
 	}
 
@@ -90,12 +90,12 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		// 판매 상품 정보가 존재 할 경우
 		if(this.TryGetSaleProductInfo(a_nID, out STSaleProductInfo stSaleProductInfo)) {
 			int nIdx = stSaleProductInfo.m_oItemInfoList.ExFindValue((a_stItemInfo) => a_stItemInfo.m_eItemKinds == a_eItemKinds);
-			a_stOutItemInfo = stSaleProductInfo.m_oItemInfoList.ExIsValidIdx(nIdx) ? stSaleProductInfo.m_oItemInfoList[nIdx] : default(STItemInfo);
+			a_stOutItemInfo = stSaleProductInfo.m_oItemInfoList.ExIsValidIdx(nIdx) ? stSaleProductInfo.m_oItemInfoList[nIdx] : KDefine.G_INVALID_ITEM_INFO;
 
 			return stSaleProductInfo.m_oItemInfoList.ExIsValidIdx(nIdx);
 		}
 
-		a_stOutItemInfo = default(STItemInfo);
+		a_stOutItemInfo = KDefine.G_INVALID_ITEM_INFO;
 		return false;
 	}
 
@@ -116,12 +116,16 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 
 	//! 판매 상품 정보를 로드한다
 	public List<STSaleProductInfo> LoadSaleProductInfosFromFile(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
+
 		return this.LoadSaleProductInfos(oJSONStr);
 	}
 
 	//! 판매 상품 정보를 로드한다
 	public List<STSaleProductInfo> LoadSaleProductInfosFromRes(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+		
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
 			return this.LoadSaleProductInfos(oTextAsset.text);

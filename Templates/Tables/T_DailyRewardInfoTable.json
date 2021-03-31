@@ -3,11 +3,12 @@
 	  {
 		"Name": "Sample",
 		"Desc": "Sample",
-		"PriceType": "0",
-		"PriceKinds": "0",
+		"Price": "0",
+		"RewardType": "0",
+		"RewardKinds": "0",
 		"NumItems_01": "0",
 		"ItemKinds_01": "0",
-		"Description": "샘플 판매 상품 정보"
+		"Description": "샘플 일일 보상 정보"
 	  }
 	]
   }

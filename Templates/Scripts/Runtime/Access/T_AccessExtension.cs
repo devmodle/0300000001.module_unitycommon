@@ -15,22 +15,28 @@ public static partial class AccessExtension {
 		oTouchInteractable?.SetInteractable(a_bIsEnable);
 	}
 
+	//! 종류 => 타입으로 변환한다
+	public static int ExKindsToType(this int a_nSender) {
+		return a_nSender / KCDefine.B_UNIT_TYPE_TO_KINDS;
+	}
+	
 	//! 종류 => 기본 종류로 변환한다
-	public static int ExToBaseKinds(this int a_nSender) {
-		return (a_nSender / KCDefine.B_UNIT_TYPE_TO_KINDS) * KCDefine.B_UNIT_TYPE_TO_KINDS;
+	public static int ExKindsToBaseKinds(this int a_nSender) {
+		int nType = a_nSender.ExKindsToType();
+		return nType * KCDefine.B_UNIT_TYPE_TO_KINDS;
 	}
 
 	//! 종류 => 종류 타입으로 변환한다
-	public static int ExToKindsType(this int a_nSender) {
-		int nBaseKinds = a_nSender.ExToBaseKinds();
+	public static int ExKindsToKindsType(this int a_nSender) {
+		int nBaseKinds = a_nSender.ExKindsToBaseKinds();
 		int nKindsType = a_nSender % KCDefine.B_UNIT_TYPE_TO_KINDS;
 		
 		return nBaseKinds + ((nKindsType / KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE) * KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE);
 	}
 
 	//! 종류 => 서브 종류 타입으로 변환한다
-	public static int ExToSubKindsType(this int a_nSender) {
-		int nKindsType = a_nSender.ExToKindsType();
+	public static int ExKindsToSubKindsType(this int a_nSender) {
+		int nKindsType = a_nSender.ExKindsToKindsType();
 		int nSubKindsType = a_nSender % KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE;
 
 		return nKindsType + ((nSubKindsType / KCDefine.B_UNIT_TYPE_TO_SUB_KINDS_TYPE) * KCDefine.B_UNIT_TYPE_TO_SUB_KINDS_TYPE);

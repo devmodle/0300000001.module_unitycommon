@@ -21,27 +21,27 @@ public struct STSaleItemInfo {
 	#region 함수
 	//! 생성자
 	public STSaleItemInfo(SimpleJSON.JSONNode a_oNode) {
-		m_nPrice = a_oNode[KDefine.G_KEY_ITEM_IT_PRICE].AsInt;
+		m_nPrice = a_oNode[KDefine.G_KEY_SALE_IIT_PRICE].AsInt;
 
-		m_oName = a_oNode[KDefine.G_KEY_ITEM_IT_NAME];
-		m_oDesc = a_oNode[KDefine.G_KEY_ITEM_IT_DESC];
+		m_oName = a_oNode[KDefine.G_KEY_SALE_IIT_NAME];
+		m_oDesc = a_oNode[KDefine.G_KEY_SALE_IIT_DESC];
 
-		m_ePriceType = (EPriceType)a_oNode[KDefine.G_KEY_ITEM_IT_PRICE_TYPE].AsInt;
-		m_ePriceKinds = (EPriceKinds)a_oNode[KDefine.G_KEY_ITEM_IT_PRICE_KINDS].AsInt;
-		m_eSaleItemKinds = (ESaleItemKinds)a_oNode[KDefine.G_KEY_ITEM_IT_SALE_ITEM_KINDS].AsInt;
+		m_ePriceType = (EPriceType)a_oNode[KDefine.G_KEY_SALE_IIT_PRICE_TYPE].AsInt;
+		m_ePriceKinds = (EPriceKinds)a_oNode[KDefine.G_KEY_SALE_IIT_PRICE_KINDS].AsInt;
+		m_eSaleItemKinds = (ESaleItemKinds)a_oNode[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;
 
 		m_stItemInfo = new STItemInfo() {
-			m_nNumItems = a_oNode[KDefine.G_KEY_ITEM_IT_NUM_ITEMS].AsInt,
-			m_eItemKinds = (EItemKinds)a_oNode[KDefine.G_KEY_ITEM_IT_ITEM_KINDS].AsInt
+			m_nNumItems = a_oNode[KDefine.G_KEY_SALE_IIT_NUM_ITEMS].AsInt,
+			m_eItemKinds = (EItemKinds)a_oNode[KDefine.G_KEY_SALE_IIT_ITEM_KINDS].AsInt
 		};
 	}
 	#endregion			// 함수
 }
 
 //! 판매 아이템 정보 테이블
-public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
+public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	#region 변수
-	[Header("Item Info")]
+	[Header("Sale Item Info")]
 	[SerializeField] private List<STSaleItemInfo> m_oItemInfoList = new List<STSaleItemInfo>();
 	#endregion			// 변수
 
@@ -61,7 +61,7 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	//! 판매 아이템 정보를 반환한다
 	public bool TryGetSaleItemInfo(ESaleItemKinds a_eItemKinds, out STSaleItemInfo a_stOutItemInfo) {
 		int nIdx = m_oItemInfoList.ExFindValue((a_stItemInfo) => a_stItemInfo.m_eSaleItemKinds == a_eItemKinds);
-		a_stOutItemInfo = m_oItemInfoList.ExIsValidIdx(nIdx) ? m_oItemInfoList[nIdx] : default(STSaleItemInfo);
+		a_stOutItemInfo = m_oItemInfoList.ExIsValidIdx(nIdx) ? m_oItemInfoList[nIdx] : KDefine.G_INVALID_SALE_ITEM_INFO;
 
 		return m_oItemInfoList.ExIsValidIdx(nIdx);
 	}
@@ -82,12 +82,16 @@ public class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 
 	//! 판매 아이템 정보를 로드한다
 	public List<STSaleItemInfo> LoadSaleItemInfosFromFile(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
+
 		return this.LoadSaleItemInfos(oJSONStr);
 	}
 
 	//! 판매 아이템 정보를 로드한다
 	public List<STSaleItemInfo> LoadSaleItemInfosFromRes(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+		
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
 			return this.LoadSaleItemInfos(oTextAsset.text);

@@ -62,7 +62,8 @@ public static partial class CEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
-				EditorFactory.CreateItemInfoTable();
+				EditorFactory.CreateRewardInfoTable();
+				EditorFactory.CreateSaleItemInfoTable();
 				EditorFactory.CreateSaleProductInfoTable();
 				
 				CEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_0_FLT;

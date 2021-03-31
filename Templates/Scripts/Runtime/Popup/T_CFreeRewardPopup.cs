@@ -30,6 +30,7 @@ public class CFreeRewardPopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
+			// FIXME:
 			Func.BuyItem(EItemKinds.GOODS_COIN_FREE);
 		}
 	}

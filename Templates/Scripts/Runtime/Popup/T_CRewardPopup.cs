@@ -51,7 +51,7 @@ public class CRewardPopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			Func.BuyItem(EItemKinds.GOODS_COIN_FREE);
+			// Do Nothing
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE

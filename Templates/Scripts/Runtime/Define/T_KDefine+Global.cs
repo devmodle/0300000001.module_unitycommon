@@ -8,23 +8,23 @@ public static partial class KDefine {
 	#region 기본
 	// 개수
 	public const int G_MAX_NUM_CHANGES = 0;
-	public const int G_MAX_NUM_DAILY_REWARDS = 0;
-	public const int G_MAX_NUM_SALE_ITEM_INFOS = 0;
+	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
+	public const int G_MAX_NUM_SALE_PIT_ITEM_INFOS = 0;
 
 	// 횟수
 	public const int G_MAX_TIMES_FREE_REWARD = 0;
 
 	// 아이템 정보 테이블 {
-	public const string G_KEY_ITEM_IT_NAME = "Name";
-	public const string G_KEY_ITEM_IT_DESC = "Desc";
+	public const string G_KEY_SALE_IIT_NAME = "Name";
+	public const string G_KEY_SALE_IIT_DESC = "Desc";
 
-	public const string G_KEY_ITEM_IT_PRICE = "Price";
-	public const string G_KEY_ITEM_IT_PRICE_TYPE = "PriceType";
-	public const string G_KEY_ITEM_IT_PRICE_KINDS = "PriceKinds";
+	public const string G_KEY_SALE_IIT_PRICE = "Price";
+	public const string G_KEY_SALE_IIT_PRICE_TYPE = "PriceType";
+	public const string G_KEY_SALE_IIT_PRICE_KINDS = "PriceKinds";
 
-	public const string G_KEY_ITEM_IT_NUM_ITEMS = "NumItems";
-	public const string G_KEY_ITEM_IT_ITEM_KINDS = "ItemKinds";
-	public const string G_KEY_ITEM_IT_SALE_ITEM_KINDS = "SaleItemKinds";
+	public const string G_KEY_SALE_IIT_NUM_ITEMS = "NumItems";
+	public const string G_KEY_SALE_IIT_ITEM_KINDS = "ItemKinds";
+	public const string G_KEY_SALE_IIT_SALE_ITEM_KINDS = "SaleItemKinds";
 	// 아이템 정보 테이블 }
 
 	// 판매 상품 정보 테이블 {
@@ -35,7 +35,7 @@ public static partial class KDefine {
 	public const string G_KEY_SALE_PIT_PRICE_KINDS = "PriceKinds";
 
 	public const string G_KEY_FMT_SALE_PIT_NUM_ITEMS = "NumItems_{0:00}";
-	public const string G_KEY_FMT_SALE_PIT_SALE_ITEM_KINDS = "SaleItemKinds_{0:00}";
+	public const string G_KEY_FMT_SALE_PIT_ITEM_KINDS = "SaleItemKinds_{0:00}";
 	// 판매 상품 정보 테이블 }
 
 	// 상점 팝업
@@ -52,19 +52,42 @@ public static partial class KDefine {
 	#endregion			// 기본
 
 	#region 런타임 상수
+	// 기타 {
+	public static readonly STItemInfo G_INVALID_ITEM_INFO = new STItemInfo() {
+		m_eItemKinds = EItemKinds.NONE
+	};
+
+	public static readonly STRewardInfo G_INVALID_REWARD_INFO = new STRewardInfo() {
+		m_eRewardType = ERewardType.NONE,
+		m_eRewardKinds = ERewardKinds.NONE
+	};
+
+	public static readonly STSaleItemInfo G_INVALID_SALE_ITEM_INFO = new STSaleItemInfo() {
+		m_ePriceType = EPriceType.NONE,
+		m_ePriceKinds = EPriceKinds.NONE,
+		
+		m_eSaleItemKinds = ESaleItemKinds.NONE
+	};
+
+	public static readonly STSaleProductInfo G_INVALID_SALE_PRODUCT_INFO = new STSaleProductInfo() {
+		m_ePriceType = EPriceType.NONE,
+		m_ePriceKinds = EPriceKinds.NONE
+	};
+	// 기타 }
+	
 	// 정렬 순서 {
-	public static readonly STSortingOrderInfo U_SORTING_OI_OVERLAY_SCENE_OBJS_CANVAS = new STSortingOrderInfo() {
+	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_OBJS_CANVAS = new STSortingOrderInfo() {
 		m_nOrder = 0,
 		m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
 
 #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
-	public static readonly STSortingOrderInfo U_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
+	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
 		m_nOrder = 0,
 		m_oLayer = KCDefine.U_SORTING_L_TOP_UIS
 	};
 #else
-	public static readonly STSortingOrderInfo U_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
+	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
 		m_nOrder = 0,
 		m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
@@ -73,9 +96,17 @@ public static partial class KDefine {
 	
 	// 경로 {
 #if UNITY_EDITOR
+	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_FREE_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_FREE_REWARD_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_DAILY_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_DAILY_REWARD_INFO}.json";
+
 	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_ITEM_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO}.json";
 #else
+	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_FREE_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_FREE_REWARD_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_DAILY_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_DAILY_REWARD_INFO}.json";
+
 	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_ITEM_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO}.json";
 #endif			// #if UNITY_EDITOR
