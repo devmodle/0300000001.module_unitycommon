@@ -31,6 +31,30 @@ public class CRewardPopup : CSubPopup {
 		base.Init();
 		m_stParams = a_stParams;
 	}
+
+	//! 획득 버튼을 눌렀을 경우
+	private void OnTouchGetBtn() {
+
+	}
+
+	//! 광고 버튼을 눌렀을 경우
+	private void OnTouchAdsBtn() {
+#if ADS_MODULE_ENABLE
+		Func.ShowRewardAds(this.OnCloseRewardAds);
+#endif			// #if ADS_MODULE_ENABLE
+	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if ADS_MODULE_ENABLE
+	//! 보상 광고가 닫혔을 경우
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			Func.BuyItem(EItemKinds.GOODS_COIN_FREE);
+		}
+	}
+#endif			// #if ADS_MODULE_ENABLE
+	#endregion			// 조건부 함수
 }
 #endif			// #if NEVER_USE_THIS
