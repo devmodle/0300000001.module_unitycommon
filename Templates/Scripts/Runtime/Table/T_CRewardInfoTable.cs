@@ -43,8 +43,8 @@ public struct STRewardInfo {
 //! 보상 정보 테이블
 public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	#region 변수
-	[Header("Reward Info")]
-	[SerializeField] private List<STRewardInfo> m_oRewardInfoList = new List<STRewardInfo>();
+	[Header("Clear Reward Info")]
+	[SerializeField] private List<STRewardInfo> m_oClearRewardInfoList = new List<STRewardInfo>();
 
 	[Header("Free Reward Info")]
 	[SerializeField] private List<STRewardInfo> m_oFreeRewardInfoList = new List<STRewardInfo>();
@@ -54,15 +54,15 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public List<STRewardInfo> RewardInfoList => m_oRewardInfoList;
+	public List<STRewardInfo> ClearRewardInfoList => m_oClearRewardInfoList;
 	public List<STRewardInfo> FreeRewardInfoList => m_oFreeRewardInfoList;
 	public List<STRewardInfo> DailyRewardInfoList => m_oDailyRewardInfoList;
 	#endregion			// 프로퍼티
 
 	#region 함수
 	//! 보상 정보를 반환한다
-	public STRewardInfo GetRewardInfo(ERewardKinds a_eRewardKinds) {
-		return this.GetRewardInfo(a_eRewardKinds, m_oRewardInfoList);
+	public STRewardInfo GetClearRewardInfo(ERewardKinds a_eRewardKinds) {
+		return this.GetRewardInfo(a_eRewardKinds, m_oClearRewardInfoList);
 	}
 
 	//! 무료 보상 정보를 반환한다
@@ -76,8 +76,8 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	}
 	
 	//! 보상 정보를 반환한다
-	public bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo) {
-		return this.TryGetRewardInfo(a_eRewardKinds, out a_stOutRewardInfo, m_oRewardInfoList);
+	public bool TryGetClearRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutClearRewardInfo) {
+		return this.TryGetRewardInfo(a_eRewardKinds, out a_stOutClearRewardInfo, m_oClearRewardInfoList);
 	}
 
 	//! 무료 보상 정보를 반환한다
@@ -91,9 +91,9 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	}
 
 	//! 보상 정보를 로드한다
-	public List<STRewardInfo> LoadRewardInfos(string a_oJSONStr) {
+	public List<STRewardInfo> LoadClearRewardInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		return this.LoadRewardInfos(a_oJSONStr, m_oRewardInfoList);
+		return this.LoadRewardInfos(a_oJSONStr, m_oClearRewardInfoList);
 	}
 
 	//! 무료 보상 정보를 로드한다
@@ -109,9 +109,9 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	}
 
 	//! 보상 정보를 로드한다
-	public List<STRewardInfo> LoadRewardInfosFromFile(string a_oFilePath) {
+	public List<STRewardInfo> LoadClearRewardInfosFromFile(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		return this.LoadRewardInfosFromFile(a_oFilePath, m_oRewardInfoList);
+		return this.LoadRewardInfosFromFile(a_oFilePath, m_oClearRewardInfoList);
 	}
 
 	//! 무료 보상 정보를 로드한다
@@ -127,9 +127,9 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	}
 
 	//! 보상 정보를 로드한다
-	public List<STRewardInfo> LoadRewardInfosFromRes(string a_oFilePath) {
+	public List<STRewardInfo> LoadClearRewardInfosFromRes(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		return this.LoadRewardInfosFromRes(a_oFilePath, m_oRewardInfoList);
+		return this.LoadRewardInfosFromRes(a_oFilePath, m_oClearRewardInfoList);
 	}
 
 	//! 무료 보상 정보를 로드한다
@@ -153,7 +153,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	}
 
 	//! 보상 정보를 반환한다
-	public bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo, List<STRewardInfo> a_oRewardInfoList) {
+	private bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo, List<STRewardInfo> a_oRewardInfoList) {
 		int nIdx = a_oRewardInfoList.ExFindValue((a_stRewardInfo) => a_stRewardInfo.m_eRewardKinds == a_eRewardKinds);
 		a_stOutRewardInfo = a_oRewardInfoList.ExIsValidIdx(nIdx) ? a_oRewardInfoList[nIdx] : KDefine.G_INVALID_REWARD_INFO;
 

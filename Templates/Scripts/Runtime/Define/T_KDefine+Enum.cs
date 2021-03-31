@@ -31,6 +31,7 @@ public enum EItemKinds {
 //! 보상 타입
 public enum ERewardType {
 	NONE = -1,
+	CLEAR,
 	FREE,
 	DAILY,
 	MAX_VALUE
@@ -39,8 +40,9 @@ public enum ERewardType {
 //! 보상 종류
 public enum ERewardKinds {
 	NONE = -1,
-	FREE_GOODS_COIN,
-	DAILY_GOODS_COIN = 1000000,
+	CLEAR_REWARD,
+	FREE_REWARD = 1000000,
+	DAILY_REWARD = 2000000,
 	MAX_VALUE
 }
 
