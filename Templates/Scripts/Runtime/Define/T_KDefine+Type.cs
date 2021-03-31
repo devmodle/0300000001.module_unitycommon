@@ -44,9 +44,9 @@ public struct STRewardItemInfo {
 	public EItemKinds m_eItemKinds;
 }
 
-//! 판매 아이템 정보
+//! 아이템 정보
 [System.Serializable]
-public struct STSaleItemInfo {
+public struct STItemInfo {
 	public int m_nNumItems;
 	public EItemKinds m_eItemKinds;
 }

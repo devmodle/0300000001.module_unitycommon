@@ -12,7 +12,7 @@ public static partial class EditorFactory {
 	//! 아이템 정보 테이블을 생성한다
 	[MenuItem("Tools/Utility/ExtraCreate/ItemInfoTable")]
 	public static void CreateItemInfoTable() {
-		CEditorFactory.CreateScriptableObj<CItemInfoTable>(KCEditorDefine.B_ASSET_P_ITEM_INFO_TABLE);
+		CEditorFactory.CreateScriptableObj<CItemInfoTable>(KCEditorDefine.B_ASSET_P_SALE_ITEM_INFO_TABLE);
 	}
 
 	//! 판매 상품 정보 테이블을 생성한다

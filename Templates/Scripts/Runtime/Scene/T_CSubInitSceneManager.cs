@@ -11,7 +11,7 @@ public class CSubInitSceneManager : CInitSceneManager {
 		base.Setup();
 		
 		// 테이블을 생성한다
-		CItemInfoTable.Create(KCDefine.U_ASSET_P_G_ITEM_INFO_TABLE);
+		CItemInfoTable.Create(KCDefine.U_ASSET_P_G_SALE_ITEM_INFO_TABLE);
 		CSaleProductInfoTable.Create(KCDefine.U_ASSET_P_G_SALE_PRODUCT_INFO_TABLE);
 		
 		// 저장소를 생성한다
@@ -23,10 +23,10 @@ public class CSubInitSceneManager : CInitSceneManager {
 		CStrTable.Inst.LoadEnumStrs<EUserType>();
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-		CItemInfoTable.Inst.LoadItemInfosFromFile(KDefine.G_RUNTIME_TABLE_P_ITEM_INFO);
+		CItemInfoTable.Inst.LoadItemInfosFromFile(KDefine.G_RUNTIME_TABLE_P_SALE_ITEM_INFO);
 		CSaleProductInfoTable.Inst.LoadSaleProductInfosFromFile(KDefine.G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO);
 #else
-		CItemInfoTable.Inst.LoadItemInfosFromRes(KCDefine.U_TABLE_P_G_ITEM_INFO);
+		CItemInfoTable.Inst.LoadItemInfosFromRes(KCDefine.U_TABLE_P_G_SALE_ITEM_INFO);
 		CSaleProductInfoTable.Inst.LoadSaleProductInfosFromRes(KDefine.G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 		// 테이블을 로드한다 }
