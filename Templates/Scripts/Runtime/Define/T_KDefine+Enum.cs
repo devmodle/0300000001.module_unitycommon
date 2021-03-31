@@ -29,6 +29,12 @@ public enum EItemKinds {
 	MAX_VALUE
 }
 
+//! 판매 아이템 타입
+public enum ESaleItemType {
+	NONE = -1,
+	MAX_VALUE
+}
+
 //! 판매 아이템 종류
 public enum ESaleItemKinds {
 	NONE = -1,
