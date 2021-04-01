@@ -16,8 +16,7 @@ public class CRewardPopup : CSubPopup {
 	#endregion			// 변수
 
 	#region 객체
-	[SerializeField] private GameObject m_oRewardItemUIs = null;
-	private List<GameObject> m_oRewardItemUIList = new List<GameObject>();
+	[SerializeField] private List<GameObject> m_oRewardItemUIsList = new List<GameObject>();
 	#endregion			// 객체
 
 	#region 함수
@@ -30,13 +29,33 @@ public class CRewardPopup : CSubPopup {
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
 		m_stParams = a_stParams;
+
+		this.UpdateUIsState();
+	}
+
+	//! UI 상태를 갱신한다
+	private void UpdateUIsState() {
+		for(int i = 0; i < m_oRewardItemUIsList.Count; ++i) {
+			var oRewardItemUIs = m_oRewardItemUIsList[i];
+			oRewardItemUIs.SetActive(i < m_stParams.m_oRewardItemInfoList.Count);
+
+			// 보상 정보가 존재 할 경우
+			if(i < m_stParams.m_oRewardItemInfoList.Count) {
+				this.UpdateRewardItemUIsState(oRewardItemUIs, m_stParams.m_oRewardItemInfoList[i]);
+			}
+		}
+	}
+
+	//! 보상 아이템 UI 상태를 갱신한다
+	private void UpdateRewardItemUIsState(GameObject a_oRewardItemUIs, STRewardItemInfo a_stRewardItemInfo) {
+		// Do Nothing
 	}
 
 	//! 획득 버튼을 눌렀을 경우
 	private void OnTouchGetBtn() {
-
+		// Do Nothing
 	}
-
+	
 	//! 광고 버튼을 눌렀을 경우
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE

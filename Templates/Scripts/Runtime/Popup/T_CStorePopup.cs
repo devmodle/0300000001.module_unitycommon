@@ -8,6 +8,10 @@ public class CStorePopup : CSubPopup {
 	#region 변수
 	private int m_nSelProductID = 0;
 	#endregion			// 변수
+
+	#region 객체
+	[SerializeField] private List<GameObject> m_oProductUIsList = new List<GameObject>();
+	#endregion			// 객체
 	
 	#region 함수
 	//! 초기화
@@ -18,6 +22,22 @@ public class CStorePopup : CSubPopup {
 	//! 초기화
 	public override void Init() {
 		base.Init();
+		this.UpdateUIsState();
+	}
+
+	//! UI 상태를 갱신한다
+	private void UpdateUIsState() {
+		for(int i = 0; i < m_oProductUIsList.Count; ++i) {
+			var oProductUIs = m_oProductUIsList[i];
+			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(i);
+
+			this.UpdateProductUIsState(oProductUIs, stSaleProductInfo);
+		}
+	}
+
+	//! 상품 UI 상태를 갱신한다
+	private void UpdateProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stProductInfo) {
+		// Do Nothing
 	}
 
 	//! 광고 버튼을 눌렀을 경우
@@ -36,7 +56,7 @@ public class CStorePopup : CSubPopup {
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수
-
+	
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	//! 보상 광고가 닫혔을 경우

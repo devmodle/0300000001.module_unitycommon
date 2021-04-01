@@ -14,6 +14,12 @@ public class CFreeRewardPopup : CSubPopup {
 	//! 초기화
 	public override void Init() {
 		base.Init();
+		this.UpdateUIsState();
+	}
+
+	//! UI 상태를 갱신한다
+	private void UpdateUIsState() {
+		// Do Nothing
 	}
 
 	//! 광고 버튼을 눌렀을 경우
@@ -30,8 +36,7 @@ public class CFreeRewardPopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			// FIXME:
-			Func.BuyItem(EItemKinds.GOODS_COIN_FREE);
+			// Do Nothing
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE
