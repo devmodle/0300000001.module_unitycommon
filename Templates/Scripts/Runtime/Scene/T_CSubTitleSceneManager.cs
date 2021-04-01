@@ -44,10 +44,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 			// 무료 코인 리셋 주기가 지났을 경우
 			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL)) {
-				CUserInfoStorage.Inst.UserInfo.FreeRewardTimes = KCDefine.B_VALUE_0_INT;
-				CUserInfoStorage.Inst.SaveUserInfo();
-
+				CGameInfoStorage.Inst.GameInfo.FreeRewardTimes = KCDefine.B_VALUE_0_INT;
 				CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
+				
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}
 

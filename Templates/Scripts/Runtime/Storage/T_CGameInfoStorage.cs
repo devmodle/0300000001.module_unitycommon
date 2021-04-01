@@ -11,6 +11,7 @@ using MessagePack;
 public sealed class CGameInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
+	private const string KEY_FREE_REWARD_TIMES = "FreeRewardTimes";
 
 	private const string KEY_LAST_FREE_REWARD_TIME = "LastFreeRewardTime";
 	private const string KEY_LAST_DAILY_REWARD_TIME = "LastDailyRewardTime";
@@ -26,6 +27,11 @@ public sealed class CGameInfo : CBaseInfo {
 	[IgnoreMember] public int DailyRewardID {
 		get { return m_oIntList.ExGetValue(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VALUE_0_INT); }
 		set { m_oIntList.ExReplaceValue(CGameInfo.KEY_DAILY_REWARD_ID, value); }
+	}
+
+	[IgnoreMember] public int FreeRewardTimes {
+		get { return m_oIntList.ExGetValue(CGameInfo.KEY_FREE_REWARD_TIMES, KCDefine.B_VALUE_0_INT); }
+		set { m_oIntList.ExReplaceValue(CGameInfo.KEY_FREE_REWARD_TIMES, value); }
 	}
 	#endregion			// 프로퍼티
 
@@ -70,6 +76,12 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public void SetDailyRewardID(int a_nID) {
 		CAccess.Assert(a_nID >= KCDefine.B_VALUE_0_INT && a_nID < CRewardInfoTable.Inst.DailyRewardInfoList.Count);
 		this.GameInfo.DailyRewardID = a_nID;
+	}
+
+	//! 무료 보상 횟수를 추가한다
+	public void AddFreeRewardTimes(int a_nRewardTimes) {
+		int nFreeRewardTimes = this.GameInfo.FreeRewardTimes + a_nRewardTimes;
+		this.GameInfo.FreeRewardTimes = Mathf.Clamp(nFreeRewardTimes, KCDefine.B_VALUE_0_INT, KDefine.G_MAX_TIMES_FREE_REWARD);
 	}
 
 	//! 게임 정보를 저장한다
