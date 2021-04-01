@@ -99,8 +99,8 @@ public static partial class CEditorSceneManager {
 
 	//! 상태를 갱신한다
 	private static void LateUpdate() {
-		bool bIsEnableUpdate = CEditorSceneManager.m_bIsSetupDependencies && 
-			CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VALUE_0_INT;
+		bool bIsEnableUpdate = CEditorSceneManager.m_bIsSetupDependencies;
+		bIsEnableUpdate = bIsEnableUpdate && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VALUE_0_INT;
 
 		// 상태 갱신이 가능 할 경우
 		if(bIsEnableUpdate && CEditorAccess.IsEnableUpdateState()) {
