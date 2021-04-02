@@ -33,7 +33,14 @@ public class CFreeRewardPopup : CSubPopup {
 
 	//! 보상 팝업이 닫혔을 경우
 	private void OnCloseRewardPopup(CPopup a_oSender) {
-		// Do Nothing
+		CGameInfoStorage.Inst.AddFreeRewardTimes(KCDefine.B_VALUE_1_INT);
+
+		// 무료 보상을 모두 획득했을 경우
+		if(CGameInfoStorage.Inst.GameInfo.FreeRewardTimes >= CRewardInfoTable.Inst.FreeRewardInfoList.Count) {
+			CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
+		}
+
+		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 
 	//! 보상 팝업을 출력한다
@@ -46,7 +53,7 @@ public class CFreeRewardPopup : CSubPopup {
 				m_ePopupType = ERewardPopupType.FREE,
 				m_oItemInfoList = stRewardInfo.m_oItemInfoList
 			};
-
+			
 			var oRewardPopup = a_oPopup as CRewardPopup;
 			oRewardPopup.Init(stParams);
 		}, null, this.OnCloseRewardPopup);

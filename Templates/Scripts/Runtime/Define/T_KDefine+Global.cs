@@ -10,10 +10,7 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_CHANGES = 0;
 	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_SALE_PIT_ITEM_INFOS = 0;
-
-	// 횟수
-	public const int G_MAX_TIMES_FREE_REWARD = 0;
-
+	
 	// 아이템 정보 테이블 {
 	public const string G_KEY_SALE_IIT_NAME = "Name";
 	public const string G_KEY_SALE_IIT_DESC = "Desc";

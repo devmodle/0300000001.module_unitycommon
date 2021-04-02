@@ -11,7 +11,7 @@ using UnityEngine.Purchasing;
 public static partial class Func {
 	#region 클래스 함수
 	//! 아이템을 구입한다
-	public static void BuyItem(STItemInfo a_stItemInfo) {
+	public static void GetItem(STItemInfo a_stItemInfo) {
 		switch(a_stItemInfo.m_eItemKinds) {
 			case EItemKinds.GOODS_COIN: {
 				CCommonUserInfoStorage.Inst.AddNumCoins(a_stItemInfo.m_nNumItems);
@@ -40,7 +40,7 @@ public static partial class Func {
 	public static void BuyItem(STSaleItemInfo a_stSaleItemInfo, bool a_bIsIgnoreProcess = false) {
 		// 구입 처리가 가능 할 경우
 		if(!a_bIsIgnoreProcess) {
-			Func.BuyItem(a_stSaleItemInfo.m_stItemInfo);
+			Func.GetItem(a_stSaleItemInfo.m_stItemInfo);
 		}
 
 		// 비용이 존재 할 경우

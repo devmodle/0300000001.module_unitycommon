@@ -81,7 +81,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 무료 보상 횟수를 추가한다
 	public void AddFreeRewardTimes(int a_nRewardTimes) {
 		int nFreeRewardTimes = this.GameInfo.FreeRewardTimes + a_nRewardTimes;
-		this.GameInfo.FreeRewardTimes = Mathf.Clamp(nFreeRewardTimes, KCDefine.B_VALUE_0_INT, KDefine.G_MAX_TIMES_FREE_REWARD);
+		this.GameInfo.FreeRewardTimes = Mathf.Clamp(nFreeRewardTimes, KCDefine.B_VALUE_0_INT, CRewardInfoTable.Inst.FreeRewardInfoList.Count);
 	}
 
 	//! 게임 정보를 저장한다

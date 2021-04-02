@@ -5,6 +5,10 @@ using UnityEngine;
 #if NEVER_USE_THIS
 //! 일일 보상 팝업
 public class CDailyRewardPopup : CSubPopup {
+	#region 변수
+	private ERewardKinds m_eRewardKinds = ERewardKinds.NONE;
+	#endregion			// 변수
+
 	#region 객체
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
 	#endregion			// 객체
@@ -18,6 +22,8 @@ public class CDailyRewardPopup : CSubPopup {
 	//! 초기화
 	public override void Init() {
 		base.Init();
+		m_eRewardKinds = ERewardKinds.DAILY_REWARD + (CGameInfoStorage.Inst.GameInfo.DailyRewardID + KCDefine.B_VALUE_1_INT);
+
 		this.UpdateUIsState();
 	}
 
@@ -36,11 +42,43 @@ public class CDailyRewardPopup : CSubPopup {
 		// Do Nothing
 	}
 
+	//! 획득 버튼을 눌렀을 경우
+	private void OnTouchGetBtn() {
+		this.ShowRewardPopup();
+	}
+
 	//! 광고 버튼을 눌렀을 경우
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
+#else
+		this.ShowRewardPopup();
 #endif			// #if ADS_MODULE_ENABLE
+	}
+
+	//! 보상 팝업이 닫혔을 경우
+	private void OnCloseRewardPopup(CPopup a_oSender) {
+		int nRewardID = (CGameInfoStorage.Inst.GameInfo.DailyRewardID + KCDefine.B_VALUE_1_INT) % CRewardInfoTable.Inst.DailyRewardInfoList.Count;
+
+		CGameInfoStorage.Inst.GameInfo.DailyRewardID = nRewardID;
+		CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime = System.DateTime.Today;
+
+		CGameInfoStorage.Inst.SaveGameInfo();
+	}
+
+	//! 보상 팝업을 출력한다
+	private void ShowRewardPopup() {
+		var stRewardInfo = CRewardInfoTable.Inst.GetDailyRewardInfo(m_eRewardKinds);
+
+		Func.ShowRewardPopup(this.transform.parent.gameObject, (a_oPopup) => {
+			var stParams = new CRewardPopup.STParams() {
+				m_ePopupType = ERewardPopupType.DAILY,
+				m_oItemInfoList = stRewardInfo.m_oItemInfoList
+			};
+
+			var oRewardPopup = a_oPopup as CRewardPopup;
+			oRewardPopup.Init(stParams);
+		}, null, this.OnCloseRewardPopup);
 	}
 	#endregion			// 함수
 
@@ -50,7 +88,7 @@ public class CDailyRewardPopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			// Do Nothing
+			this.ShowRewardPopup();
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE
