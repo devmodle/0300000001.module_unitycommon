@@ -8,7 +8,7 @@ public class CRewardPopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
 		public ERewardPopupType m_ePopupType;
-		public List<STRewardItemInfo> m_oRewardItemInfoList;
+		public List<STItemInfo> m_oItemInfoList;
 	}
 
 	#region 변수
@@ -16,7 +16,7 @@ public class CRewardPopup : CSubPopup {
 	#endregion			// 변수
 
 	#region 객체
-	[SerializeField] private List<GameObject> m_oRewardItemUIsList = new List<GameObject>();
+	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
 	#endregion			// 객체
 
 	#region 함수
@@ -35,19 +35,19 @@ public class CRewardPopup : CSubPopup {
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
-		for(int i = 0; i < m_oRewardItemUIsList.Count; ++i) {
-			var oRewardItemUIs = m_oRewardItemUIsList[i];
-			oRewardItemUIs.SetActive(i < m_stParams.m_oRewardItemInfoList.Count);
+		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
+			var oItemUIs = m_oItemUIsList[i];
+			oItemUIs.SetActive(i < m_stParams.m_oItemInfoList.Count);
 
 			// 보상 정보가 존재 할 경우
-			if(i < m_stParams.m_oRewardItemInfoList.Count) {
-				this.UpdateRewardItemUIsState(oRewardItemUIs, m_stParams.m_oRewardItemInfoList[i]);
+			if(i < m_stParams.m_oItemInfoList.Count) {
+				this.UpdateItemUIsState(oItemUIs, m_stParams.m_oItemInfoList[i]);
 			}
 		}
 	}
 
 	//! 보상 아이템 UI 상태를 갱신한다
-	private void UpdateRewardItemUIsState(GameObject a_oRewardItemUIs, STRewardItemInfo a_stRewardItemInfo) {
+	private void UpdateItemUIsState(GameObject a_oItemUIs, STItemInfo a_stItemInfo) {
 		// Do Nothing
 	}
 

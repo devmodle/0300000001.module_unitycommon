@@ -47,7 +47,7 @@ public static partial class Func {
 		if(a_stSaleItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COIN && a_stSaleItemInfo.m_nPrice > KCDefine.B_VALUE_0_INT) {
 			CCommonUserInfoStorage.Inst.AddNumCoins(-a_stSaleItemInfo.m_nPrice);
 		}
-		
+
 		CCommonUserInfoStorage.Inst.SaveUserInfo();
 	}
 
@@ -56,6 +56,14 @@ public static partial class Func {
 		// 상점 팝업이 없을 경우
 		if(a_oParent.ExFindChild(KDefine.G_OBJ_N_STORE_POPUP) == null) {
 			Func.ShowPopup<CStorePopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+		}
+	}
+
+	//! 보상 팝업을 출력한다
+	public static void ShowRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		// 보상 팝업이 없을 경우
+		if(a_oParent.ExFindChild(KDefine.G_OBJ_N_REWARD_POPUP) == null) {
+			Func.ShowPopup<CRewardPopup>(KDefine.G_OBJ_N_REWARD_POPUP, KCDefine.U_OBJ_P_G_REWARD_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 		}
 	}
 	

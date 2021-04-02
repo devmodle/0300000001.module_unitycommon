@@ -26,7 +26,30 @@ public class CFreeRewardPopup : CSubPopup {
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
+#else
+		this.ShowRewardPopup();
 #endif			// #if ADS_MODULE_ENABLE
+	}
+
+	//! 보상 팝업이 닫혔을 경우
+	private void OnCloseRewardPopup(CPopup a_oSender) {
+		// Do Nothing
+	}
+
+	//! 보상 팝업을 출력한다
+	private void ShowRewardPopup() {
+		var eRewardKinds = ERewardKinds.FREE_REWARD + (CGameInfoStorage.Inst.GameInfo.FreeRewardTimes + KCDefine.B_VALUE_1_INT);
+		var stRewardInfo = CRewardInfoTable.Inst.GetFreeRewardInfo(eRewardKinds);
+
+		Func.ShowRewardPopup(this.transform.parent.gameObject, (a_oPopup) => {
+			var stParams = new CRewardPopup.STParams() {
+				m_ePopupType = ERewardPopupType.FREE,
+				m_oItemInfoList = stRewardInfo.m_oItemInfoList
+			};
+
+			var oRewardPopup = a_oPopup as CRewardPopup;
+			oRewardPopup.Init(stParams);
+		}, null, this.OnCloseRewardPopup);
 	}
 	#endregion			// 함수
 
@@ -36,7 +59,7 @@ public class CFreeRewardPopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			// Do Nothing
+			this.ShowRewardPopup();
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE

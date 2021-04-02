@@ -78,6 +78,9 @@ public enum EPriceKinds {
 //! 보상 팝업 타입
 public enum ERewardPopupType {
 	NONE = -1,
+	CLEAR,
+	FREE,
+	DAILY,
 	MAX_VALUE
 }
 #endregion			// 기본
