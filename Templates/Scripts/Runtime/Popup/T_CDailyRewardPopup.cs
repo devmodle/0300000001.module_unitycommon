@@ -5,10 +5,6 @@ using UnityEngine;
 #if NEVER_USE_THIS
 //! 일일 보상 팝업
 public class CDailyRewardPopup : CSubPopup {
-	#region 변수
-	private ERewardKinds m_eRewardKinds = ERewardKinds.NONE;
-	#endregion			// 변수
-
 	#region 객체
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
 	#endregion			// 객체
@@ -22,8 +18,6 @@ public class CDailyRewardPopup : CSubPopup {
 	//! 초기화
 	public override void Init() {
 		base.Init();
-		m_eRewardKinds = ERewardKinds.DAILY_REWARD + (CGameInfoStorage.Inst.GameInfo.DailyRewardID + KCDefine.B_VALUE_1_INT);
-
 		this.UpdateUIsState();
 	}
 
@@ -58,7 +52,8 @@ public class CDailyRewardPopup : CSubPopup {
 
 	//! 보상 팝업이 닫혔을 경우
 	private void OnCloseRewardPopup(CPopup a_oSender) {
-		int nRewardID = (CGameInfoStorage.Inst.GameInfo.DailyRewardID + KCDefine.B_VALUE_1_INT) % CRewardInfoTable.Inst.DailyRewardInfoList.Count;
+		int nRewardID = CGameInfoStorage.Inst.GameInfo.DailyRewardID;
+		nRewardID = (nRewardID + KCDefine.B_VALUE_1_INT) % CRewardInfoTable.Inst.DailyRewardInfoList.Count;
 
 		CGameInfoStorage.Inst.GameInfo.DailyRewardID = nRewardID;
 		CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime = System.DateTime.Today;
@@ -68,7 +63,8 @@ public class CDailyRewardPopup : CSubPopup {
 
 	//! 보상 팝업을 출력한다
 	private void ShowRewardPopup() {
-		var stRewardInfo = CRewardInfoTable.Inst.GetDailyRewardInfo(m_eRewardKinds);
+		var eRewardKinds = CGameInfoStorage.Inst.DailyRewardKinds;
+		var stRewardInfo = CRewardInfoTable.Inst.GetDailyRewardInfo(eRewardKinds);
 
 		Func.ShowRewardPopup(this.transform.parent.gameObject, (a_oPopup) => {
 			var stParams = new CRewardPopup.STParams() {

@@ -14,7 +14,7 @@ public static partial class Func {
 	public static void GetItem(STItemInfo a_stItemInfo) {
 		switch(a_stItemInfo.m_eItemKinds) {
 			case EItemKinds.GOODS_COIN: {
-				CCommonUserInfoStorage.Inst.AddNumCoins(a_stItemInfo.m_nNumItems);
+				CUserInfoStorage.Inst.AddNumCoins(a_stItemInfo.m_nNumItems);
 			} break;
 			case EItemKinds.NON_CONSUMABLE_REMOVE_ADS: {
 				CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds = true;
@@ -45,7 +45,7 @@ public static partial class Func {
 
 		// 비용이 존재 할 경우
 		if(a_stSaleItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COIN && a_stSaleItemInfo.m_nPrice > KCDefine.B_VALUE_0_INT) {
-			CCommonUserInfoStorage.Inst.AddNumCoins(-a_stSaleItemInfo.m_nPrice);
+			CUserInfoStorage.Inst.AddNumCoins(-a_stSaleItemInfo.m_nPrice);
 		}
 
 		CCommonUserInfoStorage.Inst.SaveUserInfo();

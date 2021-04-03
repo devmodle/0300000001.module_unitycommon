@@ -21,9 +21,6 @@ public sealed class CGameInfo : CBaseInfo {
 	[IgnoreMember] public System.DateTime LastFreeRewardTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastDailyRewardTime { get; set; } = System.DateTime.Now;
 
-	[IgnoreMember] private string LastFreeRewardTimeStr => m_oStrList.ExGetValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, string.Empty);
-	[IgnoreMember] private string LastDailyRewardTimeStr => m_oStrList.ExGetValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, string.Empty);
-
 	[IgnoreMember] public int DailyRewardID {
 		get { return m_oIntList.ExGetValue(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VALUE_0_INT); }
 		set { m_oIntList.ExReplaceValue(CGameInfo.KEY_DAILY_REWARD_ID, value); }
@@ -33,6 +30,9 @@ public sealed class CGameInfo : CBaseInfo {
 		get { return m_oIntList.ExGetValue(CGameInfo.KEY_FREE_REWARD_TIMES, KCDefine.B_VALUE_0_INT); }
 		set { m_oIntList.ExReplaceValue(CGameInfo.KEY_FREE_REWARD_TIMES, value); }
 	}
+
+	[IgnoreMember] private string LastFreeRewardTimeStr => m_oStrList.ExGetValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string LastDailyRewardTimeStr => m_oStrList.ExGetValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, string.Empty);
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
@@ -69,6 +69,8 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		LastFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT),
 		LastDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT)
 	};
+
+	public ERewardKinds DailyRewardKinds => ERewardKinds.DAILY_REWARD + this.GameInfo.DailyRewardID;
 	#endregion			// 프로퍼티
 
 	#region 함수

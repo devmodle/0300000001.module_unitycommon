@@ -10,11 +10,17 @@ using MessagePack;
 [System.Serializable]
 public sealed class CUserInfo : CBaseInfo {
 	#region 상수
+	private const string KEY_NUM_COINS = "NumCoins";
 	private const string KEY_NUM_CHANGES = "NumChanges";
 	#endregion			// 상수
 
 	#region 프로퍼티
 	[Key(71)] public Dictionary<EItemKinds, int> NumItemsList { get; set; } = new Dictionary<EItemKinds, int>();
+	
+	[IgnoreMember] public int NumCoins {
+		get { return m_oIntList.ExGetValue(CUserInfo.KEY_NUM_COINS, KCDefine.B_VALUE_0_INT); } 
+		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_NUM_COINS, value); }
+	}
 
 	[IgnoreMember] public int NumChanges {
 		get { return m_oIntList.ExGetValue(CUserInfo.KEY_NUM_CHANGES, KCDefine.B_VALUE_0_INT); }
@@ -40,6 +46,12 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	//! 아이템 개수를 반환한다
 	public int GetNumItems(EItemKinds a_eItemKinds) {
 		return this.UserInfo.NumItemsList.ExGetValue(a_eItemKinds, KCDefine.B_VALUE_0_INT);
+	}
+
+	//! 코인 개수를 추가한다
+	public void AddNumCoins(int a_nNumCoins) {
+		int nNumCoins = this.UserInfo.NumCoins + a_nNumCoins;
+		this.UserInfo.NumCoins = Mathf.Clamp(nNumCoins, KCDefine.B_VALUE_0_INT, int.MaxValue);
 	}
 
 	//! 잔돈 개수를 추가한다

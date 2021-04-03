@@ -42,28 +42,28 @@ public struct STSaleItemInfo {
 public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	#region 변수
 	[Header("Sale Item Info")]
-	[SerializeField] private List<STSaleItemInfo> m_oItemInfoList = new List<STSaleItemInfo>();
+	[SerializeField] private List<STSaleItemInfo> m_oSaleItemInfoList = new List<STSaleItemInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public List<STSaleItemInfo> ItemInfoList => m_oItemInfoList;
+	public List<STSaleItemInfo> SaleItemInfoList => m_oSaleItemInfoList;
 	#endregion			// 프로퍼티
 
 	#region 함수
 	//! 판매 아이템 정보를 반환한다
-	public STSaleItemInfo GetSaleItemInfo(ESaleItemKinds a_eItemKinds) {
-		bool bIsValid = this.TryGetSaleItemInfo(a_eItemKinds, out STSaleItemInfo stItemInfo);
+	public STSaleItemInfo GetSaleItemInfo(ESaleItemKinds a_eSaleItemKinds) {
+		bool bIsValid = this.TryGetSaleItemInfo(a_eSaleItemKinds, out STSaleItemInfo stSaleItemInfo);
 		CAccess.Assert(bIsValid);
 
-		return stItemInfo;
+		return stSaleItemInfo;
 	}
 	
 	//! 판매 아이템 정보를 반환한다
-	public bool TryGetSaleItemInfo(ESaleItemKinds a_eItemKinds, out STSaleItemInfo a_stOutItemInfo) {
-		int nIdx = m_oItemInfoList.ExFindValue((a_stItemInfo) => a_stItemInfo.m_eSaleItemKinds == a_eItemKinds);
-		a_stOutItemInfo = m_oItemInfoList.ExIsValidIdx(nIdx) ? m_oItemInfoList[nIdx] : KDefine.G_INVALID_SALE_ITEM_INFO;
+	public bool TryGetSaleItemInfo(ESaleItemKinds a_eSaleItemKinds, out STSaleItemInfo a_stOutSaleItemInfo) {
+		int nIdx = m_oSaleItemInfoList.ExFindValue((a_stSaleItemInfo) => a_stSaleItemInfo.m_eSaleItemKinds == a_eSaleItemKinds);
+		a_stOutSaleItemInfo = m_oSaleItemInfoList.ExIsValidIdx(nIdx) ? m_oSaleItemInfoList[nIdx] : KDefine.G_INVALID_SALE_ITEM_INFO;
 
-		return m_oItemInfoList.ExIsValidIdx(nIdx);
+		return m_oSaleItemInfoList.ExIsValidIdx(nIdx);
 	}
 
 	public List<STSaleItemInfo> LoadSaleItemInfos(string a_oJSONStr) {
@@ -73,11 +73,11 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 		var oSaleItemInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
 
 		for(int i = 0; i < oSaleItemInfos.Count; ++i) {
-			var stItemInfo = new STSaleItemInfo(oSaleItemInfos[i]);
-			m_oItemInfoList.Add(stItemInfo);
+			var stSaleItemInfo = new STSaleItemInfo(oSaleItemInfos[i]);
+			m_oSaleItemInfoList.Add(stSaleItemInfo);
 		}
 
-		return m_oItemInfoList;
+		return m_oSaleItemInfoList;
 	}
 
 	//! 판매 아이템 정보를 로드한다
