@@ -91,9 +91,9 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupScene();
 				CCommonEditorSceneManager.SetupLightOpts();
 
-#if INPUT_SYSTEM_MODULE_ENABLE
+#if INPUT_SYSTEM_ENABLE
 				CCommonEditorSceneManager.SetupInputSystem();
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+#endif			// #if INPUT_SYSTEM_ENABLE
 				
 				// 갱신 주기가 지났을 경우
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {

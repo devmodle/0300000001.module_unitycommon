@@ -83,5 +83,13 @@ public enum ERewardPopupType {
 	DAILY,
 	MAX_VALUE
 }
+
+//! 레벨 모드
+public enum ELevelMode {
+	NONE = -1,
+	NORM,
+	HARD,
+	MAX_VALUE
+}
 #endregion			// 기본
 #endif			// #if NEVER_USE_THIS

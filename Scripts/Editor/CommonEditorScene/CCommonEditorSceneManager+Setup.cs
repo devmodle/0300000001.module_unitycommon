@@ -10,13 +10,13 @@ using IngameDebugConsole;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
+#if INPUT_SYSTEM_ENABLE
+using UnityEngine.InputSystem;
+#endif			// #if INPUT_SYSTEM_ENABLE
+
 #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 using UnityEngine.Rendering.Universal;
 #endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
-
-#if INPUT_SYSTEM_MODULE_ENABLE
-using UnityEngine.InputSystem;
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
 //! 공용 에디터 씬 관리자 - 설정
 public static partial class CCommonEditorSceneManager {
@@ -259,7 +259,7 @@ public static partial class CCommonEditorSceneManager {
 	#endregion			// 클래스 함수
 
 	#region 클래스 조건부 함수
-#if INPUT_SYSTEM_MODULE_ENABLE
+#if INPUT_SYSTEM_ENABLE
 	//! 입력 시스템을 설정한다
 	private static void SetupInputSystem() {
 		// 입력 시스템 설정이 없을 경우
@@ -270,7 +270,7 @@ public static partial class CCommonEditorSceneManager {
 			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, oAsset, true);
 		}
 	}
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+#endif			// #if INPUT_SYSTEM_ENABLE
 	#endregion			// 클래스 조건부 함수
 }
 #endif			// #if UNITY_EDITOR

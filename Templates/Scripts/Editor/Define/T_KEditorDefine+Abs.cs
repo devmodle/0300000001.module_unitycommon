@@ -133,71 +133,49 @@ public static partial class KEditorDefine {
 	public static readonly string B_UNITY_PKGS_DEST_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_PACKAGES}Options/Project/GoogleScopedRegistry.json";
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
+		// 구글
 		["com.google.external-dependency-manager"] = "1.2.164",
 		["com.google.play.review"] = "1.4.0",
 
+		// 기본
 		["com.unity.burst"] = "1.4.7",
+		["com.unity.recorder"] = "2.5.5",
 		["com.unity.2d.sprite"] = "1.0.0",
+		["com.unity.ml-agents"] = "1.0.7",
+		["com.unity.polybrush"] = "1.0.2",
+		["com.unity.2d.tilemap"] = "1.0.0",
+		["com.unity.probuilder"] = "5.0.1",
+		["com.unity.formats.fbx"] = "4.0.1",
 		["com.unity.mathematics"] = "1.2.1",
-		["com.unity.quicksearch"] = "2.0.2",
+		["com.unity.inputsystem"] = "1.0.2",
+		["com.unity.addressables"] = "1.16.16",
+		["com.unity.2d.spriteshape"] = "5.1.1",
+
+		// 애니메이션
+		["com.unity.2d.animation"] = "5.0.4",
+		["com.unity.2d.psdimporter"] = "4.0.2",
+		["com.unity.animation.rigging"] = "1.0.3",
+
+		// 렌더링
+		["com.unity.2d.pixel-perfect"] = "4.0.1",
+		["com.unity.render-pipelines.universal"] = "11.0.0",
+
+		// 분석
 		["com.unity.mobile.android-logcat"] = "1.2.1",
-		["com.unity.render-pipelines.universal"] = "10.4.0",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
-#if ML_AGENTS_ENABLE
-		["com.unity.ml-agents"] = "1.0.7",
-#endif			// #if ML_AGENTS_ENABLE
-
 #if CINEMACHINE_ENABLE
-		["com.unity.cinemachine"] = "2.6.4",
+		["com.unity.cinemachine"] = "2.7.3",
 #endif			// #if CINEMACHINE_ENABLE
 
 #if VISUAL_FX_GRAPH_ENABLE
-		["com.unity.visualeffectgraph"] = "10.4.0",
+		["com.unity.visualeffectgraph"] = "11.0.0",
 #endif			// #if VISUAL_FX_GRAPH_ENABLE
-
-#if TILEMAP_2D_ENABLE
-		["com.unity.2d.tilemap"] = "1.0.0",
-#endif			// #if TILEMAP_2D_ENABLE
-
-#if SPRITE_SHAPES_ENABLE
-		["com.unity.2d.spriteshape"] = "5.1.1",
-#endif			// #if SPRITE_SHAPES_ENABLE
-
-#if PIXELS_PERFECT_ENABLE
-		["com.unity.2d.pixel-perfect"] = "4.0.1",
-#endif			// #if PIXELS_PERFECT_ENABLE
-
-#if POLY_BRUSH_ENABLE
-		["com.unity.polybrush"] = "1.0.2",
-#endif			// #if POLY_BRUSH_ENABLE
-
-#if PRO_BUILDER_ENABLE
-		["com.unity.probuilder"] = "4.5.0",
-#endif			// #if PRO_BUILDER_ENABLE
-
-#if ASSET_BUNDLE_ENABLE
-		["com.unity.addressables"] = "1.16.16",
-#endif			// #if ASSET_BUNDLE_ENABLE
-
-#if UNITY_RECORDER_ENABLE
-		["com.unity.recorder"] = "2.5.5",
-#endif			// #if UNITY_RECORDER_ENABLE
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
 		["com.unity.adaptiveperformance"] = "2.1.1",
 		["com.unity.adaptiveperformance.samsung.android"] = "2.1.1",
 #endif			// #if ADAPTIVE_PERFORMANCE_ENABLE
-
-#if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
-		["com.unity.inputsystem"] = "1.0.2",
-#endif			// #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
-
-#if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
-		["com.unity.2d.animation"] = "5.0.4",
-		["com.unity.2d.psdimporter"] = "4.0.2",
-		["com.unity.animation.rigging"] = "1.0.3",
-#endif			// #if SKELETON_2D_ANI_ENABLE || SKELETON_2D_ANI_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
     	["com.unity.postprocessing"] = "3.1.0",
@@ -239,7 +217,7 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "2.2.2",
+		["com.unity.purchasing"] = "3.0.2",
 		["unitymodule.common.purchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00001.unitymodule_common_purchase_client.git#1.3.1",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
