@@ -22,6 +22,7 @@ public class CSubInitSceneManager : CInitSceneManager {
 
 		// 테이블을 로드한다 {
 		CStrTable.Inst.LoadEnumStrs<EUserType>();
+		CStrTable.Inst.LoadEnumStrs<ELevelMode>();
 
 #if UNITY_EDITOR || UNITY_STANDALONE
 		CRewardInfoTable.Inst.LoadClearRewardInfosFromFile(KDefine.G_RUNTIME_TABLE_P_CLEAR_REWARD_INFO);
