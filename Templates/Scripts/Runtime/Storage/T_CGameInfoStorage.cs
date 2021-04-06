@@ -74,6 +74,21 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 무료 보상 획득 가능 여부를 검사한다
+	public bool IsEnableGetFreeReward() {
+		return System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL);
+	}
+
+	//! 일일 보상 획득 가능 여부를 검사한다
+	public bool IsEnableGetDailyReward() {
+		return System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL);
+	}
+
+	//! 일일 보상 연속 획득 여부를 검사한다
+	public bool IsContinueGetDailyReward() {
+		return System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsLess(KCDefine.B_VALUE_2_DBL);
+	}
+
 	//! 일일 보상 식별자를 변경한다
 	public void SetDailyRewardID(int a_nID) {
 		CAccess.Assert(a_nID >= KCDefine.B_VALUE_0_INT && a_nID < CRewardInfoTable.Inst.DailyRewardInfoList.Count);

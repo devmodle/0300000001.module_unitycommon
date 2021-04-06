@@ -54,7 +54,7 @@ public class CRewardPopup : CSubPopup {
 	//! 획득 버튼을 눌렀을 경우
 	private void OnTouchGetBtn() {
 		for(int i = 0; i < m_stParams.m_oItemInfoList.Count; ++i) {
-			Func.GetItem(m_stParams.m_oItemInfoList[i]);
+			Func.AcquireItem(m_stParams.m_oItemInfoList[i]);
 		}
 	}
 	#endregion			// 함수

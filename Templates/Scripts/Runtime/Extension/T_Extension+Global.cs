@@ -13,7 +13,7 @@ public static partial class Extension {
 
 		// 이벤트 전달자가 존재 할 경우
 		if(oEventDispatcher != null) {
-			oEventDispatcher.ParticleCallback = a_oCallback;
+			oEventDispatcher.ParticleEventCallback = a_oCallback;
 		}
 
 		a_oSender.ExPlay(a_bIsReset, a_bIsRemoveChildren);

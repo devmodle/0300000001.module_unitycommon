@@ -33,32 +33,26 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 
-			var stLastFreeRewardTime = CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime;
-			var stLastDailyRewardTime = CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime;
-
-			// 업데이트가 필요 할 경우
-			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
-				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
-				Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult);
-			}
-
-			// 무료 코인 리셋 주기가 지났을 경우
-			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL)) {
+			// 무료 보상 획득이 가능 할 경우
+			if(CGameInfoStorage.Inst.IsEnableGetFreeReward()) {
 				CGameInfoStorage.Inst.GameInfo.FreeRewardTimes = KCDefine.B_VALUE_0_INT;
 				CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
 				
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}
 
-			// 일일 보상 획득 주기가 지났을 경우
-			if(System.DateTime.Now.ExGetDeltaTimePerDays(stLastDailyRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL)) {
+			// 일일 보상 획득이 가능 할 경우
+			if(CGameInfoStorage.Inst.IsEnableGetDailyReward()) {
 				Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oPopup) => {
 					var oDailyRewardPopup = a_oPopup as CDailyRewardPopup;
 					oDailyRewardPopup.Init();
 				});
-				
-				CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime = System.DateTime.Today;
-				CGameInfoStorage.Inst.SaveGameInfo();
+			}
+
+			// 업데이트가 필요 할 경우
+			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
+				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
+				this.ExLateCallFunc((a_oSender, a_oParams) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 			}
 		}
 	}
