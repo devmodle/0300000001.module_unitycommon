@@ -68,6 +68,7 @@ public class CDailyRewardPopup : CSubPopup {
 		
 		Func.ShowRewardPopup(this.transform.parent.gameObject, (a_oPopup) => {
 			var stParams = new CRewardPopup.STParams() {
+				m_eQuality = ERewardQuality.NORM,
 				m_ePopupType = ERewardPopupType.DAILY,
 				m_oItemInfoList = stRewardInfo.m_oItemInfoList
 			};
