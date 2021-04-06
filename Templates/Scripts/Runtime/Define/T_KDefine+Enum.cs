@@ -75,6 +75,15 @@ public enum EPriceKinds {
 	MAX_VALUE
 }
 
+//! 보상 수준
+public enum ERewardQuality {
+	NONE = -1,
+	NORM,
+	HIGH,
+	SPECIAL,
+	MAX_VALUE
+}
+
 //! 보상 팝업 타입
 public enum ERewardPopupType {
 	NONE = -1,
