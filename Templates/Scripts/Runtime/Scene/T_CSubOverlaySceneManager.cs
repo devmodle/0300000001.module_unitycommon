@@ -21,6 +21,17 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 			// Do Nothing
 		}
 	}
+
+	//! 초기화
+	public override void Start() {
+		base.Start();
+		this.UpdateUIsState();
+	}
+
+	//! UI 상태를 갱신한다
+	private void UpdateUIsState() {
+		// Do Nothing
+	}
 	#endregion			// 함수
 }
 #endif			// #if NEVER_USE_THIS

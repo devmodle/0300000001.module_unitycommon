@@ -6,10 +6,13 @@ using UnityEngine;
 //! 기본 상수
 public static partial class KDefine {
 	#region 기본
-	// 버전
+	// 버전 {
 	public const string B_VER_APP_INFO = "1.0.0";
 	public const string B_VER_USER_INFO = "1.0.0";
 	public const string B_VER_GAME_INFO = "1.0.0";
+	
+	public const string B_VER_CLEAR_INFO = "1.0.0";
+	// 버전 }
 	#endregion			// 기본
 
 	#region 런타임 상수

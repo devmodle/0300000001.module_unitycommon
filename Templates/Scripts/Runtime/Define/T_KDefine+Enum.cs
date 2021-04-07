@@ -93,6 +93,18 @@ public enum ERewardPopupType {
 	MAX_VALUE
 }
 
+//! 튜토리얼 타입
+public enum ETutorialType {
+	NONE = -1,
+	MAX_VALUE
+}
+
+//! 튜토리얼 종류
+public enum ETutorialKinds {
+	NONE = -1,
+	MAX_VALUE
+}
+
 //! 레벨 모드
 public enum ELevelMode {
 	NONE = -1,

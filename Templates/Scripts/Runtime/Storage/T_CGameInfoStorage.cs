@@ -5,6 +5,29 @@ using UnityEngine;
 using MessagePack;
 
 #if NEVER_USE_THIS
+//! 클리어 정보
+[MessagePackObject]
+[System.Serializable]
+public sealed class CClearInfo : CBaseInfo {
+	#region 상수
+	private const string KEY_ID = "ID";
+	#endregion			// 상수
+
+	#region 프로퍼티
+	[IgnoreMember] public int ID {
+		get { return m_oIntList.ExGetValue(CClearInfo.KEY_ID, KCDefine.B_VALUE_0_INT); }
+		set { m_oIntList.ExReplaceValue(CClearInfo.KEY_ID, value); }
+	}
+	#endregion			// 프로퍼티
+
+	#region 함수
+	//! 생성자
+	public CClearInfo() : base(KDefine.B_VER_CLEAR_INFO) {
+		// Do Nothing
+	}
+	#endregion			// 함수
+}
+
 //! 게임 정보
 [MessagePackObject]
 [System.Serializable]
@@ -18,6 +41,9 @@ public sealed class CGameInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
+	[Key(35)] public List<ETutorialKinds> CompleteTutorialKindsList = new List<ETutorialKinds>();
+	[Key(101)] public Dictionary<int, CClearInfo> ClearInfoList = new Dictionary<int, CClearInfo>();
+
 	[IgnoreMember] public System.DateTime LastFreeRewardTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastDailyRewardTime { get; set; } = System.DateTime.Now;
 
@@ -87,6 +113,11 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 일일 보상 연속 획득 여부를 검사한다
 	public bool IsContinueGetDailyReward() {
 		return System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsLess(KCDefine.B_VALUE_2_DBL);
+	}
+
+	//! 튜토리얼 완료 여부를 검사한다
+	public bool IsCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
+		return this.GameInfo.CompleteTutorialKindsList.Contains(a_eTutorialKinds);
 	}
 
 	//! 일일 보상 식별자를 변경한다

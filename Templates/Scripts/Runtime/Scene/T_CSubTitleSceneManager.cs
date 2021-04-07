@@ -31,6 +31,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	//! 초기화
 	public override void Start() {
 		base.Start();
+		this.UpdateUIsState();
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
@@ -67,6 +68,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 				}
 			}
 		}
+	}
+
+	//! UI 상태를 갱신한다
+	private void UpdateUIsState() {
+		// Do Nothing
 	}
 
 	//! 업데이트 팝업 결과를 수신했을 경우

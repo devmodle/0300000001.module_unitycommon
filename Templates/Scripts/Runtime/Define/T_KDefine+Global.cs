@@ -57,6 +57,9 @@ public static partial class KDefine {
 
 	// 일일 보상 팝업
 	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DailyRewardPopup";
+
+	// 포커스 팝업
+	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
 	#endregion			// 기본
 
 	#region 런타임 상수
