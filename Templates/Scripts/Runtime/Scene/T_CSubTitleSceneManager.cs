@@ -10,6 +10,10 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	private Text m_oVerText = null;
 	#endregion			// UI 변수
 
+	#region 프로퍼티
+	public override bool IsRealtimeFadeOutAni => CCommonGameInfoStorage.Inst.GameInfo.IsFirstPlay;
+	#endregion			// 프로퍼티
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {
@@ -33,26 +37,34 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 
-			// 무료 보상 획득이 가능 할 경우
-			if(CGameInfoStorage.Inst.IsEnableGetFreeReward()) {
-				CGameInfoStorage.Inst.GameInfo.FreeRewardTimes = KCDefine.B_VALUE_0_INT;
-				CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
-				
-				CGameInfoStorage.Inst.SaveGameInfo();
-			}
+			// 최초 플레이 일 경우
+			if(CCommonGameInfoStorage.Inst.GameInfo.IsFirstPlay) {
+				CCommonGameInfoStorage.Inst.GameInfo.IsFirstPlay = false;
+				CCommonGameInfoStorage.Inst.SaveGameInfo();
 
-			// 일일 보상 획득이 가능 할 경우
-			if(CGameInfoStorage.Inst.IsEnableGetDailyReward()) {
-				Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oPopup) => {
-					var oDailyRewardPopup = a_oPopup as CDailyRewardPopup;
-					oDailyRewardPopup.Init();
-				});
-			}
+				this.HandleFirstPlayState();
+			} else {
+				// 무료 보상 획득이 가능 할 경우
+				if(CGameInfoStorage.Inst.IsEnableGetFreeReward()) {
+					CGameInfoStorage.Inst.GameInfo.FreeRewardTimes = KCDefine.B_VALUE_0_INT;
+					CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
+					
+					CGameInfoStorage.Inst.SaveGameInfo();
+				}
 
-			// 업데이트가 필요 할 경우
-			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
-				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
-				this.ExLateCallFunc((a_oSender, a_oParams) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
+				// 일일 보상 획득이 가능 할 경우
+				if(CGameInfoStorage.Inst.IsEnableGetDailyReward()) {
+					Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oPopup) => {
+						var oDailyRewardPopup = a_oPopup as CDailyRewardPopup;
+						oDailyRewardPopup.Init();
+					});
+				}
+
+				// 업데이트가 필요 할 경우
+				if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
+					CAppInfoStorage.Inst.IsIgnoreUpdate = true;
+					this.ExLateCallFunc((a_oSender, a_oParams) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
+				}
 			}
 		}
 	}
@@ -63,6 +75,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		if(a_bIsOK) {
 			CFunc.OpenURL(CProjInfoTable.Inst.ProjInfo.m_oStoreURL);
 		}
+	}
+
+	//! 최초 플레이 상태를 처리한다
+	private void HandleFirstPlayState() {
+		// Do Nothing
 	}
 	#endregion			// 함수
 }

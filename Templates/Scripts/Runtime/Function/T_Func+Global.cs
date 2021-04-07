@@ -10,7 +10,7 @@ using UnityEngine.Purchasing;
 //! 전역 함수
 public static partial class Func {
 	#region 클래스 함수
-	//! 아이템을 구입한다
+	//! 아이템을 획득한다
 	public static void AcquireItem(STItemInfo a_stItemInfo) {
 		switch(a_stItemInfo.m_eItemKinds) {
 			case EItemKinds.GOODS_COIN: {
@@ -37,9 +37,9 @@ public static partial class Func {
 	}
 
 	//! 아이템을 구입한다
-	public static void BuyItem(STSaleItemInfo a_stSaleItemInfo, bool a_bIsIgnoreProcess = false) {
-		// 구입 처리가 가능 할 경우
-		if(!a_bIsIgnoreProcess) {
+	public static void BuyItem(STSaleItemInfo a_stSaleItemInfo, bool a_bIsIgnoreAcquire = false) {
+		// 아이템 획득이 가능 할 경우
+		if(!a_bIsIgnoreAcquire) {
 			Func.AcquireItem(a_stSaleItemInfo.m_stItemInfo);
 		}
 
@@ -53,34 +53,22 @@ public static partial class Func {
 
 	//! 상점 팝업을 출력한다
 	public static void ShowStorePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		// 상점 팝업이 없을 경우
-		if(a_oParent.ExFindChild(KDefine.G_OBJ_N_STORE_POPUP) == null) {
-			Func.ShowPopup<CStorePopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-		}
+		Func.ShowPopup<CStorePopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	//! 보상 팝업을 출력한다
 	public static void ShowRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		// 보상 팝업이 없을 경우
-		if(a_oParent.ExFindChild(KDefine.G_OBJ_N_REWARD_POPUP) == null) {
-			Func.ShowPopup<CRewardPopup>(KDefine.G_OBJ_N_REWARD_POPUP, KCDefine.U_OBJ_P_G_REWARD_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-		}
+		Func.ShowPopup<CRewardPopup>(KDefine.G_OBJ_N_REWARD_POPUP, KCDefine.U_OBJ_P_G_REWARD_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 	
 	//! 무료 보상 팝업을 출력한다
 	public static void ShowFreeRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		// 무료 보상 팝업이 없을 경우
-		if(a_oParent.ExFindChild(KDefine.G_OBJ_N_FREE_REWARD_POPUP) == null) {
-			Func.ShowPopup<CFreeRewardPopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-		}
+		Func.ShowPopup<CFreeRewardPopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	//! 일일 보상 팝업을 출력한다
 	public static void ShowDailyRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		// 일일 보상 팝업이 없을 경우
-		if(a_oParent.ExFindChild(KDefine.G_OBJ_N_DAILY_REWARD_POPUP) == null) {
-			Func.ShowPopup<CDailyRewardPopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-		}
+		Func.ShowPopup<CDailyRewardPopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 	#endregion			// 클래스 함수
 
