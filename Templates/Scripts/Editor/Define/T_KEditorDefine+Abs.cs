@@ -144,7 +144,7 @@ public static partial class KEditorDefine {
 		["com.unity.ml-agents"] = "1.0.7",
 		["com.unity.polybrush"] = "1.0.2",
 		["com.unity.2d.tilemap"] = "1.0.0",
-		["com.unity.probuilder"] = "5.0.1",
+		["com.unity.probuilder"] = "5.0.3",
 		["com.unity.formats.fbx"] = "4.0.1",
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.inputsystem"] = "1.0.2",
@@ -158,24 +158,20 @@ public static partial class KEditorDefine {
 
 		// 렌더링
 		["com.unity.2d.pixel-perfect"] = "4.0.1",
+		["com.unity.visualeffectgraph"] = "11.0.0",
 		["com.unity.render-pipelines.universal"] = "11.0.0",
 
-		// 분석
+		// 분석 {
 		["com.unity.mobile.android-logcat"] = "1.2.1",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
+
+		["com.unity.adaptiveperformance"] = "2.1.1",
+		["com.unity.adaptiveperformance.samsung.android"] = "2.1.1",
+		// 분석 }
 
 #if CINEMACHINE_ENABLE
 		["com.unity.cinemachine"] = "2.7.3",
 #endif			// #if CINEMACHINE_ENABLE
-
-#if VISUAL_FX_GRAPH_ENABLE
-		["com.unity.visualeffectgraph"] = "11.0.0",
-#endif			// #if VISUAL_FX_GRAPH_ENABLE
-
-#if ADAPTIVE_PERFORMANCE_ENABLE
-		["com.unity.adaptiveperformance"] = "2.1.1",
-		["com.unity.adaptiveperformance.samsung.android"] = "2.1.1",
-#endif			// #if ADAPTIVE_PERFORMANCE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
     	["com.unity.postprocessing"] = "3.1.0",

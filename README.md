@@ -9,12 +9,12 @@
 	- *Bezier Solution (v2.0.1 - Mar 15, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
 	- *Enhanced Scroller (v2.29.1 - Mar 21, 2021)*
-	- *Ingame Debug Console (v1.4.3 - Mar 23, 2021)*
+	- *Ingame Debug Console (v1.4.4 - Apr 6, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *Lean Touch (v2.1.8 - Jan 25, 2021)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
-	- *Native Share (v1.3.8 - Oct 7, 2020)*
+	- *Native Share (v1.3.9 - Apr 6, 2021)*
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*
 	- *Signin with Apple (v1.1.1 - Nov 9, 2020)*
 	- *Simple Scroll Snap (v1.2.1 - Dec 14, 2020)*
@@ -26,7 +26,7 @@
 3. **추가 에셋 스토어 리스트**
 	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
-	- *Build Report Tool (v3.5.4 - Mar 26, 2021)*
+	- *Build Report Tool (v3.5.5 - Apr 6, 2021)*
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.1 - Feb 15, 2021)*
 	- *Odin Inspector (v3.0.4 - Feb 23, 2021)*
