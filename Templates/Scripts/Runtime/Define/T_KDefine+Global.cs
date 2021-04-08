@@ -60,6 +60,8 @@ public static partial class KDefine {
 
 	// 포커스 팝업
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
+	public const string G_OBJ_N_FOCUS_P_BLIND_IMG = "BlindImg";
+	public const string G_OBJ_N_FOCUS_P_FOCUS_UIS = "FocusUIs";
 	#endregion			// 기본
 
 	#region 런타임 상수

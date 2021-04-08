@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
 //! 포커스 팝업
 public class CFocusPopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
-		public List<GameObject> m_oFocusList;
+		public List<GameObject> m_oFocusUIsList;
 	}
 
 	#region 변수
@@ -18,6 +19,10 @@ public class CFocusPopup : CSubPopup {
 	#region UI 변수
 	private Image m_oBlindImg = null;
 	#endregion			// UI 변수
+
+	#region 객체
+	private GameObject m_oFocusUIs = null;
+	#endregion			// 객체
 
 	#region 프로퍼티
 	public override bool IsIgnoreAni => true;
@@ -31,7 +36,9 @@ public class CFocusPopup : CSubPopup {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
+
 		m_oBlindImg = m_oContents.ExFindComponent<Image>(KDefine.G_OBJ_N_FOCUS_P_BLIND_IMG);
+		m_oFocusUIs = m_oContents.ExFindChild(KDefine.G_OBJ_N_FOCUS_P_FOCUS_UIS);
 	}
 
 	//! 초기화
@@ -52,9 +59,9 @@ public class CFocusPopup : CSubPopup {
 	protected override void SetupContents() {
 		base.SetupContents();
 
-		for(int i = 0; i < m_stParams.m_oFocusList.Count; ++i) {
-			m_stParams.m_oFocusList[i].SetActive(true);
-			m_stParams.m_oFocusList[i].transform.SetParent(m_oContentsTrans, false);
+		for(int i = 0; i < m_stParams.m_oFocusUIsList.Count; ++i) {
+			m_stParams.m_oFocusUIsList[i].SetActive(true);
+			m_stParams.m_oFocusUIsList[i].transform.SetParent(m_oFocusUIs.transform, false);
 		}
 	}
 
