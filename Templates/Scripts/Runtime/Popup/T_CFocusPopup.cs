@@ -6,8 +6,13 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 //! 포커스 팝업
 public class CFocusPopup : CSubPopup {
+	//! 매개 변수
+	public struct STParams {
+		public List<GameObject> m_oFocusList;
+	}
+
 	#region 변수
-	private System.Action<CFocusPopup, PointerEventData> m_oCallback = null;
+	private STParams m_stParams;
 	#endregion			// 변수
 
 	#region UI 변수
@@ -30,11 +35,27 @@ public class CFocusPopup : CSubPopup {
 	}
 
 	//! 초기화
-	public virtual void Init(System.Action<CFocusPopup, PointerEventData> a_oCallback) {
+	public virtual void Init(STParams a_stParams, System.Action<CFocusPopup, PointerEventData> a_oBeginCallback, System.Action<CFocusPopup, PointerEventData> a_oMoveCallback, System.Action<CFocusPopup, PointerEventData> a_oEndCallback) {
 		base.Init();
-		m_oCallback = a_oCallback;
+		m_stParams = a_stParams;
+
+		// 터치 전달자를 설정한다
+		var oTouchDispatcher = m_oContents.GetComponentInChildren<CTouchDispatcher>();
+		oTouchDispatcher.BeginCallback = (a_oSender, a_oEventData) => a_oBeginCallback?.Invoke(this, a_oEventData);
+		oTouchDispatcher.MoveCallback = (a_oSender, a_oEventData) => a_oMoveCallback?.Invoke(this, a_oEventData);
+		oTouchDispatcher.EndCallback = (a_oSender, a_oEventData) => a_oEndCallback?.Invoke(this, a_oEventData);
 
 		this.UpdateUIsState();
+	}
+
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
+
+		for(int i = 0; i < m_stParams.m_oFocusList.Count; ++i) {
+			m_stParams.m_oFocusList[i].SetActive(true);
+			m_stParams.m_oFocusList[i].transform.SetParent(m_oContentsTrans, false);
+		}
 	}
 
 	//! UI 상태를 갱신한다
