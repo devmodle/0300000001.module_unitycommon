@@ -10,6 +10,10 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_CHANGES = 0;
 	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_SALE_PIT_ITEM_INFOS = 0;
+
+	// 식별자
+	public const int G_PRODUCT_ID_CHANGES = 0;
+	public const int G_PRODUCT_ID_REMOVE_ADS = 1;
 	
 	// 보상 정보 테이블 {
 	public const string G_KEY_REWARD_IT_NAME = "Name";
@@ -57,6 +61,13 @@ public static partial class KDefine {
 
 	// 일일 보상 팝업
 	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DailyRewardPopup";
+
+	// 잔돈 팝업
+	public const string G_OBJ_N_CHANGES_POPUP = "ChangesPopup";
+	public const string G_OBJ_N_CHANGES_P_PURCHASE_BTN = "PurchaseBtn";
+
+	// 잔돈 획득 팝업
+	public const string G_OBJ_N_CHANGES_GET_POPUP = "ChangesGetPopup";
 
 	// 포커스 팝업
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";

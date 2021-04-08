@@ -67,12 +67,10 @@ public class CFocusPopup : CSubPopup {
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
-		// 이미지를 갱신한다 {
 		m_oBlindImg.color = KCDefine.U_DEF_COLOR_POPUP_BG;
 		
 		var oContentsImg = m_oContents.GetComponentInChildren<Image>();
 		oContentsImg.color = KCDefine.U_COLOR_TRANSPARENT;
-		// 이미지를 갱신한다 }
 	}
 	#endregion			// 함수
 }

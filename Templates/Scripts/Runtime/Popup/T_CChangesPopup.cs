@@ -14,10 +14,13 @@ public class CChangesPopup : CSubPopup {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
+
+		m_oPurchaseBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_CHANGES_P_PURCHASE_BTN);
+		m_oPurchaseBtn.onClick.AddListener(this.OnTouchPurchaseBtn);
 	}
 
 	//! 초기화
-	public virtual void Init() {
+	public override void Init() {
 		base.Init();
 		this.UpdateUIsState();
 	}
@@ -28,10 +31,9 @@ public class CChangesPopup : CSubPopup {
 	}
 
 	//! 결제 버튼을 눌렀을 경우
-	private void OnTouchPurchaseBtn(int a_nID) {
+	private void OnTouchPurchaseBtn() {
 #if PURCHASE_MODULE_ENABLE
-		m_nSelProductID = a_nID;
-		Func.PurchaseProduct(a_nID, this.OnCompletePurchase);
+		Func.PurchaseProduct(KDefine.G_PRODUCT_ID_CHANGES, this.OnCompletePurchase);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수
