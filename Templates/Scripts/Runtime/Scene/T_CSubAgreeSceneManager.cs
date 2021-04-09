@@ -12,6 +12,10 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
+#if DEBUG || DEVELOPMENT_BUILD
+			CFunc.ShowLog($"Country Code: {CCommonAppInfoStorage.Inst.CountryCode}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+
 			Func.SetupLocalizeStrs();
 		}
 	}

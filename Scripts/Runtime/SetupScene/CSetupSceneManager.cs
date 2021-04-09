@@ -89,10 +89,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		string oCountryCode = a_oMsg;
 
 		// 국가 코드 설정이 필요 할 경우
-		if(!CAccess.IsMobile() || !a_oMsg.ExIsValid()) {
+		if(!CAccess.IsMobile() || !oCountryCode.ExIsValid()) {
 			oCountryCode = !CAccess.IsMobile() ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
-		
+
 		CCommonAppInfoStorage.Inst.CountryCode = oCountryCode.ToUpper();
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
 
