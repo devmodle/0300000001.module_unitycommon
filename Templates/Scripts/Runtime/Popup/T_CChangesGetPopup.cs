@@ -16,6 +16,11 @@ public class CChangesGetPopup : CSubPopup {
 	private int m_nPrevNumChanges = 0;
 	#endregion			// 변수
 
+	#region 객체
+	[SerializeField] private GameObject m_oSaveUIs = null;
+	[SerializeField] private GameObject m_oFullUIs = null;
+	#endregion			// 객체
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {
@@ -38,7 +43,8 @@ public class CChangesGetPopup : CSubPopup {
 
 	//! UI 상태를 변경한다
 	private void UpdateUIsState() {
-		// Do Nothing
+		m_oSaveUIs.SetActive(m_nPrevNumChanges < KDefine.G_MAX_NUM_CHANGES);
+		m_oFullUIs.SetActive(m_nPrevNumChanges >= KDefine.G_MAX_NUM_CHANGES);
 	}
 	#endregion			// 함수
 }

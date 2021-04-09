@@ -10,11 +10,17 @@ public class CChangesPopup : CSubPopup {
 	private Button m_oPurchaseBtn = null;
 	#endregion			// UI 변수
 
+	#region 객체
+	[SerializeField] private GameObject m_oSaveUIs = null;
+	[SerializeField] private GameObject m_oFullUIs = null;
+	#endregion			// 객체
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
 
+		// 버튼을 설정한다
 		m_oPurchaseBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_CHANGES_P_PURCHASE_BTN);
 		m_oPurchaseBtn.onClick.AddListener(this.OnTouchPurchaseBtn);
 	}
@@ -27,7 +33,10 @@ public class CChangesPopup : CSubPopup {
 
 	//! UI 상태를 변경한다
 	private void UpdateUIsState() {
-		// Do Nothing
+		int nNumChanges = CUserInfoStorage.Inst.UserInfo.NumChanges;
+
+		m_oSaveUIs.SetActive(nNumChanges < KDefine.G_MAX_NUM_CHANGES);
+		m_oFullUIs.SetActive(nNumChanges >= KDefine.G_MAX_NUM_CHANGES);
 	}
 
 	//! 결제 버튼을 눌렀을 경우

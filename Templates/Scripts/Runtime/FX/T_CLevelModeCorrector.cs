@@ -25,12 +25,12 @@ public class CLevelModeCorrector : CUIsComponent {
 	//! 초기화
 	public override void Start() {
 		base.Start();
-		this.SetLevelMode(m_eLevelMode);
+		this.SetImg(m_oBasePath);
 	}
 
 	//! 레벨 모드를 리셋한다
 	public virtual void ResetLevelMode() {
-		this.SetLevelMode(m_eLevelMode);
+		this.SetImg(m_oBasePath);
 	}
 
 	//! 이미지를 변경한다
@@ -46,7 +46,7 @@ public class CLevelModeCorrector : CUIsComponent {
 	//! 레벨 모드를 변경한다
 	public void SetLevelMode(ELevelMode a_eMode) {
 		m_eLevelMode = a_eMode;
-		this.SetImg(m_oBasePath);
+		this.ResetLevelMode();
 	}
 	#endregion			// 함수
 }
