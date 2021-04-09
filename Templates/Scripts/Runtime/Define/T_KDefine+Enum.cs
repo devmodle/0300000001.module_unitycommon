@@ -24,7 +24,13 @@ public enum EItemType {
 public enum EItemKinds {
 	NONE = -1,
 	GOODS_COIN,
-	NON_CONSUMABLE_REMOVE_ADS = 2000000,
+
+	// 임시 1,000,000
+	CONSUMABLE_PLACE_HOLDER = EItemKinds.GOODS_COIN + 1000000,
+
+	// 광고 제거 2,000,000
+	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.CONSUMABLE_PLACE_HOLDER + 1000000,
+
 	MAX_VALUE
 }
 
@@ -41,8 +47,13 @@ public enum ERewardType {
 public enum ERewardKinds {
 	NONE = -1,
 	CLEAR_REWARD,
-	FREE_REWARD = 1000000,
-	DAILY_REWARD = 2000000,
+
+	// 무료 보상 1,000,000
+	FREE_REWARD = ERewardKinds.CLEAR_REWARD + 1000000,
+
+	// 일일 보상 2,000,000
+	DAILY_REWARD = ERewardKinds.FREE_REWARD + 1000000,
+
 	MAX_VALUE
 }
 
@@ -71,7 +82,10 @@ public enum EPriceType {
 public enum EPriceKinds {
 	NONE = -1,
 	ADS_REWARD,
-	GOODS_COIN = 2000000,
+
+	// 코인 1,000,000
+	GOODS_COIN = EPriceKinds.ADS_REWARD + 1000000,
+	
 	MAX_VALUE
 }
 
@@ -97,7 +111,7 @@ public enum ERewardPopupType {
 public enum ETutorialType {
 	NONE = -1,
 	PLAY,
-	TOOL_TIP = 1000000,
+	TOOL_TIP,
 	MAX_VALUE
 }
 
