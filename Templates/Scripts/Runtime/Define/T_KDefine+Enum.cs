@@ -96,6 +96,8 @@ public enum ERewardPopupType {
 //! 튜토리얼 타입
 public enum ETutorialType {
 	NONE = -1,
+	PLAY,
+	TOOL_TIP = 1000000,
 	MAX_VALUE
 }
 
@@ -108,6 +110,7 @@ public enum ETutorialKinds {
 //! 레벨 모드
 public enum ELevelMode {
 	NONE = -1,
+	EASY,
 	NORM,
 	HARD,
 	MAX_VALUE
