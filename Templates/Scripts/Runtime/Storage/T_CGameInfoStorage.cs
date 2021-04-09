@@ -72,6 +72,9 @@ public sealed class CGameInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 
+		this.CompleteTutorialKindsList = this.CompleteTutorialKindsList ?? new List<ETutorialKinds>();
+		this.ClearInfoList = this.ClearInfoList ?? new Dictionary<int, CClearInfo>();
+
 		this.LastFreeRewardTime = this.LastFreeRewardTimeStr.ExIsValid() ? this.LastFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT);
 		this.LastDailyRewardTime = this.LastDailyRewardTimeStr.ExIsValid() ? this.LastDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT);
 	}
@@ -130,6 +133,11 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public void AddFreeRewardTimes(int a_nRewardTimes) {
 		int nFreeRewardTimes = this.GameInfo.FreeRewardTimes + a_nRewardTimes;
 		this.GameInfo.FreeRewardTimes = Mathf.Clamp(nFreeRewardTimes, KCDefine.B_VALUE_0_INT, CRewardInfoTable.Inst.FreeRewardInfoList.Count);
+	}
+
+	//! 완료 튜토리얼을 추가한다
+	public void AddCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
+		this.GameInfo.CompleteTutorialKindsList.ExAddValue(a_eTutorialKinds);
 	}
 
 	//! 게임 정보를 저장한다

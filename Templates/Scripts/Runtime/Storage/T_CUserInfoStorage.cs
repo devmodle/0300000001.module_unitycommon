@@ -28,6 +28,14 @@ public sealed class CUserInfo : CBaseInfo {
 	}
 	#endregion			// 프로퍼티
 
+	#region 인터페이스
+	//! 역직렬화 되었을 경우
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+		this.NumItemsList = this.NumItemsList ?? new Dictionary<EItemKinds, int>();
+	}
+	#endregion			// 인터페이스
+
 	#region 함수
 	//! 생성자
 	public CUserInfo() : base(KDefine.B_VER_USER_INFO) {
