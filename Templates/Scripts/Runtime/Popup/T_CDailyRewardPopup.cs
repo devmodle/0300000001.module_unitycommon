@@ -52,12 +52,7 @@ public class CDailyRewardPopup : CSubPopup {
 
 	//! 보상 팝업이 닫혔을 경우
 	private void OnCloseRewardPopup(CPopup a_oSender) {
-		int nRewardID = CGameInfoStorage.Inst.GameInfo.DailyRewardID;
-		nRewardID = (nRewardID + KCDefine.B_VALUE_1_INT) % CRewardInfoTable.Inst.DailyRewardInfoList.Count;
-
-		CGameInfoStorage.Inst.GameInfo.DailyRewardID = nRewardID;
-		CGameInfoStorage.Inst.GameInfo.LastDailyRewardTime = System.DateTime.Today;
-
+		CGameInfoStorage.Inst.SetupNextDailyRewardID();
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 

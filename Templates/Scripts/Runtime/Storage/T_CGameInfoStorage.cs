@@ -91,6 +91,8 @@ public sealed class CGameInfo : CBaseInfo {
 //! 게임 정보 저장소
 public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
+	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
+
 	public System.DateTime PrevFullscreenAdsTime { get; set; } = System.DateTime.Now;
 	public System.DateTime PrevResumeAdsTime { get; set; } = System.DateTime.Now;
 
@@ -99,10 +101,32 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		LastDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT)
 	};
 
+	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
 	public ERewardKinds DailyRewardKinds => ERewardKinds.DAILY_REWARD + this.GameInfo.DailyRewardID;
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 선택 된 부스터 상태를 리셋한다
+	public void ResetSelBoostersState(bool a_bIsResetFreeBooster = true) {
+		// 무료 부스터 리셋 모드 일 경우
+		if(a_bIsResetFreeBooster) {
+			this.FreeBooster = EItemKinds.NONE;
+		}
+
+		this.SelBoosterList.Clear();
+	}
+
+	//! 다음 일일 보상 식별자를 설정한다
+	public void SetupNextDailyRewardID(bool a_bIsResetDailyRewardTime = true) {
+		// 일일 보상 시간 리셋 모드 일 경우
+		if(a_bIsResetDailyRewardTime) {
+			this.GameInfo.LastDailyRewardTime = System.DateTime.Today;
+		}
+
+		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VALUE_1_INT) % CRewardInfoTable.Inst.DailyRewardInfoList.Count;
+		this.SetDailyRewardID(nNextDailyRewardID);
+	}
+
 	//! 무료 보상 획득 가능 여부를 검사한다
 	public bool IsEnableGetFreeReward() {
 		return System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VALUE_1_DBL);
@@ -118,6 +142,16 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsLess(KCDefine.B_VALUE_2_DBL);
 	}
 
+	//! 무료 부스터 여부를 검사한다
+	public bool IsFreeBooster(EItemKinds a_eBooster) {
+		return this.FreeBooster == a_eBooster;
+	}
+
+	//! 부스터 포함 여부를 검사한다
+	public bool IsContainsBooster(EItemKinds a_eBooster) {
+		return this.SelBoosterList.Contains(a_eBooster);
+	}
+
 	//! 튜토리얼 완료 여부를 검사한다
 	public bool IsCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
 		return this.GameInfo.CompleteTutorialKindsList.Contains(a_eTutorialKinds);
@@ -125,8 +159,13 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 일일 보상 식별자를 변경한다
 	public void SetDailyRewardID(int a_nID) {
-		CAccess.Assert(a_nID >= KCDefine.B_VALUE_0_INT && a_nID < CRewardInfoTable.Inst.DailyRewardInfoList.Count);
+		CAccess.Assert(CRewardInfoTable.Inst.DailyRewardInfoList.ExIsValidIdx(a_nID));
 		this.GameInfo.DailyRewardID = a_nID;
+	}
+
+	//! 선택 된 부스터를 추가한다
+	public void AddSelBooster(EItemKinds a_eBooster) {
+		this.SelBoosterList.ExAddValue(a_eBooster);
 	}
 
 	//! 무료 보상 횟수를 추가한다
