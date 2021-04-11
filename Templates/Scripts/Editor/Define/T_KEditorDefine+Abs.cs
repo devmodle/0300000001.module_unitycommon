@@ -144,6 +144,7 @@ public static partial class KEditorDefine {
 		["com.unity.ml-agents"] = "1.0.7",
 		["com.unity.polybrush"] = "1.0.2",
 		["com.unity.2d.tilemap"] = "1.0.0",
+		["com.unity.2d.tilemap.extras"] = "2.0.0",
 		["com.unity.probuilder"] = "5.0.3",
 		["com.unity.formats.fbx"] = "4.0.1",
 		["com.unity.mathematics"] = "1.2.1",
@@ -151,19 +152,12 @@ public static partial class KEditorDefine {
 		["com.unity.addressables"] = "1.16.16",
 		["com.unity.2d.spriteshape"] = "5.1.1",
 
-		// 애니메이션
-		["com.unity.2d.animation"] = "5.0.4",
-		["com.unity.2d.psdimporter"] = "4.0.2",
-		["com.unity.animation.rigging"] = "1.0.3",
-
 		// 렌더링
-		["com.unity.2d.pixel-perfect"] = "4.0.1",
 		["com.unity.visualeffectgraph"] = "11.0.0",
 		["com.unity.render-pipelines.universal"] = "11.0.0",
 
 		// 분석 {
 		["com.unity.mobile.android-logcat"] = "1.2.1",
-		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
 		["com.unity.adaptiveperformance"] = "2.1.1",
 		["com.unity.adaptiveperformance.samsung.android"] = "2.1.1",
