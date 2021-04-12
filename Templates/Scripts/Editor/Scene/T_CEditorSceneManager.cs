@@ -157,8 +157,10 @@ public static partial class CEditorSceneManager {
 
 	//! 씬이 열렸을 경우
 	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		CEditorSceneManager.OnLoadScript();
-		CFunc.CopyFile(KEditorDefine.B_UNITY_PKGS_SRC_GOOGLE_SCOPED_REGISTRY_PATH, KEditorDefine.B_UNITY_PKGS_DEST_GOOGLE_SCOPED_REGISTRY_PATH, false);
+		// 싱글 모드 일 경우
+		if(a_eSceneMode == OpenSceneMode.Single) {
+			CFunc.CopyFile(KEditorDefine.B_UNITY_PKGS_SRC_GOOGLE_SCOPED_REGISTRY_PATH, KEditorDefine.B_UNITY_PKGS_DEST_GOOGLE_SCOPED_REGISTRY_PATH, false);
+		}
 	}
 	#endregion			// 클래스 함수
 }
