@@ -150,15 +150,15 @@ public static partial class KEditorDefine {
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.inputsystem"] = "1.0.2",
 		["com.unity.addressables"] = "1.16.16",
-		["com.unity.2d.spriteshape"] = "5.1.1",
+		["com.unity.2d.spriteshape"] = "6.0.0",
 
 		// 애니메이션
-		["com.unity.2d.animation"] = "5.0.4",
-		["com.unity.2d.psdimporter"] = "4.0.2",
+		["com.unity.2d.animation"] = "6.0.1",
+		["com.unity.2d.psdimporter"] = "5.0.1",
 		["com.unity.animation.rigging"] = "1.0.3",
 
 		// 렌더링
-		["com.unity.2d.pixel-perfect"] = "4.0.1",
+		["com.unity.2d.pixel-perfect"] = "5.0.0",
 		["com.unity.visualeffectgraph"] = "11.0.0",
 		["com.unity.render-pipelines.universal"] = "11.0.0",
 
