@@ -11,9 +11,12 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_SALE_PIT_ITEM_INFOS = 0;
 
-	// 식별자
+	// 식별자 {
 	public const int G_PRODUCT_ID_CHANGES = 0;
 	public const int G_PRODUCT_ID_REMOVE_ADS = 1;
+
+	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0}_{1}";
+	// 식별자 }
 	
 	// 보상 정보 테이블 {
 	public const string G_KEY_REWARD_IT_NAME = "Name";
@@ -73,6 +76,9 @@ public static partial class KDefine {
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
 	public const string G_OBJ_N_FOCUS_P_BLIND_IMG = "BlindImg";
 	public const string G_OBJ_N_FOCUS_P_FOCUS_UIS = "FocusUIs";
+
+	// 튜토리얼 팝업
+	public const string G_OBJ_N_TUTORIAL_POPUP = "TutorialPopup";
 	#endregion			// 기본
 
 	#region 런타임 상수

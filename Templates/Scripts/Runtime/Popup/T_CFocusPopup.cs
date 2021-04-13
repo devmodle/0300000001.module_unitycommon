@@ -59,9 +59,12 @@ public class CFocusPopup : CSubPopup {
 	protected override void SetupContents() {
 		base.SetupContents();
 
-		for(int i = 0; i < m_stParams.m_oFocusUIsList.Count; ++i) {
-			m_stParams.m_oFocusUIsList[i].SetActive(true);
-			m_stParams.m_oFocusUIsList[i].transform.SetParent(m_oFocusUIs.transform, false);
+		// 포커스 UI 가 존재 할 경우
+		if(m_stParams.m_oFocusUIsList.ExIsValid()) {
+			for(int i = 0; i < m_stParams.m_oFocusUIsList.Count; ++i) {
+				m_stParams.m_oFocusUIsList[i].SetActive(true);
+				m_stParams.m_oFocusUIsList[i].transform.SetParent(m_oFocusUIs.transform, false);
+			}
 		}
 	}
 

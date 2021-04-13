@@ -6,7 +6,11 @@ using UnityEngine;
 //! 전역 접근자
 public static partial class Access {
 	#region 클래스 함수
-	
+	//! 튜토리얼 메세지를 반환한다
+	public static string GetTutorialMsg(ETutorialKinds a_eTutorialKinds, int a_nIdx = KCDefine.B_VALUE_0_INT) {
+		string oKey = string.Format(KDefine.G_KEY_FMT_TUTORIAL_MSG, a_eTutorialKinds, a_nIdx + KCDefine.B_VALUE_1_INT);
+		return CStrTable.Inst.GetStr(oKey);
+	}
 	#endregion			// 클래스 함수
 }
 #endif			// #if NEVER_USE_THIS
