@@ -12,8 +12,12 @@ public static partial class LogFunc {
 	#region 클래스 함수
 	//! 로그를 전송한다
 	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataList, float? a_oValue = null) {
-		// 테스트 디바이스가 아닐 경우
-		if(!CCommonAppInfoStorage.Inst.IsTestDevice()) {
+#if ANALYTICS_TEST_ENABLE
+		bool bIsEnableSendLog = true;
+#endif			// #if ANALYTICS_TEST_ENABLE
+
+		// 로그 전송이 가능 할 경우
+		if(bIsEnableSendLog || !CCommonAppInfoStorage.Inst.IsTestDevice()) {
 #if FLURRY_MODULE_ENABLE
 			var oFlurryDataList = (a_oDataList != null) ? a_oDataList.ExToTypes<string, object, string, string>() : null;
 			CFlurryManager.Inst.SendLog(a_oName, oFlurryDataList);
@@ -44,8 +48,12 @@ public static partial class LogFunc {
 #if PURCHASE_MODULE_ENABLE
 	//! 결제 로그를 전송한다
 	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VALUE_1_INT) {
-		// 테스트 디바이스가 아닐 경우
-		if(!CCommonAppInfoStorage.Inst.IsTestDevice()) {
+#if ANALYTICS_TEST_ENABLE
+		bool bIsEnableSendLog = true;
+#endif			// #if ANALYTICS_TEST_ENABLE
+
+		// 로그 전송이 가능 할 경우
+		if(bIsEnableSendLog || !CCommonAppInfoStorage.Inst.IsTestDevice()) {
 #if FLURRY_MODULE_ENABLE
 			CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 #endif			// #if FLURRY_MODULE_ENABLE
