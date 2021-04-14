@@ -14,6 +14,8 @@ public static partial class LogFunc {
 	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataList, float? a_oValue = null) {
 #if ANALYTICS_TEST_ENABLE
 		bool bIsEnableSendLog = true;
+#else
+		bool bIsEnableSendLog = false;
 #endif			// #if ANALYTICS_TEST_ENABLE
 
 		// 로그 전송이 가능 할 경우
