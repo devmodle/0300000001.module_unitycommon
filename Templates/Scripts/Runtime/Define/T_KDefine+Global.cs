@@ -11,6 +11,9 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_SALE_PIT_ITEM_INFOS = 0;
 
+	// 횟수
+	public const int G_MAX_TIMES_ADS_SKIP = 0;
+
 	// 식별자 {
 	public const int G_PRODUCT_ID_CHANGES = 0;
 	public const int G_PRODUCT_ID_REMOVE_ADS = 1;

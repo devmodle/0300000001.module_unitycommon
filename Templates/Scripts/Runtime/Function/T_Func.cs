@@ -120,14 +120,17 @@ public static partial class Func {
 		float fDelay = CValueTable.Inst.GetFlt(KCDefine.VT_KEY_DEF_DELAY_FULLSCREEN_ADS);
 		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevFullscreenAdsTime);
 
+		bool bIsEnableShow = dblDeltaTime.ExIsGreateEquals(fDelay) && CGameInfoStorage.Inst.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP;
+		
 		// 전면 광고 출력이 가능 할 경우
-		if(dblDeltaTime.ExIsGreateEquals(fDelay) && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsType)) {
+		if(bIsEnableShow && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsType)) {
 			Func.m_bIsWatchFullscreenAds = true;
 			Func.m_oFullscreenAdsCallback = a_oCallback;
 			
 			CAdsManager.Inst.ShowFullscreenAds(a_eAdsType, null, Func.OnCloseFullscreenAds);
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Inst, false);
+			CGameInfoStorage.Inst.AddAdsSkipTimes(KCDefine.B_VALUE_1_INT);
 		}
 	}
 
@@ -141,14 +144,17 @@ public static partial class Func {
 		float fDelay = CValueTable.Inst.GetFlt(KCDefine.VT_KEY_DEF_DELAY_RESUME_ADS);
 		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevResumeAdsTime);
 
+		bool bIsEnableShow = dblDeltaTime.ExIsGreateEquals(fDelay) && CGameInfoStorage.Inst.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP;
+
 		// 재개 광고 출력이 가능 할 경우
-		if(dblDeltaTime.ExIsGreateEquals(fDelay) && CAdsManager.Inst.IsLoadResumeAds(a_eAdsType)) {
+		if(bIsEnableShow && CAdsManager.Inst.IsLoadResumeAds(a_eAdsType)) {
 			Func.m_bIsWatchResumeAds = true;
 			Func.m_oResumeAdsCallback = a_oCallback;
 			
 			CAdsManager.Inst.ShowResumeAds(a_eAdsType, null, Func.OnCloseResumeAds);
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Inst, false);
+			CGameInfoStorage.Inst.AddAdsSkipTimes(KCDefine.B_VALUE_1_INT);
 		}
 	}
 
@@ -165,13 +171,17 @@ public static partial class Func {
 
 	//! 전면 광고가 닫혔을 경우
 	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
+		CGameInfoStorage.Inst.AdsSkipTime = KCDefine.B_VALUE_0_INT;
 		CGameInfoStorage.Inst.PrevFullscreenAdsTime = System.DateTime.Now;
+
 		CFunc.Invoke(ref Func.m_oFullscreenAdsCallback, a_oSender, Func.m_bIsWatchFullscreenAds);
 	}
 
 	//! 재개 광고가 닫혔을 경우
 	private static void OnCloseResumeAds(CAdsManager a_oSender) {
+		CGameInfoStorage.Inst.AdsSkipTime = KCDefine.B_VALUE_0_INT;
 		CGameInfoStorage.Inst.PrevResumeAdsTime = System.DateTime.Now;
+		
 		CFunc.Invoke(ref Func.m_oResumeAdsCallback, a_oSender, Func.m_bIsWatchResumeAds);
 	}
 #endif			// #if ADS_MODULE_ENABLE

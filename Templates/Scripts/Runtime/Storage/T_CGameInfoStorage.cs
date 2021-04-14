@@ -93,9 +93,6 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
 	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
 
-	public System.DateTime PrevFullscreenAdsTime { get; set; } = System.DateTime.Now;
-	public System.DateTime PrevResumeAdsTime { get; set; } = System.DateTime.Now;
-
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
 		LastFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT),
 		LastDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VALUE_1_INT)
@@ -103,6 +100,13 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
 	public ERewardKinds DailyRewardKinds => ERewardKinds.DAILY_REWARD + this.GameInfo.DailyRewardID;
+
+#if ADS_MODULE_ENABLE
+	public int AdsSkipTimes { get; set; } = KCDefine.B_VALUE_0_INT;
+
+	public System.DateTime PrevFullscreenAdsTime { get; set; } = System.DateTime.Now;
+	public System.DateTime PrevResumeAdsTime { get; set; } = System.DateTime.Now;
+#endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -205,5 +209,15 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return this.GameInfo;
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if ADS_MODULE_ENABLE
+	//! 광고 누적 횟수를 추가한다
+	public void AddAdsSkipTimes(int a_nTimes) {
+		int nSkipTimes = this.AdsSkipTimes + a_nTimes;
+		this.AdsSkipTimes = Mathf.Clamp(nSkipTimes, KCDefine.B_VALUE_0_INT, KDefine.G_MAX_TIMES_ADS_SKIP);
+	}
+#endif			// #if ADS_MODULE_ENABLE
+	#endregion			// 조건부 함수
 }
 #endif			// #if NEVER_USE_THIS
