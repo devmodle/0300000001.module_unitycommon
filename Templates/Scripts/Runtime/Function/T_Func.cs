@@ -271,12 +271,12 @@ public static partial class Func {
 	private static void OnCompletePurchase(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, Func.m_oPurchaseCallback);
+			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oConfirmSender, a_oConfirmProductID, a_bIsConfirmSuccess) => {
+				CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oConfirmSender, a_oConfirmProductID, a_bIsConfirmSuccess);
+			});
 		} else {
-			Func.m_oPurchaseCallback?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+			CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oSender, a_oProductID, a_bIsSuccess);
 		}
-
-		Func.m_oPurchaseCallback = null;
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

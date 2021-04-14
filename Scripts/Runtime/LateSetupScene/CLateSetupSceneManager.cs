@@ -184,10 +184,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
 		CFunc.ShowLog("CLateSetupSceneManager.OnInitAdsManager: {0}, {1}", a_eAdsType, a_bIsSuccess);
 
-#if ADMOB_ENABLE
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-#if UNITY_IOS || UNITY_ANDROID
+#if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 			// 애드 몹 일 경우
 			if(a_eAdsType == EAdsType.ADMOB) {
 #if UNITY_IOS
@@ -196,11 +195,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				var oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobIDList;
 #endif			// #if UNITY_IOS
 
-				CUnityMsgSender.Inst.SendInitAdsMsg(CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID,
-					oAdmobIDList, CLateSetupSceneManager.OnInitAds);
+				CUnityMsgSender.Inst.SendInitAdsMsg(CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID, oAdmobIDList, CLateSetupSceneManager.OnInitAds);
 			}
-#endif			// #if UNITY_IOS || UNITY_ANDROID
-#endif			// #if ADMOB_ENABLE
+#endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 
 			// 광고 자동 로드 모드 일 경우
 			if(CLateSetupSceneManager.IsAutoLoadAds) {
@@ -241,7 +238,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
 			CFlurryManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-			CFlurryManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
+			CFlurryManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if FLURRY_MODULE_ENABLE
@@ -253,7 +250,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CTenjinManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
+			CTenjinManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if TENJIN_MODULE_ENABLE
@@ -265,7 +262,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CFacebookManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
+			CFacebookManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if FACEBOOK_MODULE_ENABLE
@@ -278,17 +275,17 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
 			CFirebaseManager.Inst.SetAnalyticsDatas(new Dictionary<string, string>() {
-				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
+				[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 			});
 
 			CFirebaseManager.Inst.SetCrashDatas(new Dictionary<string, string>() {
-				[KCDefine.U_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
+				[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 			});
 
 			CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 			CFirebaseManager.Inst.SetCrashUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 
-			CFirebaseManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
+			CFirebaseManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 			CFirebaseManager.Inst.StartTracking(KCDefine.U_TRACKING_N_APP_LAUNCH, null);
 
 #if FIREBASE_REMOTE_CONFIG_ENABLE
@@ -319,7 +316,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
 			CSingularManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-			CSingularManager.Inst.SendLog(KCDefine.U_LOG_N_APP_LAUNCH, null);
+			CSingularManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 		}
 	}
 #endif			// #if SINGULAR_MODULE_ENABLE
