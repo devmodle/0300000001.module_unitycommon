@@ -103,9 +103,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 #if ADS_MODULE_ENABLE
 	public int AdsSkipTimes { get; set; } = KCDefine.B_VALUE_0_INT;
-
-	public System.DateTime PrevFullscreenAdsTime { get; set; } = System.DateTime.Now;
-	public System.DateTime PrevResumeAdsTime { get; set; } = System.DateTime.Now;
+	public System.DateTime PrevAdsTime { get; set; } = System.DateTime.Now;
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 프로퍼티
 
@@ -212,6 +210,11 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
+	//! 광고 누적 횟수 갱신 가능 여부를 검사한다
+	public bool IsEnableUpdateAdsSkipTimes() {
+		return true;
+	}
+
 	//! 광고 누적 횟수를 추가한다
 	public void AddAdsSkipTimes(int a_nTimes) {
 		int nSkipTimes = this.AdsSkipTimes + a_nTimes;
