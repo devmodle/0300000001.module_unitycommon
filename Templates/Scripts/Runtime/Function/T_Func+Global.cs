@@ -48,9 +48,9 @@ public static partial class Func {
 			CUserInfoStorage.Inst.AddNumCoins(-a_stSaleItemInfo.m_nPrice);
 		}
 
-		CCommonUserInfoStorage.Inst.SaveUserInfo();
+		CUserInfoStorage.Inst.SaveUserInfo();
 	}
-
+	
 	//! 상점 팝업을 출력한다
 	public static void ShowStorePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CStorePopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
@@ -94,10 +94,21 @@ public static partial class Func {
 
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
-	//! 상품 결제가 완료 되었을 경우
-	public static void OnCompletePurchaseProduct(CPurchaseManager a_oSender, string a_oID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+	//! 상품을 획득한다
+	public static void AcquireProduct(string a_oProductID) {
+		int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
+		var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nIdx);
+
+		for(int i = 0; i < stSaleProductInfo.m_oItemInfoList.Count; ++i) {
+			Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[i]);
+		}
+	}
+
+	//! 결제가 완료 되었을 경우
+	public static void OnCompletePurchase(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
+			Func.AcquireProduct(a_oProductID);
 			Func.ShowPurchaseSuccessPopup(a_oCallback);
 		} else {
 			Func.ShowPurchaseFailPopup(a_oCallback);

@@ -53,12 +53,7 @@ public class CChangesPopup : CSubPopup {
 	private void OnCompletePurchase(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
-			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nIdx);
-
-			for(int i = 0; i < stSaleProductInfo.m_oItemInfoList.Count; ++i) {
-				Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[i]);
-			}
+			Func.OnCompletePurchase(a_oSender, a_oProductID, a_bIsSuccess, null);
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
