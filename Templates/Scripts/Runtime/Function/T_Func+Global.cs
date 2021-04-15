@@ -108,7 +108,6 @@ public static partial class Func {
 	public static void OnCompletePurchase(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			Func.AcquireProduct(a_oProductID);
 			Func.ShowPurchaseSuccessPopup(a_oCallback);
 		} else {
 			Func.ShowPurchaseFailPopup(a_oCallback);
