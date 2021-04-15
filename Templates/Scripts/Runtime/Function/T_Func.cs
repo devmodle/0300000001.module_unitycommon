@@ -117,7 +117,7 @@ public static partial class Func {
 
 	//! 전면 광고를 출력한다
 	public static void ShowFullscreenAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
-		float fDelay = CValueTable.Inst.GetFlt(KCDefine.VT_KEY_DEF_DELAY_FULLSCREEN_ADS);
+		float fDelay = CValueTable.Inst.GetFlt(KCDefine.VT_KEY_DEF_DELAY_ADS);
 		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevFullscreenAdsTime);
 
 		bool bIsEnableShow = dblDeltaTime.ExIsGreateEquals(fDelay) && CGameInfoStorage.Inst.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP;
@@ -141,7 +141,7 @@ public static partial class Func {
 
 	//! 재개 광고를 출력한다
 	public static void ShowResumeAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
-		float fDelay = CValueTable.Inst.GetFlt(KCDefine.VT_KEY_DEF_DELAY_RESUME_ADS);
+		float fDelay = CValueTable.Inst.GetFlt(KCDefine.VT_KEY_DEF_DELAY_ADS);
 		double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevResumeAdsTime);
 
 		bool bIsEnableShow = dblDeltaTime.ExIsGreateEquals(fDelay) && CGameInfoStorage.Inst.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP;
