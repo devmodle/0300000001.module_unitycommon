@@ -31,10 +31,10 @@ public enum EItemKinds {
 	// 부스터 10,000,000 (소모품)
 	CONSUMABLE_BOOSTER = EItemKinds.GOODS_COIN + 1000000,
 
-	// 게임 아이템 10,010,000 (소모품)
+	// 게임 아이템 10,010,000 (소모 상품)
 	CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_BOOSTER + 10000,
 
-	// 광고 제거 20,000,000 (비소모품)
+	// 광고 제거 20,000,000 (비소모 상품)
 	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.CONSUMABLE_BOOSTER + 1000000,
 
 	MAX_VALUE

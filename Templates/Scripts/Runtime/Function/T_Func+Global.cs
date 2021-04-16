@@ -97,10 +97,30 @@ public static partial class Func {
 	//! 상품을 획득한다
 	public static void AcquireProduct(string a_oProductID) {
 		int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
+
+		var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
 		var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nIdx);
 
 		for(int i = 0; i < stSaleProductInfo.m_oItemInfoList.Count; ++i) {
 			Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[i]);
+		}
+
+		// 비소모품 일 경우
+		if(oProduct != null && oProduct.definition.type == ProductType.NonConsumable) {
+			CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductID);
+			CCommonUserInfoStorage.Inst.SaveUserInfo();
+		}
+	}
+
+	//! 복원 상품을 획득한다
+	public static void AcquireRestoreProduct(List<Product> a_oProductList) {
+		for(int i = 0; i < a_oProductList.Count; ++i) {
+			int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i]);
+			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nIdx);
+
+			for(int j = 0; j < stSaleProductInfo.m_oItemInfoList.Count; ++j) {
+				Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[j]);
+			}
 		}
 	}
 
@@ -111,6 +131,16 @@ public static partial class Func {
 			Func.ShowPurchaseSuccessPopup(a_oCallback);
 		} else {
 			Func.ShowPurchaseFailPopup(a_oCallback);
+		}
+	}
+
+	//! 복원이 완료 되었을 경우
+	public static void OnCompleteRestore(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+		// 복원 되었을 경우
+		if(a_bIsSuccess) {
+			Func.ShowRestoreSuccessPopup(a_oCallback);
+		} else {
+			Func.ShowRestoreFailPopup(a_oCallback);
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE

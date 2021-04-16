@@ -264,6 +264,30 @@ public static partial class Func {
 		Func.ShowAlertPopup(stParams, a_oCallback);
 	}
 
+	//! 복원 성공 팝업을 출력한다
+	public static void ShowRestoreSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		var stParams = new CAlertPopup.STParams() {
+			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_PURCHASE_P_SUCCESS_MSG),
+			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oCancelBtnText = string.Empty
+		};
+
+		Func.ShowAlertPopup(stParams, a_oCallback);
+	}
+
+	//! 복원 실패 팝업을 출력한다
+	public static void ShowRestoreFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		var stParams = new CAlertPopup.STParams() {
+			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_PURCHASE_P_FAIL_MSG),
+			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oCancelBtnText = string.Empty
+		};
+
+		Func.ShowAlertPopup(stParams, a_oCallback);
+	}
+
 	//! 상품을 결제한다
 	public static void PurchaseProduct(int a_nID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
 		var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_nID);
