@@ -51,7 +51,14 @@ public class CStorePopup : CSubPopup {
 	//! 결제 버튼을 눌렀을 경우
 	private void OnTouchPurchaseBtn(int a_nID) {
 #if PURCHASE_MODULE_ENABLE
-		Func.PurchaseProduct(a_nID, this.OnCompletePurchase);
+		Func.PurchaseProduct(a_nID, this.OnPurchaseProduct);
+#endif			// #if PURCHASE_MODULE_ENABLE
+	}
+
+	//! 복원 버튼을 눌렀을 경우
+	private void OnTouchRestoreBtn() {
+#if PURCHASE_MODULE_ENABLE
+		Func.RestoreProducts(this.OnRestoreProducts);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수
@@ -72,12 +79,21 @@ public class CStorePopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-	//! 결제가 완료 되었을 경우
-	private void OnCompletePurchase(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+	//! 상품을 결제했을 경우
+	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireProduct(a_oProductID);
-			Func.OnCompletePurchase(a_oSender, a_oProductID, a_bIsSuccess, null);
+			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
+		}
+	}
+
+	//! 상품이 복원 되었을 경우
+	public void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
+		// 복원 되었을 경우
+		if(a_bIsSuccess) {
+			Func.AcquireRestoreProducts(a_oProductList);
+			Func.OnRestoreProduct(a_oSender, a_oProductList, a_bIsSuccess, null);
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE

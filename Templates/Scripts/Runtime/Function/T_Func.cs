@@ -20,6 +20,7 @@ public static partial class Func {
 
 #if PURCHASE_MODULE_ENABLE
 	private static System.Action<CPurchaseManager, string, bool> m_oPurchaseCallback = null;
+	private static System.Action<CPurchaseManager, List<Product>, bool> m_oRestoreCallback = null;
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 클래스 변수
 	
@@ -268,7 +269,7 @@ public static partial class Func {
 	public static void ShowRestoreSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
 			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
-			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_PURCHASE_P_SUCCESS_MSG),
+			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_RESTORE_P_SUCCESS_MSG),
 			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
 			m_oCancelBtnText = string.Empty
 		};
@@ -280,7 +281,7 @@ public static partial class Func {
 	public static void ShowRestoreFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
 			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
-			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_PURCHASE_P_FAIL_MSG),
+			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_RESTORE_P_FAIL_MSG),
 			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
 			m_oCancelBtnText = string.Empty
 		};
@@ -297,21 +298,41 @@ public static partial class Func {
 	//! 상품을 결제한다
 	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
 		CAccess.Assert(a_oID.ExIsValid());
-		Func.m_oPurchaseCallback = a_oCallback;
+		CIndicatorManager.Inst.Show(true);
 
-		CPurchaseManager.Inst.PurchaseProduct(a_oID, Func.OnCompletePurchase);
+		Func.m_oPurchaseCallback = a_oCallback;
+		CPurchaseManager.Inst.PurchaseProduct(a_oID, Func.OnPurchaseProduct);
 	}
 
-	//! 결제가 완료 되었을 경우
-	private static void OnCompletePurchase(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+	//! 상품을 복원한다
+	public static void RestoreProducts(System.Action<CPurchaseManager, List<Product>, bool> a_oCallback) {
+		CIndicatorManager.Inst.Show(true);
+
+		Func.m_oRestoreCallback = a_oCallback;
+		CPurchaseManager.Inst.RestoreProducts(Func.OnRestoreProducts);
+	}
+
+	//! 상품을 결제했을 경우
+	private static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
+			CIndicatorManager.Inst.Show(true);
+
 			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oConfirmSender, a_oConfirmProductID, a_bIsConfirmSuccess) => {
+				CIndicatorManager.Inst.Close();
 				CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oConfirmSender, a_oConfirmProductID, a_bIsConfirmSuccess);
 			});
 		} else {
 			CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oSender, a_oProductID, a_bIsSuccess);
 		}
+	}
+
+	//! 상품이 복원 되었을 경우
+	private static void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		CFunc.Invoke(ref Func.m_oRestoreCallback, a_oSender, a_oProductList, a_bIsSuccess);
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

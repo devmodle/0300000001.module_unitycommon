@@ -96,6 +96,7 @@ public static partial class Func {
 #if PURCHASE_MODULE_ENABLE
 	//! 상품을 획득한다
 	public static void AcquireProduct(string a_oProductID) {
+		CAccess.Assert(a_oProductID.ExIsValid());
 		int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
 
 		var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
@@ -114,18 +115,23 @@ public static partial class Func {
 
 	//! 복원 상품을 획득한다
 	public static void AcquireRestoreProduct(List<Product> a_oProductList) {
-		for(int i = 0; i < a_oProductList.Count; ++i) {
-			int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i]);
-			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nIdx);
+		CAccess.Assert(a_oProductList != null);
 
-			for(int j = 0; j < stSaleProductInfo.m_oItemInfoList.Count; ++j) {
-				Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[j]);
+		for(int i = 0; i < a_oProductList.Count; ++i) {
+			// 상품 복원이 가능 할 경우
+			if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProduct.definition.id)) {
+				int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i]);
+				var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nIdx);
+
+				for(int j = 0; j < stSaleProductInfo.m_oItemInfoList.Count; ++j) {
+					Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[j]);
+				}
 			}
 		}
 	}
 
-	//! 결제가 완료 되었을 경우
-	public static void OnCompletePurchase(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+	//! 상품을 결제했을 경우
+	public static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowPurchaseSuccessPopup(a_oCallback);
@@ -134,8 +140,8 @@ public static partial class Func {
 		}
 	}
 
-	//! 복원이 완료 되었을 경우
-	public static void OnCompleteRestore(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+	//! 상품이 복원 되었을 경우
+	public static void OnRestoreProducts(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowRestoreSuccessPopup(a_oCallback);

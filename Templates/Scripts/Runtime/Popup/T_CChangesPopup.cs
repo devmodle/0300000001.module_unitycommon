@@ -42,19 +42,19 @@ public class CChangesPopup : CSubPopup {
 	//! 결제 버튼을 눌렀을 경우
 	private void OnTouchPurchaseBtn() {
 #if PURCHASE_MODULE_ENABLE
-		Func.PurchaseProduct(KDefine.G_PRODUCT_ID_CHANGES, this.OnCompletePurchase);
+		Func.PurchaseProduct(KDefine.G_PRODUCT_ID_CHANGES, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수
 
 	#region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
-	//! 결제가 완료 되었을 경우
-	private void OnCompletePurchase(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+	//! 상품을 결제했을 경우
+	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireProduct(a_oProductID);
-			Func.OnCompletePurchase(a_oSender, a_oProductID, a_bIsSuccess, null);
+			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
