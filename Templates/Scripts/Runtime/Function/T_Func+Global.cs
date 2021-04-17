@@ -106,7 +106,7 @@ public static partial class Func {
 			Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[i]);
 		}
 
-		// 비소모품 일 경우
+		// 비소모 상품 일 경우
 		if(oProduct != null && oProduct.definition.type == ProductType.NonConsumable) {
 			CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductID);
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
