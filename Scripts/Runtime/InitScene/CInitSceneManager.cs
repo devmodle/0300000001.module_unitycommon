@@ -37,7 +37,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		this.SetupBlindUIs();
 
 		// 테이블을 로드한다
-		CValTable.Inst.LoadValuesFromRes(KCDefine.U_TABLE_P_G_COMMON_VAL);
+		CValTable.Inst.LoadValsFromRes(KCDefine.U_TABLE_P_G_COMMON_VAL);
 		CStrTable.Inst.LoadStrsFromRes(KCDefine.U_TABLE_P_G_COMMON_STR);
 
 		// 저장소를 로드한다

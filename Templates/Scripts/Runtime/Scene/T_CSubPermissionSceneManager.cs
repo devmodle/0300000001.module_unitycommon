@@ -17,8 +17,8 @@ public class CSubPermissionSceneManager : CPermissionSceneManager {
 #if UNITY_ANDROID
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			this.PermissionList.ExAddValue(Permission.ExternalStorageRead);
-			this.PermissionList.ExAddValue(Permission.ExternalStorageWrite);
+			this.PermissionList.ExAddVal(Permission.ExternalStorageRead);
+			this.PermissionList.ExAddVal(Permission.ExternalStorageWrite);
 		}
 #endif			// #if UNITY_ANDROID
 	}

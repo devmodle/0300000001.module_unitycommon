@@ -60,7 +60,7 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	
 	//! 판매 아이템 정보를 반환한다
 	public bool TryGetSaleItemInfo(ESaleItemKinds a_eSaleItemKinds, out STSaleItemInfo a_stOutSaleItemInfo) {
-		int nIdx = m_oSaleItemInfoList.ExFindValue((a_stSaleItemInfo) => a_stSaleItemInfo.m_eSaleItemKinds == a_eSaleItemKinds);
+		int nIdx = m_oSaleItemInfoList.ExFindVal((a_stSaleItemInfo) => a_stSaleItemInfo.m_eSaleItemKinds == a_eSaleItemKinds);
 		a_stOutSaleItemInfo = m_oSaleItemInfoList.ExIsValidIdx(nIdx) ? m_oSaleItemInfoList[nIdx] : KDefine.G_INVALID_SALE_ITEM_INFO;
 
 		return m_oSaleItemInfoList.ExIsValidIdx(nIdx);

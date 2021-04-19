@@ -17,14 +17,14 @@ public class CSampleSceneManager : CSceneManager {
 #if UNITY_EDITOR
 	//! 씬 관리자를 설정한다
 	public static void SetupSceneManager(Scene a_stScene, Dictionary<string, System.Type> a_oSceneManagerTypeList) {
-		foreach(var stKeyValue in a_oSceneManagerTypeList) {
+		foreach(var stKeyVal in a_oSceneManagerTypeList) {
 			// 씬 관리자 타입과 동일 할 경우
-			if(a_stScene.name.ExIsEquals(stKeyValue.Key)) {
+			if(a_stScene.name.ExIsEquals(stKeyVal.Key)) {
 				var oSceneManager = a_stScene.ExFindChild(KCDefine.U_OBJ_N_SCENE_MANAGER);
 
 				// 씬 관리자 추가가 필요 할 경우
-				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyValue.Value) == null) {
-					oSceneManager.AddComponent(stKeyValue.Value);
+				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyVal.Value) == null) {
+					oSceneManager.AddComponent(stKeyVal.Value);
 					oSceneManager.ExRemoveComponent<CSampleSceneManager>();
 					
 					EditorSceneManager.MarkSceneDirty(a_stScene);

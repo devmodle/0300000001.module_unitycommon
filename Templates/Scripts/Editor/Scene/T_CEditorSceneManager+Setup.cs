@@ -34,19 +34,19 @@ public static partial class CEditorSceneManager {
 	private static void SetupDependencies() {
 		var oPkgsInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
 
-		foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_LIST) {
-			int nIdx = oPkgsInfoList.ExFindValue((a_oPkgsInfo) => a_oPkgsInfo.name.ExIsEquals(stKeyValue.Key));
+		foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_LIST) {
+			int nIdx = oPkgsInfoList.ExFindVal((a_oPkgsInfo) => a_oPkgsInfo.name.ExIsEquals(stKeyVal.Key));
 
 			// 독립 패키지가 없을 경우
 			if(!oPkgsInfoList.ExIsValidIdx(nIdx)) {
 				// 버전이 유효 할 경우
-				if(stKeyValue.Value.ExIsValidBuildVer()) {
-					var oAddRequest = Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyValue.Key, stKeyValue.Value));
-					CEditorSceneManager.m_oAddRequestList.ExAddValue(oAddRequest);
+				if(stKeyVal.Value.ExIsValidBuildVer()) {
+					var oAddRequest = Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value));
+					CEditorSceneManager.m_oAddRequestList.ExAddVal(oAddRequest);
 				} else {
 #if !SAMPLE_PROJ
-					var oAddRequest = Client.Add(stKeyValue.Value);
-					CEditorSceneManager.m_oAddRequestList.ExAddValue(oAddRequest);
+					var oAddRequest = Client.Add(stKeyVal.Value);
+					CEditorSceneManager.m_oAddRequestList.ExAddVal(oAddRequest);
 #endif			// #if !SAMPLE_PROJ
 				}
 			}
@@ -65,15 +65,15 @@ public static partial class CEditorSceneManager {
 			var oScopedRegistryList = oJSONNode[KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY].AsArray;
 			oScopedRegistryList = oScopedRegistryList ?? new SimpleJSON.JSONArray();
 
-			foreach(var stKeyValue in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_LIST) {
-				int nIdx = oScopedRegistryList.AsArray.ExFindValue((a_oJSONNode) => {
+			foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_LIST) {
+				int nIdx = oScopedRegistryList.AsArray.ExFindVal((a_oJSONNode) => {
 					string oScopedRegistry = a_oJSONNode[KEditorDefine.B_UNITY_PKGS_N_KEY];
-					return stKeyValue.Key.ExIsEquals(oScopedRegistry);
+					return stKeyVal.Key.ExIsEquals(oScopedRegistry);
 				});
 
 				// 패키지 레지스트리가 없을 경우
 				if(!oScopedRegistryList.ExIsValidIdx(nIdx)) {
-					string oScopedRegistryStr = CFunc.ReadStr(stKeyValue.Value);
+					string oScopedRegistryStr = CFunc.ReadStr(stKeyVal.Value);
 					var oScopedRegistryNode = SimpleJSON.JSON.Parse(oScopedRegistryStr);
 
 					// 패키지 레지스트리 노드가 유효 할 경우

@@ -25,7 +25,7 @@ public abstract class CStartSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			SpriteAtlasList.ExAddValue(KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01);
+			SpriteAtlasList.ExAddVal(KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01);
 		}
 	}
 

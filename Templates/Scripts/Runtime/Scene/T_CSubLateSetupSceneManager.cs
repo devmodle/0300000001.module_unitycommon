@@ -24,9 +24,9 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 			// 유저 타입이 유효하지 않을 경우
 			if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
 #if AB_TEST_ENABLE
-				int nSumValue = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExToSumValue();
+				int nSumVal = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExToSumVal();
 			
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumValue % 2 != KCDefine.B_VAL_0_INT) ? 
+				CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % 2 != KCDefine.B_VAL_0_INT) ? 
 					EUserType.USER_A : EUserType.USER_B;
 #else
 				CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.USER_A;

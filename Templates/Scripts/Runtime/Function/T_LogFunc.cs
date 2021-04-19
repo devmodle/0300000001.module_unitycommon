@@ -11,7 +11,7 @@ using UnityEngine.Purchasing;
 public static partial class LogFunc {
 	#region 클래스 함수
 	//! 로그를 전송한다
-	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataList, float? a_oValue = null) {
+	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataList, float? a_oVal = null) {
 #if ANALYTICS_TEST_ENABLE
 		bool bIsEnableSendLog = true;
 #else
@@ -31,7 +31,7 @@ public static partial class LogFunc {
 #endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-			CFacebookManager.Inst.SendLog(a_oName, a_oDataList, a_oValue);
+			CFacebookManager.Inst.SendLog(a_oName, a_oDataList, a_oVal);
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE

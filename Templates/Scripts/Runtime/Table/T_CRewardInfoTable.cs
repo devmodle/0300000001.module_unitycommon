@@ -154,7 +154,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	//! 보상 정보를 반환한다
 	private bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo, List<STRewardInfo> a_oRewardInfoList) {
-		int nIdx = a_oRewardInfoList.ExFindValue((a_stRewardInfo) => a_stRewardInfo.m_eRewardKinds == a_eRewardKinds);
+		int nIdx = a_oRewardInfoList.ExFindVal((a_stRewardInfo) => a_stRewardInfo.m_eRewardKinds == a_eRewardKinds);
 		a_stOutRewardInfo = a_oRewardInfoList.ExIsValidIdx(nIdx) ? a_oRewardInfoList[nIdx] : KDefine.G_INVALID_REWARD_INFO;
 
 		return a_oRewardInfoList.ExIsValidIdx(nIdx);

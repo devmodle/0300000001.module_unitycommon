@@ -111,7 +111,7 @@ public static partial class CCommonEditorSceneManager {
 
 								// 객체 제거가 필요 할 경우
 								if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
-									oRemoveObjList.ExAddValue(oObj);
+									oRemoveObjList.ExAddVal(oObj);
 								}
 
 								// 스크립트 제거가 필요 할 경우
@@ -160,7 +160,7 @@ public static partial class CCommonEditorSceneManager {
 					var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_ORDER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
 
 					string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
-					oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerList.ExGetValue(oSortingLayer, string.Empty) : string.Empty;
+					oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerList.ExGetVal(oSortingLayer, string.Empty) : string.Empty;
 
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {

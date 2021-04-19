@@ -132,14 +132,14 @@ public static partial class CEditorSceneManager {
 					CPlatformOptsSetter.DefineSymbolTable.EditorGalaxyStoreDefineSymbolList
 				};
 
-				foreach(var stKeyValue in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULE_LIST) {
+				foreach(var stKeyVal in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULE_LIST) {
 					for(int i = 0; i < oDefineSymbolListContainer.Length; ++i) {
 						var oDefineSymbolList = oDefineSymbolListContainer[i];
 						
 						// 전처리기 심볼 갱신이 필요 할 경우
-						if(oDefineSymbolList.Contains(stKeyValue.Key)) {
+						if(oDefineSymbolList.Contains(stKeyVal.Key)) {
 							bIsNeedUpdate = true;
-							oDefineSymbolList.ExReplaceValue(stKeyValue.Key, stKeyValue.Value);
+							oDefineSymbolList.ExReplaceVal(stKeyVal.Key, stKeyVal.Value);
 						}
 					}
 				}

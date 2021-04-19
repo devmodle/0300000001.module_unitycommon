@@ -129,7 +129,7 @@ public static partial class CCommonEditorSceneManager {
 				if(oLogManager != null && oDebugLogItemList.ExIsValid()) {
 					var oSerializeObj = new SerializedObject(oLogManager);
 
-					oSerializeObj.ExSetPropertyValue(KCEditorDefine.B_PROPERTY_N_DEBUG_C_LOG_ITEM_PREFAB, (a_oProperty) => {
+					oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_DEBUG_C_LOG_ITEM_PREFAB, (a_oProperty) => {
 						var oDebugLogItem = oDebugLogItemList[KCDefine.B_VAL_0_INT];
 						a_oProperty.objectReferenceValue = oDebugLogItem;
 					});
@@ -215,7 +215,7 @@ public static partial class CCommonEditorSceneManager {
 
 				for(int i = 0; i < oPropertyInfos.Length; ++i) {
 					var oPropertyInfo = oPropertyInfos[i];
-					oLightingSettingsAsset.ExSetPropertyValue<LightingSettings>(oPropertyInfo.Name, KCDefine.B_BINDING_F_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
+					oLightingSettingsAsset.ExSetPropertyVal<LightingSettings>(oPropertyInfo.Name, KCDefine.B_BINDING_F_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
 				}
 
 				oLightingSettings = oLightingSettingsAsset;

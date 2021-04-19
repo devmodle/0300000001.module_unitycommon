@@ -74,7 +74,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_INTRO_SCENE);
-		int nIdx = m_oSceneNameList.ExFindValue((a_oSceneName) => CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));
+		int nIdx = m_oSceneNameList.ExFindVal((a_oSceneName) => CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));
 
 		this.ExLateCallFunc((a_oSender, a_oParams) => {
 			// 인트로 씬 로드가 필요 할 경우
@@ -91,7 +91,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 #if UNITY_ANDROID
 	//! 권한을 수신했을 경우
 	private void OnReceivePermission(string a_oPermission, bool a_bIsSuccess) {
-		this.PermissionList.ExRemoveValue(a_oPermission);
+		this.PermissionList.ExRemoveVal(a_oPermission);
 		this.CheckPermission();
 	}
 

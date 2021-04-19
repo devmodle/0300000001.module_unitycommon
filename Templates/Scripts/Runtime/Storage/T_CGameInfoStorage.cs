@@ -15,8 +15,8 @@ public sealed class CClearInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[IgnoreMember] public int ID {
-		get { return m_oIntList.ExGetValue(CClearInfo.KEY_ID, KCDefine.B_VAL_0_INT); }
-		set { m_oIntList.ExReplaceValue(CClearInfo.KEY_ID, value); }
+		get { return m_oIntList.ExGetVal(CClearInfo.KEY_ID, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CClearInfo.KEY_ID, value); }
 	}
 	#endregion			// 프로퍼티
 
@@ -48,24 +48,24 @@ public sealed class CGameInfo : CBaseInfo {
 	[IgnoreMember] public System.DateTime LastDailyRewardTime { get; set; } = System.DateTime.Now;
 
 	[IgnoreMember] public int DailyRewardID {
-		get { return m_oIntList.ExGetValue(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VAL_0_INT); }
-		set { m_oIntList.ExReplaceValue(CGameInfo.KEY_DAILY_REWARD_ID, value); }
+		get { return m_oIntList.ExGetVal(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CGameInfo.KEY_DAILY_REWARD_ID, value); }
 	}
 
 	[IgnoreMember] public int FreeRewardTimes {
-		get { return m_oIntList.ExGetValue(CGameInfo.KEY_FREE_REWARD_TIMES, KCDefine.B_VAL_0_INT); }
-		set { m_oIntList.ExReplaceValue(CGameInfo.KEY_FREE_REWARD_TIMES, value); }
+		get { return m_oIntList.ExGetVal(CGameInfo.KEY_FREE_REWARD_TIMES, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CGameInfo.KEY_FREE_REWARD_TIMES, value); }
 	}
 
-	[IgnoreMember] private string LastFreeRewardTimeStr => m_oStrList.ExGetValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, string.Empty);
-	[IgnoreMember] private string LastDailyRewardTimeStr => m_oStrList.ExGetValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string LastFreeRewardTimeStr => m_oStrList.ExGetVal(CGameInfo.KEY_LAST_FREE_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string LastDailyRewardTimeStr => m_oStrList.ExGetVal(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, string.Empty);
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
-		m_oStrList.ExReplaceValue(CGameInfo.KEY_LAST_FREE_REWARD_TIME, this.LastFreeRewardTime.ExToLongStr());
-		m_oStrList.ExReplaceValue(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, this.LastDailyRewardTime.ExToLongStr());
+		m_oStrList.ExReplaceVal(CGameInfo.KEY_LAST_FREE_REWARD_TIME, this.LastFreeRewardTime.ExToLongStr());
+		m_oStrList.ExReplaceVal(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, this.LastDailyRewardTime.ExToLongStr());
 	}
 
 	//! 역직렬화 되었을 경우
@@ -167,7 +167,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 선택 된 부스터를 추가한다
 	public void AddSelBooster(EItemKinds a_eBooster) {
-		this.SelBoosterList.ExAddValue(a_eBooster);
+		this.SelBoosterList.ExAddVal(a_eBooster);
 	}
 
 	//! 무료 보상 횟수를 추가한다
@@ -178,7 +178,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 완료 튜토리얼을 추가한다
 	public void AddCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
-		this.GameInfo.CompleteTutorialKindsList.ExAddValue(a_eTutorialKinds);
+		this.GameInfo.CompleteTutorialKindsList.ExAddVal(a_eTutorialKinds);
 	}
 
 	//! 게임 정보를 저장한다

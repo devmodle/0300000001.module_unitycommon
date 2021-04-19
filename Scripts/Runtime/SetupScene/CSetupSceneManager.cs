@@ -39,8 +39,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			m_oDeviceMsgHandlerList.ExAddValue(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
-			m_oDeviceMsgHandlerList.ExAddValue(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
+			m_oDeviceMsgHandlerList.ExAddVal(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
+			m_oDeviceMsgHandlerList.ExAddVal(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
 		}
 	}
 
