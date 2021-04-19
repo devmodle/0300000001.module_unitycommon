@@ -47,7 +47,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			} else {
 				// 무료 보상 획득이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableGetFreeReward()) {
-					CGameInfoStorage.Inst.GameInfo.FreeRewardTimes = KCDefine.B_VALUE_0_INT;
+					CGameInfoStorage.Inst.GameInfo.FreeRewardTimes = KCDefine.B_VAL_0_INT;
 					CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
 					
 					CGameInfoStorage.Inst.SaveGameInfo();

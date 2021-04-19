@@ -99,7 +99,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 	private void CheckPermission() {
 		// 권한이 필요 할 경우
 		if(this.PermissionList.ExIsValid()) {
-			string oPermission = this.PermissionList[KCDefine.B_VALUE_0_INT];
+			string oPermission = this.PermissionList[KCDefine.B_VAL_0_INT];
 			this.RequestPermission(oPermission);
 		} else {
 			this.LoadNextScene();

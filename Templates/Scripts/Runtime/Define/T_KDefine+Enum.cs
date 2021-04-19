@@ -18,7 +18,7 @@ public enum EItemType {
 	GOODS,
 	CONSUMABLE,
 	NON_CONSUMABLE,
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 아이템 종류
@@ -37,7 +37,7 @@ public enum EItemKinds {
 	// 광고 제거 20,000,000 (비소모 상품)
 	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_TYPE_TO_KINDS,
 
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 보상 타입
@@ -46,7 +46,7 @@ public enum ERewardType {
 	CLEAR,
 	FREE,
 	DAILY,
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 보상 종류
@@ -62,19 +62,19 @@ public enum ERewardKinds {
 	// 일일 보상 20,000,000 (일일 보상)
 	DAILY_REWARD = ERewardKinds.FREE_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
 
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 판매 아이템 타입
 public enum ESaleItemType {
 	NONE = -1,
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 판매 아이템 종류
 public enum ESaleItemKinds {
 	NONE = -1,
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 가격 타입
@@ -83,7 +83,7 @@ public enum EPriceType {
 	ADS,
 	GOODS,
 	PURCHASE,
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 가격 종류
@@ -96,7 +96,7 @@ public enum EPriceKinds {
 	// 코인 10,000,000 (재화)
 	GOODS_COIN = EPriceKinds.ADS_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
 	
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 보상 수준
@@ -105,7 +105,7 @@ public enum ERewardQuality {
 	NORM,
 	HIGH,
 	SPECIAL,
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 보상 팝업 타입
@@ -114,7 +114,7 @@ public enum ERewardPopupType {
 	CLEAR,
 	FREE,
 	DAILY,
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 튜토리얼 타입
@@ -122,13 +122,13 @@ public enum ETutorialType {
 	NONE = -1,
 	PLAY,
 	HELP,
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 튜토리얼 종류
 public enum ETutorialKinds {
 	NONE = -1,
-	MAX_VALUE
+	MAX_VAL
 }
 
 //! 레벨 모드
@@ -137,7 +137,7 @@ public enum ELevelMode {
 	EASY,
 	NORM,
 	HARD,
-	MAX_VALUE
+	MAX_VAL
 }
 #endregion			// 기본
 #endif			// #if NEVER_USE_THIS

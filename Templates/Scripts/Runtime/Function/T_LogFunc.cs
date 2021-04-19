@@ -49,7 +49,7 @@ public static partial class LogFunc {
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	//! 결제 로그를 전송한다
-	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VALUE_1_INT) {
+	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VAL_1_INT) {
 #if ANALYTICS_TEST_ENABLE
 		bool bIsEnableSendLog = true;
 #endif			// #if ANALYTICS_TEST_ENABLE

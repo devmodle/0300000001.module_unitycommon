@@ -26,8 +26,8 @@ public struct STSaleProductInfo {
 		m_oItemInfoList = new List<STItemInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_SALE_PIT_ITEM_INFOS; ++i) {
-			string oNumItemsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_NUM_ITEMS, i + KCDefine.B_VALUE_1_INT);
-			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_ITEM_KINDS, i + KCDefine.B_VALUE_1_INT);
+			string oNumItemsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
+			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
 			var stItemInfo = new STItemInfo() {
 				m_nNumItems = a_oNode[oNumItemsKey].AsInt,
@@ -60,7 +60,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	//! 판매 코인 개수를 반환한다
 	public int GetNumSaleCoins(int a_nID) {
 		bool bIsValid = this.TryGetItemInfo(a_nID, EItemKinds.GOODS_COIN, out STItemInfo stItemInfo);
-		return bIsValid ? stItemInfo.m_nNumItems : KCDefine.B_VALUE_0_INT;
+		return bIsValid ? stItemInfo.m_nNumItems : KCDefine.B_VAL_0_INT;
 	}
 
 	//! 판매 상품 정보를 반환한다

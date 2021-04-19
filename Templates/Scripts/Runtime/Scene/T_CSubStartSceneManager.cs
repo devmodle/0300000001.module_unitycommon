@@ -41,7 +41,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 			m_oLoadingGauge = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, KCDefine.SS_OBJ_P_LOADING_GAUGE, this.SubUIs, KDefine.SS_POS_LOADING_IMG_GAUGE);
 
 			m_oGaugeImg = m_oLoadingGauge.ExFindComponent<Image>(KCDefine.SS_OBJ_N_GAUGE_IMG);
-			m_oGaugeImg.fillAmount = KCDefine.B_VALUE_0_FLT;
+			m_oGaugeImg.fillAmount = KCDefine.B_VAL_0_FLT;
 			// 이미지를 설정한다 }
 		}
 	}
@@ -57,19 +57,19 @@ public class CSubStartSceneManager : CStartSceneManager {
 		base.OnUpdate(a_fDeltaTime);
 		m_fSkipTime += Time.deltaTime;
 
-		float fPercent = (KCDefine.B_VALUE_1_FLT * a_fDeltaTime) * KCDefine.SS_SCALE_LOADING;
-		m_oGaugeImg.fillAmount = Mathf.Clamp(m_oGaugeImg.fillAmount + fPercent, KCDefine.B_VALUE_0_FLT, m_fMaxPercent);
+		float fPercent = (KCDefine.B_VAL_1_FLT * a_fDeltaTime) * KCDefine.SS_SCALE_LOADING;
+		m_oGaugeImg.fillAmount = Mathf.Clamp(m_oGaugeImg.fillAmount + fPercent, KCDefine.B_VAL_0_FLT, m_fMaxPercent);
 
 		// 슬라이스 타입 게이지 일 경우
 		if(m_oGaugeImg.type == Image.Type.Sliced) {
 			var stSize = m_oGaugeImg.rectTransform.sizeDelta;
-			m_oGaugeImg.rectTransform.anchoredPosition = new Vector2(stSize.x * m_oGaugeImg.fillAmount, KCDefine.B_VALUE_0_FLT);
+			m_oGaugeImg.rectTransform.anchoredPosition = new Vector2(stSize.x * m_oGaugeImg.fillAmount, KCDefine.B_VAL_0_FLT);
 		}
 
 		// 텍스트 상태 갱신 주기가 지났을 경우
 		if(m_fSkipTime.ExIsGreateEquals(KCDefine.SS_DELTA_T_UPDATE_STATE)) {
-			m_nNumDots = (m_nNumDots + KCDefine.B_VALUE_1_INT) % KCDefine.SS_MAX_NUM_DOTS;
-			m_fSkipTime = KCDefine.B_VALUE_0_FLT;
+			m_nNumDots = (m_nNumDots + KCDefine.B_VAL_1_INT) % KCDefine.SS_MAX_NUM_DOTS;
+			m_fSkipTime = KCDefine.B_VAL_0_FLT;
 
 			this.UpdateTextsState();
 		}
@@ -77,10 +77,10 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	//! 시작 씬 이벤트를 수신했을 경우
 	protected override void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent) {
-		int nEvent = (int)a_eEvent + KCDefine.B_VALUE_1_INT;
-		float fPercent = nEvent / (float)((int)EStartSceneEvent.MAX_VALUE - KCDefine.B_VALUE_1_INT);
+		int nEvent = (int)a_eEvent + KCDefine.B_VAL_1_INT;
+		float fPercent = nEvent / (float)((int)EStartSceneEvent.MAX_VAL - KCDefine.B_VAL_1_INT);
 
-		m_fMaxPercent = Mathf.Clamp(fPercent, KCDefine.B_VALUE_0_FLT, KCDefine.B_VALUE_1_FLT);
+		m_fMaxPercent = Mathf.Clamp(fPercent, KCDefine.B_VAL_0_FLT, KCDefine.B_VAL_1_FLT);
 	}
 
 	//! 텍스트 상태를 갱신한다
@@ -91,7 +91,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_oStrBuilder.Clear();
 		m_oStrBuilder.Append(oLoadingStr);
 
-		for(int i = 0; i < m_nNumDots + KCDefine.B_VALUE_1_INT; ++i) {
+		for(int i = 0; i < m_nNumDots + KCDefine.B_VAL_1_INT; ++i) {
 			m_oStrBuilder.Append(oDotStr);
 		}
 

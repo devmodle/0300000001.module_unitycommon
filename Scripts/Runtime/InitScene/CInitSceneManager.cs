@@ -37,8 +37,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		this.SetupBlindUIs();
 
 		// 테이블을 로드한다
+		CValTable.Inst.LoadValuesFromRes(KCDefine.U_TABLE_P_G_COMMON_VAL);
 		CStrTable.Inst.LoadStrsFromRes(KCDefine.U_TABLE_P_G_COMMON_STR);
-		CValueTable.Inst.LoadValuesFromRes(KCDefine.U_TABLE_P_G_COMMON_VALUE);
 
 		// 저장소를 로드한다
 		CCommonAppInfoStorage.Inst.LoadAppInfo();
@@ -132,8 +132,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CDeviceMsgReceiver.Create();
 
 		// 테이블을 생성한다 {
+		CValTable.Create();
 		CStrTable.Create();
-		CValueTable.Create();
 
 		CBuildInfoTable.Create(KCDefine.U_ASSET_P_G_BUILD_INFO_TABLE);
 		CBuildOptsTable.Create(KCDefine.U_ASSET_P_G_BUILD_OPTS_TABLE);

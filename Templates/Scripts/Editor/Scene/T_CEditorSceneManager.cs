@@ -66,7 +66,7 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateSaleItemInfoTable();
 				EditorFactory.CreateSaleProductInfoTable();
 				
-				CEditorSceneManager.m_fSkipTime = KCDefine.B_VALUE_0_FLT;
+				CEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
 				
 				CFunc.EnumerateScenes((a_stScene) => {
 					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
@@ -100,7 +100,7 @@ public static partial class CEditorSceneManager {
 	//! 상태를 갱신한다
 	private static void LateUpdate() {
 		bool bIsEnableUpdate = CEditorSceneManager.m_bIsSetupDependencies;
-		bIsEnableUpdate = bIsEnableUpdate && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VALUE_0_INT;
+		bIsEnableUpdate = bIsEnableUpdate && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VAL_0_INT;
 
 		// 상태 갱신이 가능 할 경우
 		if(bIsEnableUpdate && CEditorAccess.IsEnableUpdateState()) {
@@ -114,7 +114,7 @@ public static partial class CEditorSceneManager {
 				bool bIsNeedUpdate = false;
 
 				CEditorSceneManager.m_bIsSetupDependencies = false;
-				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VALUE_0_FLT;
+				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
 
 				var oDefineSymbolListContainer = new List<string>[] {
 					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,

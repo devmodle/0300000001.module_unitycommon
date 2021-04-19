@@ -33,7 +33,7 @@ public class CFreeRewardPopup : CSubPopup {
 
 	//! 보상 팝업이 닫혔을 경우
 	private void OnCloseRewardPopup(CPopup a_oSender) {
-		CGameInfoStorage.Inst.AddFreeRewardTimes(KCDefine.B_VALUE_1_INT);
+		CGameInfoStorage.Inst.AddFreeRewardTimes(KCDefine.B_VAL_1_INT);
 
 		// 무료 보상을 모두 획득했을 경우
 		if(CGameInfoStorage.Inst.GameInfo.FreeRewardTimes >= CRewardInfoTable.Inst.FreeRewardInfoList.Count) {
@@ -45,7 +45,7 @@ public class CFreeRewardPopup : CSubPopup {
 
 	//! 보상 팝업을 출력한다
 	private void ShowRewardPopup() {
-		var eRewardKinds = ERewardKinds.FREE_REWARD + (CGameInfoStorage.Inst.GameInfo.FreeRewardTimes + KCDefine.B_VALUE_1_INT);
+		var eRewardKinds = ERewardKinds.FREE_REWARD + (CGameInfoStorage.Inst.GameInfo.FreeRewardTimes + KCDefine.B_VAL_1_INT);
 		var stRewardInfo = CRewardInfoTable.Inst.GetFreeRewardInfo(eRewardKinds);
 
 		Func.ShowRewardPopup(this.transform.parent.gameObject, (a_oPopup) => {

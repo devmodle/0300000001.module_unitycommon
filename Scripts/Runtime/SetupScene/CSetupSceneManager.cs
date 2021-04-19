@@ -107,11 +107,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
 
 		// 디바이스 정보를 설정한다 {
-		int nQualityLevel = CValueTable.Inst.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
-		int nTargetFrameRate = CValueTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE);
+		int nQualityLevel = CValTable.Inst.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
+		int nTargetFrameRate = CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE);
 
 #if UNITY_IOS || UNITY_ANDROID
-		nTargetFrameRate = CValueTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
+		nTargetFrameRate = CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
 #else
 		// 데스크 탑 일 경우
 		if(CAccess.IsDesktop()) {
@@ -121,11 +121,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			Screen.SetResolution(nScreenWidth, nScreenHeight, CBuildOptsTable.Inst.StandaloneBuildOpts.m_eFullscreenMode);
 		} else {
 			string oKey = CAccess.IsConsole() ? KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;	
-			nTargetFrameRate = CValueTable.Inst.GetInt(oKey);
+			nTargetFrameRate = CValTable.Inst.GetInt(oKey);
 		}
 #endif			// #if UNITY_IOS || UNITY_ANDROID
 
-		Input.multiTouchEnabled = CValueTable.Inst.GetBool(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE);
+		Input.multiTouchEnabled = CValTable.Inst.GetBool(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE);
 		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);
 		
 		CFunc.SetupQuality((EQualityLevel)nQualityLevel, true);

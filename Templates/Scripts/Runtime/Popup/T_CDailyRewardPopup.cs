@@ -25,7 +25,7 @@ public class CDailyRewardPopup : CSubPopup {
 	private void UpdateUIsState() {
 		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
 			var oRewardUIs = m_oRewardUIsList[i];
-			var stDailyRewardInfo = CRewardInfoTable.Inst.GetDailyRewardInfo(ERewardKinds.DAILY_REWARD + (i + KCDefine.B_VALUE_1_INT));
+			var stDailyRewardInfo = CRewardInfoTable.Inst.GetDailyRewardInfo(ERewardKinds.DAILY_REWARD + (i + KCDefine.B_VAL_1_INT));
 
 			this.UpdateRewardUIsState(oRewardUIs, stDailyRewardInfo);
 		}

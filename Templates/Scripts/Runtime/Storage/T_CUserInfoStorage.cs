@@ -18,12 +18,12 @@ public sealed class CUserInfo : CBaseInfo {
 	[Key(71)] public Dictionary<EItemKinds, int> NumItemsList { get; set; } = new Dictionary<EItemKinds, int>();
 	
 	[IgnoreMember] public int NumCoins {
-		get { return m_oIntList.ExGetValue(CUserInfo.KEY_NUM_COINS, KCDefine.B_VALUE_0_INT); } 
+		get { return m_oIntList.ExGetValue(CUserInfo.KEY_NUM_COINS, KCDefine.B_VAL_0_INT); } 
 		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_NUM_COINS, value); }
 	}
 
 	[IgnoreMember] public int NumChanges {
-		get { return m_oIntList.ExGetValue(CUserInfo.KEY_NUM_CHANGES, KCDefine.B_VALUE_0_INT); }
+		get { return m_oIntList.ExGetValue(CUserInfo.KEY_NUM_CHANGES, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceValue(CUserInfo.KEY_NUM_CHANGES, value); }
 	}
 	#endregion			// 프로퍼티
@@ -53,25 +53,25 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 함수
 	//! 아이템 개수를 반환한다
 	public int GetNumItems(EItemKinds a_eItemKinds) {
-		return this.UserInfo.NumItemsList.ExGetValue(a_eItemKinds, KCDefine.B_VALUE_0_INT);
+		return this.UserInfo.NumItemsList.ExGetValue(a_eItemKinds, KCDefine.B_VAL_0_INT);
 	}
 
 	//! 코인 개수를 추가한다
 	public void AddNumCoins(int a_nNumCoins) {
 		int nNumCoins = this.UserInfo.NumCoins + a_nNumCoins;
-		this.UserInfo.NumCoins = Mathf.Clamp(nNumCoins, KCDefine.B_VALUE_0_INT, int.MaxValue);
+		this.UserInfo.NumCoins = Mathf.Clamp(nNumCoins, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 
 	//! 잔돈 개수를 추가한다
 	public void AddNumChanges(int a_nNumChanges) {
 		int nNumChanges = this.UserInfo.NumChanges + a_nNumChanges;
-		this.UserInfo.NumChanges = Mathf.Clamp(nNumChanges, KCDefine.B_VALUE_0_INT, KDefine.G_MAX_NUM_CHANGES);
+		this.UserInfo.NumChanges = Mathf.Clamp(nNumChanges, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_CHANGES);
 	}
 	
 	//! 아이템 개수를 추가한다
 	public void AddNumItems(EItemKinds a_eItemKinds, int a_nNumItems) {
 		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
-		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VALUE_0_INT, int.MaxValue);
+		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue);
 
 		this.UserInfo.NumItemsList.ExReplaceValue(a_eItemKinds, nNumItems);
 	}
