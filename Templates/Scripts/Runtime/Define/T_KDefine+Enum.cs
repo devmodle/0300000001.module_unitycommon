@@ -50,13 +50,13 @@ public enum EItemKinds {
 	// 코인 0 (재화)
 	GOODS_COIN,
 
-	// 부스터 10,000,000 (소모 상품)
+	// 부스터 10,000,000 (소모 아이템)
 	CONSUMABLE_BOOSTER = EItemKinds.GOODS_COIN + KCDefine.B_UNIT_TYPE_TO_KINDS,
 
-	// 게임 아이템 10,010,000 (소모 상품)
+	// 게임 아이템 10,010,000 (소모 아이템)
 	CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
 
-	// 광고 제거 20,000,000 (비소모 상품)
+	// 광고 제거 20,000,000 (비소모 아이템)
 	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_TYPE_TO_KINDS,
 
 	MAX_VAL
@@ -65,12 +65,45 @@ public enum EItemKinds {
 //! 판매 아이템 타입
 public enum ESaleItemType {
 	NONE = -1,
+	BOOSTER,
+	GAME_ITEM,
 	MAX_VAL
 }
 
 //! 판매 아이템 종류
 public enum ESaleItemKinds {
 	NONE = -1,
+
+	// 부스터 0 (부스터 판매 아이템)
+	BOOSTER_SALE_ITEM,
+
+	// 게임 아이템 10,000,000 (게임 아이템 판매 아이템)
+	GAME_ITEM_SALE_ITEM = ESaleItemKinds.BOOSTER_SALE_ITEM + KCDefine.B_UNIT_TYPE_TO_KINDS,
+
+	MAX_VAL
+}
+
+//! 판매 상품 타입
+public enum ESaleProductType {
+	NONE = -1,
+	PKG,
+	SINGLE,
+	MAX_VAL
+}
+
+//! 판매 상품 종류
+public enum ESaleProductKinds {
+	NONE = -1,
+
+	// 패키지 상품 0 (패키지 상품)
+	PKG_PRODUCT,
+
+	// 잔돈 상품 10,000,000 (단일 상품)
+	SINGLE_CHANGES = ESaleProductKinds.PKG_PRODUCT + KCDefine.B_UNIT_TYPE_TO_KINDS,
+
+	// 광고 제거 상품 10,010,000 (단일 상품)
+	SINGLE_REMOVE_ADS = ESaleProductKinds.SINGLE_CHANGES + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+
 	MAX_VAL
 }
 

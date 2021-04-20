@@ -149,7 +149,7 @@ public static partial class KEditorDefine {
 		["com.unity.formats.fbx"] = "4.0.1",
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.inputsystem"] = "1.0.2",
-		["com.unity.addressables"] = "1.16.16",
+		["com.unity.addressables"] = "1.16.19",
 		["com.unity.2d.spriteshape"] = "6.0.0",
 
 		// 애니메이션

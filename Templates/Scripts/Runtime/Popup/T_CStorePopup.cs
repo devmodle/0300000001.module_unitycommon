@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
+#if PURCHASE_MODULE_ENABLE
+using UnityEngine.Purchasing;
+#endif			// #if PURCHASE_MODULE_ENABLE
+
 //! 상점 팝업
 public class CStorePopup : CSubPopup {
 	#region 변수
-	private int m_nAdsProductID = 0;
+	private ESaleProductKinds m_eAdsProductKinds = ESaleProductKinds.NONE;
 	#endregion			// 변수
 
 	#region 객체
@@ -29,7 +33,8 @@ public class CStorePopup : CSubPopup {
 	private void UpdateUIsState() {
 		for(int i = 0; i < m_oProductUIsList.Count; ++i) {
 			var oProductUIs = m_oProductUIsList[i];
-			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(i);
+			var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[i];
+			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
 
 			this.UpdateProductUIsState(oProductUIs, stSaleProductInfo);
 		}
@@ -41,17 +46,17 @@ public class CStorePopup : CSubPopup {
 	}
 
 	//! 광고 버튼을 눌렀을 경우
-	private void OnTouchAdsBtn(int a_nID) {
+	private void OnTouchAdsBtn(ESaleProductKinds a_eSaleProductKinds) {
 #if ADS_MODULE_ENABLE
-		m_nAdsProductID = a_nID;
+		m_eAdsProductKinds = a_eSaleProductKinds;
 		Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
 	//! 결제 버튼을 눌렀을 경우
-	private void OnTouchPurchaseBtn(int a_nID) {
+	private void OnTouchPurchaseBtn(ESaleProductKinds a_eSaleProductKinds) {
 #if PURCHASE_MODULE_ENABLE
-		Func.PurchaseProduct(a_nID, this.OnPurchaseProduct);
+		Func.PurchaseProduct(a_eSaleProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 
@@ -69,7 +74,7 @@ public class CStorePopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(m_nAdsProductID);
+			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(m_eAdsProductKinds);
 
 			for(int i = 0; i < stSaleProductInfo.m_oItemInfoList.Count; ++i) {
 				Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[i]);
@@ -93,7 +98,7 @@ public class CStorePopup : CSubPopup {
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireRestoreProducts(a_oProductList);
-			Func.OnRestoreProduct(a_oSender, a_oProductList, a_bIsSuccess, null);
+			Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE

@@ -100,7 +100,8 @@ public static partial class Func {
 		int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
 
 		var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
-		var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nIdx);
+		var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[nIdx];
+		var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
 
 		for(int i = 0; i < stSaleProductInfo.m_oItemInfoList.Count; ++i) {
 			Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[i]);
@@ -114,14 +115,15 @@ public static partial class Func {
 	}
 
 	//! 복원 상품을 획득한다
-	public static void AcquireRestoreProduct(List<Product> a_oProductList) {
+	public static void AcquireRestoreProducts(List<Product> a_oProductList) {
 		CAccess.Assert(a_oProductList != null);
 
 		for(int i = 0; i < a_oProductList.Count; ++i) {
 			// 상품 복원이 가능 할 경우
-			if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProduct.definition.id)) {
-				int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i]);
-				var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(nIdx);
+			if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
+				int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
+				var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[nIdx];
+				var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
 
 				for(int j = 0; j < stSaleProductInfo.m_oItemInfoList.Count; ++j) {
 					Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[j]);
@@ -141,7 +143,7 @@ public static partial class Func {
 	}
 
 	//! 상품이 복원 되었을 경우
-	public static void OnRestoreProducts(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+	public static void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowRestoreSuccessPopup(a_oCallback);

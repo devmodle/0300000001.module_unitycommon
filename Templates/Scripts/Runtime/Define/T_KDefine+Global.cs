@@ -26,17 +26,23 @@ public static partial class KDefine {
 	public const string G_KEY_SALE_IIT_DESC = "Desc";
 
 	public const string G_KEY_SALE_IIT_PRICE = "Price";
+
+	public const string G_KEY_SALE_IIT_SALE_ITEM_TYPE = "SaleItemType";
+	public const string G_KEY_SALE_IIT_SALE_ITEM_KINDS = "SaleItemKinds";
+
 	public const string G_KEY_SALE_IIT_PRICE_TYPE = "PriceType";
 	public const string G_KEY_SALE_IIT_PRICE_KINDS = "PriceKinds";
 
 	public const string G_KEY_SALE_IIT_NUM_ITEMS = "NumItems";
 	public const string G_KEY_SALE_IIT_ITEM_KINDS = "ItemKinds";
-	public const string G_KEY_SALE_IIT_SALE_ITEM_KINDS = "SaleItemKinds";
 	// 판매 아이템 정보 테이블 }
 
 	// 판매 상품 정보 테이블 {
 	public const string G_KEY_SALE_PIT_NAME = "Name";
 	public const string G_KEY_SALE_PIT_DESC = "Desc";
+
+	public const string G_KEY_SALE_PIT_SALE_PRODUCT_TYPE = "SaleProductType";
+	public const string G_KEY_SALE_PIT_SALE_PRODUCT_KINDS = "SaleProductKinds";
 
 	public const string G_KEY_SALE_PIT_PRICE_TYPE = "PriceType";
 	public const string G_KEY_SALE_PIT_PRICE_KINDS = "PriceKinds";
@@ -160,6 +166,13 @@ public static partial class KDefine {
 	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
 #endif			// #if UNITY_EDITOR
 	// 경로 }
+
+	// 판매 상품 정보 테이블
+	public static readonly ESaleProductKinds[] G_KINDS_SALE_PIT_SALE_PRODUCTS = new ESaleProductKinds[] {
+		ESaleProductKinds.PKG_PRODUCT,
+		ESaleProductKinds.SINGLE_CHANGES,
+		ESaleProductKinds.SINGLE_REMOVE_ADS
+	};
 
 	// 보상 정보 테이블
 	public static readonly ERewardKinds[] G_KINDS_REWARD_IT_DAILY_REWARDS = new ERewardKinds[] {

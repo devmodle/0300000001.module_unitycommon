@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
+#if PURCHASE_MODULE_ENABLE
+using UnityEngine.Purchasing;
+#endif			// #if PURCHASE_MODULE_ENABLE
+
 //! 기본 함수
 public static partial class Func {
 	#region 클래스 변수
@@ -293,6 +297,14 @@ public static partial class Func {
 	public static void PurchaseProduct(int a_nID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
 		var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_nID);
 		Func.PurchaseProduct(stProductInfo.m_oID, a_oCallback);
+	}
+
+	//! 상품을 결제한다
+	public static void PurchaseProduct(ESaleProductKinds a_eSaleProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+		int nIdx = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExFindVal((a_eCompareSaleProductKinds) => a_eSaleProductKinds == a_eCompareSaleProductKinds);
+		CAccess.Assert(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nIdx));
+
+		Func.PurchaseProduct(nIdx, a_oCallback);
 	}
 	
 	//! 상품을 결제한다

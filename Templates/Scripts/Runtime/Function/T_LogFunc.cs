@@ -52,6 +52,8 @@ public static partial class LogFunc {
 	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VAL_1_INT) {
 #if ANALYTICS_TEST_ENABLE
 		bool bIsEnableSendLog = true;
+#else
+		bool bIsEnableSendLog = false;
 #endif			// #if ANALYTICS_TEST_ENABLE
 
 		// 로그 전송이 가능 할 경우

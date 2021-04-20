@@ -7,28 +7,32 @@ using UnityEngine;
 //! 판매 아이템 정보
 [System.Serializable]
 public struct STSaleItemInfo {
-	public int m_nPrice;
-
 	public string m_oName;
 	public string m_oDesc;
+
+	public int m_nPrice;
+
+	public ESaleItemType m_eSaleItemType;
+	public ESaleItemKinds m_eSaleItemKinds;
 
 	public EPriceType m_ePriceType;
 	public EPriceKinds m_ePriceKinds;
 
-	public ESaleItemKinds m_eSaleItemKinds;
 	public STItemInfo m_stItemInfo;
 
 	#region 함수
 	//! 생성자
 	public STSaleItemInfo(SimpleJSON.JSONNode a_oSaleItemInfo) {
-		m_nPrice = a_oNode[KDefine.G_KEY_SALE_IIT_PRICE].AsInt;
-
 		m_oName = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_NAME];
 		m_oDesc = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_DESC];
 
+		m_nPrice = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE].AsInt;
+
+		m_eSaleItemType = (ESaleItemType)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_TYPE].AsInt;
+		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;
+
 		m_ePriceType = (EPriceType)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE_TYPE].AsInt;
 		m_ePriceKinds = (EPriceKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE_KINDS].AsInt;
-		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;
 
 		m_stItemInfo = new STItemInfo() {
 			m_nNumItems = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_NUM_ITEMS].AsInt,
@@ -46,10 +50,16 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public List<STSaleItemInfo> SaleItemInfoList => m_oSaleItemInfoList;
+	public Dictionary<ESaleItemKinds, STSaleItemInfo> SaleItemInfoList { get; set; } = new Dictionary<ESaleItemKinds, STSaleItemInfo>();
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 초기화
+	public override void Awake() {
+		base.Awake();
+		this.SetupSaleItemInfos(m_oSaleItemInfoList, this.SaleItemInfoList);
+	}
+
 	//! 판매 아이템 정보를 반환한다
 	public STSaleItemInfo GetSaleItemInfo(ESaleItemKinds a_eSaleItemKinds) {
 		bool bIsValid = this.TryGetSaleItemInfo(a_eSaleItemKinds, out STSaleItemInfo stSaleItemInfo);
@@ -60,13 +70,11 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	
 	//! 판매 아이템 정보를 반환한다
 	public bool TryGetSaleItemInfo(ESaleItemKinds a_eSaleItemKinds, out STSaleItemInfo a_stOutSaleItemInfo) {
-		int nIdx = m_oSaleItemInfoList.ExFindVal((a_stSaleItemInfo) => a_stSaleItemInfo.m_eSaleItemKinds == a_eSaleItemKinds);
-		a_stOutSaleItemInfo = m_oSaleItemInfoList.ExIsValidIdx(nIdx) ? m_oSaleItemInfoList[nIdx] : KDefine.G_INVALID_SALE_ITEM_INFO;
-
-		return m_oSaleItemInfoList.ExIsValidIdx(nIdx);
+		a_stOutSaleItemInfo = this.SaleItemInfoList.ExGetVal(a_eSaleItemKinds, KDefine.G_INVALID_SALE_ITEM_INFO);
+		return this.SaleItemInfoList.ContainsKey(a_eSaleItemKinds);
 	}
 
-	public List<STSaleItemInfo> LoadSaleItemInfos(string a_oJSONStr) {
+	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
@@ -74,14 +82,18 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 
 		for(int i = 0; i < oSaleItemInfos.Count; ++i) {
 			var stSaleItemInfo = new STSaleItemInfo(oSaleItemInfos[i]);
-			m_oSaleItemInfoList.Add(stSaleItemInfo);
+			this.SaleItemInfoList.Add(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
 		}
 
-		return m_oSaleItemInfoList;
+#if UNITY_EDITOR
+		this.SetupSaleItemInfoList(this.SaleItemInfoList, m_oSaleItemInfoList);
+#endif			// #if UNITY_EDITOR
+
+		return this.SaleItemInfoList;
 	}
 
 	//! 판매 아이템 정보를 로드한다
-	public List<STSaleItemInfo> LoadSaleItemInfosFromFile(string a_oFilePath) {
+	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfosFromFile(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
 
@@ -89,7 +101,7 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	}
 
 	//! 판매 아이템 정보를 로드한다
-	public List<STSaleItemInfo> LoadSaleItemInfosFromRes(string a_oFilePath) {
+	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfosFromRes(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
 		try {
@@ -99,6 +111,32 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
 	}
+
+	//! 판매 아이템 정보를 설정한다
+	private void SetupSaleItemInfos(List<STSaleItemInfo> a_oSaleItemInfoList, Dictionary<ESaleItemKinds, STSaleItemInfo> a_oOutSaleItemInfoList) {
+		CAccess.Assert(a_oSaleItemInfoList != null && a_oOutSaleItemInfoList != null);
+
+		for(int i = 0; i < a_oSaleItemInfoList.Count; ++i) {
+			var stSaleItemInfo = a_oSaleItemInfoList[i];
+			a_oOutSaleItemInfoList.Add(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
+		}
+	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if UNITY_EDITOR
+	// 판매 아이템 정보를 설정한다
+	private void SetupSaleItemInfoList(Dictionary<ESaleItemKinds, STSaleItemInfo> a_oSaleItemInfoList, List<STSaleItemInfo> a_oOutSaleItemInfoList) {
+		CAccess.Assert(a_oSaleItemInfoList != null && a_oOutSaleItemInfoList != null);
+		a_oOutSaleItemInfoList.Clear();
+
+		foreach(var stKeyVal in a_oSaleItemInfoList) {
+			a_oOutSaleItemInfoList.Add(stKeyVal.Value);
+		}
+
+		a_oOutSaleItemInfoList.Sort((a_stLhs, a_stRhs) => (int)a_stLhs.m_eSaleItemKinds - (int)a_stRhs.m_eSaleItemKinds);
+	}
+#endif			// #if UNITY_EDITOR
+	#endregion			// 조건부 함수
 }
 #endif			// #if NEVER_USE_THIS
