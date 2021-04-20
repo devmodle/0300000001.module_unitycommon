@@ -16,12 +16,12 @@ public struct STSaleProductInfo {
 
 	#region 함수
 	//! 생성자
-	public STSaleProductInfo(SimpleJSON.JSONNode a_oNode) {
-		m_oName = a_oNode[KDefine.G_KEY_SALE_PIT_NAME];
-		m_oDesc = a_oNode[KDefine.G_KEY_SALE_PIT_DESC];
+	public STSaleProductInfo(SimpleJSON.JSONNode a_oSaleProductInfo) {
+		m_oName = a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_NAME];
+		m_oDesc = a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_DESC];
 
-		m_ePriceType = (EPriceType)a_oNode[KDefine.G_KEY_SALE_PIT_PRICE_TYPE].AsInt;
-		m_ePriceKinds = (EPriceKinds)a_oNode[KDefine.G_KEY_SALE_PIT_PRICE_KINDS].AsInt;
+		m_ePriceType = (EPriceType)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_PRICE_TYPE].AsInt;
+		m_ePriceKinds = (EPriceKinds)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_PRICE_KINDS].AsInt;
 
 		m_oItemInfoList = new List<STItemInfo>();
 
@@ -30,8 +30,8 @@ public struct STSaleProductInfo {
 			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
 			var stItemInfo = new STItemInfo() {
-				m_nNumItems = a_oNode[oNumItemsKey].AsInt,
-				m_eItemKinds = (EItemKinds)a_oNode[oItemKindsKey].AsInt
+				m_nNumItems = a_oSaleProductInfo[oNumItemsKey].AsInt,
+				m_eItemKinds = (EItemKinds)a_oSaleProductInfo[oItemKindsKey].AsInt
 			};
 
 			m_oItemInfoList.Add(stItemInfo);

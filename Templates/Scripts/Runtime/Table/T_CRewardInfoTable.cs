@@ -16,12 +16,12 @@ public struct STRewardInfo {
 
 	#region 함수
 	//! 생성자
-	public STRewardInfo(SimpleJSON.JSONNode a_oNode) {
-		m_oName = a_oNode[KDefine.G_KEY_REWARD_IT_NAME];
-		m_oDesc = a_oNode[KDefine.G_KEY_REWARD_IT_DESC];
+	public STRewardInfo(SimpleJSON.JSONNode a_oRewardInfo) {
+		m_oName = a_oRewardInfo[KDefine.G_KEY_REWARD_IT_NAME];
+		m_oDesc = a_oRewardInfo[KDefine.G_KEY_REWARD_IT_DESC];
 
-		m_eRewardType = (ERewardType)a_oNode[KDefine.G_KEY_REWARD_IT_REWARD_TYPE].AsInt;
-		m_eRewardKinds = (ERewardKinds)a_oNode[KDefine.G_KEY_REWARD_IT_REWARD_KINDS].AsInt;
+		m_eRewardType = (ERewardType)a_oRewardInfo[KDefine.G_KEY_REWARD_IT_REWARD_TYPE].AsInt;
+		m_eRewardKinds = (ERewardKinds)a_oRewardInfo[KDefine.G_KEY_REWARD_IT_REWARD_KINDS].AsInt;
 
 		m_oItemInfoList = new List<STItemInfo>();
 
@@ -30,8 +30,8 @@ public struct STRewardInfo {
 			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_REWARD_IT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
 			var stItemInfo = new STItemInfo() {
-				m_nNumItems = a_oNode[oNumItemsKey].AsInt,
-				m_eItemKinds = (EItemKinds)a_oNode[oItemKindsKey].AsInt
+				m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt,
+				m_eItemKinds = (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt
 			};
 
 			m_oItemInfoList.Add(stItemInfo);
@@ -43,156 +43,137 @@ public struct STRewardInfo {
 //! 보상 정보 테이블
 public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	#region 변수
-	[Header("Clear Reward Info")]
-	[SerializeField] private List<STRewardInfo> m_oClearRewardInfoList = new List<STRewardInfo>();
-
 	[Header("Free Reward Info")]
 	[SerializeField] private List<STRewardInfo> m_oFreeRewardInfoList = new List<STRewardInfo>();
 
 	[Header("Daily Reward Info")]
 	[SerializeField] private List<STRewardInfo> m_oDailyRewardInfoList = new List<STRewardInfo>();
+
+	[Header("Clear Reward Info")]
+	[SerializeField] private List<STRewardInfo> m_oClearRewardInfoList = new List<STRewardInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public List<STRewardInfo> ClearRewardInfoList => m_oClearRewardInfoList;
-	public List<STRewardInfo> FreeRewardInfoList => m_oFreeRewardInfoList;
-	public List<STRewardInfo> DailyRewardInfoList => m_oDailyRewardInfoList;
+	public Dictionary<ERewardKinds, STRewardInfo> FreeRewardInfoList { get; set; } = new Dictionary<ERewardKinds, STRewardInfo>();
+	public Dictionary<ERewardKinds, STRewardInfo> DailyRewardInfoList { get; set; } = new Dictionary<ERewardKinds, STRewardInfo>();
+	public Dictionary<ERewardKinds, STRewardInfo> ClearRewardInfoList { get; set; } = new Dictionary<ERewardKinds, STRewardInfo>();
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 보상 정보를 반환한다
-	public STRewardInfo GetClearRewardInfo(ERewardKinds a_eRewardKinds) {
-		return this.GetRewardInfo(a_eRewardKinds, m_oClearRewardInfoList);
+	//! 초기화
+	public override void Awake() {
+		base.Awake();
+
+		this.SetupRewardInfoList(m_oFreeRewardInfoList, this.FreeRewardInfoList);
+		this.SetupRewardInfoList(m_oDailyRewardInfoList, this.DailyRewardInfoList);
+		this.SetupRewardInfoList(m_oClearRewardInfoList, this.ClearRewardInfoList);
 	}
 
 	//! 무료 보상 정보를 반환한다
 	public STRewardInfo GetFreeRewardInfo(ERewardKinds a_eRewardKinds) {
-		return this.GetRewardInfo(a_eRewardKinds, m_oFreeRewardInfoList);
+		return this.GetRewardInfo(a_eRewardKinds, this.FreeRewardInfoList);
 	}
 
 	//! 일일 보상 정보를 반환한다
 	public STRewardInfo GetDailyRewardInfo(ERewardKinds a_eRewardKinds) {
-		return this.GetRewardInfo(a_eRewardKinds, m_oDailyRewardInfoList);
+		return this.GetRewardInfo(a_eRewardKinds, this.DailyRewardInfoList);
 	}
-	
-	//! 보상 정보를 반환한다
-	public bool TryGetClearRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutClearRewardInfo) {
-		return this.TryGetRewardInfo(a_eRewardKinds, out a_stOutClearRewardInfo, m_oClearRewardInfoList);
+
+	//! 클리어 보상 정보를 반환한다
+	public STRewardInfo GetClearRewardInfo(ERewardKinds a_eRewardKinds) {
+		return this.GetRewardInfo(a_eRewardKinds, this.ClearRewardInfoList);
 	}
 
 	//! 무료 보상 정보를 반환한다
 	public bool TryGetFreeRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutFreeRewardInfo) {
-		return this.TryGetRewardInfo(a_eRewardKinds, out a_stOutFreeRewardInfo, m_oFreeRewardInfoList);
+		return this.TryGetRewardInfo(a_eRewardKinds, this.FreeRewardInfoList, out a_stOutFreeRewardInfo);
 	}
 
 	//! 일일 보상 정보를 반환한다
 	public bool TryGetDailyRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutDailyRewardInfo) {
-		return this.TryGetRewardInfo(a_eRewardKinds, out a_stOutDailyRewardInfo, m_oDailyRewardInfoList);
+		return this.TryGetRewardInfo(a_eRewardKinds, this.DailyRewardInfoList, out a_stOutDailyRewardInfo);
+	}
+
+	//! 클리어 보상 정보를 반환한다
+	public bool TryGetClearRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutClearRewardInfo) {
+		return this.TryGetRewardInfo(a_eRewardKinds, this.ClearRewardInfoList, out a_stOutClearRewardInfo);
 	}
 
 	//! 보상 정보를 로드한다
-	public List<STRewardInfo> LoadClearRewardInfos(string a_oJSONStr) {
+	public List<object> LoadRewardInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		return this.LoadRewardInfos(a_oJSONStr, m_oClearRewardInfoList);
-	}
+		
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
+		var oFreeRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_FREE];
+		var oDailyRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_DAILY];
+		var oClearRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_CLEAR];
 
-	//! 무료 보상 정보를 로드한다
-	public List<STRewardInfo> LoadFreeRewardInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
-		return this.LoadRewardInfos(a_oJSONStr, m_oFreeRewardInfoList);
-	}
+		this.LoadRewardInfos(oFreeRewardInfos, this.FreeRewardInfoList);
+		this.LoadRewardInfos(oDailyRewardInfos, this.DailyRewardInfoList);
+		this.LoadRewardInfos(oClearRewardInfos, this.ClearRewardInfoList);
 
-	//! 일일 보상 정보를 로드한다
-	public List<STRewardInfo> LoadDailyRewardInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
-		return this.LoadRewardInfos(a_oJSONStr, m_oDailyRewardInfoList);
+		return new List<object>() {
+			this.FreeRewardInfoList, this.DailyRewardInfoList, this.ClearRewardInfoList
+		};
 	}
 
 	//! 보상 정보를 로드한다
-	public List<STRewardInfo> LoadClearRewardInfosFromFile(string a_oFilePath) {
+	public List<object> LoadRewardInfosFromFile(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		return this.LoadRewardInfosFromFile(a_oFilePath, m_oClearRewardInfoList);
-	}
+		string oJSONStr = CFunc.ReadStr(a_oFilePath);
 
-	//! 무료 보상 정보를 로드한다
-	public List<STRewardInfo> LoadFreeRewardInfosFromFile(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		return this.LoadRewardInfosFromFile(a_oFilePath, m_oFreeRewardInfoList);
-	}
-
-	//! 일일 보상 정보를 로드한다
-	public List<STRewardInfo> LoadDailyRewardInfosFromFile(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		return this.LoadRewardInfosFromFile(a_oFilePath, m_oDailyRewardInfoList);
+		return this.LoadRewardInfos(oJSONStr);
 	}
 
 	//! 보상 정보를 로드한다
-	public List<STRewardInfo> LoadClearRewardInfosFromRes(string a_oFilePath) {
+	public List<object> LoadRewardInfosFromRes(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		return this.LoadRewardInfosFromRes(a_oFilePath, m_oClearRewardInfoList);
+
+		try {
+			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
+			return this.LoadRewardInfos(oTextAsset.text);
+		} finally {
+			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
+		}
 	}
 
-	//! 무료 보상 정보를 로드한다
-	public List<STRewardInfo> LoadFreeRewardInfosFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		return this.LoadRewardInfosFromRes(a_oFilePath, m_oFreeRewardInfoList);
-	}
+	//! 보상 정보를 설정한다
+	private void SetupRewardInfoList(List<STRewardInfo> a_oRewardInfoList, Dictionary<ERewardKinds, STRewardInfo> a_oOutRewardInfoList) {
+		CAccess.Assert(a_oRewardInfoList != null && a_oOutRewardInfoList != null);
 
-	//! 일일 보상 정보를 로드한다
-	public List<STRewardInfo> LoadDailyRewardInfosFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		return this.LoadRewardInfosFromRes(a_oFilePath, m_oDailyRewardInfoList);
+		for(int i = 0; i < a_oRewardInfoList.Count; ++i) {
+			var stRewardInfo = a_oRewardInfoList[i];
+			a_oOutRewardInfoList.Add(stRewardInfo.m_eRewardKinds, stRewardInfo);
+		}
 	}
 
 	//! 보상 정보를 반환한다
-	private STRewardInfo GetRewardInfo(ERewardKinds a_eRewardKinds, List<STRewardInfo> a_oRewardInfoList) {
-		bool bIsValid = this.TryGetRewardInfo(a_eRewardKinds, out STRewardInfo stRewardInfo, a_oRewardInfoList);
+	private STRewardInfo GetRewardInfo(ERewardKinds a_eRewardKinds, Dictionary<ERewardKinds, STRewardInfo> a_oRewardInfoList) {
+		bool bIsValid = this.TryGetRewardInfo(a_eRewardKinds, a_oRewardInfoList, out STRewardInfo stRewardInfo);
 		CAccess.Assert(bIsValid);
 
 		return stRewardInfo;
 	}
 
 	//! 보상 정보를 반환한다
-	private bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo, List<STRewardInfo> a_oRewardInfoList) {
-		int nIdx = a_oRewardInfoList.ExFindVal((a_stRewardInfo) => a_stRewardInfo.m_eRewardKinds == a_eRewardKinds);
-		a_stOutRewardInfo = a_oRewardInfoList.ExIsValidIdx(nIdx) ? a_oRewardInfoList[nIdx] : KDefine.G_INVALID_REWARD_INFO;
-
-		return a_oRewardInfoList.ExIsValidIdx(nIdx);
+	private bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, Dictionary<ERewardKinds, STRewardInfo> a_oRewardInfoList, out STRewardInfo a_stOutRewardInfo) {
+		a_stOutRewardInfo = a_oRewardInfoList.ExGetVal(a_eRewardKinds, KDefine.G_INVALID_REWARD_INFO);
+		return a_oRewardInfoList.ContainsKey(a_eRewardKinds);
 	}
 
 	//! 보상 정보를 로드한다
-	private List<STRewardInfo> LoadRewardInfos(string a_oJSONStr, List<STRewardInfo> a_oOutRewardInfoList) {
-		CAccess.Assert(a_oJSONStr.ExIsValid() && a_oOutRewardInfoList != null);
+	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(SimpleJSON.JSONNode a_oRewardInfos, Dictionary<ERewardKinds, STRewardInfo> a_stOutRewardInfoList) {
+		for(int i = 0; i < a_oRewardInfos.Count; ++i) {
+			var stRewardInfo = new STRewardInfo(a_oRewardInfos[i]);
+			bool bIsReplace = a_oRewardInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
-		var oRewardInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
-
-		for(int i = 0; i < oRewardInfos.Count; ++i) {
-			var stRewardInfo = new STRewardInfo(oRewardInfos[i]);
-			a_oOutRewardInfoList.Add(stRewardInfo);
+			// 보상 정보가 추가 가능 할 경우
+			if(bIsReplace || !a_stOutRewardInfoList.ContainsKey(stRewardInfo.m_eRewardKinds)) {
+				a_stOutRewardInfoList.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
+			}
 		}
 
-		return a_oOutRewardInfoList;
-	}
-
-	//! 보상 정보를 로드한다
-	private List<STRewardInfo> LoadRewardInfosFromFile(string a_oFilePath, List<STRewardInfo> a_oOutRewardInfoList) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		string oJSONStr = CFunc.ReadStr(a_oFilePath);
-
-		return this.LoadRewardInfos(oJSONStr, a_oOutRewardInfoList);
-	}
-
-	//! 보상 정보를 로드한다
-	private List<STRewardInfo> LoadRewardInfosFromRes(string a_oFilePath, List<STRewardInfo> a_oOutRewardInfoList) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-
-		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.LoadRewardInfos(oTextAsset.text, a_oOutRewardInfoList);
-		} finally {
-			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}
+		return a_stOutRewardInfoList;
 	}
 	#endregion			// 함수
 }

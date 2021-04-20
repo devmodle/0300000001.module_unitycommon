@@ -20,19 +20,19 @@ public struct STSaleItemInfo {
 
 	#region 함수
 	//! 생성자
-	public STSaleItemInfo(SimpleJSON.JSONNode a_oNode) {
+	public STSaleItemInfo(SimpleJSON.JSONNode a_oSaleItemInfo) {
 		m_nPrice = a_oNode[KDefine.G_KEY_SALE_IIT_PRICE].AsInt;
 
-		m_oName = a_oNode[KDefine.G_KEY_SALE_IIT_NAME];
-		m_oDesc = a_oNode[KDefine.G_KEY_SALE_IIT_DESC];
+		m_oName = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_NAME];
+		m_oDesc = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_DESC];
 
-		m_ePriceType = (EPriceType)a_oNode[KDefine.G_KEY_SALE_IIT_PRICE_TYPE].AsInt;
-		m_ePriceKinds = (EPriceKinds)a_oNode[KDefine.G_KEY_SALE_IIT_PRICE_KINDS].AsInt;
-		m_eSaleItemKinds = (ESaleItemKinds)a_oNode[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;
+		m_ePriceType = (EPriceType)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE_TYPE].AsInt;
+		m_ePriceKinds = (EPriceKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE_KINDS].AsInt;
+		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;
 
 		m_stItemInfo = new STItemInfo() {
-			m_nNumItems = a_oNode[KDefine.G_KEY_SALE_IIT_NUM_ITEMS].AsInt,
-			m_eItemKinds = (EItemKinds)a_oNode[KDefine.G_KEY_SALE_IIT_ITEM_KINDS].AsInt
+			m_nNumItems = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_NUM_ITEMS].AsInt,
+			m_eItemKinds = (EItemKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_ITEM_KINDS].AsInt
 		};
 	}
 	#endregion			// 함수

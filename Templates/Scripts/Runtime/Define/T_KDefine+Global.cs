@@ -8,8 +8,8 @@ public static partial class KDefine {
 	#region 기본
 	// 개수
 	public const int G_MAX_NUM_CHANGES = 0;
-	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_SALE_PIT_ITEM_INFOS = 0;
+	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
 
 	// 횟수
 	public const int G_MAX_TIMES_ADS_SKIP = 0;
@@ -20,17 +20,6 @@ public static partial class KDefine {
 
 	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0}_{1}";
 	// 식별자 }
-	
-	// 보상 정보 테이블 {
-	public const string G_KEY_REWARD_IT_NAME = "Name";
-	public const string G_KEY_REWARD_IT_DESC = "Desc";
-
-	public const string G_KEY_REWARD_IT_REWARD_TYPE = "RewardType";
-	public const string G_KEY_REWARD_IT_REWARD_KINDS = "RewardKinds";
-
-	public const string G_KEY_FMT_REWARD_IT_NUM_ITEMS = "NumItems_{0:00}";
-	public const string G_KEY_FMT_REWARD_IT_ITEM_KINDS = "ItemKinds_{0:00}";
-	// 보상 정보 테이블 }
 
 	// 판매 아이템 정보 테이블 {
 	public const string G_KEY_SALE_IIT_NAME = "Name";
@@ -55,6 +44,21 @@ public static partial class KDefine {
 	public const string G_KEY_FMT_SALE_PIT_NUM_ITEMS = "NumItems_{0:00}";
 	public const string G_KEY_FMT_SALE_PIT_ITEM_KINDS = "ItemKinds_{0:00}";
 	// 판매 상품 정보 테이블 }
+
+	// 보상 정보 테이블 {
+	public const string G_KEY_REWARD_IT_FREE = "Free";
+	public const string G_KEY_REWARD_IT_DAILY = "Daily";
+	public const string G_KEY_REWARD_IT_CLEAR = "Clear";
+
+	public const string G_KEY_REWARD_IT_NAME = "Name";
+	public const string G_KEY_REWARD_IT_DESC = "Desc";
+
+	public const string G_KEY_REWARD_IT_REWARD_TYPE = "RewardType";
+	public const string G_KEY_REWARD_IT_REWARD_KINDS = "RewardKinds";
+
+	public const string G_KEY_FMT_REWARD_IT_NUM_ITEMS = "NumItems_{0:00}";
+	public const string G_KEY_FMT_REWARD_IT_ITEM_KINDS = "ItemKinds_{0:00}";
+	// 보상 정보 테이블 }
 
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
@@ -126,24 +130,23 @@ public static partial class KDefine {
 	};
 #endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
 	// 정렬 순서 }
-	
+
 	// 경로 {
 #if UNITY_EDITOR
-	public static readonly string G_RUNTIME_TABLE_P_CLEAR_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_CLEAR_REWARD_INFO}.json";
-	public static readonly string G_RUNTIME_TABLE_P_FREE_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_FREE_REWARD_INFO}.json";
-	public static readonly string G_RUNTIME_TABLE_P_DAILY_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_DAILY_REWARD_INFO}.json";
-
 	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_ITEM_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
 #else
-	public static readonly string G_RUNTIME_TABLE_P_CLEAR_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_CLEAR_REWARD_INFO}.json";
-	public static readonly string G_RUNTIME_TABLE_P_FREE_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_FREE_REWARD_INFO}.json";
-	public static readonly string G_RUNTIME_TABLE_P_DAILY_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_DAILY_REWARD_INFO}.json";
-
 	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_ITEM_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
 #endif			// #if UNITY_EDITOR
 	// 경로 }
+
+	// 보상 정보 테이블
+	public static readonly ERewardKinds[] G_KINDS_REWARD_IT_DAILY_REWARDS = new ERewardKinds[] {
+		ERewardKinds.DAILY_REWARD
+	};
 	#endregion			// 런타임 상수
 }
 #endif			// #if NEVER_USE_THIS

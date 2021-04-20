@@ -99,7 +99,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	};
 
 	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
-	public ERewardKinds DailyRewardKinds => ERewardKinds.DAILY_REWARD + this.GameInfo.DailyRewardID;
+	public ERewardKinds DailyRewardKinds => KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS[this.GameInfo.DailyRewardID];
 
 #if ADS_MODULE_ENABLE
 	public int AdsSkipTimes { get; set; } = KCDefine.B_VAL_0_INT;
@@ -125,7 +125,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 			this.GameInfo.LastDailyRewardTime = System.DateTime.Today;
 		}
 
-		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % CRewardInfoTable.Inst.DailyRewardInfoList.Count;
+		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS.Length;
 		this.SetDailyRewardID(nNextDailyRewardID);
 	}
 
@@ -159,9 +159,9 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return this.GameInfo.CompleteTutorialKindsList.Contains(a_eTutorialKinds);
 	}
 
-	//! 일일 보상 식별자를 변경한다
+	//! 일일 보상 종류를 변경한다
 	public void SetDailyRewardID(int a_nID) {
-		CAccess.Assert(CRewardInfoTable.Inst.DailyRewardInfoList.ExIsValidIdx(a_nID));
+		CAccess.Assert(KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS.ExIsValidIdx(a_nID));
 		this.GameInfo.DailyRewardID = a_nID;
 	}
 

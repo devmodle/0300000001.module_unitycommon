@@ -12,6 +12,28 @@ Kinds 값 지정 방식
 - Detail Sub Kinds Type 별로 1 단위로 값 지정
 */
 #region 기본
+//! 가격 타입
+public enum EPriceType {
+	NONE = -1,
+	ADS,
+	GOODS,
+	PURCHASE,
+	MAX_VAL
+}
+
+//! 가격 종류
+public enum EPriceKinds {
+	NONE = -1,
+
+	// 보상 광고 0 (광고)
+	ADS_REWARD,
+
+	// 코인 10,000,000 (재화)
+	GOODS_COIN = EPriceKinds.ADS_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	
+	MAX_VAL
+}
+
 //! 아이템 타입
 public enum EItemType {
 	NONE = -1,
@@ -40,31 +62,6 @@ public enum EItemKinds {
 	MAX_VAL
 }
 
-//! 보상 타입
-public enum ERewardType {
-	NONE = -1,
-	CLEAR,
-	FREE,
-	DAILY,
-	MAX_VAL
-}
-
-//! 보상 종류
-public enum ERewardKinds {
-	NONE = -1,
-
-	// 클리어 보상 0 (클리어 보상)
-	CLEAR_REWARD,
-
-	// 무료 보상 10,000,000 (무료 보상)
-	FREE_REWARD = ERewardKinds.CLEAR_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
-
-	// 일일 보상 20,000,000 (일일 보상)
-	DAILY_REWARD = ERewardKinds.FREE_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
-
-	MAX_VAL
-}
-
 //! 판매 아이템 타입
 public enum ESaleItemType {
 	NONE = -1,
@@ -77,25 +74,49 @@ public enum ESaleItemKinds {
 	MAX_VAL
 }
 
-//! 가격 타입
-public enum EPriceType {
+//! 미션 타입
+public enum EMissionType {
 	NONE = -1,
-	ADS,
-	GOODS,
-	PURCHASE,
+	FREE,
+	DAILY,
 	MAX_VAL
 }
 
-//! 가격 종류
-public enum EPriceKinds {
+//! 미션 종류
+public enum EMissionKinds {
 	NONE = -1,
 
-	// 보상 광고 0 (광고)
-	ADS_REWARD,
+	// 자유 미션 0 (자유 미션)
+	FREE_MISSION,
 
-	// 코인 10,000,000 (재화)
-	GOODS_COIN = EPriceKinds.ADS_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
-	
+	// 일일 미션 10,000,000 (일일 미션)
+	DAILY_MISSION = EMissionKinds.FREE_MISSION + KCDefine.B_UNIT_TYPE_TO_KINDS,
+
+	MAX_VAL
+}
+
+//! 보상 타입
+public enum ERewardType {
+	NONE = -1,
+	FREE,
+	DAILY,
+	CLEAR,
+	MAX_VAL
+}
+
+//! 보상 종류
+public enum ERewardKinds {
+	NONE = -1,
+
+	// 무료 보상 0 (무료 보상)
+	FREE_REWARD,
+
+	// 일일 보상 10,000,000 (일일 보상)
+	DAILY_REWARD = ERewardKinds.CLEAR_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
+
+	// 클리어 보상 20,000,000 (클리어 보상)
+	CLEAR_REWARD = ERewardKinds.FREE_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
+
 	MAX_VAL
 }
 
