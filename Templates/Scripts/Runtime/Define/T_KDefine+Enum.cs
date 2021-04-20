@@ -112,10 +112,10 @@ public enum ERewardKinds {
 	FREE_REWARD,
 
 	// 일일 보상 10,000,000 (일일 보상)
-	DAILY_REWARD = ERewardKinds.CLEAR_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	DAILY_REWARD = ERewardKinds.FREE_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
 
 	// 클리어 보상 20,000,000 (클리어 보상)
-	CLEAR_REWARD = ERewardKinds.FREE_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	CLEAR_REWARD = ERewardKinds.DAILY_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
 
 	MAX_VAL
 }

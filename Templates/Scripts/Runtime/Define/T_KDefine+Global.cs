@@ -45,6 +45,17 @@ public static partial class KDefine {
 	public const string G_KEY_FMT_SALE_PIT_ITEM_KINDS = "ItemKinds_{0:00}";
 	// 판매 상품 정보 테이블 }
 
+	// 미션 정보 테이블 {
+	public const string G_KEY_MISSION_IT_FREE = "Free";
+	public const string G_KEY_MISSION_IT_DAILY = "Daily";
+
+	public const string G_KEY_MISSION_IT_NAME = "Name";
+	public const string G_KEY_MISSION_IT_DESC = "Desc";
+
+	public const string G_KEY_MISSION_IT_MISSION_TYPE = "MissionType";
+	public const string G_KEY_MISSION_IT_MISSION_KINDS = "MissionKinds";
+	// 미션 정보 테이블 }
+
 	// 보상 정보 테이블 {
 	public const string G_KEY_REWARD_IT_FREE = "Free";
 	public const string G_KEY_REWARD_IT_DAILY = "Daily";
@@ -94,11 +105,6 @@ public static partial class KDefine {
 		m_eItemKinds = EItemKinds.NONE
 	};
 
-	public static readonly STRewardInfo G_INVALID_REWARD_INFO = new STRewardInfo() {
-		m_eRewardType = ERewardType.NONE,
-		m_eRewardKinds = ERewardKinds.NONE
-	};
-
 	public static readonly STSaleItemInfo G_INVALID_SALE_ITEM_INFO = new STSaleItemInfo() {
 		m_ePriceType = EPriceType.NONE,
 		m_ePriceKinds = EPriceKinds.NONE,
@@ -109,6 +115,16 @@ public static partial class KDefine {
 	public static readonly STSaleProductInfo G_INVALID_SALE_PRODUCT_INFO = new STSaleProductInfo() {
 		m_ePriceType = EPriceType.NONE,
 		m_ePriceKinds = EPriceKinds.NONE
+	};
+
+	public static readonly STMissionInfo G_INVALID_MISSION_INFO = new STMissionInfo() {
+		m_eMissionType = EMissionType.NONE,
+		m_eMissionKinds = EMissionKinds.NONE
+	};
+
+	public static readonly STRewardInfo G_INVALID_REWARD_INFO = new STRewardInfo() {
+		m_eRewardType = ERewardType.NONE,
+		m_eRewardKinds = ERewardKinds.NONE
 	};
 	// 기타 }
 
@@ -135,10 +151,12 @@ public static partial class KDefine {
 #if UNITY_EDITOR
 	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_ITEM_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_MISSION_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_MISSION_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
 #else
 	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_ITEM_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_MISSION_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_MISSION_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
 #endif			// #if UNITY_EDITOR
 	// 경로 }

@@ -11,9 +11,10 @@ public class CSubInitSceneManager : CInitSceneManager {
 		base.Setup();
 		
 		// 테이블을 생성한다
-		CRewardInfoTable.Create(KCDefine.U_ASSET_P_G_REWARD_INFO_TABLE);
 		CSaleItemInfoTable.Create(KCDefine.U_ASSET_P_G_SALE_ITEM_INFO_TABLE);
 		CSaleProductInfoTable.Create(KCDefine.U_ASSET_P_G_SALE_PRODUCT_INFO_TABLE);
+		CMissionInfoTable.Create(KCDefine.U_ASSET_P_G_MISSION_INFO_TABLE);
+		CRewardInfoTable.Create(KCDefine.U_ASSET_P_G_REWARD_INFO_TABLE);
 		
 		// 저장소를 생성한다
 		CAppInfoStorage.Create();
@@ -27,10 +28,12 @@ public class CSubInitSceneManager : CInitSceneManager {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		CSaleItemInfoTable.Inst.LoadSaleItemInfosFromFile(KDefine.G_RUNTIME_TABLE_P_SALE_ITEM_INFO);
 		CSaleProductInfoTable.Inst.LoadSaleProductInfosFromFile(KDefine.G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO);
+		CMissionInfoTable.Inst.LoadMissionInfosFromFile(KDefine.G_RUNTIME_TABLE_P_MISSION_INFO);
 		CRewardInfoTable.Inst.LoadRewardInfosFromFile(KDefine.G_RUNTIME_TABLE_P_REWARD_INFO);
 #else
 		CSaleItemInfoTable.Inst.LoadSaleItemInfosFromRes(KCDefine.U_TABLE_P_G_SALE_ITEM_INFO);
 		CSaleProductInfoTable.Inst.LoadSaleProductInfosFromRes(KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO);
+		CMissionInfoTable.Inst.LoadMissionInfosFromRes(KCDefine.U_TABLE_P_G_MISSION_INFO);
 		CRewardInfoTable.Inst.LoadRewardInfosFromRes(KCDefine.U_TABLE_P_G_REWARD_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 		// 테이블을 로드한다 }

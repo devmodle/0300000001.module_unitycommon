@@ -3,6 +3,7 @@
 	  {
 		"Name": "Sample",
 		"Desc": "Sample",
+		"Replace": "0",
 		"PriceType": "0",
 		"PriceKinds": "0",
 		"NumItems_01": "0",

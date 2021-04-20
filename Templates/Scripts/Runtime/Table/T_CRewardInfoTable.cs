@@ -64,9 +64,9 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	public override void Awake() {
 		base.Awake();
 
-		this.SetupRewardInfoList(m_oFreeRewardInfoList, this.FreeRewardInfoList);
-		this.SetupRewardInfoList(m_oDailyRewardInfoList, this.DailyRewardInfoList);
-		this.SetupRewardInfoList(m_oClearRewardInfoList, this.ClearRewardInfoList);
+		this.SetupRewardInfos(m_oFreeRewardInfoList, this.FreeRewardInfoList);
+		this.SetupRewardInfos(m_oDailyRewardInfoList, this.DailyRewardInfoList);
+		this.SetupRewardInfos(m_oClearRewardInfoList, this.ClearRewardInfoList);
 	}
 
 	//! 무료 보상 정보를 반환한다
@@ -112,6 +112,12 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		this.LoadRewardInfos(oDailyRewardInfos, this.DailyRewardInfoList);
 		this.LoadRewardInfos(oClearRewardInfos, this.ClearRewardInfoList);
 
+#if UNITY_EDITOR
+		this.SetupRewardInfoList(this.FreeRewardInfoList, m_oFreeRewardInfoList);
+		this.SetupRewardInfoList(this.DailyRewardInfoList, m_oDailyRewardInfoList);
+		this.SetupRewardInfoList(this.ClearRewardInfoList, m_oClearRewardInfoList);
+#endif			// #if UNITY_EDITOR
+
 		return new List<object>() {
 			this.FreeRewardInfoList, this.DailyRewardInfoList, this.ClearRewardInfoList
 		};
@@ -138,7 +144,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	}
 
 	//! 보상 정보를 설정한다
-	private void SetupRewardInfoList(List<STRewardInfo> a_oRewardInfoList, Dictionary<ERewardKinds, STRewardInfo> a_oOutRewardInfoList) {
+	private void SetupRewardInfos(List<STRewardInfo> a_oRewardInfoList, Dictionary<ERewardKinds, STRewardInfo> a_oOutRewardInfoList) {
 		CAccess.Assert(a_oRewardInfoList != null && a_oOutRewardInfoList != null);
 
 		for(int i = 0; i < a_oRewardInfoList.Count; ++i) {
@@ -157,24 +163,44 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	//! 보상 정보를 반환한다
 	private bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, Dictionary<ERewardKinds, STRewardInfo> a_oRewardInfoList, out STRewardInfo a_stOutRewardInfo) {
+		CAccess.Assert(a_oRewardInfoList != null);
 		a_stOutRewardInfo = a_oRewardInfoList.ExGetVal(a_eRewardKinds, KDefine.G_INVALID_REWARD_INFO);
+
 		return a_oRewardInfoList.ContainsKey(a_eRewardKinds);
 	}
 
 	//! 보상 정보를 로드한다
-	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(SimpleJSON.JSONNode a_oRewardInfos, Dictionary<ERewardKinds, STRewardInfo> a_stOutRewardInfoList) {
+	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(SimpleJSON.JSONNode a_oRewardInfos, Dictionary<ERewardKinds, STRewardInfo> a_oOutRewardInfoList) {
+		CAccess.Assert(a_oRewardInfos != null && a_oOutRewardInfoList != null);
+
 		for(int i = 0; i < a_oRewardInfos.Count; ++i) {
 			var stRewardInfo = new STRewardInfo(a_oRewardInfos[i]);
 			bool bIsReplace = a_oRewardInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 			// 보상 정보가 추가 가능 할 경우
-			if(bIsReplace || !a_stOutRewardInfoList.ContainsKey(stRewardInfo.m_eRewardKinds)) {
-				a_stOutRewardInfoList.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
+			if(bIsReplace || !a_oOutRewardInfoList.ContainsKey(stRewardInfo.m_eRewardKinds)) {
+				a_oOutRewardInfoList.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
 			}
 		}
 
-		return a_stOutRewardInfoList;
+		return a_oOutRewardInfoList;
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if UNITY_EDITOR
+		// 보상 정보를 설정한다
+		private void SetupRewardInfoList(Dictionary<ERewardKinds, STRewardInfo> a_oRewardInfoList, List<STRewardInfo> a_oOutRewardInfoList) {
+			CAccess.Assert(a_oRewardInfoList != null && a_oOutRewardInfoList != null);
+			a_oOutRewardInfoList.Clear();
+
+			foreach(var stKeyVal in a_oRewardInfoList) {
+				a_oOutRewardInfoList.Add(stKeyVal.Value);
+			}
+
+			a_oOutRewardInfoList.Sort((a_stLhs, a_stRhs) => (int)a_stLhs.m_eRewardKinds - (int)a_stRhs.m_eRewardKinds);
+		}
+#endif			// #if UNITY_EDITOR
+	#endregion			// 조건부 함수
 }
 #endif			// #if NEVER_USE_THIS
