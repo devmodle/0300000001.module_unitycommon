@@ -36,14 +36,19 @@ public sealed class CGameInfo : CBaseInfo {
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
 	private const string KEY_FREE_REWARD_TIMES = "FreeRewardTimes";
 
+	private const string KEY_LAST_DAILY_MISSION_TIME = "LastDailyMissionTime";
 	private const string KEY_LAST_FREE_REWARD_TIME = "LastFreeRewardTime";
 	private const string KEY_LAST_DAILY_REWARD_TIME = "LastDailyRewardTime";
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[Key(35)] public List<ETutorialKinds> CompleteTutorialKindsList = new List<ETutorialKinds>();
+	[Key(35)] public List<EMissionKinds> CompleteMissionKindsList = new List<EMissionKinds>();
+	[Key(36)] public List<EMissionKinds> CompleteDailyMissionKindsList = new List<EMissionKinds>();
+	[Key(37)] public List<ETutorialKinds> CompleteTutorialKindsList = new List<ETutorialKinds>();
+
 	[Key(101)] public Dictionary<int, CClearInfo> ClearInfoList = new Dictionary<int, CClearInfo>();
 
+	[IgnoreMember] public System.DateTime LastDailyMissionTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastFreeRewardTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastDailyRewardTime { get; set; } = System.DateTime.Now;
 
@@ -57,6 +62,7 @@ public sealed class CGameInfo : CBaseInfo {
 		set { m_oIntList.ExReplaceVal(CGameInfo.KEY_FREE_REWARD_TIMES, value); }
 	}
 
+	[IgnoreMember] private string LastDailyMissionTimeStr => m_oStrList.ExGetVal(CGameInfo.KEY_LAST_DAILY_MISSION_TIME, string.Empty);
 	[IgnoreMember] private string LastFreeRewardTimeStr => m_oStrList.ExGetVal(CGameInfo.KEY_LAST_FREE_REWARD_TIME, string.Empty);
 	[IgnoreMember] private string LastDailyRewardTimeStr => m_oStrList.ExGetVal(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, string.Empty);
 	#endregion			// 프로퍼티
@@ -64,6 +70,7 @@ public sealed class CGameInfo : CBaseInfo {
 	#region 인터페이스
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
+		m_oStrList.ExReplaceVal(CGameInfo.KEY_LAST_DAILY_MISSION_TIME, this.LastDailyMissionTime.ExToLongStr());
 		m_oStrList.ExReplaceVal(CGameInfo.KEY_LAST_FREE_REWARD_TIME, this.LastFreeRewardTime.ExToLongStr());
 		m_oStrList.ExReplaceVal(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, this.LastDailyRewardTime.ExToLongStr());
 	}
@@ -71,10 +78,14 @@ public sealed class CGameInfo : CBaseInfo {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-
+		
+		this.CompleteMissionKindsList = this.CompleteMissionKindsList ?? new List<EMissionKinds>();
+		this.CompleteDailyMissionKindsList = this.CompleteDailyMissionKindsList ?? new List<EMissionKinds>();
 		this.CompleteTutorialKindsList = this.CompleteTutorialKindsList ?? new List<ETutorialKinds>();
+
 		this.ClearInfoList = this.ClearInfoList ?? new Dictionary<int, CClearInfo>();
 
+		this.LastDailyMissionTime = this.LastDailyMissionTimeStr.ExIsValid() ? this.LastDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
 		this.LastFreeRewardTime = this.LastFreeRewardTimeStr.ExIsValid() ? this.LastFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
 		this.LastDailyRewardTime = this.LastDailyRewardTimeStr.ExIsValid() ? this.LastDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
 	}
@@ -94,11 +105,18 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
+		LastDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
 		LastFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
 		LastDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)
 	};
 
 	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
+	public bool IsEnableResetDailyMission => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
+	
+	public bool IsEnableGetFreeReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
+	public bool IsEnableGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
+	public bool IsContinueGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_DBL);
+
 	public ERewardKinds DailyRewardKinds => KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS[this.GameInfo.DailyRewardID];
 
 #if ADS_MODULE_ENABLE
@@ -129,21 +147,6 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		this.SetDailyRewardID(nNextDailyRewardID);
 	}
 
-	//! 무료 보상 획득 가능 여부를 검사한다
-	public bool IsEnableGetFreeReward() {
-		return System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
-	}
-
-	//! 일일 보상 획득 가능 여부를 검사한다
-	public bool IsEnableGetDailyReward() {
-		return System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
-	}
-
-	//! 일일 보상 연속 획득 여부를 검사한다
-	public bool IsContinueGetDailyReward() {
-		return System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_DBL);
-	}
-
 	//! 무료 부스터 여부를 검사한다
 	public bool IsFreeBooster(EItemKinds a_eBooster) {
 		return this.FreeBooster == a_eBooster;
@@ -152,6 +155,16 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 부스터 포함 여부를 검사한다
 	public bool IsContainsBooster(EItemKinds a_eBooster) {
 		return this.SelBoosterList.Contains(a_eBooster);
+	}
+
+	//! 미션 완료 여부를 검사한다
+	public bool IsCompleteMission(EMissionKinds a_eMissionKinds) {
+		return this.GameInfo.CompleteMissionKindsList.Contains(a_eMissionKinds);
+	}
+
+	//! 일일 미션 완료 여부를 검사한다
+	public bool IsCompleteDailyMission(EMissionKinds a_eMissionKinds) {
+		return this.GameInfo.CompleteDailyMissionKindsList.Contains(a_eMissionKinds);
 	}
 
 	//! 튜토리얼 완료 여부를 검사한다

@@ -9,7 +9,13 @@ using UnityEngine.Purchasing;
 
 //! 상점 팝업
 public class CStorePopup : CSubPopup {
+	//! 매개 변수
+	public struct STParams {
+		public List<STSaleProductInfo> m_oSaleProductInfoList;
+	}
+
 	#region 변수
+	private STParams m_stParams;
 	private ESaleProductKinds m_eAdsProductKinds = ESaleProductKinds.NONE;
 	#endregion			// 변수
 
@@ -24,24 +30,39 @@ public class CStorePopup : CSubPopup {
 	}
 	
 	//! 초기화
-	public override void Init() {
+	public virtual void Init(STParams a_stParams) {
 		base.Init();
+		m_stParams = a_stParams;
+		
 		this.UpdateUIsState();
 	}
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
+		// 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductUIsList.Count; ++i) {
 			var oProductUIs = m_oProductUIsList[i];
-			var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[i];
-			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
-
-			this.UpdateProductUIsState(oProductUIs, stSaleProductInfo);
+			this.UpdateProductUIsState(oProductUIs, m_stParams.m_oSaleProductInfoList[i]);
 		}
 	}
 
 	//! 상품 UI 상태를 갱신한다
-	private void UpdateProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stProductInfo) {
+	private void UpdateProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stSaleProductInfo) {
+		// 패키지 상품 일 경우
+		if(a_stSaleProductInfo.m_eSaleProductType == ESaleProductType.PKG) {
+			this.UpdatePkgProductUIsState(a_oProductUIs, a_stSaleProductInfo);
+		} else {
+			this.UpdateSingleProductUIsState(a_oProductUIs, a_stSaleProductInfo);
+		}
+	}
+
+	//! 패키지 상품 UI 상태를 갱신한다
+	private void UpdatePkgProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stSaleProductInfo) {
+		// Do Nothing
+	}
+
+	//! 단일 상품 UI 상태를 갱신한다
+	private void UpdateSingleProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stSaleProductInfo) {
 		// Do Nothing
 	}
 

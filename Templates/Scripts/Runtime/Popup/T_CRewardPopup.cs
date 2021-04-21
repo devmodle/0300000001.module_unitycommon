@@ -35,6 +35,7 @@ public class CRewardPopup : CSubPopup {
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
+		// 보상 아이템 UI 상태를 갱신한다
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
 			var oItemUIs = m_oItemUIsList[i];
 			oItemUIs.SetActive(i < m_stParams.m_oItemInfoList.Count);

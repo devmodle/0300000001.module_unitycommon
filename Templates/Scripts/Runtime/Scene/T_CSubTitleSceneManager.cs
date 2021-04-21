@@ -45,8 +45,16 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 				this.HandleFirstPlayState();
 			} else {
+				// 일일 미션 리셋이 가능 할 경우
+				if(CGameInfoStorage.Inst.IsEnableResetDailyMission) {
+					CGameInfoStorage.Inst.GameInfo.LastDailyMissionTime = System.DateTime.Today;
+					CGameInfoStorage.Inst.GameInfo.CompleteDailyMissionKindsList.Clear();
+
+					CGameInfoStorage.Inst.SaveGameInfo();
+				}
+
 				// 무료 보상 획득이 가능 할 경우
-				if(CGameInfoStorage.Inst.IsEnableGetFreeReward()) {
+				if(CGameInfoStorage.Inst.IsEnableGetFreeReward) {
 					CGameInfoStorage.Inst.GameInfo.FreeRewardTimes = KCDefine.B_VAL_0_INT;
 					CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
 					
@@ -54,7 +62,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 				}
 
 				// 일일 보상 획득이 가능 할 경우
-				if(CGameInfoStorage.Inst.IsEnableGetDailyReward()) {
+				if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
 					Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oPopup) => {
 						var oDailyRewardPopup = a_oPopup as CDailyRewardPopup;
 						oDailyRewardPopup.Init();

@@ -80,14 +80,22 @@ public static partial class KDefine {
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
 
+	// 일일 미션 팝업
+	public const string G_OBJ_N_DAILY_MISSION_POPUP = "DailyMissionPopup";
+
 	// 보상 팝업
 	public const string G_OBJ_N_REWARD_POPUP = "RewardPopup";
 
 	// 무료 보상 팝업
 	public const string G_OBJ_N_FREE_REWARD_POPUP = "FreeRewardPopup";
+	public const string G_OBJ_N_FREE_RP_ADS_BTN = "AdsBtn";
 
-	// 일일 보상 팝업
+	// 일일 보상 팝업 {
 	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DailyRewardPopup";
+
+	public const string G_OBJ_N_DAILY_RP_ADS_BTN = "AdsBtn";
+	public const string G_OBJ_N_DAILY_RP_GET_BTN = "GetBtn";
+	// 일일 보상 팝업 }
 
 	// 잔돈 팝업
 	public const string G_OBJ_N_CHANGES_POPUP = "ChangesPopup";

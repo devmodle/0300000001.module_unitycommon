@@ -5,10 +5,18 @@ using UnityEngine;
 #if NEVER_USE_THIS
 //! 무료 보상 팝업
 public class CFreeRewardPopup : CSubPopup {
+	#region UI 변수
+	private Button m_oAdsBtn = null;
+	#endregion			// UI 변수
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
+
+		// 버튼을 설정한다
+		m_oAdsBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_FREE_RP_ADS_BTN);
+		m_oAdsBtn.onClick.AddListener(this.OnTouchAdsBtn);
 	}
 	
 	//! 초기화
@@ -54,7 +62,7 @@ public class CFreeRewardPopup : CSubPopup {
 				m_ePopupType = ERewardPopupType.FREE,
 				m_oItemInfoList = stRewardInfo.m_oItemInfoList
 			};
-			
+
 			var oRewardPopup = a_oPopup as CRewardPopup;
 			oRewardPopup.Init(stParams);
 		}, null, this.OnCloseRewardPopup);

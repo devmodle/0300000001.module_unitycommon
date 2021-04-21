@@ -13,4 +13,4 @@ EXTRA_OFFSET_V_ALERT_P_MSG,2,0,경고 팝업 메세지 추가 수직 간격,10
 EXTRA_OFFSET_V_ALERT_P_BTN,2,0,경고 팝업 버튼 추가 수직 간격,15
 OFFSET_V_ALERT_P_BG,2,0,경고 팝업 배경 수직 간격,45
 OFFSET_H_ALERT_P_BG,2,0,경고 팝업 배경 수평 간격,145
-DEF_DELAY_ADS,2,0,전면 광고 기본 딜레이,60
+DEF_DELAY_ADS,2,0,광고 기본 딜레이,60
