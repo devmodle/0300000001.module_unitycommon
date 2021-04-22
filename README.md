@@ -4,17 +4,17 @@
 	- *DOTween Pro (v1.0.244 - Jul 28, 2020)*
 2. **에셋 스토어 리스트**
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
-	- *Asset Hunter Pro (v1.3.4 - May 4, 2020)*
+	- *Asset Hunter Pro (v1.3.5 - Apr 13, 2021)*
 	- *Asset Usage Detector (v1.9.3 - Mar 29, 2021)*
 	- *Bezier Solution (v2.0.1 - Mar 15, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
 	- *Enhanced Scroller (v2.29.1 - Mar 21, 2021)*
-	- *Ingame Debug Console (v1.4.4 - Apr 6, 2021)*
+	- *Ingame Debug Console (v1.4.8 - Apr 13, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
-	- *Lean Touch (v2.1.8 - Jan 25, 2021)*
+	- *Lean Touch (v2.2.0 - Apr 12, 2021)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
-	- *Native Share (v1.3.9 - Apr 6, 2021)*
+	- *Native Share (v1.4.0 - Apr 13, 2021)*
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*
 	- *Signin with Apple (v1.1.1 - Nov 9, 2020)*
 	- *Simple Scroll Snap (v1.2.1 - Dec 14, 2020)*
@@ -24,9 +24,9 @@
 	- *Ultimate Status Bar (v2.6.0 - Jun 3, 2020)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
-	- *2D Toolkit (v2.5.8 - Apr 30, 2019)*
+	- *2D Toolkit (v2.5.8.16 - Apr 30, 2019)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
-	- *Build Report Tool (v3.5.5 - Apr 6, 2021)*
+	- *Build Report Tool (v3.7.0 - Apr 20, 2021)*
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.1 - Feb 15, 2021)*
 	- *Odin Inspector (v3.0.4 - Feb 23, 2021)*
@@ -40,14 +40,14 @@
 	- *Unmask For GUI (v1.2.0)*
 	- *Spine Shader (v3.8.0 - Mar 4, 2021)*
 5. **기타 추가 에셋 및 플러그인 리스트**
-	- *Firebase (Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.0.2)*
+	- *Firebase (Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.1.0)*
 	- *Admob (v5.4.0)*
-	- *Iron Source (v7.0.4)*
-	- *App Lovin (v3.1.18)*
-	- *Flurry (v3.1.0)*
-	- *Tenjin (v1.9.4)*
-	- *Facebook (v8.1.1)*
-	- *Singular (v2.1.2)*
+	- *Iron Source (v7.1.5.1)*
+	- *App Lovin (v4.2.0)*
+	- *Flurry (v3.3.0)*
+	- *Tenjin (v1.12.4)*
+	- *Facebook (v9.0.0)*
+	- *Singular (v2.4.0)*
 	- *Google Play Services (v0.10.12)*
-	- *Unity IAP (v2.2.1)*
+	- *Unity IAP (v3.0.2)*
 	- *Unity Notification (v1.3.2)*
