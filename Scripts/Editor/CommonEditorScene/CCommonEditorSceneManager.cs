@@ -68,7 +68,7 @@ public static partial class CCommonEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState()) {
+		if(CEditorAccess.IsEnableUpdateState) {
 			CPlatformOptsSetter.SetupPlayerOpts();
 			CPlatformOptsSetter.SetupEditorOpts();
 			CPlatformOptsSetter.SetupProjOpts();
@@ -80,7 +80,7 @@ public static partial class CCommonEditorSceneManager {
 	//! 상태를 갱신한다
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState()) {
+		if(CEditorAccess.IsEnableUpdateState) {
 			CCommonEditorSceneManager.m_fSkipTime += Time.deltaTime;
 			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
 
@@ -132,7 +132,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			// 기즈모를 그릴 수 있을 경우
-			if(CEditorAccess.IsEnableDrawGizmos()) {
+			if(CEditorAccess.IsEnableDrawGizmos) {
 				CFunc.EnumerateScenes((a_stScene) => {
 					var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_N_SCENE_MANAGER);
 					oSceneManager?.EditorSetupScene();
@@ -188,7 +188,7 @@ public static partial class CCommonEditorSceneManager {
 	//! 씬이 열렸을 경우
 	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
 		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState()) {
+		if(CEditorAccess.IsEnableUpdateState) {
 			CPlatformOptsSetter.SetupProjOpts();
 		}
 

@@ -1,4 +1,6 @@
 ID,ValType,Replace,Description,Val
+DELAY_ADS,2,0,광고 딜레이,60
+DELTA_TIME_ADS,2,0,광고 시간 간격,10
 QUALITY_LEVEL,1,0,퀄리티 레벨,6
 MULTI_TOUCH_ENABLE,0,0,다중 터치 지원 여부,0
 MOBILE_TARGET_FRAME_RATE,1,0,모바일 플랫폼 타겟 프레임,60
@@ -13,4 +15,3 @@ EXTRA_OFFSET_V_ALERT_P_MSG,2,0,경고 팝업 메세지 추가 수직 간격,10
 EXTRA_OFFSET_V_ALERT_P_BTN,2,0,경고 팝업 버튼 추가 수직 간격,15
 OFFSET_V_ALERT_P_BG,2,0,경고 팝업 배경 수직 간격,45
 OFFSET_H_ALERT_P_BG,2,0,경고 팝업 배경 수평 간격,145
-DEF_DELAY_ADS,2,0,광고 기본 딜레이,60

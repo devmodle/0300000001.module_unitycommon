@@ -33,7 +33,7 @@ public static partial class CEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState()) {
+		if(CEditorAccess.IsEnableUpdateState) {
 			CEditorSceneManager.SetupCallbacks();
 			CEditorSceneManager.m_oListRequest = Client.List();
 		}
@@ -42,7 +42,7 @@ public static partial class CEditorSceneManager {
 	//! 상태를 갱신한다
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState()) {
+		if(CEditorAccess.IsEnableUpdateState) {
 			CEditorSceneManager.m_fSkipTime += Time.deltaTime;
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
@@ -104,7 +104,7 @@ public static partial class CEditorSceneManager {
 		bIsEnableUpdate = bIsEnableUpdate && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VAL_0_INT;
 
 		// 상태 갱신이 가능 할 경우
-		if(bIsEnableUpdate && CEditorAccess.IsEnableUpdateState()) {
+		if(bIsEnableUpdate && CEditorAccess.IsEnableUpdateState) {
 			CEditorSceneManager.m_fDefineSymbolSkipTime += Time.deltaTime;
 
 			var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_TABLE);

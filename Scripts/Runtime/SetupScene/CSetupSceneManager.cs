@@ -89,8 +89,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		string oCountryCode = a_oMsg;
 
 		// 국가 코드 설정이 필요 할 경우
-		if(!CAccess.IsMobile() || !oCountryCode.ExIsValid()) {
-			oCountryCode = !CAccess.IsMobile() ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
+		if(!CAccess.IsMobile || !oCountryCode.ExIsValid()) {
+			oCountryCode = !CAccess.IsMobile ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
 		}
 
 		CCommonAppInfoStorage.Inst.CountryCode = oCountryCode.ToUpper();
@@ -114,13 +114,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		nTargetFrameRate = CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
 #else
 		// 데스크 탑 일 경우
-		if(CAccess.IsDesktop()) {
+		if(CAccess.IsDesktop) {
 			int nScreenWidth = KCDefine.B_DESKTOP_SCREEN_WIDTH;
 			int nScreenHeight = KCDefine.B_DESKTOP_SCREEN_HEIGHT;
 
 			Screen.SetResolution(nScreenWidth, nScreenHeight, CBuildOptsTable.Inst.StandaloneBuildOpts.m_eFullscreenMode);
 		} else {
-			string oKey = CAccess.IsConsole() ? KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;	
+			string oKey = CAccess.IsConsole ? KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE : KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE;	
 			nTargetFrameRate = CValTable.Inst.GetInt(oKey);
 		}
 #endif			// #if UNITY_IOS || UNITY_ANDROID

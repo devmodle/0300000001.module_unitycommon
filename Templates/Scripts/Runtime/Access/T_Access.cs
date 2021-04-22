@@ -9,21 +9,33 @@ using UnityEngine.Purchasing;
 
 //! 기본 접근자
 public static partial class Access {
-	#region 클래스 함수
-	//! 배너 광고 높이를 반환한다
-	public static float GetBannerAdsHeight() {
+	#region 클래스 프로퍼티
+	public static float BannerAdsHeight {
+		get {
 #if ADS_MODULE_ENABLE
-		// 디바이스 타입이 유효 할 경우
-		if(CCommonAppInfoStorage.Inst.DeviceType.ExIsValid()) {
-			var stBannerAdsSize = (CCommonAppInfoStorage.Inst.DeviceType == EDeviceType.PHONE) ? KCDefine.U_SIZE_PHONE_BANNER_ADS : KCDefine.U_SIZE_TABLET_BANNER_ADS;
-			return CAccess.GetBannerAdsHeight(stBannerAdsSize.y);
-		}
+			// 디바이스 타입이 유효 할 경우
+			if(CCommonAppInfoStorage.Inst.DeviceType.ExIsValid()) {
+				var stBannerAdsSize = (CCommonAppInfoStorage.Inst.DeviceType == EDeviceType.PHONE) ? KCDefine.U_SIZE_PHONE_BANNER_ADS : KCDefine.U_SIZE_TABLET_BANNER_ADS;
+				return CAccess.GetBannerAdsHeight(stBannerAdsSize.y);
+			}
 
-		return KCDefine.B_VAL_0_FLT;
+			return KCDefine.B_VAL_0_FLT;
 #else
-		return KCDefine.B_VAL_0_FLT;
+			return KCDefine.B_VAL_0_FLT;
 #endif			// #if ADS_MODULE_ENABLE
+		}
 	}
+	#endregion			// 클래스 프로퍼티
+
+	#region 클래스 함수
+	//! 컴포넌트 상호 작용 여부를 변경한다
+	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable) {
+		CAccess.Assert(a_oSender != null);
+
+		var oTouchInteractable = a_oSender.GetComponentInChildren<CTouchInteractable>();
+		oTouchInteractable?.SetInteractable(a_bIsEnable);
+	}
+	
 	#endregion			// 클래스 함수
 
 	#region 조건부 클래스 함수

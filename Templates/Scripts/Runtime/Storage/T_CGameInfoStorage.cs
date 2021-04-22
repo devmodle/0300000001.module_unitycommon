@@ -121,7 +121,25 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 #if ADS_MODULE_ENABLE
 	public int AdsSkipTimes { get; set; } = KCDefine.B_VAL_0_INT;
+
 	public System.DateTime PrevAdsTime { get; set; } = System.DateTime.Now;
+	public System.DateTime PrevRewardAdsTime { get; set; } = System.DateTime.Now;
+
+	public bool IsEnableShowFullscreenAds {
+		get {
+			float fAdsDelay = CValTable.Inst.GetFlt(KCDefine.VT_KEY_DELAY_ADS);
+			float fAdsDeltaTime = CValTable.Inst.GetFlt(KCDefine.VT_KEY_DELTA_TIME_ADS);
+
+			double dblDeltaTimeA = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevAdsTime);
+			double dblDeltaTimeB = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevRewardAdsTime);
+
+			bool bIsEnableShow = dblDeltaTimeA.ExIsGreateEquals(fAdsDelay) && dblDeltaTimeB.ExIsGreateEquals(fAdsDeltaTime);
+			return bIsEnableShow && CGameInfoStorage.Inst.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP;
+		}
+	}
+
+	public bool IsEnableShowResumeAds => this.IsEnableShowFullscreenAds;
+	public bool IsEnableUpdateAdsSkipTimes => true;
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 프로퍼티
 
@@ -223,11 +241,6 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
-	//! 광고 누적 횟수 갱신 가능 여부를 검사한다
-	public bool IsEnableUpdateAdsSkipTimes() {
-		return true;
-	}
-
 	//! 광고 누적 횟수를 추가한다
 	public void AddAdsSkipTimes(int a_nTimes) {
 		int nSkipTimes = this.AdsSkipTimes + a_nTimes;
