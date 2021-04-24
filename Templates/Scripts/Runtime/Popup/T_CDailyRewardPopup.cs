@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 //! 일일 보상 팝업
@@ -11,7 +12,7 @@ public class CDailyRewardPopup : CSubPopup {
 
 	#region UI 변수
 	private Button m_oAdsBtn = null;
-	private Button m_oGetBtn = null;
+	private Button m_oAcquireBtn = null;
 	#endregion			// UI 변수
 
 	#region 객체
@@ -27,8 +28,8 @@ public class CDailyRewardPopup : CSubPopup {
 		m_oAdsBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_DAILY_RP_ADS_BTN);
 		m_oAdsBtn.onClick.AddListener(this.OnTouchAdsBtn);
 
-		m_oGetBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_DAILY_RP_GET_BTN);
-		m_oGetBtn.onClick.AddListener(this.OnTouchGetBtn);
+		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_DAILY_RP_ACQUIRE_BTN);
+		m_oAcquireBtn.onClick.AddListener(this.OnTouchAcquireBtn);
 		// 버튼을 설정한다 }
 	}
 	
@@ -64,7 +65,7 @@ public class CDailyRewardPopup : CSubPopup {
 	}
 
 	//! 획득 버튼을 눌렀을 경우
-	private void OnTouchGetBtn() {
+	private void OnTouchAcquireBtn() {
 		this.ShowRewardPopup();
 	}
 

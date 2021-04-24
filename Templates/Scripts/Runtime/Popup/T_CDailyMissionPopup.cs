@@ -33,6 +33,11 @@ public class CDailyMissionPopup : CMissionPopup {
 	private void UpdateUIsState() {
 		// Do Nothing
 	}
+
+	//! 미션 버튼을 눌렀을 경우
+	private void OnTouchMissionBtn(STMissionInfo a_stMissionInfo) {
+		// Do Nothing
+	}
 	#endregion			// 함수
 }
 #endif			// #if NEVER_USE_THIS

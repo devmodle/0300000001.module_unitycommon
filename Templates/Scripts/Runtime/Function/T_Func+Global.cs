@@ -82,8 +82,8 @@ public static partial class Func {
 	}
 
 	//! 잔돈 획득 팝업을 출력한다
-	public static void ShowChangesGetPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CChangesGetPopup>(KDefine.G_OBJ_N_CHANGES_GET_POPUP, KCDefine.U_OBJ_P_G_CHANGES_GET_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	public static void ShowChangesAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CChangesAcquirePopup>(KDefine.G_OBJ_N_CHANGES_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_CHANGES_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	//! 포커스 팝업을 출력한다

@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 //! 보상 팝업
 public class CRewardPopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
+		public ERewardQuality m_eQuality;
 		public ERewardPopupType m_ePopupType;
 		public List<STItemInfo> m_oItemInfoList;
 	}
@@ -14,6 +16,10 @@ public class CRewardPopup : CSubPopup {
 	#region 변수
 	private STParams m_stParams;
 	#endregion			// 변수
+
+	#region UI 변수
+	private Button m_oAcquireBtn = null;
+	#endregion			// UI 변수
 
 	#region 객체
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
@@ -23,6 +29,10 @@ public class CRewardPopup : CSubPopup {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
+
+		// 버튼을 설정한다
+		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_REWARD_P_ACQUIRE_BTN);
+		m_oAcquireBtn.onClick.AddListener(this.OnTouchAcquireBtn);
 	}
 	
 	//! 초기화
@@ -39,7 +49,7 @@ public class CRewardPopup : CSubPopup {
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
 			var oItemUIs = m_oItemUIsList[i];
 			oItemUIs.SetActive(i < m_stParams.m_oItemInfoList.Count);
-
+			
 			// 보상 정보가 존재 할 경우
 			if(i < m_stParams.m_oItemInfoList.Count) {
 				this.UpdateItemUIsState(oItemUIs, m_stParams.m_oItemInfoList[i]);
@@ -53,7 +63,7 @@ public class CRewardPopup : CSubPopup {
 	}
 
 	//! 획득 버튼을 눌렀을 경우
-	private void OnTouchGetBtn() {
+	private void OnTouchAcquireBtn() {
 		for(int i = 0; i < m_stParams.m_oItemInfoList.Count; ++i) {
 			Func.AcquireItem(m_stParams.m_oItemInfoList[i]);
 		}

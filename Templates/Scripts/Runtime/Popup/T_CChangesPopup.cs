@@ -7,6 +7,7 @@ using UnityEngine.UI;
 //! 잔돈 팝업
 public class CChangesPopup : CSubPopup {
 	#region UI 변수
+	private Button m_oOKBtn = null;
 	private Button m_oPurchaseBtn = null;
 	#endregion			// UI 변수
 
@@ -20,9 +21,13 @@ public class CChangesPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		// 버튼을 설정한다
+		// 버튼을 설정한다 {
+		m_oOKBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_CHANGES_P_OK_BTN);
+		m_oOKBtn.onClick.AddListener(this.OnTouchOKBtn);
+
 		m_oPurchaseBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_CHANGES_P_PURCHASE_BTN);
 		m_oPurchaseBtn.onClick.AddListener(this.OnTouchPurchaseBtn);
+		// 버튼을 설정한다 }
 	}
 
 	//! 초기화
@@ -37,6 +42,11 @@ public class CChangesPopup : CSubPopup {
 
 		m_oSaveUIs.SetActive(nNumChanges < KDefine.G_MAX_NUM_CHANGES);
 		m_oFullUIs.SetActive(nNumChanges >= KDefine.G_MAX_NUM_CHANGES);
+	}
+
+	//! 확인 버튼을 눌렀을 경우
+	private void OnTouchOKBtn() {
+		this.OnTouchCloseBtn();
 	}
 
 	//! 결제 버튼을 눌렀을 경우

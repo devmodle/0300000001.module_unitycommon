@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if PURCHASE_MODULE_ENABLE
@@ -75,9 +76,9 @@ public class CStorePopup : CSubPopup {
 	}
 
 	//! 결제 버튼을 눌렀을 경우
-	private void OnTouchPurchaseBtn(ESaleProductKinds a_eSaleProductKinds) {
+	private void OnTouchPurchaseBtn(STSaleProductInfo a_stSaleProductInfo) {
 #if PURCHASE_MODULE_ENABLE
-		Func.PurchaseProduct(a_eSaleProductKinds, this.OnPurchaseProduct);
+		Func.PurchaseProduct(a_stSaleProductInfo.m_eSaleProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 

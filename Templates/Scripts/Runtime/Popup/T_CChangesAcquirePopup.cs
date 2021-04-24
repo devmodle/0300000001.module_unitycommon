@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 //! 잔돈 획득 팝업
-public class CChangesGetPopup : CSubPopup {
+public class CChangesAcquirePopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
 		public int m_nNumChanges;

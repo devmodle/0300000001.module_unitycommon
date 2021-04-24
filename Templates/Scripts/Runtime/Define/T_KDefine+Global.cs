@@ -85,6 +85,7 @@ public static partial class KDefine {
 
 	// 보상 팝업
 	public const string G_OBJ_N_REWARD_POPUP = "RewardPopup";
+	public const string G_OBJ_N_REWARD_P_ACQUIRE_BTN = "AcquireBtn";
 
 	// 무료 보상 팝업
 	public const string G_OBJ_N_FREE_REWARD_POPUP = "FreeRewardPopup";
@@ -94,15 +95,18 @@ public static partial class KDefine {
 	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DailyRewardPopup";
 
 	public const string G_OBJ_N_DAILY_RP_ADS_BTN = "AdsBtn";
-	public const string G_OBJ_N_DAILY_RP_GET_BTN = "GetBtn";
+	public const string G_OBJ_N_DAILY_RP_ACQUIRE_BTN = "AcquireBtn";
 	// 일일 보상 팝업 }
 
-	// 잔돈 팝업
+	// 잔돈 팝업 {
 	public const string G_OBJ_N_CHANGES_POPUP = "ChangesPopup";
+
+	public const string G_OBJ_N_CHANGES_P_OK_BTN = "OKBtn";
 	public const string G_OBJ_N_CHANGES_P_PURCHASE_BTN = "PurchaseBtn";
+	// 잔돈 팝업 }
 
 	// 잔돈 획득 팝업
-	public const string G_OBJ_N_CHANGES_GET_POPUP = "ChangesGetPopup";
+	public const string G_OBJ_N_CHANGES_ACQUIRE_POPUP = "ChangesAcquirePopup";
 
 	// 포커스 팝업
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
