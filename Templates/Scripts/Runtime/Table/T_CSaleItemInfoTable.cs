@@ -82,7 +82,12 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 
 		for(int i = 0; i < oSaleItemInfos.Count; ++i) {
 			var stSaleItemInfo = new STSaleItemInfo(oSaleItemInfos[i]);
-			this.SaleItemInfoList.Add(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
+			bool bIsReplace = oSaleItemInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
+
+			// 판매 아이템 정보가 추가 가능 할 경우
+			if(bIsReplace || !this.SaleItemInfoList.ContainsKey(stSaleItemInfo.m_eSaleItemKinds)) {
+				this.SaleItemInfoList.ExReplaceVal(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
+			}
 		}
 
 #if UNITY_EDITOR
@@ -118,7 +123,7 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 
 		for(int i = 0; i < a_oSaleItemInfoList.Count; ++i) {
 			var stSaleItemInfo = a_oSaleItemInfoList[i];
-			a_oOutSaleItemInfoList.Add(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
+			a_oOutSaleItemInfoList.ExAddVal(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
 		}
 	}
 	#endregion			// 함수
@@ -131,7 +136,7 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 		a_oOutSaleItemInfoList.Clear();
 
 		foreach(var stKeyVal in a_oSaleItemInfoList) {
-			a_oOutSaleItemInfoList.Add(stKeyVal.Value);
+			a_oOutSaleItemInfoList.ExAddVal(stKeyVal.Value);
 		}
 
 		a_oOutSaleItemInfoList.Sort((a_stLhs, a_stRhs) => (int)a_stLhs.m_eSaleItemKinds - (int)a_stRhs.m_eSaleItemKinds);

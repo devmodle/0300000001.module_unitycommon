@@ -149,7 +149,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 		for(int i = 0; i < a_oRewardInfoList.Count; ++i) {
 			var stRewardInfo = a_oRewardInfoList[i];
-			a_oOutRewardInfoList.Add(stRewardInfo.m_eRewardKinds, stRewardInfo);
+			a_oOutRewardInfoList.ExAddVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
 		}
 	}
 
@@ -195,7 +195,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 			a_oOutRewardInfoList.Clear();
 
 			foreach(var stKeyVal in a_oRewardInfoList) {
-				a_oOutRewardInfoList.Add(stKeyVal.Value);
+				a_oOutRewardInfoList.ExAddVal(stKeyVal.Value);
 			}
 
 			a_oOutRewardInfoList.Sort((a_stLhs, a_stRhs) => (int)a_stLhs.m_eRewardKinds - (int)a_stRhs.m_eRewardKinds);

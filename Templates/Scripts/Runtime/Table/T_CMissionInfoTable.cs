@@ -115,7 +115,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 
 		for(int i = 0; i < a_oMissionInfoList.Count; ++i) {
 			var stMissionInfo = a_oMissionInfoList[i];
-			a_oOutMissionInfoList.Add(stMissionInfo.m_eMissionKinds, stMissionInfo);
+			a_oOutMissionInfoList.ExAddVal(stMissionInfo.m_eMissionKinds, stMissionInfo);
 		}
 	}
 
@@ -129,12 +129,16 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 
 	//! 미션 정보를 반환한다
 	private bool TryGetMissionInfo(EMissionKinds a_eMissionKinds, Dictionary<EMissionKinds, STMissionInfo> a_oMissionInfoList, out STMissionInfo a_stOutMissionInfo) {
+		CAccess.Assert(a_oMissionInfoList != null);
 		a_stOutMissionInfo = a_oMissionInfoList.ExGetVal(a_eMissionKinds, KDefine.G_INVALID_MISSION_INFO);
+
 		return a_oMissionInfoList.ContainsKey(a_eMissionKinds);
 	}
 
 	//! 미션 정보를 로드한다
 	private Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(SimpleJSON.JSONNode a_oMissionInfos, Dictionary<EMissionKinds, STMissionInfo> a_oOutMissionInfoList) {
+		CAccess.Assert(a_oMissionInfos != null && a_oOutMissionInfoList != null);
+
 		for(int i = 0; i < a_oMissionInfos.Count; ++i) {
 			var stMissionInfo = new STMissionInfo(a_oMissionInfos[i]);
 			bool bIsReplace = a_oMissionInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
@@ -157,7 +161,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 			a_oOutMissionInfoList.Clear();
 
 			foreach(var stKeyVal in a_oMissionInfoList) {
-				a_oOutMissionInfoList.Add(stKeyVal.Value);
+				a_oOutMissionInfoList.ExAddVal(stKeyVal.Value);
 			}
 
 			a_oOutMissionInfoList.Sort((a_stLhs, a_stRhs) => (int)a_stLhs.m_eMissionKinds - (int)a_stRhs.m_eMissionKinds);
