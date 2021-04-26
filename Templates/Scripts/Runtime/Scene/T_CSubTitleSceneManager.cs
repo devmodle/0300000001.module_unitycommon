@@ -11,7 +11,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#endregion			// UI 변수
 
 	#region 프로퍼티
-	public override bool IsRealtimeFadeOutAni => CCommonGameInfoStorage.Inst.GameInfo.IsFirstPlay;
+	public override bool IsRealtimeFadeOutAni => CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay;
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -38,10 +38,18 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 
+			// 최초 시작 일 경우
+			if(CCommonAppInfoStorage.Inst.IsFirstStart) {
+				LogFunc.SendLaunchLog();
+				LogFunc.SendSplashLog();
+
+				CCommonAppInfoStorage.Inst.IsFirstStart = true;
+			}
+
 			// 최초 플레이 일 경우
-			if(CCommonGameInfoStorage.Inst.GameInfo.IsFirstPlay) {
-				CCommonGameInfoStorage.Inst.GameInfo.IsFirstPlay = false;
-				CCommonGameInfoStorage.Inst.SaveGameInfo();
+			if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
+				CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay = false;
+				CCommonAppInfoStorage.Inst.SaveAppInfo();
 
 				this.HandleFirstPlayState();
 			} else {
@@ -99,7 +107,10 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	//! 최초 플레이 상태를 처리한다
 	private void HandleFirstPlayState() {
-		// Do Nothing
+		// 약관 동의 팝업이 닫혔을 경우
+		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
+			LogFunc.SendAgreeLog();
+		}
 	}
 	#endregion			// 함수
 }

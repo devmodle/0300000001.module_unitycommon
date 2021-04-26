@@ -32,7 +32,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 	//! 약관 동의 팝업이 닫혔을 경우
 	private void OnCloseAgreePopup(CPopup a_oSender) {
-		CGameInfoStorage.Inst.IsCloseAgreePopup = true;
+		CAppInfoStorage.Inst.IsCloseAgreePopup = true;
 		this.LoadNextScene();
 	}
 

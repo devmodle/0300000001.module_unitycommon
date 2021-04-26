@@ -33,8 +33,8 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		CCommonGameInfoStorage.Inst.GameInfo.IsAgree = true;
-		CCommonGameInfoStorage.Inst.SaveGameInfo();
+		CCommonAppInfoStorage.Inst.AppInfo.IsAgree = true;
+		CCommonAppInfoStorage.Inst.SaveAppInfo();
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_LATE_SETUP_SCENE);
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
@@ -51,7 +51,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();
 #else
-		bool bIsAgree = CCommonGameInfoStorage.Inst.GameInfo.IsAgree;
+		bool bIsAgree = CCommonAppInfoStorage.Inst.AppInfo.IsAgree;
 			
 		// 약관 동의 상태 일 경우
 		if(bIsAgree || !CCommonAppInfoStorage.Inst.IsNeedAgree(CCommonAppInfoStorage.Inst.CountryCode)) {

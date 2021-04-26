@@ -102,7 +102,6 @@ public sealed class CGameInfo : CBaseInfo {
 //! 게임 정보 저장소
 public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
-	public bool IsCloseAgreePopup { get; set; } = false;
 	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {

@@ -11,7 +11,14 @@ public static partial class KDefine {
 
 	#region 조건부 상수
 #if FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FACEBOOK_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
+	// 이름
+	public static readonly string L_LOG_N_LAUNCH = "Launch";
+	public static readonly string L_LOG_N_AGREE = "Agree";
+	public static readonly string L_LOG_N_SPLASH = "Splash";
 
+	// 식별자
+	public static readonly string L_LOG_KEY_LOG_TIME = "LogTime";
+	public static readonly string L_LOG_KEY_INSTALL_TIME = "InstallTime";
 #endif			// #if FLURRY_MODULE_ENABLE || TENJIN_MODULE_ENABLE || FACEBOOK_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
 	#endregion			// 조건부 상수
 }

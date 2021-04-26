@@ -21,6 +21,8 @@ public sealed class CAppInfo : CBaseInfo {
 public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 프로퍼티
 	public bool IsIgnoreUpdate { get; set; } = false;
+	public bool IsCloseAgreePopup { get; set; } = false;
+	
 	public CAppInfo AppInfo { get; private set; } = new CAppInfo();
 	#endregion			// 프로퍼티
 
