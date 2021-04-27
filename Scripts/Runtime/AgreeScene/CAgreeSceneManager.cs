@@ -43,10 +43,10 @@ public abstract class CAgreeSceneManager : CSceneManager {
 	//! 초기화
 	private IEnumerator OnStart() {
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_SETUP, null);
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		this.SetupRootScene();
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();

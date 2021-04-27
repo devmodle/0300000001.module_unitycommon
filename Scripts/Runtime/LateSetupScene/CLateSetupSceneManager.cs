@@ -38,7 +38,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	//! 초기화
 	private IEnumerator OnStart() {
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_AGREE, null);
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		// 관리자 자동 초기화 모드 일 경우
 		if(this.IsAutoInitManager) {
@@ -169,7 +169,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		}
 
 		this.Setup();
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_PERMISSION_SCENE);
 

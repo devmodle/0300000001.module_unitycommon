@@ -55,7 +55,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 	//! 초기화
 	private IEnumerator OnStart() {
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_LATE_SETUP, null);
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 #if UNITY_ANDROID
 		this.CheckPermission();

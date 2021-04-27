@@ -48,10 +48,10 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		this.Setup();
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE);
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_SETUP);

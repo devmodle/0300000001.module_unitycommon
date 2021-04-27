@@ -64,10 +64,10 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CIndicatorManager.Create();
 		CIndicatorManager.Inst.Show(true, false);
 		
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		this.SetupOffsets();
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		// iOS 를 설정한다 {
 #if UNITY_IOS
@@ -156,7 +156,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CCommonGameInfoStorage.Create();
 
 		this.Setup();
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		
 		CSceneManager.IsInit = true;
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_SPLASH, false, false);

@@ -104,7 +104,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		// 디바이스 정보를 설정한다 {
 		int nQualityLevel = CValTable.Inst.GetInt(KCDefine.VT_KEY_QUALITY_LEVEL);
@@ -129,7 +129,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);
 		
 		CFunc.SetupQuality((EQualityLevel)nQualityLevel, true);
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		// 디바이스 정보를 설정한다 }
 
 		// 네이티브 플러그인을 초기화한다 {
@@ -149,7 +149,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		// 네이티브 플러그인을 초기화한다 }
 		
 		this.Setup();
-		yield return CFactory.CreateWaitForSeconds(KCDefine.U_DELAY_INIT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		
 		CUnityMsgSender.Inst.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
 	}
