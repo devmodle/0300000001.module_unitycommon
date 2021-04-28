@@ -38,6 +38,17 @@ public static partial class Func {
 		}
 	}
 
+	//! 토스트 팝업을 출력한다
+	public static void ShowToastPopup(CToastPopup.STParams a_stParams) {
+		Func.ShowToastPopup(a_stParams, Vector3.zero);
+	}
+
+	//! 토스트 팝업을 출력한다
+	public static void ShowToastPopup(CToastPopup.STParams a_stParams, Vector3 a_stPos) {
+		a_stParams.m_fDuration = a_stParams.m_fDuration.ExIsLessEquals(KCDefine.B_VAL_0_FLT) ? KCDefine.U_DEF_DURATION_TOAST_POPUP : a_stParams.m_fDuration;
+		CToastPopupManager.Inst.Show(a_stParams, a_stPos);
+	}
+
 	//! 종료 팝업을 출력한다
 	public static void ShowQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
