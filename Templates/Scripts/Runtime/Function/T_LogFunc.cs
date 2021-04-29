@@ -20,6 +20,8 @@ public static partial class LogFunc {
 
 		// 로그 전송이 가능 할 경우
 		if(bIsEnableSendLog || !CCommonAppInfoStorage.Inst.IsTestDevice()) {
+			CServicesManager.Inst.SendLog(a_oName, a_oDataList);
+
 #if FLURRY_MODULE_ENABLE
 			var oFlurryDataList = (a_oDataList != null) ? a_oDataList.ExToTypes<string, object, string, string>() : null;
 			CFlurryManager.Inst.SendLog(a_oName, oFlurryDataList);
@@ -58,6 +60,8 @@ public static partial class LogFunc {
 
 		// 로그 전송이 가능 할 경우
 		if(bIsEnableSendLog || !CCommonAppInfoStorage.Inst.IsTestDevice()) {
+			CServicesManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+
 #if FLURRY_MODULE_ENABLE
 			CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 #endif			// #if FLURRY_MODULE_ENABLE

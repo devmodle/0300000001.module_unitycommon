@@ -42,6 +42,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 관리자 자동 초기화 모드 일 경우
 		if(this.IsAutoInitManager) {
+			CServicesManager.Inst.Init(CLateSetupSceneManager.OnInitServicesManager);
+			
 #if ADS_MODULE_ENABLE
 			var stAdsParams = new CAdsManager.STParams() {
 				m_eDefAdsType = CPluginInfoTable.Inst.DefAdsType,
@@ -175,6 +177,17 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		CSceneManager.IsLateSetup = true;
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_PERMISSION);
+	}
+
+	//! 서비스 관리자가 초기화 되었을 경우
+	private static void OnInitServicesManager(CServicesManager a_oSender, bool a_bIsSuccess) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnInitServicesManager: {a_bIsSuccess}");
+
+		// 초기화 되었을 경우
+		if(a_bIsSuccess) {
+			CServicesManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+			CServicesManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
+		}
 	}
 	#endregion			// 함수
 
