@@ -116,8 +116,8 @@ public static partial class CCommonEditorSceneManager {
 
 				var oWndTrans = oLogWnd.transform as RectTransform;
 				oWndTrans.pivot = KCDefine.B_ANCHOR_MIDDLE_CENTER;
-				oWndTrans.anchorMin = KCDefine.B_ANCHOR_BOTTOM_LEFT;
-				oWndTrans.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
+				oWndTrans.anchorMin = KCDefine.B_ANCHOR_DOWN_LEFT;
+				oWndTrans.anchorMax = KCDefine.B_ANCHOR_UP_RIGHT;
 				oWndTrans.anchoredPosition = Vector2.zero;
 
 				// 이벤트 시스템이 존재 할 경우
@@ -144,9 +144,9 @@ public static partial class CCommonEditorSceneManager {
 				oText.fontSize = KCEditorDefine.B_FONT_SIZE_DEBUG_C_TEXT;
 
 				var oTrans = oDebugLogItemList[i].transform as RectTransform;
-				oTrans.pivot = KCDefine.B_ANCHOR_TOP_LEFT;
-				oTrans.anchorMin = KCDefine.B_ANCHOR_TOP_LEFT;
-				oTrans.anchorMax = KCDefine.B_ANCHOR_TOP_RIGHT;
+				oTrans.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+				oTrans.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+				oTrans.anchorMax = KCDefine.B_ANCHOR_UP_RIGHT;
 				oTrans.sizeDelta = KCEditorDefine.B_SIZE_DEBUG_C_LOG_ITEM.ExTo2D();
 			}
 		}
@@ -179,12 +179,12 @@ public static partial class CCommonEditorSceneManager {
 				// 크기를 설정한다 }
 
 				// 위치를 설정한다 {
-				oStaticText.rectTransform.pivot = KCDefine.B_ANCHOR_BOTTOM_RIGHT;
+				oStaticText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
 				oStaticText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
 				oStaticText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
 				oStaticText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_STATIC_TEXT.ExTo2D();
 
-				oDynamicText.rectTransform.pivot = KCDefine.B_ANCHOR_BOTTOM_RIGHT;
+				oDynamicText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
 				oDynamicText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
 				oDynamicText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
 				oDynamicText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_DYNAMIC_TEXT.ExTo2D();

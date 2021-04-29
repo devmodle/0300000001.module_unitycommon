@@ -22,9 +22,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		//! 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			m_oVerText = CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs, KCDefine.TS_POS_VER_TEXT);
-			m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_TOP_LEFT;
-			m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_TOP_LEFT;
-			m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_TOP_LEFT;
+			m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
 		}
 	}
 	
