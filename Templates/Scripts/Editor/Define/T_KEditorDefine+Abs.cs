@@ -134,7 +134,7 @@ public static partial class KEditorDefine {
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
 		// 구글
-		["com.google.external-dependency-manager"] = "1.2.164",
+		["com.google.external-dependency-manager"] = "1.2.165",
 		["com.google.play.review"] = "1.4.0",
 		["com.google.play.appupdate"] = "1.4.0",
 
