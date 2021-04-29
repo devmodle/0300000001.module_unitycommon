@@ -32,10 +32,6 @@ public static partial class LogFunc {
 			CTenjinManager.Inst.SendLog(a_oName, oTenjinDataList);
 #endif			// #if TENJIN_MODULE_ENABLE
 
-#if FACEBOOK_MODULE_ENABLE
-			CFacebookManager.Inst.SendLog(a_oName, a_oDataList, a_oVal);
-#endif			// #if FACEBOOK_MODULE_ENABLE
-
 #if FIREBASE_MODULE_ENABLE
 			var oFirebaseDataList = (a_oDataList != null) ? a_oDataList.ExToTypes<string, object, string, string>() : null;
 			CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataList);
@@ -69,10 +65,6 @@ public static partial class LogFunc {
 #if TENJIN_MODULE_ENABLE
 			CTenjinManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 #endif			// #if TENJIN_MODULE_ENABLE
-
-#if FACEBOOK_MODULE_ENABLE
-			CFacebookManager.Inst.SendPurchaseLog(a_oProduct);
-#endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 			CFirebaseManager.Inst.SendPurchaseLog(a_oProduct);

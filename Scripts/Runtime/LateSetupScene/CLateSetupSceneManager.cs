@@ -138,9 +138,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if SINGULAR_MODULE_ENABLE
 			var stSingularParams = new CSingularManager.STParams() {
 				m_oAPIKey = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey,
-				m_oAPISecret = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret;
+				m_oAPISecret = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret
 			};
-
+			
 			CSingularManager.Inst.Init(stSingularParams, CLateSetupSceneManager.OnInitSingularManager);
 #endif			// #if SINGULAR_MODULE_ENABLE
 
@@ -272,11 +272,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	//! 페이스 북 관리자가 초기화 되었을 경우
 	private static void OnInitFacebookManager(CFacebookManager a_oSender, bool a_bIsSuccess) {
 		CFunc.ShowLog($"CLateSetupSceneManager.OnInitFacebookManager: {a_bIsSuccess}");
-
-		// 초기화 되었을 경우
-		if(a_bIsSuccess) {
-			CFacebookManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
-		}
 	}
 #endif			// #if FACEBOOK_MODULE_ENABLE
 

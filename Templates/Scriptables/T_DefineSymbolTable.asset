@@ -29,7 +29,6 @@ MonoBehaviour:
   - INPUT_SYSTEM_ENABLE
   - MSG_PACK_ENABLE
   - MODE_2D_ENABLE
-  - MODE_CENTER_ENABLE
   m_oSubCommonDefineSymbolList: []
   m_oStandaloneDefineSymbolList: []
   m_oMacDefineSymbolList: []
