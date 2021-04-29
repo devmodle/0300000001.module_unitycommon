@@ -15,11 +15,11 @@ MonoBehaviour:
   m_stJenkinsInfo:
     m_oUserID: studio
     m_oBranch: master
-    m_oSrcRoot: 
-    m_oWorkspaceRoot: /Volumes/LaCie/jenkins/workspace
+    m_oSrc: 
+    m_oWorkspace: /Volumes/LaCie/jenkins/workspace
     m_oBuildToken: JenkinsBuild
     m_oAccessToken: 1157dad5f9db2d0615036ebc6da282c251
-    m_oBuildURLFormat: http://59.11.2.140:18081/{0}/buildWithParameters
+    m_oBuildURLFmt: http://59.11.2.140:18081/{0}/buildWithParameters
   m_stStandaloneBuildInfo:
     m_oCategory: public.app-category.games
   m_stiOSBuildInfo:
