@@ -73,11 +73,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	//! 디바이스 식별자 반환 메세지를 처리한다
 	private void HandleGetDeviceIDMsg(string a_oMsg) {
-		bool bIsValid = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid();
-
 		// 디바이스 식별자 설정이 필요 할 경우
-		if(!bIsValid || CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsEquals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
-			CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
+		if(!CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid()) {
+			CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : string.Empty;
 		}
 		
 		CCommonAppInfoStorage.Inst.SaveAppInfo();

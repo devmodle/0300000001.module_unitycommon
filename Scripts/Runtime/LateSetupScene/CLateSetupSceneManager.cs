@@ -187,11 +187,22 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		if(a_bIsSuccess) {
 			CServicesManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 			CServicesManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
+
+#if APPLE_LOGIN_ENABLE
+			CServicesManager.Inst.UpdateAppleLoginState(CLateSetupSceneManager.OnUpdateAppleLoginState);
+#endif			// #if APPLE_LOGIN_ENABLE
 		}
 	}
 	#endregion			// 함수
 
 	#region 조건부 클래스 함수
+#if APPLE_LOGIN_ENABLE
+	//! 애플 로그인 상태가 갱신 되었을 경우
+	private static void OnUpdateAppleLoginState(CServicesManager a_oSender, string a_oUserID, bool a_bIsSuccess) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnUpdateAppleLoginState: {a_oUserID}, {a_bIsSuccess}");
+	}
+#endif			// #if APPLE_LOGIN_ENABLE
+
 #if ADS_MODULE_ENABLE
 	//! 광고 관리자가 초기화 되었을 경우
 	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
@@ -228,11 +239,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	//! 광고가 초기화 되었을 경우
 	private static void OnInitAds(string a_oCmd, string a_oMsg) {
 		CFunc.ShowLog($"CLateSetupSceneManager.OnInitAds: {a_oMsg}");
-
 		bool bIsValid = bool.TryParse(a_oMsg, out bool bIsSuccess);
-		bIsValid = bIsValid && bIsSuccess;
 
-		bool bIsEnableLoadAds = bIsValid && CLateSetupSceneManager.IsAutoLoadAds;
+		bool bIsEnableLoadAds = (bIsValid && bIsSuccess) && CLateSetupSceneManager.IsAutoLoadAds;
 		bIsEnableLoadAds = bIsEnableLoadAds && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 
 		// 재개 광고 로드가 가능 할 경우
@@ -289,7 +298,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CFirebaseManager.Inst.SetCrashDatas(new Dictionary<string, string>() {
 				[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 			});
-
+			
 			CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 			CFirebaseManager.Inst.SetCrashUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 

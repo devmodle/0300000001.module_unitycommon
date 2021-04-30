@@ -30,7 +30,8 @@
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.1 - Feb 15, 2021)*
 	- *Odin Inspector (v3.0.4 - Feb 23, 2021)*
-	- *Spine (v3.8.0 - Mar 19, 2021)*
+	- *Spine (v3.8.0 - Apr 28, 2021)*
+	- *Spine URP Shaders (v3.8.0 - Apr 28, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Message Pack (v2.2.85)*
 	- *Thai Font Adjuster (v1.0.0)*
@@ -38,7 +39,6 @@
 	- *Particle For GUI (v3.3.0)*
 	- *Soft Mask For GUI (v0.9.1)*
 	- *Unmask For GUI (v1.2.0)*
-	- *Spine Shader (v3.8.0 - Mar 4, 2021)*
 5. **기타 추가 에셋 및 플러그인 리스트**
 	- *Firebase (Auth, Database, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.1.0)*
 	- *Admob (v5.4.0)*
