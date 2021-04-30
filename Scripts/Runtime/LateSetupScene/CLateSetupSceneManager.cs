@@ -198,8 +198,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 조건부 클래스 함수
 #if APPLE_LOGIN_ENABLE
 	//! 애플 로그인 상태가 갱신 되었을 경우
-	private static void OnUpdateAppleLoginState(CServicesManager a_oSender, string a_oUserID, bool a_bIsSuccess) {
-		CFunc.ShowLog($"CLateSetupSceneManager.OnUpdateAppleLoginState: {a_oUserID}, {a_bIsSuccess}");
+	private static void OnUpdateAppleLoginState(CServicesManager a_oSender, bool a_bIsSuccess) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnUpdateAppleLoginState: {a_bIsSuccess}");
 	}
 #endif			// #if APPLE_LOGIN_ENABLE
 
@@ -312,7 +312,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	}
 
 #if FIREBASE_REMOTE_CONFIG_ENABLE
-	//! 속성을 로드했을 경우
+	//! 속성이 로드 되었을 경우
 	private static void OnLoadConfig(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CFunc.ShowLog($"CLateSetupSceneManager.OnLoadConfig: {a_bIsSuccess}");
 
