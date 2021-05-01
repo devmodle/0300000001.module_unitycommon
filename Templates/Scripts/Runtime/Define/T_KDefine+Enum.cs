@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
-/*
-Kinds 값 지정 방식
-:
-- Type 별로 10,000,000 단위로 값 지정
-- Kinds Type 별로 10,000 단위로 값 지정
-- Sub Kinds Type 별로 100 단위로 값 지정
-- Detail Sub Kinds Type 별로 1 단위로 값 지정
-*/
 #region 기본
 //! 가격 타입
 public enum EPriceType {
