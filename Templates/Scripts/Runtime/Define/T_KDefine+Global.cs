@@ -52,6 +52,9 @@ public static partial class KDefine {
 	// 판매 상품 정보 테이블 }
 
 	// 미션 정보 테이블 {
+	public const int G_IDX_MISSION_IT_FREE_INFOS = 0;
+	public const int G_IDX_MISSION_IT_DAILY_INFOS = 1;
+
 	public const string G_KEY_MISSION_IT_FREE = "Free";
 	public const string G_KEY_MISSION_IT_DAILY = "Daily";
 
@@ -63,6 +66,10 @@ public static partial class KDefine {
 	// 미션 정보 테이블 }
 
 	// 보상 정보 테이블 {
+	public const int G_IDX_REWARD_IT_FREE_INFOS = 0;
+	public const int G_IDX_REWARD_IT_DAILY_INFOS = 1;
+	public const int G_IDX_REWARD_IT_CLEAR_INFOS = 2;
+	
 	public const string G_KEY_REWARD_IT_FREE = "Free";
 	public const string G_KEY_REWARD_IT_DAILY = "Daily";
 	public const string G_KEY_REWARD_IT_CLEAR = "Clear";
