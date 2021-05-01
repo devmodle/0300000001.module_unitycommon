@@ -15,7 +15,7 @@ public sealed class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[Key(71)] public Dictionary<EItemKinds, int> NumItemsList { get; set; } = new Dictionary<EItemKinds, int>();
+	[Key(71)] public Dictionary<EItemKinds, int> m_oNumItemsList = new Dictionary<EItemKinds, int>();
 	
 	[IgnoreMember] public int NumCoins {
 		get { return m_oIntList.ExGetVal(CUserInfo.KEY_NUM_COINS, KCDefine.B_VAL_0_INT); } 
@@ -32,7 +32,7 @@ public sealed class CUserInfo : CBaseInfo {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		this.NumItemsList = this.NumItemsList ?? new Dictionary<EItemKinds, int>();
+		m_oNumItemsList = m_oNumItemsList ?? new Dictionary<EItemKinds, int>();
 	}
 	#endregion			// 인터페이스
 
@@ -53,7 +53,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 함수
 	//! 아이템 개수를 반환한다
 	public int GetNumItems(EItemKinds a_eItemKinds) {
-		return this.UserInfo.NumItemsList.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);
+		return this.UserInfo.m_oNumItemsList.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);
 	}
 
 	//! 코인 개수를 추가한다
@@ -73,7 +73,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
 		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue);
 
-		this.UserInfo.NumItemsList.ExReplaceVal(a_eItemKinds, nNumItems);
+		this.UserInfo.m_oNumItemsList.ExReplaceVal(a_eItemKinds, nNumItems);
 	}
 	
 	//! 유저 정보를 저장한다

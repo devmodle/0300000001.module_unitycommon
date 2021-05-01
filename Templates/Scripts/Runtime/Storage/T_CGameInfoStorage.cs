@@ -42,11 +42,11 @@ public sealed class CGameInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[Key(35)] public List<EMissionKinds> CompleteMissionKindsList = new List<EMissionKinds>();
-	[Key(36)] public List<EMissionKinds> CompleteDailyMissionKindsList = new List<EMissionKinds>();
-	[Key(37)] public List<ETutorialKinds> CompleteTutorialKindsList = new List<ETutorialKinds>();
+	[Key(35)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
+	[Key(36)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
+	[Key(37)] public List<ETutorialKinds> m_oCompleteTutorialKindsList = new List<ETutorialKinds>();
 
-	[Key(101)] public Dictionary<int, CClearInfo> ClearInfoList = new Dictionary<int, CClearInfo>();
+	[Key(101)] public Dictionary<int, CClearInfo> m_oClearInfoList = new Dictionary<int, CClearInfo>();
 
 	[IgnoreMember] public System.DateTime LastDailyMissionTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastFreeRewardTime { get; set; } = System.DateTime.Now;
@@ -79,11 +79,11 @@ public sealed class CGameInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		
-		this.CompleteMissionKindsList = this.CompleteMissionKindsList ?? new List<EMissionKinds>();
-		this.CompleteDailyMissionKindsList = this.CompleteDailyMissionKindsList ?? new List<EMissionKinds>();
-		this.CompleteTutorialKindsList = this.CompleteTutorialKindsList ?? new List<ETutorialKinds>();
+		m_oCompleteMissionKindsList = m_oCompleteMissionKindsList ?? new List<EMissionKinds>();
+		m_oCompleteDailyMissionKindsList = m_oCompleteDailyMissionKindsList ?? new List<EMissionKinds>();
+		m_oCompleteTutorialKindsList = m_oCompleteTutorialKindsList ?? new List<ETutorialKinds>();
 
-		this.ClearInfoList = this.ClearInfoList ?? new Dictionary<int, CClearInfo>();
+		m_oClearInfoList = m_oClearInfoList ?? new Dictionary<int, CClearInfo>();
 
 		this.LastDailyMissionTime = this.LastDailyMissionTimeStr.ExIsValid() ? this.LastDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
 		this.LastFreeRewardTime = this.LastFreeRewardTimeStr.ExIsValid() ? this.LastFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
@@ -177,17 +177,17 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 미션 완료 여부를 검사한다
 	public bool IsCompleteMission(EMissionKinds a_eMissionKinds) {
-		return this.GameInfo.CompleteMissionKindsList.Contains(a_eMissionKinds);
+		return this.GameInfo.m_oCompleteMissionKindsList.Contains(a_eMissionKinds);
 	}
 
 	//! 일일 미션 완료 여부를 검사한다
 	public bool IsCompleteDailyMission(EMissionKinds a_eMissionKinds) {
-		return this.GameInfo.CompleteDailyMissionKindsList.Contains(a_eMissionKinds);
+		return this.GameInfo.m_oCompleteDailyMissionKindsList.Contains(a_eMissionKinds);
 	}
 
 	//! 튜토리얼 완료 여부를 검사한다
 	public bool IsCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
-		return this.GameInfo.CompleteTutorialKindsList.Contains(a_eTutorialKinds);
+		return this.GameInfo.m_oCompleteTutorialKindsList.Contains(a_eTutorialKinds);
 	}
 
 	//! 일일 보상 종류를 변경한다
@@ -209,7 +209,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 완료 튜토리얼을 추가한다
 	public void AddCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
-		this.GameInfo.CompleteTutorialKindsList.ExAddVal(a_eTutorialKinds);
+		this.GameInfo.m_oCompleteTutorialKindsList.ExAddVal(a_eTutorialKinds);
 	}
 
 	//! 게임 정보를 저장한다

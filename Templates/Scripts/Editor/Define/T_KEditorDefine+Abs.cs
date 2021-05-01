@@ -139,7 +139,7 @@ public static partial class KEditorDefine {
 		["com.google.play.appupdate"] = "1.4.0",
 
 		// 기본
-		["com.unity.burst"] = "1.4.7",
+		["com.unity.burst"] = "1.4.8",
 		["com.unity.recorder"] = "2.5.5",
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.ml-agents"] = "1.0.7",
