@@ -8,8 +8,6 @@ public static partial class KDefine {
 	#region 기본
 	// 개수
 	public const int G_MAX_NUM_CHANGES = 0;
-	public const int G_MAX_NUM_SALE_PIT_ITEM_INFOS = 0;
-	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
 
 	// 횟수
 	public const int G_MAX_TIMES_ADS_SKIP = 0;
@@ -38,6 +36,8 @@ public static partial class KDefine {
 	// 판매 아이템 정보 테이블 }
 
 	// 판매 상품 정보 테이블 {
+	public const int G_MAX_NUM_SALE_PIT_ITEM_INFOS = 0;
+	
 	public const string G_KEY_SALE_PIT_NAME = "Name";
 	public const string G_KEY_SALE_PIT_DESC = "Desc";
 
@@ -69,7 +69,9 @@ public static partial class KDefine {
 	public const int G_IDX_REWARD_IT_FREE_INFOS = 0;
 	public const int G_IDX_REWARD_IT_DAILY_INFOS = 1;
 	public const int G_IDX_REWARD_IT_CLEAR_INFOS = 2;
-	
+
+	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
+
 	public const string G_KEY_REWARD_IT_FREE = "Free";
 	public const string G_KEY_REWARD_IT_DAILY = "Daily";
 	public const string G_KEY_REWARD_IT_CLEAR = "Clear";

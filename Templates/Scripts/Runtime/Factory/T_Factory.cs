@@ -20,11 +20,6 @@ public static partial class Factory {
 	public static List<string> MakePostItemInfoNodes() {
 		return CFactory.MakePostItemInfoNodes();
 	}
-
-	//! 결제 정보 노드를 생성한다
-	public static List<string> MakePurchaseInfoNodes() {
-		return CFactory.MakePurchaseInfoNodes();
-	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수
 }

@@ -78,6 +78,7 @@ public class CStorePopup : CSubPopup {
 	//! 결제 버튼을 눌렀을 경우
 	private void OnTouchPurchaseBtn(STSaleProductInfo a_stSaleProductInfo) {
 #if PURCHASE_MODULE_ENABLE
+		CIndicatorManager.Inst.Show(true);
 		Func.PurchaseProduct(a_stSaleProductInfo.m_eSaleProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
@@ -85,6 +86,7 @@ public class CStorePopup : CSubPopup {
 	//! 복원 버튼을 눌렀을 경우
 	private void OnTouchRestoreBtn() {
 #if PURCHASE_MODULE_ENABLE
+		CIndicatorManager.Inst.Show(true);
 		Func.RestoreProducts(this.OnRestoreProducts);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
@@ -105,23 +107,73 @@ public class CStorePopup : CSubPopup {
 	}
 #endif			// #if ADS_MODULE_ENABLE
 
+#if FIREBASE_MODULE_ENABLE
+	//! 지급 아이템 정보를 저장했을 경우
+	private void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+	}
+
+	//! 지급 아이템 정보를 로드했을 경우
+	private void OnLoadPostItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+
+		// 로드 되었을 경우
+		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
+			var oPostItemInfoList = a_oJSONStr.ExJSONStrToPostItemInfos();
+
+			for(int i = 0; i < oPostItemInfoList.Count; ++i) {
+				bool bIsValidA = int.TryParse(oPostItemInfoList[i].m_oNumItems, out int nNumItems);
+				bool bIsValidB = oPostItemInfoList[i].m_oItemKinds.ExToTryEnumVal<EItemKinds>(out EItemKinds eItemKinds);
+
+				// 지급 아이템 정보가 유효 할 경우
+				if(bIsValidA && bIsValidB && eItemKinds.ExIsValid()) {
+					var stItemInfo = new STItemInfo() {
+						m_nNumItems = nNumItems,
+						m_eItemKinds = eItemKinds
+					};
+
+					Func.AcquireItem(stItemInfo);
+				}
+			}
+
+			this.ExLateCallFunc((a_oCallFuncSender, a_oParams) => {
+				CIndicatorManager.Inst.Show(true);
+				
+				oPostItemInfoList.Clear();
+				Func.SavePostItemInfos(oPostItemInfoList, this.OnSavePostItemInfos);
+			});
+		}
+	}
+#endif			// #if FIREBASE_MODULE_ENABLE
+
 #if PURCHASE_MODULE_ENABLE
 	//! 상품을 결제했을 경우
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireProduct(a_oProductID);
-			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
 		}
+
+		Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
 	}
 
 	//! 상품이 복원 되었을 경우
 	public void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireRestoreProducts(a_oProductList);
-			Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 		}
+
+#if FIREBASE_MODULE_ENABLE
+		CIndicatorManager.Inst.Show(true);
+		Func.LoadPostItemInfos(this.OnLoadPostItemInfos);
+#endif			// #if FIREBASE_MODULE_ENABLE
+
+		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 함수

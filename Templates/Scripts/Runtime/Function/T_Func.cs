@@ -29,11 +29,9 @@ public static partial class Func {
 
 	private static System.Action<CFirebaseManager, bool> m_oUserInfoSaveCallback = null;
 	private static System.Action<CFirebaseManager, bool> m_oPostItemInfosSaveCallback = null;
-	private static System.Action<CFirebaseManager, bool> m_oPurchaseInfosSaveCallback = null;
 
 	private static System.Action<CFirebaseManager, string, bool> m_oUserInfoLoadCallback = null;
 	private static System.Action<CFirebaseManager, string, bool> m_oPostItemInfosLoadCallback = null;
-	private static System.Action<CFirebaseManager, string, bool> m_oPurchaseInfosLoadCallback = null;
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
@@ -295,7 +293,13 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show(true);
 		Func.m_oLogoutCallback = a_oCallback;
 
+#if APPLE_LOGIN_ENABLE && (!UNITY_EDITOR && UNITY_IOS)
+		CServicesManager.Inst.LogoutWithApple(Func.OnAppleLogout);
+#elif FACEBOOK_MODULE_ENABLE && (!UNITY_EDITOR && UNITY_ANDROID)
+		CFacebookManager.Inst.Logout(Func.OnFacebookLogout);
+#else
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	}
 
 	//! 유저 정보를 저장한다
@@ -322,25 +326,9 @@ public static partial class Func {
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
 			var oNodeList = Factory.MakePostItemInfoNodes();
-			CFirebaseManager.Inst.SaveDB(oNodeList, a_oPostItemInfoList.ExToJSONStr(), Func.OnSavePostItemInfos);
+			CFirebaseManager.Inst.SaveDB(oNodeList, a_oPostItemInfoList.ExToJSONStr(true), Func.OnSavePostItemInfos);
 		} else {
 			Func.OnSavePostItemInfos(CFirebaseManager.Inst, false);
-		}
-	}
-
-	//! 결제 정보를 저장한다
-	public static void SavePurchaseInfos(List<STPurchaseInfo> a_oPurchaseInfoList, System.Action<CFirebaseManager, bool> a_oCallback) {
-		CAccess.Assert(a_oPurchaseInfoList != null);
-
-		CIndicatorManager.Inst.Show(true);
-		Func.m_oPurchaseInfosSaveCallback = a_oCallback;
-
-		// 로그인 되었을 경우
-		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = Factory.MakePurchaseInfoNodes();
-			CFirebaseManager.Inst.SaveDB(oNodeList, a_oPurchaseInfoList.ExToJSONStr(), Func.OnSavePurchaseInfos);
-		} else {
-			Func.OnSavePurchaseInfos(CFirebaseManager.Inst, false);
 		}
 	}
 
@@ -372,20 +360,6 @@ public static partial class Func {
 		}
 	}
 
-	//! 결제 정보를 로드한다
-	public static void LoadPurchaseInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
-		Func.m_oPurchaseInfosLoadCallback = a_oCallback;
-
-		// 로그인 되었을 경우
-		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = Factory.MakePurchaseInfoNodes();
-			CFirebaseManager.Inst.LoadDB(oNodeList, Func.OnLoadPurchaseInfos);
-		} else {
-			Func.OnLoadPurchaseInfos(CFirebaseManager.Inst, string.Empty, false);
-		}
-	}
-
 	//! 파이어 베이스에 로그인 되었을 경우
 	private static void OnFirebaseLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
@@ -410,12 +384,6 @@ public static partial class Func {
 		CFunc.Invoke(ref Func.m_oPostItemInfosSaveCallback, a_oSender, a_bIsSuccess);
 	}
 
-	//! 결제 정보가 저장 되었을 경우
-	private static void OnSavePurchaseInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-		CFunc.Invoke(ref Func.m_oPurchaseInfosSaveCallback, a_oSender, a_bIsSuccess);
-	}
-
 	//! 유저 정보가 로드 되었을 경우
 	private static void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
@@ -427,13 +395,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Close();
 		CFunc.Invoke(ref Func.m_oPostItemInfosLoadCallback, a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
-
-	//! 결제 정보가 로드 되었을 경우
-	private static void OnLoadPurchaseInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-		CFunc.Invoke(ref Func.m_oPurchaseInfosLoadCallback, a_oSender, a_oJSONStr, a_bIsSuccess);
-	}
-
+	
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	//! 애플에 로그인 되었을 경우
 	private static void OnAppleLogin(CServicesManager a_oSender, bool a_bIsSuccess) {
@@ -446,6 +408,11 @@ public static partial class Func {
 		} else {
 			Func.OnFirebaseLogin(CFirebaseManager.Inst, false);
 		}
+	}
+
+	//! 애플에서 로그아웃 되었을 경우
+	private static void OnAppleLogout(CServicesManager a_oSender) {
+		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 	}
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
@@ -461,6 +428,11 @@ public static partial class Func {
 		} else {
 			Func.OnFirebaseLogin(CFirebaseManager.Inst, false);
 		}
+	}
+
+	//! 페이스 북에서 로그아웃 되었을 경우
+	private static void OnFacebookLogout(CFacebookManager a_oSender) {
+		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 	}
 #endif			// #if UNITY_ANDROID && FACEBOOK_MODULE_ENABLE
 #endif			// #if FIREBASE_MODULE_ENABLE
