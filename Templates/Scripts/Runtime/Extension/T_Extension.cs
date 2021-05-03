@@ -6,18 +6,6 @@ using UnityEngine;
 //! 기본 확장 클래스
 public static partial class Extension {
 	#region 클래스 함수
-	//! JSON 문자열 => 유저 정보로 변환한다
-	public static CUserInfo ExJSONStrToUserInfo(this string a_oSender) {
-		CAccess.Assert(a_oSender.ExIsValid());
-
-#if FIREBASE_MODULE_ENABLE
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oSender);
-		return oJSONNode.ToString().ExJSONStrToObj<CUserInfo>();
-#else
-		return null;
-#endif			// #if FIREBASE_MODULE_ENABLE
-	}
-
 	//! JSON 문자열 => 지급 아이템 정보로 변환한다
 	public static List<STPostItemInfo> ExJSONStrToPostItemInfos(this string a_oSender) {
 		CAccess.Assert(a_oSender.ExIsValid());
