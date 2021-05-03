@@ -41,13 +41,15 @@ public sealed class CGameInfo : CBaseInfo {
 	private const string KEY_LAST_DAILY_REWARD_TIME = "LastDailyRewardTime";
 	#endregion			// 상수
 
-	#region 프로퍼티
+	#region 변수
 	[Key(35)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
 	[Key(36)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
 	[Key(37)] public List<ETutorialKinds> m_oCompleteTutorialKindsList = new List<ETutorialKinds>();
 
 	[Key(101)] public Dictionary<int, CClearInfo> m_oClearInfoList = new Dictionary<int, CClearInfo>();
+	#endregion			// 변수
 
+	#region 프로퍼티
 	[IgnoreMember] public System.DateTime LastDailyMissionTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastFreeRewardTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastDailyRewardTime { get; set; } = System.DateTime.Now;

@@ -14,9 +14,11 @@ public sealed class CUserInfo : CBaseInfo {
 	private const string KEY_NUM_CHANGES = "NumChanges";
 	#endregion			// 상수
 
-	#region 프로퍼티
+	#region 변수
 	[Key(71)] public Dictionary<EItemKinds, int> m_oNumItemsList = new Dictionary<EItemKinds, int>();
-	
+	#endregion			// 변수
+
+	#region 프로퍼티
 	[IgnoreMember] public int NumCoins {
 		get { return m_oIntList.ExGetVal(CUserInfo.KEY_NUM_COINS, KCDefine.B_VAL_0_INT); } 
 		set { m_oIntList.ExReplaceVal(CUserInfo.KEY_NUM_COINS, value); }

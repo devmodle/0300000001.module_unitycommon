@@ -26,5 +26,19 @@ public static partial class Extension {
 		return oPostItemInfoList;
 	}
 	#endregion			// 클래스 함수
+
+	#region 제네릭 클래스 함수
+	//! 딕셔너리 => JSON 노드로 변환한다
+	public static SimpleJSON.JSONNode ExToJSONNode<Key, Val>(this Dictionary<Key, Val> a_oSender) {
+		CAccess.Assert(a_oSender != null);
+		var oJSONNode = new SimpleJSON.JSONNode();
+
+		foreach(var stKeyVal in a_oSender) {
+			oJSONNode.Add(stKeyVal.Key.ToString(), stKeyVal.Value.ToString());
+		}
+
+		return oJSONNode;
+	}
+	#endregion			// 제네릭 클래스 함수
 }
 #endif			// #if NEVER_USE_THIS
