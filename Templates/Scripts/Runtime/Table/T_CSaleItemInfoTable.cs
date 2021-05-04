@@ -77,7 +77,7 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 		var oSaleItemInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
 
 		for(int i = 0; i < oSaleItemInfos.Count; ++i) {

@@ -17,7 +17,7 @@ public sealed class CUserInfo : CBaseInfo {
 	#region 변수
 	[Key(71)] public Dictionary<EItemKinds, int> m_oNumItemsList = new Dictionary<EItemKinds, int>();
 	#endregion			// 변수
-
+	
 	#region 프로퍼티
 	[IgnoreMember] public int NumCoins {
 		get { return m_oIntList.ExGetVal(CUserInfo.KEY_NUM_COINS, KCDefine.B_VAL_0_INT); } 
@@ -50,7 +50,7 @@ public sealed class CUserInfo : CBaseInfo {
 public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 프로퍼티
 	public CUserInfo UserInfo { get; private set; } = new CUserInfo();
-	#endregion			// 프로퍼티
+	#endregion            // 프로퍼티
 
 	#region 함수
 	//! 아이템 개수를 반환한다

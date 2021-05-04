@@ -11,12 +11,24 @@ using MessagePack;
 public sealed class CClearInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_ID = "ID";
+	private const string KEY_SCORE = "Score";
+	private const string KEY_NUM_STARS = "NumStars";
 	#endregion			// 상수
 
 	#region 프로퍼티
 	[IgnoreMember] public int ID {
 		get { return m_oIntList.ExGetVal(CClearInfo.KEY_ID, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceVal(CClearInfo.KEY_ID, value); }
+	}
+
+	[IgnoreMember] public int Score {
+		get { return m_oIntList.ExGetVal(CClearInfo.KEY_SCORE, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CClearInfo.KEY_SCORE, value); }
+	}
+
+	[IgnoreMember] public int NumStars {
+		get { return m_oIntList.ExGetVal(CClearInfo.KEY_NUM_STARS, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CClearInfo.KEY_NUM_STARS, value); }
 	}
 	#endregion			// 프로퍼티
 

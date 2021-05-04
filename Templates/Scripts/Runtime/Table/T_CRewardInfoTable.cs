@@ -103,7 +103,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	public List<object> LoadRewardInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 		var oFreeRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_FREE];
 		var oDailyRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_DAILY];
 		var oClearRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_CLEAR];

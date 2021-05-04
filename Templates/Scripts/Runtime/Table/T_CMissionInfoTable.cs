@@ -72,7 +72,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	public List<object> LoadMissionInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 		var oFreeMissionInfos = oJSONNode[KDefine.G_KEY_MISSION_IT_FREE];
 		var oDailyMissionInfos = oJSONNode[KDefine.G_KEY_MISSION_IT_DAILY];
 

@@ -8,6 +8,7 @@ using MessagePack;
 [Union(0, typeof(CAppInfo))]
 [Union(1, typeof(CUserInfo))]
 [Union(2, typeof(CGameInfo))]
+[Union(3, typeof(CClearInfo))]
 [MessagePackObject]
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
@@ -28,6 +29,8 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 
 	//! 역직렬화 되었을 경우
 	public virtual void OnAfterDeserialize() {
+		m_stVer.m_oExtraInfoList = m_stVer.m_oExtraInfoList ?? new Dictionary<string, string>();
+
 		m_oBoolList = m_oBoolList ?? new Dictionary<string, bool>();
 		m_oIntList = m_oIntList ?? new Dictionary<string, int>();
 		m_oFltList = m_oFltList ?? new Dictionary<string, float>();

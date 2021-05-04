@@ -310,7 +310,12 @@ public static partial class Func {
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
 			var oNodeList = Factory.MakeUserInfoNodes();
-			CFirebaseManager.Inst.SaveDB(oNodeList, CUserInfoStorage.Inst.UserInfo.ExToJSONStr(), Func.OnSaveUserInfo);
+
+			var oJSONNode = new SimpleJSON.JSONClass();
+			oJSONNode.Add(KCDefine.B_KEY_JSON_USER_INFO_DATA, CUserInfoStorage.Inst.UserInfo.ExToMsgPackJSONStr());
+			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA, CCommonUserInfoStorage.Inst.UserInfo.ExToMsgPackJSONStr());
+
+			CFirebaseManager.Inst.SaveDB(oNodeList, oJSONNode.ToString(), Func.OnSaveUserInfo);
 		} else {
 			Func.OnSaveUserInfo(CFirebaseManager.Inst, false);
 		}
