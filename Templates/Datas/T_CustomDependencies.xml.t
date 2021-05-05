@@ -4,6 +4,6 @@
         <androidPackage spec="com.google.firebase:firebase-perf:19.1.1" />
     </androidPackages>
     <iosPods>
-        <iosPod name="Firebase/Performance" version="7.5.0" />
+        <iosPod name="Firebase/Performance" version="7.11.0" />
     </iosPods>
 </dependencies>
