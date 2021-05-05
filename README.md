@@ -22,7 +22,7 @@
 3. **추가 에셋 스토어 리스트**
 	- *2D Toolkit (v2.5.8.16 - Apr 30, 2019)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
-	- *Build Report Tool (v3.8.0 - Apr 27, 2021)*
+	- *Build Report Tool (v3.8.1 - Mar 5, 2021)*
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.1 - Feb 15, 2021)*
 	- *Odin Inspector (v3.0.4 - Feb 23, 2021)*

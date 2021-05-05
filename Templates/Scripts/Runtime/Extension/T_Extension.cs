@@ -19,7 +19,7 @@ public static partial class Extension {
 		var oUserInfo = oUserInfoStr.ExMsgPackJSONStrToObj<CUserInfo>();
 		return new KeyValuePair<CUserInfo, CCommonUserInfo>(oUserInfo, oCommonUserInfoStr.ExMsgPackJSONStrToObj<CCommonUserInfo>());
 #else
-		return null;
+		return new KeyValuePair<CUserInfo, CCommonUserInfo>(null, null);
 #endif			// #if FIREBASE_MODULE_ENABLE
 	}
 	
