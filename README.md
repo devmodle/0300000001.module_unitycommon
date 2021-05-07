@@ -36,8 +36,8 @@
 	- *Message Pack (v2.2.85)*
 	- *Thai Font Adjuster (v1.0.0)*
 	- *UI Effect (v3.2.0)*
-	- *Particle For GUI (v3.3.0)*
-	- *Soft Mask For GUI (v0.9.1)*
+	- *Particle For GUI (v3.3.5)*
+	- *Soft Mask For GUI (v1.0.0)*
 	- *Unmask For GUI (v1.2.0)*
 5. **기타 추가 에셋 및 플러그인 리스트**
 	- *Firebase (Auth, DB, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.2.0)*
