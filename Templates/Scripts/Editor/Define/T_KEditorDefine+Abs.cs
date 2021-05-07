@@ -143,7 +143,7 @@ public static partial class KEditorDefine {
 		["com.unity.recorder"] = "2.5.5",
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.ml-agents"] = "1.0.7",
-		["com.unity.polybrush"] = "1.0.2",
+		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.2d.tilemap.extras"] = "2.0.0",
 		["com.unity.probuilder"] = "5.0.3",
