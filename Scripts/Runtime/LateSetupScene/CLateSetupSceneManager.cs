@@ -16,6 +16,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 클래스 프로퍼티
 #if ADS_MODULE_ENABLE
 	public static bool IsAutoLoadAds { get; protected set; } = false;
+	public static string ConsentViewType { get; protected set; } = string.Empty;
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 클래스 프로퍼티
 
@@ -223,6 +224,13 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			}
 #endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 
+#if IRON_SRC_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+			// 아이언 소스 일 경우
+			if(a_eAdsType == EAdsType.IRON_SRC) {
+				CAdsManager.Inst.LoadConsentView(a_eAdsType, CLateSetupSceneManager.ConsentViewType, CLateSetupSceneManager.OnLoadConsentView);
+			}
+#endif			// #if IRON_SRC_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+
 			// 광고 자동 로드 모드 일 경우
 			if(CLateSetupSceneManager.IsAutoLoadAds) {
 				CAdsManager.Inst.LoadRewardAds(a_eAdsType);
@@ -250,6 +258,23 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		}
 	}
 #endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+
+#if IRON_SRC_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+	//! 동의 뷰가 로드 되었을 경우
+	private static void OnLoadConsentView(CAdsManager a_oSender, string a_oViewType, bool a_bIsSuccess) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnLoadConsentView: {a_oViewType}, {a_bIsSuccess}");
+
+		// 로드 되었을 경우
+		if(a_bIsSuccess) {
+			CAdsManager.Inst.ShowConsentView(EAdsType.IRON_SRC, a_oViewType, CLateSetupSceneManager.OnShowConsentView);
+		}
+	}
+
+	//! 동의 뷰가 출력 되었을 경우
+	private static void OnShowConsentView(CAdsManager a_oSender, string a_oViewType, bool a_bIsSuccess) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnShowConsentView: {a_oViewType}, {a_bIsSuccess}");
+	}
+#endif			// #if IRON_SRC_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE

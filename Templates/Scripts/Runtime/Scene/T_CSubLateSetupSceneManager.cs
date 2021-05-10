@@ -16,6 +16,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 
 #if ADS_MODULE_ENABLE
 			CLateSetupSceneManager.IsAutoLoadAds = true;
+			CLateSetupSceneManager.ConsentViewType = KCDefine.U_DEF_TYPE_CONSENT_VIEW;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
