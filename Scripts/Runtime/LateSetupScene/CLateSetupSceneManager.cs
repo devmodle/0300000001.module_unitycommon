@@ -225,8 +225,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 
 #if UNITY_IOS && IRON_SRC_ENABLE
+			bool bIsNeedConsentView = CAccess.IsNeedConsentView && CCommonAppInfoStorage.Inst.AppInfo.IsNeedConsentView;
+
 			// 아이언 소스 일 경우
-			if(CAccess.IsNeedConsentView && a_eAdsType == EAdsType.IRON_SRC) {
+			if(bIsNeedConsentView && a_eAdsType == EAdsType.IRON_SRC) {
 				CAdsManager.Inst.LoadConsentView(a_eAdsType, CLateSetupSceneManager.ConsentViewType, CLateSetupSceneManager.OnLoadConsentView);
 			}
 #endif			// #if UNITY_IOS && IRON_SRC_ENABLE
@@ -273,6 +275,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	//! 동의 뷰가 출력 되었을 경우
 	private static void OnShowConsentView(CAdsManager a_oSender, string a_oViewType, bool a_bIsSuccess) {
 		CFunc.ShowLog($"CLateSetupSceneManager.OnShowConsentView: {a_oViewType}, {a_bIsSuccess}");
+
+		CCommonAppInfoStorage.Inst.AppInfo.IsNeedConsentView = false;
+		CCommonAppInfoStorage.Inst.SaveAppInfo();
 	}
 #endif			// #if UNITY_IOS && IRON_SRC_ENABLE
 #endif			// #if ADS_MODULE_ENABLE
