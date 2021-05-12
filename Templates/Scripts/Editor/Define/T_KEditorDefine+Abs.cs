@@ -66,6 +66,16 @@ public static partial class KEditorDefine {
 		[typeof(CSubGameSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 
+		[typeof(CObjsPoolSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CScrollViewSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CAdsSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CFlurrySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CTenjinSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CFacebookSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CFirebaseSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CSingularSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CServicesSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+
 #if STUDY_MODULE_ENABLE
 		[typeof(CSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 #endif			// #if STUDY_MODULE_ENABLE
@@ -233,8 +243,9 @@ public static partial class KEditorDefine {
 
 	#region 조건부 상수
 #if UNITY_IOS
-	// 암호화 여부
+	// 프로퍼티 속성
 	public const bool B_IOS_ENCRYPTION_ENABLE = false;
+	public const string B_IOS_USER_TRACKING_USAGE_DESC = "This app includes ads. To improve your experience and see ads that match your interests, allow tracking.";
 
 	// 백 그라운드 옵션
 	public const BackgroundModesOptions B_IOS_BACKGROUND_MODES_OPTS = BackgroundModesOptions.BackgroundFetch | BackgroundModesOptions.RemoteNotifications;
@@ -364,29 +375,19 @@ public static partial class KEditorDefine {
 
 	// 프레임워크
 	public static readonly string[] B_IOS_EXTRA_FRAMEWORKS = new string[] {
-		"GameKit.framework",
-		"StoreKit.framework",
-		"AuthenticationServices.framework",
-
-#if TENJIN_MODULE_ENABLE
-		"iAd.framework",
-		"StoreKit.framework",
-		"AdSupport.framework",
-#endif			// #if TENJIN_MODULE_ENABLE
-
-#if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
-		"UserNotifications.framework",
-#endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
-
-#if SINGULAR_MODULE_ENABLE
-		"Security.framework",
-		"SystemConfiguration.framework",
-		"iAd.framework",
-		"AdSupport.framework",
-		"WebKit.framework",
+		"libz.tbd",
 		"libsqlite3.0.tbd",
-		"libz.tbd"
-#endif			// #if SINGULAR_MODULE_ENABLE
+
+		"iAd.framework",
+		"WebKit.framework",
+		"GameKit.framework",
+		"Security.framework",
+		"StoreKit.framework",
+		"AdSupport.framework",
+		"UserNotifications.framework",
+		"SystemConfiguration.framework",
+		"AuthenticationServices.framework",
+		"AppTrackingTransparency.framework"
 	};
 
 	// 호환성 타입

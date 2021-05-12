@@ -75,7 +75,7 @@ public static partial class Func {
 
 	//! 토스트 팝업을 출력한다
 	public static void ShowToastPopup(CToastPopup.STParams a_stParams, Vector3 a_stPos) {
-		a_stParams.m_fDuration = a_stParams.m_fDuration.ExIsLessEquals(KCDefine.B_VAL_0_FLT) ? KCDefine.U_DEF_DURATION_TOAST_POPUP : a_stParams.m_fDuration;
+		a_stParams.m_fDuration = a_stParams.m_fDuration.ExIsLessEquals(KCDefine.B_VAL_0_FLT) ? KCDefine.U_DURATION_TOAST_POPUP : a_stParams.m_fDuration;
 		CToastPopupManager.Inst.Show(a_stParams, a_stPos);
 	}
 
@@ -282,7 +282,7 @@ public static partial class Func {
 #if APPLE_LOGIN_ENABLE && (!UNITY_EDITOR && UNITY_IOS)
 		CServicesManager.Inst.LoginWithApple(Func.OnAppleLogin);
 #elif FACEBOOK_MODULE_ENABLE && (!UNITY_EDITOR && UNITY_ANDROID)
-		CFacebookManager.Inst.Login(KCDefine.U_DEF_PERMISSIONS_FACEBOOK.ToList(), Func.OnFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.U_PERMISSIONS_FACEBOOK.ToList(), Func.OnFacebookLogin);
 #else
 		CFirebaseManager.Inst.Login(Func.OnFirebaseLogin);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE

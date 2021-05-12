@@ -15,7 +15,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	#region 클래스 프로퍼티
 #if ADS_MODULE_ENABLE
-	public static bool IsAutoLoadAds { get; protected set; } = false;
 	public static string ConsentViewType { get; protected set; } = string.Empty;
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 클래스 프로퍼티
@@ -207,59 +206,82 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if ADS_MODULE_ENABLE
 	//! 광고 관리자가 초기화 되었을 경우
 	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
+#if UNITY_IOS && (!IRON_SRC_ENABLE || !APPLE_CONSENT_VIEW_ENABLE)
+		CAccess.Assert(false, KCDefine.U_TEXT_CONSENT_VIEW_ERROR_MSG);
+#endif			// #if UNITY_IOS && (!IRON_SRC_ENABLE && !APPLE_CONSENT_VIEW_ENABLE)
+
 		CFunc.ShowLog($"CLateSetupSceneManager.OnInitAdsManager: {a_eAdsType}, {a_bIsSuccess}");
 
 		// 초기화 되었을 경우
-		if(a_bIsSuccess) {
+		if(a_bIsSuccess && a_eAdsType == CPluginInfoTable.Inst.DefAdsType) {
+			// 추적에 동의했을 경우
+			if(CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking) {
+				CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, KCDefine.B_TRUE_STR);
+			} else {
+#if UNITY_IOS
+				bool IsEnableShowConsentView = CAccess.IsEnableShowConsentView;
+
+				// 동의 뷰 출력이 필요 할 경우
+				if(IsEnableShowConsentView && CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowConsentView) {
+#if APPLE_CONSENT_VIEW_ENABLE
+					CUnityMsgSender.Inst.SendShowConsentViewMsg(CLateSetupSceneManager.OnReceiveDeviceMsg);
+#else
+					CAdsManager.Inst.LoadConsentView(a_eAdsType, CLateSetupSceneManager.ConsentViewType, CLateSetupSceneManager.OnLoadConsentView);
+#endif			// #if APPLE_CONSENT_VIEW_ENABLE
+				} else {
+					CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, (!IsEnableShowConsentView || CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking).ToString());
+				}
+#else
+				CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, KCDefine.B_TRUE_STR);
+#endif			// #if UNITY_IOS
+			}
+		}
+	}
+
+	//! 디바이스 메세지를 수신했을 경우
+	private static void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnReceiveDeviceMsg: {a_oCmd}, {a_oMsg}");
+		bool bIsValid = bool.TryParse(a_oMsg, out bool bIsSuccess);
+
+		// 광고 초기화 메세지 일 경우
+		if(a_oCmd.Equals(KCDefine.B_CMD_INIT_ADS)) {
+#if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+			bool bIsEnableLoadResumeAds = (bIsValid && bIsSuccess) && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
+
+			// 재개 광고 로드가 가능 할 경우
+			if(bIsEnableLoadResumeAds && CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID.ExIsValid()) {
+				// CAdsManager.Inst.LoadResumeAds(EAdsType.ADMOB);
+
+				// TODO: 광고 로드 로직 개선 필요
+			}
+#endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
+		}
+		// 동의 뷰 출력 메세지 일 경우
+		else if(a_oCmd.Equals(KCDefine.B_CMD_SHOW_CONSENT_VIEW)) {
+			CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = bIsValid && bIsSuccess;
+			CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowConsentView = false;
+
+			CCommonAppInfoStorage.Inst.SaveAppInfo();
+
+			// 광고 로드가 가능 할 경우
+			if(bIsValid && bIsSuccess) {
+				// TODO: 광고 로드 로직 개선 필요
+			}
+
 #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 			// 애드 몹 일 경우
-			if(a_eAdsType == EAdsType.ADMOB) {
+			if(CPluginInfoTable.Inst.DefAdsType == EAdsType.ADMOB) {
 #if UNITY_IOS
 				var oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobIDList;
 #else
 				var oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobIDList;
 #endif			// #if UNITY_IOS
 
-				CUnityMsgSender.Inst.SendInitAdsMsg(CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID, oAdmobIDList, CLateSetupSceneManager.OnInitAds);
+				CUnityMsgSender.Inst.SendInitAdsMsg(CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID, oAdmobIDList, CLateSetupSceneManager.OnReceiveDeviceMsg);
 			}
 #endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
-
-#if UNITY_IOS && IRON_SRC_ENABLE
-			bool bIsNeedConsentView = CAccess.IsNeedConsentView && CCommonAppInfoStorage.Inst.AppInfo.IsNeedConsentView;
-
-			// 아이언 소스 일 경우
-			if(bIsNeedConsentView && a_eAdsType == EAdsType.IRON_SRC) {
-				CAdsManager.Inst.LoadConsentView(a_eAdsType, CLateSetupSceneManager.ConsentViewType, CLateSetupSceneManager.OnLoadConsentView);
-			}
-#endif			// #if UNITY_IOS && IRON_SRC_ENABLE
-
-			// 광고 자동 로드 모드 일 경우
-			if(CLateSetupSceneManager.IsAutoLoadAds) {
-				CAdsManager.Inst.LoadRewardAds(a_eAdsType);
-
-				// 광고 로드가 가능 할 경우
-				if(!CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds) {
-					CAdsManager.Inst.LoadFullscreenAds(a_eAdsType);
-				}
-			}
 		}
 	}
-
-#if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
-	//! 광고가 초기화 되었을 경우
-	private static void OnInitAds(string a_oCmd, string a_oMsg) {
-		CFunc.ShowLog($"CLateSetupSceneManager.OnInitAds: {a_oMsg}");
-		bool bIsValid = bool.TryParse(a_oMsg, out bool bIsSuccess);
-
-		bool bIsEnableLoadAds = (bIsValid && bIsSuccess) && CLateSetupSceneManager.IsAutoLoadAds;
-		bIsEnableLoadAds = bIsEnableLoadAds && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
-
-		// 재개 광고 로드가 가능 할 경우
-		if(bIsEnableLoadAds && CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID.ExIsValid()) {
-			CAdsManager.Inst.LoadResumeAds(EAdsType.ADMOB);
-		}
-	}
-#endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 
 #if UNITY_IOS && IRON_SRC_ENABLE
 	//! 동의 뷰가 로드 되었을 경우
@@ -275,9 +297,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	//! 동의 뷰가 출력 되었을 경우
 	private static void OnShowConsentView(CAdsManager a_oSender, string a_oViewType, bool a_bIsSuccess) {
 		CFunc.ShowLog($"CLateSetupSceneManager.OnShowConsentView: {a_oViewType}, {a_bIsSuccess}");
-
-		CCommonAppInfoStorage.Inst.AppInfo.IsNeedConsentView = false;
-		CCommonAppInfoStorage.Inst.SaveAppInfo();
+		CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, a_bIsSuccess.ToString());
 	}
 #endif			// #if UNITY_IOS && IRON_SRC_ENABLE
 #endif			// #if ADS_MODULE_ENABLE
