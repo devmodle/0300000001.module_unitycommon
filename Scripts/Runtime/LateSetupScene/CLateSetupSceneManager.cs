@@ -42,6 +42,24 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 관리자 자동 초기화 모드 일 경우
 		if(this.IsAutoInitManager) {
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			CServicesManager.Inst.Init(CLateSetupSceneManager.OnInitServicesManager);
 			
 #if ADS_MODULE_ENABLE
@@ -214,7 +232,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		
 		// 초기화 되었을 경우
 		if(a_bIsSuccess && a_eAdsType == CPluginInfoTable.Inst.DefAdsType) {
-			// 추적에 동의했을 경우
+			// 추적 동의 상태 일 경우
 			if(CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking) {
 				CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, KCDefine.B_TRUE_STR);
 			} else {
@@ -250,6 +268,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 			// 재개 광고 로드가 가능 할 경우
 			if(bIsEnableLoadResumeAds && CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID.ExIsValid()) {
+
 				// CAdsManager.Inst.LoadResumeAds(EAdsType.ADMOB);
 
 				// TODO: 광고 로드 로직 개선 필요

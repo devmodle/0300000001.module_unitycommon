@@ -12,17 +12,17 @@ using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
 #endif			// #if UNITY_IOS
 
-//! 빌드 프로세스 처리자
+//! 빌드 처리자
 [InitializeOnLoad]
-public static partial class CBuildProcessHandler {
+public static partial class CBuildProcessor {
 	#region 클래스 변수
 	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessBuildList = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
-		[BuildTarget.StandaloneOSX] = CBuildProcessHandler.OnPostProcessStandaloneBuild,
-		[BuildTarget.StandaloneWindows] = CBuildProcessHandler.OnPostProcessStandaloneBuild,
-		[BuildTarget.StandaloneWindows64] = CBuildProcessHandler.OnPostProcessStandaloneBuild,
+		[BuildTarget.StandaloneOSX] = CBuildProcessor.OnPostProcessStandaloneBuild,
+		[BuildTarget.StandaloneWindows] = CBuildProcessor.OnPostProcessStandaloneBuild,
+		[BuildTarget.StandaloneWindows64] = CBuildProcessor.OnPostProcessStandaloneBuild,
 
-		[BuildTarget.iOS] = CBuildProcessHandler.OnPostProcessiOSBuild,
-		[BuildTarget.Android] = CBuildProcessHandler.OnPostProcessAndroidBuild
+		[BuildTarget.iOS] = CBuildProcessor.OnPostProcessiOSBuild,
+		[BuildTarget.Android] = CBuildProcessor.OnPostProcessAndroidBuild
 	};
 	#endregion			// 클래스 변수
 
@@ -30,8 +30,8 @@ public static partial class CBuildProcessHandler {
 	//! 빌드가 완료 되었을 경우
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
-		CAccess.Assert(CBuildProcessHandler.m_oPostProcessBuildList.ContainsKey(a_eTarget));
-		CBuildProcessHandler.m_oPostProcessBuildList[a_eTarget](a_eTarget, a_oPath);
+		CAccess.Assert(CBuildProcessor.m_oPostProcessBuildList.ContainsKey(a_eTarget));
+		CBuildProcessor.m_oPostProcessBuildList[a_eTarget](a_eTarget, a_oPath);
 	}
 
 	//! 독립 플랫폼 빌드가 완료 되었을 경우
@@ -68,7 +68,7 @@ public static partial class CBuildProcessHandler {
 					oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_IDS[i]);
 				}
 			}
-
+			
 			oDoc.WriteToFile(oPlistPath);
 		}
 		// Plist 옵션을 설정한다 }
@@ -84,8 +84,8 @@ public static partial class CBuildProcessHandler {
 		oProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_YES);
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
-			oProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], true);
-			oProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], true);
+			oProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
+			oProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
 		}
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
