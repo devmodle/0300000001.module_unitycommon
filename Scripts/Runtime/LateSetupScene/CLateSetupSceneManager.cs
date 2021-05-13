@@ -188,30 +188,30 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CServicesManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 			CServicesManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 
-#if APPLE_LOGIN_ENABLE
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
 			CServicesManager.Inst.UpdateAppleLoginState(CLateSetupSceneManager.OnUpdateAppleLoginState);
-#endif			// #if APPLE_LOGIN_ENABLE
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 		}
 	}
 	#endregion			// 함수
 
 	#region 조건부 클래스 함수
-#if APPLE_LOGIN_ENABLE
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
 	//! 애플 로그인 상태가 갱신 되었을 경우
 	private static void OnUpdateAppleLoginState(CServicesManager a_oSender, bool a_bIsSuccess) {
 		CFunc.ShowLog($"CLateSetupSceneManager.OnUpdateAppleLoginState: {a_bIsSuccess}");
 	}
-#endif			// #if APPLE_LOGIN_ENABLE
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
 #if ADS_MODULE_ENABLE
 	//! 광고 관리자가 초기화 되었을 경우
 	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
-#if UNITY_IOS && (!IRON_SRC_ENABLE || !APPLE_CONSENT_VIEW_ENABLE)
+#if UNITY_IOS && (!IRON_SRC_ENABLE && !APPLE_CONSENT_VIEW_ENABLE)
 		CAccess.Assert(false, KCDefine.U_TEXT_CONSENT_VIEW_ERROR_MSG);
 #endif			// #if UNITY_IOS && (!IRON_SRC_ENABLE && !APPLE_CONSENT_VIEW_ENABLE)
 
 		CFunc.ShowLog($"CLateSetupSceneManager.OnInitAdsManager: {a_eAdsType}, {a_bIsSuccess}");
-
+		
 		// 초기화 되었을 경우
 		if(a_bIsSuccess && a_eAdsType == CPluginInfoTable.Inst.DefAdsType) {
 			// 추적에 동의했을 경우
@@ -220,7 +220,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			} else {
 #if UNITY_IOS
 				bool IsEnableShowConsentView = CAccess.IsEnableShowConsentView;
-
+				
 				// 동의 뷰 출력이 필요 할 경우
 				if(IsEnableShowConsentView && CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowConsentView) {
 #if APPLE_CONSENT_VIEW_ENABLE
