@@ -5,7 +5,6 @@ using UnityEngine;
 //! 지연 설정 씬 관리자
 public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 프로퍼티
-	public bool IsAutoInitManager { get; protected set; } = false;
 	public override string SceneName => KCDefine.B_SCENE_N_LATE_SETUP;
 
 #if UNITY_EDITOR
@@ -14,9 +13,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 클래스 프로퍼티
-#if ADS_MODULE_ENABLE
-	public static string ConsentViewType { get; protected set; } = string.Empty;
-#endif			// #if ADS_MODULE_ENABLE
+	public static bool IsAutoInitManager { get; protected set; } = false;
 	#endregion			// 클래스 프로퍼티
 
 	#region 함수
@@ -40,9 +37,23 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_AGREE, null);
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
-		// 관리자 자동 초기화 모드 일 경우
-		if(this.IsAutoInitManager) {
+		// 추적 동의 상태 일 경우
+		if(CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking) {
+			CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, KCDefine.B_TRUE_STR);
+		} else {
+#if UNITY_IOS
+			bool IsEnableShowConsentView = CAccess.IsEnableShowConsentView;
 			
+			// 동의 뷰 출력이 필요 할 경우
+			if(IsEnableShowConsentView && CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowConsentView) {
+				CUnityMsgSender.Inst.SendShowConsentViewMsg(CLateSetupSceneManager.OnReceiveDeviceMsg);
+			} else {
+				CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, (!IsEnableShowConsentView || CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking).ToString());
+			}
+#else
+			CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, KCDefine.B_TRUE_STR);
+#endif			// #if UNITY_IOS
+		}
 
 
 
@@ -54,12 +65,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 
 
-
-
-
-
-
-
+		// 관리자 자동 초기화 모드 일 경우
+		if(CLateSetupSceneManager.IsAutoInitManager) {
 			CServicesManager.Inst.Init(CLateSetupSceneManager.OnInitServicesManager);
 			
 #if ADS_MODULE_ENABLE
@@ -224,10 +231,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if ADS_MODULE_ENABLE
 	//! 광고 관리자가 초기화 되었을 경우
 	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
-#if UNITY_IOS && (!IRON_SRC_ENABLE && !APPLE_CONSENT_VIEW_ENABLE)
-		CAccess.Assert(false, KCDefine.U_TEXT_CONSENT_VIEW_ERROR_MSG);
-#endif			// #if UNITY_IOS && (!IRON_SRC_ENABLE && !APPLE_CONSENT_VIEW_ENABLE)
-
 		CFunc.ShowLog($"CLateSetupSceneManager.OnInitAdsManager: {a_eAdsType}, {a_bIsSuccess}");
 		
 		// 초기화 되었을 경우
@@ -241,11 +244,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				
 				// 동의 뷰 출력이 필요 할 경우
 				if(IsEnableShowConsentView && CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowConsentView) {
-#if APPLE_CONSENT_VIEW_ENABLE
 					CUnityMsgSender.Inst.SendShowConsentViewMsg(CLateSetupSceneManager.OnReceiveDeviceMsg);
-#else
-					CAdsManager.Inst.LoadConsentView(a_eAdsType, CLateSetupSceneManager.ConsentViewType, CLateSetupSceneManager.OnLoadConsentView);
-#endif			// #if APPLE_CONSENT_VIEW_ENABLE
 				} else {
 					CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, (!IsEnableShowConsentView || CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking).ToString());
 				}
@@ -301,24 +300,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 		}
 	}
-
-#if UNITY_IOS && IRON_SRC_ENABLE
-	//! 동의 뷰가 로드 되었을 경우
-	private static void OnLoadConsentView(CAdsManager a_oSender, string a_oViewType, bool a_bIsSuccess) {
-		CFunc.ShowLog($"CLateSetupSceneManager.OnLoadConsentView: {a_oViewType}, {a_bIsSuccess}");
-
-		// 로드 되었을 경우
-		if(a_bIsSuccess) {
-			CAdsManager.Inst.ShowConsentView(EAdsType.IRON_SRC, a_oViewType, CLateSetupSceneManager.OnShowConsentView);
-		}
-	}
-
-	//! 동의 뷰가 출력 되었을 경우
-	private static void OnShowConsentView(CAdsManager a_oSender, string a_oViewType, bool a_bIsSuccess) {
-		CFunc.ShowLog($"CLateSetupSceneManager.OnShowConsentView: {a_oViewType}, {a_bIsSuccess}");
-		CLateSetupSceneManager.OnReceiveDeviceMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, a_bIsSuccess.ToString());
-	}
-#endif			// #if UNITY_IOS && IRON_SRC_ENABLE
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE

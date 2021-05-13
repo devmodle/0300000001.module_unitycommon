@@ -12,12 +12,8 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			this.IsAutoInitManager = true;
-
-#if ADS_MODULE_ENABLE
-			CLateSetupSceneManager.ConsentViewType = KCDefine.U_TYPE_CONSENT_VIEW;
-#endif			// #if ADS_MODULE_ENABLE
-
+			CLateSetupSceneManager.IsAutoInitManager = true;
+			
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 			CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.NONE;
 #else
