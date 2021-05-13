@@ -12,7 +12,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			CLateSetupSceneManager.IsAutoInitManager = true;
+			this.IsAutoInitManager = true;
 			
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 			CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.NONE;
