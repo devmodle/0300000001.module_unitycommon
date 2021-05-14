@@ -13,6 +13,10 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
 			this.IsAutoInitManager = true;
+
+#if ADS_MODULE_ENABLE
+			CLateSetupSceneManager.IsAutoLoadAds = true;
+#endif			// #if ADS_MODULE_ENABLE
 			
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 			CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.NONE;
@@ -44,6 +48,11 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		CAdsManager.Inst.IsEnableFullscreenAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 		CAdsManager.Inst.IsEnableResumeAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 #endif			// #if ADS_MODULE_ENABLE
+	}
+
+	//! 설명 팝업을 출력한다
+	protected override void ShowDescPopup() {
+		this.ExLateCallFunc((a_oSender, a_oParams) => this.ShowConsentView());
 	}
 	#endregion			// 함수
 }

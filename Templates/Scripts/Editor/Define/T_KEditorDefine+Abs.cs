@@ -149,10 +149,9 @@ public static partial class KEditorDefine {
 		["com.google.play.appupdate"] = "1.4.0",
 
 		// 기본
-		["com.unity.burst"] = "1.4.8",
+		["com.unity.burst"] = "1.5.3",
 		["com.unity.recorder"] = "2.5.5",
 		["com.unity.2d.sprite"] = "1.0.0",
-		["com.unity.ml-agents"] = "1.0.7",
 		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.2d.tilemap.extras"] = "2.0.0",
@@ -162,11 +161,6 @@ public static partial class KEditorDefine {
 		["com.unity.inputsystem"] = "1.0.2",
 		["com.unity.addressables"] = "1.16.19",
 		["com.unity.2d.spriteshape"] = "6.0.0",
-
-		// 애니메이션
-		["com.unity.2d.animation"] = "6.0.1",
-		["com.unity.2d.psdimporter"] = "5.0.1",
-		["com.unity.animation.rigging"] = "1.0.3",
 
 		// 렌더링
 		["com.unity.2d.pixel-perfect"] = "5.0.0",
@@ -181,9 +175,19 @@ public static partial class KEditorDefine {
 		["com.unity.adaptiveperformance.samsung.android"] = "2.1.1",
 		// 분석 }
 
+#if ML_AGENTS_ENABLE
+		["com.unity.ml-agents"] = "1.0.7",
+#endif			// #if ML_AGENTS_ENABLE
+
 #if CINEMACHINE_ENABLE
 		["com.unity.cinemachine"] = "2.7.3",
 #endif			// #if CINEMACHINE_ENABLE
+
+#if SKELETON_2D_ANI_ENABLE
+		["com.unity.2d.animation"] = "6.0.3",
+		["com.unity.2d.psdimporter"] = "5.0.3",
+		["com.unity.animation.rigging"] = "1.0.3",
+#endif			// #if SKELETON_2D_ANI_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
     	["com.unity.postprocessing"] = "3.1.0",
@@ -245,7 +249,7 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 프로퍼티 속성
 	public const bool B_IOS_ENCRYPTION_ENABLE = false;
-	public const string B_IOS_USER_TRACKING_USAGE_DESC = "This app includes ads. To improve your experience and see ads that match your interests, allow tracking.";
+	public const string B_IOS_USER_TRACKING_USAGE_DESC = "∙ This app includes ads.\n∙ To improve your experience and see ads that match your interests\n∙ allow tracking.";
 
 	// 백 그라운드 옵션
 	public const BackgroundModesOptions B_IOS_BACKGROUND_MODES_OPTS = BackgroundModesOptions.BackgroundFetch | BackgroundModesOptions.RemoteNotifications;
