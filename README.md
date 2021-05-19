@@ -5,7 +5,7 @@
 2. **에셋 스토어 리스트**
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
 	- *Asset Usage Detector (v1.9.3 - Mar 29, 2021)*
-	- *Bezier Solution (v2.0.1 - Mar 15, 2021)*
+	- *Bezier Solution (v2.1.0 - May 12, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
 	- *Enhanced Scroller (v2.29.1 - Mar 21, 2021)*
 	- *Ingame Debug Console (v1.4.8 - Apr 13, 2021)*
@@ -20,7 +20,7 @@
 3. **추가 에셋 스토어 리스트**
 	- *2D Toolkit (v2.5.8.16 - Apr 30, 2019)*
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
-	- *Build Report Tool (v3.8.1 - Mar 5, 2021)*
+	- *Build Report Tool (v3.8.2 - May 18, 2021)*
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.1 - Feb 15, 2021)*
 	- *Odin Inspector (v3.0.5 - Apr 27, 2021)*
