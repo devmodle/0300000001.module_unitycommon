@@ -40,6 +40,7 @@
 	- *Soft Mask For GUI (v1.0.0)*
 	- *Unmask For GUI (v1.2.0)*
 5. **기타 추가 에셋 및 플러그인 리스트**
+	- *Google (Review, Update - v1.4.0)*
 	- *Firebase (Auth, DB, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.2.0)*
 	- *Admob (v5.4.0)*
 	- *Iron Source (v7.1.5.1)*

@@ -21,7 +21,6 @@ public static partial class KEditorDefine {
 	public const string B_UNITY_PKGS_SCOPED_REGISTRIES_KEY = "scopedRegistries";
 
 	public const string B_UNITY_PKGS_ID_FMT = "{0}@{1}";
-	public const string B_UNITY_PKGS_GOOGLE_REGISTRY_NAME = "Game Package Registry by Google";
 	// 유니티 패키지 }
 	#endregion			// 기본
 	
@@ -139,17 +138,9 @@ public static partial class KEditorDefine {
 	};
 
 	// 유니티 패키지 {
-	public static readonly string B_UNITY_PKGS_SRC_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_ASSETS}../UnityPackages/Templates/Options/Project/GoogleScopedRegistry.json";
-	public static readonly string B_UNITY_PKGS_DEST_GOOGLE_SCOPED_REGISTRY_PATH = $"{KCEditorDefine.B_ABS_DIR_P_PACKAGES}Options/Project/GoogleScopedRegistry.json";
-
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
-		// 구글
-		["com.google.external-dependency-manager"] = "1.2.165",
-		["com.google.play.review"] = "1.4.0",
-		["com.google.play.appupdate"] = "1.4.0",
-
 		// 기본
-		["com.unity.burst"] = "1.5.3",
+		["com.unity.burst"] = "1.5.4",
 		["com.unity.recorder"] = "2.5.5",
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.polybrush"] = "1.1.2",
@@ -210,13 +201,6 @@ public static partial class KEditorDefine {
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["com.google.firebase.auth"] = "7.2.0",
-		["com.google.firebase.analytics"] = "7.2.0",
-		["com.google.firebase.crashlytics"] = "7.2.0",
-		["com.google.firebase.database"] = "7.2.0",
-		["com.google.firebase.remote-config"] = "7.2.0",
-		["com.google.firebase.messaging"] = "7.2.0",
-
 		["unitymodule.common.firebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_firebase_client.git#1.3.3",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
@@ -240,7 +224,7 @@ public static partial class KEditorDefine {
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {
-		[KEditorDefine.B_UNITY_PKGS_GOOGLE_REGISTRY_NAME] = KEditorDefine.B_UNITY_PKGS_DEST_GOOGLE_SCOPED_REGISTRY_PATH
+		// TODO: 패키지 레지스트리 지정 필요
 	};
 	// 유니티 패키지 }
 	#endregion			// 런타임 상수

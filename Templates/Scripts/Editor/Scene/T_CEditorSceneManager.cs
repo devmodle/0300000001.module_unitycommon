@@ -66,7 +66,7 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateSaleProductInfoTable();
 				EditorFactory.CreateMissionInfoTable();
 				EditorFactory.CreateRewardInfoTable();
-				
+
 				CEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
 				
 				CFunc.EnumerateScenes((a_stScene) => {
@@ -153,14 +153,6 @@ public static partial class CEditorSceneManager {
 					CPlatformOptsSetter.SetupDefineSymbols();
 				}
 			}
-		}
-	}
-
-	//! 씬이 열렸을 경우
-	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		// 싱글 모드 일 경우
-		if(a_eSceneMode == OpenSceneMode.Single) {
-			CFunc.CopyFile(KEditorDefine.B_UNITY_PKGS_SRC_GOOGLE_SCOPED_REGISTRY_PATH, KEditorDefine.B_UNITY_PKGS_DEST_GOOGLE_SCOPED_REGISTRY_PATH, false);
 		}
 	}
 	#endregion			// 클래스 함수
