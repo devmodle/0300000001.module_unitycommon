@@ -27,18 +27,7 @@ public static partial class Access {
 		}
 	}
 	#endregion			// 클래스 프로퍼티
-
-	#region 클래스 함수
-	//! 컴포넌트 상호 작용 여부를 변경한다
-	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable) {
-		CAccess.Assert(a_oSender != null);
-
-		var oTouchInteractable = a_oSender.GetComponentInChildren<CTouchInteractable>();
-		oTouchInteractable?.SetInteractable(a_bIsEnable);
-	}
 	
-	#endregion			// 클래스 함수
-
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	//! 가격 문자열을 반환한다
