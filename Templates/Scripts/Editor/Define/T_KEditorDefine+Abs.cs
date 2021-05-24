@@ -64,17 +64,7 @@ public static partial class KEditorDefine {
 		[typeof(CSubTitleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(CSubGameSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-
-		[typeof(CObjsPoolSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CScrollViewSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CAdsSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CFlurrySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CTenjinSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CFacebookSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CFirebaseSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CSingularSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CServicesSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-
+		
 #if STUDY_MODULE_ENABLE
 		[typeof(CSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 #endif			// #if STUDY_MODULE_ENABLE
