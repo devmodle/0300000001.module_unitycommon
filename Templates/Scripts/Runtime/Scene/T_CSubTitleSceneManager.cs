@@ -21,6 +21,8 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		
 		//! 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+			this.SetupAwake();
+			
 			m_oVerText = CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs, KCDefine.TS_POS_VER_TEXT);
 			m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
@@ -31,18 +33,19 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	//! 초기화
 	public override void Start() {
 		base.Start();
-		this.UpdateUIsState();
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+			this.UpdateUIsState();
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
+
 			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 
 			// 최초 시작 일 경우
 			if(CCommonAppInfoStorage.Inst.IsFirstStart) {
 				LogFunc.SendLaunchLog();
 				LogFunc.SendSplashLog();
-
+				
 				CCommonAppInfoStorage.Inst.IsFirstStart = true;
 			}
 
@@ -90,6 +93,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 #endif			// #if DAILY_REWARD_ENABLE
 			}
 		}
+	}
+
+	//! 씬을 설정한다
+	private void SetupAwake() {
+		// Do Nothing
 	}
 
 	//! UI 상태를 갱신한다

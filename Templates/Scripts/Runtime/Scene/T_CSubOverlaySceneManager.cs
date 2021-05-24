@@ -18,7 +18,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		
 		//! 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			// Do Nothing
+			this.SetupAwake();
 		}
 	}
 
@@ -26,6 +26,11 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	public override void Start() {
 		base.Start();
 		this.UpdateUIsState();
+	}
+
+	//! 씬을 설정한다
+	private void SetupAwake() {
+		// Do Nothing
 	}
 
 	//! UI 상태를 갱신한다

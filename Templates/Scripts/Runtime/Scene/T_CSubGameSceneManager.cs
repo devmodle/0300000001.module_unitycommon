@@ -13,7 +13,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		
 		//! 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			// Do Nothing
+			this.SetupAwake();
 		}
 	}
 	
@@ -25,6 +25,11 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		if(CSceneManager.IsAppInit) {
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 		}
+	}
+
+	//! 씬을 설정한다
+	private void SetupAwake() {
+		// Do Nothing
 	}
 	#endregion			// 함수
 }
