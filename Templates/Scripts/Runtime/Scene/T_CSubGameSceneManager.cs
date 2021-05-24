@@ -23,12 +23,18 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+			this.UpdateUIsState();
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 		}
 	}
 
 	//! 씬을 설정한다
 	private void SetupAwake() {
+		// Do Nothing
+	}
+
+	//! UI 상태를 갱신한다
+	private void UpdateUIsState() {
 		// Do Nothing
 	}
 	#endregion			// 함수
