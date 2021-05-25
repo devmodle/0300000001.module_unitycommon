@@ -214,7 +214,7 @@ public static partial class KEditorDefine {
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {
-		// TODO: 패키지 레지스트리 지정 필요
+		// Do Nothing
 	};
 	// 유니티 패키지 }
 	#endregion			// 런타임 상수

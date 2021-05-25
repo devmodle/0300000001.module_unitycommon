@@ -1,10 +1,10 @@
-# 유니티 공용 모듈 (엔진 버전 - v2021.1.6f1)
+# 유니티 공용 모듈 (엔진 버전 - v2021.1.7f1)
 1. **필수 에셋 리스트**
 	- *TextMesh Pro*
 	- *DOTween Pro (v1.0.244 - Jul 28, 2020)*
 2. **에셋 스토어 리스트**
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
-	- *Asset Usage Detector (v1.9.3 - Mar 29, 2021)*
+	- *Asset Usage Detector (v1.9.4 - May 20, 2021)*
 	- *Bezier Solution (v2.1.0 - May 12, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
 	- *Enhanced Scroller (v2.29.1 - Mar 21, 2021)*
