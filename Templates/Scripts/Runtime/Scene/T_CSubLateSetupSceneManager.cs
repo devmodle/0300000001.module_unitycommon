@@ -53,6 +53,19 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 
 	//! 설명 팝업을 출력한다
 	protected override void ShowDescPopup() {
+		// 동의 뷰 출력이 가능 할 경우
+		if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowConsentView) {
+			Func.ShowDescPopup(this.SubPopupUIs, (a_oPopup) => {
+				var oDescPopup = a_oPopup as CDescPopup;
+				oDescPopup.Init(this.OnReceiveDescPopupResult);
+			});
+		} else {
+			this.OnReceiveDescPopupResult(null);
+		}
+	}
+
+	//! 설명 팝업 결과를 수신했을 경우
+	private void OnReceiveDescPopupResult(CDescPopup a_oSender) {
 		this.ExLateCallFunc((a_oSender, a_oParams) => this.ShowConsentView());
 	}
 	#endregion			// 함수

@@ -53,7 +53,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_AGREE, null);
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		
-		// 동의 뷰 출력이 필요 할 경우
+		// 동의 뷰 출력이 가능 할 경우
 		if(CAccess.IsEnableShowConsentView) {
 			this.ShowDescPopup();
 		} else {
