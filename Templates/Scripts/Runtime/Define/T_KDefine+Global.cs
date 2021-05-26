@@ -86,6 +86,10 @@ public static partial class KDefine {
 	public const string G_KEY_FMT_REWARD_IT_ITEM_KINDS = "ItemKinds_{0:00}";
 	// 보상 정보 테이블 }
 
+	// 설명 팝업
+	public const string G_OBJ_N_DESC_POPUP = "DescPopup";
+	public const string G_OBJ_N_DESC_P_OK_BTN = "OKBtn";
+
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
 

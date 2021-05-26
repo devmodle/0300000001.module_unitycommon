@@ -38,22 +38,17 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 	//! 약관 동의 팝업을 출력한다
 	private void ShowAgreePopup(string a_oServices, string a_oPrivacy, EAgreePopupType a_ePopupType) {
-#if MODE_PORTRAIT_ENABLE
-		string oObjPath = KCDefine.AS_OBJ_P_PORTRAIT_AGREE_POPUP;
-#else
-		string oObjPath = KCDefine.AS_OBJ_P_LANDSCAPE_AGREE_POPUP;
-#endif			// #if MODE_PORTRAIT_ENABLE
+		Func.ShowAgreePopup(this.SubPopupUIs, (a_oPopup) => {
+			var stParams = new CAgreePopup.STParams() {
+				m_oServices = a_oServices,
+				m_oPrivacy = a_oPrivacy,
 
-		var stParams = new CAgreePopup.STParams() {
-			m_oServices = a_oServices,
-			m_oPrivacy = a_oPrivacy,
+				m_ePopupType = a_ePopupType
+			};
 
-			m_ePopupType = a_ePopupType
-		};
-
-		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.SubPopupUIs, KCDefine.B_POS_POPUP);
-		oAgreePopup.Init(stParams);
-		oAgreePopup.Show(null, this.OnCloseAgreePopup);
+			var oAgreePopup = a_oPopup as CAgreePopup;
+			oAgreePopup.Init(stParams);
+		}, null, this.OnCloseAgreePopup);
 	}
 	#endregion			// 함수
 }

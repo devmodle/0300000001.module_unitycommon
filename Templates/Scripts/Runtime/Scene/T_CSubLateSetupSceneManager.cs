@@ -20,7 +20,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 			CSubLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
 			CSubLateSetupSceneManager.IsAutoLoadResumeAds = true;
 #endif			// #if ADS_MODULE_ENABLE
-			
+
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 			CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.NONE;
 #else
@@ -28,9 +28,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 			if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
 #if AB_TEST_ENABLE
 				int nSumVal = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExToSumVal();
-			
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % 2 != KCDefine.B_VAL_0_INT) ? 
-					EUserType.USER_A : EUserType.USER_B;
+				CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT != KCDefine.B_VAL_0_INT) ? EUserType.USER_A : EUserType.USER_B;
 #else
 				CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.USER_A;
 #endif			// #if AB_TEST_ENABLE

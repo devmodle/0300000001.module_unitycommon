@@ -50,7 +50,12 @@ public static partial class Func {
 
 		CUserInfoStorage.Inst.SaveUserInfo();
 	}
-	
+
+	//! 설명 팝업을 출력한다
+	public static void ShowDescPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CDescPopup>(KDefine.G_OBJ_N_DESC_POPUP, KCDefine.U_OBJ_P_G_DESC_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
 	//! 상점 팝업을 출력한다
 	public static void ShowStorePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CStorePopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
