@@ -149,7 +149,7 @@ public static partial class KEditorDefine {
 		["com.unity.render-pipelines.universal"] = "11.0.0",
 
 		// 분석 {
-		["com.unity.mobile.android-logcat"] = "1.2.1",
+		["com.unity.mobile.android-logcat"] = "1.2.2",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
 		["com.unity.adaptiveperformance"] = "2.1.1",
