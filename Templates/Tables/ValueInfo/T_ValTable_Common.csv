@@ -9,9 +9,9 @@ CONSOLE_TARGET_FRAME_RATE,0,60,1,콘솔 플랫폼 타겟 프레임
 HANDHELD_CONSOLE_TARGET_FRAME_RATE,0,60,1,휴대용 콘솔 플랫폼 타겟 프레임
 OFFSET_V_ALERT_P_TITLE,0,70,2,경고 팝업 타이틀 수직 간격
 OFFSET_V_ALERT_P_BTN,0,45,2,경고 팝업 버튼 수직 간격
+OFFSET_V_ALERT_P_BG,0,45,2,경고 팝업 배경 수직 간격
 OFFSET_H_ALERT_P_BTN,0,45,2,경고 팝업 버튼 수평 간격
+OFFSET_H_ALERT_P_BG,0,145,2,경고 팝업 배경 수평 간격
 EXTRA_OFFSET_V_ALERT_P_TITLE,0,0,2,경고 팝업 타이틀 추가 수직 간격
 EXTRA_OFFSET_V_ALERT_P_MSG,0,10,2,경고 팝업 메세지 추가 수직 간격
 EXTRA_OFFSET_V_ALERT_P_BTN,0,15,2,경고 팝업 버튼 추가 수직 간격
-OFFSET_V_ALERT_P_BG,0,45,2,경고 팝업 배경 수직 간격
-OFFSET_H_ALERT_P_BG,0,145,2,경고 팝업 배경 수평 간격
