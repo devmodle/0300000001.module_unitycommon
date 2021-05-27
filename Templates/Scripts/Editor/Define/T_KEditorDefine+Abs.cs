@@ -223,7 +223,7 @@ public static partial class KEditorDefine {
 #if UNITY_IOS
 	// 프로퍼티 속성
 	public const bool B_IOS_ENCRYPTION_ENABLE = false;
-	public const string B_IOS_USER_TRACKING_USAGE_DESC = "∙ This app includes ads.\n∙ To improve your experience and see ads that match your interests\n∙ allow tracking.";
+	public const string B_IOS_USER_TRACKING_USAGE_DESC = "∙ Special offers and promotions just for you\n∙ Advertisements that match your interests\n∙ An improved personalized experience over time\n\nYou can change this option later in the Setting app.";
 
 	// 백 그라운드 옵션
 	public const BackgroundModesOptions B_IOS_BACKGROUND_MODES_OPTS = BackgroundModesOptions.BackgroundFetch | BackgroundModesOptions.RemoteNotifications;
