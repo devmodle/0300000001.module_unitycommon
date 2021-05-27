@@ -66,7 +66,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 
 	//! 설명 팝업 결과를 수신했을 경우
 	private void OnReceiveDescPopupResult(CDescPopup a_oSender) {
-		a_oSender.Close();
+		a_oSender?.Close();
 		this.ExLateCallFunc((a_oSender, a_oParams) => this.ShowConsentView(), KCDefine.U_DELAY_INIT);
 	}
 	#endregion			// 함수
