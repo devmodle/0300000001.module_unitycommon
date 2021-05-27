@@ -171,7 +171,7 @@ public static partial class KEditorDefine {
 #endif			// #if SKELETON_2D_ANI_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
-    	["com.unity.postprocessing"] = "3.1.0",
+    	["com.unity.postprocessing"] = "3.1.1",
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
