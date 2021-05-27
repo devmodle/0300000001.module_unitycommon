@@ -12,6 +12,8 @@ public class CDescPopup : CSubPopup {
 
 	#region 프로퍼티
 	public override bool IsIgnoreAni => true;
+	public override float ShowTimeScale => KCDefine.B_VAL_1_FLT;
+
 	public override EAniType AniType => EAniType.NONE;
 	#endregion			// 프로퍼티
 
