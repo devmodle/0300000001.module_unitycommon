@@ -78,7 +78,6 @@ public class CStorePopup : CSubPopup {
 	//! 결제 버튼을 눌렀을 경우
 	private void OnTouchPurchaseBtn(STSaleProductInfo a_stSaleProductInfo) {
 #if PURCHASE_MODULE_ENABLE
-		CIndicatorManager.Inst.Show(true);
 		Func.PurchaseProduct(a_stSaleProductInfo.m_eSaleProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
@@ -86,7 +85,6 @@ public class CStorePopup : CSubPopup {
 	//! 복원 버튼을 눌렀을 경우
 	private void OnTouchRestoreBtn() {
 #if PURCHASE_MODULE_ENABLE
-		CIndicatorManager.Inst.Show(true);
 		Func.RestoreProducts(this.OnRestoreProducts);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
@@ -110,13 +108,11 @@ public class CStorePopup : CSubPopup {
 #if FIREBASE_MODULE_ENABLE
 	//! 지급 아이템 정보를 저장했을 경우
 	private void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
+		// Do Nothing
 	}
 
 	//! 지급 아이템 정보를 로드했을 경우
 	private void OnLoadPostItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
 			var oPostItemInfoList = a_oJSONStr.ExJSONStrToPostItemInfos();
@@ -137,8 +133,6 @@ public class CStorePopup : CSubPopup {
 			}
 
 			this.ExLateCallFunc((a_oCallFuncSender, a_oParams) => {
-				CIndicatorManager.Inst.Show(true);
-				
 				oPostItemInfoList.Clear();
 				Func.SavePostItemInfos(oPostItemInfoList, this.OnSavePostItemInfos);
 			});
@@ -149,8 +143,6 @@ public class CStorePopup : CSubPopup {
 #if PURCHASE_MODULE_ENABLE
 	//! 상품을 결제했을 경우
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireProduct(a_oProductID);
@@ -161,15 +153,12 @@ public class CStorePopup : CSubPopup {
 
 	//! 상품이 복원 되었을 경우
 	public void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireRestoreProducts(a_oProductList);
 		}
 
 #if FIREBASE_MODULE_ENABLE
-		CIndicatorManager.Inst.Show(true);
 		Func.LoadPostItemInfos(this.OnLoadPostItemInfos);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
