@@ -157,7 +157,7 @@ public static partial class KEditorDefine {
 		// 분석 }
 
 #if ML_AGENTS_ENABLE
-		["com.unity.ml-agents"] = "1.0.7",
+		["com.unity.ml-agents"] = "1.0.8",
 #endif			// #if ML_AGENTS_ENABLE
 
 #if CINEMACHINE_ENABLE
