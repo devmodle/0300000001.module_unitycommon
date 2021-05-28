@@ -59,7 +59,7 @@ public class CChangesPopup : CSubPopup {
 
 	#region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
-	//! 상품을 결제했을 경우
+	//! 상품이 결제 되었을 경우
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {

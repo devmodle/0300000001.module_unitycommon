@@ -586,7 +586,7 @@ public static partial class Func {
 		CPurchaseManager.Inst.RestoreProducts(Func.OnRestoreProducts);
 	}
 
-	//! 상품을 결제했을 경우
+	//! 상품이 결제 되었을 경우
 	private static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 

@@ -142,7 +142,7 @@ public static partial class Func {
 		}
 	}
 
-	//! 상품을 결제했을 경우
+	//! 상품이 결제 되었을 경우
 	public static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {

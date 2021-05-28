@@ -141,7 +141,7 @@ public class CStorePopup : CSubPopup {
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-	//! 상품을 결제했을 경우
+	//! 상품이 결제 되었을 경우
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
