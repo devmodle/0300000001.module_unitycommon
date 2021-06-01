@@ -82,7 +82,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		bool bIsValid = bool.TryParse(a_oMsg, out bool bIsSuccess);
 
 		CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = bIsValid && bIsSuccess;
-		CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowConsentView = false;
+		CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowDescPopup = false;
 
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
 

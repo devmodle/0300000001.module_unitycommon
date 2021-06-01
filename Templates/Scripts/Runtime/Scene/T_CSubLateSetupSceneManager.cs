@@ -53,8 +53,8 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 
 	//! 설명 팝업을 출력한다
 	protected override void ShowDescPopup() {
-		// 동의 뷰 출력이 가능 할 경우
-		if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowConsentView) {
+		// 설명 팝업 출력이 가능 할 경우
+		if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowDescPopup) {
 			Func.ShowDescPopup(this.SubPopupUIs, (a_oPopup) => {
 				var oDescPopup = a_oPopup as CDescPopup;
 				oDescPopup.Init(this.OnReceiveDescPopupResult);

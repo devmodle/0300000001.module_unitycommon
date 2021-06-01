@@ -8,7 +8,7 @@
 	- *Bezier Solution (v2.1.0 - May 12, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
 	- *Enhanced Scroller (v2.29.1 - Mar 21, 2021)*
-	- *Ingame Debug Console (v1.4.8 - Apr 13, 2021)*
+	- *Ingame Debug Console (v1.4.8 - Apr 31, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
