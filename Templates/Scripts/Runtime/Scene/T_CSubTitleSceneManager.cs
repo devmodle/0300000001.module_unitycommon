@@ -56,7 +56,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 				CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay = false;
 				CCommonAppInfoStorage.Inst.SaveAppInfo();
 
-				this.HandleFirstPlayState();
+				this.UpdateFirstPlayState();
 			} else {
 				// 업데이트가 필요 할 경우
 				if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
@@ -97,6 +97,16 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
+	//! 내비게이션 스택 이벤트를 수신했을 경우
+	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
+		base.OnReceiveNavStackEvent(a_eEvent);
+
+		// 백 키 눌림 이벤트 일 경우
+		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
+			Func.ShowQuitPopup(this.OnReceiveQuitPopupResult);
+		}
+	}
+
 	//! 씬을 설정한다
 	private void SetupAwake() {
 		// Do Nothing
@@ -112,19 +122,28 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		// Do Nothing
 	}
 
+	//! 최초 플레이 상태를 갱신한다
+	private void UpdateFirstPlayState() {
+		// 약관 동의 팝업이 닫혔을 경우
+		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
+			LogFunc.SendAgreeLog();
+		}
+	}
+
+	//! 종료 팝업 결과를 수신했을 경우
+	private void OnReceiveQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
+		// 확인 버튼을 눌렀을 경우
+		if(a_bIsOK) {
+			CSceneManager.IsAppQuit = true;
+			CFunc.QuitApp();
+		}
+	}
+
 	//! 업데이트 팝업 결과를 수신했을 경우
 	private void OnReceiveUpdatePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
 			CFunc.OpenURL(CProjInfoTable.Inst.ProjInfo.m_oStoreURL);
-		}
-	}
-
-	//! 최초 플레이 상태를 처리한다
-	private void HandleFirstPlayState() {
-		// 약관 동의 팝업이 닫혔을 경우
-		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
-			LogFunc.SendAgreeLog();
 		}
 	}
 	#endregion			// 함수
