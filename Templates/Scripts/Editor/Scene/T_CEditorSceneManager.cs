@@ -14,6 +14,7 @@ using UnityEditor.SceneManagement;
 [InitializeOnLoad]
 public static partial class CEditorSceneManager {
 	#region 클래스 변수
+	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsSetupDependencies = false;
 
 	private static float m_fSkipTime = 0.0f;
@@ -32,11 +33,7 @@ public static partial class CEditorSceneManager {
 	//! 스크립트가 로드 되었을 경우
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
-		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState) {
-			CEditorSceneManager.SetupCallbacks();
-			CEditorSceneManager.m_oListRequest = Client.List();
-		}
+		CEditorSceneManager.m_bIsEnableSetup = true;
 	}
 
 	//! 상태를 갱신한다
@@ -68,6 +65,14 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateRewardInfoTable();
 
 				CEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
+
+				// 상태 갱신이 가능 할 경우
+				if(CEditorSceneManager.m_bIsEnableSetup) {
+					CEditorSceneManager.m_bIsEnableSetup = false;
+					CEditorSceneManager.m_oListRequest = Client.List();
+
+					CEditorSceneManager.SetupCallbacks();
+				}
 				
 				CFunc.EnumerateScenes((a_stScene) => {
 					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);

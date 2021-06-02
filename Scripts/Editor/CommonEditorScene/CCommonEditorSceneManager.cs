@@ -79,17 +79,6 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.m_fSkipTime += Time.deltaTime;
 			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
 
-			// 설정 가능 할 경우
-			if(CCommonEditorSceneManager.m_bIsEnableSetup) {
-				CCommonEditorSceneManager.m_bIsEnableSetup = false;
-				
-				CPlatformOptsSetter.SetupPlayerOpts();
-				CPlatformOptsSetter.SetupEditorOpts();
-				CPlatformOptsSetter.SetupProjOpts();
-				CPlatformOptsSetter.SetupPluginProjs();
-				CPlatformOptsSetter.SetupGraphicAPIs();
-			}
-
 			// 갱신 주기가 지났을 경우
 			if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
 				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
@@ -100,6 +89,24 @@ public static partial class CCommonEditorSceneManager {
 #if INPUT_SYSTEM_ENABLE
 				CCommonEditorSceneManager.SetupInputSystem();
 #endif			// #if INPUT_SYSTEM_ENABLE
+
+				// 설정 가능 할 경우
+				if(CCommonEditorSceneManager.m_bIsEnableSetup) {
+					CCommonEditorSceneManager.m_bIsEnableSetup = false;
+					
+					CPlatformOptsSetter.SetupPlayerOpts();
+					CPlatformOptsSetter.SetupEditorOpts();
+					CPlatformOptsSetter.SetupProjOpts();
+					CPlatformOptsSetter.SetupPluginProjs();
+					CPlatformOptsSetter.SetupGraphicAPIs();
+
+#if UNITY_ANDROID
+					// 플러그인이 없을 경우
+					if(!File.Exists(KCEditorDefine.B_DEST_PLUGIN_P_ANDROID)) {
+						CEditorFunc.ExecuteCmdLine(KCEditorDefine.B_PLUGIN_BUILD_CMD_ANDROID);
+					}
+#endif			// #if UNITY_ANDROID
+				}
 				
 				// 갱신 주기가 지났을 경우
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {
@@ -189,21 +196,6 @@ public static partial class CCommonEditorSceneManager {
 				}
 			}
 		}
-	}
-	
-	//! 씬이 열렸을 경우
-	private static void OnSceneOpen(Scene a_stScene, OpenSceneMode a_eSceneMode) {
-		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState) {
-			CPlatformOptsSetter.SetupProjOpts();
-		}
-
-#if UNITY_ANDROID
-		// 플러그인이 없을 경우
-		if(!File.Exists(KCEditorDefine.B_DEST_PLUGIN_P_ANDROID)) {
-			CEditorFunc.ExecuteCmdLine(KCEditorDefine.B_PLUGIN_BUILD_CMD_ANDROID);
-		}
-#endif			// #if UNITY_ANDROID
 	}
 	#endregion			// 클래스 함수
 }

@@ -28,9 +28,6 @@ public static partial class CCommonEditorSceneManager {
 
 		EditorApplication.hierarchyWindowItemOnGUI -= CCommonEditorSceneManager.UpdateHierarchyUIState;
 		EditorApplication.hierarchyWindowItemOnGUI += CCommonEditorSceneManager.UpdateHierarchyUIState;
-		
-		EditorSceneManager.sceneOpened -= CCommonEditorSceneManager.OnSceneOpen;
-		EditorSceneManager.sceneOpened += CCommonEditorSceneManager.OnSceneOpen;
 	}
 
 	//! 씬을 설정한다
