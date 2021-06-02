@@ -108,6 +108,9 @@ public static partial class EditorFunc {
 		// 매개 변수를 설정한다 }
 
 		EditorFunc.ExecuteCmdline(oStringBuilder.ToString());
+
+		Func.ShowLog("Url: {0}", oURL);
+		Func.ShowLog("{0}", oStringBuilder.ToString());
 	}
 
 	//! 독립 플랫폼 젠킨스 빌드를 실행한다
