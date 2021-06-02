@@ -393,6 +393,13 @@ public static partial class CPlatformBuilder
 				}
 			}
 
+			// 여기서 ATT 옵션도 Plist 에 추가한다
+			string attDscr = string.Format("\n{0}\n\n{1}\n\n{2}\n",
+				"Special offers and promotions just for you",
+				"Advertisements that match your interests",
+				"An improved personalized experience over time");
+			oDocument.root.SetString("NSUserTrackingUsageDescription", attDscr);
+
 			oDocument.WriteToFile(oPlistFilepath);
 		}
 		// Plist 옵션을 설정한다 }
