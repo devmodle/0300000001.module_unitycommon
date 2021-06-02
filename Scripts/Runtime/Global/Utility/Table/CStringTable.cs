@@ -37,6 +37,8 @@ public class CStringTable : CSingleton<CStringTable> {
 		var oStringInfoList = CSVParser.Parse(a_oCSVString);
 
 		for(int i = 0; i < oStringInfoList.Count; ++i) {
+			int nReplace = int.Parse(oStringInfoList[i][KDefine.U_KEY_STRING_T_REPLACE]);
+
 			string oKey = oStringInfoList[i][KDefine.U_KEY_STRING_T_ID];
 			string oString = oStringInfoList[i][KDefine.U_KEY_STRING_T_STRING];
 

@@ -135,6 +135,7 @@ public static partial class KDefine {
 
 	public const string U_KEY_STRING_T_ID = "ID";
 	public const string U_KEY_STRING_T_STRING = "String";
+	public const string U_KEY_STRING_T_REPLACE = "Replace";
 
 	public const string U_KEY_VALUE_T_ID = "ID";
 	public const string U_KEY_VALUE_T_VALUE = "Value";
@@ -365,8 +366,8 @@ public static partial class KDefine {
 	public static readonly string U_TABLE_PATH_G_COMMON_VALUE_TABLE = string.Format("{0}{1}{2}G_ValueTable_Common", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_VALUE_INFO_BASE);
 	public static readonly string U_TABLE_PATH_G_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
 
-	public static readonly string U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common_KO", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
-	public static readonly string U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common_EN", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
+	public static readonly string U_TABLE_PATH_G_KOREAN_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common_Korean", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
+	public static readonly string U_TABLE_PATH_G_ENGLISH_COMMON_STRING_TABLE = string.Format("{0}{1}{2}G_StringTable_Common_English", KDefine.B_DIR_PATH_TABLES, KDefine.B_DIR_PATH_GLOBAL_BASE, KDefine.B_DIR_PATH_STRING_INFO_BASE);
 
 	public static readonly string U_SND_PATH_G_TOUCH_BEGAN = string.Format("{0}{1}G_TouchBegan", KDefine.B_DIR_PATH_SOUNDS, KDefine.B_DIR_PATH_GLOBAL_BASE);
 	public static readonly string U_SND_PATH_G_TOUCH_ENDED = string.Format("{0}{1}G_TouchEnded", KDefine.B_DIR_PATH_SOUNDS, KDefine.B_DIR_PATH_GLOBAL_BASE);
