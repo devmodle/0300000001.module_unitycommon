@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_IOS
+using Unity.Advertisement.IosSupport;
+#endif			// #if UNITY_IOS
+
 //! 지연 설정 씬 관리자
 public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 프로퍼티
@@ -45,7 +49,20 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	//! 동의 뷰를 출력한다
 	protected void ShowConsentView() {
-		CUnityMsgSender.Inst.SendShowConsentViewMsg(this.HandleShowConsentViewMsg);
+#if UNITY_IOS
+		ATTrackingStatusBinding.RequestAuthorizationTracking();
+
+		this.ExRepeatCallFunc((a_oSender, a_oParams, a_bIsComplete) => {
+			// 완료 되었을 경우
+			if(a_bIsComplete) {
+				this.OnCloseConsentView(ATTrackingStatusBinding.GetAuthorizationTrackingStatus() != ATTrackingStatusBinding.AuthorizationTrackingStatus.DENIED);
+			}
+			
+			return ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED;
+		}, KCDefine.U_DELAY_INIT, KCDefine.B_DELTA_T_INFINITE);
+#else
+		this.ExLateCallFunc((a_oSender, a_oParams) => this.OnCloseConsentView(true));
+#endif			// #if UNITY_IOS
 	}
 
 	//! 초기화
@@ -57,7 +74,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		if(CAccess.IsEnableShowConsentView) {
 			this.ShowDescPopup();
 		} else {
-			this.HandleShowConsentViewMsg(KCDefine.B_CMD_SHOW_CONSENT_VIEW, KCDefine.B_TRUE_STR);
+			this.OnCloseConsentView(true);
 		}
 	}
 
@@ -76,12 +93,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 동의 뷰 출력 메세지를 처리한다
-	private void HandleShowConsentViewMsg(string a_oCmd, string a_oMsg) {
-		CFunc.ShowLog($"CLateSetupSceneManager.HandleShowConsentViewMsg: {a_oCmd}, {a_oMsg}");
-		bool bIsValid = bool.TryParse(a_oMsg, out bool bIsSuccess);
+	//! 동의 뷰가 닫혔을 경우
+	private void OnCloseConsentView(bool a_bIsSuccess) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnCloseConsentView: {a_bIsSuccess}");
 
-		CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = bIsValid && bIsSuccess;
+		CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = a_bIsSuccess;
 		CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowDescPopup = false;
 
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
