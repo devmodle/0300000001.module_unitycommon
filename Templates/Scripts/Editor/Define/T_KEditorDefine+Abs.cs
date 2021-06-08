@@ -136,6 +136,7 @@ public static partial class KEditorDefine {
 		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.2d.tilemap.extras"] = "2.0.0",
+		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.probuilder"] = "5.0.3",
 		["com.unity.formats.fbx"] = "4.0.1",
 		["com.unity.mathematics"] = "1.2.1",
@@ -364,8 +365,7 @@ public static partial class KEditorDefine {
 		"AdSupport.framework",
 		"UserNotifications.framework",
 		"SystemConfiguration.framework",
-		"AuthenticationServices.framework",
-		"AppTrackingTransparency.framework"
+		"AuthenticationServices.framework"
 	};
 
 	// 호환성 타입
