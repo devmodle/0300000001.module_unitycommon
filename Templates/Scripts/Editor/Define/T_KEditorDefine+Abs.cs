@@ -162,7 +162,7 @@ public static partial class KEditorDefine {
 #endif			// #if ML_AGENTS_ENABLE
 
 #if CINEMACHINE_ENABLE
-		["com.unity.cinemachine"] = "2.7.3",
+		["com.unity.cinemachine"] = "2.7.4",
 #endif			// #if CINEMACHINE_ENABLE
 
 #if SKELETON_2D_ANI_ENABLE
