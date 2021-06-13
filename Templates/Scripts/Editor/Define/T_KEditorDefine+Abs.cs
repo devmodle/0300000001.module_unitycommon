@@ -204,7 +204,7 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "3.1.0",
+		["com.unity.purchasing"] = "3.2.2",
 		["unitymodule.common.purchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_purchase_client.git#1.4.3",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
