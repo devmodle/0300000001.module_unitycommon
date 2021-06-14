@@ -195,6 +195,10 @@ public static partial class KEditorDefine {
 		["unitymodule.common.firebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_firebase_client.git#1.5.0",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
+#if GAME_ANALYTICS_ENABLE || GAME_ANALYTICS_ENABLE_MODULE_ENABLE
+		["unitymodule.common.gameanalytics"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_gameanalytics_client.git#1.5.0",
+#endif			// #if GAME_ANALYTICS_ENABLE || GAME_ANALYTICS_ENABLE_MODULE_ENABLE
+
 #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
 		["unitymodule.common.singular"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_singular_client.git#1.5.0",
 #endif			// #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
