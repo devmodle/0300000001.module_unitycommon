@@ -37,6 +37,10 @@ public static partial class LogFunc {
 			CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataList);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
+#if GAME_ANALYTICS_MODULE_ENABLE
+			CGameAnalyticsManager.Inst.SendLog(a_oName, a_oDataList);
+#endif			// #if GAME_ANALYTICS_MODULE_ENABLE
+
 #if SINGULAR_MODULE_ENABLE
 			CSingularManager.Inst.SendLog(a_oName, a_oDataList);
 #endif			// #if SINGULAR_MODULE_ENABLE
@@ -69,6 +73,10 @@ public static partial class LogFunc {
 #if FIREBASE_MODULE_ENABLE
 			CFirebaseManager.Inst.SendPurchaseLog(a_oProduct);
 #endif			// #if FIREBASE_MODULE_ENABLE
+
+#if GAME_ANALYTICS_MODULE_ENABLE
+			CGameAnalyticsManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+#endif			// #if GAME_ANALYTICS_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 			CSingularManager.Inst.SendPurchaseLog(a_oProduct);
