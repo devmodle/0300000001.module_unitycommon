@@ -90,6 +90,10 @@ public static partial class KEditorDefine {
 		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if FIREBASE_MODULE_ENABLE
 
+#if GAME_ANALYTICS_MODULE_ENABLE
+		[typeof(CGameAnalyticsManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+#endif			// #if GAME_ANALYTICS_MODULE_ENABLE
+
 #if SINGULAR_MODULE_ENABLE
 		[typeof(CSingularManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if SINGULAR_MODULE_ENABLE

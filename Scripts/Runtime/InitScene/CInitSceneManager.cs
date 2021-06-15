@@ -107,6 +107,10 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CFirebaseManager.Create();
 #endif			// #if FIREBASE_MODULE_ENABLE
 
+#if GAME_ANALYTICS_MODULE_ENABLE
+		CGameAnalyticsManager.Create();
+#endif			// #if GAME_ANALYTICS_MODULE_ENABLE
+
 #if SINGULAR_MODULE_ENABLE
 		CSingularManager.Create();
 #endif			// #if SINGULAR_MODULE_ENABLE

@@ -197,6 +197,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CFirebaseManager.Inst.Init(stFirebaseParams, CLateSetupSceneManager.OnInitFirebaseManager);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
+#if GAME_ANALYTICS_MODULE_ENABLE
+			CGameAnalyticsManager.Inst.Init(CLateSetupSceneManager.OnInitGameAnalyticsManager);
+#endif			// #if GAME_ANALYTICS_MODULE_ENABLE
+
 #if SINGULAR_MODULE_ENABLE
 			var stSingularParams = new CSingularManager.STParams() {
 				m_oAPIKey = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey,
@@ -379,6 +383,19 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	}
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 #endif			// #if FIREBASE_MODULE_ENABLE
+
+#if GAME_ANALYTICS_MODULE_ENABLE
+	//! 게임 분석 관리자가 초기화 되었을 경우
+	private static void OnInitGameAnalyticsManager(CGameAnalyticsManager a_oSender, bool a_bIsSuccess) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnInitGameAnalyticsManager: {a_bIsSuccess}");
+
+		// 초기화 되었을 경우
+		if(a_bIsSuccess) {
+			CGameAnalyticsManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+			CGameAnalyticsManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
+		}
+	}
+#endif			// #if GAME_ANALYTICS_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
 	//! 싱귤러 관리자가 초기화 되었을 경우

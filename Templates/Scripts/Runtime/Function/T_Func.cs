@@ -228,6 +228,9 @@ public static partial class Func {
 					Func.m_oFullscreenAdsCallback = a_oCallback;
 					
 					CAdsManager.Inst.ShowFullscreenAds(a_eAdsType, null, Func.OnCloseFullscreenAds);
+				} else {
+					CIndicatorManager.Inst.Close();
+					a_oCallback?.Invoke(CAdsManager.Inst, false);
 				}
 			}, KCDefine.B_VAL_1_FLT, true);
 		} else {

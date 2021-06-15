@@ -1,0 +1,3 @@
+﻿{
+	"name": "UnityModule.GameAnalytics"
+}

@@ -15,6 +15,7 @@
         "UnityModule.Common.Tenjin",
         "UnityModule.Common.Facebook",
         "UnityModule.Common.Firebase",
+        "UnityModule.Common.GameAnalytics",
         "UnityModule.Common.Singular",
         "UnityModule.Common.GameCenter",
         "UnityModule.Common.Purchase",
