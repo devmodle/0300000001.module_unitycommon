@@ -1,3 +1,17 @@
 ﻿{
-	"name": "UnityModule.GameAnalytics"
+    "name": "UnityModule.GameAnalytics",
+    "rootNamespace": "",
+    "references": [
+        "UnityModule.IronSrc",
+        "MaxSdk.Scripts"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
