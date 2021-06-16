@@ -15,8 +15,6 @@ public static partial class KDefine {
 	// 식별자 {
 	public const int G_PRODUCT_ID_CHANGES = 0;
 	public const int G_PRODUCT_ID_REMOVE_ADS = 1;
-	public const int G_PRODUCT_ID_SAMPLE_CONSUMABLE = 2;
-	public const int G_PRODUCT_ID_SAMPLE_NON_CONSUMABLE = 3;
 
 	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0}_{1}";
 	// 식별자 }
@@ -198,9 +196,7 @@ public static partial class KDefine {
 	public static readonly ESaleProductKinds[] G_KINDS_SALE_PIT_SALE_PRODUCTS = new ESaleProductKinds[] {
 		ESaleProductKinds.PKG_PRODUCT,
 		ESaleProductKinds.SINGLE_CHANGES,
-		ESaleProductKinds.SINGLE_REMOVE_ADS,
-		ESaleProductKinds.SINGLE_SAMPLE_CONSUMABLE,
-		ESaleProductKinds.SINGLE_SAMPLE_NON_CONSUMABLE
+		ESaleProductKinds.SINGLE_REMOVE_ADS
 	};
 
 	// 보상 정보 테이블

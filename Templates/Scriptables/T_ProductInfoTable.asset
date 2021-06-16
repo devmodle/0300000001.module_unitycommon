@@ -17,10 +17,6 @@ MonoBehaviour:
     m_eProductType: 0
   - m_oID: dante.distribution.sample.iap.nc.removeads
     m_eProductType: 1
-  - m_oID: dante.distribution.sample.iap.c.sample
-    m_eProductType: 0
-  - m_oID: dante.distribution.sample.iap.nc.sample
-    m_eProductType: 1
   m_oiOSProductInfoList: []
   m_oGoogleProductInfoList: []
   m_oOneStoreProductInfoList: []
