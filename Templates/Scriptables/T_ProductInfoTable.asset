@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: T_ProductInfoTable
   m_EditorClassIdentifier: 
   m_oCommonProductInfoList:
+  - m_oID: dante.distribution.sample.iap.c.changes
+    m_eProductType: 0
+  - m_oID: dante.distribution.sample.iap.nc.removeads
+    m_eProductType: 1
   - m_oID: dante.distribution.sample.iap.c.sample
     m_eProductType: 0
   - m_oID: dante.distribution.sample.iap.nc.sample
