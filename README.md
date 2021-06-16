@@ -42,13 +42,10 @@
 5. **기타 추가 에셋 및 플러그인 리스트**
 	- *Google (Review, Update - v1.4.0)*
 	- *Firebase (Auth, DB, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.2.0)*
-	- *Admob (v5.4.0)*
-	- *Iron Source (v7.1.5.1)*
-	- *App Lovin (v4.2.1)*
-	- *Flurry (v3.3.0)*
-	- *Tenjin (v1.12.4)*
-	- *Facebook (v9.0.0)*
+	- *Admob (v6.0.0)*
+	- *Iron Source (v7.1.6.1)*
+	- *App Lovin (v4.3.1)*
+	- *Flurry (v3.4.0)*
+	- *Facebook (v11.0.0)*
 	- *Singular (v2.4.0)*
 	- *Google Play Services (v0.10.12)*
-	- *Unity IAP (v3.0.2)*
-	- *Unity Notification (v1.3.2)*

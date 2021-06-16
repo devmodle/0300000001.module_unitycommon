@@ -167,14 +167,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CFlurryManager.Inst.Init(stFlurryParams, CLateSetupSceneManager.OnInitFlurryManager);
 #endif			// #if FLURRY_MODULE_ENABLE
 
-#if TENJIN_MODULE_ENABLE
-			var stTenjinParams = new CTenjinManager.STParams() {
-				m_oAPIKey = CPluginInfoTable.Inst.TenjinAPIKey
-			};
-
-			CTenjinManager.Inst.Init(stTenjinParams, CLateSetupSceneManager.OnInitTenjinManager);
-#endif			// #if TENJIN_MODULE_ENABLE
-
 #if FACEBOOK_MODULE_ENABLE
 			CFacebookManager.Inst.Init(CLateSetupSceneManager.OnInitFacebookManager);
 #endif			// #if FACEBOOK_MODULE_ENABLE
@@ -323,18 +315,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		}
 	}
 #endif			// #if FLURRY_MODULE_ENABLE
-
-#if TENJIN_MODULE_ENABLE
-	//! 텐진 관리자가 초기화 되었을 경우
-	private static void OnInitTenjinManager(CTenjinManager a_oSender, bool a_bIsSuccess) {
-		CFunc.ShowLog($"CLateSetupSceneManager.OnInitTenjinManager: {a_bIsSuccess}");
-
-		// 초기화 되었을 경우
-		if(a_bIsSuccess) {
-			CTenjinManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
-		}
-	}
-#endif			// #if TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
 	//! 페이스 북 관리자가 초기화 되었을 경우

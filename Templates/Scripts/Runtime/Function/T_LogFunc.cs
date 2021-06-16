@@ -27,11 +27,6 @@ public static partial class LogFunc {
 			CFlurryManager.Inst.SendLog(a_oName, oFlurryDataList);
 #endif			// #if FLURRY_MODULE_ENABLE
 
-#if TENJIN_MODULE_ENABLE
-			var oTenjinDataList = (a_oDataList != null) ? a_oDataList.ExToListTypes<string, object, string>() : null;
-			CTenjinManager.Inst.SendLog(a_oName, oTenjinDataList);
-#endif			// #if TENJIN_MODULE_ENABLE
-
 #if FIREBASE_MODULE_ENABLE
 			var oFirebaseDataList = (a_oDataList != null) ? a_oDataList.ExToTypes<string, object, string, string>() : null;
 			CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataList);
@@ -65,10 +60,6 @@ public static partial class LogFunc {
 #if FLURRY_MODULE_ENABLE
 			CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 #endif			// #if FLURRY_MODULE_ENABLE
-
-#if TENJIN_MODULE_ENABLE
-			CTenjinManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
-#endif			// #if TENJIN_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 			CFirebaseManager.Inst.SendPurchaseLog(a_oProduct);

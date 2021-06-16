@@ -78,10 +78,6 @@ public static partial class KEditorDefine {
 		[typeof(CFlurryManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if FLURRY_MODULE_ENABLE
 
-#if TENJIN_MODULE_ENABLE
-		[typeof(CTenjinManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif			// #if TENJIN_MODULE_ENABLE
-
 #if FACEBOOK_MODULE_ENABLE
 		[typeof(CFacebookManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if FACEBOOK_MODULE_ENABLE
@@ -186,10 +182,6 @@ public static partial class KEditorDefine {
 #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
 		["unitymodule.common.flurry"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_flurry_client.git#1.5.0",
 #endif			// #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
-
-#if TENJIN_ENABLE || TENJIN_MODULE_ENABLE
-		["unitymodule.common.tenjin"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_tenjin_client.git#1.5.0",
-#endif			// #if TENJIN_ENABLE || TENJIN_MODULE_ENABLE
 
 #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 		["unitymodule.common.facebook"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_facebook_client.git#1.5.0",
