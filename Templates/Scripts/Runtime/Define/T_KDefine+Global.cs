@@ -93,6 +93,9 @@ public static partial class KDefine {
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
 
+	// 설정 팝업
+	public const string G_OBJ_N_SETTINGS_POPUP = "SettingsPopup";
+
 	// 일일 미션 팝업
 	public const string G_OBJ_N_DAILY_MISSION_POPUP = "DailyMissionPopup";
 
