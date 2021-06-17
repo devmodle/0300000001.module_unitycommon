@@ -32,7 +32,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! 씬을 설정한다
 	private void SetupAwake() {
-		// Do Nothing
+#if DEBUG || DEVELOPMENT_BUILD
+		this.SetupTestUIs();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
 	//! 씬을 설정한다
@@ -42,8 +44,24 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
-		// Do Nothing
+#if DEBUG || DEVELOPMENT_BUILD
+		this.UpdateTestUIsState();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if DEBUG || DEVELOPMENT_BUILD
+	//! 테스트 UI 를 설정한다
+	private void SetupTestUIs() {
+		// Do Nothing
+	}
+
+	//! 테스트 UI 상태를 갱신한다
+	private void UpdateTestUIsState() {
+		// Do Nothing
+	}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+	#endregion			// 조건부 함수
 }
 #endif			// #if NEVER_USE_THIS
