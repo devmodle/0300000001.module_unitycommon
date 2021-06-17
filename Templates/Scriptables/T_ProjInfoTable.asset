@@ -15,9 +15,9 @@ MonoBehaviour:
   m_oCompanyName: 9tap
   m_oServicesURL: https://www.ninetap.com/terms_of_service.html
   m_oPrivacyURL: https://www.ninetap.com/privacy_policy.html
-  m_oProjName: Sample_Unity
-  m_oProductName: Sample
-  m_oShortProductName: Sample
+  m_oProjName: 000011.Sample_Unity
+  m_oProductName: Sample_Unity
+  m_oShortProductName: Sample_Unity
   m_stMacProjInfo:
     m_stBuildVer:
       m_nNum: 1
