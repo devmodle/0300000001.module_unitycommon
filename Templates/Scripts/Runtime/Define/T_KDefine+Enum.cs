@@ -94,7 +94,7 @@ public enum ESaleProductKinds {
 	SINGLE_CHANGES = ESaleProductKinds.PKG_PRODUCT + KCDefine.B_UNIT_TYPE_TO_KINDS,
 
 	// 광고 제거 상품 10,010,000 (단일 상품)
-	SINGLE_REMOVE_ADS = ESaleProductKinds.SINGLE_CHANGES + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE
+	SINGLE_REMOVE_ADS = ESaleProductKinds.SINGLE_CHANGES + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
 
 	MAX_VAL
 }
