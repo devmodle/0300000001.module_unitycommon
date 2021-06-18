@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 283162196}
   - component: {fileID: 767462114533566177}
   m_Layer: 5
-  m_Name: T_PageScrollView
+  m_Name: T_PageView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

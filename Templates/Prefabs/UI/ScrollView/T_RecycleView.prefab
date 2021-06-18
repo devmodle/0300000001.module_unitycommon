@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7436185795531083309}
   - component: {fileID: 8037950981793500101}
   m_Layer: 5
-  m_Name: T_RecycleScrollView
+  m_Name: T_RecycleView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
