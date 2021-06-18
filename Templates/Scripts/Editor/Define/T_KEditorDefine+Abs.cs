@@ -129,20 +129,23 @@ public static partial class KEditorDefine {
 
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
-		// 기본
+		// 기본 {
 		["com.unity.burst"] = "1.5.4",
 		["com.unity.recorder"] = "2.5.5",
-		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.polybrush"] = "1.1.2",
-		["com.unity.2d.tilemap"] = "1.0.0",
-		["com.unity.2d.tilemap.extras"] = "2.0.0",
-		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.probuilder"] = "5.0.3",
 		["com.unity.formats.fbx"] = "4.0.1",
+
+		["com.unity.2d.sprite"] = "1.0.0",
+		["com.unity.2d.spriteshape"] = "6.0.1",
+		["com.unity.2d.tilemap"] = "1.0.0",
+		["com.unity.2d.tilemap.extras"] = "2.0.0",
+
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.inputsystem"] = "1.0.2",
 		["com.unity.addressables"] = "1.16.19",
-		["com.unity.2d.spriteshape"] = "6.0.0",
+		["com.unity.ads.ios-support"] = "1.0.0",
+		// 기본 }
 
 		// 렌더링
 		["com.unity.2d.pixel-perfect"] = "5.0.0",
@@ -166,8 +169,8 @@ public static partial class KEditorDefine {
 #endif			// #if CINEMACHINE_ENABLE
 
 #if SKELETON_2D_ANI_ENABLE
-		["com.unity.2d.animation"] = "6.0.3",
-		["com.unity.2d.psdimporter"] = "5.0.3",
+		["com.unity.2d.animation"] = "6.0.4",
+		["com.unity.2d.psdimporter"] = "5.0.4",
 		["com.unity.animation.rigging"] = "1.0.3",
 #endif			// #if SKELETON_2D_ANI_ENABLE
 

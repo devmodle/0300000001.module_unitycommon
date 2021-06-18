@@ -41,6 +41,11 @@ public class CSettingsPopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 
+	//! 평가 버튼을 눌렀을 경우
+	private void OnTouchReviewBtn() {
+		CUnityMsgSender.Inst.SendShowReviewMsg();
+	}
+
 	//! 지원 버튼을 눌렀을 경우
 	private void OnTouchSupportBtn() {
 		CUnityMsgSender.Inst.SendMailMsg(CProjInfoTable.Inst.ProjInfo.m_oSupportsMail, string.Empty, string.Empty);
