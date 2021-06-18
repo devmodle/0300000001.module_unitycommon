@@ -336,9 +336,9 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show(true);
 		Func.m_oFirebaseLoginCallback = a_oCallback;
 
-#if APPLE_LOGIN_ENABLE && (!UNITY_EDITOR && UNITY_IOS)
+#if APPLE_LOGIN_ENABLE && UNITY_IOS
 		CServicesManager.Inst.LoginWithApple(Func.OnFirebaseAppleLogin);
-#elif FACEBOOK_MODULE_ENABLE && (!UNITY_EDITOR && UNITY_ANDROID)
+#elif FACEBOOK_MODULE_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 		CFacebookManager.Inst.Login(KCDefine.U_PERMISSIONS_FACEBOOK.ToList(), Func.OnFirebaseFacebookLogin);
 #else
 		CFirebaseManager.Inst.Login(Func.OnFirebaseLogin);
@@ -350,9 +350,9 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show(true);
 		Func.m_oFirebaseLogoutCallback = a_oCallback;
 
-#if APPLE_LOGIN_ENABLE && (!UNITY_EDITOR && UNITY_IOS)
+#if APPLE_LOGIN_ENABLE && UNITY_IOS
 		CServicesManager.Inst.LogoutWithApple(Func.OnFirebaseAppleLogout);
-#elif FACEBOOK_MODULE_ENABLE && (!UNITY_EDITOR && UNITY_ANDROID)
+#elif FACEBOOK_MODULE_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 		CFacebookManager.Inst.Logout(Func.OnFirebaseFacebookLogout);
 #else
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
@@ -478,7 +478,7 @@ public static partial class Func {
 	}
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
-#if UNITY_ANDROID && FACEBOOK_MODULE_ENABLE
+#if FACEBOOK_MODULE_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 	//! 페이스 북에 로그인 되었을 경우
 	private static void OnFirebaseFacebookLogin(CFacebookManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
@@ -496,7 +496,7 @@ public static partial class Func {
 	private static void OnFirebaseFacebookLogout(CFacebookManager a_oSender) {
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 	}
-#endif			// #if UNITY_ANDROID && FACEBOOK_MODULE_ENABLE
+#endif			// #if FACEBOOK_MODULE_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
