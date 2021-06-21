@@ -179,41 +179,41 @@ public static partial class KEditorDefine {
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
-		["unitymodule.common.ads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_ads_client.git#1.5.4",
+		["unitymodule.common.ads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_ads_client.git#1.5.5",
 #endif			// #if ADS_ENABLE || ADS_MODULE_ENABLE
 
 #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
-		["unitymodule.common.flurry"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_flurry_client.git#1.5.4",
+		["unitymodule.common.flurry"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_flurry_client.git#1.5.5",
 #endif			// #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
-		["unitymodule.common.facebook"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_facebook_client.git#1.5.4",
+		["unitymodule.common.facebook"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_facebook_client.git#1.5.5",
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["unitymodule.common.firebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_firebase_client.git#1.5.4",
+		["unitymodule.common.firebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_firebase_client.git#1.5.5",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if GAME_ANALYTICS_ENABLE || GAME_ANALYTICS_ENABLE_MODULE_ENABLE
-		["unitymodule.common.gameanalytics"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_gameanalytics_client.git#1.5.4",
+		["unitymodule.common.gameanalytics"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_gameanalytics_client.git#1.5.5",
 #endif			// #if GAME_ANALYTICS_ENABLE || GAME_ANALYTICS_ENABLE_MODULE_ENABLE
 
 #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
-		["unitymodule.common.singular"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_singular_client.git#1.5.4",
+		["unitymodule.common.singular"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_singular_client.git#1.5.5",
 #endif			// #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
-		["unitymodule.common.gamecenter"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_gamecenter_client.git#1.5.4",
+		["unitymodule.common.gamecenter"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_gamecenter_client.git#1.5.5",
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "3.2.2",
-		["unitymodule.common.purchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_purchase_client.git#1.5.4",
+		["unitymodule.common.purchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_purchase_client.git#1.5.5",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 		["com.unity.mobile.notifications"] = "1.3.2",
-		["unitymodule.common.Noti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_Noti_client.git#1.5.4"
+		["unitymodule.common.Noti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.unitymodule_common_Noti_client.git#1.5.5"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 	};
 
