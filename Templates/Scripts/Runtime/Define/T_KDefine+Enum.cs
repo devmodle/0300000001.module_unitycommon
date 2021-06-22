@@ -177,6 +177,15 @@ public enum ETutorialKinds {
 	MAX_VAL
 }
 
+//! 플레이 모드
+public enum EPlayMode {
+	NONE = -1,
+	NORM,
+	TEST,
+	TUTORIAL,
+	MAX_VAL
+}
+
 //! 레벨 모드
 public enum ELevelMode {
 	NONE = -1,

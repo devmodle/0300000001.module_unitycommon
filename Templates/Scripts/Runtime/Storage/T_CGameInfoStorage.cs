@@ -117,6 +117,9 @@ public sealed class CGameInfo : CBaseInfo {
 public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
 	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
+	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
+
+	public CLevelInfo PlayLevelInfo { get; private set; } = null;
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
 		LastDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
@@ -214,6 +217,12 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public void SetDailyRewardID(int a_nID) {
 		CAccess.Assert(KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS.ExIsValidIdx(a_nID));
 		this.GameInfo.DailyRewardID = a_nID;
+	}
+
+	//! 플레이 레벨 정보를 변경한다
+	public void SetPlayLevelInfo(int a_nID, EPlayMode a_ePlayMode) {
+		this.PlayMode = a_ePlayMode;
+		this.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nID);
 	}
 
 	//! 클리어 정보를 변경한다
