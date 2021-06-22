@@ -59,7 +59,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			}
 			
 			return ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED;
-		}, KCDefine.U_DELAY_INIT, KCDefine.B_DELTA_T_CONSENT_VIEW);
+		}, KCDefine.U_DELAY_INIT, KCDefine.B_MAX_DELTA_T_CONSENT_VIEW);
 #else
 		this.ExLateCallFunc((a_oSender, a_oParams) => this.OnCloseConsentView(true));
 #endif			// #if UNITY_IOS
