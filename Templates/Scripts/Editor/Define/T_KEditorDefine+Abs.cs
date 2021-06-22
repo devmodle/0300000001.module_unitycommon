@@ -30,6 +30,12 @@ public static partial class KEditorDefine {
 		[typeof(CValTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CStrTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
+		[typeof(CLevelInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CSaleItemInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CSaleProductInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CMissionInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CRewardInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+
 		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,

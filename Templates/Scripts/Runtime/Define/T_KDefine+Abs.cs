@@ -10,7 +10,8 @@ public static partial class KDefine {
 	public const string B_VER_APP_INFO = "1.0.0";
 	public const string B_VER_USER_INFO = "1.0.0";
 	public const string B_VER_GAME_INFO = "1.0.0";
-	
+
+	public const string B_VER_LEVEL_INFO = "1.0.0";
 	public const string B_VER_CLEAR_INFO = "1.0.0";
 	// 버전 }
 	#endregion			// 기본
@@ -20,6 +21,7 @@ public static partial class KDefine {
 	public static readonly string B_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
 	public static readonly string B_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
 	public static readonly string B_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
+	public static readonly string B_DATA_P_LEVEL_INFO = $"{KCDefine.B_DIR_P_WRITABLE}LevelInfoTable.bytes";
 	#endregion			// 런타임 상수
 }
 #endif			// #if NEVER_USE_THIS

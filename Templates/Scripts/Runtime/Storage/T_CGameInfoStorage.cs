@@ -204,10 +204,21 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return this.GameInfo.m_oCompleteTutorialKindsList.Contains(a_eTutorialKinds);
 	}
 
+	//! 클리어 정보를 반환한다
+	public CClearInfo GetClearInfo(int a_nID) {
+		CAccess.Assert(this.GameInfo.m_oClearInfoList.ContainsKey(a_nID));
+		return this.GameInfo.m_oClearInfoList[a_nID];
+	}
+
 	//! 일일 보상 종류를 변경한다
 	public void SetDailyRewardID(int a_nID) {
 		CAccess.Assert(KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS.ExIsValidIdx(a_nID));
 		this.GameInfo.DailyRewardID = a_nID;
+	}
+
+	//! 클리어 정보를 변경한다
+	public void SetClearInfo(int a_nID, CClearInfo a_oClearInfo) {
+		this.GameInfo.m_oClearInfoList.ExReplaceVal(a_nID, a_oClearInfo);
 	}
 
 	//! 선택 된 부스터를 추가한다
@@ -250,6 +261,15 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		}
 
 		return this.GameInfo;
+	}
+
+	//! 클리어 정보를 생성한다
+	public CClearInfo MakeClearInfo(int a_nID, int a_nScore, int a_nNumStars) {
+		return new CClearInfo() {
+			ID = a_nID,
+			Score = a_nScore,
+			NumStars = a_nNumStars
+		};
 	}
 	#endregion			// 함수
 

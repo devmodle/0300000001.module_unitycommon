@@ -155,17 +155,17 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 
 	#region 조건부 함수
 #if UNITY_EDITOR
-		// 미션 정보를 설정한다
-		private void SetupMissionInfoList(Dictionary<EMissionKinds, STMissionInfo> a_oMissionInfoList, List<STMissionInfo> a_oOutMissionInfoList) {
-			CAccess.Assert(a_oMissionInfoList != null && a_oOutMissionInfoList != null);
-			a_oOutMissionInfoList.Clear();
+	// 미션 정보를 설정한다
+	private void SetupMissionInfoList(Dictionary<EMissionKinds, STMissionInfo> a_oMissionInfoList, List<STMissionInfo> a_oOutMissionInfoList) {
+		CAccess.Assert(a_oMissionInfoList != null && a_oOutMissionInfoList != null);
+		a_oOutMissionInfoList.Clear();
 
-			foreach(var stKeyVal in a_oMissionInfoList) {
-				a_oOutMissionInfoList.ExAddVal(stKeyVal.Value);
-			}
-
-			a_oOutMissionInfoList.Sort((a_stLhs, a_stRhs) => (int)a_stLhs.m_eMissionKinds - (int)a_stRhs.m_eMissionKinds);
+		foreach(var stKeyVal in a_oMissionInfoList) {
+			a_oOutMissionInfoList.ExAddVal(stKeyVal.Value);
 		}
+
+		a_oOutMissionInfoList.Sort((a_stLhs, a_stRhs) => (int)a_stLhs.m_eMissionKinds - (int)a_stRhs.m_eMissionKinds);
+	}
 #endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 함수
 }

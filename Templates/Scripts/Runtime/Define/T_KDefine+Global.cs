@@ -15,10 +15,12 @@ public static partial class KDefine {
 	// 식별자 {
 	public const int G_PRODUCT_ID_CHANGES = 0;
 	public const int G_PRODUCT_ID_REMOVE_ADS = 1;
+	public const int G_PRODUCT_ID_SAMPLE_CONSUMABLE = 2;
+	public const int G_PRODUCT_ID_SAMPLE_NON_CONSUMABLE = 3;
 
-	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0}_{1}";
+	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0:00}_{1:00}";
 	// 식별자 }
-
+	
 	// 판매 아이템 정보 테이블 {
 	public const string G_KEY_SALE_IIT_NAME = "Name";
 	public const string G_KEY_SALE_IIT_DESC = "Desc";
@@ -183,11 +185,17 @@ public static partial class KDefine {
 
 	// 경로 {
 #if UNITY_EDITOR
+	public static readonly string G_RUNTIME_DATA_P_FMT_LEVEL_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_DATA_P_FMT_G_LEVEL_INFO}.bytes";
+
+	public static readonly string G_RUNTIME_TABLE_P_LEVEL_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_LEVEL_INFO}.txt";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_ITEM_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_MISSION_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_MISSION_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
 #else
+	public static readonly string G_RUNTIME_TABLE_P_LEVEL_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_DATA_P_FMT_G_LEVEL_INFO}.txt";
+
+	public static readonly string G_RUNTIME_DATA_P_FMT_LEVEL_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_LEVEL_INFO}.bytes";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_ITEM_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_ITEM_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_MISSION_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_MISSION_INFO}.json";
@@ -199,7 +207,9 @@ public static partial class KDefine {
 	public static readonly ESaleProductKinds[] G_KINDS_SALE_PIT_SALE_PRODUCTS = new ESaleProductKinds[] {
 		ESaleProductKinds.PKG_PRODUCT,
 		ESaleProductKinds.SINGLE_CHANGES,
-		ESaleProductKinds.SINGLE_REMOVE_ADS
+		ESaleProductKinds.SINGLE_REMOVE_ADS,
+		ESaleProductKinds.SINGLE_SAMPLE_CONSUMABLE,
+		ESaleProductKinds.SINGLE_SAMPLE_NON_CONSUMABLE
 	};
 
 	// 보상 정보 테이블
