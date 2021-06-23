@@ -50,15 +50,15 @@ public class CStorePopup : CSubPopup {
 	//! 상품 UI 상태를 갱신한다
 	private void UpdateProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stSaleProductInfo) {
 		// 패키지 상품 일 경우
-		if(a_stSaleProductInfo.m_eSaleProductType == ESaleProductType.PKG) {
-			this.UpdatePkgProductUIsState(a_oProductUIs, a_stSaleProductInfo);
+		if(a_stSaleProductInfo.m_eSaleProductType == ESaleProductType.PKGS) {
+			this.UpdatePkgsProductUIsState(a_oProductUIs, a_stSaleProductInfo);
 		} else {
 			this.UpdateSingleProductUIsState(a_oProductUIs, a_stSaleProductInfo);
 		}
 	}
 
 	//! 패키지 상품 UI 상태를 갱신한다
-	private void UpdatePkgProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stSaleProductInfo) {
+	private void UpdatePkgsProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stSaleProductInfo) {
 		// Do Nothing
 	}
 
@@ -127,7 +127,7 @@ public class CStorePopup : CSubPopup {
 						m_nNumItems = nNumItems,
 						m_eItemKinds = eItemKinds
 					};
-
+					
 					Func.AcquireItem(stItemInfo);
 				}
 			}

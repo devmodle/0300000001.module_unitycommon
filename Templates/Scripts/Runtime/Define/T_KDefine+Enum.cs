@@ -17,12 +17,22 @@ public enum EPriceType {
 public enum EPriceKinds {
 	NONE = -1,
 
-	// 보상 광고 0 (광고)
-	ADS_REWARD,
+	#region 광고
+	// 광고 가격 0
+	[HideInInspector] ADS_PRICE,
 
-	// 코인 10,000,000 (재화)
-	GOODS_COIN = EPriceKinds.ADS_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
-	
+	// 보상 광고 10,000
+	ADS_REWARD = EPriceKinds.ADS_PRICE + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+	#endregion			// 광고
+
+	#region 재화
+	// 재화 가격 10,000,000
+	[HideInInspector] GOODS_PRICE = EPriceKinds.ADS_PRICE + KCDefine.B_UNIT_TYPE_TO_KINDS,
+
+	// 코인 10,010,000
+	GOODS_COIN = EPriceKinds.GOODS_PRICE + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+	#endregion			// 재화
+
 	MAX_VAL
 }
 
@@ -39,17 +49,32 @@ public enum EItemType {
 public enum EItemKinds {
 	NONE = -1,
 
-	// 코인 0 (재화)
-	GOODS_COIN,
+	#region 재화
+	// 재화 아이템 0
+	[HideInInspector] GOODS_ITEM,
 
-	// 부스터 10,000,000 (소모 아이템)
-	CONSUMABLE_BOOSTER = EItemKinds.GOODS_COIN + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	// 코인 10,000
+	GOODS_COIN = EItemKinds.GOODS_ITEM + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+	#endregion			// 재화
 
-	// 게임 아이템 10,010,000 (소모 아이템)
+	#region 소모
+	// 소모 아이템 10,000,000
+	[HideInInspector] CONSUMABLE_ITEM =  EItemKinds.GOODS_ITEM + KCDefine.B_UNIT_TYPE_TO_KINDS,
+
+	// 부스터 10,010,000
+	CONSUMABLE_BOOSTER = EItemKinds.CONSUMABLE_ITEM + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+
+	// 게임 아이템 10,020,000
 	CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+	#endregion			// 소모
 
-	// 광고 제거 20,000,000 (비소모 아이템)
-	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	#region 비소모
+	// 비소모 아이템 20,000,000
+	[HideInInspector] NON_CONSUMABLE_ITEM = EItemKinds.CONSUMABLE_ITEM + KCDefine.B_UNIT_TYPE_TO_KINDS,
+
+	// 광고 제거 20,010,000
+	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.NON_CONSUMABLE_ITEM + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+	#endregion			// 비소모
 
 	MAX_VAL
 }
@@ -66,11 +91,18 @@ public enum ESaleItemType {
 public enum ESaleItemKinds {
 	NONE = -1,
 
-	// 부스터 0 (부스터 판매 아이템)
-	BOOSTER_SALE_ITEM,
+	#region 부스터
+	// 부스터 판매 아이템 0
+	[HideInInspector] BOOSTER_SALE_ITEM,
+	#endregion			// 부스터
 
-	// 게임 아이템 10,000,000 (게임 아이템 판매 아이템)
-	GAME_ITEM_SALE_ITEM = ESaleItemKinds.BOOSTER_SALE_ITEM + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	#region 게임 아이템
+	// 게임 아이템 판매 아이템 10,000,000
+	[HideInInspector] GAME_ITEM_SALE_ITEM = ESaleItemKinds.BOOSTER_SALE_ITEM + KCDefine.B_UNIT_TYPE_TO_KINDS,
+
+	// 힌트 10,010,000
+	GAME_ITEM_HINT = ESaleItemKinds.GAME_ITEM_SALE_ITEM + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+	#endregion			// 게임 아이템
 
 	MAX_VAL
 }
@@ -78,7 +110,7 @@ public enum ESaleItemKinds {
 //! 판매 상품 타입
 public enum ESaleProductType {
 	NONE = -1,
-	PKG,
+	PKGS,
 	SINGLE,
 	MAX_VAL
 }
@@ -87,14 +119,21 @@ public enum ESaleProductType {
 public enum ESaleProductKinds {
 	NONE = -1,
 
-	// 패키지 상품 0 (패키지 상품)
-	PKG_PRODUCT,
+	#region 패키지
+	// 패키지 판매 상품 0
+	[HideInInspector] PKGS_SALE_PRODUCT,
+	#endregion			// 패키지
 
-	// 잔돈 상품 10,000,000 (단일 상품)
-	SINGLE_CHANGES = ESaleProductKinds.PKG_PRODUCT + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	#region 단일
+	// 단일 판매 상품 10,000,000
+	[HideInInspector] SINGLE_SALE_PRODUCT = ESaleProductKinds.PKGS_SALE_PRODUCT + KCDefine.B_UNIT_TYPE_TO_KINDS,
 
-	// 광고 제거 상품 10,010,000 (단일 상품)
+	// 잔돈 10,010,000
+	SINGLE_CHANGES = ESaleProductKinds.SINGLE_SALE_PRODUCT + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+
+	// 광고 제거 10,020,000
 	SINGLE_REMOVE_ADS = ESaleProductKinds.SINGLE_CHANGES + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+	#endregion			// 단일
 
 	MAX_VAL
 }
@@ -111,11 +150,15 @@ public enum EMissionType {
 public enum EMissionKinds {
 	NONE = -1,
 
-	// 자유 미션 0 (자유 미션)
-	FREE_MISSION,
+	#region 자유
+	// 자유 미션 0
+	[HideInInspector] FREE_MISSION,
+	#endregion			// 자유
 
-	// 일일 미션 10,000,000 (일일 미션)
-	DAILY_MISSION = EMissionKinds.FREE_MISSION + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	#region 일일
+	// 일일 미션 10,000,000
+	[HideInInspector] DAILY_MISSION = EMissionKinds.FREE_MISSION + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	#endregion			// 일일
 
 	MAX_VAL
 }
@@ -133,14 +176,20 @@ public enum ERewardType {
 public enum ERewardKinds {
 	NONE = -1,
 
-	// 무료 보상 0 (무료 보상)
-	FREE_REWARD,
+	#region 무료
+	// 무료 보상
+	[HideInInspector] FREE_REWARD,
+	#endregion			// 무료
 
-	// 일일 보상 10,000,000 (일일 보상)
-	DAILY_REWARD = ERewardKinds.FREE_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	#region 일일
+	// 일일 보상 10,000,000
+	[HideInInspector] DAILY_REWARD = ERewardKinds.FREE_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	#endregion			// 일일
 
-	// 클리어 보상 20,000,000 (클리어 보상)
-	CLEAR_REWARD = ERewardKinds.DAILY_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	#region 클리어
+	// 클리어 보상 20,000,000
+	[HideInInspector] CLEAR_REWARD = ERewardKinds.DAILY_REWARD + KCDefine.B_UNIT_TYPE_TO_KINDS,
+	#endregion			// 클리어
 
 	MAX_VAL
 }
