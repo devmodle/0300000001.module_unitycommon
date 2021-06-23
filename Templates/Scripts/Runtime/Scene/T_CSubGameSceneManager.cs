@@ -4,14 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+using SampleEngineName;
+
 //! 서브 게임 씬 관리자
 public partial class CSubGameSceneManager : CGameSceneManager {
+	#region 변수
+	private CEngine m_oEngine = null;
+	#endregion			// 변수
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
 		
-		//! 초기화 되었을 경우
+		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			this.SetupAwake();
 		}
@@ -30,8 +36,20 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
+	//! 상태를 갱신한다
+	public override void OnUpdate(float a_fDeltaTime) {
+		base.OnUpdate(a_fDeltaTime);
+
+		// 앱이 실행 중 일 경우
+		if(CSceneManager.IsAppRunning) {
+			m_oEngine.OnUpdate(a_fDeltaTime);
+		}
+	}
+
 	//! 씬을 설정한다
 	private void SetupAwake() {
+		this.SetupEngine();
+
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
@@ -40,6 +58,16 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	//! 씬을 설정한다
 	private void SetupStart() {
 		// Do Nothing
+	}
+
+	//! 엔진을 설정한다
+	private void SetupEngine() {
+		var stParams = new CEngine.STParams {
+			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo
+		};
+
+		m_oEngine = CFactory.CreateObj<CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
+		m_oEngine.Init(stParams);
 	}
 
 	//! UI 상태를 갱신한다

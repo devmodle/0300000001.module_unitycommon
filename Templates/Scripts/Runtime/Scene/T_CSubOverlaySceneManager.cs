@@ -16,7 +16,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	public override void Awake() {
 		base.Awake();
 		
-		//! 초기화 되었을 경우
+		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			this.SetupAwake();
 		}
