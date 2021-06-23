@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
 using SampleEngineName;
@@ -75,6 +76,21 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+	}
+
+	//! 터치를 시작했을 경우
+	private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+		m_oEngine.OnTouchBegin(a_oSender, a_oEventData);	
+	}
+
+	//! 터치를 움직였을 경우
+	private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+		m_oEngine.OnTouchMove(a_oSender, a_oEventData);
+	}
+
+	//! 터치를 종료했을 경우
+	private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+		m_oEngine.OnTouchEnd(a_oSender, a_oEventData);
 	}
 	#endregion			// 함수
 

@@ -66,6 +66,9 @@ public enum EItemKinds {
 
 	// 게임 아이템 10,020,000
 	CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_TYPE_TO_KINDS_TYPE,
+
+	// 힌트 10,020,100
+	CONSUMABLE_GAME_ITEM_HINT = EItemKinds.CONSUMABLE_GAME_ITEM + KCDefine.B_UNIT_TYPE_TO_SUB_KINDS_TYPE,
 	#endregion			// 소모
 
 	#region 비소모
