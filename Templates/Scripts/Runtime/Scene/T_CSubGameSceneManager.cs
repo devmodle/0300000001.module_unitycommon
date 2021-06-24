@@ -101,6 +101,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	#endregion			// 함수
 
 	#region 조건부 함수
+#if UNITY_EDITOR
+	//! 가이드 라인을 그린다
+	public override void OnDrawGizmos() {
+		base.OnDrawGizmos();
+	}
+#endif			// #if UNITY_EDITOR
+
 #if DEBUG || DEVELOPMENT_BUILD
 	//! 테스트 UI 를 설정한다
 	private void SetupTestUIs() {
