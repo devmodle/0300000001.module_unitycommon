@@ -16,6 +16,7 @@ namespace SampleEngineName {
 		//! 매개 변수
 		public struct STParams {
 			public CLevelInfo m_oLevelInfo;
+			public CClearInfo m_oClearInfo;
 		}
 		
 		#region 변수

@@ -209,8 +209,16 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 클리어 정보를 반환한다
 	public CClearInfo GetClearInfo(int a_nID) {
-		CAccess.Assert(this.GameInfo.m_oClearInfoList.ContainsKey(a_nID));
-		return this.GameInfo.m_oClearInfoList[a_nID];
+		bool bIsValid = this.TryGetClearInfo(a_nID, out CClearInfo oClearInfo);
+		CAccess.Assert(bIsValid);
+
+		return oClearInfo;
+	}
+
+	//! 클리어 정보를 반환한다
+	public bool TryGetClearInfo(int a_nID, out CClearInfo a_oOutClearInfo) {
+		a_oOutClearInfo = this.GameInfo.m_oClearInfoList.ExGetVal(a_nID, null);
+		return this.GameInfo.m_oClearInfoList.ContainsKey(a_nID);
 	}
 
 	//! 일일 보상 종류를 변경한다

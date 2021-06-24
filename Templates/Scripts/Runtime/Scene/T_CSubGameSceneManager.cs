@@ -11,6 +11,8 @@ using SampleEngineName;
 public partial class CSubGameSceneManager : CGameSceneManager {
 	#region 변수
 	private CEngine m_oEngine = null;
+	private CLevelInfo m_oLevelInfo = null;
+	private CClearInfo m_oClearInfo = null;
 	#endregion			// 변수
 
 	#region 함수
@@ -51,6 +53,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void SetupAwake() {
 		this.SetupEngine();
 
+		m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo;
+		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.ID, out CClearInfo oClearInfo) ? oClearInfo : null;
+
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
@@ -64,7 +69,8 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	//! 엔진을 설정한다
 	private void SetupEngine() {
 		var stParams = new CEngine.STParams {
-			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo
+			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
+			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.ID, out CClearInfo oClearInfo) ? oClearInfo : null
 		};
 
 		m_oEngine = CFactory.CreateObj<CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
