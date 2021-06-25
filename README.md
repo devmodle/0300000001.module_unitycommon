@@ -5,7 +5,7 @@
 2. **에셋 스토어 리스트**
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
 	- *Asset Usage Detector (v1.9.5 - Jun 09, 2021)*
-	- *Bezier Solution (v2.1.0 - May 12, 2021)*
+	- *Bezier Solution (v2.2.0 - Jun 21, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
 	- *Enhanced Scroller (v2.29.1 - Mar 21, 2021)*
 	- *Ingame Debug Console (v1.4.8 - Apr 31, 2021)*
