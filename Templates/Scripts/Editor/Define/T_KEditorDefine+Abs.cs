@@ -371,6 +371,7 @@ public static partial class KEditorDefine {
 		"GameKit.framework",
 		"Security.framework",
 		"StoreKit.framework",
+		"MessageUI.framework",
 		"AdSupport.framework",
 		"UserNotifications.framework",
 		"SystemConfiguration.framework",
