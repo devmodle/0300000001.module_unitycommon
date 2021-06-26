@@ -146,7 +146,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	private void OnReceiveUpdatePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
-			CFunc.OpenURL(CProjInfoTable.Inst.ProjInfo.m_oStoreURL);
+			Application.OpenURL(CProjInfoTable.Inst.ProjInfo.m_oStoreURL);
 		}
 	}
 	#endregion			// 함수
