@@ -22,7 +22,7 @@
 	- *Bitmap Font Importer (v2.4.1 - May 6, 2019)*
 	- *Build Report Tool (v3.8.2 - May 18, 2021)*
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
-	- *NGUI (v2020.2.1 - Feb 15, 2021)*
+	- *NGUI (v2020.2.2 - Jun 25, 2021)*
 	- *Odin Inspector (v3.0.5 - Apr 27, 2021)*
 	- *Spine (v3.8.0 - Apr 28, 2021)*
 	- *Spine URP Shaders (v3.8.0 - Apr 28, 2021)*
