@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using MessagePack;
 
@@ -56,7 +57,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	//! 레벨 정보를 로드한다
 	public CLevelInfo LoadLevelInfo(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CAccess.Assert(a_oFilePath.ExIsValid() && File.Exists(a_oFilePath));
 		return CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false);
 	}
 
@@ -143,7 +144,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oLevelInfo != null);
 		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, a_oLevelInfo.ID + KCDefine.B_VAL_1_INT);
 
-		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false);
+		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
 	}
 
 	//! 레벨 정보를 저장한다
