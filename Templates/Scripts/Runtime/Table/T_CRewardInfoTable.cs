@@ -100,35 +100,11 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	}
 
 	//! 보상 정보를 로드한다
-	public List<object> LoadRewardInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
-		
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
-		var oFreeRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_FREE];
-		var oDailyRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_DAILY];
-		var oClearRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_CLEAR];
-
-		this.LoadRewardInfos(oFreeRewardInfos, this.FreeRewardInfoList);
-		this.LoadRewardInfos(oDailyRewardInfos, this.DailyRewardInfoList);
-		this.LoadRewardInfos(oClearRewardInfos, this.ClearRewardInfoList);
-
-#if UNITY_EDITOR
-		this.SetupRewardInfoList(this.FreeRewardInfoList, m_oFreeRewardInfoList);
-		this.SetupRewardInfoList(this.DailyRewardInfoList, m_oDailyRewardInfoList);
-		this.SetupRewardInfoList(this.ClearRewardInfoList, m_oClearRewardInfoList);
-#endif			// #if UNITY_EDITOR
-
-		return new List<object>() {
-			this.FreeRewardInfoList, this.DailyRewardInfoList, this.ClearRewardInfoList
-		};
-	}
-
-	//! 보상 정보를 로드한다
-	public List<object> LoadRewardInfosFromFile(string a_oFilePath) {
+	public List<object> LoadRewardInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
 
-		return this.LoadRewardInfos(oJSONStr);
+		return this.DoLoadRewardInfos(oJSONStr);
 	}
 
 	//! 보상 정보를 로드한다
@@ -137,7 +113,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.LoadRewardInfos(oTextAsset.text);
+			return this.DoLoadRewardInfos(oTextAsset.text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -170,7 +146,31 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	}
 
 	//! 보상 정보를 로드한다
-	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(SimpleJSON.JSONNode a_oRewardInfos, Dictionary<ERewardKinds, STRewardInfo> a_oOutRewardInfoList) {
+	private List<object> DoLoadRewardInfos(string a_oJSONStr) {
+		CAccess.Assert(a_oJSONStr.ExIsValid());
+		
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
+		var oFreeRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_FREE];
+		var oDailyRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_DAILY];
+		var oClearRewardInfos = oJSONNode[KDefine.G_KEY_REWARD_IT_CLEAR];
+
+		this.DoLoadRewardInfos(oFreeRewardInfos, this.FreeRewardInfoList);
+		this.DoLoadRewardInfos(oDailyRewardInfos, this.DailyRewardInfoList);
+		this.DoLoadRewardInfos(oClearRewardInfos, this.ClearRewardInfoList);
+
+#if UNITY_EDITOR
+		this.SetupRewardInfoList(this.FreeRewardInfoList, m_oFreeRewardInfoList);
+		this.SetupRewardInfoList(this.DailyRewardInfoList, m_oDailyRewardInfoList);
+		this.SetupRewardInfoList(this.ClearRewardInfoList, m_oClearRewardInfoList);
+#endif			// #if UNITY_EDITOR
+
+		return new List<object>() {
+			this.FreeRewardInfoList, this.DailyRewardInfoList, this.ClearRewardInfoList
+		};
+	}
+
+	//! 보상 정보를 로드한다
+	private Dictionary<ERewardKinds, STRewardInfo> DoLoadRewardInfos(SimpleJSON.JSONNode a_oRewardInfos, Dictionary<ERewardKinds, STRewardInfo> a_oOutRewardInfoList) {
 		CAccess.Assert(a_oRewardInfos != null && a_oOutRewardInfoList != null);
 
 		for(int i = 0; i < a_oRewardInfos.Count; ++i) {

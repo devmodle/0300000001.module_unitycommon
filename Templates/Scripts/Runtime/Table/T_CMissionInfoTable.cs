@@ -69,32 +69,11 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	}
 
 	//! 미션 정보를 로드한다
-	public List<object> LoadMissionInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
-		
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
-		var oFreeMissionInfos = oJSONNode[KDefine.G_KEY_MISSION_IT_FREE];
-		var oDailyMissionInfos = oJSONNode[KDefine.G_KEY_MISSION_IT_DAILY];
-
-		this.LoadMissionInfos(oFreeMissionInfos, this.FreeMissionInfoList);
-		this.LoadMissionInfos(oDailyMissionInfos, this.DailyMissionInfoList);
-
-#if UNITY_EDITOR
-		this.SetupMissionInfoList(this.FreeMissionInfoList, m_oFreeMissionInfoList);
-		this.SetupMissionInfoList(this.DailyMissionInfoList, m_oDailyMissionInfoList);
-#endif			// #if UNITY_EDITOR
-
-		return new List<object>() {
-			this.FreeMissionInfoList, this.DailyMissionInfoList
-		};
-	}
-
-	//! 미션 정보를 로드한다
-	public List<object> LoadMissionInfosFromFile(string a_oFilePath) {
+	public List<object> LoadMissionInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
 
-		return this.LoadMissionInfos(oJSONStr);
+		return this.DoLoadMissionInfos(oJSONStr);
 	}
 
 	//! 미션 정보를 로드한다
@@ -103,7 +82,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.LoadMissionInfos(oTextAsset.text);
+			return this.DoLoadMissionInfos(oTextAsset.text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -136,7 +115,28 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	}
 
 	//! 미션 정보를 로드한다
-	private Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(SimpleJSON.JSONNode a_oMissionInfos, Dictionary<EMissionKinds, STMissionInfo> a_oOutMissionInfoList) {
+	private List<object> DoLoadMissionInfos(string a_oJSONStr) {
+		CAccess.Assert(a_oJSONStr.ExIsValid());
+		
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
+		var oFreeMissionInfos = oJSONNode[KDefine.G_KEY_MISSION_IT_FREE];
+		var oDailyMissionInfos = oJSONNode[KDefine.G_KEY_MISSION_IT_DAILY];
+
+		this.DoLoadMissionInfos(oFreeMissionInfos, this.FreeMissionInfoList);
+		this.DoLoadMissionInfos(oDailyMissionInfos, this.DailyMissionInfoList);
+
+#if UNITY_EDITOR
+		this.SetupMissionInfoList(this.FreeMissionInfoList, m_oFreeMissionInfoList);
+		this.SetupMissionInfoList(this.DailyMissionInfoList, m_oDailyMissionInfoList);
+#endif			// #if UNITY_EDITOR
+
+		return new List<object>() {
+			this.FreeMissionInfoList, this.DailyMissionInfoList
+		};
+	}
+
+	//! 미션 정보를 로드한다
+	private Dictionary<EMissionKinds, STMissionInfo> DoLoadMissionInfos(SimpleJSON.JSONNode a_oMissionInfos, Dictionary<EMissionKinds, STMissionInfo> a_oOutMissionInfoList) {
 		CAccess.Assert(a_oMissionInfos != null && a_oOutMissionInfoList != null);
 
 		for(int i = 0; i < a_oMissionInfos.Count; ++i) {

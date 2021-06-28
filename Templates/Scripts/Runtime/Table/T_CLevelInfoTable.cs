@@ -57,22 +57,51 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	//! 레벨 정보를 로드한다
 	public CLevelInfo LoadLevelInfo(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		return CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath);
+		return CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false);
 	}
 
 	//! 레벨 정보를 로드한다
 	public CLevelInfo LoadLevelInfoFromRes(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		return CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath);
+		return CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, false);
 	}
 
 	//! 레벨 정보를 로드한다
-	public Dictionary<int, CLevelInfo> LoadLevelInfos(string a_oStr) {
+	public Dictionary<int, CLevelInfo> LoadLevelInfos(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+		string oStr = CFunc.ReadStr(a_oFilePath);
+
+		return this.DoLoadLevelInfos(oStr);
+	}
+
+	//! 레벨 정보를 로드한다
+	public Dictionary<int, CLevelInfo> LoadLevelInfosFromRes(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+
+		try {
+			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
+			return this.DoLoadLevelInfos(oTextAsset.text);
+		} finally {
+			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
+		}
+	}
+
+	//! 레벨 정보를 생성한다
+	public CLevelInfo MakeLevelInfo(int a_nID, ELevelMode a_eLevelMode) {
+		return new CLevelInfo() {
+			ID = a_nID,
+			LevelMode = a_eLevelMode
+		};
+	}
+
+	//! 레벨 정보를 로드한다
+	private Dictionary<int, CLevelInfo> DoLoadLevelInfos(string a_oStr) {
 		bool bIsValid = int.TryParse(a_oStr, out int nNumLevelInfos);
 		CAccess.Assert(bIsValid);
 
 		for(int i = 0; i < nNumLevelInfos; ++i) {
 			string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, i + KCDefine.B_VAL_1_INT);
+			CFunc.ShowLog($"CLevelInfoTable.DoLoadLevelInfos: {oFilePath}");
 
 #if UNITY_EDITOR
 			var oLevelInfo = this.LoadLevelInfo(oFilePath);
@@ -85,34 +114,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		}
 
 		return this.LevelInfoList;
-	}
-
-	//! 레벨 정보를 로드한다
-	public Dictionary<int, CLevelInfo> LoadLevelInfosFromFile(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		string oStr = CFunc.ReadStr(a_oFilePath);
-
-		return this.LoadLevelInfos(oStr);
-	}
-
-	//! 레벨 정보를 로드한다
-	public Dictionary<int, CLevelInfo> LoadLevelInfosFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-
-		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.LoadLevelInfos(oTextAsset.text);
-		} finally {
-			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}
-	}
-
-	//! 레벨 정보를 생성한다
-	public CLevelInfo MakeLevelInfo(int a_nID, ELevelMode a_eLevelMode) {
-		return new CLevelInfo() {
-			ID = a_nID,
-			LevelMode = a_eLevelMode
-		};
 	}
 	#endregion			// 함수
 
@@ -142,11 +143,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oLevelInfo != null);
 		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, a_oLevelInfo.ID + KCDefine.B_VAL_1_INT);
 
-		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo);
+		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false);
 	}
 
 	//! 레벨 정보를 저장한다
-	public void SaveLevelInfos(bool a_bIsIgnoreSaveLevelInfo = false) {
+	public void SaveLevelInfos() {
 		string oStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, this.LevelInfoList.Count);
 		CFunc.WriteStr(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO, oStr);
 

@@ -74,7 +74,38 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 		return this.SaleItemInfoList.ContainsKey(a_eSaleItemKinds);
 	}
 
-	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfos(string a_oJSONStr) {
+	//! 판매 아이템 정보를 로드한다
+	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfos(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+		string oJSONStr = CFunc.ReadStr(a_oFilePath);
+
+		return this.DoLoadSaleItemInfos(oJSONStr);
+	}
+
+	//! 판매 아이템 정보를 로드한다
+	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfosFromRes(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+		
+		try {
+			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
+			return this.DoLoadSaleItemInfos(oTextAsset.text);
+		} finally {
+			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
+		}
+	}
+
+	//! 판매 아이템 정보를 설정한다
+	private void SetupSaleItemInfos(List<STSaleItemInfo> a_oSaleItemInfoList, Dictionary<ESaleItemKinds, STSaleItemInfo> a_oOutSaleItemInfoList) {
+		CAccess.Assert(a_oSaleItemInfoList != null && a_oOutSaleItemInfoList != null);
+
+		for(int i = 0; i < a_oSaleItemInfoList.Count; ++i) {
+			var stSaleItemInfo = a_oSaleItemInfoList[i];
+			a_oOutSaleItemInfoList.ExAddVal(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
+		}
+	}
+
+	//! 판매 아이템 정보를 로드한다
+	private Dictionary<ESaleItemKinds, STSaleItemInfo> DoLoadSaleItemInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
@@ -95,36 +126,6 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 #endif			// #if UNITY_EDITOR
 
 		return this.SaleItemInfoList;
-	}
-
-	//! 판매 아이템 정보를 로드한다
-	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfosFromFile(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		string oJSONStr = CFunc.ReadStr(a_oFilePath);
-
-		return this.LoadSaleItemInfos(oJSONStr);
-	}
-
-	//! 판매 아이템 정보를 로드한다
-	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfosFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		
-		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.LoadSaleItemInfos(oTextAsset.text);
-		} finally {
-			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}
-	}
-
-	//! 판매 아이템 정보를 설정한다
-	private void SetupSaleItemInfos(List<STSaleItemInfo> a_oSaleItemInfoList, Dictionary<ESaleItemKinds, STSaleItemInfo> a_oOutSaleItemInfoList) {
-		CAccess.Assert(a_oSaleItemInfoList != null && a_oOutSaleItemInfoList != null);
-
-		for(int i = 0; i < a_oSaleItemInfoList.Count; ++i) {
-			var stSaleItemInfo = a_oSaleItemInfoList[i];
-			a_oOutSaleItemInfoList.ExAddVal(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
-		}
 	}
 	#endregion			// 함수
 

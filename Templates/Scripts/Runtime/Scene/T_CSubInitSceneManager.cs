@@ -32,15 +32,11 @@ public class CSubInitSceneManager : CInitSceneManager {
 		CStrTable.Inst.LoadEnumStrs<ETutorialKinds>();
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-		CLevelInfoTable.Inst.LoadLevelInfosFromFile(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO);
-
-		CSaleItemInfoTable.Inst.LoadSaleItemInfosFromFile(KDefine.G_RUNTIME_TABLE_P_SALE_ITEM_INFO);
-		CSaleProductInfoTable.Inst.LoadSaleProductInfosFromFile(KDefine.G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO);
-		CMissionInfoTable.Inst.LoadMissionInfosFromFile(KDefine.G_RUNTIME_TABLE_P_MISSION_INFO);
-		CRewardInfoTable.Inst.LoadRewardInfosFromFile(KDefine.G_RUNTIME_TABLE_P_REWARD_INFO);
+		CSaleItemInfoTable.Inst.LoadSaleItemInfos(KDefine.G_RUNTIME_TABLE_P_SALE_ITEM_INFO);
+		CSaleProductInfoTable.Inst.LoadSaleProductInfos(KDefine.G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO);
+		CMissionInfoTable.Inst.LoadMissionInfos(KDefine.G_RUNTIME_TABLE_P_MISSION_INFO);
+		CRewardInfoTable.Inst.LoadRewardInfos(KDefine.G_RUNTIME_TABLE_P_REWARD_INFO);
 #else
-		CLevelInfoTable.Inst.LoadLevelInfosFromRes(KCDefine.U_TABLE_P_G_LEVEL_INFO);
-
 		CSaleItemInfoTable.Inst.LoadSaleItemInfosFromRes(KCDefine.U_TABLE_P_G_SALE_ITEM_INFO);
 		CSaleProductInfoTable.Inst.LoadSaleProductInfosFromRes(KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO);
 		CMissionInfoTable.Inst.LoadMissionInfosFromRes(KCDefine.U_TABLE_P_G_MISSION_INFO);
