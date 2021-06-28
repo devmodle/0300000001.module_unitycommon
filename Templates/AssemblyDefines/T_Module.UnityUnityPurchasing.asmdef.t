@@ -1,9 +1,10 @@
 ﻿{
-    "name": "UnityModule.GameAnalytics",
+    "name": "Module.UnityUnityPurchasing",
     "rootNamespace": "",
     "references": [
-        "UnityModule.IronSrc",
-        "MaxSdk.Scripts"
+        "UnityEngine.Purchasing.Security",
+        "UnityEngine.Purchasing.SecurityCore",
+        "UnityEngine.Purchasing.SecurityStub"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

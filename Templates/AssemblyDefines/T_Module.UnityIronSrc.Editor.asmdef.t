@@ -1,12 +1,11 @@
 ﻿{
-    "name": "UnityModule.UnityPurchasing",
-    "rootNamespace": "",
+    "name": "Module.UnityIronSrc.Editor",
     "references": [
-        "UnityEngine.Purchasing.Security",
-        "UnityEngine.Purchasing.SecurityCore",
-        "UnityEngine.Purchasing.SecurityStub"
+        "Module.UnityIronSrc"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

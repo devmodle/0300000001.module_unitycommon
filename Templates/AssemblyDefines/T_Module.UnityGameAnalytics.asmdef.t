@@ -1,11 +1,11 @@
 ﻿{
-    "name": "UnityModule.IronSrc.Editor",
+    "name": "Module.UnityGameAnalytics",
+    "rootNamespace": "",
     "references": [
-        "UnityModule.IronSrc"
+        "Module.UnityIronSrc",
+        "MaxSdk.Scripts"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

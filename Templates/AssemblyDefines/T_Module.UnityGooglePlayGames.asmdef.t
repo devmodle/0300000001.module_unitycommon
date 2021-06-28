@@ -1,8 +1,6 @@
 {
-    "name": "UnityModule.Singular",
-    "references": [
-        "UnityEngine.Purchasing"
-    ],
+    "name": "Module.UnityGooglePlayGames",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

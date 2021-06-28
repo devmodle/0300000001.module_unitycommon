@@ -1,7 +1,7 @@
 {
-    "name": "UnityModule.GameAnalytics.Editor",
+    "name": "Module.UnityGameAnalytics.Editor",
     "references": [
-        "UnityModule.GameAnalytics"
+        "Module.UnityGameAnalytics"
     ],
     "includePlatforms": [
         "Editor"

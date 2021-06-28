@@ -1,7 +1,7 @@
 {
-    "name": "UnityModule.GooglePlayGames.Editor",
+    "name": "Module.UnityGooglePlayGames.Editor",
     "references": [
-        "UnityModule.GooglePlayGames"
+        "Module.UnityGooglePlayGames"
     ],
     "includePlatforms": [
         "Editor"
