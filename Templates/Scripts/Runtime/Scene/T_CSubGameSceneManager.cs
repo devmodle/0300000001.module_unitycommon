@@ -22,7 +22,18 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+#if DEBUG || DEVELOPMENT_BUILD
+			// 플레이 레벨 정보가 없을 경우
+			if(CGameInfoStorage.Inst.PlayLevelInfo == null) {
+				var oLevelInfo = CLevelInfoTable.Inst.MakeLevelInfo(0, ELevelMode.NORM);
+
+				CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
+				CGameInfoStorage.Inst.SetPlayLevelInfo(0, EPlayMode.NORM);
+			}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+
 			this.SetupAwake();
+			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 		}
 	}
 	
@@ -34,8 +45,6 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		if(CSceneManager.IsAppInit) {
 			this.SetupStart();
 			this.UpdateUIsState();
-
-			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 		}
 	}
 
@@ -46,6 +55,26 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		// 앱이 실행 중 일 경우
 		if(CSceneManager.IsAppRunning) {
 			m_oEngine.OnUpdate(a_fDeltaTime);
+		}
+	}
+
+	//! 제거 되었을 경우
+	public override void OnDestroy() {
+		base.OnDestroy();
+
+		// 앱이 실행 중 일 경우
+		if(CSceneManager.IsAppRunning) {
+			// Do Nothing
+		}
+	}
+
+	//! 내비게이션 스택 이벤트를 수신했을 경우
+	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
+		base.OnReceiveNavStackEvent(a_eEvent);
+
+		// 백 키 눌림 이벤트 일 경우
+		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
+			// Do Nothing
 		}
 	}
 
