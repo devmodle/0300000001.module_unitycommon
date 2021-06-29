@@ -120,6 +120,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
 
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
+	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
 		LastDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
@@ -127,7 +128,18 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		LastDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)
 	};
 
-	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
+	public int TotalNumStars {
+		get {
+			int nNumStars = KCDefine.B_VAL_0_INT;
+
+			foreach(var stKeyVal in this.GameInfo.m_oClearInfoList) {
+				nNumStars += stKeyVal.Value.NumStars;
+			}
+			
+			return nNumStars;
+		}
+	}
+
 	public bool IsEnableResetDailyMission => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
 	
 	public bool IsEnableGetFreeReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
