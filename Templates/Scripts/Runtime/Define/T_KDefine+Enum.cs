@@ -246,9 +246,5 @@ public enum ELevelMode {
 	HARD,
 	MAX_VAL
 }
-
-namespace SampleEngineName {
-
-}
 #endregion			// 기본
 #endif			// #if NEVER_USE_THIS
