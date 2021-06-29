@@ -5,6 +5,8 @@ using UnityEngine;
 using MessagePack;
 
 #if NEVER_USE_THIS
+using SampleEngineName;
+
 //! 레벨 정보
 [MessagePackObject]
 [System.Serializable]
