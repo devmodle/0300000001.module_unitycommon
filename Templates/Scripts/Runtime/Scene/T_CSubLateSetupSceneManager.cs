@@ -43,18 +43,19 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	//! 씬을 설정한다
 	protected override void Setup() {
 		base.Setup();
+		
+		// 테이블을 로드한다
+		CLevelInfoTable.Inst.LoadLevelInfos();
+		CSaleItemInfoTable.Inst.LoadSaleItemInfos();
+		CSaleProductInfoTable.Inst.LoadSaleProductInfos();
+		CMissionInfoTable.Inst.LoadMissionInfos();
+		CRewardInfoTable.Inst.LoadRewardInfos();
 
 #if ADS_MODULE_ENABLE
 		CAdsManager.Inst.IsEnableBannerAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 		CAdsManager.Inst.IsEnableFullscreenAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 		CAdsManager.Inst.IsEnableResumeAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 #endif			// #if ADS_MODULE_ENABLE
-
-#if UNITY_EDITOR || UNITY_STANDALONE
-		CLevelInfoTable.Inst.LoadLevelInfos(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO);
-#else
-		CLevelInfoTable.Inst.LoadLevelInfosFromRes(KCDefine.U_TABLE_P_G_LEVEL_INFO);
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
 	//! 설명 팝업을 출력한다

@@ -69,6 +69,15 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	}
 
 	//! 미션 정보를 로드한다
+	public List<object> LoadMissionInfos() {
+#if UNITY_EDITOR || UNITY_STANDALONE
+		return this.LoadMissionInfos(KDefine.G_RUNTIME_TABLE_P_MISSION_INFO);
+#else
+		return this.LoadMissionInfosFromRes(KCDefine.U_TABLE_P_G_MISSION_INFO);
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+	}
+
+	//! 미션 정보를 로드한다
 	public List<object> LoadMissionInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);

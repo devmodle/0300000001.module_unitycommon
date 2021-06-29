@@ -54,6 +54,15 @@ namespace SampleEngineName {
 			// Do Nothing
 		}
 		#endregion			// 함수
+
+		#region 조건부 함수
+#if UNITY_EDITOR
+		//! 가이드 라인을 그린다
+		public virtual void OnDrawGizmos() {
+			// Do Nothing
+		}
+#endif			// #if UNITY_EDITOR
+		#endregion			// 조건부 함수
 	}
 }
 #endif			// #if NEVER_USE_THIS

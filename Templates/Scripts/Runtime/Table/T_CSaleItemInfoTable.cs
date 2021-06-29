@@ -75,6 +75,15 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	}
 
 	//! 판매 아이템 정보를 로드한다
+	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfos() {
+#if UNITY_EDITOR || UNITY_STANDALONE
+		return this.LoadSaleItemInfos(KDefine.G_RUNTIME_TABLE_P_SALE_ITEM_INFO);
+#else
+		return this.LoadSaleItemInfosFromRes(KCDefine.U_TABLE_P_G_SALE_ITEM_INFO);
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+	}
+
+	//! 판매 아이템 정보를 로드한다
 	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);

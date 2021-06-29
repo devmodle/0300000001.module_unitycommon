@@ -70,6 +70,15 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	//! 레벨 정보를 로드한다
+	public Dictionary<int, CLevelInfo> LoadLevelInfos() {
+#if UNITY_EDITOR || UNITY_STANDALONE
+		return this.LoadLevelInfos(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO);
+#else
+		return this.LoadLevelInfosFromRes(KCDefine.U_TABLE_P_G_LEVEL_INFO);
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+	}
+
+	//! 레벨 정보를 로드한다
 	public Dictionary<int, CLevelInfo> LoadLevelInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		string oStr = CFunc.ReadStr(a_oFilePath);

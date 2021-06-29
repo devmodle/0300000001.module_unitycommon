@@ -100,6 +100,15 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	}
 
 	//! 보상 정보를 로드한다
+	public List<object> LoadRewardInfos() {
+#if UNITY_EDITOR || UNITY_STANDALONE
+		return this.LoadRewardInfos(KDefine.G_RUNTIME_TABLE_P_REWARD_INFO);
+#else
+		return this.LoadRewardInfosFromRes(KCDefine.U_TABLE_P_G_REWARD_INFO);
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+	}
+
+	//! 보상 정보를 로드한다
 	public List<object> LoadRewardInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);

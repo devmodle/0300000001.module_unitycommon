@@ -24,25 +24,13 @@ public class CSubInitSceneManager : CInitSceneManager {
 		CUserInfoStorage.Create();
 		CGameInfoStorage.Create();
 
-		// 테이블을 로드한다 {
+		// 열거형 문자열을 로드한다 {
 		CStrTable.Inst.LoadEnumStrs<EUserType>();
 		CStrTable.Inst.LoadEnumStrs<ELevelMode>();
-		
+
 		CStrTable.Inst.LoadEnumStrs<ETutorialType>();
 		CStrTable.Inst.LoadEnumStrs<ETutorialKinds>();
-
-#if UNITY_EDITOR || UNITY_STANDALONE
-		CSaleItemInfoTable.Inst.LoadSaleItemInfos(KDefine.G_RUNTIME_TABLE_P_SALE_ITEM_INFO);
-		CSaleProductInfoTable.Inst.LoadSaleProductInfos(KDefine.G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO);
-		CMissionInfoTable.Inst.LoadMissionInfos(KDefine.G_RUNTIME_TABLE_P_MISSION_INFO);
-		CRewardInfoTable.Inst.LoadRewardInfos(KDefine.G_RUNTIME_TABLE_P_REWARD_INFO);
-#else
-		CSaleItemInfoTable.Inst.LoadSaleItemInfosFromRes(KCDefine.U_TABLE_P_G_SALE_ITEM_INFO);
-		CSaleProductInfoTable.Inst.LoadSaleProductInfosFromRes(KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO);
-		CMissionInfoTable.Inst.LoadMissionInfosFromRes(KCDefine.U_TABLE_P_G_MISSION_INFO);
-		CRewardInfoTable.Inst.LoadRewardInfosFromRes(KCDefine.U_TABLE_P_G_REWARD_INFO);
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
-		// 테이블을 로드한다 }
+		// 열거형 문자열을 로드한다 }
 	}
 	#endregion			// 함수
 }
