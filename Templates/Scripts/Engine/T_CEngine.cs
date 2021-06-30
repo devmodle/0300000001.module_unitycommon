@@ -31,12 +31,24 @@ namespace SampleEngineName {
 		//! 초기화
 		public virtual void Init(STParams a_stParams) {
 			m_stParams = a_stParams;
+
+			this.SetupInit();
 			this.SetupLevel();
 		}
 
 		//! 상태를 갱신한다
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
+		}
+
+		//! 제거 되었을 경우
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Nothing	
+			}
 		}
 
 		//! 터치를 시작했을 경우

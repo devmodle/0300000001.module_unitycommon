@@ -174,12 +174,6 @@ public static partial class KEditorDefine {
 		["com.unity.cinemachine"] = "2.7.4",
 #endif			// #if CINEMACHINE_ENABLE
 
-#if SKELETON_2D_ANI_ENABLE
-		["com.unity.2d.animation"] = "6.0.4",
-		["com.unity.2d.psdimporter"] = "5.0.4",
-		["com.unity.animation.rigging"] = "1.0.3",
-#endif			// #if SKELETON_2D_ANI_ENABLE
-
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
     	["com.unity.postprocessing"] = "3.1.1",
 #endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2

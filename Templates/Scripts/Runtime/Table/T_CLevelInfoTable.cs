@@ -98,14 +98,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		}
 	}
 
-	//! 레벨 정보를 생성한다
-	public CLevelInfo MakeLevelInfo(int a_nID, ELevelMode a_eLevelMode) {
-		return new CLevelInfo() {
-			ID = a_nID,
-			LevelMode = a_eLevelMode
-		};
-	}
-
 	//! 레벨 정보를 로드한다
 	private Dictionary<int, CLevelInfo> DoLoadLevelInfos(string a_oStr) {
 		bool bIsValid = int.TryParse(a_oStr, out int nNumLevelInfos);
@@ -166,6 +158,14 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		foreach(var stKeyVal in this.LevelInfoList) {
 			this.SaveLevelInfo(stKeyVal.Value);
 		}
+	}
+
+	//! 레벨 정보를 생성한다
+	public CLevelInfo MakeLevelInfo(ELevelMode a_eLevelMode) {
+		return new CLevelInfo() {
+			ID = this.LevelInfoList.Count,
+			LevelMode = a_eLevelMode
+		};
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수

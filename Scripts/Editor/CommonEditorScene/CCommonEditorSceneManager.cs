@@ -98,7 +98,6 @@ public static partial class CCommonEditorSceneManager {
 					CPlatformOptsSetter.SetupEditorOpts();
 					CPlatformOptsSetter.SetupProjOpts();
 					CPlatformOptsSetter.SetupPluginProjs();
-					CPlatformOptsSetter.SetupGraphicAPIs();
 
 #if UNITY_ANDROID
 					// 플러그인이 없을 경우

@@ -25,9 +25,14 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if DEBUG || DEVELOPMENT_BUILD
 			// 플레이 레벨 정보가 없을 경우
 			if(CGameInfoStorage.Inst.PlayLevelInfo == null) {
-				var oLevelInfo = CLevelInfoTable.Inst.MakeLevelInfo(0, ELevelMode.NORM);
+#if UNITY_EDITOR
+				// 레벨 정보가 없을 경우
+				if(!CLevelInfoTable.Inst.LevelInfoList.ExIsValid()) {
+					var oLevelInfo = CLevelInfoTable.Inst.MakeLevelInfo(ELevelMode.NORM);
+					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
+				}
+#endif			// #if UNITY_EDITOR
 
-				CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 				CGameInfoStorage.Inst.SetPlayLevelInfo(0, EPlayMode.NORM);
 			}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
