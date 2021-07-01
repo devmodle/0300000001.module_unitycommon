@@ -49,7 +49,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	//! 씬을 설정한다
 	protected override void Setup() {
 		base.Setup();
-		this.UpdateTextsState();
+		this.UpdateUIsState();
 	}
 
 	//! 상태를 갱신한다
@@ -71,7 +71,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 			m_nNumDots = (m_nNumDots + KCDefine.B_VAL_1_INT) % KCDefine.SS_MAX_NUM_DOTS;
 			m_fSkipTime = KCDefine.B_VAL_0_FLT;
 
-			this.UpdateTextsState();
+			this.UpdateUIsState();
 		}
 	}
 
@@ -84,7 +84,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	}
 
 	//! 텍스트 상태를 갱신한다
-	private void UpdateTextsState() {
+	private void UpdateUIsState() {
 		string oDotStr = CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_DOT_TEXT);
 		string oLoadingStr = CCommonAppInfoStorage.Inst.CountryCode.ExIsValid() ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT) : KCDefine.SS_TEXT_LOADING;
 

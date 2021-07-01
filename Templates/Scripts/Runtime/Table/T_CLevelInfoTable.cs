@@ -104,7 +104,9 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(bIsValid);
 
 		for(int i = 0; i < nNumLevelInfos; ++i) {
-			string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, i + KCDefine.B_VAL_1_INT);
+			string oPathFmt =  Application.isEditor ? KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO;
+			string oFilePath = string.Format(oPathFmt, i + KCDefine.B_VAL_1_INT);
+
 			CFunc.ShowLog($"CLevelInfoTable.DoLoadLevelInfos: {oFilePath}");
 
 #if UNITY_EDITOR

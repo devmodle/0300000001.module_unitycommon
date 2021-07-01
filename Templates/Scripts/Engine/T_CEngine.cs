@@ -36,6 +36,11 @@ namespace SampleEngineName {
 			this.SetupLevel();
 		}
 
+		//! 상태를 리셋한다
+		public virtual void Reset() {
+			// Do Nothing
+		}
+
 		//! 상태를 갱신한다
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -69,6 +74,11 @@ namespace SampleEngineName {
 
 		#region 조건부 함수
 #if UNITY_EDITOR
+		//! GUI 를 그린다
+		public virtual void OnGUI() {
+			// Do Nothing
+		}
+		
 		//! 가이드 라인을 그린다
 		public virtual void OnDrawGizmos() {
 			// Do Nothing

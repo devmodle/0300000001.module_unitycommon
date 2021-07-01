@@ -18,9 +18,9 @@ public struct STItemInfo {
 	public EItemKinds m_eItemKinds;
 }
 
-//! 커스터 타입 랩퍼
+//! 타입 랩퍼
 [MessagePackObject]
-public struct STCustomTypeWrapper {
+public struct STTypeWrapper {
 	[Key(101)] public Dictionary<int, CLevelInfo> m_oLevelInfoList;
 }
 #endregion			// 기본
