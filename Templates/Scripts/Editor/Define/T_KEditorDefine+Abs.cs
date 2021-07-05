@@ -57,15 +57,18 @@ public static partial class KEditorDefine {
 		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
 		[typeof(CSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CSubLevelEditorSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		
 		[typeof(CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,
 		[typeof(CSubSetupSceneManager)] = KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER,
-		[typeof(CSubStartSceneManager)] = KCDefine.U_SCRIPT_O_START_SCENE_MANAGER,
-		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
-		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_O_SPLASH_SCENE_MANAGER,
 		[typeof(CSubAgreeSceneManager)] = KCDefine.U_SCRIPT_O_AGREE_SCENE_MANAGER,
 		[typeof(CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER,
+
+		[typeof(CSubStartSceneManager)] = KCDefine.U_SCRIPT_O_START_SCENE_MANAGER,
+		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_O_SPLASH_SCENE_MANAGER,
 		[typeof(CSubPermissionSceneManager)] = KCDefine.U_SCRIPT_O_PERMISSION_SCENE_MANAGER,
+		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
+		
 		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(CSubTitleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(CSubGameSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
@@ -78,6 +81,7 @@ public static partial class KEditorDefine {
 #if ADS_MODULE_ENABLE
 		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_O_BANNER_ADS_CORRECTOR,
+		[typeof(CRewardAdsTouchInteractable)] = KCDefine.U_SCRIPT_O_REWARD_ADS_TOUCH_INTERACTABLE,
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
@@ -115,14 +119,18 @@ public static partial class KEditorDefine {
 
 	// 데이터 타입
 	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPE_LIST = new Dictionary<string, System.Type>() {
+		[KCDefine.B_SCENE_N_LEVEL_EDITOR] = typeof(CSubLevelEditorSceneManager),
+			
 		[KCDefine.B_SCENE_N_INIT] = typeof(CSubInitSceneManager),
 		[KCDefine.B_SCENE_N_SETUP] = typeof(CSubSetupSceneManager),
-		[KCDefine.B_SCENE_N_START] = typeof(CSubStartSceneManager),
-		[KCDefine.B_SCENE_N_LOADING] = typeof(CSubLoadingSceneManager),
-		[KCDefine.B_SCENE_N_SPLASH] = typeof(CSubSplashSceneManager),
 		[KCDefine.B_SCENE_N_AGREE] = typeof(CSubAgreeSceneManager),
 		[KCDefine.B_SCENE_N_LATE_SETUP] = typeof(CSubLateSetupSceneManager),
+
+		[KCDefine.B_SCENE_N_START] = typeof(CSubStartSceneManager),
+		[KCDefine.B_SCENE_N_SPLASH] = typeof(CSubSplashSceneManager),
 		[KCDefine.B_SCENE_N_PERMISSION] = typeof(CSubPermissionSceneManager),
+		[KCDefine.B_SCENE_N_LOADING] = typeof(CSubLoadingSceneManager),
+
 		[KCDefine.B_SCENE_N_INTRO] = typeof(CSubIntroSceneManager),
 		[KCDefine.B_SCENE_N_TITLE] = typeof(CSubTitleSceneManager),
 		[KCDefine.B_SCENE_N_GAME] = typeof(CSubGameSceneManager),

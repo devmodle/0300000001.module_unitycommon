@@ -32,7 +32,8 @@ MonoBehaviour:
   - MSG_PACK_ENABLE
   - MODE_2D_ENABLE
   m_oSubCommonDefineSymbolList: []
-  m_oStandaloneDefineSymbolList: []
+  m_oStandaloneDefineSymbolList:
+  - EDITOR_ENABLE
   m_oMacDefineSymbolList: []
   m_oWndsDefineSymbolList: []
   m_oiOSDefineSymbolList: []
