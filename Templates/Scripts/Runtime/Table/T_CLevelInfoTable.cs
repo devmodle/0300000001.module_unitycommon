@@ -81,9 +81,13 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	//! 레벨 정보를 로드한다
 	public Dictionary<int, CLevelInfo> LoadLevelInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		string oStr = CFunc.ReadStr(a_oFilePath);
 
-		return this.DoLoadLevelInfos(oStr);
+#if ADHOC_BUILD || STORE_BUILD
+		this.LevelInfoList = CFunc.ReadMsgPackObj<Dictionary<int, CLevelInfo>>(a_oFilePath, false);
+#else
+		string oFilePath = a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_TXT);
+		return this.DoLoadLevelInfos(CFunc.ReadStr(oFilePath));
+#endif			// #if ADHOC_BUILD || STORE_BUILD
 	}
 
 	//! 레벨 정보를 로드한다
@@ -91,8 +95,12 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
 		try {
+#if ADHOC_BUILD || STORE_BUILD
+			this.LevelInfoList = CFunc.ReadMsgPackObjFromRes<Dictionary<int, CLevelInfo>>(a_oFilePath, false);
+#else
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
 			return this.DoLoadLevelInfos(oTextAsset.text);
+#endif			// #if ADHOC_BUILD || STORE_BUILD
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -154,14 +162,17 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	//! 레벨 정보를 저장한다
 	public void SaveLevelInfos() {
-		string oStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, this.LevelInfoList.Count);
-		CFunc.WriteStr(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO, oStr);
+		string oStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, this.LevelInfoList.Count);		
+		string oFilePath = KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_TXT);
 
 		foreach(var stKeyVal in this.LevelInfoList) {
 			this.SaveLevelInfo(stKeyVal.Value);
 		}
-	}
 
+		CFunc.WriteStr(oFilePath, oStr);
+		CFunc.WriteMsgPackObj(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO, this.LevelInfoList, false, false);
+	}
+	
 	//! 레벨 정보를 생성한다
 	public CLevelInfo MakeLevelInfo(ELevelMode a_eLevelMode) {
 		return new CLevelInfo() {
