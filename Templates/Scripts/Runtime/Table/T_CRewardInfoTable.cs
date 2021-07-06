@@ -54,9 +54,9 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public Dictionary<ERewardKinds, STRewardInfo> FreeRewardInfoList { get; set; } = new Dictionary<ERewardKinds, STRewardInfo>();
-	public Dictionary<ERewardKinds, STRewardInfo> DailyRewardInfoList { get; set; } = new Dictionary<ERewardKinds, STRewardInfo>();
-	public Dictionary<ERewardKinds, STRewardInfo> ClearRewardInfoList { get; set; } = new Dictionary<ERewardKinds, STRewardInfo>();
+	public Dictionary<ERewardKinds, STRewardInfo> FreeRewardInfoList { get; private set; } = new Dictionary<ERewardKinds, STRewardInfo>();
+	public Dictionary<ERewardKinds, STRewardInfo> DailyRewardInfoList { get; private set; } = new Dictionary<ERewardKinds, STRewardInfo>();
+	public Dictionary<ERewardKinds, STRewardInfo> ClearRewardInfoList { get; private set; } = new Dictionary<ERewardKinds, STRewardInfo>();
 	#endregion			// 프로퍼티
 
 	#region 함수

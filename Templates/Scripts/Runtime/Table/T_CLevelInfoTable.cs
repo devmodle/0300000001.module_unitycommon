@@ -13,6 +13,7 @@ using SampleEngineName;
 public sealed class CLevelInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_ID = "ID";
+	private const string KEY_STAGE_ID = "StageID";
 	private const string KEY_LEVEL_MODE = "LevelMode";
 	#endregion			// 상수
 
@@ -20,6 +21,11 @@ public sealed class CLevelInfo : CBaseInfo {
 	[IgnoreMember] public int ID {
 		get { return m_oIntList.ExGetVal(CLevelInfo.KEY_ID, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_ID, value); }
+	}
+
+	[IgnoreMember] public int StageID {
+		get { return m_oIntList.ExGetVal(CLevelInfo.KEY_STAGE_ID, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_STAGE_ID, value); }
 	}
 
 	[IgnoreMember] public ELevelMode LevelMode {

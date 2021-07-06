@@ -35,8 +35,8 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public Dictionary<EMissionKinds, STMissionInfo> FreeMissionInfoList { get; set; } = new Dictionary<EMissionKinds, STMissionInfo>();
-	public Dictionary<EMissionKinds, STMissionInfo> DailyMissionInfoList { get; set; } = new Dictionary<EMissionKinds, STMissionInfo>();
+	public Dictionary<EMissionKinds, STMissionInfo> FreeMissionInfoList { get; private set; } = new Dictionary<EMissionKinds, STMissionInfo>();
+	public Dictionary<EMissionKinds, STMissionInfo> DailyMissionInfoList { get; private set; } = new Dictionary<EMissionKinds, STMissionInfo>();
 	#endregion			// 프로퍼티
 
 	#region 함수

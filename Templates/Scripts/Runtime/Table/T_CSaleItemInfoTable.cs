@@ -50,7 +50,7 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public Dictionary<ESaleItemKinds, STSaleItemInfo> SaleItemInfoList { get; set; } = new Dictionary<ESaleItemKinds, STSaleItemInfo>();
+	public Dictionary<ESaleItemKinds, STSaleItemInfo> SaleItemInfoList { get; private set; } = new Dictionary<ESaleItemKinds, STSaleItemInfo>();
 	#endregion			// 프로퍼티
 
 	#region 함수
