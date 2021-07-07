@@ -61,11 +61,8 @@ public abstract partial class CInitSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CIndicatorManager.Create();
-		CIndicatorManager.Inst.Show(true, false);
-		
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
-
+		
 		this.SetupOffsets();
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using MessagePack;
 
@@ -14,9 +13,10 @@ public sealed class CLevelInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_ID = "ID";
 	private const string KEY_STAGE_ID = "StageID";
+	private const string KEY_CHAPTER_ID = "ChapterID";
 	private const string KEY_LEVEL_MODE = "LevelMode";
 	#endregion			// 상수
-
+	
 	#region 프로퍼티
 	[IgnoreMember] public int ID {
 		get { return m_oIntList.ExGetVal(CLevelInfo.KEY_ID, KCDefine.B_VAL_0_INT); }
@@ -26,6 +26,11 @@ public sealed class CLevelInfo : CBaseInfo {
 	[IgnoreMember] public int StageID {
 		get { return m_oIntList.ExGetVal(CLevelInfo.KEY_STAGE_ID, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_STAGE_ID, value); }
+	}
+
+	[IgnoreMember] public int ChapterID {
+		get { return m_oIntList.ExGetVal(CLevelInfo.KEY_CHAPTER_ID, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_CHAPTER_ID, value); }
 	}
 
 	[IgnoreMember] public ELevelMode LevelMode {
@@ -51,7 +56,17 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 함수
 	//! 레벨 정보를 반환한다
 	public CLevelInfo GetLevelInfo(int a_nID) {
-		bool bIsValid = this.TryGetLevelInfo(a_nID, out CLevelInfo oLevelInfo);
+		return this.GetLevelInfo(a_nID, KCDefine.B_VAL_0_INT);
+	}
+
+	//! 레벨 정보를 반환한다
+	public CLevelInfo GetLevelInfo(int a_nID, int a_nStageID) {
+		return this.GetLevelInfo(a_nID, a_nStageID, KCDefine.B_VAL_0_INT);
+	}
+
+	//! 레벨 정보를 반환한다
+	public CLevelInfo GetLevelInfo(int a_nID, int a_nStageID, int a_nChapterID) {
+		bool bIsValid = this.TryGetLevelInfo(a_nID, a_nStageID, a_nChapterID, out CLevelInfo oLevelInfo);
 		CAccess.Assert(bIsValid);
 
 		return oLevelInfo;
@@ -59,20 +74,20 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	//! 레벨 정보를 반환한다
 	public bool TryGetLevelInfo(int a_nID, out CLevelInfo a_oOutLevelInfo) {
-		a_oOutLevelInfo = this.LevelInfoList.ExGetVal(a_nID, null);
+		return this.TryGetLevelInfo(a_nID, KCDefine.B_VAL_0_INT, out a_oOutLevelInfo);
+	}
+
+	//! 레벨 정보를 반환한다
+	public bool TryGetLevelInfo(int a_nID, int a_nStageID, out CLevelInfo a_oOutLevelInfo) {
+		return this.TryGetLevelInfo(a_nID, a_nStageID, KCDefine.B_VAL_0_INT, out a_oOutLevelInfo);
+	}
+
+	//! 레벨 정보를 반환한다
+	public bool TryGetLevelInfo(int a_nID, int a_nStageID, int a_nChapterID, out CLevelInfo a_oOutLevelInfo) {
+		int nID = Factory.MakeLevelID(a_nID, a_nStageID, a_nChapterID);
+		a_oOutLevelInfo = this.LevelInfoList.ExGetVal(nID, null);
+
 		return this.LevelInfoList.ContainsKey(a_nID);
-	}
-
-	//! 레벨 정보를 로드한다
-	public CLevelInfo LoadLevelInfo(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid() && File.Exists(a_oFilePath));
-		return CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false);
-	}
-
-	//! 레벨 정보를 로드한다
-	public CLevelInfo LoadLevelInfoFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		return CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, false);
 	}
 
 	//! 레벨 정보를 로드한다
@@ -80,7 +95,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadLevelInfos(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO);
 #else
-		return this.LoadLevelInfosFromRes(KCDefine.U_TABLE_P_G_LEVEL_INFO);
+		return this.LoadLevelInfos(KCDefine.U_TABLE_P_G_LEVEL_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
@@ -88,50 +103,29 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	public Dictionary<int, CLevelInfo> LoadLevelInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if ADHOC_BUILD || STORE_BUILD
-		this.LevelInfoList = CFunc.ReadMsgPackObj<Dictionary<int, CLevelInfo>>(a_oFilePath, false);
-#else
+#if UNITY_EDITOR || UNITY_STANDALONE
 		string oFilePath = a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_TXT);
-		return this.DoLoadLevelInfos(CFunc.ReadStr(oFilePath));
-#endif			// #if ADHOC_BUILD || STORE_BUILD
-	}
+		string oStr = CFunc.ReadStr(oFilePath);
 
-	//! 레벨 정보를 로드한다
-	public Dictionary<int, CLevelInfo> LoadLevelInfosFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-
-		try {
-#if ADHOC_BUILD || STORE_BUILD
-			this.LevelInfoList = CFunc.ReadMsgPackObjFromRes<Dictionary<int, CLevelInfo>>(a_oFilePath, false);
-#else
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadLevelInfos(oTextAsset.text);
-#endif			// #if ADHOC_BUILD || STORE_BUILD
-		} finally {
-			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}
-	}
-
-	//! 레벨 정보를 로드한다
-	private Dictionary<int, CLevelInfo> DoLoadLevelInfos(string a_oStr) {
-		bool bIsValid = int.TryParse(a_oStr, out int nNumLevelInfos);
+		bool bIsValid = int.TryParse(oStr, out int nNumLevelInfos);
 		CAccess.Assert(bIsValid);
 
 		for(int i = 0; i < nNumLevelInfos; ++i) {
 			string oPathFmt =  Application.isEditor ? KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO;
-			string oFilePath = string.Format(oPathFmt, i + KCDefine.B_VAL_1_INT);
+			string oLevelInfoFilePath = string.Format(oPathFmt, i + KCDefine.B_VAL_1_INT);
 
-			CFunc.ShowLog($"CLevelInfoTable.DoLoadLevelInfos: {oFilePath}");
-
-#if UNITY_EDITOR
-			var oLevelInfo = this.LoadLevelInfo(oFilePath);
-#else
-			var oLevelInfo = this.LoadLevelInfoFromRes(oFilePath);
-#endif			// #if UNITY_EDITOR
-
-			oLevelInfo.ID = i;
+			CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {oLevelInfoFilePath}");
+			
+			var oLevelInfo = this.LoadLevelInfo(oLevelInfoFilePath);
 			this.LevelInfoList.ExAddVal(oLevelInfo.ID, oLevelInfo);
 		}
+#else
+		try {
+			this.LevelInfoList = CFunc.ReadMsgPackObjFromRes<Dictionary<int, CLevelInfo>>(a_oFilePath, false);
+		} finally {
+			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
+		}		
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 
 		return this.LevelInfoList;
 	}
@@ -178,13 +172,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CFunc.WriteStr(oFilePath, oStr);
 		CFunc.WriteMsgPackObj(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO, this.LevelInfoList, false, false);
 	}
-	
-	//! 레벨 정보를 생성한다
-	public CLevelInfo MakeLevelInfo(ELevelMode a_eLevelMode) {
-		return new CLevelInfo() {
-			ID = this.LevelInfoList.Count,
-			LevelMode = a_eLevelMode
-		};
+
+	//! 레벨 정보를 로드한다
+	private CLevelInfo LoadLevelInfo(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+		return CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false);
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수

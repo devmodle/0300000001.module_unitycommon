@@ -28,8 +28,8 @@ public class CIntroSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_PERMISSION, null);
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_PERMISSION, null);
 
 		this.Setup();
 	}

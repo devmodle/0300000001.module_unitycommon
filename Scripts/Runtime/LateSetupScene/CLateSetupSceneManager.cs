@@ -55,7 +55,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		this.ExRepeatCallFunc((a_oSender, a_oParams, a_bIsComplete) => {
 			// 완료 되었을 경우
 			if(a_bIsComplete) {
-				this.OnCloseConsentView(ATTrackingStatusBinding.GetAuthorizationTrackingStatus() != ATTrackingStatusBinding.AuthorizationTrackingStatus.DENIED);
+				var eStatus = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
+				this.OnCloseConsentView(eStatus != ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED && eStatus != ATTrackingStatusBinding.AuthorizationTrackingStatus.DENIED);
 			}
 			
 			return ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED;
@@ -67,8 +68,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	//! 초기화
 	private IEnumerator OnStart() {
-		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_AGREE, null);
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_AGREE, null);
 		
 		// 동의 뷰 출력이 가능 할 경우
 		if(CAccess.IsEnableShowConsentView) {

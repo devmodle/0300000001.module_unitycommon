@@ -28,7 +28,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if UNITY_EDITOR
 				// 레벨 정보가 없을 경우
 				if(!CLevelInfoTable.Inst.LevelInfoList.ExIsValid()) {
-					var oLevelInfo = CLevelInfoTable.Inst.MakeLevelInfo(ELevelMode.NORM);
+					var oLevelInfo = Factory.MakeLevelInfo(ELevelMode.NORM);
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 				}
 #endif			// #if UNITY_EDITOR
