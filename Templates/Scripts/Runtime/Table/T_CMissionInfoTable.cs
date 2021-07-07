@@ -73,28 +73,25 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadMissionInfos(KDefine.G_RUNTIME_TABLE_P_MISSION_INFO);
 #else
-		return this.LoadMissionInfosFromRes(KCDefine.U_TABLE_P_G_MISSION_INFO);
+		return this.LoadMissionInfos(KCDefine.U_TABLE_P_G_MISSION_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
 	//! 미션 정보를 로드한다
 	public List<object> LoadMissionInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
+
+#if UNITY_EDITOR || UNITY_STANDALONE
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
-
 		return this.DoLoadMissionInfos(oJSONStr);
-	}
-
-	//! 미션 정보를 로드한다
-	public List<object> LoadMissionInfosFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-
+#else
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
 			return this.DoLoadMissionInfos(oTextAsset.text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
 	//! 미션 정보를 설정한다

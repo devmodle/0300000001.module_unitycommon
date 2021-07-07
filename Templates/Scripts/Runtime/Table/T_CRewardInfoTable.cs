@@ -104,28 +104,25 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadRewardInfos(KDefine.G_RUNTIME_TABLE_P_REWARD_INFO);
 #else
-		return this.LoadRewardInfosFromRes(KCDefine.U_TABLE_P_G_REWARD_INFO);
+		return this.LoadRewardInfos(KCDefine.U_TABLE_P_G_REWARD_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
 	//! 보상 정보를 로드한다
 	public List<object> LoadRewardInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
+		
+#if UNITY_EDITOR || UNITY_STANDALONE
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
-
 		return this.DoLoadRewardInfos(oJSONStr);
-	}
-
-	//! 보상 정보를 로드한다
-	public List<object> LoadRewardInfosFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-
+#else
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
 			return this.DoLoadRewardInfos(oTextAsset.text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
 	//! 보상 정보를 설정한다

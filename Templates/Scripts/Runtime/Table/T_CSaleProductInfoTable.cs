@@ -116,30 +116,27 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadSaleProductInfos(KDefine.G_RUNTIME_TABLE_P_SALE_PRODUCT_INFO);
 #else
-		return this.LoadSaleProductInfosFromRes(KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO);
+		return this.LoadSaleProductInfos(KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
 	//! 판매 상품 정보를 로드한다
 	public Dictionary<ESaleProductKinds, STSaleProductInfo> LoadSaleProductInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
+
+#if UNITY_EDITOR || UNITY_STANDALONE
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
-
 		return this.DoLoadSaleProductInfos(oJSONStr);
-	}
-
-	//! 판매 상품 정보를 로드한다
-	public Dictionary<ESaleProductKinds, STSaleProductInfo> LoadSaleProductInfosFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		
+#else
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
 			return this.DoLoadSaleProductInfos(oTextAsset.text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
-
+	
 	//! 판매 상품 정보를 설정한다
 	private void SetupSaleProductInfos(List<STSaleProductInfo> a_oSaleProductInfoList, Dictionary<ESaleProductKinds, STSaleProductInfo> a_oOutSaleProductInfoList) {
 		CAccess.Assert(a_oSaleProductInfoList != null && a_oOutSaleProductInfoList != null);

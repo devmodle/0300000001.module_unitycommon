@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 #if NEVER_USE_THIS
@@ -79,28 +78,25 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadSaleItemInfos(KDefine.G_RUNTIME_TABLE_P_SALE_ITEM_INFO);
 #else
-		return this.LoadSaleItemInfosFromRes(KCDefine.U_TABLE_P_G_SALE_ITEM_INFO);
+		return this.LoadSaleItemInfos(KCDefine.U_TABLE_P_G_SALE_ITEM_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
 	//! 판매 아이템 정보를 로드한다
 	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
+
+#if UNITY_EDITOR || UNITY_STANDALONE
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
-
 		return this.DoLoadSaleItemInfos(oJSONStr);
-	}
-
-	//! 판매 아이템 정보를 로드한다
-	public Dictionary<ESaleItemKinds, STSaleItemInfo> LoadSaleItemInfosFromRes(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		
+#else
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
 			return this.DoLoadSaleItemInfos(oTextAsset.text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
 	//! 판매 아이템 정보를 설정한다
