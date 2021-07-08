@@ -63,9 +63,6 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	private IEnumerator OnStart() {
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		
-		this.SetupOffsets();
-		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
-
 		// iOS 를 설정한다 {
 #if UNITY_IOS
 		Device.SetNoBackupFlag(KCDefine.B_DIR_P_WRITABLE);

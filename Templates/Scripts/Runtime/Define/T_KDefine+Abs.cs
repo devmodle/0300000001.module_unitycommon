@@ -10,9 +10,10 @@ public static partial class KDefine {
 	public const string B_VER_APP_INFO = "1.0.0";
 	public const string B_VER_USER_INFO = "1.0.0";
 	public const string B_VER_GAME_INFO = "1.0.0";
+	public const string B_VER_CLEAR_INFO = "1.0.0";
 
 	public const string B_VER_LEVEL_INFO = "1.0.0";
-	public const string B_VER_CLEAR_INFO = "1.0.0";
+	public const string B_VER_CELL_INFO = "1.0.0";
 	// 버전 }
 	#endregion			// 기본
 

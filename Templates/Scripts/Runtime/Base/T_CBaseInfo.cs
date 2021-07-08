@@ -10,8 +10,6 @@ using MessagePack;
 [Union(2, typeof(CGameInfo))]
 [Union(3, typeof(CClearInfo))]
 [Union(4, typeof(CLevelInfo))]
-[Union(5, typeof(CStageInfo))]
-[Union(6, typeof(CChapterInfo))]
 [MessagePackObject]
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {

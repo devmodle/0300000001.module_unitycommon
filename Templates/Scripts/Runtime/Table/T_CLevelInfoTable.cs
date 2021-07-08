@@ -6,6 +6,18 @@ using MessagePack;
 #if NEVER_USE_THIS
 using SampleEngineName;
 
+//! 셀 정보
+[MessagePackObject]
+[System.Serializable]
+public sealed class CCellInfo : CBaseInfo {
+	#region 함수
+	//! 생성자
+	public CCellInfo() : base(KDefine.B_VER_CELL_INFO) {
+		// Do Nothing
+	}
+	#endregion			// 함수
+}
+
 //! 레벨 정보
 [MessagePackObject]
 [System.Serializable]
@@ -16,8 +28,14 @@ public sealed class CLevelInfo : CBaseInfo {
 	private const string KEY_CHAPTER_ID = "ChapterID";
 	private const string KEY_LEVEL_MODE = "LevelMode";
 	#endregion			// 상수
+
+	#region 변수
+	[Key(61)] public List<List<CCellInfo>> m_oCellInfoListContainer = new List<List<CCellInfo>>();
+	#endregion			// 변수
 	
 	#region 프로퍼티
+	[IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
+
 	[IgnoreMember] public int ID {
 		get { return m_oIntList.ExGetVal(CLevelInfo.KEY_ID, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_ID, value); }
@@ -38,6 +56,24 @@ public sealed class CLevelInfo : CBaseInfo {
 		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_LEVEL_MODE, (int)value); }
 	}
 	#endregion			// 프로퍼티
+
+	#region 인터페이스
+	//! 역직렬화 되었을 경우
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+		m_oCellInfoListContainer = m_oCellInfoListContainer ?? new List<List<CCellInfo>>();
+
+		// 셀 개수를 설정한다 {
+		var stNumCells = new Vector3Int(KCDefine.B_VAL_0_INT, m_oCellInfoListContainer.Count, KCDefine.B_VAL_0_INT);
+
+		for(int i = 0; i < m_oCellInfoListContainer.Count; ++i) {
+			stNumCells.x = Mathf.Max(stNumCells.x, m_oCellInfoListContainer[i].Count);
+		}
+
+		this.NumCells = stNumCells;
+		// 셀 개수를 설정한다 }
+	}
+	#endregion			// 인터페이스
 
 	#region 함수
 	//! 생성자

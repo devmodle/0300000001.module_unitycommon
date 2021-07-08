@@ -4,7 +4,7 @@ using UnityEngine;
 
 #if NEVER_USE_THIS
 namespace SampleEngineName {
-	//! 엔진
+	//! 엔진 - 설정
 	public partial class CEngine : CComponent {
 		#region 함수
 		//! 엔진을 설정한다
