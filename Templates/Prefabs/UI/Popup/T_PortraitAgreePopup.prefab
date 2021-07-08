@@ -1519,7 +1519,7 @@ GameObject:
   - component: {fileID: 8160468018173961778}
   - component: {fileID: 7492944531418731124}
   m_Layer: 5
-  m_Name: ServicesURLText
+  m_Name: ServicesBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1760,7 +1760,7 @@ GameObject:
   - component: {fileID: 7708881939653373919}
   - component: {fileID: 115702021061325534}
   m_Layer: 0
-  m_Name: TextUIs
+  m_Name: DescUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2134,7 +2134,7 @@ GameObject:
   - component: {fileID: 7678737019809333161}
   - component: {fileID: 2314944029764975035}
   m_Layer: 5
-  m_Name: PrivacyURLText
+  m_Name: PrivacyBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2676,8 +2676,8 @@ MonoBehaviour:
   m_oCloseSndPath: Sounds/Global/G_PopupClose
   m_oNormUIs: {fileID: 8019310881904857024}
   m_oEUUIs: {fileID: 8019310881260844047}
-  m_oServicesUIs: {fileID: 8019310881728972570}
-  m_oPrivacyUIs: {fileID: 2205614760928724013}
+  m_oNUIsServicesUIs: {fileID: 8019310881728972570}
+  m_oNUIsPrivacyUIs: {fileID: 2205614760928724013}
 --- !u!1 &8019310881728972570
 GameObject:
   m_ObjectHideFlags: 0

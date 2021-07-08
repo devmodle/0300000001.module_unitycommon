@@ -124,7 +124,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			this.LevelInfoList = CFunc.ReadMsgPackObjFromRes<Dictionary<int, CLevelInfo>>(a_oFilePath, false);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}		
+		}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 
 		return this.LevelInfoList;
