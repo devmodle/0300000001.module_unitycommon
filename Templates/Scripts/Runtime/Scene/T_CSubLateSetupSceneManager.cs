@@ -52,6 +52,10 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		CRewardInfoTable.Inst.LoadRewardInfos();
 		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 
+#if UNITY_EDITOR
+		CLevelInfoTable.Inst.SaveLevelInfos();
+#endif			// #if UNITY_EDITOR
+
 #if ADS_MODULE_ENABLE
 		CAdsManager.Inst.IsEnableBannerAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 		CAdsManager.Inst.IsEnableFullscreenAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;

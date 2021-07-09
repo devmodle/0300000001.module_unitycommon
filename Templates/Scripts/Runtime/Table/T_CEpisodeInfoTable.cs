@@ -11,6 +11,7 @@ public struct STStageInfo {
 
 	public EStageType m_eStageType;
 	public EStageKinds m_eStageKinds;
+	public EStageMode m_eStageMode;
 
 	#region 함수
 	//! 생성자
@@ -20,6 +21,7 @@ public struct STStageInfo {
 
 		m_eStageType = (EStageType)a_oStageInfo[KDefine.G_KEY_EPISODE_IT_STAGE_TYPE].AsInt;
 		m_eStageKinds = (EStageKinds)a_oStageInfo[KDefine.G_KEY_EPISODE_IT_STAGE_KINDS].AsInt;
+		m_eStageMode = (EStageMode)a_oStageInfo[KDefine.G_KEY_EPISODE_IT_STAGE_MODE].AsInt;
 	}
 	#endregion			// 함수
 }
@@ -32,6 +34,7 @@ public struct STChapterInfo {
 
 	public EChapterType m_eChapterType;
 	public EChapterKinds m_eChapterKinds;
+	public EChapterMode m_eChapterMode;
 
 	#region 함수
 	//! 생성자
@@ -41,6 +44,7 @@ public struct STChapterInfo {
 
 		m_eChapterType = (EChapterType)a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_CHAPTER_TYPE].AsInt;
 		m_eChapterKinds = (EChapterKinds)a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_CHAPTER_KINDS].AsInt;
+		m_eChapterMode = (EChapterMode)a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_CHAPTER_MODE].AsInt;
 	}
 	#endregion			// 함수
 }

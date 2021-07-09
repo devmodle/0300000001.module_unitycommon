@@ -86,6 +86,25 @@ public static partial class KDefine {
 	public const string G_KEY_FMT_REWARD_IT_ITEM_KINDS = "ItemKinds_{0:00}";
 	// 보상 정보 테이블 }
 
+	// 에피소드 정보 테이블 {
+	public const int G_IDX_EPISODE_IT_STAGE = 0;
+	public const int G_IDX_EPISODE_IT_CHAPTER = 1;
+
+	public const string G_KEY_EPISODE_IT_STAGE = "Stage";
+	public const string G_KEY_EPISODE_IT_CHAPTER = "Chapter";
+
+	public const string G_KEY_EPISODE_IT_NAME = "Name";
+	public const string G_KEY_EPISODE_IT_DESC = "Desc";
+
+	public const string G_KEY_EPISODE_IT_STAGE_TYPE = "StageType";
+	public const string G_KEY_EPISODE_IT_STAGE_KINDS = "StageKinds";
+	public const string G_KEY_EPISODE_IT_STAGE_MODE = "StageMode";
+
+	public const string G_KEY_EPISODE_IT_CHAPTER_TYPE = "ChapterType";
+	public const string G_KEY_EPISODE_IT_CHAPTER_KINDS = "ChapterKinds";
+	public const string G_KEY_EPISODE_IT_CHAPTER_MODE = "ChapterMode";
+	// 에피소드 정보 테이블 }
+
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
 

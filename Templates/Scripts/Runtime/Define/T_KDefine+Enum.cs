@@ -21,16 +21,16 @@ public enum EPriceKinds {
 	// 광고 가격 0
 	[HideInInspector] ADS_PRICE,
 
-	// 보상 광고 10,000
-	ADS_REWARD = EPriceKinds.ADS_PRICE + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
+	// 보상 광고 0
+	ADS_REWARD = EPriceKinds.ADS_PRICE,
 	#endregion			// 광고
 
 	#region 재화
 	// 재화 가격 10,000,000
 	[HideInInspector] GOODS_PRICE = EPriceKinds.ADS_PRICE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 
-	// 코인 10,010,000
-	GOODS_COIN = EPriceKinds.GOODS_PRICE + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
+	// 코인 10,000,000
+	GOODS_COIN = EPriceKinds.GOODS_PRICE,
 	#endregion			// 재화
 
 	MAX_VAL
@@ -53,21 +53,21 @@ public enum EItemKinds {
 	// 재화 아이템 0
 	[HideInInspector] GOODS_ITEM,
 
-	// 코인 10,000
-	GOODS_COIN = EItemKinds.GOODS_ITEM + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
+	// 코인 0
+	GOODS_COIN = EItemKinds.GOODS_ITEM,
 	#endregion			// 재화
 
 	#region 소모
 	// 소모 아이템 10,000,000
 	[HideInInspector] CONSUMABLE_ITEM =  EItemKinds.GOODS_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE,
 
-	// 부스터 10,010,000
-	CONSUMABLE_BOOSTER = EItemKinds.CONSUMABLE_ITEM + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
+	// 부스터 10,000,000
+	[HideInInspector] CONSUMABLE_BOOSTER = EItemKinds.CONSUMABLE_ITEM,
 
-	// 게임 아이템 10,020,000
-	CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
+	// 게임 아이템 10,010,000
+	[HideInInspector] CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
 
-	// 힌트 10,020,100
+	// 힌트 10,010,100
 	CONSUMABLE_GAME_ITEM_HINT = EItemKinds.CONSUMABLE_GAME_ITEM + KCDefine.B_UNIT_KINDS_PER_SUB_KINDS_TYPE,
 	#endregion			// 소모
 
@@ -75,8 +75,8 @@ public enum EItemKinds {
 	// 비소모 아이템 20,000,000
 	[HideInInspector] NON_CONSUMABLE_ITEM = EItemKinds.CONSUMABLE_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE,
 
-	// 광고 제거 20,010,000
-	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.NON_CONSUMABLE_ITEM + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
+	// 광고 제거 20,000,000
+	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.NON_CONSUMABLE_ITEM,
 	#endregion			// 비소모
 
 	MAX_VAL
@@ -103,8 +103,8 @@ public enum ESaleItemKinds {
 	// 게임 아이템 판매 아이템 10,000,000
 	[HideInInspector] GAME_ITEM_SALE_ITEM = ESaleItemKinds.BOOSTER_SALE_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE,
 
-	// 힌트 10,010,000
-	GAME_ITEM_HINT = ESaleItemKinds.GAME_ITEM_SALE_ITEM + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
+	// 힌트 10,000,000
+	GAME_ITEM_HINT = ESaleItemKinds.GAME_ITEM_SALE_ITEM,
 	#endregion			// 게임 아이템
 
 	MAX_VAL
@@ -131,10 +131,10 @@ public enum ESaleProductKinds {
 	// 단일 판매 상품 10,000,000
 	[HideInInspector] SINGLE_SALE_PRODUCT = ESaleProductKinds.PKGS_SALE_PRODUCT + KCDefine.B_UNIT_KINDS_PER_TYPE,
 
-	// 잔돈 10,010,000
-	SINGLE_CHANGES = ESaleProductKinds.SINGLE_SALE_PRODUCT + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
+	// 잔돈 10,000,000
+	SINGLE_CHANGES = ESaleProductKinds.SINGLE_SALE_PRODUCT,
 
-	// 광고 제거 10,020,000
+	// 광고 제거 10,010,000
 	SINGLE_REMOVE_ADS = ESaleProductKinds.SINGLE_CHANGES + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
 	#endregion			// 단일
 

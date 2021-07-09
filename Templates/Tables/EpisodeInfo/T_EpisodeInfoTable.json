@@ -6,6 +6,7 @@
             "Replace": "0",
             "StageType": "0",
             "StageKinds": "0",
+            "StageMode": "0",
             "Description": "샘플 스테이지 정보"
         }
     ],
@@ -16,6 +17,7 @@
             "Replace": "0",
             "ChapterType": "0",
             "ChapterKinds": "0",
+            "ChapterMode": "0",
             "Description": "샘플 챕터 정보"
         }
     ]
