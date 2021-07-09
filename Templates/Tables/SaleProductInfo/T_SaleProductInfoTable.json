@@ -1,16 +1,16 @@
 {
-	"Common": [
-	  {
-		"Name": "Sample",
-		"Desc": "Sample",
-		"Replace": "0",
-		"SaleProductType": "0",
-		"SaleProductKinds": "0",
-		"PriceType": "0",
-		"PriceKinds": "0",
-		"NumItems_01": "0",
-		"ItemKinds_01": "0",
-		"Description": "샘플 판매 상품 정보"
-	  }
-	]
-  }
+    "Common": [
+        {
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "SaleProductType": "0",
+            "SaleProductKinds": "0",
+            "PriceType": "0",
+            "PriceKinds": "0",
+            "NumItems_01": "0",
+            "ItemKinds_01": "0",
+            "Description": "샘플 판매 상품 정보"
+        }
+    ]
+}

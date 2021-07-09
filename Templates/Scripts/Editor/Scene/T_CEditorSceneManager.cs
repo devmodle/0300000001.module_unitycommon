@@ -63,6 +63,7 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateSaleProductInfoTable();
 				EditorFactory.CreateMissionInfoTable();
 				EditorFactory.CreateRewardInfoTable();
+				EditorFactory.CreateEpisodeInfoTable();
 
 				CEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
 

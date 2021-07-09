@@ -229,6 +229,30 @@ public enum ETutorialKinds {
 	MAX_VAL
 }
 
+//! 스테이지 타입
+public enum EStageType {
+	NONE = -1,
+	MAX_VAL
+}
+
+//! 스테이지 종류
+public enum EStageKinds {
+	NONE = -1,
+	MAX_VAL
+}
+
+//! 챕터 타입
+public enum EChapterType {
+	NONE = -1,
+	MAX_VAL
+}
+
+//! 챕터 종류
+public enum EChapterKinds {
+	NONE = -1,
+	MAX_VAL
+}
+
 //! 플레이 모드
 public enum EPlayMode {
 	NONE = -1,

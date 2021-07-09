@@ -1,38 +1,38 @@
 {
-	"Free": [
-	  {
-		"Name": "Sample",
-		"Desc": "Sample",
-		"Replace": "0",
-		"RewardType": "0",
-		"RewardKinds": "0",
-		"NumItems_01": "0",
-		"ItemKinds_01": "0",
-		"Description": "샘플 무료 보상 정보"
-	  }
-	],
-	"Daily": [
-	  {
-		"Name": "Sample",
-		"Desc": "Sample",
-		"Replace": "0",
-		"RewardType": "1",
-		"RewardKinds": "10000000",
-		"NumItems_01": "0",
-		"ItemKinds_01": "0",
-		"Description": "샘플 일일 보상 정보"
-	  }
-	],
-	"Clear": [
-	  {
-		"Name": "Sample",
-		"Desc": "Sample",
-		"Replace": "0",
-		"RewardType": "2",
-		"RewardKinds": "20000000",
-		"NumItems_01": "0",
-		"ItemKinds_01": "0",
-		"Description": "샘플 클리어 보상 정보"
-	  }
-	]
-  }
+    "Free": [
+        {
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "RewardType": "0",
+            "RewardKinds": "0",
+            "NumItems_01": "0",
+            "ItemKinds_01": "0",
+            "Description": "샘플 무료 보상 정보"
+        }
+    ],
+    "Daily": [
+        {
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "RewardType": "1",
+            "RewardKinds": "10000000",
+            "NumItems_01": "0",
+            "ItemKinds_01": "0",
+            "Description": "샘플 일일 보상 정보"
+        }
+    ],
+    "Clear": [
+        {
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "RewardType": "2",
+            "RewardKinds": "20000000",
+            "NumItems_01": "0",
+            "ItemKinds_01": "0",
+            "Description": "샘플 클리어 보상 정보"
+        }
+    ]
+}

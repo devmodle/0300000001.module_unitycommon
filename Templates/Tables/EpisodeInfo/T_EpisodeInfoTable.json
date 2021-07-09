@@ -1,0 +1,22 @@
+{
+    "Stage": [
+        {
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "StageType": "0",
+            "StageKinds": "0",
+            "Description": "샘플 스테이지 정보"
+        }
+    ],
+    "Chapter": [
+        {
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "ChapterType": "0",
+            "ChapterKinds": "0",
+            "Description": "샘플 챕터 정보"
+        }
+    ]
+}

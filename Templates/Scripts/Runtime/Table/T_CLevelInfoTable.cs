@@ -26,6 +26,7 @@ public sealed class CLevelInfo : CBaseInfo {
 	private const string KEY_ID = "ID";
 	private const string KEY_STAGE_ID = "StageID";
 	private const string KEY_CHAPTER_ID = "ChapterID";
+
 	private const string KEY_LEVEL_MODE = "LevelMode";
 	#endregion			// 상수
 

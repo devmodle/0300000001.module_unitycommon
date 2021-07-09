@@ -50,6 +50,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		CSaleProductInfoTable.Inst.LoadSaleProductInfos();
 		CMissionInfoTable.Inst.LoadMissionInfos();
 		CRewardInfoTable.Inst.LoadRewardInfos();
+		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 
 #if ADS_MODULE_ENABLE
 		CAdsManager.Inst.IsEnableBannerAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;

@@ -52,8 +52,8 @@ public static partial class KDefine {
 	// 판매 상품 정보 테이블 }
 
 	// 미션 정보 테이블 {
-	public const int G_IDX_MISSION_IT_FREE_INFOS = 0;
-	public const int G_IDX_MISSION_IT_DAILY_INFOS = 1;
+	public const int G_IDX_MISSION_IT_FREE = 0;
+	public const int G_IDX_MISSION_IT_DAILY = 1;
 
 	public const string G_KEY_MISSION_IT_FREE = "Free";
 	public const string G_KEY_MISSION_IT_DAILY = "Daily";
@@ -66,9 +66,9 @@ public static partial class KDefine {
 	// 미션 정보 테이블 }
 
 	// 보상 정보 테이블 {
-	public const int G_IDX_REWARD_IT_FREE_INFOS = 0;
-	public const int G_IDX_REWARD_IT_DAILY_INFOS = 1;
-	public const int G_IDX_REWARD_IT_CLEAR_INFOS = 2;
+	public const int G_IDX_REWARD_IT_FREE = 0;
+	public const int G_IDX_REWARD_IT_DAILY = 1;
+	public const int G_IDX_REWARD_IT_CLEAR = 2;
 
 	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
 
@@ -155,6 +155,16 @@ public static partial class KDefine {
 	public static readonly STRewardInfo G_INVALID_REWARD_INFO = new STRewardInfo() {
 		m_eRewardType = ERewardType.NONE,
 		m_eRewardKinds = ERewardKinds.NONE
+	};
+
+	public static readonly STStageInfo G_INVALID_STAGE_INFO = new STStageInfo() {
+		m_eStageType = EStageType.NONE,
+		m_eStageKinds = EStageKinds.NONE
+	};
+
+	public static readonly STChapterInfo G_INVALID_CHAPTER_INFO = new STChapterInfo() {
+		m_eChapterType = EChapterType.NONE,
+		m_eChapterKinds = EChapterKinds.NONE
 	};
 	// 기타 }
 

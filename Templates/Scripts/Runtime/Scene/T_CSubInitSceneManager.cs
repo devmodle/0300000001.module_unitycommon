@@ -17,6 +17,7 @@ public class CSubInitSceneManager : CInitSceneManager {
 		CSaleProductInfoTable.Create(KCDefine.U_ASSET_P_G_SALE_PRODUCT_INFO_TABLE);
 		CMissionInfoTable.Create(KCDefine.U_ASSET_P_G_MISSION_INFO_TABLE);
 		CRewardInfoTable.Create(KCDefine.U_ASSET_P_G_REWARD_INFO_TABLE);
+		CEpisodeInfoTable.Create(KCDefine.U_ASSET_P_G_EPISODE_INFO_TABLE);
 		// 테이블을 생성한다 }
 		
 		// 저장소를 생성한다

@@ -32,6 +32,12 @@ public static partial class EditorFactory {
 	public static void CreateRewardInfoTable() {
 		CEditorFactory.CreateScriptableObj<CRewardInfoTable>(KCEditorDefine.B_ASSET_P_REWARD_INFO_TABLE);
 	}
+
+	//! 에피소드 정보 테이블을 생성한다
+	[MenuItem("Tools/Utility/ExtraCreate/EpisodeInfoTable")]
+	public static void CreateEpisodeInfoTable() {
+		CEditorFactory.CreateScriptableObj<CEpisodeInfoTable>(KCEditorDefine.B_ASSET_P_EPISODE_INFO_TABLE);
+	}
 	#endregion			// 클래스 함수
 }
 #endif			// #if UNITY_EDITOR
