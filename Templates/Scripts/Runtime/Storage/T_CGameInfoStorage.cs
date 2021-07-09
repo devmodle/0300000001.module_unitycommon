@@ -126,6 +126,18 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		LastDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)
 	};
 
+	public int TotalNumStars {
+		get {
+			int nNumStars = KCDefine.B_VAL_0_INT;
+
+			for(int i = 0; i < this.GameInfo.m_oClearInfoList.Count; ++i) {
+				nNumStars += this.GameInfo.m_oClearInfoList[i].NumStars;
+			}
+
+			return nNumStars;
+		}
+	}
+
 	public bool IsEnableGetFreeReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastFreeRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
 	public bool IsEnableGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
 	public bool IsContinueGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_DBL);

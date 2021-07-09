@@ -27,7 +27,10 @@ public class CSubInitSceneManager : CInitSceneManager {
 
 		// 열거형 문자열을 로드한다 {
 		CStrTable.Inst.LoadEnumStrs<EUserType>();
+
 		CStrTable.Inst.LoadEnumStrs<ELevelMode>();
+		CStrTable.Inst.LoadEnumStrs<EStageMode>();
+		CStrTable.Inst.LoadEnumStrs<EChapterMode>();
 
 		CStrTable.Inst.LoadEnumStrs<ETutorialType>();
 		CStrTable.Inst.LoadEnumStrs<ETutorialKinds>();
