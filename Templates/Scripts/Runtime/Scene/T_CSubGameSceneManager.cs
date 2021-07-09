@@ -28,7 +28,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if UNITY_EDITOR
 				// 레벨 정보가 없을 경우
 				if(!CLevelInfoTable.Inst.LevelInfoList.ExIsValid()) {
-					var oLevelInfo = Factory.MakeLevelInfo(ELevelMode.NORM);
+					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT, ELevelMode.NORM);
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 				}
 #endif			// #if UNITY_EDITOR
@@ -88,7 +88,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		this.SetupEngine();
 
 		m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo;
-		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.ID, out CClearInfo oClearInfo) ? oClearInfo : null;
+		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.LevelID, out CClearInfo oClearInfo) ? oClearInfo : null;
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
@@ -104,7 +104,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void SetupEngine() {
 		var stParams = new CEngine.STParams {
 			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
-			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.ID, out CClearInfo oClearInfo) ? oClearInfo : null
+			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.LevelID, out CClearInfo oClearInfo) ? oClearInfo : null
 		};
 
 		m_oEngine = CFactory.CreateObj<CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);

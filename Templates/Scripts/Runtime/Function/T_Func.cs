@@ -201,12 +201,12 @@ public static partial class Func {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsType)) {
 			Func.m_bIsWatchRewardAds = false;
-			Func.m_stRewardItemInfo = default(STAdsRewardItemInfo);
+			Func.m_stRewardItemInfo = KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO;
 
 			Func.m_oRewardAdsCallback = a_oCallback;
 			CAdsManager.Inst.ShowRewardAds(a_eAdsType, Func.OnReceiveUserReward, Func.OnCloseRewardAds);
 		} else {
-			a_oCallback?.Invoke(CAdsManager.Inst, default(STAdsRewardItemInfo), false);
+			a_oCallback?.Invoke(CAdsManager.Inst, KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO, false);
 		}
 	}
 

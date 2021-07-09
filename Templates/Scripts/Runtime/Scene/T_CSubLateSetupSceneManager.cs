@@ -44,18 +44,6 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	protected override void Setup() {
 		base.Setup();
 		
-		// 테이블을 로드한다
-		CLevelInfoTable.Inst.LoadLevelInfos();
-		CSaleItemInfoTable.Inst.LoadSaleItemInfos();
-		CSaleProductInfoTable.Inst.LoadSaleProductInfos();
-		CMissionInfoTable.Inst.LoadMissionInfos();
-		CRewardInfoTable.Inst.LoadRewardInfos();
-		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
-
-#if UNITY_EDITOR
-		CLevelInfoTable.Inst.SaveLevelInfos();
-#endif			// #if UNITY_EDITOR
-
 #if ADS_MODULE_ENABLE
 		CAdsManager.Inst.IsEnableBannerAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 		CAdsManager.Inst.IsEnableFullscreenAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;

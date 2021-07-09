@@ -7,41 +7,31 @@ using UnityEngine;
 public static partial class Factory {
 	#region 클래스 함수
 	//! 레벨 식별자를 생성한다
-	public static long MakeLevelID(int a_nID) {
-		return Factory.MakeLevelID(a_nID, EStageKinds.NONE);
-	}
-
-	//! 레벨 식별자를 생성한다
-	public static long MakeLevelID(int a_nID, EStageKinds a_eStageKinds) {
-		return Factory.MakeLevelID(a_nID, EStageKinds.NONE, EChapterKinds.NONE);
-	}
-
-	//! 레벨 식별자를 생성한다
-	public static long MakeLevelID(int a_nID, EStageKinds a_eStageKinds, EChapterKinds a_eChapterKinds) {
+	public static long MakeLevelID(int a_nID, EStageKinds a_eStageKinds = EStageKinds.NONE, EChapterKinds a_eChapterKinds = EChapterKinds.NONE) {
 		int nStageID = Mathf.Max((int)a_eStageKinds, KCDefine.B_VAL_0_INT);
 		int nChapterID = Mathf.Max((int)a_eChapterKinds, KCDefine.B_VAL_0_INT);
 
 		return a_nID + (nStageID * (long)KCDefine.B_UNIT_IDS_PER_STAGE) + (nChapterID * (long)KCDefine.B_UNIT_IDS_PER_CHAPTER);
 	}
 
-	//! 레벨 정보를 생성한다
-	public static CLevelInfo MakeLevelInfo(ELevelMode a_eLevelMode) {
-		return Factory.MakeLevelInfo(EStageKinds.NONE, a_eLevelMode);
+	//! 클리어 정보를 생성한다
+	public static CClearInfo MakeClearInfo(long a_nID, int a_nScore = KCDefine.B_VAL_0_INT, int a_nNumStars = KCDefine.B_VAL_0_INT) {
+		return new CClearInfo() {
+			m_nID = a_nID,
+			
+			Score = a_nScore,
+			NumStars = a_nNumStars
+		};
 	}
 
 	//! 레벨 정보를 생성한다
-	public static CLevelInfo MakeLevelInfo(EStageKinds a_eStageKinds, ELevelMode a_eLevelMode) {
-		return Factory.MakeLevelInfo(a_eStageKinds, EChapterKinds.NONE, a_eLevelMode);
-	}
-
-	//! 레벨 정보를 생성한다
-	public static CLevelInfo MakeLevelInfo(EStageKinds a_eStageKinds, EChapterKinds a_eChapterKinds, ELevelMode a_eLevelMode) {
+	public static CLevelInfo MakeLevelInfo(int a_nID, ELevelMode a_eLevelMode, EStageKinds a_eStageKinds = EStageKinds.NONE, EChapterKinds a_eChapterKinds = EChapterKinds.NONE) {
 		return new CLevelInfo() {
-			ID = Factory.MakeLevelID(CLevelInfoTable.Inst.LevelInfoList.Count, a_eStageKinds, a_eChapterKinds),
+			ID = a_nID,
+			LevelMode = a_eLevelMode,
 
 			StageKinds = a_eStageKinds,
-			ChapterKinds = a_eChapterKinds,
-			LevelMode = a_eLevelMode
+			ChapterKinds = a_eChapterKinds
 		};
 	}
 	#endregion			// 클래스 함수

@@ -4,6 +4,36 @@ using UnityEngine;
 
 #if NEVER_USE_THIS
 #region 기본
+//! 플레이 모드
+public enum EPlayMode {
+	NONE = -1,
+	NORM,
+	TEST,
+	TUTORIAL,
+	MAX_VAL
+}
+
+//! 레벨 모드
+public enum ELevelMode {
+	NONE = -1,
+	EASY,
+	NORM,
+	HARD,
+	MAX_VAL
+}
+
+//! 스테이지 모드
+public enum EStageMode {
+	NONE = -1,
+	MAX_VAL
+}
+
+//! 챕터 모드
+public enum EChapterMode {
+	NONE = -1,
+	MAX_VAL
+}
+
 //! 가격 타입
 public enum EPriceType {
 	NONE = -1,
@@ -249,36 +279,6 @@ public enum EChapterType {
 
 //! 챕터 종류
 public enum EChapterKinds {
-	NONE = -1,
-	MAX_VAL
-}
-
-//! 플레이 모드
-public enum EPlayMode {
-	NONE = -1,
-	NORM,
-	TEST,
-	TUTORIAL,
-	MAX_VAL
-}
-
-//! 레벨 모드
-public enum ELevelMode {
-	NONE = -1,
-	EASY,
-	NORM,
-	HARD,
-	MAX_VAL
-}
-
-//! 스테이지 모드
-public enum EStageMode {
-	NONE = -1,
-	MAX_VAL
-}
-
-//! 챕터 모드
-public enum EChapterMode {
 	NONE = -1,
 	MAX_VAL
 }

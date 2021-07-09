@@ -21,6 +21,18 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		CUserInfoStorage.Inst.LoadUserInfo();
 		CGameInfoStorage.Inst.LoadGameInfo();
 
+		// 테이블을 로드한다
+		CLevelInfoTable.Inst.LoadLevelInfos();
+		CSaleItemInfoTable.Inst.LoadSaleItemInfos();
+		CSaleProductInfoTable.Inst.LoadSaleProductInfos();
+		CMissionInfoTable.Inst.LoadMissionInfos();
+		CRewardInfoTable.Inst.LoadRewardInfos();
+		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
+
+#if UNITY_EDITOR
+		CLevelInfoTable.Inst.SaveLevelInfos();
+#endif			// #if UNITY_EDITOR
+
 #if LOCALIZE_TEST_ENABLE
 		CCommonAppInfoStorage.Inst.AppInfo.Language = m_eLanguage;
 #endif			// #if LOCALIZE_TEST_ENABLE
