@@ -10,15 +10,17 @@ using MessagePack;
 [System.Serializable]
 public sealed class CClearInfo : CBaseInfo {
 	#region 상수
+	private const string KEY_ID = "ID";
 	private const string KEY_SCORE = "Score";
 	private const string KEY_NUM_STARS = "NumStars";
 	#endregion			// 상수
 
-	#region 변수
-	[Key(5)] public long m_nID = 0L;
-	#endregion			// 변수
-
 	#region 프로퍼티
+	[IgnoreMember] public long ID {
+		get { return long.Parse(m_oStrList.ExGetVal(CClearInfo.KEY_ID, KCDefine.B_STR_0_INT)); }
+		set { m_oStrList.ExReplaceVal(CClearInfo.KEY_ID, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, value)); }
+	}
+
 	[IgnoreMember] public int Score {
 		get { return m_oIntList.ExGetVal(CClearInfo.KEY_SCORE, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceVal(CClearInfo.KEY_SCORE, value); }
@@ -114,10 +116,10 @@ public sealed class CGameInfo : CBaseInfo {
 //! 게임 정보 저장소
 public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
-	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
-
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
+
+	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
 	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
@@ -170,8 +172,8 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 선택 된 부스터 상태를 리셋한다
-	public void ResetSelBoostersState(bool a_bIsResetFreeBooster = true) {
+	//! 부스터 상태를 리셋한다
+	public void ResetBoostersState(bool a_bIsResetFreeBooster = true) {
 		// 무료 부스터 리셋 모드 일 경우
 		if(a_bIsResetFreeBooster) {
 			this.FreeBooster = EItemKinds.NONE;
@@ -196,8 +198,8 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return this.FreeBooster == a_eBooster;
 	}
 
-	//! 부스터 포함 여부를 검사한다
-	public bool IsContainsBooster(EItemKinds a_eBooster) {
+	//! 부스터 선택 여부를 검사한다
+	public bool IsSelBooster(EItemKinds a_eBooster) {
 		return this.SelBoosterList.Contains(a_eBooster);
 	}
 
@@ -216,10 +218,28 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return this.GameInfo.m_oCompleteTutorialKindsList.Contains(a_eTutorialKinds);
 	}
 
-	//! 총 별 개수를 반환한다
-	public int GetTotalNumStars(int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	//! 클리어 여부를 검사한다
+	public bool IsClear(long a_nID) {
+		return this.GameInfo.m_oClearInfoList.ContainsKey(a_nID);
+	}
+
+	//! 스테이지 별 개수를 반환한다
+	public int GetNumStageStars(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		int nNumStars = KCDefine.B_VAL_0_INT;
-		var oLevelInfoList = CLevelInfoTable.Inst.GetLevelInfos(a_nStageID, a_nChapterID);
+		var oLevelInfoList = CLevelInfoTable.Inst.GetStageLevelInfos(a_nStageID, a_nChapterID);
+
+		for(int i = 0; i < oLevelInfoList.Count; ++i) {
+			var oClearInfo = this.GetClearInfo(oLevelInfoList[i].LevelID);
+			nNumStars += oClearInfo.NumStars;
+		}
+
+		return nNumStars;
+	}
+
+	//! 챕터 별 개수를 반환한다
+	public int GetNumChapterStars(int a_nChapterID) {
+		int nNumStars = KCDefine.B_VAL_0_INT;
+		var oLevelInfoList = CLevelInfoTable.Inst.GetChapterLevelInfos(a_nChapterID);
 
 		for(int i = 0; i < oLevelInfoList.Count; ++i) {
 			var oClearInfo = this.GetClearInfo(oLevelInfoList[i].LevelID);
@@ -255,14 +275,10 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		this.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nID);
 	}
 
-	//! 클리어 정보를 변경한다
-	public void SetClearInfo(long a_nID, CClearInfo a_oClearInfo) {
-		this.GameInfo.m_oClearInfoList.ExReplaceVal(a_nID, a_oClearInfo);
-	}
-
-	//! 선택 된 부스터를 추가한다
+	//! 선택 부스터를 추가한다
 	public void AddSelBooster(EItemKinds a_eBooster) {
-		this.SelBoosterList.ExAddVal(a_eBooster);
+		CAccess.Assert(this.IsSelBooster(a_eBooster));
+		this.SelBoosterList.Add(a_eBooster);
 	}
 
 	//! 무료 보상 횟수를 추가한다
@@ -273,7 +289,14 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 완료 튜토리얼을 추가한다
 	public void AddCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
-		this.GameInfo.m_oCompleteTutorialKindsList.ExAddVal(a_eTutorialKinds);
+		CAccess.Assert(this.IsCompleteTutorial(a_eTutorialKinds));
+		this.GameInfo.m_oCompleteTutorialKindsList.Add(a_eTutorialKinds);
+	}
+
+	//! 클리어 정보를 추가한다
+	public void AddClearInfo(CClearInfo a_oClearInfo) {
+		CAccess.Assert(this.IsClear(a_oClearInfo.ID));
+		this.GameInfo.m_oClearInfoList.Add(a_oClearInfo.ID, a_oClearInfo);
 	}
 
 	//! 게임 정보를 저장한다

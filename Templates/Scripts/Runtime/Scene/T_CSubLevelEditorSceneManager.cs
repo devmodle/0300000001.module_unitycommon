@@ -6,6 +6,10 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 //! 서브 레벨 에디터 씬 관리자
 public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
+	#region 변수
+	private CLevelInfo m_oSelLevelInfo = null;
+	#endregion			// 변수
+	
 	#region 함수
 	//! 초기화
 	public override void Awake() {
@@ -13,6 +17,16 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+#if UNITY_EDITOR || UNITY_STANDALONE
+			// 레벨 정보가 없을 경우
+			if(!CLevelInfoTable.Inst.LevelInfoList.ExIsValid()) {
+				var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
+				oLevelInfo.OnAfterDeserialize();
+
+				CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
+			}
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+
 			this.SetupAwake();
 		}
 	}
@@ -50,7 +64,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
 
 	//! 씬을 설정한다
 	private void SetupAwake() {
-		// Do Nothing
+		long nLevelID = Factory.MakeUniqueLevelID(KCDefine.B_VAL_0_INT);
+		m_oSelLevelInfo = (CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo : CLevelInfoTable.Inst.GetLevelInfo(nLevelID);
 	}
 
 	//! 씬을 설정한다

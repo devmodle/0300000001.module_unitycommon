@@ -29,11 +29,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 				// 레벨 정보가 없을 경우
 				if(!CLevelInfoTable.Inst.LevelInfoList.ExIsValid()) {
 					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
+					oLevelInfo.OnAfterDeserialize();
+
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 				}
 #endif			// #if UNITY_EDITOR
 
-				CGameInfoStorage.Inst.SetPlayLevelInfo(0, EPlayMode.NORM);
+				CGameInfoStorage.Inst.SetPlayLevelInfo(KCDefine.B_VAL_0_INT, EPlayMode.NORM);
 			}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 

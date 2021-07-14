@@ -24,8 +24,7 @@ public static partial class Factory {
 	//! 클리어 정보를 생성한다
 	public static CClearInfo MakeClearInfo(long a_nID, int a_nScore = KCDefine.B_VAL_0_INT, int a_nNumStars = KCDefine.B_VAL_0_INT) {
 		return new CClearInfo() {
-			m_nID = a_nID,
-			
+			ID = a_nID,
 			Score = a_nScore,
 			NumStars = a_nNumStars
 		};

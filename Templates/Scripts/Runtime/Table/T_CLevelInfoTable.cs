@@ -83,6 +83,20 @@ public sealed class CLevelInfo : CBaseInfo {
 public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 프로퍼티
 	public Dictionary<long, CLevelInfo> LevelInfoList { get; private set; } = new Dictionary<long, CLevelInfo>();
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+	public int NumChapterInfos {
+		get {
+			var oChapterIDList = new HashSet<int>();
+
+			foreach(var stKeyVal in this.LevelInfoList) {
+				oChapterIDList.Add(stKeyVal.Value.ChapterID);
+			}
+
+			return oChapterIDList.Count;
+		}
+	}
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -93,19 +107,34 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		return oLevelInfo;
 	}
-
-	//! 레벨 정보를 반환한다
-	public List<CLevelInfo> GetLevelInfos(int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	
+	//! 스테이지 레벨 정보를 반환한다
+	public List<CLevelInfo> GetStageLevelInfos(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		var oLevelInfoList = new List<CLevelInfo>();
 
 		foreach(var stKeyVal in this.LevelInfoList) {
-			// 스테이지, 챕터 종류가 동일 할 경우
+			// 스테이지, 챕터가 동일 할 경우
 			if(stKeyVal.Value.StageID == a_nStageID && stKeyVal.Value.ChapterID == a_nChapterID) {
 				oLevelInfoList.Add(stKeyVal.Value);
 			}
 		}
 
-		oLevelInfoList.Sort((a_oLhs, a_oRhs) => a_oLhs.ID - a_oRhs.ID);
+		oLevelInfoList.Sort((a_oLhs, a_oRhs) => (int)(a_oLhs.LevelID - a_oRhs.LevelID));
+		return oLevelInfoList;
+	}
+
+	//! 챕터 레벨 정보를 반환한다
+	public List<CLevelInfo> GetChapterLevelInfos(int a_nChapterID) {
+		var oLevelInfoList = new List<CLevelInfo>();
+
+		foreach(var stKeyVal in this.LevelInfoList) {
+			// 챕터가 동일 할 경우
+			if(stKeyVal.Value.ChapterID == a_nChapterID) {
+				oLevelInfoList.Add(stKeyVal.Value);
+			}
+		}
+
+		oLevelInfoList.Sort((a_oLhs, a_oRhs) => (int)(a_oLhs.LevelID - a_oRhs.LevelID));
 		return oLevelInfoList;
 	}
 
@@ -145,6 +174,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #else
 		try {
 			this.LevelInfoList = CFunc.ReadMsgPackObjFromRes<Dictionary<long, CLevelInfo>>(a_oFilePath, false);
+			CAccess.Assert(this.LevelInfoList != null);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -156,6 +186,18 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	#region 조건부 함수
 #if UNITY_EDITOR || UNITY_STANDALONE
+	//! 스테이지 정보 개수를 반화한다
+	public int GetNumStageInfos(int a_nChapterID) {
+		var oStageIDList = new HashSet<int>();
+		var oLevelInfoList = this.GetChapterLevelInfos(a_nChapterID);
+
+		for(int i = 0; i < oLevelInfoList.Count; ++i) {
+			oStageIDList.Add(oLevelInfoList[i].StageID);
+		}
+
+		return oStageIDList.Count;
+	}
+	
 	//! 레벨 정보를 추가한다
 	public void AddLevelInfo(CLevelInfo a_oLevelInfo) {
 		CAccess.Assert(a_oLevelInfo != null && !this.LevelInfoList.ContainsKey(a_oLevelInfo.LevelID));
@@ -165,7 +207,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	//! 레벨 정보를 제거한다
 	public void RemoveLevelInfo(CLevelInfo a_oLevelInfo) {
 		CAccess.Assert(a_oLevelInfo != null && this.LevelInfoList.ContainsKey(a_oLevelInfo.LevelID));
-		var oLevelInfoList = this.GetLevelInfos(a_oLevelInfo.StageID, a_oLevelInfo.ChapterID);
+		var oLevelInfoList = this.GetStageLevelInfos(a_oLevelInfo.StageID, a_oLevelInfo.ChapterID);
 
 		for(int i = a_oLevelInfo.ID + KCDefine.B_VAL_1_INT; i < oLevelInfoList.Count; ++i) {
 			oLevelInfoList[i].ID = i - KCDefine.B_VAL_1_INT;
