@@ -258,29 +258,5 @@ public enum ETutorialKinds {
 	NONE = -1,
 	MAX_VAL
 }
-
-//! 스테이지 타입
-public enum EStageType {
-	NONE = -1,
-	MAX_VAL
-}
-
-//! 스테이지 종류
-public enum EStageKinds {
-	NONE = -1,
-	MAX_VAL
-}
-
-//! 챕터 타입
-public enum EChapterType {
-	NONE = -1,
-	MAX_VAL
-}
-
-//! 챕터 종류
-public enum EChapterKinds {
-	NONE = -1,
-	MAX_VAL
-}
 #endregion			// 기본
 #endif			// #if NEVER_USE_THIS

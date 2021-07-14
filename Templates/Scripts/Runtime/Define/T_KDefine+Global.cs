@@ -87,21 +87,24 @@ public static partial class KDefine {
 	// 보상 정보 테이블 }
 
 	// 에피소드 정보 테이블 {
-	public const int G_IDX_EPISODE_IT_STAGE = 0;
-	public const int G_IDX_EPISODE_IT_CHAPTER = 1;
+	public const int G_IDX_EPISODE_IT_LEVEL = 0;
+	public const int G_IDX_EPISODE_IT_STAGE = 1;
+	public const int G_IDX_EPISODE_IT_CHAPTER = 2;
 
+	public const string G_KEY_EPISODE_IT_LEVEL = "Level";
 	public const string G_KEY_EPISODE_IT_STAGE = "Stage";
 	public const string G_KEY_EPISODE_IT_CHAPTER = "Chapter";
 
 	public const string G_KEY_EPISODE_IT_NAME = "Name";
 	public const string G_KEY_EPISODE_IT_DESC = "Desc";
 
-	public const string G_KEY_EPISODE_IT_STAGE_TYPE = "StageType";
-	public const string G_KEY_EPISODE_IT_STAGE_KINDS = "StageKinds";
+	public const string G_KEY_EPISODE_IT_ID = "ID";
+	public const string G_KEY_EPISODE_IT_LEVEL_MODE = "LevelMode";
+
+	public const string G_KEY_EPISODE_IT_STAGE_ID = "StageID";
 	public const string G_KEY_EPISODE_IT_STAGE_MODE = "StageMode";
 
-	public const string G_KEY_EPISODE_IT_CHAPTER_TYPE = "ChapterType";
-	public const string G_KEY_EPISODE_IT_CHAPTER_KINDS = "ChapterKinds";
+	public const string G_KEY_EPISODE_IT_CHAPTER_ID = "ChapterID";
 	public const string G_KEY_EPISODE_IT_CHAPTER_MODE = "ChapterMode";
 	// 에피소드 정보 테이블 }
 
@@ -176,14 +179,16 @@ public static partial class KDefine {
 		m_eRewardKinds = ERewardKinds.NONE
 	};
 
+	public static readonly STLevelInfo G_INVALID_LEVEL_INFO = new STLevelInfo() {
+		m_eLevelMode = ELevelMode.NONE
+	};
+
 	public static readonly STStageInfo G_INVALID_STAGE_INFO = new STStageInfo() {
-		m_eStageType = EStageType.NONE,
-		m_eStageKinds = EStageKinds.NONE
+		m_eStageMode = EStageMode.NONE
 	};
 
 	public static readonly STChapterInfo G_INVALID_CHAPTER_INFO = new STChapterInfo() {
-		m_eChapterType = EChapterType.NONE,
-		m_eChapterKinds = EChapterKinds.NONE
+		m_eChapterMode = EChapterMode.NONE
 	};
 	// 기타 }
 

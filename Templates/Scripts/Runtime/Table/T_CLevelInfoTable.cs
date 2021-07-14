@@ -26,8 +26,6 @@ public sealed class CLevelInfo : CBaseInfo {
 	private const string KEY_ID = "ID";
 	private const string KEY_STAGE_ID = "StageID";
 	private const string KEY_CHAPTER_ID = "ChapterID";
-
-	private const string KEY_LEVEL_MODE = "LevelMode";
 	#endregion			// 상수
 
 	#region 변수
@@ -52,12 +50,7 @@ public sealed class CLevelInfo : CBaseInfo {
 		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_CHAPTER_ID, value); }
 	}
 
-	[IgnoreMember] public ELevelMode LevelMode {
-		get { return (ELevelMode)m_oIntList.ExGetVal(CLevelInfo.KEY_LEVEL_MODE, (int)ELevelMode.NONE); }
-		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_LEVEL_MODE, (int)value); }
-	}
-
-	[IgnoreMember] public long LevelID => Factory.MakeLevelID(this.ID, this.StageID, this.ChapterID);
+	[IgnoreMember] public long LevelID => Factory.MakeUniqueLevelID(this.ID, this.StageID, this.ChapterID);
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
@@ -179,7 +172,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			this.LevelInfoList.ExReplaceVal(oLevelInfoList[i].LevelID, oLevelInfoList[i]);
 		}
 
-		long nID = Factory.MakeLevelID(oLevelInfoList.Count - KCDefine.B_VAL_1_INT, a_oLevelInfo.StageID, a_oLevelInfo.ChapterID);
+		long nID = Factory.MakeUniqueLevelID(oLevelInfoList.Count - KCDefine.B_VAL_1_INT, a_oLevelInfo.StageID, a_oLevelInfo.ChapterID);
 		this.LevelInfoList.Remove(nID);
 	}
 

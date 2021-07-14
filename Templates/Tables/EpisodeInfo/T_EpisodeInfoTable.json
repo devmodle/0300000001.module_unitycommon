@@ -1,22 +1,33 @@
 {
-    "Stage": [
+    "Level": [
         {
+            "ID": "0",
+            "StageID": "0",
+            "ChapterID": "0",
             "Name": "Sample",
             "Desc": "Sample",
             "Replace": "0",
-            "StageType": "0",
-            "StageKinds": "0",
+            "LevelMode": "0",
+            "Description": "샘플 레벨 정보"
+        }
+    ],
+    "Stage": [
+        {
+            "ID": "0",
+            "ChapterID": "0",
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
             "StageMode": "0",
             "Description": "샘플 스테이지 정보"
         }
     ],
     "Chapter": [
         {
+            "ID": "0",
             "Name": "Sample",
             "Desc": "Sample",
             "Replace": "0",
-            "ChapterType": "0",
-            "ChapterKinds": "0",
             "ChapterMode": "0",
             "Description": "샘플 챕터 정보"
         }

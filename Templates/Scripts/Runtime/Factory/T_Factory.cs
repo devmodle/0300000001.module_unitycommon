@@ -7,11 +7,18 @@ using UnityEngine;
 public static partial class Factory {
 	#region 클래스 함수
 	//! 레벨 식별자를 생성한다
-	public static long MakeLevelID(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		int nStageID = Mathf.Max(a_nStageID, KCDefine.B_VAL_0_INT);
-		int nChapterID = Mathf.Max(a_nChapterID, KCDefine.B_VAL_0_INT);
+	public static long MakeUniqueLevelID(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		return Factory.MakeUniqueStageID(a_nStageID, a_nChapterID) + a_nID;
+	}
 
-		return a_nID + (nStageID * (long)KCDefine.B_UNIT_IDS_PER_STAGE) + (nChapterID * (long)KCDefine.B_UNIT_IDS_PER_CHAPTER);
+	//! 스테이지 식별자를 생성한다
+	public static long MakeUniqueStageID(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		return Factory.MakeUniqueChapterID(a_nChapterID) + (a_nID * (long)KCDefine.B_UNIT_IDS_PER_STAGE);
+	}
+
+	//! 챕터 식별자를 생성한다
+	public static long MakeUniqueChapterID(int a_nID) {
+		return a_nID * (long)KCDefine.B_UNIT_IDS_PER_CHAPTER;
 	}
 
 	//! 클리어 정보를 생성한다
@@ -25,13 +32,11 @@ public static partial class Factory {
 	}
 
 	//! 레벨 정보를 생성한다
-	public static CLevelInfo MakeLevelInfo(int a_nID, ELevelMode a_eLevelMode, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public static CLevelInfo MakeLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		return new CLevelInfo() {
 			ID = a_nID,
 			StageID = a_nStageID,
-			ChapterID = a_nChapterID,
-
-			LevelMode = a_eLevelMode
+			ChapterID = a_nChapterID
 		};
 	}
 	#endregion			// 클래스 함수
