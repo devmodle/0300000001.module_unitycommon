@@ -134,6 +134,28 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		m_oEngine.OnTouchEnd(a_oSender, a_oEventData);
 	}
+
+	//! 레벨을 클리어한다
+	private void ClearLevel() {
+		// 클리어 정보가 없을 경우
+		if(!CGameInfoStorage.Inst.IsClear(m_oLevelInfo.LevelID)) {
+			var oClearInfo = Factory.MakeClearInfo(m_oLevelInfo.LevelID);
+			CGameInfoStorage.Inst.AddClearInfo(oClearInfo);
+		}
+		
+		var oCurClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.LevelID);
+		CGameInfoStorage.Inst.SaveGameInfo();
+	}
+
+	//! 다음 씬을 로드한다
+	private void LoadNextScene() {
+		// 테스트 모드 일 경우
+		if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) {
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+		} else {
+			// Do Nothing
+		}
+	}
 	#endregion			// 함수
 
 	#region 조건부 함수
