@@ -217,9 +217,9 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	}
 
 	//! 총 별 개수를 반환한다
-	public int GetTotalNumStars(EStageKinds a_eStageKinds = EStageKinds.NONE, EChapterKinds a_eChapterKinds = EChapterKinds.NONE) {
+	public int GetTotalNumStars(int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		int nNumStars = KCDefine.B_VAL_0_INT;
-		var oLevelInfoList = CLevelInfoTable.Inst.GetLevelInfos(a_eStageKinds, a_eChapterKinds);
+		var oLevelInfoList = CLevelInfoTable.Inst.GetLevelInfos(a_nStageID, a_nChapterID);
 
 		for(int i = 0; i < oLevelInfoList.Count; ++i) {
 			var oClearInfo = this.GetClearInfo(oLevelInfoList[i].LevelID);

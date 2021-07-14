@@ -24,10 +24,10 @@ public sealed class CCellInfo : CBaseInfo {
 public sealed class CLevelInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_ID = "ID";
-	private const string KEY_LEVEL_MODE = "LevelMode";
+	private const string KEY_STAGE_ID = "StageID";
+	private const string KEY_CHAPTER_ID = "ChapterID";
 
-	private const string KEY_STAGE_KINDS = "StageKinds";
-	private const string KEY_CHAPTER_KINDS = "ChapterKinds";
+	private const string KEY_LEVEL_MODE = "LevelMode";
 	#endregion			// 상수
 
 	#region 변수
@@ -42,22 +42,22 @@ public sealed class CLevelInfo : CBaseInfo {
 		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_ID, value); }
 	}
 
+	[IgnoreMember] public int StageID {
+		get { return m_oIntList.ExGetVal(CLevelInfo.KEY_STAGE_ID, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_STAGE_ID, value); }
+	}
+
+	[IgnoreMember] public int ChapterID {
+		get { return m_oIntList.ExGetVal(CLevelInfo.KEY_CHAPTER_ID, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_CHAPTER_ID, value); }
+	}
+
 	[IgnoreMember] public ELevelMode LevelMode {
 		get { return (ELevelMode)m_oIntList.ExGetVal(CLevelInfo.KEY_LEVEL_MODE, (int)ELevelMode.NONE); }
 		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_LEVEL_MODE, (int)value); }
 	}
 
-	[IgnoreMember] public EStageKinds StageKinds {
-		get { return (EStageKinds)m_oIntList.ExGetVal(CLevelInfo.KEY_STAGE_KINDS, (int)EStageKinds.NONE); }
-		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_STAGE_KINDS, (int)value); }
-	}
-
-	[IgnoreMember] public EChapterKinds ChapterKinds {
-		get { return (EChapterKinds)m_oIntList.ExGetVal(CLevelInfo.KEY_CHAPTER_KINDS, (int)EChapterKinds.NONE); }
-		set { m_oIntList.ExReplaceVal(CLevelInfo.KEY_CHAPTER_KINDS, (int)value); }
-	}
-
-	[IgnoreMember] public long LevelID => Factory.MakeLevelID(this.ID, this.StageKinds, this.ChapterKinds);
+	[IgnoreMember] public long LevelID => Factory.MakeLevelID(this.ID, this.StageID, this.ChapterID);
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
@@ -102,12 +102,12 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	//! 레벨 정보를 반환한다
-	public List<CLevelInfo> GetLevelInfos(EStageKinds a_eStageKinds = EStageKinds.NONE, EChapterKinds a_eChapterKinds = EChapterKinds.NONE) {
+	public List<CLevelInfo> GetLevelInfos(int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		var oLevelInfoList = new List<CLevelInfo>();
 
 		foreach(var stKeyVal in this.LevelInfoList) {
 			// 스테이지, 챕터 종류가 동일 할 경우
-			if(stKeyVal.Value.StageKinds == a_eStageKinds && stKeyVal.Value.ChapterKinds == a_eChapterKinds) {
+			if(stKeyVal.Value.StageID == a_nStageID && stKeyVal.Value.ChapterID == a_nChapterID) {
 				oLevelInfoList.Add(stKeyVal.Value);
 			}
 		}
@@ -172,14 +172,14 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	//! 레벨 정보를 제거한다
 	public void RemoveLevelInfo(CLevelInfo a_oLevelInfo) {
 		CAccess.Assert(a_oLevelInfo != null && this.LevelInfoList.ContainsKey(a_oLevelInfo.LevelID));
-		var oLevelInfoList = this.GetLevelInfos(a_oLevelInfo.StageKinds, a_oLevelInfo.ChapterKinds);
+		var oLevelInfoList = this.GetLevelInfos(a_oLevelInfo.StageID, a_oLevelInfo.ChapterID);
 
 		for(int i = a_oLevelInfo.ID + KCDefine.B_VAL_1_INT; i < oLevelInfoList.Count; ++i) {
 			oLevelInfoList[i].ID = i - KCDefine.B_VAL_1_INT;
 			this.LevelInfoList.ExReplaceVal(oLevelInfoList[i].LevelID, oLevelInfoList[i]);
 		}
 
-		long nID = Factory.MakeLevelID(oLevelInfoList.Count - KCDefine.B_VAL_1_INT, a_oLevelInfo.StageKinds, a_oLevelInfo.ChapterKinds);
+		long nID = Factory.MakeLevelID(oLevelInfoList.Count - KCDefine.B_VAL_1_INT, a_oLevelInfo.StageID, a_oLevelInfo.ChapterID);
 		this.LevelInfoList.Remove(nID);
 	}
 

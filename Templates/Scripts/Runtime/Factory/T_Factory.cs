@@ -7,9 +7,9 @@ using UnityEngine;
 public static partial class Factory {
 	#region 클래스 함수
 	//! 레벨 식별자를 생성한다
-	public static long MakeLevelID(int a_nID, EStageKinds a_eStageKinds = EStageKinds.NONE, EChapterKinds a_eChapterKinds = EChapterKinds.NONE) {
-		int nStageID = Mathf.Max((int)a_eStageKinds, KCDefine.B_VAL_0_INT);
-		int nChapterID = Mathf.Max((int)a_eChapterKinds, KCDefine.B_VAL_0_INT);
+	public static long MakeLevelID(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		int nStageID = Mathf.Max(a_nStageID, KCDefine.B_VAL_0_INT);
+		int nChapterID = Mathf.Max(a_nChapterID, KCDefine.B_VAL_0_INT);
 
 		return a_nID + (nStageID * (long)KCDefine.B_UNIT_IDS_PER_STAGE) + (nChapterID * (long)KCDefine.B_UNIT_IDS_PER_CHAPTER);
 	}
@@ -25,13 +25,13 @@ public static partial class Factory {
 	}
 
 	//! 레벨 정보를 생성한다
-	public static CLevelInfo MakeLevelInfo(int a_nID, ELevelMode a_eLevelMode, EStageKinds a_eStageKinds = EStageKinds.NONE, EChapterKinds a_eChapterKinds = EChapterKinds.NONE) {
+	public static CLevelInfo MakeLevelInfo(int a_nID, ELevelMode a_eLevelMode, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		return new CLevelInfo() {
 			ID = a_nID,
-			LevelMode = a_eLevelMode,
+			StageID = a_nStageID,
+			ChapterID = a_nChapterID,
 
-			StageKinds = a_eStageKinds,
-			ChapterKinds = a_eChapterKinds
+			LevelMode = a_eLevelMode
 		};
 	}
 	#endregion			// 클래스 함수
