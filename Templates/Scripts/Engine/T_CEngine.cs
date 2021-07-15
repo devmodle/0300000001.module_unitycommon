@@ -26,6 +26,11 @@ namespace SampleEngineName {
 		private EState m_eState = EState.NONE;
 		#endregion			// 변수
 
+		#region 프로퍼티
+		public STGridInfo GridInfo => m_stGridInfo;
+		public EState State => m_eState;
+		#endregion			// 프로퍼티
+
 		#region 함수
 		//! 초기화
 		public virtual void Init(STParams a_stParams) {
