@@ -3,6 +3,7 @@ ALERT_P_TITLE,0,경고 팝업 제목,알림
 ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,확인
 ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,취소
 QUIT_P_MSG,0,종료 팝업 메세지,게임을 종료하시겠습니까?
+EDITOR_QUIT_P_MSG,0,에디터 종료 팝업 메세지,에디터를 종료하시겠습니까?
 UPDATE_P_MSG,0,업데이트 팝업 메세지,새로운 버전이 출시되었습니다.\n업데이트 하시겠습니까?
 PURCHASE_P_SUCCESS_MSG,0,결제 성공 팝업 메세지,해당 상품을 구입했습니다.
 PURCHASE_P_FAIL_MSG,0,결제 실패 팝업 메세지,해당 상품 구입에 실패했습니다.

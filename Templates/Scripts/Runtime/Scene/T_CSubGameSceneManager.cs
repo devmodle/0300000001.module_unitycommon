@@ -5,14 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
-using SampleEngineName;
-
 //! 서브 게임 씬 관리자
 public partial class CSubGameSceneManager : CGameSceneManager {
 	#region 변수
-	private CEngine m_oEngine = null;
 	private CLevelInfo m_oLevelInfo = null;
 	private CClearInfo m_oClearInfo = null;
+	private SampleEngineName.CEngine m_oEngine = null;
 	#endregion			// 변수
 
 	#region 함수
@@ -104,12 +102,12 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! 엔진을 설정한다
 	private void SetupEngine() {
-		var stParams = new CEngine.STParams {
+		var stParams = new SampleEngineName.CEngine.STParams {
 			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
 			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.LevelID, out CClearInfo oClearInfo) ? oClearInfo : null
 		};
 
-		m_oEngine = CFactory.CreateObj<CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
+		m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 		m_oEngine.Init(stParams);
 	}
 
@@ -142,7 +140,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 			var oClearInfo = Factory.MakeClearInfo(m_oLevelInfo.LevelID);
 			CGameInfoStorage.Inst.AddClearInfo(oClearInfo);
 		}
-		
+
 		var oCurClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.LevelID);
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}

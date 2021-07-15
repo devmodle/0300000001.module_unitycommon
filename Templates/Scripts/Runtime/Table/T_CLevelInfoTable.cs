@@ -4,8 +4,6 @@ using UnityEngine;
 using MessagePack;
 
 #if NEVER_USE_THIS
-using SampleEngineName;
-
 //! 셀 정보
 [MessagePackObject]
 [System.Serializable]
@@ -197,7 +195,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		return oStageIDList.Count;
 	}
-	
+
 	//! 레벨 정보를 추가한다
 	public void AddLevelInfo(CLevelInfo a_oLevelInfo) {
 		CAccess.Assert(a_oLevelInfo != null && !this.LevelInfoList.ContainsKey(a_oLevelInfo.LevelID));

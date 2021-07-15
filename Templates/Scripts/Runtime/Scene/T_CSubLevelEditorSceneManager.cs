@@ -7,6 +7,7 @@ using UnityEngine.UI;
 //! 서브 레벨 에디터 씬 관리자
 public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
 	#region 변수
+	private SampleEngineName.STGridInfo m_stSelGridInfo;
 	private CLevelInfo m_oSelLevelInfo = null;
 	#endregion			// 변수
 	
@@ -58,14 +59,18 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
 
 		// 백 키 눌림 이벤트 일 경우
 		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
-			Func.ShowQuitPopup(this.OnReceiveQuitPopupResult);
+			Func.ShowEditorQuitPopup(this.OnReceiveEditorQuitPopupResult);
 		}
 	}
 
 	//! 씬을 설정한다
 	private void SetupAwake() {
+		// 레벨 정보를 설정한다 {
 		long nLevelID = Factory.MakeUniqueLevelID(KCDefine.B_VAL_0_INT);
+
 		m_oSelLevelInfo = (CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo : CLevelInfoTable.Inst.GetLevelInfo(nLevelID);
+		m_stSelGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oSelLevelInfo);
+		// 레벨 정보를 설정한다 }
 	}
 
 	//! 씬을 설정한다
@@ -78,8 +83,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
 		// Do Nothing
 	}
 
-	//! 종료 팝업 결과를 수신했을 경우
-	private void OnReceiveQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
+	//! 에디터 종료 팝업 결과를 수신했을 경우
+	private void OnReceiveEditorQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);

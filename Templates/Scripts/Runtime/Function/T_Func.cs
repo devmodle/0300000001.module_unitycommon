@@ -104,6 +104,18 @@ public static partial class Func {
 		Func.ShowAlertPopup(stParams, a_oCallback);
 	}
 
+	//! 에디터 종료 팝업을 출력한다
+	public static void ShowEditorQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		var stParams = new CAlertPopup.STParams() {
+			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
+			m_oMsg = CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_QUIT_P_MSG),
+			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_OK_BTN_TEXT),
+			m_oCancelBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_CANCEL_BTN_TEXT)
+		};
+
+		Func.ShowAlertPopup(stParams, a_oCallback);
+	}
+
 	//! 업데이트 팝업을 출력한다
 	public static void ShowUpdatePopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
