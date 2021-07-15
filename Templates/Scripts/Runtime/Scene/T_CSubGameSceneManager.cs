@@ -35,7 +35,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 				}
 #endif			// #if UNITY_EDITOR
 
-				CGameInfoStorage.Inst.SetPlayLevelInfo(KCDefine.B_VAL_0_INT, EPlayMode.NORM);
+				CGameInfoStorage.Inst.SetupPlayLevelInfo(KCDefine.B_VAL_0_INT, EPlayMode.NORM);
 			}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 

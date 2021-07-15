@@ -193,6 +193,12 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		this.SetDailyRewardID(nNextDailyRewardID);
 	}
 
+	//! 플레이 레벨 정보를 설정한다
+	public void SetupPlayLevelInfo(long a_nID, EPlayMode a_ePlayMode) {
+		this.PlayMode = a_ePlayMode;
+		this.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nID);
+	}
+
 	//! 무료 부스터 여부를 검사한다
 	public bool IsFreeBooster(EItemKinds a_eBooster) {
 		return this.FreeBooster == a_eBooster;
@@ -267,12 +273,6 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public void SetDailyRewardID(int a_nID) {
 		CAccess.Assert(KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS.ExIsValidIdx(a_nID));
 		this.GameInfo.DailyRewardID = a_nID;
-	}
-
-	//! 플레이 레벨 정보를 변경한다
-	public void SetPlayLevelInfo(int a_nID, EPlayMode a_ePlayMode) {
-		this.PlayMode = a_ePlayMode;
-		this.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nID);
 	}
 
 	//! 선택 부스터를 추가한다

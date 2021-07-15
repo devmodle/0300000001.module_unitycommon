@@ -21,11 +21,10 @@ namespace SampleEngineName {
 		
 		#region 변수
 		private STParams m_stParams;
+		private STGridInfo m_stGridInfo;
+		
+		private EState m_eState = EState.NONE;
 		#endregion			// 변수
-
-		#region 프로퍼티
-		public EState State { get; private set; } = EState.NONE;
-		#endregion			// 프로퍼티
 
 		#region 함수
 		//! 초기화
