@@ -1,17 +1,3 @@
 {
-    "Common": [
-        {
-            "Price": "0",
-            "Name": "Sample",
-            "Desc": "Sample",
-            "Replace": "0",
-            "SaleItemType": "0",
-            "SaleItemKinds": "0",
-            "PriceType": "0",
-            "PriceKinds": "0",
-            "NumItems": "0",
-            "ItemKinds": "0",
-            "Description": "샘플 판매 아이템 정보"
-        }
-    ]
+    "Common": []
 }
