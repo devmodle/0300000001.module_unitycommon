@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if UNITY_EDITOR || UNITY_STANDALONE
 //! 서브 레벨 에디터 씬 관리자
 public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
 	#region 변수
@@ -92,4 +93,5 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
 	}
 	#endregion			// 함수
 }
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 #endif			// #if NEVER_USE_THIS

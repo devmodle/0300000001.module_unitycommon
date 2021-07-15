@@ -58,7 +58,6 @@ public static partial class KEditorDefine {
 		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
 		[typeof(CSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CSubLevelEditorSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		
 		[typeof(CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,
 		[typeof(CSubSetupSceneManager)] = KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER,
@@ -74,6 +73,10 @@ public static partial class KEditorDefine {
 		[typeof(CSubGameSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_OVERLAY_SCENE_MANAGER,
 		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+		[typeof(CSubLevelEditorSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 		
 #if STUDY_MODULE_ENABLE
 		[typeof(CSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
@@ -119,9 +122,7 @@ public static partial class KEditorDefine {
 	};
 
 	// 데이터 타입
-	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPE_LIST = new Dictionary<string, System.Type>() {
-		[KCDefine.B_SCENE_N_LEVEL_EDITOR] = typeof(CSubLevelEditorSceneManager),
-			
+	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPE_LIST = new Dictionary<string, System.Type>() {			
 		[KCDefine.B_SCENE_N_INIT] = typeof(CSubInitSceneManager),
 		[KCDefine.B_SCENE_N_SETUP] = typeof(CSubSetupSceneManager),
 		[KCDefine.B_SCENE_N_AGREE] = typeof(CSubAgreeSceneManager),
@@ -136,6 +137,10 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_GAME] = typeof(CSubGameSceneManager),
 		[KCDefine.B_SCENE_N_OVERLAY] = typeof(CSubOverlaySceneManager),
 		[KCDefine.B_SCENE_N_LOADING] = typeof(CSubLoadingSceneManager),
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+		[KCDefine.B_SCENE_N_LEVEL_EDITOR] = typeof(CSubLevelEditorSceneManager),
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 
 #if STUDY_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_MENU] = typeof(CSubMenuSceneManager)
