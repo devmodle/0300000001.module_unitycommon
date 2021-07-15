@@ -12,7 +12,7 @@ using SampleEngineName;
 public sealed class CCellInfo : CBaseInfo {
 	#region 함수
 	//! 생성자
-	public CCellInfo() : base(KDefine.B_VER_CELL_INFO) {
+	public CCellInfo() : base(KDefine.G_VER_CELL_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수
@@ -73,7 +73,7 @@ public sealed class CLevelInfo : CBaseInfo {
 
 	#region 함수
 	//! 생성자
-	public CLevelInfo() : base(KDefine.B_VER_LEVEL_INFO) {
+	public CLevelInfo() : base(KDefine.G_VER_LEVEL_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수

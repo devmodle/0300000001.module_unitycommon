@@ -34,7 +34,7 @@ public sealed class CClearInfo : CBaseInfo {
 
 	#region 함수
 	//! 생성자
-	public CClearInfo() : base(KDefine.B_VER_CLEAR_INFO) {
+	public CClearInfo() : base(KDefine.G_VER_CLEAR_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수
@@ -107,7 +107,7 @@ public sealed class CGameInfo : CBaseInfo {
 
 	#region 함수
 	//! 생성자
-	public CGameInfo() : base(KDefine.B_VER_GAME_INFO) {
+	public CGameInfo() : base(KDefine.G_VER_GAME_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수
@@ -301,7 +301,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 게임 정보를 저장한다
 	public void SaveGameInfo() {
-		this.SaveGameInfo(KDefine.B_DATA_P_GAME_INFO);
+		this.SaveGameInfo(KDefine.G_DATA_P_GAME_INFO);
 	}
 
 	//! 게임 정보를 저장한다
@@ -311,7 +311,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 게임 정보를 로드한다
 	public CGameInfo LoadGameInfo() {
-		return this.LoadGameInfo(KDefine.B_DATA_P_GAME_INFO);
+		return this.LoadGameInfo(KDefine.G_DATA_P_GAME_INFO);
 	}
 
 	//! 게임 정보를 로드한다

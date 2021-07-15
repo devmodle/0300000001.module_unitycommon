@@ -18,6 +18,16 @@ public static partial class KDefine {
 
 	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0:00}_{1:00}";
 	// 식별자 }
+
+	// 버전 {
+	public const string G_VER_APP_INFO = "1.0.0";
+	public const string G_VER_USER_INFO = "1.0.0";
+	public const string G_VER_GAME_INFO = "1.0.0";
+	public const string G_VER_CLEAR_INFO = "1.0.0";
+
+	public const string G_VER_LEVEL_INFO = "1.0.0";
+	public const string G_VER_CELL_INFO = "1.0.0";
+	// 버전 }
 	
 	// 판매 아이템 정보 테이블 {
 	public const string G_KEY_SALE_IIT_NAME = "Name";
@@ -212,6 +222,10 @@ public static partial class KDefine {
 	// 정렬 순서 }
 
 	// 경로 {
+	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
+	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
+	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
+
 #if UNITY_EDITOR
 	public static readonly string G_RUNTIME_DATA_P_FMT_LEVEL_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_DATA_P_FMT_G_LEVEL_INFO}.bytes";
 

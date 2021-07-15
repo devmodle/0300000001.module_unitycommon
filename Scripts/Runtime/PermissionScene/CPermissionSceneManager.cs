@@ -8,19 +8,6 @@ using UnityEngine.Android;
 
 //! 권한 씬 관리자
 public abstract class CPermissionSceneManager : CSceneManager {
-	#region 변수
-	private List<string> m_oSceneNameList = new List<string>() {
-		KCDefine.B_SCENE_N_INIT,
-		KCDefine.B_SCENE_N_SETUP,
-		KCDefine.B_SCENE_N_START,
-		KCDefine.B_SCENE_N_SPLASH,
-		KCDefine.B_SCENE_N_AGREE,
-		KCDefine.B_SCENE_N_LATE_SETUP,
-		KCDefine.B_SCENE_N_PERMISSION,
-		KCDefine.B_SCENE_N_INTRO
-	};
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_PERMISSION;
 
@@ -70,16 +57,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Inst.SetupStoreVer();
 		
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_INTRO_SCENE);
-		int nIdx = m_oSceneNameList.ExFindVal((a_oSceneName) => CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));
-
-		this.ExLateCallFunc((a_oSender, a_oParams) => {
-			// 인트로 씬 로드가 필요 할 경우
-			if(m_oSceneNameList.ExIsValidIdx(nIdx)) {
-				CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_INTRO);
-			} else {
-				CSceneLoader.Inst.LoadScene(CSceneManager.AwakeSceneName, false, false);
-			}
-		}, KCDefine.U_DELAY_NEXT_SCENE_LOAD);
+		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_INTRO);
 	}
 	#endregion			// 함수
 

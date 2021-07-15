@@ -40,7 +40,7 @@ public sealed class CUserInfo : CBaseInfo {
 
 	#region 함수
 	//! 생성자
-	public CUserInfo() : base(KDefine.B_VER_USER_INFO) {
+	public CUserInfo() : base(KDefine.G_VER_USER_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수
@@ -80,7 +80,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	
 	//! 유저 정보를 저장한다
 	public void SaveUserInfo() {
-		this.SaveUserInfo(KDefine.B_DATA_P_USER_INFO);
+		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
 	}
 
 	//! 유저 정보를 저장한다
@@ -90,7 +90,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	//! 유저 정보를 로드한다
 	public CUserInfo LoadUserInfo() {
-		return this.LoadUserInfo(KDefine.B_DATA_P_USER_INFO);
+		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
 	}
 
 	//! 유저 정보를 로드한다

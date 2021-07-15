@@ -68,12 +68,12 @@ public static partial class KEditorDefine {
 		[typeof(CSubStartSceneManager)] = KCDefine.U_SCRIPT_O_START_SCENE_MANAGER,
 		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_O_SPLASH_SCENE_MANAGER,
 		[typeof(CSubPermissionSceneManager)] = KCDefine.U_SCRIPT_O_PERMISSION_SCENE_MANAGER,
-		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
-		
 		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+
 		[typeof(CSubTitleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(CSubGameSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_OVERLAY_SCENE_MANAGER,
+		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
 		
 #if STUDY_MODULE_ENABLE
 		[typeof(CSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
@@ -130,12 +130,12 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_START] = typeof(CSubStartSceneManager),
 		[KCDefine.B_SCENE_N_SPLASH] = typeof(CSubSplashSceneManager),
 		[KCDefine.B_SCENE_N_PERMISSION] = typeof(CSubPermissionSceneManager),
-		[KCDefine.B_SCENE_N_LOADING] = typeof(CSubLoadingSceneManager),
-
 		[KCDefine.B_SCENE_N_INTRO] = typeof(CSubIntroSceneManager),
+
 		[KCDefine.B_SCENE_N_TITLE] = typeof(CSubTitleSceneManager),
 		[KCDefine.B_SCENE_N_GAME] = typeof(CSubGameSceneManager),
 		[KCDefine.B_SCENE_N_OVERLAY] = typeof(CSubOverlaySceneManager),
+		[KCDefine.B_SCENE_N_LOADING] = typeof(CSubLoadingSceneManager),
 
 #if STUDY_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_MENU] = typeof(CSubMenuSceneManager)

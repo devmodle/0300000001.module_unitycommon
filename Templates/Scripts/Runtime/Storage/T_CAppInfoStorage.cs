@@ -11,7 +11,7 @@ using MessagePack;
 public sealed class CAppInfo : CBaseInfo {
 	#region 함수
 	//! 생성자
-	public CAppInfo() : base(KDefine.B_VER_APP_INFO) {
+	public CAppInfo() : base(KDefine.G_VER_APP_INFO) {
 		// Do Nothing
 	}
 	#endregion			// 함수
@@ -29,7 +29,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 함수
 	//! 앱 정보를 저장한다
 	public void SaveAppInfo() {
-		this.SaveAppInfo(KDefine.B_DATA_P_APP_INFO);
+		this.SaveAppInfo(KDefine.G_DATA_P_APP_INFO);
 	}
 
 	//! 앱 정보를 저장한다
@@ -39,7 +39,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	//! 앱 정보를 로드한다
 	public CAppInfo LoadAppInfo() {
-		return this.LoadAppInfo(KDefine.B_DATA_P_APP_INFO);
+		return this.LoadAppInfo(KDefine.G_DATA_P_APP_INFO);
 	}
 
 	//! 앱 정보를 로드한다
