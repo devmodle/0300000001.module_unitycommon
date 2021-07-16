@@ -82,7 +82,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 프로퍼티
 	public Dictionary<long, CLevelInfo> LevelInfoList { get; private set; } = new Dictionary<long, CLevelInfo>();
 
-#if UNITY_EDITOR || UNITY_STANDALONE
 	public int NumChapterInfos {
 		get {
 			var oChapterIDList = new HashSet<int>();
@@ -94,10 +93,21 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			return oChapterIDList.Count;
 		}
 	}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 스테이지 정보 개수를 반화한다
+	public int GetNumStageInfos(int a_nChapterID) {
+		var oStageIDList = new HashSet<int>();
+		var oLevelInfoList = this.GetChapterLevelInfos(a_nChapterID);
+
+		for(int i = 0; i < oLevelInfoList.Count; ++i) {
+			oStageIDList.Add(oLevelInfoList[i].StageID);
+		}
+
+		return oStageIDList.Count;
+	}
+	
 	//! 레벨 정보를 반환한다
 	public CLevelInfo GetLevelInfo(long a_nID) {
 		bool bIsValid = this.TryGetLevelInfo(a_nID, out CLevelInfo oLevelInfo);
@@ -184,18 +194,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	#region 조건부 함수
 #if UNITY_EDITOR || UNITY_STANDALONE
-	//! 스테이지 정보 개수를 반화한다
-	public int GetNumStageInfos(int a_nChapterID) {
-		var oStageIDList = new HashSet<int>();
-		var oLevelInfoList = this.GetChapterLevelInfos(a_nChapterID);
-
-		for(int i = 0; i < oLevelInfoList.Count; ++i) {
-			oStageIDList.Add(oLevelInfoList[i].StageID);
-		}
-
-		return oStageIDList.Count;
-	}
-
 	//! 레벨 정보를 추가한다
 	public void AddLevelInfo(CLevelInfo a_oLevelInfo) {
 		CAccess.Assert(a_oLevelInfo != null && !this.LevelInfoList.ContainsKey(a_oLevelInfo.LevelID));

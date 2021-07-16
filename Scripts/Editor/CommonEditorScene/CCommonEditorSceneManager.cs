@@ -86,9 +86,9 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupScene();
 				CCommonEditorSceneManager.SetupLightOpts();
 
-#if INPUT_SYSTEM_ENABLE
+#if INPUT_SYSTEM_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupInputSystem();
-#endif			// #if INPUT_SYSTEM_ENABLE
+#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
 				// 설정 가능 할 경우
 				if(CCommonEditorSceneManager.m_bIsEnableSetup) {
