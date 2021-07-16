@@ -93,6 +93,7 @@ public static partial class CCommonEditorSceneManager {
 				// 설정 가능 할 경우
 				if(CCommonEditorSceneManager.m_bIsEnableSetup) {
 					CCommonEditorSceneManager.m_bIsEnableSetup = false;
+					CAutoSceneImporter.ImportAllScenes();
 					
 					CPlatformOptsSetter.SetupPlayerOpts();
 					CPlatformOptsSetter.SetupEditorOpts();
