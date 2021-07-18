@@ -22,7 +22,6 @@ public static partial class Func {
 #if ADS_MODULE_ENABLE
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
-				CAdsManager.Inst.IsEnableResumeAds = false;
 				
 				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.DefAdsType, true);
 #endif			// #if ADS_MODULE_ENABLE

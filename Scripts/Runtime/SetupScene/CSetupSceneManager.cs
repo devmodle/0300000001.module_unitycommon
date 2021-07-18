@@ -131,22 +131,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CFunc.SetupQuality((EQualityLevel)nQualityLevel, true);
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		// 디바이스 정보를 설정한다 }
-
-		// 네이티브 플러그인을 초기화한다 {
-#if DEBUG || DEVELOPMENT_BUILD
-		string oBuildMode = KCDefine.B_BUILD_MODE_DEBUG;
-#else
-		string oBuildMode = KCDefine.B_BUILD_MODE_RELEASE;
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-
-#if MODE_PORTRAIT_ENABLE
-		var eOrientation = EOrientation.PORTRAIT;
-#else
-		var eOrientation = EOrientation.LANDSCAPE;
-#endif			// #if MODE_PORTRAIT_ENABLE
-
-		CUnityMsgSender.Inst.SendInitMsg(oBuildMode, eOrientation);
-		// 네이티브 플러그인을 초기화한다 }
 		
 		this.Setup();
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);

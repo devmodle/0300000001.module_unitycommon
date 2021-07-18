@@ -18,7 +18,6 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 			CSubLateSetupSceneManager.IsAutoLoadBannerAds = true;
 			CSubLateSetupSceneManager.IsAutoLoadRewardAds = true;
 			CSubLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
-			CSubLateSetupSceneManager.IsAutoLoadResumeAds = true;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
@@ -47,7 +46,6 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 #if ADS_MODULE_ENABLE
 		CAdsManager.Inst.IsEnableBannerAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 		CAdsManager.Inst.IsEnableFullscreenAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
-		CAdsManager.Inst.IsEnableResumeAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 #endif			// #if ADS_MODULE_ENABLE
 	}
 

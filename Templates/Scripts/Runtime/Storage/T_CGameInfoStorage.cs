@@ -165,8 +165,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 			return bIsEnableShow && CGameInfoStorage.Inst.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP;
 		}
 	}
-
-	public bool IsEnableShowResumeAds => this.IsEnableShowFullscreenAds;
+	
 	public bool IsEnableUpdateAdsSkipTimes => true;
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 프로퍼티

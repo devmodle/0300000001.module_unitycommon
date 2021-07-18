@@ -112,11 +112,9 @@ public static partial class CCommonEditorSceneManager {
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {
 					CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VAL_0_FLT;
 
-					CFunc.EnumerateScenes((a_stScene) => {
-						var oObjs = a_stScene.GetRootGameObjects();
-
-						for(int j = 0; j < oObjs.Length; ++j) {
-							var oEnumerator = oObjs[j].DescendantsAndSelf();
+					CFunc.EnumerateObjs((a_oObjs) => {
+						for(int j = 0; j < a_oObjs.Length; ++j) {
+							var oEnumerator = a_oObjs[j].DescendantsAndSelf();
 							var oRemoveObjList = new List<GameObject>();
 
 							foreach(var oObj in oEnumerator) {
@@ -130,7 +128,7 @@ public static partial class CCommonEditorSceneManager {
 								// 스크립트 제거가 필요 할 경우
 								if(nNumMissingScripts > KCDefine.B_VAL_0_INT) {
 									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
-									EditorSceneManager.MarkSceneDirty(a_stScene);
+									EditorSceneManager.MarkSceneDirty(a_oObjs[j].scene);
 								}
 							}
 

@@ -112,7 +112,7 @@ public static partial class CCommonEditorSceneManager {
 				oScrollView.movementType = ScrollRect.MovementType.Clamped;
 
 				var oWndTrans = oLogWnd.transform as RectTransform;
-				oWndTrans.pivot = KCDefine.B_ANCHOR_MIDDLE_CENTER;
+				oWndTrans.pivot = KCDefine.B_ANCHOR_MID_CENTER;
 				oWndTrans.anchorMin = KCDefine.B_ANCHOR_DOWN_LEFT;
 				oWndTrans.anchorMax = KCDefine.B_ANCHOR_UP_RIGHT;
 				oWndTrans.anchoredPosition = Vector2.zero;
@@ -177,13 +177,13 @@ public static partial class CCommonEditorSceneManager {
 
 				// 위치를 설정한다 {
 				oStaticText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
-				oStaticText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
-				oStaticText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
+				oStaticText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MID_RIGHT;
+				oStaticText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MID_RIGHT;
 				oStaticText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_STATIC_TEXT.ExTo2D();
 
 				oDynamicText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
-				oDynamicText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
-				oDynamicText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
+				oDynamicText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MID_RIGHT;
+				oDynamicText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MID_RIGHT;
 				oDynamicText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_DYNAMIC_TEXT.ExTo2D();
 				// 위치를 설정한다 }
 			}

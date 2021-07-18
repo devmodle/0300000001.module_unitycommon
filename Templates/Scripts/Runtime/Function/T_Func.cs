@@ -14,13 +14,11 @@ public static partial class Func {
 #if ADS_MODULE_ENABLE
 	private static bool m_bIsWatchRewardAds = false;
 	private static bool m_bIsWatchFullscreenAds = false;
-	private static bool m_bIsWatchResumeAds = false;
 
 	private static STAdsRewardItemInfo m_stRewardItemInfo;
 
 	private static System.Action<CAdsManager, STAdsRewardItemInfo, bool> m_oRewardAdsCallback = null;
 	private static System.Action<CAdsManager, bool> m_oFullscreenAdsCallback = null;
-	private static System.Action<CAdsManager, bool> m_oResumeAdsCallback = null;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
@@ -246,32 +244,6 @@ public static partial class Func {
 				}
 			}, KCDefine.B_VAL_1_FLT, true);
 		} else {
-			a_oCallback?.Invoke(CAdsManager.Inst, false);
-			CGameInfoStorage.Inst.AddAdsSkipTimes(KCDefine.B_VAL_1_INT);
-		}
-	}
-
-	//! 재개 광고를 출력한다
-	public static void ShowResumeAds(System.Action<CAdsManager, bool> a_oCallback) {
-		Func.ShowResumeAds(CPluginInfoTable.Inst.DefAdsType, a_oCallback);
-	}
-
-	//! 재개 광고를 출력한다
-	public static void ShowResumeAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
-		// 재개 광고 출력이 가능 할 경우
-		if(CGameInfoStorage.Inst.IsEnableShowResumeAds && CAdsManager.Inst.IsLoadResumeAds(a_eAdsType)) {
-			CIndicatorManager.Inst.Show(true);
-
-			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender, a_oParams) => {
-				// 재개 광고 출력이 가능 할 경우
-				if(CGameInfoStorage.Inst.IsEnableShowResumeAds) {
-					Func.m_bIsWatchResumeAds = true;
-					Func.m_oResumeAdsCallback = a_oCallback;
-					
-					CAdsManager.Inst.ShowResumeAds(a_eAdsType, null, Func.OnCloseResumeAds);
-				}
-			}, KCDefine.B_VAL_1_FLT, true);
-		} else {
 			// 광고 누적 횟수 갱신이 가능 할 경우
 			if(CGameInfoStorage.Inst.IsEnableUpdateAdsSkipTimes) {
 				CGameInfoStorage.Inst.AddAdsSkipTimes(KCDefine.B_VAL_1_INT);
@@ -300,15 +272,6 @@ public static partial class Func {
 
 		CIndicatorManager.Inst.Close();
 		CFunc.Invoke(ref Func.m_oFullscreenAdsCallback, a_oSender, Func.m_bIsWatchFullscreenAds);
-	}
-
-	//! 재개 광고가 닫혔을 경우
-	private static void OnCloseResumeAds(CAdsManager a_oSender) {
-		CGameInfoStorage.Inst.AdsSkipTimes = KCDefine.B_VAL_0_INT;
-		CGameInfoStorage.Inst.PrevAdsTime = System.DateTime.Now;
-
-		CIndicatorManager.Inst.Close();
-		CFunc.Invoke(ref Func.m_oResumeAdsCallback, a_oSender, Func.m_bIsWatchResumeAds);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 

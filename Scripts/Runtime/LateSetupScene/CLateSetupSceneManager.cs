@@ -22,7 +22,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	public static bool IsAutoLoadBannerAds { get; protected set; } = false;
 	public static bool IsAutoLoadRewardAds { get; protected set; } = false;
 	public static bool IsAutoLoadFullscreenAds { get; protected set; } = false;
-	public static bool IsAutoLoadResumeAds { get; protected set; } = false;
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 클래스 프로퍼티
 
@@ -125,8 +124,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 					m_oAdsIDList = new Dictionary<string, string>() {
 						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oBannerAdsID,
 						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oRewardAdsID,
-						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oFullscreenAdsID,
-						[KCDefine.U_KEY_ADS_M_RESUME_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID
+						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oFullscreenAdsID
 					}
 				},
 #endif			// #if ADMOB_ENABLE
@@ -252,19 +250,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-#if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
-			// 애드 몹 일 경우
-			if(a_eAdsType == EAdsType.ADMOB) {
-#if UNITY_IOS
-				var oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobIDList;
-#else
-				var oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobIDList;
-#endif			// #if UNITY_IOS
-
-				CUnityMsgSender.Inst.SendInitAdsMsg(CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID, oAdmobIDList, CLateSetupSceneManager.HandleInitAdsMsg);
-			}
-#endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
-
 			bool bIsEnableLoadBannerAds = CPluginInfoTable.Inst.GetBannerAdsID(a_eAdsType).ExIsValid() && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 			bIsEnableLoadBannerAds = bIsEnableLoadBannerAds && CPluginInfoTable.Inst.DefAdsType == a_eAdsType;
 
@@ -287,21 +272,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			}
 		}
 	}
-
-#if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
-	//! 광고 초기화 메세지를 처리한다
-	private static void HandleInitAdsMsg(string a_oCmd, string a_oMsg) {
-		CFunc.ShowLog($"CLateSetupSceneManager.HandleInitAdsMsg: {a_oCmd}, {a_oMsg}");
-
-		bool bIsValid = bool.TryParse(a_oMsg, out bool bIsSuccess) && CLateSetupSceneManager.IsAutoLoadResumeAds;
-		bool bIsEnableLoadResumeAds = (bIsValid && bIsSuccess) && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
-
-		// 재개 광고 로드가 가능 할 경우
-		if(bIsEnableLoadResumeAds && CPluginInfoTable.Inst.AdmobPluginInfo.m_oResumeAdsID.ExIsValid()) {
-			CAdsManager.Inst.LoadResumeAds(EAdsType.ADMOB);
-		}
-	}
-#endif			// #if ADMOB_ENABLE && (UNITY_IOS || UNITY_ANDROID)
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
