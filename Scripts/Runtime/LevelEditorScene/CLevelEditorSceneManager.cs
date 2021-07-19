@@ -6,6 +6,9 @@ using UnityEngine;
 //! 레벨 에디터 씬 관리자
 public class CLevelEditorSceneManager : CSceneManager {
 	#region 프로퍼티
+	public GameObject PortraitUIs { get; private set; } = null;
+	public GameObject LandscapeUIs { get; private set; } = null;
+
 	public GameObject LeftEditorUIs { get; private set; } = null;
 	public GameObject MidEditorUIs { get; private set; } = null;
 	public GameObject RightEditorUIs { get; private set; } = null;
@@ -23,6 +26,9 @@ public class CLevelEditorSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+			this.PortraitUIs = this.SubUIs.ExFindChild(KDefine.LES_OBJ_N_PORTRAIT_UIS);
+			this.LandscapeUIs = this.SubUIs.ExFindChild(KDefine.LES_OBJ_N_LANDSCAPE_UIS);
+
 			this.LeftEditorUIs = this.SubUIs.ExFindChild(KDefine.LES_OBJ_N_LEFT_EDITOR_UIS);
 			this.MidEditorUIs = this.SubUIs.ExFindChild(KDefine.LES_OBJ_N_MID_EDITOR_UIS);
 			this.RightEditorUIs = this.SubUIs.ExFindChild(KDefine.LES_OBJ_N_RIGHT_EDITOR_UIS);
