@@ -16,7 +16,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 #endif			// #if UNITY_EDITOR
 
 #if UNITY_ANDROID
-	public List<string> PermissionList { get; protected set; } = new List<string>();
+	public List<string> PermissionList { get; private set; } = new List<string>();
 #endif			// #if UNITY_ANDROID
 	#endregion			// 프로퍼티
 

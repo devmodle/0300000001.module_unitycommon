@@ -5,7 +5,9 @@ using UnityEngine;
 //! 시작 씬 관리자
 public abstract class CStartSceneManager : CSceneManager {
 	#region 프로퍼티
-	public List<string> SpriteAtlasList { get; protected set; } = new List<string>();
+	public List<string> SpriteAtlasList { get; private set; } = new List<string>();
+	public Dictionary<string, int> MaxNumDuplicateFXSndsList { get; private set; } = new Dictionary<string, int>();
+
 	public override string SceneName => KCDefine.B_SCENE_N_START;
 
 #if UNITY_EDITOR
@@ -43,6 +45,10 @@ public abstract class CStartSceneManager : CSceneManager {
 	protected virtual void Setup() {
 		for(int i = 0; i < this.SpriteAtlasList.Count; ++i) {
 			CResManager.Inst.LoadSpriteAtlas(this.SpriteAtlasList[i]);
+		}
+
+		foreach(var stKeyVal in this.MaxNumDuplicateFXSndsList) {
+			CSndManager.Inst.SetMaxNumDuplicateFXSnds(stKeyVal.Key, stKeyVal.Value);
 		}
 	}
 
