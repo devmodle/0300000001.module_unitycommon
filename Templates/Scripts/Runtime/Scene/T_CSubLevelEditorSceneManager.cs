@@ -19,7 +19,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-#if UNITY_EDITOR || UNITY_STANDALONE
 			// 레벨 정보가 없을 경우
 			if(!CLevelInfoTable.Inst.LevelInfoList.ExIsValid()) {
 				var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
@@ -27,7 +26,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager {
 
 				CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 			}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 
 			this.SetupAwake();
 		}
