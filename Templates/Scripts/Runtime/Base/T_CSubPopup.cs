@@ -11,7 +11,10 @@ public abstract class CSubPopup : CPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	
+	//! 초기화
+	public override void Init() {
+		base.Init();
+	}
 	#endregion			// 함수
 }
 #endif			// #if NEVER_USE_THIS

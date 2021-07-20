@@ -7,11 +7,31 @@ using MessagePack;
 //! 셀 정보
 [MessagePackObject]
 [System.Serializable]
-public sealed class CCellInfo : CBaseInfo {
+public sealed class CCellInfo : CBaseInfo, System.ICloneable {
+	#region 변수
+	[Key(35)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
+	#endregion			// 변수
+
+	#region 인터페이스
+	//! 역직렬화 되었을 경우
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+		m_oBlockKindsList = m_oBlockKindsList ?? new List<SampleEngineName.EBlockKinds>();
+	}
+	#endregion			// 인터페이스
+
 	#region 함수
 	//! 생성자
 	public CCellInfo() : base(KDefine.G_VER_CELL_INFO) {
 		// Do Nothing
+	}
+
+	//! 사본 객체를 생성한다
+	public object Clone() {
+		var oCellInfo = new CCellInfo();
+		oCellInfo.OnAfterDeserialize();
+
+		return oCellInfo;
 	}
 	#endregion			// 함수
 }
@@ -19,7 +39,7 @@ public sealed class CCellInfo : CBaseInfo {
 //! 레벨 정보
 [MessagePackObject]
 [System.Serializable]
-public sealed class CLevelInfo : CBaseInfo {
+public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
 	#region 상수
 	private const string KEY_ID = "ID";
 	private const string KEY_STAGE_ID = "StageID";
@@ -31,7 +51,7 @@ public sealed class CLevelInfo : CBaseInfo {
 	#endregion			// 변수
 	
 	#region 프로퍼티
-	[IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
+	[IgnoreMember] public Vector3Int NumCells { get; set; } = Vector3Int.zero;
 
 	[IgnoreMember] public int ID {
 		get { return m_oIntList.ExGetVal(CLevelInfo.KEY_ID, KCDefine.B_VAL_0_INT); }
@@ -74,6 +94,29 @@ public sealed class CLevelInfo : CBaseInfo {
 	public CLevelInfo() : base(KDefine.G_VER_LEVEL_INFO) {
 		// Do Nothing
 	}
+
+	//! 사본 객체를 생성한다
+	public object Clone() {
+		var oLevelInfo = new CLevelInfo();
+		oLevelInfo.ID = this.ID;
+		oLevelInfo.StageID = this.StageID;
+		oLevelInfo.ChapterID = this.ChapterID;
+
+		for(int i = 0; i < m_oCellInfoListContainer.Count; ++i) {
+			var oCellInfoList = m_oCellInfoListContainer[i];
+			var oCloneCellInfoList = new List<CCellInfo>();
+
+			for(int j = 0; j < oCellInfoList.Count; ++j) {
+				var oCellInfo = oCellInfoList[j].Clone() as CCellInfo;
+				oCloneCellInfoList.Add(oCellInfo);
+			}
+
+			oLevelInfo.m_oCellInfoListContainer.Add(oCloneCellInfoList);
+		}
+
+		oLevelInfo.OnAfterDeserialize();
+		return oLevelInfo;
+	}
 	#endregion			// 함수
 }
 
@@ -96,6 +139,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 레벨 정보 개수를 반환한다
+	public int GetNumLevelInfos(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		return this.GetStageLevelInfos(a_nStageID, a_nChapterID).Count;
+	}
+
 	//! 스테이지 정보 개수를 반화한다
 	public int GetNumStageInfos(int a_nChapterID) {
 		var oStageIDList = new HashSet<int>();

@@ -29,15 +29,6 @@ public static partial class Factory {
 			NumStars = a_nNumStars
 		};
 	}
-
-	//! 레벨 정보를 생성한다
-	public static CLevelInfo MakeLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return new CLevelInfo() {
-			ID = a_nID,
-			StageID = a_nStageID,
-			ChapterID = a_nChapterID
-		};
-	}
 	#endregion			// 클래스 함수
 
 	#region 조건부 클래스 함수

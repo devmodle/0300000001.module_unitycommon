@@ -1,0 +1,24 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+#if NEVER_USE_THIS
+//! 전역 팩토리
+public static partial class Factory {
+	#region 클래스 함수
+	//! 셀 정보를 생성한다
+	public static CCellInfo MakeCellInfo() {
+		return new CCellInfo();
+	}
+
+	//! 레벨 정보를 생성한다
+	public static CLevelInfo MakeLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		return new CLevelInfo() {
+			ID = a_nID,
+			StageID = a_nStageID,
+			ChapterID = a_nChapterID
+		};
+	}
+	#endregion			// 클래스 함수
+}
+#endif			// #if NEVER_USE_THIS

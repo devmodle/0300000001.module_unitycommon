@@ -25,8 +25,8 @@ public static partial class KDefine {
 	public const string G_VER_GAME_INFO = "1.0.0";
 	public const string G_VER_CLEAR_INFO = "1.0.0";
 
-	public const string G_VER_LEVEL_INFO = "1.0.0";
 	public const string G_VER_CELL_INFO = "1.0.0";
+	public const string G_VER_LEVEL_INFO = "1.0.0";
 	// 버전 }
 	
 	// 판매 아이템 정보 테이블 {

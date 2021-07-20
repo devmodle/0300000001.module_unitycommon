@@ -9,7 +9,8 @@ using MessagePack;
 [Union(1, typeof(CUserInfo))]
 [Union(2, typeof(CGameInfo))]
 [Union(3, typeof(CClearInfo))]
-[Union(4, typeof(CLevelInfo))]
+[Union(4, typeof(CCellInfo))]
+[Union(5, typeof(CLevelInfo))]
 [MessagePackObject]
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {

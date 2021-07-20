@@ -10,7 +10,10 @@ public class CSubAlertPopup : CAlertPopup {
 	#endregion			// 프로퍼티
 	
 	#region 함수
-
+	//! 초기화
+	public override void Init(STParams a_stParams, System.Action<CAlertPopup, bool> a_oCallback) {
+		base.Init(a_stParams, a_oCallback);
+	}
 	#endregion			// 함수
 }
 #endif			// #if NEVER_USE_THIS

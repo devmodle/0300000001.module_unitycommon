@@ -26,12 +26,12 @@ public class CLevelEditorSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			this.PortraitUIs = this.SubUIs.ExFindChild(KCDefine.LES_OBJ_N_PORTRAIT_UIS);
-			this.LandscapeUIs = this.SubUIs.ExFindChild(KCDefine.LES_OBJ_N_LANDSCAPE_UIS);
+			this.PortraitUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_PORTRAIT_UIS);
+			this.LandscapeUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_LANDSCAPE_UIS);
 
-			this.LeftEditorUIs = this.SubUIs.ExFindChild(KCDefine.LES_OBJ_N_LEFT_EDITOR_UIS);
-			this.MidEditorUIs = this.SubUIs.ExFindChild(KCDefine.LES_OBJ_N_MID_EDITOR_UIS);
-			this.RightEditorUIs = this.SubUIs.ExFindChild(KCDefine.LES_OBJ_N_RIGHT_EDITOR_UIS);
+			this.LeftEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_LEFT_EDITOR_UIS);
+			this.MidEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_MID_EDITOR_UIS);
+			this.RightEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_RIGHT_EDITOR_UIS);
 		}
 	}
 	#endregion			// 함수
