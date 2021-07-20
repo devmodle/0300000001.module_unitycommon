@@ -12,6 +12,7 @@ public sealed class CClearInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_ID = "ID";
 	private const string KEY_SCORE = "Score";
+	private const string KEY_BEST_SCORE = "BestScore";
 	private const string KEY_NUM_STARS = "NumStars";
 	#endregion			// 상수
 
@@ -24,6 +25,11 @@ public sealed class CClearInfo : CBaseInfo {
 	[IgnoreMember] public int Score {
 		get { return m_oIntList.ExGetVal(CClearInfo.KEY_SCORE, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceVal(CClearInfo.KEY_SCORE, value); }
+	}
+
+	[IgnoreMember] public int BestScore {
+		get { return m_oIntList.ExGetVal(CClearInfo.KEY_BEST_SCORE, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CClearInfo.KEY_BEST_SCORE, value); }
 	}
 
 	[IgnoreMember] public int NumStars {
