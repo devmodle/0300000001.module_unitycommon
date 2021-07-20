@@ -12,8 +12,16 @@ public class CFocusPopup : CSubPopup {
 		public List<GameObject> m_oFocusUIsList;
 	}
 
+	//! 콜백 매개 변수
+	public struct STCallbackParams {
+		public System.Action<CFocusPopup, PointerEventData> m_oBeginCallback;
+		public System.Action<CFocusPopup, PointerEventData> m_oMoveCallback;
+		public System.Action<CFocusPopup, PointerEventData> m_oEndCallback;
+	}
+
 	#region 변수
 	private STParams m_stParams;
+	private STCallbackParams m_stCallbackParams;
 	#endregion			// 변수
 
 	#region UI 변수
@@ -42,15 +50,17 @@ public class CFocusPopup : CSubPopup {
 	}
 
 	//! 초기화
-	public virtual void Init(STParams a_stParams, System.Action<CFocusPopup, PointerEventData> a_oBeginCallback, System.Action<CFocusPopup, PointerEventData> a_oMoveCallback, System.Action<CFocusPopup, PointerEventData> a_oEndCallback) {
+	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
 		base.Init();
+
 		m_stParams = a_stParams;
+		m_stCallbackParams = a_stCallbackParams;
 
 		// 터치 전달자를 설정한다
 		var oTouchDispatcher = m_oContents.GetComponentInChildren<CTouchDispatcher>();
-		oTouchDispatcher.BeginCallback = (a_oSender, a_oEventData) => a_oBeginCallback?.Invoke(this, a_oEventData);
-		oTouchDispatcher.MoveCallback = (a_oSender, a_oEventData) => a_oMoveCallback?.Invoke(this, a_oEventData);
-		oTouchDispatcher.EndCallback = (a_oSender, a_oEventData) => a_oEndCallback?.Invoke(this, a_oEventData);
+		oTouchDispatcher.BeginCallback = (a_oSender, a_oEventData) => a_stCallbackParams.m_oBeginCallback?.Invoke(this, a_oEventData);
+		oTouchDispatcher.MoveCallback = (a_oSender, a_oEventData) => a_stCallbackParams.m_oMoveCallback?.Invoke(this, a_oEventData);
+		oTouchDispatcher.EndCallback = (a_oSender, a_oEventData) => a_stCallbackParams.m_oEndCallback?.Invoke(this, a_oEventData);
 
 		this.UpdateUIsState();
 	}

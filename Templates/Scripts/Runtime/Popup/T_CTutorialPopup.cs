@@ -10,11 +10,17 @@ public class CTutorialPopup : CFocusPopup {
 	//! 매개 변수
 	public new struct STParams {
 		public ETutorialKinds m_eTutorialKinds;
-		public CFocusPopup.STParams m_stFocusParams;	
+		public CFocusPopup.STParams m_stFocusParams;
+	}
+
+	//! 콜백 매개 변수
+	public new struct STCallbackParams {
+		public CFocusPopup.STCallbackParams m_stFocusCallbackParams;
 	}
 
 	#region 변수
 	private STParams m_stParams;
+	private STCallbackParams m_stCallbackParams;
 	#endregion			// 변수
 
 	#region 함수
@@ -24,9 +30,11 @@ public class CTutorialPopup : CFocusPopup {
 	}
 
 	//! 초기화
-	public virtual void Init(STParams a_stParams, System.Action<CFocusPopup, PointerEventData> a_oBeginCallback, System.Action<CFocusPopup, PointerEventData> a_oMoveCallback, System.Action<CFocusPopup, PointerEventData> a_oEndCallback) {
-		base.Init(a_stParams.m_stFocusParams, a_oBeginCallback, a_oMoveCallback, a_oEndCallback);
+	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
+		base.Init(a_stParams.m_stFocusParams, a_stCallbackParams.m_stFocusCallbackParams);
+
 		m_stParams = a_stParams;
+		m_stCallbackParams = a_stCallbackParams;
 
 		this.UpdateUIsState();
 	}
