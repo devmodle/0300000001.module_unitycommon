@@ -5,14 +5,16 @@ using UnityEngine;
 #if UNITY_EDITOR || UNITY_STANDALONE
 //! 레벨 에디터 씬 관리자
 public class CLevelEditorSceneManager : CSceneManager {
+	#region 객체
+	protected GameObject m_oPortraitUIs = null;
+	protected GameObject m_oLandscapeUIs = null;
+
+	protected GameObject m_oLeftEditorUIs = null;
+	protected GameObject m_oRightEditorUIs = null;
+	protected GameObject m_oMidEditorUIs = null;
+	#endregion			// 객체
+
 	#region 프로퍼티
-	public GameObject PortraitUIs { get; private set; } = null;
-	public GameObject LandscapeUIs { get; private set; } = null;
-
-	public GameObject LeftEditorUIs { get; private set; } = null;
-	public GameObject MidEditorUIs { get; private set; } = null;
-	public GameObject RightEditorUIs { get; private set; } = null;
-
 	public override bool IsIgnoreBlindV => true;
 	public override bool IsIgnoreBlindH => true;
 	
@@ -26,12 +28,12 @@ public class CLevelEditorSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			this.PortraitUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_PORTRAIT_UIS);
-			this.LandscapeUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_LANDSCAPE_UIS);
+			m_oPortraitUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_PORTRAIT_UIS);
+			m_oLandscapeUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_LANDSCAPE_UIS);
 
-			this.LeftEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_LEFT_EDITOR_UIS);
-			this.MidEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_MID_EDITOR_UIS);
-			this.RightEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_RIGHT_EDITOR_UIS);
+			m_oLeftEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_LEFT_EDITOR_UIS);
+			m_oRightEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_RIGHT_EDITOR_UIS);
+			m_oMidEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_MID_EDITOR_UIS);
 		}
 	}
 	#endregion			// 함수

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if NEVER_USE_THIS
+#if UNITY_EDITOR || UNITY_STANDALONE
 //! 서브 에디터 스크롤러 셀 뷰
 public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 	#region 함수
@@ -12,4 +13,5 @@ public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 	}
 	#endregion			// 함수
 }
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 #endif			// #if NEVER_USE_THIS

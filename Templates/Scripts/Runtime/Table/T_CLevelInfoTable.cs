@@ -263,14 +263,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	//! 레벨 정보를 저장한다
-	public void SaveLevelInfo(CLevelInfo a_oLevelInfo) {
-		CAccess.Assert(a_oLevelInfo != null);
-		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
-
-		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
-	}
-
-	//! 레벨 정보를 저장한다
 	public void SaveLevelInfos() {
 		string oStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, this.LevelInfoList.Count);		
 		string oFilePath = KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_TXT);
@@ -281,6 +273,14 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		CFunc.WriteStr(oFilePath, oStr);
 		CFunc.WriteMsgPackObj(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO, this.LevelInfoList, false, false);
+	}
+
+	//! 레벨 정보를 저장한다
+	private void SaveLevelInfo(CLevelInfo a_oLevelInfo) {
+		CAccess.Assert(a_oLevelInfo != null);
+		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
+
+		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
 	}
 
 	//! 레벨 정보를 로드한다

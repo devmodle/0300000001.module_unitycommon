@@ -11,7 +11,7 @@ namespace SampleEngineName {
 		public static STGridInfo MakeGridInfo(CLevelInfo a_oLevelInfo) {
 			var stGridInfo = new STGridInfo() {
 				m_stGridSize = new Vector3(a_oLevelInfo.NumCells.x * KDefine.E_SIZE_CELL.x, a_oLevelInfo.NumCells.y * KDefine.E_SIZE_CELL.y, KCDefine.B_VAL_0_FLT),
-				m_stGridScale = KCDefine.B_SCALE_NORM
+				m_stGridScale = Vector3.one
 			};
 			
 			stGridInfo.m_stGridBounds = new Bounds(Vector3.zero, stGridInfo.m_stGridSize);
