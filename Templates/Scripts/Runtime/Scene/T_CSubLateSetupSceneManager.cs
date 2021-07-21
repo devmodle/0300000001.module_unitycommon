@@ -53,8 +53,8 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	protected override void ShowDescPopup() {
 		// 설명 팝업 출력이 가능 할 경우
 		if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowDescPopup) {
-			Func.ShowDescPopup(this.SubPopupUIs, (a_oPopup) => {
-				var oDescPopup = a_oPopup as CDescPopup;
+			Func.ShowDescPopup(this.SubPopupUIs, (a_oSender) => {
+				var oDescPopup = a_oSender as CDescPopup;
 				oDescPopup.Init(this.OnReceiveDescPopupResult);
 			});
 		} else {

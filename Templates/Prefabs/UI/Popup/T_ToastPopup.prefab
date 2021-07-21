@@ -88,7 +88,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6100753461839644821}
-  - component: {fileID: 7326773564285181192}
   m_Layer: 5
   m_Name: T_ToastPopup
   m_TagString: Untagged
@@ -116,20 +115,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7326773564285181192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3677638182303610642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b99e9f91f4b743d895472044721c31b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oShowSndPath: Sounds/Global/G_PopupShow
-  m_oCloseSndPath: Sounds/Global/G_PopupClose
 --- !u!1 &6204100087024965928
 GameObject:
   m_ObjectHideFlags: 0

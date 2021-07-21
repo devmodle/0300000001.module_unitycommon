@@ -87,8 +87,8 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 #if DAILY_REWARD_ENABLE
 				// 일일 보상 획득이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
-					Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oPopup) => {
-						var oDailyRewardPopup = a_oPopup as CDailyRewardPopup;
+					Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oSender) => {
+						var oDailyRewardPopup = a_oSender as CDailyRewardPopup;
 						oDailyRewardPopup.Init();
 					});
 				}

@@ -38,7 +38,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 	//! 약관 동의 팝업을 출력한다
 	private void ShowAgreePopup(string a_oServices, string a_oPrivacy, EAgreePopupType a_ePopupType) {
-		Func.ShowAgreePopup(this.SubPopupUIs, (a_oPopup) => {
+		Func.ShowAgreePopup(this.SubPopupUIs, (a_oSender) => {
 			var stParams = new CAgreePopup.STParams() {
 				m_oServices = a_oServices,
 				m_oPrivacy = a_oPrivacy,
@@ -46,7 +46,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 				m_ePopupType = a_ePopupType
 			};
 
-			var oAgreePopup = a_oPopup as CAgreePopup;
+			var oAgreePopup = a_oSender as CAgreePopup;
 			oAgreePopup.Init(stParams);
 		}, null, this.OnCloseAgreePopup);
 	}

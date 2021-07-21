@@ -14,6 +14,7 @@ public struct STLevelInfo {
 	public string m_oDesc;
 
 	public ELevelMode m_eLevelMode;
+	public ERewardKinds m_eRewardKinds;
 
 	#region 함수
 	//! 생성자
@@ -26,6 +27,7 @@ public struct STLevelInfo {
 		m_oDesc = a_oLevelInfo[KDefine.G_KEY_EPISODE_IT_DESC];
 
 		m_eLevelMode = (ELevelMode)a_oLevelInfo[KDefine.G_KEY_EPISODE_IT_LEVEL_MODE].AsInt;
+		m_eRewardKinds = (ERewardKinds)a_oLevelInfo[KDefine.G_KEY_EPISODE_IT_REWARD_KINDS].AsInt;
 	}
 	#endregion			// 함수
 }
@@ -33,24 +35,26 @@ public struct STLevelInfo {
 //! 스테이지 정보
 [System.Serializable]
 public struct STStageInfo {
-	public string m_oName;
-	public string m_oDesc;
-
 	public int m_nID;
 	public int m_nChapterID;
 
+	public string m_oName;
+	public string m_oDesc;
+
 	public EStageMode m_eStageMode;
+	public ERewardKinds m_eRewardKinds;
 
 	#region 함수
 	//! 생성자
 	public STStageInfo(SimpleJSON.JSONNode a_oStageInfo) {
-		m_oName = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_NAME];
-		m_oDesc = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_DESC];
-
 		m_nID = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_ID].AsInt;
 		m_nChapterID = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_CHAPTER_ID].AsInt;
 
+		m_oName = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_NAME];
+		m_oDesc = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_DESC];
+
 		m_eStageMode = (EStageMode)a_oStageInfo[KDefine.G_KEY_EPISODE_IT_STAGE_MODE].AsInt;
+		m_eRewardKinds = (ERewardKinds)a_oStageInfo[KDefine.G_KEY_EPISODE_IT_REWARD_KINDS].AsInt;
 	}
 	#endregion			// 함수
 }
@@ -58,20 +62,24 @@ public struct STStageInfo {
 //! 챕터 정보
 [System.Serializable]
 public struct STChapterInfo {
+	public int m_nID;
+
 	public string m_oName;
 	public string m_oDesc;
 
-	public int m_nID;
 	public EChapterMode m_eChapterMode;
+	public ERewardKinds m_eRewardKinds;
 
 	#region 함수
 	//! 생성자
 	public STChapterInfo(SimpleJSON.JSONNode a_oChapterInfo) {
+		m_nID = a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_ID].AsInt;
+
 		m_oName = a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_NAME];
 		m_oDesc = a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_DESC];
 
-		m_nID = a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_ID].AsInt;
 		m_eChapterMode = (EChapterMode)a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_CHAPTER_MODE].AsInt;
+		m_eRewardKinds = (ERewardKinds)a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_REWARD_KINDS].AsInt;
 	}
 	#endregion			// 함수
 }

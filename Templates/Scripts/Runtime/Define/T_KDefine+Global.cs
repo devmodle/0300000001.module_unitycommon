@@ -110,6 +110,7 @@ public static partial class KDefine {
 
 	public const string G_KEY_EPISODE_IT_ID = "ID";
 	public const string G_KEY_EPISODE_IT_LEVEL_MODE = "LevelMode";
+	public const string G_KEY_EPISODE_IT_REWARD_KINDS = "RewardKinds";
 
 	public const string G_KEY_EPISODE_IT_STAGE_ID = "StageID";
 	public const string G_KEY_EPISODE_IT_STAGE_MODE = "StageMode";

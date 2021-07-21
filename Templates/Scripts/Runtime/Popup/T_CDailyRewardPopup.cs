@@ -96,14 +96,14 @@ public class CDailyRewardPopup : CSubPopup {
 			stRewardInfo.m_oItemInfoList = oItemInfoList;
 		}
 		
-		Func.ShowRewardPopup(this.transform.parent.gameObject, (a_oPopup) => {
+		Func.ShowRewardPopup(this.transform.parent.gameObject, (a_oSender) => {
 			var stParams = new CRewardPopup.STParams() {
 				m_eQuality = ERewardQuality.NORM,
 				m_ePopupType = ERewardPopupType.DAILY,
 				m_oItemInfoList = stRewardInfo.m_oItemInfoList
 			};
 
-			var oRewardPopup = a_oPopup as CRewardPopup;
+			var oRewardPopup = a_oSender as CRewardPopup;
 			oRewardPopup.Init(stParams);
 		}, null, this.OnCloseRewardPopup);
 	}
