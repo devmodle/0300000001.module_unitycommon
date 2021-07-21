@@ -139,9 +139,14 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 레벨 정보 개수를 반환한다
-	public int GetNumLevelInfos(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return this.GetStageLevelInfos(a_nStageID, a_nChapterID).Count;
+	//! 스테이지 레벨 정보 개수를 반환한다
+	public int GetNumStageLevelInfos(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		return this.GetStageLevelInfos(a_nID, a_nChapterID).Count;
+	}
+
+	//! 챕터 레벨 정보 개수를 반환한다
+	public int GetNumChapterLevelInfos(int a_nID) {
+		return this.GetChapterLevelInfos(a_nID).Count;
 	}
 
 	//! 스테이지 정보 개수를 반화한다
@@ -165,12 +170,12 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 	
 	//! 스테이지 레벨 정보를 반환한다
-	public List<CLevelInfo> GetStageLevelInfos(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public List<CLevelInfo> GetStageLevelInfos(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		var oLevelInfoList = new List<CLevelInfo>();
 
 		foreach(var stKeyVal in this.LevelInfoList) {
 			// 스테이지, 챕터가 동일 할 경우
-			if(stKeyVal.Value.StageID == a_nStageID && stKeyVal.Value.ChapterID == a_nChapterID) {
+			if(stKeyVal.Value.StageID == a_nID && stKeyVal.Value.ChapterID == a_nChapterID) {
 				oLevelInfoList.Add(stKeyVal.Value);
 			}
 		}
@@ -214,14 +219,13 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-		string oFilePath = a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_TXT);
-		string oStr = CFunc.ReadStr(oFilePath);
+		string oFilePath = a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
+		var oLevelIDList = CFunc.ReadMsgPackJSONObj<List<long>>(oFilePath, false);
 
-		bool bIsValid = int.TryParse(oStr, out int nNumLevelInfos);
-		CAccess.Assert(bIsValid);
+		CAccess.Assert(oLevelIDList != null);
 
-		for(int i = 0; i < nNumLevelInfos; ++i) {
-			string oLevelInfoFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, i + KCDefine.B_VAL_1_INT);
+		for(int i = 0; i < oLevelIDList.Count; ++i) {
+			string oLevelInfoFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, oLevelIDList[i] + KCDefine.B_VAL_1_INT);
 			CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {oLevelInfoFilePath}");
 			
 			var oLevelInfo = this.LoadLevelInfo(oLevelInfoFilePath);
@@ -249,37 +253,146 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	//! 레벨 정보를 제거한다
-	public void RemoveLevelInfo(CLevelInfo a_oLevelInfo) {
-		CAccess.Assert(a_oLevelInfo != null && this.LevelInfoList.ContainsKey(a_oLevelInfo.LevelID));
-		var oLevelInfoList = this.GetStageLevelInfos(a_oLevelInfo.StageID, a_oLevelInfo.ChapterID);
+	public void RemoveLevelInfo(long a_nID) {
+		CAccess.Assert(this.LevelInfoList.ContainsKey(a_nID));
 
-		for(int i = a_oLevelInfo.ID + KCDefine.B_VAL_1_INT; i < oLevelInfoList.Count; ++i) {
+		var oLevelInfo = this.LevelInfoList[a_nID];
+		var oLevelInfoList = this.GetStageLevelInfos(oLevelInfo.StageID, oLevelInfo.ChapterID);
+
+		for(int i = oLevelInfo.ID + KCDefine.B_VAL_1_INT; i < oLevelInfoList.Count; ++i) {
 			oLevelInfoList[i].ID = i - KCDefine.B_VAL_1_INT;
 			this.LevelInfoList.ExReplaceVal(oLevelInfoList[i].LevelID, oLevelInfoList[i]);
 		}
 
-		long nID = Factory.MakeUniqueLevelID(oLevelInfoList.Count - KCDefine.B_VAL_1_INT, a_oLevelInfo.StageID, a_oLevelInfo.ChapterID);
-		this.LevelInfoList.Remove(nID);
+		long nLevelID = Factory.MakeUniqueLevelID(oLevelInfoList.Count - KCDefine.B_VAL_1_INT, oLevelInfo.StageID, oLevelInfo.ChapterID);
+		this.LevelInfoList.Remove(nLevelID);
+	}
+
+	//! 스테이지 레벨 정보를 제거한다
+	public void RemoveStageLevelInfos(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		var oLevelInfoList = this.GetStageLevelInfos(a_nID, a_nChapterID);
+		var oCorrectLevelInfoList = new List<CLevelInfo>();
+
+		CAccess.Assert(oLevelInfoList.ExIsValid());
+
+		for(int i = a_nID + KCDefine.B_VAL_1_INT; i < this.GetNumStageInfos(a_nChapterID); ++i) {
+			var oStageLevelInfoList = this.GetStageLevelInfos(i, a_nChapterID);
+			oCorrectLevelInfoList.ExAddVals(oStageLevelInfoList);
+		}
+
+		for(int i = 0; i < oLevelInfoList.Count; ++i) {
+			this.LevelInfoList.Remove(oLevelInfoList[i].LevelID);
+		}
+
+		for(int i = 0 ; i < oCorrectLevelInfoList.Count; ++i) {
+			long nLevelID = oCorrectLevelInfoList[i].LevelID;
+			oCorrectLevelInfoList[i].StageID -= KCDefine.B_VAL_1_INT;
+
+			this.LevelInfoList.Remove(nLevelID);
+			this.LevelInfoList.ExReplaceVal(oCorrectLevelInfoList[i].LevelID, oCorrectLevelInfoList[i]);
+		}
+	}
+
+	//! 챕터 레벨 정보를 제거한다
+	public void RemoveChapterLevelInfos(int a_nID) {
+		var oLevelInfoList = this.GetChapterLevelInfos(a_nID);
+		var oCorrectLevelInfoList = new List<CLevelInfo>();
+
+		CAccess.Assert(oLevelInfoList.ExIsValid());
+
+		for(int i = a_nID + KCDefine.B_VAL_1_INT; i < this.NumChapterInfos; ++i) {
+			var oChapterLevelInfoList = this.GetChapterLevelInfos(i);
+			oCorrectLevelInfoList.ExAddVals(oChapterLevelInfoList);
+		}
+
+		for(int i = 0; i < oLevelInfoList.Count; ++i) {
+			this.LevelInfoList.Remove(oLevelInfoList[i].LevelID);
+		}
+
+		for(int i = 0 ; i < oCorrectLevelInfoList.Count; ++i) {
+			long nLevelID = oCorrectLevelInfoList[i].LevelID;
+			oCorrectLevelInfoList[i].ChapterID -= KCDefine.B_VAL_1_INT;
+
+			this.LevelInfoList.Remove(nLevelID);
+			this.LevelInfoList.ExReplaceVal(oCorrectLevelInfoList[i].LevelID, oCorrectLevelInfoList[i]);
+		}
+	}
+
+	//! 레벨 정보를 교환한다
+	public void SwapLevelInfo(long a_nLhsID, long a_nRhsID) {
+		CAccess.Assert(this.LevelInfoList.ContainsKey(a_nLhsID) && this.LevelInfoList.ContainsKey(a_nRhsID));
+
+		this.LevelInfoList.ExSwap(a_nLhsID, a_nRhsID);
+		this.LevelInfoList[a_nLhsID].ExSwap(this.LevelInfoList[a_nRhsID]);
+	}
+
+	//! 스테이지 레벨 정보를 교환한다
+	public void SwapStageLevelInfos(int a_nLhsID, int a_nRhsID, int a_nLhsChapterID = KCDefine.B_VAL_0_INT, int a_nRhsChapterID = KCDefine.B_VAL_0_INT) {
+		var oLhsStageLevelInfos = this.GetStageLevelInfos(a_nLhsID, a_nLhsChapterID);
+		var oRhsStageLevelInfos = this.GetStageLevelInfos(a_nRhsID, a_nRhsChapterID);
+
+		for(int i = 0; i < oLhsStageLevelInfos.Count; ++i) {
+			this.LevelInfoList.Remove(oLhsStageLevelInfos[i].LevelID);
+		}
+
+		for(int i = 0; i < oRhsStageLevelInfos.Count; ++i) {
+			this.LevelInfoList.Remove(oRhsStageLevelInfos[i].LevelID);
+		}
+
+		for(int i = 0; i < oLhsStageLevelInfos.Count; ++i) {
+			oLhsStageLevelInfos[i].StageID = a_nRhsID;
+			this.LevelInfoList.ExAddVal(oLhsStageLevelInfos[i].LevelID, oLhsStageLevelInfos[i]);
+		}
+
+		for(int i = 0; i < oRhsStageLevelInfos.Count; ++i) {
+			oRhsStageLevelInfos[i].StageID = a_nLhsID;
+			this.LevelInfoList.ExAddVal(oRhsStageLevelInfos[i].LevelID, oRhsStageLevelInfos[i]);
+		}
+	}
+
+	//! 챕터 레벨 정보를 교환한다
+	public void SwapChapterLevelInfos(int a_nLhsID, int a_nRhsID) {
+		var oLhsChapterLevelInfos = this.GetChapterLevelInfos(a_nLhsID);
+		var oRhsChapterLevelInfos = this.GetChapterLevelInfos(a_nRhsID);
+
+		for(int i = 0; i < oLhsChapterLevelInfos.Count; ++i) {
+			this.LevelInfoList.Remove(oLhsChapterLevelInfos[i].LevelID);
+		}
+
+		for(int i = 0; i < oRhsChapterLevelInfos.Count; ++i) {
+			this.LevelInfoList.Remove(oRhsChapterLevelInfos[i].LevelID);
+		}
+
+		for(int i = 0; i < oLhsChapterLevelInfos.Count; ++i) {
+			oLhsChapterLevelInfos[i].ChapterID = a_nRhsID;
+			this.LevelInfoList.ExAddVal(oLhsChapterLevelInfos[i].LevelID, oLhsChapterLevelInfos[i]);
+		}
+
+		for(int i = 0; i < oRhsChapterLevelInfos.Count; ++i) {
+			oRhsChapterLevelInfos[i].ChapterID = a_nLhsID;
+			this.LevelInfoList.ExAddVal(oRhsChapterLevelInfos[i].LevelID, oRhsChapterLevelInfos[i]);
+		}
 	}
 
 	//! 레벨 정보를 저장한다
 	public void SaveLevelInfos() {
-		string oStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, this.LevelInfoList.Count);		
-		string oFilePath = KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_TXT);
+		var oLevelIDList = new List<long>();
+		string oFilePath = KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
 
 		foreach(var stKeyVal in this.LevelInfoList) {
-			this.SaveLevelInfo(stKeyVal.Value);
+			this.SaveLevelInfo(stKeyVal.Value, oLevelIDList);
 		}
 
-		CFunc.WriteStr(oFilePath, oStr);
+		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, false, false);
 		CFunc.WriteMsgPackObj(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO, this.LevelInfoList, false, false);
 	}
 
 	//! 레벨 정보를 저장한다
-	private void SaveLevelInfo(CLevelInfo a_oLevelInfo) {
+	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<long> a_oOutLevelIDList) {
 		CAccess.Assert(a_oLevelInfo != null);
 		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
 
+		a_oOutLevelIDList.Add(a_oLevelInfo.LevelID);
 		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
 	}
 
