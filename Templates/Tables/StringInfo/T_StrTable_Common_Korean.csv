@@ -1,12 +1,12 @@
 ID,Replace,Description,Str
-ALERT_P_TITLE,0,경고 팝업 제목,알림
-ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,확인
-ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,취소
-QUIT_P_MSG,0,종료 팝업 메세지,게임을 종료하시겠습니까?
 EDITOR_QUIT_P_MSG,0,에디터 종료 팝업 메세지,에디터를 종료하시겠습니까?
 EDITOR_REMOVE_LP_MSG,0,에디터 레벨 제거 팝업 메세지,레벨을 제거하시겠습니까?
 EDITOR_REMOVE_SP_MSG,0,에디터 스테이지 제거 팝업 메세지,스테이지를 제거하시겠습니까?
 EDITOR_REMOVE_CP_MSG,0,에디터 챕터 제거 팝업 메세지,챕터를 제거하시겠습니까?
+ALERT_P_TITLE,0,경고 팝업 제목,알림
+ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,확인
+ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,취소
+QUIT_P_MSG,0,종료 팝업 메세지,게임을 종료하시겠습니까?
 UPDATE_P_MSG,0,업데이트 팝업 메세지,새로운 버전이 출시되었습니다.\n업데이트 하시겠습니까?
 PURCHASE_P_SUCCESS_MSG,0,결제 성공 팝업 메세지,해당 상품을 구입했습니다.
 PURCHASE_P_FAIL_MSG,0,결제 실패 팝업 메세지,해당 상품 구입에 실패했습니다.
@@ -23,7 +23,7 @@ AGREE_P_SERVICES_URL_TEXT,0,약관 동의 팝업 서비스 URL 텍스트,Terms o
 AGREE_P_PRIVACY_URL_TEXT,0,약관 동의 팝업 개인 정보 URL 텍스트,Privacy Policy
 AGREE_P_OK_BTN_TEXT,0,약관 동의 팝업 확인 버튼 텍스트,OK
 DESC_P_TITLE,0,설명 팝업 제목,알림
-DESC_P_MSG,0,설명 팝업 메세지,추적 승인 허용
+DESC_P_MSG,0,설명 팝업 메세지,추적 허용
 DESC_P_DESC_MSG_01,0,설명 팝업 설명 메세지 1,∙ 특별한 프로모션을 제공해\n드립니다.
 DESC_P_DESC_MSG_02,0,설명 팝업 설명 메세지 2,∙ 관심사에 맞는 광고를 보여\n드립니다.
 DESC_P_DESC_MSG_03,0,설명 팝업 설명 메세지 3,∙ 개인화 된 경험이 향상 시켜\n드립니다.

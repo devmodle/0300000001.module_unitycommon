@@ -93,8 +93,8 @@ public static partial class AccessExtension {
 	}
 	
 	//! 컴포넌트 상호 작용 여부를 변경한다
-	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable, bool a_bIsCheckNull = true) {
-		CAccess.Assert(!a_bIsCheckNull || a_oSender != null);
+	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable, bool a_bIsEnableNullAssert = true) {
+		CAccess.Assert(!a_bIsEnableNullAssert || a_oSender != null);
 
 		// 버튼이 존재 할 경우
 		if(a_oSender != null) {

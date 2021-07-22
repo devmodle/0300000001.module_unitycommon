@@ -9,9 +9,7 @@ public struct STRewardInfo {
 	public string m_oName;
 	public string m_oDesc;
 
-	public ERewardType m_eRewardType;
 	public ERewardKinds m_eRewardKinds;
-
 	public List<STItemInfo> m_oItemInfoList;
 
 	#region 함수
@@ -20,9 +18,7 @@ public struct STRewardInfo {
 		m_oName = a_oRewardInfo[KDefine.G_KEY_REWARD_IT_NAME];
 		m_oDesc = a_oRewardInfo[KDefine.G_KEY_REWARD_IT_DESC];
 
-		m_eRewardType = (ERewardType)a_oRewardInfo[KDefine.G_KEY_REWARD_IT_REWARD_TYPE].AsInt;
 		m_eRewardKinds = (ERewardKinds)a_oRewardInfo[KDefine.G_KEY_REWARD_IT_REWARD_KINDS].AsInt;
-
 		m_oItemInfoList = new List<STItemInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_IT_ITEM_INFOS; ++i) {

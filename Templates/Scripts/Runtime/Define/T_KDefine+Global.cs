@@ -34,12 +34,8 @@ public static partial class KDefine {
 	public const string G_KEY_SALE_IIT_DESC = "Desc";
 
 	public const string G_KEY_SALE_IIT_PRICE = "Price";
-
-	public const string G_KEY_SALE_IIT_SALE_ITEM_TYPE = "SaleItemType";
-	public const string G_KEY_SALE_IIT_SALE_ITEM_KINDS = "SaleItemKinds";
-
-	public const string G_KEY_SALE_IIT_PRICE_TYPE = "PriceType";
 	public const string G_KEY_SALE_IIT_PRICE_KINDS = "PriceKinds";
+	public const string G_KEY_SALE_IIT_SALE_ITEM_KINDS = "SaleItemKinds";
 
 	public const string G_KEY_SALE_IIT_NUM_ITEMS = "NumItems";
 	public const string G_KEY_SALE_IIT_ITEM_KINDS = "ItemKinds";
@@ -51,11 +47,8 @@ public static partial class KDefine {
 	public const string G_KEY_SALE_PIT_NAME = "Name";
 	public const string G_KEY_SALE_PIT_DESC = "Desc";
 
-	public const string G_KEY_SALE_PIT_SALE_PRODUCT_TYPE = "SaleProductType";
-	public const string G_KEY_SALE_PIT_SALE_PRODUCT_KINDS = "SaleProductKinds";
-
-	public const string G_KEY_SALE_PIT_PRICE_TYPE = "PriceType";
 	public const string G_KEY_SALE_PIT_PRICE_KINDS = "PriceKinds";
+	public const string G_KEY_SALE_PIT_SALE_PRODUCT_KINDS = "SaleProductKinds";
 
 	public const string G_KEY_FMT_SALE_PIT_NUM_ITEMS = "NumItems_{0:00}";
 	public const string G_KEY_FMT_SALE_PIT_ITEM_KINDS = "ItemKinds_{0:00}";
@@ -70,8 +63,7 @@ public static partial class KDefine {
 
 	public const string G_KEY_MISSION_IT_NAME = "Name";
 	public const string G_KEY_MISSION_IT_DESC = "Desc";
-
-	public const string G_KEY_MISSION_IT_MISSION_TYPE = "MissionType";
+	
 	public const string G_KEY_MISSION_IT_MISSION_KINDS = "MissionKinds";
 	// 미션 정보 테이블 }
 
@@ -88,8 +80,7 @@ public static partial class KDefine {
 
 	public const string G_KEY_REWARD_IT_NAME = "Name";
 	public const string G_KEY_REWARD_IT_DESC = "Desc";
-
-	public const string G_KEY_REWARD_IT_REWARD_TYPE = "RewardType";
+	
 	public const string G_KEY_REWARD_IT_REWARD_KINDS = "RewardKinds";
 
 	public const string G_KEY_FMT_REWARD_IT_NUM_ITEMS = "NumItems_{0:00}";

@@ -9,11 +9,8 @@ public struct STSaleProductInfo {
 	public string m_oName;
 	public string m_oDesc;
 
-	public ESaleProductType m_eSaleProductType;
-	public ESaleProductKinds m_eSaleProductKinds;
-
-	public EPriceType m_ePriceType;
 	public EPriceKinds m_ePriceKinds;
+	public ESaleProductKinds m_eSaleProductKinds;
 
 	public List<STItemInfo> m_oItemInfoList;
 
@@ -22,13 +19,10 @@ public struct STSaleProductInfo {
 	public STSaleProductInfo(SimpleJSON.JSONNode a_oSaleProductInfo) {
 		m_oName = a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_NAME];
 		m_oDesc = a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_DESC];
-		
-		m_eSaleProductType = (ESaleProductType)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_SALE_PRODUCT_TYPE].AsInt;
-		m_eSaleProductKinds = (ESaleProductKinds)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_SALE_PRODUCT_KINDS].AsInt;
 
-		m_ePriceType = (EPriceType)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_PRICE_TYPE].AsInt;
 		m_ePriceKinds = (EPriceKinds)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_PRICE_KINDS].AsInt;
-
+		m_eSaleProductKinds = (ESaleProductKinds)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_SALE_PRODUCT_KINDS].AsInt;
+		
 		m_oItemInfoList = new List<STItemInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_SALE_PIT_ITEM_INFOS; ++i) {

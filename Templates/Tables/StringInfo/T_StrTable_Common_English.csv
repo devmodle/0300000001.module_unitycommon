@@ -1,12 +1,12 @@
 ID,Replace,Description,Str
-ALERT_P_TITLE,0,경고 팝업 제목,Notice
-ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,OK
-ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,Cancel
-QUIT_P_MSG,0,종료 팝업 메세지,Are you sure you want to quit the game?
 EDITOR_QUIT_P_MSG,0,에디터 종료 팝업 메세지,Are you sure you want to quit the editor?
 EDITOR_REMOVE_LP_MSG,0,에디터 레벨 제거 팝업 메세지,Are you sure you want to remove the level?
 EDITOR_REMOVE_SP_MSG,0,에디터 스테이지 제거 팝업 메세지,Are you sure you want to remove the stage?
 EDITOR_REMOVE_CP_MSG,0,에디터 챕터 제거 팝업 메세지,Are you sure you want to remove the chapter?
+ALERT_P_TITLE,0,경고 팝업 제목,Notice
+ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,OK
+ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,Cancel
+QUIT_P_MSG,0,종료 팝업 메세지,Are you sure you want to quit the game?
 UPDATE_P_MSG,0,업데이트 팝업 메세지,A new version has been released.\nWould you like to update it?
 PURCHASE_P_SUCCESS_MSG,0,결제 성공 팝업 메세지,You have successfully purchased this product.
 PURCHASE_P_FAIL_MSG,0,결제 실패 팝업 메세지,You have failed to purchase this product.

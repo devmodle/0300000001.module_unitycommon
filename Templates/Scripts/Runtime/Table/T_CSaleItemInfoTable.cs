@@ -6,32 +6,26 @@ using UnityEngine;
 //! 판매 아이템 정보
 [System.Serializable]
 public struct STSaleItemInfo {
+	public int m_nPrice;
+
 	public string m_oName;
 	public string m_oDesc;
 
-	public int m_nPrice;
-
-	public ESaleItemType m_eSaleItemType;
-	public ESaleItemKinds m_eSaleItemKinds;
-
-	public EPriceType m_ePriceType;
 	public EPriceKinds m_ePriceKinds;
+	public ESaleItemKinds m_eSaleItemKinds;
 
 	public STItemInfo m_stItemInfo;
 
 	#region 함수
 	//! 생성자
 	public STSaleItemInfo(SimpleJSON.JSONNode a_oSaleItemInfo) {
+		m_nPrice = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE].AsInt;
+		
 		m_oName = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_NAME];
 		m_oDesc = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_DESC];
 
-		m_nPrice = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE].AsInt;
-
-		m_eSaleItemType = (ESaleItemType)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_TYPE].AsInt;
-		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;
-
-		m_ePriceType = (EPriceType)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE_TYPE].AsInt;
 		m_ePriceKinds = (EPriceKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE_KINDS].AsInt;
+		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;
 
 		m_stItemInfo = new STItemInfo() {
 			m_nNumItems = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_NUM_ITEMS].AsInt,

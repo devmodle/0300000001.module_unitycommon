@@ -6,26 +6,6 @@ using UnityEngine;
 //! 기본 확장 클래스
 public static partial class Extension {
 	#region 클래스 함수
-	//! 레벨 정보를 교환한다
-	public static void ExSwap(this CLevelInfo a_oSender, CLevelInfo a_oRhs, bool a_bIsCheckNull = true) {
-		CAccess.Assert(!a_bIsCheckNull || (a_oSender != null && a_oRhs != null));
-
-		// 레벨 정보가 존재 할 경우
-		if(a_oSender != null && a_oRhs != null) {
-			int nID = a_oSender.ID;
-			int nStageID = a_oSender.StageID;
-			int nChapterID = a_oSender.ChapterID;
-
-			a_oSender.ID = a_oRhs.ID;
-			a_oSender.StageID = a_oRhs.StageID;
-			a_oSender.ChapterID = a_oRhs.ChapterID;
-
-			a_oRhs.ID = nID;
-			a_oRhs.StageID = nStageID;
-			a_oRhs.ChapterID = nChapterID;
-		}
-	}
-
 	//! 종류 => 타입으로 변환한다
 	public static int ExKindsToType(this int a_nSender) {
 		return a_nSender / KCDefine.B_UNIT_KINDS_PER_TYPE;

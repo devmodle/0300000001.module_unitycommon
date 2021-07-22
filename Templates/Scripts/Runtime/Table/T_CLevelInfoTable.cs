@@ -319,58 +319,58 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	//! 레벨 정보를 교환한다
-	public void SwapLevelInfo(long a_nLhsID, long a_nRhsID) {
-		CAccess.Assert(this.LevelInfoList.ContainsKey(a_nLhsID) && this.LevelInfoList.ContainsKey(a_nRhsID));
+	public void MoveLevelInfo(long a_nFromID, long a_nToID) {
+		CAccess.Assert(this.LevelInfoList.ContainsKey(a_nFromID) && this.LevelInfoList.ContainsKey(a_nToID));
 
-		this.LevelInfoList.ExSwap(a_nLhsID, a_nRhsID);
-		this.LevelInfoList[a_nLhsID].ExSwap(this.LevelInfoList[a_nRhsID]);
+		this.LevelInfoList.ExSwap(a_nFromID, a_nToID);
+		this.LevelInfoList[a_nFromID].ExSwap(this.LevelInfoList[a_nToID]);
 	}
 
 	//! 스테이지 레벨 정보를 교환한다
-	public void SwapStageLevelInfos(int a_nLhsID, int a_nRhsID, int a_nLhsChapterID = KCDefine.B_VAL_0_INT, int a_nRhsChapterID = KCDefine.B_VAL_0_INT) {
-		var oLhsStageLevelInfos = this.GetStageLevelInfos(a_nLhsID, a_nLhsChapterID);
-		var oRhsStageLevelInfos = this.GetStageLevelInfos(a_nRhsID, a_nRhsChapterID);
+	public void MoveStageLevelInfos(int a_nFromID, int a_nToID, int a_nFromChapterID = KCDefine.B_VAL_0_INT, int a_nToChapterID = KCDefine.B_VAL_0_INT) {
+		var oFromStageLevelInfos = this.GetStageLevelInfos(a_nFromID, a_nFromChapterID);
+		var oToStageLevelInfos = this.GetStageLevelInfos(a_nToID, a_nToChapterID);
 
-		for(int i = 0; i < oLhsStageLevelInfos.Count; ++i) {
-			this.LevelInfoList.Remove(oLhsStageLevelInfos[i].LevelID);
+		for(int i = 0; i < oFromStageLevelInfos.Count; ++i) {
+			this.LevelInfoList.Remove(oFromStageLevelInfos[i].LevelID);
 		}
 
-		for(int i = 0; i < oRhsStageLevelInfos.Count; ++i) {
-			this.LevelInfoList.Remove(oRhsStageLevelInfos[i].LevelID);
+		for(int i = 0; i < oToStageLevelInfos.Count; ++i) {
+			this.LevelInfoList.Remove(oToStageLevelInfos[i].LevelID);
 		}
 
-		for(int i = 0; i < oLhsStageLevelInfos.Count; ++i) {
-			oLhsStageLevelInfos[i].StageID = a_nRhsID;
-			this.LevelInfoList.ExAddVal(oLhsStageLevelInfos[i].LevelID, oLhsStageLevelInfos[i]);
+		for(int i = 0; i < oFromStageLevelInfos.Count; ++i) {
+			oFromStageLevelInfos[i].StageID = a_nToID;
+			this.LevelInfoList.ExAddVal(oFromStageLevelInfos[i].LevelID, oFromStageLevelInfos[i]);
 		}
 
-		for(int i = 0; i < oRhsStageLevelInfos.Count; ++i) {
-			oRhsStageLevelInfos[i].StageID = a_nLhsID;
-			this.LevelInfoList.ExAddVal(oRhsStageLevelInfos[i].LevelID, oRhsStageLevelInfos[i]);
+		for(int i = 0; i < oToStageLevelInfos.Count; ++i) {
+			oToStageLevelInfos[i].StageID = a_nFromID;
+			this.LevelInfoList.ExAddVal(oToStageLevelInfos[i].LevelID, oToStageLevelInfos[i]);
 		}
 	}
 
 	//! 챕터 레벨 정보를 교환한다
-	public void SwapChapterLevelInfos(int a_nLhsID, int a_nRhsID) {
-		var oLhsChapterLevelInfos = this.GetChapterLevelInfos(a_nLhsID);
-		var oRhsChapterLevelInfos = this.GetChapterLevelInfos(a_nRhsID);
+	public void MoveChapterLevelInfos(int a_nFromID, int a_nToID) {
+		var oFromChapterLevelInfos = this.GetChapterLevelInfos(a_nFromID);
+		var oToChapterLevelInfos = this.GetChapterLevelInfos(a_nToID);
 
-		for(int i = 0; i < oLhsChapterLevelInfos.Count; ++i) {
-			this.LevelInfoList.Remove(oLhsChapterLevelInfos[i].LevelID);
+		for(int i = 0; i < oFromChapterLevelInfos.Count; ++i) {
+			this.LevelInfoList.Remove(oFromChapterLevelInfos[i].LevelID);
 		}
 
-		for(int i = 0; i < oRhsChapterLevelInfos.Count; ++i) {
-			this.LevelInfoList.Remove(oRhsChapterLevelInfos[i].LevelID);
+		for(int i = 0; i < oToChapterLevelInfos.Count; ++i) {
+			this.LevelInfoList.Remove(oToChapterLevelInfos[i].LevelID);
 		}
 
-		for(int i = 0; i < oLhsChapterLevelInfos.Count; ++i) {
-			oLhsChapterLevelInfos[i].ChapterID = a_nRhsID;
-			this.LevelInfoList.ExAddVal(oLhsChapterLevelInfos[i].LevelID, oLhsChapterLevelInfos[i]);
+		for(int i = 0; i < oFromChapterLevelInfos.Count; ++i) {
+			oFromChapterLevelInfos[i].ChapterID = a_nToID;
+			this.LevelInfoList.ExAddVal(oFromChapterLevelInfos[i].LevelID, oFromChapterLevelInfos[i]);
 		}
 
-		for(int i = 0; i < oRhsChapterLevelInfos.Count; ++i) {
-			oRhsChapterLevelInfos[i].ChapterID = a_nLhsID;
-			this.LevelInfoList.ExAddVal(oRhsChapterLevelInfos[i].LevelID, oRhsChapterLevelInfos[i]);
+		for(int i = 0; i < oToChapterLevelInfos.Count; ++i) {
+			oToChapterLevelInfos[i].ChapterID = a_nFromID;
+			this.LevelInfoList.ExAddVal(oToChapterLevelInfos[i].LevelID, oToChapterLevelInfos[i]);
 		}
 	}
 

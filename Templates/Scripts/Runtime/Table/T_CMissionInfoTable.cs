@@ -8,8 +8,7 @@ using UnityEngine;
 public struct STMissionInfo {
 	public string m_oName;
 	public string m_oDesc;
-	
-	public EMissionType m_eMissionType;
+
 	public EMissionKinds m_eMissionKinds;
 
 	#region 함수
@@ -18,7 +17,6 @@ public struct STMissionInfo {
 		m_oName = a_oMissionInfo[KDefine.G_KEY_MISSION_IT_NAME];
 		m_oDesc = a_oMissionInfo[KDefine.G_KEY_MISSION_IT_DESC];
 
-		m_eMissionType = (EMissionType)a_oMissionInfo[KDefine.G_KEY_MISSION_IT_MISSION_TYPE].AsInt;
 		m_eMissionKinds = (EMissionKinds)a_oMissionInfo[KDefine.G_KEY_MISSION_IT_MISSION_KINDS].AsInt;
 	}
 	#endregion			// 함수
@@ -80,7 +78,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	//! 미션 정보를 로드한다
 	public List<object> LoadMissionInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-
+		
 #if UNITY_EDITOR || UNITY_STANDALONE
 		string oJSONStr = CFunc.ReadStr(a_oFilePath);
 		return this.DoLoadMissionInfos(oJSONStr);
