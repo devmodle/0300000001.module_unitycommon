@@ -98,9 +98,17 @@ public static partial class KDefine {
 	
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
+	public const string G_OBJ_N_STORE_P_RESTORE_BTN = "RestoreBtn";
 
-	// 설정 팝업
+	// 설정 팝업 {
 	public const string G_OBJ_N_SETTINGS_POPUP = "SettingsPopup";
+
+	public const string G_OBJ_N_SETTINGS_P_BG_SND_BTN = "BGSndBtn";
+	public const string G_OBJ_N_SETTINGS_P_FX_SNDS_BTN = "FXSndsBtn";
+	public const string G_OBJ_N_SETTINGS_P_NOTI_BTN = "NotiBtn";
+	public const string G_OBJ_N_SETTINGS_P_REVIEW_BTN = "ReviewBtn";
+	public const string G_OBJ_N_SETTINGS_P_SUPPORTS_BTN = "SupportsBtn";
+	// 설정 팝업 }
 
 	// 일일 미션 팝업
 	public const string G_OBJ_N_DAILY_MISSION_POPUP = "DailyMissionPopup";

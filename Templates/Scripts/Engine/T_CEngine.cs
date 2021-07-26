@@ -10,6 +10,9 @@ namespace SampleEngineName {
 		//! 상태
 		public enum EState {
 			NONE = -1,
+			PLAY,
+			PAUSE,
+			FINISH,
 			MAX_VAL
 		}
 
@@ -22,7 +25,7 @@ namespace SampleEngineName {
 		#region 변수
 		private STParams m_stParams;
 		private STGridInfo m_stGridInfo;
-		
+
 		private EState m_eState = EState.NONE;
 		#endregion			// 변수
 

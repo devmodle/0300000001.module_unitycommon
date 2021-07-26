@@ -28,6 +28,10 @@ public class CStorePopup : CSubPopup {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
+
+		// 버튼을 설정한다
+		var oRestoreBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_STORE_P_RESTORE_BTN);
+		oRestoreBtn?.onClick.AddListener(this.OnTouchRestoreBtn);
 	}
 	
 	//! 초기화

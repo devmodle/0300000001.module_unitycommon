@@ -10,6 +10,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	#region 변수
 	private CLevelInfo m_oLevelInfo = null;
 	private CClearInfo m_oClearInfo = null;
+	
 	private SampleEngineName.CEngine m_oEngine = null;
 	#endregion			// 변수
 
