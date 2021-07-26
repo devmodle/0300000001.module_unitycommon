@@ -7,7 +7,6 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.PackageManager;
-using UnityEditor.SceneManagement;
 
 //! 에디터 씬 관리자 - 설정
 public static partial class CEditorSceneManager {

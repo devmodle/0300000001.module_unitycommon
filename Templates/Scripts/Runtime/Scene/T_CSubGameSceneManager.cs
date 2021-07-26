@@ -25,7 +25,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 			if(CGameInfoStorage.Inst.PlayLevelInfo == null) {
 #if UNITY_EDITOR
 				// 레벨 정보가 없을 경우
-				if(!CLevelInfoTable.Inst.LevelInfoList.ExIsValid()) {
+				if(!CLevelInfoTable.Inst.LevelInfoListContainer.ExIsValid()) {
 					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 				}
@@ -86,7 +86,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		this.SetupEngine();
 
 		m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo;
-		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.LevelID, out CClearInfo oClearInfo) ? oClearInfo : null;
+		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null;
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
@@ -102,7 +102,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void SetupEngine() {
 		var stParams = new SampleEngineName.CEngine.STParams {
 			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
-			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.LevelID, out CClearInfo oClearInfo) ? oClearInfo : null
+			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null
 		};
 
 		m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
@@ -134,12 +134,12 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	//! 레벨을 클리어한다
 	private void ClearLevel() {
 		// 클리어 정보가 없을 경우
-		if(!CGameInfoStorage.Inst.IsClear(m_oLevelInfo.LevelID)) {
-			var oClearInfo = Factory.MakeClearInfo(m_oLevelInfo.LevelID);
+		if(!CGameInfoStorage.Inst.IsClear(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID)) {
+			var oClearInfo = Factory.MakeClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
 			CGameInfoStorage.Inst.AddClearInfo(oClearInfo);
 		}
-
-		var oCurClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.LevelID);
+		
+		var oCurClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 

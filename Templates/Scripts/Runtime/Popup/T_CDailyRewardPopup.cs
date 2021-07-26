@@ -44,7 +44,7 @@ public class CDailyRewardPopup : CSubPopup {
 		// 보상 UI 상태를 갱신한다
 		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
 			var oRewardUIs = m_oRewardUIsList[i];
-			var stDailyRewardInfo = CRewardInfoTable.Inst.GetDailyRewardInfo(ERewardKinds.DAILY_REWARD + (i + KCDefine.B_VAL_1_INT));
+			var stDailyRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(ERewardKinds.DAILY_REWARD + (i + KCDefine.B_VAL_1_INT));
 
 			this.UpdateRewardUIsState(oRewardUIs, stDailyRewardInfo);
 		}
@@ -60,25 +60,25 @@ public class CDailyRewardPopup : CSubPopup {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
 #else
-		this.ShowRewardPopup();
+		this.ShowRewardAcquirePopup();
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
 	//! 획득 버튼을 눌렀을 경우
 	private void OnTouchAcquireBtn() {
-		this.ShowRewardPopup();
+		this.ShowRewardAcquirePopup();
 	}
 
-	//! 보상 팝업이 닫혔을 경우
-	private void OnCloseRewardPopup(CPopup a_oSender) {
+	//! 보상 획득 팝업이 닫혔을 경우
+	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
 		CGameInfoStorage.Inst.SetupNextDailyRewardID();
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 
-	//! 보상 팝업을 출력한다
-	private void ShowRewardPopup() {
+	//! 보상 획득 팝업을 출력한다
+	private void ShowRewardAcquirePopup() {
 		var eRewardKinds = CGameInfoStorage.Inst.DailyRewardKinds;
-		var stRewardInfo = CRewardInfoTable.Inst.GetDailyRewardInfo(eRewardKinds);
+		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
 
 		// 보상 광고를 시청했을 경우
 		if(m_bIsWatchRewardAds) {
@@ -96,16 +96,16 @@ public class CDailyRewardPopup : CSubPopup {
 			stRewardInfo.m_oItemInfoList = oItemInfoList;
 		}
 		
-		Func.ShowRewardPopup(this.transform.parent.gameObject, (a_oSender) => {
-			var stParams = new CRewardPopup.STParams() {
-				m_eQuality = ERewardQuality.NORM,
-				m_ePopupType = ERewardPopupType.DAILY,
+		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
+			var stParams = new CRewardAcquirePopup.STParams() {
+				m_eQuality = stRewardInfo.m_eRewardQuality,
+				m_ePopupType = ERewardAcquirePopupType.DAILY,
 				m_oItemInfoList = stRewardInfo.m_oItemInfoList
 			};
 
-			var oRewardPopup = a_oSender as CRewardPopup;
-			oRewardPopup.Init(stParams);
-		}, null, this.OnCloseRewardPopup);
+			var oRewardAcquirePopup = a_oSender as CRewardAcquirePopup;
+			oRewardAcquirePopup.Init(stParams);
+		}, null, this.OnCloseRewardAcquirePopup);
 	}
 	#endregion			// 함수
 
@@ -116,7 +116,7 @@ public class CDailyRewardPopup : CSubPopup {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
 			m_bIsWatchRewardAds = true;
-			this.ShowRewardPopup();
+			this.ShowRewardAcquirePopup();
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class CDailyMissionPopup : CMissionPopup {
 	//! 매개 변수
 	public new struct STParams {
-		public CMissionPopup.STParams m_stMissionParams;	
+		public CMissionPopup.STParams m_stBaseParams;	
 	}
 
 	#region 변수
@@ -23,7 +23,7 @@ public class CDailyMissionPopup : CMissionPopup {
 
 	//! 초기화
 	public virtual void Init(STParams a_stParams) {
-		base.Init(a_stParams.m_stMissionParams);
+		base.Init(a_stParams.m_stBaseParams);
 		m_stParams = a_stParams;
 
 		this.UpdateUIsState();

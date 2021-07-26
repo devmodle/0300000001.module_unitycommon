@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
-//! 튜토리얼 팝업
-public class CTutorialPopup : CFocusPopup {
+#if UNITY_EDITOR || UNITY_STANDALONE
+//! 에디터 스크롤러 셀 뷰
+public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 	//! 매개 변수
 	public new struct STParams {
-		public ETutorialKinds m_eTutorialKinds;
-		public CFocusPopup.STParams m_stBaseParams;
+		public CEditorScrollerCellView.STParams m_stBaseParams;
 	}
-
+	
 	//! 콜백 매개 변수
 	public new struct STCallbackParams {
-		public CFocusPopup.STCallbackParams m_stBaseCallbackParams;
+		public CEditorScrollerCellView.STCallbackParams m_stBaseCallbackParams;
 	}
 
 	#region 변수
@@ -35,14 +34,8 @@ public class CTutorialPopup : CFocusPopup {
 
 		m_stParams = a_stParams;
 		m_stCallbackParams = a_stCallbackParams;
-
-		this.UpdateUIsState();
-	}
-
-	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
-		// Do Nothing
 	}
 	#endregion			// 함수
 }
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 #endif			// #if NEVER_USE_THIS

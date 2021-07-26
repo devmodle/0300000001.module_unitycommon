@@ -6,27 +6,14 @@ using UnityEngine;
 //! 기본 팩토리
 public static partial class Factory {
 	#region 클래스 함수
-	//! 레벨 식별자를 생성한다
-	public static long MakeUniqueLevelID(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return Factory.MakeUniqueStageID(a_nStageID, a_nChapterID) + a_nID;
-	}
-
-	//! 스테이지 식별자를 생성한다
-	public static long MakeUniqueStageID(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return Factory.MakeUniqueChapterID(a_nChapterID) + (a_nID * (long)KCDefine.B_UNIT_IDS_PER_STAGE);
-	}
-
-	//! 챕터 식별자를 생성한다
-	public static long MakeUniqueChapterID(int a_nID) {
-		return a_nID * (long)KCDefine.B_UNIT_IDS_PER_CHAPTER;
-	}
-
 	//! 클리어 정보를 생성한다
-	public static CClearInfo MakeClearInfo(long a_nID, int a_nScore = KCDefine.B_VAL_0_INT, int a_nNumStars = KCDefine.B_VAL_0_INT) {
+	public static CClearInfo MakeClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		return new CClearInfo() {
-			ID = a_nID,
-			Score = a_nScore,
-			NumStars = a_nNumStars
+			m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID),
+
+			Score = KCDefine.B_VAL_0_INT,
+			BestScore = KCDefine.B_VAL_0_INT,
+			NumStars = KCDefine.B_VAL_0_INT
 		};
 	}
 	#endregion			// 클래스 함수

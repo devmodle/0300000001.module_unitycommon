@@ -10,18 +10,16 @@ using MessagePack;
 [System.Serializable]
 public sealed class CClearInfo : CBaseInfo {
 	#region 상수
-	private const string KEY_ID = "ID";
 	private const string KEY_SCORE = "Score";
 	private const string KEY_BEST_SCORE = "BestScore";
 	private const string KEY_NUM_STARS = "NumStars";
 	#endregion			// 상수
 
-	#region 프로퍼티
-	[IgnoreMember] public long ID {
-		get { return long.Parse(m_oStrList.ExGetVal(CClearInfo.KEY_ID, KCDefine.B_STR_0_INT)); }
-		set { m_oStrList.ExReplaceVal(CClearInfo.KEY_ID, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, value)); }
-	}
+	#region 변수
+	[Key(5)] public STIDInfo m_stIDInfo;
+	#endregion			// 변수
 
+	#region 프로퍼티
 	[IgnoreMember] public int Score {
 		get { return m_oIntList.ExGetVal(CClearInfo.KEY_SCORE, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceVal(CClearInfo.KEY_SCORE, value); }
@@ -36,6 +34,8 @@ public sealed class CClearInfo : CBaseInfo {
 		get { return m_oIntList.ExGetVal(CClearInfo.KEY_NUM_STARS, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceVal(CClearInfo.KEY_NUM_STARS, value); }
 	}
+
+	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -52,34 +52,34 @@ public sealed class CClearInfo : CBaseInfo {
 public sealed class CGameInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
-	private const string KEY_FREE_REWARD_TIMES = "FreeRewardTimes";
+	private const string KEY_NUM_ACQUIRE_FREE_REWARDS = "NumAcquireFreeRewards";
 
-	private const string KEY_LAST_DAILY_MISSION_TIME = "LastDailyMissionTime";
 	private const string KEY_LAST_FREE_REWARD_TIME = "LastFreeRewardTime";
 	private const string KEY_LAST_DAILY_REWARD_TIME = "LastDailyRewardTime";
+	private const string KEY_LAST_DAILY_MISSION_TIME = "LastDailyMissionTime";
 	#endregion			// 상수
 
 	#region 변수
-	[Key(35)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
-	[Key(36)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
-	[Key(37)] public List<ETutorialKinds> m_oCompleteTutorialKindsList = new List<ETutorialKinds>();
+	[Key(101)] public HashSet<EMissionKinds> m_oCompleteMissionKindsList = new HashSet<EMissionKinds>();
+	[Key(102)] public HashSet<EMissionKinds> m_oCompleteDailyMissionKindsList = new HashSet<EMissionKinds>();
+	[Key(103)] public HashSet<ETutorialKinds> m_oCompleteTutorialKindsList = new HashSet<ETutorialKinds>();
 
-	[Key(101)] public Dictionary<long, CClearInfo> m_oClearInfoList = new Dictionary<long, CClearInfo>();
+	[Key(191)] public Dictionary<long, CClearInfo> m_oClearInfoList = new Dictionary<long, CClearInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public System.DateTime LastDailyMissionTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastFreeRewardTime { get; set; } = System.DateTime.Now;
 	[IgnoreMember] public System.DateTime LastDailyRewardTime { get; set; } = System.DateTime.Now;
+	[IgnoreMember] public System.DateTime LastDailyMissionTime { get; set; } = System.DateTime.Now;
 
 	[IgnoreMember] public int DailyRewardID {
 		get { return m_oIntList.ExGetVal(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VAL_0_INT); }
 		set { m_oIntList.ExReplaceVal(CGameInfo.KEY_DAILY_REWARD_ID, value); }
 	}
 
-	[IgnoreMember] public int FreeRewardTimes {
-		get { return m_oIntList.ExGetVal(CGameInfo.KEY_FREE_REWARD_TIMES, KCDefine.B_VAL_0_INT); }
-		set { m_oIntList.ExReplaceVal(CGameInfo.KEY_FREE_REWARD_TIMES, value); }
+	[IgnoreMember] public int NumAcquireFreeRewards {
+		get { return m_oIntList.ExGetVal(CGameInfo.KEY_NUM_ACQUIRE_FREE_REWARDS, KCDefine.B_VAL_0_INT); }
+		set { m_oIntList.ExReplaceVal(CGameInfo.KEY_NUM_ACQUIRE_FREE_REWARDS, value); }
 	}
 
 	[IgnoreMember] private string LastDailyMissionTimeStr => m_oStrList.ExGetVal(CGameInfo.KEY_LAST_DAILY_MISSION_TIME, string.Empty);
@@ -99,9 +99,9 @@ public sealed class CGameInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		
-		m_oCompleteMissionKindsList = m_oCompleteMissionKindsList ?? new List<EMissionKinds>();
-		m_oCompleteDailyMissionKindsList = m_oCompleteDailyMissionKindsList ?? new List<EMissionKinds>();
-		m_oCompleteTutorialKindsList = m_oCompleteTutorialKindsList ?? new List<ETutorialKinds>();
+		m_oCompleteMissionKindsList = m_oCompleteMissionKindsList ?? new HashSet<EMissionKinds>();
+		m_oCompleteDailyMissionKindsList = m_oCompleteDailyMissionKindsList ?? new HashSet<EMissionKinds>();
+		m_oCompleteTutorialKindsList = m_oCompleteTutorialKindsList ?? new HashSet<ETutorialKinds>();
 
 		m_oClearInfoList = m_oClearInfoList ?? new Dictionary<long, CClearInfo>();
 
@@ -126,7 +126,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
 
 	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
-	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
+	public HashSet<EItemKinds> SelBoosterList { get; private set; } = new HashSet<EItemKinds>();
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
 		LastDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
@@ -138,8 +138,8 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		get {
 			int nNumStars = KCDefine.B_VAL_0_INT;
 
-			for(int i = 0; i < this.GameInfo.m_oClearInfoList.Count; ++i) {
-				nNumStars += this.GameInfo.m_oClearInfoList[i].NumStars;
+			foreach(var stKeyVal in this.GameInfo.m_oClearInfoList) {
+				nNumStars += stKeyVal.Value.NumStars;
 			}
 
 			return nNumStars;
@@ -151,7 +151,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public bool IsContinueGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_DBL);
 
 	public bool IsEnableResetDailyMission => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.LastDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
-	public ERewardKinds DailyRewardKinds => KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS[this.GameInfo.DailyRewardID];
+	public ERewardKinds DailyRewardKinds => KDefine.G_REWARDS_KINDS_REWARD_IT_DAILY[this.GameInfo.DailyRewardID];
 
 #if ADS_MODULE_ENABLE
 	public int AdsSkipTimes { get; set; } = KCDefine.B_VAL_0_INT;
@@ -194,14 +194,14 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 			this.GameInfo.LastDailyRewardTime = System.DateTime.Today;
 		}
 
-		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS.Length;
+		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % KDefine.G_REWARDS_KINDS_REWARD_IT_DAILY.Length;
 		this.SetDailyRewardID(nNextDailyRewardID);
 	}
 
 	//! 플레이 레벨 정보를 설정한다
-	public void SetupPlayLevelInfo(long a_nID, EPlayMode a_ePlayMode) {
+	public void SetupPlayLevelInfo(int a_nID, EPlayMode a_ePlayMode, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.PlayMode = a_ePlayMode;
-		this.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nID);
+		this.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nID, a_nStageID, a_nChapterID);
 	}
 
 	//! 무료 부스터 여부를 검사한다
@@ -230,18 +230,19 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	}
 
 	//! 클리어 여부를 검사한다
-	public bool IsClear(long a_nID) {
-		return this.GameInfo.m_oClearInfoList.ContainsKey(a_nID);
+	public bool IsClear(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
+		return this.GameInfo.m_oClearInfoList.ContainsKey(nLevelID);
 	}
 
 	//! 스테이지 별 개수를 반환한다
 	public int GetNumStageStars(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		int nNumStars = KCDefine.B_VAL_0_INT;
-		var oLevelInfoList = CLevelInfoTable.Inst.GetStageLevelInfos(a_nStageID, a_nChapterID);
+		var oStageLevelInfoList = CLevelInfoTable.Inst.GetStageLevelInfos(a_nStageID, a_nChapterID);
 
-		for(int i = 0; i < oLevelInfoList.Count; ++i) {
-			var oClearInfo = this.GetClearInfo(oLevelInfoList[i].LevelID);
-			nNumStars += oClearInfo.NumStars;
+		foreach(var stKeyVal in oStageLevelInfoList) {
+			this.TryGetClearInfo(stKeyVal.Value.m_stIDInfo.m_nID, out CClearInfo oClearInfo, stKeyVal.Value.m_stIDInfo.m_nStageID, stKeyVal.Value.m_stIDInfo.m_nChapterID);
+			nNumStars += (oClearInfo != null) ? oClearInfo.NumStars : KCDefine.B_VAL_0_INT;
 		}
 
 		return nNumStars;
@@ -250,58 +251,62 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 챕터 별 개수를 반환한다
 	public int GetNumChapterStars(int a_nChapterID) {
 		int nNumStars = KCDefine.B_VAL_0_INT;
-		var oLevelInfoList = CLevelInfoTable.Inst.GetChapterLevelInfos(a_nChapterID);
+		var oChapterLevelInfoList = CLevelInfoTable.Inst.GetChapterLevelInfos(a_nChapterID);
 
-		for(int i = 0; i < oLevelInfoList.Count; ++i) {
-			var oClearInfo = this.GetClearInfo(oLevelInfoList[i].LevelID);
-			nNumStars += oClearInfo.NumStars;
+		foreach(var stKeyVal in oChapterLevelInfoList) {
+			foreach(var stLevelInfoKeyVal in stKeyVal.Value) {
+				this.TryGetClearInfo(stLevelInfoKeyVal.Value.m_stIDInfo.m_nID, out CClearInfo oClearInfo, stLevelInfoKeyVal.Value.m_stIDInfo.m_nStageID, stLevelInfoKeyVal.Value.m_stIDInfo.m_nChapterID);
+				nNumStars += (oClearInfo != null) ? oClearInfo.NumStars : KCDefine.B_VAL_0_INT;
+			}
 		}
 
 		return nNumStars;
 	}
 
 	//! 클리어 정보를 반환한다
-	public CClearInfo GetClearInfo(long a_nID) {
-		bool bIsValid = this.TryGetClearInfo(a_nID, out CClearInfo oClearInfo);
+	public CClearInfo GetClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		bool bIsValid = this.TryGetClearInfo(a_nID, out CClearInfo oClearInfo, a_nStageID, a_nChapterID);
 		CAccess.Assert(bIsValid);
 
 		return oClearInfo;
 	}
 
 	//! 클리어 정보를 반환한다
-	public bool TryGetClearInfo(long a_nID, out CClearInfo a_oOutClearInfo) {
-		a_oOutClearInfo = this.GameInfo.m_oClearInfoList.ExGetVal(a_nID, null);
-		return this.GameInfo.m_oClearInfoList.ContainsKey(a_nID);
+	public bool TryGetClearInfo(int a_nID, out CClearInfo a_oOutClearInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
+		a_oOutClearInfo = this.GameInfo.m_oClearInfoList.ExGetVal(nLevelID, null);
+
+		return a_oOutClearInfo != null;
 	}
 
 	//! 일일 보상 종류를 변경한다
-	public void SetDailyRewardID(int a_nID) {
-		CAccess.Assert(KDefine.G_KINDS_REWARD_IT_DAILY_REWARDS.ExIsValidIdx(a_nID));
+	public void SetDailyRewardID(int a_nID, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(KDefine.G_REWARDS_KINDS_REWARD_IT_DAILY.ExIsValidIdx(a_nID));
 		this.GameInfo.DailyRewardID = a_nID;
 	}
 
 	//! 선택 부스터를 추가한다
-	public void AddSelBooster(EItemKinds a_eBooster) {
-		CAccess.Assert(this.IsSelBooster(a_eBooster));
+	public void AddSelBooster(EItemKinds a_eBooster, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || this.IsSelBooster(a_eBooster));
 		this.SelBoosterList.Add(a_eBooster);
 	}
 
-	//! 무료 보상 횟수를 추가한다
-	public void AddFreeRewardTimes(int a_nRewardTimes) {
-		int nFreeRewardTimes = this.GameInfo.FreeRewardTimes + a_nRewardTimes;
-		this.GameInfo.FreeRewardTimes = Mathf.Clamp(nFreeRewardTimes, KCDefine.B_VAL_0_INT, CRewardInfoTable.Inst.FreeRewardInfoList.Count);
+	//! 무료 보상 획득 횟수를 추가한다
+	public void AddNumAcquireFreeRewards(int a_nRewardTimes) {
+		int nNumAcquireFreeRewards = this.GameInfo.NumAcquireFreeRewards + a_nRewardTimes;
+		this.GameInfo.NumAcquireFreeRewards = Mathf.Clamp(nNumAcquireFreeRewards, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_ACQUIRE_FREE_REWARDS);
 	}
 
 	//! 완료 튜토리얼을 추가한다
-	public void AddCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
-		CAccess.Assert(this.IsCompleteTutorial(a_eTutorialKinds));
+	public void AddCompleteTutorial(ETutorialKinds a_eTutorialKinds, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || !this.IsCompleteTutorial(a_eTutorialKinds));
 		this.GameInfo.m_oCompleteTutorialKindsList.Add(a_eTutorialKinds);
 	}
 
 	//! 클리어 정보를 추가한다
-	public void AddClearInfo(CClearInfo a_oClearInfo) {
-		CAccess.Assert(this.IsClear(a_oClearInfo.ID));
-		this.GameInfo.m_oClearInfoList.Add(a_oClearInfo.ID, a_oClearInfo);
+	public void AddClearInfo(CClearInfo a_oClearInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || !this.IsClear(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
+		this.GameInfo.m_oClearInfoList.Add(a_oClearInfo.LevelID, a_oClearInfo);
 	}
 
 	//! 게임 정보를 저장한다

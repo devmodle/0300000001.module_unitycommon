@@ -36,37 +36,37 @@ public class CFreeRewardPopup : CSubPopup {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
 #else
-		this.ShowRewardPopup();
+		this.ShowRewardAcquirePopup();
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
-	//! 보상 팝업이 닫혔을 경우
-	private void OnCloseRewardPopup(CPopup a_oSender) {
-		CGameInfoStorage.Inst.AddFreeRewardTimes(KCDefine.B_VAL_1_INT);
+	//! 보상 획득 팝업이 닫혔을 경우
+	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
+		CGameInfoStorage.Inst.AddNumAcquireFreeRewards(KCDefine.B_VAL_1_INT);
 
 		// 무료 보상을 모두 획득했을 경우
-		if(CGameInfoStorage.Inst.GameInfo.FreeRewardTimes >= CRewardInfoTable.Inst.FreeRewardInfoList.Count) {
+		if(CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards >= KDefine.G_MAX_NUM_ACQUIRE_FREE_REWARDS) {
 			CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
 		}
 
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 
-	//! 보상 팝업을 출력한다
-	private void ShowRewardPopup() {
-		var eRewardKinds = ERewardKinds.FREE_REWARD + (CGameInfoStorage.Inst.GameInfo.FreeRewardTimes + KCDefine.B_VAL_1_INT);
-		var stRewardInfo = CRewardInfoTable.Inst.GetFreeRewardInfo(eRewardKinds);
+	//! 보상 획득 팝업을 출력한다
+	private void ShowRewardAcquirePopup() {
+		var eRewardKinds = ERewardKinds.FREE_REWARD + (CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards + KCDefine.B_VAL_1_INT);
+		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
 
-		Func.ShowRewardPopup(this.transform.parent.gameObject, (a_oSender) => {
-			var stParams = new CRewardPopup.STParams() {
-				m_eQuality = ERewardQuality.NORM,
-				m_ePopupType = ERewardPopupType.FREE,
+		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
+			var stParams = new CRewardAcquirePopup.STParams() {
+				m_eQuality = stRewardInfo.m_eRewardQuality,
+				m_ePopupType = ERewardAcquirePopupType.FREE,
 				m_oItemInfoList = stRewardInfo.m_oItemInfoList
 			};
 
-			var oRewardPopup = a_oSender as CRewardPopup;
-			oRewardPopup.Init(stParams);
-		}, null, this.OnCloseRewardPopup);
+			var oRewardAcquirePopup = a_oSender as CRewardAcquirePopup;
+			oRewardAcquirePopup.Init(stParams);
+		}, null, this.OnCloseRewardAcquirePopup);
 	}
 	#endregion			// 함수
 
@@ -76,7 +76,7 @@ public class CFreeRewardPopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			this.ShowRewardPopup();
+			this.ShowRewardAcquirePopup();
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE

@@ -22,7 +22,7 @@ public struct STItemInfo {
 [MessagePackObject]
 public struct STTypeWrapper {
 	[Key(31)] public List<long> m_oLevelIDList;
-	[Key(101)] public Dictionary<long, CLevelInfo> m_oLevelInfoList;
+	[Key(201)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoListContainer;
 }
 #endregion			// 기본
 #endif			// #if NEVER_USE_THIS

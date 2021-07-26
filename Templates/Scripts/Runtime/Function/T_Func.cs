@@ -61,7 +61,7 @@ public static partial class Func {
 	}
 
 	//! 지역화 문자열을 설정한다
-	public static void SetupLocalizeStrs(string a_oLanguage, string a_oCountryCode) {
+	public static void SetupLocalizeStrs(string a_oLanguage, string a_oCountryCode, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(a_oCountryCode.ExIsValid());
 
 		string oBasePath = KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR;
@@ -342,7 +342,7 @@ public static partial class Func {
 	}
 
 	//! 지급 아이템 정보를 저장한다
-	public static void SavePostItemInfos(List<STPostItemInfo> a_oPostItemInfoList, System.Action<CFirebaseManager, bool> a_oCallback) {
+	public static void SavePostItemInfos(List<STPostItemInfo> a_oPostItemInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(a_oPostItemInfoList != null);
 
 		CIndicatorManager.Inst.Show(true);
@@ -528,7 +528,7 @@ public static partial class Func {
 	}
 
 	//! 상품을 결제한다
-	public static void PurchaseProduct(ESaleProductKinds a_eSaleProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+	public static void PurchaseProduct(ESaleProductKinds a_eSaleProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
 		int nIdx = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExFindVal((a_eCompareSaleProductKinds) => a_eSaleProductKinds == a_eCompareSaleProductKinds);
 		CAccess.Assert(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nIdx));
 
@@ -536,7 +536,7 @@ public static partial class Func {
 	}
 	
 	//! 상품을 결제한다
-	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(a_oID.ExIsValid());
 		CIndicatorManager.Inst.Show(true);
 

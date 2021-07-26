@@ -23,8 +23,8 @@ public struct STLevelInfo {
 		m_nStageID = a_oLevelInfo[KDefine.G_KEY_EPISODE_IT_STAGE_ID].AsInt;
 		m_nChapterID = a_oLevelInfo[KDefine.G_KEY_EPISODE_IT_CHAPTER_ID].AsInt;
 		
-		m_oName = a_oLevelInfo[KDefine.G_KEY_EPISODE_IT_NAME];
-		m_oDesc = a_oLevelInfo[KDefine.G_KEY_EPISODE_IT_DESC];
+		m_oName = a_oLevelInfo[KCDefine.U_KEY_NAME];
+		m_oDesc = a_oLevelInfo[KCDefine.U_KEY_DESC];
 
 		m_eLevelMode = (ELevelMode)a_oLevelInfo[KDefine.G_KEY_EPISODE_IT_LEVEL_MODE].AsInt;
 		m_eRewardKinds = (ERewardKinds)a_oLevelInfo[KDefine.G_KEY_EPISODE_IT_REWARD_KINDS].AsInt;
@@ -50,8 +50,8 @@ public struct STStageInfo {
 		m_nID = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_ID].AsInt;
 		m_nChapterID = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_CHAPTER_ID].AsInt;
 
-		m_oName = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_NAME];
-		m_oDesc = a_oStageInfo[KDefine.G_KEY_EPISODE_IT_DESC];
+		m_oName = a_oStageInfo[KCDefine.U_KEY_NAME];
+		m_oDesc = a_oStageInfo[KCDefine.U_KEY_DESC];
 
 		m_eStageMode = (EStageMode)a_oStageInfo[KDefine.G_KEY_EPISODE_IT_STAGE_MODE].AsInt;
 		m_eRewardKinds = (ERewardKinds)a_oStageInfo[KDefine.G_KEY_EPISODE_IT_REWARD_KINDS].AsInt;
@@ -75,8 +75,8 @@ public struct STChapterInfo {
 	public STChapterInfo(SimpleJSON.JSONNode a_oChapterInfo) {
 		m_nID = a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_ID].AsInt;
 
-		m_oName = a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_NAME];
-		m_oDesc = a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_DESC];
+		m_oName = a_oChapterInfo[KCDefine.U_KEY_NAME];
+		m_oDesc = a_oChapterInfo[KCDefine.U_KEY_DESC];
 
 		m_eChapterMode = (EChapterMode)a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_CHAPTER_MODE].AsInt;
 		m_eRewardKinds = (ERewardKinds)a_oChapterInfo[KDefine.G_KEY_EPISODE_IT_REWARD_KINDS].AsInt;
@@ -108,9 +108,20 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	public override void Awake() {
 		base.Awake();
 
-		this.SetupLevelInfos();
-		this.SetupStageInfos();
-		this.SetupChapterInfos();
+		for(int i = 0; i < m_oLevelInfoList.Count; ++i) {
+			long nLevelID = CFactory.MakeUniqueLevelID(i, m_oLevelInfoList[i].m_nStageID, m_oLevelInfoList[i].m_nChapterID);
+			this.LevelInfoList.ExAddVal(nLevelID, m_oLevelInfoList[i]);
+		}
+
+		for(int i = 0; i < m_oStageInfoList.Count; ++i) {
+			long nStageID = CFactory.MakeUniqueStageID(i, m_oStageInfoList[i].m_nChapterID);
+			this.StageInfoList.ExAddVal(nStageID, m_oStageInfoList[i]);
+		}
+
+		for(int i = 0; i < m_oChapterInfoList.Count; ++i) {
+			long nChapterID = CFactory.MakeUniqueChapterID(i);
+			this.ChapterInfoList.ExAddVal(nChapterID, m_oChapterInfoList[i]);
+		}
 	}
 
 	//! 레벨 정보를 반환한다
@@ -139,7 +150,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	//! 레벨 정보를 반환한다
 	public bool TryGetLevelInfo(int a_nID, out STLevelInfo a_stOutLevelInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nLevelID = Factory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
+		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
 		a_stOutLevelInfo = this.LevelInfoList.ExGetVal(nLevelID, KDefine.G_INVALID_LEVEL_INFO);
 
 		return this.LevelInfoList.ContainsKey(nLevelID);
@@ -147,7 +158,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	//! 스테이지 정보를 반환한다
 	public bool TryGetStageInfo(int a_nID, out STStageInfo a_stOutStageInfo, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nStageID = Factory.MakeUniqueStageID(a_nID, a_nChapterID);
+		long nStageID = CFactory.MakeUniqueStageID(a_nID, a_nChapterID);
 		a_stOutStageInfo = this.StageInfoList.ExGetVal(nStageID, KDefine.G_INVALID_STAGE_INFO);
 
 		return this.StageInfoList.ContainsKey(nStageID);
@@ -155,7 +166,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	//! 챕터 정보를 반환한다
 	public bool TryGetChapterInfo(int a_nID, out STChapterInfo a_stOutChapterInfo) {
-		long nChapterID = Factory.MakeUniqueChapterID(a_nID);
+		long nChapterID = CFactory.MakeUniqueChapterID(a_nID);
 		a_stOutChapterInfo = this.ChapterInfoList.ExGetVal(nChapterID, KDefine.G_INVALID_CHAPTER_INFO);
 
 		return this.ChapterInfoList.ContainsKey(nChapterID);
@@ -187,36 +198,6 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 레벨 정보를 설정한다
-	private void SetupLevelInfos() {
-		CAccess.Assert(m_oLevelInfoList != null && this.LevelInfoList != null);
-
-		for(int i = 0; i < m_oLevelInfoList.Count; ++i) {
-			long nLevelID = Factory.MakeUniqueLevelID(i, m_oLevelInfoList[i].m_nStageID, m_oLevelInfoList[i].m_nChapterID);
-			this.LevelInfoList.ExAddVal(nLevelID, m_oLevelInfoList[i]);
-		}
-	}
-
-	//! 스테이지 정보를 설정한다
-	private void SetupStageInfos() {
-		CAccess.Assert(m_oStageInfoList != null && this.StageInfoList != null);
-
-		for(int i = 0; i < m_oStageInfoList.Count; ++i) {
-			long nStageID = Factory.MakeUniqueStageID(i, m_oStageInfoList[i].m_nChapterID);
-			this.StageInfoList.ExAddVal(nStageID, m_oStageInfoList[i]);
-		}
-	}
-
-	//! 챕터 정보를 설정한다
-	private void SetupChapterInfos() {
-		CAccess.Assert(m_oChapterInfoList != null && this.ChapterInfoList != null);
-
-		for(int i = 0; i < m_oChapterInfoList.Count; ++i) {
-			long nChapterID = Factory.MakeUniqueChapterID(i);
-			this.ChapterInfoList.ExAddVal(nChapterID, m_oChapterInfoList[i]);
-		}
-	}
-
 	//! 에피소드 정보를 로드한다
 	private List<object> DoLoadEpisodeInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
@@ -228,7 +209,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 		for(int i = 0; i < oLevelInfos.Count; ++i) {
 			var stLevelInfo = new STLevelInfo(oLevelInfos[i]);
-			long nLevelID = Factory.MakeUniqueLevelID(i, stLevelInfo.m_nStageID, stLevelInfo.m_nChapterID);
+			long nLevelID = CFactory.MakeUniqueLevelID(i, stLevelInfo.m_nStageID, stLevelInfo.m_nChapterID);
 
 			// 레벨 정보가 추가 가능 할 경우
 			if(!this.LevelInfoList.ContainsKey(nLevelID) || oLevelInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
@@ -238,7 +219,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 		for(int i = 0; i < oStageInfos.Count; ++i) {
 			var stStageInfo = new STStageInfo(oStageInfos[i]);
-			long nStageID = Factory.MakeUniqueStageID(i, stStageInfo.m_nChapterID);
+			long nStageID = CFactory.MakeUniqueStageID(i, stStageInfo.m_nChapterID);
 
 			// 스테이지 정보가 추가 가능 할 경우
 			if(!this.StageInfoList.ContainsKey(nStageID) || oStageInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
@@ -248,7 +229,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 		for(int i = 0; i < oChapterInfos.Count; ++i) {
 			var stChapterInfo = new STChapterInfo(oChapterInfos[i]);
-			long nChapterID = Factory.MakeUniqueChapterID(i);
+			long nChapterID = CFactory.MakeUniqueChapterID(i);
 
 			// 챕터 정보가 추가 가능 할 경우
 			if(!this.ChapterInfoList.ContainsKey(nChapterID) || oChapterInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
@@ -257,9 +238,50 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		}
 
 #if UNITY_EDITOR
-		this.SetupLevelInfoList();
-		this.SetupStageInfoList();
-		this.SetupChapterInfoList();
+		foreach(var stKeyVal in this.LevelInfoList) {
+			int nIdx = m_oLevelInfoList.ExFindVal((a_stLevelInfo) => {
+				long nLevelID = CFactory.MakeUniqueLevelID(a_stLevelInfo.m_nID, a_stLevelInfo.m_nStageID, a_stLevelInfo.m_nChapterID);
+				return nLevelID == CFactory.MakeUniqueLevelID(stKeyVal.Value.m_nID, stKeyVal.Value.m_nStageID, stKeyVal.Value.m_nChapterID);
+			});
+
+			CAccess.Assert(!m_oLevelInfoList.ExIsValidIdx(nIdx));
+			m_oLevelInfoList.Add(stKeyVal.Value);
+		}
+
+		foreach(var stKeyVal in this.StageInfoList) {
+			int nIdx = m_oStageInfoList.ExFindVal((a_stStageInfo) => {
+				long nStageID = CFactory.MakeUniqueStageID(a_stStageInfo.m_nID, a_stStageInfo.m_nChapterID);
+				return nStageID == CFactory.MakeUniqueStageID(stKeyVal.Value.m_nID, stKeyVal.Value.m_nChapterID);
+			});
+
+			CAccess.Assert(!m_oStageInfoList.ExIsValidIdx(nIdx));
+			m_oStageInfoList.Add(stKeyVal.Value);
+		}
+
+		foreach(var stKeyVal in this.ChapterInfoList) {
+			int nIdx = m_oChapterInfoList.ExFindVal((a_stChapterInfo) => {
+				long nChapterID = CFactory.MakeUniqueChapterID(a_stChapterInfo.m_nID);
+				return nChapterID == CFactory.MakeUniqueChapterID(stKeyVal.Value.m_nID);
+			});
+
+			CAccess.Assert(!m_oChapterInfoList.ExIsValidIdx(nIdx));
+			m_oChapterInfoList.Add(stKeyVal.Value);
+		}
+
+		m_oLevelInfoList.Sort((a_stLhs, a_stRhs) => {
+			long nLevelID = CFactory.MakeUniqueLevelID(a_stLhs.m_nID, a_stLhs.m_nStageID, a_stLhs.m_nChapterID);
+			return (int)(nLevelID - CFactory.MakeUniqueLevelID(a_stRhs.m_nID, a_stRhs.m_nStageID, a_stRhs.m_nChapterID));
+		});
+
+		m_oStageInfoList.Sort((a_stLhs, a_stRhs) => {
+			long nStageID = CFactory.MakeUniqueStageID(a_stLhs.m_nID, a_stLhs.m_nChapterID);
+			return (int)(nStageID - CFactory.MakeUniqueStageID(a_stRhs.m_nID, a_stRhs.m_nChapterID));
+		});
+
+		m_oChapterInfoList.Sort((a_stLhs, a_stRhs) => {
+			long nChapterID = CFactory.MakeUniqueChapterID(a_stLhs.m_nID);
+			return (int)(nChapterID - CFactory.MakeUniqueChapterID(a_stRhs.m_nID));
+		});
 #endif			// #if UNITY_EDITOR
 
 		return new List<object>() {
@@ -267,51 +289,5 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		};
 	}
 	#endregion			// 함수
-
-	#region 조건부 함수
-#if UNITY_EDITOR
-	//! 레벨 정보를 설정한다
-	private void SetupLevelInfoList() {
-		m_oLevelInfoList.Clear();
-
-		foreach(var stKeyVal in this.LevelInfoList) {
-			m_oLevelInfoList.ExAddVal(stKeyVal.Value);
-		}
-
-		m_oLevelInfoList.Sort((a_stLhs, a_stRhs) => {
-			long nLevelID = Factory.MakeUniqueLevelID(a_stLhs.m_nID, a_stLhs.m_nStageID, a_stLhs.m_nChapterID);
-			return (int)(nLevelID - Factory.MakeUniqueLevelID(a_stRhs.m_nID, a_stRhs.m_nStageID, a_stRhs.m_nChapterID));
-		});
-	}
-
-	//! 스테이지 정보를 설정한다
-	private void SetupStageInfoList() {
-		m_oStageInfoList.Clear();
-
-		foreach(var stKeyVal in this.StageInfoList) {
-			m_oStageInfoList.ExAddVal(stKeyVal.Value);
-		}
-
-		m_oStageInfoList.Sort((a_stLhs, a_stRhs) => {
-			long nStageID = Factory.MakeUniqueStageID(a_stLhs.m_nID, a_stLhs.m_nChapterID);
-			return (int)(nStageID - Factory.MakeUniqueStageID(a_stRhs.m_nID, a_stRhs.m_nChapterID));
-		});
-	}
-
-	//! 챕터 정보를 설정한다
-	private void SetupChapterInfoList() {
-		m_oChapterInfoList.Clear();
-
-		foreach(var stKeyVal in this.ChapterInfoList) {
-			m_oChapterInfoList.ExAddVal(stKeyVal.Value);
-		}
-		
-		m_oChapterInfoList.Sort((a_stLhs, a_stRhs) => {
-			long nChapterID = Factory.MakeUniqueChapterID(a_stLhs.m_nID);
-			return (int)(nChapterID - Factory.MakeUniqueChapterID(a_stRhs.m_nID));
-		});
-	}
-#endif			// #if UNITY_EDITOR
-	#endregion			// 조건부 함수
 }
 #endif			// #if NEVER_USE_THIS

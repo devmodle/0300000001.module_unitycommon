@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 #if NEVER_USE_THIS
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
-using UnityEditor.SceneManagement;
 
 //! 에디터 씬 관리자
 [InitializeOnLoad]
@@ -123,7 +121,7 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_bIsSetupDependencies = false;
 				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
 
-				var oDefineSymbolListContainer = new List<string>[] {
+				var oDefineSymbolLists = new List<string>[] {
 					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
 					CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
 					
@@ -140,8 +138,8 @@ public static partial class CEditorSceneManager {
 				};
 
 				foreach(var stKeyVal in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULE_LIST) {
-					for(int i = 0; i < oDefineSymbolListContainer.Length; ++i) {
-						var oDefineSymbolList = oDefineSymbolListContainer[i];
+					for(int i = 0; i < oDefineSymbolLists.Length; ++i) {
+						var oDefineSymbolList = oDefineSymbolLists[i];
 						
 						// 전처리기 심볼 갱신이 필요 할 경우
 						if(oDefineSymbolList.Contains(stKeyVal.Key)) {

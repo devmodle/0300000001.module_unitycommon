@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-//! 보상 팝업
-public class CRewardPopup : CSubPopup {
+//! 보상 획득 팝업
+public class CRewardAcquirePopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
 		public ERewardQuality m_eQuality;
-		public ERewardPopupType m_ePopupType;
+		public ERewardAcquirePopupType m_ePopupType;
+		
 		public List<STItemInfo> m_oItemInfoList;
 	}
 
@@ -31,7 +32,7 @@ public class CRewardPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다
-		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_REWARD_P_ACQUIRE_BTN);
+		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_REWARD_AP_ACQUIRE_BTN);
 		m_oAcquireBtn.onClick.AddListener(this.OnTouchAcquireBtn);
 	}
 	

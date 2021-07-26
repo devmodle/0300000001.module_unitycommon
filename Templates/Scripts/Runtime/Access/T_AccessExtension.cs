@@ -73,8 +73,8 @@ public static partial class AccessExtension {
 	}
 
 	//! 유효 여부를 검사한다
-	public static bool ExIsValid(this ERewardPopupType a_eSender) {
-		return a_eSender > ERewardPopupType.NONE && a_eSender < ERewardPopupType.MAX_VAL;
+	public static bool ExIsValid(this ERewardAcquirePopupType a_eSender) {
+		return a_eSender > ERewardAcquirePopupType.NONE && a_eSender < ERewardAcquirePopupType.MAX_VAL;
 	}
 
 	//! 유효 여부를 검사한다
@@ -93,8 +93,8 @@ public static partial class AccessExtension {
 	}
 	
 	//! 컴포넌트 상호 작용 여부를 변경한다
-	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable, bool a_bIsEnableNullAssert = true) {
-		CAccess.Assert(!a_bIsEnableNullAssert || a_oSender != null);
+	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
 
 		// 버튼이 존재 할 경우
 		if(a_oSender != null) {

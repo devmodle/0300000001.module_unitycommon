@@ -48,7 +48,14 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 				LogFunc.SendLaunchLog();
 				LogFunc.SendSplashLog();
 				
-				CCommonAppInfoStorage.Inst.IsFirstStart = true;
+				CCommonAppInfoStorage.Inst.IsFirstStart = false;
+
+#if UNITY_STANDALONE && EDITOR_ENABLE
+				// 독립 플랫폼 일 경우
+				if(CAccess.IsStandalone) {
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+				}
+#endif			// #if UNITY_STANDALONE && EDITOR_ENABLE
 			}
 
 			// 최초 플레이 일 경우
@@ -77,7 +84,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 #if FREE_REWARD_ENABLE
 				// 무료 보상 획득이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableGetFreeReward) {
-					CGameInfoStorage.Inst.GameInfo.FreeRewardTimes = KCDefine.B_VAL_0_INT;
+					CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards = KCDefine.B_VAL_0_INT;
 					CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
 					
 					CGameInfoStorage.Inst.SaveGameInfo();

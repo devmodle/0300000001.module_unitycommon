@@ -19,7 +19,7 @@ public static partial class Func {
 		Func.ShowAlertPopup(stParams, a_oCallback);
 	}
 	
-	//! 레벨 제거 팝업을 출력한다
+	//! 에디터 레벨 제거 팝업을 출력한다
 	public static void ShowEditorLevelRemovePopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
 			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
@@ -31,7 +31,7 @@ public static partial class Func {
 		Func.ShowAlertPopup(stParams, a_oCallback);
 	}
 
-	//! 스테이지 제거 팝업을 출력한다
+	//! 에디터 스테이지 제거 팝업을 출력한다
 	public static void ShowEditorStageRemovePopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
 			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),
@@ -43,7 +43,7 @@ public static partial class Func {
 		Func.ShowAlertPopup(stParams, a_oCallback);
 	}
 
-	//! 챕터 제거 팝업을 출력한다
+	//! 에디터 챕터 제거 팝업을 출력한다
 	public static void ShowEditorChapterRemovePopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		var stParams = new CAlertPopup.STParams() {
 			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_ALERT_P_TITLE),

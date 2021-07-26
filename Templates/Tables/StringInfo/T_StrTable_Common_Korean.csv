@@ -28,3 +28,12 @@ DESC_P_DESC_MSG_01,0,설명 팝업 설명 메세지 1,∙ 특별한 프로모션
 DESC_P_DESC_MSG_02,0,설명 팝업 설명 메세지 2,∙ 관심사에 맞는 광고를 보여\n드립니다.
 DESC_P_DESC_MSG_03,0,설명 팝업 설명 메세지 3,∙ 개인화 된 경험이 향상 시켜\n드립니다.
 DESC_P_NEXT_BTN_TEXT,0,설명 팝업 다음 버튼 텍스트,다음
+COMMON_LEVEL_TEXT,0,공용 레벨 텍스트,레벨
+COMMON_STAGE_TEXT,0,공용 스테이지 텍스트,스테이지
+COMMON_CHAPTER_TEXT,0,공용 챕터 텍스트,챕터
+COMMON_LEVEL_PAGE_TEXT_FMT,0,공용 레벨 페이지 텍스트 형식,레벨 {0}/{1}
+COMMON_STAGE_PAGE_TEXT_FMT,0,공용 스테이지 페이지 텍스트 형식,스테이지 {0}/{1}
+COMMON_CHAPTER_PAGE_TEXT_FMT,0,공용 챕터 페이지 텍스트 형식,챕터 {0}/{1}
+COMMON_NUM_LEVELS_TEXT_FMT,0,공용 레벨 개수 텍스트 형식,레벨 개수 : {0}
+COMMON_NUM_STAGES_TEXT_FMT,0,공용 스테이지 개수 텍스트 형식,스테이지 개수 : {0}
+COMMON_NUM_CHAPTERS_TEXT_FMT,0,공용 챕터 개수 텍스트 형식,챕터 개수 : {0}

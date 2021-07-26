@@ -31,9 +31,21 @@ public class CLevelEditorSceneManager : CSceneManager {
 			m_oPortraitUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_PORTRAIT_UIS);
 			m_oLandscapeUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_LANDSCAPE_UIS);
 
-			m_oLeftEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_LEFT_EDITOR_UIS);
-			m_oRightEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_RIGHT_EDITOR_UIS);
-			m_oMidEditorUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_MID_EDITOR_UIS);
+#if MODE_PORTRAIT_ENABLE
+			m_oPortraitUIs.SetActive(true);
+			m_oLandscapeUIs.SetActive(false);
+
+			m_oLeftEditorUIs = m_oPortraitUIs.ExFindChild(KCDefine.E_OBJ_N_LEFT_EDITOR_UIS);
+			m_oRightEditorUIs = m_oPortraitUIs.ExFindChild(KCDefine.E_OBJ_N_RIGHT_EDITOR_UIS);
+			m_oMidEditorUIs = m_oPortraitUIs.ExFindChild(KCDefine.E_OBJ_N_MID_EDITOR_UIS);
+#else
+			m_oPortraitUIs.SetActive(false);
+			m_oLandscapeUIs.SetActive(true);
+			
+			m_oLeftEditorUIs = m_oLandscapeUIs.ExFindChild(KCDefine.E_OBJ_N_LEFT_EDITOR_UIS);
+			m_oRightEditorUIs = m_oLandscapeUIs.ExFindChild(KCDefine.E_OBJ_N_RIGHT_EDITOR_UIS);
+			m_oMidEditorUIs = m_oLandscapeUIs.ExFindChild(KCDefine.E_OBJ_N_MID_EDITOR_UIS);
+#endif			// #if MODE_PORTRAIT_ENABLE
 		}
 	}
 	#endregion			// 함수

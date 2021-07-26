@@ -21,8 +21,8 @@ public struct STSaleItemInfo {
 	public STSaleItemInfo(SimpleJSON.JSONNode a_oSaleItemInfo) {
 		m_nPrice = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE].AsInt;
 		
-		m_oName = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_NAME];
-		m_oDesc = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_DESC];
+		m_oName = a_oSaleItemInfo[KCDefine.U_KEY_NAME];
+		m_oDesc = a_oSaleItemInfo[KCDefine.U_KEY_DESC];
 
 		m_ePriceKinds = (EPriceKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE_KINDS].AsInt;
 		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;

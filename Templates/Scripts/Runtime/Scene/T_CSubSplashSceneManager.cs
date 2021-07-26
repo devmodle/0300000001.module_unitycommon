@@ -31,7 +31,7 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 	protected override void ShowSplash() {
 		m_oSplashImg.SetNativeSize();
 		m_oSplashImg.gameObject.SetActive(true);
-
+		
 		this.ExLateCallFunc((a_oSender, a_oParams) => this.LoadNextScene(), KCDefine.SS_DELAY_NEXT_SCENE_LOAD);
 	}
 	#endregion			// 함수

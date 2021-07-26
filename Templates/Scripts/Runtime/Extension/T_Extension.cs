@@ -6,46 +6,6 @@ using UnityEngine;
 //! 기본 확장 클래스
 public static partial class Extension {
 	#region 클래스 함수
-	//! 종류 => 타입으로 변환한다
-	public static int ExKindsToType(this int a_nSender) {
-		return a_nSender / KCDefine.B_UNIT_KINDS_PER_TYPE;
-	}
-	
-	//! 종류 => 기본 종류로 변환한다
-	public static int ExKindsToBaseKinds(this int a_nSender) {
-		int nType = a_nSender.ExKindsToType();
-		return nType * KCDefine.B_UNIT_KINDS_PER_TYPE;
-	}
-
-	//! 종류 => 종류 타입으로 변환한다
-	public static int ExKindsToKindsType(this int a_nSender) {
-		int nBaseKinds = a_nSender.ExKindsToBaseKinds();
-		int nKindsType = a_nSender % KCDefine.B_UNIT_KINDS_PER_TYPE;
-		
-		return nBaseKinds + ((nKindsType / KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE) * KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE);
-	}
-
-	//! 종류 => 서브 종류 타입으로 변환한다
-	public static int ExKindsToSubKindsType(this int a_nSender) {
-		int nKindsType = a_nSender.ExKindsToKindsType();
-		int nSubKindsType = a_nSender % KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE;
-
-		return nKindsType + ((nSubKindsType / KCDefine.B_UNIT_KINDS_PER_SUB_KINDS_TYPE) * KCDefine.B_UNIT_KINDS_PER_SUB_KINDS_TYPE);
-	}
-
-	//! 식별자 => 챕터 식별자로 변환한다
-	public static int ExIDToChapterID(this int a_nSender) {
-		return (a_nSender / KCDefine.B_UNIT_IDS_PER_CHAPTER) * KCDefine.B_UNIT_IDS_PER_CHAPTER;
-	}
-
-	//! 식별자 => 스테이지 식별자로 변환한다
-	public static int ExIDToStageID(this int a_nSender) {
-		int nChapterID = a_nSender.ExIDToChapterID();
-		int nStageID = a_nSender % KCDefine.B_UNIT_IDS_PER_CHAPTER;
-
-		return nChapterID + ((nStageID / KCDefine.B_UNIT_IDS_PER_STAGE) * KCDefine.B_UNIT_IDS_PER_STAGE);
-	}
-
 	//! JSON 문자열 => 유저 정보로 변환한다
 	public static KeyValuePair<CUserInfo, CCommonUserInfo> ExJSONStrToUserInfos(this string a_oSender) {
 		CAccess.Assert(a_oSender.ExIsValid());

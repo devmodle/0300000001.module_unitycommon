@@ -176,6 +176,7 @@ public enum EMissionType {
 	NONE = -1,
 	FREE,
 	DAILY,
+	EVENT,
 	MAX_VAL
 }
 
@@ -193,6 +194,11 @@ public enum EMissionKinds {
 	[HideInInspector] DAILY_MISSION = EMissionKinds.FREE_MISSION + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 일일
 
+	#region 이벤트
+	// 이벤트 미션 20,000,000
+	[HideInInspector] EVENT_MISSION = EMissionKinds.DAILY_MISSION + KCDefine.B_UNIT_KINDS_PER_TYPE,
+	#endregion			// 이벤트
+
 	MAX_VAL
 }
 
@@ -201,6 +207,7 @@ public enum ERewardType {
 	NONE = -1,
 	FREE,
 	DAILY,
+	EVENT,
 	CLEAR,
 	MAX_VAL
 }
@@ -219,9 +226,14 @@ public enum ERewardKinds {
 	[HideInInspector] DAILY_REWARD = ERewardKinds.FREE_REWARD + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 일일
 
+	#region 이벤트
+	// 이벤트 보상 20,000,000
+	[HideInInspector] EVENT_REWARD = ERewardKinds.DAILY_REWARD + KCDefine.B_UNIT_KINDS_PER_TYPE,
+	#endregion			// 이벤트
+
 	#region 클리어
-	// 클리어 보상 20,000,000
-	[HideInInspector] CLEAR_REWARD = ERewardKinds.DAILY_REWARD + KCDefine.B_UNIT_KINDS_PER_TYPE,
+	// 클리어 보상 30,000,000
+	[HideInInspector] CLEAR_REWARD = ERewardKinds.EVENT_REWARD + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 클리어
 
 	MAX_VAL
@@ -236,12 +248,13 @@ public enum ERewardQuality {
 	MAX_VAL
 }
 
-//! 보상 팝업 타입
-public enum ERewardPopupType {
+//! 보상 획득 팝업 타입
+public enum ERewardAcquirePopupType {
 	NONE = -1,
-	CLEAR,
 	FREE,
 	DAILY,
+	EVENT,
+	CLEAR,
 	MAX_VAL
 }
 

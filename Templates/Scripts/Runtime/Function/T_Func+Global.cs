@@ -66,15 +66,10 @@ public static partial class Func {
 	}
 
 	//! 일일 미션 팝업을 출력한다
-	public static void ShowDailyPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+	public static void ShowDailyMissionPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CDailyMissionPopup>(KDefine.G_OBJ_N_DAILY_MISSION_POPUP, KCDefine.U_OBJ_P_G_DAILY_MISSION_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	//! 보상 팝업을 출력한다
-	public static void ShowRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CRewardPopup>(KDefine.G_OBJ_N_REWARD_POPUP, KCDefine.U_OBJ_P_G_REWARD_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-	
 	//! 무료 보상 팝업을 출력한다
 	public static void ShowFreeRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CFreeRewardPopup>(KDefine.G_OBJ_N_FREE_REWARD_POPUP, KCDefine.U_OBJ_P_G_FREE_REWARD_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
@@ -88,6 +83,11 @@ public static partial class Func {
 	//! 잔돈 팝업을 출력한다
 	public static void ShowChangesPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CChangesPopup>(KDefine.G_OBJ_N_CHANGES_POPUP, KCDefine.U_OBJ_P_G_CHANGES_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
+	//! 보상 획득 팝업을 출력한다
+	public static void ShowRewardAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CRewardAcquirePopup>(KDefine.G_OBJ_N_REWARD_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_REWARD_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	//! 잔돈 획득 팝업을 출력한다
@@ -109,7 +109,7 @@ public static partial class Func {
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	//! 상품을 획득한다
-	public static void AcquireProduct(string a_oProductID) {
+	public static void AcquireProduct(string a_oProductID, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(a_oProductID.ExIsValid());
 		int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
 
@@ -129,7 +129,7 @@ public static partial class Func {
 	}
 
 	//! 복원 상품을 획득한다
-	public static void AcquireRestoreProducts(List<Product> a_oProductList) {
+	public static void AcquireRestoreProducts(List<Product> a_oProductList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(a_oProductList != null);
 
 		for(int i = 0; i < a_oProductList.Count; ++i) {

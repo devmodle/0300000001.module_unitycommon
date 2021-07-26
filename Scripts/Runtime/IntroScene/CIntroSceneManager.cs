@@ -50,6 +50,7 @@ public class CIntroSceneManager : CSceneManager {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 #endif			// #if STUDY_MODULE_ENABLE
 			} else {
+				CCommonAppInfoStorage.Inst.IsFirstStart = false;
 				CSceneLoader.Inst.LoadScene(CSceneManager.AwakeSceneName, false, false);
 			}
 		}, KCDefine.U_DELAY_NEXT_SCENE_LOAD);

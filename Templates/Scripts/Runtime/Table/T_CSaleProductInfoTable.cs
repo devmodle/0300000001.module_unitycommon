@@ -17,8 +17,8 @@ public struct STSaleProductInfo {
 	#region 함수
 	//! 생성자
 	public STSaleProductInfo(SimpleJSON.JSONNode a_oSaleProductInfo) {
-		m_oName = a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_NAME];
-		m_oDesc = a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_DESC];
+		m_oName = a_oSaleProductInfo[KCDefine.U_KEY_NAME];
+		m_oDesc = a_oSaleProductInfo[KCDefine.U_KEY_DESC];
 
 		m_ePriceKinds = (EPriceKinds)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_PRICE_KINDS].AsInt;
 		m_eSaleProductKinds = (ESaleProductKinds)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_SALE_PRODUCT_KINDS].AsInt;
