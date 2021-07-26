@@ -8,6 +8,26 @@ using UnityEngine.UI;
 public static partial class AccessExtension {
 	#region 클래스 함수
 	//! 유효 여부를 검사한다
+	public static bool ExIsValid(this EPlayMode a_eSender) {
+		return a_eSender > EPlayMode.NONE && a_eSender < EPlayMode.MAX_VAL;
+	}
+
+	//! 유효 여부를 검사한다
+	public static bool ExIsValid(this ELevelMode a_eSender) {
+		return a_eSender > ELevelMode.NONE && a_eSender < ELevelMode.MAX_VAL;
+	}
+
+	//! 유효 여부를 검사한다
+	public static bool ExIsValid(this EStageMode a_eSender) {
+		return a_eSender > EStageMode.NONE && a_eSender < EStageMode.MAX_VAL;
+	}
+
+	//! 유효 여부를 검사한다
+	public static bool ExIsValid(this EChapterMode a_eSender) {
+		return a_eSender > EChapterMode.NONE && a_eSender < EChapterMode.MAX_VAL;
+	}
+
+	//! 유효 여부를 검사한다
 	public static bool ExIsValid(this EPriceType a_eSender) {
 		return a_eSender > EPriceType.NONE && a_eSender < EPriceType.MAX_VAL;
 	}
@@ -85,11 +105,6 @@ public static partial class AccessExtension {
 	//! 유효 여부를 검사한다
 	public static bool ExIsValid(this ETutorialKinds a_eSender) {
 		return a_eSender > ETutorialKinds.NONE && a_eSender < ETutorialKinds.MAX_VAL;
-	}
-
-	//! 유효 여부를 검사한다
-	public static bool ExIsValid(this ELevelMode a_eSender) {
-		return a_eSender > ELevelMode.NONE && a_eSender < ELevelMode.MAX_VAL;
 	}
 	
 	//! 컴포넌트 상호 작용 여부를 변경한다
