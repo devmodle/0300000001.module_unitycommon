@@ -8,6 +8,8 @@ public static partial class KDefine {
 	#region 기본
 	// 개수 {
 	public const int G_MAX_NUM_CHANGES = 0;
+	public const int G_MAX_NUM_SALE_ITEM_INFOS = 0;
+	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_ACQUIRE_FREE_REWARDS = 0;
 
 	public const int G_MAX_NUM_LEVEL_INFOS = 9999;
@@ -21,8 +23,6 @@ public static partial class KDefine {
 	// 식별자 {
 	public const int G_PRODUCT_ID_CHANGES = 0;
 	public const int G_PRODUCT_ID_REMOVE_ADS = 1;
-	public const int G_PRODUCT_ID_SAMPLE_CONSUMABLE = 2;
-	public const int G_PRODUCT_ID_SAMPLE_NON_CONSUMABLE = 3;
 
 	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0:00}_{1:00}";
 	// 식별자 }
@@ -42,13 +42,11 @@ public static partial class KDefine {
 	public const string G_KEY_SALE_IIT_PRICE_KINDS = "PriceKinds";
 	public const string G_KEY_SALE_IIT_SALE_ITEM_KINDS = "SaleItemKinds";
 
-	public const string G_KEY_SALE_IIT_NUM_ITEMS = "NumItems";
-	public const string G_KEY_SALE_IIT_ITEM_KINDS = "ItemKinds";
+	public const string G_KEY_FMT_SALE_IIT_NUM_ITEMS = "NumItems_{0:00}";
+	public const string G_KEY_FMT_SALE_IIT_ITEM_KINDS = "ItemKinds_{0:00}";
 	// 판매 아이템 정보 테이블 }
 
 	// 판매 상품 정보 테이블 {
-	public const int G_MAX_NUM_SALE_PIT_ITEM_INFOS = 0;
-
 	public const string G_KEY_SALE_PIT_PRICE_KINDS = "PriceKinds";
 	public const string G_KEY_SALE_PIT_SALE_PRODUCT_KINDS = "SaleProductKinds";
 
@@ -66,8 +64,6 @@ public static partial class KDefine {
 	// 미션 정보 테이블 }
 
 	// 보상 정보 테이블 {
-	public const int G_MAX_NUM_REWARD_IT_ITEM_INFOS = 0;
-
 	public const string G_KEY_REWARD_IT_FREE = "Free";
 	public const string G_KEY_REWARD_IT_DAILY = "Daily";
 	public const string G_KEY_REWARD_IT_EVENT = "Event";

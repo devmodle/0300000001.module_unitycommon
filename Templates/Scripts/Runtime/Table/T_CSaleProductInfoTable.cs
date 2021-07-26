@@ -25,7 +25,7 @@ public struct STSaleProductInfo {
 		
 		m_oItemInfoList = new List<STItemInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_SALE_PIT_ITEM_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_SALE_ITEM_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_SALE_PIT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
@@ -48,14 +48,17 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public Dictionary<ESaleProductKinds, STSaleProductInfo> SaleProductInfoList { get; private set; } = new Dictionary<ESaleProductKinds, STSaleProductInfo>();
+	public Dictionary<ESaleProductKinds, STSaleProductInfo> SaleProductInfoDict { get; private set; } = new Dictionary<ESaleProductKinds, STSaleProductInfo>();
 	#endregion			// 프로퍼티
 
 	#region 함수
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-		this.SetupSaleProductInfos(m_oSaleProductInfoList, this.SaleProductInfoList);
+
+		for(int i = 0; i < m_oSaleProductInfoList.Count; ++i) {
+			this.SaleProductInfoDict.ExAddVal(m_oSaleProductInfoList[i].m_eSaleProductKinds, m_oSaleProductInfoList[i]);
+		}
 	}
 
 	//! 아이템 정보 포함 여부를 검사한다
@@ -87,8 +90,8 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 
 	//! 판매 상품 정보를 반환한다
 	public bool TryGetSaleProductInfo(ESaleProductKinds a_eSaleProductKinds, out STSaleProductInfo a_stOutSaleProductInfo) {
-		a_stOutSaleProductInfo = this.SaleProductInfoList.ExGetVal(a_eSaleProductKinds, KDefine.G_INVALID_SALE_PRODUCT_INFO);
-		return this.SaleProductInfoList.ContainsKey(a_eSaleProductKinds);
+		a_stOutSaleProductInfo = this.SaleProductInfoDict.ExGetVal(a_eSaleProductKinds, KDefine.G_INVALID_SALE_PRODUCT_INFO);
+		return this.SaleProductInfoDict.ContainsKey(a_eSaleProductKinds);
 	}
 
 	//! 아이템 정보를 반환한다
@@ -130,16 +133,6 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
-	
-	//! 판매 상품 정보를 설정한다
-	private void SetupSaleProductInfos(List<STSaleProductInfo> a_oSaleProductInfoList, Dictionary<ESaleProductKinds, STSaleProductInfo> a_oOutSaleProductInfoList) {
-		CAccess.Assert(a_oSaleProductInfoList != null && a_oOutSaleProductInfoList != null);
-
-		for(int i = 0; i < a_oSaleProductInfoList.Count; ++i) {
-			var stSaleProductInfo = a_oSaleProductInfoList[i];
-			a_oOutSaleProductInfoList.ExAddVal(stSaleProductInfo.m_eSaleProductKinds, stSaleProductInfo);
-		}
-	}
 
 	//! 판매 상품 정보를 로드한다
 	private Dictionary<ESaleProductKinds, STSaleProductInfo> DoLoadSaleProductInfos(string a_oJSONStr) {
@@ -153,33 +146,13 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 			bool bIsReplace = oSaleProductInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 			// 판매 상품 정보가 추가 가능 할 경우
-			if(bIsReplace || !this.SaleProductInfoList.ContainsKey(stSaleProductInfo.m_eSaleProductKinds)) {
-				this.SaleProductInfoList.ExReplaceVal(stSaleProductInfo.m_eSaleProductKinds, stSaleProductInfo);
+			if(bIsReplace || !this.SaleProductInfoDict.ContainsKey(stSaleProductInfo.m_eSaleProductKinds)) {
+				this.SaleProductInfoDict.ExReplaceVal(stSaleProductInfo.m_eSaleProductKinds, stSaleProductInfo);
 			}
 		}
 
-#if UNITY_EDITOR
-		this.SetupSaleProductInfoList(this.SaleProductInfoList, m_oSaleProductInfoList);
-#endif			// #if UNITY_EDITOR
-
-		return this.SaleProductInfoList;
+		return this.SaleProductInfoDict;
 	}
 	#endregion			// 함수
-
-	#region 조건부 함수
-#if UNITY_EDITOR
-	// 판매 상품 정보를 설정한다
-	private void SetupSaleProductInfoList(Dictionary<ESaleProductKinds, STSaleProductInfo> a_oSaleProductInfoList, List<STSaleProductInfo> a_oOutSaleProductInfoList) {
-		CAccess.Assert(a_oSaleProductInfoList != null && a_oOutSaleProductInfoList != null);
-		a_oOutSaleProductInfoList.Clear();
-
-		foreach(var stKeyVal in a_oSaleProductInfoList) {
-			a_oOutSaleProductInfoList.ExAddVal(stKeyVal.Value);
-		}
-
-		a_oOutSaleProductInfoList.Sort((a_stLhs, a_stRhs) => (int)a_stLhs.m_eSaleProductKinds - (int)a_stRhs.m_eSaleProductKinds);
-	}
-#endif			// #if UNITY_EDITOR
-	#endregion			// 조건부 함수
 }
 #endif			// #if NEVER_USE_THIS

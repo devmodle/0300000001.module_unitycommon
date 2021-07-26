@@ -122,7 +122,7 @@ public static partial class KEditorDefine {
 	};
 
 	// 데이터 타입
-	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPE_LIST = new Dictionary<string, System.Type>() {			
+	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPES = new Dictionary<string, System.Type>() {			
 		[KCDefine.B_SCENE_N_INIT] = typeof(CSubInitSceneManager),
 		[KCDefine.B_SCENE_N_SETUP] = typeof(CSubSetupSceneManager),
 		[KCDefine.B_SCENE_N_AGREE] = typeof(CSubAgreeSceneManager),
@@ -148,7 +148,7 @@ public static partial class KEditorDefine {
 	};
 
 	// 유니티 패키지 {
-	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_LIST = new Dictionary<string, string>() {
+	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCIES = new Dictionary<string, string>() {
 		// 기본 {
 		["com.unity.burst"] = "1.5.4",
 		["com.unity.recorder"] = "2.5.5",
@@ -231,7 +231,7 @@ public static partial class KEditorDefine {
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 	};
 
-	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_LIST = new Dictionary<string, string>() {
+	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRIES = new Dictionary<string, string>() {
 		// Do Nothing
 	};
 	// 유니티 패키지 }

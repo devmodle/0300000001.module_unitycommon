@@ -121,7 +121,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 					m_oAdmobIDList = new List<string>(),
 #endif			// #if UNITY_IOS
 
-					m_oAdsIDList = new Dictionary<string, string>() {
+					m_oAdsIDDict = new Dictionary<string, string>() {
 						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oBannerAdsID,
 						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oRewardAdsID,
 						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.AdmobPluginInfo.m_oFullscreenAdsID
@@ -133,7 +133,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				m_stIronSrcParams = new CAdsManager.STIronSrcParams() {
 					m_oAppKey = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oAppKey,
 
-					m_oAdsIDList = new Dictionary<string, string>() {
+					m_oAdsIDDict = new Dictionary<string, string>() {
 						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oBannerAdsID,
 						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oRewardAdsID,
 						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oFullscreenAdsID
@@ -145,7 +145,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				m_stAppLovinParams = new CAdsManager.STAppLovinParams() {
 					m_oSDKKey = CPluginInfoTable.Inst.AppLovinSDKKey,
 
-					m_oAdsIDList = new Dictionary<string, string>() {
+					m_oAdsIDDict = new Dictionary<string, string>() {
 						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.AppLovinPluginInfo.m_oBannerAdsID,
 						[KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.AppLovinPluginInfo.m_oRewardAdsID,
 						[KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.AppLovinPluginInfo.m_oFullscreenAdsID
@@ -175,7 +175,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			var oBuildVerConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG);
 
 			var stFirebaseParams = new CFirebaseManager.STParams() {
-				m_oConfigList = new Dictionary<string, object>() {
+				m_oConfigDict = new Dictionary<string, object>() {
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONStr(),
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VER] = oBuildVerConfig.text

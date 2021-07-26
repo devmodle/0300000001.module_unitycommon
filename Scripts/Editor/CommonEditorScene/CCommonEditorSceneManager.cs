@@ -27,7 +27,7 @@ public static partial class CCommonEditorSceneManager {
 		fontStyle = FontStyle.Bold
 	};
 
-	private static Dictionary<string, string> m_oSortingLayerList = new Dictionary<string, string>() {
+	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>() {
 		[KCDefine.U_SORTING_L_UNDERGROUND] = "U",
 		[KCDefine.U_SORTING_L_BACKGROUND] = "B",
 		[KCDefine.U_SORTING_L_DEF] = "D",
@@ -171,7 +171,7 @@ public static partial class CCommonEditorSceneManager {
 					var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_ORDER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
 
 					string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
-					oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerList.ExGetVal(oSortingLayer, string.Empty) : string.Empty;
+					oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerDict.ExGetVal(oSortingLayer, string.Empty) : string.Empty;
 
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {

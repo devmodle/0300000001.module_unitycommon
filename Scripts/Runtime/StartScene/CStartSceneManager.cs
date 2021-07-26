@@ -4,10 +4,12 @@ using UnityEngine;
 
 //! 시작 씬 관리자
 public abstract class CStartSceneManager : CSceneManager {
-	#region 프로퍼티
-	public List<string> SpriteAtlasList { get; private set; } = new List<string>();
-	public Dictionary<string, int> MaxNumDuplicateFXSndsList { get; private set; } = new Dictionary<string, int>();
+	#region 변수
+	protected List<string> m_oSpriteAtlasList = new List<string>();
+	protected Dictionary<string, int> m_oMaxNumDuplicateFXSndsDict = new Dictionary<string, int>();
+	#endregion			// 변수
 
+	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_START;
 
 #if UNITY_EDITOR
@@ -27,7 +29,7 @@ public abstract class CStartSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			SpriteAtlasList.ExAddVal(KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01);
+			m_oSpriteAtlasList.ExAddVal(KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01);
 		}
 	}
 
@@ -43,11 +45,11 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 씬을 설정한다
 	protected virtual void Setup() {
-		for(int i = 0; i < this.SpriteAtlasList.Count; ++i) {
-			CResManager.Inst.LoadSpriteAtlas(this.SpriteAtlasList[i]);
+		for(int i = 0; i < this.m_oSpriteAtlasList.Count; ++i) {
+			CResManager.Inst.LoadSpriteAtlas(this.m_oSpriteAtlasList[i]);
 		}
 
-		foreach(var stKeyVal in this.MaxNumDuplicateFXSndsList) {
+		foreach(var stKeyVal in this.m_oMaxNumDuplicateFXSndsDict) {
 			CSndManager.Inst.SetMaxNumDuplicateFXSnds(stKeyVal.Key, stKeyVal.Value);
 		}
 	}

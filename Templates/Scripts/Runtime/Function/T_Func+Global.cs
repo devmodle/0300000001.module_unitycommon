@@ -39,10 +39,12 @@ public static partial class Func {
 	public static void BuyItem(STSaleItemInfo a_stSaleItemInfo, bool a_bIsIgnoreAcquire = false) {
 		// 아이템 획득이 가능 할 경우
 		if(!a_bIsIgnoreAcquire) {
-			Func.AcquireItem(a_stSaleItemInfo.m_stItemInfo);
+			for(int i = 0; i < a_stSaleItemInfo.m_oItemInfoList.Count; ++i) {
+				Func.AcquireItem(a_stSaleItemInfo.m_oItemInfoList[i]);
+			}
 		}
 
-		// 비용이 존재 할 경우
+		// 코인 비용이 존재 할 경우
 		if(a_stSaleItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COIN && a_stSaleItemInfo.m_nPrice > KCDefine.B_VAL_0_INT) {
 			CUserInfoStorage.Inst.AddNumCoins(-a_stSaleItemInfo.m_nPrice);
 		}
@@ -110,37 +112,44 @@ public static partial class Func {
 #if PURCHASE_MODULE_ENABLE
 	//! 상품을 획득한다
 	public static void AcquireProduct(string a_oProductID, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(a_oProductID.ExIsValid());
-		int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
+		CAccess.Assert(!a_bIsEnableAssert || a_oProductID.ExIsValid());
 
-		var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
-		var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[nIdx];
-		var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
+		// 상품이 존재 할 경우
+		if(a_oProductID.ExIsValid()) {
+			int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
 
-		for(int i = 0; i < stSaleProductInfo.m_oItemInfoList.Count; ++i) {
-			Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[i]);
-		}
+			var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
+			var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[nIdx];
+			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
 
-		// 비소모 상품 일 경우
-		if(oProduct != null && oProduct.definition.type == ProductType.NonConsumable) {
-			CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductID);
-			CCommonUserInfoStorage.Inst.SaveUserInfo();
+			for(int i = 0; i < stSaleProductInfo.m_oItemInfoList.Count; ++i) {
+				Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[i]);
+			}
+
+			// 비소모 상품 일 경우
+			if(oProduct != null && oProduct.definition.type == ProductType.NonConsumable) {
+				CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductID);
+				CCommonUserInfoStorage.Inst.SaveUserInfo();
+			}
 		}
 	}
 
 	//! 복원 상품을 획득한다
 	public static void AcquireRestoreProducts(List<Product> a_oProductList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(a_oProductList != null);
+		CAccess.Assert(!a_bIsEnableAssert || a_oProductList != null);
 
-		for(int i = 0; i < a_oProductList.Count; ++i) {
-			// 상품 복원이 가능 할 경우
-			if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
-				int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
-				var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[nIdx];
-				var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
+		// 상품이 존재 할 경우
+		if(a_oProductList != null) {
+			for(int i = 0; i < a_oProductList.Count; ++i) {
+				// 상품 복원이 가능 할 경우
+				if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
+					int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
+					var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[nIdx];
+					var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
 
-				for(int j = 0; j < stSaleProductInfo.m_oItemInfoList.Count; ++j) {
-					Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[j]);
+					for(int j = 0; j < stSaleProductInfo.m_oItemInfoList.Count; ++j) {
+						Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[j]);
+					}
 				}
 			}
 		}

@@ -30,7 +30,7 @@ public static partial class CEditorSceneManager {
 	private static void SetupDependencies() {
 		var oPkgsInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
 
-		foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_LIST) {
+		foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_DEPENDENCIES) {
 			int nIdx = oPkgsInfoList.ExFindVal((a_oPkgsInfo) => a_oPkgsInfo.name.ExIsEquals(stKeyVal.Key));
 
 			// 독립 패키지가 없을 경우
@@ -61,7 +61,7 @@ public static partial class CEditorSceneManager {
 			var oScopedRegistryList = oJSONNode[KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY].AsArray;
 			oScopedRegistryList = oScopedRegistryList ?? new SimpleJSON.JSONArray();
 
-			foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_LIST) {
+			foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES) {
 				int nIdx = oScopedRegistryList.AsArray.ExFindVal((a_oJSONNode) => {
 					string oScopedRegistry = a_oJSONNode[KEditorDefine.B_UNITY_PKGS_N_KEY];
 					return stKeyVal.Key.ExIsEquals(oScopedRegistry);

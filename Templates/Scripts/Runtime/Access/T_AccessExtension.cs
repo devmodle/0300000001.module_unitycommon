@@ -111,11 +111,8 @@ public static partial class AccessExtension {
 	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
 
-		// 버튼이 존재 할 경우
-		if(a_oSender != null) {
-			var oTouchInteractable = a_oSender.GetComponentInChildren<CTouchInteractable>();
-			oTouchInteractable?.SetInteractable(a_bIsEnable);
-		}
+		var oTouchInteractable = a_oSender?.GetComponentInChildren<CTouchInteractable>();
+		oTouchInteractable?.SetInteractable(a_bIsEnable);
 	}
 	#endregion			// 클래스 함수
 }

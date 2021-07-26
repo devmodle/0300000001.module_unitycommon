@@ -25,7 +25,7 @@ public struct STRewardInfo {
 
 		m_oItemInfoList = new List<STItemInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_IT_ITEM_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_ITEM_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KDefine.G_KEY_FMT_REWARD_IT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_REWARD_IT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
@@ -57,7 +57,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoList { get; private set; } = new Dictionary<ERewardKinds, STRewardInfo>();
+	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoDict { get; private set; } = new Dictionary<ERewardKinds, STRewardInfo>();
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -71,7 +71,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		oRewardInfoList.AddRange(m_oClearRewardInfoList);
 
 		for(int i = 0; i < oRewardInfoList.Count; ++i) {
-			this.RewardInfoList.Add(oRewardInfoList[i].m_eRewardKinds, oRewardInfoList[i]);
+			this.RewardInfoDict.Add(oRewardInfoList[i].m_eRewardKinds, oRewardInfoList[i]);
 		}
 	}
 
@@ -85,8 +85,8 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	//! 보상 정보를 반환한다
 	public bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo) {
-		a_stOutRewardInfo = this.RewardInfoList.ExGetVal(a_eRewardKinds, KDefine.G_INVALID_REWARD_INFO);
-		return this.RewardInfoList.ContainsKey(a_eRewardKinds);
+		a_stOutRewardInfo = this.RewardInfoDict.ExGetVal(a_eRewardKinds, KDefine.G_INVALID_REWARD_INFO);
+		return this.RewardInfoDict.ContainsKey(a_eRewardKinds);
 	}
 
 	//! 보상 정보를 로드한다
@@ -133,13 +133,13 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 				bool bIsReplace = oRewardInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 보상 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.RewardInfoList.ContainsKey(stRewardInfo.m_eRewardKinds)) {
-					this.RewardInfoList.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
+				if(bIsReplace || !this.RewardInfoDict.ContainsKey(stRewardInfo.m_eRewardKinds)) {
+					this.RewardInfoDict.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
 				}
 			}
 		}
 		
-		return this.RewardInfoList;
+		return this.RewardInfoDict;
 	}
 	#endregion			// 함수
 }

@@ -16,7 +16,7 @@ using UnityEditor.iOS.Xcode;
 [InitializeOnLoad]
 public static partial class CBuildProcessor {
 	#region 클래스 변수
-	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessBuildList = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
+	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessBuildDict = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
 		[BuildTarget.StandaloneOSX] = CBuildProcessor.OnPostProcessStandaloneBuild,
 		[BuildTarget.StandaloneWindows] = CBuildProcessor.OnPostProcessStandaloneBuild,
 		[BuildTarget.StandaloneWindows64] = CBuildProcessor.OnPostProcessStandaloneBuild,
@@ -30,8 +30,8 @@ public static partial class CBuildProcessor {
 	//! 빌드가 완료 되었을 경우
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
-		CAccess.Assert(CBuildProcessor.m_oPostProcessBuildList.ContainsKey(a_eTarget));
-		CBuildProcessor.m_oPostProcessBuildList[a_eTarget](a_eTarget, a_oPath);
+		CAccess.Assert(CBuildProcessor.m_oPostProcessBuildDict.ContainsKey(a_eTarget));
+		CBuildProcessor.m_oPostProcessBuildDict[a_eTarget](a_eTarget, a_oPath);
 	}
 
 	//! 독립 플랫폼 빌드가 완료 되었을 경우
@@ -93,8 +93,8 @@ public static partial class CBuildProcessor {
 		}
 
 		// 전처리기 심볼 테이블이 존재 할 경우
-		if(CPlatformOptsSetter.DefineSymbolListContainer != null && CPlatformOptsSetter.DefineSymbolListContainer.ContainsKey(BuildTargetGroup.iOS)) {
-			var oDefineSymbolList = CPlatformOptsSetter.DefineSymbolListContainer[BuildTargetGroup.iOS];
+		if(CPlatformOptsSetter.DefineSymbolDictContainer != null && CPlatformOptsSetter.DefineSymbolDictContainer.ContainsKey(BuildTargetGroup.iOS)) {
+			var oDefineSymbolList = CPlatformOptsSetter.DefineSymbolDictContainer[BuildTargetGroup.iOS];
 
 			for(int i = 0; i < oDefineSymbolList.Count; ++i) {
 				oProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);

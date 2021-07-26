@@ -11,7 +11,7 @@ using UnityEngine.Purchasing;
 public static partial class LogFunc {
 	#region 클래스 함수
 	//! 로그를 전송한다
-	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataList, float? a_oVal = null) {
+	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataDict, float? a_oVal = null) {
 #if ANALYTICS_TEST_ENABLE
 		bool bIsEnableSendLog = true;
 #else
@@ -20,24 +20,24 @@ public static partial class LogFunc {
 
 		// 로그 전송이 가능 할 경우
 		if(bIsEnableSendLog || !CCommonAppInfoStorage.Inst.IsTestDevice()) {
-			CServicesManager.Inst.SendLog(a_oName, a_oDataList);
+			CServicesManager.Inst.SendLog(a_oName, a_oDataDict);
 
 #if FLURRY_MODULE_ENABLE
-			var oFlurryDataList = (a_oDataList != null) ? a_oDataList.ExToTypes<string, object, string, string>() : null;
-			CFlurryManager.Inst.SendLog(a_oName, oFlurryDataList);
+			var oFlurryDataDict = (a_oDataDict != null) ? a_oDataDict.ExToTypes<string, object, string, string>() : null;
+			CFlurryManager.Inst.SendLog(a_oName, oFlurryDataDict);
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-			var oFirebaseDataList = (a_oDataList != null) ? a_oDataList.ExToTypes<string, object, string, string>() : null;
-			CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataList);
+			var oFirebaseDataDict = (a_oDataDict != null) ? a_oDataDict.ExToTypes<string, object, string, string>() : null;
+			CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataDict);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if GAME_ANALYTICS_MODULE_ENABLE
-			CGameAnalyticsManager.Inst.SendLog(a_oName, a_oDataList);
+			CGameAnalyticsManager.Inst.SendLog(a_oName, a_oDataDict);
 #endif			// #if GAME_ANALYTICS_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-			CSingularManager.Inst.SendLog(a_oName, a_oDataList);
+			CSingularManager.Inst.SendLog(a_oName, a_oDataDict);
 #endif			// #if SINGULAR_MODULE_ENABLE
 		}
 	}

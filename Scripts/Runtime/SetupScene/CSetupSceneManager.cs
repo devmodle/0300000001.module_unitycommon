@@ -5,7 +5,7 @@ using UnityEngine;
 //! 설정 씬 관리자
 public abstract partial class CSetupSceneManager : CSceneManager {
 	#region 변수
-	private Dictionary<string, System.Action<string>> m_oDeviceMsgHandlerList = new Dictionary<string, System.Action<string>>();
+	private Dictionary<string, System.Action<string>> m_oDeviceMsgHandlerDict = new Dictionary<string, System.Action<string>>();
 	#endregion			// 변수
 
 	#region 클래스 객체
@@ -39,8 +39,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			m_oDeviceMsgHandlerList.ExAddVal(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
-			m_oDeviceMsgHandlerList.ExAddVal(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
+			m_oDeviceMsgHandlerDict.ExAddVal(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
+			m_oDeviceMsgHandlerDict.ExAddVal(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
 		}
 	}
 
@@ -57,7 +57,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	//! 디바이스 메세지를 수신했을 경우
 	private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
 		CFunc.ShowLog($"CSetupSceneManager.OnReceiveDeviceMsg: {a_oCmd}, {a_oMsg}", KCDefine.B_LOG_COLOR_SETUP);
-		m_oDeviceMsgHandlerList[a_oCmd](a_oMsg);
+		m_oDeviceMsgHandlerDict[a_oCmd](a_oMsg);
 	}
 
 	//! 씬을 설정한다

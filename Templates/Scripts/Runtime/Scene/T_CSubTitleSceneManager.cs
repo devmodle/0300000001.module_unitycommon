@@ -75,7 +75,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 				// 일일 미션 리셋이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableResetDailyMission) {
 					CGameInfoStorage.Inst.GameInfo.LastDailyMissionTime = System.DateTime.Today;
-					CGameInfoStorage.Inst.GameInfo.m_oCompleteDailyMissionKindsList.Clear();
+					CGameInfoStorage.Inst.GameInfo.m_oCompleteDailyMissionKindsSet.Clear();
 
 					CGameInfoStorage.Inst.SaveGameInfo();
 				}

@@ -62,12 +62,15 @@ public static partial class Func {
 
 	//! 지역화 문자열을 설정한다
 	public static void SetupLocalizeStrs(string a_oLanguage, string a_oCountryCode, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(a_oCountryCode.ExIsValid());
+		CAccess.Assert(!a_bIsEnableAssert || a_oCountryCode.ExIsValid());
 
-		string oBasePath = KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR;
-		string oFilePath = CFactory.MakeLocalizePath(oBasePath, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STR, a_oLanguage, a_oCountryCode);
-		
-		CStrTable.Inst.LoadStrsFromRes(oFilePath);		
+		// 국가 코드가 존재 할 경우
+		if(a_oCountryCode.ExIsValid()) {
+			string oBasePath = KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR;
+			string oFilePath = CFactory.MakeLocalizePath(oBasePath, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STR, a_oLanguage, a_oCountryCode);
+			
+			CStrTable.Inst.LoadStrsFromRes(oFilePath);
+		}
 	}
 
 	//! 경고 팝업을 출력한다
@@ -343,17 +346,20 @@ public static partial class Func {
 
 	//! 지급 아이템 정보를 저장한다
 	public static void SavePostItemInfos(List<STPostItemInfo> a_oPostItemInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(a_oPostItemInfoList != null);
+		CAccess.Assert(!a_bIsEnableAssert || a_oPostItemInfoList != null);
 
-		CIndicatorManager.Inst.Show(true);
-		Func.m_oPostItemInfosSaveCallback = a_oCallback;
+		// 지급 아이템이 존재 할 경우
+		if(a_oPostItemInfoList != null) {
+			CIndicatorManager.Inst.Show(true);
+			Func.m_oPostItemInfosSaveCallback = a_oCallback;
 
-		// 로그인 되었을 경우
-		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = Factory.MakePostItemInfoNodes();
-			CFirebaseManager.Inst.SaveDB(oNodeList, a_oPostItemInfoList.ExToJSONStr(true), Func.OnSavePostItemInfos);
-		} else {
-			Func.OnSavePostItemInfos(CFirebaseManager.Inst, false);
+			// 로그인 되었을 경우
+			if(CFirebaseManager.Inst.IsLogin) {
+				var oNodeList = Factory.MakePostItemInfoNodes();
+				CFirebaseManager.Inst.SaveDB(oNodeList, a_oPostItemInfoList.ExToJSONStr(true), Func.OnSavePostItemInfos);
+			} else {
+				Func.OnSavePostItemInfos(CFirebaseManager.Inst, false);
+			}
 		}
 	}
 
@@ -530,18 +536,25 @@ public static partial class Func {
 	//! 상품을 결제한다
 	public static void PurchaseProduct(ESaleProductKinds a_eSaleProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
 		int nIdx = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExFindVal((a_eCompareSaleProductKinds) => a_eSaleProductKinds == a_eCompareSaleProductKinds);
-		CAccess.Assert(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nIdx));
+		CAccess.Assert(!a_bIsEnableAssert || KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nIdx));
 
-		Func.PurchaseProduct(nIdx, a_oCallback);
+		// 상품이 존재 할 경우
+		if(nIdx > KCDefine.B_IDX_INVALID) {
+			Func.PurchaseProduct(nIdx, a_oCallback);
+		}
 	}
 	
 	//! 상품을 결제한다
 	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(a_oID.ExIsValid());
-		CIndicatorManager.Inst.Show(true);
+		CAccess.Assert(!a_bIsEnableAssert || a_oID.ExIsValid());
 
-		Func.m_oPurchaseCallback = a_oCallback;
-		CPurchaseManager.Inst.PurchaseProduct(a_oID, Func.OnPurchaseProduct);
+		// 식별자가 유효 할 경우
+		if(a_oID.ExIsValid()) {
+			CIndicatorManager.Inst.Show(true);
+
+			Func.m_oPurchaseCallback = a_oCallback;
+			CPurchaseManager.Inst.PurchaseProduct(a_oID, Func.OnPurchaseProduct);
+		}
 	}
 
 	//! 상품을 복원한다

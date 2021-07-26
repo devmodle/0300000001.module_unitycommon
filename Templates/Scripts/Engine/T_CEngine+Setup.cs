@@ -14,12 +14,10 @@ namespace SampleEngineName {
 		
 		//! 레벨을 설정한다
 		private void SetupLevel() {
-			for(int i = 0; i < m_stParams.m_oLevelInfo.m_oCellInfoListContainer.Count; ++i) {
-				var oCellInfoList = m_stParams.m_oLevelInfo.m_oCellInfoListContainer[i];
-
-				for(int j = 0; j < oCellInfoList.Count; ++j) {
-					var stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
-					this.SetupCell(stIdx, oCellInfoList[j]);
+			foreach(var stKeyVal in m_stParams.m_oLevelInfo.m_oCellInfoDictContainer) {
+				foreach(var stCellInfoKeyVal in stKeyVal.Value) {
+					var stIdx = new Vector3Int(stCellInfoKeyVal.Key, stKeyVal.Key, KCDefine.B_IDX_INVALID);
+					this.SetupCell(stIdx, stCellInfoKeyVal.Value);
 				}
 			}
 		}

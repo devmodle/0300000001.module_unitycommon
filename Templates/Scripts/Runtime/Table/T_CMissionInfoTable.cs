@@ -38,7 +38,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public Dictionary<EMissionKinds, STMissionInfo> MissionInfoList { get; private set; } = new Dictionary<EMissionKinds, STMissionInfo>();
+	public Dictionary<EMissionKinds, STMissionInfo> MissionInfoDict { get; private set; } = new Dictionary<EMissionKinds, STMissionInfo>();
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -51,7 +51,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		oMissionInfoList.AddRange(m_oEventMissionInfoList);
 
 		for(int i = 0; i < oMissionInfoList.Count; ++i) {
-			this.MissionInfoList.Add(oMissionInfoList[i].m_eMissionKinds, oMissionInfoList[i]);
+			this.MissionInfoDict.Add(oMissionInfoList[i].m_eMissionKinds, oMissionInfoList[i]);
 		}
 	}
 
@@ -65,8 +65,8 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 
 	//! 미션 정보를 반환한다
 	public bool TryGetMissionInfo(EMissionKinds a_eMissionKinds, out STMissionInfo a_stOutMissionInfo) {
-		a_stOutMissionInfo = this.MissionInfoList.ExGetVal(a_eMissionKinds, KDefine.G_INVALID_MISSION_INFO);
-		return this.MissionInfoList.ContainsKey(a_eMissionKinds);
+		a_stOutMissionInfo = this.MissionInfoDict.ExGetVal(a_eMissionKinds, KDefine.G_INVALID_MISSION_INFO);
+		return this.MissionInfoDict.ContainsKey(a_eMissionKinds);
 	}
 
 	//! 미션 정보를 로드한다
@@ -112,13 +112,13 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 				bool bIsReplace = oMissionInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 미션 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.MissionInfoList.ContainsKey(stMissionInfo.m_eMissionKinds)) {
-					this.MissionInfoList.ExReplaceVal(stMissionInfo.m_eMissionKinds, stMissionInfo);
+				if(bIsReplace || !this.MissionInfoDict.ContainsKey(stMissionInfo.m_eMissionKinds)) {
+					this.MissionInfoDict.ExReplaceVal(stMissionInfo.m_eMissionKinds, stMissionInfo);
 				}
 			}
 		}
 		
-		return this.MissionInfoList;
+		return this.MissionInfoDict;
 	}
 	#endregion			// 함수
 }

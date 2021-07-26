@@ -15,18 +15,18 @@ public sealed class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(151)] public Dictionary<EItemKinds, int> m_oNumItemsList = new Dictionary<EItemKinds, int>();
+	[Key(151)] public Dictionary<EItemKinds, int> m_oNumItemsDict = new Dictionary<EItemKinds, int>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
 	[IgnoreMember] public int NumCoins {
-		get { return m_oIntList.ExGetVal(CUserInfo.KEY_NUM_COINS, KCDefine.B_VAL_0_INT); } 
-		set { m_oIntList.ExReplaceVal(CUserInfo.KEY_NUM_COINS, value); }
+		get { return m_oIntDict.ExGetVal(CUserInfo.KEY_NUM_COINS, KCDefine.B_VAL_0_INT); } 
+		set { m_oIntDict.ExReplaceVal(CUserInfo.KEY_NUM_COINS, value); }
 	}
 
 	[IgnoreMember] public int NumChanges {
-		get { return m_oIntList.ExGetVal(CUserInfo.KEY_NUM_CHANGES, KCDefine.B_VAL_0_INT); }
-		set { m_oIntList.ExReplaceVal(CUserInfo.KEY_NUM_CHANGES, value); }
+		get { return m_oIntDict.ExGetVal(CUserInfo.KEY_NUM_CHANGES, KCDefine.B_VAL_0_INT); }
+		set { m_oIntDict.ExReplaceVal(CUserInfo.KEY_NUM_CHANGES, value); }
 	}
 	#endregion			// 프로퍼티
 
@@ -34,7 +34,7 @@ public sealed class CUserInfo : CBaseInfo {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oNumItemsList = m_oNumItemsList ?? new Dictionary<EItemKinds, int>();
+		m_oNumItemsDict = m_oNumItemsDict ?? new Dictionary<EItemKinds, int>();
 	}
 	#endregion			// 인터페이스
 
@@ -55,7 +55,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 함수
 	//! 아이템 개수를 반환한다
 	public int GetNumItems(EItemKinds a_eItemKinds) {
-		return this.UserInfo.m_oNumItemsList.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);
+		return this.UserInfo.m_oNumItemsDict.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);
 	}
 
 	//! 코인 개수를 추가한다
@@ -75,7 +75,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
 		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue);
 
-		this.UserInfo.m_oNumItemsList.ExReplaceVal(a_eItemKinds, nNumItems);
+		this.UserInfo.m_oNumItemsDict.ExReplaceVal(a_eItemKinds, nNumItems);
 	}
 	
 	//! 유저 정보를 저장한다

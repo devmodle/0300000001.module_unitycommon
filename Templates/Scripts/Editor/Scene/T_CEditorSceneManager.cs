@@ -74,7 +74,7 @@ public static partial class CEditorSceneManager {
 				}
 				
 				CFunc.EnumerateScenes((a_stScene) => {
-					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_LIST);
+					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPES);
 					return true;
 				});
 			}
@@ -137,7 +137,7 @@ public static partial class CEditorSceneManager {
 					CPlatformOptsSetter.DefineSymbolTable.EditorGalaxyStoreDefineSymbolList
 				};
 
-				foreach(var stKeyVal in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULE_LIST) {
+				foreach(var stKeyVal in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULES) {
 					for(int i = 0; i < oDefineSymbolLists.Length; ++i) {
 						var oDefineSymbolList = oDefineSymbolLists[i];
 						
