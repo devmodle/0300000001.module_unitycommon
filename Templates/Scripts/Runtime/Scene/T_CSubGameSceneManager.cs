@@ -68,7 +68,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		// 앱이 실행 중 일 경우
 		if(CSceneManager.IsAppRunning) {
-			// Do Nothing
+			// Do Something
 		}
 	}
 
@@ -78,7 +78,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		// 백 키 눌림 이벤트 일 경우
 		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
-			// Do Nothing
+			// Do Something
 		}
 	}
 
@@ -102,7 +102,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! 씬을 설정한다
 	private void SetupStart() {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 엔진을 설정한다
@@ -156,7 +156,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 		} else {
-			// Do Nothing
+			// Do Something
 		}
 	}
 	#endregion			// 함수
@@ -172,12 +172,12 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if DEBUG || DEVELOPMENT_BUILD
 	//! 테스트 UI 를 설정한다
 	private void SetupTestUIs() {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 테스트 UI 상태를 갱신한다
 	private void UpdateTestUIsState() {
-		// Do Nothing
+		// Do Something
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 조건부 함수

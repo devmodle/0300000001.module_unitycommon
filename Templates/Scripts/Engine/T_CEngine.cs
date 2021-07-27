@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
@@ -45,7 +46,7 @@ namespace SampleEngineName {
 
 		//! 상태를 리셋한다
 		public virtual void Reset() {
-			// Do Nothing
+			// Do Something
 		}
 
 		//! 상태를 갱신한다
@@ -59,23 +60,23 @@ namespace SampleEngineName {
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
-				// Do Nothing	
+				// Do Something	
 			}
 		}
 
 		//! 터치를 시작했을 경우
 		public void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// Do Nothing
+			// Do Something
 		}
 
 		//! 터치를 움직였을 경우
 		public void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// Do Nothing
+			// Do Something
 		}
 
 		//! 터치를 종료했을 경우
 		public void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// Do Nothing
+			// Do Something
 		}
 		#endregion			// 함수
 
@@ -83,12 +84,12 @@ namespace SampleEngineName {
 #if UNITY_EDITOR
 		//! GUI 를 그린다
 		public virtual void OnGUI() {
-			// Do Nothing
+			// Do Something
 		}
 		
 		//! 가이드 라인을 그린다
 		public virtual void OnDrawGizmos() {
-			// Do Nothing
+			// Do Something
 		}
 #endif			// #if UNITY_EDITOR
 		#endregion			// 조건부 함수

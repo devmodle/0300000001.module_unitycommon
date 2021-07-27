@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //! 시작 씬 관리자
 public abstract class CStartSceneManager : CSceneManager {

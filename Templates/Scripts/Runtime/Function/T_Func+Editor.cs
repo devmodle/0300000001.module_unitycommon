@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -30,6 +31,41 @@ public static partial class Func {
 	//! 에디터 입력 팝업을 출력한다
 	public static void ShowEditorInputPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CEditorInputPopup>(KCDefine.E_OBJ_N_EDITOR_INPUT_POPUP, KCDefine.E_OBJ_P_EDITOR_INPUT_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
+	//! 에디터 레벨 생성 팝업을 출력한다
+	public static void ShowEditorLevelCreatePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CEditorLevelCreatePopup>(KCDefine.E_OBJ_N_EDITOR_LEVEL_CREATE_POPUP, KCDefine.E_OBJ_P_EDITOR_LEVEL_CREATE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
+	//! 레벨 정보를 설정한다
+	public static void SetupLevelInfo(CLevelInfo a_oLevelInfo, STEditorLevelCreateInfo a_stCreateInfo) {
+		int nNumCellsX = Random.Range(a_stCreateInfo.m_nMinNumCellsX, a_stCreateInfo.m_nMaxNumCellsX + KCDefine.B_VAL_1_INT);
+		int nNumCellsY = Random.Range(a_stCreateInfo.m_nMinNumCellsY, a_stCreateInfo.m_nMaxNumCellsY + KCDefine.B_VAL_1_INT);
+
+		a_oLevelInfo.m_oCellInfoDictContainer.Clear();
+
+		for(int i = 0; i < nNumCellsY; ++i) {
+			var oCellInfoDict = new Dictionary<int, CCellInfo>();
+
+			for(int j = 0; j < nNumCellsY; ++j) {
+				oCellInfoDict.Add(j, Factory.MakeCellInfo());
+			}
+
+			a_oLevelInfo.m_oCellInfoDictContainer.Add(i, oCellInfoDict);
+		}
+
+		a_oLevelInfo.OnAfterDeserialize();
+		Func.SetupCellInfos(a_oLevelInfo, a_stCreateInfo);
+	}
+
+	//! 셀 정보를 설정한다
+	private static void SetupCellInfos(CLevelInfo a_oLevelInfo, STEditorLevelCreateInfo a_stCreateInfo) {
+		foreach(var stKeyVal in a_oLevelInfo.m_oCellInfoDictContainer) {
+			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
+				// Do Something
+			}
+		}
 	}
 	#endregion			// 클래스 함수
 }

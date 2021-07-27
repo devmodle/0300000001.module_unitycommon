@@ -27,8 +27,8 @@ public class CFreeRewardPopup : CSubPopup {
 	}
 
 	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
-		// Do Nothing
+	private new void UpdateUIsState() {
+		// Do Something
 	}
 
 	//! 광고 버튼을 눌렀을 경우

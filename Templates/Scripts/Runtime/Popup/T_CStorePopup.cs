@@ -43,7 +43,7 @@ public class CStorePopup : CSubPopup {
 	}
 
 	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
+	private new void UpdateUIsState() {
 		// 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductUIsList.Count; ++i) {
 			var oProductUIs = m_oProductUIsList[i];
@@ -65,12 +65,12 @@ public class CStorePopup : CSubPopup {
 
 	//! 패키지 상품 UI 상태를 갱신한다
 	private void UpdatePkgsProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stSaleProductInfo) {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 단일 상품 UI 상태를 갱신한다
 	private void UpdateSingleProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stSaleProductInfo) {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 광고 버튼을 눌렀을 경우
@@ -114,7 +114,7 @@ public class CStorePopup : CSubPopup {
 #if FIREBASE_MODULE_ENABLE
 	//! 지급 아이템 정보를 저장했을 경우
 	private void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 지급 아이템 정보를 로드했을 경우

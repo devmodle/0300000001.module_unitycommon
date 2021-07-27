@@ -34,7 +34,7 @@ public abstract class CMissionPopup : CSubPopup {
 	}
 
 	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
+	protected new void UpdateUIsState() {
 		for(int i = 0; i < m_oMissionUIsList.Count; ++i) {
 			var oMissionUIs = m_oMissionUIsList[i];
 			this.UpdateMissionUIsState(oMissionUIs, m_stParams.m_oMissionInfoList[i]);
@@ -43,7 +43,7 @@ public abstract class CMissionPopup : CSubPopup {
 
 	//! 미션 UI 상태를 갱신한다
 	private void UpdateMissionUIsState(GameObject a_oMissionUIs, STMissionInfo a_stMissionInfo) {
-		// Do Nothing
+		// Do Something
 	}
 	#endregion			// 함수
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
@@ -48,7 +49,7 @@ public sealed class CClearInfo : CBaseInfo {
 	#region 함수
 	//! 생성자
 	public CClearInfo() : base(KDefine.G_VER_CLEAR_INFO) {
-		// Do Nothing
+		// Do Something
 	}
 	#endregion			// 함수
 }
@@ -121,7 +122,7 @@ public sealed class CGameInfo : CBaseInfo {
 	#region 함수
 	//! 생성자
 	public CGameInfo() : base(KDefine.G_VER_GAME_INFO) {
-		// Do Nothing
+		// Do Something
 	}
 	#endregion			// 함수
 }

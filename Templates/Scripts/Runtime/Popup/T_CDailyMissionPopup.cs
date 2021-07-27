@@ -30,13 +30,13 @@ public class CDailyMissionPopup : CMissionPopup {
 	}
 
 	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
-		// Do Nothing
+	private new void UpdateUIsState() {
+		// Do Something
 	}
 
 	//! 미션 버튼을 눌렀을 경우
 	private void OnTouchMissionBtn(STMissionInfo a_stMissionInfo) {
-		// Do Nothing
+		// Do Something
 	}
 	#endregion			// 함수
 }

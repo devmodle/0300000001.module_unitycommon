@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if UNITY_EDITOR
@@ -232,7 +233,7 @@ public static partial class KEditorDefine {
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRIES = new Dictionary<string, string>() {
-		// Do Nothing
+		// Do Something
 	};
 	// 유니티 패키지 }
 	#endregion			// 런타임 상수

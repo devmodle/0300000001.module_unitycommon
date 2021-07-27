@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 namespace SampleEngineName {
@@ -9,7 +10,7 @@ namespace SampleEngineName {
 		#region 함수
 		//! 엔진을 설정한다
 		private void SetupInit() {
-			// Do Nothing
+			// Do Something
 		}
 		
 		//! 레벨을 설정한다
@@ -24,12 +25,12 @@ namespace SampleEngineName {
 
 		//! 셀을 설정한다
 		private void SetupCell(Vector3Int a_stIdx, CCellInfo a_oCellInfo) {
-			// Do Nothing
+			// Do Something
 		}
 
 		//! 엔진을 설정한다
 		private void SetupEngine() {
-			// Do Nothing
+			// Do Something
 		}
 		#endregion			// 함수
 	}

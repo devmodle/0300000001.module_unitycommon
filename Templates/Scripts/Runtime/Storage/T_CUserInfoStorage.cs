@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
@@ -41,7 +42,7 @@ public sealed class CUserInfo : CBaseInfo {
 	#region 함수
 	//! 생성자
 	public CUserInfo() : base(KDefine.G_VER_USER_INFO) {
-		// Do Nothing
+		// Do Something
 	}
 	#endregion			// 함수
 }

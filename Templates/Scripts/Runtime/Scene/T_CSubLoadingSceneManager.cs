@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 //! 서브 로딩 씬 관리자
@@ -12,13 +13,13 @@ public class CSubLoadingSceneManager : CLoadingSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			// Do Nothing
+			// Do Something
 		}
 	}
 
 	//! 씬을 비동기 로드 중일 경우
 	protected override void OnLoadSceneAsync(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
-		// Do Nothing
+		// Do Something
 	}
 	#endregion			// 함수
 }

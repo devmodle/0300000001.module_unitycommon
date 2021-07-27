@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
@@ -26,7 +27,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 인터페이스
 	//! 직렬화 될 경우
 	public virtual void OnBeforeSerialize() {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 역직렬화 되었을 경우

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if UNITY_IOS
 using Unity.Advertisement.IosSupport;
@@ -43,7 +44,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	//! 씬을 설정한다
 	protected virtual void Setup() {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 동의 뷰를 출력한다

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if UNITY_EDITOR || UNITY_STANDALONE
-//! 에디터 스크롤러 셀 뷰
+//! 서브 에디터 스크롤러 셀 뷰
 public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 	//! 매개 변수
 	public new struct STParams {
@@ -34,6 +34,13 @@ public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 
 		m_stParams = a_stParams;
 		m_stCallbackParams = a_stCallbackParams;
+
+		this.UpdateUIsState();
+	}
+
+	//! UI 상태를 갱신한다
+	protected new void UpdateUIsState() {
+		// Do Something
 	}
 	#endregion			// 함수
 }

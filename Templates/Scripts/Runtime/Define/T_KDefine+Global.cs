@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 //! 전역 상수
@@ -154,7 +155,6 @@ public static partial class KDefine {
 	// 포커스 팝업
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
 	public const string G_OBJ_N_FOCUS_P_BLIND_IMG = "BlindImg";
-	public const string G_OBJ_N_FOCUS_P_FOCUS_UIS = "FocusUIs";
 
 	// 튜토리얼 팝업
 	public const string G_OBJ_N_TUTORIAL_POPUP = "TutorialPopup";

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //! 인트로 씬 관리자
 public class CIntroSceneManager : CSceneManager {
@@ -34,7 +35,7 @@ public class CIntroSceneManager : CSceneManager {
 
 	//! 씬을 설정한다
 	protected virtual void Setup() {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 다음 씬을 로드한다

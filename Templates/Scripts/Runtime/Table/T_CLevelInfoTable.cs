@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
@@ -23,7 +24,7 @@ public sealed class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 함수
 	//! 생성자
 	public CCellInfo() : base(KDefine.G_VER_CELL_INFO) {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 사본 객체를 생성한다
@@ -71,7 +72,7 @@ public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
 	#region 함수
 	//! 생성자
 	public CLevelInfo() : base(KDefine.G_VER_LEVEL_INFO) {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 사본 객체를 생성한다

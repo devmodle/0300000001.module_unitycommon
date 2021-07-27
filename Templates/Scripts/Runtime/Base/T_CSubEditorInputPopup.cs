@@ -4,17 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-//! 서브 토스트 팝업
-public class CSubToastPopup : CToastPopup {
+#if UNITY_EDITOR || UNITY_STANDALONE
+//! 서브 에디터 입력 팝업
+public class CSubEditorInputPopup : CEditorInputPopup {
 	#region 함수
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
 	}
-	
+
 	//! 초기화
-	public override void Init(STParams a_stParams) {
-		base.Init(a_stParams);
+	public override void Init(System.Action<CEditorInputPopup, string> a_oCallback) {
+		base.Init(a_oCallback);
 		this.UpdateUIsState();
 	}
 
@@ -24,4 +25,5 @@ public class CSubToastPopup : CToastPopup {
 	}
 	#endregion			// 함수
 }
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 #endif			// #if NEVER_USE_THIS

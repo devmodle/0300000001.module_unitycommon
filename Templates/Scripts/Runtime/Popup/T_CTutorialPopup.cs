@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
 //! 튜토리얼 팝업
@@ -40,8 +39,8 @@ public class CTutorialPopup : CFocusPopup {
 	}
 
 	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
-		// Do Nothing
+	private new void UpdateUIsState() {
+		// Do Something
 	}
 	#endregion			// 함수
 }

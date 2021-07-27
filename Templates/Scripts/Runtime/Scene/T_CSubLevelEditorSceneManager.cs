@@ -168,7 +168,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 앱이 실행 중 일 경우
 		if(CSceneManager.IsAppRunning) {
-			// Do Nothing
+			// Do Something
 		}
 	}
 
@@ -204,7 +204,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	//! 씬을 설정한다
 	private void SetupStart() {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 왼쪽 에디터 UI 를 설정한다
@@ -341,8 +341,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	//! 왼쪽 에디터 UI 레벨 추가 버튼을 눌렀을 경우
 	private void OnTouchLEUIsAddLevelBtn() {
-		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-		this.AddLevelInfo(nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+		Func.ShowEditorLevelCreatePopup(this.SubPopupUIs, (a_oSender) => {
+			var oEditorLevelCreatePopup = a_oSender as CEditorLevelCreatePopup;
+			oEditorLevelCreatePopup.Init(this.OnReceiveEditorLevelCreatePopupResult);
+		});
 	}
 
 	//! 왼쪽 에디터 UI 스테이지 추가 버튼을 눌렀을 경우
@@ -524,6 +526,20 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			this.MoveLevelInfos(m_oSelScroller, m_stSelIDInfo, nID);
 			this.UpdateUIsState();
 		}
+	}
+
+	//! 에디터 레벨 생성 팝업 결과를 수신했을 경우
+	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, STEditorLevelCreateInfo a_stCreateInfo) {
+		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+
+		for(int i = 0; i < a_stCreateInfo.m_nNumLevels; ++i) {
+			var oLevelInfo = Factory.MakeLevelInfo(i + nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+
+			Func.SetupLevelInfo(oLevelInfo, a_stCreateInfo);
+			CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
+		}
+
+		this.UpdateUIsState();
 	}
 
 	//! 레벨 정보를 반환한다

@@ -40,7 +40,7 @@ public class CDailyRewardPopup : CSubPopup {
 	}
 
 	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
+	private new void UpdateUIsState() {
 		// 보상 UI 상태를 갱신한다
 		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
 			var oRewardUIs = m_oRewardUIsList[i];
@@ -52,7 +52,7 @@ public class CDailyRewardPopup : CSubPopup {
 
 	//! 보상 UI 상태를 갱신한다
 	private void UpdateRewardUIsState(GameObject a_oRewardUIs, STRewardInfo a_stRewardInfo) {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 광고 버튼을 눌렀을 경우

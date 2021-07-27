@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
@@ -12,7 +13,7 @@ public sealed class CAppInfo : CBaseInfo {
 	#region 함수
 	//! 생성자
 	public CAppInfo() : base(KDefine.G_VER_APP_INFO) {
-		// Do Nothing
+		// Do Something
 	}
 	#endregion			// 함수
 }

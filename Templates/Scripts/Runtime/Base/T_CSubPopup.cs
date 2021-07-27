@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 //! 서브 팝업
@@ -19,6 +20,12 @@ public abstract class CSubPopup : CPopup {
 	//! 초기화
 	public override void Init() {
 		base.Init();
+		this.UpdateUIsState();
+	}
+
+	//! UI 상태를 갱신한다
+	protected void UpdateUIsState() {
+		// Do Something
 	}
 	#endregion			// 함수
 }

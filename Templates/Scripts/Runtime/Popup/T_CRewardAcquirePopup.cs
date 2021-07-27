@@ -45,7 +45,7 @@ public class CRewardAcquirePopup : CSubPopup {
 	}
 
 	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
+	private new void UpdateUIsState() {
 		// 보상 아이템 UI 상태를 갱신한다
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
 			var oItemUIs = m_oItemUIsList[i];
@@ -60,7 +60,7 @@ public class CRewardAcquirePopup : CSubPopup {
 
 	//! 보상 아이템 UI 상태를 갱신한다
 	private void UpdateItemUIsState(GameObject a_oItemUIs, STItemInfo a_stItemInfo) {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 획득 버튼을 눌렀을 경우

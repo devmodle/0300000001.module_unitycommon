@@ -42,7 +42,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 	//! 씬을 설정한다
 	private void SetupStart() {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! UI 상태를 갱신한다
@@ -57,12 +57,12 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 #if DEBUG || DEVELOPMENT_BUILD
 	//! 테스트 UI 를 설정한다
 	private void SetupTestUIs() {
-		// Do Nothing
+		// Do Something
 	}
 
 	//! 테스트 UI 상태를 갱신한다
 	private void UpdateTestUIsState() {
-		// Do Nothing
+		// Do Something
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 조건부 함수

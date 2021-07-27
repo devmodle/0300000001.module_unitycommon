@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 public class CFocusPopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
-		public List<GameObject> m_oFocusUIsList;
+		public List<GameObject> m_oContentsUIsList;
 	}
 
 	//! 콜백 매개 변수
@@ -29,7 +29,7 @@ public class CFocusPopup : CSubPopup {
 	#endregion			// UI 변수
 
 	#region 객체
-	private GameObject m_oFocusUIs = null;
+	private GameObject m_oContentsUIs = null;
 	#endregion			// 객체
 
 	#region 프로퍼티
@@ -46,7 +46,7 @@ public class CFocusPopup : CSubPopup {
 		base.Awake();
 
 		m_oBlindImg = m_oContents.ExFindComponent<Image>(KDefine.G_OBJ_N_FOCUS_P_BLIND_IMG);
-		m_oFocusUIs = m_oContents.ExFindChild(KDefine.G_OBJ_N_FOCUS_P_FOCUS_UIS);
+		m_oContentsUIs = m_oContents.ExFindChild(KCDefine.G_OBJ_N_POPUP_CONTENTS_UIS);
 	}
 
 	//! 초기화
@@ -70,16 +70,16 @@ public class CFocusPopup : CSubPopup {
 		base.SetupContents();
 
 		// 포커스 UI 가 존재 할 경우
-		if(m_stParams.m_oFocusUIsList.ExIsValid()) {
-			for(int i = 0; i < m_stParams.m_oFocusUIsList.Count; ++i) {
-				m_stParams.m_oFocusUIsList[i].SetActive(true);
-				m_stParams.m_oFocusUIsList[i].transform.SetParent(m_oFocusUIs.transform, false);
+		if(m_stParams.m_oContentsUIsList.ExIsValid()) {
+			for(int i = 0; i < m_stParams.m_oContentsUIsList.Count; ++i) {
+				m_stParams.m_oContentsUIsList[i].SetActive(true);
+				m_stParams.m_oContentsUIsList[i].transform.SetParent(m_oContentsUIs.transform, false);
 			}
 		}
 	}
 
 	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
+	protected new void UpdateUIsState() {
 		m_oBlindImg?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BG);
 		
 		var oContentsImg = m_oContents.GetComponentInChildren<Image>();

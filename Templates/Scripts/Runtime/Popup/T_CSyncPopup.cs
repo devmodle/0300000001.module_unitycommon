@@ -45,7 +45,7 @@ public class CSyncPopup : CSubPopup {
 	}
 
 	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
+	private new void UpdateUIsState() {
 #if FIREBASE_MODULE_ENABLE
 		m_oLoginUIs?.SetActive(CFirebaseManager.Inst.IsLogin);
 		m_oLogoutUIs?.SetActive(!CFirebaseManager.Inst.IsLogin);
@@ -87,7 +87,7 @@ public class CSyncPopup : CSubPopup {
 	private void OnLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		// 로그인 되었을 경우
 		if(a_bIsSuccess) {
-			// Do Nothing
+			// Do Something
 		}
 
 		this.UpdateUIsState();
@@ -102,7 +102,7 @@ public class CSyncPopup : CSubPopup {
 	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		// 저장 되었을 경우
 		if(a_bIsSuccess) {
-			// Do Nothing
+			// Do Something
 		}
 
 		this.UpdateUIsState();

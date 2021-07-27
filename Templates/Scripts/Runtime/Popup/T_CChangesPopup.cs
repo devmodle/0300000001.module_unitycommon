@@ -37,7 +37,7 @@ public class CChangesPopup : CSubPopup {
 	}
 
 	//! UI 상태를 변경한다
-	private void UpdateUIsState() {
+	private new void UpdateUIsState() {
 		int nNumChanges = CUserInfoStorage.Inst.UserInfo.NumChanges;
 
 		m_oSaveUIs?.SetActive(nNumChanges < KDefine.G_MAX_NUM_CHANGES);
