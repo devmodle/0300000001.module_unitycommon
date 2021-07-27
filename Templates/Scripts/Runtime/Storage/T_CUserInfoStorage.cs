@@ -53,6 +53,12 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#endregion            // 프로퍼티
 
 	#region 함수
+	//! 유저 정보를 리셋한다
+	public void ResetUserInfo(SimpleJSON.JSONNode a_oUserInfo) {
+		this.UserInfo = a_oUserInfo.ToString().ExMsgPackJSONStrToObj<CUserInfo>();
+		CAccess.Assert(this.UserInfo != null);
+	}
+
 	//! 아이템 개수를 반환한다
 	public int GetNumItems(EItemKinds a_eItemKinds) {
 		return this.UserInfo.m_oNumItemsDict.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);

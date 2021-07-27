@@ -8,11 +8,6 @@ ALERT_P_OK_BTN_TEXT,0,경고 팝업 확인 버튼 텍스트,OK
 ALERT_P_CANCEL_BTN_TEXT,0,경고 팝업 취소 버튼 텍스트,Cancel
 QUIT_P_MSG,0,종료 팝업 메세지,Are you sure you want to quit the game?
 UPDATE_P_MSG,0,업데이트 팝업 메세지,A new version has been released.\nWould you like to update it?
-PURCHASE_P_SUCCESS_MSG,0,결제 성공 팝업 메세지,You have successfully purchased this product.
-PURCHASE_P_FAIL_MSG,0,결제 실패 팝업 메세지,You have failed to purchase this product.
-RESTORE_P_SUCCESS_MSG,0,복원 성공 팝업 메세지,The product has been restored.
-RESTORE_P_FAIL_MSG,0,복원 실패 팝업 메세지,Failed to restore the product.
-START_SM_LOADING_TEXT,0,시작 씬 관리자 로딩 텍스트,Loading
 AGREE_P_SERVICES_TITLE,0,약관 동의 팝업 서비스 제목,Terms of Service
 AGREE_P_PRIVACY_TITLE,0,약관 동의 팝업 개인 정보 제목,Privacy Policy
 AGREE_P_AGREE_TEXT,0,약관 동의 팝업 동의 텍스트,Agree
@@ -28,6 +23,19 @@ DESC_P_DESC_MSG_01,0,설명 팝업 설명 메세지 1,∙ Special offers and pro
 DESC_P_DESC_MSG_02,0,설명 팝업 설명 메세지 2,∙ Advertisements that match\nyour interests
 DESC_P_DESC_MSG_03,0,설명 팝업 설명 메세지 3,∙ An improved personalized\nexperience over time
 DESC_P_NEXT_BTN_TEXT,0,설명 팝업 다음 버튼 텍스트,Next
+START_SM_LOADING_TEXT,0,시작 씬 관리자 로딩 텍스트,Loading
+COMMON_LOGIN_SUCCESS_MSG,0,공용 로그인 성공 메세지,You have successfully login
+COMMON_LOGIN_FAIL_MSG,0,공용 로그인 실패 메세지,You have failed to login
+COMMON_LOGOUT_SUCCESS_MSG,0,공용 로그아웃 성공 메세지,You have successfully logout
+COMMON_LOGOUT_FAIL_MSG,0,공용 로그아웃 실패 메세지,You have failed to logout
+COMMON_SAVE_SUCCESS_MSG,0,공용 저장 성공 메세지,You have successfully saved progress.
+COMMON_SAVE_FAIL_MSG,0,공용 저장 실패 메세지,You have failed to save progress.
+COMMON_LOAD_SUCCESS_MSG,0,공용 로드 성공 메세지,You have successfully loaded progress.
+COMMON_LOAD_FAIL_MSG,0,공용 로드 실패 메세지,You have failed to load progress.
+COMMON_PURCHASE_SUCCESS_MSG,0,공용 결제 성공 메세지,You have successfully purchased this product.
+COMMON_PURCHASE_FAIL_MSG,0,공용 결제 실패 메세지,You have failed to purchase this product.
+COMMON_RESTORE_SUCCESS_MSG,0,공용 복원 성공 메세지,The product has been restored.
+COMMON_RESTORE_FAIL_MSG,0,공용 복원 실패 메세지,Failed to restore the product.
 COMMON_LEVEL_TEXT,0,공용 레벨 텍스트,Level
 COMMON_STAGE_TEXT,0,공용 스테이지 텍스트,Stage
 COMMON_CHAPTER_TEXT,0,공용 챕터 텍스트,Chapter

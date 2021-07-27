@@ -6,6 +6,10 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 //! 동기화 팝업
 public class CSyncPopup : CSubPopup {
+	#region 변수
+	private bool m_bIsLoadUserInfo = false;
+	#endregion			// 변수
+
 	#region 객체
 	private GameObject m_oLoginUIs = null;
 	private GameObject m_oLogoutUIs = null;
@@ -35,7 +39,7 @@ public class CSyncPopup : CSubPopup {
 	}
 
 	//! 초기화
-	public virtual void Init() {
+	public override void Init() {
 		base.Init();
 		this.UpdateUIsState();
 	}
@@ -81,6 +85,11 @@ public class CSyncPopup : CSubPopup {
 #if FIREBASE_MODULE_ENABLE
 	//! 로그인 되었을 경우
 	private void OnLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		// 로그인 되었을 경우
+		if(a_bIsSuccess) {
+			// Do Nothing
+		}
+
 		this.UpdateUIsState();
 	}
 
@@ -91,12 +100,43 @@ public class CSyncPopup : CSubPopup {
 
 	//! 유저 정보가 저장 되었을 경우
 	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		// Do Nothing
+		// 저장 되었을 경우
+		if(a_bIsSuccess) {
+			// Do Nothing
+		}
+
+		this.UpdateUIsState();
+		Func.OnSaveUserInfo(a_oSender, a_bIsSuccess, null);
 	}
 
 	//! 유저 정보가 로드 되었을 경우
 	private void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
-		// Do Nothing
+		// 로드 되었을 경우
+		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
+			var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
+			var oUserInfo = oJSONNode[KCDefine.B_KEY_JSON_USER_INFO_DATA];
+			var oCommonUserInfo = oJSONNode[KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA];
+
+			CUserInfoStorage.Inst.ResetUserInfo(oUserInfo);
+			CUserInfoStorage.Inst.SaveUserInfo();
+
+			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfo);
+			CCommonUserInfoStorage.Inst.SaveUserInfo();
+		}
+
+		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
+		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, a_bIsSuccess, this.OnReceiveLoadSuccessPopupResult);
+
+		var oAlertPopup = CSceneManager.ScreenPopupUIs.ExFindComponent<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP);
+		oAlertPopup.IsIgnoreNavStackEvent = a_bIsSuccess && a_oJSONStr.ExIsValid();
+	}
+
+	//! 로드 성공 팝업 결과를 수신했을 경우
+	private void OnReceiveLoadSuccessPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
+		// 유저 정보를 로드했을 경우
+		if(m_bIsLoadUserInfo) {
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+		}
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 	#endregion			// 조건부 함수
