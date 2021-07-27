@@ -89,6 +89,12 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo;
 		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null;
 
+		// 터치 전달자를 설정한다
+		var oTouchDispatcher = this.SubUIs.GetComponentInChildren<CTouchDispatcher>();
+		oTouchDispatcher?.ExSetBeginCallback(this.OnTouchBegin);
+		oTouchDispatcher?.ExSetMoveCallback(this.OnTouchMove);
+		oTouchDispatcher?.ExSetEndCallback(this.OnTouchEnd);
+
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

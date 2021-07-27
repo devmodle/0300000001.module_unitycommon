@@ -43,8 +43,8 @@ public class CChangesAcquirePopup : CSubPopup {
 
 	//! UI 상태를 변경한다
 	private void UpdateUIsState() {
-		m_oSaveUIs.SetActive(m_nPrevNumChanges < KDefine.G_MAX_NUM_CHANGES);
-		m_oFullUIs.SetActive(m_nPrevNumChanges >= KDefine.G_MAX_NUM_CHANGES);
+		m_oSaveUIs?.SetActive(m_nPrevNumChanges < KDefine.G_MAX_NUM_CHANGES);
+		m_oFullUIs?.SetActive(m_nPrevNumChanges >= KDefine.G_MAX_NUM_CHANGES);
 	}
 	#endregion			// 함수
 }

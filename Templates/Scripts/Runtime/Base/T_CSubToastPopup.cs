@@ -7,6 +7,11 @@ using UnityEngine;
 public class CSubToastPopup : CToastPopup {
 	#region 함수
 	//! 초기화
+	public override void Awake() {
+		base.Awake();
+	}
+	
+	//! 초기화
 	public override void Init(STParams a_stParams) {
 		base.Init(a_stParams);
 	}

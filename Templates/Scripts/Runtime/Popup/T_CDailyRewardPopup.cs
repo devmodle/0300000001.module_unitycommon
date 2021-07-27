@@ -26,10 +26,10 @@ public class CDailyRewardPopup : CSubPopup {
 
 		// 버튼을 설정한다 {
 		m_oAdsBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_DAILY_RP_ADS_BTN);
-		m_oAdsBtn.onClick.AddListener(this.OnTouchAdsBtn);
+		m_oAdsBtn?.onClick.AddListener(this.OnTouchAdsBtn);
 
 		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_DAILY_RP_ACQUIRE_BTN);
-		m_oAcquireBtn.onClick.AddListener(this.OnTouchAcquireBtn);
+		m_oAcquireBtn?.onClick.AddListener(this.OnTouchAcquireBtn);
 		// 버튼을 설정한다 }
 	}
 	

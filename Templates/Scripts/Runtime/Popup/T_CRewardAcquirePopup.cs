@@ -33,7 +33,7 @@ public class CRewardAcquirePopup : CSubPopup {
 
 		// 버튼을 설정한다
 		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_REWARD_AP_ACQUIRE_BTN);
-		m_oAcquireBtn.onClick.AddListener(this.OnTouchAcquireBtn);
+		m_oAcquireBtn?.onClick.AddListener(this.OnTouchAcquireBtn);
 	}
 	
 	//! 초기화

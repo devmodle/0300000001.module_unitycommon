@@ -17,7 +17,7 @@ public class CFreeRewardPopup : CSubPopup {
 
 		// 버튼을 설정한다
 		m_oAdsBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_FREE_RP_ADS_BTN);
-		m_oAdsBtn.onClick.AddListener(this.OnTouchAdsBtn);
+		m_oAdsBtn?.onClick.AddListener(this.OnTouchAdsBtn);
 	}
 	
 	//! 초기화

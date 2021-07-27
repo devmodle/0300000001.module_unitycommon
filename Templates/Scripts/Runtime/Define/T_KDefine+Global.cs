@@ -110,6 +110,19 @@ public static partial class KDefine {
 	public const string G_OBJ_N_SETTINGS_P_SUPPORTS_BTN = "SupportsBtn";
 	// 설정 팝업 }
 
+	// 동기화 팝업 {
+	public const string G_OBJ_N_SYNC_POPUP = "SyncPopup";
+
+	public const string G_OBJ_N_SYNC_P_LOGIN_UIS = "LoginUIs";
+	public const string G_OBJ_N_SYNC_P_LOGOUT_UIS = "LogoutUIs";
+
+	public const string G_OBJ_N_SYNC_P_LOGIN_BTN = "LoginBtn";
+	public const string G_OBJ_N_SYNC_P_LOGOUT_BTN = "LogoutBtn";
+
+	public const string G_OBJ_N_SYNC_P_SAVE_BTN = "SaveBtn";
+	public const string G_OBJ_N_SYNC_P_LOAD_BTN = "LoadBtn";
+	// 동기화 팝업 }
+
 	// 일일 미션 팝업
 	public const string G_OBJ_N_DAILY_MISSION_POPUP = "DailyMissionPopup";
 

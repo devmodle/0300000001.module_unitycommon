@@ -57,10 +57,10 @@ public class CFocusPopup : CSubPopup {
 		m_stCallbackParams = a_stCallbackParams;
 
 		// 터치 전달자를 설정한다
-		var oTouchDispatcher = m_oContents.GetComponentInChildren<CTouchDispatcher>();
-		oTouchDispatcher.BeginCallback = (a_oSender, a_oEventData) => a_stCallbackParams.m_oBeginCallback?.Invoke(this, a_oEventData);
-		oTouchDispatcher.MoveCallback = (a_oSender, a_oEventData) => a_stCallbackParams.m_oMoveCallback?.Invoke(this, a_oEventData);
-		oTouchDispatcher.EndCallback = (a_oSender, a_oEventData) => a_stCallbackParams.m_oEndCallback?.Invoke(this, a_oEventData);
+		var oTouchDispatcher = m_oBlindImg?.GetComponentInChildren<CTouchDispatcher>();
+		oTouchDispatcher?.ExSetBeginCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oBeginCallback?.Invoke(this, a_oEventData), false);
+		oTouchDispatcher?.ExSetMoveCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oMoveCallback?.Invoke(this, a_oEventData), false);
+		oTouchDispatcher?.ExSetEndCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oEndCallback?.Invoke(this, a_oEventData), false);
 
 		this.UpdateUIsState();
 	}
@@ -80,10 +80,10 @@ public class CFocusPopup : CSubPopup {
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
-		m_oBlindImg.color = KCDefine.U_COLOR_POPUP_BG;
+		m_oBlindImg?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BG);
 		
 		var oContentsImg = m_oContents.GetComponentInChildren<Image>();
-		oContentsImg.color = KCDefine.U_COLOR_TRANSPARENT;
+		oContentsImg?.ExSetColor<Image>(KCDefine.U_COLOR_TRANSPARENT);
 	}
 	#endregion			// 함수
 }

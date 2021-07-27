@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
 //! 기본 접근 확장 클래스
@@ -113,6 +114,36 @@ public static partial class AccessExtension {
 
 		var oTouchInteractable = a_oSender?.GetComponentInChildren<CTouchInteractable>();
 		oTouchInteractable?.SetInteractable(a_bIsEnable);
+	}
+
+	//! 시작 콜백을 변경한다
+	public static void ExSetBeginCallback(this CTouchDispatcher a_oSender, System.Action<CTouchDispatcher, PointerEventData> a_oCallback, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+
+		// 터치 전달자가 존재 할 경우
+		if(a_oSender != null) {
+			a_oSender.BeginCallback = a_oCallback;
+		}
+	}
+
+	//! 이동 콜백을 변경한다
+	public static void ExSetMoveCallback(this CTouchDispatcher a_oSender, System.Action<CTouchDispatcher, PointerEventData> a_oCallback, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+
+		// 터치 전달자가 존재 할 경우
+		if(a_oSender != null) {
+			a_oSender.MoveCallback = a_oCallback;
+		}
+	}
+
+	//! 종료 콜백을 변경한다
+	public static void ExSetEndCallback(this CTouchDispatcher a_oSender, System.Action<CTouchDispatcher, PointerEventData> a_oCallback, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+
+		// 터치 전달자가 존재 할 경우
+		if(a_oSender != null) {
+			a_oSender.EndCallback = a_oCallback;
+		}
 	}
 	#endregion			// 클래스 함수
 }

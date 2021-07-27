@@ -11,6 +11,11 @@ public class CSubAlertPopup : CAlertPopup {
 	
 	#region 함수
 	//! 초기화
+	public override void Awake() {
+		base.Awake();
+	}
+	
+	//! 초기화
 	public override void Init(STParams a_stParams, System.Action<CAlertPopup, bool> a_oCallback) {
 		base.Init(a_stParams, a_oCallback);
 	}
