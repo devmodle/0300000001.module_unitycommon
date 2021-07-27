@@ -100,11 +100,6 @@ public static partial class CCommonEditorSceneManager {
 					CPlatformOptsSetter.SetupProjOpts();
 					CPlatformOptsSetter.SetupPluginProjs();
 
-					// DOTween Pro 추가가 가능 할 경우
-					if(!Directory.Exists(KCEditorDefine.B_ABS_DIR_P_DOTWEEN_PRO)) {
-						CAssetImporter.ImportDOTweenProPkgs();
-					}
-
 #if UNITY_ANDROID
 					// 플러그인이 없을 경우
 					if(!File.Exists(KCEditorDefine.B_DEST_PLUGIN_P_ANDROID)) {
