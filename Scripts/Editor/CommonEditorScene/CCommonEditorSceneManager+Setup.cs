@@ -198,6 +198,7 @@ public static partial class CCommonEditorSceneManager {
 		// 광원 설정이 가능 할 경우
 		if(stScene.name.ExIsValid()) {
 			bool bIsValid = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
+			bIsValid = bIsValid && !oLightingSettings.name.ExIsContains(KCDefine.U_ASSET_N_LIGHTING_SETTINGS);
 
 			// 광원 설정이 유효하지 않을 경우
 			if(!bIsValid || !oLightingSettings.name.ExIsContains(stScene.name)) {
@@ -205,8 +206,11 @@ public static partial class CCommonEditorSceneManager {
 				var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
 
 				var oSettings = Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_LIGHTING_SETTINGS);
+				EditorSceneManager.MarkSceneDirty(stScene);
+				
 				var oLightingSettingsAsset = new LightingSettings();
-
+				oLightingSettingsAsset.name = oSceneName;
+				
 				var oType = oSettings.GetType();
 				var oPropertyInfos = oType.GetProperties(KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
 
@@ -218,14 +222,10 @@ public static partial class CCommonEditorSceneManager {
 				oLightingSettings = oLightingSettingsAsset;
 				string oFilePath = string.Format(KCEditorDefine.B_ASSET_P_FMT_LIGHTING_SETTINGS, oScenePath, oSceneName);
 
-				Lightmapping.lightingSettings = oLightingSettingsAsset;
+				CEditorFactory.RemoveAsset(oFilePath);
 				CEditorFactory.CreateAsset(oLightingSettingsAsset, oFilePath, false);
-			}
 
-			// GI 설정이 필요 할 경우
-			if(oLightingSettings.realtimeGI || oLightingSettings.realtimeEnvironmentLighting) {
-				oLightingSettings.realtimeGI = false;
-				oLightingSettings.realtimeEnvironmentLighting = false;
+				Lightmapping.SetLightingSettingsForScene(stScene, oLightingSettingsAsset);
 			}
 
 			// 라이트맵 설정이 필요 할 경우

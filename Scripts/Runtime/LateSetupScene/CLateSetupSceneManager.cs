@@ -228,7 +228,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		}
 
 		this.Setup();
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_PERMISSION_SCENE);
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_PERMISSION_SCENE, false);
 
 		CSceneManager.IsLateSetup = true;
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_PERMISSION);

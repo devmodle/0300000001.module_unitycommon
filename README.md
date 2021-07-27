@@ -12,7 +12,7 @@
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
-	- *Native Share (v1.4.1 - May 6, 2021)*
+	- *Native Share (v1.4.2 - Jul 6, 2021)*
 	- *Signin with Apple (v1.1.1 - Nov 9, 2020)*
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
 	- *Total JSON (v1.6.0 - Jun 3, 2020)*
@@ -23,7 +23,7 @@
 	- *Build Report Tool (v3.8.2 - May 18, 2021)*
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.2 - Jun 25, 2021)*
-	- *Odin Inspector (v3.0.5 - Apr 27, 2021)*
+	- *Odin Inspector (v3.0.6 - Jul 2, 2021)*
 	- *Spine (v3.8.0 - Apr 28, 2021)*
 	- *Spine URP Shaders (v3.8.0 - Apr 28, 2021)*
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*

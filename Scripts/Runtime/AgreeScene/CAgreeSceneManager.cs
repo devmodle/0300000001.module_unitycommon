@@ -36,7 +36,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Inst.AppInfo.IsAgree = true;
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_LATE_SETUP_SCENE);
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_LATE_SETUP_SCENE, false);
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
 	}
 

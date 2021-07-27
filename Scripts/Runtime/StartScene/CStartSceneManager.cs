@@ -61,7 +61,7 @@ public abstract class CStartSceneManager : CSceneManager {
 		this.Setup();
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE);
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE, false);
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_SETUP);
 	}
 	#endregion			// 함수

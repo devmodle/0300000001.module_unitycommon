@@ -173,11 +173,11 @@ public static partial class KEditorDefine {
 		["com.unity.render-pipelines.universal"] = "11.0.0",
 
 		// 분석 {
-		["com.unity.mobile.android-logcat"] = "1.2.2",
+		["com.unity.mobile.android-logcat"] = "1.2.3",
 		["com.unity.performance.profile-analyzer"] = "1.0.3",
 
-		["com.unity.adaptiveperformance"] = "2.1.1",
-		["com.unity.adaptiveperformance.samsung.android"] = "2.1.1",
+		["com.unity.adaptiveperformance"] = "2.2.1",
+		["com.unity.adaptiveperformance.samsung.android"] = "2.2.1",
 		// 분석 }
 
 #if ML_AGENTS_ENABLE
@@ -185,7 +185,7 @@ public static partial class KEditorDefine {
 #endif			// #if ML_AGENTS_ENABLE
 
 #if CINEMACHINE_ENABLE
-		["com.unity.cinemachine"] = "2.7.4",
+		["com.unity.cinemachine"] = "2.7.5",
 #endif			// #if CINEMACHINE_ENABLE
 
 #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2

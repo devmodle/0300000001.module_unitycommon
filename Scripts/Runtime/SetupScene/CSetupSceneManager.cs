@@ -96,7 +96,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Inst.CountryCode = oCountryCode.ToUpper();
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_AGREE_SCENE);
+		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_AGREE_SCENE, false);
 
 		CSceneManager.IsSetup = true;
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_AGREE);
