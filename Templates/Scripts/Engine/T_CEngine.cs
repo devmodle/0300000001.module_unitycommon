@@ -21,6 +21,8 @@ namespace SampleEngineName {
 		public struct STParams {
 			public CLevelInfo m_oLevelInfo;
 			public CClearInfo m_oClearInfo;
+
+			public GameObject m_oBlockObjs;
 		}
 		
 		#region 변수
@@ -34,6 +36,7 @@ namespace SampleEngineName {
 		#region 프로퍼티
 		public EState State => m_eState;
 		public STGridInfo GridInfo => m_stGridInfo;
+		public GameObject BlockObjs => m_stParams.m_oBlockObjs;
 		#endregion			// 프로퍼티
 
 		#region 함수

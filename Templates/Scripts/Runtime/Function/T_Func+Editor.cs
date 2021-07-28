@@ -64,7 +64,7 @@ public static partial class Func {
 	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, STEditorLevelCreateInfo a_stCreateInfo) {
 		foreach(var stKeyVal in a_oLevelInfo.m_oCellInfoDictContainer) {
 			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
-				// Do Something
+				stCellInfoKeyVal.Value.m_oBlockKindsList.Add(SampleEngineName.EBlockKinds.BG_EMPTY);
 			}
 		}
 	}

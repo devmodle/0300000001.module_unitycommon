@@ -13,7 +13,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	
 	private SampleEngineName.CEngine m_oEngine = null;
 	#endregion			// 변수
-
+	
 	#region 함수
 	//! 초기화
 	public override void Awake() {
@@ -89,6 +89,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo;
 		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null;
 
+		// 비율을 설정한다
+		m_oBlockObjs.transform.localScale = m_oEngine.GridInfo.m_stGridScale;
+
 		// 터치 전달자를 설정한다
 		var oTouchDispatcher = this.SubUIs.GetComponentInChildren<CTouchDispatcher>();
 		oTouchDispatcher?.ExSetBeginCallback(this.OnTouchBegin);
@@ -109,7 +112,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void SetupEngine() {
 		var stParams = new SampleEngineName.CEngine.STParams {
 			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
-			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null
+			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null,
+
+			m_oBlockObjs = this.m_oBlockObjs
 		};
 
 		m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);

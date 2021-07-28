@@ -33,9 +33,15 @@ public sealed class CCellInfo : CBaseInfo, System.ICloneable {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		
-		m_oBlockKindsList = m_oBlockKindsList ?? new List<SampleEngineName.EBlockKinds>();
-		m_stIdx = new Vector3Int(m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_X, KCDefine.B_VAL_0_INT), m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Y, KCDefine.B_VAL_0_INT), m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Z, KCDefine.B_VAL_0_INT));
+		m_oBlockKindsList = (m_oBlockKindsList != null) ? m_oBlockKindsList : new List<SampleEngineName.EBlockKinds>();
+
+		// 인덱스를 설정한다 {
+		int nIdxX = m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_X, KCDefine.B_VAL_0_INT);
+		int nIdxY = m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Y, KCDefine.B_VAL_0_INT);
+		int nIdxZ = m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Z, KCDefine.B_VAL_0_INT);
+
+		m_stIdx = new Vector3Int(nIdxX, nIdxY, nIdxZ);
+		// 인덱스를 설정한다 }
 	}
 	#endregion			// 인터페이스
 
@@ -48,8 +54,14 @@ public sealed class CCellInfo : CBaseInfo, System.ICloneable {
 	//! 사본 객체를 생성한다
 	public object Clone() {
 		var oCellInfo = new CCellInfo();
-		oCellInfo.OnAfterDeserialize();
+		oCellInfo.m_oBlockKindsList.ExCopyTo(m_oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
 
+		// 인덱스를 설정한다
+		oCellInfo.m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_X, m_stIdx.x);
+		oCellInfo.m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_Y, m_stIdx.y);
+		oCellInfo.m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_Z, m_stIdx.z);
+
+		oCellInfo.OnAfterDeserialize();
 		return oCellInfo;
 	}
 	#endregion			// 함수
@@ -73,7 +85,7 @@ public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, CCellInfo>>();
+		m_oCellInfoDictContainer = (m_oCellInfoDictContainer != null) ? m_oCellInfoDictContainer : new Dictionary<int, Dictionary<int, CCellInfo>>();
 
 		// 셀 개수를 설정한다 {
 		var stNumCells = new Vector3Int(KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
@@ -98,10 +110,11 @@ public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
 		var oLevelInfo = new CLevelInfo();
 		oLevelInfo.m_stIDInfo = m_stIDInfo;
 
+		// 셀 정보를 설정한다
 		foreach(var stKeyVal in m_oCellInfoDictContainer) {
 			var oCellInfoDict = new Dictionary<int, CCellInfo>();
 
-			foreach(var stCellInfoKeyVal in oCellInfoDict) {
+			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
 				var oCellInfo = stCellInfoKeyVal.Value.Clone() as CCellInfo;
 				oCellInfoDict.Add(stCellInfoKeyVal.Key, oCellInfo);
 			}
@@ -226,10 +239,10 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oLevelInfo != null);
 
 		var oChapterLevelInfoDict = this.LevelInfoDictContainer.ExGetVal(a_oLevelInfo.m_stIDInfo.m_nChapterID, null);
-		oChapterLevelInfoDict = oChapterLevelInfoDict ?? new Dictionary<int, Dictionary<int, CLevelInfo>>();
+		oChapterLevelInfoDict = (oChapterLevelInfoDict != null) ? oChapterLevelInfoDict : new Dictionary<int, Dictionary<int, CLevelInfo>>();
 
 		var oStageLevelInfoDict = oChapterLevelInfoDict?.ExGetVal(a_oLevelInfo.m_stIDInfo.m_nStageID, null);
-		oStageLevelInfoDict = oStageLevelInfoDict ?? new Dictionary<int, CLevelInfo>();
+		oStageLevelInfoDict = (oStageLevelInfoDict != null) ? oStageLevelInfoDict : new Dictionary<int, CLevelInfo>();
 
 		oStageLevelInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo);
 		oChapterLevelInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nStageID, oStageLevelInfoDict);

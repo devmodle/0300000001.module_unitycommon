@@ -21,6 +21,15 @@ public static partial class Factory {
 			m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID)
 		};
 	}
+
+	//! 블럭 스프라이트를 생성한다
+	public static SpriteRenderer CreateBlockSprite(SampleEngineName.EBlockKinds a_eBlockKinds, GameObject a_oParent) {
+		var oBlockSprite = CFactory.CreateCloneObj<SpriteRenderer>(KCDefine.E_OBJ_N_BLOCK_SPRITE, KCDefine.U_OBJ_P_SPRITE, a_oParent);
+		oBlockSprite.sprite = SampleEngineName.Access.GetBlockSprite(a_eBlockKinds);
+		oBlockSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrder(a_eBlockKinds));
+
+		return oBlockSprite;
+	}
 	#endregion			// 클래스 함수
 }
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE

@@ -32,12 +32,12 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 
 	//! 역직렬화 되었을 경우
 	public virtual void OnAfterDeserialize() {
-		m_stVer.m_oExtraInfoDict = m_stVer.m_oExtraInfoDict ?? new Dictionary<string, string>();
+		m_stVer.m_oExtraInfoDict = (m_stVer.m_oExtraInfoDict != null) ? m_stVer.m_oExtraInfoDict : new Dictionary<string, string>();
 
-		m_oBoolDict = m_oBoolDict ?? new Dictionary<string, bool>();
-		m_oIntDict = m_oIntDict ?? new Dictionary<string, int>();
-		m_oFltDict = m_oFltDict ?? new Dictionary<string, float>();
-		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
+		m_oBoolDict = (m_oBoolDict != null) ? m_oBoolDict : new Dictionary<string, bool>();
+		m_oIntDict = (m_oIntDict != null) ? m_oIntDict : new Dictionary<string, int>();
+		m_oFltDict = (m_oFltDict != null) ? m_oFltDict : new Dictionary<string, float>();
+		m_oStrDict = (m_oStrDict != null) ? m_oStrDict : new Dictionary<string, string>();
 	}
 	#endregion			// 인터페이스
 

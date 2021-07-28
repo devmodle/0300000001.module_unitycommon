@@ -35,7 +35,7 @@ public sealed class CUserInfo : CBaseInfo {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oNumItemsDict = m_oNumItemsDict ?? new Dictionary<EItemKinds, int>();
+		m_oNumItemsDict = (m_oNumItemsDict != null) ? m_oNumItemsDict : new Dictionary<EItemKinds, int>();
 	}
 	#endregion			// 인터페이스
 
@@ -55,7 +55,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	#region 함수
 	//! 유저 정보를 리셋한다
-	public void ResetUserInfo(SimpleJSON.JSONNode a_oUserInfo) {
+	public virtual void ResetUserInfo(SimpleJSON.JSONNode a_oUserInfo) {
 		this.UserInfo = a_oUserInfo.ToString().ExMsgPackJSONStrToObj<CUserInfo>();
 		CAccess.Assert(this.UserInfo != null);
 	}

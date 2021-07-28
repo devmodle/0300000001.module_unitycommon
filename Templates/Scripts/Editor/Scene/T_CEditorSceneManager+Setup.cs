@@ -60,7 +60,7 @@ public static partial class CEditorSceneManager {
 			bool bIsNeedUpdate = false;
 
 			var oScopedRegistryList = oJSONNode[KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY].AsArray;
-			oScopedRegistryList = oScopedRegistryList ?? new SimpleJSON.JSONArray();
+			oScopedRegistryList = (oScopedRegistryList != null) ? oScopedRegistryList : new SimpleJSON.JSONArray();
 
 			foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES) {
 				int nIdx = oScopedRegistryList.AsArray.ExFindVal((a_oJSONNode) => {

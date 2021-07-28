@@ -107,11 +107,11 @@ public sealed class CGameInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		
-		m_oCompleteMissionKindsSet = m_oCompleteMissionKindsSet ?? new HashSet<EMissionKinds>();
-		m_oCompleteDailyMissionKindsSet = m_oCompleteDailyMissionKindsSet ?? new HashSet<EMissionKinds>();
-		m_oCompleteTutorialKindsSet = m_oCompleteTutorialKindsSet ?? new HashSet<ETutorialKinds>();
+		m_oCompleteMissionKindsSet = (m_oCompleteMissionKindsSet != null) ? m_oCompleteMissionKindsSet : new HashSet<EMissionKinds>();
+		m_oCompleteDailyMissionKindsSet = (m_oCompleteDailyMissionKindsSet != null) ? m_oCompleteDailyMissionKindsSet : new HashSet<EMissionKinds>();
+		m_oCompleteTutorialKindsSet = (m_oCompleteTutorialKindsSet != null) ? m_oCompleteTutorialKindsSet : new HashSet<ETutorialKinds>();
 
-		m_oClearInfoDict = m_oClearInfoDict ?? new Dictionary<long, CClearInfo>();
+		m_oClearInfoDict = (m_oClearInfoDict != null) ? m_oClearInfoDict : new Dictionary<long, CClearInfo>();
 
 		this.LastDailyMissionTime = this.LastDailyMissionTimeStr.ExIsValid() ? this.LastDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
 		this.LastFreeRewardTime = this.LastFreeRewardTimeStr.ExIsValid() ? this.LastFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
@@ -185,13 +185,9 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 부스터 상태를 리셋한다
-	public void ResetBoostersState(bool a_bIsResetFreeBooster = true) {
-		// 무료 부스터 리셋 모드 일 경우
-		if(a_bIsResetFreeBooster) {
-			this.FreeBooster = EItemKinds.NONE;
-		}
-
+	//! 부스터를 리셋한다
+	public virtual void ResetBoosters() {
+		this.FreeBooster = EItemKinds.NONE;
 		this.SelBoosterSet.Clear();
 	}
 
