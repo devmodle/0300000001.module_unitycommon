@@ -10,22 +10,31 @@ namespace SampleEngineName {
 		#region 함수
 		//! 엔진을 설정한다
 		private void SetupInit() {
-			// Do Something
+			m_oBlockDicts = new Dictionary<EBlockKinds, GameObject>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
+			m_stGridInfo = Factory.MakeGridInfo(m_stParams.m_oLevelInfo);
 		}
 		
 		//! 레벨을 설정한다
 		private void SetupLevel() {
 			foreach(var stKeyVal in m_stParams.m_oLevelInfo.m_oCellInfoDictContainer) {
 				foreach(var stCellInfoKeyVal in stKeyVal.Value) {
-					var stIdx = new Vector3Int(stCellInfoKeyVal.Key, stKeyVal.Key, KCDefine.B_IDX_INVALID);
-					this.SetupCell(stIdx, stCellInfoKeyVal.Value);
+					this.SetupCell(stCellInfoKeyVal.Value);
 				}
 			}
 		}
 
 		//! 셀을 설정한다
-		private void SetupCell(Vector3Int a_stIdx, CCellInfo a_oCellInfo) {
-			// Do Something
+		private void SetupCell(CCellInfo a_oCellInfo) {
+			var oBlockDict = new Dictionary<EBlockKinds, GameObject>();
+
+			// 셀 정보가 존재 할 경우
+			if(a_oCellInfo != null) {
+				foreach(var eBlockKinds in a_oCellInfo.m_oBlockKindsList) {
+					// Do Something
+				}
+			}
+
+			m_oBlockDicts[a_oCellInfo.m_stIdx.y, a_oCellInfo.m_stIdx.x] = oBlockDict;
 		}
 
 		//! 엔진을 설정한다

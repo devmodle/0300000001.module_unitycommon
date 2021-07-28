@@ -28,11 +28,12 @@ namespace SampleEngineName {
 		private STGridInfo m_stGridInfo;
 
 		private EState m_eState = EState.NONE;
+		private Dictionary<EBlockKinds, GameObject>[,] m_oBlockDicts = null;
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public STGridInfo GridInfo => m_stGridInfo;
 		public EState State => m_eState;
+		public STGridInfo GridInfo => m_stGridInfo;
 		#endregion			// 프로퍼티
 
 		#region 함수
