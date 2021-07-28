@@ -9,15 +9,33 @@ using MessagePack;
 [MessagePackObject]
 [System.Serializable]
 public sealed class CCellInfo : CBaseInfo, System.ICloneable {
+	#region 상수
+	private const string KEY_IDX_X = "IdxX";
+	private const string KEY_IDX_Y = "IdxY";
+	private const string KEY_IDX_Z = "IdxZ";
+	#endregion			// 상수
+
 	#region 변수
 	[Key(41)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
-	#endregion			// 변수ㄴ
+	[IgnoreMember] public Vector3Int m_stIdx = Vector3Int.zero;
+	#endregion			// 변수
 
 	#region 인터페이스
+	//! 직렬화 될 경우
+	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+
+		m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_X, m_stIdx.x);
+		m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_Y, m_stIdx.y);
+		m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_Z, m_stIdx.z);
+	}
+
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+		
 		m_oBlockKindsList = m_oBlockKindsList ?? new List<SampleEngineName.EBlockKinds>();
+		m_stIdx = new Vector3Int(m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_X, KCDefine.B_VAL_0_INT), m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Y, KCDefine.B_VAL_0_INT), m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Z, KCDefine.B_VAL_0_INT));
 	}
 	#endregion			// 인터페이스
 

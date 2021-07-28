@@ -38,8 +38,8 @@ public static partial class Func {
 		Func.ShowPopup<CEditorLevelCreatePopup>(KCDefine.E_OBJ_N_EDITOR_LEVEL_CREATE_POPUP, KCDefine.E_OBJ_P_EDITOR_LEVEL_CREATE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	//! 레벨 정보를 설정한다
-	public static void SetupLevelInfo(CLevelInfo a_oLevelInfo, STEditorLevelCreateInfo a_stCreateInfo) {
+	//! 에디터 레벨 정보를 설정한다
+	public static void EditorSetupLevelInfo(CLevelInfo a_oLevelInfo, STEditorLevelCreateInfo a_stCreateInfo) {
 		int nNumCellsX = Random.Range(a_stCreateInfo.m_nMinNumCellsX, a_stCreateInfo.m_nMaxNumCellsX + KCDefine.B_VAL_1_INT);
 		int nNumCellsY = Random.Range(a_stCreateInfo.m_nMinNumCellsY, a_stCreateInfo.m_nMaxNumCellsY + KCDefine.B_VAL_1_INT);
 
@@ -49,18 +49,19 @@ public static partial class Func {
 			var oCellInfoDict = new Dictionary<int, CCellInfo>();
 
 			for(int j = 0; j < nNumCellsY; ++j) {
-				oCellInfoDict.Add(j, Factory.MakeCellInfo());
+				var stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
+				oCellInfoDict.Add(j, Factory.MakeCellInfo(stIdx));
 			}
 
 			a_oLevelInfo.m_oCellInfoDictContainer.Add(i, oCellInfoDict);
 		}
 
 		a_oLevelInfo.OnAfterDeserialize();
-		Func.SetupCellInfos(a_oLevelInfo, a_stCreateInfo);
+		Func.EditorSetupCellInfos(a_oLevelInfo, a_stCreateInfo);
 	}
 
-	//! 셀 정보를 설정한다
-	private static void SetupCellInfos(CLevelInfo a_oLevelInfo, STEditorLevelCreateInfo a_stCreateInfo) {
+	//! 에디터 셀 정보를 설정한다
+	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, STEditorLevelCreateInfo a_stCreateInfo) {
 		foreach(var stKeyVal in a_oLevelInfo.m_oCellInfoDictContainer) {
 			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
 				// Do Something

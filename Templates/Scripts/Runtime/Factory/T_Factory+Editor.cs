@@ -9,8 +9,10 @@ using UnityEngine.UI;
 public static partial class Factory {
 	#region 클래스 함수
 	//! 셀 정보를 생성한다
-	public static CCellInfo MakeCellInfo() {
-		return new CCellInfo();
+	public static CCellInfo MakeCellInfo(Vector3Int a_stIdx) {
+		return new CCellInfo() {
+			m_stIdx = a_stIdx
+		};
 	}
 
 	//! 레벨 정보를 생성한다

@@ -376,20 +376,16 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 셀 개수가 유효 할 경우
 		if(bIsValid && int.TryParse(m_oREUIsNumCellsYInput?.text, out int nNumCellsY)) {
-			m_oSelLevelInfo.NumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT);
-			m_oSelLevelInfo.m_oCellInfoDictContainer.Clear();
+			Func.EditorSetupLevelInfo(m_oSelLevelInfo, new STEditorLevelCreateInfo() {
+				m_nNumLevels = KCDefine.B_VAL_0_INT,
+
+				m_nMinNumCellsX = nNumCellsX,
+				m_nMaxNumCellsX = nNumCellsX,
+
+				m_nMinNumCellsY = nNumCellsY,
+				m_nMaxNumCellsY = nNumCellsY
+			});
 			
-			for(int i = 0; i < nNumCellsY; ++i) {
-				var oCellInfoDict = new Dictionary<int, CCellInfo>();
-
-				for(int j = 0; j < nNumCellsX; ++j) {
-					var oCellInfo = Factory.MakeCellInfo();
-					oCellInfoDict.Add(j, oCellInfo);	
-				}
-
-				m_oSelLevelInfo.m_oCellInfoDictContainer.Add(i, oCellInfoDict);
-			}
-
 			this.UpdateUIsState();
 		}
 	}
@@ -535,7 +531,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		for(int i = 0; i < a_stCreateInfo.m_nNumLevels; ++i) {
 			var oLevelInfo = Factory.MakeLevelInfo(i + nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
-			Func.SetupLevelInfo(oLevelInfo, a_stCreateInfo);
+			Func.EditorSetupLevelInfo(oLevelInfo, a_stCreateInfo);
 			CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 		}
 
