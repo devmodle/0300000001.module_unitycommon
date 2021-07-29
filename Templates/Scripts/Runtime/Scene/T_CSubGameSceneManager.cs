@@ -90,8 +90,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo;
 		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null;
 
-		// 비율을 설정한다
-		m_oBlockObjs.transform.localScale = m_oEngine.GridInfo.m_stGridScale;
+		// 비율을 설정한다 {
+		bool bIsValidA = !float.IsNaN(m_oEngine.GridInfo.m_stGridScale.x) && !float.IsInfinity(m_oEngine.GridInfo.m_stGridScale.x);
+		bool bIsValidB = !float.IsNaN(m_oEngine.GridInfo.m_stGridScale.y) && !float.IsInfinity(m_oEngine.GridInfo.m_stGridScale.y);
+		bool bIsValidC = !float.IsNaN(m_oEngine.GridInfo.m_stGridScale.z) && !float.IsInfinity(m_oEngine.GridInfo.m_stGridScale.z);
+
+		m_oBlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_oEngine.GridInfo.m_stGridScale : Vector3.one;
+		// 비율을 설정한다 }
 
 		// 터치 전달자를 설정한다
 		var oTouchDispatcher = this.SubUIs.GetComponentInChildren<CTouchDispatcher>();
@@ -156,8 +161,8 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 
-	//! 다음 씬을 로드한다
-	private void LoadNextScene() {
+	//! 다음 레벨을 로드한다
+	private void LoadNextLevel() {
 		// 테스트 모드 일 경우
 		if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);

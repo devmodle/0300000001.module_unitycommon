@@ -6,6 +6,10 @@ using EnhancedUI.EnhancedScroller;
 
 #if NEVER_USE_THIS
 #if UNITY_EDITOR || UNITY_STANDALONE
+#if INPUT_SYSTEM_MODULE_ENABLE
+using UnityEngine.InputSystem;
+#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+
 //! 서브 레벨 에디터 씬 관리자
 public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
 	#region 변수
@@ -185,9 +189,17 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 
 		m_stSelGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oSelLevelInfo);
-		m_oBlockSpriteDicts = new Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>[m_oSelLevelInfo.NumCells.y, m_oSelLevelInfo.NumCells.x];
 		
-		m_oBlockObjs.transform.localScale = m_stSelGridInfo.m_stGridScale;
+		// 비율을 설정한다 {
+		bool bIsValidA = !float.IsNaN(m_stSelGridInfo.m_stGridScale.x) && !float.IsInfinity(m_stSelGridInfo.m_stGridScale.x);
+		bool bIsValidB = !float.IsNaN(m_stSelGridInfo.m_stGridScale.y) && !float.IsInfinity(m_stSelGridInfo.m_stGridScale.y);
+		bool bIsValidC = !float.IsNaN(m_stSelGridInfo.m_stGridScale.z) && !float.IsInfinity(m_stSelGridInfo.m_stGridScale.z);
+
+		m_oBlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_stSelGridInfo.m_stGridScale : Vector3.one;
+		// 비율을 설정한다 }
+
+		// 블럭 스프라이트를 설정한다 {
+		m_oBlockSpriteDicts = new Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>[m_oSelLevelInfo.NumCells.y, m_oSelLevelInfo.NumCells.x];
 
 		foreach(var stKeyVal in m_oSelLevelInfo.m_oCellInfoDictContainer) {
 			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
@@ -202,6 +214,33 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 				m_oBlockSpriteDicts[stCellInfoKeyVal.Value.m_stIdx.y, stCellInfoKeyVal.Value.m_stIdx.x] = oBlockSpriteDict;
 			}
+		}
+		// 블럭 스프라이트를 설정한다 }
+	}
+
+	//! 상태를 갱신한다
+	public override void OnUpdate(float a_fDeltaTime) {
+		base.OnUpdate(a_fDeltaTime);
+
+		// 앱이 실행 중 일 경우
+		if(CSceneManager.IsAppRunning) {
+#if INPUT_SYSTEM_MODULE_ENABLE
+			bool bIsSaveKeyDown = Keyboard.current.leftCommandKey.isPressed;
+			bool bIsLoadLevelKeyDown = Keyboard.current.leftShiftKey.isPressed;
+
+			// 저장 키를 눌렀을 경우
+			if(bIsSaveKeyDown && Keyboard.current.sKey.wasPressedThisFrame) {
+				this.OnTouchMEUIsSaveBtn();
+			}
+			// 이전 레벨 로드 키를 눌렀을 경우
+			else if(bIsLoadLevelKeyDown && Keyboard.current.aKey.wasPressedThisFrame) {
+				this.OnTouchMEUIsPrevLevelBtn();
+			}
+			// 다음 레벨 로드 키를 눌렀을 경우
+			else if(bIsLoadLevelKeyDown && Keyboard.current.dKey.wasPressedThisFrame) {
+				this.OnTouchMEUIsNextLevelBtn();
+			}
+#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 		}
 	}
 
@@ -317,14 +356,14 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		var oCopyLevelBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_COPY_LEVEL_BTN);
 		oCopyLevelBtn?.onClick.AddListener(this.OnTouchMEUIsCopyLevelBtn);
 
-		var oSaveLevelBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_SAVE_LEVEL_BTN);
-		oSaveLevelBtn?.onClick.AddListener(this.OnTouchMEUIsSaveLevelBtn);
+		var oSaveBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_SAVE_BTN);
+		oSaveBtn?.onClick.AddListener(this.OnTouchMEUIsSaveBtn);
 
-		var oResetLevelBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_RESET_LEVEL_BTN);
-		oResetLevelBtn?.onClick.AddListener(this.OnTouchMEUIsResetLevelBtn);
+		var oResetBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_RESET_BTN);
+		oResetBtn?.onClick.AddListener(this.OnTouchMEUIsResetBtn);
 
-		var oTestLevelBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_TEST_LEVEL_BTN);
-		oTestLevelBtn?.onClick.AddListener(this.OnTouchMEUIsTestLevelBtn);
+		var oTestBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_TEST_BTN);
+		oTestBtn?.onClick.AddListener(this.OnTouchMEUIsTestBtn);
 		// 버튼을 설정한다 }
 	}
 
@@ -485,13 +524,13 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		Func.ShowEditorLevelRemovePopup(this.OnReceiveEditorRemovePopupResult);
 	}
 
-	//! 중앙 에디터 UI 레벨 저장 버튼을 눌렀을 경우
-	private void OnTouchMEUIsSaveLevelBtn() {
+	//! 중앙 에디터 UI 저장 버튼을 눌렀을 경우
+	private void OnTouchMEUIsSaveBtn() {
 		CLevelInfoTable.Inst.SaveLevelInfos();
 	}
 
-	//! 중앙 에디터 UI 레벨 리셋 버튼을 눌렀을 경우
-	private void OnTouchMEUIsResetLevelBtn() {
+	//! 중앙 에디터 UI 리셋 버튼을 눌렀을 경우
+	private void OnTouchMEUIsResetBtn() {
 		CLevelInfoTable.Inst.LevelInfoDictContainer.Clear();
 		CLevelInfoTable.Inst.LoadLevelInfos();
 		
@@ -505,8 +544,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		this.UpdateUIsState();
 	}
 
-	//! 중앙 에디터 UI 레벨 테스트 버튼을 눌렀을 경우
-	private void OnTouchMEUIsTestLevelBtn() {
+	//! 중앙 에디터 UI 테스트 버튼을 눌렀을 경우
+	private void OnTouchMEUIsTestBtn() {
 		CGameInfoStorage.Inst.SetupPlayLevelInfo(m_oSelLevelInfo.m_stIDInfo.m_nID, EPlayMode.TEST, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 	}
