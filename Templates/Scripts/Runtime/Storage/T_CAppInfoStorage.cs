@@ -28,16 +28,6 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 앱 정보를 저장한다
-	public void SaveAppInfo() {
-		this.SaveAppInfo(KDefine.G_DATA_P_APP_INFO);
-	}
-
-	//! 앱 정보를 저장한다
-	public void SaveAppInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo);
-	}
-
 	//! 앱 정보를 로드한다
 	public CAppInfo LoadAppInfo() {
 		return this.LoadAppInfo(KDefine.G_DATA_P_APP_INFO);
@@ -52,6 +42,16 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		}
 
 		return this.AppInfo;
+	}
+
+	//! 앱 정보를 저장한다
+	public void SaveAppInfo() {
+		this.SaveAppInfo(KDefine.G_DATA_P_APP_INFO);
+	}
+
+	//! 앱 정보를 저장한다
+	public void SaveAppInfo(string a_oFilePath) {
+		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo);
 	}
 	#endregion			// 함수
 }

@@ -84,16 +84,6 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 		this.UserInfo.m_oNumItemsDict.ExReplaceVal(a_eItemKinds, nNumItems);
 	}
-	
-	//! 유저 정보를 저장한다
-	public void SaveUserInfo() {
-		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
-	}
-
-	//! 유저 정보를 저장한다
-	public void SaveUserInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo);
-	}
 
 	//! 유저 정보를 로드한다
 	public CUserInfo LoadUserInfo() {
@@ -109,6 +99,16 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		}
 
 		return this.UserInfo;
+	}
+
+	//! 유저 정보를 저장한다
+	public void SaveUserInfo() {
+		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
+	}
+
+	//! 유저 정보를 저장한다
+	public void SaveUserInfo(string a_oFilePath) {
+		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo);
 	}
 	#endregion			// 함수
 }

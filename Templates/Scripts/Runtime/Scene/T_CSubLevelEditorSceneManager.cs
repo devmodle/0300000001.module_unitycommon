@@ -148,14 +148,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 				var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
 				CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 
-				Func.EditorSetupLevelInfo(oLevelInfo, new STEditorLevelCreateInfo() {
+				Func.EditorSetupLevelInfo(oLevelInfo, new CEditorLevelCreateInfo() {
 					m_nNumLevels = KCDefine.B_VAL_0_INT,
 
-					m_nMinNumCellsX = KCDefine.B_VAL_1_INT,
-					m_nMaxNumCellsX = KCDefine.B_VAL_1_INT,
-
-					m_nMinNumCellsY = KCDefine.B_VAL_1_INT,
-					m_nMaxNumCellsY = KCDefine.B_VAL_1_INT
+					m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS,
+					m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
 				});
 			}
 
@@ -171,7 +168,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		if(CSceneManager.IsAppInit) {
 			this.SetupStart();
 			this.UpdateUIsState();
-			this.ResetBlockSprites();
 		}
 	}
 
@@ -188,7 +184,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			}
 		}
 
+		m_stSelGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oSelLevelInfo);
 		m_oBlockSpriteDicts = new Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>[m_oSelLevelInfo.NumCells.y, m_oSelLevelInfo.NumCells.x];
+		
+		m_oBlockObjs.transform.localScale = m_stSelGridInfo.m_stGridScale;
 
 		foreach(var stKeyVal in m_oSelLevelInfo.m_oCellInfoDictContainer) {
 			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
@@ -196,7 +195,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 				for(int i = 0; i < stCellInfoKeyVal.Value.m_oBlockKindsList.Count; ++i) {
 					var oBlockSprite = Factory.CreateBlockSprite(stCellInfoKeyVal.Value.m_oBlockKindsList[i], m_oBlockObjs);
-					oBlockSprite.transform.localPosition = stCellInfoKeyVal.Value.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+					oBlockSprite.transform.localPosition = m_stSelGridInfo.m_stGridPivotPos + stCellInfoKeyVal.Value.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
 					oBlockSpriteDict.Add(stCellInfoKeyVal.Value.m_oBlockKindsList[i], oBlockSprite);
 				}
@@ -243,7 +242,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 레벨 정보를 설정한다
 		m_oSelLevelInfo = (CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo : CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT);
-		m_stSelGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oSelLevelInfo);
 	}
 
 	//! 씬을 설정한다
@@ -332,6 +330,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
+		this.ResetBlockSprites();
+
 		this.UpdateLeftEditorUIsState();
 		this.UpdateRightEditorUIsState();
 		this.UpdateMidEditorUIsState();
@@ -373,13 +373,13 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oMEUIsLevelText?.ExSetText<Text>(oStr, false);
 
 		// 버튼을 갱신한다 {
-		int nNumStageLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
 		m_oMEUIsPrevLevelBtn?.ExSetInteractable(CLevelInfoTable.Inst.TryGetLevelInfo(m_oSelLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT, out CLevelInfo oPrevLevelInfo, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID), false);
 		m_oMEUIsNextLevelBtn?.ExSetInteractable(CLevelInfoTable.Inst.TryGetLevelInfo(m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, out CLevelInfo oNextLevelInfo, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID), false);
 
-		m_oMEUIsMoveLevelBtn?.ExSetInteractable(nNumStageLevelInfos > KCDefine.B_VAL_1_INT);
-		m_oMEUIsRemoveLevelBtn?.ExSetInteractable(nNumStageLevelInfos > KCDefine.B_VAL_1_INT);
+		m_oMEUIsMoveLevelBtn?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT);
+		m_oMEUIsRemoveLevelBtn?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT);
 		// 버튼을 갱신한다 }
 	}
 
@@ -419,7 +419,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(Mathf.Clamp(nID, KCDefine.B_VAL_1_INT, nNumLevelInfos) - KCDefine.B_VAL_1_INT, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 			
 			this.UpdateUIsState();
-			this.ResetBlockSprites();
 		}
 	}
 
@@ -427,18 +426,14 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private void OnTouchREUIsApplyNumCellsBtn() {
 		// 셀 개수가 유효 할 경우
 		if(int.TryParse(m_oREUIsNumCellsXInput?.text, out int nNumCellsX) && int.TryParse(m_oREUIsNumCellsYInput?.text, out int nNumCellsY)) {
-			Func.EditorSetupLevelInfo(m_oSelLevelInfo, new STEditorLevelCreateInfo() {
+			Func.EditorSetupLevelInfo(m_oSelLevelInfo, new CEditorLevelCreateInfo() {
 				m_nNumLevels = KCDefine.B_VAL_0_INT,
 
-				m_nMinNumCellsX = nNumCellsX,
-				m_nMaxNumCellsX = nNumCellsX,
-
-				m_nMinNumCellsY = nNumCellsY,
-				m_nMaxNumCellsY = nNumCellsY
+				m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT),
+				m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT)
 			});
 			
 			this.UpdateUIsState();
-			this.ResetBlockSprites();
 		}
 	}
 
@@ -447,9 +442,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 이전 레벨 정보가 존재 할 경우
 		if(CLevelInfoTable.Inst.TryGetLevelInfo(m_oSelLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT, out CLevelInfo oPrevLevelInfo, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID)) {
 			m_oSelLevelInfo = oPrevLevelInfo;
-
 			this.UpdateUIsState();
-			this.ResetBlockSprites();
 		}
 	}
 
@@ -458,16 +451,19 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 다음 레벨 정보가 존재 할 경우
 		if(CLevelInfoTable.Inst.TryGetLevelInfo(m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, out CLevelInfo oNextLevelInfo, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID)) {
 			m_oSelLevelInfo = oNextLevelInfo;
-
 			this.UpdateUIsState();
-			this.ResetBlockSprites();
 		}
 	}
 
 	//! 중앙 에디터 UI 레벨 복사 버튼을 눌렀을 경우
 	private void OnTouchMEUIsCopyLevelBtn() {
-		var stIDInfo = CFactory.MakeIDInfo(m_oSelLevelInfo.m_stIDInfo.m_nID, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-		this.CopyLevelInfos(m_oLEUIsLevelScroller, stIDInfo);
+		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+
+		// 레벨 추가가 가능 할 경우
+		if(nNumLevelInfos < KDefine.G_MAX_NUM_LEVEL_INFOS) {
+			var stIDInfo = CFactory.MakeIDInfo(m_oSelLevelInfo.m_stIDInfo.m_nID, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+			this.CopyLevelInfos(m_oLEUIsLevelScroller, stIDInfo);
+		}
 	}
 
 	//! 중앙 에디터 UI 레벨 이동 버튼을 눌렀을 경우
@@ -506,9 +502,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 
 		m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT);
-
 		this.UpdateUIsState();
-		this.ResetBlockSprites();
 	}
 
 	//! 중앙 에디터 UI 레벨 테스트 버튼을 눌렀을 경우
@@ -520,14 +514,24 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	//! 에디터 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우
 	private void OnTouchESCVSelBtn(CEditorScrollerCellView a_oSender, STIDInfo a_stIDInfo) {
 		m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_stIDInfo.m_nID, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
-
 		this.UpdateUIsState();
-		this.ResetBlockSprites();
 	}
 
 	//! 에디터 스크롤러 셀 뷰 복사 버튼을 눌렀을 경우
 	private void OnTouchESCVCopyBtn(CEditorScrollerCellView a_oSender, STIDInfo a_stIDInfo) {
-		this.CopyLevelInfos(a_oSender.Scroller, a_stIDInfo);
+		int nNumInfos = CLevelInfoTable.Inst.NumChapterInfos;
+		int nMaxNumInfos = KDefine.G_MAX_NUM_CHAPTER_INFOS;
+
+		// 챕터 스크롤러가 아닐 경우
+		if(m_oLEUIsChapterScroller != a_oSender.Scroller) {
+			nNumInfos = (m_oLEUIsStageScroller == a_oSender.Scroller) ? CLevelInfoTable.Inst.GetNumStageInfos(a_stIDInfo.m_nChapterID) : CLevelInfoTable.Inst.GetNumLevelInfos(a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
+			nMaxNumInfos = (m_oLEUIsStageScroller == a_oSender.Scroller) ? KDefine.G_MAX_NUM_STAGE_INFOS : KDefine.G_MAX_NUM_LEVEL_INFOS;
+		}
+
+		// 복사가 가능 할 경우
+		if(nNumInfos < nMaxNumInfos) {
+			this.CopyLevelInfos(a_oSender.Scroller, a_stIDInfo);
+		}
 	}
 
 	//! 에디터 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우
@@ -571,9 +575,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
 			this.RemoveLevelInfos(m_oSelScroller, m_stSelIDInfo);
-
 			this.UpdateUIsState();
-			this.ResetBlockSprites();
 		}
 	}
 
@@ -582,27 +584,24 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 식별자가 유효 할 경우
 		if(int.TryParse(a_oStr, out int nID)) {
 			this.MoveLevelInfos(m_oSelScroller, m_stSelIDInfo, nID);
-
 			this.UpdateUIsState();
-			this.ResetBlockSprites();
 		}
 	}
 
 	//! 에디터 레벨 생성 팝업 결과를 수신했을 경우
-	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, STEditorLevelCreateInfo a_stCreateInfo) {
+	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, CEditorLevelCreateInfo a_oCreateInfo) {
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-		int nNumCreateLevelInfos = (nNumLevelInfos + a_stCreateInfo.m_nNumLevels < KDefine.G_MAX_NUM_LEVEL_INFOS) ? a_stCreateInfo.m_nNumLevels : KDefine.G_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
+		int nNumCreateLevelInfos = (nNumLevelInfos + a_oCreateInfo.m_nNumLevels < KDefine.G_MAX_NUM_LEVEL_INFOS) ? a_oCreateInfo.m_nNumLevels : KDefine.G_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
 
 		for(int i = 0; i < nNumCreateLevelInfos; ++i) {
 			var oLevelInfo = Factory.MakeLevelInfo(i + nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 			m_oSelLevelInfo = oLevelInfo;
 
-			Func.EditorSetupLevelInfo(oLevelInfo, a_stCreateInfo);
+			Func.EditorSetupLevelInfo(oLevelInfo, a_oCreateInfo);
 			CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 		}
 
 		this.UpdateUIsState();
-		this.ResetBlockSprites();
 	}
 
 	//! 레벨 정보를 반환한다
@@ -619,18 +618,14 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oSelLevelInfo = Factory.MakeLevelInfo(a_nID, a_nStageID, a_nChapterID);
 		CLevelInfoTable.Inst.AddLevelInfo(m_oSelLevelInfo);
 
-		Func.EditorSetupLevelInfo(m_oSelLevelInfo, new STEditorLevelCreateInfo() {
+		Func.EditorSetupLevelInfo(m_oSelLevelInfo, new CEditorLevelCreateInfo() {
 			m_nNumLevels = KCDefine.B_VAL_0_INT,
 
-			m_nMinNumCellsX = KCDefine.B_VAL_1_INT,
-			m_nMaxNumCellsX = KCDefine.B_VAL_1_INT,
-
-			m_nMinNumCellsY = KCDefine.B_VAL_1_INT,
-			m_nMaxNumCellsY = KCDefine.B_VAL_1_INT
+			m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS,
+			m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
 		});
 
 		this.UpdateUIsState();
-		this.ResetBlockSprites();
 	}
 	
 	//! 레벨 정보를 제거한다
@@ -683,7 +678,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 
 		this.UpdateUIsState();
-		this.ResetBlockSprites();
 	}
 
 	//! 레벨 정보를 복사한다
@@ -731,9 +725,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 
 		CAccess.AssignVal(ref m_oSelLevelInfo, m_oSelLevelInfo, CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
-
 		this.UpdateUIsState();
-		this.ResetBlockSprites();
 	}
 
 	//! 레벨 정보를 이동한다

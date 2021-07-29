@@ -54,7 +54,7 @@ public sealed class CCellInfo : CBaseInfo, System.ICloneable {
 	//! 사본 객체를 생성한다
 	public object Clone() {
 		var oCellInfo = new CCellInfo();
-		oCellInfo.m_oBlockKindsList.ExCopyTo(m_oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
+		m_oBlockKindsList.ExCopyTo(oCellInfo.m_oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
 
 		// 인덱스를 설정한다
 		oCellInfo.m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_X, m_stIdx.x);
@@ -386,6 +386,14 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CFunc.WriteMsgPackObj(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO, this.LevelInfoDictContainer, false, false);
 	}
 
+	//! 레벨 정보를 로드한다
+	private CLevelInfo LoadLevelInfo(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
+
+		return CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false);
+	}
+
 	//! 레벨 정보를 저장한다
 	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<long> a_oOutLevelIDList) {
 		CAccess.Assert(a_oLevelInfo != null);
@@ -393,14 +401,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		a_oOutLevelIDList.Add(a_oLevelInfo.LevelID);
 		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
-	}
-
-	//! 레벨 정보를 로드한다
-	private CLevelInfo LoadLevelInfo(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
-		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
-
-		return CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false);
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수

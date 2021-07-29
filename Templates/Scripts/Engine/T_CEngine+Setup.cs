@@ -29,7 +29,7 @@ namespace SampleEngineName {
 
 			// 셀 정보가 존재 할 경우
 			if(a_oCellInfo != null) {
-				foreach(var eBlockKinds in a_oCellInfo.m_oBlockKindsList) {
+				for(int i = 0; i < a_oCellInfo.m_oBlockKindsList.Count; ++i) {
 					// Do Something
 				}
 			}

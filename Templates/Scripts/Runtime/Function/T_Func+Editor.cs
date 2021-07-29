@@ -39,16 +39,19 @@ public static partial class Func {
 	}
 
 	//! 에디터 레벨 정보를 설정한다
-	public static void EditorSetupLevelInfo(CLevelInfo a_oLevelInfo, STEditorLevelCreateInfo a_stCreateInfo) {
-		int nNumCellsX = Random.Range(a_stCreateInfo.m_nMinNumCellsX, a_stCreateInfo.m_nMaxNumCellsX + KCDefine.B_VAL_1_INT);
-		int nNumCellsY = Random.Range(a_stCreateInfo.m_nMinNumCellsY, a_stCreateInfo.m_nMaxNumCellsY + KCDefine.B_VAL_1_INT);
+	public static void EditorSetupLevelInfo(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
+		int nNumCellsX = Random.Range(a_oCreateInfo.m_stMinNumCells.x, a_oCreateInfo.m_stMaxNumCells.x + KCDefine.B_VAL_1_INT);
+		nNumCellsX = Mathf.Clamp(nNumCellsX, SampleEngineName.KDefine.E_MIN_NUM_CELLS.x, SampleEngineName.KDefine.E_MAX_NUM_CELLS.x);
+
+		int nNumCellsY = Random.Range(a_oCreateInfo.m_stMinNumCells.y, a_oCreateInfo.m_stMaxNumCells.y + KCDefine.B_VAL_1_INT);
+		nNumCellsY = Mathf.Clamp(nNumCellsY, SampleEngineName.KDefine.E_MIN_NUM_CELLS.y, SampleEngineName.KDefine.E_MAX_NUM_CELLS.y);
 
 		a_oLevelInfo.m_oCellInfoDictContainer.Clear();
 
 		for(int i = 0; i < nNumCellsY; ++i) {
 			var oCellInfoDict = new Dictionary<int, CCellInfo>();
 
-			for(int j = 0; j < nNumCellsY; ++j) {
+			for(int j = 0; j < nNumCellsX; ++j) {
 				var stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
 				oCellInfoDict.Add(j, Factory.MakeCellInfo(stIdx));
 			}
@@ -57,11 +60,11 @@ public static partial class Func {
 		}
 
 		a_oLevelInfo.OnAfterDeserialize();
-		Func.EditorSetupCellInfos(a_oLevelInfo, a_stCreateInfo);
+		Func.EditorSetupCellInfos(a_oLevelInfo, a_oCreateInfo);
 	}
 
 	//! 에디터 셀 정보를 설정한다
-	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, STEditorLevelCreateInfo a_stCreateInfo) {
+	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
 		foreach(var stKeyVal in a_oLevelInfo.m_oCellInfoDictContainer) {
 			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
 				stCellInfoKeyVal.Value.m_oBlockKindsList.Add(SampleEngineName.EBlockKinds.BG_EMPTY);

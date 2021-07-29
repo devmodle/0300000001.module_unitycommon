@@ -10,16 +10,16 @@ namespace SampleEngineName {
 		#region 클래스 함수
 		//! 정렬 순서를 반환한다
 		public static STSortingOrderInfo GetSortingOrder(EBlockKinds a_eBlockKinds) {
-			var eBaseKinds = (EBlockKinds)((int)a_eBlockKinds).ExKindsToBaseKinds();
-			CAccess.Assert(KDefine.E_SORTING_OI_BLOCKS.ContainsKey(eBaseKinds));
+			var eKindsType = a_eBlockKinds.ExKindsToKindsType();
+			CAccess.Assert(KDefine.E_SORTING_OI_BLOCKS.ContainsKey(eKindsType));
 
-			return KDefine.E_SORTING_OI_BLOCKS[eBaseKinds];
+			return KDefine.E_SORTING_OI_BLOCKS[eKindsType];
 		}
 
 		//! 블럭 스프라이트를 반환한다
 		public static Sprite GetBlockSprite(EBlockKinds a_eBlockKinds) {
-			var eBaseKinds = (EBlockKinds)((int)a_eBlockKinds).ExKindsToBaseKinds();
-			string oImgPath = KDefine.E_IMG_P_BLOCKS.ExGetVal(eBaseKinds, string.Empty);
+			var eKindsType = a_eBlockKinds.ExKindsToKindsType();
+			string oImgPath = KDefine.E_IMG_P_BLOCKS.ExGetVal(eKindsType, string.Empty);
 
 			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}

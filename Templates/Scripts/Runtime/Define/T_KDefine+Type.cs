@@ -26,4 +26,13 @@ public struct STTypeWrapper {
 	[Key(201)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;
 }
 #endregion			// 기본
+
+#region 조건부 타입
+#if UNITY_EDITOR || UNITY_STANDALONE
+//! 서브 에디터 레벨 생성 정보
+public class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
+
+}
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endregion			// 조건부 타입
 #endif			// #if NEVER_USE_THIS

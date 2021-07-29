@@ -28,14 +28,18 @@ COMMON_LOGIN_SUCCESS_MSG,0,공용 로그인 성공 메세지,You have successful
 COMMON_LOGIN_FAIL_MSG,0,공용 로그인 실패 메세지,You have failed to login
 COMMON_LOGOUT_SUCCESS_MSG,0,공용 로그아웃 성공 메세지,You have successfully logout
 COMMON_LOGOUT_FAIL_MSG,0,공용 로그아웃 실패 메세지,You have failed to logout
-COMMON_SAVE_SUCCESS_MSG,0,공용 저장 성공 메세지,You have successfully saved progress.
-COMMON_SAVE_FAIL_MSG,0,공용 저장 실패 메세지,You have failed to save progress.
 COMMON_LOAD_SUCCESS_MSG,0,공용 로드 성공 메세지,You have successfully loaded progress.
 COMMON_LOAD_FAIL_MSG,0,공용 로드 실패 메세지,You have failed to load progress.
+COMMON_SAVE_SUCCESS_MSG,0,공용 저장 성공 메세지,You have successfully saved progress.
+COMMON_SAVE_FAIL_MSG,0,공용 저장 실패 메세지,You have failed to save progress.
 COMMON_PURCHASE_SUCCESS_MSG,0,공용 결제 성공 메세지,You have successfully purchased this product.
 COMMON_PURCHASE_FAIL_MSG,0,공용 결제 실패 메세지,You have failed to purchase this product.
 COMMON_RESTORE_SUCCESS_MSG,0,공용 복원 성공 메세지,The product has been restored.
 COMMON_RESTORE_FAIL_MSG,0,공용 복원 실패 메세지,Failed to restore the product.
+COMMON_GET_TEXT,0,공용 획득 텍스트,Get
+COMMON_NEXT_TEXT,0,공용 다음 텍스트,Next
+COMMON_LEAVE_TEXT,0,공용 나가기 텍스트,Leave
+COMMON_WATCH_ADS_TEXT,0,공용 광고 시청 텍스트,Watch Ads
 COMMON_LEVEL_TEXT,0,공용 레벨 텍스트,Level
 COMMON_STAGE_TEXT,0,공용 스테이지 텍스트,Stage
 COMMON_CHAPTER_TEXT,0,공용 챕터 텍스트,Chapter

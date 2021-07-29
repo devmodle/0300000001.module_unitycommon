@@ -19,6 +19,10 @@ namespace SampleEngineName {
 		// 간격
 		public static readonly Vector3 E_OFFSET_CELL = new Vector3(KDefine.E_SIZE_CELL.x / 2.0f, KDefine.E_SIZE_CELL.y / -2.0f, 0.0f);
 
+		// 개수
+		public static readonly Vector3Int E_MIN_NUM_CELLS = new Vector3Int(1, 1, 1);
+		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(1, 1, 1);
+
 		// 정렬 순서
 		public static readonly Dictionary<EBlockKinds, STSortingOrderInfo> E_SORTING_OI_BLOCKS = new Dictionary<EBlockKinds, STSortingOrderInfo>() {
 			[EBlockKinds.BG_EMPTY] = new STSortingOrderInfo() {

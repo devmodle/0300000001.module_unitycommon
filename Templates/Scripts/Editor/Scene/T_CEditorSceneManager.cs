@@ -58,18 +58,18 @@ public static partial class CEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
-				EditorFactory.CreateSaleItemInfoTable();
-				EditorFactory.CreateSaleProductInfoTable();
-				EditorFactory.CreateMissionInfoTable();
-				EditorFactory.CreateRewardInfoTable();
-				EditorFactory.CreateEpisodeInfoTable();
-
 				CEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
 
 				// 상태 갱신이 가능 할 경우
 				if(CEditorSceneManager.m_bIsEnableSetup) {
 					CEditorSceneManager.m_bIsEnableSetup = false;
 					CEditorSceneManager.m_oListRequest = Client.List();
+
+					EditorFactory.CreateSaleItemInfoTable();
+					EditorFactory.CreateSaleProductInfoTable();
+					EditorFactory.CreateMissionInfoTable();
+					EditorFactory.CreateRewardInfoTable();
+					EditorFactory.CreateEpisodeInfoTable();
 
 					CEditorSceneManager.SetupCallbacks();
 				}

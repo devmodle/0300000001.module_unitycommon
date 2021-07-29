@@ -336,6 +336,34 @@ public static partial class Func {
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	}
 
+	//! 유저 정보를 로드한다
+	public static void LoadUserInfo(System.Action<CFirebaseManager, string, bool> a_oCallback) {
+		CIndicatorManager.Inst.Show(true);
+		Func.m_oUserInfoLoadCallback = a_oCallback;
+
+		// 로그인 되었을 경우
+		if(CFirebaseManager.Inst.IsLogin) {
+			var oNodeList = Factory.MakeUserInfoNodes();
+			CFirebaseManager.Inst.LoadDB(oNodeList, Func.OnLoadUserInfo);
+		} else {
+			Func.OnLoadUserInfo(CFirebaseManager.Inst, string.Empty, false);
+		}
+	}
+
+	//! 지급 아이템 정보를 로드한다
+	public static void LoadPostItemInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
+		CIndicatorManager.Inst.Show(true);
+		Func.m_oPostItemInfosLoadCallback = a_oCallback;
+
+		// 로그인 되었을 경우
+		if(CFirebaseManager.Inst.IsLogin) {
+			var oNodeList = Factory.MakePostItemInfoNodes();
+			CFirebaseManager.Inst.LoadDB(oNodeList, Func.OnLoadPostItemInfos);
+		} else {
+			Func.OnLoadPostItemInfos(CFirebaseManager.Inst, string.Empty, false);
+		}
+	}
+
 	//! 유저 정보를 저장한다
 	public static void SaveUserInfo(System.Action<CFirebaseManager, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show(true);
@@ -374,34 +402,6 @@ public static partial class Func {
 		}
 	}
 
-	//! 유저 정보를 로드한다
-	public static void LoadUserInfo(System.Action<CFirebaseManager, string, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
-		Func.m_oUserInfoLoadCallback = a_oCallback;
-
-		// 로그인 되었을 경우
-		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = Factory.MakeUserInfoNodes();
-			CFirebaseManager.Inst.LoadDB(oNodeList, Func.OnLoadUserInfo);
-		} else {
-			Func.OnLoadUserInfo(CFirebaseManager.Inst, string.Empty, false);
-		}
-	}
-
-	//! 지급 아이템 정보를 로드한다
-	public static void LoadPostItemInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
-		Func.m_oPostItemInfosLoadCallback = a_oCallback;
-
-		// 로그인 되었을 경우
-		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = Factory.MakePostItemInfoNodes();
-			CFirebaseManager.Inst.LoadDB(oNodeList, Func.OnLoadPostItemInfos);
-		} else {
-			Func.OnLoadPostItemInfos(CFirebaseManager.Inst, string.Empty, false);
-		}
-	}
-
 	//! 파이어 베이스에 로그인 되었을 경우
 	private static void OnFirebaseLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
@@ -414,18 +414,6 @@ public static partial class Func {
 		CFunc.Invoke(ref Func.m_oFirebaseLogoutCallback, a_oSender);
 	}
 
-	//! 유저 정보가 저장 되었을 경우
-	private static void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-		CFunc.Invoke(ref Func.m_oUserInfoSaveCallback, a_oSender, a_bIsSuccess);
-	}
-
-	//! 지급 아이템 정보가 저장 되었을 경우
-	private static void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-		CFunc.Invoke(ref Func.m_oPostItemInfosSaveCallback, a_oSender, a_bIsSuccess);
-	}
-
 	//! 유저 정보가 로드 되었을 경우
 	private static void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
@@ -436,6 +424,18 @@ public static partial class Func {
 	private static void OnLoadPostItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		CFunc.Invoke(ref Func.m_oPostItemInfosLoadCallback, a_oSender, a_oJSONStr, a_bIsSuccess);
+	}
+
+	//! 유저 정보가 저장 되었을 경우
+	private static void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		CFunc.Invoke(ref Func.m_oUserInfoSaveCallback, a_oSender, a_bIsSuccess);
+	}
+
+	//! 지급 아이템 정보가 저장 되었을 경우
+	private static void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		CFunc.Invoke(ref Func.m_oPostItemInfosSaveCallback, a_oSender, a_bIsSuccess);
 	}
 	
 #if UNITY_IOS && APPLE_LOGIN_ENABLE

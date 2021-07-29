@@ -12,6 +12,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private CClearInfo m_oClearInfo = null;
 	
 	private SampleEngineName.CEngine m_oEngine = null;
+	private bool m_bIsLeave = false;
 	#endregion			// 변수
 	
 	#region 함수
@@ -160,8 +161,20 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		// 테스트 모드 일 경우
 		if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+		}
+		// 튜토리얼 모드 일 경우
+		else if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TUTORIAL) {
+			// Do Nothing
 		} else {
-			// Do Something
+			bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(m_oLevelInfo.m_stIDInfo.m_nID, out CLevelInfo oNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+
+			// 다음 레벨이 존재 할 경우
+			if(bIsValid && !m_bIsLeave) {
+				CGameInfoStorage.Inst.SetupPlayLevelInfo(oNextLevelInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, oNextLevelInfo.m_stIDInfo.m_nStageID, oNextLevelInfo.m_stIDInfo.m_nChapterID);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+			} else {
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+			}
 		}
 	}
 	#endregion			// 함수

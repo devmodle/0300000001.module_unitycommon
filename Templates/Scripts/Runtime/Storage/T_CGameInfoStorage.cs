@@ -313,16 +313,6 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		this.GameInfo.m_oClearInfoDict.Add(a_oClearInfo.LevelID, a_oClearInfo);
 	}
 
-	//! 게임 정보를 저장한다
-	public void SaveGameInfo() {
-		this.SaveGameInfo(KDefine.G_DATA_P_GAME_INFO);
-	}
-
-	//! 게임 정보를 저장한다
-	public void SaveGameInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo);
-	}
-
 	//! 게임 정보를 로드한다
 	public CGameInfo LoadGameInfo() {
 		return this.LoadGameInfo(KDefine.G_DATA_P_GAME_INFO);
@@ -337,6 +327,16 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		}
 
 		return this.GameInfo;
+	}
+
+	//! 게임 정보를 저장한다
+	public void SaveGameInfo() {
+		this.SaveGameInfo(KDefine.G_DATA_P_GAME_INFO);
+	}
+
+	//! 게임 정보를 저장한다
+	public void SaveGameInfo(string a_oFilePath) {
+		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo);
 	}
 	#endregion			// 함수
 
