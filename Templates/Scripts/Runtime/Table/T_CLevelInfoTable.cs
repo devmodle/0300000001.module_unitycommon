@@ -77,7 +77,7 @@ public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 변수
 	
 	#region 프로퍼티
-	[IgnoreMember] public Vector3Int NumCells { get; set; } = Vector3Int.zero;
+	[IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
 

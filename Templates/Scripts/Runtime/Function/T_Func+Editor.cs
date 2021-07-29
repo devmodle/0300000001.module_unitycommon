@@ -65,11 +65,18 @@ public static partial class Func {
 
 	//! 에디터 셀 정보를 설정한다
 	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
+		var oIdxList = new List<Vector3Int>();
+
 		foreach(var stKeyVal in a_oLevelInfo.m_oCellInfoDictContainer) {
 			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
+				oIdxList.Add(stCellInfoKeyVal.Value.m_stIdx);
+
+				stCellInfoKeyVal.Value.m_oBlockKindsList.Clear();
 				stCellInfoKeyVal.Value.m_oBlockKindsList.Add(SampleEngineName.EBlockKinds.BG_EMPTY);
 			}
 		}
+
+		a_oLevelInfo.OnAfterDeserialize();
 	}
 	#endregion			// 클래스 함수
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 #if UNITY_EDITOR || UNITY_STANDALONE
 //! 서브 에디터 레벨 생성 팝업
-public class T_CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
+public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 	#region 함수
 	//! 초기화
 	public override void Awake() {

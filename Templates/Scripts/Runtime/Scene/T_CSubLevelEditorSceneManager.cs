@@ -152,11 +152,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 				var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
 				CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 
-				Func.EditorSetupLevelInfo(oLevelInfo, new CEditorLevelCreateInfo() {
+				Func.EditorSetupLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
 					m_nNumLevels = KCDefine.B_VAL_0_INT,
 
-					m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS,
-					m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
+					m_stMinNumCells = Vector3Int.zero,
+					m_stMaxNumCells = Vector3Int.zero
 				});
 			}
 
@@ -189,7 +189,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 
 		m_stSelGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oSelLevelInfo);
-		
+
 		// 비율을 설정한다 {
 		bool bIsValidA = !float.IsNaN(m_stSelGridInfo.m_stGridScale.x) && !float.IsInfinity(m_stSelGridInfo.m_stGridScale.x);
 		bool bIsValidB = !float.IsNaN(m_stSelGridInfo.m_stGridScale.y) && !float.IsInfinity(m_stSelGridInfo.m_stGridScale.y);
@@ -327,11 +327,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oREUIsNumCellsYInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_NUM_CELLS_Y_INPUT);
 
 		// 버튼을 설정한다 {
-		var oLoadLevelBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN);
-		oLoadLevelBtn?.onClick.AddListener(this.OnTouchREUIsLoadLevelBtn);
+		var oLoadBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_BTN);
+		oLoadBtn?.onClick.AddListener(this.OnTouchREUIsLoadBtn);
 
-		var oApplyNumCellsBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_APPLY_NUM_CELLS_BTN);
-		oApplyNumCellsBtn?.onClick.AddListener(this.OnTouchREUIsApplyNumCellsBtn);
+		var oApplyBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN);
+		oApplyBtn?.onClick.AddListener(this.OnTouchREUIsApplyBtn);
 		// 버튼을 설정한다 }
 	}
 
@@ -450,8 +450,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 오른쪽 에디터 UI 레벨 로드 버튼을 눌렀을 경우
-	private void OnTouchREUIsLoadLevelBtn() {
+	//! 오른쪽 에디터 UI 로드 버튼을 눌렀을 경우
+	private void OnTouchREUIsLoadBtn() {
 		// 식별자가 유효 할 경우
 		if(int.TryParse(m_oREUIsLevelInput?.text, out int nID)) {
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
@@ -461,11 +461,17 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 오른쪽 에디터 UI 셀 개수 적용 버튼을 눌렀을 경우
-	private void OnTouchREUIsApplyNumCellsBtn() {
+	//! 오른쪽 에디터 UI 적용 버튼을 눌렀을 경우
+	private void OnTouchREUIsApplyBtn() {
+		bool bIsValidA = int.TryParse(m_oREUIsNumCellsXInput?.text, out int nNumCellsX);
+		bool bIsValidB = int.TryParse(m_oREUIsNumCellsYInput?.text, out int nNumCellsY);
+
+		bool bIsValidNumCellsX = Mathf.Max(nNumCellsX, SampleEngineName.KDefine.E_MIN_NUM_CELLS.x) != m_oSelLevelInfo.NumCells.x;
+		bool bIsValidNumCellsY = Mathf.Max(nNumCellsY, SampleEngineName.KDefine.E_MIN_NUM_CELLS.y) != m_oSelLevelInfo.NumCells.y;
+
 		// 셀 개수가 유효 할 경우
-		if(int.TryParse(m_oREUIsNumCellsXInput?.text, out int nNumCellsX) && int.TryParse(m_oREUIsNumCellsYInput?.text, out int nNumCellsY)) {
-			Func.EditorSetupLevelInfo(m_oSelLevelInfo, new CEditorLevelCreateInfo() {
+		if(bIsValidA && bIsValidB && (bIsValidNumCellsX || bIsValidNumCellsY)) {
+			Func.EditorSetupLevelInfo(m_oSelLevelInfo, new CSubEditorLevelCreateInfo() {
 				m_nNumLevels = KCDefine.B_VAL_0_INT,
 
 				m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT),
@@ -657,11 +663,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oSelLevelInfo = Factory.MakeLevelInfo(a_nID, a_nStageID, a_nChapterID);
 		CLevelInfoTable.Inst.AddLevelInfo(m_oSelLevelInfo);
 
-		Func.EditorSetupLevelInfo(m_oSelLevelInfo, new CEditorLevelCreateInfo() {
+		Func.EditorSetupLevelInfo(m_oSelLevelInfo, new CSubEditorLevelCreateInfo() {
 			m_nNumLevels = KCDefine.B_VAL_0_INT,
 
-			m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS,
-			m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
+			m_stMinNumCells = Vector3Int.zero,
+			m_stMaxNumCells = Vector3Int.zero
 		});
 
 		this.UpdateUIsState();
