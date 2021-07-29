@@ -63,20 +63,37 @@ public static partial class Func {
 		Func.EditorSetupCellInfos(a_oLevelInfo, a_oCreateInfo);
 	}
 
+	//! 에디터 셀 정보 설정 완료 여부를 검사한다
+	private static bool IsEditorCompleteSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
+		return true;
+	}
+
 	//! 에디터 셀 정보를 설정한다
 	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
+		int i = 0;
 		var oIdxList = new List<Vector3Int>();
 
-		foreach(var stKeyVal in a_oLevelInfo.m_oCellInfoDictContainer) {
-			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
-				oIdxList.Add(stCellInfoKeyVal.Value.m_stIdx);
+		do {
+			oIdxList.Clear();
 
-				stCellInfoKeyVal.Value.m_oBlockKindsList.Clear();
-				stCellInfoKeyVal.Value.m_oBlockKindsList.Add(SampleEngineName.EBlockKinds.BG_EMPTY);
+			foreach(var stKeyVal in a_oLevelInfo.m_oCellInfoDictContainer) {
+				foreach(var stCellInfoKeyVal in stKeyVal.Value) {
+					oIdxList.Add(stCellInfoKeyVal.Value.m_stIdx);
+
+					stCellInfoKeyVal.Value.m_oBlockKindsList.Clear();
+					stCellInfoKeyVal.Value.m_oBlockKindsList.Add(SampleEngineName.EBlockKinds.BG_EMPTY);
+				}
 			}
-		}
+			
+			Func.EditorSetupCellInfos(a_oLevelInfo, a_oCreateInfo, oIdxList);
+		} while(i++ < KDefine.LES_MAX_TRY_TIMES_SETUP_CELL_INFOS && !Func.IsEditorCompleteSetupCellInfos(a_oLevelInfo, a_oCreateInfo));
 
 		a_oLevelInfo.OnAfterDeserialize();
+	}
+
+	//! 에디터 셀 정보를 설정한다
+	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo, List<Vector3Int> a_oIdxList) {
+		// Do Something
 	}
 	#endregion			// 클래스 함수
 }

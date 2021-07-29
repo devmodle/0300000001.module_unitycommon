@@ -59,6 +59,22 @@ public class CLevelEditorSceneManager : CSceneManager {
 #endif			// #if MODE_PORTRAIT_ENABLE
 		}
 	}
+
+	//! 초기화
+	public override void Start() {
+		base.Start();
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsAppInit) {
+			CScheduleManager.Inst.AddTimer(this, KCDefine.U_DELAY_INIT, byte.MaxValue, () => {
+				var oTransforms = this.SubUIs.GetComponentsInChildren<RectTransform>();
+
+				for(int i = 0; i < oTransforms.Length; ++i) {
+					LayoutRebuilder.MarkLayoutForRebuild(oTransforms[i]);
+				}
+			});
+		}
+	}
 	#endregion			// 함수
 }
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE

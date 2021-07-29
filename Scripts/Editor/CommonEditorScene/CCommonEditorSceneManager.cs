@@ -9,6 +9,7 @@ using Unity.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEditor.Experimental.SceneManagement;
 
 //! 공용 에디터 씬 관리자
 public static partial class CCommonEditorSceneManager {
@@ -71,6 +72,43 @@ public static partial class CCommonEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
+	}
+
+	[MenuItem("Tools/Utility/Reset/Horizontal or Vertical LayoutGroups")]
+	public static void ResetLayoutGroups() {
+		var oPrefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+		var oLayoutGroupList = new List<HorizontalOrVerticalLayoutGroup>();
+
+		// 프리팹 모드 일 경우
+		if(oPrefabStage != null) {
+			var oLayoutGroups = oPrefabStage.prefabContentsRoot.GetComponentsInChildren<HorizontalOrVerticalLayoutGroup>();
+			oLayoutGroupList.AddRange(oLayoutGroups);
+		} else {
+			CFunc.EnumerateObjs((a_oObjs) => {
+				for(int i = 0; i < a_oObjs.Length; ++i) {
+					var oLayoutGroups = a_oObjs[i].GetComponentsInChildren<HorizontalOrVerticalLayoutGroup>();
+					oLayoutGroupList.AddRange(oLayoutGroups);
+				}
+
+				return true;
+			});
+		}
+
+		for(int i = 0; i < oLayoutGroupList.Count; ++i) {
+			oLayoutGroupList[i].childScaleWidth = false;
+			oLayoutGroupList[i].childScaleHeight = false;
+
+			oLayoutGroupList[i].childControlWidth = false;
+			oLayoutGroupList[i].childControlHeight = false;
+
+			oLayoutGroupList[i].childForceExpandWidth = false;
+			oLayoutGroupList[i].childForceExpandHeight = false;
+
+			// 에디터 모드 일 경우
+			if(!Application.isPlaying) {
+				EditorSceneManager.MarkSceneDirty(oLayoutGroupList[i].gameObject.scene);
+			}
+		}
 	}
 
 	//! 상태를 갱신한다
