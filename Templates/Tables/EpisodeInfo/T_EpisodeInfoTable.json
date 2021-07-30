@@ -1,5 +1,42 @@
 {
-    "Level": [],
-    "Stage": [],
-    "Chapter": []
+    "Level": [
+        {
+            "ID": "0",
+            "StageID": "0",
+            "ChapterID": "0",
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "LevelMode": "-1",
+            "LevelKinds": "-1",
+            "RewardKinds": "-1",
+            "TutorialKinds": "-1",
+            "Description": "샘플 레벨 정보"
+        }
+    ],
+    "Stage": [
+        {
+            "ID": "0",
+            "ChapterID": "0",
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "StageKinds": "-1",
+            "RewardKinds": "-1",
+            "TutorialKinds": "-1",
+            "Description": "샘플 스테이지 정보"
+        }
+    ],
+    "Chapter": [
+        {
+            "ID": "0",
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "ChapterKinds": "-1",
+            "RewardKinds": "-1",
+            "TutorialKinds": "-1",
+            "Description": "샘플 챕터 정보"
+        }
+    ]
 }

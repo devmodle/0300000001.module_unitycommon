@@ -12,6 +12,7 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_SALE_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_ACQUIRE_FREE_REWARDS = 0;
+	public const int G_MAX_NUM_TUTORIAL_STRS = 0;
 
 	public const int G_MAX_NUM_LEVEL_INFOS = 9999;
 	public const int G_MAX_NUM_STAGE_INFOS = 999;
@@ -37,7 +38,7 @@ public static partial class KDefine {
 	public const string G_VER_CELL_INFO = "1.0.0";
 	public const string G_VER_LEVEL_INFO = "1.0.0";
 	// 버전 }
-	
+
 	// 판매 아이템 정보 테이블 {
 	public const string G_KEY_SALE_IIT_PRICE = "Price";
 	public const string G_KEY_SALE_IIT_PRICE_KINDS = "PriceKinds";
@@ -88,14 +89,27 @@ public static partial class KDefine {
 	
 	public const string G_KEY_EPISODE_IT_ID = "ID";
 	public const string G_KEY_EPISODE_IT_LEVEL_MODE = "LevelMode";
+	public const string G_KEY_EPISODE_IT_LEVEL_KINDS = "LevelKinds";
 	public const string G_KEY_EPISODE_IT_REWARD_KINDS = "RewardKinds";
+	public const string G_KEY_EPISODE_IT_TUTORIAL_KINDS = "TutorialKinds";
 
 	public const string G_KEY_EPISODE_IT_STAGE_ID = "StageID";
-	public const string G_KEY_EPISODE_IT_STAGE_MODE = "StageMode";
+	public const string G_KEY_EPISODE_IT_STAGE_KINDS = "StageKinds";
 
 	public const string G_KEY_EPISODE_IT_CHAPTER_ID = "ChapterID";
-	public const string G_KEY_EPISODE_IT_CHAPTER_MODE = "ChapterMode";
+	public const string G_KEY_EPISODE_IT_CHAPTER_KINDS = "ChapterKinds";
 	// 에피소드 정보 테이블 }
+
+	// 튜토리얼 정보 테이블 {
+	public const string G_KEY_TUTORIAL_IT_PLAY = "Play";
+	public const string G_KEY_TUTORIAL_IT_HELP = "Help";
+
+	public const string G_KEY_TUTORIAL_IT_REWARD_KINDS = "RewardKinds";
+	public const string G_KEY_TUTORIAL_IT_TUTORIAL_KINDS = "TutorialKinds";
+	public const string G_KEY_TUTORIAL_IT_NEXT_TUTORIAL_KINDS = "NextTutorialKinds";
+
+	public const string G_KEY_FMT_TUTORIAL_IT_STRS = "Str_{0:00}";
+	// 튜토리얼 정보 테이블 }
 	
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
@@ -185,15 +199,28 @@ public static partial class KDefine {
 	};
 
 	public static readonly STLevelInfo G_INVALID_LEVEL_INFO = new STLevelInfo() {
-		m_eLevelMode = ELevelMode.NONE
+		m_eLevelMode = ELevelMode.NONE,
+		m_eLevelKinds = ELevelKinds.NONE,
+		m_eRewardKinds = ERewardKinds.NONE,
+		m_eTutorialKinds = ETutorialKinds.NONE
 	};
 
 	public static readonly STStageInfo G_INVALID_STAGE_INFO = new STStageInfo() {
-		m_eStageMode = EStageMode.NONE
+		m_eStageKinds = EStageKinds.NONE,
+		m_eRewardKinds = ERewardKinds.NONE,
+		m_eTutorialKinds = ETutorialKinds.NONE
 	};
 
 	public static readonly STChapterInfo G_INVALID_CHAPTER_INFO = new STChapterInfo() {
-		m_eChapterMode = EChapterMode.NONE
+		m_eChapterKinds = EChapterKinds.NONE,
+		m_eRewardKinds = ERewardKinds.NONE,
+		m_eTutorialKinds = ETutorialKinds.NONE
+	};
+
+	public static readonly STTutorialInfo G_INVALID_TUTORIAL_INFO = new STTutorialInfo() {
+		m_eRewardKinds = ERewardKinds.NONE,
+		m_eTutorialKinds = ETutorialKinds.NONE,
+		m_eNextTutorialKinds = ETutorialKinds.NONE
 	};
 	// 기타 }
 
@@ -239,6 +266,7 @@ public static partial class KDefine {
 	public static readonly string G_RUNTIME_TABLE_P_MISSION_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_MISSION_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_EPISODE_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_EPISODE_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_TUTORIAL_INFO = $"{KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_TUTORIAL_INFO}.json";
 #else
 	public static readonly string G_RUNTIME_DATA_P_FMT_LEVEL_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_DATA_P_FMT_G_LEVEL_INFO}.bytes";
 
@@ -248,6 +276,7 @@ public static partial class KDefine {
 	public static readonly string G_RUNTIME_TABLE_P_MISSION_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_MISSION_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_REWARD_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_REWARD_INFO}.json";
 	public static readonly string G_RUNTIME_TABLE_P_EPISODE_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_EPISODE_INFO}.json";
+	public static readonly string G_RUNTIME_TABLE_P_TUTORIAL_INFO = $"{KCDefine.B_ABS_DIR_P_RUNTIME_EXTERNAL_DATAS}{KCDefine.U_TABLE_P_G_TUTORIAL_INFO}.json";
 #endif			// #if UNITY_EDITOR
 	// 경로 }
 

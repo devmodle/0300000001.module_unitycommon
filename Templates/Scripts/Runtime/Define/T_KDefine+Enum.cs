@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public enum EPlayMode {
 	NONE = -1,
 	NORM,
-	TEST,
 	TUTORIAL,
+	TEST,
 	MAX_VAL
 }
 
@@ -20,18 +20,6 @@ public enum ELevelMode {
 	EASY,
 	NORM,
 	HARD,
-	MAX_VAL
-}
-
-//! 스테이지 모드
-public enum EStageMode {
-	NONE = -1,
-	MAX_VAL
-}
-
-//! 챕터 모드
-public enum EChapterMode {
-	NONE = -1,
 	MAX_VAL
 }
 
@@ -259,6 +247,69 @@ public enum ERewardAcquirePopupType {
 	MAX_VAL
 }
 
+//! 레벨 타입
+public enum ELevelType {
+	NONE = -1,
+	NORM,
+	TUTORIAL,
+	MAX_VAL
+}
+
+//! 레벨 종류
+public enum ELevelKinds {
+	NONE = -1,
+
+	#region 일반
+	// 일반 레벨 0
+	[HideInInspector] NORM_LEVEL,
+	#endregion			// 일반
+
+	#region 튜토리얼
+	// 튜토리얼 레벨 10,000,000
+	[HideInInspector] NORM_TUTORIAL = ELevelKinds.NORM_LEVEL + KCDefine.B_UNIT_KINDS_PER_TYPE,
+	#endregion			// 튜토리얼
+
+	MAX_VAL
+}
+
+//! 스테이지 타입
+public enum EStageType {
+	NONE = -1,
+	NORM,
+	MAX_VAL
+}
+
+//! 스테이지 타입
+public enum EStageKinds {
+	NONE = -1,
+
+	#region 일반
+	// 일반 스테이지 0
+	[HideInInspector] NORM_STAGE,
+	#endregion			// 일반
+
+	MAX_VAL
+}
+
+//! 챕터 타입
+public enum EChapterType {
+	NONE = -1,
+	NORM,
+	MAX_VAL
+}
+
+//! 챕터 타입
+public enum EChapterKinds {
+	NONE = -1,
+
+	#region 일반
+	// 일반 챕터 0
+	[HideInInspector] NORM_CHAPTER,
+	#endregion			// 일반
+
+	MAX_VAL
+}
+
 //! 튜토리얼 타입
 public enum ETutorialType {
 	NONE = -1,
@@ -270,6 +321,17 @@ public enum ETutorialType {
 //! 튜토리얼 종류
 public enum ETutorialKinds {
 	NONE = -1,
+
+	#region 플레이
+	// 플레이 튜토리얼 0
+	[HideInInspector] PLAY_TUTORIAL,
+	#endregion			// 플레이
+
+	#region 도움말
+	// 도움말 튜토리얼 10,000,000
+	[HideInInspector] HELP_TUTORIAL = KCDefine.B_UNIT_KINDS_PER_TYPE,
+	#endregion			// 도움말
+
 	MAX_VAL
 }
 #endregion			// 기본

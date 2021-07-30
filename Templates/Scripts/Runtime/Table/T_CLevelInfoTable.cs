@@ -71,13 +71,42 @@ public sealed class CCellInfo : CBaseInfo, System.ICloneable {
 [MessagePackObject]
 [System.Serializable]
 public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
+	#region 상수
+	private const string KEY_LEVEL_MODE = "LevelMode";
+	private const string KEY_LEVEL_KINDS = "LevelKinds";
+	private const string KEY_REWARD_KINDS = "RewardKinds";
+	private const string KEY_TUTORIAL_KINDS = "TutorialKinds";
+	#endregion			// 상수
+
 	#region 변수
 	[Key(5)] public STIDInfo m_stIDInfo;
 	[Key(201)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
+	[IgnoreMember] public int NumTargets { get; private set; } = 0;
 	[IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
+
+	[IgnoreMember] public ELevelMode LevelMode {
+		get { return (ELevelMode)m_oIntDict.ExGetVal(CLevelInfo.KEY_LEVEL_MODE, (int)ELevelMode.NONE); }
+		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_LEVEL_MODE, (int)value); }
+	}
+	
+	[IgnoreMember] public ELevelKinds LevelKinds {
+		get { return (ELevelKinds)m_oIntDict.ExGetVal(CLevelInfo.KEY_LEVEL_KINDS, (int)ELevelKinds.NONE); }
+		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_LEVEL_KINDS, (int)value); }
+	}
+
+	[IgnoreMember] public ERewardKinds RewardKinds {
+		get { return (ERewardKinds)m_oIntDict.ExGetVal(CLevelInfo.KEY_REWARD_KINDS, (int)ERewardKinds.NONE); }
+		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_REWARD_KINDS, (int)value); }
+	}
+
+	[IgnoreMember] public ETutorialKinds TutorialKinds {
+		get { return (ETutorialKinds)m_oIntDict.ExGetVal(CLevelInfo.KEY_TUTORIAL_KINDS, (int)ETutorialKinds.NONE); }
+		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_TUTORIAL_KINDS, (int)value); }
+	}
+	
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
 

@@ -70,6 +70,7 @@ public static partial class CEditorSceneManager {
 					EditorFactory.CreateMissionInfoTable();
 					EditorFactory.CreateRewardInfoTable();
 					EditorFactory.CreateEpisodeInfoTable();
+					EditorFactory.CreateTutorialInfoTable();
 
 					CEditorSceneManager.SetupCallbacks();
 				}

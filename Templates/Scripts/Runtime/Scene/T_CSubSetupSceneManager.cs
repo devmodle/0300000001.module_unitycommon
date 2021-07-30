@@ -29,6 +29,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		CMissionInfoTable.Inst.LoadMissionInfos();
 		CRewardInfoTable.Inst.LoadRewardInfos();
 		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
+		CTutorialInfoTable.Inst.LoadTutorialInfos();
 
 #if UNITY_EDITOR
 		CLevelInfoTable.Inst.SaveLevelInfos();

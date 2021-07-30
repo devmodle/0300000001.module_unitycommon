@@ -1,5 +1,32 @@
 {
-    "Free": [],
-    "Daily": [],
-    "Event": []
+    "Free": [
+        {
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "MissionKinds": "0",
+            "RewardKinds": "-1",
+            "Description": "샘플 자유 미션 정보"
+        }
+    ],
+    "Daily": [
+        {
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "MissionKinds": "10000000",
+            "RewardKinds": "-1",
+            "Description": "샘플 일일 미션 정보"
+        }
+    ],
+    "Event": [
+        {
+            "Name": "Sample",
+            "Desc": "Sample",
+            "Replace": "0",
+            "MissionKinds": "20000000",
+            "RewardKinds": "-1",
+            "Description": "샘플 이벤트 미션 정보"
+        }
+    ]
 }
