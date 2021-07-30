@@ -15,6 +15,11 @@ public class CSubToastPopup : CToastPopup {
 	//! 초기화
 	public override void Init(STParams a_stParams) {
 		base.Init(a_stParams);
+	}
+
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
 		this.UpdateUIsState();
 	}
 

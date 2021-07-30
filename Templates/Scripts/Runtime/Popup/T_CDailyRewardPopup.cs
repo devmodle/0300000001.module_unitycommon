@@ -36,9 +36,14 @@ public class CDailyRewardPopup : CSubPopup {
 	//! 초기화
 	public override void Init() {
 		base.Init();
-		this.UpdateUIsState();
 	}
 
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
+		this.UpdateUIsState();
+	}
+	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
 		// 보상 UI 상태를 갱신한다

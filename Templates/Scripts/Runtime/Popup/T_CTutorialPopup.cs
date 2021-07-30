@@ -34,10 +34,14 @@ public class CTutorialPopup : CFocusPopup {
 
 		m_stParams = a_stParams;
 		m_stCallbackParams = a_stCallbackParams;
-
-		this.UpdateUIsState();
 	}
 
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
+		this.UpdateUIsState();
+	}
+	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
 		// Do Something

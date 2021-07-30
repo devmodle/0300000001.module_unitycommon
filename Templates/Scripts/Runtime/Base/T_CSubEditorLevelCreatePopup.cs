@@ -16,6 +16,11 @@ public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 	//! 초기화
 	public override void Init(System.Action<CEditorLevelCreatePopup, CEditorLevelCreateInfo> a_oCallback) {
 		base.Init(a_oCallback);
+	}
+
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
 		this.UpdateUIsState();
 	}
 

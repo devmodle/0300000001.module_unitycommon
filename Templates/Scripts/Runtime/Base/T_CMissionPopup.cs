@@ -29,7 +29,11 @@ public abstract class CMissionPopup : CSubPopup {
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
 		m_stParams = a_stParams;
+	}
 
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
 		this.UpdateUIsState();
 	}
 

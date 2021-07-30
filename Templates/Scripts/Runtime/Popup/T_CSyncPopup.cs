@@ -41,6 +41,11 @@ public class CSyncPopup : CSubPopup {
 	//! 초기화
 	public override void Init() {
 		base.Init();
+	}
+
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
 		this.UpdateUIsState();
 	}
 

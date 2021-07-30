@@ -61,8 +61,6 @@ public class CFocusPopup : CSubPopup {
 		oTouchDispatcher?.ExSetBeginCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oBeginCallback?.Invoke(this, a_oEventData), false);
 		oTouchDispatcher?.ExSetMoveCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oMoveCallback?.Invoke(this, a_oEventData), false);
 		oTouchDispatcher?.ExSetEndCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oEndCallback?.Invoke(this, a_oEventData), false);
-
-		this.UpdateUIsState();
 	}
 
 	//! 팝업 컨텐츠를 설정한다
@@ -76,6 +74,8 @@ public class CFocusPopup : CSubPopup {
 				m_stParams.m_oContentsUIsList[i].transform.SetParent(m_oContentsUIs.transform, false);
 			}
 		}
+
+		this.UpdateUIsState();
 	}
 
 	//! UI 상태를 갱신한다

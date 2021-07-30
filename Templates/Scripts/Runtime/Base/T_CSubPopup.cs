@@ -20,11 +20,16 @@ public abstract class CSubPopup : CPopup {
 	//! 초기화
 	public override void Init() {
 		base.Init();
+	}
+
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
 		this.UpdateUIsState();
 	}
 
 	//! UI 상태를 갱신한다
-	protected void UpdateUIsState() {
+	protected new void UpdateUIsState() {
 		// Do Something
 	}
 	#endregion			// 함수

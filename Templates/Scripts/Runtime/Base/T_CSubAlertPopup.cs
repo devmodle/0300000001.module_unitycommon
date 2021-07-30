@@ -19,6 +19,11 @@ public class CSubAlertPopup : CAlertPopup {
 	//! 초기화
 	public override void Init(STParams a_stParams, System.Action<CAlertPopup, bool> a_oCallback) {
 		base.Init(a_stParams, a_oCallback);
+	}
+
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
 		this.UpdateUIsState();
 	}
 

@@ -38,10 +38,14 @@ public class CStorePopup : CSubPopup {
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
 		m_stParams = a_stParams;
-		
-		this.UpdateUIsState();
 	}
 
+	//! 팝업 컨텐츠를 설정한다
+	protected override void SetupContents() {
+		base.SetupContents();
+		this.UpdateUIsState();
+	}
+	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
 		// 상품 UI 상태를 갱신한다
