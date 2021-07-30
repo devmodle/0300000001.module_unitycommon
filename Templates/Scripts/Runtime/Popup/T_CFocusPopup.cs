@@ -46,7 +46,7 @@ public class CFocusPopup : CSubPopup {
 		base.Awake();
 
 		m_oBlindImg = m_oContents.ExFindComponent<Image>(KDefine.G_OBJ_N_FOCUS_P_BLIND_IMG);
-		m_oContentsUIs = m_oContents.ExFindChild(KCDefine.G_OBJ_N_POPUP_CONTENTS_UIS);
+		m_oContentsUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_CONTENTS_UIS);
 	}
 
 	//! 초기화

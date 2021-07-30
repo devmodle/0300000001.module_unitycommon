@@ -6,9 +6,9 @@
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
 	- *Asset Usage Detector (v1.9.7 - Jul 26, 2021)*
 	- *Bezier Solution (v2.2.0 - Jul 7, 2021)*
-	- *Enhanced Hierarchy (v2.4.5 - May 05, 2020)*
+	- *Enhanced Hierarchy (v2.4.5 - May 5, 2020)*
 	- *Enhanced Scroller (v2.29.1 - Mar 21, 2021)*
-	- *Ingame Debug Console (v1.4.8 - Apr 31, 2021)*
+	- *Ingame Debug Console (v1.5.0 - Jul 19, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
@@ -23,7 +23,7 @@
 	- *Build Report Tool (v3.8.2 - May 18, 2021)*
 	- *Extenject Dependency Injection (v9.2.0 - May 26, 2020)*
 	- *NGUI (v2020.2.2 - Jun 25, 2021)*
-	- *Odin Inspector (v3.0.6 - Jul 2, 2021)*
+	- *Odin Inspector (v3.0.7 - Jul 29, 2021)*
 	- *Spine (v3.8.0 - Apr 28, 2021)*
 	- *Spine URP Shaders (v3.8.0 - Apr 28, 2021)*
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*
