@@ -64,7 +64,7 @@ public static partial class Func {
 	}
 
 	//! 에디터 셀 정보 설정 완료 여부를 검사한다
-	private static bool IsEditorCompleteSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
+	private static bool EditorIsCompleteSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
 		return true;
 	}
 
@@ -86,7 +86,7 @@ public static partial class Func {
 			}
 			
 			Func.EditorSetupCellInfos(a_oLevelInfo, a_oCreateInfo, oIdxList);
-		} while(i++ < KDefine.LES_MAX_TRY_TIMES_SETUP_CELL_INFOS && !Func.IsEditorCompleteSetupCellInfos(a_oLevelInfo, a_oCreateInfo));
+		} while(i++ < KDefine.LES_MAX_TRY_TIMES_SETUP_CELL_INFOS && !Func.EditorIsCompleteSetupCellInfos(a_oLevelInfo, a_oCreateInfo));
 
 		a_oLevelInfo.OnAfterDeserialize();
 	}

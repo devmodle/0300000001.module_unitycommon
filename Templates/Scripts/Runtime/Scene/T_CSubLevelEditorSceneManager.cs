@@ -303,16 +303,16 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 스크롤러를 설정한다 {
 		m_oLEUIsLevelScroller = m_oLeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.LES_OBJ_N_LEVEL_SCROLL_VIEW);
+		m_oLEUIsLevelScroller?.ExSetActive(false, false);
 		m_oLEUIsLevelScroller?.ExSetDelegate(this, false);
-		m_oLEUIsLevelScroller?.gameObject.SetActive(false);
 
 		m_oLEUIsStageScroller = m_oLeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.LES_OBJ_N_STAGE_SCROLL_VIEW);
+		m_oLEUIsStageScroller?.ExSetActive(true, false);
 		m_oLEUIsStageScroller?.ExSetDelegate(this, false);
-		m_oLEUIsStageScroller?.gameObject.SetActive(true);
 
 		m_oLEUIsChapterScroller = m_oLeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.LES_OBJ_N_CHAPTER_SCROLL_VIEW);
+		m_oLEUIsChapterScroller?.ExSetActive(true, false);
 		m_oLEUIsChapterScroller?.ExSetDelegate(this, false);
-		m_oLEUIsChapterScroller?.gameObject.SetActive(true);
 		// 스크롤러를 설정한다 }
 	}
 
@@ -398,10 +398,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oREUIsLevelInput?.ExSetText<InputField>(oLevelStr, false);
 
 		string oNumCellsXStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.NumCells.x);
-		m_oREUIsNumCellsXInput?.ExSetText<InputField>(oNumCellsXStr, false);
+		m_oREUIsNumCellsXInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : oNumCellsXStr, false);
 
 		string oNumCellsYStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.NumCells.y);
-		m_oREUIsNumCellsYInput?.ExSetText<InputField>(oNumCellsYStr, false);
+		m_oREUIsNumCellsYInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : oNumCellsYStr, false);
 		// 입력 필드를 갱신한다 }
 	}
 
