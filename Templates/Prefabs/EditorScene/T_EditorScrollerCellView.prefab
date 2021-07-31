@@ -790,7 +790,7 @@ GameObject:
   - component: {fileID: 5740292862176139312}
   - component: {fileID: 4162860421601161807}
   m_Layer: 5
-  m_Name: MenuUIs
+  m_Name: BottomMenuUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -837,8 +837,8 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 8
   m_Spacing: 10
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -857,7 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
-  m_VerticalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &8334246944251894886
 GameObject:
   m_ObjectHideFlags: 0

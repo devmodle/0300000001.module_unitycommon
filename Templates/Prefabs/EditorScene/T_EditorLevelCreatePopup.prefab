@@ -794,7 +794,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 255, y: 0}
-  m_SizeDelta: {x: 510, y: 0}
+  m_SizeDelta: {x: 510, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &97866103610750993
 MonoBehaviour:
@@ -835,7 +835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &3487905631738945396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,7 +1435,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 255, y: 0}
-  m_SizeDelta: {x: 510, y: 0}
+  m_SizeDelta: {x: 510, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5921657975810456483
 MonoBehaviour:
@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &5818292763052021691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,7 +1708,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 255, y: 0}
-  m_SizeDelta: {x: 510, y: 0}
+  m_SizeDelta: {x: 510, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3773505297884596186
 MonoBehaviour:
@@ -1749,7 +1749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &6454494308654281304
 GameObject:
   m_ObjectHideFlags: 0
@@ -2411,7 +2411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &8068142954313440690
 GameObject:
   m_ObjectHideFlags: 0
@@ -2570,4 +2570,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 2
+  m_VerticalFit: 0

@@ -108,6 +108,17 @@ public static partial class CCommonEditorSceneManager {
 			if(!Application.isPlaying) {
 				EditorSceneManager.MarkSceneDirty(oLayoutGroupList[i].gameObject.scene);
 			}
+
+			// 부모 레이아웃 그룹이 없을 경우
+			if(oLayoutGroupList[i].transform.parent.GetComponent<HorizontalOrVerticalLayoutGroup>() == null) {
+				(oLayoutGroupList[i].transform as RectTransform).sizeDelta = Vector2.zero;
+			}
+
+			// 컨텐츠 크기 조정자가 존재 할 경우
+			if(oLayoutGroupList[i].TryGetComponent<ContentSizeFitter>(out ContentSizeFitter oSizeFitter)) {
+				oSizeFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+				oSizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+			}
 		}
 	}
 
