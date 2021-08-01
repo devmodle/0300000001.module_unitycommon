@@ -69,7 +69,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		if(m_oLEUIsChapterScroller == a_oSender) {
 			return (m_oOriginChapterScrollerCellView.transform as RectTransform).sizeDelta.y;
 		}
-
+		
 		return (m_oLEUIsStageScroller == a_oSender) ? (m_oOriginStageScrollerCellView.transform as RectTransform).sizeDelta.y : (m_oOriginLevelScrollerCellView.transform as RectTransform).sizeDelta.y;
 	}
 
@@ -155,8 +155,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 				Func.EditorSetupLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
 					m_nNumLevels = KCDefine.B_VAL_0_INT,
 
-					m_stMinNumCells = Vector3Int.zero,
-					m_stMaxNumCells = Vector3Int.zero
+					m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS,
+					m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
 				});
 			}
 
@@ -666,8 +666,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		Func.EditorSetupLevelInfo(m_oSelLevelInfo, new CSubEditorLevelCreateInfo() {
 			m_nNumLevels = KCDefine.B_VAL_0_INT,
 
-			m_stMinNumCells = Vector3Int.zero,
-			m_stMaxNumCells = Vector3Int.zero
+			m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS,
+			m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
 		});
 
 		this.UpdateUIsState();
@@ -779,7 +779,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		if(m_oLEUIsLevelScroller == a_oScroller) {
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
 			int nToID = Mathf.Clamp(a_nToID, KCDefine.B_VAL_1_INT, nNumLevelInfos) - KCDefine.B_VAL_1_INT;
-
+			
 			CLevelInfoTable.Inst.MoveLevelInfo(a_stIDInfo.m_nID, nToID, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
 		} 
 		// 스테이지 스크롤러 일 경우
@@ -794,8 +794,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 			CLevelInfoTable.Inst.MoveChapterLevelInfos(a_stIDInfo.m_nChapterID, nToID);
 		}
-
-		m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nToID, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
 	}
 	#endregion			// 함수
 }

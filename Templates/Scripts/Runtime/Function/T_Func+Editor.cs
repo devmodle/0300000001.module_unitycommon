@@ -71,28 +71,36 @@ public static partial class Func {
 	//! 에디터 셀 정보를 설정한다
 	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
 		int i = 0;
-		var oIdxList = new List<Vector3Int>();
+		var oIdxDictContainer = new Dictionary<int, List<Vector3Int>>();
 
 		do {
-			oIdxList.Clear();
+			oIdxDictContainer.Clear();
 
 			foreach(var stKeyVal in a_oLevelInfo.m_oCellInfoDictContainer) {
+				var oIdxList = new List<Vector3Int>();
+
 				foreach(var stCellInfoKeyVal in stKeyVal.Value) {
 					oIdxList.Add(stCellInfoKeyVal.Value.m_stIdx);
 
 					stCellInfoKeyVal.Value.m_oBlockKindsList.Clear();
 					stCellInfoKeyVal.Value.m_oBlockKindsList.Add(SampleEngineName.EBlockKinds.BG_EMPTY);
 				}
+
+				oIdxDictContainer.Add(stKeyVal.Key, oIdxList);
+			}
+
+			for(int j = 0; j < oIdxDictContainer.Count; ++j) {
+				oIdxDictContainer.ExSwap(j, Random.Range(KCDefine.B_VAL_0_INT, oIdxDictContainer.Count));
 			}
 			
-			Func.EditorSetupCellInfos(a_oLevelInfo, a_oCreateInfo, oIdxList);
+			Func.EditorSetupCellInfos(a_oLevelInfo, a_oCreateInfo, oIdxDictContainer);
 		} while(i++ < KDefine.LES_MAX_TRY_TIMES_SETUP_CELL_INFOS && !Func.EditorIsCompleteSetupCellInfos(a_oLevelInfo, a_oCreateInfo));
 
 		a_oLevelInfo.OnAfterDeserialize();
 	}
 
 	//! 에디터 셀 정보를 설정한다
-	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo, List<Vector3Int> a_oIdxList) {
+	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo, Dictionary<int, List<Vector3Int>> a_oIdxDictContainer) {
 		// Do Something
 	}
 	#endregion			// 클래스 함수
