@@ -98,10 +98,10 @@ public static partial class CCommonEditorSceneManager {
 			oLayoutGroupList[i].childScaleWidth = false;
 			oLayoutGroupList[i].childScaleHeight = false;
 
-			oLayoutGroupList[i].childControlWidth = false;
+			oLayoutGroupList[i].childControlWidth = true;
 			oLayoutGroupList[i].childControlHeight = false;
 
-			oLayoutGroupList[i].childForceExpandWidth = false;
+			oLayoutGroupList[i].childForceExpandWidth = true;
 			oLayoutGroupList[i].childForceExpandHeight = false;
 
 			// 에디터 모드 일 경우
@@ -116,8 +116,7 @@ public static partial class CCommonEditorSceneManager {
 
 			// 컨텐츠 크기 조정자가 존재 할 경우
 			if(oLayoutGroupList[i].TryGetComponent<ContentSizeFitter>(out ContentSizeFitter oSizeFitter)) {
-				oSizeFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
-				oSizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+				oSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 			}
 		}
 	}
