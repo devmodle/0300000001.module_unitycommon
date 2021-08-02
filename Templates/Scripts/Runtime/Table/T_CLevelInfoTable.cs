@@ -43,13 +43,6 @@ public sealed class CCellInfo : CBaseInfo, System.ICloneable {
 		m_stIdx = new Vector3Int(nIdxX, nIdxY, nIdxZ);
 		// 인덱스를 설정한다 }
 	}
-	#endregion			// 인터페이스
-
-	#region 함수
-	//! 생성자
-	public CCellInfo() : base(KDefine.G_VER_CELL_INFO) {
-		// Do Something
-	}
 
 	//! 사본 객체를 생성한다
 	public object Clone() {
@@ -64,7 +57,7 @@ public sealed class CCellInfo : CBaseInfo, System.ICloneable {
 		oCellInfo.OnAfterDeserialize();
 		return oCellInfo;
 	}
-	#endregion			// 함수
+	#endregion			// 인터페이스
 }
 
 //! 레벨 정보
@@ -79,7 +72,7 @@ public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(5)] public STIDInfo m_stIDInfo;
+	[Key(4)] public STIDInfo m_stIDInfo;
 	[Key(201)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
 	#endregion			// 변수
 	
@@ -126,13 +119,6 @@ public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
 		this.NumCells = stNumCells;
 		// 셀 개수를 설정한다 }
 	}
-	#endregion			// 인터페이스
-
-	#region 함수
-	//! 생성자
-	public CLevelInfo() : base(KDefine.G_VER_LEVEL_INFO) {
-		// Do Something
-	}
 
 	//! 사본 객체를 생성한다
 	public object Clone() {
@@ -153,6 +139,22 @@ public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
 
 		oLevelInfo.OnAfterDeserialize();
 		return oLevelInfo;
+	}
+	#endregion			// 인터페이스
+
+	#region 함수
+	//! 셀 정보를 반환한다
+	public CCellInfo GetCellInfo(Vector3Int a_stIdx) {
+		bool bIsValid = this.TryGetCellInfo(a_stIdx, out CCellInfo oCellInfo);
+		CAccess.Assert(bIsValid);
+
+		return oCellInfo;
+	}
+
+	//! 셀 정보를 반환한다
+	public bool TryGetCellInfo(Vector3Int a_stIdx, out CCellInfo a_oOutCellInfo) {
+		a_oOutCellInfo = m_oCellInfoDictContainer.ContainsKey(a_stIdx.y) ? m_oCellInfoDictContainer[a_stIdx.y].ExGetVal(a_stIdx.x, null) : null;
+		return a_oOutCellInfo != null;
 	}
 	#endregion			// 함수
 }

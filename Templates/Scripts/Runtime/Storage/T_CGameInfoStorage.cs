@@ -19,7 +19,7 @@ public sealed class CClearInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(5)] public STIDInfo m_stIDInfo;
+	[Key(4)] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -45,13 +45,6 @@ public sealed class CClearInfo : CBaseInfo {
 
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
-
-	#region 함수
-	//! 생성자
-	public CClearInfo() : base(KDefine.G_VER_CLEAR_INFO) {
-		// Do Something
-	}
-	#endregion			// 함수
 }
 
 //! 게임 정보
@@ -118,13 +111,6 @@ public sealed class CGameInfo : CBaseInfo {
 		this.LastDailyRewardTime = this.LastDailyRewardTimeStr.ExIsValid() ? this.LastDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
 	}
 	#endregion			// 인터페이스
-
-	#region 함수
-	//! 생성자
-	public CGameInfo() : base(KDefine.G_VER_GAME_INFO) {
-		// Do Something
-	}
-	#endregion			// 함수
 }
 
 //! 게임 정보 저장소

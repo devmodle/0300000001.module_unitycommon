@@ -10,12 +10,7 @@ using MessagePack;
 [MessagePackObject]
 [System.Serializable]
 public sealed class CAppInfo : CBaseInfo {
-	#region 함수
-	//! 생성자
-	public CAppInfo() : base(KDefine.G_VER_APP_INFO) {
-		// Do Something
-	}
-	#endregion			// 함수
+	
 }
 
 //! 앱 정보 저장소

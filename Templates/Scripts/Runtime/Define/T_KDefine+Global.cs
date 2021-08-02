@@ -28,17 +28,7 @@ public static partial class KDefine {
 
 	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0:00}_{1:00}";
 	// 식별자 }
-
-	// 버전 {
-	public const string G_VER_APP_INFO = "1.0.0";
-	public const string G_VER_USER_INFO = "1.0.0";
-	public const string G_VER_GAME_INFO = "1.0.0";
-	public const string G_VER_CLEAR_INFO = "1.0.0";
-
-	public const string G_VER_CELL_INFO = "1.0.0";
-	public const string G_VER_LEVEL_INFO = "1.0.0";
-	// 버전 }
-
+	
 	// 판매 아이템 정보 테이블 {
 	public const string G_KEY_SALE_IIT_PRICE = "Price";
 	public const string G_KEY_SALE_IIT_PRICE_KINDS = "PriceKinds";

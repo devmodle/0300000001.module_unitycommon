@@ -642,8 +642,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			var oLevelInfo = Factory.MakeLevelInfo(i + nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 			m_oSelLevelInfo = oLevelInfo;
 
-			Func.EditorSetupLevelInfo(oLevelInfo, a_oCreateInfo);
 			CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
+			Func.EditorSetupLevelInfo(oLevelInfo, a_oCreateInfo);
 		}
 
 		this.UpdateUIsState();

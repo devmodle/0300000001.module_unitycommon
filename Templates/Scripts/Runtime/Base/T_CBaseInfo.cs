@@ -16,12 +16,10 @@ using MessagePack;
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 변수
-	[Key(0)] public STVer m_stVer;
-
-	[Key(1)] public Dictionary<string, bool> m_oBoolDict = new Dictionary<string, bool>();
-	[Key(2)] public Dictionary<string, int> m_oIntDict = new Dictionary<string, int>();
-	[Key(3)] public Dictionary<string, float> m_oFltDict = new Dictionary<string, float>();
-	[Key(4)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
+	[Key(0)] public Dictionary<string, bool> m_oBoolDict = new Dictionary<string, bool>();
+	[Key(1)] public Dictionary<string, int> m_oIntDict = new Dictionary<string, int>();
+	[Key(2)] public Dictionary<string, float> m_oFltDict = new Dictionary<string, float>();
+	[Key(3)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
 	#endregion			// 변수
 
 	#region 인터페이스
@@ -32,20 +30,11 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 
 	//! 역직렬화 되었을 경우
 	public virtual void OnAfterDeserialize() {
-		m_stVer.m_oExtraInfoDict = (m_stVer.m_oExtraInfoDict != null) ? m_stVer.m_oExtraInfoDict : new Dictionary<string, string>();
-
 		m_oBoolDict = (m_oBoolDict != null) ? m_oBoolDict : new Dictionary<string, bool>();
 		m_oIntDict = (m_oIntDict != null) ? m_oIntDict : new Dictionary<string, int>();
 		m_oFltDict = (m_oFltDict != null) ? m_oFltDict : new Dictionary<string, float>();
 		m_oStrDict = (m_oStrDict != null) ? m_oStrDict : new Dictionary<string, string>();
 	}
 	#endregion			// 인터페이스
-
-	#region 함수
-	//! 생성자
-	public CBaseInfo(string a_oVer) {
-		m_stVer = CFactory.MakeDefVer(a_oVer);
-	}
-	#endregion			// 함수
 }
 #endif			// #if NEVER_USE_THIS
