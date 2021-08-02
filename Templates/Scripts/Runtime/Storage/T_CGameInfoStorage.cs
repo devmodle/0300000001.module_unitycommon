@@ -61,11 +61,11 @@ public sealed class CGameInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(101)] public HashSet<EMissionKinds> m_oCompleteMissionKindsSet = new HashSet<EMissionKinds>();
-	[Key(102)] public HashSet<EMissionKinds> m_oCompleteDailyMissionKindsSet = new HashSet<EMissionKinds>();
-	[Key(103)] public HashSet<ETutorialKinds> m_oCompleteTutorialKindsSet = new HashSet<ETutorialKinds>();
+	[Key(41)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
+	[Key(42)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
+	[Key(43)] public List<ETutorialKinds> m_oCompleteTutorialKindsList = new List<ETutorialKinds>();
 
-	[Key(191)] public Dictionary<long, CClearInfo> m_oClearInfoDict = new Dictionary<long, CClearInfo>();
+	[Key(131)] public Dictionary<long, CClearInfo> m_oClearInfoDict = new Dictionary<long, CClearInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -100,9 +100,9 @@ public sealed class CGameInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		
-		m_oCompleteMissionKindsSet = (m_oCompleteMissionKindsSet != null) ? m_oCompleteMissionKindsSet : new HashSet<EMissionKinds>();
-		m_oCompleteDailyMissionKindsSet = (m_oCompleteDailyMissionKindsSet != null) ? m_oCompleteDailyMissionKindsSet : new HashSet<EMissionKinds>();
-		m_oCompleteTutorialKindsSet = (m_oCompleteTutorialKindsSet != null) ? m_oCompleteTutorialKindsSet : new HashSet<ETutorialKinds>();
+		m_oCompleteMissionKindsList = (m_oCompleteMissionKindsList != null) ? m_oCompleteMissionKindsList : new List<EMissionKinds>();
+		m_oCompleteDailyMissionKindsList = (m_oCompleteDailyMissionKindsList != null) ? m_oCompleteDailyMissionKindsList : new List<EMissionKinds>();
+		m_oCompleteTutorialKindsList = (m_oCompleteTutorialKindsList != null) ? m_oCompleteTutorialKindsList : new List<ETutorialKinds>();
 
 		m_oClearInfoDict = (m_oClearInfoDict != null) ? m_oClearInfoDict : new Dictionary<long, CClearInfo>();
 
@@ -206,17 +206,17 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 미션 완료 여부를 검사한다
 	public bool IsCompleteMission(EMissionKinds a_eMissionKinds) {
-		return this.GameInfo.m_oCompleteMissionKindsSet.Contains(a_eMissionKinds);
+		return this.GameInfo.m_oCompleteMissionKindsList.Contains(a_eMissionKinds);
 	}
 
 	//! 일일 미션 완료 여부를 검사한다
 	public bool IsCompleteDailyMission(EMissionKinds a_eMissionKinds) {
-		return this.GameInfo.m_oCompleteDailyMissionKindsSet.Contains(a_eMissionKinds);
+		return this.GameInfo.m_oCompleteDailyMissionKindsList.Contains(a_eMissionKinds);
 	}
 
 	//! 튜토리얼 완료 여부를 검사한다
 	public bool IsCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
-		return this.GameInfo.m_oCompleteTutorialKindsSet.Contains(a_eTutorialKinds);
+		return this.GameInfo.m_oCompleteTutorialKindsList.Contains(a_eTutorialKinds);
 	}
 
 	//! 클리어 여부를 검사한다
@@ -287,10 +287,22 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		this.GameInfo.NumAcquireFreeRewards = Mathf.Clamp(nNumAcquireFreeRewards, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_ACQUIRE_FREE_REWARDS);
 	}
 
+	//! 완료 미션을 추가한다
+	public void AddCompleteMission(EMissionKinds a_eMissionKinds) {
+		CAccess.Assert(!this.IsCompleteMission(a_eMissionKinds));
+		this.GameInfo.m_oCompleteMissionKindsList.Add(a_eMissionKinds);
+	}
+
+	//! 완료 일일 미션을 추가한다
+	public void AddCompleteDailyMission(EMissionKinds a_eMissionKinds) {
+		CAccess.Assert(!this.IsCompleteDailyMission(a_eMissionKinds));
+		this.GameInfo.m_oCompleteDailyMissionKindsList.Add(a_eMissionKinds);
+	}
+
 	//! 완료 튜토리얼을 추가한다
 	public void AddCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
 		CAccess.Assert(!this.IsCompleteTutorial(a_eTutorialKinds));
-		this.GameInfo.m_oCompleteTutorialKindsSet.Add(a_eTutorialKinds);
+		this.GameInfo.m_oCompleteTutorialKindsList.Add(a_eTutorialKinds);
 	}
 
 	//! 클리어 정보를 추가한다

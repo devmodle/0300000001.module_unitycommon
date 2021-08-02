@@ -16,7 +16,7 @@ public sealed class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(151)] public Dictionary<EItemKinds, int> m_oNumItemsDict = new Dictionary<EItemKinds, int>();
+	[Key(91)] public Dictionary<EItemKinds, int> m_oNumItemsDict = new Dictionary<EItemKinds, int>();
 	#endregion			// 변수
 	
 	#region 프로퍼티

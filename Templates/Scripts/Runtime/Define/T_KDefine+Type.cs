@@ -22,8 +22,8 @@ public struct STItemInfo {
 //! 타입 랩퍼
 [MessagePackObject]
 public struct STTypeWrapper {
-	[Key(31)] public List<long> m_oLevelIDList;
-	[Key(201)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;
+	[Key(0)] public List<long> m_oLevelIDList;
+	[Key(10)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;
 }
 #endregion			// 기본
 #endif			// #if NEVER_USE_THIS

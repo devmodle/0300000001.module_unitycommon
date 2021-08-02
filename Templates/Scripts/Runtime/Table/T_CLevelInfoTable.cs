@@ -73,7 +73,7 @@ public sealed class CLevelInfo : CBaseInfo, System.ICloneable {
 
 	#region 변수
 	[Key(4)] public STIDInfo m_stIDInfo;
-	[Key(201)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
+	[Key(141)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
