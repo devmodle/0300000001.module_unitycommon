@@ -16,9 +16,9 @@ namespace SampleEngineName {
 		
 		//! 레벨을 설정한다
 		private void SetupLevel() {
-			foreach(var stKeyVal in m_stParams.m_oLevelInfo.m_oCellInfoDictContainer) {
-				foreach(var stCellInfoKeyVal in stKeyVal.Value) {
-					this.SetupCell(stCellInfoKeyVal.Value);
+			for(int i = 0; i < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
+				for(int j = 0; j < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
+					this.SetupCell(m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i][j]);
 				}
 			}
 		}

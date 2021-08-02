@@ -201,18 +201,19 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 블럭 스프라이트를 설정한다 {
 		m_oBlockSpriteDicts = new Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>[m_oSelLevelInfo.NumCells.y, m_oSelLevelInfo.NumCells.x];
 
-		foreach(var stKeyVal in m_oSelLevelInfo.m_oCellInfoDictContainer) {
-			foreach(var stCellInfoKeyVal in stKeyVal.Value) {
+		for(int i = 0; i < m_oSelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
+			for(int j = 0; j < m_oSelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
+				var stIdx = m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx;
 				var oBlockSpriteDict = new Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>();
 
-				for(int i = 0; i < stCellInfoKeyVal.Value.m_oBlockKindsList.Count; ++i) {
-					var oBlockSprite = Factory.CreateBlockSprite(stCellInfoKeyVal.Value.m_oBlockKindsList[i], m_oBlockObjs);
-					oBlockSprite.transform.localPosition = m_stSelGridInfo.m_stGridPivotPos + stCellInfoKeyVal.Value.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+				for(int k = 0; k < m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
+					var oBlockSprite = Factory.CreateBlockSprite(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], m_oBlockObjs);
+					oBlockSprite.transform.localPosition = m_stSelGridInfo.m_stGridPivotPos + stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
-					oBlockSpriteDict.Add(stCellInfoKeyVal.Value.m_oBlockKindsList[i], oBlockSprite);
+					oBlockSpriteDict.Add(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], oBlockSprite);
 				}
-
-				m_oBlockSpriteDicts[stCellInfoKeyVal.Value.m_stIdx.y, stCellInfoKeyVal.Value.m_stIdx.x] = oBlockSpriteDict;
+				
+				m_oBlockSpriteDicts[stIdx.y, stIdx.x] = oBlockSpriteDict;
 			}
 		}
 		// 블럭 스프라이트를 설정한다 }
@@ -742,8 +743,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 				int nNumStageInfos = CLevelInfoTable.Inst.GetNumStageInfos(a_stIDInfo.m_nChapterID);
 				var oStageLevelInfoDict = CLevelInfoTable.Inst.GetStageLevelInfos(a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
 
-				foreach(var stKeyVal in oStageLevelInfoDict) {
-					var oCloneLevelInfo = stKeyVal.Value.Clone() as CLevelInfo;
+				for(int i = 0; i < oStageLevelInfoDict.Count; ++i) {
+					var oCloneLevelInfo = oStageLevelInfoDict[i].Clone() as CLevelInfo;
 					oCloneLevelInfo.m_stIDInfo.m_nStageID = nNumStageInfos;
 
 					CLevelInfoTable.Inst.AddLevelInfo(oCloneLevelInfo);
@@ -752,9 +753,9 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 				int nNumChapterInfos = CLevelInfoTable.Inst.NumChapterInfos;
 				var oChapterLevelInfoDict = CLevelInfoTable.Inst.GetChapterLevelInfos(a_stIDInfo.m_nChapterID);
 
-				foreach(var stKeyVal in oChapterLevelInfoDict) {
-					foreach(var stLevelInfoKeyVal in stKeyVal.Value) {
-						var oCloneLevelInfo = stLevelInfoKeyVal.Value.Clone() as CLevelInfo;
+				for(int i = 0; i < oChapterLevelInfoDict.Count; ++i) {
+					for(int j = 0; j < oChapterLevelInfoDict[i].Count; ++j) {
+						var oCloneLevelInfo = oChapterLevelInfoDict[i][j].Clone() as CLevelInfo;
 						oCloneLevelInfo.m_stIDInfo.m_nChapterID = nNumChapterInfos;
 
 						CLevelInfoTable.Inst.AddLevelInfo(oCloneLevelInfo);

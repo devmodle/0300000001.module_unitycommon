@@ -120,7 +120,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
 
 	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
-	public HashSet<EItemKinds> SelBoosterSet { get; private set; } = new HashSet<EItemKinds>();
+	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
 		LastDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
@@ -174,7 +174,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 부스터를 리셋한다
 	public virtual void ResetBoosters() {
 		this.FreeBooster = EItemKinds.NONE;
-		this.SelBoosterSet.Clear();
+		this.SelBoosterList.Clear();
 	}
 
 	//! 다음 일일 보상 식별자를 설정한다
@@ -201,7 +201,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 부스터 선택 여부를 검사한다
 	public bool IsSelBooster(EItemKinds a_eBooster) {
-		return this.SelBoosterSet.Contains(a_eBooster);
+		return this.SelBoosterList.Contains(a_eBooster);
 	}
 
 	//! 미션 완료 여부를 검사한다
@@ -230,8 +230,10 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		int nNumStars = KCDefine.B_VAL_0_INT;
 		var oStageLevelInfoDict = CLevelInfoTable.Inst.GetStageLevelInfos(a_nStageID, a_nChapterID);
 
-		foreach(var stKeyVal in oStageLevelInfoDict) {
-			this.TryGetClearInfo(stKeyVal.Value.m_stIDInfo.m_nID, out CClearInfo oClearInfo, stKeyVal.Value.m_stIDInfo.m_nStageID, stKeyVal.Value.m_stIDInfo.m_nChapterID);
+		CAccess.Assert(oStageLevelInfoDict.ExIsValid());
+
+		for(int i = 0; i < oStageLevelInfoDict.Count; ++i) {
+			this.TryGetClearInfo(oStageLevelInfoDict[i].m_stIDInfo.m_nID, out CClearInfo oClearInfo, oStageLevelInfoDict[i].m_stIDInfo.m_nStageID, oStageLevelInfoDict[i].m_stIDInfo.m_nChapterID);
 			nNumStars += (oClearInfo != null) ? oClearInfo.NumStars : KCDefine.B_VAL_0_INT;
 		}
 
@@ -243,9 +245,11 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		int nNumStars = KCDefine.B_VAL_0_INT;
 		var oChapterLevelInfoDict = CLevelInfoTable.Inst.GetChapterLevelInfos(a_nChapterID);
 
-		foreach(var stKeyVal in oChapterLevelInfoDict) {
-			foreach(var stLevelInfoKeyVal in stKeyVal.Value) {
-				this.TryGetClearInfo(stLevelInfoKeyVal.Value.m_stIDInfo.m_nID, out CClearInfo oClearInfo, stLevelInfoKeyVal.Value.m_stIDInfo.m_nStageID, stLevelInfoKeyVal.Value.m_stIDInfo.m_nChapterID);
+		CAccess.Assert(oChapterLevelInfoDict.ExIsValid());
+
+		for(int i = 0; i < oChapterLevelInfoDict.Count; ++i) {
+			for(int j = 0; j < oChapterLevelInfoDict.Count; ++j) {
+				this.TryGetClearInfo(oChapterLevelInfoDict[i][j].m_stIDInfo.m_nID, out CClearInfo oClearInfo, oChapterLevelInfoDict[i][j].m_stIDInfo.m_nStageID, oChapterLevelInfoDict[i][j].m_stIDInfo.m_nChapterID);
 				nNumStars += (oClearInfo != null) ? oClearInfo.NumStars : KCDefine.B_VAL_0_INT;
 			}
 		}
@@ -278,7 +282,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 선택 부스터를 추가한다
 	public void AddSelBooster(EItemKinds a_eBooster) {
 		CAccess.Assert(!this.IsSelBooster(a_eBooster));
-		this.SelBoosterSet.Add(a_eBooster);
+		this.SelBoosterList.Add(a_eBooster);
 	}
 
 	//! 무료 보상 획득 횟수를 추가한다

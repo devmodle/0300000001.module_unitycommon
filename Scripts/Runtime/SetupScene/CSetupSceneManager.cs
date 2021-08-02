@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if INPUT_SYSTEM_MODULE_ENABLE
+using UnityEngine.InputSystem;
+#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+
 //! 설정 씬 관리자
 public abstract partial class CSetupSceneManager : CSceneManager {
 	#region 변수
@@ -126,8 +130,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 #endif			// #if UNITY_IOS || UNITY_ANDROID
 
-		Input.multiTouchEnabled = CValTable.Inst.GetBool(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE);
 		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);
+		Input.multiTouchEnabled = CValTable.Inst.GetInt(KCDefine.VT_KEY_MULTI_TOUCH_ENABLE) != KCDefine.B_VAL_0_INT;
 		
 		CFunc.SetupQuality((EQualityLevel)nQualityLevel, true);
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);

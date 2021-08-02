@@ -44,7 +44,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2263259456449349898}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &2263259456449349908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +121,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2263259456734994762}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &2263259456734994772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2263259457666090569}
   m_Layer: 5
-  m_Name: T_LoadingImgObj
+  m_Name: T_LoadingGauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,7 +246,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4995753963554373081}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &7940251085936829709
 MonoBehaviour:
   m_ObjectHideFlags: 0

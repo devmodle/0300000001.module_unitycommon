@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7282889018440753123}
   - component: {fileID: 7282889018440753116}
   m_Layer: 5
-  m_Name: TS_VersionText
+  m_Name: TS_VerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7282889018440753118}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &7282889018440753123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: v1.0.0A
+  m_Text: Ver.1.0.0A
 --- !u!114 &7282889018440753116
 MonoBehaviour:
   m_ObjectHideFlags: 0
