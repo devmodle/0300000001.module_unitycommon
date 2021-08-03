@@ -84,8 +84,8 @@ public static partial class Func {
 					var oIdxVList = oIdxVDictContainer.ContainsKey(k) ? oIdxVDictContainer[k] : new List<Vector3Int>();
 					var oIdxHList = oIdxHDictContainer.ContainsKey(j) ? oIdxHDictContainer[j] : new List<Vector3Int>();
 
-					oIdxVList.Add(a_oLevelInfo.m_oCellInfoDictContainer[j][k].m_stIdx);
-					oIdxHList.Add(a_oLevelInfo.m_oCellInfoDictContainer[j][k].m_stIdx);
+					oIdxVList.Add(a_oLevelInfo.m_oCellInfoDictContainer[j][k].Idx);
+					oIdxHList.Add(a_oLevelInfo.m_oCellInfoDictContainer[j][k].Idx);
 
 					oIdxVDictContainer.ExAddVal(k, oIdxVList);
 					oIdxHDictContainer.ExAddVal(j, oIdxHList);

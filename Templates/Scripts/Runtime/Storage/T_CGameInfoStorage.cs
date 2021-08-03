@@ -9,7 +9,7 @@ using MessagePack;
 //! 클리어 정보
 [MessagePackObject]
 [System.Serializable]
-public sealed class CClearInfo : CBaseInfo {
+public class CClearInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_SCORE = "Score";
 	private const string KEY_NUM_STARS = "NumStars";
@@ -19,7 +19,7 @@ public sealed class CClearInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(4)] public STIDInfo m_stIDInfo;
+	[Key(3)] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -45,12 +45,24 @@ public sealed class CClearInfo : CBaseInfo {
 
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
+
+	#region 인터페이스
+	//! 직렬화 될 경우
+	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+	}
+
+	//! 역직렬화 되었을 경우
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+	}
+	#endregion			// 인터페이스
 }
 
 //! 게임 정보
 [MessagePackObject]
 [System.Serializable]
-public sealed class CGameInfo : CBaseInfo {
+public class CGameInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
 	private const string KEY_NUM_ACQUIRE_FREE_REWARDS = "NumAcquireFreeRewards";
@@ -61,11 +73,11 @@ public sealed class CGameInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(41)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
-	[Key(42)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
-	[Key(43)] public List<ETutorialKinds> m_oCompleteTutorialKindsList = new List<ETutorialKinds>();
+	[Key(61)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
+	[Key(62)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
+	[Key(63)] public List<ETutorialKinds> m_oCompleteTutorialKindsList = new List<ETutorialKinds>();
 
-	[Key(131)] public Dictionary<long, CClearInfo> m_oClearInfoDict = new Dictionary<long, CClearInfo>();
+	[Key(151)] public Dictionary<long, CClearInfo> m_oClearInfoDict = new Dictionary<long, CClearInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -91,6 +103,8 @@ public sealed class CGameInfo : CBaseInfo {
 	#region 인터페이스
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+
 		m_oStrDict.ExReplaceVal(CGameInfo.KEY_LAST_DAILY_MISSION_TIME, this.LastDailyMissionTime.ExToLongStr());
 		m_oStrDict.ExReplaceVal(CGameInfo.KEY_LAST_FREE_REWARD_TIME, this.LastFreeRewardTime.ExToLongStr());
 		m_oStrDict.ExReplaceVal(CGameInfo.KEY_LAST_DAILY_REWARD_TIME, this.LastDailyRewardTime.ExToLongStr());
@@ -99,12 +113,6 @@ public sealed class CGameInfo : CBaseInfo {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		
-		m_oCompleteMissionKindsList = (m_oCompleteMissionKindsList != null) ? m_oCompleteMissionKindsList : new List<EMissionKinds>();
-		m_oCompleteDailyMissionKindsList = (m_oCompleteDailyMissionKindsList != null) ? m_oCompleteDailyMissionKindsList : new List<EMissionKinds>();
-		m_oCompleteTutorialKindsList = (m_oCompleteTutorialKindsList != null) ? m_oCompleteTutorialKindsList : new List<ETutorialKinds>();
-
-		m_oClearInfoDict = (m_oClearInfoDict != null) ? m_oClearInfoDict : new Dictionary<long, CClearInfo>();
 
 		this.LastDailyMissionTime = this.LastDailyMissionTimeStr.ExIsValid() ? this.LastDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
 		this.LastFreeRewardTime = this.LastFreeRewardTimeStr.ExIsValid() ? this.LastFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);

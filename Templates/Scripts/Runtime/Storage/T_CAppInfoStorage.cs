@@ -9,8 +9,18 @@ using MessagePack;
 //! 앱 정보
 [MessagePackObject]
 [System.Serializable]
-public sealed class CAppInfo : CBaseInfo {
-	
+public class CAppInfo : CBaseInfo {
+	#region 인터페이스
+	//! 직렬화 될 경우
+	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+	}
+
+	//! 역직렬화 되었을 경우
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+	}
+	#endregion			// 인터페이스
 }
 
 //! 앱 정보 저장소

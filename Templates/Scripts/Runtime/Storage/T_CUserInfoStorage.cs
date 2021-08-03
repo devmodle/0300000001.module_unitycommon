@@ -9,14 +9,14 @@ using MessagePack;
 //! 유저 정보
 [MessagePackObject]
 [System.Serializable]
-public sealed class CUserInfo : CBaseInfo {
+public class CUserInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_NUM_COINS = "NumCoins";
 	private const string KEY_NUM_CHANGES = "NumChanges";
 	#endregion			// 상수
 
 	#region 변수
-	[Key(91)] public Dictionary<EItemKinds, int> m_oNumItemsDict = new Dictionary<EItemKinds, int>();
+	[Key(111)] public Dictionary<EItemKinds, int> m_oNumItemsDict = new Dictionary<EItemKinds, int>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
@@ -32,10 +32,14 @@ public sealed class CUserInfo : CBaseInfo {
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
+	//! 직렬화 될 경우
+	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+	}
+
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oNumItemsDict = (m_oNumItemsDict != null) ? m_oNumItemsDict : new Dictionary<EItemKinds, int>();
 	}
 	#endregion			// 인터페이스
 }

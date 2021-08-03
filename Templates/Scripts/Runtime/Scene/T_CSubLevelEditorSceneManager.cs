@@ -203,7 +203,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		for(int i = 0; i < m_oSelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oSelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-				var stIdx = m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx;
+				var stIdx = m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].Idx;
 				var oBlockSpriteDict = new Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>();
 
 				for(int k = 0; k < m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
@@ -328,11 +328,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oREUIsNumCellsYInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_NUM_CELLS_Y_INPUT);
 
 		// 버튼을 설정한다 {
-		var oLoadBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_BTN);
-		oLoadBtn?.onClick.AddListener(this.OnTouchREUIsLoadBtn);
-
 		var oApplyBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN);
 		oApplyBtn?.onClick.AddListener(this.OnTouchREUIsApplyBtn);
+
+		var oLoadLevelBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN);
+		oLoadLevelBtn?.onClick.AddListener(this.OnTouchREUIsLoadLevelBtn);
 		// 버튼을 설정한다 }
 	}
 
@@ -451,17 +451,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 오른쪽 에디터 UI 로드 버튼을 눌렀을 경우
-	private void OnTouchREUIsLoadBtn() {
-		// 식별자가 유효 할 경우
-		if(int.TryParse(m_oREUIsLevelInput?.text, out int nID)) {
-			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-			m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(Mathf.Clamp(nID, KCDefine.B_VAL_1_INT, nNumLevelInfos) - KCDefine.B_VAL_1_INT, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-			
-			this.UpdateUIsState();
-		}
-	}
-
 	//! 오른쪽 에디터 UI 적용 버튼을 눌렀을 경우
 	private void OnTouchREUIsApplyBtn() {
 		bool bIsValidA = int.TryParse(m_oREUIsNumCellsXInput?.text, out int nNumCellsX);
@@ -478,6 +467,17 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 				m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT),
 				m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT)
 			});
+			
+			this.UpdateUIsState();
+		}
+	}
+
+	//! 오른쪽 에디터 UI 레벨 로드 버튼을 눌렀을 경우
+	private void OnTouchREUIsLoadLevelBtn() {
+		// 식별자가 유효 할 경우
+		if(int.TryParse(m_oREUIsLevelInput?.text, out int nID)) {
+			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+			m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(Mathf.Clamp(nID, KCDefine.B_VAL_1_INT, nNumLevelInfos) - KCDefine.B_VAL_1_INT, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 			
 			this.UpdateUIsState();
 		}
