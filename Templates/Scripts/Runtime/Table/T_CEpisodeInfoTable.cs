@@ -251,5 +251,69 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		};
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if UNITY_EDITOR || UNITY_STANDALONE
+	//! 에피소드 정보를 저장한다
+	public void SaveEpisodeInfos() {
+		var oJSONNode = new SimpleJSON.JSONClass();
+		var oLevelInfos = new SimpleJSON.JSONArray();
+		var oStageInfos = new SimpleJSON.JSONArray();
+		var oChapterInfos = new SimpleJSON.JSONArray();
+
+		foreach(var stKeyVal in this.LevelInfoDict) {
+			var oLevelInfo = new SimpleJSON.JSONClass();
+			oLevelInfo.Add(KCDefine.U_KEY_NAME, stKeyVal.Value.m_oName ?? string.Empty);
+			oLevelInfo.Add(KCDefine.U_KEY_DESC, stKeyVal.Value.m_oDesc ?? string.Empty);
+
+			oLevelInfo.Add(KDefine.G_KEY_EPISODE_IT_ID, stKeyVal.Value.m_nID.ToString());
+			oLevelInfo.Add(KDefine.G_KEY_EPISODE_IT_STAGE_ID, stKeyVal.Value.m_nStageID.ToString());
+			oLevelInfo.Add(KDefine.G_KEY_EPISODE_IT_CHAPTER_ID, stKeyVal.Value.m_nChapterID.ToString());
+
+			oLevelInfo.Add(KDefine.G_KEY_EPISODE_IT_LEVEL_MODE, ((int)stKeyVal.Value.m_eLevelMode).ToString());
+			oLevelInfo.Add(KDefine.G_KEY_EPISODE_IT_LEVEL_KINDS, ((int)stKeyVal.Value.m_eLevelKinds).ToString());
+			oLevelInfo.Add(KDefine.G_KEY_EPISODE_IT_REWARD_KINDS, ((int)stKeyVal.Value.m_eRewardKinds).ToString());
+			oLevelInfo.Add(KDefine.G_KEY_EPISODE_IT_TUTORIAL_KINDS, ((int)stKeyVal.Value.m_eTutorialKinds).ToString());
+
+			oLevelInfos.Add(oLevelInfo);
+		}
+
+		foreach(var stKeyVal in this.StageInfoDict) {
+			var oStageInfo = new SimpleJSON.JSONClass();
+			oStageInfo.Add(KCDefine.U_KEY_NAME, stKeyVal.Value.m_oName ?? string.Empty);
+			oStageInfo.Add(KCDefine.U_KEY_DESC, stKeyVal.Value.m_oDesc ?? string.Empty);
+
+			oStageInfo.Add(KDefine.G_KEY_EPISODE_IT_ID, stKeyVal.Value.m_nID.ToString());
+			oStageInfo.Add(KDefine.G_KEY_EPISODE_IT_CHAPTER_ID, stKeyVal.Value.m_nChapterID.ToString());
+
+			oStageInfo.Add(KDefine.G_KEY_EPISODE_IT_STAGE_KINDS, ((int)stKeyVal.Value.m_eStageKinds).ToString());
+			oStageInfo.Add(KDefine.G_KEY_EPISODE_IT_REWARD_KINDS, ((int)stKeyVal.Value.m_eRewardKinds).ToString());
+			oStageInfo.Add(KDefine.G_KEY_EPISODE_IT_TUTORIAL_KINDS, ((int)stKeyVal.Value.m_eTutorialKinds).ToString());
+
+			oStageInfos.Add(oStageInfo);
+		}
+
+		foreach(var stKeyVal in this.ChapterInfoDict) {
+			var oChapterInfo = new SimpleJSON.JSONClass();
+			oChapterInfo.Add(KCDefine.U_KEY_NAME, stKeyVal.Value.m_oName ?? string.Empty);
+			oChapterInfo.Add(KCDefine.U_KEY_DESC, stKeyVal.Value.m_oDesc ?? string.Empty);
+
+			oChapterInfo.Add(KDefine.G_KEY_EPISODE_IT_ID, stKeyVal.Value.m_nID.ToString());
+
+			oChapterInfo.Add(KDefine.G_KEY_EPISODE_IT_CHAPTER_KINDS, ((int)stKeyVal.Value.m_eChapterKinds).ToString());
+			oChapterInfo.Add(KDefine.G_KEY_EPISODE_IT_REWARD_KINDS, ((int)stKeyVal.Value.m_eRewardKinds).ToString());
+			oChapterInfo.Add(KDefine.G_KEY_EPISODE_IT_TUTORIAL_KINDS, ((int)stKeyVal.Value.m_eTutorialKinds).ToString());
+
+			oChapterInfos.Add(oChapterInfo);
+		}
+
+		oJSONNode.Add(KDefine.G_KEY_EPISODE_IT_LEVEL, oLevelInfos);
+		oJSONNode.Add(KDefine.G_KEY_EPISODE_IT_STAGE, oStageInfos);
+		oJSONNode.Add(KDefine.G_KEY_EPISODE_IT_CHAPTER, oChapterInfos);
+
+		CFunc.WriteStr(KDefine.G_RUNTIME_TABLE_P_EPISODE_INFO, oJSONNode.ToString());
+	}
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+	#endregion			// 조건부 함수
 }
 #endif			// #if NEVER_USE_THIS

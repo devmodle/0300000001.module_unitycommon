@@ -8,17 +8,34 @@ using MessagePack;
 //! 셀 정보
 [MessagePackObject]
 [System.Serializable]
-public class CCellInfo : System.ICloneable {
-	#region 변수
-	[Key(0)] public int m_nIdxX = 0;
-	[Key(1)] public int m_nIdxY = 0;
-	[Key(2)] public int m_nIdxZ = 0;
+public class CCellInfo : CBaseInfo, System.ICloneable {
+	#region 상수
+	private const string KEY_IDX_X = "IdxX";
+	private const string KEY_IDX_Y = "IdxY";
+	private const string KEY_IDX_Z = "IdxZ";
+	#endregion			// 상수
 
+	#region 변수
 	[Key(61)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public Vector3Int Idx => new Vector3Int(m_nIdxX, m_nIdxY, m_nIdxZ);
+	[IgnoreMember] public int IdxX {
+		get { return m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_X, KCDefine.B_VAL_0_INT); }
+		set { m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_X, value); }
+	}
+
+	[IgnoreMember] public int IdxY {
+		get { return m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Y, KCDefine.B_VAL_0_INT); }
+		set { m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_Y, value); }
+	}
+
+	[IgnoreMember] public int IdxZ {
+		get { return m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Z, KCDefine.B_VAL_0_INT); }
+		set { m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_Z, value); }
+	}
+
+	[IgnoreMember] public Vector3Int Idx => new Vector3Int(this.IdxX, this.IdxY, this.IdxZ);
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
@@ -29,14 +46,24 @@ public class CCellInfo : System.ICloneable {
 
 		return oCellInfo;
 	}
+
+	//! 직렬화 될 경우
+	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+	}
+
+	//! 역직렬화 되었을 경우
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+	}
 	#endregion			// 인터페이스
 
 	#region 함수
 	//! 사본 객체를 설정한다
-	public virtual void SetupCloneInst(CCellInfo a_oCellInfo) {
-		a_oCellInfo.m_nIdxX = m_nIdxX;
-		a_oCellInfo.m_nIdxY = m_nIdxY;
-		a_oCellInfo.m_nIdxZ = m_nIdxZ;
+	protected virtual void SetupCloneInst(CCellInfo a_oCellInfo) {
+		a_oCellInfo.IdxX = this.IdxX;
+		a_oCellInfo.IdxY = this.IdxY;
+		a_oCellInfo.IdxZ = this.IdxZ;
 
 		m_oBlockKindsList.ExCopyTo(a_oCellInfo.m_oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
 	}
@@ -87,6 +114,15 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
+	//! 사본 객체를 생성한다
+	public virtual object Clone() {
+		var oLevelInfo = new CLevelInfo();
+		this.SetupCloneInst(oLevelInfo);
+
+		oLevelInfo.OnAfterDeserialize();
+		return oLevelInfo;
+	}
+
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
@@ -106,20 +142,25 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 		this.NumCells = stNumCells;
 		// 셀 개수를 설정한다 }
 	}
-
-	//! 사본 객체를 생성한다
-	public virtual object Clone() {
-		var oLevelInfo = new CLevelInfo();
-		this.SetupCloneInst(oLevelInfo);
-
-		oLevelInfo.OnAfterDeserialize();
-		return oLevelInfo;
-	}
 	#endregion			// 인터페이스
 
 	#region 함수
+	//! 셀 정보를 반환한다
+	public CCellInfo GetCellInfo(Vector3Int a_stIdx) {
+		bool bIsValid = this.TryGetCellInfo(a_stIdx, out CCellInfo oCellInfo);
+		CAccess.Assert(bIsValid);
+
+		return oCellInfo;
+	}
+
+	//! 셀 정보를 반환한다
+	public bool TryGetCellInfo(Vector3Int a_stIdx, out CCellInfo a_oOutCellInfo) {
+		a_oOutCellInfo = m_oCellInfoDictContainer.ContainsKey(a_stIdx.y) ? m_oCellInfoDictContainer[a_stIdx.y].ExGetVal(a_stIdx.x, null) : null;
+		return a_oOutCellInfo != null;
+	}
+
 	//! 사본 객체를 설정한다
-	public virtual void SetupCloneInst(CLevelInfo a_oLevelInfo) {
+	protected virtual void SetupCloneInst(CLevelInfo a_oLevelInfo) {
 		a_oLevelInfo.m_stIDInfo = m_stIDInfo;
 
 		// 셀 정보를 설정한다
@@ -134,19 +175,38 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 			a_oLevelInfo.m_oCellInfoDictContainer.Add(i, oCellInfoDict);
 		}
 	}
+	#endregion			// 함수
+}
 
-	//! 셀 정보를 반환한다
-	public CCellInfo GetCellInfo(Vector3Int a_stIdx) {
-		bool bIsValid = this.TryGetCellInfo(a_stIdx, out CCellInfo oCellInfo);
-		CAccess.Assert(bIsValid);
+//! 서브 레벨 정보
+[MessagePackObject]
+[System.Serializable]
+public class CSubLevelInfo : CLevelInfo, System.ICloneable {
+	#region 인터페이스
+	//! 사본 객체를 생성한다
+	public override object Clone() {
+		var oSubLevelInfo = new CSubLevelInfo();
+		this.SetupCloneInst(oSubLevelInfo);
 
-		return oCellInfo;
+		oSubLevelInfo.OnAfterDeserialize();
+		return oSubLevelInfo;
 	}
 
-	//! 셀 정보를 반환한다
-	public bool TryGetCellInfo(Vector3Int a_stIdx, out CCellInfo a_oOutCellInfo) {
-		a_oOutCellInfo = m_oCellInfoDictContainer.ContainsKey(a_stIdx.y) ? m_oCellInfoDictContainer[a_stIdx.y].ExGetVal(a_stIdx.x, null) : null;
-		return a_oOutCellInfo != null;
+	//! 직렬화 될 경우
+	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+	}
+
+	//! 역직렬화 되었을 경우
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+	}
+	#endregion			// 인터페이스
+
+	#region 함수
+	//! 사본 객체를 설정한다
+	protected override void SetupCloneInst(CLevelInfo a_oLevelInfo) {
+		base.SetupCloneInst(a_oLevelInfo);
 	}
 	#endregion			// 함수
 }
@@ -410,6 +470,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			}
 		}
 
+		CEpisodeInfoTable.Inst.SaveEpisodeInfos();
 		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, false, false);
 
 #if !UNITY_EDITOR && UNITY_STANDALONE
@@ -420,9 +481,20 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	//! 레벨 정보를 저장한다
 	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<long> a_oOutLevelIDList) {
 		CAccess.Assert(a_oLevelInfo != null);
-		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
-
 		a_oOutLevelIDList.Add(a_oLevelInfo.LevelID);
+
+		CEpisodeInfoTable.Inst.LevelInfoDict.ExAddVal(a_oLevelInfo.LevelID, new STLevelInfo() {
+			m_nID = a_oLevelInfo.m_stIDInfo.m_nID,
+			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
+			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
+			
+			m_eLevelMode = a_oLevelInfo.LevelMode,
+			m_eLevelKinds = a_oLevelInfo.LevelKinds,
+			m_eRewardKinds = a_oLevelInfo.RewardKinds,
+			m_eTutorialKinds = a_oLevelInfo.TutorialKinds
+		});
+
+		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
 		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
 	}
 

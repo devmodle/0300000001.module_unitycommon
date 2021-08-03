@@ -11,9 +11,9 @@ public static partial class Factory {
 	//! 셀 정보를 생성한다
 	public static CCellInfo MakeCellInfo(Vector3Int a_stIdx) {
 		return new CCellInfo() {
-			m_nIdxX = a_stIdx.x,
-			m_nIdxY = a_stIdx.y,
-			m_nIdxZ = a_stIdx.z
+			IdxX = a_stIdx.x,
+			IdxY = a_stIdx.y,
+			IdxZ = a_stIdx.z
 		};
 	}
 

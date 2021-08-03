@@ -30,11 +30,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		CRewardInfoTable.Inst.LoadRewardInfos();
 		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 		CTutorialInfoTable.Inst.LoadTutorialInfos();
-
-#if UNITY_EDITOR
-		CLevelInfoTable.Inst.SaveLevelInfos();
-#endif			// #if UNITY_EDITOR
-
+		
 #if LOCALIZE_TEST_ENABLE
 		CCommonAppInfoStorage.Inst.AppInfo.Language = m_eLanguage;
 #endif			// #if LOCALIZE_TEST_ENABLE

@@ -34,7 +34,7 @@ namespace SampleEngineName {
 				}
 			}
 
-			m_oBlockDicts[a_oCellInfo.m_nIdxY, a_oCellInfo.m_nIdxX] = oBlockDict;
+			m_oBlockDicts[a_oCellInfo.IdxY, a_oCellInfo.IdxX] = oBlockDict;
 		}
 
 		//! 엔진을 설정한다
