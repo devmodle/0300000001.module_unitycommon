@@ -15,6 +15,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 	#region 추상 함수
 	//! 약관 동의 팝업을 출력한다
 	protected abstract void ShowAgreePopup(string a_oServiceString, string a_oPersonalString);
+	protected abstract void OnCloseAgreePopup();
 	#endregion			// 추상 함수
 
 	#region 함수
@@ -68,7 +69,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 #endif			// #if MESSAGE_PACK_ENABLE
 
 		if(bIsAgree) {
-			this.LoadNextScene();
+			this.OnCloseAgreePopup();
 		} else {
 			string oServiceFilepath = KDefine.AS_DATA_PATH_KOREAN_SERVICE_TEXT;
 			string oPersonalFilepath = KDefine.AS_DATA_PATH_KOREAN_PERSONAL_TEXT;
