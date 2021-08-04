@@ -12,7 +12,6 @@ using MessagePack;
 [Union(3, typeof(CClearInfo))]
 [Union(4, typeof(CCellInfo))]
 [Union(5, typeof(CLevelInfo))]
-[Union(6, typeof(CSubLevelInfo))]
 [MessagePackObject]
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {

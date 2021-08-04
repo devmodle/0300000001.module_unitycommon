@@ -38,8 +38,8 @@ public class CLevelEditorSceneManager : CSceneManager {
 			var oBlockObjsA = this.SubObjs.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
 			var oBlockObjsB = this.SubCanvasObjs.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
 
-			m_oBlockObjs = (oBlockObjsA != null) ? oBlockObjsA : oBlockObjsB;
-			m_oBlockObjs = (m_oBlockObjs != null) ? m_oBlockObjs : CFactory.CreateObj(KCDefine.GS_OBJ_N_BLOCKS, this.SubObjs);
+			m_oBlockObjs = oBlockObjsA ?? oBlockObjsB;
+			m_oBlockObjs = m_oBlockObjs ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_BLOCKS, this.SubObjs);
 			// 블럭 객체를 설정한다 }
 
 #if MODE_PORTRAIT_ENABLE

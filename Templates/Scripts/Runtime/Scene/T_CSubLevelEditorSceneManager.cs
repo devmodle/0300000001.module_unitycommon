@@ -281,7 +281,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oOriginChapterScrollerCellView = oChapterScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>();
 
 		// 레벨 정보를 설정한다
-		m_oSelLevelInfo = (CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo : CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT);
+		m_oSelLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT);
 	}
 
 	//! 씬을 설정한다
@@ -655,7 +655,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		CLevelInfoTable.Inst.TryGetLevelInfo(a_stPrevIDInfo.m_nID, out CLevelInfo oPrevLevelInfo, a_stPrevIDInfo.m_nStageID, a_stPrevIDInfo.m_nChapterID);
 		CLevelInfoTable.Inst.TryGetLevelInfo(a_stNextIDInfo.m_nID, out CLevelInfo oNextLevelInfo, a_stNextIDInfo.m_nStageID, a_stNextIDInfo.m_nChapterID);
 
-		a_oOutLevelInfo = (oPrevLevelInfo != null) ? oPrevLevelInfo : oNextLevelInfo;
+		a_oOutLevelInfo = oPrevLevelInfo ?? oNextLevelInfo;
 		return oPrevLevelInfo != null || oNextLevelInfo != null;
 	}
 

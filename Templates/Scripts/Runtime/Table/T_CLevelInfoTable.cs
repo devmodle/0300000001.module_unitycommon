@@ -178,39 +178,6 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 함수
 }
 
-//! 서브 레벨 정보
-[MessagePackObject]
-[System.Serializable]
-public class CSubLevelInfo : CLevelInfo, System.ICloneable {
-	#region 인터페이스
-	//! 사본 객체를 생성한다
-	public override object Clone() {
-		var oSubLevelInfo = new CSubLevelInfo();
-		this.SetupCloneInst(oSubLevelInfo);
-
-		oSubLevelInfo.OnAfterDeserialize();
-		return oSubLevelInfo;
-	}
-
-	//! 직렬화 될 경우
-	public override void OnBeforeSerialize() {
-		base.OnBeforeSerialize();
-	}
-
-	//! 역직렬화 되었을 경우
-	public override void OnAfterDeserialize() {
-		base.OnAfterDeserialize();
-	}
-	#endregion			// 인터페이스
-
-	#region 함수
-	//! 사본 객체를 설정한다
-	protected override void SetupCloneInst(CLevelInfo a_oLevelInfo) {
-		base.SetupCloneInst(a_oLevelInfo);
-	}
-	#endregion			// 함수
-}
-
 //! 레벨 정보 테이블
 public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 프로퍼티
@@ -326,10 +293,10 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oLevelInfo != null);
 
 		var oChapterLevelInfoDict = this.LevelInfoDictContainer.ExGetVal(a_oLevelInfo.m_stIDInfo.m_nChapterID, null);
-		oChapterLevelInfoDict = (oChapterLevelInfoDict != null) ? oChapterLevelInfoDict : new Dictionary<int, Dictionary<int, CLevelInfo>>();
+		oChapterLevelInfoDict = oChapterLevelInfoDict ?? new Dictionary<int, Dictionary<int, CLevelInfo>>();
 
 		var oStageLevelInfoDict = oChapterLevelInfoDict?.ExGetVal(a_oLevelInfo.m_stIDInfo.m_nStageID, null);
-		oStageLevelInfoDict = (oStageLevelInfoDict != null) ? oStageLevelInfoDict : new Dictionary<int, CLevelInfo>();
+		oStageLevelInfoDict = oStageLevelInfoDict ?? new Dictionary<int, CLevelInfo>();
 
 		oStageLevelInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo);
 		oChapterLevelInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nStageID, oStageLevelInfoDict);
@@ -460,6 +427,8 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	public void SaveLevelInfos() {
 		var oLevelIDList = new List<long>();
 		string oFilePath = KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
+
+		CEpisodeInfoTable.Inst.LevelInfoDict.Clear();
 
 		for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
