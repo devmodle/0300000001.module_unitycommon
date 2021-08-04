@@ -203,7 +203,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		for(int i = 0; i < m_oSelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oSelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-				var stIdx = m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].Idx;
+				var stIdx = m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdxInfo.ExToIdx();
 				var oBlockSpriteDict = new Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>();
 
 				for(int k = 0; k < m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {

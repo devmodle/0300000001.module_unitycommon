@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2429724377297703680}
   - component: {fileID: 2429724377297703681}
   - component: {fileID: 2429724377297703710}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,6 +82,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2429724377297703710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,8 +109,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2429724377936249958}
-  m_Layer: 0
-  m_Name: IS_ScreenAbsUI
+  m_Layer: 5
+  m_Name: SS_ScreenAbsUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6134486900078771507}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScreenAbsUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,34 +9,10 @@ using MessagePack;
 [MessagePackObject]
 [System.Serializable]
 public class CCellInfo : CBaseInfo, System.ICloneable {
-	#region 상수
-	private const string KEY_IDX_X = "IdxX";
-	private const string KEY_IDX_Y = "IdxY";
-	private const string KEY_IDX_Z = "IdxZ";
-	#endregion			// 상수
-
 	#region 변수
+	[Key(3)] public STIdxInfo m_stIdxInfo;
 	[Key(61)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
 	#endregion			// 변수
-
-	#region 프로퍼티
-	[IgnoreMember] public int IdxX {
-		get { return m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_X, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_X, value); }
-	}
-
-	[IgnoreMember] public int IdxY {
-		get { return m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Y, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_Y, value); }
-	}
-
-	[IgnoreMember] public int IdxZ {
-		get { return m_oIntDict.ExGetVal(CCellInfo.KEY_IDX_Z, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CCellInfo.KEY_IDX_Z, value); }
-	}
-
-	[IgnoreMember] public Vector3Int Idx => new Vector3Int(this.IdxX, this.IdxY, this.IdxZ);
-	#endregion			// 프로퍼티
 
 	#region 인터페이스
 	//! 사본 객체를 생성한다
@@ -61,10 +37,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 함수
 	//! 사본 객체를 설정한다
 	protected virtual void SetupCloneInst(CCellInfo a_oCellInfo) {
-		a_oCellInfo.IdxX = this.IdxX;
-		a_oCellInfo.IdxY = this.IdxY;
-		a_oCellInfo.IdxZ = this.IdxZ;
-
+		a_oCellInfo.m_stIdxInfo = m_stIdxInfo;
 		m_oBlockKindsList.ExCopyTo(a_oCellInfo.m_oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
 	}
 	#endregion			// 함수
@@ -87,7 +60,6 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 변수
 	
 	#region 프로퍼티
-	[IgnoreMember] public int NumTargets { get; private set; } = 0;
 	[IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
 
 	[IgnoreMember] public ELevelMode LevelMode {
