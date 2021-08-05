@@ -770,7 +770,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(nID, nStageID, nChapterID);
 		}
 
-		CAccess.AssignVal(ref m_oSelLevelInfo, m_oSelLevelInfo, CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
+		CAccess.AssignVal<CLevelInfo>(ref m_oSelLevelInfo, m_oSelLevelInfo, CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
 		this.UpdateUIsState();
 	}
 
