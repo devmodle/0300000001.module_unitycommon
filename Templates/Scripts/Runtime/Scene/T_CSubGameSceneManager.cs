@@ -8,11 +8,13 @@ using UnityEngine.EventSystems;
 //! 서브 게임 씬 관리자
 public partial class CSubGameSceneManager : CGameSceneManager {
 	#region 변수
+	private bool m_bIsLeave = false;
+
 	private CLevelInfo m_oLevelInfo = null;
 	private CClearInfo m_oClearInfo = null;
-	
+
+	private CTouchDispatcher m_oBGTouchDispatcher = null;
 	private SampleEngineName.CEngine m_oEngine = null;
-	private bool m_bIsLeave = false;
 	#endregion			// 변수
 	
 	#region 함수
@@ -99,10 +101,10 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		// 비율을 설정한다 }
 
 		// 터치 전달자를 설정한다
-		var oTouchDispatcher = this.SubUIs.GetComponentInChildren<CTouchDispatcher>();
-		oTouchDispatcher?.ExSetBeginCallback(this.OnTouchBegin);
-		oTouchDispatcher?.ExSetMoveCallback(this.OnTouchMove);
-		oTouchDispatcher?.ExSetEndCallback(this.OnTouchEnd);
+		m_oBGTouchDispatcher = m_oBGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
+		m_oBGTouchDispatcher?.ExSetBeginCallback(this.OnTouchBegin, false);
+		m_oBGTouchDispatcher?.ExSetMoveCallback(this.OnTouchMove, false);
+		m_oBGTouchDispatcher?.ExSetEndCallback(this.OnTouchEnd, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
@@ -136,17 +138,26 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! 터치를 시작했을 경우
 	private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-		m_oEngine.OnTouchBegin(a_oSender, a_oEventData);	
+		// 배경 터치 전달자 일 경우
+		if(m_oBGTouchDispatcher == a_oSender) {
+			m_oEngine.OnTouchBegin(a_oSender, a_oEventData);
+		}
 	}
 
 	//! 터치를 움직였을 경우
 	private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-		m_oEngine.OnTouchMove(a_oSender, a_oEventData);
+		// 배경 터치 전달자 일 경우
+		if(m_oBGTouchDispatcher == a_oSender) {
+			m_oEngine.OnTouchMove(a_oSender, a_oEventData);
+		}
 	}
 
 	//! 터치를 종료했을 경우
 	private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-		m_oEngine.OnTouchEnd(a_oSender, a_oEventData);
+		// 배경 터치 전달자 일 경우
+		if(m_oBGTouchDispatcher == a_oSender) {
+			m_oEngine.OnTouchEnd(a_oSender, a_oEventData);
+		}
 	}
 
 	//! 레벨을 클리어한다

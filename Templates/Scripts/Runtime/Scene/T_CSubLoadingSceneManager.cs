@@ -13,12 +13,17 @@ public class CSubLoadingSceneManager : CLoadingSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			// Do Something
+			this.SetupAwake();
 		}
 	}
 
 	//! 씬을 비동기 로드 중일 경우
 	protected override void OnLoadSceneAsync(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
+		// Do Something
+	}
+
+	//! 씬을 설정한다
+	private void SetupAwake() {
 		// Do Something
 	}
 	#endregion			// 함수

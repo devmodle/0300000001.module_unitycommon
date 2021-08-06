@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 
 #if NEVER_USE_THIS
@@ -18,6 +19,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	private CLevelInfo m_oSelLevelInfo = null;
 	private SpriteRenderer m_oSelBlockSprite = null;
+
+	private CTouchDispatcher m_oBGTouchDispatcher = null;
 	private Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>[,] m_oBlockSpriteDicts = null;
 	#endregion			// 변수
 
@@ -171,7 +174,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			this.SetupStart();
-			this.UpdateUIsState();
+
+			this.ExLateCallFunc((a_oSender, a_oParams) => {
+				this.UpdateUIsState();
+			}, KCDefine.U_DELAY_INIT);
 		}
 	}
 
@@ -282,6 +288,12 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 레벨 정보를 설정한다
 		m_oSelLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT);
+
+		// 터치 전달자를 설정한다
+		m_oBGTouchDispatcher = m_oBGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
+		m_oBGTouchDispatcher?.ExSetBeginCallback(this.OnTouchBegin, false);
+		m_oBGTouchDispatcher?.ExSetMoveCallback(this.OnTouchMove, false);
+		m_oBGTouchDispatcher?.ExSetEndCallback(this.OnTouchEnd, false);
 	}
 
 	//! 씬을 설정한다
@@ -421,6 +433,30 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oMEUIsMoveLevelBtn?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT);
 		m_oMEUIsRemoveLevelBtn?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT);
 		// 버튼을 갱신한다 }
+	}
+
+	//! 터치를 시작했을 경우
+	private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+		// 배경 터치 전달자 일 경우
+		if(m_oBGTouchDispatcher == a_oSender) {
+			// Do Something
+		}
+	}
+
+	//! 터치를 움직였을 경우
+	private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+		// 배경 터치 전달자 일 경우
+		if(m_oBGTouchDispatcher == a_oSender) {
+			// Do Something
+		}
+	}
+
+	//! 터치를 종료했을 경우
+	private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+		// 배경 터치 전달자 일 경우
+		if(m_oBGTouchDispatcher == a_oSender) {
+			// Do Something
+		}
 	}
 
 	//! 왼쪽 에디터 UI 레벨 추가 버튼을 눌렀을 경우

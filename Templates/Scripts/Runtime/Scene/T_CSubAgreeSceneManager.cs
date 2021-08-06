@@ -17,7 +17,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 			CFunc.ShowLog($"Country Code: {CCommonAppInfoStorage.Inst.CountryCode}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
-			Func.SetupLocalizeStrs();
+			this.SetupAwake();
 		}
 	}
 
@@ -29,6 +29,11 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 	//! 유럽 연합 약관 동의 팝업을 출력한다
 	protected override void ShowEUAgreePopup(string a_oServicesURL, string a_oPrivacyURL) {
 		this.ShowAgreePopup(a_oServicesURL, a_oPrivacyURL, EAgreePopupType.EU);
+	}
+
+	//! 씬을 설정한다
+	private void SetupAwake() {
+		Func.SetupLocalizeStrs();
 	}
 
 	//! 약관 동의 팝업이 닫혔을 경우

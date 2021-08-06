@@ -13,30 +13,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			this.IsAutoInitManager = true;
-
-#if ADS_MODULE_ENABLE
-			CSubLateSetupSceneManager.IsAutoLoadBannerAds = true;
-			CSubLateSetupSceneManager.IsAutoLoadRewardAds = true;
-			CSubLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
-#endif			// #if ADS_MODULE_ENABLE
-
-#if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-			CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.NONE;
-#else
-			// 유저 타입이 유효하지 않을 경우
-			if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
-#if AB_TEST_ENABLE
-				int nSumVal = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExToSumVal();
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT != KCDefine.B_VAL_0_INT) ? EUserType.USER_A : EUserType.USER_B;
-#else
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.USER_A;
-#endif			// #if AB_TEST_ENABLE
-			}
-#endif			// #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-
-			CCommonUserInfoStorage.Inst.SaveUserInfo();
-			CCommonAppInfoStorage.Inst.DeviceConfig = CDeviceInfoTable.Inst.DeviceConfig;
+			this.SetupAwake();
 		}
 	}
 
@@ -61,6 +38,34 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		} else {
 			this.OnReceiveDescPopupResult(null);
 		}
+	}
+
+	//! 씬을 설정한다
+	private void SetupAwake() {
+		this.IsAutoInitManager = true;
+
+#if ADS_MODULE_ENABLE
+		CSubLateSetupSceneManager.IsAutoLoadBannerAds = true;
+		CSubLateSetupSceneManager.IsAutoLoadRewardAds = true;
+		CSubLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
+#endif			// #if ADS_MODULE_ENABLE
+
+#if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
+		CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.NONE;
+#else
+		// 유저 타입이 유효하지 않을 경우
+		if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
+#if AB_TEST_ENABLE
+			int nSumVal = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExToSumVal();
+			CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT != KCDefine.B_VAL_0_INT) ? EUserType.USER_A : EUserType.USER_B;
+#else
+			CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.USER_A;
+#endif			// #if AB_TEST_ENABLE
+		}
+#endif			// #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
+
+		CCommonAppInfoStorage.Inst.DeviceConfig = CDeviceInfoTable.Inst.DeviceConfig;
+		CCommonUserInfoStorage.Inst.SaveUserInfo();
 	}
 
 	//! 설명 팝업 결과를 수신했을 경우

@@ -400,8 +400,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		var oLevelIDList = new List<long>();
 		string oFilePath = KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
 
-		CEpisodeInfoTable.Inst.LevelInfoDict.Clear();
-
 		for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
 				for(int k = 0; k < this.LevelInfoDictContainer[i][j].Count; ++k) {
@@ -424,16 +422,19 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oLevelInfo != null);
 		a_oOutLevelIDList.Add(a_oLevelInfo.LevelID);
 
-		CEpisodeInfoTable.Inst.LevelInfoDict.ExAddVal(a_oLevelInfo.LevelID, new STLevelInfo() {
-			m_nID = a_oLevelInfo.m_stIDInfo.m_nID,
-			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
-			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
-			
-			m_eLevelMode = a_oLevelInfo.LevelMode,
-			m_eLevelKinds = a_oLevelInfo.LevelKinds,
-			m_eRewardKinds = a_oLevelInfo.RewardKinds,
-			m_eTutorialKinds = a_oLevelInfo.TutorialKinds
-		});
+		// 레벨 정보가 없을 경우
+		if(!CEpisodeInfoTable.Inst.TryGetLevelInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STLevelInfo stLevelInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID)) {
+			CEpisodeInfoTable.Inst.LevelInfoDict.Add(a_oLevelInfo.LevelID, new STLevelInfo() {
+				m_nID = a_oLevelInfo.m_stIDInfo.m_nID,
+				m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
+				m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
+				
+				m_eLevelMode = a_oLevelInfo.LevelMode,
+				m_eLevelKinds = a_oLevelInfo.LevelKinds,
+				m_eRewardKinds = a_oLevelInfo.RewardKinds,
+				m_eTutorialKinds = a_oLevelInfo.TutorialKinds
+			});
+		}
 
 		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
 		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);

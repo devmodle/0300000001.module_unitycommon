@@ -15,12 +15,17 @@ public class CSubPermissionSceneManager : CPermissionSceneManager {
 	public override void Awake() {
 		base.Awake();
 
-#if UNITY_ANDROID
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			this.PermissionList.ExAddVal(Permission.ExternalStorageRead);
-			this.PermissionList.ExAddVal(Permission.ExternalStorageWrite);
+			this.SetupAwake();
 		}
+	}
+
+	//! 씬을 설정한다
+	private void SetupAwake() {
+#if UNITY_ANDROID
+		this.PermissionList.ExAddVal(Permission.ExternalStorageRead);
+		this.PermissionList.ExAddVal(Permission.ExternalStorageWrite);
 #endif			// #if UNITY_ANDROID
 	}
 	#endregion			// 함수
