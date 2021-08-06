@@ -27,13 +27,16 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if DEBUG || DEVELOPMENT_BUILD
 			// 플레이 레벨 정보가 없을 경우
 			if(CGameInfoStorage.Inst.PlayLevelInfo == null) {
-#if UNITY_EDITOR
+#if UNITY_STANDALONE
 				// 레벨 정보가 없을 경우
 				if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
 					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
+					oLevelInfo.OnAfterDeserialize();
+					
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
+					CLevelInfoTable.Inst.SaveLevelInfos();
 				}
-#endif			// #if UNITY_EDITOR
+#endif			// #if UNITY_STANDALONE
 
 				CGameInfoStorage.Inst.SetupPlayLevelInfo(KCDefine.B_VAL_0_INT, EPlayMode.NORM);
 			}
@@ -182,11 +185,11 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		else if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TUTORIAL) {
 			// Do Nothing
 		} else {
-			bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(m_oLevelInfo.m_stIDInfo.m_nID, out CLevelInfo oNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelInfo(m_oLevelInfo.m_stIDInfo.m_nID, out STLevelInfo stNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
 
 			// 다음 레벨이 존재 할 경우
 			if(bIsValid && !m_bIsLeave) {
-				CGameInfoStorage.Inst.SetupPlayLevelInfo(oNextLevelInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, oNextLevelInfo.m_stIDInfo.m_nStageID, oNextLevelInfo.m_stIDInfo.m_nChapterID);
+				CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelInfo.m_nStageID, stNextLevelInfo.m_nChapterID);
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 			} else {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);

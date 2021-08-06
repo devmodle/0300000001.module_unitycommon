@@ -199,7 +199,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 플레이 레벨 정보를 설정한다
 	public void SetupPlayLevelInfo(int a_nID, EPlayMode a_ePlayMode, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.PlayMode = a_ePlayMode;
-		this.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nID, a_nStageID, a_nChapterID);
+		this.PlayLevelInfo = CLevelInfoTable.Inst.LoadLevelInfo(a_nID, a_nStageID, a_nChapterID);
 	}
 
 	//! 무료 부스터 여부를 검사한다
@@ -236,12 +236,10 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 스테이지 별 개수를 반환한다
 	public int GetNumStageStars(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		int nNumStars = KCDefine.B_VAL_0_INT;
-		var oStageLevelInfoDict = CLevelInfoTable.Inst.GetStageLevelInfos(a_nStageID, a_nChapterID);
+		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_nStageID, a_nChapterID);
 
-		CAccess.Assert(oStageLevelInfoDict.ExIsValid());
-
-		for(int i = 0; i < oStageLevelInfoDict.Count; ++i) {
-			this.TryGetClearInfo(oStageLevelInfoDict[i].m_stIDInfo.m_nID, out CClearInfo oClearInfo, oStageLevelInfoDict[i].m_stIDInfo.m_nStageID, oStageLevelInfoDict[i].m_stIDInfo.m_nChapterID);
+		for(int i = 0; i < nNumLevelInfos; ++i) {
+			this.TryGetClearInfo(i, out CClearInfo oClearInfo, a_nStageID, a_nChapterID);
 			nNumStars += (oClearInfo != null) ? oClearInfo.NumStars : KCDefine.B_VAL_0_INT;
 		}
 
@@ -251,17 +249,12 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 챕터 별 개수를 반환한다
 	public int GetNumChapterStars(int a_nChapterID) {
 		int nNumStars = KCDefine.B_VAL_0_INT;
-		var oChapterLevelInfoDict = CLevelInfoTable.Inst.GetChapterLevelInfos(a_nChapterID);
+		int nNumStageInfos = CLevelInfoTable.Inst.GetNumStageInfos(a_nChapterID);
 
-		CAccess.Assert(oChapterLevelInfoDict.ExIsValid());
-
-		for(int i = 0; i < oChapterLevelInfoDict.Count; ++i) {
-			for(int j = 0; j < oChapterLevelInfoDict.Count; ++j) {
-				this.TryGetClearInfo(oChapterLevelInfoDict[i][j].m_stIDInfo.m_nID, out CClearInfo oClearInfo, oChapterLevelInfoDict[i][j].m_stIDInfo.m_nStageID, oChapterLevelInfoDict[i][j].m_stIDInfo.m_nChapterID);
-				nNumStars += (oClearInfo != null) ? oClearInfo.NumStars : KCDefine.B_VAL_0_INT;
-			}
+		for(int i = 0; i < nNumStageInfos; ++i) {
+			nNumStars += this.GetNumStageStars(i, a_nChapterID);
 		}
-
+		
 		return nNumStars;
 	}
 
