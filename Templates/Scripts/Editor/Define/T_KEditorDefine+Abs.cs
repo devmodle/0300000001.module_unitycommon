@@ -169,7 +169,7 @@ public static partial class KEditorDefine {
 		// 기본 }
 
 		// 렌더링
-		["com.unity.2d.pixel-perfect"] = "5.0.0",
+		["com.unity.2d.pixel-perfect"] = "5.0.1",
 		["com.unity.visualeffectgraph"] = "11.0.0",
 		["com.unity.render-pipelines.universal"] = "11.0.0",
 
@@ -227,7 +227,7 @@ public static partial class KEditorDefine {
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["com.unity.mobile.notifications"] = "1.4.1",
+		["com.unity.mobile.notifications"] = "1.4.2",
 		["module.unitycommon.Noti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.module_unitycommon_Noti_client.git#1.7.0"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 	};
