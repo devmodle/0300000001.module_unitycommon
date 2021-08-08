@@ -66,7 +66,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 #if DAILY_MISSION_ENABLE
 				// 일일 미션 리셋이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableResetDailyMission) {
-					CGameInfoStorage.Inst.GameInfo.LastDailyMissionTime = System.DateTime.Today;
+					CGameInfoStorage.Inst.GameInfo.PrevDailyMissionTime = System.DateTime.Today;
 					CGameInfoStorage.Inst.GameInfo.m_oCompleteDailyMissionKindsList.Clear();
 
 					CGameInfoStorage.Inst.SaveGameInfo();
@@ -77,7 +77,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 				// 무료 보상 획득이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableGetFreeReward) {
 					CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards = KCDefine.B_VAL_0_INT;
-					CGameInfoStorage.Inst.GameInfo.LastFreeRewardTime = System.DateTime.Today;
+					CGameInfoStorage.Inst.GameInfo.PrevFreeRewardTime = System.DateTime.Today;
 					
 					CGameInfoStorage.Inst.SaveGameInfo();
 				}
@@ -118,11 +118,14 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	//! 씬을 설정한다
 	private void SetupAwake() {
-		// 텍스트를 설정한다
-		m_oVerText = CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs, KCDefine.TS_POS_VER_TEXT);
+		// 텍스트를 설정한다 {
+		var oVerText = this.SubUIs.ExFindComponent<Text>(KCDefine.TS_OBJ_N_VER_TEXT);
+
+		m_oVerText = oVerText ?? CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs, KCDefine.TS_POS_VER_TEXT);
 		m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 		m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 		m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+		// 텍스트를 설정한다 }
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();

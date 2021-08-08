@@ -67,8 +67,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CSetupSceneManager.m_oDebugUIs = oDebugUIs;
 			CSceneManager.ScreenDebugUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS);
 
-			CSceneManager.ScreenDebugTexts = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXTS);
-			CSceneManager.ScreenDebugTexts.SetActive(false);
+			CSceneManager.ScreenDebugTextUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXT_UIS);
+			CSceneManager.ScreenDebugTextUIs.SetActive(false);
 
 			CSceneManager.ScreenFPSBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_BTN);
 			CSceneManager.ScreenFPSBtn.gameObject.SetActive(false);
