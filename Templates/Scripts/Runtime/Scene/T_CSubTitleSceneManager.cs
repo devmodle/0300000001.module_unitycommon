@@ -9,11 +9,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#region UI 변수
 	private Text m_oVerText = null;
 	#endregion			// UI 변수
-
-	#region 프로퍼티
-	public override bool IsRealtimeFadeOutAni => CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay;
-	#endregion			// 프로퍼티
-
+	
 	#region 함수
 	//! 초기화
 	public override void Awake() {

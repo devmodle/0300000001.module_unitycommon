@@ -35,7 +35,7 @@ public class CDailyMissionPopup : CMissionPopup {
 	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
-		// Do Something
+		base.UpdateUIsState();
 	}
 
 	//! 미션 버튼을 눌렀을 경우

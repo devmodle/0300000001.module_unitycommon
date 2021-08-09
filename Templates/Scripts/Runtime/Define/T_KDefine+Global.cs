@@ -103,17 +103,9 @@ public static partial class KDefine {
 	
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
-	public const string G_OBJ_N_STORE_P_RESTORE_BTN = "RestoreBtn";
 
-	// 설정 팝업 {
+	// 설정 팝업
 	public const string G_OBJ_N_SETTINGS_POPUP = "SettingsPopup";
-
-	public const string G_OBJ_N_SETTINGS_P_BG_SND_BTN = "BGSndBtn";
-	public const string G_OBJ_N_SETTINGS_P_FX_SNDS_BTN = "FXSndsBtn";
-	public const string G_OBJ_N_SETTINGS_P_NOTI_BTN = "NotiBtn";
-	public const string G_OBJ_N_SETTINGS_P_REVIEW_BTN = "ReviewBtn";
-	public const string G_OBJ_N_SETTINGS_P_SUPPORTS_BTN = "SupportsBtn";
-	// 설정 팝업 }
 
 	// 동기화 팝업 {
 	public const string G_OBJ_N_SYNC_POPUP = "SyncPopup";
@@ -133,32 +125,21 @@ public static partial class KDefine {
 
 	// 무료 보상 팝업
 	public const string G_OBJ_N_FREE_REWARD_POPUP = "FreeRewardPopup";
-	public const string G_OBJ_N_FREE_RP_ADS_BTN = "AdsBtn";
 
-	// 일일 보상 팝업 {
+	// 일일 보상 팝업
 	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DailyRewardPopup";
 
-	public const string G_OBJ_N_DAILY_RP_ADS_BTN = "AdsBtn";
-	public const string G_OBJ_N_DAILY_RP_ACQUIRE_BTN = "AcquireBtn";
-	// 일일 보상 팝업 }
-
-	// 잔돈 팝업 {
+	// 잔돈 팝업
 	public const string G_OBJ_N_CHANGES_POPUP = "ChangesPopup";
-
-	public const string G_OBJ_N_CHANGES_P_OK_BTN = "OKBtn";
-	public const string G_OBJ_N_CHANGES_P_PURCHASE_BTN = "PurchaseBtn";
-	// 잔돈 팝업 }
 
 	// 보상 획득 팝업
 	public const string G_OBJ_N_REWARD_ACQUIRE_POPUP = "RewardAcquirePopup";
-	public const string G_OBJ_N_REWARD_AP_ACQUIRE_BTN = "AcquireBtn";
 
 	// 잔돈 획득 팝업
 	public const string G_OBJ_N_CHANGES_ACQUIRE_POPUP = "ChangesAcquirePopup";
 
 	// 포커스 팝업
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
-	public const string G_OBJ_N_FOCUS_P_BLIND_IMG = "BlindImg";
 
 	// 튜토리얼 팝업
 	public const string G_OBJ_N_TUTORIAL_POPUP = "TutorialPopup";

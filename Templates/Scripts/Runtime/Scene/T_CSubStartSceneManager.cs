@@ -17,7 +17,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	#region UI 변수
 	private Text m_oLoadingText = null;
-	private CProgressGauge m_oProgressGauge = null;
+	private CGaugeHandler m_oGaugeHandler = null;
 	#endregion			// UI 변수
 
 	#region 함수
@@ -46,7 +46,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 			m_fSkipTime += Time.deltaTime;
 
 			float fPercent = (KCDefine.B_VAL_1_FLT * a_fDeltaTime) * KCDefine.SS_SCALE_LOADING;
-			m_oProgressGauge.Progress = Mathf.Clamp(m_oProgressGauge.Progress + fPercent, KCDefine.B_VAL_0_FLT, m_fMaxPercent);
+			m_oGaugeHandler.Percent = Mathf.Clamp(m_oGaugeHandler.Percent + fPercent, KCDefine.B_VAL_0_FLT, m_fMaxPercent);
 			
 			// 텍스트 상태 갱신 주기가 지났을 경우
 			if(m_fSkipTime.ExIsGreateEquals(KCDefine.SS_DELTA_T_UPDATE_STATE)) {
@@ -77,13 +77,13 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;
 		// 텍스트를 설정한다 }
 
-		// 이미지를 설정한다 {
+		// 게이지 처리자를 설정한다 {
 		var oLoadingGauge = this.SubUIs.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
 		oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, KCDefine.SS_OBJ_P_LOADING_GAUGE, this.SubUIs, KDefine.SS_POS_LOADING_IMG_GAUGE);
 
-		m_oProgressGauge = oLoadingGauge.GetComponentInChildren<CProgressGauge>();
-		m_oProgressGauge.Progress = KCDefine.B_VAL_0_FLT;
-		// 이미지를 설정한다 }
+		m_oGaugeHandler = oLoadingGauge.GetComponentInChildren<CGaugeHandler>();
+		m_oGaugeHandler.Percent = KCDefine.B_VAL_0_FLT;
+		// 게이지 처리자를 설정한다 }
 	}
 
 	//! 텍스트 상태를 갱신한다

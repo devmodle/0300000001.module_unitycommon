@@ -1,8 +1,6 @@
 {
     "Play": [
         {
-            "Name": "Sample",
-            "Desc": "Sample",
             "Replace": "0",
             "RewardKinds": "-1",
             "TutorialKinds": "0",
@@ -13,8 +11,6 @@
     ],
     "Help": [
         {
-            "Name": "Sample",
-            "Desc": "Sample",
             "Replace": "0",
             "RewardKinds": "-1",
             "TutorialKinds": "10000000",

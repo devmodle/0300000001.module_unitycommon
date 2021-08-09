@@ -46,9 +46,9 @@ public class CIntroSceneManager : CSceneManager {
 			// 초기화 씬 일 경우
 			if(m_oSceneNameList.ExIsValidIdx(nIdx)) {
 #if STUDY_MODULE_ENABLE
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU, false, false);
 #else
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE, false, false);
 #endif			// #if STUDY_MODULE_ENABLE
 			} else {
 				CCommonAppInfoStorage.Inst.IsFirstStart = false;

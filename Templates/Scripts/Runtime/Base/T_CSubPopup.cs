@@ -29,7 +29,7 @@ public abstract class CSubPopup : CPopup {
 	}
 
 	//! UI 상태를 갱신한다
-	protected new void UpdateUIsState() {
+	protected void UpdateUIsState() {
 		// Do Something
 	}
 	#endregion			// 함수

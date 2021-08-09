@@ -324,7 +324,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	//! 오른족 에디터 UI 를 설정한다
 	private void SetupRightEditorUIs() {
 		// 텍스트를 설정한다
-		m_oREUIsTitleText = m_oRightEditorUIs.ExFindComponent<Text>(KCDefine.LES_OBJ_N_RE_UIS_TITLE_TEXT);
+		m_oREUIsTitleText = m_oRightEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_TITLE_TEXT);
 
 		// 입력 필드를 설정한다
 		m_oREUIsLevelInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_LEVEL_INPUT);
@@ -343,7 +343,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	//! 중앙 에디터 UI 를 설정한다
 	private void SetupMidEditorUIs() {
 		// 텍스트를 설정한다
-		m_oMEUIsLevelText = m_oMidEditorUIs.ExFindComponent<Text>(KCDefine.LES_OBJ_N_ME_UIS_LEVEL_TEXT);
+		m_oMEUIsLevelText = m_oMidEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_LEVEL_TEXT);
 
 		// 버튼을 설정한다 {
 		m_oMEUIsPrevLevelBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_PREV_LEVEL_BTN);

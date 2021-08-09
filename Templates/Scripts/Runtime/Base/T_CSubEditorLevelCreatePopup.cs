@@ -26,7 +26,7 @@ public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 
 	//! UI 상태를 갱신한다
 	protected new void UpdateUIsState() {
-		// Do Something
+		base.UpdateUIsState();
 	}
 
 	//! 에디터 레벨 생성 정보를 생성한다

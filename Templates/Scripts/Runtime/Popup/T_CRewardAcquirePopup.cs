@@ -32,7 +32,7 @@ public class CRewardAcquirePopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다
-		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_REWARD_AP_ACQUIRE_BTN);
+		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ACQUIRE_BTN);
 		m_oAcquireBtn?.onClick.AddListener(this.OnTouchAcquireBtn);
 	}
 	
@@ -50,6 +50,8 @@ public class CRewardAcquirePopup : CSubPopup {
 	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
+		base.UpdateUIsState();
+		
 		// 보상 아이템 UI 상태를 갱신한다
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
 			var oItemUIs = m_oItemUIsList[i];

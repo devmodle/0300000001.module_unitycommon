@@ -18,19 +18,19 @@ public class CSettingsPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다 {
-		m_oBGSndBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_SETTINGS_P_BG_SND_BTN);
+		m_oBGSndBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_BG_SND_BTN);
 		m_oBGSndBtn?.onClick.AddListener(this.OnTouchBGSndBtn);
 
-		m_oFXSndsBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_SETTINGS_P_FX_SNDS_BTN);
+		m_oFXSndsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_FX_SNDS_BTN);
 		m_oFXSndsBtn?.onClick.AddListener(this.OnTouchFXSndsBtn);
 
-		m_oNotiBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_SETTINGS_P_NOTI_BTN);
+		m_oNotiBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NOTI_BTN);
 		m_oNotiBtn?.onClick.AddListener(this.OnTouchNotiBtn);
 
-		var oReviewBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_SETTINGS_P_REVIEW_BTN);
+		var oReviewBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REVIEW_BTN);
 		oReviewBtn?.onClick.AddListener(this.OnTouchReviewBtn);
 
-		var oSupportsBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_SETTINGS_P_SUPPORTS_BTN);
+		var oSupportsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SUPPORTS_BTN);
 		oSupportsBtn?.onClick.AddListener(this.OnTouchSupportsBtn);
 		// 버튼을 설정한다 }
 	}
@@ -48,7 +48,7 @@ public class CSettingsPopup : CSubPopup {
 	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
-		// Do Something
+		base.UpdateUIsState();
 	}
 
 	//! 배경음 버튼을 눌렀을 경우

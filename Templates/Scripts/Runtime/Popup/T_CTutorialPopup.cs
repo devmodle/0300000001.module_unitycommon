@@ -44,7 +44,7 @@ public class CTutorialPopup : CFocusPopup {
 	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
-		// Do Something
+		base.UpdateUIsState();
 	}
 	#endregion			// 함수
 }

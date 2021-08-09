@@ -30,7 +30,7 @@ public class CStorePopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다
-		var oRestoreBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_STORE_P_RESTORE_BTN);
+		var oRestoreBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RESTORE_BTN);
 		oRestoreBtn?.onClick.AddListener(this.OnTouchRestoreBtn);
 	}
 	
@@ -48,6 +48,8 @@ public class CStorePopup : CSubPopup {
 	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
+		base.UpdateUIsState();
+		
 		// 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductUIsList.Count; ++i) {
 			var oProductUIs = m_oProductUIsList[i];
@@ -57,7 +59,7 @@ public class CStorePopup : CSubPopup {
 
 	//! 상품 UI 상태를 갱신한다
 	private void UpdateProductUIsState(GameObject a_oProductUIs, STSaleProductInfo a_stSaleProductInfo) {
-		var eSaleProductType = (ESaleProductType)((int)a_stSaleProductInfo.m_eSaleProductKinds).ExKindsToType();
+		var eSaleProductType = a_stSaleProductInfo.m_eSaleProductKinds.ExKindsToType();
 
 		// 패키지 상품 일 경우
 		if(eSaleProductType == ESaleProductType.PKGS) {

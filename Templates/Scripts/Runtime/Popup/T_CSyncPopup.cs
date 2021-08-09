@@ -51,6 +51,8 @@ public class CSyncPopup : CSubPopup {
 
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
+		base.UpdateUIsState();
+		
 #if FIREBASE_MODULE_ENABLE
 		m_oLoginUIs?.SetActive(CFirebaseManager.Inst.IsLogin);
 		m_oLogoutUIs?.SetActive(!CFirebaseManager.Inst.IsLogin);

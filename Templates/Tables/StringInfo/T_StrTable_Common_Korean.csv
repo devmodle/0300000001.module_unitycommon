@@ -39,6 +39,8 @@ COMMON_RESTORE_FAIL_MSG,0,공용 복원 실패 메세지,상품 복원에 실패
 COMMON_GET_TEXT,0,공용 획득 텍스트,획득
 COMMON_NEXT_TEXT,0,공용 다음 텍스트,다음
 COMMON_LEAVE_TEXT,0,공용 나가기 텍스트,나가기
+COMMON_SYNC_TEXT,0,공용 동기화 텍스트,동기화
+COMMON_NOTICE_TEXT,0,공용 알림 텍스트,알림
 COMMON_WATCH_ADS_TEXT,0,공용 광고 시청 텍스트,광고 시청
 COMMON_LEVEL_TEXT,0,공용 레벨 텍스트,레벨
 COMMON_STAGE_TEXT,0,공용 스테이지 텍스트,스테이지
@@ -49,3 +51,23 @@ COMMON_CHAPTER_PAGE_TEXT_FMT,0,공용 챕터 페이지 텍스트 형식,챕터 {
 COMMON_NUM_LEVELS_TEXT_FMT,0,공용 레벨 개수 텍스트 형식,레벨 개수 : {0}
 COMMON_NUM_STAGES_TEXT_FMT,0,공용 스테이지 개수 텍스트 형식,스테이지 개수 : {0}
 COMMON_NUM_CHAPTERS_TEXT_FMT,0,공용 챕터 개수 텍스트 형식,챕터 개수 : {0}
+STORE_P_TITLE,0,상점 팝업 타이틀,상점
+STORE_P_RESTORE_BTN_TEXT,0,상점 팝업 복원 버튼 텍스트,결제 복원
+SETTINGS_P_TITLE,0,설정 팝업 타이틀,설정
+SETTINGS_P_BG_SND_BTN_TEXT,0,설정 팝업 배경음 버튼 텍스트,배경음
+SETTINGS_P_FX_SNDS_BTN_TEXT,0,설정 팝업 효과음 버튼 텍스트,효과음
+SETTINGS_P_NOTI_BTN_TEXT,0,설정 팝업 알림 버튼 텍스트,알림
+SETTINGS_P_REVIEW_BTN_TEXT,0,설정 팝업 평가 버튼 텍스트,평가
+SETTINGS_P_SUPPORTS_BTN_TEXT,0,설정 팝업 지원 버튼 텍스트,문의
+SYNC_P_TITLE,0,동기화 팝업 타이틀,동기화
+SYNC_P_LOGIN_BTN_TEXT,0,동기화 팝업 로그인 버튼 텍스트,로그인
+SYNC_P_LOGOUT_BTN_TEXT,0,동기화 팝업 로그아웃 버튼 텍스트,로그아웃
+DAILY_MP_TITLE,0,일일 미션 팝업 타이틀,일일 미션
+FREE_RP_TITLE,0,무료 보상 팝업 타이틀,무료 보상
+FREE_RP_ADS_BTN_TEXT,0,무료 보상 팝업 광고 버튼 텍스트,광고 시청
+DAILY_RP_TITLE,0,일일 보상 팝업 타이틀,일일 보상
+DAILY_RP_ADS_BTN_TEXT,0,일일 보상 팝업 광고 버튼 텍스트,광고 시청
+DAILY_RP_ACQUIRE_BTN_TEXT,0,일일 보상 팝업 획득 버튼 텍스트,획득
+CHANGES_P_TITLE,0,잔돈 팝업 타이틀,잔돈
+CHANGES_P_OK_BTN_TEXT,0,잔돈 팝업 확인 버튼 텍스트,확인
+REWARD_AP_ACQUIRE_BTN_TEXT,0,보상 획득 팝업 획득 버튼 텍스트,획득

@@ -40,7 +40,7 @@ public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 
 	//! UI 상태를 갱신한다
 	protected new void UpdateUIsState() {
-		// Do Something
+		base.UpdateUIsState();
 	}
 	#endregion			// 함수
 }
