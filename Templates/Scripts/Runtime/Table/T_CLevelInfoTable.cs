@@ -31,6 +31,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+		m_oBlockKindsList = m_oBlockKindsList ?? new List<SampleEngineName.EBlockKinds>();
 	}
 	#endregion			// 인터페이스
 
@@ -83,6 +84,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	}
 	
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
+	[IgnoreMember] public long NumTargets => KCDefine.B_VAL_0_INT;
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
@@ -103,6 +105,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, CCellInfo>>();
 
 		// 셀 개수를 설정한다 {
 		var stNumCells = new Vector3Int(KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
@@ -192,11 +195,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 #if UNITY_STANDALONE
 		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
+		return CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, false);
 #else
 		string oFilePath = string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
+		return CFunc.ReadMsgPackObjFromRes<CLevelInfo>(oFilePath, false);
 #endif			// #if UNITY_STANDALONE
-
-		return CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, false);
 	}
 
 	//! 레벨 정보를 로드한다
@@ -461,13 +464,16 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CEpisodeInfoTable.Inst.TryGetLevelInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STLevelInfo stLevelInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID);
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, new STLevelInfo() {
-			m_nID = stLevelInfo.m_nID,
-			m_nStageID = stLevelInfo.m_nStageID,
-			m_nChapterID = stLevelInfo.m_nChapterID,
-
 			m_oName = stLevelInfo.m_oName ?? string.Empty,
 			m_oDesc = stLevelInfo.m_oDesc ?? string.Empty,
-			
+
+			m_nID = a_oLevelInfo.m_stIDInfo.m_nID,
+			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
+			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
+
+			m_nNumTargets = (int)a_oLevelInfo.NumTargets,
+			m_nUnlockNumTargets = stLevelInfo.m_nUnlockNumTargets,
+
 			m_eLevelMode = a_oLevelInfo.LevelMode,
 			m_eLevelKinds = a_oLevelInfo.LevelKinds,
 			m_eRewardKinds = a_oLevelInfo.RewardKinds,

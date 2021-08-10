@@ -46,8 +46,8 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	//! 씬을 설정한다
 	protected virtual void Setup() {
-		for(int i = 0; i < this.m_oSpriteAtlasList.Count; ++i) {
-			CResManager.Inst.LoadSpriteAtlas(this.m_oSpriteAtlasList[i]);
+		for(int i = 0; i < m_oSpriteAtlasList.Count; ++i) {
+			CResManager.Inst.LoadSpriteAtlas(m_oSpriteAtlasList[i]);
 		}
 
 		foreach(var stKeyVal in this.m_oMaxNumDuplicateFXSndsDict) {

@@ -73,6 +73,10 @@ public class CGameInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
+	[Key(51)] public List<long> m_oUnlockLevelIDList = new List<long>();
+	[Key(52)] public List<long> m_oUnlockStageIDList = new List<long>();
+	[Key(53)] public List<long> m_oUnlockChapterIDList = new List<long>();
+
 	[Key(61)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
 	[Key(62)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
 	[Key(63)] public List<ETutorialKinds> m_oCompleteTutorialKindsList = new List<ETutorialKinds>();
@@ -113,6 +117,16 @@ public class CGameInfo : CBaseInfo {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+		
+		m_oUnlockLevelIDList = m_oUnlockLevelIDList ?? new List<long>();
+		m_oUnlockStageIDList = m_oUnlockStageIDList ?? new List<long>();
+		m_oUnlockChapterIDList = m_oUnlockChapterIDList ?? new List<long>();
+		
+		m_oCompleteMissionKindsList = m_oCompleteMissionKindsList ?? new List<EMissionKinds>();
+		m_oCompleteDailyMissionKindsList = m_oCompleteDailyMissionKindsList ?? new List<EMissionKinds>();
+		m_oCompleteTutorialKindsList = m_oCompleteTutorialKindsList ?? new List<ETutorialKinds>();
+		
+		m_oClearInfoDict = m_oClearInfoDict ?? new Dictionary<long, CClearInfo>();
 
 		this.PrevDailyMissionTime = this.PrevDailyMissionTimeStr.ExIsValid() ? this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
 		this.PrevFreeRewardTime = this.PrevFreeRewardTimeStr.ExIsValid() ? this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
@@ -232,19 +246,37 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return this.GameInfo.m_oCompleteTutorialKindsList.Contains(a_eTutorialKinds);
 	}
 
-	//! 클리어 여부를 검사한다
-	public bool IsClear(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	//! 레벨 클리어 여부를 검사한다
+	public bool IsClearLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
 		return this.GameInfo.m_oClearInfoDict.ContainsKey(nLevelID);
 	}
 
+	//! 레벨 잠금 해제 여부를 검사한다
+	public bool IsUnlockLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
+		return this.GameInfo.m_oUnlockLevelIDList.Contains(nLevelID);
+	}
+
+	//! 스테이지 잠금 해제 여부를 검사한다
+	public bool IsUnlockStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		long nStageID = CFactory.MakeUniqueStageID(a_nID);
+		return this.GameInfo.m_oUnlockStageIDList.Contains(nStageID);
+	}
+
+	//! 챕터 잠금 해제 여부를 검사한다
+	public bool IsUnlockChapter(int a_nID) {
+		long nChapterID = CFactory.MakeUniqueChapterID(a_nID);
+		return this.GameInfo.m_oUnlockChapterIDList.Contains(nChapterID);
+	}
+
 	//! 스테이지 별 개수를 반환한다
-	public int GetNumStageStars(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public int GetNumStageStars(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		int nNumStars = KCDefine.B_VAL_0_INT;
-		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_nStageID, a_nChapterID);
+		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_nID, a_nChapterID);
 
 		for(int i = 0; i < nNumLevelInfos; ++i) {
-			this.TryGetClearInfo(i, out CClearInfo oClearInfo, a_nStageID, a_nChapterID);
+			this.TryGetClearInfo(i, out CClearInfo oClearInfo, a_nID, a_nChapterID);
 			nNumStars += (oClearInfo != null) ? oClearInfo.NumStars : KCDefine.B_VAL_0_INT;
 		}
 
@@ -261,6 +293,20 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		}
 		
 		return nNumStars;
+	}
+
+	//! 클리어 정보 개수를 반환한다
+	public int GetNumClearInfos(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_nID, a_nChapterID);
+
+		for(int i = 0; i < nNumLevelInfos; ++i) {
+			// 클리어 정보가 없을 경우
+			if(!this.TryGetClearInfo(i, out CClearInfo oClearInfo, a_nID, a_nChapterID)) {
+				return i;
+			}
+		}
+
+		return nNumLevelInfos;
 	}
 
 	//! 클리어 정보를 반환한다
@@ -317,8 +363,26 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	//! 클리어 정보를 추가한다
 	public void AddClearInfo(CClearInfo a_oClearInfo) {
-		CAccess.Assert(!this.IsClear(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
+		CAccess.Assert(!this.IsClearLevel(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
 		this.GameInfo.m_oClearInfoDict.Add(a_oClearInfo.LevelID, a_oClearInfo);
+	}
+
+	//! 잠금 해제 레벨을 추가한다
+	public void AddUnlockLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		CAccess.Assert(!this.IsUnlockLevel(a_nID, a_nStageID, a_nChapterID));
+		this.GameInfo.m_oUnlockLevelIDList.Add(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
+	}
+
+	//! 잠금 해제 스테이지를 추가한다
+	public void AddUnlockStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		CAccess.Assert(!this.IsUnlockStage(a_nID, a_nChapterID));
+		this.GameInfo.m_oUnlockStageIDList.Add(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
+	}
+
+	//! 잠금 해제 챕터를 추가한다
+	public void AddUnlockChapter(int a_nID) {
+		CAccess.Assert(!this.IsUnlockChapter(a_nID));
+		this.GameInfo.m_oUnlockChapterIDList.Add(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
 	//! 게임 정보를 로드한다

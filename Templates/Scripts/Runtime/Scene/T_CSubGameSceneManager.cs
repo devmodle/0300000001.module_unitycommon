@@ -166,7 +166,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	//! 레벨을 클리어한다
 	private void ClearLevel() {
 		// 클리어 정보가 없을 경우
-		if(!CGameInfoStorage.Inst.IsClear(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID)) {
+		if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID)) {
 			var oClearInfo = Factory.MakeClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
 			CGameInfoStorage.Inst.AddClearInfo(oClearInfo);
 		}
@@ -185,11 +185,20 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		else if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TUTORIAL) {
 			// Do Nothing
 		} else {
-			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelInfo(m_oLevelInfo.m_stIDInfo.m_nID, out STLevelInfo stNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+#if UNITY_STANDALONE
+			bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(m_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, out CLevelInfo oNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+#else
+			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelInfo(m_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, out STLevelInfo stNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+#endif			// #if UNITY_STANDALONE
 
 			// 다음 레벨이 존재 할 경우
 			if(bIsValid && !m_bIsLeave) {
+#if UNITY_STANDALONE
+				CGameInfoStorage.Inst.SetupPlayLevelInfo(oNextLevelInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, oNextLevelInfo.m_stIDInfo.m_nStageID, oNextLevelInfo.m_stIDInfo.m_nChapterID);
+#else
 				CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelInfo.m_nStageID, stNextLevelInfo.m_nChapterID);
+#endif			// #if UNITY_STANDALONE
+
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 			} else {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);

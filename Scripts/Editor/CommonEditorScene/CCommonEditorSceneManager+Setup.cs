@@ -108,8 +108,8 @@ public static partial class CCommonEditorSceneManager {
 				var oEventSystem = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_N_SCENE_EVENT_SYSTEM);
 				var oLogManager = oDebugConsoleList[i].GetComponentInChildren<DebugLogManager>();
 
-				var oScrollView = oDebugConsoleList[i].GetComponentInChildren<ScrollRect>();
-				oScrollView.movementType = ScrollRect.MovementType.Clamped;
+				var oScrollRect = oDebugConsoleList[i].GetComponentInChildren<ScrollRect>();
+				oScrollRect.movementType = ScrollRect.MovementType.Clamped;
 
 				var oWndTrans = oLogWnd.transform as RectTransform;
 				oWndTrans.pivot = KCDefine.B_ANCHOR_MID_CENTER;

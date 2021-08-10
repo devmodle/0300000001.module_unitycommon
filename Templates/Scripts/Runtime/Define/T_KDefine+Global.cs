@@ -88,6 +88,9 @@ public static partial class KDefine {
 
 	public const string G_KEY_EPISODE_IT_CHAPTER_ID = "ChapterID";
 	public const string G_KEY_EPISODE_IT_CHAPTER_KINDS = "ChapterKinds";
+
+	public const string G_KEY_EPISODE_IT_NUM_TARGETS = "NumTargets";
+	public const string G_KEY_EPISODE_IT_UNLOCK_NUM_TARGETS = "UnlockNumTargets";
 	// 에피소드 정보 테이블 }
 
 	// 튜토리얼 정보 테이블 {

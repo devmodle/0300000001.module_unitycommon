@@ -40,6 +40,7 @@ public class CUserInfo : CBaseInfo {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+		m_oNumItemsDict = m_oNumItemsDict ?? new Dictionary<EItemKinds, int>();
 	}
 	#endregion			// 인터페이스
 }

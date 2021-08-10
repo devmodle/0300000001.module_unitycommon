@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class CTutorialPopup : CFocusPopup {
 	//! 매개 변수
 	public new struct STParams {
-		public ETutorialKinds m_eTutorialKinds;
 		public CFocusPopup.STParams m_stBaseParams;
+		public ETutorialKinds m_eTutorialKinds;
 	}
 
 	//! 콜백 매개 변수
