@@ -546,12 +546,12 @@ public static partial class Func {
 
 	//! 상품을 결제한다
 	public static void PurchaseProduct(ESaleProductKinds a_eSaleProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		int nIdx = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExFindVal((a_eCompareSaleProductKinds) => a_eSaleProductKinds == a_eCompareSaleProductKinds);
-		CAccess.Assert(!a_bIsEnableAssert || KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nIdx));
+		int nID = Access.GetSaleProductID(a_eSaleProductKinds);
+		CAccess.Assert(!a_bIsEnableAssert || KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nID));
 
 		// 상품이 존재 할 경우
-		if(nIdx > KCDefine.B_IDX_INVALID) {
-			Func.PurchaseProduct(nIdx, a_oCallback);
+		if(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nID)) {
+			Func.PurchaseProduct(nID, a_oCallback);
 		}
 	}
 	
@@ -584,9 +584,9 @@ public static partial class Func {
 		if(a_bIsSuccess) {
 			CIndicatorManager.Inst.Show(true);
 
-			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oConfirmSender, a_oConfirmProductID, a_bIsConfirmSuccess) => {
+			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oSender, a_oConfirmProductID, a_bIsSuccess) => {
 				CIndicatorManager.Inst.Close();
-				CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oConfirmSender, a_oConfirmProductID, a_bIsConfirmSuccess);
+				CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oSender, a_oConfirmProductID, a_bIsSuccess);
 			});
 		} else {
 			CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oSender, a_oProductID, a_bIsSuccess);

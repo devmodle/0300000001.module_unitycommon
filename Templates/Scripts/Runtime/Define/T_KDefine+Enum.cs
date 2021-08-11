@@ -52,6 +52,14 @@ public enum EPriceKinds {
 	GOODS_COIN = EPriceKinds.GOODS_PRICE,
 	#endregion			// 재화
 
+	#region 결제
+	// 결제 가격 20,000,000
+	[HideInInspector] PURCHASE_PRICE = EPriceKinds.GOODS_PRICE + KCDefine.B_UNIT_KINDS_PER_TYPE,
+
+	// 결제 20,000,000
+	PURCHASE = EPriceKinds.PURCHASE_PRICE,
+	#endregion			// 결제
+
 	MAX_VAL
 }
 

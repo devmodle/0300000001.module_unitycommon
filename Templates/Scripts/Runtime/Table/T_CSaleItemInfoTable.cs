@@ -7,23 +7,26 @@ using UnityEngine.UI;
 //! 판매 아이템 정보
 [System.Serializable]
 public struct STSaleItemInfo {
-	public int m_nPrice;
-
 	public string m_oName;
 	public string m_oDesc;
+	public string m_oPrice;
 
 	public EPriceKinds m_ePriceKinds;
 	public ESaleItemKinds m_eSaleItemKinds;
 
 	public List<STItemInfo> m_oItemInfoList;
 
+	#region 프로퍼티
+	public int IntPrice => int.TryParse(m_oPrice, out int nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
+	public float FltPrice => float.TryParse(m_oPrice, out float fPrice) ? fPrice : KCDefine.B_VAL_0_FLT;
+	#endregion			// 프로퍼티
+
 	#region 함수
 	//! 생성자
 	public STSaleItemInfo(SimpleJSON.JSONNode a_oSaleItemInfo) {
-		m_nPrice = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE].AsInt;
-		
 		m_oName = a_oSaleItemInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oSaleItemInfo[KCDefine.U_KEY_DESC];
+		m_oPrice = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE];
 
 		m_ePriceKinds = (EPriceKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE_KINDS].AsInt;
 		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;

@@ -39,7 +39,9 @@ public static partial class KDefine {
 	// 판매 아이템 정보 테이블 }
 
 	// 판매 상품 정보 테이블 {
+	public const string G_KEY_SALE_PIT_PRICE = "Price";
 	public const string G_KEY_SALE_PIT_PRICE_KINDS = "PriceKinds";
+	public const string G_KEY_SALE_PIT_PRODUCT_KINDS = "ProductKinds";
 	public const string G_KEY_SALE_PIT_SALE_PRODUCT_KINDS = "SaleProductKinds";
 
 	public const string G_KEY_FMT_SALE_PIT_NUM_ITEMS = "NumItems_{0:00}";
@@ -107,8 +109,18 @@ public static partial class KDefine {
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
 
-	// 설정 팝업
+	// 설정 팝업 {
 	public const string G_OBJ_N_SETTINGS_POPUP = "SettingsPopup";
+
+	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "G_BGSndOn";
+	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "G_BGSndOff";
+
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "G_FXSndsOn";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "G_FXSndsOff";
+
+	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "G_NotiOn";
+	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "G_NotiOff";
+	// 설정 팝업 }
 
 	// 동기화 팝업 {
 	public const string G_OBJ_N_SYNC_POPUP = "SyncPopup";
@@ -263,6 +275,11 @@ public static partial class KDefine {
 	// 보상 정보 테이블
 	public static readonly ERewardKinds[] G_REWARDS_KINDS_REWARD_IT_DAILY = new ERewardKinds[] {
 		ERewardKinds.DAILY_REWARD
+	};
+
+	// 상점 팝업
+	public static readonly ESaleProductKinds[] G_KINDS_STORE_POPUP_PRODUCTS = new ESaleProductKinds[] {
+		// Do Something
 	};
 	#endregion			// 런타임 상수
 }

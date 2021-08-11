@@ -295,7 +295,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 		for(int i = 0; i < oLevelInfos.Count; ++i) {
 			var stLevelInfo = new STLevelInfo(oLevelInfos[i]);
-			long nLevelID = CFactory.MakeUniqueLevelID(i, stLevelInfo.m_nStageID, stLevelInfo.m_nChapterID);
+			long nLevelID = CFactory.MakeUniqueLevelID(stLevelInfo.m_nID, stLevelInfo.m_nStageID, stLevelInfo.m_nChapterID);
 
 			// 레벨 정보가 추가 가능 할 경우
 			if(!this.LevelInfoDict.ContainsKey(nLevelID) || oLevelInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
@@ -305,7 +305,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 		for(int i = 0; i < oStageInfos.Count; ++i) {
 			var stStageInfo = new STStageInfo(oStageInfos[i]);
-			long nStageID = CFactory.MakeUniqueStageID(i, stStageInfo.m_nChapterID);
+			long nStageID = CFactory.MakeUniqueStageID(stStageInfo.m_nID, stStageInfo.m_nChapterID);
 
 			// 스테이지 정보가 추가 가능 할 경우
 			if(!this.StageInfoDict.ContainsKey(nStageID) || oStageInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
@@ -315,7 +315,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 		for(int i = 0; i < oChapterInfos.Count; ++i) {
 			var stChapterInfo = new STChapterInfo(oChapterInfos[i]);
-			long nChapterID = CFactory.MakeUniqueChapterID(i);
+			long nChapterID = CFactory.MakeUniqueChapterID(stChapterInfo.m_nID);
 
 			// 챕터 정보가 추가 가능 할 경우
 			if(!this.ChapterInfoDict.ContainsKey(nChapterID) || oChapterInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {

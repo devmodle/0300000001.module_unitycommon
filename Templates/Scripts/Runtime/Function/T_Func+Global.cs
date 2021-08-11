@@ -46,8 +46,8 @@ public static partial class Func {
 		}
 
 		// 코인 비용이 존재 할 경우
-		if(a_stSaleItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COIN && a_stSaleItemInfo.m_nPrice > KCDefine.B_VAL_0_INT) {
-			CUserInfoStorage.Inst.AddNumCoins(-a_stSaleItemInfo.m_nPrice);
+		if(a_stSaleItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COIN && a_stSaleItemInfo.IntPrice > KCDefine.B_VAL_0_INT) {
+			CUserInfoStorage.Inst.AddNumCoins(-a_stSaleItemInfo.IntPrice);
 		}
 
 		CUserInfoStorage.Inst.SaveUserInfo();

@@ -4,22 +4,37 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if PURCHASE_MODULE_ENABLE
+using UnityEngine.Purchasing;
+#endif			// #if PURCHASE_MODULE_ENABLE
+
 //! 판매 상품 정보
 [System.Serializable]
 public struct STSaleProductInfo {
 	public string m_oName;
 	public string m_oDesc;
+	public string m_oPrice;
 
 	public EPriceKinds m_ePriceKinds;
 	public ESaleProductKinds m_eSaleProductKinds;
 
 	public List<STItemInfo> m_oItemInfoList;
 
+#if PURCHASE_MODULE_ENABLE
+	public ProductType m_eProductType;
+#endif			// #if PURCHASE_MODULE_ENABLE
+
+	#region 프로퍼티
+	public int IntPrice => int.TryParse(m_oPrice, out int nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
+	public float FltPrice => float.TryParse(m_oPrice, out float fPrice) ? fPrice : KCDefine.B_VAL_0_FLT;
+	#endregion			// 프로퍼티
+
 	#region 함수
 	//! 생성자
 	public STSaleProductInfo(SimpleJSON.JSONNode a_oSaleProductInfo) {
 		m_oName = a_oSaleProductInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oSaleProductInfo[KCDefine.U_KEY_DESC];
+		m_oPrice = a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_PRICE];
 
 		m_ePriceKinds = (EPriceKinds)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_PRICE_KINDS].AsInt;
 		m_eSaleProductKinds = (ESaleProductKinds)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_SALE_PRODUCT_KINDS].AsInt;
@@ -37,6 +52,11 @@ public struct STSaleProductInfo {
 
 			m_oItemInfoList.Add(stItemInfo);
 		}
+
+#if PURCHASE_MODULE_ENABLE
+		m_eProductType = (ProductType)a_oSaleProductInfo[KDefine.G_KEY_SALE_PIT_PRODUCT_KINDS].AsInt;
+		CAccess.Assert(m_eProductType != ProductType.Subscription);
+#endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수
 }

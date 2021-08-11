@@ -30,6 +30,14 @@ public static partial class Access {
 	
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
+	//! 판매 상품 식별자를 반환한다
+	public static int GetSaleProductID(ESaleProductKinds a_eSaleProductKinds) {
+		int nIdx = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExFindVal((a_eCompareSaleProductKinds) => a_eSaleProductKinds == a_eCompareSaleProductKinds);
+		CAccess.Assert(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nIdx));
+
+		return nIdx;
+	}
+	
 	//! 가격 문자열을 반환한다
 	public static string GetPriceStr(int a_nID) {
 		var oProduct = Access.GetProduct(a_nID);

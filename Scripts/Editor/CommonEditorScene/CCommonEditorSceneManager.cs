@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using Unity.Linq;
 
 #if UNITY_EDITOR
@@ -84,6 +83,28 @@ public static partial class CCommonEditorSceneManager {
 			// 에디터 모드 일 경우
 			if(!Application.isPlaying) {
 				EditorSceneManager.MarkSceneDirty(oRendererList[i].gameObject.scene);
+			}
+		}
+	}
+
+	//! 상호 작용자를 리셋한다
+	[MenuItem("Tools/Utility/Reset/Selectables")]
+	public static void ResetSelectables() {
+		var oSelectableList = CEditorFunc.FindComponents<Selectable>();
+
+		for(int i = 0; i < oSelectableList.Count; ++i) {
+			var stColorBlock = oSelectableList[i].colors;
+			stColorBlock.normalColor = KCDefine.U_COLOR_NORM;
+			stColorBlock.pressedColor = KCDefine.U_COLOR_PRESS;
+			stColorBlock.selectedColor = KCDefine.U_COLOR_SEL;
+			stColorBlock.highlightedColor = KCDefine.U_COLOR_HIGHLIGHT;
+			stColorBlock.disabledColor = KCDefine.U_COLOR_DISABLE;
+			
+			oSelectableList[i].colors = stColorBlock;
+
+			// 에디터 모드 일 경우
+			if(!Application.isPlaying) {
+				EditorSceneManager.MarkSceneDirty(oSelectableList[i].gameObject.scene);
 			}
 		}
 	}
@@ -175,29 +196,27 @@ public static partial class CCommonEditorSceneManager {
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {
 					CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VAL_0_FLT;
 
-					CFunc.EnumerateObjs((a_oObjs) => {
-						for(int j = 0; j < a_oObjs.Length; ++j) {
-							var oEnumerator = a_oObjs[j].DescendantsAndSelf();
-							var oRemoveObjList = new List<GameObject>();
+					CFunc.EnumerateRootObjs((a_oObj) => {
+						var oEnumerator = a_oObj.DescendantsAndSelf();
+						var oRemoveObjList = new List<GameObject>();
 
-							foreach(var oObj in oEnumerator) {
-								int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
+						foreach(var oObj in oEnumerator) {
+							int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
 
-								// 객체 제거가 필요 할 경우
-								if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
-									oRemoveObjList.ExAddVal(oObj);
-								}
-
-								// 스크립트 제거가 필요 할 경우
-								if(nNumMissingScripts > KCDefine.B_VAL_0_INT) {
-									GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
-									EditorSceneManager.MarkSceneDirty(a_oObjs[j].scene);
-								}
+							// 객체 제거가 필요 할 경우
+							if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
+								oRemoveObjList.ExAddVal(oObj);
 							}
 
-							for(int i = 0; i < oRemoveObjList.Count; ++i) {
-								CFactory.RemoveObj(oRemoveObjList[i]);
+							// 스크립트 제거가 필요 할 경우
+							if(nNumMissingScripts > KCDefine.B_VAL_0_INT) {
+								GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
+								EditorSceneManager.MarkSceneDirty(a_oObj.scene);
 							}
+						}
+
+						for(int i = 0; i < oRemoveObjList.Count; ++i) {
+							CFactory.RemoveObj(oRemoveObjList[i]);
 						}
 
 						return true;
@@ -207,10 +226,8 @@ public static partial class CCommonEditorSceneManager {
 
 			// 기즈모를 그릴 수 있을 경우
 			if(CEditorAccess.IsEnableDrawGizmos) {
-				CFunc.EnumerateScenes((a_stScene) => {
-					var oSceneManager = a_stScene.ExFindComponent<CSceneManager>(KCDefine.U_OBJ_N_SCENE_MANAGER);
-					oSceneManager?.EditorSetupScene();
-
+				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => {
+					a_oSceneManager.EditorSetupScene();
 					return true;
 				});
 			}
