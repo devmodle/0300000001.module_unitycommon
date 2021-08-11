@@ -15,8 +15,17 @@ public class CStorePopup : CSubPopup {
 		public List<STSaleProductInfo> m_oSaleProductInfoList;
 	}
 
+	//! 콜백 매개 변수
+	public struct STCallbackParams {
+#if PURCHASE_MODULE_ENABLE
+		public System.Action<CPurchaseManager, string, bool> m_oPurchaseCallback;
+		public System.Action<CPurchaseManager, List<Product>, bool> m_oRestoreCallback;
+#endif			// #if PURCHASE_MODULE_ENABLE
+	}
+
 	#region 변수
 	private STParams m_stParams;
+	private STCallbackParams m_stCallbackParams;
 	private ESaleProductKinds m_eSelSaleProductKinds = ESaleProductKinds.NONE;
 	#endregion			// 변수
 
@@ -35,9 +44,11 @@ public class CStorePopup : CSubPopup {
 	}
 	
 	//! 초기화
-	public virtual void Init(STParams a_stParams) {
+	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
 		base.Init();
+
 		m_stParams = a_stParams;
+		m_stCallbackParams = a_stCallbackParams;
 	}
 
 	//! 팝업 컨텐츠를 설정한다
@@ -50,8 +61,7 @@ public class CStorePopup : CSubPopup {
 	private new void UpdateUIsState() {
 		// 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oSaleProductUIsList.Count; ++i) {
-			var oSaleProductUIs = m_oSaleProductUIsList[i];
-			this.UpdateSaleProductUIsState(oSaleProductUIs, m_stParams.m_oSaleProductInfoList[i]);
+			this.UpdateSaleProductUIsState(m_oSaleProductUIsList[i], m_stParams.m_oSaleProductInfoList[i]);
 		}
 	}
 
@@ -69,7 +79,7 @@ public class CStorePopup : CSubPopup {
 		var oPurchasePriceUIs = a_oSaleProductUIs.ExFindChild(KCDefine.U_OBJ_N_PURCHASE_PRICE_UIS);
 		oPurchasePriceUIs?.SetActive(ePriceType == EPriceType.PURCHASE);
 
-		var oPurchaseUIs = (ePriceType == EPriceType.GOODS) ? oGoodsPriceUIs : oPurchasePriceUIs;
+		var oPriceUIs = (ePriceType == EPriceType.GOODS) ? oGoodsPriceUIs : oPurchasePriceUIs;
 
 		// 텍스트를 설정한다 {
 		var oNameText = a_oSaleProductUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_NAME_TEXT);
@@ -88,8 +98,16 @@ public class CStorePopup : CSubPopup {
 		// 텍스트를 설정한다 }
 
 		// 버튼을 설정한다 {
-		var oPurchaseBtn = oPurchaseUIs?.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
+		var oPurchaseBtn = oPriceUIs?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
 		oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stSaleProductInfo));
+
+#if ADS_MODULE_ENABLE
+		// 광고 비용 타입 일 경우
+		if(ePriceType == EPriceType.ADS) {
+			var oTouchInteractable = oPurchaseBtn?.gameObject.ExAddComponent<CRewardAdsTouchInteractable>();
+			oTouchInteractable?.SetAdsType(CPluginInfoTable.Inst.DefAdsType);
+		}
+#endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 		// 비소모 상품 일 경우
@@ -221,6 +239,8 @@ public class CStorePopup : CSubPopup {
 
 		this.UpdateUIsState();
 		Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
+
+		m_stCallbackParams.m_oPurchaseCallback?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 
 	//! 상품이 복원 되었을 경우
@@ -236,6 +256,8 @@ public class CStorePopup : CSubPopup {
 
 		this.UpdateUIsState();
 		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
+
+		m_stCallbackParams.m_oRestoreCallback?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 함수
