@@ -63,7 +63,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		base.OnUpdate(a_fDeltaTime);
 
 		// 앱이 실행 중 일 경우
-		if(CSceneManager.IsAppRunning) {
+		if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
 			m_oEngine.OnUpdate(a_fDeltaTime);
 		}
 	}
@@ -73,7 +73,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		base.OnDestroy();
 
 		// 앱이 실행 중 일 경우
-		if(CSceneManager.IsAppRunning) {
+		if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
 			// Do Something
 		}
 	}
@@ -121,15 +121,20 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! 엔진을 설정한다
 	private void SetupEngine() {
-		var stParams = new SampleEngineName.CEngine.STParams {
+		var stParams = new SampleEngineName.CEngine.STParams() {
 			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
 			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null,
 
 			m_oBlockObjs = this.m_oBlockObjs
 		};
 
+		var stCallbackParams = new SampleEngineName.CEngine.STCallbackParams() {
+			m_oClearLevelCallback = this.OnClearLevel,
+			m_oClearFailLevelCallback = this.OnClearFailLevel
+		};
+
 		m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
-		m_oEngine.Init(stParams);
+		m_oEngine.Init(stParams, stCallbackParams);
 	}
 
 	//! UI 상태를 갱신한다
@@ -163,8 +168,8 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 레벨을 클리어한다
-	private void ClearLevel() {
+	//! 레벨을 클리어했을 경우
+	private void OnClearLevel(SampleEngineName.CEngine a_oSender) {
 		// 클리어 정보가 없을 경우
 		if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID)) {
 			var oClearInfo = Factory.MakeClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
@@ -173,6 +178,11 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		
 		var oCurClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
 		CGameInfoStorage.Inst.SaveGameInfo();
+	}
+
+	//! 레벨 클리어에 실패했을 경우
+	private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
+		// Do Something
 	}
 
 	//! 다음 레벨을 로드한다
@@ -185,10 +195,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		else if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TUTORIAL) {
 			// Do Nothing
 		} else {
+			int nNextID = m_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT;
+			int nNumClearInfos = CGameInfoStorage.Inst.GetNumClearInfos(m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+
 #if UNITY_STANDALONE
-			bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(m_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, out CLevelInfo oNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+			bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(nNextID, out CLevelInfo oNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID) && nNextID <= nNumClearInfos;
 #else
-			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelInfo(m_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, out STLevelInfo stNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelInfo(nNextID, out STLevelInfo stNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID) && nNextID <= nNumClearInfos;
 #endif			// #if UNITY_STANDALONE
 
 			// 다음 레벨이 존재 할 경우

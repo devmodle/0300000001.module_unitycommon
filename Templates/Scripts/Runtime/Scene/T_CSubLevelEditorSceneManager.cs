@@ -198,7 +198,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		base.OnDestroy();
 
 		// 앱이 실행 중 일 경우
-		if(CSceneManager.IsAppRunning) {
+		if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
 			// Do Something
 		}
 	}

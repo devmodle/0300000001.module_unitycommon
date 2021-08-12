@@ -19,7 +19,7 @@ public class CTitleSceneManager : CSceneManager {
 		base.OnUpdate(a_fDeltaTime);
 
 		// 앱이 실행 중 일 경우
-		if(CSceneManager.IsAppRunning) {
+		if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
 #if EDITOR_ENABLE && UNITY_STANDALONE
 #if INPUT_SYSTEM_MODULE_ENABLE
 			bool bIsEditorKeyDown = Keyboard.current.leftShiftKey.isPressed && Keyboard.current.eKey.wasPressedThisFrame;

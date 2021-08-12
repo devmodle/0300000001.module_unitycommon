@@ -97,7 +97,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		base.OnDestroy();
 
 		// 앱이 실행 중 일 경우
-		if(CSceneManager.IsAppRunning) {
+		if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
 			// Do Something
 		}
 	}

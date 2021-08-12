@@ -43,6 +43,8 @@ public class CIntroSceneManager : CSceneManager {
 		int nIdx = m_oSceneNameList.ExFindVal((a_oSceneName) => CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));
 
 		this.ExLateCallFunc((a_oSender, a_oParams) => {
+			CSceneManager.IsAwake = false;
+
 			// 초기화 씬 일 경우
 			if(m_oSceneNameList.ExIsValidIdx(nIdx)) {
 #if STUDY_MODULE_ENABLE

@@ -42,7 +42,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		base.OnUpdate(a_fDeltaTime);
 
 		// 앱이 실행 중 일 경우
-		if(CSceneManager.IsAppRunning) {
+		if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
 			m_fSkipTime += Time.deltaTime;
 
 			float fPercent = (KCDefine.B_VAL_1_FLT * a_fDeltaTime) * KCDefine.SS_SCALE_LOADING;
