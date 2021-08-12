@@ -17,6 +17,10 @@ public class CStorePopup : CSubPopup {
 
 	//! 콜백 매개 변수
 	public struct STCallbackParams {
+#if ADS_MODULE_ENABLE
+		public System.Action<CAdsManager, STAdsRewardItemInfo, bool> m_oAdsCallback;
+#endif			// #if ADS_MODULE_ENABLE
+
 #if PURCHASE_MODULE_ENABLE
 		public System.Action<CPurchaseManager, string, bool> m_oPurchaseCallback;
 		public System.Action<CPurchaseManager, List<Product>, bool> m_oRestoreCallback;
@@ -88,13 +92,13 @@ public class CStorePopup : CSubPopup {
 		var oPriceText = a_oSaleProductUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
 		oPriceText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stSaleProductInfo.m_oPrice), false);
 
-		// 결제 비용 타입 일 경우
-		if(ePriceType == EPriceType.PURCHASE) {
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
+		// 결제 비용 타입 일 경우
+		if(ePriceType == EPriceType.PURCHASE && Access.GetProduct(Access.GetSaleProductID(a_stSaleProductInfo.m_eSaleProductKinds)) != null) {
 			int nID = Access.GetSaleProductID(a_stSaleProductInfo.m_eSaleProductKinds);
 			oPriceText?.ExSetText<Text>(Access.GetPriceStr(nID), false);
-#endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		}
+#endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 텍스트를 설정한다 }
 
 		// 버튼을 설정한다 {
@@ -189,6 +193,7 @@ public class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
+		m_stCallbackParams.m_oAdsCallback?.Invoke(a_oSender, a_stRewardItemInfo, a_bIsSuccess);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 
