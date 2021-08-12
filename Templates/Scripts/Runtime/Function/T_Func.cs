@@ -212,11 +212,17 @@ public static partial class Func {
 	public static void ShowRewardAds(EAdsType a_eAdsType, System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsType)) {
-			Func.m_bIsWatchRewardAds = false;
-			Func.m_stRewardItemInfo = KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO;
+#if !UNITY_EDITOR
+			CIndicatorManager.Inst.Show(true);
+#endif			// #if !UNITY_EDITOR
 
-			Func.m_oRewardAdsCallback = a_oCallback;
-			CAdsManager.Inst.ShowRewardAds(a_eAdsType, Func.OnReceiveUserReward, Func.OnCloseRewardAds);
+			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender, a_oParams) => {
+				Func.m_bIsWatchRewardAds = false;
+				Func.m_stRewardItemInfo = KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO;
+
+				Func.m_oRewardAdsCallback = a_oCallback;
+				CAdsManager.Inst.ShowRewardAds(a_eAdsType, Func.OnReceiveUserReward, Func.OnCloseRewardAds);
+			}, KCDefine.B_VAL_1_FLT, true);
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Inst, KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO, false);
 		}
@@ -231,7 +237,9 @@ public static partial class Func {
 	public static void ShowFullscreenAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
 		// 전면 광고 출력이 가능 할 경우
 		if(CGameInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsType)) {
+#if !UNITY_EDITOR
 			CIndicatorManager.Inst.Show(true);
+#endif			// #if !UNITY_EDITOR
 
 			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender, a_oParams) => {
 				// 전면 광고 출력이 가능 할 경우
@@ -241,7 +249,10 @@ public static partial class Func {
 					
 					CAdsManager.Inst.ShowFullscreenAds(a_eAdsType, null, Func.OnCloseFullscreenAds);
 				} else {
+#if !UNITY_EDITOR
 					CIndicatorManager.Inst.Close();
+#endif			// #if !UNITY_EDITOR
+
 					a_oCallback?.Invoke(CAdsManager.Inst, false);
 				}
 			}, KCDefine.B_VAL_1_FLT, true);
@@ -257,6 +268,10 @@ public static partial class Func {
 
 	//! 보상 광고가 닫혔을 경우
 	private static void OnCloseRewardAds(CAdsManager a_oSender) {
+#if !UNITY_EDITOR
+		CIndicatorManager.Inst.Close();
+#endif			// #if !UNITY_EDITOR
+
 		CGameInfoStorage.Inst.PrevRewardAdsTime = System.DateTime.Now;
 		CFunc.Invoke(ref Func.m_oRewardAdsCallback, a_oSender, Func.m_stRewardItemInfo, Func.m_bIsWatchRewardAds);
 	}
@@ -269,10 +284,13 @@ public static partial class Func {
 
 	//! 전면 광고가 닫혔을 경우
 	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
+#if !UNITY_EDITOR
+		CIndicatorManager.Inst.Close();
+#endif			// #if !UNITY_EDITOR
+
 		CGameInfoStorage.Inst.AdsSkipTimes = KCDefine.B_VAL_0_INT;
 		CGameInfoStorage.Inst.PrevAdsTime = System.DateTime.Now;
-
-		CIndicatorManager.Inst.Close();
+		
 		CFunc.Invoke(ref Func.m_oFullscreenAdsCallback, a_oSender, Func.m_bIsWatchFullscreenAds);
 	}
 #endif			// #if ADS_MODULE_ENABLE
