@@ -63,7 +63,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		base.OnUpdate(a_fDeltaTime);
 
 		// 앱이 실행 중 일 경우
-		if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
+		if(CSceneManager.IsAppRunning) {
 			m_oEngine.OnUpdate(a_fDeltaTime);
 		}
 	}

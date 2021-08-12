@@ -34,6 +34,7 @@ namespace SampleEngineName {
 		#region 변수
 		private STParams m_stParams;
 		private STCallbackParams m_stCallbackParams;
+		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 		private Dictionary<EBlockKinds, GameObject>[,] m_oBlockDicts = null;
 		#endregion			// 변수
 
@@ -64,7 +65,7 @@ namespace SampleEngineName {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsAppRunning) {
 				// Do Something
 			}
 		}
