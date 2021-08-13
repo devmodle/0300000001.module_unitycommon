@@ -135,6 +135,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
+		// 텍스트를 갱신한다
 		m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 
 #if DEBUG || DEVELOPMENT_BUILD

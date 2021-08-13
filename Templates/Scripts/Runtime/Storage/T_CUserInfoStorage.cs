@@ -12,7 +12,7 @@ using MessagePack;
 public class CUserInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_NUM_COINS = "NumCoins";
-	private const string KEY_NUM_CHANGES = "NumChanges";
+	private const string KEY_NUM_SALE_COINS = "NumSaleCoins";
 	#endregion			// 상수
 
 	#region 변수
@@ -25,9 +25,9 @@ public class CUserInfo : CBaseInfo {
 		set { m_oIntDict.ExReplaceVal(CUserInfo.KEY_NUM_COINS, value); }
 	}
 
-	[IgnoreMember] public int NumChanges {
-		get { return m_oIntDict.ExGetVal(CUserInfo.KEY_NUM_CHANGES, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CUserInfo.KEY_NUM_CHANGES, value); }
+	[IgnoreMember] public int NumSaleCoins {
+		get { return m_oIntDict.ExGetVal(CUserInfo.KEY_NUM_SALE_COINS, KCDefine.B_VAL_0_INT); }
+		set { m_oIntDict.ExReplaceVal(CUserInfo.KEY_NUM_SALE_COINS, value); }
 	}
 	#endregion			// 프로퍼티
 
@@ -69,10 +69,10 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		this.UserInfo.NumCoins = Mathf.Clamp(nNumCoins, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 
-	//! 잔돈 개수를 추가한다
-	public void AddNumChanges(int a_nNumChanges) {
-		int nNumChanges = this.UserInfo.NumChanges + a_nNumChanges;
-		this.UserInfo.NumChanges = Mathf.Clamp(nNumChanges, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_CHANGES);
+	//! 판매 코인 개수를 추가한다
+	public void AddNumSaleCoins(int a_nNumSaleCoins) {
+		int nNumSaleCoins = this.UserInfo.NumSaleCoins + a_nNumSaleCoins;
+		this.UserInfo.NumSaleCoins = Mathf.Clamp(nNumSaleCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
 	}
 	
 	//! 아이템 개수를 추가한다

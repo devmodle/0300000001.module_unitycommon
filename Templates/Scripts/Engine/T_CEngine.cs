@@ -11,9 +11,8 @@ namespace SampleEngineName {
 		//! 상태
 		public enum EState {
 			NONE = -1,
-			PLAY,
-			PAUSE,
-			FINISH,
+			RUN,
+			STOP,
 			MAX_VAL
 		}
 
@@ -27,8 +26,8 @@ namespace SampleEngineName {
 
 		//! 콜백 매개 변수
 		public struct STCallbackParams {
-			public System.Action<CEngine> m_oClearLevelCallback;
-			public System.Action<CEngine> m_oClearFailLevelCallback;
+			public System.Action<CEngine> m_oClearCallback;
+			public System.Action<CEngine> m_oClearFailCallback;
 		}
 		
 		#region 변수
@@ -39,6 +38,7 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
+		public int Score { get; private set; } = 0;
 		public EState State { get; private set; } = EState.NONE;
 		public STGridInfo GridInfo { get; private set; }
 
@@ -82,26 +82,36 @@ namespace SampleEngineName {
 
 		//! 터치를 시작했을 경우
 		public void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 플레이 상태 일 경우
-			if(this.State == EState.PLAY) {
+			// 실행 상태 일 경우
+			if(this.State == EState.RUN) {
 				// Do Something
 			}
 		}
 
 		//! 터치를 움직였을 경우
 		public void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 플레이 상태 일 경우
-			if(this.State == EState.PLAY) {
+			// 실행 상태 일 경우
+			if(this.State == EState.RUN) {
 				// Do Something
 			}
 		}
 
 		//! 터치를 종료했을 경우
 		public void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 플레이 상태 일 경우
-			if(this.State == EState.PLAY) {
+			// 실행 상태 일 경우
+			if(this.State == EState.RUN) {
 				// Do Something
 			}
+		}
+
+		//! 엔진을 실행한다
+		public void Run() {
+			this.State = EState.RUN;
+		}
+
+		//! 엔진을 중지한다
+		public void Stop() {
+			this.State = EState.STOP;
 		}
 		#endregion			// 함수
 

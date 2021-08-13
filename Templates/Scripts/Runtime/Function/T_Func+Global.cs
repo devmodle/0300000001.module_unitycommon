@@ -14,7 +14,7 @@ public static partial class Func {
 	//! 아이템을 획득한다
 	public static void AcquireItem(STItemInfo a_stItemInfo) {
 		switch(a_stItemInfo.m_eItemKinds) {
-			case EItemKinds.GOODS_COIN: {
+			case EItemKinds.GOODS_COINS: {
 				CUserInfoStorage.Inst.AddNumCoins(a_stItemInfo.m_nNumItems);
 			} break;
 			case EItemKinds.NON_CONSUMABLE_REMOVE_ADS: {
@@ -46,7 +46,7 @@ public static partial class Func {
 		}
 
 		// 코인 비용이 존재 할 경우
-		if(a_stSaleItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COIN && a_stSaleItemInfo.IntPrice > KCDefine.B_VAL_0_INT) {
+		if(a_stSaleItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COINS && a_stSaleItemInfo.IntPrice > KCDefine.B_VAL_0_INT) {
 			CUserInfoStorage.Inst.AddNumCoins(-a_stSaleItemInfo.IntPrice);
 		}
 
@@ -88,9 +88,9 @@ public static partial class Func {
 		Func.ShowPopup<CDailyRewardPopup>(KDefine.G_OBJ_N_DAILY_REWARD_POPUP, KCDefine.U_OBJ_P_G_DAILY_REWARD_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	//! 잔돈 팝업을 출력한다
-	public static void ShowChangesPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CChangesPopup>(KDefine.G_OBJ_N_CHANGES_POPUP, KCDefine.U_OBJ_P_G_CHANGES_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	//! 판매 코인 팝업을 출력한다
+	public static void ShowSaleCoinsPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CSaleCoinsPopup>(KDefine.G_OBJ_N_SALE_COINS_POPUP, KCDefine.U_OBJ_P_G_CHANGES_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	//! 보상 획득 팝업을 출력한다
@@ -98,9 +98,19 @@ public static partial class Func {
 		Func.ShowPopup<CRewardAcquirePopup>(KDefine.G_OBJ_N_REWARD_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_REWARD_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	//! 잔돈 획득 팝업을 출력한다
-	public static void ShowChangesAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CChangesAcquirePopup>(KDefine.G_OBJ_N_CHANGES_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_CHANGES_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	//! 판매 코인 획득 팝업을 출력한다
+	public static void ShowSaleCoinsAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CSaleCoinsAcquirePopup>(KDefine.G_OBJ_N_SALE_COINS_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_CHANGES_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
+	//! 레벨 클리어 팝업을 출력한다
+	public static void ShowLevelClearPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CLevelClearPopup>(KDefine.G_OBJ_N_LEVEL_CLEAR_POPUP, KCDefine.U_OBJ_P_G_LEVEL_CLEAR_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
+	//! 레벨 클리어 실패 팝업을 출력한다
+	public static void ShowLevelClearFailPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CLevelClearFailPopup>(KDefine.G_OBJ_N_LEVEL_CLEAR_FAIL_POPUP, KCDefine.U_OBJ_P_G_LEVEL_CLEAR_FAIL_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	//! 포커스 팝업을 출력한다

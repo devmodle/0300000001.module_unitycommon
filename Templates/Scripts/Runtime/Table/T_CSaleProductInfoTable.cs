@@ -87,12 +87,6 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		return this.TryGetItemInfo(a_eSaleProductKinds, a_eItemKinds, out STItemInfo stItemInfo);
 	}
 	
-	//! 판매 코인 개수를 반환한다
-	public int GetNumSaleCoins(ESaleProductKinds a_eSaleProductKinds) {
-		bool bIsValid = this.TryGetItemInfo(a_eSaleProductKinds, EItemKinds.GOODS_COIN, out STItemInfo stItemInfo);
-		return bIsValid ? stItemInfo.m_nNumItems : KCDefine.B_VAL_0_INT;
-	}
-
 	//! 판매 상품 정보를 반환한다
 	public STSaleProductInfo GetSaleProductInfo(ESaleProductKinds a_eSaleProductKinds) {
 		bool bIsValid = this.TryGetSaleProductInfo(a_eSaleProductKinds, out STSaleProductInfo stSaleProductInfo);

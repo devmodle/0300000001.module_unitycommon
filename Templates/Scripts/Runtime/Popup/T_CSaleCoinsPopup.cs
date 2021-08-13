@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-//! 잔돈 팝업
-public class CChangesPopup : CSubPopup {
+//! 판매 코인 팝업
+public class CSaleCoinsPopup : CSubPopup {
 	#region UI 변수
 	private Button m_oOKBtn = null;
 	private Button m_oPurchaseBtn = null;
@@ -44,10 +44,10 @@ public class CChangesPopup : CSubPopup {
 	//! UI 상태를 변경한다
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		int nNumChanges = CUserInfoStorage.Inst.UserInfo.NumChanges;
+		int nNumSaleCoins = CUserInfoStorage.Inst.UserInfo.NumSaleCoins;
 
-		m_oSaveUIs?.SetActive(nNumChanges < KDefine.G_MAX_NUM_CHANGES);
-		m_oFullUIs?.SetActive(nNumChanges >= KDefine.G_MAX_NUM_CHANGES);
+		m_oSaveUIs?.SetActive(nNumSaleCoins < KDefine.G_MAX_NUM_SALE_COINS);
+		m_oFullUIs?.SetActive(nNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
 	}
 
 	//! 확인 버튼을 눌렀을 경우
@@ -58,7 +58,7 @@ public class CChangesPopup : CSubPopup {
 	//! 결제 버튼을 눌렀을 경우
 	private void OnTouchPurchaseBtn() {
 #if PURCHASE_MODULE_ENABLE
-		Func.PurchaseProduct(KDefine.G_PRODUCT_ID_CHANGES, this.OnPurchaseProduct);
+		Func.PurchaseProduct(KDefine.G_PRODUCT_ID_SALE_COINS, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수

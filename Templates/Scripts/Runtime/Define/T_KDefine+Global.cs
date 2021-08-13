@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public static partial class KDefine {
 	#region 기본
 	// 개수 {
-	public const int G_MAX_NUM_CHANGES = 0;
+	public const int G_MAX_NUM_SALE_COINS = 0;
 	public const int G_MAX_NUM_SALE_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_ACQUIRE_FREE_REWARDS = 0;
@@ -23,7 +23,7 @@ public static partial class KDefine {
 	public const int G_MAX_TIMES_ADS_SKIP = 0;
 
 	// 식별자 {
-	public const int G_PRODUCT_ID_CHANGES = 0;
+	public const int G_PRODUCT_ID_SALE_COINS = 0;
 	public const int G_PRODUCT_ID_REMOVE_ADS = 1;
 
 	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0:00}_{1:00}";
@@ -144,14 +144,20 @@ public static partial class KDefine {
 	// 일일 보상 팝업
 	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DailyRewardPopup";
 
-	// 잔돈 팝업
-	public const string G_OBJ_N_CHANGES_POPUP = "ChangesPopup";
+	// 판매 코인 팝업
+	public const string G_OBJ_N_SALE_COINS_POPUP = "SaleCoinsPopup";
 
 	// 보상 획득 팝업
 	public const string G_OBJ_N_REWARD_ACQUIRE_POPUP = "RewardAcquirePopup";
 
-	// 잔돈 획득 팝업
-	public const string G_OBJ_N_CHANGES_ACQUIRE_POPUP = "ChangesAcquirePopup";
+	// 판매 코인 획득 팝업
+	public const string G_OBJ_N_SALE_COINS_ACQUIRE_POPUP = "SaleCoinsAcquirePopup";
+
+	// 레벨 클리어 팝업
+	public const string G_OBJ_N_LEVEL_CLEAR_POPUP = "LevelClearPopup";
+
+	// 레벨 클리어 실패 팝업
+	public const string G_OBJ_N_LEVEL_CLEAR_FAIL_POPUP = "LevelClearFailPopup";
 
 	// 포커스 팝업
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
@@ -268,7 +274,7 @@ public static partial class KDefine {
 
 	// 판매 상품 정보 테이블
 	public static readonly ESaleProductKinds[] G_KINDS_SALE_PIT_SALE_PRODUCTS = new ESaleProductKinds[] {
-		ESaleProductKinds.SINGLE_CHANGES,
+		ESaleProductKinds.SINGLE_SALE_COINS,
 		ESaleProductKinds.SINGLE_REMOVE_ADS
 	};
 

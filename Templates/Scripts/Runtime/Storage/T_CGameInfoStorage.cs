@@ -13,9 +13,7 @@ public class CClearInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_SCORE = "Score";
 	private const string KEY_NUM_STARS = "NumStars";
-
 	private const string KEY_BEST_SCORE = "BestScore";
-	private const string KEY_BEST_TIMES = "BestTimes";
 	#endregion			// 상수
 
 	#region 변수
@@ -37,12 +35,7 @@ public class CClearInfo : CBaseInfo {
 		get { return m_oIntDict.ExGetVal(CClearInfo.KEY_BEST_SCORE, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CClearInfo.KEY_BEST_SCORE, value); }
 	}
-
-	[IgnoreMember] public int BestTimes {
-		get { return m_oIntDict.ExGetVal(CClearInfo.KEY_BEST_TIMES, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CClearInfo.KEY_BEST_TIMES, value); }
-	}
-
+	
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
 

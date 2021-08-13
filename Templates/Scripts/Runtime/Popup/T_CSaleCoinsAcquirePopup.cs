@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-//! 잔돈 획득 팝업
-public class CChangesAcquirePopup : CSubPopup {
+//! 판매 코인 획득 팝업
+public class CSaleCoinsAcquirePopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
-		public int m_nNumChanges;
+		public int m_nNumSaleCoins;
 	}
 
 	#region 변수
 	private STParams m_stParams;
-	private int m_nPrevNumChanges = 0;
+	private int m_nPrevNumSaleCoins = 0;
 	#endregion			// 변수
 
 	#region 객체
@@ -33,9 +33,9 @@ public class CChangesAcquirePopup : CSubPopup {
 		base.Init();
 
 		m_stParams = a_stParams;
-		m_nPrevNumChanges = CUserInfoStorage.Inst.UserInfo.NumChanges;
+		m_nPrevNumSaleCoins = CUserInfoStorage.Inst.UserInfo.NumSaleCoins;
 
-		CUserInfoStorage.Inst.AddNumChanges(a_stParams.m_nNumChanges);
+		CUserInfoStorage.Inst.AddNumSaleCoins(a_stParams.m_nNumSaleCoins);
 		CUserInfoStorage.Inst.SaveUserInfo();
 	}
 
@@ -49,8 +49,8 @@ public class CChangesAcquirePopup : CSubPopup {
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 		
-		m_oSaveUIs?.SetActive(m_nPrevNumChanges < KDefine.G_MAX_NUM_CHANGES);
-		m_oFullUIs?.SetActive(m_nPrevNumChanges >= KDefine.G_MAX_NUM_CHANGES);
+		m_oSaveUIs?.SetActive(m_nPrevNumSaleCoins < KDefine.G_MAX_NUM_SALE_COINS);
+		m_oFullUIs?.SetActive(m_nPrevNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
 	}
 	#endregion			// 함수
 }
