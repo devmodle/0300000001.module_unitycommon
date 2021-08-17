@@ -179,53 +179,12 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		var oCurClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
 		CGameInfoStorage.Inst.SaveGameInfo();
 
-		Func.ShowLevelClearPopup(this.SubPopupUIs, (a_oPopupSender) => {
-			var stParams = new CLevelClearPopup.STParams() {
-				m_nScore = m_oEngine.Score,
-
-				m_oLevelInfo = m_oLevelInfo,
-				m_oClearInfo = m_oClearInfo
-			};
-
-			var stCallbackParams = new CLevelClearPopup.STCallbackParams() {
-				m_oNextCallback = (a_oClearPopupSender) => this.LoadNextLevel(),
-				m_oLeaveCallback = (a_oClearPopupSender) => { m_bIsLeave = true; this.LoadNextLevel(); }
-			};
-
-			var oLevelClearPopup = a_oPopupSender as CLevelClearPopup;
-			oLevelClearPopup.Init(stParams, stCallbackParams);
-		});
+		this.ShowResultPopup(true);
 	}
 
 	//! 레벨 클리어에 실패했을 경우
 	private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
-		Func.ShowLevelClearFailPopup(this.SubPopupUIs, (a_oPopupSender) => {
-			var stParams = new CLevelClearFailPopup.STParams() {
-				m_stBaseParams = new CLevelClearPopup.STParams() {
-					m_nScore = m_oEngine.Score,
-
-					m_oLevelInfo = m_oLevelInfo,
-					m_oClearInfo = m_oClearInfo
-				}
-			};
-
-			var stCallbackParams = new CLevelClearFailPopup.STCallbackParams() {
-				m_stBaseCallbackParams = new CLevelClearPopup.STCallbackParams() {
-					m_oNextCallback = (a_oClearPopupSender) => this.LoadNextLevel(),
-					m_oLeaveCallback = (a_oClearPopupSender) => { m_bIsLeave = true; this.LoadNextLevel(); }
-				},
-
-				m_oRetryCallback = (a_oClearFailPopupSender) => this.RetryCurLevel()
-			};
-
-			var oLevelClearFailPopup = a_oPopupSender as CLevelClearFailPopup;
-			oLevelClearFailPopup.Init(stParams, stCallbackParams);
-		});
-	}
-
-	//! 현재 레벨을 재시도한다
-	private void RetryCurLevel() {
-		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+		this.ShowResultPopup(false);
 	}
 
 	//! 다음 레벨을 로드한다
@@ -260,6 +219,33 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 			}
 		}
+	}
+
+	//! 현재 레벨을 재시도한다
+	private void RetryCurLevel() {
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+	}
+
+	//! 결과 팝업을 출력한다
+	private void ShowResultPopup(bool a_bIsClear) {
+		Func.ShowResultPopup(this.SubPopupUIs, (a_oSender) => {
+			var stParams = new CResultPopup.STParams() {
+				m_bIsClear = a_bIsClear,
+				m_nScore = m_oEngine.Score,
+
+				m_oLevelInfo = m_oLevelInfo,
+				m_oClearInfo = m_oClearInfo
+			};
+
+			var stCallbackParams = new CResultPopup.STCallbackParams() {
+				m_oNextCallback = (a_oPopupSender) => this.LoadNextLevel(),
+				m_oRetryCallback = (a_oPopupSender) => this.RetryCurLevel(),
+				m_oLeaveCallback = (a_oPopupSender) => { m_bIsLeave = true; this.LoadNextLevel(); }
+			};
+
+			var oResultPopup = a_oSender as CResultPopup;
+			oResultPopup.Init(stParams, stCallbackParams);
+		});
 	}
 	#endregion			// 함수
 

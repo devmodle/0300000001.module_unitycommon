@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public static partial class KDefine {
 	#region 기본
 	// 개수 {
+	public const int G_MIN_NUM_ADS_SKIP_CLEAR_INFOS = 0;
+
 	public const int G_MAX_NUM_SALE_COINS = 0;
 	public const int G_MAX_NUM_SALE_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 0;
@@ -153,11 +155,11 @@ public static partial class KDefine {
 	// 판매 코인 획득 팝업
 	public const string G_OBJ_N_SALE_COINS_ACQUIRE_POPUP = "SaleCoinsAcquirePopup";
 
-	// 레벨 클리어 팝업
-	public const string G_OBJ_N_LEVEL_CLEAR_POPUP = "LevelClearPopup";
+	// 재시도 팝업
+	public const string G_OBJ_N_RETRY_POPUP = "RetryPopup";
 
-	// 레벨 클리어 실패 팝업
-	public const string G_OBJ_N_LEVEL_CLEAR_FAIL_POPUP = "LevelClearFailPopup";
+	// 결과 팝업
+	public const string G_OBJ_N_RESULT_POPUP = "ResultPopup";
 
 	// 포커스 팝업
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";

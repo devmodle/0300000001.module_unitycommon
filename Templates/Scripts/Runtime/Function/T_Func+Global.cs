@@ -103,14 +103,14 @@ public static partial class Func {
 		Func.ShowPopup<CSaleCoinsAcquirePopup>(KDefine.G_OBJ_N_SALE_COINS_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_CHANGES_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	//! 레벨 클리어 팝업을 출력한다
-	public static void ShowLevelClearPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CLevelClearPopup>(KDefine.G_OBJ_N_LEVEL_CLEAR_POPUP, KCDefine.U_OBJ_P_G_LEVEL_CLEAR_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	//! 재시도 팝업을 출력한다
+	public static void ShowRetryPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CRetryPopup>(KDefine.G_OBJ_N_RETRY_POPUP, KCDefine.U_OBJ_P_G_RETRY_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	//! 레벨 클리어 실패 팝업을 출력한다
-	public static void ShowLevelClearFailPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CLevelClearFailPopup>(KDefine.G_OBJ_N_LEVEL_CLEAR_FAIL_POPUP, KCDefine.U_OBJ_P_G_LEVEL_CLEAR_FAIL_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	//! 결과 팝업을 출력한다
+	public static void ShowResultPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CResultPopup>(KDefine.G_OBJ_N_RESULT_POPUP, KCDefine.U_OBJ_P_G_RESULT_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	//! 포커스 팝업을 출력한다

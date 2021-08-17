@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-//! 레벨 클리어 팝업
-public class CLevelClearPopup : CSubPopup {
+//! 결과 팝업
+public class CResultPopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
 		public int m_nScore;
@@ -16,8 +16,9 @@ public class CLevelClearPopup : CSubPopup {
 
 	//! 콜백 매개 변수
 	public struct STCallbackParams {
-		public System.Action<CLevelClearPopup> m_oNextCallback;
-		public System.Action<CLevelClearPopup> m_oLeaveCallback;
+		public System.Action<CResultPopup> m_oNextCallback;
+		public System.Action<CResultPopup> m_oRetryCallback;
+		public System.Action<CResultPopup> m_oLeaveCallback;
 	}
 
 	#region 변수
@@ -29,6 +30,11 @@ public class CLevelClearPopup : CSubPopup {
 	private Text m_oScoreText = null;
 	#endregion			// UI 변수
 
+	#region 객체
+	private GameObject m_oClearUIs = null;
+	private GameObject m_oClearFailUIs = null;
+	#endregion			// 객체
+
 	#region 프로퍼티
 	public override bool IsIgnoreCloseBtn => true;
 	#endregion			// 프로퍼티
@@ -38,12 +44,18 @@ public class CLevelClearPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
+		m_oClearUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_CLEAR_UIS);
+		m_oClearFailUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_CLEAR_FAIL_UIS);
+
 		// 텍스트를 설정한다
 		m_oScoreText = m_oContents.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCORE_TEXT);
 
 		// 버튼을 설정한다 {
 		var oNextBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NEXT_BTN);
 		oNextBtn?.onClick.AddListener(this.OnTouchNextBtn);
+
+		var oRetryBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RETRY_BTN);
+		oRetryBtn?.onClick.AddListener(this.OnTouchRetryBtn);
 
 		var oLeaveBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LEAVE_BTN);
 		oLeaveBtn?.onClick.AddListener(this.OnTouchLeaveBtn);
@@ -74,6 +86,9 @@ public class CLevelClearPopup : CSubPopup {
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 
+		m_oClearUIs?.SetActive(m_stParams.m_oClearInfo != null);
+		m_oClearFailUIs?.SetActive(m_stParams.m_oClearInfo == null);
+
 		// 텍스트를 갱신한다
 		m_oScoreText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, m_stParams.m_nScore), false);
 	}
@@ -81,6 +96,11 @@ public class CLevelClearPopup : CSubPopup {
 	//! 다음 버튼을 눌렀을 경우
 	private void OnTouchNextBtn() {
 		m_stCallbackParams.m_oNextCallback?.Invoke(this);
+	}
+
+	//! 재시도 버튼을 눌렀을 경우
+	private void OnTouchRetryBtn() {
+		m_stCallbackParams.m_oRetryCallback?.Invoke(this);
 	}
 
 	//! 나가기 버튼을 눌렀을 경우

@@ -176,8 +176,8 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 			double dblDeltaTimeA = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevAdsTime);
 			double dblDeltaTimeB = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevRewardAdsTime);
 
-			bool bIsEnableShow = dblDeltaTimeA.ExIsGreateEquals(fAdsDelay) && dblDeltaTimeB.ExIsGreateEquals(fAdsDeltaTime);
-			return bIsEnableShow && CGameInfoStorage.Inst.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP;
+			bool bIsEnable = dblDeltaTimeA.ExIsGreateEquals(fAdsDelay) && dblDeltaTimeB.ExIsGreateEquals(fAdsDeltaTime);
+			return bIsEnable && this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && this.GameInfo.m_oClearInfoDict.Count >= KDefine.G_MIN_NUM_ADS_SKIP_CLEAR_INFOS;
 		}
 	}
 	

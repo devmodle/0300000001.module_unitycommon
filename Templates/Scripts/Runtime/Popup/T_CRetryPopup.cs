@@ -4,17 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-//! 레벨 클리어 실패 팝업
-public class CLevelClearFailPopup : CLevelClearPopup {
+//! 재시도 팝업
+public class CRetryPopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
-		public CLevelClearPopup.STParams m_stBaseParams;
+		public int m_nRetryTimes;
+		public CLevelInfo m_oLevelInfo;
 	}
 
 	//! 콜백 매개 변수
 	public struct STCallbackParams {
-		public CLevelClearPopup.STCallbackParams m_stBaseCallbackParams;
-		public System.Action<CLevelClearFailPopup> m_oRetryCallback;
+		public System.Action<CRetryPopup> m_oRetryCallback;
+		public System.Action<CRetryPopup> m_oLeaveCallback;
 	}
 
 	#region 변수
@@ -23,7 +24,7 @@ public class CLevelClearFailPopup : CLevelClearPopup {
 	#endregion			// 변수
 
 	#region UI 변수
-	private Text m_oScoreText = null;
+	private Text m_oPriceText = null;
 	#endregion			// UI 변수
 
 	#region 프로퍼티
@@ -35,14 +36,21 @@ public class CLevelClearFailPopup : CLevelClearPopup {
 	public override void Awake() {
 		base.Awake();
 
-		// 버튼을 설정한다
+		// 텍스트를 설정한다
+		m_oPriceText = m_oContents.ExFindComponent<Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
+
+		// 버튼을 설정한다 {
 		var oRetryBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RETRY_BTN);
 		oRetryBtn?.onClick.AddListener(this.OnTouchRetryBtn);
+
+		var oLeaveBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LEAVE_BTN);
+		oLeaveBtn?.onClick.AddListener(this.OnTouchLeaveBtn);
+		// 버튼을 설정한다 }
 	}
 
 	//! 초기화
 	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
-		base.Init(a_stParams.m_stBaseParams, a_stCallbackParams.m_stBaseCallbackParams);
+		base.Init();
 
 		m_stParams = a_stParams;
 		m_stCallbackParams = a_stCallbackParams;
@@ -54,14 +62,25 @@ public class CLevelClearFailPopup : CLevelClearPopup {
 		this.UpdateUIsState();
 	}
 
+	//! 닫기 버튼을 눌렀을 경우
+	protected override void OnTouchCloseBtn() {
+		base.OnTouchCloseBtn();
+		this.OnTouchLeaveBtn();
+	}
+	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 	}
-
+	
 	//! 재시도 버튼을 눌렀을 경우
 	private void OnTouchRetryBtn() {
 		m_stCallbackParams.m_oRetryCallback?.Invoke(this);
+	}
+
+	//! 나가기 버튼을 눌렀을 경우
+	private void OnTouchLeaveBtn() {
+		m_stCallbackParams.m_oLeaveCallback?.Invoke(this);
 	}
 	#endregion			// 함수
 }
