@@ -73,19 +73,16 @@ public enum EItemKinds {
 	#endregion			// 재화
 
 	#region 소모
-	// 부스터 10,000,000
-	[HideInInspector] CONSUMABLE_BOOSTER = EItemKinds.GOODS_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] CONSUMABLE_ITEM = EItemKinds.CONSUMABLE_BOOSTER,
+	// 샘플 10,000,000
+	CONSUMABLE_BOOSTER_SAMPLE = EItemKinds.GOODS_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] CONSUMABLE_BOOSTER = EItemKinds.CONSUMABLE_BOOSTER_SAMPLE,
 
-	// 게임 아이템 10,010,000
-	[HideInInspector] CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
-
-	// 힌트 10,010,100
-	CONSUMABLE_GAME_ITEM_HINT = EItemKinds.CONSUMABLE_GAME_ITEM + KCDefine.B_UNIT_KINDS_PER_SUB_KINDS_TYPE,
+	// 샘플 10,010,000
+	CONSUMABLE_GAME_ITEM_SAMPLE = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE, [HideInInspector] CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_GAME_ITEM_SAMPLE,
 	#endregion			// 소모
 
 	#region 비소모
 	// 광고 제거 20,000,000
-	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.CONSUMABLE_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] NON_CONSUMABLE_ITEM = EItemKinds.NON_CONSUMABLE_REMOVE_ADS,
+	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] NON_CONSUMABLE_ITEM = EItemKinds.NON_CONSUMABLE_REMOVE_ADS,
 	#endregion			// 비소모
 
 	MAX_VAL
@@ -109,8 +106,8 @@ public enum ESaleItemKinds {
 	#endregion			// 부스터
 
 	#region 게임 아이템
-	// 힌트 10,000,000
-	GAME_ITEM_HINT = ESaleItemKinds.BOOSTER_SALE_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] GAME_ITEM_SALE_ITEM = ESaleItemKinds.GAME_ITEM_HINT,
+	// 이어하기 10,000,000
+	GAME_ITEM_CONTINUE = ESaleItemKinds.BOOSTER_SALE_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] GAME_ITEM_SALE_ITEM = ESaleItemKinds.GAME_ITEM_CONTINUE,
 	#endregion			// 게임 아이템
 
 	MAX_VAL
@@ -268,8 +265,8 @@ public enum EStageKinds {
 	NONE = -1,
 
 	#region 일반
-	// 일반 스테이지 0
-	NORM_STAGE,
+	// 샘플 0
+	NORM_SAMPLE, [HideInInspector] NORM_STAGE = EStageKinds.NORM_SAMPLE,
 	#endregion			// 일반
 
 	MAX_VAL
@@ -287,8 +284,8 @@ public enum EChapterKinds {
 	NONE = -1,
 
 	#region 일반
-	// 일반 챕터 0
-	NORM_CHAPTER,
+	// 샘플 0
+	NORM_SAMPLE, [HideInInspector] NORM_CHAPTER = EChapterKinds.NORM_SAMPLE,
 	#endregion			// 일반
 
 	MAX_VAL

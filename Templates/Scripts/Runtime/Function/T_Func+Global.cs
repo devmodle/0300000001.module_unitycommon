@@ -37,7 +37,7 @@ public static partial class Func {
 	}
 
 	//! 아이템을 구입한다
-	public static void BuyItem(STSaleItemInfo a_stSaleItemInfo, bool a_bIsIgnoreAcquire = false) {
+	public static void BuyItem(STSaleItemInfo a_stSaleItemInfo, int a_nExtraPrice = KCDefine.B_VAL_0_INT, bool a_bIsIgnoreAcquire = false) {
 		// 아이템 획득이 가능 할 경우
 		if(!a_bIsIgnoreAcquire) {
 			for(int i = 0; i < a_stSaleItemInfo.m_oItemInfoList.Count; ++i) {
@@ -46,8 +46,8 @@ public static partial class Func {
 		}
 
 		// 코인 비용이 존재 할 경우
-		if(a_stSaleItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COINS && a_stSaleItemInfo.IntPrice > KCDefine.B_VAL_0_INT) {
-			CUserInfoStorage.Inst.AddNumCoins(-a_stSaleItemInfo.IntPrice);
+		if(a_stSaleItemInfo.m_ePriceKinds == EPriceKinds.GOODS_COINS && a_stSaleItemInfo.IntPrice + a_nExtraPrice > KCDefine.B_VAL_0_INT) {
+			CUserInfoStorage.Inst.AddNumCoins(-(a_stSaleItemInfo.IntPrice + a_nExtraPrice));
 		}
 
 		CUserInfoStorage.Inst.SaveUserInfo();
@@ -103,9 +103,9 @@ public static partial class Func {
 		Func.ShowPopup<CSaleCoinsAcquirePopup>(KDefine.G_OBJ_N_SALE_COINS_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_CHANGES_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	//! 재시도 팝업을 출력한다
-	public static void ShowRetryPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CRetryPopup>(KDefine.G_OBJ_N_RETRY_POPUP, KCDefine.U_OBJ_P_G_RETRY_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	//! 이어하기 팝업을 출력한다
+	public static void ShowContinuePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CContinuePopup>(KDefine.G_OBJ_N_CONTINUE_POPUP, KCDefine.U_OBJ_P_G_CONTINUE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	//! 결과 팝업을 출력한다

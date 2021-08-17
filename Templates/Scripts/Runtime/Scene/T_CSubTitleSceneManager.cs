@@ -102,6 +102,16 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
+	//! UI 상태를 갱신한다
+	public void UpdateUIsState() {
+		// 텍스트를 갱신한다
+		m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
+
+#if DEBUG || DEVELOPMENT_BUILD
+		this.UpdateTestUIsState();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+	}
+
 	//! 내비게이션 스택 이벤트를 수신했을 경우
 	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
 		base.OnReceiveNavStackEvent(a_eEvent);
@@ -131,16 +141,6 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	//! 씬을 설정한다
 	private void SetupStart() {
 		// Do Something
-	}
-
-	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
-		// 텍스트를 갱신한다
-		m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
-
-#if DEBUG || DEVELOPMENT_BUILD
-		this.UpdateTestUIsState();
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
 	//! 최초 플레이 상태를 갱신한다

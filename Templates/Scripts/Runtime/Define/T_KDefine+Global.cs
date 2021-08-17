@@ -155,8 +155,8 @@ public static partial class KDefine {
 	// 판매 코인 획득 팝업
 	public const string G_OBJ_N_SALE_COINS_ACQUIRE_POPUP = "SaleCoinsAcquirePopup";
 
-	// 재시도 팝업
-	public const string G_OBJ_N_RETRY_POPUP = "RetryPopup";
+	// 이어하기 팝업
+	public const string G_OBJ_N_CONTINUE_POPUP = "ContinuePopup";
 
 	// 결과 팝업
 	public const string G_OBJ_N_RESULT_POPUP = "ResultPopup";

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CResultPopup : CSubPopup {
 	//! 매개 변수
 	public struct STParams {
+		public bool m_bIsClear;
 		public int m_nScore;
 
 		public CLevelInfo m_oLevelInfo;
@@ -86,8 +87,8 @@ public class CResultPopup : CSubPopup {
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 
-		m_oClearUIs?.SetActive(m_stParams.m_oClearInfo != null);
-		m_oClearFailUIs?.SetActive(m_stParams.m_oClearInfo == null);
+		m_oClearUIs?.SetActive(m_stParams.m_bIsClear);
+		m_oClearFailUIs?.SetActive(!m_stParams.m_bIsClear);
 
 		// 텍스트를 갱신한다
 		m_oScoreText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, m_stParams.m_nScore), false);
@@ -95,16 +96,19 @@ public class CResultPopup : CSubPopup {
 
 	//! 다음 버튼을 눌렀을 경우
 	private void OnTouchNextBtn() {
+		this.Close();
 		m_stCallbackParams.m_oNextCallback?.Invoke(this);
 	}
 
 	//! 재시도 버튼을 눌렀을 경우
 	private void OnTouchRetryBtn() {
+		this.Close();
 		m_stCallbackParams.m_oRetryCallback?.Invoke(this);
 	}
 
 	//! 나가기 버튼을 눌렀을 경우
 	private void OnTouchLeaveBtn() {
+		this.Close();
 		m_stCallbackParams.m_oLeaveCallback?.Invoke(this);
 	}
 	#endregion			// 함수

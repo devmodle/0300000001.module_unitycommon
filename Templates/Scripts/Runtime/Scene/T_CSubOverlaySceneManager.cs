@@ -33,6 +33,36 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		}
 	}
 
+	//! 상점 팝업을 출력한다
+	public void ShowStorePopup() {
+		Func.ShowStorePopup(this.SubPopupUIs, (a_oSender) => {
+			var oSaleProductInfoList = new List<STSaleProductInfo>();
+
+			for(int i = 0; i < KDefine.G_KINDS_STORE_POPUP_PRODUCTS.Length; ++i) {
+				var eSaleProductKinds = KDefine.G_KINDS_STORE_POPUP_PRODUCTS[i];
+				oSaleProductInfoList.Add(CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds));
+			}
+
+			var stParams = new CStorePopup.STParams() {
+				m_oSaleProductInfoList = oSaleProductInfoList
+			};
+
+			var stCallbackParams = new CStorePopup.STCallbackParams() {
+#if ADS_MODULE_ENABLE
+				m_oAdsCallback = (a_oAdsSender, a_stRewardItemInfo, a_bIsSuccess) => this.UpdateUIsState(),
+#endif			// #if ADS_MODULE_ENABLE
+
+#if PURCHASE_MODULE_ENABLE
+				m_oPurchaseCallback = (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState(),
+				m_oRestoreCallback = (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState()
+#endif			// #if PURCHASE_MODULE_ENABLE
+			};
+
+			var oStorePopup = a_oSender as CStorePopup;
+			oStorePopup.Init(stParams, stCallbackParams);
+		});
+	}
+
 	//! 씬을 설정한다
 	private void SetupAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
@@ -47,6 +77,12 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
+		var oSubTitleSceneManager = CSceneManager.GetSubSceneManager<CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE);
+		oSubTitleSceneManager?.UpdateUIsState();
+
+		var oSubGameSceneManager = CSceneManager.GetSubSceneManager<CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
+		oSubGameSceneManager?.UpdateUIsState();
+
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

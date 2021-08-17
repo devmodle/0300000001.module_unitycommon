@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public partial class CSubGameSceneManager : CGameSceneManager {
 	#region 변수
 	private bool m_bIsLeave = false;
+	private int m_nContinueTimes = 0;
 
 	private CLevelInfo m_oLevelInfo = null;
 	private CClearInfo m_oClearInfo = null;
@@ -78,6 +79,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
+	//! UI 상태를 갱신한다
+	public void UpdateUIsState() {
+#if DEBUG || DEVELOPMENT_BUILD
+		this.UpdateTestUIsState();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+	}
+
 	//! 내비게이션 스택 이벤트를 수신했을 경우
 	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
 		base.OnReceiveNavStackEvent(a_eEvent);
@@ -135,13 +143,6 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 		m_oEngine.Init(stParams, stCallbackParams);
-	}
-
-	//! UI 상태를 갱신한다
-	private void UpdateUIsState() {
-#if DEBUG || DEVELOPMENT_BUILD
-		this.UpdateTestUIsState();
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
 	//! 터치를 시작했을 경우
@@ -226,6 +227,30 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 	}
 
+	//! 현재 레벨을 이어한다
+	private void ContinueCurLevel() {
+		// Do Something
+	}
+
+	//! 이어하기 팝업을 출력한다
+	private void ShowContinuePopup() {
+		Func.ShowContinuePopup(this.SubPopupUIs, (a_oSender) => {
+			var stParams = new CContinuePopup.STParams() {
+				m_nContinueTimes = this.m_nContinueTimes,
+				m_oLevelInfo = this.m_oLevelInfo
+			};
+
+			var stCallbackParams = new CContinuePopup.STCallbackParams() {
+				m_oRetryCallback = (a_oPopupSender) => { m_nContinueTimes += KCDefine.B_VAL_1_INT; this.LoadNextLevel(); },
+				m_oContinueCallback = (a_oPopupSender) => this.ContinueCurLevel(),
+				m_oLeaveCallback = (a_oPopupSender) => { m_bIsLeave = true; this.LoadNextLevel(); }
+			};
+
+			var oContinuePopup = a_oSender as CContinuePopup;
+			oContinuePopup.Init(stParams, stCallbackParams);
+		});
+	}
+
 	//! 결과 팝업을 출력한다
 	private void ShowResultPopup(bool a_bIsClear) {
 		Func.ShowResultPopup(this.SubPopupUIs, (a_oSender) => {
@@ -233,8 +258,8 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 				m_bIsClear = a_bIsClear,
 				m_nScore = m_oEngine.Score,
 
-				m_oLevelInfo = m_oLevelInfo,
-				m_oClearInfo = m_oClearInfo
+				m_oLevelInfo = this.m_oLevelInfo,
+				m_oClearInfo = this.m_oClearInfo
 			};
 
 			var stCallbackParams = new CResultPopup.STCallbackParams() {
