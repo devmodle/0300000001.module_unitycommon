@@ -79,6 +79,19 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
+	//! 어플리케이션이 재개 되었을 경우
+	public virtual void OnApplicationFocus(bool a_bIsFocus) {
+// 재개 되었을 경우
+		if(a_bIsFocus && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
+#if ADS_MODULE_ENABLE
+			// 광고 출력이 가능 할 경우
+			if(CGameInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.DefAdsType)) {
+				Func.ShowFullscreenAds(null);
+			}
+#endif			// #if ADS_MODULE_ENABLE
+		}
+	}
+
 	//! UI 상태를 갱신한다
 	public void UpdateUIsState() {
 #if DEBUG || DEVELOPMENT_BUILD
@@ -215,16 +228,28 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 				CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelInfo.m_nStageID, stNextLevelInfo.m_nChapterID);
 #endif			// #if UNITY_STANDALONE
 
+#if ADS_MODULE_ENABLE
+				Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
+#else
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+#endif			// #if ADS_MODULE_ENABLE
 			} else {
+#if ADS_MODULE_ENABLE
+				Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE));
+#else
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+#endif			// #if ADS_MODULE_ENABLE
 			}
 		}
 	}
 
 	//! 현재 레벨을 재시도한다
 	private void RetryCurLevel() {
+#if ADS_MODULE_ENABLE
+		Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
+#else
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+#endif			// #if ADS_MODULE_ENABLE
 	}
 
 	//! 현재 레벨을 이어한다

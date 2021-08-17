@@ -102,6 +102,19 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
+	//! 어플리케이션이 재개 되었을 경우
+	public virtual void OnApplicationFocus(bool a_bIsFocus) {
+		// 재개 되었을 경우
+		if(a_bIsFocus && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
+#if ADS_MODULE_ENABLE
+			// 광고 출력이 가능 할 경우
+			if(CGameInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.DefAdsType)) {
+				Func.ShowFullscreenAds(null);
+			}
+#endif			// #if ADS_MODULE_ENABLE
+		}
+	}
+
 	//! UI 상태를 갱신한다
 	public void UpdateUIsState() {
 		// 텍스트를 갱신한다

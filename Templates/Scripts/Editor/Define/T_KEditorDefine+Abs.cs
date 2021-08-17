@@ -164,7 +164,7 @@ public static partial class KEditorDefine {
 
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.inputsystem"] = "1.0.2",
-		["com.unity.addressables"] = "1.16.19",
+		["com.unity.addressables"] = "1.18.15",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		// 기본 }
 

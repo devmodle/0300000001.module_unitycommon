@@ -7,8 +7,8 @@
 	- *Asset Usage Detector (v1.9.7 - Jul 26, 2021)*
 	- *Bezier Solution (v2.2.0 - Jul 7, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 5, 2020)*
-	- *Enhanced Scroller (v2.29.1 - Mar 21, 2021)*
-	- *Ingame Debug Console (v1.5.0 - Jul 19, 2021)*
+	- *Enhanced Scroller (v2.29.2 - Aug 11, 2021)*
+	- *Ingame Debug Console (v1.5.1 - Aug 9, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
