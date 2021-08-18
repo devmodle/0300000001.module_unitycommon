@@ -10,10 +10,23 @@ using UnityEngine.InputSystem;
 //! 타이틀 씬 관리자
 public class CTitleSceneManager : CSceneManager {
 	#region 프로퍼티
+	public override bool IsRealtimeFadeInAni => true;
+	public override bool IsRealtimeFadeOutAni => true;
+	
 	public override string SceneName => KCDefine.B_SCENE_N_TITLE;
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 초기화
+	public override void Awake() {
+		base.Awake();
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsAppInit) {
+			Time.timeScale = KCDefine.B_VAL_1_FLT;
+		}
+	}
+	
 	//! 상태를 갱신한다
 	public override void OnUpdate(float a_fDeltaTime) {
 		base.OnUpdate(a_fDeltaTime);

@@ -11,6 +11,9 @@ public class CGameSceneManager : CSceneManager {
 	#endregion			// 객체
 
 	#region 프로퍼티
+	public override bool IsRealtimeFadeInAni => true;
+	public override bool IsRealtimeFadeOutAni => true;
+
 	public override string SceneName => KCDefine.B_SCENE_N_GAME;
 	#endregion			// 프로퍼티
 
@@ -21,6 +24,8 @@ public class CGameSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+			Time.timeScale = KCDefine.B_VAL_1_FLT;
+			
 			// 블럭 객체를 설정한다 {
 			var oBlockObjsA = this.SubObjs.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
 			var oBlockObjsB = this.SubCanvasObjs.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);

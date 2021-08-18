@@ -21,6 +21,9 @@ public class CLevelEditorSceneManager : CSceneManager {
 	#region 프로퍼티
 	public override bool IsIgnoreBlindV => true;
 	public override bool IsIgnoreBlindH => true;
+
+	public override bool IsRealtimeFadeInAni => true;
+	public override bool IsRealtimeFadeOutAni => true;
 	
 	public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
 	#endregion			// 프로퍼티
@@ -32,6 +35,8 @@ public class CLevelEditorSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+			Time.timeScale = KCDefine.B_VAL_1_FLT;
+			
 			m_oPortraitUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_PORTRAIT_UIS);
 			m_oLandscapeUIs = this.SubUIs.ExFindChild(KCDefine.E_OBJ_N_LANDSCAPE_UIS);
 
