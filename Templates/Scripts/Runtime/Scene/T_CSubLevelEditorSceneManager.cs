@@ -34,6 +34,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	// 오른쪽 에디터 UI {
 	private Text m_oREUIsTitleText = null;
+	private Toggle m_oREUIsRewardToggle = null;
 
 	private InputField m_oREUIsLevelInput = null;
 	private InputField m_oREUIsNumCellsXInput = null;
@@ -334,6 +335,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 텍스트를 설정한다
 		m_oREUIsTitleText = m_oRightEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_TITLE_TEXT);
 
+		// 토글을 설정한다
+		m_oREUIsRewardToggle = m_oRightEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_RE_UIS_REWARD_TOGGLE);
+		m_oREUIsRewardToggle?.onValueChanged.AddListener(this.OnTouchREUIsRewardToggle);
+
 		// 입력 필드를 설정한다
 		m_oREUIsLevelInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_LEVEL_INPUT);
 		m_oREUIsNumCellsXInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_NUM_CELLS_X_INPUT);
@@ -485,6 +490,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		if(nNumChapterInfos < KDefine.G_MAX_NUM_CHAPTER_INFOS) {
 			this.AddLevelInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, nNumChapterInfos);
 		}
+	}
+
+	//! 오른쪽 에디터 UI 보상 토글을 눌렀을 경우
+	private void OnTouchREUIsRewardToggle(bool a_bIsOn) {
+		// Do Something
 	}
 
 	//! 오른쪽 에디터 UI 적용 버튼을 눌렀을 경우

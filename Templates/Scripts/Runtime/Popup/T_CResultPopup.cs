@@ -44,6 +44,7 @@ public class CResultPopup : CSubPopup {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
+		this.IsIgnoreNavStackEvent = true;
 
 		m_oClearUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_CLEAR_UIS);
 		m_oClearFailUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_CLEAR_FAIL_UIS);

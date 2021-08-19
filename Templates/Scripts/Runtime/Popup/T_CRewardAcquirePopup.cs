@@ -16,24 +16,36 @@ public class CRewardAcquirePopup : CSubPopup {
 
 	#region 변수
 	private STParams m_stParams;
+	private bool m_bIsWatchRewardAds = false;
 	#endregion			// 변수
 
 	#region UI 변수
+	private Button m_oAdsBtn = null;
 	private Button m_oAcquireBtn = null;
 	#endregion			// UI 변수
 
 	#region 객체
+	[SerializeField] private GameObject m_oRewardUIs = null;
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
 	#endregion			// 객체
+
+	#region 프로퍼티
+	public override bool IsIgnoreAni => true;
+	#endregion			// 프로퍼티
 
 	#region 함수
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
+		this.IsIgnoreNavStackEvent = true;
 
-		// 버튼을 설정한다
+		// 버튼을 설정한다 {
+		m_oAdsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ADS_BTN);
+		m_oAdsBtn?.onClick.AddListener(this.OnTouchAdsBtn);
+
 		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ACQUIRE_BTN);
 		m_oAcquireBtn?.onClick.AddListener(this.OnTouchAcquireBtn);
+		// 버튼을 설정한다 }
 	}
 	
 	//! 초기화
@@ -50,8 +62,6 @@ public class CRewardAcquirePopup : CSubPopup {
 	
 	//! UI 상태를 갱신한다
 	private new void UpdateUIsState() {
-		base.UpdateUIsState();
-		
 		// 보상 아이템 UI 상태를 갱신한다
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
 			var oItemUIs = m_oItemUIsList[i];
@@ -66,15 +76,48 @@ public class CRewardAcquirePopup : CSubPopup {
 
 	//! 보상 아이템 UI 상태를 갱신한다
 	private void UpdateItemUIsState(GameObject a_oItemUIs, STItemInfo a_stItemInfo) {
-		// Do Something
+		var oNumText = a_oItemUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_NUM_TEXT);
+		oNumText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_NUM, a_stItemInfo.m_nNumItems));
+	}
+
+	//! 광고 버튼을 눌렀을 경우
+	private void OnTouchAdsBtn() {
+#if ADS_MODULE_ENABLE
+		Func.ShowRewardAds(this.OnCloseRewardAds);
+#endif			// #if ADS_MODULE_ENABLE
 	}
 
 	//! 획득 버튼을 눌렀을 경우
 	private void OnTouchAcquireBtn() {
+		this.AcquireItems();
+	}
+
+	//! 아이템을 획득한다
+	private void AcquireItems() {
+		m_oAdsBtn?.ExSetInteractable(false);
+		m_oAdsBtn?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
+
+		m_oAcquireBtn?.ExSetInteractable(false);
+
 		for(int i = 0; i < m_stParams.m_oItemInfoList.Count; ++i) {
-			Func.AcquireItem(m_stParams.m_oItemInfoList[i]);
+			Func.AcquireItem(m_stParams.m_oItemInfoList[i], m_bIsWatchRewardAds ? m_stParams.m_oItemInfoList[i].m_nNumItems : KCDefine.B_VAL_0_INT);
 		}
+
+		this.OnTouchCloseBtn();
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if ADS_MODULE_ENABLE
+	//! 보상 광고가 닫혔을 경우
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			m_bIsWatchRewardAds = a_bIsSuccess;
+			this.AcquireItems();
+		}
+	}
+#endif			// #if ADS_MODULE_ENABLE
+	#endregion			// 조건부 함수
 }
 #endif			// #if NEVER_USE_THIS
