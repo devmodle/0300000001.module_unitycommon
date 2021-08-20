@@ -6,10 +6,11 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 //! 판매 코인 팝업
 public class CSaleCoinsPopup : CSubPopup {
-	#region UI 변수
+	#region 변수
+	// UI 변수
 	private Button m_oOKBtn = null;
 	private Button m_oPurchaseBtn = null;
-	#endregion			// UI 변수
+	#endregion			// 변수
 
 	#region 객체
 	[SerializeField] private GameObject m_oSaveUIs = null;
@@ -75,5 +76,21 @@ public class CSaleCoinsPopup : CSubPopup {
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 함수
+
+	#region 추가 변수
+
+	#endregion			// 추가 변수
+
+	#region 추가 객체
+
+	#endregion			// 추가 객체
+
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

@@ -22,5 +22,9 @@ namespace SampleEngineName {
 
 	}
 	#endregion			// 기본
+
+	#region 추가 타입
+
+	#endregion			// 추가 타입
 }
 #endif			// #if NEVER_USE_THIS

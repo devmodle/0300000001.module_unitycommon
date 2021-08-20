@@ -16,5 +16,9 @@ public static partial class KDefine {
 	public static readonly string L_LOG_KEY_LOG_TIME = "LogTime";
 	public static readonly string L_LOG_KEY_INSTALL_TIME = "InstallTime";
 	#endregion			// 기본
+
+	#region 추가 상수
+
+	#endregion			// 추가 상수
 }
 #endif			// #if NEVER_USE_THIS

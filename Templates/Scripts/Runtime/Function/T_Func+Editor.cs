@@ -114,6 +114,18 @@ public static partial class Func {
 		// Do Something
 	}
 	#endregion			// 클래스 함수
+
+	#region 추가 클래스 변수
+
+	#endregion			// 추가 클래스 변수
+
+	#region 추가 클래스 프로퍼티
+
+	#endregion			// 추가 클래스 프로퍼티
+
+	#region 추가 클래스 함수
+
+	#endregion			// 추가 클래스 함수
 }
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 #endif			// #if NEVER_USE_THIS

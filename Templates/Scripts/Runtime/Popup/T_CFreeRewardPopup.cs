@@ -6,9 +6,10 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 //! 무료 보상 팝업
 public class CFreeRewardPopup : CSubPopup {
-	#region UI 변수
+	#region 변수
+	// UI 변수
 	private Button m_oAdsBtn = null;
-	#endregion			// UI 변수
+	#endregion			// 변수
 
 	#region 함수
 	//! 초기화
@@ -86,5 +87,21 @@ public class CFreeRewardPopup : CSubPopup {
 	}
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 조건부 함수
+
+	#region 추가 변수
+
+	#endregion			// 추가 변수
+
+	#region 추가 객체
+
+	#endregion			// 추가 객체
+
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

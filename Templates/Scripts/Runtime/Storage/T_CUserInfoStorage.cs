@@ -109,5 +109,21 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo);
 	}
 	#endregion			// 함수
+
+	#region 추가 변수
+
+	#endregion			// 추가 변수
+
+	#region 추가 객체
+
+	#endregion			// 추가 객체
+
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

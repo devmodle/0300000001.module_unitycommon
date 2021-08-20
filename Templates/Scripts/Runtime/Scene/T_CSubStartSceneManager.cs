@@ -13,12 +13,11 @@ public class CSubStartSceneManager : CStartSceneManager {
 	private float m_fMaxPercent = 0.0f;
 
 	private System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
-	#endregion			// 변수
 
-	#region UI 변수
+	// UI 변수
 	private Text m_oLoadingText = null;
 	private CGaugeHandler m_oGaugeHandler = null;
-	#endregion			// UI 변수
+	#endregion			// 변수
 
 	#region 함수
 	//! 초기화
@@ -101,5 +100,21 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_oLoadingText.text = m_oStrBuilder.ToString();
 	}
 	#endregion			// 함수
+
+	#region 추가 변수
+
+	#endregion			// 추가 변수
+
+	#region 추가 객체
+
+	#endregion			// 추가 객체
+
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

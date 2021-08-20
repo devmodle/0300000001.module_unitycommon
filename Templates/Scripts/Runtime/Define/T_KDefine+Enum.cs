@@ -316,4 +316,8 @@ public enum ETutorialKinds {
 	MAX_VAL
 }
 #endregion			// 기본
+
+#region 추가 상수
+
+#endregion			// 추가 상수
 #endif			// #if NEVER_USE_THIS
