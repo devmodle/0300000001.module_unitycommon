@@ -169,28 +169,6 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	public bool IsEnableResetDailyMission => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
 	public ERewardKinds DailyRewardKinds => KDefine.G_REWARDS_KINDS_REWARD_IT_DAILY[this.GameInfo.DailyRewardID];
-
-#if ADS_MODULE_ENABLE
-	public int AdsSkipTimes { get; set; } = KCDefine.B_VAL_0_INT;
-
-	public System.DateTime PrevAdsTime { get; set; } = System.DateTime.Now;
-	public System.DateTime PrevRewardAdsTime { get; set; } = System.DateTime.Now;
-
-	public bool IsEnableShowFullscreenAds {
-		get {
-			float fAdsDelay = CValTable.Inst.GetFlt(KCDefine.VT_KEY_DELAY_ADS);
-			float fAdsDeltaTime = CValTable.Inst.GetFlt(KCDefine.VT_KEY_DELTA_T_ADS);
-
-			double dblDeltaTimeA = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevAdsTime);
-			double dblDeltaTimeB = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevRewardAdsTime);
-
-			bool bIsEnable = dblDeltaTimeA.ExIsGreateEquals(fAdsDelay) && dblDeltaTimeB.ExIsGreateEquals(fAdsDeltaTime);
-			return bIsEnable && this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && this.GameInfo.m_oClearInfoDict.Count >= KDefine.G_MAX_NUM_ADS_SKIP_CLEAR_INFOS;
-		}
-	}
-	
-	public bool IsEnableUpdateAdsSkipTimes => true;
-#endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -448,17 +426,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo);
 	}
 	#endregion			// 함수
-
-	#region 조건부 함수
-#if ADS_MODULE_ENABLE
-	//! 광고 누적 횟수를 추가한다
-	public void AddAdsSkipTimes(int a_nTimes) {
-		int nSkipTimes = this.AdsSkipTimes + a_nTimes;
-		this.AdsSkipTimes = Mathf.Clamp(nSkipTimes, KCDefine.B_VAL_0_INT, KDefine.G_MAX_TIMES_ADS_SKIP);
-	}
-#endif			// #if ADS_MODULE_ENABLE
-	#endregion			// 조건부 함수
-
+	
 	#region 추가 변수
 
 	#endregion			// 추가 변수

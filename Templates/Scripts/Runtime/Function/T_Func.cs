@@ -234,12 +234,12 @@ public static partial class Func {
 	//! 전면 광고를 출력한다
 	public static void ShowFullscreenAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
 		// 전면 광고 출력이 가능 할 경우
-		if(CGameInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsType)) {
+		if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsType)) {
 			CIndicatorManager.Inst.Show(true);
 
 			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender, a_oParams) => {
 				// 전면 광고 출력이 가능 할 경우
-				if(CGameInfoStorage.Inst.IsEnableShowFullscreenAds) {
+				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds) {
 					Func.m_bIsWatchFullscreenAds = true;
 					Func.m_oFullscreenAdsCallback = a_oCallback;
 					
@@ -251,8 +251,8 @@ public static partial class Func {
 			}, KCDefine.B_VAL_1_FLT, true);
 		} else {
 			// 광고 누적 횟수 갱신이 가능 할 경우
-			if(CGameInfoStorage.Inst.IsEnableUpdateAdsSkipTimes) {
-				CGameInfoStorage.Inst.AddAdsSkipTimes(KCDefine.B_VAL_1_INT);
+			if(CAppInfoStorage.Inst.IsEnableUpdateAdsSkipTimes) {
+				CAppInfoStorage.Inst.AddAdsSkipTimes(KCDefine.B_VAL_1_INT);
 			}
 
 			a_oCallback?.Invoke(CAdsManager.Inst, false);
@@ -262,7 +262,10 @@ public static partial class Func {
 	//! 보상 광고가 닫혔을 경우
 	private static void OnCloseRewardAds(CAdsManager a_oSender) {
 		CIndicatorManager.Inst.Close();
-		CGameInfoStorage.Inst.PrevRewardAdsTime = System.DateTime.Now;
+		CAppInfoStorage.Inst.PrevRewardAdsTime = System.DateTime.Now;
+
+		CAppInfoStorage.Inst.AddRewardAdsWatchTimes(KCDefine.B_VAL_1_INT);
+		CAppInfoStorage.Inst.SaveAppInfo();
 
 		CFunc.Invoke(ref Func.m_oRewardAdsCallback, a_oSender, Func.m_stRewardItemInfo, Func.m_bIsWatchRewardAds);
 	}
@@ -277,8 +280,11 @@ public static partial class Func {
 	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
 		CIndicatorManager.Inst.Close();
 
-		CGameInfoStorage.Inst.AdsSkipTimes = KCDefine.B_VAL_0_INT;
-		CGameInfoStorage.Inst.PrevAdsTime = System.DateTime.Now;
+		CAppInfoStorage.Inst.AdsSkipTimes = KCDefine.B_VAL_0_INT;
+		CAppInfoStorage.Inst.PrevAdsTime = System.DateTime.Now;
+
+		CAppInfoStorage.Inst.AddFullscreenAdsWatchTimes(KCDefine.B_VAL_1_INT);
+		CAppInfoStorage.Inst.SaveAppInfo();
 		
 		CFunc.Invoke(ref Func.m_oFullscreenAdsCallback, a_oSender, Func.m_bIsWatchFullscreenAds);
 	}

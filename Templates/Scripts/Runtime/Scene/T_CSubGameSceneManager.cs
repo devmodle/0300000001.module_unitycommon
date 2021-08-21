@@ -85,7 +85,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		if(a_bIsFocus && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
 #if ADS_MODULE_ENABLE
 			// 광고 출력이 가능 할 경우
-			if(CGameInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.DefAdsType)) {
+			if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.DefAdsType)) {
 				Func.ShowFullscreenAds(null);
 			}
 #endif			// #if ADS_MODULE_ENABLE
