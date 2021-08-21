@@ -9,9 +9,10 @@ using UnityEngine.iOS;
 
 //! 초기화 씬 관리자
 public abstract partial class CInitSceneManager : CSceneManager {
-	#region 클래스 객체
+	#region 클래스 변수
+	// 객체
 	private static GameObject m_oBlindUIs = null;
-	#endregion			// 클래스 객체
+	#endregion			// 클래스 변수
 
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_INIT;

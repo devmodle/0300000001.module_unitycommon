@@ -26,14 +26,13 @@ public class CResultPopup : CSubPopup {
 	private STParams m_stParams;
 	private STCallbackParams m_stCallbackParams;
 
-	// UI 변수
+	// UI
 	private Text m_oScoreText = null;
-	#endregion			// 변수
 
-	#region 객체
+	// 객체
 	private GameObject m_oClearUIs = null;
 	private GameObject m_oClearFailUIs = null;
-	#endregion			// 객체
+	#endregion			// 변수
 
 	#region 프로퍼티
 	public override bool IsIgnoreCloseBtn => true;
@@ -116,10 +115,6 @@ public class CResultPopup : CSubPopup {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

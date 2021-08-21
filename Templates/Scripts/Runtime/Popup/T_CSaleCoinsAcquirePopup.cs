@@ -14,13 +14,12 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	#region 변수
 	private STParams m_stParams;
 	private int m_nPrevNumSaleCoins = 0;
-	#endregion			// 변수
 
-	#region 객체
+	// 객체
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
-	#endregion			// 객체
-
+	#endregion			// 변수
+	
 	#region 함수
 	//! 초기화
 	public override void Awake() {
@@ -57,10 +56,6 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

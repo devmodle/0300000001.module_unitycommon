@@ -45,11 +45,7 @@ public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
-
+	
 	#region 추가 프로퍼티
 
 	#endregion			// 추가 프로퍼티

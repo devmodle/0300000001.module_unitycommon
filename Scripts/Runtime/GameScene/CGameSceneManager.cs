@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 //! 게임 씬 관리자
 public class CGameSceneManager : CSceneManager {
-	#region 객체
+	#region 변수
+	// 객체
 	protected GameObject m_oBlockObjs = null;
 	protected GameObject m_oBGTouchResponder = null;
-	#endregion			// 객체
+	#endregion			// 변수
 
 	#region 프로퍼티
 	public override bool IsRealtimeFadeInAni => true;

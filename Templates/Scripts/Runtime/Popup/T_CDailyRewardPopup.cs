@@ -9,14 +9,13 @@ public class CDailyRewardPopup : CSubPopup {
 	#region 변수
 	private bool m_bIsWatchRewardAds = false;
 
-	// UI 변수
+	// UI
 	private Button m_oAdsBtn = null;
 	private Button m_oAcquireBtn = null;
-	#endregion			// 변수
 
-	#region 객체
+	// 객체
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
-	#endregion			// 객체
+	#endregion			// 변수
 
 	#region 함수
 	//! 초기화
@@ -131,10 +130,6 @@ public class CDailyRewardPopup : CSubPopup {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

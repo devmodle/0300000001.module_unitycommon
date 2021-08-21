@@ -31,11 +31,10 @@ public class CStorePopup : CSubPopup {
 	private STParams m_stParams;
 	private STCallbackParams m_stCallbackParams;
 	private ESaleProductKinds m_eSelSaleProductKinds = ESaleProductKinds.NONE;
-	#endregion			// 변수
 
-	#region 객체
+	// 객체
 	[SerializeField] private List<GameObject> m_oSaleProductUIsList = new List<GameObject>();
-	#endregion			// 객체
+	#endregion			// 변수
 	
 	#region 함수
 	//! 초기화
@@ -270,10 +269,6 @@ public class CStorePopup : CSubPopup {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

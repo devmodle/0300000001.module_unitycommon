@@ -38,7 +38,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-	
+
 	#region 추가 프로퍼티
 
 	#endregion			// 추가 프로퍼티

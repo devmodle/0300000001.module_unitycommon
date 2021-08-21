@@ -34,12 +34,11 @@ namespace SampleEngineName {
 		private STParams m_stParams;
 		private STCallbackParams m_stCallbackParams;
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
-		#endregion			// 변수
 
-		#region 객체
+		// 객체
 		private Dictionary<EBlockKinds, GameObject>[,] m_oBlockDicts = null;
-		#endregion			// 객체
-
+		#endregion			// 변수
+		
 		#region 프로퍼티
 		public int Score { get; private set; } = 0;
 		public EState State { get; private set; } = EState.NONE;
@@ -135,10 +134,6 @@ namespace SampleEngineName {
 		#region 추가 변수
 
 		#endregion			// 추가 변수
-
-		#region 추가 객체
-
-		#endregion			// 추가 객체
 
 		#region 추가 프로퍼티
 

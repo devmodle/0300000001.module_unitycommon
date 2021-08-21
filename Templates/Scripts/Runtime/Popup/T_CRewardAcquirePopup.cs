@@ -18,15 +18,14 @@ public class CRewardAcquirePopup : CSubPopup {
 	private STParams m_stParams;
 	private bool m_bIsWatchRewardAds = false;
 
-	// UI 변수
+	// UI
 	private Button m_oAdsBtn = null;
 	private Button m_oAcquireBtn = null;
-	#endregion			// 변수
 
-	#region 객체
+	// 객체
 	[SerializeField] private GameObject m_oRewardUIs = null;
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
-	#endregion			// 객체
+	#endregion			// 변수
 
 	#region 프로퍼티
 	public override bool IsIgnoreAni => true;
@@ -94,9 +93,11 @@ public class CRewardAcquirePopup : CSubPopup {
 	//! 아이템을 획득한다
 	private void AcquireItems() {
 		m_oAdsBtn?.ExSetInteractable(false);
-		m_oAdsBtn?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
-
 		m_oAcquireBtn?.ExSetInteractable(false);
+
+#if ADS_MODULE_ENABLE
+		m_oAdsBtn?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
+#endif			// #if ADS_MODULE_ENABLE
 
 		for(int i = 0; i < m_stParams.m_oItemInfoList.Count; ++i) {
 			Func.AcquireItem(m_stParams.m_oItemInfoList[i], m_bIsWatchRewardAds ? m_stParams.m_oItemInfoList[i].m_nNumItems : KCDefine.B_VAL_0_INT);
@@ -122,10 +123,6 @@ public class CRewardAcquirePopup : CSubPopup {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

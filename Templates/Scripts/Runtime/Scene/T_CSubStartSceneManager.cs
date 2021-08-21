@@ -14,7 +14,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	private System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
 
-	// UI 변수
+	// UI
 	private Text m_oLoadingText = null;
 	private CGaugeHandler m_oGaugeHandler = null;
 	#endregion			// 변수
@@ -104,10 +104,6 @@ public class CSubStartSceneManager : CStartSceneManager {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

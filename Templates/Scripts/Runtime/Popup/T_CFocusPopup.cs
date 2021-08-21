@@ -23,7 +23,7 @@ public class CFocusPopup : CSubPopup {
 	private STParams m_stParams;
 	private STCallbackParams m_stCallbackParams;
 
-	// UI 변수
+	// UI
 	private Image m_oBlindImg = null;
 	#endregion			// 변수
 
@@ -84,10 +84,6 @@ public class CFocusPopup : CSubPopup {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

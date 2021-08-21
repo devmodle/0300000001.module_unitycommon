@@ -19,7 +19,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private CTouchDispatcher m_oBGTouchDispatcher = null;
 	private Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>[,] m_oBlockSpriteDicts = null;
 
-	// UI 변수 {
+	// UI {
 	private EnhancedScroller m_oSelScroller = null;
 
 	private EnhancedScrollerCellView m_oOriginLevelScrollerCellView = null;
@@ -49,7 +49,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private Button m_oMEUIsMoveLevelBtn = null;
 	private Button m_oMEUIsRemoveLevelBtn = null;
 	// 중앙 에디터 UI }
-	// UI 변수 }
+	// UI }
 	#endregion			// 변수
 
 	#region 인터페이스
@@ -477,7 +477,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		int nNumStageInfos = CLevelInfoTable.Inst.GetNumStageInfos(m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
 		// 스테이지 추가가 가능 할 경우
-		if(nNumStageInfos < KDefine.G_MAX_NUM_STAGE_INFOS) {
+		if(nNumStageInfos < KCDefine.U_MAX_NUM_STAGE_INFOS) {
 			this.AddLevelInfo(KCDefine.B_VAL_0_INT, nNumStageInfos, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 		}
 	}
@@ -487,7 +487,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		int nNumChapterInfos = CLevelInfoTable.Inst.NumChapterInfos;
 
 		// 챕터 추가가 가능 할 경우
-		if(nNumChapterInfos < KDefine.G_MAX_NUM_CHAPTER_INFOS) {
+		if(nNumChapterInfos < KCDefine.U_MAX_NUM_CHAPTER_INFOS) {
 			this.AddLevelInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, nNumChapterInfos);
 		}
 	}
@@ -552,7 +552,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
 		// 레벨 추가가 가능 할 경우
-		if(nNumLevelInfos < KDefine.G_MAX_NUM_LEVEL_INFOS) {
+		if(nNumLevelInfos < KCDefine.U_MAX_NUM_LEVEL_INFOS) {
 			var stIDInfo = CFactory.MakeIDInfo(m_oSelLevelInfo.m_stIDInfo.m_nID, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 			this.CopyLevelInfos(m_oLEUIsLevelScroller, stIDInfo);
 		}
@@ -612,12 +612,12 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	//! 에디터 스크롤러 셀 뷰 복사 버튼을 눌렀을 경우
 	private void OnTouchESCVCopyBtn(CScrollerCellView a_oSender, long a_nLevelID) {
 		int nNumInfos = CLevelInfoTable.Inst.NumChapterInfos;
-		int nMaxNumInfos = KDefine.G_MAX_NUM_CHAPTER_INFOS;
+		int nMaxNumInfos = KCDefine.U_MAX_NUM_CHAPTER_INFOS;
 
 		// 챕터 스크롤러가 아닐 경우
 		if(m_oLEUIsChapterScroller != a_oSender.Scroller) {
 			nNumInfos = (m_oLEUIsStageScroller == a_oSender.Scroller) ? CLevelInfoTable.Inst.GetNumStageInfos(a_nLevelID.ExUniqueLevelIDToChapterID()) : CLevelInfoTable.Inst.GetNumLevelInfos(a_nLevelID.ExUniqueLevelIDToStageID(), a_nLevelID.ExUniqueLevelIDToChapterID());
-			nMaxNumInfos = (m_oLEUIsStageScroller == a_oSender.Scroller) ? KDefine.G_MAX_NUM_STAGE_INFOS : KDefine.G_MAX_NUM_LEVEL_INFOS;
+			nMaxNumInfos = (m_oLEUIsStageScroller == a_oSender.Scroller) ? KCDefine.U_MAX_NUM_STAGE_INFOS : KCDefine.U_MAX_NUM_LEVEL_INFOS;
 		}
 
 		// 복사가 가능 할 경우
@@ -675,7 +675,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	//! 에디터 레벨 생성 팝업 결과를 수신했을 경우
 	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, CEditorLevelCreateInfo a_oCreateInfo) {
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-		int nNumCreateLevelInfos = (nNumLevelInfos + a_oCreateInfo.m_nNumLevels < KDefine.G_MAX_NUM_LEVEL_INFOS) ? a_oCreateInfo.m_nNumLevels : KDefine.G_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
+		int nNumCreateLevelInfos = (nNumLevelInfos + a_oCreateInfo.m_nNumLevels < KCDefine.U_MAX_NUM_LEVEL_INFOS) ? a_oCreateInfo.m_nNumLevels : KCDefine.U_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
 
 		for(int i = 0; i < nNumCreateLevelInfos; ++i) {
 			var oLevelInfo = Factory.MakeLevelInfo(i + nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
@@ -840,10 +840,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

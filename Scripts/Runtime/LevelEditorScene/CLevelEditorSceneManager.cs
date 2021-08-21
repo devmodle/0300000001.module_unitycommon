@@ -6,7 +6,8 @@ using UnityEngine.UI;
 #if UNITY_EDITOR || UNITY_STANDALONE
 //! 레벨 에디터 씬 관리자
 public class CLevelEditorSceneManager : CSceneManager {
-	#region 객체
+	#region 변수
+	// 객체 {
 	protected GameObject m_oPortraitUIs = null;
 	protected GameObject m_oLandscapeUIs = null;
 
@@ -16,7 +17,8 @@ public class CLevelEditorSceneManager : CSceneManager {
 
 	protected GameObject m_oBlockObjs = null;
 	protected GameObject m_oBGTouchResponder = null;
-	#endregion			// 객체
+	// 객체 }
+	#endregion			// 변수
 
 	#region 프로퍼티
 	public override bool IsIgnoreBlindV => true;

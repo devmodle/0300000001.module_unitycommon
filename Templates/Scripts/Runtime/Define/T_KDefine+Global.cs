@@ -7,19 +7,13 @@ using UnityEngine.UI;
 //! 전역 상수
 public static partial class KDefine {
 	#region 기본
-	// 개수 {
-	public const int G_MIN_NUM_ADS_SKIP_CLEAR_INFOS = 0;
-
+	// 개수
 	public const int G_MAX_NUM_SALE_COINS = 0;
 	public const int G_MAX_NUM_SALE_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_ACQUIRE_FREE_REWARDS = 0;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 0;
-
-	public const int G_MAX_NUM_LEVEL_INFOS = 9999;
-	public const int G_MAX_NUM_STAGE_INFOS = 999;
-	public const int G_MAX_NUM_CHAPTER_INFOS = 99;
-	// 개수 }
+	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
 
 	// 횟수
 	public const int G_MAX_TIMES_ADS_SKIP = 0;

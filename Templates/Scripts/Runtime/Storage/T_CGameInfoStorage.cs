@@ -185,7 +185,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 			double dblDeltaTimeB = System.DateTime.Now.ExGetDeltaTime(CGameInfoStorage.Inst.PrevRewardAdsTime);
 
 			bool bIsEnable = dblDeltaTimeA.ExIsGreateEquals(fAdsDelay) && dblDeltaTimeB.ExIsGreateEquals(fAdsDeltaTime);
-			return bIsEnable && this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && this.GameInfo.m_oClearInfoDict.Count >= KDefine.G_MIN_NUM_ADS_SKIP_CLEAR_INFOS;
+			return bIsEnable && this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && this.GameInfo.m_oClearInfoDict.Count >= KDefine.G_MAX_NUM_ADS_SKIP_CLEAR_INFOS;
 		}
 	}
 	
@@ -462,10 +462,6 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //! 설정 팝업
 public class CSettingsPopup : CSubPopup {
 	#region 변수
-	// UI 변수
+	// UI
 	private Button m_oBGSndBtn = null;
 	private Button m_oFXSndsBtn = null;
 	private Button m_oNotiBtn = null;
@@ -104,10 +104,6 @@ public class CSettingsPopup : CSubPopup {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 추가 객체
-
-	#endregion			// 추가 객체
 
 	#region 추가 프로퍼티
 

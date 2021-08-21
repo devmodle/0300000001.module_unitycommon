@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if INPUT_SYSTEM_MODULE_ENABLE
-using UnityEngine.InputSystem;
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
-
 //! 설정 씬 관리자
 public abstract partial class CSetupSceneManager : CSceneManager {
 	#region 변수
 	private Dictionary<string, System.Action<string>> m_oDeviceMsgHandlerDict = new Dictionary<string, System.Action<string>>();
 	#endregion			// 변수
 
-	#region 클래스 객체
+	#region 클래스 변수
+	// 객체 {
 	private static GameObject m_oPopupUIs = null;
 	private static GameObject m_oTopmostUIs = null;
 	private static GameObject m_oAbsUIs = null;
@@ -27,7 +24,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	private static GameObject m_oFPSCounter = null;
 #endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-	#endregion			// 클래스 객체
+	// 객체 }
+	#endregion			// 클래스 변수
 
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_SETUP;
