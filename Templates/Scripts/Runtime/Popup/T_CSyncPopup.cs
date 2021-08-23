@@ -120,28 +120,33 @@ public class CSyncPopup : CSubPopup {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
 			var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
-			var oUserInfo = oJSONNode[KCDefine.B_KEY_JSON_USER_INFO_DATA];
-			var oCommonUserInfo = oJSONNode[KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA];
+			string oUserInfoStr = oJSONNode[KCDefine.B_KEY_JSON_USER_INFO_DATA];
+			string oCommonUserInfoStr = oJSONNode[KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA];
 
-			CUserInfoStorage.Inst.ResetUserInfo(oUserInfo);
+			CUserInfoStorage.Inst.ResetUserInfo(oUserInfoStr);
 			CUserInfoStorage.Inst.SaveUserInfo();
 
-			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfo);
+			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfoStr);
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
 		}
 
 		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
-		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, a_bIsSuccess, this.OnReceiveLoadSuccessPopupResult);
+		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
 
 		var oAlertPopup = CSceneManager.ScreenPopupUIs.ExFindComponent<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP);
-		oAlertPopup.IsIgnoreNavStackEvent = a_bIsSuccess && a_oJSONStr.ExIsValid();
+		oAlertPopup.IsIgnoreNavStackEvent = m_bIsLoadUserInfo;
 	}
 
 	//! 로드 성공 팝업 결과를 수신했을 경우
 	private void OnReceiveLoadSuccessPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 유저 정보를 로드했을 경우
-		if(m_bIsLoadUserInfo) {
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+		if(a_bIsOK && m_bIsLoadUserInfo) {
+			CNavStackManager.Inst.Reset();
+
+			this.ExLateCallFunc((a_oSender, a_oParams) => { 
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE); 
+				CNavStackManager.Inst.Reset(); 
+			});
 		}
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE

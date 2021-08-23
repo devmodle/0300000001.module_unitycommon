@@ -16,7 +16,7 @@ public class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(111)] public Dictionary<EItemKinds, int> m_oNumItemsDict = new Dictionary<EItemKinds, int>();
+	[Key(111)] public Dictionary<string, int> m_oNumItemsDict = new Dictionary<string, int>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
@@ -40,7 +40,6 @@ public class CUserInfo : CBaseInfo {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oNumItemsDict = m_oNumItemsDict ?? new Dictionary<EItemKinds, int>();
 	}
 	#endregion			// 인터페이스
 }
@@ -53,14 +52,18 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	#region 함수
 	//! 유저 정보를 리셋한다
-	public virtual void ResetUserInfo(SimpleJSON.JSONNode a_oUserInfo) {
-		this.UserInfo = a_oUserInfo.ToString().ExMsgPackJSONStrToObj<CUserInfo>();
+	public virtual void ResetUserInfo(string a_oJSONStr) {
+		CFunc.ShowLog("CUserInfoStorage.ResetUserInfo: {0}", a_oJSONStr);
+		CAccess.Assert(a_oJSONStr.ExIsValid());
+
+		this.UserInfo = a_oJSONStr.ExMsgPackJSONStrToObj<CUserInfo>();
 		CAccess.Assert(this.UserInfo != null);
 	}
 
 	//! 아이템 개수를 반환한다
 	public int GetNumItems(EItemKinds a_eItemKinds) {
-		return this.UserInfo.m_oNumItemsDict.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);
+		string oKey = CStrTable.Inst.GetEnumStr<EItemKinds>(a_eItemKinds);
+		return this.UserInfo.m_oNumItemsDict.ExGetVal(oKey, KCDefine.B_VAL_0_INT);
 	}
 
 	//! 코인 개수를 추가한다
@@ -69,7 +72,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		this.UserInfo.NumCoins = Mathf.Clamp(nNumCoins, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 
-	//! 판매 코인 개수를 추가한다
+	//! 잔돈 개수를 추가한다
 	public void AddNumSaleCoins(int a_nNumSaleCoins) {
 		int nNumSaleCoins = this.UserInfo.NumSaleCoins + a_nNumSaleCoins;
 		this.UserInfo.NumSaleCoins = Mathf.Clamp(nNumSaleCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
@@ -80,7 +83,8 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
 		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue);
 
-		this.UserInfo.m_oNumItemsDict.ExReplaceVal(a_eItemKinds, nNumItems);
+		string oKey = CStrTable.Inst.GetEnumStr<EItemKinds>(a_eItemKinds);
+		this.UserInfo.m_oNumItemsDict.ExReplaceVal(oKey, nNumItems);
 	}
 
 	//! 유저 정보를 로드한다

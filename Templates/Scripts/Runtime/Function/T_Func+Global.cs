@@ -205,7 +205,7 @@ public static partial class Func {
 			}
 
 			// 비소모 상품 일 경우
-			if(oProduct != null && oProduct.definition.type == ProductType.NonConsumable) {
+			if(oProduct != null && oProduct.definition.type == ProductType.NonConsumable && !CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductID)) {
 				CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductID);
 				CCommonUserInfoStorage.Inst.SaveUserInfo();
 			}

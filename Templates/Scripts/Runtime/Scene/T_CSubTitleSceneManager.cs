@@ -19,7 +19,6 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			this.SetupAwake();
-			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 		}
 	}
 	
@@ -31,6 +30,8 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		if(CSceneManager.IsAppInit) {
 			this.SetupStart();
 			this.UpdateUIsState();
+
+			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 
 			// 최초 시작 일 경우
 			if(CCommonAppInfoStorage.Inst.IsFirstStart) {
@@ -169,7 +170,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	private void OnReceiveQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
-			this.QuitApp();
+			this.ExLateCallFunc((a_oSender, a_oParams) => this.QuitApp());
 		}
 	}
 

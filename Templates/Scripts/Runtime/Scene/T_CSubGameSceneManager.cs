@@ -44,7 +44,6 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 			this.SetupAwake();
-			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 		}
 	}
 	
@@ -56,6 +55,8 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		if(CSceneManager.IsAppInit) {
 			this.SetupStart();
 			this.UpdateUIsState();
+
+			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 		}
 	}
 
