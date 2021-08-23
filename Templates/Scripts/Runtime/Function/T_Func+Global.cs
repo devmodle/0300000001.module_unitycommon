@@ -21,10 +21,10 @@ public static partial class Func {
 				CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds = true;
 
 #if ADS_MODULE_ENABLE
+				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.DefAdsType, true);
+
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
-				
-				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.DefAdsType, true);
 #endif			// #if ADS_MODULE_ENABLE
 			} break;
 			default: {
@@ -228,8 +228,12 @@ public static partial class Func {
 					for(int j = 0; j < stSaleProductInfo.m_oItemInfoList.Count; ++j) {
 						Func.AcquireItem(stSaleProductInfo.m_oItemInfoList[j]);
 					}
-				}
+
+					CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductList[i].definition.id);
+				}				
 			}
+
+			CCommonUserInfoStorage.Inst.SaveUserInfo();
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE

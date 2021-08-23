@@ -34,6 +34,16 @@ public class CStorePopup : CSubPopup {
 
 	// 객체
 	[SerializeField] private List<GameObject> m_oSaleProductUIsList = new List<GameObject>();
+
+#if ADS_MODULE_ENABLE
+	private bool m_bIsWatchRewardAds = false;
+	private STAdsRewardItemInfo m_stRewardAdsRewardItemInfo;
+#endif			// #if ADS_MODULE_ENABLE
+
+#if FIREBASE_MODULE_ENABLE && PURCHASE_MODULE_ENABLE
+	private string m_oPurchaseProductID = string.Empty;
+	private List<Product> m_oRestoreProductList = new List<Product>();
+#endif			// #if FIREBASE_MODULE_ENABLE && PURCHASE_MODULE_ENABLE
 	#endregion			// 변수
 	
 	#region 함수
@@ -182,6 +192,9 @@ public class CStorePopup : CSubPopup {
 #if ADS_MODULE_ENABLE
 	//! 보상 광고가 닫혔을 경우
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
+		m_bIsWatchRewardAds = a_bIsSuccess;
+		m_stRewardAdsRewardItemInfo = a_stRewardItemInfo;
+		
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
 			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(m_eSelSaleProductKinds);
@@ -197,9 +210,14 @@ public class CStorePopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
+	//! 유저 정보를 저장했을 경우
+	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oPurchaseProductID, true, null);
+	}
+
 	//! 지급 아이템 정보를 저장했을 경우
 	private void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		this.UpdateUIsState();
+		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
 	}
 
 	//! 지급 아이템 정보를 로드했을 경우
@@ -214,12 +232,10 @@ public class CStorePopup : CSubPopup {
 
 				// 지급 아이템 정보가 유효 할 경우
 				if(bIsValidA && bIsValidB && eItemKinds.ExIsValid()) {
-					var stItemInfo = new STItemInfo() {
-						m_nNumItems = nNumItems,
+					Func.AcquireItem(new STItemInfo() {
+						m_nNumItems = nNumItems, 
 						m_eItemKinds = eItemKinds
-					};
-
-					Func.AcquireItem(stItemInfo);
+					});
 				}
 			}
 
@@ -227,6 +243,8 @@ public class CStorePopup : CSubPopup {
 				oPostItemInfoList.Clear();
 				Func.SavePostItemInfos(oPostItemInfoList, this.OnSavePostItemInfos);
 			});
+		} else {
+			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
 		}
 
 		this.UpdateUIsState();
@@ -239,11 +257,18 @@ public class CStorePopup : CSubPopup {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireProduct(a_oProductID);
+
+#if FIREBASE_MODULE_ENABLE
+			m_oPurchaseProductID = a_oProductID;
+			Func.SaveUserInfo(this.OnSaveUserInfo);
+#else
+			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
+#endif			// #if FIREBASE_MODULE_ENABLE
+		} else {
+			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
 		}
 
 		this.UpdateUIsState();
-		Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
-
 		m_stCallbackParams.m_oPurchaseCallback?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 
@@ -252,15 +277,18 @@ public class CStorePopup : CSubPopup {
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireRestoreProducts(a_oProductList);
-		}
 
 #if FIREBASE_MODULE_ENABLE
-		Func.LoadPostItemInfos(this.OnLoadPostItemInfos);
+			m_oRestoreProductList = a_oProductList;
+			Func.LoadPostItemInfos(this.OnLoadPostItemInfos);
+#else
+			Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 #endif			// #if FIREBASE_MODULE_ENABLE
+		} else {
+			Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
+		}
 
 		this.UpdateUIsState();
-		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
-
 		m_stCallbackParams.m_oRestoreCallback?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE

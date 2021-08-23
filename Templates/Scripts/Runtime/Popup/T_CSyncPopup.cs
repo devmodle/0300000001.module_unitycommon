@@ -120,14 +120,29 @@ public class CSyncPopup : CSubPopup {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
 			var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
+
 			string oUserInfoStr = oJSONNode[KCDefine.B_KEY_JSON_USER_INFO_DATA];
+			string oGameInfoStr = oJSONNode[KCDefine.B_KEY_JSON_GAME_INFO_DATA];
 			string oCommonUserInfoStr = oJSONNode[KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA];
 
 			CUserInfoStorage.Inst.ResetUserInfo(oUserInfoStr);
 			CUserInfoStorage.Inst.SaveUserInfo();
 
+			CGameInfoStorage.Inst.ResetGameInfo(oGameInfoStr);
+			CGameInfoStorage.Inst.SaveGameInfo();
+
 			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfoStr);
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
+
+#if ADS_MODULE_ENABLE
+			// 광고 제거 모드 일 경우
+			if(CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds) {
+				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.DefAdsType, true);
+
+				CAdsManager.Inst.IsEnableBannerAds = false;
+				CAdsManager.Inst.IsEnableFullscreenAds = false;
+			}
+#endif			// #if ADS_MODULE_ENABLE
 		}
 
 		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
@@ -141,11 +156,11 @@ public class CSyncPopup : CSubPopup {
 	private void OnReceiveLoadSuccessPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 유저 정보를 로드했을 경우
 		if(a_bIsOK && m_bIsLoadUserInfo) {
-			CNavStackManager.Inst.Reset();
-
 			this.ExLateCallFunc((a_oSender, a_oParams) => { 
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE); 
-				CNavStackManager.Inst.Reset(); 
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+
+				CScheduleManager.Inst.Reset();
+				CNavStackManager.Inst.Reset();
 			});
 		}
 	}

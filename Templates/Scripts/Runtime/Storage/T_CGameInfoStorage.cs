@@ -172,6 +172,15 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	//! 게임 정보를 리셋한다
+	public virtual void ResetGameInfo(string a_oBase64Str) {
+		CFunc.ShowLog("CGameInfoStorage.ResetGameInfo: {0}", a_oBase64Str);
+		CAccess.Assert(a_oBase64Str.ExIsValid());
+
+		this.GameInfo = a_oBase64Str.ExMsgPackBase64StrToObj<CGameInfo>();
+		CAccess.Assert(this.GameInfo != null);
+	}
+	
 	//! 부스터를 리셋한다
 	public virtual void ResetBoosters() {
 		this.FreeBooster = EItemKinds.NONE;
