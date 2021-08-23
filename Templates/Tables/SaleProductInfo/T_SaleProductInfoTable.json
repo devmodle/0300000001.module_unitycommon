@@ -4,6 +4,7 @@
             "Name": "Sample",
             "Desc": "Sample",
             "Replace": "0",
+            "Price": "0",
             "PriceKinds": "-1",
             "SaleProductKinds": "-1",
             "NumItems_01": "0",

@@ -1,12 +1,14 @@
 {
     "Level": [
         {
-            "ID": "0",
-            "StageID": "0",
-            "ChapterID": "0",
             "Name": "Sample",
             "Desc": "Sample",
             "Replace": "0",
+            "ID": "0",
+            "StageID": "0",
+            "ChapterID": "0",
+            "NumTargets": "0",
+            "UnlockNumTargets": "0",
             "LevelMode": "-1",
             "LevelKinds": "-1",
             "RewardKinds": "-1",
@@ -16,11 +18,13 @@
     ],
     "Stage": [
         {
-            "ID": "0",
-            "ChapterID": "0",
             "Name": "Sample",
             "Desc": "Sample",
             "Replace": "0",
+            "ID": "0",
+            "ChapterID": "0",
+            "NumTargets": "0",
+            "UnlockNumTargets": "0",
             "StageKinds": "-1",
             "RewardKinds": "-1",
             "TutorialKinds": "-1",
@@ -29,10 +33,12 @@
     ],
     "Chapter": [
         {
-            "ID": "0",
             "Name": "Sample",
             "Desc": "Sample",
             "Replace": "0",
+            "ID": "0",
+            "NumTargets": "0",
+            "UnlockNumTargets": "0",
             "ChapterKinds": "-1",
             "RewardKinds": "-1",
             "TutorialKinds": "-1",
