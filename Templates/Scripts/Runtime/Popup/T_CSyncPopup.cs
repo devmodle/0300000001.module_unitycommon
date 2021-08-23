@@ -19,20 +19,20 @@ public class CSyncPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		m_oLoginUIs = m_oContents.ExFindChild(KDefine.G_OBJ_N_SYNC_P_LOGIN_UIS);
-		m_oLogoutUIs = m_oContents.ExFindChild(KDefine.G_OBJ_N_SYNC_P_LOGOUT_UIS);
+		m_oLoginUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_LOGIN_UIS);
+		m_oLogoutUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_LOGOUT_UIS);
 
 		// 버튼을 설정한다 {
-		var oLoginBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_SYNC_P_LOGIN_BTN);
+		var oLoginBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGIN_BTN);
 		oLoginBtn?.onClick.AddListener(this.OnTouchLoginBtn);
 
-		var oLogoutBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_SYNC_P_LOGOUT_BTN);
+		var oLogoutBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGOUT_BTN);
 		oLogoutBtn?.onClick.AddListener(this.OnTouchLogoutBtn);
 
-		var oSaveBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_SYNC_P_SAVE_BTN);
+		var oSaveBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SAVE_BTN);
 		oSaveBtn?.onClick.AddListener(this.OnTouchSaveBtn);
 
-		var oLoadBtn = m_oContents.ExFindComponent<Button>(KDefine.G_OBJ_N_SYNC_P_LOAD_BTN);
+		var oLoadBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOAD_BTN);
 		oLoadBtn?.onClick.AddListener(this.OnTouchLoadBtn);
 		// 버튼을 설정한다 }
 	}

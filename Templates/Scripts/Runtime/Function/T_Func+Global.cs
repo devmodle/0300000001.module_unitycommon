@@ -146,16 +146,6 @@ public static partial class Func {
 		}
 	}
 
-	//! 유저 정보가 저장 되었을 경우
-	public static void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
-		// 저장 되었을 경우
-		if(a_bIsSuccess) {
-			Func.ShowSaveSuccessPopup(a_oCallback);
-		} else {
-			Func.ShowSaveFailPopup(a_oCallback);
-		}
-	}
-
 	//! 유저 정보가 로드 되었을 경우
 	public static void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 로드 되었을 경우
@@ -163,6 +153,16 @@ public static partial class Func {
 			Func.ShowLoadSuccessPopup(a_oCallback);
 		} else {
 			Func.ShowLoadFailPopup(a_oCallback);
+		}
+	}
+
+	//! 유저 정보가 저장 되었을 경우
+	public static void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+		// 저장 되었을 경우
+		if(a_bIsSuccess) {
+			Func.ShowSaveSuccessPopup(a_oCallback);
+		} else {
+			Func.ShowSaveFailPopup(a_oCallback);
 		}
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE

@@ -79,10 +79,10 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 어플리케이션이 재개 되었을 경우
-	public virtual void OnApplicationFocus(bool a_bIsFocus) {
-// 재개 되었을 경우
-		if(a_bIsFocus && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
+	//! 앱이 재개 되었을 경우
+	public virtual void OnApplicationPause(bool a_bIsPause) {
+		// 재개 되었을 경우
+		if(!a_bIsPause && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
 #if ADS_MODULE_ENABLE
 			// 광고 출력이 가능 할 경우
 			if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.DefAdsType)) {
@@ -90,13 +90,6 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 			}
 #endif			// #if ADS_MODULE_ENABLE
 		}
-	}
-
-	//! UI 상태를 갱신한다
-	public void UpdateUIsState() {
-#if DEBUG || DEVELOPMENT_BUILD
-		this.UpdateTestUIsState();
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
 	//! 내비게이션 스택 이벤트를 수신했을 경우
@@ -156,6 +149,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 		m_oEngine.Init(stParams, stCallbackParams);
+	}
+
+	//! UI 상태를 갱신한다
+	private void UpdateUIsState() {
+#if DEBUG || DEVELOPMENT_BUILD
+		this.UpdateTestUIsState();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
 	//! 터치를 시작했을 경우
