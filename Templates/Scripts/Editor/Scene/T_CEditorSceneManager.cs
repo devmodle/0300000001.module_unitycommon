@@ -154,9 +154,7 @@ public static partial class CEditorSceneManager {
 				// 전처리기 심볼 갱신이 필요 할 경우
 				if(bIsNeedUpdate) {
 					EditorUtility.SetDirty(oAsset);
-					
 					CEditorFunc.UpdateAssetDBState();
-					CPlatformOptsSetter.SetupDefineSymbols();
 				}
 			}
 		}
