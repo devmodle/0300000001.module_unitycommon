@@ -32,8 +32,7 @@
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*
 	- *Sprite Trail (v1.4.0 - Aug 2, 2019)*
 	- *Ultimate Status Bar (v2.6.0 - Jun 3, 2020)*
-	- *Spine (v3.8.0 - Apr 28, 2021)*
-	- *Spine URP Shaders (v3.8.0 - Apr 28, 2021)*
+	- *Spine (v4.0.0 - Aug 16, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Message Pack (v2.2.85)*
 	- *Thai Font Adjuster (v1.0.0)*
