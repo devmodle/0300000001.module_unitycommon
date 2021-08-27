@@ -134,7 +134,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		};
 
 		string oName = string.Format(oNameFmt, a_nDataIdx + KCDefine.B_VAL_1_INT);
-		string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oName, oNumInfosStr);
+		string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, oName, oNumInfosStr);
 
 		var oScrollerCellView = a_oSender.GetCellView(oOriginScrollerCellView) as CEditorScrollerCellView;
 		oScrollerCellView.Init(stParams, stCallbackParams);
