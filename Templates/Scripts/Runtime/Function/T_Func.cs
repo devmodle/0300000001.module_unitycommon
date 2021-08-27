@@ -248,7 +248,7 @@ public static partial class Func {
 					CIndicatorManager.Inst.Close();
 					a_oCallback?.Invoke(CAdsManager.Inst, false);
 				}
-			});
+			}, KCDefine.B_VAL_1_FLT, true);
 		} else {
 			// 광고 누적 횟수 갱신이 가능 할 경우
 			if(CAppInfoStorage.Inst.IsEnableUpdateAdsSkipTimes) {

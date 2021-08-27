@@ -160,7 +160,7 @@ public static partial class KEditorDefine {
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.spriteshape"] = "6.0.1",
 		["com.unity.2d.tilemap"] = "1.0.0",
-		["com.unity.2d.tilemap.extras"] = "2.0.0",
+		["com.unity.2d.tilemap.extras"] = "2.2.0",
 
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.addressables"] = "1.18.15",
