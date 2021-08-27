@@ -80,7 +80,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 앱이 재개 되었을 경우
+	//! 앱이 정지 되었을 경우
 	public virtual void OnApplicationPause(bool a_bIsPause) {
 		// 재개 되었을 경우
 		if(!a_bIsPause && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
