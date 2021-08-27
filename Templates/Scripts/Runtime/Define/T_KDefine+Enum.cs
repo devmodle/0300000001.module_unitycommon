@@ -38,17 +38,17 @@ public enum EPriceKinds {
 
 	#region 광고
 	// 보상 광고 0
-	ADS_REWARD, [HideInInspector] ADS_PRICE = EPriceKinds.ADS_REWARD,
+	ADS_REWARD,
 	#endregion			// 광고
 
 	#region 재화
 	// 코인 10,000,000
-	GOODS_COINS = EPriceKinds.ADS_PRICE + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] GOODS_PRICE = EPriceKinds.GOODS_COINS,
+	GOODS_COINS = EPriceKinds.ADS_REWARD + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 재화
 
 	#region 결제
 	// 결제 20,000,000
-	PURCHASE = EPriceKinds.GOODS_PRICE + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] PURCHASE_PRICE = EPriceKinds.PURCHASE,
+	PURCHASE = EPriceKinds.GOODS_COINS + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 결제
 
 	MAX_VAL
@@ -69,20 +69,20 @@ public enum EItemKinds {
 
 	#region 재화
 	// 코인 0
-	GOODS_COINS, [HideInInspector] GOODS_ITEM = EItemKinds.GOODS_COINS,
+	GOODS_COINS,
 	#endregion			// 재화
 
 	#region 소모
 	// 샘플 10,000,000
-	CONSUMABLE_BOOSTER_SAMPLE = EItemKinds.GOODS_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] CONSUMABLE_BOOSTER = EItemKinds.CONSUMABLE_BOOSTER_SAMPLE,
+	CONSUMABLE_BOOSTER_SAMPLE = EItemKinds.GOODS_COINS + KCDefine.B_UNIT_KINDS_PER_TYPE,
 
 	// 샘플 10,010,000
-	CONSUMABLE_GAME_ITEM_SAMPLE = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE, [HideInInspector] CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_GAME_ITEM_SAMPLE,
+	CONSUMABLE_GAME_ITEM_SAMPLE = EItemKinds.CONSUMABLE_BOOSTER_SAMPLE + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE, [HideInInspector] CONSUMABLE_GAME_ITEM = EItemKinds.CONSUMABLE_GAME_ITEM_SAMPLE,
 	#endregion			// 소모
 
 	#region 비소모
 	// 광고 제거 20,000,000
-	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.CONSUMABLE_BOOSTER + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] NON_CONSUMABLE_ITEM = EItemKinds.NON_CONSUMABLE_REMOVE_ADS,
+	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.CONSUMABLE_BOOSTER_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] NON_CONSUMABLE_ITEM = EItemKinds.NON_CONSUMABLE_REMOVE_ADS,
 	#endregion			// 비소모
 
 	MAX_VAL
@@ -102,12 +102,12 @@ public enum ESaleItemKinds {
 
 	#region 부스터
 	// 샘플 0
-	BOOSTER_SAMPLE, [HideInInspector] BOOSTER_SALE_ITEM = ESaleItemKinds.BOOSTER_SAMPLE,
+	BOOSTER_SAMPLE,
 	#endregion			// 부스터
 
 	#region 게임 아이템
 	// 이어하기 10,000,000
-	GAME_ITEM_CONTINUE = ESaleItemKinds.BOOSTER_SALE_ITEM + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] GAME_ITEM_SALE_ITEM = ESaleItemKinds.GAME_ITEM_CONTINUE,
+	GAME_ITEM_CONTINUE = ESaleItemKinds.BOOSTER_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 게임 아이템
 
 	MAX_VAL
@@ -127,15 +127,15 @@ public enum ESaleProductKinds {
 
 	#region 패키지
 	// 샘플 0
-	PKGS_SAMPLE, [HideInInspector] PKGS_SALE_PRODUCT = ESaleProductKinds.PKGS_SAMPLE,
+	PKGS_SAMPLE,
 	#endregion			// 패키지
 
 	#region 단일
 	// 판매 코인 10,000,000
-	SINGLE_SALE_COINS = ESaleProductKinds.PKGS_SALE_PRODUCT + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] SINGLE_SALE_PRODUCT = ESaleProductKinds.SINGLE_SALE_COINS,
+	SINGLE_SALE_COINS = ESaleProductKinds.PKGS_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 
 	// 광고 제거 10,010,000
-	SINGLE_REMOVE_ADS = ESaleProductKinds.SINGLE_SALE_COINS + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE
+	SINGLE_REMOVE_ADS = ESaleProductKinds.SINGLE_SALE_COINS + KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE,
 	#endregion			// 단일
 
 	MAX_VAL
@@ -156,17 +156,17 @@ public enum EMissionKinds {
 
 	#region 자유
 	// 샘플 0
-	FREE_SAMPLE, [HideInInspector] FREE_MISSION = EMissionKinds.FREE_SAMPLE,
+	FREE_SAMPLE,
 	#endregion			// 자유
 
 	#region 일일
 	// 샘플 10,000,000
-	DAILY_SAMPLE = EMissionKinds.FREE_MISSION + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] DAILY_MISSION = EMissionKinds.DAILY_SAMPLE,
+	DAILY_SAMPLE = EMissionKinds.FREE_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 일일
 
 	#region 이벤트
 	// 샘플 20,000,000
-	EVENT_SAMPLE = EMissionKinds.DAILY_MISSION + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] EVENT_MISSION = EMissionKinds.EVENT_SAMPLE,
+	EVENT_SAMPLE = EMissionKinds.DAILY_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 이벤트
 
 	MAX_VAL
@@ -188,22 +188,22 @@ public enum ERewardKinds {
 
 	#region 무료
 	// 샘플 0
-	FREE_SAMPLE, [HideInInspector] FREE_REWARD = ERewardKinds.FREE_SAMPLE,
+	FREE_SAMPLE,
 	#endregion			// 무료
 
 	#region 일일
 	// 샘플 10,000,000
-	DAILY_SAMPLE = ERewardKinds.FREE_REWARD + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] DAILY_REWARD = ERewardKinds.DAILY_SAMPLE,
+	DAILY_SAMPLE = ERewardKinds.FREE_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 일일
 
 	#region 이벤트
 	// 샘플 20,000,000
-	EVENT_SAMPLE = ERewardKinds.DAILY_REWARD + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] EVENT_REWARD = ERewardKinds.EVENT_SAMPLE,
+	EVENT_SAMPLE = ERewardKinds.DAILY_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 이벤트
 
 	#region 클리어
 	// 샘플 30,000,000
-	CLEAR_SAMPLE = ERewardKinds.EVENT_REWARD + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] CLEAR_REWARD = ERewardKinds.CLEAR_SAMPLE,
+	CLEAR_SAMPLE = ERewardKinds.EVENT_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 클리어
 
 	MAX_VAL
@@ -242,12 +242,12 @@ public enum ELevelKinds {
 
 	#region 일반
 	// 샘플 0
-	NORM_SAMPLE, [HideInInspector] NORM_LEVEL = ELevelKinds.NORM_SAMPLE,
+	NORM_SAMPLE,
 	#endregion			// 일반
 
 	#region 튜토리얼
 	// 샘플 10,000,000
-	TUTORIAL_SAMPLE = ELevelKinds.NORM_LEVEL + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] NORM_TUTORIAL = ELevelKinds.TUTORIAL_SAMPLE,
+	TUTORIAL_SAMPLE = ELevelKinds.NORM_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 튜토리얼
 
 	MAX_VAL
@@ -266,7 +266,7 @@ public enum EStageKinds {
 
 	#region 일반
 	// 샘플 0
-	NORM_SAMPLE, [HideInInspector] NORM_STAGE = EStageKinds.NORM_SAMPLE,
+	NORM_SAMPLE,
 	#endregion			// 일반
 
 	MAX_VAL
@@ -285,7 +285,7 @@ public enum EChapterKinds {
 
 	#region 일반
 	// 샘플 0
-	NORM_SAMPLE, [HideInInspector] NORM_CHAPTER = EChapterKinds.NORM_SAMPLE,
+	NORM_SAMPLE,
 	#endregion			// 일반
 
 	MAX_VAL
@@ -305,12 +305,12 @@ public enum ETutorialKinds {
 
 	#region 플레이
 	// 샘플 0
-	PLAY_SAMPLE, [HideInInspector] PLAY_TUTORIAL = ETutorialKinds.PLAY_SAMPLE,
+	PLAY_SAMPLE,
 	#endregion			// 플레이
 
 	#region 도움말
 	// 샘플 10,000,000
-	HELP_SAMPLE = ETutorialKinds.PLAY_TUTORIAL + KCDefine.B_UNIT_KINDS_PER_TYPE, [HideInInspector] HELP_TUTORIAL = ETutorialKinds.HELP_SAMPLE,
+	HELP_SAMPLE = ETutorialKinds.PLAY_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
 	#endregion			// 도움말
 
 	MAX_VAL

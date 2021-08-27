@@ -266,7 +266,7 @@ public static partial class KDefine {
 
 	// 보상 정보 테이블
 	public static readonly ERewardKinds[] G_REWARDS_KINDS_REWARD_IT_DAILY = new ERewardKinds[] {
-		ERewardKinds.DAILY_REWARD
+		// Do Something
 	};
 
 	// 상점 팝업

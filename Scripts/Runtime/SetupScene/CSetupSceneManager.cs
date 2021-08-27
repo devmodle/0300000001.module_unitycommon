@@ -17,9 +17,9 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private static GameObject m_oTimerManager = null;
 	private static GameObject m_oDebugUIs = null;
 
-#if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
+#if DEBUG || DEVELOPMENT_BUILD
 	private static GameObject m_oDebugConsole = null;
-#endif			// #if LOGIC_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	private static GameObject m_oFPSCounter = null;

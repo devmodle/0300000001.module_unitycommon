@@ -336,7 +336,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oREUIsTitleText = m_oRightEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_TITLE_TEXT);
 
 		// 토글을 설정한다
-		m_oREUIsRewardToggle = m_oRightEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_RE_UIS_REWARD_TOGGLE);
+		m_oREUIsRewardToggle = m_oRightEditorUIs.ExFindComponent<Toggle>(KCDefine.U_OBJ_N_RE_UIS_REWARD_TOGGLE);
 		m_oREUIsRewardToggle?.onValueChanged.AddListener(this.OnTouchREUIsRewardToggle);
 
 		// 입력 필드를 설정한다
