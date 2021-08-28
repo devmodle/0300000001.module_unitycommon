@@ -208,17 +208,17 @@ public static partial class KDefine {
 		m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
 
-#if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
-	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
-		m_nOrder = 0,
-		m_oLayer = KCDefine.U_SORTING_L_TOP_UIS
-	};
-#else
+#if CAMERA_STACK_ENABLE
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
 		m_nOrder = 0,
 		m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
-#endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+#else
+	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
+		m_nOrder = 0,
+		m_oLayer = KCDefine.U_SORTING_L_TOP_UIS
+	};
+#endif			// #if CAMERA_STACK_ENABLE
 	// 정렬 순서 }
 
 	// 경로 {

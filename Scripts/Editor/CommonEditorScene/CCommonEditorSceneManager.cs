@@ -37,7 +37,7 @@ public static partial class CCommonEditorSceneManager {
 		[KCDefine.U_SORTING_L_TOPMOST] = "TM",
 		[KCDefine.U_SORTING_L_ABS] = "A",
 		
-#if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+#if !CAMERA_STACK_ENABLE
 		[KCDefine.U_SORTING_L_UNDERGROUND_UIS] = "UU",
 		[KCDefine.U_SORTING_L_BACKGROUND_UIS] = "BU",
 		[KCDefine.U_SORTING_L_DEF_UIS] = "DU",
@@ -46,7 +46,7 @@ public static partial class CCommonEditorSceneManager {
 		[KCDefine.U_SORTING_L_TOP_UIS] = "TU",
 		[KCDefine.U_SORTING_L_TOPMOST_UIS] = "TMU",
 		[KCDefine.U_SORTING_L_ABS_UIS] = "AU"
-#endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+#endif			// #if !CAMERA_STACK_ENABLE
 	};
 	#endregion			// 클래스 변수
 
@@ -72,39 +72,32 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 	}
 
-	//! 렌더러를 리셋한다
-	[MenuItem("Tools/Utility/Reset/Renderers")]
-	public static void ResetRenderers() {
-		var oRendererList = CEditorFunc.FindComponents<Renderer>();
-
-		for(int i = 0; i < oRendererList.Count; ++i) {
-			oRendererList[i].allowOcclusionWhenDynamic = true;
-
-			// 에디터 모드 일 경우
-			if(!Application.isPlaying) {
-				EditorSceneManager.MarkSceneDirty(oRendererList[i].gameObject.scene);
-			}
-		}
-	}
-
 	//! 상호 작용자를 리셋한다
 	[MenuItem("Tools/Utility/Reset/Selectables")]
 	public static void ResetSelectables() {
 		var oSelectableList = CEditorFunc.FindComponents<Selectable>();
 
 		for(int i = 0; i < oSelectableList.Count; ++i) {
-			var stColorBlock = oSelectableList[i].colors;
-			stColorBlock.normalColor = KCDefine.U_COLOR_NORM;
-			stColorBlock.pressedColor = KCDefine.U_COLOR_PRESS;
-			stColorBlock.selectedColor = KCDefine.U_COLOR_SEL;
-			stColorBlock.highlightedColor = KCDefine.U_COLOR_HIGHLIGHT;
-			stColorBlock.disabledColor = KCDefine.U_COLOR_DISABLE;
-			
-			oSelectableList[i].colors = stColorBlock;
+			oSelectableList[i].ExReset();
 
 			// 에디터 모드 일 경우
 			if(!Application.isPlaying) {
 				EditorSceneManager.MarkSceneDirty(oSelectableList[i].gameObject.scene);
+			}
+		}
+	}
+
+	//! 스크롤 영역을 리셋한다
+	[MenuItem("Tools/Utility/Reset/Scroll Rects")]
+	public static void ResetScrollRects() {
+		var oScrollRectList = CEditorFunc.FindComponents<ScrollRect>();
+
+		for(int i = 0; i < oScrollRectList.Count; ++i) {
+			oScrollRectList[i].ExReset();
+
+			// 에디터 모드 일 경우
+			if(!Application.isPlaying) {
+				EditorSceneManager.MarkSceneDirty(oScrollRectList[i].gameObject.scene);
 			}
 		}
 	}
@@ -115,7 +108,7 @@ public static partial class CCommonEditorSceneManager {
 		var oCanvasRendererList = CEditorFunc.FindComponents<CanvasRenderer>();
 
 		for(int i = 0; i < oCanvasRendererList.Count; ++i) {
-			oCanvasRendererList[i].cullTransparentMesh = true;
+			oCanvasRendererList[i].ExReset();
 
 			// 에디터 모드 일 경우
 			if(!Application.isPlaying) {
@@ -130,28 +123,41 @@ public static partial class CCommonEditorSceneManager {
 		var oLayoutGroupList = CEditorFunc.FindComponents<HorizontalOrVerticalLayoutGroup>();
 
 		for(int i = 0; i < oLayoutGroupList.Count; ++i) {
-			oLayoutGroupList[i].childScaleWidth = false;
-			oLayoutGroupList[i].childScaleHeight = false;
-
-			oLayoutGroupList[i].childControlWidth = true;
-			oLayoutGroupList[i].childControlHeight = false;
-
-			oLayoutGroupList[i].childForceExpandWidth = true;
-			oLayoutGroupList[i].childForceExpandHeight = false;
+			oLayoutGroupList[i].ExReset();
 
 			// 에디터 모드 일 경우
 			if(!Application.isPlaying) {
 				EditorSceneManager.MarkSceneDirty(oLayoutGroupList[i].gameObject.scene);
 			}
+		}
+	}
 
-			// 부모 레이아웃 그룹이 없을 경우
-			if(oLayoutGroupList[i].transform.parent.GetComponent<HorizontalOrVerticalLayoutGroup>() == null) {
-				(oLayoutGroupList[i].transform as RectTransform).sizeDelta = Vector2.zero;
+	//! 카메라를 리셋한다
+	[MenuItem("Tools/Utility/Reset/Cameras")]
+	public static void ResetCameras() {
+		var oCameraList = CEditorFunc.FindComponents<Camera>();
+
+		for(int i = 0; i < oCameraList.Count; ++i) {
+			oCameraList[i].ExReset();
+
+			// 에디터 모드 일 경우
+			if(!Application.isPlaying) {
+				EditorSceneManager.MarkSceneDirty(oCameraList[i].gameObject.scene);
 			}
+		}
+	}
 
-			// 컨텐츠 크기 조정자가 존재 할 경우
-			if(oLayoutGroupList[i].TryGetComponent<ContentSizeFitter>(out ContentSizeFitter oSizeFitter)) {
-				oSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+	//! 렌더러를 리셋한다
+	[MenuItem("Tools/Utility/Reset/Renderers")]
+	public static void ResetRenderers() {
+		var oRendererList = CEditorFunc.FindComponents<Renderer>();
+
+		for(int i = 0; i < oRendererList.Count; ++i) {
+			oRendererList[i].ExReset();
+
+			// 에디터 모드 일 경우
+			if(!Application.isPlaying) {
+				EditorSceneManager.MarkSceneDirty(oRendererList[i].gameObject.scene);
 			}
 		}
 	}

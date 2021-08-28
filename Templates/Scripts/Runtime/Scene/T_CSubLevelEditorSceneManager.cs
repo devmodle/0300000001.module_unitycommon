@@ -200,7 +200,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 앱이 실행 중 일 경우
 		if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
-			// Do Something
+			CLevelInfoTable.Inst.SaveLevelInfos();
 		}
 	}
 

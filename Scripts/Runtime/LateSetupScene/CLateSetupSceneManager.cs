@@ -173,8 +173,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if FIREBASE_MODULE_ENABLE
 #if UNITY_EDITOR || UNITY_STANDALONE
-			var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_RUNTIME_DATA_P_G_GAME_CONFIG);
-			var oBuildVerConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_RUNTIME_DATA_P_G_BUILD_VER_CONFIG);
+			string oGameConfigStr = CFunc.ReadStr(KCDefine.U_RUNTIME_DATA_P_G_GAME_CONFIG);
+			string oBuildVerConfigStr = CFunc.ReadStr(KCDefine.U_RUNTIME_DATA_P_G_BUILD_VER_CONFIG);
 #else
 			var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG);
 			var oBuildVerConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG);
@@ -182,9 +182,15 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 			var stFirebaseParams = new CFirebaseManager.STParams() {
 				m_oConfigDict = new Dictionary<string, object>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONStr(),
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfigStr,
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VER] = oBuildVerConfigStr
+#else
+					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
 					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VER] = oBuildVerConfig.text
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 				}
 			};
 

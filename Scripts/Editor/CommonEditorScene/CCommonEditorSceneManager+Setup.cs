@@ -79,11 +79,11 @@ public static partial class CCommonEditorSceneManager {
 
 					// 현재 씬 관리자 일 경우
 					if(oSceneManagers[i].SceneName.ExIsEquals(oSceneManagers[i].gameObject.scene.name)) {
-#if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
-						oCameras[j].gameObject.SetActive(bIsMainCamera);
-#else
+#if CAMERA_STACK_ENABLE
 						oCameras[j].gameObject.SetActive(bIsUIsCamera || bIsMainCamera);
-#endif			// #if !CAMERA_STACK_ENABLE || UNIVERSAL_PIPELINE_MODULE_ENABLE
+#else
+						oCameras[j].gameObject.SetActive(bIsMainCamera);
+#endif			// #if CAMERA_STACK_ENABLE
 					}
 				}
 			}
