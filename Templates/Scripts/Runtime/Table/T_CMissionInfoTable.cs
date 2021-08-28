@@ -73,7 +73,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	//! 미션 정보를 로드한다
 	public Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos() {
 #if UNITY_EDITOR || UNITY_STANDALONE
-		return this.LoadMissionInfos(KDefine.G_RUNTIME_TABLE_P_MISSION_INFO);
+		return this.LoadMissionInfos(KCDefine.U_RUNTIME_TABLE_P_G_MISSION_INFO);
 #else
 		return this.LoadMissionInfos(KCDefine.U_TABLE_P_G_MISSION_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE

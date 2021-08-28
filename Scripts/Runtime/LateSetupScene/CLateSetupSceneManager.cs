@@ -172,8 +172,13 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
+#if UNITY_EDITOR || UNITY_STANDALONE
+			var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_RUNTIME_DATA_P_G_GAME_CONFIG);
+			var oBuildVerConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_RUNTIME_DATA_P_G_BUILD_VER_CONFIG);
+#else
 			var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG);
 			var oBuildVerConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG);
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 
 			var stFirebaseParams = new CFirebaseManager.STParams() {
 				m_oConfigDict = new Dictionary<string, object>() {

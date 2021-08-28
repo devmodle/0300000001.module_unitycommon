@@ -261,7 +261,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	//! 에피소드 정보를 로드한다	
 	public List<object> LoadEpisodeInfos() {
 #if UNITY_EDITOR || UNITY_STANDALONE
-		return this.LoadEpisodeInfos(KDefine.G_RUNTIME_TABLE_P_EPISODE_INFO);
+		return this.LoadEpisodeInfos(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO);
 #else
 		return this.LoadEpisodeInfos(KCDefine.U_TABLE_P_G_EPISODE_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
@@ -363,7 +363,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		oJSONNode.Add(KDefine.G_KEY_EPISODE_IT_STAGE, oStageInfos);
 		oJSONNode.Add(KDefine.G_KEY_EPISODE_IT_CHAPTER, oChapterInfos);
 
-		CFunc.WriteStr(KDefine.G_RUNTIME_TABLE_P_EPISODE_INFO, oJSONNode.ToString());
+		CFunc.WriteStr(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO, oJSONNode.ToString());
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수

@@ -74,7 +74,7 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 	//! 튜토리얼 정보를 로드한다
 	public Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos() {
 #if UNITY_EDITOR || UNITY_STANDALONE
-		return this.LoadTutorialInfos(KDefine.G_RUNTIME_TABLE_P_TUTORIAL_INFO);
+		return this.LoadTutorialInfos(KCDefine.U_RUNTIME_TABLE_P_G_TUTORIAL_INFO);
 #else
 		return this.LoadTutorialInfos(KCDefine.U_TABLE_P_G_TUTORIAL_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE

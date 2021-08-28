@@ -194,7 +194,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
 
 #if UNITY_STANDALONE
-		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
+		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
 		return CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, false);
 #else
 		string oFilePath = string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
@@ -205,7 +205,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	//! 레벨 정보를 로드한다
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos() {
 #if UNITY_STANDALONE
-		return this.LoadLevelInfos(KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO);
+		return this.LoadLevelInfos(KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO);
 #else
 		return this.LoadLevelInfos(KCDefine.U_TABLE_P_G_LEVEL_INFO);
 #endif			// #if UNITY_STANDALONE
@@ -441,7 +441,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	//! 레벨 정보를 저장한다
 	public void SaveLevelInfos() {
 		var oLevelIDList = new List<long>();
-		string oFilePath = KDefine.G_RUNTIME_TABLE_P_LEVEL_INFO.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
+		string oFilePath = KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
 
 		for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
@@ -480,7 +480,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_eTutorialKinds = a_oLevelInfo.TutorialKinds
 		});
 
-		string oFilePath = string.Format(KDefine.G_RUNTIME_DATA_P_FMT_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
+		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
 		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
 	}
 #endif			// #if UNITY_STANDALONE

@@ -93,7 +93,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	//! 보상 정보를 로드한다
 	public Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos() {
 #if UNITY_EDITOR || UNITY_STANDALONE
-		return this.LoadRewardInfos(KDefine.G_RUNTIME_TABLE_P_REWARD_INFO);
+		return this.LoadRewardInfos(KCDefine.U_RUNTIME_TABLE_P_G_REWARD_INFO);
 #else
 		return this.LoadRewardInfos(KCDefine.U_TABLE_P_G_REWARD_INFO);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
