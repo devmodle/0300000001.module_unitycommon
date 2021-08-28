@@ -1,9 +1,0 @@
-ID,Replace,Val,ValType,Description
-DELAY_ADS,0,60,1,광고 딜레이
-DELTA_T_ADS,0,10,1,광고 시간 간격
-QUALITY_LEVEL,0,6,0,퀄리티 레벨
-MULTI_TOUCH_ENABLE,0,0,0,다중 터치 지원 여부
-MOBILE_TARGET_FRAME_RATE,0,60,0,모바일 플랫폼 타겟 프레임
-DESKTOP_TARGET_FRAME_RATE,0,60,0,데스크 탑 플랫폼 타겟 프레임
-CONSOLE_TARGET_FRAME_RATE,0,60,0,콘솔 플랫폼 타겟 프레임
-HANDHELD_CONSOLE_TARGET_FRAME_RATE,0,60,0,휴대용 콘솔 플랫폼 타겟 프레임

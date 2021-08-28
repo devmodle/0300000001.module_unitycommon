@@ -842,7 +842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_OK_BTN_TEXT
+  m_oKey: COMMON_OK_TEXT
   m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &2481042778929251808
 GameObject:
@@ -1330,7 +1330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_AGREE_TEXT
+  m_oKey: COMMON_AGREE_TEXT
   m_oThaiFontPath: Fonts/Global/G_ThaiFont
 --- !u!1 &4618025157548654175
 GameObject:
@@ -3282,5 +3282,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_AGREE_TEXT
+  m_oKey: COMMON_AGREE_TEXT
   m_oThaiFontPath: Fonts/Global/G_ThaiFont
