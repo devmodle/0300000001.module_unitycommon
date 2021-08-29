@@ -46,13 +46,16 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CCommonUserInfoStorage.Inst.LoadUserInfo();
 		CCommonGameInfoStorage.Inst.LoadGameInfo();
 
-		// 열거형 문자열을 로드한다
+		CFunc.ShowLog("@@@@@@@@@@@@@@@@@@: {0}", CCommonAppInfoStorage.Inst.AppInfo.LastSaveTime.ExToLongStr());
+
+		// 열거형 문자열을 로드한다 {
 		CStrTable.Inst.LoadEnumStrs<EUserType>();
+		CStrTable.Inst.LoadEnumStrs<EDeviceType>();
 
-		// 공용 앱 정보 저장소를 설정한다
-		CCommonAppInfoStorage.Inst.AppInfo.m_stLastPlayTime = System.DateTime.Now;
-		CCommonAppInfoStorage.Inst.SaveAppInfo();
-
+		CStrTable.Inst.LoadEnumStrs<EStandaloneType>();
+		CStrTable.Inst.LoadEnumStrs<EAndroidType>();
+		// 열거형 문자열을 로드한다 }
+		
 		// 사운드 관리자를 설정한다 {
 		CSndManager.Inst.BGSndVolume = CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume;
 		CSndManager.Inst.FXSndsVolume = CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume;
@@ -139,9 +142,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CProjInfoTable.Create(KCDefine.U_ASSET_P_G_PROJ_INFO_TABLE);
 		CDeviceInfoTable.Create(KCDefine.U_ASSET_P_G_DEVICE_INFO_TABLE);
 
-#if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
+#if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
 		CPluginInfoTable.Create(KCDefine.U_ASSET_P_G_PLUGIN_INFO_TABLE);
-#endif			// #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
+#endif			// #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE || SINGULAR_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 		CProductInfoTable.Create(KCDefine.U_ASSET_P_G_PRODUCT_INFO_TABLE);

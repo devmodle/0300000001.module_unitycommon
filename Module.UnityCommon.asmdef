@@ -14,6 +14,7 @@
         "Module.UnityCommonFlurry",
         "Module.UnityCommonFacebook",
         "Module.UnityCommonFirebase",
+        "Module.UnityCommonAppsFlyer",
         "Module.UnityCommonGameAnalytics",
         "Module.UnityCommonSingular",
         "Module.UnityCommonGameCenter",

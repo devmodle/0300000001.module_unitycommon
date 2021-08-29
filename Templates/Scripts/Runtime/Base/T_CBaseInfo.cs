@@ -15,16 +15,27 @@ using MessagePack;
 [MessagePackObject]
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
+	#region 상수
+	private const string KEY_LAST_SAVE_TIME = "LastSaveTime";
+	#endregion			// 상수
+
 	#region 변수
 	[Key(0)] public Dictionary<string, int> m_oIntDict = new Dictionary<string, int>();
 	[Key(1)] public Dictionary<string, float> m_oFltDict = new Dictionary<string, float>();
 	[Key(2)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
 	#endregion			// 변수
 
+	#region 프로퍼티
+	[IgnoreMember] public System.DateTime LastSaveTime => this.LastSaveTimeStr.ExIsValid() ? this.AdjustLastSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SPLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now;
+
+	[IgnoreMember] private string LastSaveTimeStr => m_oStrDict.ExGetVal(CBaseInfo.KEY_LAST_SAVE_TIME, string.Empty);
+	[IgnoreMember] private string AdjustLastSaveTimeStr => this.LastSaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.LastSaveTimeStr : this.LastSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	#endregion			// 프로퍼티
+
 	#region 인터페이스
 	//! 직렬화 될 경우
 	public virtual void OnBeforeSerialize() {
-		// Do Something
+		m_oStrDict.ExReplaceVal(CBaseInfo.KEY_LAST_SAVE_TIME, System.DateTime.Now.ExToLongStr());
 	}
 
 	//! 역직렬화 되었을 경우

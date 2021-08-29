@@ -155,8 +155,12 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if APP_LOVIN_ENABLE
 			};
 
+			var stAdsCallbackParams = new CAdsManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitAdsManager
+			};
+
 			CUnityMsgSender.Inst.SendSetEnableAdsTrackingMsg(true);
-			CAdsManager.Inst.Init(stAdsParams, CLateSetupSceneManager.OnInitAdsManager);
+			CAdsManager.Inst.Init(stAdsParams, stAdsCallbackParams);
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
@@ -164,11 +168,19 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				m_oAPIKey = CPluginInfoTable.Inst.FlurryAPIKey
 			};
 
-			CFlurryManager.Inst.Init(stFlurryParams, CLateSetupSceneManager.OnInitFlurryManager);
+			var stFlurryCallbackParams = new CFlurryManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitFlurryManager
+			};
+
+			CFlurryManager.Inst.Init(stFlurryParams, stFlurryCallbackParams);
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-			CFacebookManager.Inst.Init(CLateSetupSceneManager.OnInitFacebookManager);
+			var stFacebookCallbackParams = new CFacebookManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitFacebookManager
+			};
+
+			CFacebookManager.Inst.Init(stFacebookCallbackParams);
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
@@ -194,14 +206,35 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				}
 			};
 
+			var stFirebaseCallbackParams = new CFirebaseManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitFirebaseManager
+			};
+
 			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG, true);
 			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG, true);
 
-			CFirebaseManager.Inst.Init(stFirebaseParams, CLateSetupSceneManager.OnInitFirebaseManager);
+			CFirebaseManager.Inst.Init(stFirebaseParams, stFirebaseCallbackParams);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
+#if APPS_FLYER_MODULE_ENABLE
+			var stAppsFlyerParams = new CAppsFlyerManager.STParams() {
+				m_oAppID = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oAppID,
+				m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey
+			};
+
+			var stAppsFlyerCallbackParams = new CAppsFlyerManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitAppsFlyerManager
+			};
+
+			CAppsFlyerManager.Inst.Init(stAppsFlyerParams, stAppsFlyerCallbackParams);
+#endif			// #if APPS_FLYER_MODULE_ENABLE
+
 #if GAME_ANALYTICS_MODULE_ENABLE
-			CGameAnalyticsManager.Inst.Init(CLateSetupSceneManager.OnInitGameAnalyticsManager);
+			var stGameAnalyticsCallbackParams = new CGameAnalyticsManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitGameAnalyticsManager
+			};
+
+			CGameAnalyticsManager.Inst.Init(stGameAnalyticsCallbackParams);
 #endif			// #if GAME_ANALYTICS_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
@@ -209,20 +242,32 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				m_oAPIKey = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey,
 				m_oAPISecret = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret
 			};
+
+			var stSingularCallbackParams = new CSingularManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitSingularManager
+			};
 			
-			CSingularManager.Inst.Init(stSingularParams, CLateSetupSceneManager.OnInitSingularManager);
+			CSingularManager.Inst.Init(stSingularParams, stSingularCallbackParams);
 #endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-			CGameCenterManager.Inst.Init(CLateSetupSceneManager.OnInitGameCenterManager);
+			var stGameCenterCallbackParams = new CGameCenterManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitGameCenterManager
+			};
+
+			CGameCenterManager.Inst.Init(stGameCenterCallbackParams);
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 			var stPurchaseParams = new CPurchaseManager.STParams() {
 				m_oProductInfoList = CProductInfoTable.Inst.ProductInfoList
 			};
+
+			var stPurchaseCallbackParams = new CPurchaseManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitPurchaseManager
+			};
 			
-			CPurchaseManager.Inst.Init(stPurchaseParams, CLateSetupSceneManager.OnInitPurchaseManager);
+			CPurchaseManager.Inst.Init(stPurchaseParams, stPurchaseCallbackParams);
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
@@ -235,7 +280,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #endif			// #if UNITY_IOS
 			};
 
-			CNotiManager.Inst.Init(stNotiParams, CLateSetupSceneManager.OnInitNotiManager);
+			var stNotiCallbackParams = new CNotiManager.STCallbackParams() {
+				m_oInitCallback = CLateSetupSceneManager.OnInitNotiManager
+			};
+
+			CNotiManager.Inst.Init(stNotiParams, stNotiCallbackParams);
 #endif			// #if NOTI_MODULE_ENABLE
 		}
 
@@ -345,6 +394,19 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	}
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 #endif			// #if FIREBASE_MODULE_ENABLE
+
+#if APPS_FLYER_MODULE_ENABLE
+	//! 앱스 플라이어 관리자가 초기화 되었을 경우
+	private static void OnInitAppsFlyerManager(CAppsFlyerManager a_oSender, bool a_bIsSuccess) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnInitAppsFlyerManager: {a_bIsSuccess}");
+
+		// 초기화 되었을 경우
+		if(a_bIsSuccess) {
+			CAppsFlyerManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+			CAppsFlyerManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
+		}
+	}
+#endif			// #if APPS_FLYER_MODULE_ENABLE
 
 #if GAME_ANALYTICS_MODULE_ENABLE
 	//! 게임 분석 관리자가 초기화 되었을 경우

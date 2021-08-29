@@ -24,21 +24,41 @@ public static partial class LogFunc {
 			CServicesManager.Inst.SendLog(a_oName, a_oDataDict);
 
 #if FLURRY_MODULE_ENABLE
-			var oFlurryDataDict = (a_oDataDict != null) ? a_oDataDict.ExToTypes<string, object, string, string>() : null;
-			CFlurryManager.Inst.SendLog(a_oName, oFlurryDataDict);
+			// 플러리 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.FLURRY)) {
+				var oFlurryDataDict = (a_oDataDict != null) ? a_oDataDict.ExToTypes<string, object, string, string>() : null;
+				CFlurryManager.Inst.SendLog(a_oName, oFlurryDataDict);
+			}
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-			var oFirebaseDataDict = (a_oDataDict != null) ? a_oDataDict.ExToTypes<string, object, string, string>() : null;
-			CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataDict);
+			// 파이어 베이스 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.FIREBASE)) {
+				var oFirebaseDataDict = (a_oDataDict != null) ? a_oDataDict.ExToTypes<string, object, string, string>() : null;
+				CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataDict);
+			}
 #endif			// #if FIREBASE_MODULE_ENABLE
 
+#if APPS_FLYER_MODULE_ENABLE
+			// 앱스 플라이어 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.APPS_FLYER)) {
+				var oAppsFlyerDataDict = (a_oDataDict != null) ? a_oDataDict.ExToTypes<string, object, string, string>() : null;
+				CAppsFlyerManager.Inst.SendLog(a_oName, oAppsFlyerDataDict);
+			}
+#endif			// #if APPS_FLYER_MODULE_ENABLE
+
 #if GAME_ANALYTICS_MODULE_ENABLE
-			CGameAnalyticsManager.Inst.SendLog(a_oName, a_oDataDict);
+			// 게임 분석 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.GAME_ANALYTICS)) {
+				CGameAnalyticsManager.Inst.SendLog(a_oName, a_oDataDict);
+			}
 #endif			// #if GAME_ANALYTICS_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-			CSingularManager.Inst.SendLog(a_oName, a_oDataDict);
+			// 싱귤러 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.SINGULAR)) {
+				CSingularManager.Inst.SendLog(a_oName, a_oDataDict);
+			}
 #endif			// #if SINGULAR_MODULE_ENABLE
 		}
 	}
@@ -59,19 +79,38 @@ public static partial class LogFunc {
 			CServicesManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 
 #if FLURRY_MODULE_ENABLE
-			CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+			// 플러리 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.FLURRY)) {
+				CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+			}
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-			CFirebaseManager.Inst.SendPurchaseLog(a_oProduct);
+			// 파이어 베이스 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.FIREBASE)) {
+				CFirebaseManager.Inst.SendPurchaseLog(a_oProduct);
+			}
 #endif			// #if FIREBASE_MODULE_ENABLE
 
+#if APPS_FLYER_MODULE_ENABLE
+			// 앱스 플라이어 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.APPS_FLYER)) {
+				CAppsFlyerManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+			}
+#endif			// #if APPS_FLYER_MODULE_ENABLE
+
 #if GAME_ANALYTICS_MODULE_ENABLE
-			CGameAnalyticsManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+			// 게임 분석 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.GAME_ANALYTICS)) {
+				CGameAnalyticsManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+			}
 #endif			// #if GAME_ANALYTICS_MODULE_ENABLE
 
 #if SINGULAR_MODULE_ENABLE
-			CSingularManager.Inst.SendPurchaseLog(a_oProduct);
+			// 싱귤러 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_TYPE_ENABLES.ExIsContains(EAnalyticsType.SINGULAR)) {
+				CSingularManager.Inst.SendPurchaseLog(a_oProduct);
+			}
 #endif			// #if SINGULAR_MODULE_ENABLE
 		}
 	}
