@@ -38,14 +38,14 @@ public static partial class KDefine {
 	// 설정 팝업 {
 	public const string G_OBJ_N_SETTINGS_POPUP = "SettingsPopup";
 
-	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "G_BGSndOn";
-	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "G_BGSndOff";
+	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "SampleOnBtn";
+	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "SampleOffBtn";
 
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "G_FXSndsOn";
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "G_FXSndsOff";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "SampleOnBtn";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "SampleOffBtn";
 
-	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "G_NotiOn";
-	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "G_NotiOff";
+	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "SampleOnBtn";
+	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "SampleOffBtn";
 	// 설정 팝업 }
 
 	// 동기화 팝업

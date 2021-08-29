@@ -70,9 +70,9 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_fSkipTime = KCDefine.SS_DELTA_T_UPDATE_STATE;
 			
 		// 텍스트를 설정한다 {
-		var oLoadingText = this.SubUIs.ExFindComponent<Text>(KCDefine.SS_OBJ_N_LOADING_TEXT);
+		var oLoadingText = this.SubUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
 
-		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<Text>(KCDefine.SS_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, KDefine.SS_POS_LOADING_TEXT);
+		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, KDefine.SS_POS_LOADING_TEXT);
 		m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;
 		// 텍스트를 설정한다 }
 

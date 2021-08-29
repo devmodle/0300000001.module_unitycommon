@@ -39,7 +39,7 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 	//! 씬을 설정한다
 	private void SetupAwake() {
 		// 이미지를 설정한다
-		m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.SS_OBJ_N_SPLASH_IMG, KCDefine.U_OBJ_P_IMG, this.SubUIs, KCDefine.SS_POS_SPLASH_IMG);
+		m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_SPLASH_IMG, KCDefine.U_OBJ_P_IMG, this.SubUIs, KCDefine.SS_POS_SPLASH_IMG);
 		m_oSplashImg.sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_G_SPLASH);
 		m_oSplashImg.gameObject.SetActive(false);
 	}

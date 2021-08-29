@@ -51,9 +51,9 @@ public class CLevelEditorSceneManager : CSceneManager {
 			// 블럭 객체를 설정한다 }
 
 			// 터치 전달자를 설정한다 {
-			var oBGTouchResponder = this.SubUIs.ExFindChild(KCDefine.GS_OBJ_N_BG_TOUCH_RESPONDER);
+			var oBGTouchResponder = this.SubUIs.ExFindChild(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER);
 			
-			m_oBGTouchResponder = oBGTouchResponder ?? CFactory.CreateTouchResponder(KCDefine.GS_OBJ_N_BG_TOUCH_RESPONDER, KCDefine.U_OBJ_P_G_TOUCH_RESPONDER, this.SubUIs, CSceneManager.CanvasSize, Vector3.zero, KCDefine.U_COLOR_TRANSPARENT);
+			m_oBGTouchResponder = oBGTouchResponder ?? CFactory.CreateTouchResponder(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER, KCDefine.U_OBJ_P_G_TOUCH_RESPONDER, this.SubUIs, CSceneManager.CanvasSize, Vector3.zero, KCDefine.U_COLOR_TRANSPARENT);
 			m_oBGTouchResponder?.ExSetRaycastTarget<Image>(true, false);
 			m_oBGTouchResponder?.transform.SetAsFirstSibling();
 			// 터치 전달자를 설정한다 }
