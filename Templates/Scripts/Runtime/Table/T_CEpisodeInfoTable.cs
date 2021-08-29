@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Leguar.TotalJSON;
@@ -52,8 +53,18 @@ public struct STLevelInfo {
 			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oNumTargetsDict.Add((ETargetKinds)a_oLevelInfo[oUnlockTargetKindsKey].AsInt, a_oLevelInfo[oUnlockNumTargetsKey].AsInt);
+			m_oUnlockNumTargetsDict.Add((ETargetKinds)a_oLevelInfo[oUnlockTargetKindsKey].AsInt, a_oLevelInfo[oUnlockNumTargetsKey].AsInt);
 		}
+	}
+
+	//! 타겟 개수를 반환한다
+	public int GetNumTargets(ETargetKinds a_eTargetKinds) {
+		return m_oNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
+	}
+
+	//! 잠금 해제 타겟 개수를 반환한다
+	public int GetUnlockNumTargets(ETargetKinds a_eTargetKinds) {
+		return m_oUnlockNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
 	#endregion			// 함수
 
@@ -84,6 +95,16 @@ public struct STLevelInfo {
 
 			a_oLevelInfo.Add(oNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oNumTargetsDict[eKey]));
 			a_oLevelInfo.Add(oTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
+		}
+
+		for(int i = 0; i < oUnlockNumTargetsKeyList.Count; ++i) {
+			var eKey = oUnlockNumTargetsKeyList[i];
+
+			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
+
+			a_oLevelInfo.Add(oUnlockNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oUnlockNumTargetsDict[eKey]));
+			a_oLevelInfo.Add(oUnlockTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
 		}
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
@@ -133,8 +154,18 @@ public struct STStageInfo {
 			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oNumTargetsDict.Add((ETargetKinds)a_oStageInfo[oUnlockTargetKindsKey].AsInt, a_oStageInfo[oUnlockNumTargetsKey].AsInt);
+			m_oUnlockNumTargetsDict.Add((ETargetKinds)a_oStageInfo[oUnlockTargetKindsKey].AsInt, a_oStageInfo[oUnlockNumTargetsKey].AsInt);
 		}
+	}
+
+	//! 타겟 개수를 반환한다
+	public int GetNumTargets(ETargetKinds a_eTargetKinds) {
+		return m_oNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
+	}
+
+	//! 잠금 해제 타겟 개수를 반환한다
+	public int GetUnlockNumTargets(ETargetKinds a_eTargetKinds) {
+		return m_oUnlockNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
 	#endregion			// 함수
 
@@ -163,6 +194,16 @@ public struct STStageInfo {
 
 			a_oStageInfo.Add(oNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oNumTargetsDict[eKey]));
 			a_oStageInfo.Add(oTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
+		}
+
+		for(int i = 0; i < oUnlockNumTargetsKeyList.Count; ++i) {
+			var eKey = oUnlockNumTargetsKeyList[i];
+
+			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
+
+			a_oStageInfo.Add(oUnlockNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oUnlockNumTargetsDict[eKey]));
+			a_oStageInfo.Add(oUnlockTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
 		}
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
@@ -210,8 +251,18 @@ public struct STChapterInfo {
 			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oNumTargetsDict.Add((ETargetKinds)a_oChapterInfo[oUnlockTargetKindsKey].AsInt, a_oChapterInfo[oUnlockNumTargetsKey].AsInt);
+			m_oUnlockNumTargetsDict.Add((ETargetKinds)a_oChapterInfo[oUnlockTargetKindsKey].AsInt, a_oChapterInfo[oUnlockNumTargetsKey].AsInt);
 		}
+	}
+
+	//! 타겟 개수를 반환한다
+	public int GetNumTargets(ETargetKinds a_eTargetKinds) {
+		return m_oNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
+	}
+
+	//! 잠금 해제 타겟 개수를 반환한다
+	public int GetUnlockNumTargets(ETargetKinds a_eTargetKinds) {
+		return m_oUnlockNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
 	#endregion			// 함수
 
@@ -239,6 +290,16 @@ public struct STChapterInfo {
 
 			a_oChapterInfo.Add(oNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oNumTargetsDict[eKey]));
 			a_oChapterInfo.Add(oTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
+		}
+
+		for(int i = 0; i < oUnlockNumTargetsKeyList.Count; ++i) {
+			var eKey = oUnlockNumTargetsKeyList[i];
+
+			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
+
+			a_oChapterInfo.Add(oUnlockNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oUnlockNumTargetsDict[eKey]));
+			a_oChapterInfo.Add(oUnlockTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
 		}
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
