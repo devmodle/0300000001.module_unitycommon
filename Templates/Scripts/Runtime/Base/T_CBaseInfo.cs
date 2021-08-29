@@ -16,7 +16,7 @@ using MessagePack;
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 상수
-	private const string KEY_LAST_SAVE_TIME = "LastSaveTime";
+	private const string KEY_SAVE_TIME = "SaveTime";
 	#endregion			// 상수
 
 	#region 변수
@@ -26,16 +26,20 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public System.DateTime LastSaveTime => this.LastSaveTimeStr.ExIsValid() ? this.AdjustLastSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SPLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now;
+	[IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
+	[IgnoreMember] public System.DateTime SaveTime => this.SaveTimeStr.ExIsValid() ? this.AdjustSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SPLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now;
 
-	[IgnoreMember] private string LastSaveTimeStr => m_oStrDict.ExGetVal(CBaseInfo.KEY_LAST_SAVE_TIME, string.Empty);
-	[IgnoreMember] private string AdjustLastSaveTimeStr => this.LastSaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.LastSaveTimeStr : this.LastSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[IgnoreMember] private string SaveTimeStr => m_oStrDict.ExGetVal(CBaseInfo.KEY_SAVE_TIME, string.Empty);
+	[IgnoreMember] private string AdjustSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
 	//! 직렬화 될 경우
 	public virtual void OnBeforeSerialize() {
-		m_oStrDict.ExReplaceVal(CBaseInfo.KEY_LAST_SAVE_TIME, System.DateTime.Now.ExToLongStr());
+		// 저장 시간 무시 모드가 아닐 경우
+		if(!this.IsIgnoreSaveTime) {
+			m_oStrDict.ExReplaceVal(CBaseInfo.KEY_SAVE_TIME, System.DateTime.Now.ExToLongStr());
+		}
 	}
 
 	//! 역직렬화 되었을 경우

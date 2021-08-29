@@ -7,100 +7,30 @@ using UnityEngine.UI;
 //! 전역 상수
 public static partial class KDefine {
 	#region 기본
-	// 개수
+	// 개수 {
 	public const int G_MAX_NUM_SALE_COINS = 0;
+	public const int G_MAX_NUM_TUTORIAL_STRS = 0;
+	public const int G_MAX_NUM_ACQUIRE_FREE_REWARDS = 0;
+
+	public const int G_MAX_NUM_TARGET_KINDS = 0;
+	public const int G_MAX_NUM_UNLOCK_TARGET_KINDS = 0;
+
 	public const int G_MAX_NUM_SALE_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 0;
-	public const int G_MAX_NUM_ACQUIRE_FREE_REWARDS = 0;
-	public const int G_MAX_NUM_TUTORIAL_STRS = 0;
 	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
+	// 개수 }
 
 	// 횟수
 	public const int G_MAX_TIMES_ADS_SKIP = 0;
 
-	// 식별자 {
+	// 식별자
 	public const int G_PRODUCT_ID_SALE_COINS = 0;
 	public const int G_PRODUCT_ID_REMOVE_ADS = 1;
 
-	public const string G_KEY_FMT_TUTORIAL_MSG = "TUTORIAL_MSG_{0:00}_{1:00}";
-	// 식별자 }
-	
-	// 판매 아이템 정보 테이블 {
-	public const string G_KEY_SALE_IIT_PRICE = "Price";
-	public const string G_KEY_SALE_IIT_PRICE_KINDS = "PriceKinds";
-	public const string G_KEY_SALE_IIT_SALE_ITEM_KINDS = "SaleItemKinds";
-
-	public const string G_KEY_FMT_SALE_IIT_NUM_ITEMS = "NumItems_{0:00}";
-	public const string G_KEY_FMT_SALE_IIT_ITEM_KINDS = "ItemKinds_{0:00}";
-	// 판매 아이템 정보 테이블 }
-
-	// 판매 상품 정보 테이블 {
-	public const string G_KEY_SALE_PIT_PRICE = "Price";
-	public const string G_KEY_SALE_PIT_PRICE_KINDS = "PriceKinds";
-	public const string G_KEY_SALE_PIT_PRODUCT_KINDS = "ProductKinds";
-	public const string G_KEY_SALE_PIT_SALE_PRODUCT_KINDS = "SaleProductKinds";
-
-	public const string G_KEY_FMT_SALE_PIT_NUM_ITEMS = "NumItems_{0:00}";
-	public const string G_KEY_FMT_SALE_PIT_ITEM_KINDS = "ItemKinds_{0:00}";
-	// 판매 상품 정보 테이블 }
-
-	// 미션 정보 테이블 {
-	public const string G_KEY_MISSION_IT_FREE = "Free";
-	public const string G_KEY_MISSION_IT_DAILY = "Daily";
-	public const string G_KEY_MISSION_IT_EVENT = "Event";
-
-	public const string G_KEY_MISSION_IT_MISSION_KINDS = "MissionKinds";
-	public const string G_KEY_MISSION_IT_REWARD_KINDS = "RewardKinds";
-	// 미션 정보 테이블 }
-
-	// 보상 정보 테이블 {
-	public const string G_KEY_REWARD_IT_FREE = "Free";
-	public const string G_KEY_REWARD_IT_DAILY = "Daily";
-	public const string G_KEY_REWARD_IT_EVENT = "Event";
-	public const string G_KEY_REWARD_IT_CLEAR = "Clear";
-
-	public const string G_KEY_REWARD_IT_REWARD_KINDS = "RewardKinds";
-	public const string G_KEY_REWARD_IT_REWARD_QUALITY = "RewardQuality";
-
-	public const string G_KEY_FMT_REWARD_IT_NUM_ITEMS = "NumItems_{0:00}";
-	public const string G_KEY_FMT_REWARD_IT_ITEM_KINDS = "ItemKinds_{0:00}";
-	// 보상 정보 테이블 }
-
-	// 에피소드 정보 테이블 {
+	// 에피소드 정보 테이블
 	public const int G_IDX_EPISODE_IT_LEVEL = 0;
 	public const int G_IDX_EPISODE_IT_STAGE = 1;
 	public const int G_IDX_EPISODE_IT_CHAPTER = 2;
-
-	public const string G_KEY_EPISODE_IT_LEVEL = "Level";
-	public const string G_KEY_EPISODE_IT_STAGE = "Stage";
-	public const string G_KEY_EPISODE_IT_CHAPTER = "Chapter";
-	
-	public const string G_KEY_EPISODE_IT_ID = "ID";
-	public const string G_KEY_EPISODE_IT_LEVEL_MODE = "LevelMode";
-	public const string G_KEY_EPISODE_IT_LEVEL_KINDS = "LevelKinds";
-	public const string G_KEY_EPISODE_IT_REWARD_KINDS = "RewardKinds";
-	public const string G_KEY_EPISODE_IT_TUTORIAL_KINDS = "TutorialKinds";
-
-	public const string G_KEY_EPISODE_IT_STAGE_ID = "StageID";
-	public const string G_KEY_EPISODE_IT_STAGE_KINDS = "StageKinds";
-
-	public const string G_KEY_EPISODE_IT_CHAPTER_ID = "ChapterID";
-	public const string G_KEY_EPISODE_IT_CHAPTER_KINDS = "ChapterKinds";
-
-	public const string G_KEY_EPISODE_IT_NUM_TARGETS = "NumTargets";
-	public const string G_KEY_EPISODE_IT_UNLOCK_NUM_TARGETS = "UnlockNumTargets";
-	// 에피소드 정보 테이블 }
-
-	// 튜토리얼 정보 테이블 {
-	public const string G_KEY_TUTORIAL_IT_PLAY = "Play";
-	public const string G_KEY_TUTORIAL_IT_HELP = "Help";
-
-	public const string G_KEY_TUTORIAL_IT_REWARD_KINDS = "RewardKinds";
-	public const string G_KEY_TUTORIAL_IT_TUTORIAL_KINDS = "TutorialKinds";
-	public const string G_KEY_TUTORIAL_IT_NEXT_TUTORIAL_KINDS = "NextTutorialKinds";
-
-	public const string G_KEY_FMT_TUTORIAL_IT_STRS = "Str_{0:00}";
-	// 튜토리얼 정보 테이블 }
 	
 	// 상점 팝업
 	public const string G_OBJ_N_STORE_POPUP = "StorePopup";

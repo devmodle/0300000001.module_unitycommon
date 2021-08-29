@@ -315,6 +315,18 @@ public enum ETutorialKinds {
 
 	MAX_VAL
 }
+
+//! 타겟 타입
+public enum ETargetType {
+	NONE = -1,
+	MAX_VAL
+}
+
+//! 타겟 종류
+public enum ETargetKinds {
+	NONE = -1,
+	MAX_VAL
+}
 #endregion			// 기본
 
 #region 추가 상수

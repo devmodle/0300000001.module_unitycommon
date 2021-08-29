@@ -74,16 +74,26 @@ public class CSyncPopup : CSubPopup {
 
 	//! 저장 버튼을 눌렀을 경우
 	private void OnTouchSaveBtn() {
+		Func.ShowSavePopup((a_oSender, a_bIsOK) => {
 #if FIREBASE_MODULE_ENABLE
-		Func.SaveUserInfo(this.OnSaveUserInfo);
+		// 확인 버튼을 눌렀을 경우
+		if(a_bIsOK) {
+			Func.SaveUserInfo(this.OnSaveUserInfo);
+		}
 #endif			// #if FIREBASE_MODULE_ENABLE
+		});
 	}
 
 	//! 로드 버튼을 눌렀을 경우
 	private void OnTouchLoadBtn() {
+		Func.ShowLoadPopup((a_oSender, a_bIsOK) => {
 #if FIREBASE_MODULE_ENABLE
-		Func.LoadUserInfo(this.OnLoadUserInfo);
+			// 확인 버튼을 눌렀을 경우
+			if(a_bIsOK) {
+				Func.LoadUserInfo(this.OnLoadUserInfo);
+			}
 #endif			// #if FIREBASE_MODULE_ENABLE
+		});
 	}
 	#endregion			// 함수
 

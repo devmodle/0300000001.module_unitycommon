@@ -14,12 +14,17 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	[Key(61)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
 	#endregion			// 변수
 
+	#region 프로퍼티
+	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	#endregion			// 프로퍼티
+
 	#region 인터페이스
 	//! 사본 객체를 생성한다
 	public virtual object Clone() {
 		var oCellInfo = new CCellInfo();
 		this.SetupCloneInst(oCellInfo);
 
+		oCellInfo.OnAfterDeserialize();
 		return oCellInfo;
 	}
 
@@ -62,6 +67,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	
 	#region 프로퍼티
 	[IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
+	[IgnoreMember] public Dictionary<ETargetKinds, int> NumTargetsDict = new Dictionary<ETargetKinds, int>();
 
 	[IgnoreMember] public ELevelMode LevelMode {
 		get { return (ELevelMode)m_oIntDict.ExGetVal(CLevelInfo.KEY_LEVEL_MODE, (int)ELevelMode.NONE); }
@@ -84,7 +90,6 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	}
 	
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
-	[IgnoreMember] public long NumTargets => KCDefine.B_VAL_0_INT;
 	#endregion			// 프로퍼티
 
 	#region 인터페이스
@@ -105,6 +110,8 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+
+		this.NumTargetsDict = this.NumTargetsDict ?? new Dictionary<ETargetKinds, int>();
 		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, CCellInfo>>();
 
 		// 셀 개수를 설정한다 {
@@ -116,6 +123,15 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 
 		this.NumCells = stNumCells;
 		// 셀 개수를 설정한다 }
+
+		// 타겟 개수를 설정한다
+		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
+			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
+				for(int k = 0; k < m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
+					// Do Something
+				}
+			}
+		}
 	}
 	#endregion			// 인터페이스
 
@@ -459,11 +475,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	//! 레벨 정보를 저장한다
 	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<long> a_oOutLevelIDList) {
 		CAccess.Assert(a_oLevelInfo != null);
-		
+
 		a_oOutLevelIDList.Add(a_oLevelInfo.LevelID);
 		CEpisodeInfoTable.Inst.TryGetLevelInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STLevelInfo stLevelInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID);
 
-		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, new STLevelInfo() {
+		var stReplaceLevelInfo = new STLevelInfo() {
 			m_oName = stLevelInfo.m_oName ?? string.Empty,
 			m_oDesc = stLevelInfo.m_oDesc ?? string.Empty,
 
@@ -471,16 +487,21 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
 			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
 
-			m_nNumTargets = (int)a_oLevelInfo.NumTargets,
-			m_nUnlockNumTargets = stLevelInfo.m_nUnlockNumTargets,
+			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(),
+			m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>(),
 
 			m_eLevelMode = a_oLevelInfo.LevelMode,
 			m_eLevelKinds = a_oLevelInfo.LevelKinds,
 			m_eRewardKinds = a_oLevelInfo.RewardKinds,
 			m_eTutorialKinds = a_oLevelInfo.TutorialKinds
-		});
+		};
 
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
+
+		a_oLevelInfo.NumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
+		stLevelInfo.m_oUnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets, false);
+
+		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
 		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
 	}
 #endif			// #if UNITY_STANDALONE

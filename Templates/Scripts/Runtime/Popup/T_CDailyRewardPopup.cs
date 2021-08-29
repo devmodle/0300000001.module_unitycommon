@@ -108,8 +108,7 @@ public class CDailyRewardPopup : CSubPopup {
 				m_oItemInfoList = stRewardInfo.m_oItemInfoList
 			};
 
-			var oRewardAcquirePopup = a_oSender as CRewardAcquirePopup;
-			oRewardAcquirePopup.Init(stParams);
+			(a_oSender as CRewardAcquirePopup).Init(stParams);
 		}, null, this.OnCloseRewardAcquirePopup);
 	}
 	#endregion			// 함수

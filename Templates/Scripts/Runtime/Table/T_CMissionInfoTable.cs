@@ -19,8 +19,8 @@ public struct STMissionInfo {
 		m_oName = a_oMissionInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oMissionInfo[KCDefine.U_KEY_DESC];
 
-		m_eMissionKinds = (EMissionKinds)a_oMissionInfo[KDefine.G_KEY_MISSION_IT_MISSION_KINDS].AsInt;
-		m_eRewardKinds = (ERewardKinds)a_oMissionInfo[KDefine.G_KEY_MISSION_IT_REWARD_KINDS].AsInt;
+		m_eMissionKinds = (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_MISSION_KINDS].AsInt;
+		m_eRewardKinds = (ERewardKinds)a_oMissionInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
 	}
 	#endregion			// 함수
 }
@@ -102,9 +102,9 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
 		var oMissionInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KDefine.G_KEY_MISSION_IT_FREE],
-			oJSONNode[KDefine.G_KEY_MISSION_IT_DAILY],
-			oJSONNode[KDefine.G_KEY_MISSION_IT_EVENT]
+			oJSONNode[KCDefine.U_KEY_FREE],
+			oJSONNode[KCDefine.U_KEY_DAILY],
+			oJSONNode[KCDefine.U_KEY_EVENT]
 		};
 
 		for(int i = 0; i < oMissionInfosList.Count; ++i) {

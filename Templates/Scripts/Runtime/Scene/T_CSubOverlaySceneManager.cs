@@ -58,8 +58,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 #endif			// #if PURCHASE_MODULE_ENABLE
 			};
 
-			var oStorePopup = a_oSender as CStorePopup;
-			oStorePopup.Init(stParams, stCallbackParams);
+			(a_oSender as CStorePopup).Init(stParams, stCallbackParams);
 		});
 	}
 

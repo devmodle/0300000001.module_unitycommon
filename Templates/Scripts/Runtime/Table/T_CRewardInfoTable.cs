@@ -21,21 +21,19 @@ public struct STRewardInfo {
 		m_oName = a_oRewardInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oRewardInfo[KCDefine.U_KEY_DESC];
 
-		m_eRewardKinds = (ERewardKinds)a_oRewardInfo[KDefine.G_KEY_REWARD_IT_REWARD_KINDS].AsInt;
-		m_eRewardQuality = (ERewardQuality)a_oRewardInfo[KDefine.G_KEY_REWARD_IT_REWARD_QUALITY].AsInt;
+		m_eRewardKinds = (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
+		m_eRewardQuality = (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt;
 
 		m_oItemInfoList = new List<STItemInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_ITEM_INFOS; ++i) {
-			string oNumItemsKey = string.Format(KDefine.G_KEY_FMT_REWARD_IT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
-			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_REWARD_IT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
+			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
+			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			var stItemInfo = new STItemInfo() {
+			m_oItemInfoList.Add(new STItemInfo() {
 				m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt,
 				m_eItemKinds = (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt
-			};
-
-			m_oItemInfoList.Add(stItemInfo);
+			});
 		}
 	}
 	#endregion			// 함수
@@ -122,10 +120,10 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
 		var oRewardInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KDefine.G_KEY_REWARD_IT_FREE],
-			oJSONNode[KDefine.G_KEY_REWARD_IT_DAILY],
-			oJSONNode[KDefine.G_KEY_REWARD_IT_EVENT],
-			oJSONNode[KDefine.G_KEY_REWARD_IT_CLEAR]
+			oJSONNode[KCDefine.U_KEY_FREE],
+			oJSONNode[KCDefine.U_KEY_DAILY],
+			oJSONNode[KCDefine.U_KEY_EVENT],
+			oJSONNode[KCDefine.U_KEY_CLEAR]
 		};
 
 		for(int i = 0; i < oRewardInfosList.Count; ++i) {

@@ -45,9 +45,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Inst.LoadAppInfo();
 		CCommonUserInfoStorage.Inst.LoadUserInfo();
 		CCommonGameInfoStorage.Inst.LoadGameInfo();
-
-		CFunc.ShowLog("@@@@@@@@@@@@@@@@@@: {0}", CCommonAppInfoStorage.Inst.AppInfo.LastSaveTime.ExToLongStr());
-
+		
 		// 열거형 문자열을 로드한다 {
 		CStrTable.Inst.LoadEnumStrs<EUserType>();
 		CStrTable.Inst.LoadEnumStrs<EDeviceType>();

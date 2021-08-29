@@ -26,16 +26,16 @@ public struct STSaleItemInfo {
 	public STSaleItemInfo(SimpleJSON.JSONNode a_oSaleItemInfo) {
 		m_oName = a_oSaleItemInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oSaleItemInfo[KCDefine.U_KEY_DESC];
-		m_oPrice = a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE];
+		m_oPrice = a_oSaleItemInfo[KCDefine.U_KEY_PRICE];
 
-		m_ePriceKinds = (EPriceKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_PRICE_KINDS].AsInt;
-		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KDefine.G_KEY_SALE_IIT_SALE_ITEM_KINDS].AsInt;
+		m_ePriceKinds = (EPriceKinds)a_oSaleItemInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt;
+		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KCDefine.U_KEY_SALE_ITEM_KINDS].AsInt;
 
 		m_oItemInfoList = new List<STItemInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_SALE_ITEM_INFOS; ++i) {
-			string oNumItemsKey = string.Format(KDefine.G_KEY_FMT_SALE_IIT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
-			string oItemKindsKey = string.Format(KDefine.G_KEY_FMT_SALE_IIT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
+			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
+			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
 			var stItemInfo = new STItemInfo() {
 				m_nNumItems = a_oSaleItemInfo[oNumItemsKey].AsInt,

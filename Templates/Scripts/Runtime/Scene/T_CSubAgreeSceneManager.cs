@@ -52,8 +52,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 				m_ePopupType = a_ePopupType
 			};
 
-			var oAgreePopup = a_oSender as CAgreePopup;
-			oAgreePopup.Init(stParams);
+			(a_oSender as CAgreePopup).Init(stParams);
 		}, null, this.OnCloseAgreePopup);
 	}
 	#endregion			// 함수

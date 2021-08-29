@@ -83,14 +83,18 @@ public static partial class Func {
 			m_oCancelBtnText = a_bIsEnableCancelBtn ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_CANCEL_TEXT) : string.Empty
 		};
 
-		Func.ShowAlertPopup(stParams, a_oCallback);
+		var stCallbackParams = new CAlertPopup.STCallbackParams() {
+			m_oCallback = a_oCallback
+		};
+
+		Func.ShowAlertPopup(stParams, stCallbackParams);
 	}
 
 	//! 경고 팝업을 출력한다
-	public static void ShowAlertPopup(CAlertPopup.STParams a_stParams, System.Action<CAlertPopup, bool> a_oCallback) {
+	public static void ShowAlertPopup(CAlertPopup.STParams a_stParams, CAlertPopup.STCallbackParams a_stCallbackParams) {
 		// 경고 팝업이 없을 경우
 		if(CSceneManager.ScreenPopupUIs.ExFindChild(KCDefine.U_OBJ_N_ALERT_POPUP) == null) {
-			var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP, KCDefine.U_OBJ_P_G_ALERT_POPUP, CSceneManager.ScreenPopupUIs, a_stParams, a_oCallback);
+			var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP, KCDefine.U_OBJ_P_G_ALERT_POPUP, CSceneManager.ScreenPopupUIs, a_stParams, a_stCallbackParams);
 			oAlertPopup.Show(null, null);
 		}
 	}
@@ -114,6 +118,16 @@ public static partial class Func {
 	//! 업데이트 팝업을 출력한다
 	public static void ShowUpdatePopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG), a_oCallback);
+	}
+
+	//! 저장 팝업을 출력한다
+	public static void ShowSavePopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_SAVE_P_MSG), a_oCallback);
+	}
+
+	//! 로드 팝업을 출력한다
+	public static void ShowLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LOAD_P_MSG), a_oCallback);
 	}
 
 	//! 로그인 성공 팝업을 출력한다

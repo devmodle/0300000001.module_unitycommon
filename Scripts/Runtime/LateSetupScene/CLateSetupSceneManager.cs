@@ -105,7 +105,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 관리자 자동 초기화 모드 일 경우
 		if(this.IsAutoInitManager) {
-			CServicesManager.Inst.Init(CLateSetupSceneManager.OnInitServicesManager);
+			CServicesManager.Inst.Init(new CServicesManager.STCallbackParams() {
+				m_oCallback = CLateSetupSceneManager.OnInitServicesManager
+			});
 			
 #if ADS_MODULE_ENABLE
 			var stAdsParams = new CAdsManager.STParams() {
@@ -156,7 +158,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			};
 
 			var stAdsCallbackParams = new CAdsManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitAdsManager
+				m_oCallback = CLateSetupSceneManager.OnInitAdsManager
 			};
 
 			CUnityMsgSender.Inst.SendSetEnableAdsTrackingMsg(true);
@@ -169,7 +171,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			};
 
 			var stFlurryCallbackParams = new CFlurryManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitFlurryManager
+				m_oCallback = CLateSetupSceneManager.OnInitFlurryManager
 			};
 
 			CFlurryManager.Inst.Init(stFlurryParams, stFlurryCallbackParams);
@@ -177,7 +179,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if FACEBOOK_MODULE_ENABLE
 			var stFacebookCallbackParams = new CFacebookManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitFacebookManager
+				m_oCallback = CLateSetupSceneManager.OnInitFacebookManager
 			};
 
 			CFacebookManager.Inst.Init(stFacebookCallbackParams);
@@ -207,7 +209,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			};
 
 			var stFirebaseCallbackParams = new CFirebaseManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitFirebaseManager
+				m_oCallback = CLateSetupSceneManager.OnInitFirebaseManager
 			};
 
 			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG, true);
@@ -223,7 +225,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			};
 
 			var stAppsFlyerCallbackParams = new CAppsFlyerManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitAppsFlyerManager
+				m_oCallback = CLateSetupSceneManager.OnInitAppsFlyerManager
 			};
 
 			CAppsFlyerManager.Inst.Init(stAppsFlyerParams, stAppsFlyerCallbackParams);
@@ -231,7 +233,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if GAME_ANALYTICS_MODULE_ENABLE
 			var stGameAnalyticsCallbackParams = new CGameAnalyticsManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitGameAnalyticsManager
+				m_oCallback = CLateSetupSceneManager.OnInitGameAnalyticsManager
 			};
 
 			CGameAnalyticsManager.Inst.Init(stGameAnalyticsCallbackParams);
@@ -244,7 +246,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			};
 
 			var stSingularCallbackParams = new CSingularManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitSingularManager
+				m_oCallback = CLateSetupSceneManager.OnInitSingularManager
 			};
 			
 			CSingularManager.Inst.Init(stSingularParams, stSingularCallbackParams);
@@ -252,7 +254,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if GAME_CENTER_MODULE_ENABLE
 			var stGameCenterCallbackParams = new CGameCenterManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitGameCenterManager
+				m_oCallback = CLateSetupSceneManager.OnInitGameCenterManager
 			};
 
 			CGameCenterManager.Inst.Init(stGameCenterCallbackParams);
@@ -264,7 +266,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			};
 
 			var stPurchaseCallbackParams = new CPurchaseManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitPurchaseManager
+				m_oCallback = CLateSetupSceneManager.OnInitPurchaseManager
 			};
 			
 			CPurchaseManager.Inst.Init(stPurchaseParams, stPurchaseCallbackParams);
@@ -281,7 +283,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			};
 
 			var stNotiCallbackParams = new CNotiManager.STCallbackParams() {
-				m_oInitCallback = CLateSetupSceneManager.OnInitNotiManager
+				m_oCallback = CLateSetupSceneManager.OnInitNotiManager
 			};
 
 			CNotiManager.Inst.Init(stNotiParams, stNotiCallbackParams);

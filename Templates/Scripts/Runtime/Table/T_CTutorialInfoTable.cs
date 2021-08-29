@@ -16,14 +16,14 @@ public struct STTutorialInfo {
 	#region 함수
 	//! 생성자
 	public STTutorialInfo(SimpleJSON.JSONNode a_oTutorialInfo) {
-		m_eRewardKinds = (ERewardKinds)a_oTutorialInfo[KDefine.G_KEY_TUTORIAL_IT_REWARD_KINDS].AsInt;
-		m_eTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KDefine.G_KEY_TUTORIAL_IT_TUTORIAL_KINDS].AsInt;
-		m_eNextTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KDefine.G_KEY_TUTORIAL_IT_NEXT_TUTORIAL_KINDS].AsInt;
+		m_eRewardKinds = (ERewardKinds)a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
+		m_eTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt;
+		m_eNextTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].AsInt;
 
 		m_oStrList = new List<string>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TUTORIAL_STRS; ++i) {
-			string oStrKey = string.Format(KDefine.G_KEY_FMT_TUTORIAL_IT_STRS, i + KCDefine.B_VAL_1_INT);
+			string oStrKey = string.Format(KCDefine.U_KEY_FMT_STRS, i + KCDefine.B_VAL_1_INT);
 			m_oStrList.Add(a_oTutorialInfo[oStrKey]);
 		}
 	}
@@ -103,8 +103,8 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
 		var oTutorialInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KDefine.G_KEY_TUTORIAL_IT_PLAY],
-			oJSONNode[KDefine.G_KEY_TUTORIAL_IT_HELP]
+			oJSONNode[KCDefine.U_KEY_PLAY],
+			oJSONNode[KCDefine.U_KEY_HELP]
 		};
 
 		for(int i = 0; i < oTutorialInfosList.Count; ++i) {
