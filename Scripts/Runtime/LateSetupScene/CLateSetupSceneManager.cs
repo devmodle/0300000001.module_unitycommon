@@ -369,10 +369,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			CFirebaseManager.Inst.SetAnalyticsDatas(new Dictionary<string, string>() {
-				[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
-			});
-
 			CFirebaseManager.Inst.SetCrashDatas(new Dictionary<string, string>() {
 				[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 			});
