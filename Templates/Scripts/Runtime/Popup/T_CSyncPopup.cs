@@ -29,11 +29,11 @@ public class CSyncPopup : CSubPopup {
 		var oLogoutBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGOUT_BTN);
 		oLogoutBtn?.onClick.AddListener(this.OnTouchLogoutBtn);
 
-		var oSaveBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SAVE_BTN);
-		oSaveBtn?.onClick.AddListener(this.OnTouchSaveBtn);
-
 		var oLoadBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOAD_BTN);
 		oLoadBtn?.onClick.AddListener(this.OnTouchLoadBtn);
+
+		var oSaveBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SAVE_BTN);
+		oSaveBtn?.onClick.AddListener(this.OnTouchSaveBtn);
 		// 버튼을 설정한다 }
 	}
 
@@ -72,25 +72,27 @@ public class CSyncPopup : CSubPopup {
 #endif			// #if FIREBASE_MODULE_ENABLE
 	}
 
-	//! 저장 버튼을 눌렀을 경우
-	private void OnTouchSaveBtn() {
-		Func.ShowSavePopup((a_oSender, a_bIsOK) => {
-#if FIREBASE_MODULE_ENABLE
-		// 확인 버튼을 눌렀을 경우
-		if(a_bIsOK) {
-			Func.SaveUserInfo(this.OnSaveUserInfo);
-		}
-#endif			// #if FIREBASE_MODULE_ENABLE
-		});
-	}
-
 	//! 로드 버튼을 눌렀을 경우
 	private void OnTouchLoadBtn() {
 		Func.ShowLoadPopup((a_oSender, a_bIsOK) => {
 #if FIREBASE_MODULE_ENABLE
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
+				a_oSender.IsIgnoreAni = true;
 				Func.LoadUserInfo(this.OnLoadUserInfo);
+			}
+#endif			// #if FIREBASE_MODULE_ENABLE
+		});
+	}
+
+	//! 저장 버튼을 눌렀을 경우
+	private void OnTouchSaveBtn() {
+		Func.ShowSavePopup((a_oSender, a_bIsOK) => {
+#if FIREBASE_MODULE_ENABLE
+			// 확인 버튼을 눌렀을 경우
+			if(a_bIsOK) {
+				a_oSender.IsIgnoreAni = true;
+				Func.SaveUserInfo(this.OnSaveUserInfo);
 			}
 #endif			// #if FIREBASE_MODULE_ENABLE
 		});
@@ -156,10 +158,9 @@ public class CSyncPopup : CSubPopup {
 		}
 
 		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
-		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
 
-		var oAlertPopup = CSceneManager.ScreenPopupUIs.ExFindComponent<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP);
-		oAlertPopup.IsIgnoreNavStackEvent = m_bIsLoadUserInfo;
+		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
+		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { a_oPopupSender.IsIgnoreNavStackEvent = m_bIsLoadUserInfo; return true; });
 	}
 
 	//! 로드 성공 팝업 결과를 수신했을 경우

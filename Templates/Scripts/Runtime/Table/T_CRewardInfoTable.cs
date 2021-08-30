@@ -70,7 +70,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		oRewardInfoList.AddRange(m_oClearRewardInfoList);
 
 		for(int i = 0; i < oRewardInfoList.Count; ++i) {
-			this.RewardInfoDict.Add(oRewardInfoList[i].m_eRewardKinds, oRewardInfoList[i]);
+			this.RewardInfoDict.ExAddVal(oRewardInfoList[i].m_eRewardKinds, oRewardInfoList[i]);
 		}
 	}
 

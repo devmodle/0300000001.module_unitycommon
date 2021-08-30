@@ -27,19 +27,19 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
-	//! 설명 팝업을 출력한다
-	protected override void ShowDescPopup() {
-		// 설명 팝업 출력이 가능 할 경우
-		if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowDescPopup) {
-			Func.ShowDescPopup(this.SubPopupUIs, (a_oSender) => {
-				var stCallbackParams = new CDescPopup.STCallbackParams() {
-					m_oCallback = this.OnReceiveDescPopupResult
+	//! 추적 설명 팝업을 출력한다
+	protected override void ShowTrackingDescPopup() {
+		// 추적 설명 팝업 출력이 가능 할 경우
+		if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup) {
+			Func.ShowTrackingDescPopup(this.SubPopupUIs, (a_oSender) => {
+				var stCallbackParams = new CTrackingDescPopup.STCallbackParams() {
+					m_oCallback = this.OnReceiveTrackingDescPopupResult
 				};
 
-				(a_oSender as CDescPopup).Init(stCallbackParams);
+				(a_oSender as CTrackingDescPopup).Init(stCallbackParams);
 			});
 		} else {
-			this.OnReceiveDescPopupResult(null);
+			this.OnReceiveTrackingDescPopupResult(null);
 		}
 	}
 
@@ -71,8 +71,8 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		CCommonUserInfoStorage.Inst.SaveUserInfo();
 	}
 
-	//! 설명 팝업 결과를 수신했을 경우
-	private void OnReceiveDescPopupResult(CDescPopup a_oSender) {
+	//! 추적 설명 팝업 결과를 수신했을 경우
+	private void OnReceiveTrackingDescPopupResult(CTrackingDescPopup a_oSender) {
 		a_oSender?.Close();
 		this.ExLateCallFunc((a_oSender, a_oParams) => this.ShowConsentView(), KCDefine.U_DELAY_INIT);
 	}

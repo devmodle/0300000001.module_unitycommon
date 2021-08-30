@@ -92,9 +92,20 @@ public class CGameInfo : CBaseInfo {
 		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_NUM_ACQUIRE_FREE_REWARDS, value); }
 	}
 
-	[IgnoreMember] public System.DateTime PrevDailyMissionTime => this.PrevDailyMissionTimeStr.ExIsValid() ? this.CorrectPrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SPLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
-	[IgnoreMember] public System.DateTime PrevFreeRewardTime => this.PrevFreeRewardTimeStr.ExIsValid() ? this.CorrectPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SPLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
-	[IgnoreMember] public System.DateTime PrevDailyRewardTime => this.PrevDailyRewardTimeStr.ExIsValid() ? this.CorrectPrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SPLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
+	[IgnoreMember] public System.DateTime PrevDailyMissionTime {
+		get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.CorrectPrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); }
+	}
+
+	[IgnoreMember] public System.DateTime PrevFreeRewardTime { 
+		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.CorrectPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
+	}
+
+	[IgnoreMember] public System.DateTime PrevDailyRewardTime {
+		get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.CorrectPrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); }
+	}
 
 	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.ExGetVal(CGameInfo.KEY_PREV_DAILY_MISSION_TIME, string.Empty);
 	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.ExGetVal(CGameInfo.KEY_PREV_FREE_REWARD_TIME, string.Empty);
@@ -109,10 +120,6 @@ public class CGameInfo : CBaseInfo {
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
-
-		this.SetPrevDailyMissionTime(this.PrevDailyMissionTime);
-		this.SetPrevFreeRewardTime(this.PrevFreeRewardTime);
-		this.SetPrevDailyRewardTime(this.PrevDailyRewardTime);
 	}
 
 	//! 역직렬화 되었을 경우
@@ -134,23 +141,6 @@ public class CGameInfo : CBaseInfo {
 		m_oClearInfoDict = m_oClearInfoDict ?? new Dictionary<long, CClearInfo>();
 	}
 	#endregion			// 인터페이스
-
-	#region 함수
-	//! 이전 일일 미션 시간을 변경한다
-	public void SetPrevDailyMissionTime(System.DateTime a_stRewardTime) {
-		m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_DAILY_MISSION_TIME, a_stRewardTime.ExToLongStr());
-	}
-
-	//! 이전 무료 보상 시간을 변경한다
-	public void SetPrevFreeRewardTime(System.DateTime a_stRewardTime) {
-		m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_FREE_REWARD_TIME, a_stRewardTime.ExToLongStr());
-	}
-
-	//! 이전 일일 보상 시간을 변경한다
-	public void SetPrevDailyRewardTime(System.DateTime a_stRewardTime) {
-		m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_DAILY_REWARD_TIME, a_stRewardTime.ExToLongStr());
-	}
-	#endregion			// 함수
 }
 
 //! 게임 정보 저장소
@@ -159,9 +149,14 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
 	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
 
-	public CGameInfo GameInfo { get; private set; } = new CGameInfo();
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
 	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
+
+	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
+		PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
+		PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
+		PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)
+	};
 
 	public int TotalNumStars {
 		get {
@@ -203,7 +198,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public void SetupNextDailyRewardID(bool a_bIsResetDailyRewardTime = true) {
 		// 일일 보상 시간 리셋 모드 일 경우
 		if(a_bIsResetDailyRewardTime) {
-			this.GameInfo.SetPrevDailyRewardTime(System.DateTime.Today);
+			this.GameInfo.PrevDailyRewardTime = System.DateTime.Today;
 		}
 
 		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % KDefine.G_REWARDS_KINDS_DAILY_REWARDS.Length;

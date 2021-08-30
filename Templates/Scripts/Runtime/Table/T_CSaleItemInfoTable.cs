@@ -65,7 +65,7 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 		base.Awake();
 
 		for(int i = 0; i < m_oSaleItemInfoList.Count; ++i) {
-			this.SaleItemInfoDict.Add(m_oSaleItemInfoList[i].m_eSaleItemKinds, m_oSaleItemInfoList[i]);
+			this.SaleItemInfoDict.ExAddVal(m_oSaleItemInfoList[i].m_eSaleItemKinds, m_oSaleItemInfoList[i]);
 		}
 	}
 

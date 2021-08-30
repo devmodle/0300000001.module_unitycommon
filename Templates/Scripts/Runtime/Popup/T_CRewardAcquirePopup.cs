@@ -26,15 +26,13 @@ public class CRewardAcquirePopup : CSubPopup {
 	[SerializeField] private GameObject m_oRewardUIs = null;
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
 	#endregion			// 변수
-
-	#region 프로퍼티
-	public override bool IsIgnoreAni => true;
-	#endregion			// 프로퍼티
-
+	
 	#region 함수
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
+
+		this.IsIgnoreAni = true;
 		this.IsIgnoreNavStackEvent = true;
 
 		// 버튼을 설정한다 {
@@ -75,7 +73,7 @@ public class CRewardAcquirePopup : CSubPopup {
 	//! 보상 아이템 UI 상태를 갱신한다
 	private void UpdateItemUIsState(GameObject a_oItemUIs, STItemInfo a_stItemInfo) {
 		var oNumText = a_oItemUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_NUM_TEXT);
-		oNumText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_NUM, a_stItemInfo.m_nNumItems));
+		oNumText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stItemInfo.m_nNumItems));
 	}
 
 	//! 광고 버튼을 눌렀을 경우

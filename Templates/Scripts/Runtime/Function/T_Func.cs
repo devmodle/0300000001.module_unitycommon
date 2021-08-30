@@ -77,7 +77,7 @@ public static partial class Func {
 	//! 경고 팝업을 출력한다
 	public static void ShowAlertPopup(string a_oMsg, System.Action<CAlertPopup, bool> a_oCallback, bool a_bIsEnableCancelBtn = true) {
 		var stParams = new CAlertPopup.STParams() {
-			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_NOTICE_TEXT),
+			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_NOTI_TEXT),
 			m_oMsg = a_oMsg,
 			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_OK_TEXT),
 			m_oCancelBtnText = a_bIsEnableCancelBtn ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_CANCEL_TEXT) : string.Empty
@@ -120,14 +120,14 @@ public static partial class Func {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG), a_oCallback);
 	}
 
-	//! 저장 팝업을 출력한다
-	public static void ShowSavePopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_SAVE_P_MSG), a_oCallback);
-	}
-
 	//! 로드 팝업을 출력한다
 	public static void ShowLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LOAD_P_MSG), a_oCallback);
+	}
+
+	//! 저장 팝업을 출력한다
+	public static void ShowSavePopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_SAVE_P_MSG), a_oCallback);
 	}
 
 	//! 로그인 성공 팝업을 출력한다
@@ -150,16 +150,6 @@ public static partial class Func {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_LOGOUT_SUCCESS_MSG), a_oCallback, false);
 	}
 
-	//! 저장 성공 팝업을 출력한다
-	public static void ShowSaveSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_SAVE_SUCCESS_MSG), a_oCallback, false);
-	}
-
-	//! 저장 실패 팝업을 출력한다
-	public static void ShowSaveFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_SAVE_FAIL_MSG), a_oCallback, false);
-	}
-
 	//! 로드 성공 팝업을 출력한다
 	public static void ShowLoadSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_LOAD_SUCCESS_MSG), a_oCallback, false);
@@ -168,6 +158,16 @@ public static partial class Func {
 	//! 로드 실패 팝업을 출력한다
 	public static void ShowLoadFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_LOAD_FAIL_MSG), a_oCallback, false);
+	}
+
+	//! 저장 성공 팝업을 출력한다
+	public static void ShowSaveSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_SAVE_SUCCESS_MSG), a_oCallback, false);
+	}
+
+	//! 저장 실패 팝업을 출력한다
+	public static void ShowSaveFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_SAVE_FAIL_MSG), a_oCallback, false);
 	}
 
 	//! 결제 성공 팝업을 출력한다

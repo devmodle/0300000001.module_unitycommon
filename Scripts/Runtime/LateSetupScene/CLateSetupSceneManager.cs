@@ -27,8 +27,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#endregion			// 클래스 프로퍼티
 
 	#region 추상 함수
-	//! 설명 팝업을 출력한다
-	protected abstract void ShowDescPopup();
+	//! 추적 설명 팝업을 출력한다
+	protected abstract void ShowTrackingDescPopup();
 	#endregion			// 추상 함수
 
 	#region 함수
@@ -73,7 +73,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		
 		// 동의 뷰 출력이 가능 할 경우
 		if(CAccess.IsEnableShowConsentView) {
-			this.ShowDescPopup();
+			this.ShowTrackingDescPopup();
 		} else {
 			this.OnCloseConsentView(true);
 		}
@@ -99,7 +99,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		CFunc.ShowLog($"CLateSetupSceneManager.OnCloseConsentView: {a_bIsSuccess}");
 
 		CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = a_bIsSuccess;
-		CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowDescPopup = false;
+		CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup = false;
 
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
 
@@ -220,8 +220,13 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if APPS_FLYER_MODULE_ENABLE
 			var stAppsFlyerParams = new CAppsFlyerManager.STParams() {
-				m_oAppID = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oAppID,
-				m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey
+				m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey,
+
+#if UNITY_IOS
+				m_oAppID = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oAppID
+#else
+				m_oAppID = string.Empty
+#endif			// #if UNITY_IOS
 			};
 
 			var stAppsFlyerCallbackParams = new CAppsFlyerManager.STCallbackParams() {

@@ -52,7 +52,7 @@ public class CFreeRewardPopup : CSubPopup {
 
 		// 무료 보상을 모두 획득했을 경우
 		if(CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards >= KDefine.G_MAX_NUM_ACQUIRE_FREE_REWARDS) {
-			CGameInfoStorage.Inst.GameInfo.SetPrevFreeRewardTime(System.DateTime.Today);
+			CGameInfoStorage.Inst.GameInfo.PrevFreeRewardTime = System.DateTime.Today;
 		}
 
 		CGameInfoStorage.Inst.SaveGameInfo();

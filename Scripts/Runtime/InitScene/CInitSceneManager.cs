@@ -46,13 +46,9 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CCommonUserInfoStorage.Inst.LoadUserInfo();
 		CCommonGameInfoStorage.Inst.LoadGameInfo();
 		
-		// 열거형 문자열을 로드한다 {
+		// 열거형 문자열을 로드한다
 		CStrTable.Inst.LoadEnumStrs<EUserType>();
 		CStrTable.Inst.LoadEnumStrs<EDeviceType>();
-
-		CStrTable.Inst.LoadEnumStrs<EStandaloneType>();
-		CStrTable.Inst.LoadEnumStrs<EAndroidType>();
-		// 열거형 문자열을 로드한다 }
 		
 		// 사운드 관리자를 설정한다 {
 		CSndManager.Inst.BGSndVolume = CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume;

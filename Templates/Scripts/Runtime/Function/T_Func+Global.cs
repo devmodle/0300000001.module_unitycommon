@@ -53,9 +53,9 @@ public static partial class Func {
 		CUserInfoStorage.Inst.SaveUserInfo();
 	}
 
-	//! 설명 팝업을 출력한다
-	public static void ShowDescPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CDescPopup>(KCDefine.LSS_OBJ_N_DESC_POPUP, KCDefine.LSS_OBJ_P_DESC_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	//! 추적 설명 팝업을 출력한다
+	public static void ShowTrackingDescPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CTrackingDescPopup>(KCDefine.LSS_OBJ_N_TRACKING_DESC_POPUP, KCDefine.LSS_OBJ_P_TRACKING_DESC_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	//! 상점 팝업을 출력한다

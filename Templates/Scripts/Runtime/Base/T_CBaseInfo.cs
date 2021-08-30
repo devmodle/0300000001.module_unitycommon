@@ -26,8 +26,12 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#endregion			// 변수
 
 	#region 프로퍼티
+	[IgnoreMember] public System.DateTime SaveTime {
+		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
+		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_SAVE_TIME, value.ExToLongStr()); }
+	}
+
 	[IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
-	[IgnoreMember] public System.DateTime SaveTime => this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SPLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now;
 
 	[IgnoreMember] private string SaveTimeStr => m_oStrDict.ExGetVal(CBaseInfo.KEY_SAVE_TIME, string.Empty);
 	[IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
@@ -38,7 +42,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	public virtual void OnBeforeSerialize() {
 		// 저장 시간 무시 모드가 아닐 경우
 		if(!this.IsIgnoreSaveTime) {
-			m_oStrDict.ExReplaceVal(CBaseInfo.KEY_SAVE_TIME, System.DateTime.Now.ExToLongStr());
+			this.SaveTime = System.DateTime.Now;
 		}
 	}
 
