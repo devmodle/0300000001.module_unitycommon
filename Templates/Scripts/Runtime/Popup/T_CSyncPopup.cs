@@ -169,7 +169,7 @@ public class CSyncPopup : CSubPopup {
 		if(a_bIsOK && m_bIsLoadUserInfo) {
 			this.ExLateCallFunc((a_oSender, a_oParams) => { 
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
-
+				
 				CScheduleManager.Inst.Reset();
 				CNavStackManager.Inst.Reset();
 			});
