@@ -85,8 +85,9 @@ public static partial class KEditorDefine {
 
 #if ADS_MODULE_ENABLE
 		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_O_BANNER_ADS_CORRECTOR,
-		[typeof(CRewardAdsTouchInteractable)] = KCDefine.U_SCRIPT_O_REWARD_ADS_TOUCH_INTERACTABLE,
+		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_O_ADS_CORRECTOR,
+		[typeof(CBannerAdsSizeCorrector)] = KCDefine.U_SCRIPT_O_ADS_CORRECTOR,
+		[typeof(CRewardAdsTouchInteractable)] = KCDefine.U_SCRIPT_O_ADS_INTERACTABLE,
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
