@@ -166,14 +166,23 @@ public static partial class KDefine {
 	public static readonly string G_ASSET_P_SPRITE_ATLAS_09 = $"{KCDefine.B_DIR_P_SPRITE_ATLASES}{KCDefine.B_DIR_P_GLOBAL}G_SpriteAtlas_09";
 	// 경로 }
 
-	// 분석 타입
-	public static readonly EAnalyticsType[] G_ANALYTICS_TYPE_ENABLES = new EAnalyticsType[] {
+	// 분석 {
+	public static readonly EAnalyticsType[] G_ANALYTICS_TYPE_LOG_ENABLES = new EAnalyticsType[] {
 		EAnalyticsType.FLURRY,
 		EAnalyticsType.FIREBASE,
 		EAnalyticsType.APPS_FLYER,
 		EAnalyticsType.GAME_ANALYTICS,
 		EAnalyticsType.SINGULAR
 	};
+
+	public static readonly EAnalyticsType[] G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLES = new EAnalyticsType[] {
+		EAnalyticsType.FLURRY,
+		EAnalyticsType.FIREBASE,
+		EAnalyticsType.APPS_FLYER,
+		EAnalyticsType.GAME_ANALYTICS,
+		EAnalyticsType.SINGULAR
+	};
+	// 분석 }
 
 	// 판매 상품 정보 테이블
 	public static readonly ESaleProductKinds[] G_KINDS_SALE_PIT_SALE_PRODUCTS = new ESaleProductKinds[] {
