@@ -11,6 +11,7 @@ namespace SampleEngineName {
 		NONE = -1,
 		BG,
 		NORM,
+		OVERLAY,
 		MAX_VAL
 	}
 
@@ -19,24 +20,22 @@ namespace SampleEngineName {
 		NONE = -1,
 
 		#region 배경
-		// 배경 블럭 0
-		[HideInInspector] BG_BLOCK,
-
 		// 빈 블럭 0
-		BG_EMPTY = EBlockKinds.BG_BLOCK,
+		BG_EMPTY,
 		#endregion			// 배경
 
 		#region 일반
-		// 일반 블럭 10,000,000
-		[HideInInspector] NORM_BLOCK = EBlockKinds.BG_BLOCK + KCDefine.B_UNIT_KINDS_PER_TYPE,
+		// 샘플 10,000,000
+		NORM_SAMPLE = EBlockKinds.BG_EMPTY + KCDefine.B_UNIT_KINDS_PER_TYPE,
 		#endregion			// 일반
+
+		#region 중첩
+		// 샘플 20,000,000
+		OVERLAY_SAMPLE = EBlockKinds.NORM_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
+		#endregion			// 중첩
 
 		MAX_VAL
 	}
 	#endregion			// 기본
-
-	#region 추가 상수
-
-	#endregion			// 추가 상수
 }
 #endif			// #if NEVER_USE_THIS

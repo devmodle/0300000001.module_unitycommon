@@ -26,14 +26,14 @@ namespace SampleEngineName {
 		// 정렬 순서
 		public static readonly Dictionary<EBlockKinds, STSortingOrderInfo> E_SORTING_OI_BLOCKS = new Dictionary<EBlockKinds, STSortingOrderInfo>() {
 			[EBlockKinds.BG_EMPTY] = new STSortingOrderInfo() {
-				m_nOrder = 1,
+				m_nOrder = 0,
 				m_oLayer = KCDefine.U_SORTING_L_BACKGROUND	
 			}
 		};
 
 		// 경로
 		public static readonly Dictionary<EBlockKinds, string> E_IMG_P_BLOCKS = new Dictionary<EBlockKinds, string>() {
-			[EBlockKinds.BG_EMPTY] = KCDefine.U_IMG_N_UNKNOWN_SPRITE
+			[EBlockKinds.BG_EMPTY] = KCDefine.U_IMG_P_G_WHITE
 		};
 		#endregion			// 런타임 상수
 
