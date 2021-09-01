@@ -157,13 +157,18 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
-	
+
 	//! 최초 플레이 상태를 갱신한다
 	private void UpdateFirstPlayState() {
 		// 약관 동의 팝업이 닫혔을 경우
 		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
 			LogFunc.SendAgreeLog();
 		}
+	}
+
+	//! 서비스 관리자가 초기화 되었을 경우
+	private void OnInitServicesManager(object a_oParams) {
+		// Do Something
 	}
 
 	//! 종료 팝업 결과를 수신했을 경우
@@ -195,6 +200,76 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		// Do Something
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+
+#if ADS_MODULE_ENABLE
+	//! 광고 관리자가 초기화 되었을 경우
+	private void OnInitAdsManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if ADS_MODULE_ENABLE
+
+#if FLURRY_MODULE_ENABLE
+	//! 플러리 관리자가 초기화 되었을 경우
+	private void OnInitFlurryManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if FLURRY_MODULE_ENABLE
+
+#if FACEBOOK_MODULE_ENABLE
+	//! 페이스 북 관리자가 초기화 되었을 경우
+	private void OnInitFacebookManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if FACEBOOK_MODULE_ENABLE
+
+#if FIREBASE_MODULE_ENABLE
+	//! 파이어 베이스 관리자가 초기화 되었을 경우
+	private void OnInitFirebaseManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if FIREBASE_MODULE_ENABLE
+
+#if APPS_FLYER_MODULE_ENABLE
+	//! 앱스 플라이어 관리자가 초기화 되었을 경우
+	private void OnInitAppsFlyerManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if APPS_FLYER_MODULE_ENABLE
+
+#if GAME_ANALYTICS_MODULE_ENABLE
+	//! 게임 분석 관리자가 초기화 되었을 경우
+	private void OnInitGameAnalyticsManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if GAME_ANALYTICS_MODULE_ENABLE
+
+#if SINGULAR_MODULE_ENABLE
+	//! 싱귤러 관리자가 초기화 되었을 경우
+	private void OnInitSingularManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if SINGULAR_MODULE_ENABLE
+
+#if GAME_CENTER_MODULE_ENABLE
+	//! 게임 센터 관리자가 초기화 되었을 경우
+	private void OnInitGameCenterManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if GAME_CENTER_MODULE_ENABLE
+
+#if PURCHASE_MODULE_ENABLE
+	//! 결제 관리자가 초기화 되었을 경우
+	private void OnInitPurchaseManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if PURCHASE_MODULE_ENABLE
+
+#if NOTI_MODULE_ENABLE
+	//! 알림 관리자가 초기화 되었을 경우
+	private void OnInitNotiManager(object a_oParams) {
+		// Do Something
+	}
+#endif			// #if NOTI_MODULE_ENABLE
 	#endregion			// 조건부 함수
 
 	#region 추가 변수
