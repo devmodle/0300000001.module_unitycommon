@@ -35,7 +35,7 @@ namespace SampleEngineName {
 		private STCallbackParams m_stCallbackParams;
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
-		// 객체
+		// =====> 객체 <=====
 		private Dictionary<EBlockKinds, GameObject>[,] m_oBlockDicts = null;
 		#endregion			// 변수
 		
@@ -130,18 +130,6 @@ namespace SampleEngineName {
 		}
 #endif			// #if UNITY_EDITOR
 		#endregion			// 조건부 함수
-
-		#region 추가 변수
-
-		#endregion			// 추가 변수
-
-		#region 추가 프로퍼티
-
-		#endregion			// 추가 프로퍼티
-
-		#region 추가 함수
-
-		#endregion			// 추가 함수
 	}
 }
 #endif			// #if NEVER_USE_THIS

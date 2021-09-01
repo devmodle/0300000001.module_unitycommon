@@ -122,17 +122,5 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		return this.MissionInfoDict;
 	}
 	#endregion			// 함수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

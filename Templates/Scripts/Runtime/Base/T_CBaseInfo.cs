@@ -36,7 +36,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	[IgnoreMember] private string SaveTimeStr => m_oStrDict.ExGetVal(CBaseInfo.KEY_SAVE_TIME, string.Empty);
 	[IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
-
+	
 	#region 인터페이스
 	//! 직렬화 될 경우
 	public virtual void OnBeforeSerialize() {
@@ -53,17 +53,5 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 	}
 	#endregion			// 인터페이스
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

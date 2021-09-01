@@ -10,7 +10,7 @@ using UnityEngine.iOS;
 //! 초기화 씬 관리자
 public abstract partial class CInitSceneManager : CSceneManager {
 	#region 클래스 변수
-	// 객체
+	// =====> 객체 <=====
 	private static GameObject m_oBlindUIs = null;
 	#endregion			// 클래스 변수
 

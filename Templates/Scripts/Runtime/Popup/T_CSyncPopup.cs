@@ -9,11 +9,11 @@ public class CSyncPopup : CSubPopup {
 	#region 변수
 	private bool m_bIsLoadUserInfo = false;
 
-	// 객체
+	// =====> 객체 <=====
 	private GameObject m_oLoginUIs = null;
 	private GameObject m_oLogoutUIs = null;
 	#endregion			// 변수
-	
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {
@@ -177,17 +177,5 @@ public class CSyncPopup : CSubPopup {
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 	#endregion			// 조건부 함수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //! 설정 팝업
 public class CSettingsPopup : CSubPopup {
 	#region 변수
-	// UI
+	// =====> UI <=====
 	private Button m_oBGSndBtn = null;
 	private Button m_oFXSndsBtn = null;
 	private Button m_oNotiBtn = null;
@@ -100,17 +100,5 @@ public class CSettingsPopup : CSubPopup {
 		CUnityMsgSender.Inst.SendMailMsg(CProjInfoTable.Inst.ProjInfo.m_oSupportsMail, string.Empty, string.Empty);
 	}
 	#endregion			// 함수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

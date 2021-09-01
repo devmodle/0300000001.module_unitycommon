@@ -18,15 +18,15 @@ public class CRewardAcquirePopup : CSubPopup {
 	private STParams m_stParams;
 	private bool m_bIsWatchRewardAds = false;
 
-	// UI
+	// =====> UI <=====
 	private Button m_oAdsBtn = null;
 	private Button m_oAcquireBtn = null;
 
-	// 객체
+	// =====> 객체 <=====
 	[SerializeField] private GameObject m_oRewardUIs = null;
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
 	#endregion			// 변수
-	
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {
@@ -117,17 +117,5 @@ public class CRewardAcquirePopup : CSubPopup {
 	}
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 조건부 함수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

@@ -10,7 +10,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	#endregion			// 변수
 
 	#region 클래스 변수
-	// 객체 {
+	// =====> 객체 <=====
 	private static GameObject m_oPopupUIs = null;
 	private static GameObject m_oTopmostUIs = null;
 	private static GameObject m_oAbsUIs = null;
@@ -24,7 +24,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	private static GameObject m_oFPSCounter = null;
 #endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-	// 객체 }
 	#endregion			// 클래스 변수
 
 	#region 프로퍼티

@@ -23,7 +23,7 @@ public class CContinuePopup : CSubPopup {
 	private STParams m_stParams;
 	private STCallbackParams m_stCallbackParams;
 
-	// UI
+	// =====> UI <=====
 	private Text m_oNumText = null;
 	private Text m_oPriceText = null;
 	#endregion			// 변수
@@ -111,17 +111,5 @@ public class CContinuePopup : CSubPopup {
 		m_stCallbackParams.m_oLeaveCallback?.Invoke(this);
 	}
 	#endregion			// 함수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

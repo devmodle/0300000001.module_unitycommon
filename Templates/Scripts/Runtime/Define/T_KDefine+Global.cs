@@ -200,9 +200,5 @@ public static partial class KDefine {
 		// Do Something
 	};
 	#endregion			// 런타임 상수
-
-	#region 추가 상수
-
-	#endregion			// 추가 상수
 }
 #endif			// #if NEVER_USE_THIS

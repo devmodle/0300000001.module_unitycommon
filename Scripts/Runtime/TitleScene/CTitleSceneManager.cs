@@ -33,7 +33,7 @@ public class CTitleSceneManager : CSceneManager {
 
 		// 앱이 실행 중 일 경우
 		if(CSceneManager.IsAppRunning) {
-#if EDITOR_ENABLE && UNITY_STANDALONE
+#if UNITY_STANDALONE && EDITOR_ENABLE
 #if INPUT_SYSTEM_MODULE_ENABLE
 			bool bIsEditorKeyDown = Keyboard.current.leftShiftKey.isPressed && Keyboard.current.eKey.wasPressedThisFrame;
 #else
@@ -44,7 +44,7 @@ public class CTitleSceneManager : CSceneManager {
 			if(bIsEditorKeyDown) {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 			}
-#endif			// #if EDITOR_ENABLE && UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && EDITOR_ENABLE
 		}
 	}
 	#endregion			// 함수

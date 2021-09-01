@@ -110,7 +110,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		int nSkipTimes = this.AdsSkipTimes + a_nTimes;
 		this.AdsSkipTimes = Mathf.Max(nSkipTimes, KCDefine.B_VAL_0_INT);
 	}
-	
+
 	//! 보상 광고 시청 횟수를 추가한다
 	public void AddRewardAdsWatchTimes(int a_nTimes) {
 		int nWatchTimes = this.AppInfo.RewardAdsWatchTimes + a_nTimes;
@@ -124,17 +124,5 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	}
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 조건부 함수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

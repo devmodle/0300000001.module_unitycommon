@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //! 서브 타이틀 씬 관리자
 public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#region 변수
-	// UI
+	// =====> UI <=====
 	private Text m_oVerText = null;
 	#endregion			// 변수
 	
@@ -271,19 +271,5 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	}
 #endif			// #if NOTI_MODULE_ENABLE
 	#endregion			// 조건부 함수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
-	#region 추가 함수
-#if DEBUG || DEVELOPMENT_BUILD
-
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS
