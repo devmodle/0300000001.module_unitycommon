@@ -88,7 +88,7 @@ public static partial class LogFunc {
 #if FIREBASE_MODULE_ENABLE
 			// 파이어 베이스 분석이 가능 할 경우
 			if(KDefine.G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLES.ExIsContains(EAnalyticsType.FIREBASE)) {
-				CFirebaseManager.Inst.SendPurchaseLog(a_oProduct);
+				CFirebaseManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 			}
 #endif			// #if FIREBASE_MODULE_ENABLE
 
