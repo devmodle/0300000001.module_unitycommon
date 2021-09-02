@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: T_SpriteAtlas_01
+  m_Name: G_SpriteAtlas_01
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -20,7 +20,19 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 4
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -28,11 +40,12 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 0
       enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 76b0b649a1d6e428480d599a50d8267c, type: 3}
     - {fileID: 2800000, guid: e410ec24f31854fb5b31e65d80287221, type: 3}
-    totalSpriteSurfaceArea: 37670
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -43,5 +56,6 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - G_UnityWhite
   - G_Splash
-  m_Tag: T_SpriteAtlas_01
+  m_RenderDataMap: {}
+  m_Tag: G_SpriteAtlas_01
   m_IsVariant: 0
