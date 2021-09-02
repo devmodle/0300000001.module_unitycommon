@@ -20,7 +20,7 @@ public class CSampleSceneManager : CSceneManager {
 	public static void SetupSceneManager(Scene a_stScene, Dictionary<string, System.Type> a_oSceneManagerTypeDict) {
 		foreach(var stKeyVal in a_oSceneManagerTypeDict) {
 			// 씬 관리자 타입과 동일 할 경우
-			if(a_stScene.name.ExIsEquals(stKeyVal.Key)) {
+			if(a_stScene.name.Equals(stKeyVal.Key)) {
 				var oSceneManager = a_stScene.ExFindChild(KCDefine.U_OBJ_N_SCENE_MANAGER);
 
 				// 씬 관리자 추가가 필요 할 경우

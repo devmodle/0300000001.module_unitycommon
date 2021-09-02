@@ -40,7 +40,7 @@ public class CIntroSceneManager : CSceneManager {
 
 	//! 다음 씬을 로드한다
 	protected void LoadNextScene() {
-		int nIdx = m_oSceneNameList.ExFindVal((a_oSceneName) => CSceneManager.AwakeSceneName.ExIsEquals(a_oSceneName));
+		int nIdx = m_oSceneNameList.ExFindVal((a_oSceneName) => CSceneManager.AwakeSceneName.Equals(a_oSceneName));
 
 		this.ExLateCallFunc((a_oSender, a_oParams) => {
 			CSceneManager.IsAwake = false;

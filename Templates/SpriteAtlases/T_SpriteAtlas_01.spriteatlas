@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: G_SpriteAtlas_01
+  m_Name: T_SpriteAtlas_01
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -57,5 +57,5 @@ SpriteAtlas:
   - G_UnityWhite
   - G_Splash
   m_RenderDataMap: {}
-  m_Tag: G_SpriteAtlas_01
+  m_Tag: T_SpriteAtlas_01
   m_IsVariant: 0

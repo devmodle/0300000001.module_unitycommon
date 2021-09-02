@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using IngameDebugConsole;
 
 #if UNITY_EDITOR
@@ -38,7 +37,7 @@ public static partial class CCommonEditorSceneManager {
 
 		for(int i = 0; i < oLights.Length; ++i) {
 			// 메인 광원 일 경우
-			if(oLights[i].name.ExIsEquals(KCDefine.U_OBJ_N_SCENE_MAIN_LIGHT)) {
+			if(oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_LIGHT)) {
 				oLights[i].type = LightType.Directional;
 				oLights[i].lightmapBakeType = KCDefine.U_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
 
@@ -57,9 +56,9 @@ public static partial class CCommonEditorSceneManager {
 			
 			for(int j = 0; j < oCameras.Length; ++j) {
 				// 에디터 카메라가 아닐 경우
-				if(!oCameras[j].name.ExIsEquals(KCEditorDefine.B_OBJ_N_SCENE_EDITOR_CAMERA)) {
-					bool bIsUIsCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_N_SCENE_UIS_CAMERA);
-					bool bIsMainCamera = oCameras[j].name.ExIsEquals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA);
+				if(!oCameras[j].name.Equals(KCEditorDefine.B_OBJ_N_SCENE_EDITOR_CAMERA)) {
+					bool bIsUIsCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_CAMERA);
+					bool bIsMainCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA);
 
 					// UI 카메라 태그 설정이 가능 할 경우
 					if(bIsUIsCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_UIS_CAMERA)) {
@@ -78,7 +77,7 @@ public static partial class CCommonEditorSceneManager {
 #endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 
 					// 현재 씬 관리자 일 경우
-					if(oSceneManagers[i].SceneName.ExIsEquals(oSceneManagers[i].gameObject.scene.name)) {
+					if(oSceneManagers[i].SceneName.Equals(oSceneManagers[i].gameObject.scene.name)) {
 #if CAMERA_STACK_ENABLE
 						oCameras[j].gameObject.SetActive(bIsUIsCamera || bIsMainCamera);
 #else
@@ -198,10 +197,10 @@ public static partial class CCommonEditorSceneManager {
 		// 광원 설정이 가능 할 경우
 		if(stScene.name.ExIsValid()) {
 			bool bIsValid = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
-			bIsValid = bIsValid && !oLightingSettings.name.ExIsContains(KCDefine.U_ASSET_N_LIGHTING_SETTINGS);
+			bIsValid = bIsValid && !oLightingSettings.name.Contains(KCDefine.U_ASSET_N_LIGHTING_SETTINGS);
 
 			// 광원 설정이 유효하지 않을 경우
-			if(!bIsValid || !oLightingSettings.name.ExIsContains(stScene.name)) {
+			if(!bIsValid || !oLightingSettings.name.Contains(stScene.name)) {
 				var oScenePath = Path.GetDirectoryName(stScene.path);
 				var oSceneName = Path.GetFileNameWithoutExtension(stScene.path);
 

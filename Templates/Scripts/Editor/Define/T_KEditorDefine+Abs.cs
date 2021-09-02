@@ -16,7 +16,7 @@ public static partial class KEditorDefine {
 	#region 기본
 	// 시간
 	public const float B_DELAY_DEFINE_S_UPDATE = 1.0f;
-
+	
 	// 유니티 패키지 {
 	public const string B_UNITY_PKGS_N_KEY = "name";
 	public const string B_UNITY_PKGS_SCOPED_REGISTRIES_KEY = "scopedRegistries";

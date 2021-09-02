@@ -59,7 +59,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 			this.LoadNextScene();
 		} else {
 			// 한국 일 경우
-			if(CCommonAppInfoStorage.Inst.CountryCode.ExIsEquals(KCDefine.B_KOREA_COUNTRY_CODE)) {
+			if(CCommonAppInfoStorage.Inst.CountryCode.Equals(KCDefine.B_KOREA_COUNTRY_CODE)) {
 				var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_P_SERVICES);
 				var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_P_PRIVACY);
 				
