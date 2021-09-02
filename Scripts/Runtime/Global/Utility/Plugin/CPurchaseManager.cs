@@ -5,21 +5,22 @@ using UnityEngine;
 
 #if MESSAGE_PACK_ENABLE
 using MessagePack;
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif            // #if MESSAGE_PACK_ENABLE
 
 #if PURCHASE_ENABLE
 using UnityEngine.Purchasing;
 
 #if RECEIPT_CHECK_ENABLE
 using UnityEngine.Purchasing.Security;
-#endif			// #if RECEIPT_CHECK_ENABLE
+#endif         // #if RECEIPT_CHECK_ENABLE
 
 #if !MESSAGE_PACK_ENABLE
 [System.Obsolete(KDefine.U_MSG_NEED_MESSAGE_PACK, true)]
-#endif			// #if !MESSAGE_PACK_ENABLE
+#endif         // #if !MESSAGE_PACK_ENABLE
 
 //! 인앱 결제 관리자
-public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
+public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener
+{
 	#region 변수
 	private bool m_bIsPurchasing = false;
 
@@ -30,16 +31,17 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	private System.Action<CPurchaseManager, List<Product>, bool> m_oRestoreCallback = null;
 
 	private Dictionary<string, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackList = new Dictionary<string, System.Action<CPurchaseManager, string, bool>>();
-	#endregion			// 변수
+	#endregion          // 변수
 
 	#region 프로퍼티
 	public List<string> PurchaseProductIDList { get; private set; } = new List<string>();
 	public bool IsInit => m_oStoreController != null && m_oExtensionProvider != null;
-	#endregion			// 프로퍼티
+	#endregion         // 프로퍼티
 
 	#region 인터페이스
 	//! 초기화 되었을 경우
-	public void OnInitialized(IStoreController a_oController, IExtensionProvider a_oProvider) {
+	public void OnInitialized(IStoreController a_oController, IExtensionProvider a_oProvider)
+	{
 		Func.ShowLog("CPurchaseManager.OnInitialized", KDefine.B_LOG_COLOR_PLUGIN);
 
 		m_oStoreController = a_oController;
@@ -49,31 +51,43 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	}
 
 	//! 초기화에 실패했을 경우
-	public void OnInitializeFailed(InitializationFailureReason a_eReason) {
+	public void OnInitializeFailed(InitializationFailureReason a_eReason)
+	{
 		Func.ShowLogWarning("CPurchaseManager.OnInitializeFailed: {0}", a_eReason);
 		m_oInitCallback?.Invoke(this, false);
 	}
 
 	//! 결제를 진행 중 일 경우
-	public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs a_oArgs) {
+	public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs a_oArgs)
+	{
 		string oID = a_oArgs.purchasedProduct.definition.id;
 		Func.ShowLog("CPurchaseManager.ProcessPurchase: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oArgs.purchasedProduct.definition.id);
 
-		try {
-			if(m_bIsPurchasing) {
+		try
+		{
+			if (m_bIsPurchasing)
+			{
 				this.PurchaseProductIDList.ExAddValue(oID);
 
 #if MESSAGE_PACK_ENABLE
 				this.SavePurchaseProductIDs();
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif            // #if MESSAGE_PACK_ENABLE
 			}
 
-			if(!Func.IsMobilePlatform()) {
+			if (!Func.IsMobilePlatform())
+			{
 				this.HandlePurchaseResult(oID, true, true);
 				return PurchaseProcessingResult.Pending;
 			}
 
 #if RECEIPT_CHECK_ENABLE
+#if STORE_TARGET_AMAZON
+			// 아마존 스토어인 경우 영수증 검사 로직을 넘어간다
+			this.HandlePurchaseResult(oID, true, true);
+			return PurchaseProcessingResult.Pending;
+#endif // STORE_TARGET_AMAZON
+#if !STORE_TARGET_AMAZON
+			// 아마존 스토어가 아닌 경우 영수증을 검사한다
 			var oValidator = new CrossPlatformValidator(GooglePlayTangle.Data(), AppleTangle.Data(), Application.identifier);
 			var oReceipts = oValidator.Validate(a_oArgs.purchasedProduct.receipt);
 
@@ -85,17 +99,20 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 			}
 
 			return oReceipts.ExIsValid() ? PurchaseProcessingResult.Pending : PurchaseProcessingResult.Complete;
+#endif // !STORE_TARGET_AMAZON
 #else
 			this.HandlePurchaseResult(oID, true, true);
 			return PurchaseProcessingResult.Pending;
-#endif			// #if RECEIPT_CHECK_ENABLE
-		} catch(System.Exception oException) {
+#endif          // #if RECEIPT_CHECK_ENABLE
+		}
+		catch (System.Exception oException)
+		{
 			Func.ShowLogWarning("CPurchaseManager.ProcessPurchase Exception: {0}", oException.Message);
 			this.PurchaseProductIDList.ExRemoveValue(oID);
 
 #if MESSAGE_PACK_ENABLE
 			this.SavePurchaseProductIDs();
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif            // #if MESSAGE_PACK_ENABLE
 
 			this.HandlePurchaseResult(oID, false, true, true);
 		}
@@ -104,47 +121,57 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	}
 
 	//! 결제에 실패했을 경우
-	public void OnPurchaseFailed(Product a_oProduct, PurchaseFailureReason a_eReason) {
+	public void OnPurchaseFailed(Product a_oProduct, PurchaseFailureReason a_eReason)
+	{
 		string oID = a_oProduct.definition.id;
 		Func.ShowLogWarning("CPurchaseManager.OnPurchaseFailed: {0}, {1}", oID, a_eReason);
 
-		if(a_eReason == PurchaseFailureReason.DuplicateTransaction) {
+		if (a_eReason == PurchaseFailureReason.DuplicateTransaction)
+		{
 			this.HandlePurchaseResult(oID, true, true);
-		} else {
+		}
+		else
+		{
 			this.HandlePurchaseResult(oID, false, true, true);
 		}
 	}
-	#endregion			// 인터페이스
+	#endregion         // 인터페이스
 
 	#region 함수
 	//! 초기화
-	public override void Awake() {
+	public override void Awake()
+	{
 		base.Awake();
 
 #if MESSAGE_PACK_ENABLE
 		this.LoadPurchaseProductIDs();
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif            // #if MESSAGE_PACK_ENABLE
 	}
 
 	//! 초기화
-	public virtual void Init(List<STProductInfo> a_oProductInfoList, System.Action<CPurchaseManager, bool> a_oCallback) {
+	public virtual void Init(List<STProductInfo> a_oProductInfoList, System.Action<CPurchaseManager, bool> a_oCallback)
+	{
 		Func.ShowLog("CPurchaseManager.Init: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oProductInfoList);
 
-		if(this.IsInit || (!Func.IsEditorPlatform() && !Func.IsMobilePlatform())) {
+		if (this.IsInit || (!Func.IsEditorPlatform() && !Func.IsMobilePlatform()))
+		{
 			a_oCallback?.Invoke(this, this.IsInit);
-		} else {
+		}
+		else
+		{
 			Func.Assert(a_oProductInfoList.ExIsValid());
 
 			m_oInitCallback = a_oCallback;
 			var oProductDefinitionList = new List<ProductDefinition>();
 
-			for(int i = 0; i < a_oProductInfoList.Count; ++i) {
+			for (int i = 0; i < a_oProductInfoList.Count; ++i)
+			{
 				var stProductInfo = a_oProductInfoList[i];
 				Func.Assert(stProductInfo.m_eProductType != ProductType.Subscription, KDefine.U_MSG_INVALID_PRODUCT_TYPE);
 
 				oProductDefinitionList.Add(new ProductDefinition(stProductInfo.m_oID, stProductInfo.m_eProductType));
 			}
-			
+
 			var oBuilder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 			oBuilder.AddProducts(oProductDefinitionList);
 
@@ -153,19 +180,26 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	}
 
 	//! 상품이 복원 되었을 경우
-	public void OnRestoreProducts(bool a_bIsSuccess) {
-		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_PURCHASE_M_RESTORE_CALLBACK, () => {
+	public void OnRestoreProducts(bool a_bIsSuccess)
+	{
+		CScheduleManager.Instance.AddCallback(KDefine.U_KEY_PURCHASE_M_RESTORE_CALLBACK, () =>
+		{
 			Func.ShowLog("CPurchaseManager.OnRestoreProducts: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_bIsSuccess);
 			m_bIsPurchasing = false;
 
-			if(!a_bIsSuccess) {
+			if (!a_bIsSuccess)
+			{
 				m_oRestoreCallback?.Invoke(this, null, false);
-			} else {
+			}
+			else
+			{
 				var oProducts = m_oStoreController.products.all;
 				var oProductList = new List<Product>();
 
-				for(int i = 0; i < oProducts.Length; ++i) {
-					if(this.IsPurchaseNonConsumableProduct(oProducts[i])) {
+				for (int i = 0; i < oProducts.Length; ++i)
+				{
+					if (this.IsPurchaseNonConsumableProduct(oProducts[i]))
+					{
 						oProductList.ExAddValue(oProducts[i]);
 					}
 
@@ -174,7 +208,7 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 
 #if MESSAGE_PACK_ENABLE
 				this.SavePurchaseProductIDs();
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif            // #if MESSAGE_PACK_ENABLE
 
 				m_oRestoreCallback?.Invoke(this, oProductList, true);
 			}
@@ -182,19 +216,22 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	}
 
 	//! 비소모 상품 결제 여부를 검사한다
-	public bool IsPurchaseNonConsumableProduct(string a_oID) {
+	public bool IsPurchaseNonConsumableProduct(string a_oID)
+	{
 		var oProduct = this.GetProduct(a_oID);
 		return this.IsPurchaseNonConsumableProduct(oProduct);
 	}
 
 	//! 비소모 상품 결제 여부를 검사한다
-	public bool IsPurchaseNonConsumableProduct(Product a_oProduct) {
+	public bool IsPurchaseNonConsumableProduct(Product a_oProduct)
+	{
 		Func.Assert(this.IsInit && a_oProduct != null);
 		return a_oProduct.hasReceipt && a_oProduct.definition.type == ProductType.NonConsumable;
 	}
 
 	//! 상품을 반환한다
-	public Product GetProduct(string a_oID) {
+	public Product GetProduct(string a_oID)
+	{
 		Func.Assert(a_oID.ExIsValid());
 		var product_ = m_oStoreController.products.WithID(a_oID);
 		Func.ShowLog("CPurchaseManager.GetProduct: {0}, {1}", a_oID, product_);
@@ -202,66 +239,94 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	}
 
 	//! 상품을 결제한다
-	public void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+	public void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback)
+	{
 		Func.ShowLog("CPurchaseManager.PurchaseProduct: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oID);
-		
+
 		var oProduct = this.GetProduct(a_oID);
 		bool bIsEnablePurchase = oProduct != null && oProduct.availableToPurchase;
 
-		if(!this.IsInit || !bIsEnablePurchase || m_oPurchaseCallbackList.ContainsKey(a_oID)) {
+		if (!this.IsInit || !bIsEnablePurchase || m_oPurchaseCallbackList.ContainsKey(a_oID))
+		{
 			a_oCallback?.Invoke(this, a_oID, false);
-		} else {
+		}
+		else
+		{
 			m_bIsPurchasing = true;
 			m_oPurchaseCallbackList.Add(a_oID, a_oCallback);
 
-			if(this.PurchaseProductIDList.Contains(a_oID) || this.IsPurchaseNonConsumableProduct(oProduct)) {
+			if (this.PurchaseProductIDList.Contains(a_oID) || this.IsPurchaseNonConsumableProduct(oProduct))
+			{
 				this.HandlePurchaseResult(a_oID, true, true);
-			} else {
+			}
+			else
+			{
 				m_oStoreController.InitiatePurchase(a_oID);
 			}
 		}
 	}
 
 	//! 상품을 복구한다
-	public void RestoreProducts(System.Action<CPurchaseManager, List<Product>, bool> a_oCallback) {
+	public void RestoreProducts(System.Action<CPurchaseManager, List<Product>, bool> a_oCallback)
+	{
 		Func.ShowLog("CPurchaseManager.RestoreProduct", KDefine.B_LOG_COLOR_PLUGIN);
 
-		if(!this.IsInit) {
+		if (!this.IsInit)
+		{
 			a_oCallback?.Invoke(this, null, false);
-		} else {
+		}
+		else
+		{
 #if UNITY_IOS
 			var oStoreExtension = m_oExtensionProvider.GetExtension<IAppleExtensions>();
 #else
 			var oStoreExtension = m_oExtensionProvider.GetExtension<IGooglePlayStoreExtensions>();
-#endif			// #if UNITY_IOS
+#endif            // #if UNITY_IOS
 
 			m_bIsPurchasing = Func.IsMobilePlatform();
 			m_oRestoreCallback = a_oCallback;
 
-			if(!Func.IsMobilePlatform()) {
+			if (!Func.IsMobilePlatform())
+			{
 				this.OnRestoreProducts(true);
-			} else {
+			}
+			else
+			{
+#if STORE_TARGET_AMAZON
+				// 아마존 스토어인 경우
+				OnRestoreProducts(true);
+#endif // STORE_TARGET_AMAZON
+#if !STORE_TARGET_AMAZON
+				/*
+					아마존 스토어가 아니라면 각 스토어 Extension 에서 제공하는
+					RestoreTransactions 을 사용한다
+				*/
 				oStoreExtension.RestoreTransactions(this.OnRestoreProducts);
+#endif // !STORE_TARGET_AMAZON
 			}
 		}
 	}
 
 	//! 결제를 확정한다
-	public void ConfirmPurchase(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+	public void ConfirmPurchase(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback)
+	{
 		Func.ShowLog("CPurchaseManager.ConfirmPurchase: {0}", KDefine.B_LOG_COLOR_PLUGIN, a_oID);
 
 		var oProduct = this.GetProduct(a_oID);
 		bool bIsEnablePurchase = oProduct != null && oProduct.availableToPurchase;
 
-		if(!this.IsInit || !bIsEnablePurchase || !m_oPurchaseCallbackList.ContainsKey(a_oID)) {
+		if (!this.IsInit || !bIsEnablePurchase || !m_oPurchaseCallbackList.ContainsKey(a_oID))
+		{
 			a_oCallback?.Invoke(this, a_oID, false);
-		} else {
+		}
+		else
+		{
 			m_oStoreController.ConfirmPendingPurchase(oProduct);
 			this.PurchaseProductIDList.ExRemoveValue(a_oID);
-			
+
 #if MESSAGE_PACK_ENABLE
 			this.SavePurchaseProductIDs();
-#endif			// #if MESSAGE_PACK_ENABLE
+#endif            // #if MESSAGE_PACK_ENABLE
 
 			this.HandlePurchaseResult(a_oID, true, false, true);
 
@@ -271,57 +336,65 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	}
 
 	//! 결제 결과를 처리한다
-	private void HandlePurchaseResult(string a_oID, bool a_bIsSuccess, bool a_bIsInvokeCallback = true, bool a_bIsRemoveCallback = false) {
-		if(m_oPurchaseCallbackList.ContainsKey(a_oID)) {
+	private void HandlePurchaseResult(string a_oID, bool a_bIsSuccess, bool a_bIsInvokeCallback = true, bool a_bIsRemoveCallback = false)
+	{
+		if (m_oPurchaseCallbackList.ContainsKey(a_oID))
+		{
 			var oCallback = m_oPurchaseCallbackList[a_oID];
 
-			if(a_bIsRemoveCallback) {
+			if (a_bIsRemoveCallback)
+			{
 				m_oPurchaseCallbackList.Remove(a_oID);
 			}
 
-			if(a_bIsInvokeCallback) {
+			if (a_bIsInvokeCallback)
+			{
 				oCallback?.Invoke(this, a_oID, a_bIsSuccess);
 			}
 		}
 	}
-	#endregion			// 함수
+	#endregion         // 함수
 
 	#region 조건부 함수
 #if MESSAGE_PACK_ENABLE
 	//! 결제 상품 아이디를 저장한다
-	private void SavePurchaseProductIDs() {
-		Func.ShowLog("CPurchaseManager.SavePurchaseProductIDs: {0}, {1}", 
+	private void SavePurchaseProductIDs()
+	{
+		Func.ShowLog("CPurchaseManager.SavePurchaseProductIDs: {0}, {1}",
 			KDefine.B_LOG_COLOR_PLUGIN, this.PurchaseProductIDList, this.PurchaseProductIDList.Count);
 
-		using(var oWriteStream = Func.GetWriteStream(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST)) {
+		using (var oWriteStream = Func.GetWriteStream(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST))
+		{
 			var oBytes = MessagePackSerializer.Serialize<List<string>>(this.PurchaseProductIDList);
 
 #if SECURITY_ENABLE
 			Func.WriteSecurityBytes(oWriteStream, oBytes);
 #else
 			Func.WriteBytes(oWriteStream, oBytes);
-#endif			// #if SECURITY_ENABLE
+#endif            // #if SECURITY_ENABLE
 		}
 	}
 
 	//! 결제 상품 아이디를 로드한다
-	private void LoadPurchaseProductIDs() {
+	private void LoadPurchaseProductIDs()
+	{
 		Func.ShowLog("CPurchaseManager.LoadPurchaseProductIDs", KDefine.B_LOG_COLOR_PLUGIN);
 
-		if(File.Exists(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST)) {
+		if (File.Exists(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST))
+		{
 #if SECURITY_ENABLE
 			var oBytes = Func.ReadSecurityBytes(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST);
 #else
 			var oBytes = Func.ReadBytes(KDefine.U_DATA_PATH_PURCHASE_M_PRODUCT_ID_LIST);
-#endif			// #if SECURITY_ENABLE
+#endif          // #if SECURITY_ENABLE
 
 			this.PurchaseProductIDList = MessagePackSerializer.Deserialize<List<string>>(oBytes);
-			
-			Func.ShowLog("CPurchaseManager.OnLoadPurchaseProductIDs: {0}, {1}", 
+
+			Func.ShowLog("CPurchaseManager.OnLoadPurchaseProductIDs: {0}, {1}",
 				KDefine.B_LOG_COLOR_PLUGIN, this.PurchaseProductIDList, this.PurchaseProductIDList.Count);
 		}
 	}
-#endif			// #if MESSAGE_PACK_ENABLE
-	#endregion			// 조건부 함수
+#endif         // #if MESSAGE_PACK_ENABLE
+	#endregion         // 조건부 함수
 }
-#endif			// #if PURCHASE_ENABLE
+#endif         // #if PURCHASE_ENABLE
