@@ -196,7 +196,9 @@ public class CPurchaseManager : CSingleton<CPurchaseManager>, IStoreListener {
 	//! 상품을 반환한다
 	public Product GetProduct(string a_oID) {
 		Func.Assert(a_oID.ExIsValid());
-		return this.IsInit ? m_oStoreController.products.WithID(a_oID) : null;
+		var product_ = m_oStoreController.products.WithID(a_oID);
+		Func.ShowLog("CPurchaseManager.GetProduct: {0}, {1}", a_oID, product_);
+		return this.IsInit ? product_ : null;
 	}
 
 	//! 상품을 결제한다
