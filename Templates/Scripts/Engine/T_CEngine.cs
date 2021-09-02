@@ -38,7 +38,7 @@ namespace SampleEngineName {
 		// =====> 객체 <=====
 		private Dictionary<EBlockKinds, GameObject>[,] m_oBlockDicts = null;
 		#endregion			// 변수
-		
+
 		#region 프로퍼티
 		public int Score { get; private set; } = 0;
 		public EState State { get; private set; } = EState.NONE;
@@ -130,6 +130,10 @@ namespace SampleEngineName {
 		}
 #endif			// #if UNITY_EDITOR
 		#endregion			// 조건부 함수
+
+		#region 추가 함수
+
+		#endregion			// 추가 함수
 	}
 }
 #endif			// #if NEVER_USE_THIS

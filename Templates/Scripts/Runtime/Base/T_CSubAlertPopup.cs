@@ -32,5 +32,9 @@ public class CSubAlertPopup : CAlertPopup {
 		base.UpdateUIsState();
 	}
 	#endregion			// 함수
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

@@ -47,10 +47,14 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	//! UI 상태를 변경한다
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		
+
 		m_oSaveUIs?.SetActive(m_nPrevNumSaleCoins < KDefine.G_MAX_NUM_SALE_COINS);
 		m_oFullUIs?.SetActive(m_nPrevNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
 	}
 	#endregion			// 함수
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

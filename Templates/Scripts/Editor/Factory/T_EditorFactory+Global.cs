@@ -12,6 +12,10 @@ public static partial class EditorFactory {
 	#region 클래스 함수
 
 	#endregion			// 클래스 함수
+
+	#region 추가 클래스 함수
+
+	#endregion			// 추가 클래스 함수
 }
 #endif			// #if UNITY_EDITOR
 #endif			// #if NEVER_USE_THIS

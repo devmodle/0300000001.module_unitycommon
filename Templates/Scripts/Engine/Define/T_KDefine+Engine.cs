@@ -21,7 +21,7 @@ namespace SampleEngineName {
 
 		// 개수
 		public static readonly Vector3Int E_MIN_NUM_CELLS = new Vector3Int(0, 0, 0);
-		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(0, 0, 0);
+		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(15, 15, 15);
 
 		// 정렬 순서
 		public static readonly Dictionary<EBlockKinds, STSortingOrderInfo> E_SORTING_OI_BLOCKS = new Dictionary<EBlockKinds, STSortingOrderInfo>() {
@@ -36,6 +36,10 @@ namespace SampleEngineName {
 			[EBlockKinds.BG_EMPTY] = KCDefine.U_IMG_P_G_WHITE
 		};
 		#endregion			// 런타임 상수
+
+		#region 추가 상수
+
+		#endregion			// 추가 상수
 	}
 }
 #endif			// #if NEVER_USE_THIS

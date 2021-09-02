@@ -42,6 +42,10 @@ public static class CMsgPackRegister {
 	}
 #endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 클래스 함수
+
+	#region 추가 클래스 함수
+
+	#endregion			// 추가 클래스 함수
 }
 #endif			// #if MSG_PACK_ENABLE
 #endif			// #if NEVER_USE_THIS

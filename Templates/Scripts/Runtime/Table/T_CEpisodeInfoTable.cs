@@ -504,5 +504,9 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

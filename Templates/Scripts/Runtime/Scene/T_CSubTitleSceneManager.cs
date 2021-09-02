@@ -271,5 +271,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	}
 #endif			// #if NOTI_MODULE_ENABLE
 	#endregion			// 조건부 함수
+
+	#region 추가 함수
+#if DEBUG || DEVELOPMENT_BUILD
+
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

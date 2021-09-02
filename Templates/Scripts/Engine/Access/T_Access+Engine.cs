@@ -24,6 +24,10 @@ namespace SampleEngineName {
 			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 		#endregion			// 클래스 함수
+
+		#region 추가 클래스 함수
+
+		#endregion			// 추가 클래스 함수
 	}
 }
 #endif			// #if NEVER_USE_THIS

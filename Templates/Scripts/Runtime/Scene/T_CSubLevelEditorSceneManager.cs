@@ -50,7 +50,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private Button m_oMEUIsRemoveLevelBtn = null;
 	// 중앙 에디터 UI }
 	#endregion			// 변수
-	
+
 	#region 인터페이스
 	//! 셀 개수를 반환한다
 	public virtual int GetNumberOfCells(EnhancedScroller a_oSender) {
@@ -848,6 +848,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	}
 #endif			// #if UNITY_STANDALONE
 	#endregion			// 조건부 함수
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 #endif			// #if NEVER_USE_THIS

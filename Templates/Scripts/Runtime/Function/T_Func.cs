@@ -51,7 +51,7 @@ public static partial class Func {
 	private static System.Action<CPurchaseManager, List<Product>, bool> m_oRestoreCallback = null;
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 클래스 변수
-	
+
 	#region 클래스 함수
 	//! 지역화 문자열을 설정한다
 	public static void SetupLocalizeStrs() {
@@ -629,5 +629,9 @@ public static partial class Func {
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수
+
+	#region 추가 클래스 함수
+
+	#endregion			// 추가 클래스 함수
 }
 #endif			// #if NEVER_USE_THIS

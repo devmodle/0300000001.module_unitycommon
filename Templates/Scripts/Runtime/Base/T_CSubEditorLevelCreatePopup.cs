@@ -41,6 +41,10 @@ public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 		};
 	}
 	#endregion			// 함수
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 #endif			// #if NEVER_USE_THIS

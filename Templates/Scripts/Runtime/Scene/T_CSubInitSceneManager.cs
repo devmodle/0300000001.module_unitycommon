@@ -65,5 +65,9 @@ public class CSubInitSceneManager : CInitSceneManager {
 		// 열거형 문자열을 로드한다 }
 	}
 	#endregion			// 함수
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS

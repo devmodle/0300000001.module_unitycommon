@@ -100,5 +100,9 @@ public class CSettingsPopup : CSubPopup {
 		CUnityMsgSender.Inst.SendMailMsg(CProjInfoTable.Inst.ProjInfo.m_oSupportsMail, string.Empty, string.Empty);
 	}
 	#endregion			// 함수
+
+	#region 추가 함수
+
+	#endregion			// 추가 함수
 }
 #endif			// #if NEVER_USE_THIS
