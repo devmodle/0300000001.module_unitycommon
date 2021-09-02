@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oCommonDefineSymbolList:
   - DOTWEEN_ENABLE
-  - GOOGLE_REVIEW_ENABLE
-  - GOOGLE_UPDATE_ENABLE
   - SECURITY_ENABLE
   - DYNAMIC_BATCHING_ENABLE
   - VISUAL_FX_GRAPH_ENABLE
@@ -29,6 +27,8 @@ MonoBehaviour:
   - BURST_COMPILER_ENABLE
   - ADAPTIVE_PERFORMANCE_ENABLE
   - MSG_PACK_ENABLE
+  - LIGHT_ENABLE
+  - SHADOW_ENABLE
   - MODE_2D_ENABLE
   m_oSubCommonDefineSymbolList: []
   m_oStandaloneDefineSymbolList:
