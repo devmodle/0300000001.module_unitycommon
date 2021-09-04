@@ -197,9 +197,9 @@ public static partial class KEditorDefine {
 		["com.unity.inputsystem"] = "1.0.2",
 #endif			// #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
 
-#if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
+#if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
     	["com.unity.postprocessing"] = "3.1.1",
-#endif			// #if POST_PROCESSING_ENABLE || UNITY_POST_PROCESSING_STACK_V2
+#endif			// #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
 		["module.unitycommonads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/000001.module_unitycommonads_client.git#1.7.0",
