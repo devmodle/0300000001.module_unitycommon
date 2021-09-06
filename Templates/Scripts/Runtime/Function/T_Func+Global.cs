@@ -28,7 +28,10 @@ public static partial class Func {
 #endif			// #if ADS_MODULE_ENABLE
 			} break;
 			default: {
-				CUserInfoStorage.Inst.AddNumItems(a_stItemInfo.m_eItemKinds, a_stItemInfo.m_nNumItems + a_nExtraNumItems);
+				// 소모품 일 경우
+				if(a_stItemInfo.m_eItemKinds.ExKindsToType() == EItemType.CONSUMABLE) {
+					CUserInfoStorage.Inst.AddNumItems(a_stItemInfo.m_eItemKinds, a_stItemInfo.m_nNumItems + a_nExtraNumItems);
+				}
 			} break;
 		}
 

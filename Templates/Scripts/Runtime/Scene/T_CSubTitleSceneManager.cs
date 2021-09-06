@@ -175,6 +175,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	private void OnReceiveQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
+			a_oSender.IsIgnoreAni = true;
 			this.ExLateCallFunc((a_oSender, a_oParams) => this.QuitApp());
 		}
 	}

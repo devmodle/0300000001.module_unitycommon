@@ -85,7 +85,6 @@ public class CContinuePopup : CSubPopup {
 	
 	//! 재시도 버튼을 눌렀을 경우
 	private void OnTouchRetryBtn() {
-		this.Close();
 		m_stCallbackParams.m_oRetryCallback?.Invoke(this);
 	}
 
@@ -98,16 +97,13 @@ public class CContinuePopup : CSubPopup {
 			var oSubOverlaySceneManager = CSceneManager.GetSubSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY);
 			oSubOverlaySceneManager.ShowStorePopup();
 		} else {
-			this.Close();
 			Func.BuyItem(stSaleItemInfo);
-			
 			m_stCallbackParams.m_oContinueCallback?.Invoke(this);
 		}
 	}
 
 	//! 나가기 버튼을 눌렀을 경우
 	private void OnTouchLeaveBtn() {
-		this.Close();
 		m_stCallbackParams.m_oLeaveCallback?.Invoke(this);
 	}
 	#endregion			// 함수

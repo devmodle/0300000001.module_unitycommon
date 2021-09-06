@@ -55,7 +55,7 @@ public static partial class CEditorSceneManager {
 		string oStr = CFunc.ReadStr(KCEditorDefine.B_DATA_P_UNITY_PKGS);
 		var oJSONNode = SimpleJSON.JSON.Parse(oStr) as SimpleJSON.JSONClass;
 		
-		// JSON 노드가 유효 할 경우
+		// JSON 노드가 존재 할 경우
 		if(oJSONNode != null) {
 			bool bIsNeedUpdate = false;
 
@@ -70,7 +70,7 @@ public static partial class CEditorSceneManager {
 					string oScopedRegistryStr = CFunc.ReadStr(stKeyVal.Value);
 					var oScopedRegistryNode = SimpleJSON.JSON.Parse(oScopedRegistryStr) as SimpleJSON.JSONClass;
 
-					// 패키지 레지스트리 노드가 유효 할 경우
+					// 패키지 레지스트리 노드가 존재 할 경우
 					if(oScopedRegistryNode != null) {
 						bIsNeedUpdate = true;
 						oScopedRegistryList.Add(oScopedRegistryNode);

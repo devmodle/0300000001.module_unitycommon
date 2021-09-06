@@ -43,16 +43,14 @@ public static partial class CEditorSceneManager {
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
 			for(int i = 0; i < oMonoScripts.Length; ++i) {
-				// 스크립트가 유효하지 않을 경우
-				if(oMonoScripts[i] == null) {
-					continue;
-				}
+				// 스크립트가 존재 할 경우
+				if(oMonoScripts[i] != null) {
+					var oType = oMonoScripts[i].GetClass();
 
-				var oType = oMonoScripts[i].GetClass();
-
-				// 스크립트 순서 설정이 가능 할 경우
-				if(oType != null && KEditorDefine.B_SCRIPT_ORDERS.ContainsKey(oType)) {
-					CAccess.SetScriptOrder(oMonoScripts[i], KEditorDefine.B_SCRIPT_ORDERS[oType]);
+					// 스크립트 순서 설정이 가능 할 경우
+					if(oType != null && KEditorDefine.B_SCRIPT_ORDERS.ContainsKey(oType)) {
+						CAccess.SetScriptOrder(oMonoScripts[i], KEditorDefine.B_SCRIPT_ORDERS[oType]);
+					}
 				}
 			}
 

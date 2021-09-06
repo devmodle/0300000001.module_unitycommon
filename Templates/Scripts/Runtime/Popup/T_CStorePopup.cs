@@ -159,24 +159,21 @@ public class CStorePopup : CSubPopup {
 
 	//! 결제 버튼을 눌렀을 경우
 	private void OnTouchPurchaseBtn(STSaleProductInfo a_stSaleProductInfo) {
-		var ePriceType = a_stSaleProductInfo.m_ePriceKinds.ExKindsToType();
-
-		// 광고 비용 판매 상품 일 경우
-		if(ePriceType == EPriceType.ADS) {
+		switch(a_stSaleProductInfo.m_ePriceKinds.ExKindsToType()) {
+			case EPriceType.ADS: {
 #if ADS_MODULE_ENABLE
-			m_eSelSaleProductKinds = a_stSaleProductInfo.m_eSaleProductKinds;
-			Func.ShowRewardAds(this.OnCloseRewardAds);
+				m_eSelSaleProductKinds = a_stSaleProductInfo.m_eSaleProductKinds;
+				Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
-		}
-		// 재화 비용 판매 상품 일 경우
-		else if(ePriceType == EPriceType.GOODS) {
-			// Do Something
-		}
-		// 결제 비용 판매 상품 일 경우
-		else if(ePriceType == EPriceType.PURCHASE) {
+			} break;
+			case EPriceType.GOODS: {
+				// Do Something
+			} break;
+			case EPriceType.PURCHASE: {
 #if PURCHASE_MODULE_ENABLE
-			Func.PurchaseProduct(a_stSaleProductInfo.m_eSaleProductKinds, this.OnPurchaseProduct);
+				Func.PurchaseProduct(a_stSaleProductInfo.m_eSaleProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
+			} break;
 		}
 	}
 

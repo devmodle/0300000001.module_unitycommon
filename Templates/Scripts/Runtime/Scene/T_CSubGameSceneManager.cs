@@ -7,6 +7,16 @@ using UnityEngine.EventSystems;
 #if NEVER_USE_THIS
 //! 서브 게임 씬 관리자
 public partial class CSubGameSceneManager : CGameSceneManager {
+	//! 팝업 결과
+	private enum EPopupResult {
+		NONE = -1,
+		NEXT,
+		RETRY,
+		CONTINUE,
+		LEAVE,
+		MAX_VAL
+	}
+
 	#region 변수
 	private bool m_bIsLeave = false;
 	private int m_nContinueTimes = 0;
@@ -202,45 +212,62 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		this.ShowResultPopup(false);
 	}
 
+	//! 팝업 결과를 수신했을 경우
+	private void OnReceivePopupResult(CPopup a_oSender, EPopupResult a_eResult) {
+		// 팝업이 존재 할 경우
+		if(a_oSender != null) {
+			a_oSender.IsIgnoreAni = true;
+			a_oSender.Close();
+		}
+
+		switch(a_eResult) {
+			case EPopupResult.NEXT: this.LoadNextLevel(); break;
+			case EPopupResult.RETRY: this.RetryCurLevel(); break;
+			case EPopupResult.CONTINUE: this.ContinueCurLevel(); break;
+			case EPopupResult.LEAVE: m_bIsLeave = true; this.LoadNextLevel(); break;
+		}
+	}
+
 	//! 다음 레벨을 로드한다
 	private void LoadNextLevel() {
-		// 테스트 모드 일 경우
-		if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) {
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
-		}
-		// 튜토리얼 모드 일 경우
-		else if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TUTORIAL) {
-			// Do Nothing
-		} else {
-			int nNextID = m_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT;
-			int nNumClearInfos = CGameInfoStorage.Inst.GetNumClearInfos(m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+		switch(CGameInfoStorage.Inst.PlayMode) {
+			case EPlayMode.NORM: {
+				int nNextID = m_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT;
+				int nNumClearInfos = CGameInfoStorage.Inst.GetNumClearInfos(m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
 
 #if UNITY_STANDALONE
-			bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(nNextID, out CLevelInfo oNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID) && nNextID <= nNumClearInfos;
+				bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(nNextID, out CLevelInfo oNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID) && nNextID <= nNumClearInfos;
 #else
-			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelInfo(nNextID, out STLevelInfo stNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID) && nNextID <= nNumClearInfos;
+				bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelInfo(nNextID, out STLevelInfo stNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID) && nNextID <= nNumClearInfos;
 #endif			// #if UNITY_STANDALONE
 
-			// 다음 레벨이 존재 할 경우
-			if(bIsValid && !m_bIsLeave) {
+				// 다음 레벨이 존재 할 경우
+				if(bIsValid && !m_bIsLeave) {
 #if UNITY_STANDALONE
-				CGameInfoStorage.Inst.SetupPlayLevelInfo(oNextLevelInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, oNextLevelInfo.m_stIDInfo.m_nStageID, oNextLevelInfo.m_stIDInfo.m_nChapterID);
+					CGameInfoStorage.Inst.SetupPlayLevelInfo(oNextLevelInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, oNextLevelInfo.m_stIDInfo.m_nStageID, oNextLevelInfo.m_stIDInfo.m_nChapterID);
 #else
-				CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelInfo.m_nStageID, stNextLevelInfo.m_nChapterID);
+					CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelInfo.m_nStageID, stNextLevelInfo.m_nChapterID);
 #endif			// #if UNITY_STANDALONE
 
 #if ADS_MODULE_ENABLE
-				Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
+					Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
 #else
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 #endif			// #if ADS_MODULE_ENABLE
-			} else {
+				} else {
 #if ADS_MODULE_ENABLE
-				Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE));
+					Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE));
 #else
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 #endif			// #if ADS_MODULE_ENABLE
-			}
+				}
+			} break;
+			case EPlayMode.TUTORIAL: {
+				// Do Something
+			} break;
+			case EPlayMode.TEST: {
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+			} break;
 		}
 	}
 
@@ -255,7 +282,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! 현재 레벨을 이어한다
 	private void ContinueCurLevel() {
-		// Do Something
+		m_nContinueTimes += KCDefine.B_VAL_1_INT;
 	}
 
 	//! 이어하기 팝업을 출력한다
@@ -267,9 +294,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 			};
 
 			var stCallbackParams = new CContinuePopup.STCallbackParams() {
-				m_oRetryCallback = (a_oPopupSender) => { m_nContinueTimes += KCDefine.B_VAL_1_INT; this.LoadNextLevel(); },
-				m_oContinueCallback = (a_oPopupSender) => this.ContinueCurLevel(),
-				m_oLeaveCallback = (a_oPopupSender) => { m_bIsLeave = true; this.LoadNextLevel(); }
+				m_oRetryCallback = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
+				m_oContinueCallback = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE),
+				m_oLeaveCallback = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
 			};
 
 			(a_oSender as CContinuePopup).Init(stParams, stCallbackParams);
@@ -288,9 +315,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 			};
 
 			var stCallbackParams = new CResultPopup.STCallbackParams() {
-				m_oNextCallback = (a_oPopupSender) => this.LoadNextLevel(),
-				m_oRetryCallback = (a_oPopupSender) => this.RetryCurLevel(),
-				m_oLeaveCallback = (a_oPopupSender) => { m_bIsLeave = true; this.LoadNextLevel(); }
+				m_oNextCallback = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.NEXT),
+				m_oRetryCallback = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
+				m_oLeaveCallback = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
 			};
 
 			(a_oSender as CResultPopup).Init(stParams, stCallbackParams);
