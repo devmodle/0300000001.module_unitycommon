@@ -6,10 +6,18 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 //! 서브 중첩 씬 관리자
 public partial class CSubOverlaySceneManager : COverlaySceneManager {
+	#region 추가 변수
+
+	#endregion			// 추가 변수
+
 	#region 프로퍼티
 	public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS;
 	public override STSortingOrderInfo ObjsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_OBJS_CANVAS;
 	#endregion			// 프로퍼티
+
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	//! 초기화

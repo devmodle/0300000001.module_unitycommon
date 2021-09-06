@@ -12,6 +12,14 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 #endif			// #if LOCALIZE_TEST_ENABLE
 	#endregion			// 변수
 
+	#region 추가 변수
+
+	#endregion			// 추가 변수
+
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 씬을 설정한다
 	protected override void Setup() {

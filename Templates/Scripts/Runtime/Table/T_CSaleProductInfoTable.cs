@@ -72,6 +72,10 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	public Dictionary<ESaleProductKinds, STSaleProductInfo> SaleProductInfoDict { get; private set; } = new Dictionary<ESaleProductKinds, STSaleProductInfo>();
 	#endregion			// 프로퍼티
 
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {

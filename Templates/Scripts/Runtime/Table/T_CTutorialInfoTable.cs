@@ -44,6 +44,10 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 	public Dictionary<ETutorialKinds, STTutorialInfo> TutorialInfoDict { get; private set; } = new Dictionary<ETutorialKinds, STTutorialInfo>();
 	#endregion			// 프로퍼티
 
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {

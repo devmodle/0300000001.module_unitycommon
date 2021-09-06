@@ -59,6 +59,10 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoDict { get; private set; } = new Dictionary<ERewardKinds, STRewardInfo>();
 	#endregion			// 프로퍼티
 
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {

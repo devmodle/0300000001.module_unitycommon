@@ -182,6 +182,10 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #endif			// #if UNITY_STANDALONE
 	#endregion			// 프로퍼티
 
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 레벨 정보 개수를 반환한다
 	public int GetNumLevelInfos(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {

@@ -19,6 +19,14 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
 	#endregion			// 변수
+
+	#region 추가 변수
+
+	#endregion			// 추가 변수
+
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
 	
 	#region 함수
 	//! 초기화

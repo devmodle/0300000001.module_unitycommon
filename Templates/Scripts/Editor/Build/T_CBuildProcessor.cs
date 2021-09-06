@@ -27,6 +27,10 @@ public static partial class CBuildProcessor {
 	};
 	#endregion			// 클래스 변수
 
+	#region 추가 클래스 변수
+
+	#endregion			// 추가 클래스 변수
+
 	#region 클래스 함수
 	//! 빌드가 완료 되었을 경우
 	[PostProcessBuild]

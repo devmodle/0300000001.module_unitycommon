@@ -75,6 +75,10 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 프로퍼티
 
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 앱 정보를 로드한다
 	public CAppInfo LoadAppInfo() {

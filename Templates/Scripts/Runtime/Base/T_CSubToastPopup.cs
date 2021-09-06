@@ -6,6 +6,14 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 //! 서브 토스트 팝업
 public class CSubToastPopup : CToastPopup {
+	#region 추가 변수
+
+	#endregion			// 추가 변수
+
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {

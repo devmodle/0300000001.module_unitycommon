@@ -50,6 +50,10 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	public CUserInfo UserInfo { get; private set; } = new CUserInfo();
 	#endregion            // 프로퍼티
 
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 유저 정보를 리셋한다
 	public virtual void ResetUserInfo(string a_oJSONStr) {

@@ -39,6 +39,10 @@ namespace SampleEngineName {
 		private Dictionary<EBlockKinds, GameObject>[,] m_oBlockDicts = null;
 		#endregion			// 변수
 
+		#region 추가 변수
+
+		#endregion			// 추가 변수
+
 		#region 프로퍼티
 		public int Score { get; private set; } = 0;
 		public EState State { get; private set; } = EState.NONE;
@@ -46,6 +50,10 @@ namespace SampleEngineName {
 
 		public GameObject BlockObjs => m_stParams.m_oBlockObjs;
 		#endregion			// 프로퍼티
+
+		#region 추가 프로퍼티
+		
+		#endregion			// 추가 프로퍼티
 
 		#region 함수
 		//! 초기화

@@ -178,6 +178,10 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public ERewardKinds DailyRewardKinds => KDefine.G_REWARDS_KINDS_DAILY_REWARDS[this.GameInfo.DailyRewardID];
 	#endregion			// 프로퍼티
 
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 게임 정보를 리셋한다
 	public virtual void ResetGameInfo(string a_oBase64Str) {

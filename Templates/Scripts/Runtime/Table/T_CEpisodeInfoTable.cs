@@ -325,6 +325,10 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	public Dictionary<long, STChapterInfo> ChapterInfoDict { get; private set; } = new Dictionary<long, STChapterInfo>();
 	#endregion			// 프로퍼티
 
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 함수
 	//! 초기화
 	public override void Awake() {

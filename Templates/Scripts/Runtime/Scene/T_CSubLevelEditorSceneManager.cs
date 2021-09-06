@@ -51,6 +51,14 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	// 중앙 에디터 UI }
 	#endregion			// 변수
 
+	#region 추가 변수
+
+	#endregion			// 추가 변수
+
+	#region 추가 프로퍼티
+
+	#endregion			// 추가 프로퍼티
+
 	#region 인터페이스
 	//! 셀 개수를 반환한다
 	public virtual int GetNumberOfCells(EnhancedScroller a_oSender) {
