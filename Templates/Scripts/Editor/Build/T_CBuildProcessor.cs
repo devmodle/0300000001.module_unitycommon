@@ -33,7 +33,7 @@ public static partial class CBuildProcessor {
 
 	#region 클래스 함수
 	//! 빌드가 완료 되었을 경우
-	[PostProcessBuild]
+	[PostProcessBuild(byte.MaxValue)]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 		CAccess.Assert(CBuildProcessor.m_oPostProcessBuildDict.ContainsKey(a_eTarget));
 		CBuildProcessor.m_oPostProcessBuildDict[a_eTarget](a_eTarget, a_oPath);
@@ -138,6 +138,15 @@ public static partial class CBuildProcessor {
 
 		oCapability.WriteToFile();
 		// 프로젝트 옵션을 설정한다 }
+
+		// 코코아 포드를 설정한다 {
+		string oPodPath = string.Format(KCEditorDefine.B_DATA_P_FMT_COCOA_PODS, a_oPath);
+
+		// 코코아 포드 파일이 존재 할 경우
+		if(File.Exists(oPodPath)) {
+			CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath));
+		}
+		// 코코아 포드를 설정한다 }
 #endif			// #if UNITY_IOS
 	}
 
