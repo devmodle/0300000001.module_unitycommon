@@ -22,11 +22,7 @@ public static partial class CEditorSceneManager {
 	private static ListRequest m_oListRequest = null;
 	private static List<AddRequest> m_oAddRequestList = new List<AddRequest>();
 	#endregion			// 클래스 변수
-
-	#region 추가 클래스 변수
-
-	#endregion			// 추가 클래스 변수
-
+	
 	#region 클래스 함수
 	//! 생성자
 	static CEditorSceneManager() {

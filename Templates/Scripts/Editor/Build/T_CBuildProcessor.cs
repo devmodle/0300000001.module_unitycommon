@@ -26,17 +26,33 @@ public static partial class CBuildProcessor {
 		[BuildTarget.Android] = CBuildProcessor.OnPostProcessAndroidBuild
 	};
 	#endregion			// 클래스 변수
-
-	#region 추가 클래스 변수
-
-	#endregion			// 추가 클래스 변수
-
+	
 	#region 클래스 함수
 	//! 빌드가 완료 되었을 경우
-	[PostProcessBuild(byte.MaxValue)]
+	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 		CAccess.Assert(CBuildProcessor.m_oPostProcessBuildDict.ContainsKey(a_eTarget));
 		CBuildProcessor.m_oPostProcessBuildDict[a_eTarget](a_eTarget, a_oPath);
+	}
+
+	//! 빌드가 완료 되었을 경우
+	[PostProcessBuild(int.MaxValue)]
+	public static void OnLatePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
+#if UNITY_IOS
+		string oPodsPath = string.Format(KCEditorDefine.B_DATA_P_FMT_COCOA_PODS, a_oPath);
+
+		// 파일이 존재 할 경우
+		if(File.Exists(oPodsPath)) {
+			CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath), false);
+			string oPBXProjPath = string.Format(KCEditorDefine.B_PROJ_P_FMT_COCOA_PODS, a_oPath);
+
+			var oPBXProj = new PBXProject();
+			oPBXProj.ReadFromFile(oPBXProjPath);
+
+			oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
+			oPBXProj.WriteToFile(oPBXProjPath);
+		}
+#endif			// #if UNITY_IOS
 	}
 
 	//! 독립 플랫폼 빌드가 완료 되었을 경우
@@ -53,48 +69,45 @@ public static partial class CBuildProcessor {
 	private static void OnPostProcessiOSBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
 		string oPlistPath = string.Format(KCEditorDefine.B_PLIST_P_FMT_IOS, a_oPath);
-		string oProjPath = PBXProject.GetPBXProjectPath(a_oPath);
+		string oPBXProjPath = PBXProject.GetPBXProjectPath(a_oPath);
 
 		// Plist 옵션을 설정한다 {
 		var oDoc = new PlistDocument();
 		oDoc.ReadFromFile(oPlistPath);
 
-		// Plist 가 존재 할 경우
-		if(oDoc.ExIsValid()) {
-			oDoc.root.SetBoolean(KCEditorDefine.B_KEY_IOS_ENCRYPTION_ENABLE, KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
-			oDoc.root.SetString(KCEditorDefine.B_KEY_IOS_USER_TRACKING_USAGE_DESC, KEditorDefine.B_IOS_USER_TRACKING_USAGE_DESC);
+		oDoc.root.SetBoolean(KCEditorDefine.B_KEY_IOS_ENCRYPTION_ENABLE, KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
+		oDoc.root.SetString(KCEditorDefine.B_KEY_IOS_USER_TRACKING_USAGE_DESC, KEditorDefine.B_IOS_USER_TRACKING_USAGE_DESC);
 
-			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
-			
-			for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
-				// 광고 네트워크 식별자가 없을 경우
-				if(!oAdsNetworkItemList.ExIsContainsAdsNetworkID(KEditorDefine.B_IOS_ADS_NETWORK_IDS[i])) {
-					var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
-					oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_IDS[i]);
-				}
+		var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
+		
+		for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
+			// 광고 네트워크 식별자가 없을 경우
+			if(!oAdsNetworkItemList.ExIsContainsAdsNetworkID(KEditorDefine.B_IOS_ADS_NETWORK_IDS[i])) {
+				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
+				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_IDS[i]);
 			}
-			
-			oDoc.WriteToFile(oPlistPath);
 		}
+		
+		oDoc.WriteToFile(oPlistPath);
 		// Plist 옵션을 설정한다 }
 
 		// 프로젝트 옵션을 설정한다 {
-		var oProj = new PBXProject();
-		oProj.ReadFromFile(oProjPath);
+		var oPBXProj = new PBXProject();
+		oPBXProj.ReadFromFile(oPBXProjPath);
 
-		string oMainGUID = oProj.GetUnityMainTargetGuid();
-		string oFrameworkGUID = oProj.GetUnityFrameworkTargetGuid();
+		string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
+		string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
 
-		oProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_YES);
-		oProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_YES);
+		oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_YES);
+		oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_YES);
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
-			oProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
-			oProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
+			oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
+			oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
 		}
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
-			oProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i]);
+			oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i]);
 		}
 
 		// 전처리기 심볼 테이블이 존재 할 경우
@@ -102,13 +115,13 @@ public static partial class CBuildProcessor {
 			var oDefineSymbolList = CPlatformOptsSetter.DefineSymbolDictContainer[BuildTargetGroup.iOS];
 
 			for(int i = 0; i < oDefineSymbolList.Count; ++i) {
-				oProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
-				oProj.AddBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+				oPBXProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+				oPBXProj.AddBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
 			}
 		}
 
-		oProj.WriteToFile(oProjPath);
-		var oCapability = new ProjectCapabilityManager(oProjPath, KCEditorDefine.B_ENTITLEMENTS_P_IOS_CAPABILITY, null, oMainGUID);
+		oPBXProj.WriteToFile(oPBXProjPath);
+		var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_IOS_CAPABILITY, null, oMainGUID);
 		
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
 			var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i];
@@ -138,15 +151,6 @@ public static partial class CBuildProcessor {
 
 		oCapability.WriteToFile();
 		// 프로젝트 옵션을 설정한다 }
-
-		// 코코아 포드를 설정한다 {
-		string oPodPath = string.Format(KCEditorDefine.B_DATA_P_FMT_COCOA_PODS, a_oPath);
-
-		// 코코아 포드 파일이 존재 할 경우
-		if(File.Exists(oPodPath)) {
-			CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath));
-		}
-		// 코코아 포드를 설정한다 }
 #endif			// #if UNITY_IOS
 	}
 
