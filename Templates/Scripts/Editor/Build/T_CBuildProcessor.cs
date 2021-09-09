@@ -38,6 +38,8 @@ public static partial class CBuildProcessor {
 	//! 빌드가 완료 되었을 경우
 	[PostProcessBuild(int.MaxValue)]
 	public static void OnLatePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
+		CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_EXPORT_PATH, a_oPath), false);
+		
 #if UNITY_IOS
 		string oPodsPath = string.Format(KCEditorDefine.B_DATA_P_FMT_COCOA_PODS, a_oPath);
 
