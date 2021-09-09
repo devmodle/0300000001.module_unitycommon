@@ -132,12 +132,8 @@ public static partial class CBuildProcessor {
 			}
 			// 푸시 알림 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
-				bool bIsDevBuild = CPlatformBuilder.BuildType != EBuildType.ADHOC && CPlatformBuilder.BuildType != EBuildType.STORE;
-				oCapability.AddPushNotifications(bIsDevBuild);
-
-#if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
+				oCapability.AddPushNotifications(CPlatformBuilder.BuildType != EBuildType.ADHOC && CPlatformBuilder.BuildType != EBuildType.STORE);
 				oCapability.AddBackgroundModes(KEditorDefine.B_IOS_BACKGROUND_MODES_OPTS);
-#endif			// #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 			}
 			// 게임 센터 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
