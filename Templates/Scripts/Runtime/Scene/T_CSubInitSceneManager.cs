@@ -70,6 +70,9 @@ public class CSubInitSceneManager : CInitSceneManager {
 
 		CStrTable.Inst.LoadEnumStrs<ETutorialType>();
 		CStrTable.Inst.LoadEnumStrs<ETutorialKinds>();
+
+		CStrTable.Inst.LoadEnumStrs<SampleEngineName.EBlockType>();
+		CStrTable.Inst.LoadEnumStrs<SampleEngineName.EBlockKinds>();
 		// 열거형 문자열을 로드한다 }
 	}
 	#endregion			// 함수

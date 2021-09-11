@@ -15,6 +15,10 @@ public static partial class KDefine {
 	#region 추가 상수
 
 	#endregion			// 추가 상수
+
+	#region 추가 런타임 상수
+
+	#endregion			// 추가 런타임 상수
 }
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 #endif			// #if NEVER_USE_THIS

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+using EnhancedHierarchy;
+
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.PackageManager;
@@ -63,6 +65,7 @@ public static partial class CEditorSceneManager {
 					CEditorSceneManager.m_bIsEnableSetup = false;
 					CEditorSceneManager.m_oListRequest = Client.List();
 
+					Preferences.Tooltips.Value = false;
 					CEditorSceneManager.SetupCallbacks();
 
 					EditorFactory.CreateSaleItemInfoTable();

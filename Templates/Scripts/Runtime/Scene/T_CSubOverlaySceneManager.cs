@@ -9,8 +9,11 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
+	
 	#region 프로퍼티
+	public Text NumCoinsText { get; private set; } = null;
+	public Button StoreBtn { get; private set; } = null;
+
 	public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS;
 	public override STSortingOrderInfo ObjsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_OBJS_CANVAS;
 	#endregion			// 프로퍼티
@@ -72,6 +75,13 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 	//! 씬을 설정한다
 	private void SetupAwake() {
+		// 텍스트를 설정한다
+		this.NumCoinsText = this.SubUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
+
+		// 버튼을 설정한다
+		this.StoreBtn = this.SubUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
+		this.StoreBtn?.onClick.AddListener(this.OnTouchStoreBtn);
+
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
@@ -85,14 +95,22 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
 		var oSubTitleSceneManager = CSceneManager.GetSubSceneManager<CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE);
-		oSubTitleSceneManager?.gameObject?.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null);
+		oSubTitleSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 
 		var oSubGameSceneManager = CSceneManager.GetSubSceneManager<CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
-		oSubGameSceneManager?.gameObject?.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null);
+		oSubGameSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
+
+		// 텍스트를 갱신한다
+		this.NumCoinsText.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, CUserInfoStorage.Inst.UserInfo.NumCoins), false);
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+	}
+
+	//! 상점 버튼을 눌렀을 경우
+	private void OnTouchStoreBtn() {
+		this.ShowStorePopup();
 	}
 	#endregion			// 함수
 
