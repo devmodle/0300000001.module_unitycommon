@@ -30,6 +30,7 @@ MonoBehaviour:
   - LIGHT_ENABLE
   - SHADOW_ENABLE
   - MODE_2D_ENABLE
+  - MODE_PORTRAIT_ENABLE
   m_oSubCommonDefineSymbolList: []
   m_oStandaloneDefineSymbolList:
   - EDITOR_ENABLE
