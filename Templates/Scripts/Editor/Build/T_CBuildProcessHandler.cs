@@ -4,6 +4,7 @@ using UnityEngine;
 
 #if NEVER_USE_THIS
 #if UNITY_EDITOR
+using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
 
@@ -137,6 +138,29 @@ public static partial class CBuildProcessHandler {
 
 #endif			// #if UNITY_ANDROID
 	}
+
+	//! 빌드가 완료 되었을 경우
+	[PostProcessBuild(int.MaxValue)]
+	public static void OnLatePostProcessBuild(BuildTarget a_eTarget, string a_oPath)
+	{
+#if UNITY_IOS
+		string oPodsPath = string.Format("{0}/Podfile", a_oPath);
+
+		// 파일이 존재 할 경우
+		if (File.Exists(oPodsPath))
+		{
+			CEditorFunc.ExecuteCmdLine(
+				string.Format("pod update --clean-install --project-directory={0}", a_oPath), false);
+			string oPBXProjPath = string.Format("{0}/Pods/Pods.xcodeproj/project.pbxproj", a_oPath);
+
+			var oPBXProj = new PBXProject();
+			oPBXProj.ReadFromFile(oPBXProjPath);
+
+			oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), "USER_HEADER_SEARCH_PATHS", "$(SRCROOT)/**");
+            oPBXProj.WriteToFile(oPBXProjPath);
+        }
+#endif          // #if UNITY_IOS
+    }
 	#endregion			// 클래스 함수
 }
 #endif			// #if UNITY_EDITOR
