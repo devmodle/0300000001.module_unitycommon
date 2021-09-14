@@ -90,7 +90,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 				}
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if DAILY_REWARD_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 				// 일일 보상 획득이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
 					Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oSender) => {
@@ -98,7 +98,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 						oDailyRewardPopup.Init();
 					});
 				}
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if DAILY_REWARD_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			}
 		}
 	}

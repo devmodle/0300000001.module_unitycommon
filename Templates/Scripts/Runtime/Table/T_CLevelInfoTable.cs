@@ -11,7 +11,7 @@ using MessagePack;
 [System.Serializable]
 public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
-	[Key(3)] public STIdxInfo m_stIdxInfo;
+	[IgnoreMember] public Vector3Int m_stIdx;
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	[Key(61)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
@@ -50,7 +50,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 함수
 	//! 사본 객체를 설정한다
 	protected virtual void SetupCloneInst(CCellInfo a_oCellInfo) {
-		a_oCellInfo.m_stIdxInfo = m_stIdxInfo;
+		a_oCellInfo.m_stIdx = m_stIdx;
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		m_oBlockKindsList.ExCopyTo(a_oCellInfo.m_oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
@@ -71,8 +71,8 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(3)] public STIDInfo m_stIDInfo;
 	[Key(161)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
+	[IgnoreMember] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 	
 	#region 프로퍼티
@@ -137,6 +137,8 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 		// 타겟 개수를 설정한다
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
+				m_oCellInfoDictContainer[i][j].m_stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
+
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 				for(int k = 0; k < m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
 					// Do Something
@@ -224,14 +226,18 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	//! 레벨 정보를 로드한다
 	public CLevelInfo LoadLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
+		CLevelInfo oLevelInfo = null;
 
 #if UNITY_STANDALONE
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
-		return CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, false);
+		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, false);
 #else
 		string oFilePath = string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
-		return CFunc.ReadMsgPackObjFromRes<CLevelInfo>(oFilePath, false);
+		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(oFilePath, false);
 #endif			// #if UNITY_STANDALONE
+
+		oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID);
+		return oLevelInfo;
 	}
 
 	//! 레벨 정보를 로드한다

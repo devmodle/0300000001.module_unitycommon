@@ -43,7 +43,7 @@ namespace SampleEngineName {
 				}
 			}
 
-			m_oBlockDicts[a_oCellInfo.m_stIdxInfo.m_nY, a_oCellInfo.m_stIdxInfo.m_nX] = oBlockDict;
+			m_oBlockDicts[a_oCellInfo.m_stIdx.y, a_oCellInfo.m_stIdx.x] = oBlockDict;
 		}
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		#endregion			// 조건부 함수

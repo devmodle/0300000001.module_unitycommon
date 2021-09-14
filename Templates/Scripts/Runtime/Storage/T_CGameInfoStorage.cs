@@ -16,9 +16,9 @@ public class CClearInfo : CBaseInfo {
 	private const string KEY_NUM_STARS = "NumStars";
 	private const string KEY_BEST_SCORE = "BestScore";
 	#endregion			// 상수
-	
+
 	#region 변수
-	[Key(3)] public STIDInfo m_stIDInfo;
+	[IgnoreMember] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -432,6 +432,10 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		if(File.Exists(a_oFilePath)) {
 			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath);
 			CAccess.Assert(this.GameInfo != null);
+
+			foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
+				stKeyVal.Value.m_stIDInfo = CFactory.MakeIDInfo(stKeyVal.Key.ExUniqueLevelIDToID(), stKeyVal.Key.ExUniqueLevelIDToStageID(), stKeyVal.Key.ExUniqueLevelIDToChapterID());
+			}
 		}
 
 		return this.GameInfo;

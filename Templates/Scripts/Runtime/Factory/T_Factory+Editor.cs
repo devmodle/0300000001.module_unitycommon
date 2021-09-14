@@ -27,7 +27,7 @@ public static partial class Factory {
 	//! 셀 정보를 생성한다
 	public static CCellInfo MakeCellInfo(Vector3Int a_stIdx) {
 		return new CCellInfo() {
-			m_stIdxInfo = CFactory.MakeIdxInfo(a_stIdx.x, a_stIdx.y, a_stIdx.z)
+			m_stIdx = a_stIdx
 		};
 	}
 
