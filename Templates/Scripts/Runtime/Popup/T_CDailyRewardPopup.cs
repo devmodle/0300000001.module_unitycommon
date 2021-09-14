@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if DAILY_REWARD_POPUP_ENABLE
 //! 일일 보상 팝업
 public class CDailyRewardPopup : CSubPopup {
 	#region 변수
@@ -138,4 +139,5 @@ public class CDailyRewardPopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if DAILY_REWARD_POPUP_ENABLE
 #endif			// #if NEVER_USE_THIS

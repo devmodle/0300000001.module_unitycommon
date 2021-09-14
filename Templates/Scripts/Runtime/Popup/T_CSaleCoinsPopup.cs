@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if SALE_COINS_POPUP_ENABLE
 //! 판매 코인 팝업
 public class CSaleCoinsPopup : CSubPopup {
 	#region 변수
@@ -76,4 +77,5 @@ public class CSaleCoinsPopup : CSubPopup {
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 함수
 }
+#endif			// #if SALE_COINS_POPUP_ENABLE
 #endif			// #if NEVER_USE_THIS

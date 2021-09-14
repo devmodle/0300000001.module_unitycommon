@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RESULT_POPUP_ENABLE
 //! 결과 팝업
 public class CResultPopup : CSubPopup {
 	//! 매개 변수
@@ -121,4 +122,5 @@ public class CResultPopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if RESULT_POPUP_ENABLE
 #endif			// #if NEVER_USE_THIS

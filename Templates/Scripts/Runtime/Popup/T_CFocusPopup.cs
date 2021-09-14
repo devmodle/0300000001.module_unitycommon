@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
+#if FOCUS_POPUP_ENABLE
 //! 포커스 팝업
 public class CFocusPopup : CSubPopup {
 	//! 매개 변수
@@ -95,4 +96,5 @@ public class CFocusPopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if FOCUS_POPUP_ENABLE
 #endif			// #if NEVER_USE_THIS

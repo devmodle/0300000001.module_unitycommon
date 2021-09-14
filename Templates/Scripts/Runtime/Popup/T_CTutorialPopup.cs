@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if TUTORIAL_POPUP_ENABLE && FOCUS_POPUP_ENABLE
 //! 튜토리얼 팝업
 public class CTutorialPopup : CFocusPopup {
 	//! 매개 변수
@@ -60,4 +61,5 @@ public class CTutorialPopup : CFocusPopup {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if TUTORIAL_POPUP_ENABLE && FOCUS_POPUP_ENABLE
 #endif			// #if NEVER_USE_THIS

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if FREE_REWARD_POPUP_ENABLE
 //! 무료 보상 팝업
 public class CFreeRewardPopup : CSubPopup {
 	#region 변수
@@ -99,4 +100,5 @@ public class CFreeRewardPopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if FREE_REWARD_POPUP_ENABLE
 #endif			// #if NEVER_USE_THIS

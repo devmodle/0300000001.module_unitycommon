@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if SYNC_POPUP_ENABLE
 //! 동기화 팝업
 public class CSyncPopup : CSubPopup {
 	#region 변수
@@ -190,4 +191,5 @@ public class CSyncPopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if SYNC_POPUP_ENABLE
 #endif			// #if NEVER_USE_THIS

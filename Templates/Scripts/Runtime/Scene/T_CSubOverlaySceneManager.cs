@@ -46,6 +46,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 	//! 상점 팝업을 출력한다
 	public void ShowStorePopup() {
+#if STORE_POPUP_ENABLE
 		Func.ShowStorePopup(this.SubPopupUIs, (a_oSender) => {
 			var oSaleProductInfoList = new List<STSaleProductInfo>();
 
@@ -71,6 +72,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 			(a_oSender as CStorePopup).Init(stParams, stCallbackParams);
 		});
+#endif			// #if STORE_POPUP_ENABLE
 	}
 
 	//! 씬을 설정한다
