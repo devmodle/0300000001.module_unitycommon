@@ -295,7 +295,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! 이어하기 팝업을 출력한다
 	private void ShowContinuePopup() {
-#if CONTINUE_POPUP_ENABLE
+#if CONTINUE_ENABLE
 		Func.ShowContinuePopup(this.SubPopupUIs, (a_oSender) => {
 			var stParams = new CContinuePopup.STParams() {
 				m_nContinueTimes = this.m_nContinueTimes,
@@ -310,12 +310,12 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 			(a_oSender as CContinuePopup).Init(stParams, stCallbackParams);
 		});
-#endif			// #if CONTINUE_POPUP_ENABLE
+#endif			// #if CONTINUE_ENABLE
 	}
 
 	//! 결과 팝업을 출력한다
 	private void ShowResultPopup(bool a_bIsClear) {
-#if RESULT_POPUP_ENABLE
+#if RESULT_ENABLE
 		Func.ShowResultPopup(this.SubPopupUIs, (a_oSender) => {
 			var stParams = new CResultPopup.STParams() {
 				m_bIsClear = a_bIsClear,
@@ -333,7 +333,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 			(a_oSender as CResultPopup).Init(stParams, stCallbackParams);
 		});
-#endif			// #if RESULT_POPUP_ENABLE
+#endif			// #if RESULT_ENABLE
 	}
 	#endregion			// 함수
 

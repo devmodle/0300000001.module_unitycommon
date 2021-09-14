@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if REWARD_ACQUIRE_POPUP_ENABLE
+#if REWARD_ACQUIRE_ENABLE
 //! 보상 획득 팝업
 public class CRewardAcquirePopup : CSubPopup {
 	//! 매개 변수
@@ -131,5 +131,5 @@ public class CRewardAcquirePopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if REWARD_ACQUIRE_POPUP_ENABLE
+#endif			// #if REWARD_ACQUIRE_ENABLE
 #endif			// #if NEVER_USE_THIS

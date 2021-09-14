@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if CONTINUE_POPUP_ENABLE
+#if CONTINUE_ENABLE
 //! 이어하기 팝업
 public class CContinuePopup : CSubPopup {
 	//! 매개 변수
@@ -121,5 +121,5 @@ public class CContinuePopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if CONTINUE_POPUP_ENABLE
+#endif			// #if CONTINUE_ENABLE
 #endif			// #if NEVER_USE_THIS

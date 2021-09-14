@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if DAILY_MISSION_POPUP_ENABLE
+#if DAILY_MISSION_ENABLE
 //! 일일 미션 팝업
 public class CDailyMissionPopup : CMissionPopup {
 	//! 매개 변수
@@ -57,5 +57,5 @@ public class CDailyMissionPopup : CMissionPopup {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if DAILY_MISSION_POPUP_ENABLE
+#endif			// #if DAILY_MISSION_ENABLE
 #endif			// #if NEVER_USE_THIS

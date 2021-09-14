@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if SALE_COINS_ACQUIRE_POPUP_ENABLE
+#if SALE_COINS_ACQUIRE_ENABLE
 //! 판매 코인 획득 팝업
 public class CSaleCoinsAcquirePopup : CSubPopup {
 	//! 매개 변수
@@ -66,5 +66,5 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if SALE_COINS_ACQUIRE_POPUP_ENABLE
+#endif			// #if SALE_COINS_ACQUIRE_ENABLE
 #endif			// #if NEVER_USE_THIS
