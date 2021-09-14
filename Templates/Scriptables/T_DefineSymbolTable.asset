@@ -31,6 +31,9 @@ MonoBehaviour:
   - SHADOW_ENABLE
   - MODE_2D_ENABLE
   - MODE_PORTRAIT_ENABLE
+  - EDITOR_TEMPLATES_ENABLE
+  - ENGINE_TEMPLATES_ENABLE
+  - RUNTIME_TEMPLATES_ENABLE
   m_oSubCommonDefineSymbolList: []
   m_oStandaloneDefineSymbolList:
   - EDITOR_ENABLE

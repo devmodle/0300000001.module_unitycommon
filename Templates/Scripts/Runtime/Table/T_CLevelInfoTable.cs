@@ -5,13 +5,17 @@ using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 셀 정보
 [MessagePackObject]
 [System.Serializable]
 public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
 	[Key(3)] public STIdxInfo m_stIdxInfo;
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 	[Key(61)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -36,7 +40,10 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	//! 역직렬화 되었을 경우
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		m_oBlockKindsList = m_oBlockKindsList ?? new List<SampleEngineName.EBlockKinds>();
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 	#endregion			// 인터페이스
 
@@ -44,7 +51,10 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	//! 사본 객체를 설정한다
 	protected virtual void SetupCloneInst(CCellInfo a_oCellInfo) {
 		a_oCellInfo.m_stIdxInfo = m_stIdxInfo;
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		m_oBlockKindsList.ExCopyTo(a_oCellInfo.m_oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 	#endregion			// 함수
 }
@@ -127,9 +137,11 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 		// 타겟 개수를 설정한다
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 				for(int k = 0; k < m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
 					// Do Something
 				}
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			}
 		}
 	}
@@ -515,4 +527,5 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

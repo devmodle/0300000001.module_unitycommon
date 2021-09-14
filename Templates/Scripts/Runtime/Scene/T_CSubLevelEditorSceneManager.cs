@@ -6,18 +6,22 @@ using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 
 #if NEVER_USE_THIS
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
 //! 서브 레벨 에디터 씬 관리자
 public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
 	#region 변수
 	private STIDInfo m_stSelIDInfo;
-	private SampleEngineName.STGridInfo m_stSelGridInfo;
-
-	private CLevelInfo m_oSelLevelInfo = null;
 	private SpriteRenderer m_oSelBlockSprite = null;
-
 	private CTouchDispatcher m_oBGTouchDispatcher = null;
+
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
+	private CLevelInfo m_oSelLevelInfo = null;
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE
+	private SampleEngineName.STGridInfo m_stSelGridInfo;
 	private Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>[,] m_oBlockSpriteDicts = null;
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 	// =====> UI <=====
 	private EnhancedScroller m_oSelScroller = null;
@@ -62,12 +66,16 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	#region 인터페이스
 	//! 셀 개수를 반환한다
 	public virtual int GetNumberOfCells(EnhancedScroller a_oSender) {
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		// 챕터 스크롤러 일 경우
 		if(m_oLEUIsChapterScroller == a_oSender) {
 			return CLevelInfoTable.Inst.NumChapterInfos;
 		}
 
 		return (m_oLEUIsStageScroller == a_oSender) ? CLevelInfoTable.Inst.GetNumStageInfos(m_oSelLevelInfo.m_stIDInfo.m_nChapterID) : CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+#else
+		return KCDefine.B_VAL_0_INT;
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! 셀 뷰 크기를 반환한다
@@ -82,6 +90,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	//! 셀 뷰를 반환한다
 	public virtual EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		long nNumInfos = CLevelInfoTable.Inst.NumChapterInfos;
 
 		Color stColor = (m_oSelLevelInfo.m_stIDInfo.m_nChapterID == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE;
@@ -154,6 +163,9 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		oScrollerCellView.SelBtn?.image.ExSetColor<Image>(stColor, false);
 
 		return oScrollerCellView;
+#else
+		return null;
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 	#endregion			// 인터페이스
 
@@ -164,7 +176,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (ENGINE_TEMPLATES_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 			// 레벨 정보가 없을 경우
 			if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
 				var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
@@ -179,7 +191,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 				CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 				CLevelInfoTable.Inst.SaveLevelInfos();
 			}
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (ENGINE_TEMPLATES_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 
 			this.SetupAwake();
 		}
@@ -191,11 +203,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			this.ExLateCallFunc((a_oSender, a_oParams) => {
 				this.UpdateUIsState();
 			}, KCDefine.U_DELAY_INIT);
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 			this.SetupStart();
 		}
@@ -217,7 +229,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 백 키 눌림 이벤트 일 경우
 		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 			Func.ShowEditorQuitPopup(this.OnReceiveEditorQuitPopupResult);
+#else
+			this.OnReceiveEditorQuitPopupResult(null, true);
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 	}
 
@@ -233,7 +249,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oOriginChapterScrollerCellView = oChapterScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>();
 		// 스크롤러 셀 뷰를 설정한다 }
 
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		this.SetupLeftEditorUIs();
 		this.SetupRightEditorUIs();
 		this.SetupMidEditorUIs();
@@ -246,7 +262,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oBGTouchDispatcher?.ExSetBeginCallback(this.OnTouchBegin, false);
 		m_oBGTouchDispatcher?.ExSetMoveCallback(this.OnTouchMove, false);
 		m_oBGTouchDispatcher?.ExSetEndCallback(this.OnTouchEnd, false);
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! 씬을 설정한다
@@ -258,9 +274,9 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private void OnReceiveEditorQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			CLevelInfoTable.Inst.SaveLevelInfos();
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 		}
@@ -268,9 +284,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	#endregion			// 함수
 
 	#region 조건부 함수
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	//! 블럭 스프라이트를 리셋한다
 	private void ResetBlockSprites() {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		// 블럭 스프라이트가 존재 할 경우
 		if(m_oBlockSpriteDicts.ExIsValid()) {
 			for(int i = 0; i < m_oBlockSpriteDicts.GetLength(KCDefine.B_VAL_0_INT); ++i) {
@@ -311,6 +328,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			}
 		}
 		// 블럭 스프라이트를 설정한다 }
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! 왼쪽 에디터 UI 를 설정한다
@@ -513,6 +531,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	//! 오른쪽 에디터 UI 적용 버튼을 눌렀을 경우
 	private void OnTouchREUIsApplyBtn() {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		bool bIsValidA = int.TryParse(m_oREUIsNumCellsXInput?.text, out int nNumCellsX);
 		bool bIsValidB = int.TryParse(m_oREUIsNumCellsYInput?.text, out int nNumCellsY);
 
@@ -530,6 +549,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			
 			this.UpdateUIsState();
 		}
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! 오른쪽 에디터 UI 레벨 로드 버튼을 눌렀을 경우
@@ -694,6 +714,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	//! 에디터 레벨 생성 팝업 결과를 수신했을 경우
 	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, CEditorLevelCreateInfo a_oCreateInfo) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 		int nNumCreateLevelInfos = (nNumLevelInfos + a_oCreateInfo.m_nNumLevels < KCDefine.U_MAX_NUM_LEVEL_INFOS) ? a_oCreateInfo.m_nNumLevels : KCDefine.U_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
 
@@ -706,6 +727,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 
 		this.UpdateUIsState();
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! 레벨 정보를 반환한다
@@ -719,6 +741,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	//! 레벨 정보를 추가한다
 	private void AddLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		m_oSelLevelInfo = Factory.MakeLevelInfo(a_nID, a_nStageID, a_nChapterID);
 		CLevelInfoTable.Inst.AddLevelInfo(m_oSelLevelInfo);
 
@@ -730,6 +753,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		});
 
 		this.UpdateUIsState();
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 	
 	//! 레벨 정보를 제거한다
@@ -854,12 +878,12 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			CLevelInfoTable.Inst.MoveChapterLevelInfos(a_stIDInfo.m_nChapterID, nToID);
 		}
 	}
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
 
 	#region 추가 함수
 
 	#endregion			// 추가 함수
 }
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

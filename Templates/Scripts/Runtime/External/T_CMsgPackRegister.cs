@@ -25,10 +25,13 @@ public static class CMsgPackRegister {
 		// 초기화가 필요 할 경우
 		if(!CMsgPackRegister.m_bIsInit) {
 			CMsgPackRegister.m_bIsInit = true;
-			StaticCompositeResolver.Instance.Register(MessagePack.Resolvers.GeneratedResolver.Instance, MessagePack.Resolvers.StandardResolver.Instance);
 
-			var oOpts = MessagePackSerializerOptions.Standard.WithResolver(StaticCompositeResolver.Instance);
-			MessagePackSerializer.DefaultOptions = oOpts;
+			var oResolverList = new List<IFormatterResolver>() {
+				MessagePack.Resolvers.StandardResolver.Instance, MessagePack.Resolvers.GeneratedResolver.Instance
+			};
+
+			StaticCompositeResolver.Instance.Register(oResolverList.ToArray());
+			MessagePackSerializer.DefaultOptions = MessagePackSerializerOptions.Standard.WithResolver(StaticCompositeResolver.Instance);
 		}
 	}
 	#endregion			// 클래스 함수

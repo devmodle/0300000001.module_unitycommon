@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 토스트 팝업
 public class CSubToastPopup : CToastPopup {
 	#region 추가 변수
@@ -41,4 +42,5 @@ public class CSubToastPopup : CToastPopup {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

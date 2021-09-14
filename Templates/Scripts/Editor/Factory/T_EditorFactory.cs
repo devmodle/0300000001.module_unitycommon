@@ -10,6 +10,11 @@ using UnityEditor;
 //! 에디터 기본 팩토리
 public static partial class EditorFactory {
 	#region 클래스 함수
+	
+	#endregion			// 클래스 함수
+
+	#region 조건부 클래스 함수
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 	//! 판매 아이템 정보 테이블을 생성한다
 	[MenuItem("Tools/Utility/SubCreate/SaleItemInfoTable")]
 	public static void CreateSaleItemInfoTable() {
@@ -45,7 +50,8 @@ public static partial class EditorFactory {
 	public static void CreateTutorialInfoTable() {
 		CEditorFactory.CreateScriptableObj<CTutorialInfoTable>(KCEditorDefine.B_ASSET_P_TUTORIAL_INFO_TABLE);
 	}
-	#endregion			// 클래스 함수
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+	#endregion			// 조건부 클래스 함수
 
 	#region 추가 클래스 함수
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 게임 씬 관리자
 public partial class CSubGameSceneManager : CGameSceneManager {
 	//! 팝업 결과
@@ -23,9 +24,11 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	private CLevelInfo m_oLevelInfo = null;
 	private CClearInfo m_oClearInfo = null;
-
 	private CTouchDispatcher m_oBGTouchDispatcher = null;
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 	private SampleEngineName.CEngine m_oEngine = null;
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -46,7 +49,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if DEBUG || DEVELOPMENT_BUILD
 			// 플레이 레벨 정보가 없을 경우
 			if(CGameInfoStorage.Inst.PlayLevelInfo == null) {
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && ENGINE_TEMPLATES_MODULE_ENABLE
 				// 레벨 정보가 없을 경우
 				if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
 					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
@@ -55,7 +58,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 					CLevelInfoTable.Inst.SaveLevelInfos();
 				}
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && ENGINE_TEMPLATES_MODULE_ENABLE
 
 				CGameInfoStorage.Inst.SetupPlayLevelInfo(KCDefine.B_VAL_0_INT, EPlayMode.NORM);
 			}
@@ -84,7 +87,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		// 앱이 실행 중 일 경우
 		if(CSceneManager.IsAppRunning) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 			m_oEngine.OnUpdate(a_fDeltaTime);
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		}
 	}
 
@@ -128,6 +133,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo;
 		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null;
 
+		// 터치 전달자를 설정한다
+		m_oBGTouchDispatcher = m_oBGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
+		m_oBGTouchDispatcher?.ExSetBeginCallback(this.OnTouchBegin, false);
+		m_oBGTouchDispatcher?.ExSetMoveCallback(this.OnTouchMove, false);
+		m_oBGTouchDispatcher?.ExSetEndCallback(this.OnTouchEnd, false);
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		// 비율을 설정한다 {
 		bool bIsValidA = !float.IsNaN(m_oEngine.GridInfo.m_stGridScale.x) && !float.IsInfinity(m_oEngine.GridInfo.m_stGridScale.x);
 		bool bIsValidB = !float.IsNaN(m_oEngine.GridInfo.m_stGridScale.y) && !float.IsInfinity(m_oEngine.GridInfo.m_stGridScale.y);
@@ -135,12 +147,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		m_oBlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_oEngine.GridInfo.m_stGridScale : Vector3.one;
 		// 비율을 설정한다 }
-
-		// 터치 전달자를 설정한다
-		m_oBGTouchDispatcher = m_oBGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
-		m_oBGTouchDispatcher?.ExSetBeginCallback(this.OnTouchBegin, false);
-		m_oBGTouchDispatcher?.ExSetMoveCallback(this.OnTouchMove, false);
-		m_oBGTouchDispatcher?.ExSetEndCallback(this.OnTouchEnd, false);
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
@@ -154,6 +161,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! 엔진을 설정한다
 	private void SetupEngine() {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		var stParams = new SampleEngineName.CEngine.STParams() {
 			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
 			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null,
@@ -168,6 +176,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 		m_oEngine.Init(stParams, stCallbackParams);
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! UI 상태를 갱신한다
@@ -181,7 +190,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
 		if(m_oBGTouchDispatcher == a_oSender) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 			m_oEngine.OnTouchBegin(a_oSender, a_oEventData);
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		}
 	}
 
@@ -189,7 +200,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
 		if(m_oBGTouchDispatcher == a_oSender) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 			m_oEngine.OnTouchMove(a_oSender, a_oEventData);
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		}
 	}
 
@@ -197,27 +210,10 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
 		if(m_oBGTouchDispatcher == a_oSender) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 			m_oEngine.OnTouchEnd(a_oSender, a_oEventData);
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		}
-	}
-
-	//! 레벨을 클리어했을 경우
-	private void OnClearLevel(SampleEngineName.CEngine a_oSender) {
-		// 클리어 정보가 없을 경우
-		if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID)) {
-			var oClearInfo = Factory.MakeClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
-			CGameInfoStorage.Inst.AddClearInfo(oClearInfo);
-		}
-		
-		var oCurClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
-		CGameInfoStorage.Inst.SaveGameInfo();
-
-		this.ShowResultPopup(true);
-	}
-
-	//! 레벨 클리어에 실패했을 경우
-	private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
-		this.ShowResultPopup(false);
 	}
 
 	//! 팝업 결과를 수신했을 경우
@@ -295,7 +291,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	//! 이어하기 팝업을 출력한다
 	private void ShowContinuePopup() {
-#if CONTINUE_ENABLE
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowContinuePopup(this.SubPopupUIs, (a_oSender) => {
 			var stParams = new CContinuePopup.STParams() {
 				m_nContinueTimes = this.m_nContinueTimes,
@@ -310,19 +306,22 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 			(a_oSender as CContinuePopup).Init(stParams, stCallbackParams);
 		});
-#endif			// #if CONTINUE_ENABLE
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! 결과 팝업을 출력한다
 	private void ShowResultPopup(bool a_bIsClear) {
-#if RESULT_ENABLE
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowResultPopup(this.SubPopupUIs, (a_oSender) => {
 			var stParams = new CResultPopup.STParams() {
 				m_bIsClear = a_bIsClear,
-				m_nScore = m_oEngine.Score,
 
 				m_oLevelInfo = this.m_oLevelInfo,
-				m_oClearInfo = this.m_oClearInfo
+				m_oClearInfo = this.m_oClearInfo,
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE				
+				m_nScore = m_oEngine.Score
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			};
 
 			var stCallbackParams = new CResultPopup.STCallbackParams() {
@@ -333,7 +332,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 			(a_oSender as CResultPopup).Init(stParams, stCallbackParams);
 		});
-#endif			// #if RESULT_ENABLE
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 	#endregion			// 함수
 
@@ -356,6 +355,27 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		// Do Something
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE
+	//! 레벨을 클리어했을 경우
+	private void OnClearLevel(SampleEngineName.CEngine a_oSender) {
+		// 클리어 정보가 없을 경우
+		if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID)) {
+			var oClearInfo = Factory.MakeClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+			CGameInfoStorage.Inst.AddClearInfo(oClearInfo);
+		}
+		
+		var oCurClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+		CGameInfoStorage.Inst.SaveGameInfo();
+
+		this.ShowResultPopup(true);
+	}
+
+	//! 레벨 클리어에 실패했을 경우
+	private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
+		this.ShowResultPopup(false);
+	}
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
 
 	#region 추가 함수
@@ -364,4 +384,5 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

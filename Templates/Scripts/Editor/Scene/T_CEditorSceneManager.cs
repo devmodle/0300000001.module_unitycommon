@@ -68,12 +68,14 @@ public static partial class CEditorSceneManager {
 					Preferences.Tooltips.Value = false;
 					CEditorSceneManager.SetupCallbacks();
 
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 					EditorFactory.CreateSaleItemInfoTable();
 					EditorFactory.CreateSaleProductInfoTable();
 					EditorFactory.CreateMissionInfoTable();
 					EditorFactory.CreateRewardInfoTable();
 					EditorFactory.CreateEpisodeInfoTable();
 					EditorFactory.CreateTutorialInfoTable();
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 				}
 				
 				CFunc.EnumerateScenes((a_stScene) => {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 #region 기본
 //! 게임 속성
 [System.Serializable]
@@ -32,4 +33,5 @@ public struct STTypeWrapper {
 #region 추가 타입
 
 #endregion			// 추가 타입
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 권한 씬 상수
 public static partial class KDefine {
 	#region 기본
@@ -18,4 +19,5 @@ public static partial class KDefine {
 
 	#endregion			// 추가 런타임 상수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

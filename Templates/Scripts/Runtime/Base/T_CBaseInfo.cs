@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 기본 정보
 [Union(0, typeof(CAppInfo))]
 [Union(1, typeof(CUserInfo))]
@@ -54,4 +55,5 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	}
 	#endregion			// 인터페이스
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

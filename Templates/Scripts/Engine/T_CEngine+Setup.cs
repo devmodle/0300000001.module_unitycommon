@@ -4,10 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	//! 엔진 - 설정
 	public partial class CEngine : CComponent {
 		#region 함수
+		//! 엔진을 설정한다
+		private void SetupEngine() {
+			// Do Something
+		}
+		#endregion			// 함수
+
+		#region 조건부 함수
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		//! 엔진을 설정한다
 		private void SetupInit() {
 			m_oBlockDicts = new Dictionary<EBlockKinds, GameObject>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
@@ -36,16 +45,13 @@ namespace SampleEngineName {
 
 			m_oBlockDicts[a_oCellInfo.m_stIdxInfo.m_nY, a_oCellInfo.m_stIdxInfo.m_nX] = oBlockDict;
 		}
-
-		//! 엔진을 설정한다
-		private void SetupEngine() {
-			// Do Something
-		}
-		#endregion			// 함수
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+		#endregion			// 조건부 함수
 
 		#region 추가 함수
 
 		#endregion			// 추가 함수
 	}
 }
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

@@ -4,10 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	//! 엔진 팩토리
 	public static partial class Factory {
 		#region 클래스 함수
+		
+		#endregion			// 클래스 함수
+
+		#region 조건부 클래스 함수
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		//! 그리드 정보를 생성한다
 		public static STGridInfo MakeGridInfo(CLevelInfo a_oLevelInfo) {
 			var stGridInfo = new STGridInfo() {
@@ -29,11 +35,13 @@ namespace SampleEngineName {
 			stGridInfo.m_stGridPivotPos = new Vector3(stGridInfo.m_stGridBounds.min.x, stGridInfo.m_stGridBounds.max.y, KCDefine.B_VAL_0_FLT);
 			return stGridInfo;
 		}
-		#endregion			// 클래스 함수
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+		#endregion			// 조건부 클래스 함수
 
 		#region 추가 클래스 함수
 
 		#endregion			// 추가 클래스 함수
 	}
 }
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

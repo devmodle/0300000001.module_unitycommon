@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
 //! 레벨 에디터 씬 상수
 public static partial class KDefine {
 	#region 기본
@@ -20,5 +20,5 @@ public static partial class KDefine {
 
 	#endregion			// 추가 런타임 상수
 }
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

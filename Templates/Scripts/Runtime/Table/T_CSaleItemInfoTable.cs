@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 판매 아이템 정보
 [System.Serializable]
 public struct STSaleItemInfo {
@@ -165,4 +166,5 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

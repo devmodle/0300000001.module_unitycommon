@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 기본 접근 확장 클래스
 public static partial class AccessExtension {
 	#region 클래스 함수
@@ -151,4 +152,5 @@ public static partial class AccessExtension {
 
 	#endregion			// 추가 클래스 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

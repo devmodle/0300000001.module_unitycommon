@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 보상 정보
 [System.Serializable]
 public struct STRewardInfo {
@@ -150,4 +151,5 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

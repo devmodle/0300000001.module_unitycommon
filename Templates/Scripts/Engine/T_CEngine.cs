@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	//! 엔진
 	public partial class CEngine : CComponent {
@@ -18,10 +19,12 @@ namespace SampleEngineName {
 
 		//! 매개 변수
 		public struct STParams {
+			public GameObject m_oBlockObjs;
+
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 			public CLevelInfo m_oLevelInfo;
 			public CClearInfo m_oClearInfo;
-
-			public GameObject m_oBlockObjs;
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
 		//! 콜백 매개 변수
@@ -61,8 +64,10 @@ namespace SampleEngineName {
 			m_stParams = a_stParams;
 			m_stCallbackParams = a_stCallbackParams;
 
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 			this.SetupInit();
 			this.SetupLevel();
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
 		//! 상태를 리셋한다
@@ -144,4 +149,5 @@ namespace SampleEngineName {
 		#endregion			// 추가 함수
 	}
 }
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

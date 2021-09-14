@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 #region 기본
 //! 플레이 모드
 public enum EPlayMode {
@@ -332,4 +333,5 @@ public enum ETargetKinds {
 #region 추가 상수
 
 #endregion			// 추가 상수
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

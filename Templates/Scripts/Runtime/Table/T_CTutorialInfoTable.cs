@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 튜토리얼 정보
 [System.Serializable]
 public struct STTutorialInfo {
@@ -131,4 +132,5 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

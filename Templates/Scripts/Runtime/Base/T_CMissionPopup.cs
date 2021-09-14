@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 미션 팝업
 public abstract class CMissionPopup : CSubPopup {
 	//! 매개 변수
@@ -64,4 +65,5 @@ public abstract class CMissionPopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

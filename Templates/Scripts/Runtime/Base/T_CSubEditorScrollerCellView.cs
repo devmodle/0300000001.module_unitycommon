@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
 //! 서브 에디터 스크롤러 셀 뷰
 public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 	//! 매개 변수
@@ -56,5 +56,5 @@ public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

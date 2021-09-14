@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	//! 엔진 상수
 	public static partial class KDefine {
@@ -46,4 +47,5 @@ namespace SampleEngineName {
 		#endregion			// 추가 런타임 상수
 	}
 }
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

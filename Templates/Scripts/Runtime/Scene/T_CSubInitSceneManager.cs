@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 초기화 씬 관리자
 public class CSubInitSceneManager : CInitSceneManager {
 	#region 추가 변수
@@ -71,8 +72,10 @@ public class CSubInitSceneManager : CInitSceneManager {
 		CStrTable.Inst.LoadEnumStrs<ETutorialType>();
 		CStrTable.Inst.LoadEnumStrs<ETutorialKinds>();
 
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		CStrTable.Inst.LoadEnumStrs<SampleEngineName.EBlockType>();
 		CStrTable.Inst.LoadEnumStrs<SampleEngineName.EBlockKinds>();
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		// 열거형 문자열을 로드한다 }
 	}
 	#endregion			// 함수
@@ -81,4 +84,5 @@ public class CSubInitSceneManager : CInitSceneManager {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

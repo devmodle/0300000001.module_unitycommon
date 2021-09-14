@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 중첩 씬 관리자
 public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	#region 추가 변수
@@ -46,7 +47,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 	//! 상점 팝업을 출력한다
 	public void ShowStorePopup() {
-#if STORE_ENABLE
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowStorePopup(this.SubPopupUIs, (a_oSender) => {
 			var oSaleProductInfoList = new List<STSaleProductInfo>();
 
@@ -72,7 +73,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 			(a_oSender as CStorePopup).Init(stParams, stCallbackParams);
 		});
-#endif			// #if STORE_ENABLE
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! 씬을 설정한다
@@ -136,4 +137,5 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

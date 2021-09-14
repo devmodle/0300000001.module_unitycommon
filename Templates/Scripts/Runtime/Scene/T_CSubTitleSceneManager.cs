@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 타이틀 씬 관리자
 public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#region 변수
@@ -69,7 +70,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 					this.ExLateCallFunc((a_oSender, a_oParams) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 				}
 				
-#if DAILY_MISSION_ENABLE
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 				// 일일 미션 리셋이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableResetDailyMission) {
 					CGameInfoStorage.Inst.GameInfo.PrevDailyMissionTime = System.DateTime.Today;
@@ -77,9 +78,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 					CGameInfoStorage.Inst.SaveGameInfo();
 				}
-#endif			// #if DAILY_MISSION_ENABLE
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
-#if FREE_REWARD_ENABLE
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 				// 무료 보상 획득이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableGetFreeReward) {
 					CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards = KCDefine.B_VAL_0_INT;
@@ -87,9 +88,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 					
 					CGameInfoStorage.Inst.SaveGameInfo();
 				}
-#endif			// #if FREE_REWARD_ENABLE
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
-#if DAILY_REWARD_ENABLE
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 				// 일일 보상 획득이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
 					Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oSender) => {
@@ -97,7 +98,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 						oDailyRewardPopup.Init();
 					});
 				}
-#endif			// #if DAILY_REWARD_ENABLE
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 			}
 		}
 	}
@@ -212,4 +213,5 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

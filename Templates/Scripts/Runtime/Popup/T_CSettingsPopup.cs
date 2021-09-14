@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if SETTINGS_ENABLE
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 설정 팝업
 public class CSettingsPopup : CSubPopup {
 	#region 변수
@@ -114,5 +114,5 @@ public class CSettingsPopup : CSubPopup {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if SETTINGS_ENABLE
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

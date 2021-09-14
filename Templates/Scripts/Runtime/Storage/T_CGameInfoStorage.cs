@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 클리어 정보
 [MessagePackObject]
 [System.Serializable]
@@ -451,4 +452,5 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	#endregion			// 추가 함수
 }
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS
