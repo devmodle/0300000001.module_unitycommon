@@ -170,9 +170,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
 		CFunc.ShowLog("CLateSetupSceneManager.OnInitAdsManager: {0}, {1}", a_eAdsType, a_bIsSuccess);
 
-#if ADMOB_ENABLE
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
+#if ADMOB_ENABLE
 #if UNITY_IOS || UNITY_ANDROID
 			// 애드 몹 일 경우
 			if(a_eAdsType == EAdsType.ADMOB) {
