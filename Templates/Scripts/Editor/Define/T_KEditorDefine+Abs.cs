@@ -183,7 +183,7 @@ public static partial class KEditorDefine {
 
 		// 분석 {
 		["com.unity.mobile.android-logcat"] = "1.2.3",
-		["com.unity.performance.profile-analyzer"] = "1.0.3",
+		["com.unity.performance.profile-analyzer"] = "1.1.0",
 
 		["com.unity.adaptiveperformance"] = "2.2.1",
 		["com.unity.adaptiveperformance.samsung.android"] = "2.2.1",
