@@ -57,9 +57,9 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		this.IsAutoInitManager = true;
 
 #if ADS_MODULE_ENABLE
-		CSubLateSetupSceneManager.IsAutoLoadBannerAds = true;
-		CSubLateSetupSceneManager.IsAutoLoadRewardAds = true;
-		CSubLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
+		CLateSetupSceneManager.IsAutoLoadBannerAds = true;
+		CLateSetupSceneManager.IsAutoLoadRewardAds = true;
+		CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
