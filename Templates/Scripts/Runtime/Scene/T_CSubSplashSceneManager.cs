@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 스플래시 씬 관리자
 public class CSubSplashSceneManager : CSplashSceneManager {
 	#region 변수
@@ -40,9 +39,7 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 		m_oSplashImg.SetNativeSize();
 		m_oSplashImg.gameObject.SetActive(true);
 		
-		this.ExLateCallFunc((a_oSender, a_oParams) => {
-			this.LoadNextScene();
-		}, KCDefine.SS_DELAY_NEXT_SCENE_LOAD);
+		this.ExLateCallFunc((a_oSender, a_oParams) => this.LoadNextScene(), KCDefine.SS_DELAY_NEXT_SCENE_LOAD);
 	}
 
 	//! 씬을 설정한다
@@ -58,5 +55,4 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

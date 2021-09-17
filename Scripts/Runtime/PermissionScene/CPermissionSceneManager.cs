@@ -17,7 +17,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 #endif			// #if UNITY_EDITOR
 
 #if UNITY_ANDROID
-	public List<string> PermissionList { get; private set; } = new List<string>();
+	public List<string> m_oPermissionList { get; private set; } = new List<string>();
 #endif			// #if UNITY_ANDROID
 	#endregion			// 프로퍼티
 
@@ -66,15 +66,15 @@ public abstract class CPermissionSceneManager : CSceneManager {
 #if UNITY_ANDROID
 	//! 권한을 수신했을 경우
 	private void OnReceivePermission(string a_oPermission, bool a_bIsSuccess) {
-		this.PermissionList.ExRemoveVal(a_oPermission);
+		m_oPermissionList.ExRemoveVal(a_oPermission);
 		this.CheckPermission();
 	}
 
 	//! 권한을 검사한다
 	private void CheckPermission() {
 		// 권한이 필요 할 경우
-		if(this.PermissionList.ExIsValid()) {
-			string oPermission = this.PermissionList[KCDefine.B_VAL_0_INT];
+		if(m_oPermissionList.ExIsValid()) {
+			string oPermission = m_oPermissionList[KCDefine.B_VAL_0_INT];
 			this.RequestPermission(oPermission);
 		} else {
 			this.LoadNextScene();

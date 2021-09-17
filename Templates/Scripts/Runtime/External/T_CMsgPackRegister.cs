@@ -15,16 +15,16 @@ using UnityEditor;
 //! 메세지 팩 등록자
 public static class CMsgPackRegister {
 	#region 클래스 변수
-	private static bool m_bIsInit = false;
+	private static bool m_bIsRegister = false;
 	#endregion			// 클래스 변수
 
 	#region 클래스 함수
 	//! 메세지 팩을 등록한다
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-	public static void RegisterMsgPack() {
-		// 초기화가 필요 할 경우
-		if(!CMsgPackRegister.m_bIsInit) {
-			CMsgPackRegister.m_bIsInit = true;
+	private static void RegisterMsgPack() {
+		// 등록 가능 할 경우
+		if(!CMsgPackRegister.m_bIsRegister) {
+			CMsgPackRegister.m_bIsRegister = true;
 
 			var oResolverList = new List<IFormatterResolver>() {
 				MessagePack.Resolvers.StandardResolver.Instance, MessagePack.Resolvers.GeneratedResolver.Instance

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 지연 설정 씬 관리자
 public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	#region 추가 변수
@@ -40,13 +39,13 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	protected override void ShowTrackingDescPopup() {
 		// 추적 설명 팝업 출력이 가능 할 경우
 		if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup) {
-			Func.ShowTrackingDescPopup(this.SubPopupUIs, (a_oSender) => {
-				var stCallbackParams = new CTrackingDescPopup.STCallbackParams() {
-					m_oCallback = this.OnReceiveTrackingDescPopupResult
-				};
+			var stCallbackParams = new CTrackingDescPopup.STCallbackParams() {
+				m_oCallback = this.OnReceiveTrackingDescPopupResult
+			};
 
-				(a_oSender as CTrackingDescPopup).Init(stCallbackParams);
-			});
+			var oTrackingDescPopup = CPopup.Create<CTrackingDescPopup>(KCDefine.LSS_OBJ_N_TRACKING_DESC_POPUP, KCDefine.LSS_OBJ_P_TRACKING_DESC_POPUP, this.SubPopupUIs);
+			oTrackingDescPopup.Init(stCallbackParams);
+			oTrackingDescPopup.Show(null, null);
 		} else {
 			this.OnReceiveTrackingDescPopupResult(null);
 		}
@@ -91,5 +90,4 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

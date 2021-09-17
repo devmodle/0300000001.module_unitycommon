@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 시작 씬 관리자
 public class CSubStartSceneManager : CStartSceneManager {
 	#region 변수
@@ -12,6 +11,9 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	private float m_fSkipTime = 0.0f;
 	private float m_fMaxPercent = 0.0f;
+
+	private Vector3 m_stLoadingTextPos = new Vector3(0.0f, 40.0f, 0.0f);
+	private Vector3 m_stLoadingGaugePos = new Vector3(0.0f, -40.0f, 0.0f);
 
 	private System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
 
@@ -81,13 +83,13 @@ public class CSubStartSceneManager : CStartSceneManager {
 		// 텍스트를 설정한다 {
 		var oLoadingText = this.SubUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
 
-		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, KDefine.SS_POS_LOADING_TEXT);
+		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, m_stLoadingTextPos);
 		m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;
 		// 텍스트를 설정한다 }
 
 		// 게이지 처리자를 설정한다 {
 		var oLoadingGauge = this.SubUIs.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
-		oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, KCDefine.SS_OBJ_P_LOADING_GAUGE, this.SubUIs, KDefine.SS_POS_LOADING_IMG_GAUGE);
+		oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, KCDefine.SS_OBJ_P_LOADING_GAUGE, this.SubUIs, m_stLoadingGaugePos);
 
 		m_oGaugeHandler = oLoadingGauge.GetComponentInChildren<CGaugeHandler>();
 		m_oGaugeHandler.Percent = KCDefine.B_VAL_0_FLT;
@@ -109,10 +111,9 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_oLoadingText.text = m_oStrBuilder.ToString();
 	}
 	#endregion			// 함수
-
+	
 	#region 추가 함수
 
 	#endregion			// 추가 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

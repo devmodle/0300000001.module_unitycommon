@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 #if UNITY_ANDROID
 using UnityEngine.Android;
 #endif			// #if UNITY_ANDROID
@@ -33,8 +32,8 @@ public class CSubPermissionSceneManager : CPermissionSceneManager {
 	//! 씬을 설정한다
 	private void SetupAwake() {
 #if UNITY_ANDROID
-		this.PermissionList.ExAddVal(Permission.ExternalStorageRead);
-		this.PermissionList.ExAddVal(Permission.ExternalStorageWrite);
+		m_oPermissionList.ExAddVal(Permission.ExternalStorageRead);
+		m_oPermissionList.ExAddVal(Permission.ExternalStorageWrite);
 #endif			// #if UNITY_ANDROID
 	}
 	#endregion			// 함수
@@ -52,5 +51,4 @@ public class CSubPermissionSceneManager : CPermissionSceneManager {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

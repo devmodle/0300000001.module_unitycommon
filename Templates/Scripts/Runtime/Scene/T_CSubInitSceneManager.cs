@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 초기화 씬 관리자
 public class CSubInitSceneManager : CInitSceneManager {
 	#region 추가 변수
@@ -19,7 +18,8 @@ public class CSubInitSceneManager : CInitSceneManager {
 	//! 씬을 설정한다
 	protected override void Setup() {
 		base.Setup();
-		
+
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		// 테이블을 생성한다 {
 		CLevelInfoTable.Create();
 
@@ -71,6 +71,7 @@ public class CSubInitSceneManager : CInitSceneManager {
 
 		CStrTable.Inst.LoadEnumStrs<ETutorialType>();
 		CStrTable.Inst.LoadEnumStrs<ETutorialKinds>();
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		CStrTable.Inst.LoadEnumStrs<SampleEngineName.EBlockType>();
@@ -84,5 +85,4 @@ public class CSubInitSceneManager : CInitSceneManager {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

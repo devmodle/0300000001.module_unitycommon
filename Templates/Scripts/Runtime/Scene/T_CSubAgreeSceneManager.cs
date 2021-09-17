@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 약관 동의 씬 관리자
 public class CSubAgreeSceneManager : CAgreeSceneManager {
 	#region 추가 변수
@@ -42,33 +41,47 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 	//! 씬을 설정한다
 	private void SetupAwake() {
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.SetupLocalizeStrs();
-	}
-
-	//! 약관 동의 팝업이 닫혔을 경우
-	private void OnCloseAgreePopup(CPopup a_oSender) {
-		CAppInfoStorage.Inst.IsCloseAgreePopup = true;
-		this.LoadNextScene();
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! 약관 동의 팝업을 출력한다
 	private void ShowAgreePopup(string a_oServices, string a_oPrivacy, EAgreePopupType a_ePopupType) {
-		Func.ShowAgreePopup(this.SubPopupUIs, (a_oSender) => {
-			var stParams = new CAgreePopup.STParams() {
-				m_oServices = a_oServices,
-				m_oPrivacy = a_oPrivacy,
+#if MODE_PORTRAIT_ENABLE
+		string oObjPath = KCDefine.AS_OBJ_P_PORTRAIT_AGREE_POPUP;
+#else
+		string oObjPath = KCDefine.AS_OBJ_P_LANDSCAPE_AGREE_POPUP;
+#endif			// #if MODE_PORTRAIT_ENABLE
 
-				m_ePopupType = a_ePopupType
-			};
+		var stParams = new CAgreePopup.STParams() {
+			m_oServices = a_oServices,
+			m_oPrivacy = a_oPrivacy,
 
-			(a_oSender as CAgreePopup).Init(stParams);
-		}, null, this.OnCloseAgreePopup);
+			m_ePopupType = a_ePopupType
+		};
+
+		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.SubPopupUIs);
+		oAgreePopup.Init(stParams);
+		oAgreePopup.Show(null, this.OnCloseAgreePopup);
+	}
+
+	//! 약관 동의 팝업이 닫혔을 경우
+	private void OnCloseAgreePopup(CPopup a_oSender) {
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
+		CAppInfoStorage.Inst.IsCloseAgreePopup = true;
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+
+		this.LoadNextScene();
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+
+	#endregion			// 조건부 함수
 
 	#region 추가 함수
 
 	#endregion			// 추가 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

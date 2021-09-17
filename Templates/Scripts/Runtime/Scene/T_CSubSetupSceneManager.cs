@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 서브 설정 씬 관리자
 public class CSubSetupSceneManager : CSetupSceneManager {
 	#region 변수
@@ -26,6 +25,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 	protected override void Setup() {
 		base.Setup();
 
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		// 저장소를 로드한다
 		CAppInfoStorage.Inst.LoadAppInfo();
 		CUserInfoStorage.Inst.LoadUserInfo();
@@ -39,6 +39,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		CRewardInfoTable.Inst.LoadRewardInfos();
 		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 		CTutorialInfoTable.Inst.LoadTutorialInfos();
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		
 #if LOCALIZE_TEST_ENABLE
 		CCommonAppInfoStorage.Inst.AppInfo.Language = m_eLanguage;
@@ -57,5 +58,4 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

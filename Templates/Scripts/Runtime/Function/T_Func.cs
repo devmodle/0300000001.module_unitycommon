@@ -190,17 +190,6 @@ public static partial class Func {
 	public static void ShowRestoreFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_RESTORE_FAIL_MSG), a_oCallback, false);
 	}
-
-	//! 약관 동의 팝업을 출력한다
-	public static void ShowAgreePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-#if MODE_PORTRAIT_ENABLE
-		string oObjPath = KCDefine.AS_OBJ_P_PORTRAIT_AGREE_POPUP;
-#else
-		string oObjPath = KCDefine.AS_OBJ_P_LANDSCAPE_AGREE_POPUP;
-#endif			// #if MODE_PORTRAIT_ENABLE
-
-		Func.ShowPopup<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
 	#endregion			// 클래스 함수
 
 	#region 제네릭 클래스 함수
