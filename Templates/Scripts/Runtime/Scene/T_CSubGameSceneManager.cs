@@ -49,7 +49,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if DEBUG || DEVELOPMENT_BUILD
 			// 플레이 레벨 정보가 없을 경우
 			if(CGameInfoStorage.Inst.PlayLevelInfo == null) {
-#if UNITY_STANDALONE && ENGINE_TEMPLATES_MODULE_ENABLE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 				// 레벨 정보가 없을 경우
 				if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
 					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
@@ -58,7 +58,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 					CLevelInfoTable.Inst.SaveLevelInfos();
 				}
-#endif			// #if UNITY_STANDALONE && ENGINE_TEMPLATES_MODULE_ENABLE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 
 				CGameInfoStorage.Inst.SetupPlayLevelInfo(KCDefine.B_VAL_0_INT, EPlayMode.NORM);
 			}

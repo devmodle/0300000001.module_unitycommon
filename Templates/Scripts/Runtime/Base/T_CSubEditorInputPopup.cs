@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 //! 서브 에디터 입력 팝업
 public class CSubEditorInputPopup : CEditorInputPopup {
 	#region 추가 변수
@@ -42,5 +42,5 @@ public class CSubEditorInputPopup : CEditorInputPopup {
 
 	#endregion			// 추가 함수
 }
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

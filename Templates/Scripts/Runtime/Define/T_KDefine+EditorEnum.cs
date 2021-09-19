@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 #region 기본
 
 #endregion			// 기본
@@ -12,5 +12,5 @@ using UnityEngine.UI;
 #region 추가 상수
 
 #endregion			// 추가 상수
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

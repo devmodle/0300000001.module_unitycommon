@@ -47,7 +47,21 @@ public static partial class KEditorDefine {
 		[typeof(CToastPopupManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+#if SCENE_TEMPLATES_MODULE_ENABLE
+		[typeof(CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,
+		[typeof(CSubSetupSceneManager)] = KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER,
+		[typeof(CSubAgreeSceneManager)] = KCDefine.U_SCRIPT_O_AGREE_SCENE_MANAGER,
+		[typeof(CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER,
+
+		[typeof(CSubStartSceneManager)] = KCDefine.U_SCRIPT_O_START_SCENE_MANAGER,
+		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_O_SPLASH_SCENE_MANAGER,
+		[typeof(CSubPermissionSceneManager)] = KCDefine.U_SCRIPT_O_PERMISSION_SCENE_MANAGER,
+		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+
+#if STUDY_MODULE_ENABLE
+		[typeof(CSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+#endif			// #if STUDY_MODULE_ENABLE
+#endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		[typeof(CLevelInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
@@ -60,16 +74,6 @@ public static partial class KEditorDefine {
 		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		
-		[typeof(CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,
-		[typeof(CSubSetupSceneManager)] = KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER,
-		[typeof(CSubAgreeSceneManager)] = KCDefine.U_SCRIPT_O_AGREE_SCENE_MANAGER,
-		[typeof(CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER,
-
-		[typeof(CSubStartSceneManager)] = KCDefine.U_SCRIPT_O_START_SCENE_MANAGER,
-		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_O_SPLASH_SCENE_MANAGER,
-		[typeof(CSubPermissionSceneManager)] = KCDefine.U_SCRIPT_O_PERMISSION_SCENE_MANAGER,
-		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 
 		[typeof(CSubTitleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(CSubGameSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
@@ -77,13 +81,9 @@ public static partial class KEditorDefine {
 		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		[typeof(CSubLevelEditorSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
-		
-#if STUDY_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-		[typeof(CSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-#endif			// #if STUDY_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 
 #if ADS_MODULE_ENABLE
 		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
@@ -130,8 +130,8 @@ public static partial class KEditorDefine {
 	};
 
 	// 데이터 타입
-	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPES = new Dictionary<string, System.Type>() {			
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPES = new Dictionary<string, System.Type>() {
+#if SCENE_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_INIT] = typeof(CSubInitSceneManager),
 		[KCDefine.B_SCENE_N_SETUP] = typeof(CSubSetupSceneManager),
 		[KCDefine.B_SCENE_N_AGREE] = typeof(CSubAgreeSceneManager),
@@ -142,19 +142,21 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_PERMISSION] = typeof(CSubPermissionSceneManager),
 		[KCDefine.B_SCENE_N_INTRO] = typeof(CSubIntroSceneManager),
 
+#if STUDY_MODULE_ENABLE
+		[KCDefine.B_SCENE_N_MENU] = typeof(CSubMenuSceneManager)
+#endif			// #if STUDY_MODULE_ENABLE
+#endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
+		
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_TITLE] = typeof(CSubTitleSceneManager),
 		[KCDefine.B_SCENE_N_GAME] = typeof(CSubGameSceneManager),
 		[KCDefine.B_SCENE_N_OVERLAY] = typeof(CSubOverlaySceneManager),
 		[KCDefine.B_SCENE_N_LOADING] = typeof(CSubLoadingSceneManager),
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_LEVEL_EDITOR] = typeof(CSubLevelEditorSceneManager),
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
-
-#if STUDY_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-		[KCDefine.B_SCENE_N_MENU] = typeof(CSubMenuSceneManager)
-#endif			// #if STUDY_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 	};
 
 	// 유니티 패키지 {

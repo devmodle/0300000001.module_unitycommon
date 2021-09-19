@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 
 #if NEVER_USE_THIS
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 //! 서브 레벨 에디터 씬 관리자
 public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
 	#region 변수
@@ -885,5 +885,5 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	#endregion			// 추가 함수
 }
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

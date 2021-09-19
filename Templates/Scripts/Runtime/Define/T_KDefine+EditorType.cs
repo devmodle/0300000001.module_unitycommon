@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using MessagePack;
 
 #if NEVER_USE_THIS
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 #region 기본
 //! 서브 에디터 레벨 생성 정보
 public class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
@@ -22,5 +22,5 @@ public struct STEditorTypeWrapper {
 #region 추가 타입
 
 #endregion			// 추가 타입
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_TEMPLATES_MODULE_ENABLE
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS
