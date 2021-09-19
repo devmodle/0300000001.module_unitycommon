@@ -143,7 +143,7 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_INTRO] = typeof(CSubIntroSceneManager),
 
 #if STUDY_MODULE_ENABLE
-		[KCDefine.B_SCENE_N_MENU] = typeof(CSubMenuSceneManager)
+		[KCDefine.B_SCENE_N_MENU] = typeof(CSubMenuSceneManager),
 #endif			// #if STUDY_MODULE_ENABLE
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
 		
@@ -155,7 +155,7 @@ public static partial class KEditorDefine {
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
 #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
-		[KCDefine.B_SCENE_N_LEVEL_EDITOR] = typeof(CSubLevelEditorSceneManager),
+		[KCDefine.B_SCENE_N_LEVEL_EDITOR] = typeof(CSubLevelEditorSceneManager)
 #endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 	};
 
