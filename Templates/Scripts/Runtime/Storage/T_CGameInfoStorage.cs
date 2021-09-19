@@ -51,6 +51,13 @@ public class CClearInfo : CBaseInfo {
 		base.OnAfterDeserialize();
 	}
 	#endregion			// 인터페이스
+
+	#region 함수
+	//! 생성자
+	public CClearInfo() : base(KDefine.G_VER_CLEAR_INFO) {
+		// Do Something
+	}
+	#endregion			// 함수
 }
 
 //! 게임 정보
@@ -142,6 +149,13 @@ public class CGameInfo : CBaseInfo {
 		m_oClearInfoDict = m_oClearInfoDict ?? new Dictionary<long, CClearInfo>();
 	}
 	#endregion			// 인터페이스
+
+	#region 함수
+	//! 생성자
+	public CGameInfo() : base(KDefine.G_VER_GAME_INFO) {
+		// Do Something
+	}
+	#endregion			// 함수
 }
 
 //! 게임 정보 저장소

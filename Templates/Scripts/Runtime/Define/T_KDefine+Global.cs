@@ -133,6 +133,16 @@ public static partial class KDefine {
 	};
 	// 기타 }
 
+	// 버전 {
+	public static readonly System.Version G_VER_APP_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_GAME_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_USER_INFO = new System.Version(1, 0, 0);
+
+	public static readonly System.Version G_VER_CELL_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_CLEAR_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_LEVEL_INFO = new System.Version(1, 0, 0);
+	// 버전 }
+
 	// 정렬 순서 {
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_OBJS_CANVAS = new STSortingOrderInfo() {
 		m_nOrder = 0,

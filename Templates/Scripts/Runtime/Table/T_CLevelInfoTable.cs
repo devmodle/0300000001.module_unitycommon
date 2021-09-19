@@ -17,11 +17,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	[Key(61)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	#endregion			// 변수
-
-	#region 프로퍼티
-	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
-	#endregion			// 프로퍼티
-
+	
 	#region 인터페이스
 	//! 사본 객체를 생성한다
 	public virtual object Clone() {
@@ -48,6 +44,11 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 인터페이스
 
 	#region 함수
+	//! 생성자
+	public CCellInfo() : base(KDefine.G_VER_CELL_INFO) {
+		// Do Something
+	}
+
 	//! 사본 객체를 설정한다
 	protected virtual void SetupCloneInst(CCellInfo a_oCellInfo) {
 		a_oCellInfo.m_stIdx = m_stIdx;
@@ -150,6 +151,11 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 인터페이스
 
 	#region 함수
+	//! 생성자
+	public CLevelInfo() : base(KDefine.G_VER_LEVEL_INFO) {
+		// Do Something
+	}
+
 	//! 셀 정보를 반환한다
 	public CCellInfo GetCellInfo(Vector3Int a_stIdx) {
 		bool bIsValid = this.TryGetCellInfo(a_stIdx, out CCellInfo oCellInfo);

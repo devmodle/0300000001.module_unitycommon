@@ -10,13 +10,14 @@ using MessagePack;
 [Union(0, typeof(CAppInfo))]
 [Union(1, typeof(CUserInfo))]
 [Union(2, typeof(CGameInfo))]
-[Union(3, typeof(CClearInfo))]
-[Union(4, typeof(CCellInfo))]
+[Union(3, typeof(CCellInfo))]
+[Union(4, typeof(CClearInfo))]
 [Union(5, typeof(CLevelInfo))]
 [MessagePackObject]
 [System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 상수
+	private const string KEY_VER = "Ver";
 	private const string KEY_SAVE_TIME = "SaveTime";
 	#endregion			// 상수
 
@@ -27,13 +28,16 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#endregion			// 변수
 
 	#region 프로퍼티
+	[IgnoreMember] public System.Version Ver {
+		get { return System.Version.Parse(m_oStrDict.ExGetVal(CBaseInfo.KEY_VER, KCDefine.B_VER_STR)); }
+		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+	}
+
 	[IgnoreMember] public System.DateTime SaveTime {
 		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
 		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_SAVE_TIME, value.ExToLongStr()); }
 	}
-
-	[IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
-
+	
 	[IgnoreMember] private string SaveTimeStr => m_oStrDict.ExGetVal(CBaseInfo.KEY_SAVE_TIME, string.Empty);
 	[IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
@@ -41,10 +45,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 인터페이스
 	//! 직렬화 될 경우
 	public virtual void OnBeforeSerialize() {
-		// 저장 시간 무시 모드가 아닐 경우
-		if(!this.IsIgnoreSaveTime) {
-			this.SaveTime = System.DateTime.Now;
-		}
+		this.SaveTime = System.DateTime.Now;
 	}
 
 	//! 역직렬화 되었을 경우
@@ -54,6 +55,13 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 	}
 	#endregion			// 인터페이스
+
+	#region 함수
+	//! 생성자
+	public CBaseInfo(System.Version a_stVer) {
+		this.Ver = a_stVer;
+	}
+	#endregion			// 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if NEVER_USE_THIS

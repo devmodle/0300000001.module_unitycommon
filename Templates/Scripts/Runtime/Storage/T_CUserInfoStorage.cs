@@ -43,6 +43,13 @@ public class CUserInfo : CBaseInfo {
 		base.OnAfterDeserialize();
 	}
 	#endregion			// 인터페이스
+
+	#region 함수
+	//! 생성자
+	public CUserInfo() : base(KDefine.G_VER_USER_INFO) {
+		// Do Something
+	}
+	#endregion			// 함수
 }
 
 //! 유저 정보 저장소
