@@ -15,7 +15,7 @@ MonoBehaviour:
   m_stJenkinsInfo:
     m_oUserID: studio
     m_oBranch: main
-    m_oSrc: 
+    m_oSrc: 000111.Sample_Unity
     m_oWorkspace: /Volumes/LaCie/jenkins/workspace
     m_oBuildToken: JenkinsBuild
     m_oAccessToken: 1157dad5f9db2d0615036ebc6da282c251
