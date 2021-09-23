@@ -176,6 +176,7 @@ public static partial class KEditorDefine {
 		["com.unity.mathematics"] = "1.2.1",
 		["com.unity.addressables"] = "1.18.15",
 		["com.unity.ads.ios-support"] = "1.0.0",
+		["com.unity.animation.rigging"] = "1.0.3",
 		// 기본 }
 
 		// 렌더링

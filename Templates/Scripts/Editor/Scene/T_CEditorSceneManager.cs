@@ -111,11 +111,11 @@ public static partial class CEditorSceneManager {
 	private static void LateUpdate() {
 		bool bIsEnableUpdate = CEditorSceneManager.m_bIsSetupDependencies;
 		bIsEnableUpdate = bIsEnableUpdate && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VAL_0_INT;
+		
+		CEditorSceneManager.m_fDefineSymbolSkipTime = (bIsEnableUpdate && CEditorAccess.IsEnableUpdateState) ? CEditorSceneManager.m_fDefineSymbolSkipTime + Time.deltaTime : KCDefine.B_VAL_0_FLT;
 
 		// 상태 갱신이 가능 할 경우
 		if(bIsEnableUpdate && CEditorAccess.IsEnableUpdateState) {
-			CEditorSceneManager.m_fDefineSymbolSkipTime += Time.deltaTime;
-
 			var oAsset = CEditorFunc.FindAsset<ScriptableObject>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_TABLE);
 			bool bIsEnable = oAsset != null && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE);
 
