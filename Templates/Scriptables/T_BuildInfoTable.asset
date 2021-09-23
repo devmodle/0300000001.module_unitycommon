@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_stJenkinsInfo:
     m_oUserID: studio
-    m_oBranch: master
+    m_oBranch: main
     m_oSrc: 
     m_oWorkspace: /Volumes/LaCie/jenkins/workspace
     m_oBuildToken: JenkinsBuild
