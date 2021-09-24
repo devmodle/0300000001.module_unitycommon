@@ -14,6 +14,7 @@
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
 	- *Native Share (v1.4.2 - Jul 7, 2021)*
+	- *NGUI (v2021.9.10b - Sep 12, 2021)*
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*
 	- *Signin with Apple (v1.1.1 - Nov 9, 2020)*
 	- *Simple Scroll Snap (v1.2.1 - Dec 14, 2020)*
