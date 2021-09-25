@@ -15,7 +15,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private CTouchDispatcher m_oBGTouchDispatcher = null;
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-	private CLevelInfo m_oSelLevelInfo = null;
+	[System.NonSerialized] private CLevelInfo m_oSelLevelInfo = null;
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE

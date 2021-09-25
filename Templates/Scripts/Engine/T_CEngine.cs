@@ -137,9 +137,12 @@ namespace SampleEngineName {
 			// Do Something
 		}
 		
-		//! 가이드 라인을 그린다
+		//! 기즈모를 그린다
 		public virtual void OnDrawGizmos() {
-			// Do Something
+			// 앱 실행 중이 아닐 경우
+			if(!Application.isPlaying) {
+				// Do Something
+			}
 		}
 #endif			// #if UNITY_EDITOR
 		#endregion			// 조건부 함수

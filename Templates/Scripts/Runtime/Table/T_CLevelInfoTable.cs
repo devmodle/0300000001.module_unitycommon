@@ -7,11 +7,10 @@ using MessagePack;
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 셀 정보
-[MessagePackObject]
-[System.Serializable]
+[MessagePackObject][System.Serializable]
 public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
-	[IgnoreMember] public Vector3Int m_stIdx;
+	[IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	[Key(61)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
@@ -61,8 +60,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 }
 
 //! 레벨 정보
-[MessagePackObject]
-[System.Serializable]
+[MessagePackObject][System.Serializable]
 public class CLevelInfo : CBaseInfo, System.ICloneable {
 	#region 상수
 	private const string KEY_LEVEL_MODE = "LevelMode";
@@ -73,7 +71,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 
 	#region 변수
 	[Key(161)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
-	[IgnoreMember] public STIDInfo m_stIDInfo;
+	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 	
 	#region 프로퍼티

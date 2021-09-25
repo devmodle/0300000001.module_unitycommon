@@ -8,8 +8,7 @@ using MessagePack;
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 유저 정보
-[MessagePackObject]
-[System.Serializable]
+[MessagePackObject][System.Serializable]
 public class CUserInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_NUM_COINS = "NumCoins";

@@ -22,9 +22,10 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private bool m_bIsLeave = false;
 	private int m_nContinueTimes = 0;
 
-	private CLevelInfo m_oLevelInfo = null;
-	private CClearInfo m_oClearInfo = null;
 	private CTouchDispatcher m_oBGTouchDispatcher = null;
+
+	[System.NonSerialized] private CLevelInfo m_oLevelInfo = null;
+	[System.NonSerialized] private CClearInfo m_oClearInfo = null;
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	private SampleEngineName.CEngine m_oEngine = null;
@@ -338,9 +339,14 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	#region 조건부 함수
 #if UNITY_EDITOR
-	//! 가이드 라인을 그린다
+	//! 기즈모를 그린다
 	public override void OnDrawGizmos() {
 		base.OnDrawGizmos();
+
+		// 앱 실행 중이 아닐 경우
+		if(!Application.isPlaying) {
+			// Do Something
+		}
 	}
 #endif			// #if UNITY_EDITOR
 

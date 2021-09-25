@@ -8,8 +8,7 @@ using MessagePack;
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 클리어 정보
-[MessagePackObject]
-[System.Serializable]
+[MessagePackObject][System.Serializable]
 public class CClearInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_SCORE = "Score";
@@ -18,7 +17,7 @@ public class CClearInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[IgnoreMember] public STIDInfo m_stIDInfo;
+	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -61,8 +60,7 @@ public class CClearInfo : CBaseInfo {
 }
 
 //! 게임 정보
-[MessagePackObject]
-[System.Serializable]
+[MessagePackObject][System.Serializable]
 public class CGameInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";

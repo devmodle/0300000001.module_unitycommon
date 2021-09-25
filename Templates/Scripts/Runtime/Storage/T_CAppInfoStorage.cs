@@ -8,8 +8,7 @@ using MessagePack;
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 //! 앱 정보
-[MessagePackObject]
-[System.Serializable]
+[MessagePackObject][System.Serializable]
 public class CAppInfo : CBaseInfo {
 	#region 상수
 #if ADS_MODULE_ENABLE

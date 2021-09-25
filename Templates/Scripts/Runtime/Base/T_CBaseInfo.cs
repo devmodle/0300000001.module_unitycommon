@@ -13,8 +13,7 @@ using MessagePack;
 [Union(3, typeof(CCellInfo))]
 [Union(4, typeof(CClearInfo))]
 [Union(5, typeof(CLevelInfo))]
-[MessagePackObject]
-[System.Serializable]
+[MessagePackObject][System.Serializable]
 public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 상수
 	private const string KEY_VER = "Ver";
