@@ -36,6 +36,7 @@ MonoBehaviour:
   - PREFAB_TEMPLATES_ENABLE
   - ENGINE_TEMPLATES_ENABLE
   - RUNTIME_TEMPLATES_ENABLE
+  - MODULE_VER_1_7_2_OR_NEWER
   m_oSubCommonDefineSymbolList: []
   m_oStandaloneDefineSymbolList:
   - EDITOR_ENABLE
