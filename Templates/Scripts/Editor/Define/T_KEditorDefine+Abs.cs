@@ -79,6 +79,7 @@ public static partial class KEditorDefine {
 		[typeof(CSubGameSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_OVERLAY_SCENE_MANAGER,
 		[typeof(CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
+		[typeof(CSubTestSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
 #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
@@ -152,6 +153,7 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_GAME] = typeof(CSubGameSceneManager),
 		[KCDefine.B_SCENE_N_OVERLAY] = typeof(CSubOverlaySceneManager),
 		[KCDefine.B_SCENE_N_LOADING] = typeof(CSubLoadingSceneManager),
+		[KCDefine.B_SCENE_N_TEST] = typeof(CSubTestSceneManager),
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
 #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE

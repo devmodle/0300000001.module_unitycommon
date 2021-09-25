@@ -26,7 +26,7 @@ public class CSampleSceneManager : CSceneManager {
 				// 씬 관리자 추가가 필요 할 경우
 				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyVal.Value) == null) {
 					oSceneManager.AddComponent(stKeyVal.Value);
-					oSceneManager.ExRemoveComponent<CSampleSceneManager>();
+					oSceneManager.ExRemoveComponent<CSampleSceneManager>(false);
 					
 					EditorSceneManager.MarkSceneDirty(a_stScene);
 				}

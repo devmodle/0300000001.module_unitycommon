@@ -88,8 +88,8 @@ public static partial class CEditorSceneManager {
 
 	//! 독립 패키지 상태를 갱신한다
 	private static void UpdateDependencyState() {
-		// 리스트 요청이 완료 되었을 경우
-		if(m_oListRequest.ExIsComplete()) {
+		// 상태 갱신이 가능 할 경우
+		if(CEditorAccess.IsEnableUpdateState && m_oListRequest.ExIsComplete()) {
 			try {
 				CEditorSceneManager.SetupDependencies();
 			} finally {
@@ -103,8 +103,11 @@ public static partial class CEditorSceneManager {
 
 	//! 패키지 레지스트리 상태를 갱신한다
 	private static void UpdateScopedRegistryState() {
-		CEditorSceneManager.SetupScopedRegistries();
-		EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
+		// 상태 갱신이 가능 할 경우
+		if(CEditorAccess.IsEnableUpdateState) {
+			CEditorSceneManager.SetupScopedRegistries();
+			EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
+		}
 	}
 
 	//! 상태를 갱신한다

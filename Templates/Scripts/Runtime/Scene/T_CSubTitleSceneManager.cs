@@ -10,6 +10,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#region 변수
 	// =====> UI <=====
 	private Text m_oVerText = null;
+	private Button m_oPlayBtn = null;
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -147,6 +148,10 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
 		// 텍스트를 설정한다 }
 
+		// 버튼을 설정한다
+		m_oPlayBtn = this.SubUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
+		m_oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
+
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
@@ -173,6 +178,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
 			LogFunc.SendAgreeLog();
 		}
+	}
+
+	//! 플레이 버튼을 눌렀을 경우
+	private void OnTouchPlayBtn() {
+		// Do Something
 	}
 
 	//! 종료 팝업 결과를 수신했을 경우
