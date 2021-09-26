@@ -187,6 +187,22 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
+	//! 팝업 결과를 수신했을 경우
+	private void OnReceivePopupResult(CPopup a_oSender, EPopupResult a_eResult) {
+		// 팝업이 존재 할 경우
+		if(a_oSender != null) {
+			a_oSender.IsIgnoreAni = true;
+			a_oSender.Close();
+		}
+
+		switch(a_eResult) {
+			case EPopupResult.NEXT: this.LoadNextLevel(); break;
+			case EPopupResult.RETRY: this.RetryCurLevel(); break;
+			case EPopupResult.CONTINUE: this.ContinueCurLevel(); break;
+			case EPopupResult.LEAVE: m_bIsLeave = true; this.LoadNextLevel(); break;
+		}
+	}
+
 	//! 터치를 시작했을 경우
 	private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
@@ -214,22 +230,6 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 			m_oEngine.OnTouchEnd(a_oSender, a_oEventData);
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-		}
-	}
-
-	//! 팝업 결과를 수신했을 경우
-	private void OnReceivePopupResult(CPopup a_oSender, EPopupResult a_eResult) {
-		// 팝업이 존재 할 경우
-		if(a_oSender != null) {
-			a_oSender.IsIgnoreAni = true;
-			a_oSender.Close();
-		}
-
-		switch(a_eResult) {
-			case EPopupResult.NEXT: this.LoadNextLevel(); break;
-			case EPopupResult.RETRY: this.RetryCurLevel(); break;
-			case EPopupResult.CONTINUE: this.ContinueCurLevel(); break;
-			case EPopupResult.LEAVE: m_bIsLeave = true; this.LoadNextLevel(); break;
 		}
 	}
 

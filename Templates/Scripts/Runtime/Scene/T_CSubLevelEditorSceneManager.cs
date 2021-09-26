@@ -469,6 +469,42 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 버튼을 갱신한다 }
 	}
 
+	//! 에디터 제거 팝업 결과를 수신했을 경우
+	private void OnReceiveEditorRemovePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
+		// 확인 버튼을 눌렀을 경우
+		if(a_bIsOK) {
+			this.RemoveLevelInfos(m_oSelScroller, m_stSelIDInfo);
+			this.UpdateUIsState();
+		}
+	}
+
+	//! 에디터 입력 팝업 결과를 수신했을 경우
+	private void OnReceiveEditorInputPopupResult(CEditorInputPopup a_oSender, string a_oStr) {
+		// 식별자가 유효 할 경우
+		if(int.TryParse(a_oStr, out int nID)) {
+			this.MoveLevelInfos(m_oSelScroller, m_stSelIDInfo, nID);
+			this.UpdateUIsState();
+		}
+	}
+
+	//! 에디터 레벨 생성 팝업 결과를 수신했을 경우
+	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, CEditorLevelCreateInfo a_oCreateInfo) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
+		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+		int nNumCreateLevelInfos = (nNumLevelInfos + a_oCreateInfo.m_nNumLevels < KCDefine.U_MAX_NUM_LEVEL_INFOS) ? a_oCreateInfo.m_nNumLevels : KCDefine.U_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
+
+		for(int i = 0; i < nNumCreateLevelInfos; ++i) {
+			var oLevelInfo = Factory.MakeLevelInfo(i + nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+			m_oSelLevelInfo = oLevelInfo;
+
+			CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
+			Func.EditorSetupLevelInfo(oLevelInfo, a_oCreateInfo);
+		}
+
+		this.UpdateUIsState();
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+	}
+
 	//! 터치를 시작했을 경우
 	private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
@@ -692,42 +728,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		} else {
 			Func.ShowEditorChapterRemovePopup(this.OnReceiveEditorRemovePopupResult);
 		}
-	}
-
-	//! 에디터 제거 팝업 결과를 수신했을 경우
-	private void OnReceiveEditorRemovePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
-		// 확인 버튼을 눌렀을 경우
-		if(a_bIsOK) {
-			this.RemoveLevelInfos(m_oSelScroller, m_stSelIDInfo);
-			this.UpdateUIsState();
-		}
-	}
-
-	//! 에디터 입력 팝업 결과를 수신했을 경우
-	private void OnReceiveEditorInputPopupResult(CEditorInputPopup a_oSender, string a_oStr) {
-		// 식별자가 유효 할 경우
-		if(int.TryParse(a_oStr, out int nID)) {
-			this.MoveLevelInfos(m_oSelScroller, m_stSelIDInfo, nID);
-			this.UpdateUIsState();
-		}
-	}
-
-	//! 에디터 레벨 생성 팝업 결과를 수신했을 경우
-	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, CEditorLevelCreateInfo a_oCreateInfo) {
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-		int nNumCreateLevelInfos = (nNumLevelInfos + a_oCreateInfo.m_nNumLevels < KCDefine.U_MAX_NUM_LEVEL_INFOS) ? a_oCreateInfo.m_nNumLevels : KCDefine.U_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
-
-		for(int i = 0; i < nNumCreateLevelInfos; ++i) {
-			var oLevelInfo = Factory.MakeLevelInfo(i + nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-			m_oSelLevelInfo = oLevelInfo;
-
-			CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
-			Func.EditorSetupLevelInfo(oLevelInfo, a_oCreateInfo);
-		}
-
-		this.UpdateUIsState();
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
 	//! 레벨 정보를 반환한다

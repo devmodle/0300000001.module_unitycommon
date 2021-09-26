@@ -180,11 +180,6 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
-	//! 플레이 버튼을 눌렀을 경우
-	private void OnTouchPlayBtn() {
-		// Do Something
-	}
-
 	//! 종료 팝업 결과를 수신했을 경우
 	private void OnReceiveQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
@@ -200,6 +195,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		if(a_bIsOK) {
 			Application.OpenURL(CProjInfoTable.Inst.ProjInfo.m_oStoreURL);
 		}
+	}
+
+	//! 플레이 버튼을 눌렀을 경우
+	private void OnTouchPlayBtn() {
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 	}
 	#endregion			// 함수
 
