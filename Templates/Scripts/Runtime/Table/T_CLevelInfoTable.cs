@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
@@ -217,13 +218,13 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	//! 스테이지 정보 개수를 반화한다
-	public int GetNumStageInfos(int a_nChapterID) {
+	public int GetNumStageInfos(int a_nID) {
 #if UNITY_STANDALONE
-		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nChapterID));
-		return this.LevelInfoDictContainer[a_nChapterID].Count;
+		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nID));
+		return this.LevelInfoDictContainer[a_nID].Count;
 #else
-		CAccess.Assert(this.NumLevelInfosDictContainer.ContainsKey(a_nChapterID));
-		return this.NumLevelInfosDictContainer[a_nChapterID].Count;
+		CAccess.Assert(this.NumLevelInfosDictContainer.ContainsKey(a_nID));
+		return this.NumLevelInfosDictContainer[a_nID].Count;
 #endif			// #if UNITY_STANDALONE
 	}
 
@@ -358,6 +359,34 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		oStageLevelInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo);
 		oChapterLevelInfoDictContainer.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nStageID, oStageLevelInfoDict);
 		this.LevelInfoDictContainer.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nChapterID, oChapterLevelInfoDictContainer);
+	}
+
+	//! 스테이지 레벨 정보를 추가한다
+	public void AddStageLevelInfos(Dictionary<int, CLevelInfo> a_oStageLevelInfoDict) {
+		CAccess.Assert(a_oStageLevelInfoDict != null);
+		var oStageLevelInfoList = a_oStageLevelInfoDict.OrderBy((a_stKeyVal) => a_stKeyVal.Key).ToList();
+
+		for(int i = 0; i < oStageLevelInfoList.Count; ++i) {
+			int nNumLevelInfos = this.GetNumLevelInfos(oStageLevelInfoList[i].Value.m_stIDInfo.m_nStageID, oStageLevelInfoList[i].Value.m_stIDInfo.m_nChapterID);
+			oStageLevelInfoList[i].Value.m_stIDInfo = CFactory.MakeIDInfo(nNumLevelInfos, oStageLevelInfoList[i].Value.m_stIDInfo.m_nStageID, oStageLevelInfoList[i].Value.m_stIDInfo.m_nChapterID);
+
+			this.AddLevelInfo(oStageLevelInfoList[i].Value);
+		}
+	}
+
+	//! 챕터 레벨 정보를 추가한다
+	public void AddChapterLevelInfos(Dictionary<int, Dictionary<int, CLevelInfo>> a_oChapterLevelInfoDict) {
+		CAccess.Assert(a_oChapterLevelInfoDict != null);
+		var oChapterLevelInfoList = a_oChapterLevelInfoDict.OrderBy((a_stKeyVal) => a_stKeyVal.Key).ToList();
+
+		for(int i = 0; i < oChapterLevelInfoList.Count; ++i) {
+			for(int j = 0; j < oChapterLevelInfoList[i].Value.Count; ++i) {
+				int nNumStageInfos = this.GetNumStageInfos(oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nChapterID);
+				oChapterLevelInfoList[i].Value[j].m_stIDInfo = CFactory.MakeIDInfo(oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID, nNumStageInfos, oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nChapterID);
+			}
+			
+			this.AddStageLevelInfos(oChapterLevelInfoList[i].Value);
+		}
 	}
 
 	//! 레벨 정보를 제거한다
