@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#region 변수
 	// =====> UI <=====
-	private Text m_oVerText = null;
 	private Button m_oPlayBtn = null;
 	#endregion			// 변수
 
@@ -63,15 +62,14 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 				CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay = false;
 				CCommonAppInfoStorage.Inst.SaveAppInfo();
 
-				this.UpdateFirstPlayState();
+				this.HandleFirstPlayState();
 			} else {
 				// 업데이트가 필요 할 경우
 				if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
 					CAppInfoStorage.Inst.IsIgnoreUpdate = true;
 					this.ExLateCallFunc((a_oSender, a_oParams) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 				}
-				
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+
 				// 일일 미션 리셋이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableResetDailyMission) {
 					CGameInfoStorage.Inst.GameInfo.PrevDailyMissionTime = System.DateTime.Today;
@@ -79,9 +77,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 					CGameInfoStorage.Inst.SaveGameInfo();
 				}
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 				// 무료 보상 획득이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableGetFreeReward) {
 					CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards = KCDefine.B_VAL_0_INT;
@@ -89,9 +85,8 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 					
 					CGameInfoStorage.Inst.SaveGameInfo();
 				}
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
-#if DAILY_REWARD_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if DAILY_REWARD_ENABLE
 				// 일일 보상 획득이 가능 할 경우
 				if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
 					Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oSender) => {
@@ -99,7 +94,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 						oDailyRewardPopup.Init();
 					});
 				}
-#endif			// #if DAILY_REWARD_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if DAILY_REWARD_ENABLE
 			}
 		}
 	}
@@ -139,15 +134,6 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	//! 씬을 설정한다
 	private void SetupAwake() {
-		// 텍스트를 설정한다 {
-		var oVerText = this.SubUIs.ExFindComponent<Text>(KCDefine.TS_OBJ_N_VER_TEXT);
-
-		m_oVerText = oVerText ?? CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs, KCDefine.TS_POS_VER_TEXT);
-		m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-		m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-		m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-		// 텍스트를 설정한다 }
-
 		// 버튼을 설정한다
 		m_oPlayBtn = this.SubUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
 		m_oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
@@ -164,20 +150,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	//! UI 상태를 갱신한다
 	private void UpdateUIsState() {
-		// 텍스트를 갱신한다
-		m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
-
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
-	}
-
-	//! 최초 플레이 상태를 갱신한다
-	private void UpdateFirstPlayState() {
-		// 약관 동의 팝업이 닫혔을 경우
-		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
-			LogFunc.SendAgreeLog();
-		}
 	}
 
 	//! 종료 팝업 결과를 수신했을 경우
@@ -200,6 +175,14 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	//! 플레이 버튼을 눌렀을 경우
 	private void OnTouchPlayBtn() {
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+	}
+
+	//! 최초 플레이 상태를 처리한다
+	private void HandleFirstPlayState() {
+		// 약관 동의 팝업이 닫혔을 경우
+		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
+			LogFunc.SendAgreeLog();
+		}
 	}
 	#endregion			// 함수
 

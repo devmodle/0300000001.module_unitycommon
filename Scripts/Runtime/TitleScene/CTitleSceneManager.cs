@@ -9,6 +9,11 @@ using UnityEngine.InputSystem;
 
 //! 타이틀 씬 관리자
 public class CTitleSceneManager : CSceneManager {
+	#region 변수
+	// =====> UI <=====
+	protected Text m_oVerText = null;
+	#endregion			// 변수
+
 	#region 프로퍼티
 	public override bool IsRealtimeFadeInAni => true;
 	public override bool IsRealtimeFadeOutAni => true;
@@ -24,6 +29,25 @@ public class CTitleSceneManager : CSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			Time.timeScale = KCDefine.B_VAL_1_FLT;
+
+			// 텍스트를 설정한다 {
+			var oVerText = this.SubUIs.ExFindComponent<Text>(KCDefine.TS_OBJ_N_VER_TEXT);
+
+			m_oVerText = oVerText ?? CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs, KCDefine.TS_POS_VER_TEXT);
+			m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+			// 텍스트를 설정한다 }
+		}
+	}
+
+	//! 초기화
+	public override void Start() {
+		base.Start();
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsAppInit) {
+			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 		}
 	}
 	
