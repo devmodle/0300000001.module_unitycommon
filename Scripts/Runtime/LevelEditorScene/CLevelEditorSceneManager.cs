@@ -33,7 +33,7 @@ public class CLevelEditorSceneManager : CSceneManager {
 	//! 초기화
 	public override void Awake() {
 		base.Awake();
-
+		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			Time.timeScale = KCDefine.B_VAL_1_FLT;
