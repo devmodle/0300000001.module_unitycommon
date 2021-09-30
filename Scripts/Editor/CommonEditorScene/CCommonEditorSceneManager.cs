@@ -12,6 +12,7 @@ using UnityEditor.SceneManagement;
 //! 공용 에디터 씬 관리자
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 변수
+	private static bool m_bIsEnableBuild = false;
 	private static bool m_bIsEnableSetup = false;
 
 	private static float m_fSkipTime = 0.0f;
@@ -69,6 +70,7 @@ public static partial class CCommonEditorSceneManager {
 	//! 스크립트가 로드 되었을 경우
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
+		CCommonEditorSceneManager.m_bIsEnableBuild = true;
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 	}
 
@@ -168,6 +170,18 @@ public static partial class CCommonEditorSceneManager {
 		if(CEditorAccess.IsEnableUpdateState) {
 			CCommonEditorSceneManager.m_fSkipTime += Time.deltaTime;
 			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
+
+			// 빌드 가능 할 경우
+			if(CCommonEditorSceneManager.m_bIsEnableBuild) {
+				CCommonEditorSceneManager.m_bIsEnableBuild = false;
+				string oBuildMethod = CFunc.ReadStr(KCEditorDefine.B_DATA_P_BUILD_METHOD);
+
+				// 빌드 메서드가 존재 할 경우
+				if(oBuildMethod.ExIsValid()) {
+					var oMethodInfo = typeof(CPlatformBuilder).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC);
+					oMethodInfo?.Invoke(null, null);
+				}
+			}
 
 			// 갱신 주기가 지났을 경우
 			if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
