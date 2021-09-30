@@ -59,10 +59,10 @@ public static partial class Func {
 
 			for(int j = 0; j < nNumCellsX; ++j) {
 				var stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
-				oCellInfoDict.Add(j, Factory.MakeCellInfo(stIdx));
+				oCellInfoDict.ExAddVal(j, Factory.MakeCellInfo(stIdx));
 			}
 
-			a_oLevelInfo.m_oCellInfoDictContainer.Add(i, oCellInfoDict);
+			a_oLevelInfo.m_oCellInfoDictContainer.ExAddVal(i, oCellInfoDict);
 		}
 
 		a_oLevelInfo.OnAfterDeserialize();

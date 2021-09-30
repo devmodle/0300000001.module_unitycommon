@@ -20,7 +20,7 @@ MonoBehaviour:
     m_oBuildToken: JenkinsBuild
     m_oAccessToken: 1157dad5f9db2d0615036ebc6da282c251
     m_oBuildURLFmt: http://59.11.2.140:18081/{0}/buildWithParameters
-  m_stStandaloneBuildInfo:
+  m_stCommonBuildInfo:
     m_oCategory: public.app-category.games
   m_stiOSBuildInfo:
     m_oTeamID: A9997B8HR5

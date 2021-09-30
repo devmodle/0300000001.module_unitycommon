@@ -321,7 +321,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 					var oBlockSprite = Factory.CreateBlockSprite(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], m_oBlockObjs);
 					oBlockSprite.transform.localPosition = m_stSelGridInfo.m_stGridPivotPos + stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
-					oBlockSpriteDict.Add(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], oBlockSprite);
+					oBlockSpriteDict.ExAddVal(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], oBlockSprite);
 				}
 				
 				m_oBlockSpriteDicts[stIdx.y, stIdx.x] = oBlockSpriteDict;

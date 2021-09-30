@@ -394,7 +394,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	//! 클리어 정보를 추가한다
 	public void AddClearInfo(CClearInfo a_oClearInfo) {
 		CAccess.Assert(!this.IsClearLevel(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
-		this.GameInfo.m_oClearInfoDict.Add(a_oClearInfo.LevelID, a_oClearInfo);
+		this.GameInfo.m_oClearInfoDict.ExAddVal(a_oClearInfo.LevelID, a_oClearInfo);
 	}
 
 	//! 잠금 해제 레벨을 추가한다

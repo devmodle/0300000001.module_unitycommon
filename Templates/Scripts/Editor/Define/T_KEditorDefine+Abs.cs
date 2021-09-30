@@ -391,7 +391,7 @@ public static partial class KEditorDefine {
 		"7953jerfzd.skadnetwork"
 	};
 
-	// 프레임워크
+	// 프레임워크 {
 	public static readonly string[] B_IOS_EXTRA_FRAMEWORKS = new string[] {
 		"libz.tbd",
 		"libsqlite3.0.tbd",
@@ -407,6 +407,11 @@ public static partial class KEditorDefine {
 		"SystemConfiguration.framework",
 		"AuthenticationServices.framework"
 	};
+
+	public static readonly string[] B_IOS_REMOVE_FRAMEWORKS = new string[] {
+		"AppTrackingTransparency.framework"
+	};
+	// 프레임워크 }
 
 	// 호환성 타입
 	public static readonly PBXCapabilityType[] B_IOS_EXTRA_CAPABILITY_TYPES = new PBXCapabilityType[] {

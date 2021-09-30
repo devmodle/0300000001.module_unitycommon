@@ -78,9 +78,12 @@ public static partial class CBuildProcessor {
 		oDoc.root.SetBoolean(KCEditorDefine.B_KEY_IOS_ENCRYPTION_ENABLE, KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
 		oDoc.root.SetString(KCEditorDefine.B_KEY_IOS_USER_TRACKING_USAGE_DESC, KEditorDefine.B_IOS_USER_TRACKING_USAGE_DESC);
 
-		var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
+		var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
+		oDeviceCapabilityList.values.Clear();
 		
 		for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
+			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
+
 			// 광고 네트워크 식별자가 없을 경우
 			if(!oAdsNetworkItemList.ExIsContainsAdsNetworkID(KEditorDefine.B_IOS_ADS_NETWORK_IDS[i])) {
 				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
@@ -106,9 +109,15 @@ public static partial class CBuildProcessor {
 			oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
 		}
 
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
-			oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i]);
+		for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORKS.Length; ++i) {
+			oPBXProj.RemoveFrameworkFromProject(oMainGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i], false);
+			oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i], false);
 		}
+
+		// FIXME: 임시 주석 처리
+		// for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
+		// 	oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i]);
+		// }
 
 		// 전처리기 심볼 테이블이 존재 할 경우
 		if(CPlatformOptsSetter.DefineSymbolDictContainer != null && CPlatformOptsSetter.DefineSymbolDictContainer.ContainsKey(BuildTargetGroup.iOS)) {
@@ -121,6 +130,8 @@ public static partial class CBuildProcessor {
 		}
 
 		oPBXProj.WriteToFile(oPBXProjPath);
+
+		/* FIXME: 임시 주석 처리
 		var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_IOS_CAPABILITY, null, oMainGUID);
 		
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
@@ -146,6 +157,7 @@ public static partial class CBuildProcessor {
 		}
 
 		oCapability.WriteToFile();
+		*/
 		// 프로젝트 옵션을 설정한다 }
 #endif			// #if UNITY_IOS
 	}
