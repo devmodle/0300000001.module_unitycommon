@@ -18,12 +18,12 @@ using UnityEditor.iOS.Xcode;
 public static partial class CBuildProcessor {
 	#region 클래스 변수
 	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessHandlerDict = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
+		[BuildTarget.iOS] = CBuildProcessor.HandleiOSPostProcessBuild,
+		[BuildTarget.Android] = CBuildProcessor.HandleAndroidPostProcessBuild,
+
 		[BuildTarget.StandaloneOSX] = CBuildProcessor.HandleStandalonePostProcessBuild,
 		[BuildTarget.StandaloneWindows] = CBuildProcessor.HandleStandalonePostProcessBuild,
-		[BuildTarget.StandaloneWindows64] = CBuildProcessor.HandleStandalonePostProcessBuild,
-
-		[BuildTarget.iOS] = CBuildProcessor.HandleiOSPostProcessBuild,
-		[BuildTarget.Android] = CBuildProcessor.HandleAndroidPostProcessBuild
+		[BuildTarget.StandaloneWindows64] = CBuildProcessor.HandleStandalonePostProcessBuild
 	};
 	#endregion			// 클래스 변수
 	
@@ -53,16 +53,6 @@ public static partial class CBuildProcessor {
 			oPBXProj.WriteToFile(oPBXProjPath);
 		}
 #endif			// #if UNITY_IOS
-	}
-
-	//! 독립 플랫폼 빌드 완료를 처리한다
-	private static void HandleStandalonePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
-#if UNITY_STANDALONE
-		string oPath = Path.GetDirectoryName(a_oPath);
-		string oDestPath = string.Format(KCEditorDefine.B_DIR_P_FMT_EXTERNAL_DATAS_STANDALONE, oPath);
-		
-		CFunc.CopyDir(KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS, oDestPath);
-#endif			// #if UNITY_STANDALONE
 	}
 
 	//! iOS 빌드 완료를 처리한다
@@ -167,6 +157,16 @@ public static partial class CBuildProcessor {
 #if UNITY_ANDROID
 
 #endif			// #if UNITY_ANDROID
+	}
+
+	//! 독립 플랫폼 빌드 완료를 처리한다
+	private static void HandleStandalonePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
+#if UNITY_STANDALONE
+		string oPath = Path.GetDirectoryName(a_oPath);
+		string oDestPath = string.Format(KCEditorDefine.B_DIR_P_FMT_EXTERNAL_DATAS_STANDALONE, oPath);
+		
+		CFunc.CopyDir(KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS, oDestPath);
+#endif			// #if UNITY_STANDALONE
 	}
 	#endregion			// 클래스 함수
 

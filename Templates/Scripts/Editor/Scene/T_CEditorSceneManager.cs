@@ -132,17 +132,17 @@ public static partial class CEditorSceneManager {
 				var oDefineSymbolLists = new List<string>[] {
 					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
 					CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
-					
-					CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList,
-					CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList,
-					CPlatformOptsSetter.DefineSymbolTable.EditorWndsDefineSymbolList,
 
 					CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList,
 					
 					CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList,
 					CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList,
 					CPlatformOptsSetter.DefineSymbolTable.EditorOneStoreDefineSymbolList,
-					CPlatformOptsSetter.DefineSymbolTable.EditorGalaxyStoreDefineSymbolList
+					CPlatformOptsSetter.DefineSymbolTable.EditorGalaxyStoreDefineSymbolList,
+
+					CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorWndsDefineSymbolList
 				};
 
 				foreach(var stKeyVal in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULES) {
