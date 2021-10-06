@@ -47,13 +47,6 @@ public static partial class LogFunc {
 				CAppsFlyerManager.Inst.SendLog(a_oName, oAppsFlyerDataDict);
 			}
 #endif			// #if APPS_FLYER_MODULE_ENABLE
-
-#if SINGULAR_MODULE_ENABLE
-			// 싱귤러 분석이 가능 할 경우
-			if(KDefine.G_ANALYTICS_TYPE_LOG_ENABLES.ExIsContains(EAnalyticsType.SINGULAR)) {
-				CSingularManager.Inst.SendLog(a_oName, a_oDataDict);
-			}
-#endif			// #if SINGULAR_MODULE_ENABLE
 		}
 	}
 	#endregion			// 클래스 함수
@@ -92,13 +85,6 @@ public static partial class LogFunc {
 				CAppsFlyerManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 			}
 #endif			// #if APPS_FLYER_MODULE_ENABLE
-
-#if SINGULAR_MODULE_ENABLE
-			// 싱귤러 분석이 가능 할 경우
-			if(KDefine.G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLES.ExIsContains(EAnalyticsType.SINGULAR)) {
-				CSingularManager.Inst.SendPurchaseLog(a_oProduct);
-			}
-#endif			// #if SINGULAR_MODULE_ENABLE
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE

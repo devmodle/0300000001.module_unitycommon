@@ -171,15 +171,13 @@ public static partial class KDefine {
 	public static readonly EAnalyticsType[] G_ANALYTICS_TYPE_LOG_ENABLES = new EAnalyticsType[] {
 		EAnalyticsType.FLURRY,
 		EAnalyticsType.FIREBASE,
-		EAnalyticsType.APPS_FLYER,
-		EAnalyticsType.SINGULAR
+		EAnalyticsType.APPS_FLYER
 	};
 
 	public static readonly EAnalyticsType[] G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLES = new EAnalyticsType[] {
 		EAnalyticsType.FLURRY,
 		EAnalyticsType.FIREBASE,
-		EAnalyticsType.APPS_FLYER,
-		EAnalyticsType.SINGULAR
+		EAnalyticsType.APPS_FLYER
 	};
 	// 분석 }
 

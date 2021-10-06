@@ -236,19 +236,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			CAppsFlyerManager.Inst.Init(stAppsFlyerParams, stAppsFlyerCallbackParams);
 #endif			// #if APPS_FLYER_MODULE_ENABLE
 
-#if SINGULAR_MODULE_ENABLE
-			var stSingularParams = new CSingularManager.STParams() {
-				m_oAPIKey = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPIKey,
-				m_oAPISecret = CPluginInfoTable.Inst.SingularPluginInfo.m_oAPISecret
-			};
-
-			var stSingularCallbackParams = new CSingularManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitSingularManager
-			};
-			
-			CSingularManager.Inst.Init(stSingularParams, stSingularCallbackParams);
-#endif			// #if SINGULAR_MODULE_ENABLE
-
 #if GAME_CENTER_MODULE_ENABLE
 			var stGameCenterCallbackParams = new CGameCenterManager.STCallbackParams() {
 				m_oCallback = CLateSetupSceneManager.OnInitGameCenterManager
@@ -402,19 +389,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		}
 	}
 #endif			// #if APPS_FLYER_MODULE_ENABLE
-
-#if SINGULAR_MODULE_ENABLE
-	//! 싱귤러 관리자가 초기화 되었을 경우
-	private static void OnInitSingularManager(CSingularManager a_oSender, bool a_bIsSuccess) {
-		CFunc.ShowLog($"CLateSetupSceneManager.OnInitSingularManager: {a_bIsSuccess}");
-
-		// 초기화 되었을 경우
-		if(a_bIsSuccess) {
-			CSingularManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-			CSingularManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
-		}
-	}
-#endif			// #if SINGULAR_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
 	//! 게임 센터 관리자가 초기화 되었을 경우

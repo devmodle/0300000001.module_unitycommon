@@ -15,7 +15,6 @@
         "Module.UnityCommonFacebook",
         "Module.UnityCommonFirebase",
         "Module.UnityCommonAppsFlyer",
-        "Module.UnityCommonSingular",
         "Module.UnityCommonGameCenter",
         "Module.UnityCommonPurchase",
         "Module.UnityCommonNoti",
