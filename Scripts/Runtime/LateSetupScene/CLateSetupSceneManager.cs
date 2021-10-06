@@ -111,7 +111,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			
 #if ADS_MODULE_ENABLE
 			var stAdsParams = new CAdsManager.STParams() {
-				m_eDefAdsType = CPluginInfoTable.Inst.DefAdsType,
+				m_eAdsPlatform = CPluginInfoTable.Inst.AdsPlatform,
 				m_eBannerAdsPos = CPluginInfoTable.Inst.BannerAdsPos,
 
 #if ADMOB_ENABLE
@@ -313,30 +313,30 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if ADS_MODULE_ENABLE
 	//! 광고 관리자가 초기화 되었을 경우
-	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsType a_eAdsType, bool a_bIsSuccess) {
-		CFunc.ShowLog($"CLateSetupSceneManager.OnInitAdsManager: {a_eAdsType}, {a_bIsSuccess}");
+	private static void OnInitAdsManager(CAdsManager a_oSender, EAdsPlatform a_eAdsPlatform, bool a_bIsSuccess) {
+		CFunc.ShowLog($"CLateSetupSceneManager.OnInitAdsManager: {a_eAdsPlatform}, {a_bIsSuccess}");
 		
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
-			bool bIsEnableLoadBannerAds = CPluginInfoTable.Inst.GetBannerAdsID(a_eAdsType).ExIsValid() && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
-			bIsEnableLoadBannerAds = bIsEnableLoadBannerAds && CPluginInfoTable.Inst.DefAdsType == a_eAdsType;
+			bool bIsEnableLoadBannerAds = CPluginInfoTable.Inst.GetBannerAdsID(a_eAdsPlatform).ExIsValid() && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
+			bIsEnableLoadBannerAds = bIsEnableLoadBannerAds && CPluginInfoTable.Inst.AdsPlatform == a_eAdsPlatform;
 
-			bool bIsEnableLoadRewardAds = CPluginInfoTable.Inst.GetRewardAdsID(a_eAdsType).ExIsValid();
-			bool bIsEnableLoadFullscreenAds = CPluginInfoTable.Inst.GetFullscreenAdsID(a_eAdsType).ExIsValid() && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
+			bool bIsEnableLoadRewardAds = CPluginInfoTable.Inst.GetRewardAdsID(a_eAdsPlatform).ExIsValid();
+			bool bIsEnableLoadFullscreenAds = CPluginInfoTable.Inst.GetFullscreenAdsID(a_eAdsPlatform).ExIsValid() && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 
 			// 배너 광고 로드가 가능 할 경우
 			if(bIsEnableLoadBannerAds && CLateSetupSceneManager.IsAutoLoadBannerAds) {
-				CAdsManager.Inst.LoadBannerAds(a_eAdsType);
+				CAdsManager.Inst.LoadBannerAds(a_eAdsPlatform);
 			}
 
 			// 보상 광고 로드가 가능 할 경우
 			if(bIsEnableLoadRewardAds && CLateSetupSceneManager.IsAutoLoadRewardAds) {
-				CAdsManager.Inst.LoadRewardAds(a_eAdsType);
+				CAdsManager.Inst.LoadRewardAds(a_eAdsPlatform);
 			}
 
 			// 전면 광고 로드가 가능 할 경우
 			if(bIsEnableLoadFullscreenAds && CLateSetupSceneManager.IsAutoLoadFullscreenAds) {
-				CAdsManager.Inst.LoadFullscreenAds(a_eAdsType);
+				CAdsManager.Inst.LoadFullscreenAds(a_eAdsPlatform);
 			}
 		}
 	}

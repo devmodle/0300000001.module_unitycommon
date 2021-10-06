@@ -115,7 +115,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		if(!a_bIsPause && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
 #if ADS_MODULE_ENABLE
 			// 광고 출력이 가능 할 경우
-			if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.DefAdsType)) {
+			if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.AdsPlatform)) {
 				Func.ShowFullscreenAds(null);
 			}
 #endif			// #if ADS_MODULE_ENABLE

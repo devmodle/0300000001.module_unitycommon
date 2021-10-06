@@ -204,13 +204,13 @@ public static partial class Func {
 #if ADS_MODULE_ENABLE
 	//! 보상 광고를 출력한다
 	public static void ShowRewardAds(System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
-		Func.ShowRewardAds(CPluginInfoTable.Inst.DefAdsType, a_oCallback);
+		Func.ShowRewardAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
 	}
 	
 	//! 보상 광고를 출력한다
-	public static void ShowRewardAds(EAdsType a_eAdsType, System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
+	public static void ShowRewardAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
 		// 보상 광고 출력이 가능 할 경우
-		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsType)) {
+		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsPlatform)) {
 			CIndicatorManager.Inst.Show(true);
 
 			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender, a_oParams) => {
@@ -218,7 +218,7 @@ public static partial class Func {
 				Func.m_stRewardItemInfo = KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO;
 
 				Func.m_oRewardAdsCallback = a_oCallback;
-				CAdsManager.Inst.ShowRewardAds(a_eAdsType, Func.OnReceiveUserReward, Func.OnCloseRewardAds);
+				CAdsManager.Inst.ShowRewardAds(a_eAdsPlatform, Func.OnReceiveUserReward, Func.OnCloseRewardAds);
 			});
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Inst, KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO, false);
@@ -227,13 +227,13 @@ public static partial class Func {
 
 	//! 전면 광고를 출력한다
 	public static void ShowFullscreenAds(System.Action<CAdsManager, bool> a_oCallback) {
-		Func.ShowFullscreenAds(CPluginInfoTable.Inst.DefAdsType, a_oCallback);
+		Func.ShowFullscreenAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
 	}
 
 	//! 전면 광고를 출력한다
-	public static void ShowFullscreenAds(EAdsType a_eAdsType, System.Action<CAdsManager, bool> a_oCallback) {
+	public static void ShowFullscreenAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback) {
 		// 전면 광고 출력이 가능 할 경우
-		if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsType)) {
+		if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsPlatform)) {
 			CIndicatorManager.Inst.Show(true);
 
 			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender, a_oParams) => {
@@ -242,7 +242,7 @@ public static partial class Func {
 					Func.m_bIsWatchFullscreenAds = true;
 					Func.m_oFullscreenAdsCallback = a_oCallback;
 					
-					CAdsManager.Inst.ShowFullscreenAds(a_eAdsType, null, Func.OnCloseFullscreenAds);
+					CAdsManager.Inst.ShowFullscreenAds(a_eAdsPlatform, null, Func.OnCloseFullscreenAds);
 				} else {
 					CIndicatorManager.Inst.Close();
 					a_oCallback?.Invoke(CAdsManager.Inst, false);

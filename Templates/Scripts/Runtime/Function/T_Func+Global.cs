@@ -22,7 +22,7 @@ public static partial class Func {
 				CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds = true;
 
 #if ADS_MODULE_ENABLE
-				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.DefAdsType, true);
+				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform, true);
 
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;

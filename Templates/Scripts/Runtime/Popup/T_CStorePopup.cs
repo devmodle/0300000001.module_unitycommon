@@ -127,7 +127,7 @@ public class CStorePopup : CSubPopup {
 		// 광고 비용 타입 일 경우
 		if(ePriceType == EPriceType.ADS) {
 			var oTouchInteractable = oPurchaseBtn?.gameObject.ExAddComponent<CRewardAdsTouchInteractable>();
-			oTouchInteractable?.SetAdsType(CPluginInfoTable.Inst.DefAdsType);
+			oTouchInteractable?.SetAdsPlatform(CPluginInfoTable.Inst.AdsPlatform);
 		}
 #endif			// #if ADS_MODULE_ENABLE
 

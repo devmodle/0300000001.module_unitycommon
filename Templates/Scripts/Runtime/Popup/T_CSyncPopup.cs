@@ -158,7 +158,7 @@ public class CSyncPopup : CSubPopup {
 #if ADS_MODULE_ENABLE
 			// 광고 제거 모드 일 경우
 			if(CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds) {
-				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.DefAdsType, true);
+				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform, true);
 
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
