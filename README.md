@@ -32,7 +32,7 @@
 	- *Lean GUI (v1.2.2 - Sep 29, 2021)*
 	- *Lean Touch (v2.2.2 - Aug 27, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
-	- *Message Pack (v2.2.85)*
+	- *Msg Pack (v2.3.85)*
 	- *Thai Font Adjuster (v1.0.0)*
 	- *UI Effect (v3.2.0)*
 	- *Particle For GUI (v3.3.5)*
@@ -46,5 +46,5 @@
 	- *App Lovin (v4.3.1)*
 	- *Flurry (v3.4.0)*
 	- *Facebook (v11.0.0)*
-	- *Singular (v2.4.0)*
+	- *Apps Flyer (v6.3.5)*
 	- *Google Play Services (v0.10.12)*
