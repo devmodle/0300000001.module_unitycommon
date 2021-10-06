@@ -109,10 +109,6 @@ public static partial class KEditorDefine {
 		[typeof(CAppsFlyerManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if APPS_FLYER_MODULE_ENABLE
 
-#if GAME_ANALYTICS_MODULE_ENABLE
-		[typeof(CGameAnalyticsManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif			// #if GAME_ANALYTICS_MODULE_ENABLE
-
 #if SINGULAR_MODULE_ENABLE
 		[typeof(CSingularManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if SINGULAR_MODULE_ENABLE
@@ -229,10 +225,6 @@ public static partial class KEditorDefine {
 #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
 		["module.unitycommonappsflyer"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommonappsflyer_client.git#1.7.3",
 #endif			// #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
-
-#if GAME_ANALYTICS_ENABLE || GAME_ANALYTICS_ENABLE_MODULE_ENABLE
-		["module.unitycommongameanalytics"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommongameanalytics_client.git#1.7.3",
-#endif			// #if GAME_ANALYTICS_ENABLE || GAME_ANALYTICS_ENABLE_MODULE_ENABLE
 
 #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
 		["module.unitycommonsingular"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommonsingular_client.git#1.7.3",

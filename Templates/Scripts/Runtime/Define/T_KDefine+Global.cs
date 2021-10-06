@@ -172,7 +172,6 @@ public static partial class KDefine {
 		EAnalyticsType.FLURRY,
 		EAnalyticsType.FIREBASE,
 		EAnalyticsType.APPS_FLYER,
-		EAnalyticsType.GAME_ANALYTICS,
 		EAnalyticsType.SINGULAR
 	};
 
@@ -180,7 +179,6 @@ public static partial class KDefine {
 		EAnalyticsType.FLURRY,
 		EAnalyticsType.FIREBASE,
 		EAnalyticsType.APPS_FLYER,
-		EAnalyticsType.GAME_ANALYTICS,
 		EAnalyticsType.SINGULAR
 	};
 	// 분석 }
