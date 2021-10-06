@@ -310,13 +310,13 @@ public struct STChapterInfo {
 //! 에피소드 정보 테이블
 public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	#region 변수
-	[Header("Level Info")]
+	[Header("=====> Level Info <=====")]
 	[SerializeField] private List<STLevelInfo> m_oLevelInfoList = new List<STLevelInfo>();
 
-	[Header("Stage Info")]
+	[Header("=====> Stage Info <=====")]
 	[SerializeField] private List<STStageInfo> m_oStageInfoList = new List<STStageInfo>();
 
-	[Header("Chapter Info")]
+	[Header("=====> Chapter Info <=====")]
 	[SerializeField] private List<STChapterInfo> m_oChapterInfoList = new List<STChapterInfo>();
 	#endregion			// 변수
 

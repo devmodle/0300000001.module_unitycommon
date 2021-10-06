@@ -29,13 +29,13 @@ public struct STMissionInfo {
 //! 미션 정보 테이블
 public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	#region 변수
-	[Header("Free Mission Info")]
+	[Header("=====> Free Mission Info <=====")]
 	[SerializeField] private List<STMissionInfo> m_oFreeMissionInfoList = new List<STMissionInfo>();
 
-	[Header("Daily Mission Info")]
+	[Header("=====> Daily Mission Info <=====")]
 	[SerializeField] private List<STMissionInfo> m_oDailyMissionInfoList = new List<STMissionInfo>();
 
-	[Header("Event Mission Info")]
+	[Header("=====> Event Mission Info <=====")]
 	[SerializeField] private List<STMissionInfo> m_oEventMissionInfoList = new List<STMissionInfo>();
 	#endregion			// 변수
 

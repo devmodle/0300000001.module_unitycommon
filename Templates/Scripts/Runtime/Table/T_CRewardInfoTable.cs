@@ -43,16 +43,16 @@ public struct STRewardInfo {
 //! 보상 정보 테이블
 public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	#region 변수
-	[Header("Free Reward Info")]
+	[Header("=====> Free Reward Info <=====")]
 	[SerializeField] private List<STRewardInfo> m_oFreeRewardInfoList = new List<STRewardInfo>();
 
-	[Header("Daily Reward Info")]
+	[Header("=====> Daily Reward Info <=====")]
 	[SerializeField] private List<STRewardInfo> m_oDailyRewardInfoList = new List<STRewardInfo>();
 
-	[Header("Event Reward Info")]
+	[Header("=====> Event Reward Info <=====")]
 	[SerializeField] private List<STRewardInfo> m_oEventRewardInfoList = new List<STRewardInfo>();
 
-	[Header("Clear Reward Info")]
+	[Header("=====> Clear Reward Info <=====")]
 	[SerializeField] private List<STRewardInfo> m_oClearRewardInfoList = new List<STRewardInfo>();
 	#endregion			// 변수
 

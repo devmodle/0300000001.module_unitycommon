@@ -35,14 +35,15 @@ MonoBehaviour:
   - PREFAB_TEMPLATES_ENABLE
   - ENGINE_TEMPLATES_ENABLE
   - RUNTIME_TEMPLATES_ENABLE
-  - MODULE_VER_1_7_2_OR_NEWER
+  - MODULE_VER_1_7_3_OR_NEWER
   m_oSubCommonDefineSymbolList: []
+  m_oiOSDefineSymbolList: []
+  m_oAndroidDefineSymbolList: []
+  m_oGoogleDefineSymbolList: []
+  m_oAmazonDefineSymbolList: []
+  m_oOneStoreDefineSymbolList: []
+  m_oGalaxyStoreDefineSymbolList: []
   m_oStandaloneDefineSymbolList:
   - EDITOR_ENABLE
   m_oMacDefineSymbolList: []
   m_oWndsDefineSymbolList: []
-  m_oiOSDefineSymbolList: []
-  m_oAndroidDefineSymbolList: []
-  m_oGoogleDefineSymbolList: []
-  m_oOneStoreDefineSymbolList: []
-  m_oGalaxyStoreDefineSymbolList: []

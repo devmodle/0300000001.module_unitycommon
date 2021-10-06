@@ -34,10 +34,10 @@ public struct STTutorialInfo {
 //! 튜토리얼 정보 테이블
 public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 	#region 변수
-	[Header("Play Tutorial Info")]
+	[Header("=====> Play Tutorial Info <=====")]
 	[SerializeField] private List<STTutorialInfo> m_oPlayTutorialInfoList = new List<STTutorialInfo>();
 
-	[Header("Help Tutorial Info")]
+	[Header("=====> Help Tutorial Info <=====")]
 	[SerializeField] private List<STTutorialInfo> m_oHelpTutorialInfoList = new List<STTutorialInfo>();
 	#endregion			// 변수
 

@@ -52,7 +52,7 @@ public struct STSaleItemInfo {
 //! 판매 아이템 정보 테이블
 public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	#region 변수
-	[Header("Sale Item Info")]
+	[Header("=====> Sale Item Info <=====")]
 	[SerializeField] private List<STSaleItemInfo> m_oSaleItemInfoList = new List<STSaleItemInfo>();
 	#endregion			// 변수
 
