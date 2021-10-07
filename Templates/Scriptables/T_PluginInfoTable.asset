@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fe7bf1704a94c71bb2465f76ce9aa9, type: 3}
   m_Name: T_PluginInfoTable
   m_EditorClassIdentifier: 
-  m_eAdsPlatform: 0
+  m_eAdsPlatform: -1
   m_eBannerAdsPos: 1
   m_stiOSAdmobPluginInfo:
     m_oAppID: 
@@ -24,3 +24,15 @@ MonoBehaviour:
     m_oBannerAdsID: 
     m_oRewardAdsID: 
     m_oFullscreenAdsID: 
+  m_stiOSIronSrcPluginInfo:
+    m_bIsEnableBannerAds: 0
+    m_bIsEnableRewardAds: 0
+    m_bIsEnableFullscreenAds: 0
+    m_oAppKey: 
+  m_stAndroidIronSrcPluginInfo:
+    m_bIsEnableBannerAds: 0
+    m_bIsEnableRewardAds: 0
+    m_bIsEnableFullscreenAds: 0
+    m_oAppKey: 
+  m_oiOSFlurryAPIKey: 
+  m_oAndroidFlurryAPIKey: 
