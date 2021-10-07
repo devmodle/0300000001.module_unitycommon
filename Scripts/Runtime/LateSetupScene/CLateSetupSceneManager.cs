@@ -196,14 +196,14 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 			var stFirebaseParams = new CFirebaseManager.STParams() {
 				m_oConfigDict = new Dictionary<string, object>() {
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONStr(),
+					[KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONStr(),
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfigStr,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VER] = oBuildVerConfigStr
+					[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfigStr,
+					[KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfigStr
 #else
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_GAME] = oGameConfig.text,
-					[KCDefine.U_CONFIG_KEY_FIREBASE_M_BUILD_VER] = oBuildVerConfig.text
+					[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfig.text,
+					[KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfig.text
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 				}
 			};
@@ -370,7 +370,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 속성이 로드 되었을 경우
 		if(a_bIsSuccess) {
-			string oDeviceConfig = CFirebaseManager.Inst.GetConfig(KCDefine.U_CONFIG_KEY_FIREBASE_M_DEVICE);
+			string oDeviceConfig = CFirebaseManager.Inst.GetConfig(KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG);
 			CCommonAppInfoStorage.Inst.DeviceConfig = oDeviceConfig.ExJSONStrToObj<STDeviceConfig>();
 		}
 	}

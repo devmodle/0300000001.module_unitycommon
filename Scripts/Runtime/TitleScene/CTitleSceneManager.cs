@@ -47,7 +47,7 @@ public class CTitleSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVer.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
+			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
 		}
 	}
 	

@@ -36,49 +36,7 @@ public class CSubInitSceneManager : CInitSceneManager {
 		CAppInfoStorage.Create();
 		CUserInfoStorage.Create();
 		CGameInfoStorage.Create();
-
-		// 열거형 문자열을 로드한다 {
-		CStrTable.Inst.LoadEnumStrs<EPlayMode>();
-		CStrTable.Inst.LoadEnumStrs<ELevelMode>();
-		
-		CStrTable.Inst.LoadEnumStrs<ELevelType>();
-		CStrTable.Inst.LoadEnumStrs<ELevelKinds>();
-
-		CStrTable.Inst.LoadEnumStrs<EStageType>();
-		CStrTable.Inst.LoadEnumStrs<EStageKinds>();
-
-		CStrTable.Inst.LoadEnumStrs<EChapterType>();
-		CStrTable.Inst.LoadEnumStrs<EChapterKinds>();
-
-		CStrTable.Inst.LoadEnumStrs<EPriceType>();
-		CStrTable.Inst.LoadEnumStrs<EPriceKinds>();
-
-		CStrTable.Inst.LoadEnumStrs<EItemType>();
-		CStrTable.Inst.LoadEnumStrs<EItemKinds>();
-
-		CStrTable.Inst.LoadEnumStrs<ESaleItemType>();
-		CStrTable.Inst.LoadEnumStrs<ESaleItemKinds>();
-
-		CStrTable.Inst.LoadEnumStrs<ESaleProductType>();
-		CStrTable.Inst.LoadEnumStrs<ESaleProductKinds>();
-
-		CStrTable.Inst.LoadEnumStrs<EMissionType>();
-		CStrTable.Inst.LoadEnumStrs<EMissionKinds>();
-
-		CStrTable.Inst.LoadEnumStrs<ERewardType>();
-		CStrTable.Inst.LoadEnumStrs<ERewardKinds>();
-		CStrTable.Inst.LoadEnumStrs<ERewardQuality>();
-		CStrTable.Inst.LoadEnumStrs<ERewardAcquirePopupType>();
-
-		CStrTable.Inst.LoadEnumStrs<ETutorialType>();
-		CStrTable.Inst.LoadEnumStrs<ETutorialKinds>();
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-		CStrTable.Inst.LoadEnumStrs<SampleEngineName.EBlockType>();
-		CStrTable.Inst.LoadEnumStrs<SampleEngineName.EBlockKinds>();
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-		// 열거형 문자열을 로드한다 }
 	}
 	#endregion			// 함수
 

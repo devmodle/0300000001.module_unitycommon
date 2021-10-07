@@ -16,7 +16,7 @@ public class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(111)] public Dictionary<string, int> m_oNumItemsDict = new Dictionary<string, int>();
+	[Key(111)] public Dictionary<EItemKinds, int> m_oNumItemsDict = new Dictionary<EItemKinds, int>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -73,8 +73,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	//! 아이템 개수를 반환한다
 	public int GetNumItems(EItemKinds a_eItemKinds) {
-		string oKey = CStrTable.Inst.GetEnumStr<EItemKinds>(a_eItemKinds);
-		return this.UserInfo.m_oNumItemsDict.ExGetVal(oKey, KCDefine.B_VAL_0_INT);
+		return this.UserInfo.m_oNumItemsDict.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);
 	}
 
 	//! 코인 개수를 추가한다
@@ -94,8 +93,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
 		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue);
 
-		string oKey = CStrTable.Inst.GetEnumStr<EItemKinds>(a_eItemKinds);
-		this.UserInfo.m_oNumItemsDict.ExReplaceVal(oKey, nNumItems);
+		this.UserInfo.m_oNumItemsDict.ExReplaceVal(a_eItemKinds, nNumItems);
 	}
 
 	//! 유저 정보를 로드한다
