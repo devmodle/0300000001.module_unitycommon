@@ -163,12 +163,12 @@ public static partial class KEditorDefine {
 		["com.unity.formats.fbx"] = "4.0.1",
 
 		["com.unity.2d.sprite"] = "1.0.0",
-		["com.unity.2d.spriteshape"] = "6.0.1",
+		["com.unity.2d.spriteshape"] = "6.0.2",
 		["com.unity.2d.tilemap"] = "1.0.0",
-		["com.unity.2d.tilemap.extras"] = "2.2.0",
+		["com.unity.2d.tilemap.extras"] = "2.2.1",
 
-		["com.unity.mathematics"] = "1.2.1",
-		["com.unity.addressables"] = "1.18.15",
+		["com.unity.mathematics"] = "1.2.4",
+		["com.unity.addressables"] = "1.18.16",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.animation.rigging"] = "1.0.3",
 		// 기본 }
@@ -227,7 +227,7 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "3.2.3",
+		["com.unity.purchasing"] = "4.0.3",
 		["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommonpurchase_client.git#1.7.3",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
