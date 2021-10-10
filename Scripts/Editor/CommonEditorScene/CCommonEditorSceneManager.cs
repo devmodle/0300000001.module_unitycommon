@@ -180,6 +180,8 @@ public static partial class CCommonEditorSceneManager {
 				if(oBuildMethod.ExIsValid()) {
 					var oMethodInfo = typeof(CPlatformBuilder).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC);
 					oMethodInfo?.Invoke(null, null);
+				} else {
+					CFactory.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
 				}
 			}
 

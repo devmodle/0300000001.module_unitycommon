@@ -63,7 +63,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	#endregion			// 추가 프로퍼티
 
-	#region 인터페이스
+	#region IEnhancedScrollerDelegate
 	//! 셀 개수를 반환한다
 	public virtual int GetNumberOfCells(EnhancedScroller a_oSender) {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -167,7 +167,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		return null;
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
-	#endregion			// 인터페이스
+	#endregion			// IEnhancedScrollerDelegate
 
 	#region 함수
 	//! 초기화

@@ -39,7 +39,7 @@ public class CClearInfo : CBaseInfo {
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
 
-	#region 인터페이스
+	#region IMessagePackSerializationCallbackReceiver
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
@@ -49,7 +49,7 @@ public class CClearInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 	}
-	#endregion			// 인터페이스
+	#endregion			// IMessagePackSerializationCallbackReceiver
 
 	#region 함수
 	//! 생성자
@@ -122,7 +122,7 @@ public class CGameInfo : CBaseInfo {
 	[IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
 
-	#region 인터페이스
+	#region IMessagePackSerializationCallbackReceiver
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
@@ -146,7 +146,7 @@ public class CGameInfo : CBaseInfo {
 		
 		m_oClearInfoDict = m_oClearInfoDict ?? new Dictionary<long, CClearInfo>();
 	}
-	#endregion			// 인터페이스
+	#endregion			// IMessagePackSerializationCallbackReceiver
 
 	#region 함수
 	//! 생성자

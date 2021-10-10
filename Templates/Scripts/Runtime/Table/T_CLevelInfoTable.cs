@@ -18,7 +18,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	#endregion			// 변수
 	
-	#region 인터페이스
+	#region ICloneable
 	//! 사본 객체를 생성한다
 	public virtual object Clone() {
 		var oCellInfo = new CCellInfo();
@@ -27,7 +27,9 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 		oCellInfo.OnAfterDeserialize();
 		return oCellInfo;
 	}
+	#endregion			// ICloneable
 
+	#region IMessagePackSerializationCallbackReceiver
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
@@ -41,7 +43,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 		m_oBlockKindsList = m_oBlockKindsList ?? new List<SampleEngineName.EBlockKinds>();
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
-	#endregion			// 인터페이스
+	#endregion			// IMessagePackSerializationCallbackReceiver
 
 	#region 함수
 	//! 생성자
@@ -102,7 +104,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
 
-	#region 인터페이스
+	#region ICloneable
 	//! 사본 객체를 생성한다
 	public virtual object Clone() {
 		var oLevelInfo = new CLevelInfo();
@@ -111,7 +113,9 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 		oLevelInfo.OnAfterDeserialize();
 		return oLevelInfo;
 	}
+	#endregion			// ICloneable
 
+	#region IMessagePackSerializationCallbackReceiver
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
@@ -147,7 +151,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 			}
 		}
 	}
-	#endregion			// 인터페이스
+	#endregion			// IMessagePackSerializationCallbackReceiver
 
 	#region 함수
 	//! 생성자

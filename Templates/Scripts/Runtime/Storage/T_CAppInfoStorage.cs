@@ -31,7 +31,7 @@ public class CAppInfo : CBaseInfo {
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 프로퍼티
 
-	#region 인터페이스
+	#region IMessagePackSerializationCallbackReceiver
 	//! 직렬화 될 경우
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
@@ -41,7 +41,7 @@ public class CAppInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 	}
-	#endregion			// 인터페이스
+	#endregion			// IMessagePackSerializationCallbackReceiver
 
 	#region 함수
 	//! 생성자
