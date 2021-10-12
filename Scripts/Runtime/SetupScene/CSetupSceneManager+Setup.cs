@@ -56,58 +56,12 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CSetupSceneManager.m_oTimerManager = oTimerManager;
 		}
 	}
+	#endregion			// 함수
 
-	//! 디버그 UI 를 설정한다
-	private void SetupDebugUIs() {
+	#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
-		// 디버그 UI 가 없을 경우
-		if(CSetupSceneManager.m_oDebugUIs == null) {
-			var oDebugUIs = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_UIS, KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS, null);
-
-			CSetupSceneManager.m_oDebugUIs = oDebugUIs;
-			CSceneManager.ScreenDebugUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS);
-
-			CSceneManager.ScreenDebugTextUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXT_UIS);
-			CSceneManager.ScreenDebugTextUIs.SetActive(false);
-
-			CSceneManager.ScreenFPSBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_BTN);
-			CSceneManager.ScreenFPSBtn.gameObject.SetActive(false);
-
-			CSceneManager.ScreenDebugBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_BTN);
-			CSceneManager.ScreenDebugBtn.gameObject.SetActive(false);
-
-			CSceneManager.ScreenStaticDebugText = oDebugUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
-			CSceneManager.ScreenStaticDebugText.raycastTarget = false;
-
-			CSceneManager.ScreenDynamicDebugText = oDebugUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
-			CSceneManager.ScreenDynamicDebugText.raycastTarget = false;
-
-			DontDestroyOnLoad(oDebugUIs);
-			CFunc.SetupScreenUIs(oDebugUIs, KCDefine.U_SORTING_O_SCREEN_DEBUG_UIS);
-		}
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-	}
-
-	//! 디버그 콘솔을 설정한다
-	private void SetupDebugConsole() {
-#if DEBUG || DEVELOPMENT_BUILD
-		// 디버그 콘솔이 없을 경우
-		if(CSetupSceneManager.m_oDebugConsole == null) {
-			var oDebugConsole = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_CONSOLE, KCDefine.U_OBJ_P_DEBUG_CONSOLE, null);
-			CSetupSceneManager.m_oDebugConsole = oDebugConsole;
-
-			CSceneManager.ScreenDebugConsole = oDebugConsole;
-			CSceneManager.ScreenDebugConsole.SetActive(false);
-
-			DontDestroyOnLoad(oDebugConsole);
-			CFunc.SetupScreenUIs(oDebugConsole, KCDefine.U_SORTING_O_DEBUG_CONSOLE);
-		}
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-	}
-
 	//! FPS 카운터를 설정한다
 	private void SetupFPSCounter() {
-#if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		// FPS 카운터가 없을 경우
 		if(CSetupSceneManager.m_oFPSCounter == null) {
 			var oFPSCounter = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_FPS_COUNTER, KCDefine.U_OBJ_P_FPS_COUNTER, null);
@@ -124,7 +78,51 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			DontDestroyOnLoad(oFPSCounter);
 			CFunc.SetupScreenUIs(oFPSCounter, KCDefine.U_SORTING_O_FPS_COUNTER);
 		}
-#endif			// #if FPS_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 	}
-	#endregion			// 함수
+
+	//! 디버그 UI 를 설정한다
+	private void SetupDebugUIs() {
+		// 디버그 UI 가 없을 경우
+		if(CSetupSceneManager.m_oDebugUIs == null) {
+			var oDebugUIs = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_UIS, KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS, null);
+
+			CSetupSceneManager.m_oDebugUIs = oDebugUIs;
+			CSceneManager.ScreenDebugUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS);
+
+			CSceneManager.ScreenDebugTextUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXT_UIS);
+			CSceneManager.ScreenDebugTextUIs.SetActive(false);
+
+			CSceneManager.ScreenStaticDebugText = oDebugUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
+			CSceneManager.ScreenStaticDebugText.raycastTarget = false;
+
+			CSceneManager.ScreenDynamicDebugText = oDebugUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
+			CSceneManager.ScreenDynamicDebugText.raycastTarget = false;
+
+			CSceneManager.ScreenFPSBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_BTN);
+			CSceneManager.ScreenFPSBtn.gameObject.SetActive(false);
+
+			CSceneManager.ScreenDebugBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_BTN);
+			CSceneManager.ScreenDebugBtn.gameObject.SetActive(false);
+
+			DontDestroyOnLoad(oDebugUIs);
+			CFunc.SetupScreenUIs(oDebugUIs, KCDefine.U_SORTING_O_SCREEN_DEBUG_UIS);
+		}
+	}
+
+	//! 디버그 콘솔을 설정한다
+	private void SetupDebugConsole() {
+		// 디버그 콘솔이 없을 경우
+		if(CSetupSceneManager.m_oDebugConsole == null) {
+			var oDebugConsole = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_CONSOLE, KCDefine.U_OBJ_P_DEBUG_CONSOLE, null);
+			CSetupSceneManager.m_oDebugConsole = oDebugConsole;
+
+			CSceneManager.ScreenDebugConsole = oDebugConsole;
+			CSceneManager.ScreenDebugConsole.SetActive(false);
+
+			DontDestroyOnLoad(oDebugConsole);
+			CFunc.SetupScreenUIs(oDebugConsole, KCDefine.U_SORTING_O_DEBUG_CONSOLE);
+		}
+	}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+	#endregion			// 조건부 함수
 }

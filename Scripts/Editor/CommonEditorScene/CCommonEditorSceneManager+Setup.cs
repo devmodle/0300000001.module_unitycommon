@@ -87,7 +87,48 @@ public static partial class CCommonEditorSceneManager {
 				}
 			}
 		}
-		
+
+		// FPS 카운터를 설정한다 {
+		string oFPSCounterFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_FPS_COUNTER);
+
+		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFPSCounterFilter, new string[] {
+			KCEditorDefine.B_DIR_P_FILTER_FPS_COUNTER
+		});
+
+		// FPS 카운터가 존재 할 경우
+		if(oFPSCounterList.ExIsValid()) {
+			for(int i = 0; i < oFPSCounterList.Count; ++i) {
+				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_STATIC_TEXT);
+				oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_STATIC_TEXT;
+
+				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_DYNAMIC_TEXT);
+				oDynamicText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_DYNAMIC_TEXT;
+
+				// 크기를 설정한다 {
+				var oStaticSizeFitter = oStaticText.gameObject.ExAddComponent<ContentSizeFitter>();
+				oStaticSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+				oStaticSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+				var oDynamicSizeFitter = oDynamicText.gameObject.ExAddComponent<ContentSizeFitter>();
+				oDynamicSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+				oDynamicSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+				// 크기를 설정한다 }
+
+				// 위치를 설정한다 {
+				oStaticText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
+				oStaticText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MID_RIGHT;
+				oStaticText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MID_RIGHT;
+				oStaticText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_STATIC_TEXT.ExTo2D();
+
+				oDynamicText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
+				oDynamicText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MID_RIGHT;
+				oDynamicText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MID_RIGHT;
+				oDynamicText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_DYNAMIC_TEXT.ExTo2D();
+				// 위치를 설정한다 }
+			}
+		}
+		// FPS 카운터를 설정한다 }
+
 		// 디버그 콘솔을 설정한다 {
 		string oDebugConsoleFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_DEBUG_CONSOLE);
 		string oDebugLogItemFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_DEBUG_LOG_ITEM);
@@ -147,47 +188,6 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 		// 디버그 콘솔을 설정한다 }
-
-		// FPS 카운터를 설정한다 {
-		string oFPSCounterFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_FPS_COUNTER);
-
-		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFPSCounterFilter, new string[] {
-			KCEditorDefine.B_DIR_P_FILTER_FPS_COUNTER
-		});
-
-		// FPS 카운터가 존재 할 경우
-		if(oFPSCounterList.ExIsValid()) {
-			for(int i = 0; i < oFPSCounterList.Count; ++i) {
-				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_STATIC_TEXT);
-				oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_STATIC_TEXT;
-
-				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_DYNAMIC_TEXT);
-				oDynamicText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_DYNAMIC_TEXT;
-
-				// 크기를 설정한다 {
-				var oStaticSizeFitter = oStaticText.gameObject.ExAddComponent<ContentSizeFitter>();
-				oStaticSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-				oStaticSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-				var oDynamicSizeFitter = oDynamicText.gameObject.ExAddComponent<ContentSizeFitter>();
-				oDynamicSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-				oDynamicSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-				// 크기를 설정한다 }
-
-				// 위치를 설정한다 {
-				oStaticText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
-				oStaticText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MID_RIGHT;
-				oStaticText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MID_RIGHT;
-				oStaticText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_STATIC_TEXT.ExTo2D();
-
-				oDynamicText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
-				oDynamicText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MID_RIGHT;
-				oDynamicText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MID_RIGHT;
-				oDynamicText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_DYNAMIC_TEXT.ExTo2D();
-				// 위치를 설정한다 }
-			}
-		}
-		// FPS 카운터를 설정한다 }
 	}
 	
 	//! 광원 옵션을 설정한다
@@ -198,6 +198,18 @@ public static partial class CCommonEditorSceneManager {
 		if(stScene.name.ExIsValid()) {
 			bool bIsValid = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			bIsValid = bIsValid && !oLightingSettings.name.Contains(KCDefine.U_ASSET_N_LIGHTING_SETTINGS);
+
+#if LIGHTMAP_BAKE_ENABLE
+			bool bIsBakedGI = true;
+#else
+			bool bIsBakedGI = false;
+#endif			// #if LIGHTMAP_BAKE_ENABLE
+
+#if LIGHTMAP_AUTO_BAKE_ENABLE
+			bool bIsAutoGenerate = true;
+#else
+			bool bIsAutoGenerate = false;
+#endif			// #if LIGHTMAP_AUTO_BAKE_ENABLE
 
 			// 광원 설정이 유효하지 않을 경우
 			if(!bIsValid || !oLightingSettings.name.Contains(stScene.name)) {
@@ -227,28 +239,16 @@ public static partial class CCommonEditorSceneManager {
 				Lightmapping.SetLightingSettingsForScene(stScene, oLightingSettingsAsset);
 			}
 
-			// 라이트맵 설정이 필요 할 경우
-			if(oLightingSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || oLightingSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE) {
-				oLightingSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
-				oLightingSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
-			}
-
-#if LIGHTMAP_BAKE_ENABLE
-			bool bIsBakedGI = true;
-#else
-			bool bIsBakedGI = false;
-#endif			// #if LIGHTMAP_BAKE_ENABLE
-
-#if LIGHTMAP_AUTO_BAKE_ENABLE
-			bool bIsAutoGenerate = true;
-#else
-			bool bIsAutoGenerate = false;
-#endif			// #if LIGHTMAP_AUTO_BAKE_ENABLE
-
 			// GI 설정이 필요 할 경우
 			if(oLightingSettings.bakedGI != bIsBakedGI || oLightingSettings.autoGenerate != bIsAutoGenerate) {
 				oLightingSettings.bakedGI = bIsBakedGI;
 				oLightingSettings.autoGenerate = bIsAutoGenerate;
+			}
+
+			// 라이트맵 설정이 필요 할 경우
+			if(oLightingSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || oLightingSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE) {
+				oLightingSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
+				oLightingSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
 			}
 		}
 	}
@@ -265,6 +265,11 @@ public static partial class CCommonEditorSceneManager {
 			
 			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, oAsset, true);
 		}
+
+		oInputSettings.filterNoiseOnCurrent = false;
+		oInputSettings.compensateForScreenOrientation = true;
+
+		oInputSettings.updateMode = InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;
 	}
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 	#endregion			// 클래스 조건부 함수

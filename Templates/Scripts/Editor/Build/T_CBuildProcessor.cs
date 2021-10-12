@@ -70,6 +70,8 @@ public static partial class CBuildProcessor {
 
 		var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
 		oDeviceCapabilityList.values.Clear();
+		oUIRequiredDeviceCapabilitiesList.AddString(KEditorDefine.B_TEXT_IOS_METAL);
+		oUIRequiredDeviceCapabilitiesList.AddString(KEditorDefine.B_TEXT_IOS_ARM_64);
 		
 		for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
 			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
@@ -91,8 +93,8 @@ public static partial class CBuildProcessor {
 		string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
 		string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
 
-		oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_YES);
-		oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_YES);
+		oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
+		oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
 
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
 			oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
@@ -104,10 +106,11 @@ public static partial class CBuildProcessor {
 			oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i], false);
 		}
 
-		// FIXME: 임시 주석 처리
-		// for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
-		// 	oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i]);
-		// }
+		/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
+		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
+			oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i]);
+		}
+		*/
 
 		// 전처리기 심볼 테이블이 존재 할 경우
 		if(CPlatformOptsSetter.DefineSymbolDictContainer != null && CPlatformOptsSetter.DefineSymbolDictContainer.ContainsKey(BuildTargetGroup.iOS)) {
@@ -121,7 +124,7 @@ public static partial class CBuildProcessor {
 
 		oPBXProj.WriteToFile(oPBXProjPath);
 
-		/* FIXME: 임시 주석 처리
+		/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
 		var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_IOS_CAPABILITY, null, oMainGUID);
 		
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
@@ -133,7 +136,7 @@ public static partial class CBuildProcessor {
 			}
 			// 푸시 알림 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
-				oCapability.AddPushNotifications(CPlatformBuilder.BuildType != EBuildType.ADHOC && CPlatformBuilder.BuildType != EBuildType.STORE);
+				oCapability.AddPushNotifications(CPlatformBuilder.BuildType != EBuildType.STORE);
 				oCapability.AddBackgroundModes(KEditorDefine.B_IOS_BACKGROUND_MODES_OPTS);
 			}
 			// 게임 센터 타입 일 경우
