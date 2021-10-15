@@ -40,18 +40,40 @@ public static partial class CBuildProcessor {
 	public static void OnLatePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
 		string oPodsPath = string.Format(KCEditorDefine.B_DATA_P_FMT_COCOA_PODS, a_oPath);
+		string oPlistPath = string.Format(KCEditorDefine.B_PLIST_P_FMT_IOS, a_oPath);
+		string oPBXProjPath = string.Format(KCEditorDefine.B_PROJ_P_FMT_COCOA_PODS, a_oPath);
+
+		// Plist 옵션을 설정한다 {
+		var oDoc = new PlistDocument();
+		oDoc.ReadFromFile(oPlistPath);
+
+		var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
+		oDeviceCapabilityList.AddString(KCEditorDefine.B_TEXT_IOS_METAL);
+		oDeviceCapabilityList.AddString(KCEditorDefine.B_TEXT_IOS_ARM_64);
+
+		oDoc.WriteToFile(oPlistPath);
+		// Plist 옵션을 설정한다 }
+
+		// 프로젝트 옵션을 설정한다 {
+		var oPBXProj = new PBXProject();
+		oPBXProj.ReadFromFile(oPBXProjPath);
+
+		string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
+		string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
+
+		for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORKS.Length; ++i) {
+			oPBXProj.RemoveFrameworkFromProject(oMainGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i]);
+			oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i]);
+		}
 
 		// 파일이 존재 할 경우
 		if(File.Exists(oPodsPath)) {
 			CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath), false);
-			string oPBXProjPath = string.Format(KCEditorDefine.B_PROJ_P_FMT_COCOA_PODS, a_oPath);
-
-			var oPBXProj = new PBXProject();
-			oPBXProj.ReadFromFile(oPBXProjPath);
-
 			oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
-			oPBXProj.WriteToFile(oPBXProjPath);
 		}
+
+		oPBXProj.WriteToFile(oPBXProjPath);
+		// 프로젝트 옵션을 설정한다 }
 #endif			// #if UNITY_IOS
 	}
 
@@ -70,8 +92,6 @@ public static partial class CBuildProcessor {
 
 		var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
 		oDeviceCapabilityList.values.Clear();
-		oUIRequiredDeviceCapabilitiesList.AddString(KEditorDefine.B_TEXT_IOS_METAL);
-		oUIRequiredDeviceCapabilitiesList.AddString(KEditorDefine.B_TEXT_IOS_ARM_64);
 		
 		for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
 			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
@@ -99,11 +119,6 @@ public static partial class CBuildProcessor {
 		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
 			oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
 			oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
-		}
-
-		for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORKS.Length; ++i) {
-			oPBXProj.RemoveFrameworkFromProject(oMainGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i], false);
-			oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i], false);
 		}
 
 		/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)

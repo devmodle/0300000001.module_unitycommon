@@ -8,7 +8,7 @@
 	- *Asset Usage Detector (v1.9.8 - Sep 27, 2021)*
 	- *Bezier Solution (v2.2.0 - Jul 7, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 5, 2020)*
-	- *Enhanced Scroller (v2.30.2 - Sep 23, 2021)*
+	- *Enhanced Scroller (v2.31.0 - Oct 9, 2021)*
 	- *Ingame Debug Console (v1.5.1 - Aug 9, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
@@ -39,12 +39,12 @@
 	- *Soft Mask For GUI (v1.0.0)*
 	- *Unmask For GUI (v1.2.0)*
 5. **기타 추가 에셋 및 플러그인 리스트**
-	- *Google (Review, Update - v1.4.0)*
-	- *Firebase (Auth, DB, Analytics, Crashlytics, Remote Config, Cloud Messaging - v7.2.0)*
-	- *Admob (v6.0.0)*
+	- *Google (Review, Update - v1.5.0)*
+	- *Firebase (Auth, DB, Analytics, Crashlytics, Remote Config, Cloud Messaging - v8.4.0)*
+	- *Admob (v6.1.1)*
 	- *Iron Source (v7.1.6.1)*
 	- *App Lovin (v4.3.1)*
-	- *Flurry (v3.4.0)*
+	- *Flurry (v4.0.0)*
 	- *Facebook (v11.0.0)*
 	- *Apps Flyer (v6.3.5)*
 	- *Google Play Services (v0.10.12)*
