@@ -64,7 +64,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 함수
 	//! 유저 정보를 리셋한다
 	public virtual void ResetUserInfo(string a_oJSONStr) {
-		CFunc.ShowLog("CUserInfoStorage.ResetUserInfo: {0}", a_oJSONStr);
+		CFunc.ShowLog($"CUserInfoStorage.ResetUserInfo: {a_oJSONStr}");
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 
 		this.UserInfo = a_oJSONStr.ExMsgPackJSONStrToObj<CUserInfo>();

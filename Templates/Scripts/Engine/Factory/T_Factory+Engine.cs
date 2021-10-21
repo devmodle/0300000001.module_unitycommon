@@ -28,7 +28,7 @@ namespace SampleEngineName {
 
 				stGridInfo.m_stGridScale = Vector3.one * Mathf.Min(fScaleX, fScaleY);
 			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning("Factory.MakeGridInfo Exception: {0}", oException.Message);
+				CFunc.ShowLogWarning($"Factory.MakeGridInfo Exception: {oException.Message}");
 				stGridInfo.m_stGridScale = Vector3.one;
 			}
 

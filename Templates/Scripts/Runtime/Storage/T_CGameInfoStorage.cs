@@ -198,7 +198,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 함수
 	//! 게임 정보를 리셋한다
 	public virtual void ResetGameInfo(string a_oBase64Str) {
-		CFunc.ShowLog("CGameInfoStorage.ResetGameInfo: {0}", a_oBase64Str);
+		CFunc.ShowLog($"CGameInfoStorage.ResetGameInfo: {a_oBase64Str}");
 		CAccess.Assert(a_oBase64Str.ExIsValid());
 
 		this.GameInfo = a_oBase64Str.ExMsgPackBase64StrToObj<CGameInfo>();
