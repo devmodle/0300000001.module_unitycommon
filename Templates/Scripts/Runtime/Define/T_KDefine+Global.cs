@@ -149,7 +149,7 @@ public static partial class KDefine {
 		m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
 
-#if CAMERA_STACK_ENABLE
+#if CAMERA_STACKING_ENABLE
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
 		m_nOrder = 1,
 		m_oLayer = KCDefine.U_SORTING_L_TOP
@@ -159,7 +159,7 @@ public static partial class KDefine {
 		m_nOrder = 0,
 		m_oLayer = KCDefine.U_SORTING_L_TOP_UIS
 	};
-#endif			// #if CAMERA_STACK_ENABLE
+#endif			// #if CAMERA_STACKING_ENABLE
 	// 정렬 순서 }
 
 	// 경로
