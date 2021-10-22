@@ -187,13 +187,13 @@ public static partial class KEditorDefine {
 		["com.unity.adaptiveperformance.samsung.android"] = "2.2.1",
 		// 분석 }
 
-#if ML_AGENTS_ENABLE
+#if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "1.0.8",
-#endif			// #if ML_AGENTS_ENABLE
+#endif			// #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 
-#if CINEMACHINE_ENABLE
+#if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 		["com.unity.cinemachine"] = "2.7.9",
-#endif			// #if CINEMACHINE_ENABLE
+#endif			// #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
     	["com.unity.postprocessing"] = "3.1.1",
