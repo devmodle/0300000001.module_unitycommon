@@ -13,7 +13,7 @@ using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
 #endif			// #if UNITY_IOS
 
-//! 빌드 처리자
+/** 빌드 처리자 */
 [InitializeOnLoad]
 public static partial class CBuildProcessor {
 	#region 클래스 변수
@@ -28,14 +28,14 @@ public static partial class CBuildProcessor {
 	#endregion			// 클래스 변수
 	
 	#region 클래스 함수
-	//! 빌드가 완료 되었을 경우
+	/** 빌드가 완료 되었을 경우 */
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 		CAccess.Assert(CBuildProcessor.m_oPostProcessHandlerDict.ContainsKey(a_eTarget));
 		CBuildProcessor.m_oPostProcessHandlerDict[a_eTarget](a_eTarget, a_oPath);
 	}
 
-	//! 빌드가 완료 되었을 경우
+	/** 빌드가 완료 되었을 경우 */
 	[PostProcessBuild(int.MaxValue)]
 	public static void OnLatePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
@@ -77,7 +77,7 @@ public static partial class CBuildProcessor {
 #endif			// #if UNITY_IOS
 	}
 
-	//! iOS 빌드 완료를 처리한다
+	/** iOS 빌드 완료를 처리한다 */
 	private static void HandleiOSPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
 		string oPlistPath = string.Format(KCEditorDefine.B_PLIST_P_FMT_IOS, a_oPath);
@@ -170,14 +170,14 @@ public static partial class CBuildProcessor {
 #endif			// #if UNITY_IOS
 	}
 
-	//! 안드로이드 빌드 완료를 처리한다
+	/** 안드로이드 빌드 완료를 처리한다 */
 	private static void HandleAndroidPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_ANDROID
 
 #endif			// #if UNITY_ANDROID
 	}
 
-	//! 독립 플랫폼 빌드 완료를 처리한다
+	/** 독립 플랫폼 빌드 완료를 처리한다 */
 	private static void HandleStandalonePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_STANDALONE
 		string oPath = Path.GetDirectoryName(a_oPath);

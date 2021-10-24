@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//! 설정 씬 관리자 - 설정
+/** 설정 씬 관리자 - 설정 */
 public abstract partial class CSetupSceneManager : CSceneManager {
 	#region 함수
-	//! 팝업 UI 를 설정한다
+	/** 팝업 UI 를 설정한다 */
 	private void SetupPopupUIs() {
 		// 팝업 UI 가 없을 경우
 		if(CSetupSceneManager.m_oPopupUIs == null) {
@@ -20,7 +20,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 최상위 UI 를 설정한다
+	/** 최상위 UI 를 설정한다 */
 	private void SetupTopmostUIs() {
 		// 최상위 UI 가 없을 경우
 		if(CSetupSceneManager.m_oTopmostUIs == null) {
@@ -34,7 +34,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 절대 UI 를 설정한다
+	/** 절대 UI 를 설정한다 */
 	private void SetupAbsUIs() {
 		// 절대 UI 가 없을 경우
 		if(CSetupSceneManager.m_oAbsUIs == null) {
@@ -48,7 +48,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 타이머 관리자를 설정한다
+	/** 타이머 관리자를 설정한다 */
 	private void SetupTimerManager() {
 		// 타이머 관리자가 없을 경우
 		if(CSetupSceneManager.m_oTimerManager == null) {
@@ -60,7 +60,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
-	//! FPS 카운터를 설정한다
+	/** FPS 카운터를 설정한다 */
 	private void SetupFPSCounter() {
 		// FPS 카운터가 없을 경우
 		if(CSetupSceneManager.m_oFPSCounter == null) {
@@ -80,7 +80,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 디버그 UI 를 설정한다
+	/** 디버그 UI 를 설정한다 */
 	private void SetupDebugUIs() {
 		// 디버그 UI 가 없을 경우
 		if(CSetupSceneManager.m_oDebugUIs == null) {
@@ -109,7 +109,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 디버그 콘솔을 설정한다
+	/** 디버그 콘솔을 설정한다 */
 	private void SetupDebugConsole() {
 		// 디버그 콘솔이 없을 경우
 		if(CSetupSceneManager.m_oDebugConsole == null) {

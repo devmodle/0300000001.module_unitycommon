@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 튜토리얼 팝업
+/** 튜토리얼 팝업 */
 public class CTutorialPopup : CFocusPopup {
-	//! 매개 변수
+	/** 매개 변수 */
 	public new struct STParams {
 		public CFocusPopup.STParams m_stBaseParams;
 		public ETutorialKinds m_eTutorialKinds;
 	}
 
-	//! 콜백 매개 변수
+	/** 콜백 매개 변수 */
 	public new struct STCallbackParams {
 		public CFocusPopup.STCallbackParams m_stBaseCallbackParams;
 	}
@@ -32,12 +32,12 @@ public class CTutorialPopup : CFocusPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
 		base.Init(a_stParams.m_stBaseParams, a_stCallbackParams.m_stBaseCallbackParams);
 
@@ -45,13 +45,13 @@ public class CTutorialPopup : CFocusPopup {
 		m_stCallbackParams = a_stCallbackParams;
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 	
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 	}

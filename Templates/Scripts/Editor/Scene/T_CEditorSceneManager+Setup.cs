@@ -9,10 +9,10 @@ using UnityEngine.UI;
 using UnityEditor;
 using UnityEditor.PackageManager;
 
-//! 에디터 씬 관리자 - 설정
+/** 에디터 씬 관리자 - 설정 */
 public static partial class CEditorSceneManager {
 	#region 클래스 함수
-	//! 콜백을 설정한다
+	/** 콜백을 설정한다 */
 	private static void SetupCallbacks() {
 		EditorApplication.update -= CEditorSceneManager.Update;
 		EditorApplication.update += CEditorSceneManager.Update;
@@ -27,7 +27,7 @@ public static partial class CEditorSceneManager {
 		EditorApplication.update += CEditorSceneManager.LateUpdate;
 	}
 
-	//! 독립 패키지를 설정한다
+	/** 독립 패키지를 설정한다 */
 	private static void SetupDependencies() {
 		var oPkgsInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
 
@@ -50,7 +50,7 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	//! 패키지 레지스트리를 설정한다
+	/** 패키지 레지스트리를 설정한다 */
 	private static void SetupScopedRegistries() {
 		string oStr = CFunc.ReadStr(KCEditorDefine.B_DATA_P_UNITY_PKGS);
 		var oJSONNode = SimpleJSON.JSON.Parse(oStr) as SimpleJSON.JSONClass;

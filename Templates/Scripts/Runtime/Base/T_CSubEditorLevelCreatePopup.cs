@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
-//! 서브 에디터 레벨 생성 팝업
+/** 서브 에디터 레벨 생성 팝업 */
 public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 	#region 추가 변수
 
@@ -16,28 +16,28 @@ public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public override void Init(STCallbackParams a_stCallbackParams) {
 		base.Init(a_stCallbackParams);
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	protected new void UpdateUIsState() {
 		base.UpdateUIsState();
 	}
 
-	//! 에디터 레벨 생성 정보를 생성한다
+	/** 에디터 레벨 생성 정보를 생성한다 */
 	protected override CEditorLevelCreateInfo CreateEditorLevelCreateInfo() {
 		var oCreateInfo = base.CreateEditorLevelCreateInfo();
 

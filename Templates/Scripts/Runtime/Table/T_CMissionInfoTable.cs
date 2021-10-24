@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 미션 정보
+/** 미션 정보 */
 [System.Serializable]
 public struct STMissionInfo {
 	public string m_oName;
@@ -15,7 +15,7 @@ public struct STMissionInfo {
 	public ERewardKinds m_eRewardKinds;
 
 	#region 함수
-	//! 생성자
+	/** 생성자 */
 	public STMissionInfo(SimpleJSON.JSONNode a_oMissionInfo) {
 		m_oName = a_oMissionInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oMissionInfo[KCDefine.U_KEY_DESC];
@@ -26,7 +26,7 @@ public struct STMissionInfo {
 	#endregion			// 함수
 }
 
-//! 미션 정보 테이블
+/** 미션 정보 테이블 */
 public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	#region 변수
 	[Header("=====> Free Mission Info <=====")]
@@ -48,7 +48,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -61,7 +61,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		}
 	}
 
-	//! 미션 정보를 반환한다
+	/** 미션 정보를 반환한다 */
 	public STMissionInfo GetMissionInfo(EMissionKinds a_eMissionKinds) {
 		bool bIsValid = this.TryGetMissionInfo(a_eMissionKinds, out STMissionInfo stMissionInfo);
 		CAccess.Assert(bIsValid);
@@ -69,13 +69,13 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		return stMissionInfo;
 	}
 
-	//! 미션 정보를 반환한다
+	/** 미션 정보를 반환한다 */
 	public bool TryGetMissionInfo(EMissionKinds a_eMissionKinds, out STMissionInfo a_stOutMissionInfo) {
 		a_stOutMissionInfo = this.MissionInfoDict.ExGetVal(a_eMissionKinds, KDefine.G_INVALID_MISSION_INFO);
 		return this.MissionInfoDict.ContainsKey(a_eMissionKinds);
 	}
 
-	//! 미션 정보를 로드한다
+	/** 미션 정보를 로드한다 */
 	public Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos() {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadMissionInfos(KCDefine.U_RUNTIME_TABLE_P_G_MISSION_INFO);
@@ -84,7 +84,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 미션 정보를 로드한다
+	/** 미션 정보를 로드한다 */
 	public Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
@@ -101,7 +101,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 미션 정보를 로드한다
+	/** 미션 정보를 로드한다 */
 	private Dictionary<EMissionKinds, STMissionInfo> DoLoadMissionInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;

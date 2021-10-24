@@ -6,10 +6,10 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	//! 엔진 - 설정
+	/** 엔진 - 설정 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		//! 엔진을 설정한다
+		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 			// Do Something
 		}
@@ -17,13 +17,13 @@ namespace SampleEngineName {
 
 		#region 조건부 함수
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		//! 엔진을 설정한다
+		/** 엔진을 설정한다 */
 		private void SetupInit() {
 			m_oBlockDicts = new Dictionary<EBlockKinds, GameObject>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
 			this.GridInfo = Factory.MakeGridInfo(m_stParams.m_oLevelInfo);
 		}
 		
-		//! 레벨을 설정한다
+		/** 레벨을 설정한다 */
 		private void SetupLevel() {
 			for(int i = 0; i < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 				for(int j = 0; j < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
@@ -32,7 +32,7 @@ namespace SampleEngineName {
 			}
 		}
 
-		//! 셀을 설정한다
+		/** 셀을 설정한다 */
 		private void SetupCell(CCellInfo a_oCellInfo) {
 			var oBlockDict = new Dictionary<EBlockKinds, GameObject>();
 

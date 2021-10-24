@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 판매 코인 획득 팝업
+/** 판매 코인 획득 팝업 */
 public class CSaleCoinsAcquirePopup : CSubPopup {
-	//! 매개 변수
+	/** 매개 변수 */
 	public struct STParams {
 		public int m_nNumSaleCoins;
 	}
@@ -30,13 +30,13 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 	
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		this.IsIgnoreNavStackEvent = false;
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
 
@@ -47,13 +47,13 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 		CUserInfoStorage.Inst.SaveUserInfo();
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 	
-	//! UI 상태를 변경한다
+	/** UI 상태를 변경한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 

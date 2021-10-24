@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 서브 토스트 팝업
+/** 서브 토스트 팝업 */
 public class CSubToastPopup : CToastPopup {
 	#region 추가 변수
 
@@ -16,23 +16,23 @@ public class CSubToastPopup : CToastPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 	}
 	
-	//! 초기화
+	/** 초기화 */
 	public override void Init(STParams a_stParams) {
 		base.Init(a_stParams);
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	protected new void UpdateUIsState() {
 		base.UpdateUIsState();
 	}

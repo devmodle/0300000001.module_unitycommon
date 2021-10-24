@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-//! 판매 상품 정보
+/** 판매 상품 정보 */
 [System.Serializable]
 public struct STSaleProductInfo {
 	public string m_oName;
@@ -31,7 +31,7 @@ public struct STSaleProductInfo {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 생성자
+	/** 생성자 */
 	public STSaleProductInfo(SimpleJSON.JSONNode a_oSaleProductInfo) {
 		m_oName = a_oSaleProductInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oSaleProductInfo[KCDefine.U_KEY_DESC];
@@ -62,7 +62,7 @@ public struct STSaleProductInfo {
 	#endregion			// 함수
 }
 
-//! 판매 상품 정보 테이블
+/** 판매 상품 정보 테이블 */
 public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	#region 변수
 	[Header("=====> Sale Product Info <=====")]
@@ -78,7 +78,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -87,12 +87,12 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		}
 	}
 
-	//! 아이템 정보 포함 여부를 검사한다
+	/** 아이템 정보 포함 여부를 검사한다 */
 	public bool IsContainsItemInfo(ESaleProductKinds a_eSaleProductKinds, EItemKinds a_eItemKinds) {
 		return this.TryGetItemInfo(a_eSaleProductKinds, a_eItemKinds, out STItemInfo stItemInfo);
 	}
 	
-	//! 판매 상품 정보를 반환한다
+	/** 판매 상품 정보를 반환한다 */
 	public STSaleProductInfo GetSaleProductInfo(ESaleProductKinds a_eSaleProductKinds) {
 		bool bIsValid = this.TryGetSaleProductInfo(a_eSaleProductKinds, out STSaleProductInfo stSaleProductInfo);
 		CAccess.Assert(bIsValid);
@@ -100,7 +100,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		return stSaleProductInfo;
 	}
 
-	//! 아이템 정보를 반환한다
+	/** 아이템 정보를 반환한다 */
 	public STItemInfo GetItemInfo(ESaleProductKinds a_eSaleProductKinds, EItemKinds a_eItemKinds) {
 		bool bIsValid = this.TryGetItemInfo(a_eSaleProductKinds, a_eItemKinds, out STItemInfo stItemInfo);
 		CAccess.Assert(bIsValid);
@@ -108,13 +108,13 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		return stItemInfo;
 	}
 
-	//! 판매 상품 정보를 반환한다
+	/** 판매 상품 정보를 반환한다 */
 	public bool TryGetSaleProductInfo(ESaleProductKinds a_eSaleProductKinds, out STSaleProductInfo a_stOutSaleProductInfo) {
 		a_stOutSaleProductInfo = this.SaleProductInfoDict.ExGetVal(a_eSaleProductKinds, KDefine.G_INVALID_SALE_PRODUCT_INFO);
 		return this.SaleProductInfoDict.ContainsKey(a_eSaleProductKinds);
 	}
 
-	//! 아이템 정보를 반환한다
+	/** 아이템 정보를 반환한다 */
 	public bool TryGetItemInfo(ESaleProductKinds a_eSaleProductKinds, EItemKinds a_eItemKinds, out STItemInfo a_stOutItemInfo) {
 		// 판매 상품 정보가 존재 할 경우
 		if(this.TryGetSaleProductInfo(a_eSaleProductKinds, out STSaleProductInfo stSaleProductInfo)) {
@@ -128,7 +128,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		return false;
 	}
 
-	//! 판매 상품 정보를 로드한다
+	/** 판매 상품 정보를 로드한다 */
 	public Dictionary<ESaleProductKinds, STSaleProductInfo> LoadSaleProductInfos() {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadSaleProductInfos(KCDefine.U_RUNTIME_TABLE_P_G_SALE_PRODUCT_INFO);
@@ -137,7 +137,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 판매 상품 정보를 로드한다
+	/** 판매 상품 정보를 로드한다 */
 	public Dictionary<ESaleProductKinds, STSaleProductInfo> LoadSaleProductInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
@@ -154,7 +154,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 판매 상품 정보를 로드한다
+	/** 판매 상품 정보를 로드한다 */
 	private Dictionary<ESaleProductKinds, STSaleProductInfo> DoLoadSaleProductInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 

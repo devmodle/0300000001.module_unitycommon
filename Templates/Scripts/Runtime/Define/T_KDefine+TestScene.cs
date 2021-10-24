@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 테스트 씬 상수
+/** 테스트 씬 상수 */
 public static partial class KDefine {
 	#region 기본
 	

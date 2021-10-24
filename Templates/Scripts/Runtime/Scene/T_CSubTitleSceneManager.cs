@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 서브 타이틀 씬 관리자
+/** 서브 타이틀 씬 관리자 */
 public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#region 변수
 	// =====> UI <=====
@@ -21,7 +21,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#endregion			// 추가 프로퍼티
 	
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		
@@ -31,7 +31,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 	
-	//! 초기화
+	/** 초기화 */
 	public override void Start() {
 		base.Start();
 
@@ -39,7 +39,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		if(CSceneManager.IsAppInit) {
 			this.SetupStart();
 			this.UpdateUIsState();
-
+			
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
 
 			// 최초 시작 일 경우
@@ -99,7 +99,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
-	//! 제거 되었을 경우
+	/** 제거 되었을 경우 */
 	public override void OnDestroy() {
 		base.OnDestroy();
 
@@ -109,7 +109,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
-	//! 앱이 정지 되었을 경우
+	/** 앱이 정지 되었을 경우 */
 	public virtual void OnApplicationPause(bool a_bIsPause) {
 		// 재개 되었을 경우
 		if(!a_bIsPause && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
@@ -122,7 +122,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
-	//! 내비게이션 스택 이벤트를 수신했을 경우
+	/** 내비게이션 스택 이벤트를 수신했을 경우 */
 	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
 		base.OnReceiveNavStackEvent(a_eEvent);
 
@@ -132,7 +132,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 버튼을 설정한다
 		m_oPlayBtn = this.SubUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
@@ -143,19 +143,19 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupStart() {
 		// Do Something
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
-	//! 종료 팝업 결과를 수신했을 경우
+	/** 종료 팝업 결과를 수신했을 경우 */
 	private void OnReceiveQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
@@ -164,7 +164,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
-	//! 업데이트 팝업 결과를 수신했을 경우
+	/** 업데이트 팝업 결과를 수신했을 경우 */
 	private void OnReceiveUpdatePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
@@ -172,12 +172,12 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		}
 	}
 
-	//! 플레이 버튼을 눌렀을 경우
+	/** 플레이 버튼을 눌렀을 경우 */
 	private void OnTouchPlayBtn() {
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 	}
 
-	//! 최초 플레이 상태를 처리한다
+	/** 최초 플레이 상태를 처리한다 */
 	private void HandleFirstPlayState() {
 		// 약관 동의 팝업이 닫혔을 경우
 		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
@@ -188,12 +188,12 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
-	//! 테스트 UI 를 설정한다
+	/** 테스트 UI 를 설정한다 */
 	private void SetupTestUIs() {
 		// Do Something
 	}
 
-	//! 테스트 UI 상태를 갱신한다
+	/** 테스트 UI 상태를 갱신한다 */
 	private void UpdateTestUIsState() {
 		// Do Something
 	}

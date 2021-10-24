@@ -7,20 +7,20 @@ using MessagePack;
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #region 기본
-//! 게임 속성
+/** 게임 속성 */
 [System.Serializable]
 public struct STGameConfig {
 
 }
 
-//! 아이템 정보
+/** 아이템 정보 */
 [System.Serializable]
 public struct STItemInfo {
 	public int m_nNumItems;
 	public EItemKinds m_eItemKinds;
 }
 
-//! 타입 랩퍼
+/** 타입 랩퍼 */
 [MessagePackObject]
 public struct STTypeWrapper {
 	[Key(51)] public List<long> m_oLevelIDList;

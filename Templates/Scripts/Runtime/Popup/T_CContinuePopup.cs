@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 이어하기 팝업
+/** 이어하기 팝업 */
 public class CContinuePopup : CSubPopup {
-	//! 매개 변수
+	/** 매개 변수 */
 	public struct STParams {
 		public int m_nContinueTimes;
 		public CLevelInfo m_oLevelInfo;
 	}
 
-	//! 콜백 매개 변수
+	/** 콜백 매개 변수 */
 	public struct STCallbackParams {
 		public System.Action<CContinuePopup> m_oRetryCallback;
 		public System.Action<CContinuePopup> m_oContinueCallback;
@@ -42,7 +42,7 @@ public class CContinuePopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -62,7 +62,7 @@ public class CContinuePopup : CSubPopup {
 		// 버튼을 설정한다 }
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
 		base.Init();
 
@@ -70,19 +70,19 @@ public class CContinuePopup : CSubPopup {
 		m_stCallbackParams = a_stCallbackParams;
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 
-	//! 닫기 버튼을 눌렀을 경우
+	/** 닫기 버튼을 눌렀을 경우 */
 	protected override void OnTouchCloseBtn() {
 		base.OnTouchCloseBtn();
 		this.OnTouchLeaveBtn();
 	}
 	
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 		var stSaleItemInfo = CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.GAME_ITEM_CONTINUE);
@@ -92,12 +92,12 @@ public class CContinuePopup : CSubPopup {
 		m_oPriceText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.IntPrice));
 	}
 	
-	//! 재시도 버튼을 눌렀을 경우
+	/** 재시도 버튼을 눌렀을 경우 */
 	private void OnTouchRetryBtn() {
 		m_stCallbackParams.m_oRetryCallback?.Invoke(this);
 	}
 
-	//! 이어하기 버튼을 눌렀을 경우
+	/** 이어하기 버튼을 눌렀을 경우 */
 	private void OnTouchContinueBtn() {
 		var stSaleItemInfo = CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.GAME_ITEM_CONTINUE);
 
@@ -111,7 +111,7 @@ public class CContinuePopup : CSubPopup {
 		}
 	}
 
-	//! 나가기 버튼을 눌렀을 경우
+	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
 		m_stCallbackParams.m_oLeaveCallback?.Invoke(this);
 	}

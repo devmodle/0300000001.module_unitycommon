@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 
-//! 서브 에셋 추가자
+/** 서브 에셋 추가자 */
 [InitializeOnLoad]
 public class CSubAssetImporter : CAssetImporter {
 	#region 함수

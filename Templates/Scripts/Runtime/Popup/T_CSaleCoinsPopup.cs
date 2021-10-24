@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 판매 코인 팝업
+/** 판매 코인 팝업 */
 public class CSaleCoinsPopup : CSubPopup {
 	#region 변수
 	// =====> UI <=====
@@ -18,7 +18,7 @@ public class CSaleCoinsPopup : CSubPopup {
 	#endregion			// 변수
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -31,18 +31,18 @@ public class CSaleCoinsPopup : CSubPopup {
 		// 버튼을 설정한다 }
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public override void Init() {
 		base.Init();
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 	
-	//! UI 상태를 변경한다
+	/** UI 상태를 변경한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 		int nNumSaleCoins = CUserInfoStorage.Inst.UserInfo.NumSaleCoins;
@@ -51,12 +51,12 @@ public class CSaleCoinsPopup : CSubPopup {
 		m_oFullUIs?.SetActive(nNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
 	}
 
-	//! 확인 버튼을 눌렀을 경우
+	/** 확인 버튼을 눌렀을 경우 */
 	private void OnTouchOKBtn() {
 		this.OnTouchCloseBtn();
 	}
 
-	//! 결제 버튼을 눌렀을 경우
+	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn() {
 #if PURCHASE_MODULE_ENABLE
 		Func.PurchaseProduct(KDefine.G_PRODUCT_ID_SALE_COINS, this.OnPurchaseProduct);
@@ -66,7 +66,7 @@ public class CSaleCoinsPopup : CSubPopup {
 
 	#region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
-	//! 상품이 결제 되었을 경우
+	/** 상품이 결제 되었을 경우 */
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {

@@ -7,12 +7,12 @@ using MessagePack;
 #if NEVER_USE_THIS
 #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 #region 기본
-//! 서브 에디터 레벨 생성 정보
+/** 서브 에디터 레벨 생성 정보 */
 public class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
 
 }
 
-//! 에디터 타입 랩퍼
+/** 에디터 타입 랩퍼 */
 [MessagePackObject]
 public struct STEditorTypeWrapper {
 

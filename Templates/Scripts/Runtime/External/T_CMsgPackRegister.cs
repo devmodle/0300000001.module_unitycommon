@@ -12,14 +12,14 @@ using MessagePack.Resolvers;
 using UnityEditor;
 #endif			// #if UNITY_EDITOR
 
-//! 메세지 팩 등록자
+/** 메세지 팩 등록자 */
 public static class CMsgPackRegister {
 	#region 클래스 변수
 	private static bool m_bIsRegister = false;
 	#endregion			// 클래스 변수
 
 	#region 클래스 함수
-	//! 메세지 팩을 등록한다
+	/** 메세지 팩을 등록한다 */
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	private static void RegisterMsgPack() {
 		// 등록 가능 할 경우
@@ -38,7 +38,7 @@ public static class CMsgPackRegister {
 
 	#region 조건부 클래스 함수
 #if UNITY_EDITOR
-	//! 초기화
+	/** 초기화 */
 	[InitializeOnLoadMethod]
 	public static void EditorInitialize() {
 		CMsgPackRegister.RegisterMsgPack();

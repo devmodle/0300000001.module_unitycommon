@@ -9,7 +9,7 @@ using Unity.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-//! 공용 에디터 씬 관리자
+/** 공용 에디터 씬 관리자 */
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 변수
 	private static bool m_bIsEnableBuild = false;
@@ -52,7 +52,7 @@ public static partial class CCommonEditorSceneManager {
 	#endregion			// 클래스 변수
 
 	#region 클래스 함수
-	//! 생성자
+	/** 생성자 */
 	static CCommonEditorSceneManager() {
 		// GUI 스타일을 설정한다 {
 		CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState() {
@@ -67,14 +67,14 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.SetupCallbacks();
 	}
 
-	//! 스크립트가 로드 되었을 경우
+	/** 스크립트가 로드 되었을 경우 */
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 	}
 
-	//! 상호 작용자를 리셋한다
+	/** 상호 작용자를 리셋한다 */
 	[MenuItem("Tools/Utility/Reset/Selectables")]
 	public static void ResetSelectables() {
 		var oSelectableList = CEditorFunc.FindComponents<Selectable>();
@@ -89,7 +89,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	//! 스크롤 영역을 리셋한다
+	/** 스크롤 영역을 리셋한다 */
 	[MenuItem("Tools/Utility/Reset/Scroll Rects")]
 	public static void ResetScrollRects() {
 		var oScrollRectList = CEditorFunc.FindComponents<ScrollRect>();
@@ -104,7 +104,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	//! 캔버스 렌더러를 리셋한다
+	/** 캔버스 렌더러를 리셋한다 */
 	[MenuItem("Tools/Utility/Reset/Canvas Renderers")]
 	public static void ResetCanvasRenderers() {
 		var oCanvasRendererList = CEditorFunc.FindComponents<CanvasRenderer>();
@@ -119,7 +119,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	//! 레이아웃 그룹을 리셋한다
+	/** 레이아웃 그룹을 리셋한다 */
 	[MenuItem("Tools/Utility/Reset/Horizontal or Vertical LayoutGroups")]
 	public static void ResetLayoutGroups() {
 		var oLayoutGroupList = CEditorFunc.FindComponents<HorizontalOrVerticalLayoutGroup>();
@@ -134,7 +134,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	//! 카메라를 리셋한다
+	/** 카메라를 리셋한다 */
 	[MenuItem("Tools/Utility/Reset/Cameras")]
 	public static void ResetCameras() {
 		var oCameraList = CEditorFunc.FindComponents<Camera>();
@@ -149,7 +149,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	//! 렌더러를 리셋한다
+	/** 렌더러를 리셋한다 */
 	[MenuItem("Tools/Utility/Reset/Renderers")]
 	public static void ResetRenderers() {
 		var oRendererList = CEditorFunc.FindComponents<Renderer>();
@@ -164,7 +164,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	//! 상태를 갱신한다
+	/** 상태를 갱신한다 */
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
@@ -256,7 +256,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	//! 계층 뷰 UI 상태를 갱신한다
+	/** 계층 뷰 UI 상태를 갱신한다 */
 	private static void UpdateHierarchyUIState(int a_nInstanceID, Rect a_stRect) {
 		var oObj = EditorUtility.InstanceIDToObject(a_nInstanceID) as GameObject;
 

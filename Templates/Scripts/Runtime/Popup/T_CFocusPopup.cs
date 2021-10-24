@@ -6,14 +6,14 @@ using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 포커스 팝업
+/** 포커스 팝업 */
 public class CFocusPopup : CSubPopup {
-	//! 매개 변수
+	/** 매개 변수 */
 	public struct STParams {
 		public List<GameObject> m_oContentsUIsList;
 	}
 
-	//! 콜백 매개 변수
+	/** 콜백 매개 변수 */
 	public struct STCallbackParams {
 		public System.Action<CFocusPopup, PointerEventData> m_oBeginCallback;
 		public System.Action<CFocusPopup, PointerEventData> m_oMoveCallback;
@@ -44,7 +44,7 @@ public class CFocusPopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		this.IsIgnoreAni = true;
@@ -53,7 +53,7 @@ public class CFocusPopup : CSubPopup {
 		m_oBlindImg = m_oContents.ExFindComponent<Image>(KCDefine.U_OBJ_N_BLIND_IMG);
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
 		base.Init();
 
@@ -67,7 +67,7 @@ public class CFocusPopup : CSubPopup {
 		oTouchDispatcher?.ExSetEndCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oEndCallback?.Invoke(this, a_oEventData), false);
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 
@@ -82,7 +82,7 @@ public class CFocusPopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	protected new void UpdateUIsState() {
 		base.UpdateUIsState();
 		m_oBlindImg?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BG);

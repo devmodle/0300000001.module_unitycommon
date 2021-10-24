@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #region 기본
-//! 플레이 모드
+/** 플레이 모드 */
 public enum EPlayMode {
 	NONE = -1,
 	NORM,
@@ -15,7 +15,7 @@ public enum EPlayMode {
 	MAX_VAL
 }
 
-//! 레벨 모드
+/** 레벨 모드 */
 public enum ELevelMode {
 	NONE = -1,
 	EASY,
@@ -24,7 +24,7 @@ public enum ELevelMode {
 	MAX_VAL
 }
 
-//! 가격 타입
+/** 가격 타입 */
 public enum EPriceType {
 	NONE = -1,
 	ADS,
@@ -33,7 +33,7 @@ public enum EPriceType {
 	MAX_VAL
 }
 
-//! 가격 종류
+/** 가격 종류 */
 public enum EPriceKinds {
 	NONE = -1,
 
@@ -55,7 +55,7 @@ public enum EPriceKinds {
 	MAX_VAL
 }
 
-//! 아이템 타입
+/** 아이템 타입 */
 public enum EItemType {
 	NONE = -1,
 	GOODS,
@@ -64,7 +64,7 @@ public enum EItemType {
 	MAX_VAL
 }
 
-//! 아이템 종류
+/** 아이템 종류 */
 public enum EItemKinds {
 	NONE = -1,
 
@@ -89,7 +89,7 @@ public enum EItemKinds {
 	MAX_VAL
 }
 
-//! 판매 아이템 타입
+/** 판매 아이템 타입 */
 public enum ESaleItemType {
 	NONE = -1,
 	BOOSTER,
@@ -97,7 +97,7 @@ public enum ESaleItemType {
 	MAX_VAL
 }
 
-//! 판매 아이템 종류
+/** 판매 아이템 종류 */
 public enum ESaleItemKinds {
 	NONE = -1,
 
@@ -114,7 +114,7 @@ public enum ESaleItemKinds {
 	MAX_VAL
 }
 
-//! 판매 상품 타입
+/** 판매 상품 타입 */
 public enum ESaleProductType {
 	NONE = -1,
 	PKGS,
@@ -122,7 +122,7 @@ public enum ESaleProductType {
 	MAX_VAL
 }
 
-//! 판매 상품 종류
+/** 판매 상품 종류 */
 public enum ESaleProductKinds {
 	NONE = -1,
 
@@ -142,7 +142,7 @@ public enum ESaleProductKinds {
 	MAX_VAL
 }
 
-//! 미션 타입
+/** 미션 타입 */
 public enum EMissionType {
 	NONE = -1,
 	FREE,
@@ -151,7 +151,7 @@ public enum EMissionType {
 	MAX_VAL
 }
 
-//! 미션 종류
+/** 미션 종류 */
 public enum EMissionKinds {
 	NONE = -1,
 
@@ -173,7 +173,7 @@ public enum EMissionKinds {
 	MAX_VAL
 }
 
-//! 보상 타입
+/** 보상 타입 */
 public enum ERewardType {
 	NONE = -1,
 	FREE,
@@ -183,7 +183,7 @@ public enum ERewardType {
 	MAX_VAL
 }
 
-//! 보상 종류
+/** 보상 종류 */
 public enum ERewardKinds {
 	NONE = -1,
 
@@ -210,7 +210,7 @@ public enum ERewardKinds {
 	MAX_VAL
 }
 
-//! 보상 수준
+/** 보상 수준 */
 public enum ERewardQuality {
 	NONE = -1,
 	NORM,
@@ -219,7 +219,7 @@ public enum ERewardQuality {
 	MAX_VAL
 }
 
-//! 보상 획득 팝업 타입
+/** 보상 획득 팝업 타입 */
 public enum ERewardAcquirePopupType {
 	NONE = -1,
 	FREE,
@@ -229,7 +229,7 @@ public enum ERewardAcquirePopupType {
 	MAX_VAL
 }
 
-//! 레벨 타입
+/** 레벨 타입 */
 public enum ELevelType {
 	NONE = -1,
 	NORM,
@@ -237,7 +237,7 @@ public enum ELevelType {
 	MAX_VAL
 }
 
-//! 레벨 종류
+/** 레벨 종류 */
 public enum ELevelKinds {
 	NONE = -1,
 
@@ -254,14 +254,14 @@ public enum ELevelKinds {
 	MAX_VAL
 }
 
-//! 스테이지 타입
+/** 스테이지 타입 */
 public enum EStageType {
 	NONE = -1,
 	NORM,
 	MAX_VAL
 }
 
-//! 스테이지 타입
+/** 스테이지 타입 */
 public enum EStageKinds {
 	NONE = -1,
 
@@ -273,14 +273,14 @@ public enum EStageKinds {
 	MAX_VAL
 }
 
-//! 챕터 타입
+/** 챕터 타입 */
 public enum EChapterType {
 	NONE = -1,
 	NORM,
 	MAX_VAL
 }
 
-//! 챕터 타입
+/** 챕터 타입 */
 public enum EChapterKinds {
 	NONE = -1,
 
@@ -292,7 +292,7 @@ public enum EChapterKinds {
 	MAX_VAL
 }
 
-//! 튜토리얼 타입
+/** 튜토리얼 타입 */
 public enum ETutorialType {
 	NONE = -1,
 	PLAY,
@@ -300,7 +300,7 @@ public enum ETutorialType {
 	MAX_VAL
 }
 
-//! 튜토리얼 종류
+/** 튜토리얼 종류 */
 public enum ETutorialKinds {
 	NONE = -1,
 
@@ -317,13 +317,13 @@ public enum ETutorialKinds {
 	MAX_VAL
 }
 
-//! 타겟 타입
+/** 타겟 타입 */
 public enum ETargetType {
 	NONE = -1,
 	MAX_VAL
 }
 
-//! 타겟 종류
+/** 타겟 종류 */
 public enum ETargetKinds {
 	NONE = -1,
 	MAX_VAL

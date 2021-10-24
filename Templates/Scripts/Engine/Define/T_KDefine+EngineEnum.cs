@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	#region 기본
-	//! 블럭 타입
+	/** 블럭 타입 */
 	public enum EBlockType {
 		NONE = -1,
 		BG,
@@ -16,7 +16,7 @@ namespace SampleEngineName {
 		MAX_VAL
 	}
 
-	//! 블럭 종류
+	/** 블럭 종류 */
 	public enum EBlockKinds {
 		NONE = -1,
 

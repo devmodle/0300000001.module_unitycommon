@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 전역 확장 클래스
+/** 전역 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
-	//! 효과를 재생한다
+	/** 효과를 재생한다 */
 	public static void ExPlay(this ParticleSystem a_oSender, System.Action<CEventDispatcher> a_oCallback, bool a_bIsRemoveChildren = false, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
 		var oEventDispatcher = a_oSender?.GetComponentInChildren<CEventDispatcher>();

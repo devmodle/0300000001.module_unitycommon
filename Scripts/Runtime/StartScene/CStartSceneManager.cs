@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//! 시작 씬 관리자
+/** 시작 씬 관리자 */
 public abstract class CStartSceneManager : CSceneManager {
 	#region 변수
 	protected List<string> m_oSpriteAtlasList = new List<string>();
@@ -19,12 +19,12 @@ public abstract class CStartSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 추상 함수
-	//! 시작 씬 이벤트를 수신했을 경우
+	/** 시작 씬 이벤트를 수신했을 경우 */
 	protected abstract void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent);
 	#endregion			// 추상 함수
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -37,7 +37,7 @@ public abstract class CStartSceneManager : CSceneManager {
 		}
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public sealed override void Start() {
 		base.Start();
 
@@ -47,7 +47,7 @@ public abstract class CStartSceneManager : CSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	protected virtual void Setup() {
 		for(int i = 0; i < m_oSpriteAtlasList.Count; ++i) {
 			CResManager.Inst.LoadSpriteAtlas(m_oSpriteAtlasList[i]);
@@ -58,7 +58,7 @@ public abstract class CStartSceneManager : CSceneManager {
 		}
 	}
 
-	//! 초기화
+	/** 초기화 */
 	private IEnumerator OnStart() {
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 

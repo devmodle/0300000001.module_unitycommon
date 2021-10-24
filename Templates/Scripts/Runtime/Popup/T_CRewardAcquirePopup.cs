@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 보상 획득 팝업
+/** 보상 획득 팝업 */
 public class CRewardAcquirePopup : CSubPopup {
-	//! 매개 변수
+	/** 매개 변수 */
 	public struct STParams {
 		public ERewardQuality m_eQuality;
 		public ERewardAcquirePopupType m_ePopupType;
@@ -37,7 +37,7 @@ public class CRewardAcquirePopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -53,19 +53,19 @@ public class CRewardAcquirePopup : CSubPopup {
 		// 버튼을 설정한다 }
 	}
 	
-	//! 초기화
+	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
 		m_stParams = a_stParams;
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 	
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		// 보상 아이템 UI 상태를 갱신한다
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
@@ -79,25 +79,25 @@ public class CRewardAcquirePopup : CSubPopup {
 		}
 	}
 
-	//! 보상 아이템 UI 상태를 갱신한다
+	/** 보상 아이템 UI 상태를 갱신한다 */
 	private void UpdateItemUIsState(GameObject a_oItemUIs, STItemInfo a_stItemInfo) {
 		var oNumText = a_oItemUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_NUM_TEXT);
 		oNumText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stItemInfo.m_nNumItems));
 	}
 
-	//! 광고 버튼을 눌렀을 경우
+	/** 광고 버튼을 눌렀을 경우 */
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
-	//! 획득 버튼을 눌렀을 경우
+	/** 획득 버튼을 눌렀을 경우 */
 	private void OnTouchAcquireBtn() {
 		this.AcquireItems();
 	}
 
-	//! 아이템을 획득한다
+	/** 아이템을 획득한다 */
 	private void AcquireItems() {
 		m_oAdsBtn?.ExSetInteractable(false);
 		m_oAcquireBtn?.ExSetInteractable(false);
@@ -116,7 +116,7 @@ public class CRewardAcquirePopup : CSubPopup {
 
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
-	//! 보상 광고가 닫혔을 경우
+	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-//! 서브 테스트 씬 관리자
+/** 서브 테스트 씬 관리자 */
 public partial class CSubTestSceneManager : CTestSceneManager {
 	#region 추가 변수
 
@@ -15,7 +15,7 @@ public partial class CSubTestSceneManager : CTestSceneManager {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -25,7 +25,7 @@ public partial class CSubTestSceneManager : CTestSceneManager {
 		}
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public override void Start() {
 		base.Start();
 
@@ -36,17 +36,17 @@ public partial class CSubTestSceneManager : CTestSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// Do Something
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupStart() {
 		// Do Something
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		// Do Something
 	}

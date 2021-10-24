@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.Android;
 #endif			// #if UNITY_ANDROID
 
-//! 서브 권한 씬 관리자
+/** 서브 권한 씬 관리자 */
 public class CSubPermissionSceneManager : CPermissionSceneManager {
 	#region 추가 변수
 
@@ -20,7 +20,7 @@ public class CSubPermissionSceneManager : CPermissionSceneManager {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -30,7 +30,7 @@ public class CSubPermissionSceneManager : CPermissionSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 #if UNITY_ANDROID
 		m_oPermissionList.ExAddVal(Permission.ExternalStorageRead);
@@ -41,7 +41,7 @@ public class CSubPermissionSceneManager : CPermissionSceneManager {
 
 	#region 조건부 함수
 #if UNITY_ANDROID
-	//! 권한을 요청한다
+	/** 권한을 요청한다 */
 	protected override void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback) {
 		CFunc.RequestPermission(this, a_oPermission, a_oCallback);
 	}

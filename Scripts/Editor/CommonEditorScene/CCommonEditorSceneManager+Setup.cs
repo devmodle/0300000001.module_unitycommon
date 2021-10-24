@@ -17,10 +17,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 #endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
 
-//! 공용 에디터 씬 관리자 - 설정
+/** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
-	//! 콜백을 설정한다
+	/** 콜백을 설정한다 */
 	private static void SetupCallbacks() {
 		EditorApplication.update -= CCommonEditorSceneManager.Update;
 		EditorApplication.update += CCommonEditorSceneManager.Update;
@@ -29,7 +29,7 @@ public static partial class CCommonEditorSceneManager {
 		EditorApplication.hierarchyWindowItemOnGUI += CCommonEditorSceneManager.UpdateHierarchyUIState;
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private static void SetupScene() {
 		var oLights = Resources.FindObjectsOfTypeAll<Light>();
 		var oCameras = Resources.FindObjectsOfTypeAll<Camera>();
@@ -190,7 +190,7 @@ public static partial class CCommonEditorSceneManager {
 		// 디버그 콘솔을 설정한다 }
 	}
 	
-	//! 광원 옵션을 설정한다
+	/** 광원 옵션을 설정한다 */
 	private static void SetupLightOpts() {
 		var stScene = EditorSceneManager.GetActiveScene();
 
@@ -256,7 +256,7 @@ public static partial class CCommonEditorSceneManager {
 
 	#region 클래스 조건부 함수
 #if INPUT_SYSTEM_MODULE_ENABLE
-	//! 입력 시스템을 설정한다
+	/** 입력 시스템을 설정한다 */
 	private static void SetupInputSystem() {
 		// 입력 시스템 설정이 없을 경우
 		if(!EditorBuildSettings.TryGetConfigObject<InputSettings>(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, out InputSettings oInputSettings)) {

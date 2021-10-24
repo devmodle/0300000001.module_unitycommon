@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 서브 로딩 씬 관리자
+/** 서브 로딩 씬 관리자 */
 public class CSubLoadingSceneManager : CLoadingSceneManager {
 	#region 추가 변수
 
@@ -16,7 +16,7 @@ public class CSubLoadingSceneManager : CLoadingSceneManager {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		
@@ -26,12 +26,12 @@ public class CSubLoadingSceneManager : CLoadingSceneManager {
 		}
 	}
 
-	//! 씬을 비동기 로드 중일 경우
+	/** 씬을 비동기 로드 중일 경우 */
 	protected override void OnLoadSceneAsync(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
 		// Do Something
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// Do Something
 	}

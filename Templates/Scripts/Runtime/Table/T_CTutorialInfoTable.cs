@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 튜토리얼 정보
+/** 튜토리얼 정보 */
 [System.Serializable]
 public struct STTutorialInfo {
 	public ERewardKinds m_eRewardKinds;
@@ -15,7 +15,7 @@ public struct STTutorialInfo {
 	public List<string> m_oStrList;
 
 	#region 함수
-	//! 생성자
+	/** 생성자 */
 	public STTutorialInfo(SimpleJSON.JSONNode a_oTutorialInfo) {
 		m_eRewardKinds = (ERewardKinds)a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
 		m_eTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt;
@@ -31,7 +31,7 @@ public struct STTutorialInfo {
 	#endregion			// 함수
 }
 
-//! 튜토리얼 정보 테이블
+/** 튜토리얼 정보 테이블 */
 public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 	#region 변수
 	[Header("=====> Play Tutorial Info <=====")]
@@ -50,7 +50,7 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -62,7 +62,7 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 		}
 	}
 
-	//! 튜토리얼 정보를 반환한다
+	/** 튜토리얼 정보를 반환한다 */
 	public STTutorialInfo GetTutorialInfo(ETutorialKinds a_eTutorialKinds) {
 		bool bIsValid = this.TryGetTutorialInfo(a_eTutorialKinds, out STTutorialInfo stTutorialInfo);
 		CAccess.Assert(bIsValid);
@@ -70,13 +70,13 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 		return stTutorialInfo;
 	}
 
-	//! 튜토리얼 정보를 반환한다
+	/** 튜토리얼 정보를 반환한다 */
 	public bool TryGetTutorialInfo(ETutorialKinds a_eTutorialKinds, out STTutorialInfo a_stOutTutorialInfo) {
 		a_stOutTutorialInfo = this.TutorialInfoDict.ExGetVal(a_eTutorialKinds, KDefine.G_INVALID_TUTORIAL_INFO);
 		return this.TutorialInfoDict.ContainsKey(a_eTutorialKinds);
 	}
 
-	//! 튜토리얼 정보를 로드한다
+	/** 튜토리얼 정보를 로드한다 */
 	public Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos() {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadTutorialInfos(KCDefine.U_RUNTIME_TABLE_P_G_TUTORIAL_INFO);
@@ -85,7 +85,7 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 튜토리얼 정보를 로드한다
+	/** 튜토리얼 정보를 로드한다 */
 	public Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
@@ -102,7 +102,7 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 튜토리얼 정보를 로드한다
+	/** 튜토리얼 정보를 로드한다 */
 	private Dictionary<ETutorialKinds, STTutorialInfo> DoLoadTutorialInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	//! 엔진 - 접근
+	/** 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 		#region 함수
 		

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Android;
 #endif			// #if UNITY_ANDROID
 
-//! 권한 씬 관리자
+/** 권한 씬 관리자 */
 public abstract class CPermissionSceneManager : CSceneManager {
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_PERMISSION;
@@ -23,13 +23,13 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 	#region 추상 함수
 #if UNITY_ANDROID
-	//! 권한을 요청한다
+	/** 권한을 요청한다 */
 	protected abstract void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
 #endif			// #if UNITY_ANDROID
 	#endregion			// 추상 함수
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public sealed override void Start() {
 		base.Start();
 
@@ -39,7 +39,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		}
 	}
 
-	//! 초기화
+	/** 초기화 */
 	private IEnumerator OnStart() {
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_LATE_SETUP, null);
@@ -51,7 +51,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 #endif			// #if UNITY_ANDROID
 	}
 
-	//! 다음 씬을 로드한다
+	/** 다음 씬을 로드한다 */
 	private void LoadNextScene() {
 		CCommonAppInfoStorage.Inst.SetupDeviceType();
 		CCommonAppInfoStorage.Inst.SetupAdsID();
@@ -64,13 +64,13 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 	#region 조건부 함수
 #if UNITY_ANDROID
-	//! 권한을 수신했을 경우
+	/** 권한을 수신했을 경우 */
 	private void OnReceivePermission(string a_oPermission, bool a_bIsSuccess) {
 		m_oPermissionList.ExRemoveVal(a_oPermission);
 		this.CheckPermission();
 	}
 
-	//! 권한을 검사한다
+	/** 권한을 검사한다 */
 	private void CheckPermission() {
 		// 권한이 필요 할 경우
 		if(m_oPermissionList.ExIsValid()) {
@@ -81,7 +81,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		}
 	}
 
-	//! 권한을 요청한다
+	/** 권한을 요청한다 */
 	private void RequestPermission(string a_oPermission) {
 		// 권한이 유효 할 경우
 		if(CAccess.IsEnablePermission(a_oPermission)) {

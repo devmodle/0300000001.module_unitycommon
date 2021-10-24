@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 레벨 모드 보정자
+/** 레벨 모드 보정자 */
 public class CLevelModeCorrector : CComponent {
 	#region 변수
 	[SerializeField] private string m_oBasePath = string.Empty;
@@ -21,35 +21,35 @@ public class CLevelModeCorrector : CComponent {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public override void Start() {
 		base.Start();
 		this.SetupLevelMode();
 	}
 
-	//! 레벨 모드를 리셋한다
+	/** 레벨 모드를 리셋한다 */
 	public virtual void ResetLevelMode() {
 		this.SetupLevelMode();
 	}
 
-	//! 이미지를 변경한다
+	/** 이미지를 변경한다 */
 	public void SetImg(string a_oBasePath) {
 		m_oBasePath = a_oBasePath;
 		this.SetupLevelMode();
 	}
 
-	//! 레벨 모드를 변경한다
+	/** 레벨 모드를 변경한다 */
 	public void SetLevelMode(ELevelMode a_eMode) {
 		m_eLevelMode = a_eMode;
 		this.SetupLevelMode();
 	}
 
-	//! 레벨 모드를 설정한다
+	/** 레벨 모드를 설정한다 */
 	private void SetupLevelMode() {
 		// Do Something
 	}

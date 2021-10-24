@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 동기화 팝업
+/** 동기화 팝업 */
 public class CSyncPopup : CSubPopup {
 	#region 변수
 	private bool m_bIsLoadUserInfo = false;
@@ -24,7 +24,7 @@ public class CSyncPopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -46,18 +46,18 @@ public class CSyncPopup : CSubPopup {
 		// 버튼을 설정한다 }
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public override void Init() {
 		base.Init();
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 		
@@ -67,21 +67,21 @@ public class CSyncPopup : CSubPopup {
 #endif			// #if FIREBASE_MODULE_ENABLE
 	}
 
-	//! 로그인 버튼을 눌렀을 경우
+	/** 로그인 버튼을 눌렀을 경우 */
 	private void OnTouchLoginBtn() {
 #if FIREBASE_MODULE_ENABLE
 		Func.FirebaseLogin(this.OnLogin);
 #endif			// #if FIREBASE_MODULE_ENABLE
 	}
 
-	//! 로그아웃 버튼을 눌렀을 경우
+	/** 로그아웃 버튼을 눌렀을 경우 */
 	private void OnTouchLogoutBtn() {
 #if FIREBASE_MODULE_ENABLE
 		Func.FirebaseLogout(this.OnLogout);
 #endif			// #if FIREBASE_MODULE_ENABLE
 	}
 
-	//! 로드 버튼을 눌렀을 경우
+	/** 로드 버튼을 눌렀을 경우 */
 	private void OnTouchLoadBtn() {
 		Func.ShowLoadPopup((a_oSender, a_bIsOK) => {
 #if FIREBASE_MODULE_ENABLE
@@ -94,7 +94,7 @@ public class CSyncPopup : CSubPopup {
 		});
 	}
 
-	//! 저장 버튼을 눌렀을 경우
+	/** 저장 버튼을 눌렀을 경우 */
 	private void OnTouchSaveBtn() {
 		Func.ShowSavePopup((a_oSender, a_bIsOK) => {
 #if FIREBASE_MODULE_ENABLE
@@ -110,7 +110,7 @@ public class CSyncPopup : CSubPopup {
 
 	#region 조건부 함수
 #if FIREBASE_MODULE_ENABLE
-	//! 로그인 되었을 경우
+	/** 로그인 되었을 경우 */
 	private void OnLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		// 로그인 되었을 경우
 		if(a_bIsSuccess) {
@@ -120,12 +120,12 @@ public class CSyncPopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 
-	//! 로그아웃 되었을 경우
+	/** 로그아웃 되었을 경우 */
 	private void OnLogout(CFirebaseManager a_oSender) {
 		this.UpdateUIsState();
 	}
 
-	//! 유저 정보가 저장 되었을 경우
+	/** 유저 정보가 저장 되었을 경우 */
 	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		// 저장 되었을 경우
 		if(a_bIsSuccess) {
@@ -136,7 +136,7 @@ public class CSyncPopup : CSubPopup {
 		Func.OnSaveUserInfo(a_oSender, a_bIsSuccess, null);
 	}
 
-	//! 유저 정보가 로드 되었을 경우
+	/** 유저 정보가 로드 되었을 경우 */
 	private void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
@@ -172,7 +172,7 @@ public class CSyncPopup : CSubPopup {
 		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { a_oPopupSender.IsIgnoreNavStackEvent = m_bIsLoadUserInfo; return true; });
 	}
 
-	//! 로드 성공 팝업 결과를 수신했을 경우
+	/** 로드 성공 팝업 결과를 수신했을 경우 */
 	private void OnReceiveLoadSuccessPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 유저 정보를 로드했을 경우
 		if(a_bIsOK && m_bIsLoadUserInfo) {

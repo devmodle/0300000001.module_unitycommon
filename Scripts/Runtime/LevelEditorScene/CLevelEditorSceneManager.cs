@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-//! 레벨 에디터 씬 관리자
+/** 레벨 에디터 씬 관리자 */
 public class CLevelEditorSceneManager : CSceneManager {
 	#region 변수
 	// =====> 객체 <=====
@@ -30,7 +30,7 @@ public class CLevelEditorSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		

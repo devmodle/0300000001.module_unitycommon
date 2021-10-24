@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 
-//! 에디터 씬 관리자
+/** 에디터 씬 관리자 */
 [InitializeOnLoad]
 public static partial class CEditorSceneManager {
 	#region 클래스 변수
@@ -26,18 +26,18 @@ public static partial class CEditorSceneManager {
 	#endregion			// 클래스 변수
 	
 	#region 클래스 함수
-	//! 생성자
+	/** 생성자 */
 	static CEditorSceneManager() {
 		CEditorSceneManager.SetupCallbacks();
 	}
 
-	//! 스크립트가 로드 되었을 경우
+	/** 스크립트가 로드 되었을 경우 */
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		CEditorSceneManager.m_bIsEnableSetup = true;
 	}
 
-	//! 상태를 갱신한다
+	/** 상태를 갱신한다 */
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
@@ -86,7 +86,7 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	//! 독립 패키지 상태를 갱신한다
+	/** 독립 패키지 상태를 갱신한다 */
 	private static void UpdateDependencyState() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState && m_oListRequest.ExIsComplete()) {
@@ -101,7 +101,7 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	//! 패키지 레지스트리 상태를 갱신한다
+	/** 패키지 레지스트리 상태를 갱신한다 */
 	private static void UpdateScopedRegistryState() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
@@ -110,7 +110,7 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	//! 상태를 갱신한다
+	/** 상태를 갱신한다 */
 	private static void LateUpdate() {
 		bool bIsEnableUpdate = CEditorSceneManager.m_bIsSetupDependencies;
 		bIsEnableUpdate = bIsEnableUpdate && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VAL_0_INT;

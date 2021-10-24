@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 일일 보상 팝업
+/** 일일 보상 팝업 */
 public class CDailyRewardPopup : CSubPopup {
 	#region 변수
 	private bool m_bIsWatchRewardAds = false;
@@ -27,7 +27,7 @@ public class CDailyRewardPopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -40,18 +40,18 @@ public class CDailyRewardPopup : CSubPopup {
 		// 버튼을 설정한다 }
 	}
 	
-	//! 초기화
+	/** 초기화 */
 	public override void Init() {
 		base.Init();
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 	
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 		
@@ -64,12 +64,12 @@ public class CDailyRewardPopup : CSubPopup {
 		}
 	}
 
-	//! 보상 UI 상태를 갱신한다
+	/** 보상 UI 상태를 갱신한다 */
 	private void UpdateRewardUIsState(GameObject a_oRewardUIs, STRewardInfo a_stRewardInfo) {
 		// Do Something
 	}
 
-	//! 광고 버튼을 눌렀을 경우
+	/** 광고 버튼을 눌렀을 경우 */
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
@@ -78,18 +78,18 @@ public class CDailyRewardPopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
-	//! 획득 버튼을 눌렀을 경우
+	/** 획득 버튼을 눌렀을 경우 */
 	private void OnTouchAcquireBtn() {
 		this.ShowRewardAcquirePopup();
 	}
 
-	//! 보상 획득 팝업이 닫혔을 경우
+	/** 보상 획득 팝업이 닫혔을 경우 */
 	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
 		CGameInfoStorage.Inst.SetupNextDailyRewardID();
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 
-	//! 보상 획득 팝업을 출력한다
+	/** 보상 획득 팝업을 출력한다 */
 	private void ShowRewardAcquirePopup() {
 		var eRewardKinds = CGameInfoStorage.Inst.DailyRewardKinds;
 		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
@@ -124,7 +124,7 @@ public class CDailyRewardPopup : CSubPopup {
 
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
-	//! 보상 광고가 닫혔을 경우
+	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {

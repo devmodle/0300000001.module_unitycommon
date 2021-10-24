@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if SCENE_TEMPLATES_MODULE_ENABLE
-//! 서브 인트로 씬 관리자
+/** 서브 인트로 씬 관리자 */
 public class CSubIntroSceneManager : CIntroSceneManager {
 	#region 추가 변수
 
@@ -16,7 +16,7 @@ public class CSubIntroSceneManager : CIntroSceneManager {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	protected override void Setup() {
 		base.Setup();
 		this.LoadNextScene();

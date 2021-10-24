@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 보상 정보
+/** 보상 정보 */
 [System.Serializable]
 public struct STRewardInfo {
 	public string m_oName;
@@ -17,7 +17,7 @@ public struct STRewardInfo {
 	public List<STItemInfo> m_oItemInfoList;
 
 	#region 함수
-	//! 생성자
+	/** 생성자 */
 	public STRewardInfo(SimpleJSON.JSONNode a_oRewardInfo) {
 		m_oName = a_oRewardInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oRewardInfo[KCDefine.U_KEY_DESC];
@@ -40,7 +40,7 @@ public struct STRewardInfo {
 	#endregion			// 함수
 }
 
-//! 보상 정보 테이블
+/** 보상 정보 테이블 */
 public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	#region 변수
 	[Header("=====> Free Reward Info <=====")]
@@ -65,7 +65,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -79,7 +79,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		}
 	}
 
-	//! 보상 정보를 반환한다
+	/** 보상 정보를 반환한다 */
 	public STRewardInfo GetRewardInfo(ERewardKinds a_eRewardKinds) {
 		bool bIsValid = this.TryGetRewardInfo(a_eRewardKinds, out STRewardInfo stRewardInfo);
 		CAccess.Assert(bIsValid);
@@ -87,13 +87,13 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		return stRewardInfo;
 	}
 
-	//! 보상 정보를 반환한다
+	/** 보상 정보를 반환한다 */
 	public bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo) {
 		a_stOutRewardInfo = this.RewardInfoDict.ExGetVal(a_eRewardKinds, KDefine.G_INVALID_REWARD_INFO);
 		return this.RewardInfoDict.ContainsKey(a_eRewardKinds);
 	}
 
-	//! 보상 정보를 로드한다
+	/** 보상 정보를 로드한다 */
 	public Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos() {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadRewardInfos(KCDefine.U_RUNTIME_TABLE_P_G_REWARD_INFO);
@@ -102,7 +102,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 보상 정보를 로드한다
+	/** 보상 정보를 로드한다 */
 	public Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
@@ -119,7 +119,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 보상 정보를 로드한다
+	/** 보상 정보를 로드한다 */
 	private Dictionary<ERewardKinds, STRewardInfo> DoLoadRewardInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;

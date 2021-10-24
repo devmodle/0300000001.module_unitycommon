@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if SCENE_TEMPLATES_MODULE_ENABLE
-//! 서브 시작 씬 관리자
+/** 서브 시작 씬 관리자 */
 public class CSubStartSceneManager : CStartSceneManager {
 	#region 변수
 	private int m_nNumDots = 0;
@@ -32,7 +32,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -42,13 +42,13 @@ public class CSubStartSceneManager : CStartSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	protected override void Setup() {
 		base.Setup();
 		this.UpdateUIsState();
 	}
 
-	//! 상태를 갱신한다
+	/** 상태를 갱신한다 */
 	public override void OnUpdate(float a_fDeltaTime) {
 		base.OnUpdate(a_fDeltaTime);
 
@@ -69,7 +69,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		}
 	}
 
-	//! 시작 씬 이벤트를 수신했을 경우
+	/** 시작 씬 이벤트를 수신했을 경우 */
 	protected override void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent) {
 		int nEvent = (int)a_eEvent + KCDefine.B_VAL_1_INT;
 		float fPercent = nEvent / (float)((int)EStartSceneEvent.MAX_VAL - KCDefine.B_VAL_1_INT);
@@ -77,7 +77,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_fMaxPercent = Mathf.Clamp(fPercent, KCDefine.B_VAL_0_FLT, KCDefine.B_VAL_1_FLT);
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		m_fSkipTime = KCDefine.SS_DELTA_T_UPDATE_STATE;
 			
@@ -97,7 +97,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		// 게이지 처리자를 설정한다 }
 	}
 
-	//! 텍스트 상태를 갱신한다
+	/** 텍스트 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		string oDotStr = CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_DOT_TEXT);
 		string oLoadingStr = CCommonAppInfoStorage.Inst.CountryCode.ExIsValid() ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT) : KCDefine.SS_TEXT_LOADING;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 무료 보상 팝업
+/** 무료 보상 팝업 */
 public class CFreeRewardPopup : CSubPopup {
 	#region 변수
 	// =====> UI <=====
@@ -21,7 +21,7 @@ public class CFreeRewardPopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -30,23 +30,23 @@ public class CFreeRewardPopup : CSubPopup {
 		m_oAdsBtn?.onClick.AddListener(this.OnTouchAdsBtn);
 	}
 	
-	//! 초기화
+	/** 초기화 */
 	public override void Init() {
 		base.Init();
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 	
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 	}
 
-	//! 광고 버튼을 눌렀을 경우
+	/** 광고 버튼을 눌렀을 경우 */
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
@@ -55,7 +55,7 @@ public class CFreeRewardPopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
-	//! 보상 획득 팝업이 닫혔을 경우
+	/** 보상 획득 팝업이 닫혔을 경우 */
 	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
 		CGameInfoStorage.Inst.AddNumAcquireFreeRewards(KCDefine.B_VAL_1_INT);
 
@@ -67,7 +67,7 @@ public class CFreeRewardPopup : CSubPopup {
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 
-	//! 보상 획득 팝업을 출력한다
+	/** 보상 획득 팝업을 출력한다 */
 	private void ShowRewardAcquirePopup() {
 		var eRewardKinds = ERewardKinds.FREE_SAMPLE + (CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards + KCDefine.B_VAL_1_INT);
 		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
@@ -86,7 +86,7 @@ public class CFreeRewardPopup : CSubPopup {
 
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
-	//! 보상 광고가 닫혔을 경우
+	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {

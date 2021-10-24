@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if SCENE_TEMPLATES_MODULE_ENABLE
-//! 서브 지연 설정 씬 관리자
+/** 서브 지연 설정 씬 관리자 */
 public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	#region 추가 변수
 
@@ -16,7 +16,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		
@@ -26,7 +26,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	protected override void Setup() {
 		base.Setup();
 		
@@ -36,7 +36,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
-	//! 추적 설명 팝업을 출력한다
+	/** 추적 설명 팝업을 출력한다 */
 	protected override void ShowTrackingDescPopup() {
 		// 추적 설명 팝업 출력이 가능 할 경우
 		if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup) {
@@ -52,7 +52,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		this.IsAutoInitManager = true;
 
@@ -80,7 +80,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		CCommonUserInfoStorage.Inst.SaveUserInfo();
 	}
 
-	//! 추적 설명 팝업 결과를 수신했을 경우
+	/** 추적 설명 팝업 결과를 수신했을 경우 */
 	private void OnReceiveTrackingDescPopupResult(CTrackingDescPopup a_oSender) {
 		a_oSender?.Close();
 		this.ExLateCallFunc((a_oSender, a_oParams) => this.ShowConsentView(), KCDefine.U_DELAY_INIT);

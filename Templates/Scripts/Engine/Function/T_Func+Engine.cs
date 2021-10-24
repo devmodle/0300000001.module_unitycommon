@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	//! 엔진 함수
+	/** 엔진 함수 */
 	public static partial class Func {
 		#region 클래스 함수
 

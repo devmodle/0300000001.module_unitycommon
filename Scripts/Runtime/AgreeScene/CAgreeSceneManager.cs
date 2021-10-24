@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//! 약관 동의 씬 관리자
+/** 약관 동의 씬 관리자 */
 public abstract class CAgreeSceneManager : CSceneManager {
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_AGREE;
@@ -14,15 +14,15 @@ public abstract class CAgreeSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 추상 함수
-	//! 일반 약관 동의 팝업을 출력한다
+	/** 일반 약관 동의 팝업을 출력한다 */
 	protected abstract void ShowNormAgreePopup(string a_oServices, string a_oPrivacy);
 
-	//! 유럽 연합 약관 동의 팝업을 출력한다
+	/** 유럽 연합 약관 동의 팝업을 출력한다 */
 	protected abstract void ShowEUAgreePopup(string a_oServicesURL, string a_oPrivacyURL);
 	#endregion			// 추상 함수
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public sealed override void Start() {
 		base.Start();
 
@@ -32,7 +32,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		}
 	}
 
-	//! 다음 씬을 로드한다
+	/** 다음 씬을 로드한다 */
 	protected void LoadNextScene() {
 		CCommonAppInfoStorage.Inst.AppInfo.IsAgree = true;
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
@@ -41,7 +41,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
 	}
 
-	//! 초기화
+	/** 초기화 */
 	private IEnumerator OnStart() {
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_SETUP, null);

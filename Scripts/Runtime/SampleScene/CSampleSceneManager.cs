@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 #endif			// #if UNITY_EDITOR
 
-//! 샘플 씬 관리자
+/** 샘플 씬 관리자 */
 public class CSampleSceneManager : CSceneManager {
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_SAMPLE;
@@ -16,7 +16,7 @@ public class CSampleSceneManager : CSceneManager {
 
 	#region 조건부 클래스 함수
 #if UNITY_EDITOR
-	//! 씬 관리자를 설정한다
+	/** 씬 관리자를 설정한다 */
 	public static void SetupSceneManager(Scene a_stScene, Dictionary<string, System.Type> a_oSceneManagerTypeDict) {
 		foreach(var stKeyVal in a_oSceneManagerTypeDict) {
 			// 씬 관리자 타입과 동일 할 경우

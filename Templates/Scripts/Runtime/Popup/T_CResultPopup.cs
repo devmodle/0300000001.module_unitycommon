@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 결과 팝업
+/** 결과 팝업 */
 public class CResultPopup : CSubPopup {
-	//! 매개 변수
+	/** 매개 변수 */
 	public struct STParams {
 		public bool m_bIsClear;
 		public int m_nScore;
@@ -16,7 +16,7 @@ public class CResultPopup : CSubPopup {
 		public CClearInfo m_oClearInfo;
 	}
 
-	//! 콜백 매개 변수
+	/** 콜백 매개 변수 */
 	public struct STCallbackParams {
 		public System.Action<CResultPopup> m_oNextCallback;
 		public System.Action<CResultPopup> m_oRetryCallback;
@@ -48,7 +48,7 @@ public class CResultPopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		this.IsIgnoreNavStackEvent = true;
@@ -71,7 +71,7 @@ public class CResultPopup : CSubPopup {
 		// 버튼을 설정한다 }
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
 		base.Init();
 
@@ -79,19 +79,19 @@ public class CResultPopup : CSubPopup {
 		m_stCallbackParams = a_stCallbackParams;
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 
-	//! 닫기 버튼을 눌렀을 경우
+	/** 닫기 버튼을 눌렀을 경우 */
 	protected override void OnTouchCloseBtn() {
 		base.OnTouchCloseBtn();
 		this.OnTouchLeaveBtn();
 	}
 	
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 
@@ -102,17 +102,17 @@ public class CResultPopup : CSubPopup {
 		m_oScoreText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, m_stParams.m_nScore), false);
 	}
 
-	//! 다음 버튼을 눌렀을 경우
+	/** 다음 버튼을 눌렀을 경우 */
 	private void OnTouchNextBtn() {
 		m_stCallbackParams.m_oNextCallback?.Invoke(this);
 	}
 
-	//! 재시도 버튼을 눌렀을 경우
+	/** 재시도 버튼을 눌렀을 경우 */
 	private void OnTouchRetryBtn() {
 		m_stCallbackParams.m_oRetryCallback?.Invoke(this);
 	}
 
-	//! 나가기 버튼을 눌렀을 경우
+	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
 		m_stCallbackParams.m_oLeaveCallback?.Invoke(this);
 	}

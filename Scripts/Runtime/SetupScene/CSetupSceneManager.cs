@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//! 설정 씬 관리자
+/** 설정 씬 관리자 */
 public abstract partial class CSetupSceneManager : CSceneManager {
 	#region 변수
 	private Dictionary<string, System.Action<string>> m_oDeviceMsgHandlerDict = new Dictionary<string, System.Action<string>>();
@@ -32,7 +32,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -43,7 +43,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public sealed override void Start() {
 		base.Start();
 
@@ -53,13 +53,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	//! 디바이스 메세지를 수신했을 경우
+	/** 디바이스 메세지를 수신했을 경우 */
 	private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
 		CFunc.ShowLog($"CSetupSceneManager.OnReceiveDeviceMsg: {a_oCmd}, {a_oMsg}", KCDefine.B_LOG_COLOR_INFO);
 		m_oDeviceMsgHandlerDict[a_oCmd](a_oMsg);
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	protected virtual void Setup() {
 		this.SetupPopupUIs();
 		this.SetupTopmostUIs();
@@ -73,7 +73,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
-	//! 디바이스 식별자 반환 메세지를 처리한다
+	/** 디바이스 식별자 반환 메세지를 처리한다 */
 	private void HandleGetDeviceIDMsg(string a_oMsg) {
 		string oDeviceID = CCommonAppInfoStorage.Inst.AppInfo.DeviceID;
 		
@@ -86,7 +86,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CUnityMsgSender.Inst.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 	}
 
-	//! 국가 코드 반환 메세지를 처리한다
+	/** 국가 코드 반환 메세지를 처리한다 */
 	private void HandleGetCountryCodeMsg(string a_oMsg) {
 		string oCountryCode = a_oMsg;
 
@@ -104,7 +104,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_AGREE);
 	}
 
-	//! 초기화
+	/** 초기화 */
 	private IEnumerator OnStart() {
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 서브 중첩 씬 관리자
+/** 서브 중첩 씬 관리자 */
 public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	#region 추가 변수
 
@@ -24,7 +24,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		
@@ -34,7 +34,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		}
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public override void Start() {
 		base.Start();
 
@@ -45,7 +45,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		}
 	}
 
-	//! 상점 팝업을 출력한다
+	/** 상점 팝업을 출력한다 */
 	public void ShowStorePopup() {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowStorePopup(this.SubPopupUIs, (a_oSender) => {
@@ -76,7 +76,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 텍스트를 설정한다
 		this.NumCoinsText = this.SubUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
@@ -90,12 +90,12 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupStart() {
 		// Do Something
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		var oSubTitleSceneManager = CSceneManager.GetSubSceneManager<CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE);
 		oSubTitleSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
@@ -111,7 +111,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
-	//! 상점 버튼을 눌렀을 경우
+	/** 상점 버튼을 눌렀을 경우 */
 	private void OnTouchStoreBtn() {
 		this.ShowStorePopup();
 	}
@@ -119,12 +119,12 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 	#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
-	//! 테스트 UI 를 설정한다
+	/** 테스트 UI 를 설정한다 */
 	private void SetupTestUIs() {
 		// Do Something
 	}
 
-	//! 테스트 UI 상태를 갱신한다
+	/** 테스트 UI 상태를 갱신한다 */
 	private void UpdateTestUIsState() {
 		// Do Something
 	}

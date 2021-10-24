@@ -6,7 +6,7 @@ using MessagePack;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 기본 정보
+/** 기본 정보 */
 [Union(0, typeof(CAppInfo))]
 [Union(1, typeof(CUserInfo))]
 [Union(2, typeof(CGameInfo))]
@@ -42,12 +42,12 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#endregion			// 프로퍼티
 	
 	#region IMessagePackSerializationCallbackReceiver
-	//! 직렬화 될 경우
+	/** 직렬화 될 경우 */
 	public virtual void OnBeforeSerialize() {
 		this.SaveTime = System.DateTime.Now;
 	}
 
-	//! 역직렬화 되었을 경우
+	/** 역직렬화 되었을 경우 */
 	public virtual void OnAfterDeserialize() {
 		m_oIntDict = m_oIntDict ?? new Dictionary<string, int>();
 		m_oFltDict = m_oFltDict ?? new Dictionary<string, float>();
@@ -56,7 +56,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
 	#region 함수
-	//! 생성자
+	/** 생성자 */
 	public CBaseInfo(System.Version a_stVer) {
 		this.Ver = a_stVer;
 	}

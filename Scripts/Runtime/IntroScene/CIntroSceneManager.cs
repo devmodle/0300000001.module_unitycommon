@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//! 인트로 씬 관리자
+/** 인트로 씬 관리자 */
 public class CIntroSceneManager : CSceneManager {
 	#region 변수
 	private List<string> m_oSceneNameList = new List<string>() {
@@ -23,7 +23,7 @@ public class CIntroSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public sealed override void Start() {
 		base.Start();
 
@@ -33,12 +33,12 @@ public class CIntroSceneManager : CSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	protected virtual void Setup() {
 		// Do Something
 	}
 
-	//! 다음 씬을 로드한다
+	/** 다음 씬을 로드한다 */
 	protected void LoadNextScene() {
 		int nIdx = m_oSceneNameList.ExFindVal((a_oSceneName) => CSceneManager.AwakeSceneName.Equals(a_oSceneName));
 
@@ -59,7 +59,7 @@ public class CIntroSceneManager : CSceneManager {
 		}, KCDefine.U_DELAY_NEXT_SCENE_LOAD);
 	}
 
-	//! 초기화
+	/** 초기화 */
 	private IEnumerator OnStart() {
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_PERMISSION, null);

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if SCENE_TEMPLATES_MODULE_ENABLE
-//! 권한 씬 상수
+/** 권한 씬 상수 */
 public static partial class KDefine {
 	#region 기본
 

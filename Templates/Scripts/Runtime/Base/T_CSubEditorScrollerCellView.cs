@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
-//! 서브 에디터 스크롤러 셀 뷰
+/** 서브 에디터 스크롤러 셀 뷰 */
 public class CSubEditorScrollerCellView : CEditorScrollerCellView {
-	//! 매개 변수
+	/** 매개 변수 */
 	public new struct STParams {
 		public CEditorScrollerCellView.STParams m_stBaseParams;
 	}
 	
-	//! 콜백 매개 변수
+	/** 콜백 매개 변수 */
 	public new struct STCallbackParams {
 		public CEditorScrollerCellView.STCallbackParams m_stBaseCallbackParams;
 	}
@@ -31,12 +31,12 @@ public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
 		base.Init(a_stParams.m_stBaseParams, a_stCallbackParams.m_stBaseCallbackParams);
 
@@ -46,7 +46,7 @@ public class CSubEditorScrollerCellView : CEditorScrollerCellView {
 		this.UpdateUIsState();
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	protected new void UpdateUIsState() {
 		base.UpdateUIsState();
 	}

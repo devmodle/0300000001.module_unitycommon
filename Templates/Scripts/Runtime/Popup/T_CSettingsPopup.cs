@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 설정 팝업
+/** 설정 팝업 */
 public class CSettingsPopup : CSubPopup {
 	#region 변수
 	// =====> UI <=====
@@ -23,7 +23,7 @@ public class CSettingsPopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -45,18 +45,18 @@ public class CSettingsPopup : CSubPopup {
 		// 버튼을 설정한다 }
 	}
 	
-	//! 초기화
+	/** 초기화 */
 	public override void Init() {
 		base.Init();
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 	
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 
@@ -75,7 +75,7 @@ public class CSettingsPopup : CSubPopup {
 		// 버튼을 갱신한다 }
 	}
 
-	//! 배경음 버튼을 눌렀을 경우
+	/** 배경음 버튼을 눌렀을 경우 */
 	private void OnTouchBGSndBtn() {
 		CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd = !CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
@@ -83,7 +83,7 @@ public class CSettingsPopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 
-	//! 효과음 버튼을 눌렀을 경우
+	/** 효과음 버튼을 눌렀을 경우 */
 	private void OnTouchFXSndsBtn() {
 		CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds = !CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
@@ -91,7 +91,7 @@ public class CSettingsPopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 
-	//! 알림 버튼을 눌렀을 경우
+	/** 알림 버튼을 눌렀을 경우 */
 	private void OnTouchNotiBtn() {
 		CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti = !CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
@@ -99,12 +99,12 @@ public class CSettingsPopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 
-	//! 평가 버튼을 눌렀을 경우
+	/** 평가 버튼을 눌렀을 경우 */
 	private void OnTouchReviewBtn() {
 		CUnityMsgSender.Inst.SendShowReviewMsg();
 	}
 
-	//! 지원 버튼을 눌렀을 경우
+	/** 지원 버튼을 눌렀을 경우 */
 	private void OnTouchSupportsBtn() {
 		CUnityMsgSender.Inst.SendMailMsg(CProjInfoTable.Inst.ProjInfo.m_oSupportsMail, string.Empty, string.Empty);
 	}

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
-//! 타이틀 씬 관리자
+/** 타이틀 씬 관리자 */
 public class CTitleSceneManager : CSceneManager {
 	#region 변수
 	// =====> UI <=====
@@ -22,7 +22,7 @@ public class CTitleSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -41,7 +41,7 @@ public class CTitleSceneManager : CSceneManager {
 		}
 	}
 
-	//! 초기화
+	/** 초기화 */
 	public override void Start() {
 		base.Start();
 
@@ -51,7 +51,7 @@ public class CTitleSceneManager : CSceneManager {
 		}
 	}
 	
-	//! 상태를 갱신한다
+	/** 상태를 갱신한다 */
 	public override void OnUpdate(float a_fDeltaTime) {
 		base.OnUpdate(a_fDeltaTime);
 

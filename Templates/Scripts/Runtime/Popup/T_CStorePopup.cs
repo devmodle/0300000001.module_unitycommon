@@ -9,14 +9,14 @@ using UnityEngine.UI;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-//! 상점 팝업
+/** 상점 팝업 */
 public class CStorePopup : CSubPopup {
-	//! 매개 변수
+	/** 매개 변수 */
 	public struct STParams {
 		public List<STSaleProductInfo> m_oSaleProductInfoList;
 	}
 
-	//! 콜백 매개 변수
+	/** 콜백 매개 변수 */
 	public struct STCallbackParams {
 #if ADS_MODULE_ENABLE
 		public System.Action<CAdsManager, STAdsRewardItemInfo, bool> m_oAdsCallback;
@@ -56,7 +56,7 @@ public class CStorePopup : CSubPopup {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -65,7 +65,7 @@ public class CStorePopup : CSubPopup {
 		oRestoreBtn?.onClick.AddListener(this.OnTouchRestoreBtn);
 	}
 	
-	//! 초기화
+	/** 초기화 */
 	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
 		base.Init();
 
@@ -73,13 +73,13 @@ public class CStorePopup : CSubPopup {
 		m_stCallbackParams = a_stCallbackParams;
 	}
 
-	//! 팝업 컨텐츠를 설정한다
+	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 	
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		// 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oSaleProductUIsList.Count; ++i) {
@@ -87,7 +87,7 @@ public class CStorePopup : CSubPopup {
 		}
 	}
 
-	//! 판매 상품 UI 상태를 갱신한다
+	/** 판매 상품 UI 상태를 갱신한다 */
 	private void UpdateSaleProductUIsState(GameObject a_oSaleProductUIs, STSaleProductInfo a_stSaleProductInfo) {
 		var ePriceType = a_stSaleProductInfo.m_ePriceKinds.ExKindsToType();
 		var eSaleProductType = a_stSaleProductInfo.m_eSaleProductKinds.ExKindsToType();
@@ -150,7 +150,7 @@ public class CStorePopup : CSubPopup {
 		}
 	}
 
-	//! 패키지 판매 상품 UI 상태를 갱신한다
+	/** 패키지 판매 상품 UI 상태를 갱신한다 */
 	private void UpdatePkgsSaleProductUIsState(GameObject a_oSaleProductUIs, STSaleProductInfo a_stSaleProductInfo) {
 		// 텍스트를 갱신한다
 		for(int i = 0; i < a_stSaleProductInfo.m_oItemInfoList.Count; ++i) {
@@ -161,12 +161,12 @@ public class CStorePopup : CSubPopup {
 		}
 	}
 
-	//! 단일 판매 상품 UI 상태를 갱신한다
+	/** 단일 판매 상품 UI 상태를 갱신한다 */
 	private void UpdateSingleSaleProductUIsState(GameObject a_oSaleProductUIs, STSaleProductInfo a_stSaleProductInfo) {
 		// Do Something
 	}
 
-	//! 결제 버튼을 눌렀을 경우
+	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STSaleProductInfo a_stSaleProductInfo) {
 		switch(a_stSaleProductInfo.m_ePriceKinds.ExKindsToType()) {
 			case EPriceType.ADS: {
@@ -186,7 +186,7 @@ public class CStorePopup : CSubPopup {
 		}
 	}
 
-	//! 복원 버튼을 눌렀을 경우
+	/** 복원 버튼을 눌렀을 경우 */
 	private void OnTouchRestoreBtn() {
 #if PURCHASE_MODULE_ENABLE
 		Func.RestoreProducts(this.OnRestoreProducts);
@@ -196,7 +196,7 @@ public class CStorePopup : CSubPopup {
 	
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
-	//! 보상 광고가 닫혔을 경우
+	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
 		m_bIsWatchRewardAds = a_bIsSuccess;
 		m_stRewardAdsRewardItemInfo = a_stRewardItemInfo;
@@ -216,17 +216,17 @@ public class CStorePopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-	//! 유저 정보를 저장했을 경우
+	/** 유저 정보를 저장했을 경우 */
 	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oPurchaseProductID, true, null);
 	}
 
-	//! 지급 아이템 정보를 저장했을 경우
+	/** 지급 아이템 정보를 저장했을 경우 */
 	private void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
 	}
 
-	//! 지급 아이템 정보를 로드했을 경우
+	/** 지급 아이템 정보를 로드했을 경우 */
 	private void OnLoadPostItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
@@ -258,7 +258,7 @@ public class CStorePopup : CSubPopup {
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-	//! 상품이 결제 되었을 경우
+	/** 상품이 결제 되었을 경우 */
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
@@ -278,7 +278,7 @@ public class CStorePopup : CSubPopup {
 		m_stCallbackParams.m_oPurchaseCallback?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 
-	//! 상품이 복원 되었을 경우
+	/** 상품이 복원 되었을 경우 */
 	public void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {

@@ -7,7 +7,7 @@ using EnhancedUI.EnhancedScroller;
 
 #if NEVER_USE_THIS
 #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
-//! 서브 레벨 에디터 씬 관리자
+/** 서브 레벨 에디터 씬 관리자 */
 public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
 	#region 변수
 	private STIDInfo m_stSelIDInfo;
@@ -64,7 +64,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	#endregion			// 추가 프로퍼티
 
 	#region IEnhancedScrollerDelegate
-	//! 셀 개수를 반환한다
+	/** 셀 개수를 반환한다 */
 	public virtual int GetNumberOfCells(EnhancedScroller a_oSender) {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		// 챕터 스크롤러 일 경우
@@ -78,7 +78,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
-	//! 셀 뷰 크기를 반환한다
+	/** 셀 뷰 크기를 반환한다 */
 	public virtual float GetCellViewSize(EnhancedScroller a_oSender, int a_nDataIdx) {
 		// 챕터 스크롤러 일 경우
 		if(m_oLEUIsChapterScroller == a_oSender) {
@@ -88,7 +88,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		return (m_oLEUIsStageScroller == a_oSender) ? (m_oOriginStageScrollerCellView.transform as RectTransform).sizeDelta.y : (m_oOriginLevelScrollerCellView.transform as RectTransform).sizeDelta.y;
 	}
 
-	//! 셀 뷰를 반환한다
+	/** 셀 뷰를 반환한다 */
 	public virtual EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		long nNumInfos = CLevelInfoTable.Inst.NumChapterInfos;
@@ -170,7 +170,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	#endregion			// IEnhancedScrollerDelegate
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		
@@ -197,7 +197,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 	
-	//! 초기화
+	/** 초기화 */
 	public override void Start() {
 		base.Start();
 
@@ -213,7 +213,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 제거 되었을 경우
+	/** 제거 되었을 경우 */
 	public override void OnDestroy() {
 		base.OnDestroy();
 
@@ -223,7 +223,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 내비게이션 스택 이벤트를 수신했을 경우
+	/** 내비게이션 스택 이벤트를 수신했을 경우 */
 	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
 		base.OnReceiveNavStackEvent(a_eEvent);
 
@@ -237,7 +237,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 스크롤러 셀 뷰를 설정한다 {
 		var oLevelScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_LEVEL_EDITOR_SCROLLER_CELL_VIEW);
@@ -265,12 +265,12 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupStart() {
 		// Do Something
 	}
 
-	//! 에디터 종료 팝업 결과를 수신했을 경우
+	/** 에디터 종료 팝업 결과를 수신했을 경우 */
 	private void OnReceiveEditorQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
@@ -285,7 +285,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	#region 조건부 함수
 #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
-	//! 블럭 스프라이트를 리셋한다
+	/** 블럭 스프라이트를 리셋한다 */
 	private void ResetBlockSprites() {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		// 블럭 스프라이트가 존재 할 경우
@@ -331,7 +331,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
-	//! 왼쪽 에디터 UI 를 설정한다
+	/** 왼쪽 에디터 UI 를 설정한다 */
 	private void SetupLeftEditorUIs() {
 		// 버튼을 설정한다 {
 		var oAddLevelBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_LEVEL_BTN);
@@ -359,7 +359,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 스크롤러를 설정한다 }
 	}
 
-	//! 오른족 에디터 UI 를 설정한다
+	/** 오른족 에디터 UI 를 설정한다 */
 	private void SetupRightEditorUIs() {
 		// 텍스트를 설정한다
 		m_oREUIsTitleText = m_oRightEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_TITLE_TEXT);
@@ -382,7 +382,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 버튼을 설정한다 }
 	}
 
-	//! 중앙 에디터 UI 를 설정한다
+	/** 중앙 에디터 UI 를 설정한다 */
 	private void SetupMidEditorUIs() {
 		// 텍스트를 설정한다
 		m_oMEUIsLevelText = m_oMidEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_LEVEL_TEXT);
@@ -414,7 +414,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 버튼을 설정한다 }
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		this.ResetBlockSprites();
 
@@ -423,7 +423,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		this.UpdateMidEditorUIsState();
 	}
 
-	//! 왼쪽 에디터 UI 상태를 갱신한다
+	/** 왼쪽 에디터 UI 상태를 갱신한다 */
 	private void UpdateLeftEditorUIsState() {
 		// 스크롤러를 갱신한다
 		m_oLEUIsLevelScroller?.ExReloadData(m_oSelLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT, false);
@@ -431,7 +431,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oLEUIsChapterScroller?.ExReloadData(m_oSelLevelInfo.m_stIDInfo.m_nChapterID - KCDefine.B_VAL_1_INT, false);
 	}
 
-	//! 오른쪽 에디터 UI 상태를 갱신한다
+	/** 오른쪽 에디터 UI 상태를 갱신한다 */
 	private void UpdateRightEditorUIsState() {
 		// 텍스트를 설정한다 {
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
@@ -452,7 +452,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 입력 필드를 갱신한다 }
 	}
 
-	//! 중앙 에디터 UI 상태를 갱신한다
+	/** 중앙 에디터 UI 상태를 갱신한다 */
 	private void UpdateMidEditorUIsState() {
 		// 텍스트를 갱신한다
 		string oStr = string.Format(KCDefine.B_TEXT_FMT_LEVEL, m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT);
@@ -469,7 +469,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 버튼을 갱신한다 }
 	}
 
-	//! 에디터 제거 팝업 결과를 수신했을 경우
+	/** 에디터 제거 팝업 결과를 수신했을 경우 */
 	private void OnReceiveEditorRemovePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
@@ -478,7 +478,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 에디터 입력 팝업 결과를 수신했을 경우
+	/** 에디터 입력 팝업 결과를 수신했을 경우 */
 	private void OnReceiveEditorInputPopupResult(CEditorInputPopup a_oSender, string a_oStr) {
 		// 식별자가 유효 할 경우
 		if(int.TryParse(a_oStr, out int nID)) {
@@ -487,7 +487,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 에디터 레벨 생성 팝업 결과를 수신했을 경우
+	/** 에디터 레벨 생성 팝업 결과를 수신했을 경우 */
 	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, CEditorLevelCreateInfo a_oCreateInfo) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
@@ -505,7 +505,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
-	//! 터치를 시작했을 경우
+	/** 터치를 시작했을 경우 */
 	private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
 		if(m_oBGTouchDispatcher == a_oSender) {
@@ -513,7 +513,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 터치를 움직였을 경우
+	/** 터치를 움직였을 경우 */
 	private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
 		if(m_oBGTouchDispatcher == a_oSender) {
@@ -521,7 +521,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 터치를 종료했을 경우
+	/** 터치를 종료했을 경우 */
 	private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
 		if(m_oBGTouchDispatcher == a_oSender) {
@@ -529,7 +529,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 왼쪽 에디터 UI 레벨 추가 버튼을 눌렀을 경우
+	/** 왼쪽 에디터 UI 레벨 추가 버튼을 눌렀을 경우 */
 	private void OnTouchLEUIsAddLevelBtn() {
 		Func.ShowEditorLevelCreatePopup(this.SubPopupUIs, (a_oSender) => {
 			var stCallbackParams = new CEditorLevelCreatePopup.STCallbackParams() {
@@ -540,7 +540,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		});
 	}
 
-	//! 왼쪽 에디터 UI 스테이지 추가 버튼을 눌렀을 경우
+	/** 왼쪽 에디터 UI 스테이지 추가 버튼을 눌렀을 경우 */
 	private void OnTouchLEUIsAddStageBtn() {
 		int nNumStageInfos = CLevelInfoTable.Inst.GetNumStageInfos(m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
@@ -550,7 +550,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 왼쪽 에디터 UI 챕터 추가 버튼을 눌렀을 경우
+	/** 왼쪽 에디터 UI 챕터 추가 버튼을 눌렀을 경우 */
 	private void OnTouchLEUIsAddChapterBtn() {
 		int nNumChapterInfos = CLevelInfoTable.Inst.NumChapterInfos;
 
@@ -560,12 +560,12 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 오른쪽 에디터 UI 보상 토글을 눌렀을 경우
+	/** 오른쪽 에디터 UI 보상 토글을 눌렀을 경우 */
 	private void OnTouchREUIsRewardToggle(bool a_bIsOn) {
 		// Do Something
 	}
 
-	//! 오른쪽 에디터 UI 적용 버튼을 눌렀을 경우
+	/** 오른쪽 에디터 UI 적용 버튼을 눌렀을 경우 */
 	private void OnTouchREUIsApplyBtn() {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		bool bIsValidA = int.TryParse(m_oREUIsNumCellsXInput?.text, out int nNumCellsX);
@@ -588,7 +588,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
-	//! 오른쪽 에디터 UI 레벨 로드 버튼을 눌렀을 경우
+	/** 오른쪽 에디터 UI 레벨 로드 버튼을 눌렀을 경우 */
 	private void OnTouchREUIsLoadLevelBtn() {
 		// 식별자가 유효 할 경우
 		if(int.TryParse(m_oREUIsLevelInput?.text, out int nID)) {
@@ -599,7 +599,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 중앙 에디터 UI 이전 레벨 버튼을 눌렀을 경우
+	/** 중앙 에디터 UI 이전 레벨 버튼을 눌렀을 경우 */
 	private void OnTouchMEUIsPrevLevelBtn() {
 		// 이전 레벨 정보가 존재 할 경우
 		if(CLevelInfoTable.Inst.TryGetLevelInfo(m_oSelLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT, out CLevelInfo oPrevLevelInfo, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID)) {
@@ -608,7 +608,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 중앙 에디터 UI 다음 레벨 버튼을 눌렀을 경우
+	/** 중앙 에디터 UI 다음 레벨 버튼을 눌렀을 경우 */
 	private void OnTouchMEUIsNextLevelBtn() {
 		// 다음 레벨 정보가 존재 할 경우
 		if(CLevelInfoTable.Inst.TryGetLevelInfo(m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, out CLevelInfo oNextLevelInfo, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID)) {
@@ -617,7 +617,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 중앙 에디터 UI 레벨 복사 버튼을 눌렀을 경우
+	/** 중앙 에디터 UI 레벨 복사 버튼을 눌렀을 경우 */
 	private void OnTouchMEUIsCopyLevelBtn() {
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
@@ -628,7 +628,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 중앙 에디터 UI 레벨 이동 버튼을 눌렀을 경우
+	/** 중앙 에디터 UI 레벨 이동 버튼을 눌렀을 경우 */
 	private void OnTouchMEUIsMoveLevelBtn() {
 		m_stSelIDInfo = CFactory.MakeIDInfo(m_oSelLevelInfo.m_stIDInfo.m_nID, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 		m_oSelScroller = m_oLEUIsLevelScroller;
@@ -642,7 +642,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		});
 	}
 
-	//! 중앙 에디터 UI 레벨 제거 버튼을 눌렀을 경우
+	/** 중앙 에디터 UI 레벨 제거 버튼을 눌렀을 경우 */
 	private void OnTouchMEUIsRemoveLevelBtn() {
 		m_stSelIDInfo = CFactory.MakeIDInfo(m_oSelLevelInfo.m_stIDInfo.m_nID, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 		m_oSelScroller = m_oLEUIsLevelScroller;
@@ -650,12 +650,12 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		this.OnReceiveEditorRemovePopupResult(null, true);
 	}
 
-	//! 중앙 에디터 UI 저장 버튼을 눌렀을 경우
+	/** 중앙 에디터 UI 저장 버튼을 눌렀을 경우 */
 	private void OnTouchMEUIsSaveBtn() {
 		CLevelInfoTable.Inst.SaveLevelInfos();
 	}
 
-	//! 중앙 에디터 UI 리셋 버튼을 눌렀을 경우
+	/** 중앙 에디터 UI 리셋 버튼을 눌렀을 경우 */
 	private void OnTouchMEUIsResetBtn() {
 		CLevelInfoTable.Inst.LevelInfoDictContainer.Clear();
 		CLevelInfoTable.Inst.LoadLevelInfos();
@@ -670,19 +670,19 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		this.UpdateUIsState();
 	}
 
-	//! 중앙 에디터 UI 테스트 버튼을 눌렀을 경우
+	/** 중앙 에디터 UI 테스트 버튼을 눌렀을 경우 */
 	private void OnTouchMEUIsTestBtn() {
 		CGameInfoStorage.Inst.SetupPlayLevelInfo(m_oSelLevelInfo.m_stIDInfo.m_nID, EPlayMode.TEST, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 	}
 
-	//! 에디터 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우
+	/** 에디터 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
 	private void OnTouchESCVSelBtn(CScrollerCellView a_oSender, long a_nLevelID) {
 		m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nLevelID.ExUniqueLevelIDToID(), a_nLevelID.ExUniqueLevelIDToStageID(), a_nLevelID.ExUniqueLevelIDToChapterID());
 		this.UpdateUIsState();
 	}
 
-	//! 에디터 스크롤러 셀 뷰 복사 버튼을 눌렀을 경우
+	/** 에디터 스크롤러 셀 뷰 복사 버튼을 눌렀을 경우 */
 	private void OnTouchESCVCopyBtn(CScrollerCellView a_oSender, long a_nLevelID) {
 		int nNumInfos = CLevelInfoTable.Inst.NumChapterInfos;
 		int nMaxNumInfos = KCDefine.U_MAX_NUM_CHAPTER_INFOS;
@@ -699,7 +699,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 에디터 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우
+	/** 에디터 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우 */
 	private void OnTouchESCVMoveBtn(CScrollerCellView a_oSender, long a_nLevelID) {
 		m_stSelIDInfo = CFactory.MakeIDInfo(a_nLevelID.ExUniqueLevelIDToID(), a_nLevelID.ExUniqueLevelIDToStageID(), a_nLevelID.ExUniqueLevelIDToChapterID());
 		m_oSelScroller = a_oSender.Scroller;
@@ -713,7 +713,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		});
 	}
 
-	//! 에디터 스크롤러 셀 뷰 제거 버튼을 눌렀을 경우
+	/** 에디터 스크롤러 셀 뷰 제거 버튼을 눌렀을 경우 */
 	private void OnTouchESCVRemoveBtn(CScrollerCellView a_oSender, long a_nLevelID) {
 		m_stSelIDInfo = CFactory.MakeIDInfo(a_nLevelID.ExUniqueLevelIDToID(), a_nLevelID.ExUniqueLevelIDToStageID(), a_nLevelID.ExUniqueLevelIDToChapterID());
 		m_oSelScroller = a_oSender.Scroller;
@@ -730,7 +730,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	//! 레벨 정보를 반환한다
+	/** 레벨 정보를 반환한다 */
 	private bool TryGetLevelInfo(STIDInfo a_stPrevIDInfo, STIDInfo a_stNextIDInfo, out CLevelInfo a_oOutLevelInfo) {
 		CLevelInfoTable.Inst.TryGetLevelInfo(a_stPrevIDInfo.m_nID, out CLevelInfo oPrevLevelInfo, a_stPrevIDInfo.m_nStageID, a_stPrevIDInfo.m_nChapterID);
 		CLevelInfoTable.Inst.TryGetLevelInfo(a_stNextIDInfo.m_nID, out CLevelInfo oNextLevelInfo, a_stNextIDInfo.m_nStageID, a_stNextIDInfo.m_nChapterID);
@@ -739,7 +739,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		return oPrevLevelInfo != null || oNextLevelInfo != null;
 	}
 
-	//! 레벨 정보를 추가한다
+	/** 레벨 정보를 추가한다 */
 	private void AddLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		m_oSelLevelInfo = Factory.MakeLevelInfo(a_nID, a_nStageID, a_nChapterID);
@@ -756,7 +756,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 	
-	//! 레벨 정보를 제거한다
+	/** 레벨 정보를 제거한다 */
 	private void RemoveLevelInfos(EnhancedScroller a_oScroller, STIDInfo a_stIDInfo) {
 		var oLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_stIDInfo.m_nID, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
 
@@ -808,7 +808,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		this.UpdateUIsState();
 	}
 
-	//! 레벨 정보를 복사한다
+	/** 레벨 정보를 복사한다 */
 	private void CopyLevelInfos(EnhancedScroller a_oScroller, STIDInfo a_stIDInfo) {
 		// 레벨 스크롤러 일 경우
 		if(m_oLEUIsLevelScroller == a_oScroller) {
@@ -856,7 +856,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		this.UpdateUIsState();
 	}
 
-	//! 레벨 정보를 이동한다
+	/** 레벨 정보를 이동한다 */
 	private void MoveLevelInfos(EnhancedScroller a_oScroller, STIDInfo a_stIDInfo, int a_nToID) {
 		// 레벨 스크롤러 일 경우
 		if(m_oLEUIsLevelScroller == a_oScroller) {

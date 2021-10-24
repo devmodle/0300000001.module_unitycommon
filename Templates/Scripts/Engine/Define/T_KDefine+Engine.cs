@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if NEVER_USE_THIS
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	//! 엔진 상수
+	/** 엔진 상수 */
 	public static partial class KDefine {
 		#region 기본
 

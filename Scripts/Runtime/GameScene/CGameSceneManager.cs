@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//! 게임 씬 관리자
+/** 게임 씬 관리자 */
 public class CGameSceneManager : CSceneManager {
 	#region 변수
 	// =====> 객체 <=====
@@ -19,7 +19,7 @@ public class CGameSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 

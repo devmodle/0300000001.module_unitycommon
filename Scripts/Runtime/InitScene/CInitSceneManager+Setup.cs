@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//! 초기화 씬 관리자 - 설정
+/** 초기화 씬 관리자 - 설정 */
 public abstract partial class CInitSceneManager : CSceneManager {
 	#region 함수
-	//! 블라인드 UI 를 설정한다
+	/** 블라인드 UI 를 설정한다 */
 	private void SetupBlindUIs() {
 		// 블라인드 UI 가 없을 경우
 		if(CInitSceneManager.m_oBlindUIs == null) {

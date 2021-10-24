@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 #if NEVER_USE_THIS
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	//! 엔진
+	/** 엔진 */
 	public partial class CEngine : CComponent {
-		//! 상태
+		/** 상태 */
 		public enum EState {
 			NONE = -1,
 			RUN,
@@ -17,7 +17,7 @@ namespace SampleEngineName {
 			MAX_VAL
 		}
 
-		//! 매개 변수
+		/** 매개 변수 */
 		public struct STParams {
 			public GameObject m_oBlockObjs;
 
@@ -27,7 +27,7 @@ namespace SampleEngineName {
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
-		//! 콜백 매개 변수
+		/** 콜백 매개 변수 */
 		public struct STCallbackParams {
 			public System.Action<CEngine> m_oClearCallback;
 			public System.Action<CEngine> m_oClearFailCallback;
@@ -59,7 +59,7 @@ namespace SampleEngineName {
 		#endregion			// 추가 프로퍼티
 
 		#region 함수
-		//! 초기화
+		/** 초기화 */
 		public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
 			m_stParams = a_stParams;
 			m_stCallbackParams = a_stCallbackParams;
@@ -70,12 +70,12 @@ namespace SampleEngineName {
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
-		//! 상태를 리셋한다
+		/** 상태를 리셋한다 */
 		public virtual void Reset() {
 			// Do Something
 		}
 
-		//! 상태를 갱신한다
+		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
 
@@ -85,7 +85,7 @@ namespace SampleEngineName {
 			}
 		}
 
-		//! 제거 되었을 경우
+		/** 제거 되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
 
@@ -95,7 +95,7 @@ namespace SampleEngineName {
 			}
 		}
 
-		//! 터치를 시작했을 경우
+		/** 터치를 시작했을 경우 */
 		public void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 실행 상태 일 경우
 			if(this.State == EState.RUN) {
@@ -103,7 +103,7 @@ namespace SampleEngineName {
 			}
 		}
 
-		//! 터치를 움직였을 경우
+		/** 터치를 움직였을 경우 */
 		public void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 실행 상태 일 경우
 			if(this.State == EState.RUN) {
@@ -111,7 +111,7 @@ namespace SampleEngineName {
 			}
 		}
 
-		//! 터치를 종료했을 경우
+		/** 터치를 종료했을 경우 */
 		public void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 실행 상태 일 경우
 			if(this.State == EState.RUN) {
@@ -119,12 +119,12 @@ namespace SampleEngineName {
 			}
 		}
 
-		//! 엔진을 실행한다
+		/** 엔진을 실행한다 */
 		public void Run() {
 			this.State = EState.RUN;
 		}
 
-		//! 엔진을 중지한다
+		/** 엔진을 중지한다 */
 		public void Stop() {
 			this.State = EState.STOP;
 		}
@@ -132,12 +132,12 @@ namespace SampleEngineName {
 
 		#region 조건부 함수
 #if UNITY_EDITOR
-		//! GUI 를 그린다
+		/** GUI 를 그린다 */
 		public virtual void OnGUI() {
 			// Do Something
 		}
 		
-		//! 기즈모를 그린다
+		/** 기즈모를 그린다 */
 		public virtual void OnDrawGizmos() {
 			// 앱 실행 중이 아닐 경우
 			if(!Application.isPlaying) {

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if SCENE_TEMPLATES_MODULE_ENABLE
-//! 서브 약관 동의 씬 관리자
+/** 서브 약관 동의 씬 관리자 */
 public class CSubAgreeSceneManager : CAgreeSceneManager {
 	#region 추가 변수
 
@@ -16,7 +16,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -30,24 +30,24 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 		}
 	}
 
-	//! 일반 약관 동의 팝업을 출력한다
+	/** 일반 약관 동의 팝업을 출력한다 */
 	protected override void ShowNormAgreePopup(string a_oServices, string a_oPrivacy) {
 		this.ShowAgreePopup(a_oServices, a_oPrivacy, EAgreePopupType.NORM);
 	}
 
-	//! 유럽 연합 약관 동의 팝업을 출력한다
+	/** 유럽 연합 약관 동의 팝업을 출력한다 */
 	protected override void ShowEUAgreePopup(string a_oServicesURL, string a_oPrivacyURL) {
 		this.ShowAgreePopup(a_oServicesURL, a_oPrivacyURL, EAgreePopupType.EU);
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.SetupLocalizeStrs();
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
-	//! 약관 동의 팝업을 출력한다
+	/** 약관 동의 팝업을 출력한다 */
 	private void ShowAgreePopup(string a_oServices, string a_oPrivacy, EAgreePopupType a_ePopupType) {
 #if MODE_PORTRAIT_ENABLE
 		string oObjPath = KCDefine.AS_OBJ_P_PORTRAIT_AGREE_POPUP;
@@ -67,7 +67,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 		oAgreePopup.Show(null, this.OnCloseAgreePopup);
 	}
 
-	//! 약관 동의 팝업이 닫혔을 경우
+	/** 약관 동의 팝업이 닫혔을 경우 */
 	private void OnCloseAgreePopup(CPopup a_oSender) {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		CAppInfoStorage.Inst.IsCloseAgreePopup = true;

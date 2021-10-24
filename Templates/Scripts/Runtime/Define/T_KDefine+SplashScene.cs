@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if SCENE_TEMPLATES_MODULE_ENABLE
-//! 스플래시 씬 상수
+/** 스플래시 씬 상수 */
 public static partial class KDefine {
 	#region 기본
 	

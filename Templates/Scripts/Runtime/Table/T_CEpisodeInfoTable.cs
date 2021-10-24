@@ -7,7 +7,7 @@ using Leguar.TotalJSON;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 레벨 정보
+/** 레벨 정보 */
 [System.Serializable]
 public struct STLevelInfo {
 	public string m_oName;
@@ -26,7 +26,7 @@ public struct STLevelInfo {
 	public Dictionary<ETargetKinds, int> m_oUnlockNumTargetsDict;
 
 	#region 함수
-	//! 생성자
+	/** 생성자 */
 	public STLevelInfo(SimpleJSON.JSONNode a_oLevelInfo) {
 		m_oName = a_oLevelInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oLevelInfo[KCDefine.U_KEY_DESC];
@@ -58,12 +58,12 @@ public struct STLevelInfo {
 		}
 	}
 
-	//! 타겟 개수를 반환한다
+	/** 타겟 개수를 반환한다 */
 	public int GetNumTargets(ETargetKinds a_eTargetKinds) {
 		return m_oNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
 
-	//! 잠금 해제 타겟 개수를 반환한다
+	/** 잠금 해제 타겟 개수를 반환한다 */
 	public int GetUnlockNumTargets(ETargetKinds a_eTargetKinds) {
 		return m_oUnlockNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
@@ -71,7 +71,7 @@ public struct STLevelInfo {
 
 	#region 조건부 함수
 #if UNITY_EDITOR || UNITY_STANDALONE
-	//! 레벨 정보를 설정한다
+	/** 레벨 정보를 설정한다 */
 	public void SetupLevelInfo(SimpleJSON.JSONNode a_oLevelInfo) {
 		a_oLevelInfo.Add(KCDefine.U_KEY_NAME, m_oName ?? string.Empty);
 		a_oLevelInfo.Add(KCDefine.U_KEY_DESC, m_oDesc ?? string.Empty);
@@ -112,7 +112,7 @@ public struct STLevelInfo {
 	#endregion			// 조건부 함수
 }
 
-//! 스테이지 정보
+/** 스테이지 정보 */
 [System.Serializable]
 public struct STStageInfo {
 	public string m_oName;
@@ -129,7 +129,7 @@ public struct STStageInfo {
 	public Dictionary<ETargetKinds, int> m_oUnlockNumTargetsDict;
 
 	#region 함수
-	//! 생성자
+	/** 생성자 */
 	public STStageInfo(SimpleJSON.JSONNode a_oStageInfo) {
 		m_oName = a_oStageInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oStageInfo[KCDefine.U_KEY_DESC];
@@ -159,12 +159,12 @@ public struct STStageInfo {
 		}
 	}
 
-	//! 타겟 개수를 반환한다
+	/** 타겟 개수를 반환한다 */
 	public int GetNumTargets(ETargetKinds a_eTargetKinds) {
 		return m_oNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
 
-	//! 잠금 해제 타겟 개수를 반환한다
+	/** 잠금 해제 타겟 개수를 반환한다 */
 	public int GetUnlockNumTargets(ETargetKinds a_eTargetKinds) {
 		return m_oUnlockNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
@@ -172,7 +172,7 @@ public struct STStageInfo {
 
 	#region 조건부 함수
 #if UNITY_EDITOR || UNITY_STANDALONE
-	//! 스테이지 정보를 설정한다
+	/** 스테이지 정보를 설정한다 */
 	public void SetupStageInfo(SimpleJSON.JSONNode a_oStageInfo) {
 		a_oStageInfo.Add(KCDefine.U_KEY_NAME, m_oName ?? string.Empty);
 		a_oStageInfo.Add(KCDefine.U_KEY_DESC, m_oDesc ?? string.Empty);
@@ -211,7 +211,7 @@ public struct STStageInfo {
 	#endregion			// 조건부 함수
 }
 
-//! 챕터 정보
+/** 챕터 정보 */
 [System.Serializable]
 public struct STChapterInfo {
 	public string m_oName;
@@ -227,7 +227,7 @@ public struct STChapterInfo {
 	public Dictionary<ETargetKinds, int> m_oUnlockNumTargetsDict;
 
 	#region 함수
-	//! 생성자
+	/** 생성자 */
 	public STChapterInfo(SimpleJSON.JSONNode a_oChapterInfo) {
 		m_oName = a_oChapterInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oChapterInfo[KCDefine.U_KEY_DESC];
@@ -256,12 +256,12 @@ public struct STChapterInfo {
 		}
 	}
 
-	//! 타겟 개수를 반환한다
+	/** 타겟 개수를 반환한다 */
 	public int GetNumTargets(ETargetKinds a_eTargetKinds) {
 		return m_oNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
 
-	//! 잠금 해제 타겟 개수를 반환한다
+	/** 잠금 해제 타겟 개수를 반환한다 */
 	public int GetUnlockNumTargets(ETargetKinds a_eTargetKinds) {
 		return m_oUnlockNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
@@ -269,7 +269,7 @@ public struct STChapterInfo {
 
 	#region 조건부 함수
 #if UNITY_EDITOR || UNITY_STANDALONE
-	//! 챕터 정보를 설정한다
+	/** 챕터 정보를 설정한다 */
 	public void SetupChapterInfo(SimpleJSON.JSONNode a_oChapterInfo) {
 		a_oChapterInfo.Add(KCDefine.U_KEY_NAME, m_oName ?? string.Empty);
 		a_oChapterInfo.Add(KCDefine.U_KEY_DESC, m_oDesc ?? string.Empty);
@@ -307,7 +307,7 @@ public struct STChapterInfo {
 	#endregion			// 조건부 함수
 }
 
-//! 에피소드 정보 테이블
+/** 에피소드 정보 테이블 */
 public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	#region 변수
 	[Header("=====> Level Info <=====")]
@@ -331,7 +331,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
@@ -351,7 +351,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		}
 	}
 
-	//! 레벨 정보를 반환한다
+	/** 레벨 정보를 반환한다 */
 	public STLevelInfo GetLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetLevelInfo(a_nID, out STLevelInfo stLevelInfo, a_nStageID, a_nChapterID);
 		CAccess.Assert(bIsValid);
@@ -359,7 +359,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return stLevelInfo;
 	}
 
-	//! 스테이지 정보를 반환한다
+	/** 스테이지 정보를 반환한다 */
 	public STStageInfo GetStageInfo(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetStageInfo(a_nID, out STStageInfo stStageInfo, a_nChapterID);
 		CAccess.Assert(bIsValid);
@@ -367,7 +367,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return stStageInfo;
 	}
 
-	//! 챕터 정보를 반환한다
+	/** 챕터 정보를 반환한다 */
 	public STChapterInfo GetChapterInfo(int a_nID) {
 		bool bIsValid = this.TryGetChapterInfo(a_nID, out STChapterInfo stChapterInfo);
 		CAccess.Assert(bIsValid);
@@ -375,7 +375,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return stChapterInfo;
 	}
 
-	//! 레벨 정보를 반환한다
+	/** 레벨 정보를 반환한다 */
 	public bool TryGetLevelInfo(int a_nID, out STLevelInfo a_stOutLevelInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
 		a_stOutLevelInfo = this.LevelInfoDict.ExGetVal(nLevelID, KDefine.G_INVALID_LEVEL_INFO);
@@ -383,7 +383,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return this.LevelInfoDict.ContainsKey(nLevelID);
 	}
 
-	//! 스테이지 정보를 반환한다
+	/** 스테이지 정보를 반환한다 */
 	public bool TryGetStageInfo(int a_nID, out STStageInfo a_stOutStageInfo, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		long nStageID = CFactory.MakeUniqueStageID(a_nID, a_nChapterID);
 		a_stOutStageInfo = this.StageInfoDict.ExGetVal(nStageID, KDefine.G_INVALID_STAGE_INFO);
@@ -391,7 +391,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return this.StageInfoDict.ContainsKey(nStageID);
 	}
 
-	//! 챕터 정보를 반환한다
+	/** 챕터 정보를 반환한다 */
 	public bool TryGetChapterInfo(int a_nID, out STChapterInfo a_stOutChapterInfo) {
 		long nChapterID = CFactory.MakeUniqueChapterID(a_nID);
 		a_stOutChapterInfo = this.ChapterInfoDict.ExGetVal(nChapterID, KDefine.G_INVALID_CHAPTER_INFO);
@@ -399,7 +399,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return this.ChapterInfoDict.ContainsKey(nChapterID);
 	}
 
-	//! 에피소드 정보를 로드한다	
+	/** 에피소드 정보를 로드한다 */
 	public List<object> LoadEpisodeInfos() {
 #if UNITY_EDITOR || UNITY_STANDALONE
 		return this.LoadEpisodeInfos(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO);
@@ -408,7 +408,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 에피소드 정보를 로드한다
+	/** 에피소드 정보를 로드한다 */
 	public List<object> LoadEpisodeInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
@@ -425,7 +425,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	}
 
-	//! 에피소드 정보를 로드한다
+	/** 에피소드 정보를 로드한다 */
 	private List<object> DoLoadEpisodeInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 				
@@ -472,7 +472,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	#region 조건부 함수
 #if UNITY_EDITOR || UNITY_STANDALONE
-	//! 에피소드 정보를 저장한다
+	/** 에피소드 정보를 저장한다 */
 	public void SaveEpisodeInfos() {
 		var oJSONNode = new SimpleJSON.JSONClass();
 		var oLevelInfos = new SimpleJSON.JSONArray();

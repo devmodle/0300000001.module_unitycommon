@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.iOS;
 #endif			// #if UNITY_IOS
 
-//! 초기화 씬 관리자
+/** 초기화 씬 관리자 */
 public abstract partial class CInitSceneManager : CSceneManager {
 	#region 클래스 변수
 	// =====> 객체 <=====
@@ -23,7 +23,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public sealed override void Start() {
 		base.Start();
 
@@ -33,7 +33,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	protected virtual void Setup() {
 		this.SetupBlindUIs();
 
@@ -56,7 +56,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		// 사운드 관리자를 설정한다 }
 	}
 
-	//! 초기화
+	/** 초기화 */
 	private IEnumerator OnStart() {
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		
@@ -145,7 +145,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_SPLASH, false, false);
 	}
 
-	//! 블라인드 이미지를 생성한다
+	/** 블라인드 이미지를 생성한다 */
 	protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
 		return CFactory.CreateCloneObj<Image>(a_oName, KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG, a_oParent);
 	}

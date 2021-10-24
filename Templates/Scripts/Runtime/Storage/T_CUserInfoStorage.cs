@@ -7,7 +7,7 @@ using MessagePack;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 유저 정보
+/** 유저 정보 */
 [MessagePackObject][System.Serializable]
 public class CUserInfo : CBaseInfo {
 	#region 상수
@@ -32,26 +32,26 @@ public class CUserInfo : CBaseInfo {
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
-	//! 직렬화 될 경우
+	/** 직렬화 될 경우 */
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
 	}
 
-	//! 역직렬화 되었을 경우
+	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
 	#region 함수
-	//! 생성자
+	/** 생성자 */
 	public CUserInfo() : base(KDefine.G_VER_USER_INFO) {
 		// Do Something
 	}
 	#endregion			// 함수
 }
 
-//! 유저 정보 저장소
+/** 유저 정보 저장소 */
 public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 프로퍼티
 	public CUserInfo UserInfo { get; private set; } = new CUserInfo();
@@ -62,7 +62,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
-	//! 유저 정보를 리셋한다
+	/** 유저 정보를 리셋한다 */
 	public virtual void ResetUserInfo(string a_oJSONStr) {
 		CFunc.ShowLog($"CUserInfoStorage.ResetUserInfo: {a_oJSONStr}");
 		CAccess.Assert(a_oJSONStr.ExIsValid());
@@ -71,24 +71,24 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		CAccess.Assert(this.UserInfo != null);
 	}
 
-	//! 아이템 개수를 반환한다
+	/** 아이템 개수를 반환한다 */
 	public int GetNumItems(EItemKinds a_eItemKinds) {
 		return this.UserInfo.m_oNumItemsDict.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);
 	}
 
-	//! 코인 개수를 추가한다
+	/** 코인 개수를 추가한다 */
 	public void AddNumCoins(int a_nNumCoins) {
 		int nNumCoins = this.UserInfo.NumCoins + a_nNumCoins;
 		this.UserInfo.NumCoins = Mathf.Clamp(nNumCoins, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 
-	//! 잔돈 개수를 추가한다
+	/** 잔돈 개수를 추가한다 */
 	public void AddNumSaleCoins(int a_nNumSaleCoins) {
 		int nNumSaleCoins = this.UserInfo.NumSaleCoins + a_nNumSaleCoins;
 		this.UserInfo.NumSaleCoins = Mathf.Clamp(nNumSaleCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
 	}
 	
-	//! 아이템 개수를 추가한다
+	/** 아이템 개수를 추가한다 */
 	public void AddNumItems(EItemKinds a_eItemKinds, int a_nNumItems) {
 		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
 		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue);
@@ -96,12 +96,12 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		this.UserInfo.m_oNumItemsDict.ExReplaceVal(a_eItemKinds, nNumItems);
 	}
 
-	//! 유저 정보를 로드한다
+	/** 유저 정보를 로드한다 */
 	public CUserInfo LoadUserInfo() {
 		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
 	}
 
-	//! 유저 정보를 로드한다
+	/** 유저 정보를 로드한다 */
 	public CUserInfo LoadUserInfo(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
@@ -112,12 +112,12 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return this.UserInfo;
 	}
 
-	//! 유저 정보를 저장한다
+	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo() {
 		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
 	}
 
-	//! 유저 정보를 저장한다
+	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo(string a_oFilePath) {
 		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo);
 	}

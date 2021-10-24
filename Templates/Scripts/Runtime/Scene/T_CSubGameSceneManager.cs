@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-//! 서브 게임 씬 관리자
+/** 서브 게임 씬 관리자 */
 public partial class CSubGameSceneManager : CGameSceneManager {
-	//! 팝업 결과
+	/** 팝업 결과 */
 	private enum EPopupResult {
 		NONE = -1,
 		NEXT,
@@ -41,7 +41,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	#endregion			// 추가 프로퍼티
 	
 	#region 함수
-	//! 초기화
+	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 		
@@ -69,7 +69,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 	
-	//! 초기화
+	/** 초기화 */
 	public override void Start() {
 		base.Start();
 
@@ -82,7 +82,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 상태를 갱신한다
+	/** 상태를 갱신한다 */
 	public override void OnUpdate(float a_fDeltaTime) {
 		base.OnUpdate(a_fDeltaTime);
 
@@ -94,7 +94,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 제거 되었을 경우
+	/** 제거 되었을 경우 */
 	public override void OnDestroy() {
 		base.OnDestroy();
 
@@ -104,7 +104,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 앱이 정지 되었을 경우
+	/** 앱이 정지 되었을 경우 */
 	public virtual void OnApplicationPause(bool a_bIsPause) {
 		// 재개 되었을 경우
 		if(!a_bIsPause && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
@@ -117,7 +117,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 내비게이션 스택 이벤트를 수신했을 경우
+	/** 내비게이션 스택 이벤트를 수신했을 경우 */
 	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
 		base.OnReceiveNavStackEvent(a_eEvent);
 
@@ -127,7 +127,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		this.SetupEngine();
 
@@ -155,12 +155,12 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
-	//! 씬을 설정한다
+	/** 씬을 설정한다 */
 	private void SetupStart() {
 		// Do Something
 	}
 
-	//! 엔진을 설정한다
+	/** 엔진을 설정한다 */
 	private void SetupEngine() {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		var stParams = new SampleEngineName.CEngine.STParams() {
@@ -180,14 +180,14 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
-	//! UI 상태를 갱신한다
+	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
-	//! 팝업 결과를 수신했을 경우
+	/** 팝업 결과를 수신했을 경우 */
 	private void OnReceivePopupResult(CPopup a_oSender, EPopupResult a_eResult) {
 		// 팝업이 존재 할 경우
 		if(a_oSender != null) {
@@ -203,7 +203,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 터치를 시작했을 경우
+	/** 터치를 시작했을 경우 */
 	private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
 		if(m_oBGTouchDispatcher == a_oSender) {
@@ -213,7 +213,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 터치를 움직였을 경우
+	/** 터치를 움직였을 경우 */
 	private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
 		if(m_oBGTouchDispatcher == a_oSender) {
@@ -223,7 +223,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 터치를 종료했을 경우
+	/** 터치를 종료했을 경우 */
 	private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
 		if(m_oBGTouchDispatcher == a_oSender) {
@@ -233,7 +233,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 다음 레벨을 로드한다
+	/** 다음 레벨을 로드한다 */
 	private void LoadNextLevel() {
 		switch(CGameInfoStorage.Inst.PlayMode) {
 			case EPlayMode.NORM: {
@@ -276,7 +276,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 	}
 
-	//! 현재 레벨을 재시도한다
+	/** 현재 레벨을 재시도한다 */
 	private void RetryCurLevel() {
 #if ADS_MODULE_ENABLE
 		Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
@@ -285,12 +285,12 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
-	//! 현재 레벨을 이어한다
+	/** 현재 레벨을 이어한다 */
 	private void ContinueCurLevel() {
 		m_nContinueTimes += KCDefine.B_VAL_1_INT;
 	}
 
-	//! 이어하기 팝업을 출력한다
+	/** 이어하기 팝업을 출력한다 */
 	private void ShowContinuePopup() {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowContinuePopup(this.SubPopupUIs, (a_oSender) => {
@@ -310,7 +310,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
 
-	//! 결과 팝업을 출력한다
+	/** 결과 팝업을 출력한다 */
 	private void ShowResultPopup(bool a_bIsClear) {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowResultPopup(this.SubPopupUIs, (a_oSender) => {
@@ -339,7 +339,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	#region 조건부 함수
 #if UNITY_EDITOR
-	//! 기즈모를 그린다
+	/** 기즈모를 그린다 */
 	public override void OnDrawGizmos() {
 		base.OnDrawGizmos();
 
@@ -351,19 +351,19 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if UNITY_EDITOR
 
 #if DEBUG || DEVELOPMENT_BUILD
-	//! 테스트 UI 를 설정한다
+	/** 테스트 UI 를 설정한다 */
 	private void SetupTestUIs() {
 		// Do Something
 	}
 
-	//! 테스트 UI 상태를 갱신한다
+	/** 테스트 UI 상태를 갱신한다 */
 	private void UpdateTestUIsState() {
 		// Do Something
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-	//! 레벨을 클리어했을 경우
+	/** 레벨을 클리어했을 경우 */
 	private void OnClearLevel(SampleEngineName.CEngine a_oSender) {
 		// 클리어 정보가 없을 경우
 		if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID)) {
@@ -377,7 +377,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		this.ShowResultPopup(true);
 	}
 
-	//! 레벨 클리어에 실패했을 경우
+	/** 레벨 클리어에 실패했을 경우 */
 	private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
 		this.ShowResultPopup(false);
 	}
