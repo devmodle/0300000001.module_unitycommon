@@ -169,7 +169,7 @@ public static partial class KEditorDefine {
 		["com.unity.2d.tilemap.extras"] = "2.2.1",
 
 		["com.unity.mathematics"] = "1.2.4",
-		["com.unity.addressables"] = "1.18.16",
+		["com.unity.addressables"] = "1.18.19",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.animation.rigging"] = "1.0.3",
 		// 기본 }
@@ -181,7 +181,7 @@ public static partial class KEditorDefine {
 
 		// 분석 {
 		["com.unity.mobile.android-logcat"] = "1.2.3",
-		["com.unity.performance.profile-analyzer"] = "1.1.0",
+		["com.unity.performance.profile-analyzer"] = "1.1.1",
 
 		["com.unity.adaptiveperformance"] = "2.2.1",
 		["com.unity.adaptiveperformance.samsung.android"] = "2.2.1",
