@@ -26,7 +26,6 @@ MonoBehaviour:
     m_oTeamID: A9997B8HR5
     m_oTargetOSVer: 11.0
     m_oDevProfileID: 
-    m_oAdhocProfileID: 
     m_oStoreProfileID: 
     m_oURLSchemeList:
     - sample
@@ -37,5 +36,5 @@ MonoBehaviour:
     m_oKeyaliasName: Keystore
     m_oKeystorePassword: NT9studio!
     m_oKeyaliasPassword: NT9studio!
-    m_eMinSDKVer: 21
+    m_eMinSDKVer: 22
     m_eTargetSDKVer: 30

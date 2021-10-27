@@ -26,7 +26,8 @@
 3. **추가 에셋 스토어 리스트**
 	- *Build Report Tool (v3.9.0 - Sep 14, 2021)*
 	- *Odin Inspector (v3.0.9 - Sep 17, 2021)*
-	- *Spine (v4.0.0 - Aug 16, 2021)*
+	- *Spine (v4.0.0 - Oct 2, 2021)*
+	- *Spine URP Shaders (v4.0.0 - Oct 12, 2021)*
 	- *Sprite Trail (v1.4.0 - Aug 2, 2019)*
 	- *Ultimate Status Bar (v2.6.0 - Jun 3, 2020)*
 	- *Lean GUI (v1.2.2 - Sep 29, 2021)*
