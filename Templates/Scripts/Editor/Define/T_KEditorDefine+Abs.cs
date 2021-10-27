@@ -156,43 +156,43 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCIES = new Dictionary<string, string>() {
 		// 기본 {
-		["com.unity.burst"] = "1.5.6",
-		["com.unity.recorder"] = "2.5.5",
+		["com.unity.burst"] = "1.6.1",
+		["com.unity.recorder"] = "3.0.1",
 		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.probuilder"] = "5.0.3",
-		["com.unity.formats.fbx"] = "4.0.1",
-		["com.unity.inputsystem"] = "1.0.2",
+		["com.unity.formats.fbx"] = "4.1.1",
+		["com.unity.inputsystem"] = "1.1.1",
 
 		["com.unity.2d.sprite"] = "1.0.0",
-		["com.unity.2d.spriteshape"] = "6.0.2",
+		["com.unity.2d.spriteshape"] = "7.0.2",
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.2d.tilemap.extras"] = "2.2.1",
 
 		["com.unity.mathematics"] = "1.2.4",
-		["com.unity.addressables"] = "1.18.19",
+		["com.unity.localization"] = "1.0.4",
+		["com.unity.addressables"] = "1.19.9",
 		["com.unity.ads.ios-support"] = "1.0.0",
-		["com.unity.animation.rigging"] = "1.0.3",
+		["com.unity.animation.rigging"] = "1.1.1",
 		// 기본 }
 
 		// 렌더링
 		["com.unity.2d.pixel-perfect"] = "5.0.1",
-		["com.unity.visualeffectgraph"] = "11.0.0",
-		["com.unity.render-pipelines.universal"] = "11.0.0",
+		["com.unity.visualeffectgraph"] = "12.1.0",
+		["com.unity.render-pipelines.universal"] = "12.1.0",
 
 		// 분석 {
 		["com.unity.mobile.android-logcat"] = "1.2.3",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
 
-		["com.unity.adaptiveperformance"] = "2.2.1",
-		["com.unity.adaptiveperformance.samsung.android"] = "2.2.1",
+		// ["com.unity.adaptiveperformance"] = "3.0.0",
 		// 분석 }
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
-		["com.unity.ml-agents"] = "1.0.8",
+		["com.unity.ml-agents"] = "2.0.0",
 #endif			// #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
-		["com.unity.cinemachine"] = "2.7.9",
+		["com.unity.cinemachine"] = "2.8.2",
 #endif			// #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE

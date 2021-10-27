@@ -15,7 +15,6 @@ MonoBehaviour:
   m_oCommonDefineSymbolList:
   - DOTWEEN_ENABLE
   - SECURITY_ENABLE
-  - DYNAMIC_BATCHING_ENABLE
   - VISUAL_FX_GRAPH_ENABLE
   - UNIVERSAL_PIPELINE_ENABLE
   - HAPTIC_FEEDBACK_ENABLE
@@ -41,8 +40,6 @@ MonoBehaviour:
   m_oAndroidDefineSymbolList: []
   m_oGoogleDefineSymbolList: []
   m_oAmazonDefineSymbolList: []
-  m_oOneStoreDefineSymbolList: []
-  m_oGalaxyStoreDefineSymbolList: []
   m_oStandaloneDefineSymbolList:
   - EDITOR_ENABLE
   m_oMacDefineSymbolList: []
