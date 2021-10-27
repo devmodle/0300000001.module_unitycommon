@@ -5,7 +5,7 @@
 2. **에셋 스토어 리스트**
 	- *2D Toolkit (v2.5.8.16 - Apr 30, 2019)*
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
-	- *Asset Usage Detector (v1.9.8 - Sep 27, 2021)*
+	- *Asset Usage Detector (v1.9.10 - Oct 27, 2021)*
 	- *Bezier Solution (v2.2.0 - Jul 7, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 5, 2020)*
 	- *Enhanced Scroller (v2.31.0 - Oct 9, 2021)*
@@ -31,7 +31,7 @@
 	- *Sprite Trail (v1.4.0 - Aug 2, 2019)*
 	- *Ultimate Status Bar (v2.6.0 - Jun 3, 2020)*
 	- *Lean GUI (v1.2.2 - Sep 29, 2021)*
-	- *Lean Touch (v2.2.2 - Aug 27, 2021)*
+	- *Lean Touch (v2.3.4 - Oct 25, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (v2.3.85)*
 	- *Thai Font Adjuster (v1.0.0)*
