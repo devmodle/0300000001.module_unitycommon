@@ -157,7 +157,7 @@ public static partial class KEditorDefine {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCIES = new Dictionary<string, string>() {
 		// 기본 {
 		["com.unity.burst"] = "1.6.1",
-		["com.unity.recorder"] = "3.0.1",
+		["com.unity.recorder"] = "3.0.2",
 		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.probuilder"] = "5.0.3",
 		["com.unity.formats.fbx"] = "4.1.1",
