@@ -19,7 +19,7 @@ public class CSubInitSceneManager : CInitSceneManager {
 	/** 씬을 설정한다 */
 	protected override void Setup() {
 		base.Setup();
-
+		
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		// 테이블을 생성한다 {
 		CLevelInfoTable.Create();

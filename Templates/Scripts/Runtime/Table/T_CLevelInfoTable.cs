@@ -555,27 +555,28 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_oNumTargetsDict = stLevelInfo.m_oNumTargetsDict ?? new Dictionary<ETargetKinds, int>(),
 			m_oUnlockNumTargetsDict = stLevelInfo.m_oUnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>(),
 
-			m_eLevelMode = (a_oLevelInfo.LevelMode != ELevelMode.NONE) ? a_oLevelInfo.LevelMode : stLevelInfo.m_eLevelMode,
-			m_eLevelKinds = (a_oLevelInfo.LevelKinds != ELevelKinds.NONE) ? a_oLevelInfo.LevelKinds : stLevelInfo.m_eLevelKinds,
-			m_eRewardKinds = (a_oLevelInfo.RewardKinds != ERewardKinds.NONE) ? a_oLevelInfo.RewardKinds : stLevelInfo.m_eRewardKinds,
-			m_eTutorialKinds = (a_oLevelInfo.TutorialKinds != ETutorialKinds.NONE) ? a_oLevelInfo.TutorialKinds : stLevelInfo.m_eTutorialKinds
+#if EPISODE_INFO_OVERWRITE_ENABLE
+			m_eLevelMode = a_oLevelInfo.LevelMode,
+			m_eLevelKinds = a_oLevelInfo.LevelKinds,
+			m_eRewardKinds = a_oLevelInfo.RewardKinds,
+			m_eTutorialKinds = a_oLevelInfo.TutorialKinds
+#else
+			m_eLevelMode = stLevelInfo.m_eLevelMode,
+			m_eLevelKinds = stLevelInfo.m_eLevelKinds,
+			m_eRewardKinds = stLevelInfo.m_eRewardKinds,
+			m_eTutorialKinds = stLevelInfo.m_eTutorialKinds
+#endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 		};
-
+		
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
 
-		// 타겟 개수가 존재 할 경우
-		if(a_oLevelInfo.NumTargetsDict.ExIsValid()) {
-			a_oLevelInfo.NumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
-		} else {
-			stLevelInfo.m_oNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
-		}
-
-		// 잠금 해제 타겟 개수가 존재 할 경우
-		if(a_oLevelInfo.UnlockNumTargetsDict.ExIsValid()) {
-			a_oLevelInfo.UnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
-		} else {
-			stLevelInfo.m_oUnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
-		}
+#if EPISODE_INFO_OVERWRITE_ENABLE
+		a_oLevelInfo.NumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
+		a_oLevelInfo.UnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
+#else
+		stLevelInfo.m_oNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
+		stLevelInfo.m_oUnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
+#endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
 		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);

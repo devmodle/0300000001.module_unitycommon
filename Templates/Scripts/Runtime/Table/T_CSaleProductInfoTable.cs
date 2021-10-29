@@ -46,12 +46,13 @@ public struct STSaleProductInfo {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			var stItemInfo = new STItemInfo() {
-				m_nNumItems = a_oSaleProductInfo[oNumItemsKey].AsInt,
-				m_eItemKinds = (EItemKinds)a_oSaleProductInfo[oItemKindsKey].AsInt
-			};
-
-			m_oItemInfoList.Add(stItemInfo);
+			// 아이템 정보가 존재 할 경우
+			if(a_oSaleProductInfo[oNumItemsKey] != null && a_oSaleProductInfo[oItemKindsKey] != null) {
+				m_oItemInfoList.Add(new STItemInfo() {
+					m_nNumItems = a_oSaleProductInfo[oNumItemsKey].AsInt,
+					m_eItemKinds = (EItemKinds)a_oSaleProductInfo[oItemKindsKey].AsInt
+				});
+			}
 		}
 
 #if PURCHASE_MODULE_ENABLE

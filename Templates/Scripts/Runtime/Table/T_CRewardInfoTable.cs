@@ -31,10 +31,13 @@ public struct STRewardInfo {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oItemInfoList.Add(new STItemInfo() {
-				m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt,
-				m_eItemKinds = (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt
-			});
+			// 아이템 정보가 존재 할 경우
+			if(a_oRewardInfo[oNumItemsKey] != null && a_oRewardInfo[oItemKindsKey] != null) {
+				m_oItemInfoList.Add(new STItemInfo() {
+					m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt,
+					m_eItemKinds = (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt
+				});
+			}
 		}
 	}
 	#endregion			// 함수

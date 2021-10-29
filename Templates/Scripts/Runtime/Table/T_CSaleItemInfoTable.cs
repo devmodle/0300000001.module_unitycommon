@@ -37,13 +37,14 @@ public struct STSaleItemInfo {
 		for(int i = 0; i < KDefine.G_MAX_NUM_SALE_ITEM_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
-
-			var stItemInfo = new STItemInfo() {
-				m_nNumItems = a_oSaleItemInfo[oNumItemsKey].AsInt,
-				m_eItemKinds = (EItemKinds)a_oSaleItemInfo[oItemKindsKey].AsInt
-			};
-
-			m_oItemInfoList.Add(stItemInfo);
+			
+			// 아이템 정보가 존쟆 할 경우
+			if(a_oSaleItemInfo[oNumItemsKey] != null && a_oSaleItemInfo[oItemKindsKey] != null) {
+				m_oItemInfoList.Add(new STItemInfo() {
+					m_nNumItems = a_oSaleItemInfo[oNumItemsKey].AsInt,
+					m_eItemKinds = (EItemKinds)a_oSaleItemInfo[oItemKindsKey].AsInt
+				});
+			}
 		}
 	}
 	#endregion			// 함수

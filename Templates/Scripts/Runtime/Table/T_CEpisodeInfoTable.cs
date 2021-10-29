@@ -47,14 +47,20 @@ public struct STLevelInfo {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oNumTargetsDict.ExAddVal((ETargetKinds)a_oLevelInfo[oTargetKindsKey].AsInt, a_oLevelInfo[oNumTargetsKey].AsInt);
+			// 타겟 개수 정보가 존재 할 경우
+			if(a_oLevelInfo[oTargetKindsKey] != null && a_oLevelInfo[oNumTargetsKey] != null) {
+				m_oNumTargetsDict.ExAddVal((ETargetKinds)a_oLevelInfo[oTargetKindsKey].AsInt, a_oLevelInfo[oNumTargetsKey].AsInt);
+			}
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_UNLOCK_TARGET_KINDS; ++i) {
 			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oUnlockNumTargetsDict.ExAddVal((ETargetKinds)a_oLevelInfo[oUnlockTargetKindsKey].AsInt, a_oLevelInfo[oUnlockNumTargetsKey].AsInt);
+			// 잠금 해제 타겟 개수 정보가 존재 할 경우
+			if(a_oLevelInfo[oUnlockTargetKindsKey] != null && a_oLevelInfo[oUnlockNumTargetsKey] != null) {
+				m_oUnlockNumTargetsDict.ExAddVal((ETargetKinds)a_oLevelInfo[oUnlockTargetKindsKey].AsInt, a_oLevelInfo[oUnlockNumTargetsKey].AsInt);
+			}
 		}
 	}
 
@@ -148,14 +154,20 @@ public struct STStageInfo {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oNumTargetsDict.ExAddVal((ETargetKinds)a_oStageInfo[oTargetKindsKey].AsInt, a_oStageInfo[oNumTargetsKey].AsInt);
+			// 타겟 개수 정보가 존재 할 경우
+			if(a_oStageInfo[oTargetKindsKey] != null && a_oStageInfo[oNumTargetsKey] != null) {
+				m_oNumTargetsDict.ExAddVal((ETargetKinds)a_oStageInfo[oTargetKindsKey].AsInt, a_oStageInfo[oNumTargetsKey].AsInt);
+			}
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_UNLOCK_TARGET_KINDS; ++i) {
 			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oUnlockNumTargetsDict.ExAddVal((ETargetKinds)a_oStageInfo[oUnlockTargetKindsKey].AsInt, a_oStageInfo[oUnlockNumTargetsKey].AsInt);
+			// 잠금 해제 타겟 개수 정보가 존재 할 경우
+			if(a_oStageInfo[oUnlockTargetKindsKey] != null && a_oStageInfo[oUnlockNumTargetsKey] != null) {
+				m_oUnlockNumTargetsDict.ExAddVal((ETargetKinds)a_oStageInfo[oUnlockTargetKindsKey].AsInt, a_oStageInfo[oUnlockNumTargetsKey].AsInt);
+			}
 		}
 	}
 
@@ -245,14 +257,20 @@ public struct STChapterInfo {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oNumTargetsDict.ExAddVal((ETargetKinds)a_oChapterInfo[oTargetKindsKey].AsInt, a_oChapterInfo[oNumTargetsKey].AsInt);
+			// 타겟 개수 정보가 존재 할 경우
+			if(a_oChapterInfo[oTargetKindsKey] != null && a_oChapterInfo[oNumTargetsKey] != null) {
+				m_oNumTargetsDict.ExAddVal((ETargetKinds)a_oChapterInfo[oTargetKindsKey].AsInt, a_oChapterInfo[oNumTargetsKey].AsInt);
+			}
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_UNLOCK_TARGET_KINDS; ++i) {
 			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oUnlockNumTargetsDict.ExAddVal((ETargetKinds)a_oChapterInfo[oUnlockTargetKindsKey].AsInt, a_oChapterInfo[oUnlockNumTargetsKey].AsInt);
+			// 잠금 해제 타겟 개수 정보가 존재 할 경우
+			if(a_oChapterInfo[oUnlockTargetKindsKey] != null && a_oChapterInfo[oUnlockNumTargetsKey] != null) {
+				m_oUnlockNumTargetsDict.ExAddVal((ETargetKinds)a_oChapterInfo[oUnlockTargetKindsKey].AsInt, a_oChapterInfo[oUnlockNumTargetsKey].AsInt);
+			}
 		}
 	}
 

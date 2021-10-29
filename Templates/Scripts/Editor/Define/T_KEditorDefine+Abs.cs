@@ -169,8 +169,8 @@ public static partial class KEditorDefine {
 		["com.unity.2d.tilemap.extras"] = "2.2.1",
 
 		["com.unity.mathematics"] = "1.2.4",
-		["com.unity.localization"] = "1.0.4",
-		["com.unity.addressables"] = "1.19.9",
+		["com.unity.localization"] = "1.0.5",
+		["com.unity.addressables"] = "1.19.11",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.animation.rigging"] = "1.1.1",
 		// 기본 }

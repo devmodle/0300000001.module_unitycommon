@@ -25,7 +25,11 @@ public struct STTutorialInfo {
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TUTORIAL_STRS; ++i) {
 			string oStrKey = string.Format(KCDefine.U_KEY_FMT_STRS, i + KCDefine.B_VAL_1_INT);
-			m_oStrList.Add(a_oTutorialInfo[oStrKey]);
+
+			// 문자열이 존재 할 경우
+			if(a_oTutorialInfo[oStrKey] != null) {
+				m_oStrList.Add(a_oTutorialInfo[oStrKey]);
+			}
 		}
 	}
 	#endregion			// 함수
