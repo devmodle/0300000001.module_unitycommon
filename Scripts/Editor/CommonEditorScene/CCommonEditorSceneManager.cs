@@ -244,10 +244,7 @@ public static partial class CCommonEditorSceneManager {
 						return true;
 					});
 				}
-			}
 
-			// 기즈모를 그릴 수 있을 경우
-			if(CEditorAccess.IsEnableDrawGizmos) {
 				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => {
 					a_oSceneManager.EditorSetupScene();
 					return true;
