@@ -80,6 +80,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	#region 프로퍼티
 	[IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
 	[IgnoreMember] public Dictionary<ETargetKinds, int> NumTargetsDict = new Dictionary<ETargetKinds, int>();
+	[IgnoreMember] public Dictionary<ETargetKinds, int> UnlockNumTargetsDict = new Dictionary<ETargetKinds, int>();
 
 	[IgnoreMember] public ELevelMode LevelMode {
 		get { return (ELevelMode)m_oIntDict.ExGetVal(CLevelInfo.KEY_LEVEL_MODE, (int)ELevelMode.NONE); }
@@ -124,8 +125,6 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-
-		this.NumTargetsDict = this.NumTargetsDict ?? new Dictionary<ETargetKinds, int>();
 		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, CCellInfo>>();
 
 		// 셀 개수를 설정한다 {
@@ -138,7 +137,10 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 		this.NumCells = stNumCells;
 		// 셀 개수를 설정한다 }
 
-		// 타겟 개수를 설정한다
+		// 타겟 개수를 설정한다 {
+		this.NumTargetsDict = this.NumTargetsDict ?? new Dictionary<ETargetKinds, int>();
+		this.UnlockNumTargetsDict = this.UnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>();
+
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
 				m_oCellInfoDictContainer[i][j].m_stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
@@ -150,6 +152,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			}
 		}
+		// 타겟 개수를 설정한다 }
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -549,19 +552,30 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
 			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
 
-			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(),
-			m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>(),
+			m_oNumTargetsDict = stLevelInfo.m_oNumTargetsDict ?? new Dictionary<ETargetKinds, int>(),
+			m_oUnlockNumTargetsDict = stLevelInfo.m_oUnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>(),
 
-			m_eLevelMode = a_oLevelInfo.LevelMode,
-			m_eLevelKinds = a_oLevelInfo.LevelKinds,
-			m_eRewardKinds = a_oLevelInfo.RewardKinds,
-			m_eTutorialKinds = a_oLevelInfo.TutorialKinds
+			m_eLevelMode = (a_oLevelInfo.LevelMode != ELevelMode.NONE) ? a_oLevelInfo.LevelMode : stLevelInfo.m_eLevelMode,
+			m_eLevelKinds = (a_oLevelInfo.LevelKinds != ELevelKinds.NONE) ? a_oLevelInfo.LevelKinds : stLevelInfo.m_eLevelKinds,
+			m_eRewardKinds = (a_oLevelInfo.RewardKinds != ERewardKinds.NONE) ? a_oLevelInfo.RewardKinds : stLevelInfo.m_eRewardKinds,
+			m_eTutorialKinds = (a_oLevelInfo.TutorialKinds != ETutorialKinds.NONE) ? a_oLevelInfo.TutorialKinds : stLevelInfo.m_eTutorialKinds
 		};
 
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
 
-		a_oLevelInfo.NumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
-		stLevelInfo.m_oUnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets, false);
+		// 타겟 개수가 존재 할 경우
+		if(a_oLevelInfo.NumTargetsDict.ExIsValid()) {
+			a_oLevelInfo.NumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
+		} else {
+			stLevelInfo.m_oNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
+		}
+
+		// 잠금 해제 타겟 개수가 존재 할 경우
+		if(a_oLevelInfo.UnlockNumTargetsDict.ExIsValid()) {
+			a_oLevelInfo.UnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
+		} else {
+			stLevelInfo.m_oUnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
+		}
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
 		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
