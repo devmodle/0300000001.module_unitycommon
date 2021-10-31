@@ -161,7 +161,6 @@ public static partial class KEditorDefine {
 		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.probuilder"] = "5.0.3",
 		["com.unity.formats.fbx"] = "4.1.1",
-		["com.unity.inputsystem"] = "1.1.1",
 
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.spriteshape"] = "7.0.2",
@@ -194,6 +193,10 @@ public static partial class KEditorDefine {
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 		["com.unity.cinemachine"] = "2.8.2",
 #endif			// #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
+
+#if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
+		["com.unity.inputsystem"] = "1.1.1",
+#endif			// #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
     	["com.unity.postprocessing"] = "3.1.1",
