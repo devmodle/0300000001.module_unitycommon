@@ -220,13 +220,8 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if APPS_FLYER_MODULE_ENABLE
 			var stAppsFlyerParams = new CAppsFlyerManager.STParams() {
-				m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey,
-
-#if UNITY_IOS
-				m_oAppID = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oAppID
-#else
-				m_oAppID = string.Empty
-#endif			// #if UNITY_IOS
+				m_oAppID = CProjInfoTable.Inst.ProjInfo.m_oStoreAppID,
+				m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey
 			};
 
 			var stAppsFlyerCallbackParams = new CAppsFlyerManager.STCallbackParams() {
