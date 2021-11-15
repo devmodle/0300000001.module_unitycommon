@@ -156,18 +156,18 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCIES = new Dictionary<string, string>() {
 		// 기본 {
-		["com.unity.burst"] = "1.6.1",
+		["com.unity.burst"] = "1.6.2",
 		["com.unity.recorder"] = "3.0.2",
 		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.probuilder"] = "5.0.3",
 		["com.unity.formats.fbx"] = "4.1.1",
 
 		["com.unity.2d.sprite"] = "1.0.0",
-		["com.unity.2d.spriteshape"] = "7.0.2",
+		["com.unity.2d.spriteshape"] = "7.0.3",
 		["com.unity.2d.tilemap"] = "1.0.0",
 		["com.unity.2d.tilemap.extras"] = "2.2.1",
 
-		["com.unity.mathematics"] = "1.2.4",
+		["com.unity.mathematics"] = "1.2.5",
 		["com.unity.localization"] = "1.0.5",
 		["com.unity.addressables"] = "1.19.11",
 		["com.unity.ads.ios-support"] = "1.0.0",
@@ -176,8 +176,8 @@ public static partial class KEditorDefine {
 
 		// 렌더링
 		["com.unity.2d.pixel-perfect"] = "5.0.1",
-		["com.unity.visualeffectgraph"] = "12.1.0",
-		["com.unity.render-pipelines.universal"] = "12.1.0",
+		["com.unity.visualeffectgraph"] = "12.1.1",
+		["com.unity.render-pipelines.universal"] = "12.1.1",
 
 		// 분석 {
 		["com.unity.mobile.android-logcat"] = "1.2.3",
@@ -187,7 +187,7 @@ public static partial class KEditorDefine {
 		// 분석 }
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
-		["com.unity.ml-agents"] = "2.0.0",
+		["com.unity.ml-agents"] = "2.0.1",
 #endif			// #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
@@ -227,7 +227,7 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.0.3",
+		["com.unity.purchasing"] = "4.1.1",
 		["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommonpurchase_client.git#1.8.0",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
