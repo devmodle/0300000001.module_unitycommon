@@ -27,13 +27,9 @@ public class CGameSceneManager : CSceneManager {
 		if(CSceneManager.IsAppInit) {
 			Time.timeScale = KCDefine.B_VAL_1_FLT;
 			
-			// 블럭 객체를 설정한다 {
-			var oBlockObjsA = this.SubObjs.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
-			var oBlockObjsB = this.SubCanvasObjs.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
-
-			m_oBlockObjs = oBlockObjsA ?? oBlockObjsB;
-			m_oBlockObjs = m_oBlockObjs ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_BLOCKS, this.SubObjs);
-			// 블럭 객체를 설정한다 }
+			// 블럭 객체를 설정한다
+			var oBlockObjs = this.SubObjs.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
+			m_oBlockObjs = oBlockObjs ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_BLOCKS, this.SubObjs);
 
 			// 터치 전달자를 설정한다 {
 			var oBGTouchResponder = this.SubUIs.ExFindChild(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER);

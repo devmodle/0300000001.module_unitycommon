@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -295,7 +294,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show(true);
 		Func.m_oFacebookLoginCallback = a_oCallback;
 
-		CFacebookManager.Inst.Login(KCDefine.U_PERMISSIONS_FACEBOOK.ToList(), Func.OnFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.U_PERMISSIONS_FACEBOOK, Func.OnFacebookLogin);
 	}
 
 	/** 페이스 북 로그아웃을 처리한다 */
@@ -328,7 +327,7 @@ public static partial class Func {
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 		CServicesManager.Inst.LoginWithApple(Func.OnFirebaseAppleLogin);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Login(KCDefine.U_PERMISSIONS_FACEBOOK.ToList(), Func.OnFirebaseFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.U_PERMISSIONS_FACEBOOK, Func.OnFirebaseFacebookLogin);
 #else
 		CFirebaseManager.Inst.Login(Func.OnFirebaseLogin);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE

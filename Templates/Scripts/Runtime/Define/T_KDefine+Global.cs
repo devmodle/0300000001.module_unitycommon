@@ -144,11 +144,6 @@ public static partial class KDefine {
 	// 버전 }
 
 	// 정렬 순서 {
-	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_OBJS_CANVAS = new STSortingOrderInfo() {
-		m_nOrder = 0,
-		m_oLayer = KCDefine.U_SORTING_L_TOP
-	};
-
 #if CAMERA_STACKING_ENABLE
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
 		m_nOrder = 1,

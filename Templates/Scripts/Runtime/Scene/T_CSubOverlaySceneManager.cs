@@ -16,7 +16,6 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	public Button StoreBtn { get; private set; } = null;
 
 	public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS;
-	public override STSortingOrderInfo ObjsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_OBJS_CANVAS;
 	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
