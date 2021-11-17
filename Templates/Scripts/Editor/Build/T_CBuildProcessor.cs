@@ -152,7 +152,6 @@ public static partial class CBuildProcessor {
 			// 푸시 알림 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
 				oCapability.AddPushNotifications(CPlatformBuilder.BuildType != EBuildType.STORE);
-				oCapability.AddBackgroundModes(KEditorDefine.B_IOS_BACKGROUND_MODES_OPTS);
 			}
 			// 게임 센터 타입 일 경우
 			else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {

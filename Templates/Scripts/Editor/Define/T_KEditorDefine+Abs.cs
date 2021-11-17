@@ -248,9 +248,6 @@ public static partial class KEditorDefine {
 	// 프로퍼티 속성
 	public const bool B_IOS_ENCRYPTION_ENABLE = false;
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "∙ Special offers and promotions just for you\n∙ Advertisements that match your interests\n∙ An improved personalized experience over time";
-
-	// 백 그라운드 옵션
-	public const BackgroundModesOptions B_IOS_BACKGROUND_MODES_OPTS = BackgroundModesOptions.BackgroundFetch | BackgroundModesOptions.RemoteNotifications;
 #endif			// #if UNITY_IOS
 	#endregion			// 조건부 상수
 

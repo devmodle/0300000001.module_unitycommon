@@ -117,9 +117,9 @@ public class CGameInfo : CBaseInfo {
 	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.ExGetVal(CGameInfo.KEY_PREV_FREE_REWARD_TIME, string.Empty);
 	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.ExGetVal(CGameInfo.KEY_PREV_DAILY_REWARD_TIME, string.Empty);
 
-	[IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-	[IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-	[IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH_STR) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
