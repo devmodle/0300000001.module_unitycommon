@@ -20,49 +20,35 @@ MonoBehaviour:
   m_oShortProductName: Sample_Unity
   m_stiOSProjInfo:
     m_oAppID: dante.distribution.sample
-    m_oStoreURL: https://itunes.apple.com/app/id1309472470
+    m_oStoreAppID: 1309472470
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stGoogleProjInfo:
     m_oAppID: dante.distribution.sample
-    m_oStoreURL: https://play.google.com/store/apps/details?id=dante.distribution.sample
+    m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stAmazonProjInfo:
     m_oAppID: dante.distribution.sample
-    m_oStoreURL: 
-    m_oSupportsMail: cs@ninetap.com
-    m_stBuildVerInfo:
-      m_nNum: 1
-      m_oVer: 0.0.1
-  m_stOneStoreProjInfo:
-    m_oAppID: dante.distribution.sample
-    m_oStoreURL: 
-    m_oSupportsMail: cs@ninetap.com
-    m_stBuildVerInfo:
-      m_nNum: 1
-      m_oVer: 0.0.1
-  m_stGalaxyStoreProjInfo:
-    m_oAppID: dante.distribution.sample
-    m_oStoreURL: 
+    m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stMacProjInfo:
     m_oAppID: dante.distribution.sample
-    m_oStoreURL: 
+    m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stWndsProjInfo:
     m_oAppID: dante.distribution.sample
-    m_oStoreURL: 
+    m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
