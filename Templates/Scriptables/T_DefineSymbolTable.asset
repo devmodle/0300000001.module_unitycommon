@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oCommonDefineSymbolList:
   - DOTWEEN_ENABLE
-  - SECURITY_ENABLE
   - VISUAL_FX_GRAPH_ENABLE
   - UNIVERSAL_PIPELINE_ENABLE
   - HAPTIC_FEEDBACK_ENABLE
