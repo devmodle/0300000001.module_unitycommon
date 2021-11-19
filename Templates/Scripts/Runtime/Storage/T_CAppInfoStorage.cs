@@ -96,7 +96,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	public CAppInfo LoadAppInfo(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
-			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath);
+			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath, System.Text.Encoding.Default);
 			CAccess.Assert(this.AppInfo != null);
 		}
 
@@ -110,7 +110,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	/** 앱 정보를 저장한다 */
 	public void SaveAppInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo);
+		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo, System.Text.Encoding.Default);
 	}
 	#endregion			// 함수
 

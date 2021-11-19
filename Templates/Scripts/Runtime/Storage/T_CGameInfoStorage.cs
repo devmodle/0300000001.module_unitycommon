@@ -442,7 +442,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public CGameInfo LoadGameInfo(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
-			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath);
+			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath, System.Text.Encoding.Default);
 			CAccess.Assert(this.GameInfo != null);
 
 			foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
@@ -460,7 +460,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 게임 정보를 저장한다 */
 	public void SaveGameInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo);
+		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo, System.Text.Encoding.Default);
 	}
 	#endregion			// 함수
 

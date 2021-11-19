@@ -174,7 +174,7 @@ public static partial class CCommonEditorSceneManager {
 			// 빌드 가능 할 경우
 			if(CCommonEditorSceneManager.m_bIsEnableBuild) {
 				CCommonEditorSceneManager.m_bIsEnableBuild = false;
-				string oBuildMethod = CFunc.ReadStr(KCEditorDefine.B_DATA_P_BUILD_METHOD);
+				string oBuildMethod = CFunc.ReadStr(KCEditorDefine.B_DATA_P_BUILD_METHOD, System.Text.Encoding.Default);
 
 				// 빌드 메서드가 존재 할 경우
 				if(oBuildMethod.ExIsValid()) {

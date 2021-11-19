@@ -156,7 +156,7 @@ public static partial class KEditorDefine {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCIES = new Dictionary<string, string>() {
 		// 기본 {
 		["com.unity.burst"] = "1.6.2",
-		["com.unity.recorder"] = "3.0.2",
+		["com.unity.recorder"] = "3.0.3",
 		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.probuilder"] = "5.0.3",
 		["com.unity.formats.fbx"] = "4.1.1",
@@ -177,6 +177,10 @@ public static partial class KEditorDefine {
 		["com.unity.2d.pixel-perfect"] = "5.0.1",
 		["com.unity.visualeffectgraph"] = "12.1.1",
 		["com.unity.render-pipelines.universal"] = "12.1.1",
+
+		// 애니메이션
+		["com.unity.2d.animation"] = "7.0.2",
+		["com.unity.2d.psdimporter"] = "6.0.1",
 
 		// 분석 {
 		["com.unity.mobile.android-logcat"] = "1.2.3",

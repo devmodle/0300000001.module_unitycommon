@@ -18,15 +18,7 @@ public static partial class Access {
 		}
 	}
 
-	public static string MoreGamesURL {
-		get {
-#if UNITY_IOS
-			return string.Format(KCDefine.U_FMT_MORE_GAMES_URL, CProjInfoTable.Inst.ProjInfo.m_oStoreAppID);
-#else
-			return string.Format(KCDefine.U_FMT_MORE_GAMES_URL, CProjInfoTable.Inst.ProjInfo.m_oAppID);
-#endif			// #if UNITY_IOS
-		}
-	}
+	public static string MoreGamesURL => string.Format(KCDefine.U_FMT_MORE_GAMES_URL, CProjInfoTable.Inst.ProjInfo.m_oStoreAppID);
 	#endregion			// 클래스 프로퍼티
 
 	#region 클래스 함수

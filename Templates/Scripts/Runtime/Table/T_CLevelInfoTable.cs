@@ -242,10 +242,10 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 #if UNITY_STANDALONE
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
-		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, false);
+		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, System.Text.Encoding.Default, false);
 #else
 		string oFilePath = string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
-		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(oFilePath, false);
+		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(oFilePath, System.Text.Encoding.Default, false);
 #endif			// #if UNITY_STANDALONE
 
 		oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID);
@@ -579,7 +579,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
-		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, false, false);
+		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, System.Text.Encoding.Default, false, false);
 	}
 #endif			// #if UNITY_STANDALONE
 	#endregion			// 조건부 함수
