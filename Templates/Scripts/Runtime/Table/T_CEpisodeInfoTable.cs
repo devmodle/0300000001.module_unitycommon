@@ -523,7 +523,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		oJSONNode.Add(KCDefine.U_KEY_CHAPTER, oChapterInfos);
 
 		var oJSONStr = oJSONNode.ToString();
-		CFunc.WriteStr(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO, JSON.ParseString(oJSONStr).CreatePrettyString());
+		CFunc.WriteStr(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO, JSON.ParseString(oJSONStr).CreatePrettyString(), System.Text.Encoding.Default);
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수

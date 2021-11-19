@@ -37,8 +37,7 @@ public static partial class KEditorDefine {
 
 		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_O_SINGLETON,
-
-		[typeof(CLogManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		
 		[typeof(CSndManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CResManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CTaskManager)] = KCDefine.U_SCRIPT_O_SINGLETON,

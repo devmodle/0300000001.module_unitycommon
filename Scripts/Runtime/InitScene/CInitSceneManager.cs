@@ -70,7 +70,6 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		// iOS 를 설정한다 }
 
 		// 관리자를 생성한다 {
-		CLogManager.Create();
 		CSndManager.Create();
 		CResManager.Create();
 		CTaskManager.Create();

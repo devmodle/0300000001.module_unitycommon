@@ -268,10 +268,10 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 #if UNITY_STANDALONE
 		string oFilePath = a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
-		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<long>>(oFilePath, false);
+		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<long>>(oFilePath, System.Text.Encoding.Default, false);
 #else
 		try {
-			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<long>>(a_oFilePath, false);
+			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<long>>(a_oFilePath, System.Text.Encoding.Default, false);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -534,7 +534,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		}
 
 		CEpisodeInfoTable.Inst.SaveEpisodeInfos();
-		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, false, false);
+		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, System.Text.Encoding.Default, false, false);
 	}
 
 	/** 레벨 정보를 저장한다 */
