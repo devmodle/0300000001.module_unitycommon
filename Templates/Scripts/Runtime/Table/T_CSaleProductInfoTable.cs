@@ -143,8 +143,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-		string oJSONStr = CFunc.ReadStr(a_oFilePath, System.Text.Encoding.Default);
-		return this.DoLoadSaleProductInfos(oJSONStr);
+		return this.DoLoadSaleProductInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);

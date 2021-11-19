@@ -110,8 +110,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
 #if UNITY_EDITOR || UNITY_STANDALONE
-		string oJSONStr = CFunc.ReadStr(a_oFilePath, System.Text.Encoding.Default);
-		return this.DoLoadRewardInfos(oJSONStr);
+		return this.DoLoadRewardInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);

@@ -431,8 +431,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
 #if UNITY_EDITOR || UNITY_STANDALONE
-		string oJSONStr = CFunc.ReadStr(a_oFilePath, System.Text.Encoding.Default);
-		return this.DoLoadEpisodeInfos(oJSONStr);
+		return this.DoLoadEpisodeInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
 			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
@@ -523,7 +522,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		oJSONNode.Add(KCDefine.U_KEY_CHAPTER, oChapterInfos);
 
 		var oJSONStr = oJSONNode.ToString();
-		CFunc.WriteStr(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO, JSON.ParseString(oJSONStr).CreatePrettyString(), System.Text.Encoding.Default);
+		CFunc.WriteStr(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO, JSON.ParseString(oJSONStr).CreatePrettyString());
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수

@@ -242,10 +242,10 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 #if UNITY_STANDALONE
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
-		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, System.Text.Encoding.Default, false);
+		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, null, false);
 #else
 		string oFilePath = string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
-		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(oFilePath, System.Text.Encoding.Default, false);
+		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(oFilePath, null, false);
 #endif			// #if UNITY_STANDALONE
 
 		oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID);
@@ -268,10 +268,10 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 #if UNITY_STANDALONE
 		string oFilePath = a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
-		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<long>>(oFilePath, System.Text.Encoding.Default, false);
+		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<long>>(oFilePath, null, false);
 #else
 		try {
-			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<long>>(a_oFilePath, System.Text.Encoding.Default, false);
+			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<long>>(a_oFilePath, null, false);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -534,7 +534,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		}
 
 		CEpisodeInfoTable.Inst.SaveEpisodeInfos();
-		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, System.Text.Encoding.Default, false, false);
+		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, null, false, false);
 	}
 
 	/** 레벨 정보를 저장한다 */
@@ -579,7 +579,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
-		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, System.Text.Encoding.Default, false, false);
+		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, null, false, false);
 	}
 #endif			// #if UNITY_STANDALONE
 	#endregion			// 조건부 함수

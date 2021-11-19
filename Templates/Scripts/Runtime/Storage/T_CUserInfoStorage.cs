@@ -105,7 +105,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	public CUserInfo LoadUserInfo(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
-			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, System.Text.Encoding.Default);
+			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath);
 			CAccess.Assert(this.UserInfo != null);
 		}
 
@@ -119,7 +119,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, System.Text.Encoding.Default);
+		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo);
 	}
 	#endregion			// 함수
 
