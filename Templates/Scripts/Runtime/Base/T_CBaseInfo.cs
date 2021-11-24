@@ -28,7 +28,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 
 	#region 프로퍼티
 	[IgnoreMember] public System.Version Ver {
-		get { return System.Version.Parse(m_oStrDict.ExGetVal(CBaseInfo.KEY_VER, KCDefine.B_VER_STR)); }
+		get { return System.Version.Parse(m_oStrDict.ExGetVal(CBaseInfo.KEY_VER, KCDefine.B_DEF_VER)); }
 		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
