@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EnhancedUI.EnhancedScroller;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 타이틀 씬 관리자 */
-public partial class CSubTitleSceneManager : CTitleSceneManager {
+public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScrollerDelegate {
 	#region 변수
 	// =====> UI <=====
 	private Button m_oPlayBtn = null;
+	private EnhancedScrollerCellView m_oOriginLevelScrollerCellView = null;
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -19,6 +21,39 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#region 추가 프로퍼티
 
 	#endregion			// 추가 프로퍼티
+
+	#region IEnhancedScrollerDelegate
+	/** 셀 개수를 반환한다 */
+	public int GetNumberOfCells(EnhancedScroller a_oSender) {
+		return CEpisodeInfoTable.Inst.LevelInfoDict.Count / KDefine.TS_MAX_NUM_LEVELS_IN_ROW;
+	}
+
+	/** 셀 뷰 크기를 반환한다 */
+	public float GetCellViewSize(EnhancedScroller a_oSender, int a_nDataIdx) {
+		return (m_oOriginLevelScrollerCellView.transform as RectTransform).sizeDelta.y;
+	}
+
+	/** 셀 뷰를 반환한다 */
+	public EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
+		var stParams = new CLevelScrollerCellView.STParams() {
+			m_stBaseParams = new CScrollerCellView.STParams() {
+				m_nID = CFactory.MakeUniqueLevelID(a_nDataIdx * KDefine.TS_MAX_NUM_LEVELS_IN_ROW),
+				m_oScroller = a_oSender
+			}
+		};
+
+		var stCallbackParams = new CLevelScrollerCellView.STCallbackParams() {
+			m_stBaseCallbackParams = new CScrollerCellView.STCallbackParams() {
+				m_oSelCallback = this.OnTouchLSCVSelBtn
+			}
+		};
+
+		var oLevelScrollerCellView = a_oSender.GetCellView(m_oOriginLevelScrollerCellView) as CLevelScrollerCellView;
+		oLevelScrollerCellView.Init(stParams, stCallbackParams);
+
+		return oLevelScrollerCellView;
+	}
+	#endregion			// IEnhancedScrollerDelegate
 	
 	#region 함수
 	/** 초기화 */
@@ -44,57 +79,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 			// 최초 시작 일 경우
 			if(CCommonAppInfoStorage.Inst.IsFirstStart) {
-				LogFunc.SendLaunchLog();
-				LogFunc.SendSplashLog();
-				
-				CCommonAppInfoStorage.Inst.IsFirstStart = false;
-
-#if UNITY_STANDALONE && EDITOR_ENABLE
-				// 독립 플랫폼 일 경우
-				if(CAccess.IsStandalone) {
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
-				}
-#endif			// #if UNITY_STANDALONE && EDITOR_ENABLE
-			}
-
-			// 최초 플레이 일 경우
-			if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
-				CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay = false;
-				CCommonAppInfoStorage.Inst.SaveAppInfo();
-
-				this.HandleFirstPlayState();
-			} else {
-				// 업데이트가 필요 할 경우
-				if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
-					CAppInfoStorage.Inst.IsIgnoreUpdate = true;
-					this.ExLateCallFunc((a_oSender, a_oParams) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
-				}
-
-				// 일일 미션 리셋이 가능 할 경우
-				if(CGameInfoStorage.Inst.IsEnableResetDailyMission) {
-					CGameInfoStorage.Inst.GameInfo.PrevDailyMissionTime = System.DateTime.Today;
-					CGameInfoStorage.Inst.GameInfo.m_oCompleteDailyMissionKindsList.Clear();
-
-					CGameInfoStorage.Inst.SaveGameInfo();
-				}
-
-				// 무료 보상 획득이 가능 할 경우
-				if(CGameInfoStorage.Inst.IsEnableGetFreeReward) {
-					CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards = KCDefine.B_VAL_0_INT;
-					CGameInfoStorage.Inst.GameInfo.PrevFreeRewardTime = System.DateTime.Today;
-					
-					CGameInfoStorage.Inst.SaveGameInfo();
-				}
-
-#if DAILY_REWARD_ENABLE
-				// 일일 보상 획득이 가능 할 경우
-				if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
-					Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oSender) => {
-						var oDailyRewardPopup = a_oSender as CDailyRewardPopup;
-						oDailyRewardPopup.Init();
-					});
-				}
-#endif			// #if DAILY_REWARD_ENABLE
+				this.UpdateFirstStartState();
 			}
 		}
 	}
@@ -138,6 +123,10 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		m_oPlayBtn = this.SubUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
 		m_oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
 
+		// 스크롤러 셀 뷰를 설정한다
+		var oLevelScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.TS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW);
+		m_oOriginLevelScrollerCellView = oLevelScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>();
+
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
@@ -145,7 +134,41 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	/** 씬을 설정한다 */
 	private void SetupStart() {
-		// Do Something
+		// 최초 플레이 일 경우
+		if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
+			this.UpdateFirstPlayState();
+		} else {
+			// 업데이트가 필요 할 경우
+			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsNeedUpdate()) {
+				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
+				this.ExLateCallFunc((a_oSender, a_oParams) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
+			}
+
+			// 일일 미션 리셋이 가능 할 경우
+			if(CGameInfoStorage.Inst.IsEnableResetDailyMission) {
+				CGameInfoStorage.Inst.GameInfo.PrevDailyMissionTime = System.DateTime.Today;
+				CGameInfoStorage.Inst.GameInfo.m_oCompleteDailyMissionKindsList.Clear();
+
+				CGameInfoStorage.Inst.SaveGameInfo();
+			}
+
+			// 무료 보상 획득이 가능 할 경우
+			if(CGameInfoStorage.Inst.IsEnableGetFreeReward) {
+				CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards = KCDefine.B_VAL_0_INT;
+				CGameInfoStorage.Inst.GameInfo.PrevFreeRewardTime = System.DateTime.Today;
+				
+				CGameInfoStorage.Inst.SaveGameInfo();
+			}
+
+#if DAILY_REWARD_ENABLE
+			// 일일 보상 획득이 가능 할 경우
+			if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
+				Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oSender) => {
+					(a_oSender as CDailyRewardPopup).Init();
+				});
+			}
+#endif			// #if DAILY_REWARD_ENABLE
+		}
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -153,6 +176,32 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+	}
+
+	/** 최초 시작 상태를 갱신한다 */
+	private void UpdateFirstStartState() {
+		LogFunc.SendLaunchLog();
+		LogFunc.SendSplashLog();
+		
+		CCommonAppInfoStorage.Inst.IsFirstStart = false;
+
+#if UNITY_STANDALONE && EDITOR_ENABLE
+		// 독립 플랫폼 일 경우
+		if(CAccess.IsStandalone) {
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+		}
+#endif			// #if UNITY_STANDALONE && EDITOR_ENABLE
+	}
+
+	/** 최초 플레이 상태를 갱신한다 */
+	private void UpdateFirstPlayState() {
+		CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay = false;
+		CCommonAppInfoStorage.Inst.SaveAppInfo();
+
+		// 약관 동의 팝업이 닫혔을 경우
+		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
+			LogFunc.SendAgreeLog();
+		}
 	}
 
 	/** 종료 팝업 결과를 수신했을 경우 */
@@ -174,15 +223,12 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	/** 플레이 버튼을 눌렀을 경우 */
 	private void OnTouchPlayBtn() {
-		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+		// Do Something
 	}
 
-	/** 최초 플레이 상태를 처리한다 */
-	private void HandleFirstPlayState() {
-		// 약관 동의 팝업이 닫혔을 경우
-		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
-			LogFunc.SendAgreeLog();
-		}
+	/** 레벨 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
+	private void OnTouchLSCVSelBtn(CScrollerCellView a_oSender, long a_nID) {
+		// Do Something
 	}
 	#endregion			// 함수
 

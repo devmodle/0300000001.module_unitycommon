@@ -8,7 +8,8 @@ using UnityEngine.UI;
 /** 타이틀 씬 상수 */
 public static partial class KDefine {
 	#region 기본
-	
+	// 개수
+	public const int TS_MAX_NUM_LEVELS_IN_ROW = 1;
 	#endregion			// 기본
 
 	#region 추가 상수

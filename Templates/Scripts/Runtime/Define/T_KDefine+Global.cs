@@ -163,13 +163,13 @@ public static partial class KDefine {
 	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
 
 	// 분석 {
-	public static readonly EAnalyticsType[] G_ANALYTICS_TYPE_LOG_ENABLES = new EAnalyticsType[] {
+	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_LOG_ENABLES = new List<EAnalyticsType> {
 		EAnalyticsType.FLURRY,
 		EAnalyticsType.FIREBASE,
 		EAnalyticsType.APPS_FLYER
 	};
 
-	public static readonly EAnalyticsType[] G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLES = new EAnalyticsType[] {
+	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLES = new List<EAnalyticsType> {
 		EAnalyticsType.FLURRY,
 		EAnalyticsType.FIREBASE,
 		EAnalyticsType.APPS_FLYER
@@ -177,18 +177,18 @@ public static partial class KDefine {
 	// 분석 }
 
 	// 판매 상품 정보 테이블
-	public static readonly ESaleProductKinds[] G_KINDS_SALE_PIT_SALE_PRODUCTS = new ESaleProductKinds[] {
+	public static readonly List<ESaleProductKinds> G_KINDS_SALE_PIT_SALE_PRODUCTS = new List<ESaleProductKinds> {
 		ESaleProductKinds.SINGLE_SALE_COINS,
 		ESaleProductKinds.SINGLE_REMOVE_ADS
 	};
 
 	// 판매 상품
-	public static readonly ESaleProductKinds[] G_SALE_PRODUCT_KINDS_PRODUCTS = new ESaleProductKinds[] {
+	public static readonly List<ESaleProductKinds> G_SALE_PRODUCT_KINDS_PRODUCTS = new List<ESaleProductKinds> {
 		// Do Something
 	};
 
 	// 일일 보상
-	public static readonly ERewardKinds[] G_REWARDS_KINDS_DAILY_REWARDS = new ERewardKinds[] {
+	public static readonly List<ERewardKinds> G_REWARDS_KINDS_DAILY_REWARDS = new List<ERewardKinds> {
 		// Do Something
 	};
 	#endregion			// 런타임 상수

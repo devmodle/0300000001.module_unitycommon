@@ -106,7 +106,7 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	public bool TryGetItemInfo(ESaleItemKinds a_eSaleItemKinds, EItemKinds a_eItemKinds, out STItemInfo a_stOutItemInfo) {
 		// 판매 아이템 정보가 존재 할 경우
 		if(this.TryGetSaleItemInfo(a_eSaleItemKinds, out STSaleItemInfo stSaleItemInfo)) {
-			int nIdx = stSaleItemInfo.m_oItemInfoList.ExFindVal((a_stItemInfo) => a_stItemInfo.m_eItemKinds == a_eItemKinds);
+			int nIdx = stSaleItemInfo.m_oItemInfoList.FindIndex((a_stItemInfo) => a_stItemInfo.m_eItemKinds == a_eItemKinds);
 			a_stOutItemInfo = stSaleItemInfo.m_oItemInfoList.ExIsValidIdx(nIdx) ? stSaleItemInfo.m_oItemInfoList[nIdx] : KDefine.G_INVALID_ITEM_INFO;
 
 			return stSaleItemInfo.m_oItemInfoList.ExIsValidIdx(nIdx);

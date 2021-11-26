@@ -32,7 +32,7 @@ public static partial class CEditorSceneManager {
 		var oPkgsInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
 
 		foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_DEPENDENCIES) {
-			int nIdx = oPkgsInfoList.ExFindVal((a_oPkgsInfo) => a_oPkgsInfo.name.Equals(stKeyVal.Key));
+			int nIdx = oPkgsInfoList.FindIndex((a_oPkgsInfo) => a_oPkgsInfo.name.Equals(stKeyVal.Key));
 
 			// 독립 패키지가 없을 경우
 			if(!oPkgsInfoList.ExIsValidIdx(nIdx)) {

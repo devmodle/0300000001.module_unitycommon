@@ -218,7 +218,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 			this.GameInfo.PrevDailyRewardTime = System.DateTime.Today;
 		}
 
-		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % KDefine.G_REWARDS_KINDS_DAILY_REWARDS.Length;
+		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % KDefine.G_REWARDS_KINDS_DAILY_REWARDS.Count;
 		this.SetDailyRewardID(nNextDailyRewardID);
 	}
 
