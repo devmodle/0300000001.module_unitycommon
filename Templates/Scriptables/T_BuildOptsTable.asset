@@ -16,24 +16,13 @@ MonoBehaviour:
     m_nSampleRate: 0
     m_nNumRealVoices: 32
     m_nNumVirtualVoices: 512
-    m_fGlobalVolume: 1
-    m_fRolloffScale: 1
-    m_fDopplerFactor: 1
-    m_eSpeakerMode: 1
-    m_eDSPBufferSize: 1024
   m_stCommonBuildOpts:
-    m_bIsCaptureSingleScreen: 0
     m_bIsPreBakeCollisionMesh: 0
-    m_bIsEnableInternalProfiler: 0
     m_bIsPreserveFrameBufferAlpha: 0
-    m_oAOTCompileOpts: 
-    m_oPreloadAssetList: []
-    m_eLightmapEncodingQuality: 0
   m_stiOSBuildOpts:
-    m_bIsEnableProMotion: 0
-    m_bIsRequreARKitSupports: 0
     m_oCameraDescription: 
     m_oLocationDescription: 
     m_oMicrophoneDescription: 
   m_stAndroidBuildOpts:
-    m_bIsTVCompatibility: 0
+    m_bIsUseAPKExpansionFiles: 0
+    m_bIsRenderOutsideSafeArea: 1
