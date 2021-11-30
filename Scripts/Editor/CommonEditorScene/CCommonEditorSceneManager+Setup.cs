@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using IngameDebugConsole;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -128,66 +127,6 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 		// FPS 카운터를 설정한다 }
-
-		// 디버그 콘솔을 설정한다 {
-		string oDebugConsoleFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_DEBUG_CONSOLE);
-		string oDebugLogItemFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_DEBUG_LOG_ITEM);
-
-		var oDebugConsoleList = CEditorFunc.FindAssets<GameObject>(oDebugConsoleFilter, new string[] {
-			KCEditorDefine.B_DIR_P_FILTER_DEBUG_CONSOLE
-		});
-
-		var oDebugLogItemList = CEditorFunc.FindAssets<GameObject>(oDebugLogItemFilter, new string[] {
-			KCEditorDefine.B_DIR_P_FILTER_DEBUG_LOG_ITEM
-		});
-
-		// 디버그 콘솔이 존재 할 경우
-		if(oDebugConsoleList.ExIsValid()) {
-			for(int i = 0; i < oDebugConsoleList.Count; ++i) {
-				var oLogWnd = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_N_DEBUG_C_LOG_WND);
-				var oEventSystem = oDebugConsoleList[i].ExFindChild(KCDefine.U_OBJ_N_SCENE_EVENT_SYSTEM);
-				var oLogManager = oDebugConsoleList[i].GetComponentInChildren<DebugLogManager>();
-
-				var oScrollRect = oDebugConsoleList[i].GetComponentInChildren<ScrollRect>();
-				oScrollRect.movementType = ScrollRect.MovementType.Clamped;
-
-				var oWndTrans = oLogWnd.transform as RectTransform;
-				oWndTrans.pivot = KCDefine.B_ANCHOR_MID_CENTER;
-				oWndTrans.anchorMin = KCDefine.B_ANCHOR_DOWN_LEFT;
-				oWndTrans.anchorMax = KCDefine.B_ANCHOR_UP_RIGHT;
-				oWndTrans.anchoredPosition = Vector2.zero;
-
-				// 이벤트 시스템이 존재 할 경우
-				if(oEventSystem != null) {
-					CFactory.RemoveObj(oEventSystem, true);
-				}
-
-				// 로그 관리자가 존재 할 경우
-				if(oLogManager != null && oDebugLogItemList.ExIsValid()) {
-					var oSerializeObj = new SerializedObject(oLogManager);
-
-					oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_DEBUG_C_LOG_ITEM_PREFAB, (a_oProperty) => {
-						var oDebugLogItem = oDebugLogItemList[KCDefine.B_VAL_0_INT];
-						a_oProperty.objectReferenceValue = oDebugLogItem;
-					});
-				}
-			}
-		}
-
-		// 디버그 로그 아이템이 존재 할 경우
-		if(oDebugLogItemList.ExIsValid()) {
-			for(int i = 0; i < oDebugLogItemList.Count; ++i) {
-				var oText = oDebugLogItemList[i].GetComponentInChildren<Text>();
-				oText.fontSize = KCEditorDefine.B_FONT_SIZE_DEBUG_C_TEXT;
-
-				var oTrans = oDebugLogItemList[i].transform as RectTransform;
-				oTrans.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-				oTrans.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-				oTrans.anchorMax = KCDefine.B_ANCHOR_UP_RIGHT;
-				oTrans.sizeDelta = KCEditorDefine.B_SIZE_DEBUG_C_LOG_ITEM.ExTo2D();
-			}
-		}
-		// 디버그 콘솔을 설정한다 }
 	}
 	
 	/** 광원 옵션을 설정한다 */

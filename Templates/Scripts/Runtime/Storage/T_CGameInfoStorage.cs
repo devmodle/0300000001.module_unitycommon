@@ -226,11 +226,11 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public void SetupPlayLevelInfo(int a_nID, EPlayMode a_ePlayMode, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.PlayMode = a_ePlayMode;
 
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		this.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nID, a_nStageID, a_nChapterID);
 #else
 		this.PlayLevelInfo = CLevelInfoTable.Inst.LoadLevelInfo(a_nID, a_nStageID, a_nChapterID);
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 무료 부스터 여부를 검사한다 */

@@ -40,7 +40,6 @@ MonoBehaviour:
   m_oAndroidDefineSymbolList: []
   m_oGoogleDefineSymbolList: []
   m_oAmazonDefineSymbolList: []
-  m_oStandaloneDefineSymbolList:
-  - EDITOR_ENABLE
+  m_oStandaloneDefineSymbolList: []
   m_oMacDefineSymbolList: []
   m_oWndsDefineSymbolList: []

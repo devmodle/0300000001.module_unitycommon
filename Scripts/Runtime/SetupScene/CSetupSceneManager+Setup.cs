@@ -60,26 +60,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
-	/** FPS 카운터를 설정한다 */
-	private void SetupFPSCounter() {
-		// FPS 카운터가 없을 경우
-		if(CSetupSceneManager.m_oFPSCounter == null) {
-			var oFPSCounter = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_FPS_COUNTER, KCDefine.U_OBJ_P_FPS_COUNTER, null);
-			CSetupSceneManager.m_oFPSCounter = oFPSCounter;
-
-			CSceneManager.ScreenStaticFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_STATIC_TEXT);
-			CSceneManager.ScreenStaticFPSText.enabled = false;
-			CSceneManager.ScreenStaticFPSText.raycastTarget = false;
-
-			CSceneManager.ScreenDynamicFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_DYNAMIC_TEXT);
-			CSceneManager.ScreenDynamicFPSText.enabled = false;
-			CSceneManager.ScreenDynamicFPSText.raycastTarget = false;
-
-			DontDestroyOnLoad(oFPSCounter);
-			CFunc.SetupScreenUIs(oFPSCounter, KCDefine.U_SORTING_O_FPS_COUNTER);
-		}
-	}
-
 	/** 디버그 UI 를 설정한다 */
 	private void SetupDebugUIs() {
 		// 디버그 UI 가 없을 경우
@@ -109,18 +89,23 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 	}
 
-	/** 디버그 콘솔을 설정한다 */
-	private void SetupDebugConsole() {
-		// 디버그 콘솔이 없을 경우
-		if(CSetupSceneManager.m_oDebugConsole == null) {
-			var oDebugConsole = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_CONSOLE, KCDefine.U_OBJ_P_DEBUG_CONSOLE, null);
-			CSetupSceneManager.m_oDebugConsole = oDebugConsole;
+	/** FPS 카운터를 설정한다 */
+	private void SetupFPSCounter() {
+		// FPS 카운터가 없을 경우
+		if(CSetupSceneManager.m_oFPSCounter == null) {
+			var oFPSCounter = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_FPS_COUNTER, KCDefine.U_OBJ_P_FPS_COUNTER, null);
+			CSetupSceneManager.m_oFPSCounter = oFPSCounter;
 
-			CSceneManager.ScreenDebugConsole = oDebugConsole;
-			CSceneManager.ScreenDebugConsole.SetActive(false);
+			CSceneManager.ScreenStaticFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_STATIC_TEXT);
+			CSceneManager.ScreenStaticFPSText.enabled = false;
+			CSceneManager.ScreenStaticFPSText.raycastTarget = false;
 
-			DontDestroyOnLoad(oDebugConsole);
-			CFunc.SetupScreenUIs(oDebugConsole, KCDefine.U_SORTING_O_DEBUG_CONSOLE);
+			CSceneManager.ScreenDynamicFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_DYNAMIC_TEXT);
+			CSceneManager.ScreenDynamicFPSText.enabled = false;
+			CSceneManager.ScreenDynamicFPSText.raycastTarget = false;
+
+			DontDestroyOnLoad(oFPSCounter);
+			CFunc.SetupScreenUIs(oFPSCounter, KCDefine.U_SORTING_O_FPS_COUNTER);
 		}
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

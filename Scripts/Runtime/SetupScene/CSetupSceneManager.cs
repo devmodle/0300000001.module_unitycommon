@@ -19,7 +19,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 #if DEBUG || DEVELOPMENT_BUILD
 	private static GameObject m_oFPSCounter = null;
-	private static GameObject m_oDebugConsole = null;
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 클래스 변수
 
@@ -67,9 +66,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		this.SetupTimerManager();
 
 #if DEBUG || DEVELOPMENT_BUILD		
-		this.SetupFPSCounter();
 		this.SetupDebugUIs();
-		this.SetupDebugConsole();
+		this.SetupFPSCounter();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 

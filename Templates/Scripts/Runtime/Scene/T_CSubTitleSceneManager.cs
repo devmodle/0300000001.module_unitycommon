@@ -9,8 +9,13 @@ using EnhancedUI.EnhancedScroller;
 /** 서브 타이틀 씬 관리자 */
 public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScrollerDelegate {
 	#region 변수
+	private STLevelInfo m_stSelLevelInfo;
+	private STStageInfo m_stSelStageInfo;
+	private STChapterInfo m_stSelChapterInfo;
+
 	// =====> UI <=====
-	private Button m_oPlayBtn = null;
+	private Button m_oPlayBtn = null;	
+	private EnhancedScroller m_oLevelScroller = null;
 	private EnhancedScrollerCellView m_oOriginLevelScrollerCellView = null;
 	#endregion			// 변수
 
@@ -25,7 +30,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 	#region IEnhancedScrollerDelegate
 	/** 셀 개수를 반환한다 */
 	public int GetNumberOfCells(EnhancedScroller a_oSender) {
-		return CEpisodeInfoTable.Inst.LevelInfoDict.Count / KDefine.TS_MAX_NUM_LEVELS_IN_ROW;
+		return CLevelInfoTable.Inst.GetNumLevelInfos(KCDefine.B_VAL_0_INT) / KDefine.TS_MAX_NUM_LEVELS_IN_ROW;
 	}
 
 	/** 셀 뷰 크기를 반환한다 */
@@ -44,7 +49,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 
 		var stCallbackParams = new CLevelScrollerCellView.STCallbackParams() {
 			m_stBaseCallbackParams = new CScrollerCellView.STCallbackParams() {
-				m_oSelCallback = this.OnTouchLSCVSelBtn
+				m_oSelCallback = this.OnTouchSCVSelBtn
 			}
 		};
 
@@ -185,12 +190,12 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 		
 		CCommonAppInfoStorage.Inst.IsFirstStart = false;
 
-#if UNITY_STANDALONE && EDITOR_ENABLE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		// 독립 플랫폼 일 경우
 		if(CAccess.IsStandalone) {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 		}
-#endif			// #if UNITY_STANDALONE && EDITOR_ENABLE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 최초 플레이 상태를 갱신한다 */
@@ -226,9 +231,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 		// Do Something
 	}
 
-	/** 레벨 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
-	private void OnTouchLSCVSelBtn(CScrollerCellView a_oSender, long a_nID) {
-		// Do Something
+	/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
+	private void OnTouchSCVSelBtn(CScrollerCellView a_oSender, long a_nID) {
+
 	}
 	#endregion			// 함수
 

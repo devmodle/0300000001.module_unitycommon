@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 
 #if NEVER_USE_THIS
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+#if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 /** 서브 레벨 에디터 씬 관리자 */
 public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
 	#region 변수
@@ -26,14 +26,15 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	// =====> UI <=====
 	private EnhancedScroller m_oSelScroller = null;
 
-	private EnhancedScrollerCellView m_oOriginLevelScrollerCellView = null;
-	private EnhancedScrollerCellView m_oOriginStageScrollerCellView = null;
-	private EnhancedScrollerCellView m_oOriginChapterScrollerCellView = null;
-
-	// 왼쪽 에디터 UI
+	// 왼쪽 에디터 UI {
 	private EnhancedScroller m_oLEUIsLevelScroller = null;
 	private EnhancedScroller m_oLEUIsStageScroller = null;
 	private EnhancedScroller m_oLEUIsChapterScroller = null;
+
+	private EnhancedScrollerCellView m_oLEUIsOriginLevelScrollerCellView = null;
+	private EnhancedScrollerCellView m_oLEUIsOriginStageScrollerCellView = null;
+	private EnhancedScrollerCellView m_oLEUIsOriginChapterScrollerCellView = null;
+	// 왼쪽 에디터 UI }
 
 	// 오른쪽 에디터 UI {
 	private Text m_oREUIsTitleText = null;
@@ -82,10 +83,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	public virtual float GetCellViewSize(EnhancedScroller a_oSender, int a_nDataIdx) {
 		// 챕터 스크롤러 일 경우
 		if(m_oLEUIsChapterScroller == a_oSender) {
-			return (m_oOriginChapterScrollerCellView.transform as RectTransform).sizeDelta.y;
+			return (m_oLEUIsOriginChapterScrollerCellView.transform as RectTransform).sizeDelta.y;
 		}
 		
-		return (m_oLEUIsStageScroller == a_oSender) ? (m_oOriginStageScrollerCellView.transform as RectTransform).sizeDelta.y : (m_oOriginLevelScrollerCellView.transform as RectTransform).sizeDelta.y;
+		return (m_oLEUIsStageScroller == a_oSender) ? (m_oLEUIsOriginStageScrollerCellView.transform as RectTransform).sizeDelta.y : (m_oLEUIsOriginLevelScrollerCellView.transform as RectTransform).sizeDelta.y;
 	}
 
 	/** 셀 뷰를 반환한다 */
@@ -99,7 +100,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		string oNameFmt = KCDefine.B_TEXT_FMT_CHAPTER;
 		string oNumInfosStr = string.Empty;
 
-		EnhancedScrollerCellView oOriginScrollerCellView = m_oOriginChapterScrollerCellView;
+		EnhancedScrollerCellView oOriginScrollerCellView = m_oLEUIsOriginChapterScrollerCellView;
 
 		// 챕터 스크롤러 일 경우
 		if(m_oLEUIsChapterScroller == a_oSender) {
@@ -116,7 +117,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 			oNameFmt = KCDefine.B_TEXT_FMT_STAGE;
 			oNumInfosStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, nNumLevelInfos);
-			oOriginScrollerCellView = m_oOriginStageScrollerCellView;
+			oOriginScrollerCellView = m_oLEUIsOriginStageScrollerCellView;
 		} else {
 			nNumInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
@@ -124,7 +125,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			stIDInfo = CFactory.MakeIDInfo(a_nDataIdx, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
 			oNameFmt = KCDefine.B_TEXT_FMT_LEVEL;
-			oOriginScrollerCellView = m_oOriginLevelScrollerCellView;
+			oOriginScrollerCellView = m_oLEUIsOriginLevelScrollerCellView;
 		}
 
 		var stParams = new CEditorScrollerCellView.STParams() {
@@ -136,16 +137,16 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		var stCallbackParams = new CEditorScrollerCellView.STCallbackParams() {
 			m_stBaseCallbackParams = new CScrollerCellView.STCallbackParams() {
-#if UNITY_STANDALONE
-				m_oSelCallback = this.OnTouchESCVSelBtn
-#endif			// #if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+				m_oSelCallback = this.OnTouchSCVSelBtn
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 			},
 
-#if UNITY_STANDALONE
-			m_oCopyCallback = this.OnTouchESCVCopyBtn,
-			m_oMoveCallback = this.OnTouchESCVMoveBtn,
-			m_oRemoveCallback = this.OnTouchESCVRemoveBtn
-#endif			// #if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			m_oCopyCallback = this.OnTouchSCVCopyBtn,
+			m_oMoveCallback = this.OnTouchSCVMoveBtn,
+			m_oRemoveCallback = this.OnTouchSCVRemoveBtn
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		};
 
 		string oName = string.Format(oNameFmt, a_nDataIdx + KCDefine.B_VAL_1_INT);
@@ -243,9 +244,9 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		var oStageScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_STAGE_EDITOR_SCROLLER_CELL_VIEW);
 		var oChapterScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_CHAPTER_EDITOR_SCROLLER_CELL_VIEW);
 
-		m_oOriginLevelScrollerCellView = oLevelScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>();
-		m_oOriginStageScrollerCellView = oStageScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>();
-		m_oOriginChapterScrollerCellView = oChapterScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>();
+		m_oLEUIsOriginLevelScrollerCellView = oLevelScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>();
+		m_oLEUIsOriginStageScrollerCellView = oStageScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>();
+		m_oLEUIsOriginChapterScrollerCellView = oChapterScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>();
 		// 스크롤러 셀 뷰를 설정한다 }
 
 #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -675,14 +676,14 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 	}
 
-	/** 에디터 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
-	private void OnTouchESCVSelBtn(CScrollerCellView a_oSender, long a_nID) {
+	/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
+	private void OnTouchSCVSelBtn(CScrollerCellView a_oSender, long a_nID) {
 		m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nID.ExUniqueLevelIDToID(), a_nID.ExUniqueLevelIDToStageID(), a_nID.ExUniqueLevelIDToChapterID());
 		this.UpdateUIsState();
 	}
 
-	/** 에디터 스크롤러 셀 뷰 복사 버튼을 눌렀을 경우 */
-	private void OnTouchESCVCopyBtn(CScrollerCellView a_oSender, long a_nID) {
+	/** 스크롤러 셀 뷰 복사 버튼을 눌렀을 경우 */
+	private void OnTouchSCVCopyBtn(CScrollerCellView a_oSender, long a_nID) {
 		int nNumInfos = CLevelInfoTable.Inst.NumChapterInfos;
 		int nMaxNumInfos = KCDefine.U_MAX_NUM_CHAPTER_INFOS;
 
@@ -698,8 +699,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		}
 	}
 
-	/** 에디터 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우 */
-	private void OnTouchESCVMoveBtn(CScrollerCellView a_oSender, long a_nID) {
+	/** 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우 */
+	private void OnTouchSCVMoveBtn(CScrollerCellView a_oSender, long a_nID) {
 		m_stSelIDInfo = CFactory.MakeIDInfo(a_nID.ExUniqueLevelIDToID(), a_nID.ExUniqueLevelIDToStageID(), a_nID.ExUniqueLevelIDToChapterID());
 		m_oSelScroller = a_oSender.Scroller;
 
@@ -712,8 +713,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		});
 	}
 
-	/** 에디터 스크롤러 셀 뷰 제거 버튼을 눌렀을 경우 */
-	private void OnTouchESCVRemoveBtn(CScrollerCellView a_oSender, long a_nID) {
+	/** 스크롤러 셀 뷰 제거 버튼을 눌렀을 경우 */
+	private void OnTouchSCVRemoveBtn(CScrollerCellView a_oSender, long a_nID) {
 		m_stSelIDInfo = CFactory.MakeIDInfo(a_nID.ExUniqueLevelIDToID(), a_nID.ExUniqueLevelIDToStageID(), a_nID.ExUniqueLevelIDToChapterID());
 		m_oSelScroller = a_oSender.Scroller;
 
@@ -884,5 +885,5 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	#endregion			// 추가 함수
 }
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+#endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if NEVER_USE_THIS

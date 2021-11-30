@@ -240,19 +240,19 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 				int nNextID = m_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT;
 				int nNumClearInfos = CGameInfoStorage.Inst.GetNumClearInfos(m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
 
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 				bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(nNextID, out CLevelInfo oNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID) && nNextID <= nNumClearInfos;
 #else
 				bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelInfo(nNextID, out STLevelInfo stNextLevelInfo, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID) && nNextID <= nNumClearInfos;
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 				// 다음 레벨이 존재 할 경우
 				if(bIsValid && !m_bIsLeave) {
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 					CGameInfoStorage.Inst.SetupPlayLevelInfo(oNextLevelInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, oNextLevelInfo.m_stIDInfo.m_nStageID, oNextLevelInfo.m_stIDInfo.m_nChapterID);
 #else
 					CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelInfo.m_nStageID, stNextLevelInfo.m_nChapterID);
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 #if ADS_MODULE_ENABLE
 					Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));

@@ -23,8 +23,7 @@
         "Unity.Notifications.Android",
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.Advertisement.IosSupport",
-        "MessagePack",
-        "IngameDebugConsole.Runtime"
+        "MessagePack"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

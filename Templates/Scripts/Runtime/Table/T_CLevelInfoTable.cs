@@ -201,11 +201,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	public Dictionary<int, Dictionary<int, int>> NumLevelInfosDictContainer = new Dictionary<int, Dictionary<int, int>>();
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LevelInfoDictContainer = new Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>>();
 	
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	public int NumChapterInfos => this.LevelInfoDictContainer.Count;
 #else
 	public int NumChapterInfos => this.NumLevelInfosDictContainer.Count;
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
@@ -215,24 +215,24 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 함수
 	/** 레벨 정보 개수를 반환한다 */
 	public int GetNumLevelInfos(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nChapterID) && this.LevelInfoDictContainer[a_nChapterID].ContainsKey(a_nID));
 		return this.LevelInfoDictContainer[a_nChapterID][a_nID].Count;
 #else
 		CAccess.Assert(this.NumLevelInfosDictContainer.ContainsKey(a_nChapterID) && this.NumLevelInfosDictContainer[a_nChapterID].ContainsKey(a_nID));
 		return this.NumLevelInfosDictContainer[a_nChapterID][a_nID];
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 스테이지 정보 개수를 반화한다 */
 	public int GetNumStageInfos(int a_nID) {
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nID));
 		return this.LevelInfoDictContainer[a_nID].Count;
 #else
 		CAccess.Assert(this.NumLevelInfosDictContainer.ContainsKey(a_nID));
 		return this.NumLevelInfosDictContainer[a_nID].Count;
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 레벨 정보를 로드한다 */
@@ -240,13 +240,13 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
 		CLevelInfo oLevelInfo = null;
 
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
 		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(oFilePath, null, false);
 #else
 		string oFilePath = string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
 		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(oFilePath, null, false);
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 		oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID);
 		return oLevelInfo;
@@ -254,11 +254,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보를 로드한다 */
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos() {
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return this.LoadLevelInfos(KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO);
 #else
 		return this.LoadLevelInfos(KCDefine.U_TABLE_P_G_LEVEL_INFO);
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 레벨 정보를 로드한다 */
@@ -266,7 +266,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		List<long> oLevelIDList = null;
 
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		string oFilePath = a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
 		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<long>>(oFilePath, null, false);
 #else
@@ -275,7 +275,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 		CAccess.Assert(oLevelIDList != null);
 		this.NumLevelInfosDictContainer.Clear();
@@ -293,12 +293,12 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 			this.NumLevelInfosDictContainer.ExReplaceVal(nChapterID, oNumChapterLevelInfosDict);
 
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 			var oLevelInfo = this.LoadLevelInfo(nID, nStageID, nChapterID);
 			oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(nID, nStageID, nChapterID);
 
 			this.AddLevelInfo(oLevelInfo);
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		}
 
 		return this.LevelInfoDictContainer;
@@ -306,7 +306,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#endregion			// 함수
 
 	#region 조건부 함수
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 레벨 정보를 반환한다 */
 	public CLevelInfo GetLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetLevelInfo(a_nID, out CLevelInfo oLevelInfo, a_nStageID, a_nChapterID);
@@ -581,7 +581,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
 		CFunc.WriteMsgPackObj(oFilePath, a_oLevelInfo, null, false, false);
 	}
-#endif			// #if UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수
 
 	#region 추가 함수
