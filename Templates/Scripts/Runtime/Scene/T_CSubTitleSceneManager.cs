@@ -9,10 +9,6 @@ using EnhancedUI.EnhancedScroller;
 /** 서브 타이틀 씬 관리자 */
 public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScrollerDelegate {
 	#region 변수
-	private STLevelInfo m_stSelLevelInfo;
-	private STStageInfo m_stSelStageInfo;
-	private STChapterInfo m_stSelChapterInfo;
-
 	// =====> UI <=====
 	private Button m_oPlayBtn = null;	
 	private EnhancedScroller m_oLevelScroller = null;
@@ -233,7 +229,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 
 	/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
 	private void OnTouchSCVSelBtn(CScrollerCellView a_oSender, long a_nID) {
-
+		// Do Something
 	}
 	#endregion			// 함수
 
