@@ -227,11 +227,6 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	//! 페이스 북 관리자가 초기화 되었을 경우
 	private static void OnInitFacebookManager(CFacebookManager a_oSender, bool a_bIsSuccess) {
 		CFunc.ShowLog("CLateSetupSceneManager.OnInitFacebookManager: {0}", a_bIsSuccess);
-
-		// 초기화 되었을 경우
-		if(a_bIsSuccess) {
-			CFacebookManager.Instance.SendLog(KCDefine.U_LOG_NAME_APP_LAUNCH, null);
-		}
 	}
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
