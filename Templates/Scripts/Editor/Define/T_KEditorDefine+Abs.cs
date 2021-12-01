@@ -155,11 +155,11 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCIES = new Dictionary<string, string>() {
 		// 기본 {
-		["com.unity.burst"] = "1.6.2",
+		["com.unity.burst"] = "1.6.3",
 		["com.unity.recorder"] = "3.0.3",
 		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.probuilder"] = "5.0.3",
-		["com.unity.formats.fbx"] = "4.1.1",
+		["com.unity.formats.fbx"] = "4.1.2",
 
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.spriteshape"] = "7.0.3",
@@ -194,7 +194,7 @@ public static partial class KEditorDefine {
 #endif			// #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
-		["com.unity.cinemachine"] = "2.8.2",
+		["com.unity.cinemachine"] = "2.8.3",
 #endif			// #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 
 #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
@@ -230,7 +230,7 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.1.1",
+		["com.unity.purchasing"] = "4.1.2",
 		["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommonpurchase_client.git#1.8.0",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
