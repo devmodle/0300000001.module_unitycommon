@@ -106,9 +106,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
 		var oMissionInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_FREE],
-			oJSONNode[KCDefine.U_KEY_DAILY],
-			oJSONNode[KCDefine.U_KEY_EVENT]
+			oJSONNode[KCDefine.U_KEY_FREE], oJSONNode[KCDefine.U_KEY_DAILY], oJSONNode[KCDefine.U_KEY_EVENT]
 		};
 
 		for(int i = 0; i < oMissionInfosList.Count; ++i) {

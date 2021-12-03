@@ -111,8 +111,7 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
 		var oTutorialInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_PLAY],
-			oJSONNode[KCDefine.U_KEY_HELP]
+			oJSONNode[KCDefine.U_KEY_PLAY], oJSONNode[KCDefine.U_KEY_HELP]
 		};
 
 		for(int i = 0; i < oTutorialInfosList.Count; ++i) {

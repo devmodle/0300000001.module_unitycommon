@@ -33,8 +33,6 @@ MonoBehaviour:
   - PREFAB_TEMPLATES_ENABLE
   - ENGINE_TEMPLATES_ENABLE
   - RUNTIME_TEMPLATES_ENABLE
-  - MODULE_VER_1_7_3_OR_NEWER
-  - MODULE_VER_1_8_0_OR_NEWER
   m_oSubCommonDefineSymbolList: []
   m_oiOSDefineSymbolList: []
   m_oAndroidDefineSymbolList: []

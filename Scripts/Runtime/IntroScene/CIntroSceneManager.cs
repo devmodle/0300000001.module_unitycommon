@@ -7,14 +7,7 @@ using UnityEngine.UI;
 public class CIntroSceneManager : CSceneManager {
 	#region 변수
 	private List<string> m_oSceneNameList = new List<string>() {
-		KCDefine.B_SCENE_N_INIT,
-		KCDefine.B_SCENE_N_SPLASH,
-		KCDefine.B_SCENE_N_START,
-		KCDefine.B_SCENE_N_SETUP,
-		KCDefine.B_SCENE_N_AGREE,
-		KCDefine.B_SCENE_N_LATE_SETUP,
-		KCDefine.B_SCENE_N_PERMISSION,
-		KCDefine.B_SCENE_N_INTRO
+		KCDefine.B_SCENE_N_INIT, KCDefine.B_SCENE_N_SPLASH, KCDefine.B_SCENE_N_START, KCDefine.B_SCENE_N_SETUP, KCDefine.B_SCENE_N_AGREE, KCDefine.B_SCENE_N_LATE_SETUP, KCDefine.B_SCENE_N_PERMISSION, KCDefine.B_SCENE_N_INTRO
 	};
 	#endregion			// 변수
 

@@ -90,8 +90,7 @@ public static partial class KDefine {
 	};
 
 	public static readonly STSaleItemInfo G_INVALID_SALE_ITEM_INFO = new STSaleItemInfo() {
-		m_ePriceKinds = EPriceKinds.NONE,
-		m_eSaleItemKinds = ESaleItemKinds.NONE
+		m_ePriceKinds = EPriceKinds.NONE, m_eSaleItemKinds = ESaleItemKinds.NONE
 	};
 
 	public static readonly STSaleProductInfo G_INVALID_SALE_PRODUCT_INFO = new STSaleProductInfo() {
@@ -99,8 +98,7 @@ public static partial class KDefine {
 	};
 
 	public static readonly STMissionInfo G_INVALID_MISSION_INFO = new STMissionInfo() {
-		m_eMissionKinds = EMissionKinds.NONE,
-		m_eRewardKinds = ERewardKinds.NONE
+		m_eMissionKinds = EMissionKinds.NONE, m_eRewardKinds = ERewardKinds.NONE
 	};
 
 	public static readonly STRewardInfo G_INVALID_REWARD_INFO = new STRewardInfo() {
@@ -108,28 +106,19 @@ public static partial class KDefine {
 	};
 
 	public static readonly STLevelInfo G_INVALID_LEVEL_INFO = new STLevelInfo() {
-		m_eLevelMode = ELevelMode.NONE,
-		m_eLevelKinds = ELevelKinds.NONE,
-		m_eRewardKinds = ERewardKinds.NONE,
-		m_eTutorialKinds = ETutorialKinds.NONE
+		m_eLevelMode = ELevelMode.NONE, m_eLevelKinds = ELevelKinds.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
 	};
 
 	public static readonly STStageInfo G_INVALID_STAGE_INFO = new STStageInfo() {
-		m_eStageKinds = EStageKinds.NONE,
-		m_eRewardKinds = ERewardKinds.NONE,
-		m_eTutorialKinds = ETutorialKinds.NONE
+		m_eStageKinds = EStageKinds.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
 	};
 
 	public static readonly STChapterInfo G_INVALID_CHAPTER_INFO = new STChapterInfo() {
-		m_eChapterKinds = EChapterKinds.NONE,
-		m_eRewardKinds = ERewardKinds.NONE,
-		m_eTutorialKinds = ETutorialKinds.NONE
+		m_eChapterKinds = EChapterKinds.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
 	};
 
 	public static readonly STTutorialInfo G_INVALID_TUTORIAL_INFO = new STTutorialInfo() {
-		m_eRewardKinds = ERewardKinds.NONE,
-		m_eTutorialKinds = ETutorialKinds.NONE,
-		m_eNextTutorialKinds = ETutorialKinds.NONE
+		m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE, m_eNextTutorialKinds = ETutorialKinds.NONE
 	};
 	// 기타 }
 
@@ -146,13 +135,11 @@ public static partial class KDefine {
 	// 정렬 순서 {
 #if CAMERA_STACKING_ENABLE
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
-		m_nOrder = 1,
-		m_oLayer = KCDefine.U_SORTING_L_TOP
+		m_nOrder = 1, m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
 #else
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
-		m_nOrder = 0,
-		m_oLayer = KCDefine.U_SORTING_L_TOP_UIS
+		m_nOrder = 0, m_oLayer = KCDefine.U_SORTING_L_TOP_UIS
 	};
 #endif			// #if CAMERA_STACKING_ENABLE
 	// 정렬 순서 }
@@ -163,32 +150,25 @@ public static partial class KDefine {
 	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
 
 	// 분석 {
-	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_LOG_ENABLES = new List<EAnalyticsType> {
-		EAnalyticsType.FLURRY,
-		EAnalyticsType.FIREBASE,
-		EAnalyticsType.APPS_FLYER
+	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_LOG_ENABLES = new List<EAnalyticsType>() {
+		EAnalyticsType.FLURRY, EAnalyticsType.FIREBASE, EAnalyticsType.APPS_FLYER
 	};
 
-	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLES = new List<EAnalyticsType> {
-		EAnalyticsType.FLURRY,
-		EAnalyticsType.FIREBASE,
-		EAnalyticsType.APPS_FLYER
-	};
+	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLES = KDefine.G_ANALYTICS_TYPE_LOG_ENABLES;
 	// 분석 }
 
 	// 판매 상품 정보 테이블
-	public static readonly List<ESaleProductKinds> G_KINDS_SALE_PIT_SALE_PRODUCTS = new List<ESaleProductKinds> {
-		ESaleProductKinds.SINGLE_SALE_COINS,
-		ESaleProductKinds.SINGLE_REMOVE_ADS
+	public static readonly List<ESaleProductKinds> G_KINDS_SALE_PIT_SALE_PRODUCTS = new List<ESaleProductKinds>() {
+		ESaleProductKinds.SINGLE_SALE_COINS, ESaleProductKinds.SINGLE_REMOVE_ADS
 	};
 
 	// 판매 상품
-	public static readonly List<ESaleProductKinds> G_SALE_PRODUCT_KINDS_PRODUCTS = new List<ESaleProductKinds> {
+	public static readonly List<ESaleProductKinds> G_SALE_PRODUCT_KINDS_PRODUCTS = new List<ESaleProductKinds>() {
 		// Do Something
 	};
 
 	// 일일 보상
-	public static readonly List<ERewardKinds> G_REWARDS_KINDS_DAILY_REWARDS = new List<ERewardKinds> {
+	public static readonly List<ERewardKinds> G_REWARDS_KINDS_DAILY_REWARDS = new List<ERewardKinds>() {
 		// Do Something
 	};
 	#endregion			// 런타임 상수

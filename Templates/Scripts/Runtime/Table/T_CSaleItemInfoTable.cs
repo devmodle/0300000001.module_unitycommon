@@ -41,8 +41,7 @@ public struct STSaleItemInfo {
 			// 아이템 정보가 존쟆 할 경우
 			if(a_oSaleItemInfo[oNumItemsKey] != null && a_oSaleItemInfo[oItemKindsKey] != null) {
 				m_oItemInfoList.Add(new STItemInfo() {
-					m_nNumItems = a_oSaleItemInfo[oNumItemsKey].AsInt,
-					m_eItemKinds = (EItemKinds)a_oSaleItemInfo[oItemKindsKey].AsInt
+					m_nNumItems = a_oSaleItemInfo[oNumItemsKey].AsInt, m_eItemKinds = (EItemKinds)a_oSaleItemInfo[oItemKindsKey].AsInt
 				});
 			}
 		}

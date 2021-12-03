@@ -239,8 +239,7 @@ public class CStorePopup : CSubPopup {
 				// 지급 아이템 정보가 유효 할 경우
 				if(bIsValidA && bIsValidB && eItemKinds.ExIsValid()) {
 					Func.AcquireItem(new STItemInfo() {
-						m_nNumItems = nNumItems, 
-						m_eItemKinds = eItemKinds
+						m_nNumItems = nNumItems, m_eItemKinds = eItemKinds
 					});
 				}
 			}

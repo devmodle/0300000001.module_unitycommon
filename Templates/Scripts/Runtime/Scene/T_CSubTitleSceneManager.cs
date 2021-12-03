@@ -38,8 +38,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 	public EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
 		var stParams = new CLevelScrollerCellView.STParams() {
 			m_stBaseParams = new CScrollerCellView.STParams() {
-				m_nID = CFactory.MakeUniqueLevelID(a_nDataIdx * KDefine.TS_MAX_NUM_LEVELS_IN_ROW),
-				m_oScroller = a_oSender
+				m_nID = CFactory.MakeUniqueLevelID(a_nDataIdx * KDefine.TS_MAX_NUM_LEVELS_IN_ROW), m_oScroller = a_oSender
 			}
 		};
 

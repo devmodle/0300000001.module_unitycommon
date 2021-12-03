@@ -18,12 +18,7 @@ using UnityEditor.iOS.Xcode;
 public static partial class CBuildProcessor {
 	#region 클래스 변수
 	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessHandlerDict = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
-		[BuildTarget.iOS] = CBuildProcessor.HandleiOSPostProcessBuild,
-		[BuildTarget.Android] = CBuildProcessor.HandleAndroidPostProcessBuild,
-
-		[BuildTarget.StandaloneOSX] = CBuildProcessor.HandleStandalonePostProcessBuild,
-		[BuildTarget.StandaloneWindows] = CBuildProcessor.HandleStandalonePostProcessBuild,
-		[BuildTarget.StandaloneWindows64] = CBuildProcessor.HandleStandalonePostProcessBuild
+		[BuildTarget.iOS] = CBuildProcessor.HandleiOSPostProcessBuild, [BuildTarget.Android] = CBuildProcessor.HandleAndroidPostProcessBuild, [BuildTarget.StandaloneOSX] = CBuildProcessor.HandleStandalonePostProcessBuild, [BuildTarget.StandaloneWindows] = CBuildProcessor.HandleStandalonePostProcessBuild, [BuildTarget.StandaloneWindows64] = CBuildProcessor.HandleStandalonePostProcessBuild
 	};
 	#endregion			// 클래스 변수
 	
@@ -61,7 +56,7 @@ public static partial class CBuildProcessor {
 		string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
 		string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
 
-		for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORKS.Length; ++i) {
+		for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORKS.Count; ++i) {
 			oPBXProj.RemoveFrameworkFromProject(oMainGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i]);
 			oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i]);
 		}
@@ -93,7 +88,7 @@ public static partial class CBuildProcessor {
 		var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
 		oDeviceCapabilityList.values.Clear();
 		
-		for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Length; ++i) {
+		for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Count; ++i) {
 			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
 
 			// 광고 네트워크 식별자가 없을 경우
@@ -116,13 +111,13 @@ public static partial class CBuildProcessor {
 		oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
 		oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
 
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Length; ++i) {
+		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Count; ++i) {
 			oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
 			oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
 		}
 
 		/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
+		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Count; ++i) {
 			oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i]);
 		}
 		*/
@@ -142,7 +137,7 @@ public static partial class CBuildProcessor {
 		/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
 		var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_IOS_CAPABILITY, null, oMainGUID);
 		
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Length; ++i) {
+		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Count; ++i) {
 			var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i];
 
 			// 애플 로그인 타입 일 경우

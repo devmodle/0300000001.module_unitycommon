@@ -74,9 +74,7 @@ public class CFreeRewardPopup : CSubPopup {
 
 		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
 			var stParams = new CRewardAcquirePopup.STParams() {
-				m_eQuality = stRewardInfo.m_eRewardQuality,
-				m_ePopupType = ERewardAcquirePopupType.FREE,
-				m_oItemInfoList = stRewardInfo.m_oItemInfoList
+				m_eQuality = stRewardInfo.m_eRewardQuality, m_ePopupType = ERewardAcquirePopupType.FREE, m_oItemInfoList = stRewardInfo.m_oItemInfoList
 			};
 
 			(a_oSender as CRewardAcquirePopup).Init(stParams);

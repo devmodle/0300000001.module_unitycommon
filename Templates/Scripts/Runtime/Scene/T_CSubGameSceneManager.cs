@@ -163,16 +163,14 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	/** 엔진을 설정한다 */
 	private void SetupEngine() {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-		var stParams = new SampleEngineName.CEngine.STParams() {
-			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
-			m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null,
+		bool bIsValid = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID);
 
-			m_oBlockObjs = this.m_oBlockObjs
+		var stParams = new SampleEngineName.CEngine.STParams() {
+			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo, m_oClearInfo = bIsValid ? oClearInfo : null, m_oBlockObjs = this.m_oBlockObjs
 		};
 
 		var stCallbackParams = new SampleEngineName.CEngine.STCallbackParams() {
-			m_oClearCallback = this.OnClearLevel,
-			m_oClearFailCallback = this.OnClearFailLevel
+			m_oClearCallback = this.OnClearLevel, m_oClearFailCallback = this.OnClearFailLevel
 		};
 
 		m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
@@ -295,8 +293,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowContinuePopup(this.SubPopupUIs, (a_oSender) => {
 			var stParams = new CContinuePopup.STParams() {
-				m_nContinueTimes = this.m_nContinueTimes,
-				m_oLevelInfo = this.m_oLevelInfo
+				m_nContinueTimes = this.m_nContinueTimes, m_oLevelInfo = this.m_oLevelInfo
 			};
 
 			var stCallbackParams = new CContinuePopup.STCallbackParams() {
@@ -315,10 +312,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowResultPopup(this.SubPopupUIs, (a_oSender) => {
 			var stParams = new CResultPopup.STParams() {
-				m_bIsClear = a_bIsClear,
-
-				m_oLevelInfo = this.m_oLevelInfo,
-				m_oClearInfo = this.m_oClearInfo,
+				m_bIsClear = a_bIsClear, m_oLevelInfo = this.m_oLevelInfo, m_oClearInfo = this.m_oClearInfo,
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE				
 				m_nScore = m_oEngine.Score

@@ -56,10 +56,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 #endif			// #if MODE_PORTRAIT_ENABLE
 
 		var stParams = new CAgreePopup.STParams() {
-			m_oServices = a_oServices,
-			m_oPrivacy = a_oPrivacy,
-
-			m_ePopupType = a_ePopupType
+			m_oServices = a_oServices, m_oPrivacy = a_oPrivacy, m_ePopupType = a_ePopupType
 		};
 
 		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.SubPopupUIs);

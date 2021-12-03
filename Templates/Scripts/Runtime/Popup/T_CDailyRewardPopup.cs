@@ -99,12 +99,9 @@ public class CDailyRewardPopup : CSubPopup {
 			var oItemInfoList = new List<STItemInfo>();
 
 			for(int i = 0; i < stRewardInfo.m_oItemInfoList.Count; ++i) {
-				var stItemInfo = new STItemInfo() {
-					m_nNumItems = stRewardInfo.m_oItemInfoList[i].m_nNumItems * KCDefine.B_VAL_2_INT,
-					m_eItemKinds = stRewardInfo.m_oItemInfoList[i].m_eItemKinds
-				};
-
-				oItemInfoList.Add(stItemInfo);
+				oItemInfoList.Add(new STItemInfo() {
+					m_nNumItems = stRewardInfo.m_oItemInfoList[i].m_nNumItems * KCDefine.B_VAL_2_INT, m_eItemKinds = stRewardInfo.m_oItemInfoList[i].m_eItemKinds
+				});
 			}
 
 			stRewardInfo.m_oItemInfoList = oItemInfoList;
@@ -112,9 +109,7 @@ public class CDailyRewardPopup : CSubPopup {
 		
 		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
 			var stParams = new CRewardAcquirePopup.STParams() {
-				m_eQuality = stRewardInfo.m_eRewardQuality,
-				m_ePopupType = ERewardAcquirePopupType.DAILY,
-				m_oItemInfoList = stRewardInfo.m_oItemInfoList
+				m_eQuality = stRewardInfo.m_eRewardQuality, m_ePopupType = ERewardAcquirePopupType.DAILY, m_oItemInfoList = stRewardInfo.m_oItemInfoList
 			};
 
 			(a_oSender as CRewardAcquirePopup).Init(stParams);

@@ -48,7 +48,7 @@ public static partial class CEditorSceneManager {
 				// 스크립트가 존재 할 경우
 				if(oMonoScripts[i] != null) {
 					var oType = oMonoScripts[i].GetClass();
-
+					
 					// 스크립트 순서 설정이 가능 할 경우
 					if(oType != null && KEditorDefine.B_SCRIPT_ORDERS.ContainsKey(oType)) {
 						CAccess.SetScriptOrder(oMonoScripts[i], KEditorDefine.B_SCRIPT_ORDERS[oType]);
@@ -130,17 +130,17 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
 
 				var oDefineSymbolLists = new List<string>[] {
-					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
-					CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
-
-					CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList, 
+					CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList, 
 					
-					CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList,
-					CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList,
-					CPlatformOptsSetter.DefineSymbolTable.EditorAmazonDefineSymbolList,
-
-					CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList,
-					CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList,
+					CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList, 
+					
+					CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList, 
+					CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList, 
+					CPlatformOptsSetter.DefineSymbolTable.EditorAmazonDefineSymbolList, 
+					
+					CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList, 
+					CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList, 
 					CPlatformOptsSetter.DefineSymbolTable.EditorWndsDefineSymbolList
 				};
 

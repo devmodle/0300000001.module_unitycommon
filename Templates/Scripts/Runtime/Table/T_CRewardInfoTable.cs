@@ -34,8 +34,7 @@ public struct STRewardInfo {
 			// 아이템 정보가 존재 할 경우
 			if(a_oRewardInfo[oNumItemsKey] != null && a_oRewardInfo[oItemKindsKey] != null) {
 				m_oItemInfoList.Add(new STItemInfo() {
-					m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt,
-					m_eItemKinds = (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt
+					m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt, m_eItemKinds = (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt
 				});
 			}
 		}
@@ -127,10 +126,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
 		var oRewardInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_FREE],
-			oJSONNode[KCDefine.U_KEY_DAILY],
-			oJSONNode[KCDefine.U_KEY_EVENT],
-			oJSONNode[KCDefine.U_KEY_CLEAR]
+			oJSONNode[KCDefine.U_KEY_FREE], oJSONNode[KCDefine.U_KEY_DAILY], oJSONNode[KCDefine.U_KEY_EVENT], oJSONNode[KCDefine.U_KEY_CLEAR]
 		};
 
 		for(int i = 0; i < oRewardInfosList.Count; ++i) {
