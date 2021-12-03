@@ -130,8 +130,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		var stParams = new CEditorScrollerCellView.STParams() {
 			m_stBaseParams = new CScrollerCellView.STParams() {
-				m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID, stIDInfo.m_nStageID, stIDInfo.m_nChapterID),
-				m_oScroller = a_oSender
+				m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID, stIDInfo.m_nStageID, stIDInfo.m_nChapterID), m_oScroller = a_oSender
 			}
 		};
 
@@ -143,9 +142,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			},
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			m_oCopyCallback = this.OnTouchSCVCopyBtn,
-			m_oMoveCallback = this.OnTouchSCVMoveBtn,
-			m_oRemoveCallback = this.OnTouchSCVRemoveBtn
+			m_oCopyCallback = this.OnTouchSCVCopyBtn, m_oMoveCallback = this.OnTouchSCVMoveBtn, m_oRemoveCallback = this.OnTouchSCVRemoveBtn
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		};
 
@@ -182,10 +179,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 				var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
 
 				Func.EditorSetupLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
-					m_nNumLevels = KCDefine.B_VAL_0_INT,
-
-					m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS,
-					m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
+					m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
 				});
 
 				CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
@@ -204,9 +198,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
-			this.ExLateCallFunc((a_oSender, a_oParams) => {
-				this.UpdateUIsState();
-			}, KCDefine.U_DELAY_INIT);
+			this.ExLateCallFunc((a_oSender, a_oParams) => this.UpdateUIsState(), KCDefine.U_DELAY_INIT);
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 			this.SetupStart();
@@ -577,10 +569,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 셀 개수가 유효 할 경우
 		if(bIsValidA && bIsValidB && (bIsValidNumCellsX || bIsValidNumCellsY)) {
 			Func.EditorSetupLevelInfo(m_oSelLevelInfo, new CSubEditorLevelCreateInfo() {
-				m_nNumLevels = KCDefine.B_VAL_0_INT,
-
-				m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT),
-				m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT)
+				m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT), m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT)
 			});
 			
 			this.UpdateUIsState();
@@ -746,10 +735,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		CLevelInfoTable.Inst.AddLevelInfo(m_oSelLevelInfo);
 
 		Func.EditorSetupLevelInfo(m_oSelLevelInfo, new CSubEditorLevelCreateInfo() {
-			m_nNumLevels = KCDefine.B_VAL_0_INT,
-
-			m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS,
-			m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
+			m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
 		});
 
 		this.UpdateUIsState();

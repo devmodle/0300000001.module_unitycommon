@@ -42,10 +42,7 @@ public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 		var oCreateInfo = base.CreateEditorLevelCreateInfo();
 
 		return new CSubEditorLevelCreateInfo() {
-			m_nNumLevels = oCreateInfo.m_nNumLevels,
-
-			m_stMinNumCells = oCreateInfo.m_stMinNumCells,
-			m_stMaxNumCells = oCreateInfo.m_stMaxNumCells
+			m_nNumLevels = oCreateInfo.m_nNumLevels, m_stMinNumCells = oCreateInfo.m_stMinNumCells, m_stMaxNumCells = oCreateInfo.m_stMaxNumCells
 		};
 	}
 	#endregion			// 함수

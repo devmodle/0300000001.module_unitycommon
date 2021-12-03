@@ -90,7 +90,7 @@ public static partial class CCommonEditorSceneManager {
 		// FPS 카운터를 설정한다 {
 		string oFPSCounterFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_FPS_COUNTER);
 
-		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFPSCounterFilter, new string[] {
+		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFPSCounterFilter, new List<string>() {
 			KCEditorDefine.B_DIR_P_FILTER_FPS_COUNTER
 		});
 

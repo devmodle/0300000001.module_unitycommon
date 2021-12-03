@@ -166,9 +166,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
-		PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
-		PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT),
-		PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)
+		PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT), PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT), PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)
 	};
 
 	public int TotalNumStars {

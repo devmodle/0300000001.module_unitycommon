@@ -111,8 +111,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			
 #if ADS_MODULE_ENABLE
 			var stAdsParams = new CAdsManager.STParams() {
-				m_eAdsPlatform = CPluginInfoTable.Inst.AdsPlatform,
-				m_eBannerAdsPos = CPluginInfoTable.Inst.BannerAdsPos,
+				m_eAdsPlatform = CPluginInfoTable.Inst.AdsPlatform, m_eBannerAdsPos = CPluginInfoTable.Inst.BannerAdsPos,
 
 #if ADMOB_ENABLE
 				m_stAdmobParams = new CAdsManager.STAdmobParams() {
@@ -212,8 +211,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 #if APPS_FLYER_MODULE_ENABLE
 			var stAppsFlyerParams = new CAppsFlyerManager.STParams() {
-				m_oAppID = CProjInfoTable.Inst.ProjInfo.m_oStoreAppID,
-				m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey
+				m_oAppID = CProjInfoTable.Inst.ProjInfo.m_oStoreAppID, m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey
 			};
 
 			var stAppsFlyerCallbackParams = new CAppsFlyerManager.STCallbackParams() {
@@ -246,8 +244,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if NOTI_MODULE_ENABLE
 			var stNotiParams = new CNotiManager.STParams() {
 #if UNITY_IOS
-				m_eAuthOpts = KCDefine.U_AUTH_OPTS_NOTI,
-				m_ePresentOpts = KCDefine.U_PRESENT_OPTS_NOTI
+				m_eAuthOpts = KCDefine.U_AUTH_OPTS_NOTI, m_ePresentOpts = KCDefine.U_PRESENT_OPTS_NOTI
 #elif UNITY_ANDROID
 				m_eImportance = KCDefine.U_IMPORTANCE_NOTI
 #endif			// #if UNITY_IOS

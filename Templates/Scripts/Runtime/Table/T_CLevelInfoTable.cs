@@ -544,27 +544,16 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		a_oOutLevelIDList.Add(a_oLevelInfo.LevelID);
 		CEpisodeInfoTable.Inst.TryGetLevelInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STLevelInfo stLevelInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID);
 
+		var oNumTargetsDict = stLevelInfo.m_oNumTargetsDict ?? new Dictionary<ETargetKinds, int>();
+		var oUnlockNumTargetsDict = stLevelInfo.m_oUnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>();
+
 		var stReplaceLevelInfo = new STLevelInfo() {
-			m_oName = stLevelInfo.m_oName ?? string.Empty,
-			m_oDesc = stLevelInfo.m_oDesc ?? string.Empty,
-
-			m_nID = a_oLevelInfo.m_stIDInfo.m_nID,
-			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
-			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
-
-			m_oNumTargetsDict = stLevelInfo.m_oNumTargetsDict ?? new Dictionary<ETargetKinds, int>(),
-			m_oUnlockNumTargetsDict = stLevelInfo.m_oUnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>(),
+			m_oName = stLevelInfo.m_oName ?? string.Empty, m_oDesc = stLevelInfo.m_oDesc ?? string.Empty, m_nID = a_oLevelInfo.m_stIDInfo.m_nID, m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID, m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID, m_oNumTargetsDict = oNumTargetsDict, m_oUnlockNumTargetsDict = oUnlockNumTargetsDict,
 
 #if EPISODE_INFO_OVERWRITE_ENABLE
-			m_eLevelMode = a_oLevelInfo.LevelMode,
-			m_eLevelKinds = a_oLevelInfo.LevelKinds,
-			m_eRewardKinds = a_oLevelInfo.RewardKinds,
-			m_eTutorialKinds = a_oLevelInfo.TutorialKinds
+			m_eLevelMode = a_oLevelInfo.LevelMode, m_eLevelKinds = a_oLevelInfo.LevelKinds, m_eRewardKinds = a_oLevelInfo.RewardKinds, m_eTutorialKinds = a_oLevelInfo.TutorialKinds
 #else
-			m_eLevelMode = stLevelInfo.m_eLevelMode,
-			m_eLevelKinds = stLevelInfo.m_eLevelKinds,
-			m_eRewardKinds = stLevelInfo.m_eRewardKinds,
-			m_eTutorialKinds = stLevelInfo.m_eTutorialKinds
+			m_eLevelMode = stLevelInfo.m_eLevelMode, m_eLevelKinds = stLevelInfo.m_eLevelKinds, m_eRewardKinds = stLevelInfo.m_eRewardKinds, m_eTutorialKinds = stLevelInfo.m_eTutorialKinds
 #endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 		};
 		

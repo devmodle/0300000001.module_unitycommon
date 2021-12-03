@@ -139,9 +139,9 @@ public static partial class CCommonEditorSceneManager {
 					});
 				}
 
-				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => {
-					a_oSceneManager.EditorSetupScene();
-					return true;
+				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { 
+					a_oSceneManager.EditorSetupScene(); 
+					return true; 
 				});
 			}
 		}
@@ -171,15 +171,12 @@ public static partial class CCommonEditorSceneManager {
 						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VAL_0_FLT);
 						string oStr = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
-						var oRects = new Rect[] {
-							new Rect(a_stRect.x + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x - KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
+						var oRectList = new List<Rect>() {
+							new Rect(a_stRect.x + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height), new Rect(a_stRect.x - KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height), new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height), new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
 						};
 
-						for(int j = 0; j < oRects.Length; ++j) {
-							GUI.Label(oRects[j], oStr, CCommonEditorSceneManager.m_oOutlineGUIStyle);
+						for(int j = 0; j < oRectList.Count; ++j) {
+							GUI.Label(oRectList[j], oStr, CCommonEditorSceneManager.m_oOutlineGUIStyle);
 						}
 
 						GUI.Label(a_stRect, oStr, CCommonEditorSceneManager.m_oTextGUIStyle);

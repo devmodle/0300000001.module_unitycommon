@@ -16,16 +16,13 @@ public abstract partial class CInitSceneManager : CSceneManager {
 			CSceneManager.ScreenBlindUIs = oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS);
 
 			// 블라인드 이미지를 생성한다 {
-			var oImgs = new Image[] {
-				this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs),
-				this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs),
-				this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs),
-				this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
+			var oImgList = new List<Image>() {
+				this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
 			};
 			
-			for(int i = 0; i < oImgs.Length; ++i) {
-				oImgs[i].color = KCDefine.U_COLOR_TRANSPARENT;
-				oImgs[i].raycastTarget = false;
+			for(int i = 0; i < oImgList.Count; ++i) {
+				oImgList[i].color = KCDefine.U_COLOR_TRANSPARENT;
+				oImgList[i].raycastTarget = false;
 			}
 			// 블라인드 이미지를 생성한다 }
 

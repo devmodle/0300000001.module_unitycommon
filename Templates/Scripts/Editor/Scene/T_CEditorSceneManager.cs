@@ -78,9 +78,9 @@ public static partial class CEditorSceneManager {
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 				}
 				
-				CFunc.EnumerateScenes((a_stScene) => {
-					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPES);
-					return true;
+				CFunc.EnumerateScenes((a_stScene) => { 
+					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPES); 
+					return true; 
 				});
 			}
 		}
@@ -130,18 +130,7 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
 
 				var oDefineSymbolLists = new List<string>[] {
-					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList, 
-					
-					CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList, 
-					
-					CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorAmazonDefineSymbolList, 
-					
-					CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorWndsDefineSymbolList
+					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorAmazonDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorWndsDefineSymbolList
 				};
 
 				foreach(var stKeyVal in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULES) {
