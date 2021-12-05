@@ -548,7 +548,15 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		var oUnlockNumTargetsDict = stLevelInfo.m_oUnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>();
 
 		var stReplaceLevelInfo = new STLevelInfo() {
-			m_oName = stLevelInfo.m_oName ?? string.Empty, m_oDesc = stLevelInfo.m_oDesc ?? string.Empty, m_nID = a_oLevelInfo.m_stIDInfo.m_nID, m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID, m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID, m_oNumTargetsDict = oNumTargetsDict, m_oUnlockNumTargetsDict = oUnlockNumTargetsDict,
+			m_oName = stLevelInfo.m_oName ?? string.Empty, 
+			m_oDesc = stLevelInfo.m_oDesc ?? string.Empty, 
+			
+			m_nID = a_oLevelInfo.m_stIDInfo.m_nID, 
+			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID, 
+			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID, 
+			
+			m_oNumTargetsDict = oNumTargetsDict, 
+			m_oUnlockNumTargetsDict = oUnlockNumTargetsDict,
 
 #if EPISODE_INFO_OVERWRITE_ENABLE
 			m_eLevelMode = a_oLevelInfo.LevelMode, m_eLevelKinds = a_oLevelInfo.LevelKinds, m_eRewardKinds = a_oLevelInfo.RewardKinds, m_eTutorialKinds = a_oLevelInfo.TutorialKinds
