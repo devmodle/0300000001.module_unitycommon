@@ -12,15 +12,15 @@ namespace SampleEngineName {
 		/** 정렬 순서를 반환한다 */
 		public static STSortingOrderInfo GetSortingOrder(EBlockKinds a_eBlockKinds) {
 			var eKindsType = a_eBlockKinds.ExKindsToKindsType();
-			CAccess.Assert(KDefine.E_SORTING_OI_BLOCKS.ContainsKey(eKindsType));
+			CAccess.Assert(KDefine.E_SORTING_OI_BLOCK_DICT.ContainsKey(eKindsType));
 
-			return KDefine.E_SORTING_OI_BLOCKS[eKindsType];
+			return KDefine.E_SORTING_OI_BLOCK_DICT[eKindsType];
 		}
 
 		/** 블럭 스프라이트를 반환한다 */
 		public static Sprite GetBlockSprite(EBlockKinds a_eBlockKinds) {
 			var eKindsType = a_eBlockKinds.ExKindsToKindsType();
-			string oImgPath = KDefine.E_IMG_P_BLOCKS.ExGetVal(eKindsType, string.Empty);
+			string oImgPath = KDefine.E_IMG_P_BLOCK_DICT.ExGetVal(eKindsType, string.Empty);
 
 			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}

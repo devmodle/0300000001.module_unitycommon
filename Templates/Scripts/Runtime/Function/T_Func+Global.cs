@@ -196,7 +196,7 @@ public static partial class Func {
 			int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
 
 			var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
-			var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[nIdx];
+			var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST[nIdx];
 			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
 
 			for(int i = 0; i < stSaleProductInfo.m_oItemInfoList.Count; ++i) {
@@ -221,7 +221,7 @@ public static partial class Func {
 				// 상품 복원이 가능 할 경우
 				if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
 					int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
-					var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS[nIdx];
+					var eSaleProductKinds = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST[nIdx];
 					var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds);
 
 					for(int j = 0; j < stSaleProductInfo.m_oItemInfoList.Count; ++j) {

@@ -31,7 +31,7 @@ public static partial class CEditorSceneManager {
 	private static void SetupDependencies() {
 		var oPkgsInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
 
-		foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_DEPENDENCIES) {
+		foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_DICT) {
 			int nIdx = oPkgsInfoList.FindIndex((a_oPkgsInfo) => a_oPkgsInfo.name.Equals(stKeyVal.Key));
 
 			// 독립 패키지가 없을 경우
@@ -59,10 +59,10 @@ public static partial class CEditorSceneManager {
 		if(oJSONNode != null) {
 			bool bIsNeedUpdate = false;
 
-			var oScopedRegistryList = oJSONNode[KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY].AsArray;
+			var oScopedRegistryList = oJSONNode[KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_DICT_KEY].AsArray;
 			oScopedRegistryList = oScopedRegistryList ?? new SimpleJSON.JSONArray();
 
-			foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES) {
+			foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_DICT) {
 				int nIdx = oScopedRegistryList.AsArray.ExFindVal((a_oJSONNode) => stKeyVal.Key.Equals(a_oJSONNode[KEditorDefine.B_UNITY_PKGS_N_KEY]));
 
 				// 패키지 레지스트리가 없을 경우
@@ -80,7 +80,7 @@ public static partial class CEditorSceneManager {
 
 			// 패키지 레지스트리 갱신이 필요 할 경우
 			if(bIsNeedUpdate && oScopedRegistryList.Count > KCDefine.B_VAL_0_INT) {
-				oJSONNode.Add(KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRIES_KEY, oScopedRegistryList);
+				oJSONNode.Add(KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_DICT_KEY, oScopedRegistryList);
 				CFunc.WriteStr(KCEditorDefine.B_DATA_P_UNITY_PKGS, oJSONNode.ToString());
 
 				CEditorFunc.UpdateAssetDBState();

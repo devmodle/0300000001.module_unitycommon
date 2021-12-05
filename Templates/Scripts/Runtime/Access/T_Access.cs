@@ -33,8 +33,8 @@ public static partial class Access {
 #if PURCHASE_MODULE_ENABLE
 	/** 판매 상품 식별자를 반환한다 */
 	public static int GetSaleProductID(ESaleProductKinds a_eSaleProductKinds) {
-		int nIdx = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.FindIndex((a_eCompareSaleProductKinds) => a_eSaleProductKinds == a_eCompareSaleProductKinds);
-		CAccess.Assert(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nIdx));
+		int nIdx = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST.FindIndex((a_eCompareSaleProductKinds) => a_eSaleProductKinds == a_eCompareSaleProductKinds);
+		CAccess.Assert(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST.ExIsValidIdx(nIdx));
 
 		return nIdx;
 	}

@@ -50,8 +50,8 @@ public static partial class CEditorSceneManager {
 					var oType = oMonoScripts[i].GetClass();
 					
 					// 스크립트 순서 설정이 가능 할 경우
-					if(oType != null && KEditorDefine.B_SCRIPT_ORDERS.ContainsKey(oType)) {
-						CAccess.SetScriptOrder(oMonoScripts[i], KEditorDefine.B_SCRIPT_ORDERS[oType]);
+					if(oType != null && KEditorDefine.B_SCRIPT_ORDER_DICT.ContainsKey(oType)) {
+						CAccess.SetScriptOrder(oMonoScripts[i], KEditorDefine.B_SCRIPT_ORDER_DICT[oType]);
 					}
 				}
 			}
@@ -79,7 +79,7 @@ public static partial class CEditorSceneManager {
 				}
 				
 				CFunc.EnumerateScenes((a_stScene) => { 
-					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPES); 
+					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); 
 					return true; 
 				});
 			}
@@ -133,7 +133,7 @@ public static partial class CEditorSceneManager {
 					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorAmazonDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList, CPlatformOptsSetter.DefineSymbolTable.EditorWndsDefineSymbolList
 				};
 
-				foreach(var stKeyVal in KCEditorDefine.DS_REPLACE_DEFINE_S_MODULES) {
+				foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
 					for(int i = 0; i < oDefineSymbolLists.Length; ++i) {
 						var oDefineSymbolList = oDefineSymbolLists[i];
 						

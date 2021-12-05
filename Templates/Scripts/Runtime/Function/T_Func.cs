@@ -294,7 +294,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show(true);
 		Func.m_oFacebookLoginCallback = a_oCallback;
 
-		CFacebookManager.Inst.Login(KCDefine.U_PERMISSIONS_FACEBOOK, Func.OnFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnFacebookLogin);
 	}
 
 	/** 페이스 북 로그아웃을 처리한다 */
@@ -327,7 +327,7 @@ public static partial class Func {
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 		CServicesManager.Inst.LoginWithApple(Func.OnFirebaseAppleLogin);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Login(KCDefine.U_PERMISSIONS_FACEBOOK, Func.OnFirebaseFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnFirebaseFacebookLogin);
 #else
 		CFirebaseManager.Inst.Login(Func.OnFirebaseLogin);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -560,10 +560,10 @@ public static partial class Func {
 	/** 상품을 결제한다 */
 	public static void PurchaseProduct(ESaleProductKinds a_eSaleProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
 		int nID = Access.GetSaleProductID(a_eSaleProductKinds);
-		CAccess.Assert(!a_bIsEnableAssert || KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nID));
+		CAccess.Assert(!a_bIsEnableAssert || KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST.ExIsValidIdx(nID));
 
 		// 상품이 존재 할 경우
-		if(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCTS.ExIsValidIdx(nID)) {
+		if(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST.ExIsValidIdx(nID)) {
 			Func.PurchaseProduct(nID, a_oCallback);
 		}
 	}

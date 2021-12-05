@@ -25,14 +25,14 @@ namespace SampleEngineName {
 		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(15, 15, 15);
 
 		// 정렬 순서
-		public static readonly Dictionary<EBlockKinds, STSortingOrderInfo> E_SORTING_OI_BLOCKS = new Dictionary<EBlockKinds, STSortingOrderInfo>() {
+		public static readonly Dictionary<EBlockKinds, STSortingOrderInfo> E_SORTING_OI_BLOCK_DICT = new Dictionary<EBlockKinds, STSortingOrderInfo>() {
 			[EBlockKinds.BG_EMPTY] = new STSortingOrderInfo() {
 				m_nOrder = 0, m_oLayer = KCDefine.U_SORTING_L_BACKGROUND
 			}
 		};
 
 		// 경로
-		public static readonly Dictionary<EBlockKinds, string> E_IMG_P_BLOCKS = new Dictionary<EBlockKinds, string>() {
+		public static readonly Dictionary<EBlockKinds, string> E_IMG_P_BLOCK_DICT = new Dictionary<EBlockKinds, string>() {
 			[EBlockKinds.BG_EMPTY] = KCDefine.U_IMG_P_G_WHITE
 		};
 		#endregion			// 런타임 상수

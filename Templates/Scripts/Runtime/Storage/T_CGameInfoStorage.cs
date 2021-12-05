@@ -186,7 +186,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public bool IsContinueGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_DBL);
 
 	public bool IsEnableResetDailyMission => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
-	public ERewardKinds DailyRewardKinds => KDefine.G_REWARDS_KINDS_DAILY_REWARDS[this.GameInfo.DailyRewardID];
+	public ERewardKinds DailyRewardKinds => KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[this.GameInfo.DailyRewardID];
 	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
@@ -216,7 +216,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 			this.GameInfo.PrevDailyRewardTime = System.DateTime.Today;
 		}
 
-		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % KDefine.G_REWARDS_KINDS_DAILY_REWARDS.Count;
+		int nNextDailyRewardID = (this.GameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST.Count;
 		this.SetDailyRewardID(nNextDailyRewardID);
 	}
 
@@ -355,7 +355,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 일일 보상 종류를 변경한다 */
 	public void SetDailyRewardID(int a_nID) {
-		CAccess.Assert(KDefine.G_REWARDS_KINDS_DAILY_REWARDS.ExIsValidIdx(a_nID));
+		CAccess.Assert(KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST.ExIsValidIdx(a_nID));
 		this.GameInfo.DailyRewardID = a_nID;
 	}
 

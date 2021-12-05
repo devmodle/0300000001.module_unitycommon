@@ -56,9 +56,9 @@ public static partial class CBuildProcessor {
 		string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
 		string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
 
-		for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORKS.Count; ++i) {
-			oPBXProj.RemoveFrameworkFromProject(oMainGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i]);
-			oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORKS[i]);
+		for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST.Count; ++i) {
+			oPBXProj.RemoveFrameworkFromProject(oMainGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST[i]);
+			oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST[i]);
 		}
 
 		// 파일이 존재 할 경우
@@ -88,13 +88,13 @@ public static partial class CBuildProcessor {
 		var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
 		oDeviceCapabilityList.values.Clear();
 		
-		for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_IDS.Count; ++i) {
+		for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST.Count; ++i) {
 			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
 
 			// 광고 네트워크 식별자가 없을 경우
-			if(!oAdsNetworkItemList.ExIsContainsAdsNetworkID(KEditorDefine.B_IOS_ADS_NETWORK_IDS[i])) {
+			if(!oAdsNetworkItemList.ExIsContainsAdsNetworkID(KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST[i])) {
 				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
-				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_IDS[i]);
+				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST[i]);
 			}
 		}
 		
@@ -111,14 +111,14 @@ public static partial class CBuildProcessor {
 		oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
 		oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
 
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORKS.Count; ++i) {
-			oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
-			oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORKS[i], false);
+		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST.Count; ++i) {
+			oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
+			oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
 		}
 
 		/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Count; ++i) {
-			oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i]);
+		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
+			oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST[i]);
 		}
 		*/
 
@@ -135,10 +135,10 @@ public static partial class CBuildProcessor {
 		oPBXProj.WriteToFile(oPBXProjPath);
 
 		/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
-		var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_IOS_CAPABILITY, null, oMainGUID);
+		var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_CAPABILITY_IOS, null, oMainGUID);
 		
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES.Count; ++i) {
-			var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPES[i];
+		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
+			var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST[i];
 
 			// 애플 로그인 타입 일 경우
 			if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {

@@ -50,8 +50,8 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		Func.ShowStorePopup(this.SubPopupUIs, (a_oSender) => {
 			var oSaleProductInfoList = new List<STSaleProductInfo>();
 
-			for(int i = 0; i < KDefine.G_SALE_PRODUCT_KINDS_PRODUCTS.Count; ++i) {
-				var eSaleProductKinds = KDefine.G_SALE_PRODUCT_KINDS_PRODUCTS[i];
+			for(int i = 0; i < KDefine.G_SALE_PRODUCT_KINDS_PRODUCT_LIST.Count; ++i) {
+				var eSaleProductKinds = KDefine.G_SALE_PRODUCT_KINDS_PRODUCT_LIST[i];
 				oSaleProductInfoList.Add(CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds));
 			}
 
