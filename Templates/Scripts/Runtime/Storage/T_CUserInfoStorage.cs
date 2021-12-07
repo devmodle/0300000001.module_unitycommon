@@ -40,6 +40,11 @@ public class CUserInfo : CBaseInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+
+		// 버전이 다를 경우
+		if(this.Ver.CompareTo(KDefine.G_VER_USER_INFO) < KCDefine.B_COMPARE_EQUALS) {
+			// Do Something	
+		}
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 

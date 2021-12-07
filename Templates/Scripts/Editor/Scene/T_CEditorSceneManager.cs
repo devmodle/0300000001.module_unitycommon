@@ -129,7 +129,7 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_bIsSetupDependencies = false;
 				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
 
-				var oDefineSymbolLists = new List<string>[] {
+				var oDefineSymbolLists = new List<List<string>>() {
 					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList, 
 					CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList, 
 					
@@ -145,7 +145,7 @@ public static partial class CEditorSceneManager {
 				};
 
 				foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
-					for(int i = 0; i < oDefineSymbolLists.Length; ++i) {
+					for(int i = 0; i < oDefineSymbolLists.Count; ++i) {
 						var oDefineSymbolList = oDefineSymbolLists[i];
 						
 						// 전처리기 심볼 갱신이 필요 할 경우

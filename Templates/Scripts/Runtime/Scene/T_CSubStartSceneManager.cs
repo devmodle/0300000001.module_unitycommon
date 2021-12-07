@@ -82,14 +82,14 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_fSkipTime = KCDefine.SS_DELTA_T_UPDATE_STATE;
 			
 		// 텍스트를 설정한다 {
-		var oLoadingText = this.SubUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
+		var oLoadingText = this.SubUIsBase.ExFindComponent<Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
 
 		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, m_stLoadingTextPos);
 		m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;
 		// 텍스트를 설정한다 }
 
 		// 게이지 처리자를 설정한다 {
-		var oLoadingGauge = this.SubUIs.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
+		var oLoadingGauge = this.SubUIsBase.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
 		oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, KCDefine.SS_OBJ_P_LOADING_GAUGE, this.SubUIs, m_stLoadingGaugePos);
 
 		m_oGaugeHandler = oLoadingGauge.GetComponentInChildren<CGaugeHandler>();

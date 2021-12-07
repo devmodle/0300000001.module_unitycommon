@@ -36,7 +36,10 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
 		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_SAVE_TIME, value.ExToLongStr()); }
 	}
-	
+
+	[IgnoreMember] public virtual bool IsIgnoreVer => false;
+	[IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
+
 	[IgnoreMember] private string SaveTimeStr => m_oStrDict.ExGetVal(CBaseInfo.KEY_SAVE_TIME, string.Empty);
 	[IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
@@ -44,7 +47,17 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public virtual void OnBeforeSerialize() {
-		this.SaveTime = System.DateTime.Now;
+		// 버전 무시 모드 일 경우
+		if(this.IsIgnoreVer) {
+			m_oStrDict.ExRemoveVal(CBaseInfo.KEY_VER);
+		}
+
+		// 저장 시간 무시 모드가 아닐 경우
+		if(!this.IsIgnoreSaveTime) {
+			this.SaveTime = System.DateTime.Now;
+		} else {
+			m_oStrDict.ExRemoveVal(CBaseInfo.KEY_SAVE_TIME);
+		}
 	}
 
 	/** 역직렬화 되었을 경우 */

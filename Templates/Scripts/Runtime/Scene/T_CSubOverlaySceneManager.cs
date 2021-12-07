@@ -78,10 +78,10 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 텍스트를 설정한다
-		this.NumCoinsText = this.SubUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
+		this.NumCoinsText = this.SubUIsBase.ExFindComponent<Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
 
 		// 버튼을 설정한다
-		this.StoreBtn = this.SubUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
+		this.StoreBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
 		this.StoreBtn?.onClick.AddListener(this.OnTouchStoreBtn);
 
 #if DEBUG || DEVELOPMENT_BUILD

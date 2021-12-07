@@ -115,10 +115,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #else
 		// 독립 플랫폼 일 경우
 		if(CAccess.IsStandalone) {
-			int nScreenWidth = KCDefine.B_DESKTOP_SCREEN_WIDTH;
-			int nScreenHeight = KCDefine.B_DESKTOP_SCREEN_HEIGHT;
-			
-			Screen.SetResolution(nScreenWidth, nScreenHeight, FullScreenMode.Windowed);
+			Screen.SetResolution((int)CAccess.DesktopScreenSize.x, (int)CAccess.DesktopScreenSize.y, FullScreenMode.Windowed);
 		}
 #endif			// #if UNITY_IOS || UNITY_ANDROID
 

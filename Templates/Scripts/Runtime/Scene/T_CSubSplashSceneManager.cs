@@ -40,7 +40,7 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 		m_oSplashImg.SetNativeSize();
 		m_oSplashImg.gameObject.SetActive(true);
 		
-		this.ExLateCallFunc((a_oSender, a_oParams) => this.LoadNextScene(), KCDefine.SS_DELAY_NEXT_SCENE_LOAD);
+		this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.SS_DELAY_NEXT_SCENE_LOAD);
 	}
 
 	/** 씬을 설정한다 */

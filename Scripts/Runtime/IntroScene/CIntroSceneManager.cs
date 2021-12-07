@@ -5,12 +5,6 @@ using UnityEngine.UI;
 
 /** 인트로 씬 관리자 */
 public class CIntroSceneManager : CSceneManager {
-	#region 변수
-	private List<string> m_oSceneNameList = new List<string>() {
-		KCDefine.B_SCENE_N_INIT, KCDefine.B_SCENE_N_SPLASH, KCDefine.B_SCENE_N_START, KCDefine.B_SCENE_N_SETUP, KCDefine.B_SCENE_N_AGREE, KCDefine.B_SCENE_N_LATE_SETUP, KCDefine.B_SCENE_N_PERMISSION, KCDefine.B_SCENE_N_INTRO
-	};
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_INTRO;
 	#endregion			// 프로퍼티
@@ -33,13 +27,11 @@ public class CIntroSceneManager : CSceneManager {
 
 	/** 다음 씬을 로드한다 */
 	protected void LoadNextScene() {
-		int nIdx = m_oSceneNameList.FindIndex((a_oSceneName) => CSceneManager.AwakeSceneName.Equals(a_oSceneName));
-
-		this.ExLateCallFunc((a_oSender, a_oParams) => {
+		this.ExLateCallFunc((a_oSender) => {
 			CSceneManager.IsAwake = false;
 
 			// 초기화 씬 일 경우
-			if(m_oSceneNameList.ExIsValidIdx(nIdx)) {
+			if(KCDefine.B_INIT_SCENE_NAME_LIST.Contains(CSceneManager.AwakeSceneName)) {
 #if STUDY_MODULE_ENABLE
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU, false, false);
 #else

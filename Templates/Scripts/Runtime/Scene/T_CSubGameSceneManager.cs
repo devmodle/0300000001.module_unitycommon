@@ -26,7 +26,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 	[System.NonSerialized] private CLevelInfo m_oLevelInfo = null;
 	[System.NonSerialized] private CClearInfo m_oClearInfo = null;
-
+	
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	private SampleEngineName.CEngine m_oEngine = null;
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
@@ -54,7 +54,10 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 				// 레벨 정보가 없을 경우
 				if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
 					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
-					oLevelInfo.OnAfterDeserialize();
+
+					Func.EditorSetupLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
+						m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
+					});
 					
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 					CLevelInfoTable.Inst.SaveLevelInfos();
@@ -123,7 +126,10 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		// 백 키 눌림 이벤트 일 경우
 		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
-			// Do Something
+			// 레벨 에디터 씬 일 경우
+			if(CSceneManager.PrevSceneName.Equals(KCDefine.B_SCENE_N_LEVEL_EDITOR)) {
+				Func.ShowLeavePopup(this.OnReceiveLeavePopupResult);
+			}
 		}
 	}
 
@@ -183,6 +189,14 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+	}
+
+	/** 그만두기 팝업 결과를 수신했을 경우 */
+	private void OnReceiveLeavePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
+		// 확인 버튼을 눌렀을 경우
+		if(a_bIsOK) {
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+		}
 	}
 
 	/** 팝업 결과를 수신했을 경우 */

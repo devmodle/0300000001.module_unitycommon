@@ -12,11 +12,16 @@ using MessagePack;
 public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
 	[IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
-
+	
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	[Key(61)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	#endregion			// 변수
+
+	#region 프로퍼티
+	[IgnoreMember] public override bool IsIgnoreVer => true;
+	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	#endregion			// 프로퍼티
 	
 	#region ICloneable
 	/** 사본 객체를 생성한다 */
@@ -70,6 +75,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	private const string KEY_LEVEL_KINDS = "LevelKinds";
 	private const string KEY_REWARD_KINDS = "RewardKinds";
 	private const string KEY_TUTORIAL_KINDS = "TutorialKinds";
+	private const string KEY_CELL_VER = "CellVer";
 	#endregion			// 상수
 
 	#region 변수
@@ -101,7 +107,12 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 		get { return (ETutorialKinds)m_oIntDict.ExGetVal(CLevelInfo.KEY_TUTORIAL_KINDS, (int)ETutorialKinds.NONE); }
 		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_TUTORIAL_KINDS, (int)value); }
 	}
-	
+
+	[IgnoreMember] public System.Version CellVer {
+		get { return System.Version.Parse(m_oStrDict.ExGetVal(CLevelInfo.KEY_CELL_VER, KCDefine.B_DEF_VER)); }
+		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_CELL_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+	}
+
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
 
@@ -137,12 +148,13 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 		this.NumCells = stNumCells;
 		// 셀 개수를 설정한다 }
 
-		// 타겟 개수를 설정한다 {
+		// 셀을 설정한다 {
 		this.NumTargetsDict = this.NumTargetsDict ?? new Dictionary<ETargetKinds, int>();
 		this.UnlockNumTargetsDict = this.UnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>();
 
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
+				m_oCellInfoDictContainer[i][j].Ver = this.CellVer;
 				m_oCellInfoDictContainer[i][j].m_stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
@@ -150,9 +162,19 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 					// Do Something
 				}
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+
+				// 버전이 다를 경우
+				if(this.CellVer.CompareTo(KDefine.G_VER_CELL_INFO) < KCDefine.B_COMPARE_EQUALS) {
+					// Do Something
+				}
 			}
 		}
-		// 타겟 개수를 설정한다 }
+		// 셀을 설정한다 }
+
+		// 버전이 다를 경우
+		if(this.Ver.CompareTo(KDefine.G_VER_LEVEL_INFO) < KCDefine.B_COMPARE_EQUALS) {
+			// Do Something	
+		}
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -543,7 +565,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		a_oOutLevelIDList.Add(a_oLevelInfo.LevelID);
 		CEpisodeInfoTable.Inst.TryGetLevelInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STLevelInfo stLevelInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID);
-		
+
 		var stReplaceLevelInfo = new STLevelInfo() {
 			m_oName = stLevelInfo.m_oName ?? string.Empty, 
 			m_oDesc = stLevelInfo.m_oDesc ?? string.Empty, 
@@ -553,7 +575,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID, 
 			
 			m_oNumTargetsDict = stLevelInfo.m_oNumTargetsDict ?? new Dictionary<ETargetKinds, int>(), 
-			m_oUnlockNumTargetsDict = stLevelInfo.m_oUnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>(),
+			m_oUnlockNumTargetsDict = stLevelInfo.m_oUnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>(), 
 
 #if EPISODE_INFO_OVERWRITE_ENABLE
 			m_eLevelMode = a_oLevelInfo.LevelMode, m_eLevelKinds = a_oLevelInfo.LevelKinds, m_eRewardKinds = a_oLevelInfo.RewardKinds, m_eTutorialKinds = a_oLevelInfo.TutorialKinds
@@ -565,11 +587,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT);
 
 #if EPISODE_INFO_OVERWRITE_ENABLE
-		a_oLevelInfo.NumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
-		a_oLevelInfo.UnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
+		a_oLevelInfo.NumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
+		a_oLevelInfo.UnlockNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
 #else
-		stLevelInfo.m_oNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
-		stLevelInfo.m_oUnlockNumTargetsDict.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
+		stLevelInfo.m_oNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
+		stLevelInfo.m_oUnlockNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
 #endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);

@@ -52,7 +52,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if UNITY_IOS
 		ATTrackingStatusBinding.RequestAuthorizationTracking();
 
-		this.ExRepeatCallFunc((a_oSender, a_oParams, a_bIsComplete) => {
+		this.ExRepeatCallFunc((a_oSender, a_bIsComplete) => {
 			// 완료 되었을 경우
 			if(a_bIsComplete) {
 				var eStatus = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
@@ -62,7 +62,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			return ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED;
 		}, KCDefine.U_DELAY_INIT, KCDefine.B_MAX_DELTA_T_CONSENT_VIEW);
 #else
-		this.ExLateCallFunc((a_oSender, a_oParams) => this.OnCloseConsentView(true));
+		this.ExLateCallFunc((a_oSender) => this.OnCloseConsentView(true));
 #endif			// #if UNITY_IOS
 	}
 

@@ -17,6 +17,11 @@ public static partial class Func {
 	public static void ShowEditorQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_QUIT_P_MSG), a_oCallback);
 	}
+
+	/** 에디터 리셋 팝업을 출력한다 */
+	public static void ShowEditorResetPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_RESET_P_MSG), a_oCallback);
+	}
 	
 	/** 에디터 레벨 제거 팝업을 출력한다 */
 	public static void ShowEditorLevelRemovePopup(System.Action<CAlertPopup, bool> a_oCallback) {

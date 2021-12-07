@@ -179,7 +179,7 @@ public class CSyncPopup : CSubPopup {
 	private void OnReceiveLoadSuccessPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 유저 정보를 로드했을 경우
 		if(a_bIsOK && m_bIsLoadUserInfo) {
-			this.ExLateCallFunc((a_oSender, a_oParams) => { 
+			this.ExLateCallFunc((a_oSender) => { 
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 				
 				CScheduleManager.Inst.Reset();

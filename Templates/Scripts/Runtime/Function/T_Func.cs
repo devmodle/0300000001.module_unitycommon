@@ -115,6 +115,11 @@ public static partial class Func {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG), a_oCallback);
 	}
 
+	/** 그만두기 팝업을 출력한다 */
+	public static void ShowLeavePopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LEAVE_P_MSG), a_oCallback);
+	}
+
 	/** 로드 팝업을 출력한다 */
 	public static void ShowLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LOAD_P_MSG), a_oCallback);
@@ -212,7 +217,7 @@ public static partial class Func {
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsPlatform)) {
 			CIndicatorManager.Inst.Show(true);
 
-			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender, a_oParams) => {
+			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => {
 				Func.m_bIsWatchRewardAds = false;
 				Func.m_stRewardItemInfo = KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO;
 
@@ -235,7 +240,7 @@ public static partial class Func {
 		if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsPlatform)) {
 			CIndicatorManager.Inst.Show(true);
 
-			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender, a_oParams) => {
+			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => {
 				// 전면 광고 출력이 가능 할 경우
 				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds) {
 					Func.m_bIsWatchFullscreenAds = true;

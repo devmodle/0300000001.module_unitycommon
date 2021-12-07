@@ -244,7 +244,7 @@ public class CStorePopup : CSubPopup {
 				}
 			}
 
-			this.ExLateCallFunc((a_oCallFuncSender, a_oParams) => {
+			this.ExLateCallFunc((a_oCallFuncSender) => {
 				oPostItemInfoList.Clear();
 				Func.SavePostItemInfos(oPostItemInfoList, this.OnSavePostItemInfos);
 			});
@@ -265,7 +265,7 @@ public class CStorePopup : CSubPopup {
 
 #if FIREBASE_MODULE_ENABLE
 			m_oPurchaseProductID = a_oProductID;
-			this.ExLateCallFunc((a_oCallFuncSender, a_oParams) => Func.SaveUserInfo(this.OnSaveUserInfo));
+			this.ExLateCallFunc((a_oCallFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
 #else
 			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
 #endif			// #if FIREBASE_MODULE_ENABLE
@@ -285,7 +285,7 @@ public class CStorePopup : CSubPopup {
 
 #if FIREBASE_MODULE_ENABLE
 			m_oRestoreProductList = a_oProductList;
-			this.ExLateCallFunc((a_oCallFuncSender, a_oParams) => Func.LoadPostItemInfos(this.OnLoadPostItemInfos));
+			this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadPostItemInfos(this.OnLoadPostItemInfos));
 #else
 			Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 #endif			// #if FIREBASE_MODULE_ENABLE

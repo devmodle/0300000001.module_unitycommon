@@ -83,7 +83,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	/** 추적 설명 팝업 결과를 수신했을 경우 */
 	private void OnReceiveTrackingDescPopupResult(CTrackingDescPopup a_oSender) {
 		a_oSender?.Close();
-		this.ExLateCallFunc((a_oSender, a_oParams) => this.ShowConsentView(), KCDefine.U_DELAY_INIT);
+		this.ExLateCallFunc((a_oSender) => this.ShowConsentView(), KCDefine.U_DELAY_INIT);
 	}
 	#endregion			// 함수
 

@@ -31,7 +31,7 @@ public class CTitleSceneManager : CSceneManager {
 			Time.timeScale = KCDefine.B_VAL_1_FLT;
 
 			// 텍스트를 설정한다 {
-			var oVerText = this.SubUIs.ExFindComponent<Text>(KCDefine.TS_OBJ_N_VER_TEXT);
+			var oVerText = this.SubUIsBase.ExFindComponent<Text>(KCDefine.TS_OBJ_N_VER_TEXT);
 
 			m_oVerText = oVerText ?? CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs, KCDefine.TS_POS_VER_TEXT);
 			m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
