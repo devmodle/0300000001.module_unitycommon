@@ -21,6 +21,8 @@ public enum ELevelMode {
 	EASY,
 	NORM,
 	HARD,
+	VERY_HARD,
+	SUPER_HARD,
 	MAX_VAL
 }
 

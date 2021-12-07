@@ -63,7 +63,7 @@ public class CFreeRewardPopup : CSubPopup {
 		if(CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards >= KDefine.G_MAX_NUM_ACQUIRE_FREE_REWARDS) {
 			CGameInfoStorage.Inst.GameInfo.PrevFreeRewardTime = System.DateTime.Today;
 		}
-
+		
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 

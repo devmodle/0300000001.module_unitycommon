@@ -10,6 +10,8 @@ public static partial class KDefine {
 	#region 기본
 	// 개수
 	public const int TS_MAX_NUM_LEVELS_IN_ROW = 1;
+	public const int TS_MAX_NUM_STAGES_IN_ROW = 1;
+	public const int TS_MAX_NUM_CHAPTERS_IN_ROW = 1;
 	#endregion			// 기본
 
 	#region 추가 상수

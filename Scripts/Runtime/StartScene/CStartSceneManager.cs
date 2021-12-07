@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public abstract class CStartSceneManager : CSceneManager {
 	#region 변수
 	protected List<string> m_oSpriteAtlasList = new List<string>();
-	protected Dictionary<string, int> m_oMaxNumDuplicateFXSndsDict = new Dictionary<string, int>();
+	protected Dictionary<string, int> m_oMaxNumFXSndsDict = new Dictionary<string, int>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -53,8 +53,8 @@ public abstract class CStartSceneManager : CSceneManager {
 			CResManager.Inst.LoadSpriteAtlas(m_oSpriteAtlasList[i]);
 		}
 
-		foreach(var stKeyVal in this.m_oMaxNumDuplicateFXSndsDict) {
-			CSndManager.Inst.SetMaxNumDuplicateFXSnds(stKeyVal.Key, stKeyVal.Value);
+		foreach(var stKeyVal in this.m_oMaxNumFXSndsDict) {
+			CSndManager.Inst.SetMaxNumFXSnds(stKeyVal.Key, stKeyVal.Value);
 		}
 	}
 
