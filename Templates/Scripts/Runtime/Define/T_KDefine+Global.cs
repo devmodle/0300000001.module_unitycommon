@@ -139,7 +139,7 @@ public static partial class KDefine {
 	};
 #else
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
-		m_nOrder = 0, m_oLayer = KCDefine.U_SORTING_L_TOP_UIS
+		m_nOrder = 0, m_oLayer = KCDefine.U_SORTING_L_OVERLAY_TOP
 	};
 #endif			// #if CAMERA_STACKING_ENABLE
 	// 정렬 순서 }

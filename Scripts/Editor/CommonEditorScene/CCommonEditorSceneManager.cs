@@ -27,10 +27,30 @@ public static partial class CCommonEditorSceneManager {
 	};
 
 	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>() {
-		[KCDefine.U_SORTING_L_DEF] = "D", [KCDefine.U_SORTING_L_ABS] = "A", [KCDefine.U_SORTING_L_TOP] = "T", [KCDefine.U_SORTING_L_TOPMOST] = "TM", [KCDefine.U_SORTING_L_FOREGROUND] = "F", [KCDefine.U_SORTING_L_BACKGROUND] = "B", [KCDefine.U_SORTING_L_OVERGROUND] = "O", [KCDefine.U_SORTING_L_UNDERGROUND] = "U", 
+		[KCDefine.U_SORTING_L_DEF] = "D", 
+		[KCDefine.U_SORTING_L_ABS] = "A", 
+		
+		[KCDefine.U_SORTING_L_TOP] = "T", 
+		[KCDefine.U_SORTING_L_TOPMOST] = "TM", 
+		
+		[KCDefine.U_SORTING_L_FOREGROUND] = "F", 
+		[KCDefine.U_SORTING_L_BACKGROUND] = "B", 
+		
+		[KCDefine.U_SORTING_L_OVERGROUND] = "O", 
+		[KCDefine.U_SORTING_L_UNDERGROUND] = "U", 
 		
 #if !CAMERA_STACKING_ENABLE
-		[KCDefine.U_SORTING_L_DEF_UIS] = "DU", [KCDefine.U_SORTING_L_ABS_UIS] = "AU", [KCDefine.U_SORTING_L_TOP_UIS] = "TU", [KCDefine.U_SORTING_L_TOPMOST_UIS] = "TMU", [KCDefine.U_SORTING_L_FOREGROUND_UIS] = "FU", [KCDefine.U_SORTING_L_BACKGROUND_UIS] = "BU", [KCDefine.U_SORTING_L_OVERGROUND_UIS] = "OU", [KCDefine.U_SORTING_L_UNDERGROUND_UIS] = "UU"
+		[KCDefine.U_SORTING_L_OVERLAY_DEF] = "OD", 
+		[KCDefine.U_SORTING_L_OVERLAY_ABS] = "OA", 
+		
+		[KCDefine.U_SORTING_L_OVERLAY_TOP] = "OT", 
+		[KCDefine.U_SORTING_L_OVERLAY_TOPMOST] = "OTM", 
+		
+		[KCDefine.U_SORTING_L_OVERLAY_FOREGROUND] = "OF", 
+		[KCDefine.U_SORTING_L_OVERLAY_BACKGROUND] = "OB", 
+		
+		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO", 
+		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
 #endif			// #if !CAMERA_STACKING_ENABLE
 	};
 	#endregion			// 클래스 변수

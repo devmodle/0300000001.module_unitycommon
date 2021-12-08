@@ -6,16 +6,15 @@
 	- *2D Toolkit (v2.5.8.16 - Apr 30, 2019)*
 	- *Advance Object Pool (v1.1.0 - May 6, 2019)*
 	- *Anti Cheat Free (v2.1.1 - Mar 6, 2019)*
-	- *Asset Usage Detector (v1.9.10 - Oct 27, 2021)*
+	- *Asset Usage Detector (v2.0.0 - Nov 29, 2021)*
 	- *Bezier Solution (v2.3.0 - Nov 5, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 5, 2020)*
 	- *Enhanced Scroller (v2.31.1 - Oct 27, 2021)*
-	- *Ingame Debug Console (v1.5.1 - Aug 9, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
-	- *Native Share (v1.4.2 - Nov 5, 2021)*
-	- *NGUI (v2021.9.10b - Sep 12, 2021)*
+	- *Native Share (v1.4.4 - Nov 18, 2021)*
+	- *NGUI (v2021.11.30 - Dec 1, 2021)*
 	- *Rest Client (v2.6.1 - Jun 11, 2020)*
 	- *Simple Scroll Snap (v1.2.1 - Dec 14, 2020)*
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
@@ -28,8 +27,8 @@
 	- *Odin Inspector (v3.0.12 - Nov 15, 2021)*
 	- *Sprite Trail (v1.4.0 - Aug 2, 2019)*
 	- *Ultimate Status Bar (v2.6.0 - Jun 3, 2020)*
-	- *Lean GUI (v1.2.2 - Sep 29, 2021)*
-	- *Lean Touch (v2.3.4 - Oct 25, 2021)*
+	- *Lean GUI (v1.2.3 - Nov 20, 2021)*
+	- *Lean Touch (v2.3.5 - Nov 20, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (v2.3.85)*
 	- *Thai Font Adjuster (v1.0.0)*
