@@ -32,9 +32,11 @@ public static partial class Func {
 	private static System.Action<CFirebaseManager> m_oFirebaseLogoutCallback = null;
 
 	private static System.Action<CFirebaseManager, bool> m_oUserInfoSaveCallback = null;
+	private static System.Action<CFirebaseManager, bool> m_oPurchaseInfosSaveCallback = null;
 	private static System.Action<CFirebaseManager, bool> m_oPostItemInfosSaveCallback = null;
 
 	private static System.Action<CFirebaseManager, string, bool> m_oUserInfoLoadCallback = null;
+	private static System.Action<CFirebaseManager, string, bool> m_oPurchaseInfosLoadCallback = null;
 	private static System.Action<CFirebaseManager, string, bool> m_oPostItemInfosLoadCallback = null;
 #endif			// #if FIREBASE_MODULE_ENABLE
 
@@ -366,6 +368,20 @@ public static partial class Func {
 		}
 	}
 
+	/** 결제 정보를 로드한다 */
+	public static void LoadPurchaseInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
+		CIndicatorManager.Inst.Show(true);
+		Func.m_oPurchaseInfosLoadCallback = a_oCallback;
+
+		// 로그인 되었을 경우
+		if(CFirebaseManager.Inst.IsLogin) {
+			var oNodeList = Factory.MakePurchaseInfoNodes();
+			CFirebaseManager.Inst.LoadDB(oNodeList, Func.OnLoadPurchaseInfos);
+		} else {
+			Func.OnLoadPurchaseInfos(CFirebaseManager.Inst, string.Empty, false);
+		}
+	}
+
 	/** 지급 아이템 정보를 로드한다 */
 	public static void LoadPostItemInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show(true);
@@ -401,11 +417,30 @@ public static partial class Func {
 		}
 	}
 
+	/** 결제 정보를 저장한다 */
+	public static void SavePurchaseInfos(List<STPurchaseInfo> a_oPurchaseInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oPurchaseInfoList != null);
+
+		// 결제 정보가 존재 할 경우
+		if(a_oPurchaseInfoList != null) {
+			CIndicatorManager.Inst.Show(true);
+			Func.m_oPurchaseInfosSaveCallback = a_oCallback;
+
+			// 로그인 되었을 경우
+			if(CFirebaseManager.Inst.IsLogin) {
+				var oNodeList = Factory.MakePurchaseInfoNodes();
+				CFirebaseManager.Inst.SaveDB(oNodeList, a_oPurchaseInfoList.ExToJSONStr(true), Func.OnSavePurchaseInfos);
+			} else {
+				Func.OnSavePurchaseInfos(CFirebaseManager.Inst, false);
+			}
+		}
+	}
+
 	/** 지급 아이템 정보를 저장한다 */
 	public static void SavePostItemInfos(List<STPostItemInfo> a_oPostItemInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oPostItemInfoList != null);
 
-		// 지급 아이템이 존재 할 경우
+		// 지급 아이템 정보가 존재 할 경우
 		if(a_oPostItemInfoList != null) {
 			CIndicatorManager.Inst.Show(true);
 			Func.m_oPostItemInfosSaveCallback = a_oCallback;
@@ -438,6 +473,12 @@ public static partial class Func {
 		CFunc.Invoke(ref Func.m_oUserInfoLoadCallback, a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
+	/** 결제 정보가 로드 되었을 경우 */
+	private static void OnLoadPurchaseInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		CFunc.Invoke(ref Func.m_oPurchaseInfosLoadCallback, a_oSender, a_oJSONStr, a_bIsSuccess);
+	}
+
 	/** 지급 아이템 정보가 로드 되었을 경우 */
 	private static void OnLoadPostItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
@@ -448,6 +489,12 @@ public static partial class Func {
 	private static void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		CFunc.Invoke(ref Func.m_oUserInfoSaveCallback, a_oSender, a_bIsSuccess);
+	}
+
+	/** 결제 정보가 저장 되었을 경우 */
+	private static void OnSavePurchaseInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		CFunc.Invoke(ref Func.m_oPurchaseInfosSaveCallback, a_oSender, a_bIsSuccess);
 	}
 
 	/** 지급 아이템 정보가 저장 되었을 경우 */

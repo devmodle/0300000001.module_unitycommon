@@ -129,6 +129,8 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 			// 레벨 에디터 씬 일 경우
 			if(CSceneManager.PrevSceneName.Equals(KCDefine.B_SCENE_N_LEVEL_EDITOR)) {
 				Func.ShowLeavePopup(this.OnReceiveLeavePopupResult);
+			} else {
+				this.OnTouchPauseBtn();
 			}
 		}
 	}
@@ -139,6 +141,10 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 
 		m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo;
 		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null;
+
+		// 버튼을 설정한다
+		var oPauseBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_RESTORE_BTN);
+		oPauseBtn?.ExAddListener(this.OnTouchPauseBtn, true, false);
 
 		// 터치 전달자를 설정한다
 		m_oBGTouchDispatcher = m_oBGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
@@ -213,6 +219,11 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 			case EPopupResult.CONTINUE: this.ContinueCurLevel(); break;
 			case EPopupResult.LEAVE: m_bIsLeave = true; this.LoadNextLevel(); break;
 		}
+	}
+
+	/** 정지 버튼을 눌렀을 경우 */
+	private void OnTouchPauseBtn() {
+		// Do Something
 	}
 
 	/** 터치를 시작했을 경우 */

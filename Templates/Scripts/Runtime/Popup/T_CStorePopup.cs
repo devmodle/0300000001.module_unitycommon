@@ -216,14 +216,9 @@ public class CStorePopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-	/** 유저 정보를 저장했을 경우 */
-	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oPurchaseProductID, true, null);
-	}
-
-	/** 지급 아이템 정보를 저장했을 경우 */
-	private void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
+	/** 결제 정보를 로드했을 경우 */
+	private void OnLoadPurchaseInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+		// TODO: 로드 처리 로직 구현 필요
 	}
 
 	/** 지급 아이템 정보를 로드했을 경우 */
@@ -253,6 +248,21 @@ public class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
+	}
+
+	/** 결제 정보를 저장했을 경우 */
+	private void OnSavePurchaseInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		// TODO: 저장 처리 로직 구현 필요
+	}
+
+	/** 지급 아이템 정보를 저장했을 경우 */
+	private void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
+	}
+
+	/** 유저 정보를 저장했을 경우 */
+	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oPurchaseProductID, true, null);
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 

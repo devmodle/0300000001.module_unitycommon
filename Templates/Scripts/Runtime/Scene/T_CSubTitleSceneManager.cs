@@ -18,7 +18,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 	}
 
 	#region 변수
-	[System.NonSerialized] private CLevelInfo m_oSelLevelInfo = null;
+	private STIDInfo m_stSelIDInfo;
 
 	// =====> UI <=====
 	private Dictionary<EScrollerType, EnhancedScroller> m_oScrollerDict = new Dictionary<EScrollerType, EnhancedScroller>();
@@ -38,10 +38,10 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 	public int GetNumberOfCells(EnhancedScroller a_oSender) {
 		// 레벨 스크롤러 일 경우
 		if(m_oScrollerDict[EScrollerType.LEVEL] == a_oSender) {
-			return CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID) / KDefine.TS_MAX_NUM_LEVELS_IN_ROW;
+			return CLevelInfoTable.Inst.GetNumLevelInfos(m_stSelIDInfo.m_nStageID, m_stSelIDInfo.m_nChapterID) / KDefine.TS_MAX_NUM_LEVELS_IN_ROW;
 		}
 
-		return (m_oScrollerDict[EScrollerType.STAGE] == a_oSender) ? CLevelInfoTable.Inst.GetNumStageInfos(m_oSelLevelInfo.m_stIDInfo.m_nChapterID) / KDefine.TS_MAX_NUM_STAGES_IN_ROW : CLevelInfoTable.Inst.NumChapterInfos / KDefine.TS_MAX_NUM_CHAPTERS_IN_ROW;
+		return (m_oScrollerDict[EScrollerType.STAGE] == a_oSender) ? CLevelInfoTable.Inst.GetNumStageInfos(m_stSelIDInfo.m_nChapterID) / KDefine.TS_MAX_NUM_STAGES_IN_ROW : CLevelInfoTable.Inst.NumChapterInfos / KDefine.TS_MAX_NUM_CHAPTERS_IN_ROW;
 	}
 
 	/** 셀 뷰 크기를 반환한다 */
@@ -56,12 +56,12 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 
 	/** 셀 뷰를 반환한다 */
 	public EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
-		var stIDInfo = CFactory.MakeIDInfo(a_nDataIdx * KDefine.TS_MAX_NUM_LEVELS_IN_ROW, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+		var stIDInfo = CFactory.MakeIDInfo(a_nDataIdx * KDefine.TS_MAX_NUM_LEVELS_IN_ROW, m_stSelIDInfo.m_nStageID, m_stSelIDInfo.m_nChapterID);
 		var oOriginScrollerCellView = m_oOriginScrollerCellViewDict[EScrollerType.LEVEL];
 
 		// 레벨 스크롤러가 아닐 경우
 		if(m_oScrollerDict[EScrollerType.LEVEL] != a_oSender) {
-			stIDInfo = (m_oScrollerDict[EScrollerType.STAGE] == a_oSender) ? CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.TS_MAX_NUM_STAGES_IN_ROW, m_oSelLevelInfo.m_stIDInfo.m_nChapterID) : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.TS_MAX_NUM_CHAPTERS_IN_ROW);
+			stIDInfo = (m_oScrollerDict[EScrollerType.STAGE] == a_oSender) ? CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.TS_MAX_NUM_STAGES_IN_ROW, m_stSelIDInfo.m_nChapterID) : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.TS_MAX_NUM_CHAPTERS_IN_ROW);
 			oOriginScrollerCellView = (m_oScrollerDict[EScrollerType.STAGE] == a_oSender) ? m_oOriginScrollerCellViewDict[EScrollerType.STAGE] : m_oOriginScrollerCellViewDict[EScrollerType.CHAPTER];
 		}
 
@@ -144,7 +144,8 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
-		m_oSelLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT);
+		var ePlayMode = CGameInfoStorage.Inst.PlayMode;
+		m_stSelIDInfo = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT);
 
 		// 버튼을 설정한다
 		var oPlayBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);

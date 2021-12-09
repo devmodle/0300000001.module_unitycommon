@@ -27,6 +27,11 @@ public static partial class Factory {
 		return CFactory.MakeUserInfoNodes();
 	}
 
+	/** 결제 정보 노드를 생성한다 */
+	public static List<string> MakePurchaseInfoNodes() {
+		return CFactory.MakePurchaseInfoNodes();
+	}
+
 	/** 지급 아이템 정보 노드를 생성한다 */
 	public static List<string> MakePostItemInfoNodes() {
 		return CFactory.MakePostItemInfoNodes();

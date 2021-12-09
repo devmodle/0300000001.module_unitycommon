@@ -112,11 +112,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 #if UNITY_IOS || UNITY_ANDROID
 		nTargetFrameRate = CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
-#else
-		// 독립 플랫폼 일 경우
-		if(CAccess.IsStandalone) {
-			Screen.SetResolution((int)CAccess.DesktopScreenSize.x, (int)CAccess.DesktopScreenSize.y, FullScreenMode.Windowed);
-		}
 #endif			// #if UNITY_IOS || UNITY_ANDROID
 
 #if MULTI_TOUCH_ENABLE

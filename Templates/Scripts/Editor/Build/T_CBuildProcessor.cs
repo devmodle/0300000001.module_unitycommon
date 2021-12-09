@@ -43,37 +43,39 @@ public static partial class CBuildProcessor {
 		string oPlistPath = string.Format(KCEditorDefine.B_PLIST_P_FMT_IOS, a_oPath);
 		string oPBXProjPath = string.Format(KCEditorDefine.B_PROJ_P_FMT_COCOA_PODS, a_oPath);
 
-		// Plist 옵션을 설정한다 {
-		var oDoc = new PlistDocument();
-		oDoc.ReadFromFile(oPlistPath);
+		// Plist 파일이 존재 할 경우
+		if(File.Exists(oPlistPath)) {
+			var oDoc = new PlistDocument();
+			oDoc.ReadFromFile(oPlistPath);
 
-		var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
-		oDeviceCapabilityList.AddString(KCEditorDefine.B_TEXT_IOS_METAL);
-		oDeviceCapabilityList.AddString(KCEditorDefine.B_TEXT_IOS_ARM_64);
+			var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
+			oDeviceCapabilityList.ExAddStr(KCEditorDefine.B_TEXT_IOS_METAL);
+			oDeviceCapabilityList.ExAddStr(KCEditorDefine.B_TEXT_IOS_ARM_64);
 
-		oDoc.WriteToFile(oPlistPath);
-		// Plist 옵션을 설정한다 }
-
-		// 프로젝트 옵션을 설정한다 {
-		var oPBXProj = new PBXProject();
-		oPBXProj.ReadFromFile(oPBXProjPath);
-
-		string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
-		string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
-
-		for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST.Count; ++i) {
-			oPBXProj.RemoveFrameworkFromProject(oMainGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST[i]);
-			oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST[i]);
+			oDoc.WriteToFile(oPlistPath);
 		}
 
-		// 파일이 존재 할 경우
-		if(File.Exists(oPodsPath)) {
-			CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath), false);
-			oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
-		}
+		// 프로젝트 파일이 존재 할 경우
+		if(File.Exists(oPBXProjPath)) {
+			var oPBXProj = new PBXProject();
+			oPBXProj.ReadFromFile(oPBXProjPath);
 
-		oPBXProj.WriteToFile(oPBXProjPath);
-		// 프로젝트 옵션을 설정한다 }
+			string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
+			string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
+
+			for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST.Count; ++i) {
+				oPBXProj.RemoveFrameworkFromProject(oMainGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST[i]);
+				oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST[i]);
+			}
+
+			// 코코아 포드 파일이 존재 할 경우
+			if(File.Exists(oPodsPath)) {
+				CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath), false);
+				oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
+			}
+
+			oPBXProj.WriteToFile(oPBXProjPath);
+		}
 #endif			// #if UNITY_IOS
 	}
 
@@ -83,89 +85,91 @@ public static partial class CBuildProcessor {
 		string oPlistPath = string.Format(KCEditorDefine.B_PLIST_P_FMT_IOS, a_oPath);
 		string oPBXProjPath = PBXProject.GetPBXProjectPath(a_oPath);
 
-		// Plist 옵션을 설정한다 {
-		var oDoc = new PlistDocument();
-		oDoc.ReadFromFile(oPlistPath);
+		// Plist 파일이 존재 할 경우
+		if(File.Exists(oPlistPath)) {
+			var oDoc = new PlistDocument();
+			oDoc.ReadFromFile(oPlistPath);
 
-		oDoc.root.SetBoolean(KCEditorDefine.B_KEY_IOS_ENCRYPTION_ENABLE, KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
-		oDoc.root.SetString(KCEditorDefine.B_KEY_IOS_USER_TRACKING_USAGE_DESC, KEditorDefine.B_IOS_USER_TRACKING_USAGE_DESC);
+			oDoc.root.SetBoolean(KCEditorDefine.B_KEY_IOS_ENCRYPTION_ENABLE, KEditorDefine.B_IOS_ENCRYPTION_ENABLE);
+			oDoc.root.SetString(KCEditorDefine.B_KEY_IOS_USER_TRACKING_USAGE_DESC, KEditorDefine.B_IOS_USER_TRACKING_USAGE_DESC);
 
-		var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
-		oDeviceCapabilityList.values.Clear();
-		
-		for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST.Count; ++i) {
-			var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
+			var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_DEVICE_CAPABILITIES);
+			oDeviceCapabilityList.values.Clear();
+			
+			for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST.Count; ++i) {
+				var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
 
-			// 광고 네트워크 식별자가 없을 경우
-			if(!oAdsNetworkItemList.ExIsContainsAdsNetworkID(KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST[i])) {
-				var oAdsNetworkIDInfo = oAdsNetworkItemList.AddDict();
-				oAdsNetworkIDInfo.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST[i]);
+				// 광고 네트워크 식별자가 없을 경우
+				if(!oAdsNetworkItemList.ExIsContainsAdsNetworkID(KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST[i])) {
+					var oAdsNetworkIDInfoDict = oAdsNetworkItemList.AddDict();
+					oAdsNetworkIDInfoDict.SetString(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ID, KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST[i]);
+				}
 			}
-		}
-		
-		oDoc.WriteToFile(oPlistPath);
-		// Plist 옵션을 설정한다 }
-
-		// 프로젝트 옵션을 설정한다 {
-		var oPBXProj = new PBXProject();
-		oPBXProj.ReadFromFile(oPBXProjPath);
-
-		string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
-		string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
-
-		oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
-		oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
-
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST.Count; ++i) {
-			oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
-			oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
+			
+			oDoc.WriteToFile(oPlistPath);
 		}
 
-		/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
-			oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST[i]);
+		// 프로젝트 파일이 존재 할 경우
+		if(File.Exists(oPBXProjPath)) {
+			var oPBXProj = new PBXProject();
+			oPBXProj.ReadFromFile(oPBXProjPath);
+
+			string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
+			string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
+
+			oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
+			oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
+
+			for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST.Count; ++i) {
+				oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
+				oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
+			}
+
+			/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
+			for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
+				oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST[i]);
+			}
+			*/
+
+			// 전처리기 심볼 테이블이 존재 할 경우
+			if(CPlatformOptsSetter.DefineSymbolDictContainer != null && CPlatformOptsSetter.DefineSymbolDictContainer.ContainsKey(BuildTargetGroup.iOS)) {
+				var oDefineSymbolList = CPlatformOptsSetter.DefineSymbolDictContainer[BuildTargetGroup.iOS];
+
+				for(int i = 0; i < oDefineSymbolList.Count; ++i) {
+					oPBXProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+					oPBXProj.AddBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
+				}
+			}
+
+			oPBXProj.WriteToFile(oPBXProjPath);
+
+			/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
+			var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_CAPABILITY_IOS, null, oMainGUID);
+			
+			for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
+				var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST[i];
+
+				// 애플 로그인 타입 일 경우
+				if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
+					oCapability.AddSignInWithApple();
+				}
+				// 푸시 알림 타입 일 경우
+				else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
+					oCapability.AddPushNotifications(CPlatformBuilder.BuildType != EBuildType.STORE);
+				}
+				// 게임 센터 타입 일 경우
+				else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
+					oCapability.AddGameCenter();
+				}
+				// 결제 타입 일 경우
+				else if(oCapabilityType.Equals(PBXCapabilityType.InAppPurchase)) {
+					oCapability.AddInAppPurchase();
+				}
+			}
+
+			oCapability.WriteToFile();
+			*/
 		}
-		*/
-
-		// 전처리기 심볼 테이블이 존재 할 경우
-		if(CPlatformOptsSetter.DefineSymbolDictContainer != null && CPlatformOptsSetter.DefineSymbolDictContainer.ContainsKey(BuildTargetGroup.iOS)) {
-			var oDefineSymbolList = CPlatformOptsSetter.DefineSymbolDictContainer[BuildTargetGroup.iOS];
-
-			for(int i = 0; i < oDefineSymbolList.Count; ++i) {
-				oPBXProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
-				oPBXProj.AddBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
-			}
-		}
-
-		oPBXProj.WriteToFile(oPBXProjPath);
-
-		/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
-		var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_CAPABILITY_IOS, null, oMainGUID);
-		
-		for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
-			var oCapabilityType = KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST[i];
-
-			// 애플 로그인 타입 일 경우
-			if(oCapabilityType.Equals(PBXCapabilityType.SignInWithApple)) {
-				oCapability.AddSignInWithApple();
-			}
-			// 푸시 알림 타입 일 경우
-			else if(oCapabilityType.Equals(PBXCapabilityType.PushNotifications)) {
-				oCapability.AddPushNotifications(CPlatformBuilder.BuildType != EBuildType.STORE);
-			}
-			// 게임 센터 타입 일 경우
-			else if(oCapabilityType.Equals(PBXCapabilityType.GameCenter)) {
-				oCapability.AddGameCenter();
-			}
-			// 결제 타입 일 경우
-			else if(oCapabilityType.Equals(PBXCapabilityType.InAppPurchase)) {
-				oCapability.AddInAppPurchase();
-			}
-		}
-
-		oCapability.WriteToFile();
-		*/
-		// 프로젝트 옵션을 설정한다 }
 #endif			// #if UNITY_IOS
 	}
 

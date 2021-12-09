@@ -54,6 +54,10 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
 		CSndManager.Inst.IsDisableVibrate = CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate;
 		// 사운드 관리자를 설정한다 }
+
+#if UNITY_STANDALONE
+		Screen.SetResolution((int)CAccess.DesktopScreenSize.x, (int)CAccess.DesktopScreenSize.y, FullScreenMode.Windowed);
+#endif			// #if UNITY_STANDALONE
 	}
 
 	/** 초기화 */
