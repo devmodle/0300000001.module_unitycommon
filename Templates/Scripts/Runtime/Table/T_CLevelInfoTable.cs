@@ -570,6 +570,9 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_nID = a_oLevelInfo.m_stIDInfo.m_nID, 
 			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID, 
 			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID, 
+
+			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(), 
+			m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>(), 
 			
 #if EPISODE_INFO_OVERWRITE_ENABLE
 			m_eLevelMode = a_oLevelInfo.LevelMode, 
@@ -583,9 +586,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_eTutorialKinds = stLevelInfo.m_eTutorialKinds
 #endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 		};
-
-		stReplaceLevelInfo.m_oNumTargetsDict = stReplaceLevelInfo.m_oNumTargetsDict ?? new Dictionary<ETargetKinds, int>();
-		stReplaceLevelInfo.m_oUnlockNumTargetsDict = stReplaceLevelInfo.m_oUnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>();
 
 #if EPISODE_INFO_OVERWRITE_ENABLE
 		a_oLevelInfo.NumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
