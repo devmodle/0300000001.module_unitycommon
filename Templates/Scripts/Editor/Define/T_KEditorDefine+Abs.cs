@@ -224,11 +224,13 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.1.2", ["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommonpurchase_client.git#1.8.0",
+		["com.unity.purchasing"] = "4.1.2", 
+		["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommonpurchase_client.git#1.8.0",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["com.unity.mobile.notifications"] = "1.4.2", ["module.unitycommon.Noti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommon_Noti_client.git#1.8.0"
+		["com.unity.mobile.notifications"] = "1.4.2", 
+		["module.unitycommon.Noti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/00000001.module_unitycommon_Noti_client.git#1.8.0"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 	};
 

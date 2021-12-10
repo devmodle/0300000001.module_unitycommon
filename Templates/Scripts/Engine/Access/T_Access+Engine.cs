@@ -11,18 +11,16 @@ namespace SampleEngineName {
 		#region 클래스 함수
 		/** 정렬 순서를 반환한다 */
 		public static STSortingOrderInfo GetSortingOrder(EBlockKinds a_eBlockKinds) {
-			var eKindsType = a_eBlockKinds.ExKindsToKindsType();
-			CAccess.Assert(KDefine.E_SORTING_OI_BLOCK_DICT.ContainsKey(eKindsType));
+			bool bIsValid = KDefine.E_SORTING_OI_BLOCK_DICT.TryGetValue(a_eBlockKinds.ExKindsToKindsType(), out STSortingOrderInfo stOrderInfo);
+			CAccess.Assert(bIsValid);
 
-			return KDefine.E_SORTING_OI_BLOCK_DICT[eKindsType];
+			return stOrderInfo;
 		}
 
 		/** 블럭 스프라이트를 반환한다 */
 		public static Sprite GetBlockSprite(EBlockKinds a_eBlockKinds) {
-			var eKindsType = a_eBlockKinds.ExKindsToKindsType();
-			string oImgPath = KDefine.E_IMG_P_BLOCK_DICT.ExGetVal(eKindsType, string.Empty);
-
-			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
+			bool bIsValid = KDefine.E_IMG_P_BLOCK_DICT.TryGetValue(a_eBlockKinds.ExKindsToKindsType(), out string oImgPath);
+			return (bIsValid && oImgPath.ExIsValid()) ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 		#endregion			// 클래스 함수
 

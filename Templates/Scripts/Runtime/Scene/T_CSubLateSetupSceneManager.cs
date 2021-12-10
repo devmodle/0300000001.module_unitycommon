@@ -56,7 +56,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		this.IsAutoInitManager = true;
-
+		
 #if ADS_MODULE_ENABLE
 		CLateSetupSceneManager.IsAutoLoadBannerAds = true;
 		CLateSetupSceneManager.IsAutoLoadRewardAds = true;

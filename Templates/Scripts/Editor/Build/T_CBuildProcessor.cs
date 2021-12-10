@@ -31,8 +31,10 @@ public static partial class CBuildProcessor {
 	/** 빌드가 완료 되었을 경우 */
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
-		CAccess.Assert(CBuildProcessor.m_oPostProcessHandlerDict.ContainsKey(a_eTarget));
-		CBuildProcessor.m_oPostProcessHandlerDict[a_eTarget](a_eTarget, a_oPath);
+		bool bIsValid = CBuildProcessor.m_oPostProcessHandlerDict.TryGetValue(a_eTarget, out System.Action<BuildTarget, string> oHandler);
+		CAccess.Assert(bIsValid);
+		
+		oHandler?.Invoke(a_eTarget, a_oPath);
 	}
 
 	/** 빌드가 완료 되었을 경우 */
@@ -132,9 +134,7 @@ public static partial class CBuildProcessor {
 			*/
 
 			// 전처리기 심볼 테이블이 존재 할 경우
-			if(CPlatformOptsSetter.DefineSymbolDictContainer != null && CPlatformOptsSetter.DefineSymbolDictContainer.ContainsKey(BuildTargetGroup.iOS)) {
-				var oDefineSymbolList = CPlatformOptsSetter.DefineSymbolDictContainer[BuildTargetGroup.iOS];
-
+			if(CPlatformOptsSetter.DefineSymbolDictContainer != null && CPlatformOptsSetter.DefineSymbolDictContainer.TryGetValue(BuildTargetGroup.iOS, out List<string> oDefineSymbolList)) {
 				for(int i = 0; i < oDefineSymbolList.Count; ++i) {
 					oPBXProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
 					oPBXProj.AddBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);

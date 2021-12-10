@@ -354,18 +354,15 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		base.Awake();
 
 		for(int i = 0; i < m_oLevelInfoList.Count; ++i) {
-			long nLevelID = CFactory.MakeUniqueLevelID(i, m_oLevelInfoList[i].m_nStageID, m_oLevelInfoList[i].m_nChapterID);
-			this.LevelInfoDict.ExAddVal(nLevelID, m_oLevelInfoList[i]);
+			this.LevelInfoDict.ExAddVal(CFactory.MakeUniqueLevelID(i, m_oLevelInfoList[i].m_nStageID, m_oLevelInfoList[i].m_nChapterID), m_oLevelInfoList[i]);
 		}
 
 		for(int i = 0; i < m_oStageInfoList.Count; ++i) {
-			long nStageID = CFactory.MakeUniqueStageID(i, m_oStageInfoList[i].m_nChapterID);
-			this.StageInfoDict.ExAddVal(nStageID, m_oStageInfoList[i]);
+			this.StageInfoDict.ExAddVal(CFactory.MakeUniqueStageID(i, m_oStageInfoList[i].m_nChapterID), m_oStageInfoList[i]);
 		}
 
 		for(int i = 0; i < m_oChapterInfoList.Count; ++i) {
-			long nChapterID = CFactory.MakeUniqueChapterID(i);
-			this.ChapterInfoDict.ExAddVal(nChapterID, m_oChapterInfoList[i]);
+			this.ChapterInfoDict.ExAddVal(CFactory.MakeUniqueChapterID(i), m_oChapterInfoList[i]);
 		}
 	}
 

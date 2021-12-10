@@ -268,44 +268,37 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 레벨 클리어 여부를 검사한다 */
 	public bool IsClearLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
-		return this.GameInfo.m_oClearInfoDict.ContainsKey(nLevelID);
+		return this.GameInfo.m_oClearInfoDict.ContainsKey(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
 	/** 레벨 잠금 해제 여부를 검사한다 */
 	public bool IsUnlockLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
-		return this.GameInfo.m_oUnlockLevelIDList.Contains(nLevelID);
+		return this.GameInfo.m_oUnlockLevelIDList.Contains(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
 	/** 스테이지 잠금 해제 여부를 검사한다 */
 	public bool IsUnlockStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nStageID = CFactory.MakeUniqueStageID(a_nID);
-		return this.GameInfo.m_oUnlockStageIDList.Contains(nStageID);
+		return this.GameInfo.m_oUnlockStageIDList.Contains(CFactory.MakeUniqueStageID(a_nID));
 	}
 
 	/** 챕터 잠금 해제 여부를 검사한다 */
 	public bool IsUnlockChapter(int a_nID) {
-		long nChapterID = CFactory.MakeUniqueChapterID(a_nID);
-		return this.GameInfo.m_oUnlockChapterIDList.Contains(nChapterID);
+		return this.GameInfo.m_oUnlockChapterIDList.Contains(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
 	/** 레벨 보상 획득 여부를 검사한다 */
 	public bool IsAcquireRewardLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
-		return this.GameInfo.m_oAcquireRewardLevelIDList.Contains(nLevelID);
+		return this.GameInfo.m_oAcquireRewardLevelIDList.Contains(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
 	/** 스테이지 보상 획득 여부를 검사한다 */
 	public bool IsAcquireRewardStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nStageID = CFactory.MakeUniqueStageID(a_nID, a_nChapterID);
-		return this.GameInfo.m_oAcquireRewardStageIDList.Contains(nStageID);
+		return this.GameInfo.m_oAcquireRewardStageIDList.Contains(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
 	}
 
 	/** 챕터 보상 획득 여부를 검사한다 */
 	public bool IsAcquireRewardChapter(int a_nID) {
-		long nChapterID = CFactory.MakeUniqueChapterID(a_nID);
-		return this.GameInfo.m_oAcquireRewardChapterIDList.Contains(nChapterID);
+		return this.GameInfo.m_oAcquireRewardChapterIDList.Contains(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
 	/** 스테이지 별 개수를 반환한다 */
@@ -357,9 +350,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 클리어 정보를 반환한다 */
 	public bool TryGetClearInfo(int a_nID, out CClearInfo a_oOutClearInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
-		a_oOutClearInfo = this.GameInfo.m_oClearInfoDict.ExGetVal(nLevelID, null);
-
+		a_oOutClearInfo = this.GameInfo.m_oClearInfoDict.ExGetVal(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID), null);
 		return a_oOutClearInfo != null;
 	}
 

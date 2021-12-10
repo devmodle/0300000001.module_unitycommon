@@ -50,8 +50,8 @@ public static partial class CEditorSceneManager {
 					var oType = oMonoScripts[i].GetClass();
 					
 					// 스크립트 순서 설정이 가능 할 경우
-					if(oType != null && KEditorDefine.B_SCRIPT_ORDER_DICT.ContainsKey(oType)) {
-						CAccess.SetScriptOrder(oMonoScripts[i], KEditorDefine.B_SCRIPT_ORDER_DICT[oType]);
+					if(oType != null && KEditorDefine.B_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nOrder)) {
+						CAccess.SetScriptOrder(oMonoScripts[i], nOrder);
 					}
 				}
 			}
