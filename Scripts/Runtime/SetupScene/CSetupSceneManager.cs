@@ -86,16 +86,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	/** 국가 코드 반환 메세지를 처리한다 */
 	private void HandleGetCountryCodeMsg(string a_oMsg) {
-		string oCountryCode = a_oMsg;
+#if UNITY_EDITOR
+		CCommonAppInfoStorage.Inst.CountryCode = a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_KOREA_COUNTRY_CODE;
+#else
+		CCommonAppInfoStorage.Inst.CountryCode = a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_AMERICA_COUNTRY_CODE;
+#endif			// #if UNITY_EDITOR
 
-		// 국가 코드 설정이 필요 할 경우
-		if(!CAccess.IsMobile || !oCountryCode.ExIsValid()) {
-			oCountryCode = !CAccess.IsMobile ? KCDefine.B_KOREA_COUNTRY_CODE : KCDefine.B_UNKNOWN_COUNTRY_CODE;
-		}
-
-		CCommonAppInfoStorage.Inst.CountryCode = oCountryCode.ToUpper();
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
-
 		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_AGREE_SCENE, false);
 
 		CSceneManager.IsSetup = true;

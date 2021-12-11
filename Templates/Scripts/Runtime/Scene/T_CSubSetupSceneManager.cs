@@ -31,7 +31,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		CAppInfoStorage.Inst.LoadAppInfo();
 		CUserInfoStorage.Inst.LoadUserInfo();
 		CGameInfoStorage.Inst.LoadGameInfo();
-
+		
 		// 테이블을 로드한다
 		CLevelInfoTable.Inst.LoadLevelInfos();
 		CSaleItemInfoTable.Inst.LoadSaleItemInfos();
@@ -50,7 +50,8 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		if(!CCommonAppInfoStorage.Inst.AppInfo.Language.ExIsValid()) {
 			CCommonAppInfoStorage.Inst.AppInfo.Language = Application.systemLanguage;
 		}
-
+		
+		CCommonAppInfoStorage.Inst.StoreURL = Access.StoreURL;
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
 	}
 	#endregion			// 함수

@@ -160,39 +160,43 @@ public static partial class KEditorDefine {
 		["com.unity.formats.fbx"] = "4.1.2", 
 		["com.unity.mathematics"] = "1.2.5", 
 		["com.unity.localization"] = "1.0.5", 
-		["com.unity.addressables"] = "1.19.13", 
-		["com.unity.ads.ios-support"] = "1.0.0",
+		["com.unity.addressables"] = "1.19.14", 
+		["com.unity.ads.ios-support"] = "1.0.0", 
 
 		// 2D
 		["com.unity.2d.sprite"] = "1.0.0", 
 		["com.unity.2d.spriteshape"] = "7.0.3", 
 		["com.unity.2d.tilemap"] = "1.0.0", 
-		["com.unity.2d.tilemap.extras"] = "2.2.1",
+		["com.unity.2d.tilemap.extras"] = "2.2.1", 
 
 		// 렌더링
 		["com.unity.2d.pixel-perfect"] = "5.0.1", 
-		["com.unity.visualeffectgraph"] = "12.1.1", 
-		["com.unity.render-pipelines.universal"] = "12.1.1",
+		["com.unity.visualeffectgraph"] = "12.1.2", 
+		["com.unity.render-pipelines.universal"] = "12.1.2", 
 
 		// 애니메이션
 		["com.unity.2d.animation"] = "7.0.2", 
 		["com.unity.2d.psdimporter"] = "6.0.1", 
-		["com.unity.animation.rigging"] = "1.1.1",
+		["com.unity.animation.rigging"] = "1.1.1", 
 
 		// 분석
 		["com.unity.mobile.android-logcat"] = "1.2.3", 
-		["com.unity.performance.profile-analyzer"] = "1.1.1",
+		["com.unity.performance.profile-analyzer"] = "1.1.1", 
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",
 #endif			// #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
+
+#if ADAPTIVE_PERFORMANCE_ENABLE || ADAPTIVE_PERFORMANCE_MODULE_ENABLE
+		["com.unity.adaptiveperformance"] = "3.0.0",
+#endif			// #if ADAPTIVE_PERFORMANCE_ENABLE || ADAPTIVE_PERFORMANCE_MODULE_ENABLE
 
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 		["com.unity.cinemachine"] = "2.8.3",
 #endif			// #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 
 #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
-		["com.unity.inputsystem"] = "1.1.1",
+		["com.unity.inputsystem"] = "1.2.0",
 #endif			// #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE

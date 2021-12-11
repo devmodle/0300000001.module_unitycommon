@@ -236,12 +236,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 		
 		CCommonAppInfoStorage.Inst.IsFirstStart = false;
 
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		// 독립 플랫폼 일 경우
-		if(CAccess.IsStandalone) {
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
-		}
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+#endif			// #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 최초 플레이 상태를 갱신한다 */

@@ -56,7 +56,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		// 사운드 관리자를 설정한다 }
 
 #if UNITY_STANDALONE
-		Screen.SetResolution((int)CAccess.DesktopScreenSize.x, (int)CAccess.DesktopScreenSize.y, FullScreenMode.Windowed);
+		Screen.SetResolution((int)CAccess.CorrectDesktopScreenSize.x, (int)CAccess.CorrectDesktopScreenSize.y, FullScreenMode.Windowed);
 #endif			// #if UNITY_STANDALONE
 	}
 
