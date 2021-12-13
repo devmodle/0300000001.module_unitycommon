@@ -32,10 +32,10 @@
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (v2.3.85)*
 	- *Thai Font Adjuster (v1.0.0)*
-	- *UI Effect (v3.2.0)*
-	- *Particle For GUI (v3.3.5)*
-	- *Soft Mask For GUI (v1.0.0)*
-	- *Unmask For GUI (v1.2.0)*
+	- *UI Effect (v3.2.0 - Jul 17, 2019)*
+	- *Particle For GUI (v3.3.9 - Aug 3, 2021)*
+	- *Soft Mask For GUI (v1.0.0 - Feb 24, 2021)*
+	- *Unmask For GUI (v1.3.0 - Jun 29, 2021)*
 5. **기타 추가 에셋 및 플러그인 리스트**
 	- *Google (Review, Update - v1.5.0)*
 	- *Firebase (Auth, DB, Analytics, Crashlytics, Remote Config, Cloud Messaging - v8.4.0)*

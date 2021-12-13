@@ -76,8 +76,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		string oDeviceID = CCommonAppInfoStorage.Inst.AppInfo.DeviceID;
 		
 		// 디바이스 식별자 설정이 필요 할 경우
-		if(!oDeviceID.ExIsValid() || oDeviceID.Equals(KCDefine.B_UNKNOWN_DEVICE_ID)) {
-			CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_DEVICE_ID;
+		if(!oDeviceID.ExIsValid() || oDeviceID.Equals(KCDefine.B_UNKNOWN_STR)) {
+			CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_STR;
 		}
 		
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
