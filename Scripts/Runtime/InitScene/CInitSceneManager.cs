@@ -53,6 +53,26 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CSndManager.Inst.IsMuteBGSnd = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
 		CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
 		CSndManager.Inst.IsDisableVibrate = CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate;
+
+#if MODE_2D_ENABLE
+		CSndManager.Inst.IsIgnoreBGSndEffects = true;
+		CSndManager.Inst.IsIgnoreFXSndsEffects = true;
+
+		CSndManager.Inst.IsIgnoreBGSndReverbZones = true;
+		CSndManager.Inst.IsIgnoreFXSndsReverbZones = true;
+
+		CSndManager.Inst.IsIgnoreBGSndListenerEffects = true;
+		CSndManager.Inst.IsIgnoreFXSndsListenerEffects = true;
+#else
+		CSndManager.Inst.IsIgnoreBGSndEffects = false;
+		CSndManager.Inst.IsIgnoreFXSndsEffects = false;
+
+		CSndManager.Inst.IsIgnoreBGSndReverbZones = false;
+		CSndManager.Inst.IsIgnoreFXSndsReverbZones = false;
+
+		CSndManager.Inst.IsIgnoreBGSndListenerEffects = false;
+		CSndManager.Inst.IsIgnoreFXSndsListenerEffects = false;
+#endif			// #if MODE_2D_ENABLE
 		// 사운드 관리자를 설정한다 }
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)

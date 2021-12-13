@@ -83,22 +83,18 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 코인 개수를 추가한다 */
 	public void AddNumCoins(int a_nNumCoins) {
-		int nNumCoins = this.UserInfo.NumCoins + a_nNumCoins;
-		this.UserInfo.NumCoins = Mathf.Clamp(nNumCoins, KCDefine.B_VAL_0_INT, int.MaxValue);
+		this.UserInfo.NumCoins = Mathf.Clamp(this.UserInfo.NumCoins + a_nNumCoins, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 
 	/** 잔돈 개수를 추가한다 */
 	public void AddNumSaleCoins(int a_nNumSaleCoins) {
-		int nNumSaleCoins = this.UserInfo.NumSaleCoins + a_nNumSaleCoins;
-		this.UserInfo.NumSaleCoins = Mathf.Clamp(nNumSaleCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
+		this.UserInfo.NumSaleCoins = Mathf.Clamp(this.UserInfo.NumSaleCoins + a_nNumSaleCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
 	}
 	
 	/** 아이템 개수를 추가한다 */
 	public void AddNumItems(EItemKinds a_eItemKinds, int a_nNumItems) {
 		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
-		nNumItems = Mathf.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue);
-
-		this.UserInfo.m_oNumItemsDict.ExReplaceVal(a_eItemKinds, nNumItems);
+		this.UserInfo.m_oNumItemsDict.ExReplaceVal(a_eItemKinds, Mathf.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue));
 	}
 
 	/** 유저 정보를 로드한다 */

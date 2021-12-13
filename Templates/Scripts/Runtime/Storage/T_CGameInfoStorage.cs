@@ -368,8 +368,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 무료 보상 획득 횟수를 추가한다 */
 	public void AddNumAcquireFreeRewards(int a_nRewardTimes) {
-		int nNumAcquireFreeRewards = this.GameInfo.NumAcquireFreeRewards + a_nRewardTimes;
-		this.GameInfo.NumAcquireFreeRewards = Mathf.Clamp(nNumAcquireFreeRewards, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_ACQUIRE_FREE_REWARDS);
+		this.GameInfo.NumAcquireFreeRewards = Mathf.Clamp(this.GameInfo.NumAcquireFreeRewards + a_nRewardTimes, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_ACQUIRE_FREE_REWARDS);
 	}
 
 	/** 완료 미션을 추가한다 */

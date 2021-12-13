@@ -123,20 +123,17 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 #if ADS_MODULE_ENABLE
 	/** 광고 누적 횟수를 추가한다 */
 	public void AddAdsSkipTimes(int a_nTimes) {
-		int nSkipTimes = this.AdsSkipTimes + a_nTimes;
-		this.AdsSkipTimes = Mathf.Max(nSkipTimes, KCDefine.B_VAL_0_INT);
+		this.AdsSkipTimes = Mathf.Clamp(this.AdsSkipTimes + a_nTimes, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 
 	/** 보상 광고 시청 횟수를 추가한다 */
 	public void AddRewardAdsWatchTimes(int a_nTimes) {
-		int nWatchTimes = this.AppInfo.RewardAdsWatchTimes + a_nTimes;
-		this.AppInfo.RewardAdsWatchTimes = Mathf.Max(nWatchTimes, KCDefine.B_VAL_0_INT);
+		this.AppInfo.RewardAdsWatchTimes = Mathf.Clamp(this.AppInfo.RewardAdsWatchTimes + a_nTimes, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 
 	/** 전면 광고 시청 횟수를 추가한다 */
 	public void AddFullscreenAdsWatchTimes(int a_nTimes) {
-		int nWatchTimes = this.AppInfo.FullscreenAdsWatchTimes + a_nTimes;
-		this.AppInfo.FullscreenAdsWatchTimes = Mathf.Max(nWatchTimes, KCDefine.B_VAL_0_INT);
+		this.AppInfo.FullscreenAdsWatchTimes = Mathf.Clamp(this.AppInfo.FullscreenAdsWatchTimes + a_nTimes, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 조건부 함수

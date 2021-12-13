@@ -152,18 +152,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 		oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
 
 		// 스크롤러를 설정한다 {
-		var oLevelScroller = this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW);
-		oLevelScroller?.ExSetActive(true, false);
-
-		var oStageScroller = this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW);
-		oStageScroller?.ExSetActive(false, false);
-
-		var oChapterScroller = this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW);
-		oChapterScroller?.ExSetActive(false, false);
-
-		m_oScrollerDict.ExAddVal(EScrollerType.LEVEL, oLevelScroller);
-		m_oScrollerDict.ExAddVal(EScrollerType.STAGE, oStageScroller);
-		m_oScrollerDict.ExAddVal(EScrollerType.CHAPTER, oChapterScroller);
+		m_oScrollerDict.ExAddVal(EScrollerType.LEVEL, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW));
+		m_oScrollerDict.ExAddVal(EScrollerType.STAGE, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW));
+		m_oScrollerDict.ExAddVal(EScrollerType.CHAPTER, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW));
 
 		foreach(var stKeyVal in m_oScrollerDict) {
 			stKeyVal.Value?.ExSetDelegate(this, false);
@@ -235,7 +226,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 		LogFunc.SendSplashLog();
 		
 		CCommonAppInfoStorage.Inst.IsFirstStart = false;
-
+		
 #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 #endif			// #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

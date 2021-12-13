@@ -112,55 +112,46 @@ public static partial class CEditorSceneManager {
 
 	/** 상태를 갱신한다 */
 	private static void LateUpdate() {
-		bool bIsEnableUpdate = CEditorSceneManager.m_bIsSetupDependencies;
-		bIsEnableUpdate = bIsEnableUpdate && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VAL_0_INT;
-		
-		CEditorSceneManager.m_fDefineSymbolSkipTime = (bIsEnableUpdate && CEditorAccess.IsEnableUpdateState) ? CEditorSceneManager.m_fDefineSymbolSkipTime + Time.deltaTime : KCDefine.B_VAL_0_FLT;
+		bool bIsEnableUpdate = CEditorAccess.IsEnableUpdateState && CEditorSceneManager.m_bIsSetupDependencies && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VAL_0_INT;
+		CEditorSceneManager.m_fDefineSymbolSkipTime = bIsEnableUpdate ? CEditorSceneManager.m_fDefineSymbolSkipTime + Time.deltaTime : KCDefine.B_VAL_0_FLT;
 
 		// 상태 갱신이 가능 할 경우
-		if(bIsEnableUpdate && CEditorAccess.IsEnableUpdateState) {
+		if(bIsEnableUpdate && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE) && CPlatformOptsSetter.DefineSymbolTable != null) {
 			var oAsset = CEditorFunc.FindAsset<ScriptableObject>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_TABLE);
-			bool bIsEnable = oAsset != null && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE);
+			bool bIsNeedUpdate = false;
 
-			// 전처리기 심볼 테이블 갱신이 가능 할 경우
-			if(bIsEnable && CPlatformOptsSetter.DefineSymbolTable != null) {
-				bool bIsNeedUpdate = false;
+			CEditorSceneManager.m_bIsSetupDependencies = false;
+			CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
 
-				CEditorSceneManager.m_bIsSetupDependencies = false;
-				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
+			var oDefineSymbolLists = new List<List<string>>() {
+				CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList, 
+				CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList, 
+				
+				CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList, 
+				
+				CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList, 
+				CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList, 
+				CPlatformOptsSetter.DefineSymbolTable.EditorAmazonDefineSymbolList, 
+				
+				CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList, 
+				CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList, 
+				CPlatformOptsSetter.DefineSymbolTable.EditorWndsDefineSymbolList
+			};
 
-				var oDefineSymbolLists = new List<List<string>>() {
-					CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList, 
-					
-					CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList, 
-					
-					CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorAmazonDefineSymbolList, 
-					
-					CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList, 
-					CPlatformOptsSetter.DefineSymbolTable.EditorWndsDefineSymbolList
-				};
-
-				foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
-					for(int i = 0; i < oDefineSymbolLists.Count; ++i) {
-						var oDefineSymbolList = oDefineSymbolLists[i];
-						
-						// 전처리기 심볼 갱신이 필요 할 경우
-						if(oDefineSymbolList.Contains(stKeyVal.Key)) {
-							bIsNeedUpdate = true;
-							oDefineSymbolList.ExReplaceVal(stKeyVal.Key, stKeyVal.Value);
-						}
+			foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
+				for(int i = 0; i < oDefineSymbolLists.Count; ++i) {
+					// 전처리기 심볼 갱신이 필요 할 경우
+					if(oDefineSymbolLists[i].Contains(stKeyVal.Key)) {
+						bIsNeedUpdate = true;
+						oDefineSymbolLists[i].ExReplaceVal(stKeyVal.Key, stKeyVal.Value);
 					}
 				}
-				
-				// 전처리기 심볼 갱신이 필요 할 경우
-				if(bIsNeedUpdate) {
-					EditorUtility.SetDirty(oAsset);
-					CEditorFunc.UpdateAssetDBState();
-				}
+			}
+			
+			// 전처리기 심볼 갱신이 필요 할 경우
+			if(bIsNeedUpdate && oAsset != null) {
+				EditorUtility.SetDirty(oAsset);
+				CEditorFunc.UpdateAssetDBState();
 			}
 		}
 	}

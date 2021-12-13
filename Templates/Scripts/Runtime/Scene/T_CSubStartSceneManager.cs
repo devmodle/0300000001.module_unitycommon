@@ -55,9 +55,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		// 앱이 실행 중 일 경우
 		if(CSceneManager.IsAppRunning) {
 			m_fSkipTime += Time.deltaTime;
-
-			float fPercent = (KCDefine.B_VAL_1_FLT * a_fDeltaTime) * KCDefine.SS_SCALE_LOADING;
-			m_oGaugeHandler.Percent = Mathf.Clamp(m_oGaugeHandler.Percent + fPercent, KCDefine.B_VAL_0_FLT, m_fMaxPercent);
+			m_oGaugeHandler.Percent = Mathf.Clamp(m_oGaugeHandler.Percent + ((KCDefine.B_VAL_1_FLT * a_fDeltaTime) * KCDefine.SS_SCALE_LOADING), KCDefine.B_VAL_0_FLT, m_fMaxPercent);
 			
 			// 텍스트 상태 갱신 주기가 지났을 경우
 			if(m_fSkipTime.ExIsGreateEquals(KCDefine.SS_DELTA_T_UPDATE_STATE)) {
@@ -72,9 +70,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	/** 시작 씬 이벤트를 수신했을 경우 */
 	protected override void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent) {
 		int nEvent = (int)a_eEvent + KCDefine.B_VAL_1_INT;
-		float fPercent = nEvent / (float)((int)EStartSceneEvent.MAX_VAL - KCDefine.B_VAL_1_INT);
-
-		m_fMaxPercent = Mathf.Clamp(fPercent, KCDefine.B_VAL_0_FLT, KCDefine.B_VAL_1_FLT);
+		m_fMaxPercent = Mathf.Clamp01(nEvent / (float)((int)EStartSceneEvent.MAX_VAL - KCDefine.B_VAL_1_INT));
 	}
 
 	/** 씬을 설정한다 */
