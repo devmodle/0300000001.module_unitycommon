@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 2523675454966911290}
   - component: {fileID: 5415706355847520192}
   - component: {fileID: 1912406417280973530}
+  - component: {fileID: 5066236757849335919}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -315,3 +316,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 0
+--- !u!114 &5066236757849335919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428494254262972297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_oKey: 
+  m_oKRFontPath: Fonts/Global/G_KRFont
+  m_oThaiFontPath: Fonts/Global/G_ThaiFont
+  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
+  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont

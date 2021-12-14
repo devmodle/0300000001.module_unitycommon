@@ -156,8 +156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: 
+  m_oKRFontPath: Fonts/Global/G_KRFont
   m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPThaiFontPath: Fonts/Global/G_ThaiFont
+  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
+  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!114 &4384549188664570568
 MonoBehaviour:
   m_ObjectHideFlags: 0

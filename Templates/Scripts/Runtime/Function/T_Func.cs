@@ -57,17 +57,16 @@ public static partial class Func {
 	#region 클래스 함수
 	/** 지역화 문자열을 설정한다 */
 	public static void SetupLocalizeStrs() {
-		Func.SetupLocalizeStrs(CCommonAppInfoStorage.Inst.AppInfo.Language.ToString(), CCommonAppInfoStorage.Inst.CountryCode);
+		Func.SetupLocalizeStrs(CCommonAppInfoStorage.Inst.CountryCode, CCommonAppInfoStorage.Inst.AppInfo.Language);
 	}
 
 	/** 지역화 문자열을 설정한다 */
-	public static void SetupLocalizeStrs(string a_oLanguage, string a_oCountryCode, bool a_bIsEnableAssert = true) {
+	public static void SetupLocalizeStrs(string a_oCountryCode, SystemLanguage a_eLanguage, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oCountryCode.ExIsValid());
 
 		// 국가 코드가 존재 할 경우
 		if(a_oCountryCode.ExIsValid()) {
-			string oFilePath = CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STR, a_oLanguage, a_oCountryCode);
-			CStrTable.Inst.LoadStrsFromRes(oFilePath);
+			CStrTable.Inst.LoadStrsFromRes(CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STR, a_oCountryCode, a_eLanguage.ToString()));
 		}
 	}
 

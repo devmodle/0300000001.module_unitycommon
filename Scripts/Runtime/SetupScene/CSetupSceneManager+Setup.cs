@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /** 설정 씬 관리자 - 설정 */
 public abstract partial class CSetupSceneManager : CSceneManager {
@@ -72,10 +73,10 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CSceneManager.ScreenDebugTextUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXT_UIS);
 			CSceneManager.ScreenDebugTextUIs.SetActive(false);
 
-			CSceneManager.ScreenStaticDebugText = oDebugUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
+			CSceneManager.ScreenStaticDebugText = oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
 			CSceneManager.ScreenStaticDebugText.raycastTarget = false;
 
-			CSceneManager.ScreenDynamicDebugText = oDebugUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
+			CSceneManager.ScreenDynamicDebugText = oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
 			CSceneManager.ScreenDynamicDebugText.raycastTarget = false;
 
 			CSceneManager.ScreenFPSBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_BTN);

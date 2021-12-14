@@ -81,7 +81,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		var oLoadingText = this.SubUIsBase.ExFindComponent<Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
 
 		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, m_stLoadingTextPos);
-		m_oLoadingText.text = KCDefine.SS_TEXT_LOADING;
+		m_oLoadingText.ExSetText(KCDefine.SS_TEXT_LOADING, CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet.SET_A));
 		// 텍스트를 설정한다 }
 
 		// 게이지 처리자를 설정한다 {
@@ -104,8 +104,8 @@ public class CSubStartSceneManager : CStartSceneManager {
 		for(int i = 0; i < m_nNumDots + KCDefine.B_VAL_1_INT; ++i) {
 			m_oStrBuilder.Append(oDotStr);
 		}
-
-		m_oLoadingText.text = m_oStrBuilder.ToString();
+		
+		m_oLoadingText.ExSetText(m_oStrBuilder.ToString(), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet.SET_A));
 	}
 	#endregion			// 함수
 	

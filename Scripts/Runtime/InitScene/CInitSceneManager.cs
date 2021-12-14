@@ -148,6 +148,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CDefineSymbolTable.Create(KCDefine.U_ASSET_P_G_DEFINE_SYMBOL_TABLE);
 		CProjInfoTable.Create(KCDefine.U_ASSET_P_G_PROJ_INFO_TABLE);
 		CDeviceInfoTable.Create(KCDefine.U_ASSET_P_G_DEVICE_INFO_TABLE);
+		CLocalizeInfoTable.Create(KCDefine.U_ASSET_P_G_LOCALIZE_INFO_TABLE);
 
 #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || FIREBASE_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE
 		CPluginInfoTable.Create(KCDefine.U_ASSET_P_G_PLUGIN_INFO_TABLE);

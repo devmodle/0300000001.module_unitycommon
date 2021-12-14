@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
@@ -11,7 +12,7 @@ using UnityEngine.InputSystem;
 public class CTitleSceneManager : CSceneManager {
 	#region 변수
 	// =====> UI <=====
-	protected Text m_oVerText = null;
+	protected TMP_Text m_oVerText = null;
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -31,12 +32,13 @@ public class CTitleSceneManager : CSceneManager {
 			Time.timeScale = KCDefine.B_VAL_1_FLT;
 
 			// 텍스트를 설정한다 {
-			var oVerText = this.SubUIsBase.ExFindComponent<Text>(KCDefine.TS_OBJ_N_VER_TEXT);
+			var oVerText = this.SubUIsBase.ExFindComponent<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT);
 
-			m_oVerText = oVerText ?? CFactory.CreateCloneObj<Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs, KCDefine.TS_POS_VER_TEXT);
+			m_oVerText = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs);
 			m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oVerText.rectTransform.anchoredPosition = KCDefine.TS_POS_VER_TEXT.ExTo2D();
 			// 텍스트를 설정한다 }
 		}
 	}
