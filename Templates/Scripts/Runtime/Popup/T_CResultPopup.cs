@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -28,7 +29,7 @@ public class CResultPopup : CSubPopup {
 	private STCallbackParams m_stCallbackParams;
 
 	// =====> UI <=====
-	private Text m_oScoreText = null;
+	private TMP_Text m_oScoreText = null;
 
 	// =====> 객체 <=====
 	private GameObject m_oClearUIs = null;
@@ -57,7 +58,7 @@ public class CResultPopup : CSubPopup {
 		m_oClearFailUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_CLEAR_FAIL_UIS);
 
 		// 텍스트를 설정한다
-		m_oScoreText = m_oContents.ExFindComponent<Text>(KCDefine.U_OBJ_N_SCORE_TEXT);
+		m_oScoreText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCORE_TEXT);
 
 		// 버튼을 설정한다 {
 		var oNextBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NEXT_BTN);
@@ -99,7 +100,7 @@ public class CResultPopup : CSubPopup {
 		m_oClearFailUIs?.SetActive(!m_stParams.m_bIsClear);
 
 		// 텍스트를 갱신한다
-		m_oScoreText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, m_stParams.m_nScore), false);
+		m_oScoreText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, m_stParams.m_nScore), EFontSet.SET_A, false);
 	}
 
 	/** 다음 버튼을 눌렀을 경우 */

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -25,8 +26,8 @@ public class CContinuePopup : CSubPopup {
 	private STCallbackParams m_stCallbackParams;
 
 	// =====> UI <=====
-	private Text m_oNumText = null;
-	private Text m_oPriceText = null;
+	private TMP_Text m_oNumText = null;
+	private TMP_Text m_oPriceText = null;
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -47,8 +48,8 @@ public class CContinuePopup : CSubPopup {
 		base.Awake();
 
 		// 텍스트를 설정한다
-		m_oNumText = m_oContents.ExFindComponent<Text>(KCDefine.U_OBJ_N_NUM_TEXT);
-		m_oPriceText = m_oContents.ExFindComponent<Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
+		m_oNumText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
+		m_oPriceText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
 
 		// 버튼을 설정한다 {
 		var oRetryBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RETRY_BTN);
@@ -88,8 +89,8 @@ public class CContinuePopup : CSubPopup {
 		var stSaleItemInfo = CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.GAME_ITEM_CONTINUE);
 
 		// 텍스트를 갱신한다
-		m_oNumText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.m_oItemInfoList[KCDefine.B_VAL_0_INT].m_nNumItems));
-		m_oPriceText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.IntPrice));
+		m_oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.m_oItemInfoList[KCDefine.B_VAL_0_INT].m_nNumItems), EFontSet.SET_A, false);
+		m_oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.IntPrice), EFontSet.SET_A, false);
 	}
 	
 	/** 재시도 버튼을 눌렀을 경우 */

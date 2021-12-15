@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
+using TMPro;
 
 #if NEVER_USE_THIS
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -39,7 +40,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private Dictionary<EScrollerType, EnhancedScrollerCellView> m_oLEUIsOriginScrollerCellViewDict = new Dictionary<EScrollerType, EnhancedScrollerCellView>();
 	
 	// 오른쪽 에디터 UI {
-	private Text m_oREUIsTitleText = null;
+	private TMP_Text m_oREUIsTitleText = null;
 
 	private InputField m_oREUIsLevelInput = null;
 	private InputField m_oREUIsNumCellsXInput = null;
@@ -47,7 +48,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	// 오른쪽 에디터 UI }
 
 	// 중앙 에디터 UI {
-	private Text m_oMEUIsLevelText = null;
+	private TMP_Text m_oMEUIsLevelText = null;
 
 	private Button m_oMEUIsPrevLevelBtn = null;
 	private Button m_oMEUIsNextLevelBtn = null;
@@ -153,7 +154,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		oScrollerCellView.MoveBtn?.ExSetInteractable(nNumInfos > KCDefine.B_VAL_1_INT, false);
 		oScrollerCellView.RemoveBtn?.ExSetInteractable(nNumInfos > KCDefine.B_VAL_1_INT, false);
 
-		oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
+		oScrollerCellView.NameText?.ExSetText(oScrollerCellViewName, EFontSet.SET_A, false);
 		oScrollerCellView.SelBtn?.image.ExSetColor<Image>(stColor, false);
 
 		return oScrollerCellView;
@@ -351,7 +352,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	/** 오른족 에디터 UI 를 설정한다 */
 	private void SetupRightEditorUIs() {
 		// 텍스트를 설정한다
-		m_oREUIsTitleText = m_oRightEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_TITLE_TEXT);
+		m_oREUIsTitleText = m_oRightEditorUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_TITLE_TEXT);
 		
 		// 입력 필드를 설정한다
 		m_oREUIsLevelInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_LEVEL_INPUT);
@@ -370,7 +371,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	/** 중앙 에디터 UI 를 설정한다 */
 	private void SetupMidEditorUIs() {
 		// 텍스트를 설정한다
-		m_oMEUIsLevelText = m_oMidEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_LEVEL_TEXT);
+		m_oMEUIsLevelText = m_oMidEditorUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LEVEL_TEXT);
 
 		// 버튼을 설정한다 {
 		m_oMEUIsPrevLevelBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_PREV_LEVEL_BTN);
@@ -418,30 +419,20 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	/** 오른쪽 에디터 UI 상태를 갱신한다 */
 	private void UpdateRightEditorUIsState() {
-		// 텍스트를 설정한다 {
+		// 텍스트를 설정한다
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-		string oLevelPageFmt = CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_LEVEL_PAGE_TEXT_FMT);
-
-		m_oREUIsTitleText?.ExSetText<Text>(string.Format(oLevelPageFmt, m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, nNumLevelInfos), false);
-		// 텍스트를 설정한다 }
+		m_oREUIsTitleText?.ExSetText(string.Format(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_LEVEL_PAGE_TEXT_FMT), m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, nNumLevelInfos), EFontSet.SET_A, false);
 		
-		// 입력 필드를 갱신한다 {
-		string oLevelStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT);
-		m_oREUIsLevelInput?.ExSetText<InputField>(oLevelStr, false);
-
-		string oNumCellsXStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.NumCells.x);
-		m_oREUIsNumCellsXInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : oNumCellsXStr, false);
-
-		string oNumCellsYStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.NumCells.y);
-		m_oREUIsNumCellsYInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : oNumCellsYStr, false);
-		// 입력 필드를 갱신한다 }
+		// 입력 필드를 갱신한다
+		m_oREUIsLevelInput?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT), EFontSet.SET_A, false);
+		m_oREUIsNumCellsXInput?.ExSetText((m_oSelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.NumCells.x), EFontSet.SET_A, false);
+		m_oREUIsNumCellsYInput?.ExSetText((m_oSelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.NumCells.y), EFontSet.SET_A, false);
 	}
 
 	/** 중앙 에디터 UI 상태를 갱신한다 */
 	private void UpdateMidEditorUIsState() {
 		// 텍스트를 갱신한다
-		string oStr = string.Format(KCDefine.B_TEXT_FMT_LEVEL, m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT);
-		m_oMEUIsLevelText?.ExSetText<Text>(oStr, false);
+		m_oMEUIsLevelText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_LEVEL, m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT), EFontSet.SET_A, false);
 
 		// 버튼을 갱신한다 {
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);

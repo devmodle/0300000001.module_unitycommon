@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if NEVER_USE_THIS
 #if SCENE_TEMPLATES_MODULE_ENABLE
@@ -19,7 +20,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	private System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
 
 	// =====> UI <=====
-	private Text m_oLoadingText = null;
+	private TMP_Text m_oLoadingText = null;
 	private CGaugeHandler m_oGaugeHandler = null;
 	#endregion			// 변수
 
@@ -78,10 +79,10 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_fSkipTime = KCDefine.SS_DELTA_T_UPDATE_STATE;
 			
 		// 텍스트를 설정한다 {
-		var oLoadingText = this.SubUIsBase.ExFindComponent<Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
+		var oLoadingText = this.SubUIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
 
-		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, m_stLoadingTextPos);
-		m_oLoadingText.ExSetText(KCDefine.SS_TEXT_LOADING, CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet.SET_A));
+		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, m_stLoadingTextPos);
+		m_oLoadingText.ExSetText(KCDefine.SS_TEXT_LOADING);
 		// 텍스트를 설정한다 }
 
 		// 게이지 처리자를 설정한다 {
@@ -105,7 +106,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 			m_oStrBuilder.Append(oDotStr);
 		}
 		
-		m_oLoadingText.ExSetText(m_oStrBuilder.ToString(), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet.SET_A));
+		m_oLoadingText.ExSetText(m_oStrBuilder.ToString());
 	}
 	#endregion			// 함수
 	

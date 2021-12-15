@@ -120,23 +120,41 @@ public static partial class AccessExtension {
 
 	/** 텍스트를 변경한다 */
 	public static void ExSetText(this Text a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet.SET_A, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
 
 		// 텍스트가 존재 할 경우
-		if(a_oSender != null) {
-			a_oSender.text = a_oStr;
-			a_oSender.font = CResManager.Inst.GetRes<Font>(CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet).m_oPath);
+		if(a_oSender != null && a_eFontSet.ExIsValid()) {
+			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet));
 		}
 	}
 
 	/** 텍스트를 변경한다 */
 	public static void ExSetText(this TMP_Text a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet.SET_A, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
 
 		// 텍스트가 존재 할 경우
-		if(a_oSender != null) {
-			a_oSender.text = a_oStr;
-			a_oSender.font = CResManager.Inst.GetRes<TMP_FontAsset>(CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet).m_oPath);
+		if(a_oSender != null && a_eFontSet.ExIsValid()) {
+			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet));
+		}
+	}
+
+	/** 텍스트를 변경한다 */
+	public static void ExSetText(this InputField a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet.SET_A, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
+
+		// 텍스트가 존재 할 경우
+		if(a_oSender != null && a_eFontSet.ExIsValid()) {
+			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet));
+		}
+	}
+
+	/** 텍스트를 변경한다 */
+	public static void ExSetText(this TMP_InputField a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet.SET_A, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
+
+		// 텍스트가 존재 할 경우
+		if(a_oSender != null && a_eFontSet.ExIsValid()) {
+			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet));
 		}
 	}
 

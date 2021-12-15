@@ -201,10 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: TRACKING_DP_TITLE
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_ThaiFont
+  m_eFontSet: 0
 --- !u!1 &578354993321091302
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,10 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: TRACKING_DP_DESC_MSG_02
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_ThaiFont
+  m_eFontSet: 0
 --- !u!1 &705121152854865900
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +593,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 20
+  m_Spacing: 30
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -787,10 +781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: TRACKING_DP_MSG
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_ThaiFont
+  m_eFontSet: 0
 --- !u!1 &6254197967698364461
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,10 +946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: COMMON_NEXT_TEXT
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
+  m_eFontSet: 0
 --- !u!1 &6347232789698440002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,10 +1153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: TRACKING_DP_DESC_MSG_03
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_ThaiFont
+  m_eFontSet: 0
 --- !u!1 &7400857477525605579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1528,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_oKey: TRACKING_DP_DESC_MSG_01
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_ThaiFont
+  m_eFontSet: 0
