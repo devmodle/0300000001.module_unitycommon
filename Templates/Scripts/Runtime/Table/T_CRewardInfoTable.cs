@@ -56,6 +56,12 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	[Header("=====> Clear Reward Info <=====")]
 	[SerializeField] private List<STRewardInfo> m_oClearRewardInfoList = new List<STRewardInfo>();
+
+	[Header("=====> Mission Reward Info <=====")]
+	[SerializeField] private List<STRewardInfo> m_oMissionRewardInfoList = new List<STRewardInfo>();
+
+	[Header("=====> Tutorial Reward Info <=====")]
+	[SerializeField] private List<STRewardInfo> m_oTutorialRewardInfoList = new List<STRewardInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -75,6 +81,8 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		oRewardInfoList.AddRange(m_oDailyRewardInfoList);
 		oRewardInfoList.AddRange(m_oEventRewardInfoList);
 		oRewardInfoList.AddRange(m_oClearRewardInfoList);
+		oRewardInfoList.AddRange(m_oMissionRewardInfoList);
+		oRewardInfoList.AddRange(m_oTutorialRewardInfoList);
 
 		for(int i = 0; i < oRewardInfoList.Count; ++i) {
 			this.RewardInfoDict.ExAddVal(oRewardInfoList[i].m_eRewardKinds, oRewardInfoList[i]);
@@ -126,7 +134,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
 		var oRewardInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_FREE], oJSONNode[KCDefine.U_KEY_DAILY], oJSONNode[KCDefine.U_KEY_EVENT], oJSONNode[KCDefine.U_KEY_CLEAR]
+			oJSONNode[KCDefine.U_KEY_FREE], oJSONNode[KCDefine.U_KEY_DAILY], oJSONNode[KCDefine.U_KEY_EVENT], oJSONNode[KCDefine.U_KEY_CLEAR], oJSONNode[KCDefine.U_KEY_MISSION], oJSONNode[KCDefine.U_KEY_TUTORIAL]
 		};
 
 		for(int i = 0; i < oRewardInfosList.Count; ++i) {

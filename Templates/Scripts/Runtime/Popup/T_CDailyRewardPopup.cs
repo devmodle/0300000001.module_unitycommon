@@ -58,7 +58,7 @@ public class CDailyRewardPopup : CSubPopup {
 		// 보상 UI 상태를 갱신한다
 		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
 			var oRewardUIs = m_oRewardUIsList[i];
-			var stDailyRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(ERewardKinds.DAILY_SAMPLE + (i + KCDefine.B_VAL_1_INT));
+			var stDailyRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(ERewardKinds.DAILY_REWARD_SAMPLE + (i + KCDefine.B_VAL_1_INT));
 
 			this.UpdateRewardUIsState(oRewardUIs, stDailyRewardInfo);
 		}

@@ -11,7 +11,6 @@ public static partial class KDefine {
 	// 개수 {
 	public const int G_MAX_NUM_SALE_COINS = 0;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 0;
-	public const int G_MAX_NUM_ACQUIRE_FREE_REWARDS = 0;
 
 	public const int G_MAX_NUM_TARGET_KINDS = 0;
 	public const int G_MAX_NUM_UNLOCK_TARGET_KINDS = 0;
@@ -23,6 +22,39 @@ public static partial class KDefine {
 
 	// 횟수
 	public const int G_MAX_TIMES_ADS_SKIP = 0;
+	public const int G_MAX_TIMES_ACQUIRE_FREE_REWARDS = 0;
+
+	// 시간 {
+	public const float G_DELAY_SCALE_A = 1.0f;
+	public const float G_DELAY_SCALE_B = 1.0f;
+	public const float G_DELAY_SCALE_C = 1.0f;
+	public const float G_DELAY_SCALE_D = 1.0f;
+	public const float G_DELAY_SCALE_E = 1.0f;
+	public const float G_DELAY_SCALE_F = 1.0f;
+	public const float G_DELAY_SCALE_G = 1.0f;
+	public const float G_DELAY_SCALE_H = 1.0f;
+	public const float G_DELAY_SCALE_I = 1.0f;
+
+	public const float G_DELTA_T_SCALE_A = 1.0f;
+	public const float G_DELTA_T_SCALE_B = 1.0f;
+	public const float G_DELTA_T_SCALE_C = 1.0f;
+	public const float G_DELTA_T_SCALE_D = 1.0f;
+	public const float G_DELTA_T_SCALE_E = 1.0f;
+	public const float G_DELTA_T_SCALE_F = 1.0f;
+	public const float G_DELTA_T_SCALE_G = 1.0f;
+	public const float G_DELTA_T_SCALE_H = 1.0f;
+	public const float G_DELTA_T_SCALE_I = 1.0f;
+
+	public const float G_DURATION_SCALE_A = 1.0f;
+	public const float G_DURATION_SCALE_B = 1.0f;
+	public const float G_DURATION_SCALE_C = 1.0f;
+	public const float G_DURATION_SCALE_D = 1.0f;
+	public const float G_DURATION_SCALE_E = 1.0f;
+	public const float G_DURATION_SCALE_F = 1.0f;
+	public const float G_DURATION_SCALE_G = 1.0f;
+	public const float G_DURATION_SCALE_H = 1.0f;
+	public const float G_DURATION_SCALE_I = 1.0f;
+	// 시간 }
 
 	// 식별자
 	public const int G_PRODUCT_ID_SALE_COINS = 0;

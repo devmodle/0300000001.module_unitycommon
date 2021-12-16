@@ -86,7 +86,7 @@ public class CContinuePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		var stSaleItemInfo = CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.GAME_ITEM_CONTINUE);
+		var stSaleItemInfo = CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.CONSUMABLE_CONTINUE);
 
 		// 텍스트를 갱신한다
 		m_oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.m_oItemInfoList[KCDefine.B_VAL_0_INT].m_nNumItems), EFontSet.SET_A, false);
@@ -100,7 +100,7 @@ public class CContinuePopup : CSubPopup {
 
 	/** 이어하기 버튼을 눌렀을 경우 */
 	private void OnTouchContinueBtn() {
-		var stSaleItemInfo = CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.GAME_ITEM_CONTINUE);
+		var stSaleItemInfo = CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.CONSUMABLE_CONTINUE);
 
 		// 코인이 부족 할 경우
 		if(CUserInfoStorage.Inst.UserInfo.NumCoins < stSaleItemInfo.IntPrice) {

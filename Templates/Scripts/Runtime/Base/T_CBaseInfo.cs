@@ -38,6 +38,9 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	}
 
 	[IgnoreMember] public virtual bool IsIgnoreVer => false;
+	[IgnoreMember] public virtual bool IsIgnoreIntDict => false;
+	[IgnoreMember] public virtual bool IsIgnoreFltDict => false;
+	[IgnoreMember] public virtual bool IsIgnoreStrDict => false;
 	[IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
 
 	[IgnoreMember] private string SaveTimeStr => m_oStrDict.ExGetVal(CBaseInfo.KEY_SAVE_TIME, string.Empty);
@@ -62,9 +65,9 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 
 	/** 역직렬화 되었을 경우 */
 	public virtual void OnAfterDeserialize() {
-		m_oIntDict = m_oIntDict ?? new Dictionary<string, int>();
-		m_oFltDict = m_oFltDict ?? new Dictionary<string, float>();
-		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
+		m_oIntDict = this.IsIgnoreIntDict ? null : m_oIntDict ?? new Dictionary<string, int>();
+		m_oFltDict = this.IsIgnoreFltDict ? null : m_oFltDict ?? new Dictionary<string, float>();
+		m_oStrDict = this.IsIgnoreStrDict ? null : m_oStrDict ?? new Dictionary<string, string>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 

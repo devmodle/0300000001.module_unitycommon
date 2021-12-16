@@ -69,7 +69,7 @@ public class CClearInfo : CBaseInfo {
 public class CGameInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
-	private const string KEY_NUM_ACQUIRE_FREE_REWARDS = "NumAcquireFreeRewards";
+	private const string KEY_FREE_REWARD_ACQUIRE_TIMES = "FreeRewardAcquireTimes";
 
 	private const string KEY_PREV_FREE_REWARD_TIME = "PrevFreeRewardTime";
 	private const string KEY_PREV_DAILY_REWARD_TIME = "PrevDailyRewardTime";
@@ -98,9 +98,9 @@ public class CGameInfo : CBaseInfo {
 		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_DAILY_REWARD_ID, value); }
 	}
 
-	[IgnoreMember] public int NumAcquireFreeRewards {
-		get { return m_oIntDict.ExGetVal(CGameInfo.KEY_NUM_ACQUIRE_FREE_REWARDS, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_NUM_ACQUIRE_FREE_REWARDS, value); }
+	[IgnoreMember] public int FreeRewardAcquireTimes {
+		get { return m_oIntDict.ExGetVal(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_VAL_0_INT); }
+		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, value); }
 	}
 
 	[IgnoreMember] public System.DateTime PrevDailyMissionTime {
@@ -367,8 +367,8 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	}
 
 	/** 무료 보상 획득 횟수를 추가한다 */
-	public void AddNumAcquireFreeRewards(int a_nRewardTimes) {
-		this.GameInfo.NumAcquireFreeRewards = Mathf.Clamp(this.GameInfo.NumAcquireFreeRewards + a_nRewardTimes, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_ACQUIRE_FREE_REWARDS);
+	public void AddFreeRewardAcquireTimes(int a_nRewardTimes) {
+		this.GameInfo.FreeRewardAcquireTimes = Mathf.Clamp(this.GameInfo.FreeRewardAcquireTimes + a_nRewardTimes, KCDefine.B_VAL_0_INT, KDefine.G_MAX_TIMES_ACQUIRE_FREE_REWARDS);
 	}
 
 	/** 완료 미션을 추가한다 */

@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: T_LocalizeInfoTable
   m_EditorClassIdentifier: 
   m_oFontInfoList:
-  - m_oCountryCode: 
+  - m_oCountryCode: TH
     m_eLanguage: 36
     m_oFontSetInfoList:
-    - m_eSet: 0
-      m_oPath: Fonts/Global/G_ThaiFont
-  - m_oCountryCode: 
+    - m_oPath: Fonts/Global/G_ThaiFont
+      m_eSet: 0
+  - m_oCountryCode: KR
     m_eLanguage: 23
     m_oFontSetInfoList:
-    - m_eSet: 0
-      m_oPath: Fonts/Global/G_KoreanFont
-  - m_oCountryCode: 
+    - m_oPath: Fonts/Global/G_KoreanFont
+      m_eSet: 0
+  - m_oCountryCode: US
     m_eLanguage: 10
     m_oFontSetInfoList:
-    - m_eSet: 0
-      m_oPath: Fonts/Global/G_EnglishFont
+    - m_oPath: Fonts/Global/G_EnglishFont
+      m_eSet: 0

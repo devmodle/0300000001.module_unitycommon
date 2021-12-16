@@ -64,7 +64,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 			stIDInfo = (m_oScrollerDict[EScrollerType.STAGE] == a_oSender) ? CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.TS_MAX_NUM_STAGES_IN_ROW, m_stSelIDInfo.m_nChapterID) : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.TS_MAX_NUM_CHAPTERS_IN_ROW);
 			oOriginScrollerCellView = (m_oScrollerDict[EScrollerType.STAGE] == a_oSender) ? m_oOriginScrollerCellViewDict[EScrollerType.STAGE] : m_oOriginScrollerCellViewDict[EScrollerType.CHAPTER];
 		}
-
+		
 		var stParams = new CScrollerCellView.STParams() {
 			m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID, stIDInfo.m_nStageID, stIDInfo.m_nChapterID)
 		};
@@ -198,7 +198,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 
 			// 무료 보상 획득이 가능 할 경우
 			if(CGameInfoStorage.Inst.IsEnableGetFreeReward) {
-				CGameInfoStorage.Inst.GameInfo.NumAcquireFreeRewards = KCDefine.B_VAL_0_INT;
+				CGameInfoStorage.Inst.GameInfo.FreeRewardAcquireTimes = KCDefine.B_VAL_0_INT;
 				CGameInfoStorage.Inst.GameInfo.PrevFreeRewardTime = System.DateTime.Today;
 				
 				CGameInfoStorage.Inst.SaveGameInfo();

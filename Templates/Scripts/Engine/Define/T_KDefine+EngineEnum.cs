@@ -27,12 +27,12 @@ namespace SampleEngineName {
 
 		#region 일반
 		// 샘플 10,000,000
-		NORM_SAMPLE = EBlockKinds.BG_EMPTY + KCDefine.B_UNIT_KINDS_PER_TYPE,
+		NORM_BLOCK_SAMPLE = EBlockKinds.BG_EMPTY + (KCDefine.B_UNIT_KINDS_PER_TYPE * 1) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 0),
 		#endregion			// 일반
 
 		#region 중첩
 		// 샘플 20,000,000
-		OVERLAY_SAMPLE = EBlockKinds.NORM_SAMPLE + KCDefine.B_UNIT_KINDS_PER_TYPE,
+		OVERLAY_BLOCK_SAMPLE = EBlockKinds.BG_EMPTY + (KCDefine.B_UNIT_KINDS_PER_TYPE * 2) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 0),
 		#endregion			// 중첩
 
 		MAX_VAL
