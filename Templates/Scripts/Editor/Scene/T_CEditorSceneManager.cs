@@ -128,6 +128,7 @@ public static partial class CEditorSceneManager {
 				CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
 				
 				CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList,
+				CPlatformOptsSetter.DefineSymbolTable.EditorAppleDefineSymbolList,
 				
 				CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList,
 				CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList,
