@@ -23,7 +23,7 @@
 	- *Total JSON (v1.7.0 - Sep 15, 2021)*
 	- *UniRx (v7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
-	- *Build Report Tool (v3.9.0 - Sep 14, 2021)*
+	- *Build Report Tool (v3.9.1 - Dec 14, 2021)*
 	- *Odin Inspector (v3.0.12 - Nov 15, 2021)*
 	- *Sprite Trail (v1.4.0 - Aug 2, 2019)*
 	- *Ultimate Status Bar (v2.6.0 - Jun 3, 2020)*

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class CSubSetupSceneManager : CSetupSceneManager {
 	#region 변수
 #if LOCALIZE_TEST_ENABLE
-	[SerializeField] private SystemLanguage m_eLanguage = SystemLanguage.Unknown;
+	[SerializeField] private SystemLanguage m_eSystemLanguage = SystemLanguage.Unknown;
 #endif			// #if LOCALIZE_TEST_ENABLE
 	#endregion			// 변수
 
@@ -41,18 +41,16 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 		CTutorialInfoTable.Inst.LoadTutorialInfos();
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+
+		// 공용 앱 정보를 설정한다 {
+		CCommonAppInfoStorage.Inst.StoreURL = Access.StoreURL;
 		
 #if LOCALIZE_TEST_ENABLE
-		CCommonAppInfoStorage.Inst.AppInfo.Language = m_eLanguage;
+		CCommonAppInfoStorage.Inst.SystemLanguage = m_eSystemLanguage;
+#else
+		CCommonAppInfoStorage.Inst.SystemLanguage = Application.systemLanguage;
 #endif			// #if LOCALIZE_TEST_ENABLE
-
-		// 언어가 유효하지 않을 경우
-		if(!CCommonAppInfoStorage.Inst.AppInfo.Language.ExIsValid()) {
-			CCommonAppInfoStorage.Inst.AppInfo.Language = Application.systemLanguage;
-		}
-		
-		CCommonAppInfoStorage.Inst.StoreURL = Access.StoreURL;
-		CCommonAppInfoStorage.Inst.SaveAppInfo();
+		// 공용 앱 정보를 설정한다 }
 	}
 	#endregion			// 함수
 

@@ -564,25 +564,25 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CEpisodeInfoTable.Inst.TryGetLevelInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STLevelInfo stLevelInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID);
 
 		var stReplaceLevelInfo = new STLevelInfo() {
-			m_oName = stLevelInfo.m_oName ?? string.Empty, 
-			m_oDesc = stLevelInfo.m_oDesc ?? string.Empty, 
+			m_oName = stLevelInfo.m_oName ?? string.Empty,
+			m_oDesc = stLevelInfo.m_oDesc ?? string.Empty,
 			
-			m_nID = a_oLevelInfo.m_stIDInfo.m_nID, 
-			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID, 
-			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID, 
+			m_nID = a_oLevelInfo.m_stIDInfo.m_nID,
+			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
+			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
 
-			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(), 
-			m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>(), 
+			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(),
+			m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>(),
 			
 #if EPISODE_INFO_OVERWRITE_ENABLE
-			m_eLevelMode = a_oLevelInfo.LevelMode, 
-			m_eLevelKinds = a_oLevelInfo.LevelKinds, 
-			m_eRewardKinds = a_oLevelInfo.RewardKinds, 
+			m_eLevelMode = a_oLevelInfo.LevelMode,
+			m_eLevelKinds = a_oLevelInfo.LevelKinds,
+			m_eRewardKinds = a_oLevelInfo.RewardKinds,
 			m_eTutorialKinds = a_oLevelInfo.TutorialKinds
 #else
-			m_eLevelMode = stLevelInfo.m_eLevelMode, 
-			m_eLevelKinds = stLevelInfo.m_eLevelKinds, 
-			m_eRewardKinds = stLevelInfo.m_eRewardKinds, 
+			m_eLevelMode = stLevelInfo.m_eLevelMode,
+			m_eLevelKinds = stLevelInfo.m_eLevelKinds,
+			m_eRewardKinds = stLevelInfo.m_eRewardKinds,
 			m_eTutorialKinds = stLevelInfo.m_eTutorialKinds
 #endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 		};

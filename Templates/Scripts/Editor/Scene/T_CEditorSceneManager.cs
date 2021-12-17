@@ -124,17 +124,17 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
 
 			var oDefineSymbolLists = new List<List<string>>() {
-				CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList, 
-				CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList, 
+				CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
+				CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
 				
-				CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList, 
+				CPlatformOptsSetter.DefineSymbolTable.EditoriOSDefineSymbolList,
 				
-				CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList, 
-				CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList, 
-				CPlatformOptsSetter.DefineSymbolTable.EditorAmazonDefineSymbolList, 
+				CPlatformOptsSetter.DefineSymbolTable.EditorAndroidDefineSymbolList,
+				CPlatformOptsSetter.DefineSymbolTable.EditorGoogleDefineSymbolList,
+				CPlatformOptsSetter.DefineSymbolTable.EditorAmazonDefineSymbolList,
 				
-				CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList, 
-				CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList, 
+				CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneDefineSymbolList,
+				CPlatformOptsSetter.DefineSymbolTable.EditorMacDefineSymbolList,
 				CPlatformOptsSetter.DefineSymbolTable.EditorWndsDefineSymbolList
 			};
 

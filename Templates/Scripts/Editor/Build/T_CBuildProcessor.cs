@@ -18,11 +18,11 @@ using UnityEditor.iOS.Xcode;
 public static partial class CBuildProcessor {
 	#region 클래스 변수
 	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessHandlerDict = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
-		[BuildTarget.iOS] = CBuildProcessor.HandleiOSPostProcessBuild, 
-		[BuildTarget.Android] = CBuildProcessor.HandleAndroidPostProcessBuild, 
+		[BuildTarget.iOS] = CBuildProcessor.HandleiOSPostProcessBuild,
+		[BuildTarget.Android] = CBuildProcessor.HandleAndroidPostProcessBuild,
 		
-		[BuildTarget.StandaloneOSX] = CBuildProcessor.HandleStandalonePostProcessBuild, 
-		[BuildTarget.StandaloneWindows] = CBuildProcessor.HandleStandalonePostProcessBuild, 
+		[BuildTarget.StandaloneOSX] = CBuildProcessor.HandleStandalonePostProcessBuild,
+		[BuildTarget.StandaloneWindows] = CBuildProcessor.HandleStandalonePostProcessBuild,
 		[BuildTarget.StandaloneWindows64] = CBuildProcessor.HandleStandalonePostProcessBuild
 	};
 	#endregion			// 클래스 변수

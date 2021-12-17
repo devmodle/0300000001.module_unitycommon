@@ -27,29 +27,29 @@ public static partial class CCommonEditorSceneManager {
 	};
 
 	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>() {
-		[KCDefine.U_SORTING_L_DEF] = "D", 
-		[KCDefine.U_SORTING_L_ABS] = "A", 
+		[KCDefine.U_SORTING_L_DEF] = "D",
+		[KCDefine.U_SORTING_L_ABS] = "A",
 		
-		[KCDefine.U_SORTING_L_TOP] = "T", 
-		[KCDefine.U_SORTING_L_TOPMOST] = "TM", 
+		[KCDefine.U_SORTING_L_TOP] = "T",
+		[KCDefine.U_SORTING_L_TOPMOST] = "TM",
 		
-		[KCDefine.U_SORTING_L_FOREGROUND] = "F", 
-		[KCDefine.U_SORTING_L_BACKGROUND] = "B", 
+		[KCDefine.U_SORTING_L_FOREGROUND] = "F",
+		[KCDefine.U_SORTING_L_BACKGROUND] = "B",
 		
-		[KCDefine.U_SORTING_L_OVERGROUND] = "O", 
-		[KCDefine.U_SORTING_L_UNDERGROUND] = "U", 
+		[KCDefine.U_SORTING_L_OVERGROUND] = "O",
+		[KCDefine.U_SORTING_L_UNDERGROUND] = "U",
 		
 #if !CAMERA_STACKING_ENABLE
-		[KCDefine.U_SORTING_L_OVERLAY_DEF] = "OD", 
-		[KCDefine.U_SORTING_L_OVERLAY_ABS] = "OA", 
+		[KCDefine.U_SORTING_L_OVERLAY_DEF] = "OD",
+		[KCDefine.U_SORTING_L_OVERLAY_ABS] = "OA",
 		
-		[KCDefine.U_SORTING_L_OVERLAY_TOP] = "OT", 
-		[KCDefine.U_SORTING_L_OVERLAY_TOPMOST] = "OTM", 
+		[KCDefine.U_SORTING_L_OVERLAY_TOP] = "OT",
+		[KCDefine.U_SORTING_L_OVERLAY_TOPMOST] = "OTM",
 		
-		[KCDefine.U_SORTING_L_OVERLAY_FOREGROUND] = "OF", 
-		[KCDefine.U_SORTING_L_OVERLAY_BACKGROUND] = "OB", 
+		[KCDefine.U_SORTING_L_OVERLAY_FOREGROUND] = "OF",
+		[KCDefine.U_SORTING_L_OVERLAY_BACKGROUND] = "OB",
 		
-		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO", 
+		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO",
 		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
 #endif			// #if !CAMERA_STACKING_ENABLE
 	};
@@ -192,9 +192,9 @@ public static partial class CCommonEditorSceneManager {
 						string oStr = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 						var oRectList = new List<Rect>() {
-							new Rect(a_stRect.x + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height), 
-							new Rect(a_stRect.x - KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height), 
-							new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height), 
+							new Rect(a_stRect.x + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x - KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x, a_stRect.y + KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height),
 							new Rect(a_stRect.x, a_stRect.y - KCEditorDefine.B_OFFSET_HIERARCHY_OUTLINE, a_stRect.width, a_stRect.height)
 						};
 
