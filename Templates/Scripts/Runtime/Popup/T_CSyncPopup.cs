@@ -169,7 +169,7 @@ public class CSyncPopup : CSubPopup {
 		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
 		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
 
-		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { 
+		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => {
 			a_oPopupSender.IsIgnoreNavStackEvent = m_bIsLoadUserInfo; 
 			return true; 
 		});
@@ -179,7 +179,7 @@ public class CSyncPopup : CSubPopup {
 	private void OnReceiveLoadSuccessPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 유저 정보를 로드했을 경우
 		if(a_bIsOK && m_bIsLoadUserInfo) {
-			this.ExLateCallFunc((a_oSender) => { 
+			this.ExLateCallFunc((a_oSender) => {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 				
 				CScheduleManager.Inst.Reset();

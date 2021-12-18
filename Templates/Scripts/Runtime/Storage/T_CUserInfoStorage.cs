@@ -21,7 +21,7 @@ public class CUserInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[IgnoreMember] public int NumCoins {
-		get { return m_oIntDict.ExGetVal(CUserInfo.KEY_NUM_COINS, KCDefine.B_VAL_0_INT); } 
+		get { return m_oIntDict.ExGetVal(CUserInfo.KEY_NUM_COINS, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CUserInfo.KEY_NUM_COINS, value); }
 	}
 

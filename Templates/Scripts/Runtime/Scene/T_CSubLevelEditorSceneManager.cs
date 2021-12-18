@@ -113,7 +113,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			stColor = (m_oSelLevelInfo.m_stIDInfo.m_nStageID == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE;
 			stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, a_nDataIdx, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 			oOriginScrollerCellView = m_oLEUIsOriginScrollerCellViewDict[EScrollerType.STAGE];
-		} 
+		}
 		// 챕터 스크롤러 일 경우
 		else if(m_oLEUIsScrollerDict[EScrollerType.CHAPTER] == a_oSender) {
 			nNumInfos = CLevelInfoTable.Inst.NumChapterInfos;
@@ -741,7 +741,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 스테이지 스크롤러 일 경우
 		else if(m_oLEUIsScrollerDict[EScrollerType.STAGE] == a_oScroller) {
 			CLevelInfoTable.Inst.RemoveStageLevelInfos(a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
-		} 
+		}
 		// 챕터 스크롤러 일 경우
 		else if(m_oLEUIsScrollerDict[EScrollerType.CHAPTER] == a_oScroller) {
 			CLevelInfoTable.Inst.RemoveChapterLevelInfos(a_stIDInfo.m_nChapterID);
@@ -811,7 +811,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 					CLevelInfoTable.Inst.AddLevelInfo(oCloneLevelInfo);
 				}
-			} 
+			}
 			// 챕터 스크롤러 일 경우
 			else if(m_oLEUIsScrollerDict[EScrollerType.CHAPTER] == a_oScroller) {
 				int nNumChapterInfos = CLevelInfoTable.Inst.NumChapterInfos;
@@ -844,12 +844,12 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		if(m_oLEUIsScrollerDict[EScrollerType.LEVEL] == a_oScroller) {
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
 			CLevelInfoTable.Inst.MoveLevelInfo(a_stIDInfo.m_nID, Mathf.Clamp(a_nToID, KCDefine.B_VAL_1_INT, nNumLevelInfos) - KCDefine.B_VAL_1_INT, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
-		} 
+		}
 		// 스테이지 스크롤러 일 경우
 		else if(m_oLEUIsScrollerDict[EScrollerType.STAGE] == a_oScroller) {
 			int nNumStageInfos = CLevelInfoTable.Inst.GetNumStageInfos(a_stIDInfo.m_nChapterID);
 			CLevelInfoTable.Inst.MoveStageLevelInfos(a_stIDInfo.m_nStageID, Mathf.Clamp(a_nToID, KCDefine.B_VAL_1_INT, nNumStageInfos) - KCDefine.B_VAL_1_INT, a_stIDInfo.m_nChapterID);
-		} 
+		}
 		// 챕터 스크롤러 일 경우
 		else if(m_oLEUIsScrollerDict[EScrollerType.CHAPTER] == a_oScroller) {
 			int nNumChapterInfos = CLevelInfoTable.Inst.NumChapterInfos;

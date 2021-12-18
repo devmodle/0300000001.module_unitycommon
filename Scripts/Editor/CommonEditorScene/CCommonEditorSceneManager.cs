@@ -114,7 +114,7 @@ public static partial class CCommonEditorSceneManager {
 #endif			// #if UNITY_ANDROID
 				}
 
-				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { 
+				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => {
 					a_oSceneManager.EditorSetupScene(); 
 					return true; 
 				});

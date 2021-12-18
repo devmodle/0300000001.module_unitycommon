@@ -108,7 +108,7 @@ public class CGameInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); }
 	}
 
-	[IgnoreMember] public System.DateTime PrevFreeRewardTime { 
+	[IgnoreMember] public System.DateTime PrevFreeRewardTime {
 		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.CorrectPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
 	}
