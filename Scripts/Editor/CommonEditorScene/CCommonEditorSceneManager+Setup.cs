@@ -139,9 +139,9 @@ public static partial class CCommonEditorSceneManager {
 			bIsValid = bIsValid && !oLightingSettings.name.Contains(KCDefine.U_ASSET_N_LIGHTING_SETTINGS);
 
 #if LIGHTMAP_BAKE_ENABLE
-			bool bIsBakedGI = true;
+			bool bIsBakeGI = true;
 #else
-			bool bIsBakedGI = false;
+			bool bIsBakeGI = false;
 #endif			// #if LIGHTMAP_BAKE_ENABLE
 
 #if LIGHTMAP_AUTO_BAKE_ENABLE
@@ -149,6 +149,12 @@ public static partial class CCommonEditorSceneManager {
 #else
 			bool bIsAutoGenerate = false;
 #endif			// #if LIGHTMAP_AUTO_BAKE_ENABLE
+
+#if REALTIME_ENVIRONMENT_LIGHTING
+			bool bIsRealtimeEnvironmentLighting = true;
+#else
+			bool bIsRealtimeEnvironmentLighting = false;
+#endif			// #if REALTIME_ENVIRONMENT_LIGHTING
 
 			// 광원 설정이 유효하지 않을 경우
 			if(!bIsValid || !oLightingSettings.name.Contains(stScene.name)) {
@@ -179,9 +185,11 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			// GI 설정이 필요 할 경우
-			if(oLightingSettings.bakedGI != bIsBakedGI || oLightingSettings.autoGenerate != bIsAutoGenerate) {
-				oLightingSettings.bakedGI = bIsBakedGI;
+			if(oLightingSettings.bakedGI != bIsBakeGI || oLightingSettings.autoGenerate != bIsAutoGenerate || oLightingSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting) {
+				oLightingSettings.bakedGI = bIsBakeGI;
+				oLightingSettings.realtimeGI = !bIsBakeGI;
 				oLightingSettings.autoGenerate = bIsAutoGenerate;
+				oLightingSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
 			}
 
 			// 라이트맵 설정이 필요 할 경우

@@ -31,10 +31,10 @@ MonoBehaviour:
   - RUNTIME_TEMPLATES_ENABLE
   - MODULE_VER_1_8_0_OR_NEWER
   m_oSubCommonDefineSymbolList: []
-  m_oiOSDefineSymbolList: []
-  m_oAndroidDefineSymbolList: []
-  m_oGoogleDefineSymbolList: []
-  m_oAmazonDefineSymbolList: []
-  m_oStandaloneDefineSymbolList: []
-  m_oMacDefineSymbolList: []
-  m_oWndsDefineSymbolList: []
+  m_oiOSAppleDefineSymbolList: []
+  m_oAndroidGoogleDefineSymbolList: []
+  m_oAndroidAmazonDefineSymbolList: []
+  m_oAndroidOneStoreDefineSymbolList: []
+  m_oMacAppleDefineSymbolList: []
+  m_oMacSteamDefineSymbolList: []
+  m_oWndsSteamDefineSymbolList: []

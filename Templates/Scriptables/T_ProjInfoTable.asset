@@ -12,41 +12,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9bed7b0cc0da472a9c36f5f407c1344, type: 3}
   m_Name: T_ProjInfoTable
   m_EditorClassIdentifier: 
-  m_oCompanyName: 9tap
+  m_oCompany: 9tap
   m_oPrivacyURL: https://www.ninetap.com/privacy_policy.html
   m_oServicesURL: https://www.ninetap.com/terms_of_service.html
   m_oProjName: 00000111.Sample_Unity
   m_oProductName: Sample_Unity
   m_oShortProductName: Sample_Unity
-  m_stAppleProjInfo:
+  m_stiOSAppleProjInfo:
     m_oAppID: dante.distribution.sample
     m_oStoreAppID: 1309472470
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
-  m_stGoogleProjInfo:
+  m_stAndroidGoogleProjInfo:
     m_oAppID: dante.distribution.sample
     m_oStoreAppID: Ninetap
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
-  m_stAmazonProjInfo:
+  m_stAndroidAmazonProjInfo:
     m_oAppID: dante.distribution.sample
     m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
-  m_stMacProjInfo:
+  m_stAndroidOneStoreProjInfo:
     m_oAppID: dante.distribution.sample
     m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
-  m_stWndsProjInfo:
+  m_stMacAppleProjInfo:
+    m_oAppID: dante.distribution.sample
+    m_oStoreAppID: 
+    m_oSupportsMail: cs@ninetap.com
+    m_stBuildVerInfo:
+      m_nNum: 1
+      m_oVer: 0.0.1
+  m_stMacSteamProjInfo:
+    m_oAppID: dante.distribution.sample
+    m_oStoreAppID: 
+    m_oSupportsMail: cs@ninetap.com
+    m_stBuildVerInfo:
+      m_nNum: 1
+      m_oVer: 0.0.1
+  m_stWndsSteamProjInfo:
     m_oAppID: dante.distribution.sample
     m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
