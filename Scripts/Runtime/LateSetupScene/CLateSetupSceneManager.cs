@@ -116,11 +116,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if ADMOB_ENABLE
 				m_stAdmobParams = new CAdsManager.STAdmobParams() {
 #if UNITY_IOS
-					m_oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobIDList,
+					m_oTestDeviceIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oiOSTestDeviceAdmobIDList,
 #elif UNITY_ANDROID
-					m_oAdmobIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobIDList,
+					m_oTestDeviceIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidTestDeviceAdmobIDList,
 #else
-					m_oAdmobIDList = new List<string>(),
+					m_oTestDeviceIDList = new List<string>(),
 #endif			// #if UNITY_IOS
 
 					m_oAdsIDDict = new Dictionary<string, string>() {

@@ -12,9 +12,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine.InputSystem;
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
-#if UNIVERSAL_PIPELINE_MODULE_ENABLE
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 using UnityEngine.Rendering.Universal;
-#endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 
 /** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
@@ -40,42 +40,29 @@ public static partial class CCommonEditorSceneManager {
 				oLights[i].type = LightType.Directional;
 				oLights[i].lightmapBakeType = KCDefine.U_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
 
-				// 태그 설정이 필요 할 경우
-				if(!oLights[i].CompareTag(KCDefine.U_TAG_MAIN_LIGHT)) {
-					oLights[i].tag = KCDefine.U_TAG_MAIN_LIGHT;
-				}
+				oLights[i].ExSetTag(KCDefine.U_TAG_MAIN_LIGHT);
 			}
 		}
 
 		for(int i = 0; i < oSceneManagers.Length; ++i) {
-			// 태그 설정이 필요 할 경우
-			if(!oSceneManagers[i].CompareTag(KCDefine.U_TAG_SCENE_MANAGER)) {
-				oSceneManagers[i].tag = KCDefine.U_TAG_SCENE_MANAGER;
-			}
-			
+			oSceneManagers[i].ExSetTag(KCDefine.U_TAG_SCENE_MANAGER);
+
 			for(int j = 0; j < oCameras.Length; ++j) {
 				// 에디터 카메라가 아닐 경우
 				if(!oCameras[j].name.Equals(KCEditorDefine.B_OBJ_N_SCENE_EDITOR_CAMERA)) {
 					bool bIsUIsCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_CAMERA);
 					bool bIsMainCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA);
 
-					// UI 카메라 태그 설정이 가능 할 경우
-					if(bIsUIsCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_UIS_CAMERA)) {
-						oCameras[j].tag = KCDefine.U_TAG_UIS_CAMERA;
-					}
-					// 메인 카메라 태그 설정이 가능 할 경우
-					else if(bIsMainCamera && !oCameras[j].CompareTag(KCDefine.U_TAG_MAIN_CAMERA)) {
-						oCameras[j].tag = KCDefine.U_TAG_MAIN_CAMERA;
-					}
-
-#if UNIVERSAL_PIPELINE_MODULE_ENABLE
-					// UI, 메인 카메라가 존재 할 경우
+					// 태그 설정이 가능 할 경우
 					if(bIsUIsCamera || bIsMainCamera) {
-						oCameras[j].gameObject.ExAddComponent<UniversalAdditionalCameraData>();
-					}
-#endif			// #if UNIVERSAL_PIPELINE_MODULE_ENABLE
+						oCameras[j].ExSetTag(bIsUIsCamera ? KCDefine.U_TAG_UIS_CAMERA : KCDefine.U_TAG_MAIN_CAMERA);
 
-					// 현재 씬 관리자 일 경우
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+						oCameras[j].gameObject.ExAddComponent<UniversalAdditionalCameraData>();
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+					}
+
+					// 메인 씬 일 경우
 					if(oSceneManagers[i].SceneName.Equals(oSceneManagers[i].gameObject.scene.name)) {
 #if CAMERA_STACKING_ENABLE
 						oCameras[j].gameObject.SetActive(bIsUIsCamera || bIsMainCamera);
@@ -180,7 +167,7 @@ public static partial class CCommonEditorSceneManager {
 
 				CEditorFactory.RemoveAsset(oFilePath);
 				CEditorFactory.CreateAsset(oLightingSettingsAsset, oFilePath, false);
-
+				
 				Lightmapping.SetLightingSettingsForScene(stScene, oLightingSettingsAsset);
 			}
 
@@ -192,7 +179,7 @@ public static partial class CCommonEditorSceneManager {
 				oLightingSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
 			}
 
-			// 라이트맵 설정이 필요 할 경우
+			// 광원 맵 설정이 필요 할 경우
 			if(oLightingSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || oLightingSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE) {
 				oLightingSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
 				oLightingSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
@@ -219,6 +206,20 @@ public static partial class CCommonEditorSceneManager {
 		oInputSettings.updateMode = InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;
 	}
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+	/** 렌더링 파이프라인을 설정한다 */
+	private static void SetupRenderPipeline() {
+		var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
+		oAsset = oAsset ?? CEditorFactory.CreateScriptableObj<ScriptableObject>(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
+
+		var oSerializeObj = new SerializedObject(oAsset);
+
+		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+	}	
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 	#endregion			// 클래스 조건부 함수
 }
 #endif			// #if UNITY_EDITOR

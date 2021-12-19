@@ -96,6 +96,10 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupInputSystem();
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+				CCommonEditorSceneManager.SetupRenderPipeline();
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+
 				// 설정 가능 할 경우
 				if(CCommonEditorSceneManager.m_bIsEnableSetup) {
 					CCommonEditorSceneManager.m_bIsEnableSetup = false;
