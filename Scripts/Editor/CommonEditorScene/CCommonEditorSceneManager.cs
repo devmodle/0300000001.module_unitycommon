@@ -27,8 +27,8 @@ public static partial class CCommonEditorSceneManager {
 	};
 
 	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>() {
-		[KCDefine.U_SORTING_L_DEF] = "D",
 		[KCDefine.U_SORTING_L_ABS] = "A",
+		[KCDefine.U_SORTING_L_DEF] = "D",
 		
 		[KCDefine.U_SORTING_L_TOP] = "T",
 		[KCDefine.U_SORTING_L_TOPMOST] = "TM",
