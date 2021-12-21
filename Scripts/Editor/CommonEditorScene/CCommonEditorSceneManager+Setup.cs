@@ -220,6 +220,13 @@ public static partial class CCommonEditorSceneManager {
 		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
 	}	
 #endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+
+#if BURST_COMPILER_MODULE_ENABLE
+	/** 버스트 컴파일러를 설정한다 */
+	private static void SetupBurstCompiler() {
+		// Do Something
+	}
+#endif			// #if BURST_COMPILER_MODULE_ENABLE
 	#endregion			// 클래스 조건부 함수
 }
 #endif			// #if UNITY_EDITOR

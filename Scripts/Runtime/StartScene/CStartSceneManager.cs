@@ -30,7 +30,11 @@ public abstract class CStartSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			m_oSpriteAtlasList.ExAddVal(KCDefine.U_ASSET_P_G_SPRITE_ATLAS_01);
+			for(int i = 0; i < KCDefine.B_VAL_9_INT; ++i) {
+				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
+				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
+				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_FIX_PF_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
+			}
 
 			CCommonAppInfoStorage.Inst.AddAppRunningTimes(KCDefine.B_VAL_1_INT);
 			CCommonAppInfoStorage.Inst.SaveAppInfo();

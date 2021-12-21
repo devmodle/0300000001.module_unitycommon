@@ -100,6 +100,10 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupRenderPipeline();
 #endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 
+#if BURST_COMPILER_MODULE_ENABLE
+				CCommonEditorSceneManager.SetupBurstCompiler();
+#endif			// #if BURST_COMPILER_MODULE_ENABLE
+
 				// 설정 가능 할 경우
 				if(CCommonEditorSceneManager.m_bIsEnableSetup) {
 					CCommonEditorSceneManager.m_bIsEnableSetup = false;
