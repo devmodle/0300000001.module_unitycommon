@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: T_LocalizeInfoTable
   m_EditorClassIdentifier: 
   m_oFontInfoList:
-  - m_oCountryCode: TH
-    m_eSystemLanguage: 36
-    m_oFontSetInfoList:
-    - m_oPath: Fonts/Global/G_ThaiFont
-      m_eSet: 0
   - m_oCountryCode: KR
     m_eSystemLanguage: 23
     m_oFontSetInfoList:
