@@ -239,10 +239,7 @@ public class CStorePopup : CSubPopup {
 				}
 			}
 
-			this.ExLateCallFunc((a_oCallFuncSender) => {
-				oPostItemInfoList.Clear();
-				Func.SavePostItemInfos(oPostItemInfoList, this.OnSavePostItemInfos);
-			});
+			this.ExLateCallFunc((a_oCallFuncSender) => { oPostItemInfoList.Clear(); Func.SavePostItemInfos(oPostItemInfoList, this.OnSavePostItemInfos); });
 		} else {
 			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
 		}

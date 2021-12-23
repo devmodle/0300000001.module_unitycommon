@@ -78,10 +78,7 @@ public static partial class CEditorSceneManager {
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 				}
 				
-				CFunc.EnumerateScenes((a_stScene) => {
-					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); 
-					return true; 
-				});
+				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
 			}
 		}
 	}

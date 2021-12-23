@@ -647,11 +647,7 @@ public static partial class Func {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
 			CIndicatorManager.Inst.Show(true);
-
-			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oSender, a_oConfirmProductID, a_bIsSuccess) => {
-				CIndicatorManager.Inst.Close();
-				CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oSender, a_oConfirmProductID, a_bIsSuccess);
-			});
+			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oSender, a_oConfirmProductID, a_bIsSuccess) => { CIndicatorManager.Inst.Close(); CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oSender, a_oConfirmProductID, a_bIsSuccess); });
 		} else {
 			CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oSender, a_oProductID, a_bIsSuccess);
 		}

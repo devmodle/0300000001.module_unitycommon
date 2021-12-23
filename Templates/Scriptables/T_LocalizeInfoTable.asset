@@ -21,5 +21,7 @@ MonoBehaviour:
   - m_oCountryCode: US
     m_eSystemLanguage: 10
     m_oFontSetInfoList:
-    - m_oPath: Fonts/Global/G_EnglishFont
+    - m_oPath: Fonts & Materials/LiberationSans SDF
       m_eSet: 0
+    - m_oPath: Fonts/Global/G_EnglishFont
+      m_eSet: 1

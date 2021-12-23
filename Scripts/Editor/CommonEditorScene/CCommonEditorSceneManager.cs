@@ -88,6 +88,7 @@ public static partial class CCommonEditorSceneManager {
 			// 갱신 주기가 지났을 경우
 			if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
 				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
+				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupScene();
 				CCommonEditorSceneManager.SetupLightOpts();
@@ -121,11 +122,6 @@ public static partial class CCommonEditorSceneManager {
 					}
 #endif			// #if UNITY_ANDROID
 				}
-
-				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => {
-					a_oSceneManager.EditorSetupScene(); 
-					return true; 
-				});
 
 				// 갱신 주기가 지났을 경우
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {

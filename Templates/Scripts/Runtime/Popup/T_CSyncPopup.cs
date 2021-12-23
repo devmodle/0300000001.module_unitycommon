@@ -167,12 +167,9 @@ public class CSyncPopup : CSubPopup {
 		}
 
 		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
+		
 		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
-
-		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => {
-			a_oPopupSender.IsIgnoreNavStackEvent = m_bIsLoadUserInfo; 
-			return true; 
-		});
+		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { a_oPopupSender.IsIgnoreNavStackEvent = m_bIsLoadUserInfo; return true; });
 	}
 
 	/** 로드 성공 팝업 결과를 수신했을 경우 */
@@ -180,10 +177,10 @@ public class CSyncPopup : CSubPopup {
 		// 유저 정보를 로드했을 경우
 		if(a_bIsOK && m_bIsLoadUserInfo) {
 			this.ExLateCallFunc((a_oSender) => {
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
-				
 				CScheduleManager.Inst.Reset();
 				CNavStackManager.Inst.Reset();
+				
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 			});
 		}
 	}
