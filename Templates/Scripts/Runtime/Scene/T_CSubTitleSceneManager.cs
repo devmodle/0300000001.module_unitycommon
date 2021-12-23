@@ -151,25 +151,23 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 		var oPlayBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
 		oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
 
-		// 스크롤러를 설정한다 {
-		m_oScrollerDict.ExAddVal(EScrollerType.LEVEL, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW));
-		m_oScrollerDict.ExAddVal(EScrollerType.STAGE, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW));
-		m_oScrollerDict.ExAddVal(EScrollerType.CHAPTER, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW));
-
-		foreach(var stKeyVal in m_oScrollerDict) {
-			stKeyVal.Value?.ExSetDelegate(this, false);
-		}
-		// 스크롤러를 설정한다 }
-
-		// 스크롤러 셀 뷰를 설정한다 {
+		// 스크롤 뷰를 설정한다 {
 		var oLevelScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.TS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW);
 		var oStageScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.TS_OBJ_P_STAGE_SCROLLER_CELL_VIEW);
 		var oChapterScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.TS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW);
 
+		m_oScrollerDict.ExAddVal(EScrollerType.LEVEL, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW));
+		m_oScrollerDict.ExAddVal(EScrollerType.STAGE, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW));
+		m_oScrollerDict.ExAddVal(EScrollerType.CHAPTER, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW));
+
 		m_oOriginScrollerCellViewDict.ExAddVal(EScrollerType.LEVEL, oLevelScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
 		m_oOriginScrollerCellViewDict.ExAddVal(EScrollerType.STAGE, oStageScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
 		m_oOriginScrollerCellViewDict.ExAddVal(EScrollerType.CHAPTER, oChapterScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
-		// 스크롤러 셀 뷰를 설정한다 }
+		
+		foreach(var stKeyVal in m_oScrollerDict) {
+			stKeyVal.Value?.ExSetDelegate(this, false);
+		}
+		// 스크롤 뷰를 설정한다 }
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
