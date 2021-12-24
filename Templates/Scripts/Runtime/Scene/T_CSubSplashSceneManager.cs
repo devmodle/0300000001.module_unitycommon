@@ -9,16 +9,13 @@ using UnityEngine.UI;
 public class CSubSplashSceneManager : CSplashSceneManager {
 	#region 변수
 	// =====> UI <=====
+	private Image m_oBGImg = null;
 	private Image m_oSplashImg = null;
 	#endregion			// 변수
 
 	#region 추가 변수
 
 	#endregion			// 추가 변수
-
-	#region 프로퍼티
-	public override Color ClearColor => KCDefine.SS_COLOR_CLEAR;
-	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
 
@@ -37,6 +34,9 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 
 	/** 스플래시를 출력한다 */
 	protected override void ShowSplash() {
+		m_oBGImg.gameObject.SetActive(true);
+		m_oBGImg.rectTransform.sizeDelta = CSceneManager.CanvasSize.ExTo2D();
+
 		m_oSplashImg.SetNativeSize();
 		m_oSplashImg.gameObject.SetActive(true);
 		
@@ -45,10 +45,15 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
-		// 이미지를 설정한다
+		// 이미지를 설정한다 {
+		m_oBGImg = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_BG_IMG, KCDefine.U_OBJ_P_IMG, this.SubUIs);
+		m_oBGImg.color = KCDefine.SS_COLOR_BG_IMG;
+		m_oBGImg.gameObject.SetActive(false);
+
 		m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_SPLASH_IMG, KCDefine.U_OBJ_P_IMG, this.SubUIs, KCDefine.SS_POS_SPLASH_IMG);
 		m_oSplashImg.sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_G_SPLASH);
 		m_oSplashImg.gameObject.SetActive(false);
+		// 이미지를 설정한다 }
 	}
 	#endregion			// 함수
 

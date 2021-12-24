@@ -573,27 +573,15 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(),
 			m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>(),
-			
-#if EPISODE_INFO_OVERWRITE_ENABLE
-			m_eLevelMode = a_oLevelInfo.LevelMode,
-			m_eLevelKinds = a_oLevelInfo.LevelKinds,
-			m_eRewardKinds = a_oLevelInfo.RewardKinds,
-			m_eTutorialKinds = a_oLevelInfo.TutorialKinds
-#else
+
 			m_eLevelMode = stLevelInfo.m_eLevelMode,
 			m_eLevelKinds = stLevelInfo.m_eLevelKinds,
 			m_eRewardKinds = stLevelInfo.m_eRewardKinds,
 			m_eTutorialKinds = stLevelInfo.m_eTutorialKinds
-#endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 		};
 
-#if EPISODE_INFO_OVERWRITE_ENABLE
-		a_oLevelInfo.NumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
-		a_oLevelInfo.UnlockNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
-#else
 		stLevelInfo.m_oNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
 		stLevelInfo.m_oUnlockNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
-#endif			// #if EPISODE_INFO_OVERWRITE_ENABLE
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
 		CFunc.WriteMsgPackObj(string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT), a_oLevelInfo, null, false, false);

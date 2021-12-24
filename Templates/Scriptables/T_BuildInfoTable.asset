@@ -15,22 +15,16 @@ MonoBehaviour:
   m_stJenkinsInfo:
     m_oUserID: studio
     m_oBranch: main
-    m_oSrc: 00000111.Sample_Unity
+    m_oSrc: 02000111.Sample_Unity
     m_oWorkspace: /Volumes/LaCie/jenkins/workspace
     m_oBuildToken: JenkinsBuild
     m_oAccessToken: 1157dad5f9db2d0615036ebc6da282c251
     m_oBuildURLFmt: http://59.11.2.140:18081/{0}/buildWithParameters
-  m_stCommonBuildInfo:
-    m_oCategory: public.app-category.games
   m_stiOSBuildInfo:
     m_oTeamID: A9997B8HR5
     m_oTargetOSVer: 11.0
     m_oDevProfileID: 
     m_oStoreProfileID: 
-    m_oURLSchemeList:
-    - sample
-    m_eiPadLaunchScreenType: 0
-    m_eiPhoneLaunchScreenType: 0
   m_stAndroidBuildInfo:
     m_oKeystorePath: Keystore.keystore
     m_oKeyaliasName: Keystore
@@ -38,3 +32,5 @@ MonoBehaviour:
     m_oKeyaliasPassword: NT9studio!
     m_eMinSDKVer: 22
     m_eTargetSDKVer: 30
+  m_stStandaloneBuildInfo:
+    m_oCategory: public.app-category.games

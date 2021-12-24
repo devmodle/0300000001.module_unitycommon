@@ -131,17 +131,17 @@ public static partial class CCommonEditorSceneManager {
 			bool bIsBakeGI = false;
 #endif			// #if LIGHTMAP_BAKE_ENABLE
 
-#if LIGHTMAP_AUTO_BAKE_ENABLE
-			bool bIsAutoGenerate = true;
+#if REALTIME_GI_ENABLE
+			bool bIsRealtimeGI = true;
 #else
-			bool bIsAutoGenerate = false;
-#endif			// #if LIGHTMAP_AUTO_BAKE_ENABLE
+			bool bIsRealtimeGI = false;
+#endif			// #if REALTIME_GI_ENABLE
 
-#if REALTIME_ENVIRONMENT_LIGHTING
+#if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
 			bool bIsRealtimeEnvironmentLighting = true;
 #else
 			bool bIsRealtimeEnvironmentLighting = false;
-#endif			// #if REALTIME_ENVIRONMENT_LIGHTING
+#endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
 
 			// 광원 설정이 유효하지 않을 경우
 			if(!bIsValid || !oLightingSettings.name.Contains(stScene.name)) {
@@ -156,7 +156,7 @@ public static partial class CCommonEditorSceneManager {
 				
 				var oType = oSettings.GetType();
 				var oPropertyInfos = oType.GetProperties(KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
-
+				
 				for(int i = 0; i < oPropertyInfos.Length; ++i) {
 					var oPropertyInfo = oPropertyInfos[i];
 					oLightingSettingsAsset.ExSetPropertyVal<LightingSettings>(oPropertyInfo.Name, KCDefine.B_BINDING_F_PUBLIC_INSTANCE, oPropertyInfo.GetValue(oSettings));
@@ -172,10 +172,9 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			// GI 설정이 필요 할 경우
-			if(oLightingSettings.bakedGI != bIsBakeGI || oLightingSettings.autoGenerate != bIsAutoGenerate || oLightingSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting) {
+			if(oLightingSettings.bakedGI != bIsBakeGI || oLightingSettings.realtimeGI != bIsRealtimeGI || oLightingSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting) {
 				oLightingSettings.bakedGI = bIsBakeGI;
-				oLightingSettings.realtimeGI = !bIsBakeGI;
-				oLightingSettings.autoGenerate = bIsAutoGenerate;
+				oLightingSettings.realtimeGI = bIsRealtimeGI;
 				oLightingSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
 			}
 

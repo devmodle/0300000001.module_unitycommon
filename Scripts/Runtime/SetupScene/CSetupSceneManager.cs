@@ -65,7 +65,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		this.SetupAbsUIs();
 		this.SetupTimerManager();
 
-#if DEBUG || DEVELOPMENT_BUILD		
+#if DEBUG || DEVELOPMENT_BUILD
 		this.SetupDebugUIs();
 		this.SetupFPSCounter();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

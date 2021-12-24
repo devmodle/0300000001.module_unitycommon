@@ -31,7 +31,6 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 	/** 다음 씬을 로드한다 */
 	protected void LoadNextScene() {
-		this.SetupOffsets();
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_START, false, false);
 	}
 

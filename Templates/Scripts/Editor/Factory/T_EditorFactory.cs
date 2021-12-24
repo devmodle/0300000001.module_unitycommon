@@ -16,37 +16,37 @@ public static partial class EditorFactory {
 	#region 조건부 클래스 함수
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	/** 판매 아이템 정보 테이블을 생성한다 */
-	[MenuItem("Tools/Utility/SubCreate/SaleItemInfoTable")]
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "SaleItemInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateSaleItemInfoTable() {
 		CEditorFactory.CreateScriptableObj<CSaleItemInfoTable>(KCEditorDefine.B_ASSET_P_SALE_ITEM_INFO_TABLE);
 	}
 
 	/** 판매 상품 정보 테이블을 생성한다 */
-	[MenuItem("Tools/Utility/SubCreate/SaleProductInfoTable")]
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "SaleProductInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateSaleProductInfoTable() {
 		CEditorFactory.CreateScriptableObj<CSaleProductInfoTable>(KCEditorDefine.B_ASSET_P_SALE_PRODUCT_INFO_TABLE);
 	}
 
 	/** 미션 정보 테이블을 생성한다 */
-	[MenuItem("Tools/Utility/SubCreate/MissionInfoTable")]
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "MissionInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateMissionInfoTable() {
 		CEditorFactory.CreateScriptableObj<CMissionInfoTable>(KCEditorDefine.B_ASSET_P_MISSION_INFO_TABLE);
 	}
 
 	/** 보상 정보 테이블을 생성한다 */
-	[MenuItem("Tools/Utility/SubCreate/RewardInfoTable")]
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "RewardInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateRewardInfoTable() {
 		CEditorFactory.CreateScriptableObj<CRewardInfoTable>(KCEditorDefine.B_ASSET_P_REWARD_INFO_TABLE);
 	}
 
 	/** 에피소드 정보 테이블을 생성한다 */
-	[MenuItem("Tools/Utility/SubCreate/EpisodeInfoTable")]
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "EpisodeInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateEpisodeInfoTable() {
 		CEditorFactory.CreateScriptableObj<CEpisodeInfoTable>(KCEditorDefine.B_ASSET_P_EPISODE_INFO_TABLE);
 	}
 
 	/** 튜토리얼 정보 테이블을 생성한다 */
-	[MenuItem("Tools/Utility/SubCreate/TutorialInfoTable")]
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "TutorialInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateTutorialInfoTable() {
 		CEditorFactory.CreateScriptableObj<CTutorialInfoTable>(KCEditorDefine.B_ASSET_P_TUTORIAL_INFO_TABLE);
 	}
