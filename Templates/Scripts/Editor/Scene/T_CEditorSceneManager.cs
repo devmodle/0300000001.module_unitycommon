@@ -130,9 +130,9 @@ public static partial class CEditorSceneManager {
 				CPlatformOptsSetter.DefineSymbolTable.EditorAndroidAmazonDefineSymbolList,
 				CPlatformOptsSetter.DefineSymbolTable.EditorAndroidOneStoreDefineSymbolList,
 				
-				CPlatformOptsSetter.DefineSymbolTable.EditorMacAppleDefineSymbolList,
-				CPlatformOptsSetter.DefineSymbolTable.EditorMacSteamDefineSymbolList,
-				CPlatformOptsSetter.DefineSymbolTable.EditorWndsSteamDefineSymbolList
+				CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneMacAppleDefineSymbolList,
+				CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneMacSteamDefineSymbolList,
+				CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneWndsSteamDefineSymbolList
 			};
 
 			foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {

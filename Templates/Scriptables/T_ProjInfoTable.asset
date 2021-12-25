@@ -46,21 +46,21 @@ MonoBehaviour:
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
-  m_stMacAppleProjInfo:
+  m_stStandaloneMacAppleProjInfo:
     m_oAppID: dante.distribution.sample
     m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
-  m_stMacSteamProjInfo:
+  m_stStandaloneMacSteamProjInfo:
     m_oAppID: dante.distribution.sample
     m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
-  m_stWndsSteamProjInfo:
+  m_stStandaloneWndsSteamProjInfo:
     m_oAppID: dante.distribution.sample
     m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
