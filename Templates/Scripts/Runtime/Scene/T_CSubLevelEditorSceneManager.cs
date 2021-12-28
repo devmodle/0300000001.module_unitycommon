@@ -826,7 +826,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 스크롤 뷰를 설정한다
 		m_oREUIsScrollSnap = m_oRightEditorUIs.ExFindComponent<SimpleScrollSnap>(KCDefine.LES_OBJ_N_RE_UIS_PAGE_VIEW);
-		m_oREUIsScrollSnap?.onPanelChanged.AddListener(() => this.UpdateUIsState());
+		m_oREUIsScrollSnap?.OnPanelCentered.AddListener((a_nCenterIdx, a_nSelIdx) => this.UpdateUIsState());
 	}
 
 	/** 오른쪽 에디터 UI 상태를 갱신한다 */
@@ -845,11 +845,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 스크롤 스냅이 존재 할 경우
 		if(m_oREUIsScrollSnap != null) {
 			// 텍스트를 설정한다
-			m_oREUIsPageText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_2_SLASH_COMBINE, m_oREUIsScrollSnap.CurrentPanel + KCDefine.B_VAL_1_INT, m_oREUIsScrollSnap.NumberOfPanels), false);
+			m_oREUIsPageText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_2_SLASH_COMBINE, m_oREUIsScrollSnap.CenteredPanel + KCDefine.B_VAL_1_INT, m_oREUIsScrollSnap.NumberOfPanels), false);
 
 			// 버튼 상태를 갱신한다
-			m_oREUIsPrevBtn?.ExSetInteractable(m_oREUIsScrollSnap.CurrentPanel > KCDefine.B_VAL_0_INT, false);
-			m_oREUIsNextBtn?.ExSetInteractable(m_oREUIsScrollSnap.CurrentPanel < m_oREUIsScrollSnap.NumberOfPanels - KCDefine.B_VAL_1_INT, false);
+			m_oREUIsPrevBtn?.ExSetInteractable(m_oREUIsScrollSnap.CenteredPanel > KCDefine.B_VAL_0_INT, false);
+			m_oREUIsNextBtn?.ExSetInteractable(m_oREUIsScrollSnap.CenteredPanel < m_oREUIsScrollSnap.NumberOfPanels - KCDefine.B_VAL_1_INT, false);
 		}
 	}
 

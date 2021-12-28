@@ -9,14 +9,14 @@
 	- *Asset Usage Detector (v2.0.0 - Nov 29, 2021)*
 	- *Bezier Solution (v2.3.0 - Nov 5, 2021)*
 	- *Enhanced Hierarchy (v2.4.5 - May 5, 2020)*
-	- *Enhanced Scroller (v2.31.1 - Oct 27, 2021)*
+	- *Enhanced Scroller (v2.32.0 - Dec 22, 2021)*
 	- *iTween (v2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (v2.3.1 - Jan 9, 2018)*
 	- *Lite FPS Counter (v1.0.0 - Jan 11, 2019)*
 	- *Native Share (v1.4.4 - Nov 18, 2021)*
 	- *NGUI (v2021.11.30 - Dec 1, 2021)*
-	- *Rest Client (v2.6.1 - Jun 11, 2020)*
-	- *Simple Scroll Snap (v1.2.1 - Dec 14, 2020)*
+	- *Rest Client (v2.6.2 - Dec 27, 2021)*
+	- *Simple Scroll Snap (v2.0.0 - Dec 25, 2021)*
 	- *Smart Timers Manager (v1.0.0 - Jul 6, 2016)*
 	- *Sound Manater Pro (v3.7.0 - Mar 29, 2015)*
 	- *Text to TextMesh Pro (v1.0.1 - Aug 18, 2020)*

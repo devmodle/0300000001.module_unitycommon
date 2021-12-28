@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44824868, g: 0.49827552, b: 0.5755827, a: 1}
+  m_IndirectSpecularColor: {r: 0.4482482, g: 0.49827522, b: 0.5755824, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2471,7 +2471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305572985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 361.7094, z: 0}
+  m_LocalPosition: {x: 0, y: 375.56268, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3833,7 +3833,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447852263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -361.7094, z: 0}
+  m_LocalPosition: {x: 0, y: -375.56268, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4378,30 +4378,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementType: 0
   movementAxis: 0
-  automaticallyLayout: 1
+  useAutomaticLayout: 1
+  automaticLayoutSpacing: 0.25
   sizeControl: 1
   size: {x: 400, y: 250}
-  automaticLayoutSpacing: 0.25
-  leftMargin: 0
-  rightMargin: 0
-  topMargin: 0
-  bottomMargin: 0
-  infinitelyScroll: 0
-  infiniteScrollingEndSpacing: 0
+  automaticLayoutMargins:
+    Left: 0
+    Right: 0
+    Top: 0
+    Bottom: 0
+  useInfiniteScrolling: 0
+  infiniteScrollingSpacing: 0.25
   useOcclusionCulling: 0
   startingPanel: 0
-  swipeGestures: 1
+  useSwipeGestures: 1
   minimumSwipeSpeed: 0
   previousButton: {fileID: 1586077096}
   nextButton: {fileID: 1740324768}
-  pagination: {fileID: 1420821219}
-  toggleNavigation: 1
+  pagination: {fileID: 1420821223}
+  useToggleNavigation: 1
   snapTarget: 2
-  snappingSpeed: 10
-  thresholdSnappingSpeed: -1
-  hardSnap: 1
+  snapSpeed: 10
+  thresholdSpeedToSnap: -1
+  useHardSnapping: 1
   useUnscaledTime: 0
-  onPanelChanged:
+  onTransitionEffects:
     m_PersistentCalls:
       m_Calls: []
   onPanelSelecting:
@@ -4410,10 +4411,12 @@ MonoBehaviour:
   onPanelSelected:
     m_PersistentCalls:
       m_Calls: []
-  onPanelChanging:
+  onPanelCentering:
     m_PersistentCalls:
       m_Calls: []
-  transitionEffects: []
+  onPanelCentered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &549025758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5518,7 +5521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -640, y: -361.7094}
+  m_AnchoredPosition: {x: -640, y: -375.56268}
   m_SizeDelta: {x: 1280, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &705507993
@@ -6453,7 +6456,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   toggleTransition: 1
   graphic: {fileID: 323593301}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1420821223}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7233,7 +7236,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -9392,7 +9395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -640, y: 361.7094}
+  m_AnchoredPosition: {x: -640, y: 375.56268}
   m_SizeDelta: {x: 1280, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1127162467
@@ -10924,7 +10927,7 @@ Transform:
   m_GameObject: {fileID: 1376964104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99527407, y: 0.99527407, z: 0.99527407}
+  m_LocalScale: {x: 0.95856166, y: 0.95856166, z: 0.95856166}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1538062839}
@@ -11583,6 +11586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1420821220}
   - component: {fileID: 1420821221}
+  - component: {fileID: 1420821223}
   - component: {fileID: 1420821222}
   m_Layer: 0
   m_Name: Pagination
@@ -11652,6 +11656,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1420821223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420821219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
 --- !u!1 &1421376074
 GameObject:
   m_ObjectHideFlags: 0
@@ -13711,30 +13728,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementType: 0
   movementAxis: 0
-  automaticallyLayout: 1
+  useAutomaticLayout: 1
+  automaticLayoutSpacing: 0.25
   sizeControl: 1
   size: {x: 400, y: 250}
-  automaticLayoutSpacing: 0.25
-  leftMargin: 0
-  rightMargin: 0
-  topMargin: 0
-  bottomMargin: 0
-  infinitelyScroll: 0
-  infiniteScrollingEndSpacing: 0
+  automaticLayoutMargins:
+    Left: 0
+    Right: 0
+    Top: 0
+    Bottom: 0
+  useInfiniteScrolling: 0
+  infiniteScrollingSpacing: 0.25
   useOcclusionCulling: 0
   startingPanel: 0
-  swipeGestures: 1
+  useSwipeGestures: 1
   minimumSwipeSpeed: 0
   previousButton: {fileID: 1633188578}
   nextButton: {fileID: 1474923802}
-  pagination: {fileID: 1728174763}
-  toggleNavigation: 1
+  pagination: {fileID: 1728174767}
+  useToggleNavigation: 1
   snapTarget: 2
-  snappingSpeed: 10
-  thresholdSnappingSpeed: -1
-  hardSnap: 1
+  snapSpeed: 10
+  thresholdSpeedToSnap: -1
+  useHardSnapping: 1
   useUnscaledTime: 0
-  onPanelChanged:
+  onTransitionEffects:
     m_PersistentCalls:
       m_Calls: []
   onPanelSelecting:
@@ -13743,10 +13761,12 @@ MonoBehaviour:
   onPanelSelected:
     m_PersistentCalls:
       m_Calls: []
-  onPanelChanging:
+  onPanelCentering:
     m_PersistentCalls:
       m_Calls: []
-  transitionEffects: []
+  onPanelCentered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1586276091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15049,7 +15069,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -15253,6 +15273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1728174764}
   - component: {fileID: 1728174765}
+  - component: {fileID: 1728174767}
   - component: {fileID: 1728174766}
   m_Layer: 0
   m_Name: Pagination
@@ -15322,6 +15343,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1728174767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728174763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
 --- !u!1 &1740324764
 GameObject:
   m_ObjectHideFlags: 0
@@ -17356,7 +17390,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   toggleTransition: 1
   graphic: {fileID: 1812384426}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1728174767}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []

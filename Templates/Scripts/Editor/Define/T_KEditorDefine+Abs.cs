@@ -162,7 +162,7 @@ public static partial class KEditorDefine {
 		["com.unity.formats.fbx"] = "4.1.2",
 		["com.unity.mathematics"] = "1.2.5",
 		["com.unity.localization"] = "1.0.5",
-		["com.unity.addressables"] = "1.19.14",
+		["com.unity.addressables"] = "1.19.15",
 		["com.unity.ads.ios-support"] = "1.0.0",
 
 		// 2D
@@ -194,7 +194,7 @@ public static partial class KEditorDefine {
 #endif			// #if ADAPTIVE_PERFORMANCE_ENABLE || ADAPTIVE_PERFORMANCE_MODULE_ENABLE
 
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
-		["com.unity.cinemachine"] = "2.8.3",
+		["com.unity.cinemachine"] = "2.8.4",
 #endif			// #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 
 #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
