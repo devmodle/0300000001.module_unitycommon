@@ -38,7 +38,12 @@ public static partial class CCommonEditorSceneManager {
 			// 메인 광원 일 경우
 			if(oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_LIGHT)) {
 				oLights[i].type = LightType.Directional;
-				oLights[i].lightmapBakeType = KCDefine.U_LIGHTMAP_BAKE_TYPE_DIRECTIONAL;
+
+#if MAIN_LIGHT_REALTIME_LIGHTMAP_BAKE_ENABLE
+				oLights[i].lightmapBakeType = LightmapBakeType.Realtime;
+#else
+				oLights[i].lightmapBakeType = LightmapBakeType.Mixed;
+#endif			// #if MAIN_LIGHT_REALTIME_LIGHTMAP_BAKE_ENABLE
 
 				oLights[i].ExSetTag(KCDefine.U_TAG_MAIN_LIGHT);
 			}
