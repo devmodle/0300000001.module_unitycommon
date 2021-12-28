@@ -14,7 +14,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 		LEVEL,
 		STAGE,
 		CHAPTER,
-		MAX_VAL
+		[HideInInspector] MAX_VAL
 	}
 
 	#region 변수

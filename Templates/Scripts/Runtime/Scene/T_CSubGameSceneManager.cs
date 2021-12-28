@@ -15,7 +15,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		RETRY,
 		CONTINUE,
 		LEAVE,
-		MAX_VAL
+		[HideInInspector] MAX_VAL
 	}
 
 	#region 변수

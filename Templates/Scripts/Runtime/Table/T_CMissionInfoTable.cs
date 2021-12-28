@@ -41,6 +41,16 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 
 	#region 프로퍼티
 	public Dictionary<EMissionKinds, STMissionInfo> MissionInfoDict { get; private set; } = new Dictionary<EMissionKinds, STMissionInfo>();
+
+	private string MissionInfoTablePath {
+		get {
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			return KCDefine.U_RUNTIME_TABLE_P_G_MISSION_INFO;
+#else
+			return KCDefine.U_TABLE_P_G_MISSION_INFO;
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		}
+	}
 	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
@@ -77,18 +87,14 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 
 	/** 미션 정보를 로드한다 */
 	public Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos() {
-#if UNITY_EDITOR || UNITY_STANDALONE
-		return this.LoadMissionInfos(KCDefine.U_RUNTIME_TABLE_P_G_MISSION_INFO);
-#else
-		return this.LoadMissionInfos(KCDefine.U_TABLE_P_G_MISSION_INFO);
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+		return this.LoadMissionInfos(this.MissionInfoTablePath);
 	}
 
 	/** 미션 정보를 로드한다 */
-	public Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(string a_oFilePath) {
+	private Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadMissionInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
@@ -97,7 +103,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 미션 정보를 로드한다 */

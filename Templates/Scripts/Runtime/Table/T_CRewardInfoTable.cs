@@ -66,6 +66,16 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	#region 프로퍼티
 	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoDict { get; private set; } = new Dictionary<ERewardKinds, STRewardInfo>();
+
+	private string RewardInfoTablePath {
+		get {
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			return KCDefine.U_RUNTIME_TABLE_P_G_REWARD_INFO;
+#else
+			return KCDefine.U_TABLE_P_G_REWARD_INFO;
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		}
+	}
 	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
@@ -105,18 +115,14 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	/** 보상 정보를 로드한다 */
 	public Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos() {
-#if UNITY_EDITOR || UNITY_STANDALONE
-		return this.LoadRewardInfos(KCDefine.U_RUNTIME_TABLE_P_G_REWARD_INFO);
-#else
-		return this.LoadRewardInfos(KCDefine.U_TABLE_P_G_REWARD_INFO);
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+		return this.LoadRewardInfos(this.RewardInfoTablePath);
 	}
 
 	/** 보상 정보를 로드한다 */
-	public Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(string a_oFilePath) {
+	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadRewardInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
@@ -125,7 +131,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 보상 정보를 로드한다 */

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /** 서브 지연 설정 씬 관리자 */
 public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	#region 추가 변수
-
+	[SerializeField] private EUserType m_eUserType = EUserType.NONE;
 	#endregion			// 추가 변수
 
 	#region 추가 프로퍼티
@@ -63,8 +63,8 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
 #endif			// #if ADS_MODULE_ENABLE
 
-#if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-		CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.NONE;
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType;
 #else
 		// 유저 타입이 유효하지 않을 경우
 		if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
@@ -75,7 +75,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 			CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.USER_A;
 #endif			// #if AB_TEST_ENABLE
 		}
-#endif			// #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 		CCommonAppInfoStorage.Inst.DeviceConfig = CDeviceInfoTable.Inst.DeviceConfig;
 		CCommonUserInfoStorage.Inst.SaveUserInfo();

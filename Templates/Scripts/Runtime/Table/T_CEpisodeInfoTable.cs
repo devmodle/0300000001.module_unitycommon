@@ -342,6 +342,20 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	public Dictionary<long, STLevelInfo> LevelInfoDict { get; private set; } = new Dictionary<long, STLevelInfo>();
 	public Dictionary<long, STStageInfo> StageInfoDict { get; private set; } = new Dictionary<long, STStageInfo>();
 	public Dictionary<long, STChapterInfo> ChapterInfoDict { get; private set; } = new Dictionary<long, STChapterInfo>();
+
+	private string EpisodeInfoTablePath {
+		get {
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			return KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO;
+#else
+#if AB_TEST_ENABLE
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.USER_A) ? KCDefine.U_TABLE_P_G_EPISODE_INFO_SET_A : KCDefine.U_TABLE_P_G_EPISODE_INFO_SET_B;
+#else
+			return KCDefine.U_TABLE_P_G_EPISODE_INFO;
+#endif			// #if AB_TEST_ENABLE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		}
+	}
 	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
@@ -416,18 +430,14 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	/** 에피소드 정보를 로드한다 */
 	public List<object> LoadEpisodeInfos() {
-#if UNITY_EDITOR || UNITY_STANDALONE
-		return this.LoadEpisodeInfos(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO);
-#else
-		return this.LoadEpisodeInfos(KCDefine.U_TABLE_P_G_EPISODE_INFO);
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+		return this.LoadEpisodeInfos(this.EpisodeInfoTablePath);
 	}
 
 	/** 에피소드 정보를 로드한다 */
-	public List<object> LoadEpisodeInfos(string a_oFilePath) {
+	private List<object> LoadEpisodeInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadEpisodeInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
@@ -436,7 +446,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 에피소드 정보를 로드한다 */
@@ -485,7 +495,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	#endregion			// 함수
 
 	#region 조건부 함수
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 에피소드 정보를 저장한다 */
 	public void SaveEpisodeInfos() {
 		var oJSONNode = new SimpleJSON.JSONClass();
@@ -521,7 +531,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		var oJSONStr = oJSONNode.ToString();
 		CFunc.WriteStr(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO, JSON.ParseString(oJSONStr).CreatePrettyString());
 	}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수
 
 	#region 추가 함수

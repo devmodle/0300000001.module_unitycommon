@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: T_LocalizeInfoTable
   m_EditorClassIdentifier: 
   m_oFontInfoList:
-  - m_oCountryCode: KR
+  - m_oCountryCode: 
     m_eSystemLanguage: 23
     m_oFontSetInfoList:
     - m_oPath: Fonts/Global/G_KoreanFont
       m_eSet: 0
-  - m_oCountryCode: US
+    - m_oPath: Fonts/Global/G_KoreanFont
+      m_eSet: 1
+  - m_oCountryCode: 
     m_eSystemLanguage: 10
     m_oFontSetInfoList:
     - m_oPath: Fonts & Materials/LiberationSans SDF

@@ -47,6 +47,16 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 
 	#region 프로퍼티
 	public Dictionary<ETutorialKinds, STTutorialInfo> TutorialInfoDict { get; private set; } = new Dictionary<ETutorialKinds, STTutorialInfo>();
+
+	private string TutorialInfoTablePath {
+		get {
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			return KCDefine.U_RUNTIME_TABLE_P_G_TUTORIAL_INFO;
+#else
+			return KCDefine.U_TABLE_P_G_TUTORIAL_INFO;
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		}
+	}
 	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
@@ -82,18 +92,14 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 
 	/** 튜토리얼 정보를 로드한다 */
 	public Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos() {
-#if UNITY_EDITOR || UNITY_STANDALONE
-		return this.LoadTutorialInfos(KCDefine.U_RUNTIME_TABLE_P_G_TUTORIAL_INFO);
-#else
-		return this.LoadTutorialInfos(KCDefine.U_TABLE_P_G_TUTORIAL_INFO);
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+		return this.LoadTutorialInfos(this.TutorialInfoTablePath);
 	}
 
 	/** 튜토리얼 정보를 로드한다 */
-	public Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos(string a_oFilePath) {
+	private Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadTutorialInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
@@ -102,7 +108,7 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 튜토리얼 정보를 로드한다 */

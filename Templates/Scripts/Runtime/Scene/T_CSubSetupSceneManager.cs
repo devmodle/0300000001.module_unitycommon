@@ -8,9 +8,7 @@ using UnityEngine.UI;
 /** 서브 설정 씬 관리자 */
 public class CSubSetupSceneManager : CSetupSceneManager {
 	#region 변수
-#if LOCALIZE_TEST_ENABLE
 	[SerializeField] private SystemLanguage m_eSystemLanguage = SystemLanguage.Unknown;
-#endif			// #if LOCALIZE_TEST_ENABLE
 	#endregion			// 변수
 
 	#region 추가 변수

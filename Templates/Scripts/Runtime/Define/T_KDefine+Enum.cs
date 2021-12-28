@@ -12,7 +12,7 @@ public enum EPlayMode {
 	NORM,
 	TUTORIAL,
 	TEST,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 레벨 모드 */
@@ -23,7 +23,7 @@ public enum ELevelMode {
 	HARD,
 	VERY_HARD,
 	SUPER_HARD,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 가격 타입 */
@@ -32,7 +32,7 @@ public enum EPriceType {
 	ADS,
 	GOODS,
 	PURCHASE,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 가격 종류 */
@@ -54,7 +54,7 @@ public enum EPriceKinds {
 	PURCHASE = EPriceKinds.ADS_REWARD + (KCDefine.B_UNIT_KINDS_PER_TYPE * 2) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 0),
 	#endregion			// 결제
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 아이템 타입 */
@@ -63,7 +63,7 @@ public enum EItemType {
 	GOODS,
 	CONSUMABLE,
 	NON_CONSUMABLE,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 아이템 종류 */
@@ -94,7 +94,7 @@ public enum EItemKinds {
 	NON_CONSUMABLE_REMOVE_ADS = EItemKinds.GOODS_COINS + (KCDefine.B_UNIT_KINDS_PER_TYPE * 2) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 0),
 	#endregion			// 비소모
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 판매 아이템 타입 */
@@ -103,7 +103,7 @@ public enum ESaleItemType {
 	GOODS,
 	CONSUMABLE,
 	NON_CONSUMABLE,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 판매 아이템 종류 */
@@ -127,7 +127,7 @@ public enum ESaleItemKinds {
 
 	#endregion			// 비소모
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 판매 상품 타입 */
@@ -135,7 +135,7 @@ public enum ESaleProductType {
 	NONE = -1,
 	PKGS,
 	SINGLE,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 판매 상품 종류 */
@@ -161,7 +161,7 @@ public enum ESaleProductKinds {
 	SINGLE_REMOVE_ADS = ESaleProductKinds.PKGS_START + (KCDefine.B_UNIT_KINDS_PER_TYPE * 2) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 1),
 	#endregion			// 단일
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 미션 타입 */
@@ -170,7 +170,7 @@ public enum EMissionType {
 	FREE,
 	DAILY,
 	EVENT,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 미션 종류 */
@@ -192,7 +192,7 @@ public enum EMissionKinds {
 	EVENT_MISSION_SAMPLE = EMissionKinds.FREE_MISSION_SAMPLE + (KCDefine.B_UNIT_KINDS_PER_TYPE * 2) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 0),
 	#endregion			// 이벤트
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 보상 타입 */
@@ -204,7 +204,7 @@ public enum ERewardType {
 	CLEAR,
 	MISSION,
 	TUTORIAL,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 보상 종류 */
@@ -241,7 +241,7 @@ public enum ERewardKinds {
 	TUTORIAL_REWARD_SAMPLE = ERewardKinds.FREE_COINS + (KCDefine.B_UNIT_KINDS_PER_TYPE * 5) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 0),
 	#endregion			// 튜토리얼
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 보상 수준 */
@@ -250,7 +250,7 @@ public enum ERewardQuality {
 	NORM,
 	HIGH,
 	ULTRA,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 보상 획득 팝업 타입 */
@@ -260,7 +260,7 @@ public enum ERewardAcquirePopupType {
 	DAILY,
 	EVENT,
 	CLEAR,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 레벨 타입 */
@@ -268,7 +268,7 @@ public enum ELevelType {
 	NONE = -1,
 	NORM,
 	TUTORIAL,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 레벨 종류 */
@@ -285,14 +285,14 @@ public enum ELevelKinds {
 	TUTORIAL_LEVEL_SAMPLE = ELevelKinds.NORM_LEVEL_SAMPLE + (KCDefine.B_UNIT_KINDS_PER_TYPE * 1) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 0),
 	#endregion			// 튜토리얼
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 스테이지 타입 */
 public enum EStageType {
 	NONE = -1,
 	NORM,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 스테이지 타입 */
@@ -304,14 +304,14 @@ public enum EStageKinds {
 	NORM_STAGE_SAMPLE,
 	#endregion			// 일반
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 챕터 타입 */
 public enum EChapterType {
 	NONE = -1,
 	NORM,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 챕터 타입 */
@@ -323,7 +323,7 @@ public enum EChapterKinds {
 	NORM_CHAPTER_SAMPLE,
 	#endregion			// 일반
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 튜토리얼 타입 */
@@ -331,7 +331,7 @@ public enum ETutorialType {
 	NONE = -1,
 	PLAY,
 	HELP,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 튜토리얼 종류 */
@@ -348,19 +348,19 @@ public enum ETutorialKinds {
 	HELP_TUTORIAL_SAMPLE = ETutorialKinds.PLAY_TUTORIAL_SAMPLE + (KCDefine.B_UNIT_KINDS_PER_TYPE * 1) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 0),
 	#endregion			// 도움말
 
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 타겟 타입 */
 public enum ETargetType {
 	NONE = -1,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 
 /** 타겟 종류 */
 public enum ETargetKinds {
 	NONE = -1,
-	MAX_VAL
+	[HideInInspector] MAX_VAL
 }
 #endregion			// 기본
 

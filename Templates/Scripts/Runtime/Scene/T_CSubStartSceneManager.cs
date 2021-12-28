@@ -77,12 +77,13 @@ public class CSubStartSceneManager : CStartSceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		m_fSkipTime = KCDefine.SS_DELTA_T_UPDATE_STATE;
+		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.SET_A, out STFontSetInfo stFontSetInfo);
 			
 		// 텍스트를 설정한다 {
 		var oLoadingText = this.SubUIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
 
 		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, m_stLoadingTextPos);
-		m_oLoadingText.ExSetText(KCDefine.SS_TEXT_LOADING);
+		m_oLoadingText.ExSetText(KCDefine.SS_TEXT_LOADING, stFontSetInfo);
 		// 텍스트를 설정한다 }
 
 		// 게이지 처리자를 설정한다 {
@@ -96,17 +97,16 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	/** 텍스트 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		string oDotStr = CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_DOT_TEXT);
-		string oLoadingStr = CCommonAppInfoStorage.Inst.CountryCode.ExIsValid() ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT) : KCDefine.SS_TEXT_LOADING;
-
 		m_oStrBuilder.Clear();
-		m_oStrBuilder.Append(oLoadingStr);
+		m_oStrBuilder.Append(KCDefine.SS_TEXT_LOADING);
+
+		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.SET_A, out STFontSetInfo stFontSetInfo);
 
 		for(int i = 0; i < m_nNumDots + KCDefine.B_VAL_1_INT; ++i) {
-			m_oStrBuilder.Append(oDotStr);
+			m_oStrBuilder.Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_DOT_TEXT));
 		}
 		
-		m_oLoadingText.ExSetText(m_oStrBuilder.ToString());
+		m_oLoadingText.ExSetText(m_oStrBuilder.ToString(), stFontSetInfo);
 	}
 	#endregion			// 함수
 	

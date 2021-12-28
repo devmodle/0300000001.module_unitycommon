@@ -13,7 +13,7 @@ namespace SampleEngineName {
 		BG,
 		NORM,
 		OVERLAY,
-		MAX_VAL
+		[HideInInspector] MAX_VAL
 	}
 
 	/** 블럭 종류 */
@@ -35,7 +35,7 @@ namespace SampleEngineName {
 		OVERLAY_BLOCK_SAMPLE = EBlockKinds.BG_EMPTY + (KCDefine.B_UNIT_KINDS_PER_TYPE * 2) + (KCDefine.B_UNIT_KINDS_PER_KINDS_TYPE * 0),
 		#endregion			// 중첩
 
-		MAX_VAL
+		[HideInInspector] MAX_VAL
 	}
 	#endregion			// 기본
 

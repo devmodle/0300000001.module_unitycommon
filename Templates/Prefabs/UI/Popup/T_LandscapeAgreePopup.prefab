@@ -550,7 +550,6 @@ GameObject:
   - component: {fileID: 2811233257106162500}
   - component: {fileID: 5457384427782761027}
   - component: {fileID: 5155488620813650883}
-  - component: {fileID: 4614040452254976104}
   m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
@@ -606,10 +605,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Terms of Service
+  m_text: "\uC11C\uBE44\uC2A4 \uC774\uC6A9\uC57D\uAD00"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
+  m_sharedMaterial: {fileID: 5808259103983198388, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -689,23 +688,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &4614040452254976104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2183518940418301731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_SERVICES_TITLE
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!1 &2205614760928724013
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +860,6 @@ GameObject:
   - component: {fileID: 6917867927826412917}
   - component: {fileID: 2029870118458374376}
   - component: {fileID: 6858272954334015207}
-  - component: {fileID: 1131617857344375316}
   m_Layer: 5
   m_Name: DescText_02
   m_TagString: Untagged
@@ -1017,23 +998,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &1131617857344375316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3028770528563528787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_DESC_TEXT_02
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!1 &3070524852517513671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,7 +1161,6 @@ GameObject:
   - component: {fileID: 8335606702121882817}
   - component: {fileID: 6557229845914715984}
   - component: {fileID: 2254761851112942529}
-  - component: {fileID: 3586172653272320232}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1336,23 +1299,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 0
---- !u!114 &3586172653272320232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231924427819103520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: COMMON_OK_TEXT
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!1 &3391384805651254338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,7 +1312,6 @@ GameObject:
   - component: {fileID: 3046328996734958278}
   - component: {fileID: 8793787201467957935}
   - component: {fileID: 6514025945079428181}
-  - component: {fileID: 2767576256292127529}
   - component: {fileID: 8419046639382848796}
   - component: {fileID: 1904674070612118230}
   m_Layer: 5
@@ -1551,23 +1496,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &2767576256292127529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3391384805651254338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_PRIVACY_BTN_TEXT
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!114 &8419046639382848796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1606,7 +1534,6 @@ GameObject:
   - component: {fileID: 2644538024521776963}
   - component: {fileID: 8246897704207841853}
   - component: {fileID: 2309723732738748954}
-  - component: {fileID: 4564073069525878403}
   m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
@@ -1662,10 +1589,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Privacy Policy
+  m_text: "\uAC1C\uC778\uC815\uBCF4 \uBCF4\uD638\uC815\uCC45"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
+  m_sharedMaterial: {fileID: 5808259103983198388, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1745,23 +1672,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &4564073069525878403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5012251267925441962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_PRIVACY_TITLE
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!1 &5047267430272642817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,7 +1764,6 @@ GameObject:
   - component: {fileID: 2973010166520179828}
   - component: {fileID: 2123086040717885425}
   - component: {fileID: 6875455309198146936}
-  - component: {fileID: 2681411978628092252}
   - component: {fileID: 7587009343147063136}
   - component: {fileID: 5924344084403803301}
   m_Layer: 5
@@ -2039,23 +1948,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &2681411978628092252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5202611496621423424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_SERVICES_BTN_TEXT
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!114 &7587009343147063136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2176,7 +2068,6 @@ GameObject:
   - component: {fileID: 8800553586334741078}
   - component: {fileID: 5421489209769513251}
   - component: {fileID: 3566576551367660801}
-  - component: {fileID: 3813520740476183199}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2232,10 +2123,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Agree
+  m_text: "\uB3D9\uC758"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
+  m_sharedMaterial: {fileID: 5808259103983198388, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2315,23 +2206,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &3813520740476183199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5670578341995345841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: COMMON_AGREE_TEXT
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!1 &5834065281221620514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3290,7 +3164,6 @@ GameObject:
   - component: {fileID: 3918465599587194589}
   - component: {fileID: 1383879827508690290}
   - component: {fileID: 4996824298789691953}
-  - component: {fileID: 98812923776524512}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3346,10 +3219,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Agree
+  m_text: "\uB3D9\uC758"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
+  m_sharedMaterial: {fileID: 5808259103983198388, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3429,23 +3302,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &98812923776524512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8057046920773979166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: COMMON_AGREE_TEXT
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!1 &8545006514540941092
 GameObject:
   m_ObjectHideFlags: 0
@@ -3655,7 +3511,6 @@ GameObject:
   - component: {fileID: 6668564600261450461}
   - component: {fileID: 253624490947296158}
   - component: {fileID: 8740042644468052348}
-  - component: {fileID: 5951309485882970613}
   m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
@@ -3794,23 +3649,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &5951309485882970613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8773788283453158082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_EU_TITLE
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont
 --- !u!1 &9089125404088391429
 GameObject:
   m_ObjectHideFlags: 0
@@ -3823,7 +3661,6 @@ GameObject:
   - component: {fileID: 7475271855673995560}
   - component: {fileID: 2273248951256424010}
   - component: {fileID: 728486867715907496}
-  - component: {fileID: 3698430339338958754}
   m_Layer: 5
   m_Name: DescText_01
   m_TagString: Untagged
@@ -3962,20 +3799,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &3698430339338958754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9089125404088391429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_oKey: AGREE_P_DESC_TEXT_01
-  m_oKRFontPath: Fonts/Global/G_KRFont
-  m_oThaiFontPath: Fonts/Global/G_ThaiFont
-  m_oTMPKRFontPath: Fonts/Global/G_TMPKRFont
-  m_oTMPThaiFontPath: Fonts/Global/G_TMPThaiFont

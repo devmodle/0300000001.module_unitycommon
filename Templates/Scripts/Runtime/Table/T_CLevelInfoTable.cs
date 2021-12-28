@@ -222,6 +222,20 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 프로퍼티
 	public Dictionary<int, Dictionary<int, int>> NumLevelInfosDictContainer = new Dictionary<int, Dictionary<int, int>>();
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LevelInfoDictContainer = new Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>>();
+
+	public string LevelInfoTablePath {
+		get {
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			return KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO;
+#else
+#if AB_TEST_ENABLE
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.USER_A) ? KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_A : KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_B;
+#else
+			return KCDefine.U_TABLE_P_G_LEVEL_INFO;
+#endif			// #if AB_TEST_ENABLE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		}
+	}
 	
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	public int NumChapterInfos => this.LevelInfoDictContainer.Count;
@@ -263,13 +277,37 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보를 로드한다 */
 	public CLevelInfo LoadLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		return this.LoadLevelInfo(this.GetLevelInfoPath(a_nID, a_nStageID, a_nChapterID), a_nID, a_nStageID, a_nChapterID);
+	}
+
+	/** 레벨 정보를 로드한다 */
+	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos() {
+		return this.LoadLevelInfos(this.LevelInfoTablePath);
+	}
+
+	/** 레벨 정보 경로를 반환한다 */
+	private string GetLevelInfoPath(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
-		CLevelInfo oLevelInfo = null;
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT), null, false);
+		return string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
 #else
-		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT), null, false);
+#if AB_TEST_ENABLE
+		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.USER_A) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B, nLevelID + KCDefine.B_VAL_1_INT);
+#else
+		return string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
+#endif			// #if AB_TEST_ENABLE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+	}
+
+	/** 레벨 정보를 로드한다 */
+	private CLevelInfo LoadLevelInfo(string a_oFilePath, int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		CLevelInfo oLevelInfo = null;		
+
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, null, false);
+#else
+		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, null, false);
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 		oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID);
@@ -277,16 +315,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	/** 레벨 정보를 로드한다 */
-	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos() {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		return this.LoadLevelInfos(KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO);
-#else
-		return this.LoadLevelInfos(KCDefine.U_TABLE_P_G_LEVEL_INFO);
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-	}
-
-	/** 레벨 정보를 로드한다 */
-	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos(string a_oFilePath) {
+	private Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		List<long> oLevelIDList = null;
 

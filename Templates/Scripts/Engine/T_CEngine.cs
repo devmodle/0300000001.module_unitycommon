@@ -14,7 +14,7 @@ namespace SampleEngineName {
 			NONE = -1,
 			RUN,
 			STOP,
-			MAX_VAL
+			[HideInInspector] MAX_VAL
 		}
 
 		/** 매개 변수 */

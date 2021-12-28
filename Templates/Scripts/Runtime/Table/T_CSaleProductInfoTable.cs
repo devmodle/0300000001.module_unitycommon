@@ -71,6 +71,16 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 
 	#region 프로퍼티
 	public Dictionary<ESaleProductKinds, STSaleProductInfo> SaleProductInfoDict { get; private set; } = new Dictionary<ESaleProductKinds, STSaleProductInfo>();
+
+	private string SaleProductInfoTablePath {
+		get {
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			return KCDefine.U_RUNTIME_TABLE_P_G_SALE_PRODUCT_INFO;
+#else
+			return KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO;
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		}
+	}
 	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
@@ -130,18 +140,14 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 
 	/** 판매 상품 정보를 로드한다 */
 	public Dictionary<ESaleProductKinds, STSaleProductInfo> LoadSaleProductInfos() {
-#if UNITY_EDITOR || UNITY_STANDALONE
-		return this.LoadSaleProductInfos(KCDefine.U_RUNTIME_TABLE_P_G_SALE_PRODUCT_INFO);
-#else
-		return this.LoadSaleProductInfos(KCDefine.U_TABLE_P_G_SALE_PRODUCT_INFO);
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+		return this.LoadSaleProductInfos(this.SaleProductInfoTablePath);
 	}
 
 	/** 판매 상품 정보를 로드한다 */
-	public Dictionary<ESaleProductKinds, STSaleProductInfo> LoadSaleProductInfos(string a_oFilePath) {
+	private Dictionary<ESaleProductKinds, STSaleProductInfo> LoadSaleProductInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadSaleProductInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
@@ -150,7 +156,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 판매 상품 정보를 로드한다 */
