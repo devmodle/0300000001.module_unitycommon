@@ -20,7 +20,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 	#region 변수
 	private STIDInfo m_stSelIDInfo;
 
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private Dictionary<EScrollerType, EnhancedScroller> m_oScrollerDict = new Dictionary<EScrollerType, EnhancedScroller>();
 	private Dictionary<EScrollerType, EnhancedScrollerCellView> m_oOriginScrollerCellViewDict = new Dictionary<EScrollerType, EnhancedScrollerCellView>();
 	#endregion			// 변수

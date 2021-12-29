@@ -18,8 +18,9 @@ public static partial class Func {
 
 	private static STAdsRewardItemInfo m_stRewardItemInfo;
 
-	private static System.Action<CAdsManager, STAdsRewardItemInfo, bool> m_oRewardAdsCallback = null;
+	private static System.Action<CAdsManager, bool> m_oBannerAdsCallback = null;
 	private static System.Action<CAdsManager, bool> m_oFullscreenAdsCallback = null;
+	private static System.Action<CAdsManager, STAdsRewardItemInfo, bool> m_oRewardAdsCallback = null;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
@@ -93,6 +94,13 @@ public static partial class Func {
 			var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP, KCDefine.U_OBJ_P_G_ALERT_POPUP, CSceneManager.ScreenPopupUIs, a_stParams, a_stCallbackParams);
 			oAlertPopup.Show(null, null);
 		}
+	}
+
+	/** 토스트 팝업을 출력한다 */
+	public static void ShowToastPopup(string a_oMsg, float a_fDuration = KCDefine.U_DURATION_TOAST_POPUP) {
+		Func.ShowToastPopup(new CToastPopup.STParams() {
+			m_fDuration = a_fDuration, m_oMsg = a_oMsg
+		});
 	}
 
 	/** 토스트 팝업을 출력한다 */
@@ -207,6 +215,32 @@ public static partial class Func {
 
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
+	/** 배너 광고를 출력한다 */
+	public static void ShowBannerAds(System.Action<CAdsManager, bool> a_oCallback) {
+		Func.ShowBannerAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
+	}
+
+	/** 배너 광고를 출력한다 */
+	public static void ShowBannerAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback) {
+		// 배너 광고 출력이 가능 할 경우
+		if(CAdsManager.Inst.IsLoadBannerAds(a_eAdsPlatform)) {
+			Func.m_oBannerAdsCallback = a_oCallback;
+			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => CAdsManager.Inst.ShowBannerAds(a_eAdsPlatform, Func.OnShowBannerAds));
+		} else {
+			a_oCallback?.Invoke(CAdsManager.Inst, false);
+		}
+	}
+
+	/** 배너 광고를 닫는다 */
+	public static void CloseBannerAds(bool a_bIsRemove = false) {
+		Func.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform, a_bIsRemove);
+	}
+
+	/** 배너 광고를 닫는다 */
+	public static void CloseBannerAds(EAdsPlatform a_eAdsPlatform, bool a_bIsRemove = false) {
+		CAdsManager.Inst.CloseBannerAds(a_eAdsPlatform, a_bIsRemove);
+	}
+
 	/** 보상 광고를 출력한다 */
 	public static void ShowRewardAds(System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
 		Func.ShowRewardAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
@@ -216,7 +250,11 @@ public static partial class Func {
 	public static void ShowRewardAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsPlatform)) {
+#if UNITY_EDITOR
+			CIndicatorManager.Inst.Show(true, a_eAdsPlatform != EAdsPlatform.ADMOB);
+#else
 			CIndicatorManager.Inst.Show(true);
+#endif			// #if UNITY_EDITOR
 
 			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => {
 				Func.m_bIsWatchRewardAds = false;
@@ -239,7 +277,11 @@ public static partial class Func {
 	public static void ShowFullscreenAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback) {
 		// 전면 광고 출력이 가능 할 경우
 		if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsPlatform)) {
+#if UNITY_EDITOR
+			CIndicatorManager.Inst.Show(true, a_eAdsPlatform != EAdsPlatform.ADMOB);
+#else
 			CIndicatorManager.Inst.Show(true);
+#endif			// #if UNITY_EDITOR
 
 			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => {
 				// 전면 광고 출력이 가능 할 경우
@@ -261,6 +303,11 @@ public static partial class Func {
 
 			a_oCallback?.Invoke(CAdsManager.Inst, false);
 		}
+	}
+
+	/** 배너 광고가 출력 되었을 경우 */
+	private static void OnShowBannerAds(CAdsManager a_oSender, bool a_bIsSuccess) {
+		CFunc.Invoke(ref Func.m_oBannerAdsCallback, a_oSender, a_bIsSuccess);
 	}
 
 	/** 보상 광고가 닫혔을 경우 */

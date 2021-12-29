@@ -39,7 +39,7 @@
 5. **기타 추가 에셋 및 플러그인 리스트**
 	- *Google (Review, Update - v1.5.0)*
 	- *Firebase (Auth, DB, Analytics, Crashlytics, Remote Config, Cloud Messaging - v8.4.0)*
-	- *Admob (v6.1.1)*
+	- *Admob (v6.1.2)*
 	- *Iron Source (v7.1.6.1)*
 	- *App Lovin (v4.3.1)*
 	- *Flurry (v4.0.0)*

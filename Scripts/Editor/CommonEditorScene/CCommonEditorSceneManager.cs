@@ -85,6 +85,38 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.m_fSkipTime += Time.deltaTime;
 			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
 
+			// 설정 가능 할 경우
+			if(CCommonEditorSceneManager.m_bIsEnableSetup) {
+				CCommonEditorSceneManager.m_bIsEnableSetup = false;
+				CAutoSceneImporter.ImportAllScenes();
+				
+				CPlatformOptsSetter.SetupPlayerOpts();
+				CPlatformOptsSetter.SetupEditorOpts();
+				CPlatformOptsSetter.SetupProjOpts();
+				CPlatformOptsSetter.SetupPluginProjs();
+
+#if UNITY_ANDROID
+				// 플러그인이 없을 경우
+				if(!File.Exists(KCEditorDefine.B_DEST_PLUGIN_P_ANDROID)) {
+					CEditorFunc.ExecuteCmdLine(KCEditorDefine.B_PLUGIN_BUILD_CMD_ANDROID);
+				}
+#endif			// #if UNITY_ANDROID
+			}
+
+			// 빌드 가능 할 경우
+			if(CCommonEditorSceneManager.m_bIsEnableBuild) {
+				CCommonEditorSceneManager.m_bIsEnableBuild = false;
+				string oBuildMethod = CFunc.ReadStr(KCEditorDefine.B_DATA_P_BUILD_METHOD);
+
+				// 빌드 메서드가 존재 할 경우
+				if(oBuildMethod.ExIsValid()) {
+					var oMethodInfo = typeof(CPlatformBuilder).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC);
+					oMethodInfo?.Invoke(null, null);
+				} else {
+					CFactory.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
+				}
+			}
+
 			// 갱신 주기가 지났을 경우
 			if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
 				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
@@ -104,24 +136,6 @@ public static partial class CCommonEditorSceneManager {
 #if BURST_COMPILER_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupBurstCompiler();
 #endif			// #if BURST_COMPILER_MODULE_ENABLE
-
-				// 설정 가능 할 경우
-				if(CCommonEditorSceneManager.m_bIsEnableSetup) {
-					CCommonEditorSceneManager.m_bIsEnableSetup = false;
-					CAutoSceneImporter.ImportAllScenes();
-					
-					CPlatformOptsSetter.SetupPlayerOpts();
-					CPlatformOptsSetter.SetupEditorOpts();
-					CPlatformOptsSetter.SetupProjOpts();
-					CPlatformOptsSetter.SetupPluginProjs();
-
-#if UNITY_ANDROID
-					// 플러그인이 없을 경우
-					if(!File.Exists(KCEditorDefine.B_DEST_PLUGIN_P_ANDROID)) {
-						CEditorFunc.ExecuteCmdLine(KCEditorDefine.B_PLUGIN_BUILD_CMD_ANDROID);
-					}
-#endif			// #if UNITY_ANDROID
-				}
 
 				// 갱신 주기가 지났을 경우
 				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {
@@ -152,20 +166,6 @@ public static partial class CCommonEditorSceneManager {
 
 						return true;
 					});
-				}
-
-				// 빌드 가능 할 경우
-				if(CCommonEditorSceneManager.m_bIsEnableBuild) {
-					CCommonEditorSceneManager.m_bIsEnableBuild = false;
-					string oBuildMethod = CFunc.ReadStr(KCEditorDefine.B_DATA_P_BUILD_METHOD);
-
-					// 빌드 메서드가 존재 할 경우
-					if(oBuildMethod.ExIsValid()) {
-						var oMethodInfo = typeof(CPlatformBuilder).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC);
-						oMethodInfo?.Invoke(null, null);
-					} else {
-						CFactory.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
-					}
 				}
 			}
 		}

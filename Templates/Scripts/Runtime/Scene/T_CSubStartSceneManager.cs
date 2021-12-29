@@ -19,7 +19,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	private System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
 
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private TMP_Text m_oLoadingText = null;
 	private CGaugeHandler m_oGaugeHandler = null;
 	#endregion			// 변수

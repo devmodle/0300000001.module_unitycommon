@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /** 서브 스플래시 씬 관리자 */
 public class CSubSplashSceneManager : CSplashSceneManager {
 	#region 변수
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private Image m_oBGImg = null;
 	private Image m_oSplashImg = null;
 	#endregion			// 변수

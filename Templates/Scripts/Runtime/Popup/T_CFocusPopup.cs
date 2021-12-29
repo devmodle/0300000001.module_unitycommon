@@ -24,7 +24,7 @@ public class CFocusPopup : CSubPopup {
 	private STParams m_stParams;
 	private STCallbackParams m_stCallbackParams;
 
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private Image m_oBlindImg = null;
 	#endregion			// 변수
 

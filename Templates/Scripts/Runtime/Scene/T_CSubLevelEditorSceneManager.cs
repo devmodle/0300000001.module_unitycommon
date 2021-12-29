@@ -32,7 +32,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	[System.NonSerialized] private CLevelInfo m_oSelLevelInfo = null;
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private EnhancedScroller m_oSelScroller = null;
 
 	// 중앙 에디터 UI {

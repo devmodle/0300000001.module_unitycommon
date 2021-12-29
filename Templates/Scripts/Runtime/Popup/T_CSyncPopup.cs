@@ -10,7 +10,7 @@ public class CSyncPopup : CSubPopup {
 	#region 변수
 	private bool m_bIsLoadUserInfo = false;
 
-	// =====> 객체 <=====
+	/** =====> 객체 <===== */
 	private GameObject m_oLoginUIs = null;
 	private GameObject m_oLogoutUIs = null;
 	#endregion			// 변수

@@ -57,11 +57,11 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	private void SetupAwake() {
 		this.IsAutoInitManager = true;
 		
-#if ADS_MODULE_ENABLE
+#if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !STUDY_MODULE_ENABLE)
 		CLateSetupSceneManager.IsAutoLoadBannerAds = true;
 		CLateSetupSceneManager.IsAutoLoadRewardAds = true;
 		CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
-#endif			// #if ADS_MODULE_ENABLE
+#endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !STUDY_MODULE_ENABLE)
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType;

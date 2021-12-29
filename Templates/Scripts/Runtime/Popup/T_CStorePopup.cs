@@ -33,7 +33,7 @@ public class CStorePopup : CSubPopup {
 	private STCallbackParams m_stCallbackParams;
 	private ESaleProductKinds m_eSelSaleProductKinds = ESaleProductKinds.NONE;
 
-	// =====> 객체 <=====
+	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oSaleProductUIsList = new List<GameObject>();
 
 #if ADS_MODULE_ENABLE

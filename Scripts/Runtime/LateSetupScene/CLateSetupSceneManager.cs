@@ -113,7 +113,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			var stAdsParams = new CAdsManager.STParams() {
 				m_eAdsPlatform = CPluginInfoTable.Inst.AdsPlatform, m_eBannerAdsPos = CPluginInfoTable.Inst.BannerAdsPos,
 
-#if ADMOB_ENABLE
+#if ADMOB_ADS_ENABLE
 				m_stAdmobParams = new CAdsManager.STAdmobParams() {
 #if UNITY_IOS
 					m_oTestDeviceIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oiOSTestDeviceAdmobIDList,
@@ -127,9 +127,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.ADMOB), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.ADMOB), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.ADMOB)
 					}
 				},
-#endif			// #if ADMOB_ENABLE
+#endif			// #if ADMOB_ADS_ENABLE
 
-#if IRON_SRC_ENABLE
+#if IRON_SRC_ADS_ENABLE
 				m_stIronSrcParams = new CAdsManager.STIronSrcParams() {
 					m_oAppKey = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oAppKey,
 
@@ -137,9 +137,9 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC)
 					}
 				},
-#endif			// #if IRON_SRC_ENABLE
+#endif			// #if IRON_SRC_ADS_ENABLE
 
-#if APP_LOVIN_ENABLE
+#if APP_LOVIN_ADS_ENABLE
 				m_stAppLovinParams = new CAdsManager.STAppLovinParams() {
 					m_oSDKKey = CPluginInfoTable.Inst.AppLovinSDKKey,
 
@@ -147,7 +147,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN)
 					}
 				}
-#endif			// #if APP_LOVIN_ENABLE
+#endif			// #if APP_LOVIN_ADS_ENABLE
 			};
 
 			var stAdsCallbackParams = new CAdsManager.STCallbackParams() {

@@ -10,7 +10,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	#endregion			// 변수
 
 	#region 클래스 변수
-	// =====> 객체 <=====
+	/** =====> 객체 <===== */
 	private static GameObject m_oPopupUIs = null;
 	private static GameObject m_oTopmostUIs = null;
 	private static GameObject m_oAbsUIs = null;
@@ -104,32 +104,33 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		// 디바이스 정보를 설정한다 {
-		int nQualityLevel = CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL);
-		int nTargetFrameRate = CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
+		var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (int, int)>() {
+			// 모바일
+			[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE)),
+			[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE)),
 
-		switch(Application.platform) {
-			case RuntimePlatform.IPhonePlayer: case RuntimePlatform.Android: {
-				nQualityLevel = CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL);
-				nTargetFrameRate = CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE);
-			} break;
-			case RuntimePlatform.PS4: case RuntimePlatform.PS5: case RuntimePlatform.XboxOne: case RuntimePlatform.GameCoreXboxOne: case RuntimePlatform.GameCoreXboxSeries: {
-				nQualityLevel = CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL);
-				nTargetFrameRate = CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE);
-			} break;
-			case RuntimePlatform.Switch: {
-				nQualityLevel = CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL);
-				nTargetFrameRate = CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE);
-			} break;
-		}
+			// 콘솔 {
+			[RuntimePlatform.PS4] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.PS5] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
 
+			[RuntimePlatform.XboxOne] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.GameCoreXboxOne] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.GameCoreXboxSeries] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+			// 콘솔 }
+
+			// 휴대용 콘솔
+			[RuntimePlatform.Stadia] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.Switch] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
+		};
+		
 #if MULTI_TOUCH_ENABLE
 		Input.multiTouchEnabled = true;
 #else
 		Input.multiTouchEnabled = false;
 #endif			// #if MULTI_TOUCH_ENABLE
 
-		CFunc.SetupQuality((EQualityLevel)nQualityLevel, true);
-		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);
+		CFunc.SetupQuality((EQualityLevel)(oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL)), true);
+		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE));
 
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		// 디바이스 정보를 설정한다 }

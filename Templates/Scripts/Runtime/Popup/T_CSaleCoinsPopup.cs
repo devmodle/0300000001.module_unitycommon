@@ -8,11 +8,11 @@ using UnityEngine.UI;
 /** 판매 코인 팝업 */
 public class CSaleCoinsPopup : CSubPopup {
 	#region 변수
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private Button m_oOKBtn = null;
 	private Button m_oPurchaseBtn = null;
 
-	// =====> 객체 <=====
+	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
 	#endregion			// 변수

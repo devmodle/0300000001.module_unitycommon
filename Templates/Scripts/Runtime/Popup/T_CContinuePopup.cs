@@ -25,7 +25,7 @@ public class CContinuePopup : CSubPopup {
 	private STParams m_stParams;
 	private STCallbackParams m_stCallbackParams;
 
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private TMP_Text m_oNumText = null;
 	private TMP_Text m_oPriceText = null;
 	#endregion			// 변수

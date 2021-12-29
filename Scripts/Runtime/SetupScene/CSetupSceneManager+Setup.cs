@@ -85,6 +85,12 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CSceneManager.ScreenDebugBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_BTN);
 			CSceneManager.ScreenDebugBtn.gameObject.SetActive(false);
 
+			CSceneManager.ScreenTimeScaleUpBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_TIME_SCALE_UP_BTN);
+			CSceneManager.ScreenTimeScaleUpBtn.gameObject.SetActive(false);
+
+			CSceneManager.ScreenTimeScaleDownBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_TIME_SCALE_DOWN_BTN);
+			CSceneManager.ScreenTimeScaleDownBtn.gameObject.SetActive(false);
+
 			DontDestroyOnLoad(oDebugUIs);
 			CFunc.SetupScreenUIs(oDebugUIs, KCDefine.U_SORTING_O_SCREEN_DEBUG_UIS);
 		}

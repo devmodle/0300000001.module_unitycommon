@@ -28,10 +28,10 @@ public class CResultPopup : CSubPopup {
 	private STParams m_stParams;
 	private STCallbackParams m_stCallbackParams;
 
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private TMP_Text m_oScoreText = null;
 
-	// =====> 객체 <=====
+	/** =====> 객체 <===== */
 	private GameObject m_oClearUIs = null;
 	private GameObject m_oClearFailUIs = null;
 	#endregion			// 변수

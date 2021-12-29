@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /** 무료 보상 팝업 */
 public class CFreeRewardPopup : CSubPopup {
 	#region 변수
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private Button m_oAdsBtn = null;
 	#endregion			// 변수
 

@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 /** 타이틀 씬 관리자 */
 public class CTitleSceneManager : CSceneManager {
 	#region 변수
-	// =====> UI <=====
+	/** =====> UI <===== */
 	protected TMP_Text m_oVerText = null;
 	#endregion			// 변수
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /** 게임 씬 관리자 */
 public class CGameSceneManager : CSceneManager {
 	#region 변수
-	// =====> 객체 <=====
+	/** =====> 객체 <===== */
 	protected GameObject m_oBlockObjs = null;
 	protected GameObject m_oBGTouchResponder = null;
 	#endregion			// 변수

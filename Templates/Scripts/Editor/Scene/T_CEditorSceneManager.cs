@@ -44,6 +44,30 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_fSkipTime += Time.deltaTime;
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
+			// 상태 갱신이 가능 할 경우
+			if(CEditorSceneManager.m_bIsEnableSetup) {
+				CEditorSceneManager.m_bIsEnableSetup = false;
+				CEditorSceneManager.m_oListRequest = Client.List();
+
+				Preferences.Tooltips.Value = false;
+				CEditorSceneManager.SetupCallbacks();
+
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
+				EditorFactory.CreateSaleItemInfoTable();
+				EditorFactory.CreateSaleProductInfoTable();
+				EditorFactory.CreateMissionInfoTable();
+				EditorFactory.CreateRewardInfoTable();
+				EditorFactory.CreateEpisodeInfoTable();
+				EditorFactory.CreateTutorialInfoTable();
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+			}
+
+			// 갱신 주기가 지났을 경우
+			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
+				CEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
+				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
+			}
+
 			for(int i = 0; i < oMonoScripts.Length; ++i) {
 				// 스크립트가 존재 할 경우
 				if(oMonoScripts[i] != null) {
@@ -54,31 +78,6 @@ public static partial class CEditorSceneManager {
 						CAccess.SetScriptOrder(oMonoScripts[i], nOrder);
 					}
 				}
-			}
-
-			// 갱신 주기가 지났을 경우
-			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
-				CEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
-
-				// 상태 갱신이 가능 할 경우
-				if(CEditorSceneManager.m_bIsEnableSetup) {
-					CEditorSceneManager.m_bIsEnableSetup = false;
-					CEditorSceneManager.m_oListRequest = Client.List();
-
-					Preferences.Tooltips.Value = false;
-					CEditorSceneManager.SetupCallbacks();
-
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
-					EditorFactory.CreateSaleItemInfoTable();
-					EditorFactory.CreateSaleProductInfoTable();
-					EditorFactory.CreateMissionInfoTable();
-					EditorFactory.CreateRewardInfoTable();
-					EditorFactory.CreateEpisodeInfoTable();
-					EditorFactory.CreateTutorialInfoTable();
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-				}
-				
-				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
 			}
 		}
 	}

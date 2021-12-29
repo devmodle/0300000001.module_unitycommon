@@ -38,7 +38,7 @@ namespace SampleEngineName {
 		private STCallbackParams m_stCallbackParams;
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
-		// =====> 객체 <=====
+		/** =====> 객체 <===== */
 		private Dictionary<EBlockKinds, GameObject>[,] m_oBlockDicts = null;
 		#endregion			// 변수
 

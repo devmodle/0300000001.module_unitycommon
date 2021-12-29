@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /** 레벨 에디터 씬 관리자 */
 public class CLevelEditorSceneManager : CSceneManager {
 	#region 변수
-	// =====> 객체 <=====
+	/** =====> 객체 <===== */
 	protected GameObject m_oPortraitUIs = null;
 	protected GameObject m_oLandscapeUIs = null;
 

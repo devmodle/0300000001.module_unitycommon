@@ -16,7 +16,7 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	private STParams m_stParams;
 	private int m_nPrevNumSaleCoins = 0;
 
-	// =====> 객체 <=====
+	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
 	#endregion			// 변수

@@ -19,11 +19,11 @@ public class CRewardAcquirePopup : CSubPopup {
 	private STParams m_stParams;
 	private bool m_bIsWatchRewardAds = false;
 
-	// =====> UI <=====
+	/** =====> UI <===== */
 	private Button m_oAdsBtn = null;
 	private Button m_oAcquireBtn = null;
 
-	// =====> 객체 <=====
+	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oRewardUIs = null;
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
 	#endregion			// 변수
