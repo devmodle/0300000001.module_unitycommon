@@ -26,8 +26,8 @@ public class CSubLoadingSceneManager : CLoadingSceneManager {
 		}
 	}
 
-	/** 씬을 비동기 로드 중일 경우 */
-	protected override void OnLoadSceneAsync(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
+	/** 비동기 상태가 갱신 되었을 경우 */
+	protected override void OnUpdateAsyncState(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
 		// Do Something
 	}
 

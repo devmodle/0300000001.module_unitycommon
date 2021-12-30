@@ -33,13 +33,13 @@ public class CIntroSceneManager : CSceneManager {
 			// 초기화 씬 일 경우
 			if(KCDefine.B_INIT_SCENE_NAME_LIST.Contains(CSceneManager.AwakeSceneName)) {
 #if STUDY_MODULE_ENABLE
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU, false, false);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE, false, false);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 #endif			// #if STUDY_MODULE_ENABLE
 			} else {
 				CCommonAppInfoStorage.Inst.IsFirstStart = false;
-				CSceneLoader.Inst.LoadScene(CSceneManager.AwakeSceneName, false, false);
+				CSceneLoader.Inst.LoadScene(CSceneManager.AwakeSceneName);
 			}
 		}, KCDefine.U_DELAY_NEXT_SCENE_LOAD);
 	}

@@ -251,9 +251,9 @@ public static partial class Func {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsPlatform)) {
 #if UNITY_EDITOR
-			CIndicatorManager.Inst.Show(true, a_eAdsPlatform != EAdsPlatform.ADMOB);
+			CIndicatorManager.Inst.Show(false, a_eAdsPlatform != EAdsPlatform.ADMOB);
 #else
-			CIndicatorManager.Inst.Show(true);
+			CIndicatorManager.Inst.Show();
 #endif			// #if UNITY_EDITOR
 
 			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => {
@@ -278,9 +278,9 @@ public static partial class Func {
 		// 전면 광고 출력이 가능 할 경우
 		if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsPlatform)) {
 #if UNITY_EDITOR
-			CIndicatorManager.Inst.Show(true, a_eAdsPlatform != EAdsPlatform.ADMOB);
+			CIndicatorManager.Inst.Show(false, a_eAdsPlatform != EAdsPlatform.ADMOB);
 #else
-			CIndicatorManager.Inst.Show(true);
+			CIndicatorManager.Inst.Show();
 #endif			// #if UNITY_EDITOR
 
 			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => {
@@ -344,7 +344,7 @@ public static partial class Func {
 #if FACEBOOK_MODULE_ENABLE
 	/** 페이스 북 로그인을 처리한다 */
 	public static void FacebookLogin(System.Action<CFacebookManager, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oFacebookLoginCallback = a_oCallback;
 
 		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnFacebookLogin);
@@ -352,7 +352,7 @@ public static partial class Func {
 
 	/** 페이스 북 로그아웃을 처리한다 */
 	public static void FacebookLogout(System.Action<CFacebookManager> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oFacebookLogoutCallback = a_oCallback;
 
 		CFacebookManager.Inst.Logout(a_oCallback);
@@ -374,7 +374,7 @@ public static partial class Func {
 #if FIREBASE_MODULE_ENABLE
 	/** 파이어 베이스 로그인을 처리한다 */
 	public static void FirebaseLogin(System.Action<CFirebaseManager, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oFirebaseLoginCallback = a_oCallback;
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -388,7 +388,7 @@ public static partial class Func {
 
 	/** 파이어 베이스 로그아웃을 처리한다 */
 	public static void FirebaseLogout(System.Action<CFirebaseManager> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oFirebaseLogoutCallback = a_oCallback;
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -402,7 +402,7 @@ public static partial class Func {
 
 	/** 유저 정보를 로드한다 */
 	public static void LoadUserInfo(System.Action<CFirebaseManager, string, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oUserInfoLoadCallback = a_oCallback;
 
 		// 로그인 되었을 경우
@@ -416,7 +416,7 @@ public static partial class Func {
 
 	/** 결제 정보를 로드한다 */
 	public static void LoadPurchaseInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oPurchaseInfosLoadCallback = a_oCallback;
 
 		// 로그인 되었을 경우
@@ -430,7 +430,7 @@ public static partial class Func {
 
 	/** 지급 아이템 정보를 로드한다 */
 	public static void LoadPostItemInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oPostItemInfosLoadCallback = a_oCallback;
 
 		// 로그인 되었을 경우
@@ -444,7 +444,7 @@ public static partial class Func {
 
 	/** 유저 정보를 저장한다 */
 	public static void SaveUserInfo(System.Action<CFirebaseManager, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oUserInfoSaveCallback = a_oCallback;
 
 		// 로그인 되었을 경우
@@ -469,7 +469,7 @@ public static partial class Func {
 
 		// 결제 정보가 존재 할 경우
 		if(a_oPurchaseInfoList != null) {
-			CIndicatorManager.Inst.Show(true);
+			CIndicatorManager.Inst.Show();
 			Func.m_oPurchaseInfosSaveCallback = a_oCallback;
 
 			// 로그인 되었을 경우
@@ -488,7 +488,7 @@ public static partial class Func {
 
 		// 지급 아이템 정보가 존재 할 경우
 		if(a_oPostItemInfoList != null) {
-			CIndicatorManager.Inst.Show(true);
+			CIndicatorManager.Inst.Show();
 			Func.m_oPostItemInfosSaveCallback = a_oCallback;
 
 			// 로그인 되었을 경우
@@ -556,7 +556,7 @@ public static partial class Func {
 
 		// 로그인 되었을 경우
 		if(a_bIsSuccess) {
-			CIndicatorManager.Inst.Show(true);
+			CIndicatorManager.Inst.Show();
 			CFirebaseManager.Inst.LoginWithApple(a_oSender.AppleUserID, a_oSender.AppleIDToken, Func.OnFirebaseLogin);
 		} else {
 			Func.OnFirebaseLogin(CFirebaseManager.Inst, false);
@@ -576,7 +576,7 @@ public static partial class Func {
 
 		// 로그인 되었을 경우
 		if(a_bIsSuccess) {
-			CIndicatorManager.Inst.Show(true);
+			CIndicatorManager.Inst.Show();
 			CFirebaseManager.Inst.LoginWithFacebook(a_oSender.AccessToken, Func.OnFirebaseLogin);
 		} else {
 			Func.OnFirebaseLogin(CFirebaseManager.Inst, false);
@@ -593,7 +593,7 @@ public static partial class Func {
 #if GAME_CENTER_MODULE_ENABLE
 	/** 게임 센터 로그인을 처리한다 */
 	public static void GameCenterLogin(System.Action<CGameCenterManager, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oGameCenterLoginCallback = a_oCallback;
 
 		CGameCenterManager.Inst.Login(Func.OnGameCenterLogin);
@@ -601,7 +601,7 @@ public static partial class Func {
 
 	/** 게임 센터 로그아웃을 처리한다 */
 	public static void GameCenterLogout(System.Action<CGameCenterManager> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oGameCenterLogoutCallback = a_oCallback;
 
 		CGameCenterManager.Inst.Logout(Func.OnGameCenterLogout);
@@ -609,7 +609,7 @@ public static partial class Func {
 
 	/** 게임 센터에 로그인 되었을 경우 */
 	public static void UpdateScore(string a_oLeaderboardID, long a_nScore, System.Action<CGameCenterManager, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oScoreUpdateCallback = a_oCallback;
 
 		CGameCenterManager.Inst.UpdateScore(a_oLeaderboardID, a_nScore, Func.OnUpdateScore);
@@ -617,7 +617,7 @@ public static partial class Func {
 
 	/** 게임 센터에서 로그아웃 되었을 경우 */
 	public static void UpdateAchievement(string a_oAchievementID, double a_dblPercent, System.Action<CGameCenterManager, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 		Func.m_oAchievementUpdateCallback = a_oCallback;
 
 		CGameCenterManager.Inst.UpdateAchievement(a_oAchievementID, a_dblPercent, Func.OnUpdateAchievement);
@@ -672,7 +672,7 @@ public static partial class Func {
 
 		// 식별자가 유효 할 경우
 		if(a_oID.ExIsValid()) {
-			CIndicatorManager.Inst.Show(true);
+			CIndicatorManager.Inst.Show();
 
 			Func.m_oPurchaseCallback = a_oCallback;
 			CPurchaseManager.Inst.PurchaseProduct(a_oID, Func.OnPurchaseProduct);
@@ -681,7 +681,7 @@ public static partial class Func {
 
 	/** 상품을 복원한다 */
 	public static void RestoreProducts(System.Action<CPurchaseManager, List<Product>, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show(true);
+		CIndicatorManager.Inst.Show();
 
 		Func.m_oRestoreCallback = a_oCallback;
 		CPurchaseManager.Inst.RestoreProducts(Func.OnRestoreProducts);
@@ -693,7 +693,7 @@ public static partial class Func {
 
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			CIndicatorManager.Inst.Show(true);
+			CIndicatorManager.Inst.Show();
 			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oSender, a_oConfirmProductID, a_bIsSuccess) => { CIndicatorManager.Inst.Close(); CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oSender, a_oConfirmProductID, a_bIsSuccess); });
 		} else {
 			CFunc.Invoke(ref Func.m_oPurchaseCallback, a_oSender, a_oProductID, a_bIsSuccess);

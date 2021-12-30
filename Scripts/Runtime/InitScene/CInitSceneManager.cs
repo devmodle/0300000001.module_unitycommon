@@ -168,7 +168,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		
 		CSceneManager.IsInit = true;
-		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_SPLASH, false, false);
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_SPLASH, false);
 	}
 
 	/** 블라인드 이미지를 생성한다 */

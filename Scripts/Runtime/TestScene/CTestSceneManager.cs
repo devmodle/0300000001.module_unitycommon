@@ -15,9 +15,9 @@ public abstract class CTestSceneManager : CSceneManager {
 		// 백 키 눌림 이벤트 일 경우
 		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
 #if STUDY_MODULE_ENABLE
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU, false);
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE, false);
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 #endif			// #if STUDY_MODULE_ENABLE
 		}
 	}
