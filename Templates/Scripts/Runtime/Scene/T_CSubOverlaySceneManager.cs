@@ -103,7 +103,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		oSubGameSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 
 		// 텍스트를 갱신한다
-		this.NumCoinsText.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, CUserInfoStorage.Inst.UserInfo.NumCoins), EFontSet.SET_A, false);
+		this.NumCoinsText.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, CUserInfoStorage.Inst.UserInfo.NumCoins), EFontSet.A, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();

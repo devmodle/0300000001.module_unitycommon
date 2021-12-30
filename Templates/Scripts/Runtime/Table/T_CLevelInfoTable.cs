@@ -225,15 +225,19 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	public string LevelInfoTablePath {
 		get {
+#if AB_TEST_ENABLE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B;
+#else
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_A : KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_B;
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#else
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 			return KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO;
 #else
-#if AB_TEST_ENABLE
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.USER_A) ? KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_A : KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_B;
-#else
 			return KCDefine.U_TABLE_P_G_LEVEL_INFO;
-#endif			// #if AB_TEST_ENABLE
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if AB_TEST_ENABLE
 		}
 	}
 	
@@ -289,15 +293,19 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	private string GetLevelInfoPath(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
 
+#if AB_TEST_ENABLE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B, nLevelID + KCDefine.B_VAL_1_INT);
+#else
+		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B, nLevelID + KCDefine.B_VAL_1_INT);
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#else
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
 #else
-#if AB_TEST_ENABLE
-		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.USER_A) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B, nLevelID + KCDefine.B_VAL_1_INT);
-#else
 		return string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
-#endif			// #if AB_TEST_ENABLE
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if AB_TEST_ENABLE
 	}
 
 	/** 레벨 정보를 로드한다 */
@@ -570,7 +578,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	/** 레벨 정보를 저장한다 */
 	public void SaveLevelInfos() {
 		var oLevelIDList = new List<long>();
-		string oFilePath = KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
+		string oFilePath = this.LevelInfoTablePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
 
 		for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
@@ -613,7 +621,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		stLevelInfo.m_oUnlockNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
-		CFunc.WriteMsgPackObj(string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, a_oLevelInfo.LevelID + KCDefine.B_VAL_1_INT), a_oLevelInfo, null, false, false);
+		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID), a_oLevelInfo, null, false, false);
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수

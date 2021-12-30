@@ -89,8 +89,8 @@ public class CContinuePopup : CSubPopup {
 		var stSaleItemInfo = CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.CONSUMABLE_CONTINUE);
 
 		// 텍스트를 갱신한다
-		m_oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.m_oItemInfoList[KCDefine.B_VAL_0_INT].m_nNumItems), EFontSet.SET_A, false);
-		m_oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.IntPrice), EFontSet.SET_A, false);
+		m_oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.m_oItemInfoList[KCDefine.B_VAL_0_INT].m_nNumItems), EFontSet.A, false);
+		m_oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.IntPrice), EFontSet.A, false);
 	}
 	
 	/** 재시도 버튼을 눌렀을 경우 */

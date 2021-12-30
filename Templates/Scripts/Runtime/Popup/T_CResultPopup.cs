@@ -100,7 +100,7 @@ public class CResultPopup : CSubPopup {
 		m_oClearFailUIs?.SetActive(!m_stParams.m_bIsClear);
 
 		// 텍스트를 갱신한다
-		m_oScoreText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, m_stParams.m_nScore), EFontSet.SET_A, false);
+		m_oScoreText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, m_stParams.m_nScore), EFontSet.A, false);
 	}
 
 	/** 다음 버튼을 눌렀을 경우 */

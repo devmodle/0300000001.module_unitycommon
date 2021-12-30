@@ -105,16 +105,16 @@ public class CStorePopup : CSubPopup {
 
 		// 텍스트를 설정한다 {
 		var oNameText = a_oSaleProductUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_NAME_TEXT);
-		oNameText?.ExSetText(a_stSaleProductInfo.m_oName, EFontSet.SET_A, false);
+		oNameText?.ExSetText(a_stSaleProductInfo.m_oName, EFontSet.A, false);
 
 		var oPriceText = a_oSaleProductUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
-		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stSaleProductInfo.m_oPrice), EFontSet.SET_A, false);
+		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stSaleProductInfo.m_oPrice), EFontSet.A, false);
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 결제 비용 타입 일 경우
 		if(ePriceType == EPriceType.PURCHASE && Access.GetProduct(Access.GetSaleProductID(a_stSaleProductInfo.m_eSaleProductKinds)) != null) {
 			int nID = Access.GetSaleProductID(a_stSaleProductInfo.m_eSaleProductKinds);
-			oPriceText?.ExSetText(Access.GetPriceStr(nID), EFontSet.SET_A, false);
+			oPriceText?.ExSetText(Access.GetPriceStr(nID), EFontSet.A, false);
 		}
 #endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 텍스트를 설정한다 }
@@ -157,7 +157,7 @@ public class CStorePopup : CSubPopup {
 			string oName = string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT);
 
 			var oNumText = a_oSaleProductUIs.ExFindComponent<Text>(oName);
-			oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, a_stSaleProductInfo.m_oItemInfoList[i].m_nNumItems), EFontSet.SET_A, false);
+			oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, a_stSaleProductInfo.m_oItemInfoList[i].m_nNumItems), EFontSet.A, false);
 		}
 	}
 

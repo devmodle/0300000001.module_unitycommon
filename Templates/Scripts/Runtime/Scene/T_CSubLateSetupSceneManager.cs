@@ -63,19 +63,19 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
 #endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !STUDY_MODULE_ENABLE)
 
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType;
+#if UNITY_EDITOR
+		CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType.ExIsValid() ? m_eUserType : EUserType.A;
 #else
 		// 유저 타입이 유효하지 않을 경우
 		if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
 #if AB_TEST_ENABLE
 			int nSumVal = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Sum((a_chLetter) => a_chLetter);
-			CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT != KCDefine.B_VAL_0_INT) ? EUserType.USER_A : EUserType.USER_B;
+			CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT != KCDefine.B_VAL_0_INT) ? EUserType.A : EUserType.B;
 #else
-			CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.USER_A;
+			CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.A;
 #endif			// #if AB_TEST_ENABLE
 		}
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if UNITY_EDITOR
 
 		CCommonAppInfoStorage.Inst.DeviceConfig = CDeviceInfoTable.Inst.DeviceConfig;
 		CCommonUserInfoStorage.Inst.SaveUserInfo();

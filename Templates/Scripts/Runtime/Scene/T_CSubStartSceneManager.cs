@@ -77,7 +77,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		m_fSkipTime = KCDefine.SS_DELTA_T_UPDATE_STATE;
-		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.SET_A, out STFontSetInfo stFontSetInfo);
+		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.A, out STFontSetInfo stFontSetInfo);
 			
 		// 텍스트를 설정한다 {
 		var oLoadingText = this.SubUIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
@@ -100,7 +100,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_oStrBuilder.Clear();
 		m_oStrBuilder.Append(KCDefine.SS_TEXT_LOADING);
 
-		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.SET_A, out STFontSetInfo stFontSetInfo);
+		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.A, out STFontSetInfo stFontSetInfo);
 
 		for(int i = 0; i < m_nNumDots + KCDefine.B_VAL_1_INT; ++i) {
 			m_oStrBuilder.Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_DOT_TEXT));

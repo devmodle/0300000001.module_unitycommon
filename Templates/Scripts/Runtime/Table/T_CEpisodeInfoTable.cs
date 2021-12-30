@@ -345,15 +345,19 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	private string EpisodeInfoTablePath {
 		get {
+#if AB_TEST_ENABLE
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO_SET_A : KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO_SET_B;
+#else
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_TABLE_P_G_EPISODE_INFO_SET_A : KCDefine.U_TABLE_P_G_EPISODE_INFO_SET_B;
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#else
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 			return KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO;
 #else
-#if AB_TEST_ENABLE
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.USER_A) ? KCDefine.U_TABLE_P_G_EPISODE_INFO_SET_A : KCDefine.U_TABLE_P_G_EPISODE_INFO_SET_B;
-#else
 			return KCDefine.U_TABLE_P_G_EPISODE_INFO;
-#endif			// #if AB_TEST_ENABLE
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if AB_TEST_ENABLE
 		}
 	}
 	#endregion			// 프로퍼티
@@ -529,7 +533,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		oJSONNode.Add(KCDefine.U_KEY_CHAPTER, oChapterInfos);
 
 		var oJSONStr = oJSONNode.ToString();
-		CFunc.WriteStr(KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO, JSON.ParseString(oJSONStr).CreatePrettyString());
+		CFunc.WriteStr(this.EpisodeInfoTablePath, JSON.ParseString(oJSONStr).CreatePrettyString());
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수

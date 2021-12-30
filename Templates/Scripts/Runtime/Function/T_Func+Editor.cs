@@ -22,6 +22,21 @@ public static partial class Func {
 	public static void ShowEditorResetPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_RESET_P_MSG), a_oCallback);
 	}
+
+	/** 에디터 A 세트 팝업을 출력한다 */
+	public static void ShowEditorASetPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_A_SET_P_MSG), a_oCallback);
+	}
+
+	/** 에디터 B 세트 팝업을 출력한다 */
+	public static void ShowEditorBSetPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_B_SET_P_MSG), a_oCallback);
+	}
+
+	/** 에디터 테이블 다시 로드 팝업을 출력한다 */
+	public static void ShowEditorTableReloadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_TABLE_RL_MSG), a_oCallback);
+	}
 	
 	/** 에디터 레벨 제거 팝업을 출력한다 */
 	public static void ShowEditorLevelRemovePopup(System.Action<CAlertPopup, bool> a_oCallback) {
