@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: T_BuildInfoTable
   m_EditorClassIdentifier: 
   m_stJenkinsInfo:
-    m_oUserID: studio
+    m_oUserID: 9tap
     m_oBranch: main
     m_oSrc: 02000111.Sample_Unity
-    m_oWorkspace: /Volumes/LaCie/jenkins/workspace
+    m_oWorkspace: /Volumes/LaCie/Workspace/Jenkins/workspace
     m_oBuildToken: JenkinsBuild
-    m_oAccessToken: 1157dad5f9db2d0615036ebc6da282c251
+    m_oAccessToken: 111e9bf7eda996ab2ad9620e0dd0e15220
     m_oBuildURLFmt: http://59.11.2.140:18081/{0}/buildWithParameters
   m_stiOSBuildInfo:
     m_oTeamID: A9997B8HR5
