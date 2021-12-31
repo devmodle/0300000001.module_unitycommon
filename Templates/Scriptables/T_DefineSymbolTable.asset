@@ -28,12 +28,13 @@ MonoBehaviour:
   - PREFAB_TEMPLATES_ENABLE
   - ENGINE_TEMPLATES_ENABLE
   - RUNTIME_TEMPLATES_ENABLE
+  - IGNORE_ORGANIZATION_BUILD_PIPELINE_SETUP
   - MODULE_VER_2_0_0_OR_NEWER
   m_oSubCommonDefineSymbolList: []
   m_oiOSAppleDefineSymbolList: []
   m_oAndroidGoogleDefineSymbolList: []
   m_oAndroidAmazonDefineSymbolList: []
   m_oAndroidOneStoreDefineSymbolList: []
-  m_oMacAppleDefineSymbolList: []
-  m_oMacSteamDefineSymbolList: []
-  m_oWndsSteamDefineSymbolList: []
+  m_oStandaloneMacAppleDefineSymbolList: []
+  m_oStandaloneMacSteamDefineSymbolList: []
+  m_oStandaloneWndsSteamDefineSymbolList: []
