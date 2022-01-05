@@ -12,10 +12,10 @@ public static partial class Factory {
 	public static CClearInfo MakeClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		return new CClearInfo() {
 			m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID),
-
-			Score = KCDefine.B_VAL_0_INT,
-			BestScore = KCDefine.B_VAL_0_INT,
-			NumStars = KCDefine.B_VAL_0_INT
+			
+			NumClearMarks = KCDefine.B_VAL_0_INT,
+			ClearRecord = $"{KCDefine.B_VAL_0_INT}",
+			BestClearRecord = $"{KCDefine.B_VAL_0_INT}"
 		};
 	}
 	#endregion			// 클래스 함수

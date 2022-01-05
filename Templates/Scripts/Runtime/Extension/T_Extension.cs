@@ -219,9 +219,7 @@ public static partial class Extension {
 
 		for(int i = 0; i < oPostItemInfos.Count; ++i) {
 			var oPostItemInfoStr = oPostItemInfos[i].ToString();
-			var stPostItemInfo = oPostItemInfoStr.ExJSONStrToObj<STPostItemInfo>();
-
-			oPostItemInfoList.Add(stPostItemInfo);
+			oPostItemInfoList.Add(oPostItemInfoStr.ExJSONStrToObj<STPostItemInfo>());
 		}
 #endif			// #if FIREBASE_MODULE_ENABLE
 

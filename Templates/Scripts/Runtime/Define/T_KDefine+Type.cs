@@ -16,7 +16,7 @@ public struct STGameConfig {
 /** 아이템 정보 */
 [System.Serializable]
 public struct STItemInfo {
-	public int m_nNumItems;
+	public long m_nNumItems;
 	public EItemKinds m_eItemKinds;
 }
 

@@ -12,7 +12,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	#endregion			// 추가 변수
 	
 	#region 프로퍼티
-	public Text NumCoinsText { get; private set; } = null;
+	public TMP_Text NumCoinsText { get; private set; } = null;
 	public Button StoreBtn { get; private set; } = null;
 
 	public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS;
@@ -78,7 +78,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 텍스트를 설정한다
-		this.NumCoinsText = this.SubUIsBase.ExFindComponent<Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
+		this.NumCoinsText = this.SubUIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
 
 		// 버튼을 설정한다
 		this.StoreBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
@@ -103,7 +103,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		oSubGameSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 
 		// 텍스트를 갱신한다
-		this.NumCoinsText.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, CUserInfoStorage.Inst.UserInfo.NumCoins), EFontSet.A, false);
+		this.NumCoinsText.ExSetText($"{CUserInfoStorage.Inst.UserInfo.NumCoins}", EFontSet.A, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();

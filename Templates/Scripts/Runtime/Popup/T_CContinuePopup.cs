@@ -26,7 +26,6 @@ public class CContinuePopup : CSubPopup {
 	private STCallbackParams m_stCallbackParams;
 
 	/** =====> UI <===== */
-	private TMP_Text m_oNumText = null;
 	private TMP_Text m_oPriceText = null;
 	#endregion			// 변수
 
@@ -48,19 +47,12 @@ public class CContinuePopup : CSubPopup {
 		base.Awake();
 
 		// 텍스트를 설정한다
-		m_oNumText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
 		m_oPriceText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
 
-		// 버튼을 설정한다 {
-		var oRetryBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RETRY_BTN);
-		oRetryBtn?.onClick.AddListener(this.OnTouchRetryBtn);
-
-		var oContinueBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_CONTINUE_BTN);
-		oContinueBtn?.onClick.AddListener(this.OnTouchContinueBtn);
-
-		var oLeaveBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LEAVE_BTN);
-		oLeaveBtn?.onClick.AddListener(this.OnTouchLeaveBtn);
-		// 버튼을 설정한다 }
+		// 버튼을 설정한다
+		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RETRY_BTN)?.onClick.AddListener(this.OnTouchRetryBtn);
+		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_CONTINUE_BTN)?.onClick.AddListener(this.OnTouchContinueBtn);
+		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LEAVE_BTN)?.onClick.AddListener(this.OnTouchLeaveBtn);
 	}
 
 	/** 초기화 */
@@ -86,11 +78,9 @@ public class CContinuePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		var stSaleItemInfo = CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.CONSUMABLE_CONTINUE);
-
+		
 		// 텍스트를 갱신한다
-		m_oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.m_oItemInfoList[KCDefine.B_VAL_0_INT].m_nNumItems), EFontSet.A, false);
-		m_oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, stSaleItemInfo.IntPrice), EFontSet.A, false);
+		m_oPriceText?.ExSetText($"{CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.CONSUMABLE_CONTINUE).IntPrice}", EFontSet.A, false);
 	}
 	
 	/** 재시도 버튼을 눌렀을 경우 */
@@ -104,8 +94,7 @@ public class CContinuePopup : CSubPopup {
 
 		// 코인이 부족 할 경우
 		if(CUserInfoStorage.Inst.UserInfo.NumCoins < stSaleItemInfo.IntPrice) {
-			var oSubOverlaySceneManager = CSceneManager.GetSubSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY);
-			oSubOverlaySceneManager.ShowStorePopup();
+			CSceneManager.GetSubSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 		} else {
 			Func.BuyItem(stSaleItemInfo);
 			m_stCallbackParams.m_oContinueCallback?.Invoke(this);

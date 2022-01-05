@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -9,12 +10,15 @@ using UnityEngine.UI;
 public class CSaleCoinsAcquirePopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
-		public int m_nNumSaleCoins;
+		public long m_nNumSaleCoins;
 	}
 
 	#region 변수
 	private STParams m_stParams;
-	private int m_nPrevNumSaleCoins = 0;
+	private long m_nPrevNumSaleCoins = 0;
+
+	/** =====> UI <===== */
+	private TMP_Text m_oNumSaleCoinsText = null;
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
@@ -34,6 +38,9 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 		this.IsIgnoreNavStackEvent = false;
+
+		// 텍스트를 설정한다
+		m_oNumSaleCoinsText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_SALE_COINS_TEXT);
 	}
 
 	/** 초기화 */
@@ -59,6 +66,9 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 
 		m_oSaveUIs?.SetActive(m_nPrevNumSaleCoins < KDefine.G_MAX_NUM_SALE_COINS);
 		m_oFullUIs?.SetActive(m_nPrevNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
+
+		// 텍스트를 갱신한다
+		m_oNumSaleCoinsText?.ExSetText($"{m_nPrevNumSaleCoins}", EFontSet.A, false);
 	}
 	#endregion			// 함수
 

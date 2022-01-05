@@ -339,8 +339,8 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 			var stParams = new CResultPopup.STParams() {
 				m_bIsClear = a_bIsClear, m_oLevelInfo = this.m_oLevelInfo, m_oClearInfo = this.m_oClearInfo,
 
-#if ENGINE_TEMPLATES_MODULE_ENABLE				
-				m_nScore = m_oEngine.Score
+#if ENGINE_TEMPLATES_MODULE_ENABLE
+				m_oRecord = $"{m_oEngine.IntRecord}"
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			};
 
@@ -386,11 +386,10 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void OnClearLevel(SampleEngineName.CEngine a_oSender) {
 		// 클리어 정보가 없을 경우
 		if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID)) {
-			var oClearInfo = Factory.MakeClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
-			CGameInfoStorage.Inst.AddClearInfo(oClearInfo);
+			CGameInfoStorage.Inst.AddClearInfo(Factory.MakeClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID));
 		}
 		
-		var oCurClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
+		var oClearInfo = CGameInfoStorage.Inst.GetClearInfo(m_oLevelInfo.m_stIDInfo.m_nID, m_oLevelInfo.m_stIDInfo.m_nStageID, m_oLevelInfo.m_stIDInfo.m_nChapterID);
 		CGameInfoStorage.Inst.SaveGameInfo();
 
 		this.ShowResultPopup(true);

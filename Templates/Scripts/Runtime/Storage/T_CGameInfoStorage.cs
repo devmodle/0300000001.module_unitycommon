@@ -11,9 +11,9 @@ using MessagePack;
 [MessagePackObject][System.Serializable]
 public class CClearInfo : CBaseInfo {
 	#region 상수
-	private const string KEY_SCORE = "Score";
-	private const string KEY_NUM_STARS = "NumStars";
-	private const string KEY_BEST_SCORE = "BestScore";
+	private const string KEY_NUM_CLEAR_MARKS = "NumClearMarks";
+	private const string KEY_CLEAR_RECORD = "ClearRecord";
+	private const string KEY_BEST_CLEAR_RECORD = "BestClearRecord";
 	#endregion			// 상수
 
 	#region 변수
@@ -21,22 +21,28 @@ public class CClearInfo : CBaseInfo {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public int Score {
-		get { return m_oIntDict.ExGetVal(CClearInfo.KEY_SCORE, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CClearInfo.KEY_SCORE, value); }
+	[IgnoreMember] public int NumClearMarks {
+		get { return m_oIntDict.ExGetVal(CClearInfo.KEY_NUM_CLEAR_MARKS, KCDefine.B_VAL_0_INT); }
+		set { m_oIntDict.ExReplaceVal(CClearInfo.KEY_NUM_CLEAR_MARKS, value); }
 	}
 
-	[IgnoreMember] public int NumStars {
-		get { return m_oIntDict.ExGetVal(CClearInfo.KEY_NUM_STARS, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CClearInfo.KEY_NUM_STARS, value); }
+	[IgnoreMember] public string ClearRecord {
+		get { return m_oStrDict.ExGetVal(CClearInfo.KEY_CLEAR_RECORD, $"{KCDefine.B_VAL_0_INT}"); }
+		set { m_oStrDict.ExReplaceVal(CClearInfo.KEY_CLEAR_RECORD, value); }
 	}
 
-	[IgnoreMember] public int BestScore {
-		get { return m_oIntDict.ExGetVal(CClearInfo.KEY_BEST_SCORE, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CClearInfo.KEY_BEST_SCORE, value); }
+	[IgnoreMember] public string BestClearRecord {
+		get { return m_oStrDict.ExGetVal(CClearInfo.KEY_BEST_CLEAR_RECORD, $"{KCDefine.B_VAL_0_INT}"); }
+		set { m_oStrDict.ExReplaceVal(CClearInfo.KEY_BEST_CLEAR_RECORD, value); }
 	}
 
 	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
+
+	[IgnoreMember] public long IntRecord => long.TryParse(this.ClearRecord, out long nClearRecord) ? nClearRecord : KCDefine.B_VAL_0_INT;
+	[IgnoreMember] public long IntBestClearRecord => long.TryParse(this.BestClearRecord, out long nBestClearRecord) ? nBestClearRecord : KCDefine.B_VAL_0_INT;
+
+	[IgnoreMember] public double RealClearRecord => double.TryParse(this.ClearRecord, out double dblClearRecord) ? dblClearRecord : KCDefine.B_VAL_0_DBL;
+	[IgnoreMember] public double RealBestClearRecord => double.TryParse(this.BestClearRecord, out double dblBestClearRecord) ? dblBestClearRecord : KCDefine.B_VAL_0_DBL;
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -179,15 +185,15 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_DBL), PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_DBL), PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_DBL)
 	};
 
-	public int TotalNumStars {
+	public int TotalNumClearMarks {
 		get {
-			int nNumStars = KCDefine.B_VAL_0_INT;
+			int nNumClearMarks = KCDefine.B_VAL_0_INT;
 
 			foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
-				nNumStars += stKeyVal.Value.NumStars;
+				nNumClearMarks += stKeyVal.Value.NumClearMarks;
 			}
 
-			return nNumStars;
+			return nNumClearMarks;
 		}
 	}
 
@@ -301,29 +307,29 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return this.GameInfo.m_oAcquireRewardChapterIDList.Contains(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
-	/** 스테이지 별 개수를 반환한다 */
-	public int GetNumStageStars(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		int nNumStars = KCDefine.B_VAL_0_INT;
+	/** 스테이지 클리어 마크 개수를 반환한다 */
+	public int GetNumStageClearMarks(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		int nNumClearMarks = KCDefine.B_VAL_0_INT;
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_nID, a_nChapterID);
 
 		for(int i = 0; i < nNumLevelInfos; ++i) {
 			this.TryGetClearInfo(i, out CClearInfo oClearInfo, a_nID, a_nChapterID);
-			nNumStars += (oClearInfo != null) ? oClearInfo.NumStars : KCDefine.B_VAL_0_INT;
+			nNumClearMarks += (oClearInfo != null) ? oClearInfo.NumClearMarks : KCDefine.B_VAL_0_INT;
 		}
 
-		return nNumStars;
+		return nNumClearMarks;
 	}
 
-	/** 챕터 별 개수를 반환한다 */
-	public int GetNumChapterStars(int a_nChapterID) {
-		int nNumStars = KCDefine.B_VAL_0_INT;
+	/** 챕터 클리어 마크 개수를 반환한다 */
+	public int GetNumChapterClearMarks(int a_nChapterID) {
+		int nNumClearMarks = KCDefine.B_VAL_0_INT;
 		int nNumStageInfos = CLevelInfoTable.Inst.GetNumStageInfos(a_nChapterID);
 
 		for(int i = 0; i < nNumStageInfos; ++i) {
-			nNumStars += this.GetNumStageStars(i, a_nChapterID);
+			nNumClearMarks += this.GetNumStageClearMarks(i, a_nChapterID);
 		}
 		
-		return nNumStars;
+		return nNumClearMarks;
 	}
 
 	/** 클리어 정보 개수를 반환한다 */

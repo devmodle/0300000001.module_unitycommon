@@ -45,7 +45,7 @@ public static partial class Func {
 	private static System.Action<CGameCenterManager, bool> m_oGameCenterLoginCallback = null;
 	private static System.Action<CGameCenterManager> m_oGameCenterLogoutCallback = null;
 
-	private static System.Action<CGameCenterManager, bool> m_oScoreUpdateCallback = null;
+	private static System.Action<CGameCenterManager, bool> m_oRecordUpdateCallback = null;
 	private static System.Action<CGameCenterManager, bool> m_oAchievementUpdateCallback = null;
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
@@ -607,15 +607,15 @@ public static partial class Func {
 		CGameCenterManager.Inst.Logout(Func.OnGameCenterLogout);
 	}
 
-	/** 게임 센터에 로그인 되었을 경우 */
-	public static void UpdateScore(string a_oLeaderboardID, long a_nScore, System.Action<CGameCenterManager, bool> a_oCallback) {
+	/** 기록을 갱신한다 */
+	public static void UpdateRecord(string a_oLeaderboardID, long a_nRecord, System.Action<CGameCenterManager, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
-		Func.m_oScoreUpdateCallback = a_oCallback;
+		Func.m_oRecordUpdateCallback = a_oCallback;
 
-		CGameCenterManager.Inst.UpdateScore(a_oLeaderboardID, a_nScore, Func.OnUpdateScore);
+		CGameCenterManager.Inst.UpdateRecord(a_oLeaderboardID, a_nRecord, Func.OnUpdateRecord);
 	}
 
-	/** 게임 센터에서 로그아웃 되었을 경우 */
+	/** 업적을 갱신한다 */
 	public static void UpdateAchievement(string a_oAchievementID, double a_dblPercent, System.Action<CGameCenterManager, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
 		Func.m_oAchievementUpdateCallback = a_oCallback;
@@ -635,10 +635,10 @@ public static partial class Func {
 		CFunc.Invoke(ref Func.m_oGameCenterLogoutCallback, a_oSender);
 	}
 
-	/** 점수가 갱신 되었을 경우 */
-	private static void OnUpdateScore(CGameCenterManager a_oSender, bool a_bIsSuccess) {
+	/** 기록이 갱신 되었을 경우 */
+	private static void OnUpdateRecord(CGameCenterManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
-		CFunc.Invoke(ref Func.m_oScoreUpdateCallback, a_oSender, a_bIsSuccess);
+		CFunc.Invoke(ref Func.m_oRecordUpdateCallback, a_oSender, a_bIsSuccess);
 	}
 
 	/** 업적이 갱신 되었을 경우 */

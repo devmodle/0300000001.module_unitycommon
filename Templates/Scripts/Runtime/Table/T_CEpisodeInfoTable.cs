@@ -82,14 +82,14 @@ public struct STLevelInfo {
 		a_oLevelInfo.Add(KCDefine.U_KEY_NAME, m_oName ?? string.Empty);
 		a_oLevelInfo.Add(KCDefine.U_KEY_DESC, m_oDesc ?? string.Empty);
 
-		a_oLevelInfo.Add(KCDefine.U_KEY_ID, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_nID));
-		a_oLevelInfo.Add(KCDefine.U_KEY_STAGE_ID, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_nStageID));
-		a_oLevelInfo.Add(KCDefine.U_KEY_CHAPTER_ID, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_nChapterID));
+		a_oLevelInfo.Add(KCDefine.U_KEY_ID, $"{m_nID}");
+		a_oLevelInfo.Add(KCDefine.U_KEY_STAGE_ID, $"{m_nStageID}");
+		a_oLevelInfo.Add(KCDefine.U_KEY_CHAPTER_ID, $"{m_nChapterID}");
 
-		a_oLevelInfo.Add(KCDefine.U_KEY_LEVEL_MODE, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eLevelMode));
-		a_oLevelInfo.Add(KCDefine.U_KEY_LEVEL_KINDS, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eLevelKinds));
-		a_oLevelInfo.Add(KCDefine.U_KEY_REWARD_KINDS, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eRewardKinds));
-		a_oLevelInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eTutorialKinds));
+		a_oLevelInfo.Add(KCDefine.U_KEY_LEVEL_MODE, $"{(int)m_eLevelMode}");
+		a_oLevelInfo.Add(KCDefine.U_KEY_LEVEL_KINDS, $"{(int)m_eLevelKinds}");
+		a_oLevelInfo.Add(KCDefine.U_KEY_REWARD_KINDS, $"{(int)m_eRewardKinds}");
+		a_oLevelInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 
 		var oNumTargetsKeyList = m_oNumTargetsDict.Keys.ToList();
 		var oUnlockNumTargetsKeyList = m_oUnlockNumTargetsDict.Keys.ToList();
@@ -100,8 +100,8 @@ public struct STLevelInfo {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			a_oLevelInfo.Add(oNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oNumTargetsDict[eKey]));
-			a_oLevelInfo.Add(oTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
+			a_oLevelInfo.Add(oNumTargetsKey, $"{m_oNumTargetsDict[eKey]}");
+			a_oLevelInfo.Add(oTargetKindsKey, $"{(int)eKey}");
 		}
 
 		for(int i = 0; i < oUnlockNumTargetsKeyList.Count; ++i) {
@@ -110,8 +110,8 @@ public struct STLevelInfo {
 			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			a_oLevelInfo.Add(oUnlockNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oUnlockNumTargetsDict[eKey]));
-			a_oLevelInfo.Add(oUnlockTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
+			a_oLevelInfo.Add(oUnlockNumTargetsKey, $"{m_oUnlockNumTargetsDict[eKey]}");
+			a_oLevelInfo.Add(oUnlockTargetKindsKey, $"{(int)eKey}");
 		}
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
@@ -189,12 +189,12 @@ public struct STStageInfo {
 		a_oStageInfo.Add(KCDefine.U_KEY_NAME, m_oName ?? string.Empty);
 		a_oStageInfo.Add(KCDefine.U_KEY_DESC, m_oDesc ?? string.Empty);
 
-		a_oStageInfo.Add(KCDefine.U_KEY_ID, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_nID));
-		a_oStageInfo.Add(KCDefine.U_KEY_CHAPTER_ID, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_nChapterID));
+		a_oStageInfo.Add(KCDefine.U_KEY_ID, $"{m_nID}");
+		a_oStageInfo.Add(KCDefine.U_KEY_CHAPTER_ID, $"{m_nChapterID}");
 
-		a_oStageInfo.Add(KCDefine.U_KEY_STAGE_KINDS, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eStageKinds));
-		a_oStageInfo.Add(KCDefine.U_KEY_REWARD_KINDS, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eRewardKinds));
-		a_oStageInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eTutorialKinds));
+		a_oStageInfo.Add(KCDefine.U_KEY_STAGE_KINDS, $"{(int)m_eStageKinds}");
+		a_oStageInfo.Add(KCDefine.U_KEY_REWARD_KINDS, $"{(int)m_eRewardKinds}");
+		a_oStageInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 
 		var oNumTargetsKeyList = m_oNumTargetsDict.Keys.ToList();
 		var oUnlockNumTargetsKeyList = m_oUnlockNumTargetsDict.Keys.ToList();
@@ -205,8 +205,8 @@ public struct STStageInfo {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			a_oStageInfo.Add(oNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oNumTargetsDict[eKey]));
-			a_oStageInfo.Add(oTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
+			a_oStageInfo.Add(oNumTargetsKey, $"{m_oNumTargetsDict[eKey]}");
+			a_oStageInfo.Add(oTargetKindsKey, $"{(int)eKey}");
 		}
 
 		for(int i = 0; i < oUnlockNumTargetsKeyList.Count; ++i) {
@@ -215,8 +215,8 @@ public struct STStageInfo {
 			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			a_oStageInfo.Add(oUnlockNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oUnlockNumTargetsDict[eKey]));
-			a_oStageInfo.Add(oUnlockTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
+			a_oStageInfo.Add(oUnlockNumTargetsKey, $"{m_oUnlockNumTargetsDict[eKey]}");
+			a_oStageInfo.Add(oUnlockTargetKindsKey, $"{(int)eKey}");
 		}
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
@@ -292,11 +292,11 @@ public struct STChapterInfo {
 		a_oChapterInfo.Add(KCDefine.U_KEY_NAME, m_oName ?? string.Empty);
 		a_oChapterInfo.Add(KCDefine.U_KEY_DESC, m_oDesc ?? string.Empty);
 
-		a_oChapterInfo.Add(KCDefine.U_KEY_ID, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_nID));
+		a_oChapterInfo.Add(KCDefine.U_KEY_ID, $"{m_nID}");
 
-		a_oChapterInfo.Add(KCDefine.U_KEY_CHAPTER_KINDS, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eChapterKinds));
-		a_oChapterInfo.Add(KCDefine.U_KEY_REWARD_KINDS, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eRewardKinds));
-		a_oChapterInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)m_eTutorialKinds));
+		a_oChapterInfo.Add(KCDefine.U_KEY_CHAPTER_KINDS, $"{(int)m_eChapterKinds}");
+		a_oChapterInfo.Add(KCDefine.U_KEY_REWARD_KINDS, $"{(int)m_eRewardKinds}");
+		a_oChapterInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 
 		var oNumTargetsKeyList = m_oNumTargetsDict.Keys.ToList();
 		var oUnlockNumTargetsKeyList = m_oUnlockNumTargetsDict.Keys.ToList();
@@ -307,8 +307,8 @@ public struct STChapterInfo {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			a_oChapterInfo.Add(oNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oNumTargetsDict[eKey]));
-			a_oChapterInfo.Add(oTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
+			a_oChapterInfo.Add(oNumTargetsKey, $"{m_oNumTargetsDict[eKey]}");
+			a_oChapterInfo.Add(oTargetKindsKey, $"{(int)eKey}");
 		}
 
 		for(int i = 0; i < oUnlockNumTargetsKeyList.Count; ++i) {
@@ -317,8 +317,8 @@ public struct STChapterInfo {
 			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			a_oChapterInfo.Add(oUnlockNumTargetsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oUnlockNumTargetsDict[eKey]));
-			a_oChapterInfo.Add(oUnlockTargetKindsKey, string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, (int)eKey));
+			a_oChapterInfo.Add(oUnlockNumTargetsKey, $"{m_oUnlockNumTargetsDict[eKey]}");
+			a_oChapterInfo.Add(oUnlockTargetKindsKey, $"{(int)eKey}");
 		}
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE

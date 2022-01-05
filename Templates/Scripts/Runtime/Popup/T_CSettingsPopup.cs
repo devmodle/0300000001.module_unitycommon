@@ -37,11 +37,8 @@ public class CSettingsPopup : CSubPopup {
 		m_oNotiBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NOTI_BTN);
 		m_oNotiBtn?.onClick.AddListener(this.OnTouchNotiBtn);
 
-		var oReviewBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REVIEW_BTN);
-		oReviewBtn?.onClick.AddListener(this.OnTouchReviewBtn);
-
-		var oSupportsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SUPPORTS_BTN);
-		oSupportsBtn?.onClick.AddListener(this.OnTouchSupportsBtn);
+		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REVIEW_BTN)?.onClick.AddListener(this.OnTouchReviewBtn);
+		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SUPPORTS_BTN)?.onClick.AddListener(this.OnTouchSupportsBtn);
 		// 버튼을 설정한다 }
 	}
 	

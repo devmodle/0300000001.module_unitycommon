@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -9,6 +10,8 @@ using UnityEngine.UI;
 public class CSaleCoinsPopup : CSubPopup {
 	#region 변수
 	/** =====> UI <===== */
+	private TMP_Text m_oNumSaleCoinsText = null;
+
 	private Button m_oOKBtn = null;
 	private Button m_oPurchaseBtn = null;
 
@@ -21,6 +24,9 @@ public class CSaleCoinsPopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+
+		// 텍스트를 설정한다
+		m_oNumSaleCoinsText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_SALE_COINS_TEXT);
 
 		// 버튼을 설정한다 {
 		m_oOKBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_OK_BTN);
@@ -45,10 +51,13 @@ public class CSaleCoinsPopup : CSubPopup {
 	/** UI 상태를 변경한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		int nNumSaleCoins = CUserInfoStorage.Inst.UserInfo.NumSaleCoins;
+		long nNumSaleCoins = CUserInfoStorage.Inst.UserInfo.NumSaleCoins;
 
 		m_oSaveUIs?.SetActive(nNumSaleCoins < KDefine.G_MAX_NUM_SALE_COINS);
 		m_oFullUIs?.SetActive(nNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
+
+		// 텍스트를 갱신한다
+		m_oNumSaleCoinsText?.ExSetText($"{nNumSaleCoins}", EFontSet.A, false);
 	}
 
 	/** 확인 버튼을 눌렀을 경우 */
@@ -73,6 +82,8 @@ public class CSaleCoinsPopup : CSubPopup {
 			Func.AcquireProduct(a_oProductID);
 			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
 		}
+
+		this.UpdateUIsState();
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 함수

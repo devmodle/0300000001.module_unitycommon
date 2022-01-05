@@ -34,7 +34,7 @@ public struct STRewardInfo {
 			// 아이템 정보가 존재 할 경우
 			if(a_oRewardInfo[oNumItemsKey] != null && a_oRewardInfo[oItemKindsKey] != null) {
 				m_oItemInfoList.Add(new STItemInfo() {
-					m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt, m_eItemKinds = (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt
+					m_nNumItems = long.Parse(a_oRewardInfo[oNumItemsKey]), m_eItemKinds = (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt
 				});
 			}
 		}

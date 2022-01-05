@@ -47,7 +47,9 @@ namespace SampleEngineName {
 		#endregion			// 추가 변수
 
 		#region 프로퍼티
-		public int Score { get; private set; } = 0;
+		public long IntRecord { get; private set; } = 0;
+		public double RealRecord { get; private set; } = 0.0;
+
 		public EState State { get; private set; } = EState.NONE;
 		public STGridInfo GridInfo { get; private set; }
 

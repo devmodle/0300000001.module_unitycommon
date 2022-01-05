@@ -16,18 +16,18 @@ public class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(111)] public Dictionary<EItemKinds, int> m_oNumItemsDict = new Dictionary<EItemKinds, int>();
+	[Key(111)] public Dictionary<EItemKinds, long> m_oNumItemsDict = new Dictionary<EItemKinds, long>();
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public int NumCoins {
-		get { return m_oIntDict.ExGetVal(CUserInfo.KEY_NUM_COINS, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CUserInfo.KEY_NUM_COINS, value); }
+	[IgnoreMember] public long NumCoins {
+		get { return long.Parse(m_oStrDict.ExGetVal(CUserInfo.KEY_NUM_COINS, $"{KCDefine.B_VAL_0_INT}")); }
+		set { m_oStrDict.ExReplaceVal(CUserInfo.KEY_NUM_COINS, $"{value}"); }
 	}
 
-	[IgnoreMember] public int NumSaleCoins {
-		get { return m_oIntDict.ExGetVal(CUserInfo.KEY_NUM_SALE_COINS, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CUserInfo.KEY_NUM_SALE_COINS, value); }
+	[IgnoreMember] public long NumSaleCoins {
+		get { return long.Parse(m_oStrDict.ExGetVal(CUserInfo.KEY_NUM_SALE_COINS, $"{KCDefine.B_VAL_0_INT}")); }
+		set { m_oStrDict.ExReplaceVal(CUserInfo.KEY_NUM_SALE_COINS, $"{value}"); }
 	}
 	#endregion			// 프로퍼티
 
@@ -77,24 +77,24 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	/** 아이템 개수를 반환한다 */
-	public int GetNumItems(EItemKinds a_eItemKinds) {
+	public long GetNumItems(EItemKinds a_eItemKinds) {
 		return this.UserInfo.m_oNumItemsDict.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);
 	}
 
 	/** 코인 개수를 추가한다 */
-	public void AddNumCoins(int a_nNumCoins) {
-		this.UserInfo.NumCoins = Mathf.Clamp(this.UserInfo.NumCoins + a_nNumCoins, KCDefine.B_VAL_0_INT, int.MaxValue);
+	public void AddNumCoins(long a_nNumCoins) {
+		this.UserInfo.NumCoins = System.Math.Clamp(this.UserInfo.NumCoins + a_nNumCoins, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 
 	/** 잔돈 개수를 추가한다 */
-	public void AddNumSaleCoins(int a_nNumSaleCoins) {
-		this.UserInfo.NumSaleCoins = Mathf.Clamp(this.UserInfo.NumSaleCoins + a_nNumSaleCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
+	public void AddNumSaleCoins(long a_nNumSaleCoins) {
+		this.UserInfo.NumSaleCoins = System.Math.Clamp(this.UserInfo.NumSaleCoins + a_nNumSaleCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
 	}
 	
 	/** 아이템 개수를 추가한다 */
-	public void AddNumItems(EItemKinds a_eItemKinds, int a_nNumItems) {
-		int nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
-		this.UserInfo.m_oNumItemsDict.ExReplaceVal(a_eItemKinds, Mathf.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue));
+	public void AddNumItems(EItemKinds a_eItemKinds, long a_nNumItems) {
+		long nNumItems = this.GetNumItems(a_eItemKinds) + a_nNumItems;
+		this.UserInfo.m_oNumItemsDict.ExReplaceVal(a_eItemKinds, System.Math.Clamp(nNumItems, KCDefine.B_VAL_0_INT, int.MaxValue));
 	}
 
 	/** 유저 정보를 로드한다 */

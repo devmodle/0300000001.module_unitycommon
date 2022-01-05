@@ -11,7 +11,7 @@ public class CResultPopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
 		public bool m_bIsClear;
-		public int m_nScore;
+		public string m_oRecord;
 
 		public CLevelInfo m_oLevelInfo;
 		public CClearInfo m_oClearInfo;
@@ -29,7 +29,8 @@ public class CResultPopup : CSubPopup {
 	private STCallbackParams m_stCallbackParams;
 
 	/** =====> UI <===== */
-	private TMP_Text m_oScoreText = null;
+	private TMP_Text m_oRecordText = null;
+	private TMP_Text m_oBestRecordText = null;
 
 	/** =====> 객체 <===== */
 	private GameObject m_oClearUIs = null;
@@ -58,18 +59,13 @@ public class CResultPopup : CSubPopup {
 		m_oClearFailUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_CLEAR_FAIL_UIS);
 
 		// 텍스트를 설정한다
-		m_oScoreText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCORE_TEXT);
+		m_oRecordText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_RECORD_TEXT);
+		m_oBestRecordText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_BEST_RECORD_TEXT);
 
-		// 버튼을 설정한다 {
-		var oNextBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NEXT_BTN);
-		oNextBtn?.onClick.AddListener(this.OnTouchNextBtn);
-
-		var oRetryBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RETRY_BTN);
-		oRetryBtn?.onClick.AddListener(this.OnTouchRetryBtn);
-
-		var oLeaveBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LEAVE_BTN);
-		oLeaveBtn?.onClick.AddListener(this.OnTouchLeaveBtn);
-		// 버튼을 설정한다 }
+		// 버튼을 설정한다
+		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NEXT_BTN)?.onClick.AddListener(this.OnTouchNextBtn);
+		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RETRY_BTN)?.onClick.AddListener(this.OnTouchRetryBtn);
+		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LEAVE_BTN)?.onClick.AddListener(this.OnTouchLeaveBtn);
 	}
 
 	/** 초기화 */
@@ -100,7 +96,8 @@ public class CResultPopup : CSubPopup {
 		m_oClearFailUIs?.SetActive(!m_stParams.m_bIsClear);
 
 		// 텍스트를 갱신한다
-		m_oScoreText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, m_stParams.m_nScore), EFontSet.A, false);
+		m_oRecordText?.ExSetText(m_stParams.m_oRecord, EFontSet.A, false);
+		m_oBestRecordText?.ExSetText(m_stParams.m_oRecord, EFontSet.A, false);
 	}
 
 	/** 다음 버튼을 눌렀을 경우 */

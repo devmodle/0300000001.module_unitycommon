@@ -631,20 +631,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oMEUIsRemoveLevelBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_REMOVE_LEVEL_BTN);
 		m_oMEUIsRemoveLevelBtn?.onClick.AddListener(this.OnTouchMEUIsRemoveLevelBtn);
 
-		var oSaveBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_SAVE_BTN);
-		oSaveBtn?.onClick.AddListener(this.OnTouchMEUIsSaveBtn);
-
-		var oResetBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_RESET_BTN);
-		oResetBtn?.onClick.AddListener(this.OnTouchMEUIsResetBtn);
-
-		var oTestBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_TEST_BTN);
-		oTestBtn?.onClick.AddListener(this.OnTouchMEUIsTestBtn);
-
-		var oTableReloadBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_TABLE_RELOAD_BTN);
-		oTableReloadBtn?.onClick.AddListener(this.OnTouchMEUIsTableReloadBtn);
-
-		var oCopyLevelBtn = m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_COPY_LEVEL_BTN);
-		oCopyLevelBtn?.onClick.AddListener(this.OnTouchMEUIsCopyLevelBtn);
+		m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_SAVE_BTN)?.onClick.AddListener(this.OnTouchMEUIsSaveBtn);
+		m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_RESET_BTN)?.onClick.AddListener(this.OnTouchMEUIsResetBtn);
+		m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_TEST_BTN)?.onClick.AddListener(this.OnTouchMEUIsTestBtn);
+		m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_TABLE_RELOAD_BTN)?.onClick.AddListener(this.OnTouchMEUIsTableReloadBtn);
+		m_oMidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_COPY_LEVEL_BTN)?.onClick.AddListener(this.OnTouchMEUIsCopyLevelBtn);
 		// 버튼을 설정한다 }
 	}
 
@@ -778,24 +769,23 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		var oBSetBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_B_SET_BTN);
 		oBSetBtn?.onClick.AddListener(this.OnTouchLEUIsBSetBtn);
 
-		var oAddLevelBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_LEVEL_BTN);
-		oAddLevelBtn?.onClick.AddListener(this.OnTouchLEUIsAddLevelBtn);
-
 		var oAddStageBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_STAGE_BTN);
 		oAddStageBtn?.onClick.AddListener(this.OnTouchLEUIsAddStageBtn);
 
 		var oAddChapterBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_CHAPTER_BTN);
 		oAddChapterBtn?.onClick.AddListener(this.OnTouchLEUIsAddChapterBtn);
 
-#if AB_TEST_ENABLE
-		oASetBtn?.ExSetInteractable(true, false);
-		oBSetBtn?.ExSetInteractable(true, false);
-#else
-		oASetBtn?.ExSetInteractable(false, false);
-		oBSetBtn?.ExSetInteractable(false, false);
-#endif			// #if AB_TEST_ENABLE
+		m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_LEVEL_BTN)?.onClick.AddListener(this.OnTouchLEUIsAddLevelBtn);
 
 		this.ExLateCallFunc((a_oSender) => {
+#if AB_TEST_ENABLE
+			oASetBtn?.ExSetInteractable(true, false);
+			oBSetBtn?.ExSetInteractable(true, false);
+#else
+			oASetBtn?.ExSetInteractable(false, false);
+			oBSetBtn?.ExSetInteractable(false, false);
+#endif			// #if AB_TEST_ENABLE
+
 			oAddStageBtn?.ExSetInteractable((oStageScrollerA != null && oStageScrollerA.gameObject.activeSelf) || (oStageScrollerB != null && oStageScrollerB.gameObject.activeSelf));
 			oAddChapterBtn?.ExSetInteractable(oChapterScroller != null && oChapterScroller.gameObject.activeSelf);
 		});
@@ -877,11 +867,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oREUIsPrevBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_PREV_BTN);
 		m_oREUIsNextBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_NEXT_BTN);
 
-		var oApplyBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN);
-		oApplyBtn?.onClick.AddListener(this.OnTouchREUIsApplyBtn);
-
-		var oLoadLevelBtn = m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN);
-		oLoadLevelBtn?.onClick.AddListener(this.OnTouchREUIsLoadLevelBtn);
+		m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN)?.onClick.AddListener(this.OnTouchREUIsApplyBtn);
+		m_oRightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN)?.onClick.AddListener(this.OnTouchREUIsLoadLevelBtn);
 		// 버튼을 설정한다 }
 
 		// 입력 필드를 설정한다 {
@@ -903,10 +890,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oREUIsTitleText?.ExSetText<Text>(string.Format(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_LEVEL_PAGE_TEXT_FMT), m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, nNumLevelInfos), false);
 		
 		// 입력 필드를 갱신한다 {
-		m_oREUIsLevelInput?.ExSetText<InputField>(string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT), false);
+		m_oREUIsLevelInput?.ExSetText<InputField>($"{m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT}", false);
 
-		m_oREUIsNumCellsXInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.NumCells.x), false);
-		m_oREUIsNumCellsYInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oSelLevelInfo.NumCells.y), false);
+		m_oREUIsNumCellsXInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oSelLevelInfo.NumCells.x}", false);
+		m_oREUIsNumCellsYInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oSelLevelInfo.NumCells.y}", false);
 		// 입력 필드를 갱신한다 }
 
 		// 스크롤 스냅이 존재 할 경우

@@ -84,9 +84,27 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		
+
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+#if CREATIVE_BUILD
+			for(int i = 0; i < CLevelInfoTable.Inst.NumLevelInfosDictContainer.Count; ++i) {
+				for(int j = 0; j < CLevelInfoTable.Inst.NumLevelInfosDictContainer[i].Count; ++j) {
+					for(int k = 0; k < CLevelInfoTable.Inst.NumLevelInfosDictContainer[i][j]; ++k) {
+						// 클리어 정보가 없을 경우
+						if(!CGameInfoStorage.Inst.IsClearLevel(k, j, i)) {
+							CGameInfoStorage.Inst.AddClearInfo(Factory.MakeClearInfo(k, j, i));
+						}
+
+						var oClearInfo = CGameInfoStorage.Inst.GetClearInfo(k, j, i);
+						oClearInfo.NumClearMarks = KDefine.G_MAX_NUM_CLEAR_MARKS;
+					}
+				}
+			}
+
+			CGameInfoStorage.Inst.SaveGameInfo();
+#endif			// #if CREATIVE_BUILD
+
 			this.SetupAwake();
 		}
 	}

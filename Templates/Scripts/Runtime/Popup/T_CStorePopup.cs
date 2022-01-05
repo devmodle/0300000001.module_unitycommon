@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -61,8 +62,7 @@ public class CStorePopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다
-		var oRestoreBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RESTORE_BTN);
-		oRestoreBtn?.onClick.AddListener(this.OnTouchRestoreBtn);
+		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RESTORE_BTN)?.onClick.AddListener(this.OnTouchRestoreBtn);
 	}
 	
 	/** 초기화 */
@@ -104,11 +104,10 @@ public class CStorePopup : CSubPopup {
 		var oPriceUIs = (ePriceType == EPriceType.GOODS) ? oGoodsPriceUIs : oPurchasePriceUIs;
 
 		// 텍스트를 설정한다 {
-		var oNameText = a_oSaleProductUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_NAME_TEXT);
-		oNameText?.ExSetText(a_stSaleProductInfo.m_oName, EFontSet.A, false);
-
-		var oPriceText = a_oSaleProductUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
+		var oPriceText = a_oSaleProductUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
 		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stSaleProductInfo.m_oPrice), EFontSet.A, false);
+		
+		a_oSaleProductUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stSaleProductInfo.m_oName, EFontSet.A, false);
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 결제 비용 타입 일 경우
@@ -156,8 +155,8 @@ public class CStorePopup : CSubPopup {
 		for(int i = 0; i < a_stSaleProductInfo.m_oItemInfoList.Count; ++i) {
 			string oName = string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT);
 
-			var oNumText = a_oSaleProductUIs.ExFindComponent<Text>(oName);
-			oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CURRENCY, a_stSaleProductInfo.m_oItemInfoList[i].m_nNumItems), EFontSet.A, false);
+			var oNumText = a_oSaleProductUIs.ExFindComponent<TMP_Text>(oName);
+			oNumText?.ExSetText($"{a_stSaleProductInfo.m_oItemInfoList[i].m_nNumItems}", EFontSet.A, false);
 		}
 	}
 
@@ -228,7 +227,7 @@ public class CStorePopup : CSubPopup {
 			var oPostItemInfoList = a_oJSONStr.ExJSONStrToPostItemInfos();
 
 			for(int i = 0; i < oPostItemInfoList.Count; ++i) {
-				bool bIsValidA = int.TryParse(oPostItemInfoList[i].m_oNumItems, out int nNumItems);
+				bool bIsValidA = long.TryParse(oPostItemInfoList[i].m_oNumItems, out long nNumItems);
 				bool bIsValidB = oPostItemInfoList[i].m_oItemKinds.ExToTryEnumVal<EItemKinds>(out EItemKinds eItemKinds);
 
 				// 지급 아이템 정보가 유효 할 경우

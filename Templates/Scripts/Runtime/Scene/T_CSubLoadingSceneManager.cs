@@ -25,12 +25,7 @@ public class CSubLoadingSceneManager : CLoadingSceneManager {
 			this.SetupAwake();
 		}
 	}
-
-	/** 비동기 상태가 갱신 되었을 경우 */
-	protected override void OnUpdateAsyncState(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
-		// Do Something
-	}
-
+	
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// Do Something

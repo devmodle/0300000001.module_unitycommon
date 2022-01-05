@@ -26,8 +26,8 @@ public struct STSaleProductInfo {
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 	#region 프로퍼티
-	public int IntPrice => int.TryParse(m_oPrice, out int nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
-	public float FltPrice => float.TryParse(m_oPrice, out float fPrice) ? fPrice : KCDefine.B_VAL_0_FLT;
+	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
+	public double RealPrice => double.TryParse(m_oPrice, out double dblPrice) ? dblPrice : KCDefine.B_VAL_0_DBL;
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -49,7 +49,7 @@ public struct STSaleProductInfo {
 			// 아이템 정보가 존재 할 경우
 			if(a_oSaleProductInfo[oNumItemsKey] != null && a_oSaleProductInfo[oItemKindsKey] != null) {
 				m_oItemInfoList.Add(new STItemInfo() {
-					m_nNumItems = a_oSaleProductInfo[oNumItemsKey].AsInt, m_eItemKinds = (EItemKinds)a_oSaleProductInfo[oItemKindsKey].AsInt
+					m_nNumItems = long.Parse(a_oSaleProductInfo[oNumItemsKey]), m_eItemKinds = (EItemKinds)a_oSaleProductInfo[oItemKindsKey].AsInt
 				});
 			}
 		}

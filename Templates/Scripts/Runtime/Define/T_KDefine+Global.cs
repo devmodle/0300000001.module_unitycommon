@@ -10,6 +10,7 @@ public static partial class KDefine {
 	#region 기본
 	// 개수 {
 	public const int G_MAX_NUM_SALE_COINS = 0;
+	public const int G_MAX_NUM_CLEAR_MARKS = 0;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 0;
 
 	public const int G_MAX_NUM_TARGET_KINDS = 0;
