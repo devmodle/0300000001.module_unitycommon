@@ -20,7 +20,7 @@ public class CStorePopup : CSubPopup {
 	/** 콜백 매개 변수 */
 	public struct STCallbackParams {
 #if ADS_MODULE_ENABLE
-		public System.Action<CAdsManager, STAdsRewardItemInfo, bool> m_oAdsCallback;
+		public System.Action<CAdsManager, STAdsRewardInfo, bool> m_oAdsCallback;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
@@ -36,11 +36,6 @@ public class CStorePopup : CSubPopup {
 
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oSaleProductUIsList = new List<GameObject>();
-
-#if ADS_MODULE_ENABLE
-	private bool m_bIsWatchRewardAds = false;
-	private STAdsRewardItemInfo m_stRewardAdsRewardItemInfo;
-#endif			// #if ADS_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE && PURCHASE_MODULE_ENABLE
 	private string m_oPurchaseProductID = string.Empty;
@@ -196,10 +191,7 @@ public class CStorePopup : CSubPopup {
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
-	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
-		m_bIsWatchRewardAds = a_bIsSuccess;
-		m_stRewardAdsRewardItemInfo = a_stRewardItemInfo;
-		
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
 			var stSaleProductInfo = CSaleProductInfoTable.Inst.GetSaleProductInfo(m_eSelSaleProductKinds);
@@ -210,7 +202,7 @@ public class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stCallbackParams.m_oAdsCallback?.Invoke(a_oSender, a_stRewardItemInfo, a_bIsSuccess);
+		m_stCallbackParams.m_oAdsCallback?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 

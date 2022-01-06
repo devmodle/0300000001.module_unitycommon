@@ -16,11 +16,11 @@ public static partial class Func {
 	private static bool m_bIsWatchRewardAds = false;
 	private static bool m_bIsWatchFullscreenAds = false;
 
-	private static STAdsRewardItemInfo m_stRewardItemInfo;
+	private static STAdsRewardInfo m_stAdsRewardInfo;
 
 	private static System.Action<CAdsManager, bool> m_oBannerAdsCallback = null;
 	private static System.Action<CAdsManager, bool> m_oFullscreenAdsCallback = null;
-	private static System.Action<CAdsManager, STAdsRewardItemInfo, bool> m_oRewardAdsCallback = null;
+	private static System.Action<CAdsManager, STAdsRewardInfo, bool> m_oRewardAdsCallback = null;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
@@ -95,25 +95,7 @@ public static partial class Func {
 			oAlertPopup.Show(null, null);
 		}
 	}
-
-	/** 토스트 팝업을 출력한다 */
-	public static void ShowToastPopup(string a_oMsg, float a_fDuration = KCDefine.U_DURATION_TOAST_POPUP) {
-		Func.ShowToastPopup(new CToastPopup.STParams() {
-			m_fDuration = a_fDuration, m_oMsg = a_oMsg
-		});
-	}
-
-	/** 토스트 팝업을 출력한다 */
-	public static void ShowToastPopup(CToastPopup.STParams a_stParams) {
-		Func.ShowToastPopup(a_stParams, Vector3.zero);
-	}
-
-	/** 토스트 팝업을 출력한다 */
-	public static void ShowToastPopup(CToastPopup.STParams a_stParams, Vector3 a_stPos) {
-		a_stParams.m_fDuration = a_stParams.m_fDuration.ExIsLessEquals(KCDefine.B_VAL_0_FLT) ? KCDefine.U_DURATION_TOAST_POPUP : a_stParams.m_fDuration;
-		CToastPopupManager.Inst.Show(a_stParams, a_stPos);
-	}
-
+	
 	/** 종료 팝업을 출력한다 */
 	public static void ShowQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_QUIT_P_MSG), a_oCallback);
@@ -242,12 +224,12 @@ public static partial class Func {
 	}
 
 	/** 보상 광고를 출력한다 */
-	public static void ShowRewardAds(System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
+	public static void ShowRewardAds(System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback) {
 		Func.ShowRewardAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
 	}
 	
 	/** 보상 광고를 출력한다 */
-	public static void ShowRewardAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, STAdsRewardItemInfo, bool> a_oCallback) {
+	public static void ShowRewardAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback) {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsPlatform)) {
 #if UNITY_EDITOR
@@ -258,13 +240,13 @@ public static partial class Func {
 
 			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => {
 				Func.m_bIsWatchRewardAds = false;
-				Func.m_stRewardItemInfo = KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO;
+				Func.m_stAdsRewardInfo = KCDefine.U_INVALID_ADS_REWARD_INFO;
 
 				Func.m_oRewardAdsCallback = a_oCallback;
-				CAdsManager.Inst.ShowRewardAds(a_eAdsPlatform, Func.OnReceiveUserReward, Func.OnCloseRewardAds);
+				CAdsManager.Inst.ShowRewardAds(a_eAdsPlatform, Func.OnReceiveAdsReward, Func.OnCloseRewardAds);
 			});
 		} else {
-			a_oCallback?.Invoke(CAdsManager.Inst, KCDefine.U_INVALID_ADS_REWARD_ITEM_INFO, false);
+			a_oCallback?.Invoke(CAdsManager.Inst, KCDefine.U_INVALID_ADS_REWARD_INFO, false);
 		}
 	}
 
@@ -318,13 +300,13 @@ public static partial class Func {
 		CAppInfoStorage.Inst.AddRewardAdsWatchTimes(KCDefine.B_VAL_1_INT);
 		CAppInfoStorage.Inst.SaveAppInfo();
 
-		CFunc.Invoke(ref Func.m_oRewardAdsCallback, a_oSender, Func.m_stRewardItemInfo, Func.m_bIsWatchRewardAds);
+		CFunc.Invoke(ref Func.m_oRewardAdsCallback, a_oSender, Func.m_stAdsRewardInfo, Func.m_bIsWatchRewardAds);
 	}
 
-	/** 유저 보상을 수신했을 경우 */
-	private static void OnReceiveUserReward(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
+	/** 광고 보상을 수신했을 경우 */
+	private static void OnReceiveAdsReward(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		Func.m_bIsWatchRewardAds = a_bIsSuccess;
-		Func.m_stRewardItemInfo = a_stRewardItemInfo;
+		Func.m_stAdsRewardInfo = a_stAdsRewardInfo;
 	}
 
 	/** 전면 광고가 닫혔을 경우 */

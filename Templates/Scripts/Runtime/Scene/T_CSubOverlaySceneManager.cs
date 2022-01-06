@@ -61,7 +61,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 			var stCallbackParams = new CStorePopup.STCallbackParams() {
 #if ADS_MODULE_ENABLE
-				m_oAdsCallback = (a_oAdsSender, a_stRewardItemInfo, a_bIsSuccess) => this.UpdateUIsState(),
+				m_oAdsCallback = (a_oAdsSender, a_stAdsRewardInfo, a_bIsSuccess) => this.UpdateUIsState(),
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE

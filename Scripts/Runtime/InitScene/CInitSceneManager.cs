@@ -101,7 +101,6 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CTaskManager.Create();
 		CScheduleManager.Create();
 		CNavStackManager.Create();
-		CToastPopupManager.Create();
 		
 #if ADS_MODULE_ENABLE
 		CAdsManager.Create();

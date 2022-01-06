@@ -43,7 +43,6 @@ public static partial class KEditorDefine {
 		[typeof(CTaskManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CToastPopupManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
 #if SCENE_TEMPLATES_MODULE_ENABLE

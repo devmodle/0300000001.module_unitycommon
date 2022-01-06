@@ -18,7 +18,6 @@ public class CRewardAcquirePopup : CSubPopup {
 
 	#region 변수
 	private STParams m_stParams;
-	private bool m_bIsWatchRewardAds = false;
 
 	/** =====> UI <===== */
 	private Button m_oAdsBtn = null;
@@ -95,11 +94,11 @@ public class CRewardAcquirePopup : CSubPopup {
 
 	/** 획득 버튼을 눌렀을 경우 */
 	private void OnTouchAcquireBtn() {
-		this.AcquireItems();
+		this.AcquireItems(false);
 	}
 
 	/** 아이템을 획득한다 */
-	private void AcquireItems() {
+	private void AcquireItems(bool a_bIsWatchRewardAds) {
 		m_oAdsBtn?.ExSetInteractable(false);
 		m_oAcquireBtn?.ExSetInteractable(false);
 
@@ -108,7 +107,7 @@ public class CRewardAcquirePopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 
 		for(int i = 0; i < m_stParams.m_oItemInfoList.Count; ++i) {
-			Func.AcquireItem(m_stParams.m_oItemInfoList[i], m_bIsWatchRewardAds ? m_stParams.m_oItemInfoList[i].m_nNumItems : KCDefine.B_VAL_0_INT);
+			Func.AcquireItem(m_stParams.m_oItemInfoList[i], a_bIsWatchRewardAds ? m_stParams.m_oItemInfoList[i].m_nNumItems : KCDefine.B_VAL_0_INT);
 		}
 
 		this.OnTouchCloseBtn();
@@ -118,11 +117,10 @@ public class CRewardAcquirePopup : CSubPopup {
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
-	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			m_bIsWatchRewardAds = a_bIsSuccess;
-			this.AcquireItems();
+			this.AcquireItems(true);
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE

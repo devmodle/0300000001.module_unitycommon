@@ -8,8 +8,6 @@ using UnityEngine.UI;
 /** 일일 보상 팝업 */
 public class CDailyRewardPopup : CSubPopup {
 	#region 변수
-	private bool m_bIsWatchRewardAds = false;
-
 	/** =====> UI <===== */
 	private Button m_oAdsBtn = null;
 	private Button m_oAcquireBtn = null;
@@ -73,14 +71,12 @@ public class CDailyRewardPopup : CSubPopup {
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
-#else
-		this.ShowRewardAcquirePopup();
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
 	/** 획득 버튼을 눌렀을 경우 */
 	private void OnTouchAcquireBtn() {
-		this.ShowRewardAcquirePopup();
+		this.ShowRewardAcquirePopup(false);
 	}
 
 	/** 보상 획득 팝업이 닫혔을 경우 */
@@ -90,12 +86,12 @@ public class CDailyRewardPopup : CSubPopup {
 	}
 
 	/** 보상 획득 팝업을 출력한다 */
-	private void ShowRewardAcquirePopup() {
+	private void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
 		var eRewardKinds = CGameInfoStorage.Inst.DailyRewardKinds;
 		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
 
-		// 보상 광고를 시청했을 경우
-		if(m_bIsWatchRewardAds) {
+		// 보상 광고 시청 모드 일 경우
+		if(a_bIsWatchRewardAds) {
 			var oItemInfoList = new List<STItemInfo>();
 
 			for(int i = 0; i < stRewardInfo.m_oItemInfoList.Count; ++i) {
@@ -120,11 +116,10 @@ public class CDailyRewardPopup : CSubPopup {
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
-	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardItemInfo a_stRewardItemInfo, bool a_bIsSuccess) {
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			m_bIsWatchRewardAds = true;
-			this.ShowRewardAcquirePopup();
+			this.ShowRewardAcquirePopup(true);
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE
