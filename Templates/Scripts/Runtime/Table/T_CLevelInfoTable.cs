@@ -86,7 +86,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	#region 프로퍼티
 	[IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
 	[IgnoreMember] public Dictionary<ETargetKinds, int> NumTargetsDict = new Dictionary<ETargetKinds, int>();
-	[IgnoreMember] public Dictionary<ETargetKinds, int> UnlockNumTargetsDict = new Dictionary<ETargetKinds, int>();
+	[IgnoreMember] public Dictionary<ETargetKinds, int> NumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
 
 	[IgnoreMember] public ELevelMode LevelMode {
 		get { return (ELevelMode)m_oIntDict.ExGetVal(CLevelInfo.KEY_LEVEL_MODE, (int)ELevelMode.NONE); }
@@ -150,7 +150,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 
 		// 셀을 설정한다 {
 		this.NumTargetsDict = this.NumTargetsDict ?? new Dictionary<ETargetKinds, int>();
-		this.UnlockNumTargetsDict = this.UnlockNumTargetsDict ?? new Dictionary<ETargetKinds, int>();
+		this.NumUnlockTargetsDict = this.NumUnlockTargetsDict ?? new Dictionary<ETargetKinds, int>();
 
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
@@ -609,7 +609,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
 
 			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(),
-			m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>(),
+			m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>(),
 
 			m_eLevelMode = stLevelInfo.m_eLevelMode,
 			m_eLevelKinds = stLevelInfo.m_eLevelKinds,
@@ -618,7 +618,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		};
 
 		stLevelInfo.m_oNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
-		stLevelInfo.m_oUnlockNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oUnlockNumTargetsDict, (a_nUnlockNumTargets) => a_nUnlockNumTargets);
+		stLevelInfo.m_oNumUnlockTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_oNumUnlockTargetsDict, (a_nNumUnlockTargets) => a_nNumUnlockTargets);
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
 		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID), a_oLevelInfo, null, false, false);

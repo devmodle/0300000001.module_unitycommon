@@ -23,7 +23,7 @@ public struct STLevelInfo {
 	public ETutorialKinds m_eTutorialKinds;
 
 	public Dictionary<ETargetKinds, int> m_oNumTargetsDict;
-	public Dictionary<ETargetKinds, int> m_oUnlockNumTargetsDict;
+	public Dictionary<ETargetKinds, int> m_oNumUnlockTargetsDict;
 
 	#region 함수
 	/** 생성자 */
@@ -41,7 +41,7 @@ public struct STLevelInfo {
 		m_eTutorialKinds = (ETutorialKinds)a_oLevelInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt;
 
 		m_oNumTargetsDict = new Dictionary<ETargetKinds, int>();
-		m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>();
+		m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_KINDS; ++i) {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
@@ -54,12 +54,12 @@ public struct STLevelInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_UNLOCK_TARGET_KINDS; ++i) {
-			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oNumUnlockTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
 			// 잠금 해제 타겟 개수 정보가 존재 할 경우
-			if(a_oLevelInfo[oUnlockTargetKindsKey] != null && a_oLevelInfo[oUnlockNumTargetsKey] != null) {
-				m_oUnlockNumTargetsDict.ExAddVal((ETargetKinds)a_oLevelInfo[oUnlockTargetKindsKey].AsInt, a_oLevelInfo[oUnlockNumTargetsKey].AsInt);
+			if(a_oLevelInfo[oUnlockTargetKindsKey] != null && a_oLevelInfo[oNumUnlockTargetsKey] != null) {
+				m_oNumUnlockTargetsDict.ExAddVal((ETargetKinds)a_oLevelInfo[oUnlockTargetKindsKey].AsInt, a_oLevelInfo[oNumUnlockTargetsKey].AsInt);
 			}
 		}
 	}
@@ -70,8 +70,8 @@ public struct STLevelInfo {
 	}
 
 	/** 잠금 해제 타겟 개수를 반환한다 */
-	public int GetUnlockNumTargets(ETargetKinds a_eTargetKinds) {
-		return m_oUnlockNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
+	public int GetNumUnlockTargets(ETargetKinds a_eTargetKinds) {
+		return m_oNumUnlockTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
 	#endregion			// 함수
 
@@ -92,7 +92,7 @@ public struct STLevelInfo {
 		a_oLevelInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 
 		var oNumTargetsKeyList = m_oNumTargetsDict.Keys.ToList();
-		var oUnlockNumTargetsKeyList = m_oUnlockNumTargetsDict.Keys.ToList();
+		var oNumUnlockTargetsKeyList = m_oNumUnlockTargetsDict.Keys.ToList();
 
 		for(int i = 0; i < oNumTargetsKeyList.Count; ++i) {
 			var eKey = oNumTargetsKeyList[i];
@@ -104,13 +104,13 @@ public struct STLevelInfo {
 			a_oLevelInfo.Add(oTargetKindsKey, $"{(int)eKey}");
 		}
 
-		for(int i = 0; i < oUnlockNumTargetsKeyList.Count; ++i) {
-			var eKey = oUnlockNumTargetsKeyList[i];
+		for(int i = 0; i < oNumUnlockTargetsKeyList.Count; ++i) {
+			var eKey = oNumUnlockTargetsKeyList[i];
 
-			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oNumUnlockTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			a_oLevelInfo.Add(oUnlockNumTargetsKey, $"{m_oUnlockNumTargetsDict[eKey]}");
+			a_oLevelInfo.Add(oNumUnlockTargetsKey, $"{m_oNumUnlockTargetsDict[eKey]}");
 			a_oLevelInfo.Add(oUnlockTargetKindsKey, $"{(int)eKey}");
 		}
 	}
@@ -132,7 +132,7 @@ public struct STStageInfo {
 	public ETutorialKinds m_eTutorialKinds;
 
 	public Dictionary<ETargetKinds, int> m_oNumTargetsDict;
-	public Dictionary<ETargetKinds, int> m_oUnlockNumTargetsDict;
+	public Dictionary<ETargetKinds, int> m_oNumUnlockTargetsDict;
 
 	#region 함수
 	/** 생성자 */
@@ -148,7 +148,7 @@ public struct STStageInfo {
 		m_eTutorialKinds = (ETutorialKinds)a_oStageInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt;
 
 		m_oNumTargetsDict = new Dictionary<ETargetKinds, int>();
-		m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>();
+		m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_KINDS; ++i) {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
@@ -161,12 +161,12 @@ public struct STStageInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_UNLOCK_TARGET_KINDS; ++i) {
-			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oNumUnlockTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
 			// 잠금 해제 타겟 개수 정보가 존재 할 경우
-			if(a_oStageInfo[oUnlockTargetKindsKey] != null && a_oStageInfo[oUnlockNumTargetsKey] != null) {
-				m_oUnlockNumTargetsDict.ExAddVal((ETargetKinds)a_oStageInfo[oUnlockTargetKindsKey].AsInt, a_oStageInfo[oUnlockNumTargetsKey].AsInt);
+			if(a_oStageInfo[oUnlockTargetKindsKey] != null && a_oStageInfo[oNumUnlockTargetsKey] != null) {
+				m_oNumUnlockTargetsDict.ExAddVal((ETargetKinds)a_oStageInfo[oUnlockTargetKindsKey].AsInt, a_oStageInfo[oNumUnlockTargetsKey].AsInt);
 			}
 		}
 	}
@@ -177,8 +177,8 @@ public struct STStageInfo {
 	}
 
 	/** 잠금 해제 타겟 개수를 반환한다 */
-	public int GetUnlockNumTargets(ETargetKinds a_eTargetKinds) {
-		return m_oUnlockNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
+	public int GetNumUnlockTargets(ETargetKinds a_eTargetKinds) {
+		return m_oNumUnlockTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
 	#endregion			// 함수
 
@@ -197,7 +197,7 @@ public struct STStageInfo {
 		a_oStageInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 
 		var oNumTargetsKeyList = m_oNumTargetsDict.Keys.ToList();
-		var oUnlockNumTargetsKeyList = m_oUnlockNumTargetsDict.Keys.ToList();
+		var oNumUnlockTargetsKeyList = m_oNumUnlockTargetsDict.Keys.ToList();
 
 		for(int i = 0; i < oNumTargetsKeyList.Count; ++i) {
 			var eKey = oNumTargetsKeyList[i];
@@ -209,13 +209,13 @@ public struct STStageInfo {
 			a_oStageInfo.Add(oTargetKindsKey, $"{(int)eKey}");
 		}
 
-		for(int i = 0; i < oUnlockNumTargetsKeyList.Count; ++i) {
-			var eKey = oUnlockNumTargetsKeyList[i];
+		for(int i = 0; i < oNumUnlockTargetsKeyList.Count; ++i) {
+			var eKey = oNumUnlockTargetsKeyList[i];
 
-			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oNumUnlockTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			a_oStageInfo.Add(oUnlockNumTargetsKey, $"{m_oUnlockNumTargetsDict[eKey]}");
+			a_oStageInfo.Add(oNumUnlockTargetsKey, $"{m_oNumUnlockTargetsDict[eKey]}");
 			a_oStageInfo.Add(oUnlockTargetKindsKey, $"{(int)eKey}");
 		}
 	}
@@ -236,7 +236,7 @@ public struct STChapterInfo {
 	public ETutorialKinds m_eTutorialKinds;
 
 	public Dictionary<ETargetKinds, int> m_oNumTargetsDict;
-	public Dictionary<ETargetKinds, int> m_oUnlockNumTargetsDict;
+	public Dictionary<ETargetKinds, int> m_oNumUnlockTargetsDict;
 
 	#region 함수
 	/** 생성자 */
@@ -251,7 +251,7 @@ public struct STChapterInfo {
 		m_eTutorialKinds = (ETutorialKinds)a_oChapterInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt;
 
 		m_oNumTargetsDict = new Dictionary<ETargetKinds, int>();
-		m_oUnlockNumTargetsDict = new Dictionary<ETargetKinds, int>();
+		m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_KINDS; ++i) {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
@@ -264,12 +264,12 @@ public struct STChapterInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_UNLOCK_TARGET_KINDS; ++i) {
-			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oNumUnlockTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
 			// 잠금 해제 타겟 개수 정보가 존재 할 경우
-			if(a_oChapterInfo[oUnlockTargetKindsKey] != null && a_oChapterInfo[oUnlockNumTargetsKey] != null) {
-				m_oUnlockNumTargetsDict.ExAddVal((ETargetKinds)a_oChapterInfo[oUnlockTargetKindsKey].AsInt, a_oChapterInfo[oUnlockNumTargetsKey].AsInt);
+			if(a_oChapterInfo[oUnlockTargetKindsKey] != null && a_oChapterInfo[oNumUnlockTargetsKey] != null) {
+				m_oNumUnlockTargetsDict.ExAddVal((ETargetKinds)a_oChapterInfo[oUnlockTargetKindsKey].AsInt, a_oChapterInfo[oNumUnlockTargetsKey].AsInt);
 			}
 		}
 	}
@@ -280,8 +280,8 @@ public struct STChapterInfo {
 	}
 
 	/** 잠금 해제 타겟 개수를 반환한다 */
-	public int GetUnlockNumTargets(ETargetKinds a_eTargetKinds) {
-		return m_oUnlockNumTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
+	public int GetNumUnlockTargets(ETargetKinds a_eTargetKinds) {
+		return m_oNumUnlockTargetsDict.ExGetVal(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
 	#endregion			// 함수
 
@@ -299,7 +299,7 @@ public struct STChapterInfo {
 		a_oChapterInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 
 		var oNumTargetsKeyList = m_oNumTargetsDict.Keys.ToList();
-		var oUnlockNumTargetsKeyList = m_oUnlockNumTargetsDict.Keys.ToList();
+		var oNumUnlockTargetsKeyList = m_oNumUnlockTargetsDict.Keys.ToList();
 
 		for(int i = 0; i < oNumTargetsKeyList.Count; ++i) {
 			var eKey = oNumTargetsKeyList[i];
@@ -311,13 +311,13 @@ public struct STChapterInfo {
 			a_oChapterInfo.Add(oTargetKindsKey, $"{(int)eKey}");
 		}
 
-		for(int i = 0; i < oUnlockNumTargetsKeyList.Count; ++i) {
-			var eKey = oUnlockNumTargetsKeyList[i];
+		for(int i = 0; i < oNumUnlockTargetsKeyList.Count; ++i) {
+			var eKey = oNumUnlockTargetsKeyList[i];
 
-			string oUnlockNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oNumUnlockTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			a_oChapterInfo.Add(oUnlockNumTargetsKey, $"{m_oUnlockNumTargetsDict[eKey]}");
+			a_oChapterInfo.Add(oNumUnlockTargetsKey, $"{m_oNumUnlockTargetsDict[eKey]}");
 			a_oChapterInfo.Add(oUnlockTargetKindsKey, $"{(int)eKey}");
 		}
 	}

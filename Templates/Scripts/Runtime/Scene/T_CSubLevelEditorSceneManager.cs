@@ -38,6 +38,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private EnhancedScroller m_oSelScroller = null;
 
 	// 중앙 에디터 UI {
+	private Text m_oMEUIsMsgText = null;
 	private Text m_oMEUIsLevelText = null;
 
 	private Button m_oMEUIsPrevBtn = null;
@@ -48,7 +49,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	// 중앙 에디터 UI }
 
 	// 왼쪽 에디터 UI {
-	private Text m_oLEUIsSetText = null;
+	private Button m_oLEUIsASetBtn = null;
+	private Button m_oLEUIsBSetBtn = null;
 
 	private Dictionary<EScrollerType, EnhancedScroller> m_oLEUIsScrollerDict = new Dictionary<EScrollerType, EnhancedScroller>();
 	private Dictionary<EScrollerType, EnhancedScrollerCellView> m_oLEUIsOriginScrollerCellViewDict = new Dictionary<EScrollerType, EnhancedScrollerCellView>();
@@ -601,6 +603,15 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			CLevelInfoTable.Inst.MoveChapterLevelInfos(a_stIDInfo.m_nChapterID, Mathf.Clamp(a_nToID, KCDefine.B_VAL_1_INT, nNumChapterInfos) - KCDefine.B_VAL_1_INT);
 		}
 	}
+
+	/** 메세지를 출려한다 */
+	private void ShowMsg(string a_oMsg) {
+		m_oMEUIsMsgUIs?.SetActive(true);
+		m_oMEUIsMsgText?.ExSetText<Text>(a_oMsg, false);
+
+		CScheduleManager.Inst.RemoveTimer(this);
+		CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_5_FLT, KCDefine.B_VAL_1_INT, () => m_oMEUIsMsgUIs?.SetActive(false));
+	}
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
 
@@ -616,6 +627,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	/** 중앙 에디터 UI 를 설정한다 */
 	private void SetupMidEditorUIs() {
 		// 텍스트를 설정한다
+		m_oMEUIsMsgText = m_oMidEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_MSG_TEXT);
 		m_oMEUIsLevelText = m_oMidEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_LEVEL_TEXT);
 
 		// 버튼을 설정한다 {
@@ -737,9 +749,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	/** 왼쪽 에디터 UI 를 설정한다 */
 	private void SetupLeftEditorUIs() {
-		// 텍스트를 설정한다
-		m_oLEUIsSetText = m_oLeftEditorUIs.ExFindComponent<Text>(KCDefine.LES_OBJ_N_LE_UIS_SET_TEXT);
-
 		// 스크롤 뷰를 설정한다 {
 		var oLevelScroller = m_oLeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW);
 		oLevelScroller?.gameObject.SetActive(true);
@@ -763,11 +772,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 스크롤 뷰를 설정한다 }
 
 		// 버튼을 설정한다 {
-		var oASetBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_A_SET_BTN);
-		oASetBtn?.onClick.AddListener(this.OnTouchLEUIsASetBtn);
+		m_oLEUIsASetBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_A_SET_BTN);
+		m_oLEUIsASetBtn?.onClick.AddListener(this.OnTouchLEUIsASetBtn);
 
-		var oBSetBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_B_SET_BTN);
-		oBSetBtn?.onClick.AddListener(this.OnTouchLEUIsBSetBtn);
+		m_oLEUIsBSetBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_B_SET_BTN);
+		m_oLEUIsBSetBtn?.onClick.AddListener(this.OnTouchLEUIsBSetBtn);
 
 		var oAddStageBtn = m_oLeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_STAGE_BTN);
 		oAddStageBtn?.onClick.AddListener(this.OnTouchLEUIsAddStageBtn);
@@ -779,11 +788,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		this.ExLateCallFunc((a_oSender) => {
 #if AB_TEST_ENABLE
-			oASetBtn?.ExSetInteractable(true, false);
-			oBSetBtn?.ExSetInteractable(true, false);
-#else
-			oASetBtn?.ExSetInteractable(false, false);
-			oBSetBtn?.ExSetInteractable(false, false);
+			m_oLEUIsSetUIs?.SetActive(true);
 #endif			// #if AB_TEST_ENABLE
 
 			oAddStageBtn?.ExSetInteractable((oStageScrollerA != null && oStageScrollerA.gameObject.activeSelf) || (oStageScrollerB != null && oStageScrollerB.gameObject.activeSelf));
@@ -794,8 +799,9 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	/** 왼쪽 에디터 UI 상태를 갱신한다 */
 	private void UpdateLeftEditorUIsState() {
-		// 텍스트를 갱신한다
-		m_oLEUIsSetText.text = CAccess.GetUserStr(CCommonUserInfoStorage.Inst.UserInfo.UserType);
+		// 버튼을 설정한다
+		m_oLEUIsASetBtn?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? Color.cyan : Color.white, false);
+		m_oLEUIsBSetBtn?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? Color.cyan : Color.white, false);
 
 		// 스크롤 뷰를 갱신한다
 		m_oLEUIsScrollerDict[EScrollerType.LEVEL]?.ExReloadData(m_oSelLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT, false);

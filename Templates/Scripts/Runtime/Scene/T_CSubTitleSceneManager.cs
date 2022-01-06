@@ -87,7 +87,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-#if CREATIVE_BUILD
+#if CREATIVE_DIST_BUILD
 			for(int i = 0; i < CLevelInfoTable.Inst.NumLevelInfosDictContainer.Count; ++i) {
 				for(int j = 0; j < CLevelInfoTable.Inst.NumLevelInfosDictContainer[i].Count; ++j) {
 					for(int k = 0; k < CLevelInfoTable.Inst.NumLevelInfosDictContainer[i][j]; ++k) {
@@ -102,8 +102,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager, IEnhancedScroll
 				}
 			}
 
+			CUserInfoStorage.Inst.UserInfo.NumCoins = KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND;
 			CGameInfoStorage.Inst.SaveGameInfo();
-#endif			// #if CREATIVE_BUILD
+#endif			// #if CREATIVE_DIST_BUILD
 
 			this.SetupAwake();
 		}

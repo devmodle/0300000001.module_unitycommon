@@ -13,7 +13,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	#endregion			// 추가 변수
 
 	#region 추가 프로퍼티
-
+	
 	#endregion			// 추가 프로퍼티
 
 	#region 함수
@@ -57,11 +57,11 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	private void SetupAwake() {
 		this.IsAutoInitManager = true;
 		
-#if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_BUILD && !STUDY_MODULE_ENABLE)
+#if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 		CLateSetupSceneManager.IsAutoLoadBannerAds = true;
 		CLateSetupSceneManager.IsAutoLoadRewardAds = true;
 		CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
-#endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_BUILD && !STUDY_MODULE_ENABLE)
+#endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 
 #if UNITY_EDITOR
 		CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType.ExIsValid() ? m_eUserType : EUserType.A;
