@@ -22,11 +22,10 @@ public class CGameSceneManager : CSceneManager {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		Time.timeScale = KCDefine.B_VAL_1_FLT;
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			Time.timeScale = KCDefine.B_VAL_1_FLT;
-			
 			// 블럭 객체를 설정한다
 			var oBlockObjs = this.SubObjsBase.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
 			m_oBlockObjs = oBlockObjs ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_BLOCKS, this.SubObjs);

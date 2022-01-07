@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -98,6 +99,9 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	private void UpdateUIsState() {
 		var oSubTitleSceneManager = CSceneManager.GetSubSceneManager<CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE);
 		oSubTitleSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
+
+		var oSubMainSceneManager = CSceneManager.GetSubSceneManager<CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN);
+		oSubMainSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 
 		var oSubGameSceneManager = CSceneManager.GetSubSceneManager<CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
 		oSubGameSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);

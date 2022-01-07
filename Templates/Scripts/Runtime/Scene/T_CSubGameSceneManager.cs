@@ -284,9 +284,9 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if ADS_MODULE_ENABLE
 				} else {
 #if ADS_MODULE_ENABLE
-					Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE));
+					Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
 #else
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 #endif			// #if ADS_MODULE_ENABLE
 				}
 			} break;

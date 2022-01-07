@@ -21,12 +21,12 @@ public class CUserInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[IgnoreMember] public long NumCoins {
-		get { return long.Parse(m_oStrDict.ExGetVal(CUserInfo.KEY_NUM_COINS, $"{KCDefine.B_VAL_0_INT}")); }
+		get { return long.Parse(m_oStrDict.GetValueOrDefault(CUserInfo.KEY_NUM_COINS, $"{KCDefine.B_VAL_0_INT}")); }
 		set { m_oStrDict.ExReplaceVal(CUserInfo.KEY_NUM_COINS, $"{value}"); }
 	}
 
 	[IgnoreMember] public long NumSaleCoins {
-		get { return long.Parse(m_oStrDict.ExGetVal(CUserInfo.KEY_NUM_SALE_COINS, $"{KCDefine.B_VAL_0_INT}")); }
+		get { return long.Parse(m_oStrDict.GetValueOrDefault(CUserInfo.KEY_NUM_SALE_COINS, $"{KCDefine.B_VAL_0_INT}")); }
 		set { m_oStrDict.ExReplaceVal(CUserInfo.KEY_NUM_SALE_COINS, $"{value}"); }
 	}
 	#endregion			// 프로퍼티
@@ -78,7 +78,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 아이템 개수를 반환한다 */
 	public long GetNumItems(EItemKinds a_eItemKinds) {
-		return this.UserInfo.m_oNumItemsDict.ExGetVal(a_eItemKinds, KCDefine.B_VAL_0_INT);
+		return this.UserInfo.m_oNumItemsDict.GetValueOrDefault(a_eItemKinds, KCDefine.B_VAL_0_INT);
 	}
 
 	/** 코인 개수를 추가한다 */

@@ -16,8 +16,8 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this ELevelMode a_eSender) {
-		return a_eSender > ELevelMode.NONE && a_eSender < ELevelMode.MAX_VAL;
+	public static bool ExIsValid(this EDifficulty a_eSender) {
+		return a_eSender > EDifficulty.NONE && a_eSender < EDifficulty.MAX_VAL;
 	}
 
 	/** 유효 여부를 검사한다 */

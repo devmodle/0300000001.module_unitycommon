@@ -107,7 +107,7 @@ public class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	
 	/** 판매 아이템 정보를 반환한다 */
 	public bool TryGetSaleItemInfo(ESaleItemKinds a_eSaleItemKinds, out STSaleItemInfo a_stOutSaleItemInfo) {
-		a_stOutSaleItemInfo = this.SaleItemInfoDict.ExGetVal(a_eSaleItemKinds, KDefine.G_INVALID_SALE_ITEM_INFO);
+		a_stOutSaleItemInfo = this.SaleItemInfoDict.GetValueOrDefault(a_eSaleItemKinds, KDefine.G_INVALID_SALE_ITEM_INFO);
 		return this.SaleItemInfoDict.ContainsKey(a_eSaleItemKinds);
 	}
 

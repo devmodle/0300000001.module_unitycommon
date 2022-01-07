@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-/** 레벨 모드 보정자 */
-public class CLevelModeCorrector : CComponent {
+/** 난이도 보정자 */
+public class CDifficultyCorrector : CComponent {
 	#region 변수
 	[SerializeField] private string m_oBasePath = string.Empty;
-	[SerializeField] private ELevelMode m_eLevelMode = ELevelMode.NONE;
+	[SerializeField] private EDifficulty m_eDifficulty = EDifficulty.NONE;
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -29,28 +29,28 @@ public class CLevelModeCorrector : CComponent {
 	/** 초기화 */
 	public override void Start() {
 		base.Start();
-		this.SetupLevelMode();
+		this.SetupDifficulty();
 	}
 
-	/** 레벨 모드를 리셋한다 */
-	public virtual void ResetLevelMode() {
-		this.SetupLevelMode();
+	/** 난이도를 리셋한다 */
+	public virtual void ResetDifficulty() {
+		this.SetupDifficulty();
 	}
 
 	/** 이미지를 변경한다 */
 	public void SetImg(string a_oBasePath) {
 		m_oBasePath = a_oBasePath;
-		this.SetupLevelMode();
+		this.SetupDifficulty();
 	}
 
-	/** 레벨 모드를 변경한다 */
-	public void SetLevelMode(ELevelMode a_eMode) {
-		m_eLevelMode = a_eMode;
-		this.SetupLevelMode();
+	/** 난이도를 변경한다 */
+	public void SetDifficulty(EDifficulty a_eMode) {
+		m_eDifficulty = a_eMode;
+		this.SetupDifficulty();
 	}
 
-	/** 레벨 모드를 설정한다 */
-	private void SetupLevelMode() {
+	/** 난이도를 설정한다 */
+	private void SetupDifficulty() {
 		// Do Something
 	}
 	#endregion			// 함수

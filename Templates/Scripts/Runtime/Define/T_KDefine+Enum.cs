@@ -15,8 +15,8 @@ public enum EPlayMode {
 	[HideInInspector] MAX_VAL
 }
 
-/** 레벨 모드 */
-public enum ELevelMode {
+/** 난이도 */
+public enum EDifficulty {
 	NONE = -1,
 	EASY,
 	NORM,

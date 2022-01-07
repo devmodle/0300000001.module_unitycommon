@@ -10,15 +10,23 @@ public static partial class KDefine {
 	#region 기본
 	// 개수 {
 	public const int G_MAX_NUM_SALE_COINS = 0;
-	public const int G_MAX_NUM_CLEAR_MARKS = 0;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 0;
-
-	public const int G_MAX_NUM_TARGET_KINDS = 0;
-	public const int G_MAX_NUM_UNLOCK_TARGET_KINDS = 0;
 
 	public const int G_MAX_NUM_SALE_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 0;
 	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
+
+	public const int G_MAX_NUM_LEVEL_CLEAR_MARKS = 0;
+	public const int G_MAX_NUM_STAGE_CLEAR_MARKS = 0;
+	public const int G_MAX_NUM_CHAPTER_CLEAR_MARKS = 0;
+
+	public const int G_MAX_NUM_LEVEL_TARGET_KINDS = 0;
+	public const int G_MAX_NUM_STAGE_TARGET_KINDS = 0;
+	public const int G_MAX_NUM_CHAPTER_TARGET_KINDS = 0;
+
+	public const int G_MAX_NUM_LEVEL_UNLOCK_TARGET_KINDS = 0;
+	public const int G_MAX_NUM_STAGE_UNLOCK_TARGET_KINDS = 0;
+	public const int G_MAX_NUM_CHAPTER_UNLOCK_TARGET_KINDS = 0;
 	// 개수 }
 
 	// 횟수
@@ -72,14 +80,14 @@ public static partial class KDefine {
 	// 설정 팝업 {
 	public const string G_OBJ_N_SETTINGS_POPUP = "SettingsPopup";
 
-	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "SampleOnBtn";
-	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "SampleOffBtn";
+	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "BGSndOnBtn";
+	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "BGSndOffBtn";
 
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "SampleOnBtn";
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "SampleOffBtn";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "FXSndsOnBtn";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "FXSndsOffBtn";
 
-	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "SampleOnBtn";
-	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "SampleOffBtn";
+	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "NotiOnBtn";
+	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "NotiOffBtn";
 	// 설정 팝업 }
 
 	// 동기화 팝업
@@ -135,19 +143,31 @@ public static partial class KDefine {
 	};
 
 	public static readonly STRewardInfo G_INVALID_REWARD_INFO = new STRewardInfo() {
-		m_eRewardKinds = ERewardKinds.NONE
+		m_eRewardKinds = ERewardKinds.NONE, m_eRewardQuality = ERewardQuality.NONE
 	};
 
 	public static readonly STLevelInfo G_INVALID_LEVEL_INFO = new STLevelInfo() {
-		m_eLevelMode = ELevelMode.NONE, m_eLevelKinds = ELevelKinds.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
+		m_eLevelKinds = ELevelKinds.NONE,
+		
+		m_stEpisodeInfo = new STCommonEpisodeInfo() {
+			m_eDifficulty = EDifficulty.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
+		}
 	};
 
 	public static readonly STStageInfo G_INVALID_STAGE_INFO = new STStageInfo() {
-		m_eStageKinds = EStageKinds.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
+		m_eStageKinds = EStageKinds.NONE,
+		
+		m_stEpisodeInfo = new STCommonEpisodeInfo() {
+			m_eDifficulty = EDifficulty.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
+		}
 	};
 
 	public static readonly STChapterInfo G_INVALID_CHAPTER_INFO = new STChapterInfo() {
-		m_eChapterKinds = EChapterKinds.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
+		m_eChapterKinds = EChapterKinds.NONE,
+		
+		m_stEpisodeInfo = new STCommonEpisodeInfo() {
+			m_eDifficulty = EDifficulty.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
+		}
 	};
 
 	public static readonly STTutorialInfo G_INVALID_TUTORIAL_INFO = new STTutorialInfo() {
@@ -207,7 +227,7 @@ public static partial class KDefine {
 	#endregion			// 런타임 상수
 
 	#region 추가 상수
-
+	
 	#endregion			// 추가 상수
 
 	#region 추가 런타임 상수

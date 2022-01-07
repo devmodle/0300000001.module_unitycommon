@@ -22,17 +22,17 @@ public class CClearInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[IgnoreMember] public int NumClearMarks {
-		get { return m_oIntDict.ExGetVal(CClearInfo.KEY_NUM_CLEAR_MARKS, KCDefine.B_VAL_0_INT); }
+		get { return m_oIntDict.GetValueOrDefault(CClearInfo.KEY_NUM_CLEAR_MARKS, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CClearInfo.KEY_NUM_CLEAR_MARKS, value); }
 	}
 
 	[IgnoreMember] public string ClearRecord {
-		get { return m_oStrDict.ExGetVal(CClearInfo.KEY_CLEAR_RECORD, $"{KCDefine.B_VAL_0_INT}"); }
+		get { return m_oStrDict.GetValueOrDefault(CClearInfo.KEY_CLEAR_RECORD, $"{KCDefine.B_VAL_0_INT}"); }
 		set { m_oStrDict.ExReplaceVal(CClearInfo.KEY_CLEAR_RECORD, value); }
 	}
 
 	[IgnoreMember] public string BestClearRecord {
-		get { return m_oStrDict.ExGetVal(CClearInfo.KEY_BEST_CLEAR_RECORD, $"{KCDefine.B_VAL_0_INT}"); }
+		get { return m_oStrDict.GetValueOrDefault(CClearInfo.KEY_BEST_CLEAR_RECORD, $"{KCDefine.B_VAL_0_INT}"); }
 		set { m_oStrDict.ExReplaceVal(CClearInfo.KEY_BEST_CLEAR_RECORD, value); }
 	}
 
@@ -100,12 +100,12 @@ public class CGameInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[IgnoreMember] public int DailyRewardID {
-		get { return m_oIntDict.ExGetVal(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VAL_0_INT); }
+		get { return m_oIntDict.GetValueOrDefault(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_DAILY_REWARD_ID, value); }
 	}
 
 	[IgnoreMember] public int FreeRewardAcquireTimes {
-		get { return m_oIntDict.ExGetVal(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_VAL_0_INT); }
+		get { return m_oIntDict.GetValueOrDefault(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, value); }
 	}
 
@@ -124,9 +124,9 @@ public class CGameInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); }
 	}
 
-	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.ExGetVal(CGameInfo.KEY_PREV_DAILY_MISSION_TIME, string.Empty);
-	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.ExGetVal(CGameInfo.KEY_PREV_FREE_REWARD_TIME, string.Empty);
-	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.ExGetVal(CGameInfo.KEY_PREV_DAILY_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(CGameInfo.KEY_PREV_DAILY_MISSION_TIME, string.Empty);
+	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.GetValueOrDefault(CGameInfo.KEY_PREV_FREE_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.GetValueOrDefault(CGameInfo.KEY_PREV_DAILY_REWARD_TIME, string.Empty);
 
 	[IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
@@ -356,7 +356,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 클리어 정보를 반환한다 */
 	public bool TryGetClearInfo(int a_nID, out CClearInfo a_oOutClearInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		a_oOutClearInfo = this.GameInfo.m_oClearInfoDict.ExGetVal(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID), null);
+		a_oOutClearInfo = this.GameInfo.m_oClearInfoDict.GetValueOrDefault(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID), null);
 		return a_oOutClearInfo != null;
 	}
 

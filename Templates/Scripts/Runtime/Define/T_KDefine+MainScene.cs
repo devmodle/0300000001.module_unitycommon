@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-/** 타이틀 씬 상수 */
+/** 메인 씬 상수 */
 public static partial class KDefine {
 	#region 기본
-	
+	// 개수
+	public const int MS_MAX_NUM_LEVELS_IN_ROW = 1;
+	public const int MS_MAX_NUM_STAGES_IN_ROW = 1;
+	public const int MS_MAX_NUM_CHAPTERS_IN_ROW = 1;
 	#endregion			// 기본
 
 	#region 추가 상수

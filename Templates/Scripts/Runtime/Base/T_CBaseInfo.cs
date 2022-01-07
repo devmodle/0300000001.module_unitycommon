@@ -28,7 +28,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 
 	#region 프로퍼티
 	[IgnoreMember] public System.Version Ver {
-		get { return System.Version.Parse(m_oStrDict.ExGetVal(CBaseInfo.KEY_VER, KCDefine.B_DEF_VER)); }
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(CBaseInfo.KEY_VER, KCDefine.B_DEF_VER)); }
 		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
@@ -43,7 +43,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	[IgnoreMember] public virtual bool IsIgnoreStrDict => false;
 	[IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
 
-	[IgnoreMember] private string SaveTimeStr => m_oStrDict.ExGetVal(CBaseInfo.KEY_SAVE_TIME, string.Empty);
+	[IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(CBaseInfo.KEY_SAVE_TIME, string.Empty);
 	[IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
 	

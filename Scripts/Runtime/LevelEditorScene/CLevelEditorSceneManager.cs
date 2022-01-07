@@ -36,10 +36,10 @@ public class CLevelEditorSceneManager : CSceneManager {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		Time.timeScale = KCDefine.B_VAL_1_FLT;
 		
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			Time.timeScale = KCDefine.B_VAL_1_FLT;
 			CSceneManager.ScreenDebugUIs?.SetActive(false);
 			
 			m_oPortraitUIs = this.SubUIsBase.ExFindChild(KCDefine.E_OBJ_N_PORTRAIT_UIS);
