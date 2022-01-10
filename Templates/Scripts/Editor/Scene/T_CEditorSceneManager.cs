@@ -113,41 +113,42 @@ public static partial class CEditorSceneManager {
 
 		// 상태 갱신이 가능 할 경우
 		if(bIsEnableUpdate && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE) && CPlatformOptsSetter.DefineSymbolTable != null) {
-			var oAsset = CEditorFunc.FindAsset<ScriptableObject>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_TABLE);
-			bool bIsNeedUpdate = false;
+			var oDefineSymbolTable = CEditorFunc.FindAsset<CDefineSymbolTable>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_TABLE);
 
-			CEditorSceneManager.m_bIsSetupDependencies = false;
-			CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
+			// 전처리기 심볼 테이블이 존재 할 경우
+			if(oDefineSymbolTable != null) {
+				CEditorSceneManager.m_bIsSetupDependencies = false;
+				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
 
-			var oDefineSymbolLists = new List<List<string>>() {
-				CPlatformOptsSetter.DefineSymbolTable.EditorCommonDefineSymbolList,
-				CPlatformOptsSetter.DefineSymbolTable.EditorSubCommonDefineSymbolList,
+				var oDefineSymbolLists = new List<List<string>>() {
+					oDefineSymbolTable.EditorCommonDefineSymbolList,
+					oDefineSymbolTable.EditorSubCommonDefineSymbolList,
 
-				CPlatformOptsSetter.DefineSymbolTable.EditoriOSAppleDefineSymbolList,
+					oDefineSymbolTable.EditoriOSAppleDefineSymbolList,
 
-				CPlatformOptsSetter.DefineSymbolTable.EditorAndroidGoogleDefineSymbolList,
-				CPlatformOptsSetter.DefineSymbolTable.EditorAndroidAmazonDefineSymbolList,
-				CPlatformOptsSetter.DefineSymbolTable.EditorAndroidOneStoreDefineSymbolList,
-				
-				CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneMacAppleDefineSymbolList,
-				CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneMacSteamDefineSymbolList,
-				CPlatformOptsSetter.DefineSymbolTable.EditorStandaloneWndsSteamDefineSymbolList
-			};
+					oDefineSymbolTable.EditorAndroidGoogleDefineSymbolList,
+					oDefineSymbolTable.EditorAndroidAmazonDefineSymbolList,
+					oDefineSymbolTable.EditorAndroidOneStoreDefineSymbolList,
+					
+					oDefineSymbolTable.EditorStandaloneMacAppleDefineSymbolList,
+					oDefineSymbolTable.EditorStandaloneMacSteamDefineSymbolList,
+					oDefineSymbolTable.EditorStandaloneWndsSteamDefineSymbolList
+				};
 
-			foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
-				for(int i = 0; i < oDefineSymbolLists.Count; ++i) {
-					// 전처리기 심볼 갱신이 필요 할 경우
-					if(oDefineSymbolLists[i].Contains(stKeyVal.Key)) {
-						bIsNeedUpdate = true;
-						oDefineSymbolLists[i].ExReplaceVal(stKeyVal.Key, stKeyVal.Value);
+				foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
+					for(int i = 0; i < oDefineSymbolLists.Count; ++i) {
+						// 전처리기 심볼 갱신이 필요 할 경우
+						if(oDefineSymbolLists[i].Contains(stKeyVal.Key)) {
+							EditorUtility.SetDirty(oDefineSymbolTable);
+							oDefineSymbolLists[i].ExReplaceVal(stKeyVal.Key, stKeyVal.Value);
+						}
 					}
 				}
-			}
-			
-			// 전처리기 심볼 갱신이 필요 할 경우
-			if(bIsNeedUpdate && oAsset != null) {
-				EditorUtility.SetDirty(oAsset);
-				CEditorFunc.UpdateAssetDBState();
+
+				// 전처리기 심볼 갱신이 필요 할 경우
+				if(EditorUtility.IsDirty(oDefineSymbolTable)) {
+					CEditorFunc.UpdateAssetDBState();
+				}
 			}
 		}
 	}
