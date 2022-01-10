@@ -7,6 +7,10 @@ using UnityEngine.UI;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 타이틀 씬 관리자 */
 public partial class CSubTitleSceneManager : CTitleSceneManager {
+	#region 변수
+	private bool m_bIsLoadLevelEditorScene = false;
+	#endregion			// 변수
+
 	#region 추가 변수
 
 	#endregion			// 추가 변수
@@ -39,6 +43,23 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			if(CCommonAppInfoStorage.Inst.IsFirstStart) {
 				this.UpdateFirstStartState();
 			}
+			
+#if !TITLE_SCENE_ENABLE
+			// 레벨 에디터 씬을 로드하지 않았을 경우
+			if(!m_bIsLoadLevelEditorScene) {
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
+			}
+#endif			// #if !TITLE_SCENE_ENABLE
+		}
+	}
+
+	/** 내비게이션 스택 이벤트를 수신했을 경우 */
+	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
+		base.OnReceiveNavStackEvent(a_eEvent);
+
+		// 백 키 눌림 이벤트 일 경우
+		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
+			Func.ShowQuitPopup(this.OnReceiveQuitPopupResult);
 		}
 	}
 
@@ -73,9 +94,8 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		CCommonAppInfoStorage.Inst.IsFirstStart = false;
 		
 #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+		m_bIsLoadLevelEditorScene = true;
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
-#else
-		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 #endif			// #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
@@ -87,6 +107,15 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		// 약관 동의 팝업이 닫혔을 경우
 		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
 			LogFunc.SendAgreeLog();
+		}
+	}
+
+	/** 종료 팝업 결과를 수신했을 경우 */
+	private void OnReceiveQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
+		// 확인 버튼을 눌렀을 경우
+		if(a_bIsOK) {
+			a_oSender.IsIgnoreAni = true;
+			this.ExLateCallFunc((a_oSender) => this.QuitApp());
 		}
 	}
 
