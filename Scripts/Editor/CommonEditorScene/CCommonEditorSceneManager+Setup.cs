@@ -130,24 +130,24 @@ public static partial class CCommonEditorSceneManager {
 		var stScene = EditorSceneManager.GetActiveScene();
 
 		// 광원 설정이 가능 할 경우
-		if(stScene.name.ExIsValid() && !oSampleSceneNameList.Contains(stScene.name)) {
+		if(stScene.IsValid() && !oSampleSceneNameList.Contains(stScene.name)) {
 #if LIGHTMAP_BAKE_ENABLE
 			bool bIsBakeGI = true;
 #else
 			bool bIsBakeGI = false;
 #endif			// #if LIGHTMAP_BAKE_ENABLE
 
-#if REALTIME_GI_ENABLE && (!UNITY_IOS && !UNITY_ANDROID)
+#if REALTIME_GI_ENABLE
 			bool bIsRealtimeGI = true;
 #else
 			bool bIsRealtimeGI = false;
-#endif			// #if REALTIME_GI_ENABLE && (!UNITY_IOS && !UNITY_ANDROID)
+#endif			// #if REALTIME_GI_ENABLE
 
-#if REALTIME_ENVIRONMENT_LIGHTING_ENABLE && (!UNITY_IOS && !UNITY_ANDROID)
+#if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
 			bool bIsRealtimeEnvironmentLighting = true;
 #else
 			bool bIsRealtimeEnvironmentLighting = false;
-#endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE && (!UNITY_IOS && !UNITY_ANDROID)
+#endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
 
 			// 광원 설정이 없을 경우
 			if(!Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings) || oLightingSettings.name.Contains(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE)) {
