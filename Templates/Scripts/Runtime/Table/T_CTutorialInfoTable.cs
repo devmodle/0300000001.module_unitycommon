@@ -72,7 +72,7 @@ public class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 		oTutorialInfoList.AddRange(m_oHelpTutorialInfoList);
 
 		for(int i = 0; i < oTutorialInfoList.Count; ++i) {
-			this.TutorialInfoDict.ExAddVal(oTutorialInfoList[i].m_eTutorialKinds, oTutorialInfoList[i]);
+			this.TutorialInfoDict.TryAdd(oTutorialInfoList[i].m_eTutorialKinds, oTutorialInfoList[i]);
 		}
 	}
 

@@ -208,10 +208,10 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
 				var oCellInfo = m_oCellInfoDictContainer[i][j].Clone() as CCellInfo;
-				oCellInfoDict.ExAddVal(j, oCellInfo);
+				oCellInfoDict.TryAdd(j, oCellInfo);
 			}
 
-			a_oLevelInfo.m_oCellInfoDictContainer.ExAddVal(i, oCellInfoDict);
+			a_oLevelInfo.m_oCellInfoDictContainer.TryAdd(i, oCellInfoDict);
 		}
 	}
 	#endregion			// 함수

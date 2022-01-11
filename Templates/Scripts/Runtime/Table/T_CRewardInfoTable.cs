@@ -95,7 +95,7 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		oRewardInfoList.AddRange(m_oTutorialRewardInfoList);
 
 		for(int i = 0; i < oRewardInfoList.Count; ++i) {
-			this.RewardInfoDict.ExAddVal(oRewardInfoList[i].m_eRewardKinds, oRewardInfoList[i]);
+			this.RewardInfoDict.TryAdd(oRewardInfoList[i].m_eRewardKinds, oRewardInfoList[i]);
 		}
 	}
 

@@ -49,7 +49,7 @@ public struct STLevelInfo {
 
 			// 타겟 개수 정보가 존재 할 경우
 			if(a_oLevelInfo[oTargetKindsKey] != null && a_oLevelInfo[oNumTargetsKey] != null) {
-				m_stEpisodeInfo.m_oNumTargetsDict.ExAddVal((ETargetKinds)a_oLevelInfo[oTargetKindsKey].AsInt, a_oLevelInfo[oNumTargetsKey].AsInt);
+				m_stEpisodeInfo.m_oNumTargetsDict.TryAdd((ETargetKinds)a_oLevelInfo[oTargetKindsKey].AsInt, a_oLevelInfo[oNumTargetsKey].AsInt);
 			}
 		}
 
@@ -59,7 +59,7 @@ public struct STLevelInfo {
 
 			// 잠금 해제 타겟 개수 정보가 존재 할 경우
 			if(a_oLevelInfo[oUnlockTargetKindsKey] != null && a_oLevelInfo[oNumUnlockTargetsKey] != null) {
-				m_stEpisodeInfo.m_oNumUnlockTargetsDict.ExAddVal((ETargetKinds)a_oLevelInfo[oUnlockTargetKindsKey].AsInt, a_oLevelInfo[oNumUnlockTargetsKey].AsInt);
+				m_stEpisodeInfo.m_oNumUnlockTargetsDict.TryAdd((ETargetKinds)a_oLevelInfo[oUnlockTargetKindsKey].AsInt, a_oLevelInfo[oNumUnlockTargetsKey].AsInt);
 			}
 		}
 	}
@@ -166,7 +166,7 @@ public struct STStageInfo {
 
 			// 타겟 개수 정보가 존재 할 경우
 			if(a_oStageInfo[oTargetKindsKey] != null && a_oStageInfo[oNumTargetsKey] != null) {
-				m_stEpisodeInfo.m_oNumTargetsDict.ExAddVal((ETargetKinds)a_oStageInfo[oTargetKindsKey].AsInt, a_oStageInfo[oNumTargetsKey].AsInt);
+				m_stEpisodeInfo.m_oNumTargetsDict.TryAdd((ETargetKinds)a_oStageInfo[oTargetKindsKey].AsInt, a_oStageInfo[oNumTargetsKey].AsInt);
 			}
 		}
 
@@ -176,7 +176,7 @@ public struct STStageInfo {
 
 			// 잠금 해제 타겟 개수 정보가 존재 할 경우
 			if(a_oStageInfo[oUnlockTargetKindsKey] != null && a_oStageInfo[oNumUnlockTargetsKey] != null) {
-				m_stEpisodeInfo.m_oNumUnlockTargetsDict.ExAddVal((ETargetKinds)a_oStageInfo[oUnlockTargetKindsKey].AsInt, a_oStageInfo[oNumUnlockTargetsKey].AsInt);
+				m_stEpisodeInfo.m_oNumUnlockTargetsDict.TryAdd((ETargetKinds)a_oStageInfo[oUnlockTargetKindsKey].AsInt, a_oStageInfo[oNumUnlockTargetsKey].AsInt);
 			}
 		}
 	}
@@ -280,7 +280,7 @@ public struct STChapterInfo {
 
 			// 타겟 개수 정보가 존재 할 경우
 			if(a_oChapterInfo[oTargetKindsKey] != null && a_oChapterInfo[oNumTargetsKey] != null) {
-				m_stEpisodeInfo.m_oNumTargetsDict.ExAddVal((ETargetKinds)a_oChapterInfo[oTargetKindsKey].AsInt, a_oChapterInfo[oNumTargetsKey].AsInt);
+				m_stEpisodeInfo.m_oNumTargetsDict.TryAdd((ETargetKinds)a_oChapterInfo[oTargetKindsKey].AsInt, a_oChapterInfo[oNumTargetsKey].AsInt);
 			}
 		}
 
@@ -290,7 +290,7 @@ public struct STChapterInfo {
 
 			// 잠금 해제 타겟 개수 정보가 존재 할 경우
 			if(a_oChapterInfo[oUnlockTargetKindsKey] != null && a_oChapterInfo[oNumUnlockTargetsKey] != null) {
-				m_stEpisodeInfo.m_oNumUnlockTargetsDict.ExAddVal((ETargetKinds)a_oChapterInfo[oUnlockTargetKindsKey].AsInt, a_oChapterInfo[oNumUnlockTargetsKey].AsInt);
+				m_stEpisodeInfo.m_oNumUnlockTargetsDict.TryAdd((ETargetKinds)a_oChapterInfo[oUnlockTargetKindsKey].AsInt, a_oChapterInfo[oNumUnlockTargetsKey].AsInt);
 			}
 		}
 	}
@@ -402,15 +402,15 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		base.Awake();
 
 		for(int i = 0; i < m_oLevelInfoList.Count; ++i) {
-			this.LevelInfoDict.ExAddVal(CFactory.MakeUniqueLevelID(i, m_oLevelInfoList[i].m_nStageID, m_oLevelInfoList[i].m_nChapterID), m_oLevelInfoList[i]);
+			this.LevelInfoDict.TryAdd(CFactory.MakeUniqueLevelID(i, m_oLevelInfoList[i].m_nStageID, m_oLevelInfoList[i].m_nChapterID), m_oLevelInfoList[i]);
 		}
 
 		for(int i = 0; i < m_oStageInfoList.Count; ++i) {
-			this.StageInfoDict.ExAddVal(CFactory.MakeUniqueStageID(i, m_oStageInfoList[i].m_nChapterID), m_oStageInfoList[i]);
+			this.StageInfoDict.TryAdd(CFactory.MakeUniqueStageID(i, m_oStageInfoList[i].m_nChapterID), m_oStageInfoList[i]);
 		}
 
 		for(int i = 0; i < m_oChapterInfoList.Count; ++i) {
-			this.ChapterInfoDict.ExAddVal(CFactory.MakeUniqueChapterID(i), m_oChapterInfoList[i]);
+			this.ChapterInfoDict.TryAdd(CFactory.MakeUniqueChapterID(i), m_oChapterInfoList[i]);
 		}
 	}
 

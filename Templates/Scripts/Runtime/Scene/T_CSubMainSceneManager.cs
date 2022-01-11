@@ -170,13 +170,13 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		var oStageScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW);
 		var oChapterScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW);
 
-		m_oScrollerDict.ExAddVal(EScrollerType.LEVEL, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW));
-		m_oScrollerDict.ExAddVal(EScrollerType.STAGE, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW));
-		m_oScrollerDict.ExAddVal(EScrollerType.CHAPTER, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW));
+		m_oScrollerDict.TryAdd(EScrollerType.LEVEL, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW));
+		m_oScrollerDict.TryAdd(EScrollerType.STAGE, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW));
+		m_oScrollerDict.TryAdd(EScrollerType.CHAPTER, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW));
 
-		m_oOriginScrollerCellViewDict.ExAddVal(EScrollerType.LEVEL, oLevelScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
-		m_oOriginScrollerCellViewDict.ExAddVal(EScrollerType.STAGE, oStageScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
-		m_oOriginScrollerCellViewDict.ExAddVal(EScrollerType.CHAPTER, oChapterScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
+		m_oOriginScrollerCellViewDict.TryAdd(EScrollerType.LEVEL, oLevelScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
+		m_oOriginScrollerCellViewDict.TryAdd(EScrollerType.STAGE, oStageScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
+		m_oOriginScrollerCellViewDict.TryAdd(EScrollerType.CHAPTER, oChapterScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
 		
 		foreach(var stKeyVal in m_oScrollerDict) {
 			stKeyVal.Value?.ExSetDelegate(this, false);

@@ -67,7 +67,7 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		oMissionInfoList.AddRange(m_oEventMissionInfoList);
 
 		for(int i = 0; i < oMissionInfoList.Count; ++i) {
-			this.MissionInfoDict.ExAddVal(oMissionInfoList[i].m_eMissionKinds, oMissionInfoList[i]);
+			this.MissionInfoDict.TryAdd(oMissionInfoList[i].m_eMissionKinds, oMissionInfoList[i]);
 		}
 	}
 

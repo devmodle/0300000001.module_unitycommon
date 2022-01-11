@@ -93,7 +93,7 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		base.Awake();
 
 		for(int i = 0; i < m_oSaleProductInfoList.Count; ++i) {
-			this.SaleProductInfoDict.ExAddVal(m_oSaleProductInfoList[i].m_eSaleProductKinds, m_oSaleProductInfoList[i]);
+			this.SaleProductInfoDict.TryAdd(m_oSaleProductInfoList[i].m_eSaleProductKinds, m_oSaleProductInfoList[i]);
 		}
 	}
 

@@ -79,10 +79,10 @@ public static partial class Func {
 
 			for(int j = 0; j < nNumCellsX; ++j) {
 				var stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
-				oCellInfoDict.ExAddVal(j, Factory.MakeCellInfo(stIdx));
+				oCellInfoDict.TryAdd(j, Factory.MakeCellInfo(stIdx));
 			}
 
-			a_oLevelInfo.m_oCellInfoDictContainer.ExAddVal(i, oCellInfoDict);
+			a_oLevelInfo.m_oCellInfoDictContainer.TryAdd(i, oCellInfoDict);
 		}
 
 		a_oLevelInfo.OnAfterDeserialize();
@@ -113,8 +113,8 @@ public static partial class Func {
 					oIdxVList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
 					oIdxHList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
 
-					oIdxVDictContainer.ExAddVal(j, oIdxVList);
-					oIdxHDictContainer.ExAddVal(i, oIdxHList);
+					oIdxVDictContainer.TryAdd(j, oIdxVList);
+					oIdxHDictContainer.TryAdd(i, oIdxHList);
 
 					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Clear();
 					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Add(SampleEngineName.EBlockKinds.BG_EMPTY);
