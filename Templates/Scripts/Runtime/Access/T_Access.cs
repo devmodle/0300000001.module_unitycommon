@@ -15,13 +15,7 @@ public static partial class Access {
 	public static float BannerAdsHeight {
 		get {
 #if ADS_MODULE_ENABLE
-			// 디바이스 타입이 유효 할 경우
-			if(CCommonAppInfoStorage.Inst.DeviceType.ExIsValid()) {
-				var stBannerAdsSize = (CCommonAppInfoStorage.Inst.DeviceType == EDeviceType.PHONE) ? KCDefine.U_SIZE_PHONE_BANNER_ADS : KCDefine.U_SIZE_TABLET_BANNER_ADS;
-				return CAccess.GetBannerAdsHeight(stBannerAdsSize.y);
-			}
-
-			return KCDefine.B_VAL_0_FLT;
+			return CAccess.GetBannerAdsHeight(KCDefine.U_SIZE_BANNER_ADS.y);
 #else
 			return KCDefine.B_VAL_0_FLT;
 #endif			// #if ADS_MODULE_ENABLE

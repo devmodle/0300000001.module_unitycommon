@@ -73,11 +73,12 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	/** 디바이스 식별자 반환 메세지를 처리한다 */
 	private void HandleGetDeviceIDMsg(string a_oMsg) {
+		CCommonAppInfoStorage.Inst.DeviceType = CAccess.DeviceType;
 		string oDeviceID = CCommonAppInfoStorage.Inst.AppInfo.DeviceID;
 		
 		// 디바이스 식별자 설정이 필요 할 경우
-		if(!oDeviceID.ExIsValid() || oDeviceID.Equals(KCDefine.B_UNKNOWN_STR)) {
-			CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_UNKNOWN_STR;
+		if(!oDeviceID.ExIsValid() || oDeviceID.Equals(KCDefine.B_TEXT_UNKNOWN)) {
+			CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_TEXT_UNKNOWN;
 		}
 		
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
@@ -106,8 +107,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		// 디바이스 정보를 설정한다 {
 		var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (int, int)>() {
 			// 모바일
-			[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE)),
-			[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE)),
+			[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
 
 			// 콘솔 {
 			[RuntimePlatform.PS4] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
