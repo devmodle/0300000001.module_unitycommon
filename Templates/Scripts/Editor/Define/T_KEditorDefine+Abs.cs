@@ -154,14 +154,16 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본
-		["com.unity.burst"] = "1.6.3",
+		["com.unity.burst"] = "1.6.4",
 		["com.unity.recorder"] = "3.0.3",
+		["com.unity.sequences"] = "1.0.4",
 		["com.unity.polybrush"] = "1.1.2",
 		["com.unity.probuilder"] = "5.0.3",
 		["com.unity.formats.fbx"] = "4.1.2",
 		["com.unity.mathematics"] = "1.2.5",
 		["com.unity.localization"] = "1.0.5",
-		["com.unity.addressables"] = "1.19.15",
+		["com.unity.addressables"] = "1.19.17",
+		["com.unity.terrain-tools"] = "4.0.3",
 		["com.unity.ads.ios-support"] = "1.0.0",
 
 		// 2D
@@ -187,10 +189,6 @@ public static partial class KEditorDefine {
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",
 #endif			// #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
-
-#if ADAPTIVE_PERFORMANCE_ENABLE || ADAPTIVE_PERFORMANCE_MODULE_ENABLE
-		["com.unity.adaptiveperformance"] = "3.0.0",
-#endif			// #if ADAPTIVE_PERFORMANCE_ENABLE || ADAPTIVE_PERFORMANCE_MODULE_ENABLE
 
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 		["com.unity.cinemachine"] = "2.8.4",

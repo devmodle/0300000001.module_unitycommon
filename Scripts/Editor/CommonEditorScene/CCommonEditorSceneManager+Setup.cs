@@ -196,13 +196,12 @@ public static partial class CCommonEditorSceneManager {
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
 #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-	/** 렌더링 파이프라인을 설정한다 */
+	/** 렌더 파이프라인을 설정한다 */
 	private static void SetupRenderPipeline() {
 		var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
 		oAsset = oAsset ?? CEditorFactory.CreateScriptableObj<ScriptableObject>(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
 
 		var oSerializeObj = new SerializedObject(oAsset);
-
 		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
 		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
 		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);

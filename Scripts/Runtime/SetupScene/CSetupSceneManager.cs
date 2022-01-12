@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+using UnityEngine.Rendering.Universal;
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+
 /** 설정 씬 관리자 */
 public abstract partial class CSetupSceneManager : CSceneManager {
 	#region 변수
@@ -130,9 +134,13 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		Input.multiTouchEnabled = false;
 #endif			// #if MULTI_TOUCH_ENABLE
 
-		CFunc.SetupQuality((EQualityLevel)(oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL)), true);
-		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE));
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+		CFunc.SetupQuality((EQualityLevel)(oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL)), Resources.Load<UniversalRenderPipelineAsset>(KCDefine.U_PIPELINE_P_G_UNIVERSAL_RP_ASSET), true);
+#else
+		CFunc.SetupQuality((EQualityLevel)(oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL)), null, true);
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 
+		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE));
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		// 디바이스 정보를 설정한다 }
 		
