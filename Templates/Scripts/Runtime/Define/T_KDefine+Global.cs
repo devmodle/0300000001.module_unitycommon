@@ -173,6 +173,10 @@ public static partial class KDefine {
 	public static readonly STTutorialInfo G_INVALID_TUTORIAL_INFO = new STTutorialInfo() {
 		m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE, m_eNextTutorialKinds = ETutorialKinds.NONE
 	};
+
+	public static readonly STBlockInfo G_INVALID_BLOCK_INFO = new STBlockInfo() {
+		m_eBlockKinds = EBlockKinds.NONE
+	};
 	// 기타 }
 
 	// 버전 {

@@ -27,7 +27,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	private SampleEngineName.STGridInfo m_stSelGridInfo;
-	private Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>[,] m_oBlockSpriteDicts = null;
+	private Dictionary<EBlockKinds, SpriteRenderer>[,] m_oBlockSpriteDicts = null;
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -317,12 +317,12 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		// 비율을 설정한다 }
 
 		// 블럭 스프라이트를 설정한다 {
-		m_oBlockSpriteDicts = new Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>[m_oSelLevelInfo.NumCells.y, m_oSelLevelInfo.NumCells.x];
+		m_oBlockSpriteDicts = new Dictionary<EBlockKinds, SpriteRenderer>[m_oSelLevelInfo.NumCells.y, m_oSelLevelInfo.NumCells.x];
 
 		for(int i = 0; i < m_oSelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oSelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
 				var stIdx = m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx;
-				var oBlockSpriteDict = new Dictionary<SampleEngineName.EBlockKinds, SpriteRenderer>();
+				var oBlockSpriteDict = new Dictionary<EBlockKinds, SpriteRenderer>();
 
 				for(int k = 0; k < m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
 					var oBlockSprite = Factory.CreateBlockSprite(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], m_oBlockObjs);

@@ -358,6 +358,11 @@ public struct STChapterInfo {
 /** 에피소드 정보 테이블 */
 public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	#region 변수
+	[Header("=====> Common Info <=====")]
+	[SerializeField] private string m_oAccessToken = string.Empty;
+	[SerializeField] private string m_oASetAccessToken = string.Empty;
+	[SerializeField] private string m_oBSetAccessToken = string.Empty;
+
 	[Header("=====> Level Info <=====")]
 	[SerializeField] private List<STLevelInfo> m_oLevelInfoList = new List<STLevelInfo>();
 
@@ -390,6 +395,18 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 #endif			// #if AB_TEST_ENABLE
 		}
 	}
+
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+	public string AccessToken {
+		get {
+#if AB_TEST_ENABLE
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? m_oASetAccessToken : m_oBSetAccessToken;
+#else
+			return m_oAccessToken;
+#endif			// #if AB_TEST_ENABLE
+		}
+	}
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티

@@ -117,7 +117,7 @@ public static partial class Func {
 					oIdxHDictContainer.TryAdd(i, oIdxHList);
 
 					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Clear();
-					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Add(SampleEngineName.EBlockKinds.BG_EMPTY);
+					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Add(EBlockKinds.BG_EMPTY);
 				}
 			}
 

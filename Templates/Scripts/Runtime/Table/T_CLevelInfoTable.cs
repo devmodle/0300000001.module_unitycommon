@@ -14,7 +14,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	[IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 	
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-	[Key(61)] public List<SampleEngineName.EBlockKinds> m_oBlockKindsList = new List<SampleEngineName.EBlockKinds>();
+	[Key(61)] public List<EBlockKinds> m_oBlockKindsList = new List<EBlockKinds>();
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	#endregion			// 변수
 
@@ -45,7 +45,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 		base.OnAfterDeserialize();
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-		m_oBlockKindsList = m_oBlockKindsList ?? new List<SampleEngineName.EBlockKinds>();
+		m_oBlockKindsList = m_oBlockKindsList ?? new List<EBlockKinds>();
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver

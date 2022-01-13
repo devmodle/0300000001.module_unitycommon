@@ -59,6 +59,7 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateRewardInfoTable();
 				EditorFactory.CreateEpisodeInfoTable();
 				EditorFactory.CreateTutorialInfoTable();
+				EditorFactory.CreateBlockInfoTable();
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 			}
 
