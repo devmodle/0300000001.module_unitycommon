@@ -75,11 +75,13 @@ public abstract partial class CInitSceneManager : CSceneManager {
 #endif			// #if MODE_2D_ENABLE
 		// 사운드 관리자를 설정한다 }
 
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#if UNITY_STANDALONE
+#if DEBUG || DEVELOPMENT_BUILD
 		Screen.SetResolution((int)CAccess.CorrectDesktopScreenSize.x, (int)CAccess.CorrectDesktopScreenSize.y, FullScreenMode.Windowed);
 #else
 		Screen.SetResolution((int)CAccess.DesktopScreenSize.x, (int)CAccess.DesktopScreenSize.y, FullScreenMode.FullScreenWindow);
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+#endif			// #if UNITY_STANDALONE
 	}
 
 	/** 초기화 */

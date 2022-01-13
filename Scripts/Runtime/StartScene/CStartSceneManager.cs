@@ -66,8 +66,6 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	/** 초기화 */
 	private IEnumerator OnStart() {
-		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
-
 		this.Setup();
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 

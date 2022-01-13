@@ -38,6 +38,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		CRewardInfoTable.Inst.LoadRewardInfos();
 		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 		CTutorialInfoTable.Inst.LoadTutorialInfos();
+		CBlockInfoTable.Inst.LoadBlockInfos();
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
 		// 공용 앱 정보를 설정한다 {

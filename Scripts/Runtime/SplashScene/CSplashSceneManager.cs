@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+using UnityEngine.Rendering.Universal;
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+
 /** 스플래시 씬 관리자 */
 public abstract class CSplashSceneManager : CSceneManager {
 	#region 프로퍼티
@@ -36,8 +40,43 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 	/** 초기화 */
 	private IEnumerator OnStart() {
-		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		this.ShowSplash();
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+
+		// 디바이스 정보를 설정한다 {
+		var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (int, int)>() {
+			// 모바일
+			[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
+
+			// 콘솔 {
+			[RuntimePlatform.PS4] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.PS5] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+
+			[RuntimePlatform.XboxOne] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.GameCoreXboxOne] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.GameCoreXboxSeries] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+			// 콘솔 }
+
+			// 휴대용 콘솔
+			[RuntimePlatform.Stadia] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE)),
+			[RuntimePlatform.Switch] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
+		};
+		
+#if MULTI_TOUCH_ENABLE
+		Input.multiTouchEnabled = true;
+#else
+		Input.multiTouchEnabled = false;
+#endif			// #if MULTI_TOUCH_ENABLE
+
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+		CFunc.SetupQuality((EQualityLevel)(oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL)), Resources.Load<UniversalRenderPipelineAsset>(KCDefine.U_PIPELINE_P_G_UNIVERSAL_RP_ASSET), true);
+#else
+		CFunc.SetupQuality((EQualityLevel)(oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL)), null, true);
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+
+		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE));
+		// 디바이스 정보를 설정한다 }
 	}
 	#endregion			// 함수
 }

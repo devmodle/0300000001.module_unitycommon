@@ -43,8 +43,8 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	/** 초기화 */
 	private IEnumerator OnStart() {
-		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_SETUP, null);
+		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 		this.SetupRootScene();
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
