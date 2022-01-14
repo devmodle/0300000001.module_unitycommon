@@ -79,11 +79,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 			CSceneManager.ScreenDynamicDebugText = oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
 			CSceneManager.ScreenDynamicDebugText.raycastTarget = false;
 
-			CSceneManager.ScreenFPSBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_BTN);
-			CSceneManager.ScreenFPSBtn.gameObject.SetActive(false);
-
-			CSceneManager.ScreenDebugBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_BTN);
-			CSceneManager.ScreenDebugBtn.gameObject.SetActive(false);
+			CSceneManager.ScreenDebugInfoBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_INFO_BTN);
+			CSceneManager.ScreenDebugInfoBtn.gameObject.SetActive(false);
 
 			CSceneManager.ScreenTimeScaleUpBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_TIME_SCALE_UP_BTN);
 			CSceneManager.ScreenTimeScaleUpBtn.gameObject.SetActive(false);
@@ -93,26 +90,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 			DontDestroyOnLoad(oDebugUIs);
 			CFunc.SetupScreenUIs(oDebugUIs, KCDefine.U_SORTING_O_SCREEN_DEBUG_UIS);
-		}
-	}
-
-	/** FPS 카운터를 설정한다 */
-	private void SetupFPSCounter() {
-		// FPS 카운터가 없을 경우
-		if(CSetupSceneManager.m_oFPSCounter == null) {
-			var oFPSCounter = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_FPS_COUNTER, KCDefine.U_OBJ_P_FPS_COUNTER, null);
-			CSetupSceneManager.m_oFPSCounter = oFPSCounter;
-
-			CSceneManager.ScreenStaticFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_STATIC_TEXT);
-			CSceneManager.ScreenStaticFPSText.enabled = false;
-			CSceneManager.ScreenStaticFPSText.raycastTarget = false;
-
-			CSceneManager.ScreenDynamicFPSText = oFPSCounter.ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_DYNAMIC_TEXT);
-			CSceneManager.ScreenDynamicFPSText.enabled = false;
-			CSceneManager.ScreenDynamicFPSText.raycastTarget = false;
-
-			DontDestroyOnLoad(oFPSCounter);
-			CFunc.SetupScreenUIs(oFPSCounter, KCDefine.U_SORTING_O_FPS_COUNTER);
 		}
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

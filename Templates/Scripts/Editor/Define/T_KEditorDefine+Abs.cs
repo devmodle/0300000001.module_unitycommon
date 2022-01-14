@@ -174,8 +174,8 @@ public static partial class KEditorDefine {
 
 		// 렌더링
 		["com.unity.2d.pixel-perfect"] = "5.0.1",
-		["com.unity.visualeffectgraph"] = "12.1.2",
-		["com.unity.render-pipelines.universal"] = "12.1.2",
+		["com.unity.visualeffectgraph"] = "12.1.3",
+		["com.unity.render-pipelines.universal"] = "12.1.3",
 
 		// 애니메이션
 		["com.unity.2d.animation"] = "7.0.3",

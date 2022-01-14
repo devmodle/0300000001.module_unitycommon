@@ -78,47 +78,6 @@ public static partial class CCommonEditorSceneManager {
 				}
 			}
 		}
-
-		// FPS 카운터를 설정한다 {
-		string oFPSCounterFilter = Path.GetFileNameWithoutExtension(KCDefine.U_OBJ_P_FPS_COUNTER);
-
-		var oFPSCounterList = CEditorFunc.FindAssets<GameObject>(oFPSCounterFilter, new List<string>() {
-			KCEditorDefine.B_DIR_P_FILTER_FPS_COUNTER
-		});
-
-		// FPS 카운터가 존재 할 경우
-		if(oFPSCounterList.ExIsValid()) {
-			for(int i = 0; i < oFPSCounterList.Count; ++i) {
-				var oStaticText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_STATIC_TEXT);
-				oStaticText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_STATIC_TEXT;
-
-				var oDynamicText = oFPSCounterList[i].ExFindComponent<Text>(KCDefine.U_OBJ_N_FPS_C_DYNAMIC_TEXT);
-				oDynamicText.fontSize = KCEditorDefine.B_FONT_SIZE_FPS_C_DYNAMIC_TEXT;
-
-				// 크기를 설정한다 {
-				var oStaticSizeFitter = oStaticText.gameObject.ExAddComponent<ContentSizeFitter>();
-				oStaticSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-				oStaticSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-				var oDynamicSizeFitter = oDynamicText.gameObject.ExAddComponent<ContentSizeFitter>();
-				oDynamicSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-				oDynamicSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-				// 크기를 설정한다 }
-
-				// 위치를 설정한다 {
-				oStaticText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
-				oStaticText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MID_RIGHT;
-				oStaticText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MID_RIGHT;
-				oStaticText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_STATIC_TEXT.ExTo2D();
-
-				oDynamicText.rectTransform.pivot = KCDefine.B_ANCHOR_DOWN_RIGHT;
-				oDynamicText.rectTransform.anchorMin = KCDefine.B_ANCHOR_MID_RIGHT;
-				oDynamicText.rectTransform.anchorMax = KCDefine.B_ANCHOR_MID_RIGHT;
-				oDynamicText.rectTransform.anchoredPosition = KCEditorDefine.B_POS_FPS_C_DYNAMIC_TEXT.ExTo2D();
-				// 위치를 설정한다 }
-			}
-		}
-		// FPS 카운터를 설정한다 }
 	}
 	
 	/** 광원 옵션을 설정한다 */

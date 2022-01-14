@@ -62,6 +62,9 @@ public abstract class CSplashSceneManager : CSceneManager {
 			[RuntimePlatform.Stadia] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE)),
 			[RuntimePlatform.Switch] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
 		};
+
+		int nQualityLevel = oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL);
+		int nTargetFrameRate = oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
 		
 #if MULTI_TOUCH_ENABLE
 		Input.multiTouchEnabled = true;
@@ -70,12 +73,12 @@ public abstract class CSplashSceneManager : CSceneManager {
 #endif			// #if MULTI_TOUCH_ENABLE
 
 #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-		CFunc.SetupQuality((EQualityLevel)(oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL)), Resources.Load<UniversalRenderPipelineAsset>(KCDefine.U_PIPELINE_P_G_UNIVERSAL_RP_ASSET), true);
+		CFunc.SetupQuality((EQualityLevel)nQualityLevel, Resources.Load<UniversalRenderPipelineAsset>(KCDefine.U_PIPELINE_P_G_UNIVERSAL_RP_ASSET), true);
 #else
-		CFunc.SetupQuality((EQualityLevel)(oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL)), null, true);
+		CFunc.SetupQuality((EQualityLevel)nQualityLevel, null, true);
 #endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 
-		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE));
+		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);
 		// 디바이스 정보를 설정한다 }
 	}
 	#endregion			// 함수

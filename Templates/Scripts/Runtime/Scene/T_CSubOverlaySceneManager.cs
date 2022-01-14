@@ -97,13 +97,13 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		var oSubTitleSceneManager = CSceneManager.GetSubSceneManager<CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE);
+		var oSubTitleSceneManager = CSceneManager.GetSceneManager<CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE);
 		oSubTitleSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 
-		var oSubMainSceneManager = CSceneManager.GetSubSceneManager<CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN);
+		var oSubMainSceneManager = CSceneManager.GetSceneManager<CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN);
 		oSubMainSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 
-		var oSubGameSceneManager = CSceneManager.GetSubSceneManager<CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
+		var oSubGameSceneManager = CSceneManager.GetSceneManager<CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
 		oSubGameSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 
 		// 텍스트를 갱신한다

@@ -11,6 +11,10 @@ using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+using UnityEngine.Rendering.Universal;
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+
 /** 에디터 씬 관리자 */
 [InitializeOnLoad]
 public static partial class CEditorSceneManager {

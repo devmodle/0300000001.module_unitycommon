@@ -207,7 +207,7 @@ public static partial class Func {
 		// 배너 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadBannerAds(a_eAdsPlatform)) {
 			Func.m_oBannerAdsCallback = a_oCallback;
-			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => CAdsManager.Inst.ShowBannerAds(a_eAdsPlatform, Func.OnShowBannerAds));
+			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => CAdsManager.Inst.ShowBannerAds(a_eAdsPlatform, Func.OnShowBannerAds));
 		} else {
 			a_oCallback?.Invoke(CAdsManager.Inst, false);
 		}
@@ -238,7 +238,7 @@ public static partial class Func {
 			CIndicatorManager.Inst.Show();
 #endif			// #if UNITY_EDITOR
 
-			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => {
+			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => {
 				Func.m_bIsWatchRewardAds = false;
 				Func.m_stAdsRewardInfo = KCDefine.U_INVALID_ADS_REWARD_INFO;
 
@@ -265,7 +265,7 @@ public static partial class Func {
 			CIndicatorManager.Inst.Show();
 #endif			// #if UNITY_EDITOR
 
-			CSceneManager.RootSceneManager.ExLateCallFunc((a_oSender) => {
+			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => {
 				// 전면 광고 출력이 가능 할 경우
 				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds) {
 					Func.m_bIsWatchFullscreenAds = true;

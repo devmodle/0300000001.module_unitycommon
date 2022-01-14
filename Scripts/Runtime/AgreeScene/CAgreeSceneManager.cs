@@ -46,7 +46,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_SETUP, null);
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
-		this.SetupRootScene();
+		this.SetupActiveScene();
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 #if ROBO_TEST_ENABLE

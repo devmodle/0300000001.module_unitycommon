@@ -94,7 +94,7 @@ public class CContinuePopup : CSubPopup {
 
 		// 코인이 부족 할 경우
 		if(CUserInfoStorage.Inst.UserInfo.NumCoins < stSaleItemInfo.IntPrice) {
-			CSceneManager.GetSubSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+			CSceneManager.GetSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 		} else {
 			Func.BuyItem(stSaleItemInfo);
 			m_stCallbackParams.m_oContinueCallback?.Invoke(this);

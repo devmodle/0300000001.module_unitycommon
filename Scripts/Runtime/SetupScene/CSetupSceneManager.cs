@@ -16,10 +16,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private static GameObject m_oAbsUIs = null;
 	private static GameObject m_oTimerManager = null;
 	private static GameObject m_oDebugUIs = null;
-
-#if DEBUG || DEVELOPMENT_BUILD
-	private static GameObject m_oFPSCounter = null;
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 클래스 변수
 
 	#region 프로퍼티
@@ -67,7 +63,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupDebugUIs();
-		this.SetupFPSCounter();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
