@@ -22,7 +22,7 @@ public static partial class CEditorSceneManager {
 	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsSetupDependencies = false;
 
-	private static float m_fSkipTime = 0.0f;
+	private static float m_fUpdateSkipTime = 0.0f;
 	private static float m_fDefineSymbolSkipTime = 0.0f;
 
 	private static ListRequest m_oListRequest = null;
@@ -45,7 +45,7 @@ public static partial class CEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			CEditorSceneManager.m_fSkipTime += Time.deltaTime;
+			CEditorSceneManager.m_fUpdateSkipTime += Time.deltaTime;
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
 			// 상태 갱신이 가능 할 경우
@@ -68,8 +68,8 @@ public static partial class CEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if(CEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
-				CEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
+			if(CEditorSceneManager.m_fUpdateSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
+				CEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_FLT;
 				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
 			}
 

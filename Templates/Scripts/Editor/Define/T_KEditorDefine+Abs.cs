@@ -44,6 +44,7 @@ public static partial class KEditorDefine {
 		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CCollectionManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
 		[typeof(CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,

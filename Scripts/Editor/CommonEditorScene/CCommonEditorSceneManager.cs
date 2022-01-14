@@ -15,7 +15,7 @@ public static partial class CCommonEditorSceneManager {
 	private static bool m_bIsEnableBuild = false;
 	private static bool m_bIsEnableSetup = false;
 
-	private static float m_fSkipTime = 0.0f;
+	private static float m_fUpdateSkipTime = 0.0f;
 	private static float m_fHierarchySkipTime = 0.0f;
 	
 	private static GUIStyle m_oTextGUIStyle = new GUIStyle() {
@@ -82,7 +82,7 @@ public static partial class CCommonEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			CCommonEditorSceneManager.m_fSkipTime += Time.deltaTime;
+			CCommonEditorSceneManager.m_fUpdateSkipTime += Time.deltaTime;
 			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
 
 			// 설정 가능 할 경우
@@ -118,8 +118,8 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if(CCommonEditorSceneManager.m_fSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
-				CCommonEditorSceneManager.m_fSkipTime = KCDefine.B_VAL_0_FLT;
+			if(CCommonEditorSceneManager.m_fUpdateSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
+				CCommonEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_FLT;
 				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupScene();
