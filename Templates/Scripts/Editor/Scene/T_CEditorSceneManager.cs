@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if NEVER_USE_THIS
-using EnhancedHierarchy;
-
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
+using EnhancedHierarchy;
 
 #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 using UnityEngine.Rendering.Universal;
@@ -54,6 +53,8 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_oListRequest = Client.List();
 
 				Preferences.Tooltips.Value = false;
+				Preferences.SelectOnTree.Value = true;
+
 				CEditorSceneManager.SetupCallbacks();
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
