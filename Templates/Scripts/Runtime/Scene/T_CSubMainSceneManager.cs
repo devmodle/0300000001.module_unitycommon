@@ -205,6 +205,14 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 			
 			CGameInfoStorage.Inst.SaveGameInfo();
 		}
+
+#if !TITLE_SCENE_ENABLE
+		// 업데이트가 가능 할 경우
+		if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+			CAppInfoStorage.Inst.IsIgnoreUpdate = true;
+			this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
+		}
+#endif			// #if !TITLE_SCENE_ENABLE
 		
 #if DAILY_REWARD_ENABLE
 		// 일일 보상 획득이 가능 할 경우
@@ -227,6 +235,14 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		if(a_bIsOK) {
 			a_oSender.IsIgnoreAni = true;
 			this.ExLateCallFunc((a_oSender) => this.QuitApp());
+		}
+	}
+
+	/** 업데이트 팝업 결과를 수신했을 경우 */
+	private void OnReceiveUpdatePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
+		// 확인 버튼을 눌렀을 경우
+		if(a_bIsOK) {
+			Application.OpenURL(Access.StoreURL);
 		}
 	}
 

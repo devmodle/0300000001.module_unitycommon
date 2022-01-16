@@ -65,7 +65,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
-		// Do Something
+		// 버튼을 설정한다
+		var oPlayBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
+		oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
 	}
 
 	/** 씬을 설정한다 */
@@ -73,11 +75,14 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		// 최초 플레이 일 경우
 		if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
 			this.UpdateFirstPlayState();
-		}
-		// 업데이트가 가능 할 경우
-		else if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
-			CAppInfoStorage.Inst.IsIgnoreUpdate = true;
-			this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
+		} else {
+#if TITLE_SCENE_ENABLE
+			// 업데이트가 가능 할 경우
+			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
+				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
+			}
+#endif			// #if TITLE_SCENE_ENABLE
 		}
 	}
 
@@ -125,6 +130,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		if(a_bIsOK) {
 			Application.OpenURL(Access.StoreURL);
 		}
+	}
+
+	/** 플레이 버튼을 눌렀을 경우 */
+	private void OnTouchPlayBtn() {
+		// Do Something
 	}
 	#endregion			// 함수
 

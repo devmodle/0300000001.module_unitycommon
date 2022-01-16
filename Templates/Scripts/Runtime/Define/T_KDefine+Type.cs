@@ -7,6 +7,13 @@ using MessagePack;
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #region 기본
+/** 기록 정보 */
+public struct STRecordInfo {
+	public bool m_bIsSuccess;
+	public long m_nIntRecord;
+	public double m_dblRealRecord;
+}
+
 /** 게임 속성 */
 [System.Serializable]
 public struct STGameConfig {

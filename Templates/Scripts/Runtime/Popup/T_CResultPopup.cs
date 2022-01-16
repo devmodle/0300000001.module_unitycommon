@@ -10,8 +10,7 @@ using TMPro;
 public class CResultPopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
-		public bool m_bIsClear;
-		public string m_oRecord;
+		public STRecordInfo m_stRecordInfo;
 
 		public CLevelInfo m_oLevelInfo;
 		public CClearInfo m_oClearInfo;
@@ -92,12 +91,12 @@ public class CResultPopup : CSubPopup {
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 
-		m_oClearUIs?.SetActive(m_stParams.m_bIsClear);
-		m_oClearFailUIs?.SetActive(!m_stParams.m_bIsClear);
+		m_oClearUIs?.SetActive(m_stParams.m_stRecordInfo.m_bIsSuccess);
+		m_oClearFailUIs?.SetActive(!m_stParams.m_stRecordInfo.m_bIsSuccess);
 
 		// 텍스트를 갱신한다
-		m_oRecordText?.ExSetText(m_stParams.m_oRecord, EFontSet.A, false);
-		m_oBestRecordText?.ExSetText(m_stParams.m_oRecord, EFontSet.A, false);
+		m_oRecordText?.ExSetText($"{m_stParams.m_stRecordInfo.m_nIntRecord}", EFontSet.A, false);
+		m_oBestRecordText?.ExSetText((m_stParams.m_oClearInfo != null) ? $"{m_stParams.m_oClearInfo.IntBestClearRecord}" : string.Empty, EFontSet.A, false);
 	}
 
 	/** 다음 버튼을 눌렀을 경우 */

@@ -337,11 +337,16 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowResultPopup(this.SubPopupUIs, (a_oSender) => {
 			var stParams = new CResultPopup.STParams() {
-				m_bIsClear = a_bIsClear, m_oLevelInfo = this.m_oLevelInfo, m_oClearInfo = this.m_oClearInfo,
+				m_stRecordInfo = new STRecordInfo {
+					m_bIsSuccess = a_bIsClear,
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-				m_oRecord = $"{m_oEngine.IntRecord}"
+					m_nIntRecord = m_oEngine.IntRecord,
+					m_dblRealRecord = m_oEngine.RealRecord
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+				},
+				
+				m_oLevelInfo = this.m_oLevelInfo, m_oClearInfo = this.m_oClearInfo
 			};
 
 			var stCallbackParams = new CResultPopup.STCallbackParams() {
