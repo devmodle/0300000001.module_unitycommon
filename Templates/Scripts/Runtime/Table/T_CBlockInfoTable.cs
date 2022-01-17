@@ -41,7 +41,7 @@ public class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 #else
 			return KCDefine.U_TABLE_P_G_BLOCK_INFO;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-	}
+		}
 	}
 	#endregion			// 프로퍼티
 

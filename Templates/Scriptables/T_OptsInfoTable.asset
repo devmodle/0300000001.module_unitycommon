@@ -9,20 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9457836c66e524122b874a45fda55767, type: 3}
-  m_Name: T_BuildOptsTable
+  m_Script: {fileID: 11500000, guid: c791f5d751bda4c3f9681965b4e93341, type: 3}
+  m_Name: T_OptsInfoTable
   m_EditorClassIdentifier: 
-  m_stCommonSndOpts:
+  m_stSndOptsInfo:
     m_nSampleRate: 0
     m_nNumRealVoices: 32
     m_nNumVirtualVoices: 512
-  m_stCommonBuildOpts:
+  m_stBuildOptsInfo:
     m_bIsPreBakeCollisionMesh: 0
     m_bIsPreserveFrameBufferAlpha: 0
-  m_stiOSBuildOpts:
-    m_oCameraDescription: 
-    m_oLocationDescription: 
-    m_oMicrophoneDescription: 
-  m_stAndroidBuildOpts:
-    m_bIsUseAPKExpansionFiles: 0
-    m_bIsRenderOutsideSafeArea: 1
+    m_stiOSBuildOptsInfo:
+      m_oCameraDescription: 
+      m_oLocationDescription: 
+      m_oMicrophoneDescription: 
+    m_stAndroidBuildOptsInfo:
+      m_bIsUseAPKExpansionFiles: 0
+  m_stQualityOptsInfo:
+    m_bIsUseSRPBatching: 0
+    m_bIsLogWhenShaderIsCompiled: 0

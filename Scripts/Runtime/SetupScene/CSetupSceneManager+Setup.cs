@@ -11,13 +11,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupPopupUIs() {
 		// 팝업 UI 가 없을 경우
 		if(CSetupSceneManager.m_oPopupUIs == null) {
-			var oPopupUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS, KCDefine.SS_OBJ_P_SCREEN_POPUP_UIS, null);
-				
-			CSetupSceneManager.m_oPopupUIs = oPopupUIs;
-			CSceneManager.ScreenPopupUIs = oPopupUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS, false);
+			CSetupSceneManager.m_oPopupUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS, KCDefine.SS_OBJ_P_SCREEN_POPUP_UIS, null);
+			CSceneManager.ScreenPopupUIs = CSetupSceneManager.m_oPopupUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS, false);
 
-			DontDestroyOnLoad(oPopupUIs);
-			CFunc.SetupScreenUIs(oPopupUIs, KCDefine.U_SORTING_O_SCREEN_POPUP_UIS);
+			DontDestroyOnLoad(CSetupSceneManager.m_oPopupUIs);
+			CFunc.SetupScreenUIs(CSetupSceneManager.m_oPopupUIs, KCDefine.U_SORTING_O_SCREEN_POPUP_UIS);
 		}
 	}
 
@@ -25,13 +23,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupTopmostUIs() {
 		// 최상위 UI 가 없을 경우
 		if(CSetupSceneManager.m_oTopmostUIs == null) {
-			var oTopmostUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS, KCDefine.SS_OBJ_P_SCREEN_TOPMOST_UIS, null);
+			CSetupSceneManager.m_oTopmostUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS, KCDefine.SS_OBJ_P_SCREEN_TOPMOST_UIS, null);
+			CSceneManager.ScreenTopmostUIs = CSetupSceneManager.m_oTopmostUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS, false);
 
-			CSetupSceneManager.m_oTopmostUIs = oTopmostUIs;
-			CSceneManager.ScreenTopmostUIs = oTopmostUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS, false);
-
-			DontDestroyOnLoad(oTopmostUIs);
-			CFunc.SetupScreenUIs(oTopmostUIs, KCDefine.U_SORTING_O_SCREEN_TOPMOST_UIS);
+			DontDestroyOnLoad(CSetupSceneManager.m_oTopmostUIs);
+			CFunc.SetupScreenUIs(CSetupSceneManager.m_oTopmostUIs, KCDefine.U_SORTING_O_SCREEN_TOPMOST_UIS);
 		}
 	}
 
@@ -39,13 +35,11 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupAbsUIs() {
 		// 절대 UI 가 없을 경우
 		if(CSetupSceneManager.m_oAbsUIs == null) {
-			var oAbsUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_ABS_UIS, KCDefine.SS_OBJ_P_SCREEN_ABS_UIS, null);
+			CSetupSceneManager.m_oAbsUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_ABS_UIS, KCDefine.SS_OBJ_P_SCREEN_ABS_UIS, null);
+			CSceneManager.ScreenAbsUIs = CSetupSceneManager.m_oAbsUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UIS, false);
 
-			CSetupSceneManager.m_oAbsUIs = oAbsUIs;
-			CSceneManager.ScreenAbsUIs = oAbsUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UIS, false);
-
-			DontDestroyOnLoad(oAbsUIs);
-			CFunc.SetupScreenUIs(oAbsUIs, KCDefine.U_SORTING_O_SCREEN_ABS_UIS);
+			DontDestroyOnLoad(CSetupSceneManager.m_oAbsUIs);
+			CFunc.SetupScreenUIs(CSetupSceneManager.m_oAbsUIs, KCDefine.U_SORTING_O_SCREEN_ABS_UIS);
 		}
 	}
 
@@ -53,8 +47,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupTimerManager() {
 		// 타이머 관리자가 없을 경우
 		if(CSetupSceneManager.m_oTimerManager == null) {
-			var oTimerManager = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_TIMER_MANAGER, KCDefine.U_OBJ_P_TIMER_MANAGER, null);
-			CSetupSceneManager.m_oTimerManager = oTimerManager;
+			CSetupSceneManager.m_oTimerManager = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_TIMER_MANAGER, KCDefine.U_OBJ_P_TIMER_MANAGER, null);
 		}
 	}
 	#endregion			// 함수
@@ -65,31 +58,41 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupDebugUIs() {
 		// 디버그 UI 가 없을 경우
 		if(CSetupSceneManager.m_oDebugUIs == null) {
-			var oDebugUIs = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_UIS, KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS, null);
+			CSetupSceneManager.m_oDebugUIs = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_UIS, KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS, null);
+			CSceneManager.ScreenDebugUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS);
 
-			CSetupSceneManager.m_oDebugUIs = oDebugUIs;
-			CSceneManager.ScreenDebugUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS);
+			CSceneManager.ScreenFPSInfoUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_FPS_INFO_UIS);
+			CSceneManager.ScreenFPSInfoUIs.SetActive(false);
 
-			CSceneManager.ScreenDebugTextUIs = oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_TEXT_UIS);
-			CSceneManager.ScreenDebugTextUIs.SetActive(false);
+			CSceneManager.ScreenDebugInfoUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_INFO_UIS);
+			CSceneManager.ScreenDebugInfoUIs.SetActive(false);
 
-			CSceneManager.ScreenStaticDebugText = oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
+			CSceneManager.ScreenFPSText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_FPS_TEXT);
+			CSceneManager.ScreenFPSText.raycastTarget = false;
+
+			CSceneManager.ScreenFrameTimeText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_FRAME_TIME_TEXT);
+			CSceneManager.ScreenFrameTimeText.raycastTarget = false;
+
+			CSceneManager.ScreenStaticDebugText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
 			CSceneManager.ScreenStaticDebugText.raycastTarget = false;
 
-			CSceneManager.ScreenDynamicDebugText = oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
+			CSceneManager.ScreenDynamicDebugText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
 			CSceneManager.ScreenDynamicDebugText.raycastTarget = false;
 
-			CSceneManager.ScreenDebugInfoBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_INFO_BTN);
+			CSceneManager.ScreenFPSInfoBtn = CSetupSceneManager.m_oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_INFO_BTN);
+			CSceneManager.ScreenFPSInfoBtn.gameObject.SetActive(false);
+
+			CSceneManager.ScreenDebugInfoBtn = CSetupSceneManager.m_oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_INFO_BTN);
 			CSceneManager.ScreenDebugInfoBtn.gameObject.SetActive(false);
 
-			CSceneManager.ScreenTimeScaleUpBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_TIME_SCALE_UP_BTN);
+			CSceneManager.ScreenTimeScaleUpBtn = CSetupSceneManager.m_oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_TIME_SCALE_UP_BTN);
 			CSceneManager.ScreenTimeScaleUpBtn.gameObject.SetActive(false);
 
-			CSceneManager.ScreenTimeScaleDownBtn = oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_TIME_SCALE_DOWN_BTN);
+			CSceneManager.ScreenTimeScaleDownBtn = CSetupSceneManager.m_oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_TIME_SCALE_DOWN_BTN);
 			CSceneManager.ScreenTimeScaleDownBtn.gameObject.SetActive(false);
 
-			DontDestroyOnLoad(oDebugUIs);
-			CFunc.SetupScreenUIs(oDebugUIs, KCDefine.U_SORTING_O_SCREEN_DEBUG_UIS);
+			DontDestroyOnLoad(CSetupSceneManager.m_oDebugUIs);
+			CFunc.SetupScreenUIs(CSetupSceneManager.m_oDebugUIs, KCDefine.U_SORTING_O_SCREEN_DEBUG_UIS);
 		}
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

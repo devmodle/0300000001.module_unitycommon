@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18f0e7bf5a52645c9842e9f43587942a, type: 3}
-  m_Name: T_DefineSymbolTable
+  m_Script: {fileID: 11500000, guid: 5454e4835d96348168664f3a27864cda, type: 3}
+  m_Name: T_DefineSymbolInfoTable
   m_EditorClassIdentifier: 
   m_oCommonDefineSymbolList:
   - DOTWEEN_ENABLE

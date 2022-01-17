@@ -133,7 +133,7 @@ public static partial class CBuildProcessor {
 			}
 			*/
 
-			// 전처리기 심볼 테이블이 존재 할 경우
+			// 전처리기 심볼 정보 테이블이 존재 할 경우
 			if(CPlatformOptsSetter.DefineSymbolDictContainer != null && CPlatformOptsSetter.DefineSymbolDictContainer.TryGetValue(BuildTargetGroup.iOS, out List<string> oDefineSymbolList)) {
 				for(int i = 0; i < oDefineSymbolList.Count; ++i) {
 					oPBXProj.AddBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_PREPROCESSOR_DEFINITIONS, oDefineSymbolList[i]);
