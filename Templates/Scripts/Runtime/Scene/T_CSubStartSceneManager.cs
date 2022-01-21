@@ -80,15 +80,15 @@ public class CSubStartSceneManager : CStartSceneManager {
 		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.A, out STFontSetInfo stFontSetInfo);
 			
 		// 텍스트를 설정한다 {
-		var oLoadingText = this.SubUIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
+		var oLoadingText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
 
-		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.SubUIs, m_stLoadingTextPos);
+		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.UIs, m_stLoadingTextPos);
 		m_oLoadingText.ExSetText(KCDefine.SS_TEXT_LOADING, stFontSetInfo);
 		// 텍스트를 설정한다 }
 
 		// 게이지 처리자를 설정한다 {
-		var oLoadingGauge = this.SubUIsBase.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
-		oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, KCDefine.SS_OBJ_P_LOADING_GAUGE, this.SubUIs, m_stLoadingGaugePos);
+		var oLoadingGauge = this.UIsBase.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
+		oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, KCDefine.SS_OBJ_P_LOADING_GAUGE, this.UIs, m_stLoadingGaugePos);
 
 		m_oGaugeHandler = oLoadingGauge.GetComponentInChildren<CGaugeHandler>();
 		m_oGaugeHandler.Percent = KCDefine.B_VAL_0_FLT;

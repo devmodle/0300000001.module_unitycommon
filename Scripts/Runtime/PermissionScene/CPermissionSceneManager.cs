@@ -41,7 +41,6 @@ public abstract class CPermissionSceneManager : CSceneManager {
 
 	/** 초기화 */
 	private IEnumerator OnStart() {
-		CSceneLoader.Inst.UnloadSceneAsync(KCDefine.B_SCENE_N_LATE_SETUP, null);
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 #if UNITY_ANDROID
@@ -56,8 +55,7 @@ public abstract class CPermissionSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Inst.SetupAdsID();
 		CCommonAppInfoStorage.Inst.SetupStoreVer();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_INTRO_SCENE, false);
-		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_INTRO);
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_INTRO);
 	}
 	#endregion			// 함수
 

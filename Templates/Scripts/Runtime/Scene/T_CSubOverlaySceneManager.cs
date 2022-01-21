@@ -48,7 +48,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	/** 상점 팝업을 출력한다 */
 	public void ShowStorePopup() {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		Func.ShowStorePopup(this.SubPopupUIs, (a_oSender) => {
+		Func.ShowStorePopup(this.PopupUIs, (a_oSender) => {
 			var oSaleProductInfoList = new List<STSaleProductInfo>();
 
 			for(int i = 0; i < KDefine.G_SALE_PRODUCT_KINDS_PRODUCT_LIST.Count; ++i) {
@@ -79,10 +79,10 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 텍스트를 설정한다
-		this.NumCoinsText = this.SubUIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
+		this.NumCoinsText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
 
 		// 버튼을 설정한다
-		this.StoreBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
+		this.StoreBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
 		this.StoreBtn?.onClick.AddListener(this.OnTouchStoreBtn);
 
 #if DEBUG || DEVELOPMENT_BUILD

@@ -162,7 +162,7 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		m_stSelIDInfo = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT);
 
 		// 버튼을 설정한다
-		var oPlayBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
+		var oPlayBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
 		oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
 
 		// 스크롤 뷰를 설정한다 {
@@ -170,9 +170,9 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		var oStageScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW);
 		var oChapterScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW);
 
-		m_oScrollerDict.TryAdd(EScrollerType.LEVEL, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW));
-		m_oScrollerDict.TryAdd(EScrollerType.STAGE, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW));
-		m_oScrollerDict.TryAdd(EScrollerType.CHAPTER, this.SubUIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW));
+		m_oScrollerDict.TryAdd(EScrollerType.LEVEL, this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW));
+		m_oScrollerDict.TryAdd(EScrollerType.STAGE, this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW));
+		m_oScrollerDict.TryAdd(EScrollerType.CHAPTER, this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW));
 
 		m_oOriginScrollerCellViewDict.TryAdd(EScrollerType.LEVEL, oLevelScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
 		m_oOriginScrollerCellViewDict.TryAdd(EScrollerType.STAGE, oStageScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
@@ -217,7 +217,7 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 #if DAILY_REWARD_ENABLE
 		// 일일 보상 획득이 가능 할 경우
 		if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
-			Func.ShowDailyRewardPopup(this.SubPopupUIs, (a_oSender) => (a_oSender as CDailyRewardPopup).Init());
+			Func.ShowDailyRewardPopup(this.PopupUIs, (a_oSender) => (a_oSender as CDailyRewardPopup).Init());
 		}
 #endif			// #if DAILY_REWARD_ENABLE
 	}

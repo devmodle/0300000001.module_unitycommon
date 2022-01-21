@@ -53,22 +53,13 @@ public static partial class CCommonEditorSceneManager {
 					bool bIsUIsCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_CAMERA);
 					bool bIsMainCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA);
 
+#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+					oCameras[j].gameObject.ExAddComponent<UniversalAdditionalCameraData>();
+#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+
 					// 태그 설정이 가능 할 경우
 					if(bIsUIsCamera || bIsMainCamera) {
 						oCameras[j].ExSetTag(bIsUIsCamera ? KCDefine.U_TAG_UIS_CAMERA : KCDefine.U_TAG_MAIN_CAMERA);
-
-#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-						oCameras[j].gameObject.ExAddComponent<UniversalAdditionalCameraData>();
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-					}
-
-					// 메인 씬 일 경우
-					if(oSceneManagers[i].SceneName.Equals(oSceneManagers[i].gameObject.scene.name)) {
-#if CAMERA_STACKING_ENABLE
-						oCameras[j].gameObject.SetActive(bIsUIsCamera || bIsMainCamera);
-#else
-						oCameras[j].gameObject.SetActive(bIsMainCamera);
-#endif			// #if CAMERA_STACKING_ENABLE
 					}
 				}
 			}

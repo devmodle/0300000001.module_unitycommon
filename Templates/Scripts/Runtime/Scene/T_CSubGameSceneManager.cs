@@ -143,7 +143,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null;
 
 		// 버튼을 설정한다
-		var oPauseBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_RESTORE_BTN);
+		var oPauseBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_RESTORE_BTN);
 		oPauseBtn?.ExAddListener(this.OnTouchPauseBtn, true, false);
 
 		// 터치 전달자를 설정한다
@@ -316,7 +316,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	/** 이어하기 팝업을 출력한다 */
 	private void ShowContinuePopup() {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		Func.ShowContinuePopup(this.SubPopupUIs, (a_oSender) => {
+		Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 			var stParams = new CContinuePopup.STParams() {
 				m_nContinueTimes = this.m_nContinueTimes, m_oLevelInfo = this.m_oLevelInfo
 			};
@@ -335,7 +335,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	/** 결과 팝업을 출력한다 */
 	private void ShowResultPopup(bool a_bIsClear) {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		Func.ShowResultPopup(this.SubPopupUIs, (a_oSender) => {
+		Func.ShowResultPopup(this.PopupUIs, (a_oSender) => {
 			var stParams = new CResultPopup.STParams() {
 				m_stRecordInfo = new STRecordInfo {
 					m_bIsSuccess = a_bIsClear,

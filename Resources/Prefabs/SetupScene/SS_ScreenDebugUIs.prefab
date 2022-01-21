@@ -1236,8 +1236,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1881446286888826646}
-  - component: {fileID: 7196127172951304936}
-  - component: {fileID: 5601856129788333342}
+  - component: {fileID: 8513271052824738118}
+  - component: {fileID: 1712572669609337211}
   - component: {fileID: 1971552159938595149}
   m_Layer: 5
   m_Name: DebugInfoUIs
@@ -1268,7 +1268,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7196127172951304936
+--- !u!222 &8513271052824738118
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1276,7 +1276,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2806353189083804314}
   m_CullTransparentMesh: 1
---- !u!114 &5601856129788333342
+--- !u!114 &1712572669609337211
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1289,7 +1289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7490196}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1341,8 +1341,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7001480896775013702}
-  - component: {fileID: 3862640126985822853}
-  - component: {fileID: 4726813424568707282}
+  - component: {fileID: 4073136000305513861}
+  - component: {fileID: 51915217395944531}
   - component: {fileID: 6761623405025334681}
   m_Layer: 5
   m_Name: FPSInfoUIs
@@ -1373,7 +1373,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3862640126985822853
+--- !u!222 &4073136000305513861
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1381,7 +1381,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2958200304900460343}
   m_CullTransparentMesh: 1
---- !u!114 &4726813424568707282
+--- !u!114 &51915217395944531
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1394,7 +1394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7490196}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1609,7 +1609,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: -20}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4543044464321804064
 MonoBehaviour:

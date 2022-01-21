@@ -31,9 +31,9 @@ public class CTitleSceneManager : CSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			// 텍스트를 설정한다 {
-			var oVerText = this.SubUIsBase.ExFindComponent<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT);
+			var oVerText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT);
 
-			m_oVerText = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.SubUpUIs);
+			m_oVerText = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.UpUIs);
 			m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;

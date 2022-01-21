@@ -58,8 +58,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private void SetupDebugUIs() {
 		// 디버그 UI 가 없을 경우
 		if(CSetupSceneManager.m_oDebugUIs == null) {
-			CSetupSceneManager.m_oDebugUIs = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_DEBUG_UIS, KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS, null);
-			CSceneManager.ScreenDebugUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS);
+			CSetupSceneManager.m_oDebugUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS, KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS, null);
+			CSceneManager.ScreenDebugUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS, false);
 
 			CSceneManager.ScreenFPSInfoUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_FPS_INFO_UIS);
 			CSceneManager.ScreenFPSInfoUIs.SetActive(false);

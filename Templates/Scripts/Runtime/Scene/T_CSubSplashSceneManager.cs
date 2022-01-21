@@ -34,23 +34,22 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 
 	/** 스플래시를 출력한다 */
 	protected override void ShowSplash() {
-		m_oBGImg.gameObject.SetActive(true);
-		m_oBGImg.rectTransform.sizeDelta = CSceneManager.CanvasSize.ExTo2D();
-
 		m_oSplashImg.SetNativeSize();
 		m_oSplashImg.gameObject.SetActive(true);
-		
+
 		this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.SS_DELAY_NEXT_SCENE_LOAD);
 	}
 
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 이미지를 설정한다 {
-		m_oBGImg = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_BG_IMG, KCDefine.U_OBJ_P_IMG, this.SubUIs);
+		m_oBGImg = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_BG_IMG, KCDefine.U_OBJ_P_IMG, this.UIs);
 		m_oBGImg.color = KCDefine.SS_COLOR_BG_IMG;
-		m_oBGImg.gameObject.SetActive(false);
+		m_oBGImg.rectTransform.sizeDelta = Vector2.zero;
+		m_oBGImg.rectTransform.anchorMin = KCDefine.B_ANCHOR_DOWN_LEFT;
+		m_oBGImg.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_RIGHT;
 
-		m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_SPLASH_IMG, KCDefine.U_OBJ_P_IMG, this.SubUIs, KCDefine.SS_POS_SPLASH_IMG);
+		m_oSplashImg = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_SPLASH_IMG, KCDefine.U_OBJ_P_IMG, this.UIs, KCDefine.SS_POS_SPLASH_IMG);
 		m_oSplashImg.sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_G_SPLASH);
 		m_oSplashImg.gameObject.SetActive(false);
 		// 이미지를 설정한다 }

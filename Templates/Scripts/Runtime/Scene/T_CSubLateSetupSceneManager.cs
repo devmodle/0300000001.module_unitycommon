@@ -45,7 +45,7 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 				m_oCallback = this.OnReceiveTrackingDescPopupResult
 			};
 
-			var oTrackingDescPopup = CPopup.Create<CTrackingDescPopup>(KCDefine.LSS_OBJ_N_TRACKING_DESC_POPUP, KCDefine.LSS_OBJ_P_TRACKING_DESC_POPUP, this.SubPopupUIs);
+			var oTrackingDescPopup = CPopup.Create<CTrackingDescPopup>(KCDefine.LSS_OBJ_N_TRACKING_DESC_POPUP, KCDefine.LSS_OBJ_P_TRACKING_DESC_POPUP, this.PopupUIs);
 			oTrackingDescPopup.Init(stCallbackParams);
 			oTrackingDescPopup.Show(null, null);
 		} else {

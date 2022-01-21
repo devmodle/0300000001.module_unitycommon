@@ -60,7 +60,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 			m_oPrivacy = a_oPrivacy, m_oServices = a_oServices, m_ePopupType = a_ePopupType
 		};
 
-		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.SubPopupUIs);
+		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.PopupUIs);
 		oAgreePopup.Init(stParams);
 		oAgreePopup.Show(null, this.OnCloseAgreePopup);
 	}

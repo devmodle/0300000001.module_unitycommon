@@ -42,17 +42,17 @@ public class CLevelEditorSceneManager : CSceneManager {
 		if(CSceneManager.IsAppInit) {
 			CSceneManager.ScreenDebugUIs?.SetActive(false);
 			
-			m_oPortraitUIs = this.SubUIsBase.ExFindChild(KCDefine.E_OBJ_N_PORTRAIT_UIS);
-			m_oLandscapeUIs = this.SubUIsBase.ExFindChild(KCDefine.E_OBJ_N_LANDSCAPE_UIS);
+			m_oPortraitUIs = this.UIsBase.ExFindChild(KCDefine.E_OBJ_N_PORTRAIT_UIS);
+			m_oLandscapeUIs = this.UIsBase.ExFindChild(KCDefine.E_OBJ_N_LANDSCAPE_UIS);
 
 			// 블럭 객체를 설정한다
-			var oBlockObjs = this.SubObjsBase.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
-			m_oBlockObjs = oBlockObjs ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_BLOCKS, this.SubObjs);
+			var oBlockObjs = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
+			m_oBlockObjs = oBlockObjs ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_BLOCKS, this.Objs);
 
 			// 터치 전달자를 설정한다 {
-			var oBGTouchResponder = this.SubUIsBase.ExFindChild(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER);
+			var oBGTouchResponder = this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER);
 			
-			m_oBGTouchResponder = oBGTouchResponder ?? CFactory.CreateTouchResponder(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER, KCDefine.U_OBJ_P_G_TOUCH_RESPONDER, this.SubUIs, CSceneManager.CanvasSize, Vector3.zero, KCDefine.U_COLOR_TRANSPARENT);
+			m_oBGTouchResponder = oBGTouchResponder ?? CFactory.CreateTouchResponder(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER, KCDefine.U_OBJ_P_G_TOUCH_RESPONDER, this.UIs, CSceneManager.CanvasSize, Vector3.zero, KCDefine.U_COLOR_TRANSPARENT);
 			m_oBGTouchResponder?.ExSetRaycastTarget<Image>(true, false);
 			m_oBGTouchResponder?.transform.SetAsFirstSibling();
 			// 터치 전달자를 설정한다 }

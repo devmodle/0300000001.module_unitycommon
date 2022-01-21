@@ -66,7 +66,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 버튼을 설정한다
-		var oPlayBtn = this.SubUIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
+		var oPlayBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
 		oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
 	}
 

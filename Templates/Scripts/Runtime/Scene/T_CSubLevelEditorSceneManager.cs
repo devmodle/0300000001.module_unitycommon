@@ -721,7 +721,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private void OnTouchMEUIsMoveLevelBtn() {
 		m_oSelScroller = m_oLEUIsScrollerDict[EScrollerType.LEVEL];
 
-		Func.ShowEditorInputPopup(this.SubPopupUIs, (a_oSender) => {
+		Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
 			var stCallbackParams = new CEditorInputPopup.STCallbackParams() {
 				m_oCallback = this.OnReceiveEditorInputPopupResult
 			};
@@ -823,7 +823,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	/** 왼쪽 에디터 UI 레벨 추가 버튼을 눌렀을 경우 */
 	private void OnTouchLEUIsAddLevelBtn() {
-		Func.ShowEditorLevelCreatePopup(this.SubPopupUIs, (a_oSender) => {
+		Func.ShowEditorLevelCreatePopup(this.PopupUIs, (a_oSender) => {
 			var stCallbackParams = new CEditorLevelCreatePopup.STCallbackParams() {
 				m_oCallback = this.OnReceiveEditorLevelCreatePopupResult
 			};
@@ -982,7 +982,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private void OnTouchSCVMoveBtn(CScrollerCellView a_oSender, long a_nID) {
 		m_oSelScroller = a_oSender.Scroller;
 
-		Func.ShowEditorInputPopup(this.SubPopupUIs, (a_oSender) => {
+		Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
 			var stCallbackParams = new CEditorInputPopup.STCallbackParams() {
 				m_oCallback = this.OnReceiveEditorInputPopupResult
 			};
