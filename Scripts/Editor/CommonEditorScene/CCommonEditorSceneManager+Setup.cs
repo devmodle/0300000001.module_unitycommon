@@ -96,10 +96,11 @@ public static partial class CCommonEditorSceneManager {
 
 			// 광원 설정이 없을 경우
 			if(!Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings) || oLightingSettings.name.Contains(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE)) {
-				oLightingSettings = Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS);
-
-				EditorSceneManager.MarkSceneDirty(stScene);
-				Lightmapping.SetLightingSettingsForScene(stScene, oLightingSettings);
+				// 광원 설정이 존재 할 경우
+				if(CAccess.IsExistsRes<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS, true)) {
+					EditorSceneManager.MarkSceneDirty(stScene);
+					Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS));
+				}
 			}
 
 			// 광원 설정이 존재 할 경우
@@ -143,13 +144,13 @@ public static partial class CCommonEditorSceneManager {
 #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 	/** 렌더 파이프라인을 설정한다 */
 	private static void SetupRenderPipeline() {
-		var oAsset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
-		oAsset = oAsset ?? CEditorFactory.CreateScriptableObj<ScriptableObject>(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
-
-		var oSerializeObj = new SerializedObject(oAsset);
-		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
-		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
-		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+		// 렌더 파이프라인 설정이 존재 할 경우
+		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS)) {
+			var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
+			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+		}
 	}	
 #endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
 
