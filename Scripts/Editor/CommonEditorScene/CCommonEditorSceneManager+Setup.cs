@@ -12,10 +12,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine.InputSystem;
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
-#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-using UnityEngine.Rendering.Universal;
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-
 /** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
@@ -52,11 +48,7 @@ public static partial class CCommonEditorSceneManager {
 				if(!oCameras[j].name.Equals(KCEditorDefine.B_OBJ_N_SCENE_EDITOR_CAMERA)) {
 					bool bIsUIsCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_CAMERA);
 					bool bIsMainCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA);
-
-#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-					oCameras[j].gameObject.ExAddComponent<UniversalAdditionalCameraData>();
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-
+					
 					// 태그 설정이 가능 할 경우
 					if(bIsUIsCamera || bIsMainCamera) {
 						oCameras[j].ExSetTag(bIsUIsCamera ? KCDefine.U_TAG_UIS_CAMERA : KCDefine.U_TAG_MAIN_CAMERA);
@@ -130,7 +122,8 @@ public static partial class CCommonEditorSceneManager {
 		if(!EditorBuildSettings.TryGetConfigObject<InputSettings>(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, out InputSettings oInputSettings)) {
 			var oAsset = AssetDatabase.LoadAssetAtPath<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
 			oAsset = oAsset ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
-			
+
+			InputSystem.settings = oAsset;
 			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, oAsset, true);
 		}
 

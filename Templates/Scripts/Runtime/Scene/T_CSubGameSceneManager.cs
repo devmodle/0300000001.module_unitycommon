@@ -101,9 +101,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	public override void OnDestroy() {
 		base.OnDestroy();
 
-		// 앱이 실행 중 일 경우
-		if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
-			// Do Something
+		try {
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
+				// Do Something
+			}
+		} catch(System.Exception oException) {
+			CFunc.ShowLogWarning($"CSubGameSceneManager.OnDestroy Exception: {oException.Message}");
 		}
 	}
 

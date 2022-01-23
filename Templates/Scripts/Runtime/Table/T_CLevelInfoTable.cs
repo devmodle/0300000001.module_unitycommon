@@ -173,7 +173,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 
 		// 버전이 다를 경우
 		if(this.Ver.CompareTo(KDefine.G_VER_LEVEL_INFO) < KCDefine.B_COMPARE_EQUALS) {
-			// Do Something	
+			// Do Something
 		}
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
