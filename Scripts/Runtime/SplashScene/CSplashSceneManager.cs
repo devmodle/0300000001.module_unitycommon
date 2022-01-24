@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 using UnityEngine.Rendering.Universal;
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 /** 스플래시 씬 관리자 */
 public abstract class CSplashSceneManager : CSceneManager {
@@ -72,11 +72,11 @@ public abstract class CSplashSceneManager : CSceneManager {
 		Input.multiTouchEnabled = false;
 #endif			// #if MULTI_TOUCH_ENABLE
 
-#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 		CFunc.SetupQuality((EQualityLevel)nQualityLevel, Resources.Load<UniversalRenderPipelineAsset>(KCDefine.U_PIPELINE_P_G_UNIVERSAL_RP_ASSET), true);
 #else
 		CFunc.SetupQuality((EQualityLevel)nQualityLevel, null, true);
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);
 		// 디바이스 정보를 설정한다 }

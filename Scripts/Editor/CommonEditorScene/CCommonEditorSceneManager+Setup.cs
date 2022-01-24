@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.SceneTemplate;
 using UnityEditor.SceneManagement;
 
 #if INPUT_SYSTEM_MODULE_ENABLE
@@ -19,17 +20,8 @@ using UnityEngine.InputSystem.iOS;
 /** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
-	/** 콜백을 설정한다 */
-	private static void SetupCallbacks() {
-		EditorApplication.update -= CCommonEditorSceneManager.Update;
-		EditorApplication.update += CCommonEditorSceneManager.Update;
-
-		EditorApplication.hierarchyWindowItemOnGUI -= CCommonEditorSceneManager.UpdateHierarchyUIState;
-		EditorApplication.hierarchyWindowItemOnGUI += CCommonEditorSceneManager.UpdateHierarchyUIState;
-	}
-
-	/** 씬을 설정한다 */
-	private static void SetupScene() {
+	/** 태그를 설정한다 */
+	private static void SetupTags() {
 		var oLights = Resources.FindObjectsOfTypeAll<Light>();
 		var oCameras = Resources.FindObjectsOfTypeAll<Camera>();
 		var oSceneManagers = Resources.FindObjectsOfTypeAll<CSceneManager>();
@@ -61,7 +53,16 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-	
+
+	/** 콜백을 설정한다 */
+	private static void SetupCallbacks() {
+		EditorApplication.update -= CCommonEditorSceneManager.Update;
+		EditorApplication.update += CCommonEditorSceneManager.Update;
+
+		EditorApplication.hierarchyWindowItemOnGUI -= CCommonEditorSceneManager.UpdateHierarchyUIState;
+		EditorApplication.hierarchyWindowItemOnGUI += CCommonEditorSceneManager.UpdateHierarchyUIState;
+	}
+
 	/** 광원 옵션을 설정한다 */
 	private static void SetupLightOpts() {
 		var oSampleSceneNameList = new List<string>() {
@@ -116,6 +117,33 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
+
+	/** 씬 템플릿을 설정한다 */
+	private static void SetupSceneTemplates() {
+		// 샘플 씬 템플릿이 존재 할 경우
+		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_SAMPLE_SCENE_TEMPLATE)) {
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_SAMPLE_SCENE_TEMPLATE));
+		}
+
+		// 에디터 샘플 씬 템플릿이 존재 할 경우
+		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_EDITOR_SAMPLE_SCENE_TEMPLATE)) {
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_EDITOR_SAMPLE_SCENE_TEMPLATE));
+		}
+
+#if STUDY_MODULE_ENABLE
+		// 스터디 샘플 씬 템플릿이 존재 할 경우
+		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE)) {
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));
+		}
+#endif			// #if STUDY_MODULE_ENABLE
+	}
+
+	/** 씬 템플릿을 설정한다 */
+	private static void DoSetupSceneTemplates(SceneTemplateAsset a_oSceneTemplate) {
+		for(int i = 0; i < a_oSceneTemplate.dependencies.Length; ++i) {
+			a_oSceneTemplate.dependencies[i].instantiationMode = TemplateInstantiationMode.Reference;
+		}
+	}
 	#endregion			// 클래스 함수
 
 	#region 클래스 조건부 함수
@@ -143,10 +171,10 @@ public static partial class CCommonEditorSceneManager {
 	}
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
-#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-	/** 렌더 파이프라인을 설정한다 */
-	private static void SetupRenderPipeline() {
-		// 렌더 파이프라인 설정이 존재 할 경우
+#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
+	/** 렌더링 파이프라인을 설정한다 */
+	private static void SetupRenderingPipeline() {
+		// 렌더링 파이프라인 설정이 존재 할 경우
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS)) {
 			var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
 			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
@@ -154,7 +182,7 @@ public static partial class CCommonEditorSceneManager {
 			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
 		}
 	}	
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 #if BURST_COMPILER_MODULE_ENABLE
 	/** 버스트 컴파일러를 설정한다 */

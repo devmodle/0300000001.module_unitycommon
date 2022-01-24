@@ -122,16 +122,17 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_FLT;
 				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
-				CCommonEditorSceneManager.SetupScene();
+				CCommonEditorSceneManager.SetupTags();
 				CCommonEditorSceneManager.SetupLightOpts();
+				CCommonEditorSceneManager.SetupSceneTemplates();
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupInputSystem();
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
-#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
-				CCommonEditorSceneManager.SetupRenderPipeline();
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
+				CCommonEditorSceneManager.SetupRenderingPipeline();
+#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 #if BURST_COMPILER_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupBurstCompiler();

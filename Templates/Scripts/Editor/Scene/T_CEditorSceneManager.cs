@@ -10,9 +10,9 @@ using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using EnhancedHierarchy;
 
-#if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 using UnityEngine.Rendering.Universal;
-#endif			// #if UNIVERSAL_RENDER_PIPELINE_MODULE_ENABLE
+#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 /** 에디터 씬 관리자 */
 [InitializeOnLoad]

@@ -68,6 +68,10 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		// 버튼을 설정한다
 		var oPlayBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
 		oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
+
+#if DEBUG || DEVELOPMENT_BUILD
+		this.SetupTestUIs();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
 	/** 씬을 설정한다 */
@@ -88,7 +92,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		// Do Something
+#if DEBUG || DEVELOPMENT_BUILD
+		this.UpdateTestUIsState();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	}
 
 	/** 최초 시작 상태를 갱신한다 */
@@ -137,6 +143,20 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		// Do Something
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if DEBUG || DEVELOPMENT_BUILD
+	/** 테스트 UI 를 설정한다 */
+	private void SetupTestUIs() {
+		// Do Something
+	}
+
+	/** 테스트 UI 상태를 갱신한다 */
+	private void UpdateTestUIsState() {
+		// Do Something
+	}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+	#endregion			// 조건부 함수
 
 	#region 추가 함수
 
