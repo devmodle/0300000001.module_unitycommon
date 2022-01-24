@@ -10,6 +10,10 @@ using UnityEditor.SceneManagement;
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
+
+#if UNITY_IOS
+using UnityEngine.InputSystem.iOS;
+#endif			// #if UNITY_IOS
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
 /** 공용 에디터 씬 관리자 - 설정 */
@@ -68,35 +72,35 @@ public static partial class CCommonEditorSceneManager {
 
 		// 광원 설정이 가능 할 경우
 		if(stScene.IsValid() && !oSampleSceneNameList.Contains(stScene.name)) {
-#if LIGHTMAP_BAKE_ENABLE
-			bool bIsBakeGI = true;
-#else
-			bool bIsBakeGI = false;
-#endif			// #if LIGHTMAP_BAKE_ENABLE
-
-#if REALTIME_GI_ENABLE
-			bool bIsRealtimeGI = true;
-#else
-			bool bIsRealtimeGI = false;
-#endif			// #if REALTIME_GI_ENABLE
-
-#if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
-			bool bIsRealtimeEnvironmentLighting = true;
-#else
-			bool bIsRealtimeEnvironmentLighting = false;
-#endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
+			bool bIsValid = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
+			bool bIsExistsLightingSettings = CAccess.IsExistsRes<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS, true);
 
 			// 광원 설정이 없을 경우
-			if(!Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings) || oLightingSettings.name.Contains(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE)) {
-				// 광원 설정이 존재 할 경우
-				if(CAccess.IsExistsRes<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS, true)) {
-					EditorSceneManager.MarkSceneDirty(stScene);
-					Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS));
-				}
+			if(bIsExistsLightingSettings && (!bIsValid || oLightingSettings.name.Contains(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE))) {
+				EditorSceneManager.MarkSceneDirty(stScene);
+				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS));
 			}
 
 			// 광원 설정이 존재 할 경우
 			if(oLightingSettings != null) {
+#if LIGHTMAP_BAKE_ENABLE
+				bool bIsBakeGI = true;
+#else
+				bool bIsBakeGI = false;
+#endif			// #if LIGHTMAP_BAKE_ENABLE
+
+#if REALTIME_GI_ENABLE
+				bool bIsRealtimeGI = true;
+#else
+				bool bIsRealtimeGI = false;
+#endif			// #if REALTIME_GI_ENABLE
+
+#if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
+				bool bIsRealtimeEnvironmentLighting = true;
+#else
+				bool bIsRealtimeEnvironmentLighting = false;
+#endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
+
 				// GI 설정이 필요 할 경우
 				if(oLightingSettings.bakedGI != bIsBakeGI || oLightingSettings.realtimeGI != bIsRealtimeGI || oLightingSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting) {
 					oLightingSettings.bakedGI = bIsBakeGI;
@@ -120,17 +124,22 @@ public static partial class CCommonEditorSceneManager {
 	private static void SetupInputSystem() {
 		// 입력 시스템 설정이 없을 경우
 		if(!EditorBuildSettings.TryGetConfigObject<InputSettings>(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, out InputSettings oInputSettings)) {
-			var oAsset = AssetDatabase.LoadAssetAtPath<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
-			oAsset = oAsset ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
+			oInputSettings = AssetDatabase.LoadAssetAtPath<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
+			oInputSettings = oInputSettings ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
 
-			InputSystem.settings = oAsset;
-			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, oAsset, true);
+			InputSystem.settings = oInputSettings;
+			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, oInputSettings, true);
 		}
 
 		oInputSettings.filterNoiseOnCurrent = false;
 		oInputSettings.compensateForScreenOrientation = true;
 
 		oInputSettings.updateMode = InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;
+		oInputSettings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus;
+
+		oInputSettings.iOS.motionUsage = new UnityEngine.InputSystem.iOS.PrivacyDataUsage() {
+			enabled = false, usageDescription = (CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_oMotionDescription : string.Empty
+		};
 	}
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 

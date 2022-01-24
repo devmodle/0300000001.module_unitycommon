@@ -31,7 +31,7 @@ public class CIntroSceneManager : CSceneManager {
 			CSceneManager.IsAwake = false;
 
 			// 초기화 씬 일 경우
-			if(KCDefine.B_INIT_SCENE_NAME_LIST.Contains(CSceneManager.AwakeSceneName)) {
+			if(KCDefine.B_INIT_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
 #if STUDY_MODULE_ENABLE
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
@@ -39,7 +39,7 @@ public class CIntroSceneManager : CSceneManager {
 #endif			// #if STUDY_MODULE_ENABLE
 			} else {
 				CCommonAppInfoStorage.Inst.IsFirstStart = false;
-				CSceneLoader.Inst.LoadScene(CSceneManager.AwakeSceneName);
+				CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName);
 			}
 		}, KCDefine.U_DELAY_NEXT_SCENE_LOAD);
 	}

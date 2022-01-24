@@ -131,7 +131,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		// 백 키 눌림 이벤트 일 경우
 		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
 			// 이전 씬이 레벨 에디터 씬 일 경우
-			if(CSceneManager.PrevSceneName.Equals(KCDefine.B_SCENE_N_LEVEL_EDITOR)) {
+			if(CSceneLoader.Inst.PrevActiveSceneName.Equals(KCDefine.B_SCENE_N_LEVEL_EDITOR)) {
 				Func.ShowLeavePopup(this.OnReceiveLeavePopupResult);
 			} else {
 				this.OnTouchPauseBtn();
