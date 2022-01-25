@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 #if NEVER_USE_THIS
 #if SCENE_TEMPLATES_MODULE_ENABLE
+#if UNITY_ANDROID
+using UnityEngine.Android;
+#endif			// #if UNITY_ANDROID
+
 /** 서브 지연 설정 씬 관리자 */
 public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	#region 추가 변수
@@ -56,12 +60,6 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		this.IsAutoInitManager = true;
-		
-#if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
-		CLateSetupSceneManager.IsAutoLoadBannerAds = true;
-		CLateSetupSceneManager.IsAutoLoadRewardAds = true;
-		CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
-#endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 
 #if UNITY_EDITOR
 		CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType.ExIsValid() ? m_eUserType : EUserType.A;
@@ -77,6 +75,17 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		}
 #endif			// #if UNITY_EDITOR
 
+#if UNITY_ANDROID
+		m_oPermissionList.ExAddVal(Permission.ExternalStorageRead);
+		m_oPermissionList.ExAddVal(Permission.ExternalStorageWrite);
+#endif			// #if UNITY_ANDROID
+
+#if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
+		CLateSetupSceneManager.IsAutoLoadBannerAds = true;
+		CLateSetupSceneManager.IsAutoLoadRewardAds = true;
+		CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
+#endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
+
 		CCommonAppInfoStorage.Inst.DeviceConfig = CDeviceInfoTable.Inst.DeviceConfig;
 		CCommonUserInfoStorage.Inst.SaveUserInfo();
 	}
@@ -87,6 +96,15 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		this.ExLateCallFunc((a_oSender) => this.ShowConsentView(), KCDefine.U_DELAY_INIT);
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if UNITY_ANDROID
+	/** 권한을 요청한다 */
+	protected override void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback) {
+		CFunc.RequestPermission(this, a_oPermission, a_oCallback);
+	}
+#endif			// #if UNITY_ANDROID
+	#endregion			// 조건부 함수
 
 	#region 추가 함수
 

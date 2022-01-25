@@ -53,7 +53,6 @@ public static partial class KEditorDefine {
 		[typeof(CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER,
 		[typeof(CSubStartSceneManager)] = KCDefine.U_SCRIPT_O_START_SCENE_MANAGER,
 		[typeof(CSubSplashSceneManager)] = KCDefine.U_SCRIPT_O_SPLASH_SCENE_MANAGER,
-		[typeof(CSubPermissionSceneManager)] = KCDefine.U_SCRIPT_O_PERMISSION_SCENE_MANAGER,
 		[typeof(CSubIntroSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 
 #if STUDY_MODULE_ENABLE
@@ -130,7 +129,6 @@ public static partial class KEditorDefine {
 
 		[KCDefine.B_SCENE_N_START] = typeof(CSubStartSceneManager),
 		[KCDefine.B_SCENE_N_SPLASH] = typeof(CSubSplashSceneManager),
-		[KCDefine.B_SCENE_N_PERMISSION] = typeof(CSubPermissionSceneManager),
 		[KCDefine.B_SCENE_N_INTRO] = typeof(CSubIntroSceneManager),
 
 #if STUDY_MODULE_ENABLE

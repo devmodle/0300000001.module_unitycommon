@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 #if UNITY_IOS
 using Unity.Advertisement.IosSupport;
+#elif UNITY_ANDROID
+using UnityEngine.Android;
 #endif			// #if UNITY_IOS
 
 /** 지연 설정 씬 관리자 */
@@ -16,6 +18,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #if UNITY_EDITOR
 	public override int ScriptOrder => KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
+
+#if UNITY_ANDROID
+	public List<string> m_oPermissionList { get; private set; } = new List<string>();
+#endif			// #if UNITY_ANDROID
 	#endregion			// 프로퍼티
 
 	#region 클래스 프로퍼티
@@ -29,6 +35,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	#region 추상 함수
 	/** 추적 설명 팝업을 출력한다 */
 	protected abstract void ShowTrackingDescPopup();
+
+#if UNITY_ANDROID
+	/** 권한을 요청한다 */
+	protected abstract void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
+#endif			// #if UNITY_ANDROID
 	#endregion			// 추상 함수
 
 	#region 함수
@@ -258,12 +269,53 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		}
 
 		this.Setup();
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_PERMISSION_SCENE, false);
+
+#if UNITY_ANDROID
+		this.CheckPermission();
+#else
+		this.LoadNextScene();
+#endif			// #if UNITY_ANDROID
+	}
+
+	/** 다음 씬을 로드한다 */
+	private void LoadNextScene() {
+		CCommonAppInfoStorage.Inst.SetupAdsID();
+		CCommonAppInfoStorage.Inst.SetupStoreVer();
 
 		CSceneManager.IsLateSetup = true;
-		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_PERMISSION);
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_INTRO);
 	}
 	#endregion			// 함수
+
+	#region 조건부 함수
+#if UNITY_ANDROID
+	/** 권한을 수신했을 경우 */
+	private void OnReceivePermission(string a_oPermission, bool a_bIsSuccess) {
+		m_oPermissionList.ExRemoveVal(a_oPermission);
+		this.CheckPermission();
+	}
+
+	/** 권한을 검사한다 */
+	private void CheckPermission() {
+		// 권한이 필요 할 경우
+		if(m_oPermissionList.ExIsValid()) {
+			this.RequestPermission(m_oPermissionList[KCDefine.B_VAL_0_INT]);
+		} else {
+			this.LoadNextScene();
+		}
+	}
+
+	/** 권한을 요청한다 */
+	private void RequestPermission(string a_oPermission) {
+		// 권한이 유효 할 경우
+		if(CAccess.IsEnablePermission(a_oPermission)) {
+			this.OnReceivePermission(a_oPermission, true);
+		} else {
+			this.RequestPermission(a_oPermission, this.OnReceivePermission);
+		}
+	}
+#endif			// #if UNITY_ANDROID
+	#endregion			// 조건부 함수
 
 	#region 조건부 클래스 함수
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
