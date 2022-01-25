@@ -74,10 +74,9 @@ public static partial class CCommonEditorSceneManager {
 		// 광원 설정이 가능 할 경우
 		if(stScene.IsValid() && !oSampleSceneNameList.Contains(stScene.name)) {
 			bool bIsValid = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
-			bool bIsExistsLightingSettings = CAccess.IsExistsRes<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS, true);
-
+			
 			// 광원 설정이 없을 경우
-			if(bIsExistsLightingSettings && (!bIsValid || oLightingSettings.name.Contains(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE))) {
+			if((!bIsValid || oLightingSettings.name.Contains(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE)) && CAccess.IsExistsRes<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS, true)) {
 				EditorSceneManager.MarkSceneDirty(stScene);
 				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS));
 			}
