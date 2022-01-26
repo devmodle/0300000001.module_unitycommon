@@ -94,13 +94,6 @@ public static partial class CCommonEditorSceneManager {
 				CPlatformOptsSetter.SetupEditorOpts();
 				CPlatformOptsSetter.SetupProjOpts();
 				CPlatformOptsSetter.SetupPluginProjs();
-
-#if UNITY_ANDROID
-				// 플러그인이 없을 경우
-				if(!File.Exists(KCEditorDefine.B_DEST_PLUGIN_P_ANDROID)) {
-					CEditorFunc.ExecuteCmdLine(KCEditorDefine.B_PLUGIN_BUILD_CMD_ANDROID);
-				}
-#endif			// #if UNITY_ANDROID
 			}
 
 			// 빌드 가능 할 경우

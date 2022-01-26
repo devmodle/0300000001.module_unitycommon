@@ -55,7 +55,7 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 		// 앱이 실행 중 일 경우
 		if(CSceneManager.IsAppRunning) {
-			m_fUpdateSkipTime += Time.deltaTime;
+			m_fUpdateSkipTime += a_fDeltaTime;
 			m_oGaugeHandler.Percent = Mathf.Clamp(m_oGaugeHandler.Percent + ((KCDefine.B_VAL_1_FLT * a_fDeltaTime) * KCDefine.SS_SCALE_LOADING), KCDefine.B_VAL_0_FLT, m_fMaxPercent);
 			
 			// 텍스트 상태 갱신 주기가 지났을 경우
