@@ -44,6 +44,16 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	#region 함수
 	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsInit) {
+			CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_LATE_SETUP_SCENE, false);
+		}
+	}
+
+	/** 초기화 */
 	public sealed override void Start() {
 		base.Start();
 

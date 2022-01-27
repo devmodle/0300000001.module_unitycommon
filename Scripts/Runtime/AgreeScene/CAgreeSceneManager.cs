@@ -23,6 +23,16 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	#region 함수
 	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsInit) {
+			CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_AGREE_SCENE, false);
+		}
+	}
+
+	/** 초기화 */
 	public sealed override void Start() {
 		base.Start();
 
@@ -37,7 +47,6 @@ public abstract class CAgreeSceneManager : CSceneManager {
 		CCommonAppInfoStorage.Inst.AppInfo.IsAgree = true;
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_LATE_SETUP_SCENE, false);
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
 	}
 

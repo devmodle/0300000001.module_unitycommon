@@ -35,6 +35,8 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		if(CSceneManager.IsInit) {
 			m_oDeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
 			m_oDeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
+
+			CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE, false);
 		}
 	}
 
@@ -89,7 +91,6 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if UNITY_EDITOR
 
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_AGREE_SCENE, false);
 
 		CSceneManager.IsSetup = true;
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_AGREE);

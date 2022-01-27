@@ -99,17 +99,21 @@ public static partial class CCommonEditorSceneManager {
 				bool bIsRealtimeEnvironmentLighting = false;
 #endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
 
-				// GI 설정이 필요 할 경우
-				if(oLightingSettings.bakedGI != bIsBakeGI || oLightingSettings.realtimeGI != bIsRealtimeGI || oLightingSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting) {
+				bool bIsEnableUpdateGI = !oLightingSettings.ao || oLightingSettings.bakedGI != bIsBakeGI || oLightingSettings.realtimeGI != bIsRealtimeGI || oLightingSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting;
+				bool bIsEnableUpdateLightmap = oLightingSettings.filteringMode != LightingSettings.FilterMode.Auto || oLightingSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || oLightingSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE || oLightingSettings.lightmapMaxSize != KCEditorDefine.B_EDITOR_OPTS_LIGHT_MAP_MAX_SIZE || oLightingSettings.lightmapCompression != KCEditorDefine.B_EDITOR_OPTS_LIGHT_MAP_COMPRESSION;
+
+				// 설정 갱신이 필요 할 경우
+				if(bIsEnableUpdateGI || bIsEnableUpdateLightmap) {
+					oLightingSettings.ao = true;
 					oLightingSettings.bakedGI = bIsBakeGI;
 					oLightingSettings.realtimeGI = bIsRealtimeGI;
+					oLightingSettings.filteringMode = LightingSettings.FilterMode.Auto;
 					oLightingSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
-				}
 
-				// 광원 맵 설정이 필요 할 경우
-				if(oLightingSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || oLightingSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE) {
 					oLightingSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
 					oLightingSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
+					oLightingSettings.lightmapMaxSize = KCEditorDefine.B_EDITOR_OPTS_LIGHT_MAP_MAX_SIZE;
+					oLightingSettings.lightmapCompression = KCEditorDefine.B_EDITOR_OPTS_LIGHT_MAP_COMPRESSION;
 				}
 			}
 		}
