@@ -67,54 +67,26 @@ public static partial class CCommonEditorSceneManager {
 			KCDefine.B_SCENE_N_SAMPLE, KCDefine.B_SCENE_N_EDITOR_SAMPLE, KCDefine.B_SCENE_N_STUDY_SAMPLE
 		};
 
+		var oLightingSettingsInfoList = new List<(EQualityLevel, string)>() {
+			(EQualityLevel.NORM, KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS),
+			(EQualityLevel.HIGH, KCDefine.U_ASSET_P_G_HIGH_QUALITY_LIGHTING_SETTINGS),
+			(EQualityLevel.ULTRA, KCDefine.U_ASSET_P_G_ULTRA_QUALITY_LIGHTING_SETTINGS)
+		};
+
 		var stScene = EditorSceneManager.GetActiveScene();
+
+		for(int i = 0; i < oLightingSettingsInfoList.Count; ++i) {
+			CCommonEditorSceneManager.DoSetupLightOpts(oLightingSettingsInfoList[i].Item1, Resources.Load<LightingSettings>(oLightingSettingsInfoList[i].Item2), false);
+		}
 
 		// 광원 설정이 가능 할 경우
 		if(stScene.IsValid() && !oSampleSceneNameList.Contains(stScene.name)) {
 			bool bIsValid = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			
 			// 광원 설정이 없을 경우
-			if((!bIsValid || oLightingSettings.name.Contains(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE)) && CAccess.IsExistsRes<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS, true)) {
+			if((!bIsValid || oLightingSettings.name.Contains(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE)) && CAccess.IsExistsRes<LightingSettings>(KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS, true)) {
 				EditorSceneManager.MarkSceneDirty(stScene);
-				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS));
-			}
-
-			// 광원 설정이 존재 할 경우
-			if(oLightingSettings != null) {
-#if LIGHTMAP_BAKE_ENABLE
-				bool bIsBakeGI = true;
-#else
-				bool bIsBakeGI = false;
-#endif			// #if LIGHTMAP_BAKE_ENABLE
-
-#if REALTIME_GI_ENABLE
-				bool bIsRealtimeGI = true;
-#else
-				bool bIsRealtimeGI = false;
-#endif			// #if REALTIME_GI_ENABLE
-
-#if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
-				bool bIsRealtimeEnvironmentLighting = true;
-#else
-				bool bIsRealtimeEnvironmentLighting = false;
-#endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
-
-				bool bIsEnableUpdateGI = !oLightingSettings.ao || oLightingSettings.bakedGI != bIsBakeGI || oLightingSettings.realtimeGI != bIsRealtimeGI || oLightingSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting;
-				bool bIsEnableUpdateLightmap = oLightingSettings.filteringMode != LightingSettings.FilterMode.Auto || oLightingSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || oLightingSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE || oLightingSettings.lightmapMaxSize != KCEditorDefine.B_EDITOR_OPTS_LIGHT_MAP_MAX_SIZE || oLightingSettings.lightmapCompression != KCEditorDefine.B_EDITOR_OPTS_LIGHT_MAP_COMPRESSION;
-
-				// 설정 갱신이 필요 할 경우
-				if(bIsEnableUpdateGI || bIsEnableUpdateLightmap) {
-					oLightingSettings.ao = true;
-					oLightingSettings.bakedGI = bIsBakeGI;
-					oLightingSettings.realtimeGI = bIsRealtimeGI;
-					oLightingSettings.filteringMode = LightingSettings.FilterMode.Auto;
-					oLightingSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
-
-					oLightingSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
-					oLightingSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
-					oLightingSettings.lightmapMaxSize = KCEditorDefine.B_EDITOR_OPTS_LIGHT_MAP_MAX_SIZE;
-					oLightingSettings.lightmapCompression = KCEditorDefine.B_EDITOR_OPTS_LIGHT_MAP_COMPRESSION;
-				}
+				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS));
 			}
 		}
 	}
@@ -137,6 +109,53 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));
 		}
 #endif			// #if STUDY_MODULE_ENABLE
+	}
+
+	/** 광원 옵션을 설정한다 */
+	private static void DoSetupLightOpts(EQualityLevel a_eQualityLevel, LightingSettings a_oSettings, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oSettings != null);
+
+		// 광원 설정이 존재 할 경우
+		if(a_oSettings != null) {
+			var eLightmapMaxSize = (a_eQualityLevel >= EQualityLevel.HIGH) ? EPOTVal.POT_2048 : EPOTVal.POT_1024;
+			var eLightmapCompression = (a_eQualityLevel >= EQualityLevel.HIGH) ? LightmapCompression.HighQuality : LightmapCompression.NormalQuality;
+
+#if LIGHTMAP_BAKE_ENABLE
+			bool bIsBakeGI = true;
+#else
+			bool bIsBakeGI = false;
+#endif			// #if LIGHTMAP_BAKE_ENABLE
+
+#if REALTIME_GI_ENABLE
+			bool bIsRealtimeGI = true;
+#else
+			bool bIsRealtimeGI = false;
+#endif			// #if REALTIME_GI_ENABLE
+
+#if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
+			bool bIsRealtimeEnvironmentLighting = true;
+#else
+			bool bIsRealtimeEnvironmentLighting = false;
+#endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
+
+			bool bIsEnableUpdateGI = !a_oSettings.ao || a_oSettings.bakedGI != bIsBakeGI || a_oSettings.realtimeGI != bIsRealtimeGI || a_oSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting;
+			bool bIsEnableUpdateLightmap = a_oSettings.filteringMode != LightingSettings.FilterMode.Auto || a_oSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || a_oSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE || a_oSettings.lightmapMaxSize != (int)eLightmapMaxSize || a_oSettings.lightmapCompression != eLightmapCompression;
+
+			// 설정 갱신이 필요 할 경우
+			if(bIsEnableUpdateGI || bIsEnableUpdateLightmap) {
+				a_oSettings.ao = true;
+				a_oSettings.bakedGI = bIsBakeGI;
+				a_oSettings.realtimeGI = bIsRealtimeGI;
+				a_oSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
+
+				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
+				a_oSettings.lightmapMaxSize = (int)eLightmapMaxSize;
+				a_oSettings.lightmapCompression = eLightmapCompression;
+
+				a_oSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
+				a_oSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
+			}
+		}
 	}
 
 	/** 씬 템플릿을 설정한다 */
@@ -182,7 +201,7 @@ public static partial class CCommonEditorSceneManager {
 			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
 			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
 		}
-	}	
+	}
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 #if BURST_COMPILER_MODULE_ENABLE

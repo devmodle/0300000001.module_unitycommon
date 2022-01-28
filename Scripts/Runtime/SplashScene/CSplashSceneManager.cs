@@ -73,7 +73,7 @@ public abstract class CSplashSceneManager : CSceneManager {
 #endif			// #if MULTI_TOUCH_ENABLE
 
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-		CFunc.SetupQuality((EQualityLevel)nQualityLevel, Resources.Load<UniversalRenderPipelineAsset>(KCDefine.U_PIPELINE_P_G_UNIVERSAL_RP_ASSET), true);
+		CFunc.SetupQuality((EQualityLevel)nQualityLevel, Resources.Load<UniversalRenderPipelineAsset>(CAccess.UniversalRPPath), true);
 #else
 		CFunc.SetupQuality((EQualityLevel)nQualityLevel, null, true);
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
