@@ -105,7 +105,7 @@ namespace SampleEngineName {
 		public void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 실행 상태 일 경우
 			if(this.State == EState.RUN) {
-				// Do Something
+				var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oBlockObjs);
 			}
 		}
 
@@ -113,7 +113,7 @@ namespace SampleEngineName {
 		public void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 실행 상태 일 경우
 			if(this.State == EState.RUN) {
-				// Do Something
+				var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oBlockObjs);
 			}
 		}
 
@@ -121,7 +121,7 @@ namespace SampleEngineName {
 		public void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 실행 상태 일 경우
 			if(this.State == EState.RUN) {
-				// Do Something
+				var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oBlockObjs);
 			}
 		}
 

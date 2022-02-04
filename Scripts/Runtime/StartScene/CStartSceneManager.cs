@@ -6,7 +6,6 @@ using UnityEngine.UI;
 /** 시작 씬 관리자 */
 public abstract class CStartSceneManager : CSceneManager {
 	#region 변수
-	protected List<string> m_oSpriteAtlasList = new List<string>();
 	protected Dictionary<string, int> m_oMaxNumFXSndsDict = new Dictionary<string, int>();
 	#endregion			// 변수
 
@@ -30,13 +29,6 @@ public abstract class CStartSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			for(int i = 0; i < KCDefine.B_VAL_9_INT; ++i) {
-				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
-				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
-				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_FIX_RW_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
-				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_FIX_PF_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
-			}
-
 			CCommonAppInfoStorage.Inst.AddAppRunningTimes(KCDefine.B_VAL_1_INT);
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
 		}
@@ -54,10 +46,6 @@ public abstract class CStartSceneManager : CSceneManager {
 
 	/** 씬을 설정한다 */
 	protected virtual void Setup() {
-		for(int i = 0; i < m_oSpriteAtlasList.Count; ++i) {
-			CResManager.Inst.LoadSpriteAtlas(m_oSpriteAtlasList[i]);
-		}
-
 		foreach(var stKeyVal in this.m_oMaxNumFXSndsDict) {
 			CSndManager.Inst.SetMaxNumFXSnds(stKeyVal.Key, stKeyVal.Value);
 		}

@@ -9,6 +9,10 @@ using UnityEngine.Rendering.Universal;
 
 /** 스플래시 씬 관리자 */
 public abstract class CSplashSceneManager : CSceneManager {
+	#region 변수
+	protected List<string> m_oSpriteAtlasPathList = new List<string>();
+	#endregion			// 변수
+
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_SPLASH;
 
@@ -24,11 +28,29 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 	#region 함수
 	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+
+		// 초기화 되었을 경우
+		if(CSceneManager.IsInit) {
+			for(int i = 0; i < KCDefine.B_VAL_9_INT; ++i) {
+				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
+				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
+				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_FIX_PF_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
+			}
+		}
+	}
+
+	/** 초기화 */
 	public sealed override void Start() {
 		base.Start();
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
+			for(int i = 0; i < m_oSpriteAtlasPathList.Count; ++i) {
+				CResManager.Inst.LoadSpriteAtlas(m_oSpriteAtlasPathList[i]);
+			}
+
 			StartCoroutine(this.OnStart());
 		}
 	}
