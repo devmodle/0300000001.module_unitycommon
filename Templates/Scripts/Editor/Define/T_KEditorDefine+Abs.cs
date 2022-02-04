@@ -153,28 +153,17 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본
-		["com.unity.burst"] = "1.6.4",
-		["com.unity.recorder"] = "3.0.3",
-		["com.unity.sequences"] = "1.0.4",
-		["com.unity.polybrush"] = "1.1.2",
-		["com.unity.probuilder"] = "5.0.3",
-		["com.unity.formats.fbx"] = "4.1.2",
-		["com.unity.mathematics"] = "1.2.5",
-		["com.unity.localization"] = "1.0.5",
-		["com.unity.addressables"] = "1.19.17",
-		["com.unity.terrain-tools"] = "4.0.3",
-		["com.unity.ads.ios-support"] = "1.0.0",
-
-		// 2D
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.tilemap"] = "1.0.0",
+		["com.unity.terrain-tools"] = "4.0.3",
 		["com.unity.2d.spriteshape"] = "7.0.3",
 		["com.unity.2d.tilemap.extras"] = "2.2.1",
 
+#if SAMPLE_PROJ || DEVELOPMENT_PROJ
 		// 렌더링
 		["com.unity.2d.pixel-perfect"] = "5.0.1",
-		["com.unity.visualeffectgraph"] = "12.1.3",
-		["com.unity.render-pipelines.universal"] = "12.1.3",
+		["com.unity.visualeffectgraph"] = "12.1.4",
+		["com.unity.render-pipelines.universal"] = "12.1.4",
 
 		// 애니메이션
 		["com.unity.2d.animation"] = "7.0.3",
@@ -185,6 +174,18 @@ public static partial class KEditorDefine {
 		["com.unity.mobile.android-logcat"] = "1.2.3",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
 
+		// 기타
+		["com.unity.burst"] = "1.6.4",
+		["com.unity.recorder"] = "3.0.3",
+		["com.unity.sequences"] = "1.0.4",
+		["com.unity.polybrush"] = "1.1.2",
+		["com.unity.probuilder"] = "5.0.3",
+		["com.unity.formats.fbx"] = "4.1.2",
+		["com.unity.mathematics"] = "1.2.5",
+		["com.unity.localization"] = "1.0.5",
+		["com.unity.addressables"] = "1.19.17",
+		["com.unity.ads.ios-support"] = "1.0.0",
+
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",
 #endif			// #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
@@ -194,7 +195,7 @@ public static partial class KEditorDefine {
 #endif			// #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 
 #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
-		["com.unity.inputsystem"] = "1.2.0",
+		["com.unity.inputsystem"] = "1.3.0",
 #endif			// #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
@@ -234,6 +235,7 @@ public static partial class KEditorDefine {
 		["com.unity.mobile.notifications"] = "1.4.2",
 		["module.unitycommon.Noti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/02000001.module_unitycommon_Noti_client.git#2.0.2"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
+#endif			// #if SAMPLE_PROJ || DEVELOPMENT_PROJ
 	};
 
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_DICT = new Dictionary<string, string>() {

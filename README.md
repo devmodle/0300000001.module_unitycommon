@@ -6,13 +6,12 @@
 	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
 	- *Advance Object Pool (1.1.0 - May 6, 2019)*
 	- *Anti Cheat Free (2.1.1 - Mar 6, 2019)*
-	- *Asset Usage Detector (2.0.0 - Nov 29, 2021)*
+	- *Asset Usage Detector (2.2.0 - Jan 5, 2022)*
 	- *Bezier Solution (2.3.0 - Nov 5, 2021)*
 	- *Enhanced Hierarchy (2.4.5 - May 5, 2020)*
-	- *Enhanced Scroller (2.32.0 - Dec 22, 2021)*
+	- *Enhanced Scroller (2.32.1 - Jan 27, 2022)*
 	- *iTween (2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (2.3.1 - Jan 9, 2018)*
-	- *Lite FPS Counter (1.0.0 - Jan 11, 2019)*
 	- *Native Share (1.4.4 - Nov 18, 2021)*
 	- *NGUI (2021.11.30 - Dec 1, 2021)*
 	- *Rest Client (2.6.2 - Dec 27, 2021)*
