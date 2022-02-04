@@ -138,13 +138,7 @@ public static partial class CCommonEditorSceneManager {
 					eLightmapCompression = LightmapCompression.NormalQuality;
 				} break;
 			}
-
-#if LIGHTMAP_BAKE_ENABLE
-			bool bIsBakeGI = true;
-#else
-			bool bIsBakeGI = false;
-#endif			// #if LIGHTMAP_BAKE_ENABLE
-
+			
 #if REALTIME_GI_ENABLE
 			bool bIsRealtimeGI = true;
 #else
@@ -157,13 +151,13 @@ public static partial class CCommonEditorSceneManager {
 			bool bIsRealtimeEnvironmentLighting = false;
 #endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
 
-			bool bIsEnableUpdateGI = !a_oSettings.ao || a_oSettings.bakedGI != bIsBakeGI || a_oSettings.realtimeGI != bIsRealtimeGI || a_oSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting;
+			bool bIsEnableUpdateGI = !a_oSettings.ao || !a_oSettings.bakedGI || a_oSettings.realtimeGI != bIsRealtimeGI || a_oSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting;
 			bool bIsEnableUpdateLightmap = a_oSettings.filteringMode != LightingSettings.FilterMode.Auto || a_oSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || a_oSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE || a_oSettings.lightmapMaxSize != (int)eLightmapMaxSize || a_oSettings.lightmapCompression != eLightmapCompression;
 
 			// 설정 갱신이 필요 할 경우
 			if(bIsEnableUpdateGI || bIsEnableUpdateLightmap) {
 				a_oSettings.ao = true;
-				a_oSettings.bakedGI = bIsBakeGI;
+				a_oSettings.bakedGI = true;
 				a_oSettings.realtimeGI = bIsRealtimeGI;
 				a_oSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
 
