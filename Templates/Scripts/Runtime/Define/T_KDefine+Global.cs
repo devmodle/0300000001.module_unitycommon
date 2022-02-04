@@ -189,17 +189,10 @@ public static partial class KDefine {
 	public static readonly System.Version G_VER_LEVEL_INFO = new System.Version(1, 0, 0);
 	// 버전 }
 
-	// 정렬 순서 {
-#if CAMERA_STACKING_ENABLE
+	// 정렬 순서
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
 		m_nOrder = 1, m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
-#else
-	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
-		m_nOrder = 0, m_oLayer = KCDefine.U_SORTING_L_OVERLAY_TOP
-	};
-#endif			// #if CAMERA_STACKING_ENABLE
-	// 정렬 순서 }
 
 	// 경로
 	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";

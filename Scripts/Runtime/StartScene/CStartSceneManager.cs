@@ -33,7 +33,6 @@ public abstract class CStartSceneManager : CSceneManager {
 			for(int i = 0; i < KCDefine.B_VAL_9_INT; ++i) {
 				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
 				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
-				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_FIX_MM_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
 				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_FIX_RW_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
 				m_oSpriteAtlasList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_FIX_PF_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
 			}

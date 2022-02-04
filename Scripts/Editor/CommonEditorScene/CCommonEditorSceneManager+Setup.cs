@@ -67,26 +67,30 @@ public static partial class CCommonEditorSceneManager {
 			KCDefine.B_SCENE_N_SAMPLE, KCDefine.B_SCENE_N_EDITOR_SAMPLE, KCDefine.B_SCENE_N_STUDY_SAMPLE
 		};
 
-		var oLightingSettingsInfoList = new List<(EQualityLevel, string)>() {
-			(EQualityLevel.NORM, KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS),
-			(EQualityLevel.HIGH, KCDefine.U_ASSET_P_G_HIGH_QUALITY_LIGHTING_SETTINGS),
-			(EQualityLevel.ULTRA, KCDefine.U_ASSET_P_G_ULTRA_QUALITY_LIGHTING_SETTINGS)
+		var oLightingSettingsPathDict = new Dictionary<EQualityLevel, string>() {
+			[EQualityLevel.NORM] = KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS,
+			[EQualityLevel.HIGH] = KCDefine.U_ASSET_P_G_HIGH_QUALITY_LIGHTING_SETTINGS,
+			[EQualityLevel.ULTRA] = KCDefine.U_ASSET_P_G_ULTRA_QUALITY_LIGHTING_SETTINGS
 		};
 
 		var stScene = EditorSceneManager.GetActiveScene();
 
-		for(int i = 0; i < oLightingSettingsInfoList.Count; ++i) {
-			CCommonEditorSceneManager.DoSetupLightOpts(oLightingSettingsInfoList[i].Item1, Resources.Load<LightingSettings>(oLightingSettingsInfoList[i].Item2), false);
+		foreach(var stKeyVal in oLightingSettingsPathDict) {
+			CCommonEditorSceneManager.DoSetupLightOpts(stKeyVal.Key, Resources.Load<LightingSettings>(stKeyVal.Value), false);
 		}
 
 		// 광원 설정이 가능 할 경우
 		if(stScene.IsValid() && !oSampleSceneNameList.Contains(stScene.name)) {
-			bool bIsValid = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
-			
+			bool bIsValidA = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
+			bool bIsValidB = oLightingSettings != null && oLightingSettings.name.Equals(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);
+			bool bIsValidC = oLightingSettings != null && !oLightingSettings.name.Equals(Path.GetFileNameWithoutExtension(oLightingSettingsPathDict[CAccess.QualityLevel]));
+
+			var oResult = oLightingSettingsPathDict.ExFindVal((a_oLightingSettingsPath) => oLightingSettings != null && Path.GetFileNameWithoutExtension(a_oLightingSettingsPath).Equals(oLightingSettings.name));
+
 			// 광원 설정이 없을 경우
-			if((!bIsValid || oLightingSettings.name.Contains(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE)) && CAccess.IsExistsRes<LightingSettings>(KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS, true)) {
+			if((!bIsValidA || bIsValidB || (bIsValidC && oResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict[CAccess.QualityLevel], true)) {
 				EditorSceneManager.MarkSceneDirty(stScene);
-				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS));
+				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict[CAccess.QualityLevel]));
 			}
 		}
 	}
@@ -117,8 +121,23 @@ public static partial class CCommonEditorSceneManager {
 
 		// 광원 설정이 존재 할 경우
 		if(a_oSettings != null) {
-			var eLightmapMaxSize = (a_eQualityLevel >= EQualityLevel.HIGH) ? EPOTVal.POT_2048 : EPOTVal.POT_1024;
-			var eLightmapCompression = (a_eQualityLevel >= EQualityLevel.HIGH) ? LightmapCompression.HighQuality : LightmapCompression.NormalQuality;
+			var eLightmapMaxSize = EPOTVal.NONE;
+			var eLightmapCompression = LightmapCompression.None;
+
+			switch(a_eQualityLevel) {
+				case EQualityLevel.HIGH: {
+					eLightmapMaxSize = EPOTVal.POT_2048;
+					eLightmapCompression = LightmapCompression.HighQuality;
+				} break;
+				case EQualityLevel.ULTRA: {
+					eLightmapMaxSize = EPOTVal.POT_2048;
+					eLightmapCompression = LightmapCompression.HighQuality;
+				} break;
+				default: {
+					eLightmapMaxSize = EPOTVal.POT_1024;
+					eLightmapCompression = LightmapCompression.NormalQuality;
+				} break;
+			}
 
 #if LIGHTMAP_BAKE_ENABLE
 			bool bIsBakeGI = true;
@@ -178,10 +197,8 @@ public static partial class CCommonEditorSceneManager {
 			InputSystem.settings = oInputSettings;
 			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, oInputSettings, true);
 		}
-
-		oInputSettings.filterNoiseOnCurrent = false;
+		
 		oInputSettings.compensateForScreenOrientation = true;
-
 		oInputSettings.updateMode = InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;
 		oInputSettings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus;
 

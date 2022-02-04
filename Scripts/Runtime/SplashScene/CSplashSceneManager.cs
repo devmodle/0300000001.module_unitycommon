@@ -73,9 +73,9 @@ public abstract class CSplashSceneManager : CSceneManager {
 #endif			// #if MULTI_TOUCH_ENABLE
 
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-		CFunc.SetupQuality((EQualityLevel)nQualityLevel, Resources.Load<UniversalRenderPipelineAsset>(CAccess.UniversalRPPath), true);
+		CFunc.SetupQuality(CAccess.QualityLevel, true, true);
 #else
-		CFunc.SetupQuality((EQualityLevel)nQualityLevel, null, true);
+		CFunc.SetupQuality(CAccess.QualityLevel, false, true);
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);

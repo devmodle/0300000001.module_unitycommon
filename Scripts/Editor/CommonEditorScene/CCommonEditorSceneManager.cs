@@ -38,10 +38,9 @@ public static partial class CCommonEditorSceneManager {
 		
 		[KCDefine.U_SORTING_L_OVERGROUND] = "O",
 		[KCDefine.U_SORTING_L_UNDERGROUND] = "U",
-		
-#if !CAMERA_STACKING_ENABLE
-		[KCDefine.U_SORTING_L_OVERLAY_DEF] = "OD",
+
 		[KCDefine.U_SORTING_L_OVERLAY_ABS] = "OA",
+		[KCDefine.U_SORTING_L_OVERLAY_DEF] = "OD",
 		
 		[KCDefine.U_SORTING_L_OVERLAY_TOP] = "OT",
 		[KCDefine.U_SORTING_L_OVERLAY_TOPMOST] = "OTM",
@@ -51,7 +50,6 @@ public static partial class CCommonEditorSceneManager {
 		
 		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO",
 		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
-#endif			// #if !CAMERA_STACKING_ENABLE
 	};
 	#endregion			// 클래스 변수
 
