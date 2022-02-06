@@ -114,7 +114,9 @@ public static partial class CCommonEditorSceneManager {
 				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupTags();
+				CCommonEditorSceneManager.SetupLayers();
 				CCommonEditorSceneManager.SetupLightOpts();
+				CCommonEditorSceneManager.SetupStaticObjs();
 				CCommonEditorSceneManager.SetupSceneTemplates();
 
 #if INPUT_SYSTEM_MODULE_ENABLE

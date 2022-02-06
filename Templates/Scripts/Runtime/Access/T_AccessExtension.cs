@@ -124,7 +124,7 @@ public static partial class AccessExtension {
 
 		// 텍스트가 존재 할 경우
 		if(a_oSender != null && a_eFontSet.ExIsValid()) {
-			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet));
+			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
 		}
 	}
 
@@ -134,7 +134,7 @@ public static partial class AccessExtension {
 
 		// 텍스트가 존재 할 경우
 		if(a_oSender != null && a_eFontSet.ExIsValid()) {
-			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet));
+			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
 		}
 	}
 
@@ -144,7 +144,7 @@ public static partial class AccessExtension {
 
 		// 텍스트가 존재 할 경우
 		if(a_oSender != null && a_eFontSet.ExIsValid()) {
-			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet));
+			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
 		}
 	}
 
@@ -154,7 +154,7 @@ public static partial class AccessExtension {
 
 		// 텍스트가 존재 할 경우
 		if(a_oSender != null && a_eFontSet.ExIsValid()) {
-			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet));
+			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
 		}
 	}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -52,6 +53,25 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
+	/** 레이어를 설정한다 */
+	private static void SetupLayers() {
+		CFunc.EnumerateRootObjs((a_oObj) => {
+			// 최상단 UI 일 경우
+			if(a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_TOP)) {
+				var oEnumerator = a_oObj.DescendantsAndSelf();
+
+				foreach(var oObj in oEnumerator) {
+					// 레이어 설정이 필요 할 경우
+					if(oObj.layer != KCDefine.U_LAYER_UIS) {
+						oObj.ExSetLayer(KCDefine.U_LAYER_UIS, false);
+					}
+				}
+			}
+
+			return true;
+		});
+	}
+
 	/** 콜백을 설정한다 */
 	private static void SetupCallbacks() {
 		EditorApplication.update -= CCommonEditorSceneManager.Update;
@@ -93,6 +113,25 @@ public static partial class CCommonEditorSceneManager {
 				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict[CAccess.QualityLevel]));
 			}
 		}
+	}
+
+	/** 정적 객체를 설정한다 */
+	private static void SetupStaticObjs() {
+		CFunc.EnumerateRootObjs((a_oObj) => {
+			// 최상단 객체 일 경우
+			if(a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_BASE) || a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_OBJS_BASE)) {
+				var oEnumerator = a_oObj.ChildrenAndSelf();
+
+				foreach(var oObj in oEnumerator) {
+					// 플래그 설정이 필요 할 경우
+					if(oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_STATIC_OBJS) || oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_ADDITIONAL_LIGHTS)) {
+						oObj.ExSetStaticEditorFlags(KCEditorDefine.B_STATIC_EF_DEF);
+					}
+				}
+			}
+
+			return true;
+		});
 	}
 
 	/** 씬 템플릿을 설정한다 */
