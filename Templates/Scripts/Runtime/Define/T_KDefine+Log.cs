@@ -26,6 +26,17 @@ public static partial class KDefine {
 	public const string L_LOG_KEY_OPTS_G = "OptsG";
 	public const string L_LOG_KEY_OPTS_H = "OptsH";
 	public const string L_LOG_KEY_OPTS_I = "OptsI";
+	public const string L_LOG_KEY_OPTS_J = "OptsJ";
+	public const string L_LOG_KEY_OPTS_K = "OptsK";
+	public const string L_LOG_KEY_OPTS_L = "OptsL";
+	public const string L_LOG_KEY_OPTS_M = "OptsM";
+	public const string L_LOG_KEY_OPTS_N = "OptsN";
+	public const string L_LOG_KEY_OPTS_O = "OptsO";
+	public const string L_LOG_KEY_OPTS_P = "OptsP";
+	public const string L_LOG_KEY_OPTS_Q = "OptsQ";
+	public const string L_LOG_KEY_OPTS_R = "OptsR";
+	public const string L_LOG_KEY_OPTS_S = "OptsS";
+	public const string L_LOG_KEY_OPTS_T = "OptsT";
 	// 식별자 }
 	#endregion			// 기본
 
