@@ -12,8 +12,12 @@ using UnityEngine.Android;
 
 /** 서브 지연 설정 씬 관리자 */
 public class CSubLateSetupSceneManager : CLateSetupSceneManager {
-	#region 추가 변수
+	#region 변수
 	[SerializeField] private EUserType m_eUserType = EUserType.NONE;
+	#endregion			// 변수
+
+	#region 추가 변수
+
 	#endregion			// 추가 변수
 
 	#region 추가 프로퍼티
@@ -62,7 +66,12 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		this.IsAutoInitManager = true;
 
 #if UNITY_EDITOR
-		CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType.ExIsValid() ? m_eUserType : EUserType.A;
+		// 유저 타입이 유효 할 경우
+		if(m_eUserType.ExIsValid()) {
+			CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType;
+		} else {
+			CCommonUserInfoStorage.Inst.UserInfo.UserType = CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid() ? CCommonUserInfoStorage.Inst.UserInfo.UserType : EUserType.A;
+		}
 #else
 		// 유저 타입이 유효하지 않을 경우
 		if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
