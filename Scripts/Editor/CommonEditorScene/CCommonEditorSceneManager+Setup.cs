@@ -161,7 +161,7 @@ public static partial class CCommonEditorSceneManager {
 		// 광원 설정이 존재 할 경우
 		if(a_oSettings != null) {
 			var eLightmapMode = LightmapsMode.NonDirectional;
-			var eLightmapMaxSize = EPOTVal.NONE;
+			var eLightmapMaxSize = EPowOfTwo.NONE;
 			var eLightmapCompression = LightmapCompression.None;
 
 			float fIndirectResolution = KCDefine.B_VAL_2_FLT;
@@ -170,27 +170,27 @@ public static partial class CCommonEditorSceneManager {
 			switch(a_eQualityLevel) {
 				case EQualityLevel.HIGH: {
 					eLightmapMode = LightmapsMode.CombinedDirectional;
-					eLightmapMaxSize = EPOTVal._2048;
+					eLightmapMaxSize = EPowOfTwo._2048;
 					eLightmapCompression = LightmapCompression.HighQuality;
 
-					fIndirectResolution = (float)EPOTVal._2;
-					fLightmapResolution = (float)EPOTVal._4;
+					fIndirectResolution = (float)EPowOfTwo._2;
+					fLightmapResolution = (float)EPowOfTwo._4;
 				} break;
 				case EQualityLevel.ULTRA: {
 					eLightmapMode = LightmapsMode.CombinedDirectional;
-					eLightmapMaxSize = EPOTVal._2048;
+					eLightmapMaxSize = EPowOfTwo._2048;
 					eLightmapCompression = LightmapCompression.HighQuality;
 
-					fIndirectResolution = (float)EPOTVal._4;
-					fLightmapResolution = (float)EPOTVal._8;
+					fIndirectResolution = (float)EPowOfTwo._4;
+					fLightmapResolution = (float)EPowOfTwo._8;
 				} break;
 				default: {
 					eLightmapMode = LightmapsMode.NonDirectional;
-					eLightmapMaxSize = EPOTVal._1024;
+					eLightmapMaxSize = EPowOfTwo._1024;
 					eLightmapCompression = LightmapCompression.NormalQuality;
 
 					fIndirectResolution = KCDefine.B_VAL_1_FLT;
-					fLightmapResolution = (float)EPOTVal._2;
+					fLightmapResolution = (float)EPowOfTwo._2;
 				} break;
 			}
 
