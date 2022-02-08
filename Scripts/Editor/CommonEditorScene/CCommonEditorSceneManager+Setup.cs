@@ -160,24 +160,40 @@ public static partial class CCommonEditorSceneManager {
 
 		// 광원 설정이 존재 할 경우
 		if(a_oSettings != null) {
+			var eLightmapMode = LightmapsMode.NonDirectional;
 			var eLightmapMaxSize = EPOTVal.NONE;
 			var eLightmapCompression = LightmapCompression.None;
 
+			float fIndirectResolution = KCDefine.B_VAL_2_FLT;
+			float fLightmapResolution = KCDefine.B_VAL_2_FLT;
+
 			switch(a_eQualityLevel) {
 				case EQualityLevel.HIGH: {
-					eLightmapMaxSize = EPOTVal.POT_2048;
+					eLightmapMode = LightmapsMode.CombinedDirectional;
+					eLightmapMaxSize = EPOTVal._2048;
 					eLightmapCompression = LightmapCompression.HighQuality;
+
+					fIndirectResolution = (float)EPOTVal._2;
+					fLightmapResolution = (float)EPOTVal._4;
 				} break;
 				case EQualityLevel.ULTRA: {
-					eLightmapMaxSize = EPOTVal.POT_2048;
+					eLightmapMode = LightmapsMode.CombinedDirectional;
+					eLightmapMaxSize = EPOTVal._2048;
 					eLightmapCompression = LightmapCompression.HighQuality;
+
+					fIndirectResolution = (float)EPOTVal._4;
+					fLightmapResolution = (float)EPOTVal._8;
 				} break;
 				default: {
-					eLightmapMaxSize = EPOTVal.POT_1024;
+					eLightmapMode = LightmapsMode.NonDirectional;
+					eLightmapMaxSize = EPOTVal._1024;
 					eLightmapCompression = LightmapCompression.NormalQuality;
+
+					fIndirectResolution = KCDefine.B_VAL_1_FLT;
+					fLightmapResolution = (float)EPOTVal._2;
 				} break;
 			}
-			
+
 #if REALTIME_GI_ENABLE
 			bool bIsRealtimeGI = true;
 #else
@@ -191,7 +207,7 @@ public static partial class CCommonEditorSceneManager {
 #endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
 
 			bool bIsEnableUpdateGI = !a_oSettings.ao || !a_oSettings.bakedGI || a_oSettings.realtimeGI != bIsRealtimeGI || a_oSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting;
-			bool bIsEnableUpdateLightmap = a_oSettings.filteringMode != LightingSettings.FilterMode.Auto || a_oSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || a_oSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE || a_oSettings.lightmapMaxSize != (int)eLightmapMaxSize || a_oSettings.lightmapCompression != eLightmapCompression;
+			bool bIsEnableUpdateLightmap = a_oSettings.directionalityMode != eLightmapMode || a_oSettings.filteringMode != LightingSettings.FilterMode.Auto || a_oSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || a_oSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE || a_oSettings.lightmapMaxSize != (int)eLightmapMaxSize || a_oSettings.lightmapCompression != eLightmapCompression || a_oSettings.lightmapPadding != KCDefine.B_VAL_2_INT || !a_oSettings.indirectResolution.Equals(fIndirectResolution) || !a_oSettings.lightmapResolution.Equals(fLightmapResolution);
 
 			// 설정 갱신이 필요 할 경우
 			if(bIsEnableUpdateGI || bIsEnableUpdateLightmap) {
@@ -200,12 +216,16 @@ public static partial class CCommonEditorSceneManager {
 				a_oSettings.realtimeGI = bIsRealtimeGI;
 				a_oSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
 
-				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
-				a_oSettings.lightmapMaxSize = (int)eLightmapMaxSize;
-				a_oSettings.lightmapCompression = eLightmapCompression;
-
 				a_oSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
 				a_oSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
+				a_oSettings.lightmapPadding = KCDefine.B_VAL_2_INT;
+				a_oSettings.indirectResolution = fIndirectResolution;
+				a_oSettings.lightmapResolution = fLightmapResolution;
+
+				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
+				a_oSettings.lightmapMaxSize = (int)eLightmapMaxSize;
+				a_oSettings.directionalityMode = eLightmapMode;
+				a_oSettings.lightmapCompression = eLightmapCompression;
 			}
 		}
 	}

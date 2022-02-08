@@ -165,11 +165,6 @@ public static partial class KEditorDefine {
 		["com.unity.visualeffectgraph"] = "12.1.4",
 		["com.unity.render-pipelines.universal"] = "12.1.4",
 
-		// 애니메이션
-		["com.unity.2d.animation"] = "7.0.3",
-		["com.unity.2d.psdimporter"] = "6.0.2",
-		["com.unity.animation.rigging"] = "1.1.1",
-
 		// 분석
 		["com.unity.mobile.android-logcat"] = "1.2.3",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
@@ -201,6 +196,12 @@ public static partial class KEditorDefine {
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
     	["com.unity.postprocessing"] = "3.2.0",
 #endif			// #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
+
+#if ANIMATION_2D_ENABLE || ANIMATION_2D_MODULE_ENABLE
+		["com.unity.2d.animation"] = "7.0.3",
+		["com.unity.2d.psdimporter"] = "6.0.2",
+		["com.unity.animation.rigging"] = "1.1.1",
+#endif			// #if ANIMATION_2D_ENABLE || ANIMATION_2D_MODULE_ENABLE
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
 		["module.unitycommonads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/02000001.module_unitycommonads_client.git#2.0.3",
