@@ -44,7 +44,7 @@ public static partial class CEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			CEditorSceneManager.m_fUpdateSkipTime += Time.deltaTime;
+			CEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
 			// 상태 갱신이 가능 할 경우

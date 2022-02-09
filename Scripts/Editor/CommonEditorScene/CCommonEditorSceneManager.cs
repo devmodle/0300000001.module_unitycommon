@@ -80,8 +80,8 @@ public static partial class CCommonEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			CCommonEditorSceneManager.m_fUpdateSkipTime += Time.deltaTime;
-			CCommonEditorSceneManager.m_fHierarchySkipTime += Time.deltaTime;
+			CCommonEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
+			CCommonEditorSceneManager.m_fHierarchySkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
 
 			// 설정 가능 할 경우
 			if(CCommonEditorSceneManager.m_bIsEnableSetup) {

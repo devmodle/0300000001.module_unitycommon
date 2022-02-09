@@ -85,22 +85,14 @@ public abstract class CSplashSceneManager : CSceneManager {
 			[RuntimePlatform.Switch] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
 		};
 
-		int nQualityLevel = oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item1 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL);
-		int nTargetFrameRate = oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
-		
 #if MULTI_TOUCH_ENABLE
 		Input.multiTouchEnabled = true;
 #else
 		Input.multiTouchEnabled = false;
 #endif			// #if MULTI_TOUCH_ENABLE
 
-#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-		CFunc.SetupQuality(CAccess.QualityLevel, true, true);
-#else
-		CFunc.SetupQuality(CAccess.QualityLevel, false, true);
-#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-
-		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate);
+		CSceneManager.SetupQuality(oTargetFrameInfoDict.ContainsKey(Application.platform) ? (EQualityLevel)oTargetFrameInfoDict[Application.platform].Item1 : (EQualityLevel)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
+		Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE));
 		// 디바이스 정보를 설정한다 }
 	}
 	#endregion			// 함수

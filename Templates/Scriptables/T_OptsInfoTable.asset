@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: T_OptsInfoTable
   m_EditorClassIdentifier: 
   m_stSndOptsInfo:
-    m_nSampleRate: 0
     m_nNumRealVoices: 32
     m_nNumVirtualVoices: 512
   m_stBuildOptsInfo:
@@ -21,10 +20,50 @@ MonoBehaviour:
     m_bIsPreserveFrameBufferAlpha: 0
     m_stiOSBuildOptsInfo:
       m_oCameraDescription: 
+      m_oMotionDescription: 
       m_oLocationDescription: 
       m_oMicrophoneDescription: 
     m_stAndroidBuildOptsInfo:
       m_bIsUseAPKExpansionFiles: 0
   m_stQualityOptsInfo:
     m_bIsUseSRPBatching: 0
-    m_bIsLogWhenShaderIsCompiled: 0
+    m_eEditorQualityLevel: 2
+    m_stNormQualityRenderingOptsInfo:
+      m_stLightOptsInfo:
+        m_eLightmapMaxSize: 1024
+        m_eIndirectResolution: 2
+        m_eLightmapResolution: 2
+        m_eLightmapMode: 0
+        m_eShadowmaskMode: 0
+        m_eShadowResolution: 1
+        m_eLightmapCompression: 2
+      m_stUniversalRPOptsInfo:
+        m_eLightCookieResolution: 256
+        m_eMainLightShadowResolution: 1024
+        m_eAdditionalShadowResolution: 512
+    m_stHighQualityRenderingOptsInfo:
+      m_stLightOptsInfo:
+        m_eLightmapMaxSize: 2048
+        m_eIndirectResolution: 4
+        m_eLightmapResolution: 4
+        m_eLightmapMode: 1
+        m_eShadowmaskMode: 1
+        m_eShadowResolution: 2
+        m_eLightmapCompression: 3
+      m_stUniversalRPOptsInfo:
+        m_eLightCookieResolution: 512
+        m_eMainLightShadowResolution: 2048
+        m_eAdditionalShadowResolution: 1024
+    m_stUltraQualityRenderingOptsInfo:
+      m_stLightOptsInfo:
+        m_eLightmapMaxSize: 2048
+        m_eIndirectResolution: 8
+        m_eLightmapResolution: 8
+        m_eLightmapMode: 1
+        m_eShadowmaskMode: 1
+        m_eShadowResolution: 3
+        m_eLightmapCompression: 3
+      m_stUniversalRPOptsInfo:
+        m_eLightCookieResolution: 512
+        m_eMainLightShadowResolution: 2048
+        m_eAdditionalShadowResolution: 1024

@@ -9,28 +9,61 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 294df8905e3ad46d99e2ae96a240e54d, type: 3}
+  m_Script: {fileID: 11500000, guid: c791f5d751bda4c3f9681965b4e93341, type: 3}
   m_Name: T_BuildInfoTable
   m_EditorClassIdentifier: 
-  m_stJenkinsInfo:
-    m_oUserID: 9tap
-    m_oBranch: main
-    m_oSrc: 02000111.Sample_Unity
-    m_oWorkspace: /Volumes/LaCie/Workspace/Jenkins/workspace
-    m_oBuildToken: JenkinsBuild
-    m_oAccessToken: 111e9bf7eda996ab2ad9620e0dd0e15220
-    m_oBuildURLFmt: http://59.11.2.140:18081/{0}/buildWithParameters
-  m_stiOSBuildInfo:
-    m_oTeamID: A9997B8HR5
-    m_oTargetOSVer: 11.0
-    m_oDevProfileID: 
-    m_oStoreProfileID: 
-  m_stAndroidBuildInfo:
-    m_oKeystorePath: Keystore.keystore
-    m_oKeyaliasName: Keystore
-    m_oKeystorePassword: NT9studio!
-    m_oKeyaliasPassword: NT9studio!
-    m_eMinSDKVer: 22
-    m_eTargetSDKVer: 30
-  m_stStandaloneBuildInfo:
-    m_oCategory: public.app-category.games
+  m_stSndOptsInfo:
+    m_nNumRealVoices: 32
+    m_nNumVirtualVoices: 512
+  m_stBuildOptsInfo:
+    m_bIsPreBakeCollisionMesh: 0
+    m_bIsPreserveFrameBufferAlpha: 0
+    m_stiOSBuildOptsInfo:
+      m_oCameraDescription: 
+      m_oMotionDescription: 
+      m_oLocationDescription: 
+      m_oMicrophoneDescription: 
+    m_stAndroidBuildOptsInfo:
+      m_bIsUseAPKExpansionFiles: 0
+  m_stQualityOptsInfo:
+    m_bIsUseSRPBatching: 0
+    m_eEditorQualityLevel: 2
+    m_stNormQualityRenderingOptsInfo:
+      m_stLightOptsInfo:
+        m_eLightmapMaxSize: 1024
+        m_eIndirectResolution: 2
+        m_eLightmapResolution: 2
+        m_eLightmapMode: 0
+        m_eShadowmaskMode: 0
+        m_eShadowResolution: 1
+        m_eLightmapCompression: 2
+      m_stUniversalRPOptsInfo:
+        m_eLightCookieResolution: 256
+        m_eMainLightShadowResolution: 1024
+        m_eAdditionalShadowResolution: 512
+    m_stHighQualityRenderingOptsInfo:
+      m_stLightOptsInfo:
+        m_eLightmapMaxSize: 2048
+        m_eIndirectResolution: 4
+        m_eLightmapResolution: 4
+        m_eLightmapMode: 1
+        m_eShadowmaskMode: 1
+        m_eShadowResolution: 2
+        m_eLightmapCompression: 3
+      m_stUniversalRPOptsInfo:
+        m_eLightCookieResolution: 512
+        m_eMainLightShadowResolution: 2048
+        m_eAdditionalShadowResolution: 1024
+    m_stUltraQualityRenderingOptsInfo:
+      m_stLightOptsInfo:
+        m_eLightmapMaxSize: 2048
+        m_eIndirectResolution: 8
+        m_eLightmapResolution: 8
+        m_eLightmapMode: 1
+        m_eShadowmaskMode: 1
+        m_eShadowResolution: 3
+        m_eLightmapCompression: 3
+      m_stUniversalRPOptsInfo:
+        m_eLightCookieResolution: 512
+        m_eMainLightShadowResolution: 2048
+        m_eAdditionalShadowResolution: 1024

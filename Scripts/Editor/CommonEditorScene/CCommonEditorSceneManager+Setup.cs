@@ -88,9 +88,7 @@ public static partial class CCommonEditorSceneManager {
 		};
 
 		var oLightingSettingsPathDict = new Dictionary<EQualityLevel, string>() {
-			[EQualityLevel.NORM] = KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS,
-			[EQualityLevel.HIGH] = KCDefine.U_ASSET_P_G_HIGH_QUALITY_LIGHTING_SETTINGS,
-			[EQualityLevel.ULTRA] = KCDefine.U_ASSET_P_G_ULTRA_QUALITY_LIGHTING_SETTINGS
+			[EQualityLevel.NORM] = KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS, [EQualityLevel.HIGH] = KCDefine.U_ASSET_P_G_HIGH_QUALITY_LIGHTING_SETTINGS, [EQualityLevel.ULTRA] = KCDefine.U_ASSET_P_G_ULTRA_QUALITY_LIGHTING_SETTINGS
 		};
 
 		var stScene = EditorSceneManager.GetActiveScene();
@@ -100,17 +98,17 @@ public static partial class CCommonEditorSceneManager {
 		}
 
 		// 광원 설정이 가능 할 경우
-		if(stScene.IsValid() && !oSampleSceneNameList.Contains(stScene.name)) {
+		if(stScene.IsValid() && !oSampleSceneNameList.Contains(stScene.name) && CPlatformOptsSetter.OptsInfoTable != null) {
 			bool bIsValidA = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			bool bIsValidB = oLightingSettings != null && oLightingSettings.name.Equals(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);
-			bool bIsValidC = oLightingSettings != null && !oLightingSettings.name.Equals(Path.GetFileNameWithoutExtension(oLightingSettingsPathDict[CAccess.QualityLevel]));
+			bool bIsValidC = oLightingSettings != null && !oLightingSettings.name.Equals(Path.GetFileNameWithoutExtension(oLightingSettingsPathDict[CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eEditorQualityLevel]));
 
 			var oResult = oLightingSettingsPathDict.ExFindVal((a_oLightingSettingsPath) => oLightingSettings != null && Path.GetFileNameWithoutExtension(a_oLightingSettingsPath).Equals(oLightingSettings.name));
 
 			// 광원 설정이 없을 경우
-			if((!bIsValidA || bIsValidB || (bIsValidC && oResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict[CAccess.QualityLevel], true)) {
+			if((!bIsValidA || bIsValidB || (bIsValidC && oResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict[CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eEditorQualityLevel], true)) {
 				EditorSceneManager.MarkSceneDirty(stScene);
-				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict[CAccess.QualityLevel]));
+				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict[CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eEditorQualityLevel]));
 			}
 		}
 	}
@@ -159,40 +157,8 @@ public static partial class CCommonEditorSceneManager {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSettings != null);
 
 		// 광원 설정이 존재 할 경우
-		if(a_oSettings != null) {
-			var eLightmapMode = LightmapsMode.NonDirectional;
-			var eLightmapMaxSize = EPowOfTwo.NONE;
-			var eLightmapCompression = LightmapCompression.None;
-
-			float fIndirectResolution = KCDefine.B_VAL_2_FLT;
-			float fLightmapResolution = KCDefine.B_VAL_2_FLT;
-
-			switch(a_eQualityLevel) {
-				case EQualityLevel.HIGH: {
-					eLightmapMode = LightmapsMode.CombinedDirectional;
-					eLightmapMaxSize = EPowOfTwo._2048;
-					eLightmapCompression = LightmapCompression.HighQuality;
-
-					fIndirectResolution = (float)EPowOfTwo._2;
-					fLightmapResolution = (float)EPowOfTwo._4;
-				} break;
-				case EQualityLevel.ULTRA: {
-					eLightmapMode = LightmapsMode.CombinedDirectional;
-					eLightmapMaxSize = EPowOfTwo._2048;
-					eLightmapCompression = LightmapCompression.HighQuality;
-
-					fIndirectResolution = (float)EPowOfTwo._4;
-					fLightmapResolution = (float)EPowOfTwo._8;
-				} break;
-				default: {
-					eLightmapMode = LightmapsMode.NonDirectional;
-					eLightmapMaxSize = EPowOfTwo._1024;
-					eLightmapCompression = LightmapCompression.NormalQuality;
-
-					fIndirectResolution = KCDefine.B_VAL_1_FLT;
-					fLightmapResolution = (float)EPowOfTwo._2;
-				} break;
-			}
+		if(a_oSettings != null && CPlatformOptsSetter.OptsInfoTable != null) {
+			var stRenderingOptsInfo = CPlatformOptsSetter.OptsInfoTable.GetRenderingOptsInfo(a_eQualityLevel);
 
 #if REALTIME_GI_ENABLE
 			bool bIsRealtimeGI = true;
@@ -207,25 +173,30 @@ public static partial class CCommonEditorSceneManager {
 #endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
 
 			bool bIsEnableUpdateGI = !a_oSettings.ao || !a_oSettings.bakedGI || a_oSettings.realtimeGI != bIsRealtimeGI || a_oSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting;
-			bool bIsEnableUpdateLightmap = a_oSettings.directionalityMode != eLightmapMode || a_oSettings.filteringMode != LightingSettings.FilterMode.Auto || a_oSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || a_oSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE || a_oSettings.lightmapMaxSize != (int)eLightmapMaxSize || a_oSettings.lightmapCompression != eLightmapCompression || a_oSettings.lightmapPadding != KCDefine.B_VAL_2_INT || !a_oSettings.indirectResolution.Equals(fIndirectResolution) || !a_oSettings.lightmapResolution.Equals(fLightmapResolution);
+
+			bool bIsEnableUpdateLightmapA = a_oSettings.directionalityMode != (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode || a_oSettings.filteringMode != LightingSettings.FilterMode.Auto || a_oSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || a_oSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
+			bool bIsEnableUpdateLightmapB = a_oSettings.lightmapMaxSize != (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize || a_oSettings.lightmapCompression != stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression || a_oSettings.lightmapPadding != KCDefine.B_VAL_2_INT || !a_oSettings.indirectResolution.Equals((float)stRenderingOptsInfo.m_stLightOptsInfo.m_eIndirectResolution);
+			bool bIsEnableUpdateLightmapC = !a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_FLT) || !a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_FLT) || !a_oSettings.lightmapResolution.Equals(stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapResolution);
 
 			// 설정 갱신이 필요 할 경우
-			if(bIsEnableUpdateGI || bIsEnableUpdateLightmap) {
+			if(bIsEnableUpdateGI || bIsEnableUpdateLightmapA || bIsEnableUpdateLightmapB || bIsEnableUpdateLightmapC) {
 				a_oSettings.ao = true;
 				a_oSettings.bakedGI = true;
 				a_oSettings.realtimeGI = bIsRealtimeGI;
 				a_oSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
 
+				a_oSettings.albedoBoost = KCDefine.B_VAL_1_INT;
 				a_oSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
 				a_oSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
+				a_oSettings.indirectScale = KCDefine.B_VAL_1_INT;
 				a_oSettings.lightmapPadding = KCDefine.B_VAL_2_INT;
-				a_oSettings.indirectResolution = fIndirectResolution;
-				a_oSettings.lightmapResolution = fLightmapResolution;
+				a_oSettings.indirectResolution = (float)stRenderingOptsInfo.m_stLightOptsInfo.m_eIndirectResolution;
+				a_oSettings.lightmapResolution = (float)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapResolution;
 
 				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
-				a_oSettings.lightmapMaxSize = (int)eLightmapMaxSize;
-				a_oSettings.directionalityMode = eLightmapMode;
-				a_oSettings.lightmapCompression = eLightmapCompression;
+				a_oSettings.lightmapMaxSize = (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize;
+				a_oSettings.directionalityMode = (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode;
+				a_oSettings.lightmapCompression = stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression;
 			}
 		}
 	}
