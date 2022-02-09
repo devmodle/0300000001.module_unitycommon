@@ -79,6 +79,9 @@ public static partial class CCommonEditorSceneManager {
 
 		EditorApplication.hierarchyWindowItemOnGUI -= CCommonEditorSceneManager.UpdateHierarchyUIState;
 		EditorApplication.hierarchyWindowItemOnGUI += CCommonEditorSceneManager.UpdateHierarchyUIState;
+
+		EditorApplication.playModeStateChanged -= CCommonEditorSceneManager.OnUpdatePlayModeState;
+		EditorApplication.playModeStateChanged += CCommonEditorSceneManager.OnUpdatePlayModeState;
 	}
 
 	/** 광원 옵션을 설정한다 */

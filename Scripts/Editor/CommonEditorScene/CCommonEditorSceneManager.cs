@@ -206,6 +206,11 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
+
+	/** 플레이 모드 상태가 갱신 되었을 경우 */
+	private static void OnUpdatePlayModeState(PlayModeStateChange a_ePlayMode) {
+		Time.timeScale = KCDefine.B_VAL_1_FLT;
+	}
 	#endregion			// 클래스 함수
 }
 #endif			// #if UNITY_EDITOR
