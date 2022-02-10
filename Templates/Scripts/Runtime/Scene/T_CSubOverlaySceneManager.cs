@@ -8,6 +8,21 @@ using TMPro;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 중첩 씬 관리자 */
 public partial class CSubOverlaySceneManager : COverlaySceneManager {
+#if DEBUG || DEVELOPMENT_BUILD
+	/** 테스트 UI */
+	[System.Serializable]
+	private struct STTestUIs {
+		// Do Something
+	}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+
+	#region 변수
+	/** =====> UI <===== */
+#if DEBUG || DEVELOPMENT_BUILD
+	[SerializeField] private STTestUIs m_stTestUIs;
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+	#endregion			// 변수
+
 	#region 추가 변수
 
 	#endregion			// 추가 변수

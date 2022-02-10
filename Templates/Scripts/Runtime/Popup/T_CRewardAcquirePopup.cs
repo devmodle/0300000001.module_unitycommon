@@ -20,8 +20,8 @@ public class CRewardAcquirePopup : CSubPopup {
 	private STParams m_stParams;
 
 	/** =====> UI <===== */
-	private Button m_oAdsBtn = null;
 	private Button m_oAcquireBtn = null;
+	private Button m_oRewardAdsBtn = null;
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oRewardUIs = null;
@@ -45,11 +45,11 @@ public class CRewardAcquirePopup : CSubPopup {
 		this.IsIgnoreNavStackEvent = true;
 
 		// 버튼을 설정한다 {
-		m_oAdsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ADS_BTN);
-		m_oAdsBtn?.onClick.AddListener(this.OnTouchAdsBtn);
-
 		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ACQUIRE_BTN);
 		m_oAcquireBtn?.onClick.AddListener(this.OnTouchAcquireBtn);
+
+		m_oRewardAdsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN);
+		m_oRewardAdsBtn?.onClick.AddListener(this.OnTouchRewardAdsBtn);
 		// 버튼을 설정한다 }
 	}
 	
@@ -85,25 +85,25 @@ public class CRewardAcquirePopup : CSubPopup {
 		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stItemInfo.m_nNumItems), EFontSet.A, false);
 	}
 
-	/** 광고 버튼을 눌렀을 경우 */
-	private void OnTouchAdsBtn() {
-#if ADS_MODULE_ENABLE
-		Func.ShowRewardAds(this.OnCloseRewardAds);
-#endif			// #if ADS_MODULE_ENABLE
-	}
-
 	/** 획득 버튼을 눌렀을 경우 */
 	private void OnTouchAcquireBtn() {
 		this.AcquireItems(false);
 	}
 
+	/** 보상 광고 버튼을 눌렀을 경우 */
+	private void OnTouchRewardAdsBtn() {
+#if ADS_MODULE_ENABLE
+		Func.ShowRewardAds(this.OnCloseRewardAds);
+#endif			// #if ADS_MODULE_ENABLE
+	}
+
 	/** 아이템을 획득한다 */
 	private void AcquireItems(bool a_bIsWatchRewardAds) {
-		m_oAdsBtn?.ExSetInteractable(false);
 		m_oAcquireBtn?.ExSetInteractable(false);
+		m_oRewardAdsBtn?.ExSetInteractable(false);
 
 #if ADS_MODULE_ENABLE
-		m_oAdsBtn?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
+		m_oRewardAdsBtn?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
 #endif			// #if ADS_MODULE_ENABLE
 
 		for(int i = 0; i < m_stParams.m_oItemInfoList.Count; ++i) {

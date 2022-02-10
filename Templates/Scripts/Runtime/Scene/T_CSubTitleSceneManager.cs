@@ -7,8 +7,21 @@ using UnityEngine.UI;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 타이틀 씬 관리자 */
 public partial class CSubTitleSceneManager : CTitleSceneManager {
+#if DEBUG || DEVELOPMENT_BUILD
+	/** 테스트 UI */
+	[System.Serializable]
+	private struct STTestUIs {
+		// Do Something
+	}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+
 	#region 변수
 	private bool m_bIsLoadLevelEditorScene = false;
+
+	/** =====> UI <===== */
+#if DEBUG || DEVELOPMENT_BUILD
+	[SerializeField] private STTestUIs m_stTestUIs;
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -159,7 +172,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 	#endregion			// 조건부 함수
 
 	#region 추가 함수
+#if DEBUG || DEVELOPMENT_BUILD
 
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE

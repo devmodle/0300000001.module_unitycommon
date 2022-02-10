@@ -18,18 +18,41 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		[HideInInspector] MAX_VAL
 	}
 
+	/** 보상 광고 UI */
+	private enum ERewardAdsUIs {
+		NONE = -1,
+		[HideInInspector] MAX_VAL
+	}
+
+#if DEBUG || DEVELOPMENT_BUILD
+	/** 테스트 UI */
+	[System.Serializable]
+	private struct STTestUIs {
+		// Do Something
+	}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+
 	#region 변수
 	private bool m_bIsLeave = false;
-	private int m_nContinueTimes = 0;
 
+	private int m_nContinueTimes = 0;
+	private ERewardAdsUIs m_eSelRewardAdsUIs = ERewardAdsUIs.NONE;
 	private CTouchDispatcher m_oBGTouchDispatcher = null;
 
 	[System.NonSerialized] private CLevelInfo m_oLevelInfo = null;
 	[System.NonSerialized] private CClearInfo m_oClearInfo = null;
-	
+
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	private SampleEngineName.CEngine m_oEngine = null;
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+
+	/** =====> UI <===== */
+#if DEBUG || DEVELOPMENT_BUILD
+	[SerializeField] private STTestUIs m_stTestUIs;
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+
+	/** =====> 객체 <===== */
+	[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -142,6 +165,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		this.SetupEngine();
+		this.SetupRewardAdsUIs();
 
 		m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo;
 		m_oClearInfo = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null;
@@ -194,11 +218,30 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 
+	/** 보상 광고 UI 를 설정한다 */
+	private void SetupRewardAdsUIs() {
+		for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
+			var eRewardAdsUIs = (ERewardAdsUIs)i;
+			
+			var oRewardAdsBtn = m_oRewardAdsUIsList[i]?.GetComponentInChildren<Button>();
+			oRewardAdsBtn?.ExAddListener(() => this.OnTouchRewardAdsBtn(eRewardAdsUIs), true, false);
+		}
+	}
+
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
+		this.UpdateRewardAdsUIsState();
+
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+	}
+
+	/** 보상 광고 UI 상태를 갱신한다 */
+	private void UpdateRewardAdsUIsState() {
+		for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
+			m_oRewardAdsUIsList[i]?.SetActive(m_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT >= KDefine.GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH);
+		}
 	}
 
 	/** 그만두기 팝업 결과를 수신했을 경우 */
@@ -213,7 +256,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void OnReceivePopupResult(CPopup a_oSender, EPopupResult a_eResult) {
 		// 팝업이 존재 할 경우
 		if(a_oSender != null) {
-			a_oSender.IsIgnoreAni = true;
+			a_oSender.IsIgnoreAni = a_eResult != EPopupResult.CONTINUE;
 			a_oSender.Close();
 		}
 
@@ -228,6 +271,15 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	/** 정지 버튼을 눌렀을 경우 */
 	private void OnTouchPauseBtn() {
 		// Do Something
+	}
+
+	/** 광고 버튼을 눌렀을 경우 */
+	private void OnTouchRewardAdsBtn(ERewardAdsUIs a_eRewardAdsUIs) {
+		m_eSelRewardAdsUIs = a_eRewardAdsUIs;
+
+#if ADS_MODULE_ENABLE
+		Func.ShowRewardAds(this.OnCloseRewardAds);
+#endif			// #if ADS_MODULE_ENABLE
 	}
 
 	/** 터치를 시작했을 경우 */
@@ -389,6 +441,16 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		// Do Something
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+
+#if ADS_MODULE_ENABLE
+	/** 보상 광고가 닫혔을 경우 */
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			// Do Something
+		}
+	}
+#endif			// #if ADS_MODULE_ENABLE
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	/** 레벨을 클리어했을 경우 */

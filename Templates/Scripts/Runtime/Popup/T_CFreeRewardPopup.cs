@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class CFreeRewardPopup : CSubPopup {
 	#region 변수
 	/** =====> UI <===== */
-	private Button m_oAdsBtn = null;
+	private Button m_oRewardAdsBtn = null;
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -26,8 +26,8 @@ public class CFreeRewardPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다
-		m_oAdsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ADS_BTN);
-		m_oAdsBtn?.onClick.AddListener(this.OnTouchAdsBtn);
+		m_oRewardAdsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN);
+		m_oRewardAdsBtn?.onClick.AddListener(this.OnTouchRewardAdsBtn);
 	}
 	
 	/** 초기화 */
@@ -46,8 +46,8 @@ public class CFreeRewardPopup : CSubPopup {
 		base.UpdateUIsState();
 	}
 
-	/** 광고 버튼을 눌렀을 경우 */
-	private void OnTouchAdsBtn() {
+	/** 보상 광고 버튼을 눌렀을 경우 */
+	private void OnTouchRewardAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
 #else

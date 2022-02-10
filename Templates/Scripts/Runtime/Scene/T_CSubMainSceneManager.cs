@@ -17,12 +17,24 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		[HideInInspector] MAX_VAL
 	}
 
+#if DEBUG || DEVELOPMENT_BUILD
+	/** 테스트 UI */
+	[System.Serializable]
+	private struct STTestUIs {
+		// Do Something
+	}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+
 	#region 변수
 	private STIDInfo m_stSelIDInfo;
 
 	/** =====> UI <===== */
 	private Dictionary<EScrollerType, EnhancedScroller> m_oScrollerDict = new Dictionary<EScrollerType, EnhancedScroller>();
 	private Dictionary<EScrollerType, EnhancedScrollerCellView> m_oOriginScrollerCellViewDict = new Dictionary<EScrollerType, EnhancedScrollerCellView>();
+
+#if DEBUG || DEVELOPMENT_BUILD
+	[SerializeField] private STTestUIs m_stTestUIs;
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 변수
 
 	#region 추가 변수
