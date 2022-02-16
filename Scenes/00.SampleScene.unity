@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1978059277}
-  m_IndirectSpecularColor: {r: 0.18154633, g: 0.22718933, b: 0.3074078, a: 1}
+  m_IndirectSpecularColor: {r: 0.18149589, g: 0.22713254, b: 0.30734217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -612,7 +612,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1709003740}
-  m_PlaneDistance: 5
+  m_PlaneDistance: 500
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -782,8 +782,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 1000
-  field of view: 71.507774
+  far clip plane: 100000
+  field of view: 71.50778
   orthographic: 0
   orthographic size: 360
   m_Depth: -50
@@ -847,7 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: a78b280b0065649c59989c39d8af3992, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 22a3ef05858d343239098bc59f097968, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -1287,7 +1287,7 @@ Transform:
   m_GameObject: {fileID: 1376964104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.009601027, y: 0.009601027, z: 0.009601027}
+  m_LocalScale: {x: 0.96010274, y: 0.96010274, z: 0.96010274}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1538062839}
@@ -1395,7 +1395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446879178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1599,10 +1599,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 1000
+  far clip plane: 100000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.6
+  orthographic size: 360
   m_Depth: 50
   m_CullingMask:
     serializedVersion: 2
@@ -1938,7 +1938,7 @@ Light:
     serializedVersion: 2
     m_Bits: 23
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1

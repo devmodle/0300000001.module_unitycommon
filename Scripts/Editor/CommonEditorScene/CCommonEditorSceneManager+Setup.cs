@@ -163,38 +163,25 @@ public static partial class CCommonEditorSceneManager {
 		if(a_oSettings != null && CPlatformOptsSetter.OptsInfoTable != null) {
 			var stRenderingOptsInfo = CPlatformOptsSetter.OptsInfoTable.GetRenderingOptsInfo(a_eQualityLevel);
 
-#if REALTIME_GI_ENABLE
-			bool bIsRealtimeGI = true;
-#else
-			bool bIsRealtimeGI = false;
-#endif			// #if REALTIME_GI_ENABLE
-
-#if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
-			bool bIsRealtimeEnvironmentLighting = true;
-#else
-			bool bIsRealtimeEnvironmentLighting = false;
-#endif			// #if REALTIME_ENVIRONMENT_LIGHTING_ENABLE
-
-			bool bIsEnableUpdateGI = !a_oSettings.ao || !a_oSettings.bakedGI || a_oSettings.realtimeGI != bIsRealtimeGI || a_oSettings.realtimeEnvironmentLighting != bIsRealtimeEnvironmentLighting;
-
+			bool bIsEnableUpdateGI = !a_oSettings.ao || !a_oSettings.bakedGI || a_oSettings.realtimeGI != stRenderingOptsInfo.m_stLightOptsInfo.m_bIsEnableRealtimeGI || a_oSettings.realtimeEnvironmentLighting != stRenderingOptsInfo.m_stLightOptsInfo.m_bIsEnableRealtimeEnvironmentLighting;
 			bool bIsEnableUpdateLightmapA = a_oSettings.directionalityMode != (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode || a_oSettings.filteringMode != LightingSettings.FilterMode.Auto || a_oSettings.lightmapper != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER || a_oSettings.mixedBakeMode != KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
-			bool bIsEnableUpdateLightmapB = a_oSettings.lightmapMaxSize != (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize || a_oSettings.lightmapCompression != stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression || a_oSettings.lightmapPadding != KCDefine.B_VAL_2_INT || !a_oSettings.indirectResolution.Equals((float)stRenderingOptsInfo.m_stLightOptsInfo.m_eIndirectResolution);
-			bool bIsEnableUpdateLightmapC = !a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_FLT) || !a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_FLT) || !a_oSettings.lightmapResolution.Equals(stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapResolution);
+			bool bIsEnableUpdateLightmapB = a_oSettings.lightmapMaxSize != (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize || a_oSettings.lightmapCompression != stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression || a_oSettings.lightmapPadding != KCDefine.B_VAL_4_INT || !a_oSettings.indirectResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION);
+			bool bIsEnableUpdateLightmapC = !a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_FLT) || !a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_FLT) || !a_oSettings.lightmapResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION);
 
 			// 설정 갱신이 필요 할 경우
 			if(bIsEnableUpdateGI || bIsEnableUpdateLightmapA || bIsEnableUpdateLightmapB || bIsEnableUpdateLightmapC) {
 				a_oSettings.ao = true;
 				a_oSettings.bakedGI = true;
-				a_oSettings.realtimeGI = bIsRealtimeGI;
-				a_oSettings.realtimeEnvironmentLighting = bIsRealtimeEnvironmentLighting;
+				a_oSettings.realtimeGI = stRenderingOptsInfo.m_stLightOptsInfo.m_bIsEnableRealtimeGI;
+				a_oSettings.realtimeEnvironmentLighting = stRenderingOptsInfo.m_stLightOptsInfo.m_bIsEnableRealtimeEnvironmentLighting;
 
 				a_oSettings.albedoBoost = KCDefine.B_VAL_1_INT;
 				a_oSettings.lightmapper = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAPPER;
 				a_oSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
 				a_oSettings.indirectScale = KCDefine.B_VAL_1_INT;
-				a_oSettings.lightmapPadding = KCDefine.B_VAL_2_INT;
-				a_oSettings.indirectResolution = (float)stRenderingOptsInfo.m_stLightOptsInfo.m_eIndirectResolution;
-				a_oSettings.lightmapResolution = (float)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapResolution;
+				a_oSettings.lightmapPadding = KCDefine.B_VAL_4_INT;
+				a_oSettings.indirectResolution = KCDefine.B_UNIT_LIGHTMAP_RESOLUTION;
+				a_oSettings.lightmapResolution = KCDefine.B_UNIT_LIGHTMAP_RESOLUTION;
 
 				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
 				a_oSettings.lightmapMaxSize = (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize;
