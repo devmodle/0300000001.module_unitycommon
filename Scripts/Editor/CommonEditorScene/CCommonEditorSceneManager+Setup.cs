@@ -174,7 +174,7 @@ public static partial class CCommonEditorSceneManager {
 
 				a_oSettings.lightmapper == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLightmapper,
 				a_oSettings.filteringMode == LightingSettings.FilterMode.Auto,
-				a_oSettings.mixedBakeMode == KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE,
+				a_oSettings.mixedBakeMode == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode,
 				a_oSettings.directionalityMode == (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode,
 
 				a_oSettings.lightmapPadding == KCDefine.B_VAL_4_INT,
@@ -200,7 +200,7 @@ public static partial class CCommonEditorSceneManager {
 
 				a_oSettings.lightmapper = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLightmapper;
 				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
-				a_oSettings.mixedBakeMode = KCEditorDefine.B_EDITOR_OPTS_LIGHTMAP_BAKE_MODE;
+				a_oSettings.mixedBakeMode = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode;
 				a_oSettings.directionalityMode = (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode;
 
 				a_oSettings.lightmapPadding = KCDefine.B_VAL_4_INT;

@@ -28,6 +28,7 @@ MonoBehaviour:
   m_stQualityOptsInfo:
     m_bIsUseSRPBatching: 0
     m_eQualityLevel: 2
+    m_eMixedLightingMode: 2
     m_eLightmapper: 1
     m_stNormQualityRenderingOptsInfo:
       m_stLightOptsInfo:
