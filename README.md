@@ -8,6 +8,7 @@
 	- *Anti Cheat Free (2.1.1 - Mar 6, 2019)*
 	- *Asset Usage Detector (2.2.0 - Jan 5, 2022)*
 	- *Bezier Solution (2.3.0 - Nov 5, 2021)*
+	- *Bitmap Font Importer (2.4.1 - May 6, 2019)*
 	- *Enhanced Hierarchy (2.4.5 - May 5, 2020)*
 	- *Enhanced Scroller (2.32.1 - Jan 27, 2022)*
 	- *iTween (2.0.10 - Apr 17, 2019)*
@@ -28,6 +29,7 @@
 	- *Ultimate Status Bar (2.6.0 - Jun 3, 2020)*
 	- *Lean GUI (1.2.3 - Nov 20, 2021)*
 	- *Lean Touch (2.3.5 - Nov 20, 2021)*
+	- *Apple Auth (1.4.2 - Jul 18, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (2.3.85)*
 	- *Thai Font Adjuster (1.0.0)*
@@ -45,3 +47,4 @@
 	- *Facebook (11.0.0)*
 	- *Apps Flyer (6.3.5)*
 	- *Google Play Services (0.10.12)*
+	- *Google Sheets To Unity (1.0.0 - Mar 18, 2019)*

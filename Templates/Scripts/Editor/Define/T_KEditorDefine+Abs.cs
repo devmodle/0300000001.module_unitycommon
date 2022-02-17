@@ -174,11 +174,11 @@ public static partial class KEditorDefine {
 		["com.unity.recorder"] = "3.0.3",
 		["com.unity.sequences"] = "1.0.4",
 		["com.unity.polybrush"] = "1.1.2",
-		["com.unity.probuilder"] = "5.0.3",
+		["com.unity.probuilder"] = "5.0.4",
 		["com.unity.formats.fbx"] = "4.1.2",
 		["com.unity.mathematics"] = "1.2.5",
 		["com.unity.localization"] = "1.0.5",
-		["com.unity.addressables"] = "1.19.17",
+		["com.unity.addressables"] = "1.19.18",
 		["com.unity.ads.ios-support"] = "1.0.0",
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
