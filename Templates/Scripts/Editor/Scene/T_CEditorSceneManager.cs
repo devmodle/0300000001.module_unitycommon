@@ -134,7 +134,6 @@ public static partial class CEditorSceneManager {
 
 					oDefineSymbolInfoTable.EditorAndroidGoogleDefineSymbolList,
 					oDefineSymbolInfoTable.EditorAndroidAmazonDefineSymbolList,
-					oDefineSymbolInfoTable.EditorAndroidOneStoreDefineSymbolList,
 					
 					oDefineSymbolInfoTable.EditorStandaloneMacAppleDefineSymbolList,
 					oDefineSymbolInfoTable.EditorStandaloneMacSteamDefineSymbolList,
