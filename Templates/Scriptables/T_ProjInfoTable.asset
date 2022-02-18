@@ -15,7 +15,7 @@ MonoBehaviour:
   m_oCompany: 9tap
   m_oPrivacyURL: https://www.ninetap.com/privacy_policy.html
   m_oServicesURL: https://www.ninetap.com/terms_of_service.html
-  m_oProjName: 02000111.Sample_Unity
+  m_oProjName: 03000111.Sample_Unity
   m_oProductName: Sample_Unity
   m_oShortProductName: Sample_Unity
   m_stiOSAppleProjInfo:
@@ -33,20 +33,6 @@ MonoBehaviour:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stAndroidAmazonProjInfo:
-    m_oAppID: dante.distribution.sample
-    m_oStoreAppID: 
-    m_oSupportsMail: cs@ninetap.com
-    m_stBuildVerInfo:
-      m_nNum: 1
-      m_oVer: 0.0.1
-  m_stAndroidOneStoreProjInfo:
-    m_oAppID: dante.distribution.sample
-    m_oStoreAppID: 
-    m_oSupportsMail: cs@ninetap.com
-    m_stBuildVerInfo:
-      m_nNum: 1
-      m_oVer: 0.0.1
-  m_stStandaloneMacAppleProjInfo:
     m_oAppID: dante.distribution.sample
     m_oStoreAppID: 
     m_oSupportsMail: cs@ninetap.com
