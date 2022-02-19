@@ -194,10 +194,17 @@ public static partial class KDefine {
 		m_nOrder = 1, m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
 
-	// 경로
+	// 경로 {
+#if MSG_PACK_ENABLE
 	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
 	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
 	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
+#else
+	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.json";
+	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.json";
+	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.json";
+#endif			// #if MSG_PACK_ENABLE
+	// 경로 }
 
 	// 분석 {
 	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_LOG_ENABLE_LIST = new List<EAnalyticsType>() {
