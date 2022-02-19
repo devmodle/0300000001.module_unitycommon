@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Leguar.TotalJSON;
+using Newtonsoft.Json;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -553,8 +553,8 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		oJSONNode.Add(KCDefine.U_KEY_STAGE, oStageInfos);
 		oJSONNode.Add(KCDefine.U_KEY_CHAPTER, oChapterInfos);
 
-		var oJSONStr = oJSONNode.ToString();
-		CFunc.WriteStr(this.EpisodeInfoTablePath, JSON.ParseString(oJSONStr).CreatePrettyString());
+		var oEpisodeInfos = JsonConvert.DeserializeObject(oJSONNode.ToString());
+		CFunc.WriteStr(this.EpisodeInfoTablePath, oEpisodeInfos.ExToJSONStr(false, true));
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수

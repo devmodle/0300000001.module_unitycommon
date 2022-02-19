@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
+using Newtonsoft.Json;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -11,7 +12,7 @@ using MessagePack;
 [MessagePackObject][System.Serializable]
 public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
-	[IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 	
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	[Key(61)] public List<EBlockKinds> m_oBlockKindsList = new List<EBlockKinds>();
@@ -19,8 +20,8 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public override bool IsIgnoreVer => true;
-	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	#endregion			// 프로퍼티
 	
 	#region ICloneable
@@ -80,40 +81,40 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 
 	#region 변수
 	[Key(161)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
-	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 	
 	#region 프로퍼티
-	[IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
-	[IgnoreMember] public Dictionary<ETargetKinds, int> NumTargetsDict = new Dictionary<ETargetKinds, int>();
-	[IgnoreMember] public Dictionary<ETargetKinds, int> NumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
+	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
+	[JsonIgnore][IgnoreMember] public Dictionary<ETargetKinds, int> NumTargetsDict = new Dictionary<ETargetKinds, int>();
+	[JsonIgnore][IgnoreMember] public Dictionary<ETargetKinds, int> NumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
 
-	[IgnoreMember] public EDifficulty Difficulty {
+	[JsonIgnore][IgnoreMember] public EDifficulty Difficulty {
 		get { return (EDifficulty)m_oIntDict.GetValueOrDefault(CLevelInfo.KEY_DIFFICULTY, (int)EDifficulty.NONE); }
 		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_DIFFICULTY, (int)value); }
 	}
 	
-	[IgnoreMember] public ELevelKinds LevelKinds {
+	[JsonIgnore][IgnoreMember] public ELevelKinds LevelKinds {
 		get { return (ELevelKinds)m_oIntDict.GetValueOrDefault(CLevelInfo.KEY_LEVEL_KINDS, (int)ELevelKinds.NONE); }
 		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_LEVEL_KINDS, (int)value); }
 	}
 
-	[IgnoreMember] public ERewardKinds RewardKinds {
+	[JsonIgnore][IgnoreMember] public ERewardKinds RewardKinds {
 		get { return (ERewardKinds)m_oIntDict.GetValueOrDefault(CLevelInfo.KEY_REWARD_KINDS, (int)ERewardKinds.NONE); }
 		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_REWARD_KINDS, (int)value); }
 	}
 
-	[IgnoreMember] public ETutorialKinds TutorialKinds {
+	[JsonIgnore][IgnoreMember] public ETutorialKinds TutorialKinds {
 		get { return (ETutorialKinds)m_oIntDict.GetValueOrDefault(CLevelInfo.KEY_TUTORIAL_KINDS, (int)ETutorialKinds.NONE); }
 		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_TUTORIAL_KINDS, (int)value); }
 	}
 
-	[IgnoreMember] public System.Version CellVer {
+	[JsonIgnore][IgnoreMember] public System.Version CellVer {
 		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_CELL_VER, KCDefine.B_DEF_VER)); }
 		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_CELL_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
-	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
+	[JsonIgnore][IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
 
 	#region ICloneable

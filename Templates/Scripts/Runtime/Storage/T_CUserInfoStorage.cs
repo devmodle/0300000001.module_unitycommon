@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
+using Newtonsoft.Json;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -20,12 +21,12 @@ public class CUserInfo : CBaseInfo {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public long NumCoins {
+	[JsonIgnore][IgnoreMember] public long NumCoins {
 		get { return long.Parse(m_oStrDict.GetValueOrDefault(CUserInfo.KEY_NUM_COINS, $"{KCDefine.B_VAL_0_INT}")); }
 		set { m_oStrDict.ExReplaceVal(CUserInfo.KEY_NUM_COINS, $"{value}"); }
 	}
 
-	[IgnoreMember] public long NumSaleCoins {
+	[JsonIgnore][IgnoreMember] public long NumSaleCoins {
 		get { return long.Parse(m_oStrDict.GetValueOrDefault(CUserInfo.KEY_NUM_SALE_COINS, $"{KCDefine.B_VAL_0_INT}")); }
 		set { m_oStrDict.ExReplaceVal(CUserInfo.KEY_NUM_SALE_COINS, $"{value}"); }
 	}

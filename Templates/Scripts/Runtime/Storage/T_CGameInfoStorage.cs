@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
+using Newtonsoft.Json;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -17,32 +18,32 @@ public class CClearInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public int NumClearMarks {
+	[JsonIgnore][IgnoreMember] public int NumClearMarks {
 		get { return m_oIntDict.GetValueOrDefault(CClearInfo.KEY_NUM_CLEAR_MARKS, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CClearInfo.KEY_NUM_CLEAR_MARKS, value); }
 	}
 
-	[IgnoreMember] public string ClearRecord {
+	[JsonIgnore][IgnoreMember] public string ClearRecord {
 		get { return m_oStrDict.GetValueOrDefault(CClearInfo.KEY_CLEAR_RECORD, $"{KCDefine.B_VAL_0_INT}"); }
 		set { m_oStrDict.ExReplaceVal(CClearInfo.KEY_CLEAR_RECORD, value); }
 	}
 
-	[IgnoreMember] public string BestClearRecord {
+	[JsonIgnore][IgnoreMember] public string BestClearRecord {
 		get { return m_oStrDict.GetValueOrDefault(CClearInfo.KEY_BEST_CLEAR_RECORD, $"{KCDefine.B_VAL_0_INT}"); }
 		set { m_oStrDict.ExReplaceVal(CClearInfo.KEY_BEST_CLEAR_RECORD, value); }
 	}
 
-	[IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
+	[JsonIgnore][IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 
-	[IgnoreMember] public long IntRecord => long.TryParse(this.ClearRecord, out long nClearRecord) ? nClearRecord : KCDefine.B_VAL_0_INT;
-	[IgnoreMember] public long IntBestClearRecord => long.TryParse(this.BestClearRecord, out long nBestClearRecord) ? nBestClearRecord : KCDefine.B_VAL_0_INT;
+	[JsonIgnore][IgnoreMember] public long IntRecord => long.TryParse(this.ClearRecord, out long nClearRecord) ? nClearRecord : KCDefine.B_VAL_0_INT;
+	[JsonIgnore][IgnoreMember] public long IntBestClearRecord => long.TryParse(this.BestClearRecord, out long nBestClearRecord) ? nBestClearRecord : KCDefine.B_VAL_0_INT;
 
-	[IgnoreMember] public double RealClearRecord => double.TryParse(this.ClearRecord, out double dblClearRecord) ? dblClearRecord : KCDefine.B_VAL_0_DBL;
-	[IgnoreMember] public double RealBestClearRecord => double.TryParse(this.BestClearRecord, out double dblBestClearRecord) ? dblBestClearRecord : KCDefine.B_VAL_0_DBL;
+	[JsonIgnore][IgnoreMember] public double RealClearRecord => double.TryParse(this.ClearRecord, out double dblClearRecord) ? dblClearRecord : KCDefine.B_VAL_0_DBL;
+	[JsonIgnore][IgnoreMember] public double RealBestClearRecord => double.TryParse(this.BestClearRecord, out double dblBestClearRecord) ? dblBestClearRecord : KCDefine.B_VAL_0_DBL;
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -99,38 +100,38 @@ public class CGameInfo : CBaseInfo {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public int DailyRewardID {
+	[JsonIgnore][IgnoreMember] public int DailyRewardID {
 		get { return m_oIntDict.GetValueOrDefault(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_DAILY_REWARD_ID, value); }
 	}
 
-	[IgnoreMember] public int FreeRewardAcquireTimes {
+	[JsonIgnore][IgnoreMember] public int FreeRewardAcquireTimes {
 		get { return m_oIntDict.GetValueOrDefault(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, value); }
 	}
 
-	[IgnoreMember] public System.DateTime PrevDailyMissionTime {
+	[JsonIgnore][IgnoreMember] public System.DateTime PrevDailyMissionTime {
 		get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.CorrectPrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); }
 	}
 
-	[IgnoreMember] public System.DateTime PrevFreeRewardTime {
+	[JsonIgnore][IgnoreMember] public System.DateTime PrevFreeRewardTime {
 		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.CorrectPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
 	}
 
-	[IgnoreMember] public System.DateTime PrevDailyRewardTime {
+	[JsonIgnore][IgnoreMember] public System.DateTime PrevDailyRewardTime {
 		get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.CorrectPrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); }
 	}
 
-	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(CGameInfo.KEY_PREV_DAILY_MISSION_TIME, string.Empty);
-	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.GetValueOrDefault(CGameInfo.KEY_PREV_FREE_REWARD_TIME, string.Empty);
-	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.GetValueOrDefault(CGameInfo.KEY_PREV_DAILY_REWARD_TIME, string.Empty);
+	[JsonIgnore][IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(CGameInfo.KEY_PREV_DAILY_MISSION_TIME, string.Empty);
+	[JsonIgnore][IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.GetValueOrDefault(CGameInfo.KEY_PREV_FREE_REWARD_TIME, string.Empty);
+	[JsonIgnore][IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.GetValueOrDefault(CGameInfo.KEY_PREV_DAILY_REWARD_TIME, string.Empty);
 
-	[IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-	[IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-	[IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[JsonIgnore][IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[JsonIgnore][IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[JsonIgnore][IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver

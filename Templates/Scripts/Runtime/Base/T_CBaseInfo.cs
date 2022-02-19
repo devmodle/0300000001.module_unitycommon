@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
+using Newtonsoft.Json;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -27,24 +29,24 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[IgnoreMember] public System.Version Ver {
+	[JsonIgnore][IgnoreMember] public System.Version Ver {
 		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(CBaseInfo.KEY_VER, KCDefine.B_DEF_VER)); }
 		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
-	[IgnoreMember] public System.DateTime SaveTime {
+	[JsonIgnore][IgnoreMember] public System.DateTime SaveTime {
 		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
 		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_SAVE_TIME, value.ExToLongStr()); }
 	}
 
-	[IgnoreMember] public virtual bool IsIgnoreVer => false;
-	[IgnoreMember] public virtual bool IsIgnoreIntDict => false;
-	[IgnoreMember] public virtual bool IsIgnoreFltDict => false;
-	[IgnoreMember] public virtual bool IsIgnoreStrDict => false;
-	[IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
+	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreVer => false;
+	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreIntDict => false;
+	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreFltDict => false;
+	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreStrDict => false;
+	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
 
-	[IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(CBaseInfo.KEY_SAVE_TIME, string.Empty);
-	[IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[JsonIgnore][IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(CBaseInfo.KEY_SAVE_TIME, string.Empty);
+	[JsonIgnore][IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
 	
 	#region IMessagePackSerializationCallbackReceiver
@@ -75,6 +77,18 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	/** 생성자 */
 	public CBaseInfo(System.Version a_stVer) {
 		this.Ver = a_stVer;
+	}
+
+	/** 직렬화 될 경우 */
+	[OnSerializing]
+	private void OnSerializingMethod(StreamingContext a_oContext) {
+		this.OnBeforeSerialize();
+    }
+
+	/** 역직렬화 되었을 경우 */
+	[OnDeserialized]
+	private void OnDeserializedMethod(StreamingContext a_oContext) {
+		this.OnAfterDeserialize();
 	}
 	#endregion			// 함수
 }

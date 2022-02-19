@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
+using Newtonsoft.Json;
 
 #if NEVER_USE_THIS
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -19,12 +20,12 @@ public class CAppInfo : CBaseInfo {
 
 	#region 프로퍼티
 #if ADS_MODULE_ENABLE
-	[IgnoreMember] public int RewardAdsWatchTimes {
+	[JsonIgnore][IgnoreMember] public int RewardAdsWatchTimes {
 		get { return m_oIntDict.GetValueOrDefault(CAppInfo.KEY_REWARD_ADS_WATCH_TIMES, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CAppInfo.KEY_REWARD_ADS_WATCH_TIMES, value); }
 	}
 
-	[IgnoreMember] public int FullscreenAdsWatchTimes {
+	[JsonIgnore][IgnoreMember] public int FullscreenAdsWatchTimes {
 		get { return m_oIntDict.GetValueOrDefault(CAppInfo.KEY_FULLSCREEN_ADS_WATCH_TIMES, KCDefine.B_VAL_0_INT); }
 		set { m_oIntDict.ExReplaceVal(CAppInfo.KEY_FULLSCREEN_ADS_WATCH_TIMES, value); }
 	}
