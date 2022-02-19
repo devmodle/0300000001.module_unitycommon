@@ -21,6 +21,9 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreIntDict => true;
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreFltDict => true;
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreStrDict => true;
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	#endregion			// 프로퍼티
 	
@@ -311,13 +314,21 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보를 로드한다 */
 	private CLevelInfo LoadLevelInfo(string a_oFilePath, int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		CLevelInfo oLevelInfo = null;		
+		CLevelInfo oLevelInfo = null;
 
+#if MSG_PACK_ENABLE
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, null, false);
 #else
 		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, null, false);
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#else
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		oLevelInfo = CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, null, false);
+#else
+		oLevelInfo = CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, null, false);
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if MSG_PACK_ENABLE
 
 		oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID);
 		return oLevelInfo;
@@ -625,7 +636,12 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		stLevelInfo.m_stEpisodeInfo.m_oNumUnlockTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_stEpisodeInfo.m_oNumUnlockTargetsDict, (a_nNumUnlockTargets) => a_nNumUnlockTargets);
 
 		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.LevelID, stReplaceLevelInfo);
+
+#if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID), a_oLevelInfo, null, false, false);
+#else
+		CFunc.WriteJSONObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID), a_oLevelInfo, null, false, false, false, false);
+#endif			// #if MSG_PACK_ENABLE
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수

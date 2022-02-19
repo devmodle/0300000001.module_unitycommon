@@ -447,7 +447,12 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public CGameInfo LoadGameInfo(string a_oFilePath) {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
+#if MSG_PACK_ENABLE
 			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath);
+#else
+			this.GameInfo = CFunc.ReadJSONObj<CGameInfo>(a_oFilePath);
+#endif			// #if MSG_PACK_ENABLE
+
 			CAccess.Assert(this.GameInfo != null);
 
 			foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
@@ -465,7 +470,11 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 게임 정보를 저장한다 */
 	public void SaveGameInfo(string a_oFilePath) {
+#if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo);
+#else
+		CFunc.WriteJSONObj(a_oFilePath, this.GameInfo);
+#endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
 
