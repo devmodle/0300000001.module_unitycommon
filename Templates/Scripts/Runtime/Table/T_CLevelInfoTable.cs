@@ -21,9 +21,6 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreIntDict => true;
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreFltDict => true;
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreStrDict => true;
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	#endregion			// 프로퍼티
 	

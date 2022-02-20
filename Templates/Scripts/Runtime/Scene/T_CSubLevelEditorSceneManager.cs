@@ -7,6 +7,10 @@ using EnhancedUI.EnhancedScroller;
 using DanielLochner.Assets.SimpleScrollSnap;
 
 #if NEVER_USE_THIS
+#if INPUT_SYSTEM_MODULE_ENABLE
+using UnityEngine.InputSystem;
+#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 /** 서브 레벨 에디터 씬 관리자 */
 public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
@@ -215,6 +219,34 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			this.SetupStart();
 		}
 	}
+
+	/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+#if INPUT_SYSTEM_MODULE_ENABLE
+				// 이전 키를 눌렀을 경우
+				if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.leftArrowKey.wasPressedThisFrame) {
+					this.OnTouchMEUIsPrevBtn();
+				}
+				// 다음 키를 눌렀을 경우
+				else if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rightArrowKey.wasPressedThisFrame) {
+					this.OnTouchMEUIsNextBtn();
+				}
+#else
+				// 이전 키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.LeftArrow)) {
+					this.OnTouchMEUIsPrevBtn();
+				}
+				// 다음 키를 눌렀을 경우
+				else if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.RightArrow)) {
+					this.OnTouchMEUIsNextBtn();
+				}
+#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+			}
+		}
 
 	/** 제거 되었을 경우 */
 	public override void OnDestroy() {
