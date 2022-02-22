@@ -169,8 +169,8 @@ public static partial class CCommonEditorSceneManager {
 				a_oSettings.finalGather,
 				a_oSettings.finalGatherFiltering,
 
-				a_oSettings.realtimeGI == stRenderingOptsInfo.m_stLightOptsInfo.m_bIsEnableRealtimeGI,
-				a_oSettings.realtimeEnvironmentLighting == stRenderingOptsInfo.m_stLightOptsInfo.m_bIsEnableRealtimeEnvironmentLighting,
+				a_oSettings.realtimeGI == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeGI,
+				a_oSettings.realtimeEnvironmentLighting == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeEnvironmentLighting,
 
 				a_oSettings.lightmapper == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLightmapper,
 				a_oSettings.filteringMode == LightingSettings.FilterMode.Auto,
@@ -195,8 +195,8 @@ public static partial class CCommonEditorSceneManager {
 				a_oSettings.finalGather = true;
 				a_oSettings.finalGatherFiltering = true;
 
-				a_oSettings.realtimeGI = stRenderingOptsInfo.m_stLightOptsInfo.m_bIsEnableRealtimeGI;
-				a_oSettings.realtimeEnvironmentLighting = stRenderingOptsInfo.m_stLightOptsInfo.m_bIsEnableRealtimeEnvironmentLighting;
+				a_oSettings.realtimeGI = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeGI;
+				a_oSettings.realtimeEnvironmentLighting = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeEnvironmentLighting;
 
 				a_oSettings.lightmapper = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLightmapper;
 				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
