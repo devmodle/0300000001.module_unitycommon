@@ -126,20 +126,20 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_bIsSetupDependencies = false;
 				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
 
-				var oDefineSymbolLists = new List<List<string>>() {
-					oDefineSymbolInfoTable.EditorCommonDefineSymbolList,
-					oDefineSymbolInfoTable.EditorSubCommonDefineSymbolList,
-
-					oDefineSymbolInfoTable.EditoriOSAppleDefineSymbolList,
-
-					oDefineSymbolInfoTable.EditorAndroidGoogleDefineSymbolList,
-					oDefineSymbolInfoTable.EditorAndroidAmazonDefineSymbolList,
-					
-					oDefineSymbolInfoTable.EditorStandaloneMacSteamDefineSymbolList,
-					oDefineSymbolInfoTable.EditorStandaloneWndsSteamDefineSymbolList
-				};
-
 				foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
+					var oDefineSymbolLists = new List<List<string>>() {
+						oDefineSymbolInfoTable.EditorCommonDefineSymbolList,
+						oDefineSymbolInfoTable.EditorSubCommonDefineSymbolList,
+
+						oDefineSymbolInfoTable.EditoriOSAppleDefineSymbolList,
+
+						oDefineSymbolInfoTable.EditorAndroidGoogleDefineSymbolList,
+						oDefineSymbolInfoTable.EditorAndroidAmazonDefineSymbolList,
+						
+						oDefineSymbolInfoTable.EditorStandaloneMacSteamDefineSymbolList,
+						oDefineSymbolInfoTable.EditorStandaloneWndsSteamDefineSymbolList
+					};
+
 					for(int i = 0; i < oDefineSymbolLists.Count; ++i) {
 						// 전처리기 심볼 갱신이 필요 할 경우
 						if(oDefineSymbolLists[i].Contains(stKeyVal.Key)) {
