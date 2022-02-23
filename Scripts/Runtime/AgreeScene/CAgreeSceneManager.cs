@@ -44,8 +44,10 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 	/** 다음 씬을 로드한다 */
 	protected void LoadNextScene() {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonAppInfoStorage.Inst.AppInfo.IsAgree = true;
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
 	}
@@ -57,7 +59,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 
 #if ROBO_TEST_ENABLE
 		this.LoadNextScene();
-#else
+#elif NEWTON_SOFT_JSON_MODULE_ENABLE
 		bool bIsAgree = CCommonAppInfoStorage.Inst.AppInfo.IsAgree;
 			
 		// 약관 동의 상태 일 경우

@@ -38,7 +38,10 @@ public class CIntroSceneManager : CSceneManager {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 #endif			// #if STUDY_MODULE_ENABLE
 			} else {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				CCommonAppInfoStorage.Inst.IsFirstStart = false;
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
 				CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName);
 			}
 		}, KCDefine.U_DELAY_NEXT_SCENE_LOAD);

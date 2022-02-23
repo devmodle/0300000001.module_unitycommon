@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: T_DefineSymbolInfoTable
   m_EditorClassIdentifier: 
   m_oCommonDefineSymbolList:
-  - SETUP_DEFINE_SYMBOLS
   - DOTWEEN_ENABLE
   - MSG_PACK_ENABLE
+  - NEWTON_SOFT_JSON_ENABLE
   - VISUAL_FX_GRAPH_ENABLE
   - UNIVERSAL_RENDERING_PIPELINE_ENABLE
   - ADDRESSABLES_ENABLE

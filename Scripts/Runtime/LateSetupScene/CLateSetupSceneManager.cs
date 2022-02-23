@@ -105,9 +105,12 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CServicesManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-			CServicesManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
+			CServicesManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
+			
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 			CServicesManager.Inst.UpdateAppleLoginState(CLateSetupSceneManager.OnUpdateAppleLoginState);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -118,10 +121,12 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 	private void OnCloseConsentView(bool a_bIsSuccess) {
 		CFunc.ShowLog($"CLateSetupSceneManager.OnCloseConsentView: {a_bIsSuccess}");
 
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = a_bIsSuccess;
 		CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup = false;
 
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		// 관리자 자동 초기화 모드 일 경우
 		if(this.IsAutoInitManager) {
@@ -289,8 +294,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 	/** 다음 씬을 로드한다 */
 	private void LoadNextScene() {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonAppInfoStorage.Inst.SetupAdsID();
 		CCommonAppInfoStorage.Inst.SetupStoreVer();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		CSceneManager.IsLateSetup = true;
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_INTRO);

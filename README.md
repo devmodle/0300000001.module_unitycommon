@@ -20,7 +20,6 @@
 	- *Smart Timers Manager (1.0.0 - Jul 6, 2016)*
 	- *Sound Manater Pro (3.7.0 - Mar 29, 2015)*
 	- *Text to TextMesh Pro (1.0.1 - Aug 18, 2020)*
-	- *Total JSON (1.7.0 - Sep 15, 2021)*
 	- *UniRx (7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
 	- *Build Report Tool (3.9.1 - Dec 14, 2021)*
@@ -38,7 +37,6 @@
 	- *Soft Mask For GUI (1.0.0 - Feb 24, 2021)*
 	- *Unmask For GUI (1.3.0 - Jun 29, 2021)*
 5. **기타 추가 에셋 및 플러그인 리스트**
-	- *Google (1.5.0 - Review, Update)*
 	- *Firebase (8.4.0 - Auth, DB, Analytics, Crashlytics, Remote Config, Cloud Messaging)*
 	- *Admob (6.1.2)*
 	- *Iron Source (7.1.6.1)*
@@ -46,5 +44,6 @@
 	- *Flurry (4.0.0)*
 	- *Facebook (11.0.0)*
 	- *Apps Flyer (6.3.5)*
+	- *Google Update (1.5.0)*
 	- *Google Play Services (0.10.12)*
 	- *Google Sheets To Unity (1.0.0 - Mar 18, 2019)*

@@ -70,6 +70,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 
 	/** 디바이스 식별자 반환 메세지를 처리한다 */
 	private void HandleGetDeviceIDMsg(string a_oMsg) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonAppInfoStorage.Inst.DeviceType = CAccess.DeviceType;
 		string oDeviceID = CCommonAppInfoStorage.Inst.AppInfo.DeviceID;
 		
@@ -79,11 +80,14 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 		}
 		
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
 		CUnityMsgSender.Inst.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 	}
 
 	/** 국가 코드 반환 메세지를 처리한다 */
 	private void HandleGetCountryCodeMsg(string a_oMsg) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_EDITOR
 		CCommonAppInfoStorage.Inst.CountryCode = a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_KOREA_COUNTRY_CODE;
 #else
@@ -91,6 +95,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 #endif			// #if UNITY_EDITOR
 
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		CSceneManager.IsSetup = true;
 		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_AGREE);
@@ -100,7 +105,7 @@ public abstract partial class CSetupSceneManager : CSceneManager {
 	private IEnumerator OnStart() {
 		this.Setup();
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
-		
+
 		CUnityMsgSender.Inst.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
 	}
 	#endregion			// 함수

@@ -4,10 +4,11 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
-using Newtonsoft.Json;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
+using Newtonsoft.Json;
+
 /** 유저 정보 */
 [MessagePackObject][System.Serializable]
 public class CUserInfo : CBaseInfo {

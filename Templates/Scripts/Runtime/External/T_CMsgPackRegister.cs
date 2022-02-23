@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-#if SCRIPT_TEMPLATE_ONLY
-#if MSG_PACK_ENABLE
 using MessagePack;
 using MessagePack.Resolvers;
 
+#if SCRIPT_TEMPLATE_ONLY
+#if MSG_PACK_ENABLE
 #if UNITY_EDITOR
 using UnityEditor;
 #endif			// #if UNITY_EDITOR

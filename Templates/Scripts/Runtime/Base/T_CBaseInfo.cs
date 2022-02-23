@@ -4,10 +4,11 @@ using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
-using Newtonsoft.Json;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
+using Newtonsoft.Json;
+
 /** 기본 정보 */
 [Union(0, typeof(CAppInfo))]
 [Union(1, typeof(CUserInfo))]

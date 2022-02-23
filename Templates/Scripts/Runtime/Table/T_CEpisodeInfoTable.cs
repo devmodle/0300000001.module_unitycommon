@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Newtonsoft.Json;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
+using Newtonsoft.Json;
+
 /** 레벨 정보 */
 [System.Serializable]
 public struct STLevelInfo {

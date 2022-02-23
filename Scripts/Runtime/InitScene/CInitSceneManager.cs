@@ -41,19 +41,15 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CValTable.Inst.LoadValsFromRes(KCDefine.U_TABLE_P_G_COMMON_VAL);
 		CStrTable.Inst.LoadStrsFromRes(KCDefine.U_TABLE_P_G_COMMON_STR);
 
-		// 저장소를 로드한다
+		// 저장소를 로드한다 {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonAppInfoStorage.Inst.LoadAppInfo();
 		CCommonUserInfoStorage.Inst.LoadUserInfo();
 		CCommonGameInfoStorage.Inst.LoadGameInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+		// 저장소를 로드한다 }
 		
 		// 사운드 관리자를 설정한다 {
-		CSndManager.Inst.BGSndVolume = CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume;
-		CSndManager.Inst.FXSndsVolume = CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume;
-		
-		CSndManager.Inst.IsMuteBGSnd = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
-		CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
-		CSndManager.Inst.IsDisableVibrate = CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate;
-
 #if MODE_2D_ENABLE
 		CSndManager.Inst.IsIgnoreBGSndEffects = true;
 		CSndManager.Inst.IsIgnoreFXSndsEffects = true;
@@ -73,6 +69,15 @@ public abstract partial class CInitSceneManager : CSceneManager {
 		CSndManager.Inst.IsIgnoreBGSndListenerEffects = false;
 		CSndManager.Inst.IsIgnoreFXSndsListenerEffects = false;
 #endif			// #if MODE_2D_ENABLE
+
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
+		CSndManager.Inst.BGSndVolume = CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume;
+		CSndManager.Inst.FXSndsVolume = CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume;
+		
+		CSndManager.Inst.IsMuteBGSnd = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
+		CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
+		CSndManager.Inst.IsDisableVibrate = CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate;
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		// 사운드 관리자를 설정한다 }
 
 #if UNITY_STANDALONE
@@ -160,10 +165,13 @@ public abstract partial class CInitSceneManager : CSceneManager {
 #endif			// #if PURCHASE_MODULE_ENABLE
 		// 테이블을 생성한다 }
 
-		// 저장소를 생성한다
+		// 저장소를 생성한다 {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonAppInfoStorage.Create();
 		CCommonUserInfoStorage.Create();
 		CCommonGameInfoStorage.Create();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+		// 저장소를 생성한다 }
 
 		this.Setup();
 		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);

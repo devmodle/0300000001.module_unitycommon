@@ -48,7 +48,9 @@ public class CTitleSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 	
