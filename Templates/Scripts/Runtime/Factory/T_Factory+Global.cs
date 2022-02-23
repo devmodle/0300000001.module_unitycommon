@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 전역 팩토리 */
 public static partial class Factory {
@@ -16,4 +16,4 @@ public static partial class Factory {
 	#endregion			// 추가 클래스 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

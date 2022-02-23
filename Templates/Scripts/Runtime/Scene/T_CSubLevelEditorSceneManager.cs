@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 using DanielLochner.Assets.SimpleScrollSnap;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
@@ -1052,4 +1052,4 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	#endregion			// 추가 함수
 }
 #endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

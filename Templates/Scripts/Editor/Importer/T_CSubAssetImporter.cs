@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -19,4 +19,4 @@ public class CSubAssetImporter : CAssetImporter {
 	#endregion			// 추가 함수
 }
 #endif			// #if UNITY_EDITOR
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

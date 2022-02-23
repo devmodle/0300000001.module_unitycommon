@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 엔진 */
@@ -159,4 +159,4 @@ namespace SampleEngineName {
 	}
 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

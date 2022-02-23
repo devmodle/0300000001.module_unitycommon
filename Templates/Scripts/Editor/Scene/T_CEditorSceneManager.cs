@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.PackageManager;
@@ -163,4 +163,4 @@ public static partial class CEditorSceneManager {
 	#endregion			// 추가 클래스 함수
 }
 #endif			// #if UNITY_EDITOR
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

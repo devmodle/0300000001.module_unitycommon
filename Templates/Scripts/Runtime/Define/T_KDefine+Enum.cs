@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #region 기본
 /** 플레이 모드 */
@@ -475,4 +475,4 @@ public enum EBlockKinds {
 
 #endregion			// 추가 상수
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

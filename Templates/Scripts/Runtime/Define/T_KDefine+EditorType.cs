@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #region 기본
 /** 서브 에디터 레벨 생성 정보 */
@@ -23,4 +23,4 @@ public struct STEditorTypeWrapper {
 
 #endregion			// 추가 타입
 #endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

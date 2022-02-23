@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using MessagePack;
 using Newtonsoft.Json;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 셀 정보 */
 [MessagePackObject][System.Serializable]
@@ -648,4 +648,4 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

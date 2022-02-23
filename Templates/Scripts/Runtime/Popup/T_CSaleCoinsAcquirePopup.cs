@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 판매 코인 획득 팝업 */
 public class CSaleCoinsAcquirePopup : CSubPopup {
@@ -77,4 +77,4 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

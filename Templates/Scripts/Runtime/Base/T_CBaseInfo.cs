@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using MessagePack;
 using Newtonsoft.Json;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 기본 정보 */
 [Union(0, typeof(CAppInfo))]
@@ -86,4 +86,4 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#endregion			// 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
 /** 서브 약관 동의 씬 관리자 */
 public class CSubAgreeSceneManager : CAgreeSceneManager {
@@ -84,4 +84,4 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 	#endregion			// 추가 함수
 }
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

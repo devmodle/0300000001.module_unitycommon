@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 게임 씬 관리자 */
 public partial class CSubGameSceneManager : CGameSceneManager {
@@ -480,4 +480,4 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

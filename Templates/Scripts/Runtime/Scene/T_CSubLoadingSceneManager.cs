@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 로딩 씬 관리자 */
 public class CSubLoadingSceneManager : CLoadingSceneManager {
@@ -37,4 +37,4 @@ public class CSubLoadingSceneManager : CLoadingSceneManager {
 	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

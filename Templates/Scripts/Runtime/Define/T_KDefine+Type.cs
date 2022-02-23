@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MessagePack;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #region 기본
 /** 기록 정보 */
@@ -56,4 +56,4 @@ public struct STTypeWrapper {
 
 #endregion			// 추가 타입
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

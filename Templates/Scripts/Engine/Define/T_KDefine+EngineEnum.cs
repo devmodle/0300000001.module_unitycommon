@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	#region 기본
@@ -15,4 +15,4 @@ namespace SampleEngineName {
 	#endregion			// 추가 상수
 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

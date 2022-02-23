@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using EnhancedUI.EnhancedScroller;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 메인 씬 관리자 */
 public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate {
@@ -294,4 +294,4 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

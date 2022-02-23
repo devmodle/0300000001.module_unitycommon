@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
 /** 서브 시작 씬 관리자 */
 public class CSubStartSceneManager : CStartSceneManager {
@@ -108,4 +108,4 @@ public class CSubStartSceneManager : CStartSceneManager {
 	#endregion			// 추가 함수
 }
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

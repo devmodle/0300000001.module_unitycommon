@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
 #if UNITY_ANDROID
 using UnityEngine.Android;
@@ -120,4 +120,4 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	#endregion			// 추가 함수
 }
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 
-#if NEVER_USE_THIS
+#if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 레벨 정보 */
 [System.Serializable]
@@ -564,4 +564,4 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-#endif			// #if NEVER_USE_THIS
+#endif			// #if SCRIPT_TEMPLATE_ONLY
