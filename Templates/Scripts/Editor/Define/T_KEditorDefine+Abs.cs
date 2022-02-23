@@ -157,6 +157,8 @@ public static partial class KEditorDefine {
 		// 기본
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.tilemap"] = "1.0.0",
+		["com.unity.localization"] = "1.0.5",
+		["com.unity.addressables"] = "1.19.18",
 		["com.unity.terrain-tools"] = "4.0.3",
 		["com.unity.2d.spriteshape"] = "7.0.3",
 		["com.unity.2d.tilemap.extras"] = "2.2.1",
@@ -174,8 +176,6 @@ public static partial class KEditorDefine {
 		["com.unity.probuilder"] = "5.0.4",
 		["com.unity.formats.fbx"] = "4.1.2",
 		["com.unity.mathematics"] = "1.2.5",
-		["com.unity.localization"] = "1.0.5",
-		["com.unity.addressables"] = "1.19.18",
 		["com.unity.ads.ios-support"] = "1.0.0",
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
