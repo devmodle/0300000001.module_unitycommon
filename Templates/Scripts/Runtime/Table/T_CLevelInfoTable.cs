@@ -90,23 +90,23 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore][IgnoreMember] public Dictionary<ETargetKinds, int> NumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
 
 	[JsonIgnore][IgnoreMember] public EDifficulty Difficulty {
-		get { return (EDifficulty)m_oIntDict.GetValueOrDefault(CLevelInfo.KEY_DIFFICULTY, (int)EDifficulty.NONE); }
-		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_DIFFICULTY, (int)value); }
+		get { return (EDifficulty)int.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_DIFFICULTY, $"{(int)EDifficulty.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_DIFFICULTY, $"{(int)value}"); }
 	}
 	
 	[JsonIgnore][IgnoreMember] public ELevelKinds LevelKinds {
-		get { return (ELevelKinds)m_oIntDict.GetValueOrDefault(CLevelInfo.KEY_LEVEL_KINDS, (int)ELevelKinds.NONE); }
-		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_LEVEL_KINDS, (int)value); }
+		get { return (ELevelKinds)int.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_LEVEL_KINDS, $"{(int)ELevelKinds.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_LEVEL_KINDS, $"{(int)value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public ERewardKinds RewardKinds {
-		get { return (ERewardKinds)m_oIntDict.GetValueOrDefault(CLevelInfo.KEY_REWARD_KINDS, (int)ERewardKinds.NONE); }
-		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_REWARD_KINDS, (int)value); }
+		get { return (ERewardKinds)int.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_REWARD_KINDS, $"{(int)ERewardKinds.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_REWARD_KINDS, $"{(int)value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public ETutorialKinds TutorialKinds {
-		get { return (ETutorialKinds)m_oIntDict.GetValueOrDefault(CLevelInfo.KEY_TUTORIAL_KINDS, (int)ETutorialKinds.NONE); }
-		set { m_oIntDict.ExReplaceVal(CLevelInfo.KEY_TUTORIAL_KINDS, (int)value); }
+		get { return (ETutorialKinds)int.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_TUTORIAL_KINDS, $"{(int)ETutorialKinds.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_TUTORIAL_KINDS, $"{(int)value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public System.Version CellVer {

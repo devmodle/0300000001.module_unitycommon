@@ -211,7 +211,9 @@ public static partial class KDefine {
 		EAnalyticsType.FLURRY, EAnalyticsType.FIREBASE, EAnalyticsType.APPS_FLYER
 	};
 
-	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLE_LIST = KDefine.G_ANALYTICS_TYPE_LOG_ENABLE_LIST;
+	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLE_LIST = new List<EAnalyticsType>() {
+		EAnalyticsType.FLURRY, EAnalyticsType.FIREBASE, EAnalyticsType.APPS_FLYER
+	};
 	// 분석 }
 	
 	// 판매 상품 정보 테이블

@@ -23,9 +23,7 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(0)] public Dictionary<string, int> m_oIntDict = new Dictionary<string, int>();
-	[Key(1)] public Dictionary<string, float> m_oFltDict = new Dictionary<string, float>();
-	[Key(2)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
+	[Key(0)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -64,8 +62,6 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 
 	/** 역직렬화 되었을 경우 */
 	public virtual void OnAfterDeserialize() {
-		m_oIntDict = m_oIntDict ?? new Dictionary<string, int>();
-		m_oFltDict = m_oFltDict ?? new Dictionary<string, float>();
 		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver

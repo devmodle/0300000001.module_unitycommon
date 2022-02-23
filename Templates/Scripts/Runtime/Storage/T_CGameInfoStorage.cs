@@ -23,8 +23,8 @@ public class CClearInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public int NumClearMarks {
-		get { return m_oIntDict.GetValueOrDefault(CClearInfo.KEY_NUM_CLEAR_MARKS, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CClearInfo.KEY_NUM_CLEAR_MARKS, value); }
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(CClearInfo.KEY_NUM_CLEAR_MARKS, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(CClearInfo.KEY_NUM_CLEAR_MARKS, $"{value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public string ClearRecord {
@@ -101,13 +101,13 @@ public class CGameInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public int DailyRewardID {
-		get { return m_oIntDict.GetValueOrDefault(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_DAILY_REWARD_ID, value); }
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(CGameInfo.KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_DAILY_REWARD_ID, $"{value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public int FreeRewardAcquireTimes {
-		get { return m_oIntDict.GetValueOrDefault(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_VAL_0_INT); }
-		set { m_oIntDict.ExReplaceVal(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, value); }
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(CGameInfo.KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public System.DateTime PrevDailyMissionTime {
