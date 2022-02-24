@@ -75,7 +75,7 @@ public class CFocusPopup : CSubPopup {
 		if(m_stParams.m_oContentsUIsList.ExIsValid()) {
 			for(int i = 0; i < m_stParams.m_oContentsUIsList.Count; ++i) {
 				m_stParams.m_oContentsUIsList[i].SetActive(true);
-				m_stParams.m_oContentsUIsList[i].transform.SetParent(m_oContentsUIs.transform, false);
+				m_stParams.m_oContentsUIsList[i].ExSetParent(m_oContentsUIs);
 			}
 		}
 
