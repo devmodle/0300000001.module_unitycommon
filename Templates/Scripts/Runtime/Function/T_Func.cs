@@ -58,7 +58,9 @@ public static partial class Func {
 	#region 클래스 함수
 	/** 지역화 문자열을 설정한다 */
 	public static void SetupLocalizeStrs() {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		Func.SetupLocalizeStrs(CCommonAppInfoStorage.Inst.CountryCode, CCommonAppInfoStorage.Inst.SystemLanguage);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 지역화 문자열을 설정한다 */
@@ -436,8 +438,11 @@ public static partial class Func {
 			var oJSONNode = new SimpleJSON.JSONClass();
 			oJSONNode.Add(KCDefine.B_KEY_JSON_USER_INFO_DATA, CUserInfoStorage.Inst.UserInfo.ExToMsgPackJSONStr());
 			oJSONNode.Add(KCDefine.B_KEY_JSON_GAME_INFO_DATA, CGameInfoStorage.Inst.GameInfo.ExToMsgPackBase64Str());
+
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_APP_INFO_DATA, CCommonAppInfoStorage.Inst.AppInfo.ExToMsgPackJSONStr());
 			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA, CCommonUserInfoStorage.Inst.UserInfo.ExToMsgPackJSONStr());
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 			CFirebaseManager.Inst.SaveDB(oNodeList, oJSONNode.ToString(), Func.OnSaveUserInfo);
 		} else {
@@ -456,8 +461,11 @@ public static partial class Func {
 
 			// 로그인 되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
-				var oNodeList = Factory.MakePurchaseInfoNodes();
-				CFirebaseManager.Inst.SaveDB(oNodeList, a_oPurchaseInfoList.ExToJSONStr(true), Func.OnSavePurchaseInfos);
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
+				CFirebaseManager.Inst.SaveDB(Factory.MakePurchaseInfoNodes(), a_oPurchaseInfoList.ExToJSONStr(true), Func.OnSavePurchaseInfos);
+#else
+				Func.OnSavePurchaseInfos(CFirebaseManager.Inst, false);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			} else {
 				Func.OnSavePurchaseInfos(CFirebaseManager.Inst, false);
 			}
@@ -475,8 +483,11 @@ public static partial class Func {
 
 			// 로그인 되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
-				var oNodeList = Factory.MakePostItemInfoNodes();
-				CFirebaseManager.Inst.SaveDB(oNodeList, a_oPostItemInfoList.ExToJSONStr(true), Func.OnSavePostItemInfos);
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
+				CFirebaseManager.Inst.SaveDB(Factory.MakePostItemInfoNodes(), a_oPostItemInfoList.ExToJSONStr(true), Func.OnSavePostItemInfos);
+#else
+				Func.OnSavePostItemInfos(CFirebaseManager.Inst, false);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			} else {
 				Func.OnSavePostItemInfos(CFirebaseManager.Inst, false);
 			}

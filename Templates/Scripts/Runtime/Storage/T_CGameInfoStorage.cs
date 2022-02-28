@@ -441,7 +441,11 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 게임 정보를 로드한다 */
 	public CGameInfo LoadGameInfo() {
+#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 		return this.LoadGameInfo(KDefine.G_DATA_P_GAME_INFO);
+#else
+		return null;
+#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 게임 정보를 로드한다 */
@@ -450,7 +454,7 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		if(File.Exists(a_oFilePath)) {
 #if MSG_PACK_ENABLE
 			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath);
-#else
+#elif NEWTON_SOFT_JSON_MODULE_ENABLE
 			this.GameInfo = CFunc.ReadJSONObj<CGameInfo>(a_oFilePath);
 #endif			// #if MSG_PACK_ENABLE
 
@@ -466,14 +470,16 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 게임 정보를 저장한다 */
 	public void SaveGameInfo() {
+#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 		this.SaveGameInfo(KDefine.G_DATA_P_GAME_INFO);
+#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 게임 정보를 저장한다 */
 	public void SaveGameInfo(string a_oFilePath) {
 #if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo);
-#else
+#elif NEWTON_SOFT_JSON_MODULE_ENABLE
 		CFunc.WriteJSONObj(a_oFilePath, this.GameInfo);
 #endif			// #if MSG_PACK_ENABLE
 	}

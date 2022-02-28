@@ -214,7 +214,11 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 			var stFirebaseParams = new CFirebaseManager.STParams() {
 				m_oConfigDict = new Dictionary<string, object>() {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 					[KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONStr(),
+#else
+					[KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG] = string.Empty,
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if UNITY_EDITOR || UNITY_STANDALONE
 					[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfigStr, [KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfigStr
@@ -400,12 +404,14 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CFirebaseManager.Inst.SetCrashDatas(new Dictionary<string, string>() {
 				[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 			});
 			
 			CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 			CFirebaseManager.Inst.SetCrashUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 			CFirebaseManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 
@@ -422,8 +428,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 속성이 로드 되었을 경우
 		if(a_bIsSuccess) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			string oDeviceConfig = CFirebaseManager.Inst.GetConfig(KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG);
 			CCommonAppInfoStorage.Inst.DeviceConfig = oDeviceConfig.ExJSONStrToObj<STDeviceConfig>();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 #endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE

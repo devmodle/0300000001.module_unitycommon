@@ -191,7 +191,7 @@ public static partial class KEditorDefine {
 #endif			// #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
-    	["com.unity.postprocessing"] = "3.2.0",
+    	["com.unity.postprocessing"] = "3.2.1",
 #endif			// #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 
 #if UNIVERSAL_RENDERING_PIPELINE_ENABLE || UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
@@ -230,12 +230,12 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.1.2",
+		["com.unity.purchasing"] = "4.1.3",
 		["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/03000001.module_unitycommonpurchase_client.git#2.0.4",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["com.unity.mobile.notifications"] = "1.4.2",
+		["com.unity.mobile.notifications"] = "2.0.0",
 		["module.unitycommon.Noti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/03000001.module_unitycommon_Noti_client.git#2.0.4"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 #endif			// #if SAMPLE_PROJ || DEVELOPMENT_PROJ

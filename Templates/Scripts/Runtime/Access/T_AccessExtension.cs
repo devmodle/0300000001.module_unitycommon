@@ -124,7 +124,9 @@ public static partial class AccessExtension {
 
 		// 텍스트가 존재 할 경우
 		if(a_oSender != null && a_eFontSet.ExIsValid()) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 
@@ -134,7 +136,9 @@ public static partial class AccessExtension {
 
 		// 텍스트가 존재 할 경우
 		if(a_oSender != null && a_eFontSet.ExIsValid()) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 
@@ -144,7 +148,9 @@ public static partial class AccessExtension {
 
 		// 텍스트가 존재 할 경우
 		if(a_oSender != null && a_eFontSet.ExIsValid()) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 
@@ -154,7 +160,9 @@ public static partial class AccessExtension {
 
 		// 텍스트가 존재 할 경우
 		if(a_oSender != null && a_eFontSet.ExIsValid()) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 

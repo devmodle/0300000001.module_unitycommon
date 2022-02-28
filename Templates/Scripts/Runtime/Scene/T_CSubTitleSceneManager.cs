@@ -52,10 +52,12 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			this.SetupStart();
 			this.UpdateUIsState();
 
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 최초 시작 일 경우
 			if(CCommonAppInfoStorage.Inst.IsFirstStart) {
 				this.UpdateFirstStartState();
 			}
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			
 #if !TITLE_SCENE_ENABLE
 			// 레벨 에디터 씬을 로드하지 않았을 경우
@@ -89,6 +91,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	/** 씬을 설정한다 */
 	private void SetupStart() {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		// 최초 플레이 일 경우
 		if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
 			this.UpdateFirstPlayState();
@@ -101,6 +104,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			}
 #endif			// #if TITLE_SCENE_ENABLE
 		}
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -115,7 +119,9 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		LogFunc.SendLaunchLog();
 		LogFunc.SendSplashLog();
 		
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonAppInfoStorage.Inst.IsFirstStart = false;
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		
 #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		m_bIsLoadLevelEditorScene = true;
@@ -125,8 +131,10 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	/** 최초 플레이 상태를 갱신한다 */
 	private void UpdateFirstPlayState() {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay = false;
 		CCommonAppInfoStorage.Inst.SaveAppInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		// 약관 동의 팝업이 닫혔을 경우
 		if(CAppInfoStorage.Inst.IsCloseAgreePopup) {

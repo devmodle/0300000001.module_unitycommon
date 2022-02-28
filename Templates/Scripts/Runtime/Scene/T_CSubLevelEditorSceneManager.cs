@@ -409,8 +409,10 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private void OnReceiveEditorSetPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 확인 버튼을 눌렀을 경우
 		if(a_bIsOK) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eSelUserType;
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 			this.OnReceiveEditorResetPopupResult(null, true);
 			this.OnReceiveEditorTableReloadPopupResult(null, true);
@@ -835,9 +837,12 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	/** 왼쪽 에디터 UI 상태를 갱신한다 */
 	private void UpdateLeftEditorUIsState() {
-		// 버튼을 설정한다
+		// 버튼을 설정한다 {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		m_oLEUIsASetBtn?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? Color.cyan : Color.white, false);
 		m_oLEUIsBSetBtn?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? Color.cyan : Color.white, false);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+		// 버튼을 설정한다 }
 
 		// 스크롤 뷰를 갱신한다
 		m_oLEUIsScrollerDict[EScrollerType.LEVEL]?.ExReloadData(m_oSelLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT, false);

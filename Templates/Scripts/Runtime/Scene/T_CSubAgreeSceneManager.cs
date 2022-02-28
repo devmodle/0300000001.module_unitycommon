@@ -22,10 +22,10 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-#if DEBUG || DEVELOPMENT_BUILD
+#if NEWTON_SOFT_JSON_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.ShowLog($"Language: {CCommonAppInfoStorage.Inst.SystemLanguage}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
 			CFunc.ShowLog($"Country Code: {CCommonAppInfoStorage.Inst.CountryCode}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 
 			this.SetupAwake();
 		}

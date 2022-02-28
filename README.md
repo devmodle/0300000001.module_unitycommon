@@ -13,7 +13,7 @@
 	- *Enhanced Scroller (2.32.1 - Jan 27, 2022)*
 	- *iTween (2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (2.3.1 - Jan 9, 2018)*
-	- *Native Share (1.4.4 - Nov 18, 2021)*
+	- *Native Share (1.4.6 - Jan 14, 2022)*
 	- *NGUI (2021.11.30 - Dec 1, 2021)*
 	- *Rest Client (2.6.2 - Dec 27, 2021)*
 	- *Simple Scroll Snap (2.0.0 - Dec 25, 2021)*
@@ -22,7 +22,8 @@
 	- *Text to TextMesh Pro (1.0.1 - Aug 18, 2020)*
 	- *UniRx (7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
-	- *Build Report Tool (3.9.1 - Dec 14, 2021)*
+	- *Build Report Tool (3.9.2 - Feb 20, 2022)*
+	- *Google Sheets to Unity (1.0.0 - Mar 18, 2019)*
 	- *Odin Inspector (3.0.12 - Nov 15, 2021)*
 	- *Sprite Trail (1.4.0 - Aug 2, 2019)*
 	- *Ultimate Status Bar (2.6.0 - Jun 3, 2020)*
@@ -46,4 +47,3 @@
 	- *Apps Flyer (6.3.5)*
 	- *Google Update (1.5.0)*
 	- *Google Play Services (0.10.12)*
-	- *Google Sheets To Unity (1.0.0 - Mar 18, 2019)*

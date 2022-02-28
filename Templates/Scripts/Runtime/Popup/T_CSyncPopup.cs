@@ -144,8 +144,10 @@ public class CSyncPopup : CSubPopup {
 			CGameInfoStorage.Inst.ResetGameInfo(oGameInfoStr);
 			CGameInfoStorage.Inst.SaveGameInfo();
 
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfoStr);
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if ADS_MODULE_ENABLE
 			// 광고 제거 모드 일 경우

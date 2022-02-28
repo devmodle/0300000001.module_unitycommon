@@ -57,6 +57,7 @@ public class CSettingsPopup : CSubPopup {
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CSndManager.Inst.IsMuteBGSnd = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
 		CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
 
@@ -70,28 +71,35 @@ public class CSettingsPopup : CSubPopup {
 		string oNotiImgPath = CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti ? KDefine.G_IMG_P_SETTINGS_P_NOTI_OFF : KDefine.G_IMG_P_SETTINGS_P_NOTI_ON;
 		m_oNotiBtn?.gameObject.ExFindComponent<Image>(KCDefine.U_OBJ_N_ICON_IMG)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oNotiImgPath));
 		// 버튼을 갱신한다 }
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 배경음 버튼을 눌렀을 경우 */
 	private void OnTouchBGSndBtn() {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd = !CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		this.UpdateUIsState();
 	}
 
 	/** 효과음 버튼을 눌렀을 경우 */
 	private void OnTouchFXSndsBtn() {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds = !CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		this.UpdateUIsState();
 	}
 
 	/** 알림 버튼을 눌렀을 경우 */
 	private void OnTouchNotiBtn() {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti = !CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		
 		this.UpdateUIsState();
 	}

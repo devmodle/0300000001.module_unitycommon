@@ -554,8 +554,10 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		oJSONNode.Add(KCDefine.U_KEY_STAGE, oStageInfos);
 		oJSONNode.Add(KCDefine.U_KEY_CHAPTER, oChapterInfos);
 
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		var oEpisodeInfos = JsonConvert.DeserializeObject(oJSONNode.ToString());
 		CFunc.WriteStr(this.EpisodeInfoTablePath, oEpisodeInfos.ExToJSONStr(false, true));
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수

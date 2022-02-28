@@ -101,7 +101,11 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 유저 정보를 로드한다 */
 	public CUserInfo LoadUserInfo() {
+#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
+#else
+		return null;
+#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 유저 정보를 로드한다 */
@@ -110,7 +114,7 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		if(File.Exists(a_oFilePath)) {
 #if MSG_PACK_ENABLE
 			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath);
-#else
+#elif NEWTON_SOFT_JSON_MODULE_ENABLE
 			this.UserInfo = CFunc.ReadJSONObj<CUserInfo>(a_oFilePath);
 #endif			// #if MSG_PACK_ENABLE
 
@@ -122,14 +126,16 @@ public class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo() {
+#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
+#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo(string a_oFilePath) {
 #if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo);
-#else
+#elif NEWTON_SOFT_JSON_MODULE_ENABLE
 		CFunc.WriteJSONObj(a_oFilePath, this.UserInfo);
 #endif			// #if MSG_PACK_ENABLE
 	}

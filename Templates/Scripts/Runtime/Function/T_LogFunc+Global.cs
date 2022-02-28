@@ -30,7 +30,10 @@ public static partial class LogFunc {
 	private static Dictionary<string, object> MakeDefDatas() {
 		return new Dictionary<string, object>() {
 			[KDefine.L_LOG_KEY_LOG_TIME] = System.DateTime.Now.ExToPSTTime().ExToLongStr(),
+
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			[KDefine.L_LOG_KEY_INSTALL_TIME] = CCommonAppInfoStorage.Inst.AppInfo.PSTInstallTime.ExToLongStr()
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		};
 	}
 	#endregion			// 클래스 함수

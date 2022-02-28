@@ -233,7 +233,7 @@ public static partial class Extension {
 		CAccess.Assert(a_oSender.ExIsValid());
 		var oPostItemInfoList = new List<STPostItemInfo>();
 
-#if FIREBASE_MODULE_ENABLE
+#if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oSender) as SimpleJSON.JSONClass;
 		var oPostItemInfos = oJSONNode[KCDefine.B_KEY_JSON_ROOT_DATA];
 
@@ -241,7 +241,7 @@ public static partial class Extension {
 			var oPostItemInfoStr = oPostItemInfos[i].ToString();
 			oPostItemInfoList.Add(oPostItemInfoStr.ExJSONStrToObj<STPostItemInfo>());
 		}
-#endif			// #if FIREBASE_MODULE_ENABLE
+#endif			// #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		return oPostItemInfoList;
 	}

@@ -96,7 +96,11 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 함수
 	/** 앱 정보를 로드한다 */
 	public CAppInfo LoadAppInfo() {
+#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 		return this.LoadAppInfo(KDefine.G_DATA_P_APP_INFO);
+#else
+		return null;
+#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 앱 정보를 로드한다 */
@@ -105,7 +109,7 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		if(File.Exists(a_oFilePath)) {
 #if MSG_PACK_ENABLE
 			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath);
-#else
+#elif NEWTON_SOFT_JSON_MODULE_ENABLE
 			this.AppInfo = CFunc.ReadJSONObj<CAppInfo>(a_oFilePath);
 #endif			// #if MSG_PACK_ENABLE
 
@@ -117,14 +121,16 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	/** 앱 정보를 저장한다 */
 	public void SaveAppInfo() {
+#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 		this.SaveAppInfo(KDefine.G_DATA_P_APP_INFO);
+#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 앱 정보를 저장한다 */
 	public void SaveAppInfo(string a_oFilePath) {
 #if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo);
-#else
+#elif NEWTON_SOFT_JSON_MODULE_ENABLE
 		CFunc.WriteJSONObj(a_oFilePath, this.AppInfo);
 #endif			// #if MSG_PACK_ENABLE
 	}
