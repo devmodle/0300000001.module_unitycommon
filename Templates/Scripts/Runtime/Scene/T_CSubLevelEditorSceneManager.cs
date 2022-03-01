@@ -20,7 +20,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		LEVEL,
 		STAGE,
 		CHAPTER,
-		[HideInInspector] MAX_VAL
+		[InspectorName(null)] MAX_VAL
 	}
 
 	#region 변수

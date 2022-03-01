@@ -14,7 +14,7 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		LEVEL,
 		STAGE,
 		CHAPTER,
-		[HideInInspector] MAX_VAL
+		[InspectorName(null)] MAX_VAL
 	}
 
 #if DEBUG || DEVELOPMENT_BUILD

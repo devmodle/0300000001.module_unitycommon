@@ -15,13 +15,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		RETRY,
 		CONTINUE,
 		LEAVE,
-		[HideInInspector] MAX_VAL
+		[InspectorName(null)] MAX_VAL
 	}
 
 	/** 보상 광고 UI */
 	private enum ERewardAdsUIs {
 		NONE = -1,
-		[HideInInspector] MAX_VAL
+		[InspectorName(null)] MAX_VAL
 	}
 
 #if DEBUG || DEVELOPMENT_BUILD

@@ -23,17 +23,9 @@ public static partial class Extension {
 	}
 
 	/** 게이지 애니메이션을 시작한다 */
-	public static Tween ExStartGaugeAni(this CGaugeHandler a_oSender, float a_fStartVal, float a_fEndVal, float a_fDuration, Ease a_eEase = KCDefine.U_EASE_ANI, bool a_bIsRealtime = false) {
+	public static Sequence ExStartGaugeAni(this CGaugeHandler a_oSender, System.Action<float> a_oCallback, System.Action<CGaugeHandler, Sequence> a_oCompleteCallback, float a_fStartVal, float a_fEndVal, float a_fDuration, Ease a_eEase = KCDefine.U_EASE_ANI, bool a_bIsRealtime = false, float a_fDelay = KCDefine.B_VAL_0_FLT) {
 		CAccess.Assert(a_oSender != null);
-		a_oSender.Percent = a_fStartVal;
-
-		return DOTween.To(() => a_oSender.Percent, (a_fVal) => a_oSender.Percent = a_fVal, a_fEndVal, a_fDuration).SetAutoKill().SetEase(a_eEase).SetUpdate(a_bIsRealtime);
-	}
-
-	/** 게이지 애니메이션을 시작한다 */
-	public static Sequence ExStartGaugeAni(this CGaugeHandler a_oSender, float a_fStartVal, float a_fEndVal, float a_fDuration, System.Action<CGaugeHandler, Sequence> a_oCallback, Ease a_eEase = KCDefine.U_EASE_ANI, bool a_bIsRealtime = false, float a_fDelay = KCDefine.B_VAL_0_FLT) {
-		CAccess.Assert(a_oSender != null);
-		return CFactory.MakeSequence(a_oSender.ExStartGaugeAni(a_fStartVal, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => a_oCallback?.Invoke(a_oSender, a_oSequenceSender), a_fDelay, a_eEase, false, a_bIsRealtime);
+		return CFactory.MakeSequence(CFactory.MakeAni(() => a_oSender.Percent, (a_fVal) => a_oSender.Percent = a_fVal, () => a_oSender.Percent = a_fStartVal, a_oCallback, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => a_oCompleteCallback?.Invoke(a_oSender, a_oSequenceSender), a_fDelay, a_eEase, false, a_bIsRealtime);
 	}
 	#endregion			// 클래스 함수
 
