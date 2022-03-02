@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
+#if PURCHASE_MODULE_ENABLE
+using UnityEngine.Purchasing;
+#endif			// #if PURCHASE_MODULE_ENABLE
+
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 중첩 씬 관리자 */
 public partial class CSubOverlaySceneManager : COverlaySceneManager {
@@ -71,22 +75,25 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 				oSaleProductInfoList.Add(CSaleProductInfoTable.Inst.GetSaleProductInfo(eSaleProductKinds));
 			}
 
-			var stParams = new CStorePopup.STParams() {
-				m_oSaleProductInfoList = oSaleProductInfoList
-			};
+			(a_oSender as CStorePopup).Init(new CStorePopup.STParams() {
+				m_oSaleProductInfoList = oSaleProductInfoList,
 
-			var stCallbackParams = new CStorePopup.STCallbackParams() {
 #if ADS_MODULE_ENABLE
-				m_oAdsCallback = (a_oAdsSender, a_stAdsRewardInfo, a_bIsSuccess) => this.UpdateUIsState(),
+				m_oAdsCallbackDictA = new Dictionary<CStorePopup.ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>() {
+					[CStorePopup.ECallback.ADS] = (a_oAdsSender, a_stAdsRewardInfo, a_bIsSuccess) => this.UpdateUIsState()
+				},
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-				m_oPurchaseCallback = (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState(),
-				m_oRestoreCallback = (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState()
-#endif			// #if PURCHASE_MODULE_ENABLE
-			};
+				m_oPurchaseCallbackDictA = new Dictionary<CStorePopup.ECallback, System.Action<CPurchaseManager, string, bool>>() {
+					[CStorePopup.ECallback.PURCHASE] = (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState()
+				},
 
-			(a_oSender as CStorePopup).Init(stParams, stCallbackParams);
+				m_oPurchaseCallbackDictB = new Dictionary<CStorePopup.ECallback, System.Action<CPurchaseManager, List<Product>, bool>>() {
+					[CStorePopup.ECallback.RESTORE] = (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState()
+				}
+#endif			// #if PURCHASE_MODULE_ENABLE
+			});
 		});
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}

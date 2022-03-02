@@ -8,22 +8,24 @@ using TMPro;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 이어하기 팝업 */
 public class CContinuePopup : CSubPopup {
+	/** 콜백 */
+	public enum ECallback {
+		NONE = -1,
+		RETRY,
+		CONTINUE,
+		LEAVE,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 매개 변수 */
 	public struct STParams {
 		public int m_nContinueTimes;
 		public CLevelInfo m_oLevelInfo;
-	}
-
-	/** 콜백 매개 변수 */
-	public struct STCallbackParams {
-		public System.Action<CContinuePopup> m_oRetryCallback;
-		public System.Action<CContinuePopup> m_oContinueCallback;
-		public System.Action<CContinuePopup> m_oLeaveCallback;
+		public Dictionary<ECallback, System.Action<CContinuePopup>> m_oCallbackDict;
 	}
 
 	#region 변수
 	private STParams m_stParams;
-	private STCallbackParams m_stCallbackParams;
 
 	/** =====> UI <===== */
 	private TMP_Text m_oPriceText = null;
@@ -56,11 +58,9 @@ public class CContinuePopup : CSubPopup {
 	}
 
 	/** 초기화 */
-	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
+	public virtual void Init(STParams a_stParams) {
 		base.Init();
-
 		m_stParams = a_stParams;
-		m_stCallbackParams = a_stCallbackParams;
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */
@@ -85,7 +85,7 @@ public class CContinuePopup : CSubPopup {
 	
 	/** 재시도 버튼을 눌렀을 경우 */
 	private void OnTouchRetryBtn() {
-		m_stCallbackParams.m_oRetryCallback?.Invoke(this);
+		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
 	}
 
 	/** 이어하기 버튼을 눌렀을 경우 */
@@ -97,13 +97,13 @@ public class CContinuePopup : CSubPopup {
 			CSceneManager.GetSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 		} else {
 			Func.BuyItem(stSaleItemInfo);
-			m_stCallbackParams.m_oContinueCallback?.Invoke(this);
+			m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
 		}
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
-		m_stCallbackParams.m_oLeaveCallback?.Invoke(this);
+		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
 	#endregion			// 함수
 

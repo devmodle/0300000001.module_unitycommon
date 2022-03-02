@@ -10,7 +10,6 @@ using TMPro;
 /** 서브 시작 씬 관리자 */
 public class CSubStartSceneManager : CStartSceneManager {
 	#region 변수
-	private int m_nNumDots = 0;
 	private Vector3 m_stLoadingTextPos = new Vector3(0.0f, 35.0f, 0.0f);
 	private Vector3 m_stLoadingGaugePos = new Vector3(0.0f, -35.0f, 0.0f);
 
@@ -49,7 +48,6 @@ public class CSubStartSceneManager : CStartSceneManager {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
 				m_oGaugeAni?.Kill();
-				CScheduleManager.Inst.RemoveTimer(this);
 			}
 		} catch(System.Exception oException) {
 			CFunc.ShowLogWarning($"CSubStartSceneManager.OnDestroy Exception: {oException.Message}");
@@ -69,12 +67,10 @@ public class CSubStartSceneManager : CStartSceneManager {
 	}
 
 	/** 씬을 설정한다 */
-	private void SetupAwake() {
-		CScheduleManager.Inst.AddRepeatTimer(this, KCDefine.SS_DELTA_T_UPDATE_STATE, () => { m_nNumDots = (m_nNumDots + KCDefine.B_VAL_1_INT) % KCDefine.SS_MAX_NUM_DOTS; this.UpdateUIsState(); });
-		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.A, out STFontSetInfo stFontSetInfo);
-			
+	private void SetupAwake() {	
 		// 텍스트를 설정한다 {
 		var oLoadingText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
+		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.A, out STFontSetInfo stFontSetInfo);
 
 		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.UIs, m_stLoadingTextPos);
 		m_oLoadingText.ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT), stFontSetInfo);
@@ -95,10 +91,6 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_oStrBuilder.Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT));
 		
 		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.A, out STFontSetInfo stFontSetInfo);
-
-		for(int i = 0; i < m_nNumDots + KCDefine.B_VAL_1_INT; ++i) {
-			m_oStrBuilder.Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_DOT_TEXT));
-		}
 
 		string oPercentStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oGaugeHandler.Percent * KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
 		oPercentStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, string.Format(KCDefine.B_TEXT_FMT_PERCENT, oPercentStr));

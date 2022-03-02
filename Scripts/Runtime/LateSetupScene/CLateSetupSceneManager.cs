@@ -130,13 +130,18 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 관리자 자동 초기화 모드 일 경우
 		if(this.IsAutoInitManager) {
-			CServicesManager.Inst.Init(new CServicesManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitServicesManager
+			CServicesManager.Inst.Init(new CServicesManager.STParams() {
+				m_oCallbackDict = new Dictionary<CServicesManager.ECallback, System.Action<CServicesManager, bool>>() {
+					[CServicesManager.ECallback.INIT] = CLateSetupSceneManager.OnInitServicesManager
+				}
 			});
 			
 #if ADS_MODULE_ENABLE
-			var stAdsParams = new CAdsManager.STParams() {
-				m_eAdsPlatform = CPluginInfoTable.Inst.AdsPlatform, m_eBannerAdsPos = CPluginInfoTable.Inst.BannerAdsPos,
+			CUnityMsgSender.Inst.SendSetEnableAdsTrackingMsg(true);
+
+			CAdsManager.Inst.Init(new CAdsManager.STParams() {
+				m_eAdsPlatform = CPluginInfoTable.Inst.AdsPlatform,
+				m_eBannerAdsPos = CPluginInfoTable.Inst.BannerAdsPos,
 
 #if ADMOB_ADS_ENABLE
 				m_stAdmobParams = new CAdsManager.STAdmobParams() {
@@ -171,36 +176,31 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 					m_oAdsIDDict = new Dictionary<string, string>() {
 						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN)
 					}
-				}
+				},
 #endif			// #if APP_LOVIN_ADS_ENABLE
-			};
 
-			var stAdsCallbackParams = new CAdsManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitAdsManager
-			};
-
-			CUnityMsgSender.Inst.SendSetEnableAdsTrackingMsg(true);
-			CAdsManager.Inst.Init(stAdsParams, stAdsCallbackParams);
+				m_oCallbackDict = new Dictionary<CAdsManager.ECallback, System.Action<CAdsManager, EAdsPlatform, bool>>() {
+					[CAdsManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAdsManager
+				}
+			});
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-			var stFlurryParams = new CFlurryManager.STParams() {
-				m_oAPIKey = CPluginInfoTable.Inst.FlurryAPIKey
-			};
+			CFlurryManager.Inst.Init(new CFlurryManager.STParams() {
+				m_oAPIKey = CPluginInfoTable.Inst.FlurryAPIKey,
 
-			var stFlurryCallbackParams = new CFlurryManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitFlurryManager
-			};
-
-			CFlurryManager.Inst.Init(stFlurryParams, stFlurryCallbackParams);
+				m_oCallbackDict = new Dictionary<CFlurryManager.ECallback, System.Action<CFlurryManager, bool>>() {
+					[CFlurryManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFlurryManager
+				}
+			});
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-			var stFacebookCallbackParams = new CFacebookManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitFacebookManager
-			};
-
-			CFacebookManager.Inst.Init(stFacebookCallbackParams);
+			CFacebookManager.Inst.Init(new CFacebookManager.STParams() {
+				m_oCallbackDict = new Dictionary<CFacebookManager.ECallback, System.Action<CFacebookManager, bool>>() {
+					[CFacebookManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFacebookManager
+				}
+			});
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
@@ -212,7 +212,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			var oBuildVerConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 
-			var stFirebaseParams = new CFirebaseManager.STParams() {
+			CFirebaseManager.Inst.Init(new CFirebaseManager.STParams() {
 				m_oConfigDict = new Dictionary<string, object>() {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 					[KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONStr(),
@@ -225,65 +225,58 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 #else
 					[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfig.text, [KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfig.text
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
-				}
-			};
+				},
 
-			var stFirebaseCallbackParams = new CFirebaseManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitFirebaseManager
-			};
+				m_oCallbackDict = new Dictionary<CFirebaseManager.ECallback, System.Action<CFirebaseManager, bool>>() {
+					[CFirebaseManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFirebaseManager
+				}
+			});
 
 			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG, true);
 			CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG, true);
-
-			CFirebaseManager.Inst.Init(stFirebaseParams, stFirebaseCallbackParams);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
-			var stAppsFlyerParams = new CAppsFlyerManager.STParams() {
-				m_oAppID = CProjInfoTable.Inst.ProjInfo.m_oStoreAppID, m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey
-			};
+			CAppsFlyerManager.Inst.Init(new CAppsFlyerManager.STParams() {
+				m_oAppID = CProjInfoTable.Inst.ProjInfo.m_oStoreAppID,
+				m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey,
 
-			var stAppsFlyerCallbackParams = new CAppsFlyerManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitAppsFlyerManager
-			};
-
-			CAppsFlyerManager.Inst.Init(stAppsFlyerParams, stAppsFlyerCallbackParams);
+				m_oCallbackDict = new Dictionary<CAppsFlyerManager.ECallback, System.Action<CAppsFlyerManager, bool>>() {
+					[CAppsFlyerManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAppsFlyerManager
+				}
+			});
 #endif			// #if APPS_FLYER_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-			var stGameCenterCallbackParams = new CGameCenterManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitGameCenterManager
-			};
-
-			CGameCenterManager.Inst.Init(stGameCenterCallbackParams);
+			CGameCenterManager.Inst.Init(new CGameCenterManager.STParams() {
+				m_oCallbackDict = new Dictionary<CGameCenterManager.ECallback, System.Action<CGameCenterManager, bool>>() {
+					[CGameCenterManager.ECallback.INIT] = CLateSetupSceneManager.OnInitGameCenterManager
+				}
+			});
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			var stPurchaseParams = new CPurchaseManager.STParams() {
-				m_oProductInfoList = CProductInfoTable.Inst.ProductInfoList
-			};
+			CPurchaseManager.Inst.Init(new CPurchaseManager.STParams() {
+				m_oProductInfoList = CProductInfoTable.Inst.ProductInfoList,
 
-			var stPurchaseCallbackParams = new CPurchaseManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitPurchaseManager
-			};
-			
-			CPurchaseManager.Inst.Init(stPurchaseParams, stPurchaseCallbackParams);
+				m_oCallbackDict = new Dictionary<CPurchaseManager.ECallback, System.Action<CPurchaseManager, bool>>() {
+					[CPurchaseManager.ECallback.INIT] = CLateSetupSceneManager.OnInitPurchaseManager
+				}
+			});
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
-			var stNotiParams = new CNotiManager.STParams() {
+			CNotiManager.Inst.Init(new CNotiManager.STParams() {
 #if UNITY_IOS
-				m_eAuthOpts = KCDefine.U_AUTH_OPTS_NOTI, m_ePresentOpts = KCDefine.U_PRESENT_OPTS_NOTI
+				m_ePresentOpts = KCDefine.U_PRESENT_OPTS_NOTI, m_eAuthorizationOpts = KCDefine.U_AUTHORIZATION_OPTS_NOTI,
 #elif UNITY_ANDROID
-				m_eImportance = KCDefine.U_IMPORTANCE_NOTI
+				m_eImportance = KCDefine.U_IMPORTANCE_NOTI,
 #endif			// #if UNITY_IOS
-			};
 
-			var stNotiCallbackParams = new CNotiManager.STCallbackParams() {
-				m_oCallback = CLateSetupSceneManager.OnInitNotiManager
-			};
-
-			CNotiManager.Inst.Init(stNotiParams, stNotiCallbackParams);
+				m_oCallbackDict = new Dictionary<CNotiManager.ECallback, System.Action<CNotiManager, bool>>() {
+					[CNotiManager.ECallback.INIT] = CLateSetupSceneManager.OnInitNotiManager
+				}
+			});
 #endif			// #if NOTI_MODULE_ENABLE
 		}
 

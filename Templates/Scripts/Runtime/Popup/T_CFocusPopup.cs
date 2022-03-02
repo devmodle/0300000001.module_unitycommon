@@ -8,21 +8,23 @@ using UnityEngine.EventSystems;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 포커스 팝업 */
 public class CFocusPopup : CSubPopup {
+	/** 콜백 */
+	public enum ECallback {
+		NONE = -1,
+		BEGIN,
+		MOVE,
+		END,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 매개 변수 */
 	public struct STParams {
 		public List<GameObject> m_oContentsUIsList;
-	}
-
-	/** 콜백 매개 변수 */
-	public struct STCallbackParams {
-		public System.Action<CFocusPopup, PointerEventData> m_oBeginCallback;
-		public System.Action<CFocusPopup, PointerEventData> m_oMoveCallback;
-		public System.Action<CFocusPopup, PointerEventData> m_oEndCallback;
+		public Dictionary<ECallback, System.Action<CFocusPopup, PointerEventData>> m_oCallbackDict;
 	}
 
 	#region 변수
 	private STParams m_stParams;
-	private STCallbackParams m_stCallbackParams;
 
 	/** =====> UI <===== */
 	private Image m_oBlindImg = null;
@@ -54,17 +56,15 @@ public class CFocusPopup : CSubPopup {
 	}
 
 	/** 초기화 */
-	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
+	public virtual void Init(STParams a_stParams) {
 		base.Init();
-
 		m_stParams = a_stParams;
-		m_stCallbackParams = a_stCallbackParams;
 
 		// 터치 전달자를 설정한다
 		var oTouchDispatcher = m_oBlindImg?.GetComponentInChildren<CTouchDispatcher>();
-		oTouchDispatcher?.ExSetBeginCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oBeginCallback?.Invoke(this, a_oEventData), false);
-		oTouchDispatcher?.ExSetMoveCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oMoveCallback?.Invoke(this, a_oEventData), false);
-		oTouchDispatcher?.ExSetEndCallback((a_oSender, a_oEventData) => a_stCallbackParams.m_oEndCallback?.Invoke(this, a_oEventData), false);
+		oTouchDispatcher?.ExSetBeginCallback((a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.BEGIN)?.Invoke(this, a_oEventData), false);
+		oTouchDispatcher?.ExSetMoveCallback((a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.MOVE)?.Invoke(this, a_oEventData), false);
+		oTouchDispatcher?.ExSetEndCallback((a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.END)?.Invoke(this, a_oEventData), false);
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */

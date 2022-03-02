@@ -8,24 +8,26 @@ using TMPro;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 결과 팝업 */
 public class CResultPopup : CSubPopup {
+	/** 콜백 */
+	public enum ECallback {
+		NONE = -1,
+		NEXT,
+		RETRY,
+		LEAVE,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 매개 변수 */
 	public struct STParams {
 		public STRecordInfo m_stRecordInfo;
 
 		public CLevelInfo m_oLevelInfo;
 		public CClearInfo m_oClearInfo;
-	}
-
-	/** 콜백 매개 변수 */
-	public struct STCallbackParams {
-		public System.Action<CResultPopup> m_oNextCallback;
-		public System.Action<CResultPopup> m_oRetryCallback;
-		public System.Action<CResultPopup> m_oLeaveCallback;
+		public Dictionary<ECallback, System.Action<CResultPopup>> m_oCallbackDict;
 	}
 
 	#region 변수
 	private STParams m_stParams;
-	private STCallbackParams m_stCallbackParams;
 
 	/** =====> UI <===== */
 	private TMP_Text m_oRecordText = null;
@@ -68,11 +70,9 @@ public class CResultPopup : CSubPopup {
 	}
 
 	/** 초기화 */
-	public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
+	public virtual void Init(STParams a_stParams) {
 		base.Init();
-
 		m_stParams = a_stParams;
-		m_stCallbackParams = a_stCallbackParams;
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */
@@ -101,17 +101,17 @@ public class CResultPopup : CSubPopup {
 
 	/** 다음 버튼을 눌렀을 경우 */
 	private void OnTouchNextBtn() {
-		m_stCallbackParams.m_oNextCallback?.Invoke(this);
+		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.NEXT)?.Invoke(this);
 	}
 
 	/** 재시도 버튼을 눌렀을 경우 */
 	private void OnTouchRetryBtn() {
-		m_stCallbackParams.m_oRetryCallback?.Invoke(this);
+		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
-		m_stCallbackParams.m_oLeaveCallback?.Invoke(this);
+		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
 	#endregion			// 함수
 	

@@ -14,12 +14,21 @@ namespace SampleEngineName {
 			NONE = -1,
 			RUN,
 			STOP,
-			[InspectorName(null)] MAX_VAL
+			[HideInInspector] MAX_VAL
+		}
+
+		/** 콜백 */
+		public enum ECallback {
+			NONE = -1,
+			CLEAR,
+			CLEAR_FAIL,
+			[HideInInspector] MAX_VAL
 		}
 
 		/** 매개 변수 */
 		public struct STParams {
 			public GameObject m_oBlockObjs;
+			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict;
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 			public CLevelInfo m_oLevelInfo;
@@ -27,15 +36,8 @@ namespace SampleEngineName {
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
-		/** 콜백 매개 변수 */
-		public struct STCallbackParams {
-			public System.Action<CEngine> m_oClearCallback;
-			public System.Action<CEngine> m_oClearFailCallback;
-		}
-		
 		#region 변수
 		private STParams m_stParams;
-		private STCallbackParams m_stCallbackParams;
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
@@ -52,7 +54,7 @@ namespace SampleEngineName {
 
 		public EState State { get; private set; } = EState.NONE;
 		public STGridInfo GridInfo { get; private set; }
-
+		
 		public GameObject BlockObjs => m_stParams.m_oBlockObjs;
 		#endregion			// 프로퍼티
 
@@ -62,9 +64,8 @@ namespace SampleEngineName {
 
 		#region 함수
 		/** 초기화 */
-		public virtual void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
+		public virtual void Init(STParams a_stParams) {
 			m_stParams = a_stParams;
-			m_stCallbackParams = a_stCallbackParams;
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 			this.SetupInit();
@@ -73,8 +74,8 @@ namespace SampleEngineName {
 		}
 
 		/** 상태를 리셋한다 */
-		public virtual void Reset() {
-			// Do Something
+		public override void Reset() {
+			base.Reset();
 		}
 
 		/** 상태를 갱신한다 */

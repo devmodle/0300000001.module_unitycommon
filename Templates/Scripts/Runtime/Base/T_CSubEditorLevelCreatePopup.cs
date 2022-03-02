@@ -7,6 +7,15 @@ using UnityEngine.UI;
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 /** 서브 에디터 레벨 생성 팝업 */
 public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
+	/** 매개 변수 */
+	public new struct STParams {
+		public CEditorLevelCreatePopup.STParams m_stBaseParams;
+	}
+
+	#region 변수
+	private STParams m_stParams;
+	#endregion			// 변수
+
 	#region 추가 변수
 
 	#endregion			// 추가 변수
@@ -22,8 +31,9 @@ public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 	}
 
 	/** 초기화 */
-	public override void Init(STCallbackParams a_stCallbackParams) {
-		base.Init(a_stCallbackParams);
+	public virtual void Init(STParams a_stParams) {
+		base.Init(a_stParams.m_stBaseParams);
+		m_stParams = a_stParams;
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */

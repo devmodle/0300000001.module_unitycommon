@@ -20,7 +20,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		LEVEL,
 		STAGE,
 		CHAPTER,
-		[InspectorName(null)] MAX_VAL
+		[HideInInspector] MAX_VAL
 	}
 
 	#region 변수
@@ -145,27 +145,28 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		var stParams = new CEditorScrollerCellView.STParams() {
 			m_stBaseParams = new CScrollerCellView.STParams() {
-				m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID, stIDInfo.m_nStageID, stIDInfo.m_nChapterID), m_oScroller = a_oSender
-			}
-		};
+				m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID, stIDInfo.m_nStageID, stIDInfo.m_nChapterID),
+				m_oScroller = a_oSender,
 
-		var stCallbackParams = new CEditorScrollerCellView.STCallbackParams() {
-			m_stBaseCallbackParams = new CScrollerCellView.STCallbackParams() {
+				m_oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, long>>() {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-				m_oSelCallback = this.OnTouchSCVSelBtn
+					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+				}
 			},
 
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			m_oCopyCallback = this.OnTouchSCVCopyBtn, m_oMoveCallback = this.OnTouchSCVMoveBtn, m_oRemoveCallback = this.OnTouchSCVRemoveBtn
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			m_oCallbackDict = new Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, long>>() {
+				[CEditorScrollerCellView.ECallback.COPY] = this.OnTouchSCVCopyBtn,
+				[CEditorScrollerCellView.ECallback.MOVE] = this.OnTouchSCVMoveBtn,
+				[CEditorScrollerCellView.ECallback.REMOVE] = this.OnTouchSCVRemoveBtn
+			}
 		};
 
 		string oName = string.Format(oNameFmt, a_nDataIdx + KCDefine.B_VAL_1_INT);
 		string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, oName, oNumInfosStr);
 
 		var oScrollerCellView = a_oSender.GetCellView(oOriginScrollerCellView) as CEditorScrollerCellView;
-		oScrollerCellView.Init(stParams, stCallbackParams);
+		oScrollerCellView.Init(stParams);
 		oScrollerCellView.transform.localScale = Vector3.one;
 
 		oScrollerCellView.MoveBtn?.ExSetInteractable(nNumInfos > KCDefine.B_VAL_1_INT, false);
@@ -442,30 +443,33 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	}
 
 	/** 에디터 입력 팝업 결과를 수신했을 경우 */
-	private void OnReceiveEditorInputPopupResult(CEditorInputPopup a_oSender, string a_oStr) {
+	private void OnReceiveEditorInputPopupResult(CEditorInputPopup a_oSender, string a_oStr, bool a_bIsOK) {
 		// 식별자가 유효 할 경우
-		if(int.TryParse(a_oStr, out int nID)) {
+		if(a_bIsOK && int.TryParse(a_oStr, out int nID)) {
 			this.MoveLevelInfos(m_oSelScroller, m_oSelLevelInfo.m_stIDInfo, nID);
 			this.UpdateUIsState();
 		}
 	}
 
 	/** 에디터 레벨 생성 팝업 결과를 수신했을 경우 */
-	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, CEditorLevelCreateInfo a_oCreateInfo) {
+	private void OnReceiveEditorLevelCreatePopupResult(CEditorLevelCreatePopup a_oSender, CEditorLevelCreateInfo a_oCreateInfo, bool a_bIsOK) {
+		// 확인 버튼을 눌렀을 경우
+		if(a_bIsOK) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-		int nNumCreateLevelInfos = (nNumLevelInfos + a_oCreateInfo.m_nNumLevels < KCDefine.U_MAX_NUM_LEVEL_INFOS) ? a_oCreateInfo.m_nNumLevels : KCDefine.U_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
+			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+			int nNumCreateLevelInfos = (nNumLevelInfos + a_oCreateInfo.m_nNumLevels < KCDefine.U_MAX_NUM_LEVEL_INFOS) ? a_oCreateInfo.m_nNumLevels : KCDefine.U_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
 
-		for(int i = 0; i < nNumCreateLevelInfos; ++i) {
-			var oLevelInfo = Factory.MakeLevelInfo(i + nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
-			m_oSelLevelInfo = oLevelInfo;
+			for(int i = 0; i < nNumCreateLevelInfos; ++i) {
+				var oLevelInfo = Factory.MakeLevelInfo(i + nNumLevelInfos, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+				m_oSelLevelInfo = oLevelInfo;
 
-			CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
-			Func.EditorSetupLevelInfo(oLevelInfo, a_oCreateInfo);
-		}
+				CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
+				Func.EditorSetupLevelInfo(oLevelInfo, a_oCreateInfo);
+			}
 
-		this.UpdateUIsState();
+			this.UpdateUIsState();
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+		}
 	}
 
 	/** 터치를 시작했을 경우 */
@@ -760,11 +764,13 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oSelScroller = m_oLEUIsScrollerDict[EScrollerType.LEVEL];
 
 		Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
-			var stCallbackParams = new CEditorInputPopup.STCallbackParams() {
-				m_oCallback = this.OnReceiveEditorInputPopupResult
+			var stParams = new CEditorInputPopup.STParams() {
+				m_oCallbackDict = new Dictionary<CEditorInputPopup.ECallback, System.Action<CEditorInputPopup, string, bool>>() {
+					[CEditorInputPopup.ECallback.OK_CANCEL] = this.OnReceiveEditorInputPopupResult
+				}
 			};
 
-			(a_oSender as CEditorInputPopup).Init(stCallbackParams);
+			(a_oSender as CEditorInputPopup).Init(stParams);
 		});
 	}
 
@@ -865,11 +871,13 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	/** 왼쪽 에디터 UI 레벨 추가 버튼을 눌렀을 경우 */
 	private void OnTouchLEUIsAddLevelBtn() {
 		Func.ShowEditorLevelCreatePopup(this.PopupUIs, (a_oSender) => {
-			var stCallbackParams = new CEditorLevelCreatePopup.STCallbackParams() {
-				m_oCallback = this.OnReceiveEditorLevelCreatePopupResult
+			var stParams = new CEditorLevelCreatePopup.STParams() {
+				m_oCallbackDict = new Dictionary<CEditorLevelCreatePopup.ECallback, System.Action<CEditorLevelCreatePopup, CEditorLevelCreateInfo, bool>>() {
+					[CEditorLevelCreatePopup.ECallback.OK_CANCEL] = this.OnReceiveEditorLevelCreatePopupResult
+				}
 			};
 
-			(a_oSender as CEditorLevelCreatePopup).Init(stCallbackParams);
+			(a_oSender as CEditorLevelCreatePopup).Init(stParams);
 		});
 	}
 
@@ -1024,11 +1032,13 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oSelScroller = a_oSender.Scroller;
 
 		Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
-			var stCallbackParams = new CEditorInputPopup.STCallbackParams() {
-				m_oCallback = this.OnReceiveEditorInputPopupResult
+			var stParams = new CEditorInputPopup.STParams() {
+				m_oCallbackDict = new Dictionary<CEditorInputPopup.ECallback, System.Action<CEditorInputPopup, string, bool>>() {
+					[CEditorInputPopup.ECallback.OK_CANCEL] = this.OnReceiveEditorInputPopupResult
+				}
 			};
 			
-			(a_oSender as CEditorInputPopup).Init(stCallbackParams);
+			(a_oSender as CEditorInputPopup).Init(stParams);
 		});
 	}
 

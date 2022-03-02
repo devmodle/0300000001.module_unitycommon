@@ -14,7 +14,7 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		LEVEL,
 		STAGE,
 		CHAPTER,
-		[InspectorName(null)] MAX_VAL
+		[HideInInspector] MAX_VAL
 	}
 
 #if DEBUG || DEVELOPMENT_BUILD
@@ -78,15 +78,15 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		}
 		
 		var stParams = new CScrollerCellView.STParams() {
-			m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID, stIDInfo.m_nStageID, stIDInfo.m_nChapterID)
-		};
+			m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID, stIDInfo.m_nStageID, stIDInfo.m_nChapterID),
 
-		var stCallbackParams = new CScrollerCellView.STCallbackParams() {
-			m_oSelCallback = this.OnTouchSCVSelBtn
+			m_oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, long>>() {
+				[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
+			}
 		};
 
 		var oScrollerCellView = a_oSender.GetCellView(oOriginScrollerCellView) as CScrollerCellView;
-		oScrollerCellView.Init(stParams, stCallbackParams);
+		oScrollerCellView.Init(stParams);
 
 		return oScrollerCellView;
 	}

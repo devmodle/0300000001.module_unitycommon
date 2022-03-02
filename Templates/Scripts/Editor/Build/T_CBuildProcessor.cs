@@ -34,7 +34,7 @@ public static partial class CBuildProcessor {
 		bool bIsValid = CBuildProcessor.m_oPostProcessHandlerDict.TryGetValue(a_eTarget, out System.Action<BuildTarget, string> oHandler);
 		CAccess.Assert(bIsValid);
 		
-		oHandler?.Invoke(a_eTarget, a_oPath);
+		CFunc.Invoke(ref oHandler, a_eTarget, a_oPath);
 	}
 
 	/** 빌드가 완료 되었을 경우 */

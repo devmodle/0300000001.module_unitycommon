@@ -26,8 +26,8 @@ public class CSubAlertPopup : CAlertPopup {
 	}
 	
 	/** 초기화 */
-	public override void Init(STParams a_stParams, STCallbackParams a_stCallbackParams) {
-		base.Init(a_stParams, a_stCallbackParams);
+	public override void Init(STParams a_stParams) {
+		base.Init(a_stParams);
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */
