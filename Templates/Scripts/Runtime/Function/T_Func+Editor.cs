@@ -65,7 +65,7 @@ public static partial class Func {
 	
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	/** 에디터 레벨 정보를 설정한다 */
-	public static void EditorSetupLevelInfo(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
+	public static void SetupEditorLevelInfo(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
 		int nNumCellsX = Random.Range(a_oCreateInfo.m_stMinNumCells.x, a_oCreateInfo.m_stMaxNumCells.x + KCDefine.B_VAL_1_INT);
 		nNumCellsX = Mathf.Clamp(nNumCellsX, SampleEngineName.KDefine.E_MIN_NUM_CELLS.x, SampleEngineName.KDefine.E_MAX_NUM_CELLS.x);
 
@@ -86,16 +86,16 @@ public static partial class Func {
 		}
 
 		a_oLevelInfo.OnAfterDeserialize();
-		Func.EditorSetupCellInfos(a_oLevelInfo, a_oCreateInfo);
+		Func.SetupEditorCellInfos(a_oLevelInfo, a_oCreateInfo);
 	}
 
 	/** 에디터 셀 정보 설정 완료 여부를 검사한다 */
-	private static bool EditorIsCompleteSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
+	private static bool IsSetupEditorCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
 		return true;
 	}
 
 	/** 에디터 셀 정보를 설정한다 */
-	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
+	private static void SetupEditorCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
 		int nTryTimes = KCDefine.B_VAL_0_INT;
 		
 		var oIdxVDictContainer = new Dictionary<int, List<Vector3Int>>();
@@ -129,14 +129,14 @@ public static partial class Func {
 				oIdxHDictContainer.ExSwap(i, Random.Range(KCDefine.B_VAL_0_INT, oIdxHDictContainer.Count));
 			}
 			
-			Func.EditorSetupCellInfos(a_oLevelInfo, a_oCreateInfo, oIdxVDictContainer, oIdxHDictContainer);
-		} while(nTryTimes++ < KDefine.LES_MAX_TRY_TIMES_SETUP_CELL_INFOS && !Func.EditorIsCompleteSetupCellInfos(a_oLevelInfo, a_oCreateInfo));
+			Func.SetupEditorCellInfos(a_oLevelInfo, a_oCreateInfo, oIdxVDictContainer, oIdxHDictContainer);
+		} while(nTryTimes++ < KDefine.LES_MAX_TRY_TIMES_SETUP_CELL_INFOS && !Func.IsSetupEditorCellInfos(a_oLevelInfo, a_oCreateInfo));
 		
 		a_oLevelInfo.OnAfterDeserialize();
 	}
 
 	/** 에디터 셀 정보를 설정한다 */
-	private static void EditorSetupCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo, Dictionary<int, List<Vector3Int>> a_oIdxVDictContainer, Dictionary<int, List<Vector3Int>> a_oIdxHDictContainer) {
+	private static void SetupEditorCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo, Dictionary<int, List<Vector3Int>> a_oIdxVDictContainer, Dictionary<int, List<Vector3Int>> a_oIdxHDictContainer) {
 		// Do Something
 	}
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE

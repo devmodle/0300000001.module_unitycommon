@@ -78,7 +78,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 				if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
 					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
 
-					Func.EditorSetupLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
+					Func.SetupEditorLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
 						m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
 					});
 					
