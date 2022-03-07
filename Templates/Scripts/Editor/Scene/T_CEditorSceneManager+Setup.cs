@@ -45,8 +45,6 @@ public static partial class CEditorSceneManager {
 					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));
 #endif			// #if !SAMPLE_PROJ
 				}
-
-				break;
 			}
 		}
 	}
