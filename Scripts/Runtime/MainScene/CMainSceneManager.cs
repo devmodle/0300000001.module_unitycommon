@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
@@ -9,6 +10,11 @@ using UnityEngine.InputSystem;
 
 /** 메인 씬 관리자 */
 public class CMainSceneManager : CSceneManager {
+	#region 변수
+	/** =====> UI <===== */
+	protected TMP_Text m_oVerText = null;
+	#endregion			// 변수
+
 	#region 프로퍼티
 	public override bool IsRealtimeFadeInAni => true;
 	public override bool IsRealtimeFadeOutAni => true;
@@ -24,7 +30,16 @@ public class CMainSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			// Do Something
+			// 타이틀 씬 사용 모드가 아닐 경우
+			if(!COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
+				var oVerText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT);
+
+				m_oVerText = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT, KCDefine.U_OBJ_P_G_VER_TEXT, this.UpUIs);
+				m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oVerText.rectTransform.anchoredPosition = KCDefine.U_POS_VER_TEXT.ExTo2D();
+			}
 		}
 	}
 
@@ -34,7 +49,9 @@ public class CMainSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			// Do Something
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
+			m_oVerText?.ExSetText<Text>(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), false);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 	
