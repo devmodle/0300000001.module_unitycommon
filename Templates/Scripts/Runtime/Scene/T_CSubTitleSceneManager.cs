@@ -58,13 +58,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 				this.UpdateFirstStartState();
 			}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			
-#if !TITLE_SCENE_ENABLE
+
 			// 레벨 에디터 씬을 로드하지 않았을 경우
-			if(!m_bIsLoadLevelEditorScene) {
+			if(!m_bIsLoadLevelEditorScene && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 			}
-#endif			// #if !TITLE_SCENE_ENABLE
 		}
 	}
 
@@ -95,14 +93,11 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 		// 최초 플레이 일 경우
 		if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
 			this.UpdateFirstPlayState();
-		} else {
-#if TITLE_SCENE_ENABLE
-			// 업데이트가 가능 할 경우
-			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
-				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
-				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
-			}
-#endif			// #if TITLE_SCENE_ENABLE
+		}
+		// 업데이트가 가능 할 경우
+		else if(!CAppInfoStorage.Inst.IsIgnoreUpdate && COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+			CAppInfoStorage.Inst.IsIgnoreUpdate = true;
+			this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 		}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}

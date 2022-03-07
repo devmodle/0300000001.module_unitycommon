@@ -30,15 +30,16 @@ public class CTitleSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
-			// 텍스트를 설정한다 {
-			var oVerText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT);
+			// 타이틀 씬 사용 모드 일 경우
+			if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
+				var oVerText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT);
 
-			m_oVerText = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.UpUIs);
-			m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-			m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-			m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-			m_oVerText.rectTransform.anchoredPosition = KCDefine.TS_POS_VER_TEXT.ExTo2D();
-			// 텍스트를 설정한다 }
+				m_oVerText = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.TS_OBJ_N_VER_TEXT, KCDefine.TS_OBJ_P_VER_TEXT, this.UpUIs);
+				m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oVerText.rectTransform.anchoredPosition = KCDefine.TS_POS_VER_TEXT.ExTo2D();
+			}
 		}
 	}
 
@@ -49,7 +50,7 @@ public class CTitleSceneManager : CSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			m_oVerText.text = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType);
+			m_oVerText?.ExSetText<Text>(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), false);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}

@@ -229,13 +229,13 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		}
 #endif			// #if DAILY_REWARD_ENABLE
 
-#if !TITLE_SCENE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		// 업데이트가 가능 할 경우
-		if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+		if(!CAppInfoStorage.Inst.IsIgnoreUpdate && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
 			CAppInfoStorage.Inst.IsIgnoreUpdate = true;
 			this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 		}
-#endif			// #if !TITLE_SCENE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** UI 상태를 갱신한다 */
