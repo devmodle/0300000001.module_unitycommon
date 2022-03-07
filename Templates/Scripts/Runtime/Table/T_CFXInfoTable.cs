@@ -12,6 +12,7 @@ public struct STFXInfo {
 	public string m_oDesc;
 
 	public EFXKinds m_eFXKinds;
+	public EFXKinds m_eNextFXKinds;
 
 	#region 함수
 	/** 생성자 */
@@ -20,6 +21,7 @@ public struct STFXInfo {
 		m_oDesc = a_oFXInfo[KCDefine.U_KEY_DESC];
 
 		m_eFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt;
+		m_eNextFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt;
 	}
 	#endregion			// 함수
 }

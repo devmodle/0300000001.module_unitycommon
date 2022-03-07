@@ -37,10 +37,9 @@ public class CClearInfo : CBaseInfo {
 		get { return m_oStrDict.GetValueOrDefault(CClearInfo.KEY_BEST_CLEAR_RECORD, $"{KCDefine.B_VAL_0_INT}"); }
 		set { m_oStrDict.ExReplaceVal(CClearInfo.KEY_BEST_CLEAR_RECORD, value); }
 	}
-
-	[JsonIgnore][IgnoreMember] public long LevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
-
+	
 	[JsonIgnore][IgnoreMember] public long IntRecord => long.TryParse(this.ClearRecord, out long nClearRecord) ? nClearRecord : KCDefine.B_VAL_0_INT;
+	[JsonIgnore][IgnoreMember] public long UniqueLevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	[JsonIgnore][IgnoreMember] public long IntBestClearRecord => long.TryParse(this.BestClearRecord, out long nBestClearRecord) ? nBestClearRecord : KCDefine.B_VAL_0_INT;
 
 	[JsonIgnore][IgnoreMember] public double RealClearRecord => double.TryParse(this.ClearRecord, out double dblClearRecord) ? dblClearRecord : KCDefine.B_VAL_0_DBL;
@@ -85,13 +84,13 @@ public class CGameInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(51)] public List<long> m_oUnlockLevelIDList = new List<long>();
-	[Key(52)] public List<long> m_oUnlockStageIDList = new List<long>();
-	[Key(53)] public List<long> m_oUnlockChapterIDList = new List<long>();
+	[Key(51)] public List<long> m_oUnlockUniqueLevelIDList = new List<long>();
+	[Key(52)] public List<long> m_oUnlockUniqueStageIDList = new List<long>();
+	[Key(53)] public List<long> m_oUnlockUniqueChapterIDList = new List<long>();
 
-	[Key(54)] public List<long> m_oAcquireRewardLevelIDList = new List<long>();
-	[Key(55)] public List<long> m_oAcquireRewardStageIDList = new List<long>();
-	[Key(56)] public List<long> m_oAcquireRewardChapterIDList = new List<long>();
+	[Key(54)] public List<long> m_oAcquireRewardUniqueLevelIDList = new List<long>();
+	[Key(55)] public List<long> m_oAcquireRewardUniqueStageIDList = new List<long>();
+	[Key(56)] public List<long> m_oAcquireRewardUniqueChapterIDList = new List<long>();
 
 	[Key(61)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
 	[Key(62)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
@@ -145,13 +144,13 @@ public class CGameInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		
-		m_oUnlockLevelIDList = m_oUnlockLevelIDList ?? new List<long>();
-		m_oUnlockStageIDList = m_oUnlockStageIDList ?? new List<long>();
-		m_oUnlockChapterIDList = m_oUnlockChapterIDList ?? new List<long>();
+		m_oUnlockUniqueLevelIDList = m_oUnlockUniqueLevelIDList ?? new List<long>();
+		m_oUnlockUniqueStageIDList = m_oUnlockUniqueStageIDList ?? new List<long>();
+		m_oUnlockUniqueChapterIDList = m_oUnlockUniqueChapterIDList ?? new List<long>();
 		
-		m_oAcquireRewardLevelIDList = m_oAcquireRewardLevelIDList ?? new List<long>();
-		m_oAcquireRewardStageIDList = m_oAcquireRewardStageIDList ?? new List<long>();
-		m_oAcquireRewardChapterIDList = m_oAcquireRewardChapterIDList ?? new List<long>();
+		m_oAcquireRewardUniqueLevelIDList = m_oAcquireRewardUniqueLevelIDList ?? new List<long>();
+		m_oAcquireRewardUniqueStageIDList = m_oAcquireRewardUniqueStageIDList ?? new List<long>();
+		m_oAcquireRewardUniqueChapterIDList = m_oAcquireRewardUniqueChapterIDList ?? new List<long>();
 		
 		m_oCompleteMissionKindsList = m_oCompleteMissionKindsList ?? new List<EMissionKinds>();
 		m_oCompleteDailyMissionKindsList = m_oCompleteDailyMissionKindsList ?? new List<EMissionKinds>();
@@ -281,32 +280,32 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 레벨 잠금 해제 여부를 검사한다 */
 	public bool IsUnlockLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return this.GameInfo.m_oUnlockLevelIDList.Contains(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
+		return this.GameInfo.m_oUnlockUniqueLevelIDList.Contains(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
 	/** 스테이지 잠금 해제 여부를 검사한다 */
 	public bool IsUnlockStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return this.GameInfo.m_oUnlockStageIDList.Contains(CFactory.MakeUniqueStageID(a_nID));
+		return this.GameInfo.m_oUnlockUniqueStageIDList.Contains(CFactory.MakeUniqueStageID(a_nID));
 	}
 
 	/** 챕터 잠금 해제 여부를 검사한다 */
 	public bool IsUnlockChapter(int a_nID) {
-		return this.GameInfo.m_oUnlockChapterIDList.Contains(CFactory.MakeUniqueChapterID(a_nID));
+		return this.GameInfo.m_oUnlockUniqueChapterIDList.Contains(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
 	/** 레벨 보상 획득 여부를 검사한다 */
 	public bool IsAcquireRewardLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return this.GameInfo.m_oAcquireRewardLevelIDList.Contains(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
+		return this.GameInfo.m_oAcquireRewardUniqueLevelIDList.Contains(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
 	/** 스테이지 보상 획득 여부를 검사한다 */
 	public bool IsAcquireRewardStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return this.GameInfo.m_oAcquireRewardStageIDList.Contains(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
+		return this.GameInfo.m_oAcquireRewardUniqueStageIDList.Contains(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
 	}
 
 	/** 챕터 보상 획득 여부를 검사한다 */
 	public bool IsAcquireRewardChapter(int a_nID) {
-		return this.GameInfo.m_oAcquireRewardChapterIDList.Contains(CFactory.MakeUniqueChapterID(a_nID));
+		return this.GameInfo.m_oAcquireRewardUniqueChapterIDList.Contains(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
 	/** 스테이지 클리어 마크 개수를 반환한다 */
@@ -400,43 +399,43 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 클리어 정보를 추가한다 */
 	public void AddClearInfo(CClearInfo a_oClearInfo) {
 		CAccess.Assert(!this.IsClearLevel(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
-		this.GameInfo.m_oClearInfoDict.TryAdd(a_oClearInfo.LevelID, a_oClearInfo);
+		this.GameInfo.m_oClearInfoDict.TryAdd(a_oClearInfo.UniqueLevelID, a_oClearInfo);
 	}
 
 	/** 잠금 해제 레벨을 추가한다 */
 	public void AddUnlockLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(!this.IsUnlockLevel(a_nID, a_nStageID, a_nChapterID));
-		this.GameInfo.m_oUnlockLevelIDList.Add(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
+		this.GameInfo.m_oUnlockUniqueLevelIDList.Add(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
 	/** 잠금 해제 스테이지를 추가한다 */
 	public void AddUnlockStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(!this.IsUnlockStage(a_nID, a_nChapterID));
-		this.GameInfo.m_oUnlockStageIDList.Add(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
+		this.GameInfo.m_oUnlockUniqueStageIDList.Add(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
 	}
 
 	/** 잠금 해제 챕터를 추가한다 */
 	public void AddUnlockChapter(int a_nID) {
 		CAccess.Assert(!this.IsUnlockChapter(a_nID));
-		this.GameInfo.m_oUnlockChapterIDList.Add(CFactory.MakeUniqueChapterID(a_nID));
+		this.GameInfo.m_oUnlockUniqueChapterIDList.Add(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
 	/** 보상 획득 레벨을 추가한다 */
 	public void AddAcquireRewardLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(!this.IsAcquireRewardLevel(a_nID, a_nStageID, a_nChapterID));
-		this.GameInfo.m_oAcquireRewardLevelIDList.Add(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
+		this.GameInfo.m_oAcquireRewardUniqueLevelIDList.Add(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
 	/** 보상 획득 스테이지를 추가한다 */
 	public void AddAcquireRewardStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(!this.IsUnlockStage(a_nID, a_nChapterID));
-		this.GameInfo.m_oAcquireRewardStageIDList.Add(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
+		this.GameInfo.m_oAcquireRewardUniqueStageIDList.Add(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
 	}
 
 	/** 보상 획득 챕터를 추가한다 */
 	public void AddAcquireRewardChapter(int a_nID) {
 		CAccess.Assert(!this.IsUnlockChapter(a_nID));
-		this.GameInfo.m_oAcquireRewardChapterIDList.Add(CFactory.MakeUniqueChapterID(a_nID));
+		this.GameInfo.m_oAcquireRewardUniqueChapterIDList.Add(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
 	/** 게임 정보를 로드한다 */

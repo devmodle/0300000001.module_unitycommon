@@ -441,26 +441,26 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	/** 레벨 정보를 반환한다 */
 	public bool TryGetLevelInfo(int a_nID, out STLevelInfo a_stOutLevelInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
-		a_stOutLevelInfo = this.LevelInfoDict.GetValueOrDefault(nLevelID, KDefine.G_INVALID_LEVEL_INFO);
+		long nUniqueLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
+		a_stOutLevelInfo = this.LevelInfoDict.GetValueOrDefault(nUniqueLevelID, KDefine.G_INVALID_LEVEL_INFO);
 
-		return this.LevelInfoDict.ContainsKey(nLevelID);
+		return this.LevelInfoDict.ContainsKey(nUniqueLevelID);
 	}
 
 	/** 스테이지 정보를 반환한다 */
 	public bool TryGetStageInfo(int a_nID, out STStageInfo a_stOutStageInfo, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nStageID = CFactory.MakeUniqueStageID(a_nID, a_nChapterID);
-		a_stOutStageInfo = this.StageInfoDict.GetValueOrDefault(nStageID, KDefine.G_INVALID_STAGE_INFO);
+		long nUniqueStageID = CFactory.MakeUniqueStageID(a_nID, a_nChapterID);
+		a_stOutStageInfo = this.StageInfoDict.GetValueOrDefault(nUniqueStageID, KDefine.G_INVALID_STAGE_INFO);
 
-		return this.StageInfoDict.ContainsKey(nStageID);
+		return this.StageInfoDict.ContainsKey(nUniqueStageID);
 	}
 
 	/** 챕터 정보를 반환한다 */
 	public bool TryGetChapterInfo(int a_nID, out STChapterInfo a_stOutChapterInfo) {
-		long nChapterID = CFactory.MakeUniqueChapterID(a_nID);
-		a_stOutChapterInfo = this.ChapterInfoDict.GetValueOrDefault(nChapterID, KDefine.G_INVALID_CHAPTER_INFO);
+		long nUniqueChapterID = CFactory.MakeUniqueChapterID(a_nID);
+		a_stOutChapterInfo = this.ChapterInfoDict.GetValueOrDefault(nUniqueChapterID, KDefine.G_INVALID_CHAPTER_INFO);
 
-		return this.ChapterInfoDict.ContainsKey(nChapterID);
+		return this.ChapterInfoDict.ContainsKey(nUniqueChapterID);
 	}
 
 	/** 에피소드 정보를 로드한다 */
@@ -495,31 +495,31 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 		for(int i = 0; i < oLevelInfos.Count; ++i) {
 			var stLevelInfo = new STLevelInfo(oLevelInfos[i]);
-			long nLevelID = CFactory.MakeUniqueLevelID(stLevelInfo.m_nID, stLevelInfo.m_nStageID, stLevelInfo.m_nChapterID);
+			long nUniqueLevelID = CFactory.MakeUniqueLevelID(stLevelInfo.m_nID, stLevelInfo.m_nStageID, stLevelInfo.m_nChapterID);
 
 			// 레벨 정보가 추가 가능 할 경우
-			if(!this.LevelInfoDict.ContainsKey(nLevelID) || oLevelInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
-				this.LevelInfoDict.ExReplaceVal(nLevelID, stLevelInfo);
+			if(!this.LevelInfoDict.ContainsKey(nUniqueLevelID) || oLevelInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				this.LevelInfoDict.ExReplaceVal(nUniqueLevelID, stLevelInfo);
 			}
 		}
 
 		for(int i = 0; i < oStageInfos.Count; ++i) {
 			var stStageInfo = new STStageInfo(oStageInfos[i]);
-			long nStageID = CFactory.MakeUniqueStageID(stStageInfo.m_nID, stStageInfo.m_nChapterID);
+			long nUniqueStageID = CFactory.MakeUniqueStageID(stStageInfo.m_nID, stStageInfo.m_nChapterID);
 
 			// 스테이지 정보가 추가 가능 할 경우
-			if(!this.StageInfoDict.ContainsKey(nStageID) || oStageInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
-				this.StageInfoDict.ExReplaceVal(nStageID, stStageInfo);
+			if(!this.StageInfoDict.ContainsKey(nUniqueStageID) || oStageInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				this.StageInfoDict.ExReplaceVal(nUniqueStageID, stStageInfo);
 			}
 		}
 
 		for(int i = 0; i < oChapterInfos.Count; ++i) {
 			var stChapterInfo = new STChapterInfo(oChapterInfos[i]);
-			long nChapterID = CFactory.MakeUniqueChapterID(stChapterInfo.m_nID);
+			long nUniqueChapterID = CFactory.MakeUniqueChapterID(stChapterInfo.m_nID);
 
 			// 챕터 정보가 추가 가능 할 경우
-			if(!this.ChapterInfoDict.ContainsKey(nChapterID) || oChapterInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
-				this.ChapterInfoDict.ExReplaceVal(nChapterID, stChapterInfo);
+			if(!this.ChapterInfoDict.ContainsKey(nUniqueChapterID) || oChapterInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				this.ChapterInfoDict.ExReplaceVal(nUniqueChapterID, stChapterInfo);
 			}
 		}
 

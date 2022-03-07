@@ -17,7 +17,7 @@ public struct STRecordInfo {
 /** 게임 속성 */
 [System.Serializable]
 public struct STGameConfig {
-
+	// Do Something
 }
 
 /** 아이템 정보 */
@@ -45,7 +45,7 @@ public struct STCommonEpisodeInfo {
 /** 타입 랩퍼 */
 [MessagePackObject]
 public struct STTypeWrapper {
-	[Key(51)] public List<long> m_oLevelIDList;
+	[Key(51)] public List<long> m_oUniqueLevelIDList;
 
 	[Key(161)] public Dictionary<int, Dictionary<int, int>> m_oNumLevelInfosDictContainer;
 	[Key(162)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;

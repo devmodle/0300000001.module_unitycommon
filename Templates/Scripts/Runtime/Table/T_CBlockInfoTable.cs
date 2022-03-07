@@ -12,6 +12,7 @@ public struct STBlockInfo {
 	public string m_oDesc;
 
 	public EBlockKinds m_eBlockKinds;
+	public EBlockKinds m_eNextBlockKinds;
 
 	#region 함수
 	/** 생성자 */
@@ -20,6 +21,7 @@ public struct STBlockInfo {
 		m_oDesc = a_oBlockInfo[KCDefine.U_KEY_DESC];
 
 		m_eBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt;
+		m_eNextBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].AsInt;
 	}
 	#endregion			// 함수
 }
