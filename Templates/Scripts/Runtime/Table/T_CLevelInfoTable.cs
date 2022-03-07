@@ -227,7 +227,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	public string LevelInfoTablePath {
 		get {
-#if AB_TEST_ENABLE
+#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B;
 #else
@@ -239,7 +239,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #else
 			return KCDefine.U_TABLE_P_G_LEVEL_INFO;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-#endif			// #if AB_TEST_ENABLE
+#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 	
@@ -296,7 +296,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		long nLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
 
 #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
-#if AB_TEST_ENABLE
+#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B, nLevelID + KCDefine.B_VAL_1_INT);
 #else
@@ -308,7 +308,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #else
 		return string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nLevelID + KCDefine.B_VAL_1_INT);
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-#endif			// #if AB_TEST_ENABLE
+#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #else
 		return null;
 #endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE

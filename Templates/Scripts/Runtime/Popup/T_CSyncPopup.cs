@@ -147,7 +147,6 @@ public class CSyncPopup : CSubPopup {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfoStr);
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if ADS_MODULE_ENABLE
 			// 광고 제거 모드 일 경우
@@ -158,6 +157,7 @@ public class CSyncPopup : CSubPopup {
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
 			}
 #endif			// #if ADS_MODULE_ENABLE
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 
 		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();

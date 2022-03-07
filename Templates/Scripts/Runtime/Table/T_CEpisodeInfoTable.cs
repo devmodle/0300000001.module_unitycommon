@@ -376,7 +376,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	private string EpisodeInfoTablePath {
 		get {
-#if AB_TEST_ENABLE
+#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO_SET_A : KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO_SET_B;
 #else
@@ -388,7 +388,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 #else
 			return KCDefine.U_TABLE_P_G_EPISODE_INFO;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-#endif			// #if AB_TEST_ENABLE
+#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 	#endregion			// 프로퍼티

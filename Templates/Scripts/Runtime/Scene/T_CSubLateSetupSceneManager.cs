@@ -38,11 +38,11 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	/** 씬을 설정한다 */
 	protected override void Setup() {
 		base.Setup();
-		
-#if ADS_MODULE_ENABLE
+
+#if ADS_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 		CAdsManager.Inst.IsEnableBannerAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 		CAdsManager.Inst.IsEnableFullscreenAds = !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
-#endif			// #if ADS_MODULE_ENABLE
+#endif			// #if ADS_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 추적 설명 팝업을 출력한다 */

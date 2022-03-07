@@ -174,6 +174,10 @@ public static partial class KDefine {
 		m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE, m_eNextTutorialKinds = ETutorialKinds.NONE
 	};
 
+	public static readonly STFXInfo G_INVALID_FX_INFO = new STFXInfo() {
+		m_eFXKinds = EFXKinds.NONE
+	};
+
 	public static readonly STBlockInfo G_INVALID_BLOCK_INFO = new STBlockInfo() {
 		m_eBlockKinds = EBlockKinds.NONE
 	};

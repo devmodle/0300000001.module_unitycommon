@@ -433,6 +433,18 @@ public enum ETargetKinds {
 	[HideInInspector] MAX_VAL
 }
 
+/** 효과 타입 */
+public enum EFXType {
+	NONE = -1,
+	[HideInInspector] MAX_VAL
+}
+
+/** 효과 종류 */
+public enum EFXKinds {
+	NONE = -1,
+	[HideInInspector] MAX_VAL
+}
+
 /** 블럭 타입 */
 public enum EBlockType {
 	NONE = -1,

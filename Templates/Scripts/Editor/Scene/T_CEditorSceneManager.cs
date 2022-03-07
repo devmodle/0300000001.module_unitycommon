@@ -44,8 +44,8 @@ public static partial class CEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			CEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
 			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
+			CEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
 
 			// 상태 갱신이 가능 할 경우
 			if(CEditorSceneManager.m_bIsEnableSetup) {
@@ -64,6 +64,7 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateRewardInfoTable();
 				EditorFactory.CreateEpisodeInfoTable();
 				EditorFactory.CreateTutorialInfoTable();
+				EditorFactory.CreateFXInfoTable();
 				EditorFactory.CreateBlockInfoTable();
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 			}
@@ -116,6 +117,16 @@ public static partial class CEditorSceneManager {
 	private static void LateUpdate() {
 		bool bIsEnableUpdate = CEditorAccess.IsEnableUpdateState && CEditorSceneManager.m_bIsSetupDependencies && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VAL_0_INT;
 		CEditorSceneManager.m_fDefineSymbolSkipTime = bIsEnableUpdate ? CEditorSceneManager.m_fDefineSymbolSkipTime + Time.deltaTime : KCDefine.B_VAL_0_FLT;
+
+		for(int i = 0; i < CEditorSceneManager.m_oAddRequestList.Count; ++i) {
+			// 에러가 존재 할 경우
+			if(CEditorSceneManager.m_oAddRequestList[i].Error != null) {
+				CFunc.ShowLog($"CEditorSceneManager.LateUpdate: {CEditorSceneManager.m_oAddRequestList[i].Error.message}");
+				CEditorSceneManager.m_oAddRequestList.ExRemoveValAt(i, false);
+				
+				break;
+			}
+		}
 
 		// 상태 갱신이 가능 할 경우
 		if(bIsEnableUpdate && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE)) {

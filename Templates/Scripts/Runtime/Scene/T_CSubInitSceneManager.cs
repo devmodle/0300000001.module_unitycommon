@@ -30,6 +30,7 @@ public class CSubInitSceneManager : CInitSceneManager {
 		CRewardInfoTable.Create(KCDefine.U_ASSET_P_G_REWARD_INFO_TABLE);
 		CEpisodeInfoTable.Create(KCDefine.U_ASSET_P_G_EPISODE_INFO_TABLE);
 		CTutorialInfoTable.Create(KCDefine.U_ASSET_P_G_TUTORIAL_INFO_TABLE);
+		CFXInfoTable.Create(KCDefine.U_ASSET_P_G_FX_INFO_TABLE);
 		CBlockInfoTable.Create(KCDefine.U_ASSET_P_G_BLOCK_INFO_TABLE);
 		// 테이블을 생성한다 }
 		

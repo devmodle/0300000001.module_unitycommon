@@ -346,6 +346,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 		
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			bool bIsEnableLoadBannerAds = CPluginInfoTable.Inst.GetBannerAdsID(a_eAdsPlatform).ExIsValid() && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
 			bIsEnableLoadBannerAds = bIsEnableLoadBannerAds && CPluginInfoTable.Inst.AdsPlatform == a_eAdsPlatform;
 
@@ -366,6 +367,7 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			if(bIsEnableLoadFullscreenAds && CLateSetupSceneManager.IsAutoLoadFullscreenAds) {
 				CAdsManager.Inst.LoadFullscreenAds(a_eAdsPlatform);
 			}
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE
@@ -377,7 +379,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CFlurryManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
 			CFlurryManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 		}
 	}
@@ -437,7 +442,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(a_bIsSuccess) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE			
 			CAppsFlyerManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
 			CAppsFlyerManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 		}
 	}

@@ -38,6 +38,7 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		CRewardInfoTable.Inst.LoadRewardInfos();
 		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 		CTutorialInfoTable.Inst.LoadTutorialInfos();
+		CFXInfoTable.Inst.LoadFXInfos();
 		CBlockInfoTable.Inst.LoadBlockInfos();
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 
