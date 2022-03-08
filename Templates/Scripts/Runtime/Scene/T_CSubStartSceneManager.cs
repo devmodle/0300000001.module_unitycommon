@@ -68,13 +68,9 @@ public class CSubStartSceneManager : CStartSceneManager {
 
 	/** 씬을 설정한다 */
 	private void SetupAwake() {	
-		// 텍스트를 설정한다 {
+		// 텍스트를 설정한다
 		var oLoadingText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
-		CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet.A, out STFontSetInfo stFontSetInfo);
-
 		m_oLoadingText = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.UIs, m_stLoadingTextPos);
-		m_oLoadingText.ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT), stFontSetInfo);
-		// 텍스트를 설정한다 }
 
 		// 게이지 처리자를 설정한다 {
 		var oLoadingGauge = this.UIsBase.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
