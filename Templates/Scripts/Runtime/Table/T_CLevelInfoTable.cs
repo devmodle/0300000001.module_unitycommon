@@ -484,6 +484,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		}
 
 		oStageLevelInfoDict.ExRemoveVal(oStageLevelInfoDict.Count - KCDefine.B_VAL_1_INT);
+
+		// 스테이지 레벨 정보가 없을 경우
+		if(!oStageLevelInfoDict.ExIsValid()) {
+			this.RemoveStageLevelInfos(a_nStageID, a_nChapterID);
+		}
 	}
 
 	/** 스테이지 레벨 정보를 제거한다 */
@@ -500,6 +505,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		}
 
 		oChapterLevelInfoDictContainer.ExRemoveVal(oChapterLevelInfoDictContainer.Count - KCDefine.B_VAL_1_INT);
+
+		// 챕터 레벨 정보가 없을 경우
+		if(!oChapterLevelInfoDictContainer.ExIsValid()) {
+			this.RemoveChapterLevelInfos(a_nChapterID);
+		}
 	}
 
 	/** 챕터 레벨 정보를 제거한다 */

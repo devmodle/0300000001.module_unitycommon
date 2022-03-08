@@ -124,7 +124,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		int nNumInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
-		string oNameFmt = KCDefine.B_TEXT_FMT_LEVEL;
+		string oNameFmt = KCDefine.LES_TEXT_FMT_LEVEL;
 		string oNumInfosStr = string.Empty;
 
 		var stColor = (m_oSelLevelInfo.m_stIDInfo.m_nID == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE;
@@ -135,7 +135,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		if(m_oLEUIsScrollerDict[EScroller.STAGE] == a_oSender) {
 			nNumInfos = CLevelInfoTable.Inst.GetNumStageInfos(m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
-			oNameFmt = KCDefine.B_TEXT_FMT_STAGE;
+			oNameFmt = KCDefine.LES_TEXT_FMT_STAGE;
 			oNumInfosStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, CLevelInfoTable.Inst.GetNumLevelInfos(a_nDataIdx, m_oSelLevelInfo.m_stIDInfo.m_nChapterID));
 
 			stColor = (m_oSelLevelInfo.m_stIDInfo.m_nStageID == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE;
@@ -146,7 +146,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		else if(m_oLEUIsScrollerDict[EScroller.CHAPTER] == a_oSender) {
 			nNumInfos = CLevelInfoTable.Inst.NumChapterInfos;
 
-			oNameFmt = KCDefine.B_TEXT_FMT_CHAPTER;
+			oNameFmt = KCDefine.LES_TEXT_FMT_CHAPTER;
 			oNumInfosStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, CLevelInfoTable.Inst.GetNumStageInfos(a_nDataIdx));
 
 			stColor = (m_oSelLevelInfo.m_stIDInfo.m_nChapterID == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE;
@@ -550,8 +550,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		else if(m_oLEUIsScrollerDict[EScroller.CHAPTER] == a_oScroller) {
 			CLevelInfoTable.Inst.RemoveChapterLevelInfos(a_stIDInfo.m_nChapterID);
 		}
-		
-		// 레벨 정보가 없을 경우
+
+		// 레벨 정보가 존재 할 경우
 		if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
 			m_oSelLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
 			CLevelInfoTable.Inst.AddLevelInfo(m_oSelLevelInfo);
@@ -683,11 +683,14 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		var oTokenList = a_oStr.Split(KCDefine.B_TOKEN_DASH).ToList();
 
 		// 식별자가 유효 할 경우
-		if(oTokenList.Count >= KCDefine.B_VAL_2_INT && int.TryParse(oTokenList[KCDefine.B_VAL_0_INT], out int nMinID) && int.TryParse(oTokenList[KCDefine.B_VAL_1_INT], out int nMaxID)) {
+		if(oTokenList.Count >= KCDefine.B_VAL_2_INT && (int.TryParse(oTokenList[KCDefine.B_VAL_0_INT], out int nMinID) && int.TryParse(oTokenList[KCDefine.B_VAL_1_INT], out int nMaxID))) {
+			nMinID = Mathf.Clamp(nMinID, KCDefine.B_VAL_1_INT, KCDefine.U_MAX_NUM_LEVEL_INFOS);
+			nMaxID = Mathf.Clamp(nMaxID, KCDefine.B_VAL_1_INT, KCDefine.U_MAX_NUM_LEVEL_INFOS);
+
 			CFunc.LessCorrectSwap(ref nMinID, ref nMaxID);
 			var stIDInfo = CFactory.MakeIDInfo(nMinID - KCDefine.B_VAL_1_INT, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 
-			for(int i = nMinID; i <= nMaxID; ++i) {
+			for(int i = 0; i <= nMaxID - nMinID; ++i) {
 				// 레벨 정보가 존재 할 경우
 				if(CLevelInfoTable.Inst.TryGetLevelInfo(stIDInfo.m_nID, out CLevelInfo oLevelInfo, stIDInfo.m_nStageID, stIDInfo.m_nChapterID)) {
 					this.RemoveLevelInfos(m_oSelScroller, stIDInfo);
@@ -737,7 +740,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	/** 중앙 에디터 UI 상태를 갱신한다 */
 	private void UpdateMidEditorUIsState() {
 		// 텍스트를 갱신한다
-		m_oMEUIsLevelText?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_LEVEL, m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT), false);
+		m_oMEUIsLevelText?.ExSetText<Text>(string.Format(KCDefine.LES_TEXT_FMT_LEVEL, m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT), false);
 
 		// 버튼을 갱신한다 {
 		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);

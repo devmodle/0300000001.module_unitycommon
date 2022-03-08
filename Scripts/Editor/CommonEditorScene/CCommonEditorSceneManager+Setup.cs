@@ -270,9 +270,19 @@ public static partial class CCommonEditorSceneManager {
 		// 렌더링 파이프라인 설정이 존재 할 경우
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS)) {
 			var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
-			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
-			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
-			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+
+			var oIsSetupOptsList = new List<bool>() {
+				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS).boolValue,
+				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS).boolValue,
+				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS).boolValue
+			};
+
+			// 설정 갱신이 필요 할 경우
+			if(oIsSetupOptsList.Contains(false)) {
+				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+			}
 		}
 	}
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
