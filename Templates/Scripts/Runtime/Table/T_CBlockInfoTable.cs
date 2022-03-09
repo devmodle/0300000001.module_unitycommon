@@ -14,6 +14,8 @@ public struct STBlockInfo {
 	public EBlockKinds m_eBlockKinds;
 	public EBlockKinds m_eNextBlockKinds;
 
+	public Vector3 m_stSize;
+
 	#region 함수
 	/** 생성자 */
 	public STBlockInfo(SimpleJSON.JSONNode a_oBlockInfo) {
@@ -22,6 +24,12 @@ public struct STBlockInfo {
 
 		m_eBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt;
 		m_eNextBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].AsInt;
+
+		m_stSize = new Vector3() {
+			x = (a_oBlockInfo[KCDefine.U_KEY_SIZE_X] != null) ? a_oBlockInfo[KCDefine.U_KEY_SIZE_X].AsFloat : KCDefine.B_VAL_0_FLT,
+			y = (a_oBlockInfo[KCDefine.U_KEY_SIZE_Y] != null) ? a_oBlockInfo[KCDefine.U_KEY_SIZE_Y].AsFloat : KCDefine.B_VAL_0_FLT,
+			z = (a_oBlockInfo[KCDefine.U_KEY_SIZE_Z] != null) ? a_oBlockInfo[KCDefine.U_KEY_SIZE_Z].AsFloat : KCDefine.B_VAL_0_FLT
+		};
 	}
 	#endregion			// 함수
 }

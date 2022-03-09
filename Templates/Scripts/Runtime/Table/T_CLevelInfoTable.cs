@@ -13,11 +13,8 @@ using Newtonsoft.Json;
 [MessagePackObject][System.Serializable]
 public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
-	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
-	
-#if ENGINE_TEMPLATES_MODULE_ENABLE
 	[Key(61)] public List<EBlockKinds> m_oBlockKindsList = new List<EBlockKinds>();
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -45,10 +42,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-
-#if ENGINE_TEMPLATES_MODULE_ENABLE
 		m_oBlockKindsList = m_oBlockKindsList ?? new List<EBlockKinds>();
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -61,10 +55,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	/** 사본 객체를 설정한다 */
 	protected virtual void SetupCloneInst(CCellInfo a_oCellInfo) {
 		a_oCellInfo.m_stIdx = m_stIdx;
-
-#if ENGINE_TEMPLATES_MODULE_ENABLE
 		m_oBlockKindsList.ExCopyTo(a_oCellInfo.m_oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 	}
 	#endregion			// 함수
 }
@@ -159,12 +150,10 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 				m_oCellInfoDictContainer[i][j].Ver = this.CellVer;
 				m_oCellInfoDictContainer[i][j].m_stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
 
-#if ENGINE_TEMPLATES_MODULE_ENABLE
 				for(int k = 0; k < m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
 					// Do Something
 				}
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-
+				
 				// 버전이 다를 경우
 				if(this.CellVer.CompareTo(KDefine.G_VER_CELL_INFO) < KCDefine.B_COMPARE_EQUALS) {
 					// Do Something

@@ -40,7 +40,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private CTouchDispatcher m_oBGTouchDispatcher = null;
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-	private SampleEngineName.STGridInfo m_stSelGridInfo;
+	private SampleEngineName.STGridInfo m_stGridInfo;
 	private Dictionary<EBlockKinds, SpriteRenderer>[,] m_oBlockSpriteDicts = null;
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
@@ -354,14 +354,14 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			}
 		}
 
-		m_stSelGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oSelLevelInfo);
+		m_stGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oSelLevelInfo);
 
 		// 비율을 설정한다 {
-		bool bIsValidA = !float.IsNaN(m_stSelGridInfo.m_stGridScale.x) && !float.IsInfinity(m_stSelGridInfo.m_stGridScale.x);
-		bool bIsValidB = !float.IsNaN(m_stSelGridInfo.m_stGridScale.y) && !float.IsInfinity(m_stSelGridInfo.m_stGridScale.y);
-		bool bIsValidC = !float.IsNaN(m_stSelGridInfo.m_stGridScale.z) && !float.IsInfinity(m_stSelGridInfo.m_stGridScale.z);
+		bool bIsValidA = !float.IsNaN(m_stGridInfo.m_stGridScale.x) && !float.IsInfinity(m_stGridInfo.m_stGridScale.x);
+		bool bIsValidB = !float.IsNaN(m_stGridInfo.m_stGridScale.y) && !float.IsInfinity(m_stGridInfo.m_stGridScale.y);
+		bool bIsValidC = !float.IsNaN(m_stGridInfo.m_stGridScale.z) && !float.IsInfinity(m_stGridInfo.m_stGridScale.z);
 
-		m_oBlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_stSelGridInfo.m_stGridScale : Vector3.one;
+		m_oBlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_stGridInfo.m_stGridScale : Vector3.one;
 		// 비율을 설정한다 }
 
 		// 블럭 스프라이트를 설정한다 {
@@ -374,7 +374,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 				for(int k = 0; k < m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
 					var oBlockSprite = Factory.CreateBlockSprite(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], m_oBlockObjs);
-					oBlockSprite.transform.localPosition = m_stSelGridInfo.m_stGridPivotPos + stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+					oBlockSprite.transform.localPosition = m_stGridInfo.m_stGridPivotPos + stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
 					oBlockSpriteDict.TryAdd(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], oBlockSprite);
 				}
