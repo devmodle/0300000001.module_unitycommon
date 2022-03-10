@@ -135,6 +135,21 @@ public static partial class CCommonEditorSceneManager {
 		});
 	}
 
+	/** 지역화 정보를 설정한다 */
+	private static void SetupLocalizeInfos() {
+		// 지역화 정보 테이블이 존재 할 경우
+		if(CPlatformOptsSetter.LocalizeInfoTable != null) {
+			for(int i = 0; i < CPlatformOptsSetter.LocalizeInfoTable.LocalizeInfoList.Count; ++i) {
+				for(int j = 0; j < CPlatformOptsSetter.LocalizeInfoTable.LocalizeInfoList[i].m_oFontSetInfoList.Count; ++j) {
+					var stFontSetInfo = CPlatformOptsSetter.LocalizeInfoTable.LocalizeInfoList[i].m_oFontSetInfoList[j];
+					stFontSetInfo.m_eSet = EFontSet.A + j;
+
+					CPlatformOptsSetter.LocalizeInfoTable.LocalizeInfoList[i].m_oFontSetInfoList[j] = stFontSetInfo;
+				}
+			}
+		}
+	}
+
 	/** 씬 템플릿을 설정한다 */
 	private static void SetupSceneTemplates() {
 		// 샘플 씬 템플릿이 존재 할 경우

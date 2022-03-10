@@ -116,6 +116,7 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupLayers();
 				CCommonEditorSceneManager.SetupLightOpts();
 				CCommonEditorSceneManager.SetupStaticObjs();
+				CCommonEditorSceneManager.SetupLocalizeInfos();
 				CCommonEditorSceneManager.SetupSceneTemplates();
 
 #if INPUT_SYSTEM_MODULE_ENABLE

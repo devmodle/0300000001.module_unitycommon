@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ae608603e1042bbb88b0838e81221d, type: 3}
   m_Name: T_LocalizeInfoTable
   m_EditorClassIdentifier: 
-  m_oFontInfoList:
+  m_oLocalizeInfoList:
   - m_oCountryCode: 
     m_eSystemLanguage: 23
     m_oFontSetInfoList:
