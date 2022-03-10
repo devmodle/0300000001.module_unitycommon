@@ -104,7 +104,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 			this.SetupStart();
 			this.UpdateUIsState();
 
-			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_OVERLAY);
+			CSceneLoader.Inst.LoadAdditiveSceneAsync(KCDefine.B_SCENE_N_OVERLAY, null);
 		}
 	}
 

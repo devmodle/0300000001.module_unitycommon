@@ -97,11 +97,11 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 		m_oPermissionList.ExAddVal(Permission.ExternalStorageWrite);
 #endif			// #if UNITY_ANDROID
 
-#if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
+#if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 		CLateSetupSceneManager.IsAutoLoadBannerAds = true;
 		CLateSetupSceneManager.IsAutoLoadRewardAds = true;
 		CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
-#endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
+#endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonAppInfoStorage.Inst.DeviceConfig = CDeviceInfoTable.Inst.DeviceConfig;
