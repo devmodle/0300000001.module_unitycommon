@@ -27,8 +27,8 @@
 	- *Odin Inspector (3.0.12 - Nov 15, 2021)*
 	- *Sprite Trail (1.4.0 - Aug 2, 2019)*
 	- *Ultimate Status Bar (2.6.0 - Jun 3, 2020)*
-	- *Lean GUI (1.2.3 - Nov 20, 2021)*
-	- *Lean Touch (2.3.5 - Nov 20, 2021)*
+	- *Lean GUI (2.0.0 - Mar 4, 2022)*
+	- *Lean Touch (3.0.0 - Mar 4, 2022)*
 	- *Apple Auth (1.4.2 - Jul 18, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (2.3.85)*
