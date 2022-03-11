@@ -89,30 +89,6 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	/** 독립 패키지 상태를 갱신한다 */
-	private static void UpdateDependencyState() {
-		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState && (m_oListRequest != null && m_oListRequest.ExIsComplete())) {
-			try {
-				CEditorSceneManager.SetupDependencies();
-			} finally {
-				CEditorSceneManager.m_oListRequest = null;
-				CEditorSceneManager.m_bIsSetupDependencies = true;
-
-				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
-			}
-		}
-	}
-
-	/** 패키지 레지스트리 상태를 갱신한다 */
-	private static void UpdateScopedRegistryState() {
-		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState) {
-			CEditorSceneManager.SetupScopedRegistries();
-			EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
-		}
-	}
-
 	/** 상태를 갱신한다 */
 	private static void LateUpdate() {
 		bool bIsEnableUpdate = CEditorAccess.IsEnableUpdateState && CEditorSceneManager.m_bIsSetupDependencies && CEditorSceneManager.m_oAddRequestList.Count <= KCDefine.B_VAL_0_INT;
@@ -165,6 +141,30 @@ public static partial class CEditorSceneManager {
 					CEditorFunc.UpdateAssetDBState();
 				}
 			}
+		}
+	}
+
+	/** 독립 패키지 상태를 갱신한다 */
+	private static void UpdateDependencyState() {
+		// 상태 갱신이 가능 할 경우
+		if(CEditorAccess.IsEnableUpdateState && (m_oListRequest != null && m_oListRequest.ExIsComplete())) {
+			try {
+				CEditorSceneManager.SetupDependencies();
+			} finally {
+				CEditorSceneManager.m_oListRequest = null;
+				CEditorSceneManager.m_bIsSetupDependencies = true;
+
+				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
+			}
+		}
+	}
+
+	/** 패키지 레지스트리 상태를 갱신한다 */
+	private static void UpdateScopedRegistryState() {
+		// 상태 갱신이 가능 할 경우
+		if(CEditorAccess.IsEnableUpdateState) {
+			CEditorSceneManager.SetupScopedRegistries();
+			EditorApplication.update -= CEditorSceneManager.UpdateScopedRegistryState;
 		}
 	}
 	#endregion			// 클래스 함수
