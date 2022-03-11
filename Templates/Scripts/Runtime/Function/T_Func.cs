@@ -254,13 +254,13 @@ public static partial class Func {
 	}
 
 	/** 배너 광고를 닫는다 */
-	public static void CloseBannerAds(bool a_bIsRemove = false) {
-		Func.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform, a_bIsRemove);
+	public static void CloseBannerAds() {
+		Func.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
 	}
 
 	/** 배너 광고를 닫는다 */
-	public static void CloseBannerAds(EAdsPlatform a_eAdsPlatform, bool a_bIsRemove = false) {
-		CAdsManager.Inst.CloseBannerAds(a_eAdsPlatform, a_bIsRemove);
+	public static void CloseBannerAds(EAdsPlatform a_eAdsPlatform) {
+		CAdsManager.Inst.CloseBannerAds(a_eAdsPlatform);
 	}
 
 	/** 보상 광고를 출력한다 */

@@ -24,7 +24,7 @@ public static partial class Func {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if ADS_MODULE_ENABLE
-				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform, true);
+				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
 
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
