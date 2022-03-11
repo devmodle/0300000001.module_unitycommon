@@ -12,21 +12,6 @@ using UnityEngine.Purchasing;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 중첩 씬 관리자 */
 public partial class CSubOverlaySceneManager : COverlaySceneManager {
-#if DEBUG || DEVELOPMENT_BUILD
-	/** 테스트 UI */
-	[System.Serializable]
-	private struct STTestUIs {
-		// Do Something
-	}
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-
-	#region 변수
-	/** =====> UI <===== */
-#if DEBUG || DEVELOPMENT_BUILD
-	[SerializeField] private STTestUIs m_stTestUIs;
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public TMP_Text NumCoinsText { get; private set; } = null;
 	public Button StoreBtn { get; private set; } = null;
