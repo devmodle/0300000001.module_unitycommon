@@ -27,16 +27,16 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 변수
 
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-	
 	#region 프로퍼티
 	public TMP_Text NumCoinsText { get; private set; } = null;
 	public Button StoreBtn { get; private set; } = null;
 
 	public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS;
 	#endregion			// 프로퍼티
+
+	#region 추가 변수
+
+	#endregion			// 추가 변수
 
 	#region 추가 프로퍼티
 

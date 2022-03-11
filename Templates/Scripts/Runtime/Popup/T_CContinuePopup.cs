@@ -31,13 +31,13 @@ public class CContinuePopup : CSubPopup {
 	private TMP_Text m_oPriceText = null;
 	#endregion			// 변수
 
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
 	#region 프로퍼티
 	public override bool IsIgnoreCloseBtn => true;
 	#endregion			// 프로퍼티
+
+	#region 추가 변수
+
+	#endregion			// 추가 변수
 
 	#region 추가 프로퍼티
 

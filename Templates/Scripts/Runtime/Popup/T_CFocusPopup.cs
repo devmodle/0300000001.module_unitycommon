@@ -29,17 +29,17 @@ public class CFocusPopup : CSubPopup {
 	/** =====> UI <===== */
 	private Image m_oBlindImg = null;
 	#endregion			// 변수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
+	
 	#region 프로퍼티
 	public override bool IsIgnoreBGAni => true;
 	public override EAniType AniType => EAniType.NONE;
 
 	public override Color BGColor => KCDefine.U_COLOR_TRANSPARENT;
 	#endregion			// 프로퍼티
+
+	#region 추가 변수
+
+	#endregion			// 추가 변수
 
 	#region 추가 프로퍼티
 

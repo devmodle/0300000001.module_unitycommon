@@ -37,6 +37,10 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 변수
 
+	#region 프로퍼티
+	public override bool IsIgnoreOverlayScene => false;
+	#endregion			// 프로퍼티
+
 	#region 추가 변수
 
 	#endregion			// 추가 변수
@@ -130,8 +134,6 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		if(CSceneManager.IsAppInit) {
 			this.SetupStart();
 			this.UpdateUIsState();
-			
-			CSceneLoader.Inst.LoadAdditiveSceneAsync(KCDefine.B_SCENE_N_OVERLAY, null);
 		}
 	}
 
