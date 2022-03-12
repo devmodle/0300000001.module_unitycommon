@@ -187,7 +187,7 @@ public static partial class CCommonEditorSceneManager {
 				a_oSettings.realtimeGI == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeGI,
 				a_oSettings.realtimeEnvironmentLighting == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeEnvironmentLighting,
 
-				a_oSettings.lightmapper == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLightmapper,
+				a_oSettings.lightmapper == CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_eLightmapper,
 				a_oSettings.filteringMode == LightingSettings.FilterMode.Auto,
 				a_oSettings.mixedBakeMode == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode,
 				a_oSettings.directionalityMode == (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode,
@@ -213,7 +213,7 @@ public static partial class CCommonEditorSceneManager {
 				a_oSettings.realtimeGI = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeGI;
 				a_oSettings.realtimeEnvironmentLighting = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeEnvironmentLighting;
 
-				a_oSettings.lightmapper = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLightmapper;
+				a_oSettings.lightmapper = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_eLightmapper;
 				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
 				a_oSettings.mixedBakeMode = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode;
 				a_oSettings.directionalityMode = (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode;

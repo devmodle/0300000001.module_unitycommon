@@ -12,13 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c791f5d751bda4c3f9681965b4e93341, type: 3}
   m_Name: T_OptsInfoTable
   m_EditorClassIdentifier: 
+  m_stEtcOptsInfo:
+    m_bIsEnableTitleScene: 0
   m_stSndOptsInfo:
     m_nNumRealVoices: 32
     m_nNumVirtualVoices: 512
   m_stBuildOptsInfo:
+    m_bIsUseSRPBatching: 0
     m_bIsPreBakeCollisionMesh: 0
     m_bIsPreserveFrameBufferAlpha: 0
+    m_eColorSpace: 0
+    m_eNormapMapEncoding: 1
+    m_eLightmapper: 0
     m_stiOSBuildOptsInfo:
+      m_bIsEnableMotion: 0
       m_oCameraDescription: 
       m_oMotionDescription: 
       m_oLocationDescription: 
@@ -26,14 +33,12 @@ MonoBehaviour:
     m_stAndroidBuildOptsInfo:
       m_bIsUseAPKExpansionFiles: 0
   m_stQualityOptsInfo:
-    m_bIsUseSRPBatching: 0
+    m_bIsEnableRealtimeGI: 0
+    m_bIsEnableRealtimeEnvironmentLighting: 0
     m_eQualityLevel: 2
     m_eMixedLightingMode: 1
-    m_eLightmapper: 1
     m_stNormQualityRenderingOptsInfo:
       m_stLightOptsInfo:
-        m_bIsEnableRealtimeGI: 0
-        m_bIsEnableRealtimeEnvironmentLighting: 0
         m_eLightmapMaxSize: 2048
         m_eLightmapMode: 0
         m_eShadowmaskMode: 0
@@ -45,8 +50,6 @@ MonoBehaviour:
         m_eAdditionalShadowResolution: 1024
     m_stHighQualityRenderingOptsInfo:
       m_stLightOptsInfo:
-        m_bIsEnableRealtimeGI: 0
-        m_bIsEnableRealtimeEnvironmentLighting: 0
         m_eLightmapMaxSize: 4096
         m_eLightmapMode: 1
         m_eShadowmaskMode: 1
@@ -58,8 +61,6 @@ MonoBehaviour:
         m_eAdditionalShadowResolution: 2048
     m_stUltraQualityRenderingOptsInfo:
       m_stLightOptsInfo:
-        m_bIsEnableRealtimeGI: 0
-        m_bIsEnableRealtimeEnvironmentLighting: 0
         m_eLightmapMaxSize: 4096
         m_eLightmapMode: 1
         m_eShadowmaskMode: 1
