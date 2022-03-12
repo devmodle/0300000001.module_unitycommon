@@ -13,7 +13,7 @@ public static partial class Access {
 #if UNITY_IOS
 			return string.Format(KCDefine.U_FMT_STORE_URL, CProjInfoTable.Inst.ProjInfo.m_oStoreAppID);
 #else
-			return string.Format(KCDefine.U_FMT_STORE_URL, CProjInfoTable.Inst.ProjInfo.m_oAppID);
+			return string.Format(KCDefine.U_FMT_STORE_URL, CProjInfoTable.Inst.GetAppID(CProjInfoTable.Inst.ProjInfo));
 #endif			// #if UNITY_IOS
 		}
 	}

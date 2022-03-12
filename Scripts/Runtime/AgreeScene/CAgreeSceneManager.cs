@@ -76,7 +76,7 @@ public abstract class CAgreeSceneManager : CSceneManager {
 				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_P_PRIVACY, true);
 				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_P_SERVICES, true);
 			} else {
-				this.ShowEUAgreePopup(CProjInfoTable.Inst.PrivacyURL, CProjInfoTable.Inst.ServicesURL);
+				this.ShowEUAgreePopup(CProjInfoTable.Inst.CompanyInfo.m_oPrivacyURL, CProjInfoTable.Inst.CompanyInfo.m_oServicesURL);
 			}			
 		}
 #endif			// #if ROBO_TEST_ENABLE

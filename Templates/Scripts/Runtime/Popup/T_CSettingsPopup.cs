@@ -111,7 +111,7 @@ public class CSettingsPopup : CSubPopup {
 
 	/** 지원 버튼을 눌렀을 경우 */
 	private void OnTouchSupportsBtn() {
-		CUnityMsgSender.Inst.SendMailMsg(CProjInfoTable.Inst.ProjInfo.m_oSupportsMail, string.Empty, string.Empty);
+		CUnityMsgSender.Inst.SendMailMsg(CProjInfoTable.Inst.CompanyInfo.m_oSupportsMail, string.Empty, string.Empty);
 	}
 	#endregion			// 함수
 
