@@ -68,7 +68,7 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 		m_oFullUIs?.SetActive(m_nPrevNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
 
 		// 텍스트를 갱신한다
-		m_oNumSaleCoinsText?.ExSetText($"{m_nPrevNumSaleCoins}", EFontSet.A, false);
+		m_oNumSaleCoinsText?.ExSetText($"{m_nPrevNumSaleCoins}", EFontSet._1, false);
 	}
 	#endregion			// 함수
 

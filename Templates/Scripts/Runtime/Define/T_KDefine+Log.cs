@@ -17,26 +17,15 @@ public static partial class KDefine {
 	public const string L_LOG_KEY_LOG_TIME = "LogTime";
 	public const string L_LOG_KEY_INSTALL_TIME = "InstallTime";
 
-	public const string L_LOG_KEY_OPTS_A = "OptsA";
-	public const string L_LOG_KEY_OPTS_B = "OptsB";
-	public const string L_LOG_KEY_OPTS_C = "OptsC";
-	public const string L_LOG_KEY_OPTS_D = "OptsD";
-	public const string L_LOG_KEY_OPTS_E = "OptsE";
-	public const string L_LOG_KEY_OPTS_F = "OptsF";
-	public const string L_LOG_KEY_OPTS_G = "OptsG";
-	public const string L_LOG_KEY_OPTS_H = "OptsH";
-	public const string L_LOG_KEY_OPTS_I = "OptsI";
-	public const string L_LOG_KEY_OPTS_J = "OptsJ";
-	public const string L_LOG_KEY_OPTS_K = "OptsK";
-	public const string L_LOG_KEY_OPTS_L = "OptsL";
-	public const string L_LOG_KEY_OPTS_M = "OptsM";
-	public const string L_LOG_KEY_OPTS_N = "OptsN";
-	public const string L_LOG_KEY_OPTS_O = "OptsO";
-	public const string L_LOG_KEY_OPTS_P = "OptsP";
-	public const string L_LOG_KEY_OPTS_Q = "OptsQ";
-	public const string L_LOG_KEY_OPTS_R = "OptsR";
-	public const string L_LOG_KEY_OPTS_S = "OptsS";
-	public const string L_LOG_KEY_OPTS_T = "OptsT";
+	public const string L_LOG_KEY_OPTS_01 = "Opts_01";
+	public const string L_LOG_KEY_OPTS_02 = "Opts_02";
+	public const string L_LOG_KEY_OPTS_03 = "Opts_03";
+	public const string L_LOG_KEY_OPTS_04 = "Opts_04";
+	public const string L_LOG_KEY_OPTS_05 = "Opts_05";
+	public const string L_LOG_KEY_OPTS_06 = "Opts_06";
+	public const string L_LOG_KEY_OPTS_07 = "Opts_07";
+	public const string L_LOG_KEY_OPTS_08 = "Opts_08";
+	public const string L_LOG_KEY_OPTS_09 = "Opts_09";
 	// 식별자 }
 	#endregion			// 기본
 

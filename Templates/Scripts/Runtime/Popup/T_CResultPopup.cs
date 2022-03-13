@@ -95,8 +95,8 @@ public class CResultPopup : CSubPopup {
 		m_oClearFailUIs?.SetActive(!m_stParams.m_stRecordInfo.m_bIsSuccess);
 
 		// 텍스트를 갱신한다
-		m_oRecordText?.ExSetText($"{m_stParams.m_stRecordInfo.m_nIntRecord}", EFontSet.A, false);
-		m_oBestRecordText?.ExSetText((m_stParams.m_oClearInfo != null) ? $"{m_stParams.m_oClearInfo.IntBestClearRecord}" : string.Empty, EFontSet.A, false);
+		m_oRecordText?.ExSetText($"{m_stParams.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
+		m_oBestRecordText?.ExSetText((m_stParams.m_oClearInfo != null) ? $"{m_stParams.m_oClearInfo.IntBestClearRecord}" : string.Empty, EFontSet._1, false);
 	}
 
 	/** 다음 버튼을 눌렀을 경우 */

@@ -34,35 +34,35 @@ public static partial class KDefine {
 	public const int G_MAX_TIMES_ACQUIRE_FREE_REWARDS = 0;
 
 	// 시간 {
-	public const float G_DELAY_SCALE_A = 1.0f;
-	public const float G_DELAY_SCALE_B = 1.0f;
-	public const float G_DELAY_SCALE_C = 1.0f;
-	public const float G_DELAY_SCALE_D = 1.0f;
-	public const float G_DELAY_SCALE_E = 1.0f;
-	public const float G_DELAY_SCALE_F = 1.0f;
-	public const float G_DELAY_SCALE_G = 1.0f;
-	public const float G_DELAY_SCALE_H = 1.0f;
-	public const float G_DELAY_SCALE_I = 1.0f;
+	public const float G_DELAY_SCALE_01 = 1.0f;
+	public const float G_DELAY_SCALE_02 = 1.0f;
+	public const float G_DELAY_SCALE_03 = 1.0f;
+	public const float G_DELAY_SCALE_04 = 1.0f;
+	public const float G_DELAY_SCALE_05 = 1.0f;
+	public const float G_DELAY_SCALE_06 = 1.0f;
+	public const float G_DELAY_SCALE_07 = 1.0f;
+	public const float G_DELAY_SCALE_08 = 1.0f;
+	public const float G_DELAY_SCALE_09 = 1.0f;
 
-	public const float G_DELTA_T_SCALE_A = 1.0f;
-	public const float G_DELTA_T_SCALE_B = 1.0f;
-	public const float G_DELTA_T_SCALE_C = 1.0f;
-	public const float G_DELTA_T_SCALE_D = 1.0f;
-	public const float G_DELTA_T_SCALE_E = 1.0f;
-	public const float G_DELTA_T_SCALE_F = 1.0f;
-	public const float G_DELTA_T_SCALE_G = 1.0f;
-	public const float G_DELTA_T_SCALE_H = 1.0f;
-	public const float G_DELTA_T_SCALE_I = 1.0f;
+	public const float G_DELTA_T_SCALE_01 = 1.0f;
+	public const float G_DELTA_T_SCALE_02 = 1.0f;
+	public const float G_DELTA_T_SCALE_03 = 1.0f;
+	public const float G_DELTA_T_SCALE_04 = 1.0f;
+	public const float G_DELTA_T_SCALE_05 = 1.0f;
+	public const float G_DELTA_T_SCALE_06 = 1.0f;
+	public const float G_DELTA_T_SCALE_07 = 1.0f;
+	public const float G_DELTA_T_SCALE_08 = 1.0f;
+	public const float G_DELTA_T_SCALE_09 = 1.0f;
 
-	public const float G_DURATION_SCALE_A = 1.0f;
-	public const float G_DURATION_SCALE_B = 1.0f;
-	public const float G_DURATION_SCALE_C = 1.0f;
-	public const float G_DURATION_SCALE_D = 1.0f;
-	public const float G_DURATION_SCALE_E = 1.0f;
-	public const float G_DURATION_SCALE_F = 1.0f;
-	public const float G_DURATION_SCALE_G = 1.0f;
-	public const float G_DURATION_SCALE_H = 1.0f;
-	public const float G_DURATION_SCALE_I = 1.0f;
+	public const float G_DURATION_SCALE_01 = 1.0f;
+	public const float G_DURATION_SCALE_02 = 1.0f;
+	public const float G_DURATION_SCALE_03 = 1.0f;
+	public const float G_DURATION_SCALE_04 = 1.0f;
+	public const float G_DURATION_SCALE_05 = 1.0f;
+	public const float G_DURATION_SCALE_06 = 1.0f;
+	public const float G_DURATION_SCALE_07 = 1.0f;
+	public const float G_DURATION_SCALE_08 = 1.0f;
+	public const float G_DURATION_SCALE_09 = 1.0f;
 	// 시간 }
 
 	// 식별자

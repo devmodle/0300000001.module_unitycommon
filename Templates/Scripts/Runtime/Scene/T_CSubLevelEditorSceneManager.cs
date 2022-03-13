@@ -35,8 +35,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	/** 콜백 */
 	private enum ECallback {
 		NONE = -1,
-		SETUP_RE_UIS_PAGE_A_UIS,
-		UPDATE_RE_UIS_PAGE_A_UIS,
+		SETUP_RE_UIS_PAGE_01_UIS,
+		UPDATE_RE_UIS_PAGE_01_UIS,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -61,8 +61,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		public Dictionary<EScroller, EnhancedScrollerCellView> m_oOriginScrollerCellViewDict;
 	}
 
-	/** 오른쪽 에디터 UI 페이지 A UI */
-	private struct STREUIsPageAUIs {
+	/** 오른쪽 에디터 UI 페이지 1 UI */
+	private struct STREUIsPage01UIs {
 		public InputField m_oLevelInput;
 		public InputField m_oNumCellsXInput;
 		public InputField m_oNumCellsYInput;
@@ -78,7 +78,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		public Button m_oRemoveLevelBtn;
 
 		public SimpleScrollSnap m_oScrollSnap;
-		public STREUIsPageAUIs m_stREUIsPageAUIs;
+		public STREUIsPage01UIs m_stREUIsPage01UIs;
 	}
 
 	#region 변수
@@ -313,8 +313,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
-		m_oCallbackDict.TryAdd(ECallback.SETUP_RE_UIS_PAGE_A_UIS, this.SetupREUIsPageAUIs);
-		m_oCallbackDict.TryAdd(ECallback.UPDATE_RE_UIS_PAGE_A_UIS, this.UpdateREUIsPageAUIs);
+		m_oCallbackDict.TryAdd(ECallback.SETUP_RE_UIS_PAGE_01_UIS, this.SetupREUIsPageAUIs);
+		m_oCallbackDict.TryAdd(ECallback.UPDATE_RE_UIS_PAGE_01_UIS, this.UpdateREUIsPageAUIs);
 
 		// 스크롤 뷰를 설정한다 {
 		var oLevelScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_LEVEL_EDITOR_SCROLLER_CELL_VIEW);
@@ -1006,17 +1006,17 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 페이지 UI 를 설정한다
 		for(int i = 0; i < m_stRightEditorUIs.m_oScrollSnap.NumberOfPanels; ++i) {
-			m_oCallbackDict[ECallback.SETUP_RE_UIS_PAGE_A_UIS + i]();
+			m_oCallbackDict[ECallback.SETUP_RE_UIS_PAGE_01_UIS + i]();
 		}
 	}
 
-	/** 오른쪽 에디터 UI 페이지 A UI 를 설정한다 */
+	/** 오른쪽 에디터 UI 페이지 1 UI 를 설정한다 */
 	private void SetupREUIsPageAUIs() {
 		// 입력 필드를 설정한다 {
-		m_stRightEditorUIs.m_stREUIsPageAUIs.m_oLevelInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_LEVEL_INPUT);
+		m_stRightEditorUIs.m_stREUIsPage01UIs.m_oLevelInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_LEVEL_INPUT);
 
-		m_stRightEditorUIs.m_stREUIsPageAUIs.m_oNumCellsXInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_NUM_CELLS_X_INPUT);
-		m_stRightEditorUIs.m_stREUIsPageAUIs.m_oNumCellsYInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_NUM_CELLS_Y_INPUT);
+		m_stRightEditorUIs.m_stREUIsPage01UIs.m_oNumCellsXInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_NUM_CELLS_X_INPUT);
+		m_stRightEditorUIs.m_stREUIsPage01UIs.m_oNumCellsYInput = m_oRightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_NUM_CELLS_Y_INPUT);
 		// 입력 필드를 설정한다 }
 	}
 
@@ -1042,25 +1042,25 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 페이지 UI 상태를 갱신한다
 		for(int i = 0; i < m_stRightEditorUIs.m_oScrollSnap.NumberOfPanels; ++i) {
-			m_oCallbackDict[ECallback.UPDATE_RE_UIS_PAGE_A_UIS + i]();
+			m_oCallbackDict[ECallback.UPDATE_RE_UIS_PAGE_01_UIS + i]();
 		}
 	}
 
-	/** 오른쪽 에디터 UI 페이지 A UI 상태를 갱신한다 */
+	/** 오른쪽 에디터 UI 페이지 1 UI 상태를 갱신한다 */
 	private void UpdateREUIsPageAUIs() {
 		// 입력 필드를 갱신한다 {
-		m_stRightEditorUIs.m_stREUIsPageAUIs.m_oLevelInput?.ExSetText<InputField>($"{m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT}", false);
+		m_stRightEditorUIs.m_stREUIsPage01UIs.m_oLevelInput?.ExSetText<InputField>($"{m_oSelLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT}", false);
 
-		m_stRightEditorUIs.m_stREUIsPageAUIs.m_oNumCellsXInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oSelLevelInfo.NumCells.x}", false);
-		m_stRightEditorUIs.m_stREUIsPageAUIs.m_oNumCellsYInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oSelLevelInfo.NumCells.y}", false);
+		m_stRightEditorUIs.m_stREUIsPage01UIs.m_oNumCellsXInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oSelLevelInfo.NumCells.x}", false);
+		m_stRightEditorUIs.m_stREUIsPage01UIs.m_oNumCellsYInput?.ExSetText<InputField>((m_oSelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oSelLevelInfo.NumCells.y}", false);
 		// 입력 필드를 갱신한다 }
 	}
 
 	/** 오른쪽 에디터 UI 적용 버튼을 눌렀을 경우 */
 	private void OnTouchREUIsApplyBtn() {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-		bool bIsValidA = int.TryParse(m_stRightEditorUIs.m_stREUIsPageAUIs.m_oNumCellsXInput?.text, out int nNumCellsX);
-		bool bIsValidB = int.TryParse(m_stRightEditorUIs.m_stREUIsPageAUIs.m_oNumCellsYInput?.text, out int nNumCellsY);
+		bool bIsValidA = int.TryParse(m_stRightEditorUIs.m_stREUIsPage01UIs.m_oNumCellsXInput?.text, out int nNumCellsX);
+		bool bIsValidB = int.TryParse(m_stRightEditorUIs.m_stREUIsPage01UIs.m_oNumCellsYInput?.text, out int nNumCellsY);
 
 		bool bIsValidNumCellsX = Mathf.Max(nNumCellsX, SampleEngineName.KDefine.E_MIN_NUM_CELLS.x) != m_oSelLevelInfo.NumCells.x;
 		bool bIsValidNumCellsY = Mathf.Max(nNumCellsY, SampleEngineName.KDefine.E_MIN_NUM_CELLS.y) != m_oSelLevelInfo.NumCells.y;
@@ -1079,7 +1079,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	/** 오른쪽 에디터 UI 레벨 로드 버튼을 눌렀을 경우 */
 	private void OnTouchREUIsLoadLevelBtn() {
 		// 식별자가 유효 할 경우
-		if(int.TryParse(m_stRightEditorUIs.m_stREUIsPageAUIs.m_oLevelInput?.text, out int nID)) {
+		if(int.TryParse(m_stRightEditorUIs.m_stREUIsPage01UIs.m_oLevelInput?.text, out int nID)) {
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 			m_oSelLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(Mathf.Clamp(nID, KCDefine.B_VAL_1_INT, nNumLevelInfos) - KCDefine.B_VAL_1_INT, m_oSelLevelInfo.m_stIDInfo.m_nStageID, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
 			

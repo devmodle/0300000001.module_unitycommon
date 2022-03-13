@@ -80,7 +80,7 @@ public class CContinuePopup : CSubPopup {
 		base.UpdateUIsState();
 		
 		// 텍스트를 갱신한다
-		m_oPriceText?.ExSetText($"{CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.CONSUMABLE_CONTINUE).IntPrice}", EFontSet.A, false);
+		m_oPriceText?.ExSetText($"{CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.CONSUMABLE_CONTINUE).IntPrice}", EFontSet._1, false);
 	}
 	
 	/** 재시도 버튼을 눌렀을 경우 */
