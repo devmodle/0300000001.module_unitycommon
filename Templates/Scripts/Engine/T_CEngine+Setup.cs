@@ -38,8 +38,10 @@ namespace SampleEngineName {
 
 			// 셀 정보가 존재 할 경우
 			if(a_oCellInfo != null) {
-				for(int i = 0; i < a_oCellInfo.m_oBlockKindsList.Count; ++i) {
-					// Do Something
+				foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
+					for(int i = 0; i < stKeyVal.Value.Count; ++i) {
+						// Do Something
+					}
 				}
 			}
 

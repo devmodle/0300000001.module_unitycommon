@@ -91,7 +91,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	private SampleEngineName.STGridInfo m_stGridInfo;
-	private Dictionary<EBlockKinds, SpriteRenderer>[,] m_oBlockSpriteDicts = null;
+	private Dictionary<EBlockType, Dictionary<EBlockKinds, SpriteRenderer>>[,] m_oBlockSpriteDictContainers = null;
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -366,55 +366,11 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 	#region 조건부 함수
 #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
-	/** 블럭 스프라이트를 리셋한다 */
-	private void ResetBlockSprites() {
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-		// 블럭 스프라이트가 존재 할 경우
-		if(m_oBlockSpriteDicts.ExIsValid()) {
-			for(int i = 0; i < m_oBlockSpriteDicts.GetLength(KCDefine.B_VAL_0_INT); ++i) {
-				for(int j = 0; j < m_oBlockSpriteDicts.GetLength(KCDefine.B_VAL_1_INT); ++j) {
-					foreach(var stKeyVal in m_oBlockSpriteDicts[i, j]) {
-						CFactory.RemoveObj(stKeyVal.Value.gameObject);
-					}
-				}
-			}
-		}
-
-		m_stGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oSelLevelInfo);
-
-		// 비율을 설정한다 {
-		bool bIsValidA = !float.IsNaN(m_stGridInfo.m_stGridScale.x) && !float.IsInfinity(m_stGridInfo.m_stGridScale.x);
-		bool bIsValidB = !float.IsNaN(m_stGridInfo.m_stGridScale.y) && !float.IsInfinity(m_stGridInfo.m_stGridScale.y);
-		bool bIsValidC = !float.IsNaN(m_stGridInfo.m_stGridScale.z) && !float.IsInfinity(m_stGridInfo.m_stGridScale.z);
-
-		m_oBlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_stGridInfo.m_stGridScale : Vector3.one;
-		// 비율을 설정한다 }
-
-		// 블럭 스프라이트를 설정한다 {
-		m_oBlockSpriteDicts = new Dictionary<EBlockKinds, SpriteRenderer>[m_oSelLevelInfo.NumCells.y, m_oSelLevelInfo.NumCells.x];
-
-		for(int i = 0; i < m_oSelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
-			for(int j = 0; j < m_oSelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-				var stIdx = m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx;
-				var oBlockSpriteDict = new Dictionary<EBlockKinds, SpriteRenderer>();
-
-				for(int k = 0; k < m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
-					var oBlockSprite = Factory.CreateBlockSprite(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], m_oBlockObjs);
-					oBlockSprite.transform.localPosition = m_stGridInfo.m_stGridPivotPos + stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
-
-					oBlockSpriteDict.TryAdd(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsList[k], oBlockSprite);
-				}
-				
-				m_oBlockSpriteDicts[stIdx.y, stIdx.x] = oBlockSpriteDict;
-			}
-		}
-		// 블럭 스프라이트를 설정한다 }
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-	}
-
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 		this.ResetBlockSprites();
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 		this.UpdateMidEditorUIsState();
 		this.UpdateLeftEditorUIsState();
@@ -546,20 +502,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		return oPrevLevelInfo != null || oNextLevelInfo != null;
 	}
 
-	/** 레벨 정보를 추가한다 */
-	private void AddLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-		m_oSelLevelInfo = Factory.MakeLevelInfo(a_nID, a_nStageID, a_nChapterID);
-		CLevelInfoTable.Inst.AddLevelInfo(m_oSelLevelInfo);
-
-		Func.SetupEditorLevelInfo(m_oSelLevelInfo, new CSubEditorLevelCreateInfo() {
-			m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
-		});
-
-		this.UpdateUIsState();
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-	}
-	
 	/** 레벨 정보를 제거한다 */
 	private void RemoveLevelInfos(EnhancedScroller a_oScroller, STIDInfo a_stIDInfo) {
 		var oLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_stIDInfo.m_nID, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
@@ -724,6 +666,80 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 			}
 		}
 	}
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE
+	/** 블럭 스프라이트를 리셋한다 */
+	private void ResetBlockSprites() {
+		// 블럭 스프라이트가 존재 할 경우
+		if(m_oBlockSpriteDictContainers.ExIsValid()) {
+			for(int i = 0; i < m_oBlockSpriteDictContainers.GetLength(KCDefine.B_VAL_0_INT); ++i) {
+				for(int j = 0; j < m_oBlockSpriteDictContainers.GetLength(KCDefine.B_VAL_1_INT); ++j) {
+					this.ResetBlockSprites(m_oBlockSpriteDictContainers[i, j]);
+				}
+			}
+		}
+
+		m_stGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oSelLevelInfo);
+
+		// 비율을 설정한다 {
+		bool bIsValidA = !float.IsNaN(m_stGridInfo.m_stGridScale.x) && !float.IsInfinity(m_stGridInfo.m_stGridScale.x);
+		bool bIsValidB = !float.IsNaN(m_stGridInfo.m_stGridScale.y) && !float.IsInfinity(m_stGridInfo.m_stGridScale.y);
+		bool bIsValidC = !float.IsNaN(m_stGridInfo.m_stGridScale.z) && !float.IsInfinity(m_stGridInfo.m_stGridScale.z);
+
+		m_oBlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_stGridInfo.m_stGridScale : Vector3.one;
+		// 비율을 설정한다 }
+
+		// 블럭 스프라이트를 설정한다 {
+		m_oBlockSpriteDictContainers = new Dictionary<EBlockType, Dictionary<EBlockKinds, SpriteRenderer>>[m_oSelLevelInfo.NumCells.y, m_oSelLevelInfo.NumCells.x];
+
+		for(int i = 0; i < m_oSelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
+			for(int j = 0; j < m_oSelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
+				this.SetupBlockSprites(m_oSelLevelInfo.m_oCellInfoDictContainer[i][j], out Dictionary<EBlockType, Dictionary<EBlockKinds, SpriteRenderer>> oBlockSpriteDictContainer);
+				m_oBlockSpriteDictContainers[m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx.y, m_oSelLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx.x] = oBlockSpriteDictContainer;
+			}
+		}
+		// 블럭 스프라이트를 설정한다 }
+	}
+
+	/** 블럭 스프라이트를 리셋한다 */
+	private void ResetBlockSprites(Dictionary<EBlockType, Dictionary<EBlockKinds, SpriteRenderer>> a_oBlockSpriteDictContainer) {
+		foreach(var stKeyValA in a_oBlockSpriteDictContainer) {
+			foreach(var stKeyValB in stKeyValA.Value) {
+				CFactory.RemoveObj(stKeyValB.Value.gameObject);
+			}
+		}
+	}
+
+	/** 블럭 스프라이트를 설정한다 */
+	private void SetupBlockSprites(CCellInfo a_oCellInfo, out Dictionary<EBlockType, Dictionary<EBlockKinds, SpriteRenderer>> a_oOutBlockSpriteDictContainer) {
+		a_oOutBlockSpriteDictContainer = new Dictionary<EBlockType, Dictionary<EBlockKinds, SpriteRenderer>>();
+
+		foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
+			var oBlockSpriteDict = new Dictionary<EBlockKinds, SpriteRenderer>();
+
+			for(int i = 0; i < stKeyVal.Value.Count; ++i) {
+				var oBlockSprite = Factory.CreateBlockSprite(stKeyVal.Value[i], m_oBlockObjs);
+				oBlockSprite.transform.localPosition = m_stGridInfo.m_stGridPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+
+				oBlockSpriteDict.TryAdd(stKeyVal.Value[i], oBlockSprite);
+			}
+
+			a_oOutBlockSpriteDictContainer.TryAdd(stKeyVal.Key, oBlockSpriteDict);
+		}
+	}
+
+	/** 레벨 정보를 추가한다 */
+	private void AddLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		m_oSelLevelInfo = Factory.MakeLevelInfo(a_nID, a_nStageID, a_nChapterID);
+		CLevelInfoTable.Inst.AddLevelInfo(m_oSelLevelInfo);
+
+		Func.SetupEditorLevelInfo(m_oSelLevelInfo, new CSubEditorLevelCreateInfo() {
+			m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
+		});
+
+		this.UpdateUIsState();
+	}
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
 
@@ -958,7 +974,9 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 스테이지 추가가 가능 할 경우
 		if(nNumStageInfos < KCDefine.U_MAX_NUM_STAGE_INFOS) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 			this.AddLevelInfo(KCDefine.B_VAL_0_INT, nNumStageInfos, m_oSelLevelInfo.m_stIDInfo.m_nChapterID);
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		}
 	}
 
@@ -968,7 +986,9 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		// 챕터 추가가 가능 할 경우
 		if(nNumChapterInfos < KCDefine.U_MAX_NUM_CHAPTER_INFOS) {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
 			this.AddLevelInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, nNumChapterInfos);
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		}
 	}
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE

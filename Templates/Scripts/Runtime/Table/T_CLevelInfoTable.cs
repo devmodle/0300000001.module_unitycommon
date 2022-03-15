@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 [MessagePackObject][System.Serializable]
 public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
-	[Key(61)] public List<EBlockKinds> m_oBlockKindsList = new List<EBlockKinds>();
+	[Key(161)] public Dictionary<EBlockType, List<EBlockKinds>> m_oBlockKindsDictContainer = new Dictionary<EBlockType, List<EBlockKinds>>();
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 	#endregion			// 변수
 
@@ -42,7 +42,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oBlockKindsList = m_oBlockKindsList ?? new List<EBlockKinds>();
+		m_oBlockKindsDictContainer = m_oBlockKindsDictContainer ?? new Dictionary<EBlockType, List<EBlockKinds>>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -55,7 +55,15 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 	/** 사본 객체를 설정한다 */
 	protected virtual void SetupCloneInst(CCellInfo a_oCellInfo) {
 		a_oCellInfo.m_stIdx = m_stIdx;
-		m_oBlockKindsList.ExCopyTo(a_oCellInfo.m_oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
+		m_oBlockKindsDictContainer.ExCopyTo(a_oCellInfo.m_oBlockKindsDictContainer, this.GetCloneBlockKinds);
+	}
+
+	/** 사본 블럭 종류를 반환한다 */
+	protected List<EBlockKinds> GetCloneBlockKinds(List<EBlockKinds> a_oBlockKindsList) {
+		var oBlockKindsList = new List<EBlockKinds>();
+		a_oBlockKindsList.ExCopyTo(oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
+
+		return oBlockKindsList;
 	}
 	#endregion			// 함수
 }
@@ -150,20 +158,27 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 				m_oCellInfoDictContainer[i][j].Ver = this.CellVer;
 				m_oCellInfoDictContainer[i][j].m_stIdx = new Vector3Int(j, i, KCDefine.B_IDX_INVALID);
 
-				for(int k = 0; k < m_oCellInfoDictContainer[i][j].m_oBlockKindsList.Count; ++k) {
-					// Do Something
-				}
-				
-				// 버전이 다를 경우
-				if(this.CellVer.CompareTo(KDefine.G_VER_CELL_INFO) < KCDefine.B_COMPARE_EQUALS) {
-					// Do Something
-				}
+				this.SetupCellInfo(m_oCellInfoDictContainer[i][j]);
 			}
 		}
 		// 셀을 설정한다 }
 
 		// 버전이 다를 경우
 		if(this.Ver.CompareTo(KDefine.G_VER_LEVEL_INFO) < KCDefine.B_COMPARE_EQUALS) {
+			// Do Something
+		}
+	}
+
+	/** 셀 정보를 설정한다 */
+	protected virtual void SetupCellInfo(CCellInfo a_oCellInfo) {
+		foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
+			for(int i = 0; i < stKeyVal.Value.Count; ++i) {
+				// Do Something
+			}
+		}
+
+		// 버전이 다를 경우
+		if(this.CellVer.CompareTo(KDefine.G_VER_CELL_INFO) < KCDefine.B_COMPARE_EQUALS) {
 			// Do Something
 		}
 	}
