@@ -28,6 +28,7 @@ MonoBehaviour:
   - RUNTIME_TEMPLATES_ENABLE
   m_oSubCommonDefineSymbolList:
   - MODULE_VER_2_0_0_OR_NEWER
+  - MODULE_VER_2_1_0_OR_NEWER
   - DEVELOPMENT_PROJ
   - NINETAP_BUILD_PIPELINE_ENABLE
   m_oiOSAppleDefineSymbolList: []
