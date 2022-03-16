@@ -18,6 +18,10 @@ using UnityEngine.InputSystem.iOS;
 #endif			// #if UNITY_IOS
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
+using Newtonsoft.Json;
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
 /** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
@@ -302,12 +306,72 @@ public static partial class CCommonEditorSceneManager {
 	}
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
-#if BURST_COMPILER_MODULE_ENABLE
+#if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 	/** 버스트 컴파일러를 설정한다 */
 	private static void SetupBurstCompiler() {
-		// Do Something
+		var oSettingsPathList = new List<string>() {
+			KCEditorDefine.B_DATA_P_IOS_BURST_AOT_SETTINGS, KCEditorDefine.B_DATA_P_ANDROID_BURST_AOT_SETTINGS, KCEditorDefine.B_DATA_P_MAC_BURST_AOT_SETTINGS, KCEditorDefine.B_DATA_P_WNDS_BURST_AOT_SETTINGS
+		};
+
+		for(int i = 0; i < oSettingsPathList.Count; ++i) {
+			// 설정 파일이 존재 할 경우
+			if(File.Exists(oSettingsPathList[i])) {
+				// 모바일 일 경우
+				if(oSettingsPathList[i].Equals(KCEditorDefine.B_DATA_P_IOS_BURST_AOT_SETTINGS) || oSettingsPathList[i].Equals(KCEditorDefine.B_DATA_P_ANDROID_BURST_AOT_SETTINGS)) {
+					var stAOTSettingsWrapper = JsonConvert.DeserializeObject<STMobileBurstAOTSettingsWrapper>(CFunc.ReadStr(oSettingsPathList[i]));
+
+					var oIsSetupOptsList = new List<bool>() {
+						stAOTSettingsWrapper.MonoBehaviour.EnableOptimisations,
+						stAOTSettingsWrapper.MonoBehaviour.EnableBurstCompilation,
+
+						stAOTSettingsWrapper.MonoBehaviour.EnableSafetyChecks == false,
+						stAOTSettingsWrapper.MonoBehaviour.EnableDebugInAllBuilds == false,
+
+						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor == (int)EBurstCompilerOptimization.PERFORMANCE
+					};
+
+					// 설정 갱신이 필요 할 경우
+					if(oIsSetupOptsList.Contains(false)) {
+						stAOTSettingsWrapper.MonoBehaviour.EnableOptimisations = true;
+						stAOTSettingsWrapper.MonoBehaviour.EnableBurstCompilation = true;
+
+						stAOTSettingsWrapper.MonoBehaviour.EnableSafetyChecks = false;
+						stAOTSettingsWrapper.MonoBehaviour.EnableDebugInAllBuilds = false;
+
+						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor = (int)EBurstCompilerOptimization.PERFORMANCE;
+						CFunc.WriteStr(oSettingsPathList[i], JsonConvert.SerializeObject(stAOTSettingsWrapper, Formatting.Indented));
+					}
+				} else {
+					var stAOTSettingsWrapper = JsonConvert.DeserializeObject<STStandaloneBurstAOTSettingsWrapper>(CFunc.ReadStr(oSettingsPathList[i]));
+
+					var oIsSetupOptsList = new List<bool>() {
+						stAOTSettingsWrapper.MonoBehaviour.EnableOptimisations,
+						stAOTSettingsWrapper.MonoBehaviour.EnableBurstCompilation,
+
+						stAOTSettingsWrapper.MonoBehaviour.EnableSafetyChecks == false,
+						stAOTSettingsWrapper.MonoBehaviour.UsePlatformSDKLinker == false,
+						stAOTSettingsWrapper.MonoBehaviour.EnableDebugInAllBuilds == false,
+
+						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor == (int)EBurstCompilerOptimization.PERFORMANCE
+					};
+
+					// 설정 갱신이 필요 할 경우
+					if(oIsSetupOptsList.Contains(false)) {
+						stAOTSettingsWrapper.MonoBehaviour.EnableOptimisations = true;
+						stAOTSettingsWrapper.MonoBehaviour.EnableBurstCompilation = true;
+
+						stAOTSettingsWrapper.MonoBehaviour.EnableSafetyChecks = false;
+						stAOTSettingsWrapper.MonoBehaviour.UsePlatformSDKLinker = false;
+						stAOTSettingsWrapper.MonoBehaviour.EnableDebugInAllBuilds = false;
+
+						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor = (int)EBurstCompilerOptimization.PERFORMANCE;
+						CFunc.WriteStr(oSettingsPathList[i], JsonConvert.SerializeObject(stAOTSettingsWrapper, Formatting.Indented));
+					}
+				}
+			}
+		}
 	}
-#endif			// #if BURST_COMPILER_MODULE_ENABLE
+#endif			// #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 	#endregion			// 클래스 조건부 함수
 }
 #endif			// #if UNITY_EDITOR
