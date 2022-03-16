@@ -259,8 +259,8 @@ public static partial class CCommonEditorSceneManager {
 			oInputSettings.editorInputBehaviorInPlayMode == InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus,
 
 #if UNITY_IOS
-			oInputSettings.iOS.motionUsage.enabled == CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableMotion,
-			oInputSettings.iOS.motionUsage.usageDescription.Equals((CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_oMotionDescription : string.Empty)
+			oInputSettings.iOS.motionUsage.enabled == CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion,
+			oInputSettings.iOS.motionUsage.usageDescription.Equals((CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_oInputSystemMotionDesc : string.Empty)
 #endif			// #if UNITY_IOS
 		};
 		
@@ -272,8 +272,8 @@ public static partial class CCommonEditorSceneManager {
 			oInputSettings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus;
 
 #if UNITY_IOS
-			oInputSettings.iOS.motionUsage.enabled = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableMotion;
-			oInputSettings.iOS.motionUsage.usageDescription = (CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_oMotionDescription : string.Empty;
+			oInputSettings.iOS.motionUsage.enabled = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion;
+			oInputSettings.iOS.motionUsage.usageDescription = (CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_oInputSystemMotionDesc : string.Empty;
 #endif			// #if UNITY_IOS
 		}
 	}
