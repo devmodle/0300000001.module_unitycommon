@@ -34,10 +34,10 @@ public class CTitleSceneManager : CSceneManager {
 			if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
 				var oVerText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT);
 
-				m_oVerText = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT, KCDefine.U_OBJ_P_G_VER_TEXT, this.UpUIs);
+				m_oVerText = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT, KCDefine.U_OBJ_P_G_VER_TEXT, this.UpLeftUIs);
 				m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
+				m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
 				m_oVerText.rectTransform.anchoredPosition = KCDefine.U_POS_VER_TEXT.ExTo2D();
 			}
 		}
@@ -51,6 +51,7 @@ public class CTitleSceneManager : CSceneManager {
 		if(CSceneManager.IsAppInit) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			m_oVerText?.ExSetText<TMP_Text>(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), false);
+			m_oVerText?.transform.SetAsLastSibling();
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}

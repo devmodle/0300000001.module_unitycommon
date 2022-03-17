@@ -8,12 +8,16 @@ using TMPro;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 판매 코인 팝업 */
 public class CSaleCoinsPopup : CSubPopup {
+	/** 텍스트 */
+	private enum EText {
+		NONE = -1,
+		NUM_SALE_COINS,
+		[HideInInspector] MAX_VAL
+	}
+
 	#region 변수
 	/** =====> UI <===== */
-	private TMP_Text m_oNumSaleCoinsText = null;
-
-	private Button m_oOKBtn = null;
-	private Button m_oPurchaseBtn = null;
+	private Dictionary<EText, TMP_Text> m_oTextDict = new Dictionary<EText, TMP_Text>();
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
@@ -26,14 +30,14 @@ public class CSaleCoinsPopup : CSubPopup {
 		base.Awake();
 
 		// 텍스트를 설정한다
-		m_oNumSaleCoinsText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_SALE_COINS_TEXT);
+		m_oTextDict.TryAdd(EText.NUM_SALE_COINS, m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_SALE_COINS_TEXT));
 
 		// 버튼을 설정한다 {
-		m_oOKBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_OK_BTN);
-		m_oOKBtn?.onClick.AddListener(this.OnTouchOKBtn);
+		var oOKBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_OK_BTN);
+		oOKBtn?.onClick.AddListener(this.OnTouchOKBtn);
 
-		m_oPurchaseBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
-		m_oPurchaseBtn?.onClick.AddListener(this.OnTouchPurchaseBtn);
+		var oPurchaseBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
+		oPurchaseBtn?.onClick.AddListener(this.OnTouchPurchaseBtn);
 		// 버튼을 설정한다 }
 	}
 
@@ -57,7 +61,7 @@ public class CSaleCoinsPopup : CSubPopup {
 		m_oFullUIs?.SetActive(nNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
 
 		// 텍스트를 갱신한다
-		m_oNumSaleCoinsText?.ExSetText($"{nNumSaleCoins}", EFontSet._1, false);
+		m_oTextDict[EText.NUM_SALE_COINS]?.ExSetText($"{nNumSaleCoins}", EFontSet._1, false);
 	}
 
 	/** 확인 버튼을 눌렀을 경우 */

@@ -17,6 +17,13 @@ public class CContinuePopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
+	/** 텍스트 */
+	private enum EText {
+		NONE = -1,
+		PRICE,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 매개 변수 */
 	public struct STParams {
 		public int m_nContinueTimes;
@@ -28,7 +35,7 @@ public class CContinuePopup : CSubPopup {
 	private STParams m_stParams;
 
 	/** =====> UI <===== */
-	private TMP_Text m_oPriceText = null;
+	private Dictionary<EText, TMP_Text> m_oTextDict = new Dictionary<EText, TMP_Text>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -49,7 +56,7 @@ public class CContinuePopup : CSubPopup {
 		base.Awake();
 
 		// 텍스트를 설정한다
-		m_oPriceText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
+		m_oTextDict.TryAdd(EText.PRICE, m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT));
 
 		// 버튼을 설정한다
 		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RETRY_BTN)?.onClick.AddListener(this.OnTouchRetryBtn);
@@ -80,7 +87,7 @@ public class CContinuePopup : CSubPopup {
 		base.UpdateUIsState();
 		
 		// 텍스트를 갱신한다
-		m_oPriceText?.ExSetText($"{CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.CONSUMABLE_CONTINUE).IntPrice}", EFontSet._1, false);
+		m_oTextDict[EText.PRICE]?.ExSetText($"{CSaleItemInfoTable.Inst.GetSaleItemInfo(ESaleItemKinds.CONSUMABLE_CONTINUE).IntPrice}", EFontSet._1, false);
 	}
 	
 	/** 재시도 버튼을 눌렀을 경우 */

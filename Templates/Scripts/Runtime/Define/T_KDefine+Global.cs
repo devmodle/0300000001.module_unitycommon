@@ -80,14 +80,20 @@ public static partial class KDefine {
 	// 설정 팝업 {
 	public const string G_OBJ_N_SETTINGS_POPUP = "SettingsPopup";
 
-	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "BGSndOnBtn";
-	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "BGSndOffBtn";
+	public const string G_IMG_P_SETTINGS_P_SND_ON = "SndOn";
+	public const string G_IMG_P_SETTINGS_P_SND_OFF = "SndOff";
 
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "FXSndsOnBtn";
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "FXSndsOffBtn";
+	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "BGSndOn";
+	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "BGSndOff";
 
-	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "NotiOnBtn";
-	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "NotiOffBtn";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "FXSndsOn";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "FXSndsOff";
+
+	public const string G_IMG_P_SETTINGS_P_VIBRATE_ON = "VibrateOn";
+	public const string G_IMG_P_SETTINGS_P_VIBRATE_OFF = "VibrateOff";
+
+	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "NotiOn";
+	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "NotiOff";
 	// 설정 팝업 }
 
 	// 동기화 팝업

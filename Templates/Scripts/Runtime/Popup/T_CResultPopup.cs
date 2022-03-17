@@ -17,6 +17,14 @@ public class CResultPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
+	/** 텍스트 */
+	private enum EText {
+		NONE = -1,
+		RECORD,
+		BEST_RECORD,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 매개 변수 */
 	public struct STParams {
 		public STRecordInfo m_stRecordInfo;
@@ -30,8 +38,7 @@ public class CResultPopup : CSubPopup {
 	private STParams m_stParams;
 
 	/** =====> UI <===== */
-	private TMP_Text m_oRecordText = null;
-	private TMP_Text m_oBestRecordText = null;
+	private Dictionary<EText, TMP_Text> m_oTextDict = new Dictionary<EText, TMP_Text>();
 
 	/** =====> 객체 <===== */
 	private GameObject m_oClearUIs = null;
@@ -60,8 +67,8 @@ public class CResultPopup : CSubPopup {
 		m_oClearFailUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_CLEAR_FAIL_UIS);
 
 		// 텍스트를 설정한다
-		m_oRecordText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_RECORD_TEXT);
-		m_oBestRecordText = m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_BEST_RECORD_TEXT);
+		m_oTextDict.TryAdd(EText.RECORD, m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_RECORD_TEXT));
+		m_oTextDict.TryAdd(EText.BEST_RECORD, m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_BEST_RECORD_TEXT));
 
 		// 버튼을 설정한다
 		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NEXT_BTN)?.onClick.AddListener(this.OnTouchNextBtn);
@@ -95,8 +102,8 @@ public class CResultPopup : CSubPopup {
 		m_oClearFailUIs?.SetActive(!m_stParams.m_stRecordInfo.m_bIsSuccess);
 
 		// 텍스트를 갱신한다
-		m_oRecordText?.ExSetText($"{m_stParams.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
-		m_oBestRecordText?.ExSetText((m_stParams.m_oClearInfo != null) ? $"{m_stParams.m_oClearInfo.IntBestClearRecord}" : string.Empty, EFontSet._1, false);
+		m_oTextDict[EText.RECORD]?.ExSetText($"{m_stParams.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
+		m_oTextDict[EText.BEST_RECORD]?.ExSetText((m_stParams.m_oClearInfo != null) ? $"{m_stParams.m_oClearInfo.IntBestClearRecord}" : string.Empty, EFontSet._1, false);
 	}
 
 	/** 다음 버튼을 눌렀을 경우 */
