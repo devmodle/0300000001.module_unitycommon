@@ -33,12 +33,12 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 
 	/** 한국 약관 동의 팝업을 출력한다 */
 	protected override void ShowKRAgreePopup(string a_oPrivacy, string a_oServices) {
-		this.ShowAgreePopup(a_oPrivacy, a_oServices, EAgreePopupType.KR);
+		this.ShowAgreePopup(a_oPrivacy, a_oServices, EAgreePopup.KR);
 	}
 
 	/** 유럽 연합 약관 동의 팝업을 출력한다 */
 	protected override void ShowEUAgreePopup(string a_oPrivacyURL, string a_oServicesURL) {
-		this.ShowAgreePopup(a_oPrivacyURL, a_oServicesURL, EAgreePopupType.EU);
+		this.ShowAgreePopup(a_oPrivacyURL, a_oServicesURL, EAgreePopup.EU);
 	}
 
 	/** 씬을 설정한다 */
@@ -49,7 +49,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 	}
 
 	/** 약관 동의 팝업을 출력한다 */
-	private void ShowAgreePopup(string a_oPrivacy, string a_oServices, EAgreePopupType a_ePopupType) {
+	private void ShowAgreePopup(string a_oPrivacy, string a_oServices, EAgreePopup a_eAgreePopup) {
 #if MODE_PORTRAIT_ENABLE
 		string oObjPath = KCDefine.AS_OBJ_P_PORTRAIT_AGREE_POPUP;
 #else
@@ -57,7 +57,7 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 #endif			// #if MODE_PORTRAIT_ENABLE
 
 		var stParams = new CAgreePopup.STParams() {
-			m_oPrivacy = a_oPrivacy, m_oServices = a_oServices, m_ePopupType = a_ePopupType
+			m_oPrivacy = a_oPrivacy, m_oServices = a_oServices, m_eAgreePopup = a_eAgreePopup
 		};
 
 		var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.PopupUIs);

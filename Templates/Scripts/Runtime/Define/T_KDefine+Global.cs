@@ -211,12 +211,12 @@ public static partial class KDefine {
 	// 경로 }
 
 	// 분석 {
-	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_LOG_ENABLE_LIST = new List<EAnalyticsType>() {
-		EAnalyticsType.FLURRY, EAnalyticsType.FIREBASE, EAnalyticsType.APPS_FLYER
+	public static readonly List<EAnalytics> G_ANALYTICS_LOG_ENABLE_LIST = new List<EAnalytics>() {
+		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER
 	};
 
-	public static readonly List<EAnalyticsType> G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLE_LIST = new List<EAnalyticsType>() {
-		EAnalyticsType.FLURRY, EAnalyticsType.FIREBASE, EAnalyticsType.APPS_FLYER
+	public static readonly List<EAnalytics> G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST = new List<EAnalytics>() {
+		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER
 	};
 	// 분석 }
 	
