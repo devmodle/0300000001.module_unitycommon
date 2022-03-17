@@ -17,6 +17,13 @@ public class CFocusPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
+	/** 이미지 */
+	private enum EImg {
+		NONE = -1,
+		BLIND,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 매개 변수 */
 	public struct STParams {
 		public List<GameObject> m_oContentsUIsList;
@@ -27,7 +34,7 @@ public class CFocusPopup : CSubPopup {
 	private STParams m_stParams;
 
 	/** =====> UI <===== */
-	private Image m_oBlindImg = null;
+	private Dictionary<EImg, Image> m_oImgDict = new Dictionary<EImg, Image>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
@@ -52,7 +59,7 @@ public class CFocusPopup : CSubPopup {
 		this.IsIgnoreAni = true;
 
 		// 이미지를 설정한다
-		m_oBlindImg = m_oContents.ExFindComponent<Image>(KCDefine.U_OBJ_N_BLIND_IMG);
+		m_oImgDict.TryAdd(EImg.BLIND, m_oContents.ExFindComponent<Image>(KCDefine.U_OBJ_N_BLIND_IMG));
 	}
 
 	/** 초기화 */
@@ -61,7 +68,7 @@ public class CFocusPopup : CSubPopup {
 		m_stParams = a_stParams;
 
 		// 터치 전달자를 설정한다
-		var oTouchDispatcher = m_oBlindImg?.GetComponentInChildren<CTouchDispatcher>();
+		var oTouchDispatcher = m_oImgDict[EImg.BLIND]?.GetComponentInChildren<CTouchDispatcher>();
 		oTouchDispatcher?.ExSetBeginCallback((a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.BEGIN)?.Invoke(this, a_oEventData), false);
 		oTouchDispatcher?.ExSetMoveCallback((a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.MOVE)?.Invoke(this, a_oEventData), false);
 		oTouchDispatcher?.ExSetEndCallback((a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.END)?.Invoke(this, a_oEventData), false);
@@ -85,10 +92,13 @@ public class CFocusPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	protected new void UpdateUIsState() {
 		base.UpdateUIsState();
-		m_oBlindImg?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BG);
+
+		// 이미지를 갱신한다 {
+		m_oImgDict[EImg.BLIND]?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BG);
 		
 		var oContentsImg = m_oContents.GetComponentInChildren<Image>();
 		oContentsImg?.ExSetColor<Image>(KCDefine.U_COLOR_TRANSPARENT);
+		// 이미지를 갱신한다 }
 	}
 	#endregion			// 함수
 

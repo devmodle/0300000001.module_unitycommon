@@ -7,9 +7,16 @@ using UnityEngine.UI;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 무료 보상 팝업 */
 public class CFreeRewardPopup : CSubPopup {
+	/** 버튼 */
+	private enum EBtn {
+		NONE = -1,
+		REWARD_ADS,
+		[HideInInspector] MAX_VAL
+	}
+
 	#region 변수
 	/** =====> UI <===== */
-	private Button m_oRewardAdsBtn = null;
+	private Dictionary<EBtn, Button> m_oBtnDict = new Dictionary<EBtn, Button>();
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -26,8 +33,8 @@ public class CFreeRewardPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다
-		m_oRewardAdsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN);
-		m_oRewardAdsBtn?.onClick.AddListener(this.OnTouchRewardAdsBtn);
+		m_oBtnDict.TryAdd(EBtn.REWARD_ADS, m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN));
+		m_oBtnDict[EBtn.REWARD_ADS]?.onClick.AddListener(this.OnTouchRewardAdsBtn);
 	}
 	
 	/** 초기화 */
@@ -44,6 +51,9 @@ public class CFreeRewardPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
+
+		// 버튼을 갱신한다
+		m_oBtnDict[EBtn.REWARD_ADS]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetFreeReward);
 	}
 
 	/** 보상 광고 버튼을 눌렀을 경우 */

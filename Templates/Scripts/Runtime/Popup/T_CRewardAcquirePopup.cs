@@ -8,6 +8,14 @@ using TMPro;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 보상 획득 팝업 */
 public class CRewardAcquirePopup : CSubPopup {
+	/** 버튼 */
+	private enum EBtn {
+		NONE = -1,
+		ACQUIRE,
+		REWARD_ADS,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 매개 변수 */
 	public struct STParams {
 		public ERewardQuality m_eQuality;
@@ -20,8 +28,7 @@ public class CRewardAcquirePopup : CSubPopup {
 	private STParams m_stParams;
 
 	/** =====> UI <===== */
-	private Button m_oAcquireBtn = null;
-	private Button m_oRewardAdsBtn = null;
+	private Dictionary<EBtn, Button> m_oBtnDict = new Dictionary<EBtn, Button>();
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oRewardUIs = null;
@@ -45,11 +52,11 @@ public class CRewardAcquirePopup : CSubPopup {
 		this.IsIgnoreNavStackEvent = true;
 
 		// 버튼을 설정한다 {
-		m_oAcquireBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ACQUIRE_BTN);
-		m_oAcquireBtn?.onClick.AddListener(this.OnTouchAcquireBtn);
+		m_oBtnDict.TryAdd(EBtn.ACQUIRE, m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ACQUIRE_BTN));
+		m_oBtnDict.TryAdd(EBtn.REWARD_ADS, m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN));
 
-		m_oRewardAdsBtn = m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN);
-		m_oRewardAdsBtn?.onClick.AddListener(this.OnTouchRewardAdsBtn);
+		m_oBtnDict[EBtn.ACQUIRE]?.onClick.AddListener(this.OnTouchAcquireBtn);
+		m_oBtnDict[EBtn.REWARD_ADS]?.onClick.AddListener(this.OnTouchRewardAdsBtn);
 		// 버튼을 설정한다 }
 	}
 	
@@ -99,11 +106,11 @@ public class CRewardAcquirePopup : CSubPopup {
 
 	/** 아이템을 획득한다 */
 	private void AcquireItems(bool a_bIsWatchRewardAds) {
-		m_oAcquireBtn?.ExSetInteractable(false);
-		m_oRewardAdsBtn?.ExSetInteractable(false);
+		m_oBtnDict[EBtn.ACQUIRE]?.ExSetInteractable(false);
+		m_oBtnDict[EBtn.REWARD_ADS]?.ExSetInteractable(false);
 
 #if ADS_MODULE_ENABLE
-		m_oRewardAdsBtn?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
+		m_oBtnDict[EBtn.REWARD_ADS]?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
 #endif			// #if ADS_MODULE_ENABLE
 
 		for(int i = 0; i < m_stParams.m_oItemInfoList.Count; ++i) {
