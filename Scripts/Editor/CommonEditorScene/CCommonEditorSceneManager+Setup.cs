@@ -88,6 +88,11 @@ public static partial class CCommonEditorSceneManager {
 		EditorApplication.playModeStateChanged += CCommonEditorSceneManager.OnUpdatePlayModeState;
 	}
 
+	/** 캔버스를 설정한다 */
+	private static void SetupCanvases() {
+		CFunc.EnumerateComponents<Canvas>((a_oCanvas) => { a_oCanvas.gameObject.ExAddComponent<GraphicRaycaster>(); return true; });
+	}
+
 	/** 광원 옵션을 설정한다 */
 	private static void SetupLightOpts() {
 		var oSampleSceneNameList = new List<string>() {
