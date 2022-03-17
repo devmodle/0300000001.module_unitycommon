@@ -46,7 +46,7 @@ public static partial class LogFunc {
 
 #if FLURRY_MODULE_ENABLE
 			// 플러리 분석이 가능 할 경우
-			if(KDefine.G_ANALYTICS_TYPE_LOG_ENABLE_LIST.Contains(EAnalyticsType.FLURRY)) {
+			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FLURRY)) {
 				var oFlurryDataDict = (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null;
 				CFlurryManager.Inst.SendLog(a_oName, oFlurryDataDict);
 			}
@@ -54,7 +54,7 @@ public static partial class LogFunc {
 
 #if FIREBASE_MODULE_ENABLE
 			// 파이어 베이스 분석이 가능 할 경우
-			if(KDefine.G_ANALYTICS_TYPE_LOG_ENABLE_LIST.Contains(EAnalyticsType.FIREBASE)) {
+			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FIREBASE)) {
 				var oFirebaseDataDict = (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null;
 				CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataDict);
 			}
@@ -62,7 +62,7 @@ public static partial class LogFunc {
 
 #if APPS_FLYER_MODULE_ENABLE
 			// 앱스 플라이어 분석이 가능 할 경우
-			if(KDefine.G_ANALYTICS_TYPE_LOG_ENABLE_LIST.Contains(EAnalyticsType.APPS_FLYER)) {
+			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.APPS_FLYER)) {
 				var oAppsFlyerDataDict = (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null;
 				CAppsFlyerManager.Inst.SendLog(a_oName, oAppsFlyerDataDict);
 			}
@@ -89,21 +89,21 @@ public static partial class LogFunc {
 
 #if FLURRY_MODULE_ENABLE
 			// 플러리 분석이 가능 할 경우
-			if(KDefine.G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalyticsType.FLURRY)) {
+			if(KDefine.G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalytics.FLURRY)) {
 				CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 			}
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 			// 파이어 베이스 분석이 가능 할 경우
-			if(KDefine.G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalyticsType.FIREBASE)) {
+			if(KDefine.G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalytics.FIREBASE)) {
 				CFirebaseManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 			}
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
 			// 앱스 플라이어 분석이 가능 할 경우
-			if(KDefine.G_ANALYTICS_TYPE_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalyticsType.APPS_FLYER)) {
+			if(KDefine.G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalytics.APPS_FLYER)) {
 				CAppsFlyerManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
 			}
 #endif			// #if APPS_FLYER_MODULE_ENABLE
