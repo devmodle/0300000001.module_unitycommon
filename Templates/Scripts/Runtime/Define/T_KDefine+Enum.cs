@@ -15,17 +15,6 @@ public enum EPlayMode {
 	[HideInInspector] MAX_VAL
 }
 
-/** 난이도 */
-public enum EDifficulty {
-	NONE = -1,
-	EASY,
-	NORM,
-	HARD,
-	VERY_HARD,
-	SUPER_HARD,
-	[HideInInspector] MAX_VAL
-}
-
 /** 가격 타입 */
 public enum EPriceType {
 	NONE = -1,
