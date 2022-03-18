@@ -160,12 +160,10 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본
-		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.localization"] = "1.0.5",
 		["com.unity.terrain-tools"] = "4.0.3",
 		["com.unity.2d.spriteshape"] = "7.0.4",
 		["com.unity.2d.tilemap.extras"] = "2.2.1",
-		["com.unity.animation.rigging"] = "1.1.1",
 
 #if SAMPLE_PROJ || DEVELOPMENT_PROJ
 		// 분석
@@ -196,13 +194,9 @@ public static partial class KEditorDefine {
 #endif			// #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 
 #if UNIVERSAL_RENDERING_PIPELINE_ENABLE || UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-		["com.unity.visualeffectgraph"] = "12.1.5",
-		["com.unity.render-pipelines.universal"] = "12.1.5",
+		["com.unity.visualeffectgraph"] = "12.1.6",
+		["com.unity.render-pipelines.universal"] = "12.1.6",
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_ENABLE || UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-
-#if ANIMATION_2D_ENABLE || ANIMATION_2D_MODULE_ENABLE
-		["com.unity.2d.psdimporter"] = "6.0.3",
-#endif			// #if ANIMATION_2D_ENABLE || ANIMATION_2D_MODULE_ENABLE
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
 		["module.unitycommonads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads_client.git#2.2.0",
