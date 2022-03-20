@@ -81,7 +81,6 @@ public class CLevelEditorSceneManager : CSceneManager {
 			m_oUIsDict[EKey.LE_UIS_AB_SET_UIS] = m_oUIsDict[EKey.LEFT_EDITOR_UIS].ExFindChild(KCDefine.E_OBJ_N_LE_UIS_AB_SET_UIS);
 
 			m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
-			m_oUIsDict[EKey.LE_UIS_AB_SET_UIS]?.SetActive(false);
 
 			// 블럭 객체를 설정한다
 			var oBlockObjs = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);

@@ -936,17 +936,21 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		var oAddChapterBtn = this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_CHAPTER_BTN);
 		oAddChapterBtn?.onClick.AddListener(this.OnTouchLEUIsAddChapterBtn);
 
+		this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_LEVEL_BTN)?.onClick.AddListener(this.OnTouchLEUIsAddLevelBtn);
+
+#if AB_TEST_ENABLE
 		m_oBtnDict[EKey.LE_UIS_A_SET_BTN] = this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_A_SET_BTN);
-		m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.onClick.AddListener(this.OnTouchLEUIsASetBtn);
+		m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.onClick.AddListener(() => this.OnTouchLEUIsSetBtn(m_oBtnDict[EKey.LE_UIS_A_SET_BTN]));
 
 		m_oBtnDict[EKey.LE_UIS_B_SET_BTN] = this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_B_SET_BTN);
-		m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.onClick.AddListener(this.OnTouchLEUIsBSetBtn);
-
-		this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_LEVEL_BTN)?.onClick.AddListener(this.OnTouchLEUIsAddLevelBtn);
+		m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.onClick.AddListener(() => this.OnTouchLEUIsSetBtn(m_oBtnDict[EKey.LE_UIS_B_SET_BTN]));
+#endif			// #if AB_TEST_ENABLE
 
 		this.ExLateCallFunc((a_oSender) => {
 #if AB_TEST_ENABLE
 			this.LEUIsABSetUIs?.SetActive(true);
+#else
+			this.LEUIsABSetUIs?.SetActive(false);
 #endif			// #if AB_TEST_ENABLE
 
 			oAddStageBtn?.ExSetInteractable((oStageScrollerA != null && oStageScrollerA.gameObject.activeSelf) || (oStageScrollerB != null && oStageScrollerB.gameObject.activeSelf));
@@ -959,8 +963,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private void UpdateLeftEditorUIsState() {
 		// 버튼을 설정한다 {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-		m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? Color.cyan : Color.white, false);
-		m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? Color.cyan : Color.white, false);
+		m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? Color.yellow : Color.white, false);
+		m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? Color.yellow : Color.white, false);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		// 버튼을 설정한다 }
 
@@ -968,18 +972,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1?.ExReloadData(m_oSelLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT, false);
 		m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1?.ExReloadData(m_oSelLevelInfo.m_stIDInfo.m_nStageID - KCDefine.B_VAL_1_INT, false);
 		m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1?.ExReloadData(m_oSelLevelInfo.m_stIDInfo.m_nChapterID - KCDefine.B_VAL_1_INT, false);
-	}
-
-	/** 왼쪽 에디터 UI A 세트 버튼을 눌렀을 경우 */
-	private void OnTouchLEUIsASetBtn() {
-		m_eSelUserType = EUserType.A;
-		Func.ShowEditorASetPopup(this.OnReceiveEditorSetPopupResult);
-	}
-
-	/** 왼쪽 에디터 UI B 세트 버튼을 눌렀을 경우 */
-	private void OnTouchLEUIsBSetBtn() {
-		m_eSelUserType = EUserType.B;
-		Func.ShowEditorBSetPopup(this.OnReceiveEditorSetPopupResult);
 	}
 
 	/** 왼쪽 에디터 UI 레벨 추가 버튼을 눌렀을 경우 */
@@ -1018,6 +1010,27 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		}
 	}
+
+#if AB_TEST_ENABLE
+	/** 왼쪽 에디터 UI 세트 버튼을 눌렀을 경우 */
+	private void OnTouchLEUIsSetBtn(Button a_oSender) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
+		var eUserType = (a_oSender == m_oBtnDict[EKey.LE_UIS_A_SET_BTN]) ? EUserType.A : EUserType.B;
+
+		// 유저 타입이 다를 경우
+		if(CCommonUserInfoStorage.Inst.UserInfo.UserType != eUserType) {
+			m_eSelUserType = eUserType;
+
+			// A 세트 버튼 일 경우
+			if(a_oSender == m_oBtnDict[EKey.LE_UIS_A_SET_BTN]) {
+				Func.ShowEditorASetPopup(this.OnReceiveEditorSetPopupResult);
+			} else {
+				Func.ShowEditorBSetPopup(this.OnReceiveEditorSetPopupResult);
+			}
+		}
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+	}
+#endif			// #if AB_TEST_ENABLE
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
 
