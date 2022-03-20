@@ -22,13 +22,13 @@ public class CAppInfo : CBaseInfo {
 	#region 프로퍼티
 #if ADS_MODULE_ENABLE
 	[JsonIgnore][IgnoreMember] public int RewardAdsWatchTimes {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(CAppInfo.KEY_REWARD_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(CAppInfo.KEY_REWARD_ADS_WATCH_TIMES, $"{value}"); }
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_REWARD_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_REWARD_ADS_WATCH_TIMES, $"{value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public int FullscreenAdsWatchTimes {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(CAppInfo.KEY_FULLSCREEN_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(CAppInfo.KEY_FULLSCREEN_ADS_WATCH_TIMES, $"{value}"); }
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FULLSCREEN_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_FULLSCREEN_ADS_WATCH_TIMES, $"{value}"); }
 	}
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 프로퍼티
@@ -74,8 +74,8 @@ public class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	public bool IsEnableShowFullscreenAds {
 		get {
-			float fAdsDelay = CValTable.Inst.GetFlt(KCDefine.VT_KEY_DELAY_ADS);
-			float fAdsDeltaTime = CValTable.Inst.GetFlt(KCDefine.VT_KEY_DELTA_T_ADS);
+			float fAdsDelay = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELAY_ADS);
+			float fAdsDeltaTime = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELTA_T_ADS);
 
 			double dblDeltaTimeA = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevAdsTime);
 			double dblDeltaTimeB = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevRewardAdsTime);

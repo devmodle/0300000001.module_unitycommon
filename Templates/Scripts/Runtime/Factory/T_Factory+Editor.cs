@@ -12,17 +12,6 @@ public static partial class Factory {
 	#endregion			// 클래스 함수
 
 	#region 조건부 클래스 함수
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-	/** 블럭 스프라이트를 생성한다 */
-	public static SpriteRenderer CreateBlockSprite(EBlockKinds a_eBlockKinds, GameObject a_oParent) {
-		var oBlockSprite = CFactory.CreateCloneObj<SpriteRenderer>(KCDefine.E_OBJ_N_BLOCK_SPRITE, KCDefine.U_OBJ_P_SPRITE, a_oParent);
-		oBlockSprite.sprite = SampleEngineName.Access.GetBlockSprite(a_eBlockKinds);
-		oBlockSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrder(a_eBlockKinds));
-
-		return oBlockSprite;
-	}
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	/** 셀 정보를 생성한다 */
 	public static CCellInfo MakeCellInfo(Vector3Int a_stIdx) {

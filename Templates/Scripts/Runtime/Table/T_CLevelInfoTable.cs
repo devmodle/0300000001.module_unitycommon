@@ -13,8 +13,8 @@ using Newtonsoft.Json;
 [MessagePackObject][System.Serializable]
 public class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
-	[Key(161)] public Dictionary<EBlockType, List<EBlockKinds>> m_oBlockKindsDictContainer = new Dictionary<EBlockType, List<EBlockKinds>>();
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
+	[Key(161)] public Dictionary<EBlockType, List<EBlockKinds>> m_oBlockKindsDictContainer = new Dictionary<EBlockType, List<EBlockKinds>>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -80,8 +80,8 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(161)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
+	[Key(165)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
@@ -90,28 +90,28 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore][IgnoreMember] public Dictionary<ETargetKinds, int> NumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
 
 	[JsonIgnore][IgnoreMember] public EDifficulty Difficulty {
-		get { return (EDifficulty)int.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_DIFFICULTY, $"{(int)EDifficulty.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_DIFFICULTY, $"{(int)value}"); }
+		get { return (EDifficulty)int.Parse(m_oStrDict.GetValueOrDefault(KEY_DIFFICULTY, $"{(int)EDifficulty.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_DIFFICULTY, $"{(int)value}"); }
 	}
 	
 	[JsonIgnore][IgnoreMember] public ELevelKinds LevelKinds {
-		get { return (ELevelKinds)int.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_LEVEL_KINDS, $"{(int)ELevelKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_LEVEL_KINDS, $"{(int)value}"); }
+		get { return (ELevelKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_LEVEL_KINDS, $"{(int)ELevelKinds.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_LEVEL_KINDS, $"{(int)value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public ERewardKinds RewardKinds {
-		get { return (ERewardKinds)int.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_REWARD_KINDS, $"{(int)ERewardKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_REWARD_KINDS, $"{(int)value}"); }
+		get { return (ERewardKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_REWARD_KINDS, $"{(int)ERewardKinds.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_REWARD_KINDS, $"{(int)value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public ETutorialKinds TutorialKinds {
-		get { return (ETutorialKinds)int.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_TUTORIAL_KINDS, $"{(int)ETutorialKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_TUTORIAL_KINDS, $"{(int)value}"); }
+		get { return (ETutorialKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_TUTORIAL_KINDS, $"{(int)ETutorialKinds.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_TUTORIAL_KINDS, $"{(int)value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public System.Version CellVer {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(CLevelInfo.KEY_CELL_VER, KCDefine.B_DEF_VER)); }
-		set { m_oStrDict.ExReplaceVal(CLevelInfo.KEY_CELL_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_VER, KCDefine.B_DEF_VER)); }
+		set { m_oStrDict.ExReplaceVal(KEY_CELL_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
 	[JsonIgnore][IgnoreMember] public long UniqueLevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);

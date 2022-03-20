@@ -29,19 +29,19 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public System.Version Ver {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(CBaseInfo.KEY_VER, KCDefine.B_DEF_VER)); }
-		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER)); }
+		set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
 	[JsonIgnore][IgnoreMember] public System.DateTime SaveTime {
 		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
-		set { m_oStrDict.ExReplaceVal(CBaseInfo.KEY_SAVE_TIME, value.ExToLongStr()); }
+		set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); }
 	}
 
 	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreVer => false;
 	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
 
-	[JsonIgnore][IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(CBaseInfo.KEY_SAVE_TIME, string.Empty);
+	[JsonIgnore][IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(KEY_SAVE_TIME, string.Empty);
 	[JsonIgnore][IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SPLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion			// 프로퍼티
 	
@@ -50,14 +50,14 @@ public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	public virtual void OnBeforeSerialize() {
 		// 버전 무시 모드 일 경우
 		if(this.IsIgnoreVer) {
-			m_oStrDict.ExRemoveVal(CBaseInfo.KEY_VER);
+			m_oStrDict.ExRemoveVal(KEY_VER);
 		}
 
 		// 저장 시간 무시 모드가 아닐 경우
 		if(!this.IsIgnoreSaveTime) {
 			this.SaveTime = System.DateTime.Now;
 		} else {
-			m_oStrDict.ExRemoveVal(CBaseInfo.KEY_SAVE_TIME);
+			m_oStrDict.ExRemoveVal(KEY_SAVE_TIME);
 		}
 	}
 

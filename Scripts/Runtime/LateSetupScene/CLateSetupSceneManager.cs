@@ -137,6 +137,10 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 			});
 			
 #if ADS_MODULE_ENABLE
+			var oAdmobTestDeviceIDList = new List<string>();
+			oAdmobTestDeviceIDList.AddRange(CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobTestDeviceIDList);
+			oAdmobTestDeviceIDList.AddRange(CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobTestDeviceIDList);
+
 			CUnityMsgSender.Inst.SendSetEnableAdsTrackingMsg(true);
 
 			CAdsManager.Inst.Init(new CAdsManager.STParams() {
@@ -144,40 +148,20 @@ public abstract partial class CLateSetupSceneManager : CSceneManager {
 				m_eBannerAdsPos = CPluginInfoTable.Inst.BannerAdsPos,
 
 #if ADMOB_ADS_ENABLE
-				m_stAdmobParams = new CAdsManager.STAdmobParams() {
-#if UNITY_IOS
-					m_oTestDeviceIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oiOSTestDeviceAdmobIDList,
-#elif UNITY_ANDROID
-					m_oTestDeviceIDList = CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidTestDeviceAdmobIDList,
-#else
-					m_oTestDeviceIDList = new List<string>(),
-#endif			// #if UNITY_IOS
+				m_oAdmobTestDeviceIDList = oAdmobTestDeviceIDList,
 
-					m_oAdsIDDict = new Dictionary<string, string>() {
-						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.ADMOB), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.ADMOB), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.ADMOB)
-					}
+				m_oAdmobAdsIDDict = new Dictionary<string, string>() {
+					[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.ADMOB), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.ADMOB), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.ADMOB)
 				},
 #endif			// #if ADMOB_ADS_ENABLE
 
 #if IRON_SRC_ADS_ENABLE
-				m_stIronSrcParams = new CAdsManager.STIronSrcParams() {
-					m_oAppKey = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oAppKey,
+				m_oIronSrcAppKey = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oAppKey,
 
-					m_oAdsIDDict = new Dictionary<string, string>() {
-						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC)
-					}
+				m_oIronSrcAdsIDDict = new Dictionary<string, string>() {
+					[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC)
 				},
 #endif			// #if IRON_SRC_ADS_ENABLE
-
-#if APP_LOVIN_ADS_ENABLE
-				m_stAppLovinParams = new CAdsManager.STAppLovinParams() {
-					m_oSDKKey = CPluginInfoTable.Inst.AppLovinSDKKey,
-
-					m_oAdsIDDict = new Dictionary<string, string>() {
-						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN)
-					}
-				},
-#endif			// #if APP_LOVIN_ADS_ENABLE
 
 				m_oCallbackDict = new Dictionary<CAdsManager.ECallback, System.Action<CAdsManager, EAdsPlatform, bool>>() {
 					[CAdsManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAdsManager

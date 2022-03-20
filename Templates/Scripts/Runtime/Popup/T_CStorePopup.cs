@@ -12,6 +12,13 @@ using UnityEngine.Purchasing;
 
 /** 상점 팝업 */
 public class CStorePopup : CSubPopup {
+	/** 식별자 */
+	private enum EKey {
+		NONE = -1,
+		PURCHASE_PRODUCT_ID,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,
@@ -33,7 +40,7 @@ public class CStorePopup : CSubPopup {
 		public List<STSaleProductInfo> m_oSaleProductInfoList;
 
 #if ADS_MODULE_ENABLE
-		public Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>> m_oAdsCallbackDictA;
+		public Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>> m_oAdsCallbackDict;
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
@@ -46,11 +53,14 @@ public class CStorePopup : CSubPopup {
 	private STParams m_stParams;
 	private ESaleProductKinds m_eSelSaleProductKinds = ESaleProductKinds.NONE;
 
+	private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
+		[EKey.PURCHASE_PRODUCT_ID] = string.Empty
+	};
+
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oSaleProductUIsList = new List<GameObject>();
 
 #if FIREBASE_MODULE_ENABLE && PURCHASE_MODULE_ENABLE
-	private string m_oPurchaseProductID = string.Empty;
 	private List<Product> m_oRestoreProductList = new List<Product>();
 #endif			// #if FIREBASE_MODULE_ENABLE && PURCHASE_MODULE_ENABLE
 	#endregion			// 변수
@@ -69,7 +79,7 @@ public class CStorePopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다
-		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RESTORE_BTN)?.onClick.AddListener(this.OnTouchRestoreBtn);
+		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RESTORE_BTN)?.onClick.AddListener(this.OnTouchRestoreBtn);
 	}
 	
 	/** 초기화 */
@@ -212,7 +222,7 @@ public class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oAdsCallbackDictA.GetValueOrDefault(ECallback.ADS, null)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
+		m_stParams.m_oAdsCallbackDict.GetValueOrDefault(ECallback.ADS, null)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 
@@ -224,7 +234,7 @@ public class CStorePopup : CSubPopup {
 			Func.AcquireProduct(a_oProductID);
 
 #if FIREBASE_MODULE_ENABLE
-			m_oPurchaseProductID = a_oProductID;
+			m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
 			this.ExLateCallFunc((a_oCallFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
 #else
 			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
@@ -301,7 +311,7 @@ public class CStorePopup : CSubPopup {
 
 	/** 유저 정보를 저장했을 경우 */
 	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oPurchaseProductID, true, null);
+		Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oStrDict[EKey.PURCHASE_PRODUCT_ID], true, null);
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 #endif			// #if PURCHASE_MODULE_ENABLE

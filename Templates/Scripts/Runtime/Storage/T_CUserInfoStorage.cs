@@ -23,13 +23,13 @@ public class CUserInfo : CBaseInfo {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public long NumCoins {
-		get { return long.Parse(m_oStrDict.GetValueOrDefault(CUserInfo.KEY_NUM_COINS, $"{KCDefine.B_VAL_0_INT}")); }
-		set { m_oStrDict.ExReplaceVal(CUserInfo.KEY_NUM_COINS, $"{value}"); }
+		get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_COINS, $"{KCDefine.B_VAL_0_INT}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_COINS, $"{value}"); }
 	}
 
 	[JsonIgnore][IgnoreMember] public long NumSaleCoins {
-		get { return long.Parse(m_oStrDict.GetValueOrDefault(CUserInfo.KEY_NUM_SALE_COINS, $"{KCDefine.B_VAL_0_INT}")); }
-		set { m_oStrDict.ExReplaceVal(CUserInfo.KEY_NUM_SALE_COINS, $"{value}"); }
+		get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_SALE_COINS, $"{KCDefine.B_VAL_0_INT}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_SALE_COINS, $"{value}"); }
 	}
 	#endregion			// 프로퍼티
 

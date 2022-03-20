@@ -16,7 +16,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 	#region 변수
-	private bool m_bIsLoadLevelEditorScene = false;
+	private bool m_bIsLoadEditorScene = false;
 
 	/** =====> UI <===== */
 #if DEBUG || DEVELOPMENT_BUILD
@@ -63,8 +63,8 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 			}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
-			// 레벨 에디터 씬을 로드하지 않았을 경우
-			if(!m_bIsLoadLevelEditorScene && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
+			// 에디터 씬을 로드하지 않았을 경우
+			if(!m_bIsLoadEditorScene && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 			}
 		}
@@ -123,7 +123,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		
 #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		m_bIsLoadLevelEditorScene = true;
+		m_bIsLoadEditorScene = true;
 		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 #endif			// #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
@@ -160,7 +160,7 @@ public partial class CSubTitleSceneManager : CTitleSceneManager {
 
 	/** 플레이 버튼을 눌렀을 경우 */
 	private void OnTouchPlayBtn() {
-		// Do Something
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 	}
 	#endregion			// 함수
 

@@ -7,17 +7,20 @@ using UnityEngine.UI;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 일일 보상 팝업 */
 public class CDailyRewardPopup : CSubPopup {
-	/** 버튼 */
-	private enum EBtn {
+	/** 식별자 */
+	private enum EKey {
 		NONE = -1,
-		ACQUIRE,
-		REWARD_ADS,
+		ACQUIRE_BTN,
+		REWARD_ADS_BTN,
 		[HideInInspector] MAX_VAL
 	}
 
 	#region 변수
 	/** =====> UI <===== */
-	private Dictionary<EBtn, Button> m_oBtnDict = new Dictionary<EBtn, Button>();
+	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
+		[EKey.ACQUIRE_BTN] = null,
+		[EKey.REWARD_ADS_BTN] = null
+	};
 
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
@@ -37,11 +40,11 @@ public class CDailyRewardPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다 {
-		m_oBtnDict.TryAdd(EBtn.ACQUIRE, m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ACQUIRE_BTN));
-		m_oBtnDict.TryAdd(EBtn.REWARD_ADS, m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN));
+		m_oBtnDict[EKey.ACQUIRE_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ACQUIRE_BTN);
+		m_oBtnDict[EKey.ACQUIRE_BTN]?.onClick.AddListener(this.OnTouchAcquireBtn);
 
-		m_oBtnDict[EBtn.ACQUIRE]?.onClick.AddListener(this.OnTouchAcquireBtn);
-		m_oBtnDict[EBtn.REWARD_ADS]?.onClick.AddListener(this.OnTouchRewardAdsBtn);
+		m_oBtnDict[EKey.REWARD_ADS_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN);
+		m_oBtnDict[EKey.REWARD_ADS_BTN]?.onClick.AddListener(this.OnTouchRewardAdsBtn);
 		// 버튼을 설정한다 }
 	}
 	
@@ -61,8 +64,8 @@ public class CDailyRewardPopup : CSubPopup {
 		base.UpdateUIsState();
 
 		// 버튼을 갱신한다
-		m_oBtnDict[EBtn.ACQUIRE]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetDailyReward);
-		m_oBtnDict[EBtn.REWARD_ADS]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetDailyReward);
+		m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetDailyReward);
+		m_oBtnDict[EKey.REWARD_ADS_BTN]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetDailyReward);
 		
 		// 보상 UI 상태를 갱신한다
 		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
