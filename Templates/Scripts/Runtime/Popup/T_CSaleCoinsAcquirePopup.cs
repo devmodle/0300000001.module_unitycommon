@@ -8,10 +8,10 @@ using TMPro;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 판매 코인 획득 팝업 */
 public class CSaleCoinsAcquirePopup : CSubPopup {
-	/** 텍스트 */
-	private enum EText {
+	/** 식별자 */
+	private enum EKey {
 		NONE = -1,
-		NUM_SALE_COINS,
+		NUM_SALE_COINS_TEXT,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -25,7 +25,9 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	private long m_nPrevNumSaleCoins = 0;
 
 	/** =====> UI <===== */
-	private Dictionary<EText, TMP_Text> m_oTextDict = new Dictionary<EText, TMP_Text>();
+	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
+		[EKey.NUM_SALE_COINS_TEXT] = null
+	};
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
@@ -47,7 +49,7 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 		this.IsIgnoreNavStackEvent = false;
 
 		// 텍스트를 설정한다
-		m_oTextDict.TryAdd(EText.NUM_SALE_COINS, m_oContents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_SALE_COINS_TEXT));
+		m_oTextDict[EKey.NUM_SALE_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_SALE_COINS_TEXT);
 	}
 
 	/** 초기화 */
@@ -75,7 +77,7 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 		m_oFullUIs?.SetActive(m_nPrevNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
 		
 		// 텍스트를 갱신한다
-		m_oTextDict[EText.NUM_SALE_COINS]?.ExSetText($"{m_nPrevNumSaleCoins}", EFontSet._1, false);
+		m_oTextDict[EKey.NUM_SALE_COINS_TEXT]?.ExSetText($"{m_nPrevNumSaleCoins}", EFontSet._1, false);
 	}
 	#endregion			// 함수
 

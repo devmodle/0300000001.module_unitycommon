@@ -8,6 +8,13 @@ using UnityEngine.EventSystems;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 게임 씬 관리자 */
 public partial class CSubGameSceneManager : CGameSceneManager {
+	/** 식별자 */
+	private enum EKey {
+		NONE = -1,
+		BG_TOUCH_DISPATCHER,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 팝업 결과 */
 	private enum EPopupResult {
 		NONE = -1,
@@ -33,14 +40,16 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 	#region 변수
-	private bool m_bIsLeave = false;
-
-	private int m_nContinueTimes = 0;
-	private ERewardAdsUIs m_eSelRewardAdsUIs = ERewardAdsUIs.NONE;
-	private CTouchDispatcher m_oBGTouchDispatcher = null;
-
 	[System.NonSerialized] private CLevelInfo m_oLevelInfo = null;
 	[System.NonSerialized] private CClearInfo m_oClearInfo = null;
+
+	private bool m_bIsLeave = false;
+	private int m_nContinueTimes = 0;
+	private ERewardAdsUIs m_eSelRewardAdsUIs = ERewardAdsUIs.NONE;
+
+	private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>() {
+		[EKey.BG_TOUCH_DISPATCHER] = null
+	};
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	private SampleEngineName.CEngine m_oEngine = null;
@@ -177,10 +186,10 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		oPauseBtn?.ExAddListener(this.OnTouchPauseBtn, true, false);
 
 		// 터치 전달자를 설정한다
-		m_oBGTouchDispatcher = m_oBGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
-		m_oBGTouchDispatcher?.ExSetBeginCallback(this.OnTouchBegin, false);
-		m_oBGTouchDispatcher?.ExSetMoveCallback(this.OnTouchMove, false);
-		m_oBGTouchDispatcher?.ExSetEndCallback(this.OnTouchEnd, false);
+		m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] = this.BGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
+		m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER]?.ExSetBeginCallback(this.OnTouchBegin, false);
+		m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER]?.ExSetMoveCallback(this.OnTouchMove, false);
+		m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER]?.ExSetEndCallback(this.OnTouchEnd, false);
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		// 비율을 설정한다 {
@@ -188,7 +197,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		bool bIsValidB = !float.IsNaN(m_oEngine.GridInfo.m_stGridScale.y) && !float.IsInfinity(m_oEngine.GridInfo.m_stGridScale.y);
 		bool bIsValidC = !float.IsNaN(m_oEngine.GridInfo.m_stGridScale.z) && !float.IsInfinity(m_oEngine.GridInfo.m_stGridScale.z);
 
-		m_oBlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_oEngine.GridInfo.m_stGridScale : Vector3.one;
+		this.BlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_oEngine.GridInfo.m_stGridScale : Vector3.one;
 		// 비율을 설정한다 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
@@ -210,7 +219,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		var stParams = new SampleEngineName.CEngine.STParams() {
 			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
 			m_oClearInfo = bIsValid ? oClearInfo : null,
-			m_oBlockObjs = this.m_oBlockObjs,
+			m_oBlockObjs = this.BlockObjs,
 
 			m_oCallbackDict = new Dictionary<SampleEngineName.CEngine.ECallback, System.Action<SampleEngineName.CEngine>>() {
 				[SampleEngineName.CEngine.ECallback.CLEAR] = this.OnClearLevel,
@@ -290,7 +299,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	/** 터치를 시작했을 경우 */
 	private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
-		if(m_oBGTouchDispatcher == a_oSender) {
+		if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 			m_oEngine.OnTouchBegin(a_oSender, a_oEventData);
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
@@ -300,7 +309,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	/** 터치를 움직였을 경우 */
 	private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
-		if(m_oBGTouchDispatcher == a_oSender) {
+		if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 			m_oEngine.OnTouchMove(a_oSender, a_oEventData);
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
@@ -310,7 +319,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	/** 터치를 종료했을 경우 */
 	private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 		// 배경 터치 전달자 일 경우
-		if(m_oBGTouchDispatcher == a_oSender) {
+		if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 			m_oEngine.OnTouchEnd(a_oSender, a_oEventData);
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE

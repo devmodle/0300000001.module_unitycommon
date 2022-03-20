@@ -7,12 +7,22 @@ using UnityEngine.UI;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 동기화 팝업 */
 public class CSyncPopup : CSubPopup {
+	/** 식별자 */
+	private enum EKey {
+		NONE = -1,
+		LOGIN_UIS,
+		LOGOUT_UIS,
+		[HideInInspector] MAX_VAL
+	}
+
 	#region 변수
 	private bool m_bIsLoadUserInfo = false;
 
 	/** =====> 객체 <===== */
-	private GameObject m_oLoginUIs = null;
-	private GameObject m_oLogoutUIs = null;
+	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>() {
+		[EKey.LOGIN_UIS] = null,
+		[EKey.LOGOUT_UIS] = null
+	};
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -28,14 +38,14 @@ public class CSyncPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		m_oLoginUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_LOGIN_UIS);
-		m_oLogoutUIs = m_oContents.ExFindChild(KCDefine.U_OBJ_N_LOGOUT_UIS);
+		m_oUIsDict[EKey.LOGIN_UIS] = this.Contents.ExFindChild(KCDefine.U_OBJ_N_LOGIN_UIS);
+		m_oUIsDict[EKey.LOGOUT_UIS] = this.Contents.ExFindChild(KCDefine.U_OBJ_N_LOGOUT_UIS);
 
 		// 버튼을 설정한다
-		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGIN_BTN)?.onClick.AddListener(this.OnTouchLoginBtn);
-		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGOUT_BTN)?.onClick.AddListener(this.OnTouchLogoutBtn);
-		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOAD_BTN)?.onClick.AddListener(this.OnTouchLoadBtn);
-		m_oContents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SAVE_BTN)?.onClick.AddListener(this.OnTouchSaveBtn);
+		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGIN_BTN)?.onClick.AddListener(this.OnTouchLoginBtn);
+		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGOUT_BTN)?.onClick.AddListener(this.OnTouchLogoutBtn);
+		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOAD_BTN)?.onClick.AddListener(this.OnTouchLoadBtn);
+		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SAVE_BTN)?.onClick.AddListener(this.OnTouchSaveBtn);
 	}
 
 	/** 초기화 */
@@ -54,8 +64,8 @@ public class CSyncPopup : CSubPopup {
 		base.UpdateUIsState();
 		
 #if FIREBASE_MODULE_ENABLE
-		m_oLoginUIs?.SetActive(CFirebaseManager.Inst.IsLogin);
-		m_oLogoutUIs?.SetActive(!CFirebaseManager.Inst.IsLogin);
+		m_oUIsDict[EKey.LOGIN_UIS]?.SetActive(CFirebaseManager.Inst.IsLogin);
+		m_oUIsDict[EKey.LOGOUT_UIS]?.SetActive(!CFirebaseManager.Inst.IsLogin);
 #endif			// #if FIREBASE_MODULE_ENABLE
 	}
 

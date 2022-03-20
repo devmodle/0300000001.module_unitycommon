@@ -64,7 +64,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 				m_oSaleProductInfoList = oSaleProductInfoList,
 
 #if ADS_MODULE_ENABLE
-				m_oAdsCallbackDictA = new Dictionary<CStorePopup.ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>() {
+				m_oAdsCallbackDict = new Dictionary<CStorePopup.ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>() {
 					[CStorePopup.ECallback.ADS] = (a_oAdsSender, a_stAdsRewardInfo, a_bIsSuccess) => this.UpdateUIsState()
 				},
 #endif			// #if ADS_MODULE_ENABLE

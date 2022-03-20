@@ -8,12 +8,12 @@ using EnhancedUI.EnhancedScroller;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 메인 씬 관리자 */
 public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate {
-	/** 스크롤러 */
-	private enum EScroller {
+	/** 식별자 */
+	private enum EKey {
 		NONE = -1,
-		LEVEL,
-		STAGE,
-		CHAPTER,
+		LEVEL_SCROLLER_INFO,
+		STAGE_SCROLLER_INFO,
+		CHAPTER_SCROLLER_INFO,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -29,8 +29,11 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 	private STIDInfo m_stSelIDInfo;
 
 	/** =====> UI <===== */
-	private Dictionary<EScroller, EnhancedScroller> m_oScrollerDict = new Dictionary<EScroller, EnhancedScroller>();
-	private Dictionary<EScroller, EnhancedScrollerCellView> m_oOriginScrollerCellViewDict = new Dictionary<EScroller, EnhancedScrollerCellView>();
+	private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>() {
+		[EKey.LEVEL_SCROLLER_INFO] = (null, null),
+		[EKey.STAGE_SCROLLER_INFO] = (null, null),
+		[EKey.CHAPTER_SCROLLER_INFO] = (null, null)
+	};
 
 #if DEBUG || DEVELOPMENT_BUILD
 	[SerializeField] private STTestUIs m_stTestUIs;
@@ -53,32 +56,32 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 	/** 셀 개수를 반환한다 */
 	public int GetNumberOfCells(EnhancedScroller a_oSender) {
 		// 레벨 스크롤러 일 경우
-		if(m_oScrollerDict[EScroller.LEVEL] == a_oSender) {
+		if(m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].Item1 == a_oSender) {
 			return CLevelInfoTable.Inst.GetNumLevelInfos(m_stSelIDInfo.m_nStageID, m_stSelIDInfo.m_nChapterID) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW;
 		}
 
-		return (m_oScrollerDict[EScroller.STAGE] == a_oSender) ? CLevelInfoTable.Inst.GetNumStageInfos(m_stSelIDInfo.m_nChapterID) / KDefine.MS_MAX_NUM_STAGES_IN_ROW : CLevelInfoTable.Inst.NumChapterInfos / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW;
+		return (m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item1 == a_oSender) ? CLevelInfoTable.Inst.GetNumStageInfos(m_stSelIDInfo.m_nChapterID) / KDefine.MS_MAX_NUM_STAGES_IN_ROW : CLevelInfoTable.Inst.NumChapterInfos / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW;
 	}
 
 	/** 셀 뷰 크기를 반환한다 */
 	public float GetCellViewSize(EnhancedScroller a_oSender, int a_nDataIdx) {
 		// 레벨 스크롤러 일 경우
-		if(m_oScrollerDict[EScroller.LEVEL] == a_oSender) {
-			return (m_oOriginScrollerCellViewDict[EScroller.LEVEL].transform as RectTransform).sizeDelta.y;
+		if(m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].Item1 == a_oSender) {
+			return (m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].Item2.transform as RectTransform).sizeDelta.y;
 		}
 
-		return (m_oScrollerDict[EScroller.STAGE] == a_oSender) ? (m_oOriginScrollerCellViewDict[EScroller.STAGE].transform as RectTransform).sizeDelta.y : (m_oOriginScrollerCellViewDict[EScroller.CHAPTER].transform as RectTransform).sizeDelta.y;
+		return (m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item1 == a_oSender) ? (m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item2.transform as RectTransform).sizeDelta.y : (m_oScrollerInfoDict[EKey.CHAPTER_SCROLLER_INFO].Item2.transform as RectTransform).sizeDelta.y;
 	}
 
 	/** 셀 뷰를 반환한다 */
 	public EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
 		var stIDInfo = CFactory.MakeIDInfo(a_nDataIdx * KDefine.MS_MAX_NUM_LEVELS_IN_ROW, m_stSelIDInfo.m_nStageID, m_stSelIDInfo.m_nChapterID);
-		var oOriginScrollerCellView = m_oOriginScrollerCellViewDict[EScroller.LEVEL];
+		var oOriginScrollerCellView = m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].Item2;
 
 		// 레벨 스크롤러가 아닐 경우
-		if(m_oScrollerDict[EScroller.LEVEL] != a_oSender) {
-			stIDInfo = (m_oScrollerDict[EScroller.STAGE] == a_oSender) ? CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.MS_MAX_NUM_STAGES_IN_ROW, m_stSelIDInfo.m_nChapterID) : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW);
-			oOriginScrollerCellView = (m_oScrollerDict[EScroller.STAGE] == a_oSender) ? m_oOriginScrollerCellViewDict[EScroller.STAGE] : m_oOriginScrollerCellViewDict[EScroller.CHAPTER];
+		if(m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].Item1 != a_oSender) {
+			stIDInfo = (m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item1 == a_oSender) ? CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.MS_MAX_NUM_STAGES_IN_ROW, m_stSelIDInfo.m_nChapterID) : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW);
+			oOriginScrollerCellView = (m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item1 == a_oSender) ? m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item2 : m_oScrollerInfoDict[EKey.CHAPTER_SCROLLER_INFO].Item2;
 		}
 		
 		var stParams = new CScrollerCellView.STParams() {
@@ -179,25 +182,32 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		var ePlayMode = CGameInfoStorage.Inst.PlayMode;
 		m_stSelIDInfo = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT);
 
-		// 버튼을 설정한다
+		// 버튼을 설정한다 {
 		var oPlayBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
 		oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
 
+		var oStoreBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
+		oStoreBtn?.ExAddListener(this.OnTouchStoreBtn, true, false);
+		// 버튼을 설정한다 }
+
 		// 스크롤 뷰를 설정한다 {
-		var oLevelScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW);
-		var oStageScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW);
-		var oChapterScrollerCellView = CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW);
+		m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO] = (
+			this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW),
+			CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()
+		);
 
-		m_oScrollerDict.TryAdd(EScroller.LEVEL, this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW));
-		m_oScrollerDict.TryAdd(EScroller.STAGE, this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW));
-		m_oScrollerDict.TryAdd(EScroller.CHAPTER, this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW));
+		m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO] = (
+			this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW),
+			CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()
+		);
 
-		m_oOriginScrollerCellViewDict.TryAdd(EScroller.LEVEL, oLevelScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
-		m_oOriginScrollerCellViewDict.TryAdd(EScroller.STAGE, oStageScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
-		m_oOriginScrollerCellViewDict.TryAdd(EScroller.CHAPTER, oChapterScrollerCellView?.GetComponentInChildren<EnhancedScrollerCellView>());
-		
-		foreach(var stKeyVal in m_oScrollerDict) {
-			stKeyVal.Value?.ExSetDelegate(this, false);
+		m_oScrollerInfoDict[EKey.CHAPTER_SCROLLER_INFO] = (
+			this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW),
+			CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()
+		);
+
+		foreach(var stKeyVal in m_oScrollerInfoDict) {
+			stKeyVal.Value.Item1?.ExSetDelegate(this, false);
 		}
 		// 스크롤 뷰를 설정한다 }
 
@@ -266,7 +276,12 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 
 	/** 플레이 버튼을 눌렀을 경우 */
 	private void OnTouchPlayBtn() {
-		// Do Something
+		CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+	}
+
+	/** 상점 버튼을 눌렀을 경우 */
+	private void OnTouchStoreBtn() {
+		CSceneManager.GetSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 	}
 
 	/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
