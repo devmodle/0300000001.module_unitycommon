@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 #if UNITY_IOS
 using UnityEngine.iOS;
@@ -36,6 +37,7 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	/** 씬을 설정한다 */
 	protected virtual void Setup() {
 		this.SetupBlindUIs();
+		DOTween.SetTweensCapacity(KCDefine.U_SIZE_DOTWEEN_ANI, KCDefine.U_SIZE_DOTWEEN_SEQUENCE_ANI);
 
 		// 테이블을 로드한다
 		CValTable.Inst.LoadValsFromRes(KCDefine.U_TABLE_P_G_COMMON_VAL);

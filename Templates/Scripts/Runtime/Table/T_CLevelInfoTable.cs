@@ -534,35 +534,35 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	/** 레벨 정보를 이동한다 */
-	public void MoveLevelInfo(int a_nFromID, int a_nToID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public void MoveLevelInfo(int a_nSrcID, int a_nDestID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetStageLevelInfos(a_nStageID, out Dictionary<int, CLevelInfo> oStageLevelInfoDict, a_nChapterID);
-		CAccess.Assert(bIsValid && oStageLevelInfoDict.ExIsValid() && oStageLevelInfoDict.ContainsKey(a_nFromID) && oStageLevelInfoDict.ContainsKey(a_nToID));
+		CAccess.Assert(bIsValid && oStageLevelInfoDict.ExIsValid() && oStageLevelInfoDict.ContainsKey(a_nSrcID) && oStageLevelInfoDict.ContainsKey(a_nDestID));
 
-		int nOffset = (a_nFromID <= a_nToID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
-		var oFromLevelInfo = oStageLevelInfoDict[a_nFromID];
+		int nOffset = (a_nSrcID <= a_nDestID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
+		var oSrcLevelInfo = oStageLevelInfoDict[a_nSrcID];
 
-		oStageLevelInfoDict.ExRemoveVal(a_nFromID);
+		oStageLevelInfoDict.ExRemoveVal(a_nSrcID);
 
-		for(int i = a_nFromID + nOffset; i != a_nToID + nOffset; i += nOffset) {
+		for(int i = a_nSrcID + nOffset; i != a_nDestID + nOffset; i += nOffset) {
 			oStageLevelInfoDict[i].m_stIDInfo.m_nID -= nOffset;
 			oStageLevelInfoDict.ExReplaceVal(i - nOffset, oStageLevelInfoDict[i]);
 		}
 
-		oFromLevelInfo.m_stIDInfo.m_nID = a_nToID;
-		oStageLevelInfoDict.ExReplaceVal(a_nToID, oFromLevelInfo);
+		oSrcLevelInfo.m_stIDInfo.m_nID = a_nDestID;
+		oStageLevelInfoDict.ExReplaceVal(a_nDestID, oSrcLevelInfo);
 	}
 
 	/** 스테이지 레벨 정보를 이동한다 */
-	public void MoveStageLevelInfos(int a_nFromID, int a_nToID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public void MoveStageLevelInfos(int a_nSrcID, int a_nDestID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetChapterLevelInfos(a_nChapterID, out Dictionary<int, Dictionary<int, CLevelInfo>> oChapterLevelInfoDictContainer);
-		CAccess.Assert(bIsValid && oChapterLevelInfoDictContainer.ExIsValid() && oChapterLevelInfoDictContainer.ContainsKey(a_nFromID) && oChapterLevelInfoDictContainer.ContainsKey(a_nToID));
+		CAccess.Assert(bIsValid && oChapterLevelInfoDictContainer.ExIsValid() && oChapterLevelInfoDictContainer.ContainsKey(a_nSrcID) && oChapterLevelInfoDictContainer.ContainsKey(a_nDestID));
 
-		int nOffset = (a_nFromID <= a_nToID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
-		var oFromStageLevelInfoDict = oChapterLevelInfoDictContainer[a_nFromID];
+		int nOffset = (a_nSrcID <= a_nDestID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
+		var oSrcStageLevelInfoDict = oChapterLevelInfoDictContainer[a_nSrcID];
 
-		oChapterLevelInfoDictContainer.ExRemoveVal(a_nFromID);
+		oChapterLevelInfoDictContainer.ExRemoveVal(a_nSrcID);
 
-		for(int i = a_nFromID + nOffset; i != a_nToID + nOffset; i += nOffset) {
+		for(int i = a_nSrcID + nOffset; i != a_nDestID + nOffset; i += nOffset) {
 			for(int j = 0; j < oChapterLevelInfoDictContainer[i].Count; ++j) {
 				oChapterLevelInfoDictContainer[i][j].m_stIDInfo.m_nStageID -= nOffset;
 			}
@@ -570,21 +570,21 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			oChapterLevelInfoDictContainer.ExReplaceVal(i - nOffset, oChapterLevelInfoDictContainer[i]);
 		}
 
-		for(int i = 0; i < oFromStageLevelInfoDict.Count; ++i) {
-			oFromStageLevelInfoDict[i].m_stIDInfo.m_nStageID = a_nToID;
+		for(int i = 0; i < oSrcStageLevelInfoDict.Count; ++i) {
+			oSrcStageLevelInfoDict[i].m_stIDInfo.m_nStageID = a_nDestID;
 		}
 
-		oChapterLevelInfoDictContainer.ExReplaceVal(a_nToID, oFromStageLevelInfoDict);
+		oChapterLevelInfoDictContainer.ExReplaceVal(a_nDestID, oSrcStageLevelInfoDict);
 	}
 
 	/** 챕터 레벨 정보를 이동한다 */
-	public void MoveChapterLevelInfos(int a_nFromID, int a_nToID) {
-		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nFromID) && this.LevelInfoDictContainer.ContainsKey(a_nToID));
+	public void MoveChapterLevelInfos(int a_nSrcID, int a_nDestID) {
+		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nSrcID) && this.LevelInfoDictContainer.ContainsKey(a_nDestID));
 
-		int nOffset = (a_nFromID <= a_nToID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
-		var oFromChapterLevelInfoDict = this.LevelInfoDictContainer[a_nFromID];
+		int nOffset = (a_nSrcID <= a_nDestID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
+		var oSrcChapterLevelInfoDict = this.LevelInfoDictContainer[a_nSrcID];
 
-		for(int i = a_nFromID + nOffset; i != a_nToID + nOffset; i += nOffset) {
+		for(int i = a_nSrcID + nOffset; i != a_nDestID + nOffset; i += nOffset) {
 			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
 				for(int k = 0; k < this.LevelInfoDictContainer[i][j].Count; ++k) {
 					this.LevelInfoDictContainer[i][j][k].m_stIDInfo.m_nChapterID -= nOffset;
@@ -594,13 +594,13 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			this.LevelInfoDictContainer.ExReplaceVal(i - nOffset, this.LevelInfoDictContainer[i]);
 		}
 
-		for(int i = 0; i < oFromChapterLevelInfoDict.Count; ++i) {
-			for(int j = 0; j < oFromChapterLevelInfoDict[i].Count; ++j) {
-				oFromChapterLevelInfoDict[i][j].m_stIDInfo.m_nChapterID = a_nToID;
+		for(int i = 0; i < oSrcChapterLevelInfoDict.Count; ++i) {
+			for(int j = 0; j < oSrcChapterLevelInfoDict[i].Count; ++j) {
+				oSrcChapterLevelInfoDict[i][j].m_stIDInfo.m_nChapterID = a_nDestID;
 			}
 		}
 
-		this.LevelInfoDictContainer.ExReplaceVal(a_nToID, oFromChapterLevelInfoDict);
+		this.LevelInfoDictContainer.ExReplaceVal(a_nDestID, oSrcChapterLevelInfoDict);
 	}
 
 	/** 레벨 정보를 저장한다 */
