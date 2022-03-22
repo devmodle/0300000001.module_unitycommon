@@ -22,7 +22,7 @@
 	- *Text to TextMesh Pro (1.0.1 - Aug 18, 2020)*
 	- *UniRx (7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
-	- *Build Report Tool (3.9.2 - Feb 20, 2022)*
+	- *Build Report Tool (3.9.3 - Mar 18, 2022)*
 	- *Google Sheets to Unity (1.0.0 - Mar 18, 2019)*
 	- *Odin Inspector (3.0.12 - Nov 15, 2021)*
 	- *Sprite Trail (1.4.0 - Aug 2, 2019)*
