@@ -228,7 +228,7 @@ public static partial class CCommonEditorSceneManager {
 
 					string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
 					oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerDict.GetValueOrDefault(oSortingLayer, string.Empty) : string.Empty;
-
+					
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
 						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VAL_0_FLT);

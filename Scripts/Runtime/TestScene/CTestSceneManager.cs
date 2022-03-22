@@ -51,7 +51,7 @@ public abstract class CTestSceneManager : CSceneManager {
 		(m_oBackBtn.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_LEFT;
 		(m_oBackBtn.transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 		(m_oBackBtn.transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-		(m_oBackBtn.transform as RectTransform).anchoredPosition = Vector2.zero;
+		(m_oBackBtn.transform as RectTransform).anchoredPosition = Vector3.zero;
 		// 버튼을 설정한다 }
 	}
 	#endregion			// 함수

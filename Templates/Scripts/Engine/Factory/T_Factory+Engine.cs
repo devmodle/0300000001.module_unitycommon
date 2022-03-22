@@ -15,12 +15,12 @@ namespace SampleEngineName {
 		#region 조건부 클래스 함수
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		/** 그리드 정보를 생성한다 */
-		public static STGridInfo MakeGridInfo(CLevelInfo a_oLevelInfo) {
+		public static STGridInfo MakeGridInfo(CLevelInfo a_oLevelInfo, Vector3 a_stPos) {
 			var stGridInfo = new STGridInfo() {
 				m_stGridSize = new Vector3(a_oLevelInfo.NumCells.x * KDefine.E_SIZE_CELL.x, a_oLevelInfo.NumCells.y * KDefine.E_SIZE_CELL.y, KCDefine.B_VAL_0_FLT)
 			};
 			
-			stGridInfo.m_stGridBounds = new Bounds(Vector3.zero, stGridInfo.m_stGridSize);
+			stGridInfo.m_stGridBounds = new Bounds(a_stPos, stGridInfo.m_stGridSize);
 
 			try {
 				float fScaleX = (KDefine.E_MAX_SIZE_GRID.x / stGridInfo.m_stGridBounds.size.x);

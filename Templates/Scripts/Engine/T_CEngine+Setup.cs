@@ -19,33 +19,38 @@ namespace SampleEngineName {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		/** 엔진을 설정한다 */
 		private void SetupInit() {
-			m_oBlockDicts = new Dictionary<EBlockKinds, GameObject>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
-			this.GridInfo = Factory.MakeGridInfo(m_stParams.m_oLevelInfo);
+			m_oBlockInfoDictContainers = new Dictionary<EBlockType, List<(EBlockKinds, CBlock)>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
+			this.GridInfo = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
 		}
 		
 		/** 레벨을 설정한다 */
 		private void SetupLevel() {
 			for(int i = 0; i < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 				for(int j = 0; j < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-					this.SetupCell(m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i][j]);
+					// 셀 정보가 존재 할 경우
+					if(m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i][j] != null) {
+						this.SetupCell(m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i][j]);
+					}
 				}
 			}
 		}
 
 		/** 셀을 설정한다 */
 		private void SetupCell(CCellInfo a_oCellInfo) {
-			var oBlockDict = new Dictionary<EBlockKinds, GameObject>();
+			var oBlockInfoDictContainer = new Dictionary<EBlockType, List<(EBlockKinds, CBlock)>>();
 
-			// 셀 정보가 존재 할 경우
-			if(a_oCellInfo != null) {
-				foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
-					for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-						// Do Something
-					}
+			foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
+				var oBlockInfoList = new List<(EBlockKinds, CBlock)>();
+
+				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
+					var oBlock = this.CreateBlock(stKeyVal.Value[i], this.GridInfo.m_stGridPivotPos + a_oCellInfo.m_stIdx.ExToPos(KDefine.E_OFFSET_CELL, KDefine.E_SIZE_CELL));
+					oBlockInfoList.ExAddVal((stKeyVal.Value[i], oBlock));
 				}
+
+				oBlockInfoDictContainer.TryAdd(stKeyVal.Key, oBlockInfoList);
 			}
 
-			m_oBlockDicts[a_oCellInfo.m_stIdx.y, a_oCellInfo.m_stIdx.x] = oBlockDict;
+			m_oBlockInfoDictContainers[a_oCellInfo.m_stIdx.y, a_oCellInfo.m_stIdx.x] = oBlockInfoDictContainer;
 		}
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		#endregion			// 조건부 함수

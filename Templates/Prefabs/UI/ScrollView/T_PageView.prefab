@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7568081804765475620}
   m_Layer: 5
-  m_Name: Page_01
+  m_Name: PageUIs_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

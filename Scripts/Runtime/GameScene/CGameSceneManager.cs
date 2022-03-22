@@ -8,6 +8,7 @@ public class CGameSceneManager : CSceneManager {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
+		FX_OBJS,
 		BLOCK_OBJS,
 		BG_TOUCH_RESPONDER,
 		[HideInInspector] MAX_VAL
@@ -16,6 +17,7 @@ public class CGameSceneManager : CSceneManager {
 	#region 변수
 	/** =====> 객체 <===== */
 	private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>() {
+		[EKey.FX_OBJS] = null,
 		[EKey.BLOCK_OBJS] = null,
 		[EKey.BG_TOUCH_RESPONDER] = null
 	};
@@ -27,6 +29,7 @@ public class CGameSceneManager : CSceneManager {
 
 	public override string SceneName => KCDefine.B_SCENE_N_GAME;
 
+	protected GameObject FXObjs => m_oObjDict[EKey.FX_OBJS];
 	protected GameObject BlockObjs => m_oObjDict[EKey.BLOCK_OBJS];
 	protected GameObject BGTouchResponder => m_oObjDict[EKey.BG_TOUCH_RESPONDER];
 	#endregion			// 프로퍼티
@@ -40,6 +43,9 @@ public class CGameSceneManager : CSceneManager {
 		// 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			// 블럭 객체를 설정한다
+			var oFXObjs = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_FXS);
+			m_oObjDict[EKey.FX_OBJS] = oFXObjs ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_FXS, this.Objs);
+
 			var oBlockObjs = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
 			m_oObjDict[EKey.BLOCK_OBJS] = oBlockObjs ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_BLOCKS, this.Objs);
 

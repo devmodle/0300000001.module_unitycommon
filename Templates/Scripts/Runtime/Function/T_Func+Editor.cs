@@ -33,9 +33,9 @@ public static partial class Func {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_B_SET_P_MSG), a_oCallback);
 	}
 
-	/** 에디터 테이블 다시 로드 팝업을 출력한다 */
-	public static void ShowEditorTableReloadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_TABLE_RL_MSG), a_oCallback);
+	/** 에디터 테이블 로드 팝업을 출력한다 */
+	public static void ShowEditorTableLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_TABLE_LP_MSG), a_oCallback);
 	}
 	
 	/** 에디터 레벨 제거 팝업을 출력한다 */

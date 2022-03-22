@@ -73,9 +73,9 @@ public class CLevelEditorSceneManager : CSceneManager {
 		if(CSceneManager.IsAppInit) {
 			CSceneManager.ScreenDebugUIs?.SetActive(false);
 
-			m_oUIsDict[EKey.MID_EDITOR_UIS] = this.UIs.ExFindChild(KCDefine.E_OBJ_N_MID_EDITOR_UIS);
-			m_oUIsDict[EKey.LEFT_EDITOR_UIS] = this.UIs.ExFindChild(KCDefine.E_OBJ_N_LEFT_EDITOR_UIS);
-			m_oUIsDict[EKey.RIGHT_EDITOR_UIS] = this.UIs.ExFindChild(KCDefine.E_OBJ_N_RIGHT_EDITOR_UIS);
+			m_oUIsDict[EKey.MID_EDITOR_UIS] = this.UIsBase.ExFindChild(KCDefine.E_OBJ_N_MID_EDITOR_UIS);
+			m_oUIsDict[EKey.LEFT_EDITOR_UIS] = this.UIsBase.ExFindChild(KCDefine.E_OBJ_N_LEFT_EDITOR_UIS);
+			m_oUIsDict[EKey.RIGHT_EDITOR_UIS] = this.UIsBase.ExFindChild(KCDefine.E_OBJ_N_RIGHT_EDITOR_UIS);
 
 			m_oUIsDict[EKey.ME_UIS_MSG_UIS] = m_oUIsDict[EKey.MID_EDITOR_UIS].ExFindChild(KCDefine.E_OBJ_N_ME_UIS_MSG_UIS);
 			m_oUIsDict[EKey.LE_UIS_AB_SET_UIS] = m_oUIsDict[EKey.LEFT_EDITOR_UIS].ExFindChild(KCDefine.E_OBJ_N_LE_UIS_AB_SET_UIS);

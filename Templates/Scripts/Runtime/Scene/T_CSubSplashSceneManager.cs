@@ -55,9 +55,10 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 		// 이미지를 설정한다 {
 		m_oImgDict[EKey.BG_IMG] = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_BG_IMG, KCDefine.U_OBJ_P_IMG, this.UIs);
 		m_oImgDict[EKey.BG_IMG].color = KCDefine.SS_COLOR_BG_IMG;
-		m_oImgDict[EKey.BG_IMG].rectTransform.sizeDelta = Vector2.zero;
+		m_oImgDict[EKey.BG_IMG].rectTransform.sizeDelta = Vector3.zero;
 		m_oImgDict[EKey.BG_IMG].rectTransform.anchorMin = KCDefine.B_ANCHOR_DOWN_LEFT;
 		m_oImgDict[EKey.BG_IMG].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_RIGHT;
+		m_oImgDict[EKey.BG_IMG].gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
 		m_oImgDict[EKey.SPLASH_IMG] = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_SPLASH_IMG, KCDefine.U_OBJ_P_IMG, this.UIs, KCDefine.SS_POS_SPLASH_IMG);
 		m_oImgDict[EKey.SPLASH_IMG].sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_G_SPLASH);

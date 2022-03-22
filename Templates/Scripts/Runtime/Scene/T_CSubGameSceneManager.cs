@@ -217,14 +217,18 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		bool bIsValid = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID);
 
 		var stParams = new SampleEngineName.CEngine.STParams() {
-			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
-			m_oClearInfo = bIsValid ? oClearInfo : null,
+			m_oFXObjs = this.FXObjs,
 			m_oBlockObjs = this.BlockObjs,
 
 			m_oCallbackDict = new Dictionary<SampleEngineName.CEngine.ECallback, System.Action<SampleEngineName.CEngine>>() {
 				[SampleEngineName.CEngine.ECallback.CLEAR] = this.OnClearLevel,
 				[SampleEngineName.CEngine.ECallback.CLEAR_FAIL] = this.OnClearFailLevel
-			}
+			},
+
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
+			m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
+			m_oClearInfo = bIsValid ? oClearInfo : null
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		};
 
 		m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
@@ -439,7 +443,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		base.OnDrawGizmos();
 
 		// 앱 실행 중이 아닐 경우
-		if(!Application.isPlaying) {
+		if(!Application.isPlaying && CSceneManager.IsExistsMainCamera) {
 			// Do Something
 		}
 	}

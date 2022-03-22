@@ -27,7 +27,9 @@ namespace SampleEngineName {
 
 		/** 매개 변수 */
 		public struct STParams {
+			public GameObject m_oFXObjs;
 			public GameObject m_oBlockObjs;
+
 			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict;
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -41,7 +43,7 @@ namespace SampleEngineName {
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
-		private Dictionary<EBlockKinds, GameObject>[,] m_oBlockDicts = null;
+		private Dictionary<EBlockType, List<(EBlockKinds, CBlock)>>[,] m_oBlockInfoDictContainers = null;
 		#endregion			// 변수
 
 		#region 프로퍼티
@@ -51,6 +53,7 @@ namespace SampleEngineName {
 		public EState State { get; private set; } = EState.NONE;
 		public STGridInfo GridInfo { get; private set; }
 		
+		public GameObject FXObjs => m_stParams.m_oFXObjs;
 		public GameObject BlockObjs => m_stParams.m_oBlockObjs;
 		#endregion			// 프로퍼티
 
@@ -143,11 +146,11 @@ namespace SampleEngineName {
 		public virtual void OnGUI() {
 			// Do Something
 		}
-		
+
 		/** 기즈모를 그린다 */
 		public virtual void OnDrawGizmos() {
 			// 앱 실행 중이 아닐 경우
-			if(!Application.isPlaying) {
+			if(!Application.isPlaying && CSceneManager.IsExistsMainCamera) {
 				// Do Something
 			}
 		}
