@@ -95,10 +95,10 @@ public abstract partial class CInitSceneManager : CSceneManager {
 	private IEnumerator OnStart() {
 		// iOS 를 설정한다 {
 #if UNITY_IOS
+		Device.hideHomeButton = false;
+
 		Device.SetNoBackupFlag(KCDefine.B_DIR_P_WRITABLE);
 		Device.SetNoBackupFlag(KCDefine.U_IMG_P_SCREENSHOT);
-
-		Device.hideHomeButton = false;
 #endif			// #if UNITY_IOS
 		// iOS 를 설정한다 }
 

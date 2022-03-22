@@ -9,7 +9,10 @@ namespace SampleEngineName {
 	/** 엔진 상수 */
 	public static partial class KDefine {
 		#region 기본
-
+		// 이름
+		public const string E_OBJ_N_FX = "FX";
+		public const string E_OBJ_N_BLOCK = "Block";
+		public const string E_OBJ_N_BLOCK_SPRITE = "BlockSprite";
 		#endregion			// 기본
 
 		#region 런타임 상수
@@ -31,10 +34,14 @@ namespace SampleEngineName {
 			}
 		};
 
-		// 경로
+		// 경로 {
+		public static readonly string E_OBJ_P_FX = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}E_FX";
+		public static readonly string E_OBJ_P_BLOCK = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}E_Block";
+
 		public static readonly Dictionary<EBlockKinds, string> E_IMG_P_BLOCK_DICT = new Dictionary<EBlockKinds, string>() {
-			[EBlockKinds.BG_EMPTY] = KCDefine.U_IMG_P_G_WHITE
+			[EBlockKinds.BG_EMPTY] = EBlockKinds.BG_EMPTY.ToString()
 		};
+		// 경로 }
 		#endregion			// 런타임 상수
 
 		#region 추가 상수

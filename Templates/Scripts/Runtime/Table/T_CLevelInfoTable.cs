@@ -320,6 +320,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보를 로드한다 */
 	private CLevelInfo LoadLevelInfo(string a_oFilePath, int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
 		CLevelInfo oLevelInfo = null;
 
 #if MSG_PACK_ENABLE
@@ -346,8 +347,11 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		List<long> oLevelIDList = null;
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON)}");
 		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<long>>(a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), null, false);
 #else
+		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath}");
+
 		try {
 			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<long>>(a_oFilePath, null, false);
 		} finally {

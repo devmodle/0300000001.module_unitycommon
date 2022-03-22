@@ -14,8 +14,12 @@ public static partial class KDefine {
 	// 식별자
 	public const string LES_KEY_SPRITE_OBJS_POOL = "SpriteObjsPool";
 
-	// 이름
-	public const string LES_OBJ_N_BLOCK_SPRITE = "BlockSprite";
+	// 이름 {
+	public const string LES_OBJ_N_FMT_PAGE_UIS = "PageUIs_{0:00}";
+
+	public const string LES_FUNC_N_FMT_SETUP_RE_UIS_PAGE_UIS = "SetupREUIsPageUIs{0:00}";
+	public const string LES_FUNC_N_FMT_UPDATE_RE_UIS_PAGE_UIS = "UpdateREUIsPageUIs{0:00}";
+	// 이름 }
 	#endregion			// 기본
 
 	#region 추가 상수

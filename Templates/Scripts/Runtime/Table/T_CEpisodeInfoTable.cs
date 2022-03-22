@@ -470,6 +470,7 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	/** 에피소드 정보를 로드한다 */
 	private List<object> LoadEpisodeInfos(string a_oFilePath) {
+		CFunc.ShowLog($"CEpisodeInfoTable.LoadEpisodeInfos: {a_oFilePath}");
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)

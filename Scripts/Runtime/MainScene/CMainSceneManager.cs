@@ -38,7 +38,7 @@ public class CMainSceneManager : CSceneManager {
 				m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 				m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
 				m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
-				m_oVerText.rectTransform.anchoredPosition = KCDefine.U_POS_VER_TEXT.ExTo2D();
+				m_oVerText.rectTransform.anchoredPosition = KCDefine.U_POS_VER_TEXT;
 			}
 		}
 	}
