@@ -298,32 +298,32 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	}
 
 	/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
+	public override void OnUpdate(float a_fDeltaTime) {
+		base.OnUpdate(a_fDeltaTime);
 
-			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+		// 앱이 실행 중 일 경우
+		if(CSceneManager.IsAppRunning) {
 #if INPUT_SYSTEM_MODULE_ENABLE
-				// 이전 키를 눌렀을 경우
-				if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.leftArrowKey.wasPressedThisFrame) {
-					this.OnTouchMEUIsPrevBtn();
-				}
-				// 다음 키를 눌렀을 경우
-				else if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rightArrowKey.wasPressedThisFrame) {
-					this.OnTouchMEUIsNextBtn();
-				}
-#else
-				// 이전 키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.LeftArrow)) {
-					this.OnTouchMEUIsPrevBtn();
-				}
-				// 다음 키를 눌렀을 경우
-				else if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.RightArrow)) {
-					this.OnTouchMEUIsNextBtn();
-				}
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+			// 이전 키를 눌렀을 경우
+			if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.leftArrowKey.wasPressedThisFrame) {
+				this.OnTouchMEUIsPrevBtn();
 			}
+			// 다음 키를 눌렀을 경우
+			else if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rightArrowKey.wasPressedThisFrame) {
+				this.OnTouchMEUIsNextBtn();
+			}
+#else
+			// 이전 키를 눌렀을 경우
+			if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.LeftArrow)) {
+				this.OnTouchMEUIsPrevBtn();
+			}
+			// 다음 키를 눌렀을 경우
+			else if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.RightArrow)) {
+				this.OnTouchMEUIsNextBtn();
+			}
+#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 		}
+	}
 
 	/** 제거 되었을 경우 */
 	public override void OnDestroy() {
@@ -1067,8 +1067,8 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		m_oBtnDict[EKey.RE_UIS_REMOVE_LEVEL_BTN]?.onClick.AddListener(this.OnTouchREUIsRemoveLevelBtn);
 
 		this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN)?.onClick.AddListener(this.OnTouchREUIsApplyBtn);
-		this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_TABLE_BTN)?.onClick.AddListener(this.OnTouchMEUIsLoadTableBtn);
 		this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN)?.onClick.AddListener(this.OnTouchREUIsLoadLevelBtn);
+		this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_TABLE_BTN)?.onClick.AddListener(this.OnTouchMEUIsLoadTableBtn);
 		// 버튼을 설정한다 }
 
 		// 스크롤 뷰를 설정한다 {

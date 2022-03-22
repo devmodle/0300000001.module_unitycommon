@@ -43,8 +43,7 @@ namespace SampleEngineName {
 				var oBlockInfoList = new List<(EBlockKinds, CBlock)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					var oBlock = this.CreateBlock(stKeyVal.Value[i], this.GridInfo.m_stGridPivotPos + a_oCellInfo.m_stIdx.ExToPos(KDefine.E_OFFSET_CELL, KDefine.E_SIZE_CELL));
-					oBlockInfoList.ExAddVal((stKeyVal.Value[i], oBlock));
+					// Do Something
 				}
 
 				oBlockInfoDictContainer.TryAdd(stKeyVal.Key, oBlockInfoList);
