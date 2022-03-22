@@ -37,6 +37,10 @@ public abstract class CSplashSceneManager : CSceneManager {
 				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
 				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
 				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_FIX_PF_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
+
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_EG_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
 	}
