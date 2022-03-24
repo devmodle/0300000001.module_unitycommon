@@ -44,7 +44,6 @@ public static partial class CEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 			CEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
 
 			// 상태 갱신이 가능 할 경우
@@ -71,18 +70,27 @@ public static partial class CEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fUpdateSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
+				var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 				CEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_FLT;
-				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
-			}
 
-			for(int i = 0; i < oMonoScripts.Length; ++i) {
-				// 스크립트가 존재 할 경우
-				if(oMonoScripts[i] != null) {
-					var oType = oMonoScripts[i].GetClass();
-					
-					// 스크립트 순서 설정이 가능 할 경우
-					if(oType != null && KEditorDefine.B_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nOrder)) {
-						CAccess.SetScriptOrder(oMonoScripts[i], nOrder);
+				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
+
+				for(int i = 0; i < oMonoScripts.Length; ++i) {
+					// 스크립트가 존재 할 경우
+					if(oMonoScripts[i] != null) {
+						var oType = oMonoScripts[i].GetClass();
+						
+						// 스크립트 순서 설정이 가능 할 경우
+						if(oType != null && KEditorDefine.B_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nOrder)) {
+							CAccess.SetScriptOrder(oMonoScripts[i], nOrder);
+						}
+
+#if EXTRA_SCRIPT_ENABLE
+						// 스크립트 순서 설정이 가능 할 경우
+						if(oType != null && KEditorDefine.B_EXTRA_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nExtraOrder)) {
+							CAccess.SetScriptOrder(oMonoScripts[i], nExtraOrder);
+						}
+#endif			// #if EXTRA_SCRIPT_ENABLE
 					}
 				}
 			}
