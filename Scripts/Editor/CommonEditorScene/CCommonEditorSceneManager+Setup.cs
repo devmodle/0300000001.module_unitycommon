@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.U2D;
 using Unity.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.U2D;
 using UnityEditor.SceneTemplate;
 using UnityEditor.SceneManagement;
 
@@ -144,6 +147,14 @@ public static partial class CCommonEditorSceneManager {
 		});
 	}
 
+	/** 스프라이트 아틀라스를 설정한다 */
+	private static void SetupSpriteAtlases() {
+		for(int i = 0; i < KCEditorDefine.B_SEARCH_P_SPRITE_ATLAS_LIST.Count; ++i) {
+			var oSubDirectories = AssetDatabase.GetSubFolders(Path.GetDirectoryName(KCEditorDefine.B_SEARCH_P_SPRITE_ATLAS_LIST[i]));
+			CCommonEditorSceneManager.DoSetupSpriteAtlases(oSubDirectories.ToList());
+		}
+	}
+
 	/** 지역화 정보를 설정한다 */
 	private static void SetupLocalizeInfos() {
 		// 지역화 정보 테이블이 존재 할 경우
@@ -237,6 +248,39 @@ public static partial class CCommonEditorSceneManager {
 				a_oSettings.indirectResolution = KCDefine.B_UNIT_LIGHTMAP_RESOLUTION;
 				a_oSettings.lightmapResolution = KCDefine.B_UNIT_LIGHTMAP_RESOLUTION;
 			}
+		}
+	}
+
+	/** 스프라이트 아틀라스를 설정한다 */
+	private static void DoSetupSpriteAtlases(List<string> a_oDirPathList) {
+		for(int i = 0; i < a_oDirPathList.Count; ++i) {
+			int nIdx = KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(Path.GetFileNameWithoutExtension(a_oDirPathList[i])));
+
+			// 스프라이트 아틀라스 경로가 존재 할 경우
+			if(nIdx > KCDefine.B_IDX_INVALID) {
+				string oSpriteAtlasPathA = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_RESOURCES, KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST[nIdx]);
+				string oSpriteAtlasPathB = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_EDITOR_RESOURCES, KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST[nIdx]);
+
+				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorFunc.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPathA, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), CEditorFunc.FindAssets<Sprite>(string.Empty, new List<string>() { a_oDirPathList[i] }));
+				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorFunc.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPathB, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), CEditorFunc.FindAssets<Sprite>(string.Empty, new List<string>() { a_oDirPathList[i] }));
+			}
+		}
+	}
+
+	/** 스프라이트 아틀라스를 설정한다 */
+	private static void DoSetupSpriteAtlas(SpriteAtlas a_oSpriteAtlas, List<Sprite> a_oSpriteList) {
+		// 스프라이트 아틀라스가 존재 할 경우
+		if(a_oSpriteAtlas != null) {
+			var oSprites = a_oSpriteAtlas.GetPackables();
+
+			for(int i = 0; i < oSprites.Length; ++i) {
+				// 스프라이트가 존재 할 경우
+				if(oSprites[i] != null) {
+					a_oSpriteList.ExRemoveValAt(a_oSpriteList.FindIndex((a_oSprite) => a_oSprite.name.Equals(oSprites[i].name)));
+				}
+			}
+
+			a_oSpriteAtlas.Add(a_oSpriteList.ToArray());
 		}
 	}
 
