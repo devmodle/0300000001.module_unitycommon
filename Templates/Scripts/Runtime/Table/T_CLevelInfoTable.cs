@@ -284,26 +284,7 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		return oNumChapterLevelInfosDict.Count;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
-
-	/** 셀 정보를 반환한다 */
-	public CCellInfo GetCellInfo(int a_nID, Vector3Int a_stIdx, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		bool bIsValid = this.TryGetCellInfo(a_nID, a_stIdx, out CCellInfo oCellInfo, a_nStageID, a_nChapterID);
-		CAccess.Assert(bIsValid);
-
-		return oCellInfo;
-	}
-
-	/** 셀 정보를 반환한다 */
-	public bool TryGetCellInfo(int a_nID, Vector3Int a_stIdx, out CCellInfo a_oOutCellInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		// 레벨 정보가 존재 할 경우
-		if(this.TryGetLevelInfo(a_nID, out CLevelInfo oLevelInfo, a_nStageID, a_nChapterID)) {
-			return oLevelInfo.TryGetCellInfo(a_stIdx, out a_oOutCellInfo);
-		}
-
-		a_oOutCellInfo = null;
-		return false;
-	}
-
+	
 	/** 레벨 정보를 로드한다 */
 	public CLevelInfo LoadLevelInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		return this.LoadLevelInfo(this.GetLevelInfoPath(a_nID, a_nStageID, a_nChapterID), a_nID, a_nStageID, a_nChapterID);
