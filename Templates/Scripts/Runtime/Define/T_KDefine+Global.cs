@@ -155,7 +155,7 @@ public static partial class KDefine {
 	public static readonly STLevelInfo G_INVALID_LEVEL_INFO = new STLevelInfo() {
 		m_eLevelKinds = ELevelKinds.NONE,
 		
-		m_stEpisodeInfo = new STCommonEpisodeInfo() {
+		m_stEpisodeInfo = new STEpisodeInfo() {
 			m_eDifficulty = EDifficulty.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
 		}
 	};
@@ -163,7 +163,7 @@ public static partial class KDefine {
 	public static readonly STStageInfo G_INVALID_STAGE_INFO = new STStageInfo() {
 		m_eStageKinds = EStageKinds.NONE,
 		
-		m_stEpisodeInfo = new STCommonEpisodeInfo() {
+		m_stEpisodeInfo = new STEpisodeInfo() {
 			m_eDifficulty = EDifficulty.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
 		}
 	};
@@ -171,7 +171,7 @@ public static partial class KDefine {
 	public static readonly STChapterInfo G_INVALID_CHAPTER_INFO = new STChapterInfo() {
 		m_eChapterKinds = EChapterKinds.NONE,
 		
-		m_stEpisodeInfo = new STCommonEpisodeInfo() {
+		m_stEpisodeInfo = new STEpisodeInfo() {
 			m_eDifficulty = EDifficulty.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
 		}
 	};

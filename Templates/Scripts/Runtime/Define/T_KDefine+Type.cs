@@ -27,21 +27,6 @@ public struct STItemInfo {
 	public EItemKinds m_eItemKinds;
 }
 
-/** 공용 에피소드 정보 */
-[System.Serializable]
-public struct STCommonEpisodeInfo {
-	public string m_oName;
-	public string m_oDesc;
-
-	public EDifficulty m_eDifficulty;
-	public ERewardKinds m_eRewardKinds;
-	public ETutorialKinds m_eTutorialKinds;
-
-	public List<int> m_oRecordList;
-	public Dictionary<ETargetKinds, int> m_oNumTargetsDict;
-	public Dictionary<ETargetKinds, int> m_oNumUnlockTargetsDict;
-}
-
 /** 타입 랩퍼 */
 [MessagePackObject]
 public struct STTypeWrapper {
