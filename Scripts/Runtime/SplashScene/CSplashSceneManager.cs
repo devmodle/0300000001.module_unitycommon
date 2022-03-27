@@ -33,11 +33,8 @@ public abstract class CSplashSceneManager : CSceneManager {
 
 		// 초기화 되었을 경우
 		if(CSceneManager.IsInit) {
-			for(int i = 0; i < KCDefine.B_VAL_9_INT; ++i) {
-				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
-				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
-				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_G_FIX_PF_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
-				m_oSpriteAtlasPathList.ExAddVal(string.Format(KCDefine.U_ASSET_P_FMT_EG_SPRITE_ATLAS, i + KCDefine.B_VAL_1_INT));
+			for(int i = 0; i < KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST.Count; ++i) {
+				m_oSpriteAtlasPathList.ExAddVal(KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST[i]);
 			}
 		}
 	}
