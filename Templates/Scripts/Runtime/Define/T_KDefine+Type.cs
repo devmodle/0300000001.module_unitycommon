@@ -7,24 +7,17 @@ using MessagePack;
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #region 기본
-/** 기록 정보 */
-public struct STRecordInfo {
-	public bool m_bIsSuccess;
-	public long m_nIntRecord;
-	public double m_dblRealRecord;
+/** 아이템 정보 */
+[System.Serializable]
+public struct STItemInfo {
+	public long m_nNumItems;
+	public EItemKinds m_eItemKinds;
 }
 
 /** 게임 속성 */
 [System.Serializable]
 public struct STGameConfig {
 	// Do Something
-}
-
-/** 아이템 정보 */
-[System.Serializable]
-public struct STItemInfo {
-	public long m_nNumItems;
-	public EItemKinds m_eItemKinds;
 }
 
 /** 타입 랩퍼 */
