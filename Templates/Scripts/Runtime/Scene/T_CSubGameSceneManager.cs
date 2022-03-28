@@ -28,6 +28,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		NONE = -1,
 		NEXT,
 		RETRY,
+		RESUME,
 		CONTINUE,
 		LEAVE,
 		[HideInInspector] MAX_VAL
@@ -170,6 +171,15 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 				Func.ShowFullscreenAds(null);
 			}
 #endif			// #if ADS_MODULE_ENABLE
+
+			Func.ShowResumePopup(this.PopupUIs, (a_oSender) => {
+				(a_oSender as CResumePopup).Init(new CResumePopup.STParams() {
+					m_oCallbackDict = new Dictionary<CResumePopup.ECallback, System.Action<CResumePopup>>() {
+						[CResumePopup.ECallback.RESUME] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RESUME),
+						[CResumePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+					}
+				});
+			});
 		}
 	}
 
@@ -292,16 +302,23 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		}
 
 		switch(a_eResult) {
-			case EPopupResult.NEXT: this.LoadNextLevel(); break;
-			case EPopupResult.RETRY: this.RetryCurLevel(); break;
-			case EPopupResult.CONTINUE: this.ContinueCurLevel(); break;
-			case EPopupResult.LEAVE: m_bIsLeave = true; this.LoadNextLevel(); break;
+			case EPopupResult.NEXT: this.LoadNextLevel(a_oSender); break;
+			case EPopupResult.RETRY: this.RetryCurLevel(a_oSender); break;
+			case EPopupResult.RESUME: this.ResumeCurLevel(a_oSender); break;
+			case EPopupResult.CONTINUE: this.ContinueCurLevel(a_oSender); break;
+			case EPopupResult.LEAVE: m_bIsLeave = true; this.LoadNextLevel(a_oSender); break;
 		}
 	}
 
 	/** 정지 버튼을 눌렀을 경우 */
 	private void OnTouchPauseBtn() {
-		// Do Something
+		Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {
+			(a_oSender as CPausePopup).Init(new CPausePopup.STParams() {
+				m_oCallbackDict = new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
+					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+				}
+			});
+		});
 	}
 
 	/** 광고 버튼을 눌렀을 경우 */
@@ -344,7 +361,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	}
 
 	/** 다음 레벨을 로드한다 */
-	private void LoadNextLevel() {
+	private void LoadNextLevel(CPopup a_oPopup) {
 		switch(CGameInfoStorage.Inst.PlayMode) {
 			case EPlayMode.NORM: {
 				int nNextID = m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT;
@@ -387,7 +404,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	}
 
 	/** 현재 레벨을 재시도한다 */
-	private void RetryCurLevel() {
+	private void RetryCurLevel(CPopup a_oPopup) {
 #if ADS_MODULE_ENABLE
 		Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
 #else
@@ -395,8 +412,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
+	/** 현재 레벨을 제개한다 */
+	private void ResumeCurLevel(CPopup a_oPopup) {
+		a_oPopup?.Close();
+	}
+
 	/** 현재 레벨을 이어한다 */
-	private void ContinueCurLevel() {
+	private void ContinueCurLevel(CPopup a_oPopup) {
 		m_nContinueTimes += KCDefine.B_VAL_1_INT;
 	}
 
@@ -404,7 +426,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void ShowContinuePopup() {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
-			var stParams = new CContinuePopup.STParams() {
+			(a_oSender as CContinuePopup).Init(new CContinuePopup.STParams() {
 				m_nContinueTimes = this.m_nContinueTimes,
 				m_oLevelInfo = m_oLevelInfoDict[EKey.LEVEL_INFO],
 
@@ -413,9 +435,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE),
 					[CContinuePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
 				}
-			};
-
-			(a_oSender as CContinuePopup).Init(stParams);
+			});
 		});
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}
@@ -424,7 +444,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 	private void ShowResultPopup(bool a_bIsClear) {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		Func.ShowResultPopup(this.PopupUIs, (a_oSender) => {
-			var stParams = new CResultPopup.STParams() {
+			(a_oSender as CResultPopup).Init(new CResultPopup.STParams() {
 				m_stRecordInfo = new STRecordInfo {
 					m_bIsSuccess = a_bIsClear,
 
@@ -442,9 +462,7 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 					[CResultPopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
 					[CResultPopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
 				}
-			};
-
-			(a_oSender as CResultPopup).Init(stParams);
+			});
 		});
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	}

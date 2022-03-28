@@ -19,7 +19,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private enum EKey {
 		NONE = -1,
 
-		// 중앙 에디터 UI {
 		ME_UIS_MSG_TEXT,
 		ME_UIS_LEVEL_TEXT,
 
@@ -27,18 +26,14 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 		ME_UIS_NEXT_BTN,
 		ME_UIS_MOVE_LEVEL_BTN,
 		ME_UIS_REMOVE_LEVEL_BTN,
-		// 중앙 에디터 UI }
 
-		// 왼쪽 에디터 UI {
 		LE_UIS_A_SET_BTN,
 		LE_UIS_B_SET_BTN,
 
 		LE_UIS_LEVEL_SCROLLER_INFO,
 		LE_UIS_STAGE_SCROLLER_INFO,
 		LE_UIS_CHAPTER_SCROLLER_INFO,
-		// 왼쪽 에디터 UI }
 
-		// 오른쪽 에디터 UI {
 		RE_UIS_PAGE_TEXT,
 		RE_UIS_TITLE_TEXT,
 
@@ -48,9 +43,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 
 		RE_UIS_PAGE_SCROLL_SNAP,
 		RE_UIS_PAGE_UIS_01,
-		// 오른쪽 에디터 UI }
-
-		// 오른쪽 에디터 UI 페이지 UI 1
+		
 		RE_UIS_PAGE_UIS_01_LEVEL_INPUT,
 		RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT,
 		RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT,
