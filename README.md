@@ -33,9 +33,9 @@
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (2.3.85)*
 	- *UI Effect (3.2.0 - Jul 17, 2019)*
-	- *Particle For GUI (3.3.9 - Aug 3, 2021)*
+	- *Particle For GUI (3.3.10 - Feb 18, 2022)*
 	- *Soft Mask For GUI (1.0.0 - Feb 24, 2021)*
-	- *Unmask For GUI (1.3.0 - Jun 29, 2021)*
+	- *Unmask For GUI (1.4.0 - Feb 18, 2022)*
 5. **기타 추가 에셋 및 플러그인 리스트**
 	- *Firebase (8.8.0 - Auth, Analytics, Crashlytics, Database, Remote Config, Cloud Messaging)*
 	- *Admob (6.1.2)*
