@@ -104,7 +104,7 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 	public override void Awake() {
 		base.Awake();
 
-		// 초기화 되었을 경우
+		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 #if CREATIVE_DIST_BUILD
 			for(int i = 0; i < CLevelInfoTable.Inst.NumLevelInfosDictContainer.Count; ++i) {
@@ -133,7 +133,7 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 	public override void Start() {
 		base.Start();
 
-		// 초기화 되었을 경우
+		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			this.SetupStart();
 			this.UpdateUIsState();

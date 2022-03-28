@@ -40,7 +40,7 @@ public class CGameSceneManager : CSceneManager {
 		base.Awake();
 		Time.timeScale = KCDefine.B_VAL_1_FLT;
 
-		// 초기화 되었을 경우
+		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			// 블럭 객체를 설정한다
 			var oFXObjs = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_FXS);

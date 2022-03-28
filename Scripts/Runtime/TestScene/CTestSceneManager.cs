@@ -19,7 +19,7 @@ public abstract class CTestSceneManager : CSceneManager {
 	public override void Awake() {
 		base.Awake();
 
-		// 초기화 되었을 경우
+		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			this.SetupAwake();
 		}
