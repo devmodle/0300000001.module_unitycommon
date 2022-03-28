@@ -14,7 +14,7 @@ public class CIntroSceneManager : CSceneManager {
 	public sealed override void Start() {
 		base.Start();
 
-		// 초기화 되었을 경우
+		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			StartCoroutine(this.OnStart());
 		}

@@ -28,7 +28,7 @@ public class CMainSceneManager : CSceneManager {
 		base.Awake();
 		Time.timeScale = KCDefine.B_VAL_1_FLT;
 
-		// 초기화 되었을 경우
+		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 			// 타이틀 씬 사용 모드가 아닐 경우
 			if(!COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
@@ -47,7 +47,7 @@ public class CMainSceneManager : CSceneManager {
 	public override void Start() {
 		base.Start();
 
-		// 초기화 되었을 경우
+		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			m_oVerText?.ExSetText<TMP_Text>(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), false);

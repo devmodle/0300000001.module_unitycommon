@@ -263,7 +263,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	public override void Awake() {
 		base.Awake();
 		
-		// 초기화 되었을 경우
+		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 #if UNITY_STANDALONE && (ENGINE_TEMPLATES_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 			// 레벨 정보가 없을 경우
@@ -287,7 +287,7 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	public override void Start() {
 		base.Start();
 
-		// 초기화 되었을 경우
+		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			this.ExLateCallFunc((a_oSender) => this.UpdateUIsState(), KCDefine.U_DELAY_INIT);
