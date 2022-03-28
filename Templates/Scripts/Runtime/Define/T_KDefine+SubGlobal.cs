@@ -14,20 +14,20 @@ public static partial class KDefine {
 	// 설정 팝업 {
 	public const string G_OBJ_N_SETTINGS_POPUP = "SettingsPopup";
 
-	public const string G_IMG_P_SETTINGS_P_SND_ON = "SndOn";
-	public const string G_IMG_P_SETTINGS_P_SND_OFF = "SndOff";
+	public const string G_IMG_P_SETTINGS_P_SND_ON = "G_SndOn";
+	public const string G_IMG_P_SETTINGS_P_SND_OFF = "G_SndOff";
 
-	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "BGSndOn";
-	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "BGSndOff";
+	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "G_BGSndOn";
+	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "G_BGSndOff";
 
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "FXSndsOn";
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "FXSndsOff";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "G_FXSndsOn";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "G_FXSndsOff";
 
-	public const string G_IMG_P_SETTINGS_P_VIBRATE_ON = "VibrateOn";
-	public const string G_IMG_P_SETTINGS_P_VIBRATE_OFF = "VibrateOff";
+	public const string G_IMG_P_SETTINGS_P_VIBRATE_ON = "G_VibrateOn";
+	public const string G_IMG_P_SETTINGS_P_VIBRATE_OFF = "G_VibrateOff";
 
-	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "NotiOn";
-	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "NotiOff";
+	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "G_NotiOn";
+	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "G_NotiOff";
 	// 설정 팝업 }
 
 	// 동기화 팝업
