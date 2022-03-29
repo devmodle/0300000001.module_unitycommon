@@ -57,7 +57,7 @@ public static partial class KDefine {
 	// 결과 팝업
 	public const string G_OBJ_N_RESULT_POPUP = "ResultPopup";
 
-	// 일시 정지 팝업
+	// 정지 팝업
 	public const string G_OBJ_N_PAUSE_POPUP = "PausePopup";
 
 	// 재개 팝업
