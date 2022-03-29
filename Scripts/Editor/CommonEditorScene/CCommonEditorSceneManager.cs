@@ -161,7 +161,6 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupCanvases();
 				CCommonEditorSceneManager.SetupLightOpts();
 				CCommonEditorSceneManager.SetupStaticObjs();
-				CCommonEditorSceneManager.SetupSpriteAtlases();
 				CCommonEditorSceneManager.SetupLocalizeInfos();
 				CCommonEditorSceneManager.SetupSceneTemplates();
 
@@ -256,6 +255,11 @@ public static partial class CCommonEditorSceneManager {
 	/** 플레이 모드 상태가 갱신 되었을 경우 */
 	private static void OnUpdatePlayModeState(PlayModeStateChange a_ePlayMode) {
 		Time.timeScale = KCDefine.B_VAL_1_FLT;
+	}
+
+	/** 프로젝트 상태가 갱신 되었을 경우 */
+	private static void OnUpdateProjectState() {
+		CCommonEditorSceneManager.SetupSpriteAtlases();
 	}
 	#endregion			// 클래스 함수
 }

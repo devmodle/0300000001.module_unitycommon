@@ -89,6 +89,9 @@ public static partial class CCommonEditorSceneManager {
 
 		EditorApplication.playModeStateChanged -= CCommonEditorSceneManager.OnUpdatePlayModeState;
 		EditorApplication.playModeStateChanged += CCommonEditorSceneManager.OnUpdatePlayModeState;
+
+		EditorApplication.projectChanged -= CCommonEditorSceneManager.OnUpdateProjectState;
+		EditorApplication.projectChanged += CCommonEditorSceneManager.OnUpdateProjectState;
 	}
 	
 	/** 캔버스를 설정한다 */
