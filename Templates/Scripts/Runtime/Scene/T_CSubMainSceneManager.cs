@@ -57,10 +57,17 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 	public int GetNumberOfCells(EnhancedScroller a_oSender) {
 		// 레벨 스크롤러 일 경우
 		if(m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].Item1 == a_oSender) {
-			return CLevelInfoTable.Inst.GetNumLevelInfos(m_stSelIDInfo.m_nStageID, m_stSelIDInfo.m_nChapterID) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW;
+			int nNumExtraLevelInfos = (CLevelInfoTable.Inst.GetNumLevelInfos(m_stSelIDInfo.m_nStageID, m_stSelIDInfo.m_nChapterID) % KDefine.MS_MAX_NUM_LEVELS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (CLevelInfoTable.Inst.GetNumLevelInfos(m_stSelIDInfo.m_nStageID, m_stSelIDInfo.m_nChapterID) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW) + nNumExtraLevelInfos;
+		}
+		// 스테이지 스크롤러 일 경우
+		else if(m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item1 == a_oSender) {
+			int nNumExtraStageInfos = (CLevelInfoTable.Inst.GetNumStageInfos(m_stSelIDInfo.m_nChapterID) % KDefine.MS_MAX_NUM_STAGES_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (CLevelInfoTable.Inst.GetNumStageInfos(m_stSelIDInfo.m_nChapterID) / KDefine.MS_MAX_NUM_STAGES_IN_ROW) + nNumExtraStageInfos;
 		}
 
-		return (m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item1 == a_oSender) ? CLevelInfoTable.Inst.GetNumStageInfos(m_stSelIDInfo.m_nChapterID) / KDefine.MS_MAX_NUM_STAGES_IN_ROW : CLevelInfoTable.Inst.NumChapterInfos / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW;
+		int nNumExtraChapterInfos = (CLevelInfoTable.Inst.NumChapterInfos % KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+		return (CLevelInfoTable.Inst.NumChapterInfos / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW) + nNumExtraChapterInfos;
 	}
 
 	/** 셀 뷰 크기를 반환한다 */
@@ -83,7 +90,7 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 			stIDInfo = (m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item1 == a_oSender) ? CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.MS_MAX_NUM_STAGES_IN_ROW, m_stSelIDInfo.m_nChapterID) : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW);
 			oOriginScrollerCellView = (m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item1 == a_oSender) ? m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item2 : m_oScrollerInfoDict[EKey.CHAPTER_SCROLLER_INFO].Item2;
 		}
-		
+
 		var stParams = new CScrollerCellView.STParams() {
 			m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID, stIDInfo.m_nStageID, stIDInfo.m_nChapterID),
 
@@ -93,7 +100,23 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		};
 
 		var oScrollerCellView = a_oSender.GetCellView(oOriginScrollerCellView) as CScrollerCellView;
-		oScrollerCellView.Init(stParams);
+
+		// 레벨 스크롤러 일 경우
+		if(m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].Item1 == a_oSender) {
+			(oScrollerCellView as CLevelScrollerCellView)?.Init(new CLevelScrollerCellView.STParams() {
+				m_stBaseParams = stParams
+			});
+		}
+		// 스테이지 스크롤러 일 경우
+		else if(m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].Item1 == a_oSender) {
+			(oScrollerCellView as CStageScrollerCellView)?.Init(new CStageScrollerCellView.STParams() {
+				m_stBaseParams = stParams
+			});
+		} else {
+			(oScrollerCellView as CChapterScrollerCellView)?.Init(new CChapterScrollerCellView.STParams() {
+				m_stBaseParams = stParams
+			});
+		}
 
 		return oScrollerCellView;
 	}
