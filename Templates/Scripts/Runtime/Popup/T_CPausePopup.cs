@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-/** 일시 정지 팝업 */
+/** 정지 팝업 */
 public class CPausePopup : CSubPopup {
 	/** 콜백 */
 	public enum ECallback {

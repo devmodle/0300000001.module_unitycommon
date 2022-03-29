@@ -182,13 +182,10 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 		var ePlayMode = CGameInfoStorage.Inst.PlayMode;
 		m_stSelIDInfo = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT);
 
-		// 버튼을 설정한다 {
-		var oPlayBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
-		oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
-
-		var oStoreBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
-		oStoreBtn?.ExAddListener(this.OnTouchStoreBtn, true, false);
-		// 버튼을 설정한다 }
+		// 버튼을 설정한다
+		this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN)?.ExAddListener(this.OnTouchPlayBtn, true, false);
+		this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN)?.ExAddListener(this.OnTouchStoreBtn, true, false);
+		this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_SETTINGS_BTN)?.ExAddListener(this.OnTouchSettingsBtn, true, false);
 
 		// 스크롤 뷰를 설정한다 {
 		m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO] = (
@@ -282,6 +279,13 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 	/** 상점 버튼을 눌렀을 경우 */
 	private void OnTouchStoreBtn() {
 		CSceneManager.GetSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+	}
+
+	/** 설정 버튼을 눌렀을 경우 */
+	private void OnTouchSettingsBtn() {
+		Func.ShowSettingsPopup(this.PopupUIs, (a_oSender) => {
+			(a_oSender as CSettingsPopup).Init();
+		});
 	}
 
 	/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */

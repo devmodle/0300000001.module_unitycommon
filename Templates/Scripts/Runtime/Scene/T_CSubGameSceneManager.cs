@@ -207,8 +207,8 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 		m_oClearInfoDict[EKey.CLEAR_INFO] = CGameInfoStorage.Inst.TryGetClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oClearInfo : null;
 
 		// 버튼을 설정한다
-		var oPauseBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_RESTORE_BTN);
-		oPauseBtn?.ExAddListener(this.OnTouchPauseBtn, true, false);
+		this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PAUSE_BTN)?.ExAddListener(this.OnTouchPauseBtn, true, false);
+		this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_SETTINGS_BTN)?.ExAddListener(this.OnTouchSettingsBtn, true, false);
 
 		// 터치 전달자를 설정한다
 		m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] = this.BGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
@@ -318,6 +318,13 @@ public partial class CSubGameSceneManager : CGameSceneManager {
 					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
 				}
 			});
+		});
+	}
+
+	/** 설정 버튼을 눌렀을 경웅 */
+	private void OnTouchSettingsBtn() {
+		Func.ShowSettingsPopup(this.PopupUIs, (a_oSender) => {
+			(a_oSender as CSettingsPopup).Init();
 		});
 	}
 
