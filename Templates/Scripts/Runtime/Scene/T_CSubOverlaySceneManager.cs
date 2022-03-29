@@ -12,16 +12,32 @@ using UnityEngine.Purchasing;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 중첩 씬 관리자 */
 public partial class CSubOverlaySceneManager : COverlaySceneManager {
-	#region 프로퍼티
-	public TMP_Text NumCoinsText { get; private set; } = null;
-	public Button StoreBtn { get; private set; } = null;
+	/** 식별자 */
+	private enum EKey {
+		NONE = -1,
+		NUM_COINS_TEXT,
+		STORE_BTN,
+		[HideInInspector] MAX_VAL
+	}
 
-	public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS;
-	#endregion			// 프로퍼티
+	#region 변수
+	/** =====> UI <===== */
+	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
+		[EKey.NUM_COINS_TEXT] = null
+	};
+
+	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
+		[EKey.STORE_BTN] = null
+	};
+	#endregion			// 변수
 
 	#region 추가 변수
 
 	#endregion			// 추가 변수
+
+	#region 프로퍼티
+	public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS;
+	#endregion			// 프로퍼티
 
 	#region 추가 프로퍼티
 
@@ -52,7 +68,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	/** 상점 팝업을 출력한다 */
 	public void ShowStorePopup() {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		Func.ShowStorePopup(this.PopupUIs, (a_oSender) => {
+		Func.ShowStorePopup(CSceneManager.ActiveScenePopupUIs, (a_oSender) => {
 			var oSaleProductInfoList = new List<STSaleProductInfo>();
 
 			for(int i = 0; i < KDefine.G_SALE_PRODUCT_KINDS_PRODUCT_LIST.Count; ++i) {
@@ -86,11 +102,11 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 텍스트를 설정한다
-		this.NumCoinsText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
+		m_oTextDict[EKey.NUM_COINS_TEXT] = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
 
 		// 버튼을 설정한다
-		this.StoreBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
-		this.StoreBtn?.onClick.AddListener(this.OnTouchStoreBtn);
+		m_oBtnDict[EKey.STORE_BTN] = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
+		m_oBtnDict[EKey.STORE_BTN]?.onClick.AddListener(this.OnTouchStoreBtn);
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.SetupTestUIs();
@@ -114,7 +130,7 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		oSubGameSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 
 		// 텍스트를 갱신한다
-		this.NumCoinsText.ExSetText($"{CUserInfoStorage.Inst.UserInfo.NumCoins}", EFontSet._1, false);
+		m_oTextDict[EKey.NUM_COINS_TEXT].ExSetText($"{CUserInfoStorage.Inst.UserInfo.NumCoins}", EFontSet._1, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
 		this.UpdateTestUIsState();

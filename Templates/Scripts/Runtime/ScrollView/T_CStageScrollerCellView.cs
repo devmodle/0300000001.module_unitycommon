@@ -29,17 +29,20 @@ public class CStageScrollerCellView : CScrollerCellView {
 	public override void Awake() {
 		base.Awake();
 	}
-
+	
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init(a_stParams.m_stBaseParams);
 		m_stParams = a_stParams;
 
-		this.UpdateUIsState();
+		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
+			this.SetupScrollerCell(this.ScrollerCellList[i]);
+			this.ScrollerCellList[i]?.SetActive(i + m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToStageID() < CLevelInfoTable.Inst.GetNumStageInfos(m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToChapterID()));
+		}
 	}
 
-	/** UI 상태를 갱신한다 */
-	private void UpdateUIsState() {
+	/** 스크롤러 셀을 설정한다 */
+	protected virtual void SetupScrollerCell(GameObject a_oScrollerCell) {
 		// Do Something
 	}
 	#endregion			// 함수
