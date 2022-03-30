@@ -36,13 +36,15 @@ public class CStageScrollerCellView : CScrollerCellView {
 		m_stParams = a_stParams;
 
 		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
-			this.SetupScrollerCell(this.ScrollerCellList[i]);
-			this.ScrollerCellList[i]?.SetActive(i + m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToStageID() < CLevelInfoTable.Inst.GetNumStageInfos(m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToChapterID()));
+			var stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, i + m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToStageID(), m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToChapterID());
+
+			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
+			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nStageID < CLevelInfoTable.Inst.GetNumStageInfos(stIDInfo.m_nChapterID));
 		}
 	}
 
-	/** 스크롤러 셀을 설정한다 */
-	protected virtual void SetupScrollerCell(GameObject a_oScrollerCell) {
+	/** 스크롤러 셀 상태를 갱신한다 */
+	protected virtual void UpdateScrollerCellState(GameObject a_oScrollerCell, STIDInfo a_stIDInfo) {
 		// Do Something
 	}
 	#endregion			// 함수
