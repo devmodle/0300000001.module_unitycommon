@@ -37,9 +37,14 @@ public class CLevelScrollerCellView : CScrollerCellView {
 
 		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
 			var stIDInfo = CFactory.MakeIDInfo(i + m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToID(), m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToStageID(), m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToChapterID());
+			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(stIDInfo.m_nStageID, stIDInfo.m_nChapterID);
 
-			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
-			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID < CLevelInfoTable.Inst.GetNumLevelInfos(stIDInfo.m_nStageID, stIDInfo.m_nChapterID));
+			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID < nNumLevelInfos);
+
+			// 레벨 정보가 존재 할 경우
+			if(stIDInfo.m_nID < nNumLevelInfos) {
+				this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
+			}
 		}
 	}
 

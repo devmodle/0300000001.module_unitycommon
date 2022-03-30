@@ -37,9 +37,14 @@ public class CStageScrollerCellView : CScrollerCellView {
 
 		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
 			var stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, i + m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToStageID(), m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToChapterID());
+			int nNumStageInfos = CLevelInfoTable.Inst.GetNumStageInfos(stIDInfo.m_nChapterID);
 
-			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
-			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nStageID < CLevelInfoTable.Inst.GetNumStageInfos(stIDInfo.m_nChapterID));
+			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nStageID < nNumStageInfos);
+
+			// 스테이지 정보가 존재 할 경우
+			if(stIDInfo.m_nStageID < nNumStageInfos) {
+				this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
+			}
 		}
 	}
 
