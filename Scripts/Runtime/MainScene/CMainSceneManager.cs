@@ -10,9 +10,18 @@ using UnityEngine.InputSystem;
 
 /** 메인 씬 관리자 */
 public class CMainSceneManager : CSceneManager {
+	/** 식별자 */
+	private enum EKey {
+		NONE,
+		VER_TEXT,
+		[HideInInspector] MAX_VAL
+	}
+
 	#region 변수
 	/** =====> UI <===== */
-	protected TMP_Text m_oVerText = null;
+	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
+		[EKey.VER_TEXT] = null
+	};
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -20,6 +29,7 @@ public class CMainSceneManager : CSceneManager {
 	public override bool IsRealtimeFadeOutAni => true;
 	
 	public override string SceneName => KCDefine.B_SCENE_N_MAIN;
+	protected TMP_Text VerText => m_oTextDict[EKey.VER_TEXT];
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -34,11 +44,11 @@ public class CMainSceneManager : CSceneManager {
 			if(!COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
 				var oVerText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT);
 
-				m_oVerText = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT, KCDefine.U_OBJ_P_G_VER_TEXT, this.UpLeftUIs);
-				m_oVerText.rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oVerText.rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
-				m_oVerText.rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
-				m_oVerText.rectTransform.anchoredPosition = KCDefine.U_POS_VER_TEXT;
+				m_oTextDict[EKey.VER_TEXT] = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT, KCDefine.U_OBJ_P_G_VER_TEXT, this.UpLeftUIs);
+				m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
+				m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
+				m_oTextDict[EKey.VER_TEXT].rectTransform.anchoredPosition = KCDefine.U_POS_VER_TEXT;
 			}
 		}
 	}
@@ -50,8 +60,8 @@ public class CMainSceneManager : CSceneManager {
 		// 앱이 초기화 되었을 경우
 		if(CSceneManager.IsAppInit) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			m_oVerText?.ExSetText<TMP_Text>(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), false);
-			m_oVerText?.transform.SetAsLastSibling();
+			m_oTextDict[EKey.VER_TEXT]?.ExSetText(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
+			m_oTextDict[EKey.VER_TEXT]?.transform.SetAsLastSibling();
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
