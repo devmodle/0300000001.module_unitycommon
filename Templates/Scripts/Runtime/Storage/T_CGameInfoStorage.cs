@@ -198,6 +198,18 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		}
 	}
 
+	public int NumChapterClearInfos {
+		get {
+			int nMaxChapterID = -KCDefine.B_VAL_1_INT;
+
+			foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
+				nMaxChapterID = Mathf.Max(nMaxChapterID, stKeyVal.Key.ExUniqueLevelIDToChapterID());
+			}
+
+			return nMaxChapterID + KCDefine.B_VAL_1_INT;
+		}
+	}
+
 	public bool IsEnableGetFreeReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevFreeRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
 	public bool IsEnableGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
 	public bool IsContinueGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_DBL);
@@ -308,43 +320,65 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return this.GameInfo.m_oAcquireRewardUniqueChapterIDList.Contains(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
+	/** 클리어 마크 개수를 반환한다 */
+	public int GetNumClearMarks(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		return this.TryGetClearInfo(a_nID, out CClearInfo oClearInfo, a_nStageID, a_nChapterID) ? oClearInfo.NumClearMarks : KCDefine.B_VAL_0_INT;
+	}
+
 	/** 스테이지 클리어 마크 개수를 반환한다 */
 	public int GetNumStageClearMarks(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		int nNumClearMarks = KCDefine.B_VAL_0_INT;
-		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_nID, a_nChapterID);
 
-		for(int i = 0; i < nNumLevelInfos; ++i) {
-			this.TryGetClearInfo(i, out CClearInfo oClearInfo, a_nID, a_nChapterID);
-			nNumClearMarks += (oClearInfo != null) ? oClearInfo.NumClearMarks : KCDefine.B_VAL_0_INT;
+		foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
+			// 클리어 정보가 존재 할 경우
+			if(stKeyVal.Key.ExUniqueLevelIDToStageID() == a_nID && stKeyVal.Key.ExUniqueLevelIDToChapterID() == a_nChapterID) {
+				nNumClearMarks += this.GetNumClearMarks(stKeyVal.Key.ExUniqueLevelIDToID(), a_nID, a_nChapterID);
+			}
 		}
 
 		return nNumClearMarks;
 	}
 
 	/** 챕터 클리어 마크 개수를 반환한다 */
-	public int GetNumChapterClearMarks(int a_nChapterID) {
+	public int GetNumChapterClearMarks(int a_nID) {
 		int nNumClearMarks = KCDefine.B_VAL_0_INT;
-		int nNumStageInfos = CLevelInfoTable.Inst.GetNumStageInfos(a_nChapterID);
 
-		for(int i = 0; i < nNumStageInfos; ++i) {
-			nNumClearMarks += this.GetNumStageClearMarks(i, a_nChapterID);
+		foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
+			// 클리어 정보가 존재 할 경우
+			if(stKeyVal.Key.ExUniqueLevelIDToChapterID() == a_nID) {
+				nNumClearMarks += this.GetNumStageClearMarks(stKeyVal.Key.ExUniqueLevelIDToStageID(), a_nID);
+			}
 		}
-		
+
 		return nNumClearMarks;
 	}
 
 	/** 클리어 정보 개수를 반환한다 */
 	public int GetNumClearInfos(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_nID, a_nChapterID);
+		int nMaxID = -KCDefine.B_VAL_1_INT;
 
-		for(int i = 0; i < nNumLevelInfos; ++i) {
-			// 클리어 정보가 없을 경우
-			if(!this.TryGetClearInfo(i, out CClearInfo oClearInfo, a_nID, a_nChapterID)) {
-				return i;
+		foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
+			// 클리어 정보가 존재 할 경우
+			if(stKeyVal.Key.ExUniqueLevelIDToStageID() == a_nID && stKeyVal.Key.ExUniqueLevelIDToChapterID() == a_nChapterID) {
+				nMaxID = Mathf.Max(nMaxID, stKeyVal.Key.ExUniqueLevelIDToID());
 			}
 		}
 
-		return nNumLevelInfos;
+		return nMaxID + KCDefine.B_VAL_1_INT;
+	}
+
+	/** 스테이지 클리어 정보 개수를 반환한다 */
+	public int GetNumStageClearInfos(int a_nID) {
+		int nMaxStageID = -KCDefine.B_VAL_1_INT;
+
+		foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
+			// 클리어 정보가 존재 할 경우
+			if(stKeyVal.Key.ExUniqueLevelIDToChapterID() == a_nID) {
+				nMaxStageID = Mathf.Max(nMaxStageID, stKeyVal.Key.ExUniqueLevelIDToStageID());
+			}
+		}
+
+		return nMaxStageID + KCDefine.B_VAL_1_INT;
 	}
 
 	/** 클리어 정보를 반환한다 */

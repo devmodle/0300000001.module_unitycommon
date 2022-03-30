@@ -68,14 +68,6 @@ public static partial class KDefine {
 
 	// 튜토리얼 팝업
 	public const string G_OBJ_N_TUTORIAL_POPUP = "TutorialPopup";
-	
-	// 씬 이름 {
-	public const string G_SCENE_N_ETC_SHADER = "01.EtcShaderScene";
-	public const string G_SCENE_N_ETC_PARTICLE = "02.EtcParticleScene";
-
-	public const string G_SCENE_N_ADS_ADMOB = "01.AdsAdmobScene";
-	public const string G_SCENE_N_ADS_IRON_SRC = "02.AdsIronSrcScene";
-	// 씬 이름 }
 	#endregion			// 기본
 
 	#region 런타임 상수
