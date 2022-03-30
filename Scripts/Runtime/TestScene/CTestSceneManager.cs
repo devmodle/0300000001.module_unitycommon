@@ -5,9 +5,18 @@ using UnityEngine.UI;
 
 /** 테스트 씬 관리자 */
 public abstract class CTestSceneManager : CSceneManager {
+	/** 식별자 */
+	private enum EKey {
+		NONE,
+		BACK_BTN,
+		[HideInInspector] MAX_VAL
+	}
+
 	#region 변수
 	/** =====> UI <===== */
-	protected Button m_oBackBtn = null;
+	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
+		[EKey.BACK_BTN] = null
+	};
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -45,13 +54,13 @@ public abstract class CTestSceneManager : CSceneManager {
 	/** 씬을 설정한다 */
 	private void SetupAwake() {
 		// 버튼을 설정한다 {
-		m_oBackBtn = CFactory.CreateCloneObj<Button>(KCDefine.U_OBJ_N_BACK_BTN, KCDefine.U_OBJ_P_G_BACK_BTN, this.UpLeftUIs);
-		m_oBackBtn.onClick.AddListener(this.OnTouchBackBtn);
+		m_oBtnDict[EKey.BACK_BTN] = CFactory.CreateCloneObj<Button>(KCDefine.U_OBJ_N_BACK_BTN, KCDefine.U_OBJ_P_G_BACK_BTN, this.UpLeftUIs);
+		m_oBtnDict[EKey.BACK_BTN].onClick.AddListener(this.OnTouchBackBtn);
 
-		(m_oBackBtn.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_LEFT;
-		(m_oBackBtn.transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-		(m_oBackBtn.transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-		(m_oBackBtn.transform as RectTransform).anchoredPosition = Vector3.zero;
+		(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_LEFT;
+		(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+		(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+		(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchoredPosition = Vector3.zero;
 		// 버튼을 설정한다 }
 	}
 	#endregion			// 함수

@@ -57,12 +57,12 @@ public class CStorePopup : CSubPopup {
 		[EKey.PURCHASE_PRODUCT_ID] = string.Empty
 	};
 
-	/** =====> 객체 <===== */
-	[SerializeField] private List<GameObject> m_oSaleProductUIsList = new List<GameObject>();
-
 #if FIREBASE_MODULE_ENABLE && PURCHASE_MODULE_ENABLE
 	private List<Product> m_oRestoreProductList = new List<Product>();
 #endif			// #if FIREBASE_MODULE_ENABLE && PURCHASE_MODULE_ENABLE
+
+	/** =====> 객체 <===== */
+	[SerializeField] private List<GameObject> m_oSaleProductUIsList = new List<GameObject>();
 	#endregion			// 변수
 
 	#region 추가 변수
@@ -124,6 +124,11 @@ public class CStorePopup : CSubPopup {
 		
 		a_oSaleProductUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stSaleProductInfo.m_oName, EFontSet._1, false);
 
+		for(int i = 0; i < a_stSaleProductInfo.m_oItemInfoList.Count; ++i) {
+			var oNumText = a_oSaleProductUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
+			oNumText?.ExSetText($"{a_stSaleProductInfo.m_oItemInfoList[i].m_nNumItems}", EFontSet._1, false);
+		}
+
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 결제 비용 타입 일 경우
 		if(ePriceType == EPriceType.PURCHASE && Access.GetProduct(Access.GetSaleProductID(a_stSaleProductInfo.m_eSaleProductKinds)) != null) {
@@ -166,13 +171,7 @@ public class CStorePopup : CSubPopup {
 
 	/** 패키지 판매 상품 UI 상태를 갱신한다 */
 	private void UpdatePkgsSaleProductUIsState(GameObject a_oSaleProductUIs, STSaleProductInfo a_stSaleProductInfo) {
-		// 텍스트를 갱신한다
-		for(int i = 0; i < a_stSaleProductInfo.m_oItemInfoList.Count; ++i) {
-			string oName = string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT);
-
-			var oNumText = a_oSaleProductUIs.ExFindComponent<TMP_Text>(oName);
-			oNumText?.ExSetText($"{a_stSaleProductInfo.m_oItemInfoList[i].m_nNumItems}", EFontSet._1, false);
-		}
+		// Do Something
 	}
 
 	/** 단일 판매 상품 UI 상태를 갱신한다 */
