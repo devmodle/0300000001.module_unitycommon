@@ -8,7 +8,7 @@ using UnityEngine.Rendering.Universal;
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 /** 스플래시 씬 관리자 */
-public abstract class CSplashSceneManager : CSceneManager {
+public abstract partial class CSplashSceneManager : CSceneManager {
 	#region 변수
 	protected List<string> m_oSpriteAtlasPathList = new List<string>();
 	#endregion			// 변수

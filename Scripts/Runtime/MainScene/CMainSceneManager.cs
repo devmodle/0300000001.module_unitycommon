@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
 /** 메인 씬 관리자 */
-public class CMainSceneManager : CSceneManager {
+public partial class CMainSceneManager : CSceneManager {
 	/** 식별자 */
 	private enum EKey {
 		NONE,

@@ -181,6 +181,11 @@ public static partial class KDefine {
 		// Do Something
 	};
 
+	// 특수 패키지 판매 상품
+	public static readonly List<ESaleProductKinds> G_SALE_PRODUCT_KINDS_PRODUCT_SPECIAL_PKGS_LIST = new List<ESaleProductKinds>() {
+		ESaleProductKinds.PKGS_BEGINNER, ESaleProductKinds.PKGS_EXPERT, ESaleProductKinds.PKGS_PRO
+	};
+
 	// 일일 보상
 	public static readonly List<ERewardKinds> G_REWARDS_KINDS_DAILY_REWARD_LIST = new List<ERewardKinds>() {
 		// Do Something

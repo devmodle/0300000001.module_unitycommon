@@ -154,7 +154,7 @@ public enum ESaleProductKinds {
 	[HideInInspector] PKGS_SALE_PRODUCT = EEnumVal.TYPE * 0,
 
 	// 초보자 0
-	PKGS_START = ESaleProductKinds.PKGS_SALE_PRODUCT + (EEnumVal.KINDS_TYPE * 0),
+	PKGS_BEGINNER = ESaleProductKinds.PKGS_SALE_PRODUCT + (EEnumVal.KINDS_TYPE * 0),
 
 	// 숙련자 10,000
 	PKGS_EXPERT = ESaleProductKinds.PKGS_SALE_PRODUCT + (EEnumVal.KINDS_TYPE * 1),

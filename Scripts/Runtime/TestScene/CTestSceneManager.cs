@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /** 테스트 씬 관리자 */
-public abstract class CTestSceneManager : CSceneManager {
+public abstract partial class CTestSceneManager : CSceneManager {
 	/** 식별자 */
 	private enum EKey {
 		NONE,
