@@ -7,7 +7,7 @@ using EnhancedUI.EnhancedScroller;
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 메인 씬 관리자 */
-public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate {
+public partial class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
@@ -43,14 +43,6 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 	#region 프로퍼티
 	public override bool IsIgnoreOverlayScene => false;
 	#endregion			// 프로퍼티
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region IEnhancedScrollerDelegate
 	/** 셀 개수를 반환한다 */
@@ -332,12 +324,6 @@ public class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 	#endregion			// 조건부 함수
-
-	#region 추가 함수
-#if DEBUG || DEVELOPMENT_BUILD
-
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

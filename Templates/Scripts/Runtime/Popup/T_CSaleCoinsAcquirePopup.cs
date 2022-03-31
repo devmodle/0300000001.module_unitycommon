@@ -7,7 +7,7 @@ using TMPro;
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 판매 코인 획득 팝업 */
-public class CSaleCoinsAcquirePopup : CSubPopup {
+public partial class CSaleCoinsAcquirePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
@@ -33,14 +33,6 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
 	#endregion			// 변수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 	
 	#region 함수
 	/** 초기화 */
@@ -80,10 +72,6 @@ public class CSaleCoinsAcquirePopup : CSubPopup {
 		m_oTextDict[EKey.NUM_SALE_COINS_TEXT]?.ExSetText($"{m_nPrevNumSaleCoins}", EFontSet._1, false);
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

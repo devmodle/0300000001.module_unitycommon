@@ -221,7 +221,7 @@ public struct STEpisodeInfo {
 }
 
 /** 에피소드 정보 테이블 */
-public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
+public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	#region 변수
 	[Header("=====> Level Info <=====")]
 	[SerializeField] private List<STLevelInfo> m_oLevelInfoList = new List<STLevelInfo>();
@@ -256,10 +256,6 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		}
 	}
 	#endregion			// 프로퍼티
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -480,10 +476,6 @@ public class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -43,14 +43,6 @@ namespace SampleEngineName {
 		};
 		// 경로 }
 		#endregion			// 런타임 상수
-
-		#region 추가 상수
-
-		#endregion			// 추가 상수
-
-		#region 추가 런타임 상수
-
-		#endregion			// 추가 런타임 상수
 	}
 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE

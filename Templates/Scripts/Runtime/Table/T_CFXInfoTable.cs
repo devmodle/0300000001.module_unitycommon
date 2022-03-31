@@ -27,7 +27,7 @@ public struct STFXInfo {
 }
 
 /** 효과 정보 테이블 */
-public class CFXInfoTable : CScriptableObj<CFXInfoTable> {
+public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 	#region 변수
 	[Header("=====> FX Info <=====")]
 	[SerializeField] private List<STFXInfo> m_oFXInfoInfoList = new List<STFXInfo>();
@@ -46,10 +46,6 @@ public class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 		}
 	}
 	#endregion			// 프로퍼티
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -116,10 +112,6 @@ public class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 		return this.FXInfoDict;
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

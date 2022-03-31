@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
 /** 서브 스플래시 씬 관리자 */
-public class CSubSplashSceneManager : CSplashSceneManager {
+public partial class CSubSplashSceneManager : CSplashSceneManager {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
@@ -22,14 +22,6 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 		[EKey.SPLASH_IMG] = null
 	};
 	#endregion			// 변수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -66,10 +58,6 @@ public class CSubSplashSceneManager : CSplashSceneManager {
 		// 이미지를 설정한다 }
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

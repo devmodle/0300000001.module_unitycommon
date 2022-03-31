@@ -57,14 +57,6 @@ namespace SampleEngineName {
 		public GameObject BlockObjs => m_stParams.m_oBlockObjs;
 		#endregion			// 프로퍼티
 
-		#region 추가 변수
-
-		#endregion			// 추가 변수
-
-		#region 추가 프로퍼티
-		
-		#endregion			// 추가 프로퍼티
-
 		#region 함수
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
@@ -156,10 +148,6 @@ namespace SampleEngineName {
 		}
 #endif			// #if UNITY_EDITOR
 		#endregion			// 조건부 함수
-
-		#region 추가 함수
-
-		#endregion			// 추가 함수
 	}
 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE

@@ -6,15 +6,7 @@ using UnityEngine.UI;
 #if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
 /** 서브 약관 동의 씬 관리자 */
-public class CSubAgreeSceneManager : CAgreeSceneManager {
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
+public partial class CSubAgreeSceneManager : CAgreeSceneManager {
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
@@ -74,14 +66,6 @@ public class CSubAgreeSceneManager : CAgreeSceneManager {
 		this.LoadNextScene();
 	}
 	#endregion			// 함수
-
-	#region 조건부 함수
-
-	#endregion			// 조건부 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

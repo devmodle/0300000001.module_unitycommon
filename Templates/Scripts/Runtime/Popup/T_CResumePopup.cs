@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 재개 팝업 */
-public class CResumePopup : CSubPopup {
+public partial class CResumePopup : CSubPopup {
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,

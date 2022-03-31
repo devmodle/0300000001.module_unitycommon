@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 [Union(4, typeof(CClearInfo))]
 [Union(5, typeof(CLevelInfo))]
 [MessagePackObject][System.Serializable]
-public abstract class CBaseInfo : IMessagePackSerializationCallbackReceiver {
+public abstract partial class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 상수
 	private const string KEY_VER = "Ver";
 	private const string KEY_SAVE_TIME = "SaveTime";

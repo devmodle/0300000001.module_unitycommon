@@ -6,15 +6,7 @@ using UnityEngine.UI;
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 로딩 씬 관리자 */
-public class CSubLoadingSceneManager : CLoadingSceneManager {
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
+public partial class CSubLoadingSceneManager : CLoadingSceneManager {
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
@@ -31,10 +23,6 @@ public class CSubLoadingSceneManager : CLoadingSceneManager {
 		// Do Something
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-	
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

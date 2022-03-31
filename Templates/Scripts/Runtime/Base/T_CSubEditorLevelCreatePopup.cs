@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if SCRIPT_TEMPLATE_ONLY
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 /** 서브 에디터 레벨 생성 팝업 */
-public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
+public partial class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 	/** 매개 변수 */
 	public new struct STParams {
 		public CEditorLevelCreatePopup.STParams m_stBaseParams;
@@ -15,14 +15,6 @@ public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 	#region 변수
 	private STParams m_stParams;
 	#endregion			// 변수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -56,10 +48,6 @@ public class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 		};
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if SCRIPT_TEMPLATE_ONLY

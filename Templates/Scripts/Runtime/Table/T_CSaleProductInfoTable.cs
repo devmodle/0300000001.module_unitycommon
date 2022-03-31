@@ -63,7 +63,7 @@ public struct STSaleProductInfo {
 }
 
 /** 판매 상품 정보 테이블 */
-public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
+public partial class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 	#region 변수
 	[Header("=====> Sale Product Info <=====")]
 	[SerializeField] private List<STSaleProductInfo> m_oSaleProductInfoList = new List<STSaleProductInfo>();
@@ -82,10 +82,6 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		}
 	}
 	#endregion			// 프로퍼티
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -179,10 +175,6 @@ public class CSaleProductInfoTable : CScriptableObj<CSaleProductInfoTable> {
 		return this.SaleProductInfoDict;
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

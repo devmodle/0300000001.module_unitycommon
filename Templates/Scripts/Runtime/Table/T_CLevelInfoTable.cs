@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 /** 셀 정보 */
 [MessagePackObject][System.Serializable]
-public class CCellInfo : CBaseInfo, System.ICloneable {
+public partial class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 	[Key(161)] public Dictionary<EBlockType, List<EBlockKinds>> m_oBlockKindsDictContainer = new Dictionary<EBlockType, List<EBlockKinds>>();
@@ -70,7 +70,7 @@ public class CCellInfo : CBaseInfo, System.ICloneable {
 
 /** 레벨 정보 */
 [MessagePackObject][System.Serializable]
-public class CLevelInfo : CBaseInfo, System.ICloneable {
+public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	#region 상수
 	private const string KEY_DIFFICULTY = "Difficulty";
 	private const string KEY_LEVEL_KINDS = "LevelKinds";
@@ -224,7 +224,7 @@ public class CLevelInfo : CBaseInfo, System.ICloneable {
 }
 
 /** 레벨 정보 테이블 */
-public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
+public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 프로퍼티
 	public Dictionary<int, Dictionary<int, int>> NumLevelInfosDictContainer = new Dictionary<int, Dictionary<int, int>>();
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LevelInfoDictContainer = new Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>>();
@@ -253,10 +253,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	public int NumChapterInfos => this.NumLevelInfosDictContainer.Count;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 프로퍼티
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 레벨 정보 개수를 반환한다 */
@@ -665,10 +661,6 @@ public class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY
