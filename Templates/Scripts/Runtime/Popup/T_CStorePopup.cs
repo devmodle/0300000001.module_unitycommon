@@ -22,16 +22,9 @@ public partial class CStorePopup : CSubPopup {
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,
-
-#if ADS_MODULE_ENABLE
 		ADS,
-#endif			// #if ADS_MODULE_ENABLE
-
-#if PURCHASE_MODULE_ENABLE
 		PURCHASE,
 		RESTORE,
-#endif			// #if PURCHASE_MODULE_ENABLE
-
 		[HideInInspector] MAX_VAL
 	}
 
@@ -213,7 +206,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oAdsCallbackDict.GetValueOrDefault(ECallback.ADS, null)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
+		m_stParams.m_oAdsCallbackDict.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 
@@ -235,7 +228,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oPurchaseCallbackDictA.GetValueOrDefault(ECallback.PURCHASE, null)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		m_stParams.m_oPurchaseCallbackDictA.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 
 	/** 상품이 복원 되었을 경우 */
@@ -255,7 +248,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oPurchaseCallbackDictB.GetValueOrDefault(ECallback.RESTORE, null)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
+		m_stParams.m_oPurchaseCallbackDictB.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 
 #if FIREBASE_MODULE_ENABLE

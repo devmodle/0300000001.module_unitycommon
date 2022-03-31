@@ -57,11 +57,14 @@ public static partial class KDefine {
 	// 결과 팝업
 	public const string G_OBJ_N_RESULT_POPUP = "ResultPopup";
 
+	// 재개 팝업
+	public const string G_OBJ_N_RESUME_POPUP = "ResumePopup";
+
 	// 정지 팝업
 	public const string G_OBJ_N_PAUSE_POPUP = "PausePopup";
 
-	// 재개 팝업
-	public const string G_OBJ_N_RESUME_POPUP = "ResumePopup";
+	// 판매 상품 팝업
+	public const string G_OBJ_N_SALE_PRODUCT_POPUP = "SaleProductPopup";
 
 	// 포커스 팝업
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";

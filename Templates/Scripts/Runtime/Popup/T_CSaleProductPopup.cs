@@ -6,11 +6,22 @@ using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-/** 특수 패키지 팝업 */
-public partial class CSpecialPkgsPopup : CSubPopup {
+/** 판매 상품 팝업 */
+public partial class CSaleProductPopup : CSubPopup {
+	/** 콜백 */
+	public enum ECallback {
+		NONE = -1,
+
+#if PURCHASE_MODULE_ENABLE
+		PURCHASE,
+#endif			// #if PURCHASE_MODULE_ENABLE
+
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 매개 변수 */
 	public struct STParams {
-		ESaleProductKinds m_eSaleProductKinds;
+		public ESaleProductKinds m_eSaleProductKinds;
 
 #if PURCHASE_MODULE_ENABLE
 		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDict;
@@ -46,13 +57,12 @@ public partial class CSpecialPkgsPopup : CSubPopup {
 
 	/** 특수 패키지 UI 상태를 갱신한다 */
 	private void UpdateSpecialPkgsUIsState(GameObject a_oSpecialPkgsUIs, STSaleProductInfo a_stSaleProductInfo) {
-		// 텍스트를 설정한다
+		// 텍스트를 설정한다 {
 		var oPriceText = a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
 		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stSaleProductInfo.m_oPrice), EFontSet._1, false);
 
-		// 버튼을 설정한다
-		var oPurchaseBtn = a_oSpecialPkgsUIs?.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
-		oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stSaleProductInfo));
+		a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(CStrTable.Inst.GetStr(a_stSaleProductInfo.m_oName), EFontSet._1, false);
+		a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT)?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stSaleProductInfo.m_oPrice), EFontSet._1, false);
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 상품이 존재 할 경우
@@ -61,6 +71,20 @@ public partial class CSpecialPkgsPopup : CSubPopup {
 			oPriceText?.ExSetText(Access.GetPriceStr(nID), EFontSet._1, false);
 		}
 #endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
+		// 텍스트를 설정한다 }
+
+		// 버튼을 설정한다 {
+		var oPurchaseBtn = a_oSpecialPkgsUIs?.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
+		oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stSaleProductInfo));
+
+#if PURCHASE_MODULE_ENABLE
+		// 비소모 상품 일 경우
+		if(a_stSaleProductInfo.m_eProductType == ProductType.NonConsumable) {
+			var stProductInfo = CProductInfoTable.Inst.GetProductInfo(Access.GetSaleProductID(a_stSaleProductInfo.m_eSaleProductKinds));
+			oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID));
+		}
+#endif			// #if PURCHASE_MODULE_ENABLE
+		// 버튼을 설정한다 }
 	}
 
 	/** 결제 버튼을 눌렀을 경우 */
@@ -90,7 +114,7 @@ public partial class CSpecialPkgsPopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oPurchaseCallbackDict.GetValueOrDefault(ECallback.PURCHASE, null)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		m_stParams.m_oPurchaseCallbackDict.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 
 #if FIREBASE_MODULE_ENABLE
