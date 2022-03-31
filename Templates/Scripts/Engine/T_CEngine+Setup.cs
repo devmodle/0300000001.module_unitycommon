@@ -53,10 +53,6 @@ namespace SampleEngineName {
 		}
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		#endregion			// 조건부 함수
-
-		#region 추가 함수
-
-		#endregion			// 추가 함수
 	}
 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE

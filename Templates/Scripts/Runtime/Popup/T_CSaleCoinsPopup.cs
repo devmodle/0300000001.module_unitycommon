@@ -7,7 +7,7 @@ using TMPro;
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 판매 코인 팝업 */
-public class CSaleCoinsPopup : CSubPopup {
+public partial class CSaleCoinsPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,

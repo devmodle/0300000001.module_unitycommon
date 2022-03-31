@@ -471,9 +471,5 @@ public enum EBlockKinds {
 	[HideInInspector] MAX_VAL
 }
 #endregion			// 기본
-
-#region 추가 상수
-
-#endregion			// 추가 상수
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

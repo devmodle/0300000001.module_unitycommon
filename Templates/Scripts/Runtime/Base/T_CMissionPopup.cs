@@ -6,7 +6,7 @@ using UnityEngine.UI;
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 미션 팝업 */
-public abstract class CMissionPopup : CSubPopup {
+public abstract partial class CMissionPopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
 		public List<STMissionInfo> m_oMissionInfoList;
@@ -18,14 +18,6 @@ public abstract class CMissionPopup : CSubPopup {
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oMissionUIsList = new List<GameObject>();
 	#endregion			// 변수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 	
 	#region 함수
 	/** 초기화 */
@@ -60,10 +52,6 @@ public abstract class CMissionPopup : CSubPopup {
 		// Do Something
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

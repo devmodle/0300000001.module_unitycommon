@@ -21,14 +21,6 @@ public static partial class KDefine {
 	public const string LES_FUNC_N_FMT_UPDATE_RE_UIS_PAGE_UIS = "UpdateREUIsPageUIs{0:00}";
 	// 이름 }
 	#endregion			// 기본
-
-	#region 추가 상수
-
-	#endregion			// 추가 상수
-
-	#region 추가 런타임 상수
-
-	#endregion			// 추가 런타임 상수
 }
 #endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 블럭 */
-	public class CBlock : CComponent {
+	public partial class CBlock : CComponent {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,

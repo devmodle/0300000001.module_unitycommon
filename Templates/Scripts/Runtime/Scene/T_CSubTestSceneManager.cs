@@ -7,14 +7,6 @@ using UnityEngine.UI;
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 테스트 씬 관리자 */
 public partial class CSubTestSceneManager : CTestSceneManager {
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
@@ -52,10 +44,6 @@ public partial class CSubTestSceneManager : CTestSceneManager {
 		// Do Something
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

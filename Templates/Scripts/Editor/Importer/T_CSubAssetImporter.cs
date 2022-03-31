@@ -9,14 +9,10 @@ using UnityEditor;
 
 /** 서브 에셋 임포터 */
 [InitializeOnLoad]
-public class CSubAssetImporter : CAssetImporter {
+public partial class CSubAssetImporter : CAssetImporter {
 	#region 함수
 	
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if UNITY_EDITOR
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -27,7 +27,7 @@ public struct STMissionInfo {
 }
 
 /** 미션 정보 테이블 */
-public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
+public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	#region 변수
 	[Header("=====> Free Mission Info <=====")]
 	[SerializeField] private List<STMissionInfo> m_oFreeMissionInfoList = new List<STMissionInfo>();
@@ -52,10 +52,6 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		}
 	}
 	#endregion			// 프로퍼티
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -130,10 +126,6 @@ public class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		return this.MissionInfoDict;
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

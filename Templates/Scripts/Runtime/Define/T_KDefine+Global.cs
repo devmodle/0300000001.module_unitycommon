@@ -186,14 +186,6 @@ public static partial class KDefine {
 		// Do Something
 	};
 	#endregion			// 런타임 상수
-
-	#region 추가 상수
-	
-	#endregion			// 추가 상수
-
-	#region 추가 런타임 상수
-
-	#endregion			// 추가 런타임 상수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

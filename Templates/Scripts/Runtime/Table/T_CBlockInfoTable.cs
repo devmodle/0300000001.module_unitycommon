@@ -37,7 +37,7 @@ public struct STBlockInfo {
 }
 
 /** 블럭 정보 테이블 */
-public class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
+public partial class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 	#region 변수
 	[Header("=====> Block Info <=====")]
 	[SerializeField] private List<STBlockInfo> m_oBlockInfoInfoList = new List<STBlockInfo>();
@@ -56,10 +56,6 @@ public class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 		}
 	}
 	#endregion			// 프로퍼티
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -126,10 +122,6 @@ public class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 		return this.BlockInfoDict;
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

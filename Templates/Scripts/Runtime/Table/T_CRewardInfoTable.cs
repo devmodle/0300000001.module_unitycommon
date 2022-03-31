@@ -43,7 +43,7 @@ public struct STRewardInfo {
 }
 
 /** 보상 정보 테이블 */
-public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
+public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	#region 변수
 	[Header("=====> Free Reward Info <=====")]
 	[SerializeField] private List<STRewardInfo> m_oFreeRewardInfoList = new List<STRewardInfo>();
@@ -77,10 +77,6 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		}
 	}
 	#endregion			// 프로퍼티
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -158,10 +154,6 @@ public class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		return this.RewardInfoDict;
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

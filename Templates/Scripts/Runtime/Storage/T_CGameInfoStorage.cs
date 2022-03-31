@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 /** 클리어 정보 */
 [MessagePackObject][System.Serializable]
-public class CClearInfo : CBaseInfo {
+public partial class CClearInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_NUM_CLEAR_MARKS = "NumClearMarks";
 	private const string KEY_CLEAR_RECORD = "ClearRecord";
@@ -73,7 +73,7 @@ public class CClearInfo : CBaseInfo {
 
 /** 게임 정보 */
 [MessagePackObject][System.Serializable]
-public class CGameInfo : CBaseInfo {
+public partial class CGameInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
 	private const string KEY_FREE_REWARD_ACQUIRE_TIMES = "FreeRewardAcquireTimes";
@@ -174,7 +174,7 @@ public class CGameInfo : CBaseInfo {
 }
 
 /** 게임 정보 저장소 */
-public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
+public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
 	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
@@ -217,10 +217,6 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public bool IsEnableResetDailyMission => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
 	public ERewardKinds DailyRewardKinds => KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[this.GameInfo.DailyRewardID];
 	#endregion			// 프로퍼티
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 게임 정보를 리셋한다 */
@@ -517,10 +513,6 @@ public class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

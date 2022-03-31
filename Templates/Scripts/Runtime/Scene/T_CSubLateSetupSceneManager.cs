@@ -11,18 +11,10 @@ using UnityEngine.Android;
 #endif			// #if UNITY_ANDROID
 
 /** 서브 지연 설정 씬 관리자 */
-public class CSubLateSetupSceneManager : CLateSetupSceneManager {
+public partial class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	#region 변수
 	[SerializeField] private EUserType m_eUserType = EUserType.NONE;
 	#endregion			// 변수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-	
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -124,10 +116,6 @@ public class CSubLateSetupSceneManager : CLateSetupSceneManager {
 	}
 #endif			// #if UNITY_ANDROID
 	#endregion			// 조건부 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

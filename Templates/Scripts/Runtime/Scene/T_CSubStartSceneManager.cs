@@ -8,7 +8,7 @@ using TMPro;
 #if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
 /** 서브 시작 씬 관리자 */
-public class CSubStartSceneManager : CStartSceneManager {
+public partial class CSubStartSceneManager : CStartSceneManager {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
@@ -37,14 +37,6 @@ public class CSubStartSceneManager : CStartSceneManager {
 		[EKey.GAUGE_HANDLER] = null
 	};
 	#endregion			// 변수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -110,10 +102,6 @@ public class CSubStartSceneManager : CStartSceneManager {
 		m_oTextDict[EKey.LOADING_TEXT].ExSetText(string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, m_oStrBuilderDict[EKey.STR_BUILDER].ToString(), oPercentStr), stFontSetInfo);
 	}
 	#endregion			// 함수
-	
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

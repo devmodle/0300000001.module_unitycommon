@@ -6,18 +6,10 @@ using UnityEngine.UI;
 #if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
 /** 서브 설정 씬 관리자 */
-public class CSubSetupSceneManager : CSetupSceneManager {
+public partial class CSubSetupSceneManager : CSetupSceneManager {
 	#region 변수
 	[SerializeField] private SystemLanguage m_eSystemLanguage = SystemLanguage.Unknown;
 	#endregion			// 변수
-
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
 
 	#region 함수
 	/** 씬을 설정한다 */
@@ -55,10 +47,6 @@ public class CSubSetupSceneManager : CSetupSceneManager {
 		// 공용 앱 정보를 설정한다 }
 	}
 	#endregion			// 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

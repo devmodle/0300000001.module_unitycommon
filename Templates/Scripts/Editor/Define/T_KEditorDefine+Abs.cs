@@ -408,14 +408,6 @@ public static partial class KEditorDefine {
 	};
 #endif			// #if UNITY_IOS
 	#endregion			// 조건부 런타임 상수
-
-	#region 추가 상수
-
-	#endregion			// 추가 상수
-
-	#region 추가 런타임 상수
-
-	#endregion			// 추가 런타임 상수
 }
 #endif			// #if UNITY_EDITOR
 #endif			// #if SCRIPT_TEMPLATE_ONLY

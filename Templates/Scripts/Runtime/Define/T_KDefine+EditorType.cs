@@ -15,12 +15,8 @@ public class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
 /** 에디터 타입 랩퍼 */
 [MessagePackObject]
 public struct STEditorTypeWrapper {
-
+	// Do Something
 }
 #endregion			// 기본
-
-#region 추가 타입
-
-#endregion			// 추가 타입
 #endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if SCRIPT_TEMPLATE_ONLY

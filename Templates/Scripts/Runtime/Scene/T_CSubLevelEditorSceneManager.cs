@@ -146,14 +146,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 	#endregion			// 변수
 
-	#region 추가 변수
-
-	#endregion			// 추가 변수
-
-	#region 추가 프로퍼티
-
-	#endregion			// 추가 프로퍼티
-
 	#region IEnhancedScrollerDelegate
 	/** 셀 개수를 반환한다 */
 	public virtual int GetNumberOfCells(EnhancedScroller a_oSender) {
@@ -769,10 +761,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 
 /** 서브 레벨 에디터 씬 관리자 - 중앙 에디터 UI */
@@ -889,10 +877,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	}
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 
 /** 서브 레벨 에디터 씬 관리자 - 왼쪽 에디터 UI */
@@ -1036,10 +1020,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 #endif			// #if AB_TEST_ENABLE
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 
 /** 서브 레벨 에디터 씬 관리자 - 오른쪽 에디터 UI */
@@ -1186,10 +1166,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	}
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 
 /** 서브 레벨 에디터 씬 관리자 - 스크롤러 셀 뷰 */
@@ -1253,10 +1229,6 @@ public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEn
 	}
 #endif			// #if UNITY_STANDALONE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 함수
-
-	#region 추가 함수
-
-	#endregion			// 추가 함수
 }
 #endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -64,10 +64,6 @@ public static partial class EditorFactory {
 	}
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수
-
-	#region 추가 클래스 함수
-
-	#endregion			// 추가 클래스 함수
 }
 #endif			// #if UNITY_EDITOR
 #endif			// #if SCRIPT_TEMPLATE_ONLY

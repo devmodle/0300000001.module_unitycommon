@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 효과 */
-	public class CFX : CComponent {
+	public partial class CFX : CComponent {
 		/** 매개 변수 */
 		public struct STParams {
 			public STFXInfo m_stFXInfo;
@@ -22,24 +22,12 @@ namespace SampleEngineName {
 		public STFXInfo FXInfo => m_stParams.m_stFXInfo;
 		#endregion			// 프로퍼티
 
-		#region 추가 변수
-
-		#endregion			// 추가 변수
-
-		#region 추가 프로퍼티
-
-		#endregion			// 추가 프로퍼티
-
 		#region 함수
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			m_stParams = a_stParams;
 		}
 		#endregion			// 함수
-
-		#region 추가 함수
-
-		#endregion			// 추가 함수
 	}
 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE

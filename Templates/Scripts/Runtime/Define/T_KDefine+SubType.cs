@@ -1,0 +1,17 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using MessagePack;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_ENABLE
+#region 기본
+/** 서브 타입 랩퍼 */
+[MessagePackObject]
+public struct STSubTypeWrapper {
+	// Do Something
+}
+#endregion			// 기본
+#endif			// #if EXTRA_SCRIPT_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY
