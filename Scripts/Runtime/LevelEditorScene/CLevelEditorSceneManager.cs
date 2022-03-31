@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 /** 레벨 에디터 씬 관리자 */
-public class CLevelEditorSceneManager : CSceneManager {
+public partial class CLevelEditorSceneManager : CSceneManager {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,

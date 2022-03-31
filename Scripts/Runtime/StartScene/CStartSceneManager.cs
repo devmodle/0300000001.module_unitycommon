@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /** 시작 씬 관리자 */
-public abstract class CStartSceneManager : CSceneManager {
+public abstract partial class CStartSceneManager : CSceneManager {
 	#region 변수
 	protected Dictionary<string, int> m_oMaxNumFXSndsDict = new Dictionary<string, int>();
 	#endregion			// 변수

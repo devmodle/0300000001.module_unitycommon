@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /** 인트로 씬 관리자 */
-public class CIntroSceneManager : CSceneManager {
+public partial class CIntroSceneManager : CSceneManager {
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_INTRO;
 	#endregion			// 프로퍼티

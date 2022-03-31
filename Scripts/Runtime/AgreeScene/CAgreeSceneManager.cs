@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /** 약관 동의 씬 관리자 */
-public abstract class CAgreeSceneManager : CSceneManager {
+public abstract partial class CAgreeSceneManager : CSceneManager {
 	#region 프로퍼티
 	public override string SceneName => KCDefine.B_SCENE_N_AGREE;
 

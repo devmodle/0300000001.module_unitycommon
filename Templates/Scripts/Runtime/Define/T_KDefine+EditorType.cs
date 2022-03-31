@@ -8,7 +8,7 @@ using MessagePack;
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #region 기본
 /** 서브 에디터 레벨 생성 정보 */
-public class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
+public partial class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
 
 }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /** 게임 씬 관리자 */
-public class CGameSceneManager : CSceneManager {
+public partial class CGameSceneManager : CSceneManager {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,

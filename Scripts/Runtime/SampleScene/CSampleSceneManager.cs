@@ -9,7 +9,7 @@ using UnityEditor.SceneManagement;
 #endif			// #if UNITY_EDITOR
 
 /** 샘플 씬 관리자 */
-public class CSampleSceneManager : CSceneManager {
+public partial class CSampleSceneManager : CSceneManager {
 	#region 프로퍼티
 	public override float ScreenWidth => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ? KCDefine.B_PORTRAIT_SCREEN_WIDTH : base.ScreenWidth;
 	public override float ScreenHeight => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ? KCDefine.B_PORTRAIT_SCREEN_HEIGHT : base.ScreenHeight;
