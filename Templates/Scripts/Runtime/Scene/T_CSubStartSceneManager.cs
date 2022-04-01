@@ -72,8 +72,10 @@ namespace StartScene {
 
 		/** 시작 씬 이벤트를 수신했을 경우 */
 		protected override void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent) {
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			float fPercent = Mathf.Clamp01((int)(a_eEvent + KCDefine.B_VAL_1_INT) / (float)EStartSceneEvent.MAX_VAL);
 			CAccess.AssignVal(ref m_oGaugeAni, m_oGaugeHandlerDict[EKey.GAUGE_HANDLER].ExStartGaugeAni((a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI));
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 씬을 설정한다 */

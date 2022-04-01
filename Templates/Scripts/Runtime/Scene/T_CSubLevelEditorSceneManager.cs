@@ -289,6 +289,7 @@ namespace LevelEditorScene {
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
+#if UNITY_STANDALONE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 #if INPUT_SYSTEM_MODULE_ENABLE
 				// 이전 키를 눌렀을 경우
 				if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.leftArrowKey.wasPressedThisFrame) {
@@ -308,6 +309,7 @@ namespace LevelEditorScene {
 					this.OnTouchMEUIsNextBtn();
 				}
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+#endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 			}
 		}
 
