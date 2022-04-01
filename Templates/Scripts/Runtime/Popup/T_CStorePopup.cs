@@ -50,12 +50,12 @@ public partial class CStorePopup : CSubPopup {
 		[EKey.PURCHASE_PRODUCT_ID] = string.Empty
 	};
 
-#if FIREBASE_MODULE_ENABLE && PURCHASE_MODULE_ENABLE
-	private List<Product> m_oRestoreProductList = new List<Product>();
-#endif			// #if FIREBASE_MODULE_ENABLE && PURCHASE_MODULE_ENABLE
-
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oSaleProductUIsList = new List<GameObject>();
+
+#if PURCHASE_MODULE_ENABLE
+	private List<Product> m_oRestoreProductList = new List<Product>();
+#endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 변수
 
 	#region 함수
@@ -138,9 +138,7 @@ public partial class CStorePopup : CSubPopup {
 #if PURCHASE_MODULE_ENABLE
 		// 비소모 상품 일 경우
 		if(a_stSaleProductInfo.m_eProductType == ProductType.NonConsumable) {
-			int nID = Access.GetSaleProductID(a_stSaleProductInfo.m_eSaleProductKinds);
-			var stProductInfo = CProductInfoTable.Inst.GetProductInfo(nID);
-
+			var stProductInfo = CProductInfoTable.Inst.GetProductInfo(Access.GetSaleProductID(a_stSaleProductInfo.m_eSaleProductKinds));
 			oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID));
 		}
 #endif			// #if PURCHASE_MODULE_ENABLE
@@ -178,7 +176,7 @@ public partial class CStorePopup : CSubPopup {
 			} break;
 			case EPriceType.PURCHASE: {
 #if PURCHASE_MODULE_ENABLE
-				Func.PurchaseProduct(a_stSaleProductInfo.m_eSaleProductKinds, this.OnPurchaseProduct);
+				CSceneManager.GetSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stSaleProductInfo.m_eSaleProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 			} break;
 		}
@@ -206,7 +204,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oAdsCallbackDict.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
+		m_stParams.m_oAdsCallbackDict?.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
 	}
 #endif			// #if ADS_MODULE_ENABLE
 
@@ -215,20 +213,11 @@ public partial class CStorePopup : CSubPopup {
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			Func.AcquireProduct(a_oProductID);
-
-#if FIREBASE_MODULE_ENABLE
-			m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
-			this.ExLateCallFunc((a_oCallFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
-#else
-			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
-#endif			// #if FIREBASE_MODULE_ENABLE
-		} else {
-			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
+			// Do Something
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oPurchaseCallbackDictA.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		m_stParams.m_oPurchaseCallbackDictA?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 
 	/** 상품이 복원 되었을 경우 */
@@ -236,9 +225,9 @@ public partial class CStorePopup : CSubPopup {
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {
 			Func.AcquireRestoreProducts(a_oProductList);
+			m_oRestoreProductList = a_oProductList;
 
 #if FIREBASE_MODULE_ENABLE
-			m_oRestoreProductList = a_oProductList;
 			this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadPostItemInfos(this.OnLoadPostItemInfos));
 #else
 			Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
@@ -248,15 +237,10 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oPurchaseCallbackDictB.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
+		m_stParams.m_oPurchaseCallbackDictB?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 
 #if FIREBASE_MODULE_ENABLE
-	/** 결제 정보를 로드했을 경우 */
-	private void OnLoadPurchaseInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
-		// TODO: 로드 처리 로직 구현 필요
-	}
-
 	/** 지급 아이템 정보를 로드했을 경우 */
 	private void OnLoadPostItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		// 로드 되었을 경우
@@ -282,20 +266,10 @@ public partial class CStorePopup : CSubPopup {
 
 		this.UpdateUIsState();
 	}
-
-	/** 결제 정보를 저장했을 경우 */
-	private void OnSavePurchaseInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		// TODO: 저장 처리 로직 구현 필요
-	}
-
+	
 	/** 지급 아이템 정보를 저장했을 경우 */
 	private void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
-	}
-
-	/** 유저 정보를 저장했을 경우 */
-	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oStrDict[EKey.PURCHASE_PRODUCT_ID], true, null);
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 #endif			// #if PURCHASE_MODULE_ENABLE

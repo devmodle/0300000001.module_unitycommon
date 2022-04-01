@@ -6,6 +6,10 @@ using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if PURCHASE_MODULE_ENABLE
+using UnityEngine.Purchasing;
+#endif			// #if PURCHASE_MODULE_ENABLE
+
 /** 판매 상품 팝업 */
 public partial class CSaleProductPopup : CSubPopup {
 	/** 콜백 */
@@ -24,7 +28,7 @@ public partial class CSaleProductPopup : CSubPopup {
 		public ESaleProductKinds m_eSaleProductKinds;
 
 #if PURCHASE_MODULE_ENABLE
-		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDict;
+		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict;
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 
@@ -90,7 +94,7 @@ public partial class CSaleProductPopup : CSubPopup {
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STSaleProductInfo a_stSaleProductInfo) {
 #if PURCHASE_MODULE_ENABLE
-		Func.PurchaseProduct(a_stSaleProductInfo.m_eSaleProductKinds, this.OnPurchaseProduct);
+		CSceneManager.GetSceneManager<CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stSaleProductInfo.m_eSaleProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수
@@ -101,38 +105,12 @@ public partial class CSaleProductPopup : CSubPopup {
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			Func.AcquireProduct(a_oProductID);
-
-#if FIREBASE_MODULE_ENABLE
-			m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
-			this.ExLateCallFunc((a_oCallFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
-#else
-			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
-#endif			// #if FIREBASE_MODULE_ENABLE
-		} else {
-			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
+			// Do Something
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oPurchaseCallbackDict.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
-
-#if FIREBASE_MODULE_ENABLE
-	/** 결제 정보를 로드했을 경우 */
-	private void OnLoadPurchaseInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
-		// TODO: 로드 처리 로직 구현 필요
-	}
-
-	/** 결제 정보를 저장했을 경우 */
-	private void OnSavePurchaseInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		// TODO: 저장 처리 로직 구현 필요
-	}
-
-	/** 유저 정보를 저장했을 경우 */
-	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oStrDict[EKey.PURCHASE_PRODUCT_ID], true, null);
-	}
-#endif			// #if FIREBASE_MODULE_ENABLE
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 함수
 }

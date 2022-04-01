@@ -15,12 +15,24 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
+		PURCHASE_PRODUCT_ID,
 		NUM_COINS_TEXT,
 		STORE_BTN,
 		[HideInInspector] MAX_VAL
 	}
 
+	/** 콜백 */
+	private enum ECallback {
+		NONE = -1,
+		PURCHASE,
+		[HideInInspector] MAX_VAL
+	}
+
 	#region 변수
+	private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
+		[EKey.PURCHASE_PRODUCT_ID] = string.Empty
+	};
+
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
 		[EKey.NUM_COINS_TEXT] = null
@@ -29,6 +41,10 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
 		[EKey.STORE_BTN] = null
 	};
+
+#if PURCHASE_MODULE_ENABLE
+	private Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
+#endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -147,6 +163,46 @@ public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		// Do Something
 	}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+
+#if PURCHASE_MODULE_ENABLE
+	/** 상품을 결제한다 */
+	public void PurchaseProduct(int a_nID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+		Func.PurchaseProduct(CProductInfoTable.Inst.GetProductInfo(a_nID).m_oID, a_oCallback);
+	}
+
+	/** 상품을 결제한다 */
+	public void PurchaseProduct(ESaleProductKinds a_eSaleProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+		m_oCallbackDict.ExReplaceVal(ECallback.PURCHASE, a_oCallback);
+		Func.PurchaseProduct(a_eSaleProductKinds, this.OnPurchaseProduct);
+	}
+
+	/** 상품이 결제 되었을 경우 */
+	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+		// 결제 되었을 경우
+		if(a_bIsSuccess) {
+			Func.AcquireProduct(a_oProductID);
+			m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
+
+#if FIREBASE_MODULE_ENABLE
+			this.ExLateCallFunc((a_oCallFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
+#else
+			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
+#endif			// #if FIREBASE_MODULE_ENABLE
+		} else {
+			Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
+		}
+
+		this.UpdateUIsState();
+		m_oCallbackDict.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+	}
+
+#if FIREBASE_MODULE_ENABLE
+	/** 유저 정보를 저장했을 경우 */
+	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oStrDict[EKey.PURCHASE_PRODUCT_ID], true, null);
+	}
+#endif			// #if FIREBASE_MODULE_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 함수
 }
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE

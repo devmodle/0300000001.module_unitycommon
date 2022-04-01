@@ -329,7 +329,7 @@ public static partial class Func {
 
 	/** 배너 광고가 출력 되었을 경우 */
 	private static void OnShowBannerAds(CAdsManager a_oSender, bool a_bIsSuccess) {
-		m_oAdsCallbackDictA.GetValueOrDefault(ECallback.BANNER_ADS)?.Invoke(a_oSender, a_bIsSuccess);
+		Func.m_oAdsCallbackDictA.GetValueOrDefault(ECallback.BANNER_ADS)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
 	/** 보상 광고가 닫혔을 경우 */
@@ -681,9 +681,8 @@ public static partial class Func {
 
 #if PURCHASE_MODULE_ENABLE
 	/** 상품을 결제한다 */
-	public static void PurchaseProduct(int a_nID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
-		var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_nID);
-		Func.PurchaseProduct(stProductInfo.m_oID, a_oCallback);
+	public static void PurchaseProduct(int a_nID, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+		Func.PurchaseProduct(CProductInfoTable.Inst.GetProductInfo(a_nID).m_oID, a_oCallback, a_bIsEnableAssert);
 	}
 
 	/** 상품을 결제한다 */
@@ -693,7 +692,7 @@ public static partial class Func {
 
 		// 상품이 존재 할 경우
 		if(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST.ExIsValidIdx(nID)) {
-			Func.PurchaseProduct(nID, a_oCallback);
+			Func.PurchaseProduct(nID, a_oCallback, a_bIsEnableAssert);
 		}
 	}
 	
@@ -720,19 +719,10 @@ public static partial class Func {
 
 	/** 상품이 결제 되었을 경우 */
 	private static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-
-		// 결제 되었을 경우
-		if(a_bIsSuccess) {
-			CIndicatorManager.Inst.Show();
-
-			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oSender, a_oConfirmProductID, a_bIsSuccess) => {
-				CIndicatorManager.Inst.Close();
-				Func.m_oPurchaseCallbackDictA.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oConfirmProductID, a_bIsSuccess);
-			});
-		} else {
-			Func.m_oPurchaseCallbackDictA.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
-		}
+		CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oSender, a_oConfirmProductID, a_bIsSuccess) => {
+			CIndicatorManager.Inst.Close();
+			Func.m_oPurchaseCallbackDictA.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oConfirmProductID, a_bIsSuccess);
+		});
 	}
 
 	/** 상품이 복원 되었을 경우 */
