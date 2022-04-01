@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 포커스 팝업 */
 public partial class CFocusPopup : CSubPopup {
 	/** 식별자 */
@@ -96,5 +96,5 @@ public partial class CFocusPopup : CSubPopup {
 	}
 	#endregion			// 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

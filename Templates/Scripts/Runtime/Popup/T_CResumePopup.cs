@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 재개 팝업 */
 public partial class CResumePopup : CSubPopup {
 	/** 콜백 */
@@ -53,5 +53,5 @@ public partial class CResumePopup : CSubPopup {
 	}
 	#endregion			// 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

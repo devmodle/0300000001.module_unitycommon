@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if ENGINE_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 효과 */
 	public partial class CFX : CComponent {
@@ -30,5 +30,5 @@ namespace SampleEngineName {
 		#endregion			// 함수
 	}
 }
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

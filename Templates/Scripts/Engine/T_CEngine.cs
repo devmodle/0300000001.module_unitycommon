@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if ENGINE_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
@@ -150,5 +150,5 @@ namespace SampleEngineName {
 		#endregion			// 조건부 함수
 	}
 }
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 무료 보상 팝업 */
 public partial class CFreeRewardPopup : CSubPopup {
 	/** 식별자 */
@@ -98,5 +98,5 @@ public partial class CFreeRewardPopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 조건부 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 기본 접근 확장 클래스 */
 public static partial class AccessExtension {
 	#region 클래스 함수
@@ -197,5 +197,5 @@ public static partial class AccessExtension {
 	}
 	#endregion			// 클래스 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

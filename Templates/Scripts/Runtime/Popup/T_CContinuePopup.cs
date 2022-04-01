@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 이어하기 팝업 */
 public partial class CContinuePopup : CSubPopup {
 	/** 식별자 */
@@ -108,5 +108,5 @@ public partial class CContinuePopup : CSubPopup {
 	}
 	#endregion			// 함수
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

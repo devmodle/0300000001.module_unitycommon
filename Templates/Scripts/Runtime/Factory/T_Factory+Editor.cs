@@ -12,7 +12,7 @@ public static partial class Factory {
 	#endregion			// 클래스 함수
 
 	#region 조건부 클래스 함수
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	/** 셀 정보를 생성한다 */
 	public static CCellInfo MakeCellInfo(Vector3Int a_stIdx) {
 		return new CCellInfo() {
@@ -26,7 +26,7 @@ public static partial class Factory {
 			m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID)
 		};
 	}
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수
 }
 #endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)

@@ -56,7 +56,7 @@ public static partial class CEditorSceneManager {
 
 				CEditorSceneManager.SetupCallbacks();
 
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 				EditorFactory.CreateSaleItemInfoTable();
 				EditorFactory.CreateSaleProductInfoTable();
 				EditorFactory.CreateMissionInfoTable();
@@ -65,7 +65,7 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateTutorialInfoTable();
 				EditorFactory.CreateFXInfoTable();
 				EditorFactory.CreateBlockInfoTable();
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			}
 
 			// 갱신 주기가 지났을 경우

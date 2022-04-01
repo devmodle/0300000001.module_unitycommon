@@ -9,7 +9,7 @@ using TMPro;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 namespace OverlayScene {
 	/** 서브 중첩 씬 관리자 */
 	public partial class CSubOverlaySceneManager : COverlaySceneManager {
@@ -76,7 +76,7 @@ namespace OverlayScene {
 
 		/** 상점 팝업을 출력한다 */
 		public void ShowStorePopup() {
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			Func.ShowStorePopup(CSceneManager.ActiveScenePopupUIs, (a_oSender) => {
 				var oSaleProductInfoList = new List<STSaleProductInfo>();
 
@@ -105,7 +105,7 @@ namespace OverlayScene {
 #endif			// #if PURCHASE_MODULE_ENABLE
 				});
 			});
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 씬을 설정한다 */
@@ -207,5 +207,5 @@ namespace OverlayScene {
 		#endregion			// 조건부 함수
 	}
 }
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -17,7 +17,7 @@ namespace SetupScene {
 		protected override void Setup() {
 			base.Setup();
 
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			// 저장소를 로드한다
 			CAppInfoStorage.Inst.LoadAppInfo();
 			CUserInfoStorage.Inst.LoadUserInfo();
@@ -33,7 +33,7 @@ namespace SetupScene {
 			CTutorialInfoTable.Inst.LoadTutorialInfos();
 			CFXInfoTable.Inst.LoadFXInfos();
 			CBlockInfoTable.Inst.LoadBlockInfos();
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 			// 공용 앱 정보를 설정한다 {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
