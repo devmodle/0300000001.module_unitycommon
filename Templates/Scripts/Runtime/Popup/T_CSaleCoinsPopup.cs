@@ -34,13 +34,9 @@ public partial class CSaleCoinsPopup : CSubPopup {
 		// 텍스트를 설정한다
 		m_oTextDict[EKey.NUM_SALE_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_SALE_COINS_TEXT);
 
-		// 버튼을 설정한다 {
-		var oOKBtn = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_OK_BTN);
-		oOKBtn?.onClick.AddListener(this.OnTouchOKBtn);
-
-		var oPurchaseBtn = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
-		oPurchaseBtn?.onClick.AddListener(this.OnTouchPurchaseBtn);
-		// 버튼을 설정한다 }
+		// 버튼을 설정한다
+		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_OK_BTN)?.onClick.AddListener(this.OnTouchOKBtn);
+		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN)?.onClick.AddListener(this.OnTouchPurchaseBtn);
 	}
 
 	/** 초기화 */

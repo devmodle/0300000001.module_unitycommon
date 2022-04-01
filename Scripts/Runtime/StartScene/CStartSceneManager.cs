@@ -3,63 +3,65 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/** 시작 씬 관리자 */
-public abstract partial class CStartSceneManager : CSceneManager {
-	#region 변수
-	protected Dictionary<string, int> m_oMaxNumFXSndsDict = new Dictionary<string, int>();
-	#endregion			// 변수
+namespace StartScene {
+	/** 시작 씬 관리자 */
+	public abstract partial class CStartSceneManager : CSceneManager {
+		#region 변수
+		protected Dictionary<string, int> m_oMaxNumFXSndsDict = new Dictionary<string, int>();
+		#endregion			// 변수
 
-	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_N_START;
+		#region 프로퍼티
+		public override string SceneName => KCDefine.B_SCENE_N_START;
 
 #if UNITY_EDITOR
-	public override int ScriptOrder => KCDefine.U_SCRIPT_O_START_SCENE_MANAGER;
+		public override int ScriptOrder => KCDefine.U_SCRIPT_O_START_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
-	#endregion			// 프로퍼티
+		#endregion			// 프로퍼티
 
-	#region 추상 함수
-	/** 시작 씬 이벤트를 수신했을 경우 */
-	protected abstract void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent);
-	#endregion			// 추상 함수
+		#region 추상 함수
+		/** 시작 씬 이벤트를 수신했을 경우 */
+		protected abstract void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent);
+		#endregion			// 추상 함수
 
-	#region 함수
-	/** 초기화 */
-	public override void Awake() {
-		base.Awake();
+		#region 함수
+		/** 초기화 */
+		public override void Awake() {
+			base.Awake();
 
-		// 초기화 되었을 경우
-		if(CSceneManager.IsInit) {
+			// 초기화 되었을 경우
+			if(CSceneManager.IsInit) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			CCommonAppInfoStorage.Inst.AddAppRunningTimes(KCDefine.B_VAL_1_INT);
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
+				CCommonAppInfoStorage.Inst.AddAppRunningTimes(KCDefine.B_VAL_1_INT);
+				CCommonAppInfoStorage.Inst.SaveAppInfo();
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+			}
 		}
-	}
 
-	/** 초기화 */
-	public sealed override void Start() {
-		base.Start();
+		/** 초기화 */
+		public sealed override void Start() {
+			base.Start();
 
-		// 초기화 되었을 경우
-		if(CSceneManager.IsInit) {
-			StartCoroutine(this.OnStart());
+			// 초기화 되었을 경우
+			if(CSceneManager.IsInit) {
+				StartCoroutine(this.OnStart());
+			}
 		}
-	}
 
-	/** 씬을 설정한다 */
-	protected virtual void Setup() {
-		foreach(var stKeyVal in this.m_oMaxNumFXSndsDict) {
-			CSndManager.Inst.SetMaxNumFXSnds(stKeyVal.Key, stKeyVal.Value);
+		/** 씬을 설정한다 */
+		protected virtual void Setup() {
+			foreach(var stKeyVal in this.m_oMaxNumFXSndsDict) {
+				CSndManager.Inst.SetMaxNumFXSnds(stKeyVal.Key, stKeyVal.Value);
+			}
 		}
-	}
 
-	/** 초기화 */
-	private IEnumerator OnStart() {
-		this.Setup();
-		yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+		/** 초기화 */
+		private IEnumerator OnStart() {
+			this.Setup();
+			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
-		CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE, false);
-		CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_SETUP);
+			CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE, false);
+			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_SETUP);
+		}
+		#endregion			// 함수
 	}
-	#endregion			// 함수
 }
