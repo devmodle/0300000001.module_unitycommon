@@ -157,7 +157,7 @@ namespace GameScene {
 		/** 앱이 정지 되었을 경우 */
 		public virtual void OnApplicationPause(bool a_bIsPause) {
 			// 재개 되었을 경우
-			if(!a_bIsPause && (CSceneManager.IsAwake || CSceneManager.IsAppRunning)) {
+			if(!a_bIsPause && CSceneManager.IsAppRunning) {
 #if ADS_MODULE_ENABLE
 				// 광고 출력이 가능 할 경우
 				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.AdsPlatform)) {

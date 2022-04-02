@@ -266,7 +266,7 @@ namespace LateSetupScene {
 			}
 
 			this.Setup();
-
+			
 #if UNITY_ANDROID
 			this.CheckPermission();
 #else
