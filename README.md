@@ -44,5 +44,5 @@
 	- *Flurry (4.2.0)*
 	- *Facebook (11.0.0)*
 	- *Apps Flyer (6.5.2)*
-	- *Google Update (1.5.0)*
-	- *Google Play Services (0.10.14)*
+	- *Google App Update (1.7.0)*
+	- *Google Play Games (0.10.14)*
