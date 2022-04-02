@@ -41,7 +41,6 @@ public static partial class Func {
 
 #if GAME_CENTER_MODULE_ENABLE
 		GAME_CENTER_LOGIN,
-		GAME_CENTER_LOGOUT,
 
 		UPDATE_RECORD,
 		UPDATE_ACHIEVEMENT,
@@ -630,14 +629,6 @@ public static partial class Func {
 		CGameCenterManager.Inst.Login(Func.OnGameCenterLogin);
 	}
 
-	/** 게임 센터 로그아웃을 처리한다 */
-	public static void GameCenterLogout(System.Action<CGameCenterManager> a_oCallback) {
-		CIndicatorManager.Inst.Show();
-		Func.m_oGameCenterCallbackDictA.ExReplaceVal(ECallback.GAME_CENTER_LOGOUT, a_oCallback);
-
-		CGameCenterManager.Inst.Logout(Func.OnGameCenterLogout);
-	}
-
 	/** 기록을 갱신한다 */
 	public static void UpdateRecord(string a_oLeaderboardID, long a_nRecord, System.Action<CGameCenterManager, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
@@ -659,13 +650,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Close();
 		Func.m_oGameCenterCallbackDictB.GetValueOrDefault(ECallback.GAME_CENTER_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
 	}
-
-	/** 게임 센터에서 로그아웃 되었을 경우 */
-	private static void OnGameCenterLogout(CGameCenterManager a_oSender) {
-		CIndicatorManager.Inst.Close();
-		Func.m_oGameCenterCallbackDictA.GetValueOrDefault(ECallback.GAME_CENTER_LOGOUT)?.Invoke(a_oSender);
-	}
-
+	
 	/** 기록이 갱신 되었을 경우 */
 	private static void OnUpdateRecord(CGameCenterManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
