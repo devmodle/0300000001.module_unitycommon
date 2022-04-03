@@ -217,7 +217,7 @@ public static partial class CCommonEditorSceneManager {
 
 				a_oSettings.lightmapPadding == KCDefine.B_VAL_4_INT,
 				a_oSettings.lightmapMaxSize == (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize,
-				a_oSettings.finalGatherRayCount == (int)EPOT._512,
+				a_oSettings.finalGatherRayCount == (int)EPOT._256,
 				a_oSettings.lightmapCompression == stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression,
 
 				a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_FLT),
@@ -243,7 +243,7 @@ public static partial class CCommonEditorSceneManager {
 
 				a_oSettings.lightmapPadding = KCDefine.B_VAL_4_INT;
 				a_oSettings.lightmapMaxSize = (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize;
-				a_oSettings.finalGatherRayCount = (int)EPOT._512;
+				a_oSettings.finalGatherRayCount = (int)EPOT._256;
 				a_oSettings.lightmapCompression = stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression;
 
 				a_oSettings.albedoBoost = KCDefine.B_VAL_1_INT;
