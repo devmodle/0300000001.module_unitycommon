@@ -11,6 +11,7 @@ public struct STBlockInfo {
 	public string m_oName;
 	public string m_oDesc;
 
+	public long m_nResID;
 	public EBlockKinds m_eBlockKinds;
 	public EBlockKinds m_eNextBlockKinds;
 
@@ -22,6 +23,7 @@ public struct STBlockInfo {
 		m_oName = a_oBlockInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oBlockInfo[KCDefine.U_KEY_DESC];
 
+		m_nResID = long.TryParse(a_oBlockInfo[KCDefine.U_KEY_RES_ID], out long nResID) ? nResID : KCDefine.B_VAL_0_LONG;
 		m_eBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt;
 		m_eNextBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].AsInt;
 

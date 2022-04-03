@@ -132,6 +132,10 @@ public static partial class KDefine {
 	public static readonly STBlockInfo G_INVALID_BLOCK_INFO = new STBlockInfo() {
 		m_eBlockKinds = EBlockKinds.NONE
 	};
+
+	public static readonly STResInfo G_INVALID_RES_INFO = new STResInfo() {
+		// Do Something
+	};
 	// 기타 }
 
 	// 버전 {

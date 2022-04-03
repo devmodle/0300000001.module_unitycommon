@@ -11,6 +11,7 @@ public struct STFXInfo {
 	public string m_oName;
 	public string m_oDesc;
 
+	public long m_nResID;
 	public EFXKinds m_eFXKinds;
 	public EFXKinds m_eNextFXKinds;
 
@@ -20,6 +21,7 @@ public struct STFXInfo {
 		m_oName = a_oFXInfo[KCDefine.U_KEY_NAME];
 		m_oDesc = a_oFXInfo[KCDefine.U_KEY_DESC];
 
+		m_nResID = long.TryParse(a_oFXInfo[KCDefine.U_KEY_RES_ID], out long nResID) ? nResID : KCDefine.B_VAL_0_LONG;
 		m_eFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt;
 		m_eNextFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt;
 	}
