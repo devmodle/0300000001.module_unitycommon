@@ -25,6 +25,7 @@ namespace InitScene {
 			CTutorialInfoTable.Create(KCDefine.U_ASSET_P_G_TUTORIAL_INFO_TABLE);
 			CFXInfoTable.Create(KCDefine.U_ASSET_P_G_FX_INFO_TABLE);
 			CBlockInfoTable.Create(KCDefine.U_ASSET_P_G_BLOCK_INFO_TABLE);
+			CResInfoTable.Create(KCDefine.U_ASSET_P_G_RES_INFO_TABLE);
 			// 테이블을 생성한다 }
 			
 			// 저장소를 생성한다
