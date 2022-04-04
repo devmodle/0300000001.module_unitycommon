@@ -30,8 +30,17 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
+		public Vector3Int Idx { get; set; }
 		public STBlockInfo BlockInfo => m_stParams.m_stBlockInfo;
 		#endregion			// 프로퍼티
+
+		#region 추가 변수
+
+		#endregion			// 추가 변수
+
+		#region 추가 프로퍼티
+
+		#endregion			// 추가 프로퍼티
 
 		#region 함수
 		/** 초기화 */

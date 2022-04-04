@@ -22,6 +22,14 @@ namespace SampleEngineName {
 		public STFXInfo FXInfo => m_stParams.m_stFXInfo;
 		#endregion			// 프로퍼티
 
+		#region 추가 변수
+
+		#endregion			// 추가 변수
+
+		#region 추가 프로퍼티
+
+		#endregion			// 추가 프로퍼티
+
 		#region 함수
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {

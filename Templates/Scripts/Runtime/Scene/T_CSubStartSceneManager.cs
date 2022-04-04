@@ -82,11 +82,11 @@ namespace StartScene {
 		private void SetupAwake() {	
 			// 텍스트를 설정한다
 			var oLoadingText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
-			m_oTextDict[EKey.LOADING_TEXT] = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT, KCDefine.SS_OBJ_P_LOADING_TEXT, this.UIs, m_stLoadingTextPos);
+			m_oTextDict[EKey.LOADING_TEXT] = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT), this.UIs, m_stLoadingTextPos);
 
 			// 게이지 처리자를 설정한다 {
 			var oLoadingGauge = this.UIsBase.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
-			oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, KCDefine.SS_OBJ_P_LOADING_GAUGE, this.UIs, m_stLoadingGaugePos);
+			oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE), this.UIs, m_stLoadingGaugePos);
 
 			m_oGaugeHandlerDict[EKey.GAUGE_HANDLER] = oLoadingGauge.GetComponentInChildren<CGaugeHandler>();
 			m_oGaugeHandlerDict[EKey.GAUGE_HANDLER].Percent = KCDefine.B_VAL_0_FLT;

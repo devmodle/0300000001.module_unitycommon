@@ -23,6 +23,10 @@ namespace SampleEngineName {
 		// Do Something
 	}
 	#endregion			// 기본
+
+	#region 추가 타입
+
+	#endregion			// 추가 타입
 }
 #endif			// #if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

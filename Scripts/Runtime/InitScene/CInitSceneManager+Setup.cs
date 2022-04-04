@@ -11,7 +11,7 @@ namespace InitScene {
 		private void SetupBlindUIs() {
 			// 블라인드 UI 가 없을 경우
 			if(CInitSceneManager.m_oBlindUIs == null) {
-				var oBlindUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_BLIND_UIS, KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS, null);
+				var oBlindUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
 
 				CInitSceneManager.m_oBlindUIs = oBlindUIs;
 				CSceneManager.ScreenBlindUIs = oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS);
