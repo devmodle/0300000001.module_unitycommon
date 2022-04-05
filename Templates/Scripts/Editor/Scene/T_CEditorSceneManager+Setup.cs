@@ -86,6 +86,43 @@ public static partial class CEditorSceneManager {
 			}
 		}
 	}
+
+	/** 미리 로드 할 추가 에셋을 설정한다 */
+	private static void SetupExtraPreloadAssets() {
+#if EXTRA_SCRIPT_ENABLE
+		var oPreloadAssetList = PlayerSettings.GetPreloadedAssets().ToList();
+
+		try {
+			for(int i = 0; i < KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST.Count; ++i) {
+				// 디렉토리가 존재 할 경우
+				if(AssetDatabase.IsValidFolder(KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i])) {
+					var oAssetList = CEditorFunc.FindAssets<Object>(string.Empty, new List<string>() { KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i] });
+
+					for(int j = 0; j < oAssetList.Count; ++j) {
+						int nIdx = oPreloadAssetList.FindIndex((a_oAsset) => a_oAsset != null && oAssetList[j].name.Equals(a_oAsset.name));
+
+						// 에셋이 없을 경우
+						if(!oPreloadAssetList.ExIsValidIdx(nIdx) && oAssetList[j].GetType() != typeof(DefaultAsset)) {
+							oPreloadAssetList.ExAddVal(oAssetList[j]);
+						}
+					}
+				}
+			}
+
+			for(int i = 0; i < KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST.Count; ++i) {
+				var oAsset = CEditorFunc.FindAsset<Object>(KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST[i]);
+				int nIdx = oPreloadAssetList.FindIndex((a_oAsset) => a_oAsset != null && oAsset.name.Equals(a_oAsset.name));
+
+				// 에셋이 없을 경우
+				if(!oPreloadAssetList.ExIsValidIdx(nIdx)) {
+					oPreloadAssetList.ExAddVal(oAsset);
+				}
+			}
+		} finally {
+			PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
+		}
+#endif			// #if EXTRA_SCRIPT_ENABLE
+	}
 	#endregion			// 클래스 함수
 }
 #endif			// #if UNITY_EDITOR

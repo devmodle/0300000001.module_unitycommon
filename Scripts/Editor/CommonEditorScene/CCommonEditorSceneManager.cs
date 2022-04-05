@@ -124,8 +124,8 @@ public static partial class CCommonEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			CCommonEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
-			CCommonEditorSceneManager.m_fHierarchySkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
+			CCommonEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.deltaTime);
+			CCommonEditorSceneManager.m_fHierarchySkipTime += Mathf.Clamp01(Time.deltaTime);
 
 			// 설정 가능 할 경우
 			if(CCommonEditorSceneManager.m_bIsEnableSetup) {
@@ -161,6 +161,7 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupCanvases();
 				CCommonEditorSceneManager.SetupLightOpts();
 				CCommonEditorSceneManager.SetupStaticObjs();
+				CCommonEditorSceneManager.SetupPreloadAssets();
 				CCommonEditorSceneManager.SetupLocalizeInfos();
 				CCommonEditorSceneManager.SetupSceneTemplates();
 
@@ -254,7 +255,10 @@ public static partial class CCommonEditorSceneManager {
 
 	/** 플레이 모드 상태가 갱신 되었을 경우 */
 	private static void OnUpdatePlayModeState(PlayModeStateChange a_ePlayMode) {
-		Time.timeScale = KCDefine.B_VAL_1_FLT;
+		// 에디터 모드 일 경우
+		if(a_ePlayMode == PlayModeStateChange.EnteredEditMode) {
+			Time.timeScale = KCDefine.B_VAL_1_FLT;
+		}
 	}
 
 	/** 프로젝트 상태가 갱신 되었을 경우 */

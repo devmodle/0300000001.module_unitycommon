@@ -44,7 +44,7 @@ public static partial class CEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			CEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
+			CEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.deltaTime);
 
 			// 상태 갱신이 가능 할 경우
 			if(CEditorSceneManager.m_bIsEnableSetup) {
@@ -72,6 +72,8 @@ public static partial class CEditorSceneManager {
 			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fUpdateSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
 				CEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_FLT;
+				CEditorSceneManager.SetupExtraPreloadAssets();
+
 				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
 
 #if EXTRA_SCRIPT_ENABLE
