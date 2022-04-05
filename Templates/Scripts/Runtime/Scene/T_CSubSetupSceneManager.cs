@@ -36,7 +36,7 @@ namespace SetupScene {
 #endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 			// 공용 앱 정보를 설정한다 {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if EXTRA_SCRIPT_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonAppInfoStorage.Inst.StoreURL = Access.StoreURL;
 			
 #if LOCALIZE_TEST_ENABLE
@@ -44,7 +44,7 @@ namespace SetupScene {
 #else
 			CCommonAppInfoStorage.Inst.SystemLanguage = Application.systemLanguage;
 #endif			// #if LOCALIZE_TEST_ENABLE
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 공용 앱 정보를 설정한다 }
 		}
 		#endregion			// 함수
