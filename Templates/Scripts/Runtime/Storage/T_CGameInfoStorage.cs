@@ -286,6 +286,18 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		return this.GameInfo.m_oClearInfoDict.ContainsKey(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
+	/** 스테이지 클리어 여부를 검사한다 */
+	public bool IsClearStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		var oStageClearInfoList = this.GetStageClearInfos(a_nID, a_nChapterID);
+		return oStageClearInfoList.ExIsValid() && oStageClearInfoList.All((a_oClearInfo) => this.IsClearLevel(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
+	}
+
+	/** 챕터 클리어 여부를 검사한다 */
+	public bool IsClearChapter(int a_nID) {
+		var oChapterClearInfoList = this.GetChapterClearInfos(a_nID);
+		return oChapterClearInfoList.ExIsValid() && oChapterClearInfoList.All((a_oClearInfo) => this.IsClearLevel(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
+	}
+
 	/** 레벨 잠금 해제 여부를 검사한다 */
 	public bool IsUnlockLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		return this.GameInfo.m_oUnlockUniqueLevelIDList.Contains(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
@@ -511,6 +523,34 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
 		CFunc.WriteJSONObj(a_oFilePath, this.GameInfo);
 #endif			// #if MSG_PACK_ENABLE
+	}
+
+	/** 스테이지 클리어 정보를 반환한다 */
+	private List<CClearInfo> GetStageClearInfos(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		var oStageClearInfoList = new List<CClearInfo>();
+
+		foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
+			// 스테이지가 동일 할 경우
+			if(stKeyVal.Value.m_stIDInfo.m_nStageID == a_nID && stKeyVal.Value.m_stIDInfo.m_nChapterID == a_nChapterID) {
+				oStageClearInfoList.ExAddVal(stKeyVal.Value);
+			}
+		}
+
+		return oStageClearInfoList;
+	}
+
+	/** 챕터 클리어 정보를 반환한다 */
+	private List<CClearInfo> GetChapterClearInfos(int a_nID) {
+		var oChapterClearInfoList = new List<CClearInfo>();
+
+		foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
+			// 챕터가 동일 할 경우
+			if(stKeyVal.Value.m_stIDInfo.m_nChapterID == a_nID) {
+				oChapterClearInfoList.ExAddVal(stKeyVal.Value);
+			}
+		}
+
+		return oChapterClearInfoList;
 	}
 	#endregion			// 함수
 }
