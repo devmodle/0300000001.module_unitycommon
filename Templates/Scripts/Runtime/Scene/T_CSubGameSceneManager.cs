@@ -226,7 +226,8 @@ namespace GameScene {
 
 		/** 씬을 설정한다 */
 		private void SetupStart() {
-			// Do Something
+			this.ApplySelItems();
+			CGameInfoStorage.Inst.ResetSelItems();
 		}
 
 		/** 엔진을 설정한다 */
@@ -358,6 +359,24 @@ namespace GameScene {
 				m_oEngineDict[EKey.ENGINE].OnTouchEnd(a_oSender, a_oEventData);
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			}
+		}
+
+		/** 선택 아이템을 적용한다 */
+		private void ApplySelItems() {
+			for(int i = 0; i < CGameInfoStorage.Inst.FreeSelItemKindsList.Count; ++i) {
+				this.ApplySelItem(CGameInfoStorage.Inst.FreeSelItemKindsList[i]);
+				CGameInfoStorage.Inst.RemoveSelItem(CGameInfoStorage.Inst.FreeSelItemKindsList[i]);
+			}
+
+			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
+				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
+				CUserInfoStorage.Inst.AddNumItems(CGameInfoStorage.Inst.SelItemKindsList[i], -KCDefine.B_VAL_1_INT);
+			}
+		}
+
+		/** 선택 아이템을 적용한다 */
+		private void ApplySelItem(EItemKinds a_eItemKinds) {
+			// Do Something
 		}
 
 		/** 다음 레벨을 로드한다 */

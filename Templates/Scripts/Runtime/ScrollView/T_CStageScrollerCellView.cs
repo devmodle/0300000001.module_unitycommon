@@ -38,9 +38,9 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 	/** 스크롤러 셀 상태를 갱신한다 */
 	protected virtual void UpdateScrollerCellState(GameObject a_oScrollerCell, STIDInfo a_stIDInfo) {
 #if PLAY_TEST_ENABLE
-		this.SelBtn?.ExSetInteractable(true);
+		this.SelBtn?.ExSetInteractable(true, false);
 #else
-		this.SelBtn?.ExSetInteractable(a_stIDInfo.m_nStageID <= CGameInfoStorage.Inst.GetNumStageClearInfos(a_stIDInfo.m_nChapterID));
+		this.SelBtn?.ExSetInteractable(a_stIDInfo.m_nStageID <= CGameInfoStorage.Inst.GetNumStageClearInfos(a_stIDInfo.m_nChapterID), false);
 #endif			// #if PLAY_TEST_ENABLE
 
 		// 스테이지 정보가 존재 할 경우
