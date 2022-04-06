@@ -29,20 +29,24 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 
 		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
 			var stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, i + m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToStageID(), m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToChapterID());
-			int nNumStageInfos = CLevelInfoTable.Inst.GetNumStageInfos(stIDInfo.m_nChapterID);
 
-			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nStageID < nNumStageInfos);
-
-			// 스테이지 정보가 존재 할 경우
-			if(stIDInfo.m_nStageID < nNumStageInfos) {
-				this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
-			}
+			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
+			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nStageID < CLevelInfoTable.Inst.GetNumStageInfos(stIDInfo.m_nChapterID));
 		}
 	}
 
 	/** 스크롤러 셀 상태를 갱신한다 */
 	protected virtual void UpdateScrollerCellState(GameObject a_oScrollerCell, STIDInfo a_stIDInfo) {
-		// Do Something
+#if PLAY_TEST_ENABLE
+		this.SelBtn?.ExSetInteractable(true);
+#else
+		this.SelBtn?.ExSetInteractable(a_stIDInfo.m_nStageID <= CGameInfoStorage.Inst.GetNumStageClearInfos(a_stIDInfo.m_nChapterID));
+#endif			// #if PLAY_TEST_ENABLE
+
+		// 스테이지 정보가 존재 할 경우
+		if(a_stIDInfo.m_nStageID < CLevelInfoTable.Inst.GetNumStageInfos(a_stIDInfo.m_nChapterID)) {
+			// Do Something
+		}
 	}
 	#endregion			// 함수
 }
