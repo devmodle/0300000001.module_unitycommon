@@ -182,6 +182,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			oPreloadAssetList.RemoveAll((a_oAsset) => a_oAsset == null);
+			oPreloadAssetList.Sort((a_oLhs, a_oRhs) => a_oLhs.name.CompareTo(a_oRhs.name));
 		} finally {
 			PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
 		}

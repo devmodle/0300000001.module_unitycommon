@@ -28,16 +28,6 @@ public static partial class KDefine {
 	#endregion			// 기본
 
 	#region 추가 상수
-	// 씬 이름 {
-	public const string G_SCENE_N_ETC_SHADER = "01.EtcShaderScene";
-	public const string G_SCENE_N_ETC_PARTICLE = "02.EtcParticleScene";
-
-	public const string G_SCENE_N_ADS_ADMOB = "01.AdsAdmobScene";
-	public const string G_SCENE_N_ADS_IRON_SRC = "02.AdsIronSrcScene";
-
-	public const string G_SCENE_N_GOOGLE_FIREBASE = "01.GoogleFirebaseScene";
-	// 씬 이름 }
-
 	// 설정 팝업 {
 	public const string G_IMG_P_SETTINGS_P_SND_ON = "G_SndOn";
 	public const string G_IMG_P_SETTINGS_P_SND_OFF = "G_SndOff";
