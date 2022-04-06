@@ -144,6 +144,7 @@ namespace MainScene {
 #endif			// #if CREATIVE_DIST_BUILD
 
 				this.SetupAwake();
+				CGameInfoStorage.Inst.ResetSelItems();
 			}
 		}
 		

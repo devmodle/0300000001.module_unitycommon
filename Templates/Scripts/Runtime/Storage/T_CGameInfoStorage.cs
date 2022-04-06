@@ -177,10 +177,10 @@ public partial class CGameInfo : CBaseInfo {
 public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
-	public EItemKinds FreeBooster { get; set; } = EItemKinds.NONE;
-
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
-	public List<EItemKinds> SelBoosterList { get; private set; } = new List<EItemKinds>();
+
+	public List<EItemKinds> SelItemKindsList { get; private set; } = new List<EItemKinds>();
+	public List<EItemKinds> FreeSelItemKindsList { get; private set; } = new List<EItemKinds>();
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
 		PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_DBL), PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_DBL), PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_DBL)
@@ -228,10 +228,10 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		CAccess.Assert(this.GameInfo != null);
 	}
 
-	/** 부스터를 리셋한다 */
-	public virtual void ResetBoosters() {
-		this.FreeBooster = EItemKinds.NONE;
-		this.SelBoosterList.Clear();
+	/** 선택 아이템을 리셋한다 */
+	public virtual void ResetSelItems() {
+		this.SelItemKindsList.Clear();
+		this.FreeSelItemKindsList.Clear();
 	}
 
 	/** 다음 일일 보상 식별자를 설정한다 */
@@ -256,14 +256,14 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
-	/** 무료 부스터 여부를 검사한다 */
-	public bool IsFreeBooster(EItemKinds a_eBooster) {
-		return this.FreeBooster == a_eBooster;
+	/** 아이템 선택 여부를 검사한다 */
+	public bool IsSelItem(EItemKinds a_eItemKinds) {
+		return this.SelItemKindsList.Contains(a_eItemKinds);
 	}
 
-	/** 부스터 선택 여부를 검사한다 */
-	public bool IsSelBooster(EItemKinds a_eBooster) {
-		return this.SelBoosterList.Contains(a_eBooster);
+	/** 무료 선택 아이템 여부를 검사한다 */
+	public bool IsFreeSelItem(EItemKinds a_eItemKinds) {
+		return this.FreeSelItemKindsList.Contains(a_eItemKinds);
 	}
 
 	/** 미션 완료 여부를 검사한다 */
@@ -289,13 +289,23 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 스테이지 클리어 여부를 검사한다 */
 	public bool IsClearStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		var oStageClearInfoList = this.GetStageClearInfos(a_nID, a_nChapterID);
-		return oStageClearInfoList.ExIsValid() && oStageClearInfoList.All((a_oClearInfo) => this.IsClearLevel(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
+
+		try {
+			return oStageClearInfoList.ExIsValid() && oStageClearInfoList.All((a_oClearInfo) => this.IsClearLevel(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
+		} finally {
+			CCollectionManager.Inst.DespawnList(oStageClearInfoList);
+		}
 	}
 
 	/** 챕터 클리어 여부를 검사한다 */
 	public bool IsClearChapter(int a_nID) {
 		var oChapterClearInfoList = this.GetChapterClearInfos(a_nID);
-		return oChapterClearInfoList.ExIsValid() && oChapterClearInfoList.All((a_oClearInfo) => this.IsClearLevel(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
+
+		try {
+			return oChapterClearInfoList.ExIsValid() && oChapterClearInfoList.All((a_oClearInfo) => this.IsClearLevel(a_oClearInfo.m_stIDInfo.m_nID, a_oClearInfo.m_stIDInfo.m_nStageID, a_oClearInfo.m_stIDInfo.m_nChapterID));
+		} finally {
+			CCollectionManager.Inst.DespawnList(oChapterClearInfoList);
+		}
 	}
 
 	/** 레벨 잠금 해제 여부를 검사한다 */
@@ -409,10 +419,14 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		this.GameInfo.DailyRewardID = a_nID;
 	}
 
-	/** 선택 부스터를 추가한다 */
-	public void AddSelBooster(EItemKinds a_eBooster) {
-		CAccess.Assert(!this.IsSelBooster(a_eBooster));
-		this.SelBoosterList.Add(a_eBooster);
+	/** 선택 아이템을 추가한다 */
+	public void AddSelItem(EItemKinds a_eItemKinds) {
+		this.SelItemKindsList.ExAddVal(a_eItemKinds);
+	}
+
+	/** 무료 선택 아이템을 추가한다 */
+	public void AddFreeSelItem(EItemKinds a_eItemKinds) {
+		this.FreeSelItemKindsList.ExAddVal(a_eItemKinds);
 	}
 
 	/** 무료 보상 획득 횟수를 추가한다 */
@@ -423,19 +437,19 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 완료 미션을 추가한다 */
 	public void AddCompleteMission(EMissionKinds a_eMissionKinds) {
 		CAccess.Assert(!this.IsCompleteMission(a_eMissionKinds));
-		this.GameInfo.m_oCompleteMissionKindsList.Add(a_eMissionKinds);
+		this.GameInfo.m_oCompleteMissionKindsList.ExAddVal(a_eMissionKinds);
 	}
 
 	/** 완료 일일 미션을 추가한다 */
 	public void AddCompleteDailyMission(EMissionKinds a_eMissionKinds) {
 		CAccess.Assert(!this.IsCompleteDailyMission(a_eMissionKinds));
-		this.GameInfo.m_oCompleteDailyMissionKindsList.Add(a_eMissionKinds);
+		this.GameInfo.m_oCompleteDailyMissionKindsList.ExAddVal(a_eMissionKinds);
 	}
 
 	/** 완료 튜토리얼을 추가한다 */
 	public void AddCompleteTutorial(ETutorialKinds a_eTutorialKinds) {
 		CAccess.Assert(!this.IsCompleteTutorial(a_eTutorialKinds));
-		this.GameInfo.m_oCompleteTutorialKindsList.Add(a_eTutorialKinds);
+		this.GameInfo.m_oCompleteTutorialKindsList.ExAddVal(a_eTutorialKinds);
 	}
 
 	/** 클리어 정보를 추가한다 */
@@ -447,37 +461,42 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 잠금 해제 레벨을 추가한다 */
 	public void AddUnlockLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(!this.IsUnlockLevel(a_nID, a_nStageID, a_nChapterID));
-		this.GameInfo.m_oUnlockUniqueLevelIDList.Add(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
+		this.GameInfo.m_oUnlockUniqueLevelIDList.ExAddVal(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
 	/** 잠금 해제 스테이지를 추가한다 */
 	public void AddUnlockStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(!this.IsUnlockStage(a_nID, a_nChapterID));
-		this.GameInfo.m_oUnlockUniqueStageIDList.Add(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
+		this.GameInfo.m_oUnlockUniqueStageIDList.ExAddVal(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
 	}
 
 	/** 잠금 해제 챕터를 추가한다 */
 	public void AddUnlockChapter(int a_nID) {
 		CAccess.Assert(!this.IsUnlockChapter(a_nID));
-		this.GameInfo.m_oUnlockUniqueChapterIDList.Add(CFactory.MakeUniqueChapterID(a_nID));
+		this.GameInfo.m_oUnlockUniqueChapterIDList.ExAddVal(CFactory.MakeUniqueChapterID(a_nID));
 	}
 
 	/** 보상 획득 레벨을 추가한다 */
 	public void AddAcquireRewardLevel(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(!this.IsAcquireRewardLevel(a_nID, a_nStageID, a_nChapterID));
-		this.GameInfo.m_oAcquireRewardUniqueLevelIDList.Add(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
+		this.GameInfo.m_oAcquireRewardUniqueLevelIDList.ExAddVal(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID));
 	}
 
 	/** 보상 획득 스테이지를 추가한다 */
 	public void AddAcquireRewardStage(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(!this.IsUnlockStage(a_nID, a_nChapterID));
-		this.GameInfo.m_oAcquireRewardUniqueStageIDList.Add(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
+		this.GameInfo.m_oAcquireRewardUniqueStageIDList.ExAddVal(CFactory.MakeUniqueStageID(a_nID, a_nChapterID));
 	}
 
 	/** 보상 획득 챕터를 추가한다 */
 	public void AddAcquireRewardChapter(int a_nID) {
 		CAccess.Assert(!this.IsUnlockChapter(a_nID));
-		this.GameInfo.m_oAcquireRewardUniqueChapterIDList.Add(CFactory.MakeUniqueChapterID(a_nID));
+		this.GameInfo.m_oAcquireRewardUniqueChapterIDList.ExAddVal(CFactory.MakeUniqueChapterID(a_nID));
+	}
+
+	/** 선택 아이템을 제거한다 */
+	public void RemoveSelItem(EItemKinds a_eItemKinds) {
+		this.SelItemKindsList.ExRemoveVal(a_eItemKinds);
 	}
 
 	/** 게임 정보를 로드한다 */
@@ -527,7 +546,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 스테이지 클리어 정보를 반환한다 */
 	private List<CClearInfo> GetStageClearInfos(int a_nID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		var oStageClearInfoList = new List<CClearInfo>();
+		var oStageClearInfoList = CCollectionManager.Inst.SpawnList<CClearInfo>();
 
 		foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
 			// 스테이지가 동일 할 경우
@@ -541,7 +560,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 챕터 클리어 정보를 반환한다 */
 	private List<CClearInfo> GetChapterClearInfos(int a_nID) {
-		var oChapterClearInfoList = new List<CClearInfo>();
+		var oChapterClearInfoList = CCollectionManager.Inst.SpawnList<CClearInfo>();
 
 		foreach(var stKeyVal in this.GameInfo.m_oClearInfoDict) {
 			// 챕터가 동일 할 경우
