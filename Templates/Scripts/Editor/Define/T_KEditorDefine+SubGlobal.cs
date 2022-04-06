@@ -29,7 +29,13 @@ public static partial class KEditorDefine {
 		$"{KCEditorDefine.B_DIR_P_ASSETS}TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset"
 	};
 	// 경로 }
+	#endregion			// 런타임 상수
 
+	#region 추가 상수
+
+	#endregion			// 추가 상수
+
+	#region 추가 런타임 상수
 	// 스크립트 순서
 	public static Dictionary<System.Type, int> G_EXTRA_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>() {
 		// Do Something
@@ -39,10 +45,6 @@ public static partial class KEditorDefine {
 	public static readonly Dictionary<string, System.Type> G_EXTRA_SCENE_MANAGER_TYPE_DICT = new Dictionary<string, System.Type>() {
 		// Do Something
 	};
-	#endregion			// 런타임 상수
-
-	#region 추가 런타임 상수
-
 	#endregion			// 추가 런타임 상수
 }
 #endif			// #if UNITY_EDITOR && EXTRA_SCRIPT_ENABLE
