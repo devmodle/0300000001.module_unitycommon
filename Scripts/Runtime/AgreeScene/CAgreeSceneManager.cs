@@ -64,7 +64,7 @@ namespace AgreeScene {
 			bool bIsAgree = CCommonAppInfoStorage.Inst.AppInfo.IsAgree;
 				
 			// 약관 동의 상태 일 경우
-			if(bIsAgree || !CCommonAppInfoStorage.Inst.IsNeedAgree(CCommonAppInfoStorage.Inst.CountryCode)) {
+			if(bIsAgree || !CCommonAppInfoStorage.Inst.IsNeedsAgree(CCommonAppInfoStorage.Inst.CountryCode)) {
 				this.LoadNextScene();
 			} else {
 				// 한국 일 경우

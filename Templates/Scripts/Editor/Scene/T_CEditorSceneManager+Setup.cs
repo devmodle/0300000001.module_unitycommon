@@ -56,7 +56,7 @@ public static partial class CEditorSceneManager {
 		
 		// JSON 노드가 존재 할 경우
 		if(oJSONNode != null) {
-			bool bIsNeedUpdate = false;
+			bool bIsNeedsUpdate = false;
 
 			var oScopedRegistryList = oJSONNode[KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_DICT_KEY].AsArray;
 			oScopedRegistryList = oScopedRegistryList ?? new SimpleJSON.JSONArray();
@@ -71,14 +71,14 @@ public static partial class CEditorSceneManager {
 
 					// 패키지 레지스트리 노드가 존재 할 경우
 					if(oScopedRegistryNode != null) {
-						bIsNeedUpdate = true;
+						bIsNeedsUpdate = true;
 						oScopedRegistryList.Add(oScopedRegistryNode);
 					}
 				}
 			}
 
 			// 패키지 레지스트리 갱신이 필요 할 경우
-			if(bIsNeedUpdate && oScopedRegistryList.Count > KCDefine.B_VAL_0_INT) {
+			if(bIsNeedsUpdate && oScopedRegistryList.Count > KCDefine.B_VAL_0_INT) {
 				oJSONNode.Add(KEditorDefine.B_UNITY_PKGS_SCOPED_REGISTRY_DICT_KEY, oScopedRegistryList);
 				CFunc.WriteStr(KCEditorDefine.B_DATA_P_UNITY_PKGS, oJSONNode.ToString());
 
