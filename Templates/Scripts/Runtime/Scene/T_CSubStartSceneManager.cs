@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -26,7 +27,7 @@ namespace StartScene {
 		private Vector3 m_stLoadingGaugePos = new Vector3(0.0f, -35.0f, 0.0f);
 
 		private Sequence m_oGaugeAni = null;
-		private System.Diagnostics.Stopwatch m_oStopwatch = new System.Diagnostics.Stopwatch();
+		private Stopwatch m_oStopwatch = new Stopwatch();
 
 		private Dictionary<EKey, System.Text.StringBuilder> m_oStrBuilderDict = new Dictionary<EKey, System.Text.StringBuilder>() {
 			[EKey.STR_BUILDER_A] = new System.Text.StringBuilder(),

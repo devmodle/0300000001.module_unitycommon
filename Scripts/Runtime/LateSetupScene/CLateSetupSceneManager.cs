@@ -69,8 +69,8 @@ namespace LateSetupScene {
 			// Do Something
 		}
 
-		/** 동의 뷰를 출력한다 */
-		protected void ShowConsentView() {
+		/** 추적 동의 뷰를 출력한다 */
+		protected void ShowTrackingConsentView() {
 #if UNITY_IOS
 			ATTrackingStatusBinding.RequestAuthorizationTracking();
 
@@ -78,25 +78,25 @@ namespace LateSetupScene {
 				// 완료 되었을 경우
 				if(a_bIsComplete) {
 					var eStatus = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
-					this.OnCloseConsentView(eStatus != ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED && eStatus != ATTrackingStatusBinding.AuthorizationTrackingStatus.DENIED);
+					this.OnCloseTrackingConsentView(eStatus != ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED && eStatus != ATTrackingStatusBinding.AuthorizationTrackingStatus.DENIED);
 				}
 				
 				return ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED;
-			}, KCDefine.U_DELAY_INIT, KCDefine.B_MAX_DELTA_T_CONSENT_VIEW);
+			}, KCDefine.U_DELAY_INIT, KCDefine.B_MAX_DELTA_T_TRACKING_CONSENT_VIEW);
 #else
-			this.ExLateCallFunc((a_oSender) => this.OnCloseConsentView(true));
+			this.ExLateCallFunc((a_oSender) => this.OnCloseTrackingConsentView(true));
 #endif			// #if UNITY_IOS
 		}
 
 		/** 초기화 */
 		private IEnumerator OnStart() {
 			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
-			
-			// 동의 뷰 출력이 가능 할 경우
-			if(CAccess.IsEnableShowConsentView) {
+
+			// 추적 동의가 필요 할 경우
+			if(CAccess.IsNeedsTrackingConsent) {
 				this.ShowTrackingDescPopup();
 			} else {
-				this.OnCloseConsentView(true);
+				this.OnCloseTrackingConsentView(true);
 			}
 		}
 
@@ -118,9 +118,9 @@ namespace LateSetupScene {
 			}
 		}
 
-		/** 동의 뷰가 닫혔을 경우 */
-		private void OnCloseConsentView(bool a_bIsSuccess) {
-			CFunc.ShowLog($"CLateSetupSceneManager.OnCloseConsentView: {a_bIsSuccess}");
+		/** 추적 동의 뷰가 닫혔을 경우 */
+		private void OnCloseTrackingConsentView(bool a_bIsSuccess) {
+			CFunc.ShowLog($"CLateSetupSceneManager.OnCloseTrackingConsentView: {a_bIsSuccess}");
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = a_bIsSuccess;
@@ -266,9 +266,18 @@ namespace LateSetupScene {
 			}
 
 			this.Setup();
-			
-#if UNITY_ANDROID
 			this.CheckPermission();
+		}
+
+		/** 권한을 검사한다 */
+		private void CheckPermission() {
+#if UNITY_ANDROID
+			// 권한이 필요 할 경우
+			if(m_oPermissionList.ExIsValid()) {
+				this.RequestPermission(m_oPermissionList[KCDefine.B_VAL_0_INT], this.OnReceivePermission);
+			} else {
+				this.LoadNextScene();
+			}
 #else
 			this.LoadNextScene();
 #endif			// #if UNITY_ANDROID
@@ -291,27 +300,7 @@ namespace LateSetupScene {
 		/** 권한을 수신했을 경우 */
 		private void OnReceivePermission(string a_oPermission, bool a_bIsSuccess) {
 			m_oPermissionList.ExRemoveVal(a_oPermission);
-			this.CheckPermission();
-		}
-
-		/** 권한을 검사한다 */
-		private void CheckPermission() {
-			// 권한이 필요 할 경우
-			if(m_oPermissionList.ExIsValid()) {
-				this.RequestPermission(m_oPermissionList[KCDefine.B_VAL_0_INT]);
-			} else {
-				this.LoadNextScene();
-			}
-		}
-
-		/** 권한을 요청한다 */
-		private void RequestPermission(string a_oPermission) {
-			// 권한이 유효 할 경우
-			if(CAccess.IsEnablePermission(a_oPermission)) {
-				this.OnReceivePermission(a_oPermission, true);
-			} else {
-				this.RequestPermission(a_oPermission, this.OnReceivePermission);
-			}
+			this.ExLateCallFunc((a_oSender) => this.CheckPermission());
 		}
 #endif			// #if UNITY_ANDROID
 		#endregion			// 조건부 함수

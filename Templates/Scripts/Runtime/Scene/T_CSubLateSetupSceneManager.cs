@@ -105,7 +105,7 @@ namespace LateSetupScene {
 		/** 추적 설명 팝업 결과를 수신했을 경우 */
 		private void OnReceiveTrackingDescPopupResult(CTrackingDescPopup a_oSender) {
 			a_oSender?.Close();
-			this.ExLateCallFunc((a_oSender) => this.ShowConsentView(), KCDefine.U_DELAY_INIT);
+			this.ExLateCallFunc((a_oSender) => this.ShowTrackingConsentView(), KCDefine.U_DELAY_INIT);
 		}
 		#endregion			// 함수
 
@@ -113,7 +113,7 @@ namespace LateSetupScene {
 #if UNITY_ANDROID
 		/** 권한을 요청한다 */
 		protected override void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback) {
-			CFunc.RequestPermission(this, a_oPermission, a_oCallback);
+			CFunc.RequestPermission(this, a_oPermission, a_oCallback, true);
 		}
 #endif			// #if UNITY_ANDROID
 		#endregion			// 조건부 함수
