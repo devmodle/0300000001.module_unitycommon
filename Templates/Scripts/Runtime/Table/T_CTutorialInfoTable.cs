@@ -27,7 +27,7 @@ public struct STTutorialInfo {
 			string oStrKey = string.Format(KCDefine.U_KEY_FMT_STRS, i + KCDefine.B_VAL_1_INT);
 
 			// 문자열이 존재 할 경우
-			if(a_oTutorialInfo[oStrKey] != null) {
+			if(a_oTutorialInfo[oStrKey].Value.ExIsValid()) {
 				m_oStrList.Add(a_oTutorialInfo[oStrKey]);
 			}
 		}

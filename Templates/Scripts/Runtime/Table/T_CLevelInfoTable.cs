@@ -72,10 +72,6 @@ public partial class CCellInfo : CBaseInfo, System.ICloneable {
 [MessagePackObject][System.Serializable]
 public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	#region 상수
-	private const string KEY_DIFFICULTY = "Difficulty";
-	private const string KEY_LEVEL_KINDS = "LevelKinds";
-	private const string KEY_REWARD_KINDS = "RewardKinds";
-	private const string KEY_TUTORIAL_KINDS = "TutorialKinds";
 	private const string KEY_CELL_VER = "CellVer";
 	#endregion			// 상수
 
@@ -88,27 +84,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
 	[JsonIgnore][IgnoreMember] public Dictionary<ETargetKinds, int> NumTargetsDict = new Dictionary<ETargetKinds, int>();
 	[JsonIgnore][IgnoreMember] public Dictionary<ETargetKinds, int> NumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
-
-	[JsonIgnore][IgnoreMember] public EDifficulty Difficulty {
-		get { return (EDifficulty)int.Parse(m_oStrDict.GetValueOrDefault(KEY_DIFFICULTY, $"{(int)EDifficulty.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_DIFFICULTY, $"{(int)value}"); }
-	}
 	
-	[JsonIgnore][IgnoreMember] public ELevelKinds LevelKinds {
-		get { return (ELevelKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_LEVEL_KINDS, $"{(int)ELevelKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_LEVEL_KINDS, $"{(int)value}"); }
-	}
-
-	[JsonIgnore][IgnoreMember] public ERewardKinds RewardKinds {
-		get { return (ERewardKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_REWARD_KINDS, $"{(int)ERewardKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_REWARD_KINDS, $"{(int)value}"); }
-	}
-
-	[JsonIgnore][IgnoreMember] public ETutorialKinds TutorialKinds {
-		get { return (ETutorialKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_TUTORIAL_KINDS, $"{(int)ETutorialKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_TUTORIAL_KINDS, $"{(int)value}"); }
-	}
-
 	[JsonIgnore][IgnoreMember] public System.Version CellVer {
 		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_VER, KCDefine.B_DEF_VER)); }
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_VER, value.ToString(KCDefine.B_VAL_3_INT)); }

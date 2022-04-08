@@ -39,7 +39,7 @@ public struct STSaleItemInfo {
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 			
 			// 아이템 정보가 존쟆 할 경우
-			if(a_oSaleItemInfo[oNumItemsKey] != null && a_oSaleItemInfo[oItemKindsKey] != null) {
+			if(a_oSaleItemInfo[oNumItemsKey].Value.ExIsValid() && a_oSaleItemInfo[oItemKindsKey].Value.ExIsValid()) {
 				m_oItemInfoList.Add(new STItemInfo() {
 					m_nNumItems = long.Parse(a_oSaleItemInfo[oNumItemsKey]), m_eItemKinds = (EItemKinds)a_oSaleItemInfo[oItemKindsKey].AsInt
 				});

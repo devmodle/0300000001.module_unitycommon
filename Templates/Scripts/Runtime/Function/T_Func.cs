@@ -9,6 +9,10 @@ using UnityEngine.UI;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
+#if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE
+using GoogleSheetsToUnity;
+#endif			// #if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE
+
 /** 기본 함수 */
 public static partial class Func {
 	/** 콜백 */
@@ -41,6 +45,7 @@ public static partial class Func {
 
 #if GAME_CENTER_MODULE_ENABLE
 		GAME_CENTER_LOGIN,
+		GAME_CENTER_LOGOUT,
 
 		UPDATE_RECORD,
 		UPDATE_ACHIEVEMENT,
@@ -50,6 +55,10 @@ public static partial class Func {
 		PURCHASE,
 		RESTORE,
 #endif			// #if PURCHASE_MODULE_ENABLE
+
+#if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE
+		LOAD_GOOGLE_SHEET,	
+#endif			// #if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE
 
 		[HideInInspector] MAX_VAL
 	}
@@ -84,6 +93,12 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDictA = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
 	private static Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDictB = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>();
 #endif			// #if PURCHASE_MODULE_ENABLE
+
+#if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE
+	private static List<string> m_oGoogleSheetNameList = new List<string>();
+	private static Dictionary<string, string> m_oGoogleSheetJSONStrDict = new Dictionary<string, string>();
+	private static Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, string>, bool>> m_oServicesCallbackDict = new Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, string>, bool>>();
+#endif			// #if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE
 	#endregion			// 클래스 변수
 
 	#region 클래스 함수
@@ -97,7 +112,7 @@ public static partial class Func {
 	/** 지역화 문자열을 설정한다 */
 	public static void SetupLocalizeStrs(string a_oCountryCode, SystemLanguage a_eSystemLanguage, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oCountryCode.ExIsValid());
-
+		
 		// 국가 코드가 존재 할 경우
 		if(a_oCountryCode.ExIsValid()) {
 			CStrTable.Inst.LoadStrsFromRes(CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STR, a_oCountryCode, a_eSystemLanguage.ToString()));
@@ -629,6 +644,14 @@ public static partial class Func {
 		CGameCenterManager.Inst.Login(Func.OnGameCenterLogin);
 	}
 
+	/** 게임 센터 로그아웃을 처리한다 */
+	public static void GameCenterLogout(System.Action<CGameCenterManager> a_oCallback) {
+		CIndicatorManager.Inst.Show();
+		Func.m_oGameCenterCallbackDictA.ExReplaceVal(ECallback.GAME_CENTER_LOGOUT, a_oCallback);
+
+		CGameCenterManager.Inst.Logout(Func.OnGameCenterLogout);
+	}
+
 	/** 기록을 갱신한다 */
 	public static void UpdateRecord(string a_oLeaderboardID, long a_nRecord, System.Action<CGameCenterManager, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
@@ -649,6 +672,12 @@ public static partial class Func {
 	private static void OnGameCenterLogin(CGameCenterManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oGameCenterCallbackDictB.GetValueOrDefault(ECallback.GAME_CENTER_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
+	}
+
+	/** 게임 센터에서 로그아웃 되었을 경우 */
+	private static void OnGameCenterLogout(CGameCenterManager a_oSender) {
+		CIndicatorManager.Inst.Close();
+		Func.m_oGameCenterCallbackDictA.GetValueOrDefault(ECallback.GAME_CENTER_LOGOUT)?.Invoke(a_oSender);
 	}
 	
 	/** 기록이 갱신 되었을 경우 */
@@ -716,6 +745,60 @@ public static partial class Func {
 		Func.m_oPurchaseCallbackDictB.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
+
+#if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE
+	/** 구글 시트를 로드한다 */
+	public static void LoadGoogleSheet(string a_oID, List<string> a_oNameList, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, string>, bool> a_oCallback) {
+		CIndicatorManager.Inst.Show();
+
+		Func.m_oGoogleSheetNameList.Clear();
+		Func.m_oGoogleSheetJSONStrDict.Clear();
+
+		Func.m_oGoogleSheetNameList.ExAddVals(a_oNameList);
+		Func.m_oServicesCallbackDict.ExReplaceVal(ECallback.LOAD_GOOGLE_SHEET, a_oCallback);
+
+		CServicesManager.Inst.LoadGoogleSheet(a_oID, a_oNameList[KCDefine.B_VAL_0_INT], Func.OnLoadGoogleSheet);
+	}
+
+	/** 구글 시트를 로드했을 경우 */
+	private static void OnLoadGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, string a_oName, bool a_bIsSuccess) {
+		Func.m_oGoogleSheetNameList.ExRemoveVal(a_oName);
+		var oKeyList = CCollectionManager.Inst.SpawnList<string>();
+
+		try {
+			// 데이터가 존재 할 경우
+			if(a_bIsSuccess && a_oGoogleSheet.rows.primaryDictionary.Count >= KCDefine.B_VAL_2_INT) {
+				var oJSONNode = new SimpleJSON.JSONArray();
+
+				for(int i = 0; i < a_oGoogleSheet.rows[KCDefine.B_VAL_1_INT].Count; ++i) {
+					oKeyList.ExAddVal(a_oGoogleSheet.rows[KCDefine.B_VAL_1_INT][i].value);
+				}
+
+				for(int i = 1; i < a_oGoogleSheet.rows.primaryDictionary.Count; ++i) {
+					var oJSONClass = new SimpleJSON.JSONClass();
+
+					for(int j = 0; j < a_oGoogleSheet.rows[i + KCDefine.B_VAL_1_INT].Count; ++j) {
+						oJSONClass.Add(oKeyList[j], a_oGoogleSheet.rows[i + KCDefine.B_VAL_1_INT][j].value);
+					}
+
+					oJSONNode.Add(oJSONClass);
+				}
+
+				Func.m_oGoogleSheetJSONStrDict.TryAdd(a_oName, oJSONNode.ToString());
+			}
+
+			// 로드 할 데이터가 존재 할 경우
+			if(Func.m_oGoogleSheetNameList.ExIsValid()) {
+				CServicesManager.Inst.LoadGoogleSheet(a_oID, Func.m_oGoogleSheetNameList[KCDefine.B_VAL_0_INT], Func.OnLoadGoogleSheet);
+			} else {
+				CIndicatorManager.Inst.Close();
+				Func.m_oServicesCallbackDict.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEET)?.Invoke(a_oSender, a_oGoogleSheet, a_oID, Func.m_oGoogleSheetJSONStrDict, a_bIsSuccess);
+			}
+		} finally {
+			CCollectionManager.Inst.DespawnList(oKeyList);
+		}
+	}
+#endif			// #if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수
 }
 #endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE

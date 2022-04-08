@@ -8,11 +8,15 @@ using EnhancedUI.EnhancedScroller;
 using DanielLochner.Assets.SimpleScrollSnap;
 
 #if SCRIPT_TEMPLATE_ONLY
+#if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
-#if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_MODULE_ENABLE
+using GoogleSheetsToUnity;
+#endif			// #if GOOGLE_SHEET_MODULE_ENABLE
+
 namespace LevelEditorScene {
 	/** 서브 레벨 에디터 씬 관리자 */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
@@ -89,16 +93,7 @@ namespace LevelEditorScene {
 			[EKey.BG_TOUCH_DISPATCHER] = null
 		};
 
-#if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
-		private SampleEngineName.STGridInfo m_stGridInfo;
-		private Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>>[,] m_oBlockSpriteInfoDictContainers = null;
-#endif			// #if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
-
-#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-		private Dictionary<EKey, CLevelInfo> m_oLevelInfoDict = new Dictionary<EKey, CLevelInfo>() {
-			[EKey.SEL_LEVEL_INFO] = null
-		};
-#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+		[SerializeField] private string m_oEpisodeInfoTableGoogleSheetID = string.Empty;
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>() {
@@ -145,6 +140,17 @@ namespace LevelEditorScene {
 
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
+
+#if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
+		private SampleEngineName.STGridInfo m_stGridInfo;
+		private Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>>[,] m_oBlockSpriteInfoDictContainers = null;
+#endif			// #if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
+
+#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+		private Dictionary<EKey, CLevelInfo> m_oLevelInfoDict = new Dictionary<EKey, CLevelInfo>() {
+			[EKey.SEL_LEVEL_INFO] = null
+		};
+#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		#endregion			// 변수
 
 		#region IEnhancedScrollerDelegate
@@ -436,12 +442,18 @@ namespace LevelEditorScene {
 		private void OnReceiveEditorTableLoadPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
+#if GOOGLE_SHEET_MODULE_ENABLE
+				Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<string>() {
+					KCDefine.U_KEY_LEVEL, KCDefine.U_KEY_STAGE, KCDefine.U_KEY_CHAPTER
+				}, this.OnLoadGoogleSheetEpisodeInfos);
+#else
 				CEpisodeInfoTable.Inst.LevelInfoDict.Clear();
 				CEpisodeInfoTable.Inst.StageInfoDict.Clear();
 				CEpisodeInfoTable.Inst.ChapterInfoDict.Clear();
 
 				CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 				this.UpdateUIsState();
+#endif			// #if GOOGLE_SHEET_MODULE_ENABLE
 			}
 		}
 
@@ -685,6 +697,23 @@ namespace LevelEditorScene {
 				}
 			}
 		}
+
+#if GOOGLE_SHEET_MODULE_ENABLE
+		/** 에피소드 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadGoogleSheetEpisodeInfos(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, string> a_oJSONStrDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				var oJSONNode = new SimpleJSON.JSONClass();
+
+				foreach(var stKeyVal in a_oJSONStrDict) {
+					oJSONNode.Add(stKeyVal.Key, SimpleJSON.JSON.Parse(stKeyVal.Value));
+				}
+
+				CEpisodeInfoTable.Inst.ResetEpisodeInfos(oJSONNode.ToString());
+				this.UpdateUIsState();
+			}
+		}
+#endif			// #if GOOGLE_SHEET_MODULE_ENABLE
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		/** 블럭 스프라이트를 리셋한다 */
