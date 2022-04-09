@@ -10,7 +10,7 @@
 	- *Bezier Solution (2.3.0 - Nov 5, 2021)*
 	- *Bitmap Font Importer (2.4.1 - May 6, 2019)*
 	- *Enhanced Hierarchy (2.4.5 - May 5, 2020)*
-	- *Enhanced Scroller (2.32.1 - Jan 27, 2022)*
+	- *Enhanced Scroller (2.33.0 - Apr 6, 2022)*
 	- *iTween (2.0.10 - Apr 17, 2019)*
 	- *LINQ to GameObject (2.3.1 - Jan 9, 2018)*
 	- *Native Share (1.4.6 - Jan 14, 2022)*
