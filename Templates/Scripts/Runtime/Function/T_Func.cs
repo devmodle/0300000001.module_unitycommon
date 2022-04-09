@@ -96,8 +96,8 @@ public static partial class Func {
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	private static List<string> m_oGoogleSheetNameList = new List<string>();
-	private static Dictionary<string, string> m_oGoogleSheetJSONStrDict = new Dictionary<string, string>();
-	private static Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, string>, bool>> m_oServicesCallbackDict = new Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, string>, bool>>();
+	private static Dictionary<string, SimpleJSON.JSONNode> m_oGoogleSheetJSONNodeDict = new Dictionary<string, SimpleJSON.JSONNode>();
+	private static Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oServicesCallbackDict = new Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 클래스 변수
 
@@ -748,24 +748,27 @@ public static partial class Func {
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드한다 */
-	public static void LoadGoogleSheet(string a_oID, List<string> a_oNameList, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, string>, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show();
-
+	public static void LoadGoogleSheet(string a_oID, List<string> a_oNameList, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool> a_oCallback) {
 		Func.m_oGoogleSheetNameList.Clear();
-		Func.m_oGoogleSheetJSONStrDict.Clear();
+		Func.m_oGoogleSheetJSONNodeDict.Clear();
 
 		Func.m_oGoogleSheetNameList.ExAddVals(a_oNameList);
 		Func.m_oServicesCallbackDict.ExReplaceVal(ECallback.LOAD_GOOGLE_SHEET, a_oCallback);
 
+		CIndicatorManager.Inst.Show();
 		CServicesManager.Inst.LoadGoogleSheet(a_oID, a_oNameList[KCDefine.B_VAL_0_INT], Func.OnLoadGoogleSheet);
 	}
-
+	
 	/** 구글 시트를 로드했을 경우 */
 	private static void OnLoadGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, string a_oName, bool a_bIsSuccess) {
-		Func.m_oGoogleSheetNameList.ExRemoveVal(a_oName);
 		var oKeyList = CCollectionManager.Inst.SpawnList<string>();
 
 		try {
+			int nIdx = Func.m_oGoogleSheetNameList.FindIndex((a_oGoogleSheetName) =>a_oGoogleSheetName.Equals(a_oName));
+			CAccess.Assert(Func.m_oGoogleSheetNameList.ExIsValidIdx(nIdx));
+
+			Func.m_oGoogleSheetNameList.ExRemoveValAt(nIdx);
+
 			// 데이터가 존재 할 경우
 			if(a_bIsSuccess && a_oGoogleSheet.rows.primaryDictionary.Count >= KCDefine.B_VAL_2_INT) {
 				var oJSONNode = new SimpleJSON.JSONArray();
@@ -774,7 +777,7 @@ public static partial class Func {
 					oKeyList.ExAddVal(a_oGoogleSheet.rows[KCDefine.B_VAL_1_INT][i].value);
 				}
 
-				for(int i = 1; i < a_oGoogleSheet.rows.primaryDictionary.Count; ++i) {
+				for(int i = KCDefine.B_VAL_1_INT; i < a_oGoogleSheet.rows.primaryDictionary.Count; ++i) {
 					var oJSONClass = new SimpleJSON.JSONClass();
 
 					for(int j = 0; j < a_oGoogleSheet.rows[i + KCDefine.B_VAL_1_INT].Count; ++j) {
@@ -784,7 +787,7 @@ public static partial class Func {
 					oJSONNode.Add(oJSONClass);
 				}
 
-				Func.m_oGoogleSheetJSONStrDict.TryAdd(a_oName, oJSONNode.ToString());
+				Func.m_oGoogleSheetJSONNodeDict.TryAdd(a_oName, oJSONNode);
 			}
 
 			// 로드 할 데이터가 존재 할 경우
@@ -792,7 +795,7 @@ public static partial class Func {
 				CServicesManager.Inst.LoadGoogleSheet(a_oID, Func.m_oGoogleSheetNameList[KCDefine.B_VAL_0_INT], Func.OnLoadGoogleSheet);
 			} else {
 				CIndicatorManager.Inst.Close();
-				Func.m_oServicesCallbackDict.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEET)?.Invoke(a_oSender, a_oGoogleSheet, a_oID, Func.m_oGoogleSheetJSONStrDict, a_bIsSuccess);
+				Func.m_oServicesCallbackDict.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEET)?.Invoke(a_oSender, a_oGoogleSheet, a_oID, Func.m_oGoogleSheetJSONNodeDict, a_bIsSuccess);
 			}
 		} finally {
 			CCollectionManager.Inst.DespawnList(oKeyList);

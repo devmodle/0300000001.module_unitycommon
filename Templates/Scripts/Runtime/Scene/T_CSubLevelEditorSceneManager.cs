@@ -440,18 +440,12 @@ namespace LevelEditorScene {
 		private void OnReceiveEditorTableLoadPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-#if GOOGLE_SHEET_ENABLE
-				Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<string>() {
-					KCDefine.U_KEY_LEVEL, KCDefine.U_KEY_STAGE, KCDefine.U_KEY_CHAPTER
-				}, this.OnLoadGoogleSheetEpisodeInfos);
-#else
 				CEpisodeInfoTable.Inst.LevelInfoDict.Clear();
 				CEpisodeInfoTable.Inst.StageInfoDict.Clear();
 				CEpisodeInfoTable.Inst.ChapterInfoDict.Clear();
 
 				CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 				this.UpdateUIsState();
-#endif			// #if GOOGLE_SHEET_ENABLE
 			}
 		}
 
@@ -698,13 +692,13 @@ namespace LevelEditorScene {
 
 #if GOOGLE_SHEET_ENABLE
 		/** 에피소드 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadGoogleSheetEpisodeInfos(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, string> a_oJSONStrDict, bool a_bIsSuccess) {
+		private void OnLoadGoogleSheetEpisodeInfos(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				var oJSONNode = new SimpleJSON.JSONClass();
 
-				foreach(var stKeyVal in a_oJSONStrDict) {
-					oJSONNode.Add(stKeyVal.Key, SimpleJSON.JSON.Parse(stKeyVal.Value));
+				foreach(var stKeyVal in a_oJSONNodeDict) {
+					oJSONNode.Add(stKeyVal.Key, stKeyVal.Value);
 				}
 
 				CEpisodeInfoTable.Inst.ResetEpisodeInfos(oJSONNode.ToString());
@@ -1176,13 +1170,19 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 테이블 로드 버튼을 눌렀을 경우 */
 		private void OnTouchMEUIsLoadTableBtn() {
+#if GOOGLE_SHEET_ENABLE
+			Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<string>() {
+				KCDefine.U_KEY_LEVEL, KCDefine.U_KEY_STAGE, KCDefine.U_KEY_CHAPTER
+			}, this.OnLoadGoogleSheetEpisodeInfos);
+#else
 			Func.ShowEditorTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult);
+#endif			// #if GOOGLE_SHEET_ENABLE
 		}
 
 		/** 오른쪽 에디터 UI 레벨 제거 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsRemoveLevelBtn() {
-			m_oScrollerDict[EKey.SEL_SCROLLER] = m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1;
 			m_eSelInputPopup = EInputPopup.REMOVE_LEVEL;
+			m_oScrollerDict[EKey.SEL_SCROLLER] = m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1;
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
 				var stParams = new CEditorInputPopup.STParams() {
@@ -1227,6 +1227,7 @@ namespace LevelEditorScene {
 
 		/** 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우 */
 		private void OnTouchSCVMoveBtn(CScrollerCellView a_oSender, long a_nID) {
+			m_eSelInputPopup = EInputPopup.MOVE_LEVEL;
 			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Scroller;
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
