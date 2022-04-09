@@ -334,23 +334,25 @@ namespace MainScene {
 #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
 		/** AB 테스트 UI 를 설정한다 */
 		private void SetupABTestUIs() {
-			var oABTUIsSetUIs = CFactory.CreateObj<VerticalLayoutGroup>(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, this.UpUIs);
-			oABTUIsSetUIs.ExReset();
-			(oABTUIsSetUIs.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
-			(oABTUIsSetUIs.transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
-			(oABTUIsSetUIs.transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
-			(oABTUIsSetUIs.transform as RectTransform).anchoredPosition = Vector3.zero;
+			var oABTUIsSetUIsLayoutGroup = CFactory.CreateObj<HorizontalLayoutGroup>(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, this.UpUIs);
+			oABTUIsSetUIsLayoutGroup.spacing = KCDefine.B_VAL_4_FLT * KCDefine.B_VAL_5_FLT;
+			oABTUIsSetUIsLayoutGroup.ExReset();
 
-			var oContentsSizeFitter = oABTUIsSetUIs.gameObject.ExAddComponent<ContentSizeFitter>();
+			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
+			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
+			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
+			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchoredPosition = Vector3.zero;
+
+			var oContentsSizeFitter = oABTUIsSetUIsLayoutGroup.gameObject.ExAddComponent<ContentSizeFitter>();
 			oContentsSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-			oContentsSizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+			oContentsSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 
 			// 텍스트를 설정한다 {
-			var oASetText = CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_A_SET_BTN, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN), oABTUIsSetUIs.gameObject);
+			var oASetText = CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_A_SET_BTN, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN), oABTUIsSetUIsLayoutGroup.gameObject);
 			oASetText.fontSize = KCDefine.U_DEF_SIZE_FONT;
 			oASetText.ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_A_SET_TEXT), EFontSet._1);
 
-			var oBSetText = CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_B_SET_BTN, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN), oABTUIsSetUIs.gameObject);
+			var oBSetText = CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_B_SET_BTN, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN), oABTUIsSetUIsLayoutGroup.gameObject);
 			oBSetText.fontSize = KCDefine.U_DEF_SIZE_FONT;
 			oBSetText.ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_B_SET_TEXT), EFontSet._1);
 			// 텍스트를 설정한다 }

@@ -9,13 +9,11 @@ using DanielLochner.Assets.SimpleScrollSnap;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+using GoogleSheetsToUnity;
+
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
-
-#if GOOGLE_SHEET_MODULE_ENABLE
-using GoogleSheetsToUnity;
-#endif			// #if GOOGLE_SHEET_MODULE_ENABLE
 
 namespace LevelEditorScene {
 	/** 서브 레벨 에디터 씬 관리자 */
@@ -442,7 +440,7 @@ namespace LevelEditorScene {
 		private void OnReceiveEditorTableLoadPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-#if GOOGLE_SHEET_MODULE_ENABLE
+#if GOOGLE_SHEET_ENABLE
 				Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<string>() {
 					KCDefine.U_KEY_LEVEL, KCDefine.U_KEY_STAGE, KCDefine.U_KEY_CHAPTER
 				}, this.OnLoadGoogleSheetEpisodeInfos);
@@ -453,7 +451,7 @@ namespace LevelEditorScene {
 
 				CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 				this.UpdateUIsState();
-#endif			// #if GOOGLE_SHEET_MODULE_ENABLE
+#endif			// #if GOOGLE_SHEET_ENABLE
 			}
 		}
 
@@ -698,7 +696,7 @@ namespace LevelEditorScene {
 			}
 		}
 
-#if GOOGLE_SHEET_MODULE_ENABLE
+#if GOOGLE_SHEET_ENABLE
 		/** 에피소드 정보 구글 시트를 로드했을 경우 */
 		private void OnLoadGoogleSheetEpisodeInfos(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, string> a_oJSONStrDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
@@ -713,7 +711,7 @@ namespace LevelEditorScene {
 				this.UpdateUIsState();
 			}
 		}
-#endif			// #if GOOGLE_SHEET_MODULE_ENABLE
+#endif			// #if GOOGLE_SHEET_ENABLE
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		/** 블럭 스프라이트를 리셋한다 */

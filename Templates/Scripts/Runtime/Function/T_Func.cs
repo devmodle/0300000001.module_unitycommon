@@ -9,9 +9,9 @@ using UnityEngine.UI;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 using GoogleSheetsToUnity;
-#endif			// #if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 /** 기본 함수 */
 public static partial class Func {
@@ -56,9 +56,9 @@ public static partial class Func {
 		RESTORE,
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		LOAD_GOOGLE_SHEET,	
-#endif			// #if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 		[HideInInspector] MAX_VAL
 	}
@@ -94,11 +94,11 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDictB = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>();
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	private static List<string> m_oGoogleSheetNameList = new List<string>();
 	private static Dictionary<string, string> m_oGoogleSheetJSONStrDict = new Dictionary<string, string>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, string>, bool>> m_oServicesCallbackDict = new Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, string>, bool>>();
-#endif			// #if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 클래스 변수
 
 	#region 클래스 함수
@@ -746,7 +746,7 @@ public static partial class Func {
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드한다 */
 	public static void LoadGoogleSheet(string a_oID, List<string> a_oNameList, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, string>, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
@@ -798,7 +798,7 @@ public static partial class Func {
 			CCollectionManager.Inst.DespawnList(oKeyList);
 		}
 	}
-#endif			// #if UNITY_STANDALONE && GOOGLE_SHEET_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 클래스 함수
 }
 #endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
