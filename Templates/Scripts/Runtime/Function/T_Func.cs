@@ -95,8 +95,8 @@ public static partial class Func {
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-	private static List<string> m_oGoogleSheetNameList = new List<string>();
-	private static Dictionary<string, SimpleJSON.JSONNode> m_oGoogleSheetJSONNodeDict = new Dictionary<string, SimpleJSON.JSONNode>();
+	private static List<string> m_oGoogleSpreadSheetNameList = new List<string>();
+	private static Dictionary<string, SimpleJSON.JSONNode> m_oGoogleSpreadSheetJSONNodeDict = new Dictionary<string, SimpleJSON.JSONNode>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oServicesCallbackDict = new Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 클래스 변수
@@ -746,28 +746,28 @@ public static partial class Func {
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-	/** 구글 시트를 로드한다 */
-	public static void LoadGoogleSheet(string a_oID, List<string> a_oNameList, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool> a_oCallback) {
-		Func.m_oGoogleSheetNameList.Clear();
-		Func.m_oGoogleSheetJSONNodeDict.Clear();
+#if (UNITY_STANDALONE && GOOGLE_SPREAD_SHEET_ENABLE) && (DEBUG || DEVELOPMENT_BUILD)
+	/** 구글 스프레드 시트를 로드한다 */
+	public static void LoadGoogleSpreadSheet(string a_oID, List<string> a_oNameList, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool> a_oCallback) {
+		Func.m_oGoogleSpreadSheetNameList.Clear();
+		Func.m_oGoogleSpreadSheetJSONNodeDict.Clear();
 
-		Func.m_oGoogleSheetNameList.ExAddVals(a_oNameList);
+		Func.m_oGoogleSpreadSheetNameList.ExAddVals(a_oNameList);
 		Func.m_oServicesCallbackDict.ExReplaceVal(ECallback.LOAD_GOOGLE_SHEET, a_oCallback);
 
 		CIndicatorManager.Inst.Show();
-		CServicesManager.Inst.LoadGoogleSheet(a_oID, a_oNameList[KCDefine.B_VAL_0_INT], Func.OnLoadGoogleSheet);
+		CServicesManager.Inst.LoadGoogleSpreadSheet(a_oID, a_oNameList[KCDefine.B_VAL_0_INT], Func.OnLoadGoogleSpreadSheet);
 	}
 	
-	/** 구글 시트를 로드했을 경우 */
-	private static void OnLoadGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, string a_oName, bool a_bIsSuccess) {
+	/** 구글 스프레드 시트를 로드했을 경우 */
+	private static void OnLoadGoogleSpreadSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, string a_oName, bool a_bIsSuccess) {
 		var oKeyList = CCollectionManager.Inst.SpawnList<string>();
 
 		try {
-			int nIdx = Func.m_oGoogleSheetNameList.FindIndex((a_oGoogleSheetName) =>a_oGoogleSheetName.Equals(a_oName));
-			CAccess.Assert(Func.m_oGoogleSheetNameList.ExIsValidIdx(nIdx));
+			int nIdx = Func.m_oGoogleSpreadSheetNameList.FindIndex((a_oGoogleSheetName) =>a_oGoogleSheetName.Equals(a_oName));
+			CAccess.Assert(Func.m_oGoogleSpreadSheetNameList.ExIsValidIdx(nIdx));
 
-			Func.m_oGoogleSheetNameList.ExRemoveValAt(nIdx);
+			Func.m_oGoogleSpreadSheetNameList.ExRemoveValAt(nIdx);
 
 			// 데이터가 존재 할 경우
 			if(a_bIsSuccess && a_oGoogleSheet.rows.primaryDictionary.Count >= KCDefine.B_VAL_2_INT) {
@@ -787,21 +787,21 @@ public static partial class Func {
 					oJSONNode.Add(oJSONClass);
 				}
 
-				Func.m_oGoogleSheetJSONNodeDict.TryAdd(a_oName, oJSONNode);
+				Func.m_oGoogleSpreadSheetJSONNodeDict.TryAdd(a_oName, oJSONNode);
 			}
 
 			// 로드 할 데이터가 존재 할 경우
-			if(Func.m_oGoogleSheetNameList.ExIsValid()) {
-				CServicesManager.Inst.LoadGoogleSheet(a_oID, Func.m_oGoogleSheetNameList[KCDefine.B_VAL_0_INT], Func.OnLoadGoogleSheet);
+			if(Func.m_oGoogleSpreadSheetNameList.ExIsValid()) {
+				CServicesManager.Inst.LoadGoogleSpreadSheet(a_oID, Func.m_oGoogleSpreadSheetNameList[KCDefine.B_VAL_0_INT], Func.OnLoadGoogleSpreadSheet);
 			} else {
 				CIndicatorManager.Inst.Close();
-				Func.m_oServicesCallbackDict.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEET)?.Invoke(a_oSender, a_oGoogleSheet, a_oID, Func.m_oGoogleSheetJSONNodeDict, a_bIsSuccess);
+				Func.m_oServicesCallbackDict.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEET)?.Invoke(a_oSender, a_oGoogleSheet, a_oID, Func.m_oGoogleSpreadSheetJSONNodeDict, a_bIsSuccess);
 			}
 		} finally {
 			CCollectionManager.Inst.DespawnList(oKeyList);
 		}
 	}
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if (UNITY_STANDALONE && GOOGLE_SPREAD_SHEET_ENABLE) && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 클래스 함수
 }
 #endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE

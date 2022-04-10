@@ -37,6 +37,7 @@ namespace TitleScene {
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 				this.SetupAwake();
+				this.TestUIs?.SetActive(!COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene);
 			}
 		}
 

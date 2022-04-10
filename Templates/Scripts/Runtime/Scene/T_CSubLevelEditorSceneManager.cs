@@ -690,9 +690,9 @@ namespace LevelEditorScene {
 			}
 		}
 
-#if GOOGLE_SHEET_ENABLE
-		/** 에피소드 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadGoogleSheetEpisodeInfos(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeDict, bool a_bIsSuccess) {
+#if GOOGLE_SPREAD_SHEET_ENABLE
+		/** 에피소드 정보 구글 스프레드 시트를 로드했을 경우 */
+		private void OnLoadGoogleSpreadSheetEpisodeInfos(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				var oJSONNode = new SimpleJSON.JSONClass();
@@ -705,7 +705,7 @@ namespace LevelEditorScene {
 				this.UpdateUIsState();
 			}
 		}
-#endif			// #if GOOGLE_SHEET_ENABLE
+#endif			// #if GOOGLE_SPREAD_SHEET_ENABLE
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		/** 블럭 스프라이트를 리셋한다 */
@@ -1170,13 +1170,13 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 테이블 로드 버튼을 눌렀을 경우 */
 		private void OnTouchMEUIsLoadTableBtn() {
-#if GOOGLE_SHEET_ENABLE
-			Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<string>() {
+#if GOOGLE_SPREAD_SHEET_ENABLE
+			Func.LoadGoogleSpreadSheet(m_oEpisodeInfoTableGoogleSheetID, new List<string>() {
 				KCDefine.U_KEY_LEVEL, KCDefine.U_KEY_STAGE, KCDefine.U_KEY_CHAPTER
-			}, this.OnLoadGoogleSheetEpisodeInfos);
+			}, this.OnLoadGoogleSpreadSheetEpisodeInfos);
 #else
 			Func.ShowEditorTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult);
-#endif			// #if GOOGLE_SHEET_ENABLE
+#endif			// #if GOOGLE_SPREAD_SHEET_ENABLE
 		}
 
 		/** 오른쪽 에디터 UI 레벨 제거 버튼을 눌렀을 경우 */
