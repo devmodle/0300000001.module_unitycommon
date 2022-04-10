@@ -224,8 +224,60 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 	
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+	public int TotalNumLevelInfos {
+		get {
+			int nNumLevelInfos = KCDefine.B_VAL_0_INT;
+
+			for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
+				for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
+					nNumLevelInfos += this.GetNumLevelInfos(j, i);
+				}
+			}
+			
+			return nNumLevelInfos;
+		}
+	}
+
+	public int TotalNumStageInfos {
+		get {
+			int nNumStageInfos = KCDefine.B_VAL_0_INT;
+
+			for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
+				nNumStageInfos += this.GetNumStageInfos(i);
+			}
+
+			return nNumStageInfos;
+		}
+	}
+
 	public int NumChapterInfos => this.LevelInfoDictContainer.Count;
 #else
+	public int TotalNumLevelInfos {
+		get {
+			int nNumLevelInfos = KCDefine.B_VAL_0_INT;
+
+			for(int i = 0; i < this.NumLevelInfosDictContainer.Count; ++i) {
+				for(int j = 0; j < this.NumLevelInfosDictContainer[i].Count; ++j) {
+					nNumLevelInfos += this.NumLevelInfosDictContainer[i][j];
+				}
+			}
+
+			return nNumLevelInfos;
+		}
+	}
+
+	public int TotalNumStageInfos {
+		get {
+			int nNumStageInfos = KCDefine.B_VAL_0_INT;
+
+			for(int i = 0; i < this.NumLevelInfosDictContainer.Count; ++i) {
+				nNumStageInfos += this.NumLevelInfosDictContainer[i].Count;
+			}
+
+			return nNumStageInfos;
+		}
+	}
+
 	public int NumChapterInfos => this.NumLevelInfosDictContainer.Count;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 프로퍼티
