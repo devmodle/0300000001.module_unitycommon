@@ -37,6 +37,7 @@ MonoBehaviour:
     m_bIsEnableRealtimeEnvironmentLighting: 0
     m_eQualityLevel: 2
     m_eMixedLightingMode: 1
+    m_eLightmapEncodingQuality: 1
     m_stNormQualityRenderingOptsInfo:
       m_stLightOptsInfo:
         m_eLightmapMaxSize: 1024
