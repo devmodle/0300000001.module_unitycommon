@@ -50,8 +50,14 @@ namespace SplashScene {
 					CResManager.Inst.LoadSpriteAtlas(m_oSpriteAtlasPathList[i]);
 				}
 
+				this.Setup();
 				StartCoroutine(this.OnStart());
 			}
+		}
+
+		/** 씬을 설정한다 */
+		protected virtual void Setup() {
+			// Do Something
 		}
 
 		/** 다음 씬을 로드한다 */

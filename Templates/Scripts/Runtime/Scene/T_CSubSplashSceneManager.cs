@@ -25,26 +25,10 @@ namespace SplashScene {
 		#endregion			// 변수
 
 		#region 함수
-		/** 초기화 */
-		public override void Awake() {
-			base.Awake();
-			
-			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
-				this.SetupAwake();
-			}
-		}
-
-		/** 스플래시를 출력한다 */
-		protected override void ShowSplash() {
-			m_oImgDict[EKey.SPLASH_IMG].SetNativeSize();
-			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(true);
-
-			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.SS_DELAY_NEXT_SCENE_LOAD);
-		}
-
 		/** 씬을 설정한다 */
-		private void SetupAwake() {
+		protected override void Setup() {
+			base.Setup();
+			
 			// 이미지를 설정한다 {
 			m_oImgDict[EKey.BG_IMG] = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_BG_IMG, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG), this.UIs);
 			m_oImgDict[EKey.BG_IMG].color = KCDefine.SS_COLOR_BG_IMG;
@@ -54,9 +38,17 @@ namespace SplashScene {
 			m_oImgDict[EKey.BG_IMG].gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
 			m_oImgDict[EKey.SPLASH_IMG] = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_SPLASH_IMG, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG), this.UIs, KCDefine.SS_POS_SPLASH_IMG);
-			m_oImgDict[EKey.SPLASH_IMG].sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_G_SPLASH);
+			m_oImgDict[EKey.SPLASH_IMG].sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
 			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
 			// 이미지를 설정한다 }
+		}
+
+		/** 스플래시를 출력한다 */
+		protected override void ShowSplash() {
+			m_oImgDict[EKey.SPLASH_IMG].SetNativeSize();
+			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(true);
+
+			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.SS_DELAY_NEXT_SCENE_LOAD);
 		}
 		#endregion			// 함수
 	}
