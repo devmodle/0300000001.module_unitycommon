@@ -42,7 +42,8 @@ namespace LevelEditorScene {
 
 			RE_UIS_PREV_BTN,
 			RE_UIS_NEXT_BTN,
-			RE_UIS_REMOVE_LEVEL_BTN,
+			RE_UIS_REMOVE_ALL_LEVELS_BTN,
+			RE_UIS_LOAD_REMOTE_TABLE_BTN,
 
 			RE_UIS_PAGE_SCROLL_SNAP,
 			RE_UIS_PAGE_UIS_01,
@@ -59,6 +60,14 @@ namespace LevelEditorScene {
 			SEL_LEVEL_INFO,
 #endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
+			[HideInInspector] MAX_VAL
+		}
+
+		/** 테이블 */
+		private enum ETable {
+			NONE = -1,
+			LOCAL,
+			REMOTE,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -79,6 +88,7 @@ namespace LevelEditorScene {
 		}
 
 		#region 변수
+		private ETable m_eSelTable = ETable.NONE;
 		private EUserType m_eSelUserType = EUserType.NONE;
 		private EInputPopup m_eSelInputPopup = EInputPopup.NONE;
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
@@ -119,7 +129,8 @@ namespace LevelEditorScene {
 
 			[EKey.RE_UIS_PREV_BTN] = null,
 			[EKey.RE_UIS_NEXT_BTN] = null,
-			[EKey.RE_UIS_REMOVE_LEVEL_BTN] = null
+			[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN] = null,
+			[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN] = null
 		};
 
 		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>() {
@@ -295,22 +306,40 @@ namespace LevelEditorScene {
 			if(CSceneManager.IsAppRunning) {
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 #if INPUT_SYSTEM_MODULE_ENABLE
-				// 이전 키를 눌렀을 경우
-				if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.leftArrowKey.wasPressedThisFrame) {
+				// 이전 레벨 키를 눌렀을 경우
+				if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.upArrowKey.wasPressedThisFrame) {
 					this.OnTouchMEUIsPrevBtn();
 				}
-				// 다음 키를 눌렀을 경우
-				else if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rightArrowKey.wasPressedThisFrame) {
+				// 다음 레벨 키를 눌렀을 경우
+				else if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.downArrowKey.wasPressedThisFrame) {
 					this.OnTouchMEUIsNextBtn();
+				}
+
+				// 이전 페이지 키를 눌렀을 경우
+				if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.leftArrowKey.wasPressedThisFrame) {
+					m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.GoToPreviousPanel();
+				}
+				// 다음 페이지 키를 눌렀을 경우
+				else if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rightArrowKey.wasPressedThisFrame) {
+					m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.GoToNextPanel();
 				}
 #else
-				// 이전 키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.LeftArrow)) {
+				// 이전 레벨 키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.UpArrow)) {
 					this.OnTouchMEUIsPrevBtn();
 				}
-				// 다음 키를 눌렀을 경우
-				else if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.RightArrow)) {
+				// 다음 레벨 키를 눌렀을 경우
+				else if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.DownArrow)) {
 					this.OnTouchMEUIsNextBtn();
+				}
+
+				// 이전 페이지 키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.LeftArrow)) {
+					m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.GoToPreviousPanel();
+				}
+				// 다음 페이지 키를 눌렀을 경우
+				else if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.RightArrow)) {
+					m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.GoToNextPanel();
 				}
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
@@ -431,6 +460,12 @@ namespace LevelEditorScene {
 				CCommonUserInfoStorage.Inst.SaveUserInfo();
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
+#if GOOGLE_SHEET_ENABLE
+				m_eSelTable = ETable.REMOTE;
+#else
+				m_eSelTable = ETable.LOCAL;
+#endif			// #if GOOGLE_SHEET_ENABLE
+
 				this.OnReceiveEditorResetPopupResult(null, true);
 				this.OnReceiveEditorTableLoadPopupResult(null, true);
 			}
@@ -440,18 +475,23 @@ namespace LevelEditorScene {
 		private void OnReceiveEditorTableLoadPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-#if GOOGLE_SHEET_ENABLE
-				Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<(string, int)>() {
-					(KCDefine.U_KEY_LEVEL, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT), (KCDefine.U_KEY_STAGE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT), (KCDefine.U_KEY_CHAPTER, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)
-				}, this.OnLoadGoogleSheetEpisodeInfos);
-#else
-				CEpisodeInfoTable.Inst.LevelInfoDict.Clear();
-				CEpisodeInfoTable.Inst.StageInfoDict.Clear();
-				CEpisodeInfoTable.Inst.ChapterInfoDict.Clear();
+				switch(m_eSelTable) {
+					case ETable.LOCAL: {
+						CEpisodeInfoTable.Inst.LevelInfoDict.Clear();
+						CEpisodeInfoTable.Inst.StageInfoDict.Clear();
+						CEpisodeInfoTable.Inst.ChapterInfoDict.Clear();
 
-				CEpisodeInfoTable.Inst.LoadEpisodeInfos();
-				this.UpdateUIsState();
+						CEpisodeInfoTable.Inst.LoadEpisodeInfos();
+						this.UpdateUIsState();
+					} break;
+					case ETable.REMOTE: {
+#if GOOGLE_SHEET_ENABLE
+						Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<(string, int)>() {
+							(KCDefine.U_KEY_LEVEL, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT), (KCDefine.U_KEY_STAGE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT), (KCDefine.U_KEY_CHAPTER, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)
+						}, this.OnLoadGoogleSheetEpisodeInfos);
 #endif			// #if GOOGLE_SHEET_ENABLE
+					} break;
+				}
 			}
 		}
 
@@ -1066,12 +1106,15 @@ namespace LevelEditorScene {
 			m_oBtnDict[EKey.RE_UIS_PREV_BTN] = this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_PREV_BTN);
 			m_oBtnDict[EKey.RE_UIS_NEXT_BTN] = this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_NEXT_BTN);
 
-			m_oBtnDict[EKey.RE_UIS_REMOVE_LEVEL_BTN] = this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_REMOVE_LEVEL_BTN);
-			m_oBtnDict[EKey.RE_UIS_REMOVE_LEVEL_BTN]?.onClick.AddListener(this.OnTouchREUIsRemoveLevelBtn);
+			m_oBtnDict[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN] = this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_REMOVE_ALL_LEVELS_BTN);
+			m_oBtnDict[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN]?.onClick.AddListener(this.OnTouchREUIsRemoveAllLevelsBtn);
+
+			m_oBtnDict[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN] = this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_REMOTE_TABLE_BTN);
+			m_oBtnDict[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN]?.onClick.AddListener(() => this.OnTouchREUIsLoadTableBtn(ETable.REMOTE));
 
 			this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN)?.onClick.AddListener(this.OnTouchREUIsApplyBtn);
 			this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN)?.onClick.AddListener(this.OnTouchREUIsLoadLevelBtn);
-			this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_TABLE_BTN)?.onClick.AddListener(this.OnTouchMEUIsLoadTableBtn);
+			this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LOCAL_TABLE_BTN)?.onClick.AddListener(() => this.OnTouchREUIsLoadTableBtn(ETable.LOCAL));
 			// 버튼을 설정한다 }
 
 			// 스크롤 뷰를 설정한다 {
@@ -1109,13 +1152,19 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 상태를 갱신한다 */
 		private void UpdateRightEditorUIsState() {
-			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo.m_nChapterID);
-
 			// 텍스트를 설정한다
+			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo.m_nChapterID);
 			m_oTextDict[EKey.RE_UIS_TITLE_TEXT]?.ExSetText<Text>(string.Format(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_LEVEL_PAGE_TEXT_FMT), m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, nNumLevelInfos), false);
 
-			// 버튼을 설정한다
-			m_oBtnDict[EKey.RE_UIS_REMOVE_LEVEL_BTN]?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT, false);
+			// 버튼을 설정한다 {
+			m_oBtnDict[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN]?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT, false);
+
+#if GOOGLE_SHEET_ENABLE
+			m_oBtnDict[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN]?.ExSetInteractable(true, false);
+#else
+			m_oBtnDict[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN]?.ExSetInteractable(false, false);
+#endif			// #if GOOGLE_SHEET_ENABLE
+			// 버튼을 설정한다 }
 
 			// 스크롤 스냅이 존재 할 경우
 			if(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] != null) {
@@ -1174,13 +1223,8 @@ namespace LevelEditorScene {
 			}
 		}
 
-		/** 오른쪽 에디터 UI 테이블 로드 버튼을 눌렀을 경우 */
-		private void OnTouchMEUIsLoadTableBtn() {
-			Func.ShowEditorTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult);
-		}
-
-		/** 오른쪽 에디터 UI 레벨 제거 버튼을 눌렀을 경우 */
-		private void OnTouchREUIsRemoveLevelBtn() {
+		/** 오른쪽 에디터 UI 모든 레벨 제거 버튼을 눌렀을 경우 */
+		private void OnTouchREUIsRemoveAllLevelsBtn() {
 			m_eSelInputPopup = EInputPopup.REMOVE_LEVEL;
 			m_oScrollerDict[EKey.SEL_SCROLLER] = m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1;
 
@@ -1193,6 +1237,12 @@ namespace LevelEditorScene {
 
 				(a_oSender as CEditorInputPopup).Init(stParams);
 			});
+		}
+
+		/** 오른쪽 에디터 UI 테이블 로드 버튼을 눌렀을 경우 */
+		private void OnTouchREUIsLoadTableBtn(ETable a_eTable) {
+			m_eSelTable = a_eTable;
+			Func.ShowEditorTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult);
 		}
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 		#endregion			// 조건부 함수

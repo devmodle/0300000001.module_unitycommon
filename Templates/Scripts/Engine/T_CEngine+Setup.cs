@@ -43,8 +43,7 @@ namespace SampleEngineName {
 				var oBlockInfoList = new List<(EBlockKinds, CBlock)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					var oBlock = this.CreateBlock(stKeyVal.Value[i], a_oCellInfo.m_stIdx.ExToPos(KDefine.E_OFFSET_CELL, KDefine.E_SIZE_CELL), a_oCellInfo.m_stIdx);
-					oBlockInfoList.Add((stKeyVal.Value[i], oBlock));
+					// Do Something
 				}
 
 				oBlockInfoDictContainer.TryAdd(stKeyVal.Key, oBlockInfoList);
