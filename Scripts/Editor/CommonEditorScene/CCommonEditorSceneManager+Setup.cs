@@ -151,43 +151,6 @@ public static partial class CCommonEditorSceneManager {
 		});
 	}
 
-	/** 미리 로드 할 에셋을 설정한다 */
-	private static void SetupPreloadAssets() {
-		var oPreloadAssetList = PlayerSettings.GetPreloadedAssets().ToList();
-
-		try {
-			var oPreloadAssetInfoListContainer = new List<List<(string, string)>>() {
-				KCEditorDefine.B_PREFAB_P_INFO_LIST, KCEditorDefine.B_ASSET_P_INFO_LIST
-			};
-
-			for(int i = 0; i < SceneManager.sceneCountInBuildSettings; ++i) {
-				string oScenePath = SceneUtility.GetScenePathByBuildIndex(i);
-				int nIdx = oPreloadAssetList.FindIndex((a_oAsset) => a_oAsset != null && oScenePath.Contains(a_oAsset.name));
-
-				// 씬이 없을 경우
-				if(!oPreloadAssetList.ExIsValidIdx(nIdx) && (!oScenePath.Contains(KCDefine.B_TOKEN_TITLE) && !oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_A) && !oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_B))) {
-					oPreloadAssetList.ExAddVal(CEditorFunc.FindAsset<SceneAsset>(oScenePath));
-				}
-			}
-
-			for(int i = 0; i < oPreloadAssetInfoListContainer.Count; ++i) {
-				for(int j = 0; j < oPreloadAssetInfoListContainer[i].Count; ++j) {
-					int nIdx = oPreloadAssetList.FindIndex((a_oAsset) => a_oAsset != null && Path.GetFileNameWithoutExtension(oPreloadAssetInfoListContainer[i][j].Item2).Equals(a_oAsset.name));
-
-					// 에셋이 없을 경우
-					if(!oPreloadAssetList.ExIsValidIdx(nIdx)) {
-						oPreloadAssetList.ExAddVal(CEditorFunc.FindAsset<Object>(oPreloadAssetInfoListContainer[i][j].Item2));
-					}
-				}
-			}
-
-			oPreloadAssetList.RemoveAll((a_oAsset) => a_oAsset == null);
-			oPreloadAssetList.Sort((a_oLhs, a_oRhs) => a_oLhs.name.CompareTo(a_oRhs.name));
-		} finally {
-			PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
-		}
-	}
-
 	/** 지역화 정보를 설정한다 */
 	private static void SetupLocalizeInfos() {
 		// 지역화 정보 테이블이 존재 할 경우
@@ -200,6 +163,47 @@ public static partial class CCommonEditorSceneManager {
 					CPlatformOptsSetter.LocalizeInfoTable.LocalizeInfoList[i].m_oFontSetInfoList[j] = stFontSetInfo;
 				}
 			}
+		}
+	}
+
+	/** 미리 로드 할 에셋을 설정한다 */
+	private static void SetupPreloadAssets() {
+		var oPreloadAssetList = PlayerSettings.GetPreloadedAssets().ToList();
+
+		try {
+			var oPreloadAssetInfoListContainer = new List<List<(string, string)>>() {
+				KCEditorDefine.B_PREFAB_P_INFO_LIST, KCEditorDefine.B_ASSET_P_INFO_LIST
+			};
+
+			for(int i = 0; i < SceneManager.sceneCountInBuildSettings; ++i) {
+				string oScenePath = SceneUtility.GetScenePathByBuildIndex(i);
+
+				// 씬 추가가 가능 할 경우
+				if(!oScenePath.Contains(KCDefine.B_TOKEN_TITLE) && !oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_A) && !oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_B)) {
+					var oAsset = CEditorFunc.FindAsset<SceneAsset>(oScenePath);
+					oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => a_oAsset != null && oScenePath.Contains(a_oAsset.name));
+				}
+			}
+
+			for(int i = 0; i < oPreloadAssetInfoListContainer.Count; ++i) {
+				for(int j = 0; j < oPreloadAssetInfoListContainer[i].Count; ++j) {
+					var oAsset = CEditorFunc.FindAsset<Object>(oPreloadAssetInfoListContainer[i][j].Item2);
+					oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => a_oAsset != null && Path.GetFileNameWithoutExtension(oPreloadAssetInfoListContainer[i][j].Item2).Equals(a_oAsset.name));
+				}
+			}
+
+			oPreloadAssetList.RemoveAll((a_oAsset) => a_oAsset == null);
+			oPreloadAssetList.Sort((a_oLhs, a_oRhs) => a_oLhs.name.CompareTo(a_oRhs.name));
+		} finally {
+			PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
+		}
+	}
+
+	/** 스프라이트 아틀라스를 설정한다 */
+	private static void SetupSpriteAtlases() {
+		for(int i = 0; i < KCEditorDefine.B_SEARCH_P_SPRITE_ATLAS_LIST.Count; ++i) {
+			string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_SEARCH_P_SPRITE_ATLAS_LIST[i]);
+			CCommonEditorSceneManager.DoSetupSpriteAtlases(AssetDatabase.GetSubFolders(oDirPath).ToList());
 		}
 	}
 
@@ -221,14 +225,6 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));
 		}
 #endif			// #if STUDY_MODULE_ENABLE
-	}
-
-	/** 스프라이트 아틀라스를 설정한다 */
-	private static void SetupSpriteAtlases() {
-		for(int i = 0; i < KCEditorDefine.B_SEARCH_P_SPRITE_ATLAS_LIST.Count; ++i) {
-			var oSubDirectories = AssetDatabase.GetSubFolders(Path.GetDirectoryName(KCEditorDefine.B_SEARCH_P_SPRITE_ATLAS_LIST[i]));
-			CCommonEditorSceneManager.DoSetupSpriteAtlases(oSubDirectories.ToList());
-		}
 	}
 
 	/** 광원 옵션을 설정한다 */
@@ -302,26 +298,22 @@ public static partial class CCommonEditorSceneManager {
 				string oSpriteAtlasPathA = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_RESOURCES, KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST[nIdx]);
 				string oSpriteAtlasPathB = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_EDITOR_RESOURCES, KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST[nIdx]);
 
-				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorFunc.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPathA, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), CEditorFunc.FindAssets<Sprite>(string.Empty, new List<string>() { a_oDirPathList[i] }));
-				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorFunc.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPathB, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), CEditorFunc.FindAssets<Sprite>(string.Empty, new List<string>() { a_oDirPathList[i] }));
+				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorFunc.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPathA, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), a_oDirPathList[i]);
+				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorFunc.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPathB, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), a_oDirPathList[i]);
 			}
 		}
 	}
 
 	/** 스프라이트 아틀라스를 설정한다 */
-	private static void DoSetupSpriteAtlas(SpriteAtlas a_oSpriteAtlas, List<Sprite> a_oSpriteList) {
+	private static void DoSetupSpriteAtlas(SpriteAtlas a_oSpriteAtlas, string a_oDirPath) {
 		// 스프라이트 아틀라스가 존재 할 경우
 		if(a_oSpriteAtlas != null) {
-			var oSprites = a_oSpriteAtlas.GetPackables();
+			var oDirAsset = CEditorFunc.FindAsset<Object>(a_oDirPath);
 
-			for(int i = 0; i < oSprites.Length; ++i) {
-				// 스프라이트가 존재 할 경우
-				if(oSprites[i] != null) {
-					a_oSpriteList.ExRemoveValAt(a_oSpriteList.FindIndex((a_oSprite) => a_oSprite.name.Equals(oSprites[i].name)));
-				}
+			// 디렉토리가 없을 경우
+			if(!a_oSpriteAtlas.GetPackables().ExFindVal((a_oPackable) => a_oPackable != null && a_oPackable.name.Equals(oDirAsset.name)).ExIsValidIdx()) {
+				a_oSpriteAtlas.Add(new Object[] { oDirAsset });
 			}
-
-			a_oSpriteAtlas.Add(a_oSpriteList.ToArray());
 		}
 	}
 

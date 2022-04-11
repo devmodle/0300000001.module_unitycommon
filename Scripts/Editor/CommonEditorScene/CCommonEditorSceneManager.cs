@@ -161,9 +161,7 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupCanvases();
 				CCommonEditorSceneManager.SetupLightOpts();
 				CCommonEditorSceneManager.SetupStaticObjs();
-				CCommonEditorSceneManager.SetupPreloadAssets();
 				CCommonEditorSceneManager.SetupLocalizeInfos();
-				CCommonEditorSceneManager.SetupSceneTemplates();
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupInputSystem();
@@ -263,7 +261,9 @@ public static partial class CCommonEditorSceneManager {
 
 	/** 프로젝트 상태가 갱신 되었을 경우 */
 	private static void OnUpdateProjectState() {
+		CCommonEditorSceneManager.SetupPreloadAssets();
 		CCommonEditorSceneManager.SetupSpriteAtlases();
+		CCommonEditorSceneManager.SetupSceneTemplates();
 	}
 	#endregion			// 클래스 함수
 }
