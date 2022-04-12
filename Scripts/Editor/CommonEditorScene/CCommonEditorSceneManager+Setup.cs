@@ -309,9 +309,10 @@ public static partial class CCommonEditorSceneManager {
 		// 스프라이트 아틀라스가 존재 할 경우
 		if(a_oSpriteAtlas != null) {
 			var oDirAsset = CEditorFunc.FindAsset<Object>(a_oDirPath);
+			var oPackables = a_oSpriteAtlas.GetPackables();
 
 			// 디렉토리가 없을 경우
-			if(!a_oSpriteAtlas.GetPackables().ExFindVal((a_oPackable) => a_oPackable != null && a_oPackable.name.Equals(oDirAsset.name)).ExIsValidIdx()) {
+			if(!oPackables.ExFindVal((a_oPackable) => a_oPackable != null && a_oPackable.name.Equals(oDirAsset.name)).ExIsValidIdx()) {
 				a_oSpriteAtlas.Add(new Object[] { oDirAsset });
 			}
 		}

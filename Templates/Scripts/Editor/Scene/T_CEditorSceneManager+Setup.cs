@@ -66,8 +66,7 @@ public static partial class CEditorSceneManager {
 
 				// 패키지 레지스트리가 없을 경우
 				if(!oScopedRegistryList.ExIsValidIdx(nIdx)) {
-					string oScopedRegistryStr = CFunc.ReadStr(stKeyVal.Value);
-					var oScopedRegistryNode = SimpleJSON.JSON.Parse(oScopedRegistryStr) as SimpleJSON.JSONClass;
+					var oScopedRegistryNode = SimpleJSON.JSON.Parse(CFunc.ReadStr(stKeyVal.Value)) as SimpleJSON.JSONClass;
 
 					// 패키지 레지스트리 노드가 존재 할 경우
 					if(oScopedRegistryNode != null) {
