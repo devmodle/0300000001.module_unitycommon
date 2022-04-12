@@ -211,11 +211,11 @@ namespace GameScene {
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 			// 비율을 설정한다 {
-			bool bIsValidA = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stGridScale.x) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stGridScale.x);
-			bool bIsValidB = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stGridScale.y) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stGridScale.y);
-			bool bIsValidC = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stGridScale.z) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stGridScale.z);
+			bool bIsValidA = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.x) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.x);
+			bool bIsValidB = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.y) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.y);
+			bool bIsValidC = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.z) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.z);
 
-			this.BlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_oEngineDict[EKey.ENGINE].GridInfo.m_stGridScale : Vector3.one;
+			this.BlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale : Vector3.one;
 			// 비율을 설정한다 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 

@@ -768,11 +768,11 @@ namespace LevelEditorScene {
 			m_stGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO], Vector3.zero);
 
 			// 비율을 설정한다 {
-			bool bIsValidA = !float.IsNaN(m_stGridInfo.m_stGridScale.x) && !float.IsInfinity(m_stGridInfo.m_stGridScale.x);
-			bool bIsValidB = !float.IsNaN(m_stGridInfo.m_stGridScale.y) && !float.IsInfinity(m_stGridInfo.m_stGridScale.y);
-			bool bIsValidC = !float.IsNaN(m_stGridInfo.m_stGridScale.z) && !float.IsInfinity(m_stGridInfo.m_stGridScale.z);
+			bool bIsValidA = !float.IsNaN(m_stGridInfo.m_stScale.x) && !float.IsInfinity(m_stGridInfo.m_stScale.x);
+			bool bIsValidB = !float.IsNaN(m_stGridInfo.m_stScale.y) && !float.IsInfinity(m_stGridInfo.m_stScale.y);
+			bool bIsValidC = !float.IsNaN(m_stGridInfo.m_stScale.z) && !float.IsInfinity(m_stGridInfo.m_stScale.z);
 
-			this.BlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_stGridInfo.m_stGridScale : Vector3.one;
+			this.BlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_stGridInfo.m_stScale : Vector3.one;
 			this.BlockObjs.transform.localPosition = Vector3.zero.ExToWorld(this.MidEditorUIs).ExToLocal(this.UIs);
 			// 비율을 설정한다 }
 
@@ -807,7 +807,7 @@ namespace LevelEditorScene {
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 					var oBlockSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, SampleEngineName.KDefine.E_OBJ_N_BLOCK_SPRITE);
 					oBlockSprite.sprite = SampleEngineName.Access.GetBlockSprite(stKeyVal.Value[i]);
-					oBlockSprite.transform.localPosition = m_stGridInfo.m_stGridPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+					oBlockSprite.transform.localPosition = m_stGridInfo.m_stPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
 					oBlockSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrder(stKeyVal.Value[i]));
 					oBlockSpriteInfoList.ExAddVal((stKeyVal.Value[i], oBlockSprite));

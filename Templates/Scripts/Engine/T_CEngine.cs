@@ -25,6 +25,12 @@ namespace SampleEngineName {
 			[HideInInspector] MAX_VAL
 		}
 
+		/** 엔진 상태 */
+		private enum EEngineState {
+			NONE = -1,
+			[HideInInspector] MAX_VAL
+		}
+
 		/** 매개 변수 */
 		public struct STParams {
 			public GameObject m_oFXObjs;
@@ -40,6 +46,7 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
+		private EEngineState m_eEngineState = EEngineState.NONE;
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
@@ -49,7 +56,6 @@ namespace SampleEngineName {
 		#region 프로퍼티
 		public long IntRecord { get; private set; } = 0;
 		public double RealRecord { get; private set; } = 0.0;
-
 		public EState State { get; private set; } = EState.NONE;
 		public STGridInfo GridInfo { get; private set; }
 		
@@ -62,7 +68,7 @@ namespace SampleEngineName {
 		#endregion			// 추가 변수
 
 		#region 추가 프로퍼티
-		
+
 		#endregion			// 추가 프로퍼티
 
 		#region 함수
@@ -71,8 +77,9 @@ namespace SampleEngineName {
 			m_stParams = a_stParams;
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-			this.SetupInit();
+			this.SetupEngine();
 			this.SetupLevel();
+			this.SetupGridLine();
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
@@ -107,46 +114,57 @@ namespace SampleEngineName {
 
 		/** 터치를 시작했을 경우 */
 		public void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 실행 상태 일 경우
-			if(this.State == EState.RUN) {
-				var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oBlockObjs);
-			}
+			this.HandleTouchState(a_oSender, a_oEventData, ETouch.BEGIN);
 		}
 
 		/** 터치를 움직였을 경우 */
 		public void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 실행 상태 일 경우
-			if(this.State == EState.RUN) {
-				var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oBlockObjs);
-			}
+			this.HandleTouchState(a_oSender, a_oEventData, ETouch.MOVE);
 		}
 
 		/** 터치를 종료했을 경우 */
 		public void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 실행 상태 일 경우
-			if(this.State == EState.RUN) {
-				var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oBlockObjs);
+			this.HandleTouchState(a_oSender, a_oEventData, ETouch.END);
+		}
+
+		/** 상태를 변경한다 */
+		public void SetState(EState a_eState) {
+			this.State = a_eState;
+
+			switch(a_eState) {
+				case EState.RUN: this.HandleRunState(); break;
+				case EState.STOP: this.HandleStopState(); break;
 			}
 		}
 
-		/** 엔진을 실행한다 */
-		public void Run() {
-			this.State = EState.RUN;
+		/** 구동 상태를 처리한다 */
+		private void HandleRunState() {
+			// Do Something
 		}
 
-		/** 엔진을 중지한다 */
-		public void Stop() {
-			this.State = EState.STOP;
+		/** 중지 상태를 처리한다 */
+		private void HandleStopState() {
+			// Do Something
+		}
+
+		/** 터치 이벤트를 처리한다 */
+		private void HandleTouchState(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouch a_eTouch) {
+			switch(this.State) {
+				case EState.RUN: {
+					var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oBlockObjs);
+
+					// 그리드 영역 일 경우
+					if(this.GridInfo.m_stBounds.Contains(stTouchPos)) {
+						var stIdx = stTouchPos.ExToIdx(this.GridInfo.m_stPivotPos, KDefine.E_SIZE_CELL);
+						CAccess.Assert(m_oBlockInfoDictContainers.ExIsValidIdx(stIdx));
+					}
+				} break;
+			}
 		}
 		#endregion			// 함수
 
 		#region 조건부 함수
 #if UNITY_EDITOR
-		/** GUI 를 그린다 */
-		public virtual void OnGUI() {
-			// Do Something
-		}
-
 		/** 기즈모를 그린다 */
 		public virtual void OnDrawGizmos() {
 			// 앱 실행 중이 아닐 경우

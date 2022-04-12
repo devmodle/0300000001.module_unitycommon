@@ -54,8 +54,6 @@ public partial class CFreeRewardPopup : CSubPopup {
 	private void OnTouchRewardAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
-#else
-		this.ShowRewardAcquirePopup();
 #endif			// #if ADS_MODULE_ENABLE
 	}
 

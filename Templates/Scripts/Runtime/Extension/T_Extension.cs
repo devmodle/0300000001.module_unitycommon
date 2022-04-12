@@ -238,8 +238,7 @@ public static partial class Extension {
 		var oPostItemInfos = oJSONNode[KCDefine.B_KEY_JSON_ROOT_DATA];
 
 		for(int i = 0; i < oPostItemInfos.Count; ++i) {
-			var oPostItemInfoStr = oPostItemInfos[i].ToString();
-			oPostItemInfoList.Add(oPostItemInfoStr.ExJSONStrToObj<STPostItemInfo>());
+			oPostItemInfoList.Add(oPostItemInfos[i].ToString().ExJSONStrToObj<STPostItemInfo>());
 		}
 #endif			// #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 
