@@ -348,12 +348,12 @@ public static partial class Func {
 
 	/** 보상 광고가 닫혔을 경우 */
 	private static void OnCloseRewardAds(CAdsManager a_oSender) {
-		CIndicatorManager.Inst.Close();
 		CAppInfoStorage.Inst.PrevRewardAdsTime = System.DateTime.Now;
 
 		CAppInfoStorage.Inst.AddRewardAdsWatchTimes(KCDefine.B_VAL_1_INT);
 		CAppInfoStorage.Inst.SaveAppInfo();
 
+		CIndicatorManager.Inst.Close();
 		Func.m_oAdsCallbackDictB.GetValueOrDefault(ECallback.REWARD_ADS)?.Invoke(a_oSender, Func.m_stAdsRewardInfo, Func.m_bIsWatchRewardAds);
 	}
 
@@ -365,14 +365,13 @@ public static partial class Func {
 
 	/** 전면 광고가 닫혔을 경우 */
 	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
-		CIndicatorManager.Inst.Close();
-
 		CAppInfoStorage.Inst.AdsSkipTimes = KCDefine.B_VAL_0_INT;
 		CAppInfoStorage.Inst.PrevAdsTime = System.DateTime.Now;
 
 		CAppInfoStorage.Inst.AddFullscreenAdsWatchTimes(KCDefine.B_VAL_1_INT);
 		CAppInfoStorage.Inst.SaveAppInfo();
-		
+
+		CIndicatorManager.Inst.Close();
 		Func.m_oAdsCallbackDictA.GetValueOrDefault(ECallback.FULLSCREEN_ADS)?.Invoke(a_oSender, Func.m_bIsWatchFullscreenAds);
 	}
 #endif			// #if ADS_MODULE_ENABLE

@@ -80,8 +80,8 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 			double dblDeltaTimeA = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevAdsTime);
 			double dblDeltaTimeB = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevRewardAdsTime);
 
-			bool bIsEnable = this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && (dblDeltaTimeA.ExIsGreateEquals(fAdsDelay) && dblDeltaTimeB.ExIsGreateEquals(fAdsDeltaTime));
-			return bIsEnable && CGameInfoStorage.Inst.GameInfo.m_oClearInfoDict.Count >= KDefine.G_MAX_NUM_ADS_SKIP_CLEAR_INFOS;
+			bool bIsEnable = dblDeltaTimeA.ExIsGreateEquals(fAdsDelay) && dblDeltaTimeB.ExIsGreateEquals(fAdsDeltaTime);
+			return bIsEnable && this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && CGameInfoStorage.Inst.GameInfo.m_oClearInfoDict.Count >= KDefine.G_MAX_NUM_ADS_SKIP_CLEAR_INFOS;
 		}
 	}
 	
