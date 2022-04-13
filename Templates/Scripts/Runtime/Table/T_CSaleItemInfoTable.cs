@@ -103,7 +103,7 @@ public partial class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	
 	/** 판매 아이템 정보를 반환한다 */
 	public bool TryGetSaleItemInfo(ESaleItemKinds a_eSaleItemKinds, out STSaleItemInfo a_stOutSaleItemInfo) {
-		a_stOutSaleItemInfo = this.SaleItemInfoDict.GetValueOrDefault(a_eSaleItemKinds, KDefine.G_INVALID_SALE_ITEM_INFO);
+		a_stOutSaleItemInfo = this.SaleItemInfoDict.GetValueOrDefault(a_eSaleItemKinds, default(STSaleItemInfo));
 		return this.SaleItemInfoDict.ContainsKey(a_eSaleItemKinds);
 	}
 
@@ -112,12 +112,12 @@ public partial class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 		// 판매 아이템 정보가 존재 할 경우
 		if(this.TryGetSaleItemInfo(a_eSaleItemKinds, out STSaleItemInfo stSaleItemInfo)) {
 			int nIdx = stSaleItemInfo.m_oItemInfoList.FindIndex((a_stItemInfo) => a_stItemInfo.m_eItemKinds == a_eItemKinds);
-			a_stOutItemInfo = stSaleItemInfo.m_oItemInfoList.ExIsValidIdx(nIdx) ? stSaleItemInfo.m_oItemInfoList[nIdx] : KDefine.G_INVALID_ITEM_INFO;
-
+			a_stOutItemInfo = stSaleItemInfo.m_oItemInfoList.ExIsValidIdx(nIdx) ? stSaleItemInfo.m_oItemInfoList[nIdx] : default(STItemInfo);
+			
 			return stSaleItemInfo.m_oItemInfoList.ExIsValidIdx(nIdx);
 		}
 
-		a_stOutItemInfo = KDefine.G_INVALID_ITEM_INFO;
+		a_stOutItemInfo = default(STItemInfo);
 		return false;
 	}
 

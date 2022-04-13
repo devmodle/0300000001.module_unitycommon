@@ -738,17 +738,21 @@ namespace LevelEditorScene {
 
 #if GOOGLE_SHEET_ENABLE
 		/** 에피소드 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadGoogleSheetEpisodeInfos(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeDict, bool a_bIsSuccess) {
+		private void OnLoadGoogleSheetEpisodeInfos(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, (SimpleJSON.JSONNode, bool)> a_oJSONNodeInfoDict) {
+			var oResult = a_oJSONNodeInfoDict.ExFindVal((a_oJSONInfoDict) => !a_oJSONInfoDict.Item2);
+
 			// 로드 되었을 경우
-			if(a_bIsSuccess) {
+			if(!oResult.Item1) {
 				var oJSONNode = new SimpleJSON.JSONClass();
 
-				foreach(var stKeyVal in a_oJSONNodeDict) {
-					oJSONNode.Add(stKeyVal.Key, stKeyVal.Value);
+				foreach(var stKeyVal in a_oJSONNodeInfoDict) {
+					oJSONNode.Add(stKeyVal.Key, stKeyVal.Value.Item1);
 				}
 
 				CEpisodeInfoTable.Inst.ResetEpisodeInfos(oJSONNode.ToString());
 				this.UpdateUIsState();
+			} else {
+				Func.ShowEditorGoogleSheetLoadPopup(null);
 			}
 		}
 #endif			// #if GOOGLE_SHEET_ENABLE
@@ -798,18 +802,18 @@ namespace LevelEditorScene {
 		}
 
 		/** 블럭 스프라이트를 설정한다 */
-		private void SetupBlockSprites(CCellInfo a_oCellInfo, out Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>> a_oOutBlockSpriteInfoDictContainer) {
+		private void SetupBlockSprites(STCellInfo a_stCellInfo, out Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>> a_oOutBlockSpriteInfoDictContainer) {
 			a_oOutBlockSpriteInfoDictContainer = new Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>>();
 
-			foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
+			foreach(var stKeyVal in a_stCellInfo.m_oBlockKindsDictContainer) {
 				var oBlockSpriteInfoList = new List<(EBlockKinds, SpriteRenderer)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 					var oBlockSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, SampleEngineName.KDefine.E_OBJ_N_BLOCK_SPRITE);
 					oBlockSprite.sprite = SampleEngineName.Access.GetBlockSprite(stKeyVal.Value[i]);
-					oBlockSprite.transform.localPosition = m_stGridInfo.m_stPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+					oBlockSprite.transform.localPosition = m_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
-					oBlockSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrder(stKeyVal.Value[i]));
+					oBlockSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrderInfo(stKeyVal.Value[i]));
 					oBlockSpriteInfoList.ExAddVal((stKeyVal.Value[i], oBlockSprite));
 				}
 

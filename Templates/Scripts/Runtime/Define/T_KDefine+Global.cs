@@ -76,68 +76,6 @@ public static partial class KDefine {
 	#endregion			// 기본
 
 	#region 런타임 상수
-	// 기타 {
-	public static readonly STItemInfo G_INVALID_ITEM_INFO = new STItemInfo() {
-		m_eItemKinds = EItemKinds.NONE
-	};
-
-	public static readonly STSaleItemInfo G_INVALID_SALE_ITEM_INFO = new STSaleItemInfo() {
-		m_ePriceKinds = EPriceKinds.NONE, m_eSaleItemKinds = ESaleItemKinds.NONE
-	};
-
-	public static readonly STSaleProductInfo G_INVALID_SALE_PRODUCT_INFO = new STSaleProductInfo() {
-		m_ePriceKinds = EPriceKinds.NONE
-	};
-
-	public static readonly STMissionInfo G_INVALID_MISSION_INFO = new STMissionInfo() {
-		m_eMissionKinds = EMissionKinds.NONE, m_eRewardKinds = ERewardKinds.NONE
-	};
-
-	public static readonly STRewardInfo G_INVALID_REWARD_INFO = new STRewardInfo() {
-		m_eRewardKinds = ERewardKinds.NONE, m_eRewardQuality = ERewardQuality.NONE
-	};
-
-	public static readonly STLevelInfo G_INVALID_LEVEL_INFO = new STLevelInfo() {
-		m_eLevelKinds = ELevelKinds.NONE,
-		
-		m_stEpisodeInfo = new STEpisodeInfo() {
-			m_eDifficulty = EDifficulty.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
-		}
-	};
-
-	public static readonly STStageInfo G_INVALID_STAGE_INFO = new STStageInfo() {
-		m_eStageKinds = EStageKinds.NONE,
-		
-		m_stEpisodeInfo = new STEpisodeInfo() {
-			m_eDifficulty = EDifficulty.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
-		}
-	};
-
-	public static readonly STChapterInfo G_INVALID_CHAPTER_INFO = new STChapterInfo() {
-		m_eChapterKinds = EChapterKinds.NONE,
-		
-		m_stEpisodeInfo = new STEpisodeInfo() {
-			m_eDifficulty = EDifficulty.NONE, m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE
-		}
-	};
-
-	public static readonly STTutorialInfo G_INVALID_TUTORIAL_INFO = new STTutorialInfo() {
-		m_eRewardKinds = ERewardKinds.NONE, m_eTutorialKinds = ETutorialKinds.NONE, m_eNextTutorialKinds = ETutorialKinds.NONE
-	};
-
-	public static readonly STFXInfo G_INVALID_FX_INFO = new STFXInfo() {
-		m_eFXKinds = EFXKinds.NONE
-	};
-
-	public static readonly STBlockInfo G_INVALID_BLOCK_INFO = new STBlockInfo() {
-		m_eBlockKinds = EBlockKinds.NONE
-	};
-
-	public static readonly STResInfo G_INVALID_RES_INFO = new STResInfo() {
-		// Do Something
-	};
-	// 기타 }
-
 	// 버전 {
 	public static readonly System.Version G_VER_APP_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_GAME_INFO = new System.Version(1, 0, 0);
@@ -150,7 +88,7 @@ public static partial class KDefine {
 
 	// 정렬 순서
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
-		m_nOrder = 1, m_oLayer = KCDefine.U_SORTING_L_TOP
+		m_nOrder = (sbyte.MaxValue * 0), m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
 
 	// 경로 {

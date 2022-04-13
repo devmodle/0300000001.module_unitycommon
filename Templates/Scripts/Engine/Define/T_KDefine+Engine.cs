@@ -33,7 +33,7 @@ namespace SampleEngineName {
 		// 정렬 순서
 		public static readonly Dictionary<EBlockKinds, STSortingOrderInfo> E_SORTING_OI_BLOCK_DICT = new Dictionary<EBlockKinds, STSortingOrderInfo>() {
 			[EBlockKinds.BG_EMPTY] = new STSortingOrderInfo() {
-				m_nOrder = 0, m_oLayer = KCDefine.U_SORTING_L_BACKGROUND
+				m_nOrder = 0, m_oLayer = KCDefine.U_SORTING_L_DEF
 			}
 		};
 

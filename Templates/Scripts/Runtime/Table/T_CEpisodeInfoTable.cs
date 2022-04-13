@@ -360,7 +360,7 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	/** 레벨 정보를 반환한다 */
 	public bool TryGetLevelInfo(int a_nID, out STLevelInfo a_stOutLevelInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		long nUniqueLevelID = CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID);
-		a_stOutLevelInfo = this.LevelInfoDict.GetValueOrDefault(nUniqueLevelID, KDefine.G_INVALID_LEVEL_INFO);
+		a_stOutLevelInfo = this.LevelInfoDict.GetValueOrDefault(nUniqueLevelID, default(STLevelInfo));
 
 		return this.LevelInfoDict.ContainsKey(nUniqueLevelID);
 	}
@@ -368,7 +368,7 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	/** 스테이지 정보를 반환한다 */
 	public bool TryGetStageInfo(int a_nID, out STStageInfo a_stOutStageInfo, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		long nUniqueStageID = CFactory.MakeUniqueStageID(a_nID, a_nChapterID);
-		a_stOutStageInfo = this.StageInfoDict.GetValueOrDefault(nUniqueStageID, KDefine.G_INVALID_STAGE_INFO);
+		a_stOutStageInfo = this.StageInfoDict.GetValueOrDefault(nUniqueStageID, default(STStageInfo));
 
 		return this.StageInfoDict.ContainsKey(nUniqueStageID);
 	}
@@ -376,7 +376,7 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	/** 챕터 정보를 반환한다 */
 	public bool TryGetChapterInfo(int a_nID, out STChapterInfo a_stOutChapterInfo) {
 		long nUniqueChapterID = CFactory.MakeUniqueChapterID(a_nID);
-		a_stOutChapterInfo = this.ChapterInfoDict.GetValueOrDefault(nUniqueChapterID, KDefine.G_INVALID_CHAPTER_INFO);
+		a_stOutChapterInfo = this.ChapterInfoDict.GetValueOrDefault(nUniqueChapterID, default(STChapterInfo));
 
 		return this.ChapterInfoDict.ContainsKey(nUniqueChapterID);
 	}

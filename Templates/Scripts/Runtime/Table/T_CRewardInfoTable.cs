@@ -105,7 +105,7 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	/** 보상 정보를 반환한다 */
 	public bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo) {
-		a_stOutRewardInfo = this.RewardInfoDict.GetValueOrDefault(a_eRewardKinds, KDefine.G_INVALID_REWARD_INFO);
+		a_stOutRewardInfo = this.RewardInfoDict.GetValueOrDefault(a_eRewardKinds, default(STRewardInfo));
 		return this.RewardInfoDict.ContainsKey(a_eRewardKinds);
 	}
 

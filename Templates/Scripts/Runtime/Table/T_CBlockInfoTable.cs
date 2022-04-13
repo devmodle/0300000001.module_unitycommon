@@ -79,7 +79,7 @@ public partial class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 
 	/** 블럭 정보를 반환한다 */
 	public bool TryGetBlockInfo(EBlockKinds a_eBlockKinds, out STBlockInfo a_stOutBlockInfo) {
-		a_stOutBlockInfo = this.BlockInfoDict.GetValueOrDefault(a_eBlockKinds, KDefine.G_INVALID_BLOCK_INFO);
+		a_stOutBlockInfo = this.BlockInfoDict.GetValueOrDefault(a_eBlockKinds, default(STBlockInfo));
 		return this.BlockInfoDict.ContainsKey(a_eBlockKinds);
 	}
 

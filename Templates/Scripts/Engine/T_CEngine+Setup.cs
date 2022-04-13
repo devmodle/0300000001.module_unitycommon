@@ -9,7 +9,7 @@ namespace SampleEngineName {
 	/** 엔진 - 설정 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		
+
 		#endregion			// 함수
 
 		#region 조건부 함수
@@ -24,19 +24,16 @@ namespace SampleEngineName {
 		private void SetupLevel() {
 			for(int i = 0; i < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 				for(int j = 0; j < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-					// 셀 정보가 존재 할 경우
-					if(m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i][j] != null) {
-						this.SetupCell(m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i][j]);
-					}
+					this.SetupCell(m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i][j]);
 				}
 			}
 		}
 
 		/** 셀을 설정한다 */
-		private void SetupCell(CCellInfo a_oCellInfo) {
+		private void SetupCell(STCellInfo a_stCellInfo) {
 			var oBlockInfoDictContainer = new Dictionary<EBlockType, List<(EBlockKinds, CBlock)>>();
 
-			foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
+			foreach(var stKeyVal in a_stCellInfo.m_oBlockKindsDictContainer) {
 				var oBlockInfoList = new List<(EBlockKinds, CBlock)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
@@ -46,7 +43,7 @@ namespace SampleEngineName {
 				oBlockInfoDictContainer.TryAdd(stKeyVal.Key, oBlockInfoList);
 			}
 
-			m_oBlockInfoDictContainers[a_oCellInfo.m_stIdx.y, a_oCellInfo.m_stIdx.x] = oBlockInfoDictContainer;
+			m_oBlockInfoDictContainers[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oBlockInfoDictContainer;
 		}
 
 		/** 그리드 라인을 설정한다 */

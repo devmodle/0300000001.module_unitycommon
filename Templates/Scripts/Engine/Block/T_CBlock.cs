@@ -51,7 +51,7 @@ namespace SampleEngineName {
 			// 블럭 스프라이트가 존재 할 경우
 			if(m_oSpriteDict[EKey.BLOCK_SPRITE] != null) {
 				m_oSpriteDict[EKey.BLOCK_SPRITE].sprite = Access.GetBlockSprite(a_stParams.m_stBlockInfo.m_eBlockKinds);
-				m_oSpriteDict[EKey.BLOCK_SPRITE].ExSetSortingOrder(Access.GetSortingOrder(a_stParams.m_stBlockInfo.m_eBlockKinds));
+				m_oSpriteDict[EKey.BLOCK_SPRITE].ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stBlockInfo.m_eBlockKinds));
 			}
 		}
 		#endregion			// 함수

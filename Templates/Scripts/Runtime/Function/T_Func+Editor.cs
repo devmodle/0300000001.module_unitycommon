@@ -62,6 +62,13 @@ public static partial class Func {
 	public static void ShowEditorLevelCreatePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CEditorLevelCreatePopup>(KCDefine.E_OBJ_N_EDITOR_LEVEL_CREATE_POPUP, KCDefine.E_OBJ_P_EDITOR_LEVEL_CREATE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
+
+#if GOOGLE_SHEET_ENABLE
+	/** 에디터 구글 시트 로드 팝업을 출력한다 */
+	public static void ShowEditorGoogleSheetLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_GOOGLE_SLP_MSG), a_oCallback, false);
+	}
+#endif			// #if GOOGLE_SHEET_ENABLE
 	
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 	/** 에디터 레벨 정보를 설정한다 */
@@ -75,7 +82,7 @@ public static partial class Func {
 		a_oLevelInfo.m_oCellInfoDictContainer.Clear();
 
 		for(int i = 0; i < nNumCellsY; ++i) {
-			var oCellInfoDict = new Dictionary<int, CCellInfo>();
+			var oCellInfoDict = new Dictionary<int, STCellInfo>();
 
 			for(int j = 0; j < nNumCellsX; ++j) {
 				oCellInfoDict.TryAdd(j, Factory.MakeCellInfo(new Vector3Int(j, i, KCDefine.B_IDX_INVALID)));
