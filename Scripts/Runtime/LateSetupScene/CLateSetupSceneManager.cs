@@ -252,12 +252,6 @@ namespace LateSetupScene {
 
 #if NOTI_MODULE_ENABLE
 				CNotiManager.Inst.Init(new CNotiManager.STParams() {
-#if UNITY_IOS
-					m_ePresentOpts = KCDefine.U_PRESENT_OPTS_NOTI, m_eAuthorizationOpts = KCDefine.U_AUTHORIZATION_OPTS_NOTI,
-#elif UNITY_ANDROID
-					m_eImportance = KCDefine.U_IMPORTANCE_NOTI,
-#endif			// #if UNITY_IOS
-
 					m_oCallbackDict = new Dictionary<CNotiManager.ECallback, System.Action<CNotiManager, bool>>() {
 						[CNotiManager.ECallback.INIT] = CLateSetupSceneManager.OnInitNotiManager
 					}
