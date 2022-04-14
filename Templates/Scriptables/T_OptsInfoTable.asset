@@ -22,7 +22,7 @@ MonoBehaviour:
     m_bIsPreBakeCollisionMesh: 0
     m_bIsPreserveFrameBufferAlpha: 0
     m_eNormapMapEncoding: 1
-    m_eLightmapper: 0
+    m_eLightmapper: 2
     m_stiOSBuildOptsInfo:
       m_bIsEnableProMotion: 0
       m_bIsEnableInputSystemMotion: 0
@@ -34,6 +34,7 @@ MonoBehaviour:
       m_bIsUseAPKExpansionFiles: 0
   m_stQualityOptsInfo:
     m_bIsEnableRealtimeGI: 0
+    m_bIsEnableRealtimeReflectionProbes: 0
     m_bIsEnableRealtimeEnvironmentLighting: 0
     m_eQualityLevel: 2
     m_eMixedLightingMode: 1
@@ -46,7 +47,7 @@ MonoBehaviour:
         m_eShadowResolution: 1
         m_eLightmapCompression: 2
       m_stUniversalRPOptsInfo:
-        m_eLightCookieResolution: 512
+        m_eLightCookieResolution: 256
         m_eMainLightShadowResolution: 1024
         m_eAdditionalShadowResolution: 1024
     m_stHighQualityRenderingOptsInfo:
@@ -57,7 +58,7 @@ MonoBehaviour:
         m_eShadowResolution: 2
         m_eLightmapCompression: 3
       m_stUniversalRPOptsInfo:
-        m_eLightCookieResolution: 1024
+        m_eLightCookieResolution: 512
         m_eMainLightShadowResolution: 2048
         m_eAdditionalShadowResolution: 2048
     m_stUltraQualityRenderingOptsInfo:
@@ -68,6 +69,6 @@ MonoBehaviour:
         m_eShadowResolution: 3
         m_eLightmapCompression: 3
       m_stUniversalRPOptsInfo:
-        m_eLightCookieResolution: 1024
+        m_eLightCookieResolution: 512
         m_eMainLightShadowResolution: 2048
         m_eAdditionalShadowResolution: 2048

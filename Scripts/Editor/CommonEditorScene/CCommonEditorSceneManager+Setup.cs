@@ -41,6 +41,10 @@ public static partial class CCommonEditorSceneManager {
 				oLights[i].type = LightType.Directional;
 				oLights[i].ExSetTag(KCDefine.U_TAG_MAIN_DIRECTIONAL_LIGHT);
 			}
+			// 에디터 광원이 아닐 경우
+			else if(!oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_LIGHT) && !oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_PRE_RENDER_LIGHT)) {
+				oLights[i].ExSetTag(KCDefine.U_TAG_ADDITIONAL_LIGHT);
+			}
 		}
 
 		for(int i = 0; i < oSceneManagers.Length; ++i) {

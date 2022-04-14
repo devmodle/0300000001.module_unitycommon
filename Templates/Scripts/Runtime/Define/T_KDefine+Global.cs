@@ -87,7 +87,7 @@ public static partial class KDefine {
 	// 버전 }
 
 	// 정렬 순서
-	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
+	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {		
 		m_nOrder = (sbyte.MaxValue * 0), m_oLayer = KCDefine.U_SORTING_L_TOP
 	};
 
