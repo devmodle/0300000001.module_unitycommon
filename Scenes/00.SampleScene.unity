@@ -873,7 +873,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 846633049}
   m_PlaneDistance: 500
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1048,7 +1048,7 @@ Camera:
   field of view: 71.50778
   orthographic: 0
   orthographic size: 360
-  m_Depth: -50
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 23
