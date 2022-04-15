@@ -36,32 +36,33 @@ public static partial class CCommonEditorSceneManager {
 		var oSceneManagers = Resources.FindObjectsOfTypeAll<CSceneManager>();
 
 		for(int i = 0; i < oLights.Length; ++i) {
-			// 메인 광원 일 경우
-			if(oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_DIRECTIONAL_LIGHT)) {
-				oLights[i].type = LightType.Directional;
-				oLights[i].ExSetTag(KCDefine.U_TAG_MAIN_DIRECTIONAL_LIGHT);
-			}
 			// 에디터 광원이 아닐 경우
-			else if(!oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_LIGHT) && !oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_PRE_RENDER_LIGHT)) {
-				oLights[i].ExSetTag(KCDefine.U_TAG_ADDITIONAL_LIGHT);
+			if(!KCEditorDefine.B_OBJ_N_SCENE_EDITOR_LIGHT_LIST.Contains(oLights[i].name)) {
+				oLights[i].type = oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_LIGHT) ? LightType.Directional : oLights[i].type;
+
+				// 메인 광원 일 경우
+				if(oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_LIGHT)) {
+					oLights[i].ExSetTag(KCDefine.U_TAG_MAIN_LIGHT);
+				} else {
+					oLights[i].ExSetTag((oLights[i].CompareTag(KCDefine.U_TAG_UNTAGGED) || oLights[i].CompareTag(KCDefine.U_TAG_MAIN_LIGHT)) ? KCDefine.U_TAG_ADDITIONAL_LIGHT : oLights[i].tag);
+				}
+			}
+		}
+
+		for(int i = 0; i < oCameras.Length; ++i) {
+			// 에디터 카메라가 아닐 경우
+			if(!KCEditorDefine.B_OBJ_N_SCENE_EDITOR_CAMERA_LIST.Contains(oCameras[i].name)) {
+				// 메인 카메라 일 경우
+				if(oCameras[i].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA)) {
+					oCameras[i].ExSetTag(KCDefine.U_TAG_MAIN_CAMERA);
+				} else {
+					oCameras[i].ExSetTag((oCameras[i].CompareTag(KCDefine.U_TAG_UNTAGGED) || oCameras[i].CompareTag(KCDefine.U_TAG_MAIN_CAMERA)) ? KCDefine.U_TAG_ADDITIONAL_CAMERA : oCameras[i].tag);
+				}
 			}
 		}
 
 		for(int i = 0; i < oSceneManagers.Length; ++i) {
 			oSceneManagers[i].ExSetTag(KCDefine.U_TAG_SCENE_MANAGER);
-
-			for(int j = 0; j < oCameras.Length; ++j) {
-				// 에디터 카메라가 아닐 경우
-				if(!oCameras[j].name.Equals(KCEditorDefine.B_OBJ_N_SCENE_EDITOR_CAMERA)) {
-					bool bIsUIsCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_CAMERA);
-					bool bIsMainCamera = oCameras[j].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA);
-					
-					// 태그 설정이 가능 할 경우
-					if(bIsUIsCamera || bIsMainCamera) {
-						oCameras[j].ExSetTag(bIsUIsCamera ? KCDefine.U_TAG_UIS_CAMERA : KCDefine.U_TAG_MAIN_CAMERA);
-					}
-				}
-			}
 		}
 	}
 
@@ -140,13 +141,11 @@ public static partial class CCommonEditorSceneManager {
 	private static void SetupStaticObjs() {
 		CFunc.EnumerateRootObjs((a_oObj) => {
 			// 최상단 객체 일 경우
-			if(a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_BASE) || a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_OBJS_BASE)) {
-				var oEnumerator = a_oObj.ChildrenAndSelf();
-
-				foreach(var oObj in oEnumerator) {
-					// 플래그 설정이 필요 할 경우
-					if(oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_STATIC_OBJS) || oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_ADDITIONAL_LIGHTS)) {
-						oObj.ExSetStaticEditorFlags(KCEditorDefine.B_STATIC_EF_DEF);
+			if(KCEditorDefine.B_OBJ_N_ROOT_OBJ_LIST.Contains(a_oObj.name)) {
+				foreach(var oObj in a_oObj.ChildrenAndSelf()) {
+					// 정적 객체 일 경우
+					if(KCEditorDefine.B_OBJ_N_STATIC_OBJ_LIST.Contains(oObj.name)) {
+						oObj.ExSetStaticEditorFlags(KCEditorDefine.B_STATIC_E_FLAGS);
 					}
 				}
 			}
@@ -335,12 +334,12 @@ public static partial class CCommonEditorSceneManager {
 	/** 입력 시스템을 설정한다 */
 	private static void SetupInputSystem() {
 		// 입력 시스템 설정이 없을 경우
-		if(!EditorBuildSettings.TryGetConfigObject<InputSettings>(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, out InputSettings oInputSettings)) {
+		if(!EditorBuildSettings.TryGetConfigObject<InputSettings>(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, out InputSettings oInputSettings)) {
 			oInputSettings = AssetDatabase.LoadAssetAtPath<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
 			oInputSettings = oInputSettings ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
 
 			InputSystem.settings = oInputSettings;
-			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM, oInputSettings, true);
+			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, oInputSettings, true);
 		}
 
 		var oIsSetupOptsList = new List<bool>() {
