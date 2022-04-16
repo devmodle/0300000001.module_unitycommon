@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Unity.Linq;
 
@@ -70,7 +71,7 @@ public static partial class CCommonEditorSceneManager {
 	private static void SetupLayers() {
 		CFunc.EnumerateRootObjs((a_oObj) => {
 			// 최상단 UI 일 경우
-			if(a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_TOP)) {
+			if(a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_ROOT)) {
 				var oEnumerator = a_oObj.DescendantsAndSelf();
 
 				foreach(var oObj in oEnumerator) {
@@ -100,9 +101,22 @@ public static partial class CCommonEditorSceneManager {
 		EditorApplication.projectChanged += CCommonEditorSceneManager.OnUpdateProjectState;
 	}
 	
-	/** 캔버스를 설정한다 */
-	private static void SetupCanvases() {
-		CFunc.EnumerateComponents<Canvas>((a_oCanvas) => { a_oCanvas.gameObject.ExAddComponent<GraphicRaycaster>(); return true; });
+	/** 광선 추적자를 설정한다 */
+	private static void SetupRaycasters() {
+		CFunc.EnumerateComponents<GraphicRaycaster>((a_oRaycaster) => {
+			a_oRaycaster.ignoreReversedGraphics = true;
+			a_oRaycaster.blockingMask = a_oRaycaster.blockingMask.ExGetLayerVal(KCDefine.B_VAL_0_INT);
+			a_oRaycaster.blockingObjects = GraphicRaycaster.BlockingObjects.None;
+
+			return true; 
+		});
+
+		CFunc.EnumerateComponents<PhysicsRaycaster>((a_oRaycaster) => {
+			a_oRaycaster.eventMask = a_oRaycaster.eventMask.ExGetLayerVal(int.MaxValue);
+			a_oRaycaster.maxRayIntersections = KCDefine.B_VAL_0_INT;
+			
+			return true;
+		});
 	}
 
 	/** 광원 옵션을 설정한다 */

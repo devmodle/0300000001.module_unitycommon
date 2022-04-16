@@ -158,7 +158,7 @@ public static partial class CCommonEditorSceneManager {
 
 				CCommonEditorSceneManager.SetupTags();
 				CCommonEditorSceneManager.SetupLayers();
-				CCommonEditorSceneManager.SetupCanvases();
+				CCommonEditorSceneManager.SetupRaycasters();
 				CCommonEditorSceneManager.SetupLightOpts();
 				CCommonEditorSceneManager.SetupStaticObjs();
 				CCommonEditorSceneManager.SetupLocalizeInfos();
