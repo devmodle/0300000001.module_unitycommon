@@ -25,9 +25,7 @@ public static partial class KDefine {
 	public const string G_OBJ_N_SALE_PRODUCT_POPUP = "SaleProductPopup";
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
 	public const string G_OBJ_N_TUTORIAL_POPUP = "TutorialPopup";
-	#endregion			// 기본
 
-	#region 추가 상수
 	// 설정 팝업 {
 	public const string G_IMG_P_SETTINGS_P_SND_ON = "G_SndOn";
 	public const string G_IMG_P_SETTINGS_P_SND_OFF = "G_SndOff";
@@ -44,11 +42,7 @@ public static partial class KDefine {
 	public const string G_IMG_P_SETTINGS_P_NOTI_ON = "G_NotiOn";
 	public const string G_IMG_P_SETTINGS_P_NOTI_OFF = "G_NotiOff";
 	// 설정 팝업 }
-	#endregion			// 추가 상수
-
-	#region 추가 런타임 상수
-
-	#endregion			// 추가 런타임 상수
+	#endregion			// 기본
 }
 #endif			// #if EXTRA_SCRIPT_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

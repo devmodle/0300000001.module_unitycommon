@@ -29,10 +29,6 @@ namespace SampleEngineName {
 			return KDefine.E_SORTING_OI_BLOCK_DICT.ContainsKey(a_eBlockKinds);
 		}
 		#endregion			// 클래스 함수
-
-		#region 추가 클래스 함수
-
-		#endregion			// 추가 클래스 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
