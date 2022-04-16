@@ -493,8 +493,8 @@ namespace GameScene {
 		public override void OnDrawGizmos() {
 			base.OnDrawGizmos();
 
-			// 앱 실행 중이 아닐 경우
-			if(!Application.isPlaying && CSceneManager.IsExistsMainCamera) {
+			// 메인 카메라가 존재 할 경우
+			if(CSceneManager.IsExistsMainCamera) {
 				// Do Something
 			}
 		}
