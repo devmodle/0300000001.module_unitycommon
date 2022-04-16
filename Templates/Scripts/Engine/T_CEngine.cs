@@ -159,8 +159,8 @@ namespace SampleEngineName {
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public virtual void OnDrawGizmos() {
-			// 앱 실행 중이 아닐 경우
-			if(!Application.isPlaying && CSceneManager.IsExistsMainCamera) {
+			// 메인 카메라가 존재 할 경우
+			if(CSceneManager.IsExistsMainCamera) {
 				// Do Something
 			}
 		}
