@@ -773,11 +773,11 @@ namespace LevelEditorScene {
 			m_stGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO], Vector3.zero);
 
 			// 비율을 설정한다 {
-			bool bIsValidA = !float.IsNaN(m_stGridInfo.m_stScale.x) && !float.IsInfinity(m_stGridInfo.m_stScale.x);
-			bool bIsValidB = !float.IsNaN(m_stGridInfo.m_stScale.y) && !float.IsInfinity(m_stGridInfo.m_stScale.y);
-			bool bIsValidC = !float.IsNaN(m_stGridInfo.m_stScale.z) && !float.IsInfinity(m_stGridInfo.m_stScale.z);
+			bool bIsValid01 = !float.IsNaN(m_stGridInfo.m_stScale.x) && !float.IsInfinity(m_stGridInfo.m_stScale.x);
+			bool bIsValid02 = !float.IsNaN(m_stGridInfo.m_stScale.y) && !float.IsInfinity(m_stGridInfo.m_stScale.y);
+			bool bIsValid03 = !float.IsNaN(m_stGridInfo.m_stScale.z) && !float.IsInfinity(m_stGridInfo.m_stScale.z);
 
-			this.BlockObjs.transform.localScale = (bIsValidA && bIsValidB && bIsValidC) ? m_stGridInfo.m_stScale : Vector3.one;
+			this.BlockObjs.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_stGridInfo.m_stScale : Vector3.one;
 			this.BlockObjs.transform.localPosition = Vector3.zero.ExToWorld(this.MidEditorUIs).ExToLocal(this.UIs);
 			// 비율을 설정한다 }
 
@@ -1200,14 +1200,14 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 적용 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsApplyBtn() {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-			bool bIsValidA = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.text, out int nNumCellsX);
-			bool bIsValidB = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.text, out int nNumCellsY);
+			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.text, out int nNumCellsX);
+			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.text, out int nNumCellsY);
 
 			bool bIsValidNumCellsX = Mathf.Max(nNumCellsX, SampleEngineName.KDefine.E_MIN_NUM_CELLS.x) != m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].NumCells.x;
 			bool bIsValidNumCellsY = Mathf.Max(nNumCellsY, SampleEngineName.KDefine.E_MIN_NUM_CELLS.y) != m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].NumCells.y;
 
 			// 셀 개수가 유효 할 경우
-			if(bIsValidA && bIsValidB && (bIsValidNumCellsX || bIsValidNumCellsY)) {
+			if(bIsValid01 && bIsValid02 && (bIsValidNumCellsX || bIsValidNumCellsY)) {
 				Func.SetupEditorLevelInfo(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO], new CSubEditorLevelCreateInfo() {
 					m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT), m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT)
 				});

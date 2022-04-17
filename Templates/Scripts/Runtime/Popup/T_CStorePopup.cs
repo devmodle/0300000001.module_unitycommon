@@ -248,11 +248,11 @@ public partial class CStorePopup : CSubPopup {
 			var oPostItemInfoList = a_oJSONStr.ExJSONStrToPostItemInfos();
 
 			for(int i = 0; i < oPostItemInfoList.Count; ++i) {
-				bool bIsValidA = long.TryParse(oPostItemInfoList[i].m_oNumItems, out long nNumItems);
-				bool bIsValidB = oPostItemInfoList[i].m_oItemKinds.ExToTryEnumVal<EItemKinds>(out EItemKinds eItemKinds);
+				bool bIsValid01 = long.TryParse(oPostItemInfoList[i].m_oNumItems, out long nNumItems);
+				bool bIsValid02 = oPostItemInfoList[i].m_oItemKinds.ExToTryEnumVal<EItemKinds>(out EItemKinds eItemKinds);
 
 				// 지급 아이템 정보가 유효 할 경우
-				if(bIsValidA && bIsValidB && eItemKinds.ExIsValid()) {
+				if(bIsValid01 && bIsValid02 && eItemKinds.ExIsValid()) {
 					Func.AcquireItem(new STItemInfo() {
 						m_nNumItems = nNumItems, m_eItemKinds = eItemKinds
 					});

@@ -77,10 +77,10 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 			float fAdsDelay = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELAY_ADS);
 			float fAdsDeltaTime = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELTA_T_ADS);
 
-			double dblDeltaTimeA = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevAdsTime);
-			double dblDeltaTimeB = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevRewardAdsTime);
+			double dblDeltaTime01 = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevAdsTime);
+			double dblDeltaTime02 = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevRewardAdsTime);
 
-			bool bIsEnable = dblDeltaTimeA.ExIsGreateEquals(fAdsDelay) && dblDeltaTimeB.ExIsGreateEquals(fAdsDeltaTime);
+			bool bIsEnable = dblDeltaTime01.ExIsGreateEquals(fAdsDelay) && dblDeltaTime02.ExIsGreateEquals(fAdsDeltaTime);
 			return bIsEnable && this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && CGameInfoStorage.Inst.GameInfo.m_oLevelClearInfoDict.Count >= KDefine.G_MAX_NUM_ADS_SKIP_CLEAR_INFOS;
 		}
 	}
