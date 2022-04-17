@@ -140,7 +140,7 @@ public struct STEpisodeInfo {
 		m_oNumTargetsDict = new Dictionary<ETargetKinds, int>();
 		m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_CLEAR_MARKS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_MARKS; ++i) {
 			string oRecordKey = string.Format(KCDefine.U_KEY_FMT_RECORD, i + KCDefine.B_VAL_1_INT);
 
 			// 기록 정보가 존재 할 경우

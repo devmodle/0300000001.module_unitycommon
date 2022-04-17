@@ -16,9 +16,9 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 9;
 	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
 
-	public const int G_MAX_NUM_LEVEL_CLEAR_MARKS = 9;
-	public const int G_MAX_NUM_STAGE_CLEAR_MARKS = 9;
-	public const int G_MAX_NUM_CHAPTER_CLEAR_MARKS = 9;
+	public const int G_MAX_NUM_LEVEL_MARKS = 9;
+	public const int G_MAX_NUM_STAGE_MARKS = 9;
+	public const int G_MAX_NUM_CHAPTER_MARKS = 9;
 
 	public const int G_MAX_NUM_LEVEL_TARGET_KINDS = 9;
 	public const int G_MAX_NUM_STAGE_TARGET_KINDS = 9;

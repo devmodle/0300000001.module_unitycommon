@@ -16,7 +16,7 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 	#region 변수
 	private STParams m_stParams;
 	#endregion			// 변수
-
+	
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
@@ -38,6 +38,8 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 
 	/** 스크롤러 셀 상태를 갱신한다 */
 	private void UpdateScrollerCellState(GameObject a_oScrollerCell, STIDInfo a_stIDInfo) {
+		int nNumLevelClearInfos = CGameInfoStorage.Inst.GetNumLevelClearInfos(a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
+
 		// 버튼을 갱신한다 {
 		var oSelBtn = a_oScrollerCell.GetComponentInChildren<Button>();
 		oSelBtn?.ExAddListener(() => m_stParams.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeUniqueLevelID(a_stIDInfo.m_nID, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID)), true, false);
@@ -45,7 +47,7 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 #if PLAY_TEST_ENABLE
 		oSelBtn?.ExSetInteractable(true, false);
 #else
-		oSelBtn?.ExSetInteractable(a_stIDInfo.m_nID <= CGameInfoStorage.Inst.GetNumClearInfos(a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID), false);
+		oSelBtn?.ExSetInteractable(a_stIDInfo.m_nID <= nNumLevelClearInfos, false);
 #endif			// #if PLAY_TEST_ENABLE
 		// 버튼을 갱신한다 }
 

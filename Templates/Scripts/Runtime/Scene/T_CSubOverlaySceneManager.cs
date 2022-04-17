@@ -95,11 +95,11 @@ namespace OverlayScene {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-					m_oPurchaseCallbackDictA = new Dictionary<CStorePopup.ECallback, System.Action<CPurchaseManager, string, bool>>() {
+					m_oPurchaseCallbackDict01 = new Dictionary<CStorePopup.ECallback, System.Action<CPurchaseManager, string, bool>>() {
 						[CStorePopup.ECallback.PURCHASE] = (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState()
 					},
 
-					m_oPurchaseCallbackDictB = new Dictionary<CStorePopup.ECallback, System.Action<CPurchaseManager, List<Product>, bool>>() {
+					m_oPurchaseCallbackDict02 = new Dictionary<CStorePopup.ECallback, System.Action<CPurchaseManager, List<Product>, bool>>() {
 						[CStorePopup.ECallback.RESTORE] = (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState()
 					}
 #endif			// #if PURCHASE_MODULE_ENABLE

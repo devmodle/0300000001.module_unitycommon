@@ -82,7 +82,7 @@ public static partial class Func {
 		a_oLevelInfo.m_oCellInfoDictContainer.Clear();
 
 		for(int i = 0; i < nNumCellsY; ++i) {
-			var oCellInfoDict = new Dictionary<int, STCellInfo>();
+			var oCellInfoDict = new Dictionary<int, CCellInfo>();
 
 			for(int j = 0; j < nNumCellsX; ++j) {
 				oCellInfoDict.TryAdd(j, Factory.MakeCellInfo(new Vector3Int(j, i, KCDefine.B_IDX_INVALID)));

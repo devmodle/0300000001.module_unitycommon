@@ -415,8 +415,8 @@ public enum ETargetKinds {
 	#region 기록
 	[HideInInspector] RECORD_TARGET = EEnumVal.TYPE * 1,
 
-	// 클리어 마크 10,000,000
-	RECORD_CLEAR_MARK = ETargetKinds.RECORD_TARGET + (EEnumVal.KINDS_TYPE * 0),
+	// 마크 10,000,000
+	RECORD_MARK = ETargetKinds.RECORD_TARGET + (EEnumVal.KINDS_TYPE * 0),
 	#endregion			// 기록
 
 	[HideInInspector] MAX_VAL

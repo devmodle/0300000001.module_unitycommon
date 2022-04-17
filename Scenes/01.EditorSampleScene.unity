@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 124976469}
   - component: {fileID: 124976468}
   m_Layer: 5
-  m_Name: StageScrollView_B
+  m_Name: StageScrollView_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4728,7 +4728,7 @@ GameObject:
   - component: {fileID: 837286175}
   - component: {fileID: 837286174}
   m_Layer: 5
-  m_Name: StageScrollView_A
+  m_Name: StageScrollView_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

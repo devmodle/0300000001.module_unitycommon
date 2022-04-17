@@ -16,7 +16,7 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 	#region 변수
 	private STParams m_stParams;
 	#endregion			// 변수
-
+	
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
