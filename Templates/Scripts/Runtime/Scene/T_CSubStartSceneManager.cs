@@ -14,8 +14,8 @@ namespace StartScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			STR_BUILDER_A,
-			STR_BUILDER_B,
+			STR_BUILDER_01,
+			STR_BUILDER_02,
 			LOADING_TEXT,
 			SCENE_INFO_TEXT,
 			GAUGE_HANDLER,
@@ -30,8 +30,8 @@ namespace StartScene {
 		private Stopwatch m_oStopwatch = new Stopwatch();
 
 		private Dictionary<EKey, System.Text.StringBuilder> m_oStrBuilderDict = new Dictionary<EKey, System.Text.StringBuilder>() {
-			[EKey.STR_BUILDER_A] = new System.Text.StringBuilder(),
-			[EKey.STR_BUILDER_B] = new System.Text.StringBuilder()
+			[EKey.STR_BUILDER_01] = new System.Text.StringBuilder(),
+			[EKey.STR_BUILDER_02] = new System.Text.StringBuilder()
 		};
 
 		/** =====> UI <===== */
@@ -82,8 +82,8 @@ namespace StartScene {
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);
 
 			try {
-				m_oStrBuilderDict[EKey.STR_BUILDER_B].AppendLine($"{a_eEvent}: {m_oStopwatch.ElapsedMilliseconds} ms");
-				m_oTextDict[EKey.SCENE_INFO_TEXT].ExSetText(m_oStrBuilderDict[EKey.STR_BUILDER_B].ToString(), stFontSetInfo);
+				m_oStrBuilderDict[EKey.STR_BUILDER_02].AppendLine($"{a_eEvent}: {m_oStopwatch.ElapsedMilliseconds} ms");
+				m_oTextDict[EKey.SCENE_INFO_TEXT].ExSetText(m_oStrBuilderDict[EKey.STR_BUILDER_02].ToString(), stFontSetInfo);
 			} finally {
 				m_oStopwatch.Restart();
 			}
@@ -124,14 +124,14 @@ namespace StartScene {
 
 		/** 텍스트 상태를 갱신한다 */
 		private void UpdateUIsState() {
-			m_oStrBuilderDict[EKey.STR_BUILDER_A].Clear();
-			m_oStrBuilderDict[EKey.STR_BUILDER_A].Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT));
+			m_oStrBuilderDict[EKey.STR_BUILDER_01].Clear();
+			m_oStrBuilderDict[EKey.STR_BUILDER_01].Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT));
 
 			string oPercentStr = string.Format(KCDefine.B_TEXT_FMT_1_DIGITS, m_oGaugeHandlerDict[EKey.GAUGE_HANDLER].Percent * KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
 			oPercentStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, string.Format(KCDefine.B_TEXT_FMT_PERCENT, oPercentStr));
 
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);
-			m_oTextDict[EKey.LOADING_TEXT].ExSetText(string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, m_oStrBuilderDict[EKey.STR_BUILDER_A].ToString(), oPercentStr), stFontSetInfo);
+			m_oTextDict[EKey.LOADING_TEXT].ExSetText(string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, m_oStrBuilderDict[EKey.STR_BUILDER_01].ToString(), oPercentStr), stFontSetInfo);
 		}
 		#endregion			// 함수
 	}
