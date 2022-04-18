@@ -28,6 +28,7 @@ MonoBehaviour:
   - RUNTIME_TEMPLATES_ENABLE
   m_oSubCommonDefineSymbolList:
   - DEVELOPMENT_PROJ
+  - SERVICES_ANALYTICS_ENABLE
   - NINETAP_BUILD_PIPELINE_ENABLE
   m_oiOSAppleDefineSymbolList: []
   m_oAndroidGoogleDefineSymbolList: []
