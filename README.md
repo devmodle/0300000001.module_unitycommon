@@ -5,7 +5,7 @@
 2. **에셋 스토어 리스트**
 	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
 	- *Advance Object Pool (1.1.0 - May 6, 2019)*
-	- *Anti Cheat Free (2.1.1 - Mar 6, 2019)*
+	- *Anti Cheat Free (3.0.0 - Apr 13, 2022)*
 	- *Asset Usage Detector (2.2.0 - Jan 5, 2022)*
 	- *Bezier Solution (2.3.0 - Nov 5, 2021)*
 	- *Bitmap Font Importer (2.4.1 - May 6, 2019)*
