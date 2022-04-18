@@ -9,6 +9,10 @@ using Unity.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
+#if EDITOR_COROUTINE_ENABLE
+using Unity.EditorCoroutines.Editor;
+#endif			// #if EDITOR_COROUTINE_ENABLE
+
 /** 공용 에디터 씬 관리자 */
 public static partial class CCommonEditorSceneManager {
 #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
@@ -116,8 +120,12 @@ public static partial class CCommonEditorSceneManager {
 	/** 스크립트가 로드 되었을 경우 */
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
+#if EDITOR_COROUTINE_ENABLE
+		EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.SetupEditorSceneManager());
+#else
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
+#endif			// #if EDITOR_COROUTINE_ENABLE
 	}
 	
 	/** 상태를 갱신한다 */

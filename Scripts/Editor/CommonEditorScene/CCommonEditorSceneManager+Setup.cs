@@ -30,6 +30,14 @@ using Newtonsoft.Json;
 /** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
+	/** 에디터 씬 관리자를 설정한다 */
+	private static IEnumerator SetupEditorSceneManager() {
+		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_FLT);
+
+		CCommonEditorSceneManager.m_bIsEnableBuild = true;
+		CCommonEditorSceneManager.m_bIsEnableSetup = true;
+	}
+
 	/** 태그를 설정한다 */
 	private static void SetupTags() {
 		var oLights = Resources.FindObjectsOfTypeAll<Light>();

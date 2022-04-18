@@ -164,6 +164,7 @@ public static partial class KEditorDefine {
 		["com.unity.localization"] = "1.0.5",
 		["com.unity.terrain-tools"] = "4.0.3",
 		["com.unity.2d.spriteshape"] = "7.0.4",
+		["com.unity.editorcoroutines"] = "1.0.0",
 		["com.unity.2d.tilemap.extras"] = "2.2.1",
 		["com.unity.mobile.android-logcat"] = "1.2.3",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
