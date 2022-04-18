@@ -30,10 +30,10 @@ namespace SampleEngineName {
 		}
 
 		/** 셀을 설정한다 */
-		private void SetupCell(STCellInfo a_stCellInfo) {
+		private void SetupCell(CCellInfo a_oCellInfo) {
 			var oBlockInfoDictContainer = new Dictionary<EBlockType, List<(EBlockKinds, CBlock)>>();
 
-			foreach(var stKeyVal in a_stCellInfo.m_oBlockKindsDictContainer) {
+			foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
 				var oBlockInfoList = new List<(EBlockKinds, CBlock)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
@@ -43,7 +43,7 @@ namespace SampleEngineName {
 				oBlockInfoDictContainer.TryAdd(stKeyVal.Key, oBlockInfoList);
 			}
 
-			m_oBlockInfoDictContainers[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oBlockInfoDictContainer;
+			m_oBlockInfoDictContainers[a_oCellInfo.m_stIdx.y, a_oCellInfo.m_stIdx.x] = oBlockInfoDictContainer;
 		}
 
 		/** 그리드 라인을 설정한다 */

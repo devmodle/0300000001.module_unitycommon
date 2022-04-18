@@ -14,9 +14,9 @@ public static partial class Factory {
 	#region 조건부 클래스 함수
 #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	/** 셀 정보를 생성한다 */
-	public static STCellInfo MakeCellInfo(Vector3Int a_stIdx) {
-		return new STCellInfo() {
-			m_stIdx = a_stIdx, m_oBlockKindsDictContainer = new Dictionary<EBlockType, List<EBlockKinds>>()
+	public static CCellInfo MakeCellInfo(Vector3Int a_stIdx) {
+		return new CCellInfo() {
+			m_stIdx = a_stIdx
 		};
 	}
 

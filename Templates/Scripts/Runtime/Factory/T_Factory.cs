@@ -11,11 +11,11 @@ public static partial class Factory {
 	/** 클리어 정보를 생성한다 */
 	public static CClearInfo MakeClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		return new CClearInfo() {
+			NumMarks = KCDefine.B_VAL_0_INT,
+			Record = KCDefine.B_STR_0_INT,
+			BestRecord = KCDefine.B_STR_0_INT,
+
 			m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID),
-			
-			NumClearMarks = KCDefine.B_VAL_0_INT,
-			ClearRecord = $"{KCDefine.B_VAL_0_INT}",
-			BestClearRecord = $"{KCDefine.B_VAL_0_INT}"
 		};
 	}
 	#endregion			// 클래스 함수

@@ -181,7 +181,7 @@ public static partial class KEditorDefine {
 #endif			// #if INPUT_SYSTEM_ENABLE || INPUT_SYSTEM_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
-    	["com.unity.postprocessing"] = "3.2.1",
+    	["com.unity.postprocessing"] = "3.2.2",
 #endif			// #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 
 #if SKELETON_ANI_2D_ENABLE || SKELETON_ANI_2D_MODULE_ENABLE
@@ -228,7 +228,7 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.1.3",
+		["com.unity.purchasing"] = "4.1.4",
 		["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase_client.git#2.3.19",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 

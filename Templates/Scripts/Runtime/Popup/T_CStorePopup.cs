@@ -37,8 +37,8 @@ public partial class CStorePopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDictA;
-		public Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDictB;
+		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDict01;
+		public Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDict02;
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 
@@ -217,7 +217,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oPurchaseCallbackDictA?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		m_stParams.m_oPurchaseCallbackDict01?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 
 	/** 상품이 복원 되었을 경우 */
@@ -237,7 +237,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oPurchaseCallbackDictB?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
+		m_stParams.m_oPurchaseCallbackDict02?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 
 #if FIREBASE_MODULE_ENABLE
@@ -248,11 +248,11 @@ public partial class CStorePopup : CSubPopup {
 			var oPostItemInfoList = a_oJSONStr.ExJSONStrToPostItemInfos();
 
 			for(int i = 0; i < oPostItemInfoList.Count; ++i) {
-				bool bIsValidA = long.TryParse(oPostItemInfoList[i].m_oNumItems, out long nNumItems);
-				bool bIsValidB = oPostItemInfoList[i].m_oItemKinds.ExToTryEnumVal<EItemKinds>(out EItemKinds eItemKinds);
+				bool bIsValid01 = long.TryParse(oPostItemInfoList[i].m_oNumItems, out long nNumItems);
+				bool bIsValid02 = oPostItemInfoList[i].m_oItemKinds.ExToTryEnumVal<EItemKinds>(out EItemKinds eItemKinds);
 
 				// 지급 아이템 정보가 유효 할 경우
-				if(bIsValidA && bIsValidB && eItemKinds.ExIsValid()) {
+				if(bIsValid01 && bIsValid02 && eItemKinds.ExIsValid()) {
 					Func.AcquireItem(new STItemInfo() {
 						m_nNumItems = nNumItems, m_eItemKinds = eItemKinds
 					});
