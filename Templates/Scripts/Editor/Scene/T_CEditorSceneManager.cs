@@ -10,6 +10,10 @@ using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using EnhancedHierarchy;
 
+#if EDITOR_COROUTINE_ENABLE
+using Unity.EditorCoroutines.Editor;
+#endif			// #if EDITOR_COROUTINE_ENABLE
+
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 using UnityEngine.Rendering.Universal;
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
@@ -37,9 +41,13 @@ public static partial class CEditorSceneManager {
 	/** 스크립트가 로드 되었을 경우 */
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
+#if EDITOR_COROUTINE_ENABLE
+		EditorCoroutineUtility.StartCoroutineOwnerless(CEditorSceneManager.SetupEditorSceneManager());
+#else
 		CEditorSceneManager.m_bIsEnableSetup = true;
+#endif			// #if EDITOR_COROUTINE_ENABLE
 	}
-
+	
 	/** 상태를 갱신한다 */
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우

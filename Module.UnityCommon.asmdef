@@ -24,6 +24,7 @@
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.Advertisement.IosSupport",
         "Unity.TextMeshPro",
+        "Unity.EditorCoroutines.Editor",
         "MessagePack",
         "SimpleScrollSnap"
     ],
