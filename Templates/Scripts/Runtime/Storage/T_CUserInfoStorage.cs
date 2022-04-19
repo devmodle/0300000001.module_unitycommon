@@ -70,7 +70,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		CFunc.ShowLog($"CUserInfoStorage.ResetUserInfo: {a_oJSONStr}");
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 
-		this.UserInfo = a_oJSONStr.ExMsgPackJSONStrToObj<CUserInfo>();
+		this.UserInfo = a_oJSONStr.ExMsgPackBase64StrToObj<CUserInfo>();
 		CAccess.Assert(this.UserInfo != null);
 	}
 

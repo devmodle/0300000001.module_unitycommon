@@ -450,8 +450,7 @@ public static partial class Func {
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = Factory.MakeUserInfoNodes();
-			CFirebaseManager.Inst.LoadDB(oNodeList, Func.OnLoadUserInfo);
+			CFirebaseManager.Inst.LoadDB(Factory.MakeUserInfoNodes(), Func.OnLoadUserInfo);
 		} else {
 			Func.OnLoadUserInfo(CFirebaseManager.Inst, string.Empty, false);
 		}
@@ -464,8 +463,7 @@ public static partial class Func {
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = Factory.MakePurchaseInfoNodes();
-			CFirebaseManager.Inst.LoadDB(oNodeList, Func.OnLoadPurchaseInfos);
+			CFirebaseManager.Inst.LoadDB(Factory.MakePurchaseInfoNodes(), Func.OnLoadPurchaseInfos);
 		} else {
 			Func.OnLoadPurchaseInfos(CFirebaseManager.Inst, string.Empty, false);
 		}
@@ -478,8 +476,7 @@ public static partial class Func {
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = Factory.MakePostItemInfoNodes();
-			CFirebaseManager.Inst.LoadDB(oNodeList, Func.OnLoadPostItemInfos);
+			CFirebaseManager.Inst.LoadDB(Factory.MakePostItemInfoNodes(), Func.OnLoadPostItemInfos);
 		} else {
 			Func.OnLoadPostItemInfos(CFirebaseManager.Inst, string.Empty, false);
 		}
@@ -495,12 +492,12 @@ public static partial class Func {
 			var oNodeList = Factory.MakeUserInfoNodes();
 
 			var oJSONNode = new SimpleJSON.JSONClass();
-			oJSONNode.Add(KCDefine.B_KEY_JSON_USER_INFO_DATA, CUserInfoStorage.Inst.UserInfo.ExToMsgPackJSONStr());
+			oJSONNode.Add(KCDefine.B_KEY_JSON_USER_INFO_DATA, CUserInfoStorage.Inst.UserInfo.ExToMsgPackBase64Str());
 			oJSONNode.Add(KCDefine.B_KEY_JSON_GAME_INFO_DATA, CGameInfoStorage.Inst.GameInfo.ExToMsgPackBase64Str());
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_APP_INFO_DATA, CCommonAppInfoStorage.Inst.AppInfo.ExToMsgPackJSONStr());
-			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA, CCommonUserInfoStorage.Inst.UserInfo.ExToMsgPackJSONStr());
+			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_APP_INFO_DATA, CCommonAppInfoStorage.Inst.AppInfo.ExToMsgPackBase64Str());
+			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA, CCommonUserInfoStorage.Inst.UserInfo.ExToMsgPackBase64Str());
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 			CFirebaseManager.Inst.SaveDB(oNodeList, oJSONNode.ToString(), Func.OnSaveUserInfo);

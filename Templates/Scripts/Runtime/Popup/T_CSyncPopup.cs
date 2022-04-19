@@ -138,6 +138,7 @@ public partial class CSyncPopup : CSubPopup {
 
 			string oUserInfoStr = oJSONNode[KCDefine.B_KEY_JSON_USER_INFO_DATA];
 			string oGameInfoStr = oJSONNode[KCDefine.B_KEY_JSON_GAME_INFO_DATA];
+			string oCommonAppInfoStr = oJSONNode[KCDefine.B_KEY_JSON_COMMON_APP_INFO_DATA];
 			string oCommonUserInfoStr = oJSONNode[KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA];
 
 			CUserInfoStorage.Inst.ResetUserInfo(oUserInfoStr);
@@ -147,6 +148,9 @@ public partial class CSyncPopup : CSubPopup {
 			CGameInfoStorage.Inst.SaveGameInfo();
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
+			CCommonAppInfoStorage.Inst.ResetAppInfo(oCommonAppInfoStr);
+			CCommonAppInfoStorage.Inst.SaveAppInfo();
+
 			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfoStr);
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
 
