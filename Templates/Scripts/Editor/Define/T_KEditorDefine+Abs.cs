@@ -17,12 +17,8 @@ public static partial class KEditorDefine {
 	// 시간
 	public const float B_DELAY_DEFINE_S_UPDATE = 1.0f;
 	
-	// 유니티 패키지 {
-	public const string B_UNITY_PKGS_N_KEY = "name";
-	public const string B_UNITY_PKGS_SCOPED_REGISTRY_DICT_KEY = "scopedRegistries";
-
+	// 유니티 패키지
 	public const string B_UNITY_PKGS_ID_FMT = "{0}@{1}";
-	// 유니티 패키지 }
 	#endregion			// 기본
 	
 	#region 런타임 상수
@@ -238,10 +234,6 @@ public static partial class KEditorDefine {
 		["module.unitycommon.Noti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommon_Noti_client.git#2.3.18"
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 #endif			// #if SAMPLE_PROJ || DEVELOPMENT_PROJ
-	};
-
-	public static readonly Dictionary<string, string> B_UNITY_PKGS_SCOPED_REGISTRY_DICT = new Dictionary<string, string>() {
-		// Do Something
 	};
 	// 유니티 패키지 }
 	#endregion			// 런타임 상수
