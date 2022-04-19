@@ -24,7 +24,6 @@ public static partial class LogFunc {
 		// 로그 전송이 가능 할 경우
 		if(bIsEnableSendLog || !CCommonAppInfoStorage.Inst.IsTestDevice()) {
 			var oDataDict = a_oDataDict ?? new Dictionary<string, object>();
-
 			oDataDict.TryAdd(KCDefine.L_LOG_KEY_PLATFORM, CCommonAppInfoStorage.Inst.Platform);
 			oDataDict.TryAdd(KCDefine.L_LOG_KEY_DEVICE_ID, CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 
@@ -47,24 +46,21 @@ public static partial class LogFunc {
 #if FLURRY_MODULE_ENABLE
 			// 플러리 분석이 가능 할 경우
 			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FLURRY)) {
-				var oFlurryDataDict = (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null;
-				CFlurryManager.Inst.SendLog(a_oName, oFlurryDataDict);
+				CFlurryManager.Inst.SendLog(a_oName, (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null);
 			}
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 			// 파이어 베이스 분석이 가능 할 경우
 			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FIREBASE)) {
-				var oFirebaseDataDict = (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null;
-				CFirebaseManager.Inst.SendLog(a_oName, oFirebaseDataDict);
+				CFirebaseManager.Inst.SendLog(a_oName, (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null);
 			}
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
 			// 앱스 플라이어 분석이 가능 할 경우
 			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.APPS_FLYER)) {
-				var oAppsFlyerDataDict = (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null;
-				CAppsFlyerManager.Inst.SendLog(a_oName, oAppsFlyerDataDict);
+				CAppsFlyerManager.Inst.SendLog(a_oName, (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null);
 			}
 #endif			// #if APPS_FLYER_MODULE_ENABLE
 		}

@@ -191,11 +191,9 @@ namespace LateSetupScene {
 #if FIREBASE_MODULE_ENABLE
 #if UNITY_EDITOR || UNITY_STANDALONE
 				string oGameConfigStr = CFunc.ReadStr(KCDefine.U_RUNTIME_DATA_P_G_GAME_CONFIG);
-				string oDeviceConfigStr = CFunc.ReadStr(KCDefine.U_RUNTIME_DATA_P_G_DEVICE_CONFIG);
 				string oBuildVerConfigStr = CFunc.ReadStr(KCDefine.U_RUNTIME_DATA_P_G_BUILD_VER_CONFIG);
 #else
 				var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG);
-				var oDeviceConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_DEVICE_CONFIG);
 				var oBuildVerConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG);
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 
@@ -208,9 +206,9 @@ namespace LateSetupScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-						[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfigStr, [KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG] = oDeviceConfigStr, [KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfigStr
+						[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfigStr, [KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfigStr
 #else
-						[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfig.text, [KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG] = oDeviceConfig.text, [KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfig.text
+						[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfig.text, [KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfig.text
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 					},
 
@@ -220,7 +218,6 @@ namespace LateSetupScene {
 				});
 
 				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG, true);
-				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_DEVICE_CONFIG, true);
 				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG, true);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
@@ -398,8 +395,7 @@ namespace LateSetupScene {
 			// 속성이 로드 되었을 경우
 			if(a_bIsSuccess) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-				string oDeviceConfig = CFirebaseManager.Inst.GetConfig(KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG);
-				CCommonAppInfoStorage.Inst.DeviceConfig = oDeviceConfig.ExJSONStrToObj<STDeviceConfig>();
+				CCommonAppInfoStorage.Inst.DeviceConfig = CFirebaseManager.Inst.GetConfig(KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG).ExJSONStrToObj<STDeviceConfig>();
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			}
 		}
