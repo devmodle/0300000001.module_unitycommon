@@ -178,11 +178,10 @@ public static partial class CEditorSceneManager {
 	/** 독립 패키지 상태를 갱신한다 */
 	private static void UpdateDependencyState() {
 		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState && (m_oListRequest != null && m_oListRequest.ExIsComplete())) {
+		if(CEditorAccess.IsEnableUpdateState && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.IsCompleted)) {
 			try {
 				CEditorSceneManager.SetupDependencies();
 			} finally {
-				CEditorSceneManager.m_oListRequest = null;
 				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
 			}
 		}
