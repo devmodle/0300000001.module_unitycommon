@@ -104,7 +104,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4b31a92ef441441f5ad405f757cbaf9c, type: 3}
   m_PackedSpriteNamesToIndex:
   - U_SA_01_Arrow
-  - U_SA_01_UnityWhite
+  - U_SA_01_White
   - U_SA_01_Splash
   - U_SA_01_Indicator
   m_RenderDataMap: {}

@@ -8,17 +8,20 @@ using UnityEngine.UI;
 /** 미션 정보 */
 [System.Serializable]
 public struct STMissionInfo {
-	public string m_oName;
-	public string m_oDesc;
+	public STDescInfo m_stDescInfo;
 
 	public EMissionKinds m_eMissionKinds;
 	public ERewardKinds m_eRewardKinds;
 
+	#region 프로퍼티
+	public int DeltaMissionKinds => m_eMissionKinds - this.BaseMissionKinds;
+	public EMissionKinds BaseMissionKinds => (EMissionKinds)((int)m_eMissionKinds).ExKindsToSubKindsType();
+	#endregion			// 프로퍼티
+
 	#region 함수
 	/** 생성자 */
 	public STMissionInfo(SimpleJSON.JSONNode a_oMissionInfo) {
-		m_oName = a_oMissionInfo[KCDefine.U_KEY_NAME];
-		m_oDesc = a_oMissionInfo[KCDefine.U_KEY_DESC];
+		m_stDescInfo = new STDescInfo(a_oMissionInfo);
 
 		m_eMissionKinds = (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_MISSION_KINDS].AsInt;
 		m_eRewardKinds = (ERewardKinds)a_oMissionInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;

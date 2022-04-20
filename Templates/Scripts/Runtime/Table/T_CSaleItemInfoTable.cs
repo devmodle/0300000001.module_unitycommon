@@ -8,27 +8,27 @@ using UnityEngine.UI;
 /** 판매 아이템 정보 */
 [System.Serializable]
 public struct STSaleItemInfo {
-	public string m_oName;
-	public string m_oDesc;
-	public string m_oPrice;
+	public STDescInfo m_stDescInfo;
 
+	public string m_oPrice;
 	public EPriceKinds m_ePriceKinds;
 	public ESaleItemKinds m_eSaleItemKinds;
 
 	public List<STItemInfo> m_oItemInfoList;
 
 	#region 프로퍼티
+	public int DeltaSaleItemKinds => m_eSaleItemKinds - this.BaseSaleItemKinds;
 	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
 	public double RealPrice => double.TryParse(m_oPrice, out double dblPrice) ? dblPrice : KCDefine.B_VAL_0_DBL;
+	public ESaleItemKinds BaseSaleItemKinds => (ESaleItemKinds)((int)m_eSaleItemKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
 	#region 함수
 	/** 생성자 */
 	public STSaleItemInfo(SimpleJSON.JSONNode a_oSaleItemInfo) {
-		m_oName = a_oSaleItemInfo[KCDefine.U_KEY_NAME];
-		m_oDesc = a_oSaleItemInfo[KCDefine.U_KEY_DESC];
-		m_oPrice = a_oSaleItemInfo[KCDefine.U_KEY_PRICE];
+		m_stDescInfo = new STDescInfo(a_oSaleItemInfo);
 
+		m_oPrice = a_oSaleItemInfo[KCDefine.U_KEY_PRICE];
 		m_ePriceKinds = (EPriceKinds)a_oSaleItemInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt;
 		m_eSaleItemKinds = (ESaleItemKinds)a_oSaleItemInfo[KCDefine.U_KEY_SALE_ITEM_KINDS].AsInt;
 
@@ -52,8 +52,14 @@ public struct STSaleItemInfo {
 /** 판매 아이템 정보 테이블 */
 public partial class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	#region 변수
-	[Header("=====> Sale Item Info <=====")]
-	[SerializeField] private List<STSaleItemInfo> m_oSaleItemInfoList = new List<STSaleItemInfo>();
+	[Header("=====> Goods Sale Item Info <=====")]
+	[SerializeField] private List<STSaleItemInfo> m_oGoodsSaleItemInfoList = new List<STSaleItemInfo>();
+
+	[Header("=====> Consumable Sale Item Info <=====")]
+	[SerializeField] private List<STSaleItemInfo> m_oConsumableSaleItemInfoList = new List<STSaleItemInfo>();
+
+	[Header("=====> Non Consumable Sale Item Info <=====")]
+	[SerializeField] private List<STSaleItemInfo> m_oNonConsumableSaleItemInfoList = new List<STSaleItemInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -75,8 +81,12 @@ public partial class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	public override void Awake() {
 		base.Awake();
 
-		for(int i = 0; i < m_oSaleItemInfoList.Count; ++i) {
-			this.SaleItemInfoDict.TryAdd(m_oSaleItemInfoList[i].m_eSaleItemKinds, m_oSaleItemInfoList[i]);
+		var oSaleItemInfoList = new List<STSaleItemInfo>(m_oGoodsSaleItemInfoList);
+		oSaleItemInfoList.ExAddVals(m_oConsumableSaleItemInfoList);
+		oSaleItemInfoList.ExAddVals(m_oNonConsumableSaleItemInfoList);
+
+		for(int i = 0; i < oSaleItemInfoList.Count; ++i) {
+			this.SaleItemInfoDict.TryAdd(oSaleItemInfoList[i].m_eSaleItemKinds, oSaleItemInfoList[i]);
 		}
 	}
 
@@ -145,17 +155,21 @@ public partial class CSaleItemInfoTable : CScriptableObj<CSaleItemInfoTable> {
 	/** 판매 아이템 정보를 로드한다 */
 	private Dictionary<ESaleItemKinds, STSaleItemInfo> DoLoadSaleItemInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
-		var oSaleItemInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
 
-		for(int i = 0; i < oSaleItemInfos.Count; ++i) {
-			var stSaleItemInfo = new STSaleItemInfo(oSaleItemInfos[i]);
-			bool bIsReplace = oSaleItemInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
+		var oSaleItemInfosList = new List<SimpleJSON.JSONNode>() {
+			oJSONNode[KCDefine.U_KEY_GOODS], oJSONNode[KCDefine.U_KEY_CONSUMABLE], oJSONNode[KCDefine.U_KEY_NON_CONSUMABLE]
+		};
 
-			// 판매 아이템 정보가 추가 가능 할 경우
-			if(bIsReplace || !this.SaleItemInfoDict.ContainsKey(stSaleItemInfo.m_eSaleItemKinds)) {
-				this.SaleItemInfoDict.ExReplaceVal(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
+		for(int i = 0; i < oSaleItemInfosList.Count; ++i) {
+			for(int j = 0; j < oSaleItemInfosList[i].Count; ++j) {
+				var stSaleItemInfo = new STSaleItemInfo(oSaleItemInfosList[i][j]);
+				bool bIsReplace = oSaleItemInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
+
+				// 판매 아이템 정보가 추가 가능 할 경우
+				if(bIsReplace || !this.SaleItemInfoDict.ContainsKey(stSaleItemInfo.m_eSaleItemKinds)) {
+					this.SaleItemInfoDict.ExReplaceVal(stSaleItemInfo.m_eSaleItemKinds, stSaleItemInfo);
+				}
 			}
 		}
 

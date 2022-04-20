@@ -8,20 +8,23 @@ using UnityEngine.UI;
 /** 리소스 정보 */
 [System.Serializable]
 public struct STResInfo {
-	public string m_oName;
-	public string m_oDesc;
+	public STDescInfo m_stDescInfo;
 
-	public long m_nID;
 	public string m_oResPath;
+	public EResKinds m_eResKinds;
+
+	#region 프로퍼티
+	public int DeltaResKinds => m_eResKinds - this.BaseResKinds;
+	public EResKinds BaseResKinds => (EResKinds)((int)m_eResKinds).ExKindsToSubKindsType();
+	#endregion			// 프로퍼티
 	
 	#region 함수
 	/** 생성자 */
 	public STResInfo(SimpleJSON.JSONNode a_oResInfo) {
-		m_oName = a_oResInfo[KCDefine.U_KEY_NAME];
-		m_oDesc = a_oResInfo[KCDefine.U_KEY_DESC];
-		
-		m_nID = long.TryParse(a_oResInfo[KCDefine.U_KEY_ID], out long nID) ? nID : KCDefine.B_VAL_0_LONG;
+		m_stDescInfo = new STDescInfo(a_oResInfo);
+
 		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH];
+		m_eResKinds = (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt;
 	}
 	#endregion			// 함수
 }
@@ -29,12 +32,21 @@ public struct STResInfo {
 /** 리소스 정보 테이블 */
 public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 	#region 변수
-	[Header("=====> Res Info <=====")]
-	[SerializeField] private List<STResInfo> m_oResInfoList = new List<STResInfo>();
+	[Header("=====> Snd Res Info <=====")]
+	[SerializeField] private List<STResInfo> m_oSndResInfoList = new List<STResInfo>();
+
+	[Header("=====> Font Res Info <=====")]
+	[SerializeField] private List<STResInfo> m_oFontResInfoList = new List<STResInfo>();
+
+	[Header("=====> Sprite Res Info <=====")]
+	[SerializeField] private List<STResInfo> m_oSpriteResInfoList = new List<STResInfo>();
+
+	[Header("=====> Texture Res Info <=====")]
+	[SerializeField] private List<STResInfo> m_oTextureResInfoList = new List<STResInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public Dictionary<long, STResInfo> ResInfoDict { get; private set; } = new Dictionary<long, STResInfo>();
+	public Dictionary<EResKinds, STResInfo> ResInfoDict { get; private set; } = new Dictionary<EResKinds, STResInfo>();
 
 	private string ResInfoTablePath {
 		get {
@@ -52,40 +64,44 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 	public override void Awake() {
 		base.Awake();
 
-		for(int i = 0; i < m_oResInfoList.Count; ++i) {
-			this.ResInfoDict.TryAdd(m_oResInfoList[i].m_nID, m_oResInfoList[i]);
+		var oResInfoList = new List<STResInfo>(m_oSndResInfoList);
+		oResInfoList.AddRange(m_oFontResInfoList);
+		oResInfoList.AddRange(m_oSpriteResInfoList);
+		oResInfoList.AddRange(m_oTextureResInfoList);
+
+		for(int i = 0; i < oResInfoList.Count; ++i) {
+			this.ResInfoDict.TryAdd(oResInfoList[i].m_eResKinds, oResInfoList[i]);
 		}
 	}
 
 	/** 리소스 정보를 반환한다 */
-	public STResInfo GetResInfo(long a_nID) {
-		bool bIsValid = this.TryGetResInfo(a_nID, out STResInfo stResInfo);
+	public STResInfo GetResInfo(EResKinds a_eResKinds) {
+		bool bIsValid = this.TryGetResInfo(a_eResKinds, out STResInfo stResInfo);
 		CAccess.Assert(bIsValid);
 
 		return stResInfo;
 	}
 
 	/** 리소스 정보를 반환한다 */
-	public bool TryGetResInfo(long a_nID, out STResInfo a_stOutResInfo) {
-		a_stOutResInfo = this.ResInfoDict.GetValueOrDefault(a_nID, default(STResInfo));
-		return this.ResInfoDict.ContainsKey(a_nID);
+	public bool TryGetResInfo(EResKinds a_eResKinds, out STResInfo a_stOutResInfo) {
+		a_stOutResInfo = this.ResInfoDict.GetValueOrDefault(a_eResKinds, default(STResInfo));
+		return this.ResInfoDict.ContainsKey(a_eResKinds);
 	}
 
 	/** 리소스 정보를 로드한다 */
-	public Dictionary<long, STResInfo> LoadResInfos() {
+	public Dictionary<EResKinds, STResInfo> LoadResInfos() {
 		return this.LoadResInfos(this.ResInfoTablePath);
 	}
 
 	/** 리소스 정보를 로드한다 */
-	private Dictionary<long, STResInfo> LoadResInfos(string a_oFilePath) {
+	private Dictionary<EResKinds, STResInfo> LoadResInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadResInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadResInfos(oTextAsset.text);
+			return this.DoLoadResInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -93,19 +109,23 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 	}
 
 	/** 리소스 정보를 로드한다 */
-	private Dictionary<long, STResInfo> DoLoadResInfos(string a_oJSONStr) {
+	private Dictionary<EResKinds, STResInfo> DoLoadResInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
-		var oResInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
 
-		for(int i = 0; i < oResInfos.Count; ++i) {
-			var stResInfo = new STResInfo(oResInfos[i]);
-			bool bIsReplace = oResInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
+		var oResInfosList = new List<SimpleJSON.JSONNode>() {
+			oJSONNode[KCDefine.U_KEY_SND], oJSONNode[KCDefine.U_KEY_FONT], oJSONNode[KCDefine.U_KEY_SPRITE], oJSONNode[KCDefine.U_KEY_TEXTURE]
+		};
 
-			// 리소스 정보가 추가 가능 할 경우
-			if(bIsReplace || !this.ResInfoDict.ContainsKey(stResInfo.m_nID)) {
-				this.ResInfoDict.ExReplaceVal(stResInfo.m_nID, stResInfo);
+		for(int i = 0; i < oResInfosList.Count; ++i) {
+			for(int j = 0; j < oResInfosList[i].Count; ++j) {
+				var stResInfo = new STResInfo(oResInfosList[i][j]);
+				bool bIsReplace = oResInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
+
+				// 리소스 정보가 추가 가능 할 경우
+				if(bIsReplace || !this.ResInfoDict.ContainsKey(stResInfo.m_eResKinds)) {
+					this.ResInfoDict.ExReplaceVal(stResInfo.m_eResKinds, stResInfo);
+				}
 			}
 		}
 

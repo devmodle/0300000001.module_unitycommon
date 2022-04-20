@@ -115,8 +115,7 @@ public struct STChapterInfo {
 /** 에피소드 정보 */
 [System.Serializable]
 public struct STEpisodeInfo {
-	public string m_oName;
-	public string m_oDesc;
+	public STDescInfo m_stDescInfo;
 
 	public EDifficulty m_eDifficulty;
 	public ERewardKinds m_eRewardKinds;
@@ -129,8 +128,7 @@ public struct STEpisodeInfo {
 	#region 함수
 	/** 생성자 */
 	public STEpisodeInfo(SimpleJSON.JSONNode a_oEpisodeInfo) {
-		m_oName = a_oEpisodeInfo[KCDefine.U_KEY_NAME];
-		m_oDesc = a_oEpisodeInfo[KCDefine.U_KEY_DESC];
+		m_stDescInfo = new STDescInfo(a_oEpisodeInfo);
 
 		m_eDifficulty = (EDifficulty)a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].AsInt;
 		m_eRewardKinds = (ERewardKinds)a_oEpisodeInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
@@ -190,8 +188,7 @@ public struct STEpisodeInfo {
 #if UNITY_EDITOR || UNITY_STANDALONE
 	/** 에피소드 정보를 생성한다 */
 	public void MakeEpisodeInfo(SimpleJSON.JSONClass a_oOutEpisodeInfo) {
-		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_NAME, m_oName ?? string.Empty);
-		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_DESC, m_oDesc ?? string.Empty);
+		m_stDescInfo.MakeDescInfo(a_oOutEpisodeInfo);
 
 		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_DIFFICULTY, $"{(int)m_eDifficulty}");
 		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_REWARD_KINDS, $"{(int)m_eRewardKinds}");

@@ -65,10 +65,6 @@ public static partial class KDefine {
 	public const float G_DURATION_SCALE_09 = 1.0f;
 	// 시간 }
 
-	// 식별자
-	public const int G_PRODUCT_ID_SALE_COINS = 0;
-	public const int G_PRODUCT_ID_REMOVE_ADS = 1;
-
 	// 에피소드 정보 테이블
 	public const int G_IDX_EPISODE_IT_LEVEL = 0;
 	public const int G_IDX_EPISODE_IT_STAGE = 1;
@@ -125,7 +121,7 @@ public static partial class KDefine {
 
 	// 특수 패키지 판매 상품
 	public static readonly List<ESaleProductKinds> G_SALE_PRODUCT_KINDS_PRODUCT_SPECIAL_PKGS_LIST = new List<ESaleProductKinds>() {
-		ESaleProductKinds.PKGS_BEGINNER, ESaleProductKinds.PKGS_EXPERT, ESaleProductKinds.PKGS_PRO
+		ESaleProductKinds.PKGS_SPECIAL_BEGINNER, ESaleProductKinds.PKGS_SPECIAL_EXPERT, ESaleProductKinds.PKGS_SPECIAL_PRO
 	};
 
 	// 일일 보상

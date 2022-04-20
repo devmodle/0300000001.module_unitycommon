@@ -8,22 +8,29 @@ using UnityEngine.UI;
 /** 효과 정보 */
 [System.Serializable]
 public struct STFXInfo {
-	public string m_oName;
-	public string m_oDesc;
+	public STDescInfo m_stDescInfo;
 
-	public long m_nResID;
 	public EFXKinds m_eFXKinds;
 	public EFXKinds m_eNextFXKinds;
+
+	public EResKinds m_eFXResKinds;
+	public EResKinds m_eSndResKinds;
+
+	#region 프로퍼티
+	public int DeltaFXKinds => m_eFXKinds - this.BaseFXKinds;
+	public EFXKinds BaseFXKinds => (EFXKinds)((int)m_eFXKinds).ExKindsToSubKindsType();
+	#endregion			// 프로퍼티
 
 	#region 함수
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
-		m_oName = a_oFXInfo[KCDefine.U_KEY_NAME];
-		m_oDesc = a_oFXInfo[KCDefine.U_KEY_DESC];
+		m_stDescInfo = new STDescInfo(a_oFXInfo);
 
-		m_nResID = long.TryParse(a_oFXInfo[KCDefine.U_KEY_RES_ID], out long nResID) ? nResID : KCDefine.B_VAL_0_LONG;
 		m_eFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt;
 		m_eNextFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt;
+
+		m_eFXResKinds = (EResKinds)a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].AsInt;
+		m_eSndResKinds = (EResKinds)a_oFXInfo[KCDefine.U_KEY_SND_RES_KINDS].AsInt;
 	}
 	#endregion			// 함수
 }
@@ -86,8 +93,7 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 		return this.DoLoadFXInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadFXInfos(oTextAsset.text);
+			return this.DoLoadFXInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}

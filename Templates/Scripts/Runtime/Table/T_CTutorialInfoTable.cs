@@ -14,6 +14,11 @@ public struct STTutorialInfo {
 
 	public List<string> m_oStrList;
 
+	#region 프로퍼티
+	public int DeltaTutorialKinds => m_eTutorialKinds - this.BaseTutorialKinds;
+	public ETutorialKinds BaseTutorialKinds => (ETutorialKinds)((int)m_eTutorialKinds).ExKindsToSubKindsType();
+	#endregion			// 프로퍼티
+
 	#region 함수
 	/** 생성자 */
 	public STTutorialInfo(SimpleJSON.JSONNode a_oTutorialInfo) {

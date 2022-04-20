@@ -14,6 +14,31 @@ public struct STItemInfo {
 	public EItemKinds m_eItemKinds;
 }
 
+/** 설명 정보 */
+[System.Serializable]
+public struct STDescInfo {
+	public string m_oName;
+	public string m_oDesc;
+
+	#region 함수
+	/** 생성자 */
+	public STDescInfo(SimpleJSON.JSONNode a_oDescInfo) {
+		m_oName = a_oDescInfo[KCDefine.U_KEY_NAME];
+		m_oDesc = a_oDescInfo[KCDefine.U_KEY_DESC];
+	}
+	#endregion			// 함수
+
+	#region 조건부 함수
+#if UNITY_EDITOR || UNITY_STANDALONE
+	/** 에피소드 정보를 생성한다 */
+	public void MakeDescInfo(SimpleJSON.JSONClass a_oOutDescInfo) {
+		a_oOutDescInfo.Add(KCDefine.U_KEY_NAME, m_oName ?? string.Empty);
+		a_oOutDescInfo.Add(KCDefine.U_KEY_DESC, m_oDesc ?? string.Empty);
+	}
+#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
+	#endregion			// 조건부 함수
+}
+
 /** 게임 속성 */
 [System.Serializable]
 public struct STGameConfig {

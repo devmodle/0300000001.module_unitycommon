@@ -32,7 +32,7 @@ public static partial class Func {
 			} break;
 			default: {
 				// 소모품 일 경우
-				if(a_stItemInfo.m_eItemKinds.ExKindsToType() == EItemType.CONSUMABLE) {
+				if((EItemType)((int)a_stItemInfo.m_eItemKinds).ExKindsToType() == EItemType.CONSUMABLE) {
 					CUserInfoStorage.Inst.AddNumItems(a_stItemInfo.m_eItemKinds, a_stItemInfo.m_nNumItems + a_nNumExtraItems);
 				}
 			} break;

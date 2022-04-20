@@ -89,8 +89,8 @@ public partial class CStorePopup : CSubPopup {
 
 	/** 판매 상품 UI 상태를 갱신한다 */
 	private void UpdateSaleProductUIsState(GameObject a_oSaleProductUIs, STSaleProductInfo a_stSaleProductInfo) {
-		var ePriceType = a_stSaleProductInfo.m_ePriceKinds.ExKindsToType();
-		var eSaleProductType = a_stSaleProductInfo.m_eSaleProductKinds.ExKindsToType();
+		var ePriceType = (EPriceType)((int)a_stSaleProductInfo.m_ePriceKinds).ExKindsToType();
+		var eSaleProductType = (ESaleProductType)((int)a_stSaleProductInfo.m_eSaleProductKinds).ExKindsToType();
 
 		var oAdsPriceUIs = a_oSaleProductUIs.ExFindChild(KCDefine.U_OBJ_N_ADS_PRICE_UIS);
 		oAdsPriceUIs?.SetActive(ePriceType == EPriceType.ADS);
@@ -107,7 +107,7 @@ public partial class CStorePopup : CSubPopup {
 		var oPriceText = a_oSaleProductUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
 		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stSaleProductInfo.m_oPrice), EFontSet._1, false);
 		
-		a_oSaleProductUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stSaleProductInfo.m_oName, EFontSet._1, false);
+		a_oSaleProductUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stSaleProductInfo.m_stDescInfo.m_oName, EFontSet._1, false);
 
 		for(int i = 0; i < a_stSaleProductInfo.m_oItemInfoList.Count; ++i) {
 			var oNumText = a_oSaleProductUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
@@ -164,7 +164,7 @@ public partial class CStorePopup : CSubPopup {
 
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STSaleProductInfo a_stSaleProductInfo) {
-		switch(a_stSaleProductInfo.m_ePriceKinds.ExKindsToType()) {
+		switch((EPriceType)((int)a_stSaleProductInfo.m_ePriceKinds).ExKindsToType()) {
 			case EPriceType.ADS: {
 #if ADS_MODULE_ENABLE
 				m_eSelSaleProductKinds = a_stSaleProductInfo.m_eSaleProductKinds;

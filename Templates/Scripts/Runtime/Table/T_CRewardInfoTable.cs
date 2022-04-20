@@ -8,19 +8,22 @@ using UnityEngine.UI;
 /** 보상 정보 */
 [System.Serializable]
 public struct STRewardInfo {
-	public string m_oName;
-	public string m_oDesc;
+	public STDescInfo m_stDescInfo;
 
 	public ERewardKinds m_eRewardKinds;
 	public ERewardQuality m_eRewardQuality;
 
 	public List<STItemInfo> m_oItemInfoList;
 
+	#region 프로퍼티
+	public int DeltaRewardKinds => m_eRewardKinds - this.BaseRewardKinds;
+	public ERewardKinds BaseRewardKinds => (ERewardKinds)((int)m_eRewardKinds).ExKindsToSubKindsType();
+	#endregion			// 프로퍼티
+
 	#region 함수
 	/** 생성자 */
 	public STRewardInfo(SimpleJSON.JSONNode a_oRewardInfo) {
-		m_oName = a_oRewardInfo[KCDefine.U_KEY_NAME];
-		m_oDesc = a_oRewardInfo[KCDefine.U_KEY_DESC];
+		m_stDescInfo = new STDescInfo(a_oRewardInfo);
 
 		m_eRewardKinds = (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
 		m_eRewardQuality = (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt;

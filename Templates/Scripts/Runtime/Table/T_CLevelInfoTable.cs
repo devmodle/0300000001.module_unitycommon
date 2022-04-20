@@ -661,8 +661,10 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_eLevelKinds = stLevelInfo.m_eLevelKinds,
 
 			m_stEpisodeInfo = new STEpisodeInfo() {
-				m_oName = stLevelInfo.m_stEpisodeInfo.m_oName ?? string.Empty,
-				m_oDesc = stLevelInfo.m_stEpisodeInfo.m_oDesc ?? string.Empty,
+				m_stDescInfo = new STDescInfo() {
+					m_oName = stLevelInfo.m_stEpisodeInfo.m_stDescInfo.m_oName ?? string.Empty,
+					m_oDesc = stLevelInfo.m_stEpisodeInfo.m_stDescInfo.m_oDesc ?? string.Empty,
+				},
 
 				m_eDifficulty = stLevelInfo.m_stEpisodeInfo.m_eDifficulty,
 				m_eRewardKinds = stLevelInfo.m_stEpisodeInfo.m_eRewardKinds,
