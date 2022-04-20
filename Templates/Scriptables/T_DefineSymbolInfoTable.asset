@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oCommonDefineSymbolList:
   - MSG_PACK_ENABLE
-  - VISUAL_FX_GRAPH_ENABLE
   - UNIVERSAL_RENDERING_PIPELINE_ENABLE
   - ADDRESSABLES_ENABLE
   - BURST_COMPILER_ENABLE

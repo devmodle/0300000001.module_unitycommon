@@ -64,7 +64,7 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.SetupCallbacks();
 
 #if EDITOR_COROUTINE_ENABLE
-				CEditorSceneManager.SetupPackages();
+				EditorCoroutineUtility.StartCoroutineOwnerless(CEditorSceneManager.SetupPackages());
 #else
 				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
 				EditorApplication.update += CEditorSceneManager.UpdateDependencyState;
