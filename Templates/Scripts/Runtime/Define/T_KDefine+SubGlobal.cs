@@ -22,7 +22,7 @@ public static partial class KDefine {
 	public const string G_OBJ_N_RESULT_POPUP = "ResultPopup";
 	public const string G_OBJ_N_PAUSE_POPUP = "PausePopup";
 	public const string G_OBJ_N_RESUME_POPUP = "ResumePopup";
-	public const string G_OBJ_N_SALE_PRODUCT_POPUP = "SaleProductPopup";
+	public const string G_OBJ_N_PRODUCT_SALE_POPUP = "ProductSalePopup";
 	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
 	public const string G_OBJ_N_TUTORIAL_POPUP = "TutorialPopup";
 

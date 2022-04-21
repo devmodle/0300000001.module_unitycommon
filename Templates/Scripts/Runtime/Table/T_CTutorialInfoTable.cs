@@ -9,13 +9,15 @@ using UnityEngine.UI;
 [System.Serializable]
 public struct STTutorialInfo {
 	public ERewardKinds m_eRewardKinds;
+
 	public ETutorialKinds m_eTutorialKinds;
+	public ETutorialKinds m_ePrevTutorialKinds;
 	public ETutorialKinds m_eNextTutorialKinds;
 
 	public List<string> m_oStrList;
 
 	#region 프로퍼티
-	public int DeltaTutorialKinds => m_eTutorialKinds - this.BaseTutorialKinds;
+	public ETutorialType TutorialType => (ETutorialType)((int)m_eTutorialKinds).ExKindsToType();
 	public ETutorialKinds BaseTutorialKinds => (ETutorialKinds)((int)m_eTutorialKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
@@ -23,7 +25,9 @@ public struct STTutorialInfo {
 	/** 생성자 */
 	public STTutorialInfo(SimpleJSON.JSONNode a_oTutorialInfo) {
 		m_eRewardKinds = (ERewardKinds)a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
+
 		m_eTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt;
+		m_ePrevTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].AsInt;
 		m_eNextTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].AsInt;
 
 		m_oStrList = new List<string>();

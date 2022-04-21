@@ -157,6 +157,8 @@ namespace MainScene {
 			if(CSceneManager.IsAppInit) {
 				this.SetupStart();
 				this.UpdateUIsState();
+
+				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_MAIN);
 			}
 		}
 

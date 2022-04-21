@@ -568,8 +568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &6698162762040421289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2181,8 +2179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76fd6f731d4b443bebc747a1650401be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oShowSndPath: Sounds/Global/G_PopupShow
-  m_oCloseSndPath: Sounds/Global/G_PopupClose
 --- !u!1 &7314365102206777576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,8 +2315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1539494714283162610
 MonoBehaviour:
   m_ObjectHideFlags: 0

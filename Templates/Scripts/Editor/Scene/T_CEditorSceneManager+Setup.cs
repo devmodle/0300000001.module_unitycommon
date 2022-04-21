@@ -14,6 +14,10 @@ public static partial class CEditorSceneManager {
 	#region 클래스 함수
 	/** 에디터 씬 관리자를 설정한다 */
 	private static IEnumerator SetupEditorSceneManager() {
+		do {
+			yield return null;
+		} while(!CEditorAccess.IsEnableUpdateState);
+
 		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_FLT);
 		CEditorSceneManager.m_bIsEnableSetup = true;
 	}

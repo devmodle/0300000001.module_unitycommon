@@ -16,14 +16,14 @@ MonoBehaviour:
   - m_oCountryCode: 
     m_eSystemLanguage: 23
     m_oFontSetInfoList:
-    - m_oPath: Fonts/Global/G_KoreanFont
+    - m_oPath: Fonts/Global/G_Korean
       m_eSet: 0
-    - m_oPath: Fonts/Global/G_KoreanFont
+    - m_oPath: Fonts/Global/G_Korean
       m_eSet: 1
   - m_oCountryCode: 
     m_eSystemLanguage: 10
     m_oFontSetInfoList:
     - m_oPath: Fonts & Materials/LiberationSans SDF
       m_eSet: 0
-    - m_oPath: Fonts/Global/G_EnglishFont
+    - m_oPath: Fonts/Global/G_English
       m_eSet: 1

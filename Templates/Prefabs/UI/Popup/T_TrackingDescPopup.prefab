@@ -522,8 +522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &9023953903934389320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1288,8 +1286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54604ec979c944c6791debfee27789af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oShowSndPath: Sounds/Global/G_PopupShow
-  m_oCloseSndPath: Sounds/Global/G_PopupClose
 --- !u!1 &8217939543647551784
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,8 +23,8 @@ public struct STDescInfo {
 	#region 함수
 	/** 생성자 */
 	public STDescInfo(SimpleJSON.JSONNode a_oDescInfo) {
-		m_oName = a_oDescInfo[KCDefine.U_KEY_NAME];
-		m_oDesc = a_oDescInfo[KCDefine.U_KEY_DESC];
+		m_oName = a_oDescInfo[KCDefine.U_KEY_NAME].Value.Equals(KCDefine.B_TEXT_NULL) ? string.Empty : a_oDescInfo[KCDefine.U_KEY_NAME];
+		m_oDesc = a_oDescInfo[KCDefine.U_KEY_DESC].Value.Equals(KCDefine.B_TEXT_NULL) ? string.Empty : a_oDescInfo[KCDefine.U_KEY_DESC];
 	}
 	#endregion			// 함수
 
