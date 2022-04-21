@@ -12,7 +12,7 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_SALE_COINS = 0;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 9;
 
-	public const int G_MAX_NUM_SALE_ITEM_INFOS = 9;
+	public const int G_MAX_NUM_ITEM_SALE_INFOS = 9;
 	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 9;
 	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
 
@@ -109,19 +109,19 @@ public static partial class KDefine {
 	};
 	// 분석 }
 	
-	// 판매 상품 정보 테이블
-	public static readonly List<ESaleProductKinds> G_KINDS_SALE_PIT_SALE_PRODUCT_LIST = new List<ESaleProductKinds>() {
-		ESaleProductKinds.SINGLE_SALE_COINS, ESaleProductKinds.SINGLE_REMOVE_ADS
+	// 상품 판매 정보 테이블
+	public static readonly List<EProductSaleKinds> G_KINDS_SALE_PIT_PRODUCT_SALE_LIST = new List<EProductSaleKinds>() {
+		EProductSaleKinds.SINGLE_SALE_COINS, EProductSaleKinds.SINGLE_REMOVE_ADS
 	};
 
-	// 판매 상품
-	public static readonly List<ESaleProductKinds> G_SALE_PRODUCT_KINDS_PRODUCT_LIST = new List<ESaleProductKinds>() {
+	// 상품 판매
+	public static readonly List<EProductSaleKinds> G_PRODUCT_SALE_KINDS_PRODUCT_LIST = new List<EProductSaleKinds>() {
 		// Do Something
 	};
 
-	// 특수 패키지 판매 상품
-	public static readonly List<ESaleProductKinds> G_SALE_PRODUCT_KINDS_PRODUCT_SPECIAL_PKGS_LIST = new List<ESaleProductKinds>() {
-		ESaleProductKinds.PKGS_SPECIAL_BEGINNER, ESaleProductKinds.PKGS_SPECIAL_EXPERT, ESaleProductKinds.PKGS_SPECIAL_PRO
+	// 특수 패키지 상품 판매
+	public static readonly List<EProductSaleKinds> G_PRODUCT_SALE_KINDS_PRODUCT_SPECIAL_PKGS_LIST = new List<EProductSaleKinds>() {
+		EProductSaleKinds.PKGS_SPECIAL_BEGINNER, EProductSaleKinds.PKGS_SPECIAL_EXPERT, EProductSaleKinds.PKGS_SPECIAL_PRO
 	};
 
 	// 일일 보상

@@ -49,6 +49,8 @@ namespace TitleScene {
 				this.SetupStart();
 				this.UpdateUIsState();
 
+				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_TITLE);
+
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 				// 최초 시작 일 경우
 				if(CCommonAppInfoStorage.Inst.IsFirstStart) {

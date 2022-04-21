@@ -642,8 +642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &4532287796767959978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,8 +1332,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &3040564306472590164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1798,8 +1794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &8388239966237750311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2411,8 +2405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &6616504862029273564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3261,8 +3253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf3b717576f645b6b0bb0c01dbbe564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oShowSndPath: Sounds/Global/G_PopupShow
-  m_oCloseSndPath: Sounds/Global/G_PopupClose
   m_oKRUIs: {fileID: 8019310881904857024}
   m_oEUUIs: {fileID: 8019310881260844047}
   m_oKRUIsPrivacyUIs: {fileID: 2205614760928724013}
@@ -3956,8 +3946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &4706110049596219050
 MonoBehaviour:
   m_ObjectHideFlags: 0

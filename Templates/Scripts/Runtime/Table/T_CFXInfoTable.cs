@@ -8,29 +8,25 @@ using UnityEngine.UI;
 /** 효과 정보 */
 [System.Serializable]
 public struct STFXInfo {
-	public STDescInfo m_stDescInfo;
-
 	public EFXKinds m_eFXKinds;
+	public EFXKinds m_ePrevFXKinds;
 	public EFXKinds m_eNextFXKinds;
 
 	public EResKinds m_eFXResKinds;
-	public EResKinds m_eSndResKinds;
 
 	#region 프로퍼티
-	public int DeltaFXKinds => m_eFXKinds - this.BaseFXKinds;
+	public EFXType FXType => (EFXType)((int)m_eFXKinds).ExKindsToType();
 	public EFXKinds BaseFXKinds => (EFXKinds)((int)m_eFXKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
 	#region 함수
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
-		m_stDescInfo = new STDescInfo(a_oFXInfo);
-
 		m_eFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt;
+		m_ePrevFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt;
 		m_eNextFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt;
 
 		m_eFXResKinds = (EResKinds)a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].AsInt;
-		m_eSndResKinds = (EResKinds)a_oFXInfo[KCDefine.U_KEY_SND_RES_KINDS].AsInt;
 	}
 	#endregion			// 함수
 }
@@ -60,9 +56,10 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		var oFXInfoList = new List<STFXInfo>(m_oFXInfoInfoList);
 
-		for(int i = 0; i < m_oFXInfoInfoList.Count; ++i) {
-			this.FXInfoDict.TryAdd(m_oFXInfoInfoList[i].m_eFXKinds, m_oFXInfoInfoList[i]);
+		for(int i = 0; i < oFXInfoList.Count; ++i) {
+			this.FXInfoDict.TryAdd(oFXInfoList[i].m_eFXKinds, oFXInfoList[i]);
 		}
 	}
 
@@ -103,17 +100,21 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 	/** 효과 정보를 로드한다 */
 	private Dictionary<EFXKinds, STFXInfo> DoLoadFXInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
-		var oFXInfos = oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA];
 
-		for(int i = 0; i < oFXInfos.Count; ++i) {
-			var stFXInfo = new STFXInfo(oFXInfos[i]);
-			bool bIsReplace = oFXInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
+		var oFXInfosList = new List<SimpleJSON.JSONNode>() {
+			oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA]
+		};
 
-			// 효과 정보가 추가 가능 할 경우
-			if(bIsReplace || !this.FXInfoDict.ContainsKey(stFXInfo.m_eFXKinds)) {
-				this.FXInfoDict.ExReplaceVal(stFXInfo.m_eFXKinds, stFXInfo);
+		for(int i = 0; i < oFXInfosList.Count; ++i) {
+			for(int j = 0; j < oFXInfosList[i].Count; ++j) {
+				var stFXInfo = new STFXInfo(oFXInfosList[i][j]);
+				bool bIsReplace = oFXInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
+
+				// 효과 정보가 추가 가능 할 경우
+				if(bIsReplace || !this.FXInfoDict.ContainsKey(stFXInfo.m_eFXKinds)) {
+					this.FXInfoDict.ExReplaceVal(stFXInfo.m_eFXKinds, stFXInfo);
+				}
 			}
 		}
 

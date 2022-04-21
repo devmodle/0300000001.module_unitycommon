@@ -119,6 +119,38 @@ public static partial class Func {
 		}
 	}
 
+	/** 배경음을 재생한다 */
+	public static void PlayBGSnd(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
+		Func.PlayBGSnd(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+	}
+
+	/** 배경음을 재생한다 */
+	public static void PlayBGSnd(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
+
+		// 배경음이 존재 할 경우
+		if(CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo)) {
+			CSndManager.Inst.PlayBGSnd(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+		}
+	}
+
+	/** 효과음을 재생한다 */
+	public static void PlayFXSnds(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
+		Func.PlayFXSnds(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+	}
+
+	/** 효과음을 재생한다 */
+	public static void PlayFXSnds(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
+
+		// 효과음이 존재 할 경우
+		if(CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo)) {
+			CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+		}
+	}
+
 	/** 경고 팝업을 출력한다 */
 	public static void ShowAlertPopup(string a_oMsg, System.Action<CAlertPopup, bool> a_oCallback, bool a_bIsEnableCancelBtn = true) {
 		var stParams = new CAlertPopup.STParams() {
@@ -724,12 +756,12 @@ public static partial class Func {
 	}
 
 	/** 상품을 결제한다 */
-	public static void PurchaseProduct(ESaleProductKinds a_eSaleProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		int nID = Access.GetSaleProductID(a_eSaleProductKinds);
-		CAccess.Assert(!a_bIsEnableAssert || KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST.ExIsValidIdx(nID));
+	public static void PurchaseProduct(EProductSaleKinds a_eProductSaleKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+		int nID = Access.GetProductSaleID(a_eProductSaleKinds);
+		CAccess.Assert(!a_bIsEnableAssert || KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST.ExIsValidIdx(nID));
 
 		// 상품이 존재 할 경우
-		if(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST.ExIsValidIdx(nID)) {
+		if(KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST.ExIsValidIdx(nID)) {
 			Func.PurchaseProduct(nID, a_oCallback, a_bIsEnableAssert);
 		}
 	}

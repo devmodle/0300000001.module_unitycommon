@@ -983,8 +983,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316bc29c48db2437d8362a5a405b33d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oShowSndPath: Sounds/Global/G_PopupShow
-  m_oCloseSndPath: Sounds/Global/G_PopupClose
+  m_oShowSndPath: Sounds/Global/G_SFX_PopupShow
+  m_oCloseSndPath: Sounds/Global/G_SFX_PopupClose
 --- !u!1 &7610575161148813588
 GameObject:
   m_ObjectHideFlags: 0

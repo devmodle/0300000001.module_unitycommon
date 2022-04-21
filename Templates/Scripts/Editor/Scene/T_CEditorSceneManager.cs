@@ -71,8 +71,8 @@ public static partial class CEditorSceneManager {
 #endif			// #if EDITOR_COROUTINE_ENABLE
 
 #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-				EditorFactory.CreateSaleItemInfoTable();
-				EditorFactory.CreateSaleProductInfoTable();
+				EditorFactory.CreateItemSaleInfoTable();
+				EditorFactory.CreateProductSaleInfoTable();
 				EditorFactory.CreateMissionInfoTable();
 				EditorFactory.CreateRewardInfoTable();
 				EditorFactory.CreateEpisodeInfoTable();

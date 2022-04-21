@@ -25,10 +25,10 @@ public static partial class Access {
 	
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
-	/** 판매 상품 식별자를 반환한다 */
-	public static int GetSaleProductID(ESaleProductKinds a_eSaleProductKinds) {
-		int nIdx = KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST.FindIndex((a_eCompareSaleProductKinds) => a_eSaleProductKinds == a_eCompareSaleProductKinds);
-		CAccess.Assert(KDefine.G_KINDS_SALE_PIT_SALE_PRODUCT_LIST.ExIsValidIdx(nIdx));
+	/** 상품 판매 식별자를 반환한다 */
+	public static int GetProductSaleID(EProductSaleKinds a_eProductSaleKinds) {
+		int nIdx = KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST.FindIndex((a_eCompareProductSaleKinds) => a_eProductSaleKinds == a_eCompareProductSaleKinds);
+		CAccess.Assert(KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST.ExIsValidIdx(nIdx));
 
 		return nIdx;
 	}

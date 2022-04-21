@@ -60,8 +60,8 @@ public static partial class KEditorDefine {
 
 #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		[typeof(CLevelInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CSaleItemInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CSaleProductInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CItemSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CProductSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CMissionInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		
 		[typeof(CRewardInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
@@ -161,7 +161,7 @@ public static partial class KEditorDefine {
 		["com.unity.terrain-tools"] = "4.0.3",
 		["com.unity.2d.spriteshape"] = "7.0.4",
 		["com.unity.editorcoroutines"] = "1.0.0",
-		["com.unity.2d.tilemap.extras"] = "2.2.1",
+		["com.unity.2d.tilemap.extras"] = "2.2.2",
 		["com.unity.mobile.android-logcat"] = "1.2.3",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
 

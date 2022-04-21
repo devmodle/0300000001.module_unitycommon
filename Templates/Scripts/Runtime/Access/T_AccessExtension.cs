@@ -51,23 +51,23 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this ESaleItemType a_eSender) {
-		return a_eSender > ESaleItemType.NONE && a_eSender < ESaleItemType.MAX_VAL;
+	public static bool ExIsValid(this EItemSaleType a_eSender) {
+		return a_eSender > EItemSaleType.NONE && a_eSender < EItemSaleType.MAX_VAL;
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this ESaleItemKinds a_eSender) {
-		return a_eSender > ESaleItemKinds.NONE && a_eSender < ESaleItemKinds.MAX_VAL;
+	public static bool ExIsValid(this EItemSaleKinds a_eSender) {
+		return a_eSender > EItemSaleKinds.NONE && a_eSender < EItemSaleKinds.MAX_VAL;
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this ESaleProductType a_eSender) {
-		return a_eSender > ESaleProductType.NONE && a_eSender < ESaleProductType.MAX_VAL;
+	public static bool ExIsValid(this EProductSaleType a_eSender) {
+		return a_eSender > EProductSaleType.NONE && a_eSender < EProductSaleType.MAX_VAL;
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this ESaleProductKinds a_eSender) {
-		return a_eSender > ESaleProductKinds.NONE && a_eSender < ESaleProductKinds.MAX_VAL;
+	public static bool ExIsValid(this EProductSaleKinds a_eSender) {
+		return a_eSender > EProductSaleKinds.NONE && a_eSender < EProductSaleKinds.MAX_VAL;
 	}
 
 	/** 유효 여부를 검사한다 */
@@ -108,6 +108,11 @@ public static partial class AccessExtension {
 	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this ETutorialKinds a_eSender) {
 		return a_eSender > ETutorialKinds.NONE && a_eSender < ETutorialKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EResKinds a_eSender) {
+		return a_eSender > EResKinds.NONE && a_eSender < EResKinds.MAX_VAL;
 	}
 	
 	/** 컴포넌트 상호 작용 여부를 변경한다 */

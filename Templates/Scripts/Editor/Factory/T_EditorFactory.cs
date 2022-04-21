@@ -15,16 +15,22 @@ public static partial class EditorFactory {
 
 	#region 조건부 클래스 함수
 #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-	/** 판매 아이템 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "SaleItemInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateSaleItemInfoTable() {
-		CEditorFactory.CreateScriptableObj<CSaleItemInfoTable>(KCEditorDefine.B_ASSET_P_SALE_ITEM_INFO_TABLE);
+	/** 아이템 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ItemInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateItemInfoTable() {
+		CEditorFactory.CreateScriptableObj<CItemSaleInfoTable>(KCEditorDefine.B_ASSET_P_ITEM_INFO_TABLE);
 	}
 
-	/** 판매 상품 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "SaleProductInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateSaleProductInfoTable() {
-		CEditorFactory.CreateScriptableObj<CSaleProductInfoTable>(KCEditorDefine.B_ASSET_P_SALE_PRODUCT_INFO_TABLE);
+	/** 아이템 판매 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ItemSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateItemSaleInfoTable() {
+		CEditorFactory.CreateScriptableObj<CItemSaleInfoTable>(KCEditorDefine.B_ASSET_P_ITEM_SALE_INFO_TABLE);
+	}
+
+	/** 상품 판매 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ProductSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateProductSaleInfoTable() {
+		CEditorFactory.CreateScriptableObj<CProductSaleInfoTable>(KCEditorDefine.B_ASSET_P_PRODUCT_SALE_INFO_TABLE);
 	}
 
 	/** 미션 정보 테이블을 생성한다 */

@@ -8,39 +8,38 @@ using UnityEngine.UI;
 /** 블럭 정보 */
 [System.Serializable]
 public struct STBlockInfo {
-	public STDescInfo m_stDescInfo;
-	
 	public EBlockKinds m_eBlockKinds;
+	public EBlockKinds m_ePrevBlockKinds;
 	public EBlockKinds m_eNextBlockKinds;
 
 	public EResKinds m_eBlockResKinds;
-	public EResKinds m_eSndResKinds;
 
 	public Vector3 m_stSize;
+	public STDescInfo m_stDescInfo;
 
 	#region 프로퍼티
-	public int DeltaBlockKinds => m_eBlockKinds - this.BaseBlockKinds;
+	public EBlockType BlockType => (EBlockType)((int)m_eBlockKinds).ExKindsToType();
 	public EBlockKinds BaseBlockKinds => (EBlockKinds)((int)m_eBlockKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 	
 	#region 함수
 	/** 생성자 */
 	public STBlockInfo(SimpleJSON.JSONNode a_oBlockInfo) {
-		m_stDescInfo = new STDescInfo(a_oBlockInfo);
-
 		m_eBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt;
+		m_ePrevBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].AsInt;
 		m_eNextBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].AsInt;
 
 		m_eBlockResKinds = (EResKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].AsInt;
-		m_eSndResKinds = (EResKinds)a_oBlockInfo[KCDefine.U_KEY_SND_RES_KINDS].AsInt;
 
 		// 크기를 설정한다 {
-		float fSizeX = a_oBlockInfo[KCDefine.U_KEY_SIZE_X].Value.ExIsValid() ? a_oBlockInfo[KCDefine.U_KEY_SIZE_X].AsFloat : KCDefine.B_VAL_0_FLT;
-		float fSizeY = a_oBlockInfo[KCDefine.U_KEY_SIZE_Y].Value.ExIsValid() ? a_oBlockInfo[KCDefine.U_KEY_SIZE_Y].AsFloat : KCDefine.B_VAL_0_FLT;
-		float fSizeZ = a_oBlockInfo[KCDefine.U_KEY_SIZE_Z].Value.ExIsValid() ? a_oBlockInfo[KCDefine.U_KEY_SIZE_Z].AsFloat : KCDefine.B_VAL_0_FLT;
+		float fSizeX = a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].Value.ExIsValid() ? a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat : KCDefine.B_VAL_0_FLT;
+		float fSizeY = a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].Value.ExIsValid() ? a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat : KCDefine.B_VAL_0_FLT;
+		float fSizeZ = a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].Value.ExIsValid() ? a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat : KCDefine.B_VAL_0_FLT;
 
 		m_stSize = new Vector3(fSizeX, fSizeY, fSizeZ);
 		// 크기를 설정한다 }
+
+		m_stDescInfo = new STDescInfo(a_oBlockInfo);
 	}
 	#endregion			// 함수
 }

@@ -295,6 +295,7 @@ namespace LevelEditorScene {
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 
 				this.SetupStart();
+				CSndManager.Inst.StopBGSnd();
 			}
 		}
 

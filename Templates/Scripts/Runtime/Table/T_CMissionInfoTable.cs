@@ -8,23 +8,27 @@ using UnityEngine.UI;
 /** 미션 정보 */
 [System.Serializable]
 public struct STMissionInfo {
+	public EMissionKinds m_eMissionKinds;
+	public EMissionKinds m_ePrevMissionKinds;
+	public EMissionKinds m_eNextMissionKinds;
+
+	public ERewardKinds m_eRewardKinds;
 	public STDescInfo m_stDescInfo;
 
-	public EMissionKinds m_eMissionKinds;
-	public ERewardKinds m_eRewardKinds;
-
 	#region 프로퍼티
-	public int DeltaMissionKinds => m_eMissionKinds - this.BaseMissionKinds;
+	public EMissionType MissionType => (EMissionType)((int)m_eMissionKinds).ExKindsToType();
 	public EMissionKinds BaseMissionKinds => (EMissionKinds)((int)m_eMissionKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
 	#region 함수
 	/** 생성자 */
 	public STMissionInfo(SimpleJSON.JSONNode a_oMissionInfo) {
-		m_stDescInfo = new STDescInfo(a_oMissionInfo);
-
 		m_eMissionKinds = (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_MISSION_KINDS].AsInt;
+		m_ePrevMissionKinds = (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_PREV_MISSION_KINDS].AsInt;
+		m_eNextMissionKinds = (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_NEXT_MISSION_KINDS].AsInt;
+
 		m_eRewardKinds = (ERewardKinds)a_oMissionInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
+		m_stDescInfo = new STDescInfo(a_oMissionInfo);
 	}
 	#endregion			// 함수
 }
