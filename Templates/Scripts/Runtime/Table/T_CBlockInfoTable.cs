@@ -25,20 +25,13 @@ public struct STBlockInfo {
 	#region 함수
 	/** 생성자 */
 	public STBlockInfo(SimpleJSON.JSONNode a_oBlockInfo) {
-		m_eBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt;
-		m_ePrevBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].AsInt;
-		m_eNextBlockKinds = (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].AsInt;
+		m_eBlockKinds = a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].Value.ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
+		m_ePrevBlockKinds = a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].Value.ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
+		m_eNextBlockKinds = a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].Value.ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
 
-		m_eBlockResKinds = (EResKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].AsInt;
+		m_eBlockResKinds = a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].Value.ExIsValid() ? (EResKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].AsInt : EResKinds.NONE;
 
-		// 크기를 설정한다 {
-		float fSizeX = a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].Value.ExIsValid() ? a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat : KCDefine.B_VAL_0_FLT;
-		float fSizeY = a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].Value.ExIsValid() ? a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat : KCDefine.B_VAL_0_FLT;
-		float fSizeZ = a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].Value.ExIsValid() ? a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat : KCDefine.B_VAL_0_FLT;
-
-		m_stSize = new Vector3(fSizeX, fSizeY, fSizeZ);
-		// 크기를 설정한다 }
-
+		m_stSize = new Vector3(a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat);
 		m_stDescInfo = new STDescInfo(a_oBlockInfo);
 	}
 	#endregion			// 함수
@@ -131,10 +124,9 @@ public partial class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 		for(int i = 0; i < oBlockInfosList.Count; ++i) {
 			for(int j = 0; j < oBlockInfosList[i].Count; ++j) {
 				var stBlockInfo = new STBlockInfo(oBlockInfosList[i][j]);
-				bool bIsReplace = oBlockInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 블럭 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.BlockInfoDict.ContainsKey(stBlockInfo.m_eBlockKinds)) {
+				if(!this.BlockInfoDict.ContainsKey(stBlockInfo.m_eBlockKinds) || oBlockInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
 					this.BlockInfoDict.ExReplaceVal(stBlockInfo.m_eBlockKinds, stBlockInfo);
 				}
 			}

@@ -23,11 +23,11 @@ public struct STMissionInfo {
 	#region 함수
 	/** 생성자 */
 	public STMissionInfo(SimpleJSON.JSONNode a_oMissionInfo) {
-		m_eMissionKinds = (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_MISSION_KINDS].AsInt;
-		m_ePrevMissionKinds = (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_PREV_MISSION_KINDS].AsInt;
-		m_eNextMissionKinds = (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_NEXT_MISSION_KINDS].AsInt;
+		m_eMissionKinds = a_oMissionInfo[KCDefine.U_KEY_MISSION_KINDS].Value.ExIsValid() ? (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_MISSION_KINDS].AsInt : EMissionKinds.NONE;
+		m_ePrevMissionKinds = a_oMissionInfo[KCDefine.U_KEY_PREV_MISSION_KINDS].Value.ExIsValid() ? (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_PREV_MISSION_KINDS].AsInt : EMissionKinds.NONE;
+		m_eNextMissionKinds = a_oMissionInfo[KCDefine.U_KEY_NEXT_MISSION_KINDS].Value.ExIsValid() ? (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_NEXT_MISSION_KINDS].AsInt : EMissionKinds.NONE;
 
-		m_eRewardKinds = (ERewardKinds)a_oMissionInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
+		m_eRewardKinds = a_oMissionInfo[KCDefine.U_KEY_REWARD_KINDS].Value.ExIsValid() ? (ERewardKinds)a_oMissionInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_stDescInfo = new STDescInfo(a_oMissionInfo);
 	}
 	#endregion			// 함수
@@ -121,10 +121,9 @@ public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		for(int i = 0; i < oMissionInfosList.Count; ++i) {
 			for(int j = 0; j < oMissionInfosList[i].Count; ++j) {
 				var stMissionInfo = new STMissionInfo(oMissionInfosList[i][j]);
-				bool bIsReplace = oMissionInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 미션 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.MissionInfoDict.ContainsKey(stMissionInfo.m_eMissionKinds)) {
+				if(!this.MissionInfoDict.ContainsKey(stMissionInfo.m_eMissionKinds) || oMissionInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
 					this.MissionInfoDict.ExReplaceVal(stMissionInfo.m_eMissionKinds, stMissionInfo);
 				}
 			}

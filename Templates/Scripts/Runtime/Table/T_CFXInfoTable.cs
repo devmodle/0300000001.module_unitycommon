@@ -22,11 +22,11 @@ public struct STFXInfo {
 	#region 함수
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
-		m_eFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt;
-		m_ePrevFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt;
-		m_eNextFXKinds = (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt;
+		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].Value.ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
+		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].Value.ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
+		m_eNextFXKinds = a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].Value.ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt : EFXKinds.NONE;
 
-		m_eFXResKinds = (EResKinds)a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].AsInt;
+		m_eFXResKinds = a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].Value.ExIsValid() ? (EResKinds)a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].AsInt : EResKinds.NONE;
 	}
 	#endregion			// 함수
 }
@@ -109,10 +109,9 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 		for(int i = 0; i < oFXInfosList.Count; ++i) {
 			for(int j = 0; j < oFXInfosList[i].Count; ++j) {
 				var stFXInfo = new STFXInfo(oFXInfosList[i][j]);
-				bool bIsReplace = oFXInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 효과 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.FXInfoDict.ContainsKey(stFXInfo.m_eFXKinds)) {
+				if(!this.FXInfoDict.ContainsKey(stFXInfo.m_eFXKinds) || oFXInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
 					this.FXInfoDict.ExReplaceVal(stFXInfo.m_eFXKinds, stFXInfo);
 				}
 			}
