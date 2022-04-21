@@ -30,21 +30,18 @@ public struct STItemSaleInfo {
 		m_stDescInfo = new STDescInfo(a_oItemSaleInfo);
 
 		m_oPrice = a_oItemSaleInfo[KCDefine.U_KEY_PRICE];
-		m_ePriceKinds = (EPriceKinds)a_oItemSaleInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt;
-		m_eItemSaleKinds = (EItemSaleKinds)a_oItemSaleInfo[KCDefine.U_KEY_ITEM_SALE_KINDS].AsInt;
+		m_ePriceKinds = a_oItemSaleInfo[KCDefine.U_KEY_PRICE_KINDS].Value.ExIsValid() ? (EPriceKinds)a_oItemSaleInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt : EPriceKinds.NONE;
+		m_eItemSaleKinds = a_oItemSaleInfo[KCDefine.U_KEY_ITEM_SALE_KINDS].Value.ExIsValid() ? (EItemSaleKinds)a_oItemSaleInfo[KCDefine.U_KEY_ITEM_SALE_KINDS].AsInt : EItemSaleKinds.NONE;
 
 		m_oItemInfoList = new List<STItemInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ITEM_SALE_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
-			
-			// 아이템 정보가 존쟆 할 경우
-			if(a_oItemSaleInfo[oNumItemsKey].Value.ExIsValid() && a_oItemSaleInfo[oItemKindsKey].Value.ExIsValid()) {
-				m_oItemInfoList.Add(new STItemInfo() {
-					m_nNumItems = long.Parse(a_oItemSaleInfo[oNumItemsKey]), m_eItemKinds = (EItemKinds)a_oItemSaleInfo[oItemKindsKey].AsInt
-				});
-			}
+
+			m_oItemInfoList.Add(new STItemInfo() {
+				m_nNumItems = a_oItemSaleInfo[oNumItemsKey].AsInt, m_eItemKinds = a_oItemSaleInfo[oItemKindsKey].Value.ExIsValid() ? (EItemKinds)a_oItemSaleInfo[oItemKindsKey].AsInt : EItemKinds.NONE
+			});
 		}
 	}
 	#endregion			// 함수
@@ -165,10 +162,9 @@ public partial class CItemSaleInfoTable : CScriptableObj<CItemSaleInfoTable> {
 		for(int i = 0; i < oItemSaleInfosList.Count; ++i) {
 			for(int j = 0; j < oItemSaleInfosList[i].Count; ++j) {
 				var stItemSaleInfo = new STItemSaleInfo(oItemSaleInfosList[i][j]);
-				bool bIsReplace = oItemSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 아이템 판매 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.ItemSaleInfoDict.ContainsKey(stItemSaleInfo.m_eItemSaleKinds)) {
+				if(!this.ItemSaleInfoDict.ContainsKey(stItemSaleInfo.m_eItemSaleKinds) || oItemSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
 					this.ItemSaleInfoDict.ExReplaceVal(stItemSaleInfo.m_eItemSaleKinds, stItemSaleInfo);
 				}
 			}

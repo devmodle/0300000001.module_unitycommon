@@ -8,12 +8,11 @@ using UnityEngine.UI;
 /** 튜토리얼 정보 */
 [System.Serializable]
 public struct STTutorialInfo {
-	public ERewardKinds m_eRewardKinds;
-
 	public ETutorialKinds m_eTutorialKinds;
 	public ETutorialKinds m_ePrevTutorialKinds;
 	public ETutorialKinds m_eNextTutorialKinds;
 
+	public ERewardKinds m_eRewardKinds;
 	public List<string> m_oStrList;
 
 	#region 프로퍼티
@@ -24,21 +23,16 @@ public struct STTutorialInfo {
 	#region 함수
 	/** 생성자 */
 	public STTutorialInfo(SimpleJSON.JSONNode a_oTutorialInfo) {
-		m_eRewardKinds = (ERewardKinds)a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
+		m_eTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].Value.ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
+		m_ePrevTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].Value.ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
+		m_eNextTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].Value.ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
 
-		m_eTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt;
-		m_ePrevTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].AsInt;
-		m_eNextTutorialKinds = (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].AsInt;
-
+		m_eRewardKinds = a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].Value.ExIsValid() ? (ERewardKinds)a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_oStrList = new List<string>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TUTORIAL_STRS; ++i) {
 			string oStrKey = string.Format(KCDefine.U_KEY_FMT_STRS, i + KCDefine.B_VAL_1_INT);
-
-			// 문자열이 존재 할 경우
-			if(a_oTutorialInfo[oStrKey].Value.ExIsValid()) {
-				m_oStrList.Add(a_oTutorialInfo[oStrKey]);
-			}
+			m_oStrList.Add(a_oTutorialInfo[oStrKey].Value.Equals(KCDefine.B_TEXT_NULL) ? string.Empty : a_oTutorialInfo[oStrKey]);
 		}
 	}
 	#endregion			// 함수
@@ -128,10 +122,9 @@ public partial class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 		for(int i = 0; i < oTutorialInfosList.Count; ++i) {
 			for(int j = 0; j < oTutorialInfosList[i].Count; ++j) {
 				var stTutorialInfo = new STTutorialInfo(oTutorialInfosList[i][j]);
-				bool bIsReplace = oTutorialInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 튜토리얼 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.TutorialInfoDict.ContainsKey(stTutorialInfo.m_eTutorialKinds)) {
+				if(!this.TutorialInfoDict.ContainsKey(stTutorialInfo.m_eTutorialKinds) || oTutorialInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
 					this.TutorialInfoDict.ExReplaceVal(stTutorialInfo.m_eTutorialKinds, stTutorialInfo);
 				}
 			}

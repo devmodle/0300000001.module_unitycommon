@@ -22,8 +22,8 @@ public struct STRewardInfo {
 	#region 함수
 	/** 생성자 */
 	public STRewardInfo(SimpleJSON.JSONNode a_oRewardInfo) {
-		m_eRewardKinds = (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt;
-		m_eRewardQuality = (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt;
+		m_eRewardKinds = a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].Value.ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
+		m_eRewardQuality = a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].Value.ExIsValid() ? (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt : ERewardQuality.NONE;
 
 		m_stDescInfo = new STDescInfo(a_oRewardInfo);
 		m_oItemInfoList = new List<STItemInfo>();
@@ -32,12 +32,9 @@ public struct STRewardInfo {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			// 아이템 정보가 존재 할 경우
-			if(a_oRewardInfo[oNumItemsKey].Value.ExIsValid() && a_oRewardInfo[oItemKindsKey].Value.ExIsValid()) {
-				m_oItemInfoList.Add(new STItemInfo() {
-					m_nNumItems = long.Parse(a_oRewardInfo[oNumItemsKey]), m_eItemKinds = (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt
-				});
-			}
+			m_oItemInfoList.Add(new STItemInfo() {
+				m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt, m_eItemKinds = a_oRewardInfo[oItemKindsKey].Value.ExIsValid() ? (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt : EItemKinds.NONE
+			});
 		}
 	}
 	#endregion			// 함수
@@ -143,10 +140,9 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		for(int i = 0; i < oRewardInfosList.Count; ++i) {
 			for(int j = 0; j < oRewardInfosList[i].Count; ++j) {
 				var stRewardInfo = new STRewardInfo(oRewardInfosList[i][j]);
-				bool bIsReplace = oRewardInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 보상 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.RewardInfoDict.ContainsKey(stRewardInfo.m_eRewardKinds)) {
+				if(!this.RewardInfoDict.ContainsKey(stRewardInfo.m_eRewardKinds) || oRewardInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
 					this.RewardInfoDict.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
 				}
 			}

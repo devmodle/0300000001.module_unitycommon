@@ -22,7 +22,7 @@ public struct STResInfo {
 	public STResInfo(SimpleJSON.JSONNode a_oResInfo) {
 		m_fRate = a_oResInfo[KCDefine.U_KEY_RATE].AsFloat;
 		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH];
-		m_eResKinds = (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt;
+		m_eResKinds = a_oResInfo[KCDefine.U_KEY_RES_KINDS].Value.ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt : EResKinds.NONE;
 	}
 	#endregion			// 함수
 }
@@ -118,10 +118,9 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 		for(int i = 0; i < oResInfosList.Count; ++i) {
 			for(int j = 0; j < oResInfosList[i].Count; ++j) {
 				var stResInfo = new STResInfo(oResInfosList[i][j]);
-				bool bIsReplace = oResInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 리소스 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.ResInfoDict.ContainsKey(stResInfo.m_eResKinds)) {
+				if(!this.ResInfoDict.ContainsKey(stResInfo.m_eResKinds) || oResInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
 					this.ResInfoDict.ExReplaceVal(stResInfo.m_eResKinds, stResInfo);
 				}
 			}

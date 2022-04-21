@@ -38,8 +38,8 @@ public struct STProductSaleInfo {
 		m_stDescInfo = new STDescInfo(a_oProductSaleInfo);
 
 		m_oPrice = a_oProductSaleInfo[KCDefine.U_KEY_PRICE];
-		m_ePriceKinds = (EPriceKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt;
-		m_eProductSaleKinds = (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].AsInt;
+		m_ePriceKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRICE_KINDS].Value.ExIsValid() ? (EPriceKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt : EPriceKinds.NONE;
+		m_eProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].Value.ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
 		
 		m_oItemInfoList = new List<STItemInfo>();
 
@@ -47,17 +47,14 @@ public struct STProductSaleInfo {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			// 아이템 정보가 존재 할 경우
-			if(a_oProductSaleInfo[oNumItemsKey].Value.ExIsValid() && a_oProductSaleInfo[oItemKindsKey].Value.ExIsValid()) {
-				m_oItemInfoList.Add(new STItemInfo() {
-					m_nNumItems = long.Parse(a_oProductSaleInfo[oNumItemsKey]), m_eItemKinds = (EItemKinds)a_oProductSaleInfo[oItemKindsKey].AsInt
-				});
-			}
+			m_oItemInfoList.Add(new STItemInfo() {
+				m_nNumItems = a_oProductSaleInfo[oNumItemsKey].AsInt, m_eItemKinds = a_oProductSaleInfo[oItemKindsKey].Value.ExIsValid() ? (EItemKinds)a_oProductSaleInfo[oItemKindsKey].AsInt : EItemKinds.NONE
+			});
 		}
 
 #if PURCHASE_MODULE_ENABLE
 		m_eProductType = (ProductType)a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_KINDS].AsInt;
-		CAccess.Assert(m_eProductType != ProductType.Subscription);
+		CAccess.Assert(a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_KINDS].Value.ExIsValid() && m_eProductType != ProductType.Subscription);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수
@@ -174,10 +171,9 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 		for(int i = 0; i < oProductSaleInfosList.Count; ++i) {
 			for(int j = 0; j < oProductSaleInfosList[i].Count; ++j) {
 				var stProductSaleInfo = new STProductSaleInfo(oProductSaleInfosList[i][j]);
-				bool bIsReplace = oProductSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT;
 
 				// 상품 판매 정보가 추가 가능 할 경우
-				if(bIsReplace || !this.ProductSaleInfoDict.ContainsKey(stProductSaleInfo.m_eProductSaleKinds)) {
+				if(!this.ProductSaleInfoDict.ContainsKey(stProductSaleInfo.m_eProductSaleKinds) || oProductSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
 					this.ProductSaleInfoDict.ExReplaceVal(stProductSaleInfo.m_eProductSaleKinds, stProductSaleInfo);
 				}
 			}
