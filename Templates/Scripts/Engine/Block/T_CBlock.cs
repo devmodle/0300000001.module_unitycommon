@@ -21,6 +21,12 @@ namespace SampleEngineName {
 			public CEngine m_oEngine;
 		}
 
+		#region 상수
+		private static readonly Dictionary<EKey, string> SPRITE_NAME_DICT = new Dictionary<EKey, string>() {
+			[EKey.BLOCK_SPRITE] = "BlockSprite"
+		};
+		#endregion			// 상수
+
 		#region 변수
 		private STParams m_stParams;
 
@@ -36,9 +42,17 @@ namespace SampleEngineName {
 
 		#region 함수
 		/** 초기화 */
+		public override void Awake() {
+			base.Awake();
+			
+			for(int i = (int)EKey.BLOCK_SPRITE; i <= (int)EKey.BLOCK_SPRITE; ++i) {
+				m_oSpriteDict[(EKey)i] = this.gameObject.ExFindComponent<SpriteRenderer>(CBlock.SPRITE_NAME_DICT[(EKey)i]);
+			}
+		}
+
+		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			m_stParams = a_stParams;
-			m_oSpriteDict[EKey.BLOCK_SPRITE] = this.gameObject.ExFindComponent<SpriteRenderer>(KDefine.E_OBJ_N_BLOCK_SPRITE);
 
 			// 블럭 스프라이트가 존재 할 경우
 			if(m_oSpriteDict[EKey.BLOCK_SPRITE] != null) {

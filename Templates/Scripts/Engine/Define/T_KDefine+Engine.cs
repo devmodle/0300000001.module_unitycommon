@@ -12,7 +12,6 @@ namespace SampleEngineName {
 		// 이름
 		public const string E_OBJ_N_FX = "FX";
 		public const string E_OBJ_N_BLOCK = "Block";
-		public const string E_OBJ_N_BLOCK_SPRITE = "BlockSprite";
 		#endregion			// 기본
 
 		#region 런타임 상수
