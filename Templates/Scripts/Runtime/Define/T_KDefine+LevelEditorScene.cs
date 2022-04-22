@@ -16,7 +16,7 @@ public static partial class KDefine {
 
 	// 이름 {
 	public const string LES_OBJ_N_BLOCK_SPRITE = "BlockSprite";
-	public const string LES_OBJ_N_FMT_PAGE_UIS = "PageUIs_{0:00}";
+	public const string LES_OBJ_N_FMT_RE_UIS_PAGE_UIS = "PageUIs_{0:00}";
 
 	public const string LES_FUNC_N_FMT_SETUP_RE_UIS_PAGE_UIS = "SetupREUIsPageUIs{0:00}";
 	public const string LES_FUNC_N_FMT_UPDATE_RE_UIS_PAGE_UIS = "UpdateREUIsPageUIs{0:00}";
