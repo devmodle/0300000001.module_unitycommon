@@ -16,7 +16,7 @@ namespace SampleEngineName {
 
 		#region 런타임 상수
 		// 기타
-		public static readonly (EBlockKinds, CBlock) E_INVALID_BLOCK_INFO = (EBlockKinds.NONE, null);
+		public static readonly (EBlockKinds, CEBlock) E_INVALID_BLOCK_INFO = (EBlockKinds.NONE, null);
 
 		// 크기
 		public static readonly Vector3 E_SIZE_CELL = new Vector3(0.0f, 0.0f, 0.0f);

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 효과 */
-	public partial class CFX : CComponent {
+	public partial class CEFX : CComponent {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
@@ -45,7 +45,7 @@ namespace SampleEngineName {
 			base.Awake();
 
 			for(int i = (int)EKey.FX_PARTICLE; i <= (int)EKey.FX_PARTICLE; ++i) {
-				m_oParticleDict[(EKey)i] = this.gameObject.ExFindComponent<ParticleSystem>(CFX.PARTICLE_NAME_DICT[(EKey)i]);
+				m_oParticleDict[(EKey)i] = this.gameObject.ExFindComponent<ParticleSystem>(CEFX.PARTICLE_NAME_DICT[(EKey)i]);
 				m_oParticleDict[(EKey)i]?.ExReset(false);
 			}
 		}

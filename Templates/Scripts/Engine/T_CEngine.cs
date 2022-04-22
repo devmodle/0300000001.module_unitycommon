@@ -50,7 +50,7 @@ namespace SampleEngineName {
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
-		private Dictionary<EBlockType, List<(EBlockKinds, CBlock)>>[,] m_oBlockInfoDictContainers = null;
+		private Dictionary<EBlockType, List<(EBlockKinds, CEBlock)>>[,] m_oBlockInfoDictContainers = null;
 		#endregion			// 변수
 
 		#region 프로퍼티

@@ -16,7 +16,7 @@ namespace SampleEngineName {
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
-			m_oBlockInfoDictContainers = new Dictionary<EBlockType, List<(EBlockKinds, CBlock)>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
+			m_oBlockInfoDictContainers = new Dictionary<EBlockType, List<(EBlockKinds, CEBlock)>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
 			this.GridInfo = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
 		}
 		
@@ -31,10 +31,10 @@ namespace SampleEngineName {
 
 		/** 셀을 설정한다 */
 		private void SetupCell(CCellInfo a_oCellInfo) {
-			var oBlockInfoDictContainer = new Dictionary<EBlockType, List<(EBlockKinds, CBlock)>>();
+			var oBlockInfoDictContainer = new Dictionary<EBlockType, List<(EBlockKinds, CEBlock)>>();
 
 			foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
-				var oBlockInfoList = new List<(EBlockKinds, CBlock)>();
+				var oBlockInfoList = new List<(EBlockKinds, CEBlock)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 					// Do Something

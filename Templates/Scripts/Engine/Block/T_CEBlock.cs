@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 블럭 */
-	public partial class CBlock : CComponent {
+	public partial class CEBlock : CComponent {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
@@ -46,7 +46,7 @@ namespace SampleEngineName {
 			base.Awake();
 			
 			for(int i = (int)EKey.BLOCK_SPRITE; i <= (int)EKey.BLOCK_SPRITE; ++i) {
-				m_oSpriteDict[(EKey)i] = this.gameObject.ExFindComponent<SpriteRenderer>(CBlock.SPRITE_NAME_DICT[(EKey)i]);
+				m_oSpriteDict[(EKey)i] = this.gameObject.ExFindComponent<SpriteRenderer>(CEBlock.SPRITE_NAME_DICT[(EKey)i]);
 			}
 		}
 
