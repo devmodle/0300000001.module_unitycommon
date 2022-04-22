@@ -14,17 +14,15 @@ using EnhancedHierarchy;
 using Unity.EditorCoroutines.Editor;
 #endif			// #if EDITOR_COROUTINE_ENABLE
 
-#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-using UnityEngine.Rendering.Universal;
-#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-
 /** 에디터 씬 관리자 */
 [InitializeOnLoad]
 public static partial class CEditorSceneManager {
 	#region 클래스 변수
 	private static bool m_bIsEnableSetup = false;
+	private static bool m_bIsEnableSetupDependencies = false;
 
 	private static float m_fUpdateSkipTime = 0.0f;
+	private static float m_fDependencySkipTime = 0.0f;
 	private static float m_fDefineSymbolSkipTime = 0.0f;
 
 	private static ListRequest m_oListRequest = null;
@@ -55,20 +53,17 @@ public static partial class CEditorSceneManager {
 
 			// 상태 갱신이 가능 할 경우
 			if(CEditorSceneManager.m_bIsEnableSetup) {
-				CEditorSceneManager.m_bIsEnableSetup = false;
-				CEditorSceneManager.m_oListRequest = Client.List();
-
 				Preferences.Tooltips.Value = false;
 				Preferences.SelectOnTree.Value = false;
 
+				CEditorSceneManager.m_bIsEnableSetup = false;
+				CEditorSceneManager.m_bIsEnableSetupDependencies = true;
+				CEditorSceneManager.m_oListRequest = Client.List(true, true);
+
 				CEditorSceneManager.SetupCallbacks();
 
-#if EDITOR_COROUTINE_ENABLE
-				EditorCoroutineUtility.StartCoroutineOwnerless(CEditorSceneManager.SetupPackages());
-#else
 				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
 				EditorApplication.update += CEditorSceneManager.UpdateDependencyState;
-#endif			// #if EDITOR_COROUTINE_ENABLE
 
 #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 				EditorFactory.CreateItemSaleInfoTable();
@@ -171,23 +166,29 @@ public static partial class CEditorSceneManager {
 			}
 		}
 	}
-	#endregion			// 클래스 함수
 
-	#region 조건부 클래스 함수
-#if !EDITOR_COROUTINE_ENABLE
 	/** 독립 패키지 상태를 갱신한다 */
 	private static void UpdateDependencyState() {
 		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.IsCompleted)) {
-			try {
-				CEditorSceneManager.SetupDependencies();
-			} finally {
-				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
-			}
+		if(CEditorAccess.IsEnableUpdateState) {
+			bool bIsEnableSetup = CEditorSceneManager.m_bIsEnableSetupDependencies && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.IsCompleted);
+			CEditorSceneManager.m_fDependencySkipTime += Mathf.Clamp01(Time.deltaTime);
+
+			// 갱신 주기가 지났을 경우
+			if(bIsEnableSetup && CEditorSceneManager.m_fDependencySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
+				CEditorSceneManager.m_fDependencySkipTime = KCDefine.B_VAL_0_FLT;
+				CEditorSceneManager.m_bIsEnableSetupDependencies = false;
+
+				try {
+					CEditorSceneManager.SetupDependencies();
+				} finally {
+					EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
+					CEditorSceneManager.m_oListRequest = null;
+				}
+			}			
 		}
 	}
-#endif			// #if !EDITOR_COROUTINE_ENABLE
-	#endregion			// 조건부 클래스 함수
+	#endregion			// 클래스 함수
 }
 #endif			// #if UNITY_EDITOR
 #endif			// #if SCRIPT_TEMPLATE_ONLY

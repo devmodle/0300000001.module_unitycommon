@@ -22,15 +22,6 @@ public static partial class CEditorSceneManager {
 		CEditorSceneManager.m_bIsEnableSetup = true;
 	}
 
-	/** 패키지를 설정한다 */
-	private static IEnumerator SetupPackages() {
-		do {
-			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
-		} while(CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.IsCompleted);
-
-		CEditorSceneManager.SetupDependencies();
-	}
-
 	/** 콜백을 설정한다 */
 	private static void SetupCallbacks() {
 		EditorApplication.update -= CEditorSceneManager.Update;
@@ -42,29 +33,22 @@ public static partial class CEditorSceneManager {
 
 	/** 종속 패키지를 설정한다 */
 	private static void SetupDependencies() {
-		// 종속 패키지 설정이 가능 할 경우
-		if(CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.ExIsCompleteSuccess()) {
-			var oPkgsInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
+		var oPkgsInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
 
-			try {
-				foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_DICT) {
-					int nIdx = oPkgsInfoList.FindIndex((a_oPkgsInfo) => a_oPkgsInfo.name.Equals(stKeyVal.Key));
+		foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_DICT) {
+			int nIdx = oPkgsInfoList.FindIndex((a_oPkgsInfo) => a_oPkgsInfo.name.Equals(stKeyVal.Key));
 
-					// 독립 패키지가 없을 경우
-					if(!oPkgsInfoList.ExIsValidIdx(nIdx)) {
-						// 버전이 유효 할 경우
-						if(stKeyVal.Value.ExIsValidBuildVer()) {
-							string oID = string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value);
-							CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(oID));
-						} else {
+			// 독립 패키지가 없을 경우
+			if(!oPkgsInfoList.ExIsValidIdx(nIdx)) {
+				// 버전이 유효 할 경우
+				if(stKeyVal.Value.ExIsValidBuildVer()) {
+					string oID = string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value);
+					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(oID));
+				} else {
 #if !SAMPLE_PROJ
-							CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));
+					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));
 #endif			// #if !SAMPLE_PROJ
-						}
-					}
 				}
-			} finally {
-				CEditorSceneManager.m_oListRequest = null;
 			}
 		}
 	}
