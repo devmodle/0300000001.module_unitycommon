@@ -120,35 +120,41 @@ public static partial class Func {
 	}
 
 	/** 배경음을 재생한다 */
-	public static void PlayBGSnd(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
+	public static CSnd PlayBGSnd(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
-		Func.PlayBGSnd(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+
+		try {
+			return Func.PlayBGSnd(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+		} catch(System.Exception oException) {
+			CFunc.ShowLog($"Func.PlayBGSnd Exception: {oException.Message}");
+		}
+
+		return null;
 	}
 
 	/** 배경음을 재생한다 */
-	public static void PlayBGSnd(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
+	public static CSnd PlayBGSnd(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
-
-		// 배경음이 존재 할 경우
-		if(CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo)) {
-			CSndManager.Inst.PlayBGSnd(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
-		}
+		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayBGSnd(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
 	}
 
 	/** 효과음을 재생한다 */
-	public static void PlayFXSnds(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
+	public static CSnd PlayFXSnds(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
-		Func.PlayFXSnds(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+
+		try {
+			return Func.PlayFXSnds(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+		} catch(System.Exception oException) {
+			CFunc.ShowLog($"Func.PlayFXSnds Exception: {oException.Message}");
+		}
+
+		return null;
 	}
 
 	/** 효과음을 재생한다 */
-	public static void PlayFXSnds(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
+	public static CSnd PlayFXSnds(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
-
-		// 효과음이 존재 할 경우
-		if(CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo)) {
-			CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
-		}
+		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
 	}
 
 	/** 경고 팝업을 출력한다 */
