@@ -64,7 +64,7 @@ public static partial class CCommonEditorSceneManager {
 	private static bool m_bIsEnableSetup = false;
 
 	private static float m_fUpdateSkipTime = 0.0f;
-	private static float m_fHierarchySkipTime = 0.0f;
+	private static System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
 	
 	private static GUIStyle m_oTextGUIStyle = new GUIStyle() {
 		alignment = TextAnchor.MiddleRight, fontStyle = FontStyle.Bold
@@ -73,6 +73,8 @@ public static partial class CCommonEditorSceneManager {
 	private static GUIStyle m_oOutlineGUIStyle = new GUIStyle() {
 		alignment = TextAnchor.MiddleRight, fontStyle = FontStyle.Bold
 	};
+
+	private static List<GameObject> m_oPrefabMissingObjList = new List<GameObject>();
 
 	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>() {
 		[KCDefine.U_SORTING_L_ABS] = "A",
@@ -133,7 +135,6 @@ public static partial class CCommonEditorSceneManager {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
 			CCommonEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.deltaTime);
-			CCommonEditorSceneManager.m_fHierarchySkipTime += Mathf.Clamp01(Time.deltaTime);
 
 			// 설정 가능 할 경우
 			if(CCommonEditorSceneManager.m_bIsEnableSetup) {
@@ -165,10 +166,8 @@ public static partial class CCommonEditorSceneManager {
 				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupTags();
-				CCommonEditorSceneManager.SetupLayers();
 				CCommonEditorSceneManager.SetupRaycasters();
 				CCommonEditorSceneManager.SetupLightOpts();
-				CCommonEditorSceneManager.SetupStaticObjs();
 				CCommonEditorSceneManager.SetupLocalizeInfos();
 
 #if INPUT_SYSTEM_MODULE_ENABLE
@@ -183,35 +182,34 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupBurstCompiler();
 #endif			// #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 
-				// 갱신 주기가 지났을 경우
-				if(CCommonEditorSceneManager.m_fHierarchySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_HIERARCHY_UPDATE)) {
-					CCommonEditorSceneManager.m_fHierarchySkipTime = KCDefine.B_VAL_0_FLT;
+				CFunc.EnumerateRootObjs((a_oObj) => {
+					// 최상단 UI 일 경우
+					if(a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_ROOT)) {
+						CCommonEditorSceneManager.SetupLayers(a_oObj);
+					}
 
-					CFunc.EnumerateRootObjs((a_oObj) => {
-						var oEnumerator = a_oObj.DescendantsAndSelf();
-						var oRemoveObjList = new List<GameObject>();
+					// 최상단 객체 일 경우
+					if(KCEditorDefine.B_OBJ_N_ROOT_OBJ_LIST.Contains(a_oObj.name)) {
+						CCommonEditorSceneManager.SetupStaticObjs(a_oObj);
+					}
 
-						foreach(var oObj in oEnumerator) {
-							int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
+					CCommonEditorSceneManager.UpdateMissingScriptState(a_oObj);
+					return true;
+				});
 
-							// 객체 제거가 필요 할 경우
-							if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
-								oRemoveObjList.ExAddVal(oObj);
-							}
+				try {
+					CCommonEditorSceneManager.m_oStrBuilder.Clear();
 
-							// 스크립트 제거가 필요 할 경우
-							if(nNumMissingScripts > KCDefine.B_VAL_0_INT) {
-								GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
-								EditorSceneManager.MarkSceneDirty(a_oObj.scene);
-							}
-						}
-
-						for(int i = 0; i < oRemoveObjList.Count; ++i) {
-							CFactory.RemoveObj(oRemoveObjList[i]);
+					CFunc.EnumerateDirectories(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, (a_oDirList, a_oFileList) => {
+						for(int i = 0; i < a_oFileList.Count; ++i) {
+							CCommonEditorSceneManager.m_oStrBuilder.AppendLine(Path.GetFileNameWithoutExtension(a_oFileList[i]));
 						}
 
 						return true;
 					});
+				} finally {
+					string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES);
+					CFunc.WriteStr(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oDirPath, KCDefine.B_FILE_EXTENSION_TXT), CCommonEditorSceneManager.m_oStrBuilder.ToString());
 				}
 			}
 		}
@@ -228,10 +226,8 @@ public static partial class CCommonEditorSceneManager {
 			for(int i = 0; i < oComponents.Length; ++i) {
 				// 컴포넌트가 존재 할 경우
 				if(oComponents[i] != null) {
-					var oType = oComponents[i].GetType();
-
-					var oSortingLayerProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_LAYER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
-					var oSortingOrderProperty = oType.GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_ORDER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
+					var oSortingLayerProperty = oComponents[i].GetType().GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_LAYER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
+					var oSortingOrderProperty = oComponents[i].GetType().GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_ORDER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
 
 					string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
 					oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerDict.GetValueOrDefault(oSortingLayer, string.Empty) : string.Empty;

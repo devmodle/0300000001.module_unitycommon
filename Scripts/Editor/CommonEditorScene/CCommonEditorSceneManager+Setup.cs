@@ -79,25 +79,6 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	/** 레이어를 설정한다 */
-	private static void SetupLayers() {
-		CFunc.EnumerateRootObjs((a_oObj) => {
-			// 최상단 UI 일 경우
-			if(a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_ROOT)) {
-				var oEnumerator = a_oObj.DescendantsAndSelf();
-
-				foreach(var oObj in oEnumerator) {
-					// 레이어 설정이 필요 할 경우
-					if(oObj.layer != KCDefine.U_LAYER_UIS) {
-						oObj.ExSetLayer(KCDefine.U_LAYER_UIS, false);
-					}
-				}
-			}
-
-			return true;
-		});
-	}
-
 	/** 콜백을 설정한다 */
 	private static void SetupCallbacks() {
 		EditorApplication.update -= CCommonEditorSceneManager.Update;
@@ -161,23 +142,6 @@ public static partial class CCommonEditorSceneManager {
 				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict[CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel]));
 			}
 		}
-	}
-
-	/** 정적 객체를 설정한다 */
-	private static void SetupStaticObjs() {
-		CFunc.EnumerateRootObjs((a_oObj) => {
-			// 최상단 객체 일 경우
-			if(KCEditorDefine.B_OBJ_N_ROOT_OBJ_LIST.Contains(a_oObj.name)) {
-				foreach(var oObj in a_oObj.ChildrenAndSelf()) {
-					// 정적 객체 일 경우
-					if(KCEditorDefine.B_OBJ_N_STATIC_OBJ_LIST.Contains(oObj.name)) {
-						oObj.ExSetStaticEditorFlags(KCEditorDefine.B_STATIC_E_FLAGS);
-					}
-				}
-			}
-
-			return true;
-		});
 	}
 
 	/** 지역화 정보를 설정한다 */
@@ -254,6 +218,26 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));
 		}
 #endif			// #if STUDY_MODULE_ENABLE
+	}
+
+	/** 레이어를 설정한다 */
+	private static void SetupLayers(GameObject a_oObj) {
+		foreach(var oObj in a_oObj.DescendantsAndSelf()) {
+			// 레이어 설정이 필요 할 경우
+			if(oObj.layer != KCDefine.U_LAYER_UIS) {
+				oObj.ExSetLayer(KCDefine.U_LAYER_UIS, false);
+			}
+		}
+	}
+
+	/** 정적 객체를 설정한다 */
+	private static void SetupStaticObjs(GameObject a_oObj) {
+		foreach(var oObj in a_oObj.ChildrenAndSelf()) {
+			// 정적 객체 일 경우
+			if(KCEditorDefine.B_OBJ_N_STATIC_OBJ_LIST.Contains(oObj.name)) {
+				oObj.ExSetStaticEditorFlags(KCEditorDefine.B_STATIC_E_FLAGS);
+			}
+		}
 	}
 
 	/** 광원 옵션을 설정한다 */
@@ -351,6 +335,32 @@ public static partial class CCommonEditorSceneManager {
 	private static void DoSetupSceneTemplates(SceneTemplateAsset a_oSceneTemplate) {
 		for(int i = 0; i < a_oSceneTemplate.dependencies.Length; ++i) {
 			a_oSceneTemplate.dependencies[i].instantiationMode = TemplateInstantiationMode.Reference;
+		}
+	}
+
+	/** 분실 된 스크립트 상태를 갱신한다 */
+	private static void UpdateMissingScriptState(GameObject a_oObj) {
+		CCommonEditorSceneManager.m_oPrefabMissingObjList.Clear();
+
+		try {
+			foreach(var oObj in a_oObj.DescendantsAndSelf()) {
+				int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
+
+				// 객체 제거가 필요 할 경우
+				if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
+					CCommonEditorSceneManager.m_oPrefabMissingObjList.ExAddVal(oObj);
+				}
+
+				// 스크립트 제거가 필요 할 경우
+				if(nNumMissingScripts > KCDefine.B_VAL_0_INT) {
+					GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
+					EditorSceneManager.MarkSceneDirty(a_oObj.scene);
+				}
+			}
+		} finally {
+			for(int i = 0; i < CCommonEditorSceneManager.m_oPrefabMissingObjList.Count; ++i) {
+				CFactory.RemoveObj(CCommonEditorSceneManager.m_oPrefabMissingObjList[i]);
+			}
 		}
 	}
 	#endregion			// 클래스 함수
