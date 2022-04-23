@@ -8,12 +8,13 @@ using UnityEngine.UI;
 /** 스킬 정보 */
 [System.Serializable]
 public struct STSkillInfo {
+	public STDescInfo m_stDescInfo;
+
 	public ESkillKinds m_eSkillKinds;
 	public ESkillKinds m_ePrevSkillKinds;
 	public ESkillKinds m_eNextSkillKinds;
 
-	public EFXKinds m_eFXKinds;
-	public STDescInfo m_stDescInfo;
+	public List<EFXKinds> m_oFXKindsList;
 
 	#region 프로퍼티
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
@@ -23,12 +24,18 @@ public struct STSkillInfo {
 	#region 함수
 	/** 생성자 */
 	public STSkillInfo(SimpleJSON.JSONNode a_oSkillInfo) {
+		m_stDescInfo = new STDescInfo(a_oSkillInfo);
+
 		m_eSkillKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_ePrevSkillKinds = a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_eNextSkillKinds = a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 
-		m_eFXKinds = a_oSkillInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oSkillInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
-		m_stDescInfo = new STDescInfo(a_oSkillInfo);
+		m_oFXKindsList = new List<EFXKinds>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_FX_KINDS; ++i) {
+			string oFXKindsKey = string.Format(KCDefine.U_KEY_FMT_FX_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oFXKindsList.ExAddVal(a_oSkillInfo[oFXKindsKey].ExIsValid() ? (EFXKinds)a_oSkillInfo[oFXKindsKey].AsInt : EFXKinds.NONE);
+		}
 	}
 	#endregion			// 함수
 }

@@ -8,10 +8,11 @@ using UnityEngine.UI;
 /** 보상 정보 */
 [System.Serializable]
 public struct STRewardInfo {
+	public STDescInfo m_stDescInfo;
+
 	public ERewardKinds m_eRewardKinds;
 	public ERewardQuality m_eRewardQuality;
 
-	public STDescInfo m_stDescInfo;
 	public List<STNumItemsInfo> m_oNumItemsInfoList;
 
 	#region 프로퍼티
@@ -22,10 +23,11 @@ public struct STRewardInfo {
 	#region 함수
 	/** 생성자 */
 	public STRewardInfo(SimpleJSON.JSONNode a_oRewardInfo) {
+		m_stDescInfo = new STDescInfo(a_oRewardInfo);
+		
 		m_eRewardKinds = a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_eRewardQuality = a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].ExIsValid() ? (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt : ERewardQuality.NONE;
 
-		m_stDescInfo = new STDescInfo(a_oRewardInfo);
 		m_oNumItemsInfoList = new List<STNumItemsInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_ITEM_INFOS; ++i) {

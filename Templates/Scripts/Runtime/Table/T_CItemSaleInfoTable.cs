@@ -35,7 +35,7 @@ public struct STItemSaleInfo {
 
 		m_oNumItemsInfoList = new List<STNumItemsInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ITEM_SALE_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_ITEMS_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 

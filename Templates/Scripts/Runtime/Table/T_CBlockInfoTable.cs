@@ -8,14 +8,14 @@ using UnityEngine.UI;
 /** 블럭 정보 */
 [System.Serializable]
 public struct STBlockInfo {
+	public STDescInfo m_stDescInfo;
+
 	public EBlockKinds m_eBlockKinds;
 	public EBlockKinds m_ePrevBlockKinds;
 	public EBlockKinds m_eNextBlockKinds;
 
 	public EResKinds m_eBlockResKinds;
-
 	public Vector3 m_stSize;
-	public STDescInfo m_stDescInfo;
 
 	#region 프로퍼티
 	public EBlockType BlockType => (EBlockType)((int)m_eBlockKinds).ExKindsToType();
@@ -25,14 +25,14 @@ public struct STBlockInfo {
 	#region 함수
 	/** 생성자 */
 	public STBlockInfo(SimpleJSON.JSONNode a_oBlockInfo) {
+		m_stDescInfo = new STDescInfo(a_oBlockInfo);
+		
 		m_eBlockKinds = a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
 		m_ePrevBlockKinds = a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
 		m_eNextBlockKinds = a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
 
 		m_eBlockResKinds = a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].ExIsValid() ? (EResKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].AsInt : EResKinds.NONE;
-
-		m_stSize = new Vector3(a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat);
-		m_stDescInfo = new STDescInfo(a_oBlockInfo);
+		m_stSize = new Vector3(a_oBlockInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oBlockInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, a_oBlockInfo[KCDefine.U_KEY_SIZE_Z].AsFloat);
 	}
 	#endregion			// 함수
 }

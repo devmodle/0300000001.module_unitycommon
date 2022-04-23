@@ -36,14 +36,14 @@ public struct STProductSaleInfo {
 	/** 생성자 */
 	public STProductSaleInfo(SimpleJSON.JSONNode a_oProductSaleInfo) {
 		m_stDescInfo = new STDescInfo(a_oProductSaleInfo);
-
+		
 		m_oPrice = a_oProductSaleInfo[KCDefine.U_KEY_PRICE];
 		m_ePriceKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRICE_KINDS].ExIsValid() ? (EPriceKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt : EPriceKinds.NONE;
 		m_eProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
-		
+
 		m_oNumItemsInfoList = new List<STNumItemsInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ITEM_SALE_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_ITEMS_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 

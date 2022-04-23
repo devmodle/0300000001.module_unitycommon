@@ -8,11 +8,11 @@ using UnityEngine.UI;
 /** 아이템 정보 */
 [System.Serializable]
 public struct STItemInfo {
+	public STDescInfo m_stDescInfo;
+
 	public EItemKinds m_eItemKinds;
 	public EItemKinds m_ePrevItemKinds;
 	public EItemKinds m_eNextItemKinds;
-
-	public STDescInfo m_stDescInfo;
 
 	#region 프로퍼티
 	public EItemType ItemType => (EItemType)((int)m_eItemKinds).ExKindsToType();
@@ -22,11 +22,11 @@ public struct STItemInfo {
 	#region 함수
 	/** 생성자 */
 	public STItemInfo(SimpleJSON.JSONNode a_oItemInfo) {
+		m_stDescInfo = new STDescInfo(a_oItemInfo);
+		
 		m_eItemKinds = a_oItemInfo[KCDefine.U_KEY_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_ePrevItemKinds = a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_eNextItemKinds = a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].AsInt : EItemKinds.NONE;
-
-		m_stDescInfo = new STDescInfo(a_oItemInfo);
 	}
 	#endregion			// 함수
 }
