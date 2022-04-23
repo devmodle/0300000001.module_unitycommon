@@ -8,21 +8,21 @@ using UnityEngine.UI;
 /** 기본 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
-	/** JSON 문자열 => 지급 아이템 정보로 변환한다 */
-	public static List<STPostItemInfo> ExJSONStrToPostItemInfos(this string a_oSender) {
+	/** JSON 문자열 => 획득 아이템 정보로 변환한다 */
+	public static List<STNumItemsInfo> ExJSONStrToAcquireItemInfos(this string a_oSender) {
 		CAccess.Assert(a_oSender.ExIsValid());
-		var oPostItemInfoList = new List<STPostItemInfo>();
-
+		var oAcquireItemInfoList = new List<STNumItemsInfo>();
+		
 #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oSender) as SimpleJSON.JSONClass;
-		var oPostItemInfos = oJSONNode[KCDefine.B_KEY_JSON_ROOT_DATA];
+		var oAcquireItemInfos = oJSONNode[KCDefine.B_KEY_JSON_ROOT_DATA];
 
-		for(int i = 0; i < oPostItemInfos.Count; ++i) {
-			oPostItemInfoList.Add(oPostItemInfos[i].ToString().ExJSONStrToObj<STPostItemInfo>());
+		for(int i = 0; i < oAcquireItemInfos.Count; ++i) {
+			oAcquireItemInfoList.Add(oAcquireItemInfos[i].ToString().ExJSONStrToObj<STNumItemsInfo>());
 		}
 #endif			// #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 
-		return oPostItemInfoList;
+		return oAcquireItemInfoList;
 	}
 	#endregion			// 클래스 함수
 }

@@ -36,11 +36,11 @@ public static partial class Func {
 
 		LOAD_USER_INFO,
 		LOAD_PURCHASE_INFOS,
-		LOAD_POST_ITEM_INFOS,
+		LOAD_ACQUIRE_ITEM_INFOS,
 
 		SAVE_USER_INFO,
 		SAVE_PURCHASE_INFOS,
-		SAVE_POST_ITEM_INFOS,
+		SAVE_ACQUIRE_ITEM_INFOS,
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
@@ -507,16 +507,16 @@ public static partial class Func {
 		}
 	}
 
-	/** 지급 아이템 정보를 로드한다 */
-	public static void LoadPostItemInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
+	/** 획득 아이템 정보를 로드한다 */
+	public static void LoadAcquireItemInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
-		Func.m_oFirebaseCallbackDict03.ExReplaceVal(ECallback.LOAD_POST_ITEM_INFOS, a_oCallback);
+		Func.m_oFirebaseCallbackDict03.ExReplaceVal(ECallback.LOAD_ACQUIRE_ITEM_INFOS, a_oCallback);
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			CFirebaseManager.Inst.LoadDB(Factory.MakePostItemInfoNodes(), Func.OnLoadPostItemInfos);
+			CFirebaseManager.Inst.LoadDB(Factory.MakeAcquireItemInfoNodes(), Func.OnLoadAcquireItemInfos);
 		} else {
-			Func.OnLoadPostItemInfos(CFirebaseManager.Inst, string.Empty, false);
+			Func.OnLoadAcquireItemInfos(CFirebaseManager.Inst, string.Empty, false);
 		}
 	}
 
@@ -566,24 +566,24 @@ public static partial class Func {
 		}
 	}
 
-	/** 지급 아이템 정보를 저장한다 */
-	public static void SavePostItemInfos(List<STPostItemInfo> a_oPostItemInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oPostItemInfoList != null);
+	/** 획득 아이템 정보를 저장한다 */
+	public static void SaveAcquireItemInfos(List<STNumItemsInfo> a_oAcquireItemInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oAcquireItemInfoList != null);
 
-		// 지급 아이템 정보가 존재 할 경우
-		if(a_oPostItemInfoList != null) {
+		// 획득 아이템 정보가 존재 할 경우
+		if(a_oAcquireItemInfoList != null) {
 			CIndicatorManager.Inst.Show();
-			Func.m_oFirebaseCallbackDict02.ExReplaceVal(ECallback.SAVE_POST_ITEM_INFOS, a_oCallback);
+			Func.m_oFirebaseCallbackDict02.ExReplaceVal(ECallback.SAVE_ACQUIRE_ITEM_INFOS, a_oCallback);
 
 			// 로그인 되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CFirebaseManager.Inst.SaveDB(Factory.MakePostItemInfoNodes(), a_oPostItemInfoList.ExToJSONStr(true), Func.OnSavePostItemInfos);
+				CFirebaseManager.Inst.SaveDB(Factory.MakeAcquireItemInfoNodes(), a_oAcquireItemInfoList.ExToJSONStr(true), Func.OnSaveAcquireItemInfos);
 #else
-				Func.OnSavePostItemInfos(CFirebaseManager.Inst, false);
+				Func.OnSaveAcquireItemInfos(CFirebaseManager.Inst, false);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			} else {
-				Func.OnSavePostItemInfos(CFirebaseManager.Inst, false);
+				Func.OnSaveAcquireItemInfos(CFirebaseManager.Inst, false);
 			}
 		}
 	}
@@ -612,10 +612,10 @@ public static partial class Func {
 		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_PURCHASE_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
-	/** 지급 아이템 정보가 로드 되었을 경우 */
-	private static void OnLoadPostItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+	/** 획득 아이템 정보가 로드 되었을 경우 */
+	private static void OnLoadAcquireItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
-		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_POST_ITEM_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
+		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_ACQUIRE_ITEM_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
 	/** 유저 정보가 저장 되었을 경우 */
@@ -630,10 +630,10 @@ public static partial class Func {
 		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_PURCHASE_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 지급 아이템 정보가 저장 되었을 경우 */
-	private static void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+	/** 획득 아이템 정보가 저장 되었을 경우 */
+	private static void OnSaveAcquireItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
-		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_POST_ITEM_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
+		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_ACQUIRE_ITEM_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 	
 #if UNITY_IOS && APPLE_LOGIN_ENABLE

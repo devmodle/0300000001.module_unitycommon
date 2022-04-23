@@ -25,11 +25,11 @@ public struct STBlockInfo {
 	#region 함수
 	/** 생성자 */
 	public STBlockInfo(SimpleJSON.JSONNode a_oBlockInfo) {
-		m_eBlockKinds = a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].Value.ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
-		m_ePrevBlockKinds = a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].Value.ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
-		m_eNextBlockKinds = a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].Value.ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
+		m_eBlockKinds = a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
+		m_ePrevBlockKinds = a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_PREV_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
+		m_eNextBlockKinds = a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_NEXT_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
 
-		m_eBlockResKinds = a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].Value.ExIsValid() ? (EResKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].AsInt : EResKinds.NONE;
+		m_eBlockResKinds = a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].ExIsValid() ? (EResKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_RES_KINDS].AsInt : EResKinds.NONE;
 
 		m_stSize = new Vector3(a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oBlockInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat);
 		m_stDescInfo = new STDescInfo(a_oBlockInfo);

@@ -32,9 +32,9 @@ public static partial class Factory {
 		return CFactory.MakePurchaseInfoNodes();
 	}
 
-	/** 지급 아이템 정보 노드를 생성한다 */
-	public static List<string> MakePostItemInfoNodes() {
-		return CFactory.MakePostItemInfoNodes();
+	/** 획득 아이템 정보 노드를 생성한다 */
+	public static List<string> MakeAcquireItemInfoNodes() {
+		return CFactory.MakeAcquireItemInfoNodes();
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

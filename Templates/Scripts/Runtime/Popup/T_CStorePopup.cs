@@ -109,9 +109,9 @@ public partial class CStorePopup : CSubPopup {
 		
 		a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stProductSaleInfo.m_stDescInfo.m_oName, EFontSet._1, false);
 
-		for(int i = 0; i < a_stProductSaleInfo.m_oItemInfoList.Count; ++i) {
+		for(int i = 0; i < a_stProductSaleInfo.m_oNumItemsInfoList.Count; ++i) {
 			var oNumText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
-			oNumText?.ExSetText($"{a_stProductSaleInfo.m_oItemInfoList[i].m_nNumItems}", EFontSet._1, false);
+			oNumText?.ExSetText($"{a_stProductSaleInfo.m_oNumItemsInfoList[i].m_nNumItems}", EFontSet._1, false);
 		}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
@@ -198,8 +198,8 @@ public partial class CStorePopup : CSubPopup {
 		if(a_bIsSuccess) {
 			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(m_eSelProductSaleKinds);
 
-			for(int i = 0; i < stProductSaleInfo.m_oItemInfoList.Count; ++i) {
-				Func.AcquireItem(stProductSaleInfo.m_oItemInfoList[i]);
+			for(int i = 0; i < stProductSaleInfo.m_oNumItemsInfoList.Count; ++i) {
+				Func.AcquireItem(stProductSaleInfo.m_oNumItemsInfoList[i]);
 			}
 		}
 
@@ -228,7 +228,7 @@ public partial class CStorePopup : CSubPopup {
 			m_oRestoreProductList = a_oProductList;
 
 #if FIREBASE_MODULE_ENABLE
-			this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadPostItemInfos(this.OnLoadPostItemInfos));
+			this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadAcquireItemInfos(this.OnLoadAcquireItemInfos));
 #else
 			Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 #endif			// #if FIREBASE_MODULE_ENABLE
@@ -241,25 +241,25 @@ public partial class CStorePopup : CSubPopup {
 	}
 
 #if FIREBASE_MODULE_ENABLE
-	/** 지급 아이템 정보를 로드했을 경우 */
-	private void OnLoadPostItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+	/** 획득 아이템 정보를 로드했을 경우 */
+	private void OnLoadAcquireItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
-			var oPostItemInfoList = a_oJSONStr.ExJSONStrToPostItemInfos();
+			var oAcquireItemInfoList = a_oJSONStr.ExJSONStrToAcquireItemInfos();
 
-			for(int i = 0; i < oPostItemInfoList.Count; ++i) {
-				bool bIsValid01 = long.TryParse(oPostItemInfoList[i].m_oNumItems, out long nNumItems);
-				bool bIsValid02 = oPostItemInfoList[i].m_oItemKinds.ExToTryEnumVal<EItemKinds>(out EItemKinds eItemKinds);
+			for(int i = 0; i < oAcquireItemInfoList.Count; ++i) {
+				bool bIsValid01 = long.TryParse(oAcquireItemInfoList[i].m_oNumItems, out long nNumItems);
+				bool bIsValid02 = oAcquireItemInfoList[i].m_oItemKinds.ExToTryEnumVal<EItemKinds>(out EItemKinds eItemKinds);
 
-				// 지급 아이템 정보가 유효 할 경우
+				// 획득 아이템 정보가 유효 할 경우
 				if(bIsValid01 && bIsValid02 && eItemKinds.ExIsValid()) {
-					Func.AcquireItem(new STItemInfo() {
+					Func.AcquireItem(new STNumItemsInfo() {
 						m_nNumItems = nNumItems, m_eItemKinds = eItemKinds
 					});
 				}
 			}
 
-			this.ExLateCallFunc((a_oCallFuncSender) => { oPostItemInfoList.Clear(); Func.SavePostItemInfos(oPostItemInfoList, this.OnSavePostItemInfos); });
+			this.ExLateCallFunc((a_oCallFuncSender) => { oAcquireItemInfoList.Clear(); Func.SaveAcquireItemInfos(oAcquireItemInfoList, this.OnSaveAcquireItemInfos); });
 		} else {
 			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
 		}
@@ -267,8 +267,8 @@ public partial class CStorePopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 	
-	/** 지급 아이템 정보를 저장했을 경우 */
-	private void OnSavePostItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+	/** 획득 아이템 정보를 저장했을 경우 */
+	private void OnSaveAcquireItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE

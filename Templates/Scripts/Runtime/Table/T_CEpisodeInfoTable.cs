@@ -24,7 +24,7 @@ public struct STLevelInfo {
 		m_nID = a_oLevelInfo[KCDefine.U_KEY_ID].AsInt;
 		m_nStageID = a_oLevelInfo[KCDefine.U_KEY_STAGE_ID].AsInt;
 		m_nChapterID = a_oLevelInfo[KCDefine.U_KEY_CHAPTER_ID].AsInt;
-		m_eLevelKinds = a_oLevelInfo[KCDefine.U_KEY_LEVEL_KINDS].Value.ExIsValid() ? (ELevelKinds)a_oLevelInfo[KCDefine.U_KEY_LEVEL_KINDS].AsInt : ELevelKinds.NONE;
+		m_eLevelKinds = a_oLevelInfo[KCDefine.U_KEY_LEVEL_KINDS].ExIsValid() ? (ELevelKinds)a_oLevelInfo[KCDefine.U_KEY_LEVEL_KINDS].AsInt : ELevelKinds.NONE;
 
 		m_stEpisodeInfo = new STEpisodeInfo(a_oLevelInfo);
 	}
@@ -61,7 +61,7 @@ public struct STStageInfo {
 	public STStageInfo(SimpleJSON.JSONNode a_oStageInfo) {
 		m_nID = a_oStageInfo[KCDefine.U_KEY_ID].AsInt;
 		m_nChapterID = a_oStageInfo[KCDefine.U_KEY_CHAPTER_ID].AsInt;
-		m_eStageKinds = a_oStageInfo[KCDefine.U_KEY_STAGE_KINDS].Value.ExIsValid() ? (EStageKinds)a_oStageInfo[KCDefine.U_KEY_STAGE_KINDS].AsInt : EStageKinds.NONE;
+		m_eStageKinds = a_oStageInfo[KCDefine.U_KEY_STAGE_KINDS].ExIsValid() ? (EStageKinds)a_oStageInfo[KCDefine.U_KEY_STAGE_KINDS].AsInt : EStageKinds.NONE;
 
 		m_stEpisodeInfo = new STEpisodeInfo(a_oStageInfo);
 	}
@@ -94,7 +94,7 @@ public struct STChapterInfo {
 	/** 생성자 */
 	public STChapterInfo(SimpleJSON.JSONNode a_oChapterInfo) {
 		m_nID = a_oChapterInfo[KCDefine.U_KEY_ID].AsInt;
-		m_eChapterKinds = a_oChapterInfo[KCDefine.U_KEY_CHAPTER_KINDS].Value.ExIsValid() ? (EChapterKinds)a_oChapterInfo[KCDefine.U_KEY_CHAPTER_KINDS].AsInt : EChapterKinds.NONE;
+		m_eChapterKinds = a_oChapterInfo[KCDefine.U_KEY_CHAPTER_KINDS].ExIsValid() ? (EChapterKinds)a_oChapterInfo[KCDefine.U_KEY_CHAPTER_KINDS].AsInt : EChapterKinds.NONE;
 
 		m_stEpisodeInfo = new STEpisodeInfo(a_oChapterInfo);
 	}
@@ -133,9 +133,9 @@ public struct STEpisodeInfo {
 	public STEpisodeInfo(SimpleJSON.JSONNode a_oEpisodeInfo) {
 		m_stDescInfo = new STDescInfo(a_oEpisodeInfo);
 
-		m_eDifficulty = a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].Value.ExIsValid() ? (EDifficulty)a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].AsInt : EDifficulty.NONE;
-		m_eRewardKinds = a_oEpisodeInfo[KCDefine.U_KEY_REWARD_KINDS].Value.ExIsValid() ? (ERewardKinds)a_oEpisodeInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
-		m_eTutorialKinds = a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].Value.ExIsValid() ? (ETutorialKinds)a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
+		m_eDifficulty = a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].ExIsValid() ? (EDifficulty)a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].AsInt : EDifficulty.NONE;
+		m_eRewardKinds = a_oEpisodeInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oEpisodeInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
+		m_eTutorialKinds = a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
 
 		m_oRecordList = new List<int>();
 		m_oNumTargetsDict = new Dictionary<ETargetKinds, int>();
@@ -150,14 +150,14 @@ public struct STEpisodeInfo {
 			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 			
-			m_oNumTargetsDict.TryAdd(a_oEpisodeInfo[oTargetKindsKey].Value.ExIsValid() ? (ETargetKinds)a_oEpisodeInfo[oTargetKindsKey].AsInt : ETargetKinds.NONE, a_oEpisodeInfo[oNumTargetsKey].AsInt);
+			m_oNumTargetsDict.TryAdd(a_oEpisodeInfo[oTargetKindsKey].ExIsValid() ? (ETargetKinds)a_oEpisodeInfo[oTargetKindsKey].AsInt : ETargetKinds.NONE, a_oEpisodeInfo[oNumTargetsKey].AsInt);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_UNLOCK_TARGET_KINDS; ++i) {
 			string oNumUnlockTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oNumUnlockTargetsDict.TryAdd(a_oEpisodeInfo[oUnlockTargetKindsKey].Value.ExIsValid() ? (ETargetKinds)a_oEpisodeInfo[oUnlockTargetKindsKey].AsInt : ETargetKinds.NONE, a_oEpisodeInfo[oNumUnlockTargetsKey].AsInt);
+			m_oNumUnlockTargetsDict.TryAdd(a_oEpisodeInfo[oUnlockTargetKindsKey].ExIsValid() ? (ETargetKinds)a_oEpisodeInfo[oUnlockTargetKindsKey].AsInt : ETargetKinds.NONE, a_oEpisodeInfo[oNumUnlockTargetsKey].AsInt);
 		}
 	}
 

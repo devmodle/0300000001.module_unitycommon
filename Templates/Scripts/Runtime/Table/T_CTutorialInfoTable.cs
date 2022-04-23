@@ -23,16 +23,16 @@ public struct STTutorialInfo {
 	#region 함수
 	/** 생성자 */
 	public STTutorialInfo(SimpleJSON.JSONNode a_oTutorialInfo) {
-		m_eTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].Value.ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
-		m_ePrevTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].Value.ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
-		m_eNextTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].Value.ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
+		m_eTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
+		m_ePrevTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
+		m_eNextTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
 
-		m_eRewardKinds = a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].Value.ExIsValid() ? (ERewardKinds)a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
+		m_eRewardKinds = a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_oStrList = new List<string>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TUTORIAL_STRS; ++i) {
 			string oStrKey = string.Format(KCDefine.U_KEY_FMT_STRS, i + KCDefine.B_VAL_1_INT);
-			m_oStrList.Add(a_oTutorialInfo[oStrKey].Value.Equals(KCDefine.B_TEXT_NULL) ? string.Empty : a_oTutorialInfo[oStrKey]);
+			m_oStrList.Add(a_oTutorialInfo[oStrKey].ExIsValid() ? a_oTutorialInfo[oStrKey] : string.Empty);
 		}
 	}
 	#endregion			// 함수

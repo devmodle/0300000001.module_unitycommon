@@ -12,7 +12,7 @@ public struct STRewardInfo {
 	public ERewardQuality m_eRewardQuality;
 
 	public STDescInfo m_stDescInfo;
-	public List<STItemInfo> m_oItemInfoList;
+	public List<STNumItemsInfo> m_oNumItemsInfoList;
 
 	#region 프로퍼티
 	public ERewardType RewardType => (ERewardType)((int)m_eRewardKinds).ExKindsToType();
@@ -22,18 +22,18 @@ public struct STRewardInfo {
 	#region 함수
 	/** 생성자 */
 	public STRewardInfo(SimpleJSON.JSONNode a_oRewardInfo) {
-		m_eRewardKinds = a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].Value.ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
-		m_eRewardQuality = a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].Value.ExIsValid() ? (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt : ERewardQuality.NONE;
+		m_eRewardKinds = a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
+		m_eRewardQuality = a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].ExIsValid() ? (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt : ERewardQuality.NONE;
 
 		m_stDescInfo = new STDescInfo(a_oRewardInfo);
-		m_oItemInfoList = new List<STItemInfo>();
+		m_oNumItemsInfoList = new List<STNumItemsInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_ITEM_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oItemInfoList.Add(new STItemInfo() {
-				m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt, m_eItemKinds = a_oRewardInfo[oItemKindsKey].Value.ExIsValid() ? (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt : EItemKinds.NONE
+			m_oNumItemsInfoList.Add(new STNumItemsInfo() {
+				m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt, m_eItemKinds = a_oRewardInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt : EItemKinds.NONE
 			});
 		}
 	}

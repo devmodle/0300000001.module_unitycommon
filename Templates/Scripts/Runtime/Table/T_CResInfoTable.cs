@@ -22,7 +22,7 @@ public struct STResInfo {
 	public STResInfo(SimpleJSON.JSONNode a_oResInfo) {
 		m_fRate = a_oResInfo[KCDefine.U_KEY_RATE].AsFloat;
 		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH];
-		m_eResKinds = a_oResInfo[KCDefine.U_KEY_RES_KINDS].Value.ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt : EResKinds.NONE;
+		m_eResKinds = a_oResInfo[KCDefine.U_KEY_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt : EResKinds.NONE;
 	}
 	#endregion			// 함수
 }

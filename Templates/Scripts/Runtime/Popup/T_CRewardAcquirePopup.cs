@@ -21,7 +21,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		public ERewardQuality m_eQuality;
 		public ERewardAcquirePopupType m_eAgreePopup;
 		
-		public List<STItemInfo> m_oItemInfoList;
+		public List<STNumItemsInfo> m_oNumItemsInfoList;
 	}
 
 	#region 상수
@@ -77,19 +77,19 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		// 보상 아이템 UI 상태를 갱신한다
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
 			var oItemUIs = m_oItemUIsList[i];
-			oItemUIs.SetActive(i < m_stParams.m_oItemInfoList.Count);
+			oItemUIs.SetActive(i < m_stParams.m_oNumItemsInfoList.Count);
 			
 			// 보상 정보가 존재 할 경우
-			if(i < m_stParams.m_oItemInfoList.Count) {
-				this.UpdateItemUIsState(oItemUIs, m_stParams.m_oItemInfoList[i]);
+			if(i < m_stParams.m_oNumItemsInfoList.Count) {
+				this.UpdateItemUIsState(oItemUIs, m_stParams.m_oNumItemsInfoList[i]);
 			}
 		}
 	}
 
 	/** 보상 아이템 UI 상태를 갱신한다 */
-	private void UpdateItemUIsState(GameObject a_oItemUIs, STItemInfo a_stItemInfo) {
+	private void UpdateItemUIsState(GameObject a_oItemUIs, STNumItemsInfo a_stNumItemsInfo) {
 		var oNumText = a_oItemUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
-		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stItemInfo.m_nNumItems), EFontSet._1, false);
+		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stNumItemsInfo.m_nNumItems), EFontSet._1, false);
 	}
 
 	/** 획득 버튼을 눌렀을 경우 */
@@ -113,8 +113,8 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		m_oBtnDict[EKey.REWARD_ADS_BTN]?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
 #endif			// #if ADS_MODULE_ENABLE
 
-		for(int i = 0; i < m_stParams.m_oItemInfoList.Count; ++i) {
-			Func.AcquireItem(m_stParams.m_oItemInfoList[i], a_bIsWatchRewardAds ? m_stParams.m_oItemInfoList[i].m_nNumItems : KCDefine.B_VAL_0_INT);
+		for(int i = 0; i < m_stParams.m_oNumItemsInfoList.Count; ++i) {
+			Func.AcquireItem(m_stParams.m_oNumItemsInfoList[i], a_bIsWatchRewardAds ? m_stParams.m_oNumItemsInfoList[i].m_nNumItems : KCDefine.B_VAL_0_INT);
 		}
 
 		this.OnTouchCloseBtn();

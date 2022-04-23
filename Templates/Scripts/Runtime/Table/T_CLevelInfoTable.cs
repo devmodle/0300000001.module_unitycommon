@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 /** 셀 정보 */
 [MessagePackObject][System.Serializable]
-public class CCellInfo : CBaseInfo, System.ICloneable {
+public partial class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 	[Key(161)] public Dictionary<EBlockType, List<EBlockKinds>> m_oBlockKindsDictContainer = new Dictionary<EBlockType, List<EBlockKinds>>();

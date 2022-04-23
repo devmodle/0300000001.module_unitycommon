@@ -13,10 +13,10 @@ using UnityEngine.Purchasing;
 public static partial class Func {
 	#region 클래스 함수
 	/** 아이템을 획득한다 */
-	public static void AcquireItem(STItemInfo a_stItemInfo, long a_nNumExtraItems = KCDefine.B_VAL_0_INT) {
-		switch(a_stItemInfo.m_eItemKinds) {
+	public static void AcquireItem(STNumItemsInfo a_stNumItemsInfo, long a_nNumExtraItems = KCDefine.B_VAL_0_INT) {
+		switch(a_stNumItemsInfo.m_eItemKinds) {
 			case EItemKinds.GOODS_COINS: {
-				CUserInfoStorage.Inst.AddNumCoins(a_stItemInfo.m_nNumItems + a_nNumExtraItems);
+				CUserInfoStorage.Inst.AddNumCoins(a_stNumItemsInfo.m_nNumItems + a_nNumExtraItems);
 			} break;
 			case EItemKinds.NON_CONSUMABLE_REMOVE_ADS: {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
@@ -32,8 +32,8 @@ public static partial class Func {
 			} break;
 			default: {
 				// 소모품 일 경우
-				if((EItemType)((int)a_stItemInfo.m_eItemKinds).ExKindsToType() == EItemType.CONSUMABLE) {
-					CUserInfoStorage.Inst.AddNumItems(a_stItemInfo.m_eItemKinds, a_stItemInfo.m_nNumItems + a_nNumExtraItems);
+				if((EItemType)((int)a_stNumItemsInfo.m_eItemKinds).ExKindsToType() == EItemType.CONSUMABLE) {
+					CUserInfoStorage.Inst.AddNumItems(a_stNumItemsInfo.m_eItemKinds, a_stNumItemsInfo.m_nNumItems + a_nNumExtraItems);
 				}
 			} break;
 		}
@@ -49,8 +49,8 @@ public static partial class Func {
 	public static void BuyItem(STItemSaleInfo a_stItemSaleInfo, List<long> a_oNumExtraItemsList = null, long a_nExtraPrice = KCDefine.B_VAL_0_INT, bool a_bIsIgnoreAcquire = false) {
 		// 아이템 획득이 가능 할 경우
 		if(!a_bIsIgnoreAcquire) {
-			for(int i = 0; i < a_stItemSaleInfo.m_oItemInfoList.Count; ++i) {
-				Func.AcquireItem(a_stItemSaleInfo.m_oItemInfoList[i], a_oNumExtraItemsList.ExIsValid() ? a_oNumExtraItemsList.ExGetVal(i, KCDefine.B_VAL_0_INT) : KCDefine.B_VAL_0_INT);
+			for(int i = 0; i < a_stItemSaleInfo.m_oNumItemsInfoList.Count; ++i) {
+				Func.AcquireItem(a_stItemSaleInfo.m_oNumItemsInfoList[i], a_oNumExtraItemsList.ExIsValid() ? a_oNumExtraItemsList.ExGetVal(i, KCDefine.B_VAL_0_INT) : KCDefine.B_VAL_0_INT);
 			}
 		}
 
@@ -219,8 +219,8 @@ public static partial class Func {
 			var eProductSaleKinds = KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST[nIdx];
 			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductSaleKinds);
 
-			for(int i = 0; i < stProductSaleInfo.m_oItemInfoList.Count; ++i) {
-				Func.AcquireItem(stProductSaleInfo.m_oItemInfoList[i]);
+			for(int i = 0; i < stProductSaleInfo.m_oNumItemsInfoList.Count; ++i) {
+				Func.AcquireItem(stProductSaleInfo.m_oNumItemsInfoList[i]);
 			}
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
@@ -247,8 +247,8 @@ public static partial class Func {
 					var eProductSaleKinds = KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST[nIdx];
 					var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductSaleKinds);
 
-					for(int j = 0; j < stProductSaleInfo.m_oItemInfoList.Count; ++j) {
-						Func.AcquireItem(stProductSaleInfo.m_oItemInfoList[j]);
+					for(int j = 0; j < stProductSaleInfo.m_oNumItemsInfoList.Count; ++j) {
+						Func.AcquireItem(stProductSaleInfo.m_oNumItemsInfoList[j]);
 					}
 
 					CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductList[i].definition.id);

@@ -14,7 +14,7 @@ public struct STItemSaleInfo {
 	public EPriceKinds m_ePriceKinds;
 	public EItemSaleKinds m_eItemSaleKinds;
 
-	public List<STItemInfo> m_oItemInfoList;
+	public List<STNumItemsInfo> m_oNumItemsInfoList;
 
 	#region 프로퍼티
 	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
@@ -30,17 +30,17 @@ public struct STItemSaleInfo {
 		m_stDescInfo = new STDescInfo(a_oItemSaleInfo);
 
 		m_oPrice = a_oItemSaleInfo[KCDefine.U_KEY_PRICE];
-		m_ePriceKinds = a_oItemSaleInfo[KCDefine.U_KEY_PRICE_KINDS].Value.ExIsValid() ? (EPriceKinds)a_oItemSaleInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt : EPriceKinds.NONE;
-		m_eItemSaleKinds = a_oItemSaleInfo[KCDefine.U_KEY_ITEM_SALE_KINDS].Value.ExIsValid() ? (EItemSaleKinds)a_oItemSaleInfo[KCDefine.U_KEY_ITEM_SALE_KINDS].AsInt : EItemSaleKinds.NONE;
+		m_ePriceKinds = a_oItemSaleInfo[KCDefine.U_KEY_PRICE_KINDS].ExIsValid() ? (EPriceKinds)a_oItemSaleInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt : EPriceKinds.NONE;
+		m_eItemSaleKinds = a_oItemSaleInfo[KCDefine.U_KEY_ITEM_SALE_KINDS].ExIsValid() ? (EItemSaleKinds)a_oItemSaleInfo[KCDefine.U_KEY_ITEM_SALE_KINDS].AsInt : EItemSaleKinds.NONE;
 
-		m_oItemInfoList = new List<STItemInfo>();
+		m_oNumItemsInfoList = new List<STNumItemsInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ITEM_SALE_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oItemInfoList.Add(new STItemInfo() {
-				m_nNumItems = a_oItemSaleInfo[oNumItemsKey].AsInt, m_eItemKinds = a_oItemSaleInfo[oItemKindsKey].Value.ExIsValid() ? (EItemKinds)a_oItemSaleInfo[oItemKindsKey].AsInt : EItemKinds.NONE
+			m_oNumItemsInfoList.Add(new STNumItemsInfo() {
+				m_nNumItems = a_oItemSaleInfo[oNumItemsKey].AsInt, m_eItemKinds = a_oItemSaleInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oItemSaleInfo[oItemKindsKey].AsInt : EItemKinds.NONE
 			});
 		}
 	}
@@ -88,9 +88,9 @@ public partial class CItemSaleInfoTable : CScriptableObj<CItemSaleInfoTable> {
 		}
 	}
 
-	/** 아이템 정보 포함 여부를 검사한다 */
-	public bool IsContainsItemInfo(EItemSaleKinds a_eItemSaleKinds, EItemKinds a_eItemKinds) {
-		return this.TryGetItemInfo(a_eItemSaleKinds, a_eItemKinds, out STItemInfo stItemInfo);
+	/** 아이템 개수 정보 포함 여부를 검사한다 */
+	public bool IsContainsNumItemsInfo(EItemSaleKinds a_eItemSaleKinds, EItemKinds a_eItemKinds) {
+		return this.TryGetNumItemsInfo(a_eItemSaleKinds, a_eItemKinds, out STNumItemsInfo stNumItemsInfo);
 	}
 
 	/** 아이템 판매 정보를 반환한다 */
@@ -101,12 +101,12 @@ public partial class CItemSaleInfoTable : CScriptableObj<CItemSaleInfoTable> {
 		return stItemSaleInfo;
 	}
 
-	/** 아이템 정보를 반환한다 */
-	public STItemInfo GetItemInfo(EItemSaleKinds a_eItemSaleKinds, EItemKinds a_eItemKinds) {
-		bool bIsValid = this.TryGetItemInfo(a_eItemSaleKinds, a_eItemKinds, out STItemInfo stItemInfo);
+	/** 아이템 개수 정보를 반환한다 */
+	public STNumItemsInfo GetNumItemsInfo(EItemSaleKinds a_eItemSaleKinds, EItemKinds a_eItemKinds) {
+		bool bIsValid = this.TryGetNumItemsInfo(a_eItemSaleKinds, a_eItemKinds, out STNumItemsInfo stNumItemsInfo);
 		CAccess.Assert(bIsValid);
 
-		return stItemInfo;
+		return stNumItemsInfo;
 	}
 	
 	/** 아이템 판매 정보를 반환한다 */
@@ -115,17 +115,17 @@ public partial class CItemSaleInfoTable : CScriptableObj<CItemSaleInfoTable> {
 		return this.ItemSaleInfoDict.ContainsKey(a_eItemSaleKinds);
 	}
 
-	/** 아이템 정보를 반환한다 */
-	public bool TryGetItemInfo(EItemSaleKinds a_eItemSaleKinds, EItemKinds a_eItemKinds, out STItemInfo a_stOutItemInfo) {
+	/** 아이템 개수 정보를 반환한다 */
+	public bool TryGetNumItemsInfo(EItemSaleKinds a_eItemSaleKinds, EItemKinds a_eItemKinds, out STNumItemsInfo a_stOutNumItemsInfo) {
 		// 아이템 판매 정보가 존재 할 경우
 		if(this.TryGetItemSaleInfo(a_eItemSaleKinds, out STItemSaleInfo stItemSaleInfo)) {
-			int nIdx = stItemSaleInfo.m_oItemInfoList.FindIndex((a_stItemInfo) => a_stItemInfo.m_eItemKinds == a_eItemKinds);
-			a_stOutItemInfo = stItemSaleInfo.m_oItemInfoList.ExIsValidIdx(nIdx) ? stItemSaleInfo.m_oItemInfoList[nIdx] : default(STItemInfo);
+			int nIdx = stItemSaleInfo.m_oNumItemsInfoList.FindIndex((a_stNumItemsInfo) => a_stNumItemsInfo.m_eItemKinds == a_eItemKinds);
+			a_stOutNumItemsInfo = stItemSaleInfo.m_oNumItemsInfoList.ExIsValidIdx(nIdx) ? stItemSaleInfo.m_oNumItemsInfoList[nIdx] : default(STNumItemsInfo);
 			
-			return stItemSaleInfo.m_oItemInfoList.ExIsValidIdx(nIdx);
+			return stItemSaleInfo.m_oNumItemsInfoList.ExIsValidIdx(nIdx);
 		}
 
-		a_stOutItemInfo = default(STItemInfo);
+		a_stOutNumItemsInfo = default(STNumItemsInfo);
 		return false;
 	}
 

@@ -22,11 +22,11 @@ public struct STFXInfo {
 	#region 함수
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
-		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].Value.ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
-		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].Value.ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
-		m_eNextFXKinds = a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].Value.ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt : EFXKinds.NONE;
+		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
+		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
+		m_eNextFXKinds = a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt : EFXKinds.NONE;
 
-		m_eFXResKinds = a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].Value.ExIsValid() ? (EResKinds)a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].AsInt : EResKinds.NONE;
+		m_eFXResKinds = a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].ExIsValid() ? (EResKinds)a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].AsInt : EResKinds.NONE;
 	}
 	#endregion			// 함수
 }
