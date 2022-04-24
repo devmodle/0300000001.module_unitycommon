@@ -195,8 +195,11 @@ public static partial class CCommonEditorSceneManager {
 						return true;
 					});
 				} finally {
-					string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES);
-					CFunc.WriteStr(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oDirPath, KCDefine.B_FILE_EXTENSION_TXT), CCommonEditorSceneManager.m_oStrBuilder.ToString());
+					// 디렉토리가 존재 할 경우
+					if(Directory.Exists(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES)) {
+						string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES);
+						CFunc.WriteStr(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oDirPath, KCDefine.B_FILE_EXTENSION_TXT), CCommonEditorSceneManager.m_oStrBuilder.ToString());
+					}
 				}
 
 				// 빌드 가능 할 경우
