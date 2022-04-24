@@ -12,12 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eebf271a0f5247ef927d4e06e84d56b, type: 3}
   m_Name: T_ProductInfoTable
   m_EditorClassIdentifier: 
-  m_oCommonProductInfoList:
-  - m_oID: dante.distribution.sample.iap.c.changes
-    m_eProductType: 0
-  - m_oID: dante.distribution.sample.iap.nc.removeads
-    m_eProductType: 1
-  m_oiOSProductInfoList: []
-  m_oGoogleProductInfoList: []
-  m_oOneStoreProductInfoList: []
-  m_oGalaxyStoreProductInfoList: []
+  m_oCommonProductInfoList: []
+  m_oiOSAppleProductInfoList: []
+  m_oAndroidGoogleProductInfoList: []
+  m_oAndroidAmazonProductInfoList: []

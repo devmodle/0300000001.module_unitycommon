@@ -38,8 +38,8 @@ public static partial class CCommonEditorSceneManager {
 		
 		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_FLT);
 
-		CCommonEditorSceneManager.m_bIsEnableBuild = true;
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
+		CCommonEditorSceneManager.m_bIsEnableBuild = true;
 	}
 
 	/** 태그를 설정한다 */

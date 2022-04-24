@@ -62,6 +62,7 @@ public partial class CUserInfo : CBaseInfo {
 public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 프로퍼티
 	public CUserInfo UserInfo { get; private set; } = new CUserInfo();
+	public bool IsPurchaseRemoveAds => this.UserInfo.m_oNumItemsDict.ContainsKey(EItemKinds.NON_CONSUMABLE_REMOVE_ADS);
 	#endregion            // 프로퍼티
 
 	#region 함수

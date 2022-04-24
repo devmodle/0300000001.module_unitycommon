@@ -27,8 +27,8 @@ public static partial class Access {
 #if PURCHASE_MODULE_ENABLE
 	/** 상품 판매 식별자를 반환한다 */
 	public static int GetProductSaleID(EProductSaleKinds a_eProductSaleKinds) {
-		int nIdx = KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST.FindIndex((a_eCompareProductSaleKinds) => a_eProductSaleKinds == a_eCompareProductSaleKinds);
-		CAccess.Assert(KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST.ExIsValidIdx(nIdx));
+		int nIdx = KDefine.G_PRODUCT_SIT_PRODUCT_SALE_KINDS_LIST.FindIndex((a_eCompareProductSaleKinds) => a_eProductSaleKinds == a_eCompareProductSaleKinds);
+		CAccess.Assert(KDefine.G_PRODUCT_SIT_PRODUCT_SALE_KINDS_LIST.ExIsValidIdx(nIdx));
 
 		return nIdx;
 	}

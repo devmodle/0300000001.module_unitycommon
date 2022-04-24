@@ -23,6 +23,10 @@ namespace LateSetupScene {
 #if UNITY_ANDROID
 		public List<string> m_oPermissionList { get; private set; } = new List<string>();
 #endif			// #if UNITY_ANDROID
+
+#if ADS_MODULE_ENABLE
+		public static bool IsPurchaseRemoveAds { get; protected set; } = false;
+#endif			// #if ADS_MODULE_ENABLE
 		#endregion			// 프로퍼티
 
 		#region 클래스 프로퍼티
@@ -314,12 +318,9 @@ namespace LateSetupScene {
 			
 			// 초기화 되었을 경우
 			if(a_bIsSuccess) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-				bool bIsEnableLoadBannerAds = CPluginInfoTable.Inst.GetBannerAdsID(a_eAdsPlatform).ExIsValid() && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
-				bIsEnableLoadBannerAds = bIsEnableLoadBannerAds && CPluginInfoTable.Inst.AdsPlatform == a_eAdsPlatform;
-
+				bool bIsEnableLoadBannerAds = !CLateSetupSceneManager.IsPurchaseRemoveAds && CPluginInfoTable.Inst.GetBannerAdsID(a_eAdsPlatform).ExIsValid() && CPluginInfoTable.Inst.AdsPlatform == a_eAdsPlatform;
 				bool bIsEnableLoadRewardAds = CPluginInfoTable.Inst.GetRewardAdsID(a_eAdsPlatform).ExIsValid();
-				bool bIsEnableLoadFullscreenAds = CPluginInfoTable.Inst.GetFullscreenAdsID(a_eAdsPlatform).ExIsValid() && !CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds;
+				bool bIsEnableLoadFullscreenAds = !CLateSetupSceneManager.IsPurchaseRemoveAds && CPluginInfoTable.Inst.GetFullscreenAdsID(a_eAdsPlatform).ExIsValid();
 
 				// 배너 광고 로드가 가능 할 경우
 				if(bIsEnableLoadBannerAds && CLateSetupSceneManager.IsAutoLoadBannerAds) {
@@ -335,7 +336,6 @@ namespace LateSetupScene {
 				if(bIsEnableLoadFullscreenAds && CLateSetupSceneManager.IsAutoLoadFullscreenAds) {
 					CAdsManager.Inst.LoadFullscreenAds(a_eAdsPlatform);
 				}
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			}
 		}
 #endif			// #if ADS_MODULE_ENABLE

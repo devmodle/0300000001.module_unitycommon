@@ -60,8 +60,8 @@ public static partial class CCommonEditorSceneManager {
 #endif			// #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 
 	#region 클래스 변수
-	private static bool m_bIsEnableBuild = false;
 	private static bool m_bIsEnableSetup = false;
+	private static bool m_bIsEnableBuild = false;
 
 	private static float m_fUpdateSkipTime = 0.0f;
 	private static System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
@@ -125,8 +125,8 @@ public static partial class CCommonEditorSceneManager {
 #if EDITOR_COROUTINE_ENABLE
 		EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.SetupEditorSceneManager());
 #else
-		CCommonEditorSceneManager.m_bIsEnableBuild = true;
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
+		CCommonEditorSceneManager.m_bIsEnableBuild = true;
 #endif			// #if EDITOR_COROUTINE_ENABLE
 	}
 	
@@ -145,19 +145,6 @@ public static partial class CCommonEditorSceneManager {
 				CPlatformOptsSetter.SetupEditorOpts();
 				CPlatformOptsSetter.SetupProjOpts();
 				CPlatformOptsSetter.SetupPluginProjs();
-			}
-
-			// 빌드 가능 할 경우
-			if(CCommonEditorSceneManager.m_bIsEnableBuild) {
-				CCommonEditorSceneManager.m_bIsEnableBuild = false;
-				string oBuildMethod = CFunc.ReadStr(KCEditorDefine.B_DATA_P_BUILD_METHOD);
-
-				// 빌드 메서드가 존재 할 경우
-				if(oBuildMethod.ExIsValid()) {
-					typeof(CPlatformBuilder).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC)?.Invoke(null, null);
-				} else {
-					CFactory.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
-				}
 			}
 
 			// 갱신 주기가 지났을 경우
@@ -210,6 +197,19 @@ public static partial class CCommonEditorSceneManager {
 				} finally {
 					string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES);
 					CFunc.WriteStr(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oDirPath, KCDefine.B_FILE_EXTENSION_TXT), CCommonEditorSceneManager.m_oStrBuilder.ToString());
+				}
+
+				// 빌드 가능 할 경우
+				if(CCommonEditorSceneManager.m_bIsEnableBuild) {
+					CCommonEditorSceneManager.m_bIsEnableBuild = false;
+					string oBuildMethod = CFunc.ReadStr(KCEditorDefine.B_DATA_P_BUILD_METHOD);
+
+					// 빌드 메서드가 존재 할 경우
+					if(oBuildMethod.ExIsValid()) {
+						typeof(CPlatformBuilder).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC)?.Invoke(null, null);
+					} else {
+						CFactory.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
+					}
 				}
 			}
 		}

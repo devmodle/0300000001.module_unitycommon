@@ -18,23 +18,17 @@ public static partial class Func {
 			case EItemKinds.GOODS_COINS: {
 				CUserInfoStorage.Inst.AddNumCoins(a_stNumItemsInfo.m_nNumItems + a_nNumExtraItems);
 			} break;
-			case EItemKinds.NON_CONSUMABLE_REMOVE_ADS: {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds = true;
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
-#if ADS_MODULE_ENABLE
-				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
-
-				CAdsManager.Inst.IsEnableBannerAds = false;
-				CAdsManager.Inst.IsEnableFullscreenAds = false;
-#endif			// #if ADS_MODULE_ENABLE
-			} break;
 			default: {
-				// 소모품 일 경우
-				if((EItemType)((int)a_stNumItemsInfo.m_eItemKinds).ExKindsToType() == EItemType.CONSUMABLE) {
-					CUserInfoStorage.Inst.AddNumItems(a_stNumItemsInfo.m_eItemKinds, a_stNumItemsInfo.m_nNumItems + a_nNumExtraItems);
+				// 광고 제거 일 경우
+				if(a_stNumItemsInfo.m_eItemKinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
+#if ADS_MODULE_ENABLE
+					CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
+					CAdsManager.Inst.IsEnableBannerAds = false;
+					CAdsManager.Inst.IsEnableFullscreenAds = false;
+#endif			// #if ADS_MODULE_ENABLE
 				}
+
+				CUserInfoStorage.Inst.AddNumItems(a_stNumItemsInfo.m_eItemKinds, a_stNumItemsInfo.m_nNumItems + a_nNumExtraItems);
 			} break;
 		}
 
@@ -216,7 +210,7 @@ public static partial class Func {
 			int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
 
 			var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
-			var eProductSaleKinds = KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST[nIdx];
+			var eProductSaleKinds = KDefine.G_PRODUCT_SIT_PRODUCT_SALE_KINDS_LIST[nIdx];
 			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductSaleKinds);
 
 			for(int i = 0; i < stProductSaleInfo.m_oNumItemsInfoList.Count; ++i) {
@@ -244,7 +238,7 @@ public static partial class Func {
 				// 상품 복원이 가능 할 경우
 				if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
 					int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
-					var eProductSaleKinds = KDefine.G_KINDS_SALE_PIT_PRODUCT_SALE_LIST[nIdx];
+					var eProductSaleKinds = KDefine.G_PRODUCT_SIT_PRODUCT_SALE_KINDS_LIST[nIdx];
 					var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductSaleKinds);
 
 					for(int j = 0; j < stProductSaleInfo.m_oNumItemsInfoList.Count; ++j) {

@@ -80,8 +80,8 @@ namespace OverlayScene {
 			Func.ShowStorePopup(CSceneManager.ActiveScenePopupUIs, (a_oSender) => {
 				var oProductSaleInfoList = new List<STProductSaleInfo>();
 
-				for(int i = 0; i < KDefine.G_PRODUCT_SALE_KINDS_PRODUCT_LIST.Count; ++i) {
-					var eProductSaleKinds = KDefine.G_PRODUCT_SALE_KINDS_PRODUCT_LIST[i];
+				for(int i = 0; i < KDefine.G_STORE_PRODUCT_SALE_KINDS_LIST.Count; ++i) {
+					var eProductSaleKinds = KDefine.G_STORE_PRODUCT_SALE_KINDS_LIST[i];
 					oProductSaleInfoList.Add(CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductSaleKinds));
 				}
 

@@ -37,12 +37,12 @@
 	- *Soft Mask For GUI (1.0.0 - Feb 24, 2021)*
 	- *Unmask For GUI (1.4.0 - Feb 18, 2022)*
 5. **기타 추가 에셋 및 플러그인 리스트**
-	- *Firebase (8.8.0 - Auth, Analytics, Crashlytics, Database, Remote Config, Cloud Messaging)*
-	- *Admob (6.1.2)*
+	- *Firebase (8.9.0 - Auth, Analytics, Crashlytics, Database, Remote Config, Cloud Messaging)*
+	- *Admob (7.0.0)*
 	- *Iron Source (7.2.0)*
 	- *App Lovin (4.3.1)*
 	- *Flurry (4.2.0)*
 	- *Facebook (11.0.0)*
 	- *Apps Flyer (6.5.2)*
 	- *Google App Update (1.7.0)*
-	- *Google Play Games (0.10.14)*
+	- *Google Play Games (0.11.1)*

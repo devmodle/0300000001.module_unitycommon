@@ -153,17 +153,16 @@ public partial class CSyncPopup : CSubPopup {
 
 			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfoStr);
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if ADS_MODULE_ENABLE
-			// 광고 제거 모드 일 경우
-			if(CCommonUserInfoStorage.Inst.UserInfo.IsRemoveAds) {
+			// 광고 제거 상품을 결제했을 경우
+			if(CUserInfoStorage.Inst.IsPurchaseRemoveAds) {
 				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
-
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
 			}
 #endif			// #if ADS_MODULE_ENABLE
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 
 		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
