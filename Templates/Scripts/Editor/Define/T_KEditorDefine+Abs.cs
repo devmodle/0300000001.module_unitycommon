@@ -165,6 +165,13 @@ public static partial class KEditorDefine {
 		["com.unity.mobile.android-logcat"] = "1.2.3",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
 
+#if SAMPLE_PROJ || DEVELOPMENT_PROJ
+		["com.unity.sequences"] = "1.0.4",
+		["com.unity.polybrush"] = "1.1.3",
+		["com.unity.probuilder"] = "5.0.4",
+		["com.unity.formats.fbx"] = "4.1.2",
+		["com.unity.ads.ios-support"] = "1.0.0",
+
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",
 #endif			// #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
@@ -189,13 +196,6 @@ public static partial class KEditorDefine {
 		["com.unity.visualeffectgraph"] = "12.1.6",
 		["com.unity.render-pipelines.universal"] = "12.1.6",
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_ENABLE || UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-
-#if SAMPLE_PROJ || DEVELOPMENT_PROJ
-		["com.unity.sequences"] = "1.0.4",
-		["com.unity.polybrush"] = "1.1.3",
-		["com.unity.probuilder"] = "5.0.4",
-		["com.unity.formats.fbx"] = "4.1.2",
-		["com.unity.ads.ios-support"] = "1.0.0",
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
 		["module.unitycommonads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads_client.git#2.3.21",
