@@ -26,12 +26,17 @@ public static partial class CEditorSceneManager {
 	private static float m_fDefineSymbolSkipTime = 0.0f;
 
 	private static ListRequest m_oListRequest = null;
+	private static List<string> m_oSampleSceneNameList = new List<string>();
 	private static List<AddRequest> m_oAddRequestList = new List<AddRequest>();
 	#endregion			// 클래스 변수
 	
 	#region 클래스 함수
 	/** 생성자 */
 	static CEditorSceneManager() {
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
+
 		CEditorSceneManager.SetupCallbacks();
 	}
 
@@ -82,6 +87,15 @@ public static partial class CEditorSceneManager {
 			if(CEditorSceneManager.m_fUpdateSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
 				CEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_FLT;
 				CEditorSceneManager.SetupExtraPreloadAssets();
+
+				CFunc.EnumerateRootObjs((a_oObj) => {
+					// 프리팹 최상단 객체 일 경우
+					if(KCEditorDefine.B_OBJ_N_PREFAB_ROOT_OBJ_LIST.Contains(a_oObj.name) && !CEditorSceneManager.m_oSampleSceneNameList.Contains(a_oObj.scene.name)) {
+						CEditorSceneManager.SetupPrefabObjs(a_oObj);
+					}
+
+					return true;
+				});
 
 				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
 

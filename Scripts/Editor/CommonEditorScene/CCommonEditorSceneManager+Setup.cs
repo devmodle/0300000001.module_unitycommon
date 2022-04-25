@@ -114,10 +114,6 @@ public static partial class CCommonEditorSceneManager {
 
 	/** 광원 옵션을 설정한다 */
 	private static void SetupLightOpts() {
-		var oSampleSceneNameList = new List<string>() {
-			KCDefine.B_SCENE_N_SAMPLE, KCDefine.B_SCENE_N_EDITOR_SAMPLE, KCDefine.B_SCENE_N_STUDY_SAMPLE
-		};
-
 		var oLightingSettingsPathDict = new Dictionary<EQualityLevel, string>() {
 			[EQualityLevel.NORM] = KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS, [EQualityLevel.HIGH] = KCDefine.U_ASSET_P_G_HIGH_QUALITY_LIGHTING_SETTINGS, [EQualityLevel.ULTRA] = KCDefine.U_ASSET_P_G_ULTRA_QUALITY_LIGHTING_SETTINGS
 		};
@@ -129,7 +125,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 
 		// 광원 설정이 가능 할 경우
-		if(stScene.IsValid() && !oSampleSceneNameList.Contains(stScene.name) && CPlatformOptsSetter.OptsInfoTable != null) {
+		if(stScene.IsValid() && !CCommonEditorSceneManager.m_oSampleSceneNameList.Contains(stScene.name) && CPlatformOptsSetter.OptsInfoTable != null) {
 			bool bIsValid01 = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			bool bIsValid02 = oLightingSettings != null && oLightingSettings.name.Equals(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);
 			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(Path.GetFileNameWithoutExtension(oLightingSettingsPathDict[CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel]));
@@ -239,7 +235,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-
+	
 	/** 광원 옵션을 설정한다 */
 	private static void DoSetupLightOpts(EQualityLevel a_eQualityLevel, LightingSettings a_oSettings, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSettings != null);
@@ -344,22 +340,28 @@ public static partial class CCommonEditorSceneManager {
 
 		try {
 			foreach(var oObj in a_oObj.DescendantsAndSelf()) {
-				int nNumMissingScripts = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj);
-
 				// 객체 제거가 필요 할 경우
 				if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
-					CCommonEditorSceneManager.m_oPrefabMissingObjList.ExAddVal(oObj);
+					EditorSceneManager.MarkSceneDirty(a_oObj.scene);
+					CCommonEditorSceneManager.m_oPrefabMissingObjList.ExAddVal(PrefabUtility.GetOutermostPrefabInstanceRoot(oObj));
 				}
 
 				// 스크립트 제거가 필요 할 경우
-				if(nNumMissingScripts > KCDefine.B_VAL_0_INT) {
-					GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
+				if(GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj) > KCDefine.B_VAL_0_INT) {
 					EditorSceneManager.MarkSceneDirty(a_oObj.scene);
+					GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
 				}
 			}
 		} finally {
 			for(int i = 0; i < CCommonEditorSceneManager.m_oPrefabMissingObjList.Count; ++i) {
-				CFactory.RemoveObj(CCommonEditorSceneManager.m_oPrefabMissingObjList[i]);
+				string oMsg = string.Format(KCEditorDefine.B_MSG_FMT_ALERT_P_MISSING_PREFAB, CCommonEditorSceneManager.m_oPrefabMissingObjList[i].name);
+
+				// 확인 버튼을 눌렀을 경우
+				if(CEditorFunc.ShowOKCancelAlertPopup(KCEditorDefine.B_TEXT_ALERT_P_TITLE, oMsg)) {
+					CFactory.RemoveObj(CCommonEditorSceneManager.m_oPrefabMissingObjList[i]);
+				} else {
+					PrefabUtility.UnpackPrefabInstance(CCommonEditorSceneManager.m_oPrefabMissingObjList[i], PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
+				}
 			}
 		}
 	}

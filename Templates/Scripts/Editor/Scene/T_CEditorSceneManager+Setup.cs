@@ -8,6 +8,7 @@ using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.PackageManager;
+using UnityEditor.SceneManagement;
 
 /** 에디터 씬 관리자 - 설정 */
 public static partial class CEditorSceneManager {
@@ -81,6 +82,30 @@ public static partial class CEditorSceneManager {
 			PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
 		}
 #endif			// #if EXTRA_SCRIPT_ENABLE
+	}
+
+	/** 프리팹 객체를 설정한다 */
+	private static void SetupPrefabObjs(GameObject a_oObj) {
+#if STUDY_MODULE_ENABLE
+		bool bIsEnableSetup = !PrefabUtility.IsPrefabAssetMissing(a_oObj) && CFunc.FindComponent<StudyScene.CStudySceneManager>(a_oObj.scene) == null;
+#else
+		bool bIsEnableSetup = !PrefabUtility.IsPrefabAssetMissing(a_oObj);
+#endif			// #if STUDY_MODULE_ENABLE
+
+		// 프리팹 설정이 가능 할 경우
+		if(bIsEnableSetup && CFunc.FindComponent<CSampleSceneManager>(a_oObj.scene) == null) {
+			string oDirPath = (!a_oObj.scene.name.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_01) && !a_oObj.scene.name.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_02)) ? KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_PREFABS : KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_EDITOR_PREFABS;
+			string oPrefabPath = string.Format(KCDefine.B_TEXT_FMT_3_SLASH_COMBINE, Path.GetDirectoryName(oDirPath), Path.GetDirectoryName(KCEditorDefine.B_DIR_P_AUTO_CREATE), string.Format(KCDefine.B_TEXT_FMT_2_UNDER_SCORE_COMBINE, a_oObj.scene.name, a_oObj.name));
+			string oFinalPrefabPath = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oPrefabPath, KCDefine.B_FILE_EXTENSION_PREFAB);
+
+			// 프리팹이 없을 경우
+			if(!CEditorAccess.IsExistsAsset(oFinalPrefabPath)) {
+				EditorSceneManager.MarkSceneDirty(a_oObj.scene);
+				CEditorFactory.MakeDirectories(Path.GetDirectoryName(oPrefabPath));
+
+				PrefabUtility.SaveAsPrefabAssetAndConnect(a_oObj, oFinalPrefabPath, InteractionMode.AutomatedAction);
+			}
+		}
 	}
 	#endregion			// 클래스 함수
 }

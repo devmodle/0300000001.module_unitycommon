@@ -74,6 +74,7 @@ public static partial class CCommonEditorSceneManager {
 		alignment = TextAnchor.MiddleRight, fontStyle = FontStyle.Bold
 	};
 
+	private static List<string> m_oSampleSceneNameList = new List<string>();
 	private static List<GameObject> m_oPrefabMissingObjList = new List<GameObject>();
 
 	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>() {
@@ -115,6 +116,10 @@ public static partial class CCommonEditorSceneManager {
 			textColor = KCEditorDefine.B_COLOR_HIERARCHY_OUTLINE
 		};
 		// GUI 스타일을 설정한다 }
+
+		CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
+		CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
+		CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
 
 		CCommonEditorSceneManager.SetupCallbacks();
 	}
@@ -179,7 +184,7 @@ public static partial class CCommonEditorSceneManager {
 					if(KCEditorDefine.B_OBJ_N_ROOT_OBJ_LIST.Contains(a_oObj.name)) {
 						CCommonEditorSceneManager.SetupStaticObjs(a_oObj);
 					}
-
+					
 					CCommonEditorSceneManager.UpdateMissingScriptState(a_oObj);
 					return true;
 				});
