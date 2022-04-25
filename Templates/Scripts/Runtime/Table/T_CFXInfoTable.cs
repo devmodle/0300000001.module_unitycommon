@@ -8,6 +8,8 @@ using UnityEngine.UI;
 /** 효과 정보 */
 [System.Serializable]
 public struct STFXInfo {
+	public float m_fDelay;
+
 	public EFXKinds m_eFXKinds;
 	public EFXKinds m_ePrevFXKinds;
 	public EFXKinds m_eNextFXKinds;
@@ -22,6 +24,8 @@ public struct STFXInfo {
 	#region 함수
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
+		m_fDelay = a_oFXInfo[KCDefine.U_KEY_DELAY].AsFloat;
+
 		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_eNextFXKinds = a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt : EFXKinds.NONE;
