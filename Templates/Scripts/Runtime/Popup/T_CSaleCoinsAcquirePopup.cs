@@ -6,7 +6,7 @@ using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-/** 코인 상자 획득 팝업 */
+/** 코인 상자 코인 획득 팝업 */
 public partial class CSaleCoinsAcquirePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {

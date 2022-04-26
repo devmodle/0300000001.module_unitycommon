@@ -70,7 +70,7 @@ public partial class CSaleCoinsPopup : CSubPopup {
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn() {
 #if PURCHASE_MODULE_ENABLE
-		Func.PurchaseProduct(KDefine.G_PRODUCT_ID_SALE_COINS, this.OnPurchaseProduct);
+		Func.PurchaseProduct(EProductSaleKinds.SINGLE_COINS_BOX, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수
