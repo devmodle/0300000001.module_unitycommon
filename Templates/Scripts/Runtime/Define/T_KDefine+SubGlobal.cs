@@ -15,9 +15,9 @@ public static partial class KDefine {
 	public const string G_OBJ_N_DAILY_MISSION_POPUP = "DailyMissionPopup";
 	public const string G_OBJ_N_FREE_REWARD_POPUP = "FreeRewardPopup";
 	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DailyRewardPopup";
-	public const string G_OBJ_N_COINS_BOX_POPUP = "SaleCoinsPopup";
+	public const string G_OBJ_N_COINS_BOX_POPUP = "CoinsBoxPopup";
 	public const string G_OBJ_N_REWARD_ACQUIRE_POPUP = "RewardAcquirePopup";
-	public const string G_OBJ_N_COINS_BOX_ACQUIRE_POPUP = "SaleCoinsAcquirePopup";
+	public const string G_OBJ_N_COINS_BOX_COINS_ACQUIRE_POPUP = "CoinsBoxCoinsAcquirePopup";
 	public const string G_OBJ_N_CONTINUE_POPUP = "ContinuePopup";
 	public const string G_OBJ_N_RESULT_POPUP = "ResultPopup";
 	public const string G_OBJ_N_PAUSE_POPUP = "PausePopup";
