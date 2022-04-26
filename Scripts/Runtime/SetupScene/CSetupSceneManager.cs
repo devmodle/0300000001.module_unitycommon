@@ -67,6 +67,10 @@ namespace SetupScene {
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupDebugUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+
+#if PURCHASE_MODULE_ENABLE
+			CProductInfoTable.Inst.LoadProductInfos();
+#endif			// #if PURCHASE_MODULE_ENABLE
 		}
 
 		/** 디바이스 식별자 반환 메세지를 처리한다 */

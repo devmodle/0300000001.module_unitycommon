@@ -1160,7 +1160,7 @@ namespace LevelEditorScene {
 		private void UpdateRightEditorUIsState() {
 			// 텍스트를 설정한다
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo.m_nChapterID);
-			m_oTextDict[EKey.RE_UIS_TITLE_TEXT]?.ExSetText<Text>(string.Format(CStrTable.Inst.GetStr(KCDefine.ST_KEY_COMMON_LEVEL_PAGE_TEXT_FMT), m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, nNumLevelInfos), false);
+			m_oTextDict[EKey.RE_UIS_TITLE_TEXT]?.ExSetText<Text>(string.Format(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LEVEL_PAGE_TEXT_FMT), m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT, nNumLevelInfos), false);
 
 			// 버튼을 설정한다 {
 			m_oBtnDict[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN]?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT, false);

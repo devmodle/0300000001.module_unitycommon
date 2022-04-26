@@ -143,7 +143,7 @@ public enum EProductSaleKinds {
 
 	#region 단일
 	[HideInInspector] SINGLE_PRODUCT_SALE = EEnumVal.TYPE * 1,
-	SINGLE_SALE_COINS = EProductSaleKinds.SINGLE_PRODUCT_SALE + (EEnumVal.KINDS_TYPE * 0),			//!< 판매 코인 10,000,000
+	SINGLE_SALE_COINS = EProductSaleKinds.SINGLE_PRODUCT_SALE + (EEnumVal.KINDS_TYPE * 0),			//!< 코인 상자 10,000,000
 	SINGLE_REMOVE_ADS = EProductSaleKinds.SINGLE_PRODUCT_SALE + (EEnumVal.KINDS_TYPE * 1),			//!< 광고 제거 10,010,000
 	#endregion			// 단일
 

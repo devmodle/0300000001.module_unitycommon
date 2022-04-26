@@ -86,7 +86,7 @@ public static partial class Func {
 		Func.ShowPopup<CDailyRewardPopup>(KDefine.G_OBJ_N_DAILY_REWARD_POPUP, KCDefine.U_OBJ_P_G_DAILY_REWARD_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	/** 판매 코인 팝업을 출력한다 */
+	/** 코인 상자 팝업을 출력한다 */
 	public static void ShowSaleCoinsPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CSaleCoinsPopup>(KDefine.G_OBJ_N_SALE_COINS_POPUP, KCDefine.U_OBJ_P_G_SALE_COINS_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
@@ -96,7 +96,7 @@ public static partial class Func {
 		Func.ShowPopup<CRewardAcquirePopup>(KDefine.G_OBJ_N_REWARD_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_REWARD_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	/** 판매 코인 획득 팝업을 출력한다 */
+	/** 코인 상자 획득 팝업을 출력한다 */
 	public static void ShowSaleCoinsAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CSaleCoinsAcquirePopup>(KDefine.G_OBJ_N_SALE_COINS_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_SALE_COINS_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
