@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 public partial class CUserInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_NUM_COINS = "NumCoins";
-	private const string KEY_NUM_SALE_COINS = "NumSaleCoins";
+	private const string KEY_NUM_SALE_COINS = "NumCoinsBoxCoins";
 	#endregion			// 상수
 
 	#region 변수
@@ -27,7 +27,7 @@ public partial class CUserInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_NUM_COINS, $"{value}"); }
 	}
 
-	[JsonIgnore][IgnoreMember] public long NumSaleCoins {
+	[JsonIgnore][IgnoreMember] public long NumCoinsBoxCoins {
 		get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_SALE_COINS, KCDefine.B_STR_0_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_NUM_SALE_COINS, $"{value}"); }
 	}
@@ -85,9 +85,9 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		this.UserInfo.NumCoins = System.Math.Clamp(this.UserInfo.NumCoins + a_nNumCoins, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
 
-	/** 잔돈 개수를 추가한다 */
-	public void AddNumSaleCoins(long a_nNumSaleCoins) {
-		this.UserInfo.NumSaleCoins = System.Math.Clamp(this.UserInfo.NumSaleCoins + a_nNumSaleCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
+	/** 코인 상자 코인 개수를 추가한다 */
+	public void AddNumCoinsBoxCoins(long a_nNumCoinsBoxCoins) {
+		this.UserInfo.NumCoinsBoxCoins = System.Math.Clamp(this.UserInfo.NumCoinsBoxCoins + a_nNumCoinsBoxCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
 	}
 	
 	/** 아이템 개수를 추가한다 */

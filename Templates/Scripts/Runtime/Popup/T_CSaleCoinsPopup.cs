@@ -11,14 +11,14 @@ public partial class CSaleCoinsPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
-		NUM_SALE_COINS_TEXT,
+		NUM_COINS_TEXT,
 		[HideInInspector] MAX_VAL
 	}
 
 	#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
-		[EKey.NUM_SALE_COINS_TEXT] = null
+		[EKey.NUM_COINS_TEXT] = null
 	};
 
 	/** =====> 객체 <===== */
@@ -32,7 +32,7 @@ public partial class CSaleCoinsPopup : CSubPopup {
 		base.Awake();
 
 		// 텍스트를 설정한다
-		m_oTextDict[EKey.NUM_SALE_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_SALE_COINS_TEXT);
+		m_oTextDict[EKey.NUM_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
 
 		// 버튼을 설정한다
 		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_OK_BTN)?.onClick.AddListener(this.OnTouchOKBtn);
@@ -53,13 +53,13 @@ public partial class CSaleCoinsPopup : CSubPopup {
 	/** UI 상태를 변경한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		long nNumSaleCoins = CUserInfoStorage.Inst.UserInfo.NumSaleCoins;
+		long nNumCoinsBoxCoins = CUserInfoStorage.Inst.UserInfo.NumCoinsBoxCoins;
 
-		m_oSaveUIs?.SetActive(nNumSaleCoins < KDefine.G_MAX_NUM_SALE_COINS);
-		m_oFullUIs?.SetActive(nNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
+		m_oSaveUIs?.SetActive(nNumCoinsBoxCoins < KDefine.G_MAX_NUM_SALE_COINS);
+		m_oFullUIs?.SetActive(nNumCoinsBoxCoins >= KDefine.G_MAX_NUM_SALE_COINS);
 
 		// 텍스트를 갱신한다
-		m_oTextDict[EKey.NUM_SALE_COINS_TEXT]?.ExSetText($"{nNumSaleCoins}", EFontSet._1, false);
+		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{nNumCoinsBoxCoins}", EFontSet._1, false);
 	}
 
 	/** 확인 버튼을 눌렀을 경우 */

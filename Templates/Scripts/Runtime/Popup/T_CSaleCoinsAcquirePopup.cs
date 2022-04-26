@@ -11,22 +11,22 @@ public partial class CSaleCoinsAcquirePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
-		NUM_SALE_COINS_TEXT,
+		NUM_COINS_TEXT,
 		[HideInInspector] MAX_VAL
 	}
 
 	/** 매개 변수 */
 	public struct STParams {
-		public long m_nNumSaleCoins;
+		public long m_nNumCoinsBoxCoins;
 	}
 
 	#region 변수
 	private STParams m_stParams;
-	private long m_nPrevNumSaleCoins = 0;
+	private long m_nPrevNumCoinsBoxCoins = 0;
 
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
-		[EKey.NUM_SALE_COINS_TEXT] = null
+		[EKey.NUM_COINS_TEXT] = null
 	};
 
 	/** =====> 객체 <===== */
@@ -41,7 +41,7 @@ public partial class CSaleCoinsAcquirePopup : CSubPopup {
 		this.IsIgnoreNavStackEvent = false;
 
 		// 텍스트를 설정한다
-		m_oTextDict[EKey.NUM_SALE_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_SALE_COINS_TEXT);
+		m_oTextDict[EKey.NUM_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
 	}
 
 	/** 초기화 */
@@ -49,9 +49,9 @@ public partial class CSaleCoinsAcquirePopup : CSubPopup {
 		base.Init();
 
 		m_stParams = a_stParams;
-		m_nPrevNumSaleCoins = CUserInfoStorage.Inst.UserInfo.NumSaleCoins;
+		m_nPrevNumCoinsBoxCoins = CUserInfoStorage.Inst.UserInfo.NumCoinsBoxCoins;
 
-		CUserInfoStorage.Inst.AddNumSaleCoins(a_stParams.m_nNumSaleCoins);
+		CUserInfoStorage.Inst.AddNumCoinsBoxCoins(a_stParams.m_nNumCoinsBoxCoins);
 		CUserInfoStorage.Inst.SaveUserInfo();
 	}
 
@@ -65,11 +65,11 @@ public partial class CSaleCoinsAcquirePopup : CSubPopup {
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 
-		m_oSaveUIs?.SetActive(m_nPrevNumSaleCoins < KDefine.G_MAX_NUM_SALE_COINS);
-		m_oFullUIs?.SetActive(m_nPrevNumSaleCoins >= KDefine.G_MAX_NUM_SALE_COINS);
+		m_oSaveUIs?.SetActive(m_nPrevNumCoinsBoxCoins < KDefine.G_MAX_NUM_SALE_COINS);
+		m_oFullUIs?.SetActive(m_nPrevNumCoinsBoxCoins >= KDefine.G_MAX_NUM_SALE_COINS);
 		
 		// 텍스트를 갱신한다
-		m_oTextDict[EKey.NUM_SALE_COINS_TEXT]?.ExSetText($"{m_nPrevNumSaleCoins}", EFontSet._1, false);
+		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_nPrevNumCoinsBoxCoins}", EFontSet._1, false);
 	}
 	#endregion			// 함수
 }
