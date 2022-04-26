@@ -208,10 +208,8 @@ public static partial class Func {
 		// 상품이 존재 할 경우
 		if(a_oProductID.ExIsValid()) {
 			int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
-
 			var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
-			var eProductSaleKinds = KDefine.G_PRODUCT_SIT_PRODUCT_SALE_KINDS_LIST[nIdx];
-			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductSaleKinds);
+			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(nIdx);
 
 			for(int i = 0; i < stProductSaleInfo.m_oNumItemsInfoList.Count; ++i) {
 				Func.AcquireItem(stProductSaleInfo.m_oNumItemsInfoList[i]);
@@ -238,8 +236,7 @@ public static partial class Func {
 				// 상품 복원이 가능 할 경우
 				if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
 					int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
-					var eProductSaleKinds = KDefine.G_PRODUCT_SIT_PRODUCT_SALE_KINDS_LIST[nIdx];
-					var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductSaleKinds);
+					var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(nIdx);
 
 					for(int j = 0; j < stProductSaleInfo.m_oNumItemsInfoList.Count; ++j) {
 						Func.AcquireItem(stProductSaleInfo.m_oNumItemsInfoList[j]);

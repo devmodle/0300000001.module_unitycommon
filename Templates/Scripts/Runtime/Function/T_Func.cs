@@ -727,7 +727,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show();
 		Func.m_oGameCenterCallbackDict02.ExReplaceVal(ECallback.UPDATE_ACHIEVEMENT, a_oCallback);
 
-		CGameCenterManager.Inst.UpdateAchievement(a_oAchievementID, a_dblPercent, Func.OnUpdateAchievement);
+		CGameCenterManager.Inst.UpdateAchievement(a_oAchievementID, a_dblPercent * KCDefine.B_UNIT_NORM_VAL_TO_PERCENT, Func.OnUpdateAchievement);
 	}
 
 	/** 게임 센터에 로그인 되었을 경우 */
@@ -763,12 +763,12 @@ public static partial class Func {
 
 	/** 상품을 결제한다 */
 	public static void PurchaseProduct(EProductSaleKinds a_eProductSaleKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		int nID = Access.GetProductSaleID(a_eProductSaleKinds);
-		CAccess.Assert(!a_bIsEnableAssert || KDefine.G_PRODUCT_SIT_PRODUCT_SALE_KINDS_LIST.ExIsValidIdx(nID));
-
+		bool bIsValid = CProductSaleInfoTable.Inst.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo);
+		CAccess.Assert(!a_bIsEnableAssert || bIsValid);
+		
 		// 상품이 존재 할 경우
-		if(KDefine.G_PRODUCT_SIT_PRODUCT_SALE_KINDS_LIST.ExIsValidIdx(nID)) {
-			Func.PurchaseProduct(nID, a_oCallback, a_bIsEnableAssert);
+		if(bIsValid) {
+			Func.PurchaseProduct(stProductSaleInfo.m_nID, a_oCallback, a_bIsEnableAssert);
 		}
 	}
 	

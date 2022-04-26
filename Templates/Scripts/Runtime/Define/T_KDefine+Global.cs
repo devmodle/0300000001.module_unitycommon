@@ -124,11 +124,6 @@ public static partial class KDefine {
 	public static readonly List<EProductSaleKinds> G_PRODUCT_SALE_KINDS_PRODUCT_SPECIAL_PKGS_LIST = new List<EProductSaleKinds>() {
 		// Do Something
 	};
-
-	// 상품 판매 정보 테이블
-	public static readonly List<EProductSaleKinds> G_PRODUCT_SIT_PRODUCT_SALE_KINDS_LIST = new List<EProductSaleKinds>() {
-		// Do Something
-	};
 	#endregion			// 런타임 상수
 }
 #endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
