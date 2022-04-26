@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 public partial class CUserInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_NUM_COINS = "NumCoins";
-	private const string KEY_NUM_SALE_COINS = "NumCoinsBoxCoins";
+	private const string KEY_NUM_COINS_BOX_COINS = "NumCoinsBoxCoins";
 	#endregion			// 상수
 
 	#region 변수
@@ -28,8 +28,8 @@ public partial class CUserInfo : CBaseInfo {
 	}
 
 	[JsonIgnore][IgnoreMember] public long NumCoinsBoxCoins {
-		get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_SALE_COINS, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_SALE_COINS, $"{value}"); }
+		get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_COINS_BOX_COINS, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_COINS_BOX_COINS, $"{value}"); }
 	}
 	#endregion			// 프로퍼티
 
