@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public static partial class KDefine {
 	#region 기본
 	// 개수 {
-	public const int G_MAX_NUM_SALE_COINS = 0;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 9;
+	public const int G_MAX_NUM_COINS_BOX_COINS = 0;
 
 	public const int G_MAX_NUM_FX_KINDS = 9;
 	public const int G_MAX_NUM_ITEMS_INFOS = 9;

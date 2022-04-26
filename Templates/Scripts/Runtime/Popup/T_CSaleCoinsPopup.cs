@@ -55,8 +55,8 @@ public partial class CSaleCoinsPopup : CSubPopup {
 		base.UpdateUIsState();
 		long nNumCoinsBoxCoins = CUserInfoStorage.Inst.UserInfo.NumCoinsBoxCoins;
 
-		m_oSaveUIs?.SetActive(nNumCoinsBoxCoins < KDefine.G_MAX_NUM_SALE_COINS);
-		m_oFullUIs?.SetActive(nNumCoinsBoxCoins >= KDefine.G_MAX_NUM_SALE_COINS);
+		m_oSaveUIs?.SetActive(nNumCoinsBoxCoins < KDefine.G_MAX_NUM_COINS_BOX_COINS);
+		m_oFullUIs?.SetActive(nNumCoinsBoxCoins >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
 
 		// 텍스트를 갱신한다
 		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{nNumCoinsBoxCoins}", EFontSet._1, false);

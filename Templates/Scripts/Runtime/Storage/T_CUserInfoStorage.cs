@@ -87,7 +87,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 코인 상자 코인 개수를 추가한다 */
 	public void AddNumCoinsBoxCoins(long a_nNumCoinsBoxCoins) {
-		this.UserInfo.NumCoinsBoxCoins = System.Math.Clamp(this.UserInfo.NumCoinsBoxCoins + a_nNumCoinsBoxCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_SALE_COINS);
+		this.UserInfo.NumCoinsBoxCoins = System.Math.Clamp(this.UserInfo.NumCoinsBoxCoins + a_nNumCoinsBoxCoins, KCDefine.B_VAL_0_INT, KDefine.G_MAX_NUM_COINS_BOX_COINS);
 	}
 	
 	/** 아이템 개수를 추가한다 */
