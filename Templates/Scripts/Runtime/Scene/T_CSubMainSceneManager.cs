@@ -368,6 +368,14 @@ namespace MainScene {
 		private void OnTouchABTUIsSetBtn(EUserType a_eUserType) {
 			// 유저 타입이 다를 경우
 			if(CCommonUserInfoStorage.Inst.UserInfo.UserType != a_eUserType) {
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr((a_eUserType == EUserType.A) ? KCDefine.ST_KEY_EDITOR_A_SET_P_MSG : KCDefine.ST_KEY_EDITOR_B_SET_P_MSG), (a_oSender, a_bIsOK) => this.OnReceiveABSetPopupResult(a_oSender, a_bIsOK, a_eUserType));
+			}
+		}
+
+		/** AB 세트 팝업 결과를 수신했을 경우 */
+		private void OnReceiveABSetPopupResult(CAlertPopup a_oSender, bool a_bIsOK, EUserType a_eUserType) {
+			// 확인 버튼을 눌렀을 경우
+			if(a_bIsOK) {
 				CCommonUserInfoStorage.Inst.UserInfo.UserType = a_eUserType;
 				CCommonUserInfoStorage.Inst.SaveUserInfo();
 
