@@ -185,7 +185,7 @@ public static partial class CEditorSceneManager {
 	private static void UpdateDependencyState() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			bool bIsEnableSetup = CEditorSceneManager.m_bIsEnableSetupDependencies && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.IsCompleted);
+			bool bIsEnableSetup = CEditorSceneManager.m_bIsEnableSetupDependencies && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.Result != null && CEditorSceneManager.m_oListRequest.IsCompleted);
 			CEditorSceneManager.m_fDependencySkipTime += Mathf.Clamp01(Time.deltaTime);
 
 			// 갱신 주기가 지났을 경우
