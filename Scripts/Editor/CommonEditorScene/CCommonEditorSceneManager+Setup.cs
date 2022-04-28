@@ -231,7 +231,7 @@ public static partial class CCommonEditorSceneManager {
 		foreach(var oObj in a_oObj.ChildrenAndSelf()) {
 			// 정적 객체 일 경우
 			if(KCEditorDefine.B_OBJ_N_STATIC_OBJ_LIST.Contains(oObj.name)) {
-				oObj.ExSetStaticEditorFlags(KCEditorDefine.B_STATIC_E_FLAGS);
+				oObj.ExSetStaticEditorFlags((StaticEditorFlags)int.MaxValue);
 			}
 		}
 	}
