@@ -5,13 +5,16 @@
 2. **에셋 스토어 리스트**
 	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
 	- *Advance Object Pool (1.1.0 - May 6, 2019)*
-	- *Anti Cheat Free (3.0.0 - Apr 13, 2022)*
-	- *Asset Usage Detector (2.2.0 - Jan 5, 2022)*
-	- *Bezier Solution (2.3.0 - Nov 5, 2021)*
+	- *Anti Cheat Free (3.1.0 - Apr 25, 2022)*
+	- *Asset Usage Detector (2.2.1 - Apr 25, 2022)*
+	- *Bezier Solution (2.3.1 - Apr 25, 2022)*
 	- *Bitmap Font Importer (2.4.1 - May 6, 2019)*
 	- *Enhanced Hierarchy (2.4.5 - May 5, 2020)*
 	- *Enhanced Scroller (2.33.0 - Apr 6, 2022)*
+	- *Google Sheets to Unity (1.0.0 - Mar 18, 2019)*
 	- *iTween (2.0.10 - Apr 17, 2019)*
+	- *Lean GUI (2.0.0 - Mar 4, 2022)*
+	- *Lean Touch (3.0.0 - Mar 4, 2022)*
 	- *LINQ to GameObject (2.3.1 - Jan 9, 2018)*
 	- *Native Share (1.4.6 - Jan 14, 2022)*
 	- *NGUI (2021.11.30 - Dec 1, 2021)*
@@ -23,12 +26,9 @@
 	- *UniRx (7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
 	- *Build Report Tool (3.9.3 - Mar 18, 2022)*
-	- *Google Sheets to Unity (1.0.0 - Mar 18, 2019)*
-	- *Odin Inspector (3.0.12 - Nov 15, 2021)*
+	- *Odin Inspector (3.0.13 - Apr 20, 2022)*
 	- *Sprite Trail (1.4.0 - Aug 2, 2019)*
 	- *Ultimate Status Bar (2.6.0 - Jun 3, 2020)*
-	- *Lean GUI (2.0.0 - Mar 4, 2022)*
-	- *Lean Touch (3.0.0 - Mar 4, 2022)*
 	- *Apple Auth (1.4.2 - Jul 18, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (2.3.85)*
