@@ -70,7 +70,7 @@ public static partial class CEditorSceneManager {
 				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
 				EditorApplication.update += CEditorSceneManager.UpdateDependencyState;
 
-#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 				EditorFactory.CreateItemSaleInfoTable();
 				EditorFactory.CreateProductSaleInfoTable();
 				EditorFactory.CreateMissionInfoTable();
@@ -80,7 +80,7 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateFXInfoTable();
 				EditorFactory.CreateBlockInfoTable();
 				EditorFactory.CreateResInfoTable();
-#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			}
 
 			// 갱신 주기가 지났을 경우
@@ -99,9 +99,9 @@ public static partial class CEditorSceneManager {
 
 				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
 
-#if EXTRA_SCRIPT_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE
 				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.G_EXTRA_SCENE_MANAGER_TYPE_DICT); return true; });
-#endif			// #if EXTRA_SCRIPT_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
 
 				var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
@@ -115,12 +115,12 @@ public static partial class CEditorSceneManager {
 							CAccess.SetScriptOrder(oMonoScripts[i], nOrder);
 						}
 
-#if EXTRA_SCRIPT_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE
 						// 스크립트 순서 설정이 가능 할 경우
 						if(oType != null && KEditorDefine.G_EXTRA_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nExtraOrder)) {
 							CAccess.SetScriptOrder(oMonoScripts[i], nExtraOrder);
 						}
-#endif			// #if EXTRA_SCRIPT_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
 					}
 				}
 			}

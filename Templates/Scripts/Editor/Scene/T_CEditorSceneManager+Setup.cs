@@ -56,7 +56,7 @@ public static partial class CEditorSceneManager {
 
 	/** 미리 로드 할 추가 에셋을 설정한다 */
 	private static void SetupExtraPreloadAssets() {
-#if EXTRA_SCRIPT_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE
 		var oPreloadAssetList = PlayerSettings.GetPreloadedAssets().ToList();
 
 		try {
@@ -81,7 +81,7 @@ public static partial class CEditorSceneManager {
 		} finally {
 			PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
 		}
-#endif			// #if EXTRA_SCRIPT_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
 	}
 
 	/** 프리팹 객체를 설정한다 */

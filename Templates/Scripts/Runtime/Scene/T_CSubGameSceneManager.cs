@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 namespace GameScene {
 	/** 서브 게임 씬 관리자 */
 	public partial class CSubGameSceneManager : CGameSceneManager {
@@ -247,10 +247,10 @@ namespace GameScene {
 					[SampleEngineName.CEngine.ECallback.CLEAR_FAIL] = this.OnClearFailLevel
 				},
 
-#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 				m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
 				m_oClearInfo = bIsValid ? oLevelClearInfo : null
-#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			});
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		}
@@ -445,7 +445,7 @@ namespace GameScene {
 
 		/** 이어하기 팝업을 출력한다 */
 		private void ShowContinuePopup() {
-#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CContinuePopup).Init(new CContinuePopup.STParams() {
 					m_nContinueTimes = this.m_nContinueTimes,
@@ -458,12 +458,12 @@ namespace GameScene {
 					}
 				});
 			});
-#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 결과 팝업을 출력한다 */
 		private void ShowResultPopup(bool a_bIsClear) {
-#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			Func.ShowResultPopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CResultPopup).Init(new CResultPopup.STParams() {
 					m_stRecordInfo = new STRecordInfo {
@@ -485,7 +485,7 @@ namespace GameScene {
 					}
 				});
 			});
-#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 		#endregion			// 함수
 
@@ -548,5 +548,5 @@ namespace GameScene {
 		#endregion			// 조건부 함수
 	}
 }
-#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

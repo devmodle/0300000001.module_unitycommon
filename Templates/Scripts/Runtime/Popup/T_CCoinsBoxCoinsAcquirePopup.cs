@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 코인 상자 코인 획득 팝업 */
 public partial class CCoinsBoxCoinsAcquirePopup : CSubPopup {
 	/** 식별자 */
@@ -73,5 +73,5 @@ public partial class CCoinsBoxCoinsAcquirePopup : CSubPopup {
 	}
 	#endregion			// 함수
 }
-#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

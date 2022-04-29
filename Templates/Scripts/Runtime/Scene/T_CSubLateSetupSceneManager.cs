@@ -26,9 +26,9 @@ namespace LateSetupScene {
 			if(CSceneManager.IsInit) {
 				this.SetupAwake();
 
-#if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
+#if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 				CLateSetupSceneManager.IsPurchaseRemoveAds = CUserInfoStorage.Inst.IsPurchaseRemoveAds;
-#endif			// #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
+#endif			// #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 			}
 		}
 
@@ -36,10 +36,10 @@ namespace LateSetupScene {
 		protected override void Setup() {
 			base.Setup();
 
-#if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
+#if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 			CAdsManager.Inst.IsEnableBannerAds = !CUserInfoStorage.Inst.IsPurchaseRemoveAds;
 			CAdsManager.Inst.IsEnableFullscreenAds = !CUserInfoStorage.Inst.IsPurchaseRemoveAds;
-#endif			// #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
+#endif			// #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 		}
 
 		/** 추적 설명 팝업을 출력한다 */

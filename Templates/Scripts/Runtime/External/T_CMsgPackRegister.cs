@@ -6,7 +6,7 @@ using MessagePack;
 using MessagePack.Resolvers;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if MSG_PACK_ENABLE && EXTRA_SCRIPT_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#if MSG_PACK_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_EDITOR
 using UnityEditor;
 #endif			// #if UNITY_EDITOR
@@ -45,5 +45,5 @@ public static partial class CMsgPackRegister {
 #endif			// #if UNITY_EDITOR
 	#endregion			// 조건부 클래스 함수
 }
-#endif			// #if MSG_PACK_ENABLE && EXTRA_SCRIPT_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif			// #if MSG_PACK_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

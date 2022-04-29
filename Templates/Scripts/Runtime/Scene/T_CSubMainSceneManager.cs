@@ -6,7 +6,7 @@ using EnhancedUI.EnhancedScroller;
 using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
-#if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 namespace MainScene {
 	/** 서브 메인 씬 관리자 */
 	public partial class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate {
@@ -398,5 +398,5 @@ namespace MainScene {
 		#endregion			// 조건부 함수
 	}
 }
-#endif			// #if EXTRA_SCRIPT_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY
