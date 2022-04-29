@@ -248,15 +248,7 @@ public partial class CStorePopup : CSubPopup {
 			var oAcquireItemInfoList = a_oJSONStr.ExJSONStrToAcquireItemInfos();
 
 			for(int i = 0; i < oAcquireItemInfoList.Count; ++i) {
-				bool bIsValid01 = long.TryParse(oAcquireItemInfoList[i].m_oNumItems, out long nNumItems);
-				bool bIsValid02 = oAcquireItemInfoList[i].m_oItemKinds.ExToTryEnumVal<EItemKinds>(out EItemKinds eItemKinds);
-
-				// 획득 아이템 정보가 유효 할 경우
-				if(bIsValid01 && bIsValid02 && eItemKinds.ExIsValid()) {
-					Func.AcquireItem(new STNumItemsInfo() {
-						m_nNumItems = nNumItems, m_eItemKinds = eItemKinds
-					});
-				}
+				Func.AcquireItem(oAcquireItemInfoList[i]);
 			}
 
 			this.ExLateCallFunc((a_oCallFuncSender) => { oAcquireItemInfoList.Clear(); Func.SaveAcquireItemInfos(oAcquireItemInfoList, this.OnSaveAcquireItemInfos); });
