@@ -99,11 +99,6 @@ namespace LateSetupScene {
 			CLateSetupSceneManager.IsAutoLoadRewardAds = true;
 			CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
 #endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
-
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-			CCommonAppInfoStorage.Inst.DeviceConfig = CDeviceInfoTable.Inst.DeviceConfig;
-			CCommonUserInfoStorage.Inst.SaveUserInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 
 		/** 추적 설명 팝업 결과를 수신했을 경우 */

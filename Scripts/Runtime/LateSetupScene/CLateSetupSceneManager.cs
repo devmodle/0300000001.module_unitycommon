@@ -110,12 +110,6 @@ namespace LateSetupScene {
 
 			// 초기화 되었을 경우
 			if(a_bIsSuccess) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CServicesManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
-				CServicesManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
-				
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 				CServicesManager.Inst.UpdateAppleLoginState(CLateSetupSceneManager.OnUpdateAppleLoginState);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -193,36 +187,11 @@ namespace LateSetupScene {
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-#if UNITY_EDITOR || UNITY_STANDALONE
-				string oGameConfigStr = CFunc.ReadStr(KCDefine.U_RUNTIME_DATA_P_G_GAME_CONFIG);
-				string oBuildVerConfigStr = CFunc.ReadStr(KCDefine.U_RUNTIME_DATA_P_G_BUILD_VER_CONFIG);
-#else
-				var oGameConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG);
-				var oBuildVerConfig = CResManager.Inst.GetRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG);
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
-
 				CFirebaseManager.Inst.Init(new CFirebaseManager.STParams() {
-					m_oConfigDict = new Dictionary<string, object>() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-						[KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG] = CDeviceInfoTable.Inst.DeviceConfig.ExToJSONStr(),
-#else
-						[KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG] = string.Empty,
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
-#if UNITY_EDITOR || UNITY_STANDALONE
-						[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfigStr, [KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfigStr
-#else
-						[KCDefine.U_KEY_FIREBASE_M_GAME_CONFIG] = oGameConfig.text, [KCDefine.U_KEY_FIREBASE_M_BUILD_VER_CONFIG] = oBuildVerConfig.text
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
-					},
-
 					m_oCallbackDict = new Dictionary<CFirebaseManager.ECallback, System.Action<CFirebaseManager, bool>>() {
 						[CFirebaseManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFirebaseManager
 					}
 				});
-
-				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_GAME_CONFIG, true);
-				CResManager.Inst.RemoveRes<TextAsset>(KCDefine.U_DATA_P_G_BUILD_VER_CONFIG, true);
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
@@ -284,7 +253,6 @@ namespace LateSetupScene {
 		/** 다음 씬을 로드한다 */
 		private void LoadNextScene() {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			CCommonAppInfoStorage.Inst.SetupAdsID();
 			CCommonAppInfoStorage.Inst.SetupStoreVer();
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
@@ -380,26 +348,8 @@ namespace LateSetupScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 				CFirebaseManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
-
-#if FIREBASE_REMOTE_CONFIG_ENABLE
-				CFirebaseManager.Inst.LoadConfig(CLateSetupSceneManager.OnLoadConfig);
-#endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 			}
 		}
-
-#if FIREBASE_REMOTE_CONFIG_ENABLE
-		/** 속성이 로드 되었을 경우 */
-		private static void OnLoadConfig(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-			CFunc.ShowLog($"CLateSetupSceneManager.OnLoadConfig: {a_bIsSuccess}");
-
-			// 속성이 로드 되었을 경우
-			if(a_bIsSuccess) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CCommonAppInfoStorage.Inst.DeviceConfig = CFirebaseManager.Inst.GetConfig(KCDefine.U_KEY_FIREBASE_M_DEVICE_CONFIG).ExJSONStrToObj<STDeviceConfig>();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			}
-		}
-#endif			// #if FIREBASE_REMOTE_CONFIG_ENABLE
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE

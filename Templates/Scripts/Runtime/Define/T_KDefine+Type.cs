@@ -14,12 +14,6 @@ public struct STNumItemsInfo {
 	public EItemKinds m_eItemKinds;
 }
 
-/** 게임 속성 */
-[System.Serializable]
-public struct STGameConfig {
-	// Do Something
-}
-
 /** 타입 랩퍼 */
 [MessagePackObject]
 public struct STTypeWrapper {
