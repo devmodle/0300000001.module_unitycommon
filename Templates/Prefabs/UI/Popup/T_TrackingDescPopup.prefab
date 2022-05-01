@@ -947,7 +947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bIsIgnoreFontSetup: 0
-  m_oKey: COMMON_NEXT_TEXT
+  m_oKey: C_NEXT_TEXT
   m_eFontSet: 0
 --- !u!1 &6347232789698440002
 GameObject:
