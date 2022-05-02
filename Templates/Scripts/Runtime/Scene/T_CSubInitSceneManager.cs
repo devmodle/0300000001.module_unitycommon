@@ -17,6 +17,7 @@ namespace InitScene {
 			// 테이블을 생성한다 {
 			CLevelInfoTable.Create();
 
+			CItemInfoTable.Create(KCDefine.U_ASSET_P_G_ITEM_INFO_TABLE);
 			CItemSaleInfoTable.Create(KCDefine.U_ASSET_P_G_ITEM_SALE_INFO_TABLE);
 			CProductSaleInfoTable.Create(KCDefine.U_ASSET_P_G_PRODUCT_SALE_INFO_TABLE);
 			CMissionInfoTable.Create(KCDefine.U_ASSET_P_G_MISSION_INFO_TABLE);
@@ -24,6 +25,7 @@ namespace InitScene {
 			CEpisodeInfoTable.Create(KCDefine.U_ASSET_P_G_EPISODE_INFO_TABLE);
 			CTutorialInfoTable.Create(KCDefine.U_ASSET_P_G_TUTORIAL_INFO_TABLE);
 			CFXInfoTable.Create(KCDefine.U_ASSET_P_G_FX_INFO_TABLE);
+			CSkillInfoTable.Create(KCDefine.U_ASSET_P_G_SKILL_INFO_TABLE);
 			CBlockInfoTable.Create(KCDefine.U_ASSET_P_G_BLOCK_INFO_TABLE);
 			CResInfoTable.Create(KCDefine.U_ASSET_P_G_RES_INFO_TABLE);
 			// 테이블을 생성한다 }
