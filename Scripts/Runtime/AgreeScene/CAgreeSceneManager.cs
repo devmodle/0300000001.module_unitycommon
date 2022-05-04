@@ -55,8 +55,8 @@ namespace AgreeScene {
 
 		/** 초기화 */
 		private IEnumerator OnStart() {
-			this.SetupActiveScene();
 			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			this.SetupActiveScene();
 
 #if ROBO_TEST_ENABLE
 			this.LoadNextScene();

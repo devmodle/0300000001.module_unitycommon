@@ -67,8 +67,8 @@ namespace SplashScene {
 
 		/** 초기화 */
 		private IEnumerator OnStart() {
-			this.ShowSplash();
 			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			this.ShowSplash();
 
 			// 디바이스 정보를 설정한다 {
 			var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (int, int)>() {

@@ -28,30 +28,28 @@ namespace IntroScene {
 
 		/** 다음 씬을 로드한다 */
 		protected void LoadNextScene() {
-			this.ExLateCallFunc((a_oSender) => {
-				CSceneManager.IsAwake = false;
+			CSceneManager.IsAwake = false;
 
-				// 초기화 씬 일 경우
-				if(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) || KCDefine.B_INIT_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
+			// 초기화 씬 일 경우
+			if(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) || KCDefine.B_INIT_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
 #if STUDY_MODULE_ENABLE
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 #endif			// #if STUDY_MODULE_ENABLE
-				} else {
+			} else {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-					CCommonAppInfoStorage.Inst.IsFirstStart = false;
+				CCommonAppInfoStorage.Inst.IsFirstStart = false;
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
-					CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName);
-				}
-			}, KCDefine.U_DELAY_NEXT_SCENE_LOAD);
+				CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName);
+			}
 		}
 
 		/** 초기화 */
 		private IEnumerator OnStart() {
-			this.Setup();
 			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			this.Setup();
 		}
 		#endregion			// 함수
 	}

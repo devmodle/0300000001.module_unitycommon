@@ -94,6 +94,8 @@ namespace InitScene {
 
 		/** 초기화 */
 		private IEnumerator OnStart() {
+			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			
 			// iOS 를 설정한다 {
 #if UNITY_IOS
 			Device.hideHomeButton = false;
@@ -177,7 +179,6 @@ namespace InitScene {
 			// 저장소를 생성한다 }
 
 			this.Setup();
-			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
 			
 			CSceneManager.IsInit = true;
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_SPLASH, false);

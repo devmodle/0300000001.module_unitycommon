@@ -56,8 +56,8 @@ namespace StartScene {
 
 		/** 초기화 */
 		private IEnumerator OnStart() {
-			this.Setup();
 			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			this.Setup();
 			
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_SETUP);
 		}

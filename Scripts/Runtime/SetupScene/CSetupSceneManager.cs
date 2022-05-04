@@ -108,8 +108,8 @@ namespace SetupScene {
 
 		/** 초기화 */
 		private IEnumerator OnStart() {
-			this.Setup();
 			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			this.Setup();
 
 			CUnityMsgSender.Inst.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
 		}
