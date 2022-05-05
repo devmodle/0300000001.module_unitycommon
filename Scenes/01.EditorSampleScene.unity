@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1296374611}
-  m_IndirectSpecularColor: {r: 0.18145283, g: 0.22707175, b: 0.30727056, a: 1}
+  m_IndirectSpecularColor: {r: 0.1815458, g: 0.22718853, b: 0.30740678, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -350,8 +350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &47162491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -974,8 +972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &179721070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1352,8 +1348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &194742499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2474,8 +2468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &427903653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2700,8 +2692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &436739882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2867,7 +2857,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &540658743
 Transform:
@@ -3589,8 +3579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &672199644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3739,8 +3727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &675373056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4044,7 +4030,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &716372882
 Transform:
@@ -4316,8 +4302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &749592972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4414,7 +4398,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &797702339
 Transform:
@@ -4963,7 +4947,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 0
+  m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -4993,7 +4977,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 1
   m_StopNaN: 0
   m_Dithering: 0
@@ -5014,7 +4998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 394d402ccc5b94e9db90cced6b7a3dde, type: 2}
+  sharedProfile: {fileID: 11400000, guid: cda89a1626d774d4db2a538112a74e9f, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -6813,8 +6797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1132338932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7006,7 +6988,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1157697404
 Transform:
@@ -7372,8 +7354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1225394156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8015,8 +7995,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1394409899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8296,8 +8274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1421376078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8481,8 +8457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1447745460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8710,8 +8684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1474923802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9266,8 +9238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1556318491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9800,8 +9770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1633188578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9950,8 +9918,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1638237412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10100,8 +10066,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1648248581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10345,8 +10309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1687862036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10612,7 +10574,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1733647668
 Transform:
@@ -11233,8 +11195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1937742888
 MonoBehaviour:
   m_ObjectHideFlags: 0

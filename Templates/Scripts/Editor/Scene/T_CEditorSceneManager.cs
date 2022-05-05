@@ -33,11 +33,14 @@ public static partial class CEditorSceneManager {
 	#region 클래스 함수
 	/** 생성자 */
 	static CEditorSceneManager() {
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
+		// 플레이 모드가 아닐 경우
+		if(!EditorApplication.isPlayingOrWillChangePlaymode) {
+			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
+			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
+			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
 
-		CEditorSceneManager.SetupCallbacks();
+			CEditorSceneManager.SetupCallbacks();
+		}
 	}
 
 	/** 스크립트가 로드 되었을 경우 */
