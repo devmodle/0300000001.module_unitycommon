@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1978059277}
-  m_IndirectSpecularColor: {r: 0.18145283, g: 0.22707175, b: 0.30727056, a: 1}
+  m_IndirectSpecularColor: {r: 0.1815458, g: 0.22718853, b: 0.30740678, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -168,7 +168,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &144434385
 Transform:
@@ -500,8 +500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &546628301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -898,7 +896,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &764559436
 Transform:
@@ -929,7 +927,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &780193530
 Transform:
@@ -960,7 +958,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &793685647
 Transform:
@@ -1057,7 +1055,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 0
+  m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -1087,7 +1085,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 1
   m_StopNaN: 0
   m_Dithering: 0
@@ -1108,7 +1106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 394d402ccc5b94e9db90cced6b7a3dde, type: 2}
+  sharedProfile: {fileID: 11400000, guid: cda89a1626d774d4db2a538112a74e9f, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -1310,7 +1308,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1063533550
 Transform:
@@ -1873,8 +1871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1718133808
 MonoBehaviour:
   m_ObjectHideFlags: 0

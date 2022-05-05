@@ -14,6 +14,7 @@ using Unity.EditorCoroutines.Editor;
 #endif			// #if EDITOR_COROUTINE_ENABLE
 
 /** 공용 에디터 씬 관리자 */
+[InitializeOnLoad]
 public static partial class CCommonEditorSceneManager {
 #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 	/** 모바일 버스트 AOT 설정 */
@@ -107,21 +108,24 @@ public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
 	/** 생성자 */
 	static CCommonEditorSceneManager() {
-		// GUI 스타일을 설정한다 {
-		CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState() {
-			textColor = KCEditorDefine.B_COLOR_HIERARCHY_TEXT
-		};
+		// 플레이 모드가 아닐 경우
+		if(!EditorApplication.isPlayingOrWillChangePlaymode) {
+			// GUI 스타일을 설정한다 {
+			CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState() {
+				textColor = KCEditorDefine.B_COLOR_HIERARCHY_TEXT
+			};
 
-		CCommonEditorSceneManager.m_oOutlineGUIStyle.normal = new GUIStyleState() {
-			textColor = KCEditorDefine.B_COLOR_HIERARCHY_OUTLINE
-		};
-		// GUI 스타일을 설정한다 }
+			CCommonEditorSceneManager.m_oOutlineGUIStyle.normal = new GUIStyleState() {
+				textColor = KCEditorDefine.B_COLOR_HIERARCHY_OUTLINE
+			};
+			// GUI 스타일을 설정한다 }
 
-		CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
-		CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
-		CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
+			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
+			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
+			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
 
-		CCommonEditorSceneManager.SetupCallbacks();
+			CCommonEditorSceneManager.SetupCallbacks();
+		}
 	}
 
 	/** 스크립트가 로드 되었을 경우 */
