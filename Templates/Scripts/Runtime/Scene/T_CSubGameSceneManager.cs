@@ -202,8 +202,8 @@ namespace GameScene {
 			m_oClearInfoDict[EKey.LEVEL_CLEAR_INFO] = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oLevelClearInfo : null;
 
 			// 버튼을 설정한다
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PAUSE_BTN)?.ExAddListener(this.OnTouchPauseBtn, true, false);
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_SETTINGS_BTN)?.ExAddListener(this.OnTouchSettingsBtn, true, false);
+			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PAUSE_BTN)?.onClick.AddListener(this.OnTouchPauseBtn);
+			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_SETTINGS_BTN)?.onClick.AddListener(this.OnTouchSettingsBtn);
 
 			// 터치 전달자를 설정한다
 			m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] = this.BGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
@@ -259,9 +259,7 @@ namespace GameScene {
 		private void SetupRewardAdsUIs() {
 			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
 				var eRewardAdsUIs = (ERewardAdsUIs)i;
-				
-				var oRewardAdsBtn = m_oRewardAdsUIsList[i]?.GetComponentInChildren<Button>();
-				oRewardAdsBtn?.ExAddListener(() => this.OnTouchRewardAdsBtn(eRewardAdsUIs), true, false);
+				m_oRewardAdsUIsList[i]?.GetComponentInChildren<Button>()?.onClick.AddListener(() => this.OnTouchRewardAdsBtn(eRewardAdsUIs));
 			}
 		}
 

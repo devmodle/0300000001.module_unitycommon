@@ -78,8 +78,7 @@ namespace TitleScene {
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
 			// 버튼을 설정한다
-			var oPlayBtn = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN);
-			oPlayBtn?.ExAddListener(this.OnTouchPlayBtn, true, false);
+			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN)?.onClick.AddListener(this.OnTouchPlayBtn);
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupTestUIs();
