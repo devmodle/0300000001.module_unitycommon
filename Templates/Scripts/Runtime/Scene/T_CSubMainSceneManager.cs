@@ -205,9 +205,10 @@ namespace MainScene {
 			m_stSelIDInfo = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT);
 
 			// 버튼을 설정한다
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN)?.ExAddListener(this.OnTouchPlayBtn, true, false);
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN)?.ExAddListener(this.OnTouchStoreBtn, true, false);
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_SETTINGS_BTN)?.ExAddListener(this.OnTouchSettingsBtn, true, false);
+			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN)?.onClick.AddListener(this.OnTouchPlayBtn);
+			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN)?.onClick.AddListener(this.OnTouchStoreBtn);
+			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_REVIEW_BTN)?.onClick.AddListener(this.OnTouchReviewBtn);
+			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_SETTINGS_BTN)?.onClick.AddListener(this.OnTouchSettingsBtn);
 
 			// 스크롤 뷰를 설정한다 {
 			m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO] = (
@@ -305,6 +306,11 @@ namespace MainScene {
 		/** 상점 버튼을 눌렀을 경우 */
 		private void OnTouchStoreBtn() {
 			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+		}
+
+		/** 평가 버튼을 눌렀을 경우 */
+		private void OnTouchReviewBtn() {
+			CUnityMsgSender.Inst.SendShowReviewMsg();
 		}
 
 		/** 설정 버튼을 눌렀을 경우 */
