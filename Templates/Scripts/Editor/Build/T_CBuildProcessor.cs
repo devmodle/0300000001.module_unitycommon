@@ -69,10 +69,7 @@ public static partial class CBuildProcessor {
 
 			// 코코아 포드 파일이 존재 할 경우
 			if(File.Exists(oPodsPath)) {
-#if NEVER_USE_THIS
 				CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath), false);
-#endif			// #if NEVER_USE_THIS
-
 				oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
 			}
 
