@@ -339,12 +339,12 @@ namespace LateSetupScene {
 			// 초기화 되었을 경우
 			if(a_bIsSuccess) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CFirebaseManager.Inst.SetCrashDatas(new Dictionary<string, string>() {
+				CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+				CFirebaseManager.Inst.SetCrashlyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+
+				CFirebaseManager.Inst.SetCrashlyticsDatas(new Dictionary<string, string>() {
 					[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 				});
-				
-				CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-				CFirebaseManager.Inst.SetCrashUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 				CFirebaseManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);

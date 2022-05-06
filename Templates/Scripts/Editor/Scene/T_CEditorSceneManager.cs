@@ -34,7 +34,7 @@ public static partial class CEditorSceneManager {
 	/** 생성자 */
 	static CEditorSceneManager() {
 		// 플레이 모드가 아닐 경우
-		if(!EditorApplication.isPlayingOrWillChangePlaymode) {
+		if(!EditorApplication.isPlaying) {
 			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
 			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
 			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);

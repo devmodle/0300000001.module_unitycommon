@@ -109,7 +109,7 @@ public static partial class CCommonEditorSceneManager {
 	/** 생성자 */
 	static CCommonEditorSceneManager() {
 		// 플레이 모드가 아닐 경우
-		if(!EditorApplication.isPlayingOrWillChangePlaymode) {
+		if(!EditorApplication.isPlaying) {
 			// GUI 스타일을 설정한다 {
 			CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState() {
 				textColor = KCEditorDefine.B_COLOR_HIERARCHY_TEXT
