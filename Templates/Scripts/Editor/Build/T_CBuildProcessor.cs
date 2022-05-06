@@ -69,7 +69,10 @@ public static partial class CBuildProcessor {
 
 			// 코코아 포드 파일이 존재 할 경우
 			if(File.Exists(oPodsPath)) {
+#if NEVER_USE_THIS
 				CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath), false);
+#endif			// #if NEVER_USE_THIS
+
 				oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
 			}
 
@@ -124,11 +127,12 @@ public static partial class CBuildProcessor {
 				oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
 			}
 
-			/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
+#if NEVER_USE_THIS
+			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능)
 			for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
 				oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST[i]);
 			}
-			*/
+#endif			// #if NEVER_USE_THIS
 
 			// 전처리기 심볼 정보 테이블이 존재 할 경우
 			if(CPlatformOptsSetter.DefineSymbolDictContainer != null && CPlatformOptsSetter.DefineSymbolDictContainer.TryGetValue(BuildTargetGroup.iOS, out List<string> oDefineSymbolList)) {
@@ -140,7 +144,8 @@ public static partial class CBuildProcessor {
 
 			oPBXProj.WriteToFile(oPBXProjPath);
 
-			/* FIXME: 주석 처리 (필요 시 활성 및 사용 가능)
+#if NEVER_USE_THIS
+			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능)
 			var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_CAPABILITY_IOS, null, oMainGUID);
 			
 			for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
@@ -165,7 +170,7 @@ public static partial class CBuildProcessor {
 			}
 
 			oCapability.WriteToFile();
-			*/
+#endif			// #if NEVER_USE_THIS
 		}
 #endif			// #if UNITY_IOS
 	}
