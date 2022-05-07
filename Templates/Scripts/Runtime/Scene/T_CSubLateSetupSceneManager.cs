@@ -81,7 +81,7 @@ namespace LateSetupScene {
 			if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
 #if AB_TEST_ENABLE
 				int nSumVal = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Sum((a_chLetter) => a_chLetter);
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT != KCDefine.B_VAL_0_INT) ? EUserType.A : EUserType.B;
+				CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT <= KCDefine.B_VAL_0_INT) ? EUserType.A : EUserType.B;
 #else
 				CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.A;
 #endif			// #if AB_TEST_ENABLE
