@@ -20,7 +20,6 @@ public static partial class CBuildProcessor {
 	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessHandlerDict = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
 		[BuildTarget.iOS] = CBuildProcessor.HandleiOSPostProcessBuild,
 		[BuildTarget.Android] = CBuildProcessor.HandleAndroidPostProcessBuild,
-		
 		[BuildTarget.StandaloneOSX] = CBuildProcessor.HandleStandalonePostProcessBuild,
 		[BuildTarget.StandaloneWindows] = CBuildProcessor.HandleStandalonePostProcessBuild,
 		[BuildTarget.StandaloneWindows64] = CBuildProcessor.HandleStandalonePostProcessBuild
