@@ -89,6 +89,8 @@ namespace InitScene {
 #else
 			Screen.SetResolution((int)CAccess.DesktopScreenSize.x, (int)CAccess.DesktopScreenSize.y, FullScreenMode.FullScreenWindow);
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+#else
+			Screen.SetResolution(Screen.width, Screen.height, FullScreenMode.FullScreenWindow);
 #endif			// #if UNITY_STANDALONE
 		}
 
