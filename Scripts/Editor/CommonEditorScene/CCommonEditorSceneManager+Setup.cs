@@ -170,14 +170,14 @@ public static partial class CCommonEditorSceneManager {
 				// 씬 추가가 가능 할 경우
 				if(!oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_01) && !oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_02)) {
 					var oAsset = CEditorFunc.FindAsset<SceneAsset>(oScenePath);
-					oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => a_oAsset != null && oScenePath.Contains(a_oAsset.name));
+					oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oScenePath.Contains(a_oAsset.name));
 				}
 			}
 
 			for(int i = 0; i < oPreloadAssetInfoListContainer.Count; ++i) {
 				for(int j = 0; j < oPreloadAssetInfoListContainer[i].Count; ++j) {
 					var oAsset = CEditorFunc.FindAsset<Object>(oPreloadAssetInfoListContainer[i][j].Item2);
-					oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => a_oAsset != null && Path.GetFileNameWithoutExtension(oPreloadAssetInfoListContainer[i][j].Item2).Equals(a_oAsset.name));
+					oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && Path.GetFileNameWithoutExtension(oPreloadAssetInfoListContainer[i][j].Item2).Equals(a_oAsset.name));
 				}
 			}
 

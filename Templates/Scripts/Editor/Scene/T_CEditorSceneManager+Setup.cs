@@ -69,7 +69,7 @@ public static partial class CEditorSceneManager {
 					for(int j = 0; j < oAssetList.Count; ++j) {
 						// 디렉토리 에셋이 아닐 경우
 						if(oAssetList[j].GetType() != typeof(DefaultAsset)) {
-							oPreloadAssetList.ExAddVal(oAssetList[j], (a_oAsset) => a_oAsset != null && oAssetList[j].name.Equals(a_oAsset.name));
+							oPreloadAssetList.ExAddVal(oAssetList[j], (a_oAsset) => (a_oAsset != null && oAssetList[j] != null) && oAssetList[j].name.Equals(a_oAsset.name));
 						}
 					}
 				}
@@ -77,7 +77,7 @@ public static partial class CEditorSceneManager {
 
 			for(int i = 0; i < KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST.Count; ++i) {
 				var oAsset = CEditorFunc.FindAsset<Object>(KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST[i]);
-				oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => a_oAsset != null && oAsset.name.Equals(a_oAsset.name));
+				oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oAsset.name.Equals(a_oAsset.name));
 			}
 		} finally {
 			PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());

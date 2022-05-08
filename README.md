@@ -5,14 +5,12 @@
 2. **에셋 스토어 리스트**
 	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
 	- *Advance Object Pool (1.1.0 - May 6, 2019)*
-	- *Anti Cheat Free (3.1.0 - Apr 25, 2022)*
+	- *Anti Cheat Free (3.1.1 - May 6, 2022)*
 	- *Asset Usage Detector (2.2.1 - Apr 25, 2022)*
 	- *Bezier Solution (2.3.1 - Apr 25, 2022)*
-	- *Bitmap Font Importer (2.4.1 - May 6, 2019)*
 	- *Enhanced Hierarchy (2.4.5 - May 5, 2020)*
 	- *Enhanced Scroller (2.33.0 - Apr 6, 2022)*
 	- *Google Sheets to Unity (1.0.0 - Mar 18, 2019)*
-	- *iTween (2.0.10 - Apr 17, 2019)*
 	- *Lean GUI (2.0.0 - Mar 4, 2022)*
 	- *Lean Touch (3.0.0 - Mar 4, 2022)*
 	- *LINQ to GameObject (2.3.1 - Jan 9, 2018)*
