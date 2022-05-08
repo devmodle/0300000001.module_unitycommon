@@ -239,8 +239,7 @@ public static partial class KEditorDefine {
 	#region 조건부 상수
 #if UNITY_IOS
 	// 프로퍼티 속성
-	public const bool B_IOS_ENCRYPTION_ENABLE = false;
-	public const string B_IOS_USER_TRACKING_USAGE_DESC = "∙ Special offers and promotions just for you\n∙ Advertisements that match your interests\n∙ An improved personalized experience over time";
+	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif			// #if UNITY_IOS
 	#endregion			// 조건부 상수
 
