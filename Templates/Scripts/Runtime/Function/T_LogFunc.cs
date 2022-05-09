@@ -13,8 +13,35 @@ using UnityEngine.Purchasing;
 public static partial class LogFunc {
 	#region 클래스 함수
 	/** 로그를 전송한다 */
-	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataDict, float? a_oVal = null) {
+	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataDict) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
+		var oDataDict = LogFunc.MakeLogDatas(a_oDataDict);
+
+#if FLURRY_MODULE_ENABLE
+		// 플러리 분석이 가능 할 경우
+		if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FLURRY)) {
+			CFlurryManager.Inst.SendLog(a_oName, oDataDict.ExToTypes<string, object, string, string>());
+		}
+#endif			// #if FLURRY_MODULE_ENABLE
+
+#if FIREBASE_MODULE_ENABLE
+		// 파이어 베이스 분석이 가능 할 경우
+		if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FIREBASE)) {
+			CFirebaseManager.Inst.SendLog(a_oName, oDataDict.ExToTypes<string, object, string, string>());
+		}
+#endif			// #if FIREBASE_MODULE_ENABLE
+
+#if APPS_FLYER_MODULE_ENABLE
+		// 앱스 플라이어 분석이 가능 할 경우
+		if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.APPS_FLYER)) {
+			CAppsFlyerManager.Inst.SendLog(a_oName, oDataDict.ExToTypes<string, object, string, string>());
+		}
+#endif			// #if APPS_FLYER_MODULE_ENABLE
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
+	}
+
+	/** 로그 데이터를 생성한다 */
+	private static Dictionary<string, object> MakeLogDatas(Dictionary<string, object> a_oDataDict) {
 		var oDataDict = a_oDataDict ?? new Dictionary<string, object>();
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_PLATFORM, CCommonAppInfoStorage.Inst.Platform);
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_DEVICE_ID, CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
@@ -33,27 +60,7 @@ public static partial class LogFunc {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 #endif			// #if AUTO_LOG_PARAMS_ENABLE
 
-#if FLURRY_MODULE_ENABLE
-		// 플러리 분석이 가능 할 경우
-		if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FLURRY)) {
-			CFlurryManager.Inst.SendLog(a_oName, (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null);
-		}
-#endif			// #if FLURRY_MODULE_ENABLE
-
-#if FIREBASE_MODULE_ENABLE
-		// 파이어 베이스 분석이 가능 할 경우
-		if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FIREBASE)) {
-			CFirebaseManager.Inst.SendLog(a_oName, (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null);
-		}
-#endif			// #if FIREBASE_MODULE_ENABLE
-
-#if APPS_FLYER_MODULE_ENABLE
-		// 앱스 플라이어 분석이 가능 할 경우
-		if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.APPS_FLYER)) {
-			CAppsFlyerManager.Inst.SendLog(a_oName, (oDataDict != null) ? oDataDict.ExToTypes<string, object, string, string>() : null);
-		}
-#endif			// #if APPS_FLYER_MODULE_ENABLE
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
+		return oDataDict;
 	}
 	#endregion			// 클래스 함수
 
@@ -62,24 +69,26 @@ public static partial class LogFunc {
 	/** 결제 로그를 전송한다 */
 	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VAL_1_INT) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
+		var oDataDict = LogFunc.MakeLogDatas(null);
+
 #if FLURRY_MODULE_ENABLE
 		// 플러리 분석이 가능 할 경우
 		if(KDefine.G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalytics.FLURRY)) {
-			CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+			CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataDict.ExToTypes<string, object, string, string>());
 		}
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 		// 파이어 베이스 분석이 가능 할 경우
 		if(KDefine.G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalytics.FIREBASE)) {
-			CFirebaseManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+			CFirebaseManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataDict.ExToTypes<string, object, string, string>());
 		}
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
 		// 앱스 플라이어 분석이 가능 할 경우
 		if(KDefine.G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalytics.APPS_FLYER)) {
-			CAppsFlyerManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts);
+			CAppsFlyerManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataDict.ExToTypes<string, object, string, string>());
 		}
 #endif			// #if APPS_FLYER_MODULE_ENABLE
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
