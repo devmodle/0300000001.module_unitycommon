@@ -353,7 +353,7 @@ namespace LevelEditorScene {
 
 			try {
 				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
+				if(CSceneManager.IsAppRunning) {
 					// Do Something
 				}
 			} catch(System.Exception oException) {

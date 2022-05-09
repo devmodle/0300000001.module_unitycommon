@@ -168,7 +168,7 @@ namespace MainScene {
 
 			try {
 				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAwake || CSceneManager.IsAppRunning) {
+				if(CSceneManager.IsAppRunning) {
 					// Do Something
 				}
 			} catch(System.Exception oException) {
@@ -177,7 +177,9 @@ namespace MainScene {
 		}
 
 		/** 앱이 정지 되었을 경우 */
-		public virtual void OnApplicationPause(bool a_bIsPause) {
+		public override void OnApplicationPause(bool a_bIsPause) {
+			base.OnApplicationPause(a_bIsPause);
+
 			// 재개 되었을 경우
 			if(!a_bIsPause && CSceneManager.IsAppRunning) {
 #if ADS_MODULE_ENABLE

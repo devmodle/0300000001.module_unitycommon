@@ -28,8 +28,6 @@ namespace IntroScene {
 
 		/** 다음 씬을 로드한다 */
 		protected void LoadNextScene() {
-			CSceneManager.IsAwake = false;
-
 			// 초기화 씬 일 경우
 			if(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) || KCDefine.B_INIT_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
 #if STUDY_MODULE_ENABLE
