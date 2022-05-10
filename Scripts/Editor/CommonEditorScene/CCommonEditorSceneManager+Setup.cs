@@ -15,6 +15,11 @@ using UnityEditor.U2D;
 using UnityEditor.SceneTemplate;
 using UnityEditor.SceneManagement;
 
+#if LOCALIZE_MODULE_ENABLE
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+#endif			// #if LOCALIZE_MODULE_ENABLE
+
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
 
@@ -368,6 +373,30 @@ public static partial class CCommonEditorSceneManager {
 	#endregion			// 클래스 함수
 
 	#region 클래스 조건부 함수
+#if LOCALIZE_MODULE_ENABLE
+	/** 지역화를 설정한다 */
+	private static void SetupLocalize() {
+		// 지역화 설정이 없을 경우
+		if(!EditorBuildSettings.TryGetConfigObject<LocalizationSettings>(KCEditorDefine.B_MODULE_N_LOCALIZE_SETTINGS, out LocalizationSettings oLocalizeSettings)) {
+			oLocalizeSettings = AssetDatabase.LoadAssetAtPath<LocalizationSettings>(KCEditorDefine.B_ASSET_P_LOCALIZE_SETTINGS);
+			oLocalizeSettings = oLocalizeSettings ?? CEditorFactory.CreateScriptableObj<LocalizationSettings>(KCEditorDefine.B_ASSET_P_LOCALIZE_SETTINGS);
+
+			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_LOCALIZE_SETTINGS, oLocalizeSettings, true);
+		}
+
+		var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_LOCALIZE_SETTINGS);
+
+		var oIsSetupOptsList = new List<bool>() {
+			oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY).boolValue
+		};
+
+		// 설정 갱신이 필요 할 경우
+		if(oIsSetupOptsList.Contains(false)) {
+			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY, (a_oProperty) => a_oProperty.boolValue = true);
+		}
+	}
+#endif			// #if LOCALIZE_MODULE_ENABLE
+
 #if INPUT_SYSTEM_MODULE_ENABLE
 	/** 입력 시스템을 설정한다 */
 	private static void SetupInputSystem() {
@@ -415,16 +444,16 @@ public static partial class CCommonEditorSceneManager {
 			var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_UNIVERSAL_RP_SETTINGS);
 
 			var oIsSetupOptsList = new List<bool>() {
-				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS).boolValue,
-				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS).boolValue,
-				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS).boolValue
+				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_DEBUG_VARIANTS).boolValue,
+				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_UNUSED_VARIANTS).boolValue,
+				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_UNUSED_POST_PROCESSING_VARIANTS).boolValue
 			};
 
 			// 설정 갱신이 필요 할 경우
 			if(oIsSetupOptsList.Contains(false)) {
-				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
-				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
-				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
 			}
 		}
 	}

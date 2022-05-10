@@ -18,6 +18,7 @@
         "Module.UnityCommonGameCenter",
         "Module.UnityCommonPurchase",
         "Module.UnityCommonNoti",
+        "Unity.Localization",
         "Unity.InputSystem",
         "Unity.Notifications.iOS",
         "Unity.Notifications.Android",
