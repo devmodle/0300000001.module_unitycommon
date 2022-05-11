@@ -230,6 +230,14 @@ namespace LateSetupScene {
 					}
 				});
 #endif			// #if NOTI_MODULE_ENABLE
+
+#if BACKEND_MODULE_ENABLE
+				CBackendManager.Inst.Init(new CBackendManager.STParams() {
+					m_oCallbackDict = new Dictionary<CBackendManager.ECallback, System.Action<CBackendManager, bool>>() {
+						[CBackendManager.ECallback.INIT] = CLateSetupSceneManager.OnInitBackendManager
+					}
+				});
+#endif			// #if BACKEND_MODULE_ENABLE
 			}
 
 			this.Setup();
@@ -388,6 +396,13 @@ namespace LateSetupScene {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitNotiManager: {a_bIsSuccess}");
 		}
 #endif			// #if NOTI_MODULE_ENABLE
+
+#if BACKEND_MODULE_ENABLE
+		/** 백엔드 관리자가 초기화 되었을 경우 */
+		private static void OnInitBackendManager(CBackendManager a_oSender, bool a_bIsSuccess) {
+			CFunc.ShowLog($"CLateSetupSceneManager.OnInitBackendManager: {a_bIsSuccess}");
+		}
+#endif			// #if BACKEND_MODULE_ENABLE
 		#endregion			// 조건부 클래스 함수
 	}
 }
