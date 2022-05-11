@@ -161,7 +161,7 @@ namespace LevelEditorScene {
 		};
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		#endregion			// 변수
-
+		
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
 		public virtual int GetNumberOfCells(EnhancedScroller a_oSender) {
