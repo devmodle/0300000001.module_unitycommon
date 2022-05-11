@@ -74,6 +74,9 @@ namespace SetupScene {
 				CSceneManager.ScreenFrameTimeText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_FRAME_TIME_TEXT);
 				CSceneManager.ScreenFrameTimeText.raycastTarget = false;
 
+				CSceneManager.ScreenDeviceInfoText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_DEVICE_INFO_TEXT);
+				CSceneManager.ScreenDeviceInfoText.raycastTarget = false;
+
 				CSceneManager.ScreenStaticDebugText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
 				CSceneManager.ScreenStaticDebugText.raycastTarget = false;
 

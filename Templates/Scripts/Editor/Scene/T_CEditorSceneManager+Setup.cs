@@ -96,9 +96,14 @@ public static partial class CEditorSceneManager {
 			// 프리팹이 없을 경우
 			if(!CEditorAccess.IsExistsAsset(oFinalPrefabPath)) {
 				EditorSceneManager.MarkSceneDirty(a_oObj.scene);
-				CEditorFactory.MakeDirectories(Path.GetDirectoryName(oPrefabPath));
 
+				CEditorFactory.MakeDirectories(Path.GetDirectoryName(oPrefabPath));
 				PrefabUtility.SaveAsPrefabAssetAndConnect(a_oObj, oFinalPrefabPath, InteractionMode.AutomatedAction);
+			}
+			// 베리언트 프리팹 일 경우
+			else if(PrefabUtility.GetPrefabAssetType(a_oObj) == PrefabAssetType.Variant) {
+				CEditorFactory.RemoveAsset(oFinalPrefabPath);
+				PrefabUtility.UnpackPrefabInstance(a_oObj, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
 			}
 		}
 	}

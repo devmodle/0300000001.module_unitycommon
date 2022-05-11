@@ -28,10 +28,10 @@ public partial class CSampleSceneManager : CSceneManager {
 
 				// 씬 관리자 추가가 필요 할 경우
 				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyVal.Value) == null) {
+					EditorSceneManager.MarkSceneDirty(a_stScene);
+					
 					oSceneManager.ExRemoveComponent<CSceneManager>(false);
 					oSceneManager.AddComponent(stKeyVal.Value);
-					
-					EditorSceneManager.MarkSceneDirty(a_stScene);
 				}
 			}
 		}
