@@ -20,6 +20,7 @@
         "Module.UnityCommonNoti",
         "Module.UnityCommonBackend",
         "Unity.Localization",
+        "Unity.ML-Agents",
         "Unity.InputSystem",
         "Unity.Notifications.iOS",
         "Unity.Notifications.Android",

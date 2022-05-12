@@ -397,6 +397,33 @@ public static partial class CCommonEditorSceneManager {
 	}
 #endif			// #if LOCALIZE_MODULE_ENABLE
 
+#if ML_AGENTS_MODULE_ENABLE
+	/** 머신 러닝 에이전트를 설정한다 */
+	private static void SetupMLAgents() {
+		// 머신 러닝 에이전트 설정이 없을 경우
+		if(!EditorBuildSettings.TryGetConfigObject<ScriptableObject>(KCEditorDefine.B_MODULE_N_ML_AGENTS_SETTINGS, out ScriptableObject oMLAgentsSettings)) {
+			int nIdx = System.AppDomain.CurrentDomain.GetAssemblies().ExFindVal((a_oAssembly) => a_oAssembly.FullName.Contains(KCEditorDefine.B_ASSEMBLY_N_ML_AGENTS) && !a_oAssembly.FullName.Contains(KCEditorDefine.B_ASSEMBLY_N_ML_AGENTS_EDITOR));
+			var oObj = System.AppDomain.CurrentDomain.GetAssemblies()[nIdx].CreateInstance(KCEditorDefine.B_CLS_N_ML_AGENTS_SETTINGS);
+
+			oMLAgentsSettings = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_P_ML_AGENTS_SETTINGS);
+			oMLAgentsSettings = oMLAgentsSettings ?? CEditorFactory.CreateScriptableObj(oObj.GetType(), KCEditorDefine.B_ASSET_P_ML_AGENTS_SETTINGS);
+			
+			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_ML_AGENTS_SETTINGS, oMLAgentsSettings, true);
+		}
+
+		var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_ML_AGENTS_SETTINGS);
+
+		var oIsSetupOptsList = new List<bool>() {
+			oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_ML_AGENTS_CONNECT_TRAINER).boolValue
+		};
+
+		// 설정 갱신이 필요 할 경우
+		if(oIsSetupOptsList.Contains(false)) {
+			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_ML_AGENTS_CONNECT_TRAINER, (a_oProperty) => a_oProperty.boolValue = true);
+		}
+	}
+#endif			// #if ML_AGENTS_MODULE_ENABLE
+
 #if INPUT_SYSTEM_MODULE_ENABLE
 	/** 입력 시스템을 설정한다 */
 	private static void SetupInputSystem() {

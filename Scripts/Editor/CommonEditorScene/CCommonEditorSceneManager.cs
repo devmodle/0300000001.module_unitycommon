@@ -170,6 +170,10 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupLocalize();
 #endif			// #if LOCALIZE_MODULE_ENABLE
 
+#if ML_AGENTS_MODULE_ENABLE
+				CCommonEditorSceneManager.SetupMLAgents();
+#endif			// #if ML_AGENTS_MODULE_ENABLE
+
 #if INPUT_SYSTEM_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupInputSystem();
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
