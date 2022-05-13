@@ -361,6 +361,8 @@ public static partial class Func {
 #endif			// #if UNITY_EDITOR
 
 			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => {
+				CIndicatorManager.Inst.Close();
+
 				// 전면 광고 출력이 가능 할 경우
 				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds) {
 					Func.m_bIsWatchFullscreenAds = true;
@@ -368,7 +370,6 @@ public static partial class Func {
 
 					CAdsManager.Inst.ShowFullscreenAds(a_eAdsPlatform, null, Func.OnCloseFullscreenAds);
 				} else {
-					CIndicatorManager.Inst.Close();
 					CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, false);
 				}
 			}, KCDefine.B_VAL_2_FLT, true);
@@ -406,8 +407,6 @@ public static partial class Func {
 
 	/** 전면 광고가 닫혔을 경우 */
 	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
-		CIndicatorManager.Inst.Close();
-
 		CAppInfoStorage.Inst.AdsSkipTimes = KCDefine.B_VAL_0_INT;
 		CAppInfoStorage.Inst.PrevAdsTime = System.DateTime.Now;
 
