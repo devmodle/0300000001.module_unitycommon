@@ -507,7 +507,7 @@ public static partial class CCommonEditorSceneManager {
 						stAOTSettingsWrapper.MonoBehaviour.EnableSafetyChecks == false,
 						stAOTSettingsWrapper.MonoBehaviour.EnableDebugInAllBuilds == false,
 
-						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor == (int)EBurstCompilerOptimization.PERFORMANCE
+						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor == (int)EBurstCompilerOptimization.DEF
 					};
 
 					// 설정 갱신이 필요 할 경우
@@ -518,7 +518,7 @@ public static partial class CCommonEditorSceneManager {
 						stAOTSettingsWrapper.MonoBehaviour.EnableSafetyChecks = false;
 						stAOTSettingsWrapper.MonoBehaviour.EnableDebugInAllBuilds = false;
 
-						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor = (int)EBurstCompilerOptimization.PERFORMANCE;
+						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor = (int)EBurstCompilerOptimization.DEF;
 						CFunc.WriteStr(oSettingsPathList[i], JsonConvert.SerializeObject(stAOTSettingsWrapper, Formatting.Indented));
 					}
 				} else {
@@ -532,7 +532,7 @@ public static partial class CCommonEditorSceneManager {
 						stAOTSettingsWrapper.MonoBehaviour.UsePlatformSDKLinker == false,
 						stAOTSettingsWrapper.MonoBehaviour.EnableDebugInAllBuilds == false,
 
-						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor == (int)EBurstCompilerOptimization.PERFORMANCE
+						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor == (int)EBurstCompilerOptimization.DEF
 					};
 
 					// 설정 갱신이 필요 할 경우
@@ -544,7 +544,7 @@ public static partial class CCommonEditorSceneManager {
 						stAOTSettingsWrapper.MonoBehaviour.UsePlatformSDKLinker = false;
 						stAOTSettingsWrapper.MonoBehaviour.EnableDebugInAllBuilds = false;
 
-						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor = (int)EBurstCompilerOptimization.PERFORMANCE;
+						stAOTSettingsWrapper.MonoBehaviour.OptimizeFor = (int)EBurstCompilerOptimization.DEF;
 						CFunc.WriteStr(oSettingsPathList[i], JsonConvert.SerializeObject(stAOTSettingsWrapper, Formatting.Indented));
 					}
 				}
