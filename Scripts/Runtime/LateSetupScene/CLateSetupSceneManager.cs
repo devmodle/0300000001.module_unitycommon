@@ -265,6 +265,8 @@ namespace LateSetupScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 			CSceneManager.IsLateSetup = true;
+			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_INTRO_SCENE, false);
+
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_INTRO);
 		}
 		#endregion			// 함수
@@ -326,8 +328,6 @@ namespace LateSetupScene {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 				CFlurryManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
-				CFlurryManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 			}
 		}
 #endif			// #if FLURRY_MODULE_ENABLE
@@ -354,8 +354,6 @@ namespace LateSetupScene {
 					[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 				});
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
-				CFirebaseManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 			}
 		}
 #endif			// #if FIREBASE_MODULE_ENABLE
@@ -370,8 +368,6 @@ namespace LateSetupScene {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE			
 				CAppsFlyerManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
-				CAppsFlyerManager.Inst.SendLog(KCDefine.L_LOG_N_APP_LAUNCH, null);
 			}
 		}
 #endif			// #if APPS_FLYER_MODULE_ENABLE

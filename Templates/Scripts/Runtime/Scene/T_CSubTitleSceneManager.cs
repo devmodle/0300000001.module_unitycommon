@@ -56,6 +56,11 @@ namespace TitleScene {
 				if(CCommonAppInfoStorage.Inst.IsFirstStart) {
 					this.UpdateFirstStartState();
 				}
+
+				// 최초 플레이 일 경우
+				if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
+					this.UpdateFirstPlayState();
+				}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 				// 에디터 씬을 로드하지 않았을 경우
@@ -88,12 +93,8 @@ namespace TitleScene {
 		/** 씬을 설정한다 */
 		private void SetupStart() {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			// 최초 플레이 일 경우
-			if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
-				this.UpdateFirstPlayState();
-			}
 			// 업데이트가 가능 할 경우
-			else if(!CAppInfoStorage.Inst.IsIgnoreUpdate && COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
 				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
 				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 			}

@@ -10,20 +10,17 @@ public static partial class LogFunc {
 	#region 클래스 함수
 	/** 앱 구동 로그를 전송한다 */
 	public static void SendLaunchLog() {
-		var oDataDict = LogFunc.MakeDefDatas();
-		LogFunc.SendLog(KDefine.L_LOG_N_LAUNCH, oDataDict);
+		LogFunc.SendLog(KDefine.L_LOG_N_LAUNCH, LogFunc.MakeDefDatas());
 	}
 
 	/** 약관 동의 로그를 전송한다 */
 	public static void SendAgreeLog() {
-		var oDataDict = LogFunc.MakeDefDatas();
-		LogFunc.SendLog(KDefine.L_LOG_N_AGREE, oDataDict);
+		LogFunc.SendLog(KDefine.L_LOG_N_AGREE, LogFunc.MakeDefDatas());
 	}
 	
 	/** 스플래시 로그를 전송한다 */
 	public static void SendSplashLog() {
-		var oDataDict = LogFunc.MakeDefDatas();
-		LogFunc.SendLog(KDefine.L_LOG_N_SPLASH, oDataDict);
+		LogFunc.SendLog(KDefine.L_LOG_N_SPLASH, LogFunc.MakeDefDatas());
 	}
 
 	/** 기본 데이터를 생성한다 */
