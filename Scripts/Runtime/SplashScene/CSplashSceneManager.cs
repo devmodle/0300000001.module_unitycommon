@@ -90,10 +90,6 @@ namespace SplashScene {
 				[RuntimePlatform.Switch] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
 			};
 
-#if !UNITY_EDITOR
-			CSceneManager.SetupQuality(oTargetFrameInfoDict.ContainsKey(Application.platform) ? (EQualityLevel)oTargetFrameInfoDict[Application.platform].Item1 : (EQualityLevel)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
-#endif			// #if !UNITY_EDITOR
-
 #if MULTI_TOUCH_ENABLE
 			Input.multiTouchEnabled = true;
 #else
@@ -101,6 +97,12 @@ namespace SplashScene {
 #endif			// #if MULTI_TOUCH_ENABLE
 
 			Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE));
+
+#if UNITY_EDITOR
+			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eQualityLevel, true);
+#else
+			CSceneManager.SetupQuality(oTargetFrameInfoDict.ContainsKey(Application.platform) ? (EQualityLevel)oTargetFrameInfoDict[Application.platform].Item1 : (EQualityLevel)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
+#endif			// #if UNITY_EDITOR
 			// 디바이스 정보를 설정한다 }
 		}
 		#endregion			// 함수
