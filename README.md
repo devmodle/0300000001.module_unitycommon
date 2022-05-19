@@ -35,7 +35,7 @@
 	- *Soft Mask For GUI (1.0.0 - Feb 24, 2021)*
 	- *Unmask For GUI (1.4.0 - Feb 18, 2022)*
 5. **기타 추가 에셋 및 플러그인 리스트**
-	- *Firebase (8.9.0 - Auth, Analytics, Crashlytics, Database, Remote Config, Cloud Messaging)*
+	- *Firebase (8.9.0 - Auth, Analytics, Crashlytics, Database, Cloud Messaging)*
 	- *Admob (7.0.0)*
 	- *Iron Source (7.2.0)*
 	- *App Lovin (4.3.1)*

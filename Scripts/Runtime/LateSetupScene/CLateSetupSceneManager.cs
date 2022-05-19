@@ -354,7 +354,14 @@ namespace LateSetupScene {
 					[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 				});
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
+				CFirebaseManager.Inst.LoadMsgToken(CLateSetupSceneManager.OnLoadFirebaseMsgToken);
 			}
+		}
+
+		/** 파이어 베이스 메세지 토큰을 수신했을 경우 */
+		private static void OnLoadFirebaseMsgToken(CFirebaseManager a_oSender, string a_oMsgToken, bool a_bIsSuccess) {
+			CFunc.ShowLog($"CLateSetupSceneManager.OnLoadFirebaseMsgToken: {a_oMsgToken}, {a_bIsSuccess}");
 		}
 #endif			// #if FIREBASE_MODULE_ENABLE
 
