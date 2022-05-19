@@ -17,6 +17,10 @@ namespace LateSetupScene {
 		[SerializeField] private EUserType m_eUserType = EUserType.NONE;
 		#endregion			// 변수
 
+		#region 프로퍼티
+		public override bool IsAutoInitManager => true;
+		#endregion			// 프로퍼티
+
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -66,8 +70,6 @@ namespace LateSetupScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
-			this.IsAutoInitManager = true;
-
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_EDITOR
 			// 유저 타입이 유효 할 경우

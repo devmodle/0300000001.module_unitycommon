@@ -13,7 +13,7 @@ namespace LateSetupScene {
 	/** 지연 설정 씬 관리자 */
 	public abstract partial class CLateSetupSceneManager : CSceneManager {
 		#region 프로퍼티
-		public bool IsAutoInitManager { get; protected set; } = false;
+		public virtual bool IsAutoInitManager => false;
 		public override string SceneName => KCDefine.B_SCENE_N_LATE_SETUP;
 
 #if UNITY_EDITOR
