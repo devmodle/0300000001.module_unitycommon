@@ -206,7 +206,10 @@ public static partial class CCommonEditorSceneManager {
 
 					CFunc.EnumerateDirectories(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, (a_oDirList, a_oFileList) => {
 						for(int i = 0; i < a_oFileList.Count; ++i) {
-							CCommonEditorSceneManager.m_oStrBuilder.AppendLine(Path.GetFileNameWithoutExtension(a_oFileList[i]));
+							// DS Store 파일이 아닐 경우
+							if(!a_oFileList[i].EndsWith(KCDefine.B_FILE_EXTENSION_DS_STORE)) {
+								CCommonEditorSceneManager.m_oStrBuilder.AppendLine(Path.GetRelativePath(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, a_oFileList[i]));
+							}
 						}
 
 						return true;
