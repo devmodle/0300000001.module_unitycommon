@@ -15,7 +15,7 @@ public static partial class LogFunc {
 
 	/** 약관 동의 로그를 전송한다 */
 	public static void SendAgreeLog() {
-		LogFunc.SendLog(KDefine.L_LOG_N_AGREE, LogFunc.MakeDefDatas());
+		LogFunc.SendOnceLog(KDefine.L_LOG_N_AGREE, LogFunc.MakeDefDatas());
 	}
 	
 	/** 스플래시 로그를 전송한다 */

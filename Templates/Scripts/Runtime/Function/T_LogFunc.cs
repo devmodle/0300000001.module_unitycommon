@@ -16,6 +16,7 @@ public static partial class LogFunc {
 	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataDict) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
 		var oDataDict = LogFunc.MakeLogDatas(a_oDataDict);
+		CCommonAppInfoStorage.Inst.AppInfo.m_oSendLogList.ExAddVal(a_oName);
 
 #if FLURRY_MODULE_ENABLE
 		// 플러리 분석이 가능 할 경우
@@ -61,6 +62,14 @@ public static partial class LogFunc {
 #endif			// #if AUTO_LOG_PARAMS_ENABLE
 
 		return oDataDict;
+	}
+
+	/** 일회성 로그를 전송한다 */
+	public static void SendOnceLog(string a_oName, Dictionary<string, object> a_oDataDict) {
+		// 전송 된 로그가 없을 경우
+		if(!CCommonAppInfoStorage.Inst.AppInfo.m_oSendLogList.Contains(a_oName)) {
+			LogFunc.SendLog(a_oName, a_oDataDict);
+		}
 	}
 	#endregion			// 클래스 함수
 
