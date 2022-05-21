@@ -232,7 +232,7 @@ public static partial class KEditorDefine {
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["com.unity.mobile.notifications"] = "2.0.1",
+		["com.unity.mobile.notifications"] = "2.0.2",
 		["module.unitycommonnoti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnoti_client.git#2.4.1",
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 
