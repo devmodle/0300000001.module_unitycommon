@@ -68,7 +68,6 @@ namespace LevelEditorScene {
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			Time.timeScale = KCDefine.B_VAL_1_FLT;
 			
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {

@@ -282,7 +282,11 @@ public static partial class CCommonEditorSceneManager {
 	private static void OnUpdatePlayModeState(PlayModeStateChange a_ePlayMode) {
 		// 에디터 모드 일 경우
 		if(a_ePlayMode == PlayModeStateChange.EnteredEditMode) {
+#if EDITOR_COROUTINE_ENABLE
+			EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.UpdateEditorModeState());
+#else
 			Time.timeScale = KCDefine.B_VAL_1_FLT;
+#endif			// #if EDITOR_COROUTINE_ENABLE
 		}
 	}
 
@@ -293,5 +297,15 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.SetupSceneTemplates();
 	}
 	#endregion			// 클래스 함수
+
+	#region 조건부 클래스 함수
+#if EDITOR_COROUTINE_ENABLE
+	/** 에디터 모드 상태를 갱신한다 */
+	private static IEnumerator UpdateEditorModeState() {
+		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_FLT, true);
+		Time.timeScale = KCDefine.B_VAL_1_FLT;
+	}
+#endif			// #if EDITOR_COROUTINE_ENABLE
+	#endregion			// 조건부 클래스 함수
 }
 #endif			// #if UNITY_EDITOR

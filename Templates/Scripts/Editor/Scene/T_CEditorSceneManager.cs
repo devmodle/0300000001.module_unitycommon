@@ -162,9 +162,11 @@ public static partial class CEditorSceneManager {
 
 						oDefineSymbolInfoTable.EditoriOSAppleDefineSymbolList,
 
+						oDefineSymbolInfoTable.EditorAndroidDefineSymbolList,
 						oDefineSymbolInfoTable.EditorAndroidGoogleDefineSymbolList,
 						oDefineSymbolInfoTable.EditorAndroidAmazonDefineSymbolList,
 						
+						oDefineSymbolInfoTable.EditorStandaloneDefineSymbolList,
 						oDefineSymbolInfoTable.EditorStandaloneMacSteamDefineSymbolList,
 						oDefineSymbolInfoTable.EditorStandaloneWndsSteamDefineSymbolList
 					};
