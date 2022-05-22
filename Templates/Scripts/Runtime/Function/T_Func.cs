@@ -56,6 +56,11 @@ public static partial class Func {
 		RESTORE,
 #endif			// #if PURCHASE_MODULE_ENABLE
 
+#if BACKEND_MODULE_ENABLE
+		BACKEND_LOGIN,
+		BACKEND_LOGOUT,
+#endif			// #if BACKEND_MODULE_ENABLE
+
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		LOAD_GOOGLE_SHEET,	
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -93,6 +98,11 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDict01 = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
 	private static Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDict02 = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>();
 #endif			// #if PURCHASE_MODULE_ENABLE
+
+#if BACKEND_MODULE_ENABLE
+	private static Dictionary<ECallback, System.Action<CBackendManager>> m_oBackendCallbackDict01 = new Dictionary<ECallback, System.Action<CBackendManager>>();
+	private static Dictionary<ECallback, System.Action<CBackendManager, bool>> m_oBackendCallbackDict02 = new Dictionary<ECallback, System.Action<CBackendManager, bool>>();
+#endif			// #if BACKEND_MODULE_ENABLE
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	private static List<(string, int, int)> m_oGoogleSheetInfoList = new List<(string, int, int)>();
@@ -457,10 +467,8 @@ public static partial class Func {
 		CServicesManager.Inst.LoginWithApple(Func.OnFirebaseAppleLogin);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
 		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnFirebaseFacebookLogin);
-#elif (UNITY_IOS || UNITY_ANDROID) && GAME_CENTER_MODULE_ENABLE
-		CGameCenterManager.Inst.Login(Func.OnFirebaseGameCenterLogin);
 #else
-		CFirebaseManager.Inst.Login(Func.OnFirebaseLogin);
+		CFirebaseManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnFirebaseLogin);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	}
 
@@ -473,8 +481,6 @@ public static partial class Func {
 		CServicesManager.Inst.LogoutWithApple(Func.OnFirebaseAppleLogout);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
 		CFacebookManager.Inst.Logout(Func.OnFirebaseFacebookLogout);
-#elif (UNITY_IOS || UNITY_ANDROID) && GAME_CENTER_MODULE_ENABLE
-		CGameCenterManager.Inst.Logout(Func.OnFirebaseGameCenterLogout);
 #else
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -674,26 +680,6 @@ public static partial class Func {
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 	}
 #endif			// #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-
-#if (UNITY_IOS || UNITY_ANDROID) && GAME_CENTER_MODULE_ENABLE
-	/** 게임 센터에 로그인 되었을 경우 */
-	private static void OnFirebaseGameCenterLogin(CGameCenterManager a_oSender, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-
-		// 로그인 되었을 경우
-		if(a_bIsSuccess) {
-			CIndicatorManager.Inst.Show();
-			CFirebaseManager.Inst.LoginWithGameCenter(a_oSender.AccessToken, Func.OnFirebaseLogin);
-		} else {
-			Func.OnFirebaseLogin(CFirebaseManager.Inst, false);
-		}
-	}
-
-	/** 게임 센터에서 로그아웃 되었을 경우 */
-	private static void OnFirebaseGameCenterLogout(CGameCenterManager a_oSender) {
-		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
-	}
-#endif			// #if (UNITY_IOS || UNITY_ANDROID) && GAME_CENTER_MODULE_ENABLE
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
@@ -806,6 +792,88 @@ public static partial class Func {
 		Func.m_oPurchaseCallbackDict02.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
+
+#if BACKEND_MODULE_ENABLE
+	/** 백엔드 로그인을 처리한다 */
+	public static void BackendLogin(System.Action<CBackendManager, bool> a_oCallback) {
+		CIndicatorManager.Inst.Show();
+		Func.m_oBackendCallbackDict02.ExReplaceVal(ECallback.BACKEND_LOGIN, a_oCallback);
+
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
+		CServicesManager.Inst.LoginWithApple(Func.OnBackendAppleLogin);
+#elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
+		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnBackendFacebookLogin);
+#else
+		CBackendManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnBackendLogin);
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
+	}
+
+	/** 게임 센터 로그아웃을 처리한다 */
+	public static void BackendLogout(System.Action<CBackendManager> a_oCallback) {
+		CIndicatorManager.Inst.Show();
+		Func.m_oBackendCallbackDict01.ExReplaceVal(ECallback.BACKEND_LOGOUT, a_oCallback);
+
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
+		CServicesManager.Inst.LogoutWithApple(Func.OnBackendAppleLogout);
+#elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
+		CFacebookManager.Inst.Logout(Func.OnBackendFacebookLogout);
+#else
+		CBackendManager.Inst.Logout(Func.OnBackendLogout);
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
+	}
+
+	/** 백엔드에 로그인 되었을 경우 */
+	private static void OnBackendLogin(CBackendManager a_oSender, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		Func.m_oBackendCallbackDict02.GetValueOrDefault(ECallback.BACKEND_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
+	}
+
+	/** 백엔드에서 로그아웃 되었을 경우 */
+	private static void OnBackendLogout(CBackendManager a_oSender) {
+		CIndicatorManager.Inst.Close();
+		Func.m_oBackendCallbackDict01.GetValueOrDefault(ECallback.BACKEND_LOGOUT)?.Invoke(a_oSender);
+	}
+
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
+	/** 애플에 로그인 되었을 경우 */
+	private static void OnBackendAppleLogin(CServicesManager a_oSender, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+
+		// 로그인 되었을 경우
+		if(a_bIsSuccess) {
+			CIndicatorManager.Inst.Show();
+			CBackendManager.Inst.LoginWithApple(a_oSender.AppleUserID, a_oSender.AppleIDToken, Func.OnBackendLogin);
+		} else {
+			Func.OnBackendLogin(CBackendManager.Inst, false);
+		}
+	}
+
+	/** 애플에서 로그아웃 되었을 경우 */
+	private static void OnBackendAppleLogout(CServicesManager a_oSender) {
+		CBackendManager.Inst.Logout(Func.OnBackendLogout);
+	}
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
+
+#if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
+	/** 페이스 북에 로그인 되었을 경우 */
+	private static void OnBackendFacebookLogin(CFacebookManager a_oSender, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+
+		// 로그인 되었을 경우
+		if(a_bIsSuccess) {
+			CIndicatorManager.Inst.Show();
+			CBackendManager.Inst.LoginWithFacebook(a_oSender.AccessToken, Func.OnBackendLogin);
+		} else {
+			Func.OnBackendLogin(CBackendManager.Inst, false);
+		}
+	}
+
+	/** 페이스 북에서 로그아웃 되었을 경우 */
+	private static void OnBackendFacebookLogout(CFacebookManager a_oSender) {
+		CBackendManager.Inst.Logout(Func.OnBackendLogout);
+	}
+#endif			// #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
+#endif			// #if BACKEND_MODULE_ENABLE
 
 #if (UNITY_STANDALONE && GOOGLE_SHEET_ENABLE) && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드한다 */

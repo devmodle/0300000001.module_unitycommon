@@ -50,12 +50,12 @@ public static partial class KDefine {
 		// Do Something
 	};
 
-	// 상점 상품 판매
+	// 상점 상품 판매 종류
 	public static readonly List<EProductSaleKinds> G_STORE_PRODUCT_SALE_KINDS_LIST = new List<EProductSaleKinds>() {
 		// Do Something
 	};
 
-	// 특수 패키지 상품 판매
+	// 특수 패키지 상품 판매 종류
 	public static readonly List<EProductSaleKinds> G_PRODUCT_SALE_KINDS_PRODUCT_SPECIAL_PKGS_LIST = new List<EProductSaleKinds>() {
 		// Do Something
 	};

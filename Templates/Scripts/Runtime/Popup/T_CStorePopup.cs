@@ -185,6 +185,7 @@ public partial class CStorePopup : CSubPopup {
 	/** 복원 버튼을 눌렀을 경우 */
 	private void OnTouchRestoreBtn() {
 #if PURCHASE_MODULE_ENABLE
+		m_oRestoreProductList.Clear();
 		Func.RestoreProducts(this.OnRestoreProducts);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
@@ -224,17 +225,15 @@ public partial class CStorePopup : CSubPopup {
 	public void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {
-			Func.AcquireRestoreProducts(a_oProductList);
 			m_oRestoreProductList = a_oProductList;
+			Func.AcquireRestoreProducts(a_oProductList);
+		}
 
 #if FIREBASE_MODULE_ENABLE
-			this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadAcquireItemInfos(this.OnLoadAcquireItemInfos));
+		this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadAcquireItemInfos(this.OnLoadAcquireItemInfos));
 #else
-			Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
+		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 #endif			// #if FIREBASE_MODULE_ENABLE
-		} else {
-			Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
-		}
 
 		this.UpdateUIsState();
 		m_stParams.m_oPurchaseCallbackDict02?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
@@ -253,7 +252,7 @@ public partial class CStorePopup : CSubPopup {
 
 			this.ExLateCallFunc((a_oCallFuncSender) => { oAcquireItemInfoList.Clear(); Func.SaveAcquireItemInfos(oAcquireItemInfoList, this.OnSaveAcquireItemInfos); });
 		} else {
-			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
+			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 		}
 
 		this.UpdateUIsState();
@@ -261,7 +260,7 @@ public partial class CStorePopup : CSubPopup {
 	
 	/** 획득 아이템 정보를 저장했을 경우 */
 	private void OnSaveAcquireItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, true, null);
+		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 #endif			// #if PURCHASE_MODULE_ENABLE
