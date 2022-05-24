@@ -198,8 +198,13 @@ public static partial class KEditorDefine {
 #endif			// #if SKELETON_ANI_2D_ENABLE || SKELETON_ANI_2D_MODULE_ENABLE
 
 #if UNIVERSAL_RENDERING_PIPELINE_ENABLE || UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
+#if UNITY_2022_1_OR_NEWER
+		["com.unity.visualeffectgraph"] = "13.1.8",
+		["com.unity.render-pipelines.universal"] = "13.1.8",
+#else
 		["com.unity.visualeffectgraph"] = "12.1.6",
 		["com.unity.render-pipelines.universal"] = "12.1.6",
+#endif			// #if UNITY_2022_1_OR_NEWER
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_ENABLE || UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
