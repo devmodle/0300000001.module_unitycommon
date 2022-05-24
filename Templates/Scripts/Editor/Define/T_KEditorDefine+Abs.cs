@@ -161,21 +161,21 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본
-		["com.unity.localization"] = "1.0.5",
-		["com.unity.terrain-tools"] = "4.0.3",
-		["com.unity.remote-config"] = "2.1.2",
 		["com.unity.2d.spriteshape"] = "7.0.4",
-		["com.unity.editorcoroutines"] = "1.0.0",
 		["com.unity.2d.tilemap.extras"] = "2.2.2",
-		["com.unity.mobile.android-logcat"] = "1.2.3",
+		["com.unity.mobile.android-logcat"] = "1.3.2",
+		["com.unity.editorcoroutines"] = "1.0.0",
+		["com.unity.localization"] = "1.0.5",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
+		["com.unity.remote-config"] = "2.1.2",
+		["com.unity.terrain-tools"] = "4.0.3",
 
 #if SAMPLE_PROJ || DEVELOPMENT_PROJ
-		["com.unity.sequences"] = "1.0.4",
-		["com.unity.polybrush"] = "1.1.3",
-		["com.unity.probuilder"] = "5.0.4",
 		["com.unity.formats.fbx"] = "4.1.2",
 		["com.unity.ads.ios-support"] = "1.0.0",
+		["com.unity.polybrush"] = "1.1.3",
+		["com.unity.probuilder"] = "5.0.4",
+		["com.unity.sequences"] = "1.0.4",
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",
@@ -232,7 +232,7 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.1.4",
+		["com.unity.purchasing"] = "4.1.5",
 		["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase_client.git#2.4.3",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
