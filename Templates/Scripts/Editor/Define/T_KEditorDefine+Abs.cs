@@ -170,6 +170,14 @@ public static partial class KEditorDefine {
 		["com.unity.remote-config"] = "2.1.2",
 		["com.unity.terrain-tools"] = "4.0.3",
 
+#if UNITY_2022_1_OR_NEWER
+		["com.unity.render-pipelines.universal"] = "13.1.8",
+		["com.unity.visualeffectgraph"] = "13.1.8",
+#else
+		["com.unity.render-pipelines.universal"] = "12.1.6",
+		["com.unity.visualeffectgraph"] = "12.1.6",
+#endif			// #if UNITY_2022_1_OR_NEWER
+
 #if SAMPLE_PROJ || DEVELOPMENT_PROJ
 		["com.unity.formats.fbx"] = "4.1.2",
 		["com.unity.ads.ios-support"] = "1.0.0",
@@ -196,16 +204,6 @@ public static partial class KEditorDefine {
 #if SKELETON_ANI_2D_ENABLE || SKELETON_ANI_2D_MODULE_ENABLE
 		["com.unity.2d.psdimporter"] = "6.0.3",
 #endif			// #if SKELETON_ANI_2D_ENABLE || SKELETON_ANI_2D_MODULE_ENABLE
-
-#if UNIVERSAL_RENDERING_PIPELINE_ENABLE || UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-#if UNITY_2022_1_OR_NEWER
-		["com.unity.visualeffectgraph"] = "13.1.8",
-		["com.unity.render-pipelines.universal"] = "13.1.8",
-#else
-		["com.unity.visualeffectgraph"] = "12.1.6",
-		["com.unity.render-pipelines.universal"] = "12.1.6",
-#endif			// #if UNITY_2022_1_OR_NEWER
-#endif			// #if UNIVERSAL_RENDERING_PIPELINE_ENABLE || UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
 		["module.unitycommonads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads_client.git#2.4.3",
