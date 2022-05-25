@@ -56,10 +56,10 @@ public static partial class Func {
 		RESTORE,
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if BACKEND_MODULE_ENABLE
-		BACKEND_LOGIN,
-		BACKEND_LOGOUT,
-#endif			// #if BACKEND_MODULE_ENABLE
+#if PLAYFAB_MODULE_ENABLE
+		PLAYFAB_LOGIN,
+		PLAYFAB_LOGOUT,
+#endif			// #if PLAYFAB_MODULE_ENABLE
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		LOAD_GOOGLE_SHEET,	
@@ -99,10 +99,10 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDict02 = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>();
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if BACKEND_MODULE_ENABLE
-	private static Dictionary<ECallback, System.Action<CBackendManager>> m_oBackendCallbackDict01 = new Dictionary<ECallback, System.Action<CBackendManager>>();
-	private static Dictionary<ECallback, System.Action<CBackendManager, bool>> m_oBackendCallbackDict02 = new Dictionary<ECallback, System.Action<CBackendManager, bool>>();
-#endif			// #if BACKEND_MODULE_ENABLE
+#if PLAYFAB_MODULE_ENABLE
+	private static Dictionary<ECallback, System.Action<CPlayfabManager>> m_oPlayfabCallbackDict01 = new Dictionary<ECallback, System.Action<CPlayfabManager>>();
+	private static Dictionary<ECallback, System.Action<CPlayfabManager, bool>> m_oPlayfabCallbackDict02 = new Dictionary<ECallback, System.Action<CPlayfabManager, bool>>();
+#endif			// #if PLAYFAB_MODULE_ENABLE
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	private static List<(string, int, int)> m_oGoogleSheetInfoList = new List<(string, int, int)>();
@@ -793,87 +793,87 @@ public static partial class Func {
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if BACKEND_MODULE_ENABLE
-	/** 백엔드 로그인을 처리한다 */
-	public static void BackendLogin(System.Action<CBackendManager, bool> a_oCallback) {
+#if PLAYFAB_MODULE_ENABLE
+	/** 플레이 팹 로그인을 처리한다 */
+	public static void PlayfabLogin(System.Action<CPlayfabManager, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
-		Func.m_oBackendCallbackDict02.ExReplaceVal(ECallback.BACKEND_LOGIN, a_oCallback);
+		Func.m_oPlayfabCallbackDict02.ExReplaceVal(ECallback.PLAYFAB_LOGIN, a_oCallback);
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-		CServicesManager.Inst.LoginWithApple(Func.OnBackendAppleLogin);
+		CServicesManager.Inst.LoginWithApple(Func.OnPlayfabAppleLogin);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnBackendFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnPlayfabFacebookLogin);
 #else
-		CBackendManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnBackendLogin);
+		CPlayfabManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnPlayfabLogin);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	}
 
-	/** 게임 센터 로그아웃을 처리한다 */
-	public static void BackendLogout(System.Action<CBackendManager> a_oCallback) {
+	/** 플레이 팹 로그아웃을 처리한다 */
+	public static void PlayfabLogout(System.Action<CPlayfabManager> a_oCallback) {
 		CIndicatorManager.Inst.Show();
-		Func.m_oBackendCallbackDict01.ExReplaceVal(ECallback.BACKEND_LOGOUT, a_oCallback);
+		Func.m_oPlayfabCallbackDict01.ExReplaceVal(ECallback.PLAYFAB_LOGOUT, a_oCallback);
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-		CServicesManager.Inst.LogoutWithApple(Func.OnBackendAppleLogout);
+		CServicesManager.Inst.LogoutWithApple(Func.OnPlayfabAppleLogout);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Logout(Func.OnBackendFacebookLogout);
+		CFacebookManager.Inst.Logout(Func.OnPlayfabFacebookLogout);
 #else
-		CBackendManager.Inst.Logout(Func.OnBackendLogout);
+		CPlayfabManager.Inst.Logout(Func.OnPlayfabLogout);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	}
 
-	/** 백엔드에 로그인 되었을 경우 */
-	private static void OnBackendLogin(CBackendManager a_oSender, bool a_bIsSuccess) {
+	/** 플레이 팹에 로그인 되었을 경우 */
+	private static void OnPlayfabLogin(CPlayfabManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
-		Func.m_oBackendCallbackDict02.GetValueOrDefault(ECallback.BACKEND_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
+		Func.m_oPlayfabCallbackDict02.GetValueOrDefault(ECallback.PLAYFAB_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 백엔드에서 로그아웃 되었을 경우 */
-	private static void OnBackendLogout(CBackendManager a_oSender) {
+	/** 플레이 팹에서 로그아웃 되었을 경우 */
+	private static void OnPlayfabLogout(CPlayfabManager a_oSender) {
 		CIndicatorManager.Inst.Close();
-		Func.m_oBackendCallbackDict01.GetValueOrDefault(ECallback.BACKEND_LOGOUT)?.Invoke(a_oSender);
+		Func.m_oPlayfabCallbackDict01.GetValueOrDefault(ECallback.PLAYFAB_LOGOUT)?.Invoke(a_oSender);
 	}
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	/** 애플에 로그인 되었을 경우 */
-	private static void OnBackendAppleLogin(CServicesManager a_oSender, bool a_bIsSuccess) {
+	private static void OnPlayfabAppleLogin(CServicesManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 
 		// 로그인 되었을 경우
 		if(a_bIsSuccess) {
 			CIndicatorManager.Inst.Show();
-			CBackendManager.Inst.LoginWithApple(a_oSender.AppleUserID, a_oSender.AppleIDToken, Func.OnBackendLogin);
+			CPlayfabManager.Inst.LoginWithApple(a_oSender.AppleUserID, a_oSender.AppleIDToken, Func.OnPlayfabLogin);
 		} else {
-			Func.OnBackendLogin(CBackendManager.Inst, false);
+			Func.OnPlayfabLogin(CPlayfabManager.Inst, false);
 		}
 	}
 
 	/** 애플에서 로그아웃 되었을 경우 */
-	private static void OnBackendAppleLogout(CServicesManager a_oSender) {
-		CBackendManager.Inst.Logout(Func.OnBackendLogout);
+	private static void OnPlayfabAppleLogout(CServicesManager a_oSender) {
+		CPlayfabManager.Inst.Logout(Func.OnPlayfabLogout);
 	}
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
 #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
 	/** 페이스 북에 로그인 되었을 경우 */
-	private static void OnBackendFacebookLogin(CFacebookManager a_oSender, bool a_bIsSuccess) {
+	private static void OnPlayfabFacebookLogin(CFacebookManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 
 		// 로그인 되었을 경우
 		if(a_bIsSuccess) {
 			CIndicatorManager.Inst.Show();
-			CBackendManager.Inst.LoginWithFacebook(a_oSender.AccessToken, Func.OnBackendLogin);
+			CPlayfabManager.Inst.LoginWithFacebook(a_oSender.AccessToken, Func.OnPlayfabLogin);
 		} else {
-			Func.OnBackendLogin(CBackendManager.Inst, false);
+			Func.OnPlayfabLogin(CPlayfabManager.Inst, false);
 		}
 	}
 
 	/** 페이스 북에서 로그아웃 되었을 경우 */
-	private static void OnBackendFacebookLogout(CFacebookManager a_oSender) {
-		CBackendManager.Inst.Logout(Func.OnBackendLogout);
+	private static void OnPlayfabFacebookLogout(CFacebookManager a_oSender) {
+		CPlayfabManager.Inst.Logout(Func.OnPlayfabLogout);
 	}
 #endif			// #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-#endif			// #if BACKEND_MODULE_ENABLE
+#endif			// #if PLAYFAB_MODULE_ENABLE
 
 #if (UNITY_STANDALONE && GOOGLE_SHEET_ENABLE) && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드한다 */

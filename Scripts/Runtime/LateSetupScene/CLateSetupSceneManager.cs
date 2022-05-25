@@ -231,13 +231,13 @@ namespace LateSetupScene {
 				});
 #endif			// #if NOTI_MODULE_ENABLE
 
-#if BACKEND_MODULE_ENABLE
-				CBackendManager.Inst.Init(new CBackendManager.STParams() {
-					m_oCallbackDict = new Dictionary<CBackendManager.ECallback, System.Action<CBackendManager, bool>>() {
-						[CBackendManager.ECallback.INIT] = CLateSetupSceneManager.OnInitBackendManager
+#if PLAYFAB_MODULE_ENABLE
+				CPlayfabManager.Inst.Init(new CPlayfabManager.STParams() {
+					m_oCallbackDict = new Dictionary<CPlayfabManager.ECallback, System.Action<CPlayfabManager, bool>>() {
+						[CPlayfabManager.ECallback.INIT] = CLateSetupSceneManager.OnInitPlayfabManager
 					}
 				});
-#endif			// #if BACKEND_MODULE_ENABLE
+#endif			// #if PLAYFAB_MODULE_ENABLE
 			}
 
 			this.Setup();
@@ -400,12 +400,12 @@ namespace LateSetupScene {
 		}
 #endif			// #if NOTI_MODULE_ENABLE
 
-#if BACKEND_MODULE_ENABLE
-		/** 백엔드 관리자가 초기화 되었을 경우 */
-		private static void OnInitBackendManager(CBackendManager a_oSender, bool a_bIsSuccess) {
-			CFunc.ShowLog($"CLateSetupSceneManager.OnInitBackendManager: {a_bIsSuccess}");
+#if PLAYFAB_MODULE_ENABLE
+		/** 플레이 팹 관리자가 초기화 되었을 경우 */
+		private static void OnInitPlayfabManager(CPlayfabManager a_oSender, bool a_bIsSuccess) {
+			CFunc.ShowLog($"CLateSetupSceneManager.OnInitPlayfabManager: {a_bIsSuccess}");
 		}
-#endif			// #if BACKEND_MODULE_ENABLE
+#endif			// #if PLAYFAB_MODULE_ENABLE
 		#endregion			// 조건부 클래스 함수
 	}
 }

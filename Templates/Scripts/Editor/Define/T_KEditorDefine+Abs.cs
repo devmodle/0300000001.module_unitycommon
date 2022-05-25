@@ -122,9 +122,9 @@ public static partial class KEditorDefine {
 		[typeof(CNotiManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 #endif			// #if NOTI_MODULE_ENABLE
 
-#if BACKEND_MODULE_ENABLE
-		[typeof(CBackendManager)] = KCDefine.U_SCRIPT_O_SINGLETON
-#endif			// #if BACKEND_MODULE_ENABLE
+#if PLAYFAB_MODULE_ENABLE
+		[typeof(CPlayfabManager)] = KCDefine.U_SCRIPT_O_SINGLETON
+#endif			// #if PLAYFAB_MODULE_ENABLE
 	};
 
 	// 클래스 타입
@@ -240,9 +240,9 @@ public static partial class KEditorDefine {
 		["module.unitycommonnoti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnoti_client.git#2.4.4",
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 
-#if BACKEND_ENABLE || BACKEND_MODULE_ENABLE
+#if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
 		["module.unitycommonbackend"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonbackend_client.git#2.4.4"
-#endif			// #if BACKEND_ENABLE || BACKEND_MODULE_ENABLE
+#endif			// #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
 #endif			// #if SAMPLE_PROJ || DEVELOPMENT_PROJ
 	};
 	// 유니티 패키지 }
