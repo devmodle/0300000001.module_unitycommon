@@ -15,7 +15,7 @@ public static partial class KDefine {
 	public const string LES_KEY_SPRITE_OBJS_POOL = "SpriteObjsPool";
 
 	// 이름 {
-	public const string LES_OBJ_N_BLOCK_SPRITE = "BlockSprite";
+	public const string LES_OBJ_N_OBJ_SPRITE = "ObjSprite";
 	public const string LES_OBJ_N_FMT_RE_UIS_PAGE_UIS = "PageUIs_{0:00}";
 
 	public const string LES_FUNC_N_FMT_SETUP_RE_UIS_PAGE_UIS = "SetupREUIsPageUIs{0:00}";

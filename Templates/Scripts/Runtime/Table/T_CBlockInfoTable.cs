@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-/** 블럭 정보 */
+/** 객체 정보 */
 [System.Serializable]
-public struct STBlockInfo {
+public struct STObjInfo {
 	public STDescInfo m_stDescInfo;
 
 	public EBlockKinds m_eBlockKinds;
@@ -24,7 +24,7 @@ public struct STBlockInfo {
 	
 	#region 함수
 	/** 생성자 */
-	public STBlockInfo(SimpleJSON.JSONNode a_oBlockInfo) {
+	public STObjInfo(SimpleJSON.JSONNode a_oBlockInfo) {
 		m_stDescInfo = new STDescInfo(a_oBlockInfo);
 		
 		m_eBlockKinds = a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].ExIsValid() ? (EBlockKinds)a_oBlockInfo[KCDefine.U_KEY_BLOCK_KINDS].AsInt : EBlockKinds.NONE;
@@ -37,21 +37,21 @@ public struct STBlockInfo {
 	#endregion			// 함수
 }
 
-/** 블럭 정보 테이블 */
+/** 객체 정보 테이블 */
 public partial class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 	#region 변수
 	[Header("=====> BG Block Info <=====")]
-	[SerializeField] private List<STBlockInfo> m_oBGBlockInfoList = new List<STBlockInfo>();
+	[SerializeField] private List<STObjInfo> m_oBGBlockInfoList = new List<STObjInfo>();
 
 	[Header("=====> Norm Block Info <=====")]
-	[SerializeField] private List<STBlockInfo> m_oNormBlockInfoList = new List<STBlockInfo>();
+	[SerializeField] private List<STObjInfo> m_oNormBlockInfoList = new List<STObjInfo>();
 
 	[Header("=====> Overlay Block Info <=====")]
-	[SerializeField] private List<STBlockInfo> m_oOverlayBlockInfoList = new List<STBlockInfo>();
+	[SerializeField] private List<STObjInfo> m_oOverlayBlockInfoList = new List<STObjInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public Dictionary<EBlockKinds, STBlockInfo> BlockInfoDict { get; private set; } = new Dictionary<EBlockKinds, STBlockInfo>();
+	public Dictionary<EBlockKinds, STObjInfo> ObjInfoDict { get; private set; } = new Dictionary<EBlockKinds, STObjInfo>();
 
 	private string BlockInfoTablePath {
 		get {
@@ -69,36 +69,36 @@ public partial class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 	public override void Awake() {
 		base.Awake();
 
-		var oBlockInfoList = new List<STBlockInfo>(m_oBGBlockInfoList);
+		var oBlockInfoList = new List<STObjInfo>(m_oBGBlockInfoList);
 		oBlockInfoList.AddRange(m_oNormBlockInfoList);
 		oBlockInfoList.AddRange(m_oOverlayBlockInfoList);
 
 		for(int i = 0; i < oBlockInfoList.Count; ++i) {
-			this.BlockInfoDict.TryAdd(oBlockInfoList[i].m_eBlockKinds, oBlockInfoList[i]);
+			this.ObjInfoDict.TryAdd(oBlockInfoList[i].m_eBlockKinds, oBlockInfoList[i]);
 		}
 	}
 
 	/** 블럭 정보를 반환한다 */
-	public STBlockInfo GetBlockInfo(EBlockKinds a_eBlockKinds) {
-		bool bIsValid = this.TryGetBlockInfo(a_eBlockKinds, out STBlockInfo stBlockInfo);
+	public STObjInfo GetBlockInfo(EBlockKinds a_eBlockKinds) {
+		bool bIsValid = this.TryGetBlockInfo(a_eBlockKinds, out STObjInfo stBlockInfo);
 		CAccess.Assert(bIsValid);
 
 		return stBlockInfo;
 	}
 
 	/** 블럭 정보를 반환한다 */
-	public bool TryGetBlockInfo(EBlockKinds a_eBlockKinds, out STBlockInfo a_stOutBlockInfo) {
-		a_stOutBlockInfo = this.BlockInfoDict.GetValueOrDefault(a_eBlockKinds, default(STBlockInfo));
-		return this.BlockInfoDict.ContainsKey(a_eBlockKinds);
+	public bool TryGetBlockInfo(EBlockKinds a_eBlockKinds, out STObjInfo a_stOutBlockInfo) {
+		a_stOutBlockInfo = this.ObjInfoDict.GetValueOrDefault(a_eBlockKinds, default(STObjInfo));
+		return this.ObjInfoDict.ContainsKey(a_eBlockKinds);
 	}
 
 	/** 블럭 정보를 로드한다 */
-	public Dictionary<EBlockKinds, STBlockInfo> LoadBlockInfos() {
+	public Dictionary<EBlockKinds, STObjInfo> LoadBlockInfos() {
 		return this.LoadBlockInfos(this.BlockInfoTablePath);
 	}
 
 	/** 블럭 정보를 로드한다 */
-	private Dictionary<EBlockKinds, STBlockInfo> LoadBlockInfos(string a_oFilePath) {
+	private Dictionary<EBlockKinds, STObjInfo> LoadBlockInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -113,7 +113,7 @@ public partial class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 	}
 
 	/** 블럭 정보를 로드한다 */
-	private Dictionary<EBlockKinds, STBlockInfo> DoLoadBlockInfos(string a_oJSONStr) {
+	private Dictionary<EBlockKinds, STObjInfo> DoLoadBlockInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
@@ -123,16 +123,16 @@ public partial class CBlockInfoTable : CScriptableObj<CBlockInfoTable> {
 
 		for(int i = 0; i < oBlockInfosList.Count; ++i) {
 			for(int j = 0; j < oBlockInfosList[i].Count; ++j) {
-				var stBlockInfo = new STBlockInfo(oBlockInfosList[i][j]);
+				var stBlockInfo = new STObjInfo(oBlockInfosList[i][j]);
 
 				// 블럭 정보가 추가 가능 할 경우
-				if(!this.BlockInfoDict.ContainsKey(stBlockInfo.m_eBlockKinds) || oBlockInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
-					this.BlockInfoDict.ExReplaceVal(stBlockInfo.m_eBlockKinds, stBlockInfo);
+				if(!this.ObjInfoDict.ContainsKey(stBlockInfo.m_eBlockKinds) || oBlockInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+					this.ObjInfoDict.ExReplaceVal(stBlockInfo.m_eBlockKinds, stBlockInfo);
 				}
 			}
 		}
 
-		return this.BlockInfoDict;
+		return this.ObjInfoDict;
 	}
 	#endregion			// 함수
 }

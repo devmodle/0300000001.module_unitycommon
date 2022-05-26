@@ -386,7 +386,7 @@ public enum ESkillKinds {
 	[HideInInspector] MAX_VAL
 }
 
-/** 블럭 타입 */
+/** 객체 타입 */
 public enum EBlockType {
 	NONE = -1,
 	BG,
@@ -395,7 +395,7 @@ public enum EBlockType {
 	[HideInInspector] MAX_VAL
 }
 
-/** 블럭 종류 */
+/** 객체 종류 */
 public enum EBlockKinds {
 	NONE = -1,
 

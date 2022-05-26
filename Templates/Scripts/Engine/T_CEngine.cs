@@ -50,7 +50,7 @@ namespace SampleEngineName {
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
-		private Dictionary<EBlockType, List<(EBlockKinds, CEBlock)>>[,] m_oBlockInfoDictContainers = null;
+		private Dictionary<EBlockType, List<(EBlockKinds, CEBlock)>>[,] m_oObjInfoDictContainers = null;
 		#endregion			// 변수
 
 		#region 프로퍼티
@@ -148,7 +148,7 @@ namespace SampleEngineName {
 					// 그리드 영역 일 경우
 					if(this.GridInfo.m_stBounds.Contains(stTouchPos)) {
 						var stIdx = stTouchPos.ExToIdx(this.GridInfo.m_stPivotPos, KDefine.E_SIZE_CELL);
-						CAccess.Assert(m_oBlockInfoDictContainers.ExIsValidIdx(stIdx));
+						CAccess.Assert(m_oObjInfoDictContainers.ExIsValidIdx(stIdx));
 					}
 				} break;
 			}

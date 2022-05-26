@@ -53,7 +53,7 @@ namespace LevelEditorScene {
 			RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT,
 
 			SEL_SCROLLER,
-			SEL_BLOCK_SPRITE,
+			SEL_OBJ_SPRITE,
 			BG_TOUCH_DISPATCHER,
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -94,7 +94,7 @@ namespace LevelEditorScene {
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>() {
-			[EKey.SEL_BLOCK_SPRITE] = null
+			[EKey.SEL_OBJ_SPRITE] = null
 		};
 
 		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>() {
@@ -762,7 +762,7 @@ namespace LevelEditorScene {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		/** 블럭 스프라이트를 리셋한다 */
 		private void ResetBlockSprites() {
-			// 블럭 스프라이트가 존재 할 경우
+			// 객체 스프라이트가 존재 할 경우
 			if(m_oBlockSpriteInfoDictContainers.ExIsValid()) {
 				for(int i = 0; i < m_oBlockSpriteInfoDictContainers.GetLength(KCDefine.B_VAL_0_INT); ++i) {
 					for(int j = 0; j < m_oBlockSpriteInfoDictContainers.GetLength(KCDefine.B_VAL_1_INT); ++j) {
@@ -811,8 +811,8 @@ namespace LevelEditorScene {
 				var oBlockSpriteInfoList = new List<(EBlockKinds, SpriteRenderer)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					var oBlockSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, KDefine.LES_OBJ_N_BLOCK_SPRITE);
-					oBlockSprite.sprite = SampleEngineName.Access.GetBlockSprite(stKeyVal.Value[i]);
+					var oBlockSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, KDefine.LES_OBJ_N_OBJ_SPRITE);
+					oBlockSprite.sprite = SampleEngineName.Access.GetObjSprite(stKeyVal.Value[i]);
 					oBlockSprite.transform.localPosition = m_stGridInfo.m_stPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
 					oBlockSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrderInfo(stKeyVal.Value[i]));

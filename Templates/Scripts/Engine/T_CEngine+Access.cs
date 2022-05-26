@@ -19,7 +19,7 @@ namespace SampleEngineName {
 
 		/** 블럭 정보를 반환한다 */
 		public List<(EBlockKinds, CEBlock)> FindBlockInfos(EBlockType a_eBlockType, Vector3Int a_stIdx) {
-			return m_oBlockInfoDictContainers.ExIsValidIdx(a_stIdx) ? m_oBlockInfoDictContainers[a_stIdx.y, a_stIdx.x].GetValueOrDefault(a_eBlockType) : null;
+			return m_oObjInfoDictContainers.ExIsValidIdx(a_stIdx) ? m_oObjInfoDictContainers[a_stIdx.y, a_stIdx.x].GetValueOrDefault(a_eBlockType) : null;
 		}
 
 		/** 최상단 블럭 정보를 반환한다 */
@@ -64,7 +64,7 @@ namespace SampleEngineName {
 
 		/** 블럭 정보를 반환한다 */
 		public bool TryFindBlockInfos(EBlockType a_eBlockType, Vector3Int a_stIdx, out List<(EBlockKinds, CEBlock)> a_oOutBlockInfoList) {
-			a_oOutBlockInfoList = m_oBlockInfoDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eBlockType);
+			a_oOutBlockInfoList = m_oObjInfoDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eBlockType);
 			return a_oOutBlockInfoList != null;
 		}
 
