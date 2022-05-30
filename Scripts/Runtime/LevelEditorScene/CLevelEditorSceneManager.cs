@@ -18,7 +18,7 @@ namespace LevelEditorScene {
 			ME_UIS_MSG_UIS,
 			LE_UIS_AB_SET_UIS,
 
-			BLOCK_OBJS,
+			OBJ_ROOT,
 			BG_TOUCH_RESPONDER,
 
 			[HideInInspector] MAX_VAL
@@ -36,7 +36,7 @@ namespace LevelEditorScene {
 		};
 
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>() {
-			[EKey.BLOCK_OBJS] = null,
+			[EKey.OBJ_ROOT] = null,
 			[EKey.BG_TOUCH_RESPONDER] = null
 		};
 		#endregion			// 변수
@@ -60,7 +60,7 @@ namespace LevelEditorScene {
 		protected GameObject MEUIsMsgUIs => m_oUIsDict[EKey.ME_UIS_MSG_UIS];
 		protected GameObject LEUIsABSetUIs => m_oUIsDict[EKey.LE_UIS_AB_SET_UIS];
 
-		protected GameObject BlockObjs => m_oObjDict[EKey.BLOCK_OBJS];
+		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
 		protected GameObject BGTouchResponder => m_oObjDict[EKey.BG_TOUCH_RESPONDER];
 		#endregion			// 프로퍼티
 
@@ -82,9 +82,9 @@ namespace LevelEditorScene {
 
 				m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
 
-				// 블럭 객체를 설정한다
-				var oBlockObjs = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_BLOCKS);
-				m_oObjDict[EKey.BLOCK_OBJS] = oBlockObjs ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_BLOCKS, this.Objs);
+				// 객체 객체를 설정한다
+				var oObjRoot = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_OBJ_ROOT);
+				m_oObjDict[EKey.OBJ_ROOT] = oObjRoot ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_OBJ_ROOT, this.Objs);
 
 				// 터치 전달자를 설정한다 {
 				var oBGTouchResponder = this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER);

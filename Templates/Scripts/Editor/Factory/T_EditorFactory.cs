@@ -69,10 +69,10 @@ public static partial class EditorFactory {
 		CEditorFactory.CreateScriptableObj<CSkillInfoTable>(KCEditorDefine.B_ASSET_P_SKILL_INFO_TABLE);
 	}
 	
-	/** 블럭 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "BlockInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateBlockInfoTable() {
-		CEditorFactory.CreateScriptableObj<CBlockInfoTable>(KCEditorDefine.B_ASSET_P_BLOCK_INFO_TABLE);
+	/** 객체 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ObjInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateObjInfoTable() {
+		CEditorFactory.CreateScriptableObj<CObjInfoTable>(KCEditorDefine.B_ASSET_P_OBJ_INFO_TABLE);
 	}
 
 	/** 리소스 정보 테이블을 생성한다 */

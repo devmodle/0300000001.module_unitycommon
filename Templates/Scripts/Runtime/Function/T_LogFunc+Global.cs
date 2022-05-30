@@ -24,7 +24,7 @@ public static partial class LogFunc {
 	}
 
 	/** 기본 데이터를 생성한다 */
-	private static Dictionary<string, object> MakeDefDatas() {
+	public static Dictionary<string, object> MakeDefDatas() {
 		return new Dictionary<string, object>() {
 			[KDefine.L_LOG_KEY_LOG_TIME] = System.DateTime.Now.ExToPSTTime().ExToLongStr(),
 

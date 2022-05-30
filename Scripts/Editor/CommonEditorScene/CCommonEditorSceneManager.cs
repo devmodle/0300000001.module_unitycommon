@@ -121,8 +121,9 @@ public static partial class CCommonEditorSceneManager {
 			// GUI 스타일을 설정한다 }
 
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
-			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
+			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_MENU_SAMPLE);
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
+			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
 
 			CCommonEditorSceneManager.SetupCallbacks();
 		}

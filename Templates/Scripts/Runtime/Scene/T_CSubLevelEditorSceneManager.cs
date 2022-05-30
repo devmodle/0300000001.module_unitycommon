@@ -152,7 +152,7 @@ namespace LevelEditorScene {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 		private SampleEngineName.STGridInfo m_stGridInfo;
-		private Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>>[,] m_oBlockSpriteInfoDictContainers = null;
+		private Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>[,] m_oObjSpriteInfoDictContainers = null;
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -377,7 +377,7 @@ namespace LevelEditorScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
-			this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.BlockObjs));
+			this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
 
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 			this.SetupMidEditorUIs();
@@ -422,7 +422,7 @@ namespace LevelEditorScene {
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-			this.ResetBlockSprites();
+			this.ResetObjSprites();
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 			this.UpdateMidEditorUIsState();
@@ -760,13 +760,13 @@ namespace LevelEditorScene {
 #endif			// #if GOOGLE_SHEET_ENABLE
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-		/** 블럭 스프라이트를 리셋한다 */
-		private void ResetBlockSprites() {
+		/** 객체 스프라이트를 리셋한다 */
+		private void ResetObjSprites() {
 			// 객체 스프라이트가 존재 할 경우
-			if(m_oBlockSpriteInfoDictContainers.ExIsValid()) {
-				for(int i = 0; i < m_oBlockSpriteInfoDictContainers.GetLength(KCDefine.B_VAL_0_INT); ++i) {
-					for(int j = 0; j < m_oBlockSpriteInfoDictContainers.GetLength(KCDefine.B_VAL_1_INT); ++j) {
-						this.ResetBlockSprites(m_oBlockSpriteInfoDictContainers[i, j]);
+			if(m_oObjSpriteInfoDictContainers.ExIsValid()) {
+				for(int i = 0; i < m_oObjSpriteInfoDictContainers.GetLength(KCDefine.B_VAL_0_INT); ++i) {
+					for(int j = 0; j < m_oObjSpriteInfoDictContainers.GetLength(KCDefine.B_VAL_1_INT); ++j) {
+						this.ResetObjSprites(m_oObjSpriteInfoDictContainers[i, j]);
 					}
 				}
 			}
@@ -778,48 +778,48 @@ namespace LevelEditorScene {
 			bool bIsValid02 = !float.IsNaN(m_stGridInfo.m_stScale.y) && !float.IsInfinity(m_stGridInfo.m_stScale.y);
 			bool bIsValid03 = !float.IsNaN(m_stGridInfo.m_stScale.z) && !float.IsInfinity(m_stGridInfo.m_stScale.z);
 
-			this.BlockObjs.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_stGridInfo.m_stScale : Vector3.one;
-			this.BlockObjs.transform.localPosition = Vector3.zero.ExToWorld(this.MidEditorUIs).ExToLocal(this.UIs);
+			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_stGridInfo.m_stScale : Vector3.one;
+			this.ObjRoot.transform.localPosition = Vector3.zero.ExToWorld(this.MidEditorUIs).ExToLocal(this.UIs);
 			// 비율을 설정한다 }
 
-			// 블럭 스프라이트를 설정한다 {
-			m_oBlockSpriteInfoDictContainers = new Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>>[m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].NumCells.y, m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].NumCells.x];
+			// 객체 스프라이트를 설정한다 {
+			m_oObjSpriteInfoDictContainers = new Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>[m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].NumCells.y, m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].NumCells.x];
 
 			for(int i = 0; i < m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_oCellInfoDictContainer.Count; ++i) {
 				for(int j = 0; j < m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_oCellInfoDictContainer[i].Count; ++j) {
-					this.SetupBlockSprites(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_oCellInfoDictContainer[i][j], out Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>> oBlockSpriteInfoDictContainer);
-					m_oBlockSpriteInfoDictContainers[m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_oCellInfoDictContainer[i][j].m_stIdx.y, m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_oCellInfoDictContainer[i][j].m_stIdx.x] = oBlockSpriteInfoDictContainer;
+					this.SetupObjSprites(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_oCellInfoDictContainer[i][j], out Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>> oObjSpriteInfoDictContainer);
+					m_oObjSpriteInfoDictContainers[m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_oCellInfoDictContainer[i][j].m_stIdx.y, m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_oCellInfoDictContainer[i][j].m_stIdx.x] = oObjSpriteInfoDictContainer;
 				}
 			}
-			// 블럭 스프라이트를 설정한다 }
+			// 객체 스프라이트를 설정한다 }
 		}
 
-		/** 블럭 스프라이트를 리셋한다 */
-		private void ResetBlockSprites(Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>> a_oBlockSpriteInfoDictContainer) {
-			foreach(var stKeyVal in a_oBlockSpriteInfoDictContainer) {
+		/** 객체 스프라이트를 리셋한다 */
+		private void ResetObjSprites(Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>> a_oObjSpriteInfoDictContainer) {
+			foreach(var stKeyVal in a_oObjSpriteInfoDictContainer) {
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 					this.DespawnObj(KDefine.LES_KEY_SPRITE_OBJS_POOL, stKeyVal.Value[i].Item2.gameObject);
 				}
 			}
 		}
 
-		/** 블럭 스프라이트를 설정한다 */
-		private void SetupBlockSprites(CCellInfo a_oCellInfo, out Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>> a_oOutBlockSpriteInfoDictContainer) {
-			a_oOutBlockSpriteInfoDictContainer = new Dictionary<EBlockType, List<(EBlockKinds, SpriteRenderer)>>();
+		/** 객체 스프라이트를 설정한다 */
+		private void SetupObjSprites(CCellInfo a_oCellInfo, out Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>> a_oOutObjSpriteInfoDictContainer) {
+			a_oOutObjSpriteInfoDictContainer = new Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>();
 
-			foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
-				var oBlockSpriteInfoList = new List<(EBlockKinds, SpriteRenderer)>();
+			foreach(var stKeyVal in a_oCellInfo.m_oObjKindsDictContainer) {
+				var oObjSpriteInfoList = new List<(EObjKinds, SpriteRenderer)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					var oBlockSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, KDefine.LES_OBJ_N_OBJ_SPRITE);
-					oBlockSprite.sprite = SampleEngineName.Access.GetObjSprite(stKeyVal.Value[i]);
-					oBlockSprite.transform.localPosition = m_stGridInfo.m_stPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+					var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, KDefine.LES_OBJ_N_OBJ_SPRITE);
+					oObjSprite.sprite = SampleEngineName.Access.GetObjSprite(stKeyVal.Value[i]);
+					oObjSprite.transform.localPosition = m_stGridInfo.m_stPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
-					oBlockSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrderInfo(stKeyVal.Value[i]));
-					oBlockSpriteInfoList.ExAddVal((stKeyVal.Value[i], oBlockSprite));
+					oObjSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrderInfo(stKeyVal.Value[i]));
+					oObjSpriteInfoList.ExAddVal((stKeyVal.Value[i], oObjSprite));
 				}
 
-				a_oOutBlockSpriteInfoDictContainer.TryAdd(stKeyVal.Key, oBlockSpriteInfoList);
+				a_oOutObjSpriteInfoDictContainer.TryAdd(stKeyVal.Key, oObjSpriteInfoList);
 			}
 		}
 

@@ -214,6 +214,11 @@ public static partial class CCommonEditorSceneManager {
 		}
 
 #if STUDY_MODULE_ENABLE
+		// 메뉴 샘플 씬 템플릿이 존재 할 경우
+		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_MENU_SAMPLE_SCENE_TEMPLATE)) {
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_MENU_SAMPLE_SCENE_TEMPLATE));
+		}
+
 		// 스터디 샘플 씬 템플릿이 존재 할 경우
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE)) {
 			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));

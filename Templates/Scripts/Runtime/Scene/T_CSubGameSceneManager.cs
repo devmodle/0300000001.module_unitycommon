@@ -219,7 +219,7 @@ namespace GameScene {
 			bool bIsValid02 = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.y) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.y);
 			bool bIsValid03 = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.z) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.z);
 
-			this.BlockObjs.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale : Vector3.one;
+			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale : Vector3.one;
 			// 비율을 설정한다 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
@@ -241,8 +241,8 @@ namespace GameScene {
 			m_oEngineDict[EKey.ENGINE] = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 
 			m_oEngineDict[EKey.ENGINE].Init(new SampleEngineName.CEngine.STParams() {
-				m_oFXObjs = this.FXObjs,
-				m_oBlockObjs = this.BlockObjs,
+				m_oFXRoot = this.FXRoot,
+				m_oObjRoot = this.ObjRoot,
 
 				m_oCallbackDict = new Dictionary<SampleEngineName.CEngine.ECallback, System.Action<SampleEngineName.CEngine>>() {
 					[SampleEngineName.CEngine.ECallback.CLEAR] = this.OnClearLevel,

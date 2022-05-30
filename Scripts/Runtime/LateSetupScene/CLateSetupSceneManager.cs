@@ -372,7 +372,7 @@ namespace LateSetupScene {
 
 			// 초기화 되었을 경우
 			if(a_bIsSuccess) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE			
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				CAppsFlyerManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			}

@@ -119,8 +119,8 @@ public static partial class Func {
 					oIdxVDictContainer.TryAdd(j, oIdxVList);
 					oIdxHDictContainer.TryAdd(i, oIdxHList);
 
-					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsDictContainer.Clear();
-					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oBlockKindsDictContainer.TryAdd(EBlockType.BG, new List<EBlockKinds>() { EBlockKinds.BG_EMPTY });
+					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oObjKindsDictContainer.Clear();
+					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oObjKindsDictContainer.TryAdd(EObjType.BG, new List<EObjKinds>() { EObjKinds.BG_EMPTY });
 				}
 			}
 			

@@ -1,0 +1,140 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+/** 객체 정보 */
+[System.Serializable]
+public struct STObjInfo {
+	public STDescInfo m_stDescInfo;
+
+	public EObjKinds m_eObjKinds;
+	public EObjKinds m_ePrevObjKinds;
+	public EObjKinds m_eNextObjKinds;
+
+	public EResKinds m_eObjResKinds;
+	public Vector3 m_stSize;
+
+	#region 프로퍼티
+	public EObjType ObjType => (EObjType)((int)m_eObjKinds).ExKindsToType();
+	public EObjKinds BaseObjKinds => (EObjKinds)((int)m_eObjKinds).ExKindsToSubKindsType();
+	#endregion			// 프로퍼티
+	
+	#region 함수
+	/** 생성자 */
+	public STObjInfo(SimpleJSON.JSONNode a_oObjInfo) {
+		m_stDescInfo = new STDescInfo(a_oObjInfo);
+		
+		m_eObjKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;
+		m_ePrevObjKinds = a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].AsInt : EObjKinds.NONE;
+		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
+
+		m_eObjResKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_RES_KINDS].ExIsValid() ? (EResKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_RES_KINDS].AsInt : EResKinds.NONE;
+		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Z].AsFloat);
+	}
+	#endregion			// 함수
+}
+
+/** 객체 정보 테이블 */
+public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
+	#region 변수
+	[Header("=====> BG Obj Info <=====")]
+	[SerializeField] private List<STObjInfo> m_oBGObjInfoList = new List<STObjInfo>();
+
+	[Header("=====> Norm Obj Info <=====")]
+	[SerializeField] private List<STObjInfo> m_oNormObjInfoList = new List<STObjInfo>();
+
+	[Header("=====> Overlay Obj Info <=====")]
+	[SerializeField] private List<STObjInfo> m_oOverlayObjInfoList = new List<STObjInfo>();
+	#endregion			// 변수
+
+	#region 프로퍼티
+	public Dictionary<EObjKinds, STObjInfo> ObjInfoDict { get; private set; } = new Dictionary<EObjKinds, STObjInfo>();
+
+	private string ObjInfoTablePath {
+		get {
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			return KCDefine.U_RUNTIME_TABLE_P_G_OBJ_INFO;
+#else
+			return KCDefine.U_TABLE_P_G_OBJ_INFO;
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		}
+	}
+	#endregion			// 프로퍼티
+
+	#region 함수
+	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+
+		var oObjInfoList = new List<STObjInfo>(m_oBGObjInfoList);
+		oObjInfoList.AddRange(m_oNormObjInfoList);
+		oObjInfoList.AddRange(m_oOverlayObjInfoList);
+
+		for(int i = 0; i < oObjInfoList.Count; ++i) {
+			this.ObjInfoDict.TryAdd(oObjInfoList[i].m_eObjKinds, oObjInfoList[i]);
+		}
+	}
+
+	/** 객체 정보를 반환한다 */
+	public STObjInfo GetObjInfo(EObjKinds a_eObjKinds) {
+		bool bIsValid = this.TryGetObjInfo(a_eObjKinds, out STObjInfo stObjInfo);
+		CAccess.Assert(bIsValid);
+
+		return stObjInfo;
+	}
+
+	/** 객체 정보를 반환한다 */
+	public bool TryGetObjInfo(EObjKinds a_eObjKinds, out STObjInfo a_stOutObjInfo) {
+		a_stOutObjInfo = this.ObjInfoDict.GetValueOrDefault(a_eObjKinds, default(STObjInfo));
+		return this.ObjInfoDict.ContainsKey(a_eObjKinds);
+	}
+
+	/** 객체 정보를 로드한다 */
+	public Dictionary<EObjKinds, STObjInfo> LoadObjInfos() {
+		return this.LoadObjInfos(this.ObjInfoTablePath);
+	}
+
+	/** 객체 정보를 로드한다 */
+	private Dictionary<EObjKinds, STObjInfo> LoadObjInfos(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+		
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		return this.DoLoadObjInfos(CFunc.ReadStr(a_oFilePath));
+#else
+		try {
+			return this.DoLoadObjInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
+		} finally {
+			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
+		}
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+	}
+
+	/** 객체 정보를 로드한다 */
+	private Dictionary<EObjKinds, STObjInfo> DoLoadObjInfos(string a_oJSONStr) {
+		CAccess.Assert(a_oJSONStr.ExIsValid());
+		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
+
+		var oObjInfosList = new List<SimpleJSON.JSONNode>() {
+			oJSONNode[KCDefine.U_KEY_BG], oJSONNode[KCDefine.U_KEY_NORM], oJSONNode[KCDefine.U_KEY_OVERLAY]
+		};
+
+		for(int i = 0; i < oObjInfosList.Count; ++i) {
+			for(int j = 0; j < oObjInfosList[i].Count; ++j) {
+				var stObjInfo = new STObjInfo(oObjInfosList[i][j]);
+
+				// 객체 정보가 추가 가능 할 경우
+				if(!this.ObjInfoDict.ContainsKey(stObjInfo.m_eObjKinds) || oObjInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+					this.ObjInfoDict.ExReplaceVal(stObjInfo.m_eObjKinds, stObjInfo);
+				}
+			}
+		}
+
+		return this.ObjInfoDict;
+	}
+	#endregion			// 함수
+}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY

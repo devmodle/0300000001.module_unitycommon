@@ -53,8 +53,7 @@ namespace SetupScene {
 
 		/** 디바이스 메세지를 수신했을 경우 */
 		private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
-			CFunc.ShowLog($"CSetupSceneManager.OnReceiveDeviceMsg: {a_oCmd}, {a_oMsg}", KCDefine.B_LOG_COLOR_INFO);
-			m_oDeviceMsgHandlerDict[a_oCmd](a_oMsg);
+			m_oDeviceMsgHandlerDict.GetValueOrDefault(a_oCmd)?.Invoke(a_oMsg);
 		}
 
 		/** 씬을 설정한다 */
@@ -77,10 +76,9 @@ namespace SetupScene {
 		private void HandleGetDeviceIDMsg(string a_oMsg) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonAppInfoStorage.Inst.DeviceType = CAccess.DeviceType;
-			string oDeviceID = CCommonAppInfoStorage.Inst.AppInfo.DeviceID;
-			
+
 			// 디바이스 식별자 설정이 필요 할 경우
-			if(!oDeviceID.ExIsValid() || oDeviceID.Equals(KCDefine.B_TEXT_UNKNOWN)) {
+			if(!CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid() || CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Equals(KCDefine.B_TEXT_UNKNOWN)) {
 				CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_TEXT_UNKNOWN;
 			}
 			

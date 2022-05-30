@@ -11,7 +11,7 @@ namespace SampleEngineName {
 		#region 함수
 		/** 효과를 생성한다 */
 		private CEFX CreateFX(EFXKinds a_eFXKinds, Vector3 a_stPos) {
-			var oFX = CFactory.CreateCloneObj<CEFX>(KDefine.E_OBJ_N_FX, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), m_stParams.m_oBlockObjs);
+			var oFX = CFactory.CreateCloneObj<CEFX>(KDefine.E_OBJ_N_FX, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), m_stParams.m_oObjRoot);
 			oFX.transform.localPosition = a_stPos;
 
 			oFX.Init(new CEFX.STParams() {
@@ -21,17 +21,17 @@ namespace SampleEngineName {
 			return oFX;
 		}
 
-		/** 블럭을 생성한다 */
-		private CEBlock CreateBlock(EBlockKinds a_eBlockKinds, Vector3 a_stPos, Vector3Int a_stIdx) {
-			var oBlock = CFactory.CreateCloneObj<CEBlock>(KDefine.E_OBJ_N_BLOCK, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BLOCK), m_stParams.m_oBlockObjs);
-			oBlock.Idx = a_stIdx;
-			oBlock.transform.localPosition = a_stPos;
+		/** 객체를 생성한다 */
+		private CEObj CreateObj(EObjKinds a_eObjKinds, Vector3 a_stPos, Vector3Int a_stIdx) {
+			var oObj = CFactory.CreateCloneObj<CEObj>(KDefine.E_OBJ_N_OBJ, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), m_stParams.m_oObjRoot);
+			oObj.Idx = a_stIdx;
+			oObj.transform.localPosition = a_stPos;
 
-			oBlock.Init(new CEBlock.STParams() {
-				m_stBlockInfo = CBlockInfoTable.Inst.GetBlockInfo(a_eBlockKinds), m_oEngine = this
+			oObj.Init(new CEObj.STParams() {
+				m_stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds), m_oEngine = this
 			});
 
-			return oBlock;
+			return oObj;
 		}
 		#endregion			// 함수
 	}

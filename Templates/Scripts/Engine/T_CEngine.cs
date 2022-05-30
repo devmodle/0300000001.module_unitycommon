@@ -33,8 +33,8 @@ namespace SampleEngineName {
 
 		/** 매개 변수 */
 		public struct STParams {
-			public GameObject m_oFXObjs;
-			public GameObject m_oBlockObjs;
+			public GameObject m_oFXRoot;
+			public GameObject m_oObjRoot;
 
 			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict;
 
@@ -50,7 +50,7 @@ namespace SampleEngineName {
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
-		private Dictionary<EBlockType, List<(EBlockKinds, CEBlock)>>[,] m_oObjInfoDictContainers = null;
+		private Dictionary<EObjType, List<(EObjKinds, CEObj)>>[,] m_oObjInfoDictContainers = null;
 		#endregion			// 변수
 
 		#region 프로퍼티
@@ -59,8 +59,8 @@ namespace SampleEngineName {
 		public EState State { get; private set; } = EState.NONE;
 		public STGridInfo GridInfo { get; private set; }
 		
-		public GameObject FXObjs => m_stParams.m_oFXObjs;
-		public GameObject BlockObjs => m_stParams.m_oBlockObjs;
+		public GameObject FXRoot => m_stParams.m_oFXRoot;
+		public GameObject ObjRoot => m_stParams.m_oObjRoot;
 		#endregion			// 프로퍼티
 		
 		#region 함수
@@ -143,7 +143,7 @@ namespace SampleEngineName {
 		private void HandleTouchState(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouch a_eTouch) {
 			switch(this.State) {
 				case EState.RUN: {
-					var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oBlockObjs);
+					var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot);
 
 					// 그리드 영역 일 경우
 					if(this.GridInfo.m_stBounds.Contains(stTouchPos)) {

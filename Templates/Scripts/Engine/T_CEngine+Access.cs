@@ -9,88 +9,88 @@ namespace SampleEngineName {
 	/** 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		/** 블럭 정보를 반환한다 */
-		public (EBlockKinds, CEBlock) FindBlockInfo(EBlockType a_eBlockType, EBlockKinds a_eBlockKinds, Vector3Int a_stIdx) {
-			bool bIsValid = this.TryFindBlockInfo(a_eBlockType, a_eBlockKinds, a_stIdx, out (EBlockKinds, CEBlock) stBlockInfo);
+		/** 객체 정보를 반환한다 */
+		public (EObjKinds, CEObj) FindObjInfo(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+			bool bIsValid = this.TryFindObjInfo(a_eObjType, a_eObjKinds, a_stIdx, out (EObjKinds, CEObj) stObjInfo);
 			CAccess.Assert(bIsValid);
 
-			return stBlockInfo;
+			return stObjInfo;
 		}
 
-		/** 블럭 정보를 반환한다 */
-		public List<(EBlockKinds, CEBlock)> FindBlockInfos(EBlockType a_eBlockType, Vector3Int a_stIdx) {
-			return m_oObjInfoDictContainers.ExIsValidIdx(a_stIdx) ? m_oObjInfoDictContainers[a_stIdx.y, a_stIdx.x].GetValueOrDefault(a_eBlockType) : null;
+		/** 객체 정보를 반환한다 */
+		public List<(EObjKinds, CEObj)> FindObjInfos(EObjType a_eObjType, Vector3Int a_stIdx) {
+			return m_oObjInfoDictContainers.ExIsValidIdx(a_stIdx) ? m_oObjInfoDictContainers[a_stIdx.y, a_stIdx.x].GetValueOrDefault(a_eObjType) : null;
 		}
 
-		/** 최상단 블럭 정보를 반환한다 */
-		public (EBlockKinds, CEBlock) FindTopBlockInfo(EBlockKinds a_eBlockKinds, Vector3Int a_stIdx) {
-			for(int i = (int)EBlockType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EBlockType.NONE; --i) {
-				var oBlockInfo = this.FindBlockInfo((EBlockType)i, a_eBlockKinds, a_stIdx);
+		/** 최상단 객체 정보를 반환한다 */
+		public (EObjKinds, CEObj) FindTopObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+			for(int i = (int)EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EObjType.NONE; --i) {
+				var oObjInfo = this.FindObjInfo((EObjType)i, a_eObjKinds, a_stIdx);
 
-				// 블럭 정보가 존재 할 경우
-				if(!oBlockInfo.Equals(KDefine.E_INVALID_BLOCK_INFO)) {
-					return oBlockInfo;
+				// 객체 정보가 존재 할 경우
+				if(!oObjInfo.Equals(KDefine.E_INVALID_OBJ_INFO)) {
+					return oObjInfo;
 				}
 			}
 
-			return KDefine.E_INVALID_BLOCK_INFO;
+			return KDefine.E_INVALID_OBJ_INFO;
 		}
 
-		/** 최상단 블럭 정보를 반환한다 */
-		public List<(EBlockKinds, CEBlock)> FindTopBlockInfos(Vector3Int a_stIdx) {
-			for(int i = (int)EBlockType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EBlockType.NONE; --i) {
-				var oBlockInfoList = this.FindBlockInfos((EBlockType)i, a_stIdx);
+		/** 최상단 객체 정보를 반환한다 */
+		public List<(EObjKinds, CEObj)> FindTopObjInfos(Vector3Int a_stIdx) {
+			for(int i = (int)EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EObjType.NONE; --i) {
+				var oObjInfoList = this.FindObjInfos((EObjType)i, a_stIdx);
 
-				// 블럭 정보가 존재 할 경우
-				if(oBlockInfoList != null) {
-					return oBlockInfoList;
+				// 객체 정보가 존재 할 경우
+				if(oObjInfoList != null) {
+					return oObjInfoList;
 				}
 			}
 
 			return null;
 		}
 
-		/** 블럭 정보를 반환한다 */
-		public bool TryFindBlockInfo(EBlockType a_eBlockType, EBlockKinds a_eBlockKinds, Vector3Int a_stIdx, out (EBlockKinds, CEBlock) a_oOutBlockInfo) {
-			// 블럭 정보가 존재 할 경우
-			if(this.TryFindBlockInfos(a_eBlockType, a_stIdx, out List<(EBlockKinds, CEBlock)> oBlockInfoList)) {
-				a_oOutBlockInfo = oBlockInfoList.ExGetVal((a_oBlockInfo) => a_oBlockInfo.Item1 == a_eBlockKinds, KDefine.E_INVALID_BLOCK_INFO);
+		/** 객체 정보를 반환한다 */
+		public bool TryFindObjInfo(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx, out (EObjKinds, CEObj) a_oOutObjInfo) {
+			// 객체 정보가 존재 할 경우
+			if(this.TryFindObjInfos(a_eObjType, a_stIdx, out List<(EObjKinds, CEObj)> oObjInfoList)) {
+				a_oOutObjInfo = oObjInfoList.ExGetVal((a_oObjInfo) => a_oObjInfo.Item1 == a_eObjKinds, KDefine.E_INVALID_OBJ_INFO);
 				return true;
 			}
 
-			a_oOutBlockInfo = KDefine.E_INVALID_BLOCK_INFO;
+			a_oOutObjInfo = KDefine.E_INVALID_OBJ_INFO;
 			return false;
 		}
 
-		/** 블럭 정보를 반환한다 */
-		public bool TryFindBlockInfos(EBlockType a_eBlockType, Vector3Int a_stIdx, out List<(EBlockKinds, CEBlock)> a_oOutBlockInfoList) {
-			a_oOutBlockInfoList = m_oObjInfoDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eBlockType);
-			return a_oOutBlockInfoList != null;
+		/** 객체 정보를 반환한다 */
+		public bool TryFindObjInfos(EObjType a_eObjType, Vector3Int a_stIdx, out List<(EObjKinds, CEObj)> a_oOutObjInfoList) {
+			a_oOutObjInfoList = m_oObjInfoDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
+			return a_oOutObjInfoList != null;
 		}
 
-		/** 최상단 블럭 정보를 반환한다 */
-		public bool TryFindTopBlockInfo(EBlockKinds a_eBlockKinds, Vector3Int a_stIdx, out (EBlockKinds, CEBlock) a_oOutTopBlockInfo) {
-			for(int i = (int)EBlockType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EBlockType.NONE; --i) {
-				// 블럭 정보가 존재 할 경우
-				if(this.TryFindBlockInfo((EBlockType)i, a_eBlockKinds, a_stIdx, out a_oOutTopBlockInfo)) {
+		/** 최상단 객체 정보를 반환한다 */
+		public bool TryFindTopObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stIdx, out (EObjKinds, CEObj) a_oOutTopObjInfo) {
+			for(int i = (int)EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EObjType.NONE; --i) {
+				// 객체 정보가 존재 할 경우
+				if(this.TryFindObjInfo((EObjType)i, a_eObjKinds, a_stIdx, out a_oOutTopObjInfo)) {
 					return true;
 				}
 			}
 
-			a_oOutTopBlockInfo = KDefine.E_INVALID_BLOCK_INFO;
+			a_oOutTopObjInfo = KDefine.E_INVALID_OBJ_INFO;
 			return false;
 		}
 
-		/** 블럭 정보를 반환한다 */
-		public bool TryFindTopBlockInfos(Vector3Int a_stIdx, out List<(EBlockKinds, CEBlock)> a_oOutTopBlockInfoList) {
-			for(int i = (int)EBlockType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EBlockType.NONE; --i) {
-				// 블럭 정보가 존재 할 경우
-				if(this.TryFindBlockInfos((EBlockType)i, a_stIdx, out a_oOutTopBlockInfoList)) {
+		/** 객체 정보를 반환한다 */
+		public bool TryFindTopObjInfos(Vector3Int a_stIdx, out List<(EObjKinds, CEObj)> a_oOutTopObjInfoList) {
+			for(int i = (int)EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EObjType.NONE; --i) {
+				// 객체 정보가 존재 할 경우
+				if(this.TryFindObjInfos((EObjType)i, a_stIdx, out a_oOutTopObjInfoList)) {
 					return true;
 				}
 			}
 
-			a_oOutTopBlockInfoList = null;
+			a_oOutTopObjInfoList = null;
 			return false;
 		}
 		#endregion			// 함수

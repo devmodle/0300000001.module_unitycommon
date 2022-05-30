@@ -11,12 +11,12 @@ namespace SampleEngineName {
 		#region 기본
 		// 이름
 		public const string E_OBJ_N_FX = "FX";
-		public const string E_OBJ_N_BLOCK = "Block";
+		public const string E_OBJ_N_OBJ = "Obj";
 		#endregion			// 기본
 
 		#region 런타임 상수
 		// 기타
-		public static readonly (EBlockKinds, CEBlock) E_INVALID_BLOCK_INFO = (EBlockKinds.NONE, null);
+		public static readonly (EObjKinds, CEObj) E_INVALID_OBJ_INFO = (EObjKinds.NONE, null);
 
 		// 크기
 		public static readonly Vector3 E_SIZE_CELL = new Vector3(0.0f, 0.0f, 0.0f);
@@ -30,18 +30,18 @@ namespace SampleEngineName {
 		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(15, 15, 15);
 
 		// 정렬 순서
-		public static readonly Dictionary<EBlockKinds, STSortingOrderInfo> E_SORTING_OI_BLOCK_DICT = new Dictionary<EBlockKinds, STSortingOrderInfo>() {
-			[EBlockKinds.BG_EMPTY] = new STSortingOrderInfo() {
+		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
+			[EObjKinds.BG_EMPTY] = new STSortingOrderInfo() {
 				m_nOrder = sbyte.MaxValue * 0, m_oLayer = KCDefine.U_SORTING_L_DEF
 			}
 		};
 
 		// 경로 {
 		public static readonly string E_OBJ_P_FX = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}E_FX";
-		public static readonly string E_OBJ_P_BLOCK = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}E_Block";
+		public static readonly string E_OBJ_P_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}E_Obj";
 
-		public static readonly Dictionary<EBlockKinds, string> E_IMG_P_BLOCK_DICT = new Dictionary<EBlockKinds, string>() {
-			[EBlockKinds.BG_EMPTY] = EBlockKinds.BG_EMPTY.ToString()
+		public static readonly Dictionary<EObjKinds, string> E_IMG_P_OBJ_DICT = new Dictionary<EObjKinds, string>() {
+			[EObjKinds.BG_EMPTY] = EObjKinds.BG_EMPTY.ToString()
 		};
 		// 경로 }
 		#endregion			// 런타임 상수

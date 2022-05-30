@@ -9,6 +9,10 @@ using UnityEngine.UI;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
+#if PLAYFAB_MODULE_ENABLE
+using PlayFab.SharedModels;
+#endif			// #if PLAYFAB_MODULE_ENABLE
+
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 using GoogleSheetsToUnity;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -102,6 +106,7 @@ public static partial class Func {
 #if PLAYFAB_MODULE_ENABLE
 	private static Dictionary<ECallback, System.Action<CPlayfabManager>> m_oPlayfabCallbackDict01 = new Dictionary<ECallback, System.Action<CPlayfabManager>>();
 	private static Dictionary<ECallback, System.Action<CPlayfabManager, bool>> m_oPlayfabCallbackDict02 = new Dictionary<ECallback, System.Action<CPlayfabManager, bool>>();
+	private static Dictionary<ECallback, System.Action<CPlayfabManager, PlayFabResultCommon, bool>> m_oPlayfabCallbackDict03 = new Dictionary<ECallback, System.Action<CPlayfabManager, PlayFabResultCommon, bool>>();
 #endif			// #if PLAYFAB_MODULE_ENABLE
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -493,7 +498,7 @@ public static partial class Func {
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			CFirebaseManager.Inst.LoadDB(Factory.MakeUserInfoNodes(), Func.OnLoadUserInfo);
+			CFirebaseManager.Inst.LoadDatas(Factory.MakeUserInfoNodes(), Func.OnLoadUserInfo);
 		} else {
 			Func.OnLoadUserInfo(CFirebaseManager.Inst, string.Empty, false);
 		}
@@ -506,7 +511,7 @@ public static partial class Func {
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			CFirebaseManager.Inst.LoadDB(Factory.MakePurchaseInfoNodes(), Func.OnLoadPurchaseInfos);
+			CFirebaseManager.Inst.LoadDatas(Factory.MakePurchaseInfoNodes(), Func.OnLoadPurchaseInfos);
 		} else {
 			Func.OnLoadPurchaseInfos(CFirebaseManager.Inst, string.Empty, false);
 		}
@@ -519,7 +524,7 @@ public static partial class Func {
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			CFirebaseManager.Inst.LoadDB(Factory.MakeAcquireItemInfoNodes(), Func.OnLoadAcquireItemInfos);
+			CFirebaseManager.Inst.LoadDatas(Factory.MakeAcquireItemInfoNodes(), Func.OnLoadAcquireItemInfos);
 		} else {
 			Func.OnLoadAcquireItemInfos(CFirebaseManager.Inst, string.Empty, false);
 		}
@@ -543,7 +548,7 @@ public static partial class Func {
 			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA, CCommonUserInfoStorage.Inst.UserInfo.ExToMsgPackBase64Str());
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
-			CFirebaseManager.Inst.SaveDB(oNodeList, oJSONNode.ToString(), Func.OnSaveUserInfo);
+			CFirebaseManager.Inst.SaveDatas(oNodeList, oJSONNode.ToString(), Func.OnSaveUserInfo);
 		} else {
 			Func.OnSaveUserInfo(CFirebaseManager.Inst, false);
 		}
@@ -561,7 +566,7 @@ public static partial class Func {
 			// 로그인 되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CFirebaseManager.Inst.SaveDB(Factory.MakePurchaseInfoNodes(), a_oPurchaseInfoList.ExToJSONStr(true), Func.OnSavePurchaseInfos);
+				CFirebaseManager.Inst.SaveDatas(Factory.MakePurchaseInfoNodes(), a_oPurchaseInfoList.ExToJSONStr(true), Func.OnSavePurchaseInfos);
 #else
 				Func.OnSavePurchaseInfos(CFirebaseManager.Inst, false);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
@@ -583,7 +588,7 @@ public static partial class Func {
 			// 로그인 되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CFirebaseManager.Inst.SaveDB(Factory.MakeAcquireItemInfoNodes(), a_oAcquireItemInfoList.ExToJSONStr(true), Func.OnSaveAcquireItemInfos);
+				CFirebaseManager.Inst.SaveDatas(Factory.MakeAcquireItemInfoNodes(), a_oAcquireItemInfoList.ExToJSONStr(true), Func.OnSaveAcquireItemInfos);
 #else
 				Func.OnSaveAcquireItemInfos(CFirebaseManager.Inst, false);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE

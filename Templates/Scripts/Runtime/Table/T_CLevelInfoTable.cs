@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 public partial class CCellInfo : CBaseInfo, System.ICloneable {
 	#region 변수
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
-	[Key(161)] public Dictionary<EBlockType, List<EBlockKinds>> m_oBlockKindsDictContainer = new Dictionary<EBlockType, List<EBlockKinds>>();
+	[Key(161)] public Dictionary<EObjType, List<EObjKinds>> m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -26,10 +26,10 @@ public partial class CCellInfo : CBaseInfo, System.ICloneable {
 	/** 사본 객체를 생성한다 */
 	public object Clone() {
 		var oCellInfo = new CCellInfo() {
-			m_stIdx = this.m_stIdx, m_oBlockKindsDictContainer = new Dictionary<EBlockType, List<EBlockKinds>>()
+			m_stIdx = this.m_stIdx, m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
 		};
 
-		oCellInfo.m_oBlockKindsDictContainer.ExCopyTo(oCellInfo.m_oBlockKindsDictContainer, this.GetCloneBlockKinds);
+		oCellInfo.m_oObjKindsDictContainer.ExCopyTo(oCellInfo.m_oObjKindsDictContainer, this.GetCloneObjKinds);
 		oCellInfo.OnAfterDeserialize();
 
 		return oCellInfo;
@@ -45,7 +45,7 @@ public partial class CCellInfo : CBaseInfo, System.ICloneable {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oBlockKindsDictContainer = m_oBlockKindsDictContainer ?? new Dictionary<EBlockType, List<EBlockKinds>>();
+		m_oObjKindsDictContainer = m_oObjKindsDictContainer ?? new Dictionary<EObjType, List<EObjKinds>>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -55,12 +55,12 @@ public partial class CCellInfo : CBaseInfo, System.ICloneable {
 		// Do Something
 	}
 
-	/** 사본 블럭 종류를 반환한다 */
-	private List<EBlockKinds> GetCloneBlockKinds(List<EBlockKinds> a_oBlockKindsList) {
-		var oBlockKindsList = new List<EBlockKinds>();
-		a_oBlockKindsList.ExCopyTo(oBlockKindsList, (a_eBlockKinds) => a_eBlockKinds);
+	/** 사본 객체 종류를 반환한다 */
+	private List<EObjKinds> GetCloneObjKinds(List<EObjKinds> a_oObjKindsList) {
+		var oObjKindsList = new List<EObjKinds>();
+		a_oObjKindsList.ExCopyTo(oObjKindsList, (a_eObjKinds) => a_eObjKinds);
 
-		return oBlockKindsList;
+		return oObjKindsList;
 	}
 	#endregion			// 함수
 }
@@ -146,7 +146,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	protected virtual void SetupCellInfo(CCellInfo a_oCellInfo, Vector3Int a_stIdx) {
 		a_oCellInfo.m_stIdx = a_stIdx;
 
-		foreach(var stKeyVal in a_oCellInfo.m_oBlockKindsDictContainer) {
+		foreach(var stKeyVal in a_oCellInfo.m_oObjKindsDictContainer) {
 			for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 				// Do Something
 			}
