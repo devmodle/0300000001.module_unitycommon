@@ -162,7 +162,7 @@ public static partial class KEditorDefine {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본
 		["com.unity.2d.spriteshape"] = "7.0.4",
-		["com.unity.2d.tilemap.extras"] = "2.2.2",
+		["com.unity.2d.tilemap.extras"] = "2.2.3",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.0",
 		["com.unity.mobile.android-logcat"] = "1.3.2",
 		["com.unity.editorcoroutines"] = "1.0.0",

@@ -25,7 +25,6 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 
 	#region 변수
 	[Key(0)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
-	[Key(1)] public Dictionary<ProtectedString, ProtectedString> m_oSecurityStrDict = new Dictionary<ProtectedString, ProtectedString>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -65,7 +64,6 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	/** 역직렬화 되었을 경우 */
 	public virtual void OnAfterDeserialize() {
 		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
-		m_oSecurityStrDict = m_oSecurityStrDict ?? new Dictionary<ProtectedString, ProtectedString>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
