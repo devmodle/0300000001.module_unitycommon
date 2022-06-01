@@ -16,50 +16,6 @@ using Unity.EditorCoroutines.Editor;
 /** 공용 에디터 씬 관리자 */
 [InitializeOnLoad]
 public static partial class CCommonEditorSceneManager {
-#if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-	/** 모바일 버스트 AOT 설정 */
-	private struct STMobileBurstAOTSettings {
-		public bool EnableSafetyChecks;
-		public bool EnableOptimisations;
-		public bool EnableBurstCompilation;
-		public bool EnableDebugInAllBuilds;
-
-		public int Version;
-		public int OptimizeFor;
-		public int CpuMinTargetX32;
-		public int CpuMaxTargetX32;
-		public int CpuMinTargetX64;
-		public int CpuMaxTargetX64;
-	}
-
-	/** 독립 플랫폼 버스트 AOT 설정 */
-	private struct STStandaloneBurstAOTSettings {
-		public bool EnableSafetyChecks;
-		public bool EnableOptimisations;
-		public bool UsePlatformSDKLinker;
-		public bool EnableBurstCompilation;
-		public bool EnableDebugInAllBuilds;
-
-		public int Version;
-		public int OptimizeFor;
-		public int CpuTargetsX64;
-		public int CpuMinTargetX32;
-		public int CpuMaxTargetX32;
-		public int CpuMinTargetX64;
-		public int CpuMaxTargetX64;
-	}
-
-	/** 모바일 버스트 AOT 설정 래퍼 */
-	private struct STMobileBurstAOTSettingsWrapper {
-		public STMobileBurstAOTSettings MonoBehaviour;
-	}
-
-	/** 독립 플랫폼 버스트 AOT 설정 래퍼 */
-	private struct STStandaloneBurstAOTSettingsWrapper {
-		public STStandaloneBurstAOTSettings MonoBehaviour;
-	}
-#endif			// #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-
 	#region 클래스 변수
 	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsEnableBuild = false;
