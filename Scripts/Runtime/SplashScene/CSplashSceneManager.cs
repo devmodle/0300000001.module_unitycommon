@@ -76,27 +76,24 @@ namespace SplashScene {
 				[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
 				[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
 
-				// 콘솔 {
+				// 콘솔
 				[RuntimePlatform.PS4] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
 				[RuntimePlatform.PS5] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
-
 				[RuntimePlatform.XboxOne] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
-				[RuntimePlatform.GameCoreXboxOne] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
-				[RuntimePlatform.GameCoreXboxSeries] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
-				// 콘솔 }
 
 				// 휴대용 콘솔
-				[RuntimePlatform.Stadia] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE)),
-				[RuntimePlatform.Switch] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
+				[RuntimePlatform.Switch] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE)),
+				[RuntimePlatform.Stadia] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
 			};
+
+			int nTargetFrameRate = oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
+			Application.targetFrameRate = Mathf.Max(KCDefine.B_TARGET_FRAME_RATE, Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate));
 
 #if MULTI_TOUCH_ENABLE
 			Input.multiTouchEnabled = true;
 #else
 			Input.multiTouchEnabled = false;
 #endif			// #if MULTI_TOUCH_ENABLE
-
-			Application.targetFrameRate = Mathf.Min(Screen.currentResolution.refreshRate, oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE));
 
 #if UNITY_EDITOR
 			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eQualityLevel, true);
