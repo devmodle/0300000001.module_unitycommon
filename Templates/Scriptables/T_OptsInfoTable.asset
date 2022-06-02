@@ -18,11 +18,10 @@ MonoBehaviour:
     m_nNumRealVoices: 32
     m_nNumVirtualVoices: 512
   m_stBuildOptsInfo:
-    m_bIsUseSRPBatching: 0
     m_bIsPreBakeCollisionMesh: 0
     m_bIsPreserveFrameBufferAlpha: 0
     m_eNormapMapEncoding: 1
-    m_eLightmapper: 1
+    m_eLightmapper: 0
     m_stiOSBuildOptsInfo:
       m_bIsEnableProMotion: 0
       m_bIsEnableInputSystemMotion: 0

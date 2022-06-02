@@ -166,7 +166,8 @@ public static partial class KEditorDefine {
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.0",
 		["com.unity.mobile.android-logcat"] = "1.3.2",
 		["com.unity.editorcoroutines"] = "1.0.0",
-		["com.unity.localization"] = "1.0.5",
+		["com.unity.formats.fbx"] = "4.1.2",
+		["com.unity.localization"] = "1.3.1",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
 		["com.unity.remote-config"] = "2.1.2",
 		["com.unity.terrain-tools"] = "4.0.3",
@@ -175,12 +176,11 @@ public static partial class KEditorDefine {
 		["com.unity.render-pipelines.universal"] = "13.1.8",
 		["com.unity.visualeffectgraph"] = "13.1.8",
 #else
-		["com.unity.render-pipelines.universal"] = "12.1.6",
-		["com.unity.visualeffectgraph"] = "12.1.6",
+		["com.unity.render-pipelines.universal"] = "12.1.7",
+		["com.unity.visualeffectgraph"] = "12.1.7",
 #endif			// #if UNITY_2022_1_OR_NEWER
 
 #if SAMPLE_PROJ || DEVELOPMENT_PROJ
-		["com.unity.formats.fbx"] = "4.1.2",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.polybrush"] = "1.1.3",
 		["com.unity.probuilder"] = "5.0.4",
