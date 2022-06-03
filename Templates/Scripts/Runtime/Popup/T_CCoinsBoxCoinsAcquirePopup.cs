@@ -38,7 +38,6 @@ public partial class CCoinsBoxCoinsAcquirePopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.IsIgnoreNavStackEvent = false;
 
 		// 텍스트를 설정한다
 		m_oTextDict[EKey.NUM_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
