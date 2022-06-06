@@ -84,6 +84,7 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateTutorialInfoTable();
 				EditorFactory.CreateFXInfoTable();
 				EditorFactory.CreateSkillInfoTable();
+				EditorFactory.CreateAbilityInfoTable();
 				EditorFactory.CreateObjInfoTable();
 				EditorFactory.CreateResInfoTable();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE

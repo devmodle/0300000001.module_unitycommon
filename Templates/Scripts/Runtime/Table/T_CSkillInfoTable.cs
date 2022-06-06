@@ -43,8 +43,11 @@ public struct STSkillInfo {
 /** 스킬 정보 테이블 */
 public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 	#region 변수
-	[Header("=====> Skill Info <=====")]
-	[SerializeField] private List<STSkillInfo> m_oSkillInfoList = new List<STSkillInfo>();
+	[Header("=====> Active Skill Info <=====")]
+	[SerializeField] private List<STSkillInfo> m_oActiveSkillInfoList = new List<STSkillInfo>();
+
+	[Header("=====> Passive Skill Info <=====")]
+	[SerializeField] private List<STSkillInfo> m_oPassiveSkillInfoList = new List<STSkillInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -65,7 +68,9 @@ public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		var oSkillInfoList = new List<STSkillInfo>(m_oSkillInfoList);
+
+		var oSkillInfoList = new List<STSkillInfo>(m_oActiveSkillInfoList);
+		oSkillInfoList.ExAddVals(m_oPassiveSkillInfoList);
 
 		for(int i = 0; i < oSkillInfoList.Count; ++i) {
 			this.SkillInfoDict.TryAdd(oSkillInfoList[i].m_eSkillKinds, oSkillInfoList[i]);
@@ -112,7 +117,7 @@ public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oSkillInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA]
+			oJSONNode[KCDefine.U_KEY_ACTIVE], oJSONNode[KCDefine.U_KEY_PASSIVE]
 		};
 
 		for(int i = 0; i < oSkillInfosList.Count; ++i) {

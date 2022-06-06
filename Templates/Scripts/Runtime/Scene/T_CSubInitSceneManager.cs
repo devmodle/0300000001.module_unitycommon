@@ -26,6 +26,7 @@ namespace InitScene {
 			CTutorialInfoTable.Create(KCDefine.U_ASSET_P_G_TUTORIAL_INFO_TABLE);
 			CFXInfoTable.Create(KCDefine.U_ASSET_P_G_FX_INFO_TABLE);
 			CSkillInfoTable.Create(KCDefine.U_ASSET_P_G_SKILL_INFO_TABLE);
+			CAbilityInfoTable.Create(KCDefine.U_ASSET_P_G_ABILITY_INFO_TABLE);
 			CObjInfoTable.Create(KCDefine.U_ASSET_P_G_OBJ_INFO_TABLE);
 			CResInfoTable.Create(KCDefine.U_ASSET_P_G_RES_INFO_TABLE);
 			// 테이블을 생성한다 }

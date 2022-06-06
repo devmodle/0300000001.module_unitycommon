@@ -381,12 +381,56 @@ public enum EFXKinds {
 /** 스킬 타입 */
 public enum ESkillType {
 	NONE = -1,
+	ACTIVE,
+	PASSIVE,
 	[HideInInspector] MAX_VAL
 }
 
 /** 스킬 종류 */
 public enum ESkillKinds {
 	NONE = -1,
+
+	#region 액티브
+	// 0
+	ACTIVE_SKILL_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 액티브
+
+	#region 패시브
+	// 10,000,000
+	PASSIVE_SKILL_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 패시브
+
+	[HideInInspector] MAX_VAL
+}
+
+/** 어빌리티 타입 */
+public enum EAbilityType {
+	NONE = -1,
+	STAT,
+	BUFF,
+	DEBUFF,
+	[HideInInspector] MAX_VAL
+}
+
+/** 어빌리티 종류 */
+public enum EAbilityKinds {
+	NONE = -1,
+
+	#region 스탯
+	// 0
+	STAT_ABILITY_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 스탯
+
+	#region 버프
+	// 10,000,000
+	BUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 버프
+
+	#region 디버프
+	// 20,000,000
+	DEBUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 디버프
+
 	[HideInInspector] MAX_VAL
 }
 
