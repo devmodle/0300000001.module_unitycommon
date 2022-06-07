@@ -342,11 +342,7 @@ public static partial class Func {
 	public static void ShowRewardAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback) {
 		// 보상 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsPlatform)) {
-#if UNITY_EDITOR
-			CIndicatorManager.Inst.Show(false, a_eAdsPlatform != EAdsPlatform.ADMOB);
-#else
 			CIndicatorManager.Inst.Show();
-#endif			// #if UNITY_EDITOR
 
 			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => {
 				Func.m_bIsWatchRewardAds = false;
@@ -369,11 +365,7 @@ public static partial class Func {
 	public static void ShowFullscreenAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback) {
 		// 전면 광고 출력이 가능 할 경우
 		if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsPlatform)) {
-#if UNITY_EDITOR
-			CIndicatorManager.Inst.Show(false, a_eAdsPlatform != EAdsPlatform.ADMOB);
-#else
 			CIndicatorManager.Inst.Show();
-#endif			// #if UNITY_EDITOR
 
 			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => {
 				CIndicatorManager.Inst.Close();

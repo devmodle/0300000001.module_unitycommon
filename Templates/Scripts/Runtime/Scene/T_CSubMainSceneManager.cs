@@ -41,11 +41,7 @@ namespace MainScene {
 		[SerializeField] private STTestUIs m_stTestUIs;
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		#endregion			// 변수
-
-		#region 프로퍼티
-		public override bool IsIgnoreOverlayScene => false;
-		#endregion			// 프로퍼티
-
+		
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
 		public int GetNumberOfCells(EnhancedScroller a_oSender) {

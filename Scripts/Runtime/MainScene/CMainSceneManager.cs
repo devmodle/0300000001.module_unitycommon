@@ -26,8 +26,8 @@ namespace MainScene {
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public override bool IsRealtimeFadeInAni => true;
-		public override bool IsRealtimeFadeOutAni => true;
+		public override bool IsIgnoreTestUIs => false;
+		public override bool IsIgnoreOverlayScene => false;
 		
 		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
 		protected TMP_Text VerText => m_oTextDict[EKey.VER_TEXT];

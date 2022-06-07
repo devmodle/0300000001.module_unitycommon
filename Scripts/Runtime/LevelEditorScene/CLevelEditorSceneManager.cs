@@ -45,9 +45,6 @@ namespace LevelEditorScene {
 		public override bool IsIgnoreBlindV => true;
 		public override bool IsIgnoreBlindH => true;
 
-		public override bool IsRealtimeFadeInAni => true;
-		public override bool IsRealtimeFadeOutAni => true;
-
 		public override float ScreenWidth => KCDefine.B_PORTRAIT_SCREEN_WIDTH;
 		public override float ScreenHeight => KCDefine.B_PORTRAIT_SCREEN_HEIGHT;
 		

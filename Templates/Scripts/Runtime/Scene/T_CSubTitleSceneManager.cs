@@ -26,6 +26,7 @@ namespace TitleScene {
 		#endregion			// 변수
 
 		#region 프로퍼티
+		public override bool IsIgnoreTestUIs => !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene;
 		public override bool IsIgnoreOverlayScene => !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene;
 		#endregion			// 프로퍼티
 

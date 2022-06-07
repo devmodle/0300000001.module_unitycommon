@@ -202,10 +202,6 @@ public static partial class KEditorDefine {
     	["com.unity.postprocessing"] = "3.2.2",
 #endif			// #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 
-#if SKELETON_ANI_2D_ENABLE || SKELETON_ANI_2D_MODULE_ENABLE
-		["com.unity.2d.psdimporter"] = "6.0.3",
-#endif			// #if SKELETON_ANI_2D_ENABLE || SKELETON_ANI_2D_MODULE_ENABLE
-
 #if ADS_ENABLE || ADS_MODULE_ENABLE
 		["module.unitycommonads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads_client.git#2.4.5",
 #endif			// #if ADS_ENABLE || ADS_MODULE_ENABLE

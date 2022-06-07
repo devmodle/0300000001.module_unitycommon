@@ -80,11 +80,7 @@ namespace GameScene {
 		/** =====> 객체 <===== */
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
 		#endregion			// 변수
-
-		#region 프로퍼티
-		public override bool IsIgnoreOverlayScene => false;
-		#endregion			// 프로퍼티
-
+		
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {

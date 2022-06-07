@@ -26,9 +26,6 @@ namespace TitleScene {
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public override bool IsRealtimeFadeInAni => true;
-		public override bool IsRealtimeFadeOutAni => true;
-		
 		public override string SceneName => KCDefine.B_SCENE_N_TITLE;
 		protected TMP_Text VerText => m_oTextDict[EKey.VER_TEXT];
 		#endregion			// 프로퍼티

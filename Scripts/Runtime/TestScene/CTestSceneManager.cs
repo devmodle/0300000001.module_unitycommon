@@ -21,6 +21,9 @@ namespace TestScene {
 		#endregion			// 변수
 
 		#region 프로퍼티
+		public override bool IsIgnoreTestUIs => false;
+		public override bool IsIgnoreOverlayScene => false;
+
 		public override string SceneName => KCDefine.B_SCENE_N_TEST;
 		#endregion			// 프로퍼티
 
