@@ -9,10 +9,13 @@ using UnityEngine.UI;
 [System.Serializable]
 public struct STAbilityInfo {
 	public STDescInfo m_stDescInfo;
+	public double m_dblVal;
 
 	public EAbilityKinds m_eAbilityKinds;
 	public EAbilityKinds m_ePrevAbilityKinds;
 	public EAbilityKinds m_eNextAbilityKinds;
+
+	public List<EAbilityKinds> m_oExtraAbilityKindsList;
 
 	#region 프로퍼티
 	public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
@@ -23,10 +26,18 @@ public struct STAbilityInfo {
 	/** 생성자 */
 	public STAbilityInfo(SimpleJSON.JSONNode a_oAbilityInfo) {
 		m_stDescInfo = new STDescInfo(a_oAbilityInfo);
+		m_dblVal = double.TryParse(a_oAbilityInfo[KCDefine.U_KEY_VAL], out double dblVal) ? dblVal : KCDefine.B_VAL_0_DBL;
 
 		m_eAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
 		m_ePrevAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
 		m_eNextAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
+
+		m_oExtraAbilityKindsList = new List<EAbilityKinds>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_KINDS; ++i) {
+			string oExtraAbilityKindsKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oExtraAbilityKindsList.Add(a_oAbilityInfo[oExtraAbilityKindsKey].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[oExtraAbilityKindsKey].AsInt : EAbilityKinds.NONE);
+		}
 	}
 	#endregion			// 함수
 }
@@ -42,6 +53,9 @@ public partial class CAbilityInfoTable : CScriptableObj<CAbilityInfoTable> {
 
 	[Header("=====> Debuff Ability Info <=====")]
 	[SerializeField] private List<STAbilityInfo> m_oDebuffAbilityInfoList = new List<STAbilityInfo>();
+
+	[Header("=====> Upgrade Ability Info <=====")]
+	[SerializeField] private List<STAbilityInfo> m_oUpgradeAbilityInfoList = new List<STAbilityInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -66,6 +80,7 @@ public partial class CAbilityInfoTable : CScriptableObj<CAbilityInfoTable> {
 		var oAbilityInfoList = new List<STAbilityInfo>(m_oStatAbilityInfoList);
 		oAbilityInfoList.ExAddVals(m_oBuffAbilityInfoList);
 		oAbilityInfoList.ExAddVals(m_oDebuffAbilityInfoList);
+		oAbilityInfoList.ExAddVals(m_oUpgradeAbilityInfoList);
 
 		for(int i = 0; i < oAbilityInfoList.Count; ++i) {
 			this.AbilityInfoDict.TryAdd(oAbilityInfoList[i].m_eAbilityKinds, oAbilityInfoList[i]);
@@ -112,7 +127,7 @@ public partial class CAbilityInfoTable : CScriptableObj<CAbilityInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oAbilityInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_STAT], oJSONNode[KCDefine.U_KEY_BUFF], oJSONNode[KCDefine.U_KEY_DEBUFF]
+			oJSONNode[KCDefine.U_KEY_STAT], oJSONNode[KCDefine.U_KEY_BUFF], oJSONNode[KCDefine.U_KEY_DEBUFF], oJSONNode[KCDefine.U_KEY_UPGRADE]
 		};
 
 		for(int i = 0; i < oAbilityInfosList.Count; ++i) {

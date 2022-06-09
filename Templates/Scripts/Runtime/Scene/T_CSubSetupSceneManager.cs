@@ -25,17 +25,21 @@ namespace SetupScene {
 			
 			// 테이블을 로드한다
 			CLevelInfoTable.Inst.LoadLevelInfos();
+
 			CItemInfoTable.Inst.LoadItemInfos();
-			CItemSaleInfoTable.Inst.LoadItemSaleInfos();
-			CProductSaleInfoTable.Inst.LoadProductSaleInfos();
 			CMissionInfoTable.Inst.LoadMissionInfos();
 			CRewardInfoTable.Inst.LoadRewardInfos();
 			CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 			CTutorialInfoTable.Inst.LoadTutorialInfos();
+
 			CFXInfoTable.Inst.LoadFXInfos();
 			CSkillInfoTable.Inst.LoadSkillInfos();
 			CObjInfoTable.Inst.LoadObjInfos();
 			CResInfoTable.Inst.LoadResInfos();
+
+			CItemSaleInfoTable.Inst.LoadItemSaleInfos();
+			CProductSaleInfoTable.Inst.LoadProductSaleInfos();
+			CSkillSaleInfoTable.Inst.LoadSkillSaleInfos();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 			// 공용 앱 정보를 설정한다 {

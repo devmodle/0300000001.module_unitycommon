@@ -32,7 +32,7 @@ public struct STObjInfo {
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
 
 		m_eObjResKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_RES_KINDS].ExIsValid() ? (EResKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_RES_KINDS].AsInt : EResKinds.NONE;
-		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Z].AsFloat);
+		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_FLT);
 	}
 	#endregion			// 함수
 }
@@ -48,6 +48,12 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 
 	[Header("=====> Overlay Obj Info <=====")]
 	[SerializeField] private List<STObjInfo> m_oOverlayObjInfoList = new List<STObjInfo>();
+
+	[Header("=====> Playable Obj Info <=====")]
+	[SerializeField] private List<STObjInfo> m_oPlayableObjInfoList = new List<STObjInfo>();
+
+	[Header("=====> Non Playable Obj Info <=====")]
+	[SerializeField] private List<STObjInfo> m_oNonPlayableObjInfoList = new List<STObjInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -72,6 +78,8 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 		var oObjInfoList = new List<STObjInfo>(m_oBGObjInfoList);
 		oObjInfoList.AddRange(m_oNormObjInfoList);
 		oObjInfoList.AddRange(m_oOverlayObjInfoList);
+		oObjInfoList.AddRange(m_oPlayableObjInfoList);
+		oObjInfoList.AddRange(m_oNonPlayableObjInfoList);
 
 		for(int i = 0; i < oObjInfoList.Count; ++i) {
 			this.ObjInfoDict.TryAdd(oObjInfoList[i].m_eObjKinds, oObjInfoList[i]);
@@ -118,7 +126,7 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oObjInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_BG], oJSONNode[KCDefine.U_KEY_NORM], oJSONNode[KCDefine.U_KEY_OVERLAY]
+			oJSONNode[KCDefine.U_KEY_BG], oJSONNode[KCDefine.U_KEY_NORM], oJSONNode[KCDefine.U_KEY_OVERLAY], oJSONNode[KCDefine.U_KEY_PLAYABLE], oJSONNode[KCDefine.U_KEY_NON_PLAYABLE]
 		};
 
 		for(int i = 0; i < oObjInfosList.Count; ++i) {

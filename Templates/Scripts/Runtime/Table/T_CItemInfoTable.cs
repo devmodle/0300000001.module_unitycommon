@@ -14,6 +14,9 @@ public struct STItemInfo {
 	public EItemKinds m_ePrevItemKinds;
 	public EItemKinds m_eNextItemKinds;
 
+	List<ESkillKinds> m_oSkillKindsList;
+	List<STAbilityValInfo> m_oAbilityValInfoList;
+
 	#region 프로퍼티
 	public EItemType ItemType => (EItemType)((int)m_eItemKinds).ExKindsToType();
 	public EItemKinds BaseItemKinds => (EItemKinds)((int)m_eItemKinds).ExKindsToSubKindsType();
@@ -27,6 +30,23 @@ public struct STItemInfo {
 		m_eItemKinds = a_oItemInfo[KCDefine.U_KEY_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_ePrevItemKinds = a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_eNextItemKinds = a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].AsInt : EItemKinds.NONE;
+
+		m_oSkillKindsList = new List<ESkillKinds>();
+		m_oAbilityValInfoList = new List<STAbilityValInfo>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_SKILL_KINDS; ++i) {
+			string oSkillKindsKey = string.Format(KCDefine.U_KEY_FMT_SKILL_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oSkillKindsList.Add(a_oItemInfo[oSkillKindsKey].ExIsValid() ? (ESkillKinds)a_oItemInfo[oSkillKindsKey].AsInt : ESkillKinds.NONE);
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
+			string oAbilityLVKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_LV, i + KCDefine.B_VAL_1_INT);
+			string oAbilityKindsKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_KINDS, i + KCDefine.B_VAL_1_INT);
+
+			m_oAbilityValInfoList.Add(new STAbilityValInfo() {
+				m_nLV = long.TryParse(a_oItemInfo[oAbilityLVKey], out long nLV) ? nLV : KCDefine.B_VAL_0_LONG, m_eAbilityKinds = a_oItemInfo[oAbilityKindsKey].ExIsValid() ? (EAbilityKinds)a_oItemInfo[oAbilityKindsKey].AsInt : EAbilityKinds.NONE
+			});
+		}
 	}
 	#endregion			// 함수
 }
@@ -34,8 +54,23 @@ public struct STItemInfo {
 /** 아이템 정보 테이블 */
 public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	#region 변수
-	[Header("=====> Item Info <=====")]
-	[SerializeField] private List<STItemInfo> m_oItemInfoList = new List<STItemInfo>();
+	[Header("=====> Goods Item Info <=====")]
+	[SerializeField] private List<STItemInfo> m_oGoodsItemInfoList = new List<STItemInfo>();
+
+	[Header("=====> Consumable Item Info <=====")]
+	[SerializeField] private List<STItemInfo> m_oConsumableItemInfoList = new List<STItemInfo>();
+
+	[Header("=====> Non Consumable Item Info <=====")]
+	[SerializeField] private List<STItemInfo> m_oNonConsumableItemInfoList = new List<STItemInfo>();
+
+	[Header("=====> Weapon Item Info <=====")]
+	[SerializeField] private List<STItemInfo> m_oWeaponItemInfoList = new List<STItemInfo>();
+
+	[Header("=====> Armor Item Info <=====")]
+	[SerializeField] private List<STItemInfo> m_oArmorItemInfoList = new List<STItemInfo>();
+
+	[Header("=====> Accessory Item Info <=====")]
+	[SerializeField] private List<STItemInfo> m_oAccessoryItemInfoList = new List<STItemInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -56,7 +91,13 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		var oItemInfoList = new List<STItemInfo>(m_oItemInfoList);
+
+		var oItemInfoList = new List<STItemInfo>(m_oGoodsItemInfoList);
+		oItemInfoList.ExAddVals(m_oConsumableItemInfoList);
+		oItemInfoList.ExAddVals(m_oNonConsumableItemInfoList);
+		oItemInfoList.ExAddVals(m_oWeaponItemInfoList);
+		oItemInfoList.ExAddVals(m_oArmorItemInfoList);
+		oItemInfoList.ExAddVals(m_oAccessoryItemInfoList);
 
 		for(int i = 0; i < oItemInfoList.Count; ++i) {
 			this.ItemInfoDict.TryAdd(oItemInfoList[i].m_eItemKinds, oItemInfoList[i]);
@@ -103,7 +144,7 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oItemInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA]
+			oJSONNode[KCDefine.U_KEY_GOODS], oJSONNode[KCDefine.U_KEY_CONSUMABLE], oJSONNode[KCDefine.U_KEY_NON_CONSUMABLE], oJSONNode[KCDefine.U_KEY_WEAPON], oJSONNode[KCDefine.U_KEY_ARMOR], oJSONNode[KCDefine.U_KEY_ACCESSORY]
 		};
 
 		for(int i = 0; i < oItemInfosList.Count; ++i) {

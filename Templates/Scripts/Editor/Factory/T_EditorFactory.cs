@@ -21,18 +21,6 @@ public static partial class EditorFactory {
 		CEditorFactory.CreateScriptableObj<CItemInfoTable>(KCEditorDefine.B_ASSET_P_ITEM_INFO_TABLE);
 	}
 
-	/** 아이템 판매 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ItemSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateItemSaleInfoTable() {
-		CEditorFactory.CreateScriptableObj<CItemSaleInfoTable>(KCEditorDefine.B_ASSET_P_ITEM_SALE_INFO_TABLE);
-	}
-
-	/** 상품 판매 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ProductSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateProductSaleInfoTable() {
-		CEditorFactory.CreateScriptableObj<CProductSaleInfoTable>(KCEditorDefine.B_ASSET_P_PRODUCT_SALE_INFO_TABLE);
-	}
-
 	/** 미션 정보 테이블을 생성한다 */
 	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "MissionInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateMissionInfoTable() {
@@ -85,6 +73,24 @@ public static partial class EditorFactory {
 	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ResInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateResInfoTable() {
 		CEditorFactory.CreateScriptableObj<CResInfoTable>(KCEditorDefine.B_ASSET_P_RES_INFO_TABLE);
+	}
+
+	/** 아이템 판매 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ItemSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateItemSaleInfoTable() {
+		CEditorFactory.CreateScriptableObj<CItemSaleInfoTable>(KCEditorDefine.B_ASSET_P_ITEM_SALE_INFO_TABLE);
+	}
+
+	/** 상품 판매 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ProductSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateProductSaleInfoTable() {
+		CEditorFactory.CreateScriptableObj<CProductSaleInfoTable>(KCEditorDefine.B_ASSET_P_PRODUCT_SALE_INFO_TABLE);
+	}
+
+	/** 스킬 판매 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "SkillSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateSkillSaleInfoTable() {
+		CEditorFactory.CreateScriptableObj<CSkillSaleInfoTable>(KCEditorDefine.B_ASSET_P_SKILL_SALE_INFO_TABLE);
 	}
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

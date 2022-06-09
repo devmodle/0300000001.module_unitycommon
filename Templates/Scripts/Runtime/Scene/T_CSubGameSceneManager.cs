@@ -387,7 +387,7 @@ namespace GameScene {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 					bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(nNextID, out CLevelInfo oNextLevelInfo, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID) && nNextID <= nNumLevelClearInfos;
 #else
-					bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelInfo(nNextID, out STLevelInfo stNextLevelInfo, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID) && nNextID <= nNumLevelClearInfos;
+					bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(nNextID, out STEpisodeInfo stNextLevelEpisodeInfo, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID) && nNextID <= nNumLevelClearInfos;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 					// 다음 레벨이 존재 할 경우
@@ -395,7 +395,7 @@ namespace GameScene {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 						CGameInfoStorage.Inst.SetupPlayLevelInfo(oNextLevelInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, oNextLevelInfo.m_stIDInfo.m_nStageID, oNextLevelInfo.m_stIDInfo.m_nChapterID);
 #else
-						CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelInfo.m_nStageID, stNextLevelInfo.m_nChapterID);
+						CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelEpisodeInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelEpisodeInfo.m_stIDInfo.m_nStageID, stNextLevelEpisodeInfo.m_stIDInfo.m_nChapterID);
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 #if ADS_MODULE_ENABLE

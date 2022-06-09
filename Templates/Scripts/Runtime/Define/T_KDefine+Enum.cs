@@ -52,6 +52,9 @@ public enum EItemType {
 	GOODS,
 	CONSUMABLE,
 	NON_CONSUMABLE,
+	WEAPON,
+	ARMOR,
+	ACCESSORY,
 	[HideInInspector] MAX_VAL
 }
 
@@ -80,6 +83,21 @@ public enum EItemKinds {
 	NON_CONSUMABLE_REMOVE_ADS = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 비소모
 
+	#region 무기
+	// 30,000,000
+	WEAPON_ITEM_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 무기
+
+	#region 방어구
+	// 40,000,000
+	ARMOR_ITEM_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 방어구
+
+	#region 악세서리
+	// 50,000,000
+	ACCESSORY_ITEM_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 악세서리
+
 	[HideInInspector] MAX_VAL
 }
 
@@ -89,6 +107,9 @@ public enum EItemSaleType {
 	GOODS,
 	CONSUMABLE,
 	NON_CONSUMABLE,
+	WEAPON,
+	ARMOR,
+	ACCESSORY,
 	[HideInInspector] MAX_VAL
 }
 
@@ -116,6 +137,21 @@ public enum EItemSaleKinds {
 	// 20,000,000
 	NON_CONSUMABLE_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 비소모
+
+	#region 무기
+	// 30,000,000
+	WEAPON_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 무기
+
+	#region 방어구
+	// 40,000,000
+	ARMOR_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 방어구
+
+	#region 악세서리
+	// 50,000,000
+	ACCESSORY_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 악세서리
 
 	[HideInInspector] MAX_VAL
 }
@@ -150,6 +186,31 @@ public enum EProductSaleKinds {
 	// 10,010,000
 	SINGLE_REMOVE_ADS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 단일
+
+	[HideInInspector] MAX_VAL
+}
+
+/** 스킬 판매 타입 */
+public enum ESkillSaleType {
+	NONE = -1,
+	ACTIVE,
+	PASSIVE,
+	[HideInInspector] MAX_VAL
+}
+
+/** 스킬 판매 종류 */
+public enum ESkillSaleKinds {
+	NONE = -1,
+
+	#region 액티브
+	// 0
+	ACTIVE_SKILL_SALE_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 액티브
+
+	#region 패시브
+	// 10,000,000
+	PASSIVE_SKILL_SALE_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 패시브
 
 	[HideInInspector] MAX_VAL
 }
@@ -253,65 +314,42 @@ public enum ERewardAcquirePopupType {
 	[HideInInspector] MAX_VAL
 }
 
-/** 레벨 타입 */
-public enum ELevelType {
+/** 에피소드 타입 */
+public enum EEpisodeType {
 	NONE = -1,
-	NORM,
-	TUTORIAL,
+	LEVEL,
+	STAGE,
+	CHAPTER,
 	[HideInInspector] MAX_VAL
 }
 
-/** 레벨 종류 */
-public enum ELevelKinds {
+/** 에피소드 종류 */
+public enum EEpisodeKinds {
 	NONE = -1,
 
-	#region 일반
+	#region 레벨
 	// 0
-	NORM_LEVEL_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 일반
+	LEVEL_NORM = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	#region 튜토리얼
+	// 10,000
+	LEVEL_TUTORIAL = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 레벨
+
+	#region 스테이지
 	// 10,000,000
-	TUTORIAL_LEVEL_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 튜토리얼
+	STAGE_NORM = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	[HideInInspector] MAX_VAL
-}
+	// 10,010,000
+	STAGE_TUTORIAL = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 스테이지
 
-/** 스테이지 타입 */
-public enum EStageType {
-	NONE = -1,
-	NORM,
-	[HideInInspector] MAX_VAL
-}
+	#region 챕터
+	// 20,000,000
+	CHAPTER_NORM = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-/** 스테이지 타입 */
-public enum EStageKinds {
-	NONE = -1,
-
-	#region 일반
-	// 0
-	NORM_STAGE_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 일반
-
-	[HideInInspector] MAX_VAL
-}
-
-/** 챕터 타입 */
-public enum EChapterType {
-	NONE = -1,
-	NORM,
-	[HideInInspector] MAX_VAL
-}
-
-/** 챕터 타입 */
-public enum EChapterKinds {
-	NONE = -1,
-
-	#region 일반
-	// 0
-	NORM_CHAPTER_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 일반
+	// 20,010,000
+	CHAPTER_TUTORIAL = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 챕터
 
 	[HideInInspector] MAX_VAL
 }
@@ -369,12 +407,31 @@ public enum ETargetKinds {
 /** 효과 타입 */
 public enum EFXType {
 	NONE = -1,
+	HIT,
+	BUFF,
+	DEBUFF,
 	[HideInInspector] MAX_VAL
 }
 
 /** 효과 종류 */
 public enum EFXKinds {
 	NONE = -1,
+
+	#region 타격
+	// 0
+	HIT_FX_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 타격
+
+	#region 버프
+	// 10,000,000
+	BUFF_FX_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 버프
+
+	#region 디버프
+	// 20,000,000
+	DEBUFF_FX_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 디버프
+
 	[HideInInspector] MAX_VAL
 }
 
@@ -409,6 +466,7 @@ public enum EAbilityType {
 	STAT,
 	BUFF,
 	DEBUFF,
+	UPGRADE,
 	[HideInInspector] MAX_VAL
 }
 
@@ -431,6 +489,11 @@ public enum EAbilityKinds {
 	DEBUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 디버프
 
+	#region 업그레이드
+	// 30,000,000
+	UPGRADE_ABILITY_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 업그레이드
+
 	[HideInInspector] MAX_VAL
 }
 
@@ -440,6 +503,8 @@ public enum EObjType {
 	BG,
 	NORM,
 	OVERLAY,
+	PLAYABLE,
+	NON_PLAYABLE,
 	[HideInInspector] MAX_VAL
 }
 
@@ -461,6 +526,16 @@ public enum EObjKinds {
 	// 20,000,000
 	OVERLAY_OBJ_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 중첩
+
+	#region 플레이 가능
+	// 30,000,000
+	PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 플레이 가능
+
+	#region 플레이 불가능
+	// 40,000,000
+	NON_PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 플레이 불가능
 
 	[HideInInspector] MAX_VAL
 }

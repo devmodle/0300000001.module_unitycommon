@@ -51,7 +51,7 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 		
 		// 챕터 정보가 존재 할 경우
 		if(a_stIDInfo.m_nChapterID < CLevelInfoTable.Inst.NumChapterInfos) {
-			CEpisodeInfoTable.Inst.TryGetChapterInfo(a_stIDInfo.m_nChapterID, out STChapterInfo stChapterInfo);
+			CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_stIDInfo.m_nChapterID, out STEpisodeInfo stChapterEpisodeInfo);
 
 			// 텍스트를 갱신한다
 			var oChapterText = a_oScrollerCell.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_CHAPTER_TEXT);

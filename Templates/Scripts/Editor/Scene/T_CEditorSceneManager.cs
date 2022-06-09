@@ -76,17 +76,20 @@ public static partial class CEditorSceneManager {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 				EditorFactory.CreateItemInfoTable();
-				EditorFactory.CreateItemSaleInfoTable();
-				EditorFactory.CreateProductSaleInfoTable();
 				EditorFactory.CreateMissionInfoTable();
 				EditorFactory.CreateRewardInfoTable();
 				EditorFactory.CreateEpisodeInfoTable();
 				EditorFactory.CreateTutorialInfoTable();
+
 				EditorFactory.CreateFXInfoTable();
 				EditorFactory.CreateSkillInfoTable();
 				EditorFactory.CreateAbilityInfoTable();
 				EditorFactory.CreateObjInfoTable();
 				EditorFactory.CreateResInfoTable();
+
+				EditorFactory.CreateItemSaleInfoTable();
+				EditorFactory.CreateProductSaleInfoTable();
+				EditorFactory.CreateSkillSaleInfoTable();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			}
 

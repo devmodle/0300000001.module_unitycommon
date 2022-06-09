@@ -53,7 +53,7 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 
 		// 레벨 정보가 존재 할 경우
 		if(a_stIDInfo.m_nID < CLevelInfoTable.Inst.GetNumLevelInfos(a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID)) {
-			CEpisodeInfoTable.Inst.TryGetLevelInfo(a_stIDInfo.m_nID, out STLevelInfo stLevelInfo, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
+			CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_stIDInfo.m_nID, out STEpisodeInfo stLevelEpisodeInfo, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID);
 
 			// 텍스트를 갱신한다
 			var oLevelText = a_oScrollerCell.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LEVEL_TEXT);

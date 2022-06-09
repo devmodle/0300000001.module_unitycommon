@@ -478,9 +478,9 @@ namespace LevelEditorScene {
 			if(a_bIsOK) {
 				switch(m_eSelTable) {
 					case ETable.LOCAL: {
-						CEpisodeInfoTable.Inst.LevelInfoDict.Clear();
-						CEpisodeInfoTable.Inst.StageInfoDict.Clear();
-						CEpisodeInfoTable.Inst.ChapterInfoDict.Clear();
+						CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.Clear();
+						CEpisodeInfoTable.Inst.StageEpisodeInfoDict.Clear();
+						CEpisodeInfoTable.Inst.ChapterEpisodeInfoDict.Clear();
 
 						CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 						this.UpdateUIsState();

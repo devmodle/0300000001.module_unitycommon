@@ -21,15 +21,10 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EStageKinds a_eSender) {
-		return a_eSender > EStageKinds.NONE && a_eSender < EStageKinds.MAX_VAL;
+	public static bool ExIsValid(this EEpisodeKinds a_eSender) {
+		return a_eSender > EEpisodeKinds.NONE && a_eSender < EEpisodeKinds.MAX_VAL;
 	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EChapterKinds a_eSender) {
-		return a_eSender > EChapterKinds.NONE && a_eSender < EChapterKinds.MAX_VAL;
-	}
-
+	
 	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EPriceType a_eSender) {
 		return a_eSender > EPriceType.NONE && a_eSender < EPriceType.MAX_VAL;

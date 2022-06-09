@@ -53,7 +53,7 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 		
 		// 스테이지 정보가 존재 할 경우
 		if(a_stIDInfo.m_nStageID < CLevelInfoTable.Inst.GetNumStageInfos(a_stIDInfo.m_nChapterID)) {
-			CEpisodeInfoTable.Inst.TryGetStageInfo(a_stIDInfo.m_nStageID, out STStageInfo stStageInfo, a_stIDInfo.m_nChapterID);
+			CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_stIDInfo.m_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_stIDInfo.m_nChapterID);
 
 			// 텍스트를 갱신한다
 			var oStageText = a_oScrollerCell.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_STAGE_TEXT);

@@ -15,16 +15,12 @@ public struct STProductSaleInfo {
 	public STDescInfo m_stDescInfo;
 
 	public int m_nID;
-	public string m_oPrice;
-	public EPriceKinds m_ePriceKinds;
 	public EProductSaleKinds m_eProductSaleKinds;
 
+	public List<STPriceInfo> m_oPriceInfoList;
 	public List<STNumItemsInfo> m_oNumItemsInfoList;
 
 	#region 프로퍼티
-	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
-	public double RealPrice => double.TryParse(m_oPrice, out double dblPrice) ? dblPrice : KCDefine.B_VAL_0_DBL;
-
 	public EProductSaleType ProductSaleType => (EProductSaleType)((int)m_eProductSaleKinds).ExKindsToType();
 	public EProductSaleKinds BaseProductSaleKinds => (EProductSaleKinds)((int)m_eProductSaleKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
@@ -35,18 +31,26 @@ public struct STProductSaleInfo {
 		m_stDescInfo = new STDescInfo(a_oProductSaleInfo);
 
 		m_nID = a_oProductSaleInfo[KCDefine.U_KEY_ID].AsInt;
-		m_oPrice = a_oProductSaleInfo[KCDefine.U_KEY_PRICE];
-		m_ePriceKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRICE_KINDS].ExIsValid() ? (EPriceKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRICE_KINDS].AsInt : EPriceKinds.NONE;
 		m_eProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
 
+		m_oPriceInfoList = new List<STPriceInfo>();
 		m_oNumItemsInfoList = new List<STNumItemsInfo>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_PRICE_INFOS; ++i) {
+			string oPriceKey = string.Format(KCDefine.U_KEY_FMT_PRICE, i + KCDefine.B_VAL_1_INT);
+			string oPriceKindsKey = string.Format(KCDefine.U_KEY_FMT_PRICE_KINDS, i + KCDefine.B_VAL_1_INT);
+
+			m_oPriceInfoList.Add(new STPriceInfo() {
+				m_oPrice = a_oProductSaleInfo[oPriceKey].ExIsValid() ? a_oProductSaleInfo[oPriceKey] : KCDefine.B_STR_0_INT, m_ePriceKinds = a_oProductSaleInfo[oPriceKindsKey].ExIsValid() ? (EPriceKinds)a_oProductSaleInfo[oPriceKindsKey].AsInt : EPriceKinds.NONE
+			});
+		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ITEMS_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
 			m_oNumItemsInfoList.Add(new STNumItemsInfo() {
-				m_nNumItems = a_oProductSaleInfo[oNumItemsKey].AsInt, m_eItemKinds = a_oProductSaleInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oProductSaleInfo[oItemKindsKey].AsInt : EItemKinds.NONE
+				m_nNumItems = long.TryParse(a_oProductSaleInfo[oNumItemsKey], out long nNumItems) ? nNumItems : KCDefine.B_VAL_0_LONG, m_eItemKinds = a_oProductSaleInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oProductSaleInfo[oItemKindsKey].AsInt : EItemKinds.NONE
 			});
 		}
 	}
@@ -90,11 +94,6 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 		}
 	}
 
-	/** 아이템 개수 정보 포함 여부를 검사한다 */
-	public bool IsContainsNumItemsInfo(EProductSaleKinds a_eProductSaleKinds, EItemKinds a_eItemKinds) {
-		return this.TryGetNumItemsInfo(a_eProductSaleKinds, a_eItemKinds, out STNumItemsInfo stNumItemsInfo);
-	}
-
 	/** 상품 판매 정보를 반환한다 */
 	public STProductSaleInfo GetProductSaleInfo(int a_nID) {
 		bool bIsValid = this.TryGetProductSaleInfo(a_nID, out STProductSaleInfo stProductSaleInfo);
@@ -109,6 +108,14 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 		CAccess.Assert(bIsValid);
 
 		return stProductSaleInfo;
+	}
+
+	/** 가격 정보를 반환한다 */
+	public STPriceInfo GetPriceInfo(EProductSaleKinds a_eProductSaleKinds, EPriceKinds a_ePriceKinds) {
+		bool bIsValid = this.TryGetPriceInfo(a_eProductSaleKinds, a_ePriceKinds, out STPriceInfo stPriceInfo);
+		CAccess.Assert(bIsValid);
+
+		return stPriceInfo;
 	}
 
 	/** 아이템 개수 정보를 반환한다 */
@@ -133,14 +140,22 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 		return this.ProductSaleInfoDict.ContainsKey(a_eProductSaleKinds);
 	}
 
+	/** 가격 정보를 반환한다 */
+	public bool TryGetPriceInfo(EProductSaleKinds a_eProductSaleKinds, EPriceKinds a_ePriceKinds, out STPriceInfo a_stOutPriceInfo) {
+		// 아이템 판매 정보가 존재 할 경우
+		if(this.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo)) {
+			return stProductSaleInfo.m_oPriceInfoList.ExTryGetPriceInfo(a_ePriceKinds, out a_stOutPriceInfo);
+		}
+
+		a_stOutPriceInfo = default(STPriceInfo);
+		return false;
+	}
+
 	/** 아이템 개수 정보를 반환한다 */
 	public bool TryGetNumItemsInfo(EProductSaleKinds a_eProductSaleKinds, EItemKinds a_eItemKinds, out STNumItemsInfo a_stOutNumItemsInfo) {
 		// 상품 판매 정보가 존재 할 경우
 		if(this.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo)) {
-			int nIdx = stProductSaleInfo.m_oNumItemsInfoList.FindIndex((a_stNumItemsInfo) => a_stNumItemsInfo.m_eItemKinds == a_eItemKinds);
-			a_stOutNumItemsInfo = stProductSaleInfo.m_oNumItemsInfoList.ExIsValidIdx(nIdx) ? stProductSaleInfo.m_oNumItemsInfoList[nIdx] : default(STNumItemsInfo);
-
-			return stProductSaleInfo.m_oNumItemsInfoList.ExIsValidIdx(nIdx);
+			return stProductSaleInfo.m_oNumItemsInfoList.ExTryGetNumItemsInfo(a_eItemKinds, out a_stOutNumItemsInfo);
 		}
 
 		a_stOutNumItemsInfo = default(STNumItemsInfo);

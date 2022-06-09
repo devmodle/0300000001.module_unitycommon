@@ -652,34 +652,37 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
 
 		a_oOutLevelIDList.Add(a_oLevelInfo.UniqueLevelID);
-		CEpisodeInfoTable.Inst.TryGetLevelInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STLevelInfo stLevelInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID);
+		CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STEpisodeInfo stLevelEpisodeInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID);
 
-		var stReplaceLevelInfo = new STLevelInfo() {
-			m_nID = a_oLevelInfo.m_stIDInfo.m_nID,
-			m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
-			m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID,
-			m_eLevelKinds = stLevelInfo.m_eLevelKinds,
+		var stReplaceLevelEpisodeInfo = new STEpisodeInfo() {
+			m_stIDInfo = new STIDInfo() {
+				m_nID = a_oLevelInfo.m_stIDInfo.m_nID,
+				m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
+				m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID
+			},
 
-			m_stEpisodeInfo = new STEpisodeInfo() {
-				m_stDescInfo = new STDescInfo() {
-					m_oName = stLevelInfo.m_stEpisodeInfo.m_stDescInfo.m_oName ?? string.Empty,
-					m_oDesc = stLevelInfo.m_stEpisodeInfo.m_stDescInfo.m_oDesc ?? string.Empty,
-				},
+			m_stDescInfo = new STDescInfo() {
+				m_oName = stLevelEpisodeInfo.m_stDescInfo.m_oName ?? string.Empty,
+				m_oDesc = stLevelEpisodeInfo.m_stDescInfo.m_oDesc ?? string.Empty
+			},
 
-				m_eDifficulty = stLevelInfo.m_stEpisodeInfo.m_eDifficulty,
-				m_eRewardKinds = stLevelInfo.m_stEpisodeInfo.m_eRewardKinds,
-				m_eTutorialKinds = stLevelInfo.m_stEpisodeInfo.m_eTutorialKinds,
+			m_nPrevID = (a_oLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT >= KCDefine.B_VAL_0_INT) ? a_oLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT,
+			m_nNextID = (a_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT <= KCDefine.U_MAX_NUM_LEVEL_INFOS - KCDefine.B_VAL_1_INT) ? a_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT,
 
-				m_oRecordList = new List<int>(),
-				m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(),
-				m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>()
-			}
+			m_eDifficulty = stLevelEpisodeInfo.m_eDifficulty,
+			m_eRewardKinds = stLevelEpisodeInfo.m_eRewardKinds,
+			m_eEpisodeKinds = stLevelEpisodeInfo.m_eEpisodeKinds,
+			m_eTutorialKinds = stLevelEpisodeInfo.m_eTutorialKinds,
+
+			m_oRecordList = new List<int>(),
+			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(),
+			m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>()
 		};
 
-		stLevelInfo.m_stEpisodeInfo.m_oNumTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_stEpisodeInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
-		stLevelInfo.m_stEpisodeInfo.m_oNumUnlockTargetsDict?.ExCopyTo(stReplaceLevelInfo.m_stEpisodeInfo.m_oNumUnlockTargetsDict, (a_nNumUnlockTargets) => a_nNumUnlockTargets);
+		stLevelEpisodeInfo.m_oNumTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
+		stLevelEpisodeInfo.m_oNumUnlockTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumUnlockTargetsDict, (a_nNumUnlockTargets) => a_nNumUnlockTargets);
 
-		CEpisodeInfoTable.Inst.LevelInfoDict.ExReplaceVal(a_oLevelInfo.UniqueLevelID, stReplaceLevelInfo);
+		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.UniqueLevelID, stReplaceLevelEpisodeInfo);
 
 #if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID), a_oLevelInfo, null, false, false);

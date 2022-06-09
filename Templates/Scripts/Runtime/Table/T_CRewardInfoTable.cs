@@ -35,7 +35,7 @@ public struct STRewardInfo {
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
 			m_oNumItemsInfoList.Add(new STNumItemsInfo() {
-				m_nNumItems = a_oRewardInfo[oNumItemsKey].AsInt, m_eItemKinds = a_oRewardInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt : EItemKinds.NONE
+				m_nNumItems = long.TryParse(a_oRewardInfo[oNumItemsKey], out long nNumItems) ? nNumItems : KCDefine.B_VAL_0_LONG, m_eItemKinds = a_oRewardInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt : EItemKinds.NONE
 			});
 		}
 	}

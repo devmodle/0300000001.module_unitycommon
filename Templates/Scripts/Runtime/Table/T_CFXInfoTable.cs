@@ -8,12 +8,12 @@ using UnityEngine.UI;
 /** 효과 정보 */
 [System.Serializable]
 public struct STFXInfo {
+	public STDescInfo m_stDescInfo;
 	public float m_fDelay;
 
 	public EFXKinds m_eFXKinds;
 	public EFXKinds m_ePrevFXKinds;
 	public EFXKinds m_eNextFXKinds;
-
 	public EResKinds m_eFXResKinds;
 
 	#region 프로퍼티
@@ -24,12 +24,12 @@ public struct STFXInfo {
 	#region 함수
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
-		m_fDelay = a_oFXInfo[KCDefine.U_KEY_DELAY].AsFloat;
+		m_stDescInfo = new STDescInfo(a_oFXInfo);
+		m_fDelay = a_oFXInfo[KCDefine.U_KEY_DELAY].ExIsValid() ? a_oFXInfo[KCDefine.U_KEY_DELAY].AsFloat : KCDefine.B_VAL_0_FLT;
 
 		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_eNextFXKinds = a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt : EFXKinds.NONE;
-
 		m_eFXResKinds = a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].ExIsValid() ? (EResKinds)a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].AsInt : EResKinds.NONE;
 	}
 	#endregion			// 함수
@@ -38,8 +38,14 @@ public struct STFXInfo {
 /** 효과 정보 테이블 */
 public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 	#region 변수
-	[Header("=====> FX Info <=====")]
-	[SerializeField] private List<STFXInfo> m_oFXInfoInfoList = new List<STFXInfo>();
+	[Header("=====> Hit FX Info <=====")]
+	[SerializeField] private List<STFXInfo> m_oHitFXInfoInfoList = new List<STFXInfo>();
+
+	[Header("=====> Buff FX Info <=====")]
+	[SerializeField] private List<STFXInfo> m_oBuffFXInfoInfoList = new List<STFXInfo>();
+
+	[Header("=====> Debuff FX Info <=====")]
+	[SerializeField] private List<STFXInfo> m_oDebuffFXInfoInfoList = new List<STFXInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -60,7 +66,10 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		var oFXInfoList = new List<STFXInfo>(m_oFXInfoInfoList);
+
+		var oFXInfoList = new List<STFXInfo>(m_oHitFXInfoInfoList);
+		oFXInfoList.ExAddVals(m_oBuffFXInfoInfoList);
+		oFXInfoList.ExAddVals(m_oDebuffFXInfoInfoList);
 
 		for(int i = 0; i < oFXInfoList.Count; ++i) {
 			this.FXInfoDict.TryAdd(oFXInfoList[i].m_eFXKinds, oFXInfoList[i]);
@@ -107,7 +116,7 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oFXInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.B_KEY_JSON_COMMON_DATA]
+			oJSONNode[KCDefine.U_KEY_HIT], oJSONNode[KCDefine.U_KEY_BUFF], oJSONNode[KCDefine.U_KEY_DEBUFF]
 		};
 
 		for(int i = 0; i < oFXInfosList.Count; ++i) {

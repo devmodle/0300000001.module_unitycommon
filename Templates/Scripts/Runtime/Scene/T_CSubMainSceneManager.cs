@@ -384,9 +384,9 @@ namespace MainScene {
 				CCommonUserInfoStorage.Inst.SaveUserInfo();
 
 				// 에피소드 정보 테이블을 리셋한다 {
-				CEpisodeInfoTable.Inst.LevelInfoDict.Clear();
-				CEpisodeInfoTable.Inst.StageInfoDict.Clear();
-				CEpisodeInfoTable.Inst.ChapterInfoDict.Clear();
+				CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.Clear();
+				CEpisodeInfoTable.Inst.StageEpisodeInfoDict.Clear();
+				CEpisodeInfoTable.Inst.ChapterEpisodeInfoDict.Clear();
 
 				CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 				// 에피소드 정보 테이블을 리셋한다 }
