@@ -76,6 +76,7 @@ public static partial class KEditorDefine {
 		[typeof(CItemSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CProductSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CSkillSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CObjSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
 		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,

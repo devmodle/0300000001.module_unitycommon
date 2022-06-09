@@ -14,7 +14,7 @@ public struct STPriceInfo {
 	public EPriceKinds m_ePriceKinds;
 
 	#region 프로퍼티
-	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
+	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_LONG;
 	public double RealPrice => double.TryParse(m_oPrice, out double dblPrice) ? dblPrice : KCDefine.B_VAL_0_DBL;
 	public EPriceType PriceType => (EPriceType)((int)m_ePriceKinds).ExKindsToType();
 	#endregion			// 프로퍼티

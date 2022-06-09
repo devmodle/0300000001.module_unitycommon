@@ -32,6 +32,7 @@ namespace InitScene {
 			CItemSaleInfoTable.Create(KCDefine.U_ASSET_P_G_ITEM_SALE_INFO_TABLE);
 			CProductSaleInfoTable.Create(KCDefine.U_ASSET_P_G_PRODUCT_SALE_INFO_TABLE);
 			CSkillSaleInfoTable.Create(KCDefine.U_ASSET_P_G_SKILL_SALE_INFO_TABLE);
+			CObjSaleInfoTable.Create(KCDefine.U_ASSET_P_G_OBJ_SALE_INFO_TABLE);
 			// 테이블을 생성한다 }
 			
 			// 저장소를 생성한다

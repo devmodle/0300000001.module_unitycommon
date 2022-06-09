@@ -40,6 +40,7 @@ namespace SetupScene {
 			CItemSaleInfoTable.Inst.LoadItemSaleInfos();
 			CProductSaleInfoTable.Inst.LoadProductSaleInfos();
 			CSkillSaleInfoTable.Inst.LoadSkillSaleInfos();
+			CObjSaleInfoTable.Inst.LoadObjSaleInfos();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 			// 공용 앱 정보를 설정한다 {

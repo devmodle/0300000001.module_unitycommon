@@ -9,7 +9,9 @@ using UnityEngine.UI;
 [System.Serializable]
 public struct STAbilityInfo {
 	public STDescInfo m_stDescInfo;
-	public double m_dblVal;
+
+	public string m_oVal;	
+	public string m_oExtraVal;
 
 	public EAbilityKinds m_eAbilityKinds;
 	public EAbilityKinds m_ePrevAbilityKinds;
@@ -18,6 +20,12 @@ public struct STAbilityInfo {
 	public List<EAbilityKinds> m_oExtraAbilityKindsList;
 
 	#region 프로퍼티
+	public long IntVal => long.TryParse(m_oVal, out long nVal) ? nVal : KCDefine.B_VAL_0_LONG;
+	public long IntExtraVal => long.TryParse(m_oExtraVal, out long nExtraVal) ? nExtraVal : KCDefine.B_VAL_0_LONG;
+
+	public double RealVal => double.TryParse(m_oVal, out double dblVal) ? dblVal : KCDefine.B_VAL_0_DBL;
+	public double RealExtraVal => double.TryParse(m_oExtraVal, out double dblExtraVal) ? dblExtraVal : KCDefine.B_VAL_0_DBL;
+
 	public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
 	public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
@@ -26,7 +34,9 @@ public struct STAbilityInfo {
 	/** 생성자 */
 	public STAbilityInfo(SimpleJSON.JSONNode a_oAbilityInfo) {
 		m_stDescInfo = new STDescInfo(a_oAbilityInfo);
-		m_dblVal = double.TryParse(a_oAbilityInfo[KCDefine.U_KEY_VAL], out double dblVal) ? dblVal : KCDefine.B_VAL_0_DBL;
+
+		m_oVal = a_oAbilityInfo[KCDefine.U_KEY_VAL].ExIsValid() ? a_oAbilityInfo[KCDefine.U_KEY_VAL] : KCDefine.B_STR_0_INT;
+		m_oExtraVal = a_oAbilityInfo[KCDefine.U_KEY_EXTRA_VAL].ExIsValid() ? a_oAbilityInfo[KCDefine.U_KEY_EXTRA_VAL] : KCDefine.B_STR_0_INT;
 
 		m_eAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
 		m_ePrevAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;

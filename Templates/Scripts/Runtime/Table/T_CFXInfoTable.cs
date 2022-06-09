@@ -9,12 +9,13 @@ using UnityEngine.UI;
 [System.Serializable]
 public struct STFXInfo {
 	public STDescInfo m_stDescInfo;
-	public float m_fDelay;
+	public STDurationInfo m_stDurationInfo;
 
 	public EFXKinds m_eFXKinds;
 	public EFXKinds m_ePrevFXKinds;
 	public EFXKinds m_eNextFXKinds;
-	public EResKinds m_eFXResKinds;
+
+	List<EResKinds> m_oResKindsList;
 
 	#region 프로퍼티
 	public EFXType FXType => (EFXType)((int)m_eFXKinds).ExKindsToType();
@@ -25,12 +26,18 @@ public struct STFXInfo {
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
 		m_stDescInfo = new STDescInfo(a_oFXInfo);
-		m_fDelay = a_oFXInfo[KCDefine.U_KEY_DELAY].ExIsValid() ? a_oFXInfo[KCDefine.U_KEY_DELAY].AsFloat : KCDefine.B_VAL_0_FLT;
+		m_stDurationInfo = new STDurationInfo(a_oFXInfo);
 
 		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_eNextFXKinds = a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt : EFXKinds.NONE;
-		m_eFXResKinds = a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].ExIsValid() ? (EResKinds)a_oFXInfo[KCDefine.U_KEY_FX_RES_KINDS].AsInt : EResKinds.NONE;
+
+		m_oResKindsList = new List<EResKinds>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
+			string oResKindsKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oResKindsList.Add(a_oFXInfo[oResKindsKey].ExIsValid() ? (EResKinds)a_oFXInfo[oResKindsKey].AsInt : EResKinds.NONE);
+		}
 	}
 	#endregion			// 함수
 }

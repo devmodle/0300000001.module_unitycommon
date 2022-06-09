@@ -92,6 +92,12 @@ public static partial class EditorFactory {
 	public static void CreateSkillSaleInfoTable() {
 		CEditorFactory.CreateScriptableObj<CSkillSaleInfoTable>(KCEditorDefine.B_ASSET_P_SKILL_SALE_INFO_TABLE);
 	}
+
+	/** 객체 판매 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ObjSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateObjSaleInfoTable() {
+		CEditorFactory.CreateScriptableObj<CObjSaleInfoTable>(KCEditorDefine.B_ASSET_P_OBJ_SALE_INFO_TABLE);
+	}
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수
 }

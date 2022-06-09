@@ -9,16 +9,14 @@ using UnityEngine.UI;
 [System.Serializable]
 public struct STSkillInfo {
 	public STDescInfo m_stDescInfo;
-
-	public float m_fDelay;
-	public float m_fDeltaTime;
-	public float m_fDuration;
+	public STDurationInfo m_stDurationInfo;
 
 	public ESkillKinds m_eSkillKinds;
 	public ESkillKinds m_ePrevSkillKinds;
 	public ESkillKinds m_eNextSkillKinds;
 
 	public List<EFXKinds> m_oFXKindsList;
+	public List<EResKinds> m_oResKindsList;
 	public List<STAbilityValInfo> m_oAbilityValInfoList;
 
 	#region 프로퍼티
@@ -30,21 +28,24 @@ public struct STSkillInfo {
 	/** 생성자 */
 	public STSkillInfo(SimpleJSON.JSONNode a_oSkillInfo) {
 		m_stDescInfo = new STDescInfo(a_oSkillInfo);
-		
-		m_fDelay = a_oSkillInfo[KCDefine.U_KEY_DELAY].ExIsValid() ? a_oSkillInfo[KCDefine.U_KEY_DELAY].AsFloat : KCDefine.B_VAL_0_FLT;
-		m_fDeltaTime = a_oSkillInfo[KCDefine.U_KEY_DELTA_TIME].ExIsValid() ? a_oSkillInfo[KCDefine.U_KEY_DELAY].AsFloat : KCDefine.B_VAL_0_FLT;
-		m_fDuration = a_oSkillInfo[KCDefine.U_KEY_DURATION].ExIsValid() ? a_oSkillInfo[KCDefine.U_KEY_DELAY].AsFloat : KCDefine.B_VAL_0_FLT;
+		m_stDurationInfo = new STDurationInfo(a_oSkillInfo);
 
 		m_eSkillKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_ePrevSkillKinds = a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_eNextSkillKinds = a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 
 		m_oFXKindsList = new List<EFXKinds>();
+		m_oResKindsList = new List<EResKinds>();
 		m_oAbilityValInfoList = new List<STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_FX_KINDS; ++i) {
 			string oFXKindsKey = string.Format(KCDefine.U_KEY_FMT_FX_KINDS, i + KCDefine.B_VAL_1_INT);
 			m_oFXKindsList.ExAddVal(a_oSkillInfo[oFXKindsKey].ExIsValid() ? (EFXKinds)a_oSkillInfo[oFXKindsKey].AsInt : EFXKinds.NONE);
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
+			string oResKindsKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oResKindsList.ExAddVal(a_oSkillInfo[oResKindsKey].ExIsValid() ? (EResKinds)a_oSkillInfo[oResKindsKey].AsInt : EResKinds.NONE);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {

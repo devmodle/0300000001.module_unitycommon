@@ -14,8 +14,9 @@ public struct STObjInfo {
 	public EObjKinds m_ePrevObjKinds;
 	public EObjKinds m_eNextObjKinds;
 
-	public EResKinds m_eObjResKinds;
 	public Vector3 m_stSize;
+	List<EResKinds> m_oResKindsList;
+	List<STAbilityValInfo> m_oAbilityValInfoList;
 
 	#region 프로퍼티
 	public EObjType ObjType => (EObjType)((int)m_eObjKinds).ExKindsToType();
@@ -30,9 +31,24 @@ public struct STObjInfo {
 		m_eObjKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_ePrevObjKinds = a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
-
-		m_eObjResKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_RES_KINDS].ExIsValid() ? (EResKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_RES_KINDS].AsInt : EResKinds.NONE;
 		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_FLT);
+
+		m_oResKindsList = new List<EResKinds>();
+		m_oAbilityValInfoList = new List<STAbilityValInfo>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
+			string oResKindsKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oResKindsList.Add(a_oObjInfo[oResKindsKey].ExIsValid() ? (EResKinds)a_oObjInfo[oResKindsKey].AsInt : EResKinds.NONE);
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
+			string oAbilityLVKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_LV, i + KCDefine.B_VAL_1_INT);
+			string oAbilityKindsKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_KINDS, i + KCDefine.B_VAL_1_INT);
+
+			m_oAbilityValInfoList.Add(new STAbilityValInfo() {
+				m_nLV = long.TryParse(a_oObjInfo[oAbilityLVKey], out long nLV) ? nLV : KCDefine.B_VAL_0_LONG, m_eAbilityKinds = a_oObjInfo[oAbilityKindsKey].ExIsValid() ? (EAbilityKinds)a_oObjInfo[oAbilityKindsKey].AsInt : EAbilityKinds.NONE
+			});
+		}
 	}
 	#endregion			// 함수
 }
