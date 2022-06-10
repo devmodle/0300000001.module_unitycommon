@@ -34,12 +34,12 @@ public enum EPriceKinds {
 	#endregion			// 광고
 
 	#region 재화
-	// 10,000,000
+	// 100,000,000
 	GOODS_COINS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 재화
 
 	#region 결제
-	// 20,000,000
+	// 200,000,000
 	IN_APP_PURCHASE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 결제
 
@@ -69,28 +69,28 @@ public enum EItemKinds {
 	#endregion			// 재화
 
 	#region 소모
-	// 10,000,000
+	// 100,000,000
 	CONSUMABLE_BOOSTER_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 10,010,000
+	// 100,100,000
 	CONSUMABLE_GAME_ITEM_HINT = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 10,010,100
+	// 100,100,100
 	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion			// 소모
 
 	#region 비소모
-	// 20,000,000
+	// 200,000,000
 	NON_CONSUMABLE_REMOVE_ADS = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 비소모
 
 	#region 무기
-	// 30,000,000
+	// 300,000,000
 	WEAPON_ITEM_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 무기
 
 	#region 방어구
-	// 40,000,000
+	// 400,000,000
 	ARMOR_ITEM_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 방어구
 
@@ -126,12 +126,12 @@ public enum EMissionKinds {
 	#endregion			// 자유
 
 	#region 일일
-	// 10,000,000
+	// 100,000,000
 	DAILY_MISSION_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 일일
 
 	#region 이벤트
-	// 20,000,000
+	// 200,000,000
 	EVENT_MISSION_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 이벤트
 
@@ -160,22 +160,22 @@ public enum ERewardKinds {
 	#endregion			// 무료
 
 	#region 일일
-	// 10,000,000
+	// 100,000,000
 	DAILY_REWARD_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 일일
 
 	#region 이벤트
-	// 20,000,000
+	// 200,000,000
 	EVENT_REWARD_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 이벤트
 
 	#region 클리어
-	// 30,000,000
+	// 300,000,000
 	CLEAR_REWARD_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 클리어
 
 	#region 미션
-	// 40,000,000
+	// 400,000,000
 	MISSION_REWARD_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 미션
 
@@ -223,20 +223,20 @@ public enum EEpisodeKinds {
 	// 0
 	LEVEL_NORM = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 10,000
+	// 100,000
 	LEVEL_TUTORIAL = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 레벨
 
 	#region 스테이지
-	// 10,000,000
+	// 100,000,000
 	STAGE_NORM = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 10,010,000
+	// 100,100,000
 	STAGE_TUTORIAL = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 스테이지
 
 	#region 챕터
-	// 20,000,000
+	// 200,000,000
 	CHAPTER_NORM = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 20,010,000
@@ -264,7 +264,7 @@ public enum ETutorialKinds {
 	#endregion			// 플레이
 
 	#region 도움말
-	// 10,000,000
+	// 100,000,000
 	HELP_TUTORIAL_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 도움말
 
@@ -289,7 +289,7 @@ public enum ETargetKinds {
 	#endregion			// 객체
 
 	#region 기록
-	// 10,000,000
+	// 100,000,000
 	RECORD_MARK = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 기록
 
@@ -315,12 +315,12 @@ public enum EFXKinds {
 	#endregion			// 타격
 
 	#region 버프
-	// 10,000,000
+	// 100,000,000
 	BUFF_FX_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 버프
 
 	#region 디버프
-	// 20,000,000
+	// 200,000,000
 	DEBUFF_FX_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 디버프
 
@@ -345,7 +345,7 @@ public enum ESkillKinds {
 	#endregion			// 액티브
 
 	#region 패시브
-	// 10,000,000
+	// 100,000,000
 	PASSIVE_SKILL_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 패시브
 
@@ -372,17 +372,17 @@ public enum EAbilityKinds {
 	#endregion			// 스탯
 
 	#region 버프
-	// 10,000,000
+	// 100,000,000
 	BUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 버프
 
 	#region 디버프
-	// 20,000,000
+	// 200,000,000
 	DEBUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 디버프
 
 	#region 업그레이드
-	// 30,000,000
+	// 300,000,000
 	UPGRADE_ABILITY_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 업그레이드
 
@@ -410,22 +410,22 @@ public enum EObjKinds {
 	#endregion			// 배경
 
 	#region 일반
-	// 10,000,000
+	// 100,000,000
 	NORM_OBJ_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 일반
 
 	#region 중첩
-	// 20,000,000
+	// 200,000,000
 	OVERLAY_OBJ_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 중첩
 
 	#region 플레이 가능
-	// 30,000,000
+	// 300,000,000
 	PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 플레이 가능
 
 	#region 플레이 불가능
-	// 40,000,000
+	// 400,000,000
 	NON_PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 플레이 불가능
 
@@ -456,29 +456,29 @@ public enum EResKinds {
 	// 200
 	SND_BG_SCENE_GAME = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 
-	// 10,000
+	// 100,000
 	SND_FX_TOUCH_BEGIN = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 10,100
+	// 100,100
 	SND_FX_TOUCH_END = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
 
-	// 20,000 
+	// 200,000
 	SND_FX_POPUP_SHOW = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 20,100
+	// 200,100
 	SND_FX_POPUP_CLOSE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion			// 사운드
 
 	#region 폰트
-	// 10,000,000
+	// 100,000,000
 	FONT_KOREAN = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 10,010,000
+	// 100,100,000
 	FONT_ENGLISH = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 폰트
 
 	#region 스프라이트
-	// 20,000,000
+	// 200,000,000
 	[HideInInspector] SPRITE_DEF = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	SPRITE_WHITE,
 	SPRITE_SPLASH,
@@ -486,7 +486,7 @@ public enum EResKinds {
 	#endregion			// 스프라이트
 
 	#region 텍스처
-	// 30,000,000
+	// 300,000,000
 	[HideInInspector] TEXTURE_DEF = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	TEXTURE_WHITE,
 	TEXTURE_SPLASH,
@@ -519,28 +519,28 @@ public enum EItemSaleKinds {
 	#endregion			// 재화
 
 	#region 소모
-	// 10,000,000
+	// 100,000,000
 	CONSUMABLE_BOOSTER_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 10,010,000
+	// 100,100,000
 	CONSUMABLE_GAME_ITEM_HINT = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 10,010,100
+	// 100,100,100
 	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion			// 소모
 
 	#region 비소모
-	// 20,000,000
+	// 200,000,000
 	NON_CONSUMABLE_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 비소모
 
 	#region 무기
-	// 30,000,000
+	// 300,000,000
 	WEAPON_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 무기
 
 	#region 방어구
-	// 40,000,000
+	// 400,000,000
 	ARMOR_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 방어구
 
@@ -581,10 +581,10 @@ public enum EProductSaleKinds {
 	#endregion			// 패키지
 
 	#region 단일
-	// 10,000,000
+	// 100,000,000
 	SINGLE_COINS_BOX = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 10,010,000
+	// 100,100,000
 	SINGLE_REMOVE_ADS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 단일
 
@@ -609,7 +609,7 @@ public enum ESkillSaleKinds {
 	#endregion			// 액티브
 
 	#region 패시브
-	// 10,000,000
+	// 100,000,000
 	PASSIVE_SKILL_SALE_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 패시브
 
@@ -637,22 +637,22 @@ public enum EObjSaleKinds {
 	#endregion			// 배경
 
 	#region 일반
-	// 10,000,000
+	// 100,000,000
 	NORM_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 일반
 
 	#region 중첩
-	// 20,000,000
+	// 200,000,000
 	OVERLAY_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 중첩
 
 	#region 플레이 가능
-	// 30,000,000
+	// 300,000,000
 	PLAYABLE_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 플레이 가능
 
 	#region 플레이 불가능
-	// 40,000,000
+	// 400,000,000
 	NON_PLAYABLE_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 플레이 불가능
 
