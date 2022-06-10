@@ -15,7 +15,7 @@
 	- *Lean Touch (3.0.0 - Mar 4, 2022)*
 	- *LINQ to GameObject (2.3.1 - Jan 9, 2018)*
 	- *Native Share (1.4.7 - May 2, 2022)*
-	- *NGUI (2022.05.13 - May 14, 2022)*
+	- *NGUI (2022.06.08 - Jun 9, 2022)*
 	- *Rest Client (2.6.2 - Dec 27, 2021)*
 	- *Simple Scroll Snap (2.0.0 - Dec 25, 2021)*
 	- *Smart Timers Manager (1.0.0 - Jul 6, 2016)*
