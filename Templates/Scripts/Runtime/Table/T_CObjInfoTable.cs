@@ -16,6 +16,7 @@ public struct STObjInfo {
 
 	public Vector3 m_stSize;
 	List<EResKinds> m_oResKindsList;
+	List<EItemKinds> m_oEquipmentsItemKindsList;
 	List<STAbilityValInfo> m_oAbilityValInfoList;
 
 	#region 프로퍼티
@@ -34,11 +35,17 @@ public struct STObjInfo {
 		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_FLT);
 
 		m_oResKindsList = new List<EResKinds>();
+		m_oEquipmentsItemKindsList = new List<EItemKinds>();
 		m_oAbilityValInfoList = new List<STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
 			string oResKindsKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
 			m_oResKindsList.Add(a_oObjInfo[oResKindsKey].ExIsValid() ? (EResKinds)a_oObjInfo[oResKindsKey].AsInt : EResKinds.NONE);
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_EQUIPMENTS_ITEM_KINDS; ++i) {
+			string oEquipmentsItemKindsKey = string.Format(KCDefine.U_KEY_FMT_EQUIPMENTS_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oEquipmentsItemKindsList.Add(a_oObjInfo[oEquipmentsItemKindsKey].ExIsValid() ? (EItemKinds)a_oObjInfo[oEquipmentsItemKindsKey].AsInt : EItemKinds.NONE);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {

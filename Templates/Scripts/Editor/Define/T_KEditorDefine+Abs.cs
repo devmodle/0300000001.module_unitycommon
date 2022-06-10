@@ -180,6 +180,7 @@ public static partial class KEditorDefine {
 		["com.unity.terrain-tools"] = "4.0.3",
 
 #if UNITY_2022_1_OR_NEWER
+		["com.unity.2d.psdimporter"] = "7.0.1",
 		["com.unity.render-pipelines.universal"] = "13.1.8",
 		["com.unity.visualeffectgraph"] = "13.1.8",
 #else

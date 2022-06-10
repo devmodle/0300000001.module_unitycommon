@@ -55,6 +55,7 @@ public enum EItemType {
 	WEAPON,
 	ARMOR,
 	ACCESSORY,
+	ATTACHMENTS,
 	[HideInInspector] MAX_VAL
 }
 
@@ -97,6 +98,11 @@ public enum EItemKinds {
 	// 50,000,000
 	ACCESSORY_ITEM_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 악세서리
+
+	#region 장식
+	// 60,000,000
+	ATTACHMENTS_ITEM_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 장식
 
 	[HideInInspector] MAX_VAL
 }
@@ -499,6 +505,7 @@ public enum EItemSaleType {
 	WEAPON,
 	ARMOR,
 	ACCESSORY,
+	ATTACHMENTS,
 	[HideInInspector] MAX_VAL
 }
 
@@ -540,6 +547,11 @@ public enum EItemSaleKinds {
 	#region 악세서리
 	// 50,000,000
 	ACCESSORY_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 악세서리
+
+	#region 악세서리
+	// 60,000,000
+	ATTACHMENTS_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 악세서리
 
 	[HideInInspector] MAX_VAL

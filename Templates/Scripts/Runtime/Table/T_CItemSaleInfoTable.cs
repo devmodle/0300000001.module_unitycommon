@@ -69,6 +69,9 @@ public partial class CItemSaleInfoTable : CScriptableObj<CItemSaleInfoTable> {
 
 	[Header("=====> Accessory Item Sale Info <=====")]
 	[SerializeField] private List<STItemSaleInfo> m_oAccessoryItemSaleInfoList = new List<STItemSaleInfo>();
+
+	[Header("=====> Attachments Item Sale Info <=====")]
+	[SerializeField] private List<STItemSaleInfo> m_oAttachmentsItemSaleInfoList = new List<STItemSaleInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -96,6 +99,7 @@ public partial class CItemSaleInfoTable : CScriptableObj<CItemSaleInfoTable> {
 		oItemSaleInfoList.ExAddVals(m_oWeaponItemSaleInfoList);
 		oItemSaleInfoList.ExAddVals(m_oArmorItemSaleInfoList);
 		oItemSaleInfoList.ExAddVals(m_oAccessoryItemSaleInfoList);
+		oItemSaleInfoList.ExAddVals(m_oAttachmentsItemSaleInfoList);
 
 		for(int i = 0; i < oItemSaleInfoList.Count; ++i) {
 			this.ItemSaleInfoDict.TryAdd(oItemSaleInfoList[i].m_eItemSaleKinds, oItemSaleInfoList[i]);

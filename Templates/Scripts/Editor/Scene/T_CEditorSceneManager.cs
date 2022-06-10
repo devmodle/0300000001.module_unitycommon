@@ -90,6 +90,7 @@ public static partial class CEditorSceneManager {
 				EditorFactory.CreateItemSaleInfoTable();
 				EditorFactory.CreateProductSaleInfoTable();
 				EditorFactory.CreateSkillSaleInfoTable();
+				EditorFactory.CreateObjSaleInfoTable();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			}
 

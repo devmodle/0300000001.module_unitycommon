@@ -14,8 +14,9 @@ public struct STItemInfo {
 	public EItemKinds m_ePrevItemKinds;
 	public EItemKinds m_eNextItemKinds;
 
-	List<ESkillKinds> m_oSkillKindsList;
-	List<STAbilityValInfo> m_oAbilityValInfoList;
+	public List<EItemKinds> m_oAttachmentsItemKindsList;
+	public List<ESkillKinds> m_oSkillKindsList;
+	public List<STAbilityValInfo> m_oAbilityValInfoList;
 
 	#region 프로퍼티
 	public EItemType ItemType => (EItemType)((int)m_eItemKinds).ExKindsToType();
@@ -31,8 +32,14 @@ public struct STItemInfo {
 		m_ePrevItemKinds = a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_eNextItemKinds = a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].AsInt : EItemKinds.NONE;
 
+		m_oAttachmentsItemKindsList = new List<EItemKinds>();
 		m_oSkillKindsList = new List<ESkillKinds>();
 		m_oAbilityValInfoList = new List<STAbilityValInfo>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_ATTACHMENTS_ITEM_KINDS; ++i) {
+			string oAttachmentsItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ATTACHMENTS_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oAttachmentsItemKindsList.Add(a_oItemInfo[oAttachmentsItemKindsKey].ExIsValid() ? (EItemKinds)a_oItemInfo[oAttachmentsItemKindsKey].AsInt : EItemKinds.NONE);
+		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_SKILL_KINDS; ++i) {
 			string oSkillKindsKey = string.Format(KCDefine.U_KEY_FMT_SKILL_KINDS, i + KCDefine.B_VAL_1_INT);
@@ -71,6 +78,9 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 
 	[Header("=====> Accessory Item Info <=====")]
 	[SerializeField] private List<STItemInfo> m_oAccessoryItemInfoList = new List<STItemInfo>();
+
+	[Header("=====> Attachments Item Info <=====")]
+	[SerializeField] private List<STItemInfo> m_oAttachmentsItemInfoList = new List<STItemInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -98,6 +108,7 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 		oItemInfoList.ExAddVals(m_oWeaponItemInfoList);
 		oItemInfoList.ExAddVals(m_oArmorItemInfoList);
 		oItemInfoList.ExAddVals(m_oAccessoryItemInfoList);
+		oItemInfoList.ExAddVals(m_oAttachmentsItemInfoList);
 
 		for(int i = 0; i < oItemInfoList.Count; ++i) {
 			this.ItemInfoDict.TryAdd(oItemInfoList[i].m_eItemKinds, oItemInfoList[i]);
@@ -144,7 +155,7 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oItemInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_GOODS], oJSONNode[KCDefine.U_KEY_CONSUMABLE], oJSONNode[KCDefine.U_KEY_NON_CONSUMABLE], oJSONNode[KCDefine.U_KEY_WEAPON], oJSONNode[KCDefine.U_KEY_ARMOR], oJSONNode[KCDefine.U_KEY_ACCESSORY]
+			oJSONNode[KCDefine.U_KEY_GOODS], oJSONNode[KCDefine.U_KEY_CONSUMABLE], oJSONNode[KCDefine.U_KEY_NON_CONSUMABLE], oJSONNode[KCDefine.U_KEY_WEAPON], oJSONNode[KCDefine.U_KEY_ARMOR], oJSONNode[KCDefine.U_KEY_ACCESSORY], oJSONNode[KCDefine.U_KEY_ATTACHMENTS]
 		};
 
 		for(int i = 0; i < oItemInfosList.Count; ++i) {
