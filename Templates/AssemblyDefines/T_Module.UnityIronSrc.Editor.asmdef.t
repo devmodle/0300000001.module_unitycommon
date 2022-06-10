@@ -1,5 +1,6 @@
 ﻿{
     "name": "Module.UnityIronSrc.Editor",
+	"rootNamespace": "",
     "references": [
         "Module.UnityIronSrc"
     ],
