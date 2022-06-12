@@ -6,6 +6,13 @@ using UnityEngine.UI;
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #region 기본
+/** 열거형 값 */
+public static partial class KEnumVal {
+	#region 기본
+
+	#endregion			// 기본
+}
+
 /** 플레이 모드 */
 public enum EPlayMode {
 	NONE = -1,
@@ -239,7 +246,7 @@ public enum EEpisodeKinds {
 	// 200,000,000
 	CHAPTER_NORM = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 20,010,000
+	// 200,100,000
 	CHAPTER_TUTORIAL = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 챕터
 

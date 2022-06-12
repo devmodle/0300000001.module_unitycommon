@@ -74,13 +74,13 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	public bool IsEnableShowFullscreenAds {
 		get {
-			float fAdsDelay = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELAY_ADS);
-			float fAdsDeltaTime = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELTA_T_ADS);
+			double dblAdsDelay = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELAY_ADS);
+			double dblAdsDeltaTime = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELTA_T_ADS);
 
 			double dblDeltaTime01 = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevAdsTime);
 			double dblDeltaTime02 = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevRewardAdsTime);
 
-			bool bIsEnable = dblDeltaTime01.ExIsGreateEquals(fAdsDelay) && dblDeltaTime02.ExIsGreateEquals(fAdsDeltaTime);
+			bool bIsEnable = dblDeltaTime01.ExIsGreateEquals(dblAdsDelay) && dblDeltaTime02.ExIsGreateEquals(dblAdsDeltaTime);
 			return bIsEnable && this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && CGameInfoStorage.Inst.GameInfo.m_oLevelClearInfoDict.Count >= KDefine.G_MAX_NUM_ADS_SKIP_CLEAR_INFOS;
 		}
 	}

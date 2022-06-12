@@ -140,8 +140,7 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 		return this.DoLoadObjSaleInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadObjSaleInfos(oTextAsset.text);
+			return this.DoLoadObjSaleInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}

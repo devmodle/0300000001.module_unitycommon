@@ -71,7 +71,7 @@ namespace SplashScene {
 			this.ShowSplash();
 
 			// 디바이스 정보를 설정한다 {
-			var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (int, int)>() {
+			var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (long, long)>() {
 				// 모바일
 				[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
 				[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
@@ -86,8 +86,8 @@ namespace SplashScene {
 				[RuntimePlatform.Stadia] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
 			};
 
-			int nTargetFrameRate = oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
-			Application.targetFrameRate = Mathf.Max(KCDefine.B_TARGET_FRAME_RATE, Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate));
+			long nTargetFrameRate = oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
+			Application.targetFrameRate = (int)Mathf.Max(KCDefine.B_TARGET_FRAME_RATE, Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate));
 
 #if MULTI_TOUCH_ENABLE
 			Input.multiTouchEnabled = true;

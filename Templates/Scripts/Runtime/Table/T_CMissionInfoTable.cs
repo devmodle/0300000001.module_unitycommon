@@ -105,8 +105,7 @@ public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		return this.DoLoadMissionInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadMissionInfos(oTextAsset.text);
+			return this.DoLoadMissionInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}

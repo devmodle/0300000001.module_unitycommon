@@ -128,8 +128,7 @@ public partial class CSkillSaleInfoTable : CScriptableObj<CSkillSaleInfoTable> {
 		return this.DoLoadSkillSaleInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadSkillSaleInfos(oTextAsset.text);
+			return this.DoLoadSkillSaleInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}

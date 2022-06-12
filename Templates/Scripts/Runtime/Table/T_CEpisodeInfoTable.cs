@@ -321,8 +321,7 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return this.DoLoadEpisodeInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadEpisodeInfos(oTextAsset.text);
+			return this.DoLoadEpisodeInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}

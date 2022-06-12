@@ -175,8 +175,7 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 		return this.DoLoadProductSaleInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadProductSaleInfos(oTextAsset.text);
+			return this.DoLoadProductSaleInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}

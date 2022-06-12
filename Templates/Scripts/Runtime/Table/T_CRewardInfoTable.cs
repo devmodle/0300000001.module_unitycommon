@@ -122,8 +122,7 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		return this.DoLoadRewardInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadRewardInfos(oTextAsset.text);
+			return this.DoLoadRewardInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}

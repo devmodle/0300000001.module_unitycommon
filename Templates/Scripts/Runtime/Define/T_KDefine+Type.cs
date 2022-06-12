@@ -16,6 +16,7 @@ public struct STPriceInfo {
 	#region 프로퍼티
 	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_LONG;
 	public double RealPrice => double.TryParse(m_oPrice, out double dblPrice) ? dblPrice : KCDefine.B_VAL_0_DBL;
+
 	public EPriceType PriceType => (EPriceType)((int)m_ePriceKinds).ExKindsToType();
 	public EPriceKinds BasePriceKinds => (EPriceKinds)((int)m_ePriceKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
@@ -49,6 +50,7 @@ public struct STAbilityValInfo {
 [MessagePackObject]
 public struct STTypeWrapper {
 	[Key(51)] public List<long> m_oUniqueLevelIDList;
+
 	[Key(161)] public Dictionary<int, Dictionary<int, int>> m_oNumLevelInfosDictContainer;
 	[Key(162)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;
 }

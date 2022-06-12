@@ -106,8 +106,7 @@ public partial class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 		return this.DoLoadTutorialInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
-			return this.DoLoadTutorialInfos(oTextAsset.text);
+			return this.DoLoadTutorialInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
