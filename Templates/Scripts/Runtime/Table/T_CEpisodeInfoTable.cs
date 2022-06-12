@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 public struct STEpisodeInfo {
 	public STIDInfo m_stIDInfo;
 	public STDescInfo m_stDescInfo;
+	public Vector3 m_stSize;
 
 	public int m_nPrevID;
 	public int m_nNextID;
@@ -31,6 +32,7 @@ public struct STEpisodeInfo {
 	public STEpisodeInfo(SimpleJSON.JSONNode a_oEpisodeInfo) {
 		m_stIDInfo = new STIDInfo(a_oEpisodeInfo);
 		m_stDescInfo = new STDescInfo(a_oEpisodeInfo);
+		m_stSize = new Vector3(a_oEpisodeInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_FLT);
 
 		m_nPrevID = a_oEpisodeInfo[KCDefine.U_KEY_PREV_ID].ExIsValid() ? a_oEpisodeInfo[KCDefine.U_KEY_PREV_ID].AsInt : KCDefine.B_IDX_INVALID;
 		m_nNextID = a_oEpisodeInfo[KCDefine.U_KEY_NEXT_ID].ExIsValid() ? a_oEpisodeInfo[KCDefine.U_KEY_NEXT_ID].AsInt : KCDefine.B_IDX_INVALID;
@@ -321,7 +323,8 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return this.DoLoadEpisodeInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			return this.DoLoadEpisodeInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
+			var oTextAsset = CResManager.Inst.GetRes<TextAsset>(a_oFilePath);
+			return this.DoLoadEpisodeInfos(oTextAsset.text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}

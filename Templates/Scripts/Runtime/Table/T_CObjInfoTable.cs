@@ -9,12 +9,12 @@ using UnityEngine.UI;
 [System.Serializable]
 public struct STObjInfo {
 	public STDescInfo m_stDescInfo;
+	public Vector3 m_stSize;
 
 	public EObjKinds m_eObjKinds;
 	public EObjKinds m_ePrevObjKinds;
 	public EObjKinds m_eNextObjKinds;
 
-	public Vector3 m_stSize;
 	List<EResKinds> m_oResKindsList;
 	List<EItemKinds> m_oEquipmentsItemKindsList;
 	List<STAbilityValInfo> m_oAbilityValInfoList;
@@ -28,11 +28,11 @@ public struct STObjInfo {
 	/** 생성자 */
 	public STObjInfo(SimpleJSON.JSONNode a_oObjInfo) {
 		m_stDescInfo = new STDescInfo(a_oObjInfo);
-		
+		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_FLT);
+
 		m_eObjKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_ePrevObjKinds = a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
-		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_FLT);
 
 		m_oResKindsList = new List<EResKinds>();
 		m_oEquipmentsItemKindsList = new List<EItemKinds>();
