@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /** 미션 팝업 */
 public abstract partial class CMissionPopup : CSubPopup {
 	/** 매개 변수 */
-	public struct STParams {
+	public partial struct STParams {
 		public List<STMissionInfo> m_oMissionInfoList;
 	}
 

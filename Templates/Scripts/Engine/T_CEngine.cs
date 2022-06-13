@@ -32,7 +32,7 @@ namespace SampleEngineName {
 		}
 
 		/** 매개 변수 */
-		public struct STParams {
+		public partial struct STParams {
 			public GameObject m_oFXRoot;
 			public GameObject m_oObjRoot;
 

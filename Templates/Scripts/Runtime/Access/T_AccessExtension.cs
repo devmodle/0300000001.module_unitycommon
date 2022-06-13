@@ -16,16 +16,6 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EDifficulty a_eSender) {
-		return a_eSender > EDifficulty.NONE && a_eSender < EDifficulty.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EEpisodeKinds a_eSender) {
-		return a_eSender > EEpisodeKinds.NONE && a_eSender < EEpisodeKinds.MAX_VAL;
-	}
-	
-	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EPriceType a_eSender) {
 		return a_eSender > EPriceType.NONE && a_eSender < EPriceType.MAX_VAL;
 	}
@@ -43,26 +33,6 @@ public static partial class AccessExtension {
 	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EItemKinds a_eSender) {
 		return a_eSender > EItemKinds.NONE && a_eSender < EItemKinds.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EItemSaleType a_eSender) {
-		return a_eSender > EItemSaleType.NONE && a_eSender < EItemSaleType.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EItemSaleKinds a_eSender) {
-		return a_eSender > EItemSaleKinds.NONE && a_eSender < EItemSaleKinds.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EProductSaleType a_eSender) {
-		return a_eSender > EProductSaleType.NONE && a_eSender < EProductSaleType.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EProductSaleKinds a_eSender) {
-		return a_eSender > EProductSaleKinds.NONE && a_eSender < EProductSaleKinds.MAX_VAL;
 	}
 
 	/** 유효 여부를 검사한다 */
@@ -96,6 +66,16 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EEpisodeType a_eSender) {
+		return a_eSender > EEpisodeType.NONE && a_eSender < EEpisodeType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EEpisodeKinds a_eSender) {
+		return a_eSender > EEpisodeKinds.NONE && a_eSender < EEpisodeKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this ETutorialType a_eSender) {
 		return a_eSender > ETutorialType.NONE && a_eSender < ETutorialType.MAX_VAL;
 	}
@@ -106,8 +86,103 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ETargetType a_eSender) {
+		return a_eSender > ETargetType.NONE && a_eSender < ETargetType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ETargetKinds a_eSender) {
+		return a_eSender > ETargetKinds.NONE && a_eSender < ETargetKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EFXType a_eSender) {
+		return a_eSender > EFXType.NONE && a_eSender < EFXType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EFXKinds a_eSender) {
+		return a_eSender > EFXKinds.NONE && a_eSender < EFXKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ESkillType a_eSender) {
+		return a_eSender > ESkillType.NONE && a_eSender < ESkillType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ESkillKinds a_eSender) {
+		return a_eSender > ESkillKinds.NONE && a_eSender < ESkillKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EAbilityType a_eSender) {
+		return a_eSender > EAbilityType.NONE && a_eSender < EAbilityType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EAbilityKinds a_eSender) {
+		return a_eSender > EAbilityKinds.NONE && a_eSender < EAbilityKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EObjType a_eSender) {
+		return a_eSender > EObjType.NONE && a_eSender < EObjType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EObjKinds a_eSender) {
+		return a_eSender > EObjKinds.NONE && a_eSender < EObjKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EResType a_eSender) {
+		return a_eSender > EResType.NONE && a_eSender < EResType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EResKinds a_eSender) {
 		return a_eSender > EResKinds.NONE && a_eSender < EResKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EItemSaleType a_eSender) {
+		return a_eSender > EItemSaleType.NONE && a_eSender < EItemSaleType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EItemSaleKinds a_eSender) {
+		return a_eSender > EItemSaleKinds.NONE && a_eSender < EItemSaleKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EProductSaleType a_eSender) {
+		return a_eSender > EProductSaleType.NONE && a_eSender < EProductSaleType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EProductSaleKinds a_eSender) {
+		return a_eSender > EProductSaleKinds.NONE && a_eSender < EProductSaleKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ESkillSaleType a_eSender) {
+		return a_eSender > ESkillSaleType.NONE && a_eSender < ESkillSaleType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ESkillSaleKinds a_eSender) {
+		return a_eSender > ESkillSaleKinds.NONE && a_eSender < ESkillSaleKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EObjSaleType a_eSender) {
+		return a_eSender > EObjSaleType.NONE && a_eSender < EObjSaleType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EObjSaleKinds a_eSender) {
+		return a_eSender > EObjSaleKinds.NONE && a_eSender < EObjSaleKinds.MAX_VAL;
 	}
 	
 	/** 컴포넌트 상호 작용 여부를 변경한다 */

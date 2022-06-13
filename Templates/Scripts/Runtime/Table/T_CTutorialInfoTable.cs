@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 튜토리얼 정보 */
 [System.Serializable]
-public struct STTutorialInfo {
+public partial struct STTutorialInfo {
 	public STDescInfo m_stDescInfo;
 
 	public ETutorialKinds m_eTutorialKinds;
@@ -132,7 +132,7 @@ public partial class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 				var stTutorialInfo = new STTutorialInfo(oTutorialInfosList[i][j]);
 
 				// 튜토리얼 정보가 추가 가능 할 경우
-				if(!this.TutorialInfoDict.ContainsKey(stTutorialInfo.m_eTutorialKinds) || oTutorialInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stTutorialInfo.m_eTutorialKinds.ExIsValid() && (!this.TutorialInfoDict.ContainsKey(stTutorialInfo.m_eTutorialKinds) || oTutorialInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.TutorialInfoDict.ExReplaceVal(stTutorialInfo.m_eTutorialKinds, stTutorialInfo);
 				}
 			}

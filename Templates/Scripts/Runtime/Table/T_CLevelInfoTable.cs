@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using MessagePack;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+using MessagePack;
 using Newtonsoft.Json;
 
 /** 셀 정보 */
@@ -86,8 +86,6 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); }
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
-
-	[JsonIgnore][IgnoreMember] public long UniqueLevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID, m_stIDInfo.m_nStageID, m_stIDInfo.m_nChapterID);
 	#endregion			// 프로퍼티
 
 	#region ICloneable
@@ -651,7 +649,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<long> a_oOutLevelIDList) {
 		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
 
-		a_oOutLevelIDList.Add(a_oLevelInfo.UniqueLevelID);
+		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueLevelID);
 		CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STEpisodeInfo stLevelEpisodeInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID);
 
 		var stReplaceLevelEpisodeInfo = new STEpisodeInfo() {
@@ -685,7 +683,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		stLevelEpisodeInfo.m_oNumTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
 		stLevelEpisodeInfo.m_oNumUnlockTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumUnlockTargetsDict, (a_nNumUnlockTargets) => a_nNumUnlockTargets);
 
-		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.UniqueLevelID, stReplaceLevelEpisodeInfo);
+		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueLevelID, stReplaceLevelEpisodeInfo);
 
 #if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID), a_oLevelInfo, null, false, false);

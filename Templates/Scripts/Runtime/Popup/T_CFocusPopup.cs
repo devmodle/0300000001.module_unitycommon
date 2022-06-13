@@ -25,7 +25,7 @@ public partial class CFocusPopup : CSubPopup {
 	}
 
 	/** 매개 변수 */
-	public struct STParams {
+	public partial struct STParams {
 		public List<GameObject> m_oContentsUIsList;
 		public Dictionary<ECallback, System.Action<CFocusPopup, PointerEventData>> m_oCallbackDict;
 	}

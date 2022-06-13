@@ -14,7 +14,7 @@ public partial class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
 
 /** 에디터 타입 랩퍼 */
 [MessagePackObject]
-public struct STEditorTypeWrapper {
+public partial struct STEditorTypeWrapper {
 	// Do Something
 }
 #endregion			// 기본

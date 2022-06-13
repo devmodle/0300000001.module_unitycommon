@@ -22,7 +22,7 @@ namespace MainScene {
 #if DEBUG || DEVELOPMENT_BUILD
 		/** 테스트 UI */
 		[System.Serializable]
-		private struct STTestUIs {
+		private partial struct STTestUIs {
 			// Do Something
 		}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

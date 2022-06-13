@@ -16,7 +16,7 @@ public partial class CCoinsBoxCoinsAcquirePopup : CSubPopup {
 	}
 
 	/** 매개 변수 */
-	public struct STParams {
+	public partial struct STParams {
 		public long m_nNumCoinsBoxCoins;
 	}
 

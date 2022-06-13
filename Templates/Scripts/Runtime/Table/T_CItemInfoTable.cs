@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 아이템 정보 */
 [System.Serializable]
-public struct STItemInfo {
+public partial struct STItemInfo {
 	public STDescInfo m_stDescInfo;
 
 	public EItemKinds m_eItemKinds;
@@ -163,7 +163,7 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 				var stItemInfo = new STItemInfo(oItemInfosList[i][j]);
 
 				// 아이템 정보가 추가 가능 할 경우
-				if(!this.ItemInfoDict.ContainsKey(stItemInfo.m_eItemKinds) || oItemInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stItemInfo.m_eItemKinds.ExIsValid() && (!this.ItemInfoDict.ContainsKey(stItemInfo.m_eItemKinds) || oItemInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.ItemInfoDict.ExReplaceVal(stItemInfo.m_eItemKinds, stItemInfo);
 				}
 			}

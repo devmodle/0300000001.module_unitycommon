@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 보상 정보 */
 [System.Serializable]
-public struct STRewardInfo {
+public partial struct STRewardInfo {
 	public STDescInfo m_stDescInfo;
 
 	public ERewardKinds m_eRewardKinds;
@@ -147,7 +147,7 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 				var stRewardInfo = new STRewardInfo(oRewardInfosList[i][j]);
 
 				// 보상 정보가 추가 가능 할 경우
-				if(!this.RewardInfoDict.ContainsKey(stRewardInfo.m_eRewardKinds) || oRewardInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stRewardInfo.m_eRewardKinds.ExIsValid() && (!this.RewardInfoDict.ContainsKey(stRewardInfo.m_eRewardKinds) || oRewardInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.RewardInfoDict.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
 				}
 			}

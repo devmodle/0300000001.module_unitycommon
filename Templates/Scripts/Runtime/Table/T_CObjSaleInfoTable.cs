@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 객체 판매 정보 */
 [System.Serializable]
-public struct STObjSaleInfo {
+public partial struct STObjSaleInfo {
 	public STDescInfo m_stDescInfo;
 
 	public EObjSaleKinds m_eObjSaleKinds;
@@ -167,7 +167,7 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 				var stObjSaleInfo = new STObjSaleInfo(oObjSaleInfosList[i][j]);
 
 				// 객체 판매 정보가 추가 가능 할 경우
-				if(!this.ObjSaleInfoDict.ContainsKey(stObjSaleInfo.m_eObjSaleKinds) || oObjSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stObjSaleInfo.m_eObjSaleKinds.ExIsValid() && (!this.ObjSaleInfoDict.ContainsKey(stObjSaleInfo.m_eObjSaleKinds) || oObjSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.ObjSaleInfoDict.ExReplaceVal(stObjSaleInfo.m_eObjSaleKinds, stObjSaleInfo);
 				}
 			}

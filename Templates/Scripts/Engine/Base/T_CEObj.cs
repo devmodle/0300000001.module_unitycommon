@@ -16,7 +16,7 @@ namespace SampleEngineName {
 		}
 
 		/** 매개 변수 */
-		public struct STParams {
+		public partial struct STParams {
 			public STObjInfo m_stObjInfo;
 			public CEngine m_oEngine;
 		}

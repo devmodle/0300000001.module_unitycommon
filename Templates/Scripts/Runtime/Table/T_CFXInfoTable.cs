@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 효과 정보 */
 [System.Serializable]
-public struct STFXInfo {
+public partial struct STFXInfo {
 	public STDescInfo m_stDescInfo;
 	public STDurationInfo m_stDurationInfo;
 
@@ -131,7 +131,7 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 				var stFXInfo = new STFXInfo(oFXInfosList[i][j]);
 
 				// 효과 정보가 추가 가능 할 경우
-				if(!this.FXInfoDict.ContainsKey(stFXInfo.m_eFXKinds) || oFXInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stFXInfo.m_eFXKinds.ExIsValid() && (!this.FXInfoDict.ContainsKey(stFXInfo.m_eFXKinds) || oFXInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.FXInfoDict.ExReplaceVal(stFXInfo.m_eFXKinds, stFXInfo);
 				}
 			}

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 스킬 정보 */
 [System.Serializable]
-public struct STSkillInfo {
+public partial struct STSkillInfo {
 	public STDescInfo m_stDescInfo;
 	public STDurationInfo m_stDurationInfo;
 
@@ -145,7 +145,7 @@ public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 				var stSkillInfo = new STSkillInfo(oSkillInfosList[i][j]);
 
 				// 스킬 정보가 추가 가능 할 경우
-				if(!this.SkillInfoDict.ContainsKey(stSkillInfo.m_eSkillKinds) || oSkillInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stSkillInfo.m_eSkillKinds.ExIsValid() && (!this.SkillInfoDict.ContainsKey(stSkillInfo.m_eSkillKinds) || oSkillInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.SkillInfoDict.ExReplaceVal(stSkillInfo.m_eSkillKinds, stSkillInfo);
 				}
 			}

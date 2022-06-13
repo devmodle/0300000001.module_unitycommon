@@ -15,7 +15,7 @@ public partial class CPausePopup : CSubPopup {
 	}
 
 	/** 매개 변수 */
-	public struct STParams {
+	public partial struct STParams {
 		public Dictionary<ECallback, System.Action<CPausePopup>> m_oCallbackDict;
 	}
 

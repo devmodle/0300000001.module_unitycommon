@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 /** 에피소드 정보 */
 [System.Serializable]
-public struct STEpisodeInfo {
+public partial struct STEpisodeInfo {
 	public STIDInfo m_stIDInfo;
 	public STDescInfo m_stDescInfo;
 	public Vector3 m_stSize;
@@ -352,31 +352,28 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 		for(int i = 0; i < oLevelEpisodeInfos.Count; ++i) {
 			var stLevelEpisodeInfo = new STEpisodeInfo(oLevelEpisodeInfos[i]);
-			long nUniqueLevelID = CFactory.MakeUniqueLevelID(stLevelEpisodeInfo.m_stIDInfo.m_nID, stLevelEpisodeInfo.m_stIDInfo.m_nStageID, stLevelEpisodeInfo.m_stIDInfo.m_nChapterID);
 
 			// 레벨 에피소드 정보가 추가 가능 할 경우
-			if(!this.LevelEpisodeInfoDict.ContainsKey(nUniqueLevelID) || oLevelEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
-				this.LevelEpisodeInfoDict.ExReplaceVal(nUniqueLevelID, stLevelEpisodeInfo);
+			if(stLevelEpisodeInfo.m_stIDInfo.m_nID.ExIsValidIdx() && (!this.LevelEpisodeInfoDict.ContainsKey(stLevelEpisodeInfo.m_stIDInfo.UniqueLevelID) || oLevelEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.LevelEpisodeInfoDict.ExReplaceVal(stLevelEpisodeInfo.m_stIDInfo.UniqueLevelID, stLevelEpisodeInfo);
 			}
 		}
 
 		for(int i = 0; i < oStageEpisodeInfos.Count; ++i) {
 			var stStageEpisodeInfo = new STEpisodeInfo(oStageEpisodeInfos[i]);
-			long nUniqueStageID = CFactory.MakeUniqueStageID(stStageEpisodeInfo.m_stIDInfo.m_nID, stStageEpisodeInfo.m_stIDInfo.m_nChapterID);
 
 			// 스테이지 에피소드 정보가 추가 가능 할 경우
-			if(!this.StageEpisodeInfoDict.ContainsKey(nUniqueStageID) || oStageEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
-				this.StageEpisodeInfoDict.ExReplaceVal(nUniqueStageID, stStageEpisodeInfo);
+			if(stStageEpisodeInfo.m_stIDInfo.m_nID.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stStageEpisodeInfo.m_stIDInfo.UniqueStageID) || oStageEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.StageEpisodeInfoDict.ExReplaceVal(stStageEpisodeInfo.m_stIDInfo.UniqueStageID, stStageEpisodeInfo);
 			}
 		}
 
 		for(int i = 0; i < oChapterEpisodeInfos.Count; ++i) {
 			var stChapterEpisodeInfo = new STEpisodeInfo(oChapterEpisodeInfos[i]);
-			long nUniqueChapterID = CFactory.MakeUniqueChapterID(stChapterEpisodeInfo.m_stIDInfo.m_nID);
 
 			// 챕터 에피소드 정보가 추가 가능 할 경우
-			if(!this.ChapterEpisodeInfoDict.ContainsKey(nUniqueChapterID) || oChapterEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
-				this.ChapterEpisodeInfoDict.ExReplaceVal(nUniqueChapterID, stChapterEpisodeInfo);
+			if(stChapterEpisodeInfo.m_stIDInfo.m_nID.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stChapterEpisodeInfo.m_stIDInfo.UniqueChapterID) || oChapterEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.ChapterEpisodeInfoDict.ExReplaceVal(stChapterEpisodeInfo.m_stIDInfo.UniqueChapterID, stChapterEpisodeInfo);
 			}
 		}
 

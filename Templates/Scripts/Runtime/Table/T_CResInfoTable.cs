@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 리소스 정보 */
 [System.Serializable]
-public struct STResInfo {
+public partial struct STResInfo {
 	public STDescInfo m_stDescInfo;
 
 	public float m_fRate;
@@ -130,7 +130,7 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 				var stResInfo = new STResInfo(oResInfosList[i][j]);
 
 				// 리소스 정보가 추가 가능 할 경우
-				if(!this.ResInfoDict.ContainsKey(stResInfo.m_eResKinds) || oResInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stResInfo.m_eResKinds.ExIsValid() && (!this.ResInfoDict.ContainsKey(stResInfo.m_eResKinds) || oResInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.ResInfoDict.ExReplaceVal(stResInfo.m_eResKinds, stResInfo);
 				}
 			}

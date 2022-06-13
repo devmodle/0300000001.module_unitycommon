@@ -11,7 +11,7 @@ using UnityEngine.Purchasing;
 
 /** 상품 판매 정보 */
 [System.Serializable]
-public struct STProductSaleInfo {
+public partial struct STProductSaleInfo {
 	public STDescInfo m_stDescInfo;
 	public int m_nID;
 
@@ -200,7 +200,7 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 				var stProductSaleInfo = new STProductSaleInfo(oProductSaleInfosList[i][j]);
 
 				// 상품 판매 정보가 추가 가능 할 경우
-				if(!this.ProductSaleInfoDict.ContainsKey(stProductSaleInfo.m_eProductSaleKinds) || oProductSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stProductSaleInfo.m_eProductSaleKinds.ExIsValid() && (!this.ProductSaleInfoDict.ContainsKey(stProductSaleInfo.m_eProductSaleKinds) || oProductSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.ProductSaleInfoDict.ExReplaceVal(stProductSaleInfo.m_eProductSaleKinds, stProductSaleInfo);
 				}
 			}

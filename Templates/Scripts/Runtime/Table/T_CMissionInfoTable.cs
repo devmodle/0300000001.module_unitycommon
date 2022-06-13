@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 미션 정보 */
 [System.Serializable]
-public struct STMissionInfo {
+public partial struct STMissionInfo {
 	public STDescInfo m_stDescInfo;
 	public bool m_bIsEnableRepeat;
 
@@ -131,7 +131,7 @@ public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 				var stMissionInfo = new STMissionInfo(oMissionInfosList[i][j]);
 
 				// 미션 정보가 추가 가능 할 경우
-				if(!this.MissionInfoDict.ContainsKey(stMissionInfo.m_eMissionKinds) || oMissionInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stMissionInfo.m_eMissionKinds.ExIsValid() && (!this.MissionInfoDict.ContainsKey(stMissionInfo.m_eMissionKinds) || oMissionInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.MissionInfoDict.ExReplaceVal(stMissionInfo.m_eMissionKinds, stMissionInfo);
 				}
 			}

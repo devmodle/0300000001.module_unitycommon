@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 스킬 판매 정보 */
 [System.Serializable]
-public struct STSkillSaleInfo {
+public partial struct STSkillSaleInfo {
 	public STDescInfo m_stDescInfo;
 
 	public ESkillSaleKinds m_eSkillSaleKinds;
@@ -155,7 +155,7 @@ public partial class CSkillSaleInfoTable : CScriptableObj<CSkillSaleInfoTable> {
 				var stSkillSaleInfo = new STSkillSaleInfo(oSkillSaleInfosList[i][j]);
 
 				// 스킬 판매 정보가 추가 가능 할 경우
-				if(!this.SkillSaleInfoDict.ContainsKey(stSkillSaleInfo.m_eSkillSaleKinds) || oSkillSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stSkillSaleInfo.m_eSkillSaleKinds.ExIsValid() && (!this.SkillSaleInfoDict.ContainsKey(stSkillSaleInfo.m_eSkillSaleKinds) || oSkillSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.SkillSaleInfoDict.ExReplaceVal(stSkillSaleInfo.m_eSkillSaleKinds, stSkillSaleInfo);
 				}
 			}

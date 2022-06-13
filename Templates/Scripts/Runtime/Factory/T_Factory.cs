@@ -15,7 +15,7 @@ public static partial class Factory {
 			Record = KCDefine.B_STR_0_INT,
 			BestRecord = KCDefine.B_STR_0_INT,
 
-			m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID),
+			m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID)
 		};
 	}
 	#endregion			// 클래스 함수

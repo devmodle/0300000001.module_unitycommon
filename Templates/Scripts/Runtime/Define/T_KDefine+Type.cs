@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MessagePack;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+using MessagePack;
+using Newtonsoft.Json;
+
 #region 기본
 /** 가격 정보 */
 [System.Serializable]
-public struct STPriceInfo {
+public partial struct STPriceInfo {
 	public string m_oPrice;
 	public EPriceKinds m_ePriceKinds;
 
@@ -24,7 +26,7 @@ public struct STPriceInfo {
 
 /** 아이템 개수 정보 */
 [System.Serializable]
-public struct STNumItemsInfo {
+public partial struct STNumItemsInfo {
 	public long m_nNumItems;
 	public EItemKinds m_eItemKinds;
 
@@ -36,7 +38,7 @@ public struct STNumItemsInfo {
 
 /** 어빌리티 값 정보 */
 [System.Serializable]
-public struct STAbilityValInfo {
+public partial struct STAbilityValInfo {
 	public long m_nLV;
 	public EAbilityKinds m_eAbilityKinds;
 
@@ -48,7 +50,7 @@ public struct STAbilityValInfo {
 
 /** 타입 랩퍼 */
 [MessagePackObject]
-public struct STTypeWrapper {
+public partial struct STTypeWrapper {
 	[Key(51)] public List<long> m_oUniqueLevelIDList;
 
 	[Key(161)] public Dictionary<int, Dictionary<int, int>> m_oNumLevelInfosDictContainer;

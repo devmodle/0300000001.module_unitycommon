@@ -9,7 +9,7 @@ using MessagePack;
 namespace SampleEngineName {
 	#region 기본
 	/** 그리드 정보 */
-	public struct STGridInfo {
+	public partial struct STGridInfo {
 		public Vector3 m_stSize;
 		public Vector3 m_stScale;
 		public Vector3 m_stPivotPos;
@@ -19,7 +19,7 @@ namespace SampleEngineName {
 
 	/** 엔진 타입 랩퍼 */
 	[MessagePackObject]
-	public struct STEngineTypeWrapper {
+	public partial struct STEngineTypeWrapper {
 		// Do Something
 	}
 	#endregion			// 기본

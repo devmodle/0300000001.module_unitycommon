@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 어빌리티 정보 */
 [System.Serializable]
-public struct STAbilityInfo {
+public partial struct STAbilityInfo {
 	public STDescInfo m_stDescInfo;
 	public STValInfo m_stValInfo;
 
@@ -135,7 +135,7 @@ public partial class CAbilityInfoTable : CScriptableObj<CAbilityInfoTable> {
 				var stAbilityInfo = new STAbilityInfo(oAbilityInfosList[i][j]);
 
 				// 어빌리티 정보가 추가 가능 할 경우
-				if(!this.AbilityInfoDict.ContainsKey(stAbilityInfo.m_eAbilityKinds) || oAbilityInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stAbilityInfo.m_eAbilityKinds.ExIsValid() && (!this.AbilityInfoDict.ContainsKey(stAbilityInfo.m_eAbilityKinds) || oAbilityInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.AbilityInfoDict.ExReplaceVal(stAbilityInfo.m_eAbilityKinds, stAbilityInfo);
 				}
 			}

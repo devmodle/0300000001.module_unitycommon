@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 객체 정보 */
 [System.Serializable]
-public struct STObjInfo {
+public partial struct STObjInfo {
 	public STDescInfo m_stDescInfo;
 	public Vector3 m_stSize;
 
@@ -157,7 +157,7 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 				var stObjInfo = new STObjInfo(oObjInfosList[i][j]);
 
 				// 객체 정보가 추가 가능 할 경우
-				if(!this.ObjInfoDict.ContainsKey(stObjInfo.m_eObjKinds) || oObjInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT) {
+				if(stObjInfo.m_eObjKinds.ExIsValid() && (!this.ObjInfoDict.ContainsKey(stObjInfo.m_eObjKinds) || oObjInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.ObjInfoDict.ExReplaceVal(stObjInfo.m_eObjKinds, stObjInfo);
 				}
 			}
