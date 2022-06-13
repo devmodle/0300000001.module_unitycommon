@@ -666,18 +666,21 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 				m_oDesc = stLevelEpisodeInfo.m_stDescInfo.m_oDesc ?? string.Empty
 			},
 
-			m_nPrevID = (a_oLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT >= KCDefine.B_VAL_0_INT) ? a_oLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT,
-			m_nNextID = (a_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT <= KCDefine.U_MAX_NUM_LEVEL_INFOS - KCDefine.B_VAL_1_INT) ? a_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT,
+			m_nPrevID = a_oLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT,
+			m_nNextID = a_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT,
 
 			m_eDifficulty = stLevelEpisodeInfo.m_eDifficulty,
-			m_eRewardKinds = stLevelEpisodeInfo.m_eRewardKinds,
 			m_eEpisodeKinds = stLevelEpisodeInfo.m_eEpisodeKinds,
 			m_eTutorialKinds = stLevelEpisodeInfo.m_eTutorialKinds,
 
 			m_oRecordList = new List<int>(),
+			m_oRewardKindsList = new List<ERewardKinds>(),
 			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(),
 			m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>()
 		};
+
+		stLevelEpisodeInfo.m_oRecordList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordList, (a_nRecord) => a_nRecord);
+		stLevelEpisodeInfo.m_oRewardKindsList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds);
 
 		stLevelEpisodeInfo.m_oNumTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
 		stLevelEpisodeInfo.m_oNumUnlockTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumUnlockTargetsDict, (a_nNumUnlockTargets) => a_nNumUnlockTargets);

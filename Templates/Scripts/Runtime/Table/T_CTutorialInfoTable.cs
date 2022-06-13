@@ -14,8 +14,8 @@ public struct STTutorialInfo {
 	public ETutorialKinds m_ePrevTutorialKinds;
 	public ETutorialKinds m_eNextTutorialKinds;
 
-	public ERewardKinds m_eRewardKinds;
 	public List<string> m_oStrList;
+	public List<ERewardKinds> m_oRewardKindsList;
 
 	#region 프로퍼티
 	public ETutorialType TutorialType => (ETutorialType)((int)m_eTutorialKinds).ExKindsToType();
@@ -31,12 +31,17 @@ public struct STTutorialInfo {
 		m_ePrevTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
 		m_eNextTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
 
-		m_eRewardKinds = a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oTutorialInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_oStrList = new List<string>();
+		m_oRewardKindsList = new List<ERewardKinds>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TUTORIAL_STRS; ++i) {
 			string oStrKey = string.Format(KCDefine.U_KEY_FMT_STRS, i + KCDefine.B_VAL_1_INT);
 			m_oStrList.Add(a_oTutorialInfo[oStrKey].ExIsValid() ? a_oTutorialInfo[oStrKey] : string.Empty);
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_KINDS; ++i) {
+			string oRewardKindsKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oRewardKindsList.Add(a_oTutorialInfo[oRewardKindsKey].ExIsValid() ? (ERewardKinds)a_oTutorialInfo[oRewardKindsKey].AsInt : ERewardKinds.NONE);
 		}
 	}
 	#endregion			// 함수

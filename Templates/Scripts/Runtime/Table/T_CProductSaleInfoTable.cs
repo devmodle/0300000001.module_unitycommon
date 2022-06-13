@@ -13,9 +13,11 @@ using UnityEngine.Purchasing;
 [System.Serializable]
 public struct STProductSaleInfo {
 	public STDescInfo m_stDescInfo;
-
 	public int m_nID;
+
 	public EProductSaleKinds m_eProductSaleKinds;
+	public EProductSaleKinds m_ePrevProductSaleKinds;
+	public EProductSaleKinds m_eNextProductSaleKinds;
 
 	public List<STPriceInfo> m_oPriceInfoList;
 	public List<STNumItemsInfo> m_oNumItemsInfoList;
@@ -29,9 +31,11 @@ public struct STProductSaleInfo {
 	/** 생성자 */
 	public STProductSaleInfo(SimpleJSON.JSONNode a_oProductSaleInfo) {
 		m_stDescInfo = new STDescInfo(a_oProductSaleInfo);
-
 		m_nID = a_oProductSaleInfo[KCDefine.U_KEY_ID].AsInt;
+
 		m_eProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
+		m_ePrevProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
+		m_eNextProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
 
 		m_oPriceInfoList = new List<STPriceInfo>();
 		m_oNumItemsInfoList = new List<STNumItemsInfo>();

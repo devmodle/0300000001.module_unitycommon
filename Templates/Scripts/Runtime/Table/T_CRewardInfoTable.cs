@@ -11,6 +11,8 @@ public struct STRewardInfo {
 	public STDescInfo m_stDescInfo;
 
 	public ERewardKinds m_eRewardKinds;
+	public ERewardKinds m_ePrevRewardKinds;
+	public ERewardKinds m_eNextRewardKinds;
 	public ERewardQuality m_eRewardQuality;
 
 	public List<STNumItemsInfo> m_oNumItemsInfoList;
@@ -26,6 +28,8 @@ public struct STRewardInfo {
 		m_stDescInfo = new STDescInfo(a_oRewardInfo);
 		
 		m_eRewardKinds = a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
+		m_ePrevRewardKinds = a_oRewardInfo[KCDefine.U_KEY_PREV_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_PREV_REWARD_KINDS].AsInt : ERewardKinds.NONE;
+		m_eNextRewardKinds = a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_eRewardQuality = a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].ExIsValid() ? (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt : ERewardQuality.NONE;
 
 		m_oNumItemsInfoList = new List<STNumItemsInfo>();

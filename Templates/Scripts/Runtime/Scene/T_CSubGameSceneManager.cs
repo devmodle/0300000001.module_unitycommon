@@ -379,25 +379,15 @@ namespace GameScene {
 
 		/** 다음 레벨을 로드한다 */
 		private void LoadNextLevel(CPopup a_oPopup) {
+			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID, out STEpisodeInfo stNextLevelEpisodeInfo, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID);
+			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID <= CGameInfoStorage.Inst.GetNumLevelClearInfos(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID);
+
 			switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
-					int nNextID = m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT;
-					int nNumLevelClearInfos = CGameInfoStorage.Inst.GetNumLevelClearInfos(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID);
-
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-					bool bIsValid = CLevelInfoTable.Inst.TryGetLevelInfo(nNextID, out CLevelInfo oNextLevelInfo, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID) && nNextID <= nNumLevelClearInfos;
-#else
-					bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(nNextID, out STEpisodeInfo stNextLevelEpisodeInfo, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID) && nNextID <= nNumLevelClearInfos;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-
 					// 다음 레벨이 존재 할 경우
 					if(bIsValid && !m_bIsLeave) {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-						CGameInfoStorage.Inst.SetupPlayLevelInfo(oNextLevelInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, oNextLevelInfo.m_stIDInfo.m_nStageID, oNextLevelInfo.m_stIDInfo.m_nChapterID);
-#else
 						CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelEpisodeInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelEpisodeInfo.m_stIDInfo.m_nStageID, stNextLevelEpisodeInfo.m_stIDInfo.m_nChapterID);
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-
+						
 #if ADS_MODULE_ENABLE
 						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
 #else

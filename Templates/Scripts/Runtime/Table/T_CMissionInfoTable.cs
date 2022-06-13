@@ -15,7 +15,7 @@ public struct STMissionInfo {
 	public EMissionKinds m_ePrevMissionKinds;
 	public EMissionKinds m_eNextMissionKinds;
 
-	public ERewardKinds m_eRewardKinds;
+	public List<ERewardKinds> m_oRewardKindsList;
 
 	#region 프로퍼티
 	public EMissionType MissionType => (EMissionType)((int)m_eMissionKinds).ExKindsToType();
@@ -32,7 +32,12 @@ public struct STMissionInfo {
 		m_ePrevMissionKinds = a_oMissionInfo[KCDefine.U_KEY_PREV_MISSION_KINDS].ExIsValid() ? (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_PREV_MISSION_KINDS].AsInt : EMissionKinds.NONE;
 		m_eNextMissionKinds = a_oMissionInfo[KCDefine.U_KEY_NEXT_MISSION_KINDS].ExIsValid() ? (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_NEXT_MISSION_KINDS].AsInt : EMissionKinds.NONE;
 
-		m_eRewardKinds = a_oMissionInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oMissionInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
+		m_oRewardKindsList = new List<ERewardKinds>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_KINDS; ++i) {
+			string oRewardKindsKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oRewardKindsList.Add(a_oMissionInfo[oRewardKindsKey].ExIsValid() ? (ERewardKinds)a_oMissionInfo[oRewardKindsKey].AsInt : ERewardKinds.NONE);
+		}
 	}
 	#endregion			// 함수
 }

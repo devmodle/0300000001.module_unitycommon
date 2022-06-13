@@ -9,7 +9,10 @@ using UnityEngine.UI;
 [System.Serializable]
 public struct STItemSaleInfo {
 	public STDescInfo m_stDescInfo;
+
 	public EItemSaleKinds m_eItemSaleKinds;
+	public EItemSaleKinds m_ePrevItemSaleKinds;
+	public EItemSaleKinds m_eNextItemSaleKinds;
 	
 	public List<STPriceInfo> m_oPriceInfoList;
 	public List<STNumItemsInfo> m_oNumItemsInfoList;
@@ -23,7 +26,10 @@ public struct STItemSaleInfo {
 	/** 생성자 */
 	public STItemSaleInfo(SimpleJSON.JSONNode a_oItemSaleInfo) {
 		m_stDescInfo = new STDescInfo(a_oItemSaleInfo);
+
 		m_eItemSaleKinds = a_oItemSaleInfo[KCDefine.U_KEY_ITEM_SALE_KINDS].ExIsValid() ? (EItemSaleKinds)a_oItemSaleInfo[KCDefine.U_KEY_ITEM_SALE_KINDS].AsInt : EItemSaleKinds.NONE;
+		m_ePrevItemSaleKinds = a_oItemSaleInfo[KCDefine.U_KEY_PREV_ITEM_SALE_KINDS].ExIsValid() ? (EItemSaleKinds)a_oItemSaleInfo[KCDefine.U_KEY_PREV_ITEM_SALE_KINDS].AsInt : EItemSaleKinds.NONE;
+		m_eNextItemSaleKinds = a_oItemSaleInfo[KCDefine.U_KEY_NEXT_ITEM_SALE_KINDS].ExIsValid() ? (EItemSaleKinds)a_oItemSaleInfo[KCDefine.U_KEY_NEXT_ITEM_SALE_KINDS].AsInt : EItemSaleKinds.NONE;
 
 		m_oPriceInfoList = new List<STPriceInfo>();
 		m_oNumItemsInfoList = new List<STNumItemsInfo>();

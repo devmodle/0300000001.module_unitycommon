@@ -19,6 +19,7 @@ public static partial class KDefine {
 
 	public const int G_MAX_NUM_ITEMS_INFOS = 9;
 	public const int G_MAX_NUM_PRICE_INFOS = 9;
+	public const int G_MAX_NUM_REWARD_KINDS = 9;
 	public const int G_MAX_NUM_ABILITY_KINDS = 9;
 	public const int G_MAX_NUM_EQUIPMENTS_ITEM_KINDS = 9;
 	public const int G_MAX_NUM_ATTACHMENTS_ITEM_KINDS = 9;

@@ -8,9 +8,14 @@ using UnityEngine.UI;
 /** 리소스 정보 */
 [System.Serializable]
 public struct STResInfo {
+	public STDescInfo m_stDescInfo;
+
 	public float m_fRate;
 	public string m_oResPath;
+
 	public EResKinds m_eResKinds;
+	public EResKinds m_ePrevResKinds;
+	public EResKinds m_eNextResKinds;
 
 	#region 프로퍼티
 	public EResType ResType => (EResType)((int)m_eResKinds).ExKindsToType();
@@ -20,9 +25,14 @@ public struct STResInfo {
 	#region 함수
 	/** 생성자 */
 	public STResInfo(SimpleJSON.JSONNode a_oResInfo) {
+		m_stDescInfo = new STDescInfo(a_oResInfo);
+		
 		m_fRate = a_oResInfo[KCDefine.U_KEY_RATE].AsFloat;
 		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH];
+
 		m_eResKinds = a_oResInfo[KCDefine.U_KEY_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt : EResKinds.NONE;
+		m_ePrevResKinds = a_oResInfo[KCDefine.U_KEY_PREV_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_PREV_RES_KINDS].AsInt : EResKinds.NONE;
+		m_eNextResKinds = a_oResInfo[KCDefine.U_KEY_NEXT_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_NEXT_RES_KINDS].AsInt : EResKinds.NONE;
 	}
 	#endregion			// 함수
 }

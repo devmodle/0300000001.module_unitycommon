@@ -19,11 +19,12 @@ public struct STEpisodeInfo {
 	public int m_nNextID;
 
 	public EDifficulty m_eDifficulty;
-	public ERewardKinds m_eRewardKinds;
 	public EEpisodeKinds m_eEpisodeKinds;
 	public ETutorialKinds m_eTutorialKinds;
 
 	public List<int> m_oRecordList;
+	public List<ERewardKinds> m_oRewardKindsList;
+
 	public Dictionary<ETargetKinds, int> m_oNumTargetsDict;
 	public Dictionary<ETargetKinds, int> m_oNumUnlockTargetsDict;
 
@@ -38,17 +39,23 @@ public struct STEpisodeInfo {
 		m_nNextID = a_oEpisodeInfo[KCDefine.U_KEY_NEXT_ID].ExIsValid() ? a_oEpisodeInfo[KCDefine.U_KEY_NEXT_ID].AsInt : KCDefine.B_IDX_INVALID;
 
 		m_eDifficulty = a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].ExIsValid() ? (EDifficulty)a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].AsInt : EDifficulty.NONE;
-		m_eRewardKinds = a_oEpisodeInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oEpisodeInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_eEpisodeKinds = a_oEpisodeInfo[KCDefine.U_KEY_EPISODE_KINDS].ExIsValid() ? (EEpisodeKinds)a_oEpisodeInfo[KCDefine.U_KEY_EPISODE_KINDS].AsInt : EEpisodeKinds.NONE;
 		m_eTutorialKinds = a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
 
 		m_oRecordList = new List<int>();
+		m_oRewardKindsList = new List<ERewardKinds>();
+
 		m_oNumTargetsDict = new Dictionary<ETargetKinds, int>();
 		m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_MARKS; ++i) {
 			string oRecordKey = string.Format(KCDefine.U_KEY_FMT_RECORD, i + KCDefine.B_VAL_1_INT);
 			m_oRecordList.ExAddVal(a_oEpisodeInfo[oRecordKey].AsInt);
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_KINDS; ++i) {
+			string oRewardKindsKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oRewardKindsList.Add(a_oEpisodeInfo[oRewardKindsKey].ExIsValid() ? (ERewardKinds)a_oEpisodeInfo[oRewardKindsKey].AsInt : ERewardKinds.NONE);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_TARGET_KINDS; ++i) {
@@ -122,7 +129,6 @@ public struct STEpisodeInfo {
 		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_NEXT_ID, $"{m_nNextID}");
 
 		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_DIFFICULTY, $"{(int)m_eDifficulty}");
-		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_REWARD_KINDS, $"{(int)m_eRewardKinds}");
 		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 
 		var oNumTargetsKeyList = m_oNumTargetsDict.Keys.ToList();
@@ -130,6 +136,10 @@ public struct STEpisodeInfo {
 
 		for(int i = 0; i < m_oRecordList.Count; ++i) {
 			a_oOutEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_RECORD, i + KCDefine.B_VAL_1_INT), $"{m_oRecordList.ExGetVal(i, KCDefine.B_VAL_0_INT)}");
+		}
+
+		for(int i = 0; i < m_oRewardKindsList.Count; ++i) {
+			a_oOutEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)m_oRewardKindsList.ExGetVal(i, ERewardKinds.NONE)}");
 		}
 
 		for(int i = 0; i < m_oNumTargetsDict.Count && i < oNumTargetsKeyList.Count; ++i) {

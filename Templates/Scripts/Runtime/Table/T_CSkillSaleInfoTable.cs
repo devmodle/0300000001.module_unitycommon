@@ -9,7 +9,10 @@ using UnityEngine.UI;
 [System.Serializable]
 public struct STSkillSaleInfo {
 	public STDescInfo m_stDescInfo;
+
 	public ESkillSaleKinds m_eSkillSaleKinds;
+	public ESkillSaleKinds m_ePrevSkillSaleKinds;
+	public ESkillSaleKinds m_eNextSkillSaleKinds;
 
 	public List<ESkillKinds> m_oSkillKindsList;
 	public List<STPriceInfo> m_oPriceInfoList;
@@ -23,7 +26,10 @@ public struct STSkillSaleInfo {
 	/** 생성자 */
 	public STSkillSaleInfo(SimpleJSON.JSONNode a_oSkillSaleInfo) {
 		m_stDescInfo = new STDescInfo(a_oSkillSaleInfo);
+
 		m_eSkillSaleKinds = a_oSkillSaleInfo[KCDefine.U_KEY_SKILL_SALE_KINDS].ExIsValid() ? (ESkillSaleKinds)a_oSkillSaleInfo[KCDefine.U_KEY_SKILL_SALE_KINDS].AsInt : ESkillSaleKinds.NONE;
+		m_ePrevSkillSaleKinds = a_oSkillSaleInfo[KCDefine.U_KEY_PREV_SKILL_SALE_KINDS].ExIsValid() ? (ESkillSaleKinds)a_oSkillSaleInfo[KCDefine.U_KEY_PREV_SKILL_SALE_KINDS].AsInt : ESkillSaleKinds.NONE;
+		m_eNextSkillSaleKinds = a_oSkillSaleInfo[KCDefine.U_KEY_NEXT_SKILL_SALE_KINDS].ExIsValid() ? (ESkillSaleKinds)a_oSkillSaleInfo[KCDefine.U_KEY_NEXT_SKILL_SALE_KINDS].AsInt : ESkillSaleKinds.NONE;
 
 		m_oSkillKindsList = new List<ESkillKinds>();
 		m_oPriceInfoList = new List<STPriceInfo>();
