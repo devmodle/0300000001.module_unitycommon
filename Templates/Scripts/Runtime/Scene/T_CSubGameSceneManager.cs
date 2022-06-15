@@ -197,7 +197,7 @@ namespace GameScene {
 			this.SetupRewardAdsUIs();
 
 			m_oLevelInfoDict[EKey.LEVEL_INFO] = CGameInfoStorage.Inst.PlayLevelInfo;
-			m_oClearInfoDict[EKey.LEVEL_CLEAR_INFO] = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID) ? oLevelClearInfo : null;
+			m_oClearInfoDict[EKey.LEVEL_CLEAR_INFO] = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03) ? oLevelClearInfo : null;
 
 			// 버튼을 설정한다
 			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PAUSE_BTN)?.onClick.AddListener(this.OnTouchPauseBtn);
@@ -233,7 +233,7 @@ namespace GameScene {
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-			bool bIsValid = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nStageID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nChapterID);
+			bool bIsValid = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03);
 			m_oEngineDict[EKey.ENGINE] = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 
 			m_oEngineDict[EKey.ENGINE].Init(new SampleEngineName.CEngine.STParams() {
@@ -273,7 +273,7 @@ namespace GameScene {
 		/** 보상 광고 UI 상태를 갱신한다 */
 		private void UpdateRewardAdsUIsState() {
 			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
-				m_oRewardAdsUIsList[i]?.SetActive(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT >= KDefine.GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH);
+				m_oRewardAdsUIsList[i]?.SetActive(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT >= KDefine.GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH);
 			}
 		}
 
@@ -379,14 +379,14 @@ namespace GameScene {
 
 		/** 다음 레벨을 로드한다 */
 		private void LoadNextLevel(CPopup a_oPopup) {
-			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID, out STEpisodeInfo stNextLevelEpisodeInfo, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID);
-			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID <= CGameInfoStorage.Inst.GetNumLevelClearInfos(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID);
+			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01, out STEpisodeInfo stNextLevelEpisodeInfo, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03);
+			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID01 <= CGameInfoStorage.Inst.GetNumLevelClearInfos(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03);
 
 			switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
 					// 다음 레벨이 존재 할 경우
 					if(bIsValid && !m_bIsLeave) {
-						CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelEpisodeInfo.m_stIDInfo.m_nID, CGameInfoStorage.Inst.PlayMode, stNextLevelEpisodeInfo.m_stIDInfo.m_nStageID, stNextLevelEpisodeInfo.m_stIDInfo.m_nChapterID);
+						CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, stNextLevelEpisodeInfo.m_stIDInfo.m_nID02, stNextLevelEpisodeInfo.m_stIDInfo.m_nID03);
 						
 #if ADS_MODULE_ENABLE
 						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
@@ -514,11 +514,11 @@ namespace GameScene {
 		/** 레벨을 클리어했을 경우 */
 		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {
 			// 클리어 정보가 없을 경우
-			if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID)) {
-				CGameInfoStorage.Inst.AddLevelClearInfo(Factory.MakeClearInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID));
+			if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03)) {
+				CGameInfoStorage.Inst.AddLevelClearInfo(Factory.MakeClearInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03));
 			}
 			
-			var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nStageID, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nChapterID);
+			var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03);
 			oLevelClearInfo.Record = $"{a_oSender.IntRecord}";
 			oLevelClearInfo.BestRecord = $"{Mathf.Max(a_oSender.IntRecord, oLevelClearInfo.BestIntRecord)}";
 

@@ -230,8 +230,14 @@ public enum EEpisodeKinds {
 	// 0
 	LEVEL_NORM = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 100,000
-	LEVEL_TUTORIAL = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 100
+	LEVEL_NORM_BOSS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+
+	// 200,000
+	LEVEL_TUTORIAL = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 200,100
+	LEVEL_TUTORIAL_BOSS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion			// 레벨
 
 	#region 스테이지

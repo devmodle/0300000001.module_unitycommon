@@ -32,32 +32,32 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 			var stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, i + m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToStageID(), m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToChapterID());
 
 			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
-			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nStageID < CLevelInfoTable.Inst.GetNumStageInfos(stIDInfo.m_nChapterID));
+			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID02 < CLevelInfoTable.Inst.GetNumStageInfos(stIDInfo.m_nID03));
 		}
 	}
 
 	/** 스크롤러 셀 상태를 갱신한다 */
 	private void UpdateScrollerCellState(GameObject a_oScrollerCell, STIDInfo a_stIDInfo) {
-		int nNumStageClearInfos = CGameInfoStorage.Inst.GetNumStageClearInfos(a_stIDInfo.m_nChapterID);
+		int nNumStageClearInfos = CGameInfoStorage.Inst.GetNumStageClearInfos(a_stIDInfo.m_nID03);
 
 		// 버튼을 갱신한다 {
 		var oSelBtn = a_oScrollerCell.GetComponentInChildren<Button>();
-		oSelBtn?.ExAddListener(() => m_stParams.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeUniqueLevelID(a_stIDInfo.m_nID, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID)), true, false);
+		oSelBtn?.ExAddListener(() => m_stParams.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeUniqueLevelID(a_stIDInfo.m_nID01, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)), true, false);
 
 #if PLAY_TEST_ENABLE
 		oSelBtn?.ExSetInteractable(true, false);
 #else
-		oSelBtn?.ExSetInteractable(a_stIDInfo.m_nStageID <= nNumStageClearInfos, false);
+		oSelBtn?.ExSetInteractable(a_stIDInfo.m_nID02 <= nNumStageClearInfos, false);
 #endif			// #if PLAY_TEST_ENABLE
 		// 버튼을 갱신한다 }
 		
 		// 스테이지 정보가 존재 할 경우
-		if(a_stIDInfo.m_nStageID < CLevelInfoTable.Inst.GetNumStageInfos(a_stIDInfo.m_nChapterID)) {
-			CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_stIDInfo.m_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_stIDInfo.m_nChapterID);
+		if(a_stIDInfo.m_nID02 < CLevelInfoTable.Inst.GetNumStageInfos(a_stIDInfo.m_nID03)) {
+			CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_stIDInfo.m_nID02, out STEpisodeInfo stStageEpisodeInfo, a_stIDInfo.m_nID03);
 
 			// 텍스트를 갱신한다
 			var oStageText = a_oScrollerCell.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_STAGE_TEXT);
-			oStageText?.ExSetText($"{a_stIDInfo.m_nStageID + KCDefine.B_VAL_1_INT}", EFontSet._1, false);
+			oStageText?.ExSetText($"{a_stIDInfo.m_nID02 + KCDefine.B_VAL_1_INT}", EFontSet._1, false);
 		}
 	}
 	#endregion			// 함수

@@ -459,17 +459,17 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	public void AddLevelInfo(CLevelInfo a_oLevelInfo, bool a_bIsReplace = false) {
 		CAccess.Assert(a_oLevelInfo != null);
 
-		var oChapterLevelInfoDictContainer = this.LevelInfoDictContainer.GetValueOrDefault(a_oLevelInfo.m_stIDInfo.m_nChapterID);
+		var oChapterLevelInfoDictContainer = this.LevelInfoDictContainer.GetValueOrDefault(a_oLevelInfo.m_stIDInfo.m_nID03);
 		oChapterLevelInfoDictContainer = oChapterLevelInfoDictContainer ?? new Dictionary<int, Dictionary<int, CLevelInfo>>();
 
-		var oStageLevelInfoDict = oChapterLevelInfoDictContainer.GetValueOrDefault(a_oLevelInfo.m_stIDInfo.m_nStageID);
+		var oStageLevelInfoDict = oChapterLevelInfoDictContainer.GetValueOrDefault(a_oLevelInfo.m_stIDInfo.m_nID02);
 		oStageLevelInfoDict = oStageLevelInfoDict ?? new Dictionary<int, CLevelInfo>();
 
 		// 레벨 정보 추가가 가능 할 경우
-		if(a_bIsReplace || !oStageLevelInfoDict.ContainsKey(a_oLevelInfo.m_stIDInfo.m_nID)) {
-			oStageLevelInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo);
-			oChapterLevelInfoDictContainer.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nStageID, oStageLevelInfoDict);
-			this.LevelInfoDictContainer.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nChapterID, oChapterLevelInfoDictContainer);
+		if(a_bIsReplace || !oStageLevelInfoDict.ContainsKey(a_oLevelInfo.m_stIDInfo.m_nID01)) {
+			oStageLevelInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo);
+			oChapterLevelInfoDictContainer.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nID02, oStageLevelInfoDict);
+			this.LevelInfoDictContainer.ExReplaceVal(a_oLevelInfo.m_stIDInfo.m_nID03, oChapterLevelInfoDictContainer);
 		}
 	}
 
@@ -479,8 +479,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		var oStageLevelInfoList = a_oStageLevelInfoDict.OrderBy((a_stKeyVal) => a_stKeyVal.Key).ToList();
 
 		for(int i = 0; i < oStageLevelInfoList.Count; ++i) {
-			int nNumLevelInfos = this.GetNumLevelInfos(oStageLevelInfoList[i].Value.m_stIDInfo.m_nStageID, oStageLevelInfoList[i].Value.m_stIDInfo.m_nChapterID);
-			oStageLevelInfoList[i].Value.m_stIDInfo = CFactory.MakeIDInfo(nNumLevelInfos, oStageLevelInfoList[i].Value.m_stIDInfo.m_nStageID, oStageLevelInfoList[i].Value.m_stIDInfo.m_nChapterID);
+			int nNumLevelInfos = this.GetNumLevelInfos(oStageLevelInfoList[i].Value.m_stIDInfo.m_nID02, oStageLevelInfoList[i].Value.m_stIDInfo.m_nID03);
+			oStageLevelInfoList[i].Value.m_stIDInfo = CFactory.MakeIDInfo(nNumLevelInfos, oStageLevelInfoList[i].Value.m_stIDInfo.m_nID02, oStageLevelInfoList[i].Value.m_stIDInfo.m_nID03);
 
 			this.AddLevelInfo(oStageLevelInfoList[i].Value, a_bIsReplace);
 		}
@@ -493,8 +493,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		for(int i = 0; i < oChapterLevelInfoList.Count; ++i) {
 			for(int j = 0; j < oChapterLevelInfoList[i].Value.Count; ++i) {
-				int nNumStageInfos = this.GetNumStageInfos(oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nChapterID);
-				oChapterLevelInfoList[i].Value[j].m_stIDInfo = CFactory.MakeIDInfo(oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID, nNumStageInfos, oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nChapterID);
+				int nNumStageInfos = this.GetNumStageInfos(oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID03);
+				oChapterLevelInfoList[i].Value[j].m_stIDInfo = CFactory.MakeIDInfo(oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID01, nNumStageInfos, oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID03);
 			}
 
 			this.AddStageLevelInfos(oChapterLevelInfoList[i].Value, a_bIsReplace);
@@ -507,7 +507,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(bIsValid && oStageLevelInfoDict.ExIsValid());
 
 		for(int i = a_nID + KCDefine.B_VAL_1_INT; i < oStageLevelInfoDict.Count; ++i) {
-			oStageLevelInfoDict[i].m_stIDInfo.m_nID -= KCDefine.B_VAL_1_INT;
+			oStageLevelInfoDict[i].m_stIDInfo.m_nID01 -= KCDefine.B_VAL_1_INT;
 			oStageLevelInfoDict.ExReplaceVal(i - KCDefine.B_VAL_1_INT, oStageLevelInfoDict[i]);
 		}
 
@@ -526,7 +526,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		for(int i = a_nID + KCDefine.B_VAL_1_INT; i < oChapterLevelInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < oChapterLevelInfoDictContainer[i].Count; ++j) {
-				oChapterLevelInfoDictContainer[i][j].m_stIDInfo.m_nStageID -= KCDefine.B_VAL_1_INT;
+				oChapterLevelInfoDictContainer[i][j].m_stIDInfo.m_nID02 -= KCDefine.B_VAL_1_INT;
 			}
 
 			oChapterLevelInfoDictContainer.ExReplaceVal(i - KCDefine.B_VAL_1_INT, oChapterLevelInfoDictContainer[i]);
@@ -547,7 +547,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		for(int i = a_nID + KCDefine.B_VAL_1_INT; i < this.LevelInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
 				for(int k = 0; k < this.LevelInfoDictContainer[i][j].Count; ++k) {
-					this.LevelInfoDictContainer[i][j][k].m_stIDInfo.m_nChapterID -= KCDefine.B_VAL_1_INT;
+					this.LevelInfoDictContainer[i][j][k].m_stIDInfo.m_nID03 -= KCDefine.B_VAL_1_INT;
 				}
 			}
 
@@ -568,11 +568,11 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		oStageLevelInfoDict.ExRemoveVal(a_nSrcID);
 
 		for(int i = a_nSrcID + nOffset; i != a_nDestID + nOffset; i += nOffset) {
-			oStageLevelInfoDict[i].m_stIDInfo.m_nID -= nOffset;
+			oStageLevelInfoDict[i].m_stIDInfo.m_nID01 -= nOffset;
 			oStageLevelInfoDict.ExReplaceVal(i - nOffset, oStageLevelInfoDict[i]);
 		}
 
-		oSrcLevelInfo.m_stIDInfo.m_nID = a_nDestID;
+		oSrcLevelInfo.m_stIDInfo.m_nID01 = a_nDestID;
 		oStageLevelInfoDict.ExReplaceVal(a_nDestID, oSrcLevelInfo);
 	}
 
@@ -588,14 +588,14 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		for(int i = a_nSrcID + nOffset; i != a_nDestID + nOffset; i += nOffset) {
 			for(int j = 0; j < oChapterLevelInfoDictContainer[i].Count; ++j) {
-				oChapterLevelInfoDictContainer[i][j].m_stIDInfo.m_nStageID -= nOffset;
+				oChapterLevelInfoDictContainer[i][j].m_stIDInfo.m_nID02 -= nOffset;
 			}
 
 			oChapterLevelInfoDictContainer.ExReplaceVal(i - nOffset, oChapterLevelInfoDictContainer[i]);
 		}
 
 		for(int i = 0; i < oSrcStageLevelInfoDict.Count; ++i) {
-			oSrcStageLevelInfoDict[i].m_stIDInfo.m_nStageID = a_nDestID;
+			oSrcStageLevelInfoDict[i].m_stIDInfo.m_nID02 = a_nDestID;
 		}
 
 		oChapterLevelInfoDictContainer.ExReplaceVal(a_nDestID, oSrcStageLevelInfoDict);
@@ -611,7 +611,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		for(int i = a_nSrcID + nOffset; i != a_nDestID + nOffset; i += nOffset) {
 			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
 				for(int k = 0; k < this.LevelInfoDictContainer[i][j].Count; ++k) {
-					this.LevelInfoDictContainer[i][j][k].m_stIDInfo.m_nChapterID -= nOffset;
+					this.LevelInfoDictContainer[i][j][k].m_stIDInfo.m_nID03 -= nOffset;
 				}
 			}
 
@@ -620,7 +620,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		for(int i = 0; i < oSrcChapterLevelInfoDict.Count; ++i) {
 			for(int j = 0; j < oSrcChapterLevelInfoDict[i].Count; ++j) {
-				oSrcChapterLevelInfoDict[i][j].m_stIDInfo.m_nChapterID = a_nDestID;
+				oSrcChapterLevelInfoDict[i][j].m_stIDInfo.m_nID03 = a_nDestID;
 			}
 		}
 
@@ -649,24 +649,34 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<long> a_oOutLevelIDList) {
 		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
 
-		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueLevelID);
-		CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_oLevelInfo.m_stIDInfo.m_nID, out STEpisodeInfo stLevelEpisodeInfo, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID);
+		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
+		CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_oLevelInfo.m_stIDInfo.m_nID01, out STEpisodeInfo stLevelEpisodeInfo, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03);
 
 		var stReplaceLevelEpisodeInfo = new STEpisodeInfo() {
-			m_stIDInfo = new STIDInfo() {
-				m_nID = a_oLevelInfo.m_stIDInfo.m_nID,
-				m_nStageID = a_oLevelInfo.m_stIDInfo.m_nStageID,
-				m_nChapterID = a_oLevelInfo.m_stIDInfo.m_nChapterID
-			},
-
 			m_stDescInfo = new STDescInfo() {
 				m_oName = stLevelEpisodeInfo.m_stDescInfo.m_oName ?? string.Empty,
 				m_oDesc = stLevelEpisodeInfo.m_stDescInfo.m_oDesc ?? string.Empty
 			},
 
-			m_nPrevID = a_oLevelInfo.m_stIDInfo.m_nID - KCDefine.B_VAL_1_INT,
-			m_nNextID = a_oLevelInfo.m_stIDInfo.m_nID + KCDefine.B_VAL_1_INT,
+			m_stIDInfo = new STIDInfo() {
+				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01,
+				m_nID02 = a_oLevelInfo.m_stIDInfo.m_nID02,
+				m_nID03 = a_oLevelInfo.m_stIDInfo.m_nID03
+			},
 
+			m_stPrevIDInfo = new STIDInfo() {
+				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01 - KCDefine.B_VAL_1_INT,
+				m_nID02 = KCDefine.B_IDX_INVALID,
+				m_nID03 = KCDefine.B_IDX_INVALID,
+			},
+
+			m_stNextIDInfo = new STIDInfo() {
+				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT,
+				m_nID02 = KCDefine.B_IDX_INVALID,
+				m_nID03 = KCDefine.B_IDX_INVALID,
+			},
+
+			m_stSize = stLevelEpisodeInfo.m_stSize,
 			m_eDifficulty = stLevelEpisodeInfo.m_eDifficulty,
 			m_eEpisodeKinds = stLevelEpisodeInfo.m_eEpisodeKinds,
 			m_eTutorialKinds = stLevelEpisodeInfo.m_eTutorialKinds,
@@ -683,12 +693,12 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		stLevelEpisodeInfo.m_oNumTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
 		stLevelEpisodeInfo.m_oNumUnlockTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumUnlockTargetsDict, (a_nNumUnlockTargets) => a_nNumUnlockTargets);
 
-		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueLevelID, stReplaceLevelEpisodeInfo);
+		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueID01, stReplaceLevelEpisodeInfo);
 
 #if MSG_PACK_ENABLE
-		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID), a_oLevelInfo, null, false, false);
+		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, null, false, false);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteJSONObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID, a_oLevelInfo.m_stIDInfo.m_nStageID, a_oLevelInfo.m_stIDInfo.m_nChapterID), a_oLevelInfo, null, false, false, false, false);
+		CFunc.WriteJSONObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, null, false, false, false, false);
 #endif			// #if MSG_PACK_ENABLE
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)

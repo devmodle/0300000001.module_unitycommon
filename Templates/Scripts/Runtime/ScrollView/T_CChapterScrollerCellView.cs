@@ -32,7 +32,7 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 			var stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, i + m_stParams.m_stBaseParams.m_nID.ExUniqueLevelIDToChapterID());
 
 			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
-			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nChapterID < CLevelInfoTable.Inst.NumChapterInfos);
+			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID03 < CLevelInfoTable.Inst.NumChapterInfos);
 		}
 	}
 
@@ -40,22 +40,22 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 	private void UpdateScrollerCellState(GameObject a_oScrollerCell, STIDInfo a_stIDInfo) {
 		// 버튼을 갱신한다 {
 		var oSelBtn = a_oScrollerCell.GetComponentInChildren<Button>();
-		oSelBtn?.ExAddListener(() => m_stParams.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeUniqueLevelID(a_stIDInfo.m_nID, a_stIDInfo.m_nStageID, a_stIDInfo.m_nChapterID)), true, false);
+		oSelBtn?.ExAddListener(() => m_stParams.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeUniqueLevelID(a_stIDInfo.m_nID01, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)), true, false);
 
 #if PLAY_TEST_ENABLE
 		oSelBtn?.ExSetInteractable(true, false);
 #else
-		oSelBtn?.ExSetInteractable(a_stIDInfo.m_nChapterID <= CGameInfoStorage.Inst.NumChapterClearInfos, false);
+		oSelBtn?.ExSetInteractable(a_stIDInfo.m_nID03 <= CGameInfoStorage.Inst.NumChapterClearInfos, false);
 #endif			// #if PLAY_TEST_ENABLE
 		// 버튼을 갱신한다 }
 		
 		// 챕터 정보가 존재 할 경우
-		if(a_stIDInfo.m_nChapterID < CLevelInfoTable.Inst.NumChapterInfos) {
-			CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_stIDInfo.m_nChapterID, out STEpisodeInfo stChapterEpisodeInfo);
+		if(a_stIDInfo.m_nID03 < CLevelInfoTable.Inst.NumChapterInfos) {
+			CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_stIDInfo.m_nID03, out STEpisodeInfo stChapterEpisodeInfo);
 
 			// 텍스트를 갱신한다
 			var oChapterText = a_oScrollerCell.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_CHAPTER_TEXT);
-			oChapterText?.ExSetText($"{a_stIDInfo.m_nChapterID + KCDefine.B_VAL_1_INT}", EFontSet._1, false);
+			oChapterText?.ExSetText($"{a_stIDInfo.m_nID03 + KCDefine.B_VAL_1_INT}", EFontSet._1, false);
 		}
 	}
 	#endregion			// 함수

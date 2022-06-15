@@ -11,13 +11,13 @@ using Newtonsoft.Json;
 /** 에피소드 정보 */
 [System.Serializable]
 public partial struct STEpisodeInfo {
-	public STIDInfo m_stIDInfo;
 	public STDescInfo m_stDescInfo;
+
+	public STIDInfo m_stIDInfo;
+	public STIDInfo m_stPrevIDInfo;
+	public STIDInfo m_stNextIDInfo;
+
 	public Vector3 m_stSize;
-
-	public int m_nPrevID;
-	public int m_nNextID;
-
 	public EDifficulty m_eDifficulty;
 	public EEpisodeKinds m_eEpisodeKinds;
 	public ETutorialKinds m_eTutorialKinds;
@@ -31,13 +31,9 @@ public partial struct STEpisodeInfo {
 	#region 함수
 	/** 생성자 */
 	public STEpisodeInfo(SimpleJSON.JSONNode a_oEpisodeInfo) {
-		m_stIDInfo = new STIDInfo(a_oEpisodeInfo);
 		m_stDescInfo = new STDescInfo(a_oEpisodeInfo);
+
 		m_stSize = new Vector3(a_oEpisodeInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_FLT);
-
-		m_nPrevID = a_oEpisodeInfo[KCDefine.U_KEY_PREV_ID].ExIsValid() ? a_oEpisodeInfo[KCDefine.U_KEY_PREV_ID].AsInt : KCDefine.B_IDX_INVALID;
-		m_nNextID = a_oEpisodeInfo[KCDefine.U_KEY_NEXT_ID].ExIsValid() ? a_oEpisodeInfo[KCDefine.U_KEY_NEXT_ID].AsInt : KCDefine.B_IDX_INVALID;
-
 		m_eDifficulty = a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].ExIsValid() ? (EDifficulty)a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].AsInt : EDifficulty.NONE;
 		m_eEpisodeKinds = a_oEpisodeInfo[KCDefine.U_KEY_EPISODE_KINDS].ExIsValid() ? (EEpisodeKinds)a_oEpisodeInfo[KCDefine.U_KEY_EPISODE_KINDS].AsInt : EEpisodeKinds.NONE;
 		m_eTutorialKinds = a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
@@ -47,6 +43,10 @@ public partial struct STEpisodeInfo {
 
 		m_oNumTargetsDict = new Dictionary<ETargetKinds, int>();
 		m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
+
+		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stIDInfo);
+		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_PREV_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stPrevIDInfo);
+		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_NEXT_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stNextIDInfo);
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_MARKS; ++i) {
 			string oRecordKey = string.Format(KCDefine.U_KEY_FMT_RECORD, i + KCDefine.B_VAL_1_INT);
@@ -87,76 +87,78 @@ public partial struct STEpisodeInfo {
 	public int GetNumUnlockTargets(ETargetKinds a_eTargetKinds) {
 		return m_oNumUnlockTargetsDict.GetValueOrDefault(a_eTargetKinds, KCDefine.B_VAL_0_INT);
 	}
+
+	/** 식별자 정보를 설정한다 */
+	private static void SetupIDInfo(string a_oIDFmt, int a_nDefID, SimpleJSON.JSONNode a_oEpisodeInfo, out STIDInfo a_stOutIDInfo) {
+		string oID01Key = string.Format(a_oIDFmt, KCDefine.B_VAL_1_INT);
+		string oID02Key = string.Format(a_oIDFmt, KCDefine.B_VAL_2_INT);
+		string oID03Key = string.Format(a_oIDFmt, KCDefine.B_VAL_3_INT);
+		
+		a_stOutIDInfo = new STIDInfo() {
+			m_nID01 = a_oEpisodeInfo[oID01Key].ExIsValid() ? a_oEpisodeInfo[oID01Key].AsInt : a_nDefID,
+			m_nID02 = a_oEpisodeInfo[oID02Key].ExIsValid() ? a_oEpisodeInfo[oID02Key].AsInt : a_nDefID,
+			m_nID03 = a_oEpisodeInfo[oID03Key].ExIsValid() ? a_oEpisodeInfo[oID03Key].AsInt : a_nDefID
+		};
+	}
+
+	/** 식별자 정보를 생성한다 */
+	private static void MakeIDInfo(string a_oIDFmt, STIDInfo a_stIDInfo, SimpleJSON.JSONNode a_oOutEpisodeInfo) {
+		string oID01Key = string.Format(a_oIDFmt, KCDefine.B_VAL_1_INT);
+		string oID02Key = string.Format(a_oIDFmt, KCDefine.B_VAL_2_INT);
+		string oID03Key = string.Format(a_oIDFmt, KCDefine.B_VAL_3_INT);
+
+		a_oOutEpisodeInfo.Add(oID01Key, $"{a_stIDInfo.m_nID01}");
+		a_oOutEpisodeInfo.Add(oID02Key, $"{a_stIDInfo.m_nID02}");
+		a_oOutEpisodeInfo.Add(oID03Key, $"{a_stIDInfo.m_nID03}");
+	}
 	#endregion			// 함수
 
 	#region 조건부 함수
 #if UNITY_EDITOR || UNITY_STANDALONE
-	/** 레벨 에피소드 정보를 생성한다 */
-	public SimpleJSON.JSONClass MakeLevelEpisodeInfo() {
-		var oLevelEpisodeInfo = new SimpleJSON.JSONClass();
-		oLevelEpisodeInfo.Add(KCDefine.U_KEY_ID, $"{m_stIDInfo.m_nID}");
-		oLevelEpisodeInfo.Add(KCDefine.U_KEY_STAGE_ID, $"{m_stIDInfo.m_nStageID}");
-		oLevelEpisodeInfo.Add(KCDefine.U_KEY_CHAPTER_ID, $"{m_stIDInfo.m_nChapterID}");
-
-		this.MakeEpisodeInfo(oLevelEpisodeInfo);
-		return oLevelEpisodeInfo;
-	}
-
-	/** 스테이지 에피소드 정보를 생성한다 */
-	public SimpleJSON.JSONClass MakeStageEpisodeInfo() {
-		var oStageEpisodeInfo = new SimpleJSON.JSONClass();
-		oStageEpisodeInfo.Add(KCDefine.U_KEY_ID, $"{m_stIDInfo.m_nID}");
-		oStageEpisodeInfo.Add(KCDefine.U_KEY_CHAPTER_ID, $"{m_stIDInfo.m_nChapterID}");
-
-		this.MakeEpisodeInfo(oStageEpisodeInfo);
-		return oStageEpisodeInfo;
-	}
-
-	/** 챕터 에피소드 정보를 생성한다 */
-	public SimpleJSON.JSONClass MakeChapterEpisodeInfo() {
-		var oChapterEpisodeInfo = new SimpleJSON.JSONClass();
-		oChapterEpisodeInfo.Add(KCDefine.U_KEY_ID, $"{m_stIDInfo.m_nID}");
-		
-		this.MakeEpisodeInfo(oChapterEpisodeInfo);
-		return oChapterEpisodeInfo;
-	}
-
 	/** 에피소드 정보를 생성한다 */
-	private void MakeEpisodeInfo(SimpleJSON.JSONClass a_oOutEpisodeInfo) {
-		m_stDescInfo.MakeDescInfo(a_oOutEpisodeInfo);
+	public SimpleJSON.JSONClass MakeEpisodeInfo() {
+		var oEpisodeInfo = new SimpleJSON.JSONClass();
+		m_stDescInfo.MakeDescInfo(oEpisodeInfo);
 
-		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_PREV_ID, $"{m_nPrevID}");
-		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_NEXT_ID, $"{m_nNextID}");
+		oEpisodeInfo.Add(KCDefine.U_KEY_SIZE_X, $"{m_stSize.x}");
+		oEpisodeInfo.Add(KCDefine.U_KEY_SIZE_Y, $"{m_stSize.y}");
 
-		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_DIFFICULTY, $"{(int)m_eDifficulty}");
-		a_oOutEpisodeInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
+		oEpisodeInfo.Add(KCDefine.U_KEY_DIFFICULTY, $"{(int)m_eDifficulty}");
+		oEpisodeInfo.Add(KCDefine.U_KEY_EPISODE_KINDS, $"{(int)m_eEpisodeKinds}");
+		oEpisodeInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 
 		var oNumTargetsKeyList = m_oNumTargetsDict.Keys.ToList();
 		var oNumUnlockTargetsKeyList = m_oNumUnlockTargetsDict.Keys.ToList();
 
+		STEpisodeInfo.MakeIDInfo(KCDefine.U_KEY_FMT_ID, m_stIDInfo, oEpisodeInfo);
+		STEpisodeInfo.MakeIDInfo(KCDefine.U_KEY_FMT_PREV_ID, m_stPrevIDInfo, oEpisodeInfo);
+		STEpisodeInfo.MakeIDInfo(KCDefine.U_KEY_FMT_NEXT_ID, m_stNextIDInfo, oEpisodeInfo);
+
 		for(int i = 0; i < m_oRecordList.Count; ++i) {
-			a_oOutEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_RECORD, i + KCDefine.B_VAL_1_INT), $"{m_oRecordList.ExGetVal(i, KCDefine.B_VAL_0_INT)}");
+			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_RECORD, i + KCDefine.B_VAL_1_INT), $"{m_oRecordList.ExGetVal(i, KCDefine.B_VAL_0_INT)}");
 		}
 
 		for(int i = 0; i < m_oRewardKindsList.Count; ++i) {
-			a_oOutEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)m_oRewardKindsList.ExGetVal(i, ERewardKinds.NONE)}");
+			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)m_oRewardKindsList.ExGetVal(i, ERewardKinds.NONE)}");
 		}
 
 		for(int i = 0; i < m_oNumTargetsDict.Count && i < oNumTargetsKeyList.Count; ++i) {
 			var eKey = oNumTargetsKeyList.ExGetVal(i, ETargetKinds.NONE);
 			int nVal = m_oNumTargetsDict.GetValueOrDefault(eKey, KCDefine.B_VAL_0_INT);
 
-			a_oOutEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT), $"{nVal}");
-			a_oOutEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)eKey}");
+			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT), $"{nVal}");
+			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)eKey}");
 		}
 
 		for(int i = 0; i < m_oNumUnlockTargetsDict.Count && i < oNumUnlockTargetsKeyList.Count; ++i) {
 			var eKey = oNumUnlockTargetsKeyList.ExGetVal(i, ETargetKinds.NONE);
 			int nVal = m_oNumUnlockTargetsDict.GetValueOrDefault(eKey, KCDefine.B_VAL_0_INT);
 
-			a_oOutEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT), $"{nVal}");
-			a_oOutEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)eKey}");
+			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT), $"{nVal}");
+			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)eKey}");
 		}
+
+		return oEpisodeInfo;
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수
@@ -205,11 +207,11 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		base.Awake();
 
 		for(int i = 0; i < m_oLevelEpisodeInfoList.Count; ++i) {
-			this.LevelEpisodeInfoDict.TryAdd(CFactory.MakeUniqueLevelID(i, m_oLevelEpisodeInfoList[i].m_stIDInfo.m_nStageID, m_oLevelEpisodeInfoList[i].m_stIDInfo.m_nChapterID), m_oLevelEpisodeInfoList[i]);
+			this.LevelEpisodeInfoDict.TryAdd(CFactory.MakeUniqueLevelID(i, m_oLevelEpisodeInfoList[i].m_stIDInfo.m_nID02, m_oLevelEpisodeInfoList[i].m_stIDInfo.m_nID03), m_oLevelEpisodeInfoList[i]);
 		}
 
 		for(int i = 0; i < m_oStageEpisodeInfoList.Count; ++i) {
-			this.StageEpisodeInfoDict.TryAdd(CFactory.MakeUniqueStageID(i, m_oStageEpisodeInfoList[i].m_stIDInfo.m_nChapterID), m_oStageEpisodeInfoList[i]);
+			this.StageEpisodeInfoDict.TryAdd(CFactory.MakeUniqueStageID(i, m_oStageEpisodeInfoList[i].m_stIDInfo.m_nID03), m_oStageEpisodeInfoList[i]);
 		}
 
 		for(int i = 0; i < m_oChapterEpisodeInfoList.Count; ++i) {
@@ -354,8 +356,8 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 			var stLevelEpisodeInfo = new STEpisodeInfo(oLevelEpisodeInfos[i]);
 
 			// 레벨 에피소드 정보가 추가 가능 할 경우
-			if(stLevelEpisodeInfo.m_stIDInfo.m_nID.ExIsValidIdx() && (!this.LevelEpisodeInfoDict.ContainsKey(stLevelEpisodeInfo.m_stIDInfo.UniqueLevelID) || oLevelEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-				this.LevelEpisodeInfoDict.ExReplaceVal(stLevelEpisodeInfo.m_stIDInfo.UniqueLevelID, stLevelEpisodeInfo);
+			if(stLevelEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.LevelEpisodeInfoDict.ContainsKey(stLevelEpisodeInfo.m_stIDInfo.UniqueID01) || oLevelEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.LevelEpisodeInfoDict.ExReplaceVal(stLevelEpisodeInfo.m_stIDInfo.UniqueID01, stLevelEpisodeInfo);
 			}
 		}
 
@@ -363,8 +365,8 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 			var stStageEpisodeInfo = new STEpisodeInfo(oStageEpisodeInfos[i]);
 
 			// 스테이지 에피소드 정보가 추가 가능 할 경우
-			if(stStageEpisodeInfo.m_stIDInfo.m_nID.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stStageEpisodeInfo.m_stIDInfo.UniqueStageID) || oStageEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-				this.StageEpisodeInfoDict.ExReplaceVal(stStageEpisodeInfo.m_stIDInfo.UniqueStageID, stStageEpisodeInfo);
+			if(stStageEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stStageEpisodeInfo.m_stIDInfo.UniqueID02) || oStageEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.StageEpisodeInfoDict.ExReplaceVal(stStageEpisodeInfo.m_stIDInfo.UniqueID02, stStageEpisodeInfo);
 			}
 		}
 
@@ -372,8 +374,8 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 			var stChapterEpisodeInfo = new STEpisodeInfo(oChapterEpisodeInfos[i]);
 
 			// 챕터 에피소드 정보가 추가 가능 할 경우
-			if(stChapterEpisodeInfo.m_stIDInfo.m_nID.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stChapterEpisodeInfo.m_stIDInfo.UniqueChapterID) || oChapterEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-				this.ChapterEpisodeInfoDict.ExReplaceVal(stChapterEpisodeInfo.m_stIDInfo.UniqueChapterID, stChapterEpisodeInfo);
+			if(stChapterEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stChapterEpisodeInfo.m_stIDInfo.UniqueID03) || oChapterEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.ChapterEpisodeInfoDict.ExReplaceVal(stChapterEpisodeInfo.m_stIDInfo.UniqueID03, stChapterEpisodeInfo);
 			}
 		}
 
@@ -402,15 +404,15 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		var oChapterEpisodeInfos = new SimpleJSON.JSONArray();
 
 		foreach(var stKeyVal in this.LevelEpisodeInfoDict) {
-			oLevelEpisodeInfos.Add(stKeyVal.Value.MakeLevelEpisodeInfo());
+			oLevelEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
 		}
 
 		foreach(var stKeyVal in this.StageEpisodeInfoDict) {
-			oStageEpisodeInfos.Add(stKeyVal.Value.MakeStageEpisodeInfo());
+			oStageEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
 		}
 
 		foreach(var stKeyVal in this.ChapterEpisodeInfoDict) {
-			oChapterEpisodeInfos.Add(stKeyVal.Value.MakeChapterEpisodeInfo());
+			oChapterEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
 		}
 
 		oJSONNode.Add(KCDefine.U_KEY_LEVEL, oLevelEpisodeInfos);

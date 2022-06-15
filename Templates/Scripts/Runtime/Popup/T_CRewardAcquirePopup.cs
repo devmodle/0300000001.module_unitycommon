@@ -23,12 +23,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		
 		public List<STNumItemsInfo> m_oNumItemsInfoList;
 	}
-
-	#region 상수
-	private const string KEY_ACQUIRE_BTN = "BlindBtn";
-	private const string KEY_REWARD_ADS_BTN = "BlindBtn";
-	#endregion			// 상수
-
+	
 	#region 변수
 	private STParams m_stParams;
 

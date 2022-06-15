@@ -410,7 +410,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 레벨 클리어 정보를 추가한다 */
 	public void AddLevelClearInfo(CClearInfo a_oClearInfo) {
-		this.GameInfo.m_oLevelClearInfoDict.TryAdd(a_oClearInfo.m_stIDInfo.UniqueLevelID, a_oClearInfo);
+		this.GameInfo.m_oLevelClearInfoDict.TryAdd(a_oClearInfo.m_stIDInfo.UniqueID01, a_oClearInfo);
 	}
 
 	/** 잠금 해제 레벨을 추가한다 */
@@ -499,7 +499,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 		foreach(var stKeyVal in this.GameInfo.m_oLevelClearInfoDict) {
 			// 클리어 정보가 존재 할 경우
-			if(stKeyVal.Value.m_stIDInfo.m_nStageID == a_nID && stKeyVal.Value.m_stIDInfo.m_nChapterID == a_nChapterID) {
+			if(stKeyVal.Value.m_stIDInfo.m_nID02 == a_nID && stKeyVal.Value.m_stIDInfo.m_nID03 == a_nChapterID) {
 				oStageClearInfoList.ExAddVal(stKeyVal.Value);
 			}
 		}
@@ -513,7 +513,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 		foreach(var stKeyVal in this.GameInfo.m_oLevelClearInfoDict) {
 			// 클리어 정보가 존재 할 경우
-			if(stKeyVal.Value.m_stIDInfo.m_nChapterID == a_nID) {
+			if(stKeyVal.Value.m_stIDInfo.m_nID03 == a_nID) {
 				oChapterClearInfoList.ExAddVal(stKeyVal.Value);
 			}
 		}
