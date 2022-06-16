@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public static partial class AccessExtension {
 	#region 클래스 함수
 	/** 가격 정보를 반환한다 */
-	public static STPriceInfo ExGetPriceInfo(this List<STPriceInfo> a_oSender, EPriceKinds a_ePriceKinds) {
-		bool bIsValid = a_oSender.ExTryGetPriceInfo(a_ePriceKinds, out STPriceInfo stPriceInfo);
+	public static STPriceInfo ExGetPriceInfo(this List<STPriceInfo> a_oSender, EPriceType a_ePriceType, int a_nKinds) {
+		bool bIsValid = a_oSender.ExTryGetPriceInfo(a_ePriceType, a_nKinds, out STPriceInfo stPriceInfo);
 		CAccess.Assert(bIsValid);
 
 		return stPriceInfo;
@@ -25,8 +25,8 @@ public static partial class AccessExtension {
 	}
 
 	/** 가격 정보를 반환한다 */
-	public static bool ExTryGetPriceInfo(this List<STPriceInfo> a_oSender, EPriceKinds a_ePriceKinds, out STPriceInfo a_stOutPriceInfo) {
-		int nIdx = a_oSender.FindIndex((a_stPriceInfo) => a_stPriceInfo.m_ePriceKinds == a_ePriceKinds);
+	public static bool ExTryGetPriceInfo(this List<STPriceInfo> a_oSender, EPriceType a_ePriceType, int a_nKinds, out STPriceInfo a_stOutPriceInfo) {
+		int nIdx = a_oSender.FindIndex((a_stPriceInfo) => a_stPriceInfo.m_ePriceType == a_ePriceType && a_stPriceInfo.m_nKinds == a_nKinds);
 		a_stOutPriceInfo = a_oSender.ExIsValidIdx(nIdx) ? a_oSender[nIdx] : default(STPriceInfo);
 
 		return a_oSender.ExIsValidIdx(nIdx);

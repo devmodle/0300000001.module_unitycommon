@@ -19,12 +19,7 @@ public static partial class AccessExtension {
 	public static bool ExIsValid(this EPriceType a_eSender) {
 		return a_eSender > EPriceType.NONE && a_eSender < EPriceType.MAX_VAL;
 	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EPriceKinds a_eSender) {
-		return a_eSender > EPriceKinds.NONE && a_eSender < EPriceKinds.MAX_VAL;
-	}
-
+	
 	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EItemType a_eSender) {
 		return a_eSender > EItemType.NONE && a_eSender < EItemType.MAX_VAL;

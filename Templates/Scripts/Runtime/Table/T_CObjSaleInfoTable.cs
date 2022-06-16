@@ -40,11 +40,14 @@ public partial struct STObjSaleInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_PRICE_INFOS; ++i) {
+			string oKindsKey = string.Format(KCDefine.U_KEY_FMT_KINDS, i + KCDefine.B_VAL_1_INT);
 			string oPriceKey = string.Format(KCDefine.U_KEY_FMT_PRICE, i + KCDefine.B_VAL_1_INT);
-			string oPriceKindsKey = string.Format(KCDefine.U_KEY_FMT_PRICE_KINDS, i + KCDefine.B_VAL_1_INT);
+			string oPriceTypeKey = string.Format(KCDefine.U_KEY_FMT_PRICE_TYPE, i + KCDefine.B_VAL_1_INT);
 
 			m_oPriceInfoList.Add(new STPriceInfo() {
-				m_oPrice = a_oObjSaleInfo[oPriceKey].ExIsValid() ? a_oObjSaleInfo[oPriceKey] : KCDefine.B_STR_0_INT, m_ePriceKinds = a_oObjSaleInfo[oPriceKindsKey].ExIsValid() ? (EPriceKinds)a_oObjSaleInfo[oPriceKindsKey].AsInt : EPriceKinds.NONE
+				m_nKinds = a_oObjSaleInfo[oPriceTypeKey].ExIsValid() ? a_oObjSaleInfo[oPriceTypeKey].AsInt : KCDefine.B_IDX_INVALID,
+				m_oPrice = a_oObjSaleInfo[oPriceKey].ExIsValid() ? a_oObjSaleInfo[oPriceKey] : KCDefine.B_STR_0_INT,
+				m_ePriceType = a_oObjSaleInfo[oPriceTypeKey].ExIsValid() ? (EPriceType)a_oObjSaleInfo[oPriceTypeKey].AsInt : EPriceType.NONE
 			});
 		}
 	}
@@ -109,8 +112,8 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 	}
 
 	/** 가격 정보를 반환한다 */
-	public STPriceInfo GetPriceInfo(EObjSaleKinds a_eObjSaleKinds, EPriceKinds a_ePriceKinds) {
-		bool bIsValid = this.TryGetPriceInfo(a_eObjSaleKinds, a_ePriceKinds, out STPriceInfo stPriceInfo);
+	public STPriceInfo GetPriceInfo(EObjSaleKinds a_eObjSaleKinds, EPriceType a_ePriceType, int a_nKinds) {
+		bool bIsValid = this.TryGetPriceInfo(a_eObjSaleKinds, a_ePriceType, a_nKinds, out STPriceInfo stPriceInfo);
 		CAccess.Assert(bIsValid);
 
 		return stPriceInfo;
@@ -123,10 +126,10 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 	}
 
 	/** 가격 정보를 반환한다 */
-	public bool TryGetPriceInfo(EObjSaleKinds a_eObjSaleKinds, EPriceKinds a_ePriceKinds, out STPriceInfo a_stOutPriceInfo) {
+	public bool TryGetPriceInfo(EObjSaleKinds a_eObjSaleKinds, EPriceType a_ePriceType, int a_nKinds, out STPriceInfo a_stOutPriceInfo) {
 		// 아이템 판매 정보가 존재 할 경우
 		if(this.TryGetObjSaleInfo(a_eObjSaleKinds, out STObjSaleInfo stObjSaleInfo)) {
-			return stObjSaleInfo.m_oPriceInfoList.ExTryGetPriceInfo(a_ePriceKinds, out a_stOutPriceInfo);
+			return stObjSaleInfo.m_oPriceInfoList.ExTryGetPriceInfo(a_ePriceType, a_nKinds, out a_stOutPriceInfo);
 		}
 
 		a_stOutPriceInfo = default(STPriceInfo);

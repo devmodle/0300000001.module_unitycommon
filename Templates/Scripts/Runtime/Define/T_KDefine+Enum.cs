@@ -26,30 +26,8 @@ public enum EPlayMode {
 public enum EPriceType {
 	NONE = -1,
 	ADS,
-	GOODS,
 	PURCHASE,
-	[HideInInspector] MAX_VAL
-}
-
-/** 가격 종류 */
-public enum EPriceKinds {
-	NONE = -1,
-
-	#region 광고
-	// 0
-	ADS_REWARD = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 광고
-
-	#region 재화
-	// 100,000,000
-	GOODS_COINS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 재화
-
-	#region 결제
-	// 200,000,000
-	IN_APP_PURCHASE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 결제
-
+	ITEM,
 	[HideInInspector] MAX_VAL
 }
 

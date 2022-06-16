@@ -12,15 +12,13 @@ using Newtonsoft.Json;
 /** 가격 정보 */
 [System.Serializable]
 public partial struct STPriceInfo {
+	public int m_nKinds;
 	public string m_oPrice;
-	public EPriceKinds m_ePriceKinds;
+	public EPriceType m_ePriceType;
 
 	#region 프로퍼티
 	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_LONG;
 	public double RealPrice => double.TryParse(m_oPrice, out double dblPrice) ? dblPrice : KCDefine.B_VAL_0_DBL;
-
-	public EPriceType PriceType => (EPriceType)((int)m_ePriceKinds).ExKindsToType();
-	public EPriceKinds BasePriceKinds => (EPriceKinds)((int)m_ePriceKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 }
 
