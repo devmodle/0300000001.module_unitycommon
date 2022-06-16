@@ -196,7 +196,7 @@ public static partial class KEditorDefine {
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.polybrush"] = "1.1.3",
 		["com.unity.probuilder"] = "5.0.4",
-		["com.unity.sequences"] = "1.0.4",
+		["com.unity.sequences"] = "1.1.0",
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",

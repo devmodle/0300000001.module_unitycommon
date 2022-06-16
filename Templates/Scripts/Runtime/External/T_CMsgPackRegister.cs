@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MessagePack;
-using MessagePack.Resolvers;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if MSG_PACK_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+using MessagePack;
+using MessagePack.Resolvers;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif			// #if UNITY_EDITOR

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MessagePack;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+using MessagePack;
+
 #region 기본
 /** 서브 에디터 레벨 생성 정보 */
 public partial class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
