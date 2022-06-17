@@ -7,7 +7,7 @@ using UnityEngine.UI;
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 객체 */
-	public partial class CEObj : CComponent {
+	public partial class CEObj : CEComponent {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
@@ -16,9 +16,9 @@ namespace SampleEngineName {
 		}
 
 		/** 매개 변수 */
-		public partial struct STParams {
+		public new partial struct STParams {
+			public CEComponent.STParams m_stBaseParams;
 			public STObjInfo m_stObjInfo;
-			public CEngine m_oEngine;
 		}
 
 		#region 상수
@@ -52,6 +52,7 @@ namespace SampleEngineName {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
+			base.Init(a_stParams.m_stBaseParams);
 			m_stParams = a_stParams;
 
 			// 객체 스프라이트가 존재 할 경우
