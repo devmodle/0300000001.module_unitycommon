@@ -28,6 +28,7 @@ public enum EPriceType {
 	ADS,
 	PURCHASE,
 	ITEM,
+	SKILL,
 	[HideInInspector] MAX_VAL
 }
 
