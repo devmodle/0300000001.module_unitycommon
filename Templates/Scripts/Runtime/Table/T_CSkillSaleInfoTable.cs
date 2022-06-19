@@ -40,15 +40,7 @@ public partial struct STSkillSaleInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_PRICE_INFOS; ++i) {
-			string oKindsKey = string.Format(KCDefine.U_KEY_FMT_KINDS, i + KCDefine.B_VAL_1_INT);
-			string oPriceKey = string.Format(KCDefine.U_KEY_FMT_PRICE, i + KCDefine.B_VAL_1_INT);
-			string oPriceTypeKey = string.Format(KCDefine.U_KEY_FMT_PRICE_TYPE, i + KCDefine.B_VAL_1_INT);
-
-			m_oPriceInfoList.Add(new STPriceInfo() {
-				m_nKinds = a_oSkillSaleInfo[oPriceTypeKey].ExIsValid() ? a_oSkillSaleInfo[oPriceTypeKey].AsInt : KCDefine.B_IDX_INVALID,
-				m_oPrice = a_oSkillSaleInfo[oPriceKey].ExIsValid() ? a_oSkillSaleInfo[oPriceKey] : KCDefine.B_STR_0_INT,
-				m_ePriceType = a_oSkillSaleInfo[oPriceTypeKey].ExIsValid() ? (EPriceType)a_oSkillSaleInfo[oPriceTypeKey].AsInt : EPriceType.NONE
-			});
+			m_oPriceInfoList.Add(new STPriceInfo(a_oSkillSaleInfo, i));
 		}
 	}
 	#endregion			// 함수

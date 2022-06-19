@@ -25,8 +25,8 @@ public partial struct STEpisodeInfo {
 	public List<int> m_oRecordList;
 	public List<ERewardKinds> m_oRewardKindsList;
 
-	public Dictionary<ETargetKinds, int> m_oNumTargetsDict;
-	public Dictionary<ETargetKinds, int> m_oNumUnlockTargetsDict;
+	public List<STTargetInfo> m_oTargetInfoList;
+	public List<STTargetInfo> m_oUnlockTargetInfoList;
 
 	#region 함수
 	/** 생성자 */
@@ -41,8 +41,8 @@ public partial struct STEpisodeInfo {
 		m_oRecordList = new List<int>();
 		m_oRewardKindsList = new List<ERewardKinds>();
 
-		m_oNumTargetsDict = new Dictionary<ETargetKinds, int>();
-		m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
+		m_oTargetInfoList = new List<STTargetInfo>();
+		m_oUnlockTargetInfoList = new List<STTargetInfo>();
 
 		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stIDInfo);
 		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_PREV_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stPrevIDInfo);
@@ -58,18 +58,20 @@ public partial struct STEpisodeInfo {
 			m_oRewardKindsList.Add(a_oEpisodeInfo[oRewardKindsKey].ExIsValid() ? (ERewardKinds)a_oEpisodeInfo[oRewardKindsKey].AsInt : ERewardKinds.NONE);
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_TARGET_KINDS; ++i) {
-			string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT);
-			string oTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
-			
-			m_oNumTargetsDict.TryAdd(a_oEpisodeInfo[oTargetKindsKey].ExIsValid() ? (ETargetKinds)a_oEpisodeInfo[oTargetKindsKey].AsInt : ETargetKinds.NONE, a_oEpisodeInfo[oNumTargetsKey].AsInt);
+		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_TARGET_INFOS; ++i) {
+			m_oTargetInfoList.Add(new STTargetInfo(a_oEpisodeInfo, i));
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_UNLOCK_TARGET_KINDS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_UNLOCK_TARGET_INFOS; ++i) {
 			string oNumUnlockTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT);
+			string oUnlockTargetTypeKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_TYPE, i + KCDefine.B_VAL_1_INT);
 			string oUnlockTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oNumUnlockTargetsDict.TryAdd(a_oEpisodeInfo[oUnlockTargetKindsKey].ExIsValid() ? (ETargetKinds)a_oEpisodeInfo[oUnlockTargetKindsKey].AsInt : ETargetKinds.NONE, a_oEpisodeInfo[oNumUnlockTargetsKey].AsInt);
+			m_oUnlockTargetInfoList.Add(new STTargetInfo() {
+				m_nKinds = a_oEpisodeInfo[oUnlockTargetKindsKey].ExIsValid() ? a_oEpisodeInfo[oUnlockTargetKindsKey].AsInt : KCDefine.B_IDX_INVALID,
+				m_nNumTargets = a_oEpisodeInfo[oNumUnlockTargetsKey].ExIsValid() ? a_oEpisodeInfo[oNumUnlockTargetsKey].AsInt : KCDefine.B_VAL_0_INT,
+				m_eTargetType = a_oEpisodeInfo[oUnlockTargetTypeKey].ExIsValid() ? (ETargetType)a_oEpisodeInfo[oUnlockTargetTypeKey].AsInt : ETargetType.NONE
+			});
 		}
 	}
 
@@ -78,14 +80,14 @@ public partial struct STEpisodeInfo {
 		return m_oRecordList.ExGetVal(a_nIdx, KCDefine.B_VAL_0_INT);
 	}
 
-	/** 타겟 개수를 반환한다 */
-	public int GetNumTargets(ETargetKinds a_eTargetKinds) {
-		return m_oNumTargetsDict.GetValueOrDefault(a_eTargetKinds, KCDefine.B_VAL_0_INT);
+	/** 타겟 정보를 반환한다 */
+	public STTargetInfo GetTargetInfo(ETargetType a_eTargetType, int a_nKinds) {
+		return m_oTargetInfoList.ExGetVal((a_stTargetInfo) => a_stTargetInfo.m_eTargetType == a_eTargetType && a_stTargetInfo.m_nKinds == a_nKinds, default(STTargetInfo));
 	}
 
-	/** 잠금 해제 타겟 개수를 반환한다 */
-	public int GetNumUnlockTargets(ETargetKinds a_eTargetKinds) {
-		return m_oNumUnlockTargetsDict.GetValueOrDefault(a_eTargetKinds, KCDefine.B_VAL_0_INT);
+	/** 잠금 해제 타겟 정보를 반환한다 */
+	public STTargetInfo GetUnlockTargetInfo(ETargetType a_eTargetType, int a_nKinds) {
+		return m_oUnlockTargetInfoList.ExGetVal((a_stUnlockTargetInfo) => a_stUnlockTargetInfo.m_eTargetType == a_eTargetType && a_stUnlockTargetInfo.m_nKinds == a_nKinds, default(STTargetInfo));
 	}
 
 	/** 식별자 정보를 설정한다 */
@@ -127,9 +129,6 @@ public partial struct STEpisodeInfo {
 		oEpisodeInfo.Add(KCDefine.U_KEY_EPISODE_KINDS, $"{(int)m_eEpisodeKinds}");
 		oEpisodeInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 
-		var oNumTargetsKeyList = m_oNumTargetsDict.Keys.ToList();
-		var oNumUnlockTargetsKeyList = m_oNumUnlockTargetsDict.Keys.ToList();
-
 		STEpisodeInfo.MakeIDInfo(KCDefine.U_KEY_FMT_ID, m_stIDInfo, oEpisodeInfo);
 		STEpisodeInfo.MakeIDInfo(KCDefine.U_KEY_FMT_PREV_ID, m_stPrevIDInfo, oEpisodeInfo);
 		STEpisodeInfo.MakeIDInfo(KCDefine.U_KEY_FMT_NEXT_ID, m_stNextIDInfo, oEpisodeInfo);
@@ -142,20 +141,14 @@ public partial struct STEpisodeInfo {
 			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)m_oRewardKindsList.ExGetVal(i, ERewardKinds.NONE)}");
 		}
 
-		for(int i = 0; i < m_oNumTargetsDict.Count && i < oNumTargetsKeyList.Count; ++i) {
-			var eKey = oNumTargetsKeyList.ExGetVal(i, ETargetKinds.NONE);
-			int nVal = m_oNumTargetsDict.GetValueOrDefault(eKey, KCDefine.B_VAL_0_INT);
-
-			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, i + KCDefine.B_VAL_1_INT), $"{nVal}");
-			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)eKey}");
+		for(int i = 0; i < m_oTargetInfoList.Count; ++i) {
+			m_oTargetInfoList[i].MakeTargetInfo(oEpisodeInfo, i);
 		}
 
-		for(int i = 0; i < m_oNumUnlockTargetsDict.Count && i < oNumUnlockTargetsKeyList.Count; ++i) {
-			var eKey = oNumUnlockTargetsKeyList.ExGetVal(i, ETargetKinds.NONE);
-			int nVal = m_oNumUnlockTargetsDict.GetValueOrDefault(eKey, KCDefine.B_VAL_0_INT);
-
-			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT), $"{nVal}");
-			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)eKey}");
+		for(int i = 0; i < m_oUnlockTargetInfoList.Count; ++i) {
+			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_TYPE, i + KCDefine.B_VAL_1_INT), $"{(int)m_oUnlockTargetInfoList[i].m_eTargetType}");
+			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_KINDS, i + KCDefine.B_VAL_1_INT), $"{m_oUnlockTargetInfoList[i].m_nKinds}");
+			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_UNLOCK_TARGETS, i + KCDefine.B_VAL_1_INT), $"{m_oUnlockTargetInfoList[i].m_nNumTargets}");
 		}
 
 		return oEpisodeInfo;
@@ -225,16 +218,16 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return stLevelEpisodeInfo.GetRecord(a_nIdx);
 	}
 
-	/** 레벨 에피소드 타겟 개수를 반환한다 */
-	public int GetLevelEpisodeNumTargets(int a_nID, ETargetKinds a_eTargetKinds, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	/** 레벨 에피소드 타겟 정보를 반환한다 */
+	public STTargetInfo GetLevelEpisodeTargetInfo(int a_nID, ETargetType a_eTargetType, int a_nKinds, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.TryGetLevelEpisodeInfo(a_nID, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID);
-		return stLevelEpisodeInfo.GetNumTargets(a_eTargetKinds);
+		return stLevelEpisodeInfo.GetTargetInfo(a_eTargetType, a_nKinds);
 	}
 
-	/** 레벨 에피소드 잠금 해제 타겟 개수를 반환한다 */
-	public int GetLevelEpisodeNumUnlockTargets(int a_nID, ETargetKinds a_eTargetKinds, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	/** 레벨 에피소드 잠금 해제 타겟 정보를 반환한다 */
+	public STTargetInfo GetLevelEpisodeUnlockTargetInfo(int a_nID, ETargetType a_eTargetType, int a_nKinds, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.TryGetLevelEpisodeInfo(a_nID, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID);
-		return stLevelEpisodeInfo.GetNumUnlockTargets(a_eTargetKinds);
+		return stLevelEpisodeInfo.GetUnlockTargetInfo(a_eTargetType, a_nKinds);
 	}
 
 	/** 스테이지 에피소드 기록을 반환한다 */
@@ -243,16 +236,16 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return stStageEpisodeInfo.GetRecord(a_nIdx);
 	}
 
-	/** 스테이지 에피소드 타겟 개수를 반환한다 */
-	public int GetStageEpisodeNumTargets(int a_nID, ETargetKinds a_eTargetKinds, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	/** 스테이지 에피소드 타겟 정보를 반환한다 */
+	public STTargetInfo GetStageEpisodeTargetInfo(int a_nID, ETargetType a_eTargetType, int a_nKinds, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.TryGetStageEpisodeInfo(a_nID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID);
-		return stStageEpisodeInfo.GetNumTargets(a_eTargetKinds);
+		return stStageEpisodeInfo.GetTargetInfo(a_eTargetType, a_nKinds);
 	}
 
-	/** 스테이지 에피소드 잠금 해제 타겟 개수를 반환한다 */
-	public int GetStageEpisodeNumUnlockTargets(int a_nID, ETargetKinds a_eTargetKinds, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	/** 스테이지 에피소드 잠금 해제 타겟 정보를 반환한다 */
+	public STTargetInfo GetStageEpisodeUnlockTargetInfo(int a_nID, ETargetType a_eTargetType, int a_nKinds, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.TryGetStageEpisodeInfo(a_nID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID);
-		return stStageEpisodeInfo.GetNumUnlockTargets(a_eTargetKinds);
+		return stStageEpisodeInfo.GetUnlockTargetInfo(a_eTargetType, a_nKinds);
 	}
 
 	/** 챕터 에피소드 기록을 반환한다 */
@@ -261,16 +254,16 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		return stChapterEpisodeInfo.GetRecord(a_nIdx);
 	}
 
-	/** 챕터 에피소드 타겟 개수를 반환한다 */
-	public int GetChapterEpisodeNumTargets(int a_nID, ETargetKinds a_eTargetKinds) {
+	/** 챕터 에피소드 타겟 정보를 반환한다 */
+	public STTargetInfo GetChapterEpisodeTargetInfo(int a_nID, ETargetType a_eTargetType, int a_nKinds) {
 		this.TryGetChapterEpisodeInfo(a_nID, out STEpisodeInfo stChapterEpisodeInfo);
-		return stChapterEpisodeInfo.GetNumTargets(a_eTargetKinds);
+		return stChapterEpisodeInfo.GetTargetInfo(a_eTargetType, a_nKinds);
 	}
 
-	/** 챕터 에피소드 잠금 해제 타겟 개수를 반환한다 */
-	public int GetChapterEpisodeNumUnlockTargets(int a_nID, ETargetKinds a_eTargetKinds) {
+	/** 챕터 에피소드 잠금 해제 타겟 정보를 반환한다 */
+	public STTargetInfo GetChapterEpisodeUnlockTargetInfo(int a_nID, ETargetType a_eTargetType, int a_nKinds) {
 		this.TryGetChapterEpisodeInfo(a_nID, out STEpisodeInfo stChapterEpisodeInfo);
-		return stChapterEpisodeInfo.GetNumUnlockTargets(a_eTargetKinds);
+		return stChapterEpisodeInfo.GetUnlockTargetInfo(a_eTargetType, a_nKinds);
 	}
 
 	/** 레벨 에피소드 정보를 반환한다 */

@@ -41,24 +41,11 @@ public partial struct STProductSaleInfo {
 		m_oNumItemsInfoList = new List<STNumItemsInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_PRICE_INFOS; ++i) {
-			string oKindsKey = string.Format(KCDefine.U_KEY_FMT_KINDS, i + KCDefine.B_VAL_1_INT);
-			string oPriceKey = string.Format(KCDefine.U_KEY_FMT_PRICE, i + KCDefine.B_VAL_1_INT);
-			string oPriceTypeKey = string.Format(KCDefine.U_KEY_FMT_PRICE_TYPE, i + KCDefine.B_VAL_1_INT);
-
-			m_oPriceInfoList.Add(new STPriceInfo() {
-				m_nKinds = a_oProductSaleInfo[oPriceTypeKey].ExIsValid() ? a_oProductSaleInfo[oPriceTypeKey].AsInt : KCDefine.B_IDX_INVALID,
-				m_oPrice = a_oProductSaleInfo[oPriceKey].ExIsValid() ? a_oProductSaleInfo[oPriceKey] : KCDefine.B_STR_0_INT,
-				m_ePriceType = a_oProductSaleInfo[oPriceTypeKey].ExIsValid() ? (EPriceType)a_oProductSaleInfo[oPriceTypeKey].AsInt : EPriceType.NONE
-			});
+			m_oPriceInfoList.Add(new STPriceInfo(a_oProductSaleInfo, i));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ITEMS_INFOS; ++i) {
-			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
-			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
-
-			m_oNumItemsInfoList.Add(new STNumItemsInfo() {
-				m_nNumItems = long.TryParse(a_oProductSaleInfo[oNumItemsKey], out long nNumItems) ? nNumItems : KCDefine.B_VAL_0_LONG, m_eItemKinds = a_oProductSaleInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oProductSaleInfo[oItemKindsKey].AsInt : EItemKinds.NONE
-			});
+			m_oNumItemsInfoList.Add(new STNumItemsInfo(a_oProductSaleInfo, i));
 		}
 	}
 	#endregion			// 함수

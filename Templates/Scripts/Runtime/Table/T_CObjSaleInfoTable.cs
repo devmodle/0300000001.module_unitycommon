@@ -40,15 +40,7 @@ public partial struct STObjSaleInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_PRICE_INFOS; ++i) {
-			string oKindsKey = string.Format(KCDefine.U_KEY_FMT_KINDS, i + KCDefine.B_VAL_1_INT);
-			string oPriceKey = string.Format(KCDefine.U_KEY_FMT_PRICE, i + KCDefine.B_VAL_1_INT);
-			string oPriceTypeKey = string.Format(KCDefine.U_KEY_FMT_PRICE_TYPE, i + KCDefine.B_VAL_1_INT);
-
-			m_oPriceInfoList.Add(new STPriceInfo() {
-				m_nKinds = a_oObjSaleInfo[oPriceTypeKey].ExIsValid() ? a_oObjSaleInfo[oPriceTypeKey].AsInt : KCDefine.B_IDX_INVALID,
-				m_oPrice = a_oObjSaleInfo[oPriceKey].ExIsValid() ? a_oObjSaleInfo[oPriceKey] : KCDefine.B_STR_0_INT,
-				m_ePriceType = a_oObjSaleInfo[oPriceTypeKey].ExIsValid() ? (EPriceType)a_oObjSaleInfo[oPriceTypeKey].AsInt : EPriceType.NONE
-			});
+			m_oPriceInfoList.Add(new STPriceInfo(a_oObjSaleInfo, i));
 		}
 	}
 	#endregion			// 함수

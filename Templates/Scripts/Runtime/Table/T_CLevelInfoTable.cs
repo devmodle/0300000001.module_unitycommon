@@ -79,8 +79,8 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
-	[JsonIgnore][IgnoreMember] public Dictionary<ETargetKinds, int> NumTargetsDict = new Dictionary<ETargetKinds, int>();
-	[JsonIgnore][IgnoreMember] public Dictionary<ETargetKinds, int> NumUnlockTargetsDict = new Dictionary<ETargetKinds, int>();
+	[JsonIgnore][IgnoreMember] public List<STTargetInfo> TargetInfoList { get; private set; } = new List<STTargetInfo>();
+	[JsonIgnore][IgnoreMember] public List<STTargetInfo> UnlockTargetInfoList { get; private set; } = new List<STTargetInfo>();
 	
 	[JsonIgnore][IgnoreMember] public System.Version CellInfoVer {
 		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); }
@@ -121,8 +121,8 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		// 셀 개수를 설정한다 }
 
 		// 셀을 설정한다 {
-		this.NumTargetsDict = this.NumTargetsDict ?? new Dictionary<ETargetKinds, int>();
-		this.NumUnlockTargetsDict = this.NumUnlockTargetsDict ?? new Dictionary<ETargetKinds, int>();
+		this.TargetInfoList = this.TargetInfoList ?? new List<STTargetInfo>();
+		this.UnlockTargetInfoList = this.UnlockTargetInfoList ?? new List<STTargetInfo>();
 
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
@@ -683,15 +683,16 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 			m_oRecordList = new List<int>(),
 			m_oRewardKindsList = new List<ERewardKinds>(),
-			m_oNumTargetsDict = new Dictionary<ETargetKinds, int>(),
-			m_oNumUnlockTargetsDict = new Dictionary<ETargetKinds, int>()
+
+			m_oTargetInfoList = new List<STTargetInfo>(),
+			m_oUnlockTargetInfoList = new List<STTargetInfo>()
 		};
 
 		stLevelEpisodeInfo.m_oRecordList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordList, (a_nRecord) => a_nRecord);
 		stLevelEpisodeInfo.m_oRewardKindsList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds);
 
-		stLevelEpisodeInfo.m_oNumTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumTargetsDict, (a_nNumTargets) => a_nNumTargets);
-		stLevelEpisodeInfo.m_oNumUnlockTargetsDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oNumUnlockTargetsDict, (a_nNumUnlockTargets) => a_nNumUnlockTargets);
+		stLevelEpisodeInfo.m_oTargetInfoList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oTargetInfoList, (a_stTargetInfo) => a_stTargetInfo);
+		stLevelEpisodeInfo.m_oUnlockTargetInfoList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoList, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo);
 
 		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueID01, stReplaceLevelEpisodeInfo);
 

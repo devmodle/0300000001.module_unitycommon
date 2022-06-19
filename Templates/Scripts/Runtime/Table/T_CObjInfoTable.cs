@@ -49,12 +49,7 @@ public partial struct STObjInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			string oAbilityLVKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_LV, i + KCDefine.B_VAL_1_INT);
-			string oAbilityKindsKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_KINDS, i + KCDefine.B_VAL_1_INT);
-
-			m_oAbilityValInfoList.Add(new STAbilityValInfo() {
-				m_nLV = long.TryParse(a_oObjInfo[oAbilityLVKey], out long nLV) ? nLV : KCDefine.B_VAL_0_LONG, m_eAbilityKinds = a_oObjInfo[oAbilityKindsKey].ExIsValid() ? (EAbilityKinds)a_oObjInfo[oAbilityKindsKey].AsInt : EAbilityKinds.NONE
-			});
+			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oObjInfo, i));
 		}
 	}
 	#endregion			// 함수

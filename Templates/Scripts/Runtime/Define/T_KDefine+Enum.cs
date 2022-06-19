@@ -32,6 +32,14 @@ public enum EPriceType {
 	[HideInInspector] MAX_VAL
 }
 
+/** 타겟 타입 */
+public enum ETargetType {
+	NONE = -1,
+	MARKS,
+	RECORD,
+	[HideInInspector] MAX_VAL
+}
+
 /** 아이템 타입 */
 public enum EItemType {
 	NONE = -1,
@@ -259,31 +267,6 @@ public enum ETutorialKinds {
 	// 100,000,000
 	HELP_TUTORIAL_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 도움말
-
-	[HideInInspector] MAX_VAL
-}
-
-/** 타겟 타입 */
-public enum ETargetType {
-	NONE = -1,
-	OBJ,
-	RECORD,
-	[HideInInspector] MAX_VAL
-}
-
-/** 타겟 종류 */
-public enum ETargetKinds {
-	NONE = -1,
-
-	#region 객체
-	// 0
-	OBJ_TARGET_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 객체
-
-	#region 기록
-	// 100,000,000
-	RECORD_MARK = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 기록
 
 	[HideInInspector] MAX_VAL
 }
