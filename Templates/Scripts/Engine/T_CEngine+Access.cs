@@ -24,8 +24,8 @@ namespace SampleEngineName {
 
 		/** 최상단 객체 정보를 반환한다 */
 		public (EObjKinds, CEObj) FindTopObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
-			for(int i = (int)EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EObjType.NONE; --i) {
-				var oObjInfo = this.FindObjInfo((EObjType)i, a_eObjKinds, a_stIdx);
+			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
+				var oObjInfo = this.FindObjInfo(eObjType, a_eObjKinds, a_stIdx);
 
 				// 객체 정보가 존재 할 경우
 				if(!oObjInfo.Equals(KDefine.E_INVALID_OBJ_INFO)) {
@@ -38,8 +38,8 @@ namespace SampleEngineName {
 
 		/** 최상단 객체 정보를 반환한다 */
 		public List<(EObjKinds, CEObj)> FindTopObjInfos(Vector3Int a_stIdx) {
-			for(int i = (int)EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EObjType.NONE; --i) {
-				var oObjInfoList = this.FindObjInfos((EObjType)i, a_stIdx);
+			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
+				var oObjInfoList = this.FindObjInfos(eObjType, a_stIdx);
 
 				// 객체 정보가 존재 할 경우
 				if(oObjInfoList != null) {
@@ -70,9 +70,9 @@ namespace SampleEngineName {
 
 		/** 최상단 객체 정보를 반환한다 */
 		public bool TryFindTopObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stIdx, out (EObjKinds, CEObj) a_oOutTopObjInfo) {
-			for(int i = (int)EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EObjType.NONE; --i) {
+			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
 				// 객체 정보가 존재 할 경우
-				if(this.TryFindObjInfo((EObjType)i, a_eObjKinds, a_stIdx, out a_oOutTopObjInfo)) {
+				if(this.TryFindObjInfo(eObjType, a_eObjKinds, a_stIdx, out a_oOutTopObjInfo)) {
 					return true;
 				}
 			}
@@ -83,9 +83,9 @@ namespace SampleEngineName {
 
 		/** 객체 정보를 반환한다 */
 		public bool TryFindTopObjInfos(Vector3Int a_stIdx, out List<(EObjKinds, CEObj)> a_oOutTopObjInfoList) {
-			for(int i = (int)EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; i > (int)EObjType.NONE; --i) {
+			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
 				// 객체 정보가 존재 할 경우
-				if(this.TryFindObjInfos((EObjType)i, a_stIdx, out a_oOutTopObjInfoList)) {
+				if(this.TryFindObjInfos(eObjType, a_stIdx, out a_oOutTopObjInfoList)) {
 					return true;
 				}
 			}

@@ -45,8 +45,8 @@ namespace SampleEngineName {
 		public override void Awake() {
 			base.Awake();
 			
-			for(int i = (int)EKey.OBJ_SPRITE; i <= (int)EKey.OBJ_SPRITE; ++i) {
-				m_oSpriteDict[(EKey)i] = this.gameObject.ExFindComponent<SpriteRenderer>(CEObj.SPRITE_NAME_DICT[(EKey)i]);
+			for(var eKey = EKey.OBJ_SPRITE; eKey <= EKey.OBJ_SPRITE; ++eKey) {
+				m_oSpriteDict[eKey] = this.gameObject.ExFindComponent<SpriteRenderer>(CEObj.SPRITE_NAME_DICT[eKey]);
 			}
 		}
 

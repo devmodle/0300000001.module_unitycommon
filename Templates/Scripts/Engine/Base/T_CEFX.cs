@@ -44,9 +44,9 @@ namespace SampleEngineName {
 		public override void Awake() {
 			base.Awake();
 
-			for(int i = (int)EKey.FX_PARTICLE; i <= (int)EKey.FX_PARTICLE; ++i) {
-				m_oParticleDict[(EKey)i] = this.gameObject.ExFindComponent<ParticleSystem>(CEFX.PARTICLE_NAME_DICT[(EKey)i]);
-				m_oParticleDict[(EKey)i]?.ExReset(false);
+			for(var eKey = EKey.FX_PARTICLE; eKey <= EKey.FX_PARTICLE; ++eKey) {
+				m_oParticleDict[eKey] = this.gameObject.ExFindComponent<ParticleSystem>(CEFX.PARTICLE_NAME_DICT[eKey]);
+				m_oParticleDict[eKey]?.ExReset(false);
 			}
 		}
 
