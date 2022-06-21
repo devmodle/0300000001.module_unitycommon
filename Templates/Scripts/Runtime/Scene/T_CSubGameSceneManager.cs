@@ -12,15 +12,9 @@ namespace GameScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-
-			LEVEL_INFO,
-			LEVEL_CLEAR_INFO,
+			CUR_LEVEL_INFO,
+			CUR_LEVEL_CLEAR_INFO,
 			BG_TOUCH_DISPATCHER,
-
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-			ENGINE,
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-
 			[HideInInspector] MAX_VAL
 		}
 
@@ -55,11 +49,11 @@ namespace GameScene {
 		private ERewardAdsUIs m_eSelRewardAdsUIs = ERewardAdsUIs.NONE;
 
 		private Dictionary<EKey, CLevelInfo> m_oLevelInfoDict = new Dictionary<EKey, CLevelInfo>() {
-			[EKey.LEVEL_INFO] = null
+			[EKey.CUR_LEVEL_INFO] = null
 		};
 
 		private Dictionary<EKey, CClearInfo> m_oClearInfoDict = new Dictionary<EKey, CClearInfo>() {
-			[EKey.LEVEL_CLEAR_INFO] = null
+			[EKey.CUR_LEVEL_CLEAR_INFO] = null
 		};
 
 		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>() {
@@ -67,9 +61,7 @@ namespace GameScene {
 		};
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-		private Dictionary<EKey, SampleEngineName.CEngine> m_oEngineDict = new Dictionary<EKey, SampleEngineName.CEngine>() {
-			[EKey.ENGINE] = null
-		};
+		private SampleEngineName.CEngine m_oEngine = null;
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 		/** =====> UI <===== */
@@ -133,7 +125,7 @@ namespace GameScene {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-				m_oEngineDict[EKey.ENGINE].OnUpdate(a_fDeltaTime);
+				m_oEngine.OnUpdate(a_fDeltaTime);
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			}
 		}
@@ -196,8 +188,8 @@ namespace GameScene {
 			this.SetupEngine();
 			this.SetupRewardAdsUIs();
 
-			m_oLevelInfoDict[EKey.LEVEL_INFO] = CGameInfoStorage.Inst.PlayLevelInfo;
-			m_oClearInfoDict[EKey.LEVEL_CLEAR_INFO] = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03) ? oLevelClearInfo : null;
+			m_oLevelInfoDict[EKey.CUR_LEVEL_INFO] = CGameInfoStorage.Inst.PlayLevelInfo;
+			m_oClearInfoDict[EKey.CUR_LEVEL_CLEAR_INFO] = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03) ? oLevelClearInfo : null;
 
 			// 버튼을 설정한다
 			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PAUSE_BTN)?.onClick.AddListener(this.OnTouchPauseBtn);
@@ -211,11 +203,11 @@ namespace GameScene {
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 			// 비율을 설정한다 {
-			bool bIsValid01 = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.x) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.x);
-			bool bIsValid02 = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.y) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.y);
-			bool bIsValid03 = !float.IsNaN(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.z) && !float.IsInfinity(m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale.z);
+			bool bIsValid01 = !float.IsNaN(m_oEngine.GridInfo.m_stScale.x) && !float.IsInfinity(m_oEngine.GridInfo.m_stScale.x);
+			bool bIsValid02 = !float.IsNaN(m_oEngine.GridInfo.m_stScale.y) && !float.IsInfinity(m_oEngine.GridInfo.m_stScale.y);
+			bool bIsValid03 = !float.IsNaN(m_oEngine.GridInfo.m_stScale.z) && !float.IsInfinity(m_oEngine.GridInfo.m_stScale.z);
 
-			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngineDict[EKey.ENGINE].GridInfo.m_stScale : Vector3.one;
+			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.GridInfo.m_stScale : Vector3.one;
 			// 비율을 설정한다 }
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
@@ -234,9 +226,9 @@ namespace GameScene {
 		private void SetupEngine() {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 			bool bIsValid = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03);
-			m_oEngineDict[EKey.ENGINE] = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
+			m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 
-			m_oEngineDict[EKey.ENGINE].Init(new SampleEngineName.CEngine.STParams() {
+			m_oEngine.Init(new SampleEngineName.CEngine.STParams() {
 				m_oFXRoot = this.FXRoot,
 				m_oObjRoot = this.ObjRoot,
 
@@ -273,7 +265,7 @@ namespace GameScene {
 		/** 보상 광고 UI 상태를 갱신한다 */
 		private void UpdateRewardAdsUIsState() {
 			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
-				m_oRewardAdsUIsList[i]?.SetActive(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT >= KDefine.GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH);
+				m_oRewardAdsUIsList[i]?.SetActive(m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT >= KDefine.GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH);
 			}
 		}
 
@@ -334,7 +326,7 @@ namespace GameScene {
 			// 배경 터치 전달자 일 경우
 			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-				m_oEngineDict[EKey.ENGINE].OnTouchBegin(a_oSender, a_oEventData);
+				m_oEngine.OnTouchBegin(a_oSender, a_oEventData);
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			}
 		}
@@ -344,7 +336,7 @@ namespace GameScene {
 			// 배경 터치 전달자 일 경우
 			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-				m_oEngineDict[EKey.ENGINE].OnTouchMove(a_oSender, a_oEventData);
+				m_oEngine.OnTouchMove(a_oSender, a_oEventData);
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			}
 		}
@@ -354,7 +346,7 @@ namespace GameScene {
 			// 배경 터치 전달자 일 경우
 			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-				m_oEngineDict[EKey.ENGINE].OnTouchEnd(a_oSender, a_oEventData);
+				m_oEngine.OnTouchEnd(a_oSender, a_oEventData);
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			}
 		}
@@ -379,8 +371,8 @@ namespace GameScene {
 
 		/** 다음 레벨을 로드한다 */
 		private void LoadNextLevel(CPopup a_oPopup) {
-			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01, out STEpisodeInfo stNextLevelEpisodeInfo, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03);
-			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID01 <= CGameInfoStorage.Inst.GetNumLevelClearInfos(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03);
+			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID01, out STEpisodeInfo stNextLevelEpisodeInfo, m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID03);
+			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID01 <= CGameInfoStorage.Inst.GetNumLevelClearInfos(m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID03);
 
 			switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
@@ -435,7 +427,7 @@ namespace GameScene {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CContinuePopup).Init(new CContinuePopup.STParams() {
 					m_nContinueTimes = this.m_nContinueTimes,
-					m_oLevelInfo = m_oLevelInfoDict[EKey.LEVEL_INFO],
+					m_oLevelInfo = m_oLevelInfoDict[EKey.CUR_LEVEL_INFO],
 
 					m_oCallbackDict = new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
 						[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
@@ -456,13 +448,13 @@ namespace GameScene {
 						m_bIsSuccess = a_bIsClear,
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
-						m_nIntRecord = m_oEngineDict[EKey.ENGINE].IntRecord,
-						m_dblRealRecord = m_oEngineDict[EKey.ENGINE].RealRecord
+						m_nIntRecord = m_oEngine.IntRecord,
+						m_dblRealRecord = m_oEngine.RealRecord
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 					},
 					
-					m_oLevelInfo = m_oLevelInfoDict[EKey.LEVEL_INFO],
-					m_oClearInfo = m_oClearInfoDict[EKey.LEVEL_CLEAR_INFO],
+					m_oLevelInfo = m_oLevelInfoDict[EKey.CUR_LEVEL_INFO],
+					m_oClearInfo = m_oClearInfoDict[EKey.CUR_LEVEL_CLEAR_INFO],
 
 					m_oCallbackDict = new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
 						[CResultPopup.ECallback.NEXT] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.NEXT),
@@ -514,11 +506,11 @@ namespace GameScene {
 		/** 레벨을 클리어했을 경우 */
 		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {
 			// 클리어 정보가 없을 경우
-			if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03)) {
-				CGameInfoStorage.Inst.AddLevelClearInfo(Factory.MakeClearInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03));
+			if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID03)) {
+				CGameInfoStorage.Inst.AddLevelClearInfo(Factory.MakeClearInfo(m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID03));
 			}
 			
-			var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.LEVEL_INFO].m_stIDInfo.m_nID03);
+			var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.CUR_LEVEL_INFO].m_stIDInfo.m_nID03);
 			oLevelClearInfo.Record = $"{a_oSender.IntRecord}";
 			oLevelClearInfo.BestRecord = $"{Mathf.Max(a_oSender.IntRecord, oLevelClearInfo.BestIntRecord)}";
 
@@ -529,6 +521,13 @@ namespace GameScene {
 		/** 레벨 클리어에 실패했을 경우 */
 		private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
 			this.ShowResultPopup(false);
+		}
+
+		/** 게임 컴포넌트 매개 변수를 생성한다 */
+		private CGSComponent.STParams MakeGSComponentParams() {
+			return new CGSComponent.STParams() {
+				m_oEngine = this.m_oEngine
+			};
 		}
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		#endregion			// 조건부 함수
