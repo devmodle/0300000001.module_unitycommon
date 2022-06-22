@@ -111,7 +111,7 @@ namespace StartScene {
 
 #if DEBUG || DEVELOPMENT
 			// 텍스트를 설정한다
-			m_oTextDict[EKey.SCENE_INFO_TEXT] = CFactory.CreateCloneObj<TMP_Text>(KCDefine.SS_OBJ_N_SCENE_INFO_TEXT, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT), this.UpLeftUIs);
+			m_oTextDict[EKey.SCENE_INFO_TEXT] = CFactory.CreateCloneObj<TMP_Text>($"{EKey.SCENE_INFO_TEXT}", CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT), this.UpLeftUIs);
 			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
