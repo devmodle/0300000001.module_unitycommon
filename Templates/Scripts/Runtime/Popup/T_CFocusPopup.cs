@@ -40,10 +40,9 @@ public partial class CFocusPopup : CSubPopup {
 	#endregion			// 변수
 	
 	#region 프로퍼티
-	public override bool IsIgnoreBGAni => true;
+	public override bool IsIgnoreBlindAni => true;
 	public override EAniType AniType => EAniType.NONE;
-
-	public override Color BGColor => KCDefine.U_COLOR_TRANSPARENT;
+	public override Color BlindColor => KCDefine.U_COLOR_TRANSPARENT;
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -53,7 +52,7 @@ public partial class CFocusPopup : CSubPopup {
 		this.IsIgnoreAni = true;
 
 		// 이미지를 설정한다
-		m_oImgDict[EKey.BLIND_IMG] = this.Contents.ExFindComponent<Image>(KCDefine.U_OBJ_N_BLIND_IMG);
+		m_oImgDict[EKey.BLIND_IMG] = this.Contents.ExFindComponent<Image>($"{EKey.BLIND_IMG}");
 	}
 
 	/** 초기화 */
@@ -88,7 +87,7 @@ public partial class CFocusPopup : CSubPopup {
 		base.UpdateUIsState();
 
 		// 이미지를 갱신한다 {
-		m_oImgDict[EKey.BLIND_IMG]?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BG);
+		m_oImgDict[EKey.BLIND_IMG]?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BLIND);
 		
 		var oContentsImg = this.Contents.GetComponentInChildren<Image>();
 		oContentsImg?.ExSetColor<Image>(KCDefine.U_COLOR_TRANSPARENT);

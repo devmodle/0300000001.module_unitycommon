@@ -11,10 +11,8 @@ namespace InitScene {
 		private void SetupBlindUIs() {
 			// 블라인드 UI 가 없을 경우
 			if(CInitSceneManager.m_oBlindUIs == null) {
-				var oBlindUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
-
-				CInitSceneManager.m_oBlindUIs = oBlindUIs;
-				CSceneManager.ScreenBlindUIs = oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS);
+				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
+				CSceneManager.ScreenBlindUIs = CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS);
 
 				// 블라인드 이미지를 생성한다 {
 				var oImgList = new List<Image>() {
@@ -27,8 +25,8 @@ namespace InitScene {
 				}
 				// 블라인드 이미지를 생성한다 }
 
-				DontDestroyOnLoad(oBlindUIs);
-				CFunc.SetupScreenUIs(oBlindUIs, KCDefine.U_SORTING_O_SCREEN_BLIND_UIS);
+				DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
+				CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.U_SORTING_O_SCREEN_BLIND_UIS);
 			}
 		}
 		#endregion			// 함수

@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 546628300}
   - component: {fileID: 546628299}
   m_Layer: 5
-  m_Name: CloseBtn
+  m_Name: TEST_UIS_CLOSE_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1107,7 +1107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: f25dd671f9c164e31b2d3c527e5bc736, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 827ade89756e74c5c8f2ae4d0ee6dc6f, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -1744,7 +1744,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1591213590}
   m_Layer: 5
-  m_Name: ContentsUIs
+  m_Name: CONTENTS_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1823,7 +1823,7 @@ GameObject:
   - component: {fileID: 1718133807}
   - component: {fileID: 1718133806}
   m_Layer: 5
-  m_Name: OpenBtn
+  m_Name: TEST_UIS_OPEN_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

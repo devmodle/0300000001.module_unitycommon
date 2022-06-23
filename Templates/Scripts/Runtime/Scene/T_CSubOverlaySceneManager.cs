@@ -111,10 +111,10 @@ namespace OverlayScene {
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
 			// 텍스트를 설정한다
-			m_oTextDict[EKey.NUM_COINS_TEXT] = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
+			m_oTextDict[EKey.NUM_COINS_TEXT] = this.UIsBase.ExFindComponent<TMP_Text>($"{EKey.NUM_COINS_TEXT}");
 
 			// 버튼을 설정한다
-			m_oBtnDict[EKey.STORE_BTN] = this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN);
+			m_oBtnDict[EKey.STORE_BTN] = this.UIsBase.ExFindComponent<Button>($"{EKey.STORE_BTN}");
 			m_oBtnDict[EKey.STORE_BTN]?.onClick.AddListener(this.OnTouchStoreBtn);
 
 #if DEBUG || DEVELOPMENT_BUILD

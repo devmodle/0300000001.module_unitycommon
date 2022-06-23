@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 898627692112889045}
   m_Layer: 5
-  m_Name: ContentsUIs
+  m_Name: CONTENTS_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,6 +26,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8019310881180709761}
   m_RootOrder: 0
@@ -47,7 +48,7 @@ GameObject:
   - component: {fileID: 6575004817830986588}
   - component: {fileID: 552821762485563560}
   m_Layer: 5
-  m_Name: BlindImg
+  m_Name: BLIND_IMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,6 +64,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8019310881180709761}
   m_RootOrder: 1
@@ -124,7 +126,7 @@ GameObject:
   - component: {fileID: 8821809339155338211}
   - component: {fileID: 1968311577493394421}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,6 +142,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 898627692112889045}
   - {fileID: 970872857014784099}
@@ -214,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c5c565eea0a41af950e2335b16cd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fSizeRate: 1
+  m_stSizeRate: {x: 1, y: 1, z: 1}
 --- !u!1 &8019310881375038877
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,10 +244,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8019310881180709761}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

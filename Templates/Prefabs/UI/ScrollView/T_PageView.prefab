@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2238885010889440271}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 2238885011114040395}
   - component: {fileID: 2238885011114040392}
   m_Layer: 5
-  m_Name: Viewport
+  m_Name: VIEWPORT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,7 +164,7 @@ RectTransform:
   - {fileID: 2238885011114040393}
   - {fileID: 9024583258084031298}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7568081804765475620}
   m_Layer: 5
-  m_Name: PageUIs_01
+  m_Name: PAGE_UIS_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 9024583257893115326}
   - component: {fileID: 9024583257893115327}
   m_Layer: 5
-  m_Name: Toggle_01
+  m_Name: TOGGLE_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 8676663542212923409}
   - component: {fileID: 3038623382008321621}
   m_Layer: 5
-  m_Name: Pagination
+  m_Name: PAGINATION
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

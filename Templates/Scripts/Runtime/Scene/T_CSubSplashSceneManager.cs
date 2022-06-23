@@ -30,12 +30,12 @@ namespace SplashScene {
 			base.Setup();
 			
 			// 이미지를 설정한다 {
-			m_oImgDict[EKey.BG_IMG] = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_BG_IMG, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG), this.UIs);
+			m_oImgDict[EKey.BG_IMG] = CFactory.CreateCloneObj<Image>($"{EKey.BG_IMG}", CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG), this.UIs);
 			m_oImgDict[EKey.BG_IMG].color = KCDefine.SS_COLOR_BG_IMG;
 			m_oImgDict[EKey.BG_IMG].rectTransform.sizeDelta = CSceneManager.CanvasSize;
 			m_oImgDict[EKey.BG_IMG].gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
-			m_oImgDict[EKey.SPLASH_IMG] = CFactory.CreateCloneObj<Image>(KCDefine.U_OBJ_N_SPLASH_IMG, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG), this.UIs, KCDefine.SS_POS_SPLASH_IMG);
+			m_oImgDict[EKey.SPLASH_IMG] = CFactory.CreateCloneObj<Image>($"{EKey.SPLASH_IMG}", CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG), this.UIs, KCDefine.SS_POS_SPLASH_IMG);
 			m_oImgDict[EKey.SPLASH_IMG].sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
 			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
 			// 이미지를 설정한다 }

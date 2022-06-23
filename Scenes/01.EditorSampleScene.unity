@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 32803727}
   - component: {fileID: 32803728}
   m_Layer: 5
-  m_Name: ContentsUIs
+  m_Name: CONTENTS_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 47162490}
   - component: {fileID: 47162489}
   m_Layer: 5
-  m_Name: RemoveLevelBtn
+  m_Name: ME_UIS_REMOVE_LEVEL_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 124976469}
   - component: {fileID: 124976468}
   m_Layer: 5
-  m_Name: StageScrollView_02
+  m_Name: STAGE_SCROLL_VIEW_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -921,7 +921,7 @@ GameObject:
   - component: {fileID: 179721069}
   - component: {fileID: 179721068}
   m_Layer: 5
-  m_Name: BSetBtn
+  m_Name: LE_UIS_B_SET_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1297,7 +1297,7 @@ GameObject:
   - component: {fileID: 194742498}
   - component: {fileID: 194742497}
   m_Layer: 5
-  m_Name: LoadLocalTableBtn
+  m_Name: LOAD_LOCAL_TABLE_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2320,7 +2320,7 @@ GameObject:
   - component: {fileID: 381110637}
   - component: {fileID: 381110639}
   m_Layer: 5
-  m_Name: MsgText
+  m_Name: ME_UIS_MSG_TEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2417,7 +2417,7 @@ GameObject:
   - component: {fileID: 427903652}
   - component: {fileID: 427903651}
   m_Layer: 5
-  m_Name: PrevBtn
+  m_Name: ME_UIS_PREV_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2641,7 +2641,7 @@ GameObject:
   - component: {fileID: 436739881}
   - component: {fileID: 436739880}
   m_Layer: 5
-  m_Name: CopyLevelBtn
+  m_Name: COPY_LEVEL_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3154,7 +3154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 596579219}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3528,7 +3528,7 @@ GameObject:
   - component: {fileID: 672199643}
   - component: {fileID: 672199642}
   m_Layer: 5
-  m_Name: AddLevelBtn
+  m_Name: ADD_LEVEL_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3676,7 +3676,7 @@ GameObject:
   - component: {fileID: 675373055}
   - component: {fileID: 675373054}
   m_Layer: 5
-  m_Name: LoadRemoteTableBtn
+  m_Name: RE_UIS_LOAD_REMOTE_TABLE_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4252,7 +4252,7 @@ GameObject:
   - component: {fileID: 749592971}
   - component: {fileID: 749592970}
   m_Layer: 5
-  m_Name: ApplyBtn
+  m_Name: APPLY_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4429,7 +4429,7 @@ GameObject:
   - component: {fileID: 808197762}
   - component: {fileID: 808197761}
   m_Layer: 5
-  m_Name: LevelInput
+  m_Name: RE_UIS_PAGE_UIS_01_LEVEL_INPUT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4713,7 +4713,7 @@ GameObject:
   - component: {fileID: 837286175}
   - component: {fileID: 837286174}
   m_Layer: 5
-  m_Name: StageScrollView_01
+  m_Name: STAGE_SCROLL_VIEW_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4999,7 +4999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: f25dd671f9c164e31b2d3c527e5bc736, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 0ee57c67efb544370a44e78e29a3c4f7, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -5523,7 +5523,7 @@ GameObject:
   - component: {fileID: 913937137}
   - component: {fileID: 913937136}
   m_Layer: 5
-  m_Name: NumCellsYInput
+  m_Name: RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6049,7 +6049,7 @@ GameObject:
   - component: {fileID: 975440261}
   - component: {fileID: 975440260}
   m_Layer: 5
-  m_Name: Viewport
+  m_Name: VIEWPORT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6143,7 +6143,7 @@ GameObject:
   - component: {fileID: 1006985469}
   - component: {fileID: 1006985468}
   m_Layer: 5
-  m_Name: LevelScrollView
+  m_Name: LEVEL_SCROLL_VIEW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6748,7 +6748,7 @@ GameObject:
   - component: {fileID: 1132338931}
   - component: {fileID: 1132338930}
   m_Layer: 5
-  m_Name: AddChapterBtn
+  m_Name: ADD_CHAPTER_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7017,7 +7017,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1161044887}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7135,7 +7135,7 @@ GameObject:
   - component: {fileID: 1215308035}
   - component: {fileID: 1215308034}
   m_Layer: 5
-  m_Name: ChapterScrollView
+  m_Name: CHAPTER_SCROLL_VIEW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7305,7 +7305,7 @@ GameObject:
   - component: {fileID: 1225394155}
   - component: {fileID: 1225394154}
   m_Layer: 5
-  m_Name: MoveLevelBtn
+  m_Name: ME_UIS_MOVE_LEVEL_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7451,7 +7451,7 @@ GameObject:
   - component: {fileID: 1232508760}
   - component: {fileID: 1232508759}
   m_Layer: 5
-  m_Name: PageText
+  m_Name: RE_UIS_PAGE_TEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7946,7 +7946,7 @@ GameObject:
   - component: {fileID: 1394409898}
   - component: {fileID: 1394409897}
   m_Layer: 5
-  m_Name: ResetBtn
+  m_Name: RESET_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8092,7 +8092,7 @@ GameObject:
   - component: {fileID: 1401824563}
   - component: {fileID: 1401824562}
   m_Layer: 5
-  m_Name: TitleText
+  m_Name: RE_UIS_TITLE_TEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8225,7 +8225,7 @@ GameObject:
   - component: {fileID: 1421376077}
   - component: {fileID: 1421376076}
   m_Layer: 5
-  m_Name: NextBtn
+  m_Name: ME_UIS_NEXT_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8408,7 +8408,7 @@ GameObject:
   - component: {fileID: 1447745459}
   - component: {fileID: 1447745458}
   m_Layer: 5
-  m_Name: LoadLevelBtn
+  m_Name: LOAD_LEVEL_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8636,7 +8636,7 @@ GameObject:
   - component: {fileID: 1474923801}
   - component: {fileID: 1474923800}
   m_Layer: 5
-  m_Name: NextBtn
+  m_Name: RE_UIS_NEXT_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9040,7 +9040,7 @@ GameObject:
   - component: {fileID: 1551107288}
   - component: {fileID: 1551107287}
   m_Layer: 5
-  m_Name: NumCellsXInput
+  m_Name: RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9189,7 +9189,7 @@ GameObject:
   - component: {fileID: 1556318490}
   - component: {fileID: 1556318489}
   m_Layer: 5
-  m_Name: ASetBtn
+  m_Name: LE_UIS_A_SET_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9337,7 +9337,7 @@ GameObject:
   - component: {fileID: 1586276090}
   - component: {fileID: 1586276089}
   m_Layer: 5
-  m_Name: PageView
+  m_Name: PAGE_VIEW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9722,7 +9722,7 @@ GameObject:
   - component: {fileID: 1633188577}
   - component: {fileID: 1633188576}
   m_Layer: 5
-  m_Name: PrevBtn
+  m_Name: RE_UIS_PREV_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9869,7 +9869,7 @@ GameObject:
   - component: {fileID: 1638237411}
   - component: {fileID: 1638237410}
   m_Layer: 5
-  m_Name: RemoveAllLevelsBtn
+  m_Name: RE_UIS_REMOVE_ALL_LEVELS_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10017,7 +10017,7 @@ GameObject:
   - component: {fileID: 1648248580}
   - component: {fileID: 1648248579}
   m_Layer: 5
-  m_Name: AddStageBtn
+  m_Name: ADD_STAGE_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10260,7 +10260,7 @@ GameObject:
   - component: {fileID: 1687862035}
   - component: {fileID: 1687862034}
   m_Layer: 5
-  m_Name: SaveBtn
+  m_Name: SAVE_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10482,7 +10482,7 @@ GameObject:
   - component: {fileID: 1728174767}
   - component: {fileID: 1728174766}
   m_Layer: 5
-  m_Name: Pagination
+  m_Name: PAGINATION
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10793,7 +10793,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1813578455}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10941,7 +10941,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1872450455}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10977,7 +10977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1883509014}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11146,7 +11146,7 @@ GameObject:
   - component: {fileID: 1937742887}
   - component: {fileID: 1937742886}
   m_Layer: 5
-  m_Name: TestBtn
+  m_Name: TEST_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11290,7 +11290,7 @@ GameObject:
   - component: {fileID: 1939928144}
   - component: {fileID: 1939928145}
   m_Layer: 5
-  m_Name: Toggle_01
+  m_Name: TOGGLE_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11378,7 +11378,7 @@ GameObject:
   - component: {fileID: 1955940702}
   - component: {fileID: 1955940701}
   m_Layer: 5
-  m_Name: LevelText
+  m_Name: ME_UIS_LEVEL_TEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11504,7 +11504,7 @@ GameObject:
   - component: {fileID: 2047215916}
   - component: {fileID: 2047215917}
   m_Layer: 5
-  m_Name: PageUIs_01
+  m_Name: PAGE_UIS_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

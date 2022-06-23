@@ -114,7 +114,7 @@ RectTransform:
   - {fileID: 1515028130523910650}
   - {fileID: 6997057943378071886}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -257,7 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1515028130523910650}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 6774911952547231173}
   - component: {fileID: 5498073574510725302}
   m_Layer: 5
-  m_Name: BGImg
+  m_Name: BG_IMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 815376786746393485}
   m_HandleRect: {fileID: 3417879619681582966}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

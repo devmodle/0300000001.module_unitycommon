@@ -114,6 +114,7 @@ namespace LevelEditorScene {
 
 		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>() {
 			[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT] = null,
+			
 			[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT] = null,
 			[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT] = null
 		};
@@ -377,6 +378,7 @@ namespace LevelEditorScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
+			m_oSpriteDict[EKey.SEL_OBJ_SPRITE] = this.UIs.ExFindComponent<SpriteRenderer>($"{EKey.SEL_OBJ_SPRITE}");
 			this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
 
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
@@ -846,20 +848,20 @@ namespace LevelEditorScene {
 		/** 중앙 에디터 UI 를 설정한다 */
 		private void SetupMidEditorUIs() {
 			// 텍스트를 설정한다
-			m_oTextDict[EKey.ME_UIS_MSG_TEXT] = this.MidEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_MSG_TEXT);
-			m_oTextDict[EKey.ME_UIS_LEVEL_TEXT] = this.MidEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_LEVEL_TEXT);
+			m_oTextDict[EKey.ME_UIS_MSG_TEXT] = this.MidEditorUIs.ExFindComponent<Text>($"{EKey.ME_UIS_MSG_TEXT}");
+			m_oTextDict[EKey.ME_UIS_LEVEL_TEXT] = this.MidEditorUIs.ExFindComponent<Text>($"{EKey.ME_UIS_LEVEL_TEXT}");
 
 			// 버튼을 설정한다 {
-			m_oBtnDict[EKey.ME_UIS_PREV_BTN] = this.MidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_PREV_BTN);
+			m_oBtnDict[EKey.ME_UIS_PREV_BTN] = this.MidEditorUIs.ExFindComponent<Button>($"{EKey.ME_UIS_PREV_BTN}");
 			m_oBtnDict[EKey.ME_UIS_PREV_BTN]?.onClick.AddListener(this.OnTouchMEUIsPrevBtn);
 
-			m_oBtnDict[EKey.ME_UIS_NEXT_BTN] = this.MidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_NEXT_BTN);
+			m_oBtnDict[EKey.ME_UIS_NEXT_BTN] = this.MidEditorUIs.ExFindComponent<Button>($"{EKey.ME_UIS_NEXT_BTN}");
 			m_oBtnDict[EKey.ME_UIS_NEXT_BTN]?.onClick.AddListener(this.OnTouchMEUIsNextBtn);
 
-			m_oBtnDict[EKey.ME_UIS_MOVE_LEVEL_BTN] = this.MidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_MOVE_LEVEL_BTN);
+			m_oBtnDict[EKey.ME_UIS_MOVE_LEVEL_BTN] = this.MidEditorUIs.ExFindComponent<Button>($"{EKey.ME_UIS_MOVE_LEVEL_BTN}");
 			m_oBtnDict[EKey.ME_UIS_MOVE_LEVEL_BTN]?.onClick.AddListener(this.OnTouchMEUIsMoveLevelBtn);
 
-			m_oBtnDict[EKey.ME_UIS_REMOVE_LEVEL_BTN] = this.MidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_REMOVE_LEVEL_BTN);
+			m_oBtnDict[EKey.ME_UIS_REMOVE_LEVEL_BTN] = this.MidEditorUIs.ExFindComponent<Button>($"{EKey.ME_UIS_REMOVE_LEVEL_BTN}");
 			m_oBtnDict[EKey.ME_UIS_REMOVE_LEVEL_BTN]?.onClick.AddListener(this.OnTouchMEUIsRemoveLevelBtn);
 
 			this.MidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_SAVE_BTN)?.onClick.AddListener(this.OnTouchMEUIsSaveBtn);
@@ -1002,10 +1004,10 @@ namespace LevelEditorScene {
 			this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_LEVEL_BTN)?.onClick.AddListener(this.OnTouchLEUIsAddLevelBtn);
 
 #if AB_TEST_ENABLE
-			m_oBtnDict[EKey.LE_UIS_A_SET_BTN] = this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_A_SET_BTN);
+			m_oBtnDict[EKey.LE_UIS_A_SET_BTN] = this.LeftEditorUIs.ExFindComponent<Button>($"{EKey.LE_UIS_A_SET_BTN}");
 			m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.onClick.AddListener(() => this.OnTouchLEUIsSetBtn(m_oBtnDict[EKey.LE_UIS_A_SET_BTN]));
 
-			m_oBtnDict[EKey.LE_UIS_B_SET_BTN] = this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_B_SET_BTN);
+			m_oBtnDict[EKey.LE_UIS_B_SET_BTN] = this.LeftEditorUIs.ExFindComponent<Button>($"{EKey.LE_UIS_B_SET_BTN}");
 			m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.onClick.AddListener(() => this.OnTouchLEUIsSetBtn(m_oBtnDict[EKey.LE_UIS_B_SET_BTN]));
 #endif			// #if AB_TEST_ENABLE
 
@@ -1105,17 +1107,17 @@ namespace LevelEditorScene {
 		/** 오른족 에디터 UI 를 설정한다 */
 		private void SetupRightEditorUIs() {
 			// 텍스트를 설정한다
-			m_oTextDict[EKey.RE_UIS_PAGE_TEXT] = this.RightEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_PAGE_TEXT);
-			m_oTextDict[EKey.RE_UIS_TITLE_TEXT] = this.RightEditorUIs.ExFindComponent<Text>(KCDefine.U_OBJ_N_TITLE_TEXT);
+			m_oTextDict[EKey.RE_UIS_PAGE_TEXT] = this.RightEditorUIs.ExFindComponent<Text>($"{EKey.RE_UIS_PAGE_TEXT}");
+			m_oTextDict[EKey.RE_UIS_TITLE_TEXT] = this.RightEditorUIs.ExFindComponent<Text>($"{EKey.RE_UIS_TITLE_TEXT}");
 
 			// 버튼을 설정한다 {
-			m_oBtnDict[EKey.RE_UIS_PREV_BTN] = this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_PREV_BTN);
-			m_oBtnDict[EKey.RE_UIS_NEXT_BTN] = this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_NEXT_BTN);
+			m_oBtnDict[EKey.RE_UIS_PREV_BTN] = this.RightEditorUIs.ExFindComponent<Button>($"{EKey.RE_UIS_PREV_BTN}");
+			m_oBtnDict[EKey.RE_UIS_NEXT_BTN] = this.RightEditorUIs.ExFindComponent<Button>($"{EKey.RE_UIS_NEXT_BTN}");
 
-			m_oBtnDict[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN] = this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_REMOVE_ALL_LEVELS_BTN);
+			m_oBtnDict[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN] = this.RightEditorUIs.ExFindComponent<Button>($"{EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN}");
 			m_oBtnDict[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN]?.onClick.AddListener(this.OnTouchREUIsRemoveAllLevelsBtn);
 
-			m_oBtnDict[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN] = this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_REMOTE_TABLE_BTN);
+			m_oBtnDict[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN] = this.RightEditorUIs.ExFindComponent<Button>($"{EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN}");
 			m_oBtnDict[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN]?.onClick.AddListener(() => this.OnTouchREUIsLoadTableBtn(ETable.REMOTE));
 
 			this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN)?.onClick.AddListener(this.OnTouchREUIsApplyBtn);
@@ -1124,7 +1126,7 @@ namespace LevelEditorScene {
 			// 버튼을 설정한다 }
 
 			// 스크롤 뷰를 설정한다 {
-			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] = this.RightEditorUIs.ExFindComponent<SimpleScrollSnap>(KCDefine.LES_OBJ_N_RE_UIS_PAGE_VIEW);
+			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] = this.RightEditorUIs.ExFindComponent<SimpleScrollSnap>(KCDefine.U_OBJ_N_PAGE_VIEW);
 			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.OnPanelCentered.AddListener((a_nCenterIdx, a_nSelIdx) => this.UpdateUIsState());
 
 			for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
@@ -1149,10 +1151,10 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 1 를 설정한다 */
 		private void SetupREUIsPageUIs01() {
 			// 입력 필드를 설정한다 {
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT] = this.RightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_LEVEL_INPUT);
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT] = this.RightEditorUIs.ExFindComponent<InputField>($"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}");
 
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT] = this.RightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_NUM_CELLS_X_INPUT);
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT] = this.RightEditorUIs.ExFindComponent<InputField>(KCDefine.LES_OBJ_N_RE_UIS_NUM_CELLS_Y_INPUT);
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT] = this.RightEditorUIs.ExFindComponent<InputField>($"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}");
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT] = this.RightEditorUIs.ExFindComponent<InputField>($"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}");
 			// 입력 필드를 설정한다 }
 		}
 

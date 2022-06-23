@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 362824934}
   - component: {fileID: 362824933}
   m_Layer: 5
-  m_Name: BGImg
+  m_Name: BG_IMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 7238456889959969586}
   - component: {fileID: 4893037950889436849}
   m_Layer: 5
-  m_Name: BGImg
+  m_Name: BG_IMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 2454690878946935188}
   - component: {fileID: 5808072553864403016}
   m_Layer: 5
-  m_Name: AgreeBtn
+  m_Name: AGREE_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1378,7 +1378,7 @@ GameObject:
   - component: {fileID: 210587195890275679}
   - component: {fileID: 1502564117613407964}
   m_Layer: 5
-  m_Name: AgreeBtn
+  m_Name: AGREE_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1678,7 +1678,7 @@ GameObject:
   - component: {fileID: 8419046639382848796}
   - component: {fileID: 1904674070612118230}
   m_Layer: 5
-  m_Name: PrivacyBtn
+  m_Name: PRIVACY_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2121,7 +2121,7 @@ GameObject:
   - component: {fileID: 8373524178743056982}
   - component: {fileID: 1901259342110886900}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2204,7 +2204,7 @@ GameObject:
   - component: {fileID: 7587009343147063136}
   - component: {fileID: 5924344084403803301}
   m_Layer: 5
-  m_Name: ServicesBtn
+  m_Name: SERVICES_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2657,7 +2657,7 @@ GameObject:
   - component: {fileID: 7538062844834556294}
   - component: {fileID: 5034621528896665413}
   m_Layer: 5
-  m_Name: OKBtn
+  m_Name: OK_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2814,7 +2814,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1211943263000870761}
   m_Layer: 5
-  m_Name: ContentsUIs
+  m_Name: CONTENTS_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2855,7 +2855,7 @@ GameObject:
   - component: {fileID: 4817948636675758879}
   - component: {fileID: 9054245454122136224}
   m_Layer: 5
-  m_Name: Viewport
+  m_Name: VIEWPORT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2947,7 +2947,7 @@ GameObject:
   - component: {fileID: 227162487466486317}
   - component: {fileID: 827448719546248385}
   m_Layer: 5
-  m_Name: DescText
+  m_Name: KR_UIS_SERVICES_TEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3042,7 +3042,7 @@ GameObject:
   - component: {fileID: 5599647853485343223}
   - component: {fileID: 8044387924054781707}
   m_Layer: 5
-  m_Name: DescText
+  m_Name: KR_UIS_PRIVACY_TEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3137,7 +3137,7 @@ GameObject:
   - component: {fileID: 1591867516785668201}
   - component: {fileID: 4334354640553993005}
   m_Layer: 5
-  m_Name: Viewport
+  m_Name: VIEWPORT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3228,7 +3228,7 @@ GameObject:
   - component: {fileID: 2933196580604910359}
   - component: {fileID: 9133880942104505147}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3307,7 +3307,7 @@ GameObject:
   - component: {fileID: 9014080439597495830}
   - component: {fileID: 7302146053898249750}
   m_Layer: 5
-  m_Name: CheckImg
+  m_Name: KR_UIS_PRIVACY_CHECK_IMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3381,7 +3381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2302114291233888925}
   m_Layer: 5
-  m_Name: ContentsUIs
+  m_Name: CONTENTS_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3420,7 +3420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8019310881180709761}
   m_Layer: 5
-  m_Name: Contents
+  m_Name: CONTENTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3516,7 +3516,7 @@ RectTransform:
   m_Children:
   - {fileID: 8019310881180709761}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3935,7 +3935,7 @@ GameObject:
   - component: {fileID: 2122547400274522328}
   - component: {fileID: 5873451554843628975}
   m_Layer: 5
-  m_Name: CheckImg
+  m_Name: KR_UIS_SERVICES_CHECK_IMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,22 +9,22 @@ using UnityEngine.UI;
 public static partial class KDefine {
 	#region 기본
 	// 이름
-	public const string G_OBJ_N_STORE_POPUP = "StorePopup";
-	public const string G_OBJ_N_SETTINGS_POPUP = "SettingsPopup";
-	public const string G_OBJ_N_SYNC_POPUP = "SyncPopup";
-	public const string G_OBJ_N_DAILY_MISSION_POPUP = "DailyMissionPopup";
-	public const string G_OBJ_N_FREE_REWARD_POPUP = "FreeRewardPopup";
-	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DailyRewardPopup";
-	public const string G_OBJ_N_COINS_BOX_POPUP = "CoinsBoxPopup";
-	public const string G_OBJ_N_REWARD_ACQUIRE_POPUP = "RewardAcquirePopup";
-	public const string G_OBJ_N_COINS_BOX_COINS_ACQUIRE_POPUP = "CoinsBoxCoinsAcquirePopup";
-	public const string G_OBJ_N_CONTINUE_POPUP = "ContinuePopup";
-	public const string G_OBJ_N_RESULT_POPUP = "ResultPopup";
-	public const string G_OBJ_N_PAUSE_POPUP = "PausePopup";
-	public const string G_OBJ_N_RESUME_POPUP = "ResumePopup";
-	public const string G_OBJ_N_PRODUCT_SALE_POPUP = "ProductSalePopup";
-	public const string G_OBJ_N_FOCUS_POPUP = "FocusPopup";
-	public const string G_OBJ_N_TUTORIAL_POPUP = "TutorialPopup";
+	public const string G_OBJ_N_STORE_POPUP = "STORE_POPUP";
+	public const string G_OBJ_N_SETTINGS_POPUP = "SETTINGS_POPUP";
+	public const string G_OBJ_N_SYNC_POPUP = "SYNC_POPUP";
+	public const string G_OBJ_N_DAILY_MISSION_POPUP = "DAILY_MISSION_POPUP";
+	public const string G_OBJ_N_FREE_REWARD_POPUP = "FREE_REWARD_POPUP";
+	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DAILY_REWARD_POPUP";
+	public const string G_OBJ_N_COINS_BOX_POPUP = "COINS_BOX_POPUP";
+	public const string G_OBJ_N_REWARD_ACQUIRE_POPUP = "REWARD_ACQUIRE_POPUP";
+	public const string G_OBJ_N_COINS_BOX_COINS_ACQUIRE_POPUP = "COINS_BOX_COINS_ACQUIRE_POPUP";
+	public const string G_OBJ_N_CONTINUE_POPUP = "CONTINUE_POPUP";
+	public const string G_OBJ_N_RESULT_POPUP = "RESULT_POPUP";
+	public const string G_OBJ_N_PAUSE_POPUP = "PAUSE_POPUP";
+	public const string G_OBJ_N_RESUME_POPUP = "RESUME_POPUP";
+	public const string G_OBJ_N_PRODUCT_SALE_POPUP = "PRODUCT_SALE_POPUP";
+	public const string G_OBJ_N_FOCUS_POPUP = "FOCUS_POPUP";
+	public const string G_OBJ_N_TUTORIAL_POPUP = "TUTORIAL_POPUP";
 	
 	// 설정 팝업 {
 	public const string G_IMG_P_SETTINGS_P_SND_ON = "G_SndOn";

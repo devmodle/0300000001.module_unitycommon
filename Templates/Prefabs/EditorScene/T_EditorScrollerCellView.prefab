@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 287120287}
   - component: {fileID: 287120286}
   m_Layer: 5
-  m_Name: RemoveBtn
+  m_Name: REMOVE_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,8 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &287120286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +161,7 @@ GameObject:
   - component: {fileID: 1181444036}
   - component: {fileID: 1181444035}
   m_Layer: 5
-  m_Name: NameText
+  m_Name: NAME_TEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -610,7 +608,7 @@ GameObject:
   - component: {fileID: 517114317114419567}
   - component: {fileID: 4941703658113412941}
   m_Layer: 5
-  m_Name: MoveBtn
+  m_Name: MOVE_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,8 +729,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &4941703658113412941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,7 +756,7 @@ GameObject:
   - component: {fileID: 3692216445820614563}
   - component: {fileID: 1176749924559633985}
   m_Layer: 5
-  m_Name: CopyBtn
+  m_Name: COPY_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -881,8 +877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &1176749924559633985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,7 +1006,7 @@ RectTransform:
   - {fileID: 1181444034}
   - {fileID: 8796522658518181841}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1113,8 +1107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_TouchBegin
-  m_oEndSndPath: Sounds/Global/G_TouchEnd
 --- !u!114 &8334246944251894884
 MonoBehaviour:
   m_ObjectHideFlags: 0
