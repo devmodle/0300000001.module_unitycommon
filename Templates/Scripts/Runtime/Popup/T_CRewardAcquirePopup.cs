@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
@@ -47,10 +48,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		this.IsIgnoreNavStackEvent = true;
 
 		// 버튼을 설정한다 {
-		m_oBtnDict[EKey.ACQUIRE_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ACQUIRE_BTN);
+		m_oBtnDict[EKey.ACQUIRE_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.ACQUIRE_BTN}");
 		m_oBtnDict[EKey.ACQUIRE_BTN]?.onClick.AddListener(this.OnTouchAcquireBtn);
 
-		m_oBtnDict[EKey.REWARD_ADS_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN);
+		m_oBtnDict[EKey.REWARD_ADS_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.REWARD_ADS_BTN}");
 		m_oBtnDict[EKey.REWARD_ADS_BTN]?.onClick.AddListener(this.OnTouchRewardAdsBtn);
 		// 버튼을 설정한다 }
 	}

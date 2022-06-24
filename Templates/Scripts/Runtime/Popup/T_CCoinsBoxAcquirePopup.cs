@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-/** 코인 상자 코인 획득 팝업 */
-public partial class CCoinsBoxCoinsAcquirePopup : CSubPopup {
+/** 코인 상자 획득 팝업 */
+public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
@@ -40,7 +41,7 @@ public partial class CCoinsBoxCoinsAcquirePopup : CSubPopup {
 		base.Awake();
 
 		// 텍스트를 설정한다
-		m_oTextDict[EKey.NUM_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_COINS_TEXT);
+		m_oTextDict[EKey.NUM_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>($"{EKey.NUM_COINS_TEXT}");
 	}
 
 	/** 초기화 */

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if UNITY_EDITOR && EXTRA_SCRIPT_MODULE_ENABLE

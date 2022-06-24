@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
@@ -114,7 +115,7 @@ namespace LateSetupScene {
 #if UNITY_ANDROID
 		/** 권한을 요청한다 */
 		protected override void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback) {
-			CFunc.RequestPermission(this, a_oPermission, a_oCallback, true);
+			this.ExRequestPermission(a_oPermission, a_oCallback, true);
 		}
 #endif			// #if UNITY_ANDROID
 		#endregion			// 조건부 함수

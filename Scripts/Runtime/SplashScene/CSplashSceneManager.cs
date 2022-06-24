@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 using UnityEngine.Rendering.Universal;

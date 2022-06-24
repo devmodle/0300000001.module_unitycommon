@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
+using UnityEngine.Events;
 using TMPro;
+using DG.Tweening;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
@@ -98,13 +99,13 @@ namespace StartScene {
 		/** 씬을 설정한다 */
 		private void SetupAwake() {	
 			// 텍스트를 설정한다
-			var oLoadingText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT);
-			m_oTextDict[EKey.LOADING_TEXT] = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_LOADING_TEXT, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT), this.UIs, m_stLoadingTextPos);
+			var oLoadingText = this.UIsBase.ExFindComponent<TMP_Text>($"{EKey.LOADING_TEXT}");
+			m_oTextDict[EKey.LOADING_TEXT] = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>($"{EKey.LOADING_TEXT}", CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT), this.UIs, m_stLoadingTextPos);
 
 			// 게이지 처리자를 설정한다 {
 			var oLoadingGauge = this.UIsBase.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
 			oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE), this.UIs, m_stLoadingGaugePos);
-
+			
 			m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER] = oLoadingGauge.GetComponentInChildren<CGaugeHandler>();
 			m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent = KCDefine.B_VAL_0_FLT;
 			// 게이지 처리자를 설정한다 }

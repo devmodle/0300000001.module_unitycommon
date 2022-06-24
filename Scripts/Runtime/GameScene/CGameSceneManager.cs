@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace GameScene {
 	/** 게임 씬 관리자 */
@@ -43,11 +44,11 @@ namespace GameScene {
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 				// 객체 객체를 설정한다
-				var oFXRoot = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_FX_ROOT);
-				m_oObjDict[EKey.FX_ROOT] = oFXRoot ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_FX_ROOT, this.Objs);
+				var oFXRoot = this.ObjsBase.ExFindChild($"{EKey.FX_ROOT}");
+				m_oObjDict[EKey.FX_ROOT] = oFXRoot ?? CFactory.CreateObj($"{EKey.FX_ROOT}", this.Objs);
 
-				var oObjRoot = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_OBJ_ROOT);
-				m_oObjDict[EKey.OBJ_ROOT] = oObjRoot ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_OBJ_ROOT, this.Objs);
+				var oObjRoot = this.ObjsBase.ExFindChild($"{EKey.OBJ_ROOT}");
+				m_oObjDict[EKey.OBJ_ROOT] = oObjRoot ?? CFactory.CreateObj($"{EKey.OBJ_ROOT}", this.Objs);
 
 				// 터치 전달자를 설정한다 {
 				var oBGTouchResponder = this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER);

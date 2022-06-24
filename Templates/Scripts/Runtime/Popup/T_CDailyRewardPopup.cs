@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -32,11 +33,15 @@ public partial class CDailyRewardPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다 {
-		m_oBtnDict[EKey.ACQUIRE_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_ACQUIRE_BTN);
-		m_oBtnDict[EKey.ACQUIRE_BTN]?.onClick.AddListener(this.OnTouchAcquireBtn);
+		var oCallbackDict = new Dictionary<EKey, UnityAction>() {
+			[EKey.ACQUIRE_BTN] = this.OnTouchAcquireBtn,
+			[EKey.REWARD_ADS_BTN] = this.OnTouchRewardAdsBtn
+		};
 
-		m_oBtnDict[EKey.REWARD_ADS_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REWARD_ADS_BTN);
-		m_oBtnDict[EKey.REWARD_ADS_BTN]?.onClick.AddListener(this.OnTouchRewardAdsBtn);
+		foreach(var stKeyVal in oCallbackDict) {
+			m_oBtnDict[stKeyVal.Key] = this.Contents.ExFindComponent<Button>($"{stKeyVal.Key}");
+			m_oBtnDict[stKeyVal.Key]?.onClick.AddListener(stKeyVal.Value);
+		}
 		// 버튼을 설정한다 }
 	}
 	

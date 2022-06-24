@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
@@ -113,9 +114,16 @@ namespace OverlayScene {
 			// 텍스트를 설정한다
 			m_oTextDict[EKey.NUM_COINS_TEXT] = this.UIsBase.ExFindComponent<TMP_Text>($"{EKey.NUM_COINS_TEXT}");
 
-			// 버튼을 설정한다
-			m_oBtnDict[EKey.STORE_BTN] = this.UIsBase.ExFindComponent<Button>($"{EKey.STORE_BTN}");
-			m_oBtnDict[EKey.STORE_BTN]?.onClick.AddListener(this.OnTouchStoreBtn);
+			// 버튼을 설정한다 {
+			var oCallbackDict = new Dictionary<EKey, UnityAction>() {
+				[EKey.STORE_BTN] = this.OnTouchStoreBtn
+			};
+
+			foreach(var stKeyVal in oCallbackDict) {
+				m_oBtnDict[stKeyVal.Key] = this.UIsBase.ExFindComponent<Button>($"{stKeyVal.Key}");
+				m_oBtnDict[stKeyVal.Key]?.onClick.AddListener(stKeyVal.Value);
+			}
+			// 버튼을 설정한다 }
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupTestUIs();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -30,8 +31,8 @@ public partial class CSyncPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		m_oUIsDict[EKey.LOGIN_UIS] = this.Contents.ExFindChild(KCDefine.U_OBJ_N_LOGIN_UIS);
-		m_oUIsDict[EKey.LOGOUT_UIS] = this.Contents.ExFindChild(KCDefine.U_OBJ_N_LOGOUT_UIS);
+		m_oUIsDict[EKey.LOGIN_UIS] = this.Contents.ExFindChild($"{EKey.LOGIN_UIS}");
+		m_oUIsDict[EKey.LOGOUT_UIS] = this.Contents.ExFindChild($"{EKey.LOGOUT_UIS}");
 
 		// 버튼을 설정한다
 		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGIN_BTN)?.onClick.AddListener(this.OnTouchLoginBtn);

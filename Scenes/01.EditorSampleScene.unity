@@ -2172,7 +2172,7 @@ GameObject:
   - component: {fileID: 373739131}
   - component: {fileID: 373739132}
   m_Layer: 5
-  m_Name: BottomMenuUIs_01
+  m_Name: LE_UIS_AB_SET_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4573,7 +4573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 812935422}
   m_Layer: 5
-  m_Name: LeftEditorUIs
+  m_Name: LEFT_EDITOR_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4999,7 +4999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 0ee57c67efb544370a44e78e29a3c4f7, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 827ade89756e74c5c8f2ae4d0ee6dc6f, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -7768,7 +7768,7 @@ GameObject:
   - component: {fileID: 1330311401}
   - component: {fileID: 1330311402}
   m_Layer: 5
-  m_Name: MidEditorUIs
+  m_Name: MID_EDITOR_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7829,7 +7829,7 @@ GameObject:
   - component: {fileID: 1350053773}
   - component: {fileID: 1350053772}
   m_Layer: 5
-  m_Name: MsgUIs
+  m_Name: ME_UIS_MSG_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7968,10 +7968,10 @@ RectTransform:
   m_Father: {fileID: 718498015}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 125}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 389.09494, y: -62.5}
+  m_SizeDelta: {x: 246.06328, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1394409897
 MonoBehaviour:
@@ -10282,10 +10282,10 @@ RectTransform:
   m_Father: {fileID: 718498015}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 125}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 123.03164, y: -62.5}
+  m_SizeDelta: {x: 246.06328, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1687862034
 MonoBehaviour:
@@ -11014,7 +11014,7 @@ GameObject:
   - component: {fileID: 1902410671}
   - component: {fileID: 1902410672}
   m_Layer: 5
-  m_Name: RightEditorUIs
+  m_Name: RIGHT_EDITOR_UIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11168,10 +11168,10 @@ RectTransform:
   m_Father: {fileID: 718498015}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 125}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 655.1582, y: -62.5}
+  m_SizeDelta: {x: 246.06328, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1937742886
 MonoBehaviour:

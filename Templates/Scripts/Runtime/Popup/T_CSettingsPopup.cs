@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -33,16 +34,16 @@ public partial class CSettingsPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다 {
-		m_oBtnDict[EKey.BG_SND_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_BG_SND_BTN);
+		m_oBtnDict[EKey.BG_SND_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.BG_SND_BTN}");
 		m_oBtnDict[EKey.BG_SND_BTN]?.onClick.AddListener(this.OnTouchBGSndBtn);
 
-		m_oBtnDict[EKey.FX_SNDS_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_FX_SNDS_BTN);
+		m_oBtnDict[EKey.FX_SNDS_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.FX_SNDS_BTN}");
 		m_oBtnDict[EKey.FX_SNDS_BTN]?.onClick.AddListener(this.OnTouchFXSndsBtn);
 
-		m_oBtnDict[EKey.VIBRATE_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_VIBRATE_BTN);
+		m_oBtnDict[EKey.VIBRATE_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.VIBRATE_BTN}");
 		m_oBtnDict[EKey.VIBRATE_BTN]?.onClick.AddListener(this.OnTouchVibrateBtn);
 
-		m_oBtnDict[EKey.NOTI_BTN] = this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NOTI_BTN);
+		m_oBtnDict[EKey.NOTI_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.NOTI_BTN}");
 		m_oBtnDict[EKey.NOTI_BTN]?.onClick.AddListener(this.OnTouchNotiBtn);
 
 		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REVIEW_BTN)?.onClick.AddListener(this.OnTouchReviewBtn);

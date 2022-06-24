@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 
 #if SCRIPT_TEMPLATE_ONLY
@@ -62,12 +63,12 @@ public partial class CResultPopup : CSubPopup {
 		base.Awake();
 		this.IsIgnoreNavStackEvent = true;
 
-		m_oUIsDict[EKey.CLEAR_UIS] = this.Contents.ExFindChild(KCDefine.U_OBJ_N_CLEAR_UIS);
-		m_oUIsDict[EKey.CLEAR_FAIL_UIS] = this.Contents.ExFindChild(KCDefine.U_OBJ_N_CLEAR_FAIL_UIS);
+		m_oUIsDict[EKey.CLEAR_UIS] = this.Contents.ExFindChild($"{EKey.CLEAR_UIS}");
+		m_oUIsDict[EKey.CLEAR_FAIL_UIS] = this.Contents.ExFindChild($"{EKey.CLEAR_FAIL_UIS}");
 
 		// 텍스트를 설정한다
-		m_oTextDict[EKey.RECORD_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_RECORD_TEXT);
-		m_oTextDict[EKey.BEST_RECORD_TEXT] = this.Contents.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_BEST_RECORD_TEXT);
+		m_oTextDict[EKey.RECORD_TEXT] = this.Contents.ExFindComponent<TMP_Text>($"{EKey.RECORD_TEXT}");
+		m_oTextDict[EKey.BEST_RECORD_TEXT] = this.Contents.ExFindComponent<TMP_Text>($"{EKey.BEST_RECORD_TEXT}");
 
 		// 버튼을 설정한다
 		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NEXT_BTN)?.onClick.AddListener(this.OnTouchNextBtn);

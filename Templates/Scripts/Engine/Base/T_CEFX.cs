@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
@@ -21,12 +22,6 @@ namespace SampleEngineName {
 			public STFXInfo m_stFXInfo;
 		}
 
-		#region 상수
-		private static readonly Dictionary<EKey, string> PARTICLE_NAME_DICT = new Dictionary<EKey, string>() {
-			[EKey.FX_PARTICLE] = "FXParticle"
-		};
-		#endregion			// 상수
-
 		#region 변수
 		private STParams m_stParams;
 		
@@ -45,7 +40,7 @@ namespace SampleEngineName {
 			base.Awake();
 
 			for(var eKey = EKey.FX_PARTICLE; eKey <= EKey.FX_PARTICLE; ++eKey) {
-				m_oParticleDict[eKey] = this.gameObject.ExFindComponent<ParticleSystem>(CEFX.PARTICLE_NAME_DICT[eKey]);
+				m_oParticleDict[eKey] = this.gameObject.ExFindComponent<ParticleSystem>($"{eKey}");
 				m_oParticleDict[eKey]?.ExReset(false);
 			}
 		}

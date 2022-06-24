@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if MSG_PACK_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE

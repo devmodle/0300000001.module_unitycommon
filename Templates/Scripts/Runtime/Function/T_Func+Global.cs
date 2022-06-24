@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -96,9 +97,9 @@ public static partial class Func {
 		Func.ShowPopup<CRewardAcquirePopup>(KDefine.G_OBJ_N_REWARD_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_REWARD_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	/** 코인 상자 코인 획득 팝업을 출력한다 */
-	public static void ShowCoinsBoxCoinsAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CCoinsBoxCoinsAcquirePopup>(KDefine.G_OBJ_N_COINS_BOX_COINS_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_COINS_BOX_COINS_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	/** 코인 상자 획득 팝업을 출력한다 */
+	public static void ShowCoinsBoxAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CCoinsBoxAcquirePopup>(KDefine.G_OBJ_N_COINS_BOX_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_COINS_BOX_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	/** 이어하기 팝업을 출력한다 */

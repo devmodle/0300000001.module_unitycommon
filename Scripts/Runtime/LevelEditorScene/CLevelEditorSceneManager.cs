@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 namespace LevelEditorScene {
@@ -70,26 +71,24 @@ namespace LevelEditorScene {
 			if(CSceneManager.IsAppInit) {
 				CSceneManager.ScreenDebugUIs?.SetActive(false);
 
-				m_oUIsDict[EKey.MID_EDITOR_UIS] = this.UIsBase.ExFindChild(KCDefine.E_OBJ_N_MID_EDITOR_UIS);
-				m_oUIsDict[EKey.LEFT_EDITOR_UIS] = this.UIsBase.ExFindChild(KCDefine.E_OBJ_N_LEFT_EDITOR_UIS);
-				m_oUIsDict[EKey.RIGHT_EDITOR_UIS] = this.UIsBase.ExFindChild(KCDefine.E_OBJ_N_RIGHT_EDITOR_UIS);
+				m_oUIsDict[EKey.MID_EDITOR_UIS] = this.UIsBase.ExFindChild($"{EKey.MID_EDITOR_UIS}");
+				m_oUIsDict[EKey.LEFT_EDITOR_UIS] = this.UIsBase.ExFindChild($"{EKey.LEFT_EDITOR_UIS}");
+				m_oUIsDict[EKey.RIGHT_EDITOR_UIS] = this.UIsBase.ExFindChild($"{EKey.RIGHT_EDITOR_UIS}");
 
-				m_oUIsDict[EKey.ME_UIS_MSG_UIS] = m_oUIsDict[EKey.MID_EDITOR_UIS].ExFindChild(KCDefine.E_OBJ_N_ME_UIS_MSG_UIS);
-				m_oUIsDict[EKey.LE_UIS_AB_SET_UIS] = m_oUIsDict[EKey.LEFT_EDITOR_UIS].ExFindChild(KCDefine.E_OBJ_N_LE_UIS_AB_SET_UIS);
+				m_oUIsDict[EKey.ME_UIS_MSG_UIS] = m_oUIsDict[EKey.MID_EDITOR_UIS].ExFindChild($"{EKey.ME_UIS_MSG_UIS}");
+				m_oUIsDict[EKey.LE_UIS_AB_SET_UIS] = m_oUIsDict[EKey.LEFT_EDITOR_UIS].ExFindChild($"{EKey.LE_UIS_AB_SET_UIS}");
 
 				m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
 
 				// 객체 객체를 설정한다
-				var oObjRoot = this.ObjsBase.ExFindChild(KCDefine.GS_OBJ_N_OBJ_ROOT);
-				m_oObjDict[EKey.OBJ_ROOT] = oObjRoot ?? CFactory.CreateObj(KCDefine.GS_OBJ_N_OBJ_ROOT, this.Objs);
+				var oObjRoot = this.ObjsBase.ExFindChild($"{EKey.OBJ_ROOT}");
+				m_oObjDict[EKey.OBJ_ROOT] = oObjRoot ?? CFactory.CreateObj($"{EKey.OBJ_ROOT}", this.Objs);
 
-				// 터치 전달자를 설정한다 {
-				var oBGTouchResponder = this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER);
-
-				m_oObjDict[EKey.BG_TOUCH_RESPONDER] = oBGTouchResponder ?? CFactory.CreateTouchResponder(KCDefine.U_OBJ_N_BG_TOUCH_RESPONDER, KCDefine.U_OBJ_P_G_TOUCH_RESPONDER, this.UIs, CSceneManager.CanvasSize, Vector3.zero, KCDefine.U_COLOR_TRANSPARENT);
+				// 터치 전달자를 설정한다
+				var oBGTouchResponder = this.UIsBase.ExFindChild($"{EKey.BG_TOUCH_RESPONDER}");
+				m_oObjDict[EKey.BG_TOUCH_RESPONDER] = oBGTouchResponder ?? CFactory.CreateTouchResponder($"{EKey.BG_TOUCH_RESPONDER}", KCDefine.U_OBJ_P_G_TOUCH_RESPONDER, this.UIs, CSceneManager.CanvasSize, Vector3.zero, KCDefine.U_COLOR_TRANSPARENT);
 				m_oObjDict[EKey.BG_TOUCH_RESPONDER]?.ExSetRaycastTarget<Image>(true, false);
 				m_oObjDict[EKey.BG_TOUCH_RESPONDER]?.transform.SetAsFirstSibling();
-				// 터치 전달자를 설정한다 }
 			}
 		}
 		#endregion			// 함수

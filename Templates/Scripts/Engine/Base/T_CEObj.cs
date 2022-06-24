@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
@@ -20,12 +21,6 @@ namespace SampleEngineName {
 			public CEComponent.STParams m_stBaseParams;
 			public STObjInfo m_stObjInfo;
 		}
-
-		#region 상수
-		private static readonly Dictionary<EKey, string> SPRITE_NAME_DICT = new Dictionary<EKey, string>() {
-			[EKey.OBJ_SPRITE] = "ObjSprite"
-		};
-		#endregion			// 상수
 
 		#region 변수
 		private STParams m_stParams;
@@ -46,7 +41,7 @@ namespace SampleEngineName {
 			base.Awake();
 			
 			for(var eKey = EKey.OBJ_SPRITE; eKey <= EKey.OBJ_SPRITE; ++eKey) {
-				m_oSpriteDict[eKey] = this.gameObject.ExFindComponent<SpriteRenderer>(CEObj.SPRITE_NAME_DICT[eKey]);
+				m_oSpriteDict[eKey] = this.gameObject.ExFindComponent<SpriteRenderer>($"{eKey}");
 			}
 		}
 

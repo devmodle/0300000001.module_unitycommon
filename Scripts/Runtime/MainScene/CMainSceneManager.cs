@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 
 #if INPUT_SYSTEM_MODULE_ENABLE
@@ -30,7 +31,7 @@ namespace MainScene {
 		public override bool IsIgnoreOverlayScene => false;
 		
 		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
-		protected TMP_Text VerText => m_oTextDict[EKey.VER_TEXT];
+		public TMP_Text VerText => m_oTextDict[EKey.VER_TEXT];
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -42,8 +43,8 @@ namespace MainScene {
 			if(CSceneManager.IsAppInit) {
 				// 타이틀 씬 사용 모드가 아닐 경우
 				if(!COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
-					var oVerText = this.UIsBase.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT);
-					m_oTextDict[EKey.VER_TEXT] = oVerText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_VER_TEXT, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT), this.UpUIs);
+					var oVerText = this.UIsBase.ExFindComponent<TMP_Text>($"{EKey.VER_TEXT}");
+					m_oTextDict[EKey.VER_TEXT] = oVerText ?? CFactory.CreateCloneObj<TMP_Text>($"{EKey.VER_TEXT}", CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT), this.UpUIs);
 					m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 					m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 					m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
