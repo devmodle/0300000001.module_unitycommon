@@ -76,6 +76,12 @@ public partial class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.ResetTutorialInfos();
+	}
+
+	/** 튜토리얼 정보를 리셋한다 */
+	public void ResetTutorialInfos() {
+		this.TutorialInfoDict.Clear();
 
 		var oTutorialInfoList = new List<STTutorialInfo>(m_oPlayTutorialInfoList);
 		oTutorialInfoList.AddRange(m_oHelpTutorialInfoList);
@@ -83,6 +89,12 @@ public partial class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 		for(int i = 0; i < oTutorialInfoList.Count; ++i) {
 			this.TutorialInfoDict.TryAdd(oTutorialInfoList[i].m_eTutorialKinds, oTutorialInfoList[i]);
 		}
+	}
+
+	/** 튜토리얼 정보를 리셋한다 */
+	public void ResetTutorialInfos(string a_oJSONStr) {
+		this.ResetTutorialInfos();
+		this.DoLoadTutorialInfos(a_oJSONStr);
 	}
 
 	/** 튜토리얼 정보를 반환한다 */
@@ -101,6 +113,7 @@ public partial class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 
 	/** 튜토리얼 정보를 로드한다 */
 	public Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos() {
+		this.ResetTutorialInfos();
 		return this.LoadTutorialInfos(this.TutorialInfoTablePath);
 	}
 

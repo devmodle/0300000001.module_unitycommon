@@ -155,7 +155,7 @@ public static partial class CEditorSceneManager {
 		}
 
 		// 상태 갱신이 가능 할 경우
-		if(bIsEnableUpdate && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KEditorDefine.B_DELAY_DEFINE_S_UPDATE)) {
+		if(bIsEnableUpdate && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KCDefine.B_VAL_1_FLT)) {
 			var oDefineSymbolInfoTable = CEditorFunc.FindAsset<CDefineSymbolInfoTable>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_INFO_TABLE);
 
 			// 전처리기 심볼 정보 테이블이 존재 할 경우

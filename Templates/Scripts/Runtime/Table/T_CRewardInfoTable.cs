@@ -87,6 +87,12 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.ResetRewardInfos();
+	}
+
+	/** 보상 정보를 리셋한다 */
+	public void ResetRewardInfos() {
+		this.RewardInfoDict.Clear();
 
 		var oRewardInfoList = new List<STRewardInfo>(m_oFreeRewardInfoList);
 		oRewardInfoList.AddRange(m_oDailyRewardInfoList);
@@ -98,6 +104,12 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		for(int i = 0; i < oRewardInfoList.Count; ++i) {
 			this.RewardInfoDict.TryAdd(oRewardInfoList[i].m_eRewardKinds, oRewardInfoList[i]);
 		}
+	}
+
+	/** 보상 정보를 리셋한다 */
+	public void ResetRewardInfos(string a_oJSONStr) {
+		this.ResetRewardInfos();
+		this.DoLoadRewardInfos(a_oJSONStr);
 	}
 
 	/** 보상 정보를 반환한다 */
@@ -116,6 +128,7 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	/** 보상 정보를 로드한다 */
 	public Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos() {
+		this.ResetRewardInfos();
 		return this.LoadRewardInfos(this.RewardInfoTablePath);
 	}
 

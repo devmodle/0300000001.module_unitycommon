@@ -28,6 +28,18 @@ public static partial class Extension {
 		CAccess.Assert(a_oSender != null);
 		return CFactory.MakeSequence(CFactory.MakeAni(() => a_oSender.Percent, (a_fVal) => a_oSender.Percent = a_fVal, () => a_oSender.Percent = a_fStartVal, a_oCallback, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => CFunc.Invoke(ref a_oCompleteCallback, a_oSender, a_oSequenceSender), a_fDelay, false, a_bIsRealtime);
 	}
+
+	/** JSON 노드 정보 => JSON 노드로 변환한다 */
+	public static SimpleJSON.JSONNode ExToJSONNode(this Dictionary<string, (SimpleJSON.JSONNode, bool)> a_oSender) {
+		CAccess.Assert(a_oSender != null);
+		var oJSONNode = new SimpleJSON.JSONClass();
+
+		foreach(var stKeyVal in a_oSender) {
+			oJSONNode.Add(stKeyVal.Key, stKeyVal.Value.Item1);
+		}
+
+		return oJSONNode;
+	}
 	#endregion			// 클래스 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE

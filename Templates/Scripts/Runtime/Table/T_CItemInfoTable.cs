@@ -97,6 +97,12 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.ResetItemInfos();
+	}
+
+	/** 아이템 정보를 리셋한다 */
+	public void ResetItemInfos() {
+		this.ItemInfoDict.Clear();
 
 		var oItemInfoList = new List<STItemInfo>(m_oGoodsItemInfoList);
 		oItemInfoList.ExAddVals(m_oConsumableItemInfoList);
@@ -109,6 +115,12 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 		for(int i = 0; i < oItemInfoList.Count; ++i) {
 			this.ItemInfoDict.TryAdd(oItemInfoList[i].m_eItemKinds, oItemInfoList[i]);
 		}
+	}
+
+	/** 아이템 정보를 리셋한다 */
+	public void ResetItemInfos(string a_oJSONStr) {
+		this.ResetItemInfos();
+		this.DoLoadItemInfos(a_oJSONStr);
 	}
 
 	/** 아이템 정보를 반환한다 */
@@ -127,6 +139,7 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 
 	/** 아이템 정보를 로드한다 */
 	public Dictionary<EItemKinds, STItemInfo> LoadItemInfos() {
+		this.ResetItemInfos();
 		return this.LoadItemInfos(this.ItemInfoTablePath);
 	}
 

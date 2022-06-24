@@ -77,6 +77,12 @@ public partial class CAbilityInfoTable : CScriptableObj<CAbilityInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.ResetAbilityInfos();
+	}
+
+	/** 어빌리티 정보를 리셋한다 */
+	public void ResetAbilityInfos() {
+		this.AbilityInfoDict.Clear();
 
 		var oAbilityInfoList = new List<STAbilityInfo>(m_oStatAbilityInfoList);
 		oAbilityInfoList.ExAddVals(m_oBuffAbilityInfoList);
@@ -86,6 +92,12 @@ public partial class CAbilityInfoTable : CScriptableObj<CAbilityInfoTable> {
 		for(int i = 0; i < oAbilityInfoList.Count; ++i) {
 			this.AbilityInfoDict.TryAdd(oAbilityInfoList[i].m_eAbilityKinds, oAbilityInfoList[i]);
 		}
+	}
+
+	/** 어빌리티 정보를 리셋한다 */
+	public void ResetAbilityInfos(string a_oJSONStr) {
+		this.ResetAbilityInfos();
+		this.DoLoadAbilityInfos(a_oJSONStr);
 	}
 
 	/** 어빌리티 정보를 반환한다 */
@@ -104,6 +116,7 @@ public partial class CAbilityInfoTable : CScriptableObj<CAbilityInfoTable> {
 
 	/** 어빌리티 정보를 로드한다 */
 	public Dictionary<EAbilityKinds, STAbilityInfo> LoadAbilityInfos() {
+		this.ResetAbilityInfos();
 		return this.LoadAbilityInfos(this.AbilityInfoTablePath);
 	}
 

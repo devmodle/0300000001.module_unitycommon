@@ -74,6 +74,12 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.ResetFXInfos();
+	}
+
+	/** 효과 정보를 리셋한다 */
+	public void ResetFXInfos() {
+		this.FXInfoDict.Clear();
 
 		var oFXInfoList = new List<STFXInfo>(m_oHitFXInfoInfoList);
 		oFXInfoList.ExAddVals(m_oBuffFXInfoInfoList);
@@ -82,6 +88,12 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 		for(int i = 0; i < oFXInfoList.Count; ++i) {
 			this.FXInfoDict.TryAdd(oFXInfoList[i].m_eFXKinds, oFXInfoList[i]);
 		}
+	}
+
+	/** 효과 정보를 리셋한다 */
+	public void ResetFXInfos(string a_oJSONStr) {
+		this.ResetFXInfos();
+		this.DoLoadFXInfos(a_oJSONStr);
 	}
 
 	/** 효과 정보를 반환한다 */
@@ -100,6 +112,7 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 
 	/** 효과 정보를 로드한다 */
 	public Dictionary<EFXKinds, STFXInfo> LoadFXInfos() {
+		this.ResetFXInfos();
 		return this.LoadFXInfos(this.FXInfoTablePath);
 	}
 

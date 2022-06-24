@@ -80,6 +80,12 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.ResetProductSaleInfos();
+	}
+
+	/** 상품 판매 정보를 리셋한다 */
+	public void ResetProductSaleInfos() {
+		this.ProductSaleInfoDict.Clear();
 
 		var oProductSaleInfoList = new List<STProductSaleInfo>(m_oPkgsProductSaleInfoList);
 		oProductSaleInfoList.ExAddVals(m_oSingleProductSaleInfoList);
@@ -87,6 +93,12 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 		for(int i = 0; i < oProductSaleInfoList.Count; ++i) {
 			this.ProductSaleInfoDict.TryAdd(oProductSaleInfoList[i].m_eProductSaleKinds, oProductSaleInfoList[i]);
 		}
+	}
+
+	/** 상품 판매 정보를 리셋한다 */
+	public void ResetProductSaleInfos(string a_oJSONStr) {
+		this.ResetProductSaleInfos();
+		this.DoLoadProductSaleInfos(a_oJSONStr);
 	}
 
 	/** 상품 판매 정보를 반환한다 */
@@ -159,6 +171,7 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 
 	/** 상품 판매 정보를 로드한다 */
 	public Dictionary<EProductSaleKinds, STProductSaleInfo> LoadProductSaleInfos() {
+		this.ResetProductSaleInfos();
 		return this.LoadProductSaleInfos(this.ProductSaleInfoTablePath);
 	}
 

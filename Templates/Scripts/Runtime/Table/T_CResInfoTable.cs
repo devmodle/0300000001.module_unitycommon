@@ -72,6 +72,12 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.ResetResInfos();
+	}
+
+	/** 리소스 정보를 리셋한다 */
+	public void ResetResInfos() {
+		this.ResInfoDict.Clear();
 
 		var oResInfoList = new List<STResInfo>(m_oSndResInfoList);
 		oResInfoList.AddRange(m_oFontResInfoList);
@@ -81,6 +87,12 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 		for(int i = 0; i < oResInfoList.Count; ++i) {
 			this.ResInfoDict.TryAdd(oResInfoList[i].m_eResKinds, oResInfoList[i]);
 		}
+	}
+
+	/** 리소스 정보를 리셋한다 */
+	public void ResetResInfos(string a_oJSONStr) {
+		this.ResetResInfos();
+		this.DoLoadResInfos(a_oJSONStr);
 	}
 
 	/** 리소스 정보를 반환한다 */
@@ -99,6 +111,7 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 
 	/** 리소스 정보를 로드한다 */
 	public Dictionary<EResKinds, STResInfo> LoadResInfos() {
+		this.ResetResInfos();
 		return this.LoadResInfos(this.ResInfoTablePath);
 	}
 

@@ -199,6 +199,14 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.ResetEpisodeInfos();
+	}
+
+	/** 에피소드 정보를 리셋한다 */
+	public void ResetEpisodeInfos() {
+		this.LevelEpisodeInfoDict.Clear();
+		this.StageEpisodeInfoDict.Clear();
+		this.ChapterEpisodeInfoDict.Clear();
 
 		for(int i = 0; i < m_oLevelEpisodeInfoList.Count; ++i) {
 			this.LevelEpisodeInfoDict.TryAdd(CFactory.MakeUniqueLevelID(i, m_oLevelEpisodeInfoList[i].m_stIDInfo.m_nID02, m_oLevelEpisodeInfoList[i].m_stIDInfo.m_nID03), m_oLevelEpisodeInfoList[i]);
@@ -211,6 +219,12 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		for(int i = 0; i < m_oChapterEpisodeInfoList.Count; ++i) {
 			this.ChapterEpisodeInfoDict.TryAdd(CFactory.MakeUniqueChapterID(i), m_oChapterEpisodeInfoList[i]);
 		}
+	}
+
+	/** 에피소드 정보를 리셋한다 */
+	public void ResetEpisodeInfos(string a_oJSONStr) {
+		this.ResetEpisodeInfos();
+		this.DoLoadEpisodeInfos(a_oJSONStr);
 	}
 
 	/** 레벨 에피소드 기록을 반환한다 */
@@ -317,6 +331,7 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	/** 에피소드 정보를 로드한다 */
 	public List<object> LoadEpisodeInfos() {
+		this.ResetEpisodeInfos();
 		return this.LoadEpisodeInfos(this.EpisodeInfoTablePath);
 	}
 
@@ -381,15 +396,6 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 
 	#region 조건부 함수
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-	/** 에피소드 정보를 리셋한다 */
-	public void ResetEpisodeInfos(string a_oJSONStr) {
-		this.LevelEpisodeInfoDict.Clear();
-		this.StageEpisodeInfoDict.Clear();
-		this.ChapterEpisodeInfoDict.Clear();
-
-		this.DoLoadEpisodeInfos(a_oJSONStr);
-	}
-
 	/** 에피소드 정보를 저장한다 */
 	public void SaveEpisodeInfos() {
 		var oJSONNode = new SimpleJSON.JSONClass();

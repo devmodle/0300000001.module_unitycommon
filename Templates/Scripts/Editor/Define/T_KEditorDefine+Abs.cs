@@ -15,9 +15,6 @@ using UnityEditor.iOS.Xcode;
 /** 에디터 상수 */
 public static partial class KEditorDefine {
 	#region 기본
-	// 시간
-	public const float B_DELAY_DEFINE_S_UPDATE = 1.0f;
-	
 	// 유니티 패키지
 	public const string B_UNITY_PKGS_ID_FMT = "{0}@{1}";
 	#endregion			// 기본
@@ -181,7 +178,7 @@ public static partial class KEditorDefine {
 		["com.unity.2d.spriteshape"] = "8.0.0",
 		["com.unity.2d.tilemap.extras"] = "3.0.2",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.0",
-		["com.unity.remote-config"] = "3.1.0",
+		["com.unity.remote-config"] = "3.1.3",
 		["com.unity.render-pipelines.universal"] = "13.1.8",
 		["com.unity.visualeffectgraph"] = "13.1.8",
 #else
@@ -250,7 +247,7 @@ public static partial class KEditorDefine {
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 
 #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
-		["module.unitycommonbackend"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonbackend_client.git#2.6.0"
+		["module.unitycommonplayfab"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonplayfab_client.git#2.6.0"
 #endif			// #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
 #endif			// #if SAMPLE_PROJ || DEVELOPMENT_PROJ
 	};

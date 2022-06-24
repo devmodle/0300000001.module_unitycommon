@@ -93,6 +93,12 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.ResetObjInfos();
+	}
+
+	/** 객체 정보를 리셋한다 */
+	public void ResetObjInfos() {
+		this.ObjInfoDict.Clear();
 
 		var oObjInfoList = new List<STObjInfo>(m_oBGObjInfoList);
 		oObjInfoList.AddRange(m_oNormObjInfoList);
@@ -103,6 +109,12 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 		for(int i = 0; i < oObjInfoList.Count; ++i) {
 			this.ObjInfoDict.TryAdd(oObjInfoList[i].m_eObjKinds, oObjInfoList[i]);
 		}
+	}
+
+	/** 객체 정보를 리셋한다 */
+	public void ResetObjInfos(string a_oJSONStr) {
+		this.ResetObjInfos();
+		this.DoLoadObjInfos(a_oJSONStr);
 	}
 
 	/** 객체 정보를 반환한다 */
@@ -121,6 +133,7 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 
 	/** 객체 정보를 로드한다 */
 	public Dictionary<EObjKinds, STObjInfo> LoadObjInfos() {
+		this.ResetObjInfos();
 		return this.LoadObjInfos(this.ObjInfoTablePath);
 	}
 

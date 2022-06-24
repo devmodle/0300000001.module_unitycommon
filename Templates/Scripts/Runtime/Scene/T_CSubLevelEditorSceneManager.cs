@@ -23,6 +23,9 @@ namespace LevelEditorScene {
 		private enum EKey {
 			NONE = -1,
 
+			OBJ_INFO_TABLE_GOOGLE_SHEET_ID,
+			EPISODE_INFO_TABLE_GOOGLE_SHEET_ID,
+
 			ME_UIS_MSG_TEXT,
 			ME_UIS_LEVEL_TEXT,
 
@@ -94,6 +97,11 @@ namespace LevelEditorScene {
 		private EInputPopup m_eSelInputPopup = EInputPopup.NONE;
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 
+		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
+			[EKey.OBJ_INFO_TABLE_GOOGLE_SHEET_ID] = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ",
+			[EKey.EPISODE_INFO_TABLE_GOOGLE_SHEET_ID] = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA"
+		};
+
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>() {
 			[EKey.SEL_OBJ_SPRITE] = null
 		};
@@ -101,8 +109,6 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>() {
 			[EKey.BG_TOUCH_DISPATCHER] = null
 		};
-
-		[SerializeField] private string m_oEpisodeInfoTableGoogleSheetID = string.Empty;
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>() {
@@ -400,7 +406,8 @@ namespace LevelEditorScene {
 
 		/** 씬을 설정한다 */
 		private void SetupStart() {
-			// Do Something
+			// 스크롤 뷰를 설정한다
+			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.gameObject.SetActive(true);
 		}
 
 		/** 에디터 종료 팝업 결과를 수신했을 경우 */
@@ -481,18 +488,20 @@ namespace LevelEditorScene {
 			if(a_bIsOK) {
 				switch(m_eSelTable) {
 					case ETable.LOCAL: {
-						CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.Clear();
-						CEpisodeInfoTable.Inst.StageEpisodeInfoDict.Clear();
-						CEpisodeInfoTable.Inst.ChapterEpisodeInfoDict.Clear();
-
+						CObjInfoTable.Inst.LoadObjInfos();
 						CEpisodeInfoTable.Inst.LoadEpisodeInfos();
+
 						this.UpdateUIsState();
 					} break;
 					case ETable.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
-						Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<(string, int)>() {
-							(KCDefine.U_KEY_LEVEL, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT), (KCDefine.U_KEY_STAGE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT), (KCDefine.U_KEY_CHAPTER, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)
-						}, this.OnLoadGoogleSheetEpisodeInfos);
+						Func.LoadGoogleSheet(m_oStrDict[EKey.OBJ_INFO_TABLE_GOOGLE_SHEET_ID], new List<(string, int)>() {
+							(KCDefine.U_KEY_BG, KCDefine.B_VAL_2_INT),
+							(KCDefine.U_KEY_NORM, KCDefine.B_VAL_2_INT),
+							(KCDefine.U_KEY_OVERLAY, KCDefine.B_VAL_2_INT),
+							(KCDefine.U_KEY_PLAYABLE, KCDefine.B_VAL_2_INT),
+							(KCDefine.U_KEY_NON_PLAYABLE, KCDefine.B_VAL_2_INT)
+						}, this.OnLoadObjInfosGoogleSheet);
 #endif			// #if GOOGLE_SHEET_ENABLE
 					} break;
 				}
@@ -742,19 +751,31 @@ namespace LevelEditorScene {
 		}
 
 #if GOOGLE_SHEET_ENABLE
-		/** 에피소드 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadGoogleSheetEpisodeInfos(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, (SimpleJSON.JSONNode, bool)> a_oJSONNodeInfoDict) {
+		/** 객체 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadObjInfosGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, (SimpleJSON.JSONNode, bool)> a_oJSONNodeInfoDict) {
 			var oResult = a_oJSONNodeInfoDict.ExFindVal((a_oJSONInfoDict) => !a_oJSONInfoDict.Item2);
 
 			// 로드 되었을 경우
 			if(!oResult.Item1) {
-				var oJSONNode = new SimpleJSON.JSONClass();
+				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 
-				foreach(var stKeyVal in a_oJSONNodeInfoDict) {
-					oJSONNode.Add(stKeyVal.Key, stKeyVal.Value.Item1);
-				}
+				Func.LoadGoogleSheet(m_oStrDict[EKey.EPISODE_INFO_TABLE_GOOGLE_SHEET_ID], new List<(string, int)>() {
+					(KCDefine.U_KEY_LEVEL, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT),
+					(KCDefine.U_KEY_STAGE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT),
+					(KCDefine.U_KEY_CHAPTER, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)
+				}, this.OnLoadEpisodeInfosGoogleSheet);
+			} else {
+				Func.ShowEditorGoogleSheetLoadPopup(null);
+			}
+		}
 
-				CEpisodeInfoTable.Inst.ResetEpisodeInfos(oJSONNode.ToString());
+		/** 에피소드 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadEpisodeInfosGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, (SimpleJSON.JSONNode, bool)> a_oJSONNodeInfoDict) {
+			var oResult = a_oJSONNodeInfoDict.ExFindVal((a_oJSONInfoDict) => !a_oJSONInfoDict.Item2);
+
+			// 로드 되었을 경우
+			if(!oResult.Item1) {
+				CEpisodeInfoTable.Inst.ResetEpisodeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 				this.UpdateUIsState();
 			} else {
 				Func.ShowEditorGoogleSheetLoadPopup(null);
@@ -1128,6 +1149,7 @@ namespace LevelEditorScene {
 
 			// 스크롤 뷰를 설정한다 {
 			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] = this.RightEditorUIs.ExFindComponent<SimpleScrollSnap>(KCDefine.U_OBJ_N_PAGE_VIEW);
+			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.gameObject.SetActive(false);
 			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.OnPanelCentered.AddListener((a_nCenterIdx, a_nSelIdx) => this.UpdateUIsState());
 
 			for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
