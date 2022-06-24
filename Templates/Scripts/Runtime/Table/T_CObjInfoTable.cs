@@ -73,6 +73,9 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 
 	[Header("=====> Non Playable Obj Info <=====")]
 	[SerializeField] private List<STObjInfo> m_oNonPlayableObjInfoList = new List<STObjInfo>();
+
+	[Header("=====> Enemy Obj Info <=====")]
+	[SerializeField] private List<STObjInfo> m_oEnemyObjInfoList = new List<STObjInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -105,6 +108,7 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 		oObjInfoList.AddRange(m_oOverlayObjInfoList);
 		oObjInfoList.AddRange(m_oPlayableObjInfoList);
 		oObjInfoList.AddRange(m_oNonPlayableObjInfoList);
+		oObjInfoList.AddRange(m_oEnemyObjInfoList);
 
 		for(int i = 0; i < oObjInfoList.Count; ++i) {
 			this.ObjInfoDict.TryAdd(oObjInfoList[i].m_eObjKinds, oObjInfoList[i]);
@@ -158,7 +162,7 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oObjInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_BG], oJSONNode[KCDefine.U_KEY_NORM], oJSONNode[KCDefine.U_KEY_OVERLAY], oJSONNode[KCDefine.U_KEY_PLAYABLE], oJSONNode[KCDefine.U_KEY_NON_PLAYABLE]
+			oJSONNode[KCDefine.U_KEY_BG], oJSONNode[KCDefine.U_KEY_NORM], oJSONNode[KCDefine.U_KEY_OVERLAY], oJSONNode[KCDefine.U_KEY_PLAYABLE], oJSONNode[KCDefine.U_KEY_NON_PLAYABLE], oJSONNode[KCDefine.U_KEY_ENEMY]
 		};
 
 		for(int i = 0; i < oObjInfosList.Count; ++i) {
