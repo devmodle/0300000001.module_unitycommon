@@ -345,9 +345,9 @@ namespace MainScene {
 			oABTUIsSetUIsLayoutGroup.spacing = KCDefine.B_VAL_4_FLT * KCDefine.B_VAL_5_FLT;
 			oABTUIsSetUIsLayoutGroup.ExReset();
 
-			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
-			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
-			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
+			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_RIGHT;
+			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_RIGHT;
+			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_RIGHT;
 			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchoredPosition = Vector3.zero;
 
 			var oContentsSizeFitter = oABTUIsSetUIsLayoutGroup.gameObject.ExAddComponent<ContentSizeFitter>();
