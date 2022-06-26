@@ -90,13 +90,15 @@ public partial class CStorePopup : CSubPopup {
 
 	/** 상품 판매 UI 상태를 갱신한다 */
 	private void UpdateProductSaleUIsState(GameObject a_oProductSaleUIs, STProductSaleInfo a_stProductSaleInfo) {
+		// 객체를 갱신한다 {
 		var oAdsPriceUIs = a_oProductSaleUIs.ExFindChild(KCDefine.U_OBJ_N_ADS_PRICE_UIS);
 		oAdsPriceUIs?.SetActive(a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_ePriceType == EPriceType.ADS);
 
 		var oPurchasePriceUIs = a_oProductSaleUIs.ExFindChild(KCDefine.U_OBJ_N_PURCHASE_PRICE_UIS);
 		oPurchasePriceUIs?.SetActive(a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_ePriceType == EPriceType.PURCHASE);
+		// 객체를 갱신한다 }
 
-		// 텍스트를 설정한다 {
+		// 텍스트를 갱신한다 {
 		var oPriceText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
 		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_oPrice), EFontSet._1, false);
 		
@@ -113,9 +115,9 @@ public partial class CStorePopup : CSubPopup {
 			oPriceText?.ExSetText(Access.GetPriceStr(a_stProductSaleInfo.m_nID), EFontSet._1, false);
 		}
 #endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
-		// 텍스트를 설정한다 }
+		// 텍스트를 갱신한다 }
 
-		// 버튼을 설정한다 {
+		// 버튼을 갱신한다 {
 		var oPurchaseBtn = oPurchasePriceUIs?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
 		oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductSaleInfo));
 
@@ -135,7 +137,7 @@ public partial class CStorePopup : CSubPopup {
 			oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID));
 		}
 #endif			// #if PURCHASE_MODULE_ENABLE
-		// 버튼을 설정한다 }
+		// 버튼을 갱신한다 }
 
 		// 패키지 상품 일 경우
 		if(a_stProductSaleInfo.ProductSaleType == EProductSaleType.PKGS) {

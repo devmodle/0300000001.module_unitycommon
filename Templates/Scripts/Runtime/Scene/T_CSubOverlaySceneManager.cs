@@ -111,17 +111,24 @@ namespace OverlayScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
-			// 텍스트를 설정한다
-			m_oTextDict[EKey.NUM_COINS_TEXT] = this.UIsBase.ExFindComponent<TMP_Text>($"{EKey.NUM_COINS_TEXT}");
-
-			// 버튼을 설정한다 {
-			var oCallbackDict = new Dictionary<EKey, UnityAction>() {
-				[EKey.STORE_BTN] = this.OnTouchStoreBtn
+			// 텍스트를 설정한다 {
+			var oTextKeyInfoList = new List<(EKey, GameObject)>() {
+				(EKey.NUM_COINS_TEXT, this.UIsBase)
 			};
 
-			foreach(var stKeyVal in oCallbackDict) {
-				m_oBtnDict[stKeyVal.Key] = this.UIsBase.ExFindComponent<Button>($"{stKeyVal.Key}");
-				m_oBtnDict[stKeyVal.Key]?.onClick.AddListener(stKeyVal.Value);
+			for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
+				m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<TMP_Text>($"{oTextKeyInfoList[i].Item1}");
+			}
+			// 텍스트를 설정한다 }
+
+			// 버튼을 설정한다 {
+			var oBtnKeyInfoList = new List<(EKey, GameObject, UnityAction)>() {
+				(EKey.STORE_BTN, this.UIsBase, this.OnTouchStoreBtn)
+			};
+
+			for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+				m_oBtnDict[oBtnKeyInfoList[i].Item1] = oBtnKeyInfoList[i].Item2.ExFindComponent<Button>($"{oBtnKeyInfoList[i].Item1}");
+				m_oBtnDict[oBtnKeyInfoList[i].Item1]?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
 			}
 			// 버튼을 설정한다 }
 

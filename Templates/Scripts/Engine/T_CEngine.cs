@@ -34,8 +34,9 @@ namespace SampleEngineName {
 
 		/** 매개 변수 */
 		public partial struct STParams {
-			public GameObject m_oFXRoot;
 			public GameObject m_oObjRoot;
+			public GameObject m_oFXObjRoot;
+			public GameObject m_oSkillObjRoot;
 
 			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict;
 
@@ -60,8 +61,9 @@ namespace SampleEngineName {
 		public EState State { get; private set; } = EState.NONE;
 		public STGridInfo GridInfo { get; private set; }
 		
-		public GameObject FXRoot => m_stParams.m_oFXRoot;
 		public GameObject ObjRoot => m_stParams.m_oObjRoot;
+		public GameObject FXObjRoot => m_stParams.m_oFXObjRoot;
+		public GameObject SkillObjRoot => m_stParams.m_oSkillObjRoot;
 		#endregion			// 프로퍼티
 		
 		#region 함수

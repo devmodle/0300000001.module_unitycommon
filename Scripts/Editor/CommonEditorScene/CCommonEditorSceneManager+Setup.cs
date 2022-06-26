@@ -166,33 +166,31 @@ public static partial class CCommonEditorSceneManager {
 	private static void SetupPreloadAssets() {
 		var oPreloadAssetList = PlayerSettings.GetPreloadedAssets().ToList();
 
-		try {
-			var oPreloadAssetInfoListContainer = new List<List<(string, string)>>() {
-				KCEditorDefine.B_PREFAB_P_INFO_LIST, KCEditorDefine.B_ASSET_P_INFO_LIST
-			};
+		var oPreloadAssetInfoListContainer = new List<List<(string, string)>>() {
+			KCEditorDefine.B_PREFAB_P_INFO_LIST, KCEditorDefine.B_ASSET_P_INFO_LIST
+		};
 
-			for(int i = 0; i < SceneManager.sceneCountInBuildSettings; ++i) {
-				string oScenePath = SceneUtility.GetScenePathByBuildIndex(i);
+		for(int i = 0; i < SceneManager.sceneCountInBuildSettings; ++i) {
+			string oScenePath = SceneUtility.GetScenePathByBuildIndex(i);
 
-				// 씬 추가가 가능 할 경우
-				if(!oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_01) && !oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_02)) {
-					var oAsset = CEditorFunc.FindAsset<SceneAsset>(oScenePath);
-					oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oScenePath.Contains(a_oAsset.name));
-				}
+			// 씬 추가가 가능 할 경우
+			if(!oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_01) && !oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_02)) {
+				var oAsset = CEditorFunc.FindAsset<SceneAsset>(oScenePath);
+				oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oScenePath.Contains(a_oAsset.name));
 			}
-
-			for(int i = 0; i < oPreloadAssetInfoListContainer.Count; ++i) {
-				for(int j = 0; j < oPreloadAssetInfoListContainer[i].Count; ++j) {
-					var oAsset = CEditorFunc.FindAsset<Object>(oPreloadAssetInfoListContainer[i][j].Item2);
-					oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && Path.GetFileNameWithoutExtension(oPreloadAssetInfoListContainer[i][j].Item2).Equals(a_oAsset.name));
-				}
-			}
-
-			oPreloadAssetList.RemoveAll((a_oAsset) => a_oAsset == null);
-			oPreloadAssetList.Sort((a_oLhs, a_oRhs) => a_oLhs.name.CompareTo(a_oRhs.name));
-		} finally {
-			PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
 		}
+
+		for(int i = 0; i < oPreloadAssetInfoListContainer.Count; ++i) {
+			for(int j = 0; j < oPreloadAssetInfoListContainer[i].Count; ++j) {
+				var oAsset = CEditorFunc.FindAsset<Object>(oPreloadAssetInfoListContainer[i][j].Item2);
+				oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && Path.GetFileNameWithoutExtension(oPreloadAssetInfoListContainer[i][j].Item2).Equals(a_oAsset.name));
+			}
+		}
+
+		oPreloadAssetList.RemoveAll((a_oAsset) => a_oAsset == null);
+		oPreloadAssetList.Sort((a_oLhs, a_oRhs) => a_oLhs.name.CompareTo(a_oRhs.name));
+
+		PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
 	}
 
 	/** 스프라이트 아틀라스를 설정한다 */
@@ -349,31 +347,29 @@ public static partial class CCommonEditorSceneManager {
 	/** 분실 된 스크립트 상태를 갱신한다 */
 	private static void UpdateMissingScriptState(GameObject a_oObj) {
 		CCommonEditorSceneManager.m_oPrefabMissingObjList.Clear();
-
-		try {
-			foreach(var oObj in a_oObj.DescendantsAndSelf()) {
-				// 객체 제거가 필요 할 경우
-				if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
-					EditorSceneManager.MarkSceneDirty(a_oObj.scene);
-					CCommonEditorSceneManager.m_oPrefabMissingObjList.ExAddVal(PrefabUtility.GetOutermostPrefabInstanceRoot(oObj));
-				}
-
-				// 스크립트 제거가 필요 할 경우
-				if(GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj) > KCDefine.B_VAL_0_INT) {
-					EditorSceneManager.MarkSceneDirty(a_oObj.scene);
-					GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
-				}
+		
+		foreach(var oObj in a_oObj.DescendantsAndSelf()) {
+			// 객체 제거가 필요 할 경우
+			if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
+				EditorSceneManager.MarkSceneDirty(a_oObj.scene);
+				CCommonEditorSceneManager.m_oPrefabMissingObjList.ExAddVal(PrefabUtility.GetOutermostPrefabInstanceRoot(oObj));
 			}
-		} finally {
-			for(int i = 0; i < CCommonEditorSceneManager.m_oPrefabMissingObjList.Count; ++i) {
-				string oMsg = string.Format(KCEditorDefine.B_MSG_FMT_ALERT_P_MISSING_PREFAB, CCommonEditorSceneManager.m_oPrefabMissingObjList[i].name);
 
-				// 확인 버튼을 눌렀을 경우
-				if(CEditorFunc.ShowOKCancelAlertPopup(KCEditorDefine.B_TEXT_ALERT_P_TITLE, oMsg)) {
-					CFactory.RemoveObj(CCommonEditorSceneManager.m_oPrefabMissingObjList[i]);
-				} else {
-					PrefabUtility.UnpackPrefabInstance(CCommonEditorSceneManager.m_oPrefabMissingObjList[i], PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
-				}
+			// 스크립트 제거가 필요 할 경우
+			if(GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(oObj) > KCDefine.B_VAL_0_INT) {
+				EditorSceneManager.MarkSceneDirty(a_oObj.scene);
+				GameObjectUtility.RemoveMonoBehavioursWithMissingScript(oObj);
+			}
+		}
+
+		for(int i = 0; i < CCommonEditorSceneManager.m_oPrefabMissingObjList.Count; ++i) {
+			string oMsg = string.Format(KCEditorDefine.B_MSG_FMT_ALERT_P_MISSING_PREFAB, CCommonEditorSceneManager.m_oPrefabMissingObjList[i].name);
+
+			// 확인 버튼을 눌렀을 경우
+			if(CEditorFunc.ShowOKCancelAlertPopup(KCEditorDefine.B_TEXT_ALERT_P_TITLE, oMsg)) {
+				CFactory.RemoveObj(CCommonEditorSceneManager.m_oPrefabMissingObjList[i]);
+			} else {
+				PrefabUtility.UnpackPrefabInstance(CCommonEditorSceneManager.m_oPrefabMissingObjList[i], PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
 			}
 		}
 	}

@@ -159,25 +159,25 @@ public static partial class CCommonEditorSceneManager {
 					return true;
 				});
 
-				try {
-					CCommonEditorSceneManager.m_oStrBuilder.Clear();
+				// 유니티 패키지 정보를 설정한다 {
+				CCommonEditorSceneManager.m_oStrBuilder.Clear();
 
-					CFunc.EnumerateDirectories(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, (a_oDirList, a_oFileList) => {
-						for(int i = 0; i < a_oFileList.Count; ++i) {
-							// DS Store 파일이 아닐 경우
-							if(!a_oFileList[i].EndsWith(KCDefine.B_FILE_EXTENSION_DS_STORE)) {
-								CCommonEditorSceneManager.m_oStrBuilder.AppendLine(Path.GetRelativePath(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, a_oFileList[i]));
-							}
+				CFunc.EnumerateDirectories(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, (a_oDirList, a_oFileList) => {
+					for(int i = 0; i < a_oFileList.Count; ++i) {
+						// DS Store 파일이 아닐 경우
+						if(!a_oFileList[i].EndsWith(KCDefine.B_FILE_EXTENSION_DS_STORE)) {
+							CCommonEditorSceneManager.m_oStrBuilder.AppendLine(Path.GetRelativePath(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, a_oFileList[i]));
 						}
-
-						return true;
-					});
-				} finally {
-					// 디렉토리가 존재 할 경우
-					if(Directory.Exists(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES)) {
-						string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES);
-						CFunc.WriteStr(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oDirPath, KCDefine.B_FILE_EXTENSION_TXT), CCommonEditorSceneManager.m_oStrBuilder.ToString());
 					}
+
+					return true;
+				});
+				// 유니티 패키지 정보를 설정한다 }
+
+				// 디렉토리가 존재 할 경우
+				if(Directory.Exists(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES)) {
+					string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES);
+					CFunc.WriteStr(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oDirPath, KCDefine.B_FILE_EXTENSION_TXT), CCommonEditorSceneManager.m_oStrBuilder.ToString());
 				}
 
 				// 빌드 가능 할 경우

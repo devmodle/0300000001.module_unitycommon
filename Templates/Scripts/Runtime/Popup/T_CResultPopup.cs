@@ -63,17 +63,39 @@ public partial class CResultPopup : CSubPopup {
 		base.Awake();
 		this.IsIgnoreNavStackEvent = true;
 
-		m_oUIsDict[EKey.CLEAR_UIS] = this.Contents.ExFindChild($"{EKey.CLEAR_UIS}");
-		m_oUIsDict[EKey.CLEAR_FAIL_UIS] = this.Contents.ExFindChild($"{EKey.CLEAR_FAIL_UIS}");
+		// 객체를 설정한다 {
+		var oUIsKeyInfoList = new List<(EKey, GameObject)>() {
+			(EKey.CLEAR_UIS, this.Contents),
+			(EKey.CLEAR_FAIL_UIS, this.Contents)
+		};
 
-		// 텍스트를 설정한다
-		m_oTextDict[EKey.RECORD_TEXT] = this.Contents.ExFindComponent<TMP_Text>($"{EKey.RECORD_TEXT}");
-		m_oTextDict[EKey.BEST_RECORD_TEXT] = this.Contents.ExFindComponent<TMP_Text>($"{EKey.BEST_RECORD_TEXT}");
+		for(int i = 0; i < oUIsKeyInfoList.Count; ++i) {
+			m_oUIsDict[oUIsKeyInfoList[i].Item1] = oUIsKeyInfoList[i].Item2.ExFindChild($"{oUIsKeyInfoList[i].Item1}");
+		}
+		// 객체를 설정한다 }
 
-		// 버튼을 설정한다
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_NEXT_BTN)?.onClick.AddListener(this.OnTouchNextBtn);
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_RETRY_BTN)?.onClick.AddListener(this.OnTouchRetryBtn);
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LEAVE_BTN)?.onClick.AddListener(this.OnTouchLeaveBtn);
+		// 텍스트를 설정한다 {
+		var oTextKeyInfoList = new List<(EKey, GameObject)>() {
+			(EKey.RECORD_TEXT, this.Contents),
+			(EKey.BEST_RECORD_TEXT, this.Contents)
+		};
+
+		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
+			m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<TMP_Text>($"{oTextKeyInfoList[i].Item1}");
+		}
+		// 텍스트를 설정한다 }
+
+		// 버튼을 설정한다 {
+		var oBtnKeyInfoList = new List<(string, GameObject, UnityAction)>() {
+			(KCDefine.U_OBJ_N_NEXT_BTN, this.Contents, this.OnTouchNextBtn),
+			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
+			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
+		};
+
+		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+			oBtnKeyInfoList[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList[i].Item1)?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
+		}
+		// 버튼을 설정한다 }
 	}
 
 	/** 초기화 */
@@ -98,6 +120,7 @@ public partial class CResultPopup : CSubPopup {
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 
+		// 객체를 갱신한다
 		m_oUIsDict[EKey.CLEAR_UIS]?.SetActive(m_stParams.m_stRecordInfo.m_bIsSuccess);
 		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!m_stParams.m_stRecordInfo.m_bIsSuccess);
 

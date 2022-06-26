@@ -31,14 +31,29 @@ public partial class CSyncPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		m_oUIsDict[EKey.LOGIN_UIS] = this.Contents.ExFindChild($"{EKey.LOGIN_UIS}");
-		m_oUIsDict[EKey.LOGOUT_UIS] = this.Contents.ExFindChild($"{EKey.LOGOUT_UIS}");
+		// 객체를 설정한다 {
+		var oUIsKeyInfoList = new List<(EKey, GameObject)>() {
+			(EKey.LOGIN_UIS, this.Contents),
+			(EKey.LOGOUT_UIS, this.Contents)
+		};
 
-		// 버튼을 설정한다
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGIN_BTN)?.onClick.AddListener(this.OnTouchLoginBtn);
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOGOUT_BTN)?.onClick.AddListener(this.OnTouchLogoutBtn);
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_LOAD_BTN)?.onClick.AddListener(this.OnTouchLoadBtn);
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SAVE_BTN)?.onClick.AddListener(this.OnTouchSaveBtn);
+		for(int i = 0; i < oUIsKeyInfoList.Count; ++i) {
+			m_oUIsDict[oUIsKeyInfoList[i].Item1] = oUIsKeyInfoList[i].Item2.ExFindChild($"{oUIsKeyInfoList[i].Item1}");
+		}
+		// 객체를 설정한다 }
+
+		// 버튼을 설정한다 {
+		var oBtnKeyInfoList = new List<(string, GameObject, UnityAction)>() {
+			(KCDefine.U_OBJ_N_LOGIN_BTN, this.Contents, this.OnTouchLoginBtn),
+			(KCDefine.U_OBJ_N_LOGOUT_BTN, this.Contents, this.OnTouchLogoutBtn),
+			(KCDefine.U_OBJ_N_LOAD_BTN, this.Contents, this.OnTouchLoadBtn),
+			(KCDefine.U_OBJ_N_SAVE_BTN, this.Contents, this.OnTouchSaveBtn)
+		};
+
+		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+			oBtnKeyInfoList[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList[i].Item1)?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
+		}
+		// 버튼을 설정한다 }
 	}
 
 	/** 초기화 */
@@ -55,11 +70,13 @@ public partial class CSyncPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		
+
+		// 객체를 갱신한다 {
 #if FIREBASE_MODULE_ENABLE
 		m_oUIsDict[EKey.LOGIN_UIS]?.SetActive(CFirebaseManager.Inst.IsLogin);
 		m_oUIsDict[EKey.LOGOUT_UIS]?.SetActive(!CFirebaseManager.Inst.IsLogin);
 #endif			// #if FIREBASE_MODULE_ENABLE
+		// 객체를 갱신한다 }
 	}
 
 	/** 로그인 버튼을 눌렀을 경우 */

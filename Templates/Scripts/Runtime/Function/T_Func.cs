@@ -296,12 +296,9 @@ public static partial class Func {
 		// 팝업이 없을 경우
 		if(a_oParent.ExFindChild(a_oName) == null) {
 			var oPopup = CPopup.Create<T>(a_oName, a_oObjPath, a_oParent);
+			CFunc.Invoke(ref a_oInitCallback, oPopup);
 
-			try {
-				CFunc.Invoke(ref a_oInitCallback, oPopup);
-			} finally {
-				oPopup.Show(a_oShowCallback, a_oCloseCallback);
-			}
+			oPopup.Show(a_oShowCallback, a_oCloseCallback);
 		}
 	}
 	#endregion			// 제네릭 클래스 함수
@@ -382,12 +379,14 @@ public static partial class Func {
 				}
 			}, KCDefine.B_VAL_2_FLT, true);
 		} else {
-			// 광고 누적 횟수 갱신이 가능 할 경우
-			if(CAppInfoStorage.Inst.IsEnableUpdateAdsSkipTimes) {
-				CAppInfoStorage.Inst.AddAdsSkipTimes(KCDefine.B_VAL_1_INT);
+			try {
+				// 광고 누적 횟수 갱신이 가능 할 경우
+				if(CAppInfoStorage.Inst.IsEnableUpdateAdsSkipTimes) {
+					CAppInfoStorage.Inst.AddAdsSkipTimes(KCDefine.B_VAL_1_INT);
+				}
+			} finally {
+				CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, false);
 			}
-
-			CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, false);
 		}
 	}
 

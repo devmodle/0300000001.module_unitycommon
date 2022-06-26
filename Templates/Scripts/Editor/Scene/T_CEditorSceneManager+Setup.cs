@@ -60,29 +60,27 @@ public static partial class CEditorSceneManager {
 	private static void SetupExtraPreloadAssets() {
 #if EXTRA_SCRIPT_MODULE_ENABLE
 		var oPreloadAssetList = PlayerSettings.GetPreloadedAssets().ToList();
+		
+		for(int i = 0; i < KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST.Count; ++i) {
+			// 디렉토리가 존재 할 경우
+			if(AssetDatabase.IsValidFolder(KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i])) {
+				var oAssetList = CEditorFunc.FindAssets<Object>(string.Empty, new List<string>() { KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i] });
 
-		try {
-			for(int i = 0; i < KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST.Count; ++i) {
-				// 디렉토리가 존재 할 경우
-				if(AssetDatabase.IsValidFolder(KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i])) {
-					var oAssetList = CEditorFunc.FindAssets<Object>(string.Empty, new List<string>() { KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i] });
-
-					for(int j = 0; j < oAssetList.Count; ++j) {
-						// 디렉토리 에셋이 아닐 경우
-						if(oAssetList[j].GetType() != typeof(DefaultAsset)) {
-							oPreloadAssetList.ExAddVal(oAssetList[j], (a_oAsset) => (a_oAsset != null && oAssetList[j] != null) && oAssetList[j].name.Equals(a_oAsset.name));
-						}
+				for(int j = 0; j < oAssetList.Count; ++j) {
+					// 디렉토리 에셋이 아닐 경우
+					if(oAssetList[j].GetType() != typeof(DefaultAsset)) {
+						oPreloadAssetList.ExAddVal(oAssetList[j], (a_oAsset) => (a_oAsset != null && oAssetList[j] != null) && oAssetList[j].name.Equals(a_oAsset.name));
 					}
 				}
 			}
-
-			for(int i = 0; i < KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST.Count; ++i) {
-				var oAsset = CEditorFunc.FindAsset<Object>(KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST[i]);
-				oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oAsset.name.Equals(a_oAsset.name));
-			}
-		} finally {
-			PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
 		}
+
+		for(int i = 0; i < KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST.Count; ++i) {
+			var oAsset = CEditorFunc.FindAsset<Object>(KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST[i]);
+			oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oAsset.name.Equals(a_oAsset.name));
+		}
+
+		PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
 	}
 

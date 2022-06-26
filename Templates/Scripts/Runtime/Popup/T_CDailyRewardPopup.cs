@@ -33,14 +33,14 @@ public partial class CDailyRewardPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다 {
-		var oCallbackDict = new Dictionary<EKey, UnityAction>() {
-			[EKey.ACQUIRE_BTN] = this.OnTouchAcquireBtn,
-			[EKey.REWARD_ADS_BTN] = this.OnTouchRewardAdsBtn
+		var oBtnKeyInfoList = new List<(EKey, GameObject, UnityAction)>() {
+			(EKey.ACQUIRE_BTN, this.Contents, this.OnTouchAcquireBtn),
+			(EKey.REWARD_ADS_BTN, this.Contents, this.OnTouchRewardAdsBtn)
 		};
 
-		foreach(var stKeyVal in oCallbackDict) {
-			m_oBtnDict[stKeyVal.Key] = this.Contents.ExFindComponent<Button>($"{stKeyVal.Key}");
-			m_oBtnDict[stKeyVal.Key]?.onClick.AddListener(stKeyVal.Value);
+		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+			m_oBtnDict[oBtnKeyInfoList[i].Item1] = oBtnKeyInfoList[i].Item2.ExFindComponent<Button>($"{oBtnKeyInfoList[i].Item1}");
+			m_oBtnDict[oBtnKeyInfoList[i].Item1]?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
 		}
 		// 버튼을 설정한다 }
 	}

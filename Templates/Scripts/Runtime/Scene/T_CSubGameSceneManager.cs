@@ -230,8 +230,9 @@ namespace GameScene {
 			m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 
 			m_oEngine.Init(new SampleEngineName.CEngine.STParams() {
-				m_oFXRoot = this.FXRoot,
 				m_oObjRoot = this.ObjRoot,
+				m_oFXObjRoot = this.FXObjRoot,
+				m_oSkillObjRoot = this.SkillObjRoot,
 
 				m_oCallbackDict = new Dictionary<SampleEngineName.CEngine.ECallback, System.Action<SampleEngineName.CEngine>>() {
 					[SampleEngineName.CEngine.ECallback.CLEAR] = this.OnClearLevel,
