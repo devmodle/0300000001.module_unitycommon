@@ -98,10 +98,6 @@ namespace StartScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
-			// 객체를 설정한다
-			var oLoadingGauge = this.UIsBase.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
-			oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE), this.UIs, m_stLoadingGaugePos);
-
 			// 텍스트를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
@@ -110,10 +106,13 @@ namespace StartScene {
 			m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = m_stLoadingTextPos;
 			// 텍스트를 설정한다 }
 
-			// 게이지 처리자를 설정한다
-			Func.SetupGaugeHandlers(new List<(EKey, GameObject)>() {
-				(EKey.LOADING_GAUGE_HANDLER, oLoadingGauge)
+			// 게이지 처리자를 설정한다 {
+			Func.SetupGaugeHandlers(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.LOADING_GAUGE_HANDLER, KCDefine.SS_OBJ_N_LOADING_GAUGE, this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
 			}, m_oGaugeHandlerDict, false);
+
+			m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].transform.localPosition = m_stLoadingGaugePos;
+			// 게이지 처리자를 설정한다 }
 
 #if DEBUG || DEVELOPMENT
 			// 텍스트를 설정한다 {
