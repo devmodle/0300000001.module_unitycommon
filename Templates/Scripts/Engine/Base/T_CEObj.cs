@@ -39,10 +39,17 @@ namespace SampleEngineName {
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			
-			for(var eKey = EKey.OBJ_SPRITE; eKey <= EKey.OBJ_SPRITE; ++eKey) {
-				m_oSpriteDict[eKey] = this.gameObject.ExFindComponent<SpriteRenderer>($"{eKey}");
+
+			// 스프라이트를 설정한다 {
+			var oSpriteKeyInfoList = new List<(EKey, GameObject)>() {
+				(EKey.OBJ_SPRITE, this.gameObject)
+			};
+
+			for(int i = 0; i < oSpriteKeyInfoList.Count; ++i) {
+				m_oSpriteDict[oSpriteKeyInfoList[i].Item1] = oSpriteKeyInfoList[i].Item2.ExFindComponent<SpriteRenderer>($"{oSpriteKeyInfoList[i].Item1}");
+				m_oSpriteDict[oSpriteKeyInfoList[i].Item1]?.ExReset(false);
 			}
+			// 스프라이트를 설정한다 }
 		}
 
 		/** 초기화 */

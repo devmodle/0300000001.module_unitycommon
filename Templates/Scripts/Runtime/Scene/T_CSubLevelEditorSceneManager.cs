@@ -1128,29 +1128,54 @@ namespace LevelEditorScene {
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 		/** 오른족 에디터 UI 를 설정한다 */
 		private void SetupRightEditorUIs() {
-			// 텍스트를 설정한다
-			m_oTextDict[EKey.RE_UIS_PAGE_TEXT] = this.RightEditorUIs.ExFindComponent<Text>($"{EKey.RE_UIS_PAGE_TEXT}");
-			m_oTextDict[EKey.RE_UIS_TITLE_TEXT] = this.RightEditorUIs.ExFindComponent<Text>($"{EKey.RE_UIS_TITLE_TEXT}");
+			// 텍스트를 설정한다 {
+			var oTextKeyInfoList = new List<(EKey, GameObject)>() {
+				(EKey.RE_UIS_PAGE_TEXT, this.RightEditorUIs),
+				(EKey.RE_UIS_TITLE_TEXT, this.RightEditorUIs)
+			};
+
+			for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
+				m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<Text>($"{oTextKeyInfoList[i].Item1}");
+			}
+			// 텍스트를 설정한다 }
 
 			// 버튼을 설정한다 {
-			m_oBtnDict[EKey.RE_UIS_PREV_BTN] = this.RightEditorUIs.ExFindComponent<Button>($"{EKey.RE_UIS_PREV_BTN}");
-			m_oBtnDict[EKey.RE_UIS_NEXT_BTN] = this.RightEditorUIs.ExFindComponent<Button>($"{EKey.RE_UIS_NEXT_BTN}");
+			var oBtnKeyInfoList01 = new List<(EKey, GameObject)>() {
+				(EKey.RE_UIS_PREV_BTN, this.RightEditorUIs),
+				(EKey.RE_UIS_NEXT_BTN, this.RightEditorUIs)
+			};
 
-			m_oBtnDict[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN] = this.RightEditorUIs.ExFindComponent<Button>($"{EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN}");
-			m_oBtnDict[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN]?.onClick.AddListener(this.OnTouchREUIsRemoveAllLevelsBtn);
+			for(int i = 0; i < oBtnKeyInfoList01.Count; ++i) {
+				m_oBtnDict[oBtnKeyInfoList01[i].Item1] = oBtnKeyInfoList01[i].Item2.ExFindComponent<Button>($"{oBtnKeyInfoList01[i].Item1}");
+			}
 
-			m_oBtnDict[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN] = this.RightEditorUIs.ExFindComponent<Button>($"{EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN}");
-			m_oBtnDict[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN]?.onClick.AddListener(() => this.OnTouchREUIsLoadTableBtn(ETable.REMOTE));
+			var oBtnKeyInfoList02 = new List<(EKey, GameObject, UnityAction)>() {
+				(EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN, this.RightEditorUIs, this.OnTouchREUIsRemoveAllLevelsBtn),
+				(EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN, this.RightEditorUIs, () => this.OnTouchREUIsLoadTableBtn(ETable.REMOTE))
+			};
 
-			this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN)?.onClick.AddListener(this.OnTouchREUIsApplyBtn);
-			this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN)?.onClick.AddListener(this.OnTouchREUIsLoadLevelBtn);
-			this.RightEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LOCAL_TABLE_BTN)?.onClick.AddListener(() => this.OnTouchREUIsLoadTableBtn(ETable.LOCAL));
+			for(int i = 0; i < oBtnKeyInfoList02.Count; ++i) {
+				m_oBtnDict[oBtnKeyInfoList02[i].Item1] = oBtnKeyInfoList02[i].Item2.ExFindComponent<Button>($"{oBtnKeyInfoList02[i].Item1}");
+				m_oBtnDict[oBtnKeyInfoList02[i].Item1]?.onClick.AddListener(oBtnKeyInfoList02[i].Item3);	
+			}
+
+			var oBtnKeyInfoList03 = new List<(string, GameObject, UnityAction)>() {
+				(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN, this.RightEditorUIs, this.OnTouchREUIsApplyBtn),
+				(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN, this.RightEditorUIs, this.OnTouchREUIsLoadLevelBtn),
+				(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LOCAL_TABLE_BTN, this.RightEditorUIs, () => this.OnTouchREUIsLoadTableBtn(ETable.LOCAL))
+			};
+
+			for(int i = 0; i < oBtnKeyInfoList03.Count; ++i) {
+				oBtnKeyInfoList03[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList03[i].Item1)?.onClick.AddListener(oBtnKeyInfoList03[i].Item3);
+			}
 			// 버튼을 설정한다 }
 
 			// 스크롤 뷰를 설정한다 {
-			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] = this.RightEditorUIs.ExFindComponent<SimpleScrollSnap>(KCDefine.U_OBJ_N_PAGE_VIEW);
+			CFunc.SetupScrollSnaps(new List<(EKey, string, GameObject, UnityAction<int, int>)>() {
+				(EKey.RE_UIS_PAGE_SCROLL_SNAP, KCDefine.U_OBJ_N_PAGE_VIEW, this.RightEditorUIs, (a_nCenterIdx, a_nSelIdx) => this.UpdateUIsState())
+			}, m_oScrollSnapDict, false);
+
 			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.gameObject.SetActive(false);
-			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.OnPanelCentered.AddListener((a_nCenterIdx, a_nSelIdx) => this.UpdateUIsState());
 
 			for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
 				string oSetupFuncName = string.Format(KDefine.LES_FUNC_N_FMT_SETUP_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);

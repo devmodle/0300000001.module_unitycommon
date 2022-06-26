@@ -74,8 +74,15 @@ namespace TitleScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
-			// 버튼을 설정한다
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN)?.onClick.AddListener(this.OnTouchPlayBtn);
+			// 버튼을 설정한다 {
+			var oBtnKeyInfoList = new List<(string, GameObject, UnityAction)>() {
+				(KCDefine.U_OBJ_N_PLAY_BTN, this.UIsBase, this.OnTouchPlayBtn)
+			};
+
+			for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+				oBtnKeyInfoList[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList[i].Item1)?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
+			}
+			// 버튼을 설정한다 }
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupTestUIs();

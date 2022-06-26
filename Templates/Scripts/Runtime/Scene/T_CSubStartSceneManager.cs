@@ -97,26 +97,35 @@ namespace StartScene {
 		}
 
 		/** 씬을 설정한다 */
-		private void SetupAwake() {	
-			// 텍스트를 설정한다
-			var oLoadingText = this.UIsBase.ExFindComponent<TMP_Text>($"{EKey.LOADING_TEXT}");
-			m_oTextDict[EKey.LOADING_TEXT] = oLoadingText ?? CFactory.CreateCloneObj<TMP_Text>($"{EKey.LOADING_TEXT}", CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT), this.UIs, m_stLoadingTextPos);
-
-			// 게이지 처리자를 설정한다 {
+		private void SetupAwake() {
+			// 객체를 설정한다
 			var oLoadingGauge = this.UIsBase.ExFindChild(KCDefine.SS_OBJ_N_LOADING_GAUGE);
 			oLoadingGauge = oLoadingGauge ?? CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_LOADING_GAUGE, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE), this.UIs, m_stLoadingGaugePos);
-			
-			m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER] = oLoadingGauge.GetComponentInChildren<CGaugeHandler>();
-			m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent = KCDefine.B_VAL_0_FLT;
-			// 게이지 처리자를 설정한다 }
+
+			// 텍스트를 설정한다 {
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
+			}, m_oTextDict, false);
+
+			m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = m_stLoadingTextPos;
+			// 텍스트를 설정한다 }
+
+			// 게이지 처리자를 설정한다
+			Func.SetupGaugeHandlers(new List<(EKey, GameObject)>() {
+				(EKey.LOADING_GAUGE_HANDLER, oLoadingGauge)
+			}, m_oGaugeHandlerDict, false);
 
 #if DEBUG || DEVELOPMENT
-			// 텍스트를 설정한다
-			m_oTextDict[EKey.SCENE_INFO_TEXT] = CFactory.CreateCloneObj<TMP_Text>($"{EKey.SCENE_INFO_TEXT}", CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT), this.UpLeftUIs);
+			// 텍스트를 설정한다 {
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.SCENE_INFO_TEXT, $"{EKey.SCENE_INFO_TEXT}", this.UpLeftUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
+			}, m_oTextDict, false);
+
 			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchoredPosition = KCDefine.B_ANCHOR_UP_LEFT;
+			// 텍스트를 설정한다 }
 
 			m_oStopwatch.Start();
 			this.OnReceiveStartSceneEvent(EStartSceneEvent.LOAD_START_SCENE);

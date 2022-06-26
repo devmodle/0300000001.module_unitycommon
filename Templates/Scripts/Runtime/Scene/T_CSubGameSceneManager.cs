@@ -189,18 +189,20 @@ namespace GameScene {
 			this.SetupEngine();
 			this.SetupRewardAdsUIs();
 
+			// 레벨 정보를 설정한다
 			m_oLevelInfoDict[EKey.CUR_LEVEL_INFO] = CGameInfoStorage.Inst.PlayLevelInfo;
 			m_oClearInfoDict[EKey.CUR_LEVEL_CLEAR_INFO] = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03) ? oLevelClearInfo : null;
 
 			// 버튼을 설정한다
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PAUSE_BTN)?.onClick.AddListener(this.OnTouchPauseBtn);
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_SETTINGS_BTN)?.onClick.AddListener(this.OnTouchSettingsBtn);
+			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+				(KCDefine.U_OBJ_N_PAUSE_BTN, this.UIsBase, this.OnTouchPauseBtn),
+				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
+			}, false);
 
 			// 터치 전달자를 설정한다
-			m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] = this.BGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
-			m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER]?.ExSetBeginCallback(this.OnTouchBegin, false);
-			m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER]?.ExSetMoveCallback(this.OnTouchMove, false);
-			m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER]?.ExSetEndCallback(this.OnTouchEnd, false);
+			Func.SetupTouchDispatchers(new List<(EKey, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
+				(EKey.BG_TOUCH_DISPATCHER, this.BGTouchResponder, this.OnTouchBegin, this.OnTouchMove, this.OnTouchEnd)
+			}, m_oTouchDispatcherDict, false);
 
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 			// 비율을 설정한다 {

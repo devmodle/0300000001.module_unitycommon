@@ -32,12 +32,26 @@ public partial class CCoinsBoxPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		// 텍스트를 설정한다
-		m_oTextDict[EKey.NUM_COINS_TEXT] = this.Contents.ExFindComponent<TMP_Text>($"{EKey.NUM_COINS_TEXT}");
+		// 텍스트를 설정한다 {
+		var oTextKeyInfoList = new List<(EKey, GameObject)>() {
+			(EKey.NUM_COINS_TEXT, this.Contents)
+		};
 
-		// 버튼을 설정한다
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_OK_BTN)?.onClick.AddListener(this.OnTouchOKBtn);
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN)?.onClick.AddListener(this.OnTouchPurchaseBtn);
+		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
+			m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<TMP_Text>($"{oTextKeyInfoList[i].Item1}");
+		}
+		// 텍스트를 설정한다 }
+
+		// 버튼을 설정한다 {
+		var oBtnKeyInfoList = new List<(string, GameObject, UnityAction)>() {
+			(KCDefine.U_OBJ_N_OK_BTN, this.Contents, this.OnTouchOKBtn),
+			(KCDefine.U_OBJ_N_PURCHASE_BTN, this.Contents, this.OnTouchPurchaseBtn)
+		};
+
+		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+			oBtnKeyInfoList[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList[i].Item1)?.onClick.AddListener(oBtnKeyInfoList[i].Item3);	
+		}
+		// 버튼을 설정한다 }
 	}
 
 	/** 초기화 */

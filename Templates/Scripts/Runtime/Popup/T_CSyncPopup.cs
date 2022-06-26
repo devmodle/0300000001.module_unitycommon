@@ -31,29 +31,19 @@ public partial class CSyncPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		// 객체를 설정한다 {
-		var oUIsKeyInfoList = new List<(EKey, GameObject)>() {
-			(EKey.LOGIN_UIS, this.Contents),
-			(EKey.LOGOUT_UIS, this.Contents)
-		};
+		// 객체를 설정한다
+		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+			(EKey.LOGIN_UIS, $"{EKey.LOGIN_UIS}", this.Contents),
+			(EKey.LOGOUT_UIS, $"{EKey.LOGIN_UIS}", this.Contents)
+		}, m_oUIsDict, false);
 
-		for(int i = 0; i < oUIsKeyInfoList.Count; ++i) {
-			m_oUIsDict[oUIsKeyInfoList[i].Item1] = oUIsKeyInfoList[i].Item2.ExFindChild($"{oUIsKeyInfoList[i].Item1}");
-		}
-		// 객체를 설정한다 }
-
-		// 버튼을 설정한다 {
-		var oBtnKeyInfoList = new List<(string, GameObject, UnityAction)>() {
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_LOGIN_BTN, this.Contents, this.OnTouchLoginBtn),
 			(KCDefine.U_OBJ_N_LOGOUT_BTN, this.Contents, this.OnTouchLogoutBtn),
 			(KCDefine.U_OBJ_N_LOAD_BTN, this.Contents, this.OnTouchLoadBtn),
 			(KCDefine.U_OBJ_N_SAVE_BTN, this.Contents, this.OnTouchSaveBtn)
-		};
-
-		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
-			oBtnKeyInfoList[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList[i].Item1)?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
-		}
-		// 버튼을 설정한다 }
+		}, false);
 	}
 
 	/** 초기화 */

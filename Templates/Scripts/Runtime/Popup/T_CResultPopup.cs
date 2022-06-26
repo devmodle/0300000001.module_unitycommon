@@ -63,39 +63,24 @@ public partial class CResultPopup : CSubPopup {
 		base.Awake();
 		this.IsIgnoreNavStackEvent = true;
 
-		// 객체를 설정한다 {
-		var oUIsKeyInfoList = new List<(EKey, GameObject)>() {
-			(EKey.CLEAR_UIS, this.Contents),
-			(EKey.CLEAR_FAIL_UIS, this.Contents)
-		};
+		// 객체를 설정한다
+		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+			(EKey.CLEAR_UIS, $"{EKey.CLEAR_UIS}", this.Contents),
+			(EKey.CLEAR_FAIL_UIS, $"{EKey.CLEAR_FAIL_UIS}", this.Contents)
+		}, m_oUIsDict, false);
 
-		for(int i = 0; i < oUIsKeyInfoList.Count; ++i) {
-			m_oUIsDict[oUIsKeyInfoList[i].Item1] = oUIsKeyInfoList[i].Item2.ExFindChild($"{oUIsKeyInfoList[i].Item1}");
-		}
-		// 객체를 설정한다 }
+		// 텍스트를 설정한다
+		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+			(EKey.RECORD_TEXT, $"{EKey.RECORD_TEXT}", this.Contents),
+			(EKey.BEST_RECORD_TEXT, $"{EKey.BEST_RECORD_TEXT}", this.Contents)
+		}, m_oTextDict, false);
 
-		// 텍스트를 설정한다 {
-		var oTextKeyInfoList = new List<(EKey, GameObject)>() {
-			(EKey.RECORD_TEXT, this.Contents),
-			(EKey.BEST_RECORD_TEXT, this.Contents)
-		};
-
-		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
-			m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<TMP_Text>($"{oTextKeyInfoList[i].Item1}");
-		}
-		// 텍스트를 설정한다 }
-
-		// 버튼을 설정한다 {
-		var oBtnKeyInfoList = new List<(string, GameObject, UnityAction)>() {
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_NEXT_BTN, this.Contents, this.OnTouchNextBtn),
 			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
 			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
-		};
-
-		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
-			oBtnKeyInfoList[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList[i].Item1)?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
-		}
-		// 버튼을 설정한다 }
+		}, false);
 	}
 
 	/** 초기화 */

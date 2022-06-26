@@ -40,12 +40,17 @@ namespace TitleScene {
 			if(CSceneManager.IsAppInit) {
 				// 타이틀 씬 사용 모드 일 경우
 				if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
-					var oVerText = this.UIsBase.ExFindComponent<TMP_Text>($"{EKey.VER_TEXT}");
-					m_oTextDict[EKey.VER_TEXT] = oVerText ?? CFactory.CreateCloneObj<TMP_Text>($"{EKey.VER_TEXT}", CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT), this.UpUIs);
-					m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-					m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-					m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-					m_oTextDict[EKey.VER_TEXT].rectTransform.anchoredPosition = KCDefine.U_POS_INFO_TEXT;
+					CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+						(EKey.VER_TEXT, $"{EKey.VER_TEXT}", this.UpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
+					}, m_oTextDict, false);
+
+					// 버전 텍스트가 존재 할 경우
+					if(m_oTextDict[EKey.VER_TEXT] != null) {
+						m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+						m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+						m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+						m_oTextDict[EKey.VER_TEXT].rectTransform.anchoredPosition = KCDefine.U_POS_INFO_TEXT;
+					}
 				}
 			}
 		}

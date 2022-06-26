@@ -39,10 +39,16 @@ namespace SampleEngineName {
 		public override void Awake() {
 			base.Awake();
 
-			for(var eKey = EKey.FX_PARTICLE; eKey <= EKey.FX_PARTICLE; ++eKey) {
-				m_oParticleDict[eKey] = this.gameObject.ExFindComponent<ParticleSystem>($"{eKey}");
-				m_oParticleDict[eKey]?.ExReset(false);
+			// 파티클을 설정한다 {
+			var oParticleKeyInfoList = new List<(EKey, GameObject)>() {
+				(EKey.FX_PARTICLE, this.gameObject)
+			};
+
+			for(int i = 0; i < oParticleKeyInfoList.Count; ++i) {
+				m_oParticleDict[oParticleKeyInfoList[i].Item1] = oParticleKeyInfoList[i].Item2.ExFindComponent<ParticleSystem>($"{oParticleKeyInfoList[i].Item1}");
+				m_oParticleDict[oParticleKeyInfoList[i].Item1]?.ExReset(false);
 			}
+			// 파티클을 설정한다 }
 		}
 
 		/** 초기화 */

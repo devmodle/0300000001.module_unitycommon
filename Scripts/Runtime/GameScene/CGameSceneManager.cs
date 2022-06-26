@@ -47,30 +47,19 @@ namespace GameScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				// 객체를 설정한다 {
-				var oObjKeyInfoList = new List<(EKey, GameObject)>() {
-					(EKey.OBJ_ROOT, this.Objs),
-					(EKey.FX_OBJ_ROOT, this.Objs),
-					(EKey.SKILL_OBJ_ROOT, this.Objs)
-				};
-
-				for(int i = 0; i < oObjKeyInfoList.Count; ++i) {
-					var oObj = oObjKeyInfoList[i].Item2.ExFindChild($"{oObjKeyInfoList[i].Item1}");
-					m_oObjDict[oObjKeyInfoList[i].Item1] = oObj ?? CFactory.CreateObj($"{oObjKeyInfoList[i].Item1}", oObjKeyInfoList[i].Item2);
-				}
-				// 객체를 설정한다 }
+				// 객체를 설정한다
+				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null),
+					(EKey.FX_OBJ_ROOT, $"{EKey.FX_OBJ_ROOT}", this.Objs, null),
+					(EKey.SKILL_OBJ_ROOT, $"{EKey.SKILL_OBJ_ROOT}", this.Objs, null)
+				}, m_oObjDict, false);
 
 				// 터치 전달자를 설정한다 {
-				var oTouchResponderKeyInfoList = new List<(EKey, GameObject)>() {
-					(EKey.BG_TOUCH_RESPONDER, this.UIsBase)
-				};
+				CFunc.SetupTouchResponders(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.BG_TOUCH_RESPONDER, $"{EKey.BG_TOUCH_RESPONDER}", this.UIs, Resources.Load<GameObject>(KCDefine.U_OBJ_P_G_TOUCH_RESPONDER))
+				}, CSceneManager.CanvasSize, m_oUIsDict, false);
 
-				for(int i = 0; i < oTouchResponderKeyInfoList.Count; ++i) {
-					var oTouchResponder = oTouchResponderKeyInfoList[i].Item2.ExFindChild($"{oTouchResponderKeyInfoList[i].Item1}");
-					m_oUIsDict[oTouchResponderKeyInfoList[i].Item1] = oTouchResponder ?? CFactory.CreateTouchResponder($"{oTouchResponderKeyInfoList[i].Item1}", KCDefine.U_OBJ_P_G_TOUCH_RESPONDER, oTouchResponderKeyInfoList[i].Item2, CSceneManager.CanvasSize, Vector3.zero, KCDefine.U_COLOR_TRANSPARENT);
-					m_oUIsDict[oTouchResponderKeyInfoList[i].Item1]?.ExSetRaycastTarget<Image>(true, false);
-					m_oUIsDict[oTouchResponderKeyInfoList[i].Item1]?.transform.SetAsFirstSibling();	
-				}
+				m_oUIsDict[EKey.BG_TOUCH_RESPONDER]?.transform.SetAsFirstSibling();
 				// 터치 전달자를 설정한다 }
 			}
 		}

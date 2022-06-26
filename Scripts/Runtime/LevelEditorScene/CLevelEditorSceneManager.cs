@@ -69,49 +69,31 @@ namespace LevelEditorScene {
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 				// 객체를 설정한다 {
-				var oUIsKeyInfoList01 = new List<(EKey, GameObject)>() {
-					(EKey.MID_EDITOR_UIS, this.UIsBase),
-					(EKey.LEFT_EDITOR_UIS, this.UIsBase),
-					(EKey.RIGHT_EDITOR_UIS, this.UIsBase)
-				};
+				CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+					(EKey.MID_EDITOR_UIS, $"{EKey.MID_EDITOR_UIS}", this.UIsBase),
+					(EKey.LEFT_EDITOR_UIS, $"{EKey.LEFT_EDITOR_UIS}", this.UIsBase),
+					(EKey.RIGHT_EDITOR_UIS, $"{EKey.RIGHT_EDITOR_UIS}", this.UIsBase)
+				}, m_oUIsDict, false);
 
-				for(int i = 0; i < oUIsKeyInfoList01.Count; ++i) {
-					m_oUIsDict[oUIsKeyInfoList01[i].Item1] = oUIsKeyInfoList01[i].Item2.ExFindChild($"{oUIsKeyInfoList01[i].Item1}");
-				}
+				CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+					(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
+					(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIsDict[EKey.LEFT_EDITOR_UIS])
+				}, m_oUIsDict, false);
 
-				var oUIsKeyInfoList02 = new List<(EKey, GameObject)>() {
-					(EKey.ME_UIS_MSG_UIS, m_oUIsDict[EKey.MID_EDITOR_UIS]),
-					(EKey.LE_UIS_AB_SET_UIS, m_oUIsDict[EKey.LEFT_EDITOR_UIS])
-				};
-
-				for(int i = 0; i < oUIsKeyInfoList02.Count; ++i) {
-					m_oUIsDict[oUIsKeyInfoList02[i].Item1] = oUIsKeyInfoList02[i].Item2.ExFindChild($"{oUIsKeyInfoList02[i].Item1}");
-				}
-
-				var oObjKeyInfoList = new List<(EKey, GameObject)>() {
-					(EKey.OBJ_ROOT, this.ObjsBase)
-				};
-
-				for(int i = 0; i < oObjKeyInfoList.Count; ++i) {
-					var oObj = oObjKeyInfoList[i].Item2.ExFindChild($"{oObjKeyInfoList[i].Item1}");
-					m_oObjDict[oObjKeyInfoList[i].Item1] = oObj ?? CFactory.CreateObj($"{oObjKeyInfoList[i].Item1}", this.Objs);
-				}				
+				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null)
+				}, m_oObjDict, false);
 
 				CSceneManager.ScreenDebugUIs?.SetActive(false);
 				m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
 				// 객체를 설정한다 }
 
 				// 터치 전달자를 설정한다 {
-				var oTouchResponderKeyInfoList = new List<(EKey, GameObject)>() {
-					(EKey.BG_TOUCH_RESPONDER, this.UIsBase)
-				};
-
-				for(int i = 0; i < oTouchResponderKeyInfoList.Count; ++i) {
-					var oTouchResponder = oTouchResponderKeyInfoList[i].Item2.ExFindChild($"{oTouchResponderKeyInfoList[i].Item1}");
-					m_oUIsDict[oTouchResponderKeyInfoList[i].Item1] = oTouchResponder ?? CFactory.CreateTouchResponder($"{oTouchResponderKeyInfoList[i].Item1}", KCDefine.U_OBJ_P_G_TOUCH_RESPONDER, this.UIs, CSceneManager.CanvasSize, Vector3.zero, KCDefine.U_COLOR_TRANSPARENT);
-					m_oUIsDict[oTouchResponderKeyInfoList[i].Item1]?.ExSetRaycastTarget<Image>(true, false);
-					m_oUIsDict[oTouchResponderKeyInfoList[i].Item1]?.transform.SetAsFirstSibling();	
-				}
+				CFunc.SetupTouchResponders(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.BG_TOUCH_RESPONDER, $"{EKey.BG_TOUCH_RESPONDER}", this.UIs, Resources.Load<GameObject>(KCDefine.U_OBJ_P_G_TOUCH_RESPONDER))
+				}, CSceneManager.CanvasSize, m_oUIsDict, false);
+				
+				m_oUIsDict[EKey.BG_TOUCH_RESPONDER]?.transform.SetAsFirstSibling();	
 				// 터치 전달자를 설정한다 }
 			}
 		}

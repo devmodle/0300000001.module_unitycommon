@@ -205,29 +205,26 @@ namespace MainScene {
 			m_stSelIDInfo = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT);
 
 			// 버튼을 설정한다
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_PLAY_BTN)?.onClick.AddListener(this.OnTouchPlayBtn);
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_STORE_BTN)?.onClick.AddListener(this.OnTouchStoreBtn);
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_REVIEW_BTN)?.onClick.AddListener(this.OnTouchReviewBtn);
-			this.UIsBase.ExFindComponent<Button>(KCDefine.U_OBJ_N_SETTINGS_BTN)?.onClick.AddListener(this.OnTouchSettingsBtn);
+			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+				(KCDefine.U_OBJ_N_PLAY_BTN, this.UIsBase, this.OnTouchPlayBtn),
+				(KCDefine.U_OBJ_N_STORE_BTN, this.UIsBase, this.OnTouchStoreBtn),
+				(KCDefine.U_OBJ_N_REVIEW_BTN, this.UIsBase, this.OnTouchReviewBtn),
+				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
+			});
 
 			// 스크롤 뷰를 설정한다 {
-			m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO] = (
-				this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW),
-				CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()
-			);
+			var oScrollerKeyInfoList = new List<(EKey, string, GameObject, EnhancedScrollerCellView)>() {
+				(EKey.LEVEL_SCROLLER_INFO, KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()),
+				(EKey.STAGE_SCROLLER_INFO, KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()),
+				(EKey.CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>())
+			};
 
-			m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO] = (
-				this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW),
-				CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()
-			);
+			for(int i = 0; i < oScrollerKeyInfoList.Count; ++i) {
+				m_oScrollerInfoDict[oScrollerKeyInfoList[i].Item1] = (
+					oScrollerKeyInfoList[i].Item3.ExFindComponent<EnhancedScroller>(oScrollerKeyInfoList[i].Item2), oScrollerKeyInfoList[i].Item4
+				);
 
-			m_oScrollerInfoDict[EKey.CHAPTER_SCROLLER_INFO] = (
-				this.UIsBase.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW),
-				CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()
-			);
-
-			foreach(var stKeyVal in m_oScrollerInfoDict) {
-				stKeyVal.Value.Item1?.ExSetDelegate(this, false);
+				m_oScrollerInfoDict[oScrollerKeyInfoList[i].Item1].Item1?.ExSetDelegate(this, false);
 			}
 			// 스크롤 뷰를 설정한다 }
 
