@@ -9,6 +9,16 @@ using UnityEngine.Events;
 namespace TitleScene {
 	/** 서브 타이틀 씬 관리자 */
 	public partial class CSubTitleSceneManager : CTitleSceneManager {
+		/** 식별자 */
+		private enum EKey {
+			NONE = -1,
+			PLAY_BTN,
+			LOGIN_BTN,
+			APPLE_LOGIN_BTN,
+			FACEBOOK_LOGIN_BTN,
+			[HideInInspector] MAX_VAL
+		}
+
 #if DEBUG || DEVELOPMENT_BUILD
 		/** 테스트 UI */
 		[System.Serializable]
@@ -21,6 +31,13 @@ namespace TitleScene {
 		private bool m_bIsLoadEditorScene = false;
 
 		/** =====> UI <===== */
+		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
+			[EKey.PLAY_BTN] = null,
+			[EKey.LOGIN_BTN] = null,
+			[EKey.APPLE_LOGIN_BTN] = null,
+			[EKey.FACEBOOK_LOGIN_BTN] = null
+		};
+
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STTestUIs m_stTestUIs;
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
@@ -74,15 +91,13 @@ namespace TitleScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
-			// 버튼을 설정한다 {
-			var oBtnKeyInfoList = new List<(string, GameObject, UnityAction)>() {
-				(KCDefine.U_OBJ_N_PLAY_BTN, this.UIsBase, this.OnTouchPlayBtn)
-			};
-
-			for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
-				oBtnKeyInfoList[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList[i].Item1)?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
-			}
-			// 버튼을 설정한다 }
+			// 버튼을 설정한다
+			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+				(EKey.PLAY_BTN, $"{EKey.PLAY_BTN}", this.UIsBase, this.OnTouchPlayBtn),
+				(EKey.LOGIN_BTN, $"{EKey.PLAY_BTN}", this.UIsBase, this.OnTouchLoginBtn),
+				(EKey.APPLE_LOGIN_BTN, $"{EKey.APPLE_LOGIN_BTN}", this.UIsBase, this.OnTouchAppleLoginBtn),
+				(EKey.FACEBOOK_LOGIN_BTN, $"{EKey.FACEBOOK_LOGIN_BTN}", this.UIsBase, this.OnTouchFacebookLoginBtn)
+			}, m_oBtnDict, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupTestUIs();
@@ -146,6 +161,21 @@ namespace TitleScene {
 		/** 플레이 버튼을 눌렀을 경우 */
 		private void OnTouchPlayBtn() {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
+		}
+
+		/** 로그인 버튼을 눌렀을 경우 */
+		private void OnTouchLoginBtn() {
+			// Do Something
+		}
+
+		/** 애플 로그인 버튼을 눌렀을 경우 */
+		private void OnTouchAppleLoginBtn() {
+			// Do Something
+		}
+
+		/** 페이스 북 로그인 버튼을 눌렀을 경우 */
+		private void OnTouchFacebookLoginBtn() {
+			// Do Something
 		}
 		#endregion			// 함수
 

@@ -136,6 +136,34 @@ public static partial class Func {
 		}
 	}
 
+	/** 터치 전달자를 설정한다 */
+	public static void SetupTouchDispatchers(List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.ExSetBeginCallback(a_oKeyInfoList[i].Item2, a_bIsEnableAssert);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.ExSetMoveCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.ExSetEndCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
+			}
+		}
+	}
+
+	/** 터치 전달자를 설정한다 */
+	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.ExSetBeginCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.ExSetMoveCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.ExSetEndCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
+			}
+		}
+	}
+
 	/** 배경음을 재생한다 */
 	public static CSnd PlayBGSnd(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
@@ -292,101 +320,50 @@ public static partial class Func {
 	#endregion			// 클래스 함수
 
 	#region 제네릭 클래스 함수
-	/** 게이지 처리자를 설정한다 */
-	public static void SetupGaugeHandlers<K>(List<(K, GameObject)> a_oKeyInfoList, Dictionary<K, CGaugeHandler> a_oOutGaugeHandlerDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null));
+	/** 터치 전달자를 설정한다 */
+	public static void SetupTouchDispatchers<K>(List<(K, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutTouchDispatcherDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null));
 
 		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null) {
-			CFunc.SetupComponents(a_oKeyInfoList, a_oOutGaugeHandlerDict, a_bIsEnableAssert);
+		if(a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null) {
+			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				// 게이지 처리자가 존재 할 경우
-				if(a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1] != null) {
-					a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1].Percent = KCDefine.B_VAL_0_FLT;
-				}
-			}
-		}
-	}
-
-	/** 게이지 처리자를 설정한다 */
-	public static void SetupGaugeHandlers<K>(List<(K, string, GameObject)> a_oKeyInfoList, Dictionary<K, CGaugeHandler> a_oOutGaugeHandlerDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null));
-
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null) {
-			CFunc.SetupComponents(a_oKeyInfoList, a_oOutGaugeHandlerDict, a_bIsEnableAssert);
-
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				// 게이지 처리자가 존재 할 경우
-				if(a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1] != null) {
-					a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1].Percent = KCDefine.B_VAL_0_FLT;
-				}
-			}
-		}
-	}
-
-	/** 게이지 처리자를 설정한다 */
-	public static void SetupGaugeHandlers<K>(List<(K, string, GameObject, GameObject)> a_oKeyInfoList, Dictionary<K, CGaugeHandler> a_oOutGaugeHandlerDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null));
-
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null) {
-			CFunc.SetupComponents(a_oKeyInfoList, a_oOutGaugeHandlerDict, a_bIsEnableAssert);
-
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				// 게이지 처리자가 존재 할 경우
-				if(a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1] != null) {
-					a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1].Percent = KCDefine.B_VAL_0_FLT;
-				}
+				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetMoveCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetEndCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
 			}
 		}
 	}
 
 	/** 터치 전달자를 설정한다 */
-	public static void SetupTouchDispatchers<K>(List<(K, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutGaugeHandlerDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null));
+	public static void SetupTouchDispatchers<K>(List<(K, string, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutTouchDispatcherDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null));
 
 		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null) {
-			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutGaugeHandlerDict, a_bIsEnableAssert);
+		if(a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null) {
+			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
-				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetMoveCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
-				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetEndCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetMoveCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetEndCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
 			}
 		}
 	}
 
 	/** 터치 전달자를 설정한다 */
-	public static void SetupTouchDispatchers<K>(List<(K, string, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutGaugeHandlerDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null));
+	public static void SetupTouchDispatchers<K>(List<(K, string, GameObject, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutTouchDispatcherDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null));
 
 		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null) {
-			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutGaugeHandlerDict, a_bIsEnableAssert);
+		if(a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null) {
+			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
-				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetMoveCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
-				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetEndCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
-			}
-		}
-	}
-
-	/** 터치 전달자를 설정한다 */
-	public static void SetupTouchDispatchers<K>(List<(K, string, GameObject, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutGaugeHandlerDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null));
-
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null) {
-			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutGaugeHandlerDict, a_bIsEnableAssert);
-
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
-				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetMoveCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
-				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetEndCallback(a_oKeyInfoList[i].Item7, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetMoveCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetEndCallback(a_oKeyInfoList[i].Item7, a_bIsEnableAssert);
 			}
 		}
 	}

@@ -121,7 +121,7 @@ namespace StartScene {
 			// 텍스트를 설정한다 }
 
 			// 게이지 처리자를 설정한다
-			Func.SetupGaugeHandlers(new List<(EKey, GameObject)>() {
+			CFunc.SetupComponents(new List<(EKey, GameObject)>() {
 				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict[EKey.LOADING_GAUGE])
 			}, m_oGaugeHandlerDict, false);
 

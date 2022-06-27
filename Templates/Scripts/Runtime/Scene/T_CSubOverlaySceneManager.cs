@@ -111,26 +111,15 @@ namespace OverlayScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
-			// 텍스트를 설정한다 {
-			var oTextKeyInfoList = new List<(EKey, GameObject)>() {
-				(EKey.NUM_COINS_TEXT, this.UIsBase)
-			};
+			// 텍스트를 설정한다
+			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+				(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.UIsBase)
+			}, m_oTextDict, false);
 
-			for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
-				m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<TMP_Text>($"{oTextKeyInfoList[i].Item1}");
-			}
-			// 텍스트를 설정한다 }
-
-			// 버튼을 설정한다 {
-			var oBtnKeyInfoList = new List<(EKey, GameObject, UnityAction)>() {
-				(EKey.STORE_BTN, this.UIsBase, this.OnTouchStoreBtn)
-			};
-
-			for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
-				m_oBtnDict[oBtnKeyInfoList[i].Item1] = oBtnKeyInfoList[i].Item2.ExFindComponent<Button>($"{oBtnKeyInfoList[i].Item1}");
-				m_oBtnDict[oBtnKeyInfoList[i].Item1]?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
-			}
-			// 버튼을 설정한다 }
+			// 버튼을 설정한다
+			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+				(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
+			}, m_oBtnDict, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupTestUIs();

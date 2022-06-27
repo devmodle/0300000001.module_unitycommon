@@ -46,7 +46,7 @@ public static partial class Factory {
 
 		return oKeyInfoList;
 	}
-
+	
 	/** 키 정보를 생성한다 */
 	public static List<(T, string, GameObject, GameObject)> MakeKeyInfos<T>(List<(T, string, GameObject, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList) {
 		CAccess.Assert(a_oKeyInfoList != null);
