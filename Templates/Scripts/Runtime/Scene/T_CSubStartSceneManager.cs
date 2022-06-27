@@ -20,6 +20,7 @@ namespace StartScene {
 			LOADING_TEXT,
 			SCENE_INFO_TEXT,
 			LOADING_GAUGE_HANDLER,
+			LOADING_GAUGE,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -43,6 +44,11 @@ namespace StartScene {
 
 		private Dictionary<EKey, CGaugeHandler> m_oGaugeHandlerDict = new Dictionary<EKey, CGaugeHandler>() {
 			[EKey.LOADING_GAUGE_HANDLER] = null
+		};
+
+		/** =====> 객체 <===== */
+		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>() {
+			[EKey.LOADING_GAUGE] = null
 		};
 		#endregion			// 변수
 
@@ -98,6 +104,14 @@ namespace StartScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
+			// 객체를 설정한다 {
+			CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.LOADING_GAUGE, KCDefine.SS_OBJ_N_LOADING_GAUGE, this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
+			}, m_oUIsDict, false);
+
+			m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = m_stLoadingGaugePos;
+			// 객체를 설정한다 }
+
 			// 텍스트를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
@@ -106,13 +120,10 @@ namespace StartScene {
 			m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = m_stLoadingTextPos;
 			// 텍스트를 설정한다 }
 
-			// 게이지 처리자를 설정한다 {
-			Func.SetupGaugeHandlers(new List<(EKey, string, GameObject, GameObject)>() {
-				(EKey.LOADING_GAUGE_HANDLER, KCDefine.SS_OBJ_N_LOADING_GAUGE, this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
+			// 게이지 처리자를 설정한다
+			Func.SetupGaugeHandlers(new List<(EKey, GameObject)>() {
+				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict[EKey.LOADING_GAUGE])
 			}, m_oGaugeHandlerDict, false);
-
-			m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].transform.localPosition = m_stLoadingGaugePos;
-			// 게이지 처리자를 설정한다 }
 
 #if DEBUG || DEVELOPMENT
 			// 텍스트를 설정한다 {

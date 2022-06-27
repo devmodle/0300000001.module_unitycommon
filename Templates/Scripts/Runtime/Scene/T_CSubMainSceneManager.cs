@@ -212,21 +212,12 @@ namespace MainScene {
 				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
 			});
 
-			// 스크롤 뷰를 설정한다 {
-			var oScrollerKeyInfoList = new List<(EKey, string, GameObject, EnhancedScrollerCellView)>() {
-				(EKey.LEVEL_SCROLLER_INFO, KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()),
-				(EKey.STAGE_SCROLLER_INFO, KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()),
-				(EKey.CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>())
-			};
-
-			for(int i = 0; i < oScrollerKeyInfoList.Count; ++i) {
-				m_oScrollerInfoDict[oScrollerKeyInfoList[i].Item1] = (
-					oScrollerKeyInfoList[i].Item3.ExFindComponent<EnhancedScroller>(oScrollerKeyInfoList[i].Item2), oScrollerKeyInfoList[i].Item4
-				);
-
-				m_oScrollerInfoDict[oScrollerKeyInfoList[i].Item1].Item1?.ExSetDelegate(this, false);
-			}
-			// 스크롤 뷰를 설정한다 }
+			// 스크롤 뷰를 설정한다
+			CFunc.SetupScrollerInfos(new List<(EKey, string, GameObject, EnhancedScrollerCellView, IEnhancedScrollerDelegate)>() {
+				(EKey.LEVEL_SCROLLER_INFO, KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+				(EKey.STAGE_SCROLLER_INFO, KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+				(EKey.CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
+			}, m_oScrollerInfoDict, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupTestUIs();

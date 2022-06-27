@@ -41,6 +41,9 @@ namespace LevelEditorScene {
 			LE_UIS_STAGE_SCROLLER_INFO,
 			LE_UIS_CHAPTER_SCROLLER_INFO,
 
+			LE_UIS_STAGE_SCROLLER_INFO_01,
+			LE_UIS_STAGE_SCROLLER_INFO_02,
+
 			RE_UIS_PAGE_TEXT,
 			RE_UIS_TITLE_TEXT,
 
@@ -987,33 +990,22 @@ namespace LevelEditorScene {
 		private void SetupLeftEditorUIs() {
 			// 스크롤 뷰를 설정한다 {
 			var oStageScroller01 = this.LeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01);
-			oStageScroller01?.gameObject.SetActive(false);
-
 			var oStageScroller02 = this.LeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02);
+
+			CFunc.SetupScrollerInfos(new List<(EKey, string, GameObject, EnhancedScrollerCellView, IEnhancedScrollerDelegate)>() {
+				(EKey.LE_UIS_LEVEL_SCROLLER_INFO, KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_LEVEL_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+				(EKey.LE_UIS_STAGE_SCROLLER_INFO_01, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_STAGE_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+				(EKey.LE_UIS_STAGE_SCROLLER_INFO_02, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_STAGE_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+				(EKey.LE_UIS_CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_CHAPTER_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
+			}, m_oScrollerInfoDict, false);
+
+			oStageScroller01?.gameObject.SetActive(false);
 			oStageScroller02?.gameObject.SetActive(false);
-
-			m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO] = (
-				this.LeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW),
-				CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_LEVEL_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()
-			);
-
-			m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO] = (
-				oStageScroller01,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_STAGE_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()
-			);
-
-			m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO] = (
-				this.LeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW),
-				CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_CHAPTER_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>()
-			);
-
+			m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO] = m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO_01];
+			
 			m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1?.gameObject.SetActive(true);
 			m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1?.gameObject.SetActive(false);
 			m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1?.gameObject.SetActive(false);
-
-			foreach(var stKeyVal in m_oScrollerInfoDict) {
-				stKeyVal.Value.Item1?.ExSetDelegate(this, false);
-			}
 			// 스크롤 뷰를 설정한다 }
 
 			// 버튼을 설정한다 {

@@ -349,7 +349,7 @@ public static partial class Func {
 
 		// 키 정보가 존재 할 경우
 		if(a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null) {
-			CFunc.SetupComponents(Factory.MakeDefKeyInfos(a_oKeyInfoList), a_oOutGaugeHandlerDict, a_bIsEnableAssert);
+			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutGaugeHandlerDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
 				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
@@ -365,7 +365,7 @@ public static partial class Func {
 
 		// 키 정보가 존재 할 경우
 		if(a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null) {
-			CFunc.SetupComponents(Factory.MakeDefKeyInfos(a_oKeyInfoList), a_oOutGaugeHandlerDict, a_bIsEnableAssert);
+			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutGaugeHandlerDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
 				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
@@ -381,7 +381,7 @@ public static partial class Func {
 
 		// 키 정보가 존재 할 경우
 		if(a_oKeyInfoList.ExIsValid() && a_oOutGaugeHandlerDict != null) {
-			CFunc.SetupComponents(Factory.MakeDefKeyInfos(a_oKeyInfoList), a_oOutGaugeHandlerDict, a_bIsEnableAssert);
+			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutGaugeHandlerDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
 				a_oOutGaugeHandlerDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
