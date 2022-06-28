@@ -12,10 +12,11 @@ public partial class CResultPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
-		RECORD_TEXT,
-		BEST_RECORD_TEXT,
 		CLEAR_UIS,
 		CLEAR_FAIL_UIS,
+
+		RECORD_TEXT,
+		BEST_RECORD_TEXT,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -41,16 +42,10 @@ public partial class CResultPopup : CSubPopup {
 	private STParams m_stParams;
 
 	/** =====> UI <===== */
-	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
-		[EKey.RECORD_TEXT] = null,
-		[EKey.BEST_RECORD_TEXT] = null
-	};
+	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 
 	/** =====> 객체 <===== */
-	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>() {
-		[EKey.CLEAR_UIS] = null,
-		[EKey.CLEAR_FAIL_UIS] = null
-	};
+	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 	#endregion			// 변수
 
 	#region 프로퍼티

@@ -25,20 +25,8 @@ namespace LevelEditorScene {
 
 		#region 변수
 		/** =====> 객체 <===== */
-		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>() {
-			[EKey.MID_EDITOR_UIS] = null,
-			[EKey.LEFT_EDITOR_UIS] = null,
-			[EKey.RIGHT_EDITOR_UIS] = null,
-
-			[EKey.ME_UIS_MSG_UIS] = null,
-			[EKey.LE_UIS_AB_SET_UIS] = null,
-
-			[EKey.BG_TOUCH_RESPONDER] = null
-		};
-
-		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>() {
-			[EKey.OBJ_ROOT] = null
-		};
+		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion			// 변수
 
 		#region 프로퍼티

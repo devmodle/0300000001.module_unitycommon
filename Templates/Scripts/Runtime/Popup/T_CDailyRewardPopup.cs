@@ -18,10 +18,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 	#region 변수
 	/** =====> UI <===== */
-	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
-		[EKey.ACQUIRE_BTN] = null,
-		[EKey.REWARD_ADS_BTN] = null
-	};
+	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();

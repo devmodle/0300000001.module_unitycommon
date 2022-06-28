@@ -205,22 +205,16 @@ public static partial class Func {
 	/** 경고 팝업을 출력한다 */
 	public static void ShowAlertPopup(string a_oMsg, System.Action<CAlertPopup, bool> a_oCallback, bool a_bIsEnableCancelBtn = true) {
 		var stParams = new CAlertPopup.STParams() {
-			m_oStrDict = new Dictionary<CAlertPopup.EStr, string>() {
-				[CAlertPopup.EStr.TITLE] = CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_NOTI_TEXT),
-				[CAlertPopup.EStr.MSG] = a_oMsg,
-				[CAlertPopup.EStr.OK_BTN] = CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_OK_TEXT),
-			},
+			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_NOTI_TEXT),
+			m_oMsg = a_oMsg,
+			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_OK_TEXT),
+			m_oCancelBtnText = a_bIsEnableCancelBtn ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_CANCEL_TEXT) : string.Empty,
 
 			m_oCallbackDict = new Dictionary<CAlertPopup.ECallback, System.Action<CAlertPopup, bool>>() {
 				[CAlertPopup.ECallback.OK_CANCEL] = a_oCallback
 			}
 		};
-
-		// 취소 버튼 가능 모드 일 경우
-		if(a_bIsEnableCancelBtn) {
-			stParams.m_oStrDict.TryAdd(CAlertPopup.EStr.CANCEL_BTN, CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_CANCEL_TEXT));
-		}
-
+		
 		Func.ShowAlertPopup(stParams);
 	}
 

@@ -22,10 +22,10 @@ namespace LevelEditorScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-
-			OBJ_INFO_TABLE_GOOGLE_SHEET_ID,
-			EPISODE_INFO_TABLE_GOOGLE_SHEET_ID,
-
+			SEL_SCROLLER,
+			SEL_OBJ_SPRITE,
+			BG_TOUCH_DISPATCHER,
+			
 			ME_UIS_MSG_TEXT,
 			ME_UIS_LEVEL_TEXT,
 
@@ -61,10 +61,6 @@ namespace LevelEditorScene {
 			RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT,
 			RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT,
 
-			SEL_SCROLLER,
-			SEL_OBJ_SPRITE,
-			BG_TOUCH_DISPATCHER,
-
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			SEL_LEVEL_INFO,
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
@@ -97,73 +93,17 @@ namespace LevelEditorScene {
 		}
 
 		#region 변수
+		private string m_oObjInfoTableGoogleSheetID = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ";
+		private string m_oEpisodeInfoTableGoogleSheetID = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA";
+
 		private ETable m_eSelTable = ETable.NONE;
 		private EUserType m_eSelUserType = EUserType.NONE;
 		private EInputPopup m_eSelInputPopup = EInputPopup.NONE;
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 
-		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
-			[EKey.OBJ_INFO_TABLE_GOOGLE_SHEET_ID] = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ",
-			[EKey.EPISODE_INFO_TABLE_GOOGLE_SHEET_ID] = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA"
-		};
-
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>() {
 			[EKey.SEL_OBJ_SPRITE] = null
 		};
-
-		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>() {
-			[EKey.BG_TOUCH_DISPATCHER] = null
-		};
-
-		/** =====> UI <===== */
-		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>() {
-			[EKey.ME_UIS_MSG_TEXT] = null,
-			[EKey.ME_UIS_LEVEL_TEXT] = null,
-
-			[EKey.RE_UIS_PAGE_TEXT] = null,
-			[EKey.RE_UIS_TITLE_TEXT] = null
-		};
-
-		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>() {
-			[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT] = null,
-			
-			[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT] = null,
-			[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT] = null
-		};
-
-		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
-			[EKey.ME_UIS_PREV_BTN] = null,
-			[EKey.ME_UIS_NEXT_BTN] = null,
-			[EKey.ME_UIS_MOVE_LEVEL_BTN] = null,
-			[EKey.ME_UIS_REMOVE_LEVEL_BTN] = null,
-
-			[EKey.LE_UIS_A_SET_BTN] = null,
-			[EKey.LE_UIS_B_SET_BTN] = null,
-			[EKey.LE_UIS_ADD_STAGE_BTN] = null,
-			[EKey.LE_UIS_ADD_CHAPTER_BTN] = null,
-
-			[EKey.RE_UIS_PREV_BTN] = null,
-			[EKey.RE_UIS_NEXT_BTN] = null,
-			[EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN] = null,
-			[EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN] = null
-		};
-
-		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>() {
-			[EKey.SEL_SCROLLER] = null
-		};
-
-		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>() {
-			[EKey.RE_UIS_PAGE_SCROLL_SNAP] = null
-		};
-
-		private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>() {
-			[EKey.LE_UIS_LEVEL_SCROLLER_INFO] = (null, null),
-			[EKey.LE_UIS_STAGE_SCROLLER_INFO] = (null, null),
-			[EKey.LE_UIS_CHAPTER_SCROLLER_INFO] = (null, null)
-		};
-
-		/** =====> 객체 <===== */
-		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 		private SampleEngineName.STGridInfo m_stGridInfo;
@@ -175,6 +115,21 @@ namespace LevelEditorScene {
 			[EKey.SEL_LEVEL_INFO] = null
 		};
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+
+		/** =====> UI <===== */
+		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>() {
+			[EKey.SEL_SCROLLER] = null
+		};
+
+		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
+		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
+		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
+		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
+		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>();
+		private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>();
+
+		/** =====> 객체 <===== */
+		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion			// 변수
 		
 		#region IEnhancedScrollerDelegate
@@ -506,7 +461,7 @@ namespace LevelEditorScene {
 					} break;
 					case ETable.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
-						Func.LoadGoogleSheet(m_oStrDict[EKey.OBJ_INFO_TABLE_GOOGLE_SHEET_ID], new List<(string, int)>() {
+						Func.LoadGoogleSheet(m_oObjInfoTableGoogleSheetID, new List<(string, int)>() {
 							(KCDefine.U_KEY_BG, KCDefine.B_VAL_2_INT),
 							(KCDefine.U_KEY_NORM, KCDefine.B_VAL_2_INT),
 							(KCDefine.U_KEY_OVERLAY, KCDefine.B_VAL_2_INT),
@@ -770,7 +725,7 @@ namespace LevelEditorScene {
 			if(!oResult.Item1) {
 				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 
-				Func.LoadGoogleSheet(m_oStrDict[EKey.EPISODE_INFO_TABLE_GOOGLE_SHEET_ID], new List<(string, int)>() {
+				Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<(string, int)>() {
 					(KCDefine.U_KEY_LEVEL, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_STAGE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_CHAPTER, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)

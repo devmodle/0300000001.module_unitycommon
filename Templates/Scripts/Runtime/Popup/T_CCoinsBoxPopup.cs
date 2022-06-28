@@ -18,9 +18,7 @@ public partial class CCoinsBoxPopup : CSubPopup {
 
 	#region 변수
 	/** =====> UI <===== */
-	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
-		[EKey.NUM_COINS_TEXT] = null
-	};
+	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;

@@ -13,13 +13,6 @@ using UnityEngine.Purchasing;
 
 /** 상점 팝업 */
 public partial class CStorePopup : CSubPopup {
-	/** 식별자 */
-	private enum EKey {
-		NONE = -1,
-		PURCHASE_PRODUCT_ID,
-		[HideInInspector] MAX_VAL
-	}
-
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,
@@ -45,18 +38,16 @@ public partial class CStorePopup : CSubPopup {
 
 	#region 변수
 	private STParams m_stParams;
+
+	private string m_oPurchaseProductID = string.Empty;
 	private EProductSaleKinds m_eSelProductSaleKinds = EProductSaleKinds.NONE;
-
-	private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
-		[EKey.PURCHASE_PRODUCT_ID] = string.Empty
-	};
-
-	/** =====> 객체 <===== */
-	[SerializeField] private List<GameObject> m_oProductSaleUIsList = new List<GameObject>();
 
 #if PURCHASE_MODULE_ENABLE
 	private List<Product> m_oRestoreProductList = new List<Product>();
 #endif			// #if PURCHASE_MODULE_ENABLE
+
+	/** =====> 객체 <===== */
+	[SerializeField] private List<GameObject> m_oProductSaleUIsList = new List<GameObject>();
 	#endregion			// 변수
 
 	#region 함수
@@ -217,7 +208,7 @@ public partial class CStorePopup : CSubPopup {
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			// Do Something
+			m_oPurchaseProductID = a_oProductID;
 		}
 
 		this.UpdateUIsState();

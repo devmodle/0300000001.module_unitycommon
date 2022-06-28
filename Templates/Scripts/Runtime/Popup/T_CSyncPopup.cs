@@ -20,10 +20,7 @@ public partial class CSyncPopup : CSubPopup {
 	private bool m_bIsLoadUserInfo = false;
 
 	/** =====> 객체 <===== */
-	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>() {
-		[EKey.LOGIN_UIS] = null,
-		[EKey.LOGOUT_UIS] = null
-	};
+	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 	#endregion			// 변수
 
 	#region 함수
