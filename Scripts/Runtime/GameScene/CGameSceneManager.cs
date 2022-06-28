@@ -10,22 +10,17 @@ namespace GameScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			BG_TOUCH_RESPONDER,
 			OBJ_ROOT,
 			FX_OBJ_ROOT,
 			SKILL_OBJ_ROOT,
+			BG_TOUCH_RESPONDER,
 			[HideInInspector] MAX_VAL
 		}
 
 		#region 변수
 		/** =====> 객체 <===== */
-		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>() {
-			[EKey.BG_TOUCH_RESPONDER] = null
-		};
-
-		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>() {
-			[EKey.OBJ_ROOT] = null
-		};
+		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion			// 변수
 
 		#region 프로퍼티
