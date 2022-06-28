@@ -94,7 +94,7 @@ namespace TitleScene {
 			// 버튼을 설정한다
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 				(EKey.PLAY_BTN, $"{EKey.PLAY_BTN}", this.UIsBase, this.OnTouchPlayBtn),
-				(EKey.LOGIN_BTN, $"{EKey.PLAY_BTN}", this.UIsBase, this.OnTouchLoginBtn),
+				(EKey.LOGIN_BTN, $"{EKey.LOGIN_BTN}", this.UIsBase, this.OnTouchLoginBtn),
 				(EKey.APPLE_LOGIN_BTN, $"{EKey.APPLE_LOGIN_BTN}", this.UIsBase, this.OnTouchAppleLoginBtn),
 				(EKey.FACEBOOK_LOGIN_BTN, $"{EKey.FACEBOOK_LOGIN_BTN}", this.UIsBase, this.OnTouchFacebookLoginBtn)
 			}, m_oBtnDict, false);
