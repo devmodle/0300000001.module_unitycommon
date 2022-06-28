@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 6575004817830986588}
   - component: {fileID: 552821762485563560}
   m_Layer: 5
-  m_Name: BLIND_IMG
+  m_Name: FOCUS_BLIND_IMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

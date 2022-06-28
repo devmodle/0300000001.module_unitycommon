@@ -50,27 +50,17 @@ public partial class CContinuePopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		// 텍스트를 설정한다 {
-		var oTextKeyInfoList = new List<(EKey, GameObject)>() {
-			(EKey.PRICE_TEXT, this.Contents)
-		};
+		// 텍스트를 설정한다
+		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+			(EKey.PRICE_TEXT, $"{EKey.PRICE_TEXT}", this.Contents)
+		}, m_oTextDict, false);
 
-		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
-			m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<TMP_Text>($"{oTextKeyInfoList[i].Item1}");
-		}
-		// 텍스트를 설정한다 }
-
-		// 버튼을 설정한다 {
-		var oBtnKeyInfoList = new List<(string, GameObject, UnityAction)>() {
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
 			(KCDefine.U_OBJ_N_CONTINUE_BTN, this.Contents, this.OnTouchContinueBtn),
 			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
-		};
-
-		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
-			oBtnKeyInfoList[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList[i].Item1)?.onClick.AddListener(oBtnKeyInfoList[i].Item3);	
-		}
-		// 버튼을 설정한다 }
+		}, false);
 	}
 
 	/** 초기화 */

@@ -36,6 +36,8 @@ namespace LevelEditorScene {
 
 			LE_UIS_A_SET_BTN,
 			LE_UIS_B_SET_BTN,
+			LE_UIS_ADD_STAGE_BTN,
+			LE_UIS_ADD_CHAPTER_BTN,
 
 			LE_UIS_LEVEL_SCROLLER_INFO,
 			LE_UIS_STAGE_SCROLLER_INFO,
@@ -137,6 +139,8 @@ namespace LevelEditorScene {
 
 			[EKey.LE_UIS_A_SET_BTN] = null,
 			[EKey.LE_UIS_B_SET_BTN] = null,
+			[EKey.LE_UIS_ADD_STAGE_BTN] = null,
+			[EKey.LE_UIS_ADD_CHAPTER_BTN] = null,
 
 			[EKey.RE_UIS_PREV_BTN] = null,
 			[EKey.RE_UIS_NEXT_BTN] = null,
@@ -388,8 +392,12 @@ namespace LevelEditorScene {
 
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
-			m_oSpriteDict[EKey.SEL_OBJ_SPRITE] = this.UIs.ExFindComponent<SpriteRenderer>($"{EKey.SEL_OBJ_SPRITE}");
 			this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
+
+			// 스프라이트를 설정한다
+			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
+				(EKey.SEL_OBJ_SPRITE, $"{EKey.SEL_OBJ_SPRITE}", this.Objs)
+			}, m_oSpriteDict, false);
 
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 			this.SetupMidEditorUIs();
@@ -873,26 +881,25 @@ namespace LevelEditorScene {
 		/** 중앙 에디터 UI 를 설정한다 */
 		private void SetupMidEditorUIs() {
 			// 텍스트를 설정한다
-			m_oTextDict[EKey.ME_UIS_MSG_TEXT] = this.MidEditorUIs.ExFindComponent<Text>($"{EKey.ME_UIS_MSG_TEXT}");
-			m_oTextDict[EKey.ME_UIS_LEVEL_TEXT] = this.MidEditorUIs.ExFindComponent<Text>($"{EKey.ME_UIS_LEVEL_TEXT}");
+			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+				(EKey.ME_UIS_MSG_TEXT, $"{EKey.ME_UIS_MSG_TEXT}", this.MidEditorUIs),
+				(EKey.ME_UIS_LEVEL_TEXT, $"{EKey.ME_UIS_LEVEL_TEXT}", this.MidEditorUIs)
+			}, m_oTextDict, false);
 
 			// 버튼을 설정한다 {
-			m_oBtnDict[EKey.ME_UIS_PREV_BTN] = this.MidEditorUIs.ExFindComponent<Button>($"{EKey.ME_UIS_PREV_BTN}");
-			m_oBtnDict[EKey.ME_UIS_PREV_BTN]?.onClick.AddListener(this.OnTouchMEUIsPrevBtn);
+			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+				(EKey.ME_UIS_PREV_BTN, $"{EKey.ME_UIS_PREV_BTN}", this.MidEditorUIs, this.OnTouchMEUIsPrevBtn),
+				(EKey.ME_UIS_NEXT_BTN, $"{EKey.ME_UIS_NEXT_BTN}", this.MidEditorUIs, this.OnTouchMEUIsNextBtn),
+				(EKey.ME_UIS_MOVE_LEVEL_BTN, $"{EKey.ME_UIS_MOVE_LEVEL_BTN}", this.MidEditorUIs, this.OnTouchMEUIsMoveLevelBtn),
+				(EKey.ME_UIS_REMOVE_LEVEL_BTN, $"{EKey.ME_UIS_REMOVE_LEVEL_BTN}", this.MidEditorUIs, this.OnTouchMEUIsRemoveLevelBtn)
+			}, m_oBtnDict, false);
 
-			m_oBtnDict[EKey.ME_UIS_NEXT_BTN] = this.MidEditorUIs.ExFindComponent<Button>($"{EKey.ME_UIS_NEXT_BTN}");
-			m_oBtnDict[EKey.ME_UIS_NEXT_BTN]?.onClick.AddListener(this.OnTouchMEUIsNextBtn);
-
-			m_oBtnDict[EKey.ME_UIS_MOVE_LEVEL_BTN] = this.MidEditorUIs.ExFindComponent<Button>($"{EKey.ME_UIS_MOVE_LEVEL_BTN}");
-			m_oBtnDict[EKey.ME_UIS_MOVE_LEVEL_BTN]?.onClick.AddListener(this.OnTouchMEUIsMoveLevelBtn);
-
-			m_oBtnDict[EKey.ME_UIS_REMOVE_LEVEL_BTN] = this.MidEditorUIs.ExFindComponent<Button>($"{EKey.ME_UIS_REMOVE_LEVEL_BTN}");
-			m_oBtnDict[EKey.ME_UIS_REMOVE_LEVEL_BTN]?.onClick.AddListener(this.OnTouchMEUIsRemoveLevelBtn);
-
-			this.MidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_SAVE_BTN)?.onClick.AddListener(this.OnTouchMEUIsSaveBtn);
-			this.MidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_RESET_BTN)?.onClick.AddListener(this.OnTouchMEUIsResetBtn);
-			this.MidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_TEST_BTN)?.onClick.AddListener(this.OnTouchMEUIsTestBtn);
-			this.MidEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_ME_UIS_COPY_LEVEL_BTN)?.onClick.AddListener(this.OnTouchMEUIsCopyLevelBtn);
+			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+				(KCDefine.LES_OBJ_N_ME_UIS_SAVE_BTN, this.MidEditorUIs, this.OnTouchMEUIsSaveBtn),
+				(KCDefine.LES_OBJ_N_ME_UIS_RESET_BTN, this.MidEditorUIs, this.OnTouchMEUIsResetBtn),
+				(KCDefine.LES_OBJ_N_ME_UIS_TEST_BTN, this.MidEditorUIs, this.OnTouchMEUIsTestBtn),
+				(KCDefine.LES_OBJ_N_ME_UIS_COPY_LEVEL_BTN, this.MidEditorUIs, this.OnTouchMEUIsCopyLevelBtn)
+			}, false);
 			// 버튼을 설정한다 }
 		}
 
@@ -988,54 +995,64 @@ namespace LevelEditorScene {
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 		/** 왼쪽 에디터 UI 를 설정한다 */
 		private void SetupLeftEditorUIs() {
-			// 스크롤 뷰를 설정한다 {
-			var oStageScroller01 = this.LeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01);
-			var oStageScroller02 = this.LeftEditorUIs.ExFindComponent<EnhancedScroller>(KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02);
+			var oScrollViewDict = CCollectionManager.Inst.SpawnDict<string, GameObject>();
 
-			CFunc.SetupScrollerInfos(new List<(EKey, string, GameObject, EnhancedScrollerCellView, IEnhancedScrollerDelegate)>() {
-				(EKey.LE_UIS_LEVEL_SCROLLER_INFO, KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_LEVEL_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
-				(EKey.LE_UIS_STAGE_SCROLLER_INFO_01, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_STAGE_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
-				(EKey.LE_UIS_STAGE_SCROLLER_INFO_02, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_STAGE_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
-				(EKey.LE_UIS_CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_CHAPTER_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
-			}, m_oScrollerInfoDict, false);
+			try {
+				// 스크롤 뷰를 설정한다 {
+				CFunc.SetupObjs(new List<(string, string, GameObject)>() {
+					(KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01, this.LeftEditorUIs),
+					(KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02, this.LeftEditorUIs)
+				}, oScrollViewDict);
 
-			oStageScroller01?.gameObject.SetActive(false);
-			oStageScroller02?.gameObject.SetActive(false);
-			m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO] = m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO_01];
-			
-			m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1?.gameObject.SetActive(true);
-			m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1?.gameObject.SetActive(false);
-			m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1?.gameObject.SetActive(false);
-			// 스크롤 뷰를 설정한다 }
+				CFunc.SetupScrollerInfos(new List<(EKey, string, GameObject, EnhancedScrollerCellView, IEnhancedScrollerDelegate)>() {
+					(EKey.LE_UIS_LEVEL_SCROLLER_INFO, KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_LEVEL_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+					(EKey.LE_UIS_STAGE_SCROLLER_INFO_01, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_STAGE_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+					(EKey.LE_UIS_STAGE_SCROLLER_INFO_02, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_STAGE_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+					(EKey.LE_UIS_CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.E_OBJ_P_CHAPTER_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
+				}, m_oScrollerInfoDict, false);
 
-			// 버튼을 설정한다 {
-			var oAddStageBtn = this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_STAGE_BTN);
-			oAddStageBtn?.onClick.AddListener(this.OnTouchLEUIsAddStageBtn);
+				foreach(var stKeyVal in oScrollViewDict) {
+					stKeyVal.Value?.gameObject.SetActive(false);
+				}
 
-			var oAddChapterBtn = this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_CHAPTER_BTN);
-			oAddChapterBtn?.onClick.AddListener(this.OnTouchLEUIsAddChapterBtn);
+				m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO] = m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO_01];
+				
+				m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1?.gameObject.SetActive(true);
+				m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1?.gameObject.SetActive(false);
+				m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1?.gameObject.SetActive(false);
+				// 스크롤 뷰를 설정한다 }
 
-			this.LeftEditorUIs.ExFindComponent<Button>(KCDefine.LES_OBJ_N_LE_UIS_ADD_LEVEL_BTN)?.onClick.AddListener(this.OnTouchLEUIsAddLevelBtn);
+				// 버튼을 설정한다 {
+				CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+					(EKey.LE_UIS_ADD_STAGE_BTN, $"{EKey.LE_UIS_ADD_STAGE_BTN}", this.LeftEditorUIs, this.OnTouchLEUIsAddStageBtn),
+					(EKey.LE_UIS_ADD_CHAPTER_BTN, $"{EKey.LE_UIS_ADD_CHAPTER_BTN}", this.LeftEditorUIs, this.OnTouchLEUIsAddChapterBtn)
+				}, m_oBtnDict, false);
+
+				CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+					(KCDefine.LES_OBJ_N_LE_UIS_ADD_LEVEL_BTN, this.LeftEditorUIs, this.OnTouchLEUIsAddLevelBtn)
+				}, false);
 
 #if AB_TEST_ENABLE
-			m_oBtnDict[EKey.LE_UIS_A_SET_BTN] = this.LeftEditorUIs.ExFindComponent<Button>($"{EKey.LE_UIS_A_SET_BTN}");
-			m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.onClick.AddListener(() => this.OnTouchLEUIsSetBtn(m_oBtnDict[EKey.LE_UIS_A_SET_BTN]));
-
-			m_oBtnDict[EKey.LE_UIS_B_SET_BTN] = this.LeftEditorUIs.ExFindComponent<Button>($"{EKey.LE_UIS_B_SET_BTN}");
-			m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.onClick.AddListener(() => this.OnTouchLEUIsSetBtn(m_oBtnDict[EKey.LE_UIS_B_SET_BTN]));
+				CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+					(EKey.LE_UIS_A_SET_BTN, $"{EKey.LE_UIS_A_SET_BTN}", this.LeftEditorUIs, () => this.OnTouchLEUIsSetBtn(this.LeftEditorUIs.ExFindComponent<Button>($"{EKey.LE_UIS_A_SET_BTN}"))),
+					(EKey.LE_UIS_B_SET_BTN, $"{EKey.LE_UIS_B_SET_BTN}", this.LeftEditorUIs, () => this.OnTouchLEUIsSetBtn(this.LeftEditorUIs.ExFindComponent<Button>($"{EKey.LE_UIS_B_SET_BTN}")))
+				}, m_oBtnDict, false);
 #endif			// #if AB_TEST_ENABLE
 
-			this.ExLateCallFunc((a_oSender) => {
+				this.ExLateCallFunc((a_oSender) => {
 #if AB_TEST_ENABLE
-				this.LEUIsABSetUIs?.SetActive(true);
+					this.LEUIsABSetUIs?.SetActive(true);
 #else
-				this.LEUIsABSetUIs?.SetActive(false);
+					this.LEUIsABSetUIs?.SetActive(false);
 #endif			// #if AB_TEST_ENABLE
 
-				oAddStageBtn?.ExSetInteractable((oStageScroller01 != null && oStageScroller01.gameObject.activeSelf) || (oStageScroller02 != null && oStageScroller02.gameObject.activeSelf));
-				oAddChapterBtn?.ExSetInteractable(m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1 != null && m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1.gameObject.activeSelf);
-			});
-			// 버튼을 설정한다 }
+					m_oBtnDict[EKey.LE_UIS_ADD_STAGE_BTN]?.ExSetInteractable(m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1 != null && m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1.gameObject.activeSelf);
+					m_oBtnDict[EKey.LE_UIS_ADD_CHAPTER_BTN]?.ExSetInteractable(m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1 != null && m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1.gameObject.activeSelf);
+				});
+				// 버튼을 설정한다 }
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oScrollViewDict);
+			}
 		}
 
 		/** 왼쪽 에디터 UI 상태를 갱신한다 */
@@ -1120,46 +1137,28 @@ namespace LevelEditorScene {
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 		/** 오른족 에디터 UI 를 설정한다 */
 		private void SetupRightEditorUIs() {
-			// 텍스트를 설정한다 {
-			var oTextKeyInfoList = new List<(EKey, GameObject)>() {
-				(EKey.RE_UIS_PAGE_TEXT, this.RightEditorUIs),
-				(EKey.RE_UIS_TITLE_TEXT, this.RightEditorUIs)
-			};
-
-			for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
-				m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<Text>($"{oTextKeyInfoList[i].Item1}");
-			}
-			// 텍스트를 설정한다 }
+			// 텍스트를 설정한다
+			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+				(EKey.RE_UIS_PAGE_TEXT, $"{EKey.RE_UIS_PAGE_TEXT}", this.RightEditorUIs),
+				(EKey.RE_UIS_TITLE_TEXT, $"{EKey.RE_UIS_TITLE_TEXT}", this.RightEditorUIs)
+			}, m_oTextDict, false);
 
 			// 버튼을 설정한다 {
-			var oBtnKeyInfoList01 = new List<(EKey, GameObject)>() {
-				(EKey.RE_UIS_PREV_BTN, this.RightEditorUIs),
-				(EKey.RE_UIS_NEXT_BTN, this.RightEditorUIs)
-			};
+			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+				(EKey.RE_UIS_PREV_BTN, $"{EKey.RE_UIS_PREV_BTN}", this.RightEditorUIs),
+				(EKey.RE_UIS_NEXT_BTN, $"{EKey.RE_UIS_NEXT_BTN}", this.RightEditorUIs)
+			}, m_oBtnDict, false);
 
-			for(int i = 0; i < oBtnKeyInfoList01.Count; ++i) {
-				m_oBtnDict[oBtnKeyInfoList01[i].Item1] = oBtnKeyInfoList01[i].Item2.ExFindComponent<Button>($"{oBtnKeyInfoList01[i].Item1}");
-			}
+			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+				(EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN, $"{EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN}", this.RightEditorUIs, this.OnTouchREUIsRemoveAllLevelsBtn),
+				(EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN, $"{EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN}", this.RightEditorUIs, () => this.OnTouchREUIsLoadTableBtn(ETable.REMOTE))
+			}, m_oBtnDict, false);
 
-			var oBtnKeyInfoList02 = new List<(EKey, GameObject, UnityAction)>() {
-				(EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN, this.RightEditorUIs, this.OnTouchREUIsRemoveAllLevelsBtn),
-				(EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN, this.RightEditorUIs, () => this.OnTouchREUIsLoadTableBtn(ETable.REMOTE))
-			};
-
-			for(int i = 0; i < oBtnKeyInfoList02.Count; ++i) {
-				m_oBtnDict[oBtnKeyInfoList02[i].Item1] = oBtnKeyInfoList02[i].Item2.ExFindComponent<Button>($"{oBtnKeyInfoList02[i].Item1}");
-				m_oBtnDict[oBtnKeyInfoList02[i].Item1]?.onClick.AddListener(oBtnKeyInfoList02[i].Item3);	
-			}
-
-			var oBtnKeyInfoList03 = new List<(string, GameObject, UnityAction)>() {
+			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 				(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN, this.RightEditorUIs, this.OnTouchREUIsApplyBtn),
 				(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN, this.RightEditorUIs, this.OnTouchREUIsLoadLevelBtn),
 				(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LOCAL_TABLE_BTN, this.RightEditorUIs, () => this.OnTouchREUIsLoadTableBtn(ETable.LOCAL))
-			};
-
-			for(int i = 0; i < oBtnKeyInfoList03.Count; ++i) {
-				oBtnKeyInfoList03[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList03[i].Item1)?.onClick.AddListener(oBtnKeyInfoList03[i].Item3);
-			}
+			}, false);
 			// 버튼을 설정한다 }
 
 			// 스크롤 뷰를 설정한다 {
@@ -1190,12 +1189,12 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 를 설정한다 */
 		private void SetupREUIsPageUIs01() {
-			// 입력 필드를 설정한다 {
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT] = this.RightEditorUIs.ExFindComponent<InputField>($"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}");
-
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT] = this.RightEditorUIs.ExFindComponent<InputField>($"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}");
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT] = this.RightEditorUIs.ExFindComponent<InputField>($"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}");
-			// 입력 필드를 설정한다 }
+			// 입력 필드를 설정한다
+			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+				(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}", this.RightEditorUIs),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}", this.RightEditorUIs),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", this.RightEditorUIs)
+			}, m_oInputDict, false);
 		}
 
 		/** 오른쪽 에디터 UI 상태를 갱신한다 */

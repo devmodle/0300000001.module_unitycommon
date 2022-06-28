@@ -40,15 +40,10 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		// 텍스트를 설정한다 {
-		var oTextKeyInfoList = new List<(EKey, GameObject)>() {
-			(EKey.NUM_COINS_TEXT, this.Contents)
-		};
-
-		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
-			m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<TMP_Text>($"{oTextKeyInfoList[i].Item1}");
-		}
-		// 텍스트를 설정한다 }
+		// 텍스트를 설정한다
+		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.Contents)
+		}, m_oTextDict, false);
 	}
 
 	/** 초기화 */

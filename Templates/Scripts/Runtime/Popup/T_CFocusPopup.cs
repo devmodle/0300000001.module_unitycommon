@@ -12,7 +12,7 @@ public partial class CFocusPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
-		BLIND_IMG,
+		FOCUS_BLIND_IMG,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -36,7 +36,7 @@ public partial class CFocusPopup : CSubPopup {
 
 	/** =====> UI <===== */
 	private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>() {
-		[EKey.BLIND_IMG] = null
+		[EKey.FOCUS_BLIND_IMG] = null
 	};
 	#endregion			// 변수
 	
@@ -53,7 +53,9 @@ public partial class CFocusPopup : CSubPopup {
 		this.IsIgnoreAni = true;
 
 		// 이미지를 설정한다
-		m_oImgDict[EKey.BLIND_IMG] = this.Contents.ExFindComponent<Image>($"{EKey.BLIND_IMG}");
+		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+			(EKey.FOCUS_BLIND_IMG, $"{EKey.FOCUS_BLIND_IMG}", this.Contents)
+		}, m_oImgDict, false);
 	}
 
 	/** 초기화 */
@@ -62,10 +64,9 @@ public partial class CFocusPopup : CSubPopup {
 		m_stParams = a_stParams;
 
 		// 터치 전달자를 설정한다
-		var oTouchDispatcher = m_oImgDict[EKey.BLIND_IMG]?.GetComponentInChildren<CTouchDispatcher>();
-		oTouchDispatcher?.ExSetBeginCallback((a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.BEGIN)?.Invoke(this, a_oEventData), false);
-		oTouchDispatcher?.ExSetMoveCallback((a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.MOVE)?.Invoke(this, a_oEventData), false);
-		oTouchDispatcher?.ExSetEndCallback((a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.END)?.Invoke(this, a_oEventData), false);
+		Func.SetupTouchDispatchers(new List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
+			(m_oImgDict[EKey.FOCUS_BLIND_IMG]?.gameObject, (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.BEGIN)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.MOVE)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.END)?.Invoke(this, a_oEventData))
+		}, false);
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */
@@ -87,12 +88,8 @@ public partial class CFocusPopup : CSubPopup {
 	protected new void UpdateUIsState() {
 		base.UpdateUIsState();
 
-		// 이미지를 갱신한다 {
-		m_oImgDict[EKey.BLIND_IMG]?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BLIND);
-		
-		var oContentsImg = this.Contents.GetComponentInChildren<Image>();
-		oContentsImg?.ExSetColor<Image>(KCDefine.U_COLOR_TRANSPARENT);
-		// 이미지를 갱신한다 }
+		// 이미지를 갱신한다
+		m_oImgDict[EKey.FOCUS_BLIND_IMG]?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BLIND, false);
 	}
 	#endregion			// 함수
 }

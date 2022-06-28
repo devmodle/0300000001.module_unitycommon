@@ -34,20 +34,17 @@ public partial class CSettingsPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다 {
-		m_oBtnDict[EKey.BG_SND_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.BG_SND_BTN}");
-		m_oBtnDict[EKey.BG_SND_BTN]?.onClick.AddListener(this.OnTouchBGSndBtn);
+		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+			(EKey.BG_SND_BTN, $"{EKey.BG_SND_BTN}", this.Contents, this.OnTouchBGSndBtn),
+			(EKey.FX_SNDS_BTN, $"{EKey.FX_SNDS_BTN}", this.Contents, this.OnTouchFXSndsBtn),
+			(EKey.VIBRATE_BTN, $"{EKey.VIBRATE_BTN}", this.Contents, this.OnTouchVibrateBtn),
+			(EKey.NOTI_BTN, $"{EKey.NOTI_BTN}", this.Contents, this.OnTouchNotiBtn)
+		}, m_oBtnDict, false);
 
-		m_oBtnDict[EKey.FX_SNDS_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.FX_SNDS_BTN}");
-		m_oBtnDict[EKey.FX_SNDS_BTN]?.onClick.AddListener(this.OnTouchFXSndsBtn);
-
-		m_oBtnDict[EKey.VIBRATE_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.VIBRATE_BTN}");
-		m_oBtnDict[EKey.VIBRATE_BTN]?.onClick.AddListener(this.OnTouchVibrateBtn);
-
-		m_oBtnDict[EKey.NOTI_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.NOTI_BTN}");
-		m_oBtnDict[EKey.NOTI_BTN]?.onClick.AddListener(this.OnTouchNotiBtn);
-
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_REVIEW_BTN)?.onClick.AddListener(this.OnTouchReviewBtn);
-		this.Contents.ExFindComponent<Button>(KCDefine.U_OBJ_N_SUPPORTS_BTN)?.onClick.AddListener(this.OnTouchSupportsBtn);
+		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+			(KCDefine.U_OBJ_N_REVIEW_BTN, this.Contents, this.OnTouchReviewBtn),
+			(KCDefine.U_OBJ_N_SUPPORTS_BTN, this.Contents, this.OnTouchSupportsBtn)
+		}, false);
 		// 버튼을 설정한다 }
 	}
 	
@@ -70,19 +67,23 @@ public partial class CSettingsPopup : CSubPopup {
 		CSndManager.Inst.IsMuteBGSnd = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
 		CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
 
-		// 버튼을 갱신한다 {
-		string oBGSndImgPath = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd ? KDefine.G_IMG_P_SETTINGS_P_BG_SND_OFF : KDefine.G_IMG_P_SETTINGS_P_BG_SND_ON;
-		m_oBtnDict[EKey.BG_SND_BTN]?.gameObject.ExFindComponent<Image>(KCDefine.U_OBJ_N_ICON_IMG)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oBGSndImgPath));
+		var oBtnKeyInfoList = CCollectionManager.Inst.SpawnList<(EKey, string, string, string, bool)>();
 
-		string oFXSndsImgPath = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds ? KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_OFF : KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_ON;
-		m_oBtnDict[EKey.FX_SNDS_BTN]?.gameObject.ExFindComponent<Image>(KCDefine.U_OBJ_N_ICON_IMG)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oFXSndsImgPath));
+		try {
+			// 버튼을 갱신한다 {
+			oBtnKeyInfoList.ExAddVal((EKey.BG_SND_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_BG_SND_ON, KDefine.G_IMG_P_SETTINGS_P_BG_SND_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd));
+			oBtnKeyInfoList.ExAddVal((EKey.FX_SNDS_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_ON, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds));
+			oBtnKeyInfoList.ExAddVal((EKey.VIBRATE_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_ON, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate));
+			oBtnKeyInfoList.ExAddVal((EKey.NOTI_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_NOTI_ON, KDefine.G_IMG_P_SETTINGS_P_NOTI_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti));
 
-		string oVibrateImgPath = CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate ? KDefine.G_IMG_P_SETTINGS_P_VIBRATE_OFF : KDefine.G_IMG_P_SETTINGS_P_VIBRATE_ON;
-		m_oBtnDict[EKey.VIBRATE_BTN]?.gameObject.ExFindComponent<Image>(KCDefine.U_OBJ_N_ICON_IMG)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oVibrateImgPath));
-
-		string oNotiImgPath = CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti ? KDefine.G_IMG_P_SETTINGS_P_NOTI_OFF : KDefine.G_IMG_P_SETTINGS_P_NOTI_ON;
-		m_oBtnDict[EKey.NOTI_BTN]?.gameObject.ExFindComponent<Image>(KCDefine.U_OBJ_N_ICON_IMG)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oNotiImgPath));
-		// 버튼을 갱신한다 }
+			for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+				string oImgPath = oBtnKeyInfoList[i].Item5 ? oBtnKeyInfoList[i].Item3 : oBtnKeyInfoList[i].Item4;
+				m_oBtnDict[oBtnKeyInfoList[i].Item1]?.gameObject.ExFindComponent<Image>(oBtnKeyInfoList[i].Item2)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oImgPath));
+			}
+			// 버튼을 갱신한다 }
+		} finally {
+			CCollectionManager.Inst.DespawnList(oBtnKeyInfoList);
+		}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 

@@ -47,13 +47,11 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		this.IsIgnoreAni = true;
 		this.IsIgnoreNavStackEvent = true;
 
-		// 버튼을 설정한다 {
-		m_oBtnDict[EKey.ACQUIRE_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.ACQUIRE_BTN}");
-		m_oBtnDict[EKey.ACQUIRE_BTN]?.onClick.AddListener(this.OnTouchAcquireBtn);
-
-		m_oBtnDict[EKey.REWARD_ADS_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.REWARD_ADS_BTN}");
-		m_oBtnDict[EKey.REWARD_ADS_BTN]?.onClick.AddListener(this.OnTouchRewardAdsBtn);
-		// 버튼을 설정한다 }
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn),
+			(EKey.REWARD_ADS_BTN, $"{EKey.REWARD_ADS_BTN}", this.Contents, this.OnTouchRewardAdsBtn)
+		}, m_oBtnDict, false);
 	}
 	
 	/** 초기화 */

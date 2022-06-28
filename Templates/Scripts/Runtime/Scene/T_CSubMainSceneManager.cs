@@ -330,32 +330,49 @@ namespace MainScene {
 #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
 		/** AB 테스트 UI 를 설정한다 */
 		private void SetupABTestUIs() {
-			var oABTUIsSetUIsLayoutGroup = CFactory.CreateObj<HorizontalLayoutGroup>(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, this.UpUIs);
-			oABTUIsSetUIsLayoutGroup.spacing = KCDefine.B_VAL_4_FLT * KCDefine.B_VAL_5_FLT;
-			oABTUIsSetUIsLayoutGroup.ExReset();
+			var oTextDict = CCollectionManager.Inst.SpawnDict<string, TMP_Text>();
+			var oHLayoutGroupDict = CCollectionManager.Inst.SpawnDict<string, HorizontalLayoutGroup>();
 
-			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_RIGHT;
-			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_RIGHT;
-			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_RIGHT;
-			(oABTUIsSetUIsLayoutGroup.transform as RectTransform).anchoredPosition = Vector3.zero;
+			try {
+				// 레이아웃을 설정한다 {
+				CFunc.SetupLayoutGroups(new List<(string, string, GameObject, GameObject)>() {
+					(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, this.UpUIs, null)
+				}, oHLayoutGroupDict, false);
 
-			var oContentsSizeFitter = oABTUIsSetUIsLayoutGroup.gameObject.ExAddComponent<ContentSizeFitter>();
-			oContentsSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-			oContentsSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+				oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].spacing = KCDefine.B_VAL_4_FLT * KCDefine.B_VAL_5_FLT;
 
-			// 텍스트를 설정한다 {
-			var oASetText = CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_A_SET_BTN, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN), oABTUIsSetUIsLayoutGroup.gameObject);
-			oASetText.fontSize = KCDefine.U_DEF_SIZE_FONT;
-			oASetText.ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_A_SET_TEXT), EFontSet._1);
+				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
+				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
+				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
+				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).anchoredPosition = Vector3.zero;
 
-			var oBSetText = CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_B_SET_BTN, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN), oABTUIsSetUIsLayoutGroup.gameObject);
-			oBSetText.fontSize = KCDefine.U_DEF_SIZE_FONT;
-			oBSetText.ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_B_SET_TEXT), EFontSet._1);
-			// 텍스트를 설정한다 }
+				var oContentsSizeFitter = oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].gameObject.ExAddComponent<ContentSizeFitter>();
+				oContentsSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+				oContentsSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+				// 레이아웃을 설정한다 }
 
-			// 버튼을 설정한다
-			oASetText.GetComponentInChildren<Button>().onClick.AddListener(() => this.OnTouchABTUIsSetBtn(EUserType.A));
-			oBSetText.GetComponentInChildren<Button>().onClick.AddListener(() => this.OnTouchABTUIsSetBtn(EUserType.B));
+				// 텍스트를 설정한다 {
+				CFunc.SetupComponents(new List<(string, string, GameObject, GameObject)>() {
+					(KCDefine.U_OBJ_N_A_SET_BTN, KCDefine.U_OBJ_N_A_SET_BTN, oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN)),
+					(KCDefine.U_OBJ_N_B_SET_BTN, KCDefine.U_OBJ_N_B_SET_BTN, oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN))
+				}, oTextDict, false);
+
+				oTextDict[KCDefine.U_OBJ_N_A_SET_BTN].fontSize = KCDefine.U_DEF_SIZE_FONT;
+				oTextDict[KCDefine.U_OBJ_N_A_SET_BTN].ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_A_SET_TEXT), EFontSet._1);
+
+				oTextDict[KCDefine.U_OBJ_N_B_SET_BTN].fontSize = KCDefine.U_DEF_SIZE_FONT;
+				oTextDict[KCDefine.U_OBJ_N_B_SET_BTN].ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_B_SET_TEXT), EFontSet._1);
+				// 텍스트를 설정한다 }
+
+				// 버튼을 설정한다
+				CFunc.SetupButtons(new List<(GameObject, UnityAction)>() {
+					(oTextDict[KCDefine.U_OBJ_N_A_SET_BTN].gameObject, () => this.OnTouchABTUIsSetBtn(EUserType.A)),
+					(oTextDict[KCDefine.U_OBJ_N_B_SET_BTN].gameObject, () => this.OnTouchABTUIsSetBtn(EUserType.B))
+				}, false);
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oTextDict);
+				CCollectionManager.Inst.DespawnDict(oHLayoutGroupDict);
+			}
 		}
 
 		/** AB 테스트 UI 세트 버튼을 눌렀을 경우 */

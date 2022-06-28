@@ -28,8 +28,9 @@ public partial class CFreeRewardPopup : CSubPopup {
 		base.Awake();
 
 		// 버튼을 설정한다
-		m_oBtnDict[EKey.REWARD_ADS_BTN] = this.Contents.ExFindComponent<Button>($"{EKey.REWARD_ADS_BTN}");
-		m_oBtnDict[EKey.REWARD_ADS_BTN]?.onClick.AddListener(this.OnTouchRewardAdsBtn);
+		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+			(EKey.REWARD_ADS_BTN, $"{EKey.REWARD_ADS_BTN}", this.Contents, this.OnTouchRewardAdsBtn)
+		}, m_oBtnDict, false);
 	}
 	
 	/** 초기화 */

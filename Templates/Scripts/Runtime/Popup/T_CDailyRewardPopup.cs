@@ -32,17 +32,11 @@ public partial class CDailyRewardPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		// 버튼을 설정한다 {
-		var oBtnKeyInfoList = new List<(EKey, GameObject, UnityAction)>() {
-			(EKey.ACQUIRE_BTN, this.Contents, this.OnTouchAcquireBtn),
-			(EKey.REWARD_ADS_BTN, this.Contents, this.OnTouchRewardAdsBtn)
-		};
-
-		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
-			m_oBtnDict[oBtnKeyInfoList[i].Item1] = oBtnKeyInfoList[i].Item2.ExFindComponent<Button>($"{oBtnKeyInfoList[i].Item1}");
-			m_oBtnDict[oBtnKeyInfoList[i].Item1]?.onClick.AddListener(oBtnKeyInfoList[i].Item3);
-		}
-		// 버튼을 설정한다 }
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn),
+			(EKey.REWARD_ADS_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchRewardAdsBtn)
+		}, m_oBtnDict, false);
 	}
 	
 	/** 초기화 */

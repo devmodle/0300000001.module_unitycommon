@@ -32,26 +32,16 @@ public partial class CCoinsBoxPopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		// 텍스트를 설정한다 {
-		var oTextKeyInfoList = new List<(EKey, GameObject)>() {
-			(EKey.NUM_COINS_TEXT, this.Contents)
-		};
+		// 텍스트를 설정한다
+		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.Contents)
+		}, m_oTextDict, false);
 
-		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
-			m_oTextDict[oTextKeyInfoList[i].Item1] = oTextKeyInfoList[i].Item2.ExFindComponent<TMP_Text>($"{oTextKeyInfoList[i].Item1}");
-		}
-		// 텍스트를 설정한다 }
-
-		// 버튼을 설정한다 {
-		var oBtnKeyInfoList = new List<(string, GameObject, UnityAction)>() {
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_OK_BTN, this.Contents, this.OnTouchOKBtn),
 			(KCDefine.U_OBJ_N_PURCHASE_BTN, this.Contents, this.OnTouchPurchaseBtn)
-		};
-
-		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
-			oBtnKeyInfoList[i].Item2.ExFindComponent<Button>(oBtnKeyInfoList[i].Item1)?.onClick.AddListener(oBtnKeyInfoList[i].Item3);	
-		}
-		// 버튼을 설정한다 }
+		}, false);
 	}
 
 	/** 초기화 */
