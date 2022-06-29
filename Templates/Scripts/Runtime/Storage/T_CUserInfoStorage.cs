@@ -10,6 +10,78 @@ using UnityEngine.Events;
 using MessagePack;
 using Newtonsoft.Json;
 
+/** 유저 아이템 정보 */
+[MessagePackObject][System.Serializable]
+public partial class CUserItemInfo : CBaseInfo {
+	#region 상수
+	private const string KEY_LV = "LV";
+	private const string KEY_ITEM_KINDS = "ItemKinds";
+	#endregion			// 상수
+
+	#region 프로퍼티
+	[JsonIgnore][IgnoreMember] public long m_nLV { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_LV, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_LV, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public EItemKinds ItemKinds { get { return (EItemKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); } }
+
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	#endregion			// 프로퍼티
+
+	#region 함수
+	/** 생성자 */
+	public CUserItemInfo() : base(KDefine.G_VER_USER_ITEM_INFO) {
+		// Do Something
+	}
+	#endregion			// 함수
+}
+
+/** 유저 스킬 정보 */
+[MessagePackObject][System.Serializable]
+public partial class CUserSkillInfo : CBaseInfo {
+	#region 상수
+	private const string KEY_LV = "LV";
+	private const string KEY_SKILL_KINDS = "SkillKinds";
+	#endregion			// 상수
+
+	#region 프로퍼티
+	[JsonIgnore][IgnoreMember] public long m_nLV { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_LV, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_LV, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public ESkillKinds SkillKinds { get { return (ESkillKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); } }
+
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	#endregion			// 프로퍼티
+
+	#region 함수
+	/** 생성자 */
+	public CUserSkillInfo() : base(KDefine.G_VER_USER_SKILL_INFO) {
+		// Do Something
+	}
+	#endregion			// 함수
+}
+
+/** 유저 객체 정보 */
+[MessagePackObject][System.Serializable]
+public partial class CUserObjInfo : CBaseInfo {
+	#region 상수
+	private const string KEY_LV = "LV";
+	private const string KEY_OBJ_KINDS = "ObjKinds";
+	#endregion			// 상수
+
+	#region 프로퍼티
+	[JsonIgnore][IgnoreMember] public long m_nLV { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_LV, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_LV, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public EObjKinds ObjKinds { get { return (EObjKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); } }
+
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
+	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	#endregion			// 프로퍼티
+
+	#region 함수
+	/** 생성자 */
+	public CUserObjInfo() : base(KDefine.G_VER_USER_OBJ_INFO) {
+		// Do Something
+	}
+	#endregion			// 함수
+}
+
 /** 유저 정보 */
 [MessagePackObject][System.Serializable]
 public partial class CUserInfo : CBaseInfo {
@@ -19,19 +91,16 @@ public partial class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
+	[Key(91)] public List<CUserItemInfo> m_oUserItemInfoList = new List<CUserItemInfo>();
+	[Key(92)] public List<CUserSkillInfo> m_oUserSkillInfoList = new List<CUserSkillInfo>();
+	[Key(93)] public List<CUserObjInfo> m_oUserObjInfoList = new List<CUserObjInfo>();
+
 	[Key(111)] public Dictionary<EItemKinds, long> m_oNumItemsDict = new Dictionary<EItemKinds, long>();
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public long NumCoins {
-		get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_COINS, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_COINS, $"{value}"); }
-	}
-
-	[JsonIgnore][IgnoreMember] public long NumCoinsBoxCoins {
-		get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_COINS_BOX_COINS, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_COINS_BOX_COINS, $"{value}"); }
-	}
+	[JsonIgnore][IgnoreMember] public long NumCoins { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_COINS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUM_COINS, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public long NumCoinsBoxCoins { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_COINS_BOX_COINS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUM_COINS_BOX_COINS, $"{value}"); } }
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver

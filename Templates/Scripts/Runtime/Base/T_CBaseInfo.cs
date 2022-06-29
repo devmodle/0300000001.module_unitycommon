@@ -17,6 +17,9 @@ using Newtonsoft.Json;
 [Union(3, typeof(CCellInfo))]
 [Union(4, typeof(CClearInfo))]
 [Union(5, typeof(CLevelInfo))]
+[Union(6, typeof(CUserItemInfo))]
+[Union(7, typeof(CUserSkillInfo))]
+[Union(8, typeof(CUserObjInfo))]
 [MessagePackObject][System.Serializable]
 public abstract partial class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 상수
@@ -29,15 +32,8 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public System.Version Ver {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER)); }
-		set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
-	}
-
-	[JsonIgnore][IgnoreMember] public System.DateTime SaveTime {
-		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
-		set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); }
-	}
+	[JsonIgnore][IgnoreMember] public System.Version Ver { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	[JsonIgnore][IgnoreMember] public System.DateTime SaveTime { get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; } set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); } }
 
 	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreVer => false;
 	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreSaveTime => false;

@@ -12,6 +12,7 @@ namespace SampleEngineName {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			IDX,
 			OBJ_SPRITE,
 			[HideInInspector] MAX_VAL
 		}
@@ -25,10 +26,14 @@ namespace SampleEngineName {
 		#region 변수
 		private STParams m_stParams;
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
+
+		private Dictionary<EKey, Vector3Int> m_oVec3IntDict = new Dictionary<EKey, Vector3Int>() {
+			[EKey.IDX] = default(Vector3Int)
+		};
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public Vector3Int Idx { get; set; }
+		public Vector3Int Idx { get { return m_oVec3IntDict[EKey.IDX]; } set { m_oVec3IntDict[EKey.IDX] = value; } }
 		public STObjInfo ObjInfo => m_stParams.m_stObjInfo;
 		#endregion			// 프로퍼티
 

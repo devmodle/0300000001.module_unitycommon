@@ -80,13 +80,9 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
+	[JsonIgnore][IgnoreMember] public System.Version CellInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	[JsonIgnore][IgnoreMember] public List<STTargetInfo> TargetInfoList { get; private set; } = new List<STTargetInfo>();
-	[JsonIgnore][IgnoreMember] public List<STTargetInfo> UnlockTargetInfoList { get; private set; } = new List<STTargetInfo>();
-	
-	[JsonIgnore][IgnoreMember] public System.Version CellInfoVer {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); }
-		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
-	}
+	[JsonIgnore][IgnoreMember] public List<STTargetInfo> UnlockTargetInfoList { get; private set; } = new List<STTargetInfo>();	
 	#endregion			// 프로퍼티
 
 	#region ICloneable

@@ -89,6 +89,10 @@ public static partial class KDefine {
 	public static readonly System.Version G_VER_CELL_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_CLEAR_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_LEVEL_INFO = new System.Version(1, 0, 0);
+
+	public static readonly System.Version G_VER_USER_ITEM_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_USER_SKILL_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_USER_OBJ_INFO = new System.Version(1, 0, 0);
 	// 버전 }
 
 	// 정렬 순서

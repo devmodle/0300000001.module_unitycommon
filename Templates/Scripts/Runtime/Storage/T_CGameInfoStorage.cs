@@ -25,20 +25,9 @@ public partial class CClearInfo : CBaseInfo {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public int NumMarks {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_MARKS, $"{value}"); }
-	}
-
-	[JsonIgnore][IgnoreMember] public string Record {
-		get { return m_oStrDict.GetValueOrDefault(KEY_RECORD, KCDefine.B_STR_0_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_RECORD, value); }
-	}
-
-	[JsonIgnore][IgnoreMember] public string BestRecord {
-		get { return m_oStrDict.GetValueOrDefault(KEY_BEST_RECORD, KCDefine.B_STR_0_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_BEST_RECORD, value); }
-	}
+	[JsonIgnore][IgnoreMember] public int NumMarks { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUM_MARKS, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public string Record { get { return m_oStrDict.GetValueOrDefault(KEY_RECORD, KCDefine.B_STR_0_INT); } set { m_oStrDict.ExReplaceVal(KEY_RECORD, value); } }
+	[JsonIgnore][IgnoreMember] public string BestRecord { get { return m_oStrDict.GetValueOrDefault(KEY_BEST_RECORD, KCDefine.B_STR_0_INT); } set { m_oStrDict.ExReplaceVal(KEY_BEST_RECORD, value); } }
 
 	[JsonIgnore][IgnoreMember] public long IntRecord => long.TryParse(this.Record, out long nRecord) ? nRecord : KCDefine.B_VAL_0_INT;
 	[JsonIgnore][IgnoreMember] public long BestIntRecord => long.TryParse(this.BestRecord, out long nBestRecord) ? nBestRecord : KCDefine.B_VAL_0_INT;
