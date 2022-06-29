@@ -10,6 +10,14 @@ using UnityEngine.EventSystems;
 namespace SampleEngineName {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
+		/** 식별자 */
+		private enum EKey {
+			NONE = -1,
+			STATE,
+			ENGINE_STATE,
+			[HideInInspector] MAX_VAL
+		}
+
 		/** 상태 */
 		public enum EState {
 			NONE = -1,
@@ -48,8 +56,15 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-		private EEngineState m_eEngineState = EEngineState.NONE;
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
+
+		private Dictionary<EKey, EState> m_oStateDict = new Dictionary<EKey, EState>() {
+			[EKey.STATE] = EState.NONE
+		};
+
+		private Dictionary<EKey, EEngineState> m_oEngineStateDict = new Dictionary<EKey, EEngineState>() {
+			[EKey.ENGINE_STATE] = EEngineState.NONE
+		};
 
 		/** =====> 객체 <===== */
 		private Dictionary<EObjType, List<(EObjKinds, CEObj)>>[,] m_oObjInfoDictContainers = null;
@@ -58,8 +73,20 @@ namespace SampleEngineName {
 		#region 프로퍼티
 		public long IntRecord { get; private set; } = 0;
 		public double RealRecord { get; private set; } = 0.0;
-		public EState State { get; private set; } = EState.NONE;
 		public STGridInfo GridInfo { get; private set; }
+
+		public EState State {
+			get {
+				return m_oStateDict[EKey.STATE];
+			} set {
+				m_oStateDict[EKey.STATE] = value;
+
+				switch(value) {
+					case EState.RUN: this.HandleRunState(); break;
+					case EState.STOP: this.HandleStopState(); break;
+				}
+			}
+		}
 		
 		public GameObject ObjRoot => m_stParams.m_oObjRoot;
 		public GameObject FXObjRoot => m_stParams.m_oFXObjRoot;
@@ -121,17 +148,7 @@ namespace SampleEngineName {
 		public void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			this.HandleTouchState(a_oSender, a_oEventData, ETouch.END);
 		}
-
-		/** 상태를 변경한다 */
-		public void SetState(EState a_eState) {
-			this.State = a_eState;
-
-			switch(a_eState) {
-				case EState.RUN: this.HandleRunState(); break;
-				case EState.STOP: this.HandleStopState(); break;
-			}
-		}
-
+		
 		/** 구동 상태를 처리한다 */
 		private void HandleRunState() {
 			// Do Something

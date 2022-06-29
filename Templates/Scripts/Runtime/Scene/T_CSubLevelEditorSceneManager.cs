@@ -22,6 +22,13 @@ namespace LevelEditorScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			OBJ_INFO_TABLE_GOOGLE_SHEET_ID,
+			EPISODE_INFO_TABLE_GOOGLE_SHEET_ID,
+
+			SEL_USER_TYPE,
+			SEL_TABLE_SRC,
+			SEL_INPUT_POPUP,
+
 			SEL_SCROLLER,
 			SEL_OBJ_SPRITE,
 			BG_TOUCH_DISPATCHER,
@@ -68,8 +75,8 @@ namespace LevelEditorScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		/** 테이블 */
-		private enum ETable {
+		/** 테이블 소스 */
+		private enum ETableSrc {
 			NONE = -1,
 			LOCAL,
 			REMOTE,
@@ -93,13 +100,24 @@ namespace LevelEditorScene {
 		}
 
 		#region 변수
-		private string m_oObjInfoTableGoogleSheetID = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ";
-		private string m_oEpisodeInfoTableGoogleSheetID = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA";
-
-		private ETable m_eSelTable = ETable.NONE;
-		private EUserType m_eSelUserType = EUserType.NONE;
-		private EInputPopup m_eSelInputPopup = EInputPopup.NONE;
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
+
+		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
+			[EKey.OBJ_INFO_TABLE_GOOGLE_SHEET_ID] = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ",
+			[EKey.EPISODE_INFO_TABLE_GOOGLE_SHEET_ID] = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA"
+		};
+
+		private Dictionary<EKey, EUserType> m_oUserTypeDict = new Dictionary<EKey, EUserType>() {
+			[EKey.SEL_USER_TYPE] = EUserType.NONE
+		};
+
+		private Dictionary<EKey, ETableSrc> m_oTableSrcDict = new Dictionary<EKey, ETableSrc>() {
+			[EKey.SEL_TABLE_SRC] = ETableSrc.NONE
+		};
+
+		private Dictionary<EKey, EInputPopup> m_oInputPopupDict = new Dictionary<EKey, EInputPopup>() {
+			[EKey.SEL_INPUT_POPUP] = EInputPopup.NONE
+		};
 
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>() {
 			[EKey.SEL_OBJ_SPRITE] = null
@@ -433,14 +451,14 @@ namespace LevelEditorScene {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eSelUserType;
+				CCommonUserInfoStorage.Inst.UserInfo.UserType = m_oUserTypeDict[EKey.SEL_USER_TYPE];
 				CCommonUserInfoStorage.Inst.SaveUserInfo();
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if GOOGLE_SHEET_ENABLE
-				m_eSelTable = ETable.REMOTE;
+				m_oTableSrcDict[EKey.SEL_TABLE_SRC] = ETableSrc.REMOTE;
 #else
-				m_eSelTable = ETable.LOCAL;
+				m_oTableSrcDict[EKey.SEL_TABLE_SRC] = ETableSrc.LOCAL;
 #endif			// #if GOOGLE_SHEET_ENABLE
 
 				this.OnReceiveEditorResetPopupResult(null, true);
@@ -452,16 +470,16 @@ namespace LevelEditorScene {
 		private void OnReceiveEditorTableLoadPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-				switch(m_eSelTable) {
-					case ETable.LOCAL: {
+				switch(m_oTableSrcDict[EKey.SEL_TABLE_SRC]) {
+					case ETableSrc.LOCAL: {
 						CObjInfoTable.Inst.LoadObjInfos();
 						CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 
 						this.UpdateUIsState();
 					} break;
-					case ETable.REMOTE: {
+					case ETableSrc.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
-						Func.LoadGoogleSheet(m_oObjInfoTableGoogleSheetID, new List<(string, int)>() {
+						Func.LoadGoogleSheet(m_oStrDict[EKey.OBJ_INFO_TABLE_GOOGLE_SHEET_ID], new List<(string, int)>() {
 							(KCDefine.U_KEY_BG, KCDefine.B_VAL_2_INT),
 							(KCDefine.U_KEY_NORM, KCDefine.B_VAL_2_INT),
 							(KCDefine.U_KEY_OVERLAY, KCDefine.B_VAL_2_INT),
@@ -487,7 +505,7 @@ namespace LevelEditorScene {
 		private void OnReceiveEditorInputPopupResult(CEditorInputPopup a_oSender, string a_oStr, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-				switch(m_eSelInputPopup) {
+				switch(m_oInputPopupDict[EKey.SEL_INPUT_POPUP]) {
 					case EInputPopup.MOVE_LEVEL: this.HandleMoveLevelInputPopupResult(a_oStr); break;
 					case EInputPopup.REMOVE_LEVEL: this.HandleRemoveLevelInputPopupResult(a_oStr); break;
 				}
@@ -725,7 +743,7 @@ namespace LevelEditorScene {
 			if(!oResult.Item1) {
 				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 
-				Func.LoadGoogleSheet(m_oEpisodeInfoTableGoogleSheetID, new List<(string, int)>() {
+				Func.LoadGoogleSheet(m_oStrDict[EKey.EPISODE_INFO_TABLE_GOOGLE_SHEET_ID], new List<(string, int)>() {
 					(KCDefine.U_KEY_LEVEL, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_STAGE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_CHAPTER, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)
@@ -922,7 +940,7 @@ namespace LevelEditorScene {
 		/** 중앙 에디터 UI 레벨 이동 버튼을 눌렀을 경우 */
 		private void OnTouchMEUIsMoveLevelBtn() {
 			m_oScrollerDict[EKey.SEL_SCROLLER] = m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1;
-			m_eSelInputPopup = EInputPopup.MOVE_LEVEL;
+			m_oInputPopupDict[EKey.SEL_INPUT_POPUP] = EInputPopup.MOVE_LEVEL;
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
 				var stParams = new CEditorInputPopup.STParams() {
@@ -1070,7 +1088,7 @@ namespace LevelEditorScene {
 
 			// 유저 타입이 다를 경우
 			if(CCommonUserInfoStorage.Inst.UserInfo.UserType != eUserType) {
-				m_eSelUserType = eUserType;
+				m_oUserTypeDict[EKey.SEL_USER_TYPE] = eUserType;
 
 				// A 세트 버튼 일 경우
 				if(a_oSender == m_oBtnDict[EKey.LE_UIS_A_SET_BTN]) {
@@ -1106,13 +1124,13 @@ namespace LevelEditorScene {
 
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 				(EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN, $"{EKey.RE_UIS_REMOVE_ALL_LEVELS_BTN}", this.RightEditorUIs, this.OnTouchREUIsRemoveAllLevelsBtn),
-				(EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN, $"{EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN}", this.RightEditorUIs, () => this.OnTouchREUIsLoadTableBtn(ETable.REMOTE))
+				(EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN, $"{EKey.RE_UIS_LOAD_REMOTE_TABLE_BTN}", this.RightEditorUIs, () => this.OnTouchREUIsLoadTableBtn(ETableSrc.REMOTE))
 			}, m_oBtnDict, false);
 
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 				(KCDefine.LES_OBJ_N_RE_UIS_APPLY_BTN, this.RightEditorUIs, this.OnTouchREUIsApplyBtn),
 				(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LEVEL_BTN, this.RightEditorUIs, this.OnTouchREUIsLoadLevelBtn),
-				(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LOCAL_TABLE_BTN, this.RightEditorUIs, () => this.OnTouchREUIsLoadTableBtn(ETable.LOCAL))
+				(KCDefine.LES_OBJ_N_RE_UIS_LOAD_LOCAL_TABLE_BTN, this.RightEditorUIs, () => this.OnTouchREUIsLoadTableBtn(ETableSrc.LOCAL))
 			}, false);
 			// 버튼을 설정한다 }
 
@@ -1227,7 +1245,7 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 모든 레벨 제거 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsRemoveAllLevelsBtn() {
-			m_eSelInputPopup = EInputPopup.REMOVE_LEVEL;
+			m_oInputPopupDict[EKey.SEL_INPUT_POPUP] = EInputPopup.REMOVE_LEVEL;
 			m_oScrollerDict[EKey.SEL_SCROLLER] = m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1;
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
@@ -1242,8 +1260,8 @@ namespace LevelEditorScene {
 		}
 
 		/** 오른쪽 에디터 UI 테이블 로드 버튼을 눌렀을 경우 */
-		private void OnTouchREUIsLoadTableBtn(ETable a_eTable) {
-			m_eSelTable = a_eTable;
+		private void OnTouchREUIsLoadTableBtn(ETableSrc a_eTableSrc) {
+			m_oTableSrcDict[EKey.SEL_TABLE_SRC] = a_eTableSrc;
 			Func.ShowEditorTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult);
 		}
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
@@ -1279,7 +1297,7 @@ namespace LevelEditorScene {
 
 		/** 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우 */
 		private void OnTouchSCVMoveBtn(CScrollerCellView a_oSender, long a_nID) {
-			m_eSelInputPopup = EInputPopup.MOVE_LEVEL;
+			m_oInputPopupDict[EKey.SEL_INPUT_POPUP] = EInputPopup.MOVE_LEVEL;
 			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Scroller;
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {

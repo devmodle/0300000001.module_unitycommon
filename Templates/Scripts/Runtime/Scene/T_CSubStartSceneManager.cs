@@ -15,8 +15,7 @@ namespace StartScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			LOADING_TEXT_POS,
-			LOADING_GAUGE_POS,
+			LOADING_GAUGE_ANI,
 
 			STR_BUILDER_01,
 			STR_BUILDER_02,
@@ -29,13 +28,16 @@ namespace StartScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
-		private Tween m_oLoadingGaugeAni = null;
-		private Stopwatch m_oStopwatch = new Stopwatch();
+		#region 상수
+		private static readonly Vector3 POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
+		private static readonly Vector3 POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
+		#endregion			// 상수
 
-		private Dictionary<EKey, Vector3> m_oVec3Dict = new Dictionary<EKey, Vector3>() {
-			[EKey.LOADING_TEXT_POS] = new Vector3(0.0f, 35.0f, 0.0f),
-			[EKey.LOADING_GAUGE_POS] = new Vector3(0.0f, -35.0f, 0.0f)
+		#region 변수
+		private Stopwatch m_oStopwatch = new Stopwatch();
+		
+		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>() {
+			[EKey.LOADING_GAUGE_ANI] = null
 		};
 
 		private Dictionary<EKey, System.Text.StringBuilder> m_oStrBuilderDict = new Dictionary<EKey, System.Text.StringBuilder>() {
@@ -69,7 +71,7 @@ namespace StartScene {
 			try {
 				// 앱이 실행 중 일 경우
 				if(CSceneManager.IsAppRunning) {
-					m_oLoadingGaugeAni?.Kill();
+					m_oAniDict[EKey.LOADING_GAUGE_ANI]?.Kill();
 				}
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"CSubStartSceneManager.OnDestroy Exception: {oException.Message}");
@@ -97,7 +99,7 @@ namespace StartScene {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			float fPercent = Mathf.Clamp01((int)(a_eEvent + KCDefine.B_VAL_1_INT) / (float)EStartSceneEvent.MAX_VAL);
-			CAccess.AssignVal(ref m_oLoadingGaugeAni, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].ExStartGaugeAni((a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI));
+			m_oAniDict.ExAssignVal(EKey.LOADING_GAUGE_ANI, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].ExStartGaugeAni((a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI));
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
@@ -108,7 +110,7 @@ namespace StartScene {
 				(EKey.LOADING_GAUGE, KCDefine.SS_OBJ_N_LOADING_GAUGE, this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
 			}, m_oUIsDict, false);
 
-			m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = m_oVec3Dict[EKey.LOADING_GAUGE_POS];
+			m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = CSubStartSceneManager.POS_LOADING_GAUGE;
 			// 객체를 설정한다 }
 
 			// 텍스트를 설정한다 {
@@ -116,7 +118,7 @@ namespace StartScene {
 				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
 			}, m_oTextDict, false);
 
-			m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = m_oVec3Dict[EKey.LOADING_TEXT_POS];
+			m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = CSubStartSceneManager.POS_LOADING_TEXT;
 			// 텍스트를 설정한다 }
 
 			// 게이지 처리자를 설정한다

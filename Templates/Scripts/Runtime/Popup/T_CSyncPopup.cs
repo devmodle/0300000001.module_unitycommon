@@ -11,13 +11,16 @@ public partial class CSyncPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
+		IS_LOAD_USER_INFO,
 		LOGIN_UIS,
 		LOGOUT_UIS,
 		[HideInInspector] MAX_VAL
 	}
 
 	#region 변수
-	private bool m_bIsLoadUserInfo = false;
+	private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+		[EKey.IS_LOAD_USER_INFO] = false
+	};
 
 	/** =====> 객체 <===== */
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
@@ -170,16 +173,16 @@ public partial class CSyncPopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 		}
 
-		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
+		m_oBoolDict[EKey.IS_LOAD_USER_INFO] = a_bIsSuccess && a_oJSONStr.ExIsValid();
 		
-		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
-		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { a_oPopupSender.IsIgnoreNavStackEvent = m_bIsLoadUserInfo; return true; });
+		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_oBoolDict[EKey.IS_LOAD_USER_INFO], this.OnReceiveLoadSuccessPopupResult);
+		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { a_oPopupSender.IsIgnoreNavStackEvent = m_oBoolDict[EKey.IS_LOAD_USER_INFO]; return true; });
 	}
 
 	/** 로드 성공 팝업 결과를 수신했을 경우 */
 	private void OnReceiveLoadSuccessPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 유저 정보를 로드했을 경우
-		if(a_bIsOK && m_bIsLoadUserInfo) {
+		if(a_bIsOK && m_oBoolDict[EKey.IS_LOAD_USER_INFO]) {
 			this.ExLateCallFunc((a_oSender) => {
 				CScheduleManager.Inst.Reset();
 				CNavStackManager.Inst.Reset();

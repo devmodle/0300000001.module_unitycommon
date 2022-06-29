@@ -13,6 +13,14 @@ using UnityEngine.Purchasing;
 
 /** 상점 팝업 */
 public partial class CStorePopup : CSubPopup {
+	/** 식별자 */
+	private enum EKey {
+		NONE = -1,
+		PURCHASE_PRODUCT_ID,
+		SEL_PRODUCT_SALE_KINDS,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,
@@ -38,9 +46,14 @@ public partial class CStorePopup : CSubPopup {
 
 	#region 변수
 	private STParams m_stParams;
+	
+	private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
+		[EKey.PURCHASE_PRODUCT_ID] = string.Empty
+	};
 
-	private string m_oPurchaseProductID = string.Empty;
-	private EProductSaleKinds m_eSelProductSaleKinds = EProductSaleKinds.NONE;
+	private Dictionary<EKey, EProductSaleKinds> m_oProductSaleKindsDict = new Dictionary<EKey, EProductSaleKinds>() {
+		[EKey.SEL_PRODUCT_SALE_KINDS] = EProductSaleKinds.NONE
+	};
 
 #if PURCHASE_MODULE_ENABLE
 	private List<Product> m_oRestoreProductList = new List<Product>();
@@ -164,7 +177,7 @@ public partial class CStorePopup : CSubPopup {
 		switch(a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_ePriceType) {
 			case EPriceType.ADS: {
 #if ADS_MODULE_ENABLE
-				m_eSelProductSaleKinds = a_stProductSaleInfo.m_eProductSaleKinds;
+				m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS] = a_stProductSaleInfo.m_eProductSaleKinds;
 				Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 			} break;
@@ -191,7 +204,7 @@ public partial class CStorePopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(m_eSelProductSaleKinds);
+			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS]);
 
 			for(int i = 0; i < stProductSaleInfo.m_oNumItemsInfoList.Count; ++i) {
 				Func.AcquireItem(stProductSaleInfo.m_oNumItemsInfoList[i]);
@@ -208,7 +221,7 @@ public partial class CStorePopup : CSubPopup {
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			m_oPurchaseProductID = a_oProductID;
+			m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
 		}
 
 		this.UpdateUIsState();

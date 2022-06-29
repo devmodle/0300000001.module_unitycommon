@@ -13,6 +13,9 @@ namespace GameScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			IS_LEAVE,
+			CONTINUE_TIMES,
+			SEL_REWARD_ADS_UIS,
 			PLAY_LEVEL_INFO,
 			PLAY_LEVEL_CLEAR_INFO,
 			BG_TOUCH_DISPATCHER,
@@ -45,9 +48,17 @@ namespace GameScene {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 		#region 변수
-		private bool m_bIsLeave = false;
-		private int m_nContinueTimes = 0;
-		private ERewardAdsUIs m_eSelRewardAdsUIs = ERewardAdsUIs.NONE;
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+			[EKey.IS_LEAVE] = false
+		};
+
+		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
+			[EKey.CONTINUE_TIMES] = 0
+		};
+
+		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>() {
+			[EKey.SEL_REWARD_ADS_UIS] = ERewardAdsUIs.NONE
+		};
 		
 		private Dictionary<EKey, CLevelInfo> m_oLevelInfoDict = new Dictionary<EKey, CLevelInfo>() {
 			[EKey.PLAY_LEVEL_INFO] = null
@@ -292,7 +303,7 @@ namespace GameScene {
 				case EPopupResult.RETRY: this.RetryPlayLevel(a_oSender); break;
 				case EPopupResult.RESUME: this.ResumePlayLevel(a_oSender); break;
 				case EPopupResult.CONTINUE: this.ContinuePlayLevel(a_oSender); break;
-				case EPopupResult.LEAVE: m_bIsLeave = true; this.LoadNextLevel(a_oSender); break;
+				case EPopupResult.LEAVE: m_oBoolDict[EKey.IS_LEAVE] = true; this.LoadNextLevel(a_oSender); break;
 			}
 		}
 
@@ -316,7 +327,7 @@ namespace GameScene {
 
 		/** 광고 버튼을 눌렀을 경우 */
 		private void OnTouchRewardAdsBtn(ERewardAdsUIs a_eRewardAdsUIs) {
-			m_eSelRewardAdsUIs = a_eRewardAdsUIs;
+			m_oRewardAdsUIsDict[EKey.SEL_REWARD_ADS_UIS] = a_eRewardAdsUIs;
 
 #if ADS_MODULE_ENABLE
 			Func.ShowRewardAds(this.OnCloseRewardAds);
@@ -379,7 +390,7 @@ namespace GameScene {
 			switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
 					// 다음 레벨이 존재 할 경우
-					if(bIsValid && !m_bIsLeave) {
+					if(bIsValid && !m_oBoolDict[EKey.IS_LEAVE]) {
 						CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, stNextLevelEpisodeInfo.m_stIDInfo.m_nID02, stNextLevelEpisodeInfo.m_stIDInfo.m_nID03);
 						
 #if ADS_MODULE_ENABLE
@@ -420,7 +431,7 @@ namespace GameScene {
 
 		/** 플레이 레벨을 이어한다 */
 		private void ContinuePlayLevel(CPopup a_oPopup) {
-			m_nContinueTimes += KCDefine.B_VAL_1_INT;
+			m_oIntDict[EKey.CONTINUE_TIMES] += KCDefine.B_VAL_1_INT;
 		}
 
 		/** 이어하기 팝업을 출력한다 */
@@ -428,7 +439,7 @@ namespace GameScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CContinuePopup).Init(new CContinuePopup.STParams() {
-					m_nContinueTimes = this.m_nContinueTimes,
+					m_nContinueTimes = m_oIntDict[EKey.CONTINUE_TIMES],
 					m_oLevelInfo = m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO],
 
 					m_oCallbackDict = new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {

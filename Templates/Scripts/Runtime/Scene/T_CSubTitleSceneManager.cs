@@ -12,6 +12,7 @@ namespace TitleScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			IS_LOAD_EDITOR_SCENE,
 			PLAY_BTN,
 			LOGIN_BTN,
 			APPLE_LOGIN_BTN,
@@ -28,7 +29,9 @@ namespace TitleScene {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 		#region 변수
-		private bool m_bIsLoadEditorScene = false;
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+			[EKey.IS_LOAD_EDITOR_SCENE] = false
+		};
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
@@ -83,7 +86,7 @@ namespace TitleScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 				// 에디터 씬을 로드하지 않았을 경우
-				if(!m_bIsLoadEditorScene && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
+				if(!m_oBoolDict[EKey.IS_LOAD_EDITOR_SCENE] && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 				}
 			}
@@ -132,7 +135,7 @@ namespace TitleScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			
 #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			m_bIsLoadEditorScene = true;
+			m_oBoolDict[EKey.IS_LOAD_EDITOR_SCENE] = true;
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 #endif			// #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		}
