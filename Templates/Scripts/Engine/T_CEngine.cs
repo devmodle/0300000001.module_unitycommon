@@ -59,7 +59,6 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>() {
 			[EKey.INT_RECORD] = 0
@@ -80,6 +79,8 @@ namespace SampleEngineName {
 		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>() {
 			[EKey.GRID_INFO] = default(STGridInfo)
 		};
+
+		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
 		private Dictionary<EObjType, List<(EObjKinds, CEObj)>>[,] m_oObjInfoDictContainers = null;

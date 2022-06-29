@@ -29,10 +29,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	private STParams m_stParams;
 
 	/** =====> UI <===== */
-	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
-		[EKey.ACQUIRE_BTN] = null,
-		[EKey.REWARD_ADS_BTN] = null
-	};
+	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oRewardUIs = null;

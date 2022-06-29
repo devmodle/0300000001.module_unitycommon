@@ -12,6 +12,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
+		PREV_NUM_COINS_BOX_COINS,
 		NUM_COINS_TEXT,
 		[HideInInspector] MAX_VAL
 	}
@@ -23,7 +24,10 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 
 	#region 변수
 	private STParams m_stParams;
-	private long m_nPrevNumCoinsBoxCoins = 0;
+
+	private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>() {
+		[EKey.PREV_NUM_COINS_BOX_COINS] = 0
+	};
 
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
@@ -49,7 +53,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		base.Init();
 
 		m_stParams = a_stParams;
-		m_nPrevNumCoinsBoxCoins = CUserInfoStorage.Inst.UserInfo.NumCoinsBoxCoins;
+		m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] = CUserInfoStorage.Inst.UserInfo.NumCoinsBoxCoins;
 
 		CUserInfoStorage.Inst.AddNumCoinsBoxCoins(a_stParams.m_nNumCoinsBoxCoins);
 		CUserInfoStorage.Inst.SaveUserInfo();
@@ -65,11 +69,11 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
 
-		m_oSaveUIs?.SetActive(m_nPrevNumCoinsBoxCoins < KDefine.G_MAX_NUM_COINS_BOX_COINS);
-		m_oFullUIs?.SetActive(m_nPrevNumCoinsBoxCoins >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
+		m_oSaveUIs?.SetActive(m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] < KDefine.G_MAX_NUM_COINS_BOX_COINS);
+		m_oFullUIs?.SetActive(m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
 		
 		// 텍스트를 갱신한다
-		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_nPrevNumCoinsBoxCoins}", EFontSet._1, false);
+		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS]}", EFontSet._1, false);
 	}
 	#endregion			// 함수
 }

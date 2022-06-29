@@ -21,9 +21,7 @@ namespace MainScene {
 
 		#region 변수
 		/** =====> UI <===== */
-		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
-			[EKey.VER_TEXT] = null
-		};
+		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 		#endregion			// 변수
 
 		#region 프로퍼티

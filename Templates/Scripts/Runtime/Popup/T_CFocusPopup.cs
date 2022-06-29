@@ -35,9 +35,7 @@ public partial class CFocusPopup : CSubPopup {
 	private STParams m_stParams;
 
 	/** =====> UI <===== */
-	private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>() {
-		[EKey.FOCUS_BLIND_IMG] = null
-	};
+	private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
 	#endregion			// 변수
 	
 	#region 프로퍼티

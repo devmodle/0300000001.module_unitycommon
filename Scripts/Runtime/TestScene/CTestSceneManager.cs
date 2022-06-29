@@ -16,9 +16,7 @@ namespace TestScene {
 
 		#region 변수
 		/** =====> UI <===== */
-		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
-			[EKey.BACK_BTN] = null
-		};
+		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 		#endregion			// 변수
 
 		#region 프로퍼티
@@ -59,8 +57,9 @@ namespace TestScene {
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
 			// 버튼을 설정한다 {
-			m_oBtnDict[EKey.BACK_BTN] = CFactory.CreateCloneObj<Button>(KCDefine.U_OBJ_N_BACK_BTN, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.UpLeftUIs);
-			m_oBtnDict[EKey.BACK_BTN].onClick.AddListener(this.OnTouchBackBtn);
+			CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>() {
+				(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.UpLeftUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
+			}, m_oBtnDict, false);
 
 			(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_LEFT;
 			(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_LEFT;

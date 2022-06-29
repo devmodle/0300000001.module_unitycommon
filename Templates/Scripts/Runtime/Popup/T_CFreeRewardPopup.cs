@@ -17,9 +17,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 
 	#region 변수
 	/** =====> UI <===== */
-	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
-		[EKey.REWARD_ADS_BTN] = null
-	};
+	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 	#endregion			// 변수
 
 	#region 함수

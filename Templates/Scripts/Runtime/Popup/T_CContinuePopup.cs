@@ -36,9 +36,7 @@ public partial class CContinuePopup : CSubPopup {
 	private STParams m_stParams;
 
 	/** =====> UI <===== */
-	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>() {
-		[EKey.PRICE_TEXT] = null
-	};
+	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 	#endregion			// 변수
 
 	#region 프로퍼티

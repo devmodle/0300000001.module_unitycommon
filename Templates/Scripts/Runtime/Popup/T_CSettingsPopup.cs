@@ -20,12 +20,7 @@ public partial class CSettingsPopup : CSubPopup {
 
 	#region 변수
 	/** =====> UI <===== */
-	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
-		[EKey.BG_SND_BTN] = null,
-		[EKey.FX_SNDS_BTN] = null,
-		[EKey.VIBRATE_BTN] = null,
-		[EKey.NOTI_BTN] = null
-	};
+	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 	#endregion			// 변수
 
 	#region 함수

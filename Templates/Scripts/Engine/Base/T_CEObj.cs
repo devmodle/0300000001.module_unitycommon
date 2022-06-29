@@ -24,10 +24,7 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-
-		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>() {
-			[EKey.OBJ_SPRITE] = null
-		};
+		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 		#endregion			// 변수
 
 		#region 프로퍼티

@@ -34,12 +34,7 @@ namespace TitleScene {
 		};
 
 		/** =====> UI <===== */
-		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>() {
-			[EKey.PLAY_BTN] = null,
-			[EKey.LOGIN_BTN] = null,
-			[EKey.APPLE_LOGIN_BTN] = null,
-			[EKey.FACEBOOK_LOGIN_BTN] = null
-		};
+		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STTestUIs m_stTestUIs;

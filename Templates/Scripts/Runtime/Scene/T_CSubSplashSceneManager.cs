@@ -17,12 +17,13 @@ namespace SplashScene {
 			[HideInInspector] MAX_VAL
 		}
 
+		#region 상수
+		private static readonly Vector3 POS_SPLASH_IMG = new Vector3(0.0f, 25.0f, 0.0f);
+		#endregion			// 상수
+
 		#region 변수
 		/** =====> UI <===== */
-		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>() {
-			[EKey.BG_IMG] = null,
-			[EKey.SPLASH_IMG] = null
-		};
+		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
 		#endregion			// 변수
 
 		#region 함수
@@ -31,13 +32,17 @@ namespace SplashScene {
 			base.Setup();
 			
 			// 이미지를 설정한다 {
-			m_oImgDict[EKey.BG_IMG] = CFactory.CreateCloneObj<Image>($"{EKey.BG_IMG}", CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG), this.UIs);
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.BG_IMG, $"{EKey.BG_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG)),
+				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
+			}, m_oImgDict, false);
+
 			m_oImgDict[EKey.BG_IMG].color = KCDefine.SS_COLOR_BG_IMG;
 			m_oImgDict[EKey.BG_IMG].rectTransform.sizeDelta = CSceneManager.CanvasSize;
 			m_oImgDict[EKey.BG_IMG].gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
-			m_oImgDict[EKey.SPLASH_IMG] = CFactory.CreateCloneObj<Image>($"{EKey.SPLASH_IMG}", CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG), this.UIs, KCDefine.SS_POS_SPLASH_IMG);
 			m_oImgDict[EKey.SPLASH_IMG].sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
+			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = CSubSplashSceneManager.POS_SPLASH_IMG;
 			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
 			// 이미지를 설정한다 }
 		}

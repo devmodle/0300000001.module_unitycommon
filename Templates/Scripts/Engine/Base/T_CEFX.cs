@@ -24,10 +24,7 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-		
-		private Dictionary<EKey, ParticleSystem> m_oParticleDict = new Dictionary<EKey, ParticleSystem>() {
-			[EKey.FX_PARTICLE] = null
-		};
+		private Dictionary<EKey, ParticleSystem> m_oParticleDict = new Dictionary<EKey, ParticleSystem>();
 		#endregion			// 변수
 
 		#region 프로퍼티

@@ -29,6 +29,8 @@ namespace LevelEditorScene {
 			SEL_TABLE_SRC,
 			SEL_INPUT_POPUP,
 
+			GRID_INFO,
+
 			SEL_SCROLLER,
 			SEL_OBJ_SPRITE,
 			BG_TOUCH_DISPATCHER,
@@ -99,14 +101,12 @@ namespace LevelEditorScene {
 			[HideInInspector] MAX_VAL
 		}
 
+		#region 상수
+		private const string ID_OBJ_INFO_TABLE_GOOGLE_SHEET = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ";
+		private const string ID_EPISODE_INFO_TABLE_GOOGLE_SHEET = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA";
+		#endregion			// 상수
+
 		#region 변수
-		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
-
-		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
-			[EKey.OBJ_INFO_TABLE_GOOGLE_SHEET_ID] = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ",
-			[EKey.EPISODE_INFO_TABLE_GOOGLE_SHEET_ID] = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA"
-		};
-
 		private Dictionary<EKey, EUserType> m_oUserTypeDict = new Dictionary<EKey, EUserType>() {
 			[EKey.SEL_USER_TYPE] = EUserType.NONE
 		};
@@ -123,8 +123,13 @@ namespace LevelEditorScene {
 			[EKey.SEL_OBJ_SPRITE] = null
 		};
 
+		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
+
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
-		private SampleEngineName.STGridInfo m_stGridInfo;
+		private Dictionary<EKey, SampleEngineName.STGridInfo> m_oGridInfoDict = new Dictionary<EKey, SampleEngineName.STGridInfo>() {
+			[EKey.GRID_INFO] = default(SampleEngineName.STGridInfo)
+		};
+
 		private Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>[,] m_oObjSpriteInfoDictContainers = null;
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 
@@ -135,16 +140,16 @@ namespace LevelEditorScene {
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 		/** =====> UI <===== */
-		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>() {
-			[EKey.SEL_SCROLLER] = null
-		};
-
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
 		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>();
 		private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>();
+
+		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>() {
+			[EKey.SEL_SCROLLER] = null
+		};
 
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
@@ -479,7 +484,7 @@ namespace LevelEditorScene {
 					} break;
 					case ETableSrc.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
-						Func.LoadGoogleSheet(m_oStrDict[EKey.OBJ_INFO_TABLE_GOOGLE_SHEET_ID], new List<(string, int)>() {
+						Func.LoadGoogleSheet(CSubLevelEditorSceneManager.ID_OBJ_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
 							(KCDefine.U_KEY_BG, KCDefine.B_VAL_2_INT),
 							(KCDefine.U_KEY_NORM, KCDefine.B_VAL_2_INT),
 							(KCDefine.U_KEY_OVERLAY, KCDefine.B_VAL_2_INT),
@@ -743,7 +748,7 @@ namespace LevelEditorScene {
 			if(!oResult.Item1) {
 				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 
-				Func.LoadGoogleSheet(m_oStrDict[EKey.EPISODE_INFO_TABLE_GOOGLE_SHEET_ID], new List<(string, int)>() {
+				Func.LoadGoogleSheet(CSubLevelEditorSceneManager.ID_EPISODE_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
 					(KCDefine.U_KEY_LEVEL, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_STAGE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_CHAPTER, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)
@@ -779,14 +784,14 @@ namespace LevelEditorScene {
 				}
 			}
 
-			m_stGridInfo = SampleEngineName.Factory.MakeGridInfo(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO], Vector3.zero);
+			m_oGridInfoDict[EKey.GRID_INFO] = SampleEngineName.Factory.MakeGridInfo(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO], Vector3.zero);
 
 			// 비율을 설정한다 {
-			bool bIsValid01 = !float.IsNaN(m_stGridInfo.m_stScale.x) && !float.IsInfinity(m_stGridInfo.m_stScale.x);
-			bool bIsValid02 = !float.IsNaN(m_stGridInfo.m_stScale.y) && !float.IsInfinity(m_stGridInfo.m_stScale.y);
-			bool bIsValid03 = !float.IsNaN(m_stGridInfo.m_stScale.z) && !float.IsInfinity(m_stGridInfo.m_stScale.z);
+			bool bIsValid01 = !float.IsNaN(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.x) && !float.IsInfinity(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.x);
+			bool bIsValid02 = !float.IsNaN(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.y) && !float.IsInfinity(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.y);
+			bool bIsValid03 = !float.IsNaN(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.z) && !float.IsInfinity(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.z);
 
-			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_stGridInfo.m_stScale : Vector3.one;
+			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oGridInfoDict[EKey.GRID_INFO].m_stScale : Vector3.one;
 			this.ObjRoot.transform.localPosition = Vector3.zero.ExToWorld(this.MidEditorUIs).ExToLocal(this.UIs);
 			// 비율을 설정한다 }
 
@@ -821,7 +826,7 @@ namespace LevelEditorScene {
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 					var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, KDefine.LES_OBJ_N_OBJ_SPRITE);
 					oObjSprite.sprite = SampleEngineName.Access.GetObjSprite(stKeyVal.Value[i]);
-					oObjSprite.transform.localPosition = m_stGridInfo.m_stPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+					oObjSprite.transform.localPosition = m_oGridInfoDict[EKey.GRID_INFO].m_stPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
 					oObjSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrderInfo(stKeyVal.Value[i]));
 					oObjSpriteInfoList.ExAddVal((stKeyVal.Value[i], oObjSprite));

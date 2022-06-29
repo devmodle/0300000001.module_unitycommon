@@ -34,8 +34,6 @@ namespace StartScene {
 		#endregion			// 상수
 
 		#region 변수
-		private Stopwatch m_oStopwatch = new Stopwatch();
-		
 		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>() {
 			[EKey.LOADING_GAUGE_ANI] = null
 		};
@@ -44,6 +42,8 @@ namespace StartScene {
 			[EKey.STR_BUILDER_01] = new System.Text.StringBuilder(),
 			[EKey.STR_BUILDER_02] = new System.Text.StringBuilder()
 		};
+
+		private Stopwatch m_oStopwatch = new Stopwatch();
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();

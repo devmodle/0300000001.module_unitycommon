@@ -46,7 +46,7 @@ public partial class CStorePopup : CSubPopup {
 
 	#region 변수
 	private STParams m_stParams;
-	
+
 	private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
 		[EKey.PURCHASE_PRODUCT_ID] = string.Empty
 	};
