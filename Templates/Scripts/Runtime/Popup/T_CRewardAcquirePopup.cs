@@ -12,8 +12,8 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
+		ADS_BTN,
 		ACQUIRE_BTN,
-		REWARD_ADS_BTN,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -46,8 +46,8 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
-			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn),
-			(EKey.REWARD_ADS_BTN, $"{EKey.REWARD_ADS_BTN}", this.Contents, this.OnTouchRewardAdsBtn)
+			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
+			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
 		}, m_oBtnDict, false);
 	}
 	
@@ -83,25 +83,25 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stAcquireInfo.m_nNumItems), EFontSet._1, false);
 	}
 
-	/** 획득 버튼을 눌렀을 경우 */
-	private void OnTouchAcquireBtn() {
-		this.AcquireItems(false);
-	}
-
-	/** 보상 광고 버튼을 눌렀을 경우 */
-	private void OnTouchRewardAdsBtn() {
+	/** 광고 버튼을 눌렀을 경우 */
+	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 	}
 
-	/** 아이템을 획득한다 */
-	private void AcquireItems(bool a_bIsWatchRewardAds) {
+	/** 획득 버튼을 눌렀을 경우 */
+	private void OnTouchAcquireBtn() {
+		this.AcquireRewards(false);
+	}
+
+	/** 보상을 획득한다 */
+	private void AcquireRewards(bool a_bIsWatchRewardAds) {
+		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(false);
 		m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(false);
-		m_oBtnDict[EKey.REWARD_ADS_BTN]?.ExSetInteractable(false);
 
 #if ADS_MODULE_ENABLE
-		m_oBtnDict[EKey.REWARD_ADS_BTN]?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
+		m_oBtnDict[EKey.ADS_BTN]?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
 #endif			// #if ADS_MODULE_ENABLE
 
 		for(int i = 0; i < m_stParams.m_oAcquireInfoList.Count; ++i) {
@@ -118,7 +118,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			this.AcquireItems(true);
+			this.AcquireRewards(true);
 		}
 	}
 #endif			// #if ADS_MODULE_ENABLE

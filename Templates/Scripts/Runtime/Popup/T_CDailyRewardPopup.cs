@@ -11,8 +11,8 @@ public partial class CDailyRewardPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
+		ADS_BTN,
 		ACQUIRE_BTN,
-		REWARD_ADS_BTN,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -31,8 +31,8 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
-			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn),
-			(EKey.REWARD_ADS_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchRewardAdsBtn)
+			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
+			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
 		}, m_oBtnDict, false);
 	}
 	
@@ -52,8 +52,8 @@ public partial class CDailyRewardPopup : CSubPopup {
 		base.UpdateUIsState();
 
 		// 버튼을 갱신한다
+		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetDailyReward);
 		m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetDailyReward);
-		m_oBtnDict[EKey.REWARD_ADS_BTN]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetDailyReward);
 		
 		// 보상 UI 상태를 갱신한다
 		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
@@ -69,16 +69,16 @@ public partial class CDailyRewardPopup : CSubPopup {
 		// Do Something
 	}
 
-	/** 획득 버튼을 눌렀을 경우 */
-	private void OnTouchAcquireBtn() {
-		this.ShowRewardAcquirePopup(false);
-	}
-
-	/** 보상 광고 버튼을 눌렀을 경우 */
-	private void OnTouchRewardAdsBtn() {
+	/** 광고 버튼을 눌렀을 경우 */
+	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
+	}
+
+	/** 획득 버튼을 눌렀을 경우 */
+	private void OnTouchAcquireBtn() {
+		this.ShowRewardAcquirePopup(false);
 	}
 
 	/** 보상 획득 팝업이 닫혔을 경우 */

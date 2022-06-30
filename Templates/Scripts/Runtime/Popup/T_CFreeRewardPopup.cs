@@ -11,7 +11,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
-		REWARD_ADS_BTN,
+		ADS_BTN,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -27,7 +27,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
-			(EKey.REWARD_ADS_BTN, $"{EKey.REWARD_ADS_BTN}", this.Contents, this.OnTouchRewardAdsBtn)
+			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn)
 		}, m_oBtnDict, false);
 	}
 	
@@ -47,11 +47,11 @@ public partial class CFreeRewardPopup : CSubPopup {
 		base.UpdateUIsState();
 
 		// 버튼을 갱신한다
-		m_oBtnDict[EKey.REWARD_ADS_BTN]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetFreeReward);
+		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetFreeReward);
 	}
 
-	/** 보상 광고 버튼을 눌렀을 경우 */
-	private void OnTouchRewardAdsBtn() {
+	/** 광고 버튼을 눌렀을 경우 */
+	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE

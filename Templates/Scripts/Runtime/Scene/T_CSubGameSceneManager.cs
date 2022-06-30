@@ -262,7 +262,7 @@ namespace GameScene {
 		private void SetupRewardAdsUIs() {
 			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
 				var eRewardAdsUIs = (ERewardAdsUIs)i;
-				m_oRewardAdsUIsList[i]?.GetComponentInChildren<Button>()?.onClick.AddListener(() => this.OnTouchRewardAdsBtn(eRewardAdsUIs));
+				m_oRewardAdsUIsList[i]?.GetComponentInChildren<Button>()?.onClick.AddListener(() => this.OnTouchAdsBtn(eRewardAdsUIs));
 			}
 		}
 
@@ -326,7 +326,7 @@ namespace GameScene {
 		}
 
 		/** 광고 버튼을 눌렀을 경우 */
-		private void OnTouchRewardAdsBtn(ERewardAdsUIs a_eRewardAdsUIs) {
+		private void OnTouchAdsBtn(ERewardAdsUIs a_eRewardAdsUIs) {
 			m_oRewardAdsUIsDict[EKey.SEL_REWARD_ADS_UIS] = a_eRewardAdsUIs;
 
 #if ADS_MODULE_ENABLE
