@@ -21,7 +21,7 @@ public static partial class CEditorSceneManager {
 			yield return null;
 		} while(!CEditorAccess.IsEnableUpdateState);
 
-		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_FLT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_REAL);
 		CEditorSceneManager.m_bIsEnableSetup = true;
 	}
 

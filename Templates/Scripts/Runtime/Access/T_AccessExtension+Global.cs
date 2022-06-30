@@ -17,12 +17,12 @@ public static partial class AccessExtension {
 		return stPriceInfo;
 	}
 
-	/** 아이템 개수 정보를 반환한다 */
-	public static STNumItemsInfo ExGetNumItemsInfo(this List<STNumItemsInfo> a_oSender, EItemKinds a_eItemKinds) {
-		bool bIsValid = a_oSender.ExTryGetNumItemsInfo(a_eItemKinds, out STNumItemsInfo stNumItemsInfo);
+	/** 획득 정보를 반환한다 */
+	public static STAcquireInfo ExGetAcquireInfo(this List<STAcquireInfo> a_oSender, EItemKinds a_eItemKinds) {
+		bool bIsValid = a_oSender.ExTryGetAcquireInfo(a_eItemKinds, out STAcquireInfo stAcquireInfo);
 		CAccess.Assert(bIsValid);
 
-		return stNumItemsInfo;
+		return stAcquireInfo;
 	}
 
 	/** 가격 정보를 반환한다 */
@@ -33,10 +33,10 @@ public static partial class AccessExtension {
 		return a_oSender.ExIsValidIdx(nIdx);
 	}
 
-	/** 아이템 개수 정보를 반환한다 */
-	public static bool ExTryGetNumItemsInfo(this List<STNumItemsInfo> a_oSender, EItemKinds a_eItemKinds, out STNumItemsInfo a_stOutNumItemsInfo) {
-		int nIdx = a_oSender.FindIndex((a_stNumItemsInfo) => a_stNumItemsInfo.m_eItemKinds == a_eItemKinds);
-		a_stOutNumItemsInfo = a_oSender.ExIsValidIdx(nIdx) ? a_oSender[nIdx] : default(STNumItemsInfo);
+	/** 획득 정보를 반환한다 */
+	public static bool ExTryGetAcquireInfo(this List<STAcquireInfo> a_oSender, EItemKinds a_eItemKinds, out STAcquireInfo a_stOutAcquireInfo) {
+		int nIdx = a_oSender.FindIndex((a_stAcquireInfo) => a_stAcquireInfo.m_eItemKinds == a_eItemKinds);
+		a_stOutAcquireInfo = a_oSender.ExIsValidIdx(nIdx) ? a_oSender[nIdx] : default(STAcquireInfo);
 
 		return a_oSender.ExIsValidIdx(nIdx);
 	}

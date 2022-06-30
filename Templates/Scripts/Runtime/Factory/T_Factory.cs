@@ -12,13 +12,42 @@ public static partial class Factory {
 	#region 클래스 함수
 	/** 클리어 정보를 생성한다 */
 	public static CClearInfo MakeClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return new CClearInfo() {
-			NumMarks = KCDefine.B_VAL_0_INT,
-			Record = KCDefine.B_STR_0_INT,
-			BestRecord = KCDefine.B_STR_0_INT,
-
+		var oClearInfo = new CClearInfo() {
 			m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID)
 		};
+
+		oClearInfo.OnAfterDeserialize();
+		return oClearInfo;
+	}
+
+	/** 유저 아이템 정보를 생성한다 */
+	public static CUserItemInfo MakeUserItemInfo(EItemKinds a_eItemKinds, long m_nLV = KCDefine.B_VAL_1_INT, long a_nNumItems = KCDefine.B_VAL_0_INT) {
+		var oUserItemInfo = new CUserItemInfo() {
+			LV = m_nLV, NumItems = a_nNumItems, ItemKinds = a_eItemKinds
+		};
+
+		oUserItemInfo.OnAfterDeserialize();
+		return oUserItemInfo;
+	}
+
+	/** 유저 스킬 정보를 생성한다 */
+	public static CUserSkillInfo MakeUserSkillInfo(ESkillKinds a_eSkillKinds, long m_nLV = KCDefine.B_VAL_1_INT) {
+		var oUserSkillInfo = new CUserSkillInfo() {
+			LV = m_nLV, SkillKinds = a_eSkillKinds
+		};
+
+		oUserSkillInfo.OnAfterDeserialize();
+		return oUserSkillInfo;
+	}
+
+	/** 유저 객체 정보를 생성한다 */
+	public static CUserObjInfo MakeUserObjInfo(EObjKinds a_eObjKinds, long m_nLV = KCDefine.B_VAL_1_INT) {
+		var oUserObjInfo = new CUserObjInfo() {
+			LV = m_nLV, ObjKinds = a_eObjKinds
+		};
+
+		oUserObjInfo.OnAfterDeserialize();
+		return oUserObjInfo;
 	}
 	#endregion			// 클래스 함수
 
@@ -67,14 +96,14 @@ public static partial class Factory {
 		return CFactory.MakeUserInfoNodes();
 	}
 
+	/** 획득 정보 노드를 생성한다 */
+	public static List<string> MakeAcquireInfoNodes() {
+		return CFactory.MakeAcquireInfoNodes();
+	}
+
 	/** 결제 정보 노드를 생성한다 */
 	public static List<string> MakePurchaseInfoNodes() {
 		return CFactory.MakePurchaseInfoNodes();
-	}
-
-	/** 획득 아이템 정보 노드를 생성한다 */
-	public static List<string> MakeAcquireItemInfoNodes() {
-		return CFactory.MakeAcquireItemInfoNodes();
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

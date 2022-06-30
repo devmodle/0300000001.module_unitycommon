@@ -32,8 +32,8 @@ public partial class CClearInfo : CBaseInfo {
 	[JsonIgnore][IgnoreMember] public long IntRecord => long.TryParse(this.Record, out long nRecord) ? nRecord : KCDefine.B_VAL_0_INT;
 	[JsonIgnore][IgnoreMember] public long BestIntRecord => long.TryParse(this.BestRecord, out long nBestRecord) ? nBestRecord : KCDefine.B_VAL_0_INT;
 
-	[JsonIgnore][IgnoreMember] public double RealRecord => double.TryParse(this.Record, out double dblRecord) ? dblRecord : KCDefine.B_VAL_0_DBL;
-	[JsonIgnore][IgnoreMember] public double BestRealRecord => double.TryParse(this.BestRecord, out double dblBestRecord) ? dblBestRecord : KCDefine.B_VAL_0_DBL;
+	[JsonIgnore][IgnoreMember] public double RealRecord => double.TryParse(this.Record, out double dblRecord) ? dblRecord : KCDefine.B_VAL_0_REAL;
+	[JsonIgnore][IgnoreMember] public double BestRealRecord => double.TryParse(this.BestRecord, out double dblBestRecord) ? dblBestRecord : KCDefine.B_VAL_0_REAL;
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -90,30 +90,11 @@ public partial class CGameInfo : CBaseInfo {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public int DailyRewardID {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_DAILY_REWARD_ID, $"{value}"); }
-	}
-
-	[JsonIgnore][IgnoreMember] public int FreeRewardAcquireTimes {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); }
-	}
-
-	[JsonIgnore][IgnoreMember] public System.DateTime PrevDailyMissionTime {
-		get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.CorrectPrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); }
-	}
-
-	[JsonIgnore][IgnoreMember] public System.DateTime PrevFreeRewardTime {
-		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.CorrectPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
-	}
-
-	[JsonIgnore][IgnoreMember] public System.DateTime PrevDailyRewardTime {
-		get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.CorrectPrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); }
-	}
+	[JsonIgnore][IgnoreMember] public int DailyRewardID { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_DAILY_REWARD_ID, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public int FreeRewardAcquireTimes { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public System.DateTime PrevDailyMissionTime { get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.CorrectPrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); } set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); } }
+	[JsonIgnore][IgnoreMember] public System.DateTime PrevFreeRewardTime { get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.CorrectPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); } set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); } }
+	[JsonIgnore][IgnoreMember] public System.DateTime PrevDailyRewardTime { get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.CorrectPrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); } set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); } }
 
 	[JsonIgnore][IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
 	[JsonIgnore][IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_FREE_REWARD_TIME, string.Empty);
@@ -173,7 +154,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public List<EItemKinds> FreeSelItemKindsList { get; private set; } = new List<EItemKinds>();
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
-		PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_DBL), PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_DBL), PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_DBL)
+		PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL)
 	};
 
 	public int NumChapterClearInfos {
@@ -188,10 +169,10 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		}	
 	}
 
-	public bool IsEnableGetFreeReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevFreeRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
-	public bool IsEnableGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
-	public bool IsContinueGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_DBL);
-	public bool IsEnableResetDailyMission => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_DBL);
+	public bool IsEnableGetFreeReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevFreeRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL);
+	public bool IsEnableGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL);
+	public bool IsContinueGetDailyReward => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_REAL);
+	public bool IsEnableResetDailyMission => System.DateTime.Now.ExGetDeltaTimePerDays(this.GameInfo.PrevDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL);
 
 	public int TotalNumMarks => this.GameInfo.m_oLevelClearInfoDict.Sum((a_stKeyVal) => a_stKeyVal.Value.NumMarks);
 	public ERewardKinds DailyRewardKinds => KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[this.GameInfo.DailyRewardID];
@@ -349,16 +330,23 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	}
 
 	/** 레벨 클리어 정보를 반환한다 */
-	public CClearInfo GetLevelClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		bool bIsValid = this.TryGetLevelClearInfo(a_nID, out CClearInfo oLevelClearInfo, a_nStageID, a_nChapterID);
+	public CClearInfo GetLevelClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT, bool a_bIsAutoCreate = false) {
+		bool bIsValid = this.TryGetLevelClearInfo(a_nID, out CClearInfo oLevelClearInfo, a_nStageID, a_nChapterID, a_bIsAutoCreate);
 		CAccess.Assert(bIsValid);
 
 		return oLevelClearInfo;
 	}
 
 	/** 레벨 클리어 정보를 반환한다 */
-	public bool TryGetLevelClearInfo(int a_nID, out CClearInfo a_oOutLevelClearInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public bool TryGetLevelClearInfo(int a_nID, out CClearInfo a_oOutLevelClearInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT, bool a_bIsAutoCreate = false) {
 		a_oOutLevelClearInfo = this.GameInfo.m_oLevelClearInfoDict.GetValueOrDefault(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID), null);
+
+		// 레벨 클리어 정보가 없을 경우
+		if(a_bIsAutoCreate && a_oOutLevelClearInfo == null) {
+			a_oOutLevelClearInfo = Factory.MakeClearInfo(a_nID, a_nStageID, a_nChapterID);
+			this.AddLevelClearInfo(a_oOutLevelClearInfo);
+		}
+
 		return a_oOutLevelClearInfo != null;
 	}
 

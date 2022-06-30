@@ -34,6 +34,9 @@ public enum EItemKinds {
 	#region 재화
 	// 0
 	GOODS_COINS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 100,000
+	GOODS_COINS_BOX_COINS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 재화
 
 	#region 소모

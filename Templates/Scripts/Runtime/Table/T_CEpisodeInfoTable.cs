@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 /** 에피소드 정보 */
 [System.Serializable]
 public partial struct STEpisodeInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 
 	public STIDInfo m_stIDInfo;
 	public STIDInfo m_stPrevIDInfo;
@@ -32,9 +32,9 @@ public partial struct STEpisodeInfo {
 	#region 함수
 	/** 생성자 */
 	public STEpisodeInfo(SimpleJSON.JSONNode a_oEpisodeInfo) {
-		m_stDescInfo = new STDescInfo(a_oEpisodeInfo);
+		m_stCommonInfo = new STCommonInfo(a_oEpisodeInfo);
 
-		m_stSize = new Vector3(a_oEpisodeInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_FLT);
+		m_stSize = new Vector3(a_oEpisodeInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_REAL);
 		m_eDifficulty = a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].ExIsValid() ? (EDifficulty)a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].AsInt : EDifficulty.NONE;
 		m_eEpisodeKinds = a_oEpisodeInfo[KCDefine.U_KEY_EPISODE_KINDS].ExIsValid() ? (EEpisodeKinds)a_oEpisodeInfo[KCDefine.U_KEY_EPISODE_KINDS].AsInt : EEpisodeKinds.NONE;
 		m_eTutorialKinds = a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oEpisodeInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
@@ -121,7 +121,7 @@ public partial struct STEpisodeInfo {
 	/** 에피소드 정보를 생성한다 */
 	public SimpleJSON.JSONClass MakeEpisodeInfo() {
 		var oEpisodeInfo = new SimpleJSON.JSONClass();
-		m_stDescInfo.MakeDescInfo(oEpisodeInfo);
+		m_stCommonInfo.MakeCommonInfo(oEpisodeInfo);
 
 		oEpisodeInfo.Add(KCDefine.U_KEY_SIZE_X, $"{m_stSize.x}");
 		oEpisodeInfo.Add(KCDefine.U_KEY_SIZE_Y, $"{m_stSize.y}");

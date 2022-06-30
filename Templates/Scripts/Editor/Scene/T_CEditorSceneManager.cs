@@ -97,7 +97,7 @@ public static partial class CEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CEditorSceneManager.m_fUpdateSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
-				CEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_FLT;
+				CEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
 				CEditorSceneManager.SetupExtraPreloadAssets();
 
 				CFunc.EnumerateRootObjs((a_oObj) => {
@@ -142,7 +142,7 @@ public static partial class CEditorSceneManager {
 	/** 상태를 갱신한다 */
 	private static void LateUpdate() {
 		bool bIsEnableUpdate = CEditorAccess.IsEnableUpdateState && !CEditorSceneManager.m_oAddRequestList.ExIsValid();
-		CEditorSceneManager.m_fDefineSymbolSkipTime = bIsEnableUpdate ? CEditorSceneManager.m_fDefineSymbolSkipTime + Time.deltaTime : KCDefine.B_VAL_0_FLT;
+		CEditorSceneManager.m_fDefineSymbolSkipTime = bIsEnableUpdate ? CEditorSceneManager.m_fDefineSymbolSkipTime + Time.deltaTime : KCDefine.B_VAL_0_REAL;
 
 		for(int i = 0; i < CEditorSceneManager.m_oAddRequestList.Count; ++i) {
 			// 에러가 존재 할 경우
@@ -155,12 +155,12 @@ public static partial class CEditorSceneManager {
 		}
 
 		// 상태 갱신이 가능 할 경우
-		if(bIsEnableUpdate && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KCDefine.B_VAL_1_FLT)) {
+		if(bIsEnableUpdate && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
 			var oDefineSymbolInfoTable = CEditorFunc.FindAsset<CDefineSymbolInfoTable>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_INFO_TABLE);
 
 			// 전처리기 심볼 정보 테이블이 존재 할 경우
 			if(oDefineSymbolInfoTable != null) {
-				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_FLT;
+				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_REAL;
 
 				foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
 					var oDefineSymbolLists = new List<List<string>>() {
@@ -204,7 +204,7 @@ public static partial class CEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(bIsEnableSetup && CEditorSceneManager.m_fDependencySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
-				CEditorSceneManager.m_fDependencySkipTime = KCDefine.B_VAL_0_FLT;
+				CEditorSceneManager.m_fDependencySkipTime = KCDefine.B_VAL_0_REAL;
 				CEditorSceneManager.m_bIsEnableSetupDependencies = false;
 
 				try {

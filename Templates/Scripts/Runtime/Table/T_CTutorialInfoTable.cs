@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 튜토리얼 정보 */
 [System.Serializable]
 public partial struct STTutorialInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 
 	public ETutorialKinds m_eTutorialKinds;
 	public ETutorialKinds m_ePrevTutorialKinds;
@@ -26,7 +26,7 @@ public partial struct STTutorialInfo {
 	#region 함수
 	/** 생성자 */
 	public STTutorialInfo(SimpleJSON.JSONNode a_oTutorialInfo) {
-		m_stDescInfo = new STDescInfo(a_oTutorialInfo);
+		m_stCommonInfo = new STCommonInfo(a_oTutorialInfo);
 
 		m_eTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
 		m_ePrevTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;

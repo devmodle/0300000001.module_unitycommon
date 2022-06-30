@@ -9,14 +9,14 @@ using UnityEngine.Events;
 /** 보상 정보 */
 [System.Serializable]
 public partial struct STRewardInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 
 	public ERewardKinds m_eRewardKinds;
 	public ERewardKinds m_ePrevRewardKinds;
 	public ERewardKinds m_eNextRewardKinds;
 	public ERewardQuality m_eRewardQuality;
 
-	public List<STNumItemsInfo> m_oNumItemsInfoList;
+	public List<STAcquireInfo> m_oAcquireInfoList;
 
 	#region 프로퍼티
 	public ERewardType RewardType => (ERewardType)((int)m_eRewardKinds).ExKindsToType();
@@ -26,21 +26,21 @@ public partial struct STRewardInfo {
 	#region 함수
 	/** 생성자 */
 	public STRewardInfo(SimpleJSON.JSONNode a_oRewardInfo) {
-		m_stDescInfo = new STDescInfo(a_oRewardInfo);
+		m_stCommonInfo = new STCommonInfo(a_oRewardInfo);
 		
 		m_eRewardKinds = a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_ePrevRewardKinds = a_oRewardInfo[KCDefine.U_KEY_PREV_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_PREV_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_eNextRewardKinds = a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_eRewardQuality = a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].ExIsValid() ? (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt : ERewardQuality.NONE;
 
-		m_oNumItemsInfoList = new List<STNumItemsInfo>();
+		m_oAcquireInfoList = new List<STAcquireInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_ITEM_INFOS; ++i) {
 			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
 			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
 
-			m_oNumItemsInfoList.Add(new STNumItemsInfo() {
-				m_nNumItems = long.TryParse(a_oRewardInfo[oNumItemsKey], out long nNumItems) ? nNumItems : KCDefine.B_VAL_0_LONG, m_eItemKinds = a_oRewardInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt : EItemKinds.NONE
+			m_oAcquireInfoList.Add(new STAcquireInfo() {
+				m_nNumItems = long.TryParse(a_oRewardInfo[oNumItemsKey], out long nNumItems) ? nNumItems : KCDefine.B_VAL_0_INT, m_eItemKinds = a_oRewardInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt : EItemKinds.NONE
 			});
 		}
 	}

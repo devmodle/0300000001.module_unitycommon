@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 아이템 정보 */
 [System.Serializable]
 public partial struct STItemInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 
 	public EItemKinds m_eItemKinds;
 	public EItemKinds m_ePrevItemKinds;
@@ -27,7 +27,7 @@ public partial struct STItemInfo {
 	#region 함수
 	/** 생성자 */
 	public STItemInfo(SimpleJSON.JSONNode a_oItemInfo) {
-		m_stDescInfo = new STDescInfo(a_oItemInfo);
+		m_stCommonInfo = new STCommonInfo(a_oItemInfo);
 		
 		m_eItemKinds = a_oItemInfo[KCDefine.U_KEY_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_ePrevItemKinds = a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].AsInt : EItemKinds.NONE;

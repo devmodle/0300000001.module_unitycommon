@@ -116,7 +116,7 @@ public static partial class CCommonEditorSceneManager {
 
 			// 갱신 주기가 지났을 경우
 			if(CCommonEditorSceneManager.m_fUpdateSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
-				CCommonEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_FLT;
+				CCommonEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
 				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupTags();
@@ -215,14 +215,14 @@ public static partial class CCommonEditorSceneManager {
 					
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
-						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VAL_0_FLT);
+						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VAL_0_REAL);
 						string oStr = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 						var oRectList = new List<Rect>() {
-							new Rect(a_stRect.x + KCDefine.B_VAL_1_FLT, a_stRect.y, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x - KCDefine.B_VAL_1_FLT, a_stRect.y, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x, a_stRect.y + KCDefine.B_VAL_1_FLT, a_stRect.width, a_stRect.height),
-							new Rect(a_stRect.x, a_stRect.y - KCDefine.B_VAL_1_FLT, a_stRect.width, a_stRect.height)
+							new Rect(a_stRect.x + KCDefine.B_VAL_1_REAL, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x - KCDefine.B_VAL_1_REAL, a_stRect.y, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x, a_stRect.y + KCDefine.B_VAL_1_REAL, a_stRect.width, a_stRect.height),
+							new Rect(a_stRect.x, a_stRect.y - KCDefine.B_VAL_1_REAL, a_stRect.width, a_stRect.height)
 						};
 
 						for(int j = 0; j < oRectList.Count; ++j) {
@@ -243,7 +243,7 @@ public static partial class CCommonEditorSceneManager {
 #if EDITOR_COROUTINE_ENABLE
 			EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.UpdateEditorModeState());
 #else
-			Time.timeScale = KCDefine.B_VAL_1_FLT;
+			Time.timeScale = KCDefine.B_VAL_1_REAL;
 #endif			// #if EDITOR_COROUTINE_ENABLE
 		}
 	}
@@ -260,8 +260,8 @@ public static partial class CCommonEditorSceneManager {
 #if EDITOR_COROUTINE_ENABLE
 	/** 에디터 모드 상태를 갱신한다 */
 	private static IEnumerator UpdateEditorModeState() {
-		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_FLT, true);
-		Time.timeScale = KCDefine.B_VAL_1_FLT;
+		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_REAL, true);
+		Time.timeScale = KCDefine.B_VAL_1_REAL;
 	}
 #endif			// #if EDITOR_COROUTINE_ENABLE
 	#endregion			// 조건부 클래스 함수

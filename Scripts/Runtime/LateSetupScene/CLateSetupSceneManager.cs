@@ -268,7 +268,7 @@ namespace LateSetupScene {
 			CSceneManager.IsLateSetup = true;
 			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_INTRO_SCENE, false);
 
-			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_INTRO), KCDefine.B_VAL_1_FLT);
+			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_INTRO), KCDefine.B_VAL_1_REAL);
 		}
 		#endregion			// 함수
 

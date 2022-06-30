@@ -98,10 +98,10 @@ public partial class CContinuePopup : CSubPopup {
 		var stCoinsPriceInfo = CItemSaleInfoTable.Inst.GetPriceInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE, EPriceType.ITEM, (int)EItemKinds.GOODS_COINS);
 
 		// 코인이 부족 할 경우
-		if(CUserInfoStorage.Inst.UserInfo.NumCoins < stCoinsPriceInfo.IntPrice) {
+		if(CUserInfoStorage.Inst.NumCoins < stCoinsPriceInfo.IntPrice) {
 			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 		} else {
-			Func.BuyItem(CItemSaleInfoTable.Inst.GetItemSaleInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE));
+			Func.AcquireItem(CItemSaleInfoTable.Inst.GetItemSaleInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE));
 			m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
 		}
 	}

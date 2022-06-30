@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 객체 판매 정보 */
 [System.Serializable]
 public partial struct STObjSaleInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 
 	public EObjSaleKinds m_eObjSaleKinds;
 	public EObjSaleKinds m_ePrevObjSaleKinds;
@@ -26,7 +26,7 @@ public partial struct STObjSaleInfo {
 	#region 함수
 	/** 생성자 */
 	public STObjSaleInfo(SimpleJSON.JSONNode a_oObjSaleInfo) {
-		m_stDescInfo = new STDescInfo(a_oObjSaleInfo);
+		m_stCommonInfo = new STCommonInfo(a_oObjSaleInfo);
 
 		m_eObjSaleKinds = a_oObjSaleInfo[KCDefine.U_KEY_OBJ_SALE_KINDS].ExIsValid() ? (EObjSaleKinds)a_oObjSaleInfo[KCDefine.U_KEY_OBJ_SALE_KINDS].AsInt : EObjSaleKinds.NONE;
 		m_ePrevObjSaleKinds = a_oObjSaleInfo[KCDefine.U_KEY_PREV_OBJ_SALE_KINDS].ExIsValid() ? (EObjSaleKinds)a_oObjSaleInfo[KCDefine.U_KEY_PREV_OBJ_SALE_KINDS].AsInt : EObjSaleKinds.NONE;

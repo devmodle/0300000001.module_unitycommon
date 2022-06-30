@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 효과 정보 */
 [System.Serializable]
 public partial struct STFXInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 	public STDurationInfo m_stDurationInfo;
 
 	public EFXKinds m_eFXKinds;
@@ -26,7 +26,7 @@ public partial struct STFXInfo {
 	#region 함수
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
-		m_stDescInfo = new STDescInfo(a_oFXInfo);
+		m_stCommonInfo = new STCommonInfo(a_oFXInfo);
 		m_stDurationInfo = new STDurationInfo(a_oFXInfo);
 
 		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;

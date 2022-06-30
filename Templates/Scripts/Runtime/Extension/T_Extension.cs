@@ -9,21 +9,21 @@ using UnityEngine.Events;
 /** 기본 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
-	/** JSON 문자열 => 획득 아이템 정보로 변환한다 */
-	public static List<STNumItemsInfo> ExJSONStrToAcquireItemInfos(this string a_oSender) {
+	/** JSON 문자열 => 획득 정보로 변환한다 */
+	public static List<STAcquireInfo> ExJSONStrToAcquireInfos(this string a_oSender) {
 		CAccess.Assert(a_oSender.ExIsValid());
-		var oAcquireItemInfoList = new List<STNumItemsInfo>();
+		var oAcquireInfoList = new List<STAcquireInfo>();
 		
 #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oSender) as SimpleJSON.JSONClass;
-		var oAcquireItemInfos = oJSONNode[KCDefine.B_KEY_JSON_ROOT_DATA];
+		var oAcquireInfos = oJSONNode[KCDefine.B_KEY_JSON_ROOT_DATA];
 
-		for(int i = 0; i < oAcquireItemInfos.Count; ++i) {
-			oAcquireItemInfoList.Add(oAcquireItemInfos[i].ToString().ExJSONStrToObj<STNumItemsInfo>());
+		for(int i = 0; i < oAcquireInfos.Count; ++i) {
+			oAcquireInfoList.Add(oAcquireInfos[i].ToString().ExJSONStrToObj<STAcquireInfo>());
 		}
 #endif			// #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 
-		return oAcquireItemInfoList;
+		return oAcquireInfoList;
 	}
 	#endregion			// 클래스 함수
 }

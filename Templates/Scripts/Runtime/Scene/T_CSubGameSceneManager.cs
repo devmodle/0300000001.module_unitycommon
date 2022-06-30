@@ -373,7 +373,7 @@ namespace GameScene {
 
 			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
 				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
-				CUserInfoStorage.Inst.AddNumItems(CGameInfoStorage.Inst.SelItemKindsList[i], -KCDefine.B_VAL_1_INT);
+				CUserInfoStorage.Inst.AddNumUserItems(CGameInfoStorage.Inst.SelItemKindsList[i], -KCDefine.B_VAL_1_INT, true);
 			}
 		}
 
@@ -518,12 +518,7 @@ namespace GameScene {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		/** 레벨을 클리어했을 경우 */
 		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {
-			// 클리어 정보가 없을 경우
-			if(!CGameInfoStorage.Inst.IsClearLevel(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID03)) {
-				CGameInfoStorage.Inst.AddLevelClearInfo(Factory.MakeClearInfo(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID03));
-			}
-			
-			var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID03);
+			var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID03, true);
 			oLevelClearInfo.Record = $"{a_oSender.IntRecord}";
 			oLevelClearInfo.BestRecord = $"{Mathf.Max(a_oSender.IntRecord, oLevelClearInfo.BestIntRecord)}";
 

@@ -41,12 +41,12 @@ public static partial class Func {
 		FIREBASE_LOGOUT,
 
 		LOAD_USER_INFO,
+		LOAD_ACQUIRE_INFOS,
 		LOAD_PURCHASE_INFOS,
-		LOAD_ACQUIRE_ITEM_INFOS,
 
 		SAVE_USER_INFO,
+		SAVE_ACQUIRE_INFOS,
 		SAVE_PURCHASE_INFOS,
-		SAVE_ACQUIRE_ITEM_INFOS,
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
@@ -165,7 +165,7 @@ public static partial class Func {
 	}
 
 	/** 배경음을 재생한다 */
-	public static CSnd PlayBGSnd(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
+	public static CSnd PlayBGSnd(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
 
 		try {
@@ -178,13 +178,13 @@ public static partial class Func {
 	}
 
 	/** 배경음을 재생한다 */
-	public static CSnd PlayBGSnd(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
+	public static CSnd PlayBGSnd(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
 		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayBGSnd(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
 	}
 
 	/** 효과음을 재생한다 */
-	public static CSnd PlayFXSnds(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
+	public static CSnd PlayFXSnds(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
 
 		try {
@@ -197,7 +197,7 @@ public static partial class Func {
 	}
 
 	/** 효과음을 재생한다 */
-	public static CSnd PlayFXSnds(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_FLT, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
+	public static CSnd PlayFXSnds(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
 		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
 	}
@@ -448,7 +448,7 @@ public static partial class Func {
 				} else {
 					CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, false);
 				}
-			}, KCDefine.B_VAL_2_FLT, true);
+			}, KCDefine.B_VAL_2_REAL, true);
 		} else {
 			try {
 				// 광고 누적 횟수 갱신이 가능 할 경우
@@ -567,6 +567,19 @@ public static partial class Func {
 		}
 	}
 
+	/** 획득 정보를 로드한다 */
+	public static void LoadAcquireInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
+		CIndicatorManager.Inst.Show();
+		Func.m_oFirebaseCallbackDict03.ExReplaceVal(ECallback.LOAD_ACQUIRE_INFOS, a_oCallback);
+
+		// 로그인 되었을 경우
+		if(CFirebaseManager.Inst.IsLogin) {
+			CFirebaseManager.Inst.LoadDatas(Factory.MakeAcquireInfoNodes(), Func.OnLoadAcquireInfos);
+		} else {
+			Func.OnLoadAcquireInfos(CFirebaseManager.Inst, string.Empty, false);
+		}
+	}
+
 	/** 결제 정보를 로드한다 */
 	public static void LoadPurchaseInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
@@ -577,19 +590,6 @@ public static partial class Func {
 			CFirebaseManager.Inst.LoadDatas(Factory.MakePurchaseInfoNodes(), Func.OnLoadPurchaseInfos);
 		} else {
 			Func.OnLoadPurchaseInfos(CFirebaseManager.Inst, string.Empty, false);
-		}
-	}
-
-	/** 획득 아이템 정보를 로드한다 */
-	public static void LoadAcquireItemInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
-		CIndicatorManager.Inst.Show();
-		Func.m_oFirebaseCallbackDict03.ExReplaceVal(ECallback.LOAD_ACQUIRE_ITEM_INFOS, a_oCallback);
-
-		// 로그인 되었을 경우
-		if(CFirebaseManager.Inst.IsLogin) {
-			CFirebaseManager.Inst.LoadDatas(Factory.MakeAcquireItemInfoNodes(), Func.OnLoadAcquireItemInfos);
-		} else {
-			Func.OnLoadAcquireItemInfos(CFirebaseManager.Inst, string.Empty, false);
 		}
 	}
 
@@ -617,6 +617,28 @@ public static partial class Func {
 		}
 	}
 
+	/** 획득 정보를 저장한다 */
+	public static void SaveAcquireInfos(List<STAcquireInfo> a_oAcquireInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oAcquireInfoList != null);
+
+		// 획득 정보가 존재 할 경우
+		if(a_oAcquireInfoList != null) {
+			CIndicatorManager.Inst.Show();
+			Func.m_oFirebaseCallbackDict02.ExReplaceVal(ECallback.SAVE_ACQUIRE_INFOS, a_oCallback);
+
+			// 로그인 되었을 경우
+			if(CFirebaseManager.Inst.IsLogin) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
+				CFirebaseManager.Inst.SaveDatas(Factory.MakeAcquireInfoNodes(), a_oAcquireInfoList.ExToJSONStr(true), Func.OnSaveAcquireInfos);
+#else
+				Func.OnSaveAcquireInfos(CFirebaseManager.Inst, false);
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+			} else {
+				Func.OnSaveAcquireInfos(CFirebaseManager.Inst, false);
+			}
+		}
+	}
+
 	/** 결제 정보를 저장한다 */
 	public static void SavePurchaseInfos(List<STPurchaseInfo> a_oPurchaseInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oPurchaseInfoList != null);
@@ -639,28 +661,6 @@ public static partial class Func {
 		}
 	}
 
-	/** 획득 아이템 정보를 저장한다 */
-	public static void SaveAcquireItemInfos(List<STNumItemsInfo> a_oAcquireItemInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oAcquireItemInfoList != null);
-
-		// 획득 아이템 정보가 존재 할 경우
-		if(a_oAcquireItemInfoList != null) {
-			CIndicatorManager.Inst.Show();
-			Func.m_oFirebaseCallbackDict02.ExReplaceVal(ECallback.SAVE_ACQUIRE_ITEM_INFOS, a_oCallback);
-
-			// 로그인 되었을 경우
-			if(CFirebaseManager.Inst.IsLogin) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CFirebaseManager.Inst.SaveDatas(Factory.MakeAcquireItemInfoNodes(), a_oAcquireItemInfoList.ExToJSONStr(true), Func.OnSaveAcquireItemInfos);
-#else
-				Func.OnSaveAcquireItemInfos(CFirebaseManager.Inst, false);
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			} else {
-				Func.OnSaveAcquireItemInfos(CFirebaseManager.Inst, false);
-			}
-		}
-	}
-
 	/** 파이어 베이스에 로그인 되었을 경우 */
 	private static void OnFirebaseLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
@@ -679,16 +679,16 @@ public static partial class Func {
 		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_USER_INFO)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
+	/** 획득 정보가 로드 되었을 경우 */
+	private static void OnLoadAcquireInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_ACQUIRE_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
+	}
+
 	/** 결제 정보가 로드 되었을 경우 */
 	private static void OnLoadPurchaseInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_PURCHASE_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
-	}
-
-	/** 획득 아이템 정보가 로드 되었을 경우 */
-	private static void OnLoadAcquireItemInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_ACQUIRE_ITEM_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
 	/** 유저 정보가 저장 되었을 경우 */
@@ -697,16 +697,16 @@ public static partial class Func {
 		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_USER_INFO)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
+	/** 획득 정보가 저장 되었을 경우 */
+	private static void OnSaveAcquireInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_ACQUIRE_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
+	}
+
 	/** 결제 정보가 저장 되었을 경우 */
 	private static void OnSavePurchaseInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_PURCHASE_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
-	}
-
-	/** 획득 아이템 정보가 저장 되었을 경우 */
-	private static void OnSaveAcquireItemInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		CIndicatorManager.Inst.Close();
-		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_ACQUIRE_ITEM_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 	
 #if UNITY_IOS && APPLE_LOGIN_ENABLE

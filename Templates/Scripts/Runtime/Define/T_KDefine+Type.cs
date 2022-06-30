@@ -18,8 +18,8 @@ public partial struct STPriceInfo {
 	public EPriceType m_ePriceType;
 
 	#region 프로퍼티
-	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_LONG;
-	public double RealPrice => double.TryParse(m_oPrice, out double dblPrice) ? dblPrice : KCDefine.B_VAL_0_DBL;
+	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
+	public double RealPrice => double.TryParse(m_oPrice, out double dblPrice) ? dblPrice : KCDefine.B_VAL_0_REAL;
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -79,9 +79,9 @@ public partial struct STTargetInfo {
 	#endregion			// 조건부 함수
 }
 
-/** 아이템 개수 정보 */
+/** 획득 정보 */
 [System.Serializable]
-public partial struct STNumItemsInfo {
+public partial struct STAcquireInfo {
 	public long m_nNumItems;
 	public EItemKinds m_eItemKinds;
 
@@ -92,21 +92,21 @@ public partial struct STNumItemsInfo {
 
 	#region 함수
 	/** 생성자 */
-	public STNumItemsInfo(SimpleJSON.JSONNode a_oNumItemsInfo, int a_nIdx) {
+	public STAcquireInfo(SimpleJSON.JSONNode a_oAcquireInfo, int a_nIdx) {
 		string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, a_nIdx + KCDefine.B_VAL_1_INT);
 		string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, a_nIdx + KCDefine.B_VAL_1_INT);
 
-		m_nNumItems = long.TryParse(a_oNumItemsInfo[oNumItemsKey], out long nNumItems) ? nNumItems : KCDefine.B_VAL_0_LONG;
-		m_eItemKinds = a_oNumItemsInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oNumItemsInfo[oItemKindsKey].AsInt : EItemKinds.NONE;
+		m_nNumItems = long.TryParse(a_oAcquireInfo[oNumItemsKey], out long nNumItems) ? nNumItems : KCDefine.B_VAL_0_INT;
+		m_eItemKinds = a_oAcquireInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oAcquireInfo[oItemKindsKey].AsInt : EItemKinds.NONE;
 	}
 	#endregion			// 함수
 
 	#region 조건부 함수
 #if UNITY_EDITOR || UNITY_STANDALONE
-	/** 아이템 개수 정보를 생성한다 */
-	public void MakeNumItemsInfo(SimpleJSON.JSONClass a_oOutNumItemsInfo, int a_nIdx) {
-		a_oOutNumItemsInfo.Add(string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, a_nIdx + KCDefine.B_VAL_1_INT), $"{(int)m_eItemKinds}");
-		a_oOutNumItemsInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nNumItems}");
+	/** 획득 정보를 생성한다 */
+	public void MakeAcquireInfo(SimpleJSON.JSONClass a_oOutAcquireInfo, int a_nIdx) {
+		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, a_nIdx + KCDefine.B_VAL_1_INT), $"{(int)m_eItemKinds}");
+		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nNumItems}");
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수
@@ -129,7 +129,7 @@ public partial struct STAbilityValInfo {
 		string oAbilityLVKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_LV, a_nIdx + KCDefine.B_VAL_1_INT);
 		string oAbilityKindsKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_KINDS, a_nIdx + KCDefine.B_VAL_1_INT);
 
-		m_nLV = long.TryParse(a_oAbilityValInfo[oAbilityLVKey], out long nLV) ? nLV : KCDefine.B_VAL_0_LONG;
+		m_nLV = long.TryParse(a_oAbilityValInfo[oAbilityLVKey], out long nLV) ? nLV : KCDefine.B_VAL_0_INT;
 		m_eAbilityKinds = a_oAbilityValInfo[oAbilityKindsKey].ExIsValid() ? (EAbilityKinds)a_oAbilityValInfo[oAbilityKindsKey].AsInt : EAbilityKinds.NONE;
 	}
 	#endregion			// 함수

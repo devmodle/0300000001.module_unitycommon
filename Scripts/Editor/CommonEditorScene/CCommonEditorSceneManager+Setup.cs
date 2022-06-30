@@ -43,7 +43,7 @@ public static partial class CCommonEditorSceneManager {
 			yield return null;
 		} while(!CEditorAccess.IsEnableUpdateState);
 		
-		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_FLT);
+		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_REAL);
 
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;
@@ -273,8 +273,8 @@ public static partial class CCommonEditorSceneManager {
 				a_oSettings.finalGatherRayCount == (int)EPOT._256,
 				a_oSettings.lightmapCompression == stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression,
 
-				a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_FLT),
-				a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_FLT),
+				a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_REAL),
+				a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_REAL),
 				a_oSettings.indirectResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION),
 				a_oSettings.lightmapResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION)
 			};

@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 객체 정보 */
 [System.Serializable]
 public partial struct STObjInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 	public Vector3 m_stSize;
 
 	public EObjKinds m_eObjKinds;
@@ -28,8 +28,8 @@ public partial struct STObjInfo {
 	#region 함수
 	/** 생성자 */
 	public STObjInfo(SimpleJSON.JSONNode a_oObjInfo) {
-		m_stDescInfo = new STDescInfo(a_oObjInfo);
-		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_FLT);
+		m_stCommonInfo = new STCommonInfo(a_oObjInfo);
+		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_REAL);
 
 		m_eObjKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_ePrevObjKinds = a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].AsInt : EObjKinds.NONE;

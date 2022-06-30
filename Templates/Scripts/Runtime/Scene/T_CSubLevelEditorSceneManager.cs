@@ -706,7 +706,7 @@ namespace LevelEditorScene {
 			m_oTextDict[EKey.ME_UIS_MSG_TEXT]?.ExSetText<Text>(a_oMsg, false);
 
 			CScheduleManager.Inst.RemoveTimer(this);
-			CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_5_FLT, KCDefine.B_VAL_1_INT, () => this.MEUIsMsgUIs?.SetActive(false));
+			CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_1_INT, () => this.MEUIsMsgUIs?.SetActive(false));
 		}
 
 		/** 에디터 레벨 이동 입력 팝업 결과를 처리한다 */

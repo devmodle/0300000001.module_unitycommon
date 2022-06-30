@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 어빌리티 정보 */
 [System.Serializable]
 public partial struct STAbilityInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 	public STValInfo m_stValInfo;
 
 	public EAbilityKinds m_eAbilityKinds;
@@ -26,7 +26,7 @@ public partial struct STAbilityInfo {
 	#region 함수
 	/** 생성자 */
 	public STAbilityInfo(SimpleJSON.JSONNode a_oAbilityInfo) {
-		m_stDescInfo = new STDescInfo(a_oAbilityInfo);
+		m_stCommonInfo = new STCommonInfo(a_oAbilityInfo);
 		m_stValInfo = new STValInfo(a_oAbilityInfo);
 
 		m_eAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;

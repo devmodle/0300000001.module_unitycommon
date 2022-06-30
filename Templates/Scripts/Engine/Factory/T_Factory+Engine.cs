@@ -18,7 +18,7 @@ namespace SampleEngineName {
 		/** 그리드 정보를 생성한다 */
 		public static STGridInfo MakeGridInfo(CLevelInfo a_oLevelInfo, Vector3 a_stPos) {
 			var stGridInfo = new STGridInfo() {
-				m_stSize = new Vector3(a_oLevelInfo.NumCells.x * KDefine.E_SIZE_CELL.x, a_oLevelInfo.NumCells.y * KDefine.E_SIZE_CELL.y, KCDefine.B_VAL_0_FLT)
+				m_stSize = new Vector3(a_oLevelInfo.NumCells.x * KDefine.E_SIZE_CELL.x, a_oLevelInfo.NumCells.y * KDefine.E_SIZE_CELL.y, KCDefine.B_VAL_0_REAL)
 			};
 			
 			stGridInfo.m_stBounds = new Bounds(a_stPos, stGridInfo.m_stSize);
@@ -33,7 +33,7 @@ namespace SampleEngineName {
 				stGridInfo.m_stScale = Vector3.one;
 			}
 
-			stGridInfo.m_stPivotPos = new Vector3(stGridInfo.m_stBounds.min.x, stGridInfo.m_stBounds.max.y, KCDefine.B_VAL_0_FLT);
+			stGridInfo.m_stPivotPos = new Vector3(stGridInfo.m_stBounds.min.x, stGridInfo.m_stBounds.max.y, KCDefine.B_VAL_0_REAL);
 			return stGridInfo;
 		}
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE

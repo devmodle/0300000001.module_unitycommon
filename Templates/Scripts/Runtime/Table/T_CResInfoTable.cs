@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 리소스 정보 */
 [System.Serializable]
 public partial struct STResInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 
 	public float m_fRate;
 	public string m_oResPath;
@@ -26,7 +26,7 @@ public partial struct STResInfo {
 	#region 함수
 	/** 생성자 */
 	public STResInfo(SimpleJSON.JSONNode a_oResInfo) {
-		m_stDescInfo = new STDescInfo(a_oResInfo);
+		m_stCommonInfo = new STCommonInfo(a_oResInfo);
 		
 		m_fRate = a_oResInfo[KCDefine.U_KEY_RATE].AsFloat;
 		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH];

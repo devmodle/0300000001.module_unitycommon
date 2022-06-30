@@ -53,9 +53,9 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		base.Init();
 
 		m_stParams = a_stParams;
-		m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] = CUserInfoStorage.Inst.UserInfo.NumCoinsBoxCoins;
-
-		CUserInfoStorage.Inst.AddNumCoinsBoxCoins(a_stParams.m_nNumCoinsBoxCoins);
+		m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] = CUserInfoStorage.Inst.NumCoinsBoxCoins;
+		
+		CUserInfoStorage.Inst.AddNumUserItems(EItemKinds.GOODS_COINS_BOX_COINS, a_stParams.m_nNumCoinsBoxCoins);
 		CUserInfoStorage.Inst.SaveUserInfo();
 	}
 

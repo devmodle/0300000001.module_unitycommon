@@ -142,7 +142,7 @@ namespace MainScene {
 					}
 				}
 
-				CUserInfoStorage.Inst.UserInfo.NumCoins = KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND;
+				CUserInfoStorage.Inst.NumCoins = KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND;
 				CGameInfoStorage.Inst.SaveGameInfo();
 #endif			// #if CREATIVE_DIST_BUILD
 
@@ -343,7 +343,7 @@ namespace MainScene {
 					(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, this.UpUIs, null)
 				}, oHLayoutGroupDict, false);
 
-				oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].spacing = KCDefine.B_VAL_4_FLT * KCDefine.B_VAL_5_FLT;
+				oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].spacing = KCDefine.B_VAL_4_REAL * KCDefine.B_VAL_5_REAL;
 
 				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
 				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_CENTER;

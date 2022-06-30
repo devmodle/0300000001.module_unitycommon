@@ -9,8 +9,7 @@ using UnityEngine.Events;
 /** 미션 정보 */
 [System.Serializable]
 public partial struct STMissionInfo {
-	public STDescInfo m_stDescInfo;
-	public bool m_bIsEnableRepeat;
+	public STCommonInfo m_stCommonInfo;
 
 	public EMissionKinds m_eMissionKinds;
 	public EMissionKinds m_ePrevMissionKinds;
@@ -26,8 +25,7 @@ public partial struct STMissionInfo {
 	#region 함수
 	/** 생성자 */
 	public STMissionInfo(SimpleJSON.JSONNode a_oMissionInfo) {
-		m_stDescInfo = new STDescInfo(a_oMissionInfo);
-		m_bIsEnableRepeat = a_oMissionInfo[KCDefine.U_KEY_REPEAT].ExIsValid() ? a_oMissionInfo[KCDefine.U_KEY_REPEAT].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_stCommonInfo = new STCommonInfo(a_oMissionInfo);
 		
 		m_eMissionKinds = a_oMissionInfo[KCDefine.U_KEY_MISSION_KINDS].ExIsValid() ? (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_MISSION_KINDS].AsInt : EMissionKinds.NONE;
 		m_ePrevMissionKinds = a_oMissionInfo[KCDefine.U_KEY_PREV_MISSION_KINDS].ExIsValid() ? (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_PREV_MISSION_KINDS].AsInt : EMissionKinds.NONE;

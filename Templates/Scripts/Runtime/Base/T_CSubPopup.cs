@@ -9,8 +9,8 @@ using UnityEngine.Events;
 /** 서브 팝업 */
 public abstract partial class CSubPopup : CPopup {
 	#region 프로퍼티
-	public override float ShowTimeScale => KCDefine.B_VAL_0_FLT;
-	public override float CloseTimeScale => KCDefine.B_VAL_1_FLT;
+	public override float ShowTimeScale => KCDefine.B_VAL_0_REAL;
+	public override float CloseTimeScale => KCDefine.B_VAL_1_REAL;
 
 	public override EAniType AniType => EAniType.DROPDOWN;
 	#endregion			// 프로퍼티

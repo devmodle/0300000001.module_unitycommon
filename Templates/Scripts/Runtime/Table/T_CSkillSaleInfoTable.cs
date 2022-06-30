@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 스킬 판매 정보 */
 [System.Serializable]
 public partial struct STSkillSaleInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 
 	public ESkillSaleKinds m_eSkillSaleKinds;
 	public ESkillSaleKinds m_ePrevSkillSaleKinds;
@@ -26,7 +26,7 @@ public partial struct STSkillSaleInfo {
 	#region 함수
 	/** 생성자 */
 	public STSkillSaleInfo(SimpleJSON.JSONNode a_oSkillSaleInfo) {
-		m_stDescInfo = new STDescInfo(a_oSkillSaleInfo);
+		m_stCommonInfo = new STCommonInfo(a_oSkillSaleInfo);
 
 		m_eSkillSaleKinds = a_oSkillSaleInfo[KCDefine.U_KEY_SKILL_SALE_KINDS].ExIsValid() ? (ESkillSaleKinds)a_oSkillSaleInfo[KCDefine.U_KEY_SKILL_SALE_KINDS].AsInt : ESkillSaleKinds.NONE;
 		m_ePrevSkillSaleKinds = a_oSkillSaleInfo[KCDefine.U_KEY_PREV_SKILL_SALE_KINDS].ExIsValid() ? (ESkillSaleKinds)a_oSkillSaleInfo[KCDefine.U_KEY_PREV_SKILL_SALE_KINDS].AsInt : ESkillSaleKinds.NONE;

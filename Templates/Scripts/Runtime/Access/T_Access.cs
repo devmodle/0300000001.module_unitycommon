@@ -18,7 +18,7 @@ public static partial class Access {
 #if ADS_MODULE_ENABLE
 			return CAccess.GetBannerAdsHeight(KCDefine.U_SIZE_BANNER_ADS.y);
 #else
-			return KCDefine.B_VAL_0_FLT;
+			return KCDefine.B_VAL_0_REAL;
 #endif			// #if ADS_MODULE_ENABLE
 		}
 	}

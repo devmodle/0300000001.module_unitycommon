@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 스킬 정보 */
 [System.Serializable]
 public partial struct STSkillInfo {
-	public STDescInfo m_stDescInfo;
+	public STCommonInfo m_stCommonInfo;
 	public STDurationInfo m_stDurationInfo;
 
 	public ESkillKinds m_eSkillKinds;
@@ -28,7 +28,7 @@ public partial struct STSkillInfo {
 	#region 함수
 	/** 생성자 */
 	public STSkillInfo(SimpleJSON.JSONNode a_oSkillInfo) {
-		m_stDescInfo = new STDescInfo(a_oSkillInfo);
+		m_stCommonInfo = new STCommonInfo(a_oSkillInfo);
 		m_stDurationInfo = new STDurationInfo(a_oSkillInfo);
 
 		m_eSkillKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
