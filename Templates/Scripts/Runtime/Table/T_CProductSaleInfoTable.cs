@@ -126,8 +126,8 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 	}
 
 	/** 획득 정보를 반환한다 */
-	public STAcquireInfo GetAcquireInfo(EProductSaleKinds a_eProductSaleKinds, EItemKinds a_eItemKinds) {
-		bool bIsValid = this.TryGetAcquireInfo(a_eProductSaleKinds, a_eItemKinds, out STAcquireInfo stAcquireInfo);
+	public STAcquireInfo GetAcquireInfo(EProductSaleKinds a_eProductSaleKinds, EAcquireType a_eAcquireType, int a_nKinds) {
+		bool bIsValid = this.TryGetAcquireInfo(a_eProductSaleKinds, a_eAcquireType, a_nKinds, out STAcquireInfo stAcquireInfo);
 		CAccess.Assert(bIsValid);
 
 		return stAcquireInfo;
@@ -159,10 +159,10 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 	}
 
 	/** 획득 정보를 반환한다 */
-	public bool TryGetAcquireInfo(EProductSaleKinds a_eProductSaleKinds, EItemKinds a_eItemKinds, out STAcquireInfo a_stOutAcquireInfo) {
+	public bool TryGetAcquireInfo(EProductSaleKinds a_eProductSaleKinds, EAcquireType a_eAcquireType, int a_nKinds, out STAcquireInfo a_stOutAcquireInfo) {
 		// 상품 판매 정보가 존재 할 경우
 		if(this.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo)) {
-			return stProductSaleInfo.m_oAcquireInfoList.ExTryGetAcquireInfo(a_eItemKinds, out a_stOutAcquireInfo);
+			return stProductSaleInfo.m_oAcquireInfoList.ExTryGetAcquireInfo(a_eAcquireType, a_nKinds, out a_stOutAcquireInfo);
 		}
 
 		a_stOutAcquireInfo = default(STAcquireInfo);

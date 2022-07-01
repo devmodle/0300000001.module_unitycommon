@@ -35,13 +35,8 @@ public partial struct STRewardInfo {
 
 		m_oAcquireInfoList = new List<STAcquireInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_ITEM_INFOS; ++i) {
-			string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, i + KCDefine.B_VAL_1_INT);
-			string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
-
-			m_oAcquireInfoList.Add(new STAcquireInfo() {
-				m_nNumItems = long.TryParse(a_oRewardInfo[oNumItemsKey], out long nNumItems) ? nNumItems : KCDefine.B_VAL_0_INT, m_eItemKinds = a_oRewardInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oRewardInfo[oItemKindsKey].AsInt : EItemKinds.NONE
-			});
+		for(int i = 0; i < m_oAcquireInfoList.Count; ++i) {
+			m_oAcquireInfoList.Add(new STAcquireInfo(a_oRewardInfo, i));
 		}
 	}
 	#endregion			// 함수

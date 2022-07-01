@@ -80,7 +80,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	/** 보상 아이템 UI 상태를 갱신한다 */
 	private void UpdateItemUIsState(GameObject a_oItemUIs, STAcquireInfo a_stAcquireInfo) {
 		var oNumText = a_oItemUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
-		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stAcquireInfo.m_nNumItems), EFontSet._1, false);
+		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stAcquireInfo.m_nAcquireVal), EFontSet._1, false);
 	}
 
 	/** 광고 버튼을 눌렀을 경우 */
@@ -105,7 +105,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 #endif			// #if ADS_MODULE_ENABLE
 
 		for(int i = 0; i < m_stParams.m_oAcquireInfoList.Count; ++i) {
-			Func.AcquireItem(m_stParams.m_oAcquireInfoList[i], a_bIsWatchRewardAds ? m_stParams.m_oAcquireInfoList[i].m_nNumItems : KCDefine.B_VAL_0_INT);
+			Func.Acquire(m_stParams.m_oAcquireInfoList[i], a_bIsWatchRewardAds ? m_stParams.m_oAcquireInfoList[i].m_nAcquireVal : KCDefine.B_VAL_0_INT);
 		}
 
 		this.OnTouchCloseBtn();

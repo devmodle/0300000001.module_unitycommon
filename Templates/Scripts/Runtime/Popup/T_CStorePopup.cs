@@ -118,7 +118,7 @@ public partial class CStorePopup : CSubPopup {
 
 			for(int i = 0; i < a_stProductSaleInfo.m_oAcquireInfoList.Count; ++i) {
 				var oNumText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
-				oNumText?.ExSetText($"{a_stProductSaleInfo.m_oAcquireInfoList[i].m_nNumItems}", EFontSet._1, false);
+				oNumText?.ExSetText($"{a_stProductSaleInfo.m_oAcquireInfoList[i].m_nAcquireVal}", EFontSet._1, false);
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
@@ -207,7 +207,7 @@ public partial class CStorePopup : CSubPopup {
 			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS]);
 
 			for(int i = 0; i < stProductSaleInfo.m_oAcquireInfoList.Count; ++i) {
-				Func.AcquireItem(stProductSaleInfo.m_oAcquireInfoList[i]);
+				Func.Acquire(stProductSaleInfo.m_oAcquireInfoList[i]);
 			}
 		}
 
@@ -254,7 +254,7 @@ public partial class CStorePopup : CSubPopup {
 			var oAcquireInfoList = a_oJSONStr.ExJSONStrToAcquireInfos();
 
 			for(int i = 0; i < oAcquireInfoList.Count; ++i) {
-				Func.AcquireItem(oAcquireInfoList[i]);
+				Func.Acquire(oAcquireInfoList[i]);
 			}
 
 			this.ExLateCallFunc((a_oCallFuncSender) => { oAcquireInfoList.Clear(); Func.SaveAcquireInfos(oAcquireInfoList, this.OnSaveAcquireInfos); });

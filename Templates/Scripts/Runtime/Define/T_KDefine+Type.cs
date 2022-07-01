@@ -51,7 +51,7 @@ public partial struct STPriceInfo {
 [System.Serializable]
 public partial struct STTargetInfo {
 	public int m_nKinds;
-	public int m_nNumTargets;
+	public long m_nNumTargets;
 	public ETargetType m_eTargetType;
 
 	#region 함수
@@ -82,22 +82,20 @@ public partial struct STTargetInfo {
 /** 획득 정보 */
 [System.Serializable]
 public partial struct STAcquireInfo {
-	public long m_nNumItems;
-	public EItemKinds m_eItemKinds;
-
-	#region 프로퍼티
-	public EItemType ItemType => (EItemType)((int)m_eItemKinds).ExKindsToType();
-	public EItemKinds BaseItemKinds => (EItemKinds)((int)m_eItemKinds).ExKindsToSubKindsType();
-	#endregion			// 프로퍼티
+	public int m_nKinds;
+	public long m_nAcquireVal;
+	public EAcquireType m_eAcquireType;
 
 	#region 함수
 	/** 생성자 */
 	public STAcquireInfo(SimpleJSON.JSONNode a_oAcquireInfo, int a_nIdx) {
-		string oNumItemsKey = string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, a_nIdx + KCDefine.B_VAL_1_INT);
-		string oItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, a_nIdx + KCDefine.B_VAL_1_INT);
+		string oAcquireValKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_VAL, a_nIdx + KCDefine.B_VAL_1_INT);
+		string oAcquireTypeKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TYPE, a_nIdx + KCDefine.B_VAL_1_INT);
+		string oAcquireKindsKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_KINDS, a_nIdx + KCDefine.B_VAL_1_INT);
 
-		m_nNumItems = long.TryParse(a_oAcquireInfo[oNumItemsKey], out long nNumItems) ? nNumItems : KCDefine.B_VAL_0_INT;
-		m_eItemKinds = a_oAcquireInfo[oItemKindsKey].ExIsValid() ? (EItemKinds)a_oAcquireInfo[oItemKindsKey].AsInt : EItemKinds.NONE;
+		m_nKinds = a_oAcquireInfo[oAcquireKindsKey].ExIsValid() ? a_oAcquireInfo[oAcquireKindsKey].AsInt : KCDefine.B_IDX_INVALID;
+		m_nAcquireVal = a_oAcquireInfo[oAcquireValKey].ExIsValid() ? a_oAcquireInfo[oAcquireValKey].AsInt : KCDefine.B_VAL_0_INT;
+		m_eAcquireType = a_oAcquireInfo[oAcquireTypeKey].ExIsValid() ? (EAcquireType)a_oAcquireInfo[oAcquireTypeKey].AsInt : EAcquireType.NONE;
 	}
 	#endregion			// 함수
 
@@ -105,8 +103,9 @@ public partial struct STAcquireInfo {
 #if UNITY_EDITOR || UNITY_STANDALONE
 	/** 획득 정보를 생성한다 */
 	public void MakeAcquireInfo(SimpleJSON.JSONClass a_oOutAcquireInfo, int a_nIdx) {
-		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_ITEM_KINDS, a_nIdx + KCDefine.B_VAL_1_INT), $"{(int)m_eItemKinds}");
-		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_ITEMS, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nNumItems}");
+		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TYPE, a_nIdx + KCDefine.B_VAL_1_INT), $"{(int)m_eAcquireType}");
+		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_ACQUIRE_KINDS, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nKinds}");
+		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_ACQUIRE_VAL, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nAcquireVal}");
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수

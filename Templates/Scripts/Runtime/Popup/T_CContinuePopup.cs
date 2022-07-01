@@ -101,7 +101,7 @@ public partial class CContinuePopup : CSubPopup {
 		if(CUserInfoStorage.Inst.NumCoins < stCoinsPriceInfo.IntPrice) {
 			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 		} else {
-			Func.AcquireItem(CItemSaleInfoTable.Inst.GetItemSaleInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE));
+			Func.BuyItem(CItemSaleInfoTable.Inst.GetItemSaleInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE));
 			m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
 		}
 	}

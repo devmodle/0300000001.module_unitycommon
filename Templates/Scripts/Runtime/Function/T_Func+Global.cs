@@ -13,10 +13,19 @@ using UnityEngine.Purchasing;
 /** 전역 함수 */
 public static partial class Func {
 	#region 클래스 함수
-	/** 아이템을 획득한다 */
-	public static void AcquireItem(STAcquireInfo a_stAcquireInfo, long a_nNumExtraItems = KCDefine.B_VAL_0_INT) {
+	/** 지불한다 */
+	public static void Pay(STPriceInfo a_stPriceInfo, long m_nExtraAcquireVal = KCDefine.B_VAL_0_INT) {
+		switch(a_stPriceInfo.m_ePriceType) {
+			case EPriceType.ITEM: CUserInfoStorage.Inst.AddNumUserItems((EItemKinds)a_stPriceInfo.m_nKinds, -(a_stPriceInfo.IntPrice + m_nExtraAcquireVal), true); break;
+		}
+
+		CUserInfoStorage.Inst.SaveUserInfo();
+	}
+
+	/** 획득한다 */
+	public static void Acquire(STAcquireInfo a_stAcquireInfo, long m_nExtraAcquireVal = KCDefine.B_VAL_0_INT) {
 		// 광고 제거 일 경우
-		if(a_stAcquireInfo.m_eItemKinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
+		if(a_stAcquireInfo.m_eAcquireType == EAcquireType.ITEM && a_stAcquireInfo.m_nKinds == (int)EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
 #if ADS_MODULE_ENABLE
 			CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
 			CAdsManager.Inst.IsEnableBannerAds = false;
@@ -24,38 +33,35 @@ public static partial class Func {
 #endif			// #if ADS_MODULE_ENABLE
 		}
 
-		CUserInfoStorage.Inst.AddNumUserItems(a_stAcquireInfo.m_eItemKinds, a_stAcquireInfo.m_nNumItems + a_nNumExtraItems, true);
-		CUserInfoStorage.Inst.SaveUserInfo();
+		switch(a_stAcquireInfo.m_eAcquireType) {
+			case EAcquireType.ITEM: CUserInfoStorage.Inst.AddNumUserItems((EItemKinds)a_stAcquireInfo.m_nKinds, a_stAcquireInfo.m_nAcquireVal + m_nExtraAcquireVal, true); break;
+		}
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-		CCommonUserInfoStorage.Inst.SaveUserInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+		CUserInfoStorage.Inst.SaveUserInfo();
 	}
 
-	/** 아이템을 획득한다 */
-	public static void AcquireItem(STItemSaleInfo a_stItemSaleInfo, List<long> a_oNumExtraItemsList = null, long a_nExtraPrice = KCDefine.B_VAL_0_INT) {
-		// 아이템 획득이 가능 할 경우
-		if(Access.IsEnableAcquire(a_stItemSaleInfo.m_oPriceInfoList)) {
-			for(int i = 0; i < a_stItemSaleInfo.m_oAcquireInfoList.Count; ++i) {
-				Func.AcquireItem(a_stItemSaleInfo.m_oAcquireInfoList[i], a_oNumExtraItemsList.ExIsValid() ? a_oNumExtraItemsList.ExGetVal(i, KCDefine.B_VAL_0_INT) : KCDefine.B_VAL_0_INT);
-			}
+	/** 아이템을 구입한다 */
+	public static void BuyItem(STItemSaleInfo a_stItemSaleInfo) {
+		for(int i = 0; i < a_stItemSaleInfo.m_oPriceInfoList.Count; ++i) {
+			Func.Pay(a_stItemSaleInfo.m_oPriceInfoList[i]);
+		}
 
-			// 코인 비용이 존재 할 경우
-			if(a_stItemSaleInfo.m_oPriceInfoList.ExTryGetPriceInfo(EPriceType.ITEM, (int)EItemKinds.GOODS_COINS, out STPriceInfo stPriceInfo) && stPriceInfo.IntPrice + a_nExtraPrice > KCDefine.B_VAL_0_INT) {
-				CUserInfoStorage.Inst.AddNumUserItems(EItemKinds.GOODS_COINS, -(stPriceInfo.IntPrice + a_nExtraPrice), true);			
-			}
-			
-			CUserInfoStorage.Inst.SaveUserInfo();
+		for(int i = 0; i < a_stItemSaleInfo.m_oAcquireInfoList.Count; ++i) {
+			Func.Acquire(a_stItemSaleInfo.m_oAcquireInfoList[i]);
 		}
 	}
 
-	/** 스킬을 획득한다 */
-	public static void AcquireSkill(STSkillSaleInfo a_stSkillSaleInfo, long a_nExtraPrice = KCDefine.B_VAL_0_INT) {
-		// 스킬 획득이 가능 할 경우
-		if(Access.IsEnableAcquire(a_stSkillSaleInfo.m_oPriceInfoList)) {
-			for(int i = 0; i < a_stSkillSaleInfo.m_oSkillKindsList.Count; ++i) {
+	/** 스킬을 구입한다 */
+	public static void BuySkill(STSkillSaleInfo a_stSkillSaleInfo) {
+		for(int i = 0; i < a_stSkillSaleInfo.m_oPriceInfoList.Count; ++i) {
+			Func.Pay(a_stSkillSaleInfo.m_oPriceInfoList[i]);
+		}
+	}
 
-			}
+	/** 객체를 구입한다 */
+	public static void BuyObj(STObjSaleInfo a_stObjSaleInfo) {
+		for(int i = 0; i < a_stObjSaleInfo.m_oPriceInfoList.Count; ++i) {
+			Func.Pay(a_stObjSaleInfo.m_oPriceInfoList[i]);
 		}
 	}
 
@@ -215,7 +221,7 @@ public static partial class Func {
 			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(nIdx);
 
 			for(int i = 0; i < stProductSaleInfo.m_oAcquireInfoList.Count; ++i) {
-				Func.AcquireItem(stProductSaleInfo.m_oAcquireInfoList[i]);
+				Func.Acquire(stProductSaleInfo.m_oAcquireInfoList[i]);
 			}
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
@@ -242,7 +248,7 @@ public static partial class Func {
 					var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(nIdx);
 
 					for(int j = 0; j < stProductSaleInfo.m_oAcquireInfoList.Count; ++j) {
-						Func.AcquireItem(stProductSaleInfo.m_oAcquireInfoList[j]);
+						Func.Acquire(stProductSaleInfo.m_oAcquireInfoList[j]);
 					}
 
 					CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductList[i].definition.id);
