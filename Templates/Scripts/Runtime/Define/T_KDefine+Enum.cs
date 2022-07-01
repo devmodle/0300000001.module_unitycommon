@@ -36,14 +36,6 @@ public enum EOwnerType {
 	[HideInInspector] MAX_VAL
 }
 
-/** 타겟 타입 */
-public enum ETargetType {
-	NONE = -1,
-	MARKS,
-	RECORD,
-	[HideInInspector] MAX_VAL
-}
-
 /** 획득 타입 */
 public enum EAcquireType {
 	NONE = -1,

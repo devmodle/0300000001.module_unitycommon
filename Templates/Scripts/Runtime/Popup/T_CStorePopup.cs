@@ -122,7 +122,7 @@ public partial class CStorePopup : CSubPopup {
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
-			// 결제 비용 타입 일 경우
+			// 인앱 결제 상품 일 경우
 			if(a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_ePriceType == EPriceType.PURCHASE && Access.GetProduct(a_stProductSaleInfo.m_nID) != null) {
 				oPriceText?.ExSetText(Access.GetPriceStr(a_stProductSaleInfo.m_nID), EFontSet._1, false);
 			}
@@ -134,7 +134,7 @@ public partial class CStorePopup : CSubPopup {
 			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductSaleInfo));
 
 #if ADS_MODULE_ENABLE
-			// 광고 비용 타입 일 경우
+			// 보상 광고 상품 일 경우
 			if(a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_ePriceType == EPriceType.ADS) {
 				var oTouchInteractable = oPurchaseBtn?.gameObject.ExAddComponent<CRewardAdsTouchInteractable>();
 				oTouchInteractable?.SetAdsPlatform(CPluginInfoTable.Inst.AdsPlatform);

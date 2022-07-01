@@ -622,6 +622,64 @@ public enum EObjSaleKinds {
 
 	[HideInInspector] MAX_VAL
 }
+
+/** 타겟 타입 */
+public enum ETargetType {
+	NONE = -1,
+	ADS,
+	MARKS,
+	RECORD,
+	PURCHASE,
+	ITEM,
+	SKILL,
+	OBJ,
+	[HideInInspector] MAX_VAL
+}
+
+/** 타겟 종류 */
+public enum ETargetKinds {
+	NONE = -1,
+
+	#region 광고
+	// 0
+	ADS_REWARD = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 광고
+
+	#region 마크
+	// 100,000,000
+	MARKS_CLEAR = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 마크
+
+	#region 기록
+	// 200,000,000
+	RECORD_CLEAR = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 기록
+
+	#region 결제
+	// 300,000,000
+	PURCHASE_IN_APP = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 결제
+
+	#region 아이템
+	// 400,000,000
+	ITEM_LV = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 400,100,000
+	ITEM_NUMS = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 아이템
+
+	#region 스킬
+	// 500,000,000
+	SKILL_LV = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 스킬
+
+	#region 객체
+	// 600,000,000
+	OBJ_LV = (EEnumVal.TYPE * 6) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 객체
+
+	[HideInInspector] MAX_VAL
+}
 #endregion			// 기본
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY
