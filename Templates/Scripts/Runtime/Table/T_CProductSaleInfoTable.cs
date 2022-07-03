@@ -20,8 +20,8 @@ public partial struct STProductSaleInfo {
 	public EProductSaleKinds m_ePrevProductSaleKinds;
 	public EProductSaleKinds m_eNextProductSaleKinds;
 
-	public List<STPriceInfo> m_oPriceInfoList;
-	public List<STAcquireInfo> m_oAcquireInfoList;
+	public List<STTargetInfo> m_oPayTargetInfoList;
+	public List<STTargetInfo> m_oAcquireTargetInfoList;
 
 	#region 프로퍼티
 	public EProductSaleType ProductSaleType => (EProductSaleType)((int)m_eProductSaleKinds).ExKindsToType();
@@ -38,15 +38,15 @@ public partial struct STProductSaleInfo {
 		m_ePrevProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
 		m_eNextProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
 
-		m_oPriceInfoList = new List<STPriceInfo>();
-		m_oAcquireInfoList = new List<STAcquireInfo>();
+		m_oPayTargetInfoList = new List<STTargetInfo>();
+		m_oAcquireTargetInfoList = new List<STTargetInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_PRICE_INFOS; ++i) {
-			m_oPriceInfoList.Add(new STPriceInfo(a_oProductSaleInfo, i));
+			m_oPayTargetInfoList.Add(new STTargetInfo(a_oProductSaleInfo, KCDefine.U_PREFIX_PAY, i));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ITEMS_INFOS; ++i) {
-			m_oAcquireInfoList.Add(new STAcquireInfo(a_oProductSaleInfo, i));
+			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oProductSaleInfo, KCDefine.U_PREFIX_ACQUIRE, i));
 		}
 	}
 	#endregion			// 함수
@@ -117,20 +117,20 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 		return stProductSaleInfo;
 	}
 
-	/** 가격 정보를 반환한다 */
-	public STPriceInfo GetPriceInfo(EProductSaleKinds a_eProductSaleKinds, EPriceType a_ePriceType, int a_nKinds) {
-		bool bIsValid = this.TryGetPriceInfo(a_eProductSaleKinds, a_ePriceType, a_nKinds, out STPriceInfo stPriceInfo);
+	/** 지불 타겟 정보를 반환한다 */
+	public STTargetInfo GetPayTargetInfo(EProductSaleKinds a_eProductSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
+		bool bIsValid = this.TryGetPayTargetInfo(a_eProductSaleKinds, a_eTargetKinds, a_nKinds, out STTargetInfo stPayTargetInfo);
 		CAccess.Assert(bIsValid);
 
-		return stPriceInfo;
+		return stPayTargetInfo;
 	}
 
-	/** 획득 정보를 반환한다 */
-	public STAcquireInfo GetAcquireInfo(EProductSaleKinds a_eProductSaleKinds, EAcquireType a_eAcquireType, int a_nKinds) {
-		bool bIsValid = this.TryGetAcquireInfo(a_eProductSaleKinds, a_eAcquireType, a_nKinds, out STAcquireInfo stAcquireInfo);
+	/** 획득 타겟 정보를 반환한다 */
+	public STTargetInfo GetAcquireTargetInfo(EProductSaleKinds a_eProductSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
+		bool bIsValid = this.TryGetAcquireTargetInfo(a_eProductSaleKinds, a_eTargetKinds, a_nKinds, out STTargetInfo stAcquireTargetInfo);
 		CAccess.Assert(bIsValid);
 
-		return stAcquireInfo;
+		return stAcquireTargetInfo;
 	}
 
 	/** 상품 판매 정보를 반환한다 */
@@ -147,25 +147,25 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 		return this.ProductSaleInfoDict.ContainsKey(a_eProductSaleKinds);
 	}
 
-	/** 가격 정보를 반환한다 */
-	public bool TryGetPriceInfo(EProductSaleKinds a_eProductSaleKinds, EPriceType a_ePriceType, int a_nKinds, out STPriceInfo a_stOutPriceInfo) {
-		// 아이템 판매 정보가 존재 할 경우
+	/** 지불 타겟 정보를 반환한다 */
+	public bool TryGetPayTargetInfo(EProductSaleKinds a_eProductSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutPayTargetInfo) {
+		// 상품 판매 정보가 존재 할 경우
 		if(this.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo)) {
-			return stProductSaleInfo.m_oPriceInfoList.ExTryGetPriceInfo(a_ePriceType, a_nKinds, out a_stOutPriceInfo);
+			return stProductSaleInfo.m_oPayTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutPayTargetInfo);
 		}
 
-		a_stOutPriceInfo = default(STPriceInfo);
+		a_stOutPayTargetInfo = default(STTargetInfo);
 		return false;
 	}
 
-	/** 획득 정보를 반환한다 */
-	public bool TryGetAcquireInfo(EProductSaleKinds a_eProductSaleKinds, EAcquireType a_eAcquireType, int a_nKinds, out STAcquireInfo a_stOutAcquireInfo) {
+	/** 획득 타겟 정보를 반환한다 */
+	public bool TryGetAcquireTargetInfo(EProductSaleKinds a_eProductSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
 		// 상품 판매 정보가 존재 할 경우
 		if(this.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo)) {
-			return stProductSaleInfo.m_oAcquireInfoList.ExTryGetAcquireInfo(a_eAcquireType, a_nKinds, out a_stOutAcquireInfo);
+			return stProductSaleInfo.m_oAcquireTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutAcquireTargetInfo);
 		}
 
-		a_stOutAcquireInfo = default(STAcquireInfo);
+		a_stOutAcquireTargetInfo = default(STTargetInfo);
 		return false;
 	}
 

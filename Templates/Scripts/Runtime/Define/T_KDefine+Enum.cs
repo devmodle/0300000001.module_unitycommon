@@ -16,28 +16,8 @@ public enum EPlayMode {
 	[HideInInspector] MAX_VAL
 }
 
-/** 가격 타입 */
-public enum EPriceType {
-	NONE = -1,
-	ADS,
-	PURCHASE,
-	ITEM,
-	SKILL,
-	OBJ,
-	[HideInInspector] MAX_VAL
-}
-
 /** 소유자 타입 */
 public enum EOwnerType {
-	NONE = -1,
-	ITEM,
-	SKILL,
-	OBJ,
-	[HideInInspector] MAX_VAL
-}
-
-/** 획득 타입 */
-public enum EAcquireType {
 	NONE = -1,
 	ITEM,
 	SKILL,

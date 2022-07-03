@@ -330,23 +330,16 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	}
 
 	/** 레벨 클리어 정보를 반환한다 */
-	public CClearInfo GetLevelClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT, bool a_bIsAutoCreate = false) {
-		bool bIsValid = this.TryGetLevelClearInfo(a_nID, out CClearInfo oLevelClearInfo, a_nStageID, a_nChapterID, a_bIsAutoCreate);
+	public CClearInfo GetLevelClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		bool bIsValid = this.TryGetLevelClearInfo(a_nID, out CClearInfo oLevelClearInfo, a_nStageID, a_nChapterID);
 		CAccess.Assert(bIsValid);
 
 		return oLevelClearInfo;
 	}
 
 	/** 레벨 클리어 정보를 반환한다 */
-	public bool TryGetLevelClearInfo(int a_nID, out CClearInfo a_oOutLevelClearInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT, bool a_bIsAutoCreate = false) {
+	public bool TryGetLevelClearInfo(int a_nID, out CClearInfo a_oOutLevelClearInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		a_oOutLevelClearInfo = this.GameInfo.m_oLevelClearInfoDict.GetValueOrDefault(CFactory.MakeUniqueLevelID(a_nID, a_nStageID, a_nChapterID), null);
-
-		// 레벨 클리어 정보가 없을 경우
-		if(a_bIsAutoCreate && a_oOutLevelClearInfo == null) {
-			a_oOutLevelClearInfo = Factory.MakeClearInfo(a_nID, a_nStageID, a_nChapterID);
-			this.AddLevelClearInfo(a_oOutLevelClearInfo);
-		}
-
 		return a_oOutLevelClearInfo != null;
 	}
 

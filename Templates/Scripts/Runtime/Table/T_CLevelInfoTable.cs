@@ -679,17 +679,17 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_eEpisodeKinds = stLevelEpisodeInfo.m_eEpisodeKinds,
 			m_eTutorialKinds = stLevelEpisodeInfo.m_eTutorialKinds,
 
-			m_oRecordList = new List<int>(),
+			m_oRecordList = new List<long>(),
 			m_oRewardKindsList = new List<ERewardKinds>(),
 
-			m_oTargetInfoList = new List<STTargetInfo>(),
+			m_oClearTargetInfoList = new List<STTargetInfo>(),
 			m_oUnlockTargetInfoList = new List<STTargetInfo>()
 		};
 
 		stLevelEpisodeInfo.m_oRecordList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordList, (a_nRecord) => a_nRecord);
 		stLevelEpisodeInfo.m_oRewardKindsList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds);
 
-		stLevelEpisodeInfo.m_oTargetInfoList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oTargetInfoList, (a_stTargetInfo) => a_stTargetInfo);
+		stLevelEpisodeInfo.m_oClearTargetInfoList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoList, (a_stTargetInfo) => a_stTargetInfo);
 		stLevelEpisodeInfo.m_oUnlockTargetInfoList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoList, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo);
 
 		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueID01, stReplaceLevelEpisodeInfo);

@@ -10,23 +10,53 @@ using UnityEngine.Events;
 using MessagePack;
 using Newtonsoft.Json;
 
-/** 유저 아이템 정보 */
+/** 유저 타겟 정보 */
 [MessagePackObject][System.Serializable]
-public partial class CUserItemInfo : CBaseInfo {
+public abstract partial class CUserTargetInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_LV = "LV";
-	private const string KEY_NUM_ITEMS = "NumItems";
-	private const string KEY_ITEM_KINDS = "ItemKinds";
+	private const string KEY_NUMS = "Nums";
 	private const string KEY_OWNER_TYPE = "OwnerType";
 	private const string KEY_OWNER_KINDS = "OwnerKinds";
 	#endregion			// 상수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public long LV { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_LV, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_LV, $"{value}"); } }
-	[JsonIgnore][IgnoreMember] public long NumItems { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_ITEMS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUM_ITEMS, $"{value}"); } }
-	[JsonIgnore][IgnoreMember] public EItemKinds ItemKinds { get { return (EItemKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); } }
+	[JsonIgnore][IgnoreMember] public long Nums { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUMS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUMS, $"{value}"); } }
+
 	[JsonIgnore][IgnoreMember] public EOwnerType OwnerType { get { return (EOwnerType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TYPE, $"{(int)EOwnerType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_TYPE, $"{(int)value}"); } }
 	[JsonIgnore][IgnoreMember] public int OwnerKinds { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_KINDS, $"{KCDefine.B_IDX_INVALID}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_KINDS, $"{value}"); } }
+	#endregion			// 프로퍼티
+
+	#region IMessagePackSerializationCallbackReceiver
+	/** 직렬화 될 경우 */
+	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+	}
+
+	/** 역직렬화 되었을 경우 */
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+	}
+	#endregion			// IMessagePackSerializationCallbackReceiver
+
+	#region 함수
+	/** 생성자 */
+	public CUserTargetInfo(System.Version a_stVer) : base(a_stVer) {
+		// Do Something
+	}
+	#endregion			// 함수
+}
+
+/** 유저 아이템 정보 */
+[MessagePackObject][System.Serializable]
+public partial class CUserItemInfo : CUserTargetInfo {
+	#region 상수
+	private const string KEY_ITEM_KINDS = "ItemKinds";
+	#endregion			// 상수
+
+	#region 프로퍼티
+	[JsonIgnore][IgnoreMember] public EItemKinds ItemKinds { get { return (EItemKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); } }
 
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
@@ -54,19 +84,13 @@ public partial class CUserItemInfo : CBaseInfo {
 
 /** 유저 스킬 정보 */
 [MessagePackObject][System.Serializable]
-public partial class CUserSkillInfo : CBaseInfo {
+public partial class CUserSkillInfo : CUserTargetInfo {
 	#region 상수
-	private const string KEY_LV = "LV";
 	private const string KEY_SKILL_KINDS = "SkillKinds";
-	private const string KEY_OWNER_TYPE = "OwnerType";
-	private const string KEY_OWNER_KINDS = "OwnerKinds";
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public long LV { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_LV, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_LV, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public ESkillKinds SkillKinds { get { return (ESkillKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); } }
-	[JsonIgnore][IgnoreMember] public EOwnerType OwnerType { get { return (EOwnerType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TYPE, $"{(int)EOwnerType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_TYPE, $"{(int)value}"); } }
-	[JsonIgnore][IgnoreMember] public int OwnerKinds { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_KINDS, $"{KCDefine.B_IDX_INVALID}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_KINDS, $"{value}"); } }
 
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
@@ -94,19 +118,13 @@ public partial class CUserSkillInfo : CBaseInfo {
 
 /** 유저 객체 정보 */
 [MessagePackObject][System.Serializable]
-public partial class CUserObjInfo : CBaseInfo {
+public partial class CUserObjInfo : CUserTargetInfo {
 	#region 상수
-	private const string KEY_LV = "LV";
 	private const string KEY_OBJ_KINDS = "ObjKinds";
-	private const string KEY_OWNER_TYPE = "OwnerType";
-	private const string KEY_OWNER_KINDS = "OwnerKinds";
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public long LV { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_LV, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_LV, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public EObjKinds ObjKinds { get { return (EObjKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); } }
-	[JsonIgnore][IgnoreMember] public EOwnerType OwnerType { get { return (EOwnerType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TYPE, $"{(int)EOwnerType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_TYPE, $"{(int)value}"); } }
-	[JsonIgnore][IgnoreMember] public int OwnerKinds { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_KINDS, $"{KCDefine.B_IDX_INVALID}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_KINDS, $"{value}"); } }
 
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
@@ -135,11 +153,23 @@ public partial class CUserObjInfo : CBaseInfo {
 /** 유저 정보 */
 [MessagePackObject][System.Serializable]
 public partial class CUserInfo : CBaseInfo {
+	#region 상수
+	private const string KEY_USER_ITEM_INFO_VER = "UserItemInfoVer";
+	private const string KEY_USER_SKILL_INFO_VER = "UserSkillInfoVer";
+	private const string KEY_USER_OBJ_INFO_VER = "UserObjInfoVer";
+	#endregion			// 상수
+
 	#region 변수
 	[Key(91)] public List<CUserItemInfo> m_oUserItemInfoList = new List<CUserItemInfo>();
 	[Key(92)] public List<CUserSkillInfo> m_oUserSkillInfoList = new List<CUserSkillInfo>();
 	[Key(93)] public List<CUserObjInfo> m_oUserObjInfoList = new List<CUserObjInfo>();
 	#endregion			// 변수
+
+	#region 프로퍼티
+	[JsonIgnore][IgnoreMember] public System.Version UserItemInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_ITEM_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_ITEM_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	[JsonIgnore][IgnoreMember] public System.Version UserSkillInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_SKILL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_SKILL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	[JsonIgnore][IgnoreMember] public System.Version UserObjInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_OBJ_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_OBJ_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -155,6 +185,18 @@ public partial class CUserInfo : CBaseInfo {
 		m_oUserSkillInfoList = m_oUserSkillInfoList ?? new List<CUserSkillInfo>();
 		m_oUserObjInfoList = m_oUserObjInfoList ?? new List<CUserObjInfo>();
 
+		for(int i = 0; i < m_oUserItemInfoList.Count; ++i) {
+			this.SetupUserItemInfo(m_oUserItemInfoList[i]);
+		}
+
+		for(int i = 0; i < m_oUserSkillInfoList.Count; ++i) {
+			this.SetupUserSkillInfo(m_oUserSkillInfoList[i]);
+		}
+
+		for(int i = 0; i < m_oUserObjInfoList.Count; ++i) {
+			this.SetupUserObjInfo(m_oUserObjInfoList[i]);
+		}
+
 		// 버전이 다를 경우
 		if(this.Ver.CompareTo(KDefine.G_VER_USER_INFO) < KCDefine.B_COMPARE_EQUALS) {
 			// Do Something
@@ -165,7 +207,33 @@ public partial class CUserInfo : CBaseInfo {
 	#region 함수
 	/** 생성자 */
 	public CUserInfo() : base(KDefine.G_VER_USER_INFO) {
-		// Do Something
+		this.UserItemInfoVer = KDefine.G_VER_USER_ITEM_INFO;
+		this.UserSkillInfoVer = KDefine.G_VER_USER_SKILL_INFO;
+		this.UserObjInfoVer = KDefine.G_VER_USER_OBJ_INFO;
+	}
+
+	/** 유저 아이템 정보를 설정한다 */
+	protected virtual void SetupUserItemInfo(CUserItemInfo a_oUserItemInfo) {
+		// 버전이 다를 경우
+		if(this.UserItemInfoVer.CompareTo(KDefine.G_VER_USER_ITEM_INFO) < KCDefine.B_COMPARE_EQUALS) {
+			// Do Something
+		}
+	}
+
+	/** 유저 스킬 정보를 설정한다 */
+	protected virtual void SetupUserSkillInfo(CUserSkillInfo a_oUserSkillInfo) {
+		// 버전이 다를 경우
+		if(this.UserSkillInfoVer.CompareTo(KDefine.G_VER_USER_SKILL_INFO) < KCDefine.B_COMPARE_EQUALS) {
+			// Do Something
+		}
+	}
+
+	/** 유저 객체 정보를 설정한다 */
+	protected virtual void SetupUserObjInfo(CUserObjInfo a_oUserObjInfo) {
+		// 버전이 다를 경우
+		if(this.UserObjInfoVer.CompareTo(KDefine.G_VER_USER_OBJ_INFO) < KCDefine.B_COMPARE_EQUALS) {
+			// Do Something
+		}
 	}
 	#endregion			// 함수
 }
@@ -175,8 +243,8 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 프로퍼티
 	public CUserInfo UserInfo { get; private set; } = new CUserInfo();
 	public bool IsPurchaseRemoveAds => this.TryGetUserItemInfo(EItemKinds.NON_CONSUMABLE_REMOVE_ADS, out CUserItemInfo oUserItemInfo);
-	public long NumCoins => this.TryGetUserItemInfo(EItemKinds.GOODS_COINS, out CUserItemInfo oUserItemInfo) ? oUserItemInfo.NumItems : KCDefine.B_VAL_0_INT;
-	public long NumCoinsBoxCoins => this.TryGetUserItemInfo(EItemKinds.GOODS_COINS_BOX_COINS, out CUserItemInfo oUserItemInfo) ? oUserItemInfo.NumItems : KCDefine.B_VAL_0_INT;
+	public long NumCoins => this.TryGetUserItemInfo(EItemKinds.GOODS_COINS, out CUserItemInfo oUserItemInfo) ? oUserItemInfo.Nums : KCDefine.B_VAL_0_INT;
+	public long NumCoinsBoxCoins => this.TryGetUserItemInfo(EItemKinds.GOODS_COINS_BOX_COINS, out CUserItemInfo oUserItemInfo) ? oUserItemInfo.Nums : KCDefine.B_VAL_0_INT;
 	#endregion            // 프로퍼티
 
 	#region 함수
@@ -191,96 +259,61 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 유저 아이템 개수를 반환한다 */
 	public long GetNumUserItems(EItemKinds a_eItemKinds) {
-		return this.UserInfo.m_oUserItemInfoList.Sum((a_oUserItemInfo) => (a_oUserItemInfo.ItemKinds == a_eItemKinds) ? a_oUserItemInfo.NumItems : KCDefine.B_VAL_0_INT);
+		return this.UserInfo.m_oUserItemInfoList.Sum((a_oUserItemInfo) => (a_oUserItemInfo.ItemKinds == a_eItemKinds) ? a_oUserItemInfo.Nums : KCDefine.B_VAL_0_INT);
+	}
+
+	/** 유저 스킬 개수를 반환한다 */
+	public long GetNumUserSkills(ESkillKinds a_eSkillKinds) {
+		return this.UserInfo.m_oUserSkillInfoList.Sum((a_oUserSkillInfo) => (a_oUserSkillInfo.SkillKinds == a_eSkillKinds) ? a_oUserSkillInfo.Nums : KCDefine.B_VAL_0_INT);
+	}
+
+	/** 유저 객체 개수를 반환한다 */
+	public long GetNumUserObjs(EObjKinds a_eObjKinds) {
+		return this.UserInfo.m_oUserObjInfoList.Sum((a_oUserObjInfo) => (a_oUserObjInfo.ObjKinds == a_eObjKinds) ? a_oUserObjInfo.Nums : KCDefine.B_VAL_0_INT);
 	}
 
 	/** 유저 아이템 정보를 반환한다 */
-	public CUserItemInfo GetUserItemInfo(EItemKinds a_eItemKinds, bool a_bIsAutoCreate = false) {
-		bool bIsValid = this.TryGetUserItemInfo(a_eItemKinds, out CUserItemInfo oUserItemInfo, a_bIsAutoCreate);
+	public CUserItemInfo GetUserItemInfo(EItemKinds a_eItemKinds) {
+		bool bIsValid = this.TryGetUserItemInfo(a_eItemKinds, out CUserItemInfo oUserItemInfo);
 		CAccess.Assert(bIsValid);
 
 		return oUserItemInfo;
 	}
 
 	/** 유저 스킬 정보를 반환한다 */
-	public CUserSkillInfo GetUserSkillInfo(ESkillKinds a_eSkillKinds, bool a_bIsAutoCreate = false) {
-		bool bIsValid = this.TryGetUserSkillInfo(a_eSkillKinds, out CUserSkillInfo oUserSkillInfo, a_bIsAutoCreate);
+	public CUserSkillInfo GetUserSkillInfo(ESkillKinds a_eSkillKinds) {
+		bool bIsValid = this.TryGetUserSkillInfo(a_eSkillKinds, out CUserSkillInfo oUserSkillInfo);
 		CAccess.Assert(bIsValid);
 
 		return oUserSkillInfo;
 	}
 
 	/** 유저 객체 정보를 반환한다 */
-	public CUserObjInfo GetUserObjInfo(EObjKinds a_eObjKinds, bool a_bIsAutoCreate = false) {
-		bool bIsValid = this.TryGetUserObjInfo(a_eObjKinds, out CUserObjInfo oUserObjInfo, a_bIsAutoCreate);
+	public CUserObjInfo GetUserObjInfo(EObjKinds a_eObjKinds) {
+		bool bIsValid = this.TryGetUserObjInfo(a_eObjKinds, out CUserObjInfo oUserObjInfo);
 		CAccess.Assert(bIsValid);
 
 		return oUserObjInfo;
 	}
 
 	/** 유저 아이템 정보를 반환한다 */
-	public bool TryGetUserItemInfo(EItemKinds a_eItemKinds, out CUserItemInfo a_oOutUserItemInfo, bool a_bIsAutoCreate = false) {
+	public bool TryGetUserItemInfo(EItemKinds a_eItemKinds, out CUserItemInfo a_oOutUserItemInfo) {
 		a_oOutUserItemInfo = this.UserInfo.m_oUserItemInfoList.ExGetVal((a_oUserItemInfo) => a_oUserItemInfo.ItemKinds == a_eItemKinds, null);
-
-		// 유저 아이템 정보가 없을 경우
-		if(a_bIsAutoCreate && a_oOutUserItemInfo == null) {
-			a_oOutUserItemInfo = Factory.MakeUserItemInfo(a_eItemKinds);
-			this.AddUserItemInfo(a_oOutUserItemInfo, CItemInfoTable.Inst.GetItemInfo(a_eItemKinds).m_stCommonInfo.m_bIsDuplicate);
-		}
-
 		return a_oOutUserItemInfo != null;
 	}
 
 	/** 유저 스킬 정보를 반환한다 */
-	public bool TryGetUserSkillInfo(ESkillKinds a_eSkillKinds, out CUserSkillInfo a_oOutUserSkillInfo, bool a_bIsAutoCreate = false) {
+	public bool TryGetUserSkillInfo(ESkillKinds a_eSkillKinds, out CUserSkillInfo a_oOutUserSkillInfo) {
 		a_oOutUserSkillInfo = this.UserInfo.m_oUserSkillInfoList.ExGetVal((a_oUserItemInfo) => a_oUserItemInfo.SkillKinds == a_eSkillKinds, null);
-
-		// 유저 스킬 정보가 없을 경우
-		if(a_bIsAutoCreate && a_oOutUserSkillInfo == null) {
-			a_oOutUserSkillInfo = Factory.MakeUserSkillInfo(a_eSkillKinds);
-			this.AddUserSkillInfo(a_oOutUserSkillInfo, CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds).m_stCommonInfo.m_bIsDuplicate);
-		}
-
 		return a_oOutUserSkillInfo != null;
 	}
 
 	/** 유저 객체 정보를 반환한다 */
-	public bool TryGetUserObjInfo(EObjKinds a_eObjKinds, out CUserObjInfo a_oOutUserObjInfo, bool a_bIsAutoCreate = false) {
+	public bool TryGetUserObjInfo(EObjKinds a_eObjKinds, out CUserObjInfo a_oOutUserObjInfo) {
 		a_oOutUserObjInfo = this.UserInfo.m_oUserObjInfoList.ExGetVal((a_oUserItemInfo) => a_oUserItemInfo.ObjKinds == a_eObjKinds, null);
-
-		// 유저 객체 정보가 없을 경우
-		if(a_bIsAutoCreate && a_oOutUserObjInfo == null) {
-			a_oOutUserObjInfo = Factory.MakeUserObjInfo(a_eObjKinds);
-			this.AddUserObjInfo(a_oOutUserObjInfo, CObjInfoTable.Inst.GetObjInfo(a_eObjKinds).m_stCommonInfo.m_bIsDuplicate);
-		}
-
 		return a_oOutUserObjInfo != null;
 	}
-
-	/** 유저 아이템 레벨을 추가한다 */
-	public void AddUserItemLV(EItemKinds a_eItemKinds, long a_nUserItemLV, bool a_bIsAutoCreate = false) {
-		var oUserItemInfo = this.GetUserItemInfo(a_eItemKinds, a_bIsAutoCreate);
-		oUserItemInfo.LV = System.Math.Clamp(oUserItemInfo.LV + a_nUserItemLV, KCDefine.B_VAL_0_INT, long.MaxValue);
-	}
-
-	/** 유저 스킬 레벨을 추가한다 */
-	public void AddUserSkillLV(ESkillKinds a_eSkillKinds, long a_nUserSkillLV, bool a_bIsAutoCreate = false) {
-		var oUserSkillInfo = this.GetUserSkillInfo(a_eSkillKinds, a_bIsAutoCreate);
-		oUserSkillInfo.LV = System.Math.Clamp(oUserSkillInfo.LV + a_nUserSkillLV, KCDefine.B_VAL_0_INT, long.MaxValue);
-	}
-
-	/** 유저 객체 레벨을 추가한다 */
-	public void AddUserObjLV(EObjKinds a_eObjKinds, long a_nUserObjLV, bool a_bIsAutoCreate = false) {
-		var oUserObjInfo = this.GetUserObjInfo(a_eObjKinds, a_bIsAutoCreate);
-		oUserObjInfo.LV = System.Math.Clamp(oUserObjInfo.LV + a_nUserObjLV, KCDefine.B_VAL_0_INT, long.MaxValue);
-	}
-
-	/** 유저 아이템 개수를 추가한다 */
-	public void AddNumUserItems(EItemKinds a_eItemKinds, long a_nNumUserItems, bool a_bIsAutoCreate = false) {
-		var oUserItemInfo = this.GetUserItemInfo(a_eItemKinds, a_bIsAutoCreate);
-		oUserItemInfo.NumItems = System.Math.Clamp(oUserItemInfo.NumItems + a_nNumUserItems, KCDefine.B_VAL_0_INT, long.MaxValue);
-	}
-
+	
 	/** 유저 아이템 정보를 추가한다 */
 	public void AddUserItemInfo(CUserItemInfo a_oUserItemInfo, bool a_bIsDuplicate = false) {
 		// 유저 아이템 정보 추가가 가능 할 경우

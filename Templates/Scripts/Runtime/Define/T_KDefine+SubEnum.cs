@@ -665,17 +665,23 @@ public enum ETargetKinds {
 	ITEM_LV = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 400,100,000
-	ITEM_NUMS = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ITEM_NUMS = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 아이템
 
 	#region 스킬
 	// 500,000,000
 	SKILL_LV = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 500,100,000
+	SKILL_NUMS = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 스킬
 
 	#region 객체
 	// 600,000,000
 	OBJ_LV = (EEnumVal.TYPE * 6) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 600,100,000
+	OBJ_NUMS = (EEnumVal.TYPE * 6) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 객체
 
 	[HideInInspector] MAX_VAL

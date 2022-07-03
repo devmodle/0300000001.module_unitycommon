@@ -17,11 +17,6 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EPriceType a_eSender) {
-		return a_eSender > EPriceType.NONE && a_eSender < EPriceType.MAX_VAL;
-	}
-	
-	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EItemType a_eSender) {
 		return a_eSender > EItemType.NONE && a_eSender < EItemType.MAX_VAL;
 	}
@@ -84,6 +79,11 @@ public static partial class AccessExtension {
 	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this ETargetType a_eSender) {
 		return a_eSender > ETargetType.NONE && a_eSender < ETargetType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ETargetKinds a_eSender) {
+		return a_eSender > ETargetKinds.NONE && a_eSender < ETargetKinds.MAX_VAL;
 	}
 	
 	/** 유효 여부를 검사한다 */

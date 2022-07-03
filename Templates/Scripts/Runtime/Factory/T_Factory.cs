@@ -21,9 +21,9 @@ public static partial class Factory {
 	}
 
 	/** 유저 아이템 정보를 생성한다 */
-	public static CUserItemInfo MakeUserItemInfo(EItemKinds a_eItemKinds, long m_nLV = KCDefine.B_VAL_1_INT, long a_nNumItems = KCDefine.B_VAL_0_INT) {
+	public static CUserItemInfo MakeUserItemInfo(EItemKinds a_eItemKinds, long m_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserItemInfo = new CUserItemInfo() {
-			LV = m_nLV, NumItems = a_nNumItems, ItemKinds = a_eItemKinds
+			LV = m_nLV, Nums = a_nNums, ItemKinds = a_eItemKinds
 		};
 
 		oUserItemInfo.OnAfterDeserialize();
@@ -31,9 +31,9 @@ public static partial class Factory {
 	}
 
 	/** 유저 스킬 정보를 생성한다 */
-	public static CUserSkillInfo MakeUserSkillInfo(ESkillKinds a_eSkillKinds, long m_nLV = KCDefine.B_VAL_1_INT) {
+	public static CUserSkillInfo MakeUserSkillInfo(ESkillKinds a_eSkillKinds, long m_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserSkillInfo = new CUserSkillInfo() {
-			LV = m_nLV, SkillKinds = a_eSkillKinds
+			LV = m_nLV, Nums = a_nNums, SkillKinds = a_eSkillKinds
 		};
 
 		oUserSkillInfo.OnAfterDeserialize();
@@ -41,9 +41,9 @@ public static partial class Factory {
 	}
 
 	/** 유저 객체 정보를 생성한다 */
-	public static CUserObjInfo MakeUserObjInfo(EObjKinds a_eObjKinds, long m_nLV = KCDefine.B_VAL_1_INT) {
+	public static CUserObjInfo MakeUserObjInfo(EObjKinds a_eObjKinds, long m_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserObjInfo = new CUserObjInfo() {
-			LV = m_nLV, ObjKinds = a_eObjKinds
+			LV = m_nLV, Nums = a_nNums, ObjKinds = a_eObjKinds
 		};
 
 		oUserObjInfo.OnAfterDeserialize();
@@ -96,9 +96,9 @@ public static partial class Factory {
 		return CFactory.MakeUserInfoNodes();
 	}
 
-	/** 획득 정보 노드를 생성한다 */
-	public static List<string> MakeAcquireInfoNodes() {
-		return CFactory.MakeAcquireInfoNodes();
+	/** 타겟 정보 노드를 생성한다 */
+	public static List<string> MakeTargetInfoNodes() {
+		return CFactory.MakeTargetInfoNodes();
 	}
 
 	/** 결제 정보 노드를 생성한다 */

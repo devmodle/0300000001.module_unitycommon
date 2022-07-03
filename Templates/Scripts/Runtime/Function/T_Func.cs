@@ -41,11 +41,11 @@ public static partial class Func {
 		FIREBASE_LOGOUT,
 
 		LOAD_USER_INFO,
-		LOAD_ACQUIRE_INFOS,
+		LOAD_TARGET_INFOS,
 		LOAD_PURCHASE_INFOS,
 
 		SAVE_USER_INFO,
-		SAVE_ACQUIRE_INFOS,
+		SAVE_TARGET_INFOS,
 		SAVE_PURCHASE_INFOS,
 #endif			// #if FIREBASE_MODULE_ENABLE
 
@@ -567,16 +567,16 @@ public static partial class Func {
 		}
 	}
 
-	/** 획득 정보를 로드한다 */
-	public static void LoadAcquireInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
+	/** 타겟 정보를 로드한다 */
+	public static void LoadTargetInfos(System.Action<CFirebaseManager, string, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
-		Func.m_oFirebaseCallbackDict03.ExReplaceVal(ECallback.LOAD_ACQUIRE_INFOS, a_oCallback);
+		Func.m_oFirebaseCallbackDict03.ExReplaceVal(ECallback.LOAD_TARGET_INFOS, a_oCallback);
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			CFirebaseManager.Inst.LoadDatas(Factory.MakeAcquireInfoNodes(), Func.OnLoadAcquireInfos);
+			CFirebaseManager.Inst.LoadDatas(Factory.MakeTargetInfoNodes(), Func.OnLoadTargetInfos);
 		} else {
-			Func.OnLoadAcquireInfos(CFirebaseManager.Inst, string.Empty, false);
+			Func.OnLoadTargetInfos(CFirebaseManager.Inst, string.Empty, false);
 		}
 	}
 
@@ -617,24 +617,24 @@ public static partial class Func {
 		}
 	}
 
-	/** 획득 정보를 저장한다 */
-	public static void SaveAcquireInfos(List<STAcquireInfo> a_oAcquireInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oAcquireInfoList != null);
+	/** 타겟 정보를 저장한다 */
+	public static void SaveTargetInfos(List<STTargetInfo> a_oTargetInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoList != null);
 
-		// 획득 정보가 존재 할 경우
-		if(a_oAcquireInfoList != null) {
+		// 타겟 정보가 존재 할 경우
+		if(a_oTargetInfoList != null) {
 			CIndicatorManager.Inst.Show();
-			Func.m_oFirebaseCallbackDict02.ExReplaceVal(ECallback.SAVE_ACQUIRE_INFOS, a_oCallback);
+			Func.m_oFirebaseCallbackDict02.ExReplaceVal(ECallback.SAVE_TARGET_INFOS, a_oCallback);
 
 			// 로그인 되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CFirebaseManager.Inst.SaveDatas(Factory.MakeAcquireInfoNodes(), a_oAcquireInfoList.ExToJSONStr(true), Func.OnSaveAcquireInfos);
+				CFirebaseManager.Inst.SaveDatas(Factory.MakeTargetInfoNodes(), a_oTargetInfoList.ExToJSONStr(true), Func.OnSaveTargetInfos);
 #else
-				Func.OnSaveAcquireInfos(CFirebaseManager.Inst, false);
+				Func.OnSaveTargetInfos(CFirebaseManager.Inst, false);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			} else {
-				Func.OnSaveAcquireInfos(CFirebaseManager.Inst, false);
+				Func.OnSaveTargetInfos(CFirebaseManager.Inst, false);
 			}
 		}
 	}
@@ -679,10 +679,10 @@ public static partial class Func {
 		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_USER_INFO)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
-	/** 획득 정보가 로드 되었을 경우 */
-	private static void OnLoadAcquireInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+	/** 타겟 정보가 로드 되었을 경우 */
+	private static void OnLoadTargetInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
-		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_ACQUIRE_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
+		Func.m_oFirebaseCallbackDict03.GetValueOrDefault(ECallback.LOAD_TARGET_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
 	/** 결제 정보가 로드 되었을 경우 */
@@ -697,10 +697,10 @@ public static partial class Func {
 		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_USER_INFO)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 획득 정보가 저장 되었을 경우 */
-	private static void OnSaveAcquireInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+	/** 타겟 정보가 저장 되었을 경우 */
+	private static void OnSaveTargetInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
-		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_ACQUIRE_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
+		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_TARGET_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
 	/** 결제 정보가 저장 되었을 경우 */

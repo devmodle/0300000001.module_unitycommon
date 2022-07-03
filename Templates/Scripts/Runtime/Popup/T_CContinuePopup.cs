@@ -82,10 +82,10 @@ public partial class CContinuePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		var stCoinsPriceInfo = CItemSaleInfoTable.Inst.GetPriceInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE, EPriceType.ITEM, (int)EItemKinds.GOODS_COINS);
+		var stPayTargetInfo = CItemSaleInfoTable.Inst.GetPayTargetInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE, ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS);
 
 		// 텍스트를 갱신한다
-		m_oTextDict[EKey.PRICE_TEXT]?.ExSetText($"{stCoinsPriceInfo.IntPrice}", EFontSet._1, false);
+		m_oTextDict[EKey.PRICE_TEXT]?.ExSetText($"{stPayTargetInfo.IntTargets}", EFontSet._1, false);
 	}
 	
 	/** 재시도 버튼을 눌렀을 경우 */
@@ -95,13 +95,13 @@ public partial class CContinuePopup : CSubPopup {
 
 	/** 이어하기 버튼을 눌렀을 경우 */
 	private void OnTouchContinueBtn() {
-		var stCoinsPriceInfo = CItemSaleInfoTable.Inst.GetPriceInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE, EPriceType.ITEM, (int)EItemKinds.GOODS_COINS);
+		var stPayTargetInfo = CItemSaleInfoTable.Inst.GetPayTargetInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE, ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS);
 
-		// 코인이 부족 할 경우
-		if(CUserInfoStorage.Inst.NumCoins < stCoinsPriceInfo.IntPrice) {
+		// 교환이 불가능 할 경우
+		if(Access.IsEnableTrade(stPayTargetInfo)) {
 			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 		} else {
-			Func.BuyItem(CItemSaleInfoTable.Inst.GetItemSaleInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE));
+			Func.Acquire(CItemSaleInfoTable.Inst.GetAcquireTargetInfo(EItemSaleKinds.CONSUMABLE_GAME_ITEM_CONTINUE, ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS));
 			m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
 		}
 	}

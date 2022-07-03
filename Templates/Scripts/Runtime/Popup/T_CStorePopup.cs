@@ -96,46 +96,46 @@ public partial class CStorePopup : CSubPopup {
 
 	/** 상품 판매 UI 상태를 갱신한다 */
 	private void UpdateProductSaleUIsState(GameObject a_oProductSaleUIs, STProductSaleInfo a_stProductSaleInfo) {
-		var oPriceUIsDict = CCollectionManager.Inst.SpawnDict<EPriceType, GameObject>();
+		var oPriceUIsDict = CCollectionManager.Inst.SpawnDict<ETargetKinds, GameObject>();
 
 		try {
 			// 객체를 갱신한다 {
-			CFunc.SetupObjs(new List<(EPriceType, string, GameObject)>() {
-				(EPriceType.ADS, KCDefine.U_OBJ_N_ADS_PRICE_UIS, a_oProductSaleUIs),
-				(EPriceType.PURCHASE, KCDefine.U_OBJ_N_PURCHASE_PRICE_UIS, a_oProductSaleUIs)
+			CFunc.SetupObjs(new List<(ETargetKinds, string, GameObject)>() {
+				(ETargetKinds.ADS_REWARD, KCDefine.U_OBJ_N_ADS_PRICE_UIS, a_oProductSaleUIs),
+				(ETargetKinds.PURCHASE_IN_APP, KCDefine.U_OBJ_N_PURCHASE_PRICE_UIS, a_oProductSaleUIs)
 			}, oPriceUIsDict, false);
 
 			foreach(var stKeyVal in oPriceUIsDict) {
-				stKeyVal.Value?.SetActive(a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_ePriceType == stKeyVal.Key);
+				stKeyVal.Value?.SetActive(a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_eTargetKinds == stKeyVal.Key);
 			}
 			// 객체를 갱신한다 }
 
 			// 텍스트를 갱신한다 {
 			var oPriceText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
-			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_oPrice), EFontSet._1, false);
+			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_oTargets), EFontSet._1, false);
 			
 			a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stProductSaleInfo.m_stCommonInfo.m_oName, EFontSet._1, false);
 
-			for(int i = 0; i < a_stProductSaleInfo.m_oAcquireInfoList.Count; ++i) {
+			for(int i = 0; i < a_stProductSaleInfo.m_oPayTargetInfoList.Count; ++i) {
 				var oNumText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
-				oNumText?.ExSetText($"{a_stProductSaleInfo.m_oAcquireInfoList[i].m_nAcquireVal}", EFontSet._1, false);
+				oNumText?.ExSetText(a_stProductSaleInfo.m_oPayTargetInfoList[i].m_oTargets, EFontSet._1, false);
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 			// 인앱 결제 상품 일 경우
-			if(a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_ePriceType == EPriceType.PURCHASE && Access.GetProduct(a_stProductSaleInfo.m_nID) != null) {
+			if(a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_eTargetKinds == ETargetKinds.PURCHASE_IN_APP && Access.GetProduct(a_stProductSaleInfo.m_nID) != null) {
 				oPriceText?.ExSetText(Access.GetPriceStr(a_stProductSaleInfo.m_nID), EFontSet._1, false);
 			}
 #endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 			// 텍스트를 갱신한다 }
 
 			// 버튼을 갱신한다 {
-			var oPurchaseBtn = oPriceUIsDict[EPriceType.PURCHASE]?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
+			var oPurchaseBtn = oPriceUIsDict[ETargetKinds.PURCHASE_IN_APP]?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
 			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductSaleInfo));
 
 #if ADS_MODULE_ENABLE
 			// 보상 광고 상품 일 경우
-			if(a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_ePriceType == EPriceType.ADS) {
+			if(a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_eTargetKinds == ETargetKinds.ADS_REWARD) {
 				var oTouchInteractable = oPurchaseBtn?.gameObject.ExAddComponent<CRewardAdsTouchInteractable>();
 				oTouchInteractable?.SetAdsPlatform(CPluginInfoTable.Inst.AdsPlatform);
 			}
@@ -174,14 +174,14 @@ public partial class CStorePopup : CSubPopup {
 
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STProductSaleInfo a_stProductSaleInfo) {
-		switch(a_stProductSaleInfo.m_oPriceInfoList[KCDefine.B_VAL_0_INT].m_ePriceType) {
-			case EPriceType.ADS: {
+		switch(a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_eTargetKinds) {
+			case ETargetKinds.ADS_REWARD: {
 #if ADS_MODULE_ENABLE
 				m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS] = a_stProductSaleInfo.m_eProductSaleKinds;
 				Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 			} break;
-			case EPriceType.PURCHASE: {
+			case ETargetKinds.PURCHASE_IN_APP: {
 #if PURCHASE_MODULE_ENABLE
 				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductSaleInfo.m_eProductSaleKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
@@ -204,11 +204,7 @@ public partial class CStorePopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS]);
-
-			for(int i = 0; i < stProductSaleInfo.m_oAcquireInfoList.Count; ++i) {
-				Func.Acquire(stProductSaleInfo.m_oAcquireInfoList[i]);
-			}
+			Func.Buy(CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS]));
 		}
 
 		this.UpdateUIsState();
@@ -237,7 +233,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 #if FIREBASE_MODULE_ENABLE
-		this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadAcquireInfos(this.OnLoadAcquireInfos));
+		this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadTargetInfos(this.OnLoadTargetInfos));
 #else
 		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 #endif			// #if FIREBASE_MODULE_ENABLE
@@ -247,17 +243,17 @@ public partial class CStorePopup : CSubPopup {
 	}
 
 #if FIREBASE_MODULE_ENABLE
-	/** 획득 정보를 로드했을 경우 */
-	private void OnLoadAcquireInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+	/** 타겟 정보를 로드했을 경우 */
+	private void OnLoadTargetInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
-			var oAcquireInfoList = a_oJSONStr.ExJSONStrToAcquireInfos();
+			var oTargetInfoList = a_oJSONStr.ExJSONStrToTargetInfos();
 
-			for(int i = 0; i < oAcquireInfoList.Count; ++i) {
-				Func.Acquire(oAcquireInfoList[i]);
+			for(int i = 0; i < oTargetInfoList.Count; ++i) {
+				Func.Acquire(oTargetInfoList[i]);
 			}
 
-			this.ExLateCallFunc((a_oCallFuncSender) => { oAcquireInfoList.Clear(); Func.SaveAcquireInfos(oAcquireInfoList, this.OnSaveAcquireInfos); });
+			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoList.Clear(); Func.SaveTargetInfos(oTargetInfoList, this.OnSaveTargetInfos); });
 		} else {
 			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 		}
@@ -265,8 +261,8 @@ public partial class CStorePopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 	
-	/** 획득 정보를 저장했을 경우 */
-	private void OnSaveAcquireInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+	/** 타겟 정보를 저장했을 경우 */
+	private void OnSaveTargetInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE

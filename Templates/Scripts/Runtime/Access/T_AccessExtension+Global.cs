@@ -9,34 +9,18 @@ using UnityEngine.Events;
 /** 전역 접근 확장 클래스 */
 public static partial class AccessExtension {
 	#region 클래스 함수
-	/** 가격 정보를 반환한다 */
-	public static STPriceInfo ExGetPriceInfo(this List<STPriceInfo> a_oSender, EPriceType a_ePriceType, int a_nKinds) {
-		bool bIsValid = a_oSender.ExTryGetPriceInfo(a_ePriceType, a_nKinds, out STPriceInfo stPriceInfo);
+	/** 타겟 정보를 반환한다 */
+	public static STTargetInfo ExGetTargetInfo(this List<STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {
+		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo);
 		CAccess.Assert(bIsValid);
 
-		return stPriceInfo;
+		return stTargetInfo;
 	}
 
-	/** 획득 정보를 반환한다 */
-	public static STAcquireInfo ExGetAcquireInfo(this List<STAcquireInfo> a_oSender, EAcquireType a_eAcquireType, int a_nKinds) {
-		bool bIsValid = a_oSender.ExTryGetAcquireInfo(a_eAcquireType, a_nKinds, out STAcquireInfo stAcquireInfo);
-		CAccess.Assert(bIsValid);
-
-		return stAcquireInfo;
-	}
-
-	/** 가격 정보를 반환한다 */
-	public static bool ExTryGetPriceInfo(this List<STPriceInfo> a_oSender, EPriceType a_ePriceType, int a_nKinds, out STPriceInfo a_stOutPriceInfo) {
-		int nIdx = a_oSender.FindIndex((a_stPriceInfo) => a_stPriceInfo.m_ePriceType == a_ePriceType && a_stPriceInfo.m_nKinds == a_nKinds);
-		a_stOutPriceInfo = a_oSender.ExIsValidIdx(nIdx) ? a_oSender[nIdx] : default(STPriceInfo);
-
-		return a_oSender.ExIsValidIdx(nIdx);
-	}
-
-	/** 획득 정보를 반환한다 */
-	public static bool ExTryGetAcquireInfo(this List<STAcquireInfo> a_oSender, EAcquireType a_eAcquireType, int a_nKinds, out STAcquireInfo a_stOutAcquireInfo) {
-		int nIdx = a_oSender.FindIndex((a_stAcquireInfo) => a_stAcquireInfo.m_eAcquireType == a_eAcquireType && a_stAcquireInfo.m_nKinds == a_nKinds);
-		a_stOutAcquireInfo = a_oSender.ExIsValidIdx(nIdx) ? a_oSender[nIdx] : default(STAcquireInfo);
+	/** 타겟 정보를 반환한다 */
+	public static bool ExTryGetTargetInfo(this List<STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutTargetInfo) {
+		int nIdx = a_oSender.FindIndex((a_stTargetInfo) => a_stTargetInfo.m_eTargetKinds == a_eTargetKinds && a_stTargetInfo.m_nKinds == a_nKinds);
+		a_stOutTargetInfo = a_oSender.ExIsValidIdx(nIdx) ? a_oSender[nIdx] : default(STTargetInfo);
 
 		return a_oSender.ExIsValidIdx(nIdx);
 	}

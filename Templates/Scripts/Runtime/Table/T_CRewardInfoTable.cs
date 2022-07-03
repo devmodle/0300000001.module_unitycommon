@@ -16,7 +16,7 @@ public partial struct STRewardInfo {
 	public ERewardKinds m_eNextRewardKinds;
 	public ERewardQuality m_eRewardQuality;
 
-	public List<STAcquireInfo> m_oAcquireInfoList;
+	public List<STTargetInfo> m_oAcquireTargetInfoList;
 
 	#region 프로퍼티
 	public ERewardType RewardType => (ERewardType)((int)m_eRewardKinds).ExKindsToType();
@@ -33,10 +33,10 @@ public partial struct STRewardInfo {
 		m_eNextRewardKinds = a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_eRewardQuality = a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].ExIsValid() ? (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt : ERewardQuality.NONE;
 
-		m_oAcquireInfoList = new List<STAcquireInfo>();
+		m_oAcquireTargetInfoList = new List<STTargetInfo>();
 
-		for(int i = 0; i < m_oAcquireInfoList.Count; ++i) {
-			m_oAcquireInfoList.Add(new STAcquireInfo(a_oRewardInfo, i));
+		for(int i = 0; i < m_oAcquireTargetInfoList.Count; ++i) {
+			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oRewardInfo, KCDefine.U_PREFIX_ACQUIRE, i));
 		}
 	}
 	#endregion			// 함수
@@ -115,10 +115,29 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 		return stRewardInfo;
 	}
 
+	/** 획득 타겟 정보를 반환한다 */
+	public STTargetInfo GetAcquireTargetInfo(ERewardKinds a_eRewardKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
+		bool bIsValid = this.TryGetAcquireTargetInfo(a_eRewardKinds, a_eTargetKinds, a_nKinds, out STTargetInfo stAcquireTargetInfo);
+		CAccess.Assert(bIsValid);
+
+		return stAcquireTargetInfo;
+	}
+
 	/** 보상 정보를 반환한다 */
 	public bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo) {
 		a_stOutRewardInfo = this.RewardInfoDict.GetValueOrDefault(a_eRewardKinds, default(STRewardInfo));
 		return this.RewardInfoDict.ContainsKey(a_eRewardKinds);
+	}
+
+	/** 획득 타겟 정보를 반환한다 */
+	public bool TryGetAcquireTargetInfo(ERewardKinds a_eRewardKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
+		// 보상 정보가 존재 할 경우
+		if(this.TryGetRewardInfo(a_eRewardKinds, out STRewardInfo stRewardInfo)) {
+			return stRewardInfo.m_oAcquireTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutAcquireTargetInfo);
+		}
+
+		a_stOutAcquireTargetInfo = default(STTargetInfo);
+		return false;
 	}
 
 	/** 보상 정보를 로드한다 */

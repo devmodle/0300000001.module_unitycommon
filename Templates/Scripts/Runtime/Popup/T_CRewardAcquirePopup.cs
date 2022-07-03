@@ -22,7 +22,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		public ERewardQuality m_eQuality;
 		public ERewardAcquirePopupType m_eAgreePopup;
 		
-		public List<STAcquireInfo> m_oAcquireInfoList;
+		public List<STTargetInfo> m_oTargetInfoList;
 	}
 	
 	#region 변수
@@ -68,19 +68,19 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		// 보상 아이템 UI 상태를 갱신한다
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
 			var oItemUIs = m_oItemUIsList[i];
-			oItemUIs.SetActive(i < m_stParams.m_oAcquireInfoList.Count);
+			oItemUIs.SetActive(i < m_stParams.m_oTargetInfoList.Count);
 			
 			// 보상 정보가 존재 할 경우
-			if(i < m_stParams.m_oAcquireInfoList.Count) {
-				this.UpdateItemUIsState(oItemUIs, m_stParams.m_oAcquireInfoList[i]);
+			if(i < m_stParams.m_oTargetInfoList.Count) {
+				this.UpdateItemUIsState(oItemUIs, m_stParams.m_oTargetInfoList[i]);
 			}
 		}
 	}
 
 	/** 보상 아이템 UI 상태를 갱신한다 */
-	private void UpdateItemUIsState(GameObject a_oItemUIs, STAcquireInfo a_stAcquireInfo) {
+	private void UpdateItemUIsState(GameObject a_oItemUIs, STTargetInfo a_stTargetInfo) {
 		var oNumText = a_oItemUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
-		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stAcquireInfo.m_nAcquireVal), EFontSet._1, false);
+		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stTargetInfo.m_oTargets), EFontSet._1, false);
 	}
 
 	/** 광고 버튼을 눌렀을 경우 */
@@ -104,8 +104,11 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		m_oBtnDict[EKey.ADS_BTN]?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
 #endif			// #if ADS_MODULE_ENABLE
 
-		for(int i = 0; i < m_stParams.m_oAcquireInfoList.Count; ++i) {
-			Func.Acquire(m_stParams.m_oAcquireInfoList[i], a_bIsWatchRewardAds ? m_stParams.m_oAcquireInfoList[i].m_nAcquireVal : KCDefine.B_VAL_0_INT);
+		for(int i = 0; i < m_stParams.m_oTargetInfoList.Count; ++i) {
+			var stTargetInfo = m_stParams.m_oTargetInfoList[i];
+			stTargetInfo.m_oTargets = a_bIsWatchRewardAds ? $"{stTargetInfo.IntTargets * KCDefine.B_VAL_2_INT}" : stTargetInfo.m_oTargets;
+			
+			Func.Acquire(stTargetInfo);
 		}
 
 		this.OnTouchCloseBtn();

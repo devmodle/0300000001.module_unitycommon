@@ -10,102 +10,40 @@ using MessagePack;
 using Newtonsoft.Json;
 
 #region 기본
-/** 가격 정보 */
-[System.Serializable]
-public partial struct STPriceInfo {
-	public int m_nKinds;
-	public string m_oPrice;
-	public EPriceType m_ePriceType;
-
-	#region 프로퍼티
-	public long IntPrice => long.TryParse(m_oPrice, out long nPrice) ? nPrice : KCDefine.B_VAL_0_INT;
-	public double RealPrice => double.TryParse(m_oPrice, out double dblPrice) ? dblPrice : KCDefine.B_VAL_0_REAL;
-	#endregion			// 프로퍼티
-
-	#region 함수
-	/** 생성자 */
-	public STPriceInfo(SimpleJSON.JSONNode a_oPriceInfo, int a_nIdx) {
-		string oPriceKey = string.Format(KCDefine.U_KEY_FMT_PRICE, a_nIdx + KCDefine.B_VAL_1_INT);
-		string oPriceTypeKey = string.Format(KCDefine.U_KEY_FMT_PRICE_TYPE, a_nIdx + KCDefine.B_VAL_1_INT);
-		string oPriceKindsKey = string.Format(KCDefine.U_KEY_FMT_PRICE_KINDS, a_nIdx + KCDefine.B_VAL_1_INT);
-
-		m_nKinds = a_oPriceInfo[oPriceKindsKey].ExIsValid() ? a_oPriceInfo[oPriceKindsKey].AsInt : KCDefine.B_IDX_INVALID;
-		m_oPrice = a_oPriceInfo[oPriceKey].ExIsValid() ? a_oPriceInfo[oPriceKey] : KCDefine.B_STR_0_INT;
-		m_ePriceType = a_oPriceInfo[oPriceTypeKey].ExIsValid() ? (EPriceType)a_oPriceInfo[oPriceTypeKey].AsInt : EPriceType.NONE;
-	}
-	#endregion			// 함수
-
-	#region 조건부 함수
-#if UNITY_EDITOR || UNITY_STANDALONE
-	/** 가격 정보를 생성한다 */
-	public void MakePriceInfo(SimpleJSON.JSONClass a_oOutPriceInfo, int a_nIdx) {
-		a_oOutPriceInfo.Add(string.Format(KCDefine.U_KEY_FMT_PRICE_TYPE, a_nIdx + KCDefine.B_VAL_1_INT), $"{(int)m_ePriceType}");
-		a_oOutPriceInfo.Add(string.Format(KCDefine.U_KEY_FMT_PRICE_KINDS, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nKinds}");
-		a_oOutPriceInfo.Add(string.Format(KCDefine.U_KEY_FMT_PRICE, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_oPrice}");
-	}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
-	#endregion			// 조건부 함수
-}
-
 /** 타겟 정보 */
 [System.Serializable]
 public partial struct STTargetInfo {
 	public int m_nKinds;
-	public long m_nNumTargets;
-	public ETargetType m_eTargetType;
+	public string m_oTargets;
+	public ETargetKinds m_eTargetKinds;
+
+	#region 프로퍼티
+	public long IntTargets => long.TryParse(m_oTargets, out long nTargets) ? nTargets : KCDefine.B_VAL_0_INT;
+	public double RealTargets => double.TryParse(m_oTargets, out double dblTargets) ? dblTargets : KCDefine.B_VAL_0_REAL;
+	public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
+	public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
+	#endregion			// 프로퍼티
 
 	#region 함수
 	/** 생성자 */
-	public STTargetInfo(SimpleJSON.JSONNode a_oTargetInfo, int a_nIdx) {
-		string oNumTargetsKey = string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, a_nIdx + KCDefine.B_VAL_1_INT);
-		string oTargetTypeKey = string.Format(KCDefine.U_KEY_FMT_TARGET_TYPE, a_nIdx + KCDefine.B_VAL_1_INT);
-		string oTargetKindsKey = string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, a_nIdx + KCDefine.B_VAL_1_INT);
+	public STTargetInfo(SimpleJSON.JSONNode a_oTargetInfo, string a_oPrefix, int a_nIdx) {
+		string oKindsKey = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_KINDS, a_nIdx + KCDefine.B_VAL_1_INT));
+		string oTargetsKey = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGETS, a_nIdx + KCDefine.B_VAL_1_INT));
+		string oTargetKindsKey = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, a_nIdx + KCDefine.B_VAL_1_INT));
 
-		m_nKinds = a_oTargetInfo[oTargetKindsKey].ExIsValid() ? a_oTargetInfo[oTargetKindsKey].AsInt : KCDefine.B_IDX_INVALID;
-		m_nNumTargets = a_oTargetInfo[oNumTargetsKey].ExIsValid() ? a_oTargetInfo[oNumTargetsKey].AsInt : KCDefine.B_VAL_0_INT;
-		m_eTargetType = a_oTargetInfo[oTargetTypeKey].ExIsValid() ? (ETargetType)a_oTargetInfo[oTargetTypeKey].AsInt : ETargetType.NONE;
+		m_nKinds = a_oTargetInfo[oKindsKey].ExIsValid() ? a_oTargetInfo[oKindsKey].AsInt : KCDefine.B_IDX_INVALID;
+		m_oTargets = a_oTargetInfo[oTargetsKey].ExIsValid() ? a_oTargetInfo[oTargetsKey] : KCDefine.B_STR_0_INT;
+		m_eTargetKinds = a_oTargetInfo[oTargetKindsKey].ExIsValid() ? (ETargetKinds)a_oTargetInfo[oTargetKindsKey].AsInt : ETargetKinds.NONE;
 	}
 	#endregion			// 함수
 
 	#region 조건부 함수
 #if UNITY_EDITOR || UNITY_STANDALONE
 	/** 타겟 정보를 생성한다 */
-	public void MakeTargetInfo(SimpleJSON.JSONClass a_oOutTargetInfo, int a_nIdx) {
-		a_oOutTargetInfo.Add(string.Format(KCDefine.U_KEY_FMT_TARGET_TYPE, a_nIdx + KCDefine.B_VAL_1_INT), $"{(int)m_eTargetType}");
-		a_oOutTargetInfo.Add(string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nKinds}");
-		a_oOutTargetInfo.Add(string.Format(KCDefine.U_KEY_FMT_NUM_TARGETS, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nNumTargets}");
-	}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
-	#endregion			// 조건부 함수
-}
-
-/** 획득 정보 */
-[System.Serializable]
-public partial struct STAcquireInfo {
-	public int m_nKinds;
-	public long m_nAcquireVal;
-	public EAcquireType m_eAcquireType;
-
-	#region 함수
-	/** 생성자 */
-	public STAcquireInfo(SimpleJSON.JSONNode a_oAcquireInfo, int a_nIdx) {
-		string oAcquireValKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_VAL, a_nIdx + KCDefine.B_VAL_1_INT);
-		string oAcquireTypeKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TYPE, a_nIdx + KCDefine.B_VAL_1_INT);
-		string oAcquireKindsKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_KINDS, a_nIdx + KCDefine.B_VAL_1_INT);
-
-		m_nKinds = a_oAcquireInfo[oAcquireKindsKey].ExIsValid() ? a_oAcquireInfo[oAcquireKindsKey].AsInt : KCDefine.B_IDX_INVALID;
-		m_nAcquireVal = a_oAcquireInfo[oAcquireValKey].ExIsValid() ? a_oAcquireInfo[oAcquireValKey].AsInt : KCDefine.B_VAL_0_INT;
-		m_eAcquireType = a_oAcquireInfo[oAcquireTypeKey].ExIsValid() ? (EAcquireType)a_oAcquireInfo[oAcquireTypeKey].AsInt : EAcquireType.NONE;
-	}
-	#endregion			// 함수
-
-	#region 조건부 함수
-#if UNITY_EDITOR || UNITY_STANDALONE
-	/** 획득 정보를 생성한다 */
-	public void MakeAcquireInfo(SimpleJSON.JSONClass a_oOutAcquireInfo, int a_nIdx) {
-		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TYPE, a_nIdx + KCDefine.B_VAL_1_INT), $"{(int)m_eAcquireType}");
-		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_ACQUIRE_KINDS, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nKinds}");
-		a_oOutAcquireInfo.Add(string.Format(KCDefine.U_KEY_FMT_ACQUIRE_VAL, a_nIdx + KCDefine.B_VAL_1_INT), $"{m_nAcquireVal}");
+	public void MakeTargetInfo(SimpleJSON.JSONClass a_oOutTargetInfo, string a_oPrefix, int a_nIdx) {
+		a_oOutTargetInfo.Add(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, a_nIdx + KCDefine.B_VAL_1_INT)), $"{(int)m_eTargetKinds}");
+		a_oOutTargetInfo.Add(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_KINDS, a_nIdx + KCDefine.B_VAL_1_INT)), $"{m_nKinds}");
+		a_oOutTargetInfo.Add(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGETS, a_nIdx + KCDefine.B_VAL_1_INT)), m_oTargets);
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수
