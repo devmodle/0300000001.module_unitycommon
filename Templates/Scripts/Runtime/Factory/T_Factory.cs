@@ -11,9 +11,9 @@ using UnityEngine.EventSystems;
 public static partial class Factory {
 	#region 클래스 함수
 	/** 클리어 정보를 생성한다 */
-	public static CClearInfo MakeClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public static CClearInfo MakeClearInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		var oClearInfo = new CClearInfo() {
-			m_stIDInfo = CFactory.MakeIDInfo(a_nID, a_nStageID, a_nChapterID)
+			m_stIDInfo = CFactory.MakeIDInfo(a_nLevelID, a_nStageID, a_nChapterID)
 		};
 
 		oClearInfo.OnAfterDeserialize();

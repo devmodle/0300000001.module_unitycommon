@@ -171,8 +171,8 @@ namespace OverlayScene {
 
 #if PURCHASE_MODULE_ENABLE
 		/** 상품을 결제한다 */
-		public void PurchaseProduct(int a_nID, System.Action<CPurchaseManager, string, bool> a_oCallback) {
-			Func.PurchaseProduct(CProductInfoTable.Inst.GetProductInfo(a_nID).m_oID, a_oCallback);
+		public void PurchaseProduct(int a_nTableIdx, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+			Func.PurchaseProduct(CProductInfoTable.Inst.GetProductInfo(a_nTableIdx).m_oID, a_oCallback);
 		}
 
 		/** 상품을 결제한다 */

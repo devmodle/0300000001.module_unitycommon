@@ -16,16 +16,16 @@ public abstract partial class CUserTargetInfo : CBaseInfo {
 	#region 상수
 	private const string KEY_LV = "LV";
 	private const string KEY_NUMS = "Nums";
-	private const string KEY_OWNER_TYPE = "OwnerType";
 	private const string KEY_OWNER_KINDS = "OwnerKinds";
+	private const string KEY_OWNER_TARGET_KINDS = "OwnerTargetKinds";
 	#endregion			// 상수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public long LV { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_LV, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_LV, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public long Nums { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUMS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUMS, $"{value}"); } }
 
-	[JsonIgnore][IgnoreMember] public EOwnerType OwnerType { get { return (EOwnerType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TYPE, $"{(int)EOwnerType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_TYPE, $"{(int)value}"); } }
 	[JsonIgnore][IgnoreMember] public int OwnerKinds { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_KINDS, $"{KCDefine.B_IDX_INVALID}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_KINDS, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public ETargetKinds OwnerTargetKinds { get { return (ETargetKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TARGET_KINDS, $"{(int)ETargetKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_TARGET_KINDS, $"{(int)value}"); } }
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver

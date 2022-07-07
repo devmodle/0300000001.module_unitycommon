@@ -16,12 +16,12 @@ public enum EPlayMode {
 	[HideInInspector] MAX_VAL
 }
 
-/** 소유자 타입 */
-public enum EOwnerType {
+/** 결제 타입 */
+public enum EPurchaseType {
 	NONE = -1,
-	ITEM,
-	SKILL,
-	OBJ,
+	ADS,
+	PURCHASE,
+	TARGET,
 	[HideInInspector] MAX_VAL
 }
 #endregion			// 기본

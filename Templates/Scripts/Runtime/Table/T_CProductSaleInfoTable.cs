@@ -14,11 +14,12 @@ using UnityEngine.Purchasing;
 [System.Serializable]
 public partial struct STProductSaleInfo {
 	public STCommonInfo m_stCommonInfo;
-	public int m_nID;
+	public int m_nTableIdx;
 
 	public EProductSaleKinds m_eProductSaleKinds;
 	public EProductSaleKinds m_ePrevProductSaleKinds;
 	public EProductSaleKinds m_eNextProductSaleKinds;
+	public EPurchaseType m_ePurchaseType;
 
 	public List<STTargetInfo> m_oPayTargetInfoList;
 	public List<STTargetInfo> m_oAcquireTargetInfoList;
@@ -32,11 +33,12 @@ public partial struct STProductSaleInfo {
 	/** 생성자 */
 	public STProductSaleInfo(SimpleJSON.JSONNode a_oProductSaleInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oProductSaleInfo);
-		m_nID = a_oProductSaleInfo[KCDefine.U_KEY_ID].AsInt;
+		m_nTableIdx = a_oProductSaleInfo[KCDefine.U_KEY_TABLE_IDX].AsInt;
 
 		m_eProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
 		m_ePrevProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
 		m_eNextProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
+		m_ePurchaseType = a_oProductSaleInfo[KCDefine.U_KEY_PURCHASE_TYPE].ExIsValid() ? (EPurchaseType)a_oProductSaleInfo[KCDefine.U_KEY_PURCHASE_TYPE].AsInt : EPurchaseType.NONE;
 
 		m_oPayTargetInfoList = new List<STTargetInfo>();
 		m_oAcquireTargetInfoList = new List<STTargetInfo>();
@@ -102,8 +104,8 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 	}
 
 	/** 상품 판매 정보를 반환한다 */
-	public STProductSaleInfo GetProductSaleInfo(int a_nID) {
-		bool bIsValid = this.TryGetProductSaleInfo(a_nID, out STProductSaleInfo stProductSaleInfo);
+	public STProductSaleInfo GetProductSaleInfo(int a_nTableIdx) {
+		bool bIsValid = this.TryGetProductSaleInfo(a_nTableIdx, out STProductSaleInfo stProductSaleInfo);
 		CAccess.Assert(bIsValid);
 
 		return stProductSaleInfo;
@@ -134,8 +136,8 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 	}
 
 	/** 상품 판매 정보를 반환한다 */
-	public bool TryGetProductSaleInfo(int a_nID, out STProductSaleInfo a_stOutProductSaleInfo) {
-		var stResult = this.ProductSaleInfoDict.ExFindVal((a_stProductSaleInfo) => a_stProductSaleInfo.m_nID == a_nID);
+	public bool TryGetProductSaleInfo(int a_nTableIdx, out STProductSaleInfo a_stOutProductSaleInfo) {
+		var stResult = this.ProductSaleInfoDict.ExFindVal((a_stProductSaleInfo) => a_stProductSaleInfo.m_nTableIdx == a_nTableIdx);
 		a_stOutProductSaleInfo = stResult.Item1 ? this.ProductSaleInfoDict[stResult.Item2] : default(STProductSaleInfo);
 
 		return stResult.Item1;

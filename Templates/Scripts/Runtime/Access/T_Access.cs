@@ -27,14 +27,14 @@ public static partial class Access {
 	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	/** 가격 문자열을 반환한다 */
-	public static string GetPriceStr(int a_nID) {
-		var oProduct = Access.GetProduct(a_nID);
+	public static string GetPriceStr(int a_nTableIdx) {
+		var oProduct = Access.GetProduct(a_nTableIdx);
 		return (oProduct != null) ? CAccess.GetPriceStr(oProduct) : string.Empty;
 	}
 
 	/** 상품을 반환한다 */
-	public static Product GetProduct(int a_nID) {
-		bool bIsValid = CProductInfoTable.Inst.TryGetProductInfo(a_nID, out STProductInfo stProductInfo);
+	public static Product GetProduct(int a_nTableIdx) {
+		bool bIsValid = CProductInfoTable.Inst.TryGetProductInfo(a_nTableIdx, out STProductInfo stProductInfo);
 		CAccess.Assert(bIsValid);
 		
 		return CPurchaseManager.Inst.GetProduct(stProductInfo.m_oID);

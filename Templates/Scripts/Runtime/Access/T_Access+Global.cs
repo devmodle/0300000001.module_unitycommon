@@ -63,13 +63,13 @@ public static partial class Access {
 	}
 
 	/** 레벨 클리어 정보를 반환한다 */
-	public static CClearInfo GetLevelClearInfo(int a_nID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT, bool a_bIsAutoCreate = false) {
+	public static CClearInfo GetLevelClearInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
-		if(a_bIsAutoCreate && !CGameInfoStorage.Inst.TryGetLevelClearInfo(a_nID, out CClearInfo oLevelClearInfo, a_nStageID, a_nChapterID)) {
-			CGameInfoStorage.Inst.AddLevelClearInfo(Factory.MakeClearInfo(a_nID, a_nStageID, a_nChapterID));
+		if(a_bIsAutoCreate && !CGameInfoStorage.Inst.TryGetLevelClearInfo(a_nLevelID, out CClearInfo oLevelClearInfo, a_nStageID, a_nChapterID)) {
+			CGameInfoStorage.Inst.AddLevelClearInfo(Factory.MakeClearInfo(a_nLevelID, a_nStageID, a_nChapterID));
 		}
 
-		return CGameInfoStorage.Inst.TryGetLevelClearInfo(a_nID, out oLevelClearInfo, a_nStageID, a_nChapterID) ? oLevelClearInfo : null;
+		return CGameInfoStorage.Inst.TryGetLevelClearInfo(a_nLevelID, out oLevelClearInfo, a_nStageID, a_nChapterID) ? oLevelClearInfo : null;
 	}
 
 	/** 유저 아이템 정보를 반환한다 */
