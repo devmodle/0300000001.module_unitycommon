@@ -11,16 +11,16 @@ using UnityEngine.Events;
 public partial struct STObjSaleInfo {
 	public STCommonInfo m_stCommonInfo;
 
-	public EObjSaleKinds m_eObjSaleKinds;
-	public EObjSaleKinds m_ePrevObjSaleKinds;
-	public EObjSaleKinds m_eNextObjSaleKinds;
+	public EObjKinds m_eObjKinds;
+	public EObjKinds m_ePrevObjKinds;
+	public EObjKinds m_eNextObjKinds;
 
 	public List<STTargetInfo> m_oPayTargetInfoList;
 	public List<STTargetInfo> m_oAcquireTargetInfoList;
 
 	#region 프로퍼티
-	public EObjSaleType ObjSaleType => (EObjSaleType)((int)m_eObjSaleKinds).ExKindsToType();
-	public EObjSaleKinds BaseObjSaleKinds => (EObjSaleKinds)((int)m_eObjSaleKinds).ExKindsToSubKindsType();
+	public EObjType ObjType => (EObjType)((int)m_eObjKinds).ExKindsToType();
+	public EObjKinds BaseObjKinds => (EObjKinds)((int)m_eObjKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -28,9 +28,9 @@ public partial struct STObjSaleInfo {
 	public STObjSaleInfo(SimpleJSON.JSONNode a_oObjSaleInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oObjSaleInfo);
 
-		m_eObjSaleKinds = a_oObjSaleInfo[KCDefine.U_KEY_OBJ_SALE_KINDS].ExIsValid() ? (EObjSaleKinds)a_oObjSaleInfo[KCDefine.U_KEY_OBJ_SALE_KINDS].AsInt : EObjSaleKinds.NONE;
-		m_ePrevObjSaleKinds = a_oObjSaleInfo[KCDefine.U_KEY_PREV_OBJ_SALE_KINDS].ExIsValid() ? (EObjSaleKinds)a_oObjSaleInfo[KCDefine.U_KEY_PREV_OBJ_SALE_KINDS].AsInt : EObjSaleKinds.NONE;
-		m_eNextObjSaleKinds = a_oObjSaleInfo[KCDefine.U_KEY_NEXT_OBJ_SALE_KINDS].ExIsValid() ? (EObjSaleKinds)a_oObjSaleInfo[KCDefine.U_KEY_NEXT_OBJ_SALE_KINDS].AsInt : EObjSaleKinds.NONE;
+		m_eObjKinds = a_oObjSaleInfo[KCDefine.U_KEY_OBJ_SALE_KINDS].ExIsValid() ? (EObjKinds)a_oObjSaleInfo[KCDefine.U_KEY_OBJ_SALE_KINDS].AsInt : EObjKinds.NONE;
+		m_ePrevObjKinds = a_oObjSaleInfo[KCDefine.U_KEY_PREV_OBJ_SALE_KINDS].ExIsValid() ? (EObjKinds)a_oObjSaleInfo[KCDefine.U_KEY_PREV_OBJ_SALE_KINDS].AsInt : EObjKinds.NONE;
+		m_eNextObjKinds = a_oObjSaleInfo[KCDefine.U_KEY_NEXT_OBJ_SALE_KINDS].ExIsValid() ? (EObjKinds)a_oObjSaleInfo[KCDefine.U_KEY_NEXT_OBJ_SALE_KINDS].AsInt : EObjKinds.NONE;
 
 		m_oPayTargetInfoList = new List<STTargetInfo>();
 		m_oAcquireTargetInfoList = new List<STTargetInfo>();
@@ -69,7 +69,7 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 	#endregion			// 변수
 
 	#region 프로퍼티
-	public Dictionary<EObjSaleKinds, STObjSaleInfo> ObjSaleInfoDict { get; private set; } = new Dictionary<EObjSaleKinds, STObjSaleInfo>();
+	public Dictionary<EObjKinds, STObjSaleInfo> ObjSaleInfoDict { get; private set; } = new Dictionary<EObjKinds, STObjSaleInfo>();
 
 	private string ObjSaleInfoTablePath {
 		get {
@@ -101,7 +101,7 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 		oObjSaleInfoList.ExAddVals(m_oEnemyObjSaleInfoList);
 
 		for(int i = 0; i < oObjSaleInfoList.Count; ++i) {
-			this.ObjSaleInfoDict.TryAdd(oObjSaleInfoList[i].m_eObjSaleKinds, oObjSaleInfoList[i]);
+			this.ObjSaleInfoDict.TryAdd(oObjSaleInfoList[i].m_eObjKinds, oObjSaleInfoList[i]);
 		}
 	}
 
@@ -112,39 +112,39 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 	}
 
 	/** 객체 판매 정보를 반환한다 */
-	public STObjSaleInfo GetObjSaleInfo(EObjSaleKinds a_eObjSaleKinds) {
-		bool bIsValid = this.TryGetObjSaleInfo(a_eObjSaleKinds, out STObjSaleInfo stObjSaleInfo);
+	public STObjSaleInfo GetObjSaleInfo(EObjKinds a_eObjKinds) {
+		bool bIsValid = this.TryGetObjSaleInfo(a_eObjKinds, out STObjSaleInfo stObjSaleInfo);
 		CAccess.Assert(bIsValid);
 
 		return stObjSaleInfo;
 	}
 
 	/** 지불 타겟 정보를 반환한다 */
-	public STTargetInfo GetPayTargetInfo(EObjSaleKinds a_eObjSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
-		bool bIsValid = this.TryGetPayTargetInfo(a_eObjSaleKinds, a_eTargetKinds, a_nKinds, out STTargetInfo stPayTargetInfo);
+	public STTargetInfo GetPayTargetInfo(EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
+		bool bIsValid = this.TryGetPayTargetInfo(a_eObjKinds, a_eTargetKinds, a_nKinds, out STTargetInfo stPayTargetInfo);
 		CAccess.Assert(bIsValid);
 
 		return stPayTargetInfo;
 	}
 
 	/** 획득 타겟 정보를 반환한다 */
-	public STTargetInfo GetAcquireTargetInfo(EObjSaleKinds a_eObjSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
-		bool bIsValid = this.TryGetAcquireTargetInfo(a_eObjSaleKinds, a_eTargetKinds, a_nKinds, out STTargetInfo stAcquireTargetInfo);
+	public STTargetInfo GetAcquireTargetInfo(EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
+		bool bIsValid = this.TryGetAcquireTargetInfo(a_eObjKinds, a_eTargetKinds, a_nKinds, out STTargetInfo stAcquireTargetInfo);
 		CAccess.Assert(bIsValid);
 
 		return stAcquireTargetInfo;
 	}
 
 	/** 객체 판매 정보를 반환한다 */
-	public bool TryGetObjSaleInfo(EObjSaleKinds a_eObjSaleKinds, out STObjSaleInfo a_stOutObjSaleInfo) {
-		a_stOutObjSaleInfo = this.ObjSaleInfoDict.GetValueOrDefault(a_eObjSaleKinds, default(STObjSaleInfo));
-		return this.ObjSaleInfoDict.ContainsKey(a_eObjSaleKinds);
+	public bool TryGetObjSaleInfo(EObjKinds a_eObjKinds, out STObjSaleInfo a_stOutObjSaleInfo) {
+		a_stOutObjSaleInfo = this.ObjSaleInfoDict.GetValueOrDefault(a_eObjKinds, default(STObjSaleInfo));
+		return this.ObjSaleInfoDict.ContainsKey(a_eObjKinds);
 	}
 
 	/** 지불 타겟 정보를 반환한다 */
-	public bool TryGetPayTargetInfo(EObjSaleKinds a_eObjSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutPayTargetInfo) {
+	public bool TryGetPayTargetInfo(EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutPayTargetInfo) {
 		// 아이템 판매 정보가 존재 할 경우
-		if(this.TryGetObjSaleInfo(a_eObjSaleKinds, out STObjSaleInfo stObjSaleInfo)) {
+		if(this.TryGetObjSaleInfo(a_eObjKinds, out STObjSaleInfo stObjSaleInfo)) {
 			return stObjSaleInfo.m_oPayTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutPayTargetInfo);
 		}
 		
@@ -153,9 +153,9 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 	}
 
 	/** 획득 타겟 정보를 반환한다 */
-	public bool TryGetAcquireTargetInfo(EObjSaleKinds a_eObjSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
+	public bool TryGetAcquireTargetInfo(EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
 		// 아이템 판매 정보가 존재 할 경우
-		if(this.TryGetObjSaleInfo(a_eObjSaleKinds, out STObjSaleInfo stObjSaleInfo)) {
+		if(this.TryGetObjSaleInfo(a_eObjKinds, out STObjSaleInfo stObjSaleInfo)) {
 			return stObjSaleInfo.m_oAcquireTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutAcquireTargetInfo);
 		}
 
@@ -164,13 +164,13 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 	}
 
 	/** 객체 판매 정보를 로드한다 */
-	public Dictionary<EObjSaleKinds, STObjSaleInfo> LoadObjSaleInfos() {
+	public Dictionary<EObjKinds, STObjSaleInfo> LoadObjSaleInfos() {
 		this.ResetObjSaleInfos();
 		return this.LoadObjSaleInfos(this.ObjSaleInfoTablePath);
 	}
 
 	/** 객체 판매 정보를 로드한다 */
-	private Dictionary<EObjSaleKinds, STObjSaleInfo> LoadObjSaleInfos(string a_oFilePath) {
+	private Dictionary<EObjKinds, STObjSaleInfo> LoadObjSaleInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -185,7 +185,7 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 	}
 
 	/** 객체 판매 정보를 로드한다 */
-	private Dictionary<EObjSaleKinds, STObjSaleInfo> DoLoadObjSaleInfos(string a_oJSONStr) {
+	private Dictionary<EObjKinds, STObjSaleInfo> DoLoadObjSaleInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
@@ -198,8 +198,8 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 				var stObjSaleInfo = new STObjSaleInfo(oObjSaleInfosList[i][j]);
 
 				// 객체 판매 정보가 추가 가능 할 경우
-				if(stObjSaleInfo.m_eObjSaleKinds.ExIsValid() && (!this.ObjSaleInfoDict.ContainsKey(stObjSaleInfo.m_eObjSaleKinds) || oObjSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.ObjSaleInfoDict.ExReplaceVal(stObjSaleInfo.m_eObjSaleKinds, stObjSaleInfo);
+				if(stObjSaleInfo.m_eObjKinds.ExIsValid() && (!this.ObjSaleInfoDict.ContainsKey(stObjSaleInfo.m_eObjKinds) || oObjSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+					this.ObjSaleInfoDict.ExReplaceVal(stObjSaleInfo.m_eObjKinds, stObjSaleInfo);
 				}
 			}
 		}

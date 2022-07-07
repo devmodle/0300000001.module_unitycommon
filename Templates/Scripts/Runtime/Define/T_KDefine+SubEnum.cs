@@ -455,7 +455,7 @@ public enum EResKinds {
 }
 
 /** 아이템 판매 타입 */
-public enum EItemSaleType {
+public enum EItemType {
 	NONE = -1,
 	GOODS,
 	CONSUMABLE,
@@ -468,7 +468,7 @@ public enum EItemSaleType {
 }
 
 /** 아이템 판매 종류 */
-public enum EItemSaleKinds {
+public enum EItemKinds {
 	NONE = -1,
 
 	#region 재화
@@ -550,7 +550,7 @@ public enum EProductSaleKinds {
 }
 
 /** 스킬 판매 타입 */
-public enum ESkillSaleType {
+public enum ESkillType {
 	NONE = -1,
 	ACTIVE,
 	PASSIVE,
@@ -558,7 +558,7 @@ public enum ESkillSaleType {
 }
 
 /** 스킬 판매 종류 */
-public enum ESkillSaleKinds {
+public enum ESkillKinds {
 	NONE = -1,
 
 	#region 액티브
@@ -575,7 +575,7 @@ public enum ESkillSaleKinds {
 }
 
 /** 객체 판매 타입 */
-public enum EObjSaleType {
+public enum EObjType {
 	NONE = -1,
 	BG,
 	NORM,
@@ -587,7 +587,7 @@ public enum EObjSaleType {
 }
 
 /** 객체 판매 종류 */
-public enum EObjSaleKinds {
+public enum EObjKinds {
 	NONE = -1,
 
 	#region 배경

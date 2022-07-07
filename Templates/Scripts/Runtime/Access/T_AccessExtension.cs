@@ -135,17 +135,7 @@ public static partial class AccessExtension {
 	public static bool ExIsValid(this EResKinds a_eSender) {
 		return a_eSender > EResKinds.NONE && a_eSender < EResKinds.MAX_VAL;
 	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EItemSaleType a_eSender) {
-		return a_eSender > EItemSaleType.NONE && a_eSender < EItemSaleType.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EItemSaleKinds a_eSender) {
-		return a_eSender > EItemSaleKinds.NONE && a_eSender < EItemSaleKinds.MAX_VAL;
-	}
-
+	
 	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EProductSaleType a_eSender) {
 		return a_eSender > EProductSaleType.NONE && a_eSender < EProductSaleType.MAX_VAL;
@@ -156,26 +146,6 @@ public static partial class AccessExtension {
 		return a_eSender > EProductSaleKinds.NONE && a_eSender < EProductSaleKinds.MAX_VAL;
 	}
 
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this ESkillSaleType a_eSender) {
-		return a_eSender > ESkillSaleType.NONE && a_eSender < ESkillSaleType.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this ESkillSaleKinds a_eSender) {
-		return a_eSender > ESkillSaleKinds.NONE && a_eSender < ESkillSaleKinds.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EObjSaleType a_eSender) {
-		return a_eSender > EObjSaleType.NONE && a_eSender < EObjSaleType.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EObjSaleKinds a_eSender) {
-		return a_eSender > EObjSaleKinds.NONE && a_eSender < EObjSaleKinds.MAX_VAL;
-	}
-	
 	/** 컴포넌트 상호 작용 여부를 변경한다 */
 	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
