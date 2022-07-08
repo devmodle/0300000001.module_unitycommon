@@ -14,9 +14,8 @@ using Newtonsoft.Json;
 [Union(0, typeof(CAppInfo))]
 [Union(1, typeof(CUserInfo))]
 [Union(2, typeof(CGameInfo))]
-[Union(4, typeof(CClearInfo))]
-[Union(5, typeof(CLevelInfo))]
-[Union(6, typeof(CUserTargetInfo))]
+[Union(3, typeof(CClearInfo))]
+[Union(4, typeof(CUserTargetInfo))]
 [MessagePackObject][System.Serializable]
 public abstract partial class CBaseInfo : IMessagePackSerializationCallbackReceiver {
 	#region 변수
