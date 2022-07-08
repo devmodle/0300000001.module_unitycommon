@@ -18,6 +18,12 @@ public partial struct STSkillSaleInfo {
 	public List<STTargetInfo> m_oPayTargetInfoList;
 	public List<STTargetInfo> m_oAcquireTargetInfoList;
 
+	#region 상수
+	public static STSkillSaleInfo INVALID = new STSkillSaleInfo() {
+		m_eSkillKinds = ESkillKinds.NONE, m_ePrevSkillKinds = ESkillKinds.NONE, m_eNextSkillKinds = ESkillKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
 	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();
@@ -35,11 +41,11 @@ public partial struct STSkillSaleInfo {
 		m_oPayTargetInfoList = new List<STTargetInfo>();
 		m_oAcquireTargetInfoList = new List<STTargetInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_PRICE_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			m_oPayTargetInfoList.Add(new STTargetInfo(a_oSkillSaleInfo, KCDefine.U_PREFIX_PAY, i));
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ITEMS_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oSkillSaleInfo, KCDefine.U_PREFIX_ACQUIRE, i));
 		}
 	}

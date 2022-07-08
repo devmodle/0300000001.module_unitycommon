@@ -18,6 +18,12 @@ public partial struct STObjSaleInfo {
 	public List<STTargetInfo> m_oPayTargetInfoList;
 	public List<STTargetInfo> m_oAcquireTargetInfoList;
 
+	#region 상수
+	public static STObjSaleInfo INVALID = new STObjSaleInfo() {
+		m_eObjKinds = EObjKinds.NONE, m_ePrevObjKinds = EObjKinds.NONE, m_eNextObjKinds = EObjKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public EObjType ObjType => (EObjType)((int)m_eObjKinds).ExKindsToType();
 	public EObjKinds BaseObjKinds => (EObjKinds)((int)m_eObjKinds).ExKindsToSubKindsType();
@@ -35,11 +41,11 @@ public partial struct STObjSaleInfo {
 		m_oPayTargetInfoList = new List<STTargetInfo>();
 		m_oAcquireTargetInfoList = new List<STTargetInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_PRICE_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			m_oPayTargetInfoList.Add(new STTargetInfo(a_oObjSaleInfo, KCDefine.U_PREFIX_PAY, i));
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ITEMS_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oObjSaleInfo, KCDefine.U_PREFIX_ACQUIRE, i));
 		}
 	}

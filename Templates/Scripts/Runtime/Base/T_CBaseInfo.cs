@@ -23,14 +23,14 @@ using Newtonsoft.Json;
 [Union(9, typeof(CUserObjInfo))]
 [MessagePackObject][System.Serializable]
 public abstract partial class CBaseInfo : IMessagePackSerializationCallbackReceiver {
+	#region 변수
+	[Key(0)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
+	#endregion			// 변수
+
 	#region 상수
 	private const string KEY_VER = "Ver";
 	private const string KEY_SAVE_TIME = "SaveTime";
 	#endregion			// 상수
-
-	#region 변수
-	[Key(0)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
-	#endregion			// 변수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public System.Version Ver { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }

@@ -18,6 +18,12 @@ public partial struct STRewardInfo {
 
 	public List<STTargetInfo> m_oAcquireTargetInfoList;
 
+	#region 상수
+	public static STRewardInfo INVALID = new STRewardInfo() {
+		m_eRewardKinds = ERewardKinds.NONE, m_ePrevRewardKinds = ERewardKinds.NONE, m_eNextRewardKinds = ERewardKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public ERewardType RewardType => (ERewardType)((int)m_eRewardKinds).ExKindsToType();
 	public ERewardKinds BaseRewardKinds => (ERewardKinds)((int)m_eRewardKinds).ExKindsToSubKindsType();
@@ -35,7 +41,7 @@ public partial struct STRewardInfo {
 
 		m_oAcquireTargetInfoList = new List<STTargetInfo>();
 
-		for(int i = 0; i < m_oAcquireTargetInfoList.Count; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oRewardInfo, KCDefine.U_PREFIX_ACQUIRE, i));
 		}
 	}

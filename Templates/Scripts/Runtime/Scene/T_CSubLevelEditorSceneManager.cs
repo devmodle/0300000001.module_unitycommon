@@ -101,11 +101,6 @@ namespace LevelEditorScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 상수
-		private const string ID_OBJ_INFO_TABLE_GOOGLE_SHEET = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ";
-		private const string ID_EPISODE_INFO_TABLE_GOOGLE_SHEET = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA";
-		#endregion			// 상수
-
 		#region 변수
 		private Dictionary<EKey, EUserType> m_oUserTypeDict = new Dictionary<EKey, EUserType>() {
 			[EKey.SEL_USER_TYPE] = EUserType.NONE
@@ -154,6 +149,11 @@ namespace LevelEditorScene {
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion			// 변수
+
+		#region 상수
+		private const string ID_OBJ_INFO_TABLE_GOOGLE_SHEET = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ";
+		private const string ID_EPISODE_INFO_TABLE_GOOGLE_SHEET = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA";
+		#endregion			// 상수
 		
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */

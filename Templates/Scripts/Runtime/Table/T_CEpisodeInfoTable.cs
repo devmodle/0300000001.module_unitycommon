@@ -25,9 +25,14 @@ public partial struct STEpisodeInfo {
 
 	public List<long> m_oRecordList;
 	public List<ERewardKinds> m_oRewardKindsList;
-
 	public List<STTargetInfo> m_oClearTargetInfoList;
 	public List<STTargetInfo> m_oUnlockTargetInfoList;
+
+	#region 상수
+	public static STEpisodeInfo INVALID = new STEpisodeInfo() {
+		m_stIDInfo = STIDInfo.INVALID, m_stPrevIDInfo = STIDInfo.INVALID, m_stNextIDInfo = STIDInfo.INVALID
+	};
+	#endregion			// 상수
 
 	#region 함수
 	/** 생성자 */
@@ -49,7 +54,7 @@ public partial struct STEpisodeInfo {
 		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_PREV_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stPrevIDInfo);
 		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_NEXT_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stNextIDInfo);
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_MARKS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_RECORDS; ++i) {
 			string oRecordKey = string.Format(KCDefine.U_KEY_FMT_RECORD, i + KCDefine.B_VAL_1_INT);
 			m_oRecordList.ExAddVal(a_oEpisodeInfo[oRecordKey].AsInt);
 		}
@@ -59,11 +64,11 @@ public partial struct STEpisodeInfo {
 			m_oRewardKindsList.Add(a_oEpisodeInfo[oRewardKindsKey].ExIsValid() ? (ERewardKinds)a_oEpisodeInfo[oRewardKindsKey].AsInt : ERewardKinds.NONE);
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_TARGET_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			m_oClearTargetInfoList.Add(new STTargetInfo(a_oEpisodeInfo, KCDefine.U_PREFIX_CLEAR, i));
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_LEVEL_UNLOCK_TARGET_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			m_oUnlockTargetInfoList.Add(new STTargetInfo(a_oEpisodeInfo, KCDefine.U_PREFIX_UNLOCK, i));
 		}
 	}

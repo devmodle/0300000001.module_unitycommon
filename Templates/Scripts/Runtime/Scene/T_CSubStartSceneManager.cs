@@ -28,11 +28,6 @@ namespace StartScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 상수
-		private static readonly Vector3 POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
-		private static readonly Vector3 POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
-		#endregion			// 상수
-
 		#region 변수
 		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>() {
 			[EKey.LOADING_GAUGE_ANI] = null
@@ -52,6 +47,11 @@ namespace StartScene {
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion			// 변수
+
+		#region 상수
+		private static readonly Vector3 POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
+		private static readonly Vector3 POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
+		#endregion			// 상수
 
 		#region 함수
 		/** 초기화 */

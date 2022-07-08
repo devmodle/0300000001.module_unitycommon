@@ -17,6 +17,12 @@ public partial struct STMissionInfo {
 
 	public List<ERewardKinds> m_oRewardKindsList;
 
+	#region 상수
+	public static STMissionInfo INVALID = new STMissionInfo() {
+		m_eMissionKinds = EMissionKinds.NONE, m_ePrevMissionKinds = EMissionKinds.NONE, m_eNextMissionKinds = EMissionKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public EMissionType MissionType => (EMissionType)((int)m_eMissionKinds).ExKindsToType();
 	public EMissionKinds BaseMissionKinds => (EMissionKinds)((int)m_eMissionKinds).ExKindsToSubKindsType();

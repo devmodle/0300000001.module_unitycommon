@@ -20,6 +20,12 @@ public partial struct STSkillInfo {
 	public List<EResKinds> m_oResKindsList;
 	public List<STAbilityValInfo> m_oAbilityValInfoList;
 
+	#region 상수
+	public static STSkillInfo INVALID = new STSkillInfo() {
+		m_eSkillKinds = ESkillKinds.NONE, m_ePrevSkillKinds = ESkillKinds.NONE, m_eNextSkillKinds = ESkillKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
 	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();

@@ -24,6 +24,12 @@ public partial struct STProductSaleInfo {
 	public List<STTargetInfo> m_oPayTargetInfoList;
 	public List<STTargetInfo> m_oAcquireTargetInfoList;
 
+	#region 상수
+	public static STProductSaleInfo INVALID = new STProductSaleInfo() {
+		m_eProductSaleKinds = EProductSaleKinds.NONE, m_ePrevProductSaleKinds = EProductSaleKinds.NONE, m_eNextProductSaleKinds = EProductSaleKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public EProductSaleType ProductSaleType => (EProductSaleType)((int)m_eProductSaleKinds).ExKindsToType();
 	public EProductSaleKinds BaseProductSaleKinds => (EProductSaleKinds)((int)m_eProductSaleKinds).ExKindsToSubKindsType();
@@ -43,11 +49,11 @@ public partial struct STProductSaleInfo {
 		m_oPayTargetInfoList = new List<STTargetInfo>();
 		m_oAcquireTargetInfoList = new List<STTargetInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_PRICE_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			m_oPayTargetInfoList.Add(new STTargetInfo(a_oProductSaleInfo, KCDefine.U_PREFIX_PAY, i));
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ITEMS_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oProductSaleInfo, KCDefine.U_PREFIX_ACQUIRE, i));
 		}
 	}

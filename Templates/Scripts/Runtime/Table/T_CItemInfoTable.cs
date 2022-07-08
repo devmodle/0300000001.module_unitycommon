@@ -15,9 +15,15 @@ public partial struct STItemInfo {
 	public EItemKinds m_ePrevItemKinds;
 	public EItemKinds m_eNextItemKinds;
 
-	public List<EItemKinds> m_oAttachmentsItemKindsList;
-	public List<ESkillKinds> m_oSkillKindsList;
+	public List<STTargetInfo> m_oItemTargetInfoList;
+	public List<STTargetInfo> m_oSkillTargetInfoList;
 	public List<STAbilityValInfo> m_oAbilityValInfoList;
+
+	#region 상수
+	public static STItemInfo INVALID = new STItemInfo() {
+		m_eItemKinds = EItemKinds.NONE, m_ePrevItemKinds = EItemKinds.NONE, m_eNextItemKinds = EItemKinds.NONE
+	};
+	#endregion			// 상수
 
 	#region 프로퍼티
 	public EItemType ItemType => (EItemType)((int)m_eItemKinds).ExKindsToType();
@@ -33,18 +39,16 @@ public partial struct STItemInfo {
 		m_ePrevItemKinds = a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_eNextItemKinds = a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].AsInt : EItemKinds.NONE;
 
-		m_oAttachmentsItemKindsList = new List<EItemKinds>();
-		m_oSkillKindsList = new List<ESkillKinds>();
+		m_oItemTargetInfoList = new List<STTargetInfo>();
+		m_oSkillTargetInfoList = new List<STTargetInfo>();
 		m_oAbilityValInfoList = new List<STAbilityValInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ATTACHMENTS_ITEM_KINDS; ++i) {
-			string oAttachmentsItemKindsKey = string.Format(KCDefine.U_KEY_FMT_ATTACHMENTS_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oAttachmentsItemKindsList.Add(a_oItemInfo[oAttachmentsItemKindsKey].ExIsValid() ? (EItemKinds)a_oItemInfo[oAttachmentsItemKindsKey].AsInt : EItemKinds.NONE);
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			m_oItemTargetInfoList.Add(new STTargetInfo(a_oItemInfo, KCDefine.U_PREFIX_ITEM, i));
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_SKILL_KINDS; ++i) {
-			string oSkillKindsKey = string.Format(KCDefine.U_KEY_FMT_SKILL_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oSkillKindsList.Add(a_oItemInfo[oSkillKindsKey].ExIsValid() ? (ESkillKinds)a_oItemInfo[oSkillKindsKey].AsInt : ESkillKinds.NONE);
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			m_oSkillTargetInfoList.Add(new STTargetInfo(a_oItemInfo, KCDefine.U_PREFIX_SKILL, i));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {

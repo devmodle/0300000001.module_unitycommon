@@ -18,6 +18,12 @@ public partial struct STTutorialInfo {
 	public List<string> m_oStrList;
 	public List<ERewardKinds> m_oRewardKindsList;
 
+	#region 상수
+	public static STTutorialInfo INVALID = new STTutorialInfo() {
+		m_eTutorialKinds = ETutorialKinds.NONE, m_ePrevTutorialKinds = ETutorialKinds.NONE, m_eNextTutorialKinds = ETutorialKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public ETutorialType TutorialType => (ETutorialType)((int)m_eTutorialKinds).ExKindsToType();
 	public ETutorialKinds BaseTutorialKinds => (ETutorialKinds)((int)m_eTutorialKinds).ExKindsToSubKindsType();

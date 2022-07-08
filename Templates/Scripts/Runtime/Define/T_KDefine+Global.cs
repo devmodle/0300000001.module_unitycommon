@@ -10,32 +10,18 @@ using UnityEngine.Events;
 public static partial class KDefine {
 	#region 기본
 	// 개수 {
+	public const int G_MAX_NUM_RECORDS = 9;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 9;
 	public const int G_MAX_NUM_COINS_BOX_COINS = 0;
+	public const int G_MAX_NUM_ABILITY_VAL_INFOS = 9;
+	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
 
 	public const int G_MAX_NUM_FX_KINDS = 9;
-	public const int G_MAX_NUM_OBJ_KINDS = 9;
 	public const int G_MAX_NUM_RES_KINDS = 9;
 	public const int G_MAX_NUM_SKILL_KINDS = 9;
-
-	public const int G_MAX_NUM_ITEMS_INFOS = 9;
-	public const int G_MAX_NUM_PRICE_INFOS = 9;
+	public const int G_MAX_NUM_TARGET_INFOS = 9;
 	public const int G_MAX_NUM_REWARD_KINDS = 9;
-	public const int G_MAX_NUM_ABILITY_KINDS = 9;
-	public const int G_MAX_NUM_EQUIPMENTS_ITEM_KINDS = 9;
-	public const int G_MAX_NUM_ATTACHMENTS_ITEM_KINDS = 9;
-	
-	public const int G_MAX_NUM_ABILITY_VAL_INFOS = 9;
-	public const int G_MAX_NUM_REWARD_ITEM_INFOS = 9;
-
-	public const int G_MAX_NUM_LEVEL_TARGET_INFOS = 9;
-	public const int G_MAX_NUM_LEVEL_UNLOCK_TARGET_INFOS = 9;
-
-	public const int G_MAX_NUM_LEVEL_MARKS = 9;
-	public const int G_MAX_NUM_STAGE_MARKS = 9;
-	public const int G_MAX_NUM_CHAPTER_MARKS = 9;
-
-	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
+	public const int G_MAX_NUM_EXTRA_ABILITY_KINDS = 9;
 	// 개수 }
 
 	// 횟수

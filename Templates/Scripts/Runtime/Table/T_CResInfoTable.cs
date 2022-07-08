@@ -18,6 +18,12 @@ public partial struct STResInfo {
 	public EResKinds m_ePrevResKinds;
 	public EResKinds m_eNextResKinds;
 
+	#region 상수
+	public static STResInfo INVALID = new STResInfo() {
+		m_eResKinds = EResKinds.NONE, m_ePrevResKinds = EResKinds.NONE, m_eNextResKinds = EResKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public EResType ResType => (EResType)((int)m_eResKinds).ExKindsToType();
 	public EResKinds BaseResKinds => (EResKinds)((int)m_eResKinds).ExKindsToSubKindsType();

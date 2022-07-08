@@ -18,6 +18,12 @@ public partial struct STFXInfo {
 
 	List<EResKinds> m_oResKindsList;
 
+	#region 상수
+	public static STFXInfo INVALID = new STFXInfo() {
+		m_eFXKinds = EFXKinds.NONE, m_ePrevFXKinds = EFXKinds.NONE, m_eNextFXKinds = EFXKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public EFXType FXType => (EFXType)((int)m_eFXKinds).ExKindsToType();
 	public EFXKinds BaseFXKinds => (EFXKinds)((int)m_eFXKinds).ExKindsToSubKindsType();

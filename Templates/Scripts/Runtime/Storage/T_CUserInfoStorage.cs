@@ -153,17 +153,17 @@ public partial class CUserObjInfo : CUserTargetInfo {
 /** 유저 정보 */
 [MessagePackObject][System.Serializable]
 public partial class CUserInfo : CBaseInfo {
-	#region 상수
-	private const string KEY_USER_ITEM_INFO_VER = "UserItemInfoVer";
-	private const string KEY_USER_SKILL_INFO_VER = "UserSkillInfoVer";
-	private const string KEY_USER_OBJ_INFO_VER = "UserObjInfoVer";
-	#endregion			// 상수
-
 	#region 변수
 	[Key(91)] public List<CUserItemInfo> m_oUserItemInfoList = new List<CUserItemInfo>();
 	[Key(92)] public List<CUserSkillInfo> m_oUserSkillInfoList = new List<CUserSkillInfo>();
 	[Key(93)] public List<CUserObjInfo> m_oUserObjInfoList = new List<CUserObjInfo>();
 	#endregion			// 변수
+
+	#region 상수
+	private const string KEY_USER_ITEM_INFO_VER = "UserItemInfoVer";
+	private const string KEY_USER_SKILL_INFO_VER = "UserSkillInfoVer";
+	private const string KEY_USER_OBJ_INFO_VER = "UserObjInfoVer";
+	#endregion			// 상수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public System.Version UserItemInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_ITEM_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_ITEM_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }

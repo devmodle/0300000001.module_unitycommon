@@ -18,6 +18,12 @@ public partial struct STAbilityInfo {
 
 	public List<EAbilityKinds> m_oExtraAbilityKindsList;
 
+	#region 상수
+	public static STAbilityInfo INVALID = new STAbilityInfo() {
+		m_eAbilityKinds = EAbilityKinds.NONE, m_ePrevAbilityKinds = EAbilityKinds.NONE, m_eNextAbilityKinds = EAbilityKinds.NONE
+	};
+	#endregion			// 상수
+
 	#region 프로퍼티
 	public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
 	public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
@@ -35,8 +41,8 @@ public partial struct STAbilityInfo {
 
 		m_oExtraAbilityKindsList = new List<EAbilityKinds>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_KINDS; ++i) {
-			string oExtraAbilityKindsKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_KINDS, i + KCDefine.B_VAL_1_INT);
+		for(int i = 0; i < KDefine.G_MAX_NUM_EXTRA_ABILITY_KINDS; ++i) {
+			string oExtraAbilityKindsKey = string.Format(KCDefine.U_KEY_FMT_EXTRA_ABILITY_KINDS, i + KCDefine.B_VAL_1_INT);
 			m_oExtraAbilityKindsList.Add(a_oAbilityInfo[oExtraAbilityKindsKey].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[oExtraAbilityKindsKey].AsInt : EAbilityKinds.NONE);
 		}
 	}

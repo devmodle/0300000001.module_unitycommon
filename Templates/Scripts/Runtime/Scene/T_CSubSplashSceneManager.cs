@@ -17,14 +17,14 @@ namespace SplashScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 상수
-		private static readonly Vector3 POS_SPLASH_IMG = new Vector3(0.0f, 25.0f, 0.0f);
-		#endregion			// 상수
-
 		#region 변수
 		/** =====> UI <===== */
 		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
 		#endregion			// 변수
+
+		#region 상수
+		private static readonly Vector3 POS_SPLASH_IMG = new Vector3(0.0f, 25.0f, 0.0f);
+		#endregion			// 상수
 
 		#region 함수
 		/** 씬을 설정한다 */

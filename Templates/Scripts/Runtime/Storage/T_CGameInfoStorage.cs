@@ -14,15 +14,15 @@ using Newtonsoft.Json;
 /** 클리어 정보 */
 [MessagePackObject][System.Serializable]
 public partial class CClearInfo : CBaseInfo {
-	#region 상수
-	private const string KEY_NUM_MARKS = "NumMarks";
-	private const string KEY_RECORD = "Record";
-	private const string KEY_BEST_RECORD = "BestRecord";
-	#endregion			// 상수
-
 	#region 변수
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
+
+	#region 상수
+	private const string KEY_RECORD = "Record";
+	private const string KEY_NUM_MARKS = "NumMarks";
+	private const string KEY_BEST_RECORD = "BestRecord";
+	#endregion			// 상수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public int NumMarks { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUM_MARKS, $"{value}"); } }

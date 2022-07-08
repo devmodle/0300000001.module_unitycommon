@@ -17,8 +17,15 @@ public partial struct STObjInfo {
 	public EObjKinds m_eNextObjKinds;
 
 	List<EResKinds> m_oResKindsList;
-	List<EItemKinds> m_oEquipmentsItemKindsList;
+	List<STTargetInfo> m_oItemTargetInfoList;
+	List<STTargetInfo> m_oSkillTargetInfoList;
 	List<STAbilityValInfo> m_oAbilityValInfoList;
+
+	#region 상수
+	public static STObjInfo INVALID = new STObjInfo() {
+		m_eObjKinds = EObjKinds.NONE, m_ePrevObjKinds = EObjKinds.NONE, m_eNextObjKinds = EObjKinds.NONE
+	};
+	#endregion			// 상수
 
 	#region 프로퍼티
 	public EObjType ObjType => (EObjType)((int)m_eObjKinds).ExKindsToType();
@@ -36,7 +43,8 @@ public partial struct STObjInfo {
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
 
 		m_oResKindsList = new List<EResKinds>();
-		m_oEquipmentsItemKindsList = new List<EItemKinds>();
+		m_oItemTargetInfoList = new List<STTargetInfo>();
+		m_oSkillTargetInfoList = new List<STTargetInfo>();
 		m_oAbilityValInfoList = new List<STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
@@ -44,9 +52,12 @@ public partial struct STObjInfo {
 			m_oResKindsList.Add(a_oObjInfo[oResKindsKey].ExIsValid() ? (EResKinds)a_oObjInfo[oResKindsKey].AsInt : EResKinds.NONE);
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_EQUIPMENTS_ITEM_KINDS; ++i) {
-			string oEquipmentsItemKindsKey = string.Format(KCDefine.U_KEY_FMT_EQUIPMENTS_ITEM_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oEquipmentsItemKindsList.Add(a_oObjInfo[oEquipmentsItemKindsKey].ExIsValid() ? (EItemKinds)a_oObjInfo[oEquipmentsItemKindsKey].AsInt : EItemKinds.NONE);
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			m_oItemTargetInfoList.Add(new STTargetInfo(a_oObjInfo, KCDefine.U_PREFIX_ITEM, i));
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			m_oSkillTargetInfoList.Add(new STTargetInfo(a_oObjInfo, KCDefine.U_PREFIX_SKILL, i));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {

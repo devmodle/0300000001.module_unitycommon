@@ -681,14 +681,12 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 			m_oRecordList = new List<long>(),
 			m_oRewardKindsList = new List<ERewardKinds>(),
-
 			m_oClearTargetInfoList = new List<STTargetInfo>(),
 			m_oUnlockTargetInfoList = new List<STTargetInfo>()
 		};
 
 		stLevelEpisodeInfo.m_oRecordList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordList, (a_nRecord) => a_nRecord);
 		stLevelEpisodeInfo.m_oRewardKindsList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds);
-
 		stLevelEpisodeInfo.m_oClearTargetInfoList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoList, (a_stTargetInfo) => a_stTargetInfo);
 		stLevelEpisodeInfo.m_oUnlockTargetInfoList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoList, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo);
 
