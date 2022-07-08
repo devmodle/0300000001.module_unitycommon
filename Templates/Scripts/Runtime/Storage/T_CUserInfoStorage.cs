@@ -11,6 +11,9 @@ using MessagePack;
 using Newtonsoft.Json;
 
 /** 유저 타겟 정보 */
+[Union(0, typeof(CUserItemInfo))]
+[Union(1, typeof(CUserSkillInfo))]
+[Union(2, typeof(CUserObjInfo))]
 [MessagePackObject][System.Serializable]
 public abstract partial class CUserTargetInfo : CBaseInfo {
 	#region 상수

@@ -15,17 +15,23 @@ public static partial class Factory {
 	#region 조건부 클래스 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	/** 셀 정보를 생성한다 */
-	public static CCellInfo MakeCellInfo(Vector3Int a_stIdx) {
-		return new CCellInfo() {
-			m_stIdx = a_stIdx
+	public static STCellInfo MakeCellInfo(Vector3Int a_stIdx) {
+		var stCellInfo = new STCellInfo() {
+			m_stIdx = a_stIdx, m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
 		};
+
+		stCellInfo.OnAfterDeserialize();
+		return stCellInfo;
 	}
 
 	/** 레벨 정보를 생성한다 */
 	public static CLevelInfo MakeLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return new CLevelInfo() {
+		var stLevelInfo = new CLevelInfo() {
 			m_stIDInfo = CFactory.MakeIDInfo(a_nLevelID, a_nStageID, a_nChapterID)
 		};
+
+		stLevelInfo.OnAfterDeserialize();
+		return stLevelInfo;
 	}
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

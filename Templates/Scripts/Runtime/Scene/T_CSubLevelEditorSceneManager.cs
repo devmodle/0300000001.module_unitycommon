@@ -817,16 +817,16 @@ namespace LevelEditorScene {
 		}
 
 		/** 객체 스프라이트를 설정한다 */
-		private void SetupObjSprites(CCellInfo a_oCellInfo, out Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>> a_oOutObjSpriteInfoDictContainer) {
+		private void SetupObjSprites(STCellInfo a_stCellInfo, out Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>> a_oOutObjSpriteInfoDictContainer) {
 			a_oOutObjSpriteInfoDictContainer = new Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>();
 
-			foreach(var stKeyVal in a_oCellInfo.m_oObjKindsDictContainer) {
+			foreach(var stKeyVal in a_stCellInfo.m_oObjKindsDictContainer) {
 				var oObjSpriteInfoList = new List<(EObjKinds, SpriteRenderer)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 					var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, KDefine.LES_OBJ_N_OBJ_SPRITE);
 					oObjSprite.sprite = SampleEngineName.Access.GetObjSprite(stKeyVal.Value[i]);
-					oObjSprite.transform.localPosition = m_oGridInfoDict[EKey.GRID_INFO].m_stPivotPos + a_oCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+					oObjSprite.transform.localPosition = m_oGridInfoDict[EKey.GRID_INFO].m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
 					oObjSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrderInfo(stKeyVal.Value[i]));
 					oObjSpriteInfoList.ExAddVal((stKeyVal.Value[i], oObjSprite));

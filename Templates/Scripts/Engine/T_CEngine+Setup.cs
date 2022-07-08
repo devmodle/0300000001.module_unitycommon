@@ -31,10 +31,10 @@ namespace SampleEngineName {
 		}
 
 		/** 셀을 설정한다 */
-		private void SetupCell(CCellInfo a_oCellInfo) {
+		private void SetupCell(STCellInfo a_stCellInfo) {
 			var oObjInfoDictContainer = new Dictionary<EObjType, List<(EObjKinds, CEObj)>>();
 
-			foreach(var stKeyVal in a_oCellInfo.m_oObjKindsDictContainer) {
+			foreach(var stKeyVal in a_stCellInfo.m_oObjKindsDictContainer) {
 				var oObjInfoList = new List<(EObjKinds, CEObj)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
@@ -44,7 +44,7 @@ namespace SampleEngineName {
 				oObjInfoDictContainer.TryAdd(stKeyVal.Key, oObjInfoList);
 			}
 
-			m_oObjInfoDictContainers[a_oCellInfo.m_stIdx.y, a_oCellInfo.m_stIdx.x] = oObjInfoDictContainer;
+			m_oObjInfoDictContainers[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oObjInfoDictContainer;
 		}
 
 		/** 그리드 라인을 설정한다 */

@@ -12,52 +12,47 @@ using Newtonsoft.Json;
 
 /** 셀 정보 */
 [MessagePackObject][System.Serializable]
-public partial class CCellInfo : CBaseInfo, System.ICloneable {
+public partial struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
 	#region 변수
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
-	[Key(161)] public Dictionary<EObjType, List<EObjKinds>> m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>();
+	[Key(161)] public Dictionary<EObjType, List<EObjKinds>> m_oObjKindsDictContainer;
 	#endregion			// 변수
 
-	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
-	#endregion			// 프로퍼티
+	#region 상수
+	public static readonly STCellInfo INVALID = new STCellInfo() {
+		m_stIdx = KCDefine.B_IDX_INVALID_3D
+	};
+	#endregion			// 상수
 
 	#region ICloneable
 	/** 사본 객체를 생성한다 */
 	public object Clone() {
-		var oCellInfo = new CCellInfo() {
+		var stCellInfo = new STCellInfo() {
 			m_stIdx = this.m_stIdx, m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
 		};
 
-		oCellInfo.m_oObjKindsDictContainer.ExCopyTo(oCellInfo.m_oObjKindsDictContainer, this.GetCloneObjKinds);
-		oCellInfo.OnAfterDeserialize();
+		m_oObjKindsDictContainer.ExCopyTo(stCellInfo.m_oObjKindsDictContainer, this.MakeCloneObjKinds);
+		stCellInfo.OnAfterDeserialize();
 
-		return oCellInfo;
+		return stCellInfo;
 	}
 	#endregion			// ICloneable
 
 	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
-	public override void OnBeforeSerialize() {
-		base.OnBeforeSerialize();
+	public void OnBeforeSerialize() {
+		// Do Something
 	}
 
 	/** 역직렬화 되었을 경우 */
-	public override void OnAfterDeserialize() {
-		base.OnAfterDeserialize();
+	public void OnAfterDeserialize() {
 		m_oObjKindsDictContainer = m_oObjKindsDictContainer ?? new Dictionary<EObjType, List<EObjKinds>>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
 	#region 함수
-	/** 생성자 */
-	public CCellInfo() : base(KDefine.G_VER_CELL_INFO) {
-		// Do Something
-	}
-
-	/** 사본 객체 종류를 반환한다 */
-	private List<EObjKinds> GetCloneObjKinds(List<EObjKinds> a_oObjKindsList) {
+	/** 사본 객체 종류를 생성한다 */
+	private List<EObjKinds> MakeCloneObjKinds(List<EObjKinds> a_oObjKindsList) {
 		var oObjKindsList = new List<EObjKinds>();
 		a_oObjKindsList.ExCopyTo(oObjKindsList, (a_eObjKinds) => a_eObjKinds);
 
@@ -75,12 +70,12 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 
 	#region 변수
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
-	[Key(165)] public Dictionary<int, Dictionary<int, CCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, CCellInfo>>();
+	[Key(165)] public Dictionary<int, Dictionary<int, STCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, STCellInfo>>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
-	[JsonIgnore][IgnoreMember] public List<STTargetInfo> TargetInfoList { get; private set; } = new List<STTargetInfo>();
+	[JsonIgnore][IgnoreMember] public List<STTargetInfo> ClearTargetInfoList { get; private set; } = new List<STTargetInfo>();
 	[JsonIgnore][IgnoreMember] public List<STTargetInfo> UnlockTargetInfoList { get; private set; } = new List<STTargetInfo>();	
 
 	[JsonIgnore][IgnoreMember] public System.Version CellInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
@@ -106,7 +101,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, CCellInfo>>();
+		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, STCellInfo>>();
 
 		// 셀 개수를 설정한다 {
 		var stNumCells = new Vector3Int(KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
@@ -119,15 +114,18 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		// 셀 개수를 설정한다 }
 
 		// 셀을 설정한다 {
-		this.TargetInfoList = this.TargetInfoList ?? new List<STTargetInfo>();
+		this.ClearTargetInfoList = this.ClearTargetInfoList ?? new List<STTargetInfo>();
 		this.UnlockTargetInfoList = this.UnlockTargetInfoList ?? new List<STTargetInfo>();
 
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
-				var oCellInfo = m_oCellInfoDictContainer[i][j];
-				this.SetupCellInfo(oCellInfo, new Vector3Int(j, i, KCDefine.B_IDX_INVALID));
-				
-				m_oCellInfoDictContainer[i][j] = oCellInfo;
+				var stCellInfo = m_oCellInfoDictContainer[i][j];
+
+				try {
+					this.SetupCellInfo(new Vector3Int(j, i, KCDefine.B_IDX_INVALID), ref stCellInfo);
+				} finally {
+					m_oCellInfoDictContainer[i][j] = stCellInfo;
+				}
 			}
 		}
 		// 셀을 설정한다 }
@@ -139,10 +137,10 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	}
 
 	/** 셀 정보를 설정한다 */
-	protected virtual void SetupCellInfo(CCellInfo a_oCellInfo, Vector3Int a_stIdx) {
-		a_oCellInfo.m_stIdx = a_stIdx;
+	protected virtual void SetupCellInfo(Vector3Int a_stIdx, ref STCellInfo a_stOutCellInfo) {
+		a_stOutCellInfo.m_stIdx = a_stIdx;
 
-		foreach(var stKeyVal in a_oCellInfo.m_oObjKindsDictContainer) {
+		foreach(var stKeyVal in a_stOutCellInfo.m_oObjKindsDictContainer) {
 			for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 				// Do Something
 			}
@@ -162,17 +160,17 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	}
 
 	/** 셀 정보를 반환한다 */
-	public CCellInfo GetCellInfo(Vector3Int a_stIdx) {
-		bool bIsValid = this.TryGetCellInfo(a_stIdx, out CCellInfo oCellInfo);
+	public STCellInfo GetCellInfo(Vector3Int a_stIdx) {
+		bool bIsValid = this.TryGetCellInfo(a_stIdx, out STCellInfo stCellInfo);
 		CAccess.Assert(bIsValid);
 
-		return oCellInfo;
+		return stCellInfo;
 	}
 
 	/** 셀 정보를 반환한다 */
-	public bool TryGetCellInfo(Vector3Int a_stIdx, out CCellInfo a_oOutCellInfo) {
-		a_oOutCellInfo = m_oCellInfoDictContainer.ContainsKey(a_stIdx.y) ? m_oCellInfoDictContainer[a_stIdx.y].GetValueOrDefault(a_stIdx.x) : null;
-		return a_oOutCellInfo != null;
+	public bool TryGetCellInfo(Vector3Int a_stIdx, out STCellInfo a_stOutCellInfo) {
+		a_stOutCellInfo = m_oCellInfoDictContainer.ContainsKey(a_stIdx.y) ? m_oCellInfoDictContainer[a_stIdx.y].GetValueOrDefault(a_stIdx.x, STCellInfo.INVALID) : STCellInfo.INVALID;
+		return !a_stOutCellInfo.Equals(STCellInfo.INVALID);
 	}
 
 	/** 사본 객체를 설정한다 */
@@ -181,10 +179,10 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 
 		// 셀 정보를 설정한다
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
-			var oCellInfoDict = new Dictionary<int, CCellInfo>();
+			var oCellInfoDict = new Dictionary<int, STCellInfo>();
 
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
-				oCellInfoDict.TryAdd(j, (CCellInfo)m_oCellInfoDictContainer[i][j].Clone());
+				oCellInfoDict.TryAdd(j, (STCellInfo)m_oCellInfoDictContainer[i][j].Clone());
 			}
 
 			a_oLevelInfo.m_oCellInfoDictContainer.TryAdd(i, oCellInfoDict);

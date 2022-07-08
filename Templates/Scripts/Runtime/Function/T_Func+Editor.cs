@@ -75,17 +75,14 @@ public static partial class Func {
 	/** 에디터 레벨 정보를 설정한다 */
 	public static void SetupEditorLevelInfo(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
 		int nNumCellsX = Random.Range(a_oCreateInfo.m_stMinNumCells.x, a_oCreateInfo.m_stMaxNumCells.x + KCDefine.B_VAL_1_INT);
-		nNumCellsX = Mathf.Clamp(nNumCellsX, SampleEngineName.KDefine.E_MIN_NUM_CELLS.x, SampleEngineName.KDefine.E_MAX_NUM_CELLS.x);
-
 		int nNumCellsY = Random.Range(a_oCreateInfo.m_stMinNumCells.y, a_oCreateInfo.m_stMaxNumCells.y + KCDefine.B_VAL_1_INT);
-		nNumCellsY = Mathf.Clamp(nNumCellsY, SampleEngineName.KDefine.E_MIN_NUM_CELLS.y, SampleEngineName.KDefine.E_MAX_NUM_CELLS.y);
 
 		a_oLevelInfo.m_oCellInfoDictContainer.Clear();
 
-		for(int i = 0; i < nNumCellsY; ++i) {
-			var oCellInfoDict = new Dictionary<int, CCellInfo>();
+		for(int i = 0; i < Mathf.Clamp(nNumCellsY, SampleEngineName.KDefine.E_MIN_NUM_CELLS.y, SampleEngineName.KDefine.E_MAX_NUM_CELLS.y); ++i) {
+			var oCellInfoDict = new Dictionary<int, STCellInfo>();
 
-			for(int j = 0; j < nNumCellsX; ++j) {
+			for(int j = 0; j < Mathf.Clamp(nNumCellsX, SampleEngineName.KDefine.E_MIN_NUM_CELLS.x, SampleEngineName.KDefine.E_MAX_NUM_CELLS.x); ++j) {
 				oCellInfoDict.TryAdd(j, Factory.MakeCellInfo(new Vector3Int(j, i, KCDefine.B_IDX_INVALID)));
 			}
 
@@ -114,11 +111,11 @@ public static partial class Func {
 					var oIdxVList = oIdxVDictContainer.ContainsKey(j) ? oIdxVDictContainer[j] : new List<Vector3Int>();
 					var oIdxHList = oIdxHDictContainer.ContainsKey(i) ? oIdxHDictContainer[i] : new List<Vector3Int>();
 
-					oIdxVList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
-					oIdxHList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
-
 					oIdxVDictContainer.TryAdd(j, oIdxVList);
 					oIdxHDictContainer.TryAdd(i, oIdxHList);
+					
+					oIdxVList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
+					oIdxHList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
 
 					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oObjKindsDictContainer.Clear();
 					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oObjKindsDictContainer.TryAdd(EObjType.BG, new List<EObjKinds>() { EObjKinds.BG_EMPTY });
