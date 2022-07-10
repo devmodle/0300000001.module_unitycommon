@@ -28,7 +28,7 @@ public partial struct STTargetInfo {
 	/** 생성자 */
 	public STTargetInfo(SimpleJSON.JSONNode a_oTargetInfo, string a_oPrefix, int a_nIdx) {
 		string oKindsKey = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_KINDS, a_nIdx + KCDefine.B_VAL_1_INT));
-		string oTargetsKey = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGETS, a_nIdx + KCDefine.B_VAL_1_INT));
+		string oTargetsKey = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGET, a_nIdx + KCDefine.B_VAL_1_INT));
 		string oTargetKindsKey = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, a_nIdx + KCDefine.B_VAL_1_INT));
 
 		m_nKinds = a_oTargetInfo[oKindsKey].ExIsValid() ? a_oTargetInfo[oKindsKey].AsInt : KCDefine.B_IDX_INVALID;
@@ -43,7 +43,7 @@ public partial struct STTargetInfo {
 	public void MakeTargetInfo(SimpleJSON.JSONClass a_oOutTargetInfo, string a_oPrefix, int a_nIdx) {
 		a_oOutTargetInfo.Add(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGET_KINDS, a_nIdx + KCDefine.B_VAL_1_INT)), $"{(int)m_eTargetKinds}");
 		a_oOutTargetInfo.Add(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_KINDS, a_nIdx + KCDefine.B_VAL_1_INT)), $"{m_nKinds}");
-		a_oOutTargetInfo.Add(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGETS, a_nIdx + KCDefine.B_VAL_1_INT)), m_oTargets);
+		a_oOutTargetInfo.Add(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, string.Format(KCDefine.U_KEY_FMT_TARGET, a_nIdx + KCDefine.B_VAL_1_INT)), m_oTargets);
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수

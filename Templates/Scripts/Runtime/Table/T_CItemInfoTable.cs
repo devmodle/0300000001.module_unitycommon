@@ -15,7 +15,7 @@ public partial struct STItemInfo {
 	public EItemKinds m_ePrevItemKinds;
 	public EItemKinds m_eNextItemKinds;
 
-	public List<STTargetInfo> m_oItemTargetInfoList;
+	public List<STTargetInfo> m_oAttachableItemTargetInfoList;
 	public List<STTargetInfo> m_oSkillTargetInfoList;
 	public List<STAbilityValInfo> m_oAbilityValInfoList;
 
@@ -39,12 +39,12 @@ public partial struct STItemInfo {
 		m_ePrevItemKinds = a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_eNextItemKinds = a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].AsInt : EItemKinds.NONE;
 
-		m_oItemTargetInfoList = new List<STTargetInfo>();
+		m_oAttachableItemTargetInfoList = new List<STTargetInfo>();
 		m_oSkillTargetInfoList = new List<STTargetInfo>();
 		m_oAbilityValInfoList = new List<STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			m_oItemTargetInfoList.Add(new STTargetInfo(a_oItemInfo, KCDefine.U_PREFIX_ITEM, i));
+			m_oAttachableItemTargetInfoList.Add(new STTargetInfo(a_oItemInfo, KCDefine.U_PREFIX_ATTACHABLE_ITEM, i));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
@@ -150,7 +150,7 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 	/** 아이템 정보를 로드한다 */
 	private Dictionary<EItemKinds, STItemInfo> LoadItemInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		
+
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadItemInfos(CFunc.ReadStr(a_oFilePath));
 #else

@@ -48,6 +48,9 @@ public enum EItemKinds {
 
 	// 100,100,100
 	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
+
+	// 100,100,200
+	CONSUMABLE_GAME_ITEM_SHUFFLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 2),
 	#endregion			// 소모
 
 	#region 비소모
@@ -81,6 +84,7 @@ public enum EItemKinds {
 /** 미션 타입 */
 public enum EMissionType {
 	NONE = -1,
+	MAIN,
 	FREE,
 	DAILY,
 	EVENT,
@@ -91,19 +95,24 @@ public enum EMissionType {
 public enum EMissionKinds {
 	NONE = -1,
 
-	#region 자유
+	#region 메인
 	// 0
-	FREE_MISSION_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	MAIN_MISSION_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 메인
+
+	#region 자유
+	// 100,000,000
+	FREE_MISSION_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 자유
 
 	#region 일일
-	// 100,000,000
-	DAILY_MISSION_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 200,000,000
+	DAILY_MISSION_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 일일
 
 	#region 이벤트
-	// 200,000,000
-	EVENT_MISSION_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 300,000,000
+	EVENT_MISSION_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 이벤트
 
 	[HideInInspector] MAX_VAL
@@ -454,67 +463,6 @@ public enum EResKinds {
 	[HideInInspector] MAX_VAL
 }
 
-/** 아이템 판매 타입 */
-public enum EItemType {
-	NONE = -1,
-	GOODS,
-	CONSUMABLE,
-	NON_CONSUMABLE,
-	WEAPON,
-	ARMOR,
-	ACCESSORY,
-	ATTACHMENTS,
-	[HideInInspector] MAX_VAL
-}
-
-/** 아이템 판매 종류 */
-public enum EItemKinds {
-	NONE = -1,
-
-	#region 재화
-	// 0
-	GOODS_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 재화
-
-	#region 소모
-	// 100,000,000
-	CONSUMABLE_BOOSTER_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,100,000
-	CONSUMABLE_GAME_ITEM_HINT = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,100,100
-	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	#endregion			// 소모
-
-	#region 비소모
-	// 200,000,000
-	NON_CONSUMABLE_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 비소모
-
-	#region 무기
-	// 300,000,000
-	WEAPON_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 무기
-
-	#region 방어구
-	// 400,000,000
-	ARMOR_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 방어구
-
-	#region 악세서리
-	// 50,000,000
-	ACCESSORY_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 악세서리
-
-	#region 악세서리
-	// 60,000,000
-	ATTACHMENTS_ITEM_SALE_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 악세서리
-
-	[HideInInspector] MAX_VAL
-}
-
 /** 상품 판매 타입 */
 public enum EProductSaleType {
 	NONE = -1,
@@ -549,87 +497,9 @@ public enum EProductSaleKinds {
 	[HideInInspector] MAX_VAL
 }
 
-/** 스킬 판매 타입 */
-public enum ESkillType {
-	NONE = -1,
-	ACTIVE,
-	PASSIVE,
-	[HideInInspector] MAX_VAL
-}
-
-/** 스킬 판매 종류 */
-public enum ESkillKinds {
-	NONE = -1,
-
-	#region 액티브
-	// 0
-	ACTIVE_SKILL_SALE_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 액티브
-
-	#region 패시브
-	// 100,000,000
-	PASSIVE_SKILL_SALE_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 패시브
-
-	[HideInInspector] MAX_VAL
-}
-
-/** 객체 판매 타입 */
-public enum EObjType {
-	NONE = -1,
-	BG,
-	NORM,
-	OVERLAY,
-	PLAYABLE,
-	NON_PLAYABLE,
-	ENEMY,
-	[HideInInspector] MAX_VAL
-}
-
-/** 객체 판매 종류 */
-public enum EObjKinds {
-	NONE = -1,
-
-	#region 배경
-	// 0
-	BG_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 배경
-
-	#region 일반
-	// 100,000,000
-	NORM_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 일반
-
-	#region 중첩
-	// 200,000,000
-	OVERLAY_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 중첩
-
-	#region 플레이 가능
-	// 300,000,000
-	PLAYABLE_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 플레이 가능
-
-	#region 플레이 불가능
-	// 400,000,000
-	NON_PLAYABLE_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 플레이 불가능
-
-	#region 적
-	// 500,000,000
-	ENEMY_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 적
-
-	[HideInInspector] MAX_VAL
-}
-
 /** 타겟 타입 */
 public enum ETargetType {
 	NONE = -1,
-	ADS,
-	MARKS,
-	RECORD,
-	PURCHASE,
 	ITEM,
 	SKILL,
 	OBJ,
@@ -640,48 +510,37 @@ public enum ETargetType {
 public enum ETargetKinds {
 	NONE = -1,
 
-	#region 광고
-	// 0
-	ADS_REWARD = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 광고
-
-	#region 마크
-	// 100,000,000
-	MARKS_CLEAR = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 마크
-
-	#region 기록
-	// 200,000,000
-	RECORD_CLEAR = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 기록
-
-	#region 결제
-	// 300,000,000
-	PURCHASE_IN_APP = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 결제
-
 	#region 아이템
-	// 400,000,000
-	ITEM_LV = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 0
+	ITEM = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 400,100,000
-	ITEM_NUMS = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 100,000
+	ITEM_LV = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 200,000
+	ITEM_NUMS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 아이템
 
 	#region 스킬
-	// 500,000,000
-	SKILL_LV = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 100,000,000
+	SKILL = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 500,100,000
-	SKILL_NUMS = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 100,100,000
+	SKILL_LV = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 100,200,000
+	SKILL_NUMS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 스킬
 
 	#region 객체
-	// 600,000,000
-	OBJ_LV = (EEnumVal.TYPE * 6) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 200,000,000
+	OBJ = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
-	// 600,100,000
-	OBJ_NUMS = (EEnumVal.TYPE * 6) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 200,100,000
+	OBJ_LV = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 200,200,000
+	OBJ_NUMS = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 객체
 
 	[HideInInspector] MAX_VAL

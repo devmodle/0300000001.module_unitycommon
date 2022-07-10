@@ -11,7 +11,7 @@ using UnityEngine.Events;
 public partial struct STResInfo {
 	public STCommonInfo m_stCommonInfo;
 
-	public float m_fRate;
+	public string m_oRate;
 	public string m_oResPath;
 
 	public EResKinds m_eResKinds;
@@ -25,6 +25,9 @@ public partial struct STResInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
+	public int IntRate => int.TryParse(m_oRate, out int nRate) ? nRate : KCDefine.B_VAL_0_INT;
+	public float RealRate => float.TryParse(m_oRate, out float fRate) ? fRate : KCDefine.B_VAL_0_INT;
+
 	public EResType ResType => (EResType)((int)m_eResKinds).ExKindsToType();
 	public EResKinds BaseResKinds => (EResKinds)((int)m_eResKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
@@ -34,7 +37,7 @@ public partial struct STResInfo {
 	public STResInfo(SimpleJSON.JSONNode a_oResInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oResInfo);
 		
-		m_fRate = a_oResInfo[KCDefine.U_KEY_RATE].AsFloat;
+		m_oRate = a_oResInfo[KCDefine.U_KEY_RATE].ExIsValid() ? a_oResInfo[KCDefine.U_KEY_RATE] : KCDefine.B_STR_0_INT;
 		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH];
 
 		m_eResKinds = a_oResInfo[KCDefine.U_KEY_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt : EResKinds.NONE;

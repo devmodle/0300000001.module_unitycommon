@@ -50,6 +50,9 @@ public partial struct STMissionInfo {
 /** 미션 정보 테이블 */
 public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	#region 변수
+	[Header("=====> Main Mission Info <=====")]
+	[SerializeField] private List<STMissionInfo> m_oMainMissionInfoList = new List<STMissionInfo>();
+
 	[Header("=====> Free Mission Info <=====")]
 	[SerializeField] private List<STMissionInfo> m_oFreeMissionInfoList = new List<STMissionInfo>();
 
@@ -85,7 +88,8 @@ public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 	public void ResetMissionInfos() {
 		this.MissionInfoDict.Clear();
 
-		var oMissionInfoList = new List<STMissionInfo>(m_oFreeMissionInfoList);
+		var oMissionInfoList = new List<STMissionInfo>(m_oMainMissionInfoList);
+		oMissionInfoList.AddRange(m_oFreeMissionInfoList);
 		oMissionInfoList.AddRange(m_oDailyMissionInfoList);
 		oMissionInfoList.AddRange(m_oEventMissionInfoList);
 
@@ -141,7 +145,7 @@ public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
 		var oMissionInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_FREE], oJSONNode[KCDefine.U_KEY_DAILY], oJSONNode[KCDefine.U_KEY_EVENT]
+			oJSONNode[KCDefine.U_KEY_MAIN], oJSONNode[KCDefine.U_KEY_FREE], oJSONNode[KCDefine.U_KEY_DAILY], oJSONNode[KCDefine.U_KEY_EVENT]
 		};
 
 		for(int i = 0; i < oMissionInfosList.Count; ++i) {

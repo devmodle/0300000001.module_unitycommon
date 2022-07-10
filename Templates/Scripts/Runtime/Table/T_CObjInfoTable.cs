@@ -17,7 +17,7 @@ public partial struct STObjInfo {
 	public EObjKinds m_eNextObjKinds;
 
 	List<EResKinds> m_oResKindsList;
-	List<STTargetInfo> m_oItemTargetInfoList;
+	List<STTargetInfo> m_oEquipableItemTargetInfoList;
 	List<STTargetInfo> m_oSkillTargetInfoList;
 	List<STAbilityValInfo> m_oAbilityValInfoList;
 
@@ -43,7 +43,7 @@ public partial struct STObjInfo {
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
 
 		m_oResKindsList = new List<EResKinds>();
-		m_oItemTargetInfoList = new List<STTargetInfo>();
+		m_oEquipableItemTargetInfoList = new List<STTargetInfo>();
 		m_oSkillTargetInfoList = new List<STTargetInfo>();
 		m_oAbilityValInfoList = new List<STAbilityValInfo>();
 
@@ -53,7 +53,7 @@ public partial struct STObjInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			m_oItemTargetInfoList.Add(new STTargetInfo(a_oObjInfo, KCDefine.U_PREFIX_ITEM, i));
+			m_oEquipableItemTargetInfoList.Add(new STTargetInfo(a_oObjInfo, KCDefine.U_PREFIX_EQUIPABLE_ITEM, i));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {

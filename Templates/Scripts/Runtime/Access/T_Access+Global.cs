@@ -101,7 +101,7 @@ public static partial class Access {
 
 		return CUserInfoStorage.Inst.TryGetUserObjInfo(a_eObjKinds, out oUserObjInfo) ? oUserObjInfo : null;
 	}
-
+	
 	/** 교환 가능 여부를 검사한다 */
 	private static bool DoIsEnableTrade(CUserTargetInfo a_oUserTargetInfo, STTargetInfo a_stTargetInfo) {
 		CAccess.Assert(a_oUserTargetInfo != null);

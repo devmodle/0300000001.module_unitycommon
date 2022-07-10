@@ -15,6 +15,8 @@ using Newtonsoft.Json;
 public partial struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
 	#region 변수
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
+
+	[Key(0)] public Dictionary<string, string> m_oStrDict;
 	[Key(161)] public Dictionary<EObjType, List<EObjKinds>> m_oObjKindsDictContainer;
 	#endregion			// 변수
 
@@ -28,12 +30,13 @@ public partial struct STCellInfo : System.ICloneable, IMessagePackSerializationC
 	/** 사본 객체를 생성한다 */
 	public object Clone() {
 		var stCellInfo = new STCellInfo() {
-			m_stIdx = this.m_stIdx, m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
+			m_stIdx = this.m_stIdx, m_oStrDict = new Dictionary<string, string>(), m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
 		};
 
+		m_oStrDict.ExCopyTo(stCellInfo.m_oStrDict, (a_oStr) => a_oStr);
 		m_oObjKindsDictContainer.ExCopyTo(stCellInfo.m_oObjKindsDictContainer, this.MakeCloneObjKinds);
-		stCellInfo.OnAfterDeserialize();
 
+		stCellInfo.OnAfterDeserialize();
 		return stCellInfo;
 	}
 	#endregion			// ICloneable
@@ -46,6 +49,7 @@ public partial struct STCellInfo : System.ICloneable, IMessagePackSerializationC
 
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
+		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 		m_oObjKindsDictContainer = m_oObjKindsDictContainer ?? new Dictionary<EObjType, List<EObjKinds>>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
@@ -677,7 +681,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_eEpisodeKinds = stLevelEpisodeInfo.m_eEpisodeKinds,
 			m_eTutorialKinds = stLevelEpisodeInfo.m_eTutorialKinds,
 
-			m_oRecordList = new List<long>(),
+			m_oRecordList = new List<string>(),
 			m_oRewardKindsList = new List<ERewardKinds>(),
 			m_oClearTargetInfoList = new List<STTargetInfo>(),
 			m_oUnlockTargetInfoList = new List<STTargetInfo>()

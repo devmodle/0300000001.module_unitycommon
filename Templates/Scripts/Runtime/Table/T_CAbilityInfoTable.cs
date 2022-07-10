@@ -15,7 +15,7 @@ public partial struct STAbilityInfo {
 	public EAbilityKinds m_eAbilityKinds;
 	public EAbilityKinds m_ePrevAbilityKinds;
 	public EAbilityKinds m_eNextAbilityKinds;
-
+	
 	public List<EAbilityKinds> m_oExtraAbilityKindsList;
 
 	#region 상수
