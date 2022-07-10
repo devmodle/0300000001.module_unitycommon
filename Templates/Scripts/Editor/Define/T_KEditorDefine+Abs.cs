@@ -199,41 +199,41 @@ public static partial class KEditorDefine {
 #endif			// #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
-		["module.unitycommonads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads_client.git#2.6.2",
+		["module.unitycommonads"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads_client.git#2.6.3",
 #endif			// #if ADS_ENABLE || ADS_MODULE_ENABLE
 
 #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
-		["module.unitycommonflurry"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonflurry_client.git#2.6.2",
+		["module.unitycommonflurry"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonflurry_client.git#2.6.3",
 #endif			// #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
-		["module.unitycommonfacebook"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfacebook_client.git#2.6.2",
+		["module.unitycommonfacebook"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfacebook_client.git#2.6.3",
 #endif			// #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["module.unitycommonfirebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfirebase_client.git#2.6.2",
+		["module.unitycommonfirebase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfirebase_client.git#2.6.3",
 #endif			// #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
-		["module.unitycommonappsflyer"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonappsflyer_client.git#2.6.2",
+		["module.unitycommonappsflyer"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonappsflyer_client.git#2.6.3",
 #endif			// #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
 
 #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
-		["module.unitycommongamecenter"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommongamecenter_client.git#2.6.2",
+		["module.unitycommongamecenter"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommongamecenter_client.git#2.6.3",
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "4.1.5",
-		["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase_client.git#2.6.2",
+		["module.unitycommonpurchase"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase_client.git#2.6.3",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 		["com.unity.mobile.notifications"] = "2.0.2",
-		["module.unitycommonnoti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnoti_client.git#2.6.2",
+		["module.unitycommonnoti"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnoti_client.git#2.6.3",
 #endif			// #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 
 #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
-		["module.unitycommonplayfab"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonplayfab_client.git#2.6.2"
+		["module.unitycommonplayfab"] = "https://9tap:NT9studio!@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonplayfab_client.git#2.6.3"
 #endif			// #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
 #endif			// #if SAMPLE_PROJ || DEVELOPMENT_PROJ
 	};
