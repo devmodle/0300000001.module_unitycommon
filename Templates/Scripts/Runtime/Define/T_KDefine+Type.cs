@@ -50,14 +50,14 @@ public partial struct STTargetInfo {
 }
 
 /** 어빌리티 값 정보 */
-[System.Serializable]
+[MessagePackObject][System.Serializable]
 public partial struct STAbilityValInfo {
-	public long m_nLV;
-	public EAbilityKinds m_eAbilityKinds;
+	[Key(1)] public long m_nLV;
+	[Key(11)] public EAbilityKinds m_eAbilityKinds;
 
 	#region 프로퍼티
-	public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
-	public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
+	[JsonIgnore][IgnoreMember] public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
+	[JsonIgnore][IgnoreMember] public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
 	#region 함수

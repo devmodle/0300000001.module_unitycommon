@@ -18,7 +18,6 @@ public static partial class KDefine {
 
 	public const int G_MAX_NUM_FX_KINDS = 9;
 	public const int G_MAX_NUM_RES_KINDS = 9;
-	public const int G_MAX_NUM_SKILL_KINDS = 9;
 	public const int G_MAX_NUM_TARGET_INFOS = 9;
 	public const int G_MAX_NUM_REWARD_KINDS = 9;
 	public const int G_MAX_NUM_EXTRA_ABILITY_KINDS = 9;
@@ -39,16 +38,6 @@ public static partial class KDefine {
 	public const float G_DELAY_SCALE_08 = 1.0f;
 	public const float G_DELAY_SCALE_09 = 1.0f;
 
-	public const float G_DURATION_SCALE_01 = 1.0f;
-	public const float G_DURATION_SCALE_02 = 1.0f;
-	public const float G_DURATION_SCALE_03 = 1.0f;
-	public const float G_DURATION_SCALE_04 = 1.0f;
-	public const float G_DURATION_SCALE_05 = 1.0f;
-	public const float G_DURATION_SCALE_06 = 1.0f;
-	public const float G_DURATION_SCALE_07 = 1.0f;
-	public const float G_DURATION_SCALE_08 = 1.0f;
-	public const float G_DURATION_SCALE_09 = 1.0f;
-
 	public const float G_DELTA_T_SCALE_01 = 1.0f;
 	public const float G_DELTA_T_SCALE_02 = 1.0f;
 	public const float G_DELTA_T_SCALE_03 = 1.0f;
@@ -58,12 +47,17 @@ public static partial class KDefine {
 	public const float G_DELTA_T_SCALE_07 = 1.0f;
 	public const float G_DELTA_T_SCALE_08 = 1.0f;
 	public const float G_DELTA_T_SCALE_09 = 1.0f;
-	// 시간 }
 
-	// 에피소드 정보 테이블
-	public const int G_IDX_EPISODE_IT_LEVEL = 0;
-	public const int G_IDX_EPISODE_IT_STAGE = 1;
-	public const int G_IDX_EPISODE_IT_CHAPTER = 2;
+	public const float G_DURATION_SCALE_01 = 1.0f;
+	public const float G_DURATION_SCALE_02 = 1.0f;
+	public const float G_DURATION_SCALE_03 = 1.0f;
+	public const float G_DURATION_SCALE_04 = 1.0f;
+	public const float G_DURATION_SCALE_05 = 1.0f;
+	public const float G_DURATION_SCALE_06 = 1.0f;
+	public const float G_DURATION_SCALE_07 = 1.0f;
+	public const float G_DURATION_SCALE_08 = 1.0f;
+	public const float G_DURATION_SCALE_09 = 1.0f;
+	// 시간 }
 	#endregion			// 기본
 
 	#region 런타임 상수
@@ -79,6 +73,7 @@ public static partial class KDefine {
 	public static readonly System.Version G_VER_USER_ITEM_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_USER_SKILL_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_USER_OBJ_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_ABILITY_VER_INFO = new System.Version(1, 0, 0);
 	// 버전 }
 
 	// 정렬 순서

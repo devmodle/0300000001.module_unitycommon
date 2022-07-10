@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -170,12 +171,14 @@ public partial class CUserInfo : CBaseInfo {
 	private const string KEY_USER_ITEM_INFO_VER = "UserItemInfoVer";
 	private const string KEY_USER_SKILL_INFO_VER = "UserSkillInfoVer";
 	private const string KEY_USER_OBJ_INFO_VER = "UserObjInfoVer";
+	private const string KEY_ABILITY_VAL_INFO_VER = "AbilityValInfoVer";
 	#endregion			// 상수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public System.Version UserItemInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_ITEM_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_ITEM_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	[JsonIgnore][IgnoreMember] public System.Version UserSkillInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_SKILL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_SKILL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	[JsonIgnore][IgnoreMember] public System.Version UserObjInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_OBJ_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_OBJ_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	[JsonIgnore][IgnoreMember] public System.Version AbilityValInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_VAL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_ABILITY_VAL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -217,6 +220,7 @@ public partial class CUserInfo : CBaseInfo {
 		this.UserItemInfoVer = KDefine.G_VER_USER_ITEM_INFO;
 		this.UserSkillInfoVer = KDefine.G_VER_USER_SKILL_INFO;
 		this.UserObjInfoVer = KDefine.G_VER_USER_OBJ_INFO;
+		this.AbilityValInfoVer = KDefine.G_VER_ABILITY_VER_INFO;
 	}
 
 	/** 유저 아이템 정보를 설정한다 */
@@ -237,6 +241,13 @@ public partial class CUserInfo : CBaseInfo {
 
 	/** 유저 객체 정보를 설정한다 */
 	protected virtual void SetupUserObjInfo(CUserObjInfo a_oUserObjInfo) {
+		for(int i = 0; i < a_oUserObjInfo.m_oAbilityValInfoList.Count; ++i) {
+			// 버전이 다를 경우
+			if(this.AbilityValInfoVer.CompareTo(KDefine.G_VER_ABILITY_VER_INFO) < KCDefine.B_COMPARE_EQUALS) {
+				// Do Something	
+			}
+		}
+
 		// 버전이 다를 경우
 		if(this.UserObjInfoVer.CompareTo(KDefine.G_VER_USER_OBJ_INFO) < KCDefine.B_COMPARE_EQUALS) {
 			// Do Something
