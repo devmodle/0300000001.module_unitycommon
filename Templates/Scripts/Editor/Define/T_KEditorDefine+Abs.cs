@@ -166,8 +166,7 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본 {
-		["com.unity.2d.psdimporter"] = "7.0.1",
-		["com.unity.2d.spriteshape"] = "8.0.0",
+		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.tilemap.extras"] = "3.0.2",
 		["com.unity.mobile.android-logcat"] = "1.3.2",
 		["com.unity.editorcoroutines"] = "1.0.0",
@@ -177,8 +176,8 @@ public static partial class KEditorDefine {
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
 		["com.unity.remote-config"] = "3.1.3",
 		["com.unity.terrain-tools"] = "4.0.3",
-		["com.unity.render-pipelines.universal"] = "13.1.8",
-		["com.unity.visualeffectgraph"] = "13.1.8",
+		["com.unity.render-pipelines.universal"] = "12.1.7",
+		["com.unity.visualeffectgraph"] = "12.1.7",
 
 #if SAMPLE_PROJ || DEVELOPMENT_PROJ
 		["com.unity.ads.ios-support"] = "1.0.0",
