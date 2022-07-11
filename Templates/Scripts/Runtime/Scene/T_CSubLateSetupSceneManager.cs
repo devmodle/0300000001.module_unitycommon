@@ -92,10 +92,10 @@ namespace LateSetupScene {
 #endif			// #if UNITY_EDITOR
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
 			m_oPermissionList.ExAddVal(Permission.ExternalStorageRead);
 			m_oPermissionList.ExAddVal(Permission.ExternalStorageWrite);
-#endif			// #if UNITY_ANDROID
+#endif			// #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
 
 #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 			CLateSetupSceneManager.IsAutoLoadBannerAds = true;
