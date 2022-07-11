@@ -182,9 +182,8 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 게임 정보를 리셋한다 */
 	public virtual void ResetGameInfo(string a_oBase64Str) {
 		CFunc.ShowLog($"CGameInfoStorage.ResetGameInfo: {a_oBase64Str}");
-		CAccess.Assert(a_oBase64Str.ExIsValid());
-
 		this.GameInfo = a_oBase64Str.ExMsgPackBase64StrToObj<CGameInfo>();
+
 		CAccess.Assert(this.GameInfo != null);
 	}
 
@@ -439,7 +438,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 #endif			// #if MSG_PACK_ENABLE
 
 			CAccess.Assert(this.GameInfo != null);
-
+			
 			foreach(var stKeyVal in this.GameInfo.m_oLevelClearInfoDict) {
 				stKeyVal.Value.m_stIDInfo = CFactory.MakeIDInfo(stKeyVal.Key.ExUniqueLevelIDToID(), stKeyVal.Key.ExUniqueLevelIDToStageID(), stKeyVal.Key.ExUniqueLevelIDToChapterID());
 			}

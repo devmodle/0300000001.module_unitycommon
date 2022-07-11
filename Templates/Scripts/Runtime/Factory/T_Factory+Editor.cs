@@ -17,7 +17,7 @@ public static partial class Factory {
 	/** 셀 정보를 생성한다 */
 	public static STCellInfo MakeCellInfo(Vector3Int a_stIdx) {
 		var stCellInfo = new STCellInfo() {
-			m_stIdx = a_stIdx, m_oStrDict = new Dictionary<string, string>(), m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
+			m_stIdx = a_stIdx, m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
 		};
 
 		stCellInfo.OnAfterDeserialize();

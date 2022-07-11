@@ -172,7 +172,7 @@ public static partial class CCommonEditorSceneManager {
 
 		for(int i = 0; i < SceneManager.sceneCountInBuildSettings; ++i) {
 			string oScenePath = SceneUtility.GetScenePathByBuildIndex(i);
-
+			
 			// 씬 추가가 가능 할 경우
 			if(!oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_01) && !oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_02)) {
 				var oAsset = CEditorFunc.FindAsset<SceneAsset>(oScenePath);

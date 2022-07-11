@@ -15,8 +15,6 @@ using Newtonsoft.Json;
 public partial struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
 	#region 변수
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
-
-	[Key(0)] public Dictionary<string, string> m_oStrDict;
 	[Key(161)] public Dictionary<EObjType, List<EObjKinds>> m_oObjKindsDictContainer;
 	#endregion			// 변수
 
@@ -30,10 +28,9 @@ public partial struct STCellInfo : System.ICloneable, IMessagePackSerializationC
 	/** 사본 객체를 생성한다 */
 	public object Clone() {
 		var stCellInfo = new STCellInfo() {
-			m_stIdx = this.m_stIdx, m_oStrDict = new Dictionary<string, string>(), m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
+			m_stIdx = this.m_stIdx, m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
 		};
-
-		m_oStrDict.ExCopyTo(stCellInfo.m_oStrDict, (a_oStr) => a_oStr);
+		
 		m_oObjKindsDictContainer.ExCopyTo(stCellInfo.m_oObjKindsDictContainer, this.MakeCloneObjKinds);
 
 		stCellInfo.OnAfterDeserialize();
@@ -49,7 +46,6 @@ public partial struct STCellInfo : System.ICloneable, IMessagePackSerializationC
 
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
-		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 		m_oObjKindsDictContainer = m_oObjKindsDictContainer ?? new Dictionary<EObjType, List<EObjKinds>>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
@@ -560,7 +556,9 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	/** 레벨 정보를 이동한다 */
 	public void MoveLevelInfo(int a_nSrcID, int a_nDestID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetStageLevelInfos(a_nStageID, out Dictionary<int, CLevelInfo> oStageLevelInfoDict, a_nChapterID);
-		CAccess.Assert(bIsValid && oStageLevelInfoDict.ExIsValid() && oStageLevelInfoDict.ContainsKey(a_nSrcID) && oStageLevelInfoDict.ContainsKey(a_nDestID));
+
+		CAccess.Assert(bIsValid && oStageLevelInfoDict.ExIsValid());
+		CAccess.Assert(oStageLevelInfoDict.ContainsKey(a_nSrcID) && oStageLevelInfoDict.ContainsKey(a_nDestID));
 
 		int nOffset = (a_nSrcID <= a_nDestID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
 		var oSrcLevelInfo = oStageLevelInfoDict[a_nSrcID];
@@ -579,7 +577,9 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	/** 스테이지 레벨 정보를 이동한다 */
 	public void MoveStageLevelInfos(int a_nSrcID, int a_nDestID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetChapterLevelInfos(a_nChapterID, out Dictionary<int, Dictionary<int, CLevelInfo>> oChapterLevelInfoDictContainer);
-		CAccess.Assert(bIsValid && oChapterLevelInfoDictContainer.ExIsValid() && oChapterLevelInfoDictContainer.ContainsKey(a_nSrcID) && oChapterLevelInfoDictContainer.ContainsKey(a_nDestID));
+
+		CAccess.Assert(bIsValid && oChapterLevelInfoDictContainer.ExIsValid());
+		CAccess.Assert(oChapterLevelInfoDictContainer.ContainsKey(a_nSrcID) && oChapterLevelInfoDictContainer.ContainsKey(a_nDestID));
 
 		int nOffset = (a_nSrcID <= a_nDestID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
 		var oSrcStageLevelInfoDict = oChapterLevelInfoDictContainer[a_nSrcID];
@@ -648,7 +648,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	/** 레벨 정보를 저장한다 */
 	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<long> a_oOutLevelIDList) {
 		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
-
+		
 		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
 		CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_oLevelInfo.m_stIDInfo.m_nID01, out STEpisodeInfo stLevelEpisodeInfo, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03);
 
@@ -687,10 +687,10 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_oUnlockTargetInfoList = new List<STTargetInfo>()
 		};
 
-		stLevelEpisodeInfo.m_oRecordList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordList, (a_nRecord) => a_nRecord);
-		stLevelEpisodeInfo.m_oRewardKindsList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds);
-		stLevelEpisodeInfo.m_oClearTargetInfoList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoList, (a_stTargetInfo) => a_stTargetInfo);
-		stLevelEpisodeInfo.m_oUnlockTargetInfoList.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoList, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo);
+		stLevelEpisodeInfo.m_oRecordList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordList, (a_nRecord) => a_nRecord, false);
+		stLevelEpisodeInfo.m_oRewardKindsList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds, false);
+		stLevelEpisodeInfo.m_oClearTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoList, (a_stTargetInfo) => a_stTargetInfo, false);
+		stLevelEpisodeInfo.m_oUnlockTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoList, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo, false);
 
 		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueID01, stReplaceLevelEpisodeInfo);
 
