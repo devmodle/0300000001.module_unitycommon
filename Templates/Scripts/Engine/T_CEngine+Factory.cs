@@ -10,39 +10,7 @@ namespace SampleEngineName {
 	/** 엔진 - 팩토리 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		/** 엔진 컴포넌트 매개 변수를 생성한다 */
-		private CEComponent.STParams MakeEComponentParams() {
-			return new CEComponent.STParams() {
-				m_oEngine = this
-			};
-		}
-
-		/** 효과를 생성한다 */
-		private CEFX CreateFX(EFXKinds a_eFXKinds, Vector3 a_stPos) {
-			var oFX = CFactory.CreateCloneObj<CEFX>(KDefine.E_OBJ_N_FX, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), m_stParams.m_oObjRoot);
-			oFX.transform.localPosition = a_stPos;
-
-			oFX.Init(new CEFX.STParams() {
-				m_stBaseParams = this.MakeEComponentParams(),
-				m_stFXInfo = CFXInfoTable.Inst.GetFXInfo(a_eFXKinds)
-			});
-
-			return oFX;
-		}
-
-		/** 객체를 생성한다 */
-		private CEObj CreateObj(EObjKinds a_eObjKinds, Vector3 a_stPos, Vector3Int a_stIdx) {
-			var oObj = CFactory.CreateCloneObj<CEObj>(KDefine.E_OBJ_N_OBJ, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), m_stParams.m_oObjRoot);
-			oObj.Idx = a_stIdx;
-			oObj.transform.localPosition = a_stPos;
-
-			oObj.Init(new CEObj.STParams() {
-				m_stBaseParams = this.MakeEComponentParams(),
-				m_stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds)
-			});
-
-			return oObj;
-		}
+		
 		#endregion			// 함수
 	}
 }

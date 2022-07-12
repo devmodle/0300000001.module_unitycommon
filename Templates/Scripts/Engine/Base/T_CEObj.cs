@@ -25,7 +25,6 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-		private List<STAbilityValInfo> m_oAbilityValInfoList = new List<STAbilityValInfo>();
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
 		private Dictionary<EKey, Vector3Int> m_oVec3IntDict = new Dictionary<EKey, Vector3Int>() {
@@ -36,7 +35,6 @@ namespace SampleEngineName {
 		#region 프로퍼티
 		public Vector3Int Idx { get { return m_oVec3IntDict[EKey.IDX]; } set { m_oVec3IntDict[EKey.IDX] = value; } }
 		public STObjInfo ObjInfo => m_stParams.m_stObjInfo;
-		public List<STAbilityValInfo> AbilityValInfoList => m_oAbilityValInfoList;
 		#endregion			// 프로퍼티
 
 		#region 함수
