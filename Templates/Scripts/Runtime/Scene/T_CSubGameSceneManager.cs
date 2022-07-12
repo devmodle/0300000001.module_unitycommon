@@ -533,13 +533,6 @@ namespace GameScene {
 		private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
 			this.ShowResultPopup(false);
 		}
-
-		/** 게임 컴포넌트 매개 변수를 생성한다 */
-		private CGSComponent.STParams MakeGSComponentParams() {
-			return new CGSComponent.STParams() {
-				m_oEngine = this.m_oEngine
-			};
-		}
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		#endregion			// 조건부 함수
 	}

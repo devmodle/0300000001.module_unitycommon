@@ -62,5 +62,54 @@ public static partial class KDefine {
 	};
 	#endregion			// 런타임 상수
 }
+
+/** 서브 인트로 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 서브 타이틀 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 서브 메인 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 서브 게임 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 서브 로딩 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 서브 중첩 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 서브 테스트 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

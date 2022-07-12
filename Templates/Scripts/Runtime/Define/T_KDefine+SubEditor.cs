@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,14 +6,18 @@ using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-using MessagePack;
-
-#region 기본
-/** 에디터 타입 랩퍼 */
-[MessagePackObject]
-public partial struct STEditorTypeWrapper {
-	// Do Something
+/** 서브 에디터 기본 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
 }
-#endregion			// 기본
+
+/** 서브 레벨 에디터 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
 #endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if SCRIPT_TEMPLATE_ONLY

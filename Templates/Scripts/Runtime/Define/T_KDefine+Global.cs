@@ -104,5 +104,103 @@ public static partial class KDefine {
 	// 분석 }
 	#endregion			// 런타임 상수
 }
+
+/** 초기화 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 설정 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 약관 동의 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 지연 설정 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 시작 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 스플래시 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 인트로 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 타이틀 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 메인 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	// 개수
+	public const int MS_MAX_NUM_LEVELS_IN_ROW = 1;
+	public const int MS_MAX_NUM_STAGES_IN_ROW = 1;
+	public const int MS_MAX_NUM_CHAPTERS_IN_ROW = 1;
+	#endregion			// 기본
+}
+
+/** 게임 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	// 단위
+	public const int GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH = 0;
+	
+	// 이름
+	public const string GS_OBJ_N_ENGINE = "Engine";
+	#endregion			// 기본
+}
+
+/** 로딩 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 중첩 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 테스트 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

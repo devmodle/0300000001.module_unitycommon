@@ -6,14 +6,14 @@ using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE
-#region 기본
-/** 열거형 값 */
+/** 서브 열거형 값 */
 public static partial class KEnumVal {
 	#region 기본
 
 	#endregion			// 기본
 }
 
+#region 기본
 /** 아이템 타입 */
 public enum EItemType {
 	NONE = -1,

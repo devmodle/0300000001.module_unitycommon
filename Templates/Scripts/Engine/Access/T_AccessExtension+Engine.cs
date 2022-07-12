@@ -7,7 +7,7 @@ using UnityEngine.Events;
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	/** 엔진 접근 확장 클래스 */
+	/** 엔진 접근자 확장 클래스 */
 	public static partial class AccessExtension {
 		#region 클래스 함수
 		/** 인덱스 유효 여부를 검사한다 */

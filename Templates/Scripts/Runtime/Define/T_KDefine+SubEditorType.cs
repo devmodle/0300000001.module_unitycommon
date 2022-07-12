@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +9,14 @@ using UnityEngine.Events;
 using MessagePack;
 
 #region 기본
-/** 에디터 타입 랩퍼 */
+/** 서브 에디터 레벨 생성 정보 */
+public partial class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
+	// Do Something
+}
+
+/** 서브 에디터 타입 랩퍼 */
 [MessagePackObject]
-public partial struct STEditorTypeWrapper {
+public partial struct STSubEditorTypeWrapper {
 	// Do Something
 }
 #endregion			// 기본
