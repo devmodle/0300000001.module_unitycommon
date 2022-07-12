@@ -18,7 +18,7 @@ namespace SampleEngineName {
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 			m_oObjInfoDictContainers = new Dictionary<EObjType, List<(EObjKinds, CEObj)>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
-			m_oGridInfoDict[EKey.GRID_INFO] = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
+			m_oGridInfoDict[EKey.CUR_GRID_INFO] = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
 		}
 		
 		/** 레벨을 설정한다 */

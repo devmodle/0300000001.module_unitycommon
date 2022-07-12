@@ -15,9 +15,8 @@ namespace SampleEngineName {
 			NONE = -1,
 			INT_RECORD,
 			REAL_RECORD,
-			GRID_INFO,
-			STATE,
-			ENGINE_STATE,
+			CUR_STATE,
+			CUR_GRID_INFO,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -34,12 +33,6 @@ namespace SampleEngineName {
 			NONE = -1,
 			CLEAR,
 			CLEAR_FAIL,
-			[HideInInspector] MAX_VAL
-		}
-
-		/** 엔진 상태 */
-		private enum EEngineState {
-			NONE = -1,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -60,24 +53,16 @@ namespace SampleEngineName {
 		#region 변수
 		private STParams m_stParams;
 
-		private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>() {
-			[EKey.INT_RECORD] = 0
-		};
-
-		private Dictionary<EKey, double> m_oRealDict = new Dictionary<EKey, double>() {
-			[EKey.REAL_RECORD] = 0.0
+		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
+			// Do Something
 		};
 
 		private Dictionary<EKey, EState> m_oStateDict = new Dictionary<EKey, EState>() {
-			[EKey.STATE] = EState.NONE
-		};
-
-		private Dictionary<EKey, EEngineState> m_oEngineStateDict = new Dictionary<EKey, EEngineState>() {
-			[EKey.ENGINE_STATE] = EEngineState.NONE
+			[EKey.CUR_STATE] = EState.NONE
 		};
 
 		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>() {
-			[EKey.GRID_INFO] = default(STGridInfo)
+			[EKey.CUR_GRID_INFO] = default(STGridInfo)
 		};
 
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
@@ -87,22 +72,11 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public EState State {
-			get {
-				return m_oStateDict[EKey.STATE];
-			} set {
-				m_oStateDict[EKey.STATE] = value;
+		public long IntRecord { get { return long.Parse(m_oStrDict.GetValueOrDefault(EKey.INT_RECORD, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(EKey.INT_RECORD, $"{value}"); } }
+		public double RealRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(EKey.REAL_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(EKey.REAL_RECORD, $"{value}"); } }
 
-				switch(value) {
-					case EState.RUN: this.HandleRunState(); break;
-					case EState.STOP: this.HandleStopState(); break;
-				}
-			}
-		}
-
-		public long IntRecord => m_oIntDict[EKey.INT_RECORD];
-		public double RealRecord => m_oRealDict[EKey.REAL_RECORD];
-		public STGridInfo GridInfo => m_oGridInfoDict[EKey.GRID_INFO];
+		public EState CurState => m_oStateDict[EKey.CUR_STATE];
+		public STGridInfo GridInfo => m_oGridInfoDict[EKey.CUR_GRID_INFO];
 
 		public GameObject ObjRoot => m_stParams.m_oObjRoot;
 		public GameObject FXObjRoot => m_stParams.m_oFXObjRoot;
@@ -177,13 +151,13 @@ namespace SampleEngineName {
 
 		/** 터치 이벤트를 처리한다 */
 		private void HandleTouchState(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouch a_eTouch) {
-			switch(this.State) {
+			switch(m_oStateDict[EKey.CUR_STATE]) {
 				case EState.RUN: {
 					var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot);
 
 					// 그리드 영역 일 경우
-					if(m_oGridInfoDict[EKey.GRID_INFO].m_stBounds.Contains(stTouchPos)) {
-						var stIdx = stTouchPos.ExToIdx(m_oGridInfoDict[EKey.GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+					if(m_oGridInfoDict[EKey.CUR_GRID_INFO].m_stBounds.Contains(stTouchPos)) {
+						var stIdx = stTouchPos.ExToIdx(m_oGridInfoDict[EKey.CUR_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
 						CAccess.Assert(m_oObjInfoDictContainers.ExIsValidIdx(stIdx));
 					}
 				} break;

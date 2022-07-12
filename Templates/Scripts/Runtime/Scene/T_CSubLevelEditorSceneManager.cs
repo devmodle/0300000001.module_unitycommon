@@ -25,11 +25,10 @@ namespace LevelEditorScene {
 			OBJ_INFO_TABLE_GOOGLE_SHEET_ID,
 			EPISODE_INFO_TABLE_GOOGLE_SHEET_ID,
 
+			SEL_GRID_INFO,
 			SEL_USER_TYPE,
 			SEL_TABLE_SRC,
 			SEL_INPUT_POPUP,
-
-			GRID_INFO,
 
 			SEL_SCROLLER,
 			SEL_OBJ_SPRITE,
@@ -122,7 +121,7 @@ namespace LevelEditorScene {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 		private Dictionary<EKey, SampleEngineName.STGridInfo> m_oGridInfoDict = new Dictionary<EKey, SampleEngineName.STGridInfo>() {
-			[EKey.GRID_INFO] = default(SampleEngineName.STGridInfo)
+			[EKey.SEL_GRID_INFO] = default(SampleEngineName.STGridInfo)
 		};
 
 		private Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>[,] m_oObjSpriteInfoDictContainers = null;
@@ -784,14 +783,14 @@ namespace LevelEditorScene {
 				}
 			}
 
-			m_oGridInfoDict[EKey.GRID_INFO] = SampleEngineName.Factory.MakeGridInfo(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO], Vector3.zero);
+			m_oGridInfoDict[EKey.SEL_GRID_INFO] = SampleEngineName.Factory.MakeGridInfo(m_oLevelInfoDict[EKey.SEL_LEVEL_INFO], Vector3.zero);
 
 			// 비율을 설정한다 {
-			bool bIsValid01 = !float.IsNaN(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.x) && !float.IsInfinity(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.x);
-			bool bIsValid02 = !float.IsNaN(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.y) && !float.IsInfinity(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.y);
-			bool bIsValid03 = !float.IsNaN(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.z) && !float.IsInfinity(m_oGridInfoDict[EKey.GRID_INFO].m_stScale.z);
+			bool bIsValid01 = !float.IsNaN(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stScale.x) && !float.IsInfinity(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stScale.x);
+			bool bIsValid02 = !float.IsNaN(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stScale.y) && !float.IsInfinity(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stScale.y);
+			bool bIsValid03 = !float.IsNaN(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stScale.z) && !float.IsInfinity(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stScale.z);
 
-			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oGridInfoDict[EKey.GRID_INFO].m_stScale : Vector3.one;
+			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stScale : Vector3.one;
 			this.ObjRoot.transform.localPosition = Vector3.zero.ExToWorld(this.MidEditorUIs).ExToLocal(this.UIs);
 			// 비율을 설정한다 }
 
@@ -826,7 +825,7 @@ namespace LevelEditorScene {
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 					var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, KDefine.LES_OBJ_N_OBJ_SPRITE);
 					oObjSprite.sprite = SampleEngineName.Access.GetObjSprite(stKeyVal.Value[i]);
-					oObjSprite.transform.localPosition = m_oGridInfoDict[EKey.GRID_INFO].m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+					oObjSprite.transform.localPosition = m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 
 					oObjSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrderInfo(stKeyVal.Value[i]));
 					oObjSpriteInfoList.ExAddVal((stKeyVal.Value[i], oObjSprite));
