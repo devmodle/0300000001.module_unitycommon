@@ -7,23 +7,29 @@ using UnityEngine.Events;
 #if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	/** 상호 작용 가능 객체 */
-	public partial class CEInteractableObj : CEObj {
-		// 매개 변수
+	/** 스킬 */
+	public partial class CESkill : CEComponent {
+		/** 매개 변수 */
 		public new partial struct STParams {
-			public CEObj.STParams m_stBaseParams;
+			public CEComponent.STParams m_stBaseParams;
+			public STSkillInfo m_stSkillInfo;
 		}
-		
+
 		#region 변수
 		private STParams m_stParams;
-		private List<STAbilityValInfo> m_oAbilityValInfoList = new List<STAbilityValInfo>();
+		private List<CEFX> m_oFXList = new List<CEFX>();
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public List<STAbilityValInfo> AbilityValInfoList => m_oAbilityValInfoList;
+		public STSkillInfo SkillInfo => m_stParams.m_stSkillInfo;
 		#endregion			// 프로퍼티
 
 		#region 함수
+		/** 초기화 */
+		public override void Awake() {
+			base.Awake();
+		}
+
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			base.Init(a_stParams.m_stBaseParams);

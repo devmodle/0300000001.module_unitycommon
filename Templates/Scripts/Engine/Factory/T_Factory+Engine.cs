@@ -30,27 +30,6 @@ namespace SampleEngineName {
 				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine), m_stObjInfo = a_stObjInfo
 			};
 		}
-
-		/** 상호 작용 가능 객체 매개 변수를 생성한다 */
-		public static CEInteractableObj.STParams MakeInteractableObjParams(CEngine a_oEngine, STObjInfo a_stObjInfo) {
-			return new CEInteractableObj.STParams() {
-				m_stBaseParams = Factory.MakeObjParams(a_oEngine, a_stObjInfo)
-			};
-		}
-
-		/** 플레이 가능 객체 매개 변수를 생성한다 */
-		public static CEPlayableObj.STParams MakePlayableObjParams(CEngine a_oEngine, STObjInfo a_stObjInfo) {
-			return new CEPlayableObj.STParams() {
-				m_stBaseParams = Factory.MakeInteractableObjParams(a_oEngine, a_stObjInfo)
-			};
-		}
-
-		/** 플레이 불가능 객체 매개 변수를 생성한다 */
-		public static CENonPlayableObj.STParams MakeNonPlayableObjParams(CEngine a_oEngine, STObjInfo a_stObjInfo) {
-			return new CENonPlayableObj.STParams() {
-				m_stBaseParams = Factory.MakeInteractableObjParams(a_oEngine, a_stObjInfo)
-			};
-		}
 		#endregion			// 클래스 함수
 
 		#region 조건부 클래스 함수

@@ -15,7 +15,7 @@ namespace SampleEngineName {
 			FX_PARTICLE,
 			[HideInInspector] MAX_VAL
 		}
-
+		
 		/** 매개 변수 */
 		public new partial struct STParams {
 			public CEComponent.STParams m_stBaseParams;

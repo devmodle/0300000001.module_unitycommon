@@ -11,15 +11,19 @@ namespace SampleEngineName {
 	public partial class CEComponent : CComponent {
 		/** 매개 변수 */
 		public partial struct STParams {
+			public string m_oObjsPoolKey;
 			public CEngine m_oEngine;
 		}
 
 		#region 변수
 		private STParams m_stParams;
+		private List<STAbilityValInfo> m_oAbilityValInfoList = new List<STAbilityValInfo>();
 		#endregion			// 변수
 
 		#region 프로퍼티
+		public string ObjsPoolKey => m_stParams.m_oObjsPoolKey;
 		public CEngine Engine => m_stParams.m_oEngine;
+		public List<STAbilityValInfo> AbilityValInfoList => m_oAbilityValInfoList;
 		#endregion			// 프로퍼티
 
 		#region 초기화
