@@ -13,13 +13,6 @@ public static partial class Access {
 	#endregion			// 클래스 함수
 }
 
-/** 서브 인트로 씬 접근자 */
-public static partial class Access {
-	#region 클래스 함수
-
-	#endregion			// 클래스 함수
-}
-
 /** 서브 타이틀 씬 접근자 */
 public static partial class Access {
 	#region 클래스 함수
@@ -49,13 +42,6 @@ public static partial class Access {
 }
 
 /** 서브 중첩 씬 접근자 */
-public static partial class Access {
-	#region 클래스 함수
-
-	#endregion			// 클래스 함수
-}
-
-/** 서브 테스트 씬 접근자 */
 public static partial class Access {
 	#region 클래스 함수
 

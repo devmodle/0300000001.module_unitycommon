@@ -147,13 +147,6 @@ public static partial class KDefine {
 	#endregion			// 기본
 }
 
-/** 인트로 씬 상수 */
-public static partial class KDefine {
-	#region 기본
-	
-	#endregion			// 기본
-}
-
 /** 타이틀 씬 상수 */
 public static partial class KDefine {
 	#region 기본
@@ -190,13 +183,6 @@ public static partial class KDefine {
 }
 
 /** 중첩 씬 상수 */
-public static partial class KDefine {
-	#region 기본
-	
-	#endregion			// 기본
-}
-
-/** 테스트 씬 상수 */
 public static partial class KDefine {
 	#region 기본
 	

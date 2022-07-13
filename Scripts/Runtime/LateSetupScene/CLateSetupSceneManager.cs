@@ -266,9 +266,24 @@ namespace LateSetupScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 			CSceneManager.IsLateSetup = true;
-			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_INTRO_SCENE, false);
+			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_NEXT_SCENE, false);
 
-			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_INTRO), KCDefine.B_VAL_1_REAL);
+			this.ExLateCallFunc((a_oSender) => {
+				// 초기화 씬 일 경우
+				if(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) || KCDefine.B_INIT_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
+#if STUDY_MODULE_ENABLE
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
+#else
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+#endif			// #if STUDY_MODULE_ENABLE
+				} else {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
+					CCommonAppInfoStorage.Inst.IsFirstStart = false;
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
+					CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName);
+				}
+			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
 		}
 		#endregion			// 함수
 

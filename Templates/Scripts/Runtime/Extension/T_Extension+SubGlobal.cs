@@ -13,13 +13,6 @@ public static partial class Extension {
 	#endregion			// 클래스 함수
 }
 
-/** 서브 인트로 씬 확장 클래스 */
-public static partial class Extension {
-	#region 클래스 함수
-
-	#endregion			// 클래스 함수
-}
-
 /** 서브 타이틀 씬 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
@@ -49,13 +42,6 @@ public static partial class Extension {
 }
 
 /** 서브 중첩 씬 확장 클래스 */
-public static partial class Extension {
-	#region 클래스 함수
-
-	#endregion			// 클래스 함수
-}
-
-/** 서브 테스트 씬 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
 

@@ -13,13 +13,6 @@ public static partial class Func {
 	#endregion			// 클래스 함수
 }
 
-/** 서브 인트로 씬 함수 */
-public static partial class Func {
-	#region 클래스 함수
-
-	#endregion			// 클래스 함수
-}
-
 /** 서브 타이틀 씬 함수 */
 public static partial class Func {
 	#region 클래스 함수
@@ -49,13 +42,6 @@ public static partial class Func {
 }
 
 /** 서브 중첩 씬 함수 */
-public static partial class Func {
-	#region 클래스 함수
-
-	#endregion			// 클래스 함수
-}
-
-/** 서브 테스트 씬 함수 */
 public static partial class Func {
 	#region 클래스 함수
 
