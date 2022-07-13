@@ -87,6 +87,16 @@ namespace TitleScene {
 			}
 		}
 
+		/** 내비게이션 스택 이벤트를 수신했을 경우 */
+		public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
+			base.OnReceiveNavStackEvent(a_eEvent);
+
+			// 백 키 눌림 이벤트 일 경우
+			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
+				Func.ShowQuitPopup(this.OnReceiveQuitPopupResult);
+			}
+		}
+
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
 			// 버튼을 설정한다
@@ -145,6 +155,15 @@ namespace TitleScene {
 			// 약관 동의 팝업이 닫혔을 경우
 			if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
 				LogFunc.SendAgreeLog();
+			}
+		}
+
+		/** 종료 팝업 결과를 수신했을 경우 */
+		private void OnReceiveQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
+			// 확인 버튼을 눌렀을 경우
+			if(a_bIsOK) {
+				a_oSender.IsIgnoreAni = true;
+				this.ExLateCallFunc((a_oSender) => this.QuitApp());
 			}
 		}
 
