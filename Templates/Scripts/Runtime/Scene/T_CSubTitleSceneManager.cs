@@ -41,11 +41,6 @@ namespace TitleScene {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		#endregion			// 변수
 
-		#region 프로퍼티
-		public override bool IsIgnoreTestUIs => !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene;
-		public override bool IsIgnoreOverlayScene => !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene;
-		#endregion			// 프로퍼티
-
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -81,7 +76,7 @@ namespace TitleScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 				// 에디터 씬을 로드하지 않았을 경우
-				if(!m_oBoolDict[EKey.IS_LOAD_EDITOR_SCENE] && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
+				if(!m_oBoolDict[EKey.IS_LOAD_EDITOR_SCENE]) {
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 				}
 			}
@@ -116,7 +111,7 @@ namespace TitleScene {
 		private void SetupStart() {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 업데이트가 가능 할 경우
-			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
 				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
 				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 			}

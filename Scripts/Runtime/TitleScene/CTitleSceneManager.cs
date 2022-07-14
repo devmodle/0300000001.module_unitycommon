@@ -36,19 +36,16 @@ namespace TitleScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				// 타이틀 씬 사용 모드 일 경우
-				if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
-					// 텍스트를 설정한다 {
-					CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-						(EKey.VER_TEXT, $"{EKey.VER_TEXT}", this.UpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
-					}, m_oTextDict, false);
+				// 텍스트를 설정한다 {
+				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.VER_TEXT, $"{EKey.VER_TEXT}", this.UpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
+				}, m_oTextDict, false);
 
-					m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-					m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-					m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-					m_oTextDict[EKey.VER_TEXT].rectTransform.anchoredPosition = KCDefine.U_POS_INFO_TEXT;
-					// 텍스트를 설정한다 }
-				}
+				m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oTextDict[EKey.VER_TEXT].rectTransform.anchoredPosition = KCDefine.U_POS_INFO_TEXT;
+				// 텍스트를 설정한다 }
 			}
 		}
 
