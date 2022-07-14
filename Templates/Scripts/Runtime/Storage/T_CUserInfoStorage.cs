@@ -17,6 +17,10 @@ using Newtonsoft.Json;
 [Union(2, typeof(CUserObjInfo))]
 [MessagePackObject][System.Serializable]
 public abstract partial class CUserTargetInfo : CBaseInfo {
+	#region 변수
+	[Key(71)] public List<STAbilityValInfo> m_oAbilityValInfoList = new List<STAbilityValInfo>();
+	#endregion			// 변수
+
 	#region 상수
 	private const string KEY_LV = "LV";
 	private const string KEY_NUMS = "Nums";
@@ -41,6 +45,7 @@ public abstract partial class CUserTargetInfo : CBaseInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+		m_oAbilityValInfoList = m_oAbilityValInfoList ?? new List<STAbilityValInfo>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -123,10 +128,6 @@ public partial class CUserSkillInfo : CUserTargetInfo {
 /** 유저 객체 정보 */
 [MessagePackObject][System.Serializable]
 public partial class CUserObjInfo : CUserTargetInfo {
-	#region 변수
-	[Key(71)] public List<STAbilityValInfo> m_oAbilityValInfoList = new List<STAbilityValInfo>();
-	#endregion			// 변수
-
 	#region 상수
 	private const string KEY_OBJ_KINDS = "ObjKinds";
 	#endregion			// 상수
