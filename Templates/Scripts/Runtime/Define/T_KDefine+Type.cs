@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -26,13 +27,13 @@ public partial struct STTargetInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	public long IntTarget01 => long.TryParse(m_oTarget01, out long nTarget01) ? nTarget01 : KCDefine.B_VAL_0_INT;
-	public long IntTarget02 => long.TryParse(m_oTarget02, out long nTarget02) ? nTarget02 : KCDefine.B_VAL_0_INT;
-	public long IntTarget03 => long.TryParse(m_oTarget03, out long nTarget03) ? nTarget03 : KCDefine.B_VAL_0_INT;
+	public long IntTarget01 => long.TryParse(m_oTarget01, NumberStyles.Any, null, out long nTarget01) ? nTarget01 : KCDefine.B_VAL_0_INT;
+	public long IntTarget02 => long.TryParse(m_oTarget02, NumberStyles.Any, null, out long nTarget02) ? nTarget02 : KCDefine.B_VAL_0_INT;
+	public long IntTarget03 => long.TryParse(m_oTarget03, NumberStyles.Any, null, out long nTarget03) ? nTarget03 : KCDefine.B_VAL_0_INT;
 
-	public double RealTarget01 => double.TryParse(m_oTarget01, out double dblTarget01) ? dblTarget01 : KCDefine.B_VAL_0_REAL;
-	public double RealTarget02 => double.TryParse(m_oTarget02, out double dblTarget02) ? dblTarget02 : KCDefine.B_VAL_0_REAL;
-	public double RealTarget03 => double.TryParse(m_oTarget03, out double dblTarget03) ? dblTarget03 : KCDefine.B_VAL_0_REAL;
+	public double RealTarget01 => double.TryParse(m_oTarget01, NumberStyles.Any, null, out double dblTarget01) ? dblTarget01 : KCDefine.B_VAL_0_REAL;
+	public double RealTarget02 => double.TryParse(m_oTarget02, NumberStyles.Any, null, out double dblTarget02) ? dblTarget02 : KCDefine.B_VAL_0_REAL;
+	public double RealTarget03 => double.TryParse(m_oTarget03, NumberStyles.Any, null, out double dblTarget03) ? dblTarget03 : KCDefine.B_VAL_0_REAL;
 
 	public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
 	public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
@@ -86,7 +87,7 @@ public partial struct STAbilityValInfo {
 	#region 함수
 	/** 생성자 */
 	public STAbilityValInfo(SimpleJSON.JSONNode a_oAbilityValInfo) {
-		m_nLV = long.TryParse(a_oAbilityValInfo[KCDefine.B_VAL_1_INT], out long nLV) ? nLV : KCDefine.B_VAL_0_INT;
+		m_nLV = long.TryParse(a_oAbilityValInfo[KCDefine.B_VAL_1_INT], NumberStyles.Any, null, out long nLV) ? nLV : KCDefine.B_VAL_0_INT;
 		m_eAbilityKinds = a_oAbilityValInfo[KCDefine.B_VAL_0_INT].ExIsValid() ? (EAbilityKinds)a_oAbilityValInfo[KCDefine.B_VAL_0_INT].AsInt : EAbilityKinds.NONE;
 	}
 	#endregion			// 함수

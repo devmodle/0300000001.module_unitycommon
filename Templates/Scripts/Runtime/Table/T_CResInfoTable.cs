@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -25,8 +26,8 @@ public partial struct STResInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	public int IntRate => int.TryParse(m_oRate, out int nRate) ? nRate : KCDefine.B_VAL_0_INT;
-	public float RealRate => float.TryParse(m_oRate, out float fRate) ? fRate : KCDefine.B_VAL_0_INT;
+	public int IntRate => int.TryParse(m_oRate, NumberStyles.Any, null, out int nRate) ? nRate : KCDefine.B_VAL_0_INT;
+	public float RealRate => float.TryParse(m_oRate, NumberStyles.Any, null, out float fRate) ? fRate : KCDefine.B_VAL_0_INT;
 
 	public EResType ResType => (EResType)((int)m_eResKinds).ExKindsToType();
 	public EResKinds BaseResKinds => (EResKinds)((int)m_eResKinds).ExKindsToSubKindsType();
@@ -38,7 +39,7 @@ public partial struct STResInfo {
 		m_stCommonInfo = new STCommonInfo(a_oResInfo);
 		
 		m_oRate = a_oResInfo[KCDefine.U_KEY_RATE].ExIsValid() ? a_oResInfo[KCDefine.U_KEY_RATE] : KCDefine.B_STR_0_INT;
-		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH];
+		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH].ExIsValid() ? a_oResInfo[KCDefine.U_KEY_RES_PATH].Value.ExGetReplaceStr(KCDefine.B_TOKEN_REV_SPLASH, KCDefine.B_TOKEN_SPLASH, byte.MaxValue) : string.Empty;
 
 		m_eResKinds = a_oResInfo[KCDefine.U_KEY_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt : EResKinds.NONE;
 		m_ePrevResKinds = a_oResInfo[KCDefine.U_KEY_PREV_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_PREV_RES_KINDS].AsInt : EResKinds.NONE;

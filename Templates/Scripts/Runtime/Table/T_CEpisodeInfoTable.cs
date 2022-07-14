@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -90,12 +91,12 @@ public partial struct STEpisodeInfo {
 
 	/** 기록을 반환한다 */
 	public long GetIntRecord(int a_nIdx) {
-		return long.TryParse(m_oRecordList.ExGetVal(a_nIdx, KCDefine.B_STR_0_INT), out long nRecord) ? nRecord : KCDefine.B_VAL_0_INT;
+		return long.TryParse(m_oRecordList.ExGetVal(a_nIdx, KCDefine.B_STR_0_INT), NumberStyles.Any, null, out long nRecord) ? nRecord : KCDefine.B_VAL_0_INT;
 	}
 
 	/** 기록을 반환한다 */
 	public double GetRealRecord(int a_nIdx) {
-		return double.TryParse(m_oRecordList.ExGetVal(a_nIdx, KCDefine.B_STR_0_INT), out double dblRecord) ? dblRecord : KCDefine.B_VAL_0_REAL;
+		return double.TryParse(m_oRecordList.ExGetVal(a_nIdx, KCDefine.B_STR_0_INT), NumberStyles.Any, null, out double dblRecord) ? dblRecord : KCDefine.B_VAL_0_REAL;
 	}
 
 	/** 클리어 타겟 정보를 반환한다 */
