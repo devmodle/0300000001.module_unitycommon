@@ -223,10 +223,10 @@ public static partial class Func {
 		bool bIsValid = CItemInfoTable.Inst.TryGetItemInfo((EItemKinds)a_stTargetInfo.m_nKinds, out STItemInfo stItemInfo);
 
 		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID)));
-		CAccess.Assert(!a_bIsEnableAssert || (a_oUserItemInfo != null || !stItemInfo.m_stCommonInfo.m_bIsDuplicate));
+		CAccess.Assert(!a_bIsEnableAssert || (a_oUserItemInfo != null || !stItemInfo.m_stCommonInfo.m_bIsRepeat));
 
 		// 유저 아이템 정보가 존재 할 경우
-		if(bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID) && (a_oUserItemInfo != null || !stItemInfo.m_stCommonInfo.m_bIsDuplicate)) {
+		if(bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID) && (a_oUserItemInfo != null || !stItemInfo.m_stCommonInfo.m_bIsRepeat)) {
 			Func.DoPay(a_oUserItemInfo ?? CUserInfoStorage.Inst.GetUserItemInfo((EItemKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
@@ -236,10 +236,10 @@ public static partial class Func {
 		bool bIsValid = CSkillInfoTable.Inst.TryGetSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds, out STSkillInfo stSkillInfo);
 
 		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID)));
-		CAccess.Assert(!a_bIsEnableAssert || (a_oUserSkillInfo != null || !stSkillInfo.m_stCommonInfo.m_bIsDuplicate));
+		CAccess.Assert(!a_bIsEnableAssert || (a_oUserSkillInfo != null || !stSkillInfo.m_stCommonInfo.m_bIsRepeat));
 
 		// 유저 스킬 정보가 존재 할 경우
-		if(bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID) && (a_oUserSkillInfo != null || !stSkillInfo.m_stCommonInfo.m_bIsDuplicate)) {
+		if(bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID) && (a_oUserSkillInfo != null || !stSkillInfo.m_stCommonInfo.m_bIsRepeat)) {
 			Func.DoPay(a_oUserSkillInfo ?? CUserInfoStorage.Inst.GetUserSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
@@ -249,10 +249,10 @@ public static partial class Func {
 		bool bIsValid = CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.m_nKinds, out STObjInfo stObjInfo);
 
 		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID)));
-		CAccess.Assert(!a_bIsEnableAssert || (a_oUserObjInfo != null || !stObjInfo.m_stCommonInfo.m_bIsDuplicate));
+		CAccess.Assert(!a_bIsEnableAssert || (a_oUserObjInfo != null || !stObjInfo.m_stCommonInfo.m_bIsRepeat));
 
 		// 유저 객체 정보가 존재 할 경우
-		if(bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID) && (a_oUserObjInfo != null || !stObjInfo.m_stCommonInfo.m_bIsDuplicate)) {
+		if(bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID) && (a_oUserObjInfo != null || !stObjInfo.m_stCommonInfo.m_bIsRepeat)) {
 			Func.DoPay(a_oUserObjInfo ?? CUserInfoStorage.Inst.GetUserObjInfo((EObjKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
