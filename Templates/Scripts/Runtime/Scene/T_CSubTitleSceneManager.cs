@@ -74,11 +74,6 @@ namespace TitleScene {
 					this.UpdateFirstPlayState();
 				}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
-				// 에디터 씬을 로드하지 않았을 경우
-				if(!m_oBoolDict[EKey.IS_LOAD_EDITOR_SCENE]) {
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-				}
 			}
 		}
 
