@@ -410,7 +410,7 @@ namespace LevelEditorScene {
 #if STUDY_MODULE_ENABLE
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
+				CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : KCDefine.B_SCENE_N_MAIN);
 #endif			// #if STUDY_MODULE_ENABLE
 			}
 		}
@@ -1036,10 +1036,10 @@ namespace LevelEditorScene {
 		/** 왼쪽 에디터 UI 상태를 갱신한다 */
 		private void UpdateLeftEditorUIsState() {
 			// 버튼을 설정한다 {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 			m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? Color.yellow : Color.white, false);
 			m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? Color.yellow : Color.white, false);
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 버튼을 설정한다 }
 
 			// 스크롤 뷰를 갱신한다

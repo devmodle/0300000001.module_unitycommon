@@ -274,7 +274,7 @@ namespace LateSetupScene {
 #if STUDY_MODULE_ENABLE
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+					CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : KCDefine.B_SCENE_N_MAIN);
 #endif			// #if STUDY_MODULE_ENABLE
 				} else {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
