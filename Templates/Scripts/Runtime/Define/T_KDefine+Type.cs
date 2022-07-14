@@ -70,7 +70,7 @@ public partial struct STTargetInfo {
 /** 어빌리티 값 정보 */
 [MessagePackObject][System.Serializable]
 public partial struct STAbilityValInfo {
-	[Key(1)] public long m_nLV;
+	[Key(31)] public long m_nVal;
 	[Key(11)] public EAbilityKinds m_eAbilityKinds;
 
 	#region 상수
@@ -87,7 +87,7 @@ public partial struct STAbilityValInfo {
 	#region 함수
 	/** 생성자 */
 	public STAbilityValInfo(SimpleJSON.JSONNode a_oAbilityValInfo) {
-		m_nLV = long.TryParse(a_oAbilityValInfo[KCDefine.B_VAL_1_INT], NumberStyles.Any, null, out long nLV) ? nLV : KCDefine.B_VAL_0_INT;
+		m_nVal = long.TryParse(a_oAbilityValInfo[KCDefine.B_VAL_1_INT], NumberStyles.Any, null, out long nVal) ? nVal : KCDefine.B_VAL_0_INT;
 		m_eAbilityKinds = a_oAbilityValInfo[KCDefine.B_VAL_0_INT].ExIsValid() ? (EAbilityKinds)a_oAbilityValInfo[KCDefine.B_VAL_0_INT].AsInt : EAbilityKinds.NONE;
 	}
 	#endregion			// 함수
@@ -98,7 +98,7 @@ public partial struct STAbilityValInfo {
 	public void MakeAbilityValInfo(string a_oKey, SimpleJSON.JSONClass a_oOutAbilityValInfo) {
 		var oJSONArray = new SimpleJSON.JSONArray();
 		oJSONArray.Add($"{(int)m_eAbilityKinds}");
-		oJSONArray.Add($"{m_nLV}");
+		oJSONArray.Add($"{m_nVal}");
 
 		a_oOutAbilityValInfo.Add(a_oKey, oJSONArray);
 	}

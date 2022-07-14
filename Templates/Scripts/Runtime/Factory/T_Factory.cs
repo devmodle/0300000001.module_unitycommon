@@ -21,9 +21,9 @@ public static partial class Factory {
 	}
 
 	/** 유저 아이템 정보를 생성한다 */
-	public static CUserItemInfo MakeUserItemInfo(EItemKinds a_eItemKinds, long m_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
+	public static CUserItemInfo MakeUserItemInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserItemInfo = new CUserItemInfo() {
-			LV = m_nLV, Nums = a_nNums, ItemKinds = a_eItemKinds
+			LV = a_nLV, Nums = a_nNums, ItemKinds = a_eItemKinds
 		};
 
 		oUserItemInfo.OnAfterDeserialize();
@@ -31,9 +31,9 @@ public static partial class Factory {
 	}
 
 	/** 유저 스킬 정보를 생성한다 */
-	public static CUserSkillInfo MakeUserSkillInfo(ESkillKinds a_eSkillKinds, long m_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
+	public static CUserSkillInfo MakeUserSkillInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserSkillInfo = new CUserSkillInfo() {
-			LV = m_nLV, Nums = a_nNums, SkillKinds = a_eSkillKinds
+			LV = a_nLV, Nums = a_nNums, SkillKinds = a_eSkillKinds
 		};
 
 		oUserSkillInfo.OnAfterDeserialize();
@@ -41,9 +41,9 @@ public static partial class Factory {
 	}
 
 	/** 유저 객체 정보를 생성한다 */
-	public static CUserObjInfo MakeUserObjInfo(EObjKinds a_eObjKinds, long m_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
+	public static CUserObjInfo MakeUserObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserObjInfo = new CUserObjInfo() {
-			LV = m_nLV, Nums = a_nNums, ObjKinds = a_eObjKinds
+			LV = a_nLV, Nums = a_nNums, ObjKinds = a_eObjKinds
 		};
 
 		oUserObjInfo.OnAfterDeserialize();
