@@ -27,8 +27,8 @@ namespace MainScene {
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;
-		
 		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
+		
 		public TMP_Text VerText => m_oTextDict[EKey.VER_TEXT];
 		#endregion			// 프로퍼티
 
