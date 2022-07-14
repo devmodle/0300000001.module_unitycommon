@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -29,11 +30,11 @@ public partial class CClearInfo : CBaseInfo {
 	[JsonIgnore][IgnoreMember] public string Record { get { return m_oStrDict.GetValueOrDefault(KEY_RECORD, KCDefine.B_STR_0_INT); } set { m_oStrDict.ExReplaceVal(KEY_RECORD, value); } }
 	[JsonIgnore][IgnoreMember] public string BestRecord { get { return m_oStrDict.GetValueOrDefault(KEY_BEST_RECORD, KCDefine.B_STR_0_INT); } set { m_oStrDict.ExReplaceVal(KEY_BEST_RECORD, value); } }
 
-	[JsonIgnore][IgnoreMember] public long IntRecord => long.TryParse(this.Record, out long nRecord) ? nRecord : KCDefine.B_VAL_0_INT;
-	[JsonIgnore][IgnoreMember] public long BestIntRecord => long.TryParse(this.BestRecord, out long nBestRecord) ? nBestRecord : KCDefine.B_VAL_0_INT;
+	[JsonIgnore][IgnoreMember] public long IntRecord => long.TryParse(this.Record, NumberStyles.Any, null, out long nRecord) ? nRecord : KCDefine.B_VAL_0_INT;
+	[JsonIgnore][IgnoreMember] public long BestIntRecord => long.TryParse(this.BestRecord, NumberStyles.Any, null, out long nBestRecord) ? nBestRecord : KCDefine.B_VAL_0_INT;
 
-	[JsonIgnore][IgnoreMember] public double RealRecord => double.TryParse(this.Record, out double dblRecord) ? dblRecord : KCDefine.B_VAL_0_REAL;
-	[JsonIgnore][IgnoreMember] public double BestRealRecord => double.TryParse(this.BestRecord, out double dblBestRecord) ? dblBestRecord : KCDefine.B_VAL_0_REAL;
+	[JsonIgnore][IgnoreMember] public double RealRecord => double.TryParse(this.Record, NumberStyles.Any, null, out double dblRecord) ? dblRecord : KCDefine.B_VAL_0_REAL;
+	[JsonIgnore][IgnoreMember] public double BestRealRecord => double.TryParse(this.BestRecord, NumberStyles.Any, null, out double dblBestRecord) ? dblBestRecord : KCDefine.B_VAL_0_REAL;
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
