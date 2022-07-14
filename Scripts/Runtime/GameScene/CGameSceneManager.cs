@@ -26,8 +26,8 @@ namespace GameScene {
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;
-
 		public override string SceneName => KCDefine.B_SCENE_N_GAME;
+		
 		protected GameObject BGTouchResponder => m_oUIsDict[EKey.BG_TOUCH_RESPONDER];
 
 		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
