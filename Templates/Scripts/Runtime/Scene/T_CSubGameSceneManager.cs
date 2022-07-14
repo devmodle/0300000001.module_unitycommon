@@ -375,7 +375,7 @@ namespace GameScene {
 				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
 
 				Func.Pay(new STTargetInfo() {
-					m_nKinds = (int)CGameInfoStorage.Inst.SelItemKindsList[i], m_oTargets = $"{KCDefine.B_VAL_1_INT}", m_eTargetKinds = ETargetKinds.ITEM_NUMS
+					m_nKinds = (int)CGameInfoStorage.Inst.SelItemKindsList[i], m_oTarget01 = $"{KCDefine.B_VAL_1_INT}", m_eTargetKinds = ETargetKinds.ITEM_NUMS
 				});
 			}
 		}

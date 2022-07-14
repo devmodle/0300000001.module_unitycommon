@@ -17,7 +17,8 @@ public partial struct STObjInfo {
 	public EObjKinds m_eNextObjKinds;
 
 	List<EResKinds> m_oResKindsList;
-	List<STTargetInfo> m_oEquipableItemTargetInfoList;
+	List<STTargetInfo> m_oDropItemTargetInfoList;
+	List<STTargetInfo> m_oEquipItemTargetInfoList;
 	List<STTargetInfo> m_oSkillTargetInfoList;
 	List<STAbilityValInfo> m_oAbilityValInfoList;
 
@@ -36,14 +37,15 @@ public partial struct STObjInfo {
 	/** 생성자 */
 	public STObjInfo(SimpleJSON.JSONNode a_oObjInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oObjInfo);
-		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE_X].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE_Y].AsFloat, KCDefine.B_VAL_0_REAL);
+		m_stSize = new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat);
 
 		m_eObjKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_ePrevObjKinds = a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
 
 		m_oResKindsList = new List<EResKinds>();
-		m_oEquipableItemTargetInfoList = new List<STTargetInfo>();
+		m_oDropItemTargetInfoList = new List<STTargetInfo>();
+		m_oEquipItemTargetInfoList = new List<STTargetInfo>();
 		m_oSkillTargetInfoList = new List<STTargetInfo>();
 		m_oAbilityValInfoList = new List<STAbilityValInfo>();
 
@@ -53,15 +55,23 @@ public partial struct STObjInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			m_oEquipableItemTargetInfoList.Add(new STTargetInfo(a_oObjInfo, KCDefine.U_PREFIX_EQUIPABLE_ITEM, i));
+			string oDropItemTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
+			m_oDropItemTargetInfoList.Add(new STTargetInfo(a_oObjInfo[oDropItemTargetInfoKey]));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			m_oSkillTargetInfoList.Add(new STTargetInfo(a_oObjInfo, KCDefine.U_PREFIX_SKILL, i));
+			string oEquipItemTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_EQUIP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
+			m_oEquipItemTargetInfoList.Add(new STTargetInfo(a_oObjInfo[oEquipItemTargetInfoKey]));
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			string oSkillTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_SKILL_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
+			m_oSkillTargetInfoList.Add(new STTargetInfo(a_oObjInfo[oSkillTargetInfoKey]));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oObjInfo, i));
+			string oAbilityValInfoKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT);
+			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oObjInfo[oAbilityValInfoKey]));
 		}
 	}
 	#endregion			// 함수

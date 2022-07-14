@@ -33,7 +33,7 @@ public partial struct STFXInfo {
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oFXInfo);
-		m_stDurationInfo = new STDurationInfo(a_oFXInfo);
+		m_stDurationInfo = new STDurationInfo(a_oFXInfo[KCDefine.U_KEY_DURATION_INFO]);
 
 		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;

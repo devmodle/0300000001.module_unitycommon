@@ -99,7 +99,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 			for(int i = 0; i < stRewardInfo.m_oAcquireTargetInfoList.Count; ++i) {
 				oTargetInfoList.Add(new STTargetInfo() {
 					m_nKinds = stRewardInfo.m_oAcquireTargetInfoList[i].m_nKinds,
-					m_oTargets = $"{stRewardInfo.m_oAcquireTargetInfoList[i].IntTargets * KCDefine.B_VAL_2_INT}",
+					m_oTarget01 = $"{stRewardInfo.m_oAcquireTargetInfoList[i].IntTarget01 * KCDefine.B_VAL_2_INT}",
 					m_eTargetKinds = stRewardInfo.m_oAcquireTargetInfoList[i].m_eTargetKinds
 				});
 			}

@@ -64,10 +64,10 @@ public partial class CProductSalePopup : CSubPopup {
 	private void UpdateSpecialPkgsUIsState(GameObject a_oSpecialPkgsUIs, STProductSaleInfo a_stProductSaleInfo) {
 		// 텍스트를 설정한다 {
 		var oPriceText = a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
-		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_oTargets), EFontSet._1, false);
+		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_oTarget01), EFontSet._1, false);
 
 		a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(CStrTable.Inst.GetStr(a_stProductSaleInfo.m_stCommonInfo.m_oName), EFontSet._1, false);
-		a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT)?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_oTargets), EFontSet._1, false);
+		a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT)?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_oTarget01), EFontSet._1, false);
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 상품이 존재 할 경우

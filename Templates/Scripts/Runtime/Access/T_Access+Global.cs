@@ -107,10 +107,10 @@ public static partial class Access {
 		CAccess.Assert(a_oUserTargetInfo != null);
 
 		switch(a_stTargetInfo.m_eTargetKinds) {
-			case ETargetKinds.ITEM_LV: return a_oUserTargetInfo.LV >= a_stTargetInfo.IntTargets;
+			case ETargetKinds.ITEM_LV: return a_oUserTargetInfo.LV >= a_stTargetInfo.IntTarget01;
 		}
 
-		return a_oUserTargetInfo.Nums >= a_stTargetInfo.IntTargets;
+		return a_oUserTargetInfo.Nums >= a_stTargetInfo.IntTarget01;
 	}
 
 	/** 아이템 타겟 교환 가능 여부를 검사한다 */

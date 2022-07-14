@@ -684,13 +684,17 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_oRecordList = new List<string>(),
 			m_oRewardKindsList = new List<ERewardKinds>(),
 			m_oClearTargetInfoList = new List<STTargetInfo>(),
-			m_oUnlockTargetInfoList = new List<STTargetInfo>()
+			m_oUnlockTargetInfoList = new List<STTargetInfo>(),
+			m_oDropItemTargetInfoList = new List<STTargetInfo>(),
+			m_oEnemyObjTargetInfoList = new List<STTargetInfo>()
 		};
 
 		stLevelEpisodeInfo.m_oRecordList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordList, (a_nRecord) => a_nRecord, false);
 		stLevelEpisodeInfo.m_oRewardKindsList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds, false);
 		stLevelEpisodeInfo.m_oClearTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoList, (a_stTargetInfo) => a_stTargetInfo, false);
 		stLevelEpisodeInfo.m_oUnlockTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoList, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo, false);
+		stLevelEpisodeInfo.m_oDropItemTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oDropItemTargetInfoList, (a_stDropItemTargetInfo) => a_stDropItemTargetInfo, false);
+		stLevelEpisodeInfo.m_oEnemyObjTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oEnemyObjTargetInfoList, (a_stEnemyObjTargetInfo) => a_stEnemyObjTargetInfo, false);
 
 		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueID01, stReplaceLevelEpisodeInfo);
 

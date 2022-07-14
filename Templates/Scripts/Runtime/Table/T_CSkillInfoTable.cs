@@ -35,7 +35,7 @@ public partial struct STSkillInfo {
 	/** 생성자 */
 	public STSkillInfo(SimpleJSON.JSONNode a_oSkillInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oSkillInfo);
-		m_stDurationInfo = new STDurationInfo(a_oSkillInfo);
+		m_stDurationInfo = new STDurationInfo(a_oSkillInfo[KCDefine.U_KEY_DURATION_INFO]);
 
 		m_eSkillKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_ePrevSkillKinds = a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].AsInt : ESkillKinds.NONE;
@@ -56,7 +56,8 @@ public partial struct STSkillInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oSkillInfo, i));
+			string oAbilityValInfoKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT);
+			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oSkillInfo[oAbilityValInfoKey]));
 		}
 	}
 	#endregion			// 함수

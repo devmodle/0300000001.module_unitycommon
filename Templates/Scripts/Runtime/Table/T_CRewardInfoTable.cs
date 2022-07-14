@@ -41,8 +41,9 @@ public partial struct STRewardInfo {
 
 		m_oAcquireTargetInfoList = new List<STTargetInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oRewardInfo, KCDefine.U_PREFIX_ACQUIRE, i));
+		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
+			string oAcquireTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
+			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oRewardInfo[oAcquireTargetInfoKey]));
 		}
 	}
 	#endregion			// 함수

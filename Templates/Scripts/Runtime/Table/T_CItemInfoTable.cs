@@ -15,7 +15,7 @@ public partial struct STItemInfo {
 	public EItemKinds m_ePrevItemKinds;
 	public EItemKinds m_eNextItemKinds;
 
-	public List<STTargetInfo> m_oAttachableItemTargetInfoList;
+	public List<STTargetInfo> m_oAttachItemTargetInfoList;
 	public List<STTargetInfo> m_oSkillTargetInfoList;
 	public List<STAbilityValInfo> m_oAbilityValInfoList;
 
@@ -39,20 +39,23 @@ public partial struct STItemInfo {
 		m_ePrevItemKinds = a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_eNextItemKinds = a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].AsInt : EItemKinds.NONE;
 
-		m_oAttachableItemTargetInfoList = new List<STTargetInfo>();
+		m_oAttachItemTargetInfoList = new List<STTargetInfo>();
 		m_oSkillTargetInfoList = new List<STTargetInfo>();
 		m_oAbilityValInfoList = new List<STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			m_oAttachableItemTargetInfoList.Add(new STTargetInfo(a_oItemInfo, KCDefine.U_PREFIX_ATTACHABLE_ITEM, i));
+			string oAttachItemTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_ATTACH_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
+			m_oAttachItemTargetInfoList.Add(new STTargetInfo(a_oItemInfo[oAttachItemTargetInfoKey]));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			m_oSkillTargetInfoList.Add(new STTargetInfo(a_oItemInfo, KCDefine.U_PREFIX_SKILL, i));
+			string oSkillTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_SKILL_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
+			m_oSkillTargetInfoList.Add(new STTargetInfo(a_oItemInfo[oSkillTargetInfoKey]));
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oItemInfo, i));
+			string oAbilityValInfoKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT);
+			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oItemInfo[oAbilityValInfoKey]));
 		}
 	}
 	#endregion			// 함수

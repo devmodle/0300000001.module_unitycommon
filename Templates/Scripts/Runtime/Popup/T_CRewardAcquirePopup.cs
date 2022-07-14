@@ -80,7 +80,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	/** 보상 아이템 UI 상태를 갱신한다 */
 	private void UpdateItemUIsState(GameObject a_oItemUIs, STTargetInfo a_stTargetInfo) {
 		var oNumText = a_oItemUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
-		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stTargetInfo.m_oTargets), EFontSet._1, false);
+		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stTargetInfo.m_oTarget01), EFontSet._1, false);
 	}
 
 	/** 광고 버튼을 눌렀을 경우 */
@@ -106,7 +106,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 		for(int i = 0; i < m_stParams.m_oTargetInfoList.Count; ++i) {
 			var stTargetInfo = m_stParams.m_oTargetInfoList[i];
-			stTargetInfo.m_oTargets = a_bIsWatchRewardAds ? $"{stTargetInfo.IntTargets * KCDefine.B_VAL_2_INT}" : stTargetInfo.m_oTargets;
+			stTargetInfo.m_oTarget01 = a_bIsWatchRewardAds ? $"{stTargetInfo.IntTarget01 * KCDefine.B_VAL_2_INT}" : stTargetInfo.m_oTarget01;
 			
 			Func.Acquire(stTargetInfo);
 		}
