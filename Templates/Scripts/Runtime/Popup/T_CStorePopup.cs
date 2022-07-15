@@ -250,13 +250,10 @@ public partial class CStorePopup : CSubPopup {
 	private void OnLoadTargetInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
-			var oTargetInfoList = a_oJSONStr.ExJSONStrToTargetInfos();
+			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
+			Func.Acquire(oTargetInfoDict);
 
-			for(int i = 0; i < oTargetInfoList.Count; ++i) {
-				Func.Acquire(oTargetInfoList[i]);
-			}
-
-			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoList.Clear(); Func.SaveTargetInfos(oTargetInfoList, this.OnSaveTargetInfos); });
+			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
 		} else {
 			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 		}

@@ -20,20 +20,21 @@ public static partial class Extension {
 	}
 
 	/** JSON 문자열 => 타겟 정보로 변환한다 */
-	public static List<STTargetInfo> ExJSONStrToTargetInfos(this string a_oSender) {
+	public static Dictionary<ulong, STTargetInfo> ExJSONStrToTargetInfos(this string a_oSender) {
 		CAccess.Assert(a_oSender.ExIsValid());
-		var oTargetInfoList = new List<STTargetInfo>();
-		
+		var oTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+
 #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oSender) as SimpleJSON.JSONClass;
 		var oTargetInfos = oJSONNode[KCDefine.B_KEY_JSON_ROOT_DATA];
 
 		for(int i = 0; i < oTargetInfos.Count; ++i) {
-			oTargetInfoList.Add(oTargetInfos[i].ToString().ExJSONStrToObj<STTargetInfo>());
+			var stTargetInfo = oTargetInfos[i].ToString().ExJSONStrToObj<STTargetInfo>();
+			oTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 #endif			// #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 
-		return oTargetInfoList;
+		return oTargetInfoDict;
 	}
 	#endregion			// 클래스 함수
 }

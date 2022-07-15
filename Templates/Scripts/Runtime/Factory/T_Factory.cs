@@ -14,7 +14,7 @@ public static partial class Factory {
 	public static ulong MakeUniqueTargetInfoID(ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.B_UNIT_BITS_PER_BYTE)) & (ulong)a_nKinds;
 	}
-
+	
 	/** 어빌리티 값 정보를 생성한다 */
 	public static STAbilityValInfo MakeAbilityValInfo(EAbilityKinds a_eAbilityKinds, long a_nVal = KCDefine.B_VAL_0_INT) {
 		return new STAbilityValInfo() {
