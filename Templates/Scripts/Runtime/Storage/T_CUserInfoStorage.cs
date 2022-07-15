@@ -18,20 +18,17 @@ using Newtonsoft.Json;
 [MessagePackObject][System.Serializable]
 public abstract partial class CUserTargetInfo : CBaseInfo {
 	#region 변수
-	[Key(71)] public List<STAbilityValInfo> m_oAbilityValInfoList = new List<STAbilityValInfo>();
+	[Key(131)] public Dictionary<EAbilityKinds, STAbilityValInfo> m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>();
 	#endregion			// 변수
 
 	#region 상수
-	private const string KEY_LV = "LV";
 	private const string KEY_NUMS = "Nums";
 	private const string KEY_OWNER_KINDS = "OwnerKinds";
 	private const string KEY_OWNER_TARGET_KINDS = "OwnerTargetKinds";
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public long LV { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_LV, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_LV, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public long Nums { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_NUMS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUMS, $"{value}"); } }
-
 	[JsonIgnore][IgnoreMember] public int OwnerKinds { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_KINDS, $"{KCDefine.B_IDX_INVALID}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_KINDS, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public ETargetKinds OwnerTargetKinds { get { return (ETargetKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TARGET_KINDS, $"{(int)ETargetKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_TARGET_KINDS, $"{(int)value}"); } }
 	#endregion			// 프로퍼티
@@ -45,7 +42,7 @@ public abstract partial class CUserTargetInfo : CBaseInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oAbilityValInfoList = m_oAbilityValInfoList ?? new List<STAbilityValInfo>();
+		m_oAbilityValInfoDict = m_oAbilityValInfoDict ?? new Dictionary<EAbilityKinds, STAbilityValInfo>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -242,7 +239,7 @@ public partial class CUserInfo : CBaseInfo {
 
 	/** 유저 객체 정보를 설정한다 */
 	protected virtual void SetupUserObjInfo(CUserObjInfo a_oUserObjInfo) {
-		for(int i = 0; i < a_oUserObjInfo.m_oAbilityValInfoList.Count; ++i) {
+		for(int i = 0; i < a_oUserObjInfo.m_oAbilityValInfoDict.Keys.Count; ++i) {
 			// 버전이 다를 경우
 			if(this.AbilityValInfoVer.CompareTo(KDefine.G_VER_ABILITY_VER_INFO) < KCDefine.B_COMPARE_EQUALS) {
 				// Do Something	

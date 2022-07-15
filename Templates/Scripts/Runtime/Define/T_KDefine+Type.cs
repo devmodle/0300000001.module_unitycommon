@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 #region 기본
 /** 타겟 정보 */
 [System.Serializable]
-public partial struct STTargetInfo {
+public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	public int m_nKinds;
 	public string m_oTarget01;
 	public string m_oTarget02;
@@ -38,6 +38,13 @@ public partial struct STTargetInfo {
 	public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
 	public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
+
+	#region IEquatable
+	/** 동일 여부를 검사한다 */
+	public bool Equals(STTargetInfo a_stTargetInfo) {
+		return m_nKinds == a_stTargetInfo.m_nKinds && m_eTargetKinds == a_stTargetInfo.m_eTargetKinds && m_oTarget01.Equals(a_stTargetInfo.m_oTarget01) && m_oTarget02.Equals(a_stTargetInfo.m_oTarget02) && m_oTarget03.Equals(a_stTargetInfo.m_oTarget03);
+	}
+	#endregion			// IEquatable
 
 	#region 함수
 	/** 생성자 */
@@ -69,8 +76,8 @@ public partial struct STTargetInfo {
 
 /** 어빌리티 값 정보 */
 [MessagePackObject][System.Serializable]
-public partial struct STAbilityValInfo {
-	[Key(1)] public long m_nLV;
+public partial struct STAbilityValInfo : System.IEquatable<STAbilityValInfo> {
+	[Key(1)] public long m_nVal;
 	[Key(11)] public EAbilityKinds m_eAbilityKinds;
 
 	#region 상수
@@ -84,10 +91,17 @@ public partial struct STAbilityValInfo {
 	[JsonIgnore][IgnoreMember] public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
+	#region IEquatable
+	/** 동일 여부를 검사한다 */
+	public bool Equals(STAbilityValInfo a_stAbilityValInfo) {
+		return m_nVal == a_stAbilityValInfo.m_nVal && m_eAbilityKinds == a_stAbilityValInfo.m_eAbilityKinds;
+	}
+	#endregion			// IEquatable
+
 	#region 함수
 	/** 생성자 */
 	public STAbilityValInfo(SimpleJSON.JSONNode a_oAbilityValInfo) {
-		m_nLV = long.TryParse(a_oAbilityValInfo[KCDefine.B_VAL_1_INT], NumberStyles.Any, null, out long nLV) ? nLV : KCDefine.B_VAL_0_INT;
+		m_nVal = long.TryParse(a_oAbilityValInfo[KCDefine.B_VAL_1_INT], NumberStyles.Any, null, out long nLV) ? nLV : KCDefine.B_VAL_0_INT;
 		m_eAbilityKinds = a_oAbilityValInfo[KCDefine.B_VAL_0_INT].ExIsValid() ? (EAbilityKinds)a_oAbilityValInfo[KCDefine.B_VAL_0_INT].AsInt : EAbilityKinds.NONE;
 	}
 	#endregion			// 함수
@@ -98,7 +112,7 @@ public partial struct STAbilityValInfo {
 	public void MakeAbilityValInfo(string a_oKey, SimpleJSON.JSONClass a_oOutAbilityValInfo) {
 		var oJSONArray = new SimpleJSON.JSONArray();
 		oJSONArray.Add($"{(int)m_eAbilityKinds}");
-		oJSONArray.Add($"{m_nLV}");
+		oJSONArray.Add($"{m_nVal}");
 
 		a_oOutAbilityValInfo.Add(a_oKey, oJSONArray);
 	}

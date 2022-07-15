@@ -208,10 +208,10 @@ public static partial class Func {
 		// 유저 타겟 정보가 존재 할 경우
 		if(a_oUserTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(a_stTargetInfo.m_eTargetKinds) {
-				case ETargetKinds.ITEM_LV: {
-					a_oUserTargetInfo.LV = System.Math.Clamp(a_oUserTargetInfo.LV - a_stTargetInfo.IntTarget01, KCDefine.B_VAL_1_INT, long.MaxValue);
+				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_LV, -a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
 				} break;
-				case ETargetKinds.ITEM_NUMS: {
+				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
 					a_oUserTargetInfo.Nums = System.Math.Clamp(a_oUserTargetInfo.Nums - a_stTargetInfo.IntTarget01, KCDefine.B_VAL_0_INT, long.MaxValue);
 				} break;
 			}
@@ -264,10 +264,10 @@ public static partial class Func {
 		// 유저 타겟 정보가 존재 할 경우
 		if(a_oUserTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(a_stTargetInfo.m_eTargetKinds) {
-				case ETargetKinds.SKILL_LV: {
-					a_oUserTargetInfo.LV = System.Math.Clamp(a_oUserTargetInfo.LV + a_stTargetInfo.IntTarget01, KCDefine.B_VAL_1_INT, long.MaxValue);
+				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_LV, a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
 				} break;
-				case ETargetKinds.SKILL_NUMS: {
+				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
 					a_oUserTargetInfo.Nums = System.Math.Clamp(a_oUserTargetInfo.Nums + a_stTargetInfo.IntTarget01, KCDefine.B_VAL_0_INT, long.MaxValue);
 				} break;
 			}

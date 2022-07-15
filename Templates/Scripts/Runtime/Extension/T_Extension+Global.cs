@@ -10,6 +10,20 @@ using DG.Tweening;
 /** 전역 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
+	/** 어빌리티 값 정보를 대체한다 */
+	public static void ExAddVal(this Dictionary<EAbilityKinds, STAbilityValInfo> a_oSender, EAbilityKinds a_eAbilityKinds, long a_nVal, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+
+		// 어빌리티 값 정보가 존재 할 경우
+		if(a_oSender != null) {
+			var stAbilityValInfo = a_oSender.GetValueOrDefault(a_eAbilityKinds, STAbilityValInfo.INVALID);
+			stAbilityValInfo.m_nVal = System.Math.Clamp(stAbilityValInfo.m_nVal + a_nVal, KCDefine.B_VAL_0_INT, long.MaxValue);
+			stAbilityValInfo.m_eAbilityKinds = a_eAbilityKinds;
+
+			a_oSender.ExReplaceVal(a_eAbilityKinds, stAbilityValInfo);
+		}
+	}
+
 	/** 효과를 재생한다 */
 	public static void ExPlay(this ParticleSystem a_oSender, System.Action<CEventDispatcher> a_oCallback, bool a_bIsPlayChildren = true, bool a_bIsStopChildren = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);

@@ -10,7 +10,9 @@ using UnityEngine.Events;
 [System.Serializable]
 public partial struct STAbilityInfo {
 	public STCommonInfo m_stCommonInfo;
+
 	public STValInfo m_stValInfo;
+	public STValInfo m_stExtraValInfo;
 
 	public EAbilityKinds m_eAbilityKinds;
 	public EAbilityKinds m_ePrevAbilityKinds;
@@ -33,7 +35,9 @@ public partial struct STAbilityInfo {
 	/** 생성자 */
 	public STAbilityInfo(SimpleJSON.JSONNode a_oAbilityInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oAbilityInfo);
+
 		m_stValInfo = new STValInfo(a_oAbilityInfo[KCDefine.U_KEY_VAL_INFO]);
+		m_stExtraValInfo = new STValInfo(a_oAbilityInfo[KCDefine.U_KEY_EXTRA_VAL_INFO]);
 
 		m_eAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
 		m_ePrevAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;

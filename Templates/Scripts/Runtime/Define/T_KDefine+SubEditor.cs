@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 #if SCRIPT_TEMPLATE_ONLY
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-/** 서브 에디터 기본 상수 */
+/** 서브 에디터 상수 */
 public static partial class KDefine {
 	#region 기본
 	
