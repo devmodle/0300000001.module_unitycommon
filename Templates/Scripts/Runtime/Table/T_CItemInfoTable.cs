@@ -42,6 +42,7 @@ public partial struct STItemInfo {
 
 		m_oAttachItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		m_oSkillTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		
 		m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {

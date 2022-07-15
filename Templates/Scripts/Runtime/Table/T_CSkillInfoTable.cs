@@ -48,13 +48,13 @@ public partial struct STSkillInfo {
 		m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_FX_KINDS; ++i) {
-			string oFXKindsKey = string.Format(KCDefine.U_KEY_FMT_FX_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oFXKindsList.ExAddVal(a_oSkillInfo[oFXKindsKey].ExIsValid() ? (EFXKinds)a_oSkillInfo[oFXKindsKey].AsInt : EFXKinds.NONE);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_FX_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oFXKindsList.ExAddVal(a_oSkillInfo[oKey].ExIsValid() ? (EFXKinds)a_oSkillInfo[oKey].AsInt : EFXKinds.NONE);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
-			string oResKindsKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oResKindsList.ExAddVal(a_oSkillInfo[oResKindsKey].ExIsValid() ? (EResKinds)a_oSkillInfo[oResKindsKey].AsInt : EResKinds.NONE);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oResKindsList.ExAddVal(a_oSkillInfo[oKey].ExIsValid() ? (EResKinds)a_oSkillInfo[oKey].AsInt : EResKinds.NONE);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
