@@ -94,22 +94,18 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 		// 보상 광고 시청 모드 일 경우
 		if(a_bIsWatchRewardAds) {
-			var oTargetInfoList = new List<STTargetInfo>();
+			var oTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
-			for(int i = 0; i < stRewardInfo.m_oAcquireTargetInfoList.Count; ++i) {
-				oTargetInfoList.Add(new STTargetInfo() {
-					m_nKinds = stRewardInfo.m_oAcquireTargetInfoList[i].m_nKinds,
-					m_oTarget01 = $"{stRewardInfo.m_oAcquireTargetInfoList[i].IntTarget01 * KCDefine.B_VAL_2_INT}",
-					m_eTargetKinds = stRewardInfo.m_oAcquireTargetInfoList[i].m_eTargetKinds
-				});
+			foreach(var stKeyVal in stRewardInfo.m_oAcquireTargetInfoDict) {
+				oTargetInfoDict.TryAdd(stKeyVal.Key, Factory.MakeTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, $"{stKeyVal.Value.IntTarget01 * KCDefine.B_VAL_2_INT}"));
 			}
 
-			stRewardInfo.m_oAcquireTargetInfoList = oTargetInfoList;
+			stRewardInfo.m_oAcquireTargetInfoDict = oTargetInfoDict;
 		}
 		
 		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
 			var stParams = new CRewardAcquirePopup.STParams() {
-				m_eQuality = stRewardInfo.m_eRewardQuality, m_eAgreePopup = ERewardAcquirePopupType.DAILY, m_oTargetInfoList = stRewardInfo.m_oAcquireTargetInfoList
+				m_eQuality = stRewardInfo.m_eRewardQuality, m_eAgreePopup = ERewardAcquirePopupType.DAILY, m_oRewardTargetInfoDict = stRewardInfo.m_oAcquireTargetInfoDict
 			};
 
 			(a_oSender as CRewardAcquirePopup).Init(stParams);

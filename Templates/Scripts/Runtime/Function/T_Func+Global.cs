@@ -32,18 +32,6 @@ public static partial class Func {
 	}
 
 	/** 지불한다 */
-	public static void Pay(List<STTargetInfo> a_oTargetInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoList != null);
-
-		// 타겟 정보가 존재 할 경우
-		if(a_oTargetInfoList != null) {
-			for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
-				Func.Pay(a_oTargetInfoList[i], a_bIsEnableAssert);
-			}
-		}
-	}
-
-	/** 지불한다 */
 	public static void Pay(List<(CUserTargetInfo, STTargetInfo)> a_oPayInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oPayInfoList != null);
 
@@ -51,6 +39,18 @@ public static partial class Func {
 		if(a_oPayInfoList != null) {
 			for(int i = 0; i < a_oPayInfoList.Count; ++i) {
 				Func.Pay(a_oPayInfoList[i].Item1, a_oPayInfoList[i].Item2, a_bIsEnableAssert);
+			}
+		}
+	}
+
+	/** 지불한다 */
+	public static void Pay(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoDict != null);
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oTargetInfoDict != null) {
+			foreach(var stKeyVal in a_oTargetInfoDict) {
+				Func.Pay(stKeyVal.Value, a_bIsEnableAssert);
 			}
 		}
 	}
@@ -74,18 +74,6 @@ public static partial class Func {
 	}
 
 	/** 획득한다 */
-	public static void Acquire(List<STTargetInfo> a_oTargetInfoList, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoList != null);
-
-		// 타겟 정보가 존재 할 경우
-		if(a_oTargetInfoList != null) {
-			for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
-				Func.Acquire(a_oTargetInfoList[i], a_bIsAutoCreate, a_bIsEnableAssert);
-			}
-		}	
-	}
-
-	/** 획득한다 */
 	public static void Acquire(List<(CUserTargetInfo, STTargetInfo)> a_oAcquireInfoList, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oAcquireInfoList != null);
 
@@ -97,28 +85,40 @@ public static partial class Func {
 		}
 	}
 
+	/** 획득한다 */
+	public static void Acquire(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoDict != null);
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oTargetInfoDict != null) {
+			foreach(var stKeyVal in a_oTargetInfoDict) {
+				Func.Acquire(stKeyVal.Value, a_bIsAutoCreate, a_bIsEnableAssert);
+			}
+		}	
+	}
+
 	/** 구입한다 */
 	public static void Buy(STItemSaleInfo a_stItemSaleInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_stItemSaleInfo.m_oPayTargetInfoList, a_bIsEnableAssert);
-		Func.Acquire(a_stItemSaleInfo.m_oAcquireTargetInfoList, a_bIsAutoCreate, a_bIsEnableAssert);
+		Func.Pay(a_stItemSaleInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+		Func.Acquire(a_stItemSaleInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
 	}
 
 	/** 구입한다 */
 	public static void Buy(STSkillSaleInfo a_stSkillSaleInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_stSkillSaleInfo.m_oPayTargetInfoList, a_bIsEnableAssert);
-		Func.Acquire(a_stSkillSaleInfo.m_oAcquireTargetInfoList, a_bIsAutoCreate, a_bIsEnableAssert);
+		Func.Pay(a_stSkillSaleInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+		Func.Acquire(a_stSkillSaleInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
 	}
 
 	/** 구입한다 */
 	public static void Buy(STObjSaleInfo a_stObjSaleInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_stObjSaleInfo.m_oPayTargetInfoList, a_bIsEnableAssert);
-		Func.Acquire(a_stObjSaleInfo.m_oAcquireTargetInfoList, a_bIsAutoCreate, a_bIsEnableAssert);
+		Func.Pay(a_stObjSaleInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+		Func.Acquire(a_stObjSaleInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
 	}
 
 	/** 구입한다 */
 	public static void Buy(STProductSaleInfo a_stProductSaleInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_stProductSaleInfo.m_oPayTargetInfoList, a_bIsEnableAssert);
-		Func.Acquire(a_stProductSaleInfo.m_oAcquireTargetInfoList, a_bIsAutoCreate, a_bIsEnableAssert);
+		Func.Pay(a_stProductSaleInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+		Func.Acquire(a_stProductSaleInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
 	}
 
 	/** 상점 팝업을 출력한다 */
@@ -389,9 +389,7 @@ public static partial class Func {
 			var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
 			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(nIdx);
 
-			for(int i = 0; i < stProductSaleInfo.m_oAcquireTargetInfoList.Count; ++i) {
-				Func.Acquire(stProductSaleInfo.m_oAcquireTargetInfoList[i]);
-			}
+			Func.Acquire(stProductSaleInfo.m_oAcquireTargetInfoDict);
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 비소모 상품 일 경우
@@ -415,11 +413,8 @@ public static partial class Func {
 				if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
 					int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
 					var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(nIdx);
-
-					for(int j = 0; j < stProductSaleInfo.m_oAcquireTargetInfoList.Count; ++j) {
-						Func.Acquire(stProductSaleInfo.m_oAcquireTargetInfoList[j]);
-					}
-
+					
+					Func.Acquire(stProductSaleInfo.m_oAcquireTargetInfoDict);
 					CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductList[i].definition.id);
 				}				
 			}

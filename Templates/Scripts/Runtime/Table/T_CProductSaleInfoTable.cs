@@ -21,8 +21,8 @@ public partial struct STProductSaleInfo {
 	public EProductSaleKinds m_eNextProductSaleKinds;
 	public EPurchaseType m_ePurchaseType;
 
-	public List<STTargetInfo> m_oPayTargetInfoList;
-	public List<STTargetInfo> m_oAcquireTargetInfoList;
+	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
 	#region 상수
 	public static STProductSaleInfo INVALID = new STProductSaleInfo() {
@@ -46,17 +46,17 @@ public partial struct STProductSaleInfo {
 		m_eNextProductSaleKinds = a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductSaleKinds)a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].AsInt : EProductSaleKinds.NONE;
 		m_ePurchaseType = a_oProductSaleInfo[KCDefine.U_KEY_PURCHASE_TYPE].ExIsValid() ? (EPurchaseType)a_oProductSaleInfo[KCDefine.U_KEY_PURCHASE_TYPE].AsInt : EPurchaseType.NONE;
 
-		m_oPayTargetInfoList = new List<STTargetInfo>();
-		m_oAcquireTargetInfoList = new List<STTargetInfo>();
+		m_oPayTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			string oPayTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oPayTargetInfoList.Add(new STTargetInfo(a_oProductSaleInfo[oPayTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oProductSaleInfo[string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			string oAcquireTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oProductSaleInfo[oAcquireTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oProductSaleInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 	}
 	#endregion			// 함수
@@ -159,24 +159,14 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 
 	/** 지불 타겟 정보를 반환한다 */
 	public bool TryGetPayTargetInfo(EProductSaleKinds a_eProductSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutPayTargetInfo) {
-		// 상품 판매 정보가 존재 할 경우
-		if(this.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo)) {
-			return stProductSaleInfo.m_oPayTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutPayTargetInfo);
-		}
-
-		a_stOutPayTargetInfo = default(STTargetInfo);
-		return false;
+		a_stOutPayTargetInfo = this.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo) ? stProductSaleInfo.m_oPayTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
+		return !a_stOutPayTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 
 	/** 획득 타겟 정보를 반환한다 */
 	public bool TryGetAcquireTargetInfo(EProductSaleKinds a_eProductSaleKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
-		// 상품 판매 정보가 존재 할 경우
-		if(this.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo)) {
-			return stProductSaleInfo.m_oAcquireTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutAcquireTargetInfo);
-		}
-
-		a_stOutAcquireTargetInfo = default(STTargetInfo);
-		return false;
+		a_stOutAcquireTargetInfo = this.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo) ? stProductSaleInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
+		return !a_stOutAcquireTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 
 	/** 상품 판매 정보를 로드한다 */

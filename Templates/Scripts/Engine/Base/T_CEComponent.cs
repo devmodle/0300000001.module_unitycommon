@@ -17,13 +17,13 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-		private List<STAbilityValInfo> m_oAbilityValInfoList = new List<STAbilityValInfo>();
+		private Dictionary<ulong, STAbilityValInfo> m_oAbilityValInfoDict = new Dictionary<ulong, STAbilityValInfo>();
 		#endregion			// 변수
 
 		#region 프로퍼티
 		public string ObjsPoolKey => m_stParams.m_oObjsPoolKey;
 		public CEngine Engine => m_stParams.m_oEngine;
-		public List<STAbilityValInfo> AbilityValInfoList => m_oAbilityValInfoList;
+		public Dictionary<ulong, STAbilityValInfo> AbilityValInfoDict => m_oAbilityValInfoDict;
 		#endregion			// 프로퍼티
 
 		#region 초기화

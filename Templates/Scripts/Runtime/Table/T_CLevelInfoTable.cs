@@ -75,8 +75,8 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
-	[JsonIgnore][IgnoreMember] public List<STTargetInfo> ClearTargetInfoList { get; private set; } = new List<STTargetInfo>();
-	[JsonIgnore][IgnoreMember] public List<STTargetInfo> UnlockTargetInfoList { get; private set; } = new List<STTargetInfo>();	
+	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; private set; } = new Dictionary<ulong, STTargetInfo>();
+	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; private set; } = new Dictionary<ulong, STTargetInfo>();
 
 	[JsonIgnore][IgnoreMember] public System.Version CellInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	#endregion			// 프로퍼티
@@ -114,8 +114,8 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		// 셀 개수를 설정한다 }
 
 		// 셀을 설정한다 {
-		this.ClearTargetInfoList = this.ClearTargetInfoList ?? new List<STTargetInfo>();
-		this.UnlockTargetInfoList = this.UnlockTargetInfoList ?? new List<STTargetInfo>();
+		this.ClearTargetInfoDict = this.ClearTargetInfoDict ?? new Dictionary<ulong, STTargetInfo>();
+		this.UnlockTargetInfoDict = this.UnlockTargetInfoDict ?? new Dictionary<ulong, STTargetInfo>();
 
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
@@ -683,18 +683,20 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 			m_oRecordList = new List<string>(),
 			m_oRewardKindsList = new List<ERewardKinds>(),
-			m_oClearTargetInfoList = new List<STTargetInfo>(),
-			m_oUnlockTargetInfoList = new List<STTargetInfo>(),
-			m_oDropItemTargetInfoList = new List<STTargetInfo>(),
-			m_oEnemyObjTargetInfoList = new List<STTargetInfo>()
+
+			m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>(),
+			m_oUnlockTargetInfoDict = new Dictionary<ulong, STTargetInfo>(),
+			m_oDropItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>(),
+			m_oEnemyObjTargetInfoDict = new Dictionary<ulong, STTargetInfo>()
 		};
 
 		stLevelEpisodeInfo.m_oRecordList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordList, (a_nRecord) => a_nRecord, false);
 		stLevelEpisodeInfo.m_oRewardKindsList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds, false);
-		stLevelEpisodeInfo.m_oClearTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoList, (a_stTargetInfo) => a_stTargetInfo, false);
-		stLevelEpisodeInfo.m_oUnlockTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoList, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo, false);
-		stLevelEpisodeInfo.m_oDropItemTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oDropItemTargetInfoList, (a_stDropItemTargetInfo) => a_stDropItemTargetInfo, false);
-		stLevelEpisodeInfo.m_oEnemyObjTargetInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oEnemyObjTargetInfoList, (a_stEnemyObjTargetInfo) => a_stEnemyObjTargetInfo, false);
+
+		stLevelEpisodeInfo.m_oClearTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
+		stLevelEpisodeInfo.m_oUnlockTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoDict, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo, false);
+		stLevelEpisodeInfo.m_oDropItemTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oDropItemTargetInfoDict, (a_stDropItemTargetInfo) => a_stDropItemTargetInfo, false);
+		stLevelEpisodeInfo.m_oEnemyObjTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oEnemyObjTargetInfoDict, (a_stEnemyObjTargetInfo) => a_stEnemyObjTargetInfo, false);
 
 		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueID01, stReplaceLevelEpisodeInfo);
 

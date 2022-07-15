@@ -16,7 +16,7 @@ public partial struct STRewardInfo {
 	public ERewardKinds m_eNextRewardKinds;
 	public ERewardQuality m_eRewardQuality;
 
-	public List<STTargetInfo> m_oAcquireTargetInfoList;
+	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
 	#region 상수
 	public static STRewardInfo INVALID = new STRewardInfo() {
@@ -39,11 +39,11 @@ public partial struct STRewardInfo {
 		m_eNextRewardKinds = a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_eRewardQuality = a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].ExIsValid() ? (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt : ERewardQuality.NONE;
 
-		m_oAcquireTargetInfoList = new List<STTargetInfo>();
+		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			string oAcquireTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oRewardInfo[oAcquireTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oRewardInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 	}
 	#endregion			// 함수
@@ -138,13 +138,8 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 
 	/** 획득 타겟 정보를 반환한다 */
 	public bool TryGetAcquireTargetInfo(ERewardKinds a_eRewardKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
-		// 보상 정보가 존재 할 경우
-		if(this.TryGetRewardInfo(a_eRewardKinds, out STRewardInfo stRewardInfo)) {
-			return stRewardInfo.m_oAcquireTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutAcquireTargetInfo);
-		}
-
-		a_stOutAcquireTargetInfo = default(STTargetInfo);
-		return false;
+		a_stOutAcquireTargetInfo = this.TryGetRewardInfo(a_eRewardKinds, out STRewardInfo stRewardInfo) ? stRewardInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
+		return !a_stOutAcquireTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 
 	/** 보상 정보를 로드한다 */

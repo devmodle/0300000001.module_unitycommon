@@ -42,13 +42,13 @@ public partial struct STTutorialInfo {
 		m_oRewardKindsList = new List<ERewardKinds>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TUTORIAL_STRS; ++i) {
-			string oStrKey = string.Format(KCDefine.U_KEY_FMT_STRS, i + KCDefine.B_VAL_1_INT);
-			m_oStrList.Add(a_oTutorialInfo[oStrKey].ExIsValid() ? a_oTutorialInfo[oStrKey] : string.Empty);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_STRS, i + KCDefine.B_VAL_1_INT);
+			m_oStrList.Add(a_oTutorialInfo[oKey].ExIsValid() ? a_oTutorialInfo[oKey] : string.Empty);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_KINDS; ++i) {
-			string oRewardKindsKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oRewardKindsList.Add(a_oTutorialInfo[oRewardKindsKey].ExIsValid() ? (ERewardKinds)a_oTutorialInfo[oRewardKindsKey].AsInt : ERewardKinds.NONE);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oRewardKindsList.Add(a_oTutorialInfo[oKey].ExIsValid() ? (ERewardKinds)a_oTutorialInfo[oKey].AsInt : ERewardKinds.NONE);
 		}
 	}
 	#endregion			// 함수

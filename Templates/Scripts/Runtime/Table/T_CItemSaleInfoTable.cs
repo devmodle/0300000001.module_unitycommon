@@ -15,8 +15,8 @@ public partial struct STItemSaleInfo {
 	public EItemKinds m_ePrevItemKinds;
 	public EItemKinds m_eNextItemKinds;
 	
-	public List<STTargetInfo> m_oPayTargetInfoList;
-	public List<STTargetInfo> m_oAcquireTargetInfoList;
+	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
 	#region 상수
 	public static STItemSaleInfo INVALID = new STItemSaleInfo() {
@@ -38,17 +38,17 @@ public partial struct STItemSaleInfo {
 		m_ePrevItemKinds = a_oItemSaleInfo[KCDefine.U_KEY_PREV_ITEM_SALE_KINDS].ExIsValid() ? (EItemKinds)a_oItemSaleInfo[KCDefine.U_KEY_PREV_ITEM_SALE_KINDS].AsInt : EItemKinds.NONE;
 		m_eNextItemKinds = a_oItemSaleInfo[KCDefine.U_KEY_NEXT_ITEM_SALE_KINDS].ExIsValid() ? (EItemKinds)a_oItemSaleInfo[KCDefine.U_KEY_NEXT_ITEM_SALE_KINDS].AsInt : EItemKinds.NONE;
 
-		m_oPayTargetInfoList = new List<STTargetInfo>();
-		m_oAcquireTargetInfoList = new List<STTargetInfo>();
+		m_oPayTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			string oPayTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oPayTargetInfoList.Add(new STTargetInfo(a_oItemSaleInfo[oPayTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oItemSaleInfo[string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			string oAcquireTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oItemSaleInfo[oAcquireTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oItemSaleInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 	}
 	#endregion			// 함수
@@ -155,24 +155,14 @@ public partial class CItemSaleInfoTable : CScriptableObj<CItemSaleInfoTable> {
 
 	/** 지불 타겟 정보를 반환한다 */
 	public bool TryGetPayTargetInfo(EItemKinds a_eItemKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutPayTargetInfo) {
-		// 아이템 판매 정보가 존재 할 경우
-		if(this.TryGetItemSaleInfo(a_eItemKinds, out STItemSaleInfo stItemSaleInfo)) {
-			return stItemSaleInfo.m_oPayTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutPayTargetInfo);
-		}
-
-		a_stOutPayTargetInfo = default(STTargetInfo);
-		return false;
+		a_stOutPayTargetInfo = this.TryGetItemSaleInfo(a_eItemKinds, out STItemSaleInfo stItemSaleInfo) ? stItemSaleInfo.m_oPayTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
+		return !a_stOutPayTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 
 	/** 획득 타겟 정보를 반환한다 */
 	public bool TryGetAcquireTargetInfo(EItemKinds a_eItemKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
-		// 아이템 판매 정보가 존재 할 경우
-		if(this.TryGetItemSaleInfo(a_eItemKinds, out STItemSaleInfo stItemSaleInfo)) {
-			return stItemSaleInfo.m_oAcquireTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutAcquireTargetInfo);
-		}
-
-		a_stOutAcquireTargetInfo = default(STTargetInfo);
-		return false;
+		a_stOutAcquireTargetInfo = this.TryGetItemSaleInfo(a_eItemKinds, out STItemSaleInfo stItemSaleInfo) ? stItemSaleInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
+		return !a_stOutAcquireTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 
 	/** 아이템 판매 정보를 로드한다 */

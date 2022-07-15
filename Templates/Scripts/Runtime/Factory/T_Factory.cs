@@ -14,6 +14,13 @@ public static partial class Factory {
 	public static ulong MakeUniqueTargetInfoID(ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.B_UNIT_BITS_PER_BYTE)) & (ulong)a_nKinds;
 	}
+
+	/** 타겟 정보를 생성한다 */
+	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, string a_oTarget01 = KCDefine.B_STR_0_INT, string a_oTarget02 = KCDefine.B_STR_0_INT, string a_oTarget03 = KCDefine.B_STR_0_INT) {
+		return new STTargetInfo() {
+			m_nKinds = a_nKinds, m_oTarget01 = a_oTarget01, m_oTarget02 = a_oTarget02, m_oTarget03 = a_oTarget03, m_eTargetKinds = a_eTargetKinds
+		};
+	}
 	
 	/** 어빌리티 값 정보를 생성한다 */
 	public static STAbilityValInfo MakeAbilityValInfo(EAbilityKinds a_eAbilityKinds, long a_nVal = KCDefine.B_VAL_0_INT) {

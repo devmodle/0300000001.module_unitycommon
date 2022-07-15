@@ -42,8 +42,8 @@ public partial struct STFXInfo {
 		m_oResKindsList = new List<EResKinds>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
-			string oResKindsKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oResKindsList.Add(a_oFXInfo[oResKindsKey].ExIsValid() ? (EResKinds)a_oFXInfo[oResKindsKey].AsInt : EResKinds.NONE);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oResKindsList.Add(a_oFXInfo[oKey].ExIsValid() ? (EResKinds)a_oFXInfo[oKey].AsInt : EResKinds.NONE);
 		}
 	}
 	#endregion			// 함수

@@ -40,8 +40,8 @@ public partial struct STMissionInfo {
 		m_oRewardKindsList = new List<ERewardKinds>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_KINDS; ++i) {
-			string oRewardKindsKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oRewardKindsList.Add(a_oMissionInfo[oRewardKindsKey].ExIsValid() ? (ERewardKinds)a_oMissionInfo[oRewardKindsKey].AsInt : ERewardKinds.NONE);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oRewardKindsList.Add(a_oMissionInfo[oKey].ExIsValid() ? (ERewardKinds)a_oMissionInfo[oKey].AsInt : ERewardKinds.NONE);
 		}
 	}
 	#endregion			// 함수
