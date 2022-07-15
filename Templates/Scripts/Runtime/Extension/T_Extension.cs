@@ -9,6 +9,16 @@ using UnityEngine.Events;
 /** 기본 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
+	/** 타겟 정보 고유 식별자 => 종류로 변환한다 */
+	public static int ExUniqueTargetInfoIDToKinds(this ulong a_nSender) {
+		return (int)(a_nSender & uint.MaxValue);
+	}
+
+	/** 타겟 정보 고유 식별자 => 타겟 종류로 변환한다 */
+	public static EAbilityKinds ExUniqueTargetInfoIDToTargetKinds(this ulong a_nSender) {
+		return (EAbilityKinds)((a_nSender >> (sizeof(int) * KCDefine.B_UNIT_BITS_PER_BYTE)) & uint.MaxValue);
+	}
+
 	/** JSON 문자열 => 타겟 정보로 변환한다 */
 	public static List<STTargetInfo> ExJSONStrToTargetInfos(this string a_oSender) {
 		CAccess.Assert(a_oSender.ExIsValid());
