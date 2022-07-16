@@ -57,7 +57,14 @@ public static partial class Extension {
 	#endregion			// 클래스 함수
 }
 
-/** 초기화 씬 확장 클래스 */
+/** 스플래시 씬 확장 클래스 */
+public static partial class Extension {
+	#region 클래스 함수
+	
+	#endregion			// 클래스 함수
+}
+
+/** 시작 씬 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
 
@@ -82,20 +89,6 @@ public static partial class Extension {
 public static partial class Extension {
 	#region 클래스 함수
 
-	#endregion			// 클래스 함수
-}
-
-/** 시작 씬 확장 클래스 */
-public static partial class Extension {
-	#region 클래스 함수
-
-	#endregion			// 클래스 함수
-}
-
-/** 스플래시 씬 확장 클래스 */
-public static partial class Extension {
-	#region 클래스 함수
-	
 	#endregion			// 클래스 함수
 }
 

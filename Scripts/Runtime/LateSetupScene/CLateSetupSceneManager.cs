@@ -269,8 +269,8 @@ namespace LateSetupScene {
 			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_NEXT_SCENE, false);
 
 			this.ExLateCallFunc((a_oSender) => {
-				// 초기화 씬 일 경우
-				if(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) || KCDefine.B_INIT_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
+				// 기본 씬 일 경우
+				if(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) || KCDefine.B_DEF_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
 #if STUDY_MODULE_ENABLE
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else

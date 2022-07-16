@@ -43,7 +43,6 @@ public static partial class KEditorDefine {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
-		[typeof(InitScene.CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,
 		[typeof(SetupScene.CSubSetupSceneManager)] = KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER,
 		[typeof(AgreeScene.CSubAgreeSceneManager)] = KCDefine.U_SCRIPT_O_AGREE_SCENE_MANAGER,
 		[typeof(LateSetupScene.CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER,
@@ -134,7 +133,6 @@ public static partial class KEditorDefine {
 	// 클래스 타입
 	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPE_DICT = new Dictionary<string, System.Type>() {
 #if SCENE_TEMPLATES_MODULE_ENABLE
-		[KCDefine.B_SCENE_N_INIT] = typeof(InitScene.CSubInitSceneManager),
 		[KCDefine.B_SCENE_N_SETUP] = typeof(SetupScene.CSubSetupSceneManager),
 		[KCDefine.B_SCENE_N_AGREE] = typeof(AgreeScene.CSubAgreeSceneManager),
 		[KCDefine.B_SCENE_N_LATE_SETUP] = typeof(LateSetupScene.CSubLateSetupSceneManager),

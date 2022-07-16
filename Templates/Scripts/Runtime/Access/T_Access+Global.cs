@@ -139,7 +139,14 @@ public static partial class Access {
 	#endregion			// 클래스 함수
 }
 
-/** 초기화 씬 접근자 */
+/** 스플래시 씬 접근자 */
+public static partial class Access {
+	#region 클래스 함수
+	
+	#endregion			// 클래스 함수
+}
+
+/** 시작 씬 접근자 */
 public static partial class Access {
 	#region 클래스 함수
 
@@ -164,20 +171,6 @@ public static partial class Access {
 public static partial class Access {
 	#region 클래스 함수
 
-	#endregion			// 클래스 함수
-}
-
-/** 시작 씬 접근자 */
-public static partial class Access {
-	#region 클래스 함수
-
-	#endregion			// 클래스 함수
-}
-
-/** 스플래시 씬 접근자 */
-public static partial class Access {
-	#region 클래스 함수
-	
 	#endregion			// 클래스 함수
 }
 

@@ -20,12 +20,19 @@ public static partial class AccessExtension {
 	/** 타겟 정보를 반환한다 */
 	public static bool ExTryGetTargetInfo(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutTargetInfo) {
 		a_stOutTargetInfo = a_oSender.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID);
-		return !a_stOutTargetInfo.Equals(STTargetInfo.INVALID);
+		return a_oSender.ContainsKey(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds));
 	}
 	#endregion			// 클래스 함수
 }
 
-/** 초기화 씬 접근자 확장 클래스 */
+/** 스플래시 씬 접근자 확장 클래스 */
+public static partial class AccessExtension {
+	#region 클래스 함수
+	
+	#endregion			// 클래스 함수
+}
+
+/** 시작 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
 	#region 클래스 함수
 
@@ -50,20 +57,6 @@ public static partial class AccessExtension {
 public static partial class AccessExtension {
 	#region 클래스 함수
 
-	#endregion			// 클래스 함수
-}
-
-/** 시작 씬 접근자 확장 클래스 */
-public static partial class AccessExtension {
-	#region 클래스 함수
-
-	#endregion			// 클래스 함수
-}
-
-/** 스플래시 씬 접근자 확장 클래스 */
-public static partial class AccessExtension {
-	#region 클래스 함수
-	
 	#endregion			// 클래스 함수
 }
 
