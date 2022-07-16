@@ -156,7 +156,7 @@ public partial class CObjInfoTable : CScriptableObj<CObjInfoTable> {
 
 	/** 객체 정보를 반환한다 */
 	public bool TryGetObjInfo(EObjKinds a_eObjKinds, out STObjInfo a_stOutObjInfo) {
-		a_stOutObjInfo = this.ObjInfoDict.GetValueOrDefault(a_eObjKinds, default(STObjInfo));
+		a_stOutObjInfo = this.ObjInfoDict.GetValueOrDefault(a_eObjKinds, STObjInfo.INVALID);
 		return this.ObjInfoDict.ContainsKey(a_eObjKinds);
 	}
 

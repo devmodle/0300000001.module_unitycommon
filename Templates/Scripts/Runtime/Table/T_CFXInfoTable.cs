@@ -112,7 +112,7 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 
 	/** 효과 정보를 반환한다 */
 	public bool TryGetFXInfo(EFXKinds a_eFXKinds, out STFXInfo a_stOutFXInfo) {
-		a_stOutFXInfo = this.FXInfoDict.GetValueOrDefault(a_eFXKinds, default(STFXInfo));
+		a_stOutFXInfo = this.FXInfoDict.GetValueOrDefault(a_eFXKinds, STFXInfo.INVALID);
 		return this.FXInfoDict.ContainsKey(a_eFXKinds);
 	}
 

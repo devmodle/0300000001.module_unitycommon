@@ -145,15 +145,13 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 
 	/** 상품 판매 정보를 반환한다 */
 	public bool TryGetProductSaleInfo(int a_nTableIdx, out STProductSaleInfo a_stOutProductSaleInfo) {
-		var stResult = this.ProductSaleInfoDict.ExFindVal((a_stProductSaleInfo) => a_stProductSaleInfo.m_nTableIdx == a_nTableIdx);
-		a_stOutProductSaleInfo = stResult.Item1 ? this.ProductSaleInfoDict[stResult.Item2] : default(STProductSaleInfo);
-
-		return stResult.Item1;
+		a_stOutProductSaleInfo = this.ProductSaleInfoDict.ExGetVal((a_stProductSaleInfo) => a_stProductSaleInfo.m_nTableIdx == a_nTableIdx, STProductSaleInfo.INVALID);
+		return !a_stOutProductSaleInfo.Equals(STProductSaleInfo.INVALID);
 	}
 
 	/** 상품 판매 정보를 반환한다 */
 	public bool TryGetProductSaleInfo(EProductSaleKinds a_eProductSaleKinds, out STProductSaleInfo a_stOutProductSaleInfo) {
-		a_stOutProductSaleInfo = this.ProductSaleInfoDict.GetValueOrDefault(a_eProductSaleKinds, default(STProductSaleInfo));
+		a_stOutProductSaleInfo = this.ProductSaleInfoDict.GetValueOrDefault(a_eProductSaleKinds, STProductSaleInfo.INVALID);
 		return this.ProductSaleInfoDict.ContainsKey(a_eProductSaleKinds);
 	}
 

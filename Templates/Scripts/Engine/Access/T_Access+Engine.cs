@@ -26,7 +26,7 @@ namespace SampleEngineName {
 
 		/** 정렬 순서 정보를 반환한다 */
 		public static bool TryGetSortingOrderInfo(EObjKinds a_eObjKinds, out STSortingOrderInfo a_stOutOrderInfo) {
-			a_stOutOrderInfo = KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault(a_eObjKinds, default(STSortingOrderInfo));
+			a_stOutOrderInfo = KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault(a_eObjKinds, STSortingOrderInfo.INVALID);
 			return KDefine.E_SORTING_OI_OBJ_DICT.ContainsKey(a_eObjKinds);
 		}
 		#endregion			// 클래스 함수

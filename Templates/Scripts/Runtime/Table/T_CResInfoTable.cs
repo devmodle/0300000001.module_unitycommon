@@ -115,7 +115,7 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 
 	/** 리소스 정보를 반환한다 */
 	public bool TryGetResInfo(EResKinds a_eResKinds, out STResInfo a_stOutResInfo) {
-		a_stOutResInfo = this.ResInfoDict.GetValueOrDefault(a_eResKinds, default(STResInfo));
+		a_stOutResInfo = this.ResInfoDict.GetValueOrDefault(a_eResKinds, STResInfo.INVALID);
 		return this.ResInfoDict.ContainsKey(a_eResKinds);
 	}
 

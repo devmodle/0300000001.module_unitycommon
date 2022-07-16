@@ -124,7 +124,7 @@ public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 
 	/** 스킬 정보를 반환한다 */
 	public bool TryGetSkillInfo(ESkillKinds a_ESkillKinds, out STSkillInfo a_stOutSkillInfo) {
-		a_stOutSkillInfo = this.SkillInfoDict.GetValueOrDefault(a_ESkillKinds, default(STSkillInfo));
+		a_stOutSkillInfo = this.SkillInfoDict.GetValueOrDefault(a_ESkillKinds, STSkillInfo.INVALID);
 		return this.SkillInfoDict.ContainsKey(a_ESkillKinds);
 	}
 

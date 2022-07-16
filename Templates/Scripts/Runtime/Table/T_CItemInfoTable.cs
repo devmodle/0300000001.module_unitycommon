@@ -142,7 +142,7 @@ public partial class CItemInfoTable : CScriptableObj<CItemInfoTable> {
 
 	/** 아이템 정보를 반환한다 */
 	public bool TryGetItemInfo(EItemKinds a_EItemKinds, out STItemInfo a_stOutItemInfo) {
-		a_stOutItemInfo = this.ItemInfoDict.GetValueOrDefault(a_EItemKinds, default(STItemInfo));
+		a_stOutItemInfo = this.ItemInfoDict.GetValueOrDefault(a_EItemKinds, STItemInfo.INVALID);
 		return this.ItemInfoDict.ContainsKey(a_EItemKinds);
 	}
 

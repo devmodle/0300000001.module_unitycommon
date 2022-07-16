@@ -145,7 +145,7 @@ public partial class CObjSaleInfoTable : CScriptableObj<CObjSaleInfoTable> {
 
 	/** 객체 판매 정보를 반환한다 */
 	public bool TryGetObjSaleInfo(EObjKinds a_eObjKinds, out STObjSaleInfo a_stOutObjSaleInfo) {
-		a_stOutObjSaleInfo = this.ObjSaleInfoDict.GetValueOrDefault(a_eObjKinds, default(STObjSaleInfo));
+		a_stOutObjSaleInfo = this.ObjSaleInfoDict.GetValueOrDefault(a_eObjKinds, STObjSaleInfo.INVALID);
 		return this.ObjSaleInfoDict.ContainsKey(a_eObjKinds);
 	}
 

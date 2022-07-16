@@ -114,7 +114,7 @@ public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 
 	/** 미션 정보를 반환한다 */
 	public bool TryGetMissionInfo(EMissionKinds a_eMissionKinds, out STMissionInfo a_stOutMissionInfo) {
-		a_stOutMissionInfo = this.MissionInfoDict.GetValueOrDefault(a_eMissionKinds, default(STMissionInfo));
+		a_stOutMissionInfo = this.MissionInfoDict.GetValueOrDefault(a_eMissionKinds, STMissionInfo.INVALID);
 		return this.MissionInfoDict.ContainsKey(a_eMissionKinds);
 	}
 

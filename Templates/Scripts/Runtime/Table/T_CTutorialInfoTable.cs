@@ -113,7 +113,7 @@ public partial class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 
 	/** 튜토리얼 정보를 반환한다 */
 	public bool TryGetTutorialInfo(ETutorialKinds a_eTutorialKinds, out STTutorialInfo a_stOutTutorialInfo) {
-		a_stOutTutorialInfo = this.TutorialInfoDict.GetValueOrDefault(a_eTutorialKinds, default(STTutorialInfo));
+		a_stOutTutorialInfo = this.TutorialInfoDict.GetValueOrDefault(a_eTutorialKinds, STTutorialInfo.INVALID);
 		return this.TutorialInfoDict.ContainsKey(a_eTutorialKinds);
 	}
 

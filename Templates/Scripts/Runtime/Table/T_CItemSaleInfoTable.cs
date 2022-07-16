@@ -149,7 +149,7 @@ public partial class CItemSaleInfoTable : CScriptableObj<CItemSaleInfoTable> {
 	
 	/** 아이템 판매 정보를 반환한다 */
 	public bool TryGetItemSaleInfo(EItemKinds a_eItemKinds, out STItemSaleInfo a_stOutItemSaleInfo) {
-		a_stOutItemSaleInfo = this.ItemSaleInfoDict.GetValueOrDefault(a_eItemKinds, default(STItemSaleInfo));
+		a_stOutItemSaleInfo = this.ItemSaleInfoDict.GetValueOrDefault(a_eItemKinds, STItemSaleInfo.INVALID);
 		return this.ItemSaleInfoDict.ContainsKey(a_eItemKinds);
 	}
 

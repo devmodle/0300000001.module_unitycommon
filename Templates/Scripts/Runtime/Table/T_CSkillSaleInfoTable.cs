@@ -129,7 +129,7 @@ public partial class CSkillSaleInfoTable : CScriptableObj<CSkillSaleInfoTable> {
 
 	/** 스킬 판매 정보를 반환한다 */
 	public bool TryGetSkillSaleInfo(ESkillKinds a_eSkillKinds, out STSkillSaleInfo a_stOutSkillSaleInfo) {
-		a_stOutSkillSaleInfo = this.SkillSaleInfoDict.GetValueOrDefault(a_eSkillKinds, default(STSkillSaleInfo));
+		a_stOutSkillSaleInfo = this.SkillSaleInfoDict.GetValueOrDefault(a_eSkillKinds, STSkillSaleInfo.INVALID);
 		return this.SkillSaleInfoDict.ContainsKey(a_eSkillKinds);
 	}
 

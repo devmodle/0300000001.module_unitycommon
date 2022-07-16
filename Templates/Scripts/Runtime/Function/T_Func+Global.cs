@@ -211,6 +211,9 @@ public static partial class Func {
 				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
 					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_LV, -a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
 				} break;
+				case ETargetKinds.ITEM_EXP: case ETargetKinds.SKILL_EXP: case ETargetKinds.OBJ_EXP: {
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_EXP, -a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+				} break;
 				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
 					a_oUserTargetInfo.Nums = System.Math.Clamp(a_oUserTargetInfo.Nums - a_stTargetInfo.IntTarget01, KCDefine.B_VAL_0_INT, long.MaxValue);
 				} break;
@@ -266,6 +269,9 @@ public static partial class Func {
 			switch(a_stTargetInfo.m_eTargetKinds) {
 				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
 					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_LV, a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+				} break;
+				case ETargetKinds.ITEM_EXP: case ETargetKinds.SKILL_EXP: case ETargetKinds.OBJ_EXP: {
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_EXP, a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
 					a_oUserTargetInfo.Nums = System.Math.Clamp(a_oUserTargetInfo.Nums + a_stTargetInfo.IntTarget01, KCDefine.B_VAL_0_INT, long.MaxValue);
