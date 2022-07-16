@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -22,7 +23,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		public ERewardQuality m_eQuality;
 		public ERewardAcquirePopupType m_eAgreePopup;
 		
-		public List<STTargetInfo> m_oTargetInfoList;
+		public Dictionary<ulong, STTargetInfo> m_oRewardTargetInfoDict;
 	}
 	
 	#region 변수
@@ -65,14 +66,16 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
+		var oRewardTargetInfoKeyList = m_stParams.m_oRewardTargetInfoDict.Keys.ToList();
+
 		// 보상 아이템 UI 상태를 갱신한다
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
-			var oItemUIs = m_oItemUIsList[i];
-			oItemUIs.SetActive(i < m_stParams.m_oTargetInfoList.Count);
+			m_oItemUIsList[i].SetActive(i < oRewardTargetInfoKeyList.Count);
 			
 			// 보상 정보가 존재 할 경우
-			if(i < m_stParams.m_oTargetInfoList.Count) {
-				this.UpdateItemUIsState(oItemUIs, m_stParams.m_oTargetInfoList[i]);
+			if(i < oRewardTargetInfoKeyList.Count) {
+				ulong nUniqueTargetInfoID = oRewardTargetInfoKeyList[i];
+				this.UpdateItemUIsState(m_oItemUIsList[i], m_stParams.m_oRewardTargetInfoDict[nUniqueTargetInfoID]);
 			}
 		}
 	}
@@ -104,14 +107,18 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		m_oBtnDict[EKey.ADS_BTN]?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
 #endif			// #if ADS_MODULE_ENABLE
 
-		for(int i = 0; i < m_stParams.m_oTargetInfoList.Count; ++i) {
-			var stTargetInfo = m_stParams.m_oTargetInfoList[i];
-			stTargetInfo.m_oTarget01 = a_bIsWatchRewardAds ? $"{stTargetInfo.IntTarget01 * KCDefine.B_VAL_2_INT}" : stTargetInfo.m_oTarget01;
-			
-			Func.Acquire(stTargetInfo);
-		}
+		var oRewardTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
 
-		this.OnTouchCloseBtn();
+		try {
+			foreach(var stKeyVal in m_stParams.m_oRewardTargetInfoDict) {
+				oRewardTargetInfoDict.TryAdd(stKeyVal.Key, Factory.MakeTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, a_bIsWatchRewardAds ? $"{stKeyVal.Value.IntTarget01 * KCDefine.B_VAL_2_INT}" : stKeyVal.Value.m_oTarget01));
+			}
+			
+			Func.Acquire(m_stParams.m_oRewardTargetInfoDict);
+			this.OnTouchCloseBtn();
+		} finally {
+			CCollectionManager.Inst.DespawnDict(oRewardTargetInfoDict);
+		}
 	}
 	#endregion			// 함수
 

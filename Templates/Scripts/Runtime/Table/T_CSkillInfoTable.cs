@@ -18,7 +18,8 @@ public partial struct STSkillInfo {
 
 	public List<EFXKinds> m_oFXKindsList;
 	public List<EResKinds> m_oResKindsList;
-	public List<STAbilityValInfo> m_oAbilityValInfoList;
+
+	public Dictionary<EAbilityKinds, STAbilityValInfo> m_oAbilityValInfoDict;
 
 	#region 상수
 	public static STSkillInfo INVALID = new STSkillInfo() {
@@ -43,21 +44,22 @@ public partial struct STSkillInfo {
 
 		m_oFXKindsList = new List<EFXKinds>();
 		m_oResKindsList = new List<EResKinds>();
-		m_oAbilityValInfoList = new List<STAbilityValInfo>();
+
+		m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_FX_KINDS; ++i) {
-			string oFXKindsKey = string.Format(KCDefine.U_KEY_FMT_FX_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oFXKindsList.ExAddVal(a_oSkillInfo[oFXKindsKey].ExIsValid() ? (EFXKinds)a_oSkillInfo[oFXKindsKey].AsInt : EFXKinds.NONE);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_FX_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oFXKindsList.ExAddVal(a_oSkillInfo[oKey].ExIsValid() ? (EFXKinds)a_oSkillInfo[oKey].AsInt : EFXKinds.NONE);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
-			string oResKindsKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oResKindsList.ExAddVal(a_oSkillInfo[oResKindsKey].ExIsValid() ? (EResKinds)a_oSkillInfo[oResKindsKey].AsInt : EResKinds.NONE);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oResKindsList.ExAddVal(a_oSkillInfo[oKey].ExIsValid() ? (EResKinds)a_oSkillInfo[oKey].AsInt : EResKinds.NONE);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			string oAbilityValInfoKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oSkillInfo[oAbilityValInfoKey]));
+			var stAbilityValInfo = new STAbilityValInfo(a_oSkillInfo[string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAbilityValInfoDict.TryAdd(stAbilityValInfo.m_eAbilityKinds, stAbilityValInfo);
 		}
 	}
 	#endregion			// 함수

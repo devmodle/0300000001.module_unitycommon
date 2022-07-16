@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -78,6 +79,8 @@ public partial class CStorePopup : CSubPopup {
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
 		m_stParams = a_stParams;
+		
+		a_stParams.m_oProductSaleInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nTableIdx.CompareTo(a_stRhs.m_nTableIdx));
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */
@@ -112,13 +115,16 @@ public partial class CStorePopup : CSubPopup {
 
 			// 텍스트를 갱신한다 {
 			var oPriceText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
-			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoList[KCDefine.B_VAL_0_INT].m_oTarget01), EFontSet._1, false);
-			
+			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoDict.First().Value.m_oTarget01), EFontSet._1, false);
+
+			var oAcquireTargetInfoKeyList = a_stProductSaleInfo.m_oAcquireTargetInfoDict.Keys.ToList();
 			a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stProductSaleInfo.m_stCommonInfo.m_oName, EFontSet._1, false);
 
-			for(int i = 0; i < a_stProductSaleInfo.m_oPayTargetInfoList.Count; ++i) {
+			for(int i = 0; i < oAcquireTargetInfoKeyList.Count; ++i) {
 				var oNumText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
-				oNumText?.ExSetText(a_stProductSaleInfo.m_oPayTargetInfoList[i].m_oTarget01, EFontSet._1, false);
+				var nUniqueTargetInfoID = oAcquireTargetInfoKeyList[i];
+
+				oNumText?.ExSetText(a_stProductSaleInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_oTarget01, EFontSet._1, false);
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
@@ -250,13 +256,10 @@ public partial class CStorePopup : CSubPopup {
 	private void OnLoadTargetInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
-			var oTargetInfoList = a_oJSONStr.ExJSONStrToTargetInfos();
+			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
+			Func.Acquire(oTargetInfoDict);
 
-			for(int i = 0; i < oTargetInfoList.Count; ++i) {
-				Func.Acquire(oTargetInfoList[i]);
-			}
-
-			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoList.Clear(); Func.SaveTargetInfos(oTargetInfoList, this.OnSaveTargetInfos); });
+			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
 		} else {
 			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 		}

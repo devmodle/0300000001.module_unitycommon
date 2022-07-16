@@ -618,18 +618,18 @@ public static partial class Func {
 	}
 
 	/** 타겟 정보를 저장한다 */
-	public static void SaveTargetInfos(List<STTargetInfo> a_oTargetInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoList != null);
+	public static void SaveTargetInfos(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoDict != null);
 
 		// 타겟 정보가 존재 할 경우
-		if(a_oTargetInfoList != null) {
+		if(a_oTargetInfoDict != null) {
 			CIndicatorManager.Inst.Show();
 			Func.m_oFirebaseCallbackDict02.ExReplaceVal(ECallback.SAVE_TARGET_INFOS, a_oCallback);
 
 			// 로그인 되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-				CFirebaseManager.Inst.SaveDatas(Factory.MakeTargetInfoNodes(), a_oTargetInfoList.ExToJSONStr(true), Func.OnSaveTargetInfos);
+				CFirebaseManager.Inst.SaveDatas(Factory.MakeTargetInfoNodes(), a_oTargetInfoDict.ExToJSONStr(true), Func.OnSaveTargetInfos);
 #else
 				Func.OnSaveTargetInfos(CFirebaseManager.Inst, false);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE

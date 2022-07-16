@@ -46,8 +46,8 @@ public partial struct STAbilityInfo {
 		m_oExtraAbilityKindsList = new List<EAbilityKinds>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_EXTRA_ABILITY_KINDS; ++i) {
-			string oExtraAbilityKindsKey = string.Format(KCDefine.U_KEY_FMT_EXTRA_ABILITY_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oExtraAbilityKindsList.Add(a_oAbilityInfo[oExtraAbilityKindsKey].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[oExtraAbilityKindsKey].AsInt : EAbilityKinds.NONE);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_EXTRA_ABILITY_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oExtraAbilityKindsList.Add(a_oAbilityInfo[oKey].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[oKey].AsInt : EAbilityKinds.NONE);
 		}
 	}
 	#endregion			// 함수

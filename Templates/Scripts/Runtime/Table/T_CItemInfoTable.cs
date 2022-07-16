@@ -15,9 +15,10 @@ public partial struct STItemInfo {
 	public EItemKinds m_ePrevItemKinds;
 	public EItemKinds m_eNextItemKinds;
 
-	public List<STTargetInfo> m_oAttachItemTargetInfoList;
-	public List<STTargetInfo> m_oSkillTargetInfoList;
-	public List<STAbilityValInfo> m_oAbilityValInfoList;
+	public Dictionary<ulong, STTargetInfo> m_oAttachItemTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oSkillTargetInfoDict;
+
+	public Dictionary<EAbilityKinds, STAbilityValInfo> m_oAbilityValInfoDict;
 
 	#region 상수
 	public static STItemInfo INVALID = new STItemInfo() {
@@ -39,23 +40,24 @@ public partial struct STItemInfo {
 		m_ePrevItemKinds = a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_PREV_ITEM_KINDS].AsInt : EItemKinds.NONE;
 		m_eNextItemKinds = a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].ExIsValid() ? (EItemKinds)a_oItemInfo[KCDefine.U_KEY_NEXT_ITEM_KINDS].AsInt : EItemKinds.NONE;
 
-		m_oAttachItemTargetInfoList = new List<STTargetInfo>();
-		m_oSkillTargetInfoList = new List<STTargetInfo>();
-		m_oAbilityValInfoList = new List<STAbilityValInfo>();
+		m_oAttachItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oSkillTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		
+		m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			string oAttachItemTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_ATTACH_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oAttachItemTargetInfoList.Add(new STTargetInfo(a_oItemInfo[oAttachItemTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oItemInfo[string.Format(KCDefine.U_KEY_FMT_ATTACH_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAttachItemTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			string oSkillTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_SKILL_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oSkillTargetInfoList.Add(new STTargetInfo(a_oItemInfo[oSkillTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oItemInfo[string.Format(KCDefine.U_KEY_FMT_SKILL_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oSkillTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			string oAbilityValInfoKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oItemInfo[oAbilityValInfoKey]));
+			var stAbilityValInfo = new STAbilityValInfo(a_oItemInfo[string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAbilityValInfoDict.TryAdd(stAbilityValInfo.m_eAbilityKinds, stAbilityValInfo);
 		}
 	}
 	#endregion			// 함수

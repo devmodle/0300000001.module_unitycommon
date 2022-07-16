@@ -10,14 +10,6 @@ using UnityEngine.Events;
 public static partial class AccessExtension {
 	#region 클래스 함수
 	/** 타겟 정보를 반환한다 */
-	public static STTargetInfo ExGetTargetInfo(this List<STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {
-		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo);
-		CAccess.Assert(bIsValid);
-
-		return stTargetInfo;
-	}
-
-	/** 타겟 정보를 반환한다 */
 	public static STTargetInfo ExGetTargetInfo(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo);
 		CAccess.Assert(bIsValid);
@@ -26,14 +18,8 @@ public static partial class AccessExtension {
 	}
 
 	/** 타겟 정보를 반환한다 */
-	public static bool ExTryGetTargetInfo(this List<STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutTargetInfo) {
-		a_stOutTargetInfo = a_oSender.ExGetVal((a_stTargetInfo) => a_stTargetInfo.m_eTargetKinds == a_eTargetKinds && a_stTargetInfo.m_nKinds == a_nKinds, STTargetInfo.INVALID);
-		return !a_stOutTargetInfo.Equals(STTargetInfo.INVALID);
-	}
-
-	/** 타겟 정보를 반환한다 */
 	public static bool ExTryGetTargetInfo(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutTargetInfo) {
-		a_stOutTargetInfo = a_oSender.ExGetVal((a_stTargetInfo) => a_stTargetInfo.m_eTargetKinds == a_eTargetKinds && a_stTargetInfo.m_nKinds == a_nKinds, STTargetInfo.INVALID);
+		a_stOutTargetInfo = a_oSender.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID);
 		return !a_stOutTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 	#endregion			// 클래스 함수

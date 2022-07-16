@@ -16,11 +16,13 @@ public partial struct STObjInfo {
 	public EObjKinds m_ePrevObjKinds;
 	public EObjKinds m_eNextObjKinds;
 
-	List<EResKinds> m_oResKindsList;
-	List<STTargetInfo> m_oDropItemTargetInfoList;
-	List<STTargetInfo> m_oEquipItemTargetInfoList;
-	List<STTargetInfo> m_oSkillTargetInfoList;
-	List<STAbilityValInfo> m_oAbilityValInfoList;
+	public List<EResKinds> m_oResKindsList;
+
+	public Dictionary<ulong, STTargetInfo> m_oDropItemTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oEquipItemTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oSkillTargetInfoDict;
+
+	public Dictionary<EAbilityKinds, STAbilityValInfo> m_oAbilityValInfoDict;
 
 	#region 상수
 	public static STObjInfo INVALID = new STObjInfo() {
@@ -44,34 +46,36 @@ public partial struct STObjInfo {
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
 
 		m_oResKindsList = new List<EResKinds>();
-		m_oDropItemTargetInfoList = new List<STTargetInfo>();
-		m_oEquipItemTargetInfoList = new List<STTargetInfo>();
-		m_oSkillTargetInfoList = new List<STTargetInfo>();
-		m_oAbilityValInfoList = new List<STAbilityValInfo>();
+
+		m_oDropItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oEquipItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oSkillTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+
+		m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
-			string oResKindsKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oResKindsList.Add(a_oObjInfo[oResKindsKey].ExIsValid() ? (EResKinds)a_oObjInfo[oResKindsKey].AsInt : EResKinds.NONE);
+			string oKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
+			m_oResKindsList.Add(a_oObjInfo[oKey].ExIsValid() ? (EResKinds)a_oObjInfo[oKey].AsInt : EResKinds.NONE);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			string oDropItemTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oDropItemTargetInfoList.Add(new STTargetInfo(a_oObjInfo[oDropItemTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oDropItemTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			string oEquipItemTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_EQUIP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oEquipItemTargetInfoList.Add(new STTargetInfo(a_oObjInfo[oEquipItemTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_EQUIP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oEquipItemTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			string oSkillTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_SKILL_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oSkillTargetInfoList.Add(new STTargetInfo(a_oObjInfo[oSkillTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_SKILL_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oSkillTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			string oAbilityValInfoKey = string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oAbilityValInfoList.Add(new STAbilityValInfo(a_oObjInfo[oAbilityValInfoKey]));
+			var stAbilityValInfo = new STAbilityValInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAbilityValInfoDict.TryAdd(stAbilityValInfo.m_eAbilityKinds, stAbilityValInfo);
 		}
 	}
 	#endregion			// 함수

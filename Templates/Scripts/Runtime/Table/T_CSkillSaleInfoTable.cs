@@ -15,8 +15,8 @@ public partial struct STSkillSaleInfo {
 	public ESkillKinds m_ePrevSkillKinds;
 	public ESkillKinds m_eNextSkillKinds;
 
-	public List<STTargetInfo> m_oPayTargetInfoList;
-	public List<STTargetInfo> m_oAcquireTargetInfoList;
+	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
 	#region 상수
 	public static STSkillSaleInfo INVALID = new STSkillSaleInfo() {
@@ -38,17 +38,17 @@ public partial struct STSkillSaleInfo {
 		m_ePrevSkillKinds = a_oSkillSaleInfo[KCDefine.U_KEY_PREV_SKILL_SALE_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillSaleInfo[KCDefine.U_KEY_PREV_SKILL_SALE_KINDS].AsInt : ESkillKinds.NONE;
 		m_eNextSkillKinds = a_oSkillSaleInfo[KCDefine.U_KEY_NEXT_SKILL_SALE_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillSaleInfo[KCDefine.U_KEY_NEXT_SKILL_SALE_KINDS].AsInt : ESkillKinds.NONE;
 
-		m_oPayTargetInfoList = new List<STTargetInfo>();
-		m_oAcquireTargetInfoList = new List<STTargetInfo>();
+		m_oPayTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			string oPayTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oPayTargetInfoList.Add(new STTargetInfo(a_oSkillSaleInfo[oPayTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oSkillSaleInfo[string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			string oAcquireTargetInfoKey = string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT);
-			m_oAcquireTargetInfoList.Add(new STTargetInfo(a_oSkillSaleInfo[oAcquireTargetInfoKey]));
+			var stTargetInfo = new STTargetInfo(a_oSkillSaleInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 	}
 	#endregion			// 함수
@@ -135,24 +135,14 @@ public partial class CSkillSaleInfoTable : CScriptableObj<CSkillSaleInfoTable> {
 
 	/** 지불 타겟 정보를 반환한다 */
 	public bool TryGetPayTargetInfo(ESkillKinds a_eSkillKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutPayTargetInfo) {
-		// 스킬 판매 정보가 존재 할 경우
-		if(this.TryGetSkillSaleInfo(a_eSkillKinds, out STSkillSaleInfo stSkillSaleInfo)) {
-			return stSkillSaleInfo.m_oPayTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutPayTargetInfo);
-		}
-
-		a_stOutPayTargetInfo = default(STTargetInfo);
-		return false;
+		a_stOutPayTargetInfo = this.TryGetSkillSaleInfo(a_eSkillKinds, out STSkillSaleInfo stSkillSaleInfo) ? stSkillSaleInfo.m_oPayTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
+		return !a_stOutPayTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 
 	/** 획득 타겟 정보를 반환한다 */
 	public bool TryGetAcquireTargetInfo(ESkillKinds a_eSkillKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
-		// 스킬 판매 정보가 존재 할 경우
-		if(this.TryGetSkillSaleInfo(a_eSkillKinds, out STSkillSaleInfo stSkillSaleInfo)) {
-			return stSkillSaleInfo.m_oAcquireTargetInfoList.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out a_stOutAcquireTargetInfo);
-		}
-
-		a_stOutAcquireTargetInfo = default(STTargetInfo);
-		return false;
+		a_stOutAcquireTargetInfo = this.TryGetSkillSaleInfo(a_eSkillKinds, out STSkillSaleInfo stSkillSaleInfo) ? stSkillSaleInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
+		return !a_stOutAcquireTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 
 	/** 스킬 판매 정보를 로드한다 */

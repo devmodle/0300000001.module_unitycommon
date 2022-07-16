@@ -15,6 +15,13 @@ public static partial class Factory {
 		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.B_UNIT_BITS_PER_BYTE)) & (ulong)a_nKinds;
 	}
 
+	/** 타겟 정보를 생성한다 */
+	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, string a_oTarget01 = KCDefine.B_STR_0_INT, string a_oTarget02 = KCDefine.B_STR_0_INT, string a_oTarget03 = KCDefine.B_STR_0_INT) {
+		return new STTargetInfo() {
+			m_nKinds = a_nKinds, m_oTarget01 = a_oTarget01, m_oTarget02 = a_oTarget02, m_oTarget03 = a_oTarget03, m_eTargetKinds = a_eTargetKinds
+		};
+	}
+	
 	/** 어빌리티 값 정보를 생성한다 */
 	public static STAbilityValInfo MakeAbilityValInfo(EAbilityKinds a_eAbilityKinds, long a_nVal = KCDefine.B_VAL_0_INT) {
 		return new STAbilityValInfo() {
@@ -40,6 +47,9 @@ public static partial class Factory {
 			}
 		};
 
+		var stItemInfo = CItemInfoTable.Inst.GetItemInfo(a_eItemKinds);
+		stItemInfo.m_oAbilityValInfoDict.ExCopyTo(oUserItemInfo.m_oAbilityValInfoDict, (a_stAbilityValInfo) => a_stAbilityValInfo);
+
 		oUserItemInfo.OnAfterDeserialize();
 		return oUserItemInfo;
 	}
@@ -52,6 +62,9 @@ public static partial class Factory {
 			}
 		};
 
+		var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds);
+		stSkillInfo.m_oAbilityValInfoDict.ExCopyTo(oUserSkillInfo.m_oAbilityValInfoDict, (a_stAbilityValInfo) => a_stAbilityValInfo);
+
 		oUserSkillInfo.OnAfterDeserialize();
 		return oUserSkillInfo;
 	}
@@ -60,9 +73,13 @@ public static partial class Factory {
 	public static CUserObjInfo MakeUserObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserObjInfo = new CUserObjInfo() {
 			Nums = a_nNums, ObjKinds = a_eObjKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
-				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV)
+				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV),
+				[EAbilityKinds.STAT_EXP] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, KCDefine.B_VAL_0_INT)
 			}
 		};
+
+		var stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds);
+		stObjInfo.m_oAbilityValInfoDict.ExCopyTo(oUserObjInfo.m_oAbilityValInfoDict, (a_stAbilityValInfo) => a_stAbilityValInfo);
 
 		oUserObjInfo.OnAfterDeserialize();
 		return oUserObjInfo;

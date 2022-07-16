@@ -47,14 +47,14 @@ public static partial class Access {
 	}
 
 	/** 교환 가능 여부를 검사한다 */
-	public static bool IsEnableTrade(List<STTargetInfo> a_oTargetInfoList) {
-		CAccess.Assert(a_oTargetInfoList != null);
-		return a_oTargetInfoList.All((a_stTargetInfo) => Access.IsEnableTrade(a_stTargetInfo));
+	public static bool IsEnableTrade(List<(CUserTargetInfo, STTargetInfo)> a_oTradeInfoList) {
+		return a_oTradeInfoList.All((a_stTradeInfo) => Access.IsEnableTrade(a_stTradeInfo.Item1, a_stTradeInfo.Item2));
 	}
 
 	/** 교환 가능 여부를 검사한다 */
-	public static bool IsEnableTrade(List<(CUserTargetInfo, STTargetInfo)> a_oTradeInfoList) {
-		return a_oTradeInfoList.All((a_stTradeInfo) => Access.IsEnableTrade(a_stTradeInfo.Item1, a_stTradeInfo.Item2));
+	public static bool IsEnableTrade(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict) {
+		CAccess.Assert(a_oTargetInfoDict != null);
+		return a_oTargetInfoDict.All((a_stKeyVal) => Access.IsEnableTrade(a_stKeyVal.Value));
 	}
 
 	/** 튜토리얼 메세지를 반환한다 */
