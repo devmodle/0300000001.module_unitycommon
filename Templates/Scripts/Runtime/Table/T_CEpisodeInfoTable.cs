@@ -14,12 +14,12 @@ using Newtonsoft.Json;
 [System.Serializable]
 public partial struct STEpisodeInfo {
 	public STCommonInfo m_stCommonInfo;
+	public Vector3 m_stSize;
 
 	public STIDInfo m_stIDInfo;
 	public STIDInfo m_stPrevIDInfo;
 	public STIDInfo m_stNextIDInfo;
 
-	public Vector3 m_stSize;
 	public EDifficulty m_eDifficulty;
 	public EEpisodeKinds m_eEpisodeKinds;
 	public ETutorialKinds m_eTutorialKinds;

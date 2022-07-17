@@ -47,6 +47,11 @@ namespace SampleEngineName {
 			base.Init(a_stParams.m_stBaseParams);
 			m_stParams = a_stParams;
 		}
+
+		/** 어빌리티 값을 설정한다 */
+		public override void SetupAbilityVals() {
+			base.SetupAbilityVals();
+		}
 		#endregion			// 함수
 	}
 }

@@ -57,22 +57,18 @@ public static partial class KEditorDefine {
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		[typeof(CLevelInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CItemInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CMissionInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CRewardInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CEpisodeInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CTutorialInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-
-		[typeof(CFXInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CSkillInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CAbilityInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CObjInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CResInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CItemSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CAbilityInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CItemInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CSkillInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CObjInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CFXInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CProductSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CSkillSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CObjSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
 		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,

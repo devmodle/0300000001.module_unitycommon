@@ -59,6 +59,11 @@ namespace SampleEngineName {
 				m_oSpriteDict[EKey.OBJ_SPRITE].ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
 			}
 		}
+
+		/** 어빌리티 값을 설정한다 */
+		public override void SetupAbilityVals() {
+			base.SetupAbilityVals();
+		}
 		#endregion			// 함수
 	}
 }

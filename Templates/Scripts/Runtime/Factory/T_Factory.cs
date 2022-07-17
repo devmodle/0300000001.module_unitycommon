@@ -42,8 +42,10 @@ public static partial class Factory {
 	/** 유저 아이템 정보를 생성한다 */
 	public static CUserItemInfo MakeUserItemInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserItemInfo = new CUserItemInfo() {
-			Nums = a_nNums, ItemKinds = a_eItemKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
-				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV)
+			ItemKinds = a_eItemKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
+				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV),
+				[EAbilityKinds.STAT_EXP] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, KCDefine.B_VAL_0_INT),
+				[EAbilityKinds.STAT_NUMS] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_NUMS, a_nNums)
 			}
 		};
 
@@ -57,8 +59,10 @@ public static partial class Factory {
 	/** 유저 스킬 정보를 생성한다 */
 	public static CUserSkillInfo MakeUserSkillInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserSkillInfo = new CUserSkillInfo() {
-			Nums = a_nNums, SkillKinds = a_eSkillKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
-				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV)
+			SkillKinds = a_eSkillKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
+				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV),
+				[EAbilityKinds.STAT_EXP] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, KCDefine.B_VAL_0_INT),
+				[EAbilityKinds.STAT_NUMS] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_NUMS, a_nNums)
 			}
 		};
 
@@ -72,9 +76,10 @@ public static partial class Factory {
 	/** 유저 객체 정보를 생성한다 */
 	public static CUserObjInfo MakeUserObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserObjInfo = new CUserObjInfo() {
-			Nums = a_nNums, ObjKinds = a_eObjKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
+			ObjKinds = a_eObjKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
 				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV),
-				[EAbilityKinds.STAT_EXP] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, KCDefine.B_VAL_0_INT)
+				[EAbilityKinds.STAT_EXP] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, KCDefine.B_VAL_0_INT),
+				[EAbilityKinds.STAT_NUMS] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, a_nNums)
 			}
 		};
 

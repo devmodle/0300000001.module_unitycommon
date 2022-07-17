@@ -17,21 +17,28 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-		private Dictionary<ulong, STAbilityValInfo> m_oAbilityValInfoDict = new Dictionary<ulong, STAbilityValInfo>();
+		private Dictionary<EAbilityKinds, long> m_oIntAbilityValDict = new Dictionary<EAbilityKinds, long>();
+		private Dictionary<EAbilityKinds, double> m_oRealAbilityValDict = new Dictionary<EAbilityKinds, double>();
 		#endregion			// 변수
-
+		
 		#region 프로퍼티
 		public string ObjsPoolKey => m_stParams.m_oObjsPoolKey;
 		public CEngine Engine => m_stParams.m_oEngine;
-		public Dictionary<ulong, STAbilityValInfo> AbilityValInfoDict => m_oAbilityValInfoDict;
+		public Dictionary<EAbilityKinds, long> IntAbilityValDict => m_oIntAbilityValDict;
+		public Dictionary<EAbilityKinds, double> RealAbilityValDict => m_oRealAbilityValDict;
 		#endregion			// 프로퍼티
 
-		#region 초기화
+		#region 함수
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			m_stParams = a_stParams;
 		}
-		#endregion			// 초기화
+
+		/** 어빌리티 값을 설정한다 */
+		public virtual void SetupAbilityVals() {
+			// Do Something
+		}
+		#endregion			// 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

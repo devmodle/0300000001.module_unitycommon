@@ -16,12 +16,6 @@ public static partial class EditorFactory {
 
 	#region 조건부 클래스 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-	/** 아이템 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ItemInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateItemInfoTable() {
-		CEditorFactory.CreateScriptableObj<CItemInfoTable>(KCEditorDefine.B_ASSET_P_ITEM_INFO_TABLE);
-	}
-
 	/** 미션 정보 테이블을 생성한다 */
 	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "MissionInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateMissionInfoTable() {
@@ -46,10 +40,22 @@ public static partial class EditorFactory {
 		CEditorFactory.CreateScriptableObj<CTutorialInfoTable>(KCEditorDefine.B_ASSET_P_TUTORIAL_INFO_TABLE);
 	}
 
-	/** 효과 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "FXInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateFXInfoTable() {
-		CEditorFactory.CreateScriptableObj<CFXInfoTable>(KCEditorDefine.B_ASSET_P_FX_INFO_TABLE);
+	/** 리소스 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ResInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateResInfoTable() {
+		CEditorFactory.CreateScriptableObj<CResInfoTable>(KCEditorDefine.B_ASSET_P_RES_INFO_TABLE);
+	}
+
+	/** 어빌리티 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "AbilityInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateAbilityInfoTable() {
+		CEditorFactory.CreateScriptableObj<CAbilityInfoTable>(KCEditorDefine.B_ASSET_P_ABILITY_INFO_TABLE);
+	}
+
+	/** 아이템 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ItemInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateItemInfoTable() {
+		CEditorFactory.CreateScriptableObj<CItemInfoTable>(KCEditorDefine.B_ASSET_P_ITEM_INFO_TABLE);
 	}
 
 	/** 스킬 정보 테이블을 생성한다 */
@@ -58,46 +64,22 @@ public static partial class EditorFactory {
 		CEditorFactory.CreateScriptableObj<CSkillInfoTable>(KCEditorDefine.B_ASSET_P_SKILL_INFO_TABLE);
 	}
 
-	/** 어빌리티 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "AbilityInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateAbilityInfoTable() {
-		CEditorFactory.CreateScriptableObj<CAbilityInfoTable>(KCEditorDefine.B_ASSET_P_ABILITY_INFO_TABLE);
-	}
-	
 	/** 객체 정보 테이블을 생성한다 */
 	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ObjInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateObjInfoTable() {
 		CEditorFactory.CreateScriptableObj<CObjInfoTable>(KCEditorDefine.B_ASSET_P_OBJ_INFO_TABLE);
 	}
 
-	/** 리소스 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ResInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateResInfoTable() {
-		CEditorFactory.CreateScriptableObj<CResInfoTable>(KCEditorDefine.B_ASSET_P_RES_INFO_TABLE);
+	/** 효과 정보 테이블을 생성한다 */
+	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "FXInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
+	public static void CreateFXInfoTable() {
+		CEditorFactory.CreateScriptableObj<CFXInfoTable>(KCEditorDefine.B_ASSET_P_FX_INFO_TABLE);
 	}
-
-	/** 아이템 판매 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ItemSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateItemSaleInfoTable() {
-		CEditorFactory.CreateScriptableObj<CItemSaleInfoTable>(KCEditorDefine.B_ASSET_P_ITEM_SALE_INFO_TABLE);
-	}
-
+	
 	/** 상품 판매 정보 테이블을 생성한다 */
 	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ProductSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
 	public static void CreateProductSaleInfoTable() {
 		CEditorFactory.CreateScriptableObj<CProductSaleInfoTable>(KCEditorDefine.B_ASSET_P_PRODUCT_SALE_INFO_TABLE);
-	}
-
-	/** 스킬 판매 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "SkillSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateSkillSaleInfoTable() {
-		CEditorFactory.CreateScriptableObj<CSkillSaleInfoTable>(KCEditorDefine.B_ASSET_P_SKILL_SALE_INFO_TABLE);
-	}
-
-	/** 객체 판매 정보 테이블을 생성한다 */
-	[MenuItem(KCEditorDefine.B_MENU_TOOLS_SUB_CREATE_BASE + "ObjSaleInfoTable", false, KCEditorDefine.B_SORTING_O_SUB_CREATE_MENU + 1)]
-	public static void CreateObjSaleInfoTable() {
-		CEditorFactory.CreateScriptableObj<CObjSaleInfoTable>(KCEditorDefine.B_ASSET_P_OBJ_SALE_INFO_TABLE);
 	}
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

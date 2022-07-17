@@ -65,18 +65,120 @@ public partial struct STSkillInfo {
 	#endregion			// 함수
 }
 
+/** 스킬 판매 정보 */
+[System.Serializable]
+public partial struct STSkillSaleInfo {
+	public STCommonInfo m_stCommonInfo;
+
+	public ESkillKinds m_eSkillKinds;
+	public ESkillKinds m_ePrevSkillKinds;
+	public ESkillKinds m_eNextSkillKinds;
+
+	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
+
+	#region 상수
+	public static STSkillSaleInfo INVALID = new STSkillSaleInfo() {
+		m_eSkillKinds = ESkillKinds.NONE, m_ePrevSkillKinds = ESkillKinds.NONE, m_eNextSkillKinds = ESkillKinds.NONE
+	};
+	#endregion			// 상수
+
+	#region 프로퍼티
+	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
+	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();
+	#endregion			// 프로퍼티
+
+	#region 함수
+	/** 생성자 */
+	public STSkillSaleInfo(SimpleJSON.JSONNode a_oSkillSaleInfo) {
+		m_stCommonInfo = new STCommonInfo(a_oSkillSaleInfo);
+
+		m_eSkillKinds = a_oSkillSaleInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillSaleInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
+		m_ePrevSkillKinds = a_oSkillSaleInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillSaleInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].AsInt : ESkillKinds.NONE;
+		m_eNextSkillKinds = a_oSkillSaleInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillSaleInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].AsInt : ESkillKinds.NONE;
+
+		m_oPayTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			var stTargetInfo = new STTargetInfo(a_oSkillSaleInfo[string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
+			var stTargetInfo = new STTargetInfo(a_oSkillSaleInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+		}
+	}
+	#endregion			// 함수
+}
+
+/** 스킬 업그레이드 정보 */
+[System.Serializable]
+public partial struct STSkillUpgradeInfo {
+	public STCommonInfo m_stCommonInfo;
+
+	public ESkillKinds m_eSkillKinds;
+	public ESkillKinds m_ePrevSkillKinds;
+	public ESkillKinds m_eNextSkillKinds;
+
+	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
+
+	#region 상수
+	public static STSkillUpgradeInfo INVALID = new STSkillUpgradeInfo() {
+		m_eSkillKinds = ESkillKinds.NONE, m_ePrevSkillKinds = ESkillKinds.NONE, m_eNextSkillKinds = ESkillKinds.NONE
+	};
+	#endregion			// 상수
+
+	#region 프로퍼티
+	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
+	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();
+	#endregion			// 프로퍼티
+
+	#region 함수
+	/** 생성자 */
+	public STSkillUpgradeInfo(SimpleJSON.JSONNode a_oSkillUpgradeInfo) {
+		m_stCommonInfo = new STCommonInfo(a_oSkillUpgradeInfo);
+
+		m_eSkillKinds = a_oSkillUpgradeInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillUpgradeInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
+		m_ePrevSkillKinds = a_oSkillUpgradeInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillUpgradeInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].AsInt : ESkillKinds.NONE;
+		m_eNextSkillKinds = a_oSkillUpgradeInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillUpgradeInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].AsInt : ESkillKinds.NONE;
+
+		m_oPayTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			var stTargetInfo = new STTargetInfo(a_oSkillUpgradeInfo[string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
+			var stTargetInfo = new STTargetInfo(a_oSkillUpgradeInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+		}
+	}
+	#endregion			// 함수
+}
+
 /** 스킬 정보 테이블 */
 public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 	#region 변수
 	[Header("=====> Active Skill Info <=====")]
 	[SerializeField] private List<STSkillInfo> m_oActiveSkillInfoList = new List<STSkillInfo>();
+	[SerializeField] private List<STSkillSaleInfo> m_oActiveSkillSaleInfoList = new List<STSkillSaleInfo>();
+	[SerializeField] private List<STSkillUpgradeInfo> m_oActiveSkillUpgradeInfoList = new List<STSkillUpgradeInfo>();
 
 	[Header("=====> Passive Skill Info <=====")]
 	[SerializeField] private List<STSkillInfo> m_oPassiveSkillInfoList = new List<STSkillInfo>();
+	[SerializeField] private List<STSkillSaleInfo> m_oPassiveSkillSaleInfoList = new List<STSkillSaleInfo>();
+	[SerializeField] private List<STSkillUpgradeInfo> m_oPassiveSkillUpgradeInfoList = new List<STSkillUpgradeInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
 	public Dictionary<ESkillKinds, STSkillInfo> SkillInfoDict { get; private set; } = new Dictionary<ESkillKinds, STSkillInfo>();
+	public Dictionary<ESkillKinds, STSkillSaleInfo> SkillSaleInfoDict { get; private set; } = new Dictionary<ESkillKinds, STSkillSaleInfo>();
+	public Dictionary<ESkillKinds, STSkillUpgradeInfo> SkillUpgradeInfoDict { get; private set; } = new Dictionary<ESkillKinds, STSkillUpgradeInfo>();
 
 	private string SkillInfoTablePath {
 		get {
@@ -99,12 +201,28 @@ public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 	/** 스킬 정보를 리셋한다 */
 	public void ResetSkillInfos() {
 		this.SkillInfoDict.Clear();
+		this.SkillSaleInfoDict.Clear();
+		this.SkillUpgradeInfoDict.Clear();
 
 		var oSkillInfoList = new List<STSkillInfo>(m_oActiveSkillInfoList);
 		oSkillInfoList.ExAddVals(m_oPassiveSkillInfoList);
 
+		var oSkillSaleInfoList = new List<STSkillSaleInfo>(m_oActiveSkillSaleInfoList);
+		oSkillSaleInfoList.ExAddVals(m_oPassiveSkillSaleInfoList);
+
+		var oSkillUpgradeInfoList = new List<STSkillUpgradeInfo>(m_oActiveSkillUpgradeInfoList);
+		oSkillUpgradeInfoList.ExAddVals(m_oPassiveSkillUpgradeInfoList);
+
 		for(int i = 0; i < oSkillInfoList.Count; ++i) {
 			this.SkillInfoDict.TryAdd(oSkillInfoList[i].m_eSkillKinds, oSkillInfoList[i]);
+		}
+
+		for(int i = 0; i < oSkillSaleInfoList.Count; ++i) {
+			this.SkillSaleInfoDict.TryAdd(oSkillSaleInfoList[i].m_eSkillKinds, oSkillSaleInfoList[i]);
+		}
+
+		for(int i = 0; i < oSkillUpgradeInfoList.Count; ++i) {
+			this.SkillUpgradeInfoDict.TryAdd(oSkillUpgradeInfoList[i].m_eSkillKinds, oSkillUpgradeInfoList[i]);
 		}
 	}
 
@@ -122,20 +240,48 @@ public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 		return stSkillInfo;
 	}
 
+	/** 스킬 판매 정보를 반환한다 */
+	public STSkillSaleInfo GetSkillSaleInfo(ESkillKinds a_eSkillKinds) {
+		bool bIsValid = this.TryGetSkillSaleInfo(a_eSkillKinds, out STSkillSaleInfo stSkillSaleInfo);
+		CAccess.Assert(bIsValid);
+
+		return stSkillSaleInfo;
+	}
+
+	/** 스킬 업그레이드 정보를 반환한다 */
+	public STSkillUpgradeInfo GetSkillUpgradeInfo(ESkillKinds a_eSkillKinds) {
+		bool bIsValid = this.TryGetSkillUpgradeInfo(a_eSkillKinds, out STSkillUpgradeInfo stSkillUpgradeInfo);
+		CAccess.Assert(bIsValid);
+
+		return stSkillUpgradeInfo;
+	}
+
 	/** 스킬 정보를 반환한다 */
 	public bool TryGetSkillInfo(ESkillKinds a_ESkillKinds, out STSkillInfo a_stOutSkillInfo) {
 		a_stOutSkillInfo = this.SkillInfoDict.GetValueOrDefault(a_ESkillKinds, STSkillInfo.INVALID);
 		return this.SkillInfoDict.ContainsKey(a_ESkillKinds);
 	}
 
+	/** 스킬 판매 정보를 반환한다 */
+	public bool TryGetSkillSaleInfo(ESkillKinds a_eSkillKinds, out STSkillSaleInfo a_stOutSkillSaleInfo) {
+		a_stOutSkillSaleInfo = this.SkillSaleInfoDict.GetValueOrDefault(a_eSkillKinds, STSkillSaleInfo.INVALID);
+		return this.SkillSaleInfoDict.ContainsKey(a_eSkillKinds);
+	}
+
+	/** 스킬 업그레이드 정보를 반환한다 */
+	public bool TryGetSkillUpgradeInfo(ESkillKinds a_eSkillKinds, out STSkillUpgradeInfo a_stOutSkillUpgradeInfo) {
+		a_stOutSkillUpgradeInfo = this.SkillUpgradeInfoDict.GetValueOrDefault(a_eSkillKinds, STSkillUpgradeInfo.INVALID);
+		return this.SkillUpgradeInfoDict.ContainsKey(a_eSkillKinds);
+	}
+
 	/** 스킬 정보를 로드한다 */
-	public Dictionary<ESkillKinds, STSkillInfo> LoadSkillInfos() {
+	public (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillSaleInfo>, Dictionary<ESkillKinds, STSkillUpgradeInfo>) LoadSkillInfos() {
 		this.ResetSkillInfos();
 		return this.LoadSkillInfos(this.SkillInfoTablePath);
 	}
 
 	/** 스킬 정보를 로드한다 */
-	private Dictionary<ESkillKinds, STSkillInfo> LoadSkillInfos(string a_oFilePath) {
+	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillSaleInfo>, Dictionary<ESkillKinds, STSkillUpgradeInfo>) LoadSkillInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -150,12 +296,20 @@ public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 	}
 
 	/** 스킬 정보를 로드한다 */
-	private Dictionary<ESkillKinds, STSkillInfo> DoLoadSkillInfos(string a_oJSONStr) {
+	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillSaleInfo>, Dictionary<ESkillKinds, STSkillUpgradeInfo>) DoLoadSkillInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oSkillInfosList = new List<SimpleJSON.JSONNode>() {
 			oJSONNode[KCDefine.U_KEY_ACTIVE], oJSONNode[KCDefine.U_KEY_PASSIVE]
+		};
+
+		var oSkillSaleInfosList = new List<SimpleJSON.JSONNode>() {
+			oJSONNode[KCDefine.U_KEY_ACTIVE_SALE], oJSONNode[KCDefine.U_KEY_PASSIVE_SALE]
+		};
+
+		var oSkillUpgradeInfosList = new List<SimpleJSON.JSONNode>() {
+			oJSONNode[KCDefine.U_KEY_ACTIVE_UPGRADE], oJSONNode[KCDefine.U_KEY_PASSIVE_UPGRADE]
 		};
 
 		for(int i = 0; i < oSkillInfosList.Count; ++i) {
@@ -169,7 +323,29 @@ public partial class CSkillInfoTable : CScriptableObj<CSkillInfoTable> {
 			}
 		}
 
-		return this.SkillInfoDict;
+		for(int i = 0; i < oSkillSaleInfosList.Count; ++i) {
+			for(int j = 0; j < oSkillSaleInfosList[i].Count; ++j) {
+				var stSkillSaleInfo = new STSkillSaleInfo(oSkillSaleInfosList[i][j]);
+
+				// 스킬 판매 정보가 추가 가능 할 경우
+				if(stSkillSaleInfo.m_eSkillKinds.ExIsValid() && (!this.SkillSaleInfoDict.ContainsKey(stSkillSaleInfo.m_eSkillKinds) || oSkillSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+					this.SkillSaleInfoDict.ExReplaceVal(stSkillSaleInfo.m_eSkillKinds, stSkillSaleInfo);
+				}
+			}
+		}
+
+		for(int i = 0; i < oSkillUpgradeInfosList.Count; ++i) {
+			for(int j = 0; j < oSkillUpgradeInfosList[i].Count; ++j) {
+				var stSkillUpgradeInfo = new STSkillUpgradeInfo(oSkillUpgradeInfosList[i][j]);
+
+				// 스킬 업그레이드 정보가 추가 가능 할 경우
+				if(stSkillUpgradeInfo.m_eSkillKinds.ExIsValid() && (!this.SkillSaleInfoDict.ContainsKey(stSkillUpgradeInfo.m_eSkillKinds) || oSkillUpgradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+					this.SkillUpgradeInfoDict.ExReplaceVal(stSkillUpgradeInfo.m_eSkillKinds, stSkillUpgradeInfo);
+				}
+			}
+		}
+
+		return (this.SkillInfoDict, this.SkillSaleInfoDict, this.SkillUpgradeInfoDict);
 	}
 	#endregion			// 함수
 }

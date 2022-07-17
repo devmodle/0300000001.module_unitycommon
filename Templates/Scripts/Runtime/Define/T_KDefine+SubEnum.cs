@@ -23,7 +23,7 @@ public enum EItemType {
 	WEAPON,
 	ARMOR,
 	ACCESSORY,
-	ATTACHMENTS,
+	ATTACH,
 	[HideInInspector] MAX_VAL
 }
 
@@ -75,7 +75,7 @@ public enum EItemKinds {
 
 	#region 장식
 	// 60,000,000
-	ATTACHMENTS_ITEM_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ATTACH_ITEM_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 장식
 
 	[HideInInspector] MAX_VAL
@@ -330,15 +330,35 @@ public enum EAbilityKinds {
 	#region 스탯
 	// 0
 	STAT_LV = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100
 	STAT_EXP = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-
-	// 200
-	STAT_HP = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	STAT_NUMS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 
 	// 300
-	STAT_MP = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
+	STAT_HP_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
+	STAT_MP_02 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
+	STAT_SP_03 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 5),
+
+	// 600
+	STAT_HP_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 6),
+	STAT_MP_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 7),
+	STAT_SP_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 8),
+
+	// 900
+	STAT_P_ATK_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 9),
+	STAT_M_ATK_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 10),
+
+	// 1100
+	STAT_P_DEF_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 11),
+	STAT_M_DEF_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 12),
+
+	// 1300
+	STAT_ATK_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 13),
+	STAT_MOVE_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 14),
+
+	// 1500
+	STAT_HIT_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 15),
+	STAT_AVOID_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 16),
+	STAT_CRITICAL_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 17),
 	#endregion			// 스탯
 
 	#region 버프
@@ -413,6 +433,7 @@ public enum EResType {
 	NONE = -1,
 	SND,
 	FONT,
+	IMG,
 	SPRITE,
 	TEXTURE,
 	[HideInInspector] MAX_VAL
@@ -451,22 +472,25 @@ public enum EResKinds {
 
 	// 100,100,000
 	FONT_ENGLISH = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 폰트
+	#endregion           // 폰트
+
+	#region 이미지
+	// 200,000,000
+	IMG_WHITE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	IMG_SPLASH,
+	IMG_INDICATOR,
+	#endregion			// 이미지
 
 	#region 스프라이트
-	// 200,000,000
-	[HideInInspector] SPRITE_DEF = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SPRITE_WHITE,
+	// 300,000,000
+	SPRITE_WHITE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	SPRITE_SPLASH,
 	SPRITE_INDICATOR,
-	#endregion			// 스프라이트
+	#endregion         // 스프라이트
 
 	#region 텍스처
-	// 300,000,000
-	[HideInInspector] TEXTURE_DEF = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	TEXTURE_WHITE,
-	TEXTURE_SPLASH,
-	TEXTURE_INDICATOR,
+	// 400,000,000
+	TEXTURE_RES_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 텍스처
 
 	[HideInInspector] MAX_VAL
@@ -521,44 +545,35 @@ public enum ETargetKinds {
 
 	#region 아이템
 	// 0
-	ITEM = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ITEM_LV = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 100,000
-	ITEM_LV = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ITEM_EXP = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 200,000
-	ITEM_EXP = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 300,000
-	ITEM_NUMS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ITEM_NUMS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 아이템
 
 	#region 스킬
 	// 100,000,000
-	SKILL = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SKILL_LV = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 100,100,000
-	SKILL_LV = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SKILL_EXP = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 100,200,000
-	SKILL_EXP = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,300,000
-	SKILL_NUMS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SKILL_NUMS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 스킬
 
 	#region 객체
 	// 200,000,000
-	OBJ = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	OBJ_LV = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 200,100,000
-	OBJ_LV = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	OBJ_EXP = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 200,200,000
-	OBJ_EXP = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 200,300,000
-	OBJ_NUMS = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	OBJ_NUMS = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 객체
 
 	[HideInInspector] MAX_VAL

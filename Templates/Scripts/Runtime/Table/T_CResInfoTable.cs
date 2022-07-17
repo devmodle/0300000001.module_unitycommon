@@ -57,6 +57,9 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 	[Header("=====> Font Res Info <=====")]
 	[SerializeField] private List<STResInfo> m_oFontResInfoList = new List<STResInfo>();
 
+	[Header("=====> Image Res Info <=====")]
+	[SerializeField] private List<STResInfo> m_oImgResInfoList = new List<STResInfo>();
+
 	[Header("=====> Sprite Res Info <=====")]
 	[SerializeField] private List<STResInfo> m_oSpriteResInfoList = new List<STResInfo>();
 
@@ -91,6 +94,7 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 
 		var oResInfoList = new List<STResInfo>(m_oSndResInfoList);
 		oResInfoList.AddRange(m_oFontResInfoList);
+		oResInfoList.AddRange(m_oImgResInfoList);
 		oResInfoList.AddRange(m_oSpriteResInfoList);
 		oResInfoList.AddRange(m_oTextureResInfoList);
 
@@ -146,7 +150,7 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oResInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_SND], oJSONNode[KCDefine.U_KEY_FONT], oJSONNode[KCDefine.U_KEY_SPRITE], oJSONNode[KCDefine.U_KEY_TEXTURE]
+			oJSONNode[KCDefine.U_KEY_SND], oJSONNode[KCDefine.U_KEY_FONT], oJSONNode[KCDefine.U_KEY_IMG], oJSONNode[KCDefine.U_KEY_SPRITE], oJSONNode[KCDefine.U_KEY_TEXTURE]
 		};
 
 		for(int i = 0; i < oResInfosList.Count; ++i) {

@@ -27,7 +27,7 @@ public enum EPlayMode {
 public enum EPurchaseType {
 	NONE = -1,
 	ADS,
-	PURCHASE,
+	IN_APP_PURCHASE,
 	TARGET,
 	[HideInInspector] MAX_VAL
 }

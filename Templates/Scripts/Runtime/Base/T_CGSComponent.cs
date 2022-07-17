@@ -22,12 +22,12 @@ namespace GameScene {
 		public SampleEngineName.CEngine Engine => m_stParams.m_oEngine;
 		#endregion			// 프로퍼티
 
-		#region 초기화
+		#region 함수
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			m_stParams = a_stParams;
 		}
-		#endregion			// 초기화
+		#endregion			// 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
