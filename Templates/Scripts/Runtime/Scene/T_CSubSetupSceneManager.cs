@@ -33,11 +33,11 @@ namespace SetupScene {
 			CTutorialInfoTable.Inst.LoadTutorialInfos();
 			CResInfoTable.Inst.LoadResInfos();
 
-			CAbilityInfoTable.Inst.LoadAbilityInfos();
 			CItemInfoTable.Inst.LoadItemInfos();
 			CSkillInfoTable.Inst.LoadSkillInfos();
 			CObjInfoTable.Inst.LoadObjInfos();
 			CFXInfoTable.Inst.LoadFXInfos();
+			CAbilityInfoTable.Inst.LoadAbilityInfos();
 			CProductSaleInfoTable.Inst.LoadProductSaleInfos();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 

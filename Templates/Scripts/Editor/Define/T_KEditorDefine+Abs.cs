@@ -63,11 +63,11 @@ public static partial class KEditorDefine {
 		[typeof(CTutorialInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CResInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CAbilityInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CItemInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CSkillInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CObjInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CFXInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CAbilityInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CProductSaleInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
 		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
