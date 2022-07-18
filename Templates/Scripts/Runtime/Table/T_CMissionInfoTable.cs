@@ -48,7 +48,7 @@ public partial struct STMissionInfo {
 }
 
 /** 미션 정보 테이블 */
-public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
+public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	#region 변수
 	[Header("=====> Main Mission Info <=====")]
 	[SerializeField] private List<STMissionInfo> m_oMainMissionInfoList = new List<STMissionInfo>();
@@ -152,7 +152,7 @@ public partial class CMissionInfoTable : CScriptableObj<CMissionInfoTable> {
 			for(int j = 0; j < oMissionInfosList[i].Count; ++j) {
 				var stMissionInfo = new STMissionInfo(oMissionInfosList[i][j]);
 
-				// 미션 정보가 추가 가능 할 경우
+				// 미션 정보 추가 가능 할 경우
 				if(stMissionInfo.m_eMissionKinds.ExIsValid() && (!this.MissionInfoDict.ContainsKey(stMissionInfo.m_eMissionKinds) || oMissionInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.MissionInfoDict.ExReplaceVal(stMissionInfo.m_eMissionKinds, stMissionInfo);
 				}

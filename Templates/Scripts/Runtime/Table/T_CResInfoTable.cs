@@ -49,7 +49,7 @@ public partial struct STResInfo {
 }
 
 /** 리소스 정보 테이블 */
-public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
+public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	#region 변수
 	[Header("=====> Snd Res Info <=====")]
 	[SerializeField] private List<STResInfo> m_oSndResInfoList = new List<STResInfo>();
@@ -157,7 +157,7 @@ public partial class CResInfoTable : CScriptableObj<CResInfoTable> {
 			for(int j = 0; j < oResInfosList[i].Count; ++j) {
 				var stResInfo = new STResInfo(oResInfosList[i][j]);
 
-				// 리소스 정보가 추가 가능 할 경우
+				// 리소스 정보 추가 가능 할 경우
 				if(stResInfo.m_eResKinds.ExIsValid() && (!this.ResInfoDict.ContainsKey(stResInfo.m_eResKinds) || oResInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.ResInfoDict.ExReplaceVal(stResInfo.m_eResKinds, stResInfo);
 				}

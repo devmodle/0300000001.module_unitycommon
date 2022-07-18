@@ -77,21 +77,6 @@ public static partial class CEditorSceneManager {
 
 				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
 				EditorApplication.update += CEditorSceneManager.UpdateDependencyState;
-
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-				EditorFactory.CreateMissionInfoTable();
-				EditorFactory.CreateRewardInfoTable();
-				EditorFactory.CreateEpisodeInfoTable();
-				EditorFactory.CreateTutorialInfoTable();
-				EditorFactory.CreateResInfoTable();
-
-				EditorFactory.CreateAbilityInfoTable();
-				EditorFactory.CreateItemInfoTable();
-				EditorFactory.CreateSkillInfoTable();
-				EditorFactory.CreateObjInfoTable();
-				EditorFactory.CreateFXInfoTable();
-				EditorFactory.CreateProductSaleInfoTable();
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			}
 
 			// 갱신 주기가 지났을 경우

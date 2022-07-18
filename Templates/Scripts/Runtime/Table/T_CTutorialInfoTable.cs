@@ -55,7 +55,7 @@ public partial struct STTutorialInfo {
 }
 
 /** 튜토리얼 정보 테이블 */
-public partial class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
+public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	#region 변수
 	[Header("=====> Play Tutorial Info <=====")]
 	[SerializeField] private List<STTutorialInfo> m_oPlayTutorialInfoList = new List<STTutorialInfo>();
@@ -151,7 +151,7 @@ public partial class CTutorialInfoTable : CScriptableObj<CTutorialInfoTable> {
 			for(int j = 0; j < oTutorialInfosList[i].Count; ++j) {
 				var stTutorialInfo = new STTutorialInfo(oTutorialInfosList[i][j]);
 
-				// 튜토리얼 정보가 추가 가능 할 경우
+				// 튜토리얼 정보 추가 가능 할 경우
 				if(stTutorialInfo.m_eTutorialKinds.ExIsValid() && (!this.TutorialInfoDict.ContainsKey(stTutorialInfo.m_eTutorialKinds) || oTutorialInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.TutorialInfoDict.ExReplaceVal(stTutorialInfo.m_eTutorialKinds, stTutorialInfo);
 				}

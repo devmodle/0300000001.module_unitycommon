@@ -63,7 +63,7 @@ public partial struct STProductSaleInfo {
 }
 
 /** 상품 판매 정보 테이블 */
-public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTable> {
+public partial class CProductSaleInfoTable : CSingleton<CProductSaleInfoTable> {
 	#region 변수
 	[Header("=====> Pkgs Product Sale Info <=====")]
 	[SerializeField] private List<STProductSaleInfo> m_oPkgsProductSaleInfoList = new List<STProductSaleInfo>();
@@ -201,7 +201,7 @@ public partial class CProductSaleInfoTable : CScriptableObj<CProductSaleInfoTabl
 			for(int j = 0; j < oProductSaleInfosList[i].Count; ++j) {
 				var stProductSaleInfo = new STProductSaleInfo(oProductSaleInfosList[i][j]);
 
-				// 상품 판매 정보가 추가 가능 할 경우
+				// 상품 판매 정보 추가 가능 할 경우
 				if(stProductSaleInfo.m_eProductSaleKinds.ExIsValid() && (!this.ProductSaleInfoDict.ContainsKey(stProductSaleInfo.m_eProductSaleKinds) || oProductSaleInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.ProductSaleInfoDict.ExReplaceVal(stProductSaleInfo.m_eProductSaleKinds, stProductSaleInfo);
 				}

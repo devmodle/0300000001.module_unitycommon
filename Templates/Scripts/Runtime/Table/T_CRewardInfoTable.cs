@@ -50,7 +50,7 @@ public partial struct STRewardInfo {
 }
 
 /** 보상 정보 테이블 */
-public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
+public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	#region 변수
 	[Header("=====> Free Reward Info <=====")]
 	[SerializeField] private List<STRewardInfo> m_oFreeRewardInfoList = new List<STRewardInfo>();
@@ -176,7 +176,7 @@ public partial class CRewardInfoTable : CScriptableObj<CRewardInfoTable> {
 			for(int j = 0; j < oRewardInfosList[i].Count; ++j) {
 				var stRewardInfo = new STRewardInfo(oRewardInfosList[i][j]);
 
-				// 보상 정보가 추가 가능 할 경우
+				// 보상 정보 추가 가능 할 경우
 				if(stRewardInfo.m_eRewardKinds.ExIsValid() && (!this.RewardInfoDict.ContainsKey(stRewardInfo.m_eRewardKinds) || oRewardInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.RewardInfoDict.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
 				}

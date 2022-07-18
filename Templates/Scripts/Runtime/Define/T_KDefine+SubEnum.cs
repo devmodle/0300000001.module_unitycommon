@@ -319,7 +319,6 @@ public enum EAbilityType {
 	STAT,
 	BUFF,
 	DEBUFF,
-	UPGRADE,
 	[HideInInspector] MAX_VAL
 }
 
@@ -352,13 +351,17 @@ public enum EAbilityKinds {
 	STAT_M_DEF_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 12),
 
 	// 1300
-	STAT_ATK_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 13),
-	STAT_MOVE_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 14),
+	STAT_VIEW_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 13),
+	STAT_ATTACK_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 14),
 
 	// 1500
-	STAT_HIT_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 15),
-	STAT_AVOID_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 16),
-	STAT_CRITICAL_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 17),
+	STAT_ATK_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 15),
+	STAT_MOVE_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 16),
+
+	// 1700
+	STAT_HIT_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 17),
+	STAT_AVOID_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 18),
+	STAT_CRITICAL_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 19),
 	#endregion			// 스탯
 
 	#region 버프
@@ -370,11 +373,6 @@ public enum EAbilityKinds {
 	// 200,000,000
 	DEBUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 디버프
-
-	#region 업그레이드
-	// 300,000,000
-	UPGRADE_ABILITY_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 업그레이드
 
 	[HideInInspector] MAX_VAL
 }

@@ -50,7 +50,7 @@ public partial struct STFXInfo {
 }
 
 /** 효과 정보 테이블 */
-public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
+public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	#region 변수
 	[Header("=====> Hit FX Info <=====")]
 	[SerializeField] private List<STFXInfo> m_oHitFXInfoInfoList = new List<STFXInfo>();
@@ -150,7 +150,7 @@ public partial class CFXInfoTable : CScriptableObj<CFXInfoTable> {
 			for(int j = 0; j < oFXInfosList[i].Count; ++j) {
 				var stFXInfo = new STFXInfo(oFXInfosList[i][j]);
 
-				// 효과 정보가 추가 가능 할 경우
+				// 효과 정보 추가 가능 할 경우
 				if(stFXInfo.m_eFXKinds.ExIsValid() && (!this.FXInfoDict.ContainsKey(stFXInfo.m_eFXKinds) || oFXInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.FXInfoDict.ExReplaceVal(stFXInfo.m_eFXKinds, stFXInfo);
 				}

@@ -183,7 +183,7 @@ public partial struct STEpisodeInfo {
 }
 
 /** 에피소드 정보 테이블 */
-public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
+public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	#region 변수
 	[Header("=====> Level Episode Info <=====")]
 	[SerializeField] private List<STEpisodeInfo> m_oLevelEpisodeInfoList = new List<STEpisodeInfo>();
@@ -400,7 +400,7 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		for(int i = 0; i < oLevelEpisodeInfos.Count; ++i) {
 			var stLevelEpisodeInfo = new STEpisodeInfo(oLevelEpisodeInfos[i]);
 
-			// 레벨 에피소드 정보가 추가 가능 할 경우
+			// 레벨 에피소드 정보 추가 가능 할 경우
 			if(stLevelEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.LevelEpisodeInfoDict.ContainsKey(stLevelEpisodeInfo.m_stIDInfo.UniqueID01) || oLevelEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 				this.LevelEpisodeInfoDict.ExReplaceVal(stLevelEpisodeInfo.m_stIDInfo.UniqueID01, stLevelEpisodeInfo);
 			}
@@ -409,7 +409,7 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		for(int i = 0; i < oStageEpisodeInfos.Count; ++i) {
 			var stStageEpisodeInfo = new STEpisodeInfo(oStageEpisodeInfos[i]);
 
-			// 스테이지 에피소드 정보가 추가 가능 할 경우
+			// 스테이지 에피소드 정보 추가 가능 할 경우
 			if(stStageEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stStageEpisodeInfo.m_stIDInfo.UniqueID02) || oStageEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 				this.StageEpisodeInfoDict.ExReplaceVal(stStageEpisodeInfo.m_stIDInfo.UniqueID02, stStageEpisodeInfo);
 			}
@@ -418,7 +418,7 @@ public partial class CEpisodeInfoTable : CScriptableObj<CEpisodeInfoTable> {
 		for(int i = 0; i < oChapterEpisodeInfos.Count; ++i) {
 			var stChapterEpisodeInfo = new STEpisodeInfo(oChapterEpisodeInfos[i]);
 
-			// 챕터 에피소드 정보가 추가 가능 할 경우
+			// 챕터 에피소드 정보 추가 가능 할 경우
 			if(stChapterEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stChapterEpisodeInfo.m_stIDInfo.UniqueID03) || oChapterEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 				this.ChapterEpisodeInfoDict.ExReplaceVal(stChapterEpisodeInfo.m_stIDInfo.UniqueID03, stChapterEpisodeInfo);
 			}

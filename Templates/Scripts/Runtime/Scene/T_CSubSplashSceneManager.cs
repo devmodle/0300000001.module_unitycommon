@@ -32,22 +32,8 @@ namespace SplashScene {
 			base.Setup();
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-			// 테이블을 생성한다 {
+			// 테이블을 생성한다
 			CLevelInfoTable.Create();
-			
-			CMissionInfoTable.Create(KCDefine.U_ASSET_P_G_MISSION_INFO_TABLE);
-			CRewardInfoTable.Create(KCDefine.U_ASSET_P_G_REWARD_INFO_TABLE);
-			CEpisodeInfoTable.Create(KCDefine.U_ASSET_P_G_EPISODE_INFO_TABLE);
-			CTutorialInfoTable.Create(KCDefine.U_ASSET_P_G_TUTORIAL_INFO_TABLE);
-			CResInfoTable.Create(KCDefine.U_ASSET_P_G_RES_INFO_TABLE);
-
-			CAbilityInfoTable.Create(KCDefine.U_ASSET_P_G_ABILITY_INFO_TABLE);
-			CItemInfoTable.Create(KCDefine.U_ASSET_P_G_ITEM_INFO_TABLE);
-			CObjInfoTable.Create(KCDefine.U_ASSET_P_G_OBJ_INFO_TABLE);
-			CSkillInfoTable.Create(KCDefine.U_ASSET_P_G_SKILL_INFO_TABLE);
-			CFXInfoTable.Create(KCDefine.U_ASSET_P_G_FX_INFO_TABLE);
-			CProductSaleInfoTable.Create(KCDefine.U_ASSET_P_G_PRODUCT_SALE_INFO_TABLE);
-			// 테이블을 생성한다 }
 			
 			// 저장소를 생성한다
 			CAppInfoStorage.Create();
