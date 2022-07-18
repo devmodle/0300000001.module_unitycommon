@@ -15,8 +15,8 @@ public partial struct STAbilityInfo {
 	public EAbilityKinds m_eAbilityKinds;
 	public EAbilityKinds m_ePrevAbilityKinds;
 	public EAbilityKinds m_eNextAbilityKinds;
-	
-	public List<EAbilityKinds> m_oExtraAbilityKindsList;
+
+	public Dictionary<ulong, STTargetInfo> m_oExtraAbilityTargetInfoDict;
 
 	#region 상수
 	public static STAbilityInfo INVALID = new STAbilityInfo() {
@@ -39,11 +39,11 @@ public partial struct STAbilityInfo {
 		m_ePrevAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
 		m_eNextAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
 
-		m_oExtraAbilityKindsList = new List<EAbilityKinds>();
+		m_oExtraAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_EXTRA_ABILITY_KINDS; ++i) {
-			string oKey = string.Format(KCDefine.U_KEY_FMT_EXTRA_ABILITY_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oExtraAbilityKindsList.Add(a_oAbilityInfo[oKey].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[oKey].AsInt : EAbilityKinds.NONE);
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			var stTargetInfo = new STTargetInfo(a_oAbilityInfo[string.Format(KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oExtraAbilityTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 	}
 	#endregion			// 함수

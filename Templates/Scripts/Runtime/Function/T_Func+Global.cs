@@ -217,6 +217,9 @@ public static partial class Func {
 				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
 					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_NUMS, -a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
 				} break;
+				case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: {
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+				} break;
 			}
 		}
 	}
@@ -275,6 +278,9 @@ public static partial class Func {
 				} break;
 				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
 					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_NUMS, a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+				} break;
+				case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: {
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
 				} break;
 			}
 		}
