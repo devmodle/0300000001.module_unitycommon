@@ -32,8 +32,22 @@ namespace SplashScene {
 			base.Setup();
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-			// 테이블을 생성한다
+			// 테이블을 생성한다 {
 			CLevelInfoTable.Create();
+
+			CMissionInfoTable.Create();
+			CRewardInfoTable.Create();
+			CEpisodeInfoTable.Create();
+			CTutorialInfoTable.Create();
+			CResInfoTable.Create();
+
+			CItemInfoTable.Create();
+			CSkillInfoTable.Create();
+			CObjInfoTable.Create();
+			CFXInfoTable.Create();
+			CAbilityInfoTable.Create();
+			CProductSaleInfoTable.Create();
+			// 테이블을 생성한다 }
 			
 			// 저장소를 생성한다
 			CAppInfoStorage.Create();
