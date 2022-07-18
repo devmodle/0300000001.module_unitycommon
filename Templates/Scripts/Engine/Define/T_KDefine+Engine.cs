@@ -47,6 +47,17 @@ namespace SampleEngineName {
 		// 경로 }
 		#endregion			// 런타임 상수
 	}
+
+	/** 서브 엔진 상수 */
+	public static partial class KDefine {
+		#region 추가 상수
+
+		#endregion			// 추가 상수
+
+		#region 추가 런타임 상수
+
+		#endregion			// 추가 런타임 상수
+	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

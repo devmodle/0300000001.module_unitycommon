@@ -250,7 +250,7 @@ namespace LateSetupScene {
 #if UNITY_ANDROID
 			// 권한이 필요 할 경우
 			if(m_oPermissionList.ExIsValid()) {
-				this.RequestPermission(m_oPermissionList[KCDefine.B_VAL_0_INT], this.OnReceivePermission);
+				this.RequestPermission(m_oPermissionList[KCDefine.B_VAL_0_INT], this.OnReceiveRequestPermissionResult);
 			} else {
 				this.LoadNextScene();
 			}
@@ -289,8 +289,8 @@ namespace LateSetupScene {
 
 		#region 조건부 함수
 #if UNITY_ANDROID
-		/** 권한을 수신했을 경우 */
-		private void OnReceivePermission(string a_oPermission, bool a_bIsSuccess) {
+		/** 권한 요청 결과를 수신했을 경우 */
+		private void OnReceiveRequestPermissionResult(string a_oPermission, bool a_bIsSuccess) {
 			m_oPermissionList.ExRemoveVal(a_oPermission);
 			this.ExLateCallFunc((a_oSender) => this.CheckPermission());
 		}

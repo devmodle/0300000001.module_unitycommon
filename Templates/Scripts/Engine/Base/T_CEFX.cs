@@ -47,12 +47,27 @@ namespace SampleEngineName {
 			base.Init(a_stParams.m_stBaseParams);
 			m_stParams = a_stParams;
 		}
+		#endregion			// 함수
+	}
 
+	/** 서브 효과 */
+	public partial class CEFX : CEComponent {
+		/** 서브 식별자 */
+		private enum ESubKey {
+			NONE = -1,
+			[HideInInspector] MAX_VAL
+		}
+
+		#region 추가 변수
+
+		#endregion			// 추가 변수
+
+		#region 추가 함수
 		/** 어빌리티 값을 설정한다 */
 		public override void SetupAbilityVals() {
 			base.SetupAbilityVals();
 		}
-		#endregion			// 함수
+		#endregion			// 추가 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

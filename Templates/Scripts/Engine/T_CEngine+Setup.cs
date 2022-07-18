@@ -15,12 +15,6 @@ namespace SampleEngineName {
 
 		#region 조건부 함수
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		/** 엔진을 설정한다 */
-		private void SetupEngine() {
-			m_oObjInfoDictContainers = new Dictionary<EObjType, List<(EObjKinds, CEObj)>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
-			m_oGridInfoDict[EKey.CUR_GRID_INFO] = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
-		}
-		
 		/** 레벨을 설정한다 */
 		private void SetupLevel() {
 			for(int i = 0; i < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
@@ -28,6 +22,23 @@ namespace SampleEngineName {
 					this.SetupCell(m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i][j]);
 				}
 			}
+		}
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+		#endregion			// 조건부 함수
+	}
+
+	/** 서브 엔진 - 설정 */
+	public partial class CEngine : CComponent {
+		#region 추가 함수
+
+		#endregion			// 추가 함수
+
+		#region 추가 조건부 함수
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
+		/** 엔진을 설정한다 */
+		private void SetupEngine() {
+			m_oObjInfoDictContainers = new Dictionary<EObjType, List<(EObjKinds, CEObj)>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
+			m_oGridInfoDict[EKey.CUR_GRID_INFO] = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
 		}
 
 		/** 셀을 설정한다 */
@@ -52,7 +63,7 @@ namespace SampleEngineName {
 			// Do Something
 		}
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		#endregion			// 조건부 함수
+		#endregion			// 추가 조건부 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

@@ -10,16 +10,6 @@ namespace SampleEngineName {
 	/** 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		/** 상태를 변경한다 */
-		public void SetState(EState a_eState) {
-			m_oStateDict[EKey.CUR_STATE] = a_eState;
-
-			switch(a_eState) {
-				case EState.RUN: this.HandleRunState(); break;
-				case EState.STOP: this.HandleStopState(); break;
-			}
-		}
-
 		/** 객체 정보를 반환한다 */
 		public (EObjKinds, CEObj) FindObjInfo(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
 			bool bIsValid = this.TryFindObjInfo(a_eObjType, a_eObjKinds, a_stIdx, out (EObjKinds, CEObj) stObjInfo);
@@ -105,6 +95,21 @@ namespace SampleEngineName {
 			return false;
 		}
 		#endregion			// 함수
+	}
+
+	/** 서브 엔진 - 접근 */
+	public partial class CEngine : CComponent {
+		#region 추가 함수
+		/** 상태를 변경한다 */
+		public void SetState(EState a_eState) {
+			m_oStateDict[EKey.CUR_STATE] = a_eState;
+
+			switch(a_eState) {
+				case EState.RUN: this.HandleRunState(); break;
+				case EState.STOP: this.HandleStopState(); break;
+			}
+		}
+		#endregion			// 추가 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

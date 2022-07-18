@@ -33,12 +33,27 @@ namespace SampleEngineName {
 		public virtual void Init(STParams a_stParams) {
 			m_stParams = a_stParams;
 		}
+		#endregion			// 함수
+	}
 
+	/** 서브 엔진 컴포넌트 */
+	public partial class CEComponent : CComponent {
+		/** 서브 식별자 */
+		private enum ESubKey {
+			NONE = -1,
+			[HideInInspector] MAX_VAL
+		}
+
+		#region 추가 변수
+
+		#endregion			// 추가 변수
+
+		#region 추가 함수
 		/** 어빌리티 값을 설정한다 */
 		public virtual void SetupAbilityVals() {
 			// Do Something
 		}
-		#endregion			// 함수
+		#endregion			// 추가 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

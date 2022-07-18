@@ -95,6 +95,36 @@ namespace SampleEngineName {
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
+		/** 터치를 시작했을 경우 */
+		public void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			this.HandleTouchState(a_oSender, a_oEventData, ETouch.BEGIN);
+		}
+
+		/** 터치를 움직였을 경우 */
+		public void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			this.HandleTouchState(a_oSender, a_oEventData, ETouch.MOVE);
+		}
+
+		/** 터치를 종료했을 경우 */
+		public void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			this.HandleTouchState(a_oSender, a_oEventData, ETouch.END);
+		}
+		#endregion			// 함수
+	}
+
+	/** 서브 엔진 */
+	public partial class CEngine : CComponent {
+		/** 서브 식별자 */
+		private enum ESubKey {
+			NONE = -1,
+			[HideInInspector] MAX_VAL
+		}
+
+		#region 추가 변수
+
+		#endregion			// 추가 변수
+
+		#region 추가 함수
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
@@ -124,21 +154,6 @@ namespace SampleEngineName {
 			}
 		}
 
-		/** 터치를 시작했을 경우 */
-		public void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			this.HandleTouchState(a_oSender, a_oEventData, ETouch.BEGIN);
-		}
-
-		/** 터치를 움직였을 경우 */
-		public void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			this.HandleTouchState(a_oSender, a_oEventData, ETouch.MOVE);
-		}
-
-		/** 터치를 종료했을 경우 */
-		public void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			this.HandleTouchState(a_oSender, a_oEventData, ETouch.END);
-		}
-		
 		/** 구동 상태를 처리한다 */
 		private void HandleRunState() {
 			// Do Something
@@ -163,9 +178,9 @@ namespace SampleEngineName {
 				} break;
 			}
 		}
-		#endregion			// 함수
+		#endregion			// 추가 함수
 
-		#region 조건부 함수
+		#region 추가 조건부 함수
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public virtual void OnDrawGizmos() {
@@ -175,7 +190,7 @@ namespace SampleEngineName {
 			}
 		}
 #endif			// #if UNITY_EDITOR
-		#endregion			// 조건부 함수
+		#endregion			// 추가 조건부 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
