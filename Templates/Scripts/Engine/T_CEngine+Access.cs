@@ -102,7 +102,7 @@ namespace SampleEngineName {
 		#region 추가 함수
 		/** 상태를 변경한다 */
 		public void SetState(EState a_eState) {
-			m_oStateDict[EKey.CUR_STATE] = a_eState;
+			this.State = a_eState;
 
 			switch(a_eState) {
 				case EState.RUN: this.HandleRunState(); break;

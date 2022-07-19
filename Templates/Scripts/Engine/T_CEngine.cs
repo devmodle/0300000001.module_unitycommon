@@ -15,8 +15,7 @@ namespace SampleEngineName {
 			NONE = -1,
 			INT_RECORD,
 			REAL_RECORD,
-			CUR_STATE,
-			CUR_GRID_INFO,
+			SEL_GRID_INFO,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -36,6 +35,12 @@ namespace SampleEngineName {
 			[HideInInspector] MAX_VAL
 		}
 
+		/** 엔진 상태 */
+		public enum EEngineState {
+			NONE = -1,
+			[HideInInspector] MAX_VAL
+		}
+
 		/** 매개 변수 */
 		public partial struct STParams {
 			public GameObject m_oObjRoot;
@@ -52,17 +57,10 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-
-		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
-			// Do Something
-		};
-
-		private Dictionary<EKey, EState> m_oStateDict = new Dictionary<EKey, EState>() {
-			[EKey.CUR_STATE] = EState.NONE
-		};
+		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>();
 
 		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>() {
-			[EKey.CUR_GRID_INFO] = default(STGridInfo)
+			[EKey.SEL_GRID_INFO] = default(STGridInfo)
 		};
 
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
@@ -75,8 +73,10 @@ namespace SampleEngineName {
 		public long IntRecord { get { return long.Parse(m_oStrDict.GetValueOrDefault(EKey.INT_RECORD, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(EKey.INT_RECORD, $"{value}"); } }
 		public double RealRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(EKey.REAL_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(EKey.REAL_RECORD, $"{value}"); } }
 
-		public EState CurState => m_oStateDict[EKey.CUR_STATE];
-		public STGridInfo GridInfo => m_oGridInfoDict[EKey.CUR_GRID_INFO];
+		public EState State { get; private set; } = EState.NONE;
+		public EEngineState EngineState { get; private set; } = EEngineState.NONE;
+
+		public STGridInfo SelGridInfo => m_oGridInfoDict[EKey.SEL_GRID_INFO];
 
 		public GameObject ObjRoot => m_stParams.m_oObjRoot;
 		public GameObject FXObjRoot => m_stParams.m_oFXObjRoot;
@@ -117,11 +117,17 @@ namespace SampleEngineName {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
+			MOVE_DIRECTION,
 			[HideInInspector] MAX_VAL
 		}
 
 		#region 추가 변수
+		private CEObj m_oPlayerObj = null;
+		private List<CEObj> m_oEnemyObjList = new List<CEObj>();
 
+		private Dictionary<ESubKey, Vector3> m_oSubVec3Dict = new Dictionary<ESubKey, Vector3>() {
+			[ESubKey.MOVE_DIRECTION] = Vector3.zero
+		};
 		#endregion			// 추가 변수
 
 		#region 추가 함수
@@ -135,8 +141,10 @@ namespace SampleEngineName {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
-				// Do Something
+			if(CSceneManager.IsAppRunning && this.State == EState.RUN) {
+				switch(this.EngineState) {
+					// Do Something
+				}
 			}
 		}
 
@@ -154,6 +162,11 @@ namespace SampleEngineName {
 			}
 		}
 
+		/** 플레이어 객체 이동을 처리한다 */
+		public void MovePlayerObj(Vector3 a_stDirection) {
+			m_oSubVec3Dict[ESubKey.MOVE_DIRECTION] = a_stDirection;
+		}
+
 		/** 구동 상태를 처리한다 */
 		private void HandleRunState() {
 			// Do Something
@@ -166,16 +179,15 @@ namespace SampleEngineName {
 
 		/** 터치 이벤트를 처리한다 */
 		private void HandleTouchState(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouch a_eTouch) {
-			switch(m_oStateDict[EKey.CUR_STATE]) {
-				case EState.RUN: {
-					var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot);
+			// 구동 상태 일 경우
+			if(this.State == EState.RUN) {
+				var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot);
 
-					// 그리드 영역 일 경우
-					if(m_oGridInfoDict[EKey.CUR_GRID_INFO].m_stBounds.Contains(stTouchPos)) {
-						var stIdx = stTouchPos.ExToIdx(m_oGridInfoDict[EKey.CUR_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
-						CAccess.Assert(m_oObjInfoDictContainers.ExIsValidIdx(stIdx));
-					}
-				} break;
+				// 그리드 영역 일 경우
+				if(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(stTouchPos)) {
+					var stIdx = stTouchPos.ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+					CAccess.Assert(m_oObjInfoDictContainers.ExIsValidIdx(stIdx));
+				}
 			}
 		}
 		#endregion			// 추가 함수
