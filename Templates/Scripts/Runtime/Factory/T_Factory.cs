@@ -16,9 +16,9 @@ public static partial class Factory {
 	}
 
 	/** 타겟 정보를 생성한다 */
-	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, string a_oTarget01 = KCDefine.B_STR_0_INT, string a_oTarget02 = KCDefine.B_STR_0_INT, string a_oTarget03 = KCDefine.B_STR_0_INT) {
+	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) {
 		return new STTargetInfo() {
-			m_nKinds = a_nKinds, m_oTarget01 = a_oTarget01, m_oTarget02 = a_oTarget02, m_oTarget03 = a_oTarget03, m_eTargetKinds = a_eTargetKinds
+			m_nKinds = a_nKinds, m_eTargetKinds = a_eTargetKinds, m_eKindsGroupType = a_eKindsGroupType, m_stValInfo = a_stValInfo
 		};
 	}
 	

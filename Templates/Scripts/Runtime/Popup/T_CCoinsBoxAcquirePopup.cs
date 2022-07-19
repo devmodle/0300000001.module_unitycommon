@@ -55,9 +55,9 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		m_stParams = a_stParams;
 		m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] = CUserInfoStorage.Inst.NumCoinsBoxCoins;
 
-		Func.Acquire(new STTargetInfo() {
-			m_nKinds = (int)EItemKinds.GOODS_COINS_BOX_COINS, m_oTarget01 = $"{a_stParams.m_nNumCoinsBoxCoins}", m_eTargetKinds = ETargetKinds.ITEM_NUMS
-		}, true);
+		Func.Acquire(Factory.MakeTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS_BOX_COINS, new STValInfo() {
+			m_oVal = $"{a_stParams.m_nNumCoinsBoxCoins}", m_eValType = EValType.INT
+		}), true);
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */

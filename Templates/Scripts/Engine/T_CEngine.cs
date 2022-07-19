@@ -118,15 +118,20 @@ namespace SampleEngineName {
 		private enum ESubKey {
 			NONE = -1,
 			MOVE_DIRECTION,
+			SEL_PLAYER_OBJ,
 			[HideInInspector] MAX_VAL
 		}
 
 		#region 추가 변수
-		private CEObj m_oPlayerObj = null;
-		private List<CEObj> m_oEnemyObjList = new List<CEObj>();
+		private List<CEEnemyObj> m_oSubEnemyObjList = new List<CEEnemyObj>();
+		private List<CEFX> m_oSubFXList = new List<CEFX>();
 
 		private Dictionary<ESubKey, Vector3> m_oSubVec3Dict = new Dictionary<ESubKey, Vector3>() {
 			[ESubKey.MOVE_DIRECTION] = Vector3.zero
+		};
+
+		private Dictionary<ESubKey, CEPlayerObj> m_oSubPlayerObjList = new Dictionary<ESubKey, CEPlayerObj>() {
+			[ESubKey.SEL_PLAYER_OBJ] = null
 		};
 		#endregion			// 추가 변수
 

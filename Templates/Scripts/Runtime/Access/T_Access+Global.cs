@@ -107,9 +107,9 @@ public static partial class Access {
 		CAccess.Assert(a_oUserTargetInfo != null);
 
 		switch(a_stTargetInfo.m_eTargetKinds) {
-			case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: return a_oUserTargetInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_LV, STAbilityValInfo.INVALID).m_nVal >= a_stTargetInfo.IntTarget01;
-			case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: return a_oUserTargetInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_NUMS, STAbilityValInfo.INVALID).m_nVal >= a_stTargetInfo.IntTarget01;
-			case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: return a_oUserTargetInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_ENHANCE, STAbilityValInfo.INVALID).m_nVal >= a_stTargetInfo.IntTarget01;
+			case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: return a_oUserTargetInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_LV, STAbilityValInfo.INVALID).m_nVal >= a_stTargetInfo.m_stValInfo.IntVal;
+			case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: return a_oUserTargetInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_NUMS, STAbilityValInfo.INVALID).m_nVal >= a_stTargetInfo.m_stValInfo.IntVal;
+			case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: return a_oUserTargetInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_ENHANCE, STAbilityValInfo.INVALID).m_nVal >= a_stTargetInfo.m_stValInfo.IntVal;
 		}
 
 		return false;
@@ -117,26 +117,26 @@ public static partial class Access {
 
 	/** 아이템 타겟 교환 가능 여부를 검사한다 */
 	private static bool IsEnableItemTargetTrade(CUserItemInfo a_oUserItemInfo, STTargetInfo a_stTargetInfo) {
-		var stItemInfo = CItemInfoTable.Inst.GetItemInfo((EItemKinds)a_stTargetInfo.m_nKinds);
-		CAccess.Assert(a_oUserItemInfo != null || !CItemInfoTable.Inst.GetItemInfo((EItemKinds)a_stTargetInfo.m_nKinds).m_stCommonInfo.m_bIsRepeat);
+		var stItemInfo = CItemInfoTable.Inst.GetItemInfo((EItemKinds)a_stTargetInfo.Kinds);
+		CAccess.Assert(a_oUserItemInfo != null || !CItemInfoTable.Inst.GetItemInfo((EItemKinds)a_stTargetInfo.Kinds).m_stCommonInfo.m_bIsRepeat);
 
-		return Access.DoIsEnableTrade(a_oUserItemInfo ?? CUserInfoStorage.Inst.GetUserItemInfo((EItemKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo);
+		return Access.DoIsEnableTrade(a_oUserItemInfo ?? CUserInfoStorage.Inst.GetUserItemInfo((EItemKinds)a_stTargetInfo.Kinds), a_stTargetInfo);
 	}
 
 	/** 스킬 타겟 교환 가능 여부를 검사한다 */
 	private static bool IsEnableSkillTargetTrade(CUserSkillInfo a_oUserSkillInfo, STTargetInfo a_stTargetInfo) {
-		var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds);
-		CAccess.Assert(a_oUserSkillInfo != null || !CSkillInfoTable.Inst.GetSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds).m_stCommonInfo.m_bIsRepeat);
+		var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo((ESkillKinds)a_stTargetInfo.Kinds);
+		CAccess.Assert(a_oUserSkillInfo != null || !CSkillInfoTable.Inst.GetSkillInfo((ESkillKinds)a_stTargetInfo.Kinds).m_stCommonInfo.m_bIsRepeat);
 
-		return Access.DoIsEnableTrade(a_oUserSkillInfo ?? CUserInfoStorage.Inst.GetUserSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo);
+		return Access.DoIsEnableTrade(a_oUserSkillInfo ?? CUserInfoStorage.Inst.GetUserSkillInfo((ESkillKinds)a_stTargetInfo.Kinds), a_stTargetInfo);
 	}
 
 	/** 객체 타겟 교환 가능 여부를 검사한다 */
 	private static bool IsEnableObjTargetTrade(CUserObjInfo a_oUserObjInfo, STTargetInfo a_stTargetInfo) {
-		var stObjInfo = CObjInfoTable.Inst.GetObjInfo((EObjKinds)a_stTargetInfo.m_nKinds);
-		CAccess.Assert(a_oUserObjInfo != null || !CObjInfoTable.Inst.GetObjInfo((EObjKinds)a_stTargetInfo.m_nKinds).m_stCommonInfo.m_bIsRepeat);
+		var stObjInfo = CObjInfoTable.Inst.GetObjInfo((EObjKinds)a_stTargetInfo.Kinds);
+		CAccess.Assert(a_oUserObjInfo != null || !CObjInfoTable.Inst.GetObjInfo((EObjKinds)a_stTargetInfo.Kinds).m_stCommonInfo.m_bIsRepeat);
 
-		return Access.DoIsEnableTrade(a_oUserObjInfo ?? CUserInfoStorage.Inst.GetUserObjInfo((EObjKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo);
+		return Access.DoIsEnableTrade(a_oUserObjInfo ?? CUserInfoStorage.Inst.GetUserObjInfo((EObjKinds)a_stTargetInfo.Kinds), a_stTargetInfo);
 	}
 	#endregion			// 클래스 함수
 }

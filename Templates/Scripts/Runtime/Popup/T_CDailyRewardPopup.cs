@@ -97,7 +97,9 @@ public partial class CDailyRewardPopup : CSubPopup {
 			var oTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 			foreach(var stKeyVal in stRewardInfo.m_oAcquireTargetInfoDict) {
-				oTargetInfoDict.TryAdd(stKeyVal.Key, Factory.MakeTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, $"{stKeyVal.Value.IntTarget01 * KCDefine.B_VAL_2_INT}"));
+				oTargetInfoDict.TryAdd(stKeyVal.Key, Factory.MakeTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, new STValInfo() {
+					m_oVal = $"{stKeyVal.Value.m_stValInfo.IntVal * KCDefine.B_VAL_2_INT}", m_eValType = stKeyVal.Value.m_stValInfo.m_eValType
+				}));
 			}
 
 			stRewardInfo.m_oAcquireTargetInfoDict = oTargetInfoDict;

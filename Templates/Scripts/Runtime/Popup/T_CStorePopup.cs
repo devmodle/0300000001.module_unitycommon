@@ -115,7 +115,7 @@ public partial class CStorePopup : CSubPopup {
 
 			// 텍스트를 갱신한다 {
 			var oPriceText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
-			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoDict.First().Value.m_oTarget01), EFontSet._1, false);
+			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoDict.First().Value.m_stValInfo.IntVal), EFontSet._1, false);
 
 			var oAcquireTargetInfoKeyList = a_stProductSaleInfo.m_oAcquireTargetInfoDict.Keys.ToList();
 			a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stProductSaleInfo.m_stCommonInfo.m_oName, EFontSet._1, false);
@@ -124,7 +124,7 @@ public partial class CStorePopup : CSubPopup {
 				var oNumText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
 				var nUniqueTargetInfoID = oAcquireTargetInfoKeyList[i];
 
-				oNumText?.ExSetText(a_stProductSaleInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_oTarget01, EFontSet._1, false);
+				oNumText?.ExSetText(a_stProductSaleInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo.m_oVal, EFontSet._1, false);
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE

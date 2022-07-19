@@ -13,6 +13,26 @@ using UnityEngine.Purchasing;
 /** 전역 함수 */
 public static partial class Func {
 	#region 클래스 함수
+	/** 어빌리티 값을 설정한다 */
+	public static void SetupAbilityVals(STTargetInfo a_stTargetInfo, Dictionary<EAbilityKinds, long> a_oOutIntAbilityValDict, Dictionary<EAbilityKinds, double> a_oOutRealAbilityValDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_stTargetInfo.m_eTargetKinds == ETargetKinds.ABILITY_VAL && (a_oOutIntAbilityValDict != null || a_oOutRealAbilityValDict != null)));
+
+		// 어빌리티 값 설정이 가능 할 경우
+		if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ABILITY_VAL && (a_oOutIntAbilityValDict != null || a_oOutRealAbilityValDict != null)) {
+			var stAbilityInfo = CAbilityInfoTable.Inst.GetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds);
+			var eAbilityKinds = (EAbilityKinds)a_stTargetInfo.m_nKinds.ExKindsToSubKindsType();
+
+			switch(a_stTargetInfo.m_stValInfo.m_eValType) {
+				case EValType.INT: a_oOutIntAbilityValDict.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutIntAbilityValDict.GetValueOrDefault(eAbilityKinds) + (stAbilityInfo.m_stValInfo.IntVal * a_stTargetInfo.m_stValInfo.IntVal), KCDefine.B_VAL_0_INT, long.MaxValue)); break;
+				case EValType.REAL: a_oOutRealAbilityValDict.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutIntAbilityValDict.GetValueOrDefault(eAbilityKinds) + (stAbilityInfo.m_stValInfo.RealVal * a_stTargetInfo.m_stValInfo.RealVal), KCDefine.B_VAL_0_REAL, double.MaxValue)); break;
+			}
+
+			foreach(var stKeyVal in stAbilityInfo.m_oExtraAbilityTargetInfoDict) {
+				Func.SetupAbilityVals(stKeyVal.Value, a_oOutIntAbilityValDict, a_oOutRealAbilityValDict);
+			}
+		}
+	}
+
 	/** 지불한다 */
 	public static void Pay(STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
 		switch(a_stTargetInfo.TargetType) {
@@ -209,16 +229,16 @@ public static partial class Func {
 		if(a_oUserTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(a_stTargetInfo.m_eTargetKinds) {
 				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_LV, -a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_EXP: case ETargetKinds.SKILL_EXP: case ETargetKinds.OBJ_EXP: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_EXP, -a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_NUMS, -a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
 				} break;
 			}
 		}
@@ -226,40 +246,40 @@ public static partial class Func {
 
 	/** 아이템 타겟을 지불한다 */
 	private static void PayItemTarget(CUserItemInfo a_oUserItemInfo, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
-		bool bIsValid = CItemInfoTable.Inst.TryGetItemInfo((EItemKinds)a_stTargetInfo.m_nKinds, out STItemInfo stItemInfo);
+		bool bIsValid = CItemInfoTable.Inst.TryGetItemInfo((EItemKinds)a_stTargetInfo.Kinds, out STItemInfo stItemInfo);
 
 		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID)));
 		CAccess.Assert(!a_bIsEnableAssert || (a_oUserItemInfo != null || !stItemInfo.m_stCommonInfo.m_bIsRepeat));
 
 		// 유저 아이템 정보가 존재 할 경우
 		if(bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID) && (a_oUserItemInfo != null || !stItemInfo.m_stCommonInfo.m_bIsRepeat)) {
-			Func.DoPay(a_oUserItemInfo ?? CUserInfoStorage.Inst.GetUserItemInfo((EItemKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert);
+			Func.DoPay(a_oUserItemInfo ?? CUserInfoStorage.Inst.GetUserItemInfo((EItemKinds)a_stTargetInfo.Kinds), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 
 	/** 스킬 타겟을 지불한다 */
 	private static void PaySkillTarget(CUserSkillInfo a_oUserSkillInfo, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
-		bool bIsValid = CSkillInfoTable.Inst.TryGetSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds, out STSkillInfo stSkillInfo);
+		bool bIsValid = CSkillInfoTable.Inst.TryGetSkillInfo((ESkillKinds)a_stTargetInfo.Kinds, out STSkillInfo stSkillInfo);
 
 		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID)));
 		CAccess.Assert(!a_bIsEnableAssert || (a_oUserSkillInfo != null || !stSkillInfo.m_stCommonInfo.m_bIsRepeat));
 
 		// 유저 스킬 정보가 존재 할 경우
 		if(bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID) && (a_oUserSkillInfo != null || !stSkillInfo.m_stCommonInfo.m_bIsRepeat)) {
-			Func.DoPay(a_oUserSkillInfo ?? CUserInfoStorage.Inst.GetUserSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert);
+			Func.DoPay(a_oUserSkillInfo ?? CUserInfoStorage.Inst.GetUserSkillInfo((ESkillKinds)a_stTargetInfo.Kinds), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 
 	/** 객체 타겟을 지불한다 */
 	private static void PayObjTarget(CUserObjInfo a_oUserObjInfo, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
-		bool bIsValid = CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.m_nKinds, out STObjInfo stObjInfo);
+		bool bIsValid = CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.Kinds, out STObjInfo stObjInfo);
 
 		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID)));
 		CAccess.Assert(!a_bIsEnableAssert || (a_oUserObjInfo != null || !stObjInfo.m_stCommonInfo.m_bIsRepeat));
 
 		// 유저 객체 정보가 존재 할 경우
 		if(bIsValid && !a_stTargetInfo.Equals(STTargetInfo.INVALID) && (a_oUserObjInfo != null || !stObjInfo.m_stCommonInfo.m_bIsRepeat)) {
-			Func.DoPay(a_oUserObjInfo ?? CUserInfoStorage.Inst.GetUserObjInfo((EObjKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert);
+			Func.DoPay(a_oUserObjInfo ?? CUserInfoStorage.Inst.GetUserObjInfo((EObjKinds)a_stTargetInfo.Kinds), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 
@@ -271,16 +291,16 @@ public static partial class Func {
 		if(a_oUserTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(a_stTargetInfo.m_eTargetKinds) {
 				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_LV, a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_EXP: case ETargetKinds.SKILL_EXP: case ETargetKinds.OBJ_EXP: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_EXP, a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_NUMS, a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExAddVal(EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.IntTarget01, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
 				} break;
 			}
 		}
@@ -292,10 +312,10 @@ public static partial class Func {
 
 		// 유저 아이템 정보가 존재 할 경우
 		if((a_bIsAutoCreate || a_oUserItemInfo != null) && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
-			Func.DoAcquire(a_oUserItemInfo ?? Access.GetUserItemInfo((EItemKinds)a_stTargetInfo.m_nKinds, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
+			Func.DoAcquire(a_oUserItemInfo ?? Access.GetUserItemInfo((EItemKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
 
 			// 광고 제거 아이템 일 경우
-			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_NUMS && (EItemKinds)a_stTargetInfo.m_nKinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
+			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_NUMS && (EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
 #if ADS_MODULE_ENABLE
 				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
 
@@ -312,7 +332,7 @@ public static partial class Func {
 
 		// 유저 스킬 정보가 존재 할 경우
 		if((a_bIsAutoCreate || a_oUserSkillInfo != null) && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
-			Func.DoAcquire(a_oUserSkillInfo ?? Access.GetUserSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
+			Func.DoAcquire(a_oUserSkillInfo ?? Access.GetUserSkillInfo((ESkillKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 
@@ -322,7 +342,7 @@ public static partial class Func {
 
 		// 유저 객체 정보가 존재 할 경우
 		if((a_bIsAutoCreate || a_oUserObjInfo != null) && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
-			Func.DoAcquire(a_oUserObjInfo ?? Access.GetUserObjInfo((EObjKinds)a_stTargetInfo.m_nKinds, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
+			Func.DoAcquire(a_oUserObjInfo ?? Access.GetUserObjInfo((EObjKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 	#endregion			// 클래스 함수

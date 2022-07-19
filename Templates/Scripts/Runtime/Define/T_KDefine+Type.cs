@@ -15,26 +15,28 @@ using Newtonsoft.Json;
 [System.Serializable]
 public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	public int m_nKinds;
-	public string m_oTarget01;
-	public string m_oTarget02;
-	public string m_oTarget03;
 	public ETargetKinds m_eTargetKinds;
 	public EKindsGroupType m_eKindsGroupType;
+	public STValInfo m_stValInfo;
 
 	#region 상수
 	public static readonly STTargetInfo INVALID = new STTargetInfo() {
-		m_nKinds = KCDefine.B_IDX_INVALID, m_eTargetKinds = ETargetKinds.NONE
+		m_nKinds = KCDefine.B_IDX_INVALID, m_eTargetKinds = ETargetKinds.NONE, m_eKindsGroupType = EKindsGroupType.NONE, m_stValInfo = STValInfo.INVALID
 	};
 	#endregion			// 상수
 
 	#region 프로퍼티
-	public long IntTarget01 => long.TryParse(m_oTarget01, NumberStyles.Any, null, out long nTarget01) ? nTarget01 : KCDefine.B_VAL_0_INT;
-	public long IntTarget02 => long.TryParse(m_oTarget02, NumberStyles.Any, null, out long nTarget02) ? nTarget02 : KCDefine.B_VAL_0_INT;
-	public long IntTarget03 => long.TryParse(m_oTarget03, NumberStyles.Any, null, out long nTarget03) ? nTarget03 : KCDefine.B_VAL_0_INT;
-
-	public double RealTarget01 => double.TryParse(m_oTarget01, NumberStyles.Any, null, out double dblTarget01) ? dblTarget01 : KCDefine.B_VAL_0_REAL;
-	public double RealTarget02 => double.TryParse(m_oTarget02, NumberStyles.Any, null, out double dblTarget02) ? dblTarget02 : KCDefine.B_VAL_0_REAL;
-	public double RealTarget03 => double.TryParse(m_oTarget03, NumberStyles.Any, null, out double dblTarget03) ? dblTarget03 : KCDefine.B_VAL_0_REAL;
+	public int Kinds {
+		get {
+			switch(m_eKindsGroupType) {
+				case EKindsGroupType.SUB_TYPE: return m_nKinds.ExKindsToSubType();
+				case EKindsGroupType.KINDS_TYPE: return m_nKinds.ExKindsToKindsType();
+				case EKindsGroupType.SUB_KINDS_TYPE: return m_nKinds.ExKindsToSubKindsType();
+			}
+			
+			return m_nKinds;
+		}
+	}
 
 	public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
 	public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
@@ -43,19 +45,17 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	#region IEquatable
 	/** 동일 여부를 검사한다 */
 	public bool Equals(STTargetInfo a_stTargetInfo) {
-		return m_nKinds == a_stTargetInfo.m_nKinds && m_eTargetKinds == a_stTargetInfo.m_eTargetKinds && m_oTarget01.Equals(a_stTargetInfo.m_oTarget01) && m_oTarget02.Equals(a_stTargetInfo.m_oTarget02) && m_oTarget03.Equals(a_stTargetInfo.m_oTarget03);
+		return m_nKinds == a_stTargetInfo.m_nKinds && m_eTargetKinds == a_stTargetInfo.m_eTargetKinds && m_eKindsGroupType == a_stTargetInfo.m_eKindsGroupType && m_stValInfo.Equals(a_stTargetInfo.m_stValInfo);
 	}
 	#endregion			// IEquatable
 
 	#region 함수
 	/** 생성자 */
-	public STTargetInfo(SimpleJSON.JSONNode a_oTargetInfo) {
-		m_nKinds = a_oTargetInfo[KCDefine.B_VAL_2_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_2_INT].AsInt : KCDefine.B_IDX_INVALID;
-		m_oTarget01 = a_oTargetInfo[KCDefine.B_VAL_3_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_3_INT] : KCDefine.B_STR_0_INT;
-		m_oTarget02 = a_oTargetInfo[KCDefine.B_VAL_4_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_4_INT] : KCDefine.B_STR_0_INT;
-		m_oTarget03 = a_oTargetInfo[KCDefine.B_VAL_5_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_5_INT] : KCDefine.B_STR_0_INT;
-		m_eTargetKinds = a_oTargetInfo[KCDefine.B_VAL_0_INT].ExIsValid() ? (ETargetKinds)a_oTargetInfo[KCDefine.B_VAL_0_INT].AsInt : ETargetKinds.NONE;
-		m_eKindsGroupType = a_oTargetInfo[KCDefine.B_VAL_1_INT].ExIsValid() ? (EKindsGroupType)a_oTargetInfo[KCDefine.B_VAL_1_INT].AsInt : EKindsGroupType.NONE;
+	public STTargetInfo(SimpleJSON.JSONNode a_oTargetInfo, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
+		m_nKinds = a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_2_INT].ExIsValid() ? a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_2_INT].AsInt : KCDefine.B_IDX_INVALID;
+		m_eTargetKinds = a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_0_INT].ExIsValid() ? (ETargetKinds)a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_0_INT].AsInt : ETargetKinds.NONE;
+		m_eKindsGroupType = a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_1_INT].ExIsValid() ? (EKindsGroupType)a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_1_INT].AsInt : EKindsGroupType.NONE;
+		m_stValInfo = new STValInfo(a_oTargetInfo, a_nSrcIdx + KCDefine.B_VAL_3_INT);
 	}
 	#endregion			// 함수
 
@@ -65,10 +65,10 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	public void MakeTargetInfo(string a_oKey, SimpleJSON.JSONClass a_oOutTargetInfo) {
 		var oJSONArray = new SimpleJSON.JSONArray();
 		oJSONArray.Add($"{(int)m_eTargetKinds}");
+		oJSONArray.Add($"{(int)m_eKindsGroupType}");
 		oJSONArray.Add($"{m_nKinds}");
-		oJSONArray.Add(m_oTarget01);
-		oJSONArray.Add(m_oTarget02);
-		oJSONArray.Add(m_oTarget03);
+		oJSONArray.Add($"{(int)m_stValInfo.m_eValType}");
+		oJSONArray.Add(m_stValInfo.m_oVal);
 
 		a_oOutTargetInfo.Add(a_oKey, oJSONArray);
 	}
@@ -102,9 +102,9 @@ public partial struct STAbilityValInfo : System.IEquatable<STAbilityValInfo> {
 
 	#region 함수
 	/** 생성자 */
-	public STAbilityValInfo(SimpleJSON.JSONNode a_oAbilityValInfo) {
-		m_nVal = long.TryParse(a_oAbilityValInfo[KCDefine.B_VAL_1_INT], NumberStyles.Any, null, out long nLV) ? nLV : KCDefine.B_VAL_0_INT;
-		m_eAbilityKinds = a_oAbilityValInfo[KCDefine.B_VAL_0_INT].ExIsValid() ? (EAbilityKinds)a_oAbilityValInfo[KCDefine.B_VAL_0_INT].AsInt : EAbilityKinds.NONE;
+	public STAbilityValInfo(SimpleJSON.JSONNode a_oAbilityValInfo, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
+		m_nVal = long.TryParse(a_oAbilityValInfo[a_nSrcIdx + KCDefine.B_VAL_1_INT], NumberStyles.Any, null, out long nLV) ? nLV : KCDefine.B_VAL_0_INT;
+		m_eAbilityKinds = a_oAbilityValInfo[a_nSrcIdx + KCDefine.B_VAL_0_INT].ExIsValid() ? (EAbilityKinds)a_oAbilityValInfo[a_nSrcIdx + KCDefine.B_VAL_0_INT].AsInt : EAbilityKinds.NONE;
 	}
 	#endregion			// 함수
 
