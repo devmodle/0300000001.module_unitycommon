@@ -164,6 +164,11 @@ public partial struct STSkillEnhanceInfo {
 /** 스킬 정보 테이블 */
 public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	#region 변수
+	[Header("=====> Action Skill Info <=====")]
+	[SerializeField] private List<STSkillInfo> m_oActionSkillInfoList = new List<STSkillInfo>();
+	[SerializeField] private List<STSkillSaleInfo> m_oActionSkillSaleInfoList = new List<STSkillSaleInfo>();
+	[SerializeField] private List<STSkillEnhanceInfo> m_oActionSkillEnhanceInfoList = new List<STSkillEnhanceInfo>();
+
 	[Header("=====> Active Skill Info <=====")]
 	[SerializeField] private List<STSkillInfo> m_oActiveSkillInfoList = new List<STSkillInfo>();
 	[SerializeField] private List<STSkillSaleInfo> m_oActiveSkillSaleInfoList = new List<STSkillSaleInfo>();
@@ -204,13 +209,16 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		this.SkillSaleInfoDict.Clear();
 		this.SkillEnhanceInfoDict.Clear();
 
-		var oSkillInfoList = new List<STSkillInfo>(m_oActiveSkillInfoList);
+		var oSkillInfoList = new List<STSkillInfo>(m_oActionSkillInfoList);
+		oSkillInfoList.ExAddVals(m_oActiveSkillInfoList);
 		oSkillInfoList.ExAddVals(m_oPassiveSkillInfoList);
 
-		var oSkillSaleInfoList = new List<STSkillSaleInfo>(m_oActiveSkillSaleInfoList);
+		var oSkillSaleInfoList = new List<STSkillSaleInfo>(m_oActionSkillSaleInfoList);
+		oSkillSaleInfoList.ExAddVals(m_oActiveSkillSaleInfoList);
 		oSkillSaleInfoList.ExAddVals(m_oPassiveSkillSaleInfoList);
 
-		var oSkillEnhanceInfoList = new List<STSkillEnhanceInfo>(m_oActiveSkillEnhanceInfoList);
+		var oSkillEnhanceInfoList = new List<STSkillEnhanceInfo>(m_oActionSkillEnhanceInfoList);
+		oSkillEnhanceInfoList.ExAddVals(m_oActiveSkillEnhanceInfoList);
 		oSkillEnhanceInfoList.ExAddVals(m_oPassiveSkillEnhanceInfoList);
 
 		for(int i = 0; i < oSkillInfoList.Count; ++i) {
@@ -301,15 +309,15 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
 		var oSkillInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_ACTIVE], oJSONNode[KCDefine.U_KEY_PASSIVE]
+			oJSONNode[KCDefine.U_KEY_ACTION], oJSONNode[KCDefine.U_KEY_ACTIVE], oJSONNode[KCDefine.U_KEY_PASSIVE]
 		};
 
 		var oSkillSaleInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_ACTIVE_SALE], oJSONNode[KCDefine.U_KEY_PASSIVE_SALE]
+			oJSONNode[KCDefine.U_KEY_ACTION_SALE], oJSONNode[KCDefine.U_KEY_ACTIVE_SALE], oJSONNode[KCDefine.U_KEY_PASSIVE_SALE]
 		};
 
 		var oSkillEnhanceInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_ACTIVE_ENHANCE], oJSONNode[KCDefine.U_KEY_PASSIVE_ENHANCE]
+			oJSONNode[KCDefine.U_KEY_ACTION_ENHANCE], oJSONNode[KCDefine.U_KEY_ACTIVE_ENHANCE], oJSONNode[KCDefine.U_KEY_PASSIVE_ENHANCE]
 		};
 
 		for(int i = 0; i < oSkillInfosList.Count; ++i) {

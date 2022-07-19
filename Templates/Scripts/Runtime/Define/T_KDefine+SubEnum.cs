@@ -291,6 +291,7 @@ public enum EFXKinds {
 /** 스킬 타입 */
 public enum ESkillType {
 	NONE = -1,
+	ACTION,
 	ACTIVE,
 	PASSIVE,
 	[HideInInspector] MAX_VAL
@@ -300,14 +301,19 @@ public enum ESkillType {
 public enum ESkillKinds {
 	NONE = -1,
 
-	#region 액티브
+	#region 액션
 	// 0
-	ACTIVE_SKILL_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACTION_ATK_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 액션
+
+	#region 액티브
+	// 100,000,000
+	ACTIVE_SKILL_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 액티브
 
 	#region 패시브
-	// 100,000,000
-	PASSIVE_SKILL_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 200,000,000
+	PASSIVE_SKILL_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 패시브
 
 	[HideInInspector] MAX_VAL

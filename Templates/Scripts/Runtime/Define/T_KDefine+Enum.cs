@@ -31,6 +31,15 @@ public enum EPurchaseType {
 	TARGET,
 	[HideInInspector] MAX_VAL
 }
+
+/** 종류 그룹 타입 */
+public enum EKindsGroupType {
+	NONE = -1,
+	SUB_TYPE,
+	KINDS_TYPE,
+	SUB_KINDS_TYPE,
+	[HideInInspector] MAX_VAL
+}
 #endregion			// 기본
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

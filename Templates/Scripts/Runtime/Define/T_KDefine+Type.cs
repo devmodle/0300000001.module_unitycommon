@@ -19,6 +19,7 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	public string m_oTarget02;
 	public string m_oTarget03;
 	public ETargetKinds m_eTargetKinds;
+	public EKindsGroupType m_eKindsGroupType;
 
 	#region 상수
 	public static readonly STTargetInfo INVALID = new STTargetInfo() {
@@ -49,11 +50,12 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	#region 함수
 	/** 생성자 */
 	public STTargetInfo(SimpleJSON.JSONNode a_oTargetInfo) {
-		m_nKinds = a_oTargetInfo[KCDefine.B_VAL_1_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_1_INT].AsInt : KCDefine.B_IDX_INVALID;
-		m_oTarget01 = a_oTargetInfo[KCDefine.B_VAL_2_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_2_INT] : KCDefine.B_STR_0_INT;
-		m_oTarget02 = a_oTargetInfo[KCDefine.B_VAL_3_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_3_INT] : KCDefine.B_STR_0_INT;
-		m_oTarget03 = a_oTargetInfo[KCDefine.B_VAL_4_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_4_INT] : KCDefine.B_STR_0_INT;
+		m_nKinds = a_oTargetInfo[KCDefine.B_VAL_2_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_2_INT].AsInt : KCDefine.B_IDX_INVALID;
+		m_oTarget01 = a_oTargetInfo[KCDefine.B_VAL_3_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_3_INT] : KCDefine.B_STR_0_INT;
+		m_oTarget02 = a_oTargetInfo[KCDefine.B_VAL_4_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_4_INT] : KCDefine.B_STR_0_INT;
+		m_oTarget03 = a_oTargetInfo[KCDefine.B_VAL_5_INT].ExIsValid() ? a_oTargetInfo[KCDefine.B_VAL_5_INT] : KCDefine.B_STR_0_INT;
 		m_eTargetKinds = a_oTargetInfo[KCDefine.B_VAL_0_INT].ExIsValid() ? (ETargetKinds)a_oTargetInfo[KCDefine.B_VAL_0_INT].AsInt : ETargetKinds.NONE;
+		m_eKindsGroupType = a_oTargetInfo[KCDefine.B_VAL_1_INT].ExIsValid() ? (EKindsGroupType)a_oTargetInfo[KCDefine.B_VAL_1_INT].AsInt : EKindsGroupType.NONE;
 	}
 	#endregion			// 함수
 
