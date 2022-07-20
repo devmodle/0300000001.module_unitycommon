@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 [MessagePackObject][System.Serializable]
 public abstract partial class CUserTargetInfo : CBaseInfo {
 	#region 변수
-	[Key(131)] public Dictionary<EAbilityKinds, STAbilityValInfo> m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>();
+	[Key(131)] public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 	#endregion			// 변수
 
 	#region 상수
@@ -40,7 +40,7 @@ public abstract partial class CUserTargetInfo : CBaseInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oAbilityValInfoDict = m_oAbilityValInfoDict ?? new Dictionary<EAbilityKinds, STAbilityValInfo>();
+		m_oAbilityTargetInfoDict = m_oAbilityTargetInfoDict ?? new Dictionary<ulong, STTargetInfo>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -167,14 +167,14 @@ public partial class CUserInfo : CBaseInfo {
 	private const string KEY_USER_ITEM_INFO_VER = "UserItemInfoVer";
 	private const string KEY_USER_SKILL_INFO_VER = "UserSkillInfoVer";
 	private const string KEY_USER_OBJ_INFO_VER = "UserObjInfoVer";
-	private const string KEY_ABILITY_VAL_INFO_VER = "AbilityValInfoVer";
+	private const string KEY_ABILITY_TARGET_INFO_VER = "AbilityTargetInfoVer";
 	#endregion			// 상수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public System.Version UserItemInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_ITEM_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_ITEM_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	[JsonIgnore][IgnoreMember] public System.Version UserSkillInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_SKILL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_SKILL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	[JsonIgnore][IgnoreMember] public System.Version UserObjInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_USER_OBJ_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_USER_OBJ_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
-	[JsonIgnore][IgnoreMember] public System.Version AbilityValInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_VAL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_ABILITY_VAL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	[JsonIgnore][IgnoreMember] public System.Version AbilityTargetInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_TARGET_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_ABILITY_TARGET_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -216,7 +216,7 @@ public partial class CUserInfo : CBaseInfo {
 		this.UserItemInfoVer = KDefine.G_VER_USER_ITEM_INFO;
 		this.UserSkillInfoVer = KDefine.G_VER_USER_SKILL_INFO;
 		this.UserObjInfoVer = KDefine.G_VER_USER_OBJ_INFO;
-		this.AbilityValInfoVer = KDefine.G_VER_ABILITY_VER_INFO;
+		this.AbilityTargetInfoVer = KDefine.G_VER_ABILITY_VER_INFO;
 	}
 
 	/** 유저 아이템 정보를 설정한다 */
@@ -237,9 +237,9 @@ public partial class CUserInfo : CBaseInfo {
 
 	/** 유저 객체 정보를 설정한다 */
 	protected virtual void SetupUserObjInfo(CUserObjInfo a_oUserObjInfo) {
-		for(int i = 0; i < a_oUserObjInfo.m_oAbilityValInfoDict.Keys.Count; ++i) {
+		for(int i = 0; i < a_oUserObjInfo.m_oAbilityTargetInfoDict.Keys.Count; ++i) {
 			// 버전이 다를 경우
-			if(this.AbilityValInfoVer.CompareTo(KDefine.G_VER_ABILITY_VER_INFO) < KCDefine.B_COMPARE_EQUALS) {
+			if(this.AbilityTargetInfoVer.CompareTo(KDefine.G_VER_ABILITY_VER_INFO) < KCDefine.B_COMPARE_EQUALS) {
 				// Do Something	
 			}
 		}
@@ -257,8 +257,8 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 프로퍼티
 	public CUserInfo UserInfo { get; private set; } = new CUserInfo();
 	public bool IsPurchaseRemoveAds => this.TryGetUserItemInfo(EItemKinds.NON_CONSUMABLE_REMOVE_ADS, out CUserItemInfo oUserItemInfo);
-	public long NumCoins => this.TryGetUserItemInfo(EItemKinds.GOODS_COINS, out CUserItemInfo oUserItemInfo) ? oUserItemInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_NUMS, STAbilityValInfo.INVALID).m_nVal : KCDefine.B_VAL_0_INT;
-	public long NumCoinsBoxCoins => this.TryGetUserItemInfo(EItemKinds.GOODS_COINS_BOX_COINS, out CUserItemInfo oUserItemInfo) ? oUserItemInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_NUMS, STAbilityValInfo.INVALID).m_nVal : KCDefine.B_VAL_0_INT;
+	public long NumCoins => (this.TryGetUserItemInfo(EItemKinds.GOODS_COINS, out CUserItemInfo oUserItemInfo) && oUserItemInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stTargetInfo)) ? stTargetInfo.m_stValInfo.m_nVal : KCDefine.B_VAL_0_INT;
+	public long NumCoinsBoxCoins => (this.TryGetUserItemInfo(EItemKinds.GOODS_COINS_BOX_COINS, out CUserItemInfo oUserItemInfo) && oUserItemInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stTargetInfo)) ? stTargetInfo.m_stValInfo.m_nVal : KCDefine.B_VAL_0_INT;
 	#endregion            // 프로퍼티
 
 	#region 함수
@@ -272,17 +272,17 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 유저 아이템 개수를 반환한다 */
 	public long GetNumUserItems(EItemKinds a_eItemKinds) {
-		return this.UserInfo.m_oUserItemInfoList.Sum((a_oUserItemInfo) => (a_oUserItemInfo.ItemKinds == a_eItemKinds) ? a_oUserItemInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_NUMS, STAbilityValInfo.INVALID).m_nVal : KCDefine.B_VAL_0_INT);
+		return this.UserInfo.m_oUserItemInfoList.Sum((a_oUserItemInfo) => (a_oUserItemInfo.ItemKinds == a_eItemKinds && a_oUserItemInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stTargetInfo)) ? stTargetInfo.m_stValInfo.m_nVal : KCDefine.B_VAL_0_INT);
 	}
 
 	/** 유저 스킬 개수를 반환한다 */
 	public long GetNumUserSkills(ESkillKinds a_eSkillKinds) {
-		return this.UserInfo.m_oUserSkillInfoList.Sum((a_oUserSkillInfo) => (a_oUserSkillInfo.SkillKinds == a_eSkillKinds) ? a_oUserSkillInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_NUMS, STAbilityValInfo.INVALID).m_nVal : KCDefine.B_VAL_0_INT);
+		return this.UserInfo.m_oUserSkillInfoList.Sum((a_oUserSkillInfo) => (a_oUserSkillInfo.SkillKinds == a_eSkillKinds && a_oUserSkillInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stTargetInfo)) ? stTargetInfo.m_stValInfo.m_nVal : KCDefine.B_VAL_0_INT);
 	}
 
 	/** 유저 객체 개수를 반환한다 */
 	public long GetNumUserObjs(EObjKinds a_eObjKinds) {
-		return this.UserInfo.m_oUserObjInfoList.Sum((a_oUserObjInfo) => (a_oUserObjInfo.ObjKinds == a_eObjKinds) ? a_oUserObjInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_NUMS, STAbilityValInfo.INVALID).m_nVal : KCDefine.B_VAL_0_INT);
+		return this.UserInfo.m_oUserObjInfoList.Sum((a_oUserObjInfo) => (a_oUserObjInfo.ObjKinds == a_eObjKinds && a_oUserObjInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stTargetInfo)) ? stTargetInfo.m_stValInfo.m_nVal : KCDefine.B_VAL_0_INT);
 	}
 
 	/** 유저 아이템 정보를 반환한다 */
@@ -293,12 +293,12 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return oUserItemInfo;
 	}
 
-	/** 유저 아이템 어빌리티 값 정보를 반환한다 */
-	public STAbilityValInfo GetUserItemAbilityValInfo(EItemKinds a_eItemKinds, EAbilityKinds a_eAbilityKinds) {
-		bool bIsValid = this.TryGetUserItemAbilityValInfo(a_eItemKinds, a_eAbilityKinds, out STAbilityValInfo stAbilityValInfo);
+	/** 유저 아이템 어빌리티 타겟 정보를 반환한다 */
+	public STTargetInfo GetUserItemAbilityTargetInfo(EItemKinds a_eItemKinds, EAbilityKinds a_eAbilityKinds) {
+		bool bIsValid = this.TryGetUserItemAbilityTargetInfo(a_eItemKinds, a_eAbilityKinds, out STTargetInfo stTargetInfo);
 		CAccess.Assert(bIsValid);
 
-		return stAbilityValInfo;
+		return stTargetInfo;
 	}
 
 	/** 유저 스킬 정보를 반환한다 */
@@ -309,12 +309,12 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return oUserSkillInfo;
 	}
 
-	/** 유저 스킬 어빌리티 값 정보를 반환한다 */
-	public STAbilityValInfo GetUserSkillAbilityValInfo(ESkillKinds a_eSkillKinds, EAbilityKinds a_eAbilityKinds) {
-		bool bIsValid = this.TryGetUserSkillAbilityValInfo(a_eSkillKinds, a_eAbilityKinds, out STAbilityValInfo stAbilityValInfo);
+	/** 유저 스킬 어빌리티 타겟 정보를 반환한다 */
+	public STTargetInfo GetUserSkillAbilityTargetInfo(ESkillKinds a_eSkillKinds, EAbilityKinds a_eAbilityKinds) {
+		bool bIsValid = this.TryGetUserSkillAbilityTargetInfo(a_eSkillKinds, a_eAbilityKinds, out STTargetInfo stTargetInfo);
 		CAccess.Assert(bIsValid);
 
-		return stAbilityValInfo;
+		return stTargetInfo;
 	}
 
 	/** 유저 객체 정보를 반환한다 */
@@ -325,12 +325,12 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return oUserObjInfo;
 	}
 
-	/** 유저 객체 어빌리티 값 정보를 반환한다 */
-	public STAbilityValInfo GetUserObjAbilityValInfo(EObjKinds a_eObjKinds, EAbilityKinds a_eAbilityKinds) {
-		bool bIsValid = this.TryGetUserObjAbilityValInfo(a_eObjKinds, a_eAbilityKinds, out STAbilityValInfo stAbilityValInfo);
+	/** 유저 객체 어빌리티 타겟 정보를 반환한다 */
+	public STTargetInfo GetUserObjAbilityTargetInfo(EObjKinds a_eObjKinds, EAbilityKinds a_eAbilityKinds) {
+		bool bIsValid = this.TryGetUserObjAbilityTargetInfo(a_eObjKinds, a_eAbilityKinds, out STTargetInfo stTargetInfo);
 		CAccess.Assert(bIsValid);
 
-		return stAbilityValInfo;
+		return stTargetInfo;
 	}
 
 	/** 유저 아이템 정보를 반환한다 */
@@ -339,10 +339,10 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return a_oOutUserItemInfo != null;
 	}
 
-	/** 유저 아이템 어빌리티 값 정보를 반환한다 */
-	public bool TryGetUserItemAbilityValInfo(EItemKinds a_eItemKinds, EAbilityKinds a_eAbilityKinds, out STAbilityValInfo a_stOutAbilityValInfo) {
-		a_stOutAbilityValInfo = this.TryGetUserItemInfo(a_eItemKinds, out CUserItemInfo oUserItemInfo) ? oUserItemInfo.m_oAbilityValInfoDict.GetValueOrDefault(a_eAbilityKinds, STAbilityValInfo.INVALID) : STAbilityValInfo.INVALID;
-		return !a_stOutAbilityValInfo.Equals(STAbilityValInfo.INVALID);
+	/** 유저 아이템 어빌리티 타겟 정보를 반환한다 */
+	public bool TryGetUserItemAbilityTargetInfo(EItemKinds a_eItemKinds, EAbilityKinds a_eAbilityKinds, out STTargetInfo a_stOutTargetInfo) {
+		a_stOutTargetInfo = (this.TryGetUserItemInfo(a_eItemKinds, out CUserItemInfo oUserItemInfo) && oUserItemInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)a_eAbilityKinds, out STTargetInfo stTargetInfo)) ? stTargetInfo : STTargetInfo.INVALID;
+		return !a_stOutTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 
 	/** 유저 스킬 정보를 반환한다 */
@@ -351,10 +351,10 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return a_oOutUserSkillInfo != null;
 	}
 
-	/** 유저 스킬 어빌리티 값 정보를 반환한다 */
-	public bool TryGetUserSkillAbilityValInfo(ESkillKinds a_eSkillKinds, EAbilityKinds a_eAbilityKinds, out STAbilityValInfo a_stOutAbilityValInfo) {
-		a_stOutAbilityValInfo = this.TryGetUserSkillInfo(a_eSkillKinds, out CUserSkillInfo oUserSkillInfo) ? oUserSkillInfo.m_oAbilityValInfoDict.GetValueOrDefault(a_eAbilityKinds, STAbilityValInfo.INVALID) : STAbilityValInfo.INVALID;
-		return !a_stOutAbilityValInfo.Equals(STAbilityValInfo.INVALID);
+	/** 유저 스킬 어빌리티 타겟 정보를 반환한다 */
+	public bool TryGetUserSkillAbilityTargetInfo(ESkillKinds a_eSkillKinds, EAbilityKinds a_eAbilityKinds, out STTargetInfo a_stOutTargetInfo) {
+		a_stOutTargetInfo = (this.TryGetUserSkillInfo(a_eSkillKinds, out CUserSkillInfo oUserSkillInfo) && oUserSkillInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)a_eAbilityKinds, out STTargetInfo stTargetInfo)) ? stTargetInfo : STTargetInfo.INVALID;
+		return !a_stOutTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 
 	/** 유저 객체 정보를 반환한다 */
@@ -363,10 +363,10 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return a_oOutUserObjInfo != null;
 	}
 
-	/** 유저 객체 어빌리티 값 정보를 반환한다 */
-	public bool TryGetUserObjAbilityValInfo(EObjKinds a_eObjKinds, EAbilityKinds a_eAbilityKinds, out STAbilityValInfo a_stOutAbilityValInfo) {
-		a_stOutAbilityValInfo = this.TryGetUserObjInfo(a_eObjKinds, out CUserObjInfo oUserObjInfo) ? oUserObjInfo.m_oAbilityValInfoDict.GetValueOrDefault(a_eAbilityKinds, STAbilityValInfo.INVALID) : STAbilityValInfo.INVALID;
-		return !a_stOutAbilityValInfo.Equals(STAbilityValInfo.INVALID);
+	/** 유저 객체 어빌리티 타겟 정보를 반환한다 */
+	public bool TryGetUserObjAbilityTargetInfo(EObjKinds a_eObjKinds, EAbilityKinds a_eAbilityKinds, out STTargetInfo a_stOutTargetInfo) {
+		a_stOutTargetInfo = (this.TryGetUserObjInfo(a_eObjKinds, out CUserObjInfo oUserObjInfo) && oUserObjInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)a_eAbilityKinds, out STTargetInfo stTargetInfo)) ? stTargetInfo : STTargetInfo.INVALID;
+		return !a_stOutTargetInfo.Equals(STTargetInfo.INVALID);
 	}
 	
 	/** 유저 아이템 정보를 추가한다 */

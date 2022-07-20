@@ -92,7 +92,7 @@ namespace MainScene {
 			var stParams = new CScrollerCellView.STParams() {
 				m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03),
 
-				m_oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, long>>() {
+				m_oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
 					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
 				}
 			};
@@ -313,7 +313,7 @@ namespace MainScene {
 		}
 
 		/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
-		private void OnTouchSCVSelBtn(CScrollerCellView a_oSender, long a_nID) {
+		private void OnTouchSCVSelBtn(CScrollerCellView a_oSender, ulong a_nID) {
 			// Do Something
 		}
 		#endregion			// 함수

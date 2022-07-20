@@ -15,20 +15,20 @@ public static partial class Func {
 	#region 클래스 함수
 	/** 어빌리티 값을 설정한다 */
 	public static void SetupAbilityVals(STTargetInfo a_stTargetInfo, Dictionary<EAbilityKinds, long> a_oOutIntAbilityValDict, Dictionary<EAbilityKinds, double> a_oOutRealAbilityValDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_stTargetInfo.m_eTargetKinds == ETargetKinds.ABILITY_VAL && (a_oOutIntAbilityValDict != null || a_oOutRealAbilityValDict != null)));
+		CAccess.Assert(!a_bIsEnableAssert || (a_stTargetInfo.m_eTargetKinds == ETargetKinds.ABILITY && (a_oOutIntAbilityValDict != null || a_oOutRealAbilityValDict != null)));
 
 		// 어빌리티 값 설정이 가능 할 경우
-		if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ABILITY_VAL && (a_oOutIntAbilityValDict != null || a_oOutRealAbilityValDict != null)) {
+		if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ABILITY && (a_oOutIntAbilityValDict != null || a_oOutRealAbilityValDict != null)) {
 			var stAbilityInfo = CAbilityInfoTable.Inst.GetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds);
 			var eAbilityKinds = (EAbilityKinds)a_stTargetInfo.m_nKinds.ExKindsToSubKindsType();
 
 			switch(a_stTargetInfo.m_stValInfo.m_eValType) {
-				case EValType.INT: a_oOutIntAbilityValDict.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutIntAbilityValDict.GetValueOrDefault(eAbilityKinds) + (stAbilityInfo.m_stValInfo.IntVal * a_stTargetInfo.m_stValInfo.IntVal), KCDefine.B_VAL_0_INT, long.MaxValue)); break;
-				case EValType.REAL: a_oOutRealAbilityValDict.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutIntAbilityValDict.GetValueOrDefault(eAbilityKinds) + (stAbilityInfo.m_stValInfo.RealVal * a_stTargetInfo.m_stValInfo.RealVal), KCDefine.B_VAL_0_REAL, double.MaxValue)); break;
+				case EValType.INT: a_oOutIntAbilityValDict?.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutIntAbilityValDict.GetValueOrDefault(eAbilityKinds) + (stAbilityInfo.m_stValInfo.m_nVal * a_stTargetInfo.m_stValInfo.m_nVal), KCDefine.B_VAL_0_INT, long.MaxValue), a_bIsEnableAssert); break;
+				case EValType.REAL: a_oOutRealAbilityValDict?.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutIntAbilityValDict.GetValueOrDefault(eAbilityKinds) + (stAbilityInfo.m_stValInfo.m_dblVal * a_stTargetInfo.m_stValInfo.m_nVal), KCDefine.B_VAL_0_REAL, double.MaxValue), a_bIsEnableAssert); break;
 			}
 
 			foreach(var stKeyVal in stAbilityInfo.m_oExtraAbilityTargetInfoDict) {
-				Func.SetupAbilityVals(stKeyVal.Value, a_oOutIntAbilityValDict, a_oOutRealAbilityValDict);
+				Func.SetupAbilityVals(stKeyVal.Value, a_oOutIntAbilityValDict, a_oOutRealAbilityValDict, a_bIsEnableAssert);
 			}
 		}
 	}
@@ -229,16 +229,16 @@ public static partial class Func {
 		if(a_oUserTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(a_stTargetInfo.m_eTargetKinds) {
 				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_EXP: case ETargetKinds.SKILL_EXP: case ETargetKinds.OBJ_EXP: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
 				} break;
 			}
 		}
@@ -291,16 +291,16 @@ public static partial class Func {
 		if(a_oUserTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(a_stTargetInfo.m_eTargetKinds) {
 				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_EXP: case ETargetKinds.SKILL_EXP: case ETargetKinds.OBJ_EXP: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
 				} break;
 				case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: {
-					a_oUserTargetInfo.m_oAbilityValInfoDict.ExIncrVal(EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo.IntVal, a_bIsEnableAssert);
+					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
 				} break;
 			}
 		}

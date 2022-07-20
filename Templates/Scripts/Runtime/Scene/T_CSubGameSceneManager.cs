@@ -375,7 +375,7 @@ namespace GameScene {
 				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
 
 				Func.Pay(Factory.MakeTargetInfo(ETargetKinds.ITEM_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], new STValInfo() {
-					m_oVal = $"{KCDefine.B_VAL_1_INT}", m_eValType = EValType.INT
+					m_nVal = KCDefine.B_VAL_1_INT, m_eValType = EValType.INT
 				}));
 			}
 		}
@@ -522,8 +522,11 @@ namespace GameScene {
 		/** 레벨을 클리어했을 경우 */
 		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {			
 			var oLevelClearInfo = Access.GetLevelClearInfo(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID03, true);
-			oLevelClearInfo.Record = $"{a_oSender.IntRecord}";
-			oLevelClearInfo.BestRecord = $"{Mathf.Max(a_oSender.IntRecord, oLevelClearInfo.BestIntRecord)}";
+			oLevelClearInfo.IntRecord = a_oSender.IntRecord;
+			oLevelClearInfo.IntBestRecord = System.Math.Max(a_oSender.IntRecord, oLevelClearInfo.IntBestRecord);
+			
+			oLevelClearInfo.RealRecord = a_oSender.RealRecord;
+			oLevelClearInfo.RealBestRecord = a_oSender.RealRecord.ExIsGreate(oLevelClearInfo.RealBestRecord) ? a_oSender.RealRecord : oLevelClearInfo.RealBestRecord;
 
 			CGameInfoStorage.Inst.SaveGameInfo();
 			this.ShowResultPopup(true);

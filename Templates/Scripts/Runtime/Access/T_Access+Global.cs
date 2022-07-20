@@ -107,9 +107,9 @@ public static partial class Access {
 		CAccess.Assert(a_oUserTargetInfo != null);
 
 		switch(a_stTargetInfo.m_eTargetKinds) {
-			case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: return a_oUserTargetInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_LV, STAbilityValInfo.INVALID).m_nVal >= a_stTargetInfo.m_stValInfo.IntVal;
-			case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: return a_oUserTargetInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_NUMS, STAbilityValInfo.INVALID).m_nVal >= a_stTargetInfo.m_stValInfo.IntVal;
-			case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: return a_oUserTargetInfo.m_oAbilityValInfoDict.GetValueOrDefault(EAbilityKinds.STAT_ENHANCE, STAbilityValInfo.INVALID).m_nVal >= a_stTargetInfo.m_stValInfo.IntVal;
+			case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
+			case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
+			case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
 		}
 
 		return false;

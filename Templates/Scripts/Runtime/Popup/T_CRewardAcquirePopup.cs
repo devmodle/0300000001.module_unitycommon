@@ -83,7 +83,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	/** 보상 아이템 UI 상태를 갱신한다 */
 	private void UpdateItemUIsState(GameObject a_oItemUIs, STTargetInfo a_stTargetInfo) {
 		var oNumText = a_oItemUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
-		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stTargetInfo.m_stValInfo.IntVal), EFontSet._1, false);
+		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stTargetInfo.m_stValInfo.m_nVal), EFontSet._1, false);
 	}
 
 	/** 광고 버튼을 눌렀을 경우 */
@@ -112,7 +112,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		try {
 			foreach(var stKeyVal in m_stParams.m_oRewardTargetInfoDict) {
 				oRewardTargetInfoDict.TryAdd(stKeyVal.Key, Factory.MakeTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, new STValInfo() {
-					m_oVal = a_bIsWatchRewardAds ? $"{stKeyVal.Value.m_stValInfo.IntVal * KCDefine.B_VAL_2_INT}" : stKeyVal.Value.m_stValInfo.m_oVal, m_eValType = stKeyVal.Value.m_stValInfo.m_eValType
+					m_nVal = a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo.m_nVal * KCDefine.B_VAL_2_INT : stKeyVal.Value.m_stValInfo.m_nVal, m_dblVal = a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo.m_dblVal * KCDefine.B_VAL_2_REAL : stKeyVal.Value.m_stValInfo.m_dblVal, m_eValType = stKeyVal.Value.m_stValInfo.m_eValType
 				}));
 			}
 			

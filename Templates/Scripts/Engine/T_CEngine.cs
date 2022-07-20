@@ -13,8 +13,6 @@ namespace SampleEngineName {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			INT_RECORD,
-			REAL_RECORD,
 			SEL_GRID_INFO,
 			[HideInInspector] MAX_VAL
 		}
@@ -57,7 +55,6 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>();
 
 		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>() {
 			[EKey.SEL_GRID_INFO] = default(STGridInfo)
@@ -70,8 +67,8 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public long IntRecord { get { return long.Parse(m_oStrDict.GetValueOrDefault(EKey.INT_RECORD, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(EKey.INT_RECORD, $"{value}"); } }
-		public double RealRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(EKey.REAL_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(EKey.REAL_RECORD, $"{value}"); } }
+		public long IntRecord { get; private set; } = 0;
+		public double RealRecord { get; private set; } = 0.0;
 
 		public EState State { get; private set; } = EState.NONE;
 		public EEngineState EngineState { get; private set; } = EEngineState.NONE;
@@ -124,6 +121,8 @@ namespace SampleEngineName {
 
 		#region 추가 변수
 		private List<CEEnemyObj> m_oSubEnemyObjList = new List<CEEnemyObj>();
+		private List<CEItem> m_oSubItemList = new List<CEItem>();
+		private List<CESkill> m_oSubSkillList = new List<CESkill>();
 		private List<CEFX> m_oSubFXList = new List<CEFX>();
 
 		private Dictionary<ESubKey, Vector3> m_oSubVec3Dict = new Dictionary<ESubKey, Vector3>() {

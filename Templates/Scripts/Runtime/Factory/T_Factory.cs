@@ -21,13 +21,6 @@ public static partial class Factory {
 			m_nKinds = a_nKinds, m_eTargetKinds = a_eTargetKinds, m_eKindsGroupType = a_eKindsGroupType, m_stValInfo = a_stValInfo
 		};
 	}
-	
-	/** 어빌리티 값 정보를 생성한다 */
-	public static STAbilityValInfo MakeAbilityValInfo(EAbilityKinds a_eAbilityKinds, long a_nVal = KCDefine.B_VAL_0_INT) {
-		return new STAbilityValInfo() {
-			m_nVal = a_nVal, m_eAbilityKinds = a_eAbilityKinds
-		};
-	}
 
 	/** 클리어 정보를 생성한다 */
 	public static CClearInfo MakeClearInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
@@ -42,15 +35,15 @@ public static partial class Factory {
 	/** 유저 아이템 정보를 생성한다 */
 	public static CUserItemInfo MakeUserItemInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserItemInfo = new CUserItemInfo() {
-			ItemKinds = a_eItemKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
-				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV),
-				[EAbilityKinds.STAT_EXP] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, KCDefine.B_VAL_0_INT),
-				[EAbilityKinds.STAT_NUMS] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_NUMS, a_nNums)
+			ItemKinds = a_eItemKinds, m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>() {
+				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_nVal = a_nLV, m_eValType = EValType.NONE }),
+				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.NONE }),
+				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_nVal = a_nNums, m_eValType = EValType.NONE })
 			}
 		};
 
 		var stItemInfo = CItemInfoTable.Inst.GetItemInfo(a_eItemKinds);
-		stItemInfo.m_oAbilityValInfoDict.ExCopyTo(oUserItemInfo.m_oAbilityValInfoDict, (a_stAbilityValInfo) => a_stAbilityValInfo);
+		stItemInfo.m_oAbilityTargetInfoDict.ExCopyTo(oUserItemInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 		oUserItemInfo.OnAfterDeserialize();
 		return oUserItemInfo;
@@ -59,15 +52,15 @@ public static partial class Factory {
 	/** 유저 스킬 정보를 생성한다 */
 	public static CUserSkillInfo MakeUserSkillInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserSkillInfo = new CUserSkillInfo() {
-			SkillKinds = a_eSkillKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
-				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV),
-				[EAbilityKinds.STAT_EXP] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, KCDefine.B_VAL_0_INT),
-				[EAbilityKinds.STAT_NUMS] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_NUMS, a_nNums)
+			SkillKinds = a_eSkillKinds, m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>() {
+				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_nVal = a_nLV, m_eValType = EValType.NONE }),
+				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.NONE }),
+				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_nVal = a_nNums, m_eValType = EValType.NONE })
 			}
 		};
 
 		var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds);
-		stSkillInfo.m_oAbilityValInfoDict.ExCopyTo(oUserSkillInfo.m_oAbilityValInfoDict, (a_stAbilityValInfo) => a_stAbilityValInfo);
+		stSkillInfo.m_oAbilityTargetInfoDict.ExCopyTo(oUserSkillInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 		oUserSkillInfo.OnAfterDeserialize();
 		return oUserSkillInfo;
@@ -76,16 +69,16 @@ public static partial class Factory {
 	/** 유저 객체 정보를 생성한다 */
 	public static CUserObjInfo MakeUserObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
 		var oUserObjInfo = new CUserObjInfo() {
-			ObjKinds = a_eObjKinds, m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>() {
-				[EAbilityKinds.STAT_LV] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_LV, a_nLV),
-				[EAbilityKinds.STAT_EXP] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, KCDefine.B_VAL_0_INT),
-				[EAbilityKinds.STAT_NUMS] = Factory.MakeAbilityValInfo(EAbilityKinds.STAT_EXP, a_nNums)
+			ObjKinds = a_eObjKinds, m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>() {
+				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_nVal = a_nLV, m_eValType = EValType.NONE }),
+				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.NONE }),
+				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_nVal = a_nNums, m_eValType = EValType.NONE })
 			}
 		};
 
 		var stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds);
-		stObjInfo.m_oAbilityValInfoDict.ExCopyTo(oUserObjInfo.m_oAbilityValInfoDict, (a_stAbilityValInfo) => a_stAbilityValInfo);
-
+		stObjInfo.m_oAbilityTargetInfoDict.ExCopyTo(oUserObjInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+		
 		oUserObjInfo.OnAfterDeserialize();
 		return oUserObjInfo;
 	}

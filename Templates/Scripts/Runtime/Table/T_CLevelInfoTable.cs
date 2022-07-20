@@ -313,7 +313,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보 경로를 반환한다 */
 	private string GetLevelInfoPath(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		long nUniqueLevelID = CFactory.MakeUniqueLevelID(a_nLevelID, a_nStageID, a_nChapterID);
+		ulong nUniqueLevelID = CFactory.MakeUniqueLevelID(a_nLevelID, a_nStageID, a_nChapterID);
 
 #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
@@ -360,16 +360,16 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	/** 레벨 정보를 로드한다 */
 	private Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		List<long> oLevelIDList = null;
+		List<ulong> oLevelIDList = null;
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON)}");
-		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<long>>(a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), null, false);
+		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), null, false);
 #else
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath}");
 
 		try {
-			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<long>>(a_oFilePath, null, false);
+			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<ulong>>(a_oFilePath, null, false);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -629,7 +629,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보를 저장한다 */
 	public void SaveLevelInfos() {
-		var oLevelIDList = new List<long>();
+		var oLevelIDList = new List<ulong>();
 		string oFilePath = this.LevelInfoTablePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
 
 		for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
@@ -646,7 +646,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	/** 레벨 정보를 저장한다 */
-	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<long> a_oOutLevelIDList) {
+	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<ulong> a_oOutLevelIDList) {
 		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
 		
 		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
@@ -681,8 +681,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_eEpisodeKinds = stLevelEpisodeInfo.m_eEpisodeKinds,
 			m_eTutorialKinds = stLevelEpisodeInfo.m_eTutorialKinds,
 
-			m_oRecordList = new List<string>(),
 			m_oRewardKindsList = new List<ERewardKinds>(),
+			m_oRecordValInfoList = new List<STValInfo>(),
 
 			m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>(),
 			m_oUnlockTargetInfoDict = new Dictionary<ulong, STTargetInfo>(),
@@ -690,8 +690,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_oEnemyObjTargetInfoDict = new Dictionary<ulong, STTargetInfo>()
 		};
 
-		stLevelEpisodeInfo.m_oRecordList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordList, (a_nRecord) => a_nRecord, false);
 		stLevelEpisodeInfo.m_oRewardKindsList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds, false);
+		stLevelEpisodeInfo.m_oRecordValInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordValInfoList, (a_stRecordValInfo) => a_stRecordValInfo, false);
 
 		stLevelEpisodeInfo.m_oClearTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
 		stLevelEpisodeInfo.m_oUnlockTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoDict, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo, false);

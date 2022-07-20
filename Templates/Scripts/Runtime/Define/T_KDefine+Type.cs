@@ -12,12 +12,12 @@ using Newtonsoft.Json;
 
 #region 기본
 /** 타겟 정보 */
-[System.Serializable]
+[MessagePackObject][System.Serializable]
 public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
-	public int m_nKinds;
-	public ETargetKinds m_eTargetKinds;
-	public EKindsGroupType m_eKindsGroupType;
-	public STValInfo m_stValInfo;
+	[Key(1)] public int m_nKinds;
+	[Key(11)] public ETargetKinds m_eTargetKinds;
+	[Key(12)] public EKindsGroupType m_eKindsGroupType;
+	[Key(21)]public STValInfo m_stValInfo;
 
 	#region 상수
 	public static readonly STTargetInfo INVALID = new STTargetInfo() {
@@ -26,7 +26,7 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	public int Kinds {
+	[JsonIgnore][IgnoreMember] public int Kinds {
 		get {
 			switch(m_eKindsGroupType) {
 				case EKindsGroupType.SUB_TYPE: return m_nKinds.ExKindsToSubType();
@@ -38,8 +38,10 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		}
 	}
 
-	public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
-	public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
+	[JsonIgnore][IgnoreMember] public ulong UniqueTargetInfoID => Factory.MakeUniqueTargetInfoID(m_eTargetKinds, m_nKinds);
+
+	[JsonIgnore][IgnoreMember] public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
+	[JsonIgnore][IgnoreMember] public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
 	#region IEquatable
@@ -68,55 +70,9 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		oJSONArray.Add($"{(int)m_eKindsGroupType}");
 		oJSONArray.Add($"{m_nKinds}");
 		oJSONArray.Add($"{(int)m_stValInfo.m_eValType}");
-		oJSONArray.Add(m_stValInfo.m_oVal);
+		oJSONArray.Add((m_stValInfo.m_eValType == EValType.INT) ? $"{m_stValInfo.m_nVal}" : $"{m_stValInfo.m_dblVal}");
 
 		a_oOutTargetInfo.Add(a_oKey, oJSONArray);
-	}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
-	#endregion			// 조건부 함수
-}
-
-/** 어빌리티 값 정보 */
-[MessagePackObject][System.Serializable]
-public partial struct STAbilityValInfo : System.IEquatable<STAbilityValInfo> {
-	[Key(1)] public long m_nVal;
-	[Key(11)] public EAbilityKinds m_eAbilityKinds;
-
-	#region 상수
-	public static readonly STAbilityValInfo INVALID = new STAbilityValInfo() {
-		m_eAbilityKinds = EAbilityKinds.NONE
-	};
-	#endregion			// 상수
-
-	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
-	[JsonIgnore][IgnoreMember] public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
-	#endregion			// 프로퍼티
-
-	#region IEquatable
-	/** 동일 여부를 검사한다 */
-	public bool Equals(STAbilityValInfo a_stAbilityValInfo) {
-		return m_nVal == a_stAbilityValInfo.m_nVal && m_eAbilityKinds == a_stAbilityValInfo.m_eAbilityKinds;
-	}
-	#endregion			// IEquatable
-
-	#region 함수
-	/** 생성자 */
-	public STAbilityValInfo(SimpleJSON.JSONNode a_oAbilityValInfo, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
-		m_nVal = long.TryParse(a_oAbilityValInfo[a_nSrcIdx + KCDefine.B_VAL_1_INT], NumberStyles.Any, null, out long nLV) ? nLV : KCDefine.B_VAL_0_INT;
-		m_eAbilityKinds = a_oAbilityValInfo[a_nSrcIdx + KCDefine.B_VAL_0_INT].ExIsValid() ? (EAbilityKinds)a_oAbilityValInfo[a_nSrcIdx + KCDefine.B_VAL_0_INT].AsInt : EAbilityKinds.NONE;
-	}
-	#endregion			// 함수
-
-	#region 조건부 함수
-#if UNITY_EDITOR || UNITY_STANDALONE
-	/** 어빌리티 값 정보를 생성한다 */
-	public void MakeAbilityValInfo(string a_oKey, SimpleJSON.JSONClass a_oOutAbilityValInfo) {
-		var oJSONArray = new SimpleJSON.JSONArray();
-		oJSONArray.Add($"{(int)m_eAbilityKinds}");
-		oJSONArray.Add($"{m_nVal}");
-
-		a_oOutAbilityValInfo.Add(a_oKey, oJSONArray);
 	}
 #endif			// #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion			// 조건부 함수
@@ -125,7 +81,7 @@ public partial struct STAbilityValInfo : System.IEquatable<STAbilityValInfo> {
 /** 타입 랩퍼 */
 [MessagePackObject]
 public partial struct STTypeWrapper {
-	[Key(51)] public List<long> m_oUniqueLevelIDList;
+	[Key(51)] public List<ulong> m_oUniqueLevelIDList;
 
 	[Key(161)] public Dictionary<int, Dictionary<int, int>> m_oNumLevelInfosDictContainer;
 	[Key(162)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;

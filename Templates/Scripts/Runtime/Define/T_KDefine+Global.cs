@@ -13,7 +13,6 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_RECORDS = 9;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 9;
 	public const int G_MAX_NUM_COINS_BOX_COINS = 0;
-	public const int G_MAX_NUM_ABILITY_VAL_INFOS = 9;
 	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
 
 	public const int G_MAX_NUM_FX_KINDS = 9;

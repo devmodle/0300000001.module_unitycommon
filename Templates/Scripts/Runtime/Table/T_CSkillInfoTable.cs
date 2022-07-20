@@ -19,7 +19,7 @@ public partial struct STSkillInfo {
 	public List<EFXKinds> m_oFXKindsList;
 	public List<EResKinds> m_oResKindsList;
 
-	public Dictionary<EAbilityKinds, STAbilityValInfo> m_oAbilityValInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict;
 
 	#region 상수
 	public static STSkillInfo INVALID = new STSkillInfo() {
@@ -45,7 +45,7 @@ public partial struct STSkillInfo {
 		m_oFXKindsList = new List<EFXKinds>();
 		m_oResKindsList = new List<EResKinds>();
 
-		m_oAbilityValInfoDict = new Dictionary<EAbilityKinds, STAbilityValInfo>();
+		m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_FX_KINDS; ++i) {
 			string oKey = string.Format(KCDefine.U_KEY_FMT_FX_KINDS, i + KCDefine.B_VAL_1_INT);
@@ -57,9 +57,9 @@ public partial struct STSkillInfo {
 			m_oResKindsList.ExAddVal(a_oSkillInfo[oKey].ExIsValid() ? (EResKinds)a_oSkillInfo[oKey].AsInt : EResKinds.NONE);
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
-			var stAbilityValInfo = new STAbilityValInfo(a_oSkillInfo[string.Format(KCDefine.U_KEY_FMT_ABILITY_VAL_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oAbilityValInfoDict.TryAdd(stAbilityValInfo.m_eAbilityKinds, stAbilityValInfo);
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			var stTargetInfo = new STTargetInfo(a_oSkillInfo[string.Format(KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAbilityTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 	}
 	#endregion			// 함수
@@ -105,7 +105,7 @@ public partial struct STSkillSaleInfo {
 			m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oSkillSaleInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
 			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
@@ -153,7 +153,7 @@ public partial struct STSkillEnhanceInfo {
 			m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
-		for(int i = 0; i < KDefine.G_MAX_NUM_ABILITY_VAL_INFOS; ++i) {
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oSkillEnhanceInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
 			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}

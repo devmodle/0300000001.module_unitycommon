@@ -10,17 +10,19 @@ using DG.Tweening;
 /** 전역 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
-	/** 어빌리티 값을 증가시킨다 */
-	public static void ExIncrVal(this Dictionary<EAbilityKinds, STAbilityValInfo> a_oSender, EAbilityKinds a_eAbilityKinds, long a_nVal, bool a_bIsEnableAssert = true) {
+	/** 어빌리티 타겟 값을 증가시킨다 */
+	public static void ExIncrAbilityTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, EAbilityKinds a_eAbilityKinds, long a_nVal, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
 
-		// 어빌리티 값 정보가 존재 할 경우
+		// 어빌리티 타겟 정보가 존재 할 경우
 		if(a_oSender != null) {
-			var stAbilityValInfo = a_oSender.GetValueOrDefault(a_eAbilityKinds, STAbilityValInfo.INVALID);
-			stAbilityValInfo.m_nVal = System.Math.Clamp(stAbilityValInfo.m_nVal + a_nVal, KCDefine.B_VAL_0_INT, long.MaxValue);
-			stAbilityValInfo.m_eAbilityKinds = a_eAbilityKinds;
+			var stAbilityTargetInfo = a_oSender.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)a_eAbilityKinds), STTargetInfo.INVALID);
+			stAbilityTargetInfo.m_nKinds = (int)a_eAbilityKinds;
+			stAbilityTargetInfo.m_eTargetKinds = ETargetKinds.ABILITY;
+			stAbilityTargetInfo.m_stValInfo.m_nVal = System.Math.Clamp(stAbilityTargetInfo.m_stValInfo.m_nVal + a_nVal, KCDefine.B_VAL_0_INT, long.MaxValue);
+			stAbilityTargetInfo.m_stValInfo.m_eValType = EValType.INT;
 
-			a_oSender.ExReplaceVal(a_eAbilityKinds, stAbilityValInfo);
+			a_oSender.ExReplaceVal(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)a_eAbilityKinds), stAbilityTargetInfo);
 		}
 	}
 

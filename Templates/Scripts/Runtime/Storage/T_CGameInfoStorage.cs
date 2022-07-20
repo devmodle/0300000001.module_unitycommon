@@ -20,21 +20,23 @@ public partial class CClearInfo : CBaseInfo {
 	#endregion			// 변수
 
 	#region 상수
-	private const string KEY_RECORD = "Record";
 	private const string KEY_NUM_MARKS = "NumMarks";
-	private const string KEY_BEST_RECORD = "BestRecord";
+
+	private const string KEY_INT_RECORD = "IntRecord";
+	private const string KEY_REAL_RECORD = "RealRecord";
+	
+	private const string KEY_INT_BEST_RECORD = "IntBestRecord";
+	private const string KEY_REAL_BEST_RECORD = "RealBestRecord";
 	#endregion			// 상수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public int NumMarks { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUM_MARKS, $"{value}"); } }
-	[JsonIgnore][IgnoreMember] public string Record { get { return m_oStrDict.GetValueOrDefault(KEY_RECORD, KCDefine.B_STR_0_INT); } set { m_oStrDict.ExReplaceVal(KEY_RECORD, value); } }
-	[JsonIgnore][IgnoreMember] public string BestRecord { get { return m_oStrDict.GetValueOrDefault(KEY_BEST_RECORD, KCDefine.B_STR_0_INT); } set { m_oStrDict.ExReplaceVal(KEY_BEST_RECORD, value); } }
 
-	[JsonIgnore][IgnoreMember] public long IntRecord => long.TryParse(this.Record, NumberStyles.Any, null, out long nRecord) ? nRecord : KCDefine.B_VAL_0_INT;
-	[JsonIgnore][IgnoreMember] public long BestIntRecord => long.TryParse(this.BestRecord, NumberStyles.Any, null, out long nBestRecord) ? nBestRecord : KCDefine.B_VAL_0_INT;
+	[JsonIgnore][IgnoreMember] public long IntRecord { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_INT_RECORD, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_INT_RECORD, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public long IntBestRecord { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_INT_BEST_RECORD, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_INT_BEST_RECORD, $"{value}"); } }
 
-	[JsonIgnore][IgnoreMember] public double RealRecord => double.TryParse(this.Record, NumberStyles.Any, null, out double dblRecord) ? dblRecord : KCDefine.B_VAL_0_REAL;
-	[JsonIgnore][IgnoreMember] public double BestRealRecord => double.TryParse(this.BestRecord, NumberStyles.Any, null, out double dblBestRecord) ? dblBestRecord : KCDefine.B_VAL_0_REAL;
+	[JsonIgnore][IgnoreMember] public double RealRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(KEY_REAL_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(KEY_REAL_RECORD, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public double RealBestRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(KEY_REAL_BEST_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(KEY_REAL_BEST_RECORD, $"{value}"); } }
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -75,19 +77,19 @@ public partial class CGameInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 변수
-	[Key(51)] public List<long> m_oUnlockUniqueLevelIDList = new List<long>();
-	[Key(52)] public List<long> m_oUnlockUniqueStageIDList = new List<long>();
-	[Key(53)] public List<long> m_oUnlockUniqueChapterIDList = new List<long>();
+	[Key(51)] public List<ulong> m_oUnlockUniqueLevelIDList = new List<ulong>();
+	[Key(52)] public List<ulong> m_oUnlockUniqueStageIDList = new List<ulong>();
+	[Key(53)] public List<ulong> m_oUnlockUniqueChapterIDList = new List<ulong>();
 
-	[Key(54)] public List<long> m_oAcquireRewardUniqueLevelIDList = new List<long>();
-	[Key(55)] public List<long> m_oAcquireRewardUniqueStageIDList = new List<long>();
-	[Key(56)] public List<long> m_oAcquireRewardUniqueChapterIDList = new List<long>();
+	[Key(54)] public List<ulong> m_oAcquireRewardUniqueLevelIDList = new List<ulong>();
+	[Key(55)] public List<ulong> m_oAcquireRewardUniqueStageIDList = new List<ulong>();
+	[Key(56)] public List<ulong> m_oAcquireRewardUniqueChapterIDList = new List<ulong>();
 
 	[Key(61)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
 	[Key(62)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
 	[Key(63)] public List<ETutorialKinds> m_oCompleteTutorialKindsList = new List<ETutorialKinds>();
 
-	[Key(151)] public Dictionary<long, CClearInfo> m_oLevelClearInfoDict = new Dictionary<long, CClearInfo>();
+	[Key(151)] public Dictionary<ulong, CClearInfo> m_oLevelClearInfoDict = new Dictionary<ulong, CClearInfo>();
 	#endregion			// 변수
 
 	#region 프로퍼티
@@ -116,19 +118,19 @@ public partial class CGameInfo : CBaseInfo {
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		
-		m_oUnlockUniqueLevelIDList = m_oUnlockUniqueLevelIDList ?? new List<long>();
-		m_oUnlockUniqueStageIDList = m_oUnlockUniqueStageIDList ?? new List<long>();
-		m_oUnlockUniqueChapterIDList = m_oUnlockUniqueChapterIDList ?? new List<long>();
+		m_oUnlockUniqueLevelIDList = m_oUnlockUniqueLevelIDList ?? new List<ulong>();
+		m_oUnlockUniqueStageIDList = m_oUnlockUniqueStageIDList ?? new List<ulong>();
+		m_oUnlockUniqueChapterIDList = m_oUnlockUniqueChapterIDList ?? new List<ulong>();
 		
-		m_oAcquireRewardUniqueLevelIDList = m_oAcquireRewardUniqueLevelIDList ?? new List<long>();
-		m_oAcquireRewardUniqueStageIDList = m_oAcquireRewardUniqueStageIDList ?? new List<long>();
-		m_oAcquireRewardUniqueChapterIDList = m_oAcquireRewardUniqueChapterIDList ?? new List<long>();
+		m_oAcquireRewardUniqueLevelIDList = m_oAcquireRewardUniqueLevelIDList ?? new List<ulong>();
+		m_oAcquireRewardUniqueStageIDList = m_oAcquireRewardUniqueStageIDList ?? new List<ulong>();
+		m_oAcquireRewardUniqueChapterIDList = m_oAcquireRewardUniqueChapterIDList ?? new List<ulong>();
 		
 		m_oCompleteMissionKindsList = m_oCompleteMissionKindsList ?? new List<EMissionKinds>();
 		m_oCompleteDailyMissionKindsList = m_oCompleteDailyMissionKindsList ?? new List<EMissionKinds>();
 		m_oCompleteTutorialKindsList = m_oCompleteTutorialKindsList ?? new List<ETutorialKinds>();
 		
-		m_oLevelClearInfoDict = m_oLevelClearInfoDict ?? new Dictionary<long, CClearInfo>();
+		m_oLevelClearInfoDict = m_oLevelClearInfoDict ?? new Dictionary<ulong, CClearInfo>();
 
 		// 버전이 다를 경우
 		if(this.Ver.CompareTo(KDefine.G_VER_GAME_INFO) < KCDefine.B_COMPARE_EQUALS) {

@@ -218,14 +218,14 @@ namespace LevelEditorScene {
 					m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03),
 					m_oScroller = a_oSender,
 
-					m_oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, long>>() {
+					m_oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 						[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 					}
 				},
 
-				m_oCallbackDict = new Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, long>>() {
+				m_oCallbackDict = new Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>>() {
 					[CEditorScrollerCellView.ECallback.COPY] = this.OnTouchSCVCopyBtn,
 					[CEditorScrollerCellView.ECallback.MOVE] = this.OnTouchSCVMoveBtn,
 					[CEditorScrollerCellView.ECallback.REMOVE] = this.OnTouchSCVRemoveBtn
@@ -1278,13 +1278,13 @@ namespace LevelEditorScene {
 		#region 조건부 함수
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 		/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
-		private void OnTouchSCVSelBtn(CScrollerCellView a_oSender, long a_nID) {
+		private void OnTouchSCVSelBtn(CScrollerCellView a_oSender, ulong a_nID) {
 			m_oLevelInfoDict[EKey.SEL_LEVEL_INFO] = CLevelInfoTable.Inst.GetLevelInfo(a_nID.ExUniqueLevelIDToID(), a_nID.ExUniqueLevelIDToStageID(), a_nID.ExUniqueLevelIDToChapterID());
 			this.UpdateUIsState();
 		}
 
 		/** 스크롤러 셀 뷰 복사 버튼을 눌렀을 경우 */
-		private void OnTouchSCVCopyBtn(CScrollerCellView a_oSender, long a_nID) {
+		private void OnTouchSCVCopyBtn(CScrollerCellView a_oSender, ulong a_nID) {
 			int nNumInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_nID.ExUniqueLevelIDToStageID(), a_nID.ExUniqueLevelIDToChapterID());
 			int nMaxNumInfos = KCDefine.U_MAX_NUM_LEVEL_INFOS;
 
@@ -1301,7 +1301,7 @@ namespace LevelEditorScene {
 		}
 
 		/** 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우 */
-		private void OnTouchSCVMoveBtn(CScrollerCellView a_oSender, long a_nID) {
+		private void OnTouchSCVMoveBtn(CScrollerCellView a_oSender, ulong a_nID) {
 			m_oInputPopupDict[EKey.SEL_INPUT_POPUP] = EInputPopup.MOVE_LEVEL;
 			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Scroller;
 
@@ -1317,7 +1317,7 @@ namespace LevelEditorScene {
 		}
 
 		/** 스크롤러 셀 뷰 제거 버튼을 눌렀을 경우 */
-		private void OnTouchSCVRemoveBtn(CScrollerCellView a_oSender, long a_nID) {
+		private void OnTouchSCVRemoveBtn(CScrollerCellView a_oSender, ulong a_nID) {
 			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Scroller;
 
 			// 레벨 스크롤러 일 경우

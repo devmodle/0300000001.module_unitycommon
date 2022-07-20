@@ -106,7 +106,7 @@ public partial class CResultPopup : CSubPopup {
 
 		// 텍스트를 갱신한다
 		m_oTextDict[EKey.RECORD_TEXT]?.ExSetText($"{m_stParams.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
-		m_oTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((m_stParams.m_oClearInfo != null) ? $"{m_stParams.m_oClearInfo.BestIntRecord}" : string.Empty, EFontSet._1, false);
+		m_oTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((m_stParams.m_oClearInfo != null) ? $"{m_stParams.m_oClearInfo.IntBestRecord}" : string.Empty, EFontSet._1, false);
 	}
 
 	/** 다음 버튼을 눌렀을 경우 */

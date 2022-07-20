@@ -56,7 +56,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] = CUserInfoStorage.Inst.NumCoinsBoxCoins;
 
 		Func.Acquire(Factory.MakeTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS_BOX_COINS, new STValInfo() {
-			m_oVal = $"{a_stParams.m_nNumCoinsBoxCoins}", m_eValType = EValType.INT
+			m_nVal = a_stParams.m_nNumCoinsBoxCoins, m_eValType = EValType.INT
 		}), true);
 	}
 
