@@ -119,7 +119,7 @@ namespace SampleEngineName {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 추가 변수
+		#region 변수
 		private List<CEEnemyObj> m_oSubEnemyObjList = new List<CEEnemyObj>();
 		private List<CEItem> m_oSubItemList = new List<CEItem>();
 		private List<CESkill> m_oSubSkillList = new List<CESkill>();
@@ -132,9 +132,9 @@ namespace SampleEngineName {
 		private Dictionary<ESubKey, CEPlayerObj> m_oSubPlayerObjList = new Dictionary<ESubKey, CEPlayerObj>() {
 			[ESubKey.SEL_PLAYER_OBJ] = null
 		};
-		#endregion			// 추가 변수
+		#endregion			// 변수
 
-		#region 추가 함수
+		#region 함수
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
@@ -194,9 +194,9 @@ namespace SampleEngineName {
 				}
 			}
 		}
-		#endregion			// 추가 함수
+		#endregion			// 함수
 
-		#region 추가 조건부 함수
+		#region 조건부 함수
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public virtual void OnDrawGizmos() {
@@ -206,7 +206,7 @@ namespace SampleEngineName {
 			}
 		}
 #endif			// #if UNITY_EDITOR
-		#endregion			// 추가 조건부 함수
+		#endregion			// 조건부 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

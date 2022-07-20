@@ -99,7 +99,7 @@ namespace SampleEngineName {
 
 	/** 서브 엔진 - 접근 */
 	public partial class CEngine : CComponent {
-		#region 추가 함수
+		#region 함수
 		/** 상태를 변경한다 */
 		public void SetState(EState a_eState) {
 			this.State = a_eState;
@@ -109,7 +109,7 @@ namespace SampleEngineName {
 				case EState.STOP: this.HandleStopState(); break;
 			}
 		}
-		#endregion			// 추가 함수
+		#endregion			// 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

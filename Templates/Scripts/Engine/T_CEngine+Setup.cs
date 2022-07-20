@@ -29,11 +29,11 @@ namespace SampleEngineName {
 
 	/** 서브 엔진 - 설정 */
 	public partial class CEngine : CComponent {
-		#region 추가 함수
+		#region 함수
 
-		#endregion			// 추가 함수
+		#endregion			// 함수
 
-		#region 추가 조건부 함수
+		#region 조건부 함수
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
@@ -63,7 +63,7 @@ namespace SampleEngineName {
 			// Do Something
 		}
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		#endregion			// 추가 조건부 함수
+		#endregion			// 조건부 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

@@ -16,9 +16,9 @@ namespace SampleEngineName {
 
 	/** 서브 엔진 - 팩토리 */
 	public partial class CEngine : CComponent {
-		#region 추가 함수
+		#region 함수
 		
-		#endregion			// 추가 함수
+		#endregion			// 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

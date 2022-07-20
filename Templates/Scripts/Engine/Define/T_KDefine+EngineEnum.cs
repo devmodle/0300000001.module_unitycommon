@@ -12,19 +12,22 @@ namespace SampleEngineName {
 		#region 기본
 
 		#endregion			// 기본
+	}
 
-		#region 추가 상수
+	/** 서브 엔진 열거형 값 */
+	public static partial class KEngineEnumVal {
+		#region 상수
 
-		#endregion			// 추가 상수
+		#endregion			// 상수
 	}
 	
 	#region 기본
 	
 	#endregion			// 기본
 
-	#region 추가 상수
+	#region 상수
 
-	#endregion			// 추가 상수
+	#endregion			// 상수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

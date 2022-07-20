@@ -22,13 +22,13 @@ namespace LoadingScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 추가 변수
+		#region 변수
 
-		#endregion			// 추가 변수
+		#endregion			// 변수
 
-		#region 추가 함수
+		#region 함수
 
-		#endregion			// 추가 함수
+		#endregion			// 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE

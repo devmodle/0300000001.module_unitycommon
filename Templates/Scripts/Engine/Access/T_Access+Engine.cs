@@ -34,9 +34,9 @@ namespace SampleEngineName {
 
 	/** 서브 엔진 접근자 */
 	public static partial class Access {
-		#region 추가 클래스 함수
+		#region 클래스 함수
 
-		#endregion			// 추가 클래스 함수
+		#endregion			// 클래스 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE

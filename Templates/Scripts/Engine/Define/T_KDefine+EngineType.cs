@@ -26,13 +26,13 @@ namespace SampleEngineName {
 	}
 	#endregion			// 기본
 
-	#region 추가 타입
+	#region 타입
 	/** 서브 엔진 타입 랩퍼 */
 	[MessagePackObject]
 	public partial struct STSubEngineTypeWrapper {
 		// Do Something
 	}
-	#endregion			// 추가 타입
+	#endregion			// 타입
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY
