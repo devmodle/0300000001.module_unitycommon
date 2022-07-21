@@ -30,7 +30,7 @@ namespace SplashScene {
 		/** 씬을 설정한다 */
 		protected override void Setup() {
 			base.Setup();
-
+			
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			// 테이블을 생성한다 {
 			CLevelInfoTable.Create();
