@@ -227,19 +227,11 @@ public static partial class Func {
 
 		// 유저 타겟 정보가 존재 할 경우
 		if(a_oUserTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
-			switch(a_stTargetInfo.m_eTargetKinds) {
-				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
-					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
-				} break;
-				case ETargetKinds.ITEM_EXP: case ETargetKinds.SKILL_EXP: case ETargetKinds.OBJ_EXP: {
-					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
-				} break;
-				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
-					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
-				} break;
-				case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: {
-					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
-				} break;
+			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
+				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE: a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE: a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE: a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE: a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert); break;
 			}
 		}
 	}
@@ -289,19 +281,11 @@ public static partial class Func {
 
 		// 유저 타겟 정보가 존재 할 경우
 		if(a_oUserTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
-			switch(a_stTargetInfo.m_eTargetKinds) {
-				case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: {
-					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
-				} break;
-				case ETargetKinds.ITEM_EXP: case ETargetKinds.SKILL_EXP: case ETargetKinds.OBJ_EXP: {
-					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
-				} break;
-				case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: {
-					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
-				} break;
-				case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: {
-					a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert);
-				} break;
+			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
+				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE: a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE: a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE: a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE: a_oUserTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo.m_nVal, a_bIsEnableAssert); break;
 			}
 		}
 	}

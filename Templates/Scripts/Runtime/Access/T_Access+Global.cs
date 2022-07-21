@@ -106,10 +106,11 @@ public static partial class Access {
 	private static bool DoIsEnableTrade(CUserTargetInfo a_oUserTargetInfo, STTargetInfo a_stTargetInfo) {
 		CAccess.Assert(a_oUserTargetInfo != null);
 
-		switch(a_stTargetInfo.m_eTargetKinds) {
-			case ETargetKinds.ITEM_LV: case ETargetKinds.SKILL_LV: case ETargetKinds.OBJ_LV: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
-			case ETargetKinds.ITEM_NUMS: case ETargetKinds.SKILL_NUMS: case ETargetKinds.OBJ_NUMS: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
-			case ETargetKinds.ITEM_ENHANCE: case ETargetKinds.SKILL_ENHANCE: case ETargetKinds.OBJ_ENHANCE: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
+		switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
+			case KEnumVal.LV_TARGET_SUB_KINDS_TYPE: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
+			case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
+			case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
+			case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE: return a_oUserTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo.m_nVal >= a_stTargetInfo.m_stValInfo.m_nVal;
 		}
 
 		return false;

@@ -9,7 +9,11 @@ using UnityEngine.Events;
 /** 서브 열거형 값 */
 public static partial class KEnumVal {
 	#region 기본
-
+	// 타겟 종류
+	public const int LV_TARGET_SUB_KINDS_TYPE = 1;
+	public const int EXP_TARGET_SUB_KINDS_TYPE = 2;
+	public const int NUMS_TARGET_SUB_KINDS_TYPE = 3;
+	public const int ENHANCE_TARGET_SUB_KINDS_TYPE = 4;
 	#endregion			// 기본
 }
 
@@ -45,11 +49,7 @@ public enum EItemKinds {
 
 	// 100,100,000
 	CONSUMABLE_GAME_ITEM_HINT = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,100,100
 	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
-
-	// 100,100,200
 	CONSUMABLE_GAME_ITEM_SHUFFLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 2),
 	#endregion			// 소모
 
@@ -75,7 +75,7 @@ public enum EItemKinds {
 
 	#region 장식
 	// 60,000,000
-	ATTACH_ITEM_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ATTACH_ITEM_SAMPLE = (EEnumVal.TYPE * 6) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 장식
 
 	[HideInInspector] MAX_VAL
@@ -202,15 +202,11 @@ public enum EEpisodeKinds {
 	#region 레벨
 	// 0
 	LEVEL_NORM = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100
 	LEVEL_NORM_BOSS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
 
-	// 200,000
-	LEVEL_TUTORIAL = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 200,100
-	LEVEL_TUTORIAL_BOSS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	// 100,000
+	LEVEL_TUTORIAL = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	LEVEL_TUTORIAL_BOSS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion			// 레벨
 
 	#region 스테이지
@@ -452,32 +448,22 @@ public enum EResKinds {
 	#region 사운드
 	// 0
 	SND_BG_SCENE_TITLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100
 	SND_BG_SCENE_MAIN = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-
-	// 200
 	SND_BG_SCENE_GAME = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 
 	// 100,000
 	SND_FX_TOUCH_BEGIN = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,100
 	SND_FX_TOUCH_END = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
 
 	// 200,000
 	SND_FX_POPUP_SHOW = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 200,100
 	SND_FX_POPUP_CLOSE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion			// 사운드
 
 	#region 폰트
 	// 100,000,000
 	FONT_KOREAN = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,100,000
-	FONT_ENGLISH = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	FONT_ENGLISH = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion           // 폰트
 
 	#region 이미지
@@ -517,20 +503,14 @@ public enum EProductSaleKinds {
 	#region 패키지
 	// 0
 	PKGS_SPECIAL_BEGINNER = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100
 	PKGS_SPECIAL_EXPERT = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-
-	// 200
 	PKGS_SPECIAL_PRO = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 	#endregion			// 패키지
 
 	#region 단일
 	// 100,000,000
 	SINGLE_COINS_BOX = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,100,000
-	SINGLE_REMOVE_ADS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SINGLE_REMOVE_ADS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion			// 단일
 
 	[HideInInspector] MAX_VAL
@@ -553,52 +533,28 @@ public enum ETargetKinds {
 	#region 아이템
 	// 0
 	ITEM = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,000
-	ITEM_LV = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	
-	// 200,000
-	ITEM_EXP = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 300,000
-	ITEM_NUMS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 400,000
-	ITEM_ENHANCE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 4) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ITEM_LV = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	ITEM_EXP = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	ITEM_NUMS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
+	ITEM_ENHANCE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
 	#endregion			// 아이템
 
 	#region 스킬
 	// 100,000,000
 	SKILL = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,100,000
-	SKILL_LV = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,200,000
-	SKILL_EXP = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,300,000
-	SKILL_NUMS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,400,000
-	SKILL_ENHANCE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 4) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SKILL_LV = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	SKILL_EXP = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	SKILL_NUMS = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
+	SKILL_ENHANCE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
 	#endregion			// 스킬
 
 	#region 객체
 	// 200,000,000
 	OBJ = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 200,100,000
-	OBJ_LV = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 200,200,000
-	OBJ_EXP = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 200,300,000
-	OBJ_NUMS = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 200,400,000
-	OBJ_ENHANCE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 4) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	OBJ_LV = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	OBJ_EXP = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	OBJ_NUMS = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
+	OBJ_ENHANCE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
 	#endregion			// 객체
 
 	#region 어빌리티

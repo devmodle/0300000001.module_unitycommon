@@ -12,7 +12,7 @@ namespace SampleEngineName {
 		#region 클래스 함수
 		/** 객체 스프라이트를 반환한다 */
 		public static Sprite GetObjSprite(EObjKinds a_eObjKinds) {
-			bool bIsValid = KDefine.E_IMG_P_OBJ_DICT.TryGetValue((EObjKinds)((int)a_eObjKinds).ExKindsToKindsType(), out string oImgPath);
+			bool bIsValid = KDefine.E_IMG_P_OBJ_DICT.TryGetValue((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), out string oImgPath);
 			return (bIsValid && oImgPath.ExIsValid()) ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 		
