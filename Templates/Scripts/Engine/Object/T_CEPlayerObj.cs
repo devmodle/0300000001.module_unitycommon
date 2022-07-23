@@ -12,7 +12,7 @@ namespace SampleEngineName {
 		/** 매개 변수 */
 		public new partial struct STParams {
 			public CEObj.STParams m_stBaseParams;
-			public CUserObjInfo m_oUserObjInfo;
+			public CObjInfo m_oObjInfo;
 		}
 
 		#region 변수

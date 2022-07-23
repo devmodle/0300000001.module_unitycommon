@@ -17,15 +17,13 @@ namespace SampleEngineName {
 
 		#region 변수
 		private STParams m_stParams;
-		private Dictionary<EAbilityKinds, long> m_oIntAbilityValDict = new Dictionary<EAbilityKinds, long>();
-		private Dictionary<EAbilityKinds, double> m_oRealAbilityValDict = new Dictionary<EAbilityKinds, double>();
+		private Dictionary<EAbilityKinds, decimal> m_oAbilityValDict = new Dictionary<EAbilityKinds, decimal>();
 		#endregion			// 변수
 		
 		#region 프로퍼티
 		public string ObjsPoolKey => m_stParams.m_oObjsPoolKey;
 		public CEngine Engine => m_stParams.m_oEngine;
-		public Dictionary<EAbilityKinds, long> IntAbilityValDict => m_oIntAbilityValDict;
-		public Dictionary<EAbilityKinds, double> RealAbilityValDict => m_oRealAbilityValDict;
+		public Dictionary<EAbilityKinds, decimal> AbilityValDict => m_oAbilityValDict;
 		#endregion			// 프로퍼티
 
 		#region 함수

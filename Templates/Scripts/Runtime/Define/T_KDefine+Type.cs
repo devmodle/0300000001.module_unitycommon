@@ -17,7 +17,7 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	[Key(1)] public int m_nKinds;
 	[Key(11)] public ETargetKinds m_eTargetKinds;
 	[Key(12)] public EKindsGroupType m_eKindsGroupType;
-	[Key(21)]public STValInfo m_stValInfo;
+	[Key(21)] public STValInfo m_stValInfo;
 
 	#region 상수
 	public static readonly STTargetInfo INVALID = new STTargetInfo() {

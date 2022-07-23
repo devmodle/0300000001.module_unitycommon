@@ -56,7 +56,7 @@ namespace SampleEngineName {
 			base.SetupAbilityVals();
 
 			foreach(var stKeyVal in m_stParams.m_stSkillInfo.m_oAbilityTargetInfoDict) {
-				global::Func.SetupAbilityVals(stKeyVal.Value, this.IntAbilityValDict, this.RealAbilityValDict);
+				global::Func.SetupAbilityVals(stKeyVal.Value, this.AbilityValDict);
 			}
 		}
 		#endregion			// 함수
