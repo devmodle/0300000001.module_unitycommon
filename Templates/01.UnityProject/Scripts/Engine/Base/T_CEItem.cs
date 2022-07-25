@@ -22,6 +22,7 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public STItemInfo ItemInfo => m_stParams.m_stItemInfo;
+		public CItemInfo ClsItemInfo => m_stParams.m_oItemInfo;
 		#endregion			// 프로퍼티
 
 		#region 함수

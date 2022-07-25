@@ -23,6 +23,7 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public STSkillInfo SkillInfo => m_stParams.m_stSkillInfo;
+		public CSkillInfo ClsSkillInfo => m_stParams.m_oSkillInfo;
 		#endregion			// 프로퍼티
 
 		#region 함수
