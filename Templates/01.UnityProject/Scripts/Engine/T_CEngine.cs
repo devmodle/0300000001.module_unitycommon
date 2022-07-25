@@ -14,6 +14,7 @@ namespace SampleEngineName {
 		private enum EKey {
 			NONE = -1,
 			SEL_GRID_INFO,
+			SEL_PLAYER_OBJ,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -60,6 +61,14 @@ namespace SampleEngineName {
 			[EKey.SEL_GRID_INFO] = default(STGridInfo)
 		};
 
+		private Dictionary<EKey, CEPlayerObj> m_oPlayerObjDict = new Dictionary<EKey, CEPlayerObj>() {
+			[EKey.SEL_PLAYER_OBJ] = null
+		};
+
+		private List<CEItem> m_oItemList = new List<CEItem>();
+		private List<CESkill> m_oSkillList = new List<CESkill>();
+		private List<CEEnemyObj> m_oEnemyObjList = new List<CEEnemyObj>();
+		private List<CEFX> m_oFXList = new List<CEFX>();
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
@@ -74,10 +83,16 @@ namespace SampleEngineName {
 		public EEngineState EngineState { get; private set; } = EEngineState.NONE;
 
 		public STGridInfo SelGridInfo => m_oGridInfoDict[EKey.SEL_GRID_INFO];
+		public CEPlayerObj SelPlayerObj => m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ];
 
 		public GameObject ObjRoot => m_stParams.m_oObjRoot;
 		public GameObject FXObjRoot => m_stParams.m_oFXObjRoot;
 		public GameObject SkillObjRoot => m_stParams.m_oSkillObjRoot;
+
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
+		public CLevelInfo LevelInfo => m_stParams.m_oLevelInfo;
+		public CClearInfo ClearInfo => m_stParams.m_oClearInfo;
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		#endregion			// 프로퍼티
 		
 		#region 함수
@@ -98,7 +113,12 @@ namespace SampleEngineName {
 
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stDirection) {
-			m_oSubVec3Dict[ESubKey.MOVE_DIRECTION] = a_stDirection;
+			// Do Something
+		}
+
+		/** 플레이어 객체 스킬을 적용한다 */
+		public void ApplyPlayerObjSkill(CSkillInfo a_oSkillInfo) {
+			// Do Something
 		}
 
 		/** 터치 이벤트를 처리한다 */

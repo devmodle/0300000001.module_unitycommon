@@ -60,10 +60,6 @@ namespace GameScene {
 			this.SetupEngine();
 			this.SetupRewardAdsUIs();
 
-			// 레벨 정보를 설정한다
-			m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO] = CGameInfoStorage.Inst.PlayLevelInfo;
-			m_oClearInfoDict[EKey.PLAY_LEVEL_CLEAR_INFO] = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03) ? oLevelClearInfo : null;
-
 			// 버튼을 설정한다
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 				(KCDefine.U_OBJ_N_PAUSE_BTN, this.UIsBase, this.OnTouchPauseBtn),
@@ -140,7 +136,7 @@ namespace GameScene {
 		/** 보상 광고 UI 상태를 갱신한다 */
 		private void UpdateRewardAdsUIsState() {
 			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
-				m_oRewardAdsUIsList[i]?.SetActive(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT >= KDefine.GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH);
+				m_oRewardAdsUIsList[i]?.SetActive(m_oEngine.LevelInfo.UniqueLevelID + KCDefine.B_VAL_1_INT >= KDefine.GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH);
 			}
 		}
 		#endregion			// 함수

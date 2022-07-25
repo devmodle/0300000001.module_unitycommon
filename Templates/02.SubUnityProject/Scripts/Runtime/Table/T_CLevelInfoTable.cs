@@ -74,6 +74,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 변수
 	
 	#region 프로퍼티
+	[JsonIgnore][IgnoreMember] public ulong UniqueLevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; private set; } = new Dictionary<ulong, STTargetInfo>();
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; private set; } = new Dictionary<ulong, STTargetInfo>();

@@ -39,24 +39,11 @@ namespace SampleEngineName {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
-			MOVE_DIRECTION,
-			SEL_PLAYER_OBJ,
 			[HideInInspector] MAX_VAL
 		}
 
 		#region 변수
-		private List<CEItem> m_oSubItemList = new List<CEItem>();
-		private List<CESkill> m_oSubSkillList = new List<CESkill>();
-		private List<CEEnemyObj> m_oSubEnemyObjList = new List<CEEnemyObj>();
-		private List<CEFX> m_oSubFXList = new List<CEFX>();
-
-		private Dictionary<ESubKey, Vector3> m_oSubVec3Dict = new Dictionary<ESubKey, Vector3>() {
-			[ESubKey.MOVE_DIRECTION] = Vector3.zero
-		};
-
-		private Dictionary<ESubKey, CEPlayerObj> m_oSubPlayerObjList = new Dictionary<ESubKey, CEPlayerObj>() {
-			[ESubKey.SEL_PLAYER_OBJ] = null
-		};
+		
 		#endregion			// 변수
 
 		#region 프로퍼티

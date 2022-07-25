@@ -38,6 +38,20 @@ public partial struct STEpisodeInfo {
 	};
 	#endregion			// 상수
 
+	#region 프로퍼티
+	public ulong UniqueLevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
+	public ulong PrevUniqueLevelID => CFactory.MakeUniqueLevelID(m_stPrevIDInfo.m_nID01, m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
+	public ulong NextUniqueLevelID => CFactory.MakeUniqueLevelID(m_stNextIDInfo.m_nID01, m_stNextIDInfo.m_nID02, m_stNextIDInfo.m_nID03);
+
+	public ulong UniqueStagelID => CFactory.MakeUniqueStageID(m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
+	public ulong PrevUniqueStageID => CFactory.MakeUniqueStageID(m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
+	public ulong NextUniqueStageID => CFactory.MakeUniqueStageID(m_stNextIDInfo.m_nID02, m_stNextIDInfo.m_nID03);
+
+	public ulong UniqueChapterID => CFactory.MakeUniqueChapterID(m_stIDInfo.m_nID03);
+	public ulong PrevUniqueChapterID => CFactory.MakeUniqueChapterID(m_stPrevIDInfo.m_nID03);
+	public ulong NextUniqueChapterID => CFactory.MakeUniqueChapterID(m_stNextIDInfo.m_nID03);
+	#endregion			// 프로퍼티
+
 	#region 함수
 	/** 생성자 */
 	public STEpisodeInfo(SimpleJSON.JSONNode a_oEpisodeInfo) {

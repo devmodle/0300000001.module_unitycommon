@@ -37,6 +37,8 @@ public partial class CClearInfo : CBaseInfo {
 
 	[JsonIgnore][IgnoreMember] public double RealRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(KEY_REAL_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(KEY_REAL_RECORD, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public double RealBestRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(KEY_REAL_BEST_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(KEY_REAL_BEST_RECORD, $"{value}"); } }
+
+	[JsonIgnore][IgnoreMember] public ulong UniqueLevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver

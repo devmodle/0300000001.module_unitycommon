@@ -16,8 +16,6 @@ namespace GameScene {
 			IS_LEAVE,
 			CONTINUE_TIMES,
 			SEL_REWARD_ADS_UIS,
-			PLAY_LEVEL_INFO,
-			PLAY_LEVEL_CLEAR_INFO,
 			BG_TOUCH_DISPATCHER,
 			[HideInInspector] MAX_VAL
 		}
@@ -50,14 +48,6 @@ namespace GameScene {
 
 		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>() {
 			[EKey.SEL_REWARD_ADS_UIS] = ERewardAdsUIs.NONE
-		};
-		
-		private Dictionary<EKey, CLevelInfo> m_oLevelInfoDict = new Dictionary<EKey, CLevelInfo>() {
-			[EKey.PLAY_LEVEL_INFO] = null
-		};
-
-		private Dictionary<EKey, CClearInfo> m_oClearInfoDict = new Dictionary<EKey, CClearInfo>() {
-			[EKey.PLAY_LEVEL_CLEAR_INFO] = null
 		};
 
 		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>();
@@ -222,8 +212,8 @@ namespace GameScene {
 
 		/** 다음 레벨을 로드한다 */
 		private void LoadNextLevel(CPopup a_oPopup) {
-			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID01, out STEpisodeInfo stNextLevelEpisodeInfo, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID03);
-			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID01 <= CGameInfoStorage.Inst.GetNumLevelClearInfos(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID03);
+			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oEngine.LevelInfo.m_stIDInfo.m_nID01, out STEpisodeInfo stNextLevelEpisodeInfo, m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03);
+			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID01 <= CGameInfoStorage.Inst.GetNumLevelClearInfos(m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03);
 
 			switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
@@ -278,7 +268,7 @@ namespace GameScene {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CContinuePopup).Init(new CContinuePopup.STParams() {
 					m_nContinueTimes = m_oIntDict[EKey.CONTINUE_TIMES],
-					m_oLevelInfo = m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO],
+					m_oLevelInfo = m_oEngine.LevelInfo,
 
 					m_oCallbackDict = new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
 						[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
@@ -304,8 +294,8 @@ namespace GameScene {
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 					},
 					
-					m_oLevelInfo = m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO],
-					m_oClearInfo = m_oClearInfoDict[EKey.PLAY_LEVEL_CLEAR_INFO],
+					m_oLevelInfo = m_oEngine.LevelInfo,
+					m_oClearInfo = m_oEngine.ClearInfo,
 
 					m_oCallbackDict = new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
 						[CResultPopup.ECallback.NEXT] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.NEXT),
@@ -322,7 +312,7 @@ namespace GameScene {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		/** 레벨을 클리어했을 경우 */
 		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {			
-			var oLevelClearInfo = Access.GetLevelClearInfo(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID01, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID02, m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID03, true);
+			var oLevelClearInfo = Access.GetLevelClearInfo(m_oEngine.LevelInfo.m_stIDInfo.m_nID01, m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03, true);
 			oLevelClearInfo.IntRecord = a_oSender.IntRecord;
 			oLevelClearInfo.IntBestRecord = System.Math.Max(a_oSender.IntRecord, oLevelClearInfo.IntBestRecord);
 			
