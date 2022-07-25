@@ -20,14 +20,6 @@ namespace TitleScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#if DEBUG || DEVELOPMENT_BUILD
-		/** 테스트 UI */
-		[System.Serializable]
-		private partial struct STTestUIs {
-			// Do Something
-		}
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-
 		#region 변수
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
 			[EKey.IS_LOAD_EDITOR_SCENE] = false
@@ -35,10 +27,6 @@ namespace TitleScene {
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-
-#if DEBUG || DEVELOPMENT_BUILD
-		[SerializeField] private STTestUIs m_stTestUIs;
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
 		#endregion			// 변수
 
 		#region 함수

@@ -39,14 +39,6 @@ namespace GameScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#if DEBUG || DEVELOPMENT_BUILD
-		/** 테스트 UI */
-		[System.Serializable]
-		private partial struct STTestUIs {
-			// Do Something
-		}
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-
 		#region 변수
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
 			[EKey.IS_LEAVE] = false
@@ -73,11 +65,6 @@ namespace GameScene {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		private SampleEngineName.CEngine m_oEngine = null;
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-
-		/** =====> UI <===== */
-#if DEBUG || DEVELOPMENT_BUILD
-		[SerializeField] private STTestUIs m_stTestUIs;
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 		/** =====> 객체 <===== */
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();

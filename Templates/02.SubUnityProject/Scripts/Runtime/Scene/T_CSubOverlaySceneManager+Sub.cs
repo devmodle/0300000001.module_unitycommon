@@ -42,10 +42,6 @@ namespace OverlayScene {
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 				(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
 			}, m_oBtnDict, false);
-
-#if DEBUG || DEVELOPMENT_BUILD
-			this.SetupTestUIs();
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 
 		/** 씬을 설정한다 */
@@ -66,10 +62,6 @@ namespace OverlayScene {
 
 			// 텍스트를 갱신한다
 			m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{CUserInfoStorage.Inst.NumCoins}", EFontSet._1, false);
-
-#if DEBUG || DEVELOPMENT_BUILD
-			this.UpdateTestUIsState();
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 		#endregion			// 함수
 	}
@@ -93,20 +85,6 @@ namespace OverlayScene {
 		#region 함수
 
 		#endregion			// 함수
-
-		#region 조건부 함수
-#if DEBUG || DEVELOPMENT_BUILD
-		/** 테스트 UI 를 설정한다 */
-		private void SetupTestUIs() {
-			// Do Something
-		}
-
-		/** 테스트 UI 상태를 갱신한다 */
-		private void UpdateTestUIsState() {
-			// Do Something
-		}
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-		#endregion			// 조건부 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE

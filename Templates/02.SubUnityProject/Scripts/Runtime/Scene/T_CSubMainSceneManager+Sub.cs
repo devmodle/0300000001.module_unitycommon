@@ -76,7 +76,7 @@ namespace MainScene {
 			}, m_oScrollerInfoDict, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
-			this.SetupTestUIs();
+			this.SetupSubTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 
 #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
@@ -121,7 +121,7 @@ namespace MainScene {
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
 #if DEBUG || DEVELOPMENT_BUILD
-			this.UpdateTestUIsState();
+			this.UpdateSubTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 		#endregion			// 함수
@@ -135,8 +135,19 @@ namespace MainScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#if DEBUG || DEVELOPMENT_BUILD
+		/** 서브 테스트 UI */
+		[System.Serializable]
+		private partial struct STSubTestUIs {
+			// Do Something
+		}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 
+		#region 변수
+		/** =====> UI <===== */
+#if DEBUG || DEVELOPMENT_BUILD
+		[SerializeField] private STSubTestUIs m_stSubTestUIs;
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 		#endregion			// 변수
 
 		#region 프로퍼티
@@ -166,13 +177,13 @@ namespace MainScene {
 
 		#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
-		/** 테스트 UI 를 설정한다 */
-		private void SetupTestUIs() {
+		/** 서브 테스트 UI 를 설정한다 */
+		private void SetupSubTestUIs() {
 			// Do Something
 		}
 
-		/** 테스트 UI 상태를 갱신한다 */
-		private void UpdateTestUIsState() {
+		/** 서브 테스트 UI 상태를 갱신한다 */
+		private void UpdateSubTestUIsState() {
 			// Do Something
 		}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

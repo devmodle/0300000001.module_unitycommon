@@ -86,7 +86,7 @@ namespace GameScene {
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 #if DEBUG || DEVELOPMENT_BUILD
-			this.SetupTestUIs();
+			this.SetupSubTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 
@@ -133,7 +133,7 @@ namespace GameScene {
 			this.UpdateRewardAdsUIsState();
 
 #if DEBUG || DEVELOPMENT_BUILD
-			this.UpdateTestUIsState();
+			this.UpdateSubTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 
@@ -154,8 +154,19 @@ namespace GameScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#if DEBUG || DEVELOPMENT_BUILD
+		/** 서브 테스트 UI */
+		[System.Serializable]
+		private partial struct STSubTestUIs {
+			// Do Something
+		}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 
+		#region 변수
+		/** =====> UI <===== */
+#if DEBUG || DEVELOPMENT_BUILD
+		[SerializeField] private STSubTestUIs m_stSubTestUIs;
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 		#endregion			// 변수
 
 		#region 프로퍼티
@@ -197,13 +208,13 @@ namespace GameScene {
 #endif			// #if UNITY_EDITOR
 
 #if DEBUG || DEVELOPMENT_BUILD
-		/** 테스트 UI 를 설정한다 */
-		private void SetupTestUIs() {
+		/** 서브 테스트 UI 를 설정한다 */
+		private void SetupSubTestUIs() {
 			// Do Something
 		}
 
-		/** 테스트 UI 상태를 갱신한다 */
-		private void UpdateTestUIsState() {
+		/** 서브 테스트 UI 상태를 갱신한다 */
+		private void UpdateSubTestUIsState() {
 			// Do Something
 		}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

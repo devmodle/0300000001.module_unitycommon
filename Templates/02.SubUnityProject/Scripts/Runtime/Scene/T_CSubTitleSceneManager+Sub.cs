@@ -56,7 +56,7 @@ namespace TitleScene {
 			}, m_oBtnDict, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
-			this.SetupTestUIs();
+			this.SetupSubTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 
@@ -73,8 +73,14 @@ namespace TitleScene {
 
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
+			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(true);
+#else
+			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(false);
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
+
 #if DEBUG || DEVELOPMENT_BUILD
-			this.UpdateTestUIsState();
+			this.UpdateSubTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 		#endregion			// 함수
@@ -88,8 +94,19 @@ namespace TitleScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#if DEBUG || DEVELOPMENT_BUILD
+		/** 서브 테스트 UI */
+		[System.Serializable]
+		private partial struct STSubTestUIs {
+			// Do Something
+		}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 
+		#region 변수
+		/** =====> UI <===== */
+#if DEBUG || DEVELOPMENT_BUILD
+		[SerializeField] private STSubTestUIs m_stSubTestUIs;
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 		#endregion			// 변수
 
 		#region 프로퍼티
@@ -102,13 +119,13 @@ namespace TitleScene {
 
 		#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
-		/** 테스트 UI 를 설정한다 */
-		private void SetupTestUIs() {
+		/** 서브 테스트 UI 를 설정한다 */
+		private void SetupSubTestUIs() {
 			// Do Something
 		}
 
-		/** 테스트 UI 상태를 갱신한다 */
-		private void UpdateTestUIsState() {
+		/** 서브 테스트 UI 상태를 갱신한다 */
+		private void UpdateSubTestUIsState() {
 			// Do Something
 		}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

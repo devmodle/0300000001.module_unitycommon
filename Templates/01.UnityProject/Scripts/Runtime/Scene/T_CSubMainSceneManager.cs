@@ -23,14 +23,6 @@ namespace MainScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#if DEBUG || DEVELOPMENT_BUILD
-		/** 테스트 UI */
-		[System.Serializable]
-		private partial struct STTestUIs {
-			// Do Something
-		}
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-
 		#region 변수
 		private Dictionary<EKey, STIDInfo> m_oIDInfoDict = new Dictionary<EKey, STIDInfo>() {
 			[EKey.SEL_ID_INFO] = default(STIDInfo)
@@ -42,10 +34,6 @@ namespace MainScene {
 		};
 
 		private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>();
-
-#if DEBUG || DEVELOPMENT_BUILD
-		[SerializeField] private STTestUIs m_stTestUIs;
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
 		#endregion			// 변수
 		
 		#region IEnhancedScrollerDelegate
