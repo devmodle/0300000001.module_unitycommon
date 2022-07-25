@@ -1,0 +1,172 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using TMPro;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if PURCHASE_MODULE_ENABLE
+using UnityEngine.Purchasing;
+#endif			// #if PURCHASE_MODULE_ENABLE
+
+/** 상점 팝업 */
+public partial class CStorePopup : CSubPopup {
+	/** 식별자 */
+	private enum EKey {
+		NONE = -1,
+		PURCHASE_PRODUCT_ID,
+		SEL_PRODUCT_SALE_KINDS,
+		[HideInInspector] MAX_VAL
+	}
+
+	/** 콜백 */
+	public enum ECallback {
+		NONE = -1,
+		ADS,
+		PURCHASE,
+		RESTORE,
+		[HideInInspector] MAX_VAL
+	}
+
+	/** 매개 변수 */
+	public partial struct STParams {
+		public List<STProductSaleInfo> m_oProductSaleInfoList;
+
+#if ADS_MODULE_ENABLE
+		public Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>> m_oAdsCallbackDict;
+#endif			// #if ADS_MODULE_ENABLE
+
+#if PURCHASE_MODULE_ENABLE
+		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDict01;
+		public Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDict02;
+#endif			// #if PURCHASE_MODULE_ENABLE
+	}
+
+	#region 변수
+	private STParams m_stParams;
+
+	private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
+		[EKey.PURCHASE_PRODUCT_ID] = string.Empty
+	};
+
+	private Dictionary<EKey, EProductSaleKinds> m_oProductSaleKindsDict = new Dictionary<EKey, EProductSaleKinds>() {
+		[EKey.SEL_PRODUCT_SALE_KINDS] = EProductSaleKinds.NONE
+	};
+
+#if PURCHASE_MODULE_ENABLE
+	private List<Product> m_oRestoreProductList = new List<Product>();
+#endif			// #if PURCHASE_MODULE_ENABLE
+
+	/** =====> 객체 <===== */
+	[SerializeField] private List<GameObject> m_oProductSaleUIsList = new List<GameObject>();
+	#endregion			// 변수
+
+	#region 함수
+	/** 팝업 컨텐츠를 설정한다 */
+	protected override void SetupContents() {
+		base.SetupContents();
+		this.UpdateUIsState();
+	}
+	
+	/** 결제 버튼을 눌렀을 경우 */
+	private void OnTouchPurchaseBtn(STProductSaleInfo a_stProductSaleInfo) {
+		switch(a_stProductSaleInfo.m_ePurchaseType) {
+			case EPurchaseType.ADS: {
+#if ADS_MODULE_ENABLE
+				m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS] = a_stProductSaleInfo.m_eProductSaleKinds;
+				Func.ShowRewardAds(this.OnCloseRewardAds);
+#endif			// #if ADS_MODULE_ENABLE
+			} break;
+			case EPurchaseType.IN_APP_PURCHASE: {
+#if PURCHASE_MODULE_ENABLE
+				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductSaleInfo.m_eProductSaleKinds, this.OnPurchaseProduct);
+#endif			// #if PURCHASE_MODULE_ENABLE
+			} break;
+			case EPurchaseType.TARGET: {
+				// Do Something
+			} break;
+		}
+	}
+
+	/** 복원 버튼을 눌렀을 경우 */
+	private void OnTouchRestoreBtn() {
+#if PURCHASE_MODULE_ENABLE
+		m_oRestoreProductList.Clear();
+		Func.RestoreProducts(this.OnRestoreProducts);
+#endif			// #if PURCHASE_MODULE_ENABLE
+	}
+	#endregion			// 함수
+	
+	#region 조건부 함수
+#if ADS_MODULE_ENABLE
+	/** 보상 광고가 닫혔을 경우 */
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			Func.Buy(CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS]));
+		}
+
+		this.UpdateUIsState();
+		m_stParams.m_oAdsCallbackDict?.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
+	}
+#endif			// #if ADS_MODULE_ENABLE
+
+#if PURCHASE_MODULE_ENABLE
+	/** 상품이 결제 되었을 경우 */
+	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+		// 결제 되었을 경우
+		if(a_bIsSuccess) {
+			m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
+		}
+
+		this.UpdateUIsState();
+		m_stParams.m_oPurchaseCallbackDict01?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+	}
+
+	/** 상품이 복원 되었을 경우 */
+	public void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
+		// 복원 되었을 경우
+		if(a_bIsSuccess) {
+			m_oRestoreProductList = a_oProductList;
+			Func.AcquireRestoreProducts(a_oProductList);
+		}
+
+#if FIREBASE_MODULE_ENABLE
+		this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadTargetInfos(this.OnLoadTargetInfos));
+#else
+		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
+#endif			// #if FIREBASE_MODULE_ENABLE
+
+		this.UpdateUIsState();
+		m_stParams.m_oPurchaseCallbackDict02?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
+	}
+
+#if FIREBASE_MODULE_ENABLE
+	/** 타겟 정보를 로드했을 경우 */
+	private void OnLoadTargetInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+		// 로드 되었을 경우
+		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
+			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
+			Func.Acquire(oTargetInfoDict);
+
+			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
+		} else {
+			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
+		}
+
+		this.UpdateUIsState();
+	}
+	
+	/** 타겟 정보를 저장했을 경우 */
+	private void OnSaveTargetInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
+	}
+#endif			// #if FIREBASE_MODULE_ENABLE
+#endif			// #if PURCHASE_MODULE_ENABLE
+	#endregion			// 조건부 함수
+}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY

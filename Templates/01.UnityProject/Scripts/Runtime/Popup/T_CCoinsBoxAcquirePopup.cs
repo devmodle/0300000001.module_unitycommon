@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using TMPro;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+/** 코인 상자 획득 팝업 */
+public partial class CCoinsBoxAcquirePopup : CSubPopup {
+	/** 식별자 */
+	private enum EKey {
+		NONE = -1,
+		PREV_NUM_COINS_BOX_COINS,
+		NUM_COINS_TEXT,
+		[HideInInspector] MAX_VAL
+	}
+
+	/** 매개 변수 */
+	public partial struct STParams {
+		public long m_nNumCoinsBoxCoins;
+	}
+
+	#region 변수
+	private STParams m_stParams;
+
+	private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>() {
+		[EKey.PREV_NUM_COINS_BOX_COINS] = 0
+	};
+
+	/** =====> UI <===== */
+	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
+
+	/** =====> 객체 <===== */
+	[SerializeField] private GameObject m_oSaveUIs = null;
+	[SerializeField] private GameObject m_oFullUIs = null;
+	#endregion			// 변수
+	
+	#region 함수
+	/** 팝업 컨텐츠를 설정한다 */
+	protected override void SetupContents() {
+		base.SetupContents();
+		this.UpdateUIsState();
+	}
+	#endregion			// 함수
+}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY

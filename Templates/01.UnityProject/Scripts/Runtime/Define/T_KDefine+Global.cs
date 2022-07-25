@@ -1,0 +1,183 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+/** 전역 상수 */
+public static partial class KDefine {
+	#region 기본
+	// 개수 {
+	public const int G_MAX_NUM_RECORDS = 9;
+	public const int G_MAX_NUM_TUTORIAL_STRS = 9;
+	public const int G_MAX_NUM_COINS_BOX_COINS = 0;
+	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
+
+	public const int G_MAX_NUM_FX_KINDS = 9;
+	public const int G_MAX_NUM_RES_KINDS = 9;
+	public const int G_MAX_NUM_TARGET_INFOS = 9;
+	public const int G_MAX_NUM_REWARD_KINDS = 9;
+	// 개수 }
+
+	// 횟수
+	public const int G_MAX_TIMES_ADS_SKIP = 0;
+	public const int G_MAX_TIMES_ACQUIRE_FREE_REWARDS = 0;
+
+	// 시간 {
+	public const float G_DELAY_SCALE_01 = 1.0f;
+	public const float G_DELAY_SCALE_02 = 1.0f;
+	public const float G_DELAY_SCALE_03 = 1.0f;
+	public const float G_DELAY_SCALE_04 = 1.0f;
+	public const float G_DELAY_SCALE_05 = 1.0f;
+	public const float G_DELAY_SCALE_06 = 1.0f;
+	public const float G_DELAY_SCALE_07 = 1.0f;
+	public const float G_DELAY_SCALE_08 = 1.0f;
+	public const float G_DELAY_SCALE_09 = 1.0f;
+
+	public const float G_DELTA_T_SCALE_01 = 1.0f;
+	public const float G_DELTA_T_SCALE_02 = 1.0f;
+	public const float G_DELTA_T_SCALE_03 = 1.0f;
+	public const float G_DELTA_T_SCALE_04 = 1.0f;
+	public const float G_DELTA_T_SCALE_05 = 1.0f;
+	public const float G_DELTA_T_SCALE_06 = 1.0f;
+	public const float G_DELTA_T_SCALE_07 = 1.0f;
+	public const float G_DELTA_T_SCALE_08 = 1.0f;
+	public const float G_DELTA_T_SCALE_09 = 1.0f;
+
+	public const float G_DURATION_SCALE_01 = 1.0f;
+	public const float G_DURATION_SCALE_02 = 1.0f;
+	public const float G_DURATION_SCALE_03 = 1.0f;
+	public const float G_DURATION_SCALE_04 = 1.0f;
+	public const float G_DURATION_SCALE_05 = 1.0f;
+	public const float G_DURATION_SCALE_06 = 1.0f;
+	public const float G_DURATION_SCALE_07 = 1.0f;
+	public const float G_DURATION_SCALE_08 = 1.0f;
+	public const float G_DURATION_SCALE_09 = 1.0f;
+	// 시간 }
+	#endregion			// 기본
+
+	#region 런타임 상수
+	// 버전 {
+	public static readonly System.Version G_VER_APP_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_GAME_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_USER_INFO = new System.Version(1, 0, 0);
+
+	public static readonly System.Version G_VER_CELL_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_CLEAR_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_LEVEL_INFO = new System.Version(1, 0, 0);
+
+	public static readonly System.Version G_VER_ITEM_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_SKILL_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_OBJ_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_ABILITY_TARGET_INFO = new System.Version(1, 0, 0);
+	// 버전 }
+
+	// 정렬 순서
+	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {		
+		m_nOrder = KCDefine.U_SORTING_O_OVERLAY_UIS, m_oLayer = KCDefine.U_SORTING_L_DEF
+	};
+
+	// 경로 {
+#if MSG_PACK_ENABLE
+	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
+	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
+	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
+#elif NEWTON_SOFT_JSON_MODULE_ENABLE
+	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.json";
+	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.json";
+	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.json";
+#endif			// #if MSG_PACK_ENABLE
+	// 경로 }
+
+	// 분석 {
+	public static readonly List<EAnalytics> G_ANALYTICS_LOG_ENABLE_LIST = new List<EAnalytics>() {
+		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER
+	};
+
+	public static readonly List<EAnalytics> G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST = new List<EAnalytics>() {
+		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER
+	};
+	// 분석 }
+	#endregion			// 런타임 상수
+}
+
+/** 스플래시 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 시작 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 설정 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 약관 동의 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 지연 설정 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 타이틀 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+
+/** 메인 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	// 개수
+	public const int MS_MAX_NUM_LEVELS_IN_ROW = 1;
+	public const int MS_MAX_NUM_STAGES_IN_ROW = 1;
+	public const int MS_MAX_NUM_CHAPTERS_IN_ROW = 1;
+	#endregion			// 기본
+}
+
+/** 게임 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	// 단위
+	public const int GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH = 0;
+	
+	// 이름
+	public const string GS_OBJ_N_ENGINE = "Engine";
+	#endregion			// 기본
+}
+
+/** 로딩 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+
+	#endregion			// 기본
+}
+
+/** 중첩 씬 상수 */
+public static partial class KDefine {
+	#region 기본
+	
+	#endregion			// 기본
+}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY

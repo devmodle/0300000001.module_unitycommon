@@ -1,0 +1,224 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+namespace GameScene {
+	/** 서브 게임 씬 관리자 */
+	public partial class CSubGameSceneManager : CGameSceneManager {
+		#region 함수
+		/** 초기화 */
+		public override void Awake() {
+			base.Awake();
+			
+			// 앱이 초기화 되었을 경우
+			if(CSceneManager.IsAppInit) {
+#if DEBUG || DEVELOPMENT_BUILD
+				// 플레이 레벨 정보가 없을 경우
+				if(CGameInfoStorage.Inst.PlayLevelInfo == null) {
+#if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+					// 레벨 정보가 없을 경우
+					if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
+						var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
+
+						Func.SetupEditorLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
+							m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
+						});
+						
+						CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
+						CLevelInfoTable.Inst.SaveLevelInfos();
+					}
+#endif			// #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+
+					CGameInfoStorage.Inst.SetupPlayLevelInfo(KCDefine.B_VAL_0_INT, EPlayMode.NORM);
+				}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+
+				this.AwakeSetup();
+			}
+		}
+		
+		/** 초기화 */
+		public override void Start() {
+			base.Start();
+
+			// 앱이 초기화 되었을 경우
+			if(CSceneManager.IsAppInit) {
+				this.StartSetup();
+				this.UpdateUIsState();
+
+				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_GAME);
+			}
+		}
+
+		/** 씬을 설정한다 */
+		private void AwakeSetup() {
+			this.SetupEngine();
+			this.SetupRewardAdsUIs();
+
+			// 레벨 정보를 설정한다
+			m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO] = CGameInfoStorage.Inst.PlayLevelInfo;
+			m_oClearInfoDict[EKey.PLAY_LEVEL_CLEAR_INFO] = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03) ? oLevelClearInfo : null;
+
+			// 버튼을 설정한다
+			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+				(KCDefine.U_OBJ_N_PAUSE_BTN, this.UIsBase, this.OnTouchPauseBtn),
+				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
+			}, false);
+
+			// 터치 전달자를 설정한다
+			Func.SetupTouchDispatchers(new List<(EKey, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
+				(EKey.BG_TOUCH_DISPATCHER, this.BGTouchResponder, this.OnTouchBegin, this.OnTouchMove, this.OnTouchEnd)
+			}, m_oTouchDispatcherDict, false);
+
+#if ENGINE_TEMPLATES_MODULE_ENABLE
+			// 비율을 설정한다 {
+			bool bIsValid01 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.x) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.x);
+			bool bIsValid02 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.y) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.y);
+			bool bIsValid03 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.z) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.z);
+
+			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
+			// 비율을 설정한다 }
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+
+#if DEBUG || DEVELOPMENT_BUILD
+			this.SetupTestUIs();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+		}
+
+		/** 씬을 설정한다 */
+		private void StartSetup() {
+			this.ApplySelItems();
+			CGameInfoStorage.Inst.ResetSelItems();
+		}
+
+		/** 엔진을 설정한다 */
+		private void SetupEngine() {
+#if ENGINE_TEMPLATES_MODULE_ENABLE
+			bool bIsValid = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03);
+			m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
+
+			m_oEngine.Init(new SampleEngineName.CEngine.STParams() {
+				m_oObjRoot = this.ObjRoot,
+				m_oFXObjRoot = this.FXObjRoot,
+				m_oSkillObjRoot = this.SkillObjRoot,
+
+				m_oCallbackDict = new Dictionary<SampleEngineName.CEngine.ECallback, System.Action<SampleEngineName.CEngine>>() {
+					[SampleEngineName.CEngine.ECallback.CLEAR] = this.OnClearLevel,
+					[SampleEngineName.CEngine.ECallback.CLEAR_FAIL] = this.OnClearFailLevel
+				},
+
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+				m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
+				m_oClearInfo = bIsValid ? oLevelClearInfo : null
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+			});
+#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
+		}
+
+		/** 보상 광고 UI 를 설정한다 */
+		private void SetupRewardAdsUIs() {
+			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
+				var eRewardAdsUIs = (ERewardAdsUIs)i;
+				m_oRewardAdsUIsList[i]?.GetComponentInChildren<Button>()?.onClick.AddListener(() => this.OnTouchAdsBtn(eRewardAdsUIs));
+			}
+		}
+
+		/** UI 상태를 갱신한다 */
+		private void UpdateUIsState() {
+			this.UpdateRewardAdsUIsState();
+
+#if DEBUG || DEVELOPMENT_BUILD
+			this.UpdateTestUIsState();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+		}
+
+		/** 보상 광고 UI 상태를 갱신한다 */
+		private void UpdateRewardAdsUIsState() {
+			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
+				m_oRewardAdsUIsList[i]?.SetActive(m_oLevelInfoDict[EKey.PLAY_LEVEL_INFO].m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT >= KDefine.GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH);
+			}
+		}
+		#endregion			// 함수
+	}
+
+	/** 서브 게임 씬 관리자 - 서브 */
+	public partial class CSubGameSceneManager : CGameSceneManager {
+		/** 서브 식별자 */
+		private enum ESubKey {
+			NONE = -1,
+			[HideInInspector] MAX_VAL
+		}
+
+		#region 변수
+
+		#endregion			// 변수
+
+		#region 프로퍼티
+
+		#endregion			// 프로퍼티
+
+		#region 함수
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					// Do Something
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubGameSceneManager.OnDestroy Exception: {oException.Message}");
+			}
+		}
+		
+		/** 선택 아이템을 적용한다 */
+		private void ApplySelItem(EItemKinds a_eItemKinds) {
+			// Do Something
+		}
+		#endregion			// 함수
+
+		#region 조건부 함수
+#if UNITY_EDITOR
+		/** 기즈모를 그린다 */
+		public override void OnDrawGizmos() {
+			base.OnDrawGizmos();
+
+			// 메인 카메라가 존재 할 경우
+			if(CSceneManager.IsExistsMainCamera) {
+				// Do Something
+			}
+		}
+#endif			// #if UNITY_EDITOR
+
+#if DEBUG || DEVELOPMENT_BUILD
+		/** 테스트 UI 를 설정한다 */
+		private void SetupTestUIs() {
+			// Do Something
+		}
+
+		/** 테스트 UI 상태를 갱신한다 */
+		private void UpdateTestUIsState() {
+			// Do Something
+		}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+
+#if ADS_MODULE_ENABLE
+		/** 보상 광고가 닫혔을 경우 */
+		private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
+			// 광고를 시청했을 경우
+			if(a_bIsSuccess) {
+				// Do Something
+			}
+		}
+#endif			// #if ADS_MODULE_ENABLE
+		#endregion			// 조건부 함수
+	}
+}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY

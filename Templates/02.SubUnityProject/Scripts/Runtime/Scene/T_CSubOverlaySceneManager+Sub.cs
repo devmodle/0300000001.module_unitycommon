@@ -1,0 +1,113 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+namespace OverlayScene {
+	/** 서브 중첩 씬 관리자 */
+	public partial class CSubOverlaySceneManager : COverlaySceneManager {
+		#region 함수
+		/** 초기화 */
+		public override void Awake() {
+			base.Awake();
+			
+			// 앱이 초기화 되었을 경우
+			if(CSceneManager.IsAppInit) {
+				this.AwakeSetup();
+			}
+		}
+
+		/** 초기화 */
+		public override void Start() {
+			base.Start();
+
+			// 앱이 초기화 되었을 경우
+			if(CSceneManager.IsAppInit) {
+				this.StartSetup();
+				this.UpdateUIsState();
+			}
+		}
+
+		/** 씬을 설정한다 */
+		private void AwakeSetup() {
+			// 텍스트를 설정한다
+			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+				(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.UIsBase)
+			}, m_oTextDict, false);
+
+			// 버튼을 설정한다
+			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+				(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
+			}, m_oBtnDict, false);
+
+#if DEBUG || DEVELOPMENT_BUILD
+			this.SetupTestUIs();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+		}
+
+		/** 씬을 설정한다 */
+		private void StartSetup() {
+			// Do Something
+		}
+
+		/** UI 상태를 갱신한다 */
+		private void UpdateUIsState() {
+			var oSubTitleSceneManager = CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE);
+			oSubTitleSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
+
+			var oSubMainSceneManager = CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN);
+			oSubMainSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
+
+			var oSubGameSceneManager = CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
+			oSubGameSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
+
+			// 텍스트를 갱신한다
+			m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{CUserInfoStorage.Inst.NumCoins}", EFontSet._1, false);
+
+#if DEBUG || DEVELOPMENT_BUILD
+			this.UpdateTestUIsState();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+		}
+		#endregion			// 함수
+	}
+
+	/** 서브 중첩 씬 관리자 - 서브 */
+	public partial class CSubOverlaySceneManager : COverlaySceneManager {
+		/** 서브 식별자 */
+		private enum ESubKey {
+			NONE = -1,
+			[HideInInspector] MAX_VAL
+		}
+
+		#region 변수
+
+		#endregion			// 변수
+
+		#region 프로퍼티
+
+		#endregion			// 프로퍼티
+
+		#region 함수
+
+		#endregion			// 함수
+
+		#region 조건부 함수
+#if DEBUG || DEVELOPMENT_BUILD
+		/** 테스트 UI 를 설정한다 */
+		private void SetupTestUIs() {
+			// Do Something
+		}
+
+		/** 테스트 UI 상태를 갱신한다 */
+		private void UpdateTestUIsState() {
+			// Do Something
+		}
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+		#endregion			// 조건부 함수
+	}
+}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -1,0 +1,80 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using TMPro;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+/** 결과 팝업 */
+public partial class CResultPopup : CSubPopup {
+	#region 함수
+	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+		this.IsIgnoreNavStackEvent = true;
+
+		// 객체를 설정한다
+		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+			(EKey.CLEAR_UIS, $"{EKey.CLEAR_UIS}", this.Contents),
+			(EKey.CLEAR_FAIL_UIS, $"{EKey.CLEAR_FAIL_UIS}", this.Contents)
+		}, m_oUIsDict, false);
+
+		// 텍스트를 설정한다
+		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+			(EKey.RECORD_TEXT, $"{EKey.RECORD_TEXT}", this.Contents),
+			(EKey.BEST_RECORD_TEXT, $"{EKey.BEST_RECORD_TEXT}", this.Contents)
+		}, m_oTextDict, false);
+
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+			(KCDefine.U_OBJ_N_NEXT_BTN, this.Contents, this.OnTouchNextBtn),
+			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
+			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
+		}, false);
+	}
+
+	/** 초기화 */
+	public virtual void Init(STParams a_stParams) {
+		base.Init();
+		m_stParams = a_stParams;
+	}
+
+	/** UI 상태를 갱신한다 */
+	private new void UpdateUIsState() {
+		base.UpdateUIsState();
+
+		// 객체를 갱신한다
+		m_oUIsDict[EKey.CLEAR_UIS]?.SetActive(m_stParams.m_stRecordInfo.m_bIsSuccess);
+		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!m_stParams.m_stRecordInfo.m_bIsSuccess);
+
+		// 텍스트를 갱신한다
+		m_oTextDict[EKey.RECORD_TEXT]?.ExSetText($"{m_stParams.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
+		m_oTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((m_stParams.m_oClearInfo != null) ? $"{m_stParams.m_oClearInfo.IntBestRecord}" : string.Empty, EFontSet._1, false);
+	}
+	#endregion			// 함수
+}
+
+/** 서브 결과 팝업 */
+public partial class CResultPopup : CSubPopup {
+	/** 서브 식별자 */
+	private enum ESubKey {
+		NONE = -1,
+		[HideInInspector] MAX_VAL
+	}
+
+	#region 변수
+
+	#endregion			// 변수
+
+	#region 프로퍼티
+
+	#endregion			// 프로퍼티
+
+	#region 함수
+	
+	#endregion			// 함수
+}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY

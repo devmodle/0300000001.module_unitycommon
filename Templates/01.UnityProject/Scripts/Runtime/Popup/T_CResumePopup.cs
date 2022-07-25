@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+/** 재개 팝업 */
+public partial class CResumePopup : CSubPopup {
+	/** 콜백 */
+	public enum ECallback {
+		NONE = -1,
+		RESUME,
+		LEAVE,
+		[HideInInspector] MAX_VAL
+	}
+
+	/** 매개 변수 */
+	public partial struct STParams {
+		public Dictionary<ECallback, System.Action<CResumePopup>> m_oCallbackDict;
+	}
+
+	#region 변수
+	private STParams m_stParams;
+	#endregion			// 변수
+
+	#region 함수
+	/** 팝업 컨텐츠를 설정한다 */
+	protected override void SetupContents() {
+		base.SetupContents();
+		this.UpdateUIsState();
+	}
+
+	/** 재개 버튼을 눌렀을 경우 */
+	private void OnTouchResumeBtn() {
+		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.RESUME)?.Invoke(this);
+	}
+
+	/** 나가기 버튼을 눌렀을 경우 */
+	private void OnTouchLeaveBtn() {
+		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
+	}
+	#endregion			// 함수
+}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY

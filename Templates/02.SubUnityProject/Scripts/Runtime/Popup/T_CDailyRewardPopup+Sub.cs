@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+
+#if SCRIPT_TEMPLATE_ONLY
+#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+/** 일일 보상 팝업 */
+public partial class CDailyRewardPopup : CSubPopup {
+	#region 함수
+	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
+			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
+		}, m_oBtnDict, false);
+	}
+	
+	/** 초기화 */
+	public override void Init() {
+		base.Init();
+	}
+
+	/** UI 상태를 갱신한다 */
+	private new void UpdateUIsState() {
+		base.UpdateUIsState();
+
+		// 버튼을 갱신한다
+		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetDailyReward);
+		m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(CGameInfoStorage.Inst.IsEnableGetDailyReward);
+		
+		// 보상 UI 상태를 갱신한다
+		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
+			var oRewardUIs = m_oRewardUIsList[i];
+			var stDailyRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(ERewardKinds.DAILY_REWARD_SAMPLE + (i + KCDefine.B_VAL_1_INT));
+
+			this.UpdateRewardUIsState(oRewardUIs, stDailyRewardInfo);
+		}
+	}
+	#endregion			// 함수
+}
+
+/** 서브 일일 보상 팝업 */
+public partial class CDailyRewardPopup : CSubPopup {
+	/** 서브 식별자 */
+	private enum ESubKey {
+		NONE = -1,
+		[HideInInspector] MAX_VAL
+	}
+
+	#region 변수
+
+	#endregion			// 변수
+
+	#region 프로퍼티
+
+	#endregion			// 프로퍼티
+
+	#region 함수
+	/** 보상 UI 상태를 갱신한다 */
+	private void UpdateRewardUIsState(GameObject a_oRewardUIs, STRewardInfo a_stRewardInfo) {
+		// Do Something
+	}
+	#endregion			// 함수
+}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if SCRIPT_TEMPLATE_ONLY
