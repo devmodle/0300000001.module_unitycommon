@@ -344,19 +344,23 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	/** 객체 정보를 로드한다 */
 	private (Dictionary<EObjKinds, STObjInfo>, Dictionary<EObjKinds, STObjSaleInfo>, Dictionary<EObjKinds, STObjEnhanceInfo>) DoLoadObjInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
+
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
+		var oObjInfosList = new List<SimpleJSON.JSONNode>();
+		var oObjSaleInfosList = new List<SimpleJSON.JSONNode>();
+		var oObjEnhanceInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oObjInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_BG], oJSONNode[KCDefine.U_KEY_NORM], oJSONNode[KCDefine.U_KEY_OVERLAY], oJSONNode[KCDefine.U_KEY_PLAYABLE], oJSONNode[KCDefine.U_KEY_NON_PLAYABLE], oJSONNode[KCDefine.U_KEY_ENEMY]
-		};
+		for(int i = 0; i < KDefine.G_KEY_OBJ_INFOS.Count; ++i) {
+			oObjInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_OBJ_INFOS[i]]);
+		}
 
-		var oObjSaleInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_BG_SALE], oJSONNode[KCDefine.U_KEY_NORM_SALE], oJSONNode[KCDefine.U_KEY_OVERLAY_SALE], oJSONNode[KCDefine.U_KEY_PLAYABLE_SALE], oJSONNode[KCDefine.U_KEY_NON_PLAYABLE_SALE], oJSONNode[KCDefine.U_KEY_ENEMY_SALE]
-		};
+		for(int i = 0; i < KDefine.G_KEY_OBJ_SALE_INFOS.Count; ++i) {
+			oObjSaleInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_OBJ_SALE_INFOS[i]]);
+		}
 
-		var oObjEnhanceInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_BG_ENHANCE], oJSONNode[KCDefine.U_KEY_NORM_ENHANCE], oJSONNode[KCDefine.U_KEY_OVERLAY_ENHANCE], oJSONNode[KCDefine.U_KEY_PLAYABLE_ENHANCE], oJSONNode[KCDefine.U_KEY_NON_PLAYABLE_ENHANCE], oJSONNode[KCDefine.U_KEY_ENEMY_ENHANCE]
-		};
+		for(int i = 0; i < KDefine.G_KEY_OBJ_ENHANCE_INFOS.Count; ++i) {
+			oObjEnhanceInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_OBJ_ENHANCE_INFOS[i]]);
+		}
 
 		for(int i = 0; i < oObjInfosList.Count; ++i) {
 			for(int j = 0; j < oObjInfosList[i].Count; ++j) {

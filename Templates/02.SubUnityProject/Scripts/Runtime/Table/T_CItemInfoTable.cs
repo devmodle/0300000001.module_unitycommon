@@ -334,19 +334,23 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** 아이템 정보를 로드한다 */
 	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemSaleInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>) DoLoadItemInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
+
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
+		var oItemInfosList = new List<SimpleJSON.JSONNode>();
+		var oItemSaleInfosList = new List<SimpleJSON.JSONNode>();
+		var oItemEnhanceInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oItemInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_GOODS], oJSONNode[KCDefine.U_KEY_CONSUMABLE], oJSONNode[KCDefine.U_KEY_NON_CONSUMABLE], oJSONNode[KCDefine.U_KEY_WEAPON], oJSONNode[KCDefine.U_KEY_ARMOR], oJSONNode[KCDefine.U_KEY_ACCESSORY], oJSONNode[KCDefine.U_KEY_ATTACH]
-		};
+		for(int i = 0; i < KDefine.G_KEY_ITEM_INFOS.Count; ++i) {
+			oItemInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_INFOS[i]]);
+		}
 
-		var oItemSaleInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_GOODS_SALE], oJSONNode[KCDefine.U_KEY_CONSUMABLE_SALE], oJSONNode[KCDefine.U_KEY_NON_CONSUMABLE_SALE], oJSONNode[KCDefine.U_KEY_WEAPON_SALE], oJSONNode[KCDefine.U_KEY_ARMOR_SALE], oJSONNode[KCDefine.U_KEY_ACCESSORY_SALE], oJSONNode[KCDefine.U_KEY_ATTACH_SALE]
-		};
+		for(int i = 0; i < KDefine.G_KEY_ITEM_SALE_INFOS.Count; ++i) {
+			oItemSaleInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_SALE_INFOS[i]]);
+		}
 
-		var oItemEnhanceInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_GOODS_ENHANCE], oJSONNode[KCDefine.U_KEY_CONSUMABLE_ENHANCE], oJSONNode[KCDefine.U_KEY_NON_CONSUMABLE_ENHANCE], oJSONNode[KCDefine.U_KEY_WEAPON_ENHANCE], oJSONNode[KCDefine.U_KEY_ARMOR_ENHANCE], oJSONNode[KCDefine.U_KEY_ACCESSORY_ENHANCE], oJSONNode[KCDefine.U_KEY_ATTACH_ENHANCE]
-		};
+		for(int i = 0; i < KDefine.G_KEY_ITEM_ENHANCE_INFOS.Count; ++i) {
+			oItemEnhanceInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_ENHANCE_INFOS[i]]);
+		}
 
 		for(int i = 0; i < oItemInfosList.Count; ++i) {
 			for(int j = 0; j < oItemInfosList[i].Count; ++j) {

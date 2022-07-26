@@ -142,11 +142,13 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	/** 미션 정보를 로드한다 */
 	private Dictionary<EMissionKinds, STMissionInfo> DoLoadMissionInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
 
-		var oMissionInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_MAIN], oJSONNode[KCDefine.U_KEY_FREE], oJSONNode[KCDefine.U_KEY_DAILY], oJSONNode[KCDefine.U_KEY_EVENT]
-		};
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
+		var oMissionInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_MISSION_INFOS.Count; ++i) {
+			oMissionInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_MISSION_INFOS[i]]);
+		}
 
 		for(int i = 0; i < oMissionInfosList.Count; ++i) {
 			for(int j = 0; j < oMissionInfosList[i].Count; ++j) {

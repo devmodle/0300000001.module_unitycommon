@@ -25,7 +25,7 @@ public static partial class Extension {
 		var oTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oSender) as SimpleJSON.JSONClass;
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oSender);
 		var oTargetInfos = oJSONNode[KCDefine.B_KEY_JSON_ROOT_DATA];
 
 		for(int i = 0; i < oTargetInfos.Count; ++i) {

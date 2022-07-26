@@ -147,11 +147,13 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	/** 리소스 정보를 로드한다 */
 	private Dictionary<EResKinds, STResInfo> DoLoadResInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
-		var oResInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_SND], oJSONNode[KCDefine.U_KEY_FONT], oJSONNode[KCDefine.U_KEY_IMG], oJSONNode[KCDefine.U_KEY_SPRITE], oJSONNode[KCDefine.U_KEY_TEXTURE]
-		};
+		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
+		var oResInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_RES_INFOS.Count; ++i) {
+			oResInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_RES_INFOS[i]]);
+		}
 
 		for(int i = 0; i < oResInfosList.Count; ++i) {
 			for(int j = 0; j < oResInfosList[i].Count; ++j) {

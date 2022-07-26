@@ -377,7 +377,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	private List<object> DoLoadEpisodeInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 				
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr) as SimpleJSON.JSONClass;
+		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
 		var oLevelEpisodeInfos = oJSONNode[KCDefine.U_KEY_LEVEL];
 		var oStageEpisodeInfos = oJSONNode[KCDefine.U_KEY_STAGE];
 		var oChapterEpisodeInfos = oJSONNode[KCDefine.U_KEY_CHAPTER];

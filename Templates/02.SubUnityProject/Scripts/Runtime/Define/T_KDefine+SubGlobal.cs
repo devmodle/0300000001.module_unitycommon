@@ -73,14 +73,18 @@ public static partial class KDefine {
 /** 서브 메인 씬 상수 */
 public static partial class KDefine {
 	#region 기본
-
+	// 개수
+	public const int MS_MAX_NUM_LEVELS_IN_ROW = 1;
+	public const int MS_MAX_NUM_STAGES_IN_ROW = 1;
+	public const int MS_MAX_NUM_CHAPTERS_IN_ROW = 1;
 	#endregion			// 기본
 }
 
 /** 서브 게임 씬 상수 */
 public static partial class KDefine {
 	#region 기본
-
+	// 단위
+	public const int GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH = 0;
 	#endregion			// 기본
 }
 

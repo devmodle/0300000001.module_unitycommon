@@ -191,11 +191,13 @@ public partial class CProductSaleInfoTable : CSingleton<CProductSaleInfoTable> {
 	/** 상품 판매 정보를 로드한다 */
 	private Dictionary<EProductSaleKinds, STProductSaleInfo> DoLoadProductSaleInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 
-		var oProductSaleInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_PKGS], oJSONNode[KCDefine.U_KEY_SINGLE]
-		};
+		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
+		var oProductSaleInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_PRODUCT_SALE_INFOS.Count; ++i) {
+			oProductSaleInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_PRODUCT_SALE_INFOS[i]]);
+		}
 
 		for(int i = 0; i < oProductSaleInfosList.Count; ++i) {
 			for(int j = 0; j < oProductSaleInfosList[i].Count; ++j) {
