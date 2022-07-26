@@ -68,9 +68,9 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	private string FXInfoTablePath {
 		get {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_FX_INFO;
+			return KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO;
 #else
-			return KCDefine.U_TABLE_P_G_FX_INFO;
+			return KCDefine.U_TABLE_P_G_ETC_INFO;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		}
 	}
