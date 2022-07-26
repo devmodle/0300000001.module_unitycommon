@@ -119,15 +119,15 @@ public static partial class Func {
 	#endregion			// 클래스 변수
 
 	#region 클래스 함수
-	/** 지역화 문자열을 설정한다 */
-	public static void SetupLocalizeStrs() {
+	/** 문자열 테이블을 설정한다 */
+	public static void SetupStrTable() {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-		Func.SetupLocalizeStrs(CCommonAppInfoStorage.Inst.CountryCode, CCommonAppInfoStorage.Inst.SystemLanguage);
+		Func.SetupStrTable(CCommonAppInfoStorage.Inst.CountryCode, CCommonAppInfoStorage.Inst.SystemLanguage);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
-	/** 지역화 문자열을 설정한다 */
-	public static void SetupLocalizeStrs(string a_oCountryCode, SystemLanguage a_eSystemLanguage, bool a_bIsEnableAssert = true) {
+	/** 문자열 테이블을 설정한다 */
+	public static void SetupStrTable(string a_oCountryCode, SystemLanguage a_eSystemLanguage, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oCountryCode.ExIsValid());
 		
 		// 국가 코드가 존재 할 경우
@@ -203,8 +203,17 @@ public static partial class Func {
 	}
 
 	/** 경고 팝업을 출력한다 */
+	public static void ShowAlertPopup(CAlertPopup.STParams a_stParams) {
+		// 경고 팝업이 없을 경우
+		if(CSceneManager.ScreenPopupUIs.ExFindChild(KCDefine.U_OBJ_N_ALERT_POPUP) == null) {
+			var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_ALERT_POPUP), CSceneManager.ScreenPopupUIs, a_stParams);
+			oAlertPopup.Show(null, null);
+		}
+	}
+
+	/** 경고 팝업을 출력한다 */
 	public static void ShowAlertPopup(string a_oMsg, System.Action<CAlertPopup, bool> a_oCallback, bool a_bIsEnableCancelBtn = true) {
-		var stParams = new CAlertPopup.STParams() {
+		Func.ShowAlertPopup(new CAlertPopup.STParams() {
 			m_oTitle = CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_NOTI_TEXT),
 			m_oMsg = a_oMsg,
 			m_oOKBtnText = CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_OK_TEXT),
@@ -213,18 +222,7 @@ public static partial class Func {
 			m_oCallbackDict = new Dictionary<CAlertPopup.ECallback, System.Action<CAlertPopup, bool>>() {
 				[CAlertPopup.ECallback.OK_CANCEL] = a_oCallback
 			}
-		};
-		
-		Func.ShowAlertPopup(stParams);
-	}
-
-	/** 경고 팝업을 출력한다 */
-	public static void ShowAlertPopup(CAlertPopup.STParams a_stParams) {
-		// 경고 팝업이 없을 경우
-		if(CSceneManager.ScreenPopupUIs.ExFindChild(KCDefine.U_OBJ_N_ALERT_POPUP) == null) {
-			var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_ALERT_POPUP), CSceneManager.ScreenPopupUIs, a_stParams);
-			oAlertPopup.Show(null, null);
-		}
+		});
 	}
 	
 	/** 종료 팝업을 출력한다 */

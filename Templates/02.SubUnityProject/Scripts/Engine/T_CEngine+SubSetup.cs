@@ -12,6 +12,26 @@ namespace SampleEngineName {
 		#region 함수
 
 		#endregion			// 함수
+
+		#region 조건부 함수
+#if RUNTIME_TEMPLATES_MODULE_ENABLE
+		/** 엔진을 설정한다 */
+		private void SetupEngine() {
+			m_oObjInfoDictContainers = new Dictionary<EObjType, List<(EObjKinds, CEObj)>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
+			m_oGridInfoDict[EKey.SEL_GRID_INFO] = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
+
+			// 객체 풀을 설정한다 {
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), m_stParams.m_oItemRoot);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_SKILL_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_SKILL), m_stParams.m_oSkillRoot);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), m_stParams.m_oObjRoot);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), m_stParams.m_oFXRoot);
+
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), m_stParams.m_oObjRoot);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_stParams.m_oObjRoot);
+			// 객체 풀을 설정한다 }
+		}
+#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
+		#endregion			// 조건부 함수
 	}
 
 	/** 서브 엔진 - 설정 */
@@ -22,12 +42,6 @@ namespace SampleEngineName {
 
 		#region 조건부 함수
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		/** 엔진을 설정한다 */
-		private void SetupEngine() {
-			m_oObjInfoDictContainers = new Dictionary<EObjType, List<(EObjKinds, CEObj)>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
-			m_oGridInfoDict[EKey.SEL_GRID_INFO] = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
-		}
-
 		/** 셀을 설정한다 */
 		private void SetupCell(STCellInfo a_stCellInfo) {
 			var oObjInfoDictContainer = new Dictionary<EObjType, List<(EObjKinds, CEObj)>>();

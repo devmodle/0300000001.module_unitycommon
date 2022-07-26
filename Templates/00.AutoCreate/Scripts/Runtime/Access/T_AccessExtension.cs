@@ -11,21 +11,6 @@ using TMPro;
 /** 기본 접근자 확장 클래스 */
 public static partial class AccessExtension {
 	#region 클래스 함수
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EPlayMode a_eSender) {
-		return a_eSender > EPlayMode.NONE && a_eSender < EPlayMode.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EPurchaseType a_eSender) {
-		return a_eSender > EPurchaseType.NONE && a_eSender < EPurchaseType.MAX_VAL;
-	}
-
-	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EKindsGroupType a_eSender) {
-		return a_eSender > EKindsGroupType.NONE && a_eSender < EKindsGroupType.MAX_VAL;
-	}
-
 	/** 컴포넌트 상호 작용 여부를 변경한다 */
 	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);

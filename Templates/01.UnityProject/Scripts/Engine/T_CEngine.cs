@@ -42,9 +42,10 @@ namespace SampleEngineName {
 
 		/** 매개 변수 */
 		public partial struct STParams {
+			public GameObject m_oItemRoot;
+			public GameObject m_oSkillRoot;
 			public GameObject m_oObjRoot;
-			public GameObject m_oFXObjRoot;
-			public GameObject m_oSkillObjRoot;
+			public GameObject m_oFXRoot;
 
 			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict;
 
@@ -67,8 +68,8 @@ namespace SampleEngineName {
 
 		private List<CEItem> m_oItemList = new List<CEItem>();
 		private List<CESkill> m_oSkillList = new List<CESkill>();
-		private List<CEEnemyObj> m_oEnemyObjList = new List<CEEnemyObj>();
 		private List<CEFX> m_oFXList = new List<CEFX>();
+		private List<CEEnemyObj> m_oEnemyObjList = new List<CEEnemyObj>();
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
@@ -85,9 +86,10 @@ namespace SampleEngineName {
 		public STGridInfo SelGridInfo => m_oGridInfoDict[EKey.SEL_GRID_INFO];
 		public CEPlayerObj SelPlayerObj => m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ];
 
+		public GameObject ItemRoot => m_stParams.m_oItemRoot;
+		public GameObject SkillRoot => m_stParams.m_oSkillRoot;
 		public GameObject ObjRoot => m_stParams.m_oObjRoot;
-		public GameObject FXObjRoot => m_stParams.m_oFXObjRoot;
-		public GameObject SkillObjRoot => m_stParams.m_oSkillObjRoot;
+		public GameObject FXRoot => m_stParams.m_oFXRoot;
 
 #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		public CLevelInfo LevelInfo => m_stParams.m_oLevelInfo;

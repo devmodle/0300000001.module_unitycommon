@@ -19,7 +19,7 @@ namespace SampleEngineName {
 		/** 매개 변수 */
 		public new partial struct STParams {
 			public CEComponent.STParams m_stBaseParams;
-			public STFXInfo m_stFXInfo;
+			public STFXInfo m_stTableFXInfo;
 		}
 
 		#region 변수
@@ -28,7 +28,7 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public STFXInfo FXInfo => m_stParams.m_stFXInfo;
+		public STFXInfo TableFXInfo => m_stParams.m_stTableFXInfo;
 		#endregion			// 프로퍼티
 
 		#region 함수

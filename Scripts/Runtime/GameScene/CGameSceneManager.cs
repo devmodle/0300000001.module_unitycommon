@@ -10,9 +10,10 @@ namespace GameScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			ITEM_ROOT,
+			SKILL_ROOT,
 			OBJ_ROOT,
-			FX_OBJ_ROOT,
-			SKILL_OBJ_ROOT,
+			FX_ROOT,
 			BG_TOUCH_RESPONDER,
 			[HideInInspector] MAX_VAL
 		}
@@ -30,9 +31,10 @@ namespace GameScene {
 		
 		protected GameObject BGTouchResponder => m_oUIsDict[EKey.BG_TOUCH_RESPONDER];
 
+		protected GameObject ItemRoot => m_oObjDict[EKey.ITEM_ROOT];
+		protected GameObject SkillRoot => m_oObjDict[EKey.SKILL_ROOT];
 		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
-		protected GameObject FXObjRoot => m_oObjDict[EKey.FX_OBJ_ROOT];
-		protected GameObject SkillObjRoot => m_oObjDict[EKey.SKILL_OBJ_ROOT];
+		protected GameObject FXRoot => m_oObjDict[EKey.FX_ROOT];
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -44,9 +46,10 @@ namespace GameScene {
 			if(CSceneManager.IsAppInit) {
 				// 객체를 설정한다
 				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.ITEM_ROOT, $"{EKey.ITEM_ROOT}", this.Objs, null),
+					(EKey.SKILL_ROOT, $"{EKey.SKILL_ROOT}", this.Objs, null),
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null),
-					(EKey.FX_OBJ_ROOT, $"{EKey.FX_OBJ_ROOT}", this.Objs, null),
-					(EKey.SKILL_OBJ_ROOT, $"{EKey.SKILL_OBJ_ROOT}", this.Objs, null)
+					(EKey.FX_ROOT, $"{EKey.FX_ROOT}", this.Objs, null)
 				}, m_oObjDict, false);
 
 				// 터치 전달자를 설정한다 {

@@ -38,7 +38,7 @@ namespace AgreeScene {
 		/** 씬을 설정한다 */
 		private void AwakeSetup() {
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-			Func.SetupLocalizeStrs();
+			Func.SetupStrTable();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 

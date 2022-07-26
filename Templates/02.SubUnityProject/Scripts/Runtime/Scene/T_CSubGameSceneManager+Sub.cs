@@ -59,7 +59,7 @@ namespace GameScene {
 		private void AwakeSetup() {
 			this.SetupEngine();
 			this.SetupRewardAdsUIs();
-
+			
 			// 버튼을 설정한다
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 				(KCDefine.U_OBJ_N_PAUSE_BTN, this.UIsBase, this.OnTouchPauseBtn),
@@ -99,9 +99,10 @@ namespace GameScene {
 			m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 
 			m_oEngine.Init(new SampleEngineName.CEngine.STParams() {
+				m_oItemRoot = this.ItemRoot,
+				m_oSkillRoot = this.SkillRoot,
 				m_oObjRoot = this.ObjRoot,
-				m_oFXObjRoot = this.FXObjRoot,
-				m_oSkillObjRoot = this.SkillObjRoot,
+				m_oFXRoot = this.FXRoot,
 
 				m_oCallbackDict = new Dictionary<SampleEngineName.CEngine.ECallback, System.Action<SampleEngineName.CEngine>>() {
 					[SampleEngineName.CEngine.ECallback.CLEAR] = this.OnClearLevel,

@@ -27,8 +27,8 @@ namespace SampleEngineName {
 
 			// 객체 스프라이트가 존재 할 경우
 			if(m_oSpriteDict[EKey.OBJ_SPRITE] != null) {
-				m_oSpriteDict[EKey.OBJ_SPRITE].sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
-				m_oSpriteDict[EKey.OBJ_SPRITE].ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
+				m_oSpriteDict[EKey.OBJ_SPRITE].sprite = Access.GetObjSprite(a_stParams.m_stTableObjInfo.m_eObjKinds);
+				m_oSpriteDict[EKey.OBJ_SPRITE].ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stTableObjInfo.m_eObjKinds));
 			}
 		}
 		#endregion			// 함수
