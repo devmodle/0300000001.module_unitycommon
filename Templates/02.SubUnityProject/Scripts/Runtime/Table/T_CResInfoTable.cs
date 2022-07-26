@@ -151,10 +151,10 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 		var oResInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < KDefine.G_KEY_RES_INFOS.Count; ++i) {
-			oResInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_RES_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_RES_IT_INFOS_LIST.Count; ++i) {
+			oResInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_RES_IT_INFOS_LIST[i]]);
 		}
-
+		
 		for(int i = 0; i < oResInfosList.Count; ++i) {
 			for(int j = 0; j < oResInfosList[i].Count; ++j) {
 				var stResInfo = new STResInfo(oResInfosList[i][j]);

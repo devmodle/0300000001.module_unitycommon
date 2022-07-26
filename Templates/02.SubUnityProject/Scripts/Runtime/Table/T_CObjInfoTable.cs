@@ -350,16 +350,16 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 		var oObjSaleInfosList = new List<SimpleJSON.JSONNode>();
 		var oObjEnhanceInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < KDefine.G_KEY_OBJ_INFOS.Count; ++i) {
-			oObjInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_OBJ_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_OBJ_IT_INFOS_LIST.Count; ++i) {
+			oObjInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_OBJ_IT_INFOS_LIST[i]]);
 		}
 
-		for(int i = 0; i < KDefine.G_KEY_OBJ_SALE_INFOS.Count; ++i) {
-			oObjSaleInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_OBJ_SALE_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_OBJ_IT_SALE_INFOS_LIST.Count; ++i) {
+			oObjSaleInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_OBJ_IT_SALE_INFOS_LIST[i]]);
 		}
 
-		for(int i = 0; i < KDefine.G_KEY_OBJ_ENHANCE_INFOS.Count; ++i) {
-			oObjEnhanceInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_OBJ_ENHANCE_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_OBJ_IT_ENHANCE_INFOS_LIST.Count; ++i) {
+			oObjEnhanceInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_OBJ_IT_ENHANCE_INFOS_LIST[i]]);
 		}
 
 		for(int i = 0; i < oObjInfosList.Count; ++i) {

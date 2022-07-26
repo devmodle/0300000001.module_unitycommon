@@ -312,16 +312,16 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		var oSkillSaleInfosList = new List<SimpleJSON.JSONNode>();
 		var oSkillEnhanceInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < KDefine.G_KEY_SKILL_INFOS.Count; ++i) {
-			oSkillInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_SKILL_IT_INFOS_LIST.Count; ++i) {
+			oSkillInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_IT_INFOS_LIST[i]]);
 		}
 
-		for(int i = 0; i < KDefine.G_KEY_SKILL_SALE_INFOS.Count; ++i) {
-			oSkillSaleInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_SALE_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_SKILL_IT_SALE_INFOS_LIST.Count; ++i) {
+			oSkillSaleInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_IT_SALE_INFOS_LIST[i]]);
 		}
 
-		for(int i = 0; i < KDefine.G_KEY_SKILL_ENHANCE_INFOS.Count; ++i) {
-			oSkillEnhanceInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_ENHANCE_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_SKILL_IT_ENHANCE_INFOS_LIST.Count; ++i) {
+			oSkillEnhanceInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_IT_ENHANCE_INFOS_LIST[i]]);
 		}
 
 		for(int i = 0; i < oSkillInfosList.Count; ++i) {

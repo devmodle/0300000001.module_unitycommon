@@ -17,8 +17,8 @@ public static partial class KDefine {
 
 	public const int G_MAX_NUM_FX_KINDS = 9;
 	public const int G_MAX_NUM_RES_KINDS = 9;
-	public const int G_MAX_NUM_TARGET_INFOS = 9;
 	public const int G_MAX_NUM_REWARD_KINDS = 9;
+	public const int G_MAX_NUM_TARGET_INFOS = 9;
 	// 개수 }
 
 	// 횟수
@@ -78,6 +78,97 @@ public static partial class KDefine {
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {		
 		m_nOrder = KCDefine.U_SORTING_O_OVERLAY_UIS, m_oLayer = KCDefine.U_SORTING_L_DEF
 	};
+
+	// 미션 정보 테이블
+	public static readonly List<string> G_KEY_MISSION_IT_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_MAIN, KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT
+	};
+
+	// 보상 정보 테이블
+	public static readonly List<string> G_KEY_REWARD_IT_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT, KCDefine.U_KEY_CLEAR, KCDefine.U_KEY_MISSION, KCDefine.U_KEY_TUTORIAL
+	};
+
+	// 에피소드 정보 테이블 {
+	public static readonly List<string> G_KEY_EPISODE_IT_LEVEL_EPISODE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_LEVEL
+	};
+
+	public static readonly List<string> G_KEY_EPISODE_IT_STAGE_EPISODE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_STAGE
+	};
+
+	public static readonly List<string> G_KEY_EPISODE_IT_CHAPTER_EPISODE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_CHAPTER
+	};
+	// 에피소드 정보 테이블 }
+
+	// 튜토리얼 정보 테이블
+	public static readonly List<string> G_KEY_TUTORIAL_IT_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_PLAY_TUTORIAL, KCDefine.U_KEY_HELP_TUTORIAL
+	};
+
+	// 리소스 정보 테이블
+	public static readonly List<string> G_KEY_RES_IT_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_SND, KCDefine.U_KEY_FONT, KCDefine.U_KEY_IMG, KCDefine.U_KEY_SPRITE, KCDefine.U_KEY_TEXTURE
+	};
+
+	// 아이템 정보 테이블 {
+	public static readonly List<string> G_KEY_ITEM_IT_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_GOODS, KCDefine.U_KEY_CONSUMABLE, KCDefine.U_KEY_NON_CONSUMABLE, KCDefine.U_KEY_WEAPON, KCDefine.U_KEY_ARMOR, KCDefine.U_KEY_ACCESSORY, KCDefine.U_KEY_ATTACH
+	};
+
+	public static readonly List<string> G_KEY_ITEM_IT_SALE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_GOODS_SALE, KCDefine.U_KEY_CONSUMABLE_SALE, KCDefine.U_KEY_NON_CONSUMABLE_SALE, KCDefine.U_KEY_WEAPON_SALE, KCDefine.U_KEY_ARMOR_SALE, KCDefine.U_KEY_ACCESSORY_SALE, KCDefine.U_KEY_ATTACH_SALE
+	};
+
+	public static readonly List<string> G_KEY_ITEM_IT_ENHANCE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_GOODS_ENHANCE, KCDefine.U_KEY_CONSUMABLE_ENHANCE, KCDefine.U_KEY_NON_CONSUMABLE_ENHANCE, KCDefine.U_KEY_WEAPON_ENHANCE, KCDefine.U_KEY_ARMOR_ENHANCE, KCDefine.U_KEY_ACCESSORY_ENHANCE, KCDefine.U_KEY_ATTACH_ENHANCE
+	};
+	// 아이템 정보 테이블 }
+
+	// 스킬 정보 테이블 {
+	public static readonly List<string> G_KEY_SKILL_IT_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_ACTION, KCDefine.U_KEY_ACTIVE, KCDefine.U_KEY_PASSIVE
+	};
+
+	public static readonly List<string> G_KEY_SKILL_IT_SALE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_ACTION_SALE, KCDefine.U_KEY_ACTIVE_SALE, KCDefine.U_KEY_PASSIVE_SALE
+	};
+
+	public static readonly List<string> G_KEY_SKILL_IT_ENHANCE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_ACTION_ENHANCE, KCDefine.U_KEY_ACTIVE_ENHANCE, KCDefine.U_KEY_PASSIVE_ENHANCE
+	};
+	// 스킬 정보 테이블 }
+
+	// 객체 정보 테이블 {
+	public static readonly List<string> G_KEY_OBJ_IT_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_BG, KCDefine.U_KEY_NORM, KCDefine.U_KEY_OVERLAY, KCDefine.U_KEY_PLAYABLE, KCDefine.U_KEY_NON_PLAYABLE, KCDefine.U_KEY_ENEMY
+	};
+
+	public static readonly List<string> G_KEY_OBJ_IT_SALE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_BG_SALE, KCDefine.U_KEY_NORM_SALE, KCDefine.U_KEY_OVERLAY_SALE, KCDefine.U_KEY_PLAYABLE_SALE, KCDefine.U_KEY_NON_PLAYABLE_SALE, KCDefine.U_KEY_ENEMY_SALE
+	};
+
+	public static readonly List<string> G_KEY_OBJ_IT_ENHANCE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_BG_ENHANCE, KCDefine.U_KEY_NORM_ENHANCE, KCDefine.U_KEY_OVERLAY_ENHANCE, KCDefine.U_KEY_PLAYABLE_ENHANCE, KCDefine.U_KEY_NON_PLAYABLE_ENHANCE, KCDefine.U_KEY_ENEMY_ENHANCE
+	};
+	// 객체 정보 테이블 }
+
+	// 효과 정보 테이블
+	public static readonly List<string> G_KEY_FX_IT_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_HIT_FX, KCDefine.U_KEY_BUFF_FX, KCDefine.U_KEY_DEBUFF_FX
+	};
+
+	// 어빌리티 정보 테이블 {
+	public static readonly List<string> G_KEY_ABILITY_IT_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_STAT, KCDefine.U_KEY_BUFF, KCDefine.U_KEY_DEBUFF, KCDefine.U_KEY_UPGRADE
+	};
+
+	public static readonly List<string> G_KEY_ABILITY_IT_ENHANCE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_STAT_ENHANCE, KCDefine.U_KEY_BUFF_ENHANCE, KCDefine.U_KEY_DEBUFF_ENHANCE, KCDefine.U_KEY_UPGRADE_ENHANCE
+	};
+	// 어빌리티 정보 테이블 }
 
 	// 상품 판매 정보 테이블
 	public static readonly List<string> G_KEY_PRODUCT_SIT_INFOS_LIST = new List<string>() {
@@ -153,19 +244,13 @@ public static partial class KDefine {
 /** 메인 씬 상수 */
 public static partial class KDefine {
 	#region 기본
-	// 개수
-	public const int MS_MAX_NUM_LEVELS_IN_ROW = 1;
-	public const int MS_MAX_NUM_STAGES_IN_ROW = 1;
-	public const int MS_MAX_NUM_CHAPTERS_IN_ROW = 1;
+	
 	#endregion			// 기본
 }
 
 /** 게임 씬 상수 */
 public static partial class KDefine {
 	#region 기본
-	// 단위
-	public const int GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH = 0;
-	
 	// 이름
 	public const string GS_OBJ_N_ENGINE = "Engine";
 	#endregion			// 기본

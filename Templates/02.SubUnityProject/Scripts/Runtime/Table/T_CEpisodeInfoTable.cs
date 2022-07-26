@@ -378,34 +378,52 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 				
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
-		var oLevelEpisodeInfos = oJSONNode[KCDefine.U_KEY_LEVEL];
-		var oStageEpisodeInfos = oJSONNode[KCDefine.U_KEY_STAGE];
-		var oChapterEpisodeInfos = oJSONNode[KCDefine.U_KEY_CHAPTER];
+		var oLevelEpisodeInfosList = new List<SimpleJSON.JSONNode>();
+		var oStageEpisodeInfosList = new List<SimpleJSON.JSONNode>();
+		var oChapterEpisodeInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < oLevelEpisodeInfos.Count; ++i) {
-			var stLevelEpisodeInfo = new STEpisodeInfo(oLevelEpisodeInfos[i]);
+		for(int i = 0; i < KDefine.G_KEY_EPISODE_IT_LEVEL_EPISODE_INFOS_LIST.Count; ++i) {
+			oLevelEpisodeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_EPISODE_IT_LEVEL_EPISODE_INFOS_LIST[i]]);
+		}
 
-			// 레벨 에피소드 정보 추가 가능 할 경우
-			if(stLevelEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.LevelEpisodeInfoDict.ContainsKey(stLevelEpisodeInfo.m_stIDInfo.UniqueID01) || oLevelEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-				this.LevelEpisodeInfoDict.ExReplaceVal(stLevelEpisodeInfo.m_stIDInfo.UniqueID01, stLevelEpisodeInfo);
+		for(int i = 0; i < KDefine.G_KEY_EPISODE_IT_STAGE_EPISODE_INFOS_LIST.Count; ++i) {
+			oStageEpisodeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_EPISODE_IT_STAGE_EPISODE_INFOS_LIST[i]]);
+		}
+
+		for(int i = 0; i < KDefine.G_KEY_EPISODE_IT_CHAPTER_EPISODE_INFOS_LIST.Count; ++i) {
+			oChapterEpisodeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_EPISODE_IT_CHAPTER_EPISODE_INFOS_LIST[i]]);
+		}
+
+		for(int i = 0; i < oLevelEpisodeInfosList.Count; ++i) {
+			for(int j = 0; j < oLevelEpisodeInfosList[i].Count; ++j) {
+				var stLevelEpisodeInfo = new STEpisodeInfo(oLevelEpisodeInfosList[i][j]);
+
+				// 레벨 에피소드 정보 추가 가능 할 경우
+				if(stLevelEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.LevelEpisodeInfoDict.ContainsKey(stLevelEpisodeInfo.m_stIDInfo.UniqueID01) || oLevelEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+					this.LevelEpisodeInfoDict.ExReplaceVal(stLevelEpisodeInfo.m_stIDInfo.UniqueID01, stLevelEpisodeInfo);
+				}
 			}
 		}
 
-		for(int i = 0; i < oStageEpisodeInfos.Count; ++i) {
-			var stStageEpisodeInfo = new STEpisodeInfo(oStageEpisodeInfos[i]);
+		for(int i = 0; i < oStageEpisodeInfosList.Count; ++i) {
+			for(int j = 0; j < oStageEpisodeInfosList[i].Count; ++j) {
+				var stStageEpisodeInfo = new STEpisodeInfo(oStageEpisodeInfosList[i][j]);
 
-			// 스테이지 에피소드 정보 추가 가능 할 경우
-			if(stStageEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stStageEpisodeInfo.m_stIDInfo.UniqueID02) || oStageEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-				this.StageEpisodeInfoDict.ExReplaceVal(stStageEpisodeInfo.m_stIDInfo.UniqueID02, stStageEpisodeInfo);
+				// 스테이지 에피소드 정보 추가 가능 할 경우
+				if(stStageEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stStageEpisodeInfo.m_stIDInfo.UniqueID02) || oStageEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+					this.StageEpisodeInfoDict.ExReplaceVal(stStageEpisodeInfo.m_stIDInfo.UniqueID02, stStageEpisodeInfo);
+				}
 			}
 		}
 
-		for(int i = 0; i < oChapterEpisodeInfos.Count; ++i) {
-			var stChapterEpisodeInfo = new STEpisodeInfo(oChapterEpisodeInfos[i]);
+		for(int i = 0; i < oChapterEpisodeInfosList.Count; ++i) {
+			for(int j = 0; j < oChapterEpisodeInfosList[i].Count; ++j) {
+				var stChapterEpisodeInfo = new STEpisodeInfo(oChapterEpisodeInfosList[i][j]);
 
-			// 챕터 에피소드 정보 추가 가능 할 경우
-			if(stChapterEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stChapterEpisodeInfo.m_stIDInfo.UniqueID03) || oChapterEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-				this.ChapterEpisodeInfoDict.ExReplaceVal(stChapterEpisodeInfo.m_stIDInfo.UniqueID03, stChapterEpisodeInfo);
+				// 챕터 에피소드 정보 추가 가능 할 경우
+				if(stChapterEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stChapterEpisodeInfo.m_stIDInfo.UniqueID03) || oChapterEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+					this.ChapterEpisodeInfoDict.ExReplaceVal(stChapterEpisodeInfo.m_stIDInfo.UniqueID03, stChapterEpisodeInfo);
+				}
 			}
 		}
 
@@ -420,26 +438,40 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	/** 에피소드 정보를 저장한다 */
 	public void SaveEpisodeInfos() {
 		var oJSONNode = new SimpleJSON.JSONClass();
-		var oLevelEpisodeInfos = new SimpleJSON.JSONArray();
-		var oStageEpisodeInfos = new SimpleJSON.JSONArray();
-		var oChapterEpisodeInfos = new SimpleJSON.JSONArray();
+		var oLevelEpisodeInfosList = new List<SimpleJSON.JSONArray>();
+		var oStageEpisodeInfosList = new List<SimpleJSON.JSONArray>();
+		var oChapterEpisodeInfosList = new List<SimpleJSON.JSONArray>();
 
-		foreach(var stKeyVal in this.LevelEpisodeInfoDict) {
-			oLevelEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
+		for(int i = 0; i < KDefine.G_KEY_EPISODE_IT_LEVEL_EPISODE_INFOS_LIST.Count; ++i) {
+			var oLevelEpisodeInfos = new SimpleJSON.JSONArray();
+
+			foreach(var stKeyVal in this.LevelEpisodeInfoDict) {
+				oLevelEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
+			}
+
+			oJSONNode.Add(KDefine.G_KEY_EPISODE_IT_LEVEL_EPISODE_INFOS_LIST[i], oLevelEpisodeInfos);
 		}
 
-		foreach(var stKeyVal in this.StageEpisodeInfoDict) {
-			oStageEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
+		for(int i = 0; i < KDefine.G_KEY_EPISODE_IT_STAGE_EPISODE_INFOS_LIST.Count; ++i) {
+			var oStageEpisodeInfos = new SimpleJSON.JSONArray();
+
+			foreach(var stKeyVal in this.StageEpisodeInfoDict) {
+				oStageEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
+			}
+
+			oJSONNode.Add(KDefine.G_KEY_EPISODE_IT_STAGE_EPISODE_INFOS_LIST[i], oStageEpisodeInfos);
 		}
 
-		foreach(var stKeyVal in this.ChapterEpisodeInfoDict) {
-			oChapterEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
+		for(int i = 0; i < KDefine.G_KEY_EPISODE_IT_CHAPTER_EPISODE_INFOS_LIST.Count; ++i) {
+			var oChapterEpisodeInfos = new SimpleJSON.JSONArray();
+
+			foreach(var stKeyVal in this.ChapterEpisodeInfoDict) {
+				oChapterEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
+			}
+
+			oJSONNode.Add(KDefine.G_KEY_EPISODE_IT_CHAPTER_EPISODE_INFOS_LIST[i], oChapterEpisodeInfos);
 		}
-
-		oJSONNode.Add(KCDefine.U_KEY_LEVEL, oLevelEpisodeInfos);
-		oJSONNode.Add(KCDefine.U_KEY_STAGE, oStageEpisodeInfos);
-		oJSONNode.Add(KCDefine.U_KEY_CHAPTER, oChapterEpisodeInfos);
-
+		
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CFunc.WriteStr(this.EpisodeInfoTablePath, JsonConvert.DeserializeObject(oJSONNode.ToString()).ExToJSONStr(false, true));
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE

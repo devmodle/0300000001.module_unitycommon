@@ -34,7 +34,7 @@ namespace SplashScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			// 테이블을 생성한다 {
 			CLevelInfoTable.Create();
-
+			
 			CMissionInfoTable.Create();
 			CRewardInfoTable.Create();
 			CEpisodeInfoTable.Create();

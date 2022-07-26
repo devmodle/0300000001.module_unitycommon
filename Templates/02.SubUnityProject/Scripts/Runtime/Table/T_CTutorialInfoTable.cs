@@ -141,12 +141,14 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	/** 튜토리얼 정보를 로드한다 */
 	private Dictionary<ETutorialKinds, STTutorialInfo> DoLoadTutorialInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
+
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
+		var oTutorialInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTutorialInfosList = new List<SimpleJSON.JSONNode>() {
-			oJSONNode[KCDefine.U_KEY_PLAY_TUTORIAL], oJSONNode[KCDefine.U_KEY_HELP_TUTORIAL]
-		};
-
+		for(int i = 0; i < KDefine.G_KEY_TUTORIAL_IT_INFOS_LIST.Count; ++i) {
+			oTutorialInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_TUTORIAL_IT_INFOS_LIST[i]]);
+		}
+		
 		for(int i = 0; i < oTutorialInfosList.Count; ++i) {
 			for(int j = 0; j < oTutorialInfosList[i].Count; ++j) {
 				var stTutorialInfo = new STTutorialInfo(oTutorialInfosList[i][j]);

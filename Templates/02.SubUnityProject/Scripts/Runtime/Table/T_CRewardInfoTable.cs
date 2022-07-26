@@ -170,8 +170,8 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
 		var oRewardInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < KDefine.G_KEY_REWARD_INFOS.Count; ++i) {
-			oRewardInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_REWARD_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_REWARD_IT_INFOS_LIST.Count; ++i) {
+			oRewardInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_REWARD_IT_INFOS_LIST[i]]);
 		}
 
 		for(int i = 0; i < oRewardInfosList.Count; ++i) {

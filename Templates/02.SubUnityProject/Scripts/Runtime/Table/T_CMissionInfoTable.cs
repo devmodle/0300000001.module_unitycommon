@@ -146,10 +146,10 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
 		var oMissionInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < KDefine.G_KEY_MISSION_INFOS.Count; ++i) {
-			oMissionInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_MISSION_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_MISSION_IT_INFOS_LIST.Count; ++i) {
+			oMissionInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_MISSION_IT_INFOS_LIST[i]]);
 		}
-
+		
 		for(int i = 0; i < oMissionInfosList.Count; ++i) {
 			for(int j = 0; j < oMissionInfosList[i].Count; ++j) {
 				var stMissionInfo = new STMissionInfo(oMissionInfosList[i][j]);
