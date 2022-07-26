@@ -21,13 +21,13 @@ namespace SampleEngineName {
 			m_oGridInfoDict[EKey.SEL_GRID_INFO] = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
 
 			// 객체 풀을 설정한다 {
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), m_stParams.m_oItemRoot);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_SKILL_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_SKILL), m_stParams.m_oSkillRoot);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), m_stParams.m_oObjRoot);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), m_stParams.m_oFXRoot);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), m_stParams.m_oItemRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_SKILL_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_SKILL), m_stParams.m_oSkillRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), m_stParams.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), m_stParams.m_oFXRoot, KCDefine.U_SIZE_OBJS_POOL, false);
 
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), m_stParams.m_oObjRoot);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_stParams.m_oObjRoot);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), m_stParams.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_stParams.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
 			// 객체 풀을 설정한다 }
 		}
 #endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
