@@ -70,9 +70,9 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	private string TutorialInfoTablePath {
 		get {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_TUTORIAL_INFO;
+			return KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO;
 #else
-			return KCDefine.U_TABLE_P_G_TUTORIAL_INFO;
+			return KCDefine.U_TABLE_P_G_ETC_INFO;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		}
 	}
@@ -141,13 +141,11 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	/** 튜토리얼 정보를 로드한다 */
 	private Dictionary<ETutorialKinds, STTutorialInfo> DoLoadTutorialInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
-		var oTutorialInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < KDefine.G_KEY_TUTORIAL_INFOS.Count; ++i) {
-			oTutorialInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_TUTORIAL_INFOS[i]]);
-		}
+		var oTutorialInfosList = new List<SimpleJSON.JSONNode>() {
+			oJSONNode[KCDefine.U_KEY_PLAY_TUTORIAL], oJSONNode[KCDefine.U_KEY_HELP_TUTORIAL]
+		};
 
 		for(int i = 0; i < oTutorialInfosList.Count; ++i) {
 			for(int j = 0; j < oTutorialInfosList[i].Count; ++j) {
