@@ -314,9 +314,9 @@ namespace GameScene {
 		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {			
 			var oLevelClearInfo = Access.GetLevelClearInfo(m_oEngine.LevelInfo.m_stIDInfo.m_nID01, m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03, true);
 			oLevelClearInfo.IntRecord = a_oSender.IntRecord;
-			oLevelClearInfo.IntBestRecord = System.Math.Max(a_oSender.IntRecord, oLevelClearInfo.IntBestRecord);
-			
 			oLevelClearInfo.RealRecord = a_oSender.RealRecord;
+
+			oLevelClearInfo.IntBestRecord = System.Math.Max(a_oSender.IntRecord, oLevelClearInfo.IntBestRecord);
 			oLevelClearInfo.RealBestRecord = a_oSender.RealRecord.ExIsGreate(oLevelClearInfo.RealBestRecord) ? a_oSender.RealRecord : oLevelClearInfo.RealBestRecord;
 
 			CGameInfoStorage.Inst.SaveGameInfo();

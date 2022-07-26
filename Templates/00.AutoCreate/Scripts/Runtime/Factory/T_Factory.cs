@@ -17,8 +17,18 @@ public static partial class Factory {
 
 	/** 타겟 정보를 생성한다 */
 	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) {
+		return Factory.MakeTargetInfo(a_eTargetKinds, a_nKinds, a_stValInfo, STValInfo.INVALID, a_eKindsGroupType);
+	}
+
+	/** 타겟 정보를 생성한다 */
+	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo01, STValInfo a_stValInfo02, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) {
+		return Factory.MakeTargetInfo(a_eTargetKinds, a_nKinds, a_stValInfo01, a_stValInfo02, STValInfo.INVALID, a_eKindsGroupType);
+	}
+
+	/** 타겟 정보를 생성한다 */
+	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo01, STValInfo a_stValInfo02, STValInfo a_stValInfo03, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) {
 		return new STTargetInfo() {
-			m_nKinds = a_nKinds, m_eTargetKinds = a_eTargetKinds, m_eKindsGroupType = a_eKindsGroupType, m_stValInfo = a_stValInfo
+			m_nKinds = a_nKinds, m_eTargetKinds = a_eTargetKinds, m_eKindsGroupType = a_eKindsGroupType, m_stValInfo01 = a_stValInfo01, m_stValInfo02 = a_stValInfo02, m_stValInfo03 = a_stValInfo03
 		};
 	}
 

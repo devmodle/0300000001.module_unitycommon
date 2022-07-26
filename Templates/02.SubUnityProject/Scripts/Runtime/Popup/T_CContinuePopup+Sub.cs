@@ -39,7 +39,7 @@ public partial class CContinuePopup : CSubPopup {
 		var stPayTargetInfo = CItemInfoTable.Inst.GetItemSaleInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE).m_oPayTargetInfoDict.ExGetTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS);
 		
 		// 텍스트를 갱신한다
-		m_oTextDict[EKey.PRICE_TEXT]?.ExSetText($"{stPayTargetInfo.m_stValInfo.m_nVal}", EFontSet._1, false);
+		m_oTextDict[EKey.PRICE_TEXT]?.ExSetText($"{stPayTargetInfo.m_stValInfo01.m_nVal}", EFontSet._1, false);
 	}
 	#endregion			// 함수
 }

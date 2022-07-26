@@ -60,7 +60,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 			foreach(var stKeyVal in stRewardInfo.m_oAcquireTargetInfoDict) {
 				oTargetInfoDict.TryAdd(stKeyVal.Key, Factory.MakeTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, new STValInfo() {
-					m_nVal = stKeyVal.Value.m_stValInfo.m_nVal * KCDefine.B_VAL_2_INT, m_dblVal = stKeyVal.Value.m_stValInfo.m_dblVal * KCDefine.B_VAL_2_REAL, m_eValType = stKeyVal.Value.m_stValInfo.m_eValType
+					m_nVal = stKeyVal.Value.m_stValInfo01.m_nVal * KCDefine.B_VAL_2_INT, m_dblVal = stKeyVal.Value.m_stValInfo01.m_dblVal * KCDefine.B_VAL_2_REAL, m_eValType = stKeyVal.Value.m_stValInfo01.m_eValType
 				}));
 			}
 

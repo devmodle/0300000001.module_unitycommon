@@ -19,8 +19,8 @@ public static partial class Extension {
 			var stAbilityTargetInfo = a_oSender.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)a_eAbilityKinds), STTargetInfo.INVALID);
 			stAbilityTargetInfo.m_nKinds = (int)a_eAbilityKinds;
 			stAbilityTargetInfo.m_eTargetKinds = ETargetKinds.ABILITY;
-			stAbilityTargetInfo.m_stValInfo.m_nVal = System.Math.Clamp(stAbilityTargetInfo.m_stValInfo.m_nVal + a_nVal, KCDefine.B_VAL_0_INT, long.MaxValue);
-			stAbilityTargetInfo.m_stValInfo.m_eValType = EValType.INT;
+			stAbilityTargetInfo.m_stValInfo01.m_nVal = System.Math.Clamp(stAbilityTargetInfo.m_stValInfo01.m_nVal + a_nVal, KCDefine.B_VAL_0_INT, long.MaxValue);
+			stAbilityTargetInfo.m_stValInfo01.m_eValType = EValType.INT;
 
 			a_oSender.ExReplaceVal(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)a_eAbilityKinds), stAbilityTargetInfo);
 		}

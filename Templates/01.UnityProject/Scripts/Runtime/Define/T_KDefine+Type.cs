@@ -17,11 +17,14 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	[Key(1)] public int m_nKinds;
 	[Key(11)] public ETargetKinds m_eTargetKinds;
 	[Key(12)] public EKindsGroupType m_eKindsGroupType;
-	[Key(21)] public STValInfo m_stValInfo;
+
+	[Key(21)] public STValInfo m_stValInfo01;
+	[Key(22)] public STValInfo m_stValInfo02;
+	[Key(23)] public STValInfo m_stValInfo03;
 
 	#region 상수
 	public static readonly STTargetInfo INVALID = new STTargetInfo() {
-		m_nKinds = KCDefine.B_IDX_INVALID, m_eTargetKinds = ETargetKinds.NONE, m_eKindsGroupType = EKindsGroupType.NONE, m_stValInfo = STValInfo.INVALID
+		m_nKinds = KCDefine.B_IDX_INVALID, m_eTargetKinds = ETargetKinds.NONE, m_eKindsGroupType = EKindsGroupType.NONE, m_stValInfo01 = STValInfo.INVALID, m_stValInfo02 = STValInfo.INVALID, m_stValInfo03 = STValInfo.INVALID
 	};
 	#endregion			// 상수
 
@@ -47,7 +50,7 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	#region IEquatable
 	/** 동일 여부를 검사한다 */
 	public bool Equals(STTargetInfo a_stTargetInfo) {
-		return m_nKinds == a_stTargetInfo.m_nKinds && m_eTargetKinds == a_stTargetInfo.m_eTargetKinds && m_eKindsGroupType == a_stTargetInfo.m_eKindsGroupType && m_stValInfo.Equals(a_stTargetInfo.m_stValInfo);
+		return m_nKinds == a_stTargetInfo.m_nKinds && m_eTargetKinds == a_stTargetInfo.m_eTargetKinds && m_eKindsGroupType == a_stTargetInfo.m_eKindsGroupType && m_stValInfo01.Equals(a_stTargetInfo.m_stValInfo01) && m_stValInfo02.Equals(a_stTargetInfo.m_stValInfo02) && m_stValInfo03.Equals(a_stTargetInfo.m_stValInfo03);
 	}
 	#endregion			// IEquatable
 
@@ -57,7 +60,10 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		m_nKinds = a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_2_INT].ExIsValid() ? a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_2_INT].AsInt : KCDefine.B_IDX_INVALID;
 		m_eTargetKinds = a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_0_INT].ExIsValid() ? (ETargetKinds)a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_0_INT].AsInt : ETargetKinds.NONE;
 		m_eKindsGroupType = a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_1_INT].ExIsValid() ? (EKindsGroupType)a_oTargetInfo[a_nSrcIdx + KCDefine.B_VAL_1_INT].AsInt : EKindsGroupType.NONE;
-		m_stValInfo = new STValInfo(a_oTargetInfo, a_nSrcIdx + KCDefine.B_VAL_3_INT);
+
+		m_stValInfo01 = new STValInfo(a_oTargetInfo, a_nSrcIdx + KCDefine.B_VAL_3_INT);
+		m_stValInfo02 = new STValInfo(a_oTargetInfo, a_nSrcIdx + KCDefine.B_VAL_5_INT);
+		m_stValInfo03 = new STValInfo(a_oTargetInfo, a_nSrcIdx + KCDefine.B_VAL_7_INT);
 	}
 	#endregion			// 함수
 
@@ -69,8 +75,15 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		oJSONArray.Add($"{(int)m_eTargetKinds}");
 		oJSONArray.Add($"{(int)m_eKindsGroupType}");
 		oJSONArray.Add($"{m_nKinds}");
-		oJSONArray.Add($"{(int)m_stValInfo.m_eValType}");
-		oJSONArray.Add((m_stValInfo.m_eValType == EValType.INT) ? $"{m_stValInfo.m_nVal}" : $"{m_stValInfo.m_dblVal}");
+
+		oJSONArray.Add($"{(int)m_stValInfo01.m_eValType}");
+		oJSONArray.Add((m_stValInfo01.m_eValType == EValType.INT) ? $"{m_stValInfo01.m_nVal}" : $"{m_stValInfo01.m_dblVal}");
+
+		oJSONArray.Add($"{(int)m_stValInfo02.m_eValType}");
+		oJSONArray.Add((m_stValInfo02.m_eValType == EValType.INT) ? $"{m_stValInfo02.m_nVal}" : $"{m_stValInfo02.m_dblVal}");
+
+		oJSONArray.Add($"{(int)m_stValInfo03.m_eValType}");
+		oJSONArray.Add((m_stValInfo03.m_eValType == EValType.INT) ? $"{m_stValInfo03.m_nVal}" : $"{m_stValInfo03.m_dblVal}");
 
 		a_oOutTargetInfo.Add(a_oKey, oJSONArray);
 	}
