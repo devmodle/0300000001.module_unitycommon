@@ -33,14 +33,9 @@ public static partial class Factory {
 	}
 
 	/** 아이템 정보를 생성한다 */
-	public static CItemInfo MakeItemInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
+	public static CItemInfo MakeItemInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
 		var oItemInfo = new CItemInfo() {
-			ItemKinds = a_eItemKinds, m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>() {
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_nVal = a_nLV, m_eValType = EValType.INT }),
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_nVal = a_nNums, m_eValType = EValType.INT }),
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT })
-			}
+			ItemKinds = a_eItemKinds, OwnerKinds = a_nOwnerKinds, OwnerTargetKinds = a_eOwnerTargetKinds, m_oAbilityTargetInfoDict = Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums)
 		};
 
 		var stItemInfo = CItemInfoTable.Inst.GetItemInfo(a_eItemKinds);
@@ -51,14 +46,9 @@ public static partial class Factory {
 	}
 
 	/** 스킬 정보를 생성한다 */
-	public static CSkillInfo MakeSkillInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
+	public static CSkillInfo MakeSkillInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
 		var oSkillInfo = new CSkillInfo() {
-			SkillKinds = a_eSkillKinds, m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>() {
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_nVal = a_nLV, m_eValType = EValType.INT }),
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_nVal = a_nNums, m_eValType = EValType.INT }),
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT })
-			}
+			SkillKinds = a_eSkillKinds, OwnerKinds = a_nOwnerKinds, OwnerTargetKinds = a_eOwnerTargetKinds, m_oAbilityTargetInfoDict = Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums)
 		};
 
 		var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds);
@@ -69,14 +59,9 @@ public static partial class Factory {
 	}
 
 	/** 객체 정보를 생성한다 */
-	public static CObjInfo MakeObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT) {
+	public static CObjInfo MakeObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
 		var oObjInfo = new CObjInfo() {
-			ObjKinds = a_eObjKinds, m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>() {
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_nVal = a_nLV, m_eValType = EValType.INT }),
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_nVal = a_nNums, m_eValType = EValType.INT }),
-				[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT })
-			}
+			ObjKinds = a_eObjKinds, OwnerKinds = a_nOwnerKinds, OwnerTargetKinds = a_eOwnerTargetKinds, m_oAbilityTargetInfoDict = Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums)
 		};
 
 		var stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds);
@@ -84,6 +69,16 @@ public static partial class Factory {
 		
 		oObjInfo.OnAfterDeserialize();
 		return oObjInfo;
+	}
+
+	/** 기본 어빌리티 타겟 정보를 생성한다 */
+	private static Dictionary<ulong, STTargetInfo> MakeDefAbilityTargetInfos(long a_nLV, long a_nNums) {
+		return new Dictionary<ulong, STTargetInfo>() {
+			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_nVal = a_nLV, m_eValType = EValType.INT }),
+			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
+			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_nVal = a_nNums, m_eValType = EValType.INT }),
+			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT })
+		};
 	}
 	#endregion			// 클래스 함수
 
