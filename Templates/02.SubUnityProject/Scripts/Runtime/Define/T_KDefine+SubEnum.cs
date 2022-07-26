@@ -428,6 +428,7 @@ public enum EAbilityType {
 	STAT,
 	BUFF,
 	DEBUFF,
+	UPGRADE,
 	[HideInInspector] MAX_VAL
 }
 
@@ -484,6 +485,11 @@ public enum EAbilityKinds {
 	// 200,000,000
 	DEBUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 디버프
+
+	#region 업그레이드
+	// 300,000,000
+	UPGRADE_ABILITY_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 업그레이드
 
 	[HideInInspector] MAX_VAL
 }
