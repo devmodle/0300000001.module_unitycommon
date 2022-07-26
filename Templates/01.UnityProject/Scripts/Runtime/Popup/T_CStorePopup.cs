@@ -18,7 +18,7 @@ public partial class CStorePopup : CSubPopup {
 	private enum EKey {
 		NONE = -1,
 		PURCHASE_PRODUCT_ID,
-		SEL_PRODUCT_SALE_KINDS,
+		SEL_PRODUCT_KINDS,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -53,7 +53,7 @@ public partial class CStorePopup : CSubPopup {
 	};
 
 	private Dictionary<EKey, EProductKinds> m_oProductKindsDict = new Dictionary<EKey, EProductKinds>() {
-		[EKey.SEL_PRODUCT_SALE_KINDS] = EProductKinds.NONE
+		[EKey.SEL_PRODUCT_KINDS] = EProductKinds.NONE
 	};
 
 #if PURCHASE_MODULE_ENABLE
@@ -76,7 +76,7 @@ public partial class CStorePopup : CSubPopup {
 		switch(a_stProductSaleInfo.m_ePurchaseType) {
 			case EPurchaseType.ADS: {
 #if ADS_MODULE_ENABLE
-				m_oProductKindsDict[EKey.SEL_PRODUCT_SALE_KINDS] = a_stProductSaleInfo.m_eProductKinds;
+				m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS] = a_stProductSaleInfo.m_eProductKinds;
 				Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 			} break;
@@ -106,7 +106,7 @@ public partial class CStorePopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			Func.Buy(CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductKindsDict[EKey.SEL_PRODUCT_SALE_KINDS]));
+			Func.Buy(CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS]));
 		}
 
 		this.UpdateUIsState();

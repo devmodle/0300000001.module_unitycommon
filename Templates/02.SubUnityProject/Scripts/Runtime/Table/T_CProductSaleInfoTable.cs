@@ -41,9 +41,9 @@ public partial struct STProductSaleInfo {
 		m_stCommonInfo = new STCommonInfo(a_oProductSaleInfo);
 		m_nTableIdx = a_oProductSaleInfo[KCDefine.U_KEY_TABLE_IDX].AsInt;
 
-		m_eProductKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_SALE_KINDS].AsInt : EProductKinds.NONE;
-		m_ePrevProductKinds = a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductKinds)a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_SALE_KINDS].AsInt : EProductKinds.NONE;
-		m_eNextProductKinds = a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].ExIsValid() ? (EProductKinds)a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_SALE_KINDS].AsInt : EProductKinds.NONE;
+		m_eProductKinds = a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_KINDS].ExIsValid() ? (EProductKinds)a_oProductSaleInfo[KCDefine.U_KEY_PRODUCT_KINDS].AsInt : EProductKinds.NONE;
+		m_ePrevProductKinds = a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_KINDS].ExIsValid() ? (EProductKinds)a_oProductSaleInfo[KCDefine.U_KEY_PREV_PRODUCT_KINDS].AsInt : EProductKinds.NONE;
+		m_eNextProductKinds = a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_KINDS].ExIsValid() ? (EProductKinds)a_oProductSaleInfo[KCDefine.U_KEY_NEXT_PRODUCT_KINDS].AsInt : EProductKinds.NONE;
 		m_ePurchaseType = a_oProductSaleInfo[KCDefine.U_KEY_PURCHASE_TYPE].ExIsValid() ? (EPurchaseType)a_oProductSaleInfo[KCDefine.U_KEY_PURCHASE_TYPE].AsInt : EPurchaseType.NONE;
 
 		m_oPayTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
@@ -78,9 +78,9 @@ public partial class CProductSaleInfoTable : CSingleton<CProductSaleInfoTable> {
 	private string ProductSaleInfoTablePath {
 		get {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_PRODUCT_SALE_INFO;
+			return KCDefine.U_RUNTIME_TABLE_P_G_PRODUCT_INFO;
 #else
-			return KCDefine.U_TABLE_P_G_PRODUCT_SALE_INFO;
+			return KCDefine.U_TABLE_P_G_PRODUCT_INFO;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		}
 	}
@@ -195,8 +195,8 @@ public partial class CProductSaleInfoTable : CSingleton<CProductSaleInfoTable> {
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 		var oProductSaleInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < KDefine.G_KEY_PRODUCT_SALE_INFOS.Count; ++i) {
-			oProductSaleInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_PRODUCT_SALE_INFOS[i]]);
+		for(int i = 0; i < KDefine.G_KEY_PRODUCT_SIT_INFOS_LIST.Count; ++i) {
+			oProductSaleInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_PRODUCT_SIT_INFOS_LIST[i]]);
 		}
 
 		for(int i = 0; i < oProductSaleInfosList.Count; ++i) {

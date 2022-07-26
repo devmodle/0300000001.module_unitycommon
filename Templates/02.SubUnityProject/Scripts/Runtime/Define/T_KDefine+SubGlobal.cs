@@ -52,12 +52,12 @@ public static partial class KDefine {
 	};
 
 	// 상점 상품 종류
-	public static readonly List<EProductKinds> G_STORE_PRODUCT_SALE_KINDS_LIST = new List<EProductKinds>() {
+	public static readonly List<EProductKinds> G_PRODUCT_KINDS_STORE_LIST = new List<EProductKinds>() {
 		// Do Something
 	};
 
 	// 특수 패키지 상품 종류
-	public static readonly List<EProductKinds> G_PRODUCT_SALE_KINDS_PRODUCT_SPECIAL_PKGS_LIST = new List<EProductKinds>() {
+	public static readonly List<EProductKinds> G_PRODUCT_KINDS_SPECIAL_PKGS_LIST = new List<EProductKinds>() {
 		// Do Something
 	};
 	#endregion			// 런타임 상수

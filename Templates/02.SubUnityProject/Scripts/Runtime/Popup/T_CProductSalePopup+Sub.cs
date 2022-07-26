@@ -29,7 +29,7 @@ public partial class CProductSalePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		for(int i = 0; i < m_oProductSaleUIsDict.Count; ++i) {
-			this.UpdateProductSaleUIsState(m_oProductSaleUIsDict[i], CProductSaleInfoTable.Inst.GetProductSaleInfo(KDefine.G_PRODUCT_SALE_KINDS_PRODUCT_SPECIAL_PKGS_LIST[i]));
+			this.UpdateProductSaleUIsState(m_oProductSaleUIsDict[i], CProductSaleInfoTable.Inst.GetProductSaleInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));
 		}
 	}
 
