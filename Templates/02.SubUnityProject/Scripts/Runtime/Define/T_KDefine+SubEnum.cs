@@ -18,66 +18,22 @@ public static partial class KEnumVal {
 }
 
 #region 기본
-/** 아이템 타입 */
-public enum EItemType {
+/** 보상 수준 */
+public enum ERewardQuality {
 	NONE = -1,
-	GOODS,
-	CONSUMABLE,
-	NON_CONSUMABLE,
-	WEAPON,
-	ARMOR,
-	ACCESSORY,
-	ATTACH,
+	NORM,
+	HIGH,
+	ULTRA,
 	[HideInInspector] MAX_VAL
 }
 
-/** 아이템 종류 */
-public enum EItemKinds {
+/** 보상 획득 팝업 타입 */
+public enum ERewardAcquirePopupType {
 	NONE = -1,
-
-	#region 재화
-	// 0
-	GOODS_COINS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,000
-	GOODS_COINS_BOX_COINS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 재화
-
-	#region 소모
-	// 100,000,000
-	CONSUMABLE_BOOSTER_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-
-	// 100,100,000
-	CONSUMABLE_GAME_ITEM_HINT = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	CONSUMABLE_GAME_ITEM_SHUFFLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 2),
-	#endregion			// 소모
-
-	#region 비소모
-	// 200,000,000
-	NON_CONSUMABLE_REMOVE_ADS = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 비소모
-
-	#region 무기
-	// 300,000,000
-	WEAPON_ITEM_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 무기
-
-	#region 방어구
-	// 400,000,000
-	ARMOR_ITEM_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 방어구
-
-	#region 악세서리
-	// 50,000,000
-	ACCESSORY_ITEM_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 악세서리
-
-	#region 장식
-	// 60,000,000
-	ATTACH_ITEM_SAMPLE = (EEnumVal.TYPE * 6) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 장식
-
+	FREE,
+	DAILY,
+	EVENT,
+	CLEAR,
 	[HideInInspector] MAX_VAL
 }
 
@@ -167,25 +123,6 @@ public enum ERewardKinds {
 	[HideInInspector] MAX_VAL
 }
 
-/** 보상 수준 */
-public enum ERewardQuality {
-	NONE = -1,
-	NORM,
-	HIGH,
-	ULTRA,
-	[HideInInspector] MAX_VAL
-}
-
-/** 보상 획득 팝업 타입 */
-public enum ERewardAcquirePopupType {
-	NONE = -1,
-	FREE,
-	DAILY,
-	EVENT,
-	CLEAR,
-	[HideInInspector] MAX_VAL
-}
-
 /** 에피소드 타입 */
 public enum EEpisodeType {
 	NONE = -1,
@@ -253,33 +190,123 @@ public enum ETutorialKinds {
 	[HideInInspector] MAX_VAL
 }
 
-/** 효과 타입 */
-public enum EFXType {
+/** 리소스 타입 */
+public enum EResType {
 	NONE = -1,
-	HIT,
-	BUFF,
-	DEBUFF,
+	SND,
+	FONT,
+	IMG,
+	SPRITE,
+	TEXTURE,
 	[HideInInspector] MAX_VAL
 }
 
-/** 효과 종류 */
-public enum EFXKinds {
+/** 리소스 종류 */
+public enum EResKinds {
 	NONE = -1,
 
-	#region 타격
+	#region 사운드
 	// 0
-	HIT_FX_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 타격
+	SND_BG_SCENE_TITLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SND_BG_SCENE_MAIN = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	SND_BG_SCENE_GAME = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 
-	#region 버프
+	// 100,000
+	SND_FX_TOUCH_BEGIN = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SND_FX_TOUCH_END = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
+
+	// 200,000
+	SND_FX_POPUP_SHOW = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SND_FX_POPUP_CLOSE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	#endregion			// 사운드
+
+	#region 폰트
 	// 100,000,000
-	BUFF_FX_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 버프
+	FONT_KOREAN = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	FONT_ENGLISH = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	#endregion           // 폰트
 
-	#region 디버프
+	#region 이미지
 	// 200,000,000
-	DEBUFF_FX_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 디버프
+	IMG_WHITE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	IMG_SPLASH,
+	IMG_INDICATOR,
+	#endregion			// 이미지
+
+	#region 스프라이트
+	// 300,000,000
+	SPRITE_WHITE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SPRITE_SPLASH,
+	SPRITE_INDICATOR,
+	#endregion         // 스프라이트
+
+	#region 텍스처
+	// 400,000,000
+	TEXTURE_RES_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 텍스처
+
+	[HideInInspector] MAX_VAL
+}
+
+/** 아이템 타입 */
+public enum EItemType {
+	NONE = -1,
+	GOODS,
+	CONSUMABLE,
+	NON_CONSUMABLE,
+	WEAPON,
+	ARMOR,
+	ACCESSORY,
+	ATTACH,
+	[HideInInspector] MAX_VAL
+}
+
+/** 아이템 종류 */
+public enum EItemKinds {
+	NONE = -1,
+
+	#region 재화
+	// 0
+	GOODS_COINS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 100,000
+	GOODS_COINS_BOX_COINS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 재화
+
+	#region 소모
+	// 100,000,000
+	CONSUMABLE_BOOSTER_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 100,100,000
+	CONSUMABLE_GAME_ITEM_HINT = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	CONSUMABLE_GAME_ITEM_SHUFFLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	#endregion			// 소모
+
+	#region 비소모
+	// 200,000,000
+	NON_CONSUMABLE_REMOVE_ADS = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 비소모
+
+	#region 무기
+	// 300,000,000
+	WEAPON_ITEM_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 무기
+
+	#region 방어구
+	// 400,000,000
+	ARMOR_ITEM_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 방어구
+
+	#region 악세서리
+	// 50,000,000
+	ACCESSORY_ITEM_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 악세서리
+
+	#region 장식
+	// 60,000,000
+	ATTACH_ITEM_SAMPLE = (EEnumVal.TYPE * 6) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 장식
 
 	[HideInInspector] MAX_VAL
 }
@@ -311,6 +338,86 @@ public enum ESkillKinds {
 	// 200,000,000
 	PASSIVE_SKILL_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 패시브
+
+	[HideInInspector] MAX_VAL
+}
+
+/** 객체 타입 */
+public enum EObjType {
+	NONE = -1,
+	BG,
+	NORM,
+	OVERLAY,
+	PLAYABLE,
+	NON_PLAYABLE,
+	ENEMY,
+	[HideInInspector] MAX_VAL
+}
+
+/** 객체 종류 */
+public enum EObjKinds {
+	NONE = -1,
+
+	#region 배경
+	// 0
+	BG_EMPTY = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 배경
+
+	#region 일반
+	// 100,000,000
+	NORM_OBJ_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 일반
+
+	#region 중첩
+	// 200,000,000
+	OVERLAY_OBJ_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 중첩
+
+	#region 플레이 가능
+	// 300,000,000
+	PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 플레이 가능
+
+	#region 플레이 불가능
+	// 400,000,000
+	NON_PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 플레이 불가능
+
+	#region 적
+	// 500,000,000
+	ENEMY_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 적
+
+	[HideInInspector] MAX_VAL
+}
+
+/** 효과 타입 */
+public enum EFXType {
+	NONE = -1,
+	HIT,
+	BUFF,
+	DEBUFF,
+	[HideInInspector] MAX_VAL
+}
+
+/** 효과 종류 */
+public enum EFXKinds {
+	NONE = -1,
+
+	#region 타격
+	// 0
+	HIT_FX_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 타격
+
+	#region 버프
+	// 100,000,000
+	BUFF_FX_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 버프
+
+	#region 디버프
+	// 200,000,000
+	DEBUFF_FX_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 디버프
 
 	[HideInInspector] MAX_VAL
 }
@@ -381,123 +488,16 @@ public enum EAbilityKinds {
 	[HideInInspector] MAX_VAL
 }
 
-/** 객체 타입 */
-public enum EObjType {
-	NONE = -1,
-	BG,
-	NORM,
-	OVERLAY,
-	PLAYABLE,
-	NON_PLAYABLE,
-	ENEMY,
-	[HideInInspector] MAX_VAL
-}
-
-/** 객체 종류 */
-public enum EObjKinds {
-	NONE = -1,
-
-	#region 배경
-	// 0
-	BG_EMPTY = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 배경
-
-	#region 일반
-	// 100,000,000
-	NORM_OBJ_SAMPLE = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 일반
-
-	#region 중첩
-	// 200,000,000
-	OVERLAY_OBJ_SAMPLE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 중첩
-
-	#region 플레이 가능
-	// 300,000,000
-	PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 플레이 가능
-
-	#region 플레이 불가능
-	// 400,000,000
-	NON_PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 플레이 불가능
-
-	#region 적
-	// 500,000,000
-	ENEMY_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 적
-
-	[HideInInspector] MAX_VAL
-}
-
-/** 리소스 타입 */
-public enum EResType {
-	NONE = -1,
-	SND,
-	FONT,
-	IMG,
-	SPRITE,
-	TEXTURE,
-	[HideInInspector] MAX_VAL
-}
-
-/** 리소스 종류 */
-public enum EResKinds {
-	NONE = -1,
-
-	#region 사운드
-	// 0
-	SND_BG_SCENE_TITLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SND_BG_SCENE_MAIN = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	SND_BG_SCENE_GAME = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
-
-	// 100,000
-	SND_FX_TOUCH_BEGIN = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SND_FX_TOUCH_END = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
-
-	// 200,000
-	SND_FX_POPUP_SHOW = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SND_FX_POPUP_CLOSE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	#endregion			// 사운드
-
-	#region 폰트
-	// 100,000,000
-	FONT_KOREAN = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	FONT_ENGLISH = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	#endregion           // 폰트
-
-	#region 이미지
-	// 200,000,000
-	IMG_WHITE = (EEnumVal.TYPE * 2) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	IMG_SPLASH,
-	IMG_INDICATOR,
-	#endregion			// 이미지
-
-	#region 스프라이트
-	// 300,000,000
-	SPRITE_WHITE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SPRITE_SPLASH,
-	SPRITE_INDICATOR,
-	#endregion         // 스프라이트
-
-	#region 텍스처
-	// 400,000,000
-	TEXTURE_RES_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 텍스처
-
-	[HideInInspector] MAX_VAL
-}
-
-/** 상품 판매 타입 */
-public enum EProductSaleType {
+/** 상품 타입 */
+public enum EProductType {
 	NONE = -1,
 	PKGS,
 	SINGLE,
 	[HideInInspector] MAX_VAL
 }
 
-/** 상품 판매 종류 */
-public enum EProductSaleKinds {
+/** 상품 종류 */
+public enum EProductKinds {
 	NONE = -1,
 
 	#region 패키지

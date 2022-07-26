@@ -137,13 +137,13 @@ public static partial class AccessExtension {
 	}
 	
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EProductSaleType a_eSender) {
-		return a_eSender > EProductSaleType.NONE && a_eSender < EProductSaleType.MAX_VAL;
+	public static bool ExIsValid(this EProductType a_eSender) {
+		return a_eSender > EProductType.NONE && a_eSender < EProductType.MAX_VAL;
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this EProductSaleKinds a_eSender) {
-		return a_eSender > EProductSaleKinds.NONE && a_eSender < EProductSaleKinds.MAX_VAL;
+	public static bool ExIsValid(this EProductKinds a_eSender) {
+		return a_eSender > EProductKinds.NONE && a_eSender < EProductKinds.MAX_VAL;
 	}
 
 	/** 컴포넌트 상호 작용 여부를 변경한다 */

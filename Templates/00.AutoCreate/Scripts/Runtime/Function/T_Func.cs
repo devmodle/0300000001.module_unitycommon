@@ -501,7 +501,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show();
 		Func.m_oFacebookCallbackDict02.ExReplaceVal(ECallback.FACEBOOK_LOGIN, a_oCallback);
 
-		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.U_KEY_FACEBOOK_PERMISSION_LIST, Func.OnFacebookLogin);
 	}
 
 	/** 페이스 북 로그아웃을 처리한다 */
@@ -534,7 +534,7 @@ public static partial class Func {
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 		CServicesManager.Inst.LoginWithApple(Func.OnFirebaseAppleLogin);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnFirebaseFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.U_KEY_FACEBOOK_PERMISSION_LIST, Func.OnFirebaseFacebookLogin);
 #else
 		CFirebaseManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnFirebaseLogin);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -815,8 +815,8 @@ public static partial class Func {
 	}
 
 	/** 상품을 결제한다 */
-	public static void PurchaseProduct(EProductSaleKinds a_eProductSaleKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		bool bIsValid = CProductSaleInfoTable.Inst.TryGetProductSaleInfo(a_eProductSaleKinds, out STProductSaleInfo stProductSaleInfo);
+	public static void PurchaseProduct(EProductKinds a_eProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+		bool bIsValid = CProductSaleInfoTable.Inst.TryGetProductSaleInfo(a_eProductKinds, out STProductSaleInfo stProductSaleInfo);
 		CAccess.Assert(!a_bIsEnableAssert || bIsValid);
 		
 		// 상품이 존재 할 경우
@@ -870,7 +870,7 @@ public static partial class Func {
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 		CServicesManager.Inst.LoginWithApple(Func.OnPlayfabAppleLogin);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Login(KCDefine.U_PERMISSION_LIST_FACEBOOK, Func.OnPlayfabFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.U_KEY_FACEBOOK_PERMISSION_LIST, Func.OnPlayfabFacebookLogin);
 #else
 		CPlayfabManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnPlayfabLogin);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE

@@ -58,11 +58,11 @@ namespace OverlayScene {
 		public void ShowStorePopup() {
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			Func.ShowStorePopup(CSceneManager.ActiveScenePopupUIs, (a_oSender) => {
-				var oProductSaleInfoDict = new Dictionary<EProductSaleKinds, STProductSaleInfo>();
+				var oProductSaleInfoDict = new Dictionary<EProductKinds, STProductSaleInfo>();
 
 				for(int i = 0; i < KDefine.G_STORE_PRODUCT_SALE_KINDS_LIST.Count; ++i) {
-					var eProductSaleKinds = KDefine.G_STORE_PRODUCT_SALE_KINDS_LIST[i];
-					oProductSaleInfoDict.TryAdd(eProductSaleKinds, CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductSaleKinds));
+					var eProductKinds = KDefine.G_STORE_PRODUCT_SALE_KINDS_LIST[i];
+					oProductSaleInfoDict.TryAdd(eProductKinds, CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductKinds));
 				}
 
 				(a_oSender as CStorePopup).Init(new CStorePopup.STParams() {
@@ -102,9 +102,9 @@ namespace OverlayScene {
 		}
 
 		/** 상품을 결제한다 */
-		public void PurchaseProduct(EProductSaleKinds a_eProductSaleKinds, System.Action<CPurchaseManager, string, bool> a_oCallback) {
+		public void PurchaseProduct(EProductKinds a_eProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback) {
 			m_oCallbackDict.ExReplaceVal(ECallback.PURCHASE, a_oCallback);
-			Func.PurchaseProduct(a_eProductSaleKinds, this.OnPurchaseProduct);
+			Func.PurchaseProduct(a_eProductKinds, this.OnPurchaseProduct);
 		}
 
 		/** 상품이 결제 되었을 경우 */

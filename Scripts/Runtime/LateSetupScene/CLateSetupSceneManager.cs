@@ -22,7 +22,7 @@ namespace LateSetupScene {
 #endif			// #if UNITY_EDITOR
 
 #if UNITY_ANDROID
-		public List<string> m_oPermissionList { get; private set; } = new List<string>();
+		public List<string> m_oUserPermissionList { get; private set; } = new List<string>();
 #endif			// #if UNITY_ANDROID
 
 #if ADS_MODULE_ENABLE
@@ -43,8 +43,8 @@ namespace LateSetupScene {
 		protected abstract void ShowTrackingDescPopup();
 
 #if UNITY_ANDROID
-		/** 권한을 요청한다 */
-		protected abstract void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
+		/** 유저 권한을 요청한다 */
+		protected abstract void RequestUserPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
 #endif			// #if UNITY_ANDROID
 		#endregion			// 추상 함수
 
@@ -242,15 +242,15 @@ namespace LateSetupScene {
 			}
 
 			this.Setup();
-			this.CheckPermission();
+			this.ApplyUserPermissions();
 		}
 
-		/** 권한을 검사한다 */
-		private void CheckPermission() {
+		/** 유저 권한을 적용한다 */
+		private void ApplyUserPermissions() {
 #if UNITY_ANDROID
-			// 권한이 필요 할 경우
-			if(m_oPermissionList.ExIsValid()) {
-				this.RequestPermission(m_oPermissionList[KCDefine.B_VAL_0_INT], this.OnReceiveRequestPermissionResult);
+			// 유저 권한이 필요 할 경우
+			if(m_oUserPermissionList.ExIsValid()) {
+				this.RequestUserPermission(m_oUserPermissionList[KCDefine.B_VAL_0_INT], this.OnReceiveRequestUserPermissionResult);
 			} else {
 				this.LoadNextScene();
 			}
@@ -289,10 +289,10 @@ namespace LateSetupScene {
 
 		#region 조건부 함수
 #if UNITY_ANDROID
-		/** 권한 요청 결과를 수신했을 경우 */
-		private void OnReceiveRequestPermissionResult(string a_oPermission, bool a_bIsSuccess) {
-			m_oPermissionList.ExRemoveVal(a_oPermission);
-			this.ExLateCallFunc((a_oSender) => this.CheckPermission());
+		/** 유저 권한 요청 결과를 수신했을 경우 */
+		private void OnReceiveRequestUserPermissionResult(string a_oPermission, bool a_bIsSuccess) {
+			m_oUserPermissionList.ExRemoveVal(a_oPermission);
+			this.ExLateCallFunc((a_oSender) => this.ApplyUserPermissions());
 		}
 #endif			// #if UNITY_ANDROID
 		#endregion			// 조건부 함수

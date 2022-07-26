@@ -27,7 +27,7 @@ public partial class CProductSalePopup : CSubPopup {
 
 	/** 매개 변수 */
 	public partial struct STParams {
-		public EProductSaleKinds m_eProductSaleKinds;
+		public EProductKinds m_eProductKinds;
 
 #if PURCHASE_MODULE_ENABLE
 		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict;
@@ -51,7 +51,7 @@ public partial class CProductSalePopup : CSubPopup {
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STProductSaleInfo a_stProductSaleInfo) {
 #if PURCHASE_MODULE_ENABLE
-		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductSaleInfo.m_eProductSaleKinds, this.OnPurchaseProduct);
+		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductSaleInfo.m_eProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수

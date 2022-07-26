@@ -52,8 +52,8 @@ public partial class CStorePopup : CSubPopup {
 		[EKey.PURCHASE_PRODUCT_ID] = string.Empty
 	};
 
-	private Dictionary<EKey, EProductSaleKinds> m_oProductSaleKindsDict = new Dictionary<EKey, EProductSaleKinds>() {
-		[EKey.SEL_PRODUCT_SALE_KINDS] = EProductSaleKinds.NONE
+	private Dictionary<EKey, EProductKinds> m_oProductKindsDict = new Dictionary<EKey, EProductKinds>() {
+		[EKey.SEL_PRODUCT_SALE_KINDS] = EProductKinds.NONE
 	};
 
 #if PURCHASE_MODULE_ENABLE
@@ -76,13 +76,13 @@ public partial class CStorePopup : CSubPopup {
 		switch(a_stProductSaleInfo.m_ePurchaseType) {
 			case EPurchaseType.ADS: {
 #if ADS_MODULE_ENABLE
-				m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS] = a_stProductSaleInfo.m_eProductSaleKinds;
+				m_oProductKindsDict[EKey.SEL_PRODUCT_SALE_KINDS] = a_stProductSaleInfo.m_eProductKinds;
 				Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 			} break;
 			case EPurchaseType.IN_APP_PURCHASE: {
 #if PURCHASE_MODULE_ENABLE
-				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductSaleInfo.m_eProductSaleKinds, this.OnPurchaseProduct);
+				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductSaleInfo.m_eProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 			} break;
 			case EPurchaseType.TARGET: {
@@ -106,7 +106,7 @@ public partial class CStorePopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			Func.Buy(CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductSaleKindsDict[EKey.SEL_PRODUCT_SALE_KINDS]));
+			Func.Buy(CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductKindsDict[EKey.SEL_PRODUCT_SALE_KINDS]));
 		}
 
 		this.UpdateUIsState();

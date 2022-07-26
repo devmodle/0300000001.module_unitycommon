@@ -93,8 +93,8 @@ namespace LateSetupScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
-			m_oPermissionList.ExAddVal(Permission.ExternalStorageRead);
-			m_oPermissionList.ExAddVal(Permission.ExternalStorageWrite);
+			m_oUserPermissionList.ExAddVal(Permission.ExternalStorageRead);
+			m_oUserPermissionList.ExAddVal(Permission.ExternalStorageWrite);
 #endif			// #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
 
 #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
@@ -113,9 +113,9 @@ namespace LateSetupScene {
 
 		#region 조건부 함수
 #if UNITY_ANDROID
-		/** 권한을 요청한다 */
-		protected override void RequestPermission(string a_oPermission, System.Action<string, bool> a_oCallback) {
-			this.ExRequestPermission(a_oPermission, a_oCallback, true);
+		/** 유저 권한을 요청한다 */
+		protected override void RequestUserPermission(string a_oPermission, System.Action<string, bool> a_oCallback) {
+			this.ExRequestUserPermission(a_oPermission, a_oCallback, true);
 		}
 #endif			// #if UNITY_ANDROID
 		#endregion			// 조건부 함수

@@ -105,7 +105,7 @@ public partial class CStorePopup : CSubPopup {
 			// 버튼을 갱신한다 }
 
 			// 패키지 상품 일 경우
-			if(a_stProductSaleInfo.ProductSaleType == EProductSaleType.PKGS) {
+			if(a_stProductSaleInfo.ProductType == EProductType.PKGS) {
 				this.UpdatePkgsProductSaleUIsState(a_oProductSaleUIs, a_stProductSaleInfo);
 			} else {
 				this.UpdateSingleProductSaleUIsState(a_oProductSaleUIs, a_stProductSaleInfo);
