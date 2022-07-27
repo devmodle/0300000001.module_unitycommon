@@ -23,9 +23,6 @@ namespace LevelEditorScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			OBJ_INFO_TABLE_GOOGLE_SHEET_ID,
-			EPISODE_INFO_TABLE_GOOGLE_SHEET_ID,
-
 			SEL_GRID_INFO,
 			SEL_USER_TYPE,
 			SEL_TABLE_SRC,
@@ -151,8 +148,8 @@ namespace LevelEditorScene {
 		#endregion			// 변수
 
 		#region 상수
+		private const string ID_ETC_INFO_TABLE_GOOGLE_SHEET = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA";
 		private const string ID_OBJ_INFO_TABLE_GOOGLE_SHEET = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ";
-		private const string ID_EPISODE_INFO_TABLE_GOOGLE_SHEET = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA";
 		#endregion			// 상수
 		
 		#region IEnhancedScrollerDelegate
@@ -676,7 +673,7 @@ namespace LevelEditorScene {
 			if(!oResult.Item1) {
 				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 
-				Func.LoadGoogleSheet(CSubLevelEditorSceneManager.ID_EPISODE_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
+				Func.LoadGoogleSheet(CSubLevelEditorSceneManager.ID_ETC_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
 					(KCDefine.U_KEY_LEVEL_EPISODE, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_STAGE_EPISODE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_CHAPTER_EPISODE, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)

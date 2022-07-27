@@ -207,15 +207,15 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		get {
 #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO_SET_A : KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO_SET_B;
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_A : KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_B;
 #else
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_TABLE_P_G_EPISODE_INFO_SET_A : KCDefine.U_TABLE_P_G_EPISODE_INFO_SET_B;
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_TABLE_P_G_ETC_INFO_SET_A : KCDefine.U_TABLE_P_G_ETC_INFO_SET_B;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 #else
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_EPISODE_INFO;
+			return KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO;
 #else
-			return KCDefine.U_TABLE_P_G_EPISODE_INFO;
+			return KCDefine.U_TABLE_P_G_ETC_INFO;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
