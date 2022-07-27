@@ -1,10 +1,10 @@
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if UNITY_EDITOR
 using UnityEditor;
 

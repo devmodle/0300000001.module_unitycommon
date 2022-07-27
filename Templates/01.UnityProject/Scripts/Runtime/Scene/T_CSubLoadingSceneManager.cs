@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿#if SCRIPT_TEMPLATE_ONLY
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 namespace LoadingScene {
 	/** 서브 로딩 씬 관리자 */

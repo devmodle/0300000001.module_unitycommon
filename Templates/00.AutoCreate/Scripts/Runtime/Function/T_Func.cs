@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿#if SCRIPT_TEMPLATE_ONLY
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
@@ -30,6 +30,11 @@ public static partial class Func {
 		SHOW_REWARD_ADS,
 		SHOW_FULLSCREEN_ADS,
 #endif			// #if ADS_MODULE_ENABLE
+
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
+		APPLE_LOGIN,
+		APPLE_LOGOUT,
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
 		FACEBOOK_LOGIN,
@@ -83,6 +88,11 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CAdsManager, bool>> m_oAdsCallbackDict01 = new Dictionary<ECallback, System.Action<CAdsManager, bool>>();
 	private static Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>> m_oAdsCallbackDict02 = new Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>();
 #endif			// #if ADS_MODULE_ENABLE
+
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
+	private static Dictionary<ECallback, System.Action<CServicesManager>> m_oServicesCallbackDict01 = new Dictionary<ECallback, System.Action<CServicesManager>>();
+	private static Dictionary<ECallback, System.Action<CServicesManager, bool>> m_oServicesCallbackDict02 = new Dictionary<ECallback, System.Action<CServicesManager, bool>>();
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
 	private static Dictionary<ECallback, System.Action<CFacebookManager>> m_oFacebookCallbackDict01 = new Dictionary<ECallback, System.Action<CFacebookManager>>();
@@ -493,6 +503,36 @@ public static partial class Func {
 	}
 #endif			// #if ADS_MODULE_ENABLE
 
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
+	/** 애플 로그인을 처리한다 */
+	public void AppleLogin(System.Action<CServicesManager, bool> a_oCallback) {
+		CIndicatorManager.Inst.Show();
+		Func.m_oServicesCallbackDict02.ExReplaceVal(ECallback.APPLE_LOGIN, a_oCallback);
+
+		CServicesManager.Inst.LoginWithApple(Func.OnAppleLogin);
+	}
+
+	/** 애플 로그아웃을 처리한다 */
+	public static void AppleLogout(System.Action<CServicesManager> a_oCallback) {
+		CIndicatorManager.Inst.Show();
+		Func.m_oServicesCallbackDict01.ExReplaceVal(ECallback.APPLE_LOGOUT, a_oCallback);
+
+		CServicesManager.Inst.LogoutWithApple(Func.OnAppleLogout);
+	}
+
+	/** 애플에 로그인 되었을 경우 */
+	private static void OnAppleLogin(CServicesManager a_oSender, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		Func.m_oServicesCallbackDict02.GetValueOrDefault(ECallback.APPLE_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
+	}
+
+	/** 애플에서 로그아웃 되었을 경우 */
+	private static void OnAppleLogout(CServicesManager a_oSender) {
+		CIndicatorManager.Inst.Close();
+		Func.m_oServicesCallbackDict01.GetValueOrDefault(ECallback.APPLE_LOGOUT)?.Invoke(a_oSender);
+	}
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
+
 #if FACEBOOK_MODULE_ENABLE
 	/** 페이스 북 로그인을 처리한다 */
 	public static void FacebookLogin(System.Action<CFacebookManager, bool> a_oCallback) {
@@ -530,9 +570,9 @@ public static partial class Func {
 		Func.m_oFirebaseCallbackDict02.ExReplaceVal(ECallback.FIREBASE_LOGIN, a_oCallback);
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-		CServicesManager.Inst.LoginWithApple(Func.OnFirebaseAppleLogin);
+		Func.AppleLogin(Func.OnFirebaseAppleLogin);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Login(KCDefine.U_KEY_FACEBOOK_PERMISSION_LIST, Func.OnFirebaseFacebookLogin);
+		Func.FacebookLogin(Func.OnFirebaseFacebookLogin);
 #else
 		CFirebaseManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnFirebaseLogin);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -544,9 +584,9 @@ public static partial class Func {
 		Func.m_oFirebaseCallbackDict01.ExReplaceVal(ECallback.FIREBASE_LOGOUT, a_oCallback);
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-		CServicesManager.Inst.LogoutWithApple(Func.OnFirebaseAppleLogout);
+		Func.AppleLogout(Func.OnFirebaseAppleLogout);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Logout(Func.OnFirebaseFacebookLogout);
+		Func.FacebookLogout(Func.OnFirebaseFacebookLogout);
 #else
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -866,9 +906,9 @@ public static partial class Func {
 		Func.m_oPlayfabCallbackDict02.ExReplaceVal(ECallback.PLAYFAB_LOGIN, a_oCallback);
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-		CServicesManager.Inst.LoginWithApple(Func.OnPlayfabAppleLogin);
+		Func.AppleLogin(Func.OnPlayfabAppleLogin);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Login(KCDefine.U_KEY_FACEBOOK_PERMISSION_LIST, Func.OnPlayfabFacebookLogin);
+		Func.FacebookLogin(Func.OnPlayfabFacebookLogin);
 #else
 		CPlayfabManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnPlayfabLogin);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
@@ -880,9 +920,9 @@ public static partial class Func {
 		Func.m_oPlayfabCallbackDict01.ExReplaceVal(ECallback.PLAYFAB_LOGOUT, a_oCallback);
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-		CServicesManager.Inst.LogoutWithApple(Func.OnPlayfabAppleLogout);
+		Func.AppleLogout(Func.OnPlayfabAppleLogout);
 #elif (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-		CFacebookManager.Inst.Logout(Func.OnPlayfabFacebookLogout);
+		Func.FacebookLogout(Func.OnPlayfabFacebookLogout);
 #else
 		CPlayfabManager.Inst.Logout(Func.OnPlayfabLogout);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE

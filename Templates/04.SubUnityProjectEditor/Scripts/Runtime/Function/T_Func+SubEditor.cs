@@ -1,10 +1,10 @@
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 /** 서브 에디터 함수 */
 public static partial class Func {

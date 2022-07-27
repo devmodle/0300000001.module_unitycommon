@@ -28,7 +28,6 @@ namespace GameScene {
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;
 		public override string SceneName => KCDefine.B_SCENE_N_GAME;
-		
 		protected GameObject BGTouchResponder => m_oUIsDict[EKey.BG_TOUCH_RESPONDER];
 
 		protected GameObject ItemRoot => m_oObjDict[EKey.ITEM_ROOT];

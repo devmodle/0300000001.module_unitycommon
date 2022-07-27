@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿#if SCRIPT_TEMPLATE_ONLY
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if GAME_CENTER_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 서브 게임 센터 상수 */
 public static partial class KDefine {

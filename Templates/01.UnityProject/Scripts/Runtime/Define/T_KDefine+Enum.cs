@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿#if SCRIPT_TEMPLATE_ONLY
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 열거형 값 */
 public static partial class KEnumVal {
@@ -20,6 +20,15 @@ public enum EPlayMode {
 	NORM,
 	TUTORIAL,
 	TEST,
+	[HideInInspector] MAX_VAL
+}
+
+/** 로그인 타입 */
+public enum ELoginType {
+	NONE = -1,
+	GUEST,
+	APPLE,
+	FACEBOOK,
 	[HideInInspector] MAX_VAL
 }
 

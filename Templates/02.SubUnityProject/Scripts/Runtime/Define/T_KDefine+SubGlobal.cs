@@ -1,10 +1,10 @@
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE
 /** 서브 전역 상수 */
 public static partial class KDefine {

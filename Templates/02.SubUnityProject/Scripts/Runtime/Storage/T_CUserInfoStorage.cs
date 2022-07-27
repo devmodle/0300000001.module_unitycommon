@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if SCRIPT_TEMPLATE_ONLY
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 using MessagePack;
 using Newtonsoft.Json;
@@ -164,6 +164,8 @@ public partial class CUserInfo : CBaseInfo {
 	#endregion			// 변수
 
 	#region 상수
+	private const string KEY_LOGIN_TYPE = "LoginType";
+
 	private const string KEY_ITEM_INFO_VER = "ItemInfoVer";
 	private const string KEY_SKILL_INFO_VER = "SkillInfoVer";
 	private const string KEY_OBJ_INFO_VER = "ObjInfoVer";
@@ -171,6 +173,8 @@ public partial class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
+	[JsonIgnore][IgnoreMember] public ELoginType LoginType { get { return (ELoginType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_LOGIN_TYPE, $"{(int)ELoginType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_LOGIN_TYPE, $"{(int)value}"); } }
+
 	[JsonIgnore][IgnoreMember] public System.Version ItemInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_ITEM_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	[JsonIgnore][IgnoreMember] public System.Version SkillInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_SKILL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_SKILL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	[JsonIgnore][IgnoreMember] public System.Version ObjInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_OBJ_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_OBJ_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }

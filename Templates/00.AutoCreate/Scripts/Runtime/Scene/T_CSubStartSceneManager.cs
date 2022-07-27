@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if SCRIPT_TEMPLATE_ONLY
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -7,7 +8,6 @@ using UnityEngine.Events;
 using TMPro;
 using DG.Tweening;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
 namespace StartScene {
 	/** 서브 시작 씬 관리자 */

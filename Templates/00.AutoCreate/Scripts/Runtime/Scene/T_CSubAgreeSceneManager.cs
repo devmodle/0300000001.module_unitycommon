@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿#if SCRIPT_TEMPLATE_ONLY
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if SCENE_TEMPLATES_MODULE_ENABLE
 namespace AgreeScene {
 	/** 서브 약관 동의 씬 관리자 */

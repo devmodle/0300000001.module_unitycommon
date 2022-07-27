@@ -1,10 +1,12 @@
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using DG.Tweening;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 namespace TitleScene {
 	/** 서브 타이틀 씬 관리자 */
@@ -47,13 +49,26 @@ namespace TitleScene {
 
 		/** 씬을 설정한다 */
 		private void AwakeSetup() {
+			// 텍스트를 설정한다 {
+			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+				(EKey.TOUCH_TEXT, $"{EKey.TOUCH_TEXT}", this.UIsBase)
+			}, m_oTextDict, false);
+
+			m_oTextDict[EKey.TOUCH_TEXT]?.gameObject.SetActive(false);
+			// 텍스트를 설정한다 }
+
 			// 버튼을 설정한다
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 				(EKey.PLAY_BTN, $"{EKey.PLAY_BTN}", this.UIsBase, this.OnTouchPlayBtn),
-				(EKey.LOGIN_BTN, $"{EKey.LOGIN_BTN}", this.UIsBase, this.OnTouchLoginBtn),
+				(EKey.GUEST_LOGIN_BTN, $"{EKey.GUEST_LOGIN_BTN}", this.UIsBase, this.OnTouchGuestLoginBtn),
 				(EKey.APPLE_LOGIN_BTN, $"{EKey.APPLE_LOGIN_BTN}", this.UIsBase, this.OnTouchAppleLoginBtn),
 				(EKey.FACEBOOK_LOGIN_BTN, $"{EKey.FACEBOOK_LOGIN_BTN}", this.UIsBase, this.OnTouchFacebookLoginBtn)
 			}, m_oBtnDict, false);
+
+			// 터치 전달자를 설정한다
+			Func.SetupTouchDispatchers(new List<(EKey, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
+				(EKey.BG_TOUCH_DISPATCHER, this.BGTouchResponder, this.OnTouchBegin, this.OnTouchMove, this.OnTouchEnd)
+			}, m_oTouchDispatcherDict, false);
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupSubTestUIs();
@@ -114,7 +129,57 @@ namespace TitleScene {
 		#endregion			// 프로퍼티
 
 		#region 함수
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
 
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					foreach(var stKeyVal in m_oAniDict) {
+						stKeyVal.Value?.Kill();
+					}
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubGameSceneManager.OnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 터치를 시작했을 경우 */
+		private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			// 배경 터치 전달자 일 경우
+			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
+				// Do Something
+			}
+		}
+
+		/** 터치를 이동했을 경우 */
+		private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			// 배경 터치 전달자 일 경우
+			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
+				// Do Something
+			}
+		}
+
+		/** 터치를 종료했을 경우 */
+		private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			// 배경 터치 전달자 일 경우
+			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
+				// Do Something
+			}
+		}
+
+		/** 로그인 되었을 경우 */
+		private void OnLogin(ELoginType a_eLoginType, bool a_bIsSuccess) {
+			// 로그인 되었을 경우
+			if(a_bIsSuccess) {
+				CUserInfoStorage.Inst.UserInfo.LoginType = a_eLoginType;
+				CUserInfoStorage.Inst.SaveUserInfo();
+
+				m_oTextDict[EKey.TOUCH_TEXT]?.gameObject.SetActive(true);
+				m_oAniDict.ExAssignVal(EKey.TOUCH_ANI, m_oTextDict[EKey.TOUCH_TEXT]?.DOFaceFade(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_1_REAL).SetAutoKill().SetEase(KCDefine.U_EASE_DEF).SetLoops(KCDefine.B_TIMES_INT_INFINITE, LoopType.Yoyo).SetUpdate(true));
+			}
+		}
 		#endregion			// 함수
 
 		#region 조건부 함수

@@ -1,10 +1,12 @@
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
+using DG.Tweening;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 namespace TitleScene {
 	/** 서브 타이틀 씬 관리자 */
@@ -13,10 +15,13 @@ namespace TitleScene {
 		private enum EKey {
 			NONE = -1,
 			IS_LOAD_EDITOR_SCENE,
+			TOUCH_ANI,
+			TOUCH_TEXT,
 			PLAY_BTN,
-			LOGIN_BTN,
+			GUEST_LOGIN_BTN,
 			APPLE_LOGIN_BTN,
 			FACEBOOK_LOGIN_BTN,
+			BG_TOUCH_DISPATCHER,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -25,7 +30,14 @@ namespace TitleScene {
 			[EKey.IS_LOAD_EDITOR_SCENE] = false
 		};
 
+		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>() {
+			[EKey.TOUCH_ANI] = null
+		};
+
+		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>();
+
 		/** =====> UI <===== */
+		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 		#endregion			// 변수
 
@@ -90,19 +102,23 @@ namespace TitleScene {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 		}
 
-		/** 로그인 버튼을 눌렀을 경우 */
-		private void OnTouchLoginBtn() {
-			// Do Something
+		/** 게스트 로그인 버튼을 눌렀을 경우 */
+		private void OnTouchGuestLoginBtn() {
+			this.OnLogin(ELoginType.GUEST, true);
 		}
 
 		/** 애플 로그인 버튼을 눌렀을 경우 */
 		private void OnTouchAppleLoginBtn() {
-			// Do Something
+#if UNITY_IOS && APPLE_LOGIN_ENABLE
+			Func.AppleLogin((a_oSender, a_bIsSuccess) => this.OnLogin(ELoginType.APPLE, a_bIsSuccess));
+#endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 		}
 
 		/** 페이스 북 로그인 버튼을 눌렀을 경우 */
 		private void OnTouchFacebookLoginBtn() {
-			// Do Something
+#if FACEBOOK_MODULE_ENABLE
+			Func.FacebookLogin((a_oSender, a_bIsSuccess) => this.OnLogin(ELoginType.FACEBOOK, a_bIsSuccess));
+#endif			// #if FACEBOOK_MODULE_ENABLE
 		}
 		#endregion			// 함수
 	}

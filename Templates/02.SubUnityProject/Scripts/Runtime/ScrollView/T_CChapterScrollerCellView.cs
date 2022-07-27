@@ -1,3 +1,4 @@
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-#if SCRIPT_TEMPLATE_ONLY
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 /** 챕터 스크롤러 셀 뷰 */
 public partial class CChapterScrollerCellView : CScrollerCellView {
