@@ -677,9 +677,9 @@ namespace LevelEditorScene {
 				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 
 				Func.LoadGoogleSheet(CSubLevelEditorSceneManager.ID_EPISODE_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
-					(KCDefine.U_KEY_LEVEL, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT),
-					(KCDefine.U_KEY_STAGE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT),
-					(KCDefine.U_KEY_CHAPTER, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)
+					(KCDefine.U_KEY_LEVEL_EPISODE, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT),
+					(KCDefine.U_KEY_STAGE_EPISODE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT),
+					(KCDefine.U_KEY_CHAPTER_EPISODE, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)
 				}, this.OnLoadEpisodeInfosGoogleSheet);
 			} else {
 				Func.ShowEditorGoogleSheetLoadPopup(null);

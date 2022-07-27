@@ -91,15 +91,15 @@ public static partial class KDefine {
 
 	// 에피소드 정보 테이블 {
 	public static readonly List<string> G_KEY_EPISODE_IT_LEVEL_EPISODE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_LEVEL
+		KCDefine.U_KEY_LEVEL_EPISODE
 	};
 
 	public static readonly List<string> G_KEY_EPISODE_IT_STAGE_EPISODE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_STAGE
+		KCDefine.U_KEY_STAGE_EPISODE
 	};
 
 	public static readonly List<string> G_KEY_EPISODE_IT_CHAPTER_EPISODE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_CHAPTER
+		KCDefine.U_KEY_CHAPTER_EPISODE
 	};
 	// 에피소드 정보 테이블 }
 
