@@ -360,7 +360,7 @@ public enum EObjKinds {
 
 	#region 배경
 	// 0
-	BG_EMPTY = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	BG_EMPTY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 배경
 
 	#region 일반
@@ -375,7 +375,7 @@ public enum EObjKinds {
 
 	#region 플레이 가능
 	// 300,000,000
-	PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	PLAYABLE_CHARACTER_01 = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 플레이 가능
 
 	#region 플레이 불가능

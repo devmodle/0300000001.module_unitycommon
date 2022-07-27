@@ -284,6 +284,12 @@ public static partial class Func {
 				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
 				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
 			}
+
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, out STTargetInfo stLVAbilityTargetInfo);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stNumsAbilityTargetInfo);
+
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceAbilityTargetVal(EAbilityKinds.STAT_LV, System.Math.Max(KCDefine.B_VAL_1_INT, stLVAbilityTargetInfo.m_stValInfo01.m_nVal), a_bIsEnableAssert);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceAbilityTargetVal(EAbilityKinds.STAT_NUMS, System.Math.Max(KCDefine.B_VAL_1_INT, stNumsAbilityTargetInfo.m_stValInfo01.m_nVal), a_bIsEnableAssert);
 		}
 	}
 
@@ -293,7 +299,7 @@ public static partial class Func {
 
 		// 아이템 정보가 존재 할 경우
 		if((a_bIsAutoCreate || a_oItemInfo != null) && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
-			Func.DoAcquire(a_oItemInfo ?? Access.GetItemInfo((EItemKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
+			Func.DoAcquire(a_oItemInfo ?? Access.GetItemInfo((EItemKinds)a_stTargetInfo.Kinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
 
 			// 광고 제거 아이템 일 경우
 			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_NUMS && (EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
@@ -313,7 +319,7 @@ public static partial class Func {
 
 		// 스킬 정보가 존재 할 경우
 		if((a_bIsAutoCreate || a_oSkillInfo != null) && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
-			Func.DoAcquire(a_oSkillInfo ?? Access.GetSkillInfo((ESkillKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
+			Func.DoAcquire(a_oSkillInfo ?? Access.GetSkillInfo((ESkillKinds)a_stTargetInfo.Kinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 
@@ -323,7 +329,7 @@ public static partial class Func {
 
 		// 객체 정보가 존재 할 경우
 		if((a_bIsAutoCreate || a_oObjInfo != null) && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
-			Func.DoAcquire(a_oObjInfo ?? Access.GetObjInfo((EObjKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
+			Func.DoAcquire(a_oObjInfo ?? Access.GetObjInfo((EObjKinds)a_stTargetInfo.Kinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 	#endregion			// 클래스 함수

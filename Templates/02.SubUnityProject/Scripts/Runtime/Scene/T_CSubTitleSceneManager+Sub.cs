@@ -33,6 +33,11 @@ namespace TitleScene {
 
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_TITLE);
 
+				// 로그인 되었을 경우
+				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
+					this.OnLogin(CUserInfoStorage.Inst.UserInfo.LoginType, true);
+				}
+
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 				// 최초 시작 일 경우
 				if(CCommonAppInfoStorage.Inst.IsFirstStart) {
@@ -44,6 +49,22 @@ namespace TitleScene {
 					this.UpdateFirstPlayState();
 				}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+			}
+		}
+
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					foreach(var stKeyVal in m_oAniDict) {
+						stKeyVal.Value?.Kill();
+					}
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubGameSceneManager.OnDestroy Exception: {oException.Message}");
 			}
 		}
 
@@ -88,11 +109,20 @@ namespace TitleScene {
 
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
+			// 버튼을 갱신한다 {
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(true);
 #else
 			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(false);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
+
+			for(int i = 0; i < BTN_KEY_LIST.Count; ++i) {
+				// 로그인 되었을 경우
+				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
+					m_oBtnDict.GetValueOrDefault(BTN_KEY_LIST[i])?.gameObject.SetActive(false);
+				}
+			}
+			// 버튼을 갱신한다 }
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.UpdateSubTestUIsState();
@@ -129,22 +159,6 @@ namespace TitleScene {
 		#endregion			// 프로퍼티
 
 		#region 함수
-		/** 제거 되었을 경우 */
-		public override void OnDestroy() {
-			base.OnDestroy();
-
-			try {
-				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
-					foreach(var stKeyVal in m_oAniDict) {
-						stKeyVal.Value?.Kill();
-					}
-				}
-			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CSubGameSceneManager.OnDestroy Exception: {oException.Message}");
-			}
-		}
-
 		/** 터치를 시작했을 경우 */
 		private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 배경 터치 전달자 일 경우
@@ -165,19 +179,12 @@ namespace TitleScene {
 		private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 배경 터치 전달자 일 경우
 			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-				// Do Something
-			}
-		}
+				double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CSceneManager.ActiveSceneAwakeTime);
 
-		/** 로그인 되었을 경우 */
-		private void OnLogin(ELoginType a_eLoginType, bool a_bIsSuccess) {
-			// 로그인 되었을 경우
-			if(a_bIsSuccess) {
-				CUserInfoStorage.Inst.UserInfo.LoginType = a_eLoginType;
-				CUserInfoStorage.Inst.SaveUserInfo();
-
-				m_oTextDict[EKey.TOUCH_TEXT]?.gameObject.SetActive(true);
-				m_oAniDict.ExAssignVal(EKey.TOUCH_ANI, m_oTextDict[EKey.TOUCH_TEXT]?.DOFaceFade(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_1_REAL).SetAutoKill().SetEase(KCDefine.U_EASE_DEF).SetLoops(KCDefine.B_TIMES_INT_INFINITE, LoopType.Yoyo).SetUpdate(true));
+				// 일정 시간이 지났을 경우
+				if(!m_oBoolDict[EKey.IS_TOUCH] && dblDeltaTime.ExIsGreate(KCDefine.B_VAL_1_REAL)) {
+					m_oBoolDict[EKey.IS_TOUCH] = true;
+				}
 			}
 		}
 		#endregion			// 함수

@@ -73,30 +73,30 @@ public static partial class Access {
 	}
 
 	/** 아이템 정보를 반환한다 */
-	public static CItemInfo GetItemInfo(EItemKinds a_eItemKinds, bool a_bIsAutoCreate = false) {
+	public static CItemInfo GetItemInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
 		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetItemInfo(a_eItemKinds, out CItemInfo oItemInfo)) {
-			CUserInfoStorage.Inst.AddItemInfo(Factory.MakeItemInfo(a_eItemKinds), CItemInfoTable.Inst.GetItemInfo(a_eItemKinds).m_stCommonInfo.m_bIsRepeat);
+			CUserInfoStorage.Inst.AddItemInfo(Factory.MakeItemInfo(a_eItemKinds, a_nLV, a_nNums), CItemInfoTable.Inst.GetItemInfo(a_eItemKinds).m_stCommonInfo.m_bIsRepeat);
 		}
 
 		return CUserInfoStorage.Inst.TryGetItemInfo(a_eItemKinds, out oItemInfo) ? oItemInfo : null;
 	}
 
 	/** 스킬 정보를 반환한다 */
-	public static CSkillInfo GetSkillInfo(ESkillKinds a_eSkillKinds, bool a_bIsAutoCreate = false) {
+	public static CSkillInfo GetSkillInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
 		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetSkillInfo(a_eSkillKinds, out CSkillInfo oSkillInfo)) {
-			CUserInfoStorage.Inst.AddSkillInfo(Factory.MakeSkillInfo(a_eSkillKinds), CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds).m_stCommonInfo.m_bIsRepeat);
+			CUserInfoStorage.Inst.AddSkillInfo(Factory.MakeSkillInfo(a_eSkillKinds, a_nLV, a_nNums), CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds).m_stCommonInfo.m_bIsRepeat);
 		}
 
 		return CUserInfoStorage.Inst.TryGetSkillInfo(a_eSkillKinds, out oSkillInfo) ? oSkillInfo : null;
 	}
 
 	/** 객체 정보를 반환한다 */
-	public static CObjInfo GetObjInfo(EObjKinds a_eObjKinds, bool a_bIsAutoCreate = false) {
+	public static CObjInfo GetObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
 		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetObjInfo(a_eObjKinds, out CObjInfo oObjInfo)) {
-			CUserInfoStorage.Inst.AddObjInfo(Factory.MakeObjInfo(a_eObjKinds), CObjInfoTable.Inst.GetObjInfo(a_eObjKinds).m_stCommonInfo.m_bIsRepeat);
+			CUserInfoStorage.Inst.AddObjInfo(Factory.MakeObjInfo(a_eObjKinds, a_nLV, a_nNums), CObjInfoTable.Inst.GetObjInfo(a_eObjKinds).m_stCommonInfo.m_bIsRepeat);
 		}
 
 		return CUserInfoStorage.Inst.TryGetObjInfo(a_eObjKinds, out oObjInfo) ? oObjInfo : null;

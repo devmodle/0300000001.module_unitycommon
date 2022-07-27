@@ -67,7 +67,7 @@ public static partial class Func {
 					oIdxHList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
 
 					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oObjKindsDictContainer.Clear();
-					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oObjKindsDictContainer.TryAdd(EObjType.BG, new List<EObjKinds>() { EObjKinds.BG_EMPTY });
+					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oObjKindsDictContainer.TryAdd(EObjType.BG, new List<EObjKinds>() { EObjKinds.BG_EMPTY_01 });
 				}
 			}
 			

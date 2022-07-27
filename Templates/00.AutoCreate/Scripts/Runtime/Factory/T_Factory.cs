@@ -43,7 +43,7 @@ public static partial class Factory {
 	}
 
 	/** 아이템 정보를 생성한다 */
-	public static CItemInfo MakeItemInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
+	public static CItemInfo MakeItemInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
 		var oItemInfo = new CItemInfo() {
 			ItemKinds = a_eItemKinds, OwnerKinds = a_nOwnerKinds, OwnerTargetKinds = a_eOwnerTargetKinds, m_oAbilityTargetInfoDict = Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums)
 		};
@@ -56,7 +56,7 @@ public static partial class Factory {
 	}
 
 	/** 스킬 정보를 생성한다 */
-	public static CSkillInfo MakeSkillInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
+	public static CSkillInfo MakeSkillInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
 		var oSkillInfo = new CSkillInfo() {
 			SkillKinds = a_eSkillKinds, OwnerKinds = a_nOwnerKinds, OwnerTargetKinds = a_eOwnerTargetKinds, m_oAbilityTargetInfoDict = Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums)
 		};
@@ -69,7 +69,7 @@ public static partial class Factory {
 	}
 
 	/** 객체 정보를 생성한다 */
-	public static CObjInfo MakeObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_0_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
+	public static CObjInfo MakeObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
 		var oObjInfo = new CObjInfo() {
 			ObjKinds = a_eObjKinds, OwnerKinds = a_nOwnerKinds, OwnerTargetKinds = a_eOwnerTargetKinds, m_oAbilityTargetInfoDict = Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums)
 		};

@@ -66,7 +66,7 @@ namespace SplashScene {
 			m_oImgDict[EKey.BG_IMG].gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
 			m_oImgDict[EKey.SPLASH_IMG].sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
-			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = CSubSplashSceneManager.POS_SPLASH_IMG;
+			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = POS_SPLASH_IMG;
 			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
 			// 이미지를 설정한다 }
 		}

@@ -400,7 +400,7 @@ namespace LevelEditorScene {
 					} break;
 					case ETableSrc.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
-						Func.LoadGoogleSheet(CSubLevelEditorSceneManager.ID_OBJ_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
+						Func.LoadGoogleSheet(ID_OBJ_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
 							(KCDefine.U_KEY_BG, KCDefine.B_VAL_2_INT),
 							(KCDefine.U_KEY_NORM, KCDefine.B_VAL_2_INT),
 							(KCDefine.U_KEY_OVERLAY, KCDefine.B_VAL_2_INT),
@@ -673,7 +673,7 @@ namespace LevelEditorScene {
 			if(!oResult.Item1) {
 				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 
-				Func.LoadGoogleSheet(CSubLevelEditorSceneManager.ID_ETC_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
+				Func.LoadGoogleSheet(ID_ETC_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
 					(KCDefine.U_KEY_LEVEL_EPISODE, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_STAGE_EPISODE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT),
 					(KCDefine.U_KEY_CHAPTER_EPISODE, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)

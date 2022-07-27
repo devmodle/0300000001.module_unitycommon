@@ -14,6 +14,7 @@ namespace TitleScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			IS_TOUCH,
 			IS_LOAD_EDITOR_SCENE,
 			TOUCH_ANI,
 			TOUCH_TEXT,
@@ -27,6 +28,7 @@ namespace TitleScene {
 
 		#region 변수
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+			[EKey.IS_TOUCH] = false,
 			[EKey.IS_LOAD_EDITOR_SCENE] = false
 		};
 
@@ -40,6 +42,12 @@ namespace TitleScene {
 		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 		#endregion			// 변수
+
+		#region 상수
+		private static readonly List<EKey> BTN_KEY_LIST = new List<EKey>() {
+			EKey.PLAY_BTN, EKey.GUEST_LOGIN_BTN, EKey.APPLE_LOGIN_BTN, EKey.FACEBOOK_LOGIN_BTN,
+		};
+		#endregion			// 상수
 
 		#region 함수
 		/** 내비게이션 스택 이벤트를 수신했을 경우 */
@@ -119,6 +127,20 @@ namespace TitleScene {
 #if FACEBOOK_MODULE_ENABLE
 			Func.FacebookLogin((a_oSender, a_bIsSuccess) => this.OnLogin(ELoginType.FACEBOOK, a_bIsSuccess));
 #endif			// #if FACEBOOK_MODULE_ENABLE
+		}
+
+		/** 로그인 되었을 경우 */
+		private void OnLogin(ELoginType a_eLoginType, bool a_bIsSuccess) {
+			// 로그인 되었을 경우
+			if(a_bIsSuccess) {
+				CUserInfoStorage.Inst.UserInfo.LoginType = a_eLoginType;
+				CUserInfoStorage.Inst.SaveUserInfo();
+
+				this.UpdateUIsState();
+
+				m_oTextDict[EKey.TOUCH_TEXT]?.gameObject.SetActive(true);
+				m_oAniDict.ExAssignVal(EKey.TOUCH_ANI, m_oTextDict[EKey.TOUCH_TEXT]?.DOFaceFade(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_1_REAL).SetAutoKill().SetEase(KCDefine.U_EASE_DEF).SetLoops(KCDefine.B_TIMES_INT_INFINITE, LoopType.Yoyo).SetUpdate(true));
+			}
 		}
 		#endregion			// 함수
 	}
