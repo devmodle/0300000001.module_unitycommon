@@ -414,13 +414,14 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 에피소드 정보를 저장한다 */
 	public void SaveEpisodeInfos() {
-		var oJSONNode = new SimpleJSON.JSONClass();
+		var oJSONNode = SimpleJSON.JSON.Parse(CFunc.ReadStr(this.EpisodeInfoTablePath));
 		var oLevelEpisodeInfosList = new List<SimpleJSON.JSONArray>();
 		var oStageEpisodeInfosList = new List<SimpleJSON.JSONArray>();
 		var oChapterEpisodeInfosList = new List<SimpleJSON.JSONArray>();
 
 		for(int i = 0; i < KDefine.G_KEY_EPISODE_IT_LEVEL_EPISODE_INFOS_LIST.Count; ++i) {
 			var oLevelEpisodeInfos = new SimpleJSON.JSONArray();
+			oJSONNode.Remove(KDefine.G_KEY_EPISODE_IT_LEVEL_EPISODE_INFOS_LIST[i]);
 
 			foreach(var stKeyVal in this.LevelEpisodeInfoDict) {
 				oLevelEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
@@ -431,6 +432,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 		for(int i = 0; i < KDefine.G_KEY_EPISODE_IT_STAGE_EPISODE_INFOS_LIST.Count; ++i) {
 			var oStageEpisodeInfos = new SimpleJSON.JSONArray();
+			oJSONNode.Remove(KDefine.G_KEY_EPISODE_IT_STAGE_EPISODE_INFOS_LIST[i]);
 
 			foreach(var stKeyVal in this.StageEpisodeInfoDict) {
 				oStageEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
@@ -441,6 +443,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 		for(int i = 0; i < KDefine.G_KEY_EPISODE_IT_CHAPTER_EPISODE_INFOS_LIST.Count; ++i) {
 			var oChapterEpisodeInfos = new SimpleJSON.JSONArray();
+			oJSONNode.Remove(KDefine.G_KEY_EPISODE_IT_CHAPTER_EPISODE_INFOS_LIST[i]);
 
 			foreach(var stKeyVal in this.ChapterEpisodeInfoDict) {
 				oChapterEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
