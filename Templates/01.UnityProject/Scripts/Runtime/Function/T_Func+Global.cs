@@ -22,8 +22,8 @@ public static partial class Func {
 			var stAbilityInfo = CAbilityInfoTable.Inst.GetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds);
 			var eAbilityKinds = (EAbilityKinds)a_stTargetInfo.m_nKinds.ExKindsToSubKindsType();
 
-			decimal dmAbilityVal = (stAbilityInfo.m_stValInfo.m_eValType == EValType.INT) ? stAbilityInfo.m_stValInfo.m_nVal : (decimal)(stAbilityInfo.m_stValInfo.m_dblVal / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
-			a_oOutAbilityValDict?.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutAbilityValDict.GetValueOrDefault(eAbilityKinds) + (dmAbilityVal * a_stTargetInfo.m_stValInfo01.m_nVal), KCDefine.B_VAL_0_INT, decimal.MaxValue), a_bIsEnableAssert);
+			decimal dmAbilityVal = (stAbilityInfo.m_stValInfo.m_eValType == EValType.INT) ? stAbilityInfo.m_stValInfo.m_nVal : (decimal)stAbilityInfo.m_stValInfo.m_dblVal / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT;
+			a_oOutAbilityValDict?.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutAbilityValDict.GetValueOrDefault(eAbilityKinds) + (dmAbilityVal * a_stTargetInfo.m_stValInfo01.m_nVal), decimal.MinValue, decimal.MaxValue), a_bIsEnableAssert);
 
 			foreach(var stKeyVal in stAbilityInfo.m_oExtraAbilityTargetInfoDict) {
 				Func.SetupAbilityVals(stKeyVal.Value, a_oOutAbilityValDict, a_bIsEnableAssert);

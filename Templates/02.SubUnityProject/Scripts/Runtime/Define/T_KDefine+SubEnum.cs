@@ -516,8 +516,8 @@ public enum EAbilityKinds {
 	STAT_VIEW_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 5) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	STAT_VIEW_RANGE_02,
 
-	STAT_ATTACK_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 5) + (EEnumVal.SUB_KINDS_TYPE * 2),
-	STAT_ATTACK_RANGE_02,
+	STAT_ATK_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 5) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	STAT_ATK_RANGE_02,
 	// 500,000 }
 
 	// 600,000 {
@@ -545,9 +545,13 @@ public enum EAbilityKinds {
 	STAT_CRITICAL_RATE_02,
 	// 700,000 }
 
-	// 800,000
+	// 800,000 {
 	STAT_DELAY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 8) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	STAT_DELAY_02,
+
+	STAT_ATK_DELAY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 8) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	STAT_ATK_DELAY_02,
+	// 800,000 }
 	#endregion			// 스탯
 
 	#region 버프
