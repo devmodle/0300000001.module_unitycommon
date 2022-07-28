@@ -122,21 +122,36 @@ public static partial class Func {
 	}
 
 	/** 구입한다 */
-	public static void Buy(STSkillSaleInfo a_stSkillSaleInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_stSkillSaleInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
-		Func.Acquire(a_stSkillSaleInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+	public static void Buy(STSkillTradeInfo a_stSkillTradeInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
+		Func.Pay(a_stSkillTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+		Func.Acquire(a_stSkillTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
 	}
 
 	/** 구입한다 */
-	public static void Buy(STObjSaleInfo a_stObjSaleInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_stObjSaleInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
-		Func.Acquire(a_stObjSaleInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+	public static void Buy(STObjTradeInfo a_stObjTradeInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
+		Func.Pay(a_stObjTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+		Func.Acquire(a_stObjTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
 	}
 
 	/** 구입한다 */
 	public static void Buy(STProductTradeInfo a_stProductTradeInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
 		Func.Pay(a_stProductTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
 		Func.Acquire(a_stProductTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+	}
+
+	/** 판매한다 */
+	public static void Sale(STItemTradeInfo a_stItemTradeInfo, bool a_bIsEnableAssert = true) {
+		Func.Buy(a_stItemTradeInfo, false, a_bIsEnableAssert);
+	}
+
+	/** 판매한다 */
+	public static void Sale(STSkillTradeInfo a_stSkillTradeInfo, bool a_bIsEnableAssert = true) {
+		Func.Buy(a_stSkillTradeInfo, false, a_bIsEnableAssert);
+	}
+
+	/** 판매한다 */
+	public static void Sale(STObjTradeInfo a_stObjTradeInfo, bool a_bIsEnableAssert = true) {
+		Func.Buy(a_stObjTradeInfo, false, a_bIsEnableAssert);
 	}
 
 	/** 상점 팝업을 출력한다 */
@@ -204,9 +219,9 @@ public static partial class Func {
 		Func.ShowPopup<CPausePopup>(KDefine.G_OBJ_N_PAUSE_POPUP, KCDefine.U_OBJ_P_G_PAUSE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	/** 상품 구입 팝업을 출력한다 */
-	public static void ShowProductBuyPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CProductBuyPopup>(KDefine.G_OBJ_N_PRODUCT_BUY_POPUP, KCDefine.U_OBJ_P_G_PRODUCT_BUY_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	/** 상품 교환 팝업을 출력한다 */
+	public static void ShowProductTradePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CProductTradePopup>(KDefine.G_OBJ_N_PRODUCT_TRADE_POPUP, KCDefine.U_OBJ_P_G_PRODUCT_TRADE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	/** 포커스 팝업을 출력한다 */
@@ -289,8 +304,8 @@ public static partial class Func {
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, out STTargetInfo stLVAbilityTargetInfo);
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stNumsAbilityTargetInfo);
 
-			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceAbilityTargetVal(EAbilityKinds.STAT_LV, System.Math.Max(KCDefine.B_VAL_1_INT, stLVAbilityTargetInfo.m_stValInfo01.m_nVal), a_bIsEnableAssert);
-			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceAbilityTargetVal(EAbilityKinds.STAT_NUMS, System.Math.Max(KCDefine.B_VAL_1_INT, stNumsAbilityTargetInfo.m_stValInfo01.m_nVal), a_bIsEnableAssert);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceAbilityTargetVal(EAbilityKinds.STAT_LV, System.Math.Clamp(stLVAbilityTargetInfo.m_stValInfo01.m_nVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceAbilityTargetVal(EAbilityKinds.STAT_NUMS, System.Math.Clamp(stNumsAbilityTargetInfo.m_stValInfo01.m_nVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
 		}
 	}
 

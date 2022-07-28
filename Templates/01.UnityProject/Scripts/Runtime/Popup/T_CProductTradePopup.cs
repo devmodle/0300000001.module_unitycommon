@@ -12,8 +12,8 @@ using TMPro;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-/** 상품 구입 팝업 */
-public partial class CProductBuyPopup : CSubPopup {
+/** 상품 교환 팝업 */
+public partial class CProductTradePopup : CSubPopup {
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,

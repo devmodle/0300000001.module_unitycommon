@@ -130,6 +130,10 @@ public static partial class KDefine {
 	public static readonly List<string> G_KEY_ITEM_IT_BUY_TRADE_INFOS_LIST = new List<string>() {
 		KCDefine.U_KEY_GOODS_BUY_TRADE, KCDefine.U_KEY_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_WEAPON_BUY_TRADE, KCDefine.U_KEY_ARMOR_BUY_TRADE, KCDefine.U_KEY_ACCESSORY_BUY_TRADE, KCDefine.U_KEY_ATTACH_BUY_TRADE
 	};
+
+	public static readonly List<string> G_KEY_ITEM_IT_SALE_TRADE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_GOODS_SALE_TRADE, KCDefine.U_KEY_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_WEAPON_SALE_TRADE, KCDefine.U_KEY_ARMOR_SALE_TRADE, KCDefine.U_KEY_ACCESSORY_SALE_TRADE, KCDefine.U_KEY_ATTACH_SALE_TRADE
+	};
 	// 아이템 정보 테이블 }
 
 	// 스킬 정보 테이블 {
@@ -137,12 +141,16 @@ public static partial class KDefine {
 		KCDefine.U_KEY_ACTION, KCDefine.U_KEY_ACTIVE, KCDefine.U_KEY_PASSIVE
 	};
 
-	public static readonly List<string> G_KEY_SKILL_IT_SALE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_ACTION_SALE, KCDefine.U_KEY_ACTIVE_SALE, KCDefine.U_KEY_PASSIVE_SALE
-	};
-
 	public static readonly List<string> G_KEY_SKILL_IT_ENHANCE_INFOS_LIST = new List<string>() {
 		KCDefine.U_KEY_ACTION_ENHANCE, KCDefine.U_KEY_ACTIVE_ENHANCE, KCDefine.U_KEY_PASSIVE_ENHANCE
+	};
+
+	public static readonly List<string> G_KEY_SKILL_IT_BUY_TRADE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_ACTION_BUY_TRADE, KCDefine.U_KEY_ACTIVE_BUY_TRADE, KCDefine.U_KEY_PASSIVE_BUY_TRADE
+	};
+
+	public static readonly List<string> G_KEY_SKILL_IT_SALE_TRADE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_ACTION_SALE_TRADE, KCDefine.U_KEY_ACTIVE_SALE_TRADE, KCDefine.U_KEY_PASSIVE_SALE_TRADE
 	};
 	// 스킬 정보 테이블 }
 
@@ -151,12 +159,16 @@ public static partial class KDefine {
 		KCDefine.U_KEY_BG, KCDefine.U_KEY_NORM, KCDefine.U_KEY_OVERLAY, KCDefine.U_KEY_PLAYABLE, KCDefine.U_KEY_NON_PLAYABLE, KCDefine.U_KEY_ENEMY
 	};
 
-	public static readonly List<string> G_KEY_OBJ_IT_SALE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_BG_SALE, KCDefine.U_KEY_NORM_SALE, KCDefine.U_KEY_OVERLAY_SALE, KCDefine.U_KEY_PLAYABLE_SALE, KCDefine.U_KEY_NON_PLAYABLE_SALE, KCDefine.U_KEY_ENEMY_SALE
-	};
-
 	public static readonly List<string> G_KEY_OBJ_IT_ENHANCE_INFOS_LIST = new List<string>() {
 		KCDefine.U_KEY_BG_ENHANCE, KCDefine.U_KEY_NORM_ENHANCE, KCDefine.U_KEY_OVERLAY_ENHANCE, KCDefine.U_KEY_PLAYABLE_ENHANCE, KCDefine.U_KEY_NON_PLAYABLE_ENHANCE, KCDefine.U_KEY_ENEMY_ENHANCE
+	};
+
+	public static readonly List<string> G_KEY_OBJ_IT_BUY_TRADE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_BG_BUY_TRADE, KCDefine.U_KEY_NORM_BUY_TRADE, KCDefine.U_KEY_OVERLAY_BUY_TRADE, KCDefine.U_KEY_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_NON_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_ENEMY_BUY_TRADE
+	};
+
+	public static readonly List<string> G_KEY_OBJ_IT_SALE_TRADE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_BG_SALE_TRADE, KCDefine.U_KEY_NORM_SALE_TRADE, KCDefine.U_KEY_OVERLAY_SALE_TRADE, KCDefine.U_KEY_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_NON_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_ENEMY_SALE_TRADE
 	};
 	// 객체 정보 테이블 }
 

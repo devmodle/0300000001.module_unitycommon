@@ -275,17 +275,17 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	/** 아이템 개수를 반환한다 */
-	public long GetNumItems(EItemKinds a_eItemKinds) {
+	public long GetTotalNumItems(EItemKinds a_eItemKinds) {
 		return this.UserInfo.m_oItemInfoList.Sum((a_oItemInfo) => (a_oItemInfo.ItemKinds == a_eItemKinds && a_oItemInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stTargetInfo)) ? stTargetInfo.m_stValInfo01.m_nVal : KCDefine.B_VAL_0_INT);
 	}
 
 	/** 스킬 개수를 반환한다 */
-	public long GetNumSkills(ESkillKinds a_eSkillKinds) {
+	public long GetTotalNumSkills(ESkillKinds a_eSkillKinds) {
 		return this.UserInfo.m_oSkillInfoList.Sum((a_oSkillInfo) => (a_oSkillInfo.SkillKinds == a_eSkillKinds && a_oSkillInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stTargetInfo)) ? stTargetInfo.m_stValInfo01.m_nVal : KCDefine.B_VAL_0_INT);
 	}
 
 	/** 객체 개수를 반환한다 */
-	public long GetNumObjs(EObjKinds a_eObjKinds) {
+	public long GetTotalNumObjs(EObjKinds a_eObjKinds) {
 		return this.UserInfo.m_oObjInfoList.Sum((a_oObjInfo) => (a_oObjInfo.ObjKinds == a_eObjKinds && a_oObjInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stTargetInfo)) ? stTargetInfo.m_stValInfo01.m_nVal : KCDefine.B_VAL_0_INT);
 	}
 

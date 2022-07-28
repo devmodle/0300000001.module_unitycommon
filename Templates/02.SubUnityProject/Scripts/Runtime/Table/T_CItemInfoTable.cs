@@ -221,6 +221,14 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		return stItemTradeInfo;
 	}
 
+	/** 판매 아이템 교환 정보를 반환한다 */
+	public STItemTradeInfo GetSaleItemTradeInfo(EItemKinds a_eItemKinds) {
+		bool bIsValid = this.TryGetSaleItemTradeInfo(a_eItemKinds, out STItemTradeInfo stItemTradeInfo);
+		CAccess.Assert(bIsValid);
+
+		return stItemTradeInfo;
+	}
+
 	/** 아이템 정보를 반환한다 */
 	public bool TryGetItemInfo(EItemKinds a_EItemKinds, out STItemInfo a_stOutItemInfo) {
 		a_stOutItemInfo = this.ItemInfoDict.GetValueOrDefault(a_EItemKinds, STItemInfo.INVALID);
@@ -239,14 +247,20 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		return this.BuyItemTradeInfoDict.ContainsKey(a_eItemKinds);
 	}
 
+	/** 판매 아이템 교환 정보를 반환한다 */
+	public bool TryGetSaleItemTradeInfo(EItemKinds a_eItemKinds, out STItemTradeInfo a_stOutItemTradeInfo) {
+		a_stOutItemTradeInfo = this.SaleItemTradeInfoDict.GetValueOrDefault(a_eItemKinds, STItemTradeInfo.INVALID);
+		return this.SaleItemTradeInfoDict.ContainsKey(a_eItemKinds);
+	}
+
 	/** 아이템 정보를 로드한다 */
-	public (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos() {
+	public (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos() {
 		this.ResetItemInfos();
 		return this.LoadItemInfos(this.ItemInfoTablePath);
 	}
 
 	/** 아이템 정보를 로드한다 */
-	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos(string a_oFilePath) {
+	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -261,13 +275,14 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	}
 
 	/** 아이템 정보를 로드한다 */
-	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>) DoLoadItemInfos(string a_oJSONStr) {
+	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) DoLoadItemInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 
 		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
 		var oItemInfosList = new List<SimpleJSON.JSONNode>();
 		var oItemEnhanceInfosList = new List<SimpleJSON.JSONNode>();
 		var oBuyItemTradeInfosList = new List<SimpleJSON.JSONNode>();
+		var oSaleItemTradeInfosList = new List<SimpleJSON.JSONNode>();
 
 		for(int i = 0; i < KDefine.G_KEY_ITEM_IT_INFOS_LIST.Count; ++i) {
 			oItemInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_IT_INFOS_LIST[i]]);
@@ -279,6 +294,10 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 
 		for(int i = 0; i < KDefine.G_KEY_ITEM_IT_BUY_TRADE_INFOS_LIST.Count; ++i) {
 			oBuyItemTradeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_IT_BUY_TRADE_INFOS_LIST[i]]);
+		}
+
+		for(int i = 0; i < KDefine.G_KEY_ITEM_IT_SALE_TRADE_INFOS_LIST.Count; ++i) {
+			oSaleItemTradeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_IT_SALE_TRADE_INFOS_LIST[i]]);
 		}
 
 		for(int i = 0; i < oItemInfosList.Count; ++i) {
@@ -314,7 +333,18 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 			}
 		}
 
-		return (this.ItemInfoDict, this.ItemEnhanceInfoDict, this.BuyItemTradeInfoDict);
+		for(int i = 0; i < oSaleItemTradeInfosList.Count; ++i) {
+			for(int j = 0; j < oSaleItemTradeInfosList[i].Count; ++j) {
+				var stItemTradeInfo = new STItemTradeInfo(oSaleItemTradeInfosList[i][j]);
+
+				// 판매 아이템 교환 정보 추가 가능 할 경우
+				if(stItemTradeInfo.m_eItemKinds.ExIsValid() && (!this.SaleItemTradeInfoDict.ContainsKey(stItemTradeInfo.m_eItemKinds) || oSaleItemTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+					this.BuyItemTradeInfoDict.ExReplaceVal(stItemTradeInfo.m_eItemKinds, stItemTradeInfo);
+				}
+			}
+		}
+
+		return (this.ItemInfoDict, this.ItemEnhanceInfoDict, this.BuyItemTradeInfoDict, this.SaleItemTradeInfoDict);
 	}
 	#endregion			// 함수
 }

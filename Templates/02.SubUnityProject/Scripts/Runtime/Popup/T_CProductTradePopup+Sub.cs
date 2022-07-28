@@ -12,8 +12,8 @@ using TMPro;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-/** 상품 구입 팝업 */
-public partial class CProductBuyPopup : CSubPopup {
+/** 상품 교환 팝업 */
+public partial class CProductTradePopup : CSubPopup {
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
@@ -67,8 +67,8 @@ public partial class CProductBuyPopup : CSubPopup {
 	#endregion			// 함수
 }
 
-/** 서브 상품 구입 팝업 */
-public partial class CProductBuyPopup : CSubPopup {
+/** 서브 상품 교환 팝업 */
+public partial class CProductTradePopup : CSubPopup {
 	/** 서브 식별자 */
 	private enum ESubKey {
 		NONE = -1,

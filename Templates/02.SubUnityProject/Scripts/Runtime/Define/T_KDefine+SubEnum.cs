@@ -404,7 +404,7 @@ public enum EObjKinds {
 
 	#region 적
 	// 500,000,000
-	ENEMY_OBJ_SALE_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ENEMY_OBJ_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 적
 
 	[HideInInspector] MAX_VAL
