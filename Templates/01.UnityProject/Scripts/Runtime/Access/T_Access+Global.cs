@@ -47,8 +47,8 @@ public static partial class Access {
 	}
 
 	/** 교환 가능 여부를 검사한다 */
-	public static bool IsEnableTrade(List<(CTargetInfo, STTargetInfo)> a_oTradeInfoList) {
-		return a_oTradeInfoList.All((a_stTradeInfo) => Access.IsEnableTrade(a_stTradeInfo.Item1, a_stTradeInfo.Item2));
+	public static bool IsEnableTrade(List<(CTargetInfo, STTargetInfo)> a_oTradeTargetInfoList) {
+		return a_oTradeTargetInfoList.All((a_stTradeTargetInfo) => Access.IsEnableTrade(a_stTradeTargetInfo.Item1, a_stTradeTargetInfo.Item2));
 	}
 
 	/** 교환 가능 여부를 검사한다 */

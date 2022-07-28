@@ -39,7 +39,7 @@ namespace SetupScene {
 			CObjInfoTable.Inst.LoadObjInfos();
 			CFXInfoTable.Inst.LoadFXInfos();
 			CAbilityInfoTable.Inst.LoadAbilityInfos();
-			CProductSaleInfoTable.Inst.LoadProductSaleInfos();
+			CProductTradeInfoTable.Inst.LoadProductTradeInfos();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 			// 공용 앱 정보를 설정한다 {

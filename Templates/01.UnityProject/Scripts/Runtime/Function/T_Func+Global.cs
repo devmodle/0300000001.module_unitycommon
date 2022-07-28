@@ -116,9 +116,9 @@ public static partial class Func {
 	}
 
 	/** 구입한다 */
-	public static void Buy(STItemSaleInfo a_stItemSaleInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_stItemSaleInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
-		Func.Acquire(a_stItemSaleInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+	public static void Buy(STItemTradeInfo a_stItemTradeInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
+		Func.Pay(a_stItemTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+		Func.Acquire(a_stItemTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
 	}
 
 	/** 구입한다 */
@@ -134,9 +134,9 @@ public static partial class Func {
 	}
 
 	/** 구입한다 */
-	public static void Buy(STProductSaleInfo a_stProductSaleInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_stProductSaleInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
-		Func.Acquire(a_stProductSaleInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+	public static void Buy(STProductTradeInfo a_stProductTradeInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
+		Func.Pay(a_stProductTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+		Func.Acquire(a_stProductTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
 	}
 
 	/** 상점 팝업을 출력한다 */
@@ -204,9 +204,9 @@ public static partial class Func {
 		Func.ShowPopup<CPausePopup>(KDefine.G_OBJ_N_PAUSE_POPUP, KCDefine.U_OBJ_P_G_PAUSE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-	/** 상품 판매 팝업을 출력한다 */
-	public static void ShowProductSalePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CProductSalePopup>(KDefine.G_OBJ_N_PRODUCT_SALE_POPUP, KCDefine.U_OBJ_P_G_PRODUCT_SALE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	/** 상품 구입 팝업을 출력한다 */
+	public static void ShowProductBuyPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CProductBuyPopup>(KDefine.G_OBJ_N_PRODUCT_BUY_POPUP, KCDefine.U_OBJ_P_G_PRODUCT_BUY_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	/** 포커스 팝업을 출력한다 */
@@ -407,9 +407,9 @@ public static partial class Func {
 		if(a_oProductID.ExIsValid()) {
 			int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
 			var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
-			var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(nIdx);
+			var stProductTradeInfo = CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(nIdx);
 
-			Func.Acquire(stProductSaleInfo.m_oAcquireTargetInfoDict);
+			Func.Acquire(stProductTradeInfo.m_oAcquireTargetInfoDict);
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 비소모 상품 일 경우
@@ -432,9 +432,9 @@ public static partial class Func {
 				// 상품 복원이 가능 할 경우
 				if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
 					int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
-					var stProductSaleInfo = CProductSaleInfoTable.Inst.GetProductSaleInfo(nIdx);
+					var stProductTradeInfo = CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(nIdx);
 					
-					Func.Acquire(stProductSaleInfo.m_oAcquireTargetInfoDict);
+					Func.Acquire(stProductTradeInfo.m_oAcquireTargetInfoDict);
 					CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductList[i].definition.id);
 				}				
 			}

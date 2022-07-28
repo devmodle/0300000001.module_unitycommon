@@ -12,8 +12,8 @@ using TMPro;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-/** 상품 판매 팝업 */
-public partial class CProductSalePopup : CSubPopup {
+/** 상품 구입 팝업 */
+public partial class CProductBuyPopup : CSubPopup {
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
@@ -28,34 +28,34 @@ public partial class CProductSalePopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
-		for(int i = 0; i < m_oProductSaleUIsDict.Count; ++i) {
-			this.UpdateProductSaleUIsState(m_oProductSaleUIsDict[i], CProductSaleInfoTable.Inst.GetProductSaleInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));
+		for(int i = 0; i < m_oProductBuyUIsDict.Count; ++i) {
+			this.UpdateProductBuyUIsState(m_oProductBuyUIsDict[i], CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));
 		}
 	}
 
-	/** 상품 판매 UI 상태를 갱신한다 */
-	private void UpdateProductSaleUIsState(GameObject a_oSpecialPkgsUIs, STProductSaleInfo a_stProductSaleInfo) {
+	/** 상품 구입 UI 상태를 갱신한다 */
+	private void UpdateProductBuyUIsState(GameObject a_oSpecialPkgsUIs, STProductTradeInfo a_stProductTradeInfo) {
 		// 텍스트를 설정한다 {
 		var oPriceText = a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
-		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoDict.First().Value.m_stValInfo01.m_nVal), EFontSet._1, false);
+		oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductTradeInfo.m_oPayTargetInfoDict.First().Value.m_stValInfo01.m_nVal), EFontSet._1, false);
 
-		a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(CStrTable.Inst.GetStr(a_stProductSaleInfo.m_stCommonInfo.m_oName), EFontSet._1, false);
-		a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT)?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoDict.First().Value.m_stValInfo01.m_nVal), EFontSet._1, false);
+		a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(CStrTable.Inst.GetStr(a_stProductTradeInfo.m_stCommonInfo.m_oName), EFontSet._1, false);
+		a_oSpecialPkgsUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT)?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductTradeInfo.m_oPayTargetInfoDict.First().Value.m_stValInfo01.m_nVal), EFontSet._1, false);
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 상품이 존재 할 경우
-		if(Access.GetProduct(a_stProductSaleInfo.m_nTableIdx) != null) {
-			oPriceText?.ExSetText(Access.GetPriceStr(a_stProductSaleInfo.m_nTableIdx), EFontSet._1, false);
+		if(Access.GetProduct(a_stProductTradeInfo.m_nTableIdx) != null) {
+			oPriceText?.ExSetText(Access.GetPriceStr(a_stProductTradeInfo.m_nTableIdx), EFontSet._1, false);
 		}
 #endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 텍스트를 설정한다 }
 
 		// 버튼을 설정한다 {
 		var oPurchaseBtn = a_oSpecialPkgsUIs?.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
-		oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductSaleInfo));
+		oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
 
 #if PURCHASE_MODULE_ENABLE
-		var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductSaleInfo.m_nTableIdx);
+		var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductTradeInfo.m_nTableIdx);
 
 		// 비소모 상품 일 경우
 		if(stProductInfo.m_eProductType == ProductType.NonConsumable) {
@@ -67,8 +67,8 @@ public partial class CProductSalePopup : CSubPopup {
 	#endregion			// 함수
 }
 
-/** 서브 상품 판매 팝업 */
-public partial class CProductSalePopup : CSubPopup {
+/** 서브 상품 구입 팝업 */
+public partial class CProductBuyPopup : CSubPopup {
 	/** 서브 식별자 */
 	private enum ESubKey {
 		NONE = -1,

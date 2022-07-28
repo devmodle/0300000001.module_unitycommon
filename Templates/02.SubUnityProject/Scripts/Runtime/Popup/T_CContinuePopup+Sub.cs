@@ -36,7 +36,7 @@ public partial class CContinuePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		var stPayTargetInfo = CItemInfoTable.Inst.GetItemSaleInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE).m_oPayTargetInfoDict.ExGetTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS);
+		var stPayTargetInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE).m_oPayTargetInfoDict.ExGetTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS);
 		
 		// 텍스트를 갱신한다
 		m_oTextDict[EKey.PRICE_TEXT]?.ExSetText($"{stPayTargetInfo.m_stValInfo01.m_nVal}", EFontSet._1, false);

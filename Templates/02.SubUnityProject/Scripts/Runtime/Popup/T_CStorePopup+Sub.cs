@@ -30,72 +30,72 @@ public partial class CStorePopup : CSubPopup {
 		base.Init();
 		m_stParams = a_stParams;
 		
-		a_stParams.m_oProductSaleInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nTableIdx.CompareTo(a_stRhs.m_nTableIdx));
+		a_stParams.m_oProductTradeInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nTableIdx.CompareTo(a_stRhs.m_nTableIdx));
 	}
 
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		// 상품 UI 상태를 갱신한다
-		for(int i = 0; i < m_oProductSaleUIsList.Count; ++i) {
-			this.UpdateProductSaleUIsState(m_oProductSaleUIsList[i], m_stParams.m_oProductSaleInfoList[i]);
+		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
+			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], m_stParams.m_oProductTradeInfoList[i]);
 		}
 	}
 
-	/** 상품 판매 UI 상태를 갱신한다 */
-	private void UpdateProductSaleUIsState(GameObject a_oProductSaleUIs, STProductSaleInfo a_stProductSaleInfo) {
+	/** 상품 구입 UI 상태를 갱신한다 */
+	private void UpdateProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
 		var oPriceUIsDict = CCollectionManager.Inst.SpawnDict<EPurchaseType, GameObject>();
 
 		try {
 			// 객체를 갱신한다 {
 			CFunc.SetupObjs(new List<(EPurchaseType, string, GameObject)>() {
-				(EPurchaseType.ADS, KCDefine.U_OBJ_N_ADS_PRICE_UIS, a_oProductSaleUIs),
-				(EPurchaseType.IN_APP_PURCHASE, KCDefine.U_OBJ_N_PURCHASE_PRICE_UIS, a_oProductSaleUIs)
+				(EPurchaseType.ADS, KCDefine.U_OBJ_N_ADS_PRICE_UIS, a_oProductBuyUIs),
+				(EPurchaseType.IN_APP_PURCHASE, KCDefine.U_OBJ_N_PURCHASE_PRICE_UIS, a_oProductBuyUIs)
 			}, oPriceUIsDict, false);
 
 			foreach(var stKeyVal in oPriceUIsDict) {
-				stKeyVal.Value?.SetActive(a_stProductSaleInfo.m_ePurchaseType == stKeyVal.Key);
+				stKeyVal.Value?.SetActive(a_stProductTradeInfo.m_ePurchaseType == stKeyVal.Key);
 			}
 			// 객체를 갱신한다 }
 
 			// 텍스트를 갱신한다 {
-			var oPriceText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
-			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductSaleInfo.m_oPayTargetInfoDict.First().Value.m_stValInfo01.m_nVal), EFontSet._1, false);
+			var oPriceText = a_oProductBuyUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
+			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductTradeInfo.m_oPayTargetInfoDict.First().Value.m_stValInfo01.m_nVal), EFontSet._1, false);
 
-			var oAcquireTargetInfoKeyList = a_stProductSaleInfo.m_oAcquireTargetInfoDict.Keys.ToList();
-			a_oProductSaleUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stProductSaleInfo.m_stCommonInfo.m_oName, EFontSet._1, false);
+			var oAcquireTargetInfoKeyList = a_stProductTradeInfo.m_oAcquireTargetInfoDict.Keys.ToList();
+			a_oProductBuyUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stProductTradeInfo.m_stCommonInfo.m_oName, EFontSet._1, false);
 
 			for(int i = 0; i < oAcquireTargetInfoKeyList.Count; ++i) {
-				var oNumText = a_oProductSaleUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
+				var oNumText = a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
 				var nUniqueTargetInfoID = oAcquireTargetInfoKeyList[i];
 
-				switch(a_stProductSaleInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_eValType) {
-					case EValType.INT: oNumText?.ExSetText($"{a_stProductSaleInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_nVal}", EFontSet._1, false); break;
-					case EValType.REAL: oNumText?.ExSetText($"{a_stProductSaleInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_dblVal}", EFontSet._1, false); break;
+				switch(a_stProductTradeInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_eValType) {
+					case EValType.INT: oNumText?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_nVal}", EFontSet._1, false); break;
+					case EValType.REAL: oNumText?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_dblVal}", EFontSet._1, false); break;
 				}
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 			// 인앱 결제 상품 일 경우
-			if(a_stProductSaleInfo.m_ePurchaseType == EPurchaseType.IN_APP_PURCHASE && Access.GetProduct(a_stProductSaleInfo.m_nTableIdx) != null) {
-				oPriceText?.ExSetText(Access.GetPriceStr(a_stProductSaleInfo.m_nTableIdx), EFontSet._1, false);
+			if(a_stProductTradeInfo.m_ePurchaseType == EPurchaseType.IN_APP_PURCHASE && Access.GetProduct(a_stProductTradeInfo.m_nTableIdx) != null) {
+				oPriceText?.ExSetText(Access.GetPriceStr(a_stProductTradeInfo.m_nTableIdx), EFontSet._1, false);
 			}
 #endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 			// 텍스트를 갱신한다 }
 
 			// 버튼을 갱신한다 {
 			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
-			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductSaleInfo));
+			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
 
 #if ADS_MODULE_ENABLE
 			// 보상 광고 상품 일 경우
-			if(a_stProductSaleInfo.m_ePurchaseType == EPurchaseType.ADS) {
+			if(a_stProductTradeInfo.m_ePurchaseType == EPurchaseType.ADS) {
 				var oTouchInteractable = oPurchaseBtn?.gameObject.ExAddComponent<CRewardAdsTouchInteractable>();
 				oTouchInteractable?.SetAdsPlatform(CPluginInfoTable.Inst.AdsPlatform);
 			}
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductSaleInfo.m_nTableIdx);
+			var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductTradeInfo.m_nTableIdx);
 
 			// 비소모 상품 일 경우
 			if(stProductInfo.m_eProductType == ProductType.NonConsumable) {
@@ -105,10 +105,10 @@ public partial class CStorePopup : CSubPopup {
 			// 버튼을 갱신한다 }
 
 			// 패키지 상품 일 경우
-			if(a_stProductSaleInfo.ProductType == EProductType.PKGS) {
-				this.UpdatePkgsProductSaleUIsState(a_oProductSaleUIs, a_stProductSaleInfo);
+			if(a_stProductTradeInfo.ProductType == EProductType.PKGS) {
+				this.UpdatePkgsProductBuyUIsState(a_oProductBuyUIs, a_stProductTradeInfo);
 			} else {
-				this.UpdateSingleProductSaleUIsState(a_oProductSaleUIs, a_stProductSaleInfo);
+				this.UpdateSingleProductBuyUIsState(a_oProductBuyUIs, a_stProductTradeInfo);
 			}
 		} finally {
 			CCollectionManager.Inst.DespawnDict(oPriceUIsDict);
@@ -134,13 +134,13 @@ public partial class CStorePopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	/** 패키지 상품 판매 UI 상태를 갱신한다 */
-	private void UpdatePkgsProductSaleUIsState(GameObject a_oProductSaleUIs, STProductSaleInfo a_stProductSaleInfo) {
+	/** 패키지 상품 구입 UI 상태를 갱신한다 */
+	private void UpdatePkgsProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
 		// Do Something
 	}
 
-	/** 단일 상품 판매 UI 상태를 갱신한다 */
-	private void UpdateSingleProductSaleUIsState(GameObject a_oProductSaleUIs, STProductSaleInfo a_stProductSaleInfo) {
+	/** 단일 상품 구입 UI 상태를 갱신한다 */
+	private void UpdateSingleProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
 		// Do Something
 	}
 	#endregion			// 함수

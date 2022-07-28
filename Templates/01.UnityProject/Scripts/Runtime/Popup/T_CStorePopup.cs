@@ -33,7 +33,7 @@ public partial class CStorePopup : CSubPopup {
 
 	/** 매개 변수 */
 	public partial struct STParams {
-		public List<STProductSaleInfo> m_oProductSaleInfoList;
+		public List<STProductTradeInfo> m_oProductTradeInfoList;
 
 #if ADS_MODULE_ENABLE
 		public Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>> m_oAdsCallbackDict;
@@ -61,7 +61,7 @@ public partial class CStorePopup : CSubPopup {
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 	/** =====> 객체 <===== */
-	[SerializeField] private List<GameObject> m_oProductSaleUIsList = new List<GameObject>();
+	[SerializeField] private List<GameObject> m_oProductBuyUIsList = new List<GameObject>();
 	#endregion			// 변수
 
 	#region 함수
@@ -72,17 +72,17 @@ public partial class CStorePopup : CSubPopup {
 	}
 	
 	/** 결제 버튼을 눌렀을 경우 */
-	private void OnTouchPurchaseBtn(STProductSaleInfo a_stProductSaleInfo) {
-		switch(a_stProductSaleInfo.m_ePurchaseType) {
+	private void OnTouchPurchaseBtn(STProductTradeInfo a_stProductTradeInfo) {
+		switch(a_stProductTradeInfo.m_ePurchaseType) {
 			case EPurchaseType.ADS: {
 #if ADS_MODULE_ENABLE
-				m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS] = a_stProductSaleInfo.m_eProductKinds;
+				m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS] = a_stProductTradeInfo.m_eProductKinds;
 				Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
 			} break;
 			case EPurchaseType.IN_APP_PURCHASE: {
 #if PURCHASE_MODULE_ENABLE
-				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductSaleInfo.m_eProductKinds, this.OnPurchaseProduct);
+				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 			} break;
 			case EPurchaseType.TARGET: {
@@ -106,7 +106,7 @@ public partial class CStorePopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			Func.Buy(CProductSaleInfoTable.Inst.GetProductSaleInfo(m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS]));
+			Func.Buy(CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS]));
 		}
 
 		this.UpdateUIsState();

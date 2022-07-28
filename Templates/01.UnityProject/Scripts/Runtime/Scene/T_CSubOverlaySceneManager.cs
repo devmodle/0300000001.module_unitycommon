@@ -58,15 +58,15 @@ namespace OverlayScene {
 		public void ShowStorePopup() {
 #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			Func.ShowStorePopup(CSceneManager.ActiveScenePopupUIs, (a_oSender) => {
-				var oProductSaleInfoDict = new Dictionary<EProductKinds, STProductSaleInfo>();
+				var oBuyProductTradeInfoDict = new Dictionary<EProductKinds, STProductTradeInfo>();
 
 				for(int i = 0; i < KDefine.G_PRODUCT_KINDS_STORE_LIST.Count; ++i) {
 					var eProductKinds = KDefine.G_PRODUCT_KINDS_STORE_LIST[i];
-					oProductSaleInfoDict.TryAdd(eProductKinds, CProductSaleInfoTable.Inst.GetProductSaleInfo(eProductKinds));
+					oBuyProductTradeInfoDict.TryAdd(eProductKinds, CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(eProductKinds));
 				}
 
 				(a_oSender as CStorePopup).Init(new CStorePopup.STParams() {
-					m_oProductSaleInfoList = oProductSaleInfoDict.ExToList(),
+					m_oProductTradeInfoList = oBuyProductTradeInfoDict.ExToList(),
 
 #if ADS_MODULE_ENABLE
 					m_oAdsCallbackDict = new Dictionary<CStorePopup.ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>() {

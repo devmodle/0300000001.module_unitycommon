@@ -12,8 +12,8 @@ using TMPro;
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-/** 상품 판매 팝업 */
-public partial class CProductSalePopup : CSubPopup {
+/** 상품 구입 팝업 */
+public partial class CProductBuyPopup : CSubPopup {
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,
@@ -38,7 +38,7 @@ public partial class CProductSalePopup : CSubPopup {
 	private STParams m_stParams;
 	
 	/** =====> 객체 <===== */
-	[SerializeField] private List<GameObject> m_oProductSaleUIsDict = new List<GameObject>();
+	[SerializeField] private List<GameObject> m_oProductBuyUIsDict = new List<GameObject>();
 	#endregion			// 변수
 
 	#region 함수
@@ -49,9 +49,9 @@ public partial class CProductSalePopup : CSubPopup {
 	}
 
 	/** 결제 버튼을 눌렀을 경우 */
-	private void OnTouchPurchaseBtn(STProductSaleInfo a_stProductSaleInfo) {
+	private void OnTouchPurchaseBtn(STProductTradeInfo a_stProductTradeInfo) {
 #if PURCHASE_MODULE_ENABLE
-		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductSaleInfo.m_eProductKinds, this.OnPurchaseProduct);
+		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
 #endif			// #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion			// 함수

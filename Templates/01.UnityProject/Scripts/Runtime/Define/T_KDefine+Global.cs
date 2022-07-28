@@ -123,12 +123,12 @@ public static partial class KDefine {
 		KCDefine.U_KEY_GOODS, KCDefine.U_KEY_CONSUMABLE, KCDefine.U_KEY_NON_CONSUMABLE, KCDefine.U_KEY_WEAPON, KCDefine.U_KEY_ARMOR, KCDefine.U_KEY_ACCESSORY, KCDefine.U_KEY_ATTACH
 	};
 
-	public static readonly List<string> G_KEY_ITEM_IT_SALE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_GOODS_SALE, KCDefine.U_KEY_CONSUMABLE_SALE, KCDefine.U_KEY_NON_CONSUMABLE_SALE, KCDefine.U_KEY_WEAPON_SALE, KCDefine.U_KEY_ARMOR_SALE, KCDefine.U_KEY_ACCESSORY_SALE, KCDefine.U_KEY_ATTACH_SALE
-	};
-
 	public static readonly List<string> G_KEY_ITEM_IT_ENHANCE_INFOS_LIST = new List<string>() {
 		KCDefine.U_KEY_GOODS_ENHANCE, KCDefine.U_KEY_CONSUMABLE_ENHANCE, KCDefine.U_KEY_NON_CONSUMABLE_ENHANCE, KCDefine.U_KEY_WEAPON_ENHANCE, KCDefine.U_KEY_ARMOR_ENHANCE, KCDefine.U_KEY_ACCESSORY_ENHANCE, KCDefine.U_KEY_ATTACH_ENHANCE
+	};
+
+	public static readonly List<string> G_KEY_ITEM_IT_BUY_TRADE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_GOODS_BUY_TRADE, KCDefine.U_KEY_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_WEAPON_BUY_TRADE, KCDefine.U_KEY_ARMOR_BUY_TRADE, KCDefine.U_KEY_ACCESSORY_BUY_TRADE, KCDefine.U_KEY_ATTACH_BUY_TRADE
 	};
 	// 아이템 정보 테이블 }
 
@@ -175,9 +175,9 @@ public static partial class KDefine {
 	};
 	// 어빌리티 정보 테이블 }
 
-	// 상품 판매 정보 테이블
-	public static readonly List<string> G_KEY_PRODUCT_SIT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_PKGS_SALE, KCDefine.U_KEY_SINGLE_SALE
+	// 상품 교환 정보 테이블
+	public static readonly List<string> G_KEY_PRODUCT_TIT_BUY_TRADE_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
 	};
 
 	// 경로 {

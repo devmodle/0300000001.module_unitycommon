@@ -854,12 +854,12 @@ public static partial class Func {
 
 	/** 상품을 결제한다 */
 	public static void PurchaseProduct(EProductKinds a_eProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		bool bIsValid = CProductSaleInfoTable.Inst.TryGetProductSaleInfo(a_eProductKinds, out STProductSaleInfo stProductSaleInfo);
+		bool bIsValid = CProductTradeInfoTable.Inst.TryGetBuyProductTradeInfo(a_eProductKinds, out STProductTradeInfo stProductTradeInfo);
 		CAccess.Assert(!a_bIsEnableAssert || bIsValid);
 		
 		// 상품이 존재 할 경우
 		if(bIsValid) {
-			Func.PurchaseProduct(stProductSaleInfo.m_nTableIdx, a_oCallback, a_bIsEnableAssert);
+			Func.PurchaseProduct(stProductTradeInfo.m_nTableIdx, a_oCallback, a_bIsEnableAssert);
 		}
 	}
 	
