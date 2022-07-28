@@ -50,23 +50,6 @@ public partial struct STResInfo {
 
 /** 리소스 정보 테이블 */
 public partial class CResInfoTable : CSingleton<CResInfoTable> {
-	#region 변수
-	[Header("=====> Snd Res Info <=====")]
-	[SerializeField] private List<STResInfo> m_oSndResInfoList = new List<STResInfo>();
-
-	[Header("=====> Font Res Info <=====")]
-	[SerializeField] private List<STResInfo> m_oFontResInfoList = new List<STResInfo>();
-
-	[Header("=====> Image Res Info <=====")]
-	[SerializeField] private List<STResInfo> m_oImgResInfoList = new List<STResInfo>();
-
-	[Header("=====> Sprite Res Info <=====")]
-	[SerializeField] private List<STResInfo> m_oSpriteResInfoList = new List<STResInfo>();
-
-	[Header("=====> Texture Res Info <=====")]
-	[SerializeField] private List<STResInfo> m_oTextureResInfoList = new List<STResInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<EResKinds, STResInfo> ResInfoDict { get; private set; } = new Dictionary<EResKinds, STResInfo>();
 
@@ -91,16 +74,6 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	/** 리소스 정보를 리셋한다 */
 	public void ResetResInfos() {
 		this.ResInfoDict.Clear();
-
-		var oResInfoList = new List<STResInfo>(m_oSndResInfoList);
-		oResInfoList.AddRange(m_oFontResInfoList);
-		oResInfoList.AddRange(m_oImgResInfoList);
-		oResInfoList.AddRange(m_oSpriteResInfoList);
-		oResInfoList.AddRange(m_oTextureResInfoList);
-
-		for(int i = 0; i < oResInfoList.Count; ++i) {
-			this.ResInfoDict.TryAdd(oResInfoList[i].m_eResKinds, oResInfoList[i]);
-		}
 	}
 
 	/** 리소스 정보를 리셋한다 */

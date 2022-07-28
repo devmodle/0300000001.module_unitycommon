@@ -64,14 +64,6 @@ public partial struct STProductSaleInfo {
 
 /** 상품 판매 정보 테이블 */
 public partial class CProductSaleInfoTable : CSingleton<CProductSaleInfoTable> {
-	#region 변수
-	[Header("=====> Pkgs Product Sale Info <=====")]
-	[SerializeField] private List<STProductSaleInfo> m_oPkgsProductSaleInfoList = new List<STProductSaleInfo>();
-
-	[Header("=====> Single Product Sale Info <=====")]
-	[SerializeField] private List<STProductSaleInfo> m_oSingleProductSaleInfoList = new List<STProductSaleInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<EProductKinds, STProductSaleInfo> ProductSaleInfoDict { get; private set; } = new Dictionary<EProductKinds, STProductSaleInfo>();
 
@@ -96,13 +88,6 @@ public partial class CProductSaleInfoTable : CSingleton<CProductSaleInfoTable> {
 	/** 상품 판매 정보를 리셋한다 */
 	public void ResetProductSaleInfos() {
 		this.ProductSaleInfoDict.Clear();
-
-		var oProductSaleInfoList = new List<STProductSaleInfo>(m_oPkgsProductSaleInfoList);
-		oProductSaleInfoList.ExAddVals(m_oSingleProductSaleInfoList);
-
-		for(int i = 0; i < oProductSaleInfoList.Count; ++i) {
-			this.ProductSaleInfoDict.TryAdd(oProductSaleInfoList[i].m_eProductKinds, oProductSaleInfoList[i]);
-		}
 	}
 
 	/** 상품 판매 정보를 리셋한다 */

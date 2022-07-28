@@ -51,7 +51,7 @@ namespace MainScene {
 				this.StartSetup();
 				this.UpdateUIsState();
 
-				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_MAIN);
+				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_MAIN_01);
 			}
 		}
 

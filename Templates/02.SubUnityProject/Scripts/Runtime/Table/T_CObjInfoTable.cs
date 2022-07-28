@@ -177,38 +177,6 @@ public partial struct STObjEnhanceInfo {
 
 /** 객체 정보 테이블 */
 public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
-	#region 변수
-	[Header("=====> BG Obj Info <=====")]
-	[SerializeField] private List<STObjInfo> m_oBGObjInfoList = new List<STObjInfo>();
-	[SerializeField] private List<STObjSaleInfo> m_oBGObjSaleInfoList = new List<STObjSaleInfo>();
-	[SerializeField] private List<STObjEnhanceInfo> m_oBGObjEnhanceInfoList = new List<STObjEnhanceInfo>();
-
-	[Header("=====> Norm Obj Info <=====")]
-	[SerializeField] private List<STObjInfo> m_oNormObjInfoList = new List<STObjInfo>();
-	[SerializeField] private List<STObjSaleInfo> m_oNormObjSaleInfoList = new List<STObjSaleInfo>();
-	[SerializeField] private List<STObjEnhanceInfo> m_oNormObjEnhanceInfoList = new List<STObjEnhanceInfo>();
-
-	[Header("=====> Overlay Obj Info <=====")]
-	[SerializeField] private List<STObjInfo> m_oOverlayObjInfoList = new List<STObjInfo>();
-	[SerializeField] private List<STObjSaleInfo> m_oOverlayObjSaleInfoList = new List<STObjSaleInfo>();
-	[SerializeField] private List<STObjEnhanceInfo> m_oOverlayObjEnhanceInfoList = new List<STObjEnhanceInfo>();
-
-	[Header("=====> Playable Obj Info <=====")]
-	[SerializeField] private List<STObjInfo> m_oPlayableObjInfoList = new List<STObjInfo>();
-	[SerializeField] private List<STObjSaleInfo> m_oPlayableObjSaleInfoList = new List<STObjSaleInfo>();
-	[SerializeField] private List<STObjEnhanceInfo> m_oPlayableObjEnhanceInfoList = new List<STObjEnhanceInfo>();
-
-	[Header("=====> Non Playable Obj Info <=====")]
-	[SerializeField] private List<STObjInfo> m_oNonPlayableObjInfoList = new List<STObjInfo>();
-	[SerializeField] private List<STObjSaleInfo> m_oNonPlayableObjSaleInfoList = new List<STObjSaleInfo>();
-	[SerializeField] private List<STObjEnhanceInfo> m_oNonPlayableObjEnhanceInfoList = new List<STObjEnhanceInfo>();
-
-	[Header("=====> Enemy Obj Info <=====")]
-	[SerializeField] private List<STObjInfo> m_oEnemyObjInfoList = new List<STObjInfo>();
-	[SerializeField] private List<STObjSaleInfo> m_oEnemyObjSaleInfoList = new List<STObjSaleInfo>();
-	[SerializeField] private List<STObjEnhanceInfo> m_oEnemyObjEnhanceInfoList = new List<STObjEnhanceInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<EObjKinds, STObjInfo> ObjInfoDict { get; private set; } = new Dictionary<EObjKinds, STObjInfo>();
 	public Dictionary<EObjKinds, STObjSaleInfo> ObjSaleInfoDict { get; private set; } = new Dictionary<EObjKinds, STObjSaleInfo>();
@@ -237,39 +205,6 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 		this.ObjInfoDict.Clear();
 		this.ObjSaleInfoDict.Clear();
 		this.ObjEnhanceInfoDict.Clear();
-
-		var oObjInfoList = new List<STObjInfo>(m_oBGObjInfoList);
-		oObjInfoList.AddRange(m_oNormObjInfoList);
-		oObjInfoList.AddRange(m_oOverlayObjInfoList);
-		oObjInfoList.AddRange(m_oPlayableObjInfoList);
-		oObjInfoList.AddRange(m_oNonPlayableObjInfoList);
-		oObjInfoList.AddRange(m_oEnemyObjInfoList);
-
-		var oObjSaleInfoList = new List<STObjSaleInfo>(m_oBGObjSaleInfoList);
-		oObjSaleInfoList.ExAddVals(m_oNormObjSaleInfoList);
-		oObjSaleInfoList.ExAddVals(m_oOverlayObjSaleInfoList);
-		oObjSaleInfoList.ExAddVals(m_oPlayableObjSaleInfoList);
-		oObjSaleInfoList.ExAddVals(m_oNonPlayableObjSaleInfoList);
-		oObjSaleInfoList.ExAddVals(m_oEnemyObjSaleInfoList);
-
-		var oObjEnhanceInfoList = new List<STObjEnhanceInfo>(m_oBGObjEnhanceInfoList);
-		oObjEnhanceInfoList.ExAddVals(m_oNormObjEnhanceInfoList);
-		oObjEnhanceInfoList.ExAddVals(m_oOverlayObjEnhanceInfoList);
-		oObjEnhanceInfoList.ExAddVals(m_oPlayableObjEnhanceInfoList);
-		oObjEnhanceInfoList.ExAddVals(m_oNonPlayableObjEnhanceInfoList);
-		oObjEnhanceInfoList.ExAddVals(m_oEnemyObjEnhanceInfoList);
-
-		for(int i = 0; i < oObjInfoList.Count; ++i) {
-			this.ObjInfoDict.TryAdd(oObjInfoList[i].m_eObjKinds, oObjInfoList[i]);
-		}
-
-		for(int i = 0; i < oObjSaleInfoList.Count; ++i) {
-			this.ObjSaleInfoDict.TryAdd(oObjSaleInfoList[i].m_eObjKinds, oObjSaleInfoList[i]);
-		}
-
-		for(int i = 0; i < oObjEnhanceInfoList.Count; ++i) {
-			this.ObjEnhanceInfoDict.TryAdd(oObjEnhanceInfoList[i].m_eObjKinds, oObjEnhanceInfoList[i]);
-		}
 	}
 
 	/** 객체 정보를 리셋한다 */

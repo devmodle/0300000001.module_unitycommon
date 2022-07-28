@@ -20,6 +20,16 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ECalcType a_eSender) {
+		return a_eSender > ECalcType.NONE && a_eSender < ECalcType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ECalcKinds a_eSender) {
+		return a_eSender > ECalcKinds.NONE && a_eSender < ECalcKinds.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EMissionType a_eSender) {
 		return a_eSender > EMissionType.NONE && a_eSender < EMissionType.MAX_VAL;
 	}

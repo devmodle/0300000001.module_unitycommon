@@ -51,26 +51,6 @@ public partial struct STRewardInfo {
 
 /** 보상 정보 테이블 */
 public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
-	#region 변수
-	[Header("=====> Free Reward Info <=====")]
-	[SerializeField] private List<STRewardInfo> m_oFreeRewardInfoList = new List<STRewardInfo>();
-
-	[Header("=====> Daily Reward Info <=====")]
-	[SerializeField] private List<STRewardInfo> m_oDailyRewardInfoList = new List<STRewardInfo>();
-
-	[Header("=====> Event Reward Info <=====")]
-	[SerializeField] private List<STRewardInfo> m_oEventRewardInfoList = new List<STRewardInfo>();
-
-	[Header("=====> Clear Reward Info <=====")]
-	[SerializeField] private List<STRewardInfo> m_oClearRewardInfoList = new List<STRewardInfo>();
-
-	[Header("=====> Mission Reward Info <=====")]
-	[SerializeField] private List<STRewardInfo> m_oMissionRewardInfoList = new List<STRewardInfo>();
-
-	[Header("=====> Tutorial Reward Info <=====")]
-	[SerializeField] private List<STRewardInfo> m_oTutorialRewardInfoList = new List<STRewardInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoDict { get; private set; } = new Dictionary<ERewardKinds, STRewardInfo>();
 
@@ -95,17 +75,6 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	/** 보상 정보를 리셋한다 */
 	public void ResetRewardInfos() {
 		this.RewardInfoDict.Clear();
-
-		var oRewardInfoList = new List<STRewardInfo>(m_oFreeRewardInfoList);
-		oRewardInfoList.AddRange(m_oDailyRewardInfoList);
-		oRewardInfoList.AddRange(m_oEventRewardInfoList);
-		oRewardInfoList.AddRange(m_oClearRewardInfoList);
-		oRewardInfoList.AddRange(m_oMissionRewardInfoList);
-		oRewardInfoList.AddRange(m_oTutorialRewardInfoList);
-
-		for(int i = 0; i < oRewardInfoList.Count; ++i) {
-			this.RewardInfoDict.TryAdd(oRewardInfoList[i].m_eRewardKinds, oRewardInfoList[i]);
-		}
 	}
 
 	/** 보상 정보를 리셋한다 */

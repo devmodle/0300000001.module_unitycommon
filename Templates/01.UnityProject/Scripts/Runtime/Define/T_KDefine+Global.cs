@@ -79,6 +79,11 @@ public static partial class KDefine {
 		m_nOrder = KCDefine.U_SORTING_O_OVERLAY_UIS, m_oLayer = KCDefine.U_SORTING_L_DEF
 	};
 
+	// 기타 정보 테이블
+	public static readonly List<string> G_KEY_ETC_IT_CALC_INFOS_LIST = new List<string>() {
+		KCDefine.U_KEY_ABILITY_CALC
+	};
+
 	// 미션 정보 테이블
 	public static readonly List<string> G_KEY_MISSION_IT_INFOS_LIST = new List<string>() {
 		KCDefine.U_KEY_MAIN, KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT

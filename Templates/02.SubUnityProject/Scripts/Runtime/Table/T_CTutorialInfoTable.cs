@@ -56,14 +56,6 @@ public partial struct STTutorialInfo {
 
 /** 튜토리얼 정보 테이블 */
 public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
-	#region 변수
-	[Header("=====> Play Tutorial Info <=====")]
-	[SerializeField] private List<STTutorialInfo> m_oPlayTutorialInfoList = new List<STTutorialInfo>();
-
-	[Header("=====> Help Tutorial Info <=====")]
-	[SerializeField] private List<STTutorialInfo> m_oHelpTutorialInfoList = new List<STTutorialInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<ETutorialKinds, STTutorialInfo> TutorialInfoDict { get; private set; } = new Dictionary<ETutorialKinds, STTutorialInfo>();
 
@@ -88,13 +80,6 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	/** 튜토리얼 정보를 리셋한다 */
 	public void ResetTutorialInfos() {
 		this.TutorialInfoDict.Clear();
-
-		var oTutorialInfoList = new List<STTutorialInfo>(m_oPlayTutorialInfoList);
-		oTutorialInfoList.AddRange(m_oHelpTutorialInfoList);
-
-		for(int i = 0; i < oTutorialInfoList.Count; ++i) {
-			this.TutorialInfoDict.TryAdd(oTutorialInfoList[i].m_eTutorialKinds, oTutorialInfoList[i]);
-		}
 	}
 
 	/** 튜토리얼 정보를 리셋한다 */

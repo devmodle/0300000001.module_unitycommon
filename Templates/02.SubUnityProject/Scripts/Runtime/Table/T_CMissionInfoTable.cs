@@ -49,20 +49,6 @@ public partial struct STMissionInfo {
 
 /** 미션 정보 테이블 */
 public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
-	#region 변수
-	[Header("=====> Main Mission Info <=====")]
-	[SerializeField] private List<STMissionInfo> m_oMainMissionInfoList = new List<STMissionInfo>();
-
-	[Header("=====> Free Mission Info <=====")]
-	[SerializeField] private List<STMissionInfo> m_oFreeMissionInfoList = new List<STMissionInfo>();
-
-	[Header("=====> Daily Mission Info <=====")]
-	[SerializeField] private List<STMissionInfo> m_oDailyMissionInfoList = new List<STMissionInfo>();
-
-	[Header("=====> Event Mission Info <=====")]
-	[SerializeField] private List<STMissionInfo> m_oEventMissionInfoList = new List<STMissionInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<EMissionKinds, STMissionInfo> MissionInfoDict { get; private set; } = new Dictionary<EMissionKinds, STMissionInfo>();
 
@@ -87,15 +73,6 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	/** 미션 정보를 리셋한다 */
 	public void ResetMissionInfos() {
 		this.MissionInfoDict.Clear();
-
-		var oMissionInfoList = new List<STMissionInfo>(m_oMainMissionInfoList);
-		oMissionInfoList.AddRange(m_oFreeMissionInfoList);
-		oMissionInfoList.AddRange(m_oDailyMissionInfoList);
-		oMissionInfoList.AddRange(m_oEventMissionInfoList);
-
-		for(int i = 0; i < oMissionInfoList.Count; ++i) {
-			this.MissionInfoDict.TryAdd(oMissionInfoList[i].m_eMissionKinds, oMissionInfoList[i]);
-		}
 	}
 
 	/** 미션 정보를 리셋한다 */

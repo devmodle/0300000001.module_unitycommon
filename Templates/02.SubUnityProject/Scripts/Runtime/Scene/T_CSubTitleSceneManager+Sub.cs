@@ -31,7 +31,7 @@ namespace TitleScene {
 				this.StartSetup();
 				this.UpdateUIsState();
 
-				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_TITLE);
+				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_TITLE_01);
 
 				// 로그인 되었을 경우
 				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {

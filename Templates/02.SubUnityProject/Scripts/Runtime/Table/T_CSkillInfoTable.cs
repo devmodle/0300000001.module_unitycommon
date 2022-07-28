@@ -163,23 +163,6 @@ public partial struct STSkillEnhanceInfo {
 
 /** 스킬 정보 테이블 */
 public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
-	#region 변수
-	[Header("=====> Action Skill Info <=====")]
-	[SerializeField] private List<STSkillInfo> m_oActionSkillInfoList = new List<STSkillInfo>();
-	[SerializeField] private List<STSkillSaleInfo> m_oActionSkillSaleInfoList = new List<STSkillSaleInfo>();
-	[SerializeField] private List<STSkillEnhanceInfo> m_oActionSkillEnhanceInfoList = new List<STSkillEnhanceInfo>();
-
-	[Header("=====> Active Skill Info <=====")]
-	[SerializeField] private List<STSkillInfo> m_oActiveSkillInfoList = new List<STSkillInfo>();
-	[SerializeField] private List<STSkillSaleInfo> m_oActiveSkillSaleInfoList = new List<STSkillSaleInfo>();
-	[SerializeField] private List<STSkillEnhanceInfo> m_oActiveSkillEnhanceInfoList = new List<STSkillEnhanceInfo>();
-
-	[Header("=====> Passive Skill Info <=====")]
-	[SerializeField] private List<STSkillInfo> m_oPassiveSkillInfoList = new List<STSkillInfo>();
-	[SerializeField] private List<STSkillSaleInfo> m_oPassiveSkillSaleInfoList = new List<STSkillSaleInfo>();
-	[SerializeField] private List<STSkillEnhanceInfo> m_oPassiveSkillEnhanceInfoList = new List<STSkillEnhanceInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<ESkillKinds, STSkillInfo> SkillInfoDict { get; private set; } = new Dictionary<ESkillKinds, STSkillInfo>();
 	public Dictionary<ESkillKinds, STSkillSaleInfo> SkillSaleInfoDict { get; private set; } = new Dictionary<ESkillKinds, STSkillSaleInfo>();
@@ -208,30 +191,6 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		this.SkillInfoDict.Clear();
 		this.SkillSaleInfoDict.Clear();
 		this.SkillEnhanceInfoDict.Clear();
-
-		var oSkillInfoList = new List<STSkillInfo>(m_oActionSkillInfoList);
-		oSkillInfoList.ExAddVals(m_oActiveSkillInfoList);
-		oSkillInfoList.ExAddVals(m_oPassiveSkillInfoList);
-
-		var oSkillSaleInfoList = new List<STSkillSaleInfo>(m_oActionSkillSaleInfoList);
-		oSkillSaleInfoList.ExAddVals(m_oActiveSkillSaleInfoList);
-		oSkillSaleInfoList.ExAddVals(m_oPassiveSkillSaleInfoList);
-
-		var oSkillEnhanceInfoList = new List<STSkillEnhanceInfo>(m_oActionSkillEnhanceInfoList);
-		oSkillEnhanceInfoList.ExAddVals(m_oActiveSkillEnhanceInfoList);
-		oSkillEnhanceInfoList.ExAddVals(m_oPassiveSkillEnhanceInfoList);
-
-		for(int i = 0; i < oSkillInfoList.Count; ++i) {
-			this.SkillInfoDict.TryAdd(oSkillInfoList[i].m_eSkillKinds, oSkillInfoList[i]);
-		}
-
-		for(int i = 0; i < oSkillSaleInfoList.Count; ++i) {
-			this.SkillSaleInfoDict.TryAdd(oSkillSaleInfoList[i].m_eSkillKinds, oSkillSaleInfoList[i]);
-		}
-
-		for(int i = 0; i < oSkillEnhanceInfoList.Count; ++i) {
-			this.SkillEnhanceInfoDict.TryAdd(oSkillEnhanceInfoList[i].m_eSkillKinds, oSkillEnhanceInfoList[i]);
-		}
 	}
 
 	/** 스킬 정보를 리셋한다 */

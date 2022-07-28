@@ -51,17 +51,6 @@ public partial struct STFXInfo {
 
 /** 효과 정보 테이블 */
 public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
-	#region 변수
-	[Header("=====> Hit FX Info <=====")]
-	[SerializeField] private List<STFXInfo> m_oHitFXInfoInfoList = new List<STFXInfo>();
-
-	[Header("=====> Buff FX Info <=====")]
-	[SerializeField] private List<STFXInfo> m_oBuffFXInfoInfoList = new List<STFXInfo>();
-
-	[Header("=====> Debuff FX Info <=====")]
-	[SerializeField] private List<STFXInfo> m_oDebuffFXInfoInfoList = new List<STFXInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<EFXKinds, STFXInfo> FXInfoDict { get; private set; } = new Dictionary<EFXKinds, STFXInfo>();
 
@@ -86,14 +75,6 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	/** 효과 정보를 리셋한다 */
 	public void ResetFXInfos() {
 		this.FXInfoDict.Clear();
-
-		var oFXInfoList = new List<STFXInfo>(m_oHitFXInfoInfoList);
-		oFXInfoList.ExAddVals(m_oBuffFXInfoInfoList);
-		oFXInfoList.ExAddVals(m_oDebuffFXInfoInfoList);
-
-		for(int i = 0; i < oFXInfoList.Count; ++i) {
-			this.FXInfoDict.TryAdd(oFXInfoList[i].m_eFXKinds, oFXInfoList[i]);
-		}
 	}
 
 	/** 효과 정보를 리셋한다 */

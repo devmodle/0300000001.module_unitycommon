@@ -37,6 +37,25 @@ public enum ERewardAcquirePopupType {
 	[HideInInspector] MAX_VAL
 }
 
+/** 수식 타입 */
+public enum ECalcType {
+	NONE = -1,
+	ABILITY,
+	[HideInInspector] MAX_VAL
+}
+
+/** 수식 종류 */
+public enum ECalcKinds {
+	NONE = -1,
+
+	#region 어빌리티
+	// 0
+	ABILITY_CALC_SAMPLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 어빌리티
+
+	[HideInInspector] MAX_VAL
+}
+
 /** 미션 타입 */
 public enum EMissionType {
 	NONE = -1,
@@ -207,23 +226,23 @@ public enum EResKinds {
 
 	#region 사운드
 	// 0
-	SND_BG_SCENE_TITLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SND_BG_SCENE_MAIN = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	SND_BG_SCENE_GAME = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	SND_BG_SCENE_TITLE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SND_BG_SCENE_MAIN_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	SND_BG_SCENE_GAME_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 
 	// 100,000
-	SND_FX_TOUCH_BEGIN = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SND_FX_TOUCH_END = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	SND_FX_TOUCH_BEGIN_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SND_FX_TOUCH_END_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
 
 	// 200,000
-	SND_FX_POPUP_SHOW = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SND_FX_POPUP_CLOSE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	SND_FX_POPUP_SHOW_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SND_FX_POPUP_CLOSE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion			// 사운드
 
 	#region 폰트
 	// 100,000,000
-	FONT_KOREAN = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	FONT_ENGLISH = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	FONT_KOREAN_01 = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	FONT_ENGLISH_01 = (EEnumVal.TYPE * 1) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	#endregion           // 폰트
 
 	#region 이미지
@@ -375,7 +394,7 @@ public enum EObjKinds {
 
 	#region 플레이 가능
 	// 300,000,000
-	PLAYABLE_CHARACTER_01 = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	PLAYABLE_DEF_CHARACTER_01 = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 플레이 가능
 
 	#region 플레이 불가능
@@ -443,37 +462,92 @@ public enum EAbilityKinds {
 	STAT_NUMS = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 	STAT_ENHANCE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
 
-	// 400
-	STAT_HP_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
-	STAT_MP_02 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 5),
-	STAT_SP_03 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 6),
+	// 100,000 {
+	STAT_HP_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	STAT_HP_02,
 
-	// 700
-	STAT_HP_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 7),
-	STAT_MP_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 8),
-	STAT_SP_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 9),
+	STAT_MP_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	STAT_MP_02,
 
-	// 1000
-	STAT_P_ATK_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 10),
-	STAT_M_ATK_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 11),
+	STAT_SP_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	STAT_SP_02,
+	// 100,000 }
 
-	// 1200
-	STAT_P_DEF_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 12),
-	STAT_M_DEF_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 13),
+	// 200,000 {
+	STAT_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	STAT_RECOVERY_02,
 
-	// 1400
-	STAT_VIEW_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 14),
-	STAT_ATTACK_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 15),
+	STAT_HP_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	STAT_HP_RECOVERY_02,
 
-	// 1600
-	STAT_ATK_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 16),
-	STAT_MOVE_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 17),
+	STAT_MP_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	STAT_MP_RECOVERY_02,
 
-	// 1800
-	STAT_HIT_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 18),
-	STAT_AVOID_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 19),
-	STAT_CRITICAL_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 20),
-	STAT_DELAY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 21),
+	STAT_SP_RECOVERY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 3),
+	STAT_SP_RECOVERY_02,
+	// 200,000 }
+
+	// 300,000 {
+	STAT_ATK_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	STAT_ATK_02,
+
+	STAT_P_ATK_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	STAT_P_ATK_02,
+
+	STAT_M_ATK_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	STAT_M_ATK_02,
+	// 300,000 }
+
+	// 400,000 {
+	STAT_DEF_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 4) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	STAT_DEF_02,
+
+	STAT_P_DEF_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 4) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	STAT_P_DEF_02,
+
+	STAT_M_DEF_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 4) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	STAT_M_DEF_02,
+	// 400,000 }
+
+	// 500,000 {
+	STAT_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 5) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	STAT_RANGE_02,
+
+	STAT_VIEW_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 5) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	STAT_VIEW_RANGE_02,
+
+	STAT_ATTACK_RANGE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 5) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	STAT_ATTACK_RANGE_02,
+	// 500,000 }
+
+	// 600,000 {
+	STAT_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 6) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	STAT_SPEED_02,
+
+	STAT_ATK_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 6) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	STAT_ATK_SPEED_02,
+
+	STAT_MOVE_SPEED_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 6) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	STAT_MOVE_SPEED_02,
+	// 600,000 }
+
+	// 700,000 {
+	STAT_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 7) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	STAT_RATE_02,
+
+	STAT_HIT_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 7) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	STAT_HIT_RATE_02,
+
+	STAT_AVOID_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 7) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	STAT_AVOID_RATE_02,
+
+	STAT_CRITICAL_RATE_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 7) + (EEnumVal.SUB_KINDS_TYPE * 3),
+	STAT_CRITICAL_RATE_02,
+	// 700,000 }
+
+	// 800,000
+	STAT_DELAY_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 8) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	STAT_DELAY_02,
 	#endregion			// 스탯
 
 	#region 버프

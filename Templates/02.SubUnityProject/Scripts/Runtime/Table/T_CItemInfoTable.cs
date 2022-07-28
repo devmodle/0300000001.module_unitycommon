@@ -159,43 +159,6 @@ public partial struct STItemEnhanceInfo {
 
 /** 아이템 정보 테이블 */
 public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
-	#region 변수
-	[Header("=====> Goods Item Info <=====")]
-	[SerializeField] private List<STItemInfo> m_oGoodsItemInfoList = new List<STItemInfo>();
-	[SerializeField] private List<STItemSaleInfo> m_oGoodsItemSaleInfoList = new List<STItemSaleInfo>();
-	[SerializeField] private List<STItemEnhanceInfo> m_oGoodsItemEnhanceInfoList = new List<STItemEnhanceInfo>();
-
-	[Header("=====> Consumable Item Info <=====")]
-	[SerializeField] private List<STItemInfo> m_oConsumableItemInfoList = new List<STItemInfo>();
-	[SerializeField] private List<STItemSaleInfo> m_oConsumableItemSaleInfoList = new List<STItemSaleInfo>();
-	[SerializeField] private List<STItemEnhanceInfo> m_oConsumableItemEnhanceInfoList = new List<STItemEnhanceInfo>();
-
-	[Header("=====> Non Consumable Item Info <=====")]
-	[SerializeField] private List<STItemInfo> m_oNonConsumableItemInfoList = new List<STItemInfo>();
-	[SerializeField] private List<STItemSaleInfo> m_oNonConsumableItemSaleInfoList = new List<STItemSaleInfo>();
-	[SerializeField] private List<STItemEnhanceInfo> m_oNonConsumableItemEnhanceInfoList = new List<STItemEnhanceInfo>();
-
-	[Header("=====> Weapon Item Info <=====")]
-	[SerializeField] private List<STItemInfo> m_oWeaponItemInfoList = new List<STItemInfo>();
-	[SerializeField] private List<STItemSaleInfo> m_oWeaponItemSaleInfoList = new List<STItemSaleInfo>();
-	[SerializeField] private List<STItemEnhanceInfo> m_oWeaponItemEnhanceInfoList = new List<STItemEnhanceInfo>();
-
-	[Header("=====> Armor Item Info <=====")]
-	[SerializeField] private List<STItemInfo> m_oArmorItemInfoList = new List<STItemInfo>();
-	[SerializeField] private List<STItemSaleInfo> m_oArmorItemSaleInfoList = new List<STItemSaleInfo>();
-	[SerializeField] private List<STItemEnhanceInfo> m_oArmorItemEnhanceInfoList = new List<STItemEnhanceInfo>();
-
-	[Header("=====> Accessory Item Info <=====")]
-	[SerializeField] private List<STItemInfo> m_oAccessoryItemInfoList = new List<STItemInfo>();
-	[SerializeField] private List<STItemSaleInfo> m_oAccessoryItemSaleInfoList = new List<STItemSaleInfo>();
-	[SerializeField] private List<STItemEnhanceInfo> m_oAccessoryItemEnhanceInfoList = new List<STItemEnhanceInfo>();
-
-	[Header("=====> Attach Item Info <=====")]
-	[SerializeField] private List<STItemInfo> m_oAttachItemInfoList = new List<STItemInfo>();
-	[SerializeField] private List<STItemSaleInfo> m_oAttachItemSaleInfoList = new List<STItemSaleInfo>();
-	[SerializeField] private List<STItemEnhanceInfo> m_oAttachItemEnhanceInfoList = new List<STItemEnhanceInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<EItemKinds, STItemInfo> ItemInfoDict { get; private set; } = new Dictionary<EItemKinds, STItemInfo>();
 	public Dictionary<EItemKinds, STItemSaleInfo> ItemSaleInfoDict { get; private set; } = new Dictionary<EItemKinds, STItemSaleInfo>();
@@ -224,42 +187,6 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		this.ItemInfoDict.Clear();
 		this.ItemSaleInfoDict.Clear();
 		this.ItemEnhanceInfoDict.Clear();
-
-		var oItemInfoList = new List<STItemInfo>(m_oGoodsItemInfoList);
-		oItemInfoList.ExAddVals(m_oConsumableItemInfoList);
-		oItemInfoList.ExAddVals(m_oNonConsumableItemInfoList);
-		oItemInfoList.ExAddVals(m_oWeaponItemInfoList);
-		oItemInfoList.ExAddVals(m_oArmorItemInfoList);
-		oItemInfoList.ExAddVals(m_oAccessoryItemInfoList);
-		oItemInfoList.ExAddVals(m_oAttachItemInfoList);
-
-		var oItemSaleInfoList = new List<STItemSaleInfo>(m_oGoodsItemSaleInfoList);
-		oItemSaleInfoList.ExAddVals(m_oConsumableItemSaleInfoList);
-		oItemSaleInfoList.ExAddVals(m_oNonConsumableItemSaleInfoList);
-		oItemSaleInfoList.ExAddVals(m_oWeaponItemSaleInfoList);
-		oItemSaleInfoList.ExAddVals(m_oArmorItemSaleInfoList);
-		oItemSaleInfoList.ExAddVals(m_oAccessoryItemSaleInfoList);
-		oItemSaleInfoList.ExAddVals(m_oAttachItemSaleInfoList);
-
-		var oItemEnhanceInfoList = new List<STItemEnhanceInfo>(m_oGoodsItemEnhanceInfoList);
-		oItemEnhanceInfoList.ExAddVals(m_oConsumableItemEnhanceInfoList);
-		oItemEnhanceInfoList.ExAddVals(m_oNonConsumableItemEnhanceInfoList);
-		oItemEnhanceInfoList.ExAddVals(m_oWeaponItemEnhanceInfoList);
-		oItemEnhanceInfoList.ExAddVals(m_oArmorItemEnhanceInfoList);
-		oItemEnhanceInfoList.ExAddVals(m_oAccessoryItemEnhanceInfoList);
-		oItemEnhanceInfoList.ExAddVals(m_oAttachItemEnhanceInfoList);
-
-		for(int i = 0; i < oItemInfoList.Count; ++i) {
-			this.ItemInfoDict.TryAdd(oItemInfoList[i].m_eItemKinds, oItemInfoList[i]);
-		}
-
-		for(int i = 0; i < oItemSaleInfoList.Count; ++i) {
-			this.ItemSaleInfoDict.TryAdd(oItemSaleInfoList[i].m_eItemKinds, oItemSaleInfoList[i]);
-		}
-
-		for(int i = 0; i < oItemEnhanceInfoList.Count; ++i) {
-			this.ItemEnhanceInfoDict.TryAdd(oItemEnhanceInfoList[i].m_eItemKinds, oItemEnhanceInfoList[i]);
-		}
 	}
 
 	/** 아이템 정보를 리셋한다 */

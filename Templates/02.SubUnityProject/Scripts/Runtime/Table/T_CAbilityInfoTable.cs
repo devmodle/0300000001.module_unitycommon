@@ -99,20 +99,6 @@ public partial struct STAbilityEnhanceInfo {
 
 /** 어빌리티 정보 테이블 */
 public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
-	#region 변수
-	[Header("=====> Stat Ability Info <=====")]
-	[SerializeField] private List<STAbilityInfo> m_oStatAbilityInfoList = new List<STAbilityInfo>();
-	[SerializeField] private List<STAbilityEnhanceInfo> m_oStatAbilityEnhanceInfoList = new List<STAbilityEnhanceInfo>();
-
-	[Header("=====> Buff Ability Info <=====")]
-	[SerializeField] private List<STAbilityInfo> m_oBuffAbilityInfoList = new List<STAbilityInfo>();
-	[SerializeField] private List<STAbilityEnhanceInfo> m_oBuffAbilityEnhanceInfoList = new List<STAbilityEnhanceInfo>();
-
-	[Header("=====> Debuff Ability Info <=====")]
-	[SerializeField] private List<STAbilityInfo> m_oDebuffAbilityInfoList = new List<STAbilityInfo>();
-	[SerializeField] private List<STAbilityEnhanceInfo> m_oDebuffAbilityEnhanceInfoList = new List<STAbilityEnhanceInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<EAbilityKinds, STAbilityInfo> AbilityInfoDict { get; private set; } = new Dictionary<EAbilityKinds, STAbilityInfo>();
 	public Dictionary<EAbilityKinds, STAbilityEnhanceInfo> AbilityEnhanceInfoDict { get; private set; } = new Dictionary<EAbilityKinds, STAbilityEnhanceInfo>();
@@ -139,22 +125,6 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	public void ResetAbilityInfos() {
 		this.AbilityInfoDict.Clear();
 		this.AbilityEnhanceInfoDict.Clear();
-
-		var oAbilityInfoList = new List<STAbilityInfo>(m_oStatAbilityInfoList);
-		oAbilityInfoList.ExAddVals(m_oBuffAbilityInfoList);
-		oAbilityInfoList.ExAddVals(m_oDebuffAbilityInfoList);
-
-		var oAbilityEnhanceInfoList = new List<STAbilityEnhanceInfo>(m_oStatAbilityEnhanceInfoList);
-		oAbilityEnhanceInfoList.ExAddVals(m_oBuffAbilityEnhanceInfoList);
-		oAbilityEnhanceInfoList.ExAddVals(m_oDebuffAbilityEnhanceInfoList);
-
-		for(int i = 0; i < oAbilityInfoList.Count; ++i) {
-			this.AbilityInfoDict.TryAdd(oAbilityInfoList[i].m_eAbilityKinds, oAbilityInfoList[i]);
-		}
-
-		for(int i = 0; i < oAbilityEnhanceInfoList.Count; ++i) {
-			this.AbilityEnhanceInfoDict.TryAdd(oAbilityEnhanceInfoList[i].m_eAbilityKinds, oAbilityEnhanceInfoList[i]);
-		}
 	}
 
 	/** 어빌리티 정보를 리셋한다 */

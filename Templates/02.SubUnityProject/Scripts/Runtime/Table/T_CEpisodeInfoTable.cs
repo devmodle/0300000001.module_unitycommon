@@ -187,17 +187,6 @@ public partial struct STEpisodeInfo {
 
 /** 에피소드 정보 테이블 */
 public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
-	#region 변수
-	[Header("=====> Level Episode Info <=====")]
-	[SerializeField] private List<STEpisodeInfo> m_oLevelEpisodeInfoList = new List<STEpisodeInfo>();
-
-	[Header("=====> Stage Episode Info <=====")]
-	[SerializeField] private List<STEpisodeInfo> m_oStageEpisodeInfoList = new List<STEpisodeInfo>();
-
-	[Header("=====> Chapter Episode Info <=====")]
-	[SerializeField] private List<STEpisodeInfo> m_oChapterEpisodeInfoList = new List<STEpisodeInfo>();
-	#endregion			// 변수
-
 	#region 프로퍼티
 	public Dictionary<ulong, STEpisodeInfo> LevelEpisodeInfoDict { get; private set; } = new Dictionary<ulong, STEpisodeInfo>();
 	public Dictionary<ulong, STEpisodeInfo> StageEpisodeInfoDict { get; private set; } = new Dictionary<ulong, STEpisodeInfo>();
@@ -234,18 +223,6 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		this.LevelEpisodeInfoDict.Clear();
 		this.StageEpisodeInfoDict.Clear();
 		this.ChapterEpisodeInfoDict.Clear();
-
-		for(int i = 0; i < m_oLevelEpisodeInfoList.Count; ++i) {
-			this.LevelEpisodeInfoDict.TryAdd(CFactory.MakeUniqueLevelID(i, m_oLevelEpisodeInfoList[i].m_stIDInfo.m_nID02, m_oLevelEpisodeInfoList[i].m_stIDInfo.m_nID03), m_oLevelEpisodeInfoList[i]);
-		}
-
-		for(int i = 0; i < m_oStageEpisodeInfoList.Count; ++i) {
-			this.StageEpisodeInfoDict.TryAdd(CFactory.MakeUniqueStageID(i, m_oStageEpisodeInfoList[i].m_stIDInfo.m_nID03), m_oStageEpisodeInfoList[i]);
-		}
-
-		for(int i = 0; i < m_oChapterEpisodeInfoList.Count; ++i) {
-			this.ChapterEpisodeInfoDict.TryAdd(CFactory.MakeUniqueChapterID(i), m_oChapterEpisodeInfoList[i]);
-		}
 	}
 
 	/** 에피소드 정보를 리셋한다 */
