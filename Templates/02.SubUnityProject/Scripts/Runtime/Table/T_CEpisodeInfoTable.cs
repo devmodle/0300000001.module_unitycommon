@@ -453,7 +453,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		}
 		
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteStr(this.EpisodeInfoTablePath, JsonConvert.DeserializeObject(oJSONNode.ToString()).ExToJSONStr(false, true));
+		CFunc.WriteStr(this.EpisodeInfoTablePath, JsonConvert.DeserializeObject(oJSONNode.ToString()).ExToJSONStr());
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
