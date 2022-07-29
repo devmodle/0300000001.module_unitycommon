@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 using EnhancedUI.EnhancedScroller;
@@ -67,12 +68,6 @@ namespace LevelEditorScene {
 
 			// 레벨 정보를 설정한다
 			m_oLevelInfoDict[EKey.SEL_LEVEL_INFO] = CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT);
-
-			// 터치 전달자를 설정한다
-			m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] = this.BGTouchResponder?.GetComponentInChildren<CTouchDispatcher>();
-			m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER]?.ExSetBeginCallback(this.OnTouchBegin, false);
-			m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER]?.ExSetMoveCallback(this.OnTouchMove, false);
-			m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER]?.ExSetEndCallback(this.OnTouchEnd, false);
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
 		}
 
@@ -424,28 +419,19 @@ namespace LevelEditorScene {
 		#endregion			// 프로퍼티
 		
 		#region 함수
-		/** 터치 시작 상태를 처리한다 */
-		private void HandleTouchBeginState(Vector3 a_stTouchPos) {
-			// 그리드 영역 일 경우
-			if(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(a_stTouchPos)) {
-				var stIdx = a_stTouchPos.ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);
-			}
+		/** 터치 시작 이벤트를 처리한다 */
+		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);
 		}
 
-		/** 터치 이동 상태를 처리한다 */
-		private void HandleTouchMoveState(Vector3 a_stTouchPos) {
-			// 그리드 영역 일 경우
-			if(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(a_stTouchPos)) {
-				var stIdx = a_stTouchPos.ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);
-			}
+		/** 터치 이동 이벤트를 처리한다 */
+		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);
 		}
 
-		/** 터치 종료 상태를 처리한다 */
-		private void HandleTouchEndState(Vector3 a_stTouchPos) {
-			// 그리드 영역 일 경우
-			if(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(a_stTouchPos)) {
-				var stIdx = a_stTouchPos.ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);
-			}
+		/** 터치 종료 이벤트를 처리한다 */
+		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);
 		}
 		#endregion			// 함수
 	}

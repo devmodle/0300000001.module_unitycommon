@@ -17,7 +17,6 @@ namespace LevelEditorScene {
 
 			ME_UIS_MSG_UIS,
 			LE_UIS_AB_SET_UIS,
-			BG_TOUCH_RESPONDER,
 
 			OBJ_ROOT,
 			[HideInInspector] MAX_VAL
@@ -32,6 +31,7 @@ namespace LevelEditorScene {
 		#region 프로퍼티
 		public override bool IsIgnoreBlindV => true;
 		public override bool IsIgnoreBlindH => true;
+		public override bool IsIgnoreBGTouchResponder => false;
 
 		public override float ScreenWidth => KCDefine.B_PORTRAIT_SCREEN_WIDTH;
 		public override float ScreenHeight => KCDefine.B_PORTRAIT_SCREEN_HEIGHT;
@@ -44,8 +44,6 @@ namespace LevelEditorScene {
 
 		protected GameObject MEUIsMsgUIs => m_oUIsDict[EKey.ME_UIS_MSG_UIS];
 		protected GameObject LEUIsABSetUIs => m_oUIsDict[EKey.LE_UIS_AB_SET_UIS];
-		protected GameObject BGTouchResponder => m_oUIsDict[EKey.BG_TOUCH_RESPONDER];
-
 		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
 		#endregion			// 프로퍼티
 
@@ -75,14 +73,6 @@ namespace LevelEditorScene {
 				CSceneManager.ScreenDebugUIs?.SetActive(false);
 				m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
 				// 객체를 설정한다 }
-
-				// 터치 전달자를 설정한다 {
-				CFunc.SetupTouchResponders(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.BG_TOUCH_RESPONDER, $"{EKey.BG_TOUCH_RESPONDER}", this.UIs, Resources.Load<GameObject>(KCDefine.U_OBJ_P_G_TOUCH_RESPONDER))
-				}, CSceneManager.CanvasSize, m_oUIsDict, false);
-				
-				m_oUIsDict[EKey.BG_TOUCH_RESPONDER]?.transform.SetAsFirstSibling();	
-				// 터치 전달자를 설정한다 }
 			}
 		}
 		#endregion			// 함수

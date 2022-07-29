@@ -12,11 +12,11 @@ public partial class CResultPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
-		CLEAR_UIS,
-		CLEAR_FAIL_UIS,
-
 		RECORD_TEXT,
 		BEST_RECORD_TEXT,
+
+		CLEAR_UIS,
+		CLEAR_FAIL_UIS,
 		[HideInInspector] MAX_VAL
 	}
 

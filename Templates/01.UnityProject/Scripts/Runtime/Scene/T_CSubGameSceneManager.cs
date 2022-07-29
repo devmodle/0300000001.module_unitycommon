@@ -16,7 +16,6 @@ namespace GameScene {
 			IS_LEAVE,
 			CONTINUE_TIMES,
 			SEL_REWARD_ADS_UIS,
-			BG_TOUCH_DISPATCHER,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -49,9 +48,7 @@ namespace GameScene {
 		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>() {
 			[EKey.SEL_REWARD_ADS_UIS] = ERewardAdsUIs.NONE
 		};
-
-		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>();
-
+		
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		private SampleEngineName.CEngine m_oEngine = null;
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
@@ -112,6 +109,22 @@ namespace GameScene {
 			}
 		}
 
+		/** 터치 이벤트를 처리한다 */
+		protected override void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
+			base.HandleTouchEvent(a_oSender, a_oEventData, a_eTouchEvent);
+
+			// 배경 터치 전달자 일 경우
+			if(this.BGTouchDispatcher == a_oSender) {
+				switch(a_eTouchEvent) {
+					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.END: this.HandleTouchEndEvent(a_oSender, a_oEventData); break;
+				}
+
+				m_oEngine.HandleTouchEvent(a_oSender, a_oEventData, a_eTouchEvent);
+			}
+		}
+
 		/** 그만두기 팝업 결과를 수신했을 경우 */
 		private void OnReceiveLeavePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
@@ -162,36 +175,6 @@ namespace GameScene {
 #if ADS_MODULE_ENABLE
 			Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif			// #if ADS_MODULE_ENABLE
-		}
-
-		/** 터치를 시작했을 경우 */
-		private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 배경 터치 전달자 일 경우
-			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-				m_oEngine.OnTouchBegin(a_oSender, a_oEventData);
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-			}
-		}
-
-		/** 터치를 이동했을 경우 */
-		private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 배경 터치 전달자 일 경우
-			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-				m_oEngine.OnTouchMove(a_oSender, a_oEventData);
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-			}
-		}
-
-		/** 터치를 종료했을 경우 */
-		private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 배경 터치 전달자 일 경우
-			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-				m_oEngine.OnTouchEnd(a_oSender, a_oEventData);
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-			}
 		}
 
 		/** 선택 아이템을 적용한다 */

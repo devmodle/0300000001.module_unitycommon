@@ -15,6 +15,7 @@ public partial struct STSkillInfo {
 	public ESkillKinds m_eSkillKinds;
 	public ESkillKinds m_ePrevSkillKinds;
 	public ESkillKinds m_eNextSkillKinds;
+	public ESkillTargetKinds m_eSkillTargetKinds;
 
 	public List<EFXKinds> m_oFXKindsList;
 	public List<EResKinds> m_oResKindsList;
@@ -30,6 +31,9 @@ public partial struct STSkillInfo {
 	#region 프로퍼티
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
 	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();
+	
+	public ESkillTargetType SkillTargetType => (ESkillTargetType)((int)m_eSkillTargetKinds).ExKindsToType();
+	public ESkillTargetKinds BaseSkillTargetKinds => (ESkillTargetKinds)((int)m_eSkillTargetKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -41,6 +45,7 @@ public partial struct STSkillInfo {
 		m_eSkillKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_ePrevSkillKinds = a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_eNextSkillKinds = a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].AsInt : ESkillKinds.NONE;
+		m_eSkillTargetKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_TARGET_KINDS].ExIsValid() ? (ESkillTargetKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_TARGET_KINDS].AsInt : ESkillTargetKinds.NONE;
 
 		m_oFXKindsList = new List<EFXKinds>();
 		m_oResKindsList = new List<EResKinds>();

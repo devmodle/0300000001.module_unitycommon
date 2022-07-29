@@ -86,11 +86,6 @@ namespace TitleScene {
 				(EKey.FACEBOOK_LOGIN_BTN, $"{EKey.FACEBOOK_LOGIN_BTN}", this.UIsBase, this.OnTouchFacebookLoginBtn)
 			}, m_oBtnDict, false);
 
-			// 터치 전달자를 설정한다
-			Func.SetupTouchDispatchers(new List<(EKey, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
-				(EKey.BG_TOUCH_DISPATCHER, this.BGTouchResponder, this.OnTouchBegin, this.OnTouchMove, this.OnTouchEnd)
-			}, m_oTouchDispatcherDict, false);
-
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupSubTestUIs();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
@@ -159,32 +154,21 @@ namespace TitleScene {
 		#endregion			// 프로퍼티
 
 		#region 함수
-		/** 터치를 시작했을 경우 */
-		private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 배경 터치 전달자 일 경우
-			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-				// Do Something
-			}
+		/** 터치 시작 이벤트를 처리한다 */
+		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			// Do Something
 		}
 
-		/** 터치를 이동했을 경우 */
-		private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 배경 터치 전달자 일 경우
-			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-				// Do Something
-			}
+		/** 터치 이동 이벤트를 처리한다 */
+		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			// Do Something
 		}
 
-		/** 터치를 종료했을 경우 */
-		private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 배경 터치 전달자 일 경우
-			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-				double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CSceneManager.ActiveSceneAwakeTime);
-
-				// 일정 시간이 지났을 경우
-				if(!m_oBoolDict[EKey.IS_TOUCH] && dblDeltaTime.ExIsGreate(KCDefine.B_VAL_1_REAL)) {
-					m_oBoolDict[EKey.IS_TOUCH] = true;
-				}
+		/** 터치 종료 이벤트를 처리한다 */
+		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			// 터치 가능 할 경우
+			if(!m_oBoolDict[EKey.IS_TOUCH]) {
+				m_oBoolDict[EKey.IS_TOUCH] = true;
 			}
 		}
 		#endregion			// 함수

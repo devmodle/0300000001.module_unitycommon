@@ -14,21 +14,20 @@ namespace GameScene {
 			SKILL_ROOT,
 			OBJ_ROOT,
 			FX_ROOT,
-			BG_TOUCH_RESPONDER,
 			[HideInInspector] MAX_VAL
 		}
 
 		#region 변수
 		/** =====> 객체 <===== */
-		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion			// 변수
 
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;
+		public override bool IsIgnoreBGTouchResponder => false;
+		
 		public override string SceneName => KCDefine.B_SCENE_N_GAME;
-		protected GameObject BGTouchResponder => m_oUIsDict[EKey.BG_TOUCH_RESPONDER];
 
 		protected GameObject ItemRoot => m_oObjDict[EKey.ITEM_ROOT];
 		protected GameObject SkillRoot => m_oObjDict[EKey.SKILL_ROOT];
@@ -50,14 +49,6 @@ namespace GameScene {
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null),
 					(EKey.FX_ROOT, $"{EKey.FX_ROOT}", this.Objs, null)
 				}, m_oObjDict, false);
-
-				// 터치 전달자를 설정한다 {
-				CFunc.SetupTouchResponders(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.BG_TOUCH_RESPONDER, $"{EKey.BG_TOUCH_RESPONDER}", this.UIs, Resources.Load<GameObject>(KCDefine.U_OBJ_P_G_TOUCH_RESPONDER))
-				}, CSceneManager.CanvasSize, m_oUIsDict, false);
-
-				m_oUIsDict[EKey.BG_TOUCH_RESPONDER]?.transform.SetAsFirstSibling();
-				// 터치 전달자를 설정한다 }
 			}
 		}
 		#endregion			// 함수

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using TMPro;
 using DG.Tweening;
 
@@ -22,7 +23,6 @@ namespace TitleScene {
 			GUEST_LOGIN_BTN,
 			APPLE_LOGIN_BTN,
 			FACEBOOK_LOGIN_BTN,
-			BG_TOUCH_DISPATCHER,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -35,8 +35,6 @@ namespace TitleScene {
 		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>() {
 			[EKey.TOUCH_ANI] = null
 		};
-
-		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>();
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
@@ -57,6 +55,21 @@ namespace TitleScene {
 			// 백 키 눌림 이벤트 일 경우
 			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
 				Func.ShowQuitPopup(this.OnReceiveQuitPopupResult);
+			}
+		}
+
+		/** 터치 이벤트를 처리한다 */
+		protected override void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
+			base.HandleTouchEvent(a_oSender, a_oEventData, a_eTouchEvent);
+			double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CSceneManager.ActiveSceneAwakeTime);
+			
+			// 배경 터치 전달자 일 경우
+			if(this.BGTouchDispatcher == a_oSender && dblDeltaTime.ExIsGreate(KCDefine.B_VAL_1_REAL)) {
+				switch(a_eTouchEvent) {
+					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.END: this.HandleTouchEndEvent(a_oSender, a_oEventData); break;
+				}
 			}
 		}
 

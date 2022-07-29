@@ -62,14 +62,14 @@ namespace SampleEngineName {
 			[EKey.SEL_GRID_INFO] = default(STGridInfo)
 		};
 
-		private Dictionary<EKey, CEPlayerObj> m_oPlayerObjDict = new Dictionary<EKey, CEPlayerObj>() {
+		private Dictionary<EKey, CEObj> m_oPlayerObjDict = new Dictionary<EKey, CEObj>() {
 			[EKey.SEL_PLAYER_OBJ] = null
 		};
 
 		private List<CEItem> m_oItemList = new List<CEItem>();
 		private List<CESkill> m_oSkillList = new List<CESkill>();
+		private List<CEObj> m_oEnemyObjList = new List<CEObj>();
 		private List<CEFX> m_oFXList = new List<CEFX>();
-		private List<CEEnemyObj> m_oEnemyObjList = new List<CEEnemyObj>();
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
@@ -84,7 +84,7 @@ namespace SampleEngineName {
 		public EEngineState EngineState { get; private set; } = EEngineState.NONE;
 
 		public STGridInfo SelGridInfo => m_oGridInfoDict[EKey.SEL_GRID_INFO];
-		public CEPlayerObj SelPlayerObj => m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ];
+		public CEObj SelPlayerObj => m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ];
 
 		public GameObject ItemRoot => m_stParams.m_oItemRoot;
 		public GameObject SkillRoot => m_stParams.m_oSkillRoot;
@@ -98,21 +98,6 @@ namespace SampleEngineName {
 		#endregion			// 프로퍼티
 		
 		#region 함수
-		/** 터치를 시작했을 경우 */
-		public void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			this.HandleTouchState(a_oSender, a_oEventData, ETouch.BEGIN);
-		}
-
-		/** 터치를 이동했을 경우 */
-		public void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			this.HandleTouchState(a_oSender, a_oEventData, ETouch.MOVE);
-		}
-
-		/** 터치를 종료했을 경우 */
-		public void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			this.HandleTouchState(a_oSender, a_oEventData, ETouch.END);
-		}
-
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stDirection) {
 			// Do Something
@@ -124,13 +109,15 @@ namespace SampleEngineName {
 		}
 
 		/** 터치 이벤트를 처리한다 */
-		private void HandleTouchState(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouch a_eTouch) {
+		public void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
+			var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot);
+
 			// 구동 상태 일 경우
-			if(this.State == EState.RUN) {
-				switch(a_eTouch) {
-					case ETouch.BEGIN: this.HandleTouchBeginState(a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot)); break;
-					case ETouch.MOVE: this.HandleTouchMoveState(a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot)); break;
-					case ETouch.END: this.HandleTouchEndState(a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot)); break;
+			if(this.State == EState.RUN && m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(stTouchPos)) {
+				switch(a_eTouchEvent) {
+					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.END: this.HandleTouchEndEvent(a_oSender, a_oEventData); break;
 				}
 			}
 		}

@@ -20,11 +20,11 @@ namespace StartScene {
 			STR_BUILDER_01,
 			STR_BUILDER_02,
 
-			LOADING_GAUGE,
-			
 			LOADING_TEXT,
 			SCENE_INFO_TEXT,
 			LOADING_GAUGE_HANDLER,
+
+			LOADING_GAUGE,
 			[HideInInspector] MAX_VAL
 		}
 

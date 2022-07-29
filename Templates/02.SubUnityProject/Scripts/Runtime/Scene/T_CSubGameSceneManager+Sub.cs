@@ -66,11 +66,6 @@ namespace GameScene {
 				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
 			}, false);
 
-			// 터치 전달자를 설정한다
-			Func.SetupTouchDispatchers(new List<(EKey, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
-				(EKey.BG_TOUCH_DISPATCHER, this.BGTouchResponder, this.OnTouchBegin, this.OnTouchMove, this.OnTouchEnd)
-			}, m_oTouchDispatcherDict, false);
-
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 			// 비율을 설정한다 {
 			bool bIsValid01 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.x) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.x);
@@ -187,6 +182,21 @@ namespace GameScene {
 		
 		/** 선택 아이템을 적용한다 */
 		private void ApplySelItem(EItemKinds a_eItemKinds) {
+			// Do Something
+		}
+
+		/** 터치 시작 이벤트를 처리한다 */
+		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			// Do Something
+		}
+
+		/** 터치 이동 이벤트를 처리한다 */
+		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			// Do Something
+		}
+
+		/** 터치 종료 이벤트를 처리한다 */
+		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// Do Something
 		}
 		#endregion			// 함수

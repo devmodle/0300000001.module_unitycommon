@@ -648,6 +648,31 @@ public enum ETargetKinds {
 
 	[HideInInspector] MAX_VAL
 }
+
+/** 스킬 타겟 타입 */
+public enum ESkillTargetType {
+	NONE = -1,
+	MULTI,
+	SINGLE,
+	[HideInInspector] MAX_VAL
+}
+
+/** 스킬 타겟 종류 */
+public enum ESkillTargetKinds {
+	NONE = -1,
+
+	#region 다수
+	// 0
+	MULTI = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 다수
+
+	#region 단일
+	// 0
+	SINGLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 단일
+
+	[HideInInspector] MAX_VAL
+}
 #endregion			// 기본
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -30,7 +30,6 @@ namespace LevelEditorScene {
 
 			SEL_SCROLLER,
 			SEL_OBJ_SPRITE,
-			BG_TOUCH_DISPATCHER,
 			
 			ME_UIS_MSG_TEXT,
 			ME_UIS_LEVEL_TEXT,
@@ -136,7 +135,6 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
-		private Dictionary<EKey, CTouchDispatcher> m_oTouchDispatcherDict = new Dictionary<EKey, CTouchDispatcher>();
 		private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>();
 
 		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>() {
@@ -345,6 +343,21 @@ namespace LevelEditorScene {
 
 		#region 조건부 함수
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE)
+		/** 터치 이벤트를 처리한다 */
+		protected override void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
+			base.HandleTouchEvent(a_oSender, a_oEventData, a_eTouchEvent);
+			var stTouchPos = a_oEventData.ExGetLocalPos(this.ObjRoot);
+			
+			// 배경 터치 전달자 일 경우
+			if(this.BGTouchDispatcher == a_oSender && m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(stTouchPos)) {
+				switch(a_eTouchEvent) {
+					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.END: this.HandleTouchEndEvent(a_oSender, a_oEventData); break;
+				}
+			}
+		}
+
 		/** 에디터 리셋 팝업 결과를 수신했을 경우 */
 		private void OnReceiveEditorResetPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
@@ -453,30 +466,6 @@ namespace LevelEditorScene {
 
 				this.UpdateUIsState();
 #endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-			}
-		}
-
-		/** 터치를 시작했을 경우 */
-		private void OnTouchBegin(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 배경 터치 전달자 일 경우
-			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-				this.HandleTouchState(a_oSender, a_oEventData, ETouch.BEGIN);
-			}
-		}
-
-		/** 터치를 이동했을 경우 */
-		private void OnTouchMove(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 배경 터치 전달자 일 경우
-			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-				this.HandleTouchState(a_oSender, a_oEventData, ETouch.MOVE);
-			}
-		}
-
-		/** 터치를 종료했을 경우 */
-		private void OnTouchEnd(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 배경 터치 전달자 일 경우
-			if(m_oTouchDispatcherDict[EKey.BG_TOUCH_DISPATCHER] == a_oSender) {
-				this.HandleTouchState(a_oSender, a_oEventData, ETouch.END);
 			}
 		}
 
@@ -652,15 +641,6 @@ namespace LevelEditorScene {
 						this.RemoveLevelInfos(m_oScrollerDict[EKey.SEL_SCROLLER], stIDInfo);
 					}
 				}
-			}
-		}
-
-		/** 터치 이벤트를 처리한다 */
-		private void HandleTouchState(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouch a_eTouch) {
-			switch(a_eTouch) {
-				case ETouch.BEGIN: this.HandleTouchBeginState(a_oEventData.ExGetLocalPos(this.ObjRoot)); break;
-				case ETouch.MOVE: this.HandleTouchMoveState(a_oEventData.ExGetLocalPos(this.ObjRoot)); break;
-				case ETouch.END: this.HandleTouchEndState(a_oEventData.ExGetLocalPos(this.ObjRoot)); break;
 			}
 		}
 

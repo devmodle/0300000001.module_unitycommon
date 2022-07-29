@@ -13,9 +13,9 @@ namespace LoadingScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			LOADING_GAUGE,
 			LOADING_TEXT,
 			LOADING_GAUGE_HANDLER,
+			LOADING_GAUGE,
 			[HideInInspector] MAX_VAL
 		}
 
