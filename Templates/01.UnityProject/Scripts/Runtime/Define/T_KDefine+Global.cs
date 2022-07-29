@@ -9,6 +9,9 @@ using UnityEngine.Events;
 /** 전역 상수 */
 public static partial class KDefine {
 	#region 기본
+	// 인덱스
+	public const int G_IDX_COMMON_CHARACTER = 0;
+
 	// 개수 {
 	public const int G_MAX_NUM_RECORDS = 9;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 9;
