@@ -677,6 +677,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 				m_nID03 = KCDefine.B_IDX_INVALID,
 			},
 
+			m_nNumSubEpisodes = stLevelEpisodeInfo.m_nNumSubEpisodes,
 			m_stSize = stLevelEpisodeInfo.m_stSize,
 			m_eDifficulty = stLevelEpisodeInfo.m_eDifficulty,
 			m_eEpisodeKinds = stLevelEpisodeInfo.m_eEpisodeKinds,
