@@ -166,7 +166,7 @@ namespace TitleScene {
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 터치 가능 할 경우
+			// 터치 모드가 아닐 경우
 			if(!m_oBoolDict[EKey.IS_TOUCH]) {
 				m_oBoolDict[EKey.IS_TOUCH] = true;
 			}

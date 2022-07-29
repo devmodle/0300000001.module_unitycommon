@@ -60,7 +60,7 @@ public partial struct STEpisodeInfo {
 		m_stCommonInfo = new STCommonInfo(a_oEpisodeInfo);
 
 		m_nNumSubEpisodes = a_oEpisodeInfo[KCDefine.U_KEY_NUM_SUB_EPISODES].ExIsValid() ? a_oEpisodeInfo[KCDefine.U_KEY_NUM_SUB_EPISODES].AsInt : KCDefine.B_VAL_0_INT;
-		m_stSize = new Vector3(a_oEpisodeInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat);
+		m_stSize = a_oEpisodeInfo[KCDefine.U_KEY_SIZE].ExIsValid() ? new Vector3(a_oEpisodeInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat) : Vector3.zero;
 		
 		m_eDifficulty = a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].ExIsValid() ? (EDifficulty)a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].AsInt : EDifficulty.NONE;
 		m_eEpisodeKinds = a_oEpisodeInfo[KCDefine.U_KEY_EPISODE_KINDS].ExIsValid() ? (EEpisodeKinds)a_oEpisodeInfo[KCDefine.U_KEY_EPISODE_KINDS].AsInt : EEpisodeKinds.NONE;
