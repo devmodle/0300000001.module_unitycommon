@@ -655,26 +655,19 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		var stReplaceLevelEpisodeInfo = new STEpisodeInfo() {
 			m_stCommonInfo = new STCommonInfo() {
-				m_oName = stLevelEpisodeInfo.m_stCommonInfo.m_oName ?? string.Empty,
-				m_oDesc = stLevelEpisodeInfo.m_stCommonInfo.m_oDesc ?? string.Empty
+				m_oName = stLevelEpisodeInfo.m_stCommonInfo.m_oName ?? string.Empty, m_oDesc = stLevelEpisodeInfo.m_stCommonInfo.m_oDesc ?? string.Empty
 			},
 
 			m_stIDInfo = new STIDInfo() {
-				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01,
-				m_nID02 = a_oLevelInfo.m_stIDInfo.m_nID02,
-				m_nID03 = a_oLevelInfo.m_stIDInfo.m_nID03
+				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01, m_nID02 = a_oLevelInfo.m_stIDInfo.m_nID02, m_nID03 = a_oLevelInfo.m_stIDInfo.m_nID03
 			},
 
 			m_stPrevIDInfo = new STIDInfo() {
-				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01 - KCDefine.B_VAL_1_INT,
-				m_nID02 = KCDefine.B_IDX_INVALID,
-				m_nID03 = KCDefine.B_IDX_INVALID,
+				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01 - KCDefine.B_VAL_1_INT, m_nID02 = KCDefine.B_IDX_INVALID, m_nID03 = KCDefine.B_IDX_INVALID,
 			},
 
 			m_stNextIDInfo = new STIDInfo() {
-				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT,
-				m_nID02 = KCDefine.B_IDX_INVALID,
-				m_nID03 = KCDefine.B_IDX_INVALID,
+				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT, m_nID02 = KCDefine.B_IDX_INVALID, m_nID03 = KCDefine.B_IDX_INVALID,
 			},
 
 			m_nNumSubEpisodes = stLevelEpisodeInfo.m_nNumSubEpisodes,

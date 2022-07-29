@@ -74,9 +74,9 @@ public partial struct STEpisodeInfo {
 		m_oDropItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		m_oEnemyObjTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
-		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stIDInfo);
-		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_PREV_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stPrevIDInfo);
-		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_NEXT_ID, KCDefine.B_VAL_0_INT, a_oEpisodeInfo, out m_stNextIDInfo);
+		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_ID, a_oEpisodeInfo, out m_stIDInfo);
+		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_PREV_ID, a_oEpisodeInfo, out m_stPrevIDInfo);
+		STEpisodeInfo.SetupIDInfo(KCDefine.U_KEY_FMT_NEXT_ID, a_oEpisodeInfo, out m_stNextIDInfo);
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_KINDS; ++i) {
 			string oKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
@@ -109,15 +109,15 @@ public partial struct STEpisodeInfo {
 	}
 
 	/** 식별자 정보를 설정한다 */
-	private static void SetupIDInfo(string a_oIDFmt, int a_nDefID, SimpleJSON.JSONNode a_oEpisodeInfo, out STIDInfo a_stOutIDInfo) {
+	private static void SetupIDInfo(string a_oIDFmt, SimpleJSON.JSONNode a_oEpisodeInfo, out STIDInfo a_stOutIDInfo) {
 		string oID01Key = string.Format(a_oIDFmt, KCDefine.B_VAL_1_INT);
 		string oID02Key = string.Format(a_oIDFmt, KCDefine.B_VAL_2_INT);
 		string oID03Key = string.Format(a_oIDFmt, KCDefine.B_VAL_3_INT);
 		
 		a_stOutIDInfo = new STIDInfo() {
-			m_nID01 = a_oEpisodeInfo[oID01Key].ExIsValid() ? a_oEpisodeInfo[oID01Key].AsInt : a_nDefID,
-			m_nID02 = a_oEpisodeInfo[oID02Key].ExIsValid() ? a_oEpisodeInfo[oID02Key].AsInt : a_nDefID,
-			m_nID03 = a_oEpisodeInfo[oID03Key].ExIsValid() ? a_oEpisodeInfo[oID03Key].AsInt : a_nDefID
+			m_nID01 = a_oEpisodeInfo[oID01Key].ExIsValid() ? a_oEpisodeInfo[oID01Key].AsInt : KCDefine.B_IDX_INVALID,
+			m_nID02 = a_oEpisodeInfo[oID02Key].ExIsValid() ? a_oEpisodeInfo[oID02Key].AsInt : KCDefine.B_IDX_INVALID,
+			m_nID03 = a_oEpisodeInfo[oID03Key].ExIsValid() ? a_oEpisodeInfo[oID03Key].AsInt : KCDefine.B_IDX_INVALID
 		};
 	}
 
@@ -392,7 +392,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 				var stStageEpisodeInfo = new STEpisodeInfo(oStageEpisodeInfosList[i][j]);
 
 				// 스테이지 에피소드 정보 추가 가능 할 경우
-				if(stStageEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stStageEpisodeInfo.m_stIDInfo.UniqueID02) || oStageEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				if(stStageEpisodeInfo.m_stIDInfo.m_nID02.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stStageEpisodeInfo.m_stIDInfo.UniqueID02) || oStageEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.StageEpisodeInfoDict.ExReplaceVal(stStageEpisodeInfo.m_stIDInfo.UniqueID02, stStageEpisodeInfo);
 				}
 			}
@@ -403,7 +403,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 				var stChapterEpisodeInfo = new STEpisodeInfo(oChapterEpisodeInfosList[i][j]);
 
 				// 챕터 에피소드 정보 추가 가능 할 경우
-				if(stChapterEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stChapterEpisodeInfo.m_stIDInfo.UniqueID03) || oChapterEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				if(stChapterEpisodeInfo.m_stIDInfo.m_nID03.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stChapterEpisodeInfo.m_stIDInfo.UniqueID03) || oChapterEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 					this.ChapterEpisodeInfoDict.ExReplaceVal(stChapterEpisodeInfo.m_stIDInfo.UniqueID03, stChapterEpisodeInfo);
 				}
 			}
