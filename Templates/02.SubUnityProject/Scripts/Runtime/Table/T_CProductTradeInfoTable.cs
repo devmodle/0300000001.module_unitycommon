@@ -14,7 +14,7 @@ using UnityEngine.Purchasing;
 [System.Serializable]
 public partial struct STProductTradeInfo {
 	public STCommonInfo m_stCommonInfo;
-	public int m_nTableIdx;
+	public int m_nProductIdx;
 
 	public EProductKinds m_eProductKinds;
 	public EProductKinds m_ePrevProductKinds;
@@ -39,7 +39,7 @@ public partial struct STProductTradeInfo {
 	/** 생성자 */
 	public STProductTradeInfo(SimpleJSON.JSONNode a_oProductTradeInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oProductTradeInfo);
-		m_nTableIdx = a_oProductTradeInfo[KCDefine.U_KEY_TABLE_IDX].AsInt;
+		m_nProductIdx = a_oProductTradeInfo[KCDefine.U_KEY_PRODUCT_IDX].AsInt;
 
 		m_eProductKinds = a_oProductTradeInfo[KCDefine.U_KEY_PRODUCT_KINDS].ExIsValid() ? (EProductKinds)a_oProductTradeInfo[KCDefine.U_KEY_PRODUCT_KINDS].AsInt : EProductKinds.NONE;
 		m_ePrevProductKinds = a_oProductTradeInfo[KCDefine.U_KEY_PREV_PRODUCT_KINDS].ExIsValid() ? (EProductKinds)a_oProductTradeInfo[KCDefine.U_KEY_PREV_PRODUCT_KINDS].AsInt : EProductKinds.NONE;
@@ -97,8 +97,8 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	}
 
 	/** 구입 상품 교환 정보를 반환한다 */
-	public STProductTradeInfo GetBuyProductTradeTradeInfo(int a_nTableIdx) {
-		bool bIsValid = this.TryGetBuyProductTradeInfo(a_nTableIdx, out STProductTradeInfo stProductTradeInfo);
+	public STProductTradeInfo GetBuyProductTradeTradeInfo(int a_nProductIdx) {
+		bool bIsValid = this.TryGetBuyProductTradeInfo(a_nProductIdx, out STProductTradeInfo stProductTradeInfo);
 		CAccess.Assert(bIsValid);
 
 		return stProductTradeInfo;
@@ -113,8 +113,8 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	}
 
 	/** 구입 상품 교환 정보를 반환한다 */
-	public bool TryGetBuyProductTradeInfo(int a_nTableIdx, out STProductTradeInfo a_stOutProductTradeInfo) {
-		a_stOutProductTradeInfo = this.BuyProductTradeInfoDict.ExGetVal((a_stProductTradeInfo) => a_stProductTradeInfo.m_nTableIdx == a_nTableIdx, STProductTradeInfo.INVALID);
+	public bool TryGetBuyProductTradeInfo(int a_nProductIdx, out STProductTradeInfo a_stOutProductTradeInfo) {
+		a_stOutProductTradeInfo = this.BuyProductTradeInfoDict.ExGetVal((a_stProductTradeInfo) => a_stProductTradeInfo.m_nProductIdx == a_nProductIdx, STProductTradeInfo.INVALID);
 		return !a_stOutProductTradeInfo.Equals(STProductTradeInfo.INVALID);
 	}
 

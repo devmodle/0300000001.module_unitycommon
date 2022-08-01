@@ -848,8 +848,8 @@ public static partial class Func {
 
 #if PURCHASE_MODULE_ENABLE
 	/** 상품을 결제한다 */
-	public static void PurchaseProduct(int a_nTableIdx, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		Func.PurchaseProduct(CProductInfoTable.Inst.GetProductInfo(a_nTableIdx).m_oID, a_oCallback, a_bIsEnableAssert);
+	public static void PurchaseProduct(int a_nProductIdx, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+		Func.PurchaseProduct(CProductInfoTable.Inst.GetProductInfo(a_nProductIdx).m_oID, a_oCallback, a_bIsEnableAssert);
 	}
 
 	/** 상품을 결제한다 */
@@ -859,7 +859,7 @@ public static partial class Func {
 		
 		// 상품이 존재 할 경우
 		if(bIsValid) {
-			Func.PurchaseProduct(stProductTradeInfo.m_nTableIdx, a_oCallback, a_bIsEnableAssert);
+			Func.PurchaseProduct(stProductTradeInfo.m_nProductIdx, a_oCallback, a_bIsEnableAssert);
 		}
 	}
 	

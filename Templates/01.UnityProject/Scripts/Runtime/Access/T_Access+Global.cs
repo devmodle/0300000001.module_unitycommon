@@ -40,7 +40,7 @@ public static partial class Access {
 		switch(a_stTargetInfo.TargetType) {
 			case ETargetType.ITEM: return Access.IsEnableItemTargetTrade(a_oTargetInfo as CItemTargetInfo, a_stTargetInfo);
 			case ETargetType.SKILL: return Access.IsEnableSkillTargetTrade(a_oTargetInfo as CSkillTargetInfo, a_stTargetInfo);
-			case ETargetType.OBJ: return Access.IsEnableObjTargetTrade(a_oTargetInfo as CObjInfo, a_stTargetInfo);
+			case ETargetType.OBJ: return Access.IsEnableObjTargetTrade(a_oTargetInfo as CObjTargetInfo, a_stTargetInfo);
 		}
 
 		return false;
@@ -73,33 +73,33 @@ public static partial class Access {
 	}
 
 	/** 아이템 타겟 정보를 반환한다 */
-	public static CItemTargetInfo GetItemTargetInfo(int a_nIdx, EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
+	public static CItemTargetInfo GetItemTargetInfo(int a_nCharacterIdx, EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
-		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetItemTargetInfo(a_nIdx, a_eItemKinds, out CItemTargetInfo oItemTargetInfo)) {
-			CUserInfoStorage.Inst.AddTargetInfo(a_nIdx, Factory.MakeItemTargetInfo(a_eItemKinds, a_nLV, a_nNums), CItemInfoTable.Inst.GetItemInfo(a_eItemKinds).m_stCommonInfo.m_bIsRepeat);
+		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetItemTargetInfo(a_nCharacterIdx, a_eItemKinds, out CItemTargetInfo oItemTargetInfo)) {
+			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterIdx, Factory.MakeItemTargetInfo(a_eItemKinds, a_nLV, a_nNums), CItemInfoTable.Inst.GetItemInfo(a_eItemKinds).m_stCommonInfo.m_bIsRepeat);
 		}
 
-		return CUserInfoStorage.Inst.TryGetItemTargetInfo(a_nIdx, a_eItemKinds, out oItemTargetInfo) ? oItemTargetInfo : null;
+		return CUserInfoStorage.Inst.TryGetItemTargetInfo(a_nCharacterIdx, a_eItemKinds, out oItemTargetInfo) ? oItemTargetInfo : null;
 	}
 
 	/** 스킬 타겟 정보를 반환한다 */
-	public static CSkillTargetInfo GetSkillTargetInfo(int a_nIdx, ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
+	public static CSkillTargetInfo GetSkillTargetInfo(int a_nCharacterIdx, ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
-		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nIdx, a_eSkillKinds, out CSkillTargetInfo oSkillTargetInfo)) {
-			CUserInfoStorage.Inst.AddTargetInfo(a_nIdx, Factory.MakeSkillTargetInfo(a_eSkillKinds, a_nLV, a_nNums), CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds).m_stCommonInfo.m_bIsRepeat);
+		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nCharacterIdx, a_eSkillKinds, out CSkillTargetInfo oSkillTargetInfo)) {
+			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterIdx, Factory.MakeSkillTargetInfo(a_eSkillKinds, a_nLV, a_nNums), CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds).m_stCommonInfo.m_bIsRepeat);
 		}
 
-		return CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nIdx, a_eSkillKinds, out oSkillTargetInfo) ? oSkillTargetInfo : null;
+		return CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nCharacterIdx, a_eSkillKinds, out oSkillTargetInfo) ? oSkillTargetInfo : null;
 	}
 
-	/** 객체 정보를 반환한다 */
-	public static CObjInfo GetObjInfo(int a_nIdx, EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
+	/** 객체 타겟 정보를 반환한다 */
+	public static CObjTargetInfo GetObjTargetInfo(int a_nCharacterIdx, EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
-		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetObjTargetInfo(a_nIdx, a_eObjKinds, out CObjInfo oObjInfo)) {
-			CUserInfoStorage.Inst.AddTargetInfo(a_nIdx, Factory.MakeObjTargetInfo(a_eObjKinds, a_nLV, a_nNums), CObjInfoTable.Inst.GetObjInfo(a_eObjKinds).m_stCommonInfo.m_bIsRepeat);
+		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetObjTargetInfo(a_nCharacterIdx, a_eObjKinds, out CObjTargetInfo oObjTargetInfo)) {
+			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterIdx, Factory.MakeObjTargetInfo(a_eObjKinds, a_nLV, a_nNums), CObjInfoTable.Inst.GetObjInfo(a_eObjKinds).m_stCommonInfo.m_bIsRepeat);
 		}
 
-		return CUserInfoStorage.Inst.TryGetObjTargetInfo(a_nIdx, a_eObjKinds, out oObjInfo) ? oObjInfo : null;
+		return CUserInfoStorage.Inst.TryGetObjTargetInfo(a_nCharacterIdx, a_eObjKinds, out oObjTargetInfo) ? oObjTargetInfo : null;
 	}
 	
 	/** 교환 가능 여부를 검사한다 */
@@ -130,9 +130,9 @@ public static partial class Access {
 	}
 
 	/** 객체 타겟 교환 가능 여부를 검사한다 */
-	private static bool IsEnableObjTargetTrade(CObjInfo a_oObjInfo, STTargetInfo a_stTargetInfo) {
+	private static bool IsEnableObjTargetTrade(CObjTargetInfo a_oObjTargetInfo, STTargetInfo a_stTargetInfo) {
 		CAccess.Assert(CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.m_nKinds, out STObjInfo stObjInfo));
-		return Access.DoIsEnableTrade(a_oObjInfo, a_stTargetInfo);
+		return Access.DoIsEnableTrade(a_oObjTargetInfo, a_stTargetInfo);
 	}
 	#endregion			// 클래스 함수
 }

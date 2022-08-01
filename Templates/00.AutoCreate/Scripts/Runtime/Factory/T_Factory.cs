@@ -71,17 +71,17 @@ public static partial class Factory {
 	}
 
 	/** 객체 타겟 정보를 생성한다 */
-	public static CObjInfo MakeObjTargetInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
-		var oObjInfo = new CObjInfo() {
+	public static CObjTargetInfo MakeObjTargetInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
+		var oObjTargetInfo = new CObjTargetInfo() {
 			ObjKinds = a_eObjKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo
 		};
 
 		var stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds);
-		stObjInfo.m_oAbilityTargetInfoDict.ExCopyTo(oObjInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
-		Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums).ExCopyTo(oObjInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+		stObjInfo.m_oAbilityTargetInfoDict.ExCopyTo(oObjTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+		Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums).ExCopyTo(oObjTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 		
-		oObjInfo.OnAfterDeserialize();
-		return oObjInfo;
+		oObjTargetInfo.OnAfterDeserialize();
+		return oObjTargetInfo;
 	}
 
 	/** 기본 어빌리티 타겟 정보를 생성한다 */

@@ -44,8 +44,8 @@ public partial class CProductTradePopup : CSubPopup {
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 상품이 존재 할 경우
-		if(Access.GetProduct(a_stProductTradeInfo.m_nTableIdx) != null) {
-			oPriceText?.ExSetText(Access.GetPriceStr(a_stProductTradeInfo.m_nTableIdx), EFontSet._1, false);
+		if(Access.GetProduct(a_stProductTradeInfo.m_nProductIdx) != null) {
+			oPriceText?.ExSetText(Access.GetPriceStr(a_stProductTradeInfo.m_nProductIdx), EFontSet._1, false);
 		}
 #endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 		// 텍스트를 설정한다 }
@@ -55,7 +55,7 @@ public partial class CProductTradePopup : CSubPopup {
 		oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
 
 #if PURCHASE_MODULE_ENABLE
-		var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductTradeInfo.m_nTableIdx);
+		var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductTradeInfo.m_nProductIdx);
 
 		// 비소모 상품 일 경우
 		if(stProductInfo.m_eProductType == ProductType.NonConsumable) {

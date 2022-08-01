@@ -237,7 +237,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	}
 
 	/** 레벨 에피소드 기록 값 정보를 반환한다 */
-	public STValInfo GetLevelEpisodeRecordValInfo(int a_nLevelID, int a_nIdx, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public STValInfo GetLevelEpisodeRecordValInfo(int a_nIdx, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.TryGetLevelEpisodeInfo(a_nLevelID, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID);
 		return stLevelEpisodeInfo.m_oRecordValInfoList.ExGetVal(a_nIdx, STValInfo.INVALID);
 	}
@@ -255,7 +255,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	}
 
 	/** 스테이지 에피소드 기록 값 정보를 반환한다 */
-	public STValInfo GetStageEpisodeRecordValInfo(int a_nStageID, int a_nIdx, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public STValInfo GetStageEpisodeRecordValInfo(int a_nIdx, int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID);
 		return stStageEpisodeInfo.m_oRecordValInfoList.ExGetVal(a_nIdx, STValInfo.INVALID);
 	}
@@ -273,7 +273,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	}
 
 	/** 챕터 에피소드 기록 값 정보를 반환한다 */
-	public STValInfo GetChapterEpisodeRecordValInfo(int a_nChapterID, int a_nIdx) {
+	public STValInfo GetChapterEpisodeRecordValInfo(int a_nIdx, int a_nChapterID) {
 		this.TryGetChapterEpisodeInfo(a_nChapterID, out STEpisodeInfo stChapterEpisodeInfo);
 		return stChapterEpisodeInfo.m_oRecordValInfoList.ExGetVal(a_nIdx, STValInfo.INVALID);
 	}

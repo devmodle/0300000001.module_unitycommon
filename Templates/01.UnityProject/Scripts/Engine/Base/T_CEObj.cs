@@ -20,7 +20,7 @@ namespace SampleEngineName {
 		public new partial struct STParams {
 			public CEComponent.STParams m_stBaseParams;
 			public STObjInfo m_stObjInfo;
-			public CObjInfo m_oObjTargetInfo;
+			public CObjTargetInfo m_oObjTargetInfo;
 		}
 
 		#region 변수
@@ -31,7 +31,7 @@ namespace SampleEngineName {
 		#region 프로퍼티
 		public Vector3Int Idx { get; set; } = Vector3Int.zero;
 		public STObjInfo ObjInfo => m_stParams.m_stObjInfo;
-		public CObjInfo ObjTargetInfo => m_stParams.m_oObjTargetInfo;
+		public CObjTargetInfo ObjTargetInfo => m_stParams.m_oObjTargetInfo;
 		#endregion			// 프로퍼티
 
 		#region 함수

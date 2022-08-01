@@ -32,7 +32,7 @@ namespace SampleEngineName {
 		}
 
 		/** 객체 매개 변수를 생성한다 */
-		public static CEObj.STParams MakeObjParams(CEngine a_oEngine, STObjInfo a_stObjInfo, CObjInfo a_oObjTargetInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static CEObj.STParams MakeObjParams(CEngine a_oEngine, STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new CEObj.STParams() {
 				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_stObjInfo = a_stObjInfo, m_oObjTargetInfo = a_oObjTargetInfo
 			};
