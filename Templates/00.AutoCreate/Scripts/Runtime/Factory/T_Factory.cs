@@ -57,17 +57,17 @@ public static partial class Factory {
 	}
 
 	/** 스킬 타겟 정보를 생성한다 */
-	public static CSkillInfo MakeSkillTargetInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
-		var oSkillInfo = new CSkillInfo() {
+	public static CSkillTargetInfo MakeSkillTargetInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
+		var oSkillTargetInfo = new CSkillTargetInfo() {
 			SkillKinds = a_eSkillKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo
 		};
 
 		var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds);
-		stSkillInfo.m_oAbilityTargetInfoDict.ExCopyTo(oSkillInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
-		Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums).ExCopyTo(oSkillInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+		stSkillInfo.m_oAbilityTargetInfoDict.ExCopyTo(oSkillTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+		Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums).ExCopyTo(oSkillTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
-		oSkillInfo.OnAfterDeserialize();
-		return oSkillInfo;
+		oSkillTargetInfo.OnAfterDeserialize();
+		return oSkillTargetInfo;
 	}
 
 	/** 객체 타겟 정보를 생성한다 */

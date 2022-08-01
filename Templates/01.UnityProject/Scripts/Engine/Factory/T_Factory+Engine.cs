@@ -18,23 +18,23 @@ namespace SampleEngineName {
 		}
 
 		/** 아이템 매개 변수를 생성한다 */
-		public static CEItem.STParams MakeItemParams(CEngine a_oEngine, STItemInfo a_stTableItemInfo, CItemTargetInfo a_oStorageItemInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static CEItem.STParams MakeItemParams(CEngine a_oEngine, STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new CEItem.STParams() {
-				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_stTableItemInfo = a_stTableItemInfo, m_oStorageItemInfo = a_oStorageItemInfo
+				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_stItemInfo = a_stItemInfo, m_oItemTargetInfo = a_oItemTargetInfo
 			};
 		}
 		
 		/** 스킬 매개 변수를 생성한다 */
-		public static CESkill.STParams MakeSkillParams(CEngine a_oEngine, STSkillInfo a_stTableSkillInfo, CSkillInfo a_oStorageSkillInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static CESkill.STParams MakeSkillParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new CESkill.STParams() {
-				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_stTableSkillInfo = a_stTableSkillInfo, m_oStorageSkillInfo = a_oStorageSkillInfo
+				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_stSkillInfo = a_stSkillInfo, m_oSkillTargetInfo = a_oSkillTargetInfo
 			};
 		}
 
 		/** 객체 매개 변수를 생성한다 */
-		public static CEObj.STParams MakeObjParams(CEngine a_oEngine, STObjInfo a_stTableObjInfo, CObjInfo a_oStorageObjInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static CEObj.STParams MakeObjParams(CEngine a_oEngine, STObjInfo a_stObjInfo, CObjInfo a_oObjTargetInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new CEObj.STParams() {
-				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_stTableObjInfo = a_stTableObjInfo, m_oStorageObjInfo = a_oStorageObjInfo
+				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_stObjInfo = a_stObjInfo, m_oObjTargetInfo = a_oObjTargetInfo
 			};
 		}
 

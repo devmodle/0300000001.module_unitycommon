@@ -39,7 +39,7 @@ public static partial class Access {
 	public static bool IsEnableTrade(CTargetInfo a_oTargetInfo, STTargetInfo a_stTargetInfo) {
 		switch(a_stTargetInfo.TargetType) {
 			case ETargetType.ITEM: return Access.IsEnableItemTargetTrade(a_oTargetInfo as CItemTargetInfo, a_stTargetInfo);
-			case ETargetType.SKILL: return Access.IsEnableSkillTargetTrade(a_oTargetInfo as CSkillInfo, a_stTargetInfo);
+			case ETargetType.SKILL: return Access.IsEnableSkillTargetTrade(a_oTargetInfo as CSkillTargetInfo, a_stTargetInfo);
 			case ETargetType.OBJ: return Access.IsEnableObjTargetTrade(a_oTargetInfo as CObjInfo, a_stTargetInfo);
 		}
 
@@ -82,14 +82,14 @@ public static partial class Access {
 		return CUserInfoStorage.Inst.TryGetItemTargetInfo(a_nIdx, a_eItemKinds, out oItemTargetInfo) ? oItemTargetInfo : null;
 	}
 
-	/** 스킬 정보를 반환한다 */
-	public static CSkillInfo GetSkillInfo(int a_nIdx, ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
+	/** 스킬 타겟 정보를 반환한다 */
+	public static CSkillTargetInfo GetSkillTargetInfo(int a_nIdx, ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
-		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nIdx, a_eSkillKinds, out CSkillInfo oSkillInfo)) {
+		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nIdx, a_eSkillKinds, out CSkillTargetInfo oSkillTargetInfo)) {
 			CUserInfoStorage.Inst.AddTargetInfo(a_nIdx, Factory.MakeSkillTargetInfo(a_eSkillKinds, a_nLV, a_nNums), CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds).m_stCommonInfo.m_bIsRepeat);
 		}
 
-		return CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nIdx, a_eSkillKinds, out oSkillInfo) ? oSkillInfo : null;
+		return CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nIdx, a_eSkillKinds, out oSkillTargetInfo) ? oSkillTargetInfo : null;
 	}
 
 	/** 객체 정보를 반환한다 */
@@ -124,9 +124,9 @@ public static partial class Access {
 	}
 
 	/** 스킬 타겟 교환 가능 여부를 검사한다 */
-	private static bool IsEnableSkillTargetTrade(CSkillInfo a_oSkillInfo, STTargetInfo a_stTargetInfo) {
+	private static bool IsEnableSkillTargetTrade(CSkillTargetInfo a_oSkillTargetInfo, STTargetInfo a_stTargetInfo) {
 		CAccess.Assert(CSkillInfoTable.Inst.TryGetSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds, out STSkillInfo stSkillInfo));
-		return Access.DoIsEnableTrade(a_oSkillInfo, a_stTargetInfo);
+		return Access.DoIsEnableTrade(a_oSkillTargetInfo, a_stTargetInfo);
 	}
 
 	/** 객체 타겟 교환 가능 여부를 검사한다 */

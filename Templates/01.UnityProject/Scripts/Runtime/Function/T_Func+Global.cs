@@ -35,7 +35,7 @@ public static partial class Func {
 	public static void Pay(int a_nIdx, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
 		switch(a_stTargetInfo.TargetType) {
 			case ETargetType.ITEM: Func.PayItemTarget(Access.GetItemTargetInfo(a_nIdx, (EItemKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert); break;
-			case ETargetType.SKILL: Func.PaySkillTarget(Access.GetSkillInfo(a_nIdx, (ESkillKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert); break;
+			case ETargetType.SKILL: Func.PaySkillTarget(Access.GetSkillTargetInfo(a_nIdx, (ESkillKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert); break;
 			case ETargetType.OBJ: Func.PayObjTarget(Access.GetObjInfo(a_nIdx, (EObjKinds)a_stTargetInfo.m_nKinds), a_stTargetInfo, a_bIsEnableAssert); break;
 		}
 	}
@@ -44,7 +44,7 @@ public static partial class Func {
 	public static void Pay(CTargetInfo a_oTargetInfo, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
 		switch(a_stTargetInfo.TargetType) {
 			case ETargetType.ITEM: Func.PayItemTarget(a_oTargetInfo as CItemTargetInfo, a_stTargetInfo, a_bIsEnableAssert); break;
-			case ETargetType.SKILL: Func.PaySkillTarget(a_oTargetInfo as CSkillInfo, a_stTargetInfo, a_bIsEnableAssert); break;
+			case ETargetType.SKILL: Func.PaySkillTarget(a_oTargetInfo as CSkillTargetInfo, a_stTargetInfo, a_bIsEnableAssert); break;
 			case ETargetType.OBJ: Func.PayObjTarget(a_oTargetInfo as CObjInfo, a_stTargetInfo, a_bIsEnableAssert); break;
 		}
 	}
@@ -77,7 +77,7 @@ public static partial class Func {
 	public static void Acquire(int a_nIdx, STTargetInfo a_stTargetInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
 		switch(a_stTargetInfo.TargetType) {
 			case ETargetType.ITEM: Func.AcquireItemTarget(Access.GetItemTargetInfo(a_nIdx, (EItemKinds)a_stTargetInfo.m_nKinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert); break;
-			case ETargetType.SKILL: Func.AcquireSkillTarget(Access.GetSkillInfo(a_nIdx, (ESkillKinds)a_stTargetInfo.m_nKinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert); break;
+			case ETargetType.SKILL: Func.AcquireSkillTarget(Access.GetSkillTargetInfo(a_nIdx, (ESkillKinds)a_stTargetInfo.m_nKinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert); break;
 			case ETargetType.OBJ: Func.AcquireObjTarget(Access.GetObjInfo(a_nIdx, (EObjKinds)a_stTargetInfo.m_nKinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_stTargetInfo, a_bIsEnableAssert); break;
 		}
 	}
@@ -86,7 +86,7 @@ public static partial class Func {
 	public static void Acquire(CTargetInfo a_oTargetInfo, STTargetInfo a_stTargetInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
 		switch(a_stTargetInfo.TargetType) {
 			case ETargetType.ITEM: Func.AcquireItemTarget(a_oTargetInfo as CItemTargetInfo, a_stTargetInfo, a_bIsEnableAssert); break;
-			case ETargetType.SKILL: Func.AcquireSkillTarget(a_oTargetInfo as CSkillInfo, a_stTargetInfo, a_bIsEnableAssert); break;
+			case ETargetType.SKILL: Func.AcquireSkillTarget(a_oTargetInfo as CSkillTargetInfo, a_stTargetInfo, a_bIsEnableAssert); break;
 			case ETargetType.OBJ: Func.AcquireObjTarget(a_oTargetInfo as CObjInfo, a_stTargetInfo, a_bIsEnableAssert); break;
 		}
 	}
@@ -254,20 +254,20 @@ public static partial class Func {
 		bool bIsValid = CItemInfoTable.Inst.TryGetItemInfo((EItemKinds)a_stTargetInfo.Kinds, out STItemInfo stItemInfo);
 		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && a_oItemTargetInfo != null));
 
-		// 아이템 정보가 존재 할 경우
+		// 아이템 타겟 정보가 존재 할 경우
 		if(bIsValid && a_oItemTargetInfo != null) {
 			Func.DoPay(a_oItemTargetInfo, a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 
 	/** 스킬 타겟을 지불한다 */
-	private static void PaySkillTarget(CSkillInfo a_oSkillInfo, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
+	private static void PaySkillTarget(CSkillTargetInfo a_oSkillTargetInfo, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
 		bool bIsValid = CSkillInfoTable.Inst.TryGetSkillInfo((ESkillKinds)a_stTargetInfo.Kinds, out STSkillInfo stSkillInfo);
-		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && a_oSkillInfo != null));
+		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && a_oSkillTargetInfo != null));
 
-		// 스킬 정보가 존재 할 경우
-		if(bIsValid && a_oSkillInfo != null) {
-			Func.DoPay(a_oSkillInfo, a_stTargetInfo, a_bIsEnableAssert);
+		// 스킬 타겟 정보가 존재 할 경우
+		if(bIsValid && a_oSkillTargetInfo != null) {
+			Func.DoPay(a_oSkillTargetInfo, a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 
@@ -325,13 +325,13 @@ public static partial class Func {
 	}
 
 	/** 스킬 타겟을 획득한다 */
-	private static void AcquireSkillTarget(CSkillInfo a_oSkillInfo, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
+	private static void AcquireSkillTarget(CSkillTargetInfo a_oSkillTargetInfo, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
 		bool bIsValid = CSkillInfoTable.Inst.TryGetSkillInfo((ESkillKinds)a_stTargetInfo.m_nKinds, out STSkillInfo stSkikllInfo);
-		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && a_oSkillInfo != null));
+		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && a_oSkillTargetInfo != null));
 
 		// 스킬 타겟 정보가 존재 할 경우
-		if(bIsValid && a_oSkillInfo != null) {
-			Func.DoAcquire(a_oSkillInfo, a_stTargetInfo, a_bIsEnableAssert);
+		if(bIsValid && a_oSkillTargetInfo != null) {
+			Func.DoAcquire(a_oSkillTargetInfo, a_stTargetInfo, a_bIsEnableAssert);
 		}
 	}
 

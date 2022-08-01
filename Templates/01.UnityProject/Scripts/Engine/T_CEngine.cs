@@ -102,9 +102,9 @@ namespace SampleEngineName {
 		public void MovePlayerObj(Vector3 a_stDirection) {
 			// Do Something
 		}
-
+		
 		/** 플레이어 객체 스킬을 적용한다 */
-		public void ApplyPlayerObjSkill(CSkillInfo a_oSkillInfo) {
+		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
 			// Do Something
 		}
 

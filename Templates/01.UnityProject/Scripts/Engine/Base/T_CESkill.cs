@@ -12,8 +12,8 @@ namespace SampleEngineName {
 		/** 매개 변수 */
 		public new partial struct STParams {
 			public CEComponent.STParams m_stBaseParams;
-			public STSkillInfo m_stTableSkillInfo;
-			public CSkillInfo m_oStorageSkillInfo;
+			public STSkillInfo m_stSkillInfo;
+			public CSkillTargetInfo m_oSkillTargetInfo;
 		}
 
 		#region 변수
@@ -22,15 +22,15 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public STSkillInfo TableSkillInfo => m_stParams.m_stTableSkillInfo;
-		public CSkillInfo StorageSkillInfo => m_stParams.m_oStorageSkillInfo;
+		public STSkillInfo SkillInfo => m_stParams.m_stSkillInfo;
+		public CSkillTargetInfo SkillTargetInfo => m_stParams.m_oSkillTargetInfo;
 		#endregion			// 프로퍼티
 
 		#region 함수
 		/** 어빌리티 값을 설정한다 */
 		public override void SetupAbilityVals() {
 			base.SetupAbilityVals();
-			var oAbilityTargetInfoDict = (m_stParams.m_oStorageSkillInfo != null) ? m_stParams.m_oStorageSkillInfo.m_oAbilityTargetInfoDict : m_stParams.m_stTableSkillInfo.m_oAbilityTargetInfoDict;
+			var oAbilityTargetInfoDict = (m_stParams.m_oSkillTargetInfo != null) ? m_stParams.m_oSkillTargetInfo.m_oAbilityTargetInfoDict : m_stParams.m_stSkillInfo.m_oAbilityTargetInfoDict;
 
 			foreach(var stKeyVal in oAbilityTargetInfoDict) {
 				global::Func.SetupAbilityVals(stKeyVal.Value, this.AbilityValDict);

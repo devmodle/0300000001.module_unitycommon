@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 /** 타겟 정보 */
 [Union(0, typeof(CItemTargetInfo))]
-[Union(1, typeof(CSkillInfo))]
+[Union(1, typeof(CSkillTargetInfo))]
 [Union(2, typeof(CObjInfo))]
 public abstract partial class CTargetInfo : CBaseInfo {
 	#region 변수
@@ -113,7 +113,7 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	#endregion			// 함수
 }
 
-/** 아이템 정보 */
+/** 아이템 타겟 정보 */
 [MessagePackObject][System.Serializable]
 public partial class CItemTargetInfo : CTargetInfo {
 	#region 상수
@@ -155,9 +155,9 @@ public partial class CItemTargetInfo : CTargetInfo {
 	#endregion			// 함수
 }
 
-/** 스킬 정보 */
+/** 스킬 타겟 정보 */
 [MessagePackObject][System.Serializable]
-public partial class CSkillInfo : CTargetInfo {
+public partial class CSkillTargetInfo : CTargetInfo {
 	#region 상수
 	private const string KEY_SKILL_KINDS = "SkillKinds";
 	#endregion			// 상수
@@ -191,7 +191,7 @@ public partial class CSkillInfo : CTargetInfo {
 
 	#region 함수
 	/** 생성자 */
-	public CSkillInfo() : base(KDefine.G_VER_SKILL_TARGET_INFO) {
+	public CSkillTargetInfo() : base(KDefine.G_VER_SKILL_TARGET_INFO) {
 		// Do Something
 	}
 	#endregion			// 함수
@@ -328,8 +328,8 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	/** 스킬 타겟 정보를 반환한다 */
-	public CSkillInfo GetSkillTargetInfo(int a_nCharacterIdx, ESkillKinds a_eSkillKinds) {
-		bool bIsValid = this.TryGetSkillTargetInfo(a_nCharacterIdx, a_eSkillKinds, out CSkillInfo oSkillTargetInfo);
+	public CSkillTargetInfo GetSkillTargetInfo(int a_nCharacterIdx, ESkillKinds a_eSkillKinds) {
+		bool bIsValid = this.TryGetSkillTargetInfo(a_nCharacterIdx, a_eSkillKinds, out CSkillTargetInfo oSkillTargetInfo);
 		CAccess.Assert(bIsValid);
 
 		return oSkillTargetInfo;
@@ -350,8 +350,8 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	/** 스킬 타겟 정보를 반환한다 */
-	public bool TryGetSkillTargetInfo(int a_nCharacterIdx, ESkillKinds a_eSkillKinds, out CSkillInfo a_oOutSkillTargetInfo) {
-		a_oOutSkillTargetInfo = this.TryGetTargetInfo(a_nCharacterIdx, ETargetType.SKILL, (int)a_eSkillKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CSkillInfo : null;
+	public bool TryGetSkillTargetInfo(int a_nCharacterIdx, ESkillKinds a_eSkillKinds, out CSkillTargetInfo a_oOutSkillTargetInfo) {
+		a_oOutSkillTargetInfo = this.TryGetTargetInfo(a_nCharacterIdx, ETargetType.SKILL, (int)a_eSkillKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CSkillTargetInfo : null;
 		return a_oOutSkillTargetInfo != null;
 	}
 
