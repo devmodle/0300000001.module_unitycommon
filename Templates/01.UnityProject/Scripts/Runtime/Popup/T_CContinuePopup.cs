@@ -69,7 +69,7 @@ public partial class CContinuePopup : CSubPopup {
 		if(Access.IsEnableTrade(stPayTargetInfo)) {
 			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 		} else {
-			Func.Acquire(CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE).m_oAcquireTargetInfoDict.ExGetTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS));
+			Func.Acquire(KDefine.G_IDX_COMMON_CHARACTER, CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE).m_oAcquireTargetInfoDict.ExGetTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS));
 			m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
 		}
 	}

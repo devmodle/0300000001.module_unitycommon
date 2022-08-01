@@ -13,7 +13,7 @@ namespace SampleEngineName {
 		public new partial struct STParams {
 			public CEComponent.STParams m_stBaseParams;
 			public STItemInfo m_stTableItemInfo;
-			public CItemInfo m_oStorageItemInfo;
+			public CItemTargetInfo m_oStorageItemInfo;
 		}
 
 		#region 변수
@@ -22,7 +22,7 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public STItemInfo TableItemInfo => m_stParams.m_stTableItemInfo;
-		public CItemInfo StorageItemInfo => m_stParams.m_oStorageItemInfo;
+		public CItemTargetInfo StorageItemInfo => m_stParams.m_oStorageItemInfo;
 		#endregion			// 프로퍼티
 
 		#region 함수

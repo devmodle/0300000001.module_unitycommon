@@ -18,7 +18,7 @@ namespace SampleEngineName {
 		}
 
 		/** 아이템 매개 변수를 생성한다 */
-		public static CEItem.STParams MakeItemParams(CEngine a_oEngine, STItemInfo a_stTableItemInfo, CItemInfo a_oStorageItemInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static CEItem.STParams MakeItemParams(CEngine a_oEngine, STItemInfo a_stTableItemInfo, CItemTargetInfo a_oStorageItemInfo, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new CEItem.STParams() {
 				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_stTableItemInfo = a_stTableItemInfo, m_oStorageItemInfo = a_oStorageItemInfo
 			};

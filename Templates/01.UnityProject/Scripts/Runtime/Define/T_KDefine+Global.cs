@@ -71,9 +71,9 @@ public static partial class KDefine {
 	public static readonly System.Version G_VER_CLEAR_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_LEVEL_INFO = new System.Version(1, 0, 0);
 
-	public static readonly System.Version G_VER_ITEM_INFO = new System.Version(1, 0, 0);
-	public static readonly System.Version G_VER_SKILL_INFO = new System.Version(1, 0, 0);
-	public static readonly System.Version G_VER_OBJ_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_ITEM_TARGET_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_SKILL_TARGET_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_OBJ_TARGET_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_ABILITY_TARGET_INFO = new System.Version(1, 0, 0);
 	// 버전 }
 

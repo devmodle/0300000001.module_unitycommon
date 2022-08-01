@@ -42,40 +42,43 @@ public static partial class Factory {
 		return oClearInfo;
 	}
 
-	/** 아이템 정보를 생성한다 */
-	public static CItemInfo MakeItemInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
-		var oItemInfo = new CItemInfo() {
-			ItemKinds = a_eItemKinds, OwnerKinds = a_nOwnerKinds, OwnerTargetKinds = a_eOwnerTargetKinds, m_oAbilityTargetInfoDict = Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums)
+	/** 아이템 타겟 정보를 생성한다 */
+	public static CItemTargetInfo MakeItemTargetInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
+		var oItemTargetInfo = new CItemTargetInfo() {
+			ItemKinds = a_eItemKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo
 		};
 
 		var stItemInfo = CItemInfoTable.Inst.GetItemInfo(a_eItemKinds);
-		stItemInfo.m_oAbilityTargetInfoDict.ExCopyTo(oItemInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+		stItemInfo.m_oAbilityTargetInfoDict.ExCopyTo(oItemTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+		Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums).ExCopyTo(oItemTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
-		oItemInfo.OnAfterDeserialize();
-		return oItemInfo;
+		oItemTargetInfo.OnAfterDeserialize();
+		return oItemTargetInfo;
 	}
 
-	/** 스킬 정보를 생성한다 */
-	public static CSkillInfo MakeSkillInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
+	/** 스킬 타겟 정보를 생성한다 */
+	public static CSkillInfo MakeSkillTargetInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
 		var oSkillInfo = new CSkillInfo() {
-			SkillKinds = a_eSkillKinds, OwnerKinds = a_nOwnerKinds, OwnerTargetKinds = a_eOwnerTargetKinds, m_oAbilityTargetInfoDict = Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums)
+			SkillKinds = a_eSkillKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo
 		};
 
 		var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds);
 		stSkillInfo.m_oAbilityTargetInfoDict.ExCopyTo(oSkillInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+		Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums).ExCopyTo(oSkillInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 		oSkillInfo.OnAfterDeserialize();
 		return oSkillInfo;
 	}
 
-	/** 객체 정보를 생성한다 */
-	public static CObjInfo MakeObjInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, ETargetKinds a_eOwnerTargetKinds = ETargetKinds.NONE, int a_nOwnerKinds = KCDefine.B_IDX_INVALID) {
+	/** 객체 타겟 정보를 생성한다 */
+	public static CObjInfo MakeObjTargetInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
 		var oObjInfo = new CObjInfo() {
-			ObjKinds = a_eObjKinds, OwnerKinds = a_nOwnerKinds, OwnerTargetKinds = a_eOwnerTargetKinds, m_oAbilityTargetInfoDict = Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums)
+			ObjKinds = a_eObjKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo
 		};
 
 		var stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds);
 		stObjInfo.m_oAbilityTargetInfoDict.ExCopyTo(oObjInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+		Factory.MakeDefAbilityTargetInfos(a_nLV, a_nNums).ExCopyTo(oObjInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 		
 		oObjInfo.OnAfterDeserialize();
 		return oObjInfo;
