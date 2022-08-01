@@ -14,6 +14,7 @@ namespace SampleEngineName {
 			public CEComponent.STParams m_stBaseParams;
 			public STSkillInfo m_stSkillInfo;
 			public CSkillTargetInfo m_oSkillTargetInfo;
+			public CObjTargetInfo m_oObjTargetInfo;
 		}
 
 		#region 변수
@@ -24,6 +25,7 @@ namespace SampleEngineName {
 		#region 프로퍼티
 		public STSkillInfo SkillInfo => m_stParams.m_stSkillInfo;
 		public CSkillTargetInfo SkillTargetInfo => m_stParams.m_oSkillTargetInfo;
+		public CObjTargetInfo ObjTargetInfo => m_stParams.m_oObjTargetInfo;
 		#endregion			// 프로퍼티
 
 		#region 함수
