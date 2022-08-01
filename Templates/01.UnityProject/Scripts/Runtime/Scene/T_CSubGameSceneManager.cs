@@ -187,7 +187,7 @@ namespace GameScene {
 			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
 				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
 
-				Func.Pay(KDefine.G_IDX_COMMON_CHARACTER, Factory.MakeTargetInfo(ETargetKinds.ITEM_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], new STValInfo() {
+				Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeTargetInfo(ETargetKinds.ITEM_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], new STValInfo() {
 					m_nVal = KCDefine.B_VAL_1_INT, m_eValType = EValType.INT
 				}));
 			}

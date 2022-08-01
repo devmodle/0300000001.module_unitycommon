@@ -45,7 +45,7 @@ public static partial class Factory {
 	/** 아이템 타겟 정보를 생성한다 */
 	public static CItemTargetInfo MakeItemTargetInfo(EItemKinds a_eItemKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
 		var oItemTargetInfo = new CItemTargetInfo() {
-			ItemKinds = a_eItemKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo
+			ItemKinds = a_eItemKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo, m_stIdxInfo = STIdxInfo.INVALID
 		};
 
 		var stItemInfo = CItemInfoTable.Inst.GetItemInfo(a_eItemKinds);
@@ -59,7 +59,7 @@ public static partial class Factory {
 	/** 스킬 타겟 정보를 생성한다 */
 	public static CSkillTargetInfo MakeSkillTargetInfo(ESkillKinds a_eSkillKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
 		var oSkillTargetInfo = new CSkillTargetInfo() {
-			SkillKinds = a_eSkillKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo
+			SkillKinds = a_eSkillKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo, m_stIdxInfo = STIdxInfo.INVALID
 		};
 
 		var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds);
@@ -73,7 +73,7 @@ public static partial class Factory {
 	/** 객체 타겟 정보를 생성한다 */
 	public static CObjTargetInfo MakeObjTargetInfo(EObjKinds a_eObjKinds, long a_nLV = KCDefine.B_VAL_1_INT, long a_nNums = KCDefine.B_VAL_1_INT, CTargetInfo a_oOwnerTargetInfo = null) {
 		var oObjTargetInfo = new CObjTargetInfo() {
-			ObjKinds = a_eObjKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo
+			ObjKinds = a_eObjKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo, m_stIdxInfo = STIdxInfo.INVALID
 		};
 
 		var stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds);

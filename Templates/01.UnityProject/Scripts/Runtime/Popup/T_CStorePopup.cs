@@ -106,7 +106,7 @@ public partial class CStorePopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			Func.Buy(CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS]));
+			Func.Buy(CGameInfoStorage.Inst.PlayCharacterID, CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS]));
 		}
 
 		this.UpdateUIsState();
@@ -150,7 +150,7 @@ public partial class CStorePopup : CSubPopup {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
 			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
-			Func.Acquire(oTargetInfoDict);
+			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oTargetInfoDict);
 
 			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
 		} else {

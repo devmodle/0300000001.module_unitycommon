@@ -9,9 +9,6 @@ using UnityEngine.Events;
 /** 전역 상수 */
 public static partial class KDefine {
 	#region 기본
-	// 인덱스
-	public const int G_IDX_COMMON_CHARACTER = 0;
-
 	// 개수 {
 	public const int G_MAX_NUM_RECORDS = 9;
 	public const int G_MAX_NUM_TUTORIAL_STRS = 9;
@@ -59,6 +56,9 @@ public static partial class KDefine {
 	public const float G_DURATION_SCALE_08 = 1.0f;
 	public const float G_DURATION_SCALE_09 = 1.0f;
 	// 시간 }
+
+	// 식별자
+	public const int G_ID_COMMON_CHARACTER = byte.MaxValue;
 	#endregion			// 기본
 
 	#region 런타임 상수

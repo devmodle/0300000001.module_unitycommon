@@ -21,20 +21,16 @@ public partial class CClearInfo : CBaseInfo {
 
 	#region 상수
 	private const string KEY_NUM_MARKS = "NumMarks";
-
 	private const string KEY_INT_RECORD = "IntRecord";
 	private const string KEY_REAL_RECORD = "RealRecord";
-	
 	private const string KEY_INT_BEST_RECORD = "IntBestRecord";
 	private const string KEY_REAL_BEST_RECORD = "RealBestRecord";
 	#endregion			// 상수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public int NumMarks { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUM_MARKS, $"{value}"); } }
-
 	[JsonIgnore][IgnoreMember] public long IntRecord { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_INT_RECORD, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_INT_RECORD, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public long IntBestRecord { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_INT_BEST_RECORD, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_INT_BEST_RECORD, $"{value}"); } }
-
 	[JsonIgnore][IgnoreMember] public double RealRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(KEY_REAL_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(KEY_REAL_RECORD, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public double RealBestRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(KEY_REAL_BEST_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(KEY_REAL_BEST_RECORD, $"{value}"); } }
 
@@ -153,9 +149,9 @@ public partial class CGameInfo : CBaseInfo {
 /** 게임 정보 저장소 */
 public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
+	public int PlayCharacterID { get; set; } = KDefine.G_ID_COMMON_CHARACTER;
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
-
 	public List<EItemKinds> SelItemKindsList { get; private set; } = new List<EItemKinds>();
 	public List<EItemKinds> FreeSelItemKindsList { get; private set; } = new List<EItemKinds>();
 
@@ -268,7 +264,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 스테이지 잠금 해제 여부를 검사한다 */
 	public bool IsUnlockStage(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return this.GameInfo.m_oUnlockUniqueStageIDList.Contains(CFactory.MakeUniqueStageID(a_nStageID));
+		return this.GameInfo.m_oUnlockUniqueStageIDList.Contains(CFactory.MakeUniqueStageID(a_nStageID, a_nChapterID));
 	}
 
 	/** 챕터 잠금 해제 여부를 검사한다 */
