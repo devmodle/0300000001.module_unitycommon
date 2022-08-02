@@ -23,17 +23,17 @@ namespace MainScene {
 					for(int j = 0; j < CLevelInfoTable.Inst.NumLevelInfosDictContainer[i].Count; ++j) {
 						for(int k = 0; k < CLevelInfoTable.Inst.NumLevelInfosDictContainer[i][j]; ++k) {
 							// 클리어 정보가 없을 경우
-							if(!CGameInfoStorage.Inst.IsClearLevel(k, j, i)) {
-								CGameInfoStorage.Inst.AddLevelClearInfo(Factory.MakeClearInfo(k, j, i));
+							if(Access.IsClearLevel(CGameInfoStorage.Inst.PlayCharacterID, k, j, i)) {
+								CGameInfoStorage.Inst.AddLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeClearInfo(k, j, i));
 							}
 
 							var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(k, j, i);
-							oLevelClearInfo.NumMarks = KCDefine.B_VAL_1_INT;
+							oLevelClearInfo.NumSymbols = KCDefine.B_VAL_1_INT;
 						}
 					}
 				}
 
-				CUserInfoStorage.Inst.NumCoins = KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND;
+				Access.SetItemTargetAbilityTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS, EAbilityKinds.STAT_NUMS, KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND);
 				CGameInfoStorage.Inst.SaveGameInfo();
 #endif			// #if CREATIVE_DIST_BUILD
 
@@ -86,19 +86,20 @@ namespace MainScene {
 
 		/** 씬을 설정한다 */
 		private void StartSetup() {
-			// 일일 미션 리셋이 가능 할 경우
-			if(CGameInfoStorage.Inst.IsEnableResetDailyMission) {
-				CGameInfoStorage.Inst.GameInfo.PrevDailyMissionTime = System.DateTime.Today;
-				CGameInfoStorage.Inst.GameInfo.m_oCompleteDailyMissionKindsList.Clear();
+			// 캐릭터 게임 정보가 존재 할 경우
+			if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID, out CCharacterGameInfo oCharacterGameInfo)) {
+				// 일일 미션 리셋이 가능 할 경우
+				if(Access.IsEnableResetDailyMission(CGameInfoStorage.Inst.PlayCharacterID)) {
+					oCharacterGameInfo.PrevDailyMissionTime = System.DateTime.Today;
+					oCharacterGameInfo.m_oCompleteDailyMissionKindsList.Clear();
+				}
 
-				CGameInfoStorage.Inst.SaveGameInfo();
-			}
+				// 무료 보상 획득이 가능 할 경우
+				if(Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID)) {
+					oCharacterGameInfo.FreeRewardAcquireTimes = KCDefine.B_VAL_0_INT;
+					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
+				}
 
-			// 무료 보상 획득이 가능 할 경우
-			if(CGameInfoStorage.Inst.IsEnableGetFreeReward) {
-				CGameInfoStorage.Inst.GameInfo.FreeRewardAcquireTimes = KCDefine.B_VAL_0_INT;
-				CGameInfoStorage.Inst.GameInfo.PrevFreeRewardTime = System.DateTime.Today;
-				
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}
 			

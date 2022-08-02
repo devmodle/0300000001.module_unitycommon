@@ -31,6 +31,32 @@ public static partial class Func {
 		}
 	}
 
+	/** 플레이 레벨 정보를 설정한다 */
+	public static void SetupPlayLevelInfo(int a_nLevelID, EPlayMode a_ePlayMode, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		CGameInfoStorage.Inst.PlayMode = a_ePlayMode;
+
+#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		CGameInfoStorage.Inst.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nLevelID, a_nStageID, a_nChapterID);
+#else
+		CGameInfoStorage.Inst.PlayLevelInfo = CLevelInfoTable.Inst.LoadLevelInfo(a_nLevelID, a_nStageID, a_nChapterID);
+#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+	}
+
+	/** 다음 일일 보상 식별자를 설정한다 */
+	public static void SetupNextDailyRewardID(int a_nCharacterID, bool a_bIsResetDailyRewardTime = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo));
+
+		// 캐릭터 정보가 존재 할 경우
+		if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out oCharacterGameInfo)) {
+			// 일일 보상 시간 리셋 모드 일 경우
+			if(a_bIsResetDailyRewardTime) {
+				oCharacterGameInfo.PrevDailyRewardTime = System.DateTime.Today;
+			}
+
+			oCharacterGameInfo.DailyRewardID = (oCharacterGameInfo.DailyRewardID + KCDefine.B_VAL_1_INT) % KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST.Count;
+		}
+	}
+
 	/** 지불한다 */
 	public static void Pay(int a_nCharacterID, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
 		switch(a_stTargetInfo.TargetType) {
@@ -76,9 +102,9 @@ public static partial class Func {
 	/** 획득한다 */
 	public static void Acquire(int a_nCharacterID, STTargetInfo a_stTargetInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
 		switch(a_stTargetInfo.TargetType) {
-			case ETargetType.ITEM: Func.AcquireItemTarget(a_stTargetInfo, Access.GetItemTargetInfo(a_nCharacterID, (EItemKinds)a_stTargetInfo.m_nKinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_bIsEnableAssert); break;
-			case ETargetType.SKILL: Func.AcquireSkillTarget(a_stTargetInfo, Access.GetSkillTargetInfo(a_nCharacterID, (ESkillKinds)a_stTargetInfo.m_nKinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_bIsEnableAssert); break;
-			case ETargetType.OBJ: Func.AcquireObjTarget(a_stTargetInfo, Access.GetObjTargetInfo(a_nCharacterID, (EObjKinds)a_stTargetInfo.m_nKinds, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_bIsAutoCreate), a_bIsEnableAssert); break;
+			case ETargetType.ITEM: Func.AcquireItemTarget(a_stTargetInfo, Access.GetItemTargetInfo(a_nCharacterID, (EItemKinds)a_stTargetInfo.m_nKinds, a_bIsAutoCreate), a_bIsEnableAssert); break;
+			case ETargetType.SKILL: Func.AcquireSkillTarget(a_stTargetInfo, Access.GetSkillTargetInfo(a_nCharacterID, (ESkillKinds)a_stTargetInfo.m_nKinds, a_bIsAutoCreate), a_bIsEnableAssert); break;
+			case ETargetType.OBJ: Func.AcquireObjTarget(a_stTargetInfo, Access.GetObjTargetInfo(a_nCharacterID, (EObjKinds)a_stTargetInfo.m_nKinds, a_bIsAutoCreate), a_bIsEnableAssert); break;
 		}
 	}
 
@@ -152,6 +178,16 @@ public static partial class Func {
 	/** 판매한다 */
 	public static void Sale(int a_nCharacterID, STObjTradeInfo a_stObjTradeInfo, bool a_bIsEnableAssert = true) {
 		Func.Buy(a_nCharacterID, a_stObjTradeInfo, false, a_bIsEnableAssert);
+	}
+
+	/** 무료 보상 획득 횟수를 증가시킨다 */
+	public static void IncrFreeRewardAcquireTimes(int a_nCharacterID, int a_nRewardTimes, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo));
+
+		// 캐릭터 게임 정보가 존재 할 경우
+		if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out oCharacterGameInfo)) {
+			oCharacterGameInfo.FreeRewardAcquireTimes = Mathf.Clamp(oCharacterGameInfo.FreeRewardAcquireTimes + a_nRewardTimes, KCDefine.B_VAL_0_INT, KDefine.G_MAX_TIMES_ACQUIRE_FREE_REWARDS);
+		}
 	}
 
 	/** 상점 팝업을 출력한다 */
@@ -241,10 +277,10 @@ public static partial class Func {
 		// 타겟 정보가 존재 할 경우
 		if(a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
 			}
 		}
 	}
@@ -289,17 +325,17 @@ public static partial class Func {
 		// 타겟 정보가 존재 할 경우
 		if(a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrAbilityTargetVal(EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
 			}
-
+			
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, out STTargetInfo stLVAbilityTargetInfo);
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stNumsAbilityTargetInfo);
 
-			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceAbilityTargetVal(EAbilityKinds.STAT_LV, System.Math.Clamp(stLVAbilityTargetInfo.m_stValInfo01.m_nVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
-			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceAbilityTargetVal(EAbilityKinds.STAT_NUMS, System.Math.Clamp(stNumsAbilityTargetInfo.m_stValInfo01.m_nVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, System.Math.Clamp(stLVAbilityTargetInfo.m_stValInfo01.m_nVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, System.Math.Clamp(stNumsAbilityTargetInfo.m_stValInfo01.m_nVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
 		}
 	}
 
@@ -316,7 +352,6 @@ public static partial class Func {
 			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_NUMS && (EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
 #if ADS_MODULE_ENABLE
 				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
-
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
 #endif			// #if ADS_MODULE_ENABLE

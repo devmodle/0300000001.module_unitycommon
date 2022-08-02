@@ -78,7 +78,7 @@ namespace MainScene {
 			}
 
 			var stParams = new CScrollerCellView.STParams() {
-				m_nID = CFactory.MakeUniqueLevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03),
+				m_nID = CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03),
 
 				m_oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
 					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn

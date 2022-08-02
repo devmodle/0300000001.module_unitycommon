@@ -41,12 +41,10 @@ namespace SetupScene {
 			CAbilityInfoTable.Inst.LoadAbilityInfos();
 			CProductTradeInfoTable.Inst.LoadProductTradeInfos();
 
-			// 기본 캐릭터 정보가 없을 경우
-			if(!CUserInfoStorage.Inst.UserInfo.m_oCharacterInfoDict.ContainsKey(KDefine.G_ID_COMMON_CHARACTER)) {
-				var oCharacterInfo = Factory.MakeObjTargetInfo(EObjKinds.PLAYABLE_DEF_CHARACTER_01);
-				oCharacterInfo.m_stIdxInfo = CFactory.MakeIdxInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT);
-
-				CUserInfoStorage.Inst.UserInfo.m_oCharacterInfoDict.TryAdd(KDefine.G_ID_COMMON_CHARACTER, oCharacterInfo);
+			// 기본 캐릭터 유저 정보가 없을 경우
+			if(!CUserInfoStorage.Inst.TryGetCharacterUserInfo(KDefine.G_ID_COMMON_CHARACTER, out CCharacterUserInfo oCharacterUserInfo)) {
+				CUserInfoStorage.Inst.AddCharacterUserInfo(KDefine.G_ID_COMMON_CHARACTER, Factory.MakeCharacterUserInfo(EObjKinds.PLAYABLE_DEF_CHARACTER_01, STIdxInfo.INVALID));
+				CUserInfoStorage.Inst.SaveUserInfo();
 			}
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 

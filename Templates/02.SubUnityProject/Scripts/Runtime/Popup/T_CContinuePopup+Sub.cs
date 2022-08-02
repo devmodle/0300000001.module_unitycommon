@@ -36,10 +36,17 @@ public partial class CContinuePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		var stPayTargetInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE).m_oPayTargetInfoDict.ExGetTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS);
-		
-		// 텍스트를 갱신한다
-		m_oTextDict[EKey.PRICE_TEXT]?.ExSetText($"{stPayTargetInfo.m_stValInfo01.m_nVal}", EFontSet._1, false);
+		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE);
+
+		// 텍스트를 갱신한다 {
+		var oTextKeyInfoList = new List<(EKey, ETargetKinds, EItemKinds)>() {
+			(EKey.PRICE_TEXT, ETargetKinds.ITEM_NUMS, EItemKinds.GOODS_COINS)
+		};
+
+		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
+			m_oTextDict[oTextKeyInfoList[i].Item1]?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
+		}
+		// 텍스트를 갱신한다 }
 	}
 	#endregion			// 함수
 }

@@ -75,6 +75,9 @@ public static partial class KDefine {
 	public static readonly System.Version G_VER_SKILL_TARGET_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_OBJ_TARGET_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_ABILITY_TARGET_INFO = new System.Version(1, 0, 0);
+
+	public static readonly System.Version G_VER_CHARACTER_OBJ_TARGET_INFO = new System.Version(1, 0, 0);
+	public static readonly System.Version G_VER_CHARACTER_GAME_INFO = new System.Version(1, 0, 0);
 	// 버전 }
 
 	// 정렬 순서

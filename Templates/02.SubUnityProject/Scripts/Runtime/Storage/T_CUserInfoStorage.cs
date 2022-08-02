@@ -128,8 +128,6 @@ public partial class CItemTargetInfo : CTargetInfo {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public EItemKinds ItemKinds { get { return (EItemKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); } }
-
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
 
 	[JsonIgnore][IgnoreMember] public override int Kinds => (int)this.ItemKinds;
@@ -155,7 +153,12 @@ public partial class CItemTargetInfo : CTargetInfo {
 
 	#region 함수
 	/** 생성자 */
-	public CItemTargetInfo() : base(KDefine.G_VER_ITEM_TARGET_INFO) {
+	public CItemTargetInfo() : this(KDefine.G_VER_ITEM_TARGET_INFO) {
+		// Do Something
+	}
+
+	/** 생성자 */
+	public CItemTargetInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
 	#endregion			// 함수
@@ -170,8 +173,6 @@ public partial class CSkillTargetInfo : CTargetInfo {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public ESkillKinds SkillKinds { get { return (ESkillKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); } }
-
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
 
 	[JsonIgnore][IgnoreMember] public override int Kinds => (int)this.SkillKinds;
@@ -197,13 +198,19 @@ public partial class CSkillTargetInfo : CTargetInfo {
 
 	#region 함수
 	/** 생성자 */
-	public CSkillTargetInfo() : base(KDefine.G_VER_SKILL_TARGET_INFO) {
+	public CSkillTargetInfo() : this(KDefine.G_VER_SKILL_TARGET_INFO) {
+		// Do Something
+	}
+
+	/** 생성자 */
+	public CSkillTargetInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
 	#endregion			// 함수
 }
 
 /** 객체 타겟 정보 */
+[Union(0, typeof(CCharacterUserInfo))]
 [MessagePackObject][System.Serializable]
 public partial class CObjTargetInfo : CTargetInfo {
 	#region 상수
@@ -212,8 +219,6 @@ public partial class CObjTargetInfo : CTargetInfo {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public EObjKinds ObjKinds { get { return (EObjKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); } }
-
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreVer => true;
 	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
 
 	[JsonIgnore][IgnoreMember] public override int Kinds => (int)this.ObjKinds;
@@ -239,7 +244,45 @@ public partial class CObjTargetInfo : CTargetInfo {
 
 	#region 함수
 	/** 생성자 */
-	public CObjTargetInfo() : base(KDefine.G_VER_OBJ_TARGET_INFO) {
+	public CObjTargetInfo() : this(KDefine.G_VER_OBJ_TARGET_INFO) {
+		// Do Something
+	}
+
+	/** 생성자 */
+	public CObjTargetInfo(System.Version a_stVer) : base(a_stVer) {
+		// Do Something
+	}
+	#endregion			// 함수
+}
+
+/** 캐릭터 유저 정보 */
+[MessagePackObject][System.Serializable]
+public partial class CCharacterUserInfo : CObjTargetInfo {
+	#region IMessagePackSerializationCallbackReceiver
+	/** 직렬화 될 경우 */
+	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+	}
+
+	/** 역직렬화 되었을 경우 */
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+
+		// 버전이 다를 경우
+		if(this.Ver.CompareTo(KDefine.G_VER_CHARACTER_OBJ_TARGET_INFO) < KCDefine.B_COMPARE_EQUALS) {
+			// Do Something
+		}
+	}
+	#endregion			// IMessagePackSerializationCallbackReceiver
+
+	#region 함수
+	/** 생성자 */
+	public CCharacterUserInfo() : this(KDefine.G_VER_CHARACTER_OBJ_TARGET_INFO) {
+		// Do Something
+	}
+
+	/** 생성자 */
+	public CCharacterUserInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
 	#endregion			// 함수
@@ -249,7 +292,7 @@ public partial class CObjTargetInfo : CTargetInfo {
 [MessagePackObject][System.Serializable]
 public partial class CUserInfo : CBaseInfo {
 	#region 변수
-	[Key(91)] public Dictionary<int, CObjTargetInfo> m_oCharacterInfoDict = new Dictionary<int, CObjTargetInfo>();
+	[Key(91)] public Dictionary<int, CCharacterUserInfo> m_oCharacterUserInfoDict = new Dictionary<int, CCharacterUserInfo>();
 	#endregion			// 변수
 
 	#region 상수
@@ -271,10 +314,10 @@ public partial class CUserInfo : CBaseInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oCharacterInfoDict = m_oCharacterInfoDict ?? new Dictionary<int, CObjTargetInfo>();
+		m_oCharacterUserInfoDict = m_oCharacterUserInfoDict ?? new Dictionary<int, CCharacterUserInfo>();
 
-		for(int i = 0; i < m_oCharacterInfoDict.Count; ++i) {
-			m_oCharacterInfoDict[i].SetupAbilityTargetInfos(this.AbilityTargetInfoVer);
+		for(int i = 0; i < m_oCharacterUserInfoDict.Count; ++i) {
+			m_oCharacterUserInfoDict[i].SetupAbilityTargetInfos(this.AbilityTargetInfoVer);
 		}
 
 		// 버전이 다를 경우
@@ -286,7 +329,12 @@ public partial class CUserInfo : CBaseInfo {
 
 	#region 함수
 	/** 생성자 */
-	public CUserInfo() : base(KDefine.G_VER_USER_INFO) {
+	public CUserInfo() : this(KDefine.G_VER_USER_INFO) {
+		// Do Something
+	}
+
+	/** 생성자 */
+	public CUserInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
 	#endregion			// 함수
@@ -296,9 +344,6 @@ public partial class CUserInfo : CBaseInfo {
 public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 프로퍼티
 	public CUserInfo UserInfo { get; private set; } = new CUserInfo();
-	public bool IsPurchaseRemoveAds => this.GetNumItemTargets(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.NON_CONSUMABLE_REMOVE_ADS) > KCDefine.B_VAL_0_INT;
-	public long NumCoins => this.GetNumItemTargets(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS);
-	public long NumCoinsBoxCoins => this.GetNumItemTargets(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS_BOX_COINS);
 	#endregion            // 프로퍼티
 
 	#region 함수
@@ -308,21 +353,6 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		this.UserInfo = a_oJSONStr.ExMsgPackBase64StrToObj<CUserInfo>();
 
 		CAccess.Assert(this.UserInfo != null);
-	}
-	
-	/** 아이템 타겟 개수를 반환한다 */
-	public long GetNumItemTargets(int a_nCharacterID, EItemKinds a_eItemKinds) {
-		return this.GetNumTargets(a_nCharacterID, ETargetType.ITEM, (int)a_eItemKinds);
-	}
-
-	/** 스킬 타겟 개수를 반환한다 */
-	public long GetNumSkillTargets(int a_nCharacterID, ESkillKinds a_eSkillKinds) {
-		return this.GetNumTargets(a_nCharacterID, ETargetType.SKILL, (int)a_eSkillKinds);
-	}
-
-	/** 객체 타겟 개수를 반환한다 */
-	public long GetNumObjTargets(int a_nCharacterID, EObjKinds a_eObjKinds) {
-		return this.GetNumTargets(a_nCharacterID, ETargetType.OBJ, (int)a_eObjKinds);
 	}
 
 	/** 아이템 타겟 정보를 반환한다 */
@@ -349,6 +379,14 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return oObjTargetInfo;
 	}
 
+	/** 캐릭터 유저 정보를 반환한다 */
+	public CCharacterUserInfo GetCharacterUserInfo(int a_nCharacterID) {
+		bool bIsValid = this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo);
+		CAccess.Assert(bIsValid);
+
+		return oCharacterUserInfo;
+	}
+
 	/** 아이템 타겟 정보를 반환한다 */
 	public bool TryGetItemTargetInfo(int a_nCharacterID, EItemKinds a_eItemKinds, out CItemTargetInfo a_oOutItemTargetInfo) {
 		a_oOutItemTargetInfo = this.TryGetTargetInfo(a_nCharacterID, ETargetType.ITEM, (int)a_eItemKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CItemTargetInfo : null;
@@ -367,14 +405,25 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return a_oOutObjTargetInfo != null;
 	}
 
+	/** 캐릭터 유저 정보를 반환한다 */
+	public bool TryGetCharacterUserInfo(int a_nCharacterID, out CCharacterUserInfo a_oOutCharacterUserInfo) {
+		this.UserInfo.m_oCharacterUserInfoDict.TryGetValue(a_nCharacterID, out a_oOutCharacterUserInfo);
+		return this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID);
+	}
+
 	/** 타겟 정보를 추가한다 */
 	public void AddTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsDuplicate = false, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || this.UserInfo.m_oCharacterInfoDict.ContainsKey(a_nCharacterID));
+		CAccess.Assert(!a_bIsEnableAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
 
-		// 캐릭터 정보가 존재 할 경우
-		if(this.UserInfo.m_oCharacterInfoDict.ContainsKey(a_nCharacterID)) {
-			this.UserInfo.m_oCharacterInfoDict[a_nCharacterID].AddTargetInfo(a_oTargetInfo, a_bIsDuplicate);
+		// 캐릭터 유저 정보가 존재 할 경우
+		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
+			oCharacterUserInfo.AddTargetInfo(a_oTargetInfo, a_bIsDuplicate);
 		}
+	}
+
+	/** 캐릭터 유저 정보를 추가한다 */
+	public void AddCharacterUserInfo(int a_nCharacterID, CCharacterUserInfo a_oCharacterUserInfo) {
+		this.UserInfo.m_oCharacterUserInfoDict.TryAdd(a_nCharacterID, a_oCharacterUserInfo);
 	}
 
 	/** 유저 정보를 로드한다 */
@@ -418,19 +467,9 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 #endif			// #if MSG_PACK_ENABLE
 	}
 
-	/** 타겟 개수를 반환한다 */
-	private long GetNumTargets(int a_nCharacterID, ETargetType a_eTargetType, int a_nKinds) {
-		// 캐릭터 객체 타겟 정보가 존재 할 경우
-		if(this.UserInfo.m_oCharacterInfoDict.ContainsKey(a_nCharacterID) && this.UserInfo.m_oCharacterInfoDict[a_nCharacterID].m_oTargetInfoDictContainer.TryGetValue(a_eTargetType, out List<CTargetInfo> oTargetInfoList)) {
-			return oTargetInfoList.Sum((a_oTargetInfo) => (a_oTargetInfo.TargetType == a_eTargetType && a_oTargetInfo.Kinds == a_nKinds && a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, out STTargetInfo stTargetInfo)) ? stTargetInfo.m_stValInfo01.m_nVal : KCDefine.B_VAL_0_INT);
-		}
-		
-		return KCDefine.B_VAL_0_INT;
-	}
-
 	/** 타겟 정보를 반환한다 */
 	private bool TryGetTargetInfo(int a_nCharacterID, ETargetType a_eTargetType, int a_nKinds, out CTargetInfo a_oOutTargetInfo) {
-		a_oOutTargetInfo = (this.UserInfo.m_oCharacterInfoDict.ContainsKey(a_nCharacterID) && this.UserInfo.m_oCharacterInfoDict[a_nCharacterID].TryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
+		a_oOutTargetInfo = (this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.TryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
 		return a_oOutTargetInfo != null;
 	}
 	#endregion			// 함수

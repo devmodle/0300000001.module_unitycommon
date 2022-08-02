@@ -25,7 +25,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		base.Init();
 
 		m_stParams = a_stParams;
-		m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] = CUserInfoStorage.Inst.NumCoinsBoxCoins;
+		m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] = Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS_BOX_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS);
 
 		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS_BOX_COINS, new STValInfo() {
 			m_nVal = a_stParams.m_nNumCoinsBoxCoins, m_eValType = EValType.INT

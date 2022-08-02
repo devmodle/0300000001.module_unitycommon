@@ -10,25 +10,25 @@ using DG.Tweening;
 /** 전역 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
-	/** 어빌리티 타겟 값을 증가시킨다 */
-	public static void ExIncrAbilityTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, EAbilityKinds a_eAbilityKinds, long a_nVal, bool a_bIsEnableAssert = true) {
+	/** 타겟 값을 증가시킨다 */
+	public static void ExIncrTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
-		a_oSender.ExReplaceAbilityTargetVal(a_eAbilityKinds, System.Math.Clamp(a_oSender.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)a_eAbilityKinds, out STTargetInfo stAbilityTargetInfo) ? stAbilityTargetInfo.m_stValInfo01.m_nVal + a_nVal : a_nVal, long.MinValue, long.MaxValue), a_bIsEnableAssert);
+		a_oSender.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, System.Math.Clamp(a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stAbilityTargetInfo) ? stAbilityTargetInfo.m_stValInfo01.m_nVal + a_nVal : a_nVal, long.MinValue, long.MaxValue), a_bIsEnableAssert);
 	}
 
-	/** 어빌리티 타겟 값을 대체한다 */
-	public static void ExReplaceAbilityTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, EAbilityKinds a_eAbilityKinds, long a_nVal, bool a_bIsEnableAssert = true) {
+	/** 타겟 값을 대체한다 */
+	public static void ExReplaceTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
 
-		// 어빌리티 타겟 정보가 존재 할 경우
+		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null) {
-			a_oSender.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)a_eAbilityKinds, out STTargetInfo stAbilityTargetInfo);
-			stAbilityTargetInfo.m_nKinds = (int)a_eAbilityKinds;
+			a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stAbilityTargetInfo);
+			stAbilityTargetInfo.m_nKinds = a_nKinds;
 			stAbilityTargetInfo.m_eTargetKinds = ETargetKinds.ABILITY;
 			stAbilityTargetInfo.m_stValInfo01.m_nVal = System.Math.Clamp(a_nVal, long.MinValue, long.MaxValue);
 			stAbilityTargetInfo.m_stValInfo01.m_eValType = EValType.INT;
 
-			a_oSender.ExReplaceVal(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)a_eAbilityKinds), stAbilityTargetInfo);
+			a_oSender.ExReplaceVal(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), stAbilityTargetInfo);
 		}
 	}
 

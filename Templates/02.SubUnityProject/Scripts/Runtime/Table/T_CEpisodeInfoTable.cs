@@ -41,9 +41,9 @@ public partial struct STEpisodeInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	public ulong UniqueLevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
-	public ulong PrevUniqueLevelID => CFactory.MakeUniqueLevelID(m_stPrevIDInfo.m_nID01, m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
-	public ulong NextUniqueLevelID => CFactory.MakeUniqueLevelID(m_stNextIDInfo.m_nID01, m_stNextIDInfo.m_nID02, m_stNextIDInfo.m_nID03);
+	public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
+	public ulong PrevULevelID => CFactory.MakeULevelID(m_stPrevIDInfo.m_nID01, m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
+	public ulong NextULevelID => CFactory.MakeULevelID(m_stNextIDInfo.m_nID01, m_stNextIDInfo.m_nID02, m_stNextIDInfo.m_nID03);
 
 	public ulong UniqueStagelID => CFactory.MakeUniqueStageID(m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	public ulong PrevUniqueStageID => CFactory.MakeUniqueStageID(m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
@@ -235,61 +235,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		this.ResetEpisodeInfos();
 		this.DoLoadEpisodeInfos(a_oJSONStr);
 	}
-
-	/** 레벨 에피소드 기록 값 정보를 반환한다 */
-	public STValInfo GetLevelEpisodeRecordValInfo(int a_nIdx, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		this.TryGetLevelEpisodeInfo(a_nLevelID, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID);
-		return stLevelEpisodeInfo.m_oRecordValInfoList.ExGetVal(a_nIdx, STValInfo.INVALID);
-	}
-
-	/** 레벨 에피소드 클리어 타겟 정보를 반환한다 */
-	public STTargetInfo GetLevelEpisodeClearTargetInfo(int a_nLevelID, ETargetKinds a_eTargetKinds, int a_nKinds, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		this.TryGetLevelEpisodeInfo(a_nLevelID, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID);
-		return stLevelEpisodeInfo.m_oClearTargetInfoDict.ExGetTargetInfo(a_eTargetKinds, a_nKinds);
-	}
-
-	/** 레벨 에피소드 잠금 해제 타겟 정보를 반환한다 */
-	public STTargetInfo GetLevelEpisodeUnlockTargetInfo(int a_nLevelID, ETargetKinds a_eTargetKinds, int a_nKinds, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		this.TryGetLevelEpisodeInfo(a_nLevelID, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID);
-		return stLevelEpisodeInfo.m_oUnlockTargetInfoDict.ExGetTargetInfo(a_eTargetKinds, a_nKinds);
-	}
-
-	/** 스테이지 에피소드 기록 값 정보를 반환한다 */
-	public STValInfo GetStageEpisodeRecordValInfo(int a_nIdx, int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		this.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID);
-		return stStageEpisodeInfo.m_oRecordValInfoList.ExGetVal(a_nIdx, STValInfo.INVALID);
-	}
-
-	/** 스테이지 에피소드 클리어 타겟 정보를 반환한다 */
-	public STTargetInfo GetStageEpisodeClearTargetInfo(int a_nStageID, ETargetKinds a_eTargetKinds, int a_nKinds, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		this.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID);
-		return stStageEpisodeInfo.m_oClearTargetInfoDict.ExGetTargetInfo(a_eTargetKinds, a_nKinds);
-	}
-
-	/** 스테이지 에피소드 잠금 해제 타겟 정보를 반환한다 */
-	public STTargetInfo GetStageEpisodeUnlockTargetInfo(int a_nStageID, ETargetKinds a_eTargetKinds, int a_nKinds, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		this.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID);
-		return stStageEpisodeInfo.m_oUnlockTargetInfoDict.ExGetTargetInfo(a_eTargetKinds, a_nKinds);
-	}
-
-	/** 챕터 에피소드 기록 값 정보를 반환한다 */
-	public STValInfo GetChapterEpisodeRecordValInfo(int a_nIdx, int a_nChapterID) {
-		this.TryGetChapterEpisodeInfo(a_nChapterID, out STEpisodeInfo stChapterEpisodeInfo);
-		return stChapterEpisodeInfo.m_oRecordValInfoList.ExGetVal(a_nIdx, STValInfo.INVALID);
-	}
-
-	/** 챕터 에피소드 클리어 타겟 정보를 반환한다 */
-	public STTargetInfo GetChapterEpisodeClearTargetInfo(int a_nChapterID, ETargetKinds a_eTargetKinds, int a_nKinds) {
-		this.TryGetChapterEpisodeInfo(a_nChapterID, out STEpisodeInfo stChapterEpisodeInfo);
-		return stChapterEpisodeInfo.m_oClearTargetInfoDict.ExGetTargetInfo(a_eTargetKinds, a_nKinds);
-	}
-
-	/** 챕터 에피소드 잠금 해제 타겟 정보를 반환한다 */
-	public STTargetInfo GetChapterEpisodeUnlockTargetInfo(int a_nChapterID, ETargetKinds a_eTargetKinds, int a_nKinds) {
-		this.TryGetChapterEpisodeInfo(a_nChapterID, out STEpisodeInfo stChapterEpisodeInfo);
-		return stChapterEpisodeInfo.m_oUnlockTargetInfoDict.ExGetTargetInfo(a_eTargetKinds, a_nKinds);
-	}
-
+	
 	/** 레벨 에피소드 정보를 반환한다 */
 	public STEpisodeInfo GetLevelEpisodeInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetLevelEpisodeInfo(a_nLevelID, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID);
@@ -316,8 +262,8 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 	/** 레벨 에피소드 정보를 반환한다 */
 	public bool TryGetLevelEpisodeInfo(int a_nLevelID, out STEpisodeInfo a_stOutLevelEpisodeInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		a_stOutLevelEpisodeInfo = this.LevelEpisodeInfoDict.GetValueOrDefault(CFactory.MakeUniqueLevelID(a_nLevelID, a_nStageID, a_nChapterID), STEpisodeInfo.INVALID);
-		return this.LevelEpisodeInfoDict.ContainsKey(CFactory.MakeUniqueLevelID(a_nLevelID, a_nStageID, a_nChapterID));
+		a_stOutLevelEpisodeInfo = this.LevelEpisodeInfoDict.GetValueOrDefault(CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID), STEpisodeInfo.INVALID);
+		return this.LevelEpisodeInfoDict.ContainsKey(CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID));
 	}
 
 	/** 스테이지 에피소드 정보를 반환한다 */

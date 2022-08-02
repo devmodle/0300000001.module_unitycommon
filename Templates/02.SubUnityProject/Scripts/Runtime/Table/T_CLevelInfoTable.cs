@@ -74,7 +74,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 변수
 	
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public ulong UniqueLevelID => CFactory.MakeUniqueLevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
+	[JsonIgnore][IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; private set; } = new Dictionary<ulong, STTargetInfo>();
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; private set; } = new Dictionary<ulong, STTargetInfo>();
@@ -314,20 +314,20 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보 경로를 반환한다 */
 	private string GetLevelInfoPath(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		ulong nUniqueLevelID = CFactory.MakeUniqueLevelID(a_nLevelID, a_nStageID, a_nChapterID);
+		ulong nULevelID = CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID);
 
 #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B, nUniqueLevelID + KCDefine.B_VAL_1_INT);
+		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B, nULevelID + KCDefine.B_VAL_1_INT);
 #else
-		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B, nUniqueLevelID + KCDefine.B_VAL_1_INT);
+		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B, nULevelID + KCDefine.B_VAL_1_INT);
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 #else
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		return string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nUniqueLevelID + KCDefine.B_VAL_1_INT);
+		return string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
 #else
-		return string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nUniqueLevelID + KCDefine.B_VAL_1_INT);
+		return string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #else
@@ -380,9 +380,9 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		this.NumLevelInfosDictContainer.Clear();
 
 		for(int i = 0; i < oLevelIDList.Count; ++i) {
-			int nID = oLevelIDList[i].ExUniqueLevelIDToID();
-			int nStageID = oLevelIDList[i].ExUniqueLevelIDToStageID();
-			int nChapterID = oLevelIDList[i].ExUniqueLevelIDToChapterID();
+			int nLevelID = oLevelIDList[i].ExULevelIDToLevelID();
+			int nStageID = oLevelIDList[i].ExULevelIDToStageID();
+			int nChapterID = oLevelIDList[i].ExULevelIDToChapterID();
 
 			var oNumChapterLevelInfosDict = this.NumLevelInfosDictContainer.GetValueOrDefault(nChapterID);
 			oNumChapterLevelInfosDict = oNumChapterLevelInfosDict ?? new Dictionary<int, int>();
@@ -393,8 +393,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			this.NumLevelInfosDictContainer.ExReplaceVal(nChapterID, oNumChapterLevelInfosDict);
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			var oLevelInfo = this.LoadLevelInfo(nID, nStageID, nChapterID);
-			oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(nID, nStageID, nChapterID);
+			var oLevelInfo = this.LoadLevelInfo(nLevelID, nStageID, nChapterID);
+			oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(nLevelID, nStageID, nChapterID);
 
 			this.AddLevelInfo(oLevelInfo);
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)

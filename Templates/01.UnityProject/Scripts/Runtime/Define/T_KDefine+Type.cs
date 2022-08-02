@@ -94,7 +94,7 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 /** 타입 랩퍼 */
 [MessagePackObject]
 public partial struct STTypeWrapper {
-	[Key(51)] public List<ulong> m_oUniqueLevelIDList;
+	[Key(51)] public List<ulong> m_oULevelIDList;
 
 	[Key(161)] public Dictionary<int, Dictionary<int, int>> m_oNumLevelInfosDictContainer;
 	[Key(162)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;

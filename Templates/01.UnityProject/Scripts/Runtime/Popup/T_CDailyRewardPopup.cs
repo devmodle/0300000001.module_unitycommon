@@ -45,13 +45,13 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 	/** 보상 획득 팝업이 닫혔을 경우 */
 	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
-		CGameInfoStorage.Inst.SetupNextDailyRewardID();
+		Func.SetupNextDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 
 	/** 보상 획득 팝업을 출력한다 */
 	private void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
-		var eRewardKinds = CGameInfoStorage.Inst.DailyRewardKinds;
+		var eRewardKinds = Access.GetDailyRewardKinds(CGameInfoStorage.Inst.PlayCharacterID);
 		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
 
 		// 보상 광고 시청 모드 일 경우

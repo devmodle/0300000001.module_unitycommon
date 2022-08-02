@@ -181,7 +181,7 @@ namespace GameScene {
 		private void ApplySelItems() {
 			for(int i = 0; i < CGameInfoStorage.Inst.FreeSelItemKindsList.Count; ++i) {
 				this.ApplySelItem(CGameInfoStorage.Inst.FreeSelItemKindsList[i]);
-				CGameInfoStorage.Inst.RemoveSelItem(CGameInfoStorage.Inst.FreeSelItemKindsList[i]);
+				CGameInfoStorage.Inst.FreeSelItemKindsList.ExRemoveVal(CGameInfoStorage.Inst.FreeSelItemKindsList[i]);
 			}
 
 			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
@@ -196,13 +196,13 @@ namespace GameScene {
 		/** 다음 레벨을 로드한다 */
 		private void LoadNextLevel(CPopup a_oPopup) {
 			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oEngine.LevelInfo.m_stIDInfo.m_nID01, out STEpisodeInfo stNextLevelEpisodeInfo, m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03);
-			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID01 <= CGameInfoStorage.Inst.GetNumLevelClearInfos(m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03);
+			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03);
 
 			switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
 					// 다음 레벨이 존재 할 경우
 					if(bIsValid && !m_oBoolDict[EKey.IS_LEAVE]) {
-						CGameInfoStorage.Inst.SetupPlayLevelInfo(stNextLevelEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, stNextLevelEpisodeInfo.m_stIDInfo.m_nID02, stNextLevelEpisodeInfo.m_stIDInfo.m_nID03);
+						Func.SetupPlayLevelInfo(stNextLevelEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, stNextLevelEpisodeInfo.m_stIDInfo.m_nID02, stNextLevelEpisodeInfo.m_stIDInfo.m_nID03);
 						
 #if ADS_MODULE_ENABLE
 						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
@@ -295,10 +295,9 @@ namespace GameScene {
 #if ENGINE_TEMPLATES_MODULE_ENABLE
 		/** 레벨을 클리어했을 경우 */
 		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {			
-			var oLevelClearInfo = Access.GetLevelClearInfo(m_oEngine.LevelInfo.m_stIDInfo.m_nID01, m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03, true);
+			var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, m_oEngine.LevelInfo.m_stIDInfo.m_nID01, m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03, true);
 			oLevelClearInfo.IntRecord = a_oSender.IntRecord;
 			oLevelClearInfo.RealRecord = a_oSender.RealRecord;
-
 			oLevelClearInfo.IntBestRecord = System.Math.Max(a_oSender.IntRecord, oLevelClearInfo.IntBestRecord);
 			oLevelClearInfo.RealBestRecord = a_oSender.RealRecord.ExIsGreate(oLevelClearInfo.RealBestRecord) ? a_oSender.RealRecord : oLevelClearInfo.RealBestRecord;
 

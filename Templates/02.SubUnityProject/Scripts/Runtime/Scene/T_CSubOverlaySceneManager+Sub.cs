@@ -59,9 +59,9 @@ namespace OverlayScene {
 
 			var oSubGameSceneManager = CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
 			oSubGameSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
-
+			
 			// 텍스트를 갱신한다
-			m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{CUserInfoStorage.Inst.NumCoins}", EFontSet._1, false);
+			m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
 		}
 		#endregion			// 함수
 	}
