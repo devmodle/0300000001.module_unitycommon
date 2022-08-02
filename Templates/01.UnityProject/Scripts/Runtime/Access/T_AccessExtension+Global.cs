@@ -15,6 +15,11 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this ELoginType a_eSender) {
+		return a_eSender > ELoginType.NONE && a_eSender < ELoginType.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EPurchaseType a_eSender) {
 		return a_eSender > EPurchaseType.NONE && a_eSender < EPurchaseType.MAX_VAL;
 	}
@@ -36,11 +41,25 @@ public static partial class AccessExtension {
 
 		return stTargetInfo;
 	}
+
+	/** 타겟 정보를 반환한다 */
+	public static CTargetInfo ExGetTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, ETargetType a_eTargetType, int a_nKinds) {
+		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo);
+		CAccess.Assert(bIsValid);
+
+		return oTargetInfo;
+	}
 	
 	/** 타겟 정보를 반환한다 */
 	public static bool ExTryGetTargetInfo(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutTargetInfo) {
 		a_stOutTargetInfo = a_oSender.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID);
 		return a_oSender.ContainsKey(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds));
+	}
+	
+	/** 타겟 정보를 반환한다 */
+	public static bool ExTryGetTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, ETargetType a_eTargetType, int a_nKinds, out CTargetInfo a_oOutTargetInfo) {
+		a_oOutTargetInfo = a_oSender.TryGetValue(a_eTargetType, out List<CTargetInfo> oTargetInfoList) ? oTargetInfoList.ExGetVal((a_oTargetInfo) => a_oTargetInfo.TargetType == a_eTargetType && a_oTargetInfo.Kinds == a_nKinds, null) : null;
+		return a_oOutTargetInfo != null;
 	}
 	#endregion			// 클래스 함수
 }

@@ -72,44 +72,7 @@ public abstract partial class CTargetInfo : CBaseInfo {
 			}
 		}
 	}
-
-	/** 타겟 정보를 반환한다 */
-	public CTargetInfo GetTargetInfo(ETargetType a_eTargetType, int a_nKinds) {
-		bool bIsValid = this.TryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo);
-		CAccess.Assert(bIsValid);
-
-		return oTargetInfo;
-	}
-
-	/** 타겟 정보를 반환한다 */
-	public bool TryGetTargetInfo(ETargetType a_eTargetType, int a_nKinds, out CTargetInfo a_oOutTargetInfo) {
-		var eTargetType = (ETargetType)((int)a_eTargetType).ExKindsToType();
-		a_oOutTargetInfo = m_oTargetInfoDictContainer.TryGetValue(eTargetType, out List<CTargetInfo> oTargetInfoList) ? oTargetInfoList.ExGetVal((a_oTargetInfo) => a_oTargetInfo.TargetType == eTargetType && a_oTargetInfo.Kinds == a_nKinds, null) : null;
-
-		return a_oOutTargetInfo != null;
-	}
-
-	/** 타겟 정보를 추가한다 */
-	public void AddTargetInfo(CTargetInfo a_oTargetInfo, bool a_bIsDuplicate = false, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfo != null);
-
-		// 타겟 정보가 존재 할 경우
-		if(a_oTargetInfo != null) {
-			var oTargetInfoList = m_oTargetInfoDictContainer.GetValueOrDefault(a_oTargetInfo.TargetType);
-			oTargetInfoList = oTargetInfoList ?? new List<CTargetInfo>();
-			
-			int nIdx = oTargetInfoList.FindIndex((a_oCompareTargetInfo) => a_oCompareTargetInfo.TargetType == a_oTargetInfo.TargetType && a_oCompareTargetInfo.Kinds == a_oTargetInfo.Kinds);
-
-			// 타겟 정보 추가가 가능 할 경우
-			if(a_bIsDuplicate || !oTargetInfoList.ExIsValidIdx(nIdx)) {
-				oTargetInfoList.ExAddVal(a_oTargetInfo);
-				a_oTargetInfo.m_oOwnerTargetInfo = this;
-			}
-
-			m_oTargetInfoDictContainer.ExReplaceVal(a_oTargetInfo.TargetType, oTargetInfoList);
-		}
-	}
-
+	
 	/** 타겟 정보를 설정한다 */
 	private void SetupTargetInfos(List<CTargetInfo> a_oTargetInfoList) {
 		for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
@@ -417,7 +380,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
-			oCharacterUserInfo.AddTargetInfo(a_oTargetInfo, a_bIsDuplicate);
+			oCharacterUserInfo.m_oTargetInfoDictContainer.ExAddTargetInfo(a_oTargetInfo, oCharacterUserInfo, a_bIsDuplicate);
 		}
 	}
 
@@ -469,7 +432,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 타겟 정보를 반환한다 */
 	private bool TryGetTargetInfo(int a_nCharacterID, ETargetType a_eTargetType, int a_nKinds, out CTargetInfo a_oOutTargetInfo) {
-		a_oOutTargetInfo = (this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.TryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
+		a_oOutTargetInfo = (this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.m_oTargetInfoDictContainer.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
 		return a_oOutTargetInfo != null;
 	}
 	#endregion			// 함수

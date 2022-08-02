@@ -10,18 +10,37 @@ using DG.Tweening;
 /** 전역 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
+	/** 타겟 정보를 추가한다 */
+	public static void ExAddTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, CTargetInfo a_oOwnerTargetInfo, bool a_bIsDuplicate = false, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oSender != null && a_oTargetInfo != null) {
+			var oTargetInfoList = a_oSender.GetValueOrDefault(a_oTargetInfo.TargetType) ?? new List<CTargetInfo>();
+			int nIdx = oTargetInfoList.FindIndex((a_oCompareTargetInfo) => a_oCompareTargetInfo.TargetType == a_oTargetInfo.TargetType && a_oCompareTargetInfo.Kinds == a_oTargetInfo.Kinds);
+
+			// 타겟 정보 추가가 가능 할 경우
+			if(a_bIsDuplicate || !oTargetInfoList.ExIsValidIdx(nIdx)) {
+				a_oTargetInfo.m_oOwnerTargetInfo = a_oOwnerTargetInfo;
+				oTargetInfoList.ExAddVal(a_oTargetInfo);
+			}
+
+			a_oSender.ExReplaceVal(a_oTargetInfo.TargetType, oTargetInfoList);
+		}
+	}
+
 	/** 타겟 값을 증가시킨다 */
 	public static void ExIncrTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
-		a_oSender.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, System.Math.Clamp(a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stAbilityTargetInfo) ? stAbilityTargetInfo.m_stValInfo01.m_nVal + a_nVal : a_nVal, long.MinValue, long.MaxValue), a_bIsEnableAssert);
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
+		a_oSender.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, System.Math.Clamp(a_oSender.ExGetTargetVal(a_eTargetKinds, a_nKinds) + a_nVal, long.MinValue, long.MaxValue), a_bIsEnableAssert);
 	}
 
 	/** 타겟 값을 대체한다 */
 	public static void ExReplaceTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
 
 		// 타겟 정보가 존재 할 경우
-		if(a_oSender != null) {
+		if(a_oSender != null && a_eTargetKinds.ExIsValid()) {
 			a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stAbilityTargetInfo);
 			stAbilityTargetInfo.m_nKinds = a_nKinds;
 			stAbilityTargetInfo.m_eTargetKinds = ETargetKinds.ABILITY;

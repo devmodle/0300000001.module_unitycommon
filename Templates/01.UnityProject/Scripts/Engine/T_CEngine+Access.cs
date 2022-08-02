@@ -10,88 +10,82 @@ namespace SampleEngineName {
 	/** 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		/** 객체 정보를 반환한다 */
-		public (EObjKinds, CEObj) FindObjInfo(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
-			bool bIsValid = this.TryFindObjInfo(a_eObjType, a_eObjKinds, a_stIdx, out (EObjKinds, CEObj) stObjInfo);
+		/** 객체를 반환한다 */
+		public CEObj FindObj(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+			bool bIsValid = this.TryFindObj(a_eObjType, a_eObjKinds, a_stIdx, out CEObj oObj);
 			CAccess.Assert(bIsValid);
 
-			return stObjInfo;
+			return oObj;
 		}
 
-		/** 객체 정보를 반환한다 */
-		public List<(EObjKinds, CEObj)> FindObjInfos(EObjType a_eObjType, Vector3Int a_stIdx) {
-			return m_oObjInfoDictContainers.ExIsValidIdx(a_stIdx) ? m_oObjInfoDictContainers[a_stIdx.y, a_stIdx.x].GetValueOrDefault(a_eObjType) : null;
+		/** 객체를 반환한다 */
+		public List<CEObj> FindObjs(EObjType a_eObjType, Vector3Int a_stIdx) {
+			return m_oObjDictContainers.ExIsValidIdx(a_stIdx) ? m_oObjDictContainers[a_stIdx.y, a_stIdx.x].GetValueOrDefault(a_eObjType) : null;
 		}
 
-		/** 최상단 객체 정보를 반환한다 */
-		public (EObjKinds, CEObj) FindTopObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+		/** 최상단 객체를 반환한다 */
+		public CEObj FindTopObj(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
 			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
-				var oObjInfo = this.FindObjInfo(eObjType, a_eObjKinds, a_stIdx);
+				var oObj = this.FindObj(eObjType, a_eObjKinds, a_stIdx);
 
-				// 객체 정보가 존재 할 경우
-				if(!oObjInfo.Equals(KDefine.E_INVALID_OBJ_INFO)) {
-					return oObjInfo;
-				}
-			}
-
-			return KDefine.E_INVALID_OBJ_INFO;
-		}
-
-		/** 최상단 객체 정보를 반환한다 */
-		public List<(EObjKinds, CEObj)> FindTopObjInfos(Vector3Int a_stIdx) {
-			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
-				var oObjInfoList = this.FindObjInfos(eObjType, a_stIdx);
-
-				// 객체 정보가 존재 할 경우
-				if(oObjInfoList != null) {
-					return oObjInfoList;
+				// 객체가 존재 할 경우
+				if(oObj != null) {
+					return oObj;
 				}
 			}
 
 			return null;
 		}
 
-		/** 객체 정보를 반환한다 */
-		public bool TryFindObjInfo(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx, out (EObjKinds, CEObj) a_oOutObjInfo) {
-			// 객체 정보가 존재 할 경우
-			if(this.TryFindObjInfos(a_eObjType, a_stIdx, out List<(EObjKinds, CEObj)> oObjInfoList)) {
-				a_oOutObjInfo = oObjInfoList.ExGetVal((a_oObjInfo) => a_oObjInfo.Item1 == a_eObjKinds, KDefine.E_INVALID_OBJ_INFO);
-				return true;
+		/** 최상단 객체를 반환한다 */
+		public List<CEObj> FindTopObjs(Vector3Int a_stIdx) {
+			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
+				var oObjList = this.FindObjs(eObjType, a_stIdx);
+
+				// 객체 정보가 존재 할 경우
+				if(oObjList != null) {
+					return oObjList;
+				}
 			}
 
-			a_oOutObjInfo = KDefine.E_INVALID_OBJ_INFO;
+			return null;
+		}
+
+		/** 객체를 반환한다 */
+		public bool TryFindObj(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx, out CEObj a_oOutObj) {
+			a_oOutObj = this.TryFindObjs(a_eObjType, a_stIdx, out List<CEObj> oObjList) ? oObjList.ExGetVal((a_oObj) => a_oObj.ObjInfo.m_eObjKinds == a_eObjKinds, null) : null;
 			return false;
 		}
 
-		/** 객체 정보를 반환한다 */
-		public bool TryFindObjInfos(EObjType a_eObjType, Vector3Int a_stIdx, out List<(EObjKinds, CEObj)> a_oOutObjInfoList) {
-			a_oOutObjInfoList = m_oObjInfoDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
-			return a_oOutObjInfoList != null;
+		/** 객체를 반환한다 */
+		public bool TryFindObjs(EObjType a_eObjType, Vector3Int a_stIdx, out List<CEObj> a_oOutObjList) {
+			a_oOutObjList = m_oObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
+			return a_oOutObjList != null;
 		}
 
-		/** 최상단 객체 정보를 반환한다 */
-		public bool TryFindTopObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stIdx, out (EObjKinds, CEObj) a_oOutTopObjInfo) {
+		/** 최상단 객체를 반환한다 */
+		public bool TryFindTopObj(EObjKinds a_eObjKinds, Vector3Int a_stIdx, out CEObj a_oOutTopObj) {
 			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
 				// 객체 정보가 존재 할 경우
-				if(this.TryFindObjInfo(eObjType, a_eObjKinds, a_stIdx, out a_oOutTopObjInfo)) {
+				if(this.TryFindObj(eObjType, a_eObjKinds, a_stIdx, out a_oOutTopObj)) {
 					return true;
 				}
 			}
 
-			a_oOutTopObjInfo = KDefine.E_INVALID_OBJ_INFO;
+			a_oOutTopObj = null;
 			return false;
 		}
 
-		/** 객체 정보를 반환한다 */
-		public bool TryFindTopObjInfos(Vector3Int a_stIdx, out List<(EObjKinds, CEObj)> a_oOutTopObjInfoList) {
+		/** 객체를 반환한다 */
+		public bool TryFindTopObjs(Vector3Int a_stIdx, out List<CEObj> a_oOutTopObjList) {
 			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
 				// 객체 정보가 존재 할 경우
-				if(this.TryFindObjInfos(eObjType, a_stIdx, out a_oOutTopObjInfoList)) {
+				if(this.TryFindObjs(eObjType, a_stIdx, out a_oOutTopObjList)) {
 					return true;
 				}
 			}
 
-			a_oOutTopObjInfoList = null;
+			a_oOutTopObjList = null;
 			return false;
 		}
 		#endregion			// 함수

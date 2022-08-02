@@ -384,12 +384,9 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			int nStageID = oLevelIDList[i].ExULevelIDToStageID();
 			int nChapterID = oLevelIDList[i].ExULevelIDToChapterID();
 
-			var oNumChapterLevelInfosDict = this.NumLevelInfosDictContainer.GetValueOrDefault(nChapterID);
-			oNumChapterLevelInfosDict = oNumChapterLevelInfosDict ?? new Dictionary<int, int>();
-
-			int nNumLevelInfos = oNumChapterLevelInfosDict.GetValueOrDefault(nStageID, KCDefine.B_VAL_0_INT);
-			oNumChapterLevelInfosDict.ExReplaceVal(nStageID, nNumLevelInfos + KCDefine.B_VAL_1_INT);
-
+			var oNumChapterLevelInfosDict = this.NumLevelInfosDictContainer.GetValueOrDefault(nChapterID) ?? new Dictionary<int, int>();
+			oNumChapterLevelInfosDict.ExReplaceVal(nStageID, oNumChapterLevelInfosDict.GetValueOrDefault(nStageID, KCDefine.B_VAL_0_INT) + KCDefine.B_VAL_1_INT);
+			
 			this.NumLevelInfosDictContainer.ExReplaceVal(nChapterID, oNumChapterLevelInfosDict);
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)

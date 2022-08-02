@@ -32,12 +32,6 @@ namespace SampleEngineName {
 		#endregion			// 기본
 
 		#region 런타임 상수
-		// 기타
-		public static readonly (EItemKinds, CEItem) E_INVALID_ITEM_INFO = (EItemKinds.NONE, null);
-		public static readonly (ESkillKinds, CESkill) E_INVALID_SKILL_INFO = (ESkillKinds.NONE, null);
-		public static readonly (EObjKinds, CEObj) E_INVALID_OBJ_INFO = (EObjKinds.NONE, null);
-		public static readonly (EFXKinds, CEFX) E_INVALID_FX_INFO = (EFXKinds.NONE, null);
-
 		// 경로 {
 		public static readonly string E_OBJ_P_ITEM = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}E_Item";
 		public static readonly string E_OBJ_P_SKILL = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}E_Skill";

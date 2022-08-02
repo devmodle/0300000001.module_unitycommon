@@ -73,7 +73,7 @@ namespace SampleEngineName {
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
-		private Dictionary<EObjType, List<(EObjKinds, CEObj)>>[,] m_oObjInfoDictContainers = null;
+		private Dictionary<EObjType, List<CEObj>>[,] m_oObjDictContainers = null;
 		#endregion			// 변수
 
 		#region 프로퍼티
