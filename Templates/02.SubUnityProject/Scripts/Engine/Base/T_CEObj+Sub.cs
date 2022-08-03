@@ -51,7 +51,15 @@ namespace SampleEngineName {
 		#endregion			// 프로퍼티
 
 		#region 함수
-		
+		/** 이동을 처리한다 */
+		public void Move(Vector3 a_stDirection) {
+			this.transform.localPosition += (a_stDirection * (float)this.AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * CScheduleManager.Inst.DeltaTime;
+		}
+
+		/** 스킬을 적용한다 */
+		public void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
+			// Do Something
+		}
 		#endregion			// 함수
 	}
 }

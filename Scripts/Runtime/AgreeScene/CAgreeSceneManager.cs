@@ -15,14 +15,6 @@ namespace AgreeScene {
 #endif			// #if UNITY_EDITOR
 		#endregion			// 프로퍼티
 
-		#region 추상 함수
-		/** 한국 약관 동의 팝업을 출력한다 */
-		protected abstract void ShowKRAgreePopup(string a_oPrivacy, string a_oServices);
-
-		/** 유럽 연합 약관 동의 팝업을 출력한다 */
-		protected abstract void ShowEUAgreePopup(string a_oPrivacyURL, string a_oServicesURL);
-		#endregion			// 추상 함수
-
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -53,6 +45,12 @@ namespace AgreeScene {
 
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
 		}
+
+		/** 한국 약관 동의 팝업을 출력한다 */
+		protected abstract void ShowKRAgreePopup(string a_oPrivacy, string a_oServices);
+
+		/** 유럽 연합 약관 동의 팝업을 출력한다 */
+		protected abstract void ShowEUAgreePopup(string a_oPrivacyURL, string a_oServicesURL);
 
 		/** 초기화 */
 		private IEnumerator OnStart() {

@@ -33,11 +33,6 @@ namespace SplashScene {
 #endif			// #if UNITY_EDITOR
 		#endregion			// 프로퍼티
 
-		#region 추상 함수
-		/** 스플래시를 출력한다 */
-		protected abstract void ShowSplash();
-		#endregion			// 추상 함수
-
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -155,6 +150,9 @@ namespace SplashScene {
 		protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
 			return CFactory.CreateCloneObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
 		}
+		
+		/** 스플래시를 출력한다 */
+		protected abstract void ShowSplash();
 
 		/** 초기화 */
 		private IEnumerator OnStart() {

@@ -29,6 +29,7 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public STFXInfo TableFXInfo => m_stParams.m_stTableFXInfo;
+		public override EComponentType ComponentType => EComponentType.FX;
 		#endregion			// 프로퍼티
 
 		#region 함수

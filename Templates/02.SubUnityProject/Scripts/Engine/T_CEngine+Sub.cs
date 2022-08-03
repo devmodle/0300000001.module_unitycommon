@@ -76,7 +76,7 @@ namespace SampleEngineName {
 				CFunc.ShowLogWarning($"CEngine.OnDestroy Exception: {oException.Message}");
 			}
 		}
-
+		
 		/** 구동 상태를 처리한다 */
 		private void HandleRunState() {
 			// Do Something

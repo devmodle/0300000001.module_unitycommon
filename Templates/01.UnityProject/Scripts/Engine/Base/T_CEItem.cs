@@ -23,6 +23,7 @@ namespace SampleEngineName {
 		#region 프로퍼티
 		public STItemInfo ItemInfo => m_stParams.m_stItemInfo;
 		public CItemTargetInfo ItemTargetInfo => m_stParams.m_oItemTargetInfo;
+		public override EComponentType ComponentType => EComponentType.ITEM;
 		#endregion			// 프로퍼티
 
 		#region 함수

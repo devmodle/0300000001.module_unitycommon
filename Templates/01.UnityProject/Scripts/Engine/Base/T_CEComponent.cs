@@ -13,6 +13,7 @@ namespace SampleEngineName {
 		public partial struct STParams {
 			public string m_oObjsPoolKey;
 			public CEngine m_oEngine;
+			public CEComponent m_oOwner;
 		}
 
 		#region 변수
@@ -23,7 +24,10 @@ namespace SampleEngineName {
 		#region 프로퍼티
 		public string ObjsPoolKey => m_stParams.m_oObjsPoolKey;
 		public CEngine Engine => m_stParams.m_oEngine;
+		public CEComponent Owner => m_stParams.m_oOwner;
 		public Dictionary<EAbilityKinds, decimal> AbilityValDict => m_oAbilityValDict;
+
+		public abstract EComponentType ComponentType { get; }
 		#endregion			// 프로퍼티
 
 		#region 함수

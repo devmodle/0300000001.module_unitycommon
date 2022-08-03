@@ -19,11 +19,6 @@ namespace StartScene {
 #endif			// #if UNITY_EDITOR
 		#endregion			// 프로퍼티
 
-		#region 추상 함수
-		/** 시작 씬 이벤트를 수신했을 경우 */
-		protected abstract void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent);
-		#endregion			// 추상 함수
-
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -54,6 +49,9 @@ namespace StartScene {
 				CSndManager.Inst.SetMaxNumFXSnds(stKeyVal.Key, stKeyVal.Value);
 			}
 		}
+		
+		/** 시작 씬 이벤트를 수신했을 경우 */
+		protected abstract void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent);
 
 		/** 초기화 */
 		private IEnumerator OnStart() {

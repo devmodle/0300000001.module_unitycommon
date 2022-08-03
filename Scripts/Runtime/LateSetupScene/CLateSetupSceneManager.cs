@@ -38,16 +38,6 @@ namespace LateSetupScene {
 #endif			// #if ADS_MODULE_ENABLE
 		#endregion			// 클래스 프로퍼티
 
-		#region 추상 함수
-		/** 추적 설명 팝업을 출력한다 */
-		protected abstract void ShowTrackingDescPopup();
-
-#if UNITY_ANDROID
-		/** 유저 권한을 요청한다 */
-		protected abstract void RequestUserPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
-#endif			// #if UNITY_ANDROID
-		#endregion			// 추상 함수
-
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -92,6 +82,9 @@ namespace LateSetupScene {
 			this.ExLateCallFunc((a_oSender) => this.OnCloseTrackingConsentView(true));
 #endif			// #if UNITY_IOS
 		}
+
+		/** 추적 설명 팝업을 출력한다 */
+		protected abstract void ShowTrackingDescPopup();
 
 		/** 초기화 */
 		private IEnumerator OnStart() {
@@ -289,6 +282,9 @@ namespace LateSetupScene {
 
 		#region 조건부 함수
 #if UNITY_ANDROID
+		/** 유저 권한을 요청한다 */
+		protected abstract void RequestUserPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
+
 		/** 유저 권한 요청 결과를 수신했을 경우 */
 		private void OnReceiveRequestUserPermissionResult(string a_oPermission, bool a_bIsSuccess) {
 			m_oUserPermissionList.ExRemoveVal(a_oPermission);

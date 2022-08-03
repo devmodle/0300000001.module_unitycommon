@@ -32,6 +32,7 @@ namespace SampleEngineName {
 		public Vector3Int Idx { get; set; } = Vector3Int.zero;
 		public STObjInfo ObjInfo => m_stParams.m_stObjInfo;
 		public CObjTargetInfo ObjTargetInfo => m_stParams.m_oObjTargetInfo;
+		public override EComponentType ComponentType => EComponentType.OBJ;
 		#endregion			// 프로퍼티
 
 		#region 함수

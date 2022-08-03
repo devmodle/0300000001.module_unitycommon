@@ -100,14 +100,15 @@ namespace SampleEngineName {
 		#region 함수
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stDirection) {
-			// Do Something
+			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].Move(a_stDirection);
+			CSceneManager.ActiveSceneMainCamera.transform.position = m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position;
 		}
 		
 		/** 플레이어 객체 스킬을 적용한다 */
 		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			// Do Something
+			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].ApplySkill(a_oSkillTargetInfo);
 		}
-
+		
 		/** 터치 이벤트를 처리한다 */
 		public void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
 			var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot);
