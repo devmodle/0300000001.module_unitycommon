@@ -62,7 +62,6 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 #if ADS_MODULE_ENABLE
 	public int AdsSkipTimes { get; set; } = KCDefine.B_VAL_0_INT;
-
 	public System.DateTime PrevAdsTime { get; set; } = System.DateTime.Now;
 	public System.DateTime PrevRewardAdsTime { get; set; } = System.DateTime.Now;
 
@@ -75,7 +74,7 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 			double dblDeltaTime02 = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevRewardAdsTime);
 
 			bool bIsEnable = dblDeltaTime01.ExIsGreateEquals(dblAdsDelay) && dblDeltaTime02.ExIsGreateEquals(dblAdsDeltaTime);
-			return bIsEnable && this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && CGameInfoStorage.Inst.GameInfo.m_oLevelClearInfoDict.Count >= KDefine.G_MAX_NUM_ADS_SKIP_CLEAR_INFOS;
+			return bIsEnable && this.AdsSkipTimes >= KDefine.G_MAX_TIMES_ADS_SKIP && CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID).m_oLevelClearInfoDict.Count >= KDefine.G_MAX_NUM_ADS_SKIP_CLEAR_INFOS;
 		}
 	}
 	
@@ -125,25 +124,6 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
-
-	#region 조건부 함수
-#if ADS_MODULE_ENABLE
-	/** 광고 누적 횟수를 추가한다 */
-	public void AddAdsSkipTimes(int a_nTimes) {
-		this.AdsSkipTimes = Mathf.Clamp(this.AdsSkipTimes + a_nTimes, KCDefine.B_VAL_0_INT, int.MaxValue);
-	}
-
-	/** 보상 광고 시청 횟수를 추가한다 */
-	public void AddRewardAdsWatchTimes(int a_nTimes) {
-		this.AppInfo.RewardAdsWatchTimes = Mathf.Clamp(this.AppInfo.RewardAdsWatchTimes + a_nTimes, KCDefine.B_VAL_0_INT, int.MaxValue);
-	}
-
-	/** 전면 광고 시청 횟수를 추가한다 */
-	public void AddFullscreenAdsWatchTimes(int a_nTimes) {
-		this.AppInfo.FullscreenAdsWatchTimes = Mathf.Clamp(this.AppInfo.FullscreenAdsWatchTimes + a_nTimes, KCDefine.B_VAL_0_INT, int.MaxValue);
-	}
-#endif			// #if ADS_MODULE_ENABLE
-	#endregion			// 조건부 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -59,7 +59,7 @@ namespace SampleEngineName {
 		private STParams m_stParams;
 
 		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>() {
-			[EKey.SEL_GRID_INFO] = default(STGridInfo)
+			[EKey.SEL_GRID_INFO] = STGridInfo.INVALID
 		};
 
 		private Dictionary<EKey, CEObj> m_oPlayerObjDict = new Dictionary<EKey, CEObj>() {

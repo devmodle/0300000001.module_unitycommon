@@ -118,7 +118,7 @@ namespace LevelEditorScene {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
 		private Dictionary<EKey, SampleEngineName.STGridInfo> m_oGridInfoDict = new Dictionary<EKey, SampleEngineName.STGridInfo>() {
-			[EKey.SEL_GRID_INFO] = default(SampleEngineName.STGridInfo)
+			[EKey.SEL_GRID_INFO] = SampleEngineName.STGridInfo.INVALID
 		};
 
 		private Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>[,] m_oObjSpriteInfoDictContainers = null;

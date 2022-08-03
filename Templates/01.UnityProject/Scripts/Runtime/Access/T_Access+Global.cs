@@ -119,6 +119,39 @@ public static partial class Access {
 		return CStrTable.Inst.GetStr(string.Format(KCDefine.U_KEY_FMT_TUTORIAL_MSG, a_eTutorialKinds, a_nIdx + KCDefine.B_VAL_1_INT));
 	}
 
+	/** 스테이지 서브 에피소드 개수를 반환한다 */
+	public static int GetNumStageSubEpisodes(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		return CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID) ? stStageEpisodeInfo.m_nNumSubEpisodes : KCDefine.B_VAL_0_INT;
+	}
+
+	/** 챕터 서브 에피소드 개수를 반환한다 */
+	public static int GetNumChapterSubEpisodes(int a_nChapterID) {
+		return CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_nChapterID, out STEpisodeInfo stChapterEpisodeInfo) ? stChapterEpisodeInfo.m_nNumSubEpisodes : KCDefine.B_VAL_0_INT;
+	}
+
+	/** 레벨 클리어 정보 개수를 반환한다 */
+	public static int GetNumLevelClearInfos(int a_nCharacterID, int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID);
+		return oCharacterGameInfo.m_oLevelClearInfoDict.Sum((a_stKeyVal) => (a_stKeyVal.Value.m_stIDInfo.m_nID02 == a_nStageID && a_stKeyVal.Value.m_stIDInfo.m_nID03 == a_nChapterID) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT);
+	}
+
+	/** 스테이지 클리어 정보 개수를 반환한다 */
+	public static int GetNumStageClearInfos(int a_nCharacterID, int a_nChapterID) {
+		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID);
+		return oCharacterGameInfo.m_oStageClearInfoDict.Sum((a_stKeyVal) => (a_stKeyVal.Value.m_stIDInfo.m_nID03 == a_nChapterID) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT);
+	}
+
+	/** 챕터 클리어 정보 개수를 반환한다 */
+	public static int GetNumChapterClearInfos(int a_nCharacterID) {
+		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID);
+		return oCharacterGameInfo.m_oChapterClearInfoDict.Count;
+	}
+
+	/** 심볼 개수를 반환한다 */
+	public static long GetTotalNumSymbols(int a_nCharacterID) {
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oLevelClearInfoDict.Sum((a_stKeyVal) => a_stKeyVal.Value.NumSymbols) : KCDefine.B_VAL_0_INT;
+	}
+
 	/** 아이템 타겟 값을 반환한다 */
 	public static long GetItemTargetVal(int a_nCharacterID, EItemKinds a_eItemKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return Access.GetItemTargetInfo(a_nCharacterID, a_eItemKinds, true).m_oAbilityTargetInfoDict.ExGetTargetVal(a_eTargetKinds, a_nKinds);
@@ -132,29 +165,6 @@ public static partial class Access {
 	/** 객체 타겟 값을 반환한다 */
 	public static long GetObjTargetVal(int a_nCharacterID, EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return Access.GetObjTargetInfo(a_nCharacterID, a_eObjKinds, true).m_oAbilityTargetInfoDict.ExGetTargetVal(a_eTargetKinds, a_nKinds);
-	}
-
-	/** 심볼 개수를 반환한다 */
-	public static long GetTotalNumSymbols(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oLevelClearInfoDict.Sum((a_stKeyVal) => a_stKeyVal.Value.NumSymbols) : KCDefine.B_VAL_0_INT;
-	}
-
-	/** 레벨 클리어 정보 개수를 반환한다 */
-	public static long GetNumLevelClearInfos(int a_nCharacterID, int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID);
-		return oCharacterGameInfo.m_oLevelClearInfoDict.Sum((a_stKeyVal) => (a_stKeyVal.Value.m_stIDInfo.m_nID02 == a_nStageID && a_stKeyVal.Value.m_stIDInfo.m_nID03 == a_nChapterID) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT);
-	}
-
-	/** 스테이지 클리어 정보 개수를 반환한다 */
-	public static long GetNumStageClearInfos(int a_nCharacterID, int a_nChapterID) {
-		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID);
-		return oCharacterGameInfo.m_oStageClearInfoDict.Sum((a_stKeyVal) => (a_stKeyVal.Value.m_stIDInfo.m_nID03 == a_nChapterID) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT);
-	}
-
-	/** 챕터 클리어 정보 개수를 반환한다 */
-	public static long GetNumChapterClearInfos(int a_nCharacterID) {
-		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID);
-		return oCharacterGameInfo.m_oChapterClearInfoDict.Count;
 	}
 
 	/** 일일 보상 종류를 반환한다 */
@@ -247,21 +257,6 @@ public static partial class Access {
 	public static void SetObjTargetVal(int a_nCharacterID, EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal) {
 		Access.GetObjTargetInfo(a_nCharacterID, a_eObjKinds, true).m_oAbilityTargetInfoDict.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_nVal);
 	}
-	
-	/** 교환 가능 여부를 검사한다 */
-	private static bool DoIsEnableTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
-		// 타겟 정보가 존재 할 경우
-		if(a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
-			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
-				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
-				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
-				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
-			}
-		}
-
-		return false;
-	}
 
 	/** 아이템 타겟 교환 가능 여부를 검사한다 */
 	private static bool IsEnableItemTargetTrade(STTargetInfo a_stTargetInfo, CItemTargetInfo a_oItemTargetInfo) {
@@ -279,6 +274,21 @@ public static partial class Access {
 	private static bool IsEnableObjTargetTrade(STTargetInfo a_stTargetInfo, CObjTargetInfo a_oObjTargetInfo) {
 		CAccess.Assert(CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.m_nKinds, out STObjInfo stObjInfo));
 		return Access.DoIsEnableTrade(a_stTargetInfo, a_oObjTargetInfo);
+	}
+
+	/** 교환 가능 여부를 검사한다 */
+	private static bool DoIsEnableTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
+		// 타겟 정보가 존재 할 경우
+		if(a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
+			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
+				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
+				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
+				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
+				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
+			}
+		}
+
+		return false;
 	}
 	#endregion			// 클래스 함수
 }

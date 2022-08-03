@@ -458,14 +458,8 @@ public static partial class Func {
 				}
 			}, KCDefine.B_VAL_2_REAL, true);
 		} else {
-			try {
-				// 광고 누적 횟수 갱신이 가능 할 경우
-				if(CAppInfoStorage.Inst.IsEnableUpdateAdsSkipTimes) {
-					CAppInfoStorage.Inst.AddAdsSkipTimes(KCDefine.B_VAL_1_INT);
-				}
-			} finally {
-				CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, false);
-			}
+			Func.IncrAdsSkipTimes(KCDefine.B_VAL_1_INT);
+			CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, false);
 		}
 	}
 
@@ -479,7 +473,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Close();
 		CAppInfoStorage.Inst.PrevRewardAdsTime = System.DateTime.Now;
 
-		CAppInfoStorage.Inst.AddRewardAdsWatchTimes(KCDefine.B_VAL_1_INT);
+		Func.IncrRewardAdsWatchTimes(KCDefine.B_VAL_1_INT);
 		CAppInfoStorage.Inst.SaveAppInfo();
 
 		Func.m_oAdsCallbackDict02.GetValueOrDefault(ECallback.SHOW_REWARD_ADS)?.Invoke(a_oSender, Func.m_stAdsRewardInfo, Func.m_bIsWatchRewardAds);
@@ -496,7 +490,7 @@ public static partial class Func {
 		CAppInfoStorage.Inst.AdsSkipTimes = KCDefine.B_VAL_0_INT;
 		CAppInfoStorage.Inst.PrevAdsTime = System.DateTime.Now;
 
-		CAppInfoStorage.Inst.AddFullscreenAdsWatchTimes(KCDefine.B_VAL_1_INT);
+		Func.IncrFullscreenAdsWatchTimes(KCDefine.B_VAL_1_INT);
 		CAppInfoStorage.Inst.SaveAppInfo();
 
 		Func.m_oAdsCallbackDict01.GetValueOrDefault(ECallback.SHOW_FULLSCREEN_ADS)?.Invoke(a_oSender, Func.m_bIsWatchFullscreenAds);

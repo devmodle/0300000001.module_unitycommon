@@ -121,12 +121,9 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
 				var stCellInfo = m_oCellInfoDictContainer[i][j];
+				this.SetupCellInfo(new Vector3Int(j, i, KCDefine.B_IDX_INVALID), ref stCellInfo);
 
-				try {
-					this.SetupCellInfo(new Vector3Int(j, i, KCDefine.B_IDX_INVALID), ref stCellInfo);
-				} finally {
-					m_oCellInfoDictContainer[i][j] = stCellInfo;
-				}
+				m_oCellInfoDictContainer[i][j] = stCellInfo;
 			}
 		}
 		// 셀을 설정한다 }
