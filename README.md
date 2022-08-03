@@ -6,8 +6,8 @@
 	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
 	- *Advance Object Pool (1.1.0 - May 6, 2019)*
 	- *Anti Cheat Free (3.1.3 - Jun 22, 2022)*
-	- *Asset Usage Detector (2.2.1 - Apr 25, 2022)*
-	- *Bezier Solution (2.3.1 - Apr 25, 2022)*
+	- *Asset Usage Detector (2.2.2 - Jul 26, 2022)*
+	- *Bezier Solution (2.3.2 - Jul 26, 2022)*
 	- *Enhanced Hierarchy (2.4.5 - May 5, 2020)*
 	- *Enhanced Scroller (2.33.0 - Apr 6, 2022)*
 	- *Google Sheets to Unity (1.0.0 - Mar 18, 2019)*
