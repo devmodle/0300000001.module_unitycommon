@@ -29,18 +29,7 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public int Kinds {
-		get {
-			switch(m_eKindsGroupType) {
-				case EKindsGroupType.SUB_TYPE: return m_nKinds.ExKindsToSubType();
-				case EKindsGroupType.KINDS_TYPE: return m_nKinds.ExKindsToKindsType();
-				case EKindsGroupType.SUB_KINDS_TYPE: return m_nKinds.ExKindsToSubKindsType();
-			}
-			
-			return m_nKinds;
-		}
-	}
-
+	[JsonIgnore][IgnoreMember] public int Kinds => m_nKinds.ExKindsToCorrectKinds(m_eKindsGroupType);
 	[JsonIgnore][IgnoreMember] public ulong UniqueTargetInfoID => Factory.MakeUniqueTargetInfoID(m_eTargetKinds, m_nKinds);
 
 	[JsonIgnore][IgnoreMember] public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();

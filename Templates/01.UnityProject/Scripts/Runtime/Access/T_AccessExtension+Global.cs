@@ -28,7 +28,7 @@ public static partial class AccessExtension {
 	public static bool ExIsValid(this EKindsGroupType a_eSender) {
 		return a_eSender > EKindsGroupType.NONE && a_eSender < EKindsGroupType.MAX_VAL;
 	}
-
+	
 	/** 타겟 값을 반환한다 */
 	public static long ExGetTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo) ? stTargetInfo.m_stValInfo01.m_nVal : KCDefine.B_VAL_0_INT;

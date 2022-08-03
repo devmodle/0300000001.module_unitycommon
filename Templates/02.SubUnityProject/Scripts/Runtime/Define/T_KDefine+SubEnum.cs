@@ -394,7 +394,7 @@ public enum EObjKinds {
 
 	#region 플레이 가능
 	// 300,000,000
-	PLAYABLE_DEF_CHARACTER_01 = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 플레이 가능
 
 	#region 플레이 불가능
