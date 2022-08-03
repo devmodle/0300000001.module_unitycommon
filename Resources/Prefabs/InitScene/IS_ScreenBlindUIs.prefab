@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2429724377936249958}
   m_Layer: 5
-  m_Name: SS_ScreenBlindUIs
+  m_Name: IS_ScreenBlindUIs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

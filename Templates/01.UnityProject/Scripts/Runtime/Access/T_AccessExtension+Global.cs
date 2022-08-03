@@ -64,7 +64,7 @@ public static partial class AccessExtension {
 	#endregion			// 클래스 함수
 }
 
-/** 스플래시 씬 접근자 확장 클래스 */
+/** 초기화 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
 	#region 클래스 함수
 	

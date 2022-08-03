@@ -13,9 +13,9 @@ using UnityEngine.iOS;
 using UnityEngine.Rendering.Universal;
 #endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
-namespace SplashScene {
-	/** 스플래시 씬 관리자 */
-	public abstract partial class CSplashSceneManager : CSceneManager {
+namespace InitScene {
+	/** 초기화 씬 관리자 */
+	public abstract partial class CInitSceneManager : CSceneManager {
 		#region 변수
 		protected List<string> m_oSpriteAtlasPathList = new List<string>();
 		#endregion			// 변수
@@ -26,10 +26,10 @@ namespace SplashScene {
 		#endregion         // 클래스 변수
 
 		#region 프로퍼티
-		public override string SceneName => KCDefine.B_SCENE_N_SPLASH;
+		public override string SceneName => KCDefine.B_SCENE_N_INIT;
 
 #if UNITY_EDITOR
-		public override int ScriptOrder => KCDefine.U_SCRIPT_O_SPLASH_SCENE_MANAGER;
+		public override int ScriptOrder => KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER;
 #endif			// #if UNITY_EDITOR
 		#endregion			// 프로퍼티
 
@@ -148,7 +148,7 @@ namespace SplashScene {
 
 		/** 블라인드 이미지를 생성한다 */
 		protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
-			return CFactory.CreateCloneObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
+			return CFactory.CreateCloneObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
 		}
 		
 		/** 스플래시를 출력한다 */
@@ -252,11 +252,11 @@ namespace SplashScene {
 		/** 블라인드 UI 를 설정한다 */
 		private void SetupBlindUIs() {
 			// 블라인드 UI 가 없을 경우
-			if(CSplashSceneManager.m_oBlindUIs == null) {
-				CSplashSceneManager.m_oBlindUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_BLIND_UIS), null);
+			if(CInitSceneManager.m_oBlindUIs == null) {
+				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
 
 				try {
-					CSceneManager.ScreenBlindUIs = CSplashSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS);
+					CSceneManager.ScreenBlindUIs = CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS);
 
 					// 블라인드 이미지를 설정한다 {
 					var oImgList = new List<Image>() {
@@ -269,8 +269,8 @@ namespace SplashScene {
 					}
 					// 블라인드 이미지를 설정한다 }
 				} finally {
-					DontDestroyOnLoad(CSplashSceneManager.m_oBlindUIs);
-					CFunc.SetupScreenUIs(CSplashSceneManager.m_oBlindUIs, KCDefine.U_SORTING_O_SCREEN_BLIND_UIS);
+					DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
+					CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.U_SORTING_O_SCREEN_BLIND_UIS);
 				}
 			}
 		}

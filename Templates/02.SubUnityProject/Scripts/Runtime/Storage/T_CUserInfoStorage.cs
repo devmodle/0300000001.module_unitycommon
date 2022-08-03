@@ -279,8 +279,8 @@ public partial class CUserInfo : CBaseInfo {
 		base.OnAfterDeserialize();
 		m_oCharacterUserInfoDict = m_oCharacterUserInfoDict ?? new Dictionary<int, CCharacterUserInfo>();
 
-		for(int i = 0; i < m_oCharacterUserInfoDict.Count; ++i) {
-			m_oCharacterUserInfoDict[i].SetupAbilityTargetInfos(this.AbilityTargetInfoVer);
+		foreach(var stKeyVal in m_oCharacterUserInfoDict) {
+			stKeyVal.Value.SetupAbilityTargetInfos(this.AbilityTargetInfoVer);
 		}
 
 		// 버전이 다를 경우

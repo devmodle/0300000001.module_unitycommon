@@ -6,9 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
-namespace SplashScene {
-	/** 서브 스플래시 씬 관리자 */
-	public partial class CSubSplashSceneManager : CSplashSceneManager {
+namespace InitScene {
+	/** 서브 초기화 씬 관리자 */
+	public partial class CSubInitSceneManager : CInitSceneManager {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
@@ -23,6 +23,7 @@ namespace SplashScene {
 		#endregion			// 변수
 
 		#region 상수
+		public static readonly Color COLOR_BG_IMG = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
 		private static readonly Vector3 POS_SPLASH_IMG = new Vector3(0.0f, 25.0f, 0.0f);
 		#endregion			// 상수
 
@@ -62,7 +63,7 @@ namespace SplashScene {
 				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
 			}, m_oImgDict, false);
 
-			m_oImgDict[EKey.BG_IMG].color = KCDefine.SS_COLOR_BG_IMG;
+			m_oImgDict[EKey.BG_IMG].color = COLOR_BG_IMG;
 			m_oImgDict[EKey.BG_IMG].rectTransform.sizeDelta = CSceneManager.CanvasSize;
 			m_oImgDict[EKey.BG_IMG].gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
@@ -77,7 +78,7 @@ namespace SplashScene {
 			m_oImgDict[EKey.SPLASH_IMG].SetNativeSize();
 			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(true);
 
-			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.SS_DELAY_NEXT_SCENE_LOAD);
+			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.IS_DELAY_NEXT_SCENE_LOAD);
 		}
 		#endregion			// 함수
 	}

@@ -222,7 +222,7 @@ public static partial class KDefine {
 	#endregion			// 런타임 상수
 }
 
-/** 스플래시 씬 상수 */
+/** 초기화 씬 상수 */
 public static partial class KDefine {
 	#region 기본
 	
