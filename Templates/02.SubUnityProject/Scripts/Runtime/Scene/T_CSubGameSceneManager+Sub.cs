@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace GameScene {
 	/** 서브 게임 씬 관리자 */
 	public partial class CSubGameSceneManager : CGameSceneManager {
@@ -66,7 +66,6 @@ namespace GameScene {
 				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
 			}, false);
 
-#if ENGINE_TEMPLATES_MODULE_ENABLE
 			// 비율을 설정한다 {
 			bool bIsValid01 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.x) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.x);
 			bool bIsValid02 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.y) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.y);
@@ -74,7 +73,6 @@ namespace GameScene {
 
 			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
 			// 비율을 설정한다 }
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupSubTestUIs();
@@ -89,11 +87,12 @@ namespace GameScene {
 
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-			bool bIsValid = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03);
 			m_oEngine = CFactory.CreateObj<SampleEngineName.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
 
 			m_oEngine.Init(new SampleEngineName.CEngine.STParams() {
+				m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
+				m_oClearInfo = CGameInfoStorage.Inst.TryGetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID01, out CClearInfo oLevelClearInfo, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo.m_nID03) ? oLevelClearInfo : null,
+
 				m_oItemRoot = this.ItemRoot,
 				m_oSkillRoot = this.SkillRoot,
 				m_oObjRoot = this.ObjRoot,
@@ -102,14 +101,8 @@ namespace GameScene {
 				m_oCallbackDict = new Dictionary<SampleEngineName.CEngine.ECallback, System.Action<SampleEngineName.CEngine>>() {
 					[SampleEngineName.CEngine.ECallback.CLEAR] = this.OnClearLevel,
 					[SampleEngineName.CEngine.ECallback.CLEAR_FAIL] = this.OnClearFailLevel
-				},
-
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
-				m_oLevelInfo = CGameInfoStorage.Inst.PlayLevelInfo,
-				m_oClearInfo = bIsValid ? oLevelClearInfo : null
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+				}
 			});
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 보상 광고 UI 를 설정한다 */
@@ -238,5 +231,5 @@ namespace GameScene {
 		#endregion			// 조건부 함수
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -54,7 +54,7 @@ public static partial class KEditorDefine {
 #endif			// #if STUDY_MODULE_ENABLE
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
 
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		[typeof(CLevelInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
 		[typeof(CEtcInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
@@ -81,7 +81,7 @@ public static partial class KEditorDefine {
 		[typeof(LoadingScene.CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
 		[typeof(OverlayScene.CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_OVERLAY_SCENE_MANAGER,
 		[typeof(TestScene.CSubTestSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		[typeof(LevelEditorScene.CSubLevelEditorSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
@@ -141,14 +141,14 @@ public static partial class KEditorDefine {
 #endif			// #if STUDY_MODULE_ENABLE
 #endif			// #if SCENE_TEMPLATES_MODULE_ENABLE
 		
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_TITLE] = typeof(TitleScene.CSubTitleSceneManager),
 		[KCDefine.B_SCENE_N_MAIN] = typeof(MainScene.CSubMainSceneManager),
 		[KCDefine.B_SCENE_N_GAME] = typeof(GameScene.CSubGameSceneManager),
 		[KCDefine.B_SCENE_N_LOADING] = typeof(LoadingScene.CSubLoadingSceneManager),
 		[KCDefine.B_SCENE_N_OVERLAY] = typeof(OverlayScene.CSubOverlaySceneManager),
 		[KCDefine.B_SCENE_N_TEST] = typeof(TestScene.CSubTestSceneManager),
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_LEVEL_EDITOR] = typeof(LevelEditorScene.CSubLevelEditorSceneManager)

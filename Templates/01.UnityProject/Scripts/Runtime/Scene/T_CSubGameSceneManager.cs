@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace GameScene {
 	/** 서브 게임 씬 관리자 */
 	public partial class CSubGameSceneManager : CGameSceneManager {
@@ -48,10 +48,8 @@ namespace GameScene {
 		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>() {
 			[EKey.SEL_REWARD_ADS_UIS] = ERewardAdsUIs.NONE
 		};
-		
-#if ENGINE_TEMPLATES_MODULE_ENABLE
+
 		private SampleEngineName.CEngine m_oEngine = null;
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 
 		/** =====> 객체 <===== */
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
@@ -64,9 +62,7 @@ namespace GameScene {
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
-#if ENGINE_TEMPLATES_MODULE_ENABLE
 				m_oEngine.OnUpdate(a_fDeltaTime);
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 			}
 		}
 		
@@ -148,6 +144,23 @@ namespace GameScene {
 				case EPopupResult.CONTINUE: this.ContinuePlayLevel(a_oSender); break;
 				case EPopupResult.LEAVE: m_oBoolDict[EKey.IS_LEAVE] = true; this.LoadNextLevel(a_oSender); break;
 			}
+		}
+
+		/** 레벨을 클리어했을 경우 */
+		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {			
+			var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, m_oEngine.LevelInfo.m_stIDInfo.m_nID01, m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03, true);
+			oLevelClearInfo.IntRecord = a_oSender.IntRecord;
+			oLevelClearInfo.RealRecord = a_oSender.RealRecord;
+			oLevelClearInfo.IntBestRecord = System.Math.Max(a_oSender.IntRecord, oLevelClearInfo.IntBestRecord);
+			oLevelClearInfo.RealBestRecord = a_oSender.RealRecord.ExIsGreate(oLevelClearInfo.RealBestRecord) ? a_oSender.RealRecord : oLevelClearInfo.RealBestRecord;
+
+			CGameInfoStorage.Inst.SaveGameInfo();
+			this.ShowResultPopup(true);
+		}
+
+		/** 레벨 클리어에 실패했을 경우 */
+		private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
+			this.ShowResultPopup(false);
 		}
 
 		/** 정지 버튼을 눌렀을 경우 */
@@ -247,7 +260,6 @@ namespace GameScene {
 
 		/** 이어하기 팝업을 출력한다 */
 		private void ShowContinuePopup() {
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CContinuePopup).Init(new CContinuePopup.STParams() {
 					m_nContinueTimes = m_oIntDict[EKey.CONTINUE_TIMES],
@@ -260,21 +272,16 @@ namespace GameScene {
 					}
 				});
 			});
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 결과 팝업을 출력한다 */
 		private void ShowResultPopup(bool a_bIsClear) {
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 			Func.ShowResultPopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CResultPopup).Init(new CResultPopup.STParams() {
 					m_stRecordInfo = new STRecordInfo {
 						m_bIsSuccess = a_bIsClear,
-
-#if ENGINE_TEMPLATES_MODULE_ENABLE
 						m_nIntRecord = m_oEngine.IntRecord,
 						m_dblRealRecord = m_oEngine.RealRecord
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
 					},
 					
 					m_oLevelInfo = m_oEngine.LevelInfo,
@@ -287,31 +294,9 @@ namespace GameScene {
 					}
 				});
 			});
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 		#endregion			// 함수
-
-		#region 조건부 함수
-#if ENGINE_TEMPLATES_MODULE_ENABLE
-		/** 레벨을 클리어했을 경우 */
-		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {			
-			var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, m_oEngine.LevelInfo.m_stIDInfo.m_nID01, m_oEngine.LevelInfo.m_stIDInfo.m_nID02, m_oEngine.LevelInfo.m_stIDInfo.m_nID03, true);
-			oLevelClearInfo.IntRecord = a_oSender.IntRecord;
-			oLevelClearInfo.RealRecord = a_oSender.RealRecord;
-			oLevelClearInfo.IntBestRecord = System.Math.Max(a_oSender.IntRecord, oLevelClearInfo.IntBestRecord);
-			oLevelClearInfo.RealBestRecord = a_oSender.RealRecord.ExIsGreate(oLevelClearInfo.RealBestRecord) ? a_oSender.RealRecord : oLevelClearInfo.RealBestRecord;
-
-			CGameInfoStorage.Inst.SaveGameInfo();
-			this.ShowResultPopup(true);
-		}
-
-		/** 레벨 클리어에 실패했을 경우 */
-		private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
-			this.ShowResultPopup(false);
-		}
-#endif			// #if ENGINE_TEMPLATES_MODULE_ENABLE
-		#endregion			// 조건부 함수
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

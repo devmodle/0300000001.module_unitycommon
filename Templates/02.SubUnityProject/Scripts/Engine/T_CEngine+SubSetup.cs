@@ -5,16 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 엔진 - 설정 */
 	public partial class CEngine : CComponent {
 		#region 함수
-
-		#endregion			// 함수
-
-		#region 조건부 함수
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 			m_oObjDictContainers = new Dictionary<EObjType, List<CEObj>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
@@ -30,18 +25,12 @@ namespace SampleEngineName {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_stParams.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
 			// 객체 풀을 설정한다 }
 		}
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		#endregion			// 조건부 함수
+		#endregion			// 함수
 	}
 
 	/** 서브 엔진 - 설정 */
 	public partial class CEngine : CComponent {
 		#region 함수
-
-		#endregion			// 함수
-
-		#region 조건부 함수
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 		/** 셀을 설정한다 */
 		private void SetupCell(STCellInfo a_stCellInfo) {
 			var oObjInfoDictContainer = new Dictionary<EObjType, List<CEObj>>();
@@ -63,9 +52,8 @@ namespace SampleEngineName {
 		private void SetupGridLine() {
 			// Do Something
 		}
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
-		#endregion			// 조건부 함수
+		#endregion			// 함수
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

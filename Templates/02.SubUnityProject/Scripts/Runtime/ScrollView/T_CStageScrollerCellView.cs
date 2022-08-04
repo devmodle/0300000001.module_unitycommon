@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 스테이지 스크롤러 셀 뷰 */
 public partial class CStageScrollerCellView : CScrollerCellView {
 	/** 매개 변수 */
@@ -61,5 +61,5 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 	}
 	#endregion			// 함수
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

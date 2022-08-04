@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-#if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
@@ -20,11 +20,9 @@ namespace SampleEngineName {
 		public virtual void Init(STParams a_stParams) {
 			m_stParams = a_stParams;
 
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
 			this.SetupEngine();
 			this.SetupLevel();
 			this.SetupGridLine();
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 상태를 리셋한다 */
@@ -116,5 +114,5 @@ namespace SampleEngineName {
 		#endregion			// 조건부 함수
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

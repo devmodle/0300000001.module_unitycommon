@@ -18,7 +18,7 @@ namespace SetupScene {
 		protected override void Setup() {
 			base.Setup();
 
-#if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 저장소를 로드한다
 			CAppInfoStorage.Inst.LoadAppInfo();
 			CUserInfoStorage.Inst.LoadUserInfo();
@@ -46,10 +46,9 @@ namespace SetupScene {
 				CUserInfoStorage.Inst.AddCharacterUserInfo(KDefine.G_ID_COMMON_CHARACTER, Factory.MakeCharacterUserInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01, STIdxInfo.INVALID));
 				CUserInfoStorage.Inst.SaveUserInfo();
 			}
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && RUNTIME_TEMPLATES_MODULE_ENABLE
 
 			// 공용 앱 정보를 설정한다 {
-#if EXTRA_SCRIPT_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonAppInfoStorage.Inst.StoreURL = Access.StoreURL;
 			
 #if LOCALIZE_TEST_ENABLE
@@ -57,8 +56,9 @@ namespace SetupScene {
 #else
 			CCommonAppInfoStorage.Inst.SystemLanguage = Application.systemLanguage;
 #endif			// #if LOCALIZE_TEST_ENABLE
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 공용 앱 정보를 설정한다 }
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 		#endregion			// 함수
 	}

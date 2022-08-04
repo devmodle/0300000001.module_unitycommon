@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-#if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
@@ -42,17 +42,15 @@ namespace SampleEngineName {
 
 		/** 매개 변수 */
 		public partial struct STParams {
+			public CLevelInfo m_oLevelInfo;
+			public CClearInfo m_oClearInfo;
+
 			public GameObject m_oItemRoot;
 			public GameObject m_oSkillRoot;
 			public GameObject m_oObjRoot;
 			public GameObject m_oFXRoot;
 
 			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict;
-
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
-			public CLevelInfo m_oLevelInfo;
-			public CClearInfo m_oClearInfo;
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		}
 
 		#region 변수
@@ -86,15 +84,13 @@ namespace SampleEngineName {
 		public STGridInfo SelGridInfo => m_oGridInfoDict[EKey.SEL_GRID_INFO];
 		public CEObj SelPlayerObj => m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ];
 
+		public CLevelInfo LevelInfo => m_stParams.m_oLevelInfo;
+		public CClearInfo ClearInfo => m_stParams.m_oClearInfo;
+
 		public GameObject ItemRoot => m_stParams.m_oItemRoot;
 		public GameObject SkillRoot => m_stParams.m_oSkillRoot;
 		public GameObject ObjRoot => m_stParams.m_oObjRoot;
 		public GameObject FXRoot => m_stParams.m_oFXRoot;
-
-#if RUNTIME_TEMPLATES_MODULE_ENABLE
-		public CLevelInfo LevelInfo => m_stParams.m_oLevelInfo;
-		public CClearInfo ClearInfo => m_stParams.m_oClearInfo;
-#endif			// #if RUNTIME_TEMPLATES_MODULE_ENABLE
 		#endregion			// 프로퍼티
 		
 		#region 함수
@@ -125,5 +121,5 @@ namespace SampleEngineName {
 		#endregion			// 함수
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && ENGINE_TEMPLATES_MODULE_ENABLE
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY
