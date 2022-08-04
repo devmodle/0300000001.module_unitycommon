@@ -31,7 +31,22 @@ namespace InitScene {
 		/** 씬을 설정한다 */
 		protected override void Setup() {
 			base.Setup();
-			
+
+			// 이미지를 설정한다 {
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.BG_IMG, $"{EKey.BG_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG)),
+				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
+			}, m_oImgDict, false);
+
+			m_oImgDict[EKey.BG_IMG].color = COLOR_BG_IMG;
+			m_oImgDict[EKey.BG_IMG].rectTransform.sizeDelta = CSceneManager.CanvasSize;
+			m_oImgDict[EKey.BG_IMG].gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
+
+			m_oImgDict[EKey.SPLASH_IMG].sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
+			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = POS_SPLASH_IMG;
+			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
+			// 이미지를 설정한다 }
+
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 테이블을 생성한다 {
 			CLevelInfoTable.Create();
@@ -56,21 +71,6 @@ namespace InitScene {
 			CUserInfoStorage.Create();
 			CGameInfoStorage.Create();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			
-			// 이미지를 설정한다 {
-			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-				(EKey.BG_IMG, $"{EKey.BG_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG)),
-				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
-			}, m_oImgDict, false);
-
-			m_oImgDict[EKey.BG_IMG].color = COLOR_BG_IMG;
-			m_oImgDict[EKey.BG_IMG].rectTransform.sizeDelta = CSceneManager.CanvasSize;
-			m_oImgDict[EKey.BG_IMG].gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
-
-			m_oImgDict[EKey.SPLASH_IMG].sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
-			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = POS_SPLASH_IMG;
-			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
-			// 이미지를 설정한다 }
 		}
 
 		/** 스플래시를 출력한다 */

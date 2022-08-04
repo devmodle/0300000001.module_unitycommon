@@ -86,9 +86,9 @@ namespace TitleScene {
 				(EKey.FACEBOOK_LOGIN_BTN, $"{EKey.FACEBOOK_LOGIN_BTN}", this.UIsBase, this.OnTouchFacebookLoginBtn)
 			}, m_oBtnDict, false);
 
-#if DEBUG || DEVELOPMENT_BUILD
-			this.SetupSubTestUIs();
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
+#region 추가
+			this.SubAwakeSetup();
+#endregion			// 추가
 		}
 
 		/** 씬을 설정한다 */
@@ -100,6 +100,10 @@ namespace TitleScene {
 				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 			}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
+#region 추가
+			this.SubStartSetup();
+#endregion			// 추가
 		}
 
 		/** UI 상태를 갱신한다 */
@@ -119,9 +123,9 @@ namespace TitleScene {
 			}
 			// 버튼을 갱신한다 }
 
-#if DEBUG || DEVELOPMENT_BUILD
-			this.UpdateSubTestUIsState();
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
+#region 추가
+			this.SubUpdateUIsState();
+#endregion			// 추가
 		}
 		#endregion			// 함수
 	}
@@ -154,6 +158,25 @@ namespace TitleScene {
 		#endregion			// 프로퍼티
 
 		#region 함수
+		/** 씬을 설정한다 */
+		private void SubAwakeSetup() {
+#if DEBUG || DEVELOPMENT_BUILD
+			this.SetupSubTestUIs();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+		}
+
+		/** 씬을 설정한다 */
+		private void SubStartSetup() {
+			// Do Something
+		}
+
+		/** UI 상태를 갱신한다 */
+		private void SubUpdateUIsState() {
+#if DEBUG || DEVELOPMENT_BUILD
+			this.UpdateSubTestUIsState();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+		}
+
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// Do Something

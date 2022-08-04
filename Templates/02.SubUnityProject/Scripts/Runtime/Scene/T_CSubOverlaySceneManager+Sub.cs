@@ -42,26 +42,32 @@ namespace OverlayScene {
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 				(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
 			}, m_oBtnDict, false);
+
+#region 추가
+			this.SubAwakeSetup();
+#endregion			// 추가
 		}
 
 		/** 씬을 설정한다 */
 		private void StartSetup() {
-			// Do Something
+#region 추가
+			this.SubStartSetup();
+#endregion			// 추가
 		}
 
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
-			var oSubTitleSceneManager = CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE);
-			oSubTitleSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
-
-			var oSubMainSceneManager = CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN);
-			oSubMainSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
-
-			var oSubGameSceneManager = CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
-			oSubGameSceneManager?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
+			// UI 상태를 갱신한다
+			CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
+			CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
+			CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME)?.gameObject.ExSendMsg(KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 			
 			// 텍스트를 갱신한다
 			m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
+
+#region 추가
+			this.SubUpdateUIsState();
+#endregion			// 추가
 		}
 		#endregion			// 함수
 	}
@@ -83,7 +89,20 @@ namespace OverlayScene {
 		#endregion			// 프로퍼티
 
 		#region 함수
+		/** 씬을 설정한다 */
+		private void SubAwakeSetup() {
+			// Do Something
+		}
 
+		/** 씬을 설정한다 */
+		private void SubStartSetup() {
+			// Do Something
+		}
+
+		/** UI 상태를 갱신한다 */
+		private void SubUpdateUIsState() {
+			// Do Something
+		}
 		#endregion			// 함수
 	}
 }

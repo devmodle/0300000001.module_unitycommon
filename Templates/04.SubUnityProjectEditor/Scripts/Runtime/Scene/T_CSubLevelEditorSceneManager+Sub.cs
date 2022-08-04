@@ -69,12 +69,20 @@ namespace LevelEditorScene {
 			// 레벨 정보를 설정한다
 			m_oLevelInfoDict[EKey.SEL_LEVEL_INFO] = CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT);
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
+
+#region 추가
+			this.SubAwakeSetup();
+#endregion			// 추가
 		}
 
 		/** 씬을 설정한다 */
 		private void StartSetup() {
 			// 스크롤 뷰를 설정한다
 			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.gameObject.SetActive(true);
+
+#region 추가
+			this.SubStartSetup();
+#endregion			// 추가
 		}
 		#endregion			// 함수
 
@@ -87,6 +95,10 @@ namespace LevelEditorScene {
 			this.UpdateMidEditorUIsState();
 			this.UpdateLeftEditorUIsState();
 			this.UpdateRightEditorUIsState();
+
+#region 추가
+			this.SubUpdateUIsState();
+#endregion			// 추가
 		}
 
 		/** 객체 스프라이트를 리셋한다 */
@@ -415,11 +427,24 @@ namespace LevelEditorScene {
 		#endregion			// 프로퍼티
 
 		#region 함수
+		/** 씬을 설정한다 */
+		private void SubAwakeSetup() {
+			// Do Something
+		}
 
+		/** 씬을 설정한다 */
+		private void SubStartSetup() {
+			// Do Something
+		}
 		#endregion			// 함수
 		
 		#region 조건부 함수
 #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
+		/** UI 상태를 갱신한다 */
+		private void SubUpdateUIsState() {
+			// Do Something
+		}
+
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);

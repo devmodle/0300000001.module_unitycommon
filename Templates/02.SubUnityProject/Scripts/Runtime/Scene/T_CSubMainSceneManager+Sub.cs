@@ -75,13 +75,13 @@ namespace MainScene {
 				(EKey.CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
 			}, m_oScrollerInfoDict, false);
 
-#if DEBUG || DEVELOPMENT_BUILD
-			this.SetupSubTestUIs();
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-
 #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
 			this.SetupABTestUIs();
 #endif			// #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
+
+#region 추가
+			this.SubAwakeSetup();
+#endregion			// 추가
 		}
 
 		/** 씬을 설정한다 */
@@ -117,13 +117,17 @@ namespace MainScene {
 				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 			}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
+#region 추가
+			this.SubStartSetup();
+#endregion			// 추가
 		}
 
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
-#if DEBUG || DEVELOPMENT_BUILD
-			this.UpdateSubTestUIsState();
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
+#region 추가
+			this.SubUpdateUIsState();
+#endregion			// 추가
 		}
 		#endregion			// 함수
 	}
@@ -168,6 +172,25 @@ namespace MainScene {
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"CSubMainSceneManager.OnDestroy Exception: {oException.Message}");
 			}
+		}
+
+		/** 씬을 설정한다 */
+		private void SubAwakeSetup() {
+#if DEBUG || DEVELOPMENT_BUILD
+			this.SetupSubTestUIs();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
+		}
+
+		/** 씬을 설정한다 */
+		private void SubStartSetup() {
+			// Do Something
+		}
+
+		/** UI 상태를 갱신한다 */
+		private void SubUpdateUIsState() {
+#if DEBUG || DEVELOPMENT_BUILD
+			this.UpdateSubTestUIsState();
+#endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 
 		/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
