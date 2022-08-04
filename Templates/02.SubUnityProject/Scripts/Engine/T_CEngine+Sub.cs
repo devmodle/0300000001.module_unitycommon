@@ -22,7 +22,7 @@ namespace SampleEngineName {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
-			m_stParams = a_stParams;
+			this.Params = a_stParams;
 
 			this.SetupEngine();
 			this.SetupLevel();
@@ -53,12 +53,21 @@ namespace SampleEngineName {
 			[HideInInspector] MAX_VAL
 		}
 
+		/** 엔진 상태 */
+		public enum EEngineState {
+			NONE = -1,
+			PLAY,
+			PAUSE,
+			[HideInInspector] MAX_VAL
+		}
+
 		#region 변수
 		
 		#endregion			// 변수
 
 		#region 프로퍼티
-
+		public EEngineState EngineState { get; private set; } = EEngineState.NONE;
+		public bool IsPlaying => this.State == EState.RUN && this.EngineState == EEngineState.PLAY;
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -67,9 +76,10 @@ namespace SampleEngineName {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning && this.State == EState.RUN) {
+			if(this.IsPlaying && CSceneManager.IsAppRunning) {
 				switch(this.EngineState) {
-					// Do Something
+					case EEngineState.PLAY: this.HandlePlayEngineState(a_fDeltaTime); break;
+					case EEngineState.PAUSE: this.HandlePauseEngineState(a_fDeltaTime); break;
 				}
 			}
 		}
@@ -99,11 +109,6 @@ namespace SampleEngineName {
 			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].ApplySkill(a_oSkillTargetInfo);
 		}
 
-		/** 엔진을 설정한다 */
-		private void SubAwakeSetup() {
-			// Do Something
-		}
-
 		/** 초기화한다 */
 		private void SubInit() {
 			// Do Something
@@ -124,19 +129,35 @@ namespace SampleEngineName {
 			// Do Something
 		}
 
+		/** 플레이 엔진 상태를 처리한다 */
+		private void HandlePlayEngineState(float a_fDeltaTime) {
+			for(int i = 0; i < m_oSkillList.Count; ++i) {
+				m_oSkillList[i].OnUpdate(a_fDeltaTime);
+			}
+
+			for(int i = 0; i < m_oEnemyObjList.Count; ++i) {
+				m_oEnemyObjList[i].OnUpdate(a_fDeltaTime);
+			}
+		}
+
+		/** 정지 엔진 상태를 처리한다 */
+		private void HandlePauseEngineState(float a_fDeltaTime) {
+			// Do Something
+		}
+
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+			var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+			var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+			var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
 		}
 		#endregion			// 함수
 

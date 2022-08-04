@@ -21,7 +21,7 @@ namespace GameScene {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
-			m_stParams = a_stParams;
+			this.Params = a_stParams;
 
 #region 추가
 			this.SubInit();

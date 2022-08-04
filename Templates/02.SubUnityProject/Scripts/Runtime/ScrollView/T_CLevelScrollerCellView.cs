@@ -15,8 +15,12 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 	}
 
 	#region 변수
-	private STParams m_stParams;
+
 	#endregion			// 변수
+
+	#region 프로퍼티
+	public new STParams Params { get; private set; }
+	#endregion			// 프로퍼티
 	
 	#region 함수
 	/** 초기화 */
@@ -27,10 +31,10 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init(a_stParams.m_stBaseParams);
-		m_stParams = a_stParams;
+		this.Params = a_stParams;
 
 		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
-			var stIDInfo = CFactory.MakeIDInfo(i + m_stParams.m_stBaseParams.m_nID.ExULevelIDToLevelID(), m_stParams.m_stBaseParams.m_nID.ExULevelIDToStageID(), m_stParams.m_stBaseParams.m_nID.ExULevelIDToChapterID());
+			var stIDInfo = CFactory.MakeIDInfo(i + this.Params.m_stBaseParams.m_nID.ExULevelIDToLevelID(), this.Params.m_stBaseParams.m_nID.ExULevelIDToStageID(), this.Params.m_stBaseParams.m_nID.ExULevelIDToChapterID());
 
 			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
 			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID01 < CLevelInfoTable.Inst.GetNumLevelInfos(stIDInfo.m_nID02, stIDInfo.m_nID03));
@@ -41,7 +45,7 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 	private void UpdateScrollerCellState(GameObject a_oScrollerCell, STIDInfo a_stIDInfo) {
 		// 버튼을 갱신한다 {
 		var oSelBtn = a_oScrollerCell.GetComponentInChildren<Button>();
-		oSelBtn?.ExAddListener(() => m_stParams.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeULevelID(a_stIDInfo.m_nID01, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)), true, false);
+		oSelBtn?.ExAddListener(() => this.Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeULevelID(a_stIDInfo.m_nID01, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)), true, false);
 
 #if PLAY_TEST_ENABLE
 		oSelBtn?.ExSetInteractable(true, false);

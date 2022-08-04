@@ -15,8 +15,12 @@ public partial class CTutorialPopup : CFocusPopup {
 	}
 
 	#region 변수
-	private STParams m_stParams;
+
 	#endregion			// 변수
+
+	#region 프로퍼티
+	public new STParams Params { get; private set; }
+	#endregion			// 프로퍼티
 
 	#region 함수
 	/** 팝업 컨텐츠를 설정한다 */

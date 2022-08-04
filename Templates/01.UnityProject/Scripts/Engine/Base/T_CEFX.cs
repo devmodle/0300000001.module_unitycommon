@@ -23,12 +23,11 @@ namespace SampleEngineName {
 		}
 
 		#region 변수
-		private STParams m_stParams;
 		private Dictionary<EKey, ParticleSystem> m_oParticleDict = new Dictionary<EKey, ParticleSystem>();
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public STFXInfo TableFXInfo => m_stParams.m_stTableFXInfo;
+		public new STParams Params { get; private set; }
 		public override EComponentType ComponentType => EComponentType.FX;
 		#endregion			// 프로퍼티
 

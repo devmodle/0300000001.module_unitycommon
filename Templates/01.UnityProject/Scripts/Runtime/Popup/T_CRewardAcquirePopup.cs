@@ -27,8 +27,6 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	}
 	
 	#region 변수
-	private STParams m_stParams;
-
 	/** =====> UI <===== */
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
@@ -36,6 +34,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	[SerializeField] private GameObject m_oRewardUIs = null;
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
 	#endregion			// 변수
+
+	#region 프로퍼티
+	public STParams Params { get; private set; }
+	#endregion			// 프로퍼티
 
 	#region 함수
 	/** 팝업 컨텐츠를 설정한다 */
@@ -68,13 +70,13 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		var oRewardTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
 
 		try {
-			foreach(var stKeyVal in m_stParams.m_oRewardTargetInfoDict) {
+			foreach(var stKeyVal in this.Params.m_oRewardTargetInfoDict) {
 				oRewardTargetInfoDict.TryAdd(stKeyVal.Key, Factory.MakeTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, new STValInfo() {
 					m_nVal = a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo01.m_nVal * KCDefine.B_VAL_2_INT : stKeyVal.Value.m_stValInfo01.m_nVal, m_dblVal = a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo01.m_dblVal * KCDefine.B_VAL_2_REAL : stKeyVal.Value.m_stValInfo01.m_dblVal, m_eValType = stKeyVal.Value.m_stValInfo01.m_eValType
 				}));
 			}
 			
-			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, m_stParams.m_oRewardTargetInfoDict);
+			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, this.Params.m_oRewardTargetInfoDict);
 			this.OnTouchCloseBtn();
 		} finally {
 			CCollectionManager.Inst.DespawnDict(oRewardTargetInfoDict);

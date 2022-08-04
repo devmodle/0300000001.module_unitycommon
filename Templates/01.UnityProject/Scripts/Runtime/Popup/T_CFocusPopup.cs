@@ -32,13 +32,13 @@ public partial class CFocusPopup : CSubPopup {
 	}
 
 	#region 변수
-	private STParams m_stParams;
-
 	/** =====> UI <===== */
 	private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
 	#endregion			// 변수
 	
 	#region 프로퍼티
+	public STParams Params { get; private set; }
+
 	public override bool IsIgnoreBlindAni => true;
 	public override EAniType AniType => EAniType.NONE;
 	public override Color BlindColor => KCDefine.U_COLOR_TRANSPARENT;
@@ -50,10 +50,10 @@ public partial class CFocusPopup : CSubPopup {
 		base.SetupContents();
 
 		// 포커스 UI 가 존재 할 경우
-		if(m_stParams.m_oContentsUIsList.ExIsValid()) {
-			for(int i = 0; i < m_stParams.m_oContentsUIsList.Count; ++i) {
-				m_stParams.m_oContentsUIsList[i].SetActive(true);
-				m_stParams.m_oContentsUIsList[i].ExSetParent(this.ContentsUIs);
+		if(this.Params.m_oContentsUIsList.ExIsValid()) {
+			for(int i = 0; i < this.Params.m_oContentsUIsList.Count; ++i) {
+				this.Params.m_oContentsUIsList[i].SetActive(true);
+				this.Params.m_oContentsUIsList[i].ExSetParent(this.ContentsUIs);
 			}
 		}
 

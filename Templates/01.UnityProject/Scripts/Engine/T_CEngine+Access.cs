@@ -53,7 +53,7 @@ namespace SampleEngineName {
 
 		/** 객체를 반환한다 */
 		public bool TryFindObj(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx, out CEObj a_oOutObj) {
-			a_oOutObj = this.TryFindObjs(a_eObjType, a_stIdx, out List<CEObj> oObjList) ? oObjList.ExGetVal((a_oObj) => a_oObj.ObjInfo.m_eObjKinds == a_eObjKinds, null) : null;
+			a_oOutObj = this.TryFindObjs(a_eObjType, a_stIdx, out List<CEObj> oObjList) ? oObjList.ExGetVal((a_oObj) => a_oObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds, null) : null;
 			return false;
 		}
 

@@ -12,17 +12,17 @@ namespace SampleEngineName {
 		#region 함수
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
-			m_oObjDictContainers = new Dictionary<EObjType, List<CEObj>>[m_stParams.m_oLevelInfo.NumCells.y, m_stParams.m_oLevelInfo.NumCells.x];
-			m_oGridInfoDict[EKey.SEL_GRID_INFO] = Factory.MakeGridInfo(m_stParams.m_oLevelInfo, Vector3.zero);
+			m_oObjDictContainers = new Dictionary<EObjType, List<CEObj>>[this.Params.m_oLevelInfo.NumCells.y, this.Params.m_oLevelInfo.NumCells.x];
+			m_oGridInfoDict[EKey.SEL_GRID_INFO] = Factory.MakeGridInfo(this.Params.m_oLevelInfo, Vector3.zero);
 
 			// 객체 풀을 설정한다 {
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), m_stParams.m_oItemRoot, KCDefine.U_SIZE_OBJS_POOL, false);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_SKILL_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_SKILL), m_stParams.m_oSkillRoot, KCDefine.U_SIZE_OBJS_POOL, false);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), m_stParams.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), m_stParams.m_oFXRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), this.Params.m_oItemRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_SKILL_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_SKILL), this.Params.m_oSkillRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), this.Params.m_oFXRoot, KCDefine.U_SIZE_OBJS_POOL, false);
 
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), m_stParams.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_stParams.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL, false);
 			// 객체 풀을 설정한다 }
 		}
 		#endregion			// 함수
@@ -31,6 +31,11 @@ namespace SampleEngineName {
 	/** 서브 엔진 - 설정 */
 	public partial class CEngine : CComponent {
 		#region 함수
+		/** 엔진을 설정한다 */
+		private void SubAwakeSetup() {
+			// Do Something
+		}
+		
 		/** 셀을 설정한다 */
 		private void SetupCell(STCellInfo a_stCellInfo) {
 			var oObjInfoDictContainer = new Dictionary<EObjType, List<CEObj>>();

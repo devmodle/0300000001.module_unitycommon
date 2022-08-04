@@ -12,9 +12,9 @@ namespace SampleEngineName {
 		#region 함수
 		/** 레벨을 설정한다 */
 		private void SetupLevel() {
-			for(int i = 0; i < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
-				for(int j = 0; j < m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-					this.SetupCell(m_stParams.m_oLevelInfo.m_oCellInfoDictContainer[i][j]);
+			for(int i = 0; i < this.Params.m_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
+				for(int j = 0; j < this.Params.m_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
+					this.SetupCell(this.Params.m_oLevelInfo.m_oCellInfoDictContainer[i][j]);
 				}
 			}
 		}

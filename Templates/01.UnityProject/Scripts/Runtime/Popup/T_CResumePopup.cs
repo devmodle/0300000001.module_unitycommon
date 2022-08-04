@@ -22,8 +22,12 @@ public partial class CResumePopup : CSubPopup {
 	}
 
 	#region 변수
-	private STParams m_stParams;
+
 	#endregion			// 변수
+
+	#region 프로퍼티
+	public STParams Params { get; private set; }
+	#endregion			// 프로퍼티
 
 	#region 함수
 	/** 팝업 컨텐츠를 설정한다 */
@@ -34,12 +38,12 @@ public partial class CResumePopup : CSubPopup {
 
 	/** 재개 버튼을 눌렀을 경우 */
 	private void OnTouchResumeBtn() {
-		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.RESUME)?.Invoke(this);
+		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RESUME)?.Invoke(this);
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
-		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
+		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
 	#endregion			// 함수
 }

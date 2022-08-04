@@ -11,33 +11,33 @@ namespace SampleEngineName {
 	public partial class CEngine : CComponent {
 		#region 함수
 		/** 아이템을 생성한다 */
-		public CEItem CreateItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEComponent a_oOwner = null) {
+		public CEItem CreateItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, IUpdater a_oUpdater = null, CEComponent a_oOwner = null) {
 			var oItem = CSceneManager.ActiveSceneManager.SpawnObj<CEItem>(KDefine.E_KEY_ITEM_OBJS_POOL, KDefine.E_OBJ_N_ITEM);
-			oItem.Init(Factory.MakeItemParams(this, a_stItemInfo, a_oItemTargetInfo, a_oOwner, KDefine.E_KEY_ITEM_OBJS_POOL));
+			oItem.Init(Factory.MakeItemParams(this, a_stItemInfo, a_oItemTargetInfo, a_oUpdater, a_oOwner, KDefine.E_KEY_ITEM_OBJS_POOL));
 
 			return oItem;
 		}
 
 		/** 스킬을 생성한다 */
-		public CESkill CreateSkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEComponent a_oOwner = null) {
+		public CESkill CreateSkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, IUpdater a_oUpdater = null, CEComponent a_oOwner = null) {
 			var oSkill = CSceneManager.ActiveSceneManager.SpawnObj<CESkill>(KDefine.E_KEY_SKILL_OBJS_POOL, KDefine.E_OBJ_P_SKILL);
-			oSkill.Init(Factory.MakeSkillParams(this, a_stSkillInfo, a_oSkillTargetInfo, a_oOwner, KDefine.E_KEY_SKILL_OBJS_POOL));
+			oSkill.Init(Factory.MakeSkillParams(this, a_stSkillInfo, a_oSkillTargetInfo, a_oUpdater, a_oOwner, KDefine.E_KEY_SKILL_OBJS_POOL));
 
 			return oSkill;
 		}
 
 		/** 객체를 생성한다 */
-		public CEObj CreateObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null) {
+		public CEObj CreateObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, IUpdater a_oUpdater = null, CEComponent a_oOwner = null) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_KEY_OBJ_OBJS_POOL, KDefine.E_OBJ_P_OBJ);
-			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, KDefine.E_KEY_OBJ_OBJS_POOL));
+			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oUpdater, a_oOwner, KDefine.E_KEY_OBJ_OBJS_POOL));
 
 			return oObj;
 		}
 
 		/** 효과를 생성한다 */
-		public CEFX CreateFX(STFXInfo a_stFXInfo, CEComponent a_oOwner = null) {
+		public CEFX CreateFX(STFXInfo a_stFXInfo, IUpdater a_oUpdater = null, CEComponent a_oOwner = null) {
 			var oFX = CSceneManager.ActiveSceneManager.SpawnObj<CEFX>(KDefine.E_KEY_FX_OBJS_POOL, KDefine.E_OBJ_N_FX);
-			oFX.Init(Factory.MakeFXParams(this, a_stFXInfo, a_oOwner, KDefine.E_KEY_FX_OBJS_POOL));
+			oFX.Init(Factory.MakeFXParams(this, a_stFXInfo, a_oUpdater, a_oOwner, KDefine.E_KEY_FX_OBJS_POOL));
 
 			return oFX;
 		}		

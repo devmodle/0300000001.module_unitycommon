@@ -28,7 +28,7 @@ public partial class CFocusPopup : CSubPopup {
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
-		m_stParams = a_stParams;
+		this.Params = a_stParams;
 
 		// 터치 전달자를 설정한다
 		Func.SetupTouchDispatchers(new List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {

@@ -15,11 +15,11 @@ namespace GameScene {
 		}
 
 		#region 변수
-		private STParams m_stParams;
+		
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public SampleEngineName.CEngine Engine => m_stParams.m_oEngine;
+		public STParams Params { get; private set; }
 		#endregion			// 프로퍼티
 
 		#region 함수

@@ -34,12 +34,6 @@ namespace SampleEngineName {
 			[HideInInspector] MAX_VAL
 		}
 
-		/** 엔진 상태 */
-		public enum EEngineState {
-			NONE = -1,
-			[HideInInspector] MAX_VAL
-		}
-
 		/** 매개 변수 */
 		public partial struct STParams {
 			public CLevelInfo m_oLevelInfo;
@@ -54,8 +48,6 @@ namespace SampleEngineName {
 		}
 
 		#region 변수
-		private STParams m_stParams;
-
 		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>() {
 			[EKey.SEL_GRID_INFO] = STGridInfo.INVALID
 		};
@@ -66,8 +58,9 @@ namespace SampleEngineName {
 
 		private List<CEItem> m_oItemList = new List<CEItem>();
 		private List<CESkill> m_oSkillList = new List<CESkill>();
-		private List<CEObj> m_oEnemyObjList = new List<CEObj>();
 		private List<CEFX> m_oFXList = new List<CEFX>();
+		private List<CEObj> m_oPlayerObjList = new List<CEObj>();
+		private List<CEObj> m_oEnemyObjList = new List<CEObj>();
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
 		/** =====> 객체 <===== */
@@ -75,27 +68,20 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
+		public STParams Params { get; private set; }
+
 		public long IntRecord { get; private set; } = 0;
 		public double RealRecord { get; private set; } = 0.0;
 		public EState State { get; private set; } = EState.NONE;
-		public EEngineState EngineState { get; private set; } = EEngineState.NONE;
 
 		public STGridInfo SelGridInfo => m_oGridInfoDict[EKey.SEL_GRID_INFO];
 		public CEObj SelPlayerObj => m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ];
-
-		public CLevelInfo LevelInfo => m_stParams.m_oLevelInfo;
-		public CClearInfo ClearInfo => m_stParams.m_oClearInfo;
-
-		public GameObject ItemRoot => m_stParams.m_oItemRoot;
-		public GameObject SkillRoot => m_stParams.m_oSkillRoot;
-		public GameObject ObjRoot => m_stParams.m_oObjRoot;
-		public GameObject FXRoot => m_stParams.m_oFXRoot;
 		#endregion			// 프로퍼티
 		
 		#region 함수
 		/** 터치 이벤트를 처리한다 */
 		public void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
-			var stTouchPos = a_oEventData.ExGetLocalPos(m_stParams.m_oObjRoot);
+			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot);
 
 			// 구동 상태 일 경우
 			if(this.State == EState.RUN && m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(stTouchPos)) {

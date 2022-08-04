@@ -32,7 +32,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
-		m_stParams = a_stParams;
+		this.Params = a_stParams;
 
 #region 추가
 		this.SubInit();
@@ -41,7 +41,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
-		var oRewardTargetInfoKeyList = m_stParams.m_oRewardTargetInfoDict.Keys.ToList();
+		var oRewardTargetInfoKeyList = this.Params.m_oRewardTargetInfoDict.Keys.ToList();
 
 		// 보상 아이템 UI 상태를 갱신한다
 		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
@@ -50,7 +50,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 			// 보상 정보가 존재 할 경우
 			if(i < oRewardTargetInfoKeyList.Count) {
 				ulong nUniqueTargetInfoID = oRewardTargetInfoKeyList[i];
-				this.UpdateItemUIsState(m_oItemUIsList[i], m_stParams.m_oRewardTargetInfoDict[nUniqueTargetInfoID]);
+				this.UpdateItemUIsState(m_oItemUIsList[i], this.Params.m_oRewardTargetInfoDict[nUniqueTargetInfoID]);
 			}
 		}
 

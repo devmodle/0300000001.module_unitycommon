@@ -18,17 +18,17 @@ namespace SampleEngineName {
 	public partial class CEngine : CComponent {
 		#region 함수
 		/** 플레이어 객체를 생성한다 */
-		public CEObj CreatePlayerObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null) {
+		public CEObj CreatePlayerObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, IUpdater a_oUpdater = null, CEComponent a_oOwner = null) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, KDefine.E_OBJ_P_PLAYER_OBJ);
-			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
+			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oUpdater, a_oOwner, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
 
 			return oObj;
 		}
 
 		/** 적 객체를 생성한다 */
-		public CEObj CreateEnemyObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null) {
+		public CEObj CreateEnemyObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, IUpdater a_oUpdater = null, CEComponent a_oOwner = null) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, KDefine.E_OBJ_P_ENEMY_OBJ);
-			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
+			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oUpdater, a_oOwner, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
 
 			return oObj;
 		}

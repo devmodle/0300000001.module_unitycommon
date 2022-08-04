@@ -23,8 +23,6 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	}
 
 	#region 변수
-	private STParams m_stParams;
-
 	private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>() {
 		[EKey.PREV_NUM_COINS_BOX_COINS] = 0
 	};
@@ -36,6 +34,10 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
 	#endregion			// 변수
+
+	#region 프로퍼티
+	public STParams Params { get; private set; }
+	#endregion			// 프로퍼티
 	
 	#region 함수
 	/** 팝업 컨텐츠를 설정한다 */

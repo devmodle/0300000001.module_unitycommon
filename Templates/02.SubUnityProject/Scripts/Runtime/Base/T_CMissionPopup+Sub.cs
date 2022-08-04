@@ -21,7 +21,7 @@ public abstract partial class CMissionPopup : CSubPopup {
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
-		m_stParams = a_stParams;
+		this.Params = a_stParams;
 
 #region 추가
 		this.SubInit();
@@ -34,7 +34,7 @@ public abstract partial class CMissionPopup : CSubPopup {
 
 		// 미션 UI 상태를 갱신한다
 		for(int i = 0; i < m_oMissionUIsList.Count; ++i) {
-			this.UpdateMissionUIsState(m_oMissionUIsList[i], m_stParams.m_oMissionInfoList[i]);
+			this.UpdateMissionUIsState(m_oMissionUIsList[i], this.Params.m_oMissionInfoList[i]);
 		}
 
 #region 추가

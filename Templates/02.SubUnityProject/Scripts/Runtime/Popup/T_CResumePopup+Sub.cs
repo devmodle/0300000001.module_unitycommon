@@ -21,7 +21,7 @@ public partial class CResumePopup : CSubPopup {
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
-		m_stParams = a_stParams;
+		this.Params = a_stParams;
 
 #region 추가
 		this.SubInit();

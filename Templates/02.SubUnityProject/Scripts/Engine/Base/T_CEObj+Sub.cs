@@ -27,7 +27,7 @@ namespace SampleEngineName {
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			base.Init(a_stParams.m_stBaseParams);
-			m_stParams = a_stParams;
+			this.Params = a_stParams;
 
 			// 객체 스프라이트가 존재 할 경우
 			if(m_oSpriteDict[EKey.OBJ_SPRITE] != null) {

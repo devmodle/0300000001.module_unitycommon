@@ -33,13 +33,12 @@ public partial class CContinuePopup : CSubPopup {
 	}
 
 	#region 변수
-	private STParams m_stParams;
-
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 	#endregion			// 변수
 
 	#region 프로퍼티
+	public STParams Params { get; private set; }
 	public override bool IsIgnoreCloseBtn => true;
 	#endregion			// 프로퍼티
 
@@ -58,7 +57,7 @@ public partial class CContinuePopup : CSubPopup {
 	
 	/** 재시도 버튼을 눌렀을 경우 */
 	private void OnTouchRetryBtn() {
-		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
+		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
 	}
 
 	/** 이어하기 버튼을 눌렀을 경우 */
@@ -71,13 +70,13 @@ public partial class CContinuePopup : CSubPopup {
 			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 		} else {
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stItemTradeInfo.m_oAcquireTargetInfoDict);
-			m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
+			this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
 		}
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
-		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
+		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
 	#endregion			// 함수
 }

@@ -32,7 +32,7 @@ public partial class CStorePopup : CSubPopup {
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
-		m_stParams = a_stParams;
+		this.Params = a_stParams;
 		
 		a_stParams.m_oProductTradeInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nProductIdx.CompareTo(a_stRhs.m_nProductIdx));
 
@@ -45,7 +45,7 @@ public partial class CStorePopup : CSubPopup {
 	private new void UpdateUIsState() {
 		// 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
-			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], m_stParams.m_oProductTradeInfoList[i]);
+			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], this.Params.m_oProductTradeInfoList[i]);
 		}
 
 #region 추가

@@ -899,21 +899,21 @@ namespace LevelEditorScene {
 			int nMaxNumInfos = KCDefine.U_MAX_NUM_LEVEL_INFOS;
 
 			// 레벨 스크롤러가 아닐 경우
-			if(m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1 != a_oSender.Scroller) {
-				nNumInfos = (m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1 == a_oSender.Scroller) ? CLevelInfoTable.Inst.GetNumStageInfos(a_nID.ExULevelIDToChapterID()) : CLevelInfoTable.Inst.NumChapterInfos;
-				nMaxNumInfos = (m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1 == a_oSender.Scroller) ? KCDefine.U_MAX_NUM_STAGE_INFOS : KCDefine.U_MAX_NUM_CHAPTER_INFOS;
+			if(m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1 != a_oSender.Params.m_oScroller) {
+				nNumInfos = (m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1 == a_oSender.Params.m_oScroller) ? CLevelInfoTable.Inst.GetNumStageInfos(a_nID.ExULevelIDToChapterID()) : CLevelInfoTable.Inst.NumChapterInfos;
+				nMaxNumInfos = (m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1 == a_oSender.Params.m_oScroller) ? KCDefine.U_MAX_NUM_STAGE_INFOS : KCDefine.U_MAX_NUM_CHAPTER_INFOS;
 			}
 
 			// 복사가 가능 할 경우
 			if(nNumInfos < nMaxNumInfos) {
-				this.CopyLevelInfos(a_oSender.Scroller, CFactory.MakeIDInfo(a_nID.ExULevelIDToLevelID(), a_nID.ExULevelIDToStageID(), a_nID.ExULevelIDToChapterID()));
+				this.CopyLevelInfos(a_oSender.Params.m_oScroller, CFactory.MakeIDInfo(a_nID.ExULevelIDToLevelID(), a_nID.ExULevelIDToStageID(), a_nID.ExULevelIDToChapterID()));
 			}
 		}
 
 		/** 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우 */
 		private void OnTouchSCVMoveBtn(CScrollerCellView a_oSender, ulong a_nID) {
 			m_oInputPopupDict[EKey.SEL_INPUT_POPUP] = EInputPopup.MOVE_LEVEL;
-			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Scroller;
+			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Params.m_oScroller;
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
 				var stParams = new CEditorInputPopup.STParams() {
@@ -928,18 +928,18 @@ namespace LevelEditorScene {
 
 		/** 스크롤러 셀 뷰 제거 버튼을 눌렀을 경우 */
 		private void OnTouchSCVRemoveBtn(CScrollerCellView a_oSender, ulong a_nID) {
-			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Scroller;
+			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Params.m_oScroller;
 
 			// 레벨 스크롤러 일 경우
-			if(m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1 == a_oSender.Scroller) {
+			if(m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1 == a_oSender.Params.m_oScroller) {
 				Func.ShowEditorLevelRemovePopup(this.OnReceiveEditorRemovePopupResult);
 			}
 			// 스테이지 스크롤러 일 경우
-			else if(m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1 == a_oSender.Scroller) {
+			else if(m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].Item1 == a_oSender.Params.m_oScroller) {
 				Func.ShowEditorStageRemovePopup(this.OnReceiveEditorRemovePopupResult);
 			}
 			// 챕터 스크롤러 일 경우
-			else if(m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1 == a_oSender.Scroller) {
+			else if(m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].Item1 == a_oSender.Params.m_oScroller) {
 				Func.ShowEditorChapterRemovePopup(this.OnReceiveEditorRemovePopupResult);
 			}
 		}

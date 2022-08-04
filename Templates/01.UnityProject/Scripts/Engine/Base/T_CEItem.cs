@@ -17,12 +17,11 @@ namespace SampleEngineName {
 		}
 
 		#region 변수
-		private STParams m_stParams;
+
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public STItemInfo ItemInfo => m_stParams.m_stItemInfo;
-		public CItemTargetInfo ItemTargetInfo => m_stParams.m_oItemTargetInfo;
+		public new STParams Params { get; private set; }
 		public override EComponentType ComponentType => EComponentType.ITEM;
 		#endregion			// 프로퍼티
 
@@ -30,7 +29,7 @@ namespace SampleEngineName {
 		/** 어빌리티 값을 설정한다 */
 		public override void SetupAbilityVals() {
 			base.SetupAbilityVals();
-			var oAbilityTargetInfoDict = (m_stParams.m_oItemTargetInfo != null) ? m_stParams.m_oItemTargetInfo.m_oAbilityTargetInfoDict : m_stParams.m_stItemInfo.m_oAbilityTargetInfoDict;
+			var oAbilityTargetInfoDict = (this.Params.m_oItemTargetInfo != null) ? this.Params.m_oItemTargetInfo.m_oAbilityTargetInfoDict : this.Params.m_stItemInfo.m_oAbilityTargetInfoDict;
 
 			foreach(var stKeyVal in oAbilityTargetInfoDict) {
 				global::Func.SetupAbilityVals(stKeyVal.Value, this.AbilityValDict);

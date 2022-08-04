@@ -27,7 +27,7 @@ public partial class CProductTradePopup : CSubPopup {
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
-		m_stParams = a_stParams;
+		this.Params = a_stParams;
 
 #region 추가
 		this.SubInit();
@@ -125,7 +125,7 @@ public partial class CProductTradePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		m_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 함수

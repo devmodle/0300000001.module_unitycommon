@@ -35,11 +35,13 @@ public partial class CProductTradePopup : CSubPopup {
 	}
 
 	#region 변수
-	private STParams m_stParams;
-	
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oProductBuyUIsDict = new List<GameObject>();
 	#endregion			// 변수
+
+	#region 프로퍼티
+	public STParams Params { get; private set; }
+	#endregion			// 프로퍼티
 
 	#region 함수
 	/** 팝업 컨텐츠를 설정한다 */
