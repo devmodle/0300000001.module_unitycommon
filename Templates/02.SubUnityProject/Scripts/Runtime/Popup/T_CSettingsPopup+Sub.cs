@@ -26,6 +26,10 @@ public partial class CSettingsPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_SUPPORTS_BTN, this.Contents, this.OnTouchSupportsBtn)
 		}, false);
 		// 버튼을 설정한다 }
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
 	}
 	
 	/** 초기화 */
@@ -59,6 +63,10 @@ public partial class CSettingsPopup : CSubPopup {
 			CCollectionManager.Inst.DespawnList(oBtnKeyInfoList);
 		}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 	#endregion			// 함수
 }
@@ -80,7 +88,15 @@ public partial class CSettingsPopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
 	#endregion			// 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

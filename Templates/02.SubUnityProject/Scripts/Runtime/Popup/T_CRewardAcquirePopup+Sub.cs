@@ -23,6 +23,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
 			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
 		}, m_oBtnDict, false);
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
 	}
 	
 	/** 초기화 */
@@ -45,6 +49,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 				this.UpdateItemUIsState(m_oItemUIsList[i], m_stParams.m_oRewardTargetInfoDict[nUniqueTargetInfoID]);
 			}
 		}
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 	#endregion			// 함수
 }
@@ -66,6 +74,16 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
+	
 	/** 보상 아이템 UI 상태를 갱신한다 */
 	private void UpdateItemUIsState(GameObject a_oItemUIs, STTargetInfo a_stTargetInfo) {
 		var oNumText = a_oItemUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);

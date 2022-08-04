@@ -10,6 +10,15 @@ using UnityEngine.Events;
 public partial class CResumePopup : CSubPopup {
 	#region 함수
 	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
+	}
+
+	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
 		m_stParams = a_stParams;
@@ -18,6 +27,10 @@ public partial class CResumePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 	#endregion			// 함수
 }
@@ -39,7 +52,15 @@ public partial class CResumePopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
 	#endregion			// 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

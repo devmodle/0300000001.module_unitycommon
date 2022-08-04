@@ -18,6 +18,10 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.Contents)
 		}, m_oTextDict, false);
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
 	}
 
 	/** 초기화 */
@@ -41,6 +45,10 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		
 		// 텍스트를 갱신한다
 		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS]}", EFontSet._1, false);
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 	#endregion			// 함수
 }
@@ -62,7 +70,15 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
 
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
 	#endregion			// 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

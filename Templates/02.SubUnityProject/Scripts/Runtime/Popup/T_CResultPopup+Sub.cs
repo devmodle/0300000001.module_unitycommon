@@ -33,6 +33,10 @@ public partial class CResultPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
 			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
 		}, false);
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
 	}
 
 	/** 초기화 */
@@ -52,6 +56,10 @@ public partial class CResultPopup : CSubPopup {
 		// 텍스트를 갱신한다
 		m_oTextDict[EKey.RECORD_TEXT]?.ExSetText($"{m_stParams.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
 		m_oTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((m_stParams.m_oClearInfo != null) ? $"{m_stParams.m_oClearInfo.IntBestRecord}" : string.Empty, EFontSet._1, false);
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 	#endregion			// 함수
 }
@@ -73,7 +81,15 @@ public partial class CResultPopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
 	#endregion			// 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

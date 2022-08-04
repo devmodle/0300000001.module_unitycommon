@@ -18,6 +18,10 @@ public partial class CProductTradePopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
 	}
 
 	/** 초기화 */
@@ -28,9 +32,16 @@ public partial class CProductTradePopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
+		base.UpdateUIsState();
+
+		// 상품 구입 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsDict.Count; ++i) {
 			this.UpdateProductBuyUIsState(m_oProductBuyUIsDict[i], CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));
 		}
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 
 	/** 상품 구입 UI 상태를 갱신한다 */
@@ -84,7 +95,15 @@ public partial class CProductTradePopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
 
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
 	#endregion			// 함수
 
 	#region 조건부 함수

@@ -12,6 +12,10 @@ public abstract partial class CMissionPopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
 	}
 
 	/** 초기화 */
@@ -28,6 +32,10 @@ public abstract partial class CMissionPopup : CSubPopup {
 		for(int i = 0; i < m_oMissionUIsList.Count; ++i) {
 			this.UpdateMissionUIsState(m_oMissionUIsList[i], m_stParams.m_oMissionInfoList[i]);
 		}
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 	#endregion			// 함수
 }
@@ -49,6 +57,16 @@ public abstract partial class CMissionPopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
+
 	/** 미션 UI 상태를 갱신한다 */
 	private void UpdateMissionUIsState(GameObject a_oMissionUIs, STMissionInfo a_stMissionInfo) {
 		// Do Something

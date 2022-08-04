@@ -18,6 +18,10 @@ public partial class CDailyRewardPopup : CSubPopup {
 			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
 			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
 		}, m_oBtnDict, false);
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
 	}
 	
 	/** 초기화 */
@@ -40,6 +44,10 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 			this.UpdateRewardUIsState(oRewardUIs, stDailyRewardInfo);
 		}
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 	#endregion			// 함수
 }
@@ -61,6 +69,16 @@ public partial class CDailyRewardPopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
+	
 	/** 보상 UI 상태를 갱신한다 */
 	private void UpdateRewardUIsState(GameObject a_oRewardUIs, STRewardInfo a_stRewardInfo) {
 		// Do Something

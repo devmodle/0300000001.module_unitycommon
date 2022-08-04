@@ -17,6 +17,10 @@ public partial class CFreeRewardPopup : CSubPopup {
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn)
 		}, m_oBtnDict, false);
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
 	}
 	
 	/** 초기화 */
@@ -30,6 +34,10 @@ public partial class CFreeRewardPopup : CSubPopup {
 
 		// 버튼을 갱신한다
 		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID));
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 	#endregion			// 함수
 }
@@ -51,7 +59,15 @@ public partial class CFreeRewardPopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
-	
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
 	#endregion			// 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

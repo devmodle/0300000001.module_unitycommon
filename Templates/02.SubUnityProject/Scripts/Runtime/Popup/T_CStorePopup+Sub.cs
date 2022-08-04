@@ -23,6 +23,10 @@ public partial class CStorePopup : CSubPopup {
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_RESTORE_BTN, this.Contents, this.OnTouchRestoreBtn)
 		}, false);
+
+#region 추가
+		this.SubAwakeSetup();
+#endregion			// 추가
 	}
 	
 	/** 초기화 */
@@ -39,6 +43,10 @@ public partial class CStorePopup : CSubPopup {
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
 			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], m_stParams.m_oProductTradeInfoList[i]);
 		}
+
+#region 추가
+		this.SubUpdateUIsState();
+#endregion			// 추가
 	}
 
 	/** 상품 구입 UI 상태를 갱신한다 */
@@ -134,6 +142,16 @@ public partial class CStorePopup : CSubPopup {
 	#endregion			// 프로퍼티
 
 	#region 함수
+	/** 팝업을 설정한다 */
+	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void SubUpdateUIsState() {
+		// Do Something
+	}
+	
 	/** 패키지 상품 구입 UI 상태를 갱신한다 */
 	private void UpdatePkgsProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
 		// Do Something
