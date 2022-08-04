@@ -47,7 +47,7 @@ namespace SampleEngineName {
 		}
 		
 		/** 스킬 매개 변수를 생성한다 */
-		public static CESkill.STParams MakeSkillParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CEObj a_oOwnerObj, CSkillTargetInfo a_oSkillTargetInfo, CEComponent a_oOwner = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static CESkill.STParams MakeSkillParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEComponent a_oOwner = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new CESkill.STParams() {
 				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oOwner, a_oObjsPoolKey), m_stSkillInfo = a_stSkillInfo, m_oSkillTargetInfo = a_oSkillTargetInfo
 			};

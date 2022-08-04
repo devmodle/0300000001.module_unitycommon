@@ -77,7 +77,6 @@ namespace SampleEngineName {
 		#region 프로퍼티
 		public long IntRecord { get; private set; } = 0;
 		public double RealRecord { get; private set; } = 0.0;
-
 		public EState State { get; private set; } = EState.NONE;
 		public EEngineState EngineState { get; private set; } = EEngineState.NONE;
 
