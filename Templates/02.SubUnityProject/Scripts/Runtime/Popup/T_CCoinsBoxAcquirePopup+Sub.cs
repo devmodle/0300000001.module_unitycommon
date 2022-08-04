@@ -34,6 +34,10 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS_BOX_COINS, new STValInfo() {
 			m_nVal = a_stParams.m_nNumCoinsBoxCoins, m_eValType = EValType.INT
 		}), true);
+
+#region 추가
+		this.SubInit();
+#endregion			// 추가
 	}
 	
 	/** UI 상태를 변경한다 */
@@ -72,6 +76,11 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	#region 함수
 	/** 팝업을 설정한다 */
 	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** 초기화한다 */
+	private void SubInit() {
 		// Do Something
 	}
 

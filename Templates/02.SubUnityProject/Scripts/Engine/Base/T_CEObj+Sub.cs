@@ -18,6 +18,10 @@ namespace SampleEngineName {
 			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
 				(EKey.OBJ_SPRITE, $"{EKey.OBJ_SPRITE}", this.gameObject)
 			}, m_oSpriteDict, false);
+
+#region 추가
+			this.SubAwakeSetup();
+#endregion			// 추가
 		}
 
 		/** 초기화 */
@@ -30,6 +34,10 @@ namespace SampleEngineName {
 				m_oSpriteDict[EKey.OBJ_SPRITE].sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
 				m_oSpriteDict[EKey.OBJ_SPRITE].ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
 			}
+
+#region 추가
+			this.SubInit();
+#endregion			// 추가
 		}
 		#endregion			// 함수
 	}
@@ -58,6 +66,16 @@ namespace SampleEngineName {
 
 		/** 스킬을 적용한다 */
 		public void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
+			// Do Something
+		}
+
+		/** 엔진을 설정한다 */
+		private void SubAwakeSetup() {
+			// Do Something
+		}
+
+		/** 초기화한다 */
+		private void SubInit() {
 			// Do Something
 		}
 		#endregion			// 함수

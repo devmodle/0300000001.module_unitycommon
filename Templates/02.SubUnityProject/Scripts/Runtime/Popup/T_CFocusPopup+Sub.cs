@@ -34,6 +34,10 @@ public partial class CFocusPopup : CSubPopup {
 		Func.SetupTouchDispatchers(new List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
 			(m_oImgDict[EKey.FOCUS_BLIND_IMG]?.gameObject, (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.BEGIN)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.MOVE)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.END)?.Invoke(this, a_oEventData))
 		}, false);
+
+#region 추가
+		this.SubInit();
+#endregion			// 추가
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -69,6 +73,11 @@ public partial class CFocusPopup : CSubPopup {
 	#region 함수
 	/** 팝업을 설정한다 */
 	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** 초기화한다 */
+	private void SubInit() {
 		// Do Something
 	}
 

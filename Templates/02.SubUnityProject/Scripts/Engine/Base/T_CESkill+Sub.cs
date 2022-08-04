@@ -13,12 +13,20 @@ namespace SampleEngineName {
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
+
+#region 추가
+			this.SubAwakeSetup();
+#endregion			// 추가
 		}
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			base.Init(a_stParams.m_stBaseParams);
 			m_stParams = a_stParams;
+
+#region 추가
+			this.SubInit();
+#endregion			// 추가
 		}
 		#endregion			// 함수
 	}
@@ -40,7 +48,15 @@ namespace SampleEngineName {
 		#endregion			// 프로퍼티
 
 		#region 함수
-		
+		/** 엔진을 설정한다 */
+		private void SubAwakeSetup() {
+			// Do Something
+		}
+
+		/** 초기화한다 */
+		private void SubInit() {
+			// Do Something
+		}
 		#endregion			// 함수
 	}
 }

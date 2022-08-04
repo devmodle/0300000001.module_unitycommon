@@ -35,6 +35,10 @@ public partial class CStorePopup : CSubPopup {
 		m_stParams = a_stParams;
 		
 		a_stParams.m_oProductTradeInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nProductIdx.CompareTo(a_stRhs.m_nProductIdx));
+
+#region 추가
+		this.SubInit();
+#endregion			// 추가
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -144,6 +148,11 @@ public partial class CStorePopup : CSubPopup {
 	#region 함수
 	/** 팝업을 설정한다 */
 	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** 초기화한다 */
+	private void SubInit() {
 		// Do Something
 	}
 

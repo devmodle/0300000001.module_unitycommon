@@ -25,7 +25,14 @@ namespace SampleEngineName {
 	/** 서브 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 		#region 함수
+		/** 엔진 상태를 변경한다 */
+		public void SetEngineState(EEngineState a_eEngineState) {
+			this.EngineState = a_eEngineState;
 
+			switch(a_eEngineState) {
+				// Do Something
+			}
+		}
 		#endregion			// 함수
 	}
 }

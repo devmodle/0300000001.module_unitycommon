@@ -14,6 +14,10 @@ namespace SampleEngineName {
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
+
+#region 추가
+			this.SubAwakeSetup();
+#endregion			// 추가
 		}
 
 		/** 초기화 */
@@ -23,11 +27,20 @@ namespace SampleEngineName {
 			this.SetupEngine();
 			this.SetupLevel();
 			this.SetupGridLine();
+			
+#region 추가
+			this.SubInit();
+#endregion			// 추가
 		}
 
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
+			this.SetState(EState.STOP);
+
+#region 추가
+			this.SubReset();
+#endregion			// 추가
 		}
 		#endregion			// 함수
 	}
@@ -73,6 +86,32 @@ namespace SampleEngineName {
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"CEngine.OnDestroy Exception: {oException.Message}");
 			}
+		}
+
+		/** 플레이어 객체 이동을 처리한다 */
+		public void MovePlayerObj(Vector3 a_stDirection) {
+			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].Move(a_stDirection);
+			CSceneManager.ActiveSceneMainCamera.transform.position = m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position;
+		}
+		
+		/** 플레이어 객체 스킬을 적용한다 */
+		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
+			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].ApplySkill(a_oSkillTargetInfo);
+		}
+
+		/** 엔진을 설정한다 */
+		private void SubAwakeSetup() {
+			// Do Something
+		}
+
+		/** 초기화한다 */
+		private void SubInit() {
+			// Do Something
+		}
+
+		/** 상태를 리셋한다 */
+		private void SubReset() {
+			this.SetEngineState(EEngineState.NONE);
 		}
 		
 		/** 구동 상태를 처리한다 */

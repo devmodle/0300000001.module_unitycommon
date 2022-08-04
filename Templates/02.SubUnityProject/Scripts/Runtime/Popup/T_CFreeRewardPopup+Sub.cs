@@ -26,6 +26,10 @@ public partial class CFreeRewardPopup : CSubPopup {
 	/** 초기화 */
 	public override void Init() {
 		base.Init();
+
+#region 추가
+		this.SubInit();
+#endregion			// 추가
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -61,6 +65,11 @@ public partial class CFreeRewardPopup : CSubPopup {
 	#region 함수
 	/** 팝업을 설정한다 */
 	private void SubAwakeSetup() {
+		// Do Something
+	}
+
+	/** 초기화 */
+	private void SubInit() {
 		// Do Something
 	}
 
