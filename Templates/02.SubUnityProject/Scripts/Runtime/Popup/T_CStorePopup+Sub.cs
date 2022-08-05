@@ -24,9 +24,9 @@ public partial class CStorePopup : CSubPopup {
 			(KCDefine.U_OBJ_N_RESTORE_BTN, this.Contents, this.OnTouchRestoreBtn)
 		}, false);
 
-#region 추가
+		#region 추가
 		this.SubAwakeSetup();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	
 	/** 초기화 */
@@ -36,9 +36,9 @@ public partial class CStorePopup : CSubPopup {
 		
 		a_stParams.m_oProductTradeInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nProductIdx.CompareTo(a_stRhs.m_nProductIdx));
 
-#region 추가
+		#region 추가
 		this.SubInit();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -48,9 +48,9 @@ public partial class CStorePopup : CSubPopup {
 			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], this.Params.m_oProductTradeInfoList[i]);
 		}
 
-#region 추가
+		#region 추가
 		this.SubUpdateUIsState();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** 상품 구입 UI 상태를 갱신한다 */

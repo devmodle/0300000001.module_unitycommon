@@ -20,9 +20,9 @@ public partial class CFocusPopup : CSubPopup {
 			(EKey.FOCUS_BLIND_IMG, $"{EKey.FOCUS_BLIND_IMG}", this.Contents)
 		}, m_oImgDict, false);
 
-#region 추가
+		#region 추가
 		this.SubAwakeSetup();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** 초기화 */
@@ -35,9 +35,9 @@ public partial class CFocusPopup : CSubPopup {
 			(m_oImgDict[EKey.FOCUS_BLIND_IMG]?.gameObject, (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.BEGIN)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.MOVE)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.END)?.Invoke(this, a_oEventData))
 		}, false);
 
-#region 추가
+		#region 추가
 		this.SubInit();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -47,9 +47,9 @@ public partial class CFocusPopup : CSubPopup {
 		// 이미지를 갱신한다
 		m_oImgDict[EKey.FOCUS_BLIND_IMG]?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BLIND, false);
 
-#region 추가
+		#region 추가
 		this.SubUpdateUIsState();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	#endregion			// 함수
 }

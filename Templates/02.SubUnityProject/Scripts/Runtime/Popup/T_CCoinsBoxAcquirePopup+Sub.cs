@@ -19,9 +19,9 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.Contents)
 		}, m_oTextDict, false);
 
-#region 추가
+		#region 추가
 		this.SubAwakeSetup();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** 초기화 */
@@ -35,9 +35,9 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 			m_nVal = a_stParams.m_nNumCoinsBoxCoins, m_eValType = EValType.INT
 		}), true);
 
-#region 추가
+		#region 추가
 		this.SubInit();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	
 	/** UI 상태를 변경한다 */
@@ -50,9 +50,9 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		// 텍스트를 갱신한다
 		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS]}", EFontSet._1, false);
 
-#region 추가
+		#region 추가
 		this.SubUpdateUIsState();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	#endregion			// 함수
 }

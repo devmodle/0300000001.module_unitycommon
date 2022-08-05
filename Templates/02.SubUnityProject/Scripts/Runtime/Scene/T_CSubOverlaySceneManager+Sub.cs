@@ -43,16 +43,16 @@ namespace OverlayScene {
 				(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
 			}, m_oBtnDict, false);
 
-#region 추가
+			#region 추가
 			this.SubAwakeSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 씬을 설정한다 */
 		private void StartSetup() {
-#region 추가
+			#region 추가
 			this.SubStartSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** UI 상태를 갱신한다 */
@@ -65,9 +65,9 @@ namespace OverlayScene {
 			// 텍스트를 갱신한다
 			m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
 
-#region 추가
+			#region 추가
 			this.SubUpdateUIsState();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 		#endregion			// 함수
 	}

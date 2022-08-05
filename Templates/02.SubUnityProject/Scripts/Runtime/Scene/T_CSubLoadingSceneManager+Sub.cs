@@ -54,23 +54,23 @@ namespace LoadingScene {
 				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict[EKey.LOADING_GAUGE])
 			}, m_oGaugeHandlerDict, false);
 
-#region 추가
+			#region 추가
 			this.SubAwakeSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 씬을 설정한다 */
 		private void StartSetup() {
-#region 추가
+			#region 추가
 			this.SubStartSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
-#region 추가
+			#region 추가
 			this.SubUpdateUIsState();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 비동기 씬 로딩 상태가 갱신 되었을 경우 */

@@ -77,28 +77,28 @@ namespace SampleEngineName {
 		/** 스킬 제어자 매개 변수를 생성한다 */
 		public static CESkillController.STParams MakeSkillControllerParams(CEngine a_oEngine, CEComponent a_oOwner) {
 			return new CESkillController.STParams() {
-				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oTarget)
+				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oOwner)
 			};
 		}
 
 		/** 효과 제어자 매개 변수를 생성한다 */
 		public static CEFXController.STParams MakeFXControllerParams(CEngine a_oEngine, CEComponent a_oOwner) {
 			return new CEFXController.STParams() {
-				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oTarget)
+				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oOwner)
 			};
 		}
 
 		/** 플레이어 객체 제어자 매개 변수를 생성한다 */
 		public static CEPlayerObjController.STParams MakePlayerObjControllerParams(CEngine a_oEngine, CEComponent a_oOwner) {
 			return new CEPlayerObjController.STParams() {
-				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oTarget)
+				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oOwner)
 			};
 		}
 
 		/** 적 객체 제어자 매개 변수를 생성한다 */
 		public static CEEnemyObjController.STParams MakeEnemyObjControllerParams(CEngine a_oEngine, CEComponent a_oOwner) {
 			return new CEEnemyObjController.STParams() {
-				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oTarget)
+				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oOwner)
 			};
 		}
 		#endregion			// 클래스 함수

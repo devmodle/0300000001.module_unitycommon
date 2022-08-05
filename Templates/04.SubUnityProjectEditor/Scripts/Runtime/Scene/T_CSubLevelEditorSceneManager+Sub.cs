@@ -70,9 +70,9 @@ namespace LevelEditorScene {
 			m_oLevelInfoDict[EKey.SEL_LEVEL_INFO] = CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT);
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 
-#region 추가
+			#region 추가
 			this.SubAwakeSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 씬을 설정한다 */
@@ -80,9 +80,9 @@ namespace LevelEditorScene {
 			// 스크롤 뷰를 설정한다
 			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.gameObject.SetActive(true);
 
-#region 추가
+			#region 추가
 			this.SubStartSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 		#endregion			// 함수
 
@@ -98,7 +98,7 @@ namespace LevelEditorScene {
 
 #region 추가
 			this.SubUpdateUIsState();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 객체 스프라이트를 리셋한다 */

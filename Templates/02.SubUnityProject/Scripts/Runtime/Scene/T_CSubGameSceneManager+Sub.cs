@@ -74,9 +74,9 @@ namespace GameScene {
 			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
 			// 비율을 설정한다 }
 
-#region 추가
+			#region 추가
 			this.SubAwakeSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 씬을 설정한다 */
@@ -84,9 +84,9 @@ namespace GameScene {
 			this.ApplySelItems();
 			CGameInfoStorage.Inst.ResetSelItems();
 
-#region 추가
+			#region 추가
 			this.SubStartSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 엔진을 설정한다 */
@@ -121,9 +121,9 @@ namespace GameScene {
 		private void UpdateUIsState() {
 			this.UpdateRewardAdsUIsState();
 
-#region 추가
+			#region 추가
 			this.SubUpdateUIsState();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 보상 광고 UI 상태를 갱신한다 */

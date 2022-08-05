@@ -19,9 +19,9 @@ namespace SampleEngineName {
 				(EKey.OBJ_SPRITE, $"{EKey.OBJ_SPRITE}", this.gameObject)
 			}, m_oSpriteDict, false);
 
-#region 추가
+			#region 추가
 			this.SubAwakeSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 초기화 */
@@ -35,9 +35,9 @@ namespace SampleEngineName {
 				m_oSpriteDict[EKey.OBJ_SPRITE].ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
 			}
 
-#region 추가
+			#region 추가
 			this.SubInit();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 		#endregion			// 함수
 	}

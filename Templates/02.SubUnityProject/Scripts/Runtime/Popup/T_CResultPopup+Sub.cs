@@ -34,9 +34,9 @@ public partial class CResultPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
 		}, false);
 
-#region 추가
+		#region 추가
 		this.SubAwakeSetup();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** 초기화 */
@@ -44,9 +44,9 @@ public partial class CResultPopup : CSubPopup {
 		base.Init();
 		this.Params = a_stParams;
 
-#region 추가
+		#region 추가
 		this.SubInit();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -61,9 +61,9 @@ public partial class CResultPopup : CSubPopup {
 		m_oTextDict[EKey.RECORD_TEXT]?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
 		m_oTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((this.Params.m_oClearInfo != null) ? $"{this.Params.m_oClearInfo.IntBestRecord}" : string.Empty, EFontSet._1, false);
 
-#region 추가
+		#region 추가
 		this.SubUpdateUIsState();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	#endregion			// 함수
 }

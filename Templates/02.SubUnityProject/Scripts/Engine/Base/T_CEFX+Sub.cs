@@ -19,9 +19,9 @@ namespace SampleEngineName {
 				(EKey.FX_PARTICLE, $"{EKey.FX_PARTICLE}", this.gameObject)
 			}, m_oParticleDict, false);
 
-#region 추가
+			#region 추가
 			this.SubAwakeSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 초기화 */
@@ -29,9 +29,9 @@ namespace SampleEngineName {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-#region 추가
+			#region 추가
 			this.SubInit();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 		#endregion			// 함수
 	}

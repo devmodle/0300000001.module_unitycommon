@@ -79,9 +79,9 @@ namespace MainScene {
 			this.SetupABTestUIs();
 #endif			// #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
 
-#region 추가
+			#region 추가
 			this.SubAwakeSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 씬을 설정한다 */
@@ -118,16 +118,16 @@ namespace MainScene {
 			}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
-#region 추가
+			#region 추가
 			this.SubStartSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
-#region 추가
+			#region 추가
 			this.SubUpdateUIsState();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 		#endregion			// 함수
 	}

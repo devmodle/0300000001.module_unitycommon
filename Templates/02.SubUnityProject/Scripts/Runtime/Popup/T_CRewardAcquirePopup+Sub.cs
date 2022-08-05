@@ -24,9 +24,9 @@ public partial class CRewardAcquirePopup : CSubPopup {
 			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
 		}, m_oBtnDict, false);
 
-#region 추가
+		#region 추가
 		this.SubAwakeSetup();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	
 	/** 초기화 */
@@ -34,9 +34,9 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		base.Init();
 		this.Params = a_stParams;
 
-#region 추가
+		#region 추가
 		this.SubInit();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -54,9 +54,9 @@ public partial class CRewardAcquirePopup : CSubPopup {
 			}
 		}
 
-#region 추가
+		#region 추가
 		this.SubUpdateUIsState();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	#endregion			// 함수
 }

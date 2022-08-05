@@ -27,18 +27,18 @@ public partial class CSyncPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_SAVE_BTN, this.Contents, this.OnTouchSaveBtn)
 		}, false);
 
-#region 추가
+		#region 추가
 		this.SubAwakeSetup();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** 초기화 */
 	public override void Init() {
 		base.Init();
 
-#region 추가
+		#region 추가
 		this.SubInit();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -52,9 +52,9 @@ public partial class CSyncPopup : CSubPopup {
 #endif			// #if FIREBASE_MODULE_ENABLE
 		// 객체를 갱신한다 }
 
-#region 추가
+		#region 추가
 		this.SubUpdateUIsState();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	#endregion			// 함수
 }

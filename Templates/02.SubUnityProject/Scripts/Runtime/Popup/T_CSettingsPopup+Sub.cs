@@ -27,18 +27,18 @@ public partial class CSettingsPopup : CSubPopup {
 		}, false);
 		// 버튼을 설정한다 }
 
-#region 추가
+		#region 추가
 		this.SubAwakeSetup();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	
 	/** 초기화 */
 	public override void Init() {
 		base.Init();
 
-#region 추가
+		#region 추가
 		this.SubInit();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -68,9 +68,9 @@ public partial class CSettingsPopup : CSubPopup {
 		}
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
-#region 추가
+		#region 추가
 		this.SubUpdateUIsState();
-#endregion			// 추가
+		#endregion			// 추가
 	}
 	#endregion			// 함수
 }

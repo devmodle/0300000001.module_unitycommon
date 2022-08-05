@@ -14,18 +14,18 @@ namespace GameScene {
 		public override void Awake() {
 			base.Awake();
 
-#region 추가
+			#region 추가
 			this.SubAwakeSetup();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			this.Params = a_stParams;
 
-#region 추가
+			#region 추가
 			this.SubInit();
-#endregion			// 추가
+			#endregion			// 추가
 		}
 		#endregion			// 함수
 	}
