@@ -100,13 +100,13 @@ namespace SampleEngineName {
 
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stDirection) {
-			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].Move(a_stDirection);
+			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].GetController<CEPlayerObjController>().Move(a_stDirection);
 			CSceneManager.ActiveSceneMainCamera.transform.position = m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position;
 		}
 		
 		/** 플레이어 객체 스킬을 적용한다 */
 		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].ApplySkill(a_oSkillTargetInfo);
+			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].GetController<CEPlayerObjController>().ApplySkill(a_oSkillTargetInfo);
 		}
 
 		/** 초기화한다 */
@@ -131,12 +131,24 @@ namespace SampleEngineName {
 
 		/** 플레이 엔진 상태를 처리한다 */
 		private void HandlePlayEngineState(float a_fDeltaTime) {
+			for(int i = 0; i < m_oItemList.Count; ++i) {
+				m_oItemList[i].OnUpdate(a_fDeltaTime);
+			}
+
 			for(int i = 0; i < m_oSkillList.Count; ++i) {
 				m_oSkillList[i].OnUpdate(a_fDeltaTime);
 			}
 
+			for(int i = 0; i < m_oFXList.Count; ++i) {
+				m_oFXList[i].OnUpdate(a_fDeltaTime);
+			}
+
 			for(int i = 0; i < m_oEnemyObjList.Count; ++i) {
 				m_oEnemyObjList[i].OnUpdate(a_fDeltaTime);
+			}
+			
+			foreach(var stKeyVal in m_oPlayerObjDict) {
+				stKeyVal.Value.OnUpdate(a_fDeltaTime);
 			}
 		}
 

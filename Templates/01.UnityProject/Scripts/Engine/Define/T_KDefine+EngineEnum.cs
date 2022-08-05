@@ -15,15 +15,7 @@ namespace SampleEngineName {
 	}
 
 	#region 기본
-	/** 컴포넌트 타입 */
-	public enum EComponentType {
-		NONE = -1,
-		ITEM,
-		SKILL,
-		OBJ,
-		FX,
-		[HideInInspector] MAX_VAL
-	}
+	
 	#endregion			// 기본
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

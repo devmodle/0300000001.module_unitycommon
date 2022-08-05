@@ -29,9 +29,7 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
-
 		public Vector3Int Idx { get; set; } = Vector3Int.zero;
-		public override EComponentType ComponentType => EComponentType.OBJ;
 		#endregion			// 프로퍼티
 
 		#region 함수

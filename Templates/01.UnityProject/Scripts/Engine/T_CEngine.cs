@@ -59,10 +59,9 @@ namespace SampleEngineName {
 		private List<CEItem> m_oItemList = new List<CEItem>();
 		private List<CESkill> m_oSkillList = new List<CESkill>();
 		private List<CEFX> m_oFXList = new List<CEFX>();
-		private List<CEObj> m_oPlayerObjList = new List<CEObj>();
 		private List<CEObj> m_oEnemyObjList = new List<CEObj>();
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
-
+		
 		/** =====> 객체 <===== */
 		private Dictionary<EObjType, List<CEObj>>[,] m_oObjDictContainers = null;
 		#endregion			// 변수

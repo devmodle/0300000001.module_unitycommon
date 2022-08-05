@@ -7,17 +7,12 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	/** 객체 */
-	public partial class CEObj : CEComponent {
+	/** 스킬 제어자 */
+	public partial class CESkillController : CEController {
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-
-			// 스프라이트를 설정한다
-			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
-				(EKey.OBJ_SPRITE, $"{EKey.OBJ_SPRITE}", this.gameObject)
-			}, m_oSpriteDict, false);
 
 #region 추가
 			this.SubAwakeSetup();
@@ -29,12 +24,6 @@ namespace SampleEngineName {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-			// 객체 스프라이트가 존재 할 경우
-			if(m_oSpriteDict[EKey.OBJ_SPRITE] != null) {
-				m_oSpriteDict[EKey.OBJ_SPRITE].sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
-				m_oSpriteDict[EKey.OBJ_SPRITE].ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
-			}
-
 #region 추가
 			this.SubInit();
 #endregion			// 추가
@@ -42,8 +31,8 @@ namespace SampleEngineName {
 		#endregion			// 함수
 	}
 
-	/** 서브 객체 */
-	public partial class CEObj : CEComponent {
+	/** 서브 스킬 제어자 */
+	public partial class CESkillController : CEController {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
@@ -59,7 +48,17 @@ namespace SampleEngineName {
 		#endregion			// 프로퍼티
 
 		#region 함수
-		/** 엔진을 설정한다 */
+		/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Something
+			}
+		}
+		
+		/** 효과를 설정한다 */
 		private void SubAwakeSetup() {
 			// Do Something
 		}
