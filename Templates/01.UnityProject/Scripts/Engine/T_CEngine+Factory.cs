@@ -20,7 +20,7 @@ namespace SampleEngineName {
 
 		/** 스킬을 생성한다 */
 		public CESkill CreateSkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEComponent a_oOwner = null, bool a_bIsEnableController = false) {
-			var oSkill = CSceneManager.ActiveSceneManager.SpawnObj<CESkill>(KDefine.E_KEY_SKILL_OBJS_POOL, KDefine.E_OBJ_P_SKILL);
+			var oSkill = CSceneManager.ActiveSceneManager.SpawnObj<CESkill>(KDefine.E_KEY_SKILL_OBJS_POOL, KDefine.E_OBJ_N_SKILL);
 			var oController = a_bIsEnableController ? oSkill.gameObject.AddComponent<CESkillController>() : null;
 
 			oSkill.Init(Factory.MakeSkillParams(this, a_stSkillInfo, a_oSkillTargetInfo, a_oOwner, oController, KDefine.E_KEY_SKILL_OBJS_POOL));
@@ -31,7 +31,7 @@ namespace SampleEngineName {
 
 		/** 객체를 생성한다 */
 		public CEObj CreateObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null) {
-			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_KEY_OBJ_OBJS_POOL, KDefine.E_OBJ_P_OBJ);
+			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_KEY_OBJ_OBJS_POOL, KDefine.E_OBJ_N_OBJ);
 			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, null, KDefine.E_KEY_OBJ_OBJS_POOL));
 
 			return oObj;

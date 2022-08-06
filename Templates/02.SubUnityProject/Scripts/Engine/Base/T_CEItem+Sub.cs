@@ -55,7 +55,7 @@ namespace SampleEngineName {
 
 		/** 초기화한다 */
 		private void SubInit() {
-			// Do Something
+			this.SetupAbilityVals();
 		}
 		#endregion			// 함수
 	}

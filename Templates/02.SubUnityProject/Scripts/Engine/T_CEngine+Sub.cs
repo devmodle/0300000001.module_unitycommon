@@ -53,6 +53,14 @@ namespace SampleEngineName {
 			[HideInInspector] MAX_VAL
 		}
 
+		/** 상태 */
+		public enum EState {
+			NONE = -1,
+			RUN,
+			STOP,
+			[HideInInspector] MAX_VAL
+		}
+
 		/** 엔진 상태 */
 		public enum EEngineState {
 			NONE = -1,
@@ -66,10 +74,12 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
+		public EState State { get; private set; } = EState.NONE;
 		public EEngineState EngineState { get; private set; } = EEngineState.NONE;
+
 		public bool IsPlaying => this.State == EState.RUN && this.EngineState == EEngineState.PLAY;
 		#endregion			// 프로퍼티
-
+		
 		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
@@ -81,6 +91,9 @@ namespace SampleEngineName {
 					case EEngineState.PLAY: this.HandlePlayEngineState(a_fDeltaTime); break;
 					case EEngineState.PAUSE: this.HandlePauseEngineState(a_fDeltaTime); break;
 				}
+
+				CSceneManager.ActiveSceneManager.gameObject.ExAddWorldPosX(m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position.x);
+				CSceneManager.ActiveSceneManager.gameObject.ExAddWorldPosY(m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position.y);
 			}
 		}
 
@@ -101,7 +114,6 @@ namespace SampleEngineName {
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stDirection) {
 			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].GetController<CEPlayerObjController>().Move(a_stDirection);
-			CSceneManager.ActiveSceneMainCamera.transform.position = m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position;
 		}
 		
 		/** 플레이어 객체 스킬을 적용한다 */
@@ -111,7 +123,8 @@ namespace SampleEngineName {
 
 		/** 초기화한다 */
 		private void SubInit() {
-			// Do Something
+			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
+			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ] = this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null, true);
 		}
 
 		/** 상태를 리셋한다 */
@@ -121,12 +134,12 @@ namespace SampleEngineName {
 		
 		/** 구동 상태를 처리한다 */
 		private void HandleRunState() {
-			// Do Something
+			this.SetEngineState(EEngineState.PLAY);
 		}
 
 		/** 중지 상태를 처리한다 */
 		private void HandleStopState() {
-			// Do Something
+			this.SetEngineState(EEngineState.PAUSE);
 		}
 
 		/** 플레이 엔진 상태를 처리한다 */
@@ -159,17 +172,26 @@ namespace SampleEngineName {
 
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+			// 구동 상태 일 경우
+			if(this.State == EState.RUN) {
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+			}
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+			// 구동 상태 일 경우
+			if(this.State == EState.RUN) {
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+			}
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+			// 구동 상태 일 경우
+			if(this.State == EState.RUN) {
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stPivotPos, KDefine.E_SIZE_CELL);
+			}
 		}
 		#endregion			// 함수
 

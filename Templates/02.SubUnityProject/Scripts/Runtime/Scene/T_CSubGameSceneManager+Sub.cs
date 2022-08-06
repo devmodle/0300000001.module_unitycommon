@@ -186,7 +186,7 @@ namespace GameScene {
 
 		/** 씬을 설정한다 */
 		private void SubStartSetup() {
-			// Do Something
+			this.ExLateCallFunc((a_oSender) => m_oEngine.SetState(SampleEngineName.CEngine.EState.RUN), KCDefine.B_VAL_1_REAL);
 		}
 
 		/** UI 상태를 갱신한다 */

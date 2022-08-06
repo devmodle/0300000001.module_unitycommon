@@ -27,14 +27,14 @@ namespace SampleEngineName {
 
 		// 정렬 순서
 		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
-			[EObjKinds.BG_EMPTY_01] = new STSortingOrderInfo() {
-				m_nOrder = sbyte.MaxValue * 0, m_oLayer = KCDefine.U_SORTING_L_DEF
-			}
+			[EObjKinds.BG_EMPTY_01] = new STSortingOrderInfo() { m_nOrder = sbyte.MaxValue * 0, m_oLayer = KCDefine.U_SORTING_L_DEF },
+			[EObjKinds.PLAYABLE_COMMON_CHARACTER_01] = new STSortingOrderInfo() { m_nOrder = sbyte.MaxValue * 1, m_oLayer = KCDefine.U_SORTING_L_DEF }
 		};
 
 		// 경로
 		public static readonly Dictionary<EObjKinds, string> E_IMG_P_OBJ_DICT = new Dictionary<EObjKinds, string>() {
-			[EObjKinds.BG_EMPTY_01] = EObjKinds.BG_EMPTY_01.ToString()
+			[EObjKinds.BG_EMPTY_01] = EObjKinds.BG_EMPTY_01.ToString(),
+			[EObjKinds.PLAYABLE_COMMON_CHARACTER_01] = EObjKinds.PLAYABLE_COMMON_CHARACTER_01.ToString()
 		};
 		#endregion			// 런타임 상수
 	}

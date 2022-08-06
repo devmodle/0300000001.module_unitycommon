@@ -44,28 +44,31 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
-
+		public bool IsEnableMove => this.IsActive && (this.ControllerState == EControllerState.IDLE || this.ControllerState == EControllerState.MOVE);
+		public bool IsEnableApplySkill => this.IsActive && (this.ControllerState == EControllerState.IDLE || this.ControllerState == EControllerState.MOVE);
 		#endregion			// 프로퍼티
 
 		#region 함수
-		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
-
-			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
-				// Do Something
-			}
-		}
-
 		/** 이동을 처리한다 */
-		public void Move(Vector3 a_stDirection) {
-			this.GetOwner<CEObj>().transform.localPosition += (a_stDirection * (float)this.GetOwner<CEObj>().AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * CScheduleManager.Inst.DeltaTime;
+		public override void Move(Vector3 a_stDirection) {
+			base.Move(a_stDirection);
+			this.SetControllerState(this.IsEnableMove ? EControllerState.MOVE : this.ControllerState);
 		}
 
 		/** 스킬을 적용한다 */
-		public void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			// Do Something
+		public override void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
+			base.ApplySkill(a_oSkillTargetInfo);
+			this.SetControllerState(this.IsEnableApplySkill ? EControllerState.SKILL : this.ControllerState);
+		}
+
+		/** 대기 제어자 상태를 처리한다 */
+		protected override void HandleIdleControllerState(float a_fDeltaTime) {
+			base.HandleIdleControllerState(a_fDeltaTime);
+		}
+
+		/** 이동 제어자 상태를 처리한다 */
+		protected override void HandleMoveControllerState(float a_fDeltaTime) {
+			base.HandleMoveControllerState(a_fDeltaTime);
 		}
 
 		/** 효과를 설정한다 */

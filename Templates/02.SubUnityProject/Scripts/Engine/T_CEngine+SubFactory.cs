@@ -19,18 +19,18 @@ namespace SampleEngineName {
 		#region 함수
 		/** 플레이어 객체를 생성한다 */
 		public CEObj CreatePlayerObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null, bool a_bIsEnableController = false) {
-			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, KDefine.E_OBJ_P_PLAYER_OBJ);
+			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, KDefine.E_OBJ_N_PLAYER_OBJ);
 			var oController = a_bIsEnableController ? oObj.gameObject.AddComponent<CEPlayerObjController>() : null;
 
 			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
 			oController.Init(Factory.MakePlayerObjControllerParams(this, oObj));
-
+			
 			return oObj;
 		}
 
 		/** 적 객체를 생성한다 */
 		public CEObj CreateEnemyObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null, bool a_bIsEnableController = false) {
-			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, KDefine.E_OBJ_P_ENEMY_OBJ);
+			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, KDefine.E_OBJ_N_ENEMY_OBJ);
 			var oController = a_bIsEnableController ? oObj.gameObject.AddComponent<CEEnemyObjController>() : null;
 
 			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));

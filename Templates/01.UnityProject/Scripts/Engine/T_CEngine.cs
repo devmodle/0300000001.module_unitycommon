@@ -18,14 +18,6 @@ namespace SampleEngineName {
 			[HideInInspector] MAX_VAL
 		}
 
-		/** 상태 */
-		public enum EState {
-			NONE = -1,
-			RUN,
-			STOP,
-			[HideInInspector] MAX_VAL
-		}
-
 		/** 콜백 */
 		public enum ECallback {
 			NONE = -1,
@@ -70,7 +62,6 @@ namespace SampleEngineName {
 		public STParams Params { get; private set; }
 		public long IntRecord { get; private set; } = 0;
 		public double RealRecord { get; private set; } = 0.0;
-		public EState State { get; private set; } = EState.NONE;
 
 		public STGridInfo SelGridInfo => m_oGridInfoDict[EKey.SEL_GRID_INFO];
 		public CEObj SelPlayerObj => m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ];
@@ -81,8 +72,8 @@ namespace SampleEngineName {
 		public void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
 			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot);
 
-			// 구동 상태 일 경우
-			if(this.State == EState.RUN && m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(stTouchPos)) {
+			// 그리드 영역 일 경우
+			if(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(stTouchPos)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;

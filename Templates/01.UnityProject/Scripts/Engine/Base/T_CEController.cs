@@ -9,18 +9,16 @@ using UnityEngine.Events;
 namespace SampleEngineName {
 	/** 제어자 */
 	public partial class CEController : CComponent {
+		/** 식별자 */
+		private enum EKey {
+			NONE = -1,
+			[HideInInspector] MAX_VAL
+		}
+
 		/** 매개 변수 */
 		public partial struct STParams {
 			public CEngine m_oEngine;
 			public CEComponent m_oOwner;
-		}
-
-		/** 상태 */
-		public enum EState {
-			NONE = -1,
-			ACTIVE,
-			INACTIVE,
-			[HideInInspector] MAX_VAL
 		}
 
 		#region 변수
@@ -29,7 +27,6 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public STParams Params { get; private set; }
-		public EState State { get; private set; }
 		#endregion			// 프로퍼티
 
 		#region 함수

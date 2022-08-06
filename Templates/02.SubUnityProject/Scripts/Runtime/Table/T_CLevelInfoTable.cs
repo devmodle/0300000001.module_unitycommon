@@ -679,13 +679,13 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			m_oEnemyObjTargetInfoDict = new Dictionary<ulong, STTargetInfo>()
 		};
 
-		stLevelEpisodeInfo.m_oRewardKindsList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds, false);
-		stLevelEpisodeInfo.m_oRecordValInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordValInfoList, (a_stRecordValInfo) => a_stRecordValInfo, false);
+		stLevelEpisodeInfo.m_oRewardKindsList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds, true, false);
+		stLevelEpisodeInfo.m_oRecordValInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordValInfoList, (a_stRecordValInfo) => a_stRecordValInfo, true, false);
 
-		stLevelEpisodeInfo.m_oClearTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
-		stLevelEpisodeInfo.m_oUnlockTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoDict, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo, false);
-		stLevelEpisodeInfo.m_oDropItemTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oDropItemTargetInfoDict, (a_stDropItemTargetInfo) => a_stDropItemTargetInfo, false);
-		stLevelEpisodeInfo.m_oEnemyObjTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oEnemyObjTargetInfoDict, (a_stEnemyObjTargetInfo) => a_stEnemyObjTargetInfo, false);
+		stLevelEpisodeInfo.m_oClearTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, true, false);
+		stLevelEpisodeInfo.m_oUnlockTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoDict, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo, true, false);
+		stLevelEpisodeInfo.m_oDropItemTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oDropItemTargetInfoDict, (a_stDropItemTargetInfo) => a_stDropItemTargetInfo, true, false);
+		stLevelEpisodeInfo.m_oEnemyObjTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oEnemyObjTargetInfoDict, (a_stEnemyObjTargetInfo) => a_stEnemyObjTargetInfo, true, false);
 
 		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueID01, stReplaceLevelEpisodeInfo);
 
