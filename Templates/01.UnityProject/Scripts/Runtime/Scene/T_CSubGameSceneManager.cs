@@ -16,6 +16,9 @@ namespace GameScene {
 			IS_LEAVE,
 			CONTINUE_TIMES,
 			SEL_REWARD_ADS_UIS,
+			BG_SPRITE,
+			TOP_BG_SPRITE,
+			BOTTOM_BG_SPRITE,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -50,22 +53,13 @@ namespace GameScene {
 		};
 
 		private SampleEngineName.CEngine m_oEngine = null;
+		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
 		/** =====> 객체 <===== */
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
 		#endregion			// 변수
 		
 		#region 함수
-		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
-
-			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
-				m_oEngine.OnUpdate(a_fDeltaTime);
-			}
-		}
-		
 		/** 앱이 정지 되었을 경우 */
 		public override void OnApplicationPause(bool a_bIsPause) {
 			base.OnApplicationPause(a_bIsPause);

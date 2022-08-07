@@ -10,7 +10,8 @@ namespace SampleEngineName {
 	/** 서브 엔진 상수 */
 	public static partial class KDefine {
 		#region 기본
-
+		// 간격
+		public const float E_OFFSET_BOTTOM = 150.0f;
 		#endregion			// 기본
 
 		#region 런타임 상수

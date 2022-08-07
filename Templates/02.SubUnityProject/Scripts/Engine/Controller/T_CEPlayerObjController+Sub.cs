@@ -69,6 +69,14 @@ namespace SampleEngineName {
 		/** 이동 제어자 상태를 처리한다 */
 		protected override void HandleMoveControllerState(float a_fDeltaTime) {
 			base.HandleMoveControllerState(a_fDeltaTime);
+			CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(this.Params.m_stBaseParams.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, out STEpisodeInfo stLevelEpisodeInfo, this.Params.m_stBaseParams.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_stBaseParams.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
+
+			var stEpisodeSize = (stLevelEpisodeInfo.m_stSize * KCDefine.B_UNIT_SCALE) * CAccess.ResolutionScale;
+			stEpisodeSize.x = Mathf.Clamp(stEpisodeSize.x, KCDefine.B_VAL_0_REAL, stEpisodeSize.x - ((KCDefine.B_SCREEN_SIZE.x * KCDefine.B_UNIT_SCALE) * CAccess.ResolutionScale));
+			stEpisodeSize.y = Mathf.Clamp(stEpisodeSize.y, KCDefine.B_VAL_0_REAL, stEpisodeSize.y - ((KCDefine.B_SCREEN_SIZE.y * KCDefine.B_UNIT_SCALE) * CAccess.ResolutionScale));
+			
+			var stMainCameraPos = new Vector3(Mathf.Clamp(this.transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.transform.position.y, stEpisodeSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+			CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
 		}
 
 		/** 효과를 설정한다 */

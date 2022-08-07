@@ -91,9 +91,6 @@ namespace SampleEngineName {
 					case EEngineState.PLAY: this.HandlePlayEngineState(a_fDeltaTime); break;
 					case EEngineState.PAUSE: this.HandlePauseEngineState(a_fDeltaTime); break;
 				}
-
-				CSceneManager.ActiveSceneManager.gameObject.ExAddWorldPosX(m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position.x);
-				CSceneManager.ActiveSceneManager.gameObject.ExAddWorldPosY(m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position.y);
 			}
 		}
 

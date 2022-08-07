@@ -30,7 +30,10 @@ public static partial class Access {
 /** 서브 게임 씬 접근자 */
 public static partial class Access {
 	#region 클래스 함수
-
+	/** 배경 스프라이트를 반환한다 */
+	public static Sprite GetBGSprite(string a_oImgPathFmt, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		return CResManager.Inst.GetRes<Sprite>(string.Format(a_oImgPathFmt, a_nChapterID + KCDefine.B_VAL_1_INT, a_nStageID + KCDefine.B_VAL_1_INT, a_nLevelID + KCDefine.B_VAL_1_INT));
+	}
 	#endregion			// 클래스 함수
 }
 

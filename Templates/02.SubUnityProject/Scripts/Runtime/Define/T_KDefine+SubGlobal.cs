@@ -86,6 +86,27 @@ public static partial class KDefine {
 	// 단위
 	public const int GS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH = 0;
 	#endregion			// 기본
+
+	#region 런타임 상수
+	// 경로
+	public static readonly string GS_IMG_P_FMT_BG = $"{KCDefine.B_DIR_P_IMAGES}{KCDefine.B_DIR_P_GAME_SCENE}BG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
+	public static readonly string GS_IMG_P_FMT_TOP_BG = $"{KCDefine.B_DIR_P_IMAGES}{KCDefine.B_DIR_P_GAME_SCENE}TopBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
+	public static readonly string GS_IMG_P_FMT_BOTTOM_BG = $"{KCDefine.B_DIR_P_IMAGES}{KCDefine.B_DIR_P_GAME_SCENE}BottomBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
+
+	// 정렬 순서 {
+	public static readonly STSortingOrderInfo GS_SORTING_OI_BG = new STSortingOrderInfo() {
+		m_nOrder = sbyte.MaxValue * 0, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+	};
+
+	public static readonly STSortingOrderInfo GS_SORTING_OI_TOP_BG = new STSortingOrderInfo() {
+		m_nOrder = sbyte.MaxValue * 1, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+	};
+
+	public static readonly STSortingOrderInfo GS_SORTING_OI_BOTTOM_BG = new STSortingOrderInfo() {
+		m_nOrder = sbyte.MaxValue * 1, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+	};
+	// 정렬 순서 }
+	#endregion			// 런타임 상수
 }
 
 /** 서브 로딩 씬 상수 */

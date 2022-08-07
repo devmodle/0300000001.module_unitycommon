@@ -59,6 +59,8 @@ namespace GameScene {
 		private void AwakeSetup() {
 			this.SetupEngine();
 			this.SetupRewardAdsUIs();
+
+			CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, out STEpisodeInfo stLevelEpisodeInfo, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
 			
 			// 버튼을 설정한다
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -73,6 +75,42 @@ namespace GameScene {
 
 			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
 			// 비율을 설정한다 }
+
+			// 스프라이트를 설정한다 {
+			var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
+				[EKey.BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_BG, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BG),
+				[EKey.TOP_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_TOP_BG, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_TOP_BG),
+				[EKey.BOTTOM_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_BOTTOM_BG, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BOTTOM_BG)
+			};
+
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+				(EKey.TOP_BG_SPRITE, $"{EKey.TOP_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+				(EKey.BOTTOM_BG_SPRITE, $"{EKey.BOTTOM_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+			}, m_oSpriteDict, false);
+
+			foreach(var stKeyVal in m_oSpriteDict) {
+				stKeyVal.Value.drawMode = SpriteDrawMode.Tiled;
+				stKeyVal.Value.tileMode = SpriteTileMode.Continuous;
+				stKeyVal.Value.sprite = oSpriteInfoDict[stKeyVal.Key].Item1;
+				stKeyVal.Value.ExSetSortingOrder(oSpriteInfoDict[stKeyVal.Key].Item2);
+			}
+
+			float fTopBGSpritePosY = Mathf.Max(this.ScreenHeight / KCDefine.B_VAL_2_REAL, stLevelEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
+			float fBottomBGSpritePosY = Mathf.Max((this.ScreenHeight / KCDefine.B_VAL_2_REAL) - SampleEngineName.KDefine.E_OFFSET_BOTTOM, (stLevelEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL) - SampleEngineName.KDefine.E_OFFSET_BOTTOM);
+
+			m_oSpriteDict[EKey.BG_SPRITE].size = new Vector3(Mathf.Max(this.ScreenWidth, stLevelEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.CanvasSize.y, stLevelEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict[EKey.BG_SPRITE].transform.localScale = Vector3.one;
+			m_oSpriteDict[EKey.BG_SPRITE].transform.localPosition = Vector3.zero;
+
+			m_oSpriteDict[EKey.TOP_BG_SPRITE].size = new Vector3(Mathf.Max(this.ScreenWidth, stLevelEpisodeInfo.m_stSize.x), m_oSpriteDict[EKey.TOP_BG_SPRITE].sprite.rect.height, KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict[EKey.TOP_BG_SPRITE].transform.localScale = Vector3.one;
+			m_oSpriteDict[EKey.TOP_BG_SPRITE].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, fTopBGSpritePosY + (m_oSpriteDict[EKey.TOP_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+
+			m_oSpriteDict[EKey.BOTTOM_BG_SPRITE].size = new Vector3(Mathf.Max(this.ScreenWidth, stLevelEpisodeInfo.m_stSize.x), m_oSpriteDict[EKey.TOP_BG_SPRITE].sprite.rect.height, KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict[EKey.BOTTOM_BG_SPRITE].transform.localScale = Vector3.one;
+			m_oSpriteDict[EKey.BOTTOM_BG_SPRITE].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -(fBottomBGSpritePosY + (m_oSpriteDict[EKey.TOP_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL);
+			// 스프라이트를 설정한다 }
 
 			#region 추가
 			this.SubAwakeSetup();
@@ -163,6 +201,16 @@ namespace GameScene {
 		#endregion			// 프로퍼티
 
 		#region 함수
+		/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				m_oEngine.OnUpdate(a_fDeltaTime);
+			}
+		}
+		
 		/** 제거 되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();

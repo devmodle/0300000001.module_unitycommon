@@ -34,7 +34,7 @@ public static partial class Func {
 	/** 플레이 레벨 정보를 설정한다 */
 	public static void SetupPlayLevelInfo(int a_nLevelID, EPlayMode a_ePlayMode, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CGameInfoStorage.Inst.PlayMode = a_ePlayMode;
-
+		
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		CGameInfoStorage.Inst.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nLevelID, a_nStageID, a_nChapterID);
 #else
