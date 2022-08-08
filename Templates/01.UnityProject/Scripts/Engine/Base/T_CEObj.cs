@@ -36,10 +36,16 @@ namespace SampleEngineName {
 		/** 어빌리티 값을 설정한다 */
 		public override void SetupAbilityVals() {
 			base.SetupAbilityVals();
-			var oAbilityTargetInfoDict = (this.Params.m_oObjTargetInfo != null) ? this.Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict : this.Params.m_stObjInfo.m_oAbilityTargetInfoDict;
+			global::Func.SetupAbilityVals(this.Params.m_stObjInfo, this.Params.m_oObjTargetInfo, this.AbilityValDict);
 
-			foreach(var stKeyVal in oAbilityTargetInfoDict) {
-				global::Func.SetupAbilityVals(stKeyVal.Value, this.AbilityValDict);
+			// 스킬 타겟 정보가 존재 할 경우
+			if(this.Params.m_oObjTargetInfo != null && this.Params.m_oObjTargetInfo.m_oTargetInfoDictContainer.TryGetValue(ETargetType.SKILL, out List<CTargetInfo> oTargetInfoList)) {
+				for(int i = 0; i < oTargetInfoList.Count; ++i) {
+					// 패시브 스킬 일 경우
+					if((ESkillType)oTargetInfoList[i].Kinds.ExKindsToType() == ESkillType.PASSIVE) {
+						global::Func.SetupAbilityVals(oTargetInfoList[i].m_oAbilityTargetInfoDict, this.AbilityValDict);
+					}
+				}
 			}
 		}
 		#endregion			// 함수

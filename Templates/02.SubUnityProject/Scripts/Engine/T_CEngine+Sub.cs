@@ -1,6 +1,7 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -98,7 +99,7 @@ namespace SampleEngineName {
 				stEpisodeSize.x = Mathf.Clamp(stEpisodeSize.x, KCDefine.B_VAL_0_REAL, stEpisodeSize.x - ((KCDefine.B_SCREEN_SIZE.x * KCDefine.B_UNIT_SCALE) * CAccess.ResolutionScale));
 				stEpisodeSize.y = Mathf.Clamp(stEpisodeSize.y, KCDefine.B_VAL_0_REAL, stEpisodeSize.y - ((KCDefine.B_SCREEN_SIZE.y * KCDefine.B_UNIT_SCALE) * CAccess.ResolutionScale));
 				
-				var stMainCameraPos = new Vector3(Mathf.Clamp(this.transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.transform.position.y + KDefine.E_OFFSET_MAIN_CAMERA, stEpisodeSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+				var stMainCameraPos = new Vector3(Mathf.Clamp(m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position.y + KDefine.E_OFFSET_MAIN_CAMERA, stEpisodeSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 				CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
 			}
 		}
@@ -152,25 +153,11 @@ namespace SampleEngineName {
 
 		/** 플레이 엔진 상태를 처리한다 */
 		private void HandlePlayEngineState(float a_fDeltaTime) {
-			for(int i = 0; i < m_oItemList.Count; ++i) {
-				m_oItemList[i].OnUpdate(a_fDeltaTime);
-			}
-
-			for(int i = 0; i < m_oSkillList.Count; ++i) {
-				m_oSkillList[i].OnUpdate(a_fDeltaTime);
-			}
-
-			for(int i = 0; i < m_oFXList.Count; ++i) {
-				m_oFXList[i].OnUpdate(a_fDeltaTime);
-			}
-
-			for(int i = 0; i < m_oEnemyObjList.Count; ++i) {
-				m_oEnemyObjList[i].OnUpdate(a_fDeltaTime);
-			}
-			
-			foreach(var stKeyVal in m_oPlayerObjDict) {
-				stKeyVal.Value.OnUpdate(a_fDeltaTime);
-			}
+			CFunc.UpdateComponents(m_oItemList, a_fDeltaTime);
+			CFunc.UpdateComponents(m_oSkillList, a_fDeltaTime);
+			CFunc.UpdateComponents(m_oFXList, a_fDeltaTime);
+			CFunc.UpdateComponents(m_oEnemyObjList, a_fDeltaTime);
+			CFunc.UpdateComponents(m_oPlayerObjDict, a_fDeltaTime);
 		}
 
 		/** 정지 엔진 상태를 처리한다 */

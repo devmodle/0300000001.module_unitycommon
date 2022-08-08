@@ -28,11 +28,7 @@ namespace SampleEngineName {
 		/** 어빌리티 값을 설정한다 */
 		public override void SetupAbilityVals() {
 			base.SetupAbilityVals();
-			var oAbilityTargetInfoDict = (this.Params.m_oSkillTargetInfo != null) ? this.Params.m_oSkillTargetInfo.m_oAbilityTargetInfoDict : this.Params.m_stSkillInfo.m_oAbilityTargetInfoDict;
-
-			foreach(var stKeyVal in oAbilityTargetInfoDict) {
-				global::Func.SetupAbilityVals(stKeyVal.Value, this.AbilityValDict);
-			}
+			global::Func.SetupAbilityVals(this.Params.m_stSkillInfo, this.Params.m_oSkillTargetInfo, this.AbilityValDict);
 		}
 		#endregion			// 함수
 	}

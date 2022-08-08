@@ -665,7 +665,9 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			},
 
 			m_nNumSubEpisodes = stLevelEpisodeInfo.m_nNumSubEpisodes,
+			m_nMaxNumEnemyObjs = stLevelEpisodeInfo.m_nMaxNumEnemyObjs,
 			m_stSize = stLevelEpisodeInfo.m_stSize,
+			
 			m_eDifficulty = stLevelEpisodeInfo.m_eDifficulty,
 			m_eEpisodeKinds = stLevelEpisodeInfo.m_eEpisodeKinds,
 			m_eTutorialKinds = stLevelEpisodeInfo.m_eTutorialKinds,

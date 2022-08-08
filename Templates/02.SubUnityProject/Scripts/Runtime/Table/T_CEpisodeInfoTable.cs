@@ -16,6 +16,7 @@ public partial struct STEpisodeInfo {
 	public STCommonInfo m_stCommonInfo;
 
 	public int m_nNumSubEpisodes;
+	public int m_nMaxNumEnemyObjs;
 	public Vector3 m_stSize;
 
 	public STIDInfo m_stIDInfo;
@@ -60,6 +61,7 @@ public partial struct STEpisodeInfo {
 		m_stCommonInfo = new STCommonInfo(a_oEpisodeInfo);
 
 		m_nNumSubEpisodes = a_oEpisodeInfo[KCDefine.U_KEY_NUM_SUB_EPISODES].ExIsValid() ? a_oEpisodeInfo[KCDefine.U_KEY_NUM_SUB_EPISODES].AsInt : KCDefine.B_VAL_0_INT;
+		m_nMaxNumEnemyObjs = a_oEpisodeInfo[KCDefine.U_KEY_MAX_NUM_ENEMY_OBJS].ExIsValid() ? a_oEpisodeInfo[KCDefine.U_KEY_MAX_NUM_ENEMY_OBJS].AsInt : KCDefine.B_VAL_0_INT;
 		m_stSize = a_oEpisodeInfo[KCDefine.U_KEY_SIZE].ExIsValid() ? new Vector3(a_oEpisodeInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oEpisodeInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat) : Vector3.zero;
 		
 		m_eDifficulty = a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].ExIsValid() ? (EDifficulty)a_oEpisodeInfo[KCDefine.U_KEY_DIFFICULTY].AsInt : EDifficulty.NONE;
@@ -154,6 +156,7 @@ public partial struct STEpisodeInfo {
 		oEpisodeInfo.Add(KCDefine.U_KEY_EPISODE_KINDS, $"{(int)m_eEpisodeKinds}");
 		oEpisodeInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
 		oEpisodeInfo.Add(KCDefine.U_KEY_NUM_SUB_EPISODES, $"{m_nNumSubEpisodes}");
+		oEpisodeInfo.Add(KCDefine.U_KEY_MAX_NUM_ENEMY_OBJS, $"{m_nMaxNumEnemyObjs}");
 		oEpisodeInfo.Add(KCDefine.U_KEY_SIZE, oSizeInfo);
 
 		for(int i = 0; i < m_oRewardKindsList.Count; ++i) {

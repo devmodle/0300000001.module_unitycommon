@@ -23,10 +23,67 @@ public static partial class Func {
 			var eAbilityKinds = (EAbilityKinds)a_stTargetInfo.Kinds.ExKindsToCorrectKinds(a_stTargetInfo.m_eKindsGroupType).ExKindsToSubKindsType();
 
 			decimal dmAbilityVal = (stAbilityInfo.m_stValInfo.m_eValType == EValType.INT) ? stAbilityInfo.m_stValInfo.m_nVal : (decimal)stAbilityInfo.m_stValInfo.m_dblVal / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT;
-			a_oOutAbilityValDict?.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutAbilityValDict.GetValueOrDefault(eAbilityKinds) + (dmAbilityVal * a_stTargetInfo.m_stValInfo01.m_nVal), decimal.MinValue, decimal.MaxValue), a_bIsEnableAssert);
+			a_oOutAbilityValDict.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutAbilityValDict.GetValueOrDefault(eAbilityKinds) + (dmAbilityVal * a_stTargetInfo.m_stValInfo01.m_nVal), decimal.MinValue, decimal.MaxValue), a_bIsEnableAssert);
 
 			foreach(var stKeyVal in stAbilityInfo.m_oExtraAbilityTargetInfoDict) {
 				Func.SetupAbilityVals(stKeyVal.Value, a_oOutAbilityValDict, a_bIsEnableAssert);
+			}
+		}
+	}
+
+	/** 어빌리티 값을 설정한다 */
+	public static void SetupAbilityVals(Dictionary<ulong, STTargetInfo> a_oAbilityTargetInfoDict, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oAbilityTargetInfoDict != null && a_oOutAbilityValDict != null));
+
+		// 어빌리티 값 설정이 가능 할 경우
+		if(a_oAbilityTargetInfoDict != null && a_oOutAbilityValDict != null) {
+			foreach(var stKeyVal in a_oAbilityTargetInfoDict) {
+				Func.SetupAbilityVals(stKeyVal.Value, a_oOutAbilityValDict);
+			}
+		}
+	}
+
+	/** 어빌리티 값을 설정한다 */
+	public static void SetupAbilityVals(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (!a_stItemInfo.Equals(STItemInfo.INVALID) && a_oOutAbilityValDict != null));
+
+		// 어빌리티 값 설정이 가능 할 경우
+		if(!a_stItemInfo.Equals(STItemInfo.INVALID) && a_oOutAbilityValDict != null) {
+			Func.SetupAbilityVals(a_stItemInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict);
+
+			// 아이템 타겟 정보가 존재 할 경우
+			if(a_oItemTargetInfo != null) {
+				Func.SetupAbilityVals(a_oItemTargetInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict);
+			}
+		}
+	}
+
+	/** 어빌리티 값을 설정한다 */
+	public static void SetupAbilityVals(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (!a_stSkillInfo.Equals(STSkillInfo.INVALID) && a_oOutAbilityValDict != null));
+
+		// 어빌리티 값 설정이 가능 할 경우
+		if(!a_stSkillInfo.Equals(STSkillInfo.INVALID) && a_oOutAbilityValDict != null) {
+			Func.SetupAbilityVals(a_stSkillInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict);
+
+			// 스킬 타겟 정보가 존재 할 경우
+			if(a_oSkillTargetInfo != null) {
+				Func.SetupAbilityVals(a_oSkillTargetInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict);
+			}
+		}
+	}
+
+	/** 어빌리티 값을 설정한다 */
+	public static void SetupAbilityVals(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (!a_stObjInfo.Equals(STObjInfo.INVALID) && a_oOutAbilityValDict != null));
+
+		// 어빌리티 값 설정이 가능 할 경우
+		if(!a_stObjInfo.Equals(STObjInfo.INVALID) && a_oOutAbilityValDict != null) {
+			Func.SetupAbilityVals(a_stObjInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict);
+
+			// 객체 타겟 정보가 존재 할 경우
+			if(a_oObjTargetInfo != null) {
+				Func.SetupAbilityVals(a_oObjTargetInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict);
 			}
 		}
 	}

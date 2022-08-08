@@ -47,11 +47,9 @@ public static partial class Factory {
 			ItemKinds = a_eItemKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo, m_stIdxInfo = STIdxInfo.INVALID
 		};
 
-		var stItemInfo = CItemInfoTable.Inst.GetItemInfo(a_eItemKinds);
-		stItemInfo.m_oAbilityTargetInfoDict.ExCopyTo(oItemTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, true);
 		Factory.MakeDefAbilityTargetInfos().ExCopyTo(oItemTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
-
 		oItemTargetInfo.OnAfterDeserialize();
+
 		return oItemTargetInfo;
 	}
 
@@ -61,11 +59,9 @@ public static partial class Factory {
 			SkillKinds = a_eSkillKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo, m_stIdxInfo = STIdxInfo.INVALID
 		};
 
-		var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds);
-		stSkillInfo.m_oAbilityTargetInfoDict.ExCopyTo(oSkillTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, true);
 		Factory.MakeDefAbilityTargetInfos().ExCopyTo(oSkillTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
-
 		oSkillTargetInfo.OnAfterDeserialize();
+
 		return oSkillTargetInfo;
 	}
 
@@ -75,11 +71,9 @@ public static partial class Factory {
 			ObjKinds = a_eObjKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo, m_stIdxInfo = STIdxInfo.INVALID
 		};
 
-		var stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds);
-		stObjInfo.m_oAbilityTargetInfoDict.ExCopyTo(oObjTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, true);
 		Factory.MakeDefAbilityTargetInfos().ExCopyTo(oObjTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
-		
 		oObjTargetInfo.OnAfterDeserialize();
+
 		return oObjTargetInfo;
 	}
 
@@ -89,11 +83,9 @@ public static partial class Factory {
 			ObjKinds = a_eObjKinds, m_stIdxInfo = a_stIdxInfo
 		};
 
-		var stObjInfo = CObjInfoTable.Inst.GetObjInfo(a_eObjKinds);
-		stObjInfo.m_oAbilityTargetInfoDict.ExCopyTo(oCharacterUserInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, true);
 		Factory.MakeDefAbilityTargetInfos().ExCopyTo(oCharacterUserInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
-		
 		oCharacterUserInfo.OnAfterDeserialize();
+
 		return oCharacterUserInfo;
 	}
 
