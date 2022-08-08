@@ -48,14 +48,19 @@ namespace SampleEngineName {
 		#endregion			// 프로퍼티
 
 		#region 함수
-		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
+		/** 대기 제어자 상태를 처리한다 */
+		protected override void HandleIdleControllerState(float a_fDeltaTime) {
+			base.HandleIdleControllerState(a_fDeltaTime);
+		}
 
-			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
-				// Do Something
-			}
+		/** 이동 제어자 상태를 처리한다 */
+		protected override void HandleMoveControllerState(float a_fDeltaTime) {
+			base.HandleMoveControllerState(a_fDeltaTime);
+		}
+
+		/** 스킬 제어자 상태를 처리한다 */
+		protected override void HandleSkillControllerState(float a_fDeltaTime) {
+			base.HandleSkillControllerState(a_fDeltaTime);
 		}
 		
 		/** 효과를 설정한다 */

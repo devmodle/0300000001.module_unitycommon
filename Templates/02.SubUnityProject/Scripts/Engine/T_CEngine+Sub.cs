@@ -121,7 +121,9 @@ namespace SampleEngineName {
 		/** 초기화한다 */
 		private void SubInit() {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
+			
 			m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ] = this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null, true);
+			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position.x, m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 		}
 
 		/** 상태를 리셋한다 */

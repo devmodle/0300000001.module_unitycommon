@@ -206,10 +206,10 @@ namespace MainScene {
 				}, oTextDict, false);
 
 				oTextDict[KCDefine.U_OBJ_N_A_SET_BTN].fontSize = KCDefine.U_DEF_SIZE_FONT;
-				oTextDict[KCDefine.U_OBJ_N_A_SET_BTN].ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_A_SET_TEXT), EFontSet._1);
+				oTextDict[KCDefine.U_OBJ_N_A_SET_BTN].ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_A_SET_TEXT));
 
 				oTextDict[KCDefine.U_OBJ_N_B_SET_BTN].fontSize = KCDefine.U_DEF_SIZE_FONT;
-				oTextDict[KCDefine.U_OBJ_N_B_SET_BTN].ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_B_SET_TEXT), EFontSet._1);
+				oTextDict[KCDefine.U_OBJ_N_B_SET_BTN].ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_B_SET_TEXT));
 				// 텍스트를 설정한다 }
 
 				// 버튼을 설정한다

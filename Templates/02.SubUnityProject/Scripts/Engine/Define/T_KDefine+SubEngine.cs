@@ -12,6 +12,7 @@ namespace SampleEngineName {
 		#region 기본
 		// 간격
 		public const float E_OFFSET_BOTTOM = 150.0f;
+		public const float E_OFFSET_MAIN_CAMERA = -50.0f;
 		#endregion			// 기본
 
 		#region 런타임 상수
