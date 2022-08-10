@@ -134,12 +134,9 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
+		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>();
 		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
 		private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>();
-
-		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>() {
-			[EKey.SEL_SCROLLER] = null
-		};
 
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
@@ -390,9 +387,9 @@ namespace LevelEditorScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if GOOGLE_SHEET_ENABLE
-				m_oTableSrcDict[EKey.SEL_TABLE_SRC] = ETableSrc.REMOTE;
+				m_oTableSrcDict.ExReplaceVal(EKey.SEL_TABLE_SRC, ETableSrc.REMOTE);
 #else
-				m_oTableSrcDict[EKey.SEL_TABLE_SRC] = ETableSrc.LOCAL;
+				m_oTableSrcDict.ExReplaceVal(EKey.SEL_TABLE_SRC, ETableSrc.LOCAL);
 #endif			// #if GOOGLE_SHEET_ENABLE
 
 				this.OnReceiveEditorResetPopupResult(null, true);
@@ -430,7 +427,7 @@ namespace LevelEditorScene {
 		private void OnReceiveEditorRemovePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-				this.RemoveLevelInfos(m_oScrollerDict[EKey.SEL_SCROLLER], m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo);
+				this.RemoveLevelInfos(m_oScrollerDict.GetValueOrDefault(EKey.SEL_SCROLLER), m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo);
 				this.UpdateUIsState();
 			}
 		}
@@ -628,7 +625,7 @@ namespace LevelEditorScene {
 		private void HandleMoveLevelInputPopupResult(string a_oStr) {
 			// 식별자가 유효 할 경우
 			if(int.TryParse(a_oStr, NumberStyles.Any, null, out int nID)) {
-				this.MoveLevelInfos(m_oScrollerDict[EKey.SEL_SCROLLER], m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo, nID);
+				this.MoveLevelInfos(m_oScrollerDict.GetValueOrDefault(EKey.SEL_SCROLLER), m_oLevelInfoDict[EKey.SEL_LEVEL_INFO].m_stIDInfo, nID);
 			}
 		}
 
@@ -648,7 +645,7 @@ namespace LevelEditorScene {
 				for(int i = nMinID; i <= nMaxID; ++i) {
 					// 레벨 정보가 존재 할 경우
 					if(CLevelInfoTable.Inst.TryGetLevelInfo(stIDInfo.m_nID01, out CLevelInfo oLevelInfo, stIDInfo.m_nID02, stIDInfo.m_nID03)) {
-						this.RemoveLevelInfos(m_oScrollerDict[EKey.SEL_SCROLLER], stIDInfo);
+						this.RemoveLevelInfos(m_oScrollerDict.GetValueOrDefault(EKey.SEL_SCROLLER), stIDInfo);
 					}
 				}
 			}
@@ -741,8 +738,8 @@ namespace LevelEditorScene {
 
 		/** 중앙 에디터 UI 레벨 이동 버튼을 눌렀을 경우 */
 		private void OnTouchMEUIsMoveLevelBtn() {
-			m_oScrollerDict[EKey.SEL_SCROLLER] = m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1;
-			m_oInputPopupDict[EKey.SEL_INPUT_POPUP] = EInputPopup.MOVE_LEVEL;
+			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1);
+			m_oInputPopupDict.ExReplaceVal(EKey.SEL_INPUT_POPUP, EInputPopup.MOVE_LEVEL);
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
 				var stParams = new CEditorInputPopup.STParams() {
@@ -757,7 +754,7 @@ namespace LevelEditorScene {
 
 		/** 중앙 에디터 UI 레벨 제거 버튼을 눌렀을 경우 */
 		private void OnTouchMEUIsRemoveLevelBtn() {
-			m_oScrollerDict[EKey.SEL_SCROLLER] = m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1;
+			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1);
 			Func.ShowEditorLevelRemovePopup(this.OnReceiveEditorRemovePopupResult);
 		}
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
@@ -860,8 +857,8 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 모든 레벨 제거 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsRemoveAllLevelsBtn() {
-			m_oInputPopupDict[EKey.SEL_INPUT_POPUP] = EInputPopup.REMOVE_LEVEL;
-			m_oScrollerDict[EKey.SEL_SCROLLER] = m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1;
+			m_oInputPopupDict.ExReplaceVal(EKey.SEL_INPUT_POPUP, EInputPopup.REMOVE_LEVEL);
+			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1);
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
 				var stParams = new CEditorInputPopup.STParams() {
@@ -876,7 +873,7 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 테이블 로드 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsLoadTableBtn(ETableSrc a_eTableSrc) {
-			m_oTableSrcDict[EKey.SEL_TABLE_SRC] = a_eTableSrc;
+			m_oTableSrcDict.ExReplaceVal(EKey.SEL_TABLE_SRC, a_eTableSrc);
 			Func.ShowEditorTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult);
 		}
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
@@ -912,8 +909,8 @@ namespace LevelEditorScene {
 
 		/** 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우 */
 		private void OnTouchSCVMoveBtn(CScrollerCellView a_oSender, ulong a_nID) {
-			m_oInputPopupDict[EKey.SEL_INPUT_POPUP] = EInputPopup.MOVE_LEVEL;
-			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Params.m_oScroller;
+			m_oInputPopupDict.ExReplaceVal(EKey.SEL_INPUT_POPUP, EInputPopup.MOVE_LEVEL);
+			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, a_oSender.Params.m_oScroller);
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
 				var stParams = new CEditorInputPopup.STParams() {
@@ -928,7 +925,7 @@ namespace LevelEditorScene {
 
 		/** 스크롤러 셀 뷰 제거 버튼을 눌렀을 경우 */
 		private void OnTouchSCVRemoveBtn(CScrollerCellView a_oSender, ulong a_nID) {
-			m_oScrollerDict[EKey.SEL_SCROLLER] = a_oSender.Params.m_oScroller;
+			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, a_oSender.Params.m_oScroller);
 
 			// 레벨 스크롤러 일 경우
 			if(m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].Item1 == a_oSender.Params.m_oScroller) {

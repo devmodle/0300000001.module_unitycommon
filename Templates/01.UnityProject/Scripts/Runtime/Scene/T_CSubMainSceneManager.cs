@@ -29,10 +29,7 @@ namespace MainScene {
 		};
 
 		/** =====> UI <===== */
-		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>() {
-			[EKey.SEL_SCROLLER] = null
-		};
-
+		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>();
 		private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>();
 		#endregion			// 변수
 		
