@@ -17,12 +17,6 @@ namespace SampleEngineName {
 		public Vector3 m_stSize;
 		public Vector3 m_stScale;
 		public Vector3 m_stPivotPos;
-
-		#region 상수
-		public static readonly STGridInfo INVALID = new STGridInfo() {
-			m_stBounds = new Bounds(Vector3.zero, Vector3.zero)
-		};
-		#endregion			// 상수
 	}
 
 	/** 엔진 타입 랩퍼 */

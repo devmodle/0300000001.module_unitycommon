@@ -13,7 +13,6 @@ namespace GameScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			IS_LEAVE,
 			CONTINUE_TIMES,
 			SEL_REWARD_ADS_UIS,
 			BG_SPRITE,
@@ -40,10 +39,6 @@ namespace GameScene {
 		}
 
 		#region 변수
-		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
-			[EKey.IS_LEAVE] = false
-		};
-
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
 			[EKey.CONTINUE_TIMES] = 0
 		};
@@ -136,7 +131,7 @@ namespace GameScene {
 				case EPopupResult.RETRY: this.RetryPlayLevel(a_oSender); break;
 				case EPopupResult.RESUME: this.ResumePlayLevel(a_oSender); break;
 				case EPopupResult.CONTINUE: this.ContinuePlayLevel(a_oSender); break;
-				case EPopupResult.LEAVE: m_oBoolDict[EKey.IS_LEAVE] = true; this.LoadNextLevel(a_oSender); break;
+				case EPopupResult.LEAVE: this.LeavePlayLevel(a_oSender); break;
 			}
 		}
 
@@ -203,12 +198,11 @@ namespace GameScene {
 		/** 다음 레벨을 로드한다 */
 		private void LoadNextLevel(CPopup a_oPopup) {
 			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, out STEpisodeInfo stNextLevelEpisodeInfo, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
-			bIsValid = bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
 
 			switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
 					// 다음 레벨이 존재 할 경우
-					if(bIsValid && !m_oBoolDict[EKey.IS_LEAVE]) {
+					if(bIsValid && stNextLevelEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03)) {
 						Func.SetupPlayLevelInfo(stNextLevelEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, stNextLevelEpisodeInfo.m_stIDInfo.m_nID02, stNextLevelEpisodeInfo.m_stIDInfo.m_nID03);
 						
 #if ADS_MODULE_ENABLE
@@ -217,11 +211,7 @@ namespace GameScene {
 						CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 #endif			// #if ADS_MODULE_ENABLE
 					} else {
-#if ADS_MODULE_ENABLE
-						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
-#else
-						CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-#endif			// #if ADS_MODULE_ENABLE
+						this.LeavePlayLevel(a_oPopup);
 					}
 				} break;
 				case EPlayMode.TUTORIAL: {
@@ -250,6 +240,15 @@ namespace GameScene {
 		/** 플레이 레벨을 이어한다 */
 		private void ContinuePlayLevel(CPopup a_oPopup) {
 			m_oIntDict[EKey.CONTINUE_TIMES] += KCDefine.B_VAL_1_INT;
+		}
+
+		/** 플레이 레벨을 떠난다 */
+		private void LeavePlayLevel(CPopup a_oPopup) {
+#if ADS_MODULE_ENABLE
+			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
+#else
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
+#endif			// #if ADS_MODULE_ENABLE
 		}
 
 		/** 이어하기 팝업을 출력한다 */

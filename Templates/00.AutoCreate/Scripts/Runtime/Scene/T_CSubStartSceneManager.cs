@@ -29,16 +29,13 @@ namespace StartScene {
 		}
 
 		#region 변수
-		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>() {
-			[EKey.LOADING_GAUGE_ANI] = null
-		};
-
 		private Dictionary<EKey, System.Text.StringBuilder> m_oStrBuilderDict = new Dictionary<EKey, System.Text.StringBuilder>() {
 			[EKey.STR_BUILDER_01] = new System.Text.StringBuilder(),
 			[EKey.STR_BUILDER_02] = new System.Text.StringBuilder()
 		};
 
 		private Stopwatch m_oStopwatch = new Stopwatch();
+		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>();
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
@@ -71,7 +68,7 @@ namespace StartScene {
 			try {
 				// 앱이 실행 중 일 경우
 				if(CSceneManager.IsAppRunning) {
-					m_oAniDict[EKey.LOADING_GAUGE_ANI]?.Kill();
+					m_oAniDict.GetValueOrDefault(EKey.LOADING_GAUGE_ANI)?.Kill();
 				}
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"CSubStartSceneManager.OnDestroy Exception: {oException.Message}");
@@ -90,8 +87,8 @@ namespace StartScene {
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);
 
 			try {
-				m_oStrBuilderDict[EKey.STR_BUILDER_02].AppendLine($"{a_eEvent}: {m_oStopwatch.ElapsedMilliseconds} ms");
-				m_oTextDict[EKey.SCENE_INFO_TEXT].ExSetText(m_oStrBuilderDict[EKey.STR_BUILDER_02].ToString(), stFontSetInfo);
+				m_oStrBuilderDict.GetValueOrDefault(EKey.STR_BUILDER_02).AppendLine($"{a_eEvent}: {m_oStopwatch.ElapsedMilliseconds} ms");
+				m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).ExSetText(m_oStrBuilderDict.GetValueOrDefault(EKey.STR_BUILDER_02).ToString(), stFontSetInfo);
 			} finally {
 				m_oStopwatch.Restart();
 			}
@@ -99,7 +96,7 @@ namespace StartScene {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			float fPercent = Mathf.Clamp01((int)(a_eEvent + KCDefine.B_VAL_1_INT) / (float)EStartSceneEvent.MAX_VAL);
-			m_oAniDict.ExAssignVal(EKey.LOADING_GAUGE_ANI, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].ExStartGaugeAni((a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI));
+			m_oAniDict.ExAssignVal(EKey.LOADING_GAUGE_ANI, m_oGaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).ExStartGaugeAni((a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).Percent, fPercent, KCDefine.U_DURATION_ANI));
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
@@ -110,7 +107,7 @@ namespace StartScene {
 				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
 			}, m_oUIsDict, false);
 
-			m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = POS_LOADING_GAUGE;
+			m_oUIsDict.GetValueOrDefault(EKey.LOADING_GAUGE).transform.localPosition = POS_LOADING_GAUGE;
 			// 객체를 설정한다 }
 
 			// 텍스트를 설정한다 {
@@ -118,12 +115,12 @@ namespace StartScene {
 				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
 			}, m_oTextDict, false);
 
-			m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = POS_LOADING_TEXT;
+			m_oTextDict.GetValueOrDefault(EKey.LOADING_TEXT).transform.localPosition = POS_LOADING_TEXT;
 			// 텍스트를 설정한다 }
 
 			// 게이지 처리자를 설정한다
 			CFunc.SetupComponents(new List<(EKey, GameObject)>() {
-				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict[EKey.LOADING_GAUGE])
+				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict.GetValueOrDefault(EKey.LOADING_GAUGE))
 			}, m_oGaugeHandlerDict, false);
 
 #if DEBUG || DEVELOPMENT
@@ -132,10 +129,10 @@ namespace StartScene {
 				(EKey.SCENE_INFO_TEXT, $"{EKey.SCENE_INFO_TEXT}", this.UpLeftUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
 			}, m_oTextDict, false);
 
-			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchoredPosition = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchoredPosition = KCDefine.B_ANCHOR_UP_LEFT;
 			// 텍스트를 설정한다 }
 
 			m_oStopwatch.Start();
@@ -145,14 +142,14 @@ namespace StartScene {
 
 		/** 텍스트 상태를 갱신한다 */
 		private void UpdateUIsState() {
-			m_oStrBuilderDict[EKey.STR_BUILDER_01].Clear();
-			m_oStrBuilderDict[EKey.STR_BUILDER_01].Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT));
+			m_oStrBuilderDict.GetValueOrDefault(EKey.STR_BUILDER_01).Clear();
+			m_oStrBuilderDict.GetValueOrDefault(EKey.STR_BUILDER_01).Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_START_SM_LOADING_TEXT));
 
-			string oPercentStr = string.Format(KCDefine.B_TEXT_FMT_1_INT, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent * KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
+			string oPercentStr = string.Format(KCDefine.B_TEXT_FMT_1_INT, m_oGaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).Percent * KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
 			oPercentStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, string.Format(KCDefine.B_TEXT_FMT_PERCENT, oPercentStr));
 
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);
-			m_oTextDict[EKey.LOADING_TEXT].ExSetText(string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, m_oStrBuilderDict[EKey.STR_BUILDER_01].ToString(), oPercentStr), stFontSetInfo);
+			m_oTextDict.GetValueOrDefault(EKey.LOADING_TEXT).ExSetText(string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, m_oStrBuilderDict.GetValueOrDefault(EKey.STR_BUILDER_01).ToString(), oPercentStr), stFontSetInfo);
 		}
 		#endregion			// 함수
 	}

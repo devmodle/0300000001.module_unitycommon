@@ -38,13 +38,13 @@ namespace InitScene {
 				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
 			}, m_oImgDict, false);
 
-			m_oImgDict[EKey.BG_IMG].color = COLOR_BG_IMG;
-			m_oImgDict[EKey.BG_IMG].rectTransform.sizeDelta = CSceneManager.CanvasSize;
-			m_oImgDict[EKey.BG_IMG].gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
+			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).color = COLOR_BG_IMG;
+			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).rectTransform.sizeDelta = CSceneManager.CanvasSize;
+			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
-			m_oImgDict[EKey.SPLASH_IMG].sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
-			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = POS_SPLASH_IMG;
-			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).transform.localPosition = POS_SPLASH_IMG;
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(false);
 			// 이미지를 설정한다 }
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -75,8 +75,8 @@ namespace InitScene {
 
 		/** 스플래시를 출력한다 */
 		protected override void ShowSplash() {
-			m_oImgDict[EKey.SPLASH_IMG].SetNativeSize();
-			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(true);
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).SetNativeSize();
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(true);
 
 			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.IS_DELAY_NEXT_SCENE_LOAD);
 		}

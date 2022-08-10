@@ -37,7 +37,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 		base.UpdateUIsState();
 
 		// 버튼을 갱신한다
-		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID));
+		m_oBtnDict.GetValueOrDefault(EKey.ADS_BTN)?.ExSetInteractable(Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID));
 
 		#region 추가
 		this.SubUpdateUIsState();

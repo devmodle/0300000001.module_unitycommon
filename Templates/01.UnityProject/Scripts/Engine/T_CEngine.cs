@@ -40,19 +40,14 @@ namespace SampleEngineName {
 		}
 
 		#region 변수
-		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>() {
-			[EKey.SEL_GRID_INFO] = STGridInfo.INVALID
-		};
-
-		private Dictionary<EKey, CEObj> m_oPlayerObjDict = new Dictionary<EKey, CEObj>() {
-			[EKey.SEL_PLAYER_OBJ] = null
-		};
-
 		private List<CEItem> m_oItemList = new List<CEItem>();
 		private List<CESkill> m_oSkillList = new List<CESkill>();
 		private List<CEFX> m_oFXList = new List<CEFX>();
 		private List<CEObj> m_oEnemyObjList = new List<CEObj>();
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
+
+		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>();
+		private Dictionary<EKey, CEObj> m_oPlayerObjDict = new Dictionary<EKey, CEObj>();
 		
 		/** =====> 객체 <===== */
 		private Dictionary<EObjType, List<CEObj>>[,] m_oObjDictContainers = null;
@@ -63,8 +58,8 @@ namespace SampleEngineName {
 		public long IntRecord { get; private set; } = 0;
 		public double RealRecord { get; private set; } = 0.0;
 
-		public STGridInfo SelGridInfo => m_oGridInfoDict[EKey.SEL_GRID_INFO];
-		public CEObj SelPlayerObj => m_oPlayerObjDict[EKey.SEL_PLAYER_OBJ];
+		public STGridInfo SelGridInfo => m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO);
+		public CEObj SelPlayerObj => m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ);
 		#endregion			// 프로퍼티
 		
 		#region 함수
@@ -73,7 +68,7 @@ namespace SampleEngineName {
 			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot);
 
 			// 그리드 영역 일 경우
-			if(m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(stTouchPos)) {
+			if(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stBounds.Contains(stTouchPos)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;

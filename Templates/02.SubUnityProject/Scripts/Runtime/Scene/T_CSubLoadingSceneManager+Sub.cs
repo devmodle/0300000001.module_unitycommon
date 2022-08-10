@@ -38,7 +38,7 @@ namespace LoadingScene {
 				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
 			}, m_oUIsDict, false);
 
-			m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = POS_LOADING_GAUGE;
+			m_oUIsDict.GetValueOrDefault(EKey.LOADING_GAUGE).transform.localPosition = POS_LOADING_GAUGE;
 			// 객체를 설정한다 }
 
 			// 텍스트를 설정한다 {
@@ -46,12 +46,12 @@ namespace LoadingScene {
 				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
 			}, m_oTextDict, false);
 
-			m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = POS_LOADING_TEXT;
+			m_oTextDict.GetValueOrDefault(EKey.LOADING_TEXT).transform.localPosition = POS_LOADING_TEXT;
 			// 텍스트를 설정한다 }
 
 			// 게이지 처리자를 설정한다
 			CFunc.SetupComponents(new List<(EKey, GameObject)>() {
-				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict[EKey.LOADING_GAUGE])
+				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict.GetValueOrDefault(EKey.LOADING_GAUGE))
 			}, m_oGaugeHandlerDict, false);
 
 			#region 추가
@@ -75,7 +75,7 @@ namespace LoadingScene {
 
 		/** 비동기 씬 로딩 상태가 갱신 되었을 경우 */
 		protected override void OnUpdateAsyncSceneLoadingState(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
-			m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].SetPercent(a_oAsyncOperation.progress);
+			m_oGaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).SetPercent(a_oAsyncOperation.progress);
 		}
 		#endregion			// 함수
 	}

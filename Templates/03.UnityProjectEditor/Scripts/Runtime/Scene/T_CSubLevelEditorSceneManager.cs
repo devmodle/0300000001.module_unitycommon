@@ -117,11 +117,8 @@ namespace LevelEditorScene {
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		private Dictionary<EKey, SampleEngineName.STGridInfo> m_oGridInfoDict = new Dictionary<EKey, SampleEngineName.STGridInfo>() {
-			[EKey.SEL_GRID_INFO] = SampleEngineName.STGridInfo.INVALID
-		};
-
 		private Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>[,] m_oObjSpriteInfoDictContainers = null;
+		private Dictionary<EKey, SampleEngineName.STGridInfo> m_oGridInfoDict = new Dictionary<EKey, SampleEngineName.STGridInfo>();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -346,7 +343,7 @@ namespace LevelEditorScene {
 			var stTouchPos = a_oEventData.ExGetLocalPos(this.ObjRoot);
 			
 			// 배경 터치 전달자 일 경우
-			if(this.BGTouchDispatcher == a_oSender && m_oGridInfoDict[EKey.SEL_GRID_INFO].m_stBounds.Contains(stTouchPos)) {
+			if(this.BGTouchDispatcher == a_oSender && m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stBounds.Contains(stTouchPos)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;
