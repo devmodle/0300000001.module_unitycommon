@@ -99,17 +99,17 @@ namespace GameScene {
 			float fTopBGSpritePosY = Mathf.Max(this.ScreenHeight / KCDefine.B_VAL_2_REAL, stLevelEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
 			float fBottomBGSpritePosY = Mathf.Max((this.ScreenHeight / KCDefine.B_VAL_2_REAL) - SampleEngineName.KDefine.E_OFFSET_BOTTOM, (stLevelEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL) - SampleEngineName.KDefine.E_OFFSET_BOTTOM);
 
-			m_oSpriteDict[EKey.BG_SPRITE].size = new Vector3(Mathf.Max(this.ScreenWidth, stLevelEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.CanvasSize.y, stLevelEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
-			m_oSpriteDict[EKey.BG_SPRITE].transform.localScale = Vector3.one;
-			m_oSpriteDict[EKey.BG_SPRITE].transform.localPosition = Vector3.zero;
+			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).size = new Vector3(Mathf.Max(this.ScreenWidth, stLevelEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.CanvasSize.y, stLevelEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localScale = Vector3.one;
+			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localPosition = Vector3.zero;
 
-			m_oSpriteDict[EKey.TOP_BG_SPRITE].size = new Vector3(Mathf.Max(this.ScreenWidth, stLevelEpisodeInfo.m_stSize.x), m_oSpriteDict[EKey.TOP_BG_SPRITE].sprite.rect.height, KCDefine.B_VAL_0_REAL);
-			m_oSpriteDict[EKey.TOP_BG_SPRITE].transform.localScale = Vector3.one;
-			m_oSpriteDict[EKey.TOP_BG_SPRITE].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, fTopBGSpritePosY + (m_oSpriteDict[EKey.TOP_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).size = new Vector3(Mathf.Max(this.ScreenWidth, stLevelEpisodeInfo.m_stSize.x), m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).transform.localScale = Vector3.one;
+			m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, fTopBGSpritePosY + (m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
 
-			m_oSpriteDict[EKey.BOTTOM_BG_SPRITE].size = new Vector3(Mathf.Max(this.ScreenWidth, stLevelEpisodeInfo.m_stSize.x), m_oSpriteDict[EKey.TOP_BG_SPRITE].sprite.rect.height, KCDefine.B_VAL_0_REAL);
-			m_oSpriteDict[EKey.BOTTOM_BG_SPRITE].transform.localScale = Vector3.one;
-			m_oSpriteDict[EKey.BOTTOM_BG_SPRITE].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -(fBottomBGSpritePosY + (m_oSpriteDict[EKey.TOP_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).size = new Vector3(Mathf.Max(this.ScreenWidth, stLevelEpisodeInfo.m_stSize.x), m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).transform.localScale = Vector3.one;
+			m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -(fBottomBGSpritePosY + (m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL);
 			// 스프라이트를 설정한다 }
 
 			#region 추가

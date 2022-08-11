@@ -16,7 +16,6 @@ namespace TitleScene {
 		private enum EKey {
 			NONE = -1,
 			IS_TOUCH,
-			IS_LOAD_EDITOR_SCENE,
 			TOUCH_ANI,
 			TOUCH_TEXT,
 			PLAY_BTN,
@@ -27,14 +26,8 @@ namespace TitleScene {
 		}
 
 		#region 변수
-		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
-			[EKey.IS_TOUCH] = false,
-			[EKey.IS_LOAD_EDITOR_SCENE] = false
-		};
-
-		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>() {
-			[EKey.TOUCH_ANI] = null
-		};
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
+		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>();
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
@@ -83,7 +76,6 @@ namespace TitleScene {
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			
 #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			m_oBoolDict[EKey.IS_LOAD_EDITOR_SCENE] = true;
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 #endif			// #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		}
@@ -151,8 +143,8 @@ namespace TitleScene {
 
 				this.UpdateUIsState();
 
-				m_oTextDict[EKey.TOUCH_TEXT]?.gameObject.SetActive(true);
-				m_oAniDict.ExAssignVal(EKey.TOUCH_ANI, m_oTextDict[EKey.TOUCH_TEXT]?.DOFaceFade(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_1_REAL).SetAutoKill().SetEase(KCDefine.U_EASE_DEF).SetLoops(KCDefine.B_TIMES_INT_INFINITE, LoopType.Yoyo).SetUpdate(true));
+				m_oTextDict.GetValueOrDefault(EKey.TOUCH_TEXT)?.gameObject.SetActive(true);
+				m_oAniDict.ExAssignVal(EKey.TOUCH_ANI, m_oTextDict.GetValueOrDefault(EKey.TOUCH_TEXT)?.DOFaceFade(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_1_REAL).SetAutoKill().SetEase(KCDefine.U_EASE_DEF).SetLoops(KCDefine.B_TIMES_INT_INFINITE, LoopType.Yoyo).SetUpdate(true));
 			}
 		}
 		#endregion			// 함수

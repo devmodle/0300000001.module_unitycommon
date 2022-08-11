@@ -29,7 +29,7 @@ namespace MainScene {
 		public override bool IsIgnoreOverlayScene => false;
 		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
 		
-		public TMP_Text VerText => m_oTextDict[EKey.VER_TEXT];
+		public TMP_Text VerText => m_oTextDict.GetValueOrDefault(EKey.VER_TEXT);
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -44,10 +44,10 @@ namespace MainScene {
 					(EKey.VER_TEXT, $"{EKey.VER_TEXT}", this.UpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
 				}, m_oTextDict, false);
 
-				m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict[EKey.VER_TEXT].rectTransform.anchoredPosition = KCDefine.U_POS_INFO_TEXT;
+				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchoredPosition = KCDefine.U_POS_INFO_TEXT;
 				// 텍스트를 설정한다 }
 			}
 		}
@@ -59,8 +59,8 @@ namespace MainScene {
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-				m_oTextDict[EKey.VER_TEXT]?.ExSetText(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
-				m_oTextDict[EKey.VER_TEXT]?.transform.SetAsLastSibling();
+				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT)?.ExSetText(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
+				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT)?.transform.SetAsLastSibling();
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			}
 		}

@@ -58,7 +58,7 @@ namespace MainScene {
 		/** 씬을 설정한다 */
 		private void AwakeSetup() {
 			var ePlayMode = CGameInfoStorage.Inst.PlayMode;
-			m_oIDInfoDict[EKey.SEL_ID_INFO] = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT);
+			m_oIDInfoDict.ExReplaceVal(EKey.SEL_ID_INFO, (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayLevelInfo != null) ? CGameInfoStorage.Inst.PlayLevelInfo.m_stIDInfo : CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT));
 
 			// 버튼을 설정한다
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {

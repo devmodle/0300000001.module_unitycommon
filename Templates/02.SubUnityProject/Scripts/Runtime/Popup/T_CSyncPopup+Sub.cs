@@ -47,8 +47,8 @@ public partial class CSyncPopup : CSubPopup {
 
 		// 객체를 갱신한다 {
 #if FIREBASE_MODULE_ENABLE
-		m_oUIsDict[EKey.LOGIN_UIS]?.SetActive(CFirebaseManager.Inst.IsLogin);
-		m_oUIsDict[EKey.LOGOUT_UIS]?.SetActive(!CFirebaseManager.Inst.IsLogin);
+		m_oUIsDict.GetValueOrDefault(EKey.LOGIN_UIS)?.SetActive(CFirebaseManager.Inst.IsLogin);
+		m_oUIsDict.GetValueOrDefault(EKey.LOGOUT_UIS)?.SetActive(!CFirebaseManager.Inst.IsLogin);
 #endif			// #if FIREBASE_MODULE_ENABLE
 		// 객체를 갱신한다 }
 

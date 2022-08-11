@@ -38,13 +38,13 @@ namespace LevelEditorScene {
 		
 		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
 
-		protected GameObject MidEditorUIs => m_oUIsDict[EKey.MID_EDITOR_UIS];
-		protected GameObject LeftEditorUIs => m_oUIsDict[EKey.LEFT_EDITOR_UIS];
-		protected GameObject RightEditorUIs => m_oUIsDict[EKey.RIGHT_EDITOR_UIS];
+		protected GameObject MidEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.MID_EDITOR_UIS);
+		protected GameObject LeftEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.LEFT_EDITOR_UIS);
+		protected GameObject RightEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.RIGHT_EDITOR_UIS);
 
-		protected GameObject MEUIsMsgUIs => m_oUIsDict[EKey.ME_UIS_MSG_UIS];
-		protected GameObject LEUIsABSetUIs => m_oUIsDict[EKey.LE_UIS_AB_SET_UIS];
-		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
+		protected GameObject MEUIsMsgUIs => m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS);
+		protected GameObject LEUIsABSetUIs => m_oUIsDict.GetValueOrDefault(EKey.LE_UIS_AB_SET_UIS);
+		protected GameObject ObjRoot => m_oObjDict.GetValueOrDefault(EKey.OBJ_ROOT);
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -62,8 +62,8 @@ namespace LevelEditorScene {
 				}, m_oUIsDict, false);
 
 				CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
-					(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
-					(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIsDict[EKey.LEFT_EDITOR_UIS])
+					(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIsDict.GetValueOrDefault(EKey.MID_EDITOR_UIS)),
+					(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIsDict.GetValueOrDefault(EKey.LEFT_EDITOR_UIS))
 				}, m_oUIsDict, false);
 
 				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
@@ -71,7 +71,7 @@ namespace LevelEditorScene {
 				}, m_oObjDict, false);
 
 				CSceneManager.ScreenDebugUIs?.SetActive(false);
-				m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
+				m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS)?.SetActive(false);
 				// 객체를 설정한다 }
 			}
 		}

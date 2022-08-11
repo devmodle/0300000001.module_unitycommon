@@ -75,7 +75,7 @@ namespace TitleScene {
 				(EKey.TOUCH_TEXT, $"{EKey.TOUCH_TEXT}", this.UIsBase)
 			}, m_oTextDict, false);
 
-			m_oTextDict[EKey.TOUCH_TEXT]?.gameObject.SetActive(false);
+			m_oTextDict.GetValueOrDefault(EKey.TOUCH_TEXT)?.gameObject.SetActive(false);
 			// 텍스트를 설정한다 }
 
 			// 버튼을 설정한다
@@ -110,9 +110,9 @@ namespace TitleScene {
 		private void UpdateUIsState() {
 			// 버튼을 갱신한다 {
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(true);
+			m_oBtnDict.GetValueOrDefault(EKey.APPLE_LOGIN_BTN)?.gameObject.SetActive(true);
 #else
-			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(false);
+			m_oBtnDict.GetValueOrDefault(EKey.APPLE_LOGIN_BTN)?.gameObject.SetActive(false);
 #endif			// #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
 			for(int i = 0; i < BTN_KEY_LIST.Count; ++i) {
@@ -190,8 +190,8 @@ namespace TitleScene {
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 터치 모드가 아닐 경우
-			if(!m_oBoolDict[EKey.IS_TOUCH]) {
-				m_oBoolDict[EKey.IS_TOUCH] = true;
+			if(!m_oBoolDict.GetValueOrDefault(EKey.IS_TOUCH) && CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
+				m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, true);
 			}
 		}
 		#endregion			// 함수

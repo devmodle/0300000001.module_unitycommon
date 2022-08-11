@@ -30,9 +30,9 @@ namespace SampleEngineName {
 			this.Params = a_stParams;
 
 			// 객체 스프라이트가 존재 할 경우
-			if(m_oSpriteDict[EKey.OBJ_SPRITE] != null) {
-				m_oSpriteDict[EKey.OBJ_SPRITE].sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
-				m_oSpriteDict[EKey.OBJ_SPRITE].ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
+			if(m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE) != null) {
+				m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
+				m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
 			}
 
 			#region 추가

@@ -39,15 +39,9 @@ namespace GameScene {
 		}
 
 		#region 변수
-		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
-			[EKey.CONTINUE_TIMES] = 0
-		};
-
-		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>() {
-			[EKey.SEL_REWARD_ADS_UIS] = ERewardAdsUIs.NONE
-		};
-
 		private SampleEngineName.CEngine m_oEngine = null;
+		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
+		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>();
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
 		/** =====> 객체 <===== */
@@ -172,7 +166,7 @@ namespace GameScene {
 
 		/** 광고 버튼을 눌렀을 경우 */
 		private void OnTouchAdsBtn(ERewardAdsUIs a_eRewardAdsUIs) {
-			m_oRewardAdsUIsDict[EKey.SEL_REWARD_ADS_UIS] = a_eRewardAdsUIs;
+			m_oRewardAdsUIsDict.ExReplaceVal(EKey.SEL_REWARD_ADS_UIS, a_eRewardAdsUIs);
 
 #if ADS_MODULE_ENABLE
 			Func.ShowRewardAds(this.OnCloseRewardAds);
@@ -239,7 +233,8 @@ namespace GameScene {
 
 		/** 플레이 레벨을 이어한다 */
 		private void ContinuePlayLevel(CPopup a_oPopup) {
-			m_oIntDict[EKey.CONTINUE_TIMES] += KCDefine.B_VAL_1_INT;
+			int nContinueTimes = m_oIntDict.GetValueOrDefault(EKey.CONTINUE_TIMES);
+			m_oIntDict.ExReplaceVal(EKey.CONTINUE_TIMES, nContinueTimes + KCDefine.B_VAL_1_INT);
 		}
 
 		/** 플레이 레벨을 떠난다 */
@@ -255,7 +250,7 @@ namespace GameScene {
 		private void ShowContinuePopup() {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CContinuePopup).Init(new CContinuePopup.STParams() {
-					m_nContinueTimes = m_oIntDict[EKey.CONTINUE_TIMES],
+					m_nContinueTimes = m_oIntDict.GetValueOrDefault(EKey.CONTINUE_TIMES),
 					m_oLevelInfo = m_oEngine.Params.m_oLevelInfo,
 
 					m_oCallbackDict = new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {

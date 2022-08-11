@@ -23,9 +23,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	}
 
 	#region 변수
-	private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>() {
-		[EKey.PREV_NUM_COINS_BOX_COINS] = 0
-	};
+	private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>();
 
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
