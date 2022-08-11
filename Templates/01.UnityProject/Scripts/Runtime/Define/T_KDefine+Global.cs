@@ -18,7 +18,7 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_FX_KINDS = 9;
 	public const int G_MAX_NUM_RES_KINDS = 9;
 	public const int G_MAX_NUM_REWARD_KINDS = 9;
-	public const int G_MAX_NUM_TARGET_INFOS = 9;
+	public const int G_MAX_NUM_TARGET_INFOS = 15;
 	// 개수 }
 
 	// 횟수
