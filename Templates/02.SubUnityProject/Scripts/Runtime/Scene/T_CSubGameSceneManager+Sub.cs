@@ -208,6 +208,11 @@ namespace GameScene {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
 				m_oEngine.OnUpdate(a_fDeltaTime);
+
+				// UI 상태 갱신 모드 일 경우
+				if(m_oBoolDict.GetValueOrDefault(EKey.IS_UPDATE_UIS_STATE)) {
+					m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, false);
+				}
 			}
 		}
 		

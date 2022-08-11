@@ -13,6 +13,7 @@ namespace GameScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			IS_UPDATE_UIS_STATE,
 			CONTINUE_TIMES,
 			SEL_REWARD_ADS_UIS,
 			BG_SPRITE,
@@ -40,6 +41,7 @@ namespace GameScene {
 
 		#region 변수
 		private SampleEngineName.CEngine m_oEngine = null;
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>();
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
