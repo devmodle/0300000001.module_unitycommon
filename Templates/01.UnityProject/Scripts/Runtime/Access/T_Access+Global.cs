@@ -173,6 +173,16 @@ public static partial class Access {
 		return KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[oCharacterGameInfo.DailyRewardID];
 	}
 
+	/** 에피소드 정보를 반환한다 */
+	public static STEpisodeInfo GetEpisodeInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		// 레벨 에피소드 정보가 존재 할 경우
+		if(CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_nLevelID, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID)) {
+			return stLevelEpisodeInfo;
+		}
+		
+		return CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID) ? stStageEpisodeInfo : CEpisodeInfoTable.Inst.GetChapterEpisodeInfo(a_nChapterID);
+	}
+
 	/** 레벨 클리어 정보를 반환한다 */
 	public static CClearInfo GetLevelClearInfo(int a_nCharacterID, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우

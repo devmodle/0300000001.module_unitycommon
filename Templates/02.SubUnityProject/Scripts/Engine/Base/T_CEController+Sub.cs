@@ -150,12 +150,10 @@ namespace SampleEngineName {
 		/** 이동 제어자 상태를 처리한다 */
 		protected virtual void HandleMoveControllerState(float a_fDeltaTime) {
 			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((this.MoveDirection * (float)this.GetOwner<CEObj>().AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
-			CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(this.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, out STEpisodeInfo stLevelEpisodeInfo, this.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
+			var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
 
-			float fNextPosX = Mathf.Clamp(stNextPos.x, stLevelEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stLevelEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL);
-			float fNextPosY = Mathf.Clamp(stNextPos.y, (stLevelEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, stLevelEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
-
-			this.GetOwner<CEObj>().transform.localPosition = new Vector3(fNextPosX, fNextPosY, fNextPosY / stLevelEpisodeInfo.m_stSize.y);
+			float fNextPosY = Mathf.Clamp(stNextPos.y, (stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
+			this.GetOwner<CEObj>().transform.localPosition = new Vector3(Mathf.Clamp(stNextPos.x, stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL), fNextPosY, fNextPosY / stEpisodeInfo.m_stSize.y);
 		}
 
 		/** 스킬 제어자 상태를 처리한다 */
