@@ -20,8 +20,8 @@ public partial struct STObjInfo {
 	public Dictionary<ulong, STTargetInfo> m_oDropItemTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oEquipItemTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oSkillTargetInfoDict;
-	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
 	#region 상수
 	public static STObjInfo INVALID = new STObjInfo() {
@@ -48,8 +48,8 @@ public partial struct STObjInfo {
 		m_oDropItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		m_oEquipItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		m_oSkillTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
-		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
 			string oKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
@@ -72,13 +72,13 @@ public partial struct STObjInfo {
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			var stTargetInfo = new STTargetInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			var stTargetInfo = new STTargetInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAbilityTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			var stTargetInfo = new STTargetInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAbilityTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
+			var stTargetInfo = new STTargetInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
 	#endregion			// 함수
@@ -121,12 +121,12 @@ public partial struct STObjEnhanceInfo {
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oObjTradeInfo[string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oObjTradeInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
 	#endregion			// 함수
@@ -169,12 +169,12 @@ public partial struct STObjTradeInfo {
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oObjTradeInfo[string.Format(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oPayTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oObjTradeInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
 	#endregion			// 함수
