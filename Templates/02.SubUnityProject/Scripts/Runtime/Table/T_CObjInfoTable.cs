@@ -17,10 +17,10 @@ public partial struct STObjInfo {
 	public EObjKinds m_eNextObjKinds;
 
 	public List<EResKinds> m_oResKindsList;
-
 	public Dictionary<ulong, STTargetInfo> m_oDropItemTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oEquipItemTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oSkillTargetInfoDict;
+	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict;
 
 	#region 상수
@@ -45,10 +45,10 @@ public partial struct STObjInfo {
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
 
 		m_oResKindsList = new List<EResKinds>();
-
 		m_oDropItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		m_oEquipItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		m_oSkillTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
@@ -69,6 +69,11 @@ public partial struct STObjInfo {
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_SKILL_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
 			if(stTargetInfo.m_eTargetKinds.ExIsValid()) { m_oSkillTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
+		}
+
+		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
+			var stTargetInfo = new STTargetInfo(a_oObjInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
+			m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
