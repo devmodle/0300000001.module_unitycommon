@@ -10,15 +10,15 @@ using UnityEngine.Events;
 public static partial class KDefine {
 	#region 기본
 	// 개수 {
-	public const int G_MAX_NUM_RECORDS = 9;
-	public const int G_MAX_NUM_TUTORIAL_STRS = 9;
+	public const int G_MAX_NUM_RECORDS = 10;
+	public const int G_MAX_NUM_TUTORIAL_STRS = 10;
 	public const int G_MAX_NUM_COINS_BOX_COINS = 0;
 	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
 
-	public const int G_MAX_NUM_FX_KINDS = 9;
-	public const int G_MAX_NUM_RES_KINDS = 9;
-	public const int G_MAX_NUM_REWARD_KINDS = 9;
-	public const int G_MAX_NUM_TARGET_INFOS = 15;
+	public const int G_MAX_NUM_FX_KINDS = 10;
+	public const int G_MAX_NUM_RES_KINDS = 10;
+	public const int G_MAX_NUM_REWARD_KINDS = 10;
+	public const int G_MAX_NUM_TARGET_INFOS = 20;
 	// 개수 }
 
 	// 횟수
