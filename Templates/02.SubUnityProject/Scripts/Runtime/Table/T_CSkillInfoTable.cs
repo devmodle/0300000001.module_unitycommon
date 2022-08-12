@@ -54,17 +54,17 @@ public partial struct STSkillInfo {
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_FX_KINDS; ++i) {
 			string oKey = string.Format(KCDefine.U_KEY_FMT_FX_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oFXKindsList.ExAddVal(a_oSkillInfo[oKey].ExIsValid() ? (EFXKinds)a_oSkillInfo[oKey].AsInt : EFXKinds.NONE);
+			if(a_oSkillInfo[oKey].ExIsValid()) { m_oFXKindsList.ExAddVal((EFXKinds)a_oSkillInfo[oKey].AsInt); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
 			string oKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oResKindsList.ExAddVal(a_oSkillInfo[oKey].ExIsValid() ? (EResKinds)a_oSkillInfo[oKey].AsInt : EResKinds.NONE);
+			if(a_oSkillInfo[oKey].ExIsValid()) { m_oResKindsList.ExAddVal((EResKinds)a_oSkillInfo[oKey].AsInt); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oSkillInfo[string.Format(KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oAbilityTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid()) { m_oAbilityTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
 	#endregion			// 함수

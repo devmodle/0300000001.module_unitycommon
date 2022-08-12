@@ -155,6 +155,30 @@ namespace SampleEngineName {
 			CFunc.UpdateComponents(m_oFXList, a_fDeltaTime);
 			CFunc.UpdateComponents(m_oEnemyObjList, a_fDeltaTime);
 			CFunc.UpdateComponents(m_oPlayerObjDict, a_fDeltaTime);
+
+			/* FIXME: 임시 주석 처리
+			var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
+			var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
+
+			try {
+				for(int i = 0; i < m_oEnemyObjList.Count; ++i) {
+					int nNumEnemyObjs = oNumEnemyObjsDict.GetValueOrDefault(m_oEnemyObjList[i].Params.m_stObjInfo.m_eObjKinds);
+					oNumEnemyObjsDict.ExReplaceVal(m_oEnemyObjList[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
+				}
+
+				foreach(var stKeyVal in stEpisodeInfo.m_oEnemyObjTargetInfoDict) {
+					// 적 객체 생성이 가능 할 경우
+					if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.m_nKinds) < stKeyVal.Value.m_stValInfo01.m_nVal && m_oEnemyObjList.Count < stEpisodeInfo.m_nMaxNumEnemyObjs) {
+						var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.m_nKinds), null);
+						oEnemyObj.transform.localPosition = new Vector3(Random.Range(stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL), Random.Range(stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+
+						m_oEnemyObjList.ExAddVal(oEnemyObj);
+					}
+				}
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oNumEnemyObjsDict);
+			}
+			*/
 		}
 
 		/** 정지 엔진 상태를 처리한다 */

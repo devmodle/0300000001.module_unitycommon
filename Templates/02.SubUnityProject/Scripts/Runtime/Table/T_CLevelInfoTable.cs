@@ -361,8 +361,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		List<ulong> oLevelIDList = null;
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON)}");
-		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), null, false);
+		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON)}");
+		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), null, false);
 #else
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath}");
 
@@ -625,7 +625,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	/** 레벨 정보를 저장한다 */
 	public void SaveLevelInfos() {
 		var oLevelIDList = new List<ulong>();
-		string oFilePath = this.LevelInfoTablePath.ExGetReplaceStr(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
+		string oFilePath = this.LevelInfoTablePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
 
 		for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {

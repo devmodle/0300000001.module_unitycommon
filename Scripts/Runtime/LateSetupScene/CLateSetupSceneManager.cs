@@ -263,7 +263,7 @@ namespace LateSetupScene {
 
 			this.ExLateCallFunc((a_oSender) => {
 				// 기본 씬 일 경우
-				if(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) || KCDefine.B_DEF_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
+				if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene || KCDefine.B_DEF_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
 #if STUDY_MODULE_ENABLE
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
@@ -274,7 +274,7 @@ namespace LateSetupScene {
 					CCommonAppInfoStorage.Inst.IsFirstStart = false;
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
-					CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName);
+					CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) ? KCDefine.B_SCENE_N_MAIN : CSceneLoader.Inst.AwakeActiveSceneName);
 				}
 			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
 		}

@@ -82,31 +82,32 @@ public partial struct STEpisodeInfo {
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_KINDS; ++i) {
 			string oKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oRewardKindsList.ExAddVal(a_oEpisodeInfo[oKey].ExIsValid() ? (ERewardKinds)a_oEpisodeInfo[oKey].AsInt : ERewardKinds.NONE);
+			if(a_oEpisodeInfo[oKey].ExIsValid()) { m_oRewardKindsList.ExAddVal((ERewardKinds)a_oEpisodeInfo[oKey].AsInt); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_RECORDS; ++i) {
-			m_oRecordValInfoList.ExAddVal(new STValInfo(a_oEpisodeInfo[string.Format(KCDefine.U_KEY_FMT_RECORD_VAL_INFO, i + KCDefine.B_VAL_1_INT)]));
+			var stValInfo = new STValInfo(a_oEpisodeInfo[string.Format(KCDefine.U_KEY_FMT_RECORD_VAL_INFO, i + KCDefine.B_VAL_1_INT)]);
+			if(stValInfo.m_eValType.ExIsValid()) { m_oRecordValInfoList.ExAddVal(stValInfo); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oEpisodeInfo[string.Format(KCDefine.U_KEY_FMT_CLEAR_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oClearTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid()) { m_oClearTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oEpisodeInfo[string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oUnlockTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid()) { m_oUnlockTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oEpisodeInfo[string.Format(KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oDropItemTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid()) { m_oDropItemTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oEpisodeInfo[string.Format(KCDefine.U_KEY_FMT_ENEMY_OBJ_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oEnemyObjTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid()) { m_oEnemyObjTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
 

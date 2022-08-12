@@ -43,7 +43,7 @@ public partial struct STAbilityInfo {
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
 			var stTargetInfo = new STTargetInfo(a_oAbilityInfo[string.Format(KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			m_oExtraAbilityTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			if(stTargetInfo.m_eTargetKinds.ExIsValid()) { m_oExtraAbilityTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
 	#endregion			// 함수

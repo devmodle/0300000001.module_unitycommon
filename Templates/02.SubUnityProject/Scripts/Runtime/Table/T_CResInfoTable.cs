@@ -39,7 +39,7 @@ public partial struct STResInfo {
 		m_stCommonInfo = new STCommonInfo(a_oResInfo);
 		
 		m_oRate = a_oResInfo[KCDefine.U_KEY_RATE].ExIsValid() ? a_oResInfo[KCDefine.U_KEY_RATE] : KCDefine.B_STR_0_INT;
-		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH].ExIsValid() ? a_oResInfo[KCDefine.U_KEY_RES_PATH].Value.ExGetReplaceStr(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH, byte.MaxValue) : string.Empty;
+		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH].ExIsValid() ? a_oResInfo[KCDefine.U_KEY_RES_PATH].Value.Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH) : string.Empty;
 
 		m_eResKinds = a_oResInfo[KCDefine.U_KEY_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt : EResKinds.NONE;
 		m_ePrevResKinds = a_oResInfo[KCDefine.U_KEY_PREV_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_PREV_RES_KINDS].AsInt : EResKinds.NONE;

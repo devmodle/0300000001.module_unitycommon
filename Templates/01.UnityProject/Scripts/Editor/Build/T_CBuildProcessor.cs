@@ -185,7 +185,7 @@ public static partial class CBuildProcessor {
 	/** 독립 플랫폼 빌드 완료를 처리한다 */
 	private static void HandleStandalonePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_STANDALONE
-		string oPath = Path.GetDirectoryName(a_oPath);
+		string oPath = Path.GetDirectoryName(a_oPath).Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH);
 		string oDestPath = string.Format(KCEditorDefine.B_DIR_P_FMT_EXTERNAL_DATAS_STANDALONE, oPath);
 		
 		CFunc.CopyDir(KCDefine.B_ABS_DIR_P_EXTERNAL_DATAS, oDestPath);

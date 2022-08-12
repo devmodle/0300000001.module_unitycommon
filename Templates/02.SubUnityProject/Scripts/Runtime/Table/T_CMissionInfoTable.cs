@@ -41,7 +41,7 @@ public partial struct STMissionInfo {
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_KINDS; ++i) {
 			string oKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
-			m_oRewardKindsList.Add(a_oMissionInfo[oKey].ExIsValid() ? (ERewardKinds)a_oMissionInfo[oKey].AsInt : ERewardKinds.NONE);
+			if(a_oMissionInfo[oKey].ExIsValid()) { m_oRewardKindsList.ExAddVal((ERewardKinds)a_oMissionInfo[oKey].AsInt); }
 		}
 	}
 	#endregion			// 함수
