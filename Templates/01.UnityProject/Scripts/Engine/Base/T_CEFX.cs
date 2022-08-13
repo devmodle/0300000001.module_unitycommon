@@ -17,7 +17,7 @@ namespace SampleEngineName {
 		}
 		
 		/** 매개 변수 */
-		public new partial struct STParams {
+		public new struct STParams {
 			public CEComponent.STParams m_stBaseParams;
 			public STFXInfo m_stTableFXInfo;
 		}

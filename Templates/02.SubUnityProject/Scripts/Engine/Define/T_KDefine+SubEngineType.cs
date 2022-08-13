@@ -12,7 +12,7 @@ namespace SampleEngineName {
 	#region 기본
 	/** 서브 엔진 타입 랩퍼 */
 	[MessagePackObject]
-	public partial struct STSubEngineTypeWrapper {
+	public struct STSubEngineTypeWrapper {
 		// Do Something
 	}
 	#endregion			// 기본

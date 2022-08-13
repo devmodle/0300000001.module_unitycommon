@@ -12,7 +12,7 @@ using UnityEngine.Purchasing;
 
 /** 상품 교환 정보 */
 [System.Serializable]
-public partial struct STProductTradeInfo {
+public struct STProductTradeInfo {
 	public STCommonInfo m_stCommonInfo;
 	public int m_nProductIdx;
 

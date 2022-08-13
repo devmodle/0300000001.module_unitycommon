@@ -31,7 +31,7 @@ public partial class CStorePopup : CSubPopup {
 	}
 
 	/** 매개 변수 */
-	public partial struct STParams {
+	public struct STParams {
 		public List<STProductTradeInfo> m_oProductTradeInfoList;
 
 #if ADS_MODULE_ENABLE

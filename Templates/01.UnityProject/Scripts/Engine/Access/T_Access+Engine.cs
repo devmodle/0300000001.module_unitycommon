@@ -12,22 +12,13 @@ namespace SampleEngineName {
 		#region 클래스 함수
 		/** 객체 스프라이트를 반환한다 */
 		public static Sprite GetObjSprite(EObjKinds a_eObjKinds) {
-			bool bIsValid = KDefine.E_IMG_P_OBJ_DICT.TryGetValue((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), out string oImgPath);
-			return (bIsValid && oImgPath.ExIsValid()) ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
+			string oImgPath = KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), string.Empty);
+			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 		
 		/** 정렬 순서 정보를 반환한다 */
 		public static STSortingOrderInfo GetSortingOrderInfo(EObjKinds a_eObjKinds) {
-			bool bIsValid = Access.TryGetSortingOrderInfo(a_eObjKinds, out STSortingOrderInfo stOrderInfo);
-			CAccess.Assert(bIsValid);
-
-			return stOrderInfo;
-		}
-
-		/** 정렬 순서 정보를 반환한다 */
-		public static bool TryGetSortingOrderInfo(EObjKinds a_eObjKinds, out STSortingOrderInfo a_stOutOrderInfo) {
-			a_stOutOrderInfo = KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), STSortingOrderInfo.INVALID);
-			return KDefine.E_SORTING_OI_OBJ_DICT.ContainsKey(a_eObjKinds);
+			return KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), KDefine.E_SORTING_OI_DEF);
 		}
 		#endregion			// 클래스 함수
 	}

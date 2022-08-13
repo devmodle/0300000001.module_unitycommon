@@ -10,7 +10,7 @@ namespace SampleEngineName {
 	/** 엔진 컴포넌트 */
 	public abstract partial class CEComponent : CComponent {
 		/** 매개 변수 */
-		public partial struct STParams {
+		public struct STParams {
 			public string m_oObjsPoolKey;
 			public CEngine m_oEngine;
 			public CEComponent m_oOwner;

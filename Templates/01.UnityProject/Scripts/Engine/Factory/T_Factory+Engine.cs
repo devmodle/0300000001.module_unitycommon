@@ -49,7 +49,7 @@ namespace SampleEngineName {
 		/** 아이템 매개 변수를 생성한다 */
 		public static CEItem.STParams MakeItemParams(CEngine a_oEngine, STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEComponent a_oOwner = null, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new CEItem.STParams() {
-				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oOwner, a_oController, a_oObjsPoolKey), m_stItemInfo = a_stItemInfo, m_oItemTargetInfo = a_oItemTargetInfo
+				m_stBaseParams = Factory.MakeObjParams(a_oEngine, STObjInfo.INVALID, null, null, null, a_oObjsPoolKey), m_stItemInfo = a_stItemInfo, m_oItemTargetInfo = a_oItemTargetInfo
 			};
 		}
 		
@@ -74,9 +74,23 @@ namespace SampleEngineName {
 			};
 		}
 
+		/** 아이템 제어자 매개 변수를 생성한다 */
+		public static CEItemController.STParams MakeItemControllerParams(CEngine a_oEngine, CEComponent a_oOwner) {
+			return new CEItemController.STParams() {
+				m_stBaseParams = Factory.MakeObjControllerParams(a_oEngine, a_oOwner)
+			};
+		}
+
 		/** 스킬 제어자 매개 변수를 생성한다 */
 		public static CESkillController.STParams MakeSkillControllerParams(CEngine a_oEngine, CEComponent a_oOwner) {
 			return new CESkillController.STParams() {
+				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oOwner)
+			};
+		}
+
+		/** 객체 제어자 매개 변수를 생성한다 */
+		public static CEObjController.STParams MakeObjControllerParams(CEngine a_oEngine, CEComponent a_oOwner) {
+			return new CEObjController.STParams() {
 				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oOwner)
 			};
 		}

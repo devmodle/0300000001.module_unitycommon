@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 미션 정보 */
 [System.Serializable]
-public partial struct STMissionInfo {
+public struct STMissionInfo {
 	public STCommonInfo m_stCommonInfo;
 
 	public EMissionKinds m_eMissionKinds;

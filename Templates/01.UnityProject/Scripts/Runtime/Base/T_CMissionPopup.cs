@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /** 미션 팝업 */
 public abstract partial class CMissionPopup : CSubPopup {
 	/** 매개 변수 */
-	public partial struct STParams {
+	public struct STParams {
 		public List<STMissionInfo> m_oMissionInfoList;
 	}
 

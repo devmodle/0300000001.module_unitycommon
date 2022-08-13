@@ -128,7 +128,7 @@ namespace SampleEngineName {
 		/** 초기화한다 */
 		private void SubInit() {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
-			m_oPlayerObjDict.ExReplaceVal(EKey.SEL_PLAYER_OBJ, this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null, true));
+			m_oPlayerObjDict.ExReplaceVal(EKey.SEL_PLAYER_OBJ, this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
 
 			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.x, m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 		}
@@ -169,8 +169,11 @@ namespace SampleEngineName {
 				foreach(var stKeyVal in stEpisodeInfo.m_oEnemyObjTargetInfoDict) {
 					// 적 객체 생성이 가능 할 경우
 					if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.m_nKinds) < stKeyVal.Value.m_stValInfo01.m_nVal && m_oEnemyObjList.Count < stEpisodeInfo.m_nMaxNumEnemyObjs) {
-						var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.m_nKinds), null);
-						oEnemyObj.transform.localPosition = new Vector3(Random.Range(stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL), Random.Range(stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+						float fPosX = Random.Range(stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL);
+						float fPosY = Random.Range(stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
+
+						var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.m_nKinds), null, null);
+						oEnemyObj.transform.localPosition = new Vector3(fPosX, fPosY, fPosY / stEpisodeInfo.m_stSize.y);
 
 						m_oEnemyObjList.ExAddVal(oEnemyObj);
 					}

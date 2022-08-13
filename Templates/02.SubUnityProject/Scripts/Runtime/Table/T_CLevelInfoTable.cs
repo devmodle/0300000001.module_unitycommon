@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 /** 셀 정보 */
 [MessagePackObject][System.Serializable]
-public partial struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
+public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
 	#region 변수
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 	[Key(161)] public Dictionary<EObjType, List<EObjKinds>> m_oObjKindsDictContainer;

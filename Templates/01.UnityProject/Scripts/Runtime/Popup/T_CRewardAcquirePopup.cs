@@ -19,7 +19,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	}
 
 	/** 매개 변수 */
-	public partial struct STParams {
+	public struct STParams {
 		public ERewardQuality m_eQuality;
 		public ERewardAcquirePopupType m_eAgreePopup;
 		

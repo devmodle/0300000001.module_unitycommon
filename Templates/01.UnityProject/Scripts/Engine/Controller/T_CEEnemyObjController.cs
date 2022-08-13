@@ -10,7 +10,7 @@ namespace SampleEngineName {
 	/** 적 객체 제어자 */
 	public partial class CEEnemyObjController : CEController {
 		/** 매개 변수 */
-		public new partial struct STParams {
+		public new struct STParams {
 			public CEController.STParams m_stBaseParams;
 		}
 

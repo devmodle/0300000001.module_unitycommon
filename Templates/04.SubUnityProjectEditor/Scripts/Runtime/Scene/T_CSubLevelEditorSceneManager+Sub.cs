@@ -152,7 +152,7 @@ namespace LevelEditorScene {
 				var oObjSpriteInfoList = new List<(EObjKinds, SpriteRenderer)>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_KEY_SPRITE_OBJS_POOL, KDefine.LES_OBJ_N_OBJ_SPRITE);
+					var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_OBJS_POOL);
 					oObjSprite.sprite = SampleEngineName.Access.GetObjSprite(stKeyVal.Value[i]);
 					oObjSprite.transform.localPosition = m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
 

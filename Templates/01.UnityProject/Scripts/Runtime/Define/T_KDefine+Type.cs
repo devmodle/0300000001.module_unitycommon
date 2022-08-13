@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 #region 기본
 /** 타겟 정보 */
 [MessagePackObject][System.Serializable]
-public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
+public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	[Key(1)] public int m_nKinds;
 	[Key(11)] public ETargetKinds m_eTargetKinds;
 	[Key(12)] public EKindsGroupType m_eKindsGroupType;
@@ -82,7 +82,7 @@ public partial struct STTargetInfo : System.IEquatable<STTargetInfo> {
 
 /** 타입 랩퍼 */
 [MessagePackObject]
-public partial struct STTypeWrapper {
+public struct STTypeWrapper {
 	[Key(51)] public List<ulong> m_oULevelIDList;
 
 	[Key(161)] public Dictionary<int, Dictionary<int, int>> m_oNumLevelInfosDictContainer;

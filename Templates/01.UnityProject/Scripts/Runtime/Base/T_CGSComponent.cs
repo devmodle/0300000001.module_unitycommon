@@ -10,7 +10,7 @@ namespace GameScene {
 	/** 게임 씬 컴포넌트 */
 	public partial class CGSComponent : CComponent {
 		/** 매개 변수 */
-		public partial struct STParams {
+		public struct STParams {
 			public SampleEngineName.CEngine m_oEngine;
 		}
 

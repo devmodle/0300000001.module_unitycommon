@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 튜토리얼 정보 */
 [System.Serializable]
-public partial struct STTutorialInfo {
+public struct STTutorialInfo {
 	public STCommonInfo m_stCommonInfo;
 
 	public ETutorialKinds m_eTutorialKinds;

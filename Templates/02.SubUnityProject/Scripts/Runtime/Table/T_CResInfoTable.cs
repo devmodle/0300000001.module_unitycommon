@@ -9,7 +9,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 리소스 정보 */
 [System.Serializable]
-public partial struct STResInfo {
+public struct STResInfo {
 	public STCommonInfo m_stCommonInfo;
 
 	public string m_oRate;

@@ -10,7 +10,7 @@ namespace SampleEngineName {
 	/** 플레이어 객체 제어자 */
 	public partial class CEPlayerObjController : CEController {
 		/** 매개 변수 */
-		public new partial struct STParams {
+		public new struct STParams {
 			public CEController.STParams m_stBaseParams;
 		}
 

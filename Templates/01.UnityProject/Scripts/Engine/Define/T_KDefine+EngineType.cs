@@ -11,7 +11,7 @@ using MessagePack;
 namespace SampleEngineName {
 	#region 기본
 	/** 그리드 정보 */
-	public partial struct STGridInfo {
+	public struct STGridInfo {
 		public Bounds m_stBounds;
 
 		public Vector3 m_stSize;
@@ -21,7 +21,7 @@ namespace SampleEngineName {
 
 	/** 엔진 타입 랩퍼 */
 	[MessagePackObject]
-	public partial struct STEngineTypeWrapper {
+	public struct STEngineTypeWrapper {
 		// Do Something
 	}
 	#endregion			// 기본

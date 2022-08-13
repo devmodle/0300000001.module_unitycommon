@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 /** 에피소드 정보 */
 [System.Serializable]
-public partial struct STEpisodeInfo {
+public struct STEpisodeInfo {
 	public STCommonInfo m_stCommonInfo;
 
 	public int m_nNumSubEpisodes;

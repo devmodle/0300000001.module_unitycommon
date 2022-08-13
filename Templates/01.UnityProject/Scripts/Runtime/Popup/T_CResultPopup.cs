@@ -30,7 +30,7 @@ public partial class CResultPopup : CSubPopup {
 	}
 
 	/** 매개 변수 */
-	public partial struct STParams {
+	public struct STParams {
 		public STRecordInfo m_stRecordInfo;
 
 		public CLevelInfo m_oLevelInfo;

@@ -11,7 +11,7 @@ using MessagePack;
 #region 기본
 /** 에디터 타입 랩퍼 */
 [MessagePackObject]
-public partial struct STEditorTypeWrapper {
+public struct STEditorTypeWrapper {
 	// Do Something
 }
 #endregion			// 기본

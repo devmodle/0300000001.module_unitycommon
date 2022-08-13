@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 제어자 */
-	public partial class CEController : CComponent {
+	public abstract partial class CEController : CComponent {
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -31,7 +31,7 @@ namespace SampleEngineName {
 	}
 
 	/** 서브 제어자 */
-	public partial class CEController : CComponent {
+	public abstract partial class CEController : CComponent {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,

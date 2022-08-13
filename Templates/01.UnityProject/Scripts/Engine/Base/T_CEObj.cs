@@ -17,7 +17,7 @@ namespace SampleEngineName {
 		}
 
 		/** 매개 변수 */
-		public new partial struct STParams {
+		public new struct STParams {
 			public CEComponent.STParams m_stBaseParams;
 			public STObjInfo m_stObjInfo;
 			public CObjTargetInfo m_oObjTargetInfo;
@@ -36,16 +36,10 @@ namespace SampleEngineName {
 		/** 어빌리티 값을 설정한다 */
 		public override void SetupAbilityVals() {
 			base.SetupAbilityVals();
-			global::Func.SetupAbilityVals(this.Params.m_stObjInfo, this.Params.m_oObjTargetInfo, this.AbilityValDict);
 
-			// 스킬 타겟 정보가 존재 할 경우
-			if(this.Params.m_oObjTargetInfo != null && this.Params.m_oObjTargetInfo.m_oTargetInfoDictContainer.TryGetValue(ETargetType.SKILL, out List<CTargetInfo> oTargetInfoList)) {
-				for(int i = 0; i < oTargetInfoList.Count; ++i) {
-					// 패시브 스킬 일 경우
-					if((ESkillType)oTargetInfoList[i].Kinds.ExKindsToType() == ESkillType.PASSIVE) {
-						global::Func.SetupAbilityVals(oTargetInfoList[i].m_oAbilityTargetInfoDict, this.AbilityValDict);
-					}
-				}
+			// 객체 정보가 존재 할 경우
+			if(this.Params.m_stObjInfo.m_eObjKinds.ExIsValid()) {
+				global::Func.SetupAbilityVals(this.Params.m_stObjInfo, this.Params.m_oObjTargetInfo, this.AbilityValDict);
 			}
 		}
 		#endregion			// 함수

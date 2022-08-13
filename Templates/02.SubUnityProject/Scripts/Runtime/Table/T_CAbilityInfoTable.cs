@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 어빌리티 정보 */
 [System.Serializable]
-public partial struct STAbilityInfo {
+public struct STAbilityInfo {
 	public STCommonInfo m_stCommonInfo;
 	public STValInfo m_stValInfo;
 
@@ -51,7 +51,7 @@ public partial struct STAbilityInfo {
 
 /** 어빌리티 강화 정보 */
 [System.Serializable]
-public partial struct STAbilityEnhanceInfo {
+public struct STAbilityEnhanceInfo {
 	public STCommonInfo m_stCommonInfo;
 
 	public EAbilityKinds m_eAbilityKinds;

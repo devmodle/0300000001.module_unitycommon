@@ -8,10 +8,10 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 아이템 */
-	public partial class CEItem : CEComponent {
+	public partial class CEItem : CEObj {
 		/** 매개 변수 */
-		public new partial struct STParams {
-			public CEComponent.STParams m_stBaseParams;
+		public new struct STParams {
+			public CEObj.STParams m_stBaseParams;
 			public STItemInfo m_stItemInfo;
 			public CItemTargetInfo m_oItemTargetInfo;
 		}
@@ -28,7 +28,11 @@ namespace SampleEngineName {
 		/** 어빌리티 값을 설정한다 */
 		public override void SetupAbilityVals() {
 			base.SetupAbilityVals();
-			global::Func.SetupAbilityVals(this.Params.m_stItemInfo, this.Params.m_oItemTargetInfo, this.AbilityValDict);
+
+			// 아이템 정보가 존재 할 경우
+			if(this.Params.m_stItemInfo.m_eItemKinds.ExIsValid()) {
+				global::Func.SetupAbilityVals(this.Params.m_stItemInfo, this.Params.m_oItemTargetInfo, this.AbilityValDict);
+			}
 		}
 		#endregion			// 함수
 	}

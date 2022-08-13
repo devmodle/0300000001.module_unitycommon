@@ -26,7 +26,7 @@ public partial class CProductTradePopup : CSubPopup {
 	}
 
 	/** 매개 변수 */
-	public partial struct STParams {
+	public struct STParams {
 		public EProductKinds m_eProductKinds;
 
 #if PURCHASE_MODULE_ENABLE

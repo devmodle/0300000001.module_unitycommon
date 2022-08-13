@@ -181,7 +181,7 @@ namespace GameScene {
 #if DEBUG || DEVELOPMENT_BUILD
 		/** 서브 테스트 UI */
 		[System.Serializable]
-		private partial struct STSubTestUIs {
+		private struct STSubTestUIs {
 			// Do Something
 		}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD

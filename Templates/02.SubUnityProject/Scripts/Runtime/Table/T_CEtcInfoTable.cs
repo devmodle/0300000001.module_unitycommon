@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 수식 정보 */
 [System.Serializable]
-public partial struct STCalcInfo {
+public struct STCalcInfo {
 	public STCommonInfo m_stCommonInfo;
 	public string m_oCalc;
 

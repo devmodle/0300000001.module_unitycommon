@@ -10,7 +10,7 @@ namespace SampleEngineName {
 	/** 스킬 제어자 */
 	public partial class CESkillController : CEController {
 		/** 매개 변수 */
-		public new partial struct STParams {
+		public new struct STParams {
 			public CEController.STParams m_stBaseParams;
 		}
 
