@@ -15,20 +15,17 @@ namespace SampleEngineName {
 			var stGridInfo = new STGridInfo() {
 				m_stSize = new Vector3(a_oLevelInfo.NumCells.x * KDefine.E_SIZE_CELL.x, a_oLevelInfo.NumCells.y * KDefine.E_SIZE_CELL.y, KCDefine.B_VAL_0_REAL)
 			};
-			
+
 			stGridInfo.m_stBounds = new Bounds(a_stPos, stGridInfo.m_stSize);
+			stGridInfo.m_stPivotPos = new Vector3(stGridInfo.m_stBounds.min.x, stGridInfo.m_stBounds.max.y, KCDefine.B_VAL_0_REAL);
 
 			try {
-				float fScaleX = (KDefine.E_MAX_SIZE_GRID.x / stGridInfo.m_stBounds.size.x);
-				float fScaleY = (KDefine.E_MAX_SIZE_GRID.y / stGridInfo.m_stBounds.size.y);
-
-				stGridInfo.m_stScale = Vector3.one * Mathf.Min(fScaleX, fScaleY);
+				stGridInfo.m_stScale = Vector3.one * Mathf.Min(KDefine.E_MAX_SIZE_GRID.x / stGridInfo.m_stBounds.size.x, KDefine.E_MAX_SIZE_GRID.y / stGridInfo.m_stBounds.size.y);
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"Factory.MakeGridInfo Exception: {oException.Message}");
 				stGridInfo.m_stScale = Vector3.one;
 			}
 
-			stGridInfo.m_stPivotPos = new Vector3(stGridInfo.m_stBounds.min.x, stGridInfo.m_stBounds.max.y, KCDefine.B_VAL_0_REAL);
 			return stGridInfo;
 		}
 
