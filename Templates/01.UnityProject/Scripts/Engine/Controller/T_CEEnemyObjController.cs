@@ -8,10 +8,10 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
 	/** 적 객체 제어자 */
-	public partial class CEEnemyObjController : CEController {
+	public partial class CEEnemyObjController : CEObjController {
 		/** 매개 변수 */
 		public new struct STParams {
-			public CEController.STParams m_stBaseParams;
+			public CEObjController.STParams m_stBaseParams;
 		}
 
 		#region 변수
