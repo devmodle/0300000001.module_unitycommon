@@ -423,13 +423,13 @@ public static partial class Func {
 
 			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => {
 				Func.m_bIsWatchRewardAds = false;
-				Func.m_stAdsRewardInfo = KCDefine.U_INVALID_ADS_REWARD_INFO;
-
+				Func.m_stAdsRewardInfo = STAdsRewardInfo.INVALID;
 				Func.m_oAdsCallbackDict02.ExReplaceVal(ECallback.SHOW_REWARD_ADS, a_oCallback);
+				
 				CAdsManager.Inst.ShowRewardAds(a_eAdsPlatform, Func.OnReceiveAdsReward, Func.OnCloseRewardAds);
 			});
 		} else {
-			CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, KCDefine.U_INVALID_ADS_REWARD_INFO, false);
+			CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, STAdsRewardInfo.INVALID, false);
 		}
 	}
 
