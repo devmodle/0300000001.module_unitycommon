@@ -134,10 +134,10 @@ namespace GameScene {
 		/** 레벨을 클리어했을 경우 */
 		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {			
 			var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03, true);
-			oLevelClearInfo.IntRecord = a_oSender.IntRecord;
-			oLevelClearInfo.RealRecord = a_oSender.RealRecord;
-			oLevelClearInfo.IntBestRecord = System.Math.Max(a_oSender.IntRecord, oLevelClearInfo.IntBestRecord);
-			oLevelClearInfo.RealBestRecord = a_oSender.RealRecord.ExIsGreate(oLevelClearInfo.RealBestRecord) ? a_oSender.RealRecord : oLevelClearInfo.RealBestRecord;
+			oLevelClearInfo.m_stRecordInfo.m_nIntRecord = a_oSender.RecordInfo.m_nIntRecord;
+			oLevelClearInfo.m_stRecordInfo.m_dblRealRecord = a_oSender.RecordInfo.m_dblRealRecord;
+			oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord = System.Math.Max(a_oSender.RecordInfo.m_nIntRecord, oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord);
+			oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord = a_oSender.RecordInfo.m_dblRealRecord.ExIsGreate(oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord) ? a_oSender.RecordInfo.m_dblRealRecord : oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord;
 
 			CGameInfoStorage.Inst.SaveGameInfo();
 			this.ShowResultPopup(true);
@@ -269,9 +269,7 @@ namespace GameScene {
 			Func.ShowResultPopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CResultPopup).Init(new CResultPopup.STParams() {
 					m_stRecordInfo = new STRecordInfo {
-						m_bIsSuccess = a_bIsClear,
-						m_nIntRecord = m_oEngine.IntRecord,
-						m_dblRealRecord = m_oEngine.RealRecord
+						m_bIsSuccess = a_bIsClear, m_nIntRecord = m_oEngine.RecordInfo.m_nIntRecord, m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord
 					},
 					
 					m_oLevelInfo = m_oEngine.Params.m_oLevelInfo,

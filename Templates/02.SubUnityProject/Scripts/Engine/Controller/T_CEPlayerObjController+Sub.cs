@@ -44,8 +44,7 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public bool IsEnableMove => this.IsActive && (this.ControllerState == EControllerState.IDLE || this.ControllerState == EControllerState.MOVE);
-		public bool IsEnableApplySkill => this.IsActive && (this.ControllerState == EControllerState.IDLE || this.ControllerState == EControllerState.MOVE);
+
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -54,7 +53,7 @@ namespace SampleEngineName {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(this.IsActive && CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsAppRunning) {
 				// Do Something
 			}
 		}
@@ -62,28 +61,30 @@ namespace SampleEngineName {
 		/** 이동을 처리한다 */
 		public override void Move(Vector3 a_stDirection) {
 			base.Move(a_stDirection);
-			this.SetControllerState(this.IsEnableMove ? EControllerState.MOVE : a_stDirection.ExIsEquals(Vector3.zero) ? EControllerState.IDLE : this.ControllerState);
+
+			this.SetState(EState.MOVE);
+			this.SetState((this.State == EState.MOVE && a_stDirection.ExIsEquals(Vector3.zero)) ? EState.IDLE : this.State);
 		}
 
 		/** 스킬을 적용한다 */
 		public override void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
 			base.ApplySkill(a_oSkillTargetInfo);
-			this.SetControllerState(this.IsEnableApplySkill ? EControllerState.SKILL : this.ControllerState);
+			this.SetState(EState.SKILL);
 		}
 
-		/** 대기 제어자 상태를 처리한다 */
-		protected override void HandleIdleControllerState(float a_fDeltaTime) {
-			base.HandleIdleControllerState(a_fDeltaTime);
+		/** 대기 상태를 처리한다 */
+		protected override void HandleIdleState(float a_fDeltaTime) {
+			base.HandleIdleState(a_fDeltaTime);
 		}
 
-		/** 이동 제어자 상태를 처리한다 */
-		protected override void HandleMoveControllerState(float a_fDeltaTime) {
-			base.HandleMoveControllerState(a_fDeltaTime);
+		/** 이동 상태를 처리한다 */
+		protected override void HandleMoveState(float a_fDeltaTime) {
+			base.HandleMoveState(a_fDeltaTime);
 		}
 
-		/** 스킬 제어자 상태를 처리한다 */
-		protected override void HandleSkillControllerState(float a_fDeltaTime) {
-			base.HandleSkillControllerState(a_fDeltaTime);
+		/** 스킬 상태를 처리한다 */
+		protected override void HandleSkillState(float a_fDeltaTime) {
+			base.HandleSkillState(a_fDeltaTime);
 		}
 
 		/** 효과를 설정한다 */

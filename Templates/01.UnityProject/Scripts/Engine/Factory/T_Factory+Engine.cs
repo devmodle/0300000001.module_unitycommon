@@ -98,20 +98,6 @@ namespace SampleEngineName {
 				m_stBaseParams = Factory.MakeControllerParams(a_oEngine, a_oOwner)
 			};
 		}
-
-		/** 플레이어 객체 제어자 매개 변수를 생성한다 */
-		public static CEPlayerObjController.STParams MakePlayerObjControllerParams(CEngine a_oEngine, CEComponent a_oOwner) {
-			return new CEPlayerObjController.STParams() {
-				m_stBaseParams = Factory.MakeObjControllerParams(a_oEngine, a_oOwner)
-			};
-		}
-
-		/** 적 객체 제어자 매개 변수를 생성한다 */
-		public static CEEnemyObjController.STParams MakeEnemyObjControllerParams(CEngine a_oEngine, CEComponent a_oOwner) {
-			return new CEEnemyObjController.STParams() {
-				m_stBaseParams = Factory.MakeObjControllerParams(a_oEngine, a_oOwner)
-			};
-		}
 		#endregion			// 클래스 함수
 	}
 }

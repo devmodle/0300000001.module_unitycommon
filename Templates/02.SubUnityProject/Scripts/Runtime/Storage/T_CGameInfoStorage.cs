@@ -16,26 +16,16 @@ using Newtonsoft.Json;
 [MessagePackObject][System.Serializable]
 public partial class CClearInfo : CBaseInfo {
 	#region 변수
+	[Key(1)] public STRecordInfo m_stRecordInfo;
+	[Key(2)] public STRecordInfo m_stBestRecordInfo;
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 
 	#region 상수
-	private const string KEY_INT_RECORD = "IntRecord";
-	private const string KEY_REAL_RECORD = "RealRecord";
-
-	private const string KEY_INT_BEST_RECORD = "IntBestRecord";
-	private const string KEY_REAL_BEST_RECORD = "RealBestRecord";
-
 	private const string KEY_NUM_SYMBOLS = "NumSymbols";
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public long IntRecord { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_INT_RECORD, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_INT_RECORD, $"{value}"); } }
-	[JsonIgnore][IgnoreMember] public long IntBestRecord { get { return long.Parse(m_oStrDict.GetValueOrDefault(KEY_INT_BEST_RECORD, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_INT_BEST_RECORD, $"{value}"); } }
-
-	[JsonIgnore][IgnoreMember] public double RealRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(KEY_REAL_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(KEY_REAL_RECORD, $"{value}"); } }
-	[JsonIgnore][IgnoreMember] public double RealBestRecord { get { return double.Parse(m_oStrDict.GetValueOrDefault(KEY_REAL_BEST_RECORD, KCDefine.B_STR_0_REAL)); } set { m_oStrDict.ExReplaceVal(KEY_REAL_BEST_RECORD, $"{value}"); } }
-
 	[JsonIgnore][IgnoreMember] public int NumSymbols { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_SYMBOLS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUM_SYMBOLS, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	#endregion			// 프로퍼티

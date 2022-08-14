@@ -10,30 +10,31 @@ namespace SampleEngineName {
 	/** 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		/** 상태를 변경한다 */
-		public void SetState(EState a_eState) {
-			// 상태 변경이 가능 할 경우
-			if(this.State != a_eState) {
-				this.State = a_eState;
-
-				switch(a_eState) {
-					case EState.RUN: this.HandleRunState(); break;
-					case EState.STOP: this.HandleStopState(); break;
-				}
-			}
-		}
+		
 		#endregion			// 함수
 	}
 
 	/** 서브 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		/** 엔진 상태를 변경한다 */
-		public void SetEngineState(EEngineState a_eEngineState) {
-			// 엔진 상태 변경이 가능 할 경우
-			if(this.EngineState != a_eEngineState) {
-				this.EngineState = a_eEngineState;
-			}
+		/** 상태를 변경한다 */
+		public void SetState(EState a_eState) {
+			this.State = (m_oStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) && oStateChecker()) ? a_eState : this.State;
+		}
+
+		/** 무효 상태 가능 여부를 검사한다 */
+		private bool IsEnableNoneState() {
+			return true;
+		}
+
+		/** 플레이 상태 가능 여부를 검사한다 */
+		private bool IsEnablePlayState() {
+			return true;
+		}
+
+		/** 정지 상태 가능 여부를 검사한다 */
+		private bool IsEnablePauseState() {
+			return true;
 		}
 		#endregion			// 함수
 	}

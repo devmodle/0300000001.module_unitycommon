@@ -13,6 +13,7 @@ namespace SampleEngineName {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			IS_RUNNING,
 			SEL_GRID_INFO,
 			SEL_PLAYER_OBJ,
 			[HideInInspector] MAX_VAL
@@ -46,6 +47,7 @@ namespace SampleEngineName {
 		private List<CEObj> m_oEnemyObjList = new List<CEObj>();
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>();
 		private Dictionary<EKey, CEObj> m_oPlayerObjDict = new Dictionary<EKey, CEObj>();
 		
@@ -55,14 +57,19 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public STParams Params { get; private set; }
-		public long IntRecord { get; private set; } = 0;
-		public double RealRecord { get; private set; } = 0.0;
+		public STRecordInfo RecordInfo { get; private set; }
 
+		public bool IsRunning => m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING);
 		public STGridInfo SelGridInfo => m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO);
 		public CEObj SelPlayerObj => m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ);
 		#endregion			// 프로퍼티
 		
 		#region 함수
+		/** 구동 여부를 변경한다 */
+		public void SetEnableRunning(bool a_bIsRunning) {
+			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, a_bIsRunning);
+		}
+
 		/** 터치 이벤트를 처리한다 */
 		public void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
 			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot);

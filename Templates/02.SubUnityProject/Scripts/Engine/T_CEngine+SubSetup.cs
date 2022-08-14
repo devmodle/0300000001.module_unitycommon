@@ -33,7 +33,9 @@ namespace SampleEngineName {
 		#region 함수
 		/** 엔진을 설정한다 */
 		private void SubAwakeSetup() {
-			// Do Something
+			m_oStateCheckerDict.TryAdd(EState.NONE, this.IsEnableNoneState);
+			m_oStateCheckerDict.TryAdd(EState.PLAY, this.IsEnablePlayState);
+			m_oStateCheckerDict.TryAdd(EState.PAUSE, this.IsEnablePauseState);
 		}
 		
 		/** 셀을 설정한다 */

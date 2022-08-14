@@ -37,7 +37,7 @@ namespace SampleEngineName {
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
-			this.SetState(EState.STOP);
+			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, false);
 
 			#region 추가
 			this.SubReset();
@@ -57,28 +57,17 @@ namespace SampleEngineName {
 		/** 상태 */
 		public enum EState {
 			NONE = -1,
-			RUN,
-			STOP,
-			[HideInInspector] MAX_VAL
-		}
-
-		/** 엔진 상태 */
-		public enum EEngineState {
-			NONE = -1,
 			PLAY,
 			PAUSE,
 			[HideInInspector] MAX_VAL
 		}
 
 		#region 변수
-		
+		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
 		#endregion			// 변수
 
 		#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
-		public EEngineState EngineState { get; private set; } = EEngineState.NONE;
-
-		public bool IsPlaying => this.State == EState.RUN && this.EngineState == EEngineState.PLAY;
 		#endregion			// 프로퍼티
 		
 		#region 함수
@@ -87,10 +76,10 @@ namespace SampleEngineName {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(this.IsPlaying && CSceneManager.IsAppRunning) {
-				switch(this.EngineState) {
-					case EEngineState.PLAY: this.HandlePlayEngineState(a_fDeltaTime); break;
-					case EEngineState.PAUSE: this.HandlePauseEngineState(a_fDeltaTime); break;
+			if(CSceneManager.IsAppRunning && m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+				switch(this.State) {
+					case EState.PLAY: this.HandlePlayState(a_fDeltaTime); break;
+					case EState.PAUSE: this.HandlePauseState(a_fDeltaTime); break;
 				}
 
 				var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
@@ -135,21 +124,11 @@ namespace SampleEngineName {
 
 		/** 상태를 리셋한다 */
 		private void SubReset() {
-			this.SetEngineState(EEngineState.NONE);
-		}
-		
-		/** 구동 상태를 처리한다 */
-		private void HandleRunState() {
-			this.SetEngineState(EEngineState.PLAY);
+			this.SetState(EState.NONE);
 		}
 
-		/** 중지 상태를 처리한다 */
-		private void HandleStopState() {
-			this.SetEngineState(EEngineState.PAUSE);
-		}
-
-		/** 플레이 엔진 상태를 처리한다 */
-		private void HandlePlayEngineState(float a_fDeltaTime) {
+		/** 플레이 상태를 처리한다 */
+		private void HandlePlayState(float a_fDeltaTime) {
 			CFunc.UpdateComponents(m_oItemList, a_fDeltaTime);
 			CFunc.UpdateComponents(m_oSkillList, a_fDeltaTime);
 			CFunc.UpdateComponents(m_oFXList, a_fDeltaTime);
@@ -184,31 +163,31 @@ namespace SampleEngineName {
 			*/
 		}
 
-		/** 정지 엔진 상태를 처리한다 */
-		private void HandlePauseEngineState(float a_fDeltaTime) {
+		/** 정지 상태를 처리한다 */
+		private void HandlePauseState(float a_fDeltaTime) {
 			// Do Something
 		}
 
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 구동 상태 일 경우
-			if(this.State == EState.RUN) {
+			// 구동 모드 일 경우
+			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 구동 상태 일 경우
-			if(this.State == EState.RUN) {
+			// 구동 모드 일 경우
+			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 구동 상태 일 경우
-			if(this.State == EState.RUN) {
+			// 구동 모드 일 경우
+			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}

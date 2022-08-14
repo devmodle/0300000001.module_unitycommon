@@ -53,24 +53,24 @@ namespace SampleEngineName {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(this.IsActive && CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsAppRunning) {
 				// Do Something
 			}
 		}
 		
-		/** 대기 제어자 상태를 처리한다 */
-		protected override void HandleIdleControllerState(float a_fDeltaTime) {
-			base.HandleIdleControllerState(a_fDeltaTime);
+		/** 대기 상태를 처리한다 */
+		protected override void HandleIdleState(float a_fDeltaTime) {
+			base.HandleIdleState(a_fDeltaTime);
 		}
 
-		/** 이동 제어자 상태를 처리한다 */
-		protected override void HandleMoveControllerState(float a_fDeltaTime) {
-			base.HandleMoveControllerState(a_fDeltaTime);
+		/** 이동 상태를 처리한다 */
+		protected override void HandleMoveState(float a_fDeltaTime) {
+			base.HandleMoveState(a_fDeltaTime);
 		}
 
-		/** 스킬 제어자 상태를 처리한다 */
-		protected override void HandleSkillControllerState(float a_fDeltaTime) {
-			base.HandleSkillControllerState(a_fDeltaTime);
+		/** 스킬 상태를 처리한다 */
+		protected override void HandleSkillState(float a_fDeltaTime) {
+			base.HandleSkillState(a_fDeltaTime);
 		}
 		
 		/** 효과를 설정한다 */

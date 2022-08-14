@@ -14,7 +14,6 @@ public partial class CResultPopup : CSubPopup {
 		NONE = -1,
 		RECORD_TEXT,
 		BEST_RECORD_TEXT,
-
 		CLEAR_UIS,
 		CLEAR_FAIL_UIS,
 		[HideInInspector] MAX_VAL
@@ -32,7 +31,7 @@ public partial class CResultPopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
 		public STRecordInfo m_stRecordInfo;
-
+		
 		public CLevelInfo m_oLevelInfo;
 		public CClearInfo m_oClearInfo;
 		public Dictionary<ECallback, System.Action<CResultPopup>> m_oCallbackDict;
