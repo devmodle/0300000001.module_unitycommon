@@ -35,7 +35,8 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public STParams Params { get; private set; }
-
+		public bool IsAutoControl { get; set; } = false;
+		
 		public Vector3 MoveDirection => m_oVec3Dict[EKey.MOVE_DIRECTION];
 		public CSkillTargetInfo ApplySkillTargetInfo => m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO];
 		#endregion			// 프로퍼티

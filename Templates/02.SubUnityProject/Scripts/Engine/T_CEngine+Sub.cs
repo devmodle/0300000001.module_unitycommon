@@ -104,6 +104,11 @@ namespace SampleEngineName {
 			}
 		}
 
+		/** 플레이어 객체 자동 제어 여부를 변경한다 */
+		public void SetEnablePlayerObjAutoControl(bool a_bIsAutoControl) {
+			m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().IsAutoControl = a_bIsAutoControl;
+		}
+
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stDirection) {
 			m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().Move(a_stDirection);
