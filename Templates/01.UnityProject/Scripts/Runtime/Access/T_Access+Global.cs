@@ -214,6 +214,11 @@ public static partial class Access {
 	}
 
 	/** 아이템 타겟 정보를 반환한다 */
+	public static CItemTargetInfo GetItemTargetInfo(int a_nCharacterID, STIdxInfo a_stIdxInfo) {
+		return Access.GetTargetInfo(a_nCharacterID, ETargetType.ITEM, a_stIdxInfo) as CItemTargetInfo;
+	}
+
+	/** 아이템 타겟 정보를 반환한다 */
 	public static CItemTargetInfo GetItemTargetInfo(int a_nCharacterID, EItemKinds a_eItemKinds, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
 		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetItemTargetInfo(a_nCharacterID, a_eItemKinds, out CItemTargetInfo oItemTargetInfo)) {
@@ -224,6 +229,11 @@ public static partial class Access {
 	}
 
 	/** 스킬 타겟 정보를 반환한다 */
+	public static CSkillTargetInfo GetSkillTargetInfo(int a_nCharacterID, STIdxInfo a_stIdxInfo) {
+		return Access.GetTargetInfo(a_nCharacterID, ETargetType.SKILL, a_stIdxInfo) as CSkillTargetInfo;
+	}
+
+	/** 스킬 타겟 정보를 반환한다 */
 	public static CSkillTargetInfo GetSkillTargetInfo(int a_nCharacterID, ESkillKinds a_eSkillKinds, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
 		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nCharacterID, a_eSkillKinds, out CSkillTargetInfo oSkillTargetInfo)) {
@@ -231,6 +241,11 @@ public static partial class Access {
 		}
 
 		return CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nCharacterID, a_eSkillKinds, out oSkillTargetInfo) ? oSkillTargetInfo : null;
+	}
+
+	/** 객체 타겟 정보를 반환한다 */
+	public static CObjTargetInfo GetObjTargetInfo(int a_nCharacterID, STIdxInfo a_stIdxInfo) {
+		return Access.GetTargetInfo(a_nCharacterID, ETargetType.OBJ, a_stIdxInfo) as CObjTargetInfo;
 	}
 
 	/** 객체 타겟 정보를 반환한다 */
@@ -284,6 +299,11 @@ public static partial class Access {
 	private static bool IsEnableObjTargetTrade(STTargetInfo a_stTargetInfo, CObjTargetInfo a_oObjTargetInfo) {
 		CAccess.Assert(CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.m_nKinds, out STObjInfo stObjInfo));
 		return Access.DoIsEnableTrade(a_stTargetInfo, a_oObjTargetInfo);
+	}
+
+	/** 타겟 정보를 반환한다 */
+	private static CTargetInfo GetTargetInfo(int a_nCharacterID, ETargetType a_eTargetType, STIdxInfo a_stIdxInfo) {
+		return (CUserInfoStorage.Inst.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.m_oTargetInfoDictContainer.TryGetValue(a_eTargetType, out List<CTargetInfo> oTargetInfoList)) ? oTargetInfoList.ExGetVal((a_oTargetInfo) => a_oTargetInfo.m_stIdxInfo.Equals(a_stIdxInfo), null) : null;
 	}
 
 	/** 교환 가능 여부를 검사한다 */
