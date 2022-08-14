@@ -34,7 +34,7 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 		this.Params = a_stParams;
 
 		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
-			var stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, i + this.Params.m_stBaseParams.m_nID.ExULevelIDToStageID(), this.Params.m_stBaseParams.m_nID.ExULevelIDToChapterID());
+			var stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, i + base.Params.m_nID.ExULevelIDToStageID(), base.Params.m_nID.ExULevelIDToChapterID());
 
 			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
 			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID02 < CLevelInfoTable.Inst.GetNumStageInfos(stIDInfo.m_nID03));
@@ -45,7 +45,7 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 	private void UpdateScrollerCellState(GameObject a_oScrollerCell, STIDInfo a_stIDInfo) {
 		// 버튼을 갱신한다 {
 		var oSelBtn = a_oScrollerCell.GetComponentInChildren<Button>();
-		oSelBtn?.ExAddListener(() => this.Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeULevelID(a_stIDInfo.m_nID01, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)), true, false);
+		oSelBtn?.ExAddListener(() => base.Params.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeULevelID(a_stIDInfo.m_nID01, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)), true, false);
 
 #if PLAY_TEST_ENABLE
 		oSelBtn?.ExSetInteractable(true, false);

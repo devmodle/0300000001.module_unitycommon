@@ -75,16 +75,6 @@ namespace SampleEngineName {
 			this.State = (m_oStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) && oStateChecker()) ? a_eState : this.State;
 		}
 
-		/** 이동을 처리한다 */
-		public virtual void Move(Vector3 a_stDirection) {
-			m_oVec3Dict[EKey.MOVE_DIRECTION] = a_stDirection;
-		}
-
-		/** 스킬을 적용시킨다 */
-		public virtual void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] = a_oSkillTargetInfo;
-		}
-
 		/** 무효 상태 가능 여부를 검사한다 */
 		protected virtual bool IsEnableNoneState() {
 			return true;
@@ -112,11 +102,7 @@ namespace SampleEngineName {
 
 		/** 이동 상태를 처리한다 */
 		protected virtual void HandleMoveState(float a_fDeltaTime) {
-			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((this.MoveDirection * (float)this.GetOwner<CEObj>().AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
-			var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
-
-			float fNextPosY = Mathf.Clamp(stNextPos.y, (stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
-			this.GetOwner<CEObj>().transform.localPosition = new Vector3(Mathf.Clamp(stNextPos.x, stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL), fNextPosY, fNextPosY / stEpisodeInfo.m_stSize.y);
+			// Do Something
 		}
 
 		/** 스킬 상태를 처리한다 */
