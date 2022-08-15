@@ -84,7 +84,7 @@ namespace SampleEngineName {
 
 				var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
 				var stEpisodeSize = new Vector3(Mathf.Clamp(stEpisodeInfo.m_stSize.x, KCDefine.B_VAL_0_REAL, stEpisodeInfo.m_stSize.x - KCDefine.B_SCREEN_SIZE.x), Mathf.Clamp(stEpisodeInfo.m_stSize.y, KCDefine.B_VAL_0_REAL, stEpisodeInfo.m_stSize.y - KCDefine.B_SCREEN_SIZE.y), stEpisodeInfo.m_stSize.z) * (KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale);
-				var stMainCameraPos = new Vector3(Mathf.Clamp(this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.y + KDefine.E_OFFSET_MAIN_CAMERA, stEpisodeSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+				var stMainCameraPos = new Vector3(Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + KDefine.E_OFFSET_MAIN_CAMERA, stEpisodeSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 				
 				CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
 			}
@@ -106,25 +106,25 @@ namespace SampleEngineName {
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
 		public void SetEnablePlayerObjAutoControl(bool a_bIsAutoControl) {
-			this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().IsAutoControl = a_bIsAutoControl;
+			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().IsAutoControl = a_bIsAutoControl;
 		}
 
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stDirection) {
-			this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().Move(a_stDirection);
+			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().Move(a_stDirection);
 		}
 		
 		/** 플레이어 객체 스킬을 적용한다 */
 		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().ApplySkill(a_oSkillTargetInfo);
+			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().ApplySkill(a_oSkillTargetInfo);
 		}
 
 		/** 초기화한다 */
 		private void SubInit() {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
-			this.PlayerObjDict.ExReplaceVal(EKey.SEL_PLAYER_OBJ, this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
+			this.PlayerObjList.ExAddVal(this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
 
-			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.x, this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 		}
 
 		/** 상태를 리셋한다 */
@@ -137,8 +137,8 @@ namespace SampleEngineName {
 			CFunc.UpdateComponents(this.ItemList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.SkillList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.FXList, a_fDeltaTime);
+			CFunc.UpdateComponents(this.PlayerObjList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
-			CFunc.UpdateComponents(this.PlayerObjDict, a_fDeltaTime);
 
 			/* FIXME: 임시 주석 처리
 			var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oLevelInfo.m_stIDInfo.m_nID03);

@@ -15,7 +15,6 @@ namespace SampleEngineName {
 			NONE = -1,
 			IS_RUNNING,
 			SEL_GRID_INFO,
-			SEL_PLAYER_OBJ,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -44,20 +43,20 @@ namespace SampleEngineName {
 		public STParams Params { get; private set; }
 		public STRecordInfo RecordInfo { get; private set; }
 
+		public List<CEItem> ItemList { get; } = new List<CEItem>();
+		public List<CESkill> SkillList { get; } = new List<CESkill>();
+		public List<CEFX> FXList { get; } = new List<CEFX>();
+		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
+		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
+
 		public bool IsRunning => this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING);
 		public STGridInfo SelGridInfo => this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO);
-		public CEObj SelPlayerObj => this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ);
+		public CEObj SelPlayerObj => this.PlayerObjList[KCDefine.B_VAL_0_INT];
 
 		/** =====> 기타 <===== */
-		private List<CEItem> ItemList { get; } = new List<CEItem>();
-		private List<CESkill> SkillList { get; } = new List<CESkill>();
-		private List<CEFX> FXList { get; } = new List<CEFX>();
-		private List<CEObj> EnemyObjList { get; } = new List<CEObj>();
 		private List<LineRenderer> GridLineList { get; } = new List<LineRenderer>();
-
 		private Dictionary<EKey, bool> BoolDict { get; } = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, STGridInfo> GridInfoDict { get; } = new Dictionary<EKey, STGridInfo>();
-		private Dictionary<EKey, CEObj> PlayerObjDict { get; } = new Dictionary<EKey, CEObj>();
 		
 		/** =====> 객체 <===== */
 		private Dictionary<EObjType, List<CEObj>>[,] ObjDictContainers { get; set; } = null;
