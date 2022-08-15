@@ -183,10 +183,10 @@ public struct STObjTradeInfo {
 /** 객체 정보 테이블 */
 public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	#region 프로퍼티
-	public Dictionary<EObjKinds, STObjInfo> ObjInfoDict { get; private set; } = new Dictionary<EObjKinds, STObjInfo>();
-	public Dictionary<EObjKinds, STObjEnhanceInfo> ObjEnhanceInfoDict { get; private set; } = new Dictionary<EObjKinds, STObjEnhanceInfo>();
-	public Dictionary<EObjKinds, STObjTradeInfo> BuyObjTradeInfoDict { get; private set; } = new Dictionary<EObjKinds, STObjTradeInfo>();
-	public Dictionary<EObjKinds, STObjTradeInfo> SaleObjTradeInfoDict { get; private set; } = new Dictionary<EObjKinds, STObjTradeInfo>();
+	public Dictionary<EObjKinds, STObjInfo> ObjInfoDict { get; } = new Dictionary<EObjKinds, STObjInfo>();
+	public Dictionary<EObjKinds, STObjEnhanceInfo> ObjEnhanceInfoDict { get; } = new Dictionary<EObjKinds, STObjEnhanceInfo>();
+	public Dictionary<EObjKinds, STObjTradeInfo> BuyObjTradeInfoDict { get; } = new Dictionary<EObjKinds, STObjTradeInfo>();
+	public Dictionary<EObjKinds, STObjTradeInfo> SaleObjTradeInfoDict { get; } = new Dictionary<EObjKinds, STObjTradeInfo>();
 
 	private string ObjInfoTablePath {
 		get {

@@ -65,7 +65,7 @@ public struct STProductTradeInfo {
 /** 상품 교환 정보 테이블 */
 public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable> {
 	#region 프로퍼티
-	public Dictionary<EProductKinds, STProductTradeInfo> BuyProductTradeInfoDict { get; private set; } = new Dictionary<EProductKinds, STProductTradeInfo>();
+	public Dictionary<EProductKinds, STProductTradeInfo> BuyProductTradeInfoDict { get; } = new Dictionary<EProductKinds, STProductTradeInfo>();
 
 	private string ProductTradeInfoTablePath {
 		get {

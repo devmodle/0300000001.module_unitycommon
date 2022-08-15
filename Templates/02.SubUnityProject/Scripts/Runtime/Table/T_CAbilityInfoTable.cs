@@ -100,8 +100,8 @@ public struct STAbilityEnhanceInfo {
 /** 어빌리티 정보 테이블 */
 public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	#region 프로퍼티
-	public Dictionary<EAbilityKinds, STAbilityInfo> AbilityInfoDict { get; private set; } = new Dictionary<EAbilityKinds, STAbilityInfo>();
-	public Dictionary<EAbilityKinds, STAbilityEnhanceInfo> AbilityEnhanceInfoDict { get; private set; } = new Dictionary<EAbilityKinds, STAbilityEnhanceInfo>();
+	public Dictionary<EAbilityKinds, STAbilityInfo> AbilityInfoDict { get; } = new Dictionary<EAbilityKinds, STAbilityInfo>();
+	public Dictionary<EAbilityKinds, STAbilityEnhanceInfo> AbilityEnhanceInfoDict { get; } = new Dictionary<EAbilityKinds, STAbilityEnhanceInfo>();
 
 	private string AbilityInfoTablePath {
 		get {

@@ -160,10 +160,10 @@ public struct STItemTradeInfo {
 /** 아이템 정보 테이블 */
 public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	#region 프로퍼티
-	public Dictionary<EItemKinds, STItemInfo> ItemInfoDict { get; private set; } = new Dictionary<EItemKinds, STItemInfo>();
-	public Dictionary<EItemKinds, STItemEnhanceInfo> ItemEnhanceInfoDict { get; private set; } = new Dictionary<EItemKinds, STItemEnhanceInfo>();
-	public Dictionary<EItemKinds, STItemTradeInfo> BuyItemTradeInfoDict { get; private set; } = new Dictionary<EItemKinds, STItemTradeInfo>();
-	public Dictionary<EItemKinds, STItemTradeInfo> SaleItemTradeInfoDict { get; private set; } = new Dictionary<EItemKinds, STItemTradeInfo>();
+	public Dictionary<EItemKinds, STItemInfo> ItemInfoDict { get; } = new Dictionary<EItemKinds, STItemInfo>();
+	public Dictionary<EItemKinds, STItemEnhanceInfo> ItemEnhanceInfoDict { get; } = new Dictionary<EItemKinds, STItemEnhanceInfo>();
+	public Dictionary<EItemKinds, STItemTradeInfo> BuyItemTradeInfoDict { get; } = new Dictionary<EItemKinds, STItemTradeInfo>();
+	public Dictionary<EItemKinds, STItemTradeInfo> SaleItemTradeInfoDict { get; } = new Dictionary<EItemKinds, STItemTradeInfo>();
 
 	private string ItemInfoTablePath {
 		get {

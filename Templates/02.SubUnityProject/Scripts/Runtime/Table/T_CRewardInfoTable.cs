@@ -52,7 +52,7 @@ public struct STRewardInfo {
 /** 보상 정보 테이블 */
 public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	#region 프로퍼티
-	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoDict { get; private set; } = new Dictionary<ERewardKinds, STRewardInfo>();
+	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoDict { get; } = new Dictionary<ERewardKinds, STRewardInfo>();
 
 	private string RewardInfoTablePath {
 		get {

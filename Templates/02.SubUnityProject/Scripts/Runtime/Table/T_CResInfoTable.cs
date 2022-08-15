@@ -51,7 +51,7 @@ public struct STResInfo {
 /** 리소스 정보 테이블 */
 public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	#region 프로퍼티
-	public Dictionary<EResKinds, STResInfo> ResInfoDict { get; private set; } = new Dictionary<EResKinds, STResInfo>();
+	public Dictionary<EResKinds, STResInfo> ResInfoDict { get; } = new Dictionary<EResKinds, STResInfo>();
 
 	private string ResInfoTablePath {
 		get {

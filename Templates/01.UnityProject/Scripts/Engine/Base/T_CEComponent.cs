@@ -23,7 +23,7 @@ namespace SampleEngineName {
 		
 		#region 프로퍼티
 		public STParams Params { get; private set; }
-		public Dictionary<EAbilityKinds, decimal> AbilityValDict { get; private set; } = new Dictionary<EAbilityKinds, decimal>();
+		public Dictionary<EAbilityKinds, decimal> AbilityValDict { get; } = new Dictionary<EAbilityKinds, decimal>();
 		#endregion			// 프로퍼티
 
 		#region 함수

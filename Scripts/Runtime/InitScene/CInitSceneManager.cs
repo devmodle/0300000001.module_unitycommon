@@ -16,10 +16,6 @@ using UnityEngine.Rendering.Universal;
 namespace InitScene {
 	/** 초기화 씬 관리자 */
 	public abstract partial class CInitSceneManager : CSceneManager {
-		#region 변수
-		protected List<string> m_oSpriteAtlasPathList = new List<string>();
-		#endregion			// 변수
-
 		#region 클래스 변수
 		/** =====> 객체 <===== */
 		private static GameObject m_oBlindUIs = null;
@@ -27,6 +23,9 @@ namespace InitScene {
 
 		#region 프로퍼티
 		public override string SceneName => KCDefine.B_SCENE_N_INIT;
+
+		/** =====> 기타 <===== */
+		protected List<string> SpriteAtlasPathList { get; } = new List<string>();
 
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER;
@@ -39,7 +38,7 @@ namespace InitScene {
 			base.Awake();
 
 			for(int i = 0; i < KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST.Count; ++i) {
-				m_oSpriteAtlasPathList.ExAddVal(KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST[i]);
+				this.SpriteAtlasPathList.ExAddVal(KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST[i]);
 			}
 		}
 
@@ -47,8 +46,8 @@ namespace InitScene {
 		public sealed override void Start() {
 			base.Start();
 
-			for(int i = 0; i < m_oSpriteAtlasPathList.Count; ++i) {
-				CResManager.Inst.LoadSpriteAtlas(m_oSpriteAtlasPathList[i]);
+			for(int i = 0; i < this.SpriteAtlasPathList.Count; ++i) {
+				CResManager.Inst.LoadSpriteAtlas(this.SpriteAtlasPathList[i]);
 			}
 
 			StartCoroutine(this.OnStart());

@@ -7,10 +7,6 @@ using UnityEngine.Events;
 namespace SetupScene {
 	/** 설정 씬 관리자 */
 	public abstract partial class CSetupSceneManager : CSceneManager {
-		#region 변수
-		private Dictionary<string, System.Action<string>> m_oDeviceMsgHandlerDict = new Dictionary<string, System.Action<string>>();
-		#endregion			// 변수
-
 		#region 클래스 변수
 		/** =====> 객체 <===== */
 		private static GameObject m_oPopupUIs = null;
@@ -22,6 +18,9 @@ namespace SetupScene {
 
 		#region 프로퍼티
 		public override string SceneName => KCDefine.B_SCENE_N_SETUP;
+
+		/** =====> 기타 <===== */
+		private Dictionary<string, System.Action<string>> DeviceMsgHandlerDict { get; } = new Dictionary<string, System.Action<string>>();
 
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER;
@@ -35,8 +34,8 @@ namespace SetupScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				m_oDeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
-				m_oDeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
+				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
+				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
 
 				CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE, false);
 			}
@@ -54,7 +53,7 @@ namespace SetupScene {
 
 		/** 디바이스 메세지를 수신했을 경우 */
 		private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
-			m_oDeviceMsgHandlerDict.GetValueOrDefault(a_oCmd)?.Invoke(a_oMsg);
+			this.DeviceMsgHandlerDict.GetValueOrDefault(a_oCmd)?.Invoke(a_oMsg);
 		}
 
 		/** 씬을 설정한다 */

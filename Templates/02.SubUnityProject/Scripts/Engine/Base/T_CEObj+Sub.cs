@@ -17,7 +17,7 @@ namespace SampleEngineName {
 			// 스프라이트를 설정한다
 			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
 				(EKey.OBJ_SPRITE, $"{EKey.OBJ_SPRITE}", this.gameObject)
-			}, m_oSpriteDict, false);
+			}, this.SpriteDict, false);
 
 			#region 추가
 			this.SubAwakeSetup();
@@ -30,9 +30,9 @@ namespace SampleEngineName {
 			this.Params = a_stParams;
 
 			// 객체 스프라이트가 존재 할 경우
-			if(m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE) != null) {
-				m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
-				m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
+			if(this.SpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE) != null) {
+				this.SpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
+				this.SpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
 			}
 
 			#region 추가

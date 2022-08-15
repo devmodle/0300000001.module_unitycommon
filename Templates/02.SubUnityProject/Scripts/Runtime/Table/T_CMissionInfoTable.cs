@@ -50,7 +50,7 @@ public struct STMissionInfo {
 /** 미션 정보 테이블 */
 public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	#region 프로퍼티
-	public Dictionary<EMissionKinds, STMissionInfo> MissionInfoDict { get; private set; } = new Dictionary<EMissionKinds, STMissionInfo>();
+	public Dictionary<EMissionKinds, STMissionInfo> MissionInfoDict { get; } = new Dictionary<EMissionKinds, STMissionInfo>();
 
 	private string MissionInfoTablePath {
 		get {

@@ -169,10 +169,10 @@ public struct STSkillTradeInfo {
 /** 스킬 정보 테이블 */
 public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	#region 프로퍼티
-	public Dictionary<ESkillKinds, STSkillInfo> SkillInfoDict { get; private set; } = new Dictionary<ESkillKinds, STSkillInfo>();
-	public Dictionary<ESkillKinds, STSkillEnhanceInfo> SkillEnhanceInfoDict { get; private set; } = new Dictionary<ESkillKinds, STSkillEnhanceInfo>();
-	public Dictionary<ESkillKinds, STSkillTradeInfo> BuySkillTradeInfoDict { get; private set; } = new Dictionary<ESkillKinds, STSkillTradeInfo>();
-	public Dictionary<ESkillKinds, STSkillTradeInfo> SaleSkillTradeInfoDict { get; private set; } = new Dictionary<ESkillKinds, STSkillTradeInfo>();
+	public Dictionary<ESkillKinds, STSkillInfo> SkillInfoDict { get; } = new Dictionary<ESkillKinds, STSkillInfo>();
+	public Dictionary<ESkillKinds, STSkillEnhanceInfo> SkillEnhanceInfoDict { get; } = new Dictionary<ESkillKinds, STSkillEnhanceInfo>();
+	public Dictionary<ESkillKinds, STSkillTradeInfo> BuySkillTradeInfoDict { get; } = new Dictionary<ESkillKinds, STSkillTradeInfo>();
+	public Dictionary<ESkillKinds, STSkillTradeInfo> SaleSkillTradeInfoDict { get; } = new Dictionary<ESkillKinds, STSkillTradeInfo>();
 
 	private string SkillInfoTablePath {
 		get {

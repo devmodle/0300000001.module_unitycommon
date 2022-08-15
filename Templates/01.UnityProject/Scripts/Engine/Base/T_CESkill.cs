@@ -16,12 +16,9 @@ namespace SampleEngineName {
 			public CSkillTargetInfo m_oSkillTargetInfo;
 		}
 
-		#region 변수
-		private List<CEFX> m_oFXList = new List<CEFX>();
-		#endregion			// 변수
-
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
+		private List<CEFX> FXList { get; } = new List<CEFX>();
 		#endregion			// 프로퍼티
 
 		#region 함수

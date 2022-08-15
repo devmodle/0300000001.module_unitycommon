@@ -16,9 +16,9 @@ public static partial class LogFunc {
 	private const string LOG_NAME_PURCHASE = "PurchaseLog";
 	#endregion			// 상수
 
-	#region 클래스 변수
-	private static Dictionary<string, string> m_oLogTimeDict = new Dictionary<string, string>();
-	#endregion			// 클래스 변수
+	#region 클래스 프로퍼티
+	private static Dictionary<string, string> LogTimeDict { get; } = new Dictionary<string, string>();
+	#endregion			// 클래스 프로퍼티
 
 	#region 클래스 함수
 	/** 로그를 전송한다 */
@@ -51,14 +51,14 @@ public static partial class LogFunc {
 #endif			// #if APPS_FLYER_MODULE_ENABLE
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
 
-			LogFunc.m_oLogTimeDict.ExReplaceVal(a_oName, System.DateTime.Now.ExToPSTTime().ExToLongStr());
+			LogFunc.LogTimeDict.ExReplaceVal(a_oName, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 		}
 	}
 
 	/** 로그 전송 가능 여부를 검사한다 */
 	private static bool IsEnableSendLog(string a_oName) {
 		string oLogTime = System.DateTime.Now.ExToPSTTime().ExToLongStr();
-		return LogFunc.m_oLogTimeDict.ContainsKey(a_oName) ? !LogFunc.m_oLogTimeDict[a_oName].Equals(oLogTime) : true;
+		return LogFunc.LogTimeDict.ContainsKey(a_oName) ? !LogFunc.LogTimeDict[a_oName].Equals(oLogTime) : true;
 	}
 
 	/** 로그 데이터를 생성한다 */
@@ -125,7 +125,7 @@ public static partial class LogFunc {
 #endif			// #if APPS_FLYER_MODULE_ENABLE
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
 
-			LogFunc.m_oLogTimeDict.ExReplaceVal(LogFunc.LOG_NAME_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
+			LogFunc.LogTimeDict.ExReplaceVal(LogFunc.LOG_NAME_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE

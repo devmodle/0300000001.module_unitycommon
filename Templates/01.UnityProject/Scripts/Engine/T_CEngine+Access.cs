@@ -20,7 +20,7 @@ namespace SampleEngineName {
 
 		/** 객체를 반환한다 */
 		public List<CEObj> FindObjs(EObjType a_eObjType, Vector3Int a_stIdx) {
-			return m_oObjDictContainers.ExIsValidIdx(a_stIdx) ? m_oObjDictContainers[a_stIdx.y, a_stIdx.x].GetValueOrDefault(a_eObjType) : null;
+			return this.ObjDictContainers.ExIsValidIdx(a_stIdx) ? this.ObjDictContainers[a_stIdx.y, a_stIdx.x].GetValueOrDefault(a_eObjType) : null;
 		}
 
 		/** 최상단 객체를 반환한다 */
@@ -59,7 +59,7 @@ namespace SampleEngineName {
 
 		/** 객체를 반환한다 */
 		public bool TryFindObjs(EObjType a_eObjType, Vector3Int a_stIdx, out List<CEObj> a_oOutObjList) {
-			a_oOutObjList = m_oObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
+			a_oOutObjList = this.ObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
 			return a_oOutObjList != null;
 		}
 

@@ -197,9 +197,9 @@ public struct STEpisodeInfo {
 /** 에피소드 정보 테이블 */
 public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	#region 프로퍼티
-	public Dictionary<ulong, STEpisodeInfo> LevelEpisodeInfoDict { get; private set; } = new Dictionary<ulong, STEpisodeInfo>();
-	public Dictionary<ulong, STEpisodeInfo> StageEpisodeInfoDict { get; private set; } = new Dictionary<ulong, STEpisodeInfo>();
-	public Dictionary<ulong, STEpisodeInfo> ChapterEpisodeInfoDict { get; private set; } = new Dictionary<ulong, STEpisodeInfo>();
+	public Dictionary<ulong, STEpisodeInfo> LevelEpisodeInfoDict { get; } = new Dictionary<ulong, STEpisodeInfo>();
+	public Dictionary<ulong, STEpisodeInfo> StageEpisodeInfoDict { get; } = new Dictionary<ulong, STEpisodeInfo>();
+	public Dictionary<ulong, STEpisodeInfo> ChapterEpisodeInfoDict { get; } = new Dictionary<ulong, STEpisodeInfo>();
 
 	private string EpisodeInfoTablePath {
 		get {

@@ -44,7 +44,7 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
-
+		public Dictionary<ESkillKinds, System.DateTime> ApplySkillTimeDict { get; } = new Dictionary<ESkillKinds, System.DateTime>();
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -53,19 +53,35 @@ namespace SampleEngineName {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+			if(this.IsAutoControl && CSceneManager.IsAppRunning) {
 				// Do Something
 			}
 		}
 
 		/** 이동을 처리한다 */
 		public virtual void Move(Vector3 a_stDirection) {
+			this.SetState(EState.MOVE);
 			m_oVec3Dict[EKey.MOVE_DIRECTION] = a_stDirection;
 		}
 
 		/** 스킬을 적용시킨다 */
 		public virtual void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] = a_oSkillTargetInfo;
+			// 스킬 적용이 가능 할 경우
+			if(this.IsEnableSkillState() && this.IsEnableApplySkill(a_oSkillTargetInfo)) {
+				this.SetState(EState.SKILL);
+				m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] = a_oSkillTargetInfo;
+			}
+		}
+
+		/** 스킬 적용 가능 여부를 검사한다 */
+		protected virtual bool IsEnableApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
+			// 적용 스킬 타겟 정보가 없을 경우
+			if(m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] == null) {
+				return true;
+			}
+
+			var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds);
+			return System.DateTime.Now.ExGetDeltaTime(this.ApplySkillTimeDict.GetValueOrDefault(a_oSkillTargetInfo.SkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT))).ExIsGreateEquals(stSkillInfo.m_stDurationInfo.m_fReuseTime);
 		}
 
 		/** 이동 상태를 처리한다 */
@@ -77,6 +93,11 @@ namespace SampleEngineName {
 
 			float fNextPosY = Mathf.Clamp(stNextPos.y, (stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
 			this.GetOwner<CEObj>().transform.localPosition = new Vector3(Mathf.Clamp(stNextPos.x, stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL), fNextPosY, fNextPosY / stEpisodeInfo.m_stSize.y);
+		}
+
+		/** 스킬 상태를 처리한다 */
+		protected override void HandleSkillState(float a_fDeltaTime) {
+			base.HandleSkillState(a_fDeltaTime);
 		}
 		
 		/** 효과를 설정한다 */

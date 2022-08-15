@@ -37,7 +37,7 @@ namespace SampleEngineName {
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
-			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, false);
+			this.BoolDict.ExReplaceVal(EKey.IS_RUNNING, false);
 
 			#region 추가
 			this.SubReset();
@@ -76,7 +76,7 @@ namespace SampleEngineName {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning && m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+			if(CSceneManager.IsAppRunning && this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
 				switch(this.State) {
 					case EState.PLAY: this.HandlePlayState(a_fDeltaTime); break;
 					case EState.PAUSE: this.HandlePauseState(a_fDeltaTime); break;
@@ -84,7 +84,7 @@ namespace SampleEngineName {
 
 				var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
 				var stEpisodeSize = new Vector3(Mathf.Clamp(stEpisodeInfo.m_stSize.x, KCDefine.B_VAL_0_REAL, stEpisodeInfo.m_stSize.x - KCDefine.B_SCREEN_SIZE.x), Mathf.Clamp(stEpisodeInfo.m_stSize.y, KCDefine.B_VAL_0_REAL, stEpisodeInfo.m_stSize.y - KCDefine.B_SCREEN_SIZE.y), stEpisodeInfo.m_stSize.z) * (KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale);
-				var stMainCameraPos = new Vector3(Mathf.Clamp(m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.y + KDefine.E_OFFSET_MAIN_CAMERA, stEpisodeSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+				var stMainCameraPos = new Vector3(Mathf.Clamp(this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.y + KDefine.E_OFFSET_MAIN_CAMERA, stEpisodeSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 				
 				CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
 			}
@@ -106,25 +106,25 @@ namespace SampleEngineName {
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
 		public void SetEnablePlayerObjAutoControl(bool a_bIsAutoControl) {
-			m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().IsAutoControl = a_bIsAutoControl;
+			this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().IsAutoControl = a_bIsAutoControl;
 		}
 
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stDirection) {
-			m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().Move(a_stDirection);
+			this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().Move(a_stDirection);
 		}
 		
 		/** 플레이어 객체 스킬을 적용한다 */
 		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().ApplySkill(a_oSkillTargetInfo);
+			this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).GetController<CEPlayerObjController>().ApplySkill(a_oSkillTargetInfo);
 		}
 
 		/** 초기화한다 */
 		private void SubInit() {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
-			m_oPlayerObjDict.ExReplaceVal(EKey.SEL_PLAYER_OBJ, this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
+			this.PlayerObjDict.ExReplaceVal(EKey.SEL_PLAYER_OBJ, this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
 
-			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.x, m_oPlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.x, this.PlayerObjDict.GetValueOrDefault(EKey.SEL_PLAYER_OBJ).transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 		}
 
 		/** 상태를 리셋한다 */
@@ -134,32 +134,32 @@ namespace SampleEngineName {
 
 		/** 플레이 상태를 처리한다 */
 		private void HandlePlayState(float a_fDeltaTime) {
-			CFunc.UpdateComponents(m_oItemList, a_fDeltaTime);
-			CFunc.UpdateComponents(m_oSkillList, a_fDeltaTime);
-			CFunc.UpdateComponents(m_oFXList, a_fDeltaTime);
-			CFunc.UpdateComponents(m_oEnemyObjList, a_fDeltaTime);
-			CFunc.UpdateComponents(m_oPlayerObjDict, a_fDeltaTime);
+			CFunc.UpdateComponents(this.ItemList, a_fDeltaTime);
+			CFunc.UpdateComponents(this.SkillList, a_fDeltaTime);
+			CFunc.UpdateComponents(this.FXList, a_fDeltaTime);
+			CFunc.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
+			CFunc.UpdateComponents(this.PlayerObjDict, a_fDeltaTime);
 
 			/* FIXME: 임시 주석 처리
 			var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
 			var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
 			try {
-				for(int i = 0; i < m_oEnemyObjList.Count; ++i) {
-					int nNumEnemyObjs = oNumEnemyObjsDict.GetValueOrDefault(m_oEnemyObjList[i].Params.m_stObjInfo.m_eObjKinds);
-					oNumEnemyObjsDict.ExReplaceVal(m_oEnemyObjList[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
+				for(int i = 0; i < this.EnemyObjList.Count; ++i) {
+					int nNumEnemyObjs = oNumEnemyObjsDict.GetValueOrDefault(this.EnemyObjList[i].Params.m_stObjInfo.m_eObjKinds);
+					oNumEnemyObjsDict.ExReplaceVal(this.EnemyObjList[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
 				}
 
 				foreach(var stKeyVal in stEpisodeInfo.m_oEnemyObjTargetInfoDict) {
 					// 적 객체 생성이 가능 할 경우
-					if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.m_nKinds) < stKeyVal.Value.m_stValInfo01.m_nVal && m_oEnemyObjList.Count < stEpisodeInfo.m_nMaxNumEnemyObjs) {
+					if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.m_nKinds) < stKeyVal.Value.m_stValInfo01.m_nVal && this.EnemyObjList.Count < stEpisodeInfo.m_nMaxNumEnemyObjs) {
 						float fPosX = Random.Range(stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL);
 						float fPosY = Random.Range(stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
 
 						var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.m_nKinds), null, null);
 						oEnemyObj.transform.localPosition = new Vector3(fPosX, fPosY, fPosY / stEpisodeInfo.m_stSize.y);
 
-						m_oEnemyObjList.ExAddVal(oEnemyObj);
+						this.EnemyObjList.ExAddVal(oEnemyObj);
 					}
 				}
 			} finally {
@@ -176,24 +176,24 @@ namespace SampleEngineName {
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
+			if(this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
+			if(this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
+			if(this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 		#endregion			// 함수

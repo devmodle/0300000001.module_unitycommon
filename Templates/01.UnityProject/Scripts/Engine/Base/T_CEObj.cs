@@ -23,13 +23,12 @@ namespace SampleEngineName {
 			public CObjTargetInfo m_oObjTargetInfo;
 		}
 
-		#region 변수
-		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
-		#endregion			// 변수
-
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
 		public Vector3Int Idx { get; set; } = Vector3Int.zero;
+
+		/** =====> 기타 <===== */
+		private Dictionary<EKey, SpriteRenderer> SpriteDict { get; } = new Dictionary<EKey, SpriteRenderer>();
 		#endregion			// 프로퍼티
 
 		#region 함수

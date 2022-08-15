@@ -23,7 +23,7 @@ namespace SampleEngineName {
 		public virtual void Init(STParams a_stParams) {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
-
+			
 			#region 추가
 			this.SubInit();
 			#endregion			// 추가
@@ -61,15 +61,12 @@ namespace SampleEngineName {
 		/** 이동을 처리한다 */
 		public override void Move(Vector3 a_stDirection) {
 			base.Move(a_stDirection);
-
-			this.SetState(EState.MOVE);
 			this.SetState((this.State == EState.MOVE && a_stDirection.ExIsEquals(Vector3.zero)) ? EState.IDLE : this.State);
 		}
 
 		/** 스킬을 적용한다 */
 		public override void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
 			base.ApplySkill(a_oSkillTargetInfo);
-			this.SetState(EState.SKILL);
 		}
 
 		/** 대기 상태를 처리한다 */

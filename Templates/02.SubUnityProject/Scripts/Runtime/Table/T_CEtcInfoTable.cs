@@ -43,7 +43,7 @@ public struct STCalcInfo {
 /** 기타 정보 테이블 */
 public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 	#region 프로퍼티
-	public Dictionary<ECalcKinds, STCalcInfo> CalcInfoDict { get; private set; } = new Dictionary<ECalcKinds, STCalcInfo>();
+	public Dictionary<ECalcKinds, STCalcInfo> CalcInfoDict { get; } = new Dictionary<ECalcKinds, STCalcInfo>();
 
 	private string EtcInfoTablePath {
 		get {

@@ -174,8 +174,8 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public int PlayCharacterID { get; set; } = KDefine.G_ID_COMMON_CHARACTER;
 	public EPlayMode PlayMode { get; set; } = EPlayMode.NONE;
 	public CLevelInfo PlayLevelInfo { get; set; } = null;
-	public List<EItemKinds> SelItemKindsList { get; private set; } = new List<EItemKinds>();
-	public List<EItemKinds> FreeSelItemKindsList { get; private set; } = new List<EItemKinds>();
+	public List<EItemKinds> SelItemKindsList { get; } = new List<EItemKinds>();
+	public List<EItemKinds> FreeSelItemKindsList { get; } = new List<EItemKinds>();
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
 		m_oCharacterGameInfoDict = new Dictionary<int, CCharacterGameInfo>() {

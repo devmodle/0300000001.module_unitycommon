@@ -17,21 +17,21 @@ using UnityEditor.iOS.Xcode;
 /** 빌드 처리자 */
 [InitializeOnLoad]
 public static partial class CBuildProcessor {
-	#region 클래스 변수
-	private static Dictionary<BuildTarget, System.Action<BuildTarget, string>> m_oPostProcessHandlerDict = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
+	#region 상수
+	private static readonly Dictionary<BuildTarget, System.Action<BuildTarget, string>> POST_PROCESS_HANDLER_DICT = new Dictionary<BuildTarget, System.Action<BuildTarget, string>>() {
 		[BuildTarget.iOS] = CBuildProcessor.HandleiOSPostProcessBuild,
 		[BuildTarget.Android] = CBuildProcessor.HandleAndroidPostProcessBuild,
 		[BuildTarget.StandaloneOSX] = CBuildProcessor.HandleStandalonePostProcessBuild,
 		[BuildTarget.StandaloneWindows] = CBuildProcessor.HandleStandalonePostProcessBuild,
 		[BuildTarget.StandaloneWindows64] = CBuildProcessor.HandleStandalonePostProcessBuild
 	};
-	#endregion			// 클래스 변수
+	#endregion			// 상수
 	
 	#region 클래스 함수
 	/** 빌드가 완료 되었을 경우 */
 	[PostProcessBuild]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
-		CBuildProcessor.m_oPostProcessHandlerDict.GetValueOrDefault(a_eTarget)?.Invoke(a_eTarget, a_oPath);
+		POST_PROCESS_HANDLER_DICT.GetValueOrDefault(a_eTarget)?.Invoke(a_eTarget, a_oPath);
 	}
 
 	/** 빌드가 완료 되었을 경우 */

@@ -52,7 +52,7 @@ public struct STFXInfo {
 /** 효과 정보 테이블 */
 public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	#region 프로퍼티
-	public Dictionary<EFXKinds, STFXInfo> FXInfoDict { get; private set; } = new Dictionary<EFXKinds, STFXInfo>();
+	public Dictionary<EFXKinds, STFXInfo> FXInfoDict { get; } = new Dictionary<EFXKinds, STFXInfo>();
 
 	private string FXInfoTablePath {
 		get {

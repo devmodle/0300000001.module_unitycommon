@@ -57,7 +57,7 @@ public struct STTutorialInfo {
 /** 튜토리얼 정보 테이블 */
 public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	#region 프로퍼티
-	public Dictionary<ETutorialKinds, STTutorialInfo> TutorialInfoDict { get; private set; } = new Dictionary<ETutorialKinds, STTutorialInfo>();
+	public Dictionary<ETutorialKinds, STTutorialInfo> TutorialInfoDict { get; } = new Dictionary<ETutorialKinds, STTutorialInfo>();
 
 	private string TutorialInfoTablePath {
 		get {

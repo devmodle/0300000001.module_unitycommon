@@ -22,7 +22,7 @@ namespace LateSetupScene {
 #endif			// #if UNITY_EDITOR
 
 #if UNITY_ANDROID
-		public List<string> m_oUserPermissionList { get; private set; } = new List<string>();
+		public List<string> UserPermissionList { get; } = new List<string>();
 #endif			// #if UNITY_ANDROID
 
 #if ADS_MODULE_ENABLE
@@ -242,8 +242,8 @@ namespace LateSetupScene {
 		private void ApplyUserPermissions() {
 #if UNITY_ANDROID
 			// 유저 권한이 필요 할 경우
-			if(m_oUserPermissionList.ExIsValid()) {
-				this.RequestUserPermission(m_oUserPermissionList[KCDefine.B_VAL_0_INT], this.OnReceiveRequestUserPermissionResult);
+			if(this.UserPermissionList.ExIsValid()) {
+				this.RequestUserPermission(this.UserPermissionList[KCDefine.B_VAL_0_INT], this.OnReceiveRequestUserPermissionResult);
 			} else {
 				this.LoadNextScene();
 			}
@@ -287,7 +287,7 @@ namespace LateSetupScene {
 
 		/** 유저 권한 요청 결과를 수신했을 경우 */
 		private void OnReceiveRequestUserPermissionResult(string a_oPermission, bool a_bIsSuccess) {
-			m_oUserPermissionList.ExRemoveVal(a_oPermission);
+			this.UserPermissionList.ExRemoveVal(a_oPermission);
 			this.ExLateCallFunc((a_oSender) => this.ApplyUserPermissions());
 		}
 #endif			// #if UNITY_ANDROID
