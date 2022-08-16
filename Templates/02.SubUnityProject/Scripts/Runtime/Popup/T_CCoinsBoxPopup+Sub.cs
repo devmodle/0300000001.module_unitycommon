@@ -42,7 +42,7 @@ public partial class CCoinsBoxPopup : CSubPopup {
 	/** UI 상태를 변경한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
-		long nNumCoinsBoxCoins = Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS_BOX_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS);
+		long nNumCoinsBoxCoins = (long)Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS_BOX_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS);
 
 		m_oSaveUIs?.SetActive(nNumCoinsBoxCoins < KDefine.G_MAX_NUM_COINS_BOX_COINS);
 		m_oFullUIs?.SetActive(nNumCoinsBoxCoins >= KDefine.G_MAX_NUM_COINS_BOX_COINS);

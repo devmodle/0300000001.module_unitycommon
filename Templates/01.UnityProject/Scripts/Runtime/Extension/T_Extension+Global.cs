@@ -30,13 +30,13 @@ public static partial class Extension {
 	}
 
 	/** 타겟 값을 증가시킨다 */
-	public static void ExIncrTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal, bool a_bIsEnableAssert = true) {
+	public static void ExIncrTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
-		a_oSender.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, System.Math.Clamp(a_oSender.ExGetTargetVal(a_eTargetKinds, a_nKinds) + a_nVal, long.MinValue, long.MaxValue), a_bIsEnableAssert);
+		a_oSender.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_oSender.ExGetTargetVal(a_eTargetKinds, a_nKinds) + a_dmVal, a_bIsEnableAssert);
 	}
 
 	/** 타겟 값을 대체한다 */
-	public static void ExReplaceTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal, bool a_bIsEnableAssert = true) {
+	public static void ExReplaceTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
 
 		// 타겟 정보가 존재 할 경우
@@ -44,7 +44,7 @@ public static partial class Extension {
 			a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stAbilityTargetInfo);
 			stAbilityTargetInfo.m_nKinds = a_nKinds;
 			stAbilityTargetInfo.m_eTargetKinds = ETargetKinds.ABILITY;
-			stAbilityTargetInfo.m_stValInfo01.m_nVal = System.Math.Clamp(a_nVal, long.MinValue, long.MaxValue);
+			stAbilityTargetInfo.m_stValInfo01.m_dmVal = System.Math.Clamp(a_dmVal, decimal.MinValue, decimal.MaxValue);
 			stAbilityTargetInfo.m_stValInfo01.m_eValType = EValType.INT;
 
 			a_oSender.ExReplaceVal(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), stAbilityTargetInfo);

@@ -30,8 +30,8 @@ public static partial class AccessExtension {
 	}
 	
 	/** 타겟 값을 반환한다 */
-	public static long ExGetTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {
-		return a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo) ? stTargetInfo.m_stValInfo01.m_nVal : KCDefine.B_VAL_0_INT;
+	public static decimal ExGetTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {
+		return a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo) ? stTargetInfo.m_stValInfo01.m_dmVal : KCDefine.B_VAL_0_INT;
 	}
 
 	/** 타겟 정보를 반환한다 */

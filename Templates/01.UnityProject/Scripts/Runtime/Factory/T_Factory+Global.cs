@@ -92,10 +92,10 @@ public static partial class Factory {
 	/** 기본 어빌리티 타겟 정보를 생성한다 */
 	private static Dictionary<ulong, STTargetInfo> MakeDefAbilityTargetInfos() {
 		return new Dictionary<ulong, STTargetInfo>() {
-			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
-			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
-			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
-			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo() { m_nVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT })
+			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_dmVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
+			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_dmVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
+			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_dmVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
+			[Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo() { m_dmVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT })
 		};
 	}
 	#endregion			// 클래스 함수

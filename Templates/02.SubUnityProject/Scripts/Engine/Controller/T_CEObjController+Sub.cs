@@ -80,8 +80,8 @@ namespace SampleEngineName {
 				return true;
 			}
 
-			var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds);
-			return System.DateTime.Now.ExGetDeltaTime(this.ApplySkillTimeDict.GetValueOrDefault(a_oSkillTargetInfo.SkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT))).ExIsGreateEquals(stSkillInfo.m_stDurationInfo.m_fReuseTime);
+			var stApplySkillTime = this.ApplySkillTimeDict.GetValueOrDefault(a_oSkillTargetInfo.SkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT));
+			return System.DateTime.Now.ExGetDeltaTime(stApplySkillTime).ExIsGreateEquals(CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds).m_fDelay);
 		}
 
 		/** 이동 상태를 처리한다 */

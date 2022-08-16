@@ -10,8 +10,9 @@ using UnityEngine.Events;
 [System.Serializable]
 public struct STSkillInfo {
 	public STCommonInfo m_stCommonInfo;
-	public STDurationInfo m_stDurationInfo;
+	public STTimeInfo m_stTimeInfo;
 
+	public float m_fDelay;
 	public ESkillKinds m_eSkillKinds;
 	public ESkillKinds m_ePrevSkillKinds;
 	public ESkillKinds m_eNextSkillKinds;
@@ -19,7 +20,6 @@ public struct STSkillInfo {
 
 	public List<EFXKinds> m_oFXKindsList;
 	public List<EResKinds> m_oResKindsList;
-
 	public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict;
 
 	#region 상수
@@ -40,8 +40,9 @@ public struct STSkillInfo {
 	/** 생성자 */
 	public STSkillInfo(SimpleJSON.JSONNode a_oSkillInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oSkillInfo);
-		m_stDurationInfo = new STDurationInfo(a_oSkillInfo[KCDefine.U_KEY_DURATION_INFO]);
+		m_stTimeInfo = new STTimeInfo(a_oSkillInfo[KCDefine.U_KEY_TIME_INFO]);
 
+		m_fDelay = a_oSkillInfo[KCDefine.U_KEY_DELAY].ExIsValid() ? a_oSkillInfo[KCDefine.U_KEY_DELAY].AsFloat : KCDefine.B_VAL_0_REAL;
 		m_eSkillKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_ePrevSkillKinds = a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_eNextSkillKinds = a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].AsInt : ESkillKinds.NONE;
@@ -49,7 +50,6 @@ public struct STSkillInfo {
 
 		m_oFXKindsList = new List<EFXKinds>();
 		m_oResKindsList = new List<EResKinds>();
-
 		m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		for(int i = 0; i < KDefine.G_MAX_NUM_FX_KINDS; ++i) {

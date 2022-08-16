@@ -153,17 +153,17 @@ public static partial class Access {
 	}
 
 	/** 아이템 타겟 값을 반환한다 */
-	public static long GetItemTargetVal(int a_nCharacterID, EItemKinds a_eItemKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
+	public static decimal GetItemTargetVal(int a_nCharacterID, EItemKinds a_eItemKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return Access.GetItemTargetInfo(a_nCharacterID, a_eItemKinds, true).m_oAbilityTargetInfoDict.ExGetTargetVal(a_eTargetKinds, a_nKinds);
 	}
 
 	/** 스킬 타겟 값을 반환한다 */
-	public static long GetSkillTargetVal(int a_nCharacterID, ESkillKinds a_eSkillKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
+	public static decimal GetSkillTargetVal(int a_nCharacterID, ESkillKinds a_eSkillKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return Access.GetSkillTargetInfo(a_nCharacterID, a_eSkillKinds, true).m_oAbilityTargetInfoDict.ExGetTargetVal(a_eTargetKinds, a_nKinds);
 	}
 
 	/** 객체 타겟 값을 반환한다 */
-	public static long GetObjTargetVal(int a_nCharacterID, EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
+	public static decimal GetObjTargetVal(int a_nCharacterID, EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return Access.GetObjTargetInfo(a_nCharacterID, a_eObjKinds, true).m_oAbilityTargetInfoDict.ExGetTargetVal(a_eTargetKinds, a_nKinds);
 	}
 
@@ -269,18 +269,18 @@ public static partial class Access {
 	}
 
 	/** 아이템 타겟 값을 변경한다 */
-	public static void SetItemTargetVal(int a_nCharacterID, EItemKinds a_eItemKinds, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal) {
-		Access.GetItemTargetInfo(a_nCharacterID, a_eItemKinds, true).m_oAbilityTargetInfoDict.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_nVal);
+	public static void SetItemTargetVal(int a_nCharacterID, EItemKinds a_eItemKinds, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal) {
+		Access.GetItemTargetInfo(a_nCharacterID, a_eItemKinds, true).m_oAbilityTargetInfoDict.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_dmVal);
 	}
 
 	/** 스킬 타겟 값을 변경한다 */
-	public static void SetSkillTargetVal(int a_nCharacterID, ESkillKinds a_eSkillKinds, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal) {
-		Access.GetSkillTargetInfo(a_nCharacterID, a_eSkillKinds, true).m_oAbilityTargetInfoDict.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_nVal);
+	public static void SetSkillTargetVal(int a_nCharacterID, ESkillKinds a_eSkillKinds, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal) {
+		Access.GetSkillTargetInfo(a_nCharacterID, a_eSkillKinds, true).m_oAbilityTargetInfoDict.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_dmVal);
 	}
 
 	/** 객체 타겟 값을 변경한다 */
-	public static void SetObjTargetVal(int a_nCharacterID, EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds, long a_nVal) {
-		Access.GetObjTargetInfo(a_nCharacterID, a_eObjKinds, true).m_oAbilityTargetInfoDict.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_nVal);
+	public static void SetObjTargetVal(int a_nCharacterID, EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal) {
+		Access.GetObjTargetInfo(a_nCharacterID, a_eObjKinds, true).m_oAbilityTargetInfoDict.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_dmVal);
 	}
 
 	/** 아이템 타겟 교환 가능 여부를 검사한다 */
@@ -311,10 +311,10 @@ public static partial class Access {
 		// 타겟 정보가 존재 할 경우
 		if(a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
-				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
-				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
-				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_nVal >= a_stTargetInfo.m_stValInfo01.m_nVal;
+				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
 			}
 		}
 

@@ -66,13 +66,13 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		oJSONArray.Add($"{m_nKinds}");
 
 		oJSONArray.Add($"{(int)m_stValInfo01.m_eValType}");
-		oJSONArray.Add((m_stValInfo01.m_eValType == EValType.INT) ? $"{m_stValInfo01.m_nVal}" : $"{m_stValInfo01.m_dblVal}");
+		oJSONArray.Add($"{m_stValInfo01.m_dmVal}");
 
 		oJSONArray.Add($"{(int)m_stValInfo02.m_eValType}");
-		oJSONArray.Add((m_stValInfo02.m_eValType == EValType.INT) ? $"{m_stValInfo02.m_nVal}" : $"{m_stValInfo02.m_dblVal}");
+		oJSONArray.Add($"{m_stValInfo02.m_dmVal}");
 
 		oJSONArray.Add($"{(int)m_stValInfo03.m_eValType}");
-		oJSONArray.Add((m_stValInfo03.m_eValType == EValType.INT) ? $"{m_stValInfo03.m_nVal}" : $"{m_stValInfo03.m_dblVal}");
+		oJSONArray.Add($"{m_stValInfo03.m_dmVal}");
 
 		a_oOutTargetInfo.Add(a_oKey, oJSONArray);
 	}

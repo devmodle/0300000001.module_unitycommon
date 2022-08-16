@@ -152,7 +152,7 @@ namespace SampleEngineName {
 
 				foreach(var stKeyVal in stEpisodeInfo.m_oEnemyObjTargetInfoDict) {
 					// 적 객체 생성이 가능 할 경우
-					if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.m_nKinds) < stKeyVal.Value.m_stValInfo01.m_nVal && this.EnemyObjList.Count < stEpisodeInfo.m_nMaxNumEnemyObjs) {
+					if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.m_nKinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjList.Count < stEpisodeInfo.m_nMaxNumEnemyObjs) {
 						float fPosX = Random.Range(stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL);
 						float fPosY = Random.Range(stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
 

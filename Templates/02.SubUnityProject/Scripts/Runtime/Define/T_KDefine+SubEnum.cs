@@ -9,6 +9,18 @@ using UnityEngine.Events;
 /** 서브 열거형 값 */
 public static partial class KEnumVal {
 	#region 기본
+	// 스킬 종류
+	public const int PLAYER_ACTION_ATK_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 0);
+	public const int NORM_ENEMY_ACTION_ATK_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 1);
+	public const int BOSS_ENEMY_ACTION_ATK_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 2);
+
+	// 객체 종류 {
+	public const int CHARACTER_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.PLAYABLE) + ((int)EEnumVal.SUB_TYPE * 0);
+
+	public const int NORM_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 1);
+	public const int BOSS_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 2);
+	// 객체 종류 }
+
 	// 타겟 종류
 	public const int LV_TARGET_SUB_KINDS_TYPE_VAL = 1;
 	public const int EXP_TARGET_SUB_KINDS_TYPE_VAL = 2;
@@ -345,7 +357,13 @@ public enum ESkillKinds {
 
 	#region 액션
 	// 0
-	ACTION_ATK_01 = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACTION_PLAYER_ATK_01_01 = KEnumVal.PLAYER_ACTION_ATK_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 10,000,000
+	ACTION_NORM_ENEMY_ATK_01_01 = KEnumVal.NORM_ENEMY_ACTION_ATK_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 20,000,000
+	ACTION_BOSS_ENEMY_ATK_01_01 = KEnumVal.BOSS_ENEMY_ACTION_ATK_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 액션
 
 	#region 액티브
@@ -394,7 +412,7 @@ public enum EObjKinds {
 
 	#region 플레이 가능
 	// 300,000,000
-	PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	PLAYABLE_COMMON_CHARACTER_01 = KEnumVal.CHARACTER_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 플레이 가능
 
 	#region 플레이 불가능
@@ -404,7 +422,10 @@ public enum EObjKinds {
 
 	#region 적
 	// 500,000,000
-	ENEMY_OBJ_SAMPLE = (EEnumVal.TYPE * 5) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ENEMY_NORM_01_01 = KEnumVal.NORM_ENEMY_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+
+	// 510,000,000
+	ENEMY_BOSS_01_01 = KEnumVal.BOSS_ENEMY_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 적
 
 	[HideInInspector] MAX_VAL

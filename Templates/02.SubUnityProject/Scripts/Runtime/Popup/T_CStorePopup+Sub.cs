@@ -71,19 +71,14 @@ public partial class CStorePopup : CSubPopup {
 
 			// 텍스트를 갱신한다 {
 			var oPriceText = a_oProductBuyUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
-			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductTradeInfo.m_oPayTargetInfoDict.First().Value.m_stValInfo01.m_nVal), EFontSet._1, false);
+			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductTradeInfo.m_oPayTargetInfoDict.First().Value.m_stValInfo01.m_dmVal), EFontSet._1, false);
 
 			var oAcquireTargetInfoKeyList = a_stProductTradeInfo.m_oAcquireTargetInfoDict.Keys.ToList();
 			a_oProductBuyUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stProductTradeInfo.m_stCommonInfo.m_oName, EFontSet._1, false);
 
 			for(int i = 0; i < oAcquireTargetInfoKeyList.Count; ++i) {
-				var oNumText = a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
 				var nUniqueTargetInfoID = oAcquireTargetInfoKeyList[i];
-
-				switch(a_stProductTradeInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_eValType) {
-					case EValType.INT: oNumText?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_nVal}", EFontSet._1, false); break;
-					case EValType.REAL: oNumText?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_dblVal}", EFontSet._1, false); break;
-				}
+				a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT))?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_dmVal}", EFontSet._1, false);
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE

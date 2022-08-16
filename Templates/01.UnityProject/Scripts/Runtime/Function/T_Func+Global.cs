@@ -22,8 +22,8 @@ public static partial class Func {
 			var stAbilityInfo = CAbilityInfoTable.Inst.GetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds.ExKindsToCorrectKinds(a_stTargetInfo.m_eKindsGroupType));
 			var eAbilityKinds = (EAbilityKinds)a_stTargetInfo.Kinds.ExKindsToCorrectKinds(a_stTargetInfo.m_eKindsGroupType).ExKindsToSubKindsType();
 
-			decimal dmAbilityVal = (stAbilityInfo.m_stValInfo.m_eValType == EValType.INT) ? stAbilityInfo.m_stValInfo.m_nVal : (decimal)stAbilityInfo.m_stValInfo.m_dblVal / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT;
-			a_oOutAbilityValDict.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutAbilityValDict.GetValueOrDefault(eAbilityKinds) + (dmAbilityVal * a_stTargetInfo.m_stValInfo01.m_nVal), decimal.MinValue, decimal.MaxValue), a_bIsEnableAssert);
+			decimal dmAbilityVal = (stAbilityInfo.m_stValInfo.m_eValType == EValType.INT) ? stAbilityInfo.m_stValInfo.m_dmVal : (decimal)stAbilityInfo.m_stValInfo.m_dmVal / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT;
+			a_oOutAbilityValDict.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutAbilityValDict.GetValueOrDefault(eAbilityKinds) + (dmAbilityVal * a_stTargetInfo.m_stValInfo01.m_dmVal), decimal.MinValue, decimal.MaxValue), a_bIsEnableAssert);
 
 			foreach(var stKeyVal in stAbilityInfo.m_oExtraAbilityTargetInfoDict) {
 				Func.SetupAbilityVals(stKeyVal.Value, a_oOutAbilityValDict, a_bIsEnableAssert);
@@ -409,10 +409,10 @@ public static partial class Func {
 		// 타겟 정보가 존재 할 경우
 		if(a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
 			}
 		}
 	}
@@ -424,17 +424,17 @@ public static partial class Func {
 		// 타겟 정보가 존재 할 경우
 		if(a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
-				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo01.m_nVal, a_bIsEnableAssert); break;
+				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
 			}
 			
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, out STTargetInfo stLVAbilityTargetInfo);
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stNumsAbilityTargetInfo);
 
-			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, System.Math.Clamp(stLVAbilityTargetInfo.m_stValInfo01.m_nVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
-			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, System.Math.Clamp(stNumsAbilityTargetInfo.m_stValInfo01.m_nVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, System.Math.Clamp(stLVAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, System.Math.Clamp(stNumsAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
 		}
 	}
 	#endregion			// 클래스 함수

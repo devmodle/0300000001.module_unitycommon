@@ -10,7 +10,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public struct STFXInfo {
 	public STCommonInfo m_stCommonInfo;
-	public STDurationInfo m_stDurationInfo;
+	public STTimeInfo m_stTimeInfo;
 
 	public EFXKinds m_eFXKinds;
 	public EFXKinds m_ePrevFXKinds;
@@ -33,7 +33,7 @@ public struct STFXInfo {
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oFXInfo);
-		m_stDurationInfo = new STDurationInfo(a_oFXInfo[KCDefine.U_KEY_DURATION_INFO]);
+		m_stTimeInfo = new STTimeInfo(a_oFXInfo[KCDefine.U_KEY_TIME_INFO]);
 
 		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
