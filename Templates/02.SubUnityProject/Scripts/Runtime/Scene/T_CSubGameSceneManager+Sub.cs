@@ -206,9 +206,9 @@ namespace GameScene {
 			if(CSceneManager.IsAppRunning) {
 				m_oEngine.OnUpdate(a_fDeltaTime);
 
-				// UI 상태 갱신 모드 일 경우
-				if(m_oBoolDict.GetValueOrDefault(EKey.IS_UPDATE_UIS_STATE)) {
-					m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, false);
+				// UI 갱신이 필요 할 경우
+				if(!m_oBoolDict.GetValueOrDefault(EKey.IS_UPDATE_UIS_STATE)) {
+					m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, true);
 				}
 			}
 		}

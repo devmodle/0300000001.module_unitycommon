@@ -63,11 +63,18 @@ namespace SampleEngineName {
 		/** 대기 상태를 처리한다 */
 		protected override void HandleIdleState(float a_fDeltaTime) {
 			base.HandleIdleState(a_fDeltaTime);
+			this.Move((this.GetOwner<CEObj>().transform.localPosition - base.Params.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition).normalized);
 		}
 
 		/** 이동 상태를 처리한다 */
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
+			var stDelta = this.GetOwner<CEObj>().transform.localPosition - base.Params.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition;
+
+			// 플레이어 객체가 공격 범위 안에 있을 경우
+			if(stDelta.magnitude.ExIsLessEquals((float)this.GetOwner<CEObj>().AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_ATK_RANGE_01))) {
+				this.ApplySkill(CSkillInfoTable.Inst.GetSkillInfo(this.GetOwner<CEObj>().Params.m_stObjInfo.m_eActionSkillKinds), null);
+			}
 		}
 
 		/** 스킬 상태를 처리한다 */

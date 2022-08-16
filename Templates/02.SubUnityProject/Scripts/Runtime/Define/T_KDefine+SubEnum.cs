@@ -10,15 +10,15 @@ using UnityEngine.Events;
 public static partial class KEnumVal {
 	#region 기본
 	// 스킬 종류
-	public const int PLAYER_ACTION_ATK_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 0);
-	public const int NORM_ENEMY_ACTION_ATK_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 1);
-	public const int BOSS_ENEMY_ACTION_ATK_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 2);
+	public const int PLAYER_ATK_ACTION_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 0);
+	public const int NORM_ENEMY_ATK_ACTION_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 1);
+	public const int BOSS_ENEMY_ATK_ACTION_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 2);
 
 	// 객체 종류 {
 	public const int CHARACTER_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.PLAYABLE) + ((int)EEnumVal.SUB_TYPE * 0);
 
-	public const int NORM_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 1);
-	public const int BOSS_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 2);
+	public const int NORM_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 0);
+	public const int BOSS_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 1);
 	// 객체 종류 }
 
 	// 타겟 종류
@@ -357,13 +357,13 @@ public enum ESkillKinds {
 
 	#region 액션
 	// 0
-	ACTION_PLAYER_ATK_01_01 = KEnumVal.PLAYER_ACTION_ATK_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACTION_PLAYER_ATK_01_01 = KEnumVal.PLAYER_ATK_ACTION_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 10,000,000
-	ACTION_NORM_ENEMY_ATK_01_01 = KEnumVal.NORM_ENEMY_ACTION_ATK_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACTION_NORM_ENEMY_ATK_01_01 = KEnumVal.NORM_ENEMY_ATK_ACTION_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 20,000,000
-	ACTION_BOSS_ENEMY_ATK_01_01 = KEnumVal.BOSS_ENEMY_ACTION_ATK_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACTION_BOSS_ENEMY_ATK_01_01 = KEnumVal.BOSS_ENEMY_ATK_ACTION_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 액션
 
 	#region 액티브

@@ -44,7 +44,7 @@ namespace SampleEngineName {
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public Dictionary<ESkillKinds, System.DateTime> ApplySkillTimeDict { get; } = new Dictionary<ESkillKinds, System.DateTime>();
+
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -61,7 +61,7 @@ namespace SampleEngineName {
 		/** 이동을 처리한다 */
 		public virtual void Move(Vector3 a_stDirection) {
 			this.SetState(EState.MOVE);
-			m_oVec3Dict[EKey.MOVE_DIRECTION] = a_stDirection;
+			this.Vec3Dict.ExReplaceVal(EKey.MOVE_DIRECTION, a_stDirection);
 		}
 
 		/** 스킬을 적용시킨다 */
@@ -69,14 +69,17 @@ namespace SampleEngineName {
 			// 스킬 적용이 가능 할 경우
 			if(this.IsEnableSkillState() && this.IsEnableApplySkill(a_stSkillInfo, a_oSkillTargetInfo)) {
 				this.SetState(EState.SKILL);
-				m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] = a_oSkillTargetInfo;
+				this.ApplySkillTimeDict.ExReplaceVal(a_oSkillTargetInfo.SkillKinds, System.DateTime.Now);
+
+				this.SkillInfoDict.ExReplaceVal(EKey.APPLY_SKILL_INFO, a_stSkillInfo);
+				this.SkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, a_oSkillTargetInfo);
 			}
 		}
 
 		/** 스킬 적용 가능 여부를 검사한다 */
 		protected virtual bool IsEnableApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 적용 스킬 타겟 정보가 없을 경우
-			if(m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] == null) {
+			if(this.SkillInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_INFO).m_eSkillKinds == ESkillKinds.NONE || this.SkillTargetInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_TARGET_INFO) == null) {
 				return true;
 			}
 
@@ -88,7 +91,7 @@ namespace SampleEngineName {
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
 
-			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((this.MoveDirection * (float)this.GetOwner<CEObj>().AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
+			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((this.Vec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION) * (float)this.GetOwner<CEObj>().AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
 			var stEpisodeInfo = global::Access.GetEpisodeInfo(base.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, base.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, base.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
 
 			float fNextPosY = Mathf.Clamp(stNextPos.y, (stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
