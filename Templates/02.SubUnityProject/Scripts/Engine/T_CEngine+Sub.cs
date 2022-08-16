@@ -116,7 +116,8 @@ namespace SampleEngineName {
 		
 		/** 플레이어 객체 스킬을 적용한다 */
 		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().ApplySkill(a_oSkillTargetInfo);
+			var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds);
+			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
 		}
 
 		/** 초기화한다 */
@@ -140,7 +141,6 @@ namespace SampleEngineName {
 			CFunc.UpdateComponents(this.PlayerObjList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
 
-			/* FIXME: 임시 주석 처리
 			var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
 			var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
@@ -165,7 +165,6 @@ namespace SampleEngineName {
 			} finally {
 				CCollectionManager.Inst.DespawnDict(oNumEnemyObjsDict);
 			}
-			*/
 		}
 
 		/** 정지 상태를 처리한다 */

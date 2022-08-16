@@ -65,23 +65,23 @@ namespace SampleEngineName {
 		}
 
 		/** 스킬을 적용시킨다 */
-		public virtual void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
+		public virtual void ApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 스킬 적용이 가능 할 경우
-			if(this.IsEnableSkillState() && this.IsEnableApplySkill(a_oSkillTargetInfo)) {
+			if(this.IsEnableSkillState() && this.IsEnableApplySkill(a_stSkillInfo, a_oSkillTargetInfo)) {
 				this.SetState(EState.SKILL);
 				m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] = a_oSkillTargetInfo;
 			}
 		}
 
 		/** 스킬 적용 가능 여부를 검사한다 */
-		protected virtual bool IsEnableApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
+		protected virtual bool IsEnableApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 적용 스킬 타겟 정보가 없을 경우
 			if(m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] == null) {
 				return true;
 			}
 
-			var stApplySkillTime = this.ApplySkillTimeDict.GetValueOrDefault(a_oSkillTargetInfo.SkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT));
-			return System.DateTime.Now.ExGetDeltaTime(stApplySkillTime).ExIsGreateEquals(CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds).m_fDelay);
+			var stApplySkillTime = this.ApplySkillTimeDict.GetValueOrDefault(a_stSkillInfo.m_eSkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT));
+			return System.DateTime.Now.ExGetDeltaTime(stApplySkillTime).ExIsGreateEquals(a_stSkillInfo.m_fDelay);
 		}
 
 		/** 이동 상태를 처리한다 */

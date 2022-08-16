@@ -65,8 +65,8 @@ namespace SampleEngineName {
 		}
 
 		/** 스킬을 적용한다 */
-		public override void ApplySkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			base.ApplySkill(a_oSkillTargetInfo);
+		public override void ApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
+			base.ApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
 		}
 
 		/** 대기 상태를 처리한다 */
