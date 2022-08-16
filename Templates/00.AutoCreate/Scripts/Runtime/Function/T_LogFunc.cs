@@ -66,21 +66,18 @@ public static partial class LogFunc {
 		var oDataDict = a_oDataDict ?? new Dictionary<string, object>();
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_PLATFORM, CCommonAppInfoStorage.Inst.Platform);
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_DEVICE_ID, CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+		oDataDict.TryAdd(KCDefine.L_LOG_KEY_LOG_TIME, System.DateTime.UtcNow.ExToLongStr());
+		oDataDict.TryAdd(KCDefine.L_LOG_KEY_SHORT_LOG_TIME, System.DateTime.UtcNow.ExToShortStr());
 
-#if AUTO_LOG_PARAMS_ENABLE
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_USER_TYPE, KCDefine.B_TEXT_UNKNOWN);
 #else
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_USER_TYPE, CCommonUserInfoStorage.Inst.UserInfo.UserType.ToString());
 #endif			// #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_LOG_TIME, System.DateTime.UtcNow.ExToLongStr());
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_SHORT_LOG_TIME, System.DateTime.UtcNow.ExToShortStr());
-
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_INSTALL_TIME, CCommonAppInfoStorage.Inst.AppInfo.UTCInstallTime.ExToLongStr());
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-#endif			// #if AUTO_LOG_PARAMS_ENABLE
 
 		return oDataDict;
 	}
