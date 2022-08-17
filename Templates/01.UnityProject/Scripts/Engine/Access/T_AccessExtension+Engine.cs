@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-namespace SampleEngineName {
+namespace NSEngine {
 	/** 엔진 접근자 확장 클래스 */
 	public static partial class AccessExtension {
 		#region 클래스 함수

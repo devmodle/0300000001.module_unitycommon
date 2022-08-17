@@ -40,7 +40,7 @@ namespace GameScene {
 		}
 
 		#region 변수
-		private SampleEngineName.CEngine m_oEngine = null;
+		private NSEngine.CEngine m_oEngine = null;
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>();
@@ -137,7 +137,7 @@ namespace GameScene {
 		}
 
 		/** 레벨을 클리어했을 경우 */
-		private void OnClearLevel(SampleEngineName.CEngine a_oSender) {			
+		private void OnClearLevel(NSEngine.CEngine a_oSender) {			
 			var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03, true);
 			oLevelClearInfo.m_stRecordInfo.m_nIntRecord = a_oSender.RecordInfo.m_nIntRecord;
 			oLevelClearInfo.m_stRecordInfo.m_dblRealRecord = a_oSender.RecordInfo.m_dblRealRecord;
@@ -149,7 +149,7 @@ namespace GameScene {
 		}
 
 		/** 레벨 클리어에 실패했을 경우 */
-		private void OnClearFailLevel(SampleEngineName.CEngine a_oSender) {
+		private void OnClearFailLevel(NSEngine.CEngine a_oSender) {
 			this.ShowResultPopup(false);
 		}
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-namespace SampleEngineName {
+namespace NSEngine {
 	/** 셀 객체 제어자 */
 	public partial class CECellObjController : CEObjController {
 		/** 매개 변수 */

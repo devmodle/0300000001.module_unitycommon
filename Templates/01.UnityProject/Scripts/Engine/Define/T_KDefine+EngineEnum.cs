@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-namespace SampleEngineName {
+namespace NSEngine {
 	/** 엔진 열거형 값 */
 	public static partial class KEngineEnumVal {
 		#region 기본

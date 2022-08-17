@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-namespace SampleEngineName {
+namespace NSEngine {
 	/** 아이템 제어자 */
 	public partial class CEItemController : CEObjController {
 		#region 함수

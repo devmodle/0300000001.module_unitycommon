@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-namespace SampleEngineName {
+namespace NSEngine {
 	/** 엔진 컴포넌트 */
 	public partial class CEComponent : CComponent {
 		#region 함수

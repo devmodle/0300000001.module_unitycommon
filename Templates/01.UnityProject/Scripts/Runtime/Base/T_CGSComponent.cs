@@ -11,7 +11,7 @@ namespace GameScene {
 	public partial class CGSComponent : CComponent {
 		/** 매개 변수 */
 		public struct STParams {
-			public SampleEngineName.CEngine m_oEngine;
+			public NSEngine.CEngine m_oEngine;
 		}
 
 		#region 변수

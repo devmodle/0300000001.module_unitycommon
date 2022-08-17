@@ -25,7 +25,7 @@ namespace LevelEditorScene {
 					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
 
 					Func.SetupEditorLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
-						m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = SampleEngineName.KDefine.E_MIN_NUM_CELLS
+						m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
 					});
 
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
@@ -112,7 +112,7 @@ namespace LevelEditorScene {
 				}
 			}
 
-			m_oGridInfoDict.ExReplaceVal(EKey.SEL_GRID_INFO, SampleEngineName.Factory.MakeGridInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO), Vector3.zero));
+			m_oGridInfoDict.ExReplaceVal(EKey.SEL_GRID_INFO, NSEngine.Factory.MakeGridInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO), Vector3.zero));
 
 			// 비율을 설정한다 {
 			bool bIsValid01 = !float.IsNaN(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stScale.x) && !float.IsInfinity(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stScale.x);
@@ -153,10 +153,10 @@ namespace LevelEditorScene {
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
 					var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_OBJS_POOL);
-					oObjSprite.sprite = SampleEngineName.Access.GetObjSprite(stKeyVal.Value[i]);
-					oObjSprite.transform.localPosition = m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(SampleEngineName.KDefine.E_OFFSET_CELL, SampleEngineName.KDefine.E_SIZE_CELL);
+					oObjSprite.sprite = NSEngine.Access.GetObjSprite(stKeyVal.Value[i]);
+					oObjSprite.transform.localPosition = m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.KDefine.E_OFFSET_CELL, NSEngine.KDefine.E_SIZE_CELL);
 
-					oObjSprite.ExSetSortingOrder(SampleEngineName.Access.GetSortingOrderInfo(stKeyVal.Value[i]));
+					oObjSprite.ExSetSortingOrder(NSEngine.Access.GetSortingOrderInfo(stKeyVal.Value[i]));
 					oObjSpriteInfoList.ExAddVal((stKeyVal.Value[i], oObjSprite));
 				}
 
@@ -447,17 +447,17 @@ namespace LevelEditorScene {
 
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);
+			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, NSEngine.KDefine.E_SIZE_CELL);
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);
+			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, NSEngine.KDefine.E_SIZE_CELL);
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, SampleEngineName.KDefine.E_SIZE_CELL);
+			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, NSEngine.KDefine.E_SIZE_CELL);
 		}
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 		#endregion			// 조건부 함수

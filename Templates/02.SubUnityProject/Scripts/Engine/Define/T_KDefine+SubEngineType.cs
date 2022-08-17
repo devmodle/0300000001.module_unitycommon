@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using MessagePack;
 
-namespace SampleEngineName {
+namespace NSEngine {
 	#region 기본
 	/** 서브 엔진 타입 랩퍼 */
 	[MessagePackObject]

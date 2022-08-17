@@ -33,10 +33,10 @@ public static partial class Func {
 
 		a_oLevelInfo.m_oCellInfoDictContainer.Clear();
 
-		for(int i = 0; i < Mathf.Clamp(nNumCellsY, SampleEngineName.KDefine.E_MIN_NUM_CELLS.y, SampleEngineName.KDefine.E_MAX_NUM_CELLS.y); ++i) {
+		for(int i = 0; i < Mathf.Clamp(nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.y, NSEngine.KDefine.E_MAX_NUM_CELLS.y); ++i) {
 			var oCellInfoDict = new Dictionary<int, STCellInfo>();
 
-			for(int j = 0; j < Mathf.Clamp(nNumCellsX, SampleEngineName.KDefine.E_MIN_NUM_CELLS.x, SampleEngineName.KDefine.E_MAX_NUM_CELLS.x); ++j) {
+			for(int j = 0; j < Mathf.Clamp(nNumCellsX, NSEngine.KDefine.E_MIN_NUM_CELLS.x, NSEngine.KDefine.E_MAX_NUM_CELLS.x); ++j) {
 				oCellInfoDict.TryAdd(j, Factory.MakeCellInfo(new Vector3Int(j, i, KCDefine.B_VAL_0_INT)));
 			}
 

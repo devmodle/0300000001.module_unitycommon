@@ -36,7 +36,7 @@ public static partial class Factory {
 	#region 조건부 클래스 함수
 #if UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 	/** 게임 컴포넌트 매개 변수를 생성한다 */
-	public static GameScene.CGSComponent.STParams MakeGSComponentParams(SampleEngineName.CEngine a_oEngine) {
+	public static GameScene.CGSComponent.STParams MakeGSComponentParams(NSEngine.CEngine a_oEngine) {
 		return new GameScene.CGSComponent.STParams() {
 			m_oEngine = a_oEngine
 		};
