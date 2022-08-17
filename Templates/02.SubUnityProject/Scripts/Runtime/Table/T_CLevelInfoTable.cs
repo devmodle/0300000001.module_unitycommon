@@ -168,7 +168,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	/** 셀 정보를 반환한다 */
 	public bool TryGetCellInfo(Vector3Int a_stIdx, out STCellInfo a_stOutCellInfo) {
 		a_stOutCellInfo = m_oCellInfoDictContainer.ContainsKey(a_stIdx.y) ? m_oCellInfoDictContainer[a_stIdx.y].GetValueOrDefault(a_stIdx.x, STCellInfo.INVALID) : STCellInfo.INVALID;
-		return !a_stOutCellInfo.Equals(STCellInfo.INVALID);
+		return !a_stOutCellInfo.m_stIdx.Equals(KCDefine.B_IDX_INVALID_3D);
 	}
 
 	/** 사본 객체를 설정한다 */

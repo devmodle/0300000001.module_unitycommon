@@ -52,7 +52,51 @@ namespace SampleEngineName {
 			oController?.Init(Factory.MakeFXControllerParams(this, oFX));
 
 			return oFX;
-		}		
+		}
+
+		/** 아이템을 제거한다 */
+		public void RemoveItem(CEItem a_oItem, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
+			CAccess.Assert(!a_bIsEnableAssert || (a_oItem != null && a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+
+			// 아이템이 존재 할 경우
+			if(a_oItem != null && a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+				this.ItemList.ExRemoveVal(a_oItem);
+				CSceneManager.ActiveSceneManager.DespawnObj(a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oItem.gameObject, a_fDelay);
+			}
+		}
+
+		/** 스킬을 제거한다 */
+		public void RemoveSkill(CESkill a_oSkill, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
+			CAccess.Assert(!a_bIsEnableAssert || (a_oSkill != null && a_oSkill.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+
+			// 스킬이 존재 할 경우
+			if(a_oSkill != null && a_oSkill.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+				this.SkillList.ExRemoveVal(a_oSkill);
+				CSceneManager.ActiveSceneManager.DespawnObj(a_oSkill.Params.m_stBaseParams.m_oObjsPoolKey, a_oSkill.gameObject, a_fDelay);
+			}
+		}
+
+		/** 객체를 제거한다 */
+		public void RemoveObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
+			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+
+			// 객체가 존재 할 경우
+			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+				this.ObjList.ExRemoveVal(a_oObj);
+				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
+			}
+		}
+
+		/** 효과를 제거한다 */
+		public void RemoveFX(CEFX a_oFX, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
+			CAccess.Assert(!a_bIsEnableAssert || (a_oFX != null && a_oFX.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+
+			// 효과가 존재 할 경우
+			if(a_oFX != null && a_oFX.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+				this.FXList.ExRemoveVal(a_oFX);
+				CSceneManager.ActiveSceneManager.DespawnObj(a_oFX.Params.m_stBaseParams.m_oObjsPoolKey, a_oFX.gameObject, a_fDelay);
+			}
+		}
 		#endregion			// 함수
 	}
 }

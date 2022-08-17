@@ -22,6 +22,23 @@ namespace SampleEngineName {
 			this.State = (m_oStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) && oStateChecker()) ? a_eState : this.State;
 		}
 
+		/** 가까운 적 객체를 탐색한다 */
+		public CEObj FindNearEnemyObj(CEObj a_oObj) {
+			return this.TryFindNearEnemyObj(a_oObj, out CEObj oEnemyObj) ? oEnemyObj : null;
+		}
+
+		/** 가까운 적 객체를 탐색한다 */
+		public bool TryFindNearEnemyObj(CEObj a_oObj, out CEObj a_oOutEnemyObj) {
+			a_oOutEnemyObj = this.EnemyObjList.ExGetVal(KCDefine.B_VAL_0_INT, null);
+
+			for(int i = 1; i < this.EnemyObjList.Count; ++i) {
+				float fDistance = (a_oObj.transform.localPosition - a_oOutEnemyObj.transform.localPosition).sqrMagnitude;
+				a_oOutEnemyObj = fDistance.ExIsLessEquals((a_oOutEnemyObj.transform.localPosition - this.EnemyObjList[i].transform.localPosition).sqrMagnitude) ? a_oOutEnemyObj : this.EnemyObjList[i];
+			}
+
+			return a_oOutEnemyObj != null;
+		}
+
 		/** 무효 상태 가능 여부를 검사한다 */
 		private bool IsEnableNoneState() {
 			return true;

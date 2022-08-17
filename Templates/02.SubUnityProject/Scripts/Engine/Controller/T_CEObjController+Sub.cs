@@ -58,10 +58,16 @@ namespace SampleEngineName {
 			}
 		}
 
+		/** 공격을 처리한다 */
+		public virtual void Attack(CEObj a_oTargetObj, CESkill a_oSkill) {
+			// Do Something
+		}
+
 		/** 이동을 처리한다 */
-		public virtual void Move(Vector3 a_stDirection) {
+		public virtual void Move(Vector3 a_stVal, EVecType a_eVecType = EVecType.DIRECTION) {
 			this.SetState(EState.MOVE);
-			this.Vec3Dict.ExReplaceVal(EKey.MOVE_DIRECTION, a_stDirection);
+			this.SetMovePos((a_eVecType == EVecType.POS) ? a_stVal : KCDefine.B_POS_INVALID);
+			this.SetMoveDirection((a_eVecType == EVecType.DIRECTION) ? a_stVal : Vector3.zero);
 		}
 
 		/** 스킬을 적용시킨다 */
@@ -69,10 +75,7 @@ namespace SampleEngineName {
 			// 스킬 적용이 가능 할 경우
 			if(this.IsEnableSkillState() && this.IsEnableApplySkill(a_stSkillInfo, a_oSkillTargetInfo)) {
 				this.SetState(EState.SKILL);
-				this.ApplySkillTimeDict.ExReplaceVal(a_oSkillTargetInfo.SkillKinds, System.DateTime.Now);
-
-				this.SkillInfoDict.ExReplaceVal(EKey.APPLY_SKILL_INFO, a_stSkillInfo);
-				this.SkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, a_oSkillTargetInfo);
+				this.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
 			}
 		}
 
@@ -102,6 +105,12 @@ namespace SampleEngineName {
 		protected override void HandleSkillState(float a_fDeltaTime) {
 			base.HandleSkillState(a_fDeltaTime);
 		}
+
+		/** 스킬을 적용시킨다 */
+		protected virtual void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
+			this.SkillInfoDict.ExReplaceVal(EKey.APPLY_SKILL_INFO, a_stSkillInfo);
+			this.SkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, a_oSkillTargetInfo);
+		}
 		
 		/** 효과를 설정한다 */
 		private void SubAwakeSetup() {
@@ -110,7 +119,8 @@ namespace SampleEngineName {
 
 		/** 초기화한다 */
 		private void SubInit() {
-			// Do Something
+			this.SetState(EState.APPEAR);
+			this.SetMovePos(KCDefine.B_POS_INVALID);
 		}
 		#endregion			// 함수
 	}

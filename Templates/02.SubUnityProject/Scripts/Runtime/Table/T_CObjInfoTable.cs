@@ -44,7 +44,7 @@ public struct STObjInfo {
 		m_eObjKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_ePrevObjKinds = a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
-		m_eActionSkillKinds = a_oObjInfo[KCDefine.U_KEY_ACTION_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : ESkillKinds.NONE;
+		m_eActionSkillKinds = a_oObjInfo[KCDefine.U_KEY_ACTION_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oObjInfo[KCDefine.U_KEY_ACTION_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 
 		m_oResKindsList = new List<EResKinds>();
 		m_oDropItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>();

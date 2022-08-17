@@ -16,7 +16,7 @@ public struct STSkillInfo {
 	public ESkillKinds m_eSkillKinds;
 	public ESkillKinds m_ePrevSkillKinds;
 	public ESkillKinds m_eNextSkillKinds;
-	public ESkillTargetKinds m_eSkillTargetKinds;
+	public ESkillApplyKinds m_eSkillApplyKinds;
 
 	public List<EFXKinds> m_oFXKindsList;
 	public List<EResKinds> m_oResKindsList;
@@ -32,8 +32,8 @@ public struct STSkillInfo {
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
 	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();
 	
-	public ESkillTargetType SkillTargetType => (ESkillTargetType)((int)m_eSkillTargetKinds).ExKindsToType();
-	public ESkillTargetKinds BaseSkillTargetKinds => (ESkillTargetKinds)((int)m_eSkillTargetKinds).ExKindsToSubKindsType();
+	public ESkillApplyType SkillApplyType => (ESkillApplyType)((int)m_eSkillApplyKinds).ExKindsToType();
+	public ESkillApplyKinds BaseSkillApplyKinds => (ESkillApplyKinds)((int)m_eSkillApplyKinds).ExKindsToSubKindsType();
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -46,7 +46,7 @@ public struct STSkillInfo {
 		m_eSkillKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_ePrevSkillKinds = a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_eNextSkillKinds = a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].AsInt : ESkillKinds.NONE;
-		m_eSkillTargetKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_TARGET_KINDS].ExIsValid() ? (ESkillTargetKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_TARGET_KINDS].AsInt : ESkillTargetKinds.NONE;
+		m_eSkillApplyKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_APPLY_KINDS].ExIsValid() ? (ESkillApplyKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_APPLY_KINDS].AsInt : ESkillApplyKinds.NONE;
 
 		m_oFXKindsList = new List<EFXKinds>();
 		m_oResKindsList = new List<EResKinds>();

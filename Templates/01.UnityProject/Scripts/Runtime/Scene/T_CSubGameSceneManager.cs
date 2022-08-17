@@ -75,6 +75,11 @@ namespace GameScene {
 			}
 		}
 
+		/** UI 상태 갱신 여부를 변경한다 */
+		public void SetEnableUpdateUIsState(bool a_bIsEnable) {
+			m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, a_bIsEnable);
+		}
+
 		/** 내비게이션 스택 이벤트를 수신했을 경우 */
 		public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
 			base.OnReceiveNavStackEvent(a_eEvent);

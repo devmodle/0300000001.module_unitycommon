@@ -45,13 +45,11 @@ namespace SampleEngineName {
 
 		public List<CEItem> ItemList { get; } = new List<CEItem>();
 		public List<CESkill> SkillList { get; } = new List<CESkill>();
+		public List<CEObj> ObjList { get; } = new List<CEObj>();
 		public List<CEFX> FXList { get; } = new List<CEFX>();
-		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
-		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
 
 		public bool IsRunning => this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING);
 		public STGridInfo SelGridInfo => this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO);
-		public CEObj SelPlayerObj => this.PlayerObjList[KCDefine.B_VAL_0_INT];
 
 		/** =====> 기타 <===== */
 		private List<LineRenderer> GridLineList { get; } = new List<LineRenderer>();
@@ -59,7 +57,7 @@ namespace SampleEngineName {
 		private Dictionary<EKey, STGridInfo> GridInfoDict { get; } = new Dictionary<EKey, STGridInfo>();
 		
 		/** =====> 객체 <===== */
-		private Dictionary<EObjType, List<CEObj>>[,] ObjDictContainers { get; set; } = null;
+		private Dictionary<EObjType, List<CEObj>>[,] CellObjDictContainers { get; set; } = null;
 		#endregion			// 프로퍼티
 		
 		#region 함수

@@ -68,6 +68,10 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
+		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
+		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
+
+		public CEObj SelPlayerObj => this.PlayerObjList[KCDefine.B_VAL_0_INT];
 		#endregion			// 프로퍼티
 		
 		#region 함수
@@ -105,13 +109,13 @@ namespace SampleEngineName {
 		}
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
-		public void SetEnablePlayerObjAutoControl(bool a_bIsAutoControl) {
-			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().IsAutoControl = a_bIsAutoControl;
+		public void SetIsPlayerObjAutoControl(bool a_bIsAutoControl) {
+			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().SetIsAutoControl(a_bIsAutoControl);
 		}
 
 		/** 플레이어 객체 이동을 처리한다 */
-		public void MovePlayerObj(Vector3 a_stDirection) {
-			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().Move(a_stDirection);
+		public void MovePlayerObj(Vector3 a_stVal, EVecType a_eVecType = EVecType.DIRECTION) {
+			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().Move(a_stVal, a_eVecType);
 		}
 		
 		/** 플레이어 객체 스킬을 적용한다 */

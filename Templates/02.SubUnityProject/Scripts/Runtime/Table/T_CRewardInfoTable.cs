@@ -108,7 +108,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	/** 획득 타겟 정보를 반환한다 */
 	public bool TryGetAcquireTargetInfo(ERewardKinds a_eRewardKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
 		a_stOutAcquireTargetInfo = this.TryGetRewardInfo(a_eRewardKinds, out STRewardInfo stRewardInfo) ? stRewardInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
-		return !a_stOutAcquireTargetInfo.Equals(STTargetInfo.INVALID);
+		return a_stOutAcquireTargetInfo.m_eTargetKinds != ETargetKinds.NONE;
 	}
 
 	/** 보상 정보를 로드한다 */

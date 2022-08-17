@@ -38,6 +38,28 @@ namespace SampleEngineName {
 
 			return oObj;
 		}
+
+		/** 플레이어 객체를 제거한다 */
+		public void RemovePlayerObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
+			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+
+			// 객체가 존재 할 경우
+			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+				this.PlayerObjList.ExRemoveVal(a_oObj);
+				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
+			}
+		}
+
+		/** 적 객체를 제거한다 */
+		public void RemoveEnemyObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
+			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+
+			// 객체가 존재 할 경우
+			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+				this.EnemyObjList.ExRemoveVal(a_oObj);
+				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
+			}
+		}
 		#endregion			// 함수
 	}
 }

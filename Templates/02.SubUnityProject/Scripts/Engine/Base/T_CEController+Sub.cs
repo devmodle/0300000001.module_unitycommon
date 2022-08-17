@@ -44,6 +44,8 @@ namespace SampleEngineName {
 			IDLE,
 			MOVE,
 			SKILL,
+			APPEAR,
+			DISAPPEAR,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -66,13 +68,20 @@ namespace SampleEngineName {
 					case EState.IDLE: this.HandleIdleState(a_fDeltaTime); break;
 					case EState.MOVE: this.HandleMoveState(a_fDeltaTime); break;
 					case EState.SKILL: this.HandleSkillState(a_fDeltaTime); break;
+					case EState.APPEAR: this.HandleAppearState(a_fDeltaTime); break;
+					case EState.DISAPPEAR: this.HandleDisappearState(a_fDeltaTime); break;
 				}
 			}
 		}
 
 		/** 상태를 변경한다 */
-		public void SetState(EState a_eState) {
-			this.State = (m_oStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) && oStateChecker()) ? a_eState : this.State;
+		public void SetState(EState a_eState, bool a_bIsForce = false) {
+			// 강제 변경 모드 일 경우
+			if(a_bIsForce) {
+				this.State = a_eState;
+			} else {
+				this.State = (m_oStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) && oStateChecker()) ? a_eState : this.State;
+			}
 		}
 
 		/** 무효 상태 가능 여부를 검사한다 */
@@ -95,6 +104,16 @@ namespace SampleEngineName {
 			return this.State == EState.NONE || this.State == EState.IDLE || this.State == EState.MOVE;
 		}
 
+		/** 등장 상태 가능 여부를 검사한다 */
+		protected virtual bool IsEnableAppearState() {
+			return true;
+		}
+
+		/** 사라짐 상태 가능 여부를 검사한다 */
+		protected virtual bool IsEnableDisappearState() {
+			return true;
+		}
+
 		/** 대기 상태를 처리한다 */
 		protected virtual void HandleIdleState(float a_fDeltaTime) {
 			// Do Something
@@ -110,17 +129,30 @@ namespace SampleEngineName {
 			// Do Something
 		}
 
+		/** 등장 상태를 처리한다 */
+		protected virtual void HandleAppearState(float a_fDeltaTime) {
+			// Do Something
+		}
+
+		/** 사라짐 상태를 처리한다 */
+		protected virtual void HandleDisappearState(float a_fDeltaTime) {
+			// Do Something
+		}
+
 		/** 효과를 설정한다 */
 		private void SubAwakeSetup() {
 			m_oStateCheckerDict.TryAdd(EState.NONE, this.IsEnableNoneState);
 			m_oStateCheckerDict.TryAdd(EState.IDLE, this.IsEnableIdleState);
 			m_oStateCheckerDict.TryAdd(EState.MOVE, this.IsEnableMoveState);
 			m_oStateCheckerDict.TryAdd(EState.SKILL, this.IsEnableSkillState);
+			m_oStateCheckerDict.TryAdd(EState.APPEAR, this.IsEnableAppearState);
+			m_oStateCheckerDict.TryAdd(EState.DISAPPEAR, this.IsEnableDisappearState);
 		}
 
 		/** 초기화한다 */
 		private void SubInit() {
-			// Do Something
+			this.TargetList.Clear();
+			this.SetState(EState.NONE);
 		}
 		#endregion			// 함수
 	}

@@ -10,22 +10,30 @@ using UnityEngine.Events;
 public static partial class KEnumVal {
 	#region 기본
 	// 스킬 종류
-	public const int PLAYER_ATK_ACTION_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 0);
-	public const int NORM_ENEMY_ATK_ACTION_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 1);
-	public const int BOSS_ENEMY_ATK_ACTION_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 2);
+	public const int SK_PLAYER_ATK_ACTION_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 0);
+	public const int SK_NORM_ENEMY_ATK_ACTION_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 1);
+	public const int SK_BOSS_ENEMY_ATK_ACTION_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillType.ACTION) + ((int)EEnumVal.SUB_TYPE * 2);
 
 	// 객체 종류 {
-	public const int CHARACTER_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.PLAYABLE) + ((int)EEnumVal.SUB_TYPE * 0);
+	public const int OK_CHARACTER_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.PLAYABLE) + ((int)EEnumVal.SUB_TYPE * 0);
 
-	public const int NORM_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 0);
-	public const int BOSS_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 1);
+	public const int OK_NORM_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 0);
+	public const int OK_BOSS_ENEMY_SUB_TYPE = ((int)EEnumVal.TYPE * (int)EObjType.ENEMY) + ((int)EEnumVal.SUB_TYPE * 1);
 	// 객체 종류 }
 
 	// 타겟 종류
-	public const int LV_TARGET_SUB_KINDS_TYPE_VAL = 1;
-	public const int EXP_TARGET_SUB_KINDS_TYPE_VAL = 2;
-	public const int NUMS_TARGET_SUB_KINDS_TYPE_VAL = 3;
-	public const int ENHANCE_TARGET_SUB_KINDS_TYPE_VAL = 4;
+	public const int TK_LV_SUB_KINDS_TYPE_VAL = 1;
+	public const int TK_EXP_SUB_KINDS_TYPE_VAL = 2;
+	public const int TK_NUMS_SUB_KINDS_TYPE_VAL = 3;
+	public const int TK_ENHANCE_SUB_KINDS_TYPE_VAL = 4;
+
+	// 스킬 적용 종류 {
+	public const int SAK_NORM_SUB_KINDS_TYPE_VAL = 0;
+	public const int SAK_PROJECTILE_SUB_KINDS_TYPE_VAL = 1;
+
+	public const int SAK_MULTI_TARGET_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillApplyType.TARGET) + ((int)EEnumVal.SUB_TYPE * 0);
+	public const int SAK_SINGLE_TARGET_SUB_TYPE = ((int)EEnumVal.TYPE * (int)ESkillApplyType.TARGET) + ((int)EEnumVal.SUB_TYPE * 1);
+	// 스킬 적용 종류 }
 	#endregion			// 기본
 }
 
@@ -357,13 +365,13 @@ public enum ESkillKinds {
 
 	#region 액션
 	// 0
-	ACTION_PLAYER_ATK_01_01 = KEnumVal.PLAYER_ATK_ACTION_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACTION_PLAYER_ATK_01_01 = KEnumVal.SK_PLAYER_ATK_ACTION_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 10,000,000
-	ACTION_NORM_ENEMY_ATK_01_01 = KEnumVal.NORM_ENEMY_ATK_ACTION_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACTION_NORM_ENEMY_ATK_01_01 = KEnumVal.SK_NORM_ENEMY_ATK_ACTION_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 20,000,000
-	ACTION_BOSS_ENEMY_ATK_01_01 = KEnumVal.BOSS_ENEMY_ATK_ACTION_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACTION_BOSS_ENEMY_ATK_01_01 = KEnumVal.SK_BOSS_ENEMY_ATK_ACTION_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 액션
 
 	#region 액티브
@@ -412,7 +420,7 @@ public enum EObjKinds {
 
 	#region 플레이 가능
 	// 300,000,000
-	PLAYABLE_COMMON_CHARACTER_01 = KEnumVal.CHARACTER_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	PLAYABLE_COMMON_CHARACTER_01 = KEnumVal.OK_CHARACTER_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 플레이 가능
 
 	#region 플레이 불가능
@@ -422,10 +430,10 @@ public enum EObjKinds {
 
 	#region 적
 	// 500,000,000
-	ENEMY_NORM_01_01 = KEnumVal.NORM_ENEMY_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ENEMY_NORM_01_01 = KEnumVal.OK_NORM_ENEMY_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 
 	// 510,000,000
-	ENEMY_BOSS_01_01 = KEnumVal.BOSS_ENEMY_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ENEMY_BOSS_01_01 = KEnumVal.OK_BOSS_ENEMY_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	#endregion			// 적
 
 	[HideInInspector] MAX_VAL
@@ -670,27 +678,33 @@ public enum ETargetKinds {
 	[HideInInspector] MAX_VAL
 }
 
-/** 스킬 타겟 타입 */
-public enum ESkillTargetType {
+/** 스킬 적용 타입 */
+public enum ESkillApplyType {
 	NONE = -1,
-	MULTI,
-	SINGLE,
+	RANGE,
+	TARGET,
 	[HideInInspector] MAX_VAL
 }
 
-/** 스킬 타겟 종류 */
-public enum ESkillTargetKinds {
+/** 스킬 적용 종류 */
+public enum ESkillApplyKinds {
 	NONE = -1,
 
-	#region 다수
+	#region 범위
 	// 0
-	MULTI = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 다수
+	RANGE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	RANGE_PROJECTILE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	#endregion			// 범위
 
-	#region 단일
-	// 0
-	SINGLE = (EEnumVal.TYPE * 0) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 단일
+	#region 타겟
+	// 100,000,000
+	TARGET_MULTI = KEnumVal.SAK_MULTI_TARGET_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	TARGET_MULTI_PROJECTILE = KEnumVal.SAK_MULTI_TARGET_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+
+	// 110,000,000
+	TARGET_SINGLE = KEnumVal.SAK_SINGLE_TARGET_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	TARGET_SINGLE_PROJECTILE = KEnumVal.SAK_SINGLE_TARGET_SUB_TYPE + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	#endregion			// 타겟
 
 	[HideInInspector] MAX_VAL
 }

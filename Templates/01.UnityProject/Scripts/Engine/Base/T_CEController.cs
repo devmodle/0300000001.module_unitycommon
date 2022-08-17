@@ -27,16 +27,22 @@ namespace SampleEngineName {
 
 		#region 프로퍼티
 		public STParams Params { get; private set; }
+		public List<CEComponent> TargetList { get; } = new List<CEComponent>();
 		#endregion			// 프로퍼티
 
 		#region 함수
-		
+
 		#endregion			// 함수
 
 		#region 제네릭 함수
 		/** 소유자를 반환한다 */
 		public T GetOwner<T>() where T : CEComponent {
 			return this.Params.m_oOwner as T;
+		}
+
+		/** 타겟을 반환한다 */
+		public T GetTarget<T>(int a_nIdx) where T : CEComponent {
+			return this.TargetList.ExGetVal(a_nIdx, null) as T;
 		}
 		#endregion			// 제네릭 함수
 	}

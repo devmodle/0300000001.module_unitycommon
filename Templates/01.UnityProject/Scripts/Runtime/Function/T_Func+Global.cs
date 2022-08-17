@@ -45,10 +45,10 @@ public static partial class Func {
 
 	/** 어빌리티 값을 설정한다 */
 	public static void SetupAbilityVals(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (!a_stItemInfo.Equals(STItemInfo.INVALID) && a_oOutAbilityValDict != null));
+		CAccess.Assert(!a_bIsEnableAssert || (a_stItemInfo.m_eItemKinds != EItemKinds.NONE && a_oOutAbilityValDict != null));
 
 		// 어빌리티 값 설정이 가능 할 경우
-		if(!a_stItemInfo.Equals(STItemInfo.INVALID) && a_oOutAbilityValDict != null) {
+		if(a_stItemInfo.m_eItemKinds != EItemKinds.NONE && a_oOutAbilityValDict != null) {
 			Func.SetupAbilityVals(a_stItemInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict);
 
 			// 아이템 타겟 정보가 존재 할 경우
@@ -60,10 +60,10 @@ public static partial class Func {
 
 	/** 어빌리티 값을 설정한다 */
 	public static void SetupAbilityVals(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (!a_stSkillInfo.Equals(STSkillInfo.INVALID) && a_oOutAbilityValDict != null));
+		CAccess.Assert(!a_bIsEnableAssert || (a_stSkillInfo.m_eSkillKinds != ESkillKinds.NONE && a_oOutAbilityValDict != null));
 
 		// 어빌리티 값 설정이 가능 할 경우
-		if(!a_stSkillInfo.Equals(STSkillInfo.INVALID) && a_oOutAbilityValDict != null) {
+		if(a_stSkillInfo.m_eSkillKinds != ESkillKinds.NONE && a_oOutAbilityValDict != null) {
 			Func.SetupAbilityVals(a_stSkillInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict);
 
 			// 스킬 타겟 정보가 존재 할 경우
@@ -75,10 +75,10 @@ public static partial class Func {
 
 	/** 어빌리티 값을 설정한다 */
 	public static void SetupAbilityVals(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (!a_stObjInfo.Equals(STObjInfo.INVALID) && a_oOutAbilityValDict != null));
+		CAccess.Assert(!a_bIsEnableAssert || (a_stObjInfo.m_eObjKinds != EObjKinds.NONE && a_oOutAbilityValDict != null));
 
 		// 어빌리티 값 설정이 가능 할 경우
-		if(!a_stObjInfo.Equals(STObjInfo.INVALID) && a_oOutAbilityValDict != null) {
+		if(a_stObjInfo.m_eObjKinds != EObjKinds.NONE && a_oOutAbilityValDict != null) {
 			Func.SetupAbilityVals(a_stObjInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict);
 
 			// 객체 타겟 정보가 존재 할 경우
@@ -404,30 +404,30 @@ public static partial class Func {
 
 	/** 지불한다 */
 	private static void DoPay(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)));
+		CAccess.Assert(!a_bIsEnableAssert || (a_stTargetInfo.m_eTargetKinds != ETargetKinds.NONE && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
-		if(a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
+		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.NONE && a_oTargetInfo != null) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
-				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
-				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
-				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
 			}
 		}
 	}
 
 	/** 획득한다 */
 	private static void DoAcquire(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)));
+		CAccess.Assert(!a_bIsEnableAssert || (a_stTargetInfo.m_eTargetKinds != ETargetKinds.NONE && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
-		if(a_oTargetInfo != null && !a_stTargetInfo.Equals(STTargetInfo.INVALID)) {
+		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.NONE && a_oTargetInfo != null) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.LV_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
-				case KEnumVal.EXP_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
-				case KEnumVal.NUMS_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
-				case KEnumVal.ENHANCE_TARGET_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
+				case KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
 			}
 			
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, out STTargetInfo stLVAbilityTargetInfo);
