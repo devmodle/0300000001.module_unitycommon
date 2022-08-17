@@ -33,10 +33,7 @@ namespace SampleEngineName {
 		public Vector3Int CellIdx => this.Vec3IntDict.GetValueOrDefault(EKey.CELL_IDX);
 
 		/** =====> 기타 <===== */
-		private Dictionary<EKey, Vector3Int> Vec3IntDict { get; } = new Dictionary<EKey, Vector3Int>() {
-			[EKey.CELL_IDX] = KCDefine.B_IDX_INVALID_3D
-		};
-
+		private Dictionary<EKey, Vector3Int> Vec3IntDict { get; } = new Dictionary<EKey, Vector3Int>();
 		private Dictionary<EKey, SpriteRenderer> SpriteDict { get; } = new Dictionary<EKey, SpriteRenderer>();
 		#endregion			// 프로퍼티
 

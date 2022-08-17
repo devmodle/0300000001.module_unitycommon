@@ -46,11 +46,7 @@ namespace SampleEngineName {
 				var oCellObjList = new List<CEObj>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(stKeyVal.Value[i]), null);
-					oCellObj.transform.localPosition = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(KDefine.E_OFFSET_CELL, KDefine.E_SIZE_CELL);
-					oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
-
-					oCellObjList.ExAddVal(oCellObj);
+					// Do Something
 				}
 
 				oCellObjDictContainer.TryAdd(stKeyVal.Key, oCellObjList);

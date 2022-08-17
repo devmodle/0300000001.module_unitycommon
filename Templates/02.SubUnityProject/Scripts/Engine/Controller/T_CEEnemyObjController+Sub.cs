@@ -116,7 +116,7 @@ namespace SampleEngineName {
 			oSkill.GetController<CESkillController>().Apply();
 		}
 		
-		/** 효과를 설정한다 */
+		/** 제어자를 설정한다 */
 		private void SubAwakeSetup() {
 			// Do Something
 		}

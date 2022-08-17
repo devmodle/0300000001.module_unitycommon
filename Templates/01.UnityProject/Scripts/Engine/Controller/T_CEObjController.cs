@@ -35,15 +35,12 @@ namespace SampleEngineName {
 		public CSkillTargetInfo ApplySkillTargetInfo => this.SkillTargetInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_TARGET_INFO);
 
 		/** =====> 기타 <===== */
-		private Dictionary<EKey, Vector3> Vec3Dict { get; } = new Dictionary<EKey, Vector3>() {
-			[EKey.MOVE_POS] = KCDefine.B_POS_INVALID
-		};
-
 		private Dictionary<EKey, STSkillInfo> SkillInfoDict { get; } = new Dictionary<EKey, STSkillInfo>() {
 			[EKey.APPLY_SKILL_INFO] = STSkillInfo.INVALID
 		};
 
 		private Dictionary<EKey, bool> BoolDict { get; } = new Dictionary<EKey, bool>();
+		private Dictionary<EKey, Vector3> Vec3Dict { get; } = new Dictionary<EKey, Vector3>();
 		private Dictionary<EKey, CSkillTargetInfo> SkillTargetInfoDict { get; } = new Dictionary<EKey, CSkillTargetInfo>();
 		#endregion			// 프로퍼티
 

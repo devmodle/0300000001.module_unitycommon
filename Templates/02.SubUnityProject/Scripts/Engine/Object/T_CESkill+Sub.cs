@@ -7,8 +7,8 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	/** 아이템 */
-	public partial class CEItem : CEObj {
+	/** 스킬 */
+	public partial class CESkill : CEComponent {
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -31,8 +31,8 @@ namespace SampleEngineName {
 		#endregion			// 함수
 	}
 
-	/** 서브 아이템 */
-	public partial class CEItem : CEObj {
+	/** 서브 스킬 */
+	public partial class CESkill : CEComponent {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
@@ -48,7 +48,7 @@ namespace SampleEngineName {
 		#endregion			// 프로퍼티
 
 		#region 함수
-		/** 아이템을 설정한다 */
+		/** 컴포넌트를 설정한다 */
 		private void SubAwakeSetup() {
 			// Do Something
 		}

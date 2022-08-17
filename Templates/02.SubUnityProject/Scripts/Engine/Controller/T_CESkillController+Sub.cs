@@ -95,7 +95,7 @@ namespace SampleEngineName {
 			}
 		}
 		
-		/** 효과를 설정한다 */
+		/** 제어자를 설정한다 */
 		private void SubAwakeSetup() {
 			// Do Something
 		}
@@ -126,10 +126,8 @@ namespace SampleEngineName {
 
 			// 적용 시간이 지났을 경우
 			if(this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
-				base.Params.m_oEngine.RemoveSkill(this.GetOwner<CESkill>());
-
-				this.SubState = ESubState.NONE;
 				base.Params.m_oOwner.GetOwner<CEObj>().GetController<CEObjController>().SetState(EState.IDLE);
+				base.Params.m_oEngine.RemoveSkill(this.GetOwner<CESkill>());
 			}
 		}
 

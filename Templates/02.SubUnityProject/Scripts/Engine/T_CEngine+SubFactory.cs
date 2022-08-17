@@ -20,10 +20,10 @@ namespace SampleEngineName {
 		/** 셀 객체를 생성한다 */
 		public CEObj CreateCellObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_CELL_OBJ, KDefine.E_KEY_CELL_OBJ_OBJS_POOL);
-			var oController = a_bIsEnableController ? oObj.gameObject.AddComponent<CEPlayerObjController>() : null;
+			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CECellObjController>() : null;
 
 			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
-			oController?.Init(Factory.MakePlayerObjControllerParams(this, oObj));
+			oController?.Init(Factory.MakeCellObjControllerParams(this, oObj));
 
 			return oObj;
 		}
@@ -31,7 +31,7 @@ namespace SampleEngineName {
 		/** 플레이어 객체를 생성한다 */
 		public CEObj CreatePlayerObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_PLAYER_OBJ, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL);
-			var oController = a_bIsEnableController ? oObj.gameObject.AddComponent<CEPlayerObjController>() : null;
+			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEPlayerObjController>() : null;
 
 			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
 			oController?.Init(Factory.MakePlayerObjControllerParams(this, oObj));
@@ -42,7 +42,7 @@ namespace SampleEngineName {
 		/** 적 객체를 생성한다 */
 		public CEObj CreateEnemyObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_ENEMY_OBJ, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL);
-			var oController = a_bIsEnableController ? oObj.gameObject.AddComponent<CEEnemyObjController>() : null;
+			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEEnemyObjController>() : null;
 
 			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
 			oController?.Init(Factory.MakeEnemyObjControllerParams(this, oObj));
@@ -58,6 +58,7 @@ namespace SampleEngineName {
 			// 셀 객체가 존재 할 경우
 			if(a_oObj != null && oCellObjList != null && a_oObj.CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				oCellObjList.ExRemoveVal(a_oObj);
+				CFactory.RemoveObj(a_oObj.Params.m_stBaseParams.m_oController, false, false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}
@@ -69,6 +70,7 @@ namespace SampleEngineName {
 			// 플레이어 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				this.PlayerObjList.ExRemoveVal(a_oObj);
+				CFactory.RemoveObj(a_oObj.Params.m_stBaseParams.m_oController, false, false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}
@@ -80,6 +82,7 @@ namespace SampleEngineName {
 			// 적 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				this.EnemyObjList.ExRemoveVal(a_oObj);
+				CFactory.RemoveObj(a_oObj.Params.m_stBaseParams.m_oController, false, false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}

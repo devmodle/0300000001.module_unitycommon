@@ -7,12 +7,17 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace SampleEngineName {
-	/** 스킬 */
-	public partial class CESkill : CEComponent {
+	/** 효과 */
+	public partial class CEFX : CEComponent {
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
+
+			// 파티클을 설정한다
+			CFunc.SetupParticles(new List<(EKey, string, GameObject)>() {
+				(EKey.FX_PARTICLE, $"{EKey.FX_PARTICLE}", this.gameObject)
+			}, this.ParticleDict, false);
 
 			#region 추가
 			this.SubAwakeSetup();
@@ -31,8 +36,8 @@ namespace SampleEngineName {
 		#endregion			// 함수
 	}
 
-	/** 서브 스킬 */
-	public partial class CESkill : CEComponent {
+	/** 서브 효과 */
+	public partial class CEFX : CEComponent {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
@@ -48,7 +53,7 @@ namespace SampleEngineName {
 		#endregion			// 프로퍼티
 
 		#region 함수
-		/** 엔진을 설정한다 */
+		/** 컴포넌트를 설정한다 */
 		private void SubAwakeSetup() {
 			// Do Something
 		}

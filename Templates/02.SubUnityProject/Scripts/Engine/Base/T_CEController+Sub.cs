@@ -139,7 +139,7 @@ namespace SampleEngineName {
 			// Do Something
 		}
 
-		/** 효과를 설정한다 */
+		/** 제어자를 설정한다 */
 		private void SubAwakeSetup() {
 			m_oStateCheckerDict.TryAdd(EState.NONE, this.IsEnableNoneState);
 			m_oStateCheckerDict.TryAdd(EState.IDLE, this.IsEnableIdleState);
