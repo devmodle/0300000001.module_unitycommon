@@ -12,6 +12,7 @@ namespace SampleEngineName {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			CELL_IDX,
 			OBJ_SPRITE,
 			[HideInInspector] MAX_VAL
 		}
@@ -23,12 +24,18 @@ namespace SampleEngineName {
 			public CObjTargetInfo m_oObjTargetInfo;
 		}
 
+		#region 변수
+		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
+		#endregion			// 변수
+
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
-		public Vector3Int Idx { get; set; } = Vector3Int.zero;
+		public Vector3Int CellIdx => this.Vec3IntDict.GetValueOrDefault(EKey.CELL_IDX);
 
 		/** =====> 기타 <===== */
-		private Dictionary<EKey, SpriteRenderer> SpriteDict { get; } = new Dictionary<EKey, SpriteRenderer>();
+		private Dictionary<EKey, Vector3Int> Vec3IntDict { get; } = new Dictionary<EKey, Vector3Int>() {
+			[EKey.CELL_IDX] = KCDefine.B_IDX_INVALID_3D
+		};
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -40,6 +47,11 @@ namespace SampleEngineName {
 			if(this.Params.m_stObjInfo.m_eObjKinds.ExIsValid()) {
 				global::Func.SetupAbilityVals(this.Params.m_stObjInfo, this.Params.m_oObjTargetInfo, this.AbilityValDict);
 			}
+		}
+
+		/** 셀 인덱스를 변경한다 */
+		public void SetCellIdx(Vector3Int a_stCellIdx) {
+			this.Vec3IntDict.ExReplaceVal(EKey.CELL_IDX, a_stCellIdx);
 		}
 		#endregion			// 함수
 	}

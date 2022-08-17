@@ -14,7 +14,7 @@ namespace SampleEngineName {
 		private void SetupLevel() {
 			for(int i = 0; i < this.Params.m_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 				for(int j = 0; j < this.Params.m_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-					this.SetupCell(this.Params.m_oLevelInfo.m_oCellInfoDictContainer[i][j]);
+					this.SetupCell(this.Params.m_oLevelInfo.m_oCellInfoDictContainer[i][j], this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO));
 				}
 			}
 		}

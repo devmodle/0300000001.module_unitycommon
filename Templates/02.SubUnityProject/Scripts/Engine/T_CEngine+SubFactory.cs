@@ -17,6 +17,17 @@ namespace SampleEngineName {
 	/** 서브 엔진 - 팩토리 */
 	public partial class CEngine : CComponent {
 		#region 함수
+		/** 셀 객체를 생성한다 */
+		public CEObj CreateCellObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null, bool a_bIsEnableController = true) {
+			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_CELL_OBJ, KDefine.E_KEY_CELL_OBJ_OBJS_POOL);
+			var oController = a_bIsEnableController ? oObj.gameObject.AddComponent<CEPlayerObjController>() : null;
+
+			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
+			oController?.Init(Factory.MakePlayerObjControllerParams(this, oObj));
+
+			return oObj;
+		}
+
 		/** 플레이어 객체를 생성한다 */
 		public CEObj CreatePlayerObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_PLAYER_OBJ, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL);
@@ -39,11 +50,23 @@ namespace SampleEngineName {
 			return oObj;
 		}
 
+		/** 셀 객체를 제거한다 */
+		public void RemoveCellObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
+			var oCellObjList = (a_oObj != null) ? this.CellObjDictContainers.ExGetCellObjs(a_oObj.CellIdx, a_oObj.Params.m_stObjInfo.ObjType) : null;
+			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && oCellObjList != null && a_oObj.CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+
+			// 셀 객체가 존재 할 경우
+			if(a_oObj != null && oCellObjList != null && a_oObj.CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+				oCellObjList.ExRemoveVal(a_oObj);
+				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
+			}
+		}
+
 		/** 플레이어 객체를 제거한다 */
 		public void RemovePlayerObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
 			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
 
-			// 객체가 존재 할 경우
+			// 플레이어 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				this.PlayerObjList.ExRemoveVal(a_oObj);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
@@ -54,7 +77,7 @@ namespace SampleEngineName {
 		public void RemoveEnemyObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
 			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
 
-			// 객체가 존재 할 경우
+			// 적 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				this.EnemyObjList.ExRemoveVal(a_oObj);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);

@@ -39,17 +39,21 @@ namespace SampleEngineName {
 		}
 		
 		/** 셀을 설정한다 */
-		private void SetupCell(STCellInfo a_stCellInfo) {
+		private void SetupCell(STCellInfo a_stCellInfo, STGridInfo a_stGridInfo) {
 			var oCellObjDictContainer = new Dictionary<EObjType, List<CEObj>>();
 
 			foreach(var stKeyVal in a_stCellInfo.m_oObjKindsDictContainer) {
-				var oObjInfoList = new List<CEObj>();
+				var oCellObjList = new List<CEObj>();
 
 				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					// Do Something
+					var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(stKeyVal.Value[i]), null);
+					oCellObj.transform.localPosition = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(KDefine.E_OFFSET_CELL, KDefine.E_SIZE_CELL);
+					oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
+
+					oCellObjList.ExAddVal(oCellObj);
 				}
 
-				oCellObjDictContainer.TryAdd(stKeyVal.Key, oObjInfoList);
+				oCellObjDictContainer.TryAdd(stKeyVal.Key, oCellObjList);
 			}
 
 			this.CellObjDictContainers[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjDictContainer;

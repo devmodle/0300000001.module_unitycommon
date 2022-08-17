@@ -37,7 +37,7 @@ public static partial class Func {
 			var oCellInfoDict = new Dictionary<int, STCellInfo>();
 
 			for(int j = 0; j < Mathf.Clamp(nNumCellsX, SampleEngineName.KDefine.E_MIN_NUM_CELLS.x, SampleEngineName.KDefine.E_MAX_NUM_CELLS.x); ++j) {
-				oCellInfoDict.TryAdd(j, Factory.MakeCellInfo(new Vector3Int(j, i, KCDefine.B_IDX_INVALID)));
+				oCellInfoDict.TryAdd(j, Factory.MakeCellInfo(new Vector3Int(j, i, KCDefine.B_VAL_0_INT)));
 			}
 
 			a_oLevelInfo.m_oCellInfoDictContainer.TryAdd(i, oCellInfoDict);
