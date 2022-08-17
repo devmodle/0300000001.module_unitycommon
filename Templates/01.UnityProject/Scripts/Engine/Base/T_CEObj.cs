@@ -25,7 +25,7 @@ namespace SampleEngineName {
 		}
 
 		#region 변수
-		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
+
 		#endregion			// 변수
 
 		#region 프로퍼티
@@ -36,6 +36,8 @@ namespace SampleEngineName {
 		private Dictionary<EKey, Vector3Int> Vec3IntDict { get; } = new Dictionary<EKey, Vector3Int>() {
 			[EKey.CELL_IDX] = KCDefine.B_IDX_INVALID_3D
 		};
+
+		private Dictionary<EKey, SpriteRenderer> SpriteDict { get; } = new Dictionary<EKey, SpriteRenderer>();
 		#endregion			// 프로퍼티
 
 		#region 함수
