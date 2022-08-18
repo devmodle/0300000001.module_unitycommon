@@ -29,6 +29,22 @@ public static partial class Extension {
 		}
 	}
 
+	/** 타겟 정보를 제거한다 */
+	public static void ExRemoveTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, CTargetInfo a_oOwnerTargetInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null && a_oSender.ContainsKey(a_oTargetInfo.TargetType)));
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oSender != null && a_oTargetInfo != null && a_oSender.TryGetValue(a_oTargetInfo.TargetType, out List<CTargetInfo> oTargetInfoList)) {
+			oTargetInfoList.ExRemoveVal(a_oTargetInfo);
+
+			foreach(var stKeyVal in a_oSender) {
+				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
+					stKeyVal.Value[i].m_oOwnerTargetInfo = (stKeyVal.Value[i].m_oOwnerTargetInfo == a_oTargetInfo) ? null : stKeyVal.Value[i].m_oOwnerTargetInfo;
+				}
+			}
+		}
+	}
+
 	/** 타겟 값을 증가시킨다 */
 	public static void ExIncrTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));

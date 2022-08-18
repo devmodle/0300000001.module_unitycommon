@@ -211,8 +211,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 캐릭터 게임 정보를 반환한다 */
 	public bool TryGetCharacterGameInfo(int a_nCharacterID, out CCharacterGameInfo a_oOutCharacterGameInfo) {
-		this.GameInfo.m_oCharacterGameInfoDict.TryGetValue(a_nCharacterID, out a_oOutCharacterGameInfo);
-		return this.GameInfo.m_oCharacterGameInfoDict.ContainsKey(a_nCharacterID);
+		return this.GameInfo.m_oCharacterGameInfoDict.TryGetValue(a_nCharacterID, out a_oOutCharacterGameInfo);
 	}
 
 	/** 레벨 클리어 정보를 반환한다 */

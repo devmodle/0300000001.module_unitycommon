@@ -398,9 +398,29 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		}
 	}
 
+	/** 타겟 정보를 제거한다 */
+	public void RemoveTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
+
+		// 캐릭터 유저 정보가 존재 할 경우
+		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
+			oCharacterUserInfo.m_oTargetInfoDictContainer.ExRemoveTargetInfo(a_oTargetInfo, oCharacterUserInfo);
+		}
+	}
+
 	/** 캐릭터 유저 정보를 추가한다 */
 	public void AddCharacterUserInfo(CCharacterUserInfo a_oCharacterUserInfo) {
 		this.UserInfo.m_oCharacterUserInfoDict.TryAdd(a_oCharacterUserInfo.m_stIDInfo.m_nID01, a_oCharacterUserInfo);
+	}
+
+	/** 캐릭터 유저 정보를 제거한다 */
+	public void RemoveCharacterUserInfo(CCharacterUserInfo a_oCharacterUserInfo) {
+		for(int i = a_oCharacterUserInfo.m_stIDInfo.m_nID01 - KCDefine.B_VAL_1_INT; i < this.UserInfo.m_oCharacterUserInfoDict.Count - KCDefine.B_VAL_1_INT; ++i) {
+			this.UserInfo.m_oCharacterUserInfoDict[i].m_stIDInfo.m_nID01 -= KCDefine.B_VAL_1_INT;
+			this.UserInfo.m_oCharacterUserInfoDict.ExReplaceVal(i - KCDefine.B_VAL_1_INT, this.UserInfo.m_oCharacterUserInfoDict[i]);
+		}
+
+		this.UserInfo.m_oCharacterUserInfoDict.ExRemoveVal(this.UserInfo.m_oCharacterUserInfoDict.Count - KCDefine.B_VAL_2_INT);
 	}
 
 	/** 유저 정보를 로드한다 */
