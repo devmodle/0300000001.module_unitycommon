@@ -46,8 +46,8 @@ public partial class CSettingsPopup : CSubPopup {
 		base.UpdateUIsState();
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-		CSndManager.Inst.IsMuteBGSnd = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
-		CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
+		CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
+		CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
 
 		var oBtnKeyInfoList = CCollectionManager.Inst.SpawnList<(EKey, string, string, string, bool)>();
 

@@ -221,14 +221,18 @@ public partial class CObjTargetInfo : CTargetInfo {
 /** 캐릭터 유저 정보 */
 [MessagePackObject][System.Serializable]
 public partial class CCharacterUserInfo : CObjTargetInfo {
+	#region 변수
+	[Key(11)] public STIDInfo m_stIDInfo;
+	#endregion			// 변수
+
 	#region 상수
 	private const string KEY_SEL_ITEM_SET_IDX = "SelItemSetIdx";
 	private const string KEY_SEL_SKILL_SET_IDX = "SelSkillSetIdx";
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public int SelItemSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_ITEM_SET_IDX, $"{KCDefine.B_STR_0_INT}")); } set { m_oStrDict.ExReplaceVal(KEY_SEL_ITEM_SET_IDX, $"{value}"); } }
-	[JsonIgnore][IgnoreMember] public int SelSkillSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_SKILL_SET_IDX, $"{KCDefine.B_STR_0_INT}")); } set { m_oStrDict.ExReplaceVal(KEY_SEL_SKILL_SET_IDX, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public int SelItemSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_ITEM_SET_IDX, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_SEL_ITEM_SET_IDX, $"{value}"); } }
+	[JsonIgnore][IgnoreMember] public int SelSkillSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_SKILL_SET_IDX, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_SEL_SKILL_SET_IDX, $"{value}"); } }
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -265,7 +269,7 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 [MessagePackObject][System.Serializable]
 public partial class CUserInfo : CBaseInfo {
 	#region 변수
-	[Key(91)] public Dictionary<int, CCharacterUserInfo> m_oCharacterUserInfoDict = new Dictionary<int, CCharacterUserInfo>();
+	[Key(151)] public Dictionary<int, CCharacterUserInfo> m_oCharacterUserInfoDict = new Dictionary<int, CCharacterUserInfo>();
 	#endregion			// 변수
 
 	#region 상수
@@ -395,8 +399,8 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	/** 캐릭터 유저 정보를 추가한다 */
-	public void AddCharacterUserInfo(int a_nCharacterID, CCharacterUserInfo a_oCharacterUserInfo) {
-		this.UserInfo.m_oCharacterUserInfoDict.TryAdd(a_nCharacterID, a_oCharacterUserInfo);
+	public void AddCharacterUserInfo(CCharacterUserInfo a_oCharacterUserInfo) {
+		this.UserInfo.m_oCharacterUserInfoDict.TryAdd(a_oCharacterUserInfo.m_stIDInfo.m_nID01, a_oCharacterUserInfo);
 	}
 
 	/** 유저 정보를 로드한다 */

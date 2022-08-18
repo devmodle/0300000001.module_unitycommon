@@ -72,32 +72,32 @@ namespace InitScene {
 			
 			// 사운드 관리자를 설정한다 {
 #if MODE_2D_ENABLE
-			CSndManager.Inst.IsIgnoreBGSndEffects = true;
-			CSndManager.Inst.IsIgnoreFXSndsEffects = true;
+			CSndManager.Inst.SetIsIgnoreBGSndEffects(true);
+			CSndManager.Inst.SetIsIgnoreFXSndsEffects(true);
 
-			CSndManager.Inst.IsIgnoreBGSndReverbZones = true;
-			CSndManager.Inst.IsIgnoreFXSndsReverbZones = true;
+			CSndManager.Inst.SetIsIgnoreBGSndReverbZones(true);
+			CSndManager.Inst.SetIsIgnoreFXSndsReverbZones(true);
 
-			CSndManager.Inst.IsIgnoreBGSndListenerEffects = true;
-			CSndManager.Inst.IsIgnoreFXSndsListenerEffects = true;
+			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(true);
+			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(true);
 #else
-			CSndManager.Inst.IsIgnoreBGSndEffects = false;
-			CSndManager.Inst.IsIgnoreFXSndsEffects = false;
+			CSndManager.Inst.SetIsIgnoreBGSndEffects(false);
+			CSndManager.Inst.SetIsIgnoreFXSndsEffects(false);
 
-			CSndManager.Inst.IsIgnoreBGSndReverbZones = false;
-			CSndManager.Inst.IsIgnoreFXSndsReverbZones = false;
+			CSndManager.Inst.SetIsIgnoreBGSndReverbZones(false);
+			CSndManager.Inst.SetIsIgnoreFXSndsReverbZones(false);
 
-			CSndManager.Inst.IsIgnoreBGSndListenerEffects = false;
-			CSndManager.Inst.IsIgnoreFXSndsListenerEffects = false;
+			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(false);
+			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(false);
 #endif			// #if MODE_2D_ENABLE
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			CSndManager.Inst.BGSndVolume = CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume;
-			CSndManager.Inst.FXSndsVolume = CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume;
-			
-			CSndManager.Inst.IsMuteBGSnd = CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
-			CSndManager.Inst.IsMuteFXSnds = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
-			CSndManager.Inst.IsDisableVibrate = CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate;
+			CSndManager.Inst.SetBGSndVolume(CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume);
+			CSndManager.Inst.SetFXSndsVolume(CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume);
+
+			CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
+			CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
+			CSndManager.Inst.SetIsDisableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate);
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 사운드 관리자를 설정한다 }
 

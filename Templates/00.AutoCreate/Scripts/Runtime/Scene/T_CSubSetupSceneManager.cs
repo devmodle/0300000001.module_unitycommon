@@ -43,7 +43,7 @@ namespace SetupScene {
 
 			// 공용 캐릭터 유저 정보가 없을 경우
 			if(!CUserInfoStorage.Inst.TryGetCharacterUserInfo(KDefine.G_ID_COMMON_CHARACTER, out CCharacterUserInfo oCharacterUserInfo)) {
-				CUserInfoStorage.Inst.AddCharacterUserInfo(KDefine.G_ID_COMMON_CHARACTER, Factory.MakeCharacterUserInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01, STIdxInfo.INVALID));
+				CUserInfoStorage.Inst.AddCharacterUserInfo(Factory.MakeCharacterUserInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01, CFactory.MakeIDInfo(KDefine.G_ID_COMMON_CHARACTER), STIdxInfo.INVALID));
 				CUserInfoStorage.Inst.SaveUserInfo();
 			}
 
