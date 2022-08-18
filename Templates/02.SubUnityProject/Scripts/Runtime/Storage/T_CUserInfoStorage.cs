@@ -222,7 +222,7 @@ public partial class CObjTargetInfo : CTargetInfo {
 [MessagePackObject][System.Serializable]
 public partial class CCharacterUserInfo : CObjTargetInfo {
 	#region 변수
-	[Key(11)] public STIDInfo m_stIDInfo;
+	[Key(21)] public STIDInfo m_stIDInfo;
 	#endregion			// 변수
 
 	#region 상수
