@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
 	/** 스킬 */
-	public partial class CESkill : CEComponent {
+	public partial class CESkill : CEObjComponent {
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -32,7 +32,7 @@ namespace NSEngine {
 	}
 
 	/** 서브 스킬 */
-	public partial class CESkill : CEComponent {
+	public partial class CESkill : CEObjComponent {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,

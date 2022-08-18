@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
 	/** 제어자 */
-	public abstract partial class CEController : CComponent {
+	public abstract partial class CEController : CEComponent {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
@@ -17,8 +17,8 @@ namespace NSEngine {
 
 		/** 매개 변수 */
 		public struct STParams {
-			public CEngine m_oEngine;
-			public CEComponent m_oOwner;
+			public CEComponent.STParams m_stBaseParams;
+			public CEObjComponent m_oOwner;
 		}
 
 		#region 변수
@@ -27,7 +27,7 @@ namespace NSEngine {
 
 		#region 프로퍼티
 		public STParams Params { get; private set; }
-		public List<CEComponent> TargetList { get; } = new List<CEComponent>();
+		public List<CEObjComponent> TargetObjList { get; } = new List<CEObjComponent>();
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -36,13 +36,13 @@ namespace NSEngine {
 
 		#region 제네릭 함수
 		/** 소유자를 반환한다 */
-		public T GetOwner<T>() where T : CEComponent {
+		public T GetOwner<T>() where T : CEObjComponent {
 			return this.Params.m_oOwner as T;
 		}
 
 		/** 타겟을 반환한다 */
-		public T GetTarget<T>(int a_nIdx) where T : CEComponent {
-			return this.TargetList.ExGetVal(a_nIdx, null) as T;
+		public T GetTarget<T>(int a_nIdx) where T : CEObjComponent {
+			return this.TargetObjList.ExGetVal(a_nIdx, null) as T;
 		}
 		#endregion			// 제네릭 함수
 	}

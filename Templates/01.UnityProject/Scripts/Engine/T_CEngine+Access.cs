@@ -12,12 +12,13 @@ namespace NSEngine {
 		#region 함수
 		/** 셀 객체를 탐색한다 */
 		public CEObj FindCellObj(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
-			return this.TryFindCellObj(a_eObjType, a_eObjKinds, a_stIdx, out CEObj oCellObj) ? oCellObj : null;
+			var oCellObjList = this.CellObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
+			return (oCellObjList != null) ? oCellObjList.ExGetVal((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds, null) : null;
 		}
 
 		/** 셀 객체를 탐색한다 */
 		public List<CEObj> FindCellObjs(EObjType a_eObjType, Vector3Int a_stIdx) {
-			return this.TryFindCellObjs(a_eObjType, a_stIdx, out List<CEObj> oCellObjList) ? oCellObjList : null;
+			return this.CellObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
 		}
 
 		/** 최상단 셀 객체를 탐색한다 */
@@ -46,44 +47,6 @@ namespace NSEngine {
 			}
 
 			return null;
-		}
-
-		/** 셀 객체를 탐색한다 */
-		public bool TryFindCellObj(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx, out CEObj a_oOutCellObj) {
-			a_oOutCellObj = this.TryFindCellObjs(a_eObjType, a_stIdx, out List<CEObj> oCellObjList) ? oCellObjList.ExGetVal((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds, null) : null;
-			return a_oOutCellObj != null;
-		}
-
-		/** 셀 객체를 탐색한다 */
-		public bool TryFindCellObjs(EObjType a_eObjType, Vector3Int a_stIdx, out List<CEObj> a_oOutCellObjList) {
-			a_oOutCellObjList = this.CellObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
-			return a_oOutCellObjList != null;
-		}
-
-		/** 최상단 셀 객체를 탐색한다 */
-		public bool TryFindTopCellObj(EObjKinds a_eObjKinds, Vector3Int a_stIdx, out CEObj a_oOutTopCellObj) {
-			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
-				// 객체 정보가 존재 할 경우
-				if(this.TryFindCellObj(eObjType, a_eObjKinds, a_stIdx, out a_oOutTopCellObj)) {
-					return true;
-				}
-			}
-
-			a_oOutTopCellObj = null;
-			return false;
-		}
-
-		/** 셀 객체를 탐색한다 */
-		public bool TryFindTopCellObjs(Vector3Int a_stIdx, out List<CEObj> a_oOutTopCellObjList) {
-			for(var eObjType = EObjType.MAX_VAL - KCDefine.B_VAL_1_INT; eObjType > EObjType.NONE; --eObjType) {
-				// 객체 정보가 존재 할 경우
-				if(this.TryFindCellObjs(eObjType, a_stIdx, out a_oOutTopCellObjList)) {
-					return true;
-				}
-			}
-
-			a_oOutTopCellObjList = null;
-			return false;
 		}
 		#endregion			// 함수
 	}

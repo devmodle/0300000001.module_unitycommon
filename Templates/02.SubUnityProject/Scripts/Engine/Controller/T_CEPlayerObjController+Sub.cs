@@ -92,19 +92,22 @@ namespace NSEngine {
 		/** 스킬을 적용시킨다 */
 		protected override void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			base.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
-			var oTargetList = CCollectionManager.Inst.SpawnList<CEComponent>();
+			var oTargetObjList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
 
 			try {
-				this.SetupApplySkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetList);
+				switch(a_stSkillInfo.SkillApplyType) {
+					case ESkillApplyType.RANGE: this.SetupRangeSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
+					case ESkillApplyType.TARGET: this.SetupTargetSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
+				}
 
-				var oSkill = base.Params.m_stBaseParams.m_oEngine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
+				var oSkill = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
 				oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
-				oTargetList.ExCopyTo(oSkill.GetController<CESkillController>().TargetList, (a_oTarget) => a_oTarget);
+				oTargetObjList.ExCopyTo(oSkill.GetController<CESkillController>().TargetObjList, (a_oTargetObj) => a_oTargetObj);
 
 				oSkill.GetController<CESkillController>().Apply();
-				base.Params.m_stBaseParams.m_oEngine.SkillList.ExAddVal(oSkill);
+				base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SkillList.ExAddVal(oSkill);
 			} finally {
-				CCollectionManager.Inst.DespawnList(oTargetList);
+				CCollectionManager.Inst.DespawnList(oTargetObjList);
 			}
 		}
 
@@ -118,11 +121,15 @@ namespace NSEngine {
 			this.SetState(EState.IDLE, true);
 		}
 
-		/** 적용 스킬 타겟을 설정한다 */
-		private void SetupApplySkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEComponent> a_oOutTargetList) {
-			// 단일 타겟 스킬 일 경우
-			if(a_stSkillInfo.m_eSkillApplyKinds == ESkillApplyKinds.TARGET_SINGLE) {
-				a_oOutTargetList.ExAddVal(base.Params.m_stBaseParams.m_oEngine.FindNearEnemyObj(this.GetOwner<CEObj>()));	
+		/** 범위 스킬 타겟을 설정한다 */
+		private void SetupRangeSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+			// Do Something
+		}
+
+		/** 타겟 스킬 타겟을 설정한다 */
+		private void SetupTargetSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+			switch(a_stSkillInfo.m_eSkillApplyKinds) {
+				case ESkillApplyKinds.TARGET_SINGLE: a_oOutTargetObjList.ExAddVal(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindNearEnemyObj(this.GetOwner<CEObj>().transform.localPosition)); break;
 			}
 		}
 		#endregion			// 함수

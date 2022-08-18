@@ -19,17 +19,23 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	#region 변수
 	[Key(1)] public STIdxInfo m_stIdxInfo = STIdxInfo.INVALID;
 	[Key(131)] public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
-	[Key(161)] public Dictionary<ETargetType, List<CTargetInfo>> m_oTargetInfoDictContainer = new Dictionary<ETargetType, List<CTargetInfo>>();
 
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public CTargetInfo m_oOwnerTargetInfo = null;
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public Dictionary<ETargetType, List<CTargetInfo>> m_oOwnedTargetInfoDictContainer = new Dictionary<ETargetType, List<CTargetInfo>>();
 	#endregion			// 변수
 
 	#region 상수
 	private const string KEY_NAME = "Name";
+	private const string KEY_GUID = "GUID";
+	private const string KEY_OWNER_GUID = "OwnerGUID";
+	private const string KEY_OWNER_TARGET_TYPE = "OwnerTargetType";
 	#endregion			// 상수
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public string Name { get { return m_oStrDict.GetValueOrDefault(KEY_NAME, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_NAME, value); } }
+	[JsonIgnore][IgnoreMember] public string GUID { get { return m_oStrDict.GetValueOrDefault(KEY_GUID, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_GUID, value); } }
+	[JsonIgnore][IgnoreMember] public string OwnerGUID { get { return m_oStrDict.GetValueOrDefault(KEY_OWNER_GUID, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_GUID, value); } }
+	[JsonIgnore][IgnoreMember] public ETargetType OwnerTargetType { get { return (ETargetType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TARGET_TYPE, $"{(int)ETargetType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_TARGET_TYPE, $"{(int)value}"); } }
 
 	[JsonIgnore][IgnoreMember] public abstract int Kinds { get; }
 	[JsonIgnore][IgnoreMember] public abstract ETargetType TargetType { get; }
@@ -44,16 +50,10 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-
+		
+		this.GUID = this.GUID.ExIsValid() ? this.GUID : System.Guid.NewGuid().ToString();
 		m_oAbilityTargetInfoDict = m_oAbilityTargetInfoDict ?? new Dictionary<ulong, STTargetInfo>();
-		m_oTargetInfoDictContainer = m_oTargetInfoDictContainer ?? new Dictionary<ETargetType, List<CTargetInfo>>();
-
-		for(var eTargetType = ETargetType.NONE + KCDefine.B_VAL_1_INT; eTargetType < ETargetType.MAX_VAL; ++eTargetType) {
-			// 타겟 정보가 존재 할 경우
-			if(m_oTargetInfoDictContainer.TryGetValue(eTargetType, out List<CTargetInfo> oTargetInfoList)) {
-				this.SetupTargetInfos(oTargetInfoList);
-			}
-		}
+		m_oOwnedTargetInfoDictContainer = m_oOwnedTargetInfoDictContainer ?? new Dictionary<ETargetType, List<CTargetInfo>>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -70,13 +70,6 @@ public abstract partial class CTargetInfo : CBaseInfo {
 			if(a_stVer.CompareTo(KDefine.G_VER_ABILITY_TARGET_INFO) < KCDefine.B_COMPARE_EQUALS) {
 				// Do Something
 			}
-		}
-	}
-	
-	/** 타겟 정보를 설정한다 */
-	private void SetupTargetInfos(List<CTargetInfo> a_oTargetInfoList) {
-		for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
-			a_oTargetInfoList[i].m_oOwnerTargetInfo = this;
 		}
 	}
 	#endregion			// 함수
@@ -223,6 +216,7 @@ public partial class CObjTargetInfo : CTargetInfo {
 public partial class CCharacterUserInfo : CObjTargetInfo {
 	#region 변수
 	[Key(21)] public STIDInfo m_stIDInfo;
+	[Key(161)] public Dictionary<ETargetType, List<CTargetInfo>> m_oTargetInfoDictContainer = new Dictionary<ETargetType, List<CTargetInfo>>();
 	#endregion			// 변수
 
 	#region 상수
@@ -244,6 +238,11 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+		m_oTargetInfoDictContainer = m_oTargetInfoDictContainer ?? new Dictionary<ETargetType, List<CTargetInfo>>();
+
+		foreach(var stKeyVal in m_oTargetInfoDictContainer) {
+			this.SetupTargetInfos(stKeyVal.Value);
+		}
 
 		// 버전이 다를 경우
 		if(this.Ver.CompareTo(KDefine.G_VER_CHARACTER_OBJ_TARGET_INFO) < KCDefine.B_COMPARE_EQUALS) {
@@ -261,6 +260,18 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	/** 생성자 */
 	public CCharacterUserInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
+	}
+
+	/** 타겟 정보를 설정한다 */
+	private void SetupTargetInfos(List<CTargetInfo> a_oTargetInfoList) {
+		for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
+			// 소유자 고유 식별자가 존재 할 경우
+			if(a_oTargetInfoList[i].OwnerGUID.ExIsValid() && a_oTargetInfoList[i].OwnerTargetType != ETargetType.NONE) {
+				m_oTargetInfoDictContainer.ExFindTargetInfo(a_oTargetInfoList[i].OwnerTargetType, a_oTargetInfoList[i].OwnerGUID)?.ExAddOwnedTargetInfo(a_oTargetInfoList[i], false);
+			} else {
+				a_oTargetInfoList[i].ExSetOwnerTargetInfo(null);
+			}
+		}
 	}
 	#endregion			// 함수
 }
@@ -394,7 +405,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
-			oCharacterUserInfo.m_oTargetInfoDictContainer.ExAddTargetInfo(a_oTargetInfo, oCharacterUserInfo, a_bIsDuplicate);
+			oCharacterUserInfo.m_oTargetInfoDictContainer.ExAddTargetInfo(a_oTargetInfo, a_bIsDuplicate, a_bIsEnableAssert);
 		}
 	}
 
@@ -404,7 +415,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
-			oCharacterUserInfo.m_oTargetInfoDictContainer.ExRemoveTargetInfo(a_oTargetInfo, oCharacterUserInfo);
+			oCharacterUserInfo.m_oTargetInfoDictContainer.ExRemoveTargetInfo(a_oTargetInfo, a_bIsEnableAssert);
 		}
 	}
 

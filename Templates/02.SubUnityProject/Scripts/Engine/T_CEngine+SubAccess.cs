@@ -23,20 +23,31 @@ namespace NSEngine {
 		}
 
 		/** 가까운 적 객체를 탐색한다 */
-		public CEObj FindNearEnemyObj(CEObj a_oObj) {
-			return this.TryFindNearEnemyObj(a_oObj, out CEObj oEnemyObj) ? oEnemyObj : null;
+		public CEObj FindNearEnemyObj(Vector3 a_stPos) {
+			var oEnemyObj = this.EnemyObjList.ExGetVal(KCDefine.B_VAL_0_INT, null);
+
+			for(int i = 1; i < this.EnemyObjList.Count; ++i) {
+				float fDistance = (a_stPos - oEnemyObj.transform.localPosition).sqrMagnitude;
+				oEnemyObj = fDistance.ExIsLessEquals((oEnemyObj.transform.localPosition - this.EnemyObjList[i].transform.localPosition).sqrMagnitude) ? oEnemyObj : this.EnemyObjList[i];
+			}
+
+			return oEnemyObj;
 		}
 
 		/** 가까운 적 객체를 탐색한다 */
-		public bool TryFindNearEnemyObj(CEObj a_oObj, out CEObj a_oOutEnemyObj) {
-			a_oOutEnemyObj = this.EnemyObjList.ExGetVal(KCDefine.B_VAL_0_INT, null);
+		public List<CEObj> FindNearEnemyObjs(Vector3 a_stPos, float a_fDistance, List<CEObj> a_oOutEnemyObjList) {
+			a_oOutEnemyObjList = a_oOutEnemyObjList ?? new List<CEObj>();
+			
+			for(int i = 0; i < this.EnemyObjList.Count; ++i) {
+				float fDistance = (a_stPos - this.EnemyObjList[i].transform.localPosition).sqrMagnitude;
 
-			for(int i = 1; i < this.EnemyObjList.Count; ++i) {
-				float fDistance = (a_oObj.transform.localPosition - a_oOutEnemyObj.transform.localPosition).sqrMagnitude;
-				a_oOutEnemyObj = fDistance.ExIsLessEquals((a_oOutEnemyObj.transform.localPosition - this.EnemyObjList[i].transform.localPosition).sqrMagnitude) ? a_oOutEnemyObj : this.EnemyObjList[i];
+				// 범위 안에 존재 할 경우
+				if(fDistance.ExIsLessEquals(Mathf.Pow(a_fDistance, KCDefine.B_VAL_2_REAL))) {
+					a_oOutEnemyObjList.ExAddVal(this.EnemyObjList[i]);
+				}
 			}
 
-			return a_oOutEnemyObj != null;
+			return a_oOutEnemyObjList;
 		}
 
 		/** 무효 상태 가능 여부를 검사한다 */

@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
 	/** 객체 */
-	public partial class CEObj : CEComponent {
+	public partial class CEObj : CEObjComponent {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
@@ -19,7 +19,7 @@ namespace NSEngine {
 
 		/** 매개 변수 */
 		public new struct STParams {
-			public CEComponent.STParams m_stBaseParams;
+			public CEObjComponent.STParams m_stBaseParams;
 			public STObjInfo m_stObjInfo;
 			public CObjTargetInfo m_oObjTargetInfo;
 		}
@@ -41,10 +41,16 @@ namespace NSEngine {
 		/** 어빌리티 값을 설정한다 */
 		public override void SetupAbilityVals() {
 			base.SetupAbilityVals();
+			this.OriginAbilityValDict.ExCopyTo(this.AbilityValDict, (a_dmAbilityVal) => a_dmAbilityVal);
+		}
+
+		/** 어빌리티 값을 갱신한다 */
+		public override void UpdateAbilityVals() {
+			base.UpdateAbilityVals();
 
 			// 객체 정보가 존재 할 경우
 			if(this.Params.m_stObjInfo.m_eObjKinds.ExIsValid()) {
-				global::Func.SetupAbilityVals(this.Params.m_stObjInfo, this.Params.m_oObjTargetInfo, this.AbilityValDict);
+				global::Func.SetupAbilityVals(this.Params.m_stObjInfo, this.Params.m_oObjTargetInfo, this.OriginAbilityValDict);
 			}
 		}
 

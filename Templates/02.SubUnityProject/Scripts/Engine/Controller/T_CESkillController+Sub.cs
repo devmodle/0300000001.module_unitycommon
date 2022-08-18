@@ -95,7 +95,7 @@ namespace NSEngine {
 			}
 		}
 		
-		/** 제어자를 설정한다 */
+		/** 효과를 설정한다 */
 		private void SubAwakeSetup() {
 			// Do Something
 		}
@@ -118,7 +118,8 @@ namespace NSEngine {
 			// 적용 간격이 지났을 경우
 			if(this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (nApplyTimes - KCDefine.B_VAL_1_INT))) {
 				switch((ESkillApplyType)((int)this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillApplyKinds).ExKindsToType()) {
-					case ESkillApplyType.TARGET: this.ApplyTarget(); break;
+					case ESkillApplyType.RANGE: this.ApplyRangeSkill(); break;
+					case ESkillApplyType.TARGET: this.ApplyTargetSkill(); break;
 				}
 
 				this.IntDict.ExReplaceVal(ESubKey.APPLY_TIMES, nApplyTimes + KCDefine.B_VAL_1_INT);
@@ -127,14 +128,19 @@ namespace NSEngine {
 			// 적용 시간이 지났을 경우
 			if(this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
 				base.Params.m_oOwner.GetOwner<CEObj>().GetController<CEObjController>().SetState(EState.IDLE);
-				base.Params.m_oEngine.RemoveSkill(this.GetOwner<CESkill>());
+				base.Params.m_stBaseParams.m_oEngine.RemoveSkill(this.GetOwner<CESkill>());
 			}
 		}
 
+		/** 범위 스킬을 적용한다 */
+		private void ApplyRangeSkill() {
+			// Do Something
+		}
+
 		/** 타겟 스킬을 적용한다 */
-		private void ApplyTarget() {
-			for(int i = 0; i < this.TargetList.Count; ++i) {
-				base.Params.m_oOwner.GetOwner<CEObj>().GetController<CEObjController>().Attack(this.TargetList[i] as CEObj, this.GetOwner<CESkill>());
+		private void ApplyTargetSkill() {
+			for(int i = 0; i < this.TargetObjList.Count; ++i) {
+				base.Params.m_oOwner.GetOwner<CEObj>().GetController<CEObjController>().Attack(this.TargetObjList[i] as CEObj, this.GetOwner<CESkill>());
 			}
 		}
 		#endregion			// 함수

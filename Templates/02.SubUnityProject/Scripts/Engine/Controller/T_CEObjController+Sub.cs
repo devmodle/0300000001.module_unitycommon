@@ -96,7 +96,7 @@ namespace NSEngine {
 			base.HandleMoveState(a_fDeltaTime);
 
 			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((this.Vec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION) * (float)this.GetOwner<CEObj>().AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
-			var stEpisodeInfo = global::Access.GetEpisodeInfo(base.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, base.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, base.Params.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
+			var stEpisodeInfo = global::Access.GetEpisodeInfo(base.Params.m_stBaseParams.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, base.Params.m_stBaseParams.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, base.Params.m_stBaseParams.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
 
 			float fNextPosY = Mathf.Clamp(stNextPos.y, (stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
 			this.GetOwner<CEObj>().transform.localPosition = new Vector3(Mathf.Clamp(stNextPos.x, stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL), fNextPosY, fNextPosY / stEpisodeInfo.m_stSize.y);

@@ -69,7 +69,7 @@ namespace NSEngine {
 			if(this.IsEnableAttackPlayerObj()) {
 				this.ApplySkill(CSkillInfoTable.Inst.GetSkillInfo(this.GetOwner<CEObj>().Params.m_stObjInfo.m_eActionSkillKinds), null);
 			} else {
-				this.Move(base.Params.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition);
+				this.Move(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition);
 			}
 		}
 
@@ -81,7 +81,7 @@ namespace NSEngine {
 			if(this.IsEnableAttackPlayerObj()) {
 				this.ApplySkill(CSkillInfoTable.Inst.GetSkillInfo(this.GetOwner<CEObj>().Params.m_stObjInfo.m_eActionSkillKinds), null);
 			} else {
-				this.SetMoveDirection(base.Params.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition);
+				this.SetMoveDirection(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition);
 			}
 		}
 
@@ -108,11 +108,11 @@ namespace NSEngine {
 		protected override void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			base.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
 
-			var oSkill = base.Params.m_stBaseParams.m_oEngine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
+			var oSkill = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
 			oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
-			oSkill.GetController<CESkillController>().TargetList.ExAddVal(base.Params.m_stBaseParams.m_oEngine.SelPlayerObj);
+			oSkill.GetController<CESkillController>().TargetObjList.ExAddVal(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj);
 
-			base.Params.m_stBaseParams.m_oEngine.SkillList.ExAddVal(oSkill);
+			base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SkillList.ExAddVal(oSkill);
 			oSkill.GetController<CESkillController>().Apply();
 		}
 		
@@ -128,7 +128,7 @@ namespace NSEngine {
 
 		/** 플레이어 객체 공격 가능 여부를 검사한다 */
 		private bool IsEnableAttackPlayerObj() {
-			var stDelta = base.Params.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;
+			var stDelta = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;
 			return stDelta.sqrMagnitude.ExIsLessEquals(Mathf.Pow((float)this.GetOwner<CEObj>().AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_ATK_RANGE_01), KCDefine.B_VAL_2_REAL));			
 		}
 		#endregion			// 함수

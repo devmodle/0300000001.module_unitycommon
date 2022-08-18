@@ -11,7 +11,7 @@ using UnityEngine.Events;
 public struct STAbilityInfo {
 	public STCommonInfo m_stCommonInfo;
 	public STValInfo m_stValInfo;
-
+	
 	public EAbilityKinds m_eAbilityKinds;
 	public EAbilityKinds m_ePrevAbilityKinds;
 	public EAbilityKinds m_eNextAbilityKinds;

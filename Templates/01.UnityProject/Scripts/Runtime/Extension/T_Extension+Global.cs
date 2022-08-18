@@ -11,7 +11,7 @@ using DG.Tweening;
 public static partial class Extension {
 	#region 클래스 함수
 	/** 타겟 정보를 추가한다 */
-	public static void ExAddTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, CTargetInfo a_oOwnerTargetInfo, bool a_bIsDuplicate = false, bool a_bIsEnableAssert = true) {
+	public static void ExAddTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsDuplicate = false, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
@@ -21,7 +21,6 @@ public static partial class Extension {
 
 			// 타겟 정보 추가가 가능 할 경우
 			if(a_bIsDuplicate || !oTargetInfoList.ExIsValidIdx(nIdx)) {
-				a_oTargetInfo.m_oOwnerTargetInfo = a_oOwnerTargetInfo;
 				oTargetInfoList.ExAddVal(a_oTargetInfo);
 			}
 
@@ -29,19 +28,35 @@ public static partial class Extension {
 		}
 	}
 
+	/** 소유 타겟 정보를 추가한다 */
+	public static void ExAddOwnedTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oSender != null && a_oTargetInfo != null) {
+			a_oSender.m_oOwnedTargetInfoDictContainer.ExAddTargetInfo(a_oTargetInfo, true, a_bIsEnableAssert);
+			a_oTargetInfo.ExSetOwnerTargetInfo(a_oSender, a_bIsEnableAssert);
+		}
+	}
+
 	/** 타겟 정보를 제거한다 */
-	public static void ExRemoveTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, CTargetInfo a_oOwnerTargetInfo, bool a_bIsEnableAssert = true) {
+	public static void ExRemoveTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null && a_oSender.ContainsKey(a_oTargetInfo.TargetType)));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null && a_oSender.TryGetValue(a_oTargetInfo.TargetType, out List<CTargetInfo> oTargetInfoList)) {
 			oTargetInfoList.ExRemoveVal(a_oTargetInfo);
+		}
+	}
 
-			foreach(var stKeyVal in a_oSender) {
-				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					stKeyVal.Value[i].m_oOwnerTargetInfo = (stKeyVal.Value[i].m_oOwnerTargetInfo == a_oTargetInfo) ? null : stKeyVal.Value[i].m_oOwnerTargetInfo;
-				}
-			}
+	/** 소유 타겟 정보를 제거한다 */
+	public static void ExRemoveOwnedTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oSender != null && a_oTargetInfo != null) {
+			a_oSender.m_oOwnedTargetInfoDictContainer.ExRemoveTargetInfo(a_oTargetInfo, a_bIsEnableAssert);
+			a_oTargetInfo.ExSetOwnerTargetInfo(null, a_bIsEnableAssert);
 		}
 	}
 
@@ -78,6 +93,16 @@ public static partial class Extension {
 		}
 
 		a_oSender?.ExPlay(a_bIsPlayChildren, a_bIsStopChildren, a_bIsEnableAssert);
+	}
+
+	/** 타겟 정보를 탐색한다 */
+	public static CTargetInfo ExFindTargetInfo(this List<CTargetInfo> a_oSender, ETargetType a_eTargetType, string a_oGUID) {
+		return a_oSender.ExTryGetTargetInfo(a_eTargetType, a_oGUID, out CTargetInfo oTargetInfo) ? oTargetInfo : null;
+	}
+
+	/** 타겟 정보를 탐색한다 */
+	public static CTargetInfo ExFindTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, ETargetType a_eTargetType, string a_oGUID) {
+		return a_oSender.ExTryGetTargetInfo(a_eTargetType, a_oGUID, out CTargetInfo oTargetInfo) ? oTargetInfo : null;
 	}
 
 	/** 게이지 애니메이션을 시작한다 */

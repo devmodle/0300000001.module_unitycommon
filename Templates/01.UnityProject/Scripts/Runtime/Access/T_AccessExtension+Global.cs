@@ -43,8 +43,32 @@ public static partial class AccessExtension {
 	}
 
 	/** 타겟 정보를 반환한다 */
+	public static CTargetInfo ExGetTargetInfo(this List<CTargetInfo> a_oSender, ETargetType a_eTargetType, int a_nKinds) {
+		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo);
+		CAccess.Assert(bIsValid);
+
+		return oTargetInfo;
+	}
+
+	/** 타겟 정보를 반환한다 */
+	public static CTargetInfo ExGetTargetInfo(this List<CTargetInfo> a_oSender, ETargetType a_eTargetType, string a_oGUID) {
+		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetType, a_oGUID, out CTargetInfo oTargetInfo);
+		CAccess.Assert(bIsValid);
+
+		return oTargetInfo;
+	}
+
+	/** 타겟 정보를 반환한다 */
 	public static CTargetInfo ExGetTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, ETargetType a_eTargetType, int a_nKinds) {
 		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo);
+		CAccess.Assert(bIsValid);
+
+		return oTargetInfo;
+	}
+
+	/** 타겟 정보를 반환한다 */
+	public static CTargetInfo ExGetTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, ETargetType a_eTargetType, string a_oGUID) {
+		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetType, a_oGUID, out CTargetInfo oTargetInfo);
 		CAccess.Assert(bIsValid);
 
 		return oTargetInfo;
@@ -55,11 +79,41 @@ public static partial class AccessExtension {
 		a_stOutTargetInfo = a_oSender.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID);
 		return a_oSender.ContainsKey(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds));
 	}
+
+	/** 타겟 정보를 반환한다 */
+	public static bool ExTryGetTargetInfo(this List<CTargetInfo> a_oSender, ETargetType a_eTargetType, int a_nKinds, out CTargetInfo a_oOutTargetInfo) {
+		a_oOutTargetInfo = a_oSender.ExGetVal((a_oTargetInfo) => a_oTargetInfo.TargetType == a_eTargetType && a_oTargetInfo.Kinds == a_nKinds, null);
+		return a_oOutTargetInfo != null;
+	}
+
+	/** 타겟 정보를 반환한다 */
+	public static bool ExTryGetTargetInfo(this List<CTargetInfo> a_oSender, ETargetType a_eTargetType, string a_oGUID, out CTargetInfo a_oOutTargetInfo) {
+		a_oOutTargetInfo = a_oSender.ExGetVal((a_oTargetInfo) => a_oTargetInfo.TargetType == a_eTargetType && a_oTargetInfo.GUID.Equals(a_oGUID), null);
+		return a_oOutTargetInfo != null;
+	}
 	
 	/** 타겟 정보를 반환한다 */
 	public static bool ExTryGetTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, ETargetType a_eTargetType, int a_nKinds, out CTargetInfo a_oOutTargetInfo) {
-		a_oOutTargetInfo = a_oSender.TryGetValue(a_eTargetType, out List<CTargetInfo> oTargetInfoList) ? oTargetInfoList.ExGetVal((a_oTargetInfo) => a_oTargetInfo.TargetType == a_eTargetType && a_oTargetInfo.Kinds == a_nKinds, null) : null;
+		a_oOutTargetInfo = (a_oSender.TryGetValue(a_eTargetType, out List<CTargetInfo> oTargetInfoList) && oTargetInfoList.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
 		return a_oOutTargetInfo != null;
+	}
+
+	/** 타겟 정보를 반환한다 */
+	public static bool ExTryGetTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, ETargetType a_eTargetType, string a_oGUID, out CTargetInfo a_oOutTargetInfo) {
+		a_oOutTargetInfo = (a_oSender.TryGetValue(a_eTargetType, out List<CTargetInfo> oTargetInfoList) && oTargetInfoList.ExTryGetTargetInfo(a_eTargetType, a_oGUID, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
+		return a_oOutTargetInfo != null;
+	}
+
+	/** 소유자 타겟 정보를 변경한다 */
+	public static void ExSetOwnerTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oOwnerTargetInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oSender != null) {
+			a_oSender.OwnerGUID = (a_oOwnerTargetInfo != null) ? a_oOwnerTargetInfo.GUID : string.Empty;
+			a_oSender.OwnerTargetType = (a_oOwnerTargetInfo != null) ? a_oOwnerTargetInfo.TargetType : ETargetType.NONE;
+			a_oSender.m_oOwnerTargetInfo = a_oOwnerTargetInfo;
+		}
 	}
 	#endregion			// 클래스 함수
 }
