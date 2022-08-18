@@ -39,8 +39,8 @@ public partial class CProductTradePopup : CSubPopup {
 		base.UpdateUIsState();
 
 		// 상품 구입 UI 상태를 갱신한다
-		for(int i = 0; i < m_oProductBuyUIsDict.Count; ++i) {
-			this.UpdateProductBuyUIsState(m_oProductBuyUIsDict[i], CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));
+		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
+			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));
 		}
 
 		#region 추가

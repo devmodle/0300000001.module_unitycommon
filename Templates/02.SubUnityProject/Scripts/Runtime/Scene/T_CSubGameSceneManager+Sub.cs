@@ -90,8 +90,8 @@ namespace GameScene {
 			foreach(var stKeyVal in m_oSpriteDict) {
 				stKeyVal.Value.drawMode = SpriteDrawMode.Tiled;
 				stKeyVal.Value.tileMode = SpriteTileMode.Continuous;
-				stKeyVal.Value.sprite = oSpriteInfoDict[stKeyVal.Key].Item1;
-				stKeyVal.Value.ExSetSortingOrder(oSpriteInfoDict[stKeyVal.Key].Item2);
+				stKeyVal.Value.sprite = oSpriteInfoDict.GetValueOrDefault(stKeyVal.Key).Item1;
+				stKeyVal.Value.ExSetSortingOrder(oSpriteInfoDict.GetValueOrDefault(stKeyVal.Key).Item2);
 			}
 
 			var stEpisodeInfo = global::Access.GetEpisodeInfo(m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);

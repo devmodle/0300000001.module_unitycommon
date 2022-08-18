@@ -331,9 +331,9 @@ public static partial class Func {
 			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetMoveCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetEndCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetBeginCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetMoveCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetEndCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
 			}
 		}
 	}
@@ -347,9 +347,9 @@ public static partial class Func {
 			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetMoveCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetEndCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetBeginCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetMoveCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetEndCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
 			}
 		}
 	}
@@ -363,9 +363,9 @@ public static partial class Func {
 			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetBeginCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetMoveCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict[a_oKeyInfoList[i].Item1]?.ExSetEndCallback(a_oKeyInfoList[i].Item7, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetBeginCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetMoveCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetEndCallback(a_oKeyInfoList[i].Item7, a_bIsEnableAssert);
 			}
 		}
 	}

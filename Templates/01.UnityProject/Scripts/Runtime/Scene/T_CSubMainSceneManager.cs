@@ -182,35 +182,35 @@ namespace MainScene {
 					(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, this.UpUIs, null)
 				}, oHLayoutGroupDict, false);
 
-				oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].spacing = KCDefine.B_VAL_4_REAL * KCDefine.B_VAL_5_REAL;
+				oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).spacing = KCDefine.B_VAL_4_REAL * KCDefine.B_VAL_5_REAL;
 
-				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
-				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
-				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
-				(oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].transform as RectTransform).anchoredPosition = Vector3.zero;
+				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
+				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
+				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
+				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).anchoredPosition = Vector3.zero;
 
-				var oContentsSizeFitter = oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].gameObject.ExAddComponent<ContentSizeFitter>();
+				var oContentsSizeFitter = oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).gameObject.ExAddComponent<ContentSizeFitter>();
 				oContentsSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 				oContentsSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 				// 레이아웃을 설정한다 }
 
 				// 텍스트를 설정한다 {
 				CFunc.SetupComponents(new List<(string, string, GameObject, GameObject)>() {
-					(KCDefine.U_OBJ_N_A_SET_BTN, KCDefine.U_OBJ_N_A_SET_BTN, oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN)),
-					(KCDefine.U_OBJ_N_B_SET_BTN, KCDefine.U_OBJ_N_B_SET_BTN, oHLayoutGroupDict[KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS].gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN))
+					(KCDefine.U_OBJ_N_A_SET_BTN, KCDefine.U_OBJ_N_A_SET_BTN, oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN)),
+					(KCDefine.U_OBJ_N_B_SET_BTN, KCDefine.U_OBJ_N_B_SET_BTN, oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN))
 				}, oTextDict, false);
 
-				oTextDict[KCDefine.U_OBJ_N_A_SET_BTN].fontSize = KCDefine.U_DEF_SIZE_FONT;
-				oTextDict[KCDefine.U_OBJ_N_A_SET_BTN].ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_A_SET_TEXT));
+				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_A_SET_BTN).fontSize = KCDefine.U_DEF_SIZE_FONT;
+				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_A_SET_BTN).ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_A_SET_TEXT));
 
-				oTextDict[KCDefine.U_OBJ_N_B_SET_BTN].fontSize = KCDefine.U_DEF_SIZE_FONT;
-				oTextDict[KCDefine.U_OBJ_N_B_SET_BTN].ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_B_SET_TEXT));
+				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_B_SET_BTN).fontSize = KCDefine.U_DEF_SIZE_FONT;
+				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_B_SET_BTN).ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_B_SET_TEXT));
 				// 텍스트를 설정한다 }
 
 				// 버튼을 설정한다
 				CFunc.SetupButtons(new List<(GameObject, UnityAction)>() {
-					(oTextDict[KCDefine.U_OBJ_N_A_SET_BTN].gameObject, () => this.OnTouchABTUIsSetBtn(EUserType.A)),
-					(oTextDict[KCDefine.U_OBJ_N_B_SET_BTN].gameObject, () => this.OnTouchABTUIsSetBtn(EUserType.B))
+					(oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_A_SET_BTN).gameObject, () => this.OnTouchABTUIsSetBtn(EUserType.A)),
+					(oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_B_SET_BTN).gameObject, () => this.OnTouchABTUIsSetBtn(EUserType.B))
 				}, false);
 			} finally {
 				CCollectionManager.Inst.DespawnDict(oTextDict);

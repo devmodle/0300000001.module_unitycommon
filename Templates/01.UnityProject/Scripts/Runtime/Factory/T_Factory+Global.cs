@@ -44,36 +44,39 @@ public static partial class Factory {
 	/** 아이템 타겟 정보를 생성한다 */
 	public static CItemTargetInfo MakeItemTargetInfo(EItemKinds a_eItemKinds, CTargetInfo a_oOwnerTargetInfo = null) {
 		var oItemTargetInfo = new CItemTargetInfo() {
-			ItemKinds = a_eItemKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo, m_stIdxInfo = STIdxInfo.INVALID
+			ItemKinds = a_eItemKinds, m_stIdxInfo = STIdxInfo.INVALID
 		};
 
+		a_oOwnerTargetInfo?.ExAddOwnedTargetInfo(oItemTargetInfo, false);
 		Factory.MakeDefAbilityTargetInfos().ExCopyTo(oItemTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
-		oItemTargetInfo.OnAfterDeserialize();
 
+		oItemTargetInfo.OnAfterDeserialize();
 		return oItemTargetInfo;
 	}
 
 	/** 스킬 타겟 정보를 생성한다 */
 	public static CSkillTargetInfo MakeSkillTargetInfo(ESkillKinds a_eSkillKinds, CTargetInfo a_oOwnerTargetInfo = null) {
 		var oSkillTargetInfo = new CSkillTargetInfo() {
-			SkillKinds = a_eSkillKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo, m_stIdxInfo = STIdxInfo.INVALID
+			SkillKinds = a_eSkillKinds, m_stIdxInfo = STIdxInfo.INVALID
 		};
 
+		a_oOwnerTargetInfo?.ExAddOwnedTargetInfo(oSkillTargetInfo, false);
 		Factory.MakeDefAbilityTargetInfos().ExCopyTo(oSkillTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
-		oSkillTargetInfo.OnAfterDeserialize();
 
+		oSkillTargetInfo.OnAfterDeserialize();
 		return oSkillTargetInfo;
 	}
 
 	/** 객체 타겟 정보를 생성한다 */
 	public static CObjTargetInfo MakeObjTargetInfo(EObjKinds a_eObjKinds, CTargetInfo a_oOwnerTargetInfo = null) {
 		var oObjTargetInfo = new CObjTargetInfo() {
-			ObjKinds = a_eObjKinds, m_oOwnerTargetInfo = a_oOwnerTargetInfo, m_stIdxInfo = STIdxInfo.INVALID
+			ObjKinds = a_eObjKinds, m_stIdxInfo = STIdxInfo.INVALID
 		};
 
+		a_oOwnerTargetInfo?.ExAddOwnedTargetInfo(oObjTargetInfo, false);
 		Factory.MakeDefAbilityTargetInfos().ExCopyTo(oObjTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
-		oObjTargetInfo.OnAfterDeserialize();
 
+		oObjTargetInfo.OnAfterDeserialize();
 		return oObjTargetInfo;
 	}
 
@@ -83,9 +86,10 @@ public static partial class Factory {
 			ObjKinds = a_eObjKinds, m_stIDInfo = a_stIDInfo, m_stIdxInfo = a_stIdxInfo
 		};
 
+		oCharacterUserInfo.ExSetOwnerTargetInfo(null);
 		Factory.MakeDefAbilityTargetInfos().ExCopyTo(oCharacterUserInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
-		oCharacterUserInfo.OnAfterDeserialize();
 
+		oCharacterUserInfo.OnAfterDeserialize();
 		return oCharacterUserInfo;
 	}
 

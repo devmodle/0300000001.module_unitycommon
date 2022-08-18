@@ -169,23 +169,19 @@ public struct STEpisodeInfo {
 		}
 
 		for(int i = 0; i < oClearTargetInfoKeyList.Count; ++i) {
-			ulong nUniqueTargetInfoID = oClearTargetInfoKeyList[i];
-			m_oClearTargetInfoDict[nUniqueTargetInfoID].MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_CLEAR_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
+			m_oClearTargetInfoDict.GetValueOrDefault(oClearTargetInfoKeyList[i]).MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_CLEAR_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
 		}
 
 		for(int i = 0; i < oUnlockTargetInfoKeyList.Count; ++i) {
-			ulong nUniqueTargetInfoID = oUnlockTargetInfoKeyList[i];
-			m_oUnlockTargetInfoDict[nUniqueTargetInfoID].MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
+			m_oUnlockTargetInfoDict.GetValueOrDefault(oUnlockTargetInfoKeyList[i]).MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
 		}
 
 		for(int i = 0; i < oDropItemTargetInfoKeyList.Count; ++i) {
-			ulong nUniqueTargetInfoID = oDropItemTargetInfoKeyList[i];
-			m_oDropItemTargetInfoDict[nUniqueTargetInfoID].MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
+			m_oDropItemTargetInfoDict.GetValueOrDefault(oDropItemTargetInfoKeyList[i]).MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
 		}
 
 		for(int i = 0; i < oEnemyObjTargetInfoKeyList.Count; ++i) {
-			ulong nUniqueTargetInfoID = oEnemyObjTargetInfoKeyList[i];
-			m_oEnemyObjTargetInfoDict[nUniqueTargetInfoID].MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_ENEMY_OBJ_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
+			m_oEnemyObjTargetInfoDict.GetValueOrDefault(oEnemyObjTargetInfoKeyList[i]).MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_ENEMY_OBJ_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
 		}
 		
 		return oEpisodeInfo;

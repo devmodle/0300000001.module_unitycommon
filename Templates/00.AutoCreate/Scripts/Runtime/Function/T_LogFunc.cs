@@ -58,7 +58,7 @@ public static partial class LogFunc {
 	/** 로그 전송 가능 여부를 검사한다 */
 	private static bool IsEnableSendLog(string a_oName) {
 		string oLogTime = System.DateTime.Now.ExToPSTTime().ExToLongStr();
-		return LogFunc.LogTimeDict.ContainsKey(a_oName) ? !LogFunc.LogTimeDict[a_oName].Equals(oLogTime) : true;
+		return LogFunc.LogTimeDict.ContainsKey(a_oName) ? !LogFunc.LogTimeDict.GetValueOrDefault(a_oName, string.Empty).Equals(oLogTime) : true;
 	}
 
 	/** 로그 데이터를 생성한다 */

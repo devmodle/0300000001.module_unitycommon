@@ -409,6 +409,21 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		}
 	}
 
+	/** 소유 타겟 정보를 추가한다 */
+	public void AddOwnedTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
+
+		// 캐릭터 유저 정보가 존재 할 경우
+		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
+			oCharacterUserInfo.ExAddOwnedTargetInfo(a_oTargetInfo, a_bIsEnableAssert);
+		}
+	}
+
+	/** 캐릭터 유저 정보를 추가한다 */
+	public void AddCharacterUserInfo(CCharacterUserInfo a_oCharacterUserInfo) {
+		this.UserInfo.m_oCharacterUserInfoDict.TryAdd(a_oCharacterUserInfo.m_stIDInfo.m_nID01, a_oCharacterUserInfo);
+	}
+
 	/** 타겟 정보를 제거한다 */
 	public void RemoveTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
@@ -419,9 +434,14 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		}
 	}
 
-	/** 캐릭터 유저 정보를 추가한다 */
-	public void AddCharacterUserInfo(CCharacterUserInfo a_oCharacterUserInfo) {
-		this.UserInfo.m_oCharacterUserInfoDict.TryAdd(a_oCharacterUserInfo.m_stIDInfo.m_nID01, a_oCharacterUserInfo);
+	/** 소유 타겟 정보를 제거한다 */
+	public void RemoveOwnedTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
+
+		// 캐릭터 유저 정보가 존재 할 경우
+		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
+			oCharacterUserInfo.ExRemoveOwnedTargetInfo(a_oTargetInfo, a_bIsEnableAssert);
+		}
 	}
 
 	/** 캐릭터 유저 정보를 제거한다 */

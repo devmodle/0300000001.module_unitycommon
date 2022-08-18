@@ -36,7 +36,7 @@ public partial class CProductTradePopup : CSubPopup {
 
 	#region 변수
 	/** =====> 객체 <===== */
-	[SerializeField] private List<GameObject> m_oProductBuyUIsDict = new List<GameObject>();
+	[SerializeField] private List<GameObject> m_oProductBuyUIsList = new List<GameObject>();
 	#endregion			// 변수
 
 	#region 프로퍼티

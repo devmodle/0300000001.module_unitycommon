@@ -556,7 +556,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(oStageLevelInfoDict.ContainsKey(a_nSrcID) && oStageLevelInfoDict.ContainsKey(a_nDestID));
 
 		int nOffset = (a_nSrcID <= a_nDestID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
-		var oSrcLevelInfo = oStageLevelInfoDict[a_nSrcID];
+		var oSrcLevelInfo = oStageLevelInfoDict.GetValueOrDefault(a_nSrcID);
 
 		oStageLevelInfoDict.ExRemoveVal(a_nSrcID);
 

@@ -78,7 +78,7 @@ public partial class CStorePopup : CSubPopup {
 
 			for(int i = 0; i < oAcquireTargetInfoKeyList.Count; ++i) {
 				var nUniqueTargetInfoID = oAcquireTargetInfoKeyList[i];
-				a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT))?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict[nUniqueTargetInfoID].m_stValInfo01.m_dmVal}", EFontSet._1, false);
+				a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT))?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal}", EFontSet._1, false);
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
@@ -90,7 +90,7 @@ public partial class CStorePopup : CSubPopup {
 			// 텍스트를 갱신한다 }
 
 			// 버튼을 갱신한다 {
-			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
+			var oPurchaseBtn = oPriceUIsDict.GetValueOrDefault(EPurchaseType.IN_APP_PURCHASE)?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
 			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
 
 #if ADS_MODULE_ENABLE

@@ -52,7 +52,7 @@ public partial class CContinuePopup : CSubPopup {
 		};
 
 		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
-			m_oTextDict[oTextKeyInfoList[i].Item1]?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
+			m_oTextDict.GetValueOrDefault(oTextKeyInfoList[i].Item1)?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
 		}
 		// 텍스트를 갱신한다 }
 

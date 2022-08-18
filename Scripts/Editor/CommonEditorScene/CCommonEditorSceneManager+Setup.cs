@@ -135,14 +135,14 @@ public static partial class CCommonEditorSceneManager {
 		if(stScene.IsValid() && !CCommonEditorSceneManager.m_oSampleSceneNameList.Contains(stScene.name) && CPlatformOptsSetter.OptsInfoTable != null) {
 			bool bIsValid01 = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			bool bIsValid02 = oLightingSettings != null && oLightingSettings.name.Equals(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);
-			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(Path.GetFileNameWithoutExtension(oLightingSettingsPathDict[CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel]));
+			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(Path.GetFileNameWithoutExtension(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty)));
 
 			var oResult = oLightingSettingsPathDict.ExFindVal((a_oLightingSettingsPath) => oLightingSettings != null && Path.GetFileNameWithoutExtension(a_oLightingSettingsPath).Equals(oLightingSettings.name));
 
 			// 광원 설정이 없을 경우
-			if((!bIsValid01 || bIsValid02 || (bIsValid03 && oResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict[CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel], true)) {
+			if((!bIsValid01 || bIsValid02 || (bIsValid03 && oResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty), true)) {
 				EditorSceneManager.MarkSceneDirty(stScene);
-				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict[CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel]));
+				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty)));
 			}
 		}
 	}
