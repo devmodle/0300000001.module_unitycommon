@@ -86,11 +86,13 @@ namespace NSEngine {
 					case EState.PAUSE: this.HandlePauseState(a_fDeltaTime); break;
 				}
 
-				var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
-				var stEpisodeSize = new Vector3(Mathf.Clamp(stEpisodeInfo.m_stSize.x, KCDefine.B_VAL_0_REAL, stEpisodeInfo.m_stSize.x - KCDefine.B_SCREEN_SIZE.x), Mathf.Clamp(stEpisodeInfo.m_stSize.y, KCDefine.B_VAL_0_REAL, stEpisodeInfo.m_stSize.y - KCDefine.B_SCREEN_SIZE.y), stEpisodeInfo.m_stSize.z) * (KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale);
-				var stMainCameraPos = new Vector3(Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + KDefine.E_OFFSET_MAIN_CAMERA, stEpisodeSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
-				
-				CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
+				// 플레이어 객체가 존재 할 경우
+				if(this.PlayerObjList.ExIsValid()) {
+					var stEpisodeSize = this.CameraEpisodeSize * CAccess.ResolutionUnitScale;
+					var stMainCameraPos = new Vector3(Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), (stEpisodeSize.y / -KCDefine.B_VAL_2_REAL) - ((CSceneManager.ActiveSceneManager.ScreenHeight / KCDefine.B_VAL_3_REAL) * CAccess.ResolutionUnitScale), stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+
+					CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
+				}
 			}
 		}
 
@@ -129,7 +131,7 @@ namespace NSEngine {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
 			this.PlayerObjList.ExAddVal(this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
 
-			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * KCDefine.B_UNIT_SCALE * CAccess.ResolutionScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 		}
 
 		/** 상태를 리셋한다 */
@@ -144,8 +146,7 @@ namespace NSEngine {
 			CFunc.UpdateComponents(this.FXList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.PlayerObjList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
-
-			var stEpisodeInfo = global::Access.GetEpisodeInfo(this.Params.m_oLevelInfo.m_stIDInfo.m_nID01, this.Params.m_oLevelInfo.m_stIDInfo.m_nID02, this.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
+			
 			var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
 			try {
@@ -154,14 +155,14 @@ namespace NSEngine {
 					oNumEnemyObjsDict.ExReplaceVal(this.EnemyObjList[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
 				}
 
-				foreach(var stKeyVal in stEpisodeInfo.m_oEnemyObjTargetInfoDict) {
+				foreach(var stKeyVal in this.Params.m_stEpisodeInfo.m_oEnemyObjTargetInfoDict) {
 					// 적 객체 생성이 가능 할 경우
-					if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.m_nKinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjList.Count < stEpisodeInfo.m_nMaxNumEnemyObjs) {
-						float fPosX = Random.Range(stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL);
-						float fPosY = Random.Range(stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
+					if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.m_nKinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjList.Count < this.Params.m_stEpisodeInfo.m_nMaxNumEnemyObjs) {
+						float fPosX = Random.Range(this.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
+						float fPosY = Random.Range(this.EpisodeSize.y / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
 
-						var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.m_nKinds), null, null);
-						oEnemyObj.transform.localPosition = new Vector3(fPosX, fPosY, fPosY / stEpisodeInfo.m_stSize.y);
+						var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.m_nKinds), null);
+						oEnemyObj.transform.localPosition = new Vector3(fPosX, fPosY, fPosY / this.EpisodeSize.y);
 
 						this.EnemyObjList.ExAddVal(oEnemyObj);
 					}

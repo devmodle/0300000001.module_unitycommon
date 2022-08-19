@@ -10,7 +10,7 @@ namespace NSEngine {
 	/** 엔진 객체 컴포넌트 */
 	public abstract partial class CEObjComponent : CEComponent {
 		/** 매개 변수 */
-		public struct STParams {
+		public new struct STParams {
 			public CEComponent.STParams m_stBaseParams;
 			public CEObjComponent m_oOwner;
 			public CEController m_oController;
@@ -21,9 +21,8 @@ namespace NSEngine {
 		#endregion			// 변수
 		
 		#region 프로퍼티
-		public STParams Params { get; private set; }
-		public Dictionary<EAbilityKinds, decimal> AbilityValDict { get; } = new Dictionary<EAbilityKinds, decimal>();
-		public Dictionary<EAbilityKinds, decimal> OriginAbilityValDict { get; } = new Dictionary<EAbilityKinds, decimal>();
+		public new STParams Params { get; private set; }
+		public CDictWrapper<EAbilityKinds, decimal> AbilityValDictWrapper { get; } = new CDictWrapper<EAbilityKinds, decimal>();
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -34,14 +33,28 @@ namespace NSEngine {
 		}
 
 		/** 어빌리티 값을 설정한다 */
-		public virtual void SetupAbilityVals() {
-			this.UpdateAbilityVals();
-			this.AbilityValDict.Clear();
+		public virtual void SetupAbilityVals(bool a_bIsReset = true) {
+			this.DoSetupAbilityVals(a_bIsReset);
+
+			// 리셋 모드 일 경우
+			if(a_bIsReset) {
+				this.AbilityValDictWrapper.m_oDict02.ExCopyTo(this.AbilityValDictWrapper.m_oDict01, (a_dmAbilityVal) => a_dmAbilityVal);
+			} else {
+				foreach(var stKeyVal in this.AbilityValDictWrapper.m_oDict02) {
+					decimal dmAbilityVal = this.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(stKeyVal.Key);
+					this.AbilityValDictWrapper.m_oDict01.ExReplaceVal(stKeyVal.Key, CAbilityInfoTable.Inst.GetAbilityInfo(stKeyVal.Key).m_stCommonInfo.m_bIsUpdate ? System.Math.Min(dmAbilityVal, stKeyVal.Value) : stKeyVal.Value);
+				}
+			}
 		}
 
-		/** 어빌리티 값을 갱신한다 */
-		public virtual void UpdateAbilityVals() {
-			this.OriginAbilityValDict.Clear();
+		/** 어빌리티 값을 설정한다 */
+		protected virtual void DoSetupAbilityVals(bool a_bIsReset = true) {
+			// 리셋 모드 일 경우
+			if(a_bIsReset) {
+				this.AbilityValDictWrapper.m_oDict01.Clear();
+			}
+			
+			this.AbilityValDictWrapper.m_oDict02.Clear();
 		}
 		#endregion			// 함수
 

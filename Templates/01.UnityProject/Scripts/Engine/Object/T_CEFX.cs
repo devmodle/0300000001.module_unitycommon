@@ -29,13 +29,8 @@ namespace NSEngine {
 
 		#region 함수
 		/** 어빌리티 값을 설정한다 */
-		public override void SetupAbilityVals() {
-			base.SetupAbilityVals();
-		}
-
-		/** 어빌리티 값을 갱신한다 */
-		public override void UpdateAbilityVals() {
-			base.UpdateAbilityVals();
+		protected override void DoSetupAbilityVals(bool a_bIsReset = true) {
+			base.DoSetupAbilityVals(a_bIsReset);
 		}
 		#endregion			// 함수
 	}

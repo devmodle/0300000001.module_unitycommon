@@ -23,18 +23,12 @@ namespace NSEngine {
 
 		#region 함수
 		/** 어빌리티 값을 설정한다 */
-		public override void SetupAbilityVals() {
-			base.SetupAbilityVals();
-			this.OriginAbilityValDict.ExCopyTo(this.AbilityValDict, (a_dmAbilityVal) => a_dmAbilityVal);
-		}
-
-		/** 어빌리티 값을 갱신한다 */
-		public override void UpdateAbilityVals() {
-			base.UpdateAbilityVals();
+		protected override void DoSetupAbilityVals(bool a_bIsReset = true) {
+			base.DoSetupAbilityVals(a_bIsReset);
 
 			// 스킬 정보가 존재 할 경우
 			if(this.Params.m_stSkillInfo.m_eSkillKinds.ExIsValid()) {
-				global::Func.SetupAbilityVals(this.Params.m_stSkillInfo, this.Params.m_oSkillTargetInfo, this.OriginAbilityValDict);
+				global::Func.SetupAbilityVals(this.Params.m_stSkillInfo, this.Params.m_oSkillTargetInfo, this.AbilityValDictWrapper.m_oDict02);
 			}
 		}
 		#endregion			// 함수

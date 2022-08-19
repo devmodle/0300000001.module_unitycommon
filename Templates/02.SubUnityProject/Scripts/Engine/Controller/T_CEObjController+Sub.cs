@@ -37,6 +37,7 @@ namespace NSEngine {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
+			UPDATE_SKIP_TIME,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -45,7 +46,8 @@ namespace NSEngine {
 		#endregion			// 변수
 
 		#region 프로퍼티
-
+		/** =====> 기타 <===== */
+		private Dictionary<ESubKey, float> RealDict { get; } = new Dictionary<ESubKey, float>();
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -54,14 +56,49 @@ namespace NSEngine {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(this.IsAutoControl && CSceneManager.IsAppRunning) {
-				// Do Something
+			if(this.IsActive && CSceneManager.IsAppRunning) {
+				float fUpdateSkipTime = this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME);
+				this.RealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
+
+				// 일정 시간이 지났을 경우
+				if(this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(KCDefine.U_DELAY_DEF)) {
+					var oAbilityKindsInfoList = CCollectionManager.Inst.SpawnList<(EAbilityKinds, EAbilityKinds)>();
+
+					try {
+						oAbilityKindsInfoList.ExAddVal((EAbilityKinds.STAT_HP_01, EAbilityKinds.STAT_HP_RECOVERY_01));
+						oAbilityKindsInfoList.ExAddVal((EAbilityKinds.STAT_MP_01, EAbilityKinds.STAT_MP_RECOVERY_01));
+						oAbilityKindsInfoList.ExAddVal((EAbilityKinds.STAT_SP_01, EAbilityKinds.STAT_SP_RECOVERY_01));
+
+						for(int i = 0; i < oAbilityKindsInfoList.Count; ++i) {
+							decimal dmVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(oAbilityKindsInfoList[i].Item1);
+							decimal dmRecoveryVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(oAbilityKindsInfoList[i].Item2);
+
+							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, dmVal + (dmRecoveryVal * (decimal)this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME)));
+						}
+					} finally {
+						CCollectionManager.Inst.DespawnList(oAbilityKindsInfoList);
+						this.RealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
+					}
+				}
 			}
 		}
 
 		/** 공격을 처리한다 */
 		public virtual void Attack(CEObj a_oTargetObj, CESkill a_oSkill) {
-			// Do Something
+			float fPercent = Random.Range(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_1_REAL);
+
+			// 공격을 회피했을 경우
+			if(fPercent.ExIsLessEquals((float)(a_oTargetObj.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_AVOID_RATE_01) + a_oSkill.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_AVOID_RATE_01)))) {
+				// Do Something
+			} else {
+				float fCriticalRate = (float)(a_oTargetObj.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_CRITICAL_RATE_01) + a_oSkill.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_CRITICAL_RATE_01));
+
+				decimal dmPATK = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_P_ATK_01) + a_oSkill.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_P_ATK_01);
+				decimal dmMATK = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_M_ATK_01) + a_oSkill.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_M_ATK_01);
+
+				decimal dmPDEF = a_oTargetObj.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_P_DEF_01);
+				decimal dmMDEF = a_oTargetObj.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_M_DEF_01);
+			}
 		}
 
 		/** 이동을 처리한다 */
@@ -95,11 +132,11 @@ namespace NSEngine {
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
 
-			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((this.Vec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION) * (float)this.GetOwner<CEObj>().AbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
-			var stEpisodeInfo = global::Access.GetEpisodeInfo(base.Params.m_stBaseParams.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID01, base.Params.m_stBaseParams.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID02, base.Params.m_stBaseParams.m_oEngine.Params.m_oLevelInfo.m_stIDInfo.m_nID03);
+			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((this.Vec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION) * (float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
+			stNextPos.x = Mathf.Clamp(stNextPos.x, base.Params.m_stBaseParams.m_oEngine.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, base.Params.m_stBaseParams.m_oEngine.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
+			stNextPos.y = Mathf.Clamp(stNextPos.y, (base.Params.m_stBaseParams.m_oEngine.EpisodeSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, base.Params.m_stBaseParams.m_oEngine.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
 
-			float fNextPosY = Mathf.Clamp(stNextPos.y, (stEpisodeInfo.m_stSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, stEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL);
-			this.GetOwner<CEObj>().transform.localPosition = new Vector3(Mathf.Clamp(stNextPos.x, stEpisodeInfo.m_stSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeInfo.m_stSize.x / KCDefine.B_VAL_2_REAL), fNextPosY, fNextPosY / stEpisodeInfo.m_stSize.y);
+			this.GetOwner<CEObj>().transform.localPosition = new Vector3(stNextPos.x, stNextPos.y, stNextPos.y / base.Params.m_stBaseParams.m_oEngine.EpisodeSize.y);
 		}
 
 		/** 스킬 상태를 처리한다 */

@@ -16,7 +16,7 @@ namespace NSEngine {
 		}
 
 		/** 매개 변수 */
-		public struct STParams {
+		public new struct STParams {
 			public CEComponent.STParams m_stBaseParams;
 			public CEObjComponent m_oOwner;
 		}
@@ -26,7 +26,7 @@ namespace NSEngine {
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public STParams Params { get; private set; }
+		public new STParams Params { get; private set; }
 		public List<CEObjComponent> TargetObjList { get; } = new List<CEObjComponent>();
 		#endregion			// 프로퍼티
 

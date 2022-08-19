@@ -56,6 +56,7 @@ namespace NSEngine {
 
 		#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
+		public virtual bool IsActive => this.State != EState.NONE && this.State != EState.DISAPPEAR;
 		#endregion			// 프로퍼티
 
 		#region 함수

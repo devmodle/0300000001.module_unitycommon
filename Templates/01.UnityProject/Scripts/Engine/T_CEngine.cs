@@ -28,6 +28,8 @@ namespace NSEngine {
 
 		/** 매개 변수 */
 		public struct STParams {
+			public STEpisodeInfo m_stEpisodeInfo;
+			
 			public CLevelInfo m_oLevelInfo;
 			public CClearInfo m_oClearInfo;
 
@@ -49,6 +51,8 @@ namespace NSEngine {
 		public List<CEFX> FXList { get; } = new List<CEFX>();
 
 		public bool IsRunning => this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING);
+		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, this.Params.m_stEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, this.Params.m_stEpisodeInfo.m_stSize.y), this.Params.m_stEpisodeInfo.m_stSize.z);
+		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, this.Params.m_stEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, this.Params.m_stEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), this.Params.m_stEpisodeInfo.m_stSize.z);
 		public STGridInfo SelGridInfo => this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO);
 
 		/** =====> 기타 <===== */
