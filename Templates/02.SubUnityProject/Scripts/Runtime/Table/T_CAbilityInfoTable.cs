@@ -15,6 +15,7 @@ public struct STAbilityInfo {
 	public EAbilityKinds m_eAbilityKinds;
 	public EAbilityKinds m_ePrevAbilityKinds;
 	public EAbilityKinds m_eNextAbilityKinds;
+	public EAbilityValType m_eAbilityValType;
 
 	public Dictionary<ulong, STTargetInfo> m_oExtraAbilityTargetInfoDict;
 
@@ -38,6 +39,7 @@ public struct STAbilityInfo {
 		m_eAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
 		m_ePrevAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
 		m_eNextAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
+		m_eAbilityValType = a_oAbilityInfo[KCDefine.U_KEY_ABILITY_VAL_TYPE].ExIsValid() ? (EAbilityValType)a_oAbilityInfo[KCDefine.U_KEY_ABILITY_VAL_TYPE].AsInt : EAbilityValType.NONE;
 
 		m_oExtraAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
