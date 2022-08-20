@@ -45,6 +45,18 @@ public static partial class Func {
 	}
 
 	/** 어빌리티 값을 설정한다 */
+	public static void SetupAbilityVals(Dictionary<EAbilityKinds, decimal> a_oAbilityValDict, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oAbilityValDict != null && a_oOutAbilityValDict != null));
+
+		// 어빌리티 값 설정이 가능 할 경우
+		if(a_oAbilityValDict != null && a_oOutAbilityValDict != null) {
+			foreach(var stKeyVal in a_oAbilityValDict) {
+				a_oOutAbilityValDict.ExIncrAbilityVal(stKeyVal.Key, stKeyVal.Value);
+			}
+		}
+	}
+
+	/** 어빌리티 값을 설정한다 */
 	public static void SetupAbilityVals(Dictionary<ulong, STTargetInfo> a_oAbilityTargetInfoDict, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oAbilityTargetInfoDict != null && a_oOutAbilityValDict != null));
 

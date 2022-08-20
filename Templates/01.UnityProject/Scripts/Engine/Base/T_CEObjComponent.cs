@@ -35,6 +35,7 @@ namespace NSEngine {
 		/** 어빌리티 값을 설정한다 */
 		public virtual void SetupAbilityVals(bool a_bIsReset = true) {
 			this.DoSetupAbilityVals(a_bIsReset);
+			global::Func.SetupAbilityVals(this.AbilityValDictWrapper.m_oDict03, this.AbilityValDictWrapper.m_oDict02);
 
 			// 리셋 모드 일 경우
 			if(a_bIsReset) {
@@ -42,7 +43,7 @@ namespace NSEngine {
 			} else {
 				foreach(var stKeyVal in this.AbilityValDictWrapper.m_oDict02) {
 					decimal dmAbilityVal = this.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(stKeyVal.Key);
-					this.AbilityValDictWrapper.m_oDict01.ExReplaceVal(stKeyVal.Key, CAbilityInfoTable.Inst.GetAbilityInfo(stKeyVal.Key).m_stCommonInfo.m_bIsUpdate ? System.Math.Min(dmAbilityVal, stKeyVal.Value) : stKeyVal.Value);
+					this.AbilityValDictWrapper.m_oDict01.ExReplaceVal(stKeyVal.Key, CAbilityInfoTable.Inst.GetAbilityInfo(stKeyVal.Key).m_stCommonInfo.m_bIsTrue_01 ? System.Math.Min(dmAbilityVal, stKeyVal.Value) : stKeyVal.Value);
 				}
 			}
 		}
