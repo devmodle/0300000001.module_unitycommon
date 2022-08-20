@@ -43,11 +43,11 @@ namespace NSEngine {
 		}
 
 		#region 변수
-
+		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
 		#endregion			// 변수
 
 		#region 프로퍼티
-		private Dictionary<ESubKey, float> RealDict { get; } = new Dictionary<ESubKey, float>();
+		
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -93,14 +93,14 @@ namespace NSEngine {
 		/** 등장 상태를 처리한다 */
 		protected override void HandleAppearState(float a_fDeltaTime) {
 			base.HandleAppearState(a_fDeltaTime);
-			float fUpdateSkipTime = this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME);
+			float fUpdateSkipTime = m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME);
 
-			this.RealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
+			m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
 
 			// 일정 시간이 지났을 경우
-			if(this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+			if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
 				this.SetState(EState.IDLE);
-				this.RealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
+				m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
 			}
 		}
 

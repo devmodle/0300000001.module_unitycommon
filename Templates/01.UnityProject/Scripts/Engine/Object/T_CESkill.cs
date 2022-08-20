@@ -18,7 +18,7 @@ namespace NSEngine {
 
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
-		private List<CEFX> FXList { get; } = new List<CEFX>();
+		public List<CEFX> FXList { get; } = new List<CEFX>();
 		#endregion			// 프로퍼티
 
 		#region 함수

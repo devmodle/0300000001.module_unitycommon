@@ -22,9 +22,12 @@ namespace NSEngine {
 			public STFXInfo m_stTableFXInfo;
 		}
 
+		#region 변수
+		private Dictionary<EKey, ParticleSystem> m_oParticleDict = new Dictionary<EKey, ParticleSystem>();
+		#endregion			// 변수
+
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
-		private Dictionary<EKey, ParticleSystem> ParticleDict { get; } = new Dictionary<EKey, ParticleSystem>();
 		#endregion			// 프로퍼티
 
 		#region 함수

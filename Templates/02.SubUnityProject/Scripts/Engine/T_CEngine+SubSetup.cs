@@ -12,8 +12,8 @@ namespace NSEngine {
 		#region 함수
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
-			this.CellObjDictContainers = new Dictionary<EObjType, List<CEObj>>[this.Params.m_oLevelInfo.NumCells.y, this.Params.m_oLevelInfo.NumCells.x];
-			this.GridInfoDict.ExReplaceVal(EKey.SEL_GRID_INFO, Factory.MakeGridInfo(this.Params.m_oLevelInfo, Vector3.zero));
+			m_oCellObjDictContainers = new Dictionary<EObjType, List<CEObj>>[this.Params.m_oLevelInfo.NumCells.y, this.Params.m_oLevelInfo.NumCells.x];
+			m_oGridInfoDict.ExReplaceVal(EKey.SEL_GRID_INFO, Factory.MakeGridInfo(this.Params.m_oLevelInfo, Vector3.zero));
 
 			// 객체 풀을 설정한다 {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), this.Params.m_oItemRoot, KCDefine.U_SIZE_OBJS_POOL, false);
@@ -52,7 +52,7 @@ namespace NSEngine {
 				oCellObjDictContainer.TryAdd(stKeyVal.Key, oCellObjList);
 			}
 
-			this.CellObjDictContainers[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjDictContainer;
+			m_oCellObjDictContainers[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjDictContainer;
 		}
 
 		/** 그리드 라인을 설정한다 */

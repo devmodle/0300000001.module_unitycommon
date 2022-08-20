@@ -13,12 +13,12 @@ namespace NSEngine {
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			this.Vec3IntDict.ExReplaceVal(EKey.CELL_IDX, KCDefine.B_IDX_INVALID_3D);
+			m_oVec3IntDict.ExReplaceVal(EKey.CELL_IDX, KCDefine.B_IDX_INVALID_3D);
 
 			// 스프라이트를 설정한다
 			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
 				(EKey.OBJ_SPRITE, $"{EKey.OBJ_SPRITE}", this.gameObject)
-			}, this.SpriteDict, false);
+			}, m_oSpriteDict, false);
 
 			#region 추가
 			this.SubAwakeSetup();
@@ -31,9 +31,9 @@ namespace NSEngine {
 			this.Params = a_stParams;
 
 			// 객체 스프라이트가 존재 할 경우
-			if(this.SpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE) != null) {
-				this.SpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
-				this.SpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
+			if(m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE) != null) {
+				m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
+				m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
 			}
 
 			#region 추가

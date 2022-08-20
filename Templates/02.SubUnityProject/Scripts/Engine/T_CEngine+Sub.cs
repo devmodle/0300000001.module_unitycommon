@@ -37,7 +37,7 @@ namespace NSEngine {
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
-			this.BoolDict.ExReplaceVal(EKey.IS_RUNNING, false);
+			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, false);
 
 			#region 추가
 			this.SubReset();
@@ -80,7 +80,7 @@ namespace NSEngine {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning && this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+			if(CSceneManager.IsAppRunning && m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
 				switch(this.State) {
 					case EState.PLAY: this.HandlePlayState(a_fDeltaTime); break;
 					case EState.PAUSE: this.HandlePauseState(a_fDeltaTime); break;
@@ -180,24 +180,24 @@ namespace NSEngine {
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
+			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
+			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
+			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 		#endregion			// 함수

@@ -17,10 +17,10 @@ namespace InitScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 프로퍼티
+		#region 변수
 		/** =====> UI <===== */
-		private Dictionary<EKey, Image> ImgDict { get; } = new Dictionary<EKey, Image>();
-		#endregion			// 프로퍼티
+		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
+		#endregion			// 변수
 
 		#region 상수
 		public static readonly Color COLOR_BG_IMG = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
@@ -36,15 +36,15 @@ namespace InitScene {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.BG_IMG, $"{EKey.BG_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG)),
 				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
-			}, this.ImgDict, false);
+			}, m_oImgDict, false);
 
-			this.ImgDict.GetValueOrDefault(EKey.BG_IMG).color = COLOR_BG_IMG;
-			this.ImgDict.GetValueOrDefault(EKey.BG_IMG).rectTransform.sizeDelta = CSceneManager.CanvasSize;
-			this.ImgDict.GetValueOrDefault(EKey.BG_IMG).gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
+			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).color = COLOR_BG_IMG;
+			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).rectTransform.sizeDelta = CSceneManager.CanvasSize;
+			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
-			this.ImgDict.GetValueOrDefault(EKey.SPLASH_IMG).sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
-			this.ImgDict.GetValueOrDefault(EKey.SPLASH_IMG).transform.localPosition = POS_SPLASH_IMG;
-			this.ImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(false);
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).transform.localPosition = POS_SPLASH_IMG;
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(false);
 			// 이미지를 설정한다 }
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -75,8 +75,8 @@ namespace InitScene {
 
 		/** 스플래시를 출력한다 */
 		protected override void ShowSplash() {
-			this.ImgDict.GetValueOrDefault(EKey.SPLASH_IMG).SetNativeSize();
-			this.ImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(true);
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).SetNativeSize();
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(true);
 
 			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.IS_DELAY_NEXT_SCENE_LOAD);
 		}

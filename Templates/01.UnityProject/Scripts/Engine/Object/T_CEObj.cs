@@ -25,16 +25,13 @@ namespace NSEngine {
 		}
 
 		#region 변수
-
+		private Dictionary<EKey, Vector3Int> m_oVec3IntDict = new Dictionary<EKey, Vector3Int>();
+		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 		#endregion			// 변수
 
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
-		public Vector3Int CellIdx => this.Vec3IntDict.GetValueOrDefault(EKey.CELL_IDX);
-
-		/** =====> 기타 <===== */
-		private Dictionary<EKey, Vector3Int> Vec3IntDict { get; } = new Dictionary<EKey, Vector3Int>();
-		private Dictionary<EKey, SpriteRenderer> SpriteDict { get; } = new Dictionary<EKey, SpriteRenderer>();
+		public Vector3Int CellIdx => m_oVec3IntDict.GetValueOrDefault(EKey.CELL_IDX);
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -50,7 +47,7 @@ namespace NSEngine {
 
 		/** 셀 인덱스를 변경한다 */
 		public void SetCellIdx(Vector3Int a_stCellIdx) {
-			this.Vec3IntDict.ExReplaceVal(EKey.CELL_IDX, a_stCellIdx);
+			m_oVec3IntDict.ExReplaceVal(EKey.CELL_IDX, a_stCellIdx);
 		}
 		#endregion			// 함수
 	}

@@ -25,45 +25,46 @@ namespace NSEngine {
 			public CEController.STParams m_stBaseParams;
 		}
 
+		#region 변수
+		private Dictionary<EKey, STSkillInfo> m_oSkillInfoDict = new Dictionary<EKey, STSkillInfo>() {
+			[EKey.APPLY_SKILL_INFO] = STSkillInfo.INVALID
+		};
+
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
+		private Dictionary<EKey, Vector3> m_oVec3Dict = new Dictionary<EKey, Vector3>();
+		private Dictionary<EKey, CSkillTargetInfo> m_oSkillTargetInfoDict = new Dictionary<EKey, CSkillTargetInfo>();
+		#endregion			// 변수
+
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
 		public Dictionary<ESkillKinds, System.DateTime> ApplySkillTimeDict { get; } = new Dictionary<ESkillKinds, System.DateTime>();
 
-		public bool IsAutoControl => this.BoolDict.GetValueOrDefault(EKey.IS_AUTO_CONTROL);
-		public Vector3 MovePos => this.Vec3Dict.GetValueOrDefault(EKey.MOVE_POS);
-		public Vector3 MoveDirection => this.Vec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION);
-		public CSkillTargetInfo ApplySkillTargetInfo => this.SkillTargetInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_TARGET_INFO);
-
-		/** =====> 기타 <===== */
-		private Dictionary<EKey, STSkillInfo> SkillInfoDict { get; } = new Dictionary<EKey, STSkillInfo>() {
-			[EKey.APPLY_SKILL_INFO] = STSkillInfo.INVALID
-		};
-
-		private Dictionary<EKey, bool> BoolDict { get; } = new Dictionary<EKey, bool>();
-		private Dictionary<EKey, Vector3> Vec3Dict { get; } = new Dictionary<EKey, Vector3>();
-		private Dictionary<EKey, CSkillTargetInfo> SkillTargetInfoDict { get; } = new Dictionary<EKey, CSkillTargetInfo>();
+		public bool IsAutoControl => m_oBoolDict.GetValueOrDefault(EKey.IS_AUTO_CONTROL);
+		public Vector3 MovePos => m_oVec3Dict.GetValueOrDefault(EKey.MOVE_POS);
+		public Vector3 MoveDirection => m_oVec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION);
+		public CSkillTargetInfo ApplySkillTargetInfo => m_oSkillTargetInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_TARGET_INFO);
 		#endregion			// 프로퍼티
 
 		#region 함수
 		/** 적용 스킬 정보를 리셋한다 */
 		public virtual void ResetApplySkillInfo() {
-			this.SkillInfoDict.ExReplaceVal(EKey.APPLY_SKILL_INFO, STSkillInfo.INVALID);
-			this.SkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, null);
+			m_oSkillInfoDict.ExReplaceVal(EKey.APPLY_SKILL_INFO, STSkillInfo.INVALID);
+			m_oSkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, null);
 		}
 
 		/** 자동 제어 여부를 변경한다 */
 		public void SetIsAutoControl(bool a_bIsAutoControl) {
-			this.BoolDict.ExReplaceVal(EKey.IS_AUTO_CONTROL, a_bIsAutoControl);
+			m_oBoolDict.ExReplaceVal(EKey.IS_AUTO_CONTROL, a_bIsAutoControl);
 		}
 
 		/** 이동 위치를 변경한다 */
 		public void SetMovePos(Vector3 a_stPos) {
-			this.Vec3Dict.ExReplaceVal(EKey.MOVE_POS, a_stPos);
+			m_oVec3Dict.ExReplaceVal(EKey.MOVE_POS, a_stPos);
 		}
 
 		/** 이동 방향을 변경한다 */
 		public void SetMoveDirection(Vector3 a_stDirection) {
-			this.Vec3Dict.ExReplaceVal(EKey.MOVE_DIRECTION, a_stDirection.normalized);
+			m_oVec3Dict.ExReplaceVal(EKey.MOVE_DIRECTION, a_stDirection.normalized);
 		}
 		#endregion			// 함수
 	}

@@ -12,13 +12,13 @@ namespace NSEngine {
 		#region 함수
 		/** 셀 객체를 탐색한다 */
 		public CEObj FindCellObj(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
-			var oCellObjList = this.CellObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
+			var oCellObjList = m_oCellObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
 			return (oCellObjList != null) ? oCellObjList.ExGetVal((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds, null) : null;
 		}
 
 		/** 셀 객체를 탐색한다 */
 		public List<CEObj> FindCellObjs(EObjType a_eObjType, Vector3Int a_stIdx) {
-			return this.CellObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
+			return m_oCellObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
 		}
 
 		/** 최상단 셀 객체를 탐색한다 */

@@ -41,6 +41,15 @@ namespace NSEngine {
 			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict;
 		}
 
+		#region 변수
+		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
+		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>();
+		
+		/** =====> 객체 <===== */
+		private Dictionary<EObjType, List<CEObj>>[,] m_oCellObjDictContainers = null;
+		#endregion			// 변수
+
 		#region 프로퍼티
 		public STParams Params { get; private set; }
 		public STRecordInfo RecordInfo { get; private set; }
@@ -50,24 +59,16 @@ namespace NSEngine {
 		public List<CEObj> ObjList { get; } = new List<CEObj>();
 		public List<CEFX> FXList { get; } = new List<CEFX>();
 
-		public bool IsRunning => this.BoolDict.GetValueOrDefault(EKey.IS_RUNNING);
+		public bool IsRunning => m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING);
 		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, this.Params.m_stEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, this.Params.m_stEpisodeInfo.m_stSize.y), this.Params.m_stEpisodeInfo.m_stSize.z);
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, this.Params.m_stEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, this.Params.m_stEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), this.Params.m_stEpisodeInfo.m_stSize.z);
-		public STGridInfo SelGridInfo => this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO);
-
-		/** =====> 기타 <===== */
-		private List<LineRenderer> GridLineList { get; } = new List<LineRenderer>();
-		private Dictionary<EKey, bool> BoolDict { get; } = new Dictionary<EKey, bool>();
-		private Dictionary<EKey, STGridInfo> GridInfoDict { get; } = new Dictionary<EKey, STGridInfo>();
-		
-		/** =====> 객체 <===== */
-		private Dictionary<EObjType, List<CEObj>>[,] CellObjDictContainers { get; set; } = null;
+		public STGridInfo SelGridInfo => m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO);
 		#endregion			// 프로퍼티
 		
 		#region 함수
 		/** 구동 여부를 변경한다 */
 		public void SetEnableRunning(bool a_bIsRunning) {
-			this.BoolDict.ExReplaceVal(EKey.IS_RUNNING, a_bIsRunning);
+			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, a_bIsRunning);
 		}
 
 		/** 터치 이벤트를 처리한다 */
@@ -75,7 +76,7 @@ namespace NSEngine {
 			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot);
 
 			// 그리드 영역 일 경우
-			if(this.GridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stBounds.Contains(stTouchPos)) {
+			if(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stBounds.Contains(stTouchPos)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;

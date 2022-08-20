@@ -13,7 +13,7 @@ namespace NSEngine {
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			this.Vec3Dict.ExReplaceVal(EKey.MOVE_POS, KCDefine.B_POS_INVALID);
+			m_oVec3Dict.ExReplaceVal(EKey.MOVE_POS, KCDefine.B_POS_INVALID);
 
 			#region 추가
 			this.SubAwakeSetup();
@@ -42,12 +42,11 @@ namespace NSEngine {
 		}
 
 		#region 변수
-
+		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
 		#endregion			// 변수
 
 		#region 프로퍼티
-		/** =====> 기타 <===== */
-		private Dictionary<ESubKey, float> RealDict { get; } = new Dictionary<ESubKey, float>();
+
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -57,11 +56,11 @@ namespace NSEngine {
 
 			// 앱이 실행 중 일 경우
 			if(this.IsActive && CSceneManager.IsAppRunning) {
-				float fUpdateSkipTime = this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME);
-				this.RealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
+				float fUpdateSkipTime = m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME);
+				m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
 
 				// 일정 시간이 지났을 경우
-				if(this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(KCDefine.U_DELAY_DEF)) {
+				if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(KCDefine.U_DELAY_DEF)) {
 					var oAbilityKindsInfoList = CCollectionManager.Inst.SpawnList<(EAbilityKinds, EAbilityKinds)>();
 
 					try {
@@ -74,11 +73,11 @@ namespace NSEngine {
 							decimal dmMaxVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict02.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
 							decimal dmRecoveryVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(oAbilityKindsInfoList[i].Item2);
 
-							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, System.Math.Clamp(dmVal + (dmRecoveryVal * (decimal)this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME)), KCDefine.B_VAL_0_INT, dmMaxVal));
+							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, System.Math.Clamp(dmVal + (dmRecoveryVal * (decimal)m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME)), KCDefine.B_VAL_0_INT, dmMaxVal));
 						}
 					} finally {
 						CCollectionManager.Inst.DespawnList(oAbilityKindsInfoList);
-						this.RealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
+						m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
 					}
 				}
 			}
@@ -137,7 +136,7 @@ namespace NSEngine {
 		/** 스킬 적용 가능 여부를 검사한다 */
 		protected virtual bool IsEnableApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 적용 스킬 타겟 정보가 없을 경우
-			if(this.SkillInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_INFO).m_eSkillKinds == ESkillKinds.NONE || this.SkillTargetInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_TARGET_INFO) == null) {
+			if(m_oSkillInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_INFO).m_eSkillKinds == ESkillKinds.NONE || m_oSkillTargetInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_TARGET_INFO) == null) {
 				return true;
 			}
 
@@ -149,7 +148,7 @@ namespace NSEngine {
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
 
-			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((this.Vec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION) * (float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
+			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((m_oVec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION) * (float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
 			stNextPos.x = Mathf.Clamp(stNextPos.x, base.Params.m_stBaseParams.m_oEngine.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, base.Params.m_stBaseParams.m_oEngine.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
 			stNextPos.y = Mathf.Clamp(stNextPos.y, (base.Params.m_stBaseParams.m_oEngine.EpisodeSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, base.Params.m_stBaseParams.m_oEngine.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
 
@@ -163,8 +162,8 @@ namespace NSEngine {
 
 		/** 스킬을 적용시킨다 */
 		protected virtual void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
-			this.SkillInfoDict.ExReplaceVal(EKey.APPLY_SKILL_INFO, a_stSkillInfo);
-			this.SkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, a_oSkillTargetInfo);
+			m_oSkillInfoDict.ExReplaceVal(EKey.APPLY_SKILL_INFO, a_stSkillInfo);
+			m_oSkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, a_oSkillTargetInfo);
 		}
 		
 		/** 제어자를 설정한다 */
