@@ -400,12 +400,12 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	/** 타겟 정보를 추가한다 */
-	public void AddTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsDuplicate = false, bool a_bIsEnableAssert = true) {
+	public void AddTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
-			oCharacterUserInfo.m_oTargetInfoDictContainer.ExAddTargetInfo(a_oTargetInfo, a_bIsDuplicate, a_bIsEnableAssert);
+			oCharacterUserInfo.m_oTargetInfoDictContainer.ExAddTargetInfo(a_oTargetInfo, a_bIsCounting, a_bIsEnableAssert);
 		}
 	}
 

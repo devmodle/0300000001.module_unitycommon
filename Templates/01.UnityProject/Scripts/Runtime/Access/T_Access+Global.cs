@@ -222,7 +222,7 @@ public static partial class Access {
 	public static CItemTargetInfo GetItemTargetInfo(int a_nCharacterID, EItemKinds a_eItemKinds, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
 		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetItemTargetInfo(a_nCharacterID, a_eItemKinds, out CItemTargetInfo oItemTargetInfo)) {
-			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterID, Factory.MakeItemTargetInfo(a_eItemKinds), CItemInfoTable.Inst.GetItemInfo(a_eItemKinds).m_stCommonInfo.m_bIsTrue_01);
+			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterID, Factory.MakeItemTargetInfo(a_eItemKinds), CItemInfoTable.Inst.GetItemInfo(a_eItemKinds).m_stCommonInfo.m_bIsTrue01);
 		}
 
 		return CUserInfoStorage.Inst.TryGetItemTargetInfo(a_nCharacterID, a_eItemKinds, out oItemTargetInfo) ? oItemTargetInfo : null;
@@ -237,7 +237,7 @@ public static partial class Access {
 	public static CSkillTargetInfo GetSkillTargetInfo(int a_nCharacterID, ESkillKinds a_eSkillKinds, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
 		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nCharacterID, a_eSkillKinds, out CSkillTargetInfo oSkillTargetInfo)) {
-			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterID, Factory.MakeSkillTargetInfo(a_eSkillKinds), CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds).m_stCommonInfo.m_bIsTrue_01);
+			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterID, Factory.MakeSkillTargetInfo(a_eSkillKinds), CSkillInfoTable.Inst.GetSkillInfo(a_eSkillKinds).m_stCommonInfo.m_bIsTrue01);
 		}
 
 		return CUserInfoStorage.Inst.TryGetSkillTargetInfo(a_nCharacterID, a_eSkillKinds, out oSkillTargetInfo) ? oSkillTargetInfo : null;
@@ -252,7 +252,7 @@ public static partial class Access {
 	public static CObjTargetInfo GetObjTargetInfo(int a_nCharacterID, EObjKinds a_eObjKinds, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
 		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetObjTargetInfo(a_nCharacterID, a_eObjKinds, out CObjTargetInfo oObjTargetInfo)) {
-			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterID, Factory.MakeObjTargetInfo(a_eObjKinds), CObjInfoTable.Inst.GetObjInfo(a_eObjKinds).m_stCommonInfo.m_bIsTrue_01);
+			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterID, Factory.MakeObjTargetInfo(a_eObjKinds), CObjInfoTable.Inst.GetObjInfo(a_eObjKinds).m_stCommonInfo.m_bIsTrue01);
 		}
 
 		return CUserInfoStorage.Inst.TryGetObjTargetInfo(a_nCharacterID, a_eObjKinds, out oObjTargetInfo) ? oObjTargetInfo : null;

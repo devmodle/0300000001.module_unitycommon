@@ -11,7 +11,7 @@ using DG.Tweening;
 public static partial class Extension {
 	#region 클래스 함수
 	/** 타겟 정보를 추가한다 */
-	public static void ExAddTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsDuplicate = false, bool a_bIsEnableAssert = true) {
+	public static void ExAddTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
@@ -20,7 +20,7 @@ public static partial class Extension {
 			int nIdx = oTargetInfoList.FindIndex((a_oCompareTargetInfo) => a_oCompareTargetInfo.TargetType == a_oTargetInfo.TargetType && a_oCompareTargetInfo.Kinds == a_oTargetInfo.Kinds);
 
 			// 타겟 정보 추가가 가능 할 경우
-			if(a_bIsDuplicate || !oTargetInfoList.ExIsValidIdx(nIdx)) {
+			if(!a_bIsCounting || !oTargetInfoList.ExIsValidIdx(nIdx)) {
 				oTargetInfoList.ExAddVal(a_oTargetInfo);
 			}
 
