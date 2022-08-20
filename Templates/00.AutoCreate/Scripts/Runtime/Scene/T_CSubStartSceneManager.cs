@@ -99,7 +99,7 @@ namespace StartScene {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			float fPercent = Mathf.Clamp01((int)(a_eEvent + KCDefine.B_VAL_1_INT) / (float)EStartSceneEvent.MAX_VAL);
-			this.AniDict.ExAssignVal(EKey.LOADING_GAUGE_ANI, this.GaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).ExStartGaugeAni((a_fVal) => this.UpdateUIsState(), null, this.GaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).Percent, fPercent, KCDefine.U_DURATION_ANI));
+			this.AniDict.ExAssignVal(EKey.LOADING_GAUGE_ANI, this.GaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).ExStartGaugeAni((a_fVal) => this.UpdateUIsState(), null, this.GaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
