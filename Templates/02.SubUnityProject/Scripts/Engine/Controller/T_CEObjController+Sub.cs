@@ -70,10 +70,11 @@ namespace NSEngine {
 						oAbilityKindsInfoList.ExAddVal((EAbilityKinds.STAT_SP_01, EAbilityKinds.STAT_SP_RECOVERY_01));
 
 						for(int i = 0; i < oAbilityKindsInfoList.Count; ++i) {
-							decimal dmVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(oAbilityKindsInfoList[i].Item1);
-							decimal dmRecoveryVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(oAbilityKindsInfoList[i].Item2);
+							decimal dmVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
+							decimal dmMaxVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict02.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
+							decimal dmRecoveryVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(oAbilityKindsInfoList[i].Item2);
 
-							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, dmVal + (dmRecoveryVal * (decimal)this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME)));
+							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, System.Math.Clamp(dmVal + (dmRecoveryVal * (decimal)this.RealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME)), KCDefine.B_VAL_0_INT, dmMaxVal));
 						}
 					} finally {
 						CCollectionManager.Inst.DespawnList(oAbilityKindsInfoList);
@@ -85,19 +86,35 @@ namespace NSEngine {
 
 		/** 공격을 처리한다 */
 		public virtual void Attack(CEObj a_oTargetObj, CESkill a_oSkill) {
-			float fPercent = Random.Range(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_1_REAL);
+			var oAbilityValDict = CCollectionManager.Inst.SpawnDict<EAbilityKinds, decimal>();
 
-			// 공격을 회피했을 경우
-			if(fPercent.ExIsLessEquals((float)(a_oTargetObj.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_AVOID_RATE_01) + a_oSkill.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_AVOID_RATE_01)))) {
-				// Do Something
-			} else {
-				float fCriticalRate = (float)(a_oTargetObj.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_CRITICAL_RATE_01) + a_oSkill.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_CRITICAL_RATE_01));
+			try {
+				float fPercent = Random.Range(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_1_REAL);
+				float fCriticalRate = (float)a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_CRITICAL_RATE_01);
 
-				decimal dmPATK = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_P_ATK_01) + a_oSkill.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_P_ATK_01);
-				decimal dmMATK = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_M_ATK_01) + a_oSkill.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_M_ATK_01);
+				this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExCopyTo(oAbilityValDict, (a_dmAbilityVal) => a_dmAbilityVal);
+				global::Func.SetupAbilityVals(a_oSkill.Params.m_stSkillInfo, a_oSkill.Params.m_oSkillTargetInfo, oAbilityValDict);
 
-				decimal dmPDEF = a_oTargetObj.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_P_DEF_01);
-				decimal dmMDEF = a_oTargetObj.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_M_DEF_01);
+				// 공격을 회피했을 경우
+				if(fPercent.ExIsLessEquals((float)a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_AVOID_RATE_01))) {
+					// Do Something
+				} else {
+					decimal dmDamage = oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_DEF_01);
+					decimal dmPDamage = oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_P_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_P_DEF_01);
+					decimal dmMDamage = oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_M_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_M_DEF_01);
+
+					decimal dmTotalDamage = dmDamage + dmPDamage + dmMDamage;
+					a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExIncrAbilityVal(EAbilityKinds.STAT_HP_01, System.Math.Clamp(fPercent.ExIsLessEquals(fCriticalRate) ? dmTotalDamage * KCDefine.B_VAL_2_INT : dmTotalDamage, KCDefine.B_VAL_0_INT, decimal.MaxValue));
+
+					// 크리티컬 공격 일 경우
+					if(fPercent.ExIsLessEquals(fCriticalRate)) {
+						// Do Something
+					} else {
+						// Do Something
+					}
+				}
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oAbilityValDict);
 			}
 		}
 

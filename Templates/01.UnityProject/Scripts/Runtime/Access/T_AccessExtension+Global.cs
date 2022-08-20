@@ -28,6 +28,12 @@ public static partial class AccessExtension {
 	public static bool ExIsValid(this EKindsGroupType a_eSender) {
 		return a_eSender > EKindsGroupType.NONE && a_eSender < EKindsGroupType.MAX_VAL;
 	}
+
+	/** 어빌리티 값을 반환한다 */
+	public static decimal ExGetAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds) {
+		decimal dmAbilityVal = a_oSender.GetValueOrDefault(a_eAbilityKinds);
+		return dmAbilityVal + (dmAbilityVal * a_oSender.GetValueOrDefault(a_eAbilityKinds + (int)EEnumVal.SUB_TYPE));
+	}
 	
 	/** 타겟 값을 반환한다 */
 	public static decimal ExGetTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {

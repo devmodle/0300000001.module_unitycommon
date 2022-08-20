@@ -60,6 +60,12 @@ public static partial class Extension {
 		}
 	}
 
+	/** 어빌리티 값을 증가시킨다 */
+	public static void ExIncrAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds, decimal a_dmVal) {
+		decimal dmAbilityVal = a_oSender.GetValueOrDefault(a_eAbilityKinds);
+		a_oSender.ExReplaceVal(a_eAbilityKinds, System.Math.Clamp(dmAbilityVal + a_dmVal, decimal.MinValue, decimal.MaxValue));
+	}
+
 	/** 타겟 값을 증가시킨다 */
 	public static void ExIncrTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
