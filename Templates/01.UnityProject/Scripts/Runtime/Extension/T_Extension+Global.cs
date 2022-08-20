@@ -61,9 +61,14 @@ public static partial class Extension {
 	}
 
 	/** 어빌리티 값을 증가시킨다 */
-	public static void ExIncrAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds, decimal a_dmVal) {
-		decimal dmAbilityVal = a_oSender.GetValueOrDefault(a_eAbilityKinds);
-		a_oSender.ExReplaceVal(a_eAbilityKinds, System.Math.Clamp(dmAbilityVal + a_dmVal, KCDefine.B_VAL_0_INT, decimal.MaxValue));
+	public static void ExIncrAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds, decimal a_dmVal, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eAbilityKinds != EAbilityKinds.NONE));
+
+		// 어빌리티 값 설정이 가능 할 경우
+		if(a_oSender != null && a_eAbilityKinds != EAbilityKinds.NONE) {
+			decimal dmAbilityVal = a_oSender.GetValueOrDefault(a_eAbilityKinds);
+			a_oSender.ExReplaceVal(a_eAbilityKinds, System.Math.Clamp(dmAbilityVal + a_dmVal, KCDefine.B_VAL_0_INT, decimal.MaxValue));
+		}
 	}
 
 	/** 타겟 값을 증가시킨다 */
