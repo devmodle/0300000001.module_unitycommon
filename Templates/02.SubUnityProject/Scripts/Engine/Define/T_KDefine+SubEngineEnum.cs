@@ -15,7 +15,20 @@ namespace NSEngine {
 	}
 	
 	#region 기본
-	
+	/** 엔진 이벤트 */
+	public enum EEngineEvent {
+		NONE,
+		[HideInInspector] MAX_VAL
+	}
+
+	/** 엔진 객체 이벤트 */
+	public enum EEngineObjEvent {
+		NONE,
+		AVOID,
+		DAMAGE,
+		CRITICAL_DAMAGE,
+		[HideInInspector] MAX_VAL
+	}
 	#endregion			// 기본
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

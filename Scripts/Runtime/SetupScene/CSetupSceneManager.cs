@@ -34,8 +34,8 @@ namespace SetupScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.HandleGetDeviceIDMsg);
-				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.HandleGetCountryCodeMsg);
+				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.OnReceiveGetDeviceIDMsg);
+				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.OnReceiveGetCountryCodeMsg);
 
 				CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE, false);
 			}
@@ -72,8 +72,8 @@ namespace SetupScene {
 #endif			// #if PURCHASE_MODULE_ENABLE
 		}
 
-		/** 디바이스 식별자 반환 메세지를 처리한다 */
-		private void HandleGetDeviceIDMsg(string a_oMsg) {
+		/** 디바이스 식별자 반환 메세지를 수신했을 경우 */
+		private void OnReceiveGetDeviceIDMsg(string a_oMsg) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonAppInfoStorage.Inst.DeviceType = CAccess.DeviceType;
 
@@ -88,8 +88,8 @@ namespace SetupScene {
 			CUnityMsgSender.Inst.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 		}
 
-		/** 국가 코드 반환 메세지를 처리한다 */
-		private void HandleGetCountryCodeMsg(string a_oMsg) {
+		/** 국가 코드 반환 메세지를 수신했을 경우 */
+		private void OnReceiveGetCountryCodeMsg(string a_oMsg) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_EDITOR
 			CCommonAppInfoStorage.Inst.CountryCode = a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_KOREA_COUNTRY_CODE;

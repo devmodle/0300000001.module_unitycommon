@@ -39,7 +39,7 @@ namespace NSEngine {
 		/** 엔진 객체 컴포넌트 매개 변수를 생성한다 */
 		public static CEObjComponent.STParams MakeEObjComponentParams(CEngine a_oEngine, CEObjComponent a_oOwner, CEController a_oController, string a_oObjsPoolKey) {
 			return new CEObjComponent.STParams() {
-				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_oOwner = a_oOwner, m_oController = a_oController
+				m_stBaseParams = Factory.MakeEComponentParams(a_oEngine, a_oObjsPoolKey), m_oOwner = a_oOwner, m_oController = a_oController, m_oCallbackDict = new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
 			};
 		}
 

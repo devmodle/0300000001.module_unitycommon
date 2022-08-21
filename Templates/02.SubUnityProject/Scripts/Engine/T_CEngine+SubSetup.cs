@@ -33,9 +33,7 @@ namespace NSEngine {
 		#region 함수
 		/** 엔진을 설정한다 */
 		private void SubAwakeSetup() {
-			m_oStateCheckerDict.TryAdd(EState.NONE, this.IsEnableNoneState);
-			m_oStateCheckerDict.TryAdd(EState.PLAY, this.IsEnablePlayState);
-			m_oStateCheckerDict.TryAdd(EState.PAUSE, this.IsEnablePauseState);
+			// Do Something
 		}
 		
 		/** 셀을 설정한다 */

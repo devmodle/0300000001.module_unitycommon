@@ -18,6 +18,7 @@ namespace NSEngine {
 			oItem.Init(Factory.MakeItemParams(this, a_stItemInfo, a_oItemTargetInfo, a_oOwner, oController, KDefine.E_KEY_ITEM_OBJS_POOL));
 			oController?.Init(Factory.MakeItemControllerParams(this, oItem));
 
+			this.SetupEObjComponent(oItem);
 			return oItem;
 		}
 
@@ -29,6 +30,7 @@ namespace NSEngine {
 			oSkill.Init(Factory.MakeSkillParams(this, a_stSkillInfo, a_oSkillTargetInfo, a_oOwner, oController, KDefine.E_KEY_SKILL_OBJS_POOL));
 			oController?.Init(Factory.MakeSkillControllerParams(this, oSkill));
 
+			this.SetupEObjComponent(oSkill);
 			return oSkill;
 		}
 
@@ -40,6 +42,7 @@ namespace NSEngine {
 			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_OBJ_OBJS_POOL));
 			oController?.Init(Factory.MakeObjControllerParams(this, oObj));
 
+			this.SetupEObjComponent(oObj);
 			return oObj;
 		}
 
@@ -51,6 +54,7 @@ namespace NSEngine {
 			oFX.Init(Factory.MakeFXParams(this, a_stFXInfo, a_oOwner, oController, KDefine.E_KEY_FX_OBJS_POOL));
 			oController?.Init(Factory.MakeFXControllerParams(this, oFX));
 
+			this.SetupEObjComponent(oFX);
 			return oFX;
 		}
 
@@ -100,6 +104,11 @@ namespace NSEngine {
 				CFactory.RemoveObj(a_oFX.Params.m_stBaseParams.m_oController, false, false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oFX.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oFX.gameObject, a_fDelay);
 			}
+		}
+
+		/** 엔진 객체 컴포넌트를 설정한다 */
+		private void SetupEObjComponent(CEObjComponent a_oEObjComponent) {
+			a_oEObjComponent.Params.m_oCallbackDict.TryAdd(CEObjComponent.ECallback.ENGINE_OBJ_EVENT, this.OnReceiveEObjEvent);
 		}
 		#endregion			// 함수
 	}

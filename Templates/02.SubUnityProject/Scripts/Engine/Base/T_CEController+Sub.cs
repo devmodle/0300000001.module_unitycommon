@@ -50,12 +50,23 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
+		/** 서브 상태 */
+		public enum ESubState {
+			NONE = -1,
+			APPLY,
+			[HideInInspector] MAX_VAL
+		}
+
 		#region 변수
-		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
+
 		#endregion			// 변수
 
 		#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
+		public ESubState SubState { get; private set; } = ESubState.NONE;
+		protected Dictionary<EState, System.Func<bool>> StateCheckerDict { get; } = new Dictionary<EState, System.Func<bool>>();
+		protected Dictionary<ESubState, System.Func<bool>> SubStateCheckerDict { get; } = new Dictionary<ESubState, System.Func<bool>>();
+
 		public virtual bool IsActive => this.State != EState.NONE && this.State != EState.DISAPPEAR;
 		#endregion			// 프로퍼티
 
@@ -82,18 +93,18 @@ namespace NSEngine {
 			if(a_bIsForce) {
 				this.State = a_eState;
 			} else {
-				this.State = (m_oStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) && oStateChecker()) ? a_eState : this.State;
+				this.State = (!this.StateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) || oStateChecker()) ? a_eState : this.State;
 			}
 		}
 
-		/** 무효 상태 가능 여부를 검사한다 */
-		protected virtual bool IsEnableNoneState() {
-			return true;
-		}
-
-		/** 대기 상태 가능 여부를 검사한다 */
-		protected virtual bool IsEnableIdleState() {
-			return true;
+		/** 서브 상태를 변경한다 */
+		public void SetSubState(ESubState a_eSubState, bool a_bIsForce = false) {
+			// 강제 변경 모드 일 경우
+			if(a_bIsForce) {
+				this.SubState = a_eSubState;
+			} else {
+				this.SubState = (!this.SubStateCheckerDict.TryGetValue(a_eSubState, out System.Func<bool> oSubStateChecker) || oSubStateChecker()) ? a_eSubState : this.SubState;
+			}
 		}
 
 		/** 이동 상태 가능 여부를 검사한다 */
@@ -104,16 +115,6 @@ namespace NSEngine {
 		/** 스킬 상태 가능 여부를 검사한다 */
 		protected virtual bool IsEnableSkillState() {
 			return this.State == EState.NONE || this.State == EState.IDLE || this.State == EState.MOVE;
-		}
-
-		/** 등장 상태 가능 여부를 검사한다 */
-		protected virtual bool IsEnableAppearState() {
-			return true;
-		}
-
-		/** 사라짐 상태 가능 여부를 검사한다 */
-		protected virtual bool IsEnableDisappearState() {
-			return true;
 		}
 
 		/** 대기 상태를 처리한다 */
@@ -143,18 +144,16 @@ namespace NSEngine {
 
 		/** 제어자를 설정한다 */
 		private void SubAwakeSetup() {
-			m_oStateCheckerDict.TryAdd(EState.NONE, this.IsEnableNoneState);
-			m_oStateCheckerDict.TryAdd(EState.IDLE, this.IsEnableIdleState);
-			m_oStateCheckerDict.TryAdd(EState.MOVE, this.IsEnableMoveState);
-			m_oStateCheckerDict.TryAdd(EState.SKILL, this.IsEnableSkillState);
-			m_oStateCheckerDict.TryAdd(EState.APPEAR, this.IsEnableAppearState);
-			m_oStateCheckerDict.TryAdd(EState.DISAPPEAR, this.IsEnableDisappearState);
+			this.StateCheckerDict.TryAdd(EState.MOVE, this.IsEnableMoveState);
+			this.StateCheckerDict.TryAdd(EState.SKILL, this.IsEnableSkillState);
 		}
 
 		/** 초기화한다 */
 		private void SubInit() {
 			this.TargetObjList.Clear();
+
 			this.SetState(EState.NONE);
+			this.SetSubState(ESubState.NONE);
 		}
 		#endregion			// 함수
 	}

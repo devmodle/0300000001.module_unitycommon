@@ -18,8 +18,13 @@ namespace NSEngine {
 	public partial class CEngine : CComponent {
 		#region 함수
 		/** 상태를 변경한다 */
-		public void SetState(EState a_eState) {
-			this.State = (m_oStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) && oStateChecker()) ? a_eState : this.State;
+		public void SetState(EState a_eState, bool a_bIsForce = false) {
+			// 강제 변경 모드 일 경우
+			if(a_bIsForce) {
+				this.State = a_eState;
+			} else {
+				this.State = (!m_oStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) || oStateChecker()) ? a_eState : this.State;
+			}
 		}
 
 		/** 가까운 적 객체를 탐색한다 */
@@ -48,21 +53,6 @@ namespace NSEngine {
 			}
 
 			return a_oOutEnemyObjList;
-		}
-
-		/** 무효 상태 가능 여부를 검사한다 */
-		private bool IsEnableNoneState() {
-			return true;
-		}
-
-		/** 플레이 상태 가능 여부를 검사한다 */
-		private bool IsEnablePlayState() {
-			return true;
-		}
-
-		/** 정지 상태 가능 여부를 검사한다 */
-		private bool IsEnablePauseState() {
-			return true;
 		}
 		#endregion			// 함수
 	}

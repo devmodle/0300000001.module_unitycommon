@@ -41,20 +41,13 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-		/** 서브 상태 */
-		public enum ESubState {
-			NONE = -1,
-			APPLY,
-			[HideInInspector] MAX_VAL
-		}
-
 		#region 변수
 		private Dictionary<ESubKey, int> m_oIntDict = new Dictionary<ESubKey, int>();
 		private Dictionary<ESubKey, float> m_oRealDict= new Dictionary<ESubKey, float>();
 		#endregion			// 변수
 
 		#region 프로퍼티
-		public ESubState SubState { get; private set; } = ESubState.NONE;
+		
 		#endregion			// 프로퍼티
 
 		#region 함수
@@ -86,8 +79,8 @@ namespace NSEngine {
 			// 딜레이 시간이 지났을 경우
 			if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDelay)) {
 				this.SetState(EState.SKILL);
-				
-				this.SubState = ESubState.APPLY;
+				this.SetSubState(ESubState.APPLY);
+
 				m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
 			}
 		}
@@ -101,8 +94,6 @@ namespace NSEngine {
 		private void SubInit() {
 			m_oIntDict.Clear();
 			m_oRealDict.Clear();
-
-			this.SubState = ESubState.NONE;
 		}
 
 		/** 적용 서브 상태를 처리한다 */

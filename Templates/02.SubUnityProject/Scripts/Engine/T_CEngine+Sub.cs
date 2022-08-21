@@ -139,6 +139,11 @@ namespace NSEngine {
 			this.SetState(EState.NONE);
 		}
 
+		/** 엔진 객체 이벤트를 수신했을 경우 */
+		private void OnReceiveEObjEvent(CEObjComponent a_oSender, EEngineObjEvent a_eEvent, string a_oParams) {
+			// Do Something
+		}
+
 		/** 플레이 상태를 처리한다 */
 		private void HandlePlayState(float a_fDeltaTime) {
 			CFunc.UpdateComponents(this.ItemList, a_fDeltaTime);
