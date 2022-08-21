@@ -13,6 +13,16 @@ namespace NSEngine {
 		// 간격
 		public const float E_OFFSET_BOTTOM = 150.0f;
 		public const float E_OFFSET_MAIN_CAMERA = -50.0f;
+
+		// 식별자
+		public const string E_KEY_CELL_OBJ_OBJS_POOL = "CellObjObjsPool";
+		public const string E_KEY_PLAYER_OBJ_OBJS_POOL = "PlayerObjObjsPool";
+		public const string E_KEY_ENEMY_OBJ_OBJS_POOL = "EnemyObjObjsPool";
+
+		// 이름
+		public const string E_OBJ_N_CELL_OBJ = "CELL_OBJ";
+		public const string E_OBJ_N_PLAYER_OBJ = "PLAYER_OBJ";
+		public const string E_OBJ_N_ENEMY_OBJ = "ENEMY_OBJ";
 		#endregion			// 기본
 
 		#region 런타임 상수
@@ -37,10 +47,15 @@ namespace NSEngine {
 		};
 		// 정렬 순서 }
 
-		// 경로
+		// 경로 {
+		public static readonly string E_OBJ_P_CELL_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_CellObj";
+		public static readonly string E_OBJ_P_PLAYER_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_PlayerObj";
+		public static readonly string E_OBJ_P_ENEMY_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_EnemyObj";
+
 		public static readonly Dictionary<EObjKinds, string> E_IMG_P_OBJ_DICT = new Dictionary<EObjKinds, string>() {
 			[EObjKinds.BG_EMPTY_01] = EObjKinds.BG_EMPTY_01.ToString()
 		};
+		// 경로 }
 		#endregion			// 런타임 상수
 	}
 }

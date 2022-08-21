@@ -207,8 +207,8 @@ namespace GameScene {
 				m_oEngine.OnUpdate(a_fDeltaTime);
 
 				// UI 갱신이 필요 할 경우
-				if(!m_oBoolDict.GetValueOrDefault(EKey.IS_UPDATE_UIS_STATE)) {
-					m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, true);
+				if(m_oBoolDict.GetValueOrDefault(EKey.IS_UPDATE_UIS_STATE)) {
+					m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, false);
 				}
 			}
 		}

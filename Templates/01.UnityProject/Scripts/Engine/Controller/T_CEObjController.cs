@@ -49,11 +49,15 @@ namespace NSEngine {
 		/** 적용 스킬 정보를 리셋한다 */
 		public virtual void ResetApplySkillInfo() {
 			m_oSkillInfoDict.ExReplaceVal(EKey.APPLY_SKILL_INFO, STSkillInfo.INVALID);
-			m_oSkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, null);
 		}
 
 		/** 자동 제어 여부를 변경한다 */
 		public void SetIsAutoControl(bool a_bIsAutoControl) {
+			// 수동 제어 모드 일 경우
+			if(!a_bIsAutoControl && this.State == EState.MOVE) {
+				this.SetState(EState.IDLE);
+			}
+
 			m_oBoolDict.ExReplaceVal(EKey.IS_AUTO_CONTROL, a_bIsAutoControl);
 		}
 

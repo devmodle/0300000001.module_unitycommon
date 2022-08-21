@@ -141,7 +141,26 @@ namespace NSEngine {
 
 		/** 엔진 객체 이벤트를 수신했을 경우 */
 		private void OnReceiveEObjEvent(CEObjComponent a_oSender, EEngineObjEvent a_eEvent, string a_oParams) {
-			// Do Something
+			switch(a_eEvent) {
+				case EEngineObjEvent.AVOID: case EEngineObjEvent.DAMAGE: case EEngineObjEvent.CRITICAL_DAMAGE: {
+					// Do Something
+				} break;
+			}
+
+			// 체력이 없을 경우
+			if(a_oSender.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT) {
+				switch(a_oSender.Params.m_stBaseParams.m_oObjsPoolKey) {
+					case KDefine.E_KEY_ITEM_OBJS_POOL: this.RemoveItem(a_oSender as CEItem); break;
+					case KDefine.E_KEY_SKILL_OBJS_POOL: this.RemoveSkill(a_oSender as CESkill); break;
+					case KDefine.E_KEY_OBJ_OBJS_POOL: this.RemoveObj(a_oSender as CEObj); break;
+					case KDefine.E_KEY_FX_OBJS_POOL: this.RemoveFX(a_oSender as CEFX); break;
+					case KDefine.E_KEY_CELL_OBJ_OBJS_POOL: this.RemoveCellObj(a_oSender as CEObj); break;
+					case KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL: this.RemovePlayerObj(a_oSender as CEObj); break;
+					case KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL: this.RemoveEnemyObj(a_oSender as CEObj); break;
+				}
+			}
+			
+			CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
 		}
 
 		/** 플레이 상태를 처리한다 */

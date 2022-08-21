@@ -104,7 +104,7 @@ namespace NSEngine {
 			m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
 
 			// 적용 간격이 지났을 경우
-			if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (nApplyTimes - KCDefine.B_VAL_1_INT))) {
+			if(nApplyTimes < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (nApplyTimes - KCDefine.B_VAL_1_INT))) {
 				switch((ESkillApplyType)((int)this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillApplyKinds).ExKindsToType()) {
 					case ESkillApplyType.RANGE: this.ApplyRangeSkill(); break;
 					case ESkillApplyType.TARGET: this.ApplyTargetSkill(); break;

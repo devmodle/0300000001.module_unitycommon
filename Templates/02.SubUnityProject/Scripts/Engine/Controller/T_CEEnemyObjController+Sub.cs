@@ -79,6 +79,7 @@ namespace NSEngine {
 
 			// 플레이어 객체 공격이 가능 할 경우
 			if(this.IsEnableAttackPlayerObj()) {
+				this.SetState(EState.IDLE);
 				this.ApplySkill(CSkillInfoTable.Inst.GetSkillInfo(this.GetOwner<CEObj>().Params.m_stObjInfo.m_eActionSkillKinds), null);
 			} else {
 				this.SetMoveDirection(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition);

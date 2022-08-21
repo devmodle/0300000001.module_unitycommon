@@ -12,7 +12,7 @@ public struct STSkillInfo {
 	public STCommonInfo m_stCommonInfo;
 	public STTimeInfo m_stTimeInfo;
 
-	public float m_fDelay;
+	public int m_nMaxApplyTimes;
 	public ESkillKinds m_eSkillKinds;
 	public ESkillKinds m_ePrevSkillKinds;
 	public ESkillKinds m_eNextSkillKinds;
@@ -42,7 +42,7 @@ public struct STSkillInfo {
 		m_stCommonInfo = new STCommonInfo(a_oSkillInfo);
 		m_stTimeInfo = new STTimeInfo(a_oSkillInfo[KCDefine.U_KEY_TIME_INFO]);
 
-		m_fDelay = a_oSkillInfo[KCDefine.U_KEY_DELAY].ExIsValid() ? a_oSkillInfo[KCDefine.U_KEY_DELAY].AsFloat : KCDefine.B_VAL_0_REAL;
+		m_nMaxApplyTimes = a_oSkillInfo[KCDefine.U_KEY_MAX_APPLY_TIMES].ExIsValid() ? a_oSkillInfo[KCDefine.U_KEY_MAX_APPLY_TIMES].AsInt : KCDefine.B_VAL_0_INT;
 		m_eSkillKinds = a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_ePrevSkillKinds = a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_PREV_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 		m_eNextSkillKinds = a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oSkillInfo[KCDefine.U_KEY_NEXT_SKILL_KINDS].AsInt : ESkillKinds.NONE;

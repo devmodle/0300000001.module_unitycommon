@@ -106,7 +106,7 @@ namespace NSEngine {
 					dmTotalDamage = fPercent.ExIsLessEquals(fCriticalRate) ? dmTotalDamage * KCDefine.B_VAL_2_INT : dmTotalDamage;
 
 					a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExIncrAbilityVal(EAbilityKinds.STAT_HP_01, -dmTotalDamage);
-					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), fPercent.ExIsLessEquals(fCriticalRate) ? EEngineObjEvent.CRITICAL_DAMAGE : EEngineObjEvent.DAMAGE, $"{dmTotalDamage}");
+					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, fPercent.ExIsLessEquals(fCriticalRate) ? EEngineObjEvent.CRITICAL_DAMAGE : EEngineObjEvent.DAMAGE, $"{dmTotalDamage:0}");
 				}
 			} finally {
 				CCollectionManager.Inst.DespawnDict(oAbilityValDict);
@@ -132,12 +132,20 @@ namespace NSEngine {
 		/** 스킬 적용 가능 여부를 검사한다 */
 		protected virtual bool IsEnableApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 적용 스킬 타겟 정보가 없을 경우
-			if(m_oSkillInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_INFO).m_eSkillKinds == ESkillKinds.NONE || m_oSkillTargetInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_TARGET_INFO) == null) {
+			if(m_oSkillInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_INFO).m_eSkillKinds == ESkillKinds.NONE) {
 				return true;
 			}
 
-			var stApplySkillTime = this.ApplySkillTimeDict.GetValueOrDefault(a_stSkillInfo.m_eSkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT));
-			return System.DateTime.Now.ExGetDeltaTime(stApplySkillTime).ExIsGreateEquals(a_stSkillInfo.m_fDelay);
+			var oAbilityValDict = CCollectionManager.Inst.SpawnDict<EAbilityKinds, decimal>();
+
+			try {
+				global::Func.SetupAbilityVals(a_stSkillInfo, a_oSkillTargetInfo, oAbilityValDict);
+				double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(this.ApplySkillTimeDict.GetValueOrDefault(a_stSkillInfo.m_eSkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)));
+
+				return (decimal)dblDeltaTime >= this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal((a_stSkillInfo.SkillType == ESkillType.ACTION) ? EAbilityKinds.STAT_ATK_DELAY_01 : EAbilityKinds.STAT_SKILL_DELAY_01, (a_stSkillInfo.SkillType == ESkillType.ACTION) ? this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_ATK_DELAY_01) : oAbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_SKILL_DELAY_01));
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oAbilityValDict);
+			}
 		}
 
 		/** 이동 상태를 처리한다 */

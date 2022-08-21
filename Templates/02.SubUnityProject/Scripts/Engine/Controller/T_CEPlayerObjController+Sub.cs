@@ -77,11 +77,36 @@ namespace NSEngine {
 		/** 대기 상태를 처리한다 */
 		protected override void HandleIdleState(float a_fDeltaTime) {
 			base.HandleIdleState(a_fDeltaTime);
+
+			// 자동 제어 모드 일 경우
+			if(this.IsAutoControl) {
+				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindNearEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
+
+				// 적 객체 공격이 가능 할 경우
+				if(this.IsEnableAttackEnemyObj(oEnemyObj)) {
+					this.ApplySkill(CSkillInfoTable.Inst.GetSkillInfo(this.GetOwner<CEObj>().Params.m_stObjInfo.m_eActionSkillKinds), null);
+				} else {
+					this.Move((oEnemyObj != null) ? oEnemyObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition : Vector3.zero);
+				}
+			}
 		}
 
 		/** 이동 상태를 처리한다 */
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
+
+			// 자동 제어 모드 일 경우
+			if(this.IsAutoControl) {
+				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindNearEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
+
+				// 적 객체 공격이 가능 할 경우
+				if(this.IsEnableAttackEnemyObj(oEnemyObj)) {
+					this.SetState(EState.IDLE);
+					this.ApplySkill(CSkillInfoTable.Inst.GetSkillInfo(this.GetOwner<CEObj>().Params.m_stObjInfo.m_eActionSkillKinds), null);
+				} else {
+					this.Move((oEnemyObj != null) ? oEnemyObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition : Vector3.zero);
+				}
+			}
 		}
 
 		/** 스킬 상태를 처리한다 */
@@ -131,6 +156,17 @@ namespace NSEngine {
 			switch(a_stSkillInfo.m_eSkillApplyKinds) {
 				case ESkillApplyKinds.TARGET_SINGLE: a_oOutTargetObjList.ExAddVal(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindNearEnemyObj(this.GetOwner<CEObj>().transform.localPosition)); break;
 			}
+		}
+
+		/** 적 객체 공격 가능 여부를 검사한다 */
+		private bool IsEnableAttackEnemyObj(CEObj a_oEnemyObj) {
+			// 적 객체가 존재 할 경우
+			if(a_oEnemyObj != null) {
+				var stDelta = a_oEnemyObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;
+				return stDelta.sqrMagnitude.ExIsLessEquals(Mathf.Pow((float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ATK_RANGE_01), KCDefine.B_VAL_2_REAL));
+			}
+
+			return false;
 		}
 		#endregion			// 함수
 	}
