@@ -59,6 +59,8 @@ public partial class CClearInfo : CBaseInfo {
 [MessagePackObject][System.Serializable]
 public partial class CCharacterGameInfo : CBaseInfo {
 	#region 상수
+	private const string KEY_IS_AUTO_CONTROL = "IsAutoControl";
+
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
 	private const string KEY_FREE_REWARD_ACQUIRE_TIMES = "FreeRewardAcquireTimes";
 
@@ -82,6 +84,8 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	#endregion			// 변수
 
 	#region 프로퍼티
+	[JsonIgnore][IgnoreMember] public bool IsAutoControl { get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_IS_AUTO_CONTROL, KCDefine.B_TEXT_FALSE)); } set { m_oStrDict.ExReplaceVal(KEY_IS_AUTO_CONTROL, $"{value}"); } }
+	
 	[JsonIgnore][IgnoreMember] public int DailyRewardID { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_DAILY_REWARD_ID, $"{value}"); } }
 	[JsonIgnore][IgnoreMember] public int FreeRewardAcquireTimes { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); } }
 	
@@ -173,6 +177,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	#region 프로퍼티
 	public int PlayCharacterID { get; set; } = KDefine.G_ID_COMMON_CHARACTER;
 	public EPlayMode PlayMode { get; set; } = EPlayMode.NONE;
+	public STEpisodeInfo PlayEpisodeInfo { get; set; } = STEpisodeInfo.INVALID;
 	public CLevelInfo PlayLevelInfo { get; set; } = null;
 	public List<EItemKinds> SelItemKindsList { get; } = new List<EItemKinds>();
 	public List<EItemKinds> FreeSelItemKindsList { get; } = new List<EItemKinds>();

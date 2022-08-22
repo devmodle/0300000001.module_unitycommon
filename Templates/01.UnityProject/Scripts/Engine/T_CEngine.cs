@@ -14,6 +14,7 @@ namespace NSEngine {
 		private enum EKey {
 			NONE = -1,
 			IS_RUNNING,
+			IS_SAVE_USER_INFO,
 			SEL_GRID_INFO,
 			[HideInInspector] MAX_VAL
 		}
@@ -28,11 +29,6 @@ namespace NSEngine {
 
 		/** 매개 변수 */
 		public struct STParams {
-			public STEpisodeInfo m_stEpisodeInfo;
-			
-			public CLevelInfo m_oLevelInfo;
-			public CClearInfo m_oClearInfo;
-
 			public GameObject m_oItemRoot;
 			public GameObject m_oSkillRoot;
 			public GameObject m_oObjRoot;
@@ -45,6 +41,7 @@ namespace NSEngine {
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>();
+		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		
 		/** =====> 객체 <===== */
 		private Dictionary<EObjType, List<CEObj>>[,] m_oCellObjDictContainers = null;
@@ -60,8 +57,8 @@ namespace NSEngine {
 		public List<CEFX> FXList { get; } = new List<CEFX>();
 
 		public bool IsRunning => m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING);
-		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, this.Params.m_stEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, this.Params.m_stEpisodeInfo.m_stSize.y), this.Params.m_stEpisodeInfo.m_stSize.z);
-		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, this.Params.m_stEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, this.Params.m_stEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), this.Params.m_stEpisodeInfo.m_stSize.z);
+		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
+		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public STGridInfo SelGridInfo => m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO);
 		#endregion			// 프로퍼티
 		

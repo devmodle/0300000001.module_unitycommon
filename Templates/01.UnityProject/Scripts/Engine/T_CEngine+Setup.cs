@@ -12,9 +12,12 @@ namespace NSEngine {
 		#region 함수
 		/** 레벨을 설정한다 */
 		private void SetupLevel() {
-			for(int i = 0; i < this.Params.m_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
-				for(int j = 0; j < this.Params.m_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-					this.SetupCell(this.Params.m_oLevelInfo.m_oCellInfoDictContainer[i][j], m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO));
+			// 레벨 정보가 존재 할 경우
+			if(CGameInfoStorage.Inst.PlayLevelInfo != null) {
+				for(int i = 0; i < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
+					for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
+						this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i][j], m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO));
+					}
 				}
 			}
 		}

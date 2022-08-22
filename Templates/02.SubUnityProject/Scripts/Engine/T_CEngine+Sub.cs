@@ -80,18 +80,27 @@ namespace NSEngine {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning && m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				switch(this.State) {
-					case EState.PLAY: this.HandlePlayState(a_fDeltaTime); break;
-					case EState.PAUSE: this.HandlePauseState(a_fDeltaTime); break;
+			if(CSceneManager.IsAppRunning) {
+				// 실행 중 일 경우
+				if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+					switch(this.State) {
+						case EState.PLAY: this.HandlePlayState(a_fDeltaTime); break;
+						case EState.PAUSE: this.HandlePauseState(a_fDeltaTime); break;
+					}
+
+					// 플레이어 객체가 존재 할 경우
+					if(this.PlayerObjList.ExIsValid()) {
+						var stEpisodeSize = this.CameraEpisodeSize * CAccess.ResolutionUnitScale;
+						var stMainCameraPos = new Vector3(Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), (stEpisodeSize.y / -KCDefine.B_VAL_2_REAL) - ((CSceneManager.ActiveSceneManager.ScreenHeight / KCDefine.B_VAL_3_REAL) * CAccess.ResolutionUnitScale), stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+
+						CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
+					}
 				}
 
-				// 플레이어 객체가 존재 할 경우
-				if(this.PlayerObjList.ExIsValid()) {
-					var stEpisodeSize = this.CameraEpisodeSize * CAccess.ResolutionUnitScale;
-					var stMainCameraPos = new Vector3(Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), (stEpisodeSize.y / -KCDefine.B_VAL_2_REAL) - ((CSceneManager.ActiveSceneManager.ScreenHeight / KCDefine.B_VAL_3_REAL) * CAccess.ResolutionUnitScale), stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
-
-					CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
+				// 유저 정보 저장이 필요 할 경우
+				if(m_oBoolDict.GetValueOrDefault(EKey.IS_SAVE_USER_INFO)) {
+					CUserInfoStorage.Inst.SaveUserInfo();
+					m_oBoolDict.ExReplaceVal(EKey.IS_SAVE_USER_INFO, false);
 				}
 			}
 		}
@@ -139,6 +148,18 @@ namespace NSEngine {
 			this.SetState(EState.NONE);
 		}
 
+		/** 획득 타겟 정보를 설정한다 */
+		private void SetupAcquireTargetInfos(CEObjComponent a_oEObjComponent, Dictionary<ulong, STTargetInfo> a_oOutAcquireTargetInfos) {
+			// 아이템 일 경우
+			if(a_oEObjComponent.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_ITEM_OBJS_POOL)) {
+				(a_oEObjComponent as CEItem).Params.m_stItemInfo.m_oAcquireTargetInfoDict.ExCopyTo(a_oOutAcquireTargetInfos, (a_stTargetInfo) => a_stTargetInfo);
+			}
+			// 적 객체 일 경우
+			else if(a_oEObjComponent.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL)) {
+				(a_oEObjComponent as CEObj).Params.m_stObjInfo.m_oAcquireTargetInfoDict.ExCopyTo(a_oOutAcquireTargetInfos, (a_stTargetInfo) => a_stTargetInfo);
+			}
+		}
+
 		/** 엔진 객체 이벤트를 수신했을 경우 */
 		private void OnReceiveEObjEvent(CEObjComponent a_oSender, EEngineObjEvent a_eEvent, string a_oParams) {
 			switch(a_eEvent) {
@@ -149,17 +170,47 @@ namespace NSEngine {
 
 			// 체력이 없을 경우
 			if(a_oSender.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT) {
-				switch(a_oSender.Params.m_stBaseParams.m_oObjsPoolKey) {
-					case KDefine.E_KEY_ITEM_OBJS_POOL: this.RemoveItem(a_oSender as CEItem); break;
-					case KDefine.E_KEY_SKILL_OBJS_POOL: this.RemoveSkill(a_oSender as CESkill); break;
-					case KDefine.E_KEY_OBJ_OBJS_POOL: this.RemoveObj(a_oSender as CEObj); break;
-					case KDefine.E_KEY_FX_OBJS_POOL: this.RemoveFX(a_oSender as CEFX); break;
-					case KDefine.E_KEY_CELL_OBJ_OBJS_POOL: this.RemoveCellObj(a_oSender as CEObj); break;
-					case KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL: this.RemovePlayerObj(a_oSender as CEObj); break;
-					case KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL: this.RemoveEnemyObj(a_oSender as CEObj); break;
+				// 플레이어 객체 일 경우
+				if(a_oSender.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL)) {
+					this.Params.m_oCallbackDict.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
+				} else {
+					var stObjEnhanceInfo = CObjInfoTable.Inst.GetObjEnhanceInfo(this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_stObjInfo.m_eObjKinds);
+					var stEXPTargetValInfo = this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetEXPTargetValInfo(stObjEnhanceInfo.m_oPayTargetInfoDict);
+					var oAcquireTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+
+					try {
+						this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
+						global::Func.Acquire(oAcquireTargetInfoDict, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID));
+						
+						foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict) {
+							bool bIsValid = stKeyVal.Value.TargetType == ETargetType.ITEM && (a_oSender as CEItem != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEItem).Params.m_stItemInfo.m_eItemKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType);
+
+							// 클리어 타겟 정보가 존재 할 경우
+							if(bIsValid || (stKeyVal.Value.TargetType == ETargetType.OBJ && (a_oSender as CEObj != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEObj).Params.m_stObjInfo.m_eObjKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType))) {
+								m_oClearTargetInfoDict.ExIncrTargetVal(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, -KCDefine.B_VAL_1_INT);
+							}
+						}
+
+						// 플레이어 객체 레벨 강화가 가능 할 경우
+						if(stEXPTargetValInfo.Item1 >= stEXPTargetValInfo.Item3) {
+							global::Func.Acquire(stObjEnhanceInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
+							this.PlayerObjList[KCDefine.B_VAL_0_INT].SetupAbilityVals();
+						}
+
+						bool bIsSaveUserInfo = m_oBoolDict.GetValueOrDefault(EKey.IS_SAVE_USER_INFO);
+						m_oBoolDict.ExReplaceVal(EKey.IS_SAVE_USER_INFO, oAcquireTargetInfoDict.ExIsValid() ? true : bIsSaveUserInfo);
+					} finally {
+						this.RemoveEObjComponent(a_oSender);
+						CCollectionManager.Inst.DespawnDict(oAcquireTargetInfoDict);
+					}
 				}
 			}
-			
+
+			// 클리어 타겟을 완료했을 경우
+			if(m_oClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT)) {
+				this.Params.m_oCallbackDict.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
+			}
+
 			CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
 		}
 
@@ -170,29 +221,32 @@ namespace NSEngine {
 			CFunc.UpdateComponents(this.FXList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.PlayerObjList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
-			
-			var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
-			try {
-				for(int i = 0; i < this.EnemyObjList.Count; ++i) {
-					int nNumEnemyObjs = oNumEnemyObjsDict.GetValueOrDefault(this.EnemyObjList[i].Params.m_stObjInfo.m_eObjKinds);
-					oNumEnemyObjsDict.ExReplaceVal(this.EnemyObjList[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
-				}
+			// 실행 중 일 경우
+			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {			
+				var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
-				foreach(var stKeyVal in this.Params.m_stEpisodeInfo.m_oEnemyObjTargetInfoDict) {
-					// 적 객체 생성이 가능 할 경우
-					if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.m_nKinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjList.Count < this.Params.m_stEpisodeInfo.m_nMaxNumEnemyObjs) {
-						float fPosX = Random.Range(this.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
-						float fPosY = Random.Range(this.EpisodeSize.y / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
-
-						var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.m_nKinds), null);
-						oEnemyObj.transform.localPosition = new Vector3(fPosX, fPosY, fPosY / this.EpisodeSize.y);
-
-						this.EnemyObjList.ExAddVal(oEnemyObj);
+				try {
+					for(int i = 0; i < this.EnemyObjList.Count; ++i) {
+						int nNumEnemyObjs = oNumEnemyObjsDict.GetValueOrDefault(this.EnemyObjList[i].Params.m_stObjInfo.m_eObjKinds);
+						oNumEnemyObjsDict.ExReplaceVal(this.EnemyObjList[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
 					}
+
+					foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oEnemyObjTargetInfoDict) {
+						// 적 객체 생성이 가능 할 경우
+						if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.Kinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjList.Count < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nMaxNumEnemyObjs) {
+							float fPosX = Random.Range(this.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
+							float fPosY = Random.Range(this.EpisodeSize.y / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
+
+							var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.Kinds), null);
+							oEnemyObj.transform.localPosition = new Vector3(fPosX, fPosY, fPosY / this.EpisodeSize.y);
+
+							this.EnemyObjList.ExAddVal(oEnemyObj);
+						}
+					}
+				} finally {
+					CCollectionManager.Inst.DespawnDict(oNumEnemyObjsDict);
 				}
-			} finally {
-				CCollectionManager.Inst.DespawnDict(oNumEnemyObjsDict);
 			}
 		}
 

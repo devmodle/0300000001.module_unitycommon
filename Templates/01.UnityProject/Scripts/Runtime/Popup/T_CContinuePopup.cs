@@ -28,7 +28,6 @@ public partial class CContinuePopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
 		public int m_nContinueTimes;
-		public CLevelInfo m_oLevelInfo;
 		public Dictionary<ECallback, System.Action<CContinuePopup>> m_oCallbackDict;
 	}
 
@@ -41,7 +40,7 @@ public partial class CContinuePopup : CSubPopup {
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreCloseBtn => true;
 	#endregion			// 프로퍼티
-
+	
 	#region 함수
 	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {

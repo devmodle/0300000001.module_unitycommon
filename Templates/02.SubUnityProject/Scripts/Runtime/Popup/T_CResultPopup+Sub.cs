@@ -52,6 +52,7 @@ public partial class CResultPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private new void UpdateUIsState() {
 		base.UpdateUIsState();
+		var oClearLevelInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);
 
 		// 객체를 갱신한다
 		m_oUIsDict.GetValueOrDefault(EKey.CLEAR_UIS)?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess);
@@ -59,7 +60,7 @@ public partial class CResultPopup : CSubPopup {
 
 		// 텍스트를 갱신한다
 		m_oTextDict.GetValueOrDefault(EKey.RECORD_TEXT)?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
-		m_oTextDict.GetValueOrDefault(EKey.BEST_RECORD_TEXT)?.ExSetText((this.Params.m_oClearInfo != null) ? $"{this.Params.m_oClearInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, EFontSet._1, false);
+		m_oTextDict.GetValueOrDefault(EKey.BEST_RECORD_TEXT)?.ExSetText((oClearLevelInfo != null) ? $"{oClearLevelInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, EFontSet._1, false);
 
 		#region 추가
 		this.SubUpdateUIsState();

@@ -89,7 +89,7 @@ public static partial class Extension {
 			stAbilityTargetInfo.m_stValInfo01.m_dmVal = System.Math.Clamp(a_dmVal, decimal.MinValue, decimal.MaxValue);
 			stAbilityTargetInfo.m_stValInfo01.m_eValType = EValType.INT;
 
-			a_oSender.ExReplaceVal(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), stAbilityTargetInfo);
+			a_oSender.ExReplaceVal(Factory.MakeUTargetInfoID(a_eTargetKinds, a_nKinds), stAbilityTargetInfo);
 		}
 	}
 

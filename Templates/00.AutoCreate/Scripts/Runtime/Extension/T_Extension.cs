@@ -30,7 +30,7 @@ public static partial class Extension {
 
 		for(int i = 0; i < oTargetInfos.Count; ++i) {
 			var stTargetInfo = oTargetInfos[i].ToString().ExJSONStrToObj<STTargetInfo>();
-			oTargetInfoDict.TryAdd(Factory.MakeUniqueTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			oTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
 #endif			// #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 

@@ -31,9 +31,6 @@ public partial class CResultPopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
 		public STRecordInfo m_stRecordInfo;
-		
-		public CLevelInfo m_oLevelInfo;
-		public CClearInfo m_oClearInfo;
 		public Dictionary<ECallback, System.Action<CResultPopup>> m_oCallbackDict;
 	}
 

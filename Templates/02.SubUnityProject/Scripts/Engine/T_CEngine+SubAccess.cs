@@ -33,7 +33,7 @@ namespace NSEngine {
 
 			for(int i = 1; i < this.EnemyObjList.Count; ++i) {
 				float fDistance = (a_stPos - oEnemyObj.transform.localPosition).sqrMagnitude;
-				oEnemyObj = fDistance.ExIsLessEquals((oEnemyObj.transform.localPosition - this.EnemyObjList[i].transform.localPosition).sqrMagnitude) ? oEnemyObj : this.EnemyObjList[i];
+				oEnemyObj = fDistance.ExIsLessEquals((a_stPos - this.EnemyObjList[i].transform.localPosition).sqrMagnitude) ? oEnemyObj : this.EnemyObjList[i];
 			}
 
 			return oEnemyObj;

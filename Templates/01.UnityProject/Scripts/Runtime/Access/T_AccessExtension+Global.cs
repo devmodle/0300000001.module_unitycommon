@@ -28,7 +28,7 @@ public static partial class AccessExtension {
 	public static bool ExIsValid(this EKindsGroupType a_eSender) {
 		return a_eSender > EKindsGroupType.NONE && a_eSender < EKindsGroupType.MAX_VAL;
 	}
-
+	
 	/** 어빌리티 값을 반환한다 */
 	public static decimal ExGetAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds) {
 		return a_oSender.ExGetAbilityVal(a_eAbilityKinds, a_oSender.GetValueOrDefault(a_eAbilityKinds));
@@ -45,6 +45,15 @@ public static partial class AccessExtension {
 	/** 타겟 값을 반환한다 */
 	public static decimal ExGetTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo) ? stTargetInfo.m_stValInfo01.m_dmVal : KCDefine.B_VAL_0_INT;
+	}
+
+	/** 경험치 타겟 값 정보를 반환한다 */
+	public static (decimal, decimal, decimal) ExGetEXPTargetValInfo(this Dictionary<ulong, STTargetInfo> a_oSender, Dictionary<ulong, STTargetInfo> a_oPayTargetInfoDict) {
+		decimal dmLV = a_oSender.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV);
+		decimal dmEXP = a_oSender.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP);
+		decimal dmPrevEXP = System.Math.Clamp(dmLV - KCDefine.B_VAL_1_INT, KCDefine.B_VAL_0_INT, decimal.MaxValue) * a_oPayTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP);
+
+		return (dmEXP, dmPrevEXP, System.Math.Clamp(dmLV, KCDefine.B_VAL_0_INT, decimal.MaxValue) * a_oPayTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP));
 	}
 
 	/** 타겟 정보를 반환한다 */
@@ -86,11 +95,11 @@ public static partial class AccessExtension {
 
 		return oTargetInfo;
 	}
-	
+
 	/** 타겟 정보를 반환한다 */
 	public static bool ExTryGetTargetInfo(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutTargetInfo) {
-		a_stOutTargetInfo = a_oSender.GetValueOrDefault(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID);
-		return a_oSender.ContainsKey(Factory.MakeUniqueTargetInfoID(a_eTargetKinds, a_nKinds));
+		a_stOutTargetInfo = a_oSender.GetValueOrDefault(Factory.MakeUTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID);
+		return a_oSender.ContainsKey(Factory.MakeUTargetInfoID(a_eTargetKinds, a_nKinds));
 	}
 
 	/** 타겟 정보를 반환한다 */

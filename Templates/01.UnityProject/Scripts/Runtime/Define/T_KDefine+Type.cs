@@ -30,7 +30,7 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public int Kinds => m_nKinds.ExKindsToCorrectKinds(m_eKindsGroupType);
-	[JsonIgnore][IgnoreMember] public ulong UniqueTargetInfoID => Factory.MakeUniqueTargetInfoID(m_eTargetKinds, m_nKinds);
+	[JsonIgnore][IgnoreMember] public ulong UniqueTargetInfoID => Factory.MakeUTargetInfoID(m_eTargetKinds, m_nKinds);
 
 	[JsonIgnore][IgnoreMember] public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
 	[JsonIgnore][IgnoreMember] public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
