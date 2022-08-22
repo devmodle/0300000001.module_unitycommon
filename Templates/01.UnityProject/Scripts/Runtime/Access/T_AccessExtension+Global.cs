@@ -49,11 +49,17 @@ public static partial class AccessExtension {
 
 	/** 경험치 타겟 값 정보를 반환한다 */
 	public static (decimal, decimal, decimal) ExGetEXPTargetValInfo(this Dictionary<ulong, STTargetInfo> a_oSender, Dictionary<ulong, STTargetInfo> a_oPayTargetInfoDict) {
+		a_oPayTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, out STTargetInfo stTargetInfo);
+
 		decimal dmLV = a_oSender.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV);
 		decimal dmEXP = a_oSender.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP);
-		decimal dmPrevEXP = System.Math.Clamp(dmLV - KCDefine.B_VAL_1_INT, KCDefine.B_VAL_0_INT, decimal.MaxValue) * a_oPayTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP);
+		decimal dmPrevLV = System.Math.Clamp(dmLV - KCDefine.B_VAL_1_INT, KCDefine.B_VAL_0_INT, decimal.MaxValue);
 
-		return (dmEXP, dmPrevEXP, System.Math.Clamp(dmLV, KCDefine.B_VAL_0_INT, decimal.MaxValue) * a_oPayTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP));
+		decimal dmMaxEXP = dmLV * stTargetInfo.m_stValInfo01.m_dmVal;
+		decimal dmPrevMaxEXP = dmPrevLV * stTargetInfo.m_stValInfo01.m_dmVal;
+		decimal dmTotalPrevMaxEXP = dmPrevMaxEXP + (System.Math.Clamp(dmPrevLV - KCDefine.B_VAL_1_INT, KCDefine.B_VAL_0_INT, decimal.MaxValue) * (dmPrevMaxEXP * stTargetInfo.m_stValInfo02.m_dmVal) / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
+
+		return (dmEXP, dmTotalPrevMaxEXP, dmMaxEXP + (dmPrevLV * (dmMaxEXP * stTargetInfo.m_stValInfo02.m_dmVal) / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT));
 	}
 
 	/** 타겟 정보를 반환한다 */

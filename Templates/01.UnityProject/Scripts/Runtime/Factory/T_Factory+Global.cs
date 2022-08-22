@@ -83,7 +83,7 @@ public static partial class Factory {
 	/** 캐릭터 유저 정보를 생성한다 */
 	public static CCharacterUserInfo MakeCharacterUserInfo(EObjKinds a_eObjKinds, STIDInfo a_stIDInfo, STIdxInfo a_stIdxInfo) {
 		var oCharacterUserInfo = new CCharacterUserInfo() {
-			ObjKinds = a_eObjKinds, m_stIDInfo = a_stIDInfo, m_stIdxInfo = a_stIdxInfo
+			Name = KCDefine.B_TEXT_UNKNOWN, ObjKinds = a_eObjKinds, m_stIDInfo = a_stIDInfo, m_stIdxInfo = a_stIdxInfo
 		};
 
 		oCharacterUserInfo.ExSetOwnerTargetInfo(null);

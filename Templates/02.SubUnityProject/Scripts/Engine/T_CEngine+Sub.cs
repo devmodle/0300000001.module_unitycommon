@@ -193,7 +193,9 @@ namespace NSEngine {
 
 						// 플레이어 객체 레벨 강화가 가능 할 경우
 						if(stEXPTargetValInfo.Item1 >= stEXPTargetValInfo.Item3) {
+							global::Func.Pay(stObjEnhanceInfo.m_oPayTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
 							global::Func.Acquire(stObjEnhanceInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
+
 							this.PlayerObjList[KCDefine.B_VAL_0_INT].SetupAbilityVals();
 						}
 

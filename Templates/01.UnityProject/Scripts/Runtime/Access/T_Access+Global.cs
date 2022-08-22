@@ -95,9 +95,9 @@ public static partial class Access {
 	/** 교환 가능 여부를 검사한다 */
 	public static bool IsEnableTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
 		switch(a_stTargetInfo.TargetType) {
-			case ETargetType.ITEM: return Access.IsEnableItemTargetTrade(a_stTargetInfo, a_oTargetInfo as CItemTargetInfo);
-			case ETargetType.SKILL: return Access.IsEnableSkillTargetTrade(a_stTargetInfo, a_oTargetInfo as CSkillTargetInfo);
-			case ETargetType.OBJ: return Access.IsEnableObjTargetTrade(a_stTargetInfo, a_oTargetInfo as CObjTargetInfo);
+			case ETargetType.ITEM: return Access.IsEnableItemTargetTrade(a_stTargetInfo, a_oTargetInfo);
+			case ETargetType.SKILL: return Access.IsEnableSkillTargetTrade(a_stTargetInfo, a_oTargetInfo);
+			case ETargetType.OBJ: return Access.IsEnableObjTargetTrade(a_stTargetInfo, a_oTargetInfo);
 		}
 
 		return false;
@@ -285,21 +285,21 @@ public static partial class Access {
 	}
 
 	/** 아이템 타겟 교환 가능 여부를 검사한다 */
-	private static bool IsEnableItemTargetTrade(STTargetInfo a_stTargetInfo, CItemTargetInfo a_oItemTargetInfo) {
+	private static bool IsEnableItemTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
 		CAccess.Assert(CItemInfoTable.Inst.TryGetItemInfo((EItemKinds)a_stTargetInfo.Kinds, out STItemInfo stItemInfo));
-		return Access.DoIsEnableTrade(a_stTargetInfo, a_oItemTargetInfo);
+		return Access.DoIsEnableTrade(a_stTargetInfo, a_oTargetInfo);
 	}
 
 	/** 스킬 타겟 교환 가능 여부를 검사한다 */
-	private static bool IsEnableSkillTargetTrade(STTargetInfo a_stTargetInfo, CSkillTargetInfo a_oSkillTargetInfo) {
+	private static bool IsEnableSkillTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
 		CAccess.Assert(CSkillInfoTable.Inst.TryGetSkillInfo((ESkillKinds)a_stTargetInfo.Kinds, out STSkillInfo stSkillInfo));
-		return Access.DoIsEnableTrade(a_stTargetInfo, a_oSkillTargetInfo);
+		return Access.DoIsEnableTrade(a_stTargetInfo, a_oTargetInfo);
 	}
 
 	/** 객체 타겟 교환 가능 여부를 검사한다 */
-	private static bool IsEnableObjTargetTrade(STTargetInfo a_stTargetInfo, CObjTargetInfo a_oObjTargetInfo) {
+	private static bool IsEnableObjTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
 		CAccess.Assert(CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.Kinds, out STObjInfo stObjInfo));
-		return Access.DoIsEnableTrade(a_stTargetInfo, a_oObjTargetInfo);
+		return Access.DoIsEnableTrade(a_stTargetInfo, a_oTargetInfo);
 	}
 
 	/** 타겟 정보를 반환한다 */
