@@ -76,7 +76,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 				}));
 			}
 			
-			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, this.Params.m_oRewardTargetInfoDict);
+			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, this.Params.m_oRewardTargetInfoDict, true);
 			this.OnTouchCloseBtn();
 		} finally {
 			CCollectionManager.Inst.DespawnDict(oRewardTargetInfoDict);

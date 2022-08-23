@@ -146,7 +146,7 @@ public partial class CStorePopup : CSubPopup {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
 			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
-			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oTargetInfoDict);
+			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oTargetInfoDict, true);
 
 			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
 		} else {

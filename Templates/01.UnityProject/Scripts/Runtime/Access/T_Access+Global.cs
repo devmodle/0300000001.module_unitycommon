@@ -93,14 +93,13 @@ public static partial class Access {
 	}
 
 	/** 교환 가능 여부를 검사한다 */
-	public static bool IsEnableTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
-		switch(a_stTargetInfo.TargetType) {
-			case ETargetType.ITEM: return Access.IsEnableItemTargetTrade(a_stTargetInfo, a_oTargetInfo);
-			case ETargetType.SKILL: return Access.IsEnableSkillTargetTrade(a_stTargetInfo, a_oTargetInfo);
-			case ETargetType.OBJ: return Access.IsEnableObjTargetTrade(a_stTargetInfo, a_oTargetInfo);
+	public static bool IsEnableTrade(int a_nCharacterID, STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
+		// 어빌리티 타겟 정보가 아닐 경우
+		if(a_stTargetInfo.TargetType != ETargetType.ABILITY) {
+			return Access.IsEnableTrade(a_nCharacterID, a_stTargetInfo);
+		} else {
+			return Access.IsEnableAbilityTargetTrade(a_stTargetInfo, a_oTargetInfo);
 		}
-
-		return false;
 	}
 
 	/** 교환 가능 여부를 검사한다 */
@@ -110,9 +109,9 @@ public static partial class Access {
 	}
 
 	/** 교환 가능 여부를 검사한다 */
-	public static bool IsEnableTrade(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, CTargetInfo a_oTargetInfo) {
+	public static bool IsEnableTrade(int a_nCharacterID, Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, CTargetInfo a_oTargetInfo) {
 		CAccess.Assert(a_oTargetInfoDict != null);
-		return a_oTargetInfoDict.All((a_stKeyVal) => Access.IsEnableTrade(a_stKeyVal.Value, a_oTargetInfo));
+		return a_oTargetInfoDict.All((a_stKeyVal) => Access.IsEnableTrade(a_nCharacterID, a_stKeyVal.Value, a_oTargetInfo));
 	}
 
 	/** 튜토리얼 메세지를 반환한다 */
@@ -300,6 +299,12 @@ public static partial class Access {
 	private static bool IsEnableObjTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
 		CAccess.Assert(CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.Kinds, out STObjInfo stObjInfo));
 		return Access.DoIsEnableTrade(a_stTargetInfo, a_oTargetInfo);
+	}
+
+	/** 어빌리티 타겟 교환 가능 여부를 검사한다 */
+	private static bool IsEnableAbilityTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
+		CAccess.Assert(CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo));
+		return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
 	}
 
 	/** 타겟 정보를 반환한다 */

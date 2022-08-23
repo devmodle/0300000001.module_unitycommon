@@ -174,13 +174,14 @@ namespace NSEngine {
 				if(a_oSender.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL)) {
 					this.Params.m_oCallbackDict.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
 				} else {
-					var stObjEnhanceInfo = CObjInfoTable.Inst.GetObjEnhanceInfo(this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_stObjInfo.m_eObjKinds);
-					var stEXPTargetValInfo = this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetEXPTargetValInfo(stObjEnhanceInfo.m_oPayTargetInfoDict);
 					var oAcquireTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
-
+					
 					try {
 						this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
-						global::Func.Acquire(oAcquireTargetInfoDict, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID));
+						global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), true);
+
+						var stObjEnhanceInfo = CObjInfoTable.Inst.GetObjEnhanceInfo(this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_stObjInfo.m_eObjKinds);
+						var stEXPTargetValInfo = this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetEXPTargetValInfo(stObjEnhanceInfo.m_oPayTargetInfoDict);
 						
 						foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict) {
 							bool bIsValid = stKeyVal.Value.TargetType == ETargetType.ITEM && (a_oSender as CEItem != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEItem).Params.m_stItemInfo.m_eItemKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType);
@@ -190,11 +191,11 @@ namespace NSEngine {
 								m_oClearTargetInfoDict.ExIncrTargetVal(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, -KCDefine.B_VAL_1_INT);
 							}
 						}
-
+						
 						// 플레이어 객체 레벨 강화가 가능 할 경우
 						if(stEXPTargetValInfo.Item1 >= stEXPTargetValInfo.Item3) {
-							global::Func.Pay(stObjEnhanceInfo.m_oPayTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
-							global::Func.Acquire(stObjEnhanceInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
+							global::Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stObjEnhanceInfo.m_oPayTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
+							global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stObjEnhanceInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo, true);
 
 							this.PlayerObjList[KCDefine.B_VAL_0_INT].SetupAbilityVals();
 						}

@@ -123,12 +123,12 @@ public static partial class Extension {
 	}
 
 	/** JSON 노드 정보 => JSON 노드로 변환한다 */
-	public static SimpleJSON.JSONNode ExToJSONNode(this Dictionary<string, (SimpleJSON.JSONNode, bool)> a_oSender) {
+	public static SimpleJSON.JSONNode ExToJSONNode(this Dictionary<string, SimpleJSON.JSONNode> a_oSender) {
 		CAccess.Assert(a_oSender != null);
 		var oJSONNode = new SimpleJSON.JSONClass();
 
 		foreach(var stKeyVal in a_oSender) {
-			oJSONNode.Add(stKeyVal.Key, stKeyVal.Value.Item1);
+			oJSONNode.Add(stKeyVal.Key, stKeyVal.Value);
 		}
 
 		return oJSONNode;

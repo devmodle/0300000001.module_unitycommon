@@ -636,11 +636,9 @@ namespace LevelEditorScene {
 
 #if GOOGLE_SHEET_ENABLE
 		/** 객체 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadObjInfosGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, (SimpleJSON.JSONNode, bool)> a_oJSONNodeInfoDict) {
-			var oResult = a_oJSONNodeInfoDict.ExFindVal((a_oJSONInfoDict) => !a_oJSONInfoDict.Item2);
-
+		private void OnLoadObjInfosGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
-			if(!oResult.Item1) {
+			if(a_bIsSuccess) {
 				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 
 				Func.LoadGoogleSheet(ID_ETC_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
@@ -654,11 +652,9 @@ namespace LevelEditorScene {
 		}
 
 		/** 에피소드 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadEpisodeInfosGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, (SimpleJSON.JSONNode, bool)> a_oJSONNodeInfoDict) {
-			var oResult = a_oJSONNodeInfoDict.ExFindVal((a_oJSONInfoDict) => !a_oJSONInfoDict.Item2);
-
+		private void OnLoadEpisodeInfosGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
-			if(!oResult.Item1) {
+			if(a_bIsSuccess) {
 				CEpisodeInfoTable.Inst.ResetEpisodeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 				this.UpdateUIsState();
 			} else {
