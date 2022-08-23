@@ -152,7 +152,7 @@ namespace GameScene {
 		private void OnClearFailLevel(NSEngine.CEngine a_oSender) {
 			this.ShowResultPopup(false);
 		}
-
+		
 		/** 정지 버튼을 눌렀을 경우 */
 		private void OnTouchPauseBtn() {
 			Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {

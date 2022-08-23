@@ -132,9 +132,13 @@ namespace GameScene {
 				m_oObjRoot = this.ObjRoot,
 				m_oFXRoot = this.FXRoot,
 
-				m_oCallbackDict = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine>>() {
+				m_oCallbackDict01 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine>>() {
 					[NSEngine.CEngine.ECallback.CLEAR] = this.OnClearLevel,
 					[NSEngine.CEngine.ECallback.CLEAR_FAIL] = this.OnClearFailLevel
+				},
+
+				m_oCallbackDict02 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine, Dictionary<ulong, STTargetInfo>>>() {
+					[NSEngine.CEngine.ECallback.ACQUIRE] = this.OnAcquire
 				}
 			});
 		}
@@ -239,6 +243,11 @@ namespace GameScene {
 #if DEBUG || DEVELOPMENT_BUILD
 			this.UpdateSubTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
+		}
+
+		/** 획득했을 경우 */
+		private void OnAcquire(NSEngine.CEngine a_oSender, Dictionary<ulong, STTargetInfo> a_oAcquireTargetInfoDict) {
+			// Do Something
 		}
 		
 		/** 선택 아이템을 적용한다 */

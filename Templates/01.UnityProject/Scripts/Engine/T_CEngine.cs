@@ -24,6 +24,7 @@ namespace NSEngine {
 			NONE = -1,
 			CLEAR,
 			CLEAR_FAIL,
+			ACQUIRE,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -34,7 +35,8 @@ namespace NSEngine {
 			public GameObject m_oObjRoot;
 			public GameObject m_oFXRoot;
 
-			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict;
+			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict01;
+			public Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> m_oCallbackDict02;
 		}
 
 		#region 변수

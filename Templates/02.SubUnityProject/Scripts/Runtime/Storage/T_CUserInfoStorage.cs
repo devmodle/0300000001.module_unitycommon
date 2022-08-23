@@ -446,7 +446,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 캐릭터 유저 정보를 제거한다 */
 	public void RemoveCharacterUserInfo(CCharacterUserInfo a_oCharacterUserInfo) {
-		for(int i = a_oCharacterUserInfo.m_stIDInfo.m_nID01 - KCDefine.B_VAL_1_INT; i < this.UserInfo.m_oCharacterUserInfoDict.Count - KCDefine.B_VAL_1_INT; ++i) {
+		for(int i = a_oCharacterUserInfo.m_stIDInfo.m_nID01 - 1; i < this.UserInfo.m_oCharacterUserInfoDict.Count - KCDefine.B_VAL_1_INT; ++i) {
 			this.UserInfo.m_oCharacterUserInfoDict[i].m_stIDInfo.m_nID01 -= KCDefine.B_VAL_1_INT;
 			this.UserInfo.m_oCharacterUserInfoDict.ExReplaceVal(i - KCDefine.B_VAL_1_INT, this.UserInfo.m_oCharacterUserInfoDict[i]);
 		}

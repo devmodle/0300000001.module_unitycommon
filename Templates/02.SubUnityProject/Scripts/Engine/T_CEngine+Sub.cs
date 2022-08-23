@@ -172,13 +172,14 @@ namespace NSEngine {
 			if(a_oSender.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT) {
 				// 플레이어 객체 일 경우
 				if(a_oSender.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL)) {
-					this.Params.m_oCallbackDict.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
+					this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
 				} else {
 					var oAcquireTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
 					
 					try {
 						this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
-						global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), true);
+						this.Params.m_oCallbackDict02.GetValueOrDefault(ECallback.ACQUIRE)?.Invoke(this, oAcquireTargetInfoDict);
+						global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo, true);
 
 						var stObjEnhanceInfo = CObjInfoTable.Inst.GetObjEnhanceInfo(this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_stObjInfo.m_eObjKinds);
 						var stEXPTargetValInfo = this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetEXPTargetValInfo(stObjEnhanceInfo.m_oPayTargetInfoDict);
@@ -211,7 +212,7 @@ namespace NSEngine {
 
 			// 클리어 타겟을 완료했을 경우
 			if(m_oClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT)) {
-				this.Params.m_oCallbackDict.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
+				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
 			}
 
 			CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
