@@ -52,7 +52,7 @@ public static partial class CEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 #if EDITOR_COROUTINE_ENABLE
-		EditorCoroutineUtility.StartCoroutineOwnerless(CEditorSceneManager.SetupEditorSceneManager());
+		EditorCoroutineUtility.StartCoroutineOwnerless(CEditorSceneManager.CoSetupEditorSceneManager());
 #else
 		CEditorSceneManager.m_bIsEnableSetup = true;
 #endif			// #if EDITOR_COROUTINE_ENABLE
@@ -202,12 +202,12 @@ public static partial class CEditorSceneManager {
 	}
 
 	/** 에디터 씬 관리자를 설정한다 */
-	private static IEnumerator SetupEditorSceneManager() {
+	private static IEnumerator CoSetupEditorSceneManager() {
 		do {
 			yield return null;
 		} while(!CEditorAccess.IsEnableUpdateState);
 
-		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_REAL);
+		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_VAL_1_REAL);
 		CEditorSceneManager.m_bIsEnableSetup = true;
 	}
 

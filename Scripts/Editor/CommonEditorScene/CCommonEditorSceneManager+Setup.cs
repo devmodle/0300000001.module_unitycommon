@@ -38,12 +38,12 @@ using Newtonsoft.Json.Linq;
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
 	/** 에디터 씬 관리자를 설정한다 */
-	private static IEnumerator SetupEditorSceneManager() {
+	private static IEnumerator CoSetupEditorSceneManager() {
 		do {
 			yield return null;
 		} while(!CEditorAccess.IsEnableUpdateState);
 		
-		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_REAL);
+		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_VAL_1_REAL);
 
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;

@@ -90,7 +90,7 @@ public static partial class CCommonEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 #if EDITOR_COROUTINE_ENABLE
-		EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.SetupEditorSceneManager());
+		EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.CoSetupEditorSceneManager());
 #else
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;
@@ -260,7 +260,7 @@ public static partial class CCommonEditorSceneManager {
 #if EDITOR_COROUTINE_ENABLE
 	/** 에디터 모드 상태를 갱신한다 */
 	private static IEnumerator UpdateEditorModeState() {
-		yield return CFactory.CreateWaitForSecs(KCDefine.B_VAL_1_REAL, true);
+		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_VAL_1_REAL, true);
 		Time.timeScale = KCDefine.B_VAL_1_REAL;
 	}
 #endif			// #if EDITOR_COROUTINE_ENABLE

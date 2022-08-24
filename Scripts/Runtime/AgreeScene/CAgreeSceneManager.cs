@@ -32,7 +32,7 @@ namespace AgreeScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				StartCoroutine(this.OnStart());
+				StartCoroutine(this.CoStart());
 			}
 		}
 
@@ -53,8 +53,8 @@ namespace AgreeScene {
 		protected abstract void ShowEUAgreePopup(string a_oPrivacyURL, string a_oServicesURL);
 
 		/** 초기화 */
-		private IEnumerator OnStart() {
-			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+		private IEnumerator CoStart() {
+			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 			this.SetupActiveScene();
 
 #if ROBO_TEST_ENABLE

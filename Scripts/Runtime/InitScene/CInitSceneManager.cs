@@ -50,7 +50,7 @@ namespace InitScene {
 				CResManager.Inst.LoadSpriteAtlas(this.SpriteAtlasPathList[i]);
 			}
 
-			StartCoroutine(this.OnStart());
+			StartCoroutine(this.CoStart());
 		}
 
 		/** 씬을 설정한다 */
@@ -154,8 +154,8 @@ namespace InitScene {
 		protected abstract void ShowSplash();
 
 		/** 초기화 */
-		private IEnumerator OnStart() {
-			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+		private IEnumerator CoStart() {
+			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 			// iOS 를 설정한다 {
 #if UNITY_IOS
@@ -240,12 +240,12 @@ namespace InitScene {
 			// 저장소를 생성한다 }
 
 			this.Setup();
-			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 			this.ShowSplash();
 
 			CSceneManager.IsInit = true;
-			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		}
 
 		/** 블라인드 UI 를 설정한다 */

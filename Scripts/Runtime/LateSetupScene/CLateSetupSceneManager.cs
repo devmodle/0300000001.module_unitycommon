@@ -55,7 +55,7 @@ namespace LateSetupScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				StartCoroutine(this.OnStart());
+				StartCoroutine(this.CoStart());
 			}
 		}
 
@@ -87,8 +87,8 @@ namespace LateSetupScene {
 		protected abstract void ShowTrackingDescPopup();
 
 		/** 초기화 */
-		private IEnumerator OnStart() {
-			yield return CFactory.CreateWaitForSecs(KCDefine.U_DELAY_INIT);
+		private IEnumerator CoStart() {
+			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 			// 추적 동의가 필요 할 경우
 			if(CAccess.IsNeedsTrackingConsent) {
