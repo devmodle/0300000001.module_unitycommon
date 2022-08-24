@@ -52,14 +52,12 @@ namespace LateSetupScene {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 추적 설명 팝업 출력이 가능 할 경우
 			if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup) {
-				var stParams = new CTrackingDescPopup.STParams() {
-					m_oCallbackDict = new Dictionary<CTrackingDescPopup.ECallback, System.Action<CTrackingDescPopup>>() {
-						[CTrackingDescPopup.ECallback.NEXT] = this.OnReceiveTrackingDescPopupResult
-					}
-				};
-
 				var oTrackingDescPopup = CPopup.Create<CTrackingDescPopup>(KCDefine.LSS_OBJ_N_TRACKING_DESC_POPUP, KCDefine.LSS_OBJ_P_TRACKING_DESC_POPUP, this.PopupUIs);
-				oTrackingDescPopup.Init(stParams);
+				
+				oTrackingDescPopup.Init(CTrackingDescPopup.MakeParams(new Dictionary<CTrackingDescPopup.ECallback, System.Action<CTrackingDescPopup>>() {
+					[CTrackingDescPopup.ECallback.NEXT] = this.OnReceiveTrackingDescPopupResult
+				}));
+				
 				oTrackingDescPopup.Show(null, null);
 			} else {
 				this.OnReceiveTrackingDescPopupResult(null);

@@ -45,6 +45,15 @@ namespace NSEngine {
 			return this.TargetObjList.ExGetVal(a_nIdx, null) as T;
 		}
 		#endregion			// 제네릭 함수
+
+		#region 클래스 함수
+		/** 매개 변수를 생성한다 */
+		public static STParams MakeParams(CEngine a_oEngine, CEObjComponent a_oOwner) {
+			return new STParams() {
+				m_stBaseParams = CEComponent.MakeParams(a_oEngine, string.Empty), m_oOwner = a_oOwner
+			};
+		}
+		#endregion			// 클래스 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

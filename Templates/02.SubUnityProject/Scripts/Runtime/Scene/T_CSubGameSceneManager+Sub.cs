@@ -124,23 +124,17 @@ namespace GameScene {
 
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
+			var oCallbackDict01 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine>>() {
+				[NSEngine.CEngine.ECallback.CLEAR] = this.OnClearLevel,
+				[NSEngine.CEngine.ECallback.CLEAR_FAIL] = this.OnClearFailLevel
+			};
+
+			var oCallbackDict02 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine, Dictionary<ulong, STTargetInfo>>>() {
+				[NSEngine.CEngine.ECallback.ACQUIRE] = this.OnAcquire
+			};
+
 			m_oEngine = CFactory.CreateObj<NSEngine.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
-
-			m_oEngine.Init(new NSEngine.CEngine.STParams() {
-				m_oItemRoot = this.ItemRoot,
-				m_oSkillRoot = this.SkillRoot,
-				m_oObjRoot = this.ObjRoot,
-				m_oFXRoot = this.FXRoot,
-
-				m_oCallbackDict01 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine>>() {
-					[NSEngine.CEngine.ECallback.CLEAR] = this.OnClearLevel,
-					[NSEngine.CEngine.ECallback.CLEAR_FAIL] = this.OnClearFailLevel
-				},
-
-				m_oCallbackDict02 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine, Dictionary<ulong, STTargetInfo>>>() {
-					[NSEngine.CEngine.ECallback.ACQUIRE] = this.OnAcquire
-				}
-			});
+			m_oEngine.Init(NSEngine.CEngine.MakeParams(this.ItemRoot, this.SkillRoot, this.ObjRoot, this.FXRoot, oCallbackDict01, oCallbackDict02));
 		}
 
 		/** 보상 광고 UI 를 설정한다 */

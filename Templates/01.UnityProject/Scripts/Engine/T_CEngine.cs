@@ -84,6 +84,15 @@ namespace NSEngine {
 			}
 		}
 		#endregion			// 함수
+
+		#region 클래스 함수
+		/** 매개 변수를 생성한다 */
+		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02) {
+			return new STParams() {
+				m_oItemRoot = a_oItemRoot, m_oSkillRoot = a_oSkillRoot, m_oObjRoot = a_oObjRoot, m_oFXRoot = a_oFXRoot, m_oCallbackDict01 = a_oCallbackDict01, m_oCallbackDict02 = a_oCallbackDict02
+			};
+		}
+		#endregion			// 클래스 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

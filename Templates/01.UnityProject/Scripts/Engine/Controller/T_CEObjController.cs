@@ -71,6 +71,15 @@ namespace NSEngine {
 			m_oVec3Dict.ExReplaceVal(EKey.MOVE_DIRECTION, a_stDirection.normalized);
 		}
 		#endregion			// 함수
+
+		#region 클래스 함수
+		/** 매개 변수를 생성한다 */
+		public new static STParams MakeParams(CEngine a_oEngine, CEObjComponent a_oOwner) {
+			return new STParams() {
+				m_stBaseParams = CEController.MakeParams(a_oEngine, a_oOwner)
+			};
+		}
+		#endregion			// 클래스 함수
 	}
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

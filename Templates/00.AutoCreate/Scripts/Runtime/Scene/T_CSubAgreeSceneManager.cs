@@ -50,12 +50,8 @@ namespace AgreeScene {
 			string oObjPath = KCDefine.AS_OBJ_P_LANDSCAPE_AGREE_POPUP;
 #endif			// #if MODE_PORTRAIT_ENABLE
 
-			var stParams = new CAgreePopup.STParams() {
-				m_oPrivacy = a_oPrivacy, m_oServices = a_oServices, m_eAgreePopup = a_eAgreePopup
-			};
-
 			var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.PopupUIs);
-			oAgreePopup.Init(stParams);
+			oAgreePopup.Init(CAgreePopup.MakeParams(a_oPrivacy, a_oServices, a_eAgreePopup));
 			oAgreePopup.Show(null, this.OnCloseAgreePopup);
 		}
 

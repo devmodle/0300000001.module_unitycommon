@@ -15,8 +15,8 @@ namespace NSEngine {
 			var oItem = CSceneManager.ActiveSceneManager.SpawnObj<CEItem>(KDefine.E_OBJ_N_ITEM, KDefine.E_KEY_ITEM_OBJS_POOL);
 			var oController = a_bIsEnableController ? oItem.gameObject.ExAddComponent<CEItemController>() : null;
 
-			oItem.Init(Factory.MakeItemParams(this, a_stItemInfo, a_oItemTargetInfo, a_oOwner, oController, KDefine.E_KEY_ITEM_OBJS_POOL));
-			oController?.Init(Factory.MakeItemControllerParams(this, oItem));
+			oItem.Init(CEItem.MakeParams(this, a_stItemInfo, a_oItemTargetInfo, a_oOwner, oController, KDefine.E_KEY_ITEM_OBJS_POOL));
+			oController?.Init(CEItemController.MakeParams(this, oItem));
 
 			this.SetupEObjComponent(oItem);
 			return oItem;
@@ -27,8 +27,8 @@ namespace NSEngine {
 			var oSkill = CSceneManager.ActiveSceneManager.SpawnObj<CESkill>(KDefine.E_OBJ_N_SKILL, KDefine.E_KEY_SKILL_OBJS_POOL);
 			var oController = a_bIsEnableController ? oSkill.gameObject.ExAddComponent<CESkillController>() : null;
 
-			oSkill.Init(Factory.MakeSkillParams(this, a_stSkillInfo, a_oSkillTargetInfo, a_oOwner, oController, KDefine.E_KEY_SKILL_OBJS_POOL));
-			oController?.Init(Factory.MakeSkillControllerParams(this, oSkill));
+			oSkill.Init(CESkill.MakeParams(this, a_stSkillInfo, a_oSkillTargetInfo, a_oOwner, oController, KDefine.E_KEY_SKILL_OBJS_POOL));
+			oController?.Init(CESkillController.MakeParams(this, oSkill));
 
 			this.SetupEObjComponent(oSkill);
 			return oSkill;
@@ -39,8 +39,8 @@ namespace NSEngine {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_OBJ, KDefine.E_KEY_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEObjController>() : null;
 
-			oObj.Init(Factory.MakeObjParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_OBJ_OBJS_POOL));
-			oController?.Init(Factory.MakeObjControllerParams(this, oObj));
+			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_OBJ_OBJS_POOL));
+			oController?.Init(CEObjController.MakeParams(this, oObj));
 
 			this.SetupEObjComponent(oObj);
 			return oObj;
@@ -51,8 +51,8 @@ namespace NSEngine {
 			var oFX = CSceneManager.ActiveSceneManager.SpawnObj<CEFX>(KDefine.E_OBJ_N_FX, KDefine.E_KEY_FX_OBJS_POOL);
 			var oController = a_bIsEnableController ? oFX.gameObject.ExAddComponent<CEFXController>() : null;
 
-			oFX.Init(Factory.MakeFXParams(this, a_stFXInfo, a_oOwner, oController, KDefine.E_KEY_FX_OBJS_POOL));
-			oController?.Init(Factory.MakeFXControllerParams(this, oFX));
+			oFX.Init(CEFX.MakeParams(this, a_stFXInfo, a_oOwner, oController, KDefine.E_KEY_FX_OBJS_POOL));
+			oController?.Init(CEFXController.MakeParams(this, oFX));
 
 			this.SetupEObjComponent(oFX);
 			return oFX;
