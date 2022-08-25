@@ -1,6 +1,7 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -275,20 +276,22 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		a_oOutBuySkillTradeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutSaleSkillTradeInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
-			a_oOutSkillInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.SkillInfoTablePath)];
+
+		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+			a_oOutSkillInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
 		}
 
-		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
-			a_oOutSkillEnhanceInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+			a_oOutSkillEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
 		}
 
-		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
-			a_oOutBuySkillTradeInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+			a_oOutBuySkillTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
 		}
 
-		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
-			a_oOutSaleSkillTradeInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+			a_oOutSaleSkillTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
 		}
 	}
 

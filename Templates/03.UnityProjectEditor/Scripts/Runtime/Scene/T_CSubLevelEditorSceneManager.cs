@@ -9,13 +9,16 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 #if UNITY_STANDALONE && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-using GoogleSheetsToUnity;
 using EnhancedUI.EnhancedScroller;
 using DanielLochner.Assets.SimpleScrollSnap;
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+
+#if GOOGLE_SHEET_ENABLE
+using GoogleSheetsToUnity;
+#endif			// #if GOOGLE_SHEET_ENABLE
 
 namespace LevelEditorScene {
 	/** 서브 레벨 에디터 씬 관리자 */

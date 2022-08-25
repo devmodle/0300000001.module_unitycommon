@@ -12,10 +12,6 @@ using UnityEngine.Purchasing;
 
 /** 기본 로그 함수 */
 public static partial class LogFunc {
-	#region 상수
-	private const string LOG_NAME_PURCHASE = "PurchaseLog";
-	#endregion			// 상수
-
 	#region 클래스 변수
 	private static Dictionary<string, string> m_oLogTimeDict = new Dictionary<string, string>();
 	#endregion			// 클래스 변수
@@ -96,7 +92,7 @@ public static partial class LogFunc {
 	/** 결제 로그를 전송한다 */
 	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VAL_1_INT) {
 		// 로그 전송이 가능 할 경우
-		if(LogFunc.IsEnableSendLog(LogFunc.LOG_NAME_PURCHASE)) {
+		if(LogFunc.IsEnableSendLog(KDefine.L_LOG_N_PURCHASE)) {
 #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
 			var oDataDict = LogFunc.MakeLogDatas(null);
 
@@ -122,7 +118,7 @@ public static partial class LogFunc {
 #endif			// #if APPS_FLYER_MODULE_ENABLE
 #endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
 
-			LogFunc.m_oLogTimeDict.ExReplaceVal(LogFunc.LOG_NAME_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
+			LogFunc.m_oLogTimeDict.ExReplaceVal(KDefine.L_LOG_N_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE

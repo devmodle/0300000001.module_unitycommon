@@ -1,6 +1,7 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -174,12 +175,14 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 		a_oOutAbilityInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutAbilityEnhanceInfosList = new List<SimpleJSON.JSONNode>();
 
-		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
-			a_oOutAbilityInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.AbilityInfoTablePath)];
+
+		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+			a_oOutAbilityInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
 		}
 
-		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
-			a_oOutAbilityEnhanceInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
+		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
+			a_oOutAbilityEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
 		}
 	}
 

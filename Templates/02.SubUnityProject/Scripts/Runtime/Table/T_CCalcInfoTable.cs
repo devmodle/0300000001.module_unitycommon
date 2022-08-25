@@ -1,6 +1,7 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -49,9 +50,9 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 		get {
 #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_A : KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_B;
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_A;
 #else
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? KCDefine.U_TABLE_P_G_ETC_INFO_SET_A : KCDefine.U_TABLE_P_G_ETC_INFO_SET_B;
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_TABLE_P_G_ETC_INFO_SET_B : KCDefine.U_TABLE_P_G_ETC_INFO_SET_A;
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 #else
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -68,17 +69,17 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.ResetEtcInfos();
+		this.ResetCalcInfos();
 	}
 
-	/** 기타 정보를 리셋한다 */
-	public void ResetEtcInfos() {
+	/** 수식 정보를 리셋한다 */
+	public void ResetCalcInfos() {
 		this.CalcInfoDict.Clear();
 	}
 
-	/** 기타 정보를 리셋한다 */
-	public void ResetEtcInfos(string a_oJSONStr) {
-		this.ResetEtcInfos();
+	/** 수식 정보를 리셋한다 */
+	public void ResetCalcInfos(string a_oJSONStr) {
+		this.ResetCalcInfos();
 		this.DoLoadEtcInfos(a_oJSONStr);
 	}
 
@@ -98,16 +99,17 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 
 	/** 기타 정보를 로드한다 */
 	public Dictionary<ECalcKinds, STCalcInfo> LoadEtcInfos() {
-		this.ResetEtcInfos();
+		this.ResetCalcInfos();
 		return this.LoadEtcInfos(this.CalcInfoTablePath);
 	}
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutCalcInfosList) {
 		a_oOutCalcInfosList = new List<SimpleJSON.JSONNode>();
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.CalcInfoTablePath)];
 
-		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
-			a_oOutCalcInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+			a_oOutCalcInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
 		}
 	}
 

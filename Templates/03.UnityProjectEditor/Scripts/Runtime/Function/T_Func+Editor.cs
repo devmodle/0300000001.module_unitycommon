@@ -44,12 +44,12 @@ public static partial class Func {
 		Func.ShowPopup<CEditorInputPopup>(KCDefine.E_OBJ_N_EDITOR_INPUT_POPUP, KCDefine.E_OBJ_P_EDITOR_INPUT_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
-#if GOOGLE_SHEET_ENABLE
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 에디터 구글 시트 로드 팝업을 출력한다 */
 	public static void ShowEditorGoogleSheetLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_GOOGLE_SLP_MSG), a_oCallback, false);
 	}
-#endif			// #if GOOGLE_SHEET_ENABLE
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수
 }

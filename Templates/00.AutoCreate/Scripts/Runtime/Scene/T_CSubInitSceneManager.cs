@@ -21,12 +21,7 @@ namespace InitScene {
 		/** =====> UI <===== */
 		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
 		#endregion			// 변수
-
-		#region 상수
-		public static readonly Color COLOR_BG_IMG = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
-		private static readonly Vector3 POS_SPLASH_IMG = new Vector3(0.0f, 25.0f, 0.0f);
-		#endregion			// 상수
-
+		
 		#region 함수
 		/** 씬을 설정한다 */
 		protected override void Setup() {
@@ -38,12 +33,12 @@ namespace InitScene {
 				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
 			}, m_oImgDict, false);
 
-			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).color = COLOR_BG_IMG;
+			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).color = KDefine.IS_COLOR_BG_IMG;
 			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).rectTransform.sizeDelta = CSceneManager.CanvasSize;
 			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
 			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
-			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).transform.localPosition = POS_SPLASH_IMG;
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).transform.localPosition = KDefine.IS_POS_SPLASH_IMG;
 			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(false);
 			// 이미지를 설정한다 }
 

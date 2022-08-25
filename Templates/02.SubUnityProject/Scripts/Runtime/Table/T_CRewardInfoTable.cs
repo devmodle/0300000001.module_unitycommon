@@ -1,6 +1,7 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -120,9 +121,10 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutRewardInfosList) {
 		a_oOutRewardInfosList = new List<SimpleJSON.JSONNode>();
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.RewardInfoTablePath)];
 
-		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
-			a_oOutRewardInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+			a_oOutRewardInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
 		}
 	}
 

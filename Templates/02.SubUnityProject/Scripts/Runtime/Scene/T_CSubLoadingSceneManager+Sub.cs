@@ -38,7 +38,7 @@ namespace LoadingScene {
 				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
 			}, m_oUIsDict, false);
 
-			m_oUIsDict.GetValueOrDefault(EKey.LOADING_GAUGE).transform.localPosition = POS_LOADING_GAUGE;
+			m_oUIsDict.GetValueOrDefault(EKey.LOADING_GAUGE).transform.localPosition = KDefine.LS_POS_LOADING_GAUGE;
 			// 객체를 설정한다 }
 
 			// 텍스트를 설정한다 {
@@ -46,7 +46,7 @@ namespace LoadingScene {
 				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
 			}, m_oTextDict, false);
 
-			m_oTextDict.GetValueOrDefault(EKey.LOADING_TEXT).transform.localPosition = POS_LOADING_TEXT;
+			m_oTextDict.GetValueOrDefault(EKey.LOADING_TEXT).transform.localPosition = KDefine.LS_POS_LOADING_TEXT;
 			// 텍스트를 설정한다 }
 
 			// 게이지 처리자를 설정한다

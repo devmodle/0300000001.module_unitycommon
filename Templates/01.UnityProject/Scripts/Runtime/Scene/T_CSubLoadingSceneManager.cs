@@ -28,11 +28,6 @@ namespace LoadingScene {
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion			// 변수
 
-		#region 상수
-		private static readonly Vector3 POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
-		private static readonly Vector3 POS_LOADING_TEXT = POS_LOADING_GAUGE + new Vector3(0.0f, 70.0f, 0.0f);
-		#endregion			// 상수
-
 		#region 함수
 
 		#endregion			// 함수

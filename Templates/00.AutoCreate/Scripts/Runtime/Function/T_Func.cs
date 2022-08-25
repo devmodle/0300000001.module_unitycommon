@@ -15,9 +15,9 @@ using UnityEngine.Purchasing;
 using PlayFab.SharedModels;
 #endif			// #if PLAYFAB_MODULE_ENABLE
 
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 using GoogleSheetsToUnity;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 
 /** 기본 함수 */
 public static partial class Func {
@@ -73,7 +73,8 @@ public static partial class Func {
 #endif			// #if PLAYFAB_MODULE_ENABLE
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		LOAD_GOOGLE_SHEET,	
+		LOAD_GOOGLE_SHEET,
+		LOAD_GOOGLE_SHEETS,
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 
 		[HideInInspector] MAX_VAL
@@ -123,8 +124,11 @@ public static partial class Func {
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	private static List<(string, int, int)> m_oGoogleSheetInfoList = new List<(string, int, int)>();
+	private static List<(string, List<(string, int)>, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)> m_oLoadGoogleSheetInfoList = new List<(string, List<(string, int)>, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>();
+
 	private static Dictionary<string, SimpleJSON.JSONNode> m_oGoogleSheetJSONNodeDict = new Dictionary<string, SimpleJSON.JSONNode>();
-	private static Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oServicesCallbackDict = new Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
+	private static Dictionary<ECallback, System.Action<CServicesManager, bool>> m_oGoogleSheetCallbackDict01 = new Dictionary<ECallback, System.Action<CServicesManager, bool>>();
+	private static Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetCallbackDict02 = new Dictionary<ECallback, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 클래스 변수
 
@@ -968,20 +972,39 @@ public static partial class Func {
 #endif			// #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
 #endif			// #if PLAYFAB_MODULE_ENABLE
 
-#if (UNITY_STANDALONE && GOOGLE_SHEET_ENABLE) && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드한다 */
 	public static void LoadGoogleSheet(string a_oID, List<(string, int)> a_oInfoList, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
-		Func.m_oServicesCallbackDict.ExReplaceVal(ECallback.LOAD_GOOGLE_SHEET, a_oCallback);
 
 		Func.m_oGoogleSheetInfoList.Clear();
 		Func.m_oGoogleSheetJSONNodeDict.Clear();
+		Func.m_oGoogleSheetCallbackDict02.ExReplaceVal(ECallback.LOAD_GOOGLE_SHEET, a_oCallback);
 
 		for(int i = 0; i < a_oInfoList.Count; ++i) {
 			Func.m_oGoogleSheetInfoList.ExAddVal((a_oInfoList[i].Item1, a_oInfoList[i].Item2, a_oInfoList[i].Item2));
 		}
 
-		CServicesManager.Inst.LoadGoogleSheet(a_oID, a_oInfoList[KCDefine.B_VAL_0_INT].Item1, Func.OnLoadGoogleSheet, KCDefine.B_VAL_0_INT, a_oInfoList[KCDefine.B_VAL_0_INT].Item2);
+		// 정보가 존재 할 경우
+		if(a_oInfoList.ExIsValid()) {
+			CServicesManager.Inst.LoadGoogleSheet(a_oID, a_oInfoList[KCDefine.B_VAL_0_INT].Item1, Func.OnLoadGoogleSheet, KCDefine.B_VAL_0_INT, a_oInfoList[KCDefine.B_VAL_0_INT].Item2);
+		} else {
+			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, null, string.Empty, null, false));
+		}
+	}
+
+	/** 구글 시트를 로드한다 */
+	public static void LoadGoogleSheets(List<(string, List<(string, int)>, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)> a_oGoogleSheetInfoList, System.Action<CServicesManager, bool> a_oCallback) {
+		Func.m_oLoadGoogleSheetInfoList.Clear();
+		Func.m_oLoadGoogleSheetInfoList.ExAddVals(a_oGoogleSheetInfoList);
+		Func.m_oGoogleSheetCallbackDict01.ExReplaceVal(ECallback.LOAD_GOOGLE_SHEETS, a_oCallback);
+
+		// 구글 시트 정보가 존재 할 경우
+		if(a_oGoogleSheetInfoList.ExIsValid()) {
+			Func.LoadGoogleSheet(Func.m_oLoadGoogleSheetInfoList[KCDefine.B_VAL_0_INT].Item1, Func.m_oLoadGoogleSheetInfoList[KCDefine.B_VAL_0_INT].Item2, Func.OnLoadGoogleSheets);
+		} else {
+			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, true));
+		}
 	}
 
 	/** 구글 시트를 로드했을 경우 */
@@ -1024,8 +1047,21 @@ public static partial class Func {
 				CServicesManager.Inst.LoadGoogleSheet(a_stGoogleSheetInfo.m_oID, Func.m_oGoogleSheetInfoList[KCDefine.B_VAL_0_INT].Item1, Func.OnLoadGoogleSheet, KCDefine.B_VAL_0_INT, Func.m_oGoogleSheetInfoList[KCDefine.B_VAL_0_INT].Item2);
 			} else {
 				CIndicatorManager.Inst.Close();
-				Func.m_oServicesCallbackDict.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEET)?.Invoke(a_oSender, a_oGoogleSheet, a_stGoogleSheetInfo.m_oID, Func.m_oGoogleSheetJSONNodeDict, !SpreadsheetManager.IsError);
+				Func.m_oGoogleSheetCallbackDict02.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEET)?.Invoke(a_oSender, a_oGoogleSheet, a_stGoogleSheetInfo.m_oID, Func.m_oGoogleSheetJSONNodeDict, !SpreadsheetManager.IsError);
 			}
+		}
+	}
+
+	/** 구글 시트를 로드했을 경우 */
+	private static void OnLoadGoogleSheets(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		Func.m_oLoadGoogleSheetInfoList[KCDefine.B_VAL_0_INT].Item3?.Invoke(a_oSender, a_oGoogleSheet, a_oID, a_oJSONNodeInfoDict, a_bIsSuccess);
+		Func.m_oLoadGoogleSheetInfoList.ExRemoveValAt(KCDefine.B_VAL_0_INT);
+
+		// 구글 시트 로드가 완료 되었을 경우 */
+		if(!a_bIsSuccess || !Func.m_oLoadGoogleSheetInfoList.ExIsValid()) {
+			Func.m_oGoogleSheetCallbackDict01.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEETS)?.Invoke(a_oSender, a_bIsSuccess && !Func.m_oLoadGoogleSheetInfoList.ExIsValid());
+		} else {
+			Func.LoadGoogleSheets(Func.m_oLoadGoogleSheetInfoList, Func.m_oGoogleSheetCallbackDict01.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEETS));
 		}
 	}
 
@@ -1040,7 +1076,7 @@ public static partial class Func {
 
 		return oJSONArray;
 	}
-#endif			// #if (UNITY_STANDALONE && GOOGLE_SHEET_ENABLE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 클래스 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

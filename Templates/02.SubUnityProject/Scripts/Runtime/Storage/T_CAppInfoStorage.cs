@@ -10,6 +10,10 @@ using UnityEngine.Events;
 using MessagePack;
 using Newtonsoft.Json;
 
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+using GoogleSheetsToUnity;
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+
 /** 앱 정보 */
 [MessagePackObject][System.Serializable]
 public partial class CAppInfo : CBaseInfo {
@@ -96,6 +100,20 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	
 	public bool IsEnableUpdateAdsSkipTimes => true;
 #endif			// #if ADS_MODULE_ENABLE
+
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	public Dictionary<string, (string, List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>)> GoogleSheetInfoDictContainer { get; } = new Dictionary<string, (string, List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>)>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = (KDefine.G_ID_ETC_INFO_GOOGLE_SHEET, new List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>()),
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = (KDefine.G_ID_MISSION_INFO_GOOGLE_SHEET, new List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>()),
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = (KDefine.G_ID_REWARD_INFO_GOOGLE_SHEET, new List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>()),
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = (KDefine.G_ID_RES_INFO_GOOGLE_SHEET, new List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>()),
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = (KDefine.G_ID_ITEM_INFO_GOOGLE_SHEET, new List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>()),
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = (KDefine.G_ID_SKILL_INFO_GOOGLE_SHEET, new List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>()),
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = (KDefine.G_ID_OBJ_INFO_GOOGLE_SHEET, new List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>()),
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = (KDefine.G_ID_ABILITY_INFO_GOOGLE_SHEET, new List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>()),
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = (KDefine.G_ID_PRODUCT_INFO_GOOGLE_SHEET, new List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)>())
+	};
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 프로퍼티
 
 	#region 함수

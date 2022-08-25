@@ -1,6 +1,7 @@
 ﻿#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -85,129 +86,6 @@ public static partial class KDefine {
 		m_nOrder = KCDefine.U_SORTING_O_OVERLAY_UIS, m_oLayer = KCDefine.U_SORTING_L_DEF
 	};
 
-	// 테이블
-	public static readonly Dictionary<System.Type, Dictionary<string, List<string>>> G_KEY_TABLE_DICT_CONTAINER = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
-		[typeof(CCalcInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_ABILITY_CALC
-			}
-		},
-
-		[typeof(CMissionInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_MAIN, KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT
-			}
-		},
-
-		[typeof(CRewardInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT, KCDefine.U_KEY_CLEAR, KCDefine.U_KEY_MISSION, KCDefine.U_KEY_TUTORIAL
-			}
-		},
-
-		[typeof(CEpisodeInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_LEVEL] = new List<string>() {
-				KCDefine.U_KEY_LEVEL_EPISODE
-			},
-
-			[KCDefine.B_KEY_STAGE] = new List<string>() {
-				KCDefine.U_KEY_STAGE_EPISODE
-			},
-
-			[KCDefine.B_KEY_CHAPTER] = new List<string>() {
-				KCDefine.U_KEY_CHAPTER_EPISODE
-			}
-		},
-
-		[typeof(CTutorialInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_PLAY_TUTORIAL, KCDefine.U_KEY_HELP_TUTORIAL
-			}
-		},
-
-		[typeof(CResInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_SND, KCDefine.U_KEY_FONT, KCDefine.U_KEY_IMG, KCDefine.U_KEY_SPRITE, KCDefine.U_KEY_TEXTURE
-			}
-		},
-
-		[typeof(CItemInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_GOODS, KCDefine.U_KEY_CONSUMABLE, KCDefine.U_KEY_NON_CONSUMABLE, KCDefine.U_KEY_WEAPON, KCDefine.U_KEY_ARMOR, KCDefine.U_KEY_ACCESSORY, KCDefine.U_KEY_ATTACH
-			},
-
-			[KCDefine.B_KEY_ENHANCE] = new List<string>() {
-				KCDefine.U_KEY_GOODS_ENHANCE, KCDefine.U_KEY_CONSUMABLE_ENHANCE, KCDefine.U_KEY_NON_CONSUMABLE_ENHANCE, KCDefine.U_KEY_WEAPON_ENHANCE, KCDefine.U_KEY_ARMOR_ENHANCE, KCDefine.U_KEY_ACCESSORY_ENHANCE, KCDefine.U_KEY_ATTACH_ENHANCE
-			},
-
-			[KCDefine.B_KEY_BUY_TRADE] = new List<string>() {
-				KCDefine.U_KEY_GOODS_BUY_TRADE, KCDefine.U_KEY_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_WEAPON_BUY_TRADE, KCDefine.U_KEY_ARMOR_BUY_TRADE, KCDefine.U_KEY_ACCESSORY_BUY_TRADE, KCDefine.U_KEY_ATTACH_BUY_TRADE
-			},
-
-			[KCDefine.B_KEY_SALE_TRADE] = new List<string>() {
-				KCDefine.U_KEY_GOODS_SALE_TRADE, KCDefine.U_KEY_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_WEAPON_SALE_TRADE, KCDefine.U_KEY_ARMOR_SALE_TRADE, KCDefine.U_KEY_ACCESSORY_SALE_TRADE, KCDefine.U_KEY_ATTACH_SALE_TRADE
-			}
-		},
-
-		[typeof(CSkillInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_ACTION, KCDefine.U_KEY_ACTIVE, KCDefine.U_KEY_PASSIVE
-			},
-
-			[KCDefine.B_KEY_ENHANCE] = new List<string>() {
-				KCDefine.U_KEY_ACTION_ENHANCE, KCDefine.U_KEY_ACTIVE_ENHANCE, KCDefine.U_KEY_PASSIVE_ENHANCE
-			},
-
-			[KCDefine.B_KEY_BUY_TRADE] = new List<string>() {
-				KCDefine.U_KEY_ACTION_BUY_TRADE, KCDefine.U_KEY_ACTIVE_BUY_TRADE, KCDefine.U_KEY_PASSIVE_BUY_TRADE
-			},
-
-			[KCDefine.B_KEY_SALE_TRADE] = new List<string>() {
-				KCDefine.U_KEY_ACTION_SALE_TRADE, KCDefine.U_KEY_ACTIVE_SALE_TRADE, KCDefine.U_KEY_PASSIVE_SALE_TRADE
-			}
-		},
-
-		[typeof(CObjInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_BG, KCDefine.U_KEY_NORM, KCDefine.U_KEY_OVERLAY, KCDefine.U_KEY_PLAYABLE, KCDefine.U_KEY_NON_PLAYABLE, KCDefine.U_KEY_ENEMY
-			},
-
-			[KCDefine.B_KEY_ENHANCE] = new List<string>() {
-				KCDefine.U_KEY_BG_ENHANCE, KCDefine.U_KEY_NORM_ENHANCE, KCDefine.U_KEY_OVERLAY_ENHANCE, KCDefine.U_KEY_PLAYABLE_ENHANCE, KCDefine.U_KEY_NON_PLAYABLE_ENHANCE, KCDefine.U_KEY_ENEMY_ENHANCE
-			},
-
-			[KCDefine.B_KEY_BUY_TRADE] = new List<string>() {
-				KCDefine.U_KEY_BG_BUY_TRADE, KCDefine.U_KEY_NORM_BUY_TRADE, KCDefine.U_KEY_OVERLAY_BUY_TRADE, KCDefine.U_KEY_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_NON_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_ENEMY_BUY_TRADE
-			},
-
-			[KCDefine.B_KEY_SALE_TRADE] = new List<string>() {
-				KCDefine.U_KEY_BG_SALE_TRADE, KCDefine.U_KEY_NORM_SALE_TRADE, KCDefine.U_KEY_OVERLAY_SALE_TRADE, KCDefine.U_KEY_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_NON_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_ENEMY_SALE_TRADE
-			}
-		},
-
-		[typeof(CFXInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_HIT_FX, KCDefine.U_KEY_BUFF_FX, KCDefine.U_KEY_DEBUFF_FX
-			}
-		},
-
-		[typeof(CAbilityInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_STAT, KCDefine.U_KEY_BUFF, KCDefine.U_KEY_DEBUFF, KCDefine.U_KEY_UPGRADE
-			},
-
-			[KCDefine.B_KEY_ENHANCE] = new List<string>() {
-				KCDefine.U_KEY_STAT_ENHANCE, KCDefine.U_KEY_BUFF_ENHANCE, KCDefine.U_KEY_DEBUFF_ENHANCE, KCDefine.U_KEY_UPGRADE_ENHANCE
-			}
-		},
-
-		[typeof(CProductTradeInfoTable)] = new Dictionary<string, List<string>>() {
-			[KCDefine.B_KEY_DEF] = new List<string>() {
-				KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
-			}
-		}
-	};
-
 	// 경로 {
 #if MSG_PACK_ENABLE
 	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
@@ -230,13 +108,166 @@ public static partial class KDefine {
 	};
 	// 분석 }
 	#endregion			// 런타임 상수
+
+	#region 조건부 상수
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	// 테이블
+	public static readonly Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>> G_KEY_TABLE_DICT_CONTAINER = new Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+			[typeof(CCalcInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_ABILITY_CALC
+				}
+			},
+
+			[typeof(CEpisodeInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_LEVEL] = new List<string>() {
+					KCDefine.U_KEY_LEVEL_EPISODE
+				},
+
+				[KCDefine.B_KEY_STAGE] = new List<string>() {
+					KCDefine.U_KEY_STAGE_EPISODE
+				},
+
+				[KCDefine.B_KEY_CHAPTER] = new List<string>() {
+					KCDefine.U_KEY_CHAPTER_EPISODE
+				}
+			},
+
+			[typeof(CTutorialInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_PLAY_TUTORIAL, KCDefine.U_KEY_HELP_TUTORIAL
+				}
+			},
+
+			[typeof(CFXInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_HIT_FX, KCDefine.U_KEY_BUFF_FX, KCDefine.U_KEY_DEBUFF_FX
+				}
+			}
+		},
+
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+			[typeof(CMissionInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_MAIN, KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT
+				}
+			}
+		},
+
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+			[typeof(CRewardInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT, KCDefine.U_KEY_CLEAR, KCDefine.U_KEY_MISSION, KCDefine.U_KEY_TUTORIAL
+				}
+			}
+		},
+
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+			[typeof(CResInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_SND, KCDefine.U_KEY_FONT, KCDefine.U_KEY_IMG, KCDefine.U_KEY_SPRITE, KCDefine.U_KEY_TEXTURE
+				}
+			}
+		},
+
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+			[typeof(CItemInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_GOODS, KCDefine.U_KEY_CONSUMABLE, KCDefine.U_KEY_NON_CONSUMABLE, KCDefine.U_KEY_WEAPON, KCDefine.U_KEY_ARMOR, KCDefine.U_KEY_ACCESSORY, KCDefine.U_KEY_ATTACH
+				},
+
+				[KCDefine.B_KEY_ENHANCE] = new List<string>() {
+					KCDefine.U_KEY_GOODS_ENHANCE, KCDefine.U_KEY_CONSUMABLE_ENHANCE, KCDefine.U_KEY_NON_CONSUMABLE_ENHANCE, KCDefine.U_KEY_WEAPON_ENHANCE, KCDefine.U_KEY_ARMOR_ENHANCE, KCDefine.U_KEY_ACCESSORY_ENHANCE, KCDefine.U_KEY_ATTACH_ENHANCE
+				},
+
+				[KCDefine.B_KEY_BUY_TRADE] = new List<string>() {
+					KCDefine.U_KEY_GOODS_BUY_TRADE, KCDefine.U_KEY_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_WEAPON_BUY_TRADE, KCDefine.U_KEY_ARMOR_BUY_TRADE, KCDefine.U_KEY_ACCESSORY_BUY_TRADE, KCDefine.U_KEY_ATTACH_BUY_TRADE
+				},
+
+				[KCDefine.B_KEY_SALE_TRADE] = new List<string>() {
+					KCDefine.U_KEY_GOODS_SALE_TRADE, KCDefine.U_KEY_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_WEAPON_SALE_TRADE, KCDefine.U_KEY_ARMOR_SALE_TRADE, KCDefine.U_KEY_ACCESSORY_SALE_TRADE, KCDefine.U_KEY_ATTACH_SALE_TRADE
+				}
+			}
+		},
+
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+			[typeof(CSkillInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_ACTION, KCDefine.U_KEY_ACTIVE, KCDefine.U_KEY_PASSIVE
+				},
+
+				[KCDefine.B_KEY_ENHANCE] = new List<string>() {
+					KCDefine.U_KEY_ACTION_ENHANCE, KCDefine.U_KEY_ACTIVE_ENHANCE, KCDefine.U_KEY_PASSIVE_ENHANCE
+				},
+
+				[KCDefine.B_KEY_BUY_TRADE] = new List<string>() {
+					KCDefine.U_KEY_ACTION_BUY_TRADE, KCDefine.U_KEY_ACTIVE_BUY_TRADE, KCDefine.U_KEY_PASSIVE_BUY_TRADE
+				},
+
+				[KCDefine.B_KEY_SALE_TRADE] = new List<string>() {
+					KCDefine.U_KEY_ACTION_SALE_TRADE, KCDefine.U_KEY_ACTIVE_SALE_TRADE, KCDefine.U_KEY_PASSIVE_SALE_TRADE
+				}
+			}
+		},
+
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+			[typeof(CObjInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_BG, KCDefine.U_KEY_NORM, KCDefine.U_KEY_OVERLAY, KCDefine.U_KEY_PLAYABLE, KCDefine.U_KEY_NON_PLAYABLE, KCDefine.U_KEY_ENEMY
+				},
+
+				[KCDefine.B_KEY_ENHANCE] = new List<string>() {
+					KCDefine.U_KEY_BG_ENHANCE, KCDefine.U_KEY_NORM_ENHANCE, KCDefine.U_KEY_OVERLAY_ENHANCE, KCDefine.U_KEY_PLAYABLE_ENHANCE, KCDefine.U_KEY_NON_PLAYABLE_ENHANCE, KCDefine.U_KEY_ENEMY_ENHANCE
+				},
+
+				[KCDefine.B_KEY_BUY_TRADE] = new List<string>() {
+					KCDefine.U_KEY_BG_BUY_TRADE, KCDefine.U_KEY_NORM_BUY_TRADE, KCDefine.U_KEY_OVERLAY_BUY_TRADE, KCDefine.U_KEY_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_NON_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_ENEMY_BUY_TRADE
+				},
+
+				[KCDefine.B_KEY_SALE_TRADE] = new List<string>() {
+					KCDefine.U_KEY_BG_SALE_TRADE, KCDefine.U_KEY_NORM_SALE_TRADE, KCDefine.U_KEY_OVERLAY_SALE_TRADE, KCDefine.U_KEY_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_NON_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_ENEMY_SALE_TRADE
+				}
+			}
+		},
+
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+			[typeof(CAbilityInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_STAT, KCDefine.U_KEY_BUFF, KCDefine.U_KEY_DEBUFF, KCDefine.U_KEY_UPGRADE
+				},
+
+				[KCDefine.B_KEY_ENHANCE] = new List<string>() {
+					KCDefine.U_KEY_STAT_ENHANCE, KCDefine.U_KEY_BUFF_ENHANCE, KCDefine.U_KEY_DEBUFF_ENHANCE, KCDefine.U_KEY_UPGRADE_ENHANCE
+				}
+			}
+		},
+
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+			[typeof(CProductTradeInfoTable)] = new Dictionary<string, List<string>>() {
+				[KCDefine.B_KEY_COMMON] = new List<string>() {
+					KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
+				}
+			}
+		}
+	};
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	#endregion			// 조건부 상수
 }
 
 /** 초기화 씬 상수 */
 public static partial class KDefine {
 	#region 기본
-	
+
 	#endregion			// 기본
+
+	#region 런타임 상수
+	// 색상
+	public static readonly Color IS_COLOR_BG_IMG = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
+
+	// 위치
+	public static readonly Vector3 IS_POS_SPLASH_IMG = new Vector3(0.0f, 25.0f, 0.0f);
+	#endregion			// 런타임 상수
 }
 
 /** 시작 씬 상수 */
@@ -244,6 +275,12 @@ public static partial class KDefine {
 	#region 기본
 	
 	#endregion			// 기본
+
+	#region 런타임 상수
+	// 위치
+	public static readonly Vector3 SS_POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
+	public static readonly Vector3 SS_POS_LOADING_GAUGE = KDefine.SS_POS_LOADING_TEXT + new Vector3(0.0f, -70.0f, 0.0f);
+	#endregion			// 런타임 상수
 }
 
 /** 설정 씬 상수 */
@@ -294,6 +331,12 @@ public static partial class KDefine {
 	#region 기본
 
 	#endregion			// 기본
+
+	#region 런타임 상수
+	// 위치
+	public static readonly Vector3 LS_POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
+	public static readonly Vector3 LS_POS_LOADING_GAUGE = KDefine.LS_POS_LOADING_TEXT + new Vector3(0.0f, -70.0f, 0.0f);
+	#endregion			// 런타임 상수
 }
 
 /** 중첩 씬 상수 */

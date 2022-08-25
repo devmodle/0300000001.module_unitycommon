@@ -9,6 +9,10 @@ using TMPro;
 using DG.Tweening;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+using GoogleSheetsToUnity;
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+
 namespace TitleScene {
 	/** 서브 타이틀 씬 관리자 */
 	public partial class CSubTitleSceneManager : CTitleSceneManager {
@@ -26,19 +30,22 @@ namespace TitleScene {
 		}
 
 		#region 변수
+		private static List<EKey> m_oLoginBtnKeyList = new List<EKey>() {
+			EKey.PLAY_BTN, EKey.GUEST_LOGIN_BTN, EKey.APPLE_LOGIN_BTN, EKey.FACEBOOK_LOGIN_BTN,
+		};
+
+		private SimpleJSON.JSONNode m_oVerInfos = null;
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>();
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-		#endregion			// 변수
 
-		#region 상수
-		private static readonly List<EKey> BTN_KEY_LIST = new List<EKey>() {
-			EKey.PLAY_BTN, EKey.GUEST_LOGIN_BTN, EKey.APPLE_LOGIN_BTN, EKey.FACEBOOK_LOGIN_BTN,
-		};
-		#endregion			// 상수
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+		private Dictionary<string, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetHandlerDict = new Dictionary<string, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+		#endregion			// 변수
 
 		#region 함수
 		/** 내비게이션 스택 이벤트를 수신했을 경우 */
