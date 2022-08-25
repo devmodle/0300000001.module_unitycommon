@@ -40,12 +40,12 @@ public struct STCalcInfo {
 	#endregion			// 함수
 }
 
-/** 기타 정보 테이블 */
-public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
+/** 수식 정보 테이블 */
+public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	#region 프로퍼티
 	public Dictionary<ECalcKinds, STCalcInfo> CalcInfoDict { get; } = new Dictionary<ECalcKinds, STCalcInfo>();
 
-	private string EtcInfoTablePath {
+	private string CalcInfoTablePath {
 		get {
 #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -99,7 +99,16 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 	/** 기타 정보를 로드한다 */
 	public Dictionary<ECalcKinds, STCalcInfo> LoadEtcInfos() {
 		this.ResetEtcInfos();
-		return this.LoadEtcInfos(this.EtcInfoTablePath);
+		return this.LoadEtcInfos(this.CalcInfoTablePath);
+	}
+
+	/** JSON 노드를 설정한다 */
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutCalcInfosList) {
+		a_oOutCalcInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutCalcInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
 	}
 
 	/** 기타 정보를 로드한다 */
@@ -120,13 +129,7 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 	/** 기타 정보를 로드한다 */
 	private Dictionary<ECalcKinds, STCalcInfo> DoLoadEtcInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
-		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
-		var oCalcInfosList = new List<SimpleJSON.JSONNode>();
-
-		for(int i = 0; i < KDefine.G_KEY_ETC_IT_CALC_INFOS_LIST.Count; ++i) {
-			oCalcInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ETC_IT_CALC_INFOS_LIST[i]]);
-		}
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oCalcInfosList);
 
 		for(int i = 0; i < oCalcInfosList.Count; ++i) {
 			for(int j = 0; j < oCalcInfosList[i].Count; ++j) {

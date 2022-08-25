@@ -13,6 +13,11 @@ using Newtonsoft.Json;
 /** 앱 정보 */
 [MessagePackObject][System.Serializable]
 public partial class CAppInfo : CBaseInfo {
+	#region 변수
+	[Key(141)] public Dictionary<string, string> m_oTableVerDict = new Dictionary<string, string>();
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public Dictionary<string, System.Version> m_oTableSysVerDict = new Dictionary<string, System.Version>();
+	#endregion			// 변수
+
 	#region 상수
 #if ADS_MODULE_ENABLE
 	private const string KEY_REWARD_ADS_WATCH_TIMES = "RewardAdsWatchTimes";
@@ -31,11 +36,22 @@ public partial class CAppInfo : CBaseInfo {
 	/** 직렬화 될 경우 */
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
+
+		foreach(var stKeyVal in m_oTableSysVerDict) {
+			m_oTableVerDict.ExReplaceVal(stKeyVal.Key, stKeyVal.Value.ToString(KCDefine.B_VAL_3_INT));
+		}
 	}
 
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+
+		m_oTableVerDict = m_oTableVerDict ?? new Dictionary<string, string>();
+		m_oTableSysVerDict = m_oTableSysVerDict ?? new Dictionary<string, System.Version>();
+
+		foreach(var stKeyVal in m_oTableVerDict) {
+			m_oTableSysVerDict.TryAdd(stKeyVal.Key, System.Version.Parse(stKeyVal.Value));
+		}
 
 		// 버전이 다를 경우
 		if(this.Ver.CompareTo(KDefine.G_VER_APP_INFO) < KCDefine.B_COMPARE_EQUALS) {

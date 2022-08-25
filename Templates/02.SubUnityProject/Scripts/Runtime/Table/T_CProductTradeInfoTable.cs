@@ -130,6 +130,15 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 		return this.LoadProductTradeInfos(this.ProductTradeInfoTablePath);
 	}
 
+	/** JSON 노드를 설정한다 */
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutBuyProductTradeInfosList) {
+		a_oOutBuyProductTradeInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutBuyProductTradeInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+	}
+
 	/** 상품 교환 정보를 로드한다 */
 	private Dictionary<EProductKinds, STProductTradeInfo> LoadProductTradeInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
@@ -148,13 +157,7 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	/** 상품 교환 정보를 로드한다 */
 	private Dictionary<EProductKinds, STProductTradeInfo> DoLoadProductTradeInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
-		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
-		var oBuyProductTradeInfosList = new List<SimpleJSON.JSONNode>();
-
-		for(int i = 0; i < KDefine.G_KEY_PRODUCT_TIT_BUY_TRADE_INFOS_LIST.Count; ++i) {
-			oBuyProductTradeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_PRODUCT_TIT_BUY_TRADE_INFOS_LIST[i]]);
-		}
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oBuyProductTradeInfosList);
 
 		for(int i = 0; i < oBuyProductTradeInfosList.Count; ++i) {
 			for(int j = 0; j < oBuyProductTradeInfosList[i].Count; ++j) {

@@ -169,6 +169,20 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 		return this.LoadAbilityInfos(this.AbilityInfoTablePath);
 	}
 
+	/** JSON 노드를 설정한다 */
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutAbilityInfosList, out List<SimpleJSON.JSONNode> a_oOutAbilityEnhanceInfosList) {
+		a_oOutAbilityInfosList = new List<SimpleJSON.JSONNode>();
+		a_oOutAbilityEnhanceInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutAbilityInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
+			a_oOutAbilityEnhanceInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
+		}
+	}
+
 	/** 어빌리티 정보를 로드한다 */
 	private Dictionary<EAbilityKinds, STAbilityInfo> LoadAbilityInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
@@ -187,19 +201,8 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	/** 어빌리티 정보를 로드한다 */
 	private Dictionary<EAbilityKinds, STAbilityInfo> DoLoadAbilityInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oAbilityInfosList, out List<SimpleJSON.JSONNode> oAbilityEnhanceInfosList);
 
-		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
-		var oAbilityInfosList = new List<SimpleJSON.JSONNode>();
-		var oAbilityEnhanceInfosList = new List<SimpleJSON.JSONNode>();
-
-		for(int i = 0; i < KDefine.G_KEY_ABILITY_IT_INFOS_LIST.Count; ++i) {
-			oAbilityInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ABILITY_IT_INFOS_LIST[i]]);
-		}
-
-		for(int i = 0; i < KDefine.G_KEY_ABILITY_IT_ENHANCE_INFOS_LIST.Count; ++i) {
-			oAbilityEnhanceInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ABILITY_IT_ENHANCE_INFOS_LIST[i]]);
-		}
-		
 		for(int i = 0; i < oAbilityInfosList.Count; ++i) {
 			for(int j = 0; j < oAbilityInfosList[i].Count; ++j) {
 				var stAbilityInfo = new STAbilityInfo(oAbilityInfosList[i][j]);

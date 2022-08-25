@@ -57,7 +57,7 @@ public static partial class KEditorDefine {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		[typeof(CLevelInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(CEtcInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CCalcInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CMissionInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CRewardInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CEpisodeInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,

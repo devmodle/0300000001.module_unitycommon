@@ -117,6 +117,15 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 		return this.LoadRewardInfos(this.RewardInfoTablePath);
 	}
 
+	/** JSON 노드를 설정한다 */
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutRewardInfosList) {
+		a_oOutRewardInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutRewardInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+	}
+
 	/** 보상 정보를 로드한다 */
 	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
@@ -135,13 +144,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	/** 보상 정보를 로드한다 */
 	private Dictionary<ERewardKinds, STRewardInfo> DoLoadRewardInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
-		var oRewardInfosList = new List<SimpleJSON.JSONNode>();
-
-		for(int i = 0; i < KDefine.G_KEY_REWARD_IT_INFOS_LIST.Count; ++i) {
-			oRewardInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_REWARD_IT_INFOS_LIST[i]]);
-		}
+		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oRewardInfosList);
 
 		for(int i = 0; i < oRewardInfosList.Count; ++i) {
 			for(int j = 0; j < oRewardInfosList[i].Count; ++j) {

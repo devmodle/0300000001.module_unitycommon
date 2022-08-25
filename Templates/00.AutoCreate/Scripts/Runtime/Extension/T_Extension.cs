@@ -26,7 +26,7 @@ public static partial class Extension {
 
 #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oSender);
-		var oTargetInfos = oJSONNode[KCDefine.B_KEY_JSON_ROOT_DATA];
+		var oTargetInfos = oJSONNode[KCDefine.B_KEY_ROOT];
 
 		for(int i = 0; i < oTargetInfos.Count; ++i) {
 			var stTargetInfo = oTargetInfos[i].ToString().ExJSONStrToObj<STTargetInfo>();

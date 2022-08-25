@@ -85,117 +85,127 @@ public static partial class KDefine {
 		m_nOrder = KCDefine.U_SORTING_O_OVERLAY_UIS, m_oLayer = KCDefine.U_SORTING_L_DEF
 	};
 
-	// 기타 정보 테이블
-	public static readonly List<string> G_KEY_ETC_IT_CALC_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_ABILITY_CALC
-	};
+	// 테이블
+	public static readonly Dictionary<System.Type, Dictionary<string, List<string>>> G_KEY_TABLE_DICT_CONTAINER = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[typeof(CCalcInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_ABILITY_CALC
+			}
+		},
 
-	// 미션 정보 테이블
-	public static readonly List<string> G_KEY_MISSION_IT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_MAIN, KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT
-	};
+		[typeof(CMissionInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_MAIN, KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT
+			}
+		},
 
-	// 보상 정보 테이블
-	public static readonly List<string> G_KEY_REWARD_IT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT, KCDefine.U_KEY_CLEAR, KCDefine.U_KEY_MISSION, KCDefine.U_KEY_TUTORIAL
-	};
+		[typeof(CRewardInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT, KCDefine.U_KEY_CLEAR, KCDefine.U_KEY_MISSION, KCDefine.U_KEY_TUTORIAL
+			}
+		},
 
-	// 에피소드 정보 테이블 {
-	public static readonly List<string> G_KEY_EPISODE_IT_LEVEL_EPISODE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_LEVEL_EPISODE
-	};
+		[typeof(CEpisodeInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_LEVEL] = new List<string>() {
+				KCDefine.U_KEY_LEVEL_EPISODE
+			},
 
-	public static readonly List<string> G_KEY_EPISODE_IT_STAGE_EPISODE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_STAGE_EPISODE
-	};
+			[KCDefine.B_KEY_STAGE] = new List<string>() {
+				KCDefine.U_KEY_STAGE_EPISODE
+			},
 
-	public static readonly List<string> G_KEY_EPISODE_IT_CHAPTER_EPISODE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_CHAPTER_EPISODE
-	};
-	// 에피소드 정보 테이블 }
+			[KCDefine.B_KEY_CHAPTER] = new List<string>() {
+				KCDefine.U_KEY_CHAPTER_EPISODE
+			}
+		},
 
-	// 튜토리얼 정보 테이블
-	public static readonly List<string> G_KEY_TUTORIAL_IT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_PLAY_TUTORIAL, KCDefine.U_KEY_HELP_TUTORIAL
-	};
+		[typeof(CTutorialInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_PLAY_TUTORIAL, KCDefine.U_KEY_HELP_TUTORIAL
+			}
+		},
 
-	// 리소스 정보 테이블
-	public static readonly List<string> G_KEY_RES_IT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_SND, KCDefine.U_KEY_FONT, KCDefine.U_KEY_IMG, KCDefine.U_KEY_SPRITE, KCDefine.U_KEY_TEXTURE
-	};
+		[typeof(CResInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_SND, KCDefine.U_KEY_FONT, KCDefine.U_KEY_IMG, KCDefine.U_KEY_SPRITE, KCDefine.U_KEY_TEXTURE
+			}
+		},
 
-	// 아이템 정보 테이블 {
-	public static readonly List<string> G_KEY_ITEM_IT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_GOODS, KCDefine.U_KEY_CONSUMABLE, KCDefine.U_KEY_NON_CONSUMABLE, KCDefine.U_KEY_WEAPON, KCDefine.U_KEY_ARMOR, KCDefine.U_KEY_ACCESSORY, KCDefine.U_KEY_ATTACH
-	};
+		[typeof(CItemInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_GOODS, KCDefine.U_KEY_CONSUMABLE, KCDefine.U_KEY_NON_CONSUMABLE, KCDefine.U_KEY_WEAPON, KCDefine.U_KEY_ARMOR, KCDefine.U_KEY_ACCESSORY, KCDefine.U_KEY_ATTACH
+			},
 
-	public static readonly List<string> G_KEY_ITEM_IT_ENHANCE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_GOODS_ENHANCE, KCDefine.U_KEY_CONSUMABLE_ENHANCE, KCDefine.U_KEY_NON_CONSUMABLE_ENHANCE, KCDefine.U_KEY_WEAPON_ENHANCE, KCDefine.U_KEY_ARMOR_ENHANCE, KCDefine.U_KEY_ACCESSORY_ENHANCE, KCDefine.U_KEY_ATTACH_ENHANCE
-	};
+			[KCDefine.B_KEY_ENHANCE] = new List<string>() {
+				KCDefine.U_KEY_GOODS_ENHANCE, KCDefine.U_KEY_CONSUMABLE_ENHANCE, KCDefine.U_KEY_NON_CONSUMABLE_ENHANCE, KCDefine.U_KEY_WEAPON_ENHANCE, KCDefine.U_KEY_ARMOR_ENHANCE, KCDefine.U_KEY_ACCESSORY_ENHANCE, KCDefine.U_KEY_ATTACH_ENHANCE
+			},
 
-	public static readonly List<string> G_KEY_ITEM_IT_BUY_TRADE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_GOODS_BUY_TRADE, KCDefine.U_KEY_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_WEAPON_BUY_TRADE, KCDefine.U_KEY_ARMOR_BUY_TRADE, KCDefine.U_KEY_ACCESSORY_BUY_TRADE, KCDefine.U_KEY_ATTACH_BUY_TRADE
-	};
+			[KCDefine.B_KEY_BUY_TRADE] = new List<string>() {
+				KCDefine.U_KEY_GOODS_BUY_TRADE, KCDefine.U_KEY_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_BUY_TRADE, KCDefine.U_KEY_WEAPON_BUY_TRADE, KCDefine.U_KEY_ARMOR_BUY_TRADE, KCDefine.U_KEY_ACCESSORY_BUY_TRADE, KCDefine.U_KEY_ATTACH_BUY_TRADE
+			},
 
-	public static readonly List<string> G_KEY_ITEM_IT_SALE_TRADE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_GOODS_SALE_TRADE, KCDefine.U_KEY_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_WEAPON_SALE_TRADE, KCDefine.U_KEY_ARMOR_SALE_TRADE, KCDefine.U_KEY_ACCESSORY_SALE_TRADE, KCDefine.U_KEY_ATTACH_SALE_TRADE
-	};
-	// 아이템 정보 테이블 }
+			[KCDefine.B_KEY_SALE_TRADE] = new List<string>() {
+				KCDefine.U_KEY_GOODS_SALE_TRADE, KCDefine.U_KEY_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_WEAPON_SALE_TRADE, KCDefine.U_KEY_ARMOR_SALE_TRADE, KCDefine.U_KEY_ACCESSORY_SALE_TRADE, KCDefine.U_KEY_ATTACH_SALE_TRADE
+			}
+		},
 
-	// 스킬 정보 테이블 {
-	public static readonly List<string> G_KEY_SKILL_IT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_ACTION, KCDefine.U_KEY_ACTIVE, KCDefine.U_KEY_PASSIVE
-	};
+		[typeof(CSkillInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_ACTION, KCDefine.U_KEY_ACTIVE, KCDefine.U_KEY_PASSIVE
+			},
 
-	public static readonly List<string> G_KEY_SKILL_IT_ENHANCE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_ACTION_ENHANCE, KCDefine.U_KEY_ACTIVE_ENHANCE, KCDefine.U_KEY_PASSIVE_ENHANCE
-	};
+			[KCDefine.B_KEY_ENHANCE] = new List<string>() {
+				KCDefine.U_KEY_ACTION_ENHANCE, KCDefine.U_KEY_ACTIVE_ENHANCE, KCDefine.U_KEY_PASSIVE_ENHANCE
+			},
 
-	public static readonly List<string> G_KEY_SKILL_IT_BUY_TRADE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_ACTION_BUY_TRADE, KCDefine.U_KEY_ACTIVE_BUY_TRADE, KCDefine.U_KEY_PASSIVE_BUY_TRADE
-	};
+			[KCDefine.B_KEY_BUY_TRADE] = new List<string>() {
+				KCDefine.U_KEY_ACTION_BUY_TRADE, KCDefine.U_KEY_ACTIVE_BUY_TRADE, KCDefine.U_KEY_PASSIVE_BUY_TRADE
+			},
 
-	public static readonly List<string> G_KEY_SKILL_IT_SALE_TRADE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_ACTION_SALE_TRADE, KCDefine.U_KEY_ACTIVE_SALE_TRADE, KCDefine.U_KEY_PASSIVE_SALE_TRADE
-	};
-	// 스킬 정보 테이블 }
+			[KCDefine.B_KEY_SALE_TRADE] = new List<string>() {
+				KCDefine.U_KEY_ACTION_SALE_TRADE, KCDefine.U_KEY_ACTIVE_SALE_TRADE, KCDefine.U_KEY_PASSIVE_SALE_TRADE
+			}
+		},
 
-	// 객체 정보 테이블 {
-	public static readonly List<string> G_KEY_OBJ_IT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_BG, KCDefine.U_KEY_NORM, KCDefine.U_KEY_OVERLAY, KCDefine.U_KEY_PLAYABLE, KCDefine.U_KEY_NON_PLAYABLE, KCDefine.U_KEY_ENEMY
-	};
+		[typeof(CObjInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_BG, KCDefine.U_KEY_NORM, KCDefine.U_KEY_OVERLAY, KCDefine.U_KEY_PLAYABLE, KCDefine.U_KEY_NON_PLAYABLE, KCDefine.U_KEY_ENEMY
+			},
 
-	public static readonly List<string> G_KEY_OBJ_IT_ENHANCE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_BG_ENHANCE, KCDefine.U_KEY_NORM_ENHANCE, KCDefine.U_KEY_OVERLAY_ENHANCE, KCDefine.U_KEY_PLAYABLE_ENHANCE, KCDefine.U_KEY_NON_PLAYABLE_ENHANCE, KCDefine.U_KEY_ENEMY_ENHANCE
-	};
+			[KCDefine.B_KEY_ENHANCE] = new List<string>() {
+				KCDefine.U_KEY_BG_ENHANCE, KCDefine.U_KEY_NORM_ENHANCE, KCDefine.U_KEY_OVERLAY_ENHANCE, KCDefine.U_KEY_PLAYABLE_ENHANCE, KCDefine.U_KEY_NON_PLAYABLE_ENHANCE, KCDefine.U_KEY_ENEMY_ENHANCE
+			},
 
-	public static readonly List<string> G_KEY_OBJ_IT_BUY_TRADE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_BG_BUY_TRADE, KCDefine.U_KEY_NORM_BUY_TRADE, KCDefine.U_KEY_OVERLAY_BUY_TRADE, KCDefine.U_KEY_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_NON_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_ENEMY_BUY_TRADE
-	};
+			[KCDefine.B_KEY_BUY_TRADE] = new List<string>() {
+				KCDefine.U_KEY_BG_BUY_TRADE, KCDefine.U_KEY_NORM_BUY_TRADE, KCDefine.U_KEY_OVERLAY_BUY_TRADE, KCDefine.U_KEY_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_NON_PLAYABLE_BUY_TRADE, KCDefine.U_KEY_ENEMY_BUY_TRADE
+			},
 
-	public static readonly List<string> G_KEY_OBJ_IT_SALE_TRADE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_BG_SALE_TRADE, KCDefine.U_KEY_NORM_SALE_TRADE, KCDefine.U_KEY_OVERLAY_SALE_TRADE, KCDefine.U_KEY_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_NON_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_ENEMY_SALE_TRADE
-	};
-	// 객체 정보 테이블 }
+			[KCDefine.B_KEY_SALE_TRADE] = new List<string>() {
+				KCDefine.U_KEY_BG_SALE_TRADE, KCDefine.U_KEY_NORM_SALE_TRADE, KCDefine.U_KEY_OVERLAY_SALE_TRADE, KCDefine.U_KEY_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_NON_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_ENEMY_SALE_TRADE
+			}
+		},
 
-	// 효과 정보 테이블
-	public static readonly List<string> G_KEY_FX_IT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_HIT_FX, KCDefine.U_KEY_BUFF_FX, KCDefine.U_KEY_DEBUFF_FX
-	};
+		[typeof(CFXInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_HIT_FX, KCDefine.U_KEY_BUFF_FX, KCDefine.U_KEY_DEBUFF_FX
+			}
+		},
 
-	// 어빌리티 정보 테이블 {
-	public static readonly List<string> G_KEY_ABILITY_IT_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_STAT, KCDefine.U_KEY_BUFF, KCDefine.U_KEY_DEBUFF, KCDefine.U_KEY_UPGRADE
-	};
+		[typeof(CAbilityInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_STAT, KCDefine.U_KEY_BUFF, KCDefine.U_KEY_DEBUFF, KCDefine.U_KEY_UPGRADE
+			},
 
-	public static readonly List<string> G_KEY_ABILITY_IT_ENHANCE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_STAT_ENHANCE, KCDefine.U_KEY_BUFF_ENHANCE, KCDefine.U_KEY_DEBUFF_ENHANCE, KCDefine.U_KEY_UPGRADE_ENHANCE
-	};
-	// 어빌리티 정보 테이블 }
+			[KCDefine.B_KEY_ENHANCE] = new List<string>() {
+				KCDefine.U_KEY_STAT_ENHANCE, KCDefine.U_KEY_BUFF_ENHANCE, KCDefine.U_KEY_DEBUFF_ENHANCE, KCDefine.U_KEY_UPGRADE_ENHANCE
+			}
+		},
 
-	// 상품 교환 정보 테이블
-	public static readonly List<string> G_KEY_PRODUCT_TIT_BUY_TRADE_INFOS_LIST = new List<string>() {
-		KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
+		[typeof(CProductTradeInfoTable)] = new Dictionary<string, List<string>>() {
+			[KCDefine.B_KEY_DEF] = new List<string>() {
+				KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
+			}
+		}
 	};
 
 	// 경로 {

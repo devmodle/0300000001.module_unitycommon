@@ -102,6 +102,15 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 		return this.LoadResInfos(this.ResInfoTablePath);
 	}
 
+	/** JSON 노드를 설정한다 */
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutResInfosList) {
+		a_oOutResInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutResInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+	}
+
 	/** 리소스 정보를 로드한다 */
 	private Dictionary<EResKinds, STResInfo> LoadResInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
@@ -120,13 +129,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	/** 리소스 정보를 로드한다 */
 	private Dictionary<EResKinds, STResInfo> DoLoadResInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
-		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
-		var oResInfosList = new List<SimpleJSON.JSONNode>();
-
-		for(int i = 0; i < KDefine.G_KEY_RES_IT_INFOS_LIST.Count; ++i) {
-			oResInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_RES_IT_INFOS_LIST[i]]);
-		}
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oResInfosList);
 		
 		for(int i = 0; i < oResInfosList.Count; ++i) {
 			for(int j = 0; j < oResInfosList[i].Count; ++j) {

@@ -51,7 +51,7 @@ namespace InitScene {
 			// 테이블을 생성한다 {
 			CLevelInfoTable.Create();
 
-			CEtcInfoTable.Create();
+			CCalcInfoTable.Create();
 			CMissionInfoTable.Create();
 			CRewardInfoTable.Create();
 			CEpisodeInfoTable.Create();

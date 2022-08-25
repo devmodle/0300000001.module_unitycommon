@@ -108,6 +108,15 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 		return this.LoadTutorialInfos(this.TutorialInfoTablePath);
 	}
 
+	/** JSON 노드를 설정한다 */
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutTutorialInfosList) {
+		a_oOutTutorialInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutTutorialInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+	}
+
 	/** 튜토리얼 정보를 로드한다 */
 	private Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
@@ -126,13 +135,7 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	/** 튜토리얼 정보를 로드한다 */
 	private Dictionary<ETutorialKinds, STTutorialInfo> DoLoadTutorialInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
-		var oTutorialInfosList = new List<SimpleJSON.JSONNode>();
-
-		for(int i = 0; i < KDefine.G_KEY_TUTORIAL_IT_INFOS_LIST.Count; ++i) {
-			oTutorialInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_TUTORIAL_IT_INFOS_LIST[i]]);
-		}
+		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oTutorialInfosList);
 		
 		for(int i = 0; i < oTutorialInfosList.Count; ++i) {
 			for(int j = 0; j < oTutorialInfosList[i].Count; ++j) {

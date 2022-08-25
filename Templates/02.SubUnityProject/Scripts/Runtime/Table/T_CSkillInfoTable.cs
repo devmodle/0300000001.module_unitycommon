@@ -268,6 +268,30 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		return this.LoadSkillInfos(this.SkillInfoTablePath);
 	}
 
+	/** JSON 노드를 설정한다 */
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutSkillInfosList, out List<SimpleJSON.JSONNode> a_oOutSkillEnhanceInfosList, out List<SimpleJSON.JSONNode> a_oOutBuySkillTradeInfosList, out List<SimpleJSON.JSONNode> a_oOutSaleSkillTradeInfosList) {
+		a_oOutSkillInfosList = new List<SimpleJSON.JSONNode>();
+		a_oOutSkillEnhanceInfosList = new List<SimpleJSON.JSONNode>();
+		a_oOutBuySkillTradeInfosList = new List<SimpleJSON.JSONNode>();
+		a_oOutSaleSkillTradeInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutSkillInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutSkillEnhanceInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutBuySkillTradeInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutSaleSkillTradeInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+	}
+
 	/** 스킬 정보를 로드한다 */
 	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillEnhanceInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>) LoadSkillInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
@@ -286,29 +310,8 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	/** 스킬 정보를 로드한다 */
 	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillEnhanceInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>) DoLoadSkillInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
-		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
-		var oSkillInfosList = new List<SimpleJSON.JSONNode>();
-		var oSkillEnhanceInfosList = new List<SimpleJSON.JSONNode>();
-		var oBuySkillTradeInfosList = new List<SimpleJSON.JSONNode>();
-		var oSaleSkillTradeInfosList = new List<SimpleJSON.JSONNode>();
-
-		for(int i = 0; i < KDefine.G_KEY_SKILL_IT_INFOS_LIST.Count; ++i) {
-			oSkillInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_IT_INFOS_LIST[i]]);
-		}
-
-		for(int i = 0; i < KDefine.G_KEY_SKILL_IT_ENHANCE_INFOS_LIST.Count; ++i) {
-			oSkillEnhanceInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_IT_ENHANCE_INFOS_LIST[i]]);
-		}
-
-		for(int i = 0; i < KDefine.G_KEY_SKILL_IT_BUY_TRADE_INFOS_LIST.Count; ++i) {
-			oBuySkillTradeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_IT_BUY_TRADE_INFOS_LIST[i]]);
-		}
-
-		for(int i = 0; i < KDefine.G_KEY_SKILL_IT_SALE_TRADE_INFOS_LIST.Count; ++i) {
-			oSaleSkillTradeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_SKILL_IT_SALE_TRADE_INFOS_LIST[i]]);
-		}
-
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oSkillInfosList, out List<SimpleJSON.JSONNode> oSkillEnhanceInfosList, out List<SimpleJSON.JSONNode> oBuySkillTradeInfosList, out List<SimpleJSON.JSONNode> oSaleSkillTradeInfosList);
+		
 		for(int i = 0; i < oSkillInfosList.Count; ++i) {
 			for(int j = 0; j < oSkillInfosList[i].Count; ++j) {
 				var stSkillInfo = new STSkillInfo(oSkillInfosList[i][j]);

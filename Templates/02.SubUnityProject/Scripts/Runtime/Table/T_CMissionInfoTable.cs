@@ -101,6 +101,15 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 		return this.LoadMissionInfos(this.MissionInfoTablePath);
 	}
 
+	/** JSON 노드를 설정한다 */
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutMissionInfosList) {
+		a_oOutMissionInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutMissionInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+	}
+
 	/** 미션 정보를 로드한다 */
 	private Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
@@ -119,13 +128,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	/** 미션 정보를 로드한다 */
 	private Dictionary<EMissionKinds, STMissionInfo> DoLoadMissionInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
-		var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
-		var oMissionInfosList = new List<SimpleJSON.JSONNode>();
-
-		for(int i = 0; i < KDefine.G_KEY_MISSION_IT_INFOS_LIST.Count; ++i) {
-			oMissionInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_MISSION_IT_INFOS_LIST[i]]);
-		}
+		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oMissionInfosList);
 		
 		for(int i = 0; i < oMissionInfosList.Count; ++i) {
 			for(int j = 0; j < oMissionInfosList[i].Count; ++j) {

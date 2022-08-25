@@ -266,6 +266,30 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		return this.LoadItemInfos(this.ItemInfoTablePath);
 	}
 
+	/** JSON 노드를 설정한다 */
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutItemInfosList, out List<SimpleJSON.JSONNode> a_oOutItemEnhanceInfosList, out List<SimpleJSON.JSONNode> a_oOutBuyItemTradeInfosList, out List<SimpleJSON.JSONNode> a_oOutSaleItemTradeInfosList) {
+		a_oOutItemInfosList = new List<SimpleJSON.JSONNode>();
+		a_oOutItemEnhanceInfosList = new List<SimpleJSON.JSONNode>();
+		a_oOutBuyItemTradeInfosList = new List<SimpleJSON.JSONNode>();
+		a_oOutSaleItemTradeInfosList = new List<SimpleJSON.JSONNode>();
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF].Count; ++i) {
+			a_oOutItemInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_DEF][i]]);
+		}
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
+			a_oOutItemEnhanceInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
+		}
+
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_BUY_TRADE].Count; ++i) {
+			a_oOutBuyItemTradeInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_BUY_TRADE][i]]);
+		}
+		
+		for(int i = 0; i < KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_SALE_TRADE].Count; ++i) {
+			a_oOutSaleItemTradeInfosList.ExAddVal(a_oJSONNode[KDefine.G_KEY_TABLE_DICT_CONTAINER[this.GetType()][KCDefine.B_KEY_SALE_TRADE][i]]);
+		}
+	}
+
 	/** 아이템 정보를 로드한다 */
 	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
@@ -284,28 +308,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** 아이템 정보를 로드한다 */
 	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) DoLoadItemInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-
-		var oJSONNode = SimpleJSON.JSONNode.Parse(a_oJSONStr);
-		var oItemInfosList = new List<SimpleJSON.JSONNode>();
-		var oItemEnhanceInfosList = new List<SimpleJSON.JSONNode>();
-		var oBuyItemTradeInfosList = new List<SimpleJSON.JSONNode>();
-		var oSaleItemTradeInfosList = new List<SimpleJSON.JSONNode>();
-
-		for(int i = 0; i < KDefine.G_KEY_ITEM_IT_INFOS_LIST.Count; ++i) {
-			oItemInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_IT_INFOS_LIST[i]]);
-		}
-
-		for(int i = 0; i < KDefine.G_KEY_ITEM_IT_ENHANCE_INFOS_LIST.Count; ++i) {
-			oItemEnhanceInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_IT_ENHANCE_INFOS_LIST[i]]);
-		}
-
-		for(int i = 0; i < KDefine.G_KEY_ITEM_IT_BUY_TRADE_INFOS_LIST.Count; ++i) {
-			oBuyItemTradeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_IT_BUY_TRADE_INFOS_LIST[i]]);
-		}
-
-		for(int i = 0; i < KDefine.G_KEY_ITEM_IT_SALE_TRADE_INFOS_LIST.Count; ++i) {
-			oSaleItemTradeInfosList.ExAddVal(oJSONNode[KDefine.G_KEY_ITEM_IT_SALE_TRADE_INFOS_LIST[i]]);
-		}
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oItemInfosList, out List<SimpleJSON.JSONNode> oItemEnhanceInfosList, out List<SimpleJSON.JSONNode> oBuyItemTradeInfosList, out List<SimpleJSON.JSONNode> oSaleItemTradeInfosList);
 
 		for(int i = 0; i < oItemInfosList.Count; ++i) {
 			for(int j = 0; j < oItemInfosList[i].Count; ++j) {
