@@ -249,6 +249,12 @@ namespace TitleScene {
 		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
+#if NEWTON_SOFT_JSON_MODULE_ENABLE
+				for(int i = 0; i < m_oVerInfos.Count; ++i) {
+					CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.ExReplaceVal(m_oVerInfos[i][KCDefine.U_KEY_NAME], System.Version.Parse(m_oVerInfos[i][KCDefine.U_KEY_VER]));
+				}				
+#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 			}
 
