@@ -332,6 +332,7 @@ public partial class CUserInfo : CBaseInfo {
 public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	#region 프로퍼티
 	public CUserInfo UserInfo { get; private set; } = new CUserInfo();
+	public bool IsPurchaseRemoveAds => Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.NON_CONSUMABLE_REMOVE_ADS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS) > KCDefine.B_VAL_0_INT;
 	#endregion            // 프로퍼티
 
 	#region 함수

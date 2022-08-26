@@ -32,7 +32,7 @@ namespace LateSetupScene {
 				this.AwakeSetup();
 
 #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
-				CLateSetupSceneManager.IsPurchaseRemoveAds = Access.IsPurchaseRemoveAds;
+				CLateSetupSceneManager.IsPurchaseRemoveAds = CUserInfoStorage.Inst.IsPurchaseRemoveAds;
 #endif			// #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 			}
 		}
@@ -42,8 +42,8 @@ namespace LateSetupScene {
 			base.Setup();
 
 #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
-			CAdsManager.Inst.IsEnableBannerAds = !Access.IsPurchaseRemoveAds;
-			CAdsManager.Inst.IsEnableFullscreenAds = !Access.IsPurchaseRemoveAds;
+			CAdsManager.Inst.IsEnableBannerAds = !CUserInfoStorage.Inst.IsPurchaseRemoveAds;
+			CAdsManager.Inst.IsEnableFullscreenAds = !CUserInfoStorage.Inst.IsPurchaseRemoveAds;
 #endif			// #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 		}
 

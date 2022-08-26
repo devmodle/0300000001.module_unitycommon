@@ -19,8 +19,7 @@ public static partial class Access {
 #endif			// #if UNITY_IOS
 		}
 	}
-
-	public static bool IsPurchaseRemoveAds => Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.NON_CONSUMABLE_REMOVE_ADS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS) > KCDefine.B_VAL_0_INT;
+	
 	public static string MoreAppsURL => string.Format(KCDefine.U_FMT_MORE_APPS_URL, CProjInfoTable.Inst.ProjInfo.m_oStoreAppID);
 	#endregion			// 클래스 프로퍼티
 
