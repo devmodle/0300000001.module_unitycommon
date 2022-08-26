@@ -79,12 +79,12 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	}
 
 	/** 튜토리얼 정보를 리셋한다 */
-	public void ResetTutorialInfos() {
+	public virtual void ResetTutorialInfos() {
 		this.TutorialInfoDict.Clear();
 	}
 
 	/** 튜토리얼 정보를 리셋한다 */
-	public void ResetTutorialInfos(string a_oJSONStr) {
+	public virtual void ResetTutorialInfos(string a_oJSONStr) {
 		this.ResetTutorialInfos();
 		this.DoLoadTutorialInfos(a_oJSONStr);
 	}

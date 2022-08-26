@@ -125,13 +125,13 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	}
 
 	/** 어빌리티 정보를 리셋한다 */
-	public void ResetAbilityInfos() {
+	public virtual void ResetAbilityInfos() {
 		this.AbilityInfoDict.Clear();
 		this.AbilityEnhanceInfoDict.Clear();
 	}
 
 	/** 어빌리티 정보를 리셋한다 */
-	public void ResetAbilityInfos(string a_oJSONStr) {
+	public virtual void ResetAbilityInfos(string a_oJSONStr) {
 		this.ResetAbilityInfos();
 		this.DoLoadAbilityInfos(a_oJSONStr);
 	}

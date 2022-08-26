@@ -44,6 +44,7 @@ namespace InitScene {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 테이블을 생성한다 {
+			CEtcInfoTable.Create();
 			CLevelInfoTable.Create();
 
 			CCalcInfoTable.Create();

@@ -73,14 +73,14 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	}
 
 	/** 수식 정보를 리셋한다 */
-	public void ResetCalcInfos() {
+	public virtual void ResetCalcInfos() {
 		this.CalcInfoDict.Clear();
 	}
 
 	/** 수식 정보를 리셋한다 */
-	public void ResetCalcInfos(string a_oJSONStr) {
+	public virtual void ResetCalcInfos(string a_oJSONStr) {
 		this.ResetCalcInfos();
-		this.DoLoadEtcInfos(a_oJSONStr);
+		this.DoLoadCalcInfos(a_oJSONStr);
 	}
 
 	/** 수식 정보를 반환한다 */
@@ -98,9 +98,9 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	}
 
 	/** 기타 정보를 로드한다 */
-	public Dictionary<ECalcKinds, STCalcInfo> LoadEtcInfos() {
+	public Dictionary<ECalcKinds, STCalcInfo> LoadCalcInfos() {
 		this.ResetCalcInfos();
-		return this.LoadEtcInfos(this.CalcInfoTablePath);
+		return this.LoadCalcInfos(this.CalcInfoTablePath);
 	}
 
 	/** JSON 노드를 설정한다 */
@@ -114,14 +114,14 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	}
 
 	/** 기타 정보를 로드한다 */
-	private Dictionary<ECalcKinds, STCalcInfo> LoadEtcInfos(string a_oFilePath) {
+	private Dictionary<ECalcKinds, STCalcInfo> LoadCalcInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		return this.DoLoadEtcInfos(CFunc.ReadStr(a_oFilePath));
+		return this.DoLoadCalcInfos(CFunc.ReadStr(a_oFilePath));
 #else
 		try {
-			return this.DoLoadEtcInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
+			return this.DoLoadCalcInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -129,7 +129,7 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	}
 
 	/** 기타 정보를 로드한다 */
-	private Dictionary<ECalcKinds, STCalcInfo> DoLoadEtcInfos(string a_oJSONStr) {
+	private Dictionary<ECalcKinds, STCalcInfo> DoLoadCalcInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oCalcInfosList);
 

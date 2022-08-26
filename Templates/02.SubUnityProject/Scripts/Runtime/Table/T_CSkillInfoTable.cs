@@ -194,7 +194,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	}
 
 	/** 스킬 정보를 리셋한다 */
-	public void ResetSkillInfos() {
+	public virtual void ResetSkillInfos() {
 		this.SkillInfoDict.Clear();
 		this.SkillEnhanceInfoDict.Clear();
 		this.BuySkillTradeInfoDict.Clear();
@@ -202,7 +202,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	}
 
 	/** 스킬 정보를 리셋한다 */
-	public void ResetSkillInfos(string a_oJSONStr) {
+	public virtual void ResetSkillInfos(string a_oJSONStr) {
 		this.ResetSkillInfos();
 		this.DoLoadSkillInfos(a_oJSONStr);
 	}

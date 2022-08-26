@@ -72,12 +72,12 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	}
 
 	/** 미션 정보를 리셋한다 */
-	public void ResetMissionInfos() {
+	public virtual void ResetMissionInfos() {
 		this.MissionInfoDict.Clear();
 	}
 
 	/** 미션 정보를 리셋한다 */
-	public void ResetMissionInfos(string a_oJSONStr) {
+	public virtual void ResetMissionInfos(string a_oJSONStr) {
 		this.ResetMissionInfos();
 		this.DoLoadMissionInfos(a_oJSONStr);
 	}

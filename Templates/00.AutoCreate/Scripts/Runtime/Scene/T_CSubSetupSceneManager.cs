@@ -25,9 +25,10 @@ namespace SetupScene {
 			CGameInfoStorage.Inst.LoadGameInfo();
 			
 			// 테이블을 로드한다
+			CEtcInfoTable.Inst.LoadEtcInfos();
 			CLevelInfoTable.Inst.LoadLevelInfos();
 
-			CCalcInfoTable.Inst.LoadEtcInfos();
+			CCalcInfoTable.Inst.LoadCalcInfos();
 			CMissionInfoTable.Inst.LoadMissionInfos();
 			CRewardInfoTable.Inst.LoadRewardInfos();
 			CEpisodeInfoTable.Inst.LoadEpisodeInfos();

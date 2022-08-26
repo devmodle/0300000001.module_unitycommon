@@ -73,12 +73,12 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	}
 
 	/** 리소스 정보를 리셋한다 */
-	public void ResetResInfos() {
+	public virtual void ResetResInfos() {
 		this.ResInfoDict.Clear();
 	}
 
 	/** 리소스 정보를 리셋한다 */
-	public void ResetResInfos(string a_oJSONStr) {
+	public virtual void ResetResInfos(string a_oJSONStr) {
 		this.ResetResInfos();
 		this.DoLoadResInfos(a_oJSONStr);
 	}

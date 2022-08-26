@@ -74,12 +74,12 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	}
 
 	/** 효과 정보를 리셋한다 */
-	public void ResetFXInfos() {
+	public virtual void ResetFXInfos() {
 		this.FXInfoDict.Clear();
 	}
 
 	/** 효과 정보를 리셋한다 */
-	public void ResetFXInfos(string a_oJSONStr) {
+	public virtual void ResetFXInfos(string a_oJSONStr) {
 		this.ResetFXInfos();
 		this.DoLoadFXInfos(a_oJSONStr);
 	}

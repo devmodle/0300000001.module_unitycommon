@@ -74,12 +74,12 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	}
 
 	/** 보상 정보를 리셋한다 */
-	public void ResetRewardInfos() {
+	public virtual void ResetRewardInfos() {
 		this.RewardInfoDict.Clear();
 	}
 
 	/** 보상 정보를 리셋한다 */
-	public void ResetRewardInfos(string a_oJSONStr) {
+	public virtual void ResetRewardInfos(string a_oJSONStr) {
 		this.ResetRewardInfos();
 		this.DoLoadRewardInfos(a_oJSONStr);
 	}

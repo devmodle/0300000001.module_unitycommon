@@ -87,12 +87,12 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	}
 
 	/** 상품 교환 정보를 리셋한다 */
-	public void ResetProductTradeInfos() {
+	public virtual void ResetProductTradeInfos() {
 		this.BuyProductTradeInfoDict.Clear();
 	}
 
 	/** 상품 교환 정보를 리셋한다 */
-	public void ResetProductTradeInfos(string a_oJSONStr) {
+	public virtual void ResetProductTradeInfos(string a_oJSONStr) {
 		this.ResetProductTradeInfos();
 		this.DoLoadProductTradeInfos(a_oJSONStr);
 	}

@@ -224,14 +224,14 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	}
 
 	/** 에피소드 정보를 리셋한다 */
-	public void ResetEpisodeInfos() {
+	public virtual void ResetEpisodeInfos() {
 		this.LevelEpisodeInfoDict.Clear();
 		this.StageEpisodeInfoDict.Clear();
 		this.ChapterEpisodeInfoDict.Clear();
 	}
 
 	/** 에피소드 정보를 리셋한다 */
-	public void ResetEpisodeInfos(string a_oJSONStr) {
+	public virtual void ResetEpisodeInfos(string a_oJSONStr) {
 		this.ResetEpisodeInfos();
 		this.DoLoadEpisodeInfos(a_oJSONStr);
 	}
@@ -369,50 +369,8 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	#region 조건부 함수
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 에피소드 정보를 저장한다 */
-	public void SaveEpisodeInfos() {
-		var oJSONNode = SimpleJSON.JSON.Parse(CFunc.ReadStr(this.EpisodeInfoTablePath));
-		var oLevelEpisodeInfosList = new List<SimpleJSON.JSONArray>();
-		var oStageEpisodeInfosList = new List<SimpleJSON.JSONArray>();
-		var oChapterEpisodeInfosList = new List<SimpleJSON.JSONArray>();
-
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.EpisodeInfoTablePath)];
-
-		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_LEVEL].Count; ++i) {
-			var oLevelEpisodeInfos = new SimpleJSON.JSONArray();
-			oJSONNode.Remove(oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_LEVEL][i]);
-
-			foreach(var stKeyVal in this.LevelEpisodeInfoDict) {
-				oLevelEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
-			}
-
-			oJSONNode.Add(oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_LEVEL][i], oLevelEpisodeInfos);
-		}
-
-		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_STAGE].Count; ++i) {
-			var oStageEpisodeInfos = new SimpleJSON.JSONArray();
-			oJSONNode.Remove(oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_STAGE][i]);
-
-			foreach(var stKeyVal in this.StageEpisodeInfoDict) {
-				oStageEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
-			}
-
-			oJSONNode.Add(oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_STAGE][i], oStageEpisodeInfos);
-		}
-
-		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_CHAPTER].Count; ++i) {
-			var oChapterEpisodeInfos = new SimpleJSON.JSONArray();
-			oJSONNode.Remove(oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_CHAPTER][i]);
-
-			foreach(var stKeyVal in this.ChapterEpisodeInfoDict) {
-				oChapterEpisodeInfos.Add(stKeyVal.Value.MakeEpisodeInfo());
-			}
-
-			oJSONNode.Add(oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_CHAPTER][i], oChapterEpisodeInfos);
-		}
-		
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteStr(this.EpisodeInfoTablePath, JsonConvert.DeserializeObject(oJSONNode.ToString()).ExToJSONStr());
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+	public void SaveEpisodeInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)

@@ -635,62 +635,15 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 				}
 			}
 		}
-		
-		CEpisodeInfoTable.Inst.SaveEpisodeInfos();
+
 		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, null, false, false);
 	}
 
 	/** 레벨 정보를 저장한다 */
 	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<ulong> a_oOutLevelIDList) {
 		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
-		
 		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
-		CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_oLevelInfo.m_stIDInfo.m_nID01, out STEpisodeInfo stLevelEpisodeInfo, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03);
-
-		var stReplaceLevelEpisodeInfo = new STEpisodeInfo() {
-			m_stCommonInfo = new STCommonInfo() {
-				m_oName = stLevelEpisodeInfo.m_stCommonInfo.m_oName ?? string.Empty, m_oDesc = stLevelEpisodeInfo.m_stCommonInfo.m_oDesc ?? string.Empty
-			},
-
-			m_stIDInfo = new STIDInfo() {
-				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01, m_nID02 = a_oLevelInfo.m_stIDInfo.m_nID02, m_nID03 = a_oLevelInfo.m_stIDInfo.m_nID03
-			},
-
-			m_stPrevIDInfo = new STIDInfo() {
-				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01 - KCDefine.B_VAL_1_INT, m_nID02 = KCDefine.B_IDX_INVALID, m_nID03 = KCDefine.B_IDX_INVALID,
-			},
-
-			m_stNextIDInfo = new STIDInfo() {
-				m_nID01 = a_oLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT, m_nID02 = KCDefine.B_IDX_INVALID, m_nID03 = KCDefine.B_IDX_INVALID,
-			},
-
-			m_nNumSubEpisodes = stLevelEpisodeInfo.m_nNumSubEpisodes,
-			m_nMaxNumEnemyObjs = stLevelEpisodeInfo.m_nMaxNumEnemyObjs,
-			m_stSize = stLevelEpisodeInfo.m_stSize,
-			
-			m_eDifficulty = stLevelEpisodeInfo.m_eDifficulty,
-			m_eEpisodeKinds = stLevelEpisodeInfo.m_eEpisodeKinds,
-			m_eTutorialKinds = stLevelEpisodeInfo.m_eTutorialKinds,
-
-			m_oRewardKindsList = new List<ERewardKinds>(),
-			m_oRecordValInfoList = new List<STValInfo>(),
-
-			m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>(),
-			m_oUnlockTargetInfoDict = new Dictionary<ulong, STTargetInfo>(),
-			m_oDropItemTargetInfoDict = new Dictionary<ulong, STTargetInfo>(),
-			m_oEnemyObjTargetInfoDict = new Dictionary<ulong, STTargetInfo>()
-		};
-
-		stLevelEpisodeInfo.m_oRewardKindsList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRewardKindsList, (a_eRewardKinds) => a_eRewardKinds, true, false);
-		stLevelEpisodeInfo.m_oRecordValInfoList?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oRecordValInfoList, (a_stRecordValInfo) => a_stRecordValInfo, true, false);
-
-		stLevelEpisodeInfo.m_oClearTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, true, false);
-		stLevelEpisodeInfo.m_oUnlockTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oUnlockTargetInfoDict, (a_stUnlockTargetInfo) => a_stUnlockTargetInfo, true, false);
-		stLevelEpisodeInfo.m_oDropItemTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oDropItemTargetInfoDict, (a_stDropItemTargetInfo) => a_stDropItemTargetInfo, true, false);
-		stLevelEpisodeInfo.m_oEnemyObjTargetInfoDict?.ExCopyTo(stReplaceLevelEpisodeInfo.m_oEnemyObjTargetInfoDict, (a_stEnemyObjTargetInfo) => a_stEnemyObjTargetInfo, true, false);
-
-		CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.ExReplaceVal(a_oLevelInfo.m_stIDInfo.UniqueID01, stReplaceLevelEpisodeInfo);
-
+		
 #if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, null, false, false);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
