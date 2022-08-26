@@ -106,13 +106,11 @@ public partial class CSyncPopup : CSubPopup {
 			CGameInfoStorage.Inst.ResetGameInfo(oGameInfoStr);
 			CGameInfoStorage.Inst.SaveGameInfo();
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonAppInfoStorage.Inst.ResetAppInfo(oCommonAppInfoStr);
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
 
 			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfoStr);
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if ADS_MODULE_ENABLE
 			// 광고 제거 상품을 결제했을 경우

@@ -77,10 +77,8 @@ namespace TitleScene {
 		private void UpdateFirstStartState() {
 			LogFunc.SendLaunchLog();
 			LogFunc.SendSplashLog();
-			
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+
 			CCommonAppInfoStorage.Inst.IsFirstStart = false;
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			
 #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
@@ -89,10 +87,8 @@ namespace TitleScene {
 
 		/** 최초 플레이 상태를 갱신한다 */
 		private void UpdateFirstPlayState() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay = false;
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 			// 약관 동의 팝업이 닫혔을 경우
 			if(CAppInfoStorage.Inst.IsCloseAgreePopup) {

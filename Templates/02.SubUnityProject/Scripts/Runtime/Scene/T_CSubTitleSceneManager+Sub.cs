@@ -38,12 +38,6 @@ namespace TitleScene {
 
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_TITLE_01);
 
-				// 로그인 되었을 경우
-				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
-					this.OnLogin(CUserInfoStorage.Inst.UserInfo.LoginType, true);
-				}
-
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				// 최초 시작 일 경우
 				if(CCommonAppInfoStorage.Inst.IsFirstStart) {
 					this.UpdateFirstStartState();
@@ -53,7 +47,11 @@ namespace TitleScene {
 				if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
 					this.UpdateFirstPlayState();
 				}
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+
+				// 로그인 되었을 경우
+				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
+					this.OnLogin(CUserInfoStorage.Inst.UserInfo.LoginType, true);
+				}
 			}
 		}
 
@@ -98,13 +96,11 @@ namespace TitleScene {
 
 		/** 씬을 설정한다 */
 		private void StartSetup() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 업데이트가 가능 할 경우
 			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
 				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
 				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 			}
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 			#region 추가
 			this.SubStartSetup();
@@ -249,11 +245,9 @@ namespace TitleScene {
 		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				for(int i = 0; i < m_oVerInfos.Count; ++i) {
 					CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.ExReplaceVal(m_oVerInfos[i][KCDefine.U_KEY_NAME], System.Version.Parse(m_oVerInfos[i][KCDefine.U_KEY_VER]));
-				}				
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+				}
 
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 			}

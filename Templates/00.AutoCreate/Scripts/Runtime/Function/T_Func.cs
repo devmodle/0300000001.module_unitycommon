@@ -135,9 +135,7 @@ public static partial class Func {
 	#region 클래스 함수
 	/** 문자열 테이블을 설정한다 */
 	public static void SetupStrTable() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		Func.SetupStrTable(CCommonAppInfoStorage.Inst.CountryCode, CCommonAppInfoStorage.Inst.SystemLanguage);
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 문자열 테이블을 설정한다 */
@@ -629,18 +627,13 @@ public static partial class Func {
 
 		// 로그인 되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
-			var oNodeList = Factory.MakeUserInfoNodes();
-
 			var oJSONNode = new SimpleJSON.JSONClass();
 			oJSONNode.Add(KCDefine.B_KEY_JSON_USER_INFO_DATA, CUserInfoStorage.Inst.UserInfo.ExToMsgPackBase64Str());
 			oJSONNode.Add(KCDefine.B_KEY_JSON_GAME_INFO_DATA, CGameInfoStorage.Inst.GameInfo.ExToMsgPackBase64Str());
-
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_APP_INFO_DATA, CCommonAppInfoStorage.Inst.AppInfo.ExToMsgPackBase64Str());
 			oJSONNode.Add(KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA, CCommonUserInfoStorage.Inst.UserInfo.ExToMsgPackBase64Str());
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
-			CFirebaseManager.Inst.SaveDatas(oNodeList, oJSONNode.ToString(), Func.OnSaveUserInfo);
+			CFirebaseManager.Inst.SaveDatas(Factory.MakeUserInfoNodes(), oJSONNode.ToString(), Func.OnSaveUserInfo);
 		} else {
 			Func.OnSaveUserInfo(CFirebaseManager.Inst, false);
 		}

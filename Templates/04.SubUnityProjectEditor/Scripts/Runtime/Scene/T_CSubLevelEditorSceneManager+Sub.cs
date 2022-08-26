@@ -283,12 +283,9 @@ namespace LevelEditorScene {
 
 		/** 왼쪽 에디터 UI 상태를 갱신한다 */
 		private void UpdateLeftEditorUIsState() {
-			// 버튼을 설정한다 {
-#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+			// 버튼을 설정한다
 			m_oBtnDict.GetValueOrDefault(EKey.LE_UIS_A_SET_BTN)?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? Color.yellow : Color.white, false);
 			m_oBtnDict.GetValueOrDefault(EKey.LE_UIS_B_SET_BTN)?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? Color.yellow : Color.white, false);
-#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-			// 버튼을 설정한다 }
 
 			// 스크롤 뷰를 갱신한다
 			m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item1?.ExReloadData(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID01 - KCDefine.B_VAL_1_INT, false);

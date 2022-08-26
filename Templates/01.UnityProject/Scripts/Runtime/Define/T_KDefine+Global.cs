@@ -86,18 +86,6 @@ public static partial class KDefine {
 		m_nOrder = KCDefine.U_SORTING_O_OVERLAY_UIS, m_oLayer = KCDefine.U_SORTING_L_DEF
 	};
 
-	// 경로 {
-#if MSG_PACK_ENABLE
-	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
-	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
-	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
-#elif NEWTON_SOFT_JSON_MODULE_ENABLE
-	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.json";
-	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.json";
-	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.json";
-#endif			// #if MSG_PACK_ENABLE
-	// 경로 }
-
 	// 분석 {
 	public static readonly List<EAnalytics> G_ANALYTICS_LOG_ENABLE_LIST = new List<EAnalytics>() {
 		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER
@@ -110,6 +98,13 @@ public static partial class KDefine {
 	#endregion			// 런타임 상수
 
 	#region 조건부 상수
+#if MSG_PACK_ENABLE
+	// 경로
+	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
+	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
+	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
+#endif			// #if MSG_PACK_ENABLE
+
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	// 테이블
 	public static readonly Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>> G_KEY_TABLE_DICT_CONTAINER = new Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>>() {

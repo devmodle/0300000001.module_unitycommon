@@ -367,10 +367,8 @@ namespace LevelEditorScene {
 		private void OnReceiveEditorSetPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				CCommonUserInfoStorage.Inst.UserInfo.UserType = m_oUserTypeDict.GetValueOrDefault(EKey.SEL_USER_TYPE, EUserType.NONE);
 				CCommonUserInfoStorage.Inst.SaveUserInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if GOOGLE_SHEET_ENABLE
 				m_oTableSrcDict.ExReplaceVal(EKey.SEL_TABLE_SRC, ETableSrc.REMOTE);
@@ -783,7 +781,6 @@ namespace LevelEditorScene {
 #if AB_TEST_ENABLE
 		/** 왼쪽 에디터 UI 세트 버튼을 눌렀을 경우 */
 		private void OnTouchLEUIsSetBtn(Button a_oSender) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			var eUserType = (a_oSender == m_oBtnDict.GetValueOrDefault(EKey.LE_UIS_A_SET_BTN)) ? EUserType.A : EUserType.B;
 
 			// 유저 타입이 다를 경우
@@ -797,7 +794,6 @@ namespace LevelEditorScene {
 					Func.ShowEditorBSetPopup(this.OnReceiveEditorSetPopupResult);
 				}
 			}
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 #endif			// #if AB_TEST_ENABLE
 #endif			// #if UNITY_STANDALONE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)

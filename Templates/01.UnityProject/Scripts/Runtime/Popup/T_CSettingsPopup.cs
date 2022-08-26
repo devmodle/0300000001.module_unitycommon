@@ -32,30 +32,24 @@ public partial class CSettingsPopup : CSubPopup {
 	
 	/** 배경음 버튼을 눌렀을 경우 */
 	private void OnTouchBGSndBtn() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd = !CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		this.UpdateUIsState();
 	}
 
 	/** 효과음 버튼을 눌렀을 경우 */
 	private void OnTouchFXSndsBtn() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds = !CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		this.UpdateUIsState();
 	}
 
 	/** 진동 버튼을 눌렀을 경우 */
 	private void OnTouchVibrateBtn() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate = !CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		this.UpdateUIsState();
 		CSndManager.Inst.Vibrate(KCDefine.U_DURATION_HEAVY_VIBRATE);
@@ -63,10 +57,8 @@ public partial class CSettingsPopup : CSubPopup {
 
 	/** 알림 버튼을 눌렀을 경우 */
 	private void OnTouchNotiBtn() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti = !CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		
 		this.UpdateUIsState();
 	}

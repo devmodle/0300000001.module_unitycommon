@@ -60,10 +60,8 @@ namespace TitleScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT)?.ExSetText(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT)?.transform.SetAsLastSibling();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			}
 		}
 		

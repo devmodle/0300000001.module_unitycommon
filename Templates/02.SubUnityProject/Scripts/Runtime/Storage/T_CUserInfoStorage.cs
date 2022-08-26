@@ -9,7 +9,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using MessagePack;
-using Newtonsoft.Json;
 
 /** 타겟 정보 */
 [Union(0, typeof(CItemTargetInfo))]
@@ -20,8 +19,8 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	[Key(1)] public STIdxInfo m_stIdxInfo = STIdxInfo.INVALID;
 	[Key(131)] public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
-	[JsonIgnore][IgnoreMember][System.NonSerialized] public CTargetInfo m_oOwnerTargetInfo = null;
-	[JsonIgnore][IgnoreMember][System.NonSerialized] public Dictionary<ETargetType, List<CTargetInfo>> m_oOwnedTargetInfoDictContainer = new Dictionary<ETargetType, List<CTargetInfo>>();
+	[IgnoreMember][System.NonSerialized] public CTargetInfo m_oOwnerTargetInfo = null;
+	[IgnoreMember][System.NonSerialized] public Dictionary<ETargetType, List<CTargetInfo>> m_oOwnedTargetInfoDictContainer = new Dictionary<ETargetType, List<CTargetInfo>>();
 	#endregion			// 변수
 
 	#region 상수
@@ -32,13 +31,13 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public string Name { get { return m_oStrDict.GetValueOrDefault(KEY_NAME, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_NAME, value); } }
-	[JsonIgnore][IgnoreMember] public string GUID { get { return m_oStrDict.GetValueOrDefault(KEY_GUID, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_GUID, value); } }
-	[JsonIgnore][IgnoreMember] public string OwnerGUID { get { return m_oStrDict.GetValueOrDefault(KEY_OWNER_GUID, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_GUID, value); } }
-	[JsonIgnore][IgnoreMember] public ETargetType OwnerTargetType { get { return (ETargetType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TARGET_TYPE, $"{(int)ETargetType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_TARGET_TYPE, $"{(int)value}"); } }
+	[IgnoreMember] public string Name { get { return m_oStrDict.GetValueOrDefault(KEY_NAME, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_NAME, value); } }
+	[IgnoreMember] public string GUID { get { return m_oStrDict.GetValueOrDefault(KEY_GUID, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_GUID, value); } }
+	[IgnoreMember] public string OwnerGUID { get { return m_oStrDict.GetValueOrDefault(KEY_OWNER_GUID, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_GUID, value); } }
+	[IgnoreMember] public ETargetType OwnerTargetType { get { return (ETargetType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TARGET_TYPE, $"{(int)ETargetType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OWNER_TARGET_TYPE, $"{(int)value}"); } }
 
-	[JsonIgnore][IgnoreMember] public abstract int Kinds { get; }
-	[JsonIgnore][IgnoreMember] public abstract ETargetType TargetType { get; }
+	[IgnoreMember] public abstract int Kinds { get; }
+	[IgnoreMember] public abstract ETargetType TargetType { get; }
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -83,11 +82,11 @@ public partial class CItemTargetInfo : CTargetInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public EItemKinds ItemKinds { get { return (EItemKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); } }
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	[IgnoreMember] public EItemKinds ItemKinds { get { return (EItemKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); } }
+	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 
-	[JsonIgnore][IgnoreMember] public override int Kinds => (int)this.ItemKinds;
-	[JsonIgnore][IgnoreMember] public override ETargetType TargetType => ETargetType.ITEM;
+	[IgnoreMember] public override int Kinds => (int)this.ItemKinds;
+	[IgnoreMember] public override ETargetType TargetType => ETargetType.ITEM;
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -128,11 +127,11 @@ public partial class CSkillTargetInfo : CTargetInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public ESkillKinds SkillKinds { get { return (ESkillKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); } }
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	[IgnoreMember] public ESkillKinds SkillKinds { get { return (ESkillKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); } }
+	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 
-	[JsonIgnore][IgnoreMember] public override int Kinds => (int)this.SkillKinds;
-	[JsonIgnore][IgnoreMember] public override ETargetType TargetType => ETargetType.SKILL;
+	[IgnoreMember] public override int Kinds => (int)this.SkillKinds;
+	[IgnoreMember] public override ETargetType TargetType => ETargetType.SKILL;
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -174,11 +173,11 @@ public partial class CObjTargetInfo : CTargetInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public EObjKinds ObjKinds { get { return (EObjKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); } }
-	[JsonIgnore][IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	[IgnoreMember] public EObjKinds ObjKinds { get { return (EObjKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); } }
+	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 
-	[JsonIgnore][IgnoreMember] public override int Kinds => (int)this.ObjKinds;
-	[JsonIgnore][IgnoreMember] public override ETargetType TargetType => ETargetType.OBJ;
+	[IgnoreMember] public override int Kinds => (int)this.ObjKinds;
+	[IgnoreMember] public override ETargetType TargetType => ETargetType.OBJ;
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -225,8 +224,8 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public int SelItemSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_ITEM_SET_IDX, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_SEL_ITEM_SET_IDX, $"{value}"); } }
-	[JsonIgnore][IgnoreMember] public int SelSkillSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_SKILL_SET_IDX, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_SEL_SKILL_SET_IDX, $"{value}"); } }
+	[IgnoreMember] public int SelItemSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_ITEM_SET_IDX, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_SEL_ITEM_SET_IDX, $"{value}"); } }
+	[IgnoreMember] public int SelSkillSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_SKILL_SET_IDX, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_SEL_SKILL_SET_IDX, $"{value}"); } }
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -289,8 +288,8 @@ public partial class CUserInfo : CBaseInfo {
 	#endregion			// 상수
 
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public ELoginType LoginType { get { return (ELoginType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_LOGIN_TYPE, $"{(int)ELoginType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_LOGIN_TYPE, $"{(int)value}"); } }
-	[JsonIgnore][IgnoreMember] public System.Version AbilityTargetInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_TARGET_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_ABILITY_TARGET_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	[IgnoreMember] public ELoginType LoginType { get { return (ELoginType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_LOGIN_TYPE, $"{(int)ELoginType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_LOGIN_TYPE, $"{(int)value}"); } }
+	[IgnoreMember] public System.Version AbilityTargetInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_TARGET_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_ABILITY_TARGET_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	#endregion			// 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -457,42 +456,37 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 유저 정보를 로드한다 */
 	public CUserInfo LoadUserInfo() {
-#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
+#if MSG_PACK_ENABLE
 		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
 #else
 		return null;
-#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 유저 정보를 로드한다 */
 	public CUserInfo LoadUserInfo(string a_oFilePath) {
+#if MSG_PACK_ENABLE
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
-#if MSG_PACK_ENABLE
 			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, true);
-#elif NEWTON_SOFT_JSON_MODULE_ENABLE
-			this.UserInfo = CFunc.ReadJSONObj<CUserInfo>(a_oFilePath, true);
-#endif			// #if MSG_PACK_ENABLE
-
 			CAccess.Assert(this.UserInfo != null);
 		}
+#endif			// #if MSG_PACK_ENABLE
 
 		return this.UserInfo;
 	}
 
 	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo() {
-#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
+#if MSG_PACK_ENABLE
 		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
-#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo(string a_oFilePath) {
 #if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, true);
-#elif NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteJSONObj(a_oFilePath, this.UserInfo, true);
 #endif			// #if MSG_PACK_ENABLE
 	}
 

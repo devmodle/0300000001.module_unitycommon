@@ -8,8 +8,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-using Newtonsoft.Json;
-
 /** 에피소드 정보 */
 [System.Serializable]
 public struct STEpisodeInfo {

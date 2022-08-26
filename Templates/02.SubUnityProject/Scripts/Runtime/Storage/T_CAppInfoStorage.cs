@@ -8,7 +8,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using MessagePack;
-using Newtonsoft.Json;
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 using GoogleSheetsToUnity;
@@ -19,7 +18,7 @@ using GoogleSheetsToUnity;
 public partial class CAppInfo : CBaseInfo {
 	#region 변수
 	[Key(141)] public Dictionary<string, string> m_oTableVerDict = new Dictionary<string, string>();
-	[JsonIgnore][IgnoreMember][System.NonSerialized] public Dictionary<string, System.Version> m_oTableSysVerDict = new Dictionary<string, System.Version>();
+	[IgnoreMember][System.NonSerialized] public Dictionary<string, System.Version> m_oTableSysVerDict = new Dictionary<string, System.Version>();
 	#endregion			// 변수
 
 	#region 상수
@@ -31,8 +30,8 @@ public partial class CAppInfo : CBaseInfo {
 
 	#region 프로퍼티
 #if ADS_MODULE_ENABLE
-	[JsonIgnore][IgnoreMember] public int RewardAdsWatchTimes { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_REWARD_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_REWARD_ADS_WATCH_TIMES, $"{value}"); } }
-	[JsonIgnore][IgnoreMember] public int FullscreenAdsWatchTimes { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FULLSCREEN_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_FULLSCREEN_ADS_WATCH_TIMES, $"{value}"); } }
+	[IgnoreMember] public int RewardAdsWatchTimes { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_REWARD_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_REWARD_ADS_WATCH_TIMES, $"{value}"); } }
+	[IgnoreMember] public int FullscreenAdsWatchTimes { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FULLSCREEN_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_FULLSCREEN_ADS_WATCH_TIMES, $"{value}"); } }
 #endif			// #if ADS_MODULE_ENABLE
 	#endregion			// 프로퍼티
 
@@ -119,42 +118,37 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 함수
 	/** 앱 정보를 로드한다 */
 	public CAppInfo LoadAppInfo() {
-#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
+#if MSG_PACK_ENABLE
 		return this.LoadAppInfo(KDefine.G_DATA_P_APP_INFO);
 #else
 		return null;
-#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 앱 정보를 로드한다 */
 	public CAppInfo LoadAppInfo(string a_oFilePath) {
+#if MSG_PACK_ENABLE
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
-#if MSG_PACK_ENABLE
 			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath, true);
-#elif NEWTON_SOFT_JSON_MODULE_ENABLE
-			this.AppInfo = CFunc.ReadJSONObj<CAppInfo>(a_oFilePath, true);
-#endif			// #if MSG_PACK_ENABLE
-
 			CAccess.Assert(this.AppInfo != null);
 		}
+#endif			// #if MSG_PACK_ENABLE
 
 		return this.AppInfo;
 	}
 
 	/** 앱 정보를 저장한다 */
 	public void SaveAppInfo() {
-#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
+#if MSG_PACK_ENABLE
 		this.SaveAppInfo(KDefine.G_DATA_P_APP_INFO);
-#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 앱 정보를 저장한다 */
 	public void SaveAppInfo(string a_oFilePath) {
 #if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo, true);
-#elif NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteJSONObj(a_oFilePath, this.AppInfo, true);
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수

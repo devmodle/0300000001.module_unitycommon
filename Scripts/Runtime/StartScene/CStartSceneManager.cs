@@ -26,10 +26,8 @@ namespace StartScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				CCommonAppInfoStorage.Inst.AddAppRunningTimes(KCDefine.B_VAL_1_INT);
 				CCommonAppInfoStorage.Inst.SaveAppInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			}
 		}
 

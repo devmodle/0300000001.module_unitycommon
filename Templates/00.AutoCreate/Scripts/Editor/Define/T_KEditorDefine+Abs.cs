@@ -36,11 +36,9 @@ public static partial class KEditorDefine {
 		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CCommonGameInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
 		[typeof(InitScene.CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,

@@ -21,7 +21,7 @@ public static partial class LogFunc {
 	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataDict) {
 		// 로그 전송이 가능 할 경우
 		if(LogFunc.IsEnableSendLog(a_oName)) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
+#if ANALYTICS_TEST_ENABLE
 			var oDataDict = LogFunc.MakeLogDatas(a_oDataDict);
 			CCommonAppInfoStorage.Inst.AppInfo.m_oSendLogList.ExAddVal(a_oName);
 
@@ -45,7 +45,7 @@ public static partial class LogFunc {
 				CAppsFlyerManager.Inst.SendLog(a_oName, oDataDict.ExToTypes<string, object, string, string>());
 			}
 #endif			// #if APPS_FLYER_MODULE_ENABLE
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
+#endif			// #if ANALYTICS_TEST_ENABLE
 
 			LogFunc.m_oLogTimeDict.ExReplaceVal(a_oName, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 		}
@@ -64,16 +64,13 @@ public static partial class LogFunc {
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_DEVICE_ID, CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_LOG_TIME, System.DateTime.UtcNow.ExToLongStr());
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_SHORT_LOG_TIME, System.DateTime.UtcNow.ExToShortStr());
+		oDataDict.TryAdd(KCDefine.L_LOG_KEY_INSTALL_TIME, CCommonAppInfoStorage.Inst.AppInfo.UTCInstallTime.ExToLongStr());
 
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_USER_TYPE, KCDefine.B_TEXT_UNKNOWN);
 #else
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_USER_TYPE, CCommonUserInfoStorage.Inst.UserInfo.UserType.ToString());
 #endif			// #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_INSTALL_TIME, CCommonAppInfoStorage.Inst.AppInfo.UTCInstallTime.ExToLongStr());
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 		return oDataDict;
 	}
@@ -93,7 +90,7 @@ public static partial class LogFunc {
 	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VAL_1_INT) {
 		// 로그 전송이 가능 할 경우
 		if(LogFunc.IsEnableSendLog(KDefine.L_LOG_N_PURCHASE)) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
+#if ANALYTICS_TEST_ENABLE
 			var oDataDict = LogFunc.MakeLogDatas(null);
 
 #if FLURRY_MODULE_ENABLE
@@ -116,7 +113,7 @@ public static partial class LogFunc {
 				CAppsFlyerManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataDict.ExToTypes<string, object, string, string>());
 			}
 #endif			// #if APPS_FLYER_MODULE_ENABLE
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE && ANALYTICS_TEST_ENABLE
+#endif			// #if ANALYTICS_TEST_ENABLE
 
 			LogFunc.m_oLogTimeDict.ExReplaceVal(KDefine.L_LOG_N_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 		}

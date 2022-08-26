@@ -584,13 +584,11 @@ public static partial class Func {
 
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stProductTradeInfo.m_oAcquireTargetInfoDict);
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 비소모 상품 일 경우
 			if(oProduct != null && oProduct.definition.type == ProductType.NonConsumable && !CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductID)) {
 				CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductID);
 				CCommonUserInfoStorage.Inst.SaveUserInfo();
 			}
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 	}
 
@@ -598,7 +596,6 @@ public static partial class Func {
 	public static void AcquireRestoreProducts(List<Product> a_oProductList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oProductList != null);
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 		// 상품이 존재 할 경우
 		if(a_oProductList != null) {
 			for(int i = 0; i < a_oProductList.Count; ++i) {
@@ -614,7 +611,6 @@ public static partial class Func {
 
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
 		}
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 	#endregion			// 조건부 클래스 함수

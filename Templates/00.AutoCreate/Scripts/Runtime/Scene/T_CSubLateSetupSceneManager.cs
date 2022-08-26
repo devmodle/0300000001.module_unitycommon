@@ -49,7 +49,6 @@ namespace LateSetupScene {
 
 		/** 추적 설명 팝업을 출력한다 */
 		protected override void ShowTrackingDescPopup() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 추적 설명 팝업 출력이 가능 할 경우
 			if(CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup) {
 				var oTrackingDescPopup = CPopup.Create<CTrackingDescPopup>(KCDefine.LSS_OBJ_N_TRACKING_DESC_POPUP, KCDefine.LSS_OBJ_P_TRACKING_DESC_POPUP, this.PopupUIs);
@@ -62,14 +61,10 @@ namespace LateSetupScene {
 			} else {
 				this.OnReceiveTrackingDescPopupResult(null);
 			}
-#else
-			this.OnReceiveTrackingDescPopupResult(null);
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 		}
 
 		/** 씬을 설정한다 */
 		private void AwakeSetup() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_EDITOR
 			// 유저 타입이 유효 할 경우
 			if(m_eUserType.ExIsValid()) {
@@ -88,7 +83,6 @@ namespace LateSetupScene {
 #endif			// #if AB_TEST_ENABLE
 			}
 #endif			// #if UNITY_EDITOR
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
 			this.UserPermissionList.ExAddVal(Permission.ExternalStorageRead);

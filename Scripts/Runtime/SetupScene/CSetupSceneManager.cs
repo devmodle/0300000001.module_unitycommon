@@ -74,7 +74,6 @@ namespace SetupScene {
 
 		/** 디바이스 식별자 반환 메세지를 수신했을 경우 */
 		private void OnReceiveGetDeviceIDMsg(string a_oMsg) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonAppInfoStorage.Inst.DeviceType = CAccess.DeviceType;
 
 			// 디바이스 식별자 설정이 필요 할 경우
@@ -83,24 +82,20 @@ namespace SetupScene {
 			}
 			
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
 			CUnityMsgSender.Inst.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 		}
 
 		/** 국가 코드 반환 메세지를 수신했을 경우 */
 		private void OnReceiveGetCountryCodeMsg(string a_oMsg) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 #if UNITY_EDITOR
 			CCommonAppInfoStorage.Inst.CountryCode = a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_KOREA_COUNTRY_CODE;
 #else
 			CCommonAppInfoStorage.Inst.CountryCode = a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_AMERICA_COUNTRY_CODE;
 #endif			// #if UNITY_EDITOR
 
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
 			CSceneManager.IsSetup = true;
+			CCommonAppInfoStorage.Inst.SaveAppInfo();
+			
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_AGREE);
 		}
 

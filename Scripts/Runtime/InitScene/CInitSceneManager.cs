@@ -62,13 +62,10 @@ namespace InitScene {
 			CValTable.Inst.LoadValsFromRes(KCDefine.U_TABLE_P_G_COMMON_VAL);
 			CStrTable.Inst.LoadStrsFromRes(KCDefine.U_TABLE_P_G_COMMON_STR);
 
-			// 저장소를 로드한다 {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+			// 저장소를 로드한다
 			CCommonAppInfoStorage.Inst.LoadAppInfo();
 			CCommonUserInfoStorage.Inst.LoadUserInfo();
 			CCommonGameInfoStorage.Inst.LoadGameInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			// 저장소를 로드한다 }
 			
 			// 사운드 관리자를 설정한다 {
 #if MODE_2D_ENABLE
@@ -91,14 +88,12 @@ namespace InitScene {
 			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(false);
 #endif			// #if MODE_2D_ENABLE
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CSndManager.Inst.SetBGSndVolume(CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume);
 			CSndManager.Inst.SetFXSndsVolume(CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume);
 
 			CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
 			CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
 			CSndManager.Inst.SetIsDisableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate);
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			// 사운드 관리자를 설정한다 }
 
 #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
@@ -231,13 +226,10 @@ namespace InitScene {
 #endif			// #if PURCHASE_MODULE_ENABLE
 			// 테이블을 생성한다 }
 
-			// 저장소를 생성한다 {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+			// 저장소를 생성한다
 			CCommonAppInfoStorage.Create();
 			CCommonUserInfoStorage.Create();
 			CCommonGameInfoStorage.Create();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-			// 저장소를 생성한다 }
 
 			this.Setup();
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);

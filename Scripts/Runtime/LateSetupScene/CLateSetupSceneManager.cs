@@ -114,12 +114,10 @@ namespace LateSetupScene {
 		private void OnCloseTrackingConsentView(bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnCloseTrackingConsentView: {a_bIsSuccess}");
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 			CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = a_bIsSuccess;
 			CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup = false;
 
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 			// 관리자 자동 초기화 모드 일 경우
 			if(this.IsAutoInitManager) {
@@ -254,12 +252,10 @@ namespace LateSetupScene {
 
 		/** 다음 씬을 로드한다 */
 		private void LoadNextScene() {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
-			CCommonAppInfoStorage.Inst.SetupStoreVer();
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
 			CSceneManager.IsLateSetup = true;
 			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_NEXT_SCENE, false);
+
+			CCommonAppInfoStorage.Inst.SetupStoreVer();
 
 			this.ExLateCallFunc((a_oSender) => {
 				// 기본 씬 일 경우
@@ -270,10 +266,7 @@ namespace LateSetupScene {
 					CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : KCDefine.B_SCENE_N_MAIN);
 #endif			// #if STUDY_MODULE_ENABLE
 				} else {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 					CCommonAppInfoStorage.Inst.IsFirstStart = false;
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
-
 					CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) ? KCDefine.B_SCENE_N_MAIN : CSceneLoader.Inst.AwakeActiveSceneName);
 				}
 			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
@@ -337,9 +330,7 @@ namespace LateSetupScene {
 
 			// 초기화 되었을 경우
 			if(a_bIsSuccess) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				CFlurryManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			}
 		}
 #endif			// #if FLURRY_MODULE_ENABLE
@@ -358,14 +349,12 @@ namespace LateSetupScene {
 
 			// 초기화 되었을 경우
 			if(a_bIsSuccess) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 				CFirebaseManager.Inst.SetCrashlyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 
 				CFirebaseManager.Inst.SetCrashlyticsDatas(new Dictionary<string, string>() {
 					[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 				});
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 				CFirebaseManager.Inst.LoadMsgToken(CLateSetupSceneManager.OnLoadFirebaseMsgToken);
 			}
@@ -384,9 +373,7 @@ namespace LateSetupScene {
 
 			// 초기화 되었을 경우
 			if(a_bIsSuccess) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
 				CAppsFlyerManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
 			}
 		}
 #endif			// #if APPS_FLYER_MODULE_ENABLE
