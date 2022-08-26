@@ -105,16 +105,6 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	#region 프로퍼티
 	public Dictionary<EAbilityKinds, STAbilityInfo> AbilityInfoDict { get; } = new Dictionary<EAbilityKinds, STAbilityInfo>();
 	public Dictionary<EAbilityKinds, STAbilityEnhanceInfo> AbilityEnhanceInfoDict { get; } = new Dictionary<EAbilityKinds, STAbilityEnhanceInfo>();
-
-	private string AbilityInfoTablePath {
-		get {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_ABILITY_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_ABILITY_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		}
-	}
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -167,7 +157,12 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	/** 어빌리티 정보를 로드한다 */
 	public Dictionary<EAbilityKinds, STAbilityInfo> LoadAbilityInfos() {
 		this.ResetAbilityInfos();
-		return this.LoadAbilityInfos(this.AbilityInfoTablePath);
+		return this.LoadAbilityInfos(Access.AbilityInfoTableLoadPath);
+	}
+
+	/** 어빌리티 정보를 저장한다 */
+	public void SaveAbilityInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 	/** JSON 노드를 설정한다 */
@@ -175,7 +170,7 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 		a_oOutAbilityInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutAbilityEnhanceInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.AbilityInfoTablePath)];
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.AbilityInfoTableLoadPath)];
 
 		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
 			a_oOutAbilityInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);

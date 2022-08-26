@@ -59,16 +59,6 @@ public struct STTutorialInfo {
 public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	#region 프로퍼티
 	public Dictionary<ETutorialKinds, STTutorialInfo> TutorialInfoDict { get; } = new Dictionary<ETutorialKinds, STTutorialInfo>();
-
-	private string TutorialInfoTablePath {
-		get {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_ETC_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		}
-	}
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -106,13 +96,18 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	/** 튜토리얼 정보를 로드한다 */
 	public Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos() {
 		this.ResetTutorialInfos();
-		return this.LoadTutorialInfos(this.TutorialInfoTablePath);
+		return this.LoadTutorialInfos(Access.TutorialInfoTableLoadPath);
+	}
+
+	/** 튜토리얼 정보를 저장한다 */
+	public void SaveTutorialInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutTutorialInfosList) {
 		a_oOutTutorialInfosList = new List<SimpleJSON.JSONNode>();
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.TutorialInfoTablePath)];
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.TutorialInfoTableLoadPath)];
 
 		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
 			a_oOutTutorialInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);

@@ -190,16 +190,6 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	public Dictionary<EObjKinds, STObjEnhanceInfo> ObjEnhanceInfoDict { get; } = new Dictionary<EObjKinds, STObjEnhanceInfo>();
 	public Dictionary<EObjKinds, STObjTradeInfo> BuyObjTradeInfoDict { get; } = new Dictionary<EObjKinds, STObjTradeInfo>();
 	public Dictionary<EObjKinds, STObjTradeInfo> SaleObjTradeInfoDict { get; } = new Dictionary<EObjKinds, STObjTradeInfo>();
-
-	private string ObjInfoTablePath {
-		get {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_OBJ_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_OBJ_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		}
-	}
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -282,7 +272,12 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	/** 객체 정보를 로드한다 */
 	public (Dictionary<EObjKinds, STObjInfo>, Dictionary<EObjKinds, STObjEnhanceInfo>, Dictionary<EObjKinds, STObjTradeInfo>, Dictionary<EObjKinds, STObjTradeInfo>) LoadObjInfos() {
 		this.ResetObjInfos();
-		return this.LoadObjInfos(this.ObjInfoTablePath);
+		return this.LoadObjInfos(Access.ObjInfoTableLoadPath);
+	}
+
+	/** 객체 정보를 저장한다 */
+	public void SaveObjInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 	/** JSON 노드를 설정한다 */
@@ -292,7 +287,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 		a_oOutBuyObjTradeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutSaleObjTradeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.ObjInfoTablePath)];
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.ObjInfoTableLoadPath)];
 
 		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
 			a_oOutObjInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);

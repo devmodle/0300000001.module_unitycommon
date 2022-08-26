@@ -196,24 +196,6 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	public Dictionary<ulong, STEpisodeInfo> LevelEpisodeInfoDict { get; } = new Dictionary<ulong, STEpisodeInfo>();
 	public Dictionary<ulong, STEpisodeInfo> StageEpisodeInfoDict { get; } = new Dictionary<ulong, STEpisodeInfo>();
 	public Dictionary<ulong, STEpisodeInfo> ChapterEpisodeInfoDict { get; } = new Dictionary<ulong, STEpisodeInfo>();
-
-	private string EpisodeInfoTablePath {
-		get {
-#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_A;
-#else
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_TABLE_P_G_ETC_INFO_SET_B : KCDefine.U_TABLE_P_G_ETC_INFO_SET_A;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-#else
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_ETC_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-		}
-	}
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -281,7 +263,12 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	/** 에피소드 정보를 로드한다 */
 	public List<object> LoadEpisodeInfos() {
 		this.ResetEpisodeInfos();
-		return this.LoadEpisodeInfos(this.EpisodeInfoTablePath);
+		return this.LoadEpisodeInfos(Access.EpisodeInfoTableLoadPath);
+	}
+
+	/** 에피소드 정보를 저장한다 */
+	public void SaveEpisodeInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 	/** JSON 노드를 설정한다 */
@@ -290,7 +277,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		a_oOutStageEpisodeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutChapterEpisodeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.EpisodeInfoTablePath)];
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.EpisodeInfoTableLoadPath)];
 
 		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_LEVEL].Count; ++i) {
 			a_oOutLevelEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_LEVEL][i]]);
@@ -365,16 +352,6 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		};
 	}
 	#endregion			// 함수
-
-	#region 조건부 함수
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-	/** 에피소드 정보를 저장한다 */
-	public void SaveEpisodeInfos(string a_oJSONStr) {
-		// Do Something
-	}
-
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion			// 조건부 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

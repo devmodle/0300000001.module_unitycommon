@@ -67,16 +67,6 @@ public struct STProductTradeInfo {
 public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable> {
 	#region 프로퍼티
 	public Dictionary<EProductKinds, STProductTradeInfo> BuyProductTradeInfoDict { get; } = new Dictionary<EProductKinds, STProductTradeInfo>();
-
-	private string ProductTradeInfoTablePath {
-		get {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_PRODUCT_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_PRODUCT_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		}
-	}
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -128,13 +118,18 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	/** 상품 교환 정보를 로드한다 */
 	public Dictionary<EProductKinds, STProductTradeInfo> LoadProductTradeInfos() {
 		this.ResetProductTradeInfos();
-		return this.LoadProductTradeInfos(this.ProductTradeInfoTablePath);
+		return this.LoadProductTradeInfos(Access.ProductTradeInfoTableLoadPath);
+	}
+
+	/** 상품 교환 정보를 저장한다 */
+	public void SaveProductTradeInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutBuyProductTradeInfosList) {
 		a_oOutBuyProductTradeInfosList = new List<SimpleJSON.JSONNode>();
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.ProductTradeInfoTablePath)];
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.ProductTradeInfoTableLoadPath)];
 
 		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
 			a_oOutBuyProductTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);

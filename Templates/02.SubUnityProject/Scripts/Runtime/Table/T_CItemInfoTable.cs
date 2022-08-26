@@ -172,16 +172,6 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	public Dictionary<EItemKinds, STItemEnhanceInfo> ItemEnhanceInfoDict { get; } = new Dictionary<EItemKinds, STItemEnhanceInfo>();
 	public Dictionary<EItemKinds, STItemTradeInfo> BuyItemTradeInfoDict { get; } = new Dictionary<EItemKinds, STItemTradeInfo>();
 	public Dictionary<EItemKinds, STItemTradeInfo> SaleItemTradeInfoDict { get; } = new Dictionary<EItemKinds, STItemTradeInfo>();
-
-	private string ItemInfoTablePath {
-		get {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_ITEM_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_ITEM_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		}
-	}
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -264,7 +254,12 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** 아이템 정보를 로드한다 */
 	public (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos() {
 		this.ResetItemInfos();
-		return this.LoadItemInfos(this.ItemInfoTablePath);
+		return this.LoadItemInfos(Access.ItemInfoTableLoadPath);
+	}
+
+	/** 아이템 정보를 저장한다 */
+	public void SaveItemInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 	/** JSON 노드를 설정한다 */
@@ -274,7 +269,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		a_oOutBuyItemTradeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutSaleItemTradeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.ItemInfoTablePath)];
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.ItemInfoTableLoadPath)];
 
 		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
 			a_oOutItemInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);

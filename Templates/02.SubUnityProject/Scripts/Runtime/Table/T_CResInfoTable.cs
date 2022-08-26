@@ -53,16 +53,6 @@ public struct STResInfo {
 public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	#region 프로퍼티
 	public Dictionary<EResKinds, STResInfo> ResInfoDict { get; } = new Dictionary<EResKinds, STResInfo>();
-
-	private string ResInfoTablePath {
-		get {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_RES_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_RES_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		}
-	}
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -100,13 +90,18 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	/** 리소스 정보를 로드한다 */
 	public Dictionary<EResKinds, STResInfo> LoadResInfos() {
 		this.ResetResInfos();
-		return this.LoadResInfos(this.ResInfoTablePath);
+		return this.LoadResInfos(Access.ResInfoTableLoadPath);
+	}
+
+	/** 리소스 정보를 저장한다 */
+	public void SaveResInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutResInfosList) {
 		a_oOutResInfosList = new List<SimpleJSON.JSONNode>();
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.ResInfoTablePath)];
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.ResInfoTableLoadPath)];
 
 		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
 			a_oOutResInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);

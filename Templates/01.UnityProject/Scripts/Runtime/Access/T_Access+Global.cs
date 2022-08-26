@@ -1,6 +1,7 @@
 ﻿#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +21,85 @@ public static partial class Access {
 		}
 	}
 	
+	public static string EtcInfoTableLoadPath {
+		get {
+#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+			string oTablePath = (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_A;
+			return File.Exists(oTablePath) ? oTablePath : (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_TABLE_P_G_ETC_INFO_SET_B : KCDefine.U_TABLE_P_G_ETC_INFO_SET_A;
+#else
+			return File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO : KCDefine.U_TABLE_P_G_ETC_INFO;
+#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+		}
+	}
+
+	public static string EtcInfoTableSavePath {
+		get {
+#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO_SET_A;
+#else
+			return KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO;
+#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+		}
+	}
+
+	public static string LevelInfoTableLoadPath {
+		get {
+#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+		string oTablePath = (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A;
+		return File.Exists(oTablePath) ? oTablePath : (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_A;
+#else
+		return File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO : KCDefine.U_TABLE_P_G_LEVEL_INFO;
+#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+		}
+	}
+
+	public static string LevelInfoTableSavePath {
+		get {
+#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+		return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A;
+#else
+		return KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO;
+#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+		}
+	}
+
 	public static string MoreAppsURL => string.Format(KCDefine.U_FMT_MORE_APPS_URL, CProjInfoTable.Inst.ProjInfo.m_oStoreAppID);
+
+	public static string CalcInfoTableLoadPath => Access.EtcInfoTableLoadPath;
+	public static string CalcInfoTableSavePath => Access.EtcInfoTableSavePath;
+
+	public static string MissionInfoTableLoadPath => File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_MISSION_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_MISSION_INFO : KCDefine.U_TABLE_P_G_MISSION_INFO;
+	public static string MissionInfoTableSavePath => KCDefine.U_RUNTIME_TABLE_P_G_MISSION_INFO;
+
+	public static string RewardInfoTableLoadPath => File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_REWARD_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_REWARD_INFO : KCDefine.U_TABLE_P_G_REWARD_INFO;
+	public static string RewardInfoTableSavePath => KCDefine.U_RUNTIME_TABLE_P_G_REWARD_INFO;
+
+	public static string EpisodeInfoTableLoadPath => Access.EtcInfoTableLoadPath;
+	public static string EpisodeInfoTableSavePath => Access.EtcInfoTableSavePath;
+
+	public static string TutorialInfoTableLoadPath => Access.EtcInfoTableLoadPath;
+	public static string TutorialInfoTableSavePath => Access.EtcInfoTableSavePath;
+
+	public static string ResInfoTableLoadPath => File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_RES_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_RES_INFO : KCDefine.U_TABLE_P_G_RES_INFO;
+	public static string ResInfoTableSavePath => KCDefine.U_RUNTIME_TABLE_P_G_RES_INFO;
+
+	public static string ItemInfoTableLoadPath => File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_ITEM_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_ITEM_INFO : KCDefine.U_TABLE_P_G_ITEM_INFO;
+	public static string ItemInfoTableSavePath => KCDefine.U_RUNTIME_TABLE_P_G_ITEM_INFO;
+
+	public static string SkillInfoTableLoadPath => File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_SKILL_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_SKILL_INFO : KCDefine.U_TABLE_P_G_SKILL_INFO;
+	public static string SkillInfoTableSavePath => KCDefine.U_RUNTIME_TABLE_P_G_SKILL_INFO;
+
+	public static string ObjInfoTableLoadPath => File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_OBJ_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_OBJ_INFO : KCDefine.U_TABLE_P_G_OBJ_INFO;
+	public static string ObjInfoTableSavePath => KCDefine.U_RUNTIME_TABLE_P_G_OBJ_INFO;
+	
+	public static string FXInfoTableLoadPath => Access.EtcInfoTableLoadPath;
+	public static string FXInfoTableSavePath => Access.EtcInfoTableSavePath;
+
+	public static string AbilityInfoTableLoadPath => File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_ABILITY_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_ABILITY_INFO : KCDefine.U_TABLE_P_G_ABILITY_INFO;
+	public static string AbilityInfoTableSavePath => KCDefine.U_RUNTIME_TABLE_P_G_ABILITY_INFO;
+
+	public static string ProductTradeInfoTableLoadPath => CAccess.ProductInfoTableLoadPath;
+	public static string ProductTradeInfoTableSavePath => CAccess.ProductInfoTableSavePath;
 	#endregion			// 클래스 프로퍼티
 
 	#region 클래스 함수

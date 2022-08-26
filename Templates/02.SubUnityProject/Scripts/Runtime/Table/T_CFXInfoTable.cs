@@ -54,16 +54,6 @@ public struct STFXInfo {
 public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	#region 프로퍼티
 	public Dictionary<EFXKinds, STFXInfo> FXInfoDict { get; } = new Dictionary<EFXKinds, STFXInfo>();
-
-	private string FXInfoTablePath {
-		get {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_ETC_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_ETC_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		}
-	}
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -101,13 +91,18 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	/** 효과 정보를 로드한다 */
 	public Dictionary<EFXKinds, STFXInfo> LoadFXInfos() {
 		this.ResetFXInfos();
-		return this.LoadFXInfos(this.FXInfoTablePath);
+		return this.LoadFXInfos(Access.FXInfoTableLoadPath);
+	}
+
+	/** 효과 정보를 저장한다 */
+	public void SaveFXInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutFXInfosList) {
 		a_oOutFXInfosList = new List<SimpleJSON.JSONNode>();
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.FXInfoTablePath)];
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.FXInfoTableLoadPath)];
 
 		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
 			a_oOutFXInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);

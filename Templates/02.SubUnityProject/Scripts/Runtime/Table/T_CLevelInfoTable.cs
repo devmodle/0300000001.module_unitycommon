@@ -1,6 +1,7 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -74,12 +75,13 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion			// 변수
 	
 	#region 프로퍼티
-	[JsonIgnore][IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
-	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
-	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; private set; } = new Dictionary<ulong, STTargetInfo>();
-	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; private set; } = new Dictionary<ulong, STTargetInfo>();
-
 	[JsonIgnore][IgnoreMember] public System.Version CellInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	
+	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
+	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
+	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
+
+	[JsonIgnore][IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	#endregion			// 프로퍼티
 
 	#region ICloneable
@@ -104,25 +106,14 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		base.OnAfterDeserialize();
 		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, STCellInfo>>();
 
-		// 셀 개수를 설정한다 {
-		var stNumCells = new Vector3Int(KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
-
-		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
-			stNumCells.x = Mathf.Max(stNumCells.x, m_oCellInfoDictContainer[i].Count);
-		}
-
-		this.NumCells = stNumCells;
-		// 셀 개수를 설정한다 }
-
 		// 셀을 설정한다 {
-		this.ClearTargetInfoDict = this.ClearTargetInfoDict ?? new Dictionary<ulong, STTargetInfo>();
-		this.UnlockTargetInfoDict = this.UnlockTargetInfoDict ?? new Dictionary<ulong, STTargetInfo>();
+		this.NumCells = new Vector3Int(m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count), m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
 
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
 				var stCellInfo = m_oCellInfoDictContainer[i][j];
 				this.SetupCellInfo(new Vector3Int(j, i, KCDefine.B_VAL_0_INT), ref stCellInfo);
-
+				
 				m_oCellInfoDictContainer[i][j] = stCellInfo;
 			}
 		}
@@ -194,24 +185,6 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 프로퍼티
 	public Dictionary<int, Dictionary<int, int>> NumLevelInfosDictContainer = new Dictionary<int, Dictionary<int, int>>();
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LevelInfoDictContainer = new Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>>();
-
-	public string LevelInfoTablePath {
-		get {
-#if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A;
-#else
-			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_A;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-#else
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_LEVEL_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-#endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-		}
-	}
 	
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	public int TotalNumLevelInfos {
@@ -306,30 +279,35 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보를 로드한다 */
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos() {
-		return this.LoadLevelInfos(this.LevelInfoTablePath);
+		return this.LoadLevelInfos(Access.LevelInfoTableLoadPath);
+	}
+
+	/** 레벨 정보를 저장한다 */
+	public void SaveLevelInfos() {
+		var oLevelIDList = new List<ulong>();
+		string oFilePath = Access.LevelInfoTableLoadPath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
+
+		for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
+			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
+				for(int k = 0; k < this.LevelInfoDictContainer[i][j].Count; ++k) {
+					this.LevelInfoDictContainer[i][j][k].m_stIDInfo = CFactory.MakeIDInfo(k, j, i);
+					this.SaveLevelInfo(this.LevelInfoDictContainer[i][j][k], oLevelIDList);
+				}
+			}
+		}
+
+		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, null, false, false);
 	}
 
 	/** 레벨 정보 경로를 반환한다 */
 	private string GetLevelInfoPath(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		ulong nULevelID = CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID);
 
-#if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
 #else
-		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-#else
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 		return string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
-#else
-		return string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if AB_TEST_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-#else
-		return null;
-#endif			// #if MSG_PACK_ENABLE || NEWTON_SOFT_JSON_MODULE_ENABLE
 	}
 
 	/** 레벨 정보를 로드한다 */
@@ -338,17 +316,9 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CLevelInfo oLevelInfo = null;
 
 #if MSG_PACK_ENABLE
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		oLevelInfo = CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, null, false);
-#else
-		oLevelInfo = CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, null, false);
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, null, false) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, null, false);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		oLevelInfo = CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, null, false);
-#else
-		oLevelInfo = CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, null, false);
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, null, false) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, null, false);
 #endif			// #if MSG_PACK_ENABLE
 
 		oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(a_nLevelID, a_nStageID, a_nChapterID);
@@ -395,6 +365,18 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		}
 
 		return this.LevelInfoDictContainer;
+	}
+
+	/** 레벨 정보를 저장한다 */
+	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<ulong> a_oOutLevelIDList) {
+		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
+		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
+		
+#if MSG_PACK_ENABLE
+		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, null, false, false);
+#elif NEWTON_SOFT_JSON_MODULE_ENABLE
+		CFunc.WriteJSONObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, null, false, false, false, false);
+#endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
 
@@ -620,35 +602,6 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		}
 
 		this.LevelInfoDictContainer.ExReplaceVal(a_nDestID, oSrcChapterLevelInfoDict);
-	}
-
-	/** 레벨 정보를 저장한다 */
-	public void SaveLevelInfos() {
-		var oLevelIDList = new List<ulong>();
-		string oFilePath = this.LevelInfoTablePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
-
-		for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
-			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
-				for(int k = 0; k < this.LevelInfoDictContainer[i][j].Count; ++k) {
-					this.LevelInfoDictContainer[i][j][k].m_stIDInfo = CFactory.MakeIDInfo(k, j, i);
-					this.SaveLevelInfo(this.LevelInfoDictContainer[i][j][k], oLevelIDList);
-				}
-			}
-		}
-
-		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, null, false, false);
-	}
-
-	/** 레벨 정보를 저장한다 */
-	private void SaveLevelInfo(CLevelInfo a_oLevelInfo, List<ulong> a_oOutLevelIDList) {
-		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
-		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
-		
-#if MSG_PACK_ENABLE
-		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, null, false, false);
-#elif NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteJSONObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, null, false, false, false, false);
-#endif			// #if MSG_PACK_ENABLE
 	}
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 함수

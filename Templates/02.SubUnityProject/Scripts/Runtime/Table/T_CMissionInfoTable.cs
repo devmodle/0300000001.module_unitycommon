@@ -52,16 +52,6 @@ public struct STMissionInfo {
 public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	#region 프로퍼티
 	public Dictionary<EMissionKinds, STMissionInfo> MissionInfoDict { get; } = new Dictionary<EMissionKinds, STMissionInfo>();
-
-	private string MissionInfoTablePath {
-		get {
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-			return KCDefine.U_RUNTIME_TABLE_P_G_MISSION_INFO;
-#else
-			return KCDefine.U_TABLE_P_G_MISSION_INFO;
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		}
-	}
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -99,13 +89,18 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	/** 미션 정보를 로드한다 */
 	public Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos() {
 		this.ResetMissionInfos();
-		return this.LoadMissionInfos(this.MissionInfoTablePath);
+		return this.LoadMissionInfos(Access.MissionInfoTableLoadPath);
+	}
+
+	/** 미션 정보를 저장한다 */
+	public void SaveMissionInfos(string a_oJSONStr) {
+		// Do Something
 	}
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutMissionInfosList) {
 		a_oOutMissionInfosList = new List<SimpleJSON.JSONNode>();
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(this.MissionInfoTablePath)];
+		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.MissionInfoTableLoadPath)];
 
 		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
 			a_oOutMissionInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
