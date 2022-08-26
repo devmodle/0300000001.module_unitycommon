@@ -76,12 +76,11 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	
 	#region 프로퍼티
 	[JsonIgnore][IgnoreMember] public System.Version CellInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
-	
-	[JsonIgnore][IgnoreMember] public Vector3Int NumCells { get; private set; } = Vector3Int.zero;
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 
 	[JsonIgnore][IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
+	[JsonIgnore][IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
 	#endregion			// 프로퍼티
 
 	#region ICloneable
@@ -106,9 +105,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		base.OnAfterDeserialize();
 		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, STCellInfo>>();
 
-		// 셀을 설정한다 {
-		this.NumCells = new Vector3Int(m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count), m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
-
+		// 셀을 설정한다
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
 				var stCellInfo = m_oCellInfoDictContainer[i][j];
@@ -117,7 +114,6 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 				m_oCellInfoDictContainer[i][j] = stCellInfo;
 			}
 		}
-		// 셀을 설정한다 }
 
 		// 버전이 다를 경우
 		if(this.Ver.CompareTo(KDefine.G_VER_LEVEL_INFO) < KCDefine.B_COMPARE_EQUALS) {
@@ -296,7 +292,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 			}
 		}
 
-		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, null, false, false);
+		CFunc.WriteMsgPackJSONObj(oFilePath, oLevelIDList, false);
 	}
 
 	/** 레벨 정보 경로를 반환한다 */
@@ -314,11 +310,11 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	private CLevelInfo LoadLevelInfo(string a_oFilePath, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
 		CLevelInfo oLevelInfo = null;
-
+		
 #if MSG_PACK_ENABLE
-		oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, null, false) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, null, false);
+		oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, true) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, true);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-		oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, null, false) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, null, false);
+		oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, true) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, true);
 #endif			// #if MSG_PACK_ENABLE
 
 		oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(a_nLevelID, a_nStageID, a_nChapterID);
@@ -331,13 +327,13 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		List<ulong> oLevelIDList = null;
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON)}");
-		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), null, false);
+		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath}");
+		oLevelIDList = CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath, false);
 #else
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath}");
 
 		try {
-			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<ulong>>(a_oFilePath, null, false);
+			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<ulong>>(a_oFilePath, false);
 		} finally {
 			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
 		}
@@ -373,9 +369,9 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
 		
 #if MSG_PACK_ENABLE
-		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, null, false, false);
+		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, true);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteJSONObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, null, false, false, false, false);
+		CFunc.WriteJSONObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, true);
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수

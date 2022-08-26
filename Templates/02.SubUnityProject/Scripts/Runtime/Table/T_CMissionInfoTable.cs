@@ -93,8 +93,19 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	}
 
 	/** 미션 정보를 저장한다 */
-	public void SaveMissionInfos(string a_oJSONStr) {
-		// Do Something
+	public void SaveMissionInfos(string a_oJSONStr, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oJSONStr != null);
+
+		// JSON 문자열이 존재 할 경우
+		if(a_oJSONStr != null) {
+			this.ResetMissionInfos(a_oJSONStr);
+			
+#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+			CFunc.WriteStr(Access.MissionInfoTableSavePath, a_oJSONStr, false);
+#else
+			CFunc.WriteStr(Access.MissionInfoTableSavePath, a_oJSONStr, true);
+#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+		}
 	}
 
 	/** JSON 노드를 설정한다 */
@@ -111,15 +122,11 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	private Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		return this.DoLoadMissionInfos(CFunc.ReadStr(a_oFilePath));
+#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+		return this.DoLoadMissionInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
 #else
-		try {
-			return this.DoLoadMissionInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
-		} finally {
-			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		return this.DoLoadMissionInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, true));
+#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
 	}
 
 	/** 미션 정보를 로드한다 */

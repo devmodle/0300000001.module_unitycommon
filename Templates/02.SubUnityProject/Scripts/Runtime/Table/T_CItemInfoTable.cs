@@ -258,8 +258,19 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	}
 
 	/** 아이템 정보를 저장한다 */
-	public void SaveItemInfos(string a_oJSONStr) {
-		// Do Something
+	public void SaveItemInfos(string a_oJSONStr, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oJSONStr != null);
+
+		// JSON 문자열이 존재 할 경우
+		if(a_oJSONStr != null) {
+			this.ResetItemInfos(a_oJSONStr);
+
+#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, false);
+#else
+			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, true);
+#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+		}
 	}
 
 	/** JSON 노드를 설정한다 */
@@ -292,15 +303,11 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemEnhanceInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		return this.DoLoadItemInfos(CFunc.ReadStr(a_oFilePath));
+#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+		return this.DoLoadItemInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
 #else
-		try {
-			return this.DoLoadItemInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
-		} finally {
-			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		return this.DoLoadItemInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, true));
+#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
 	}
 
 	/** 아이템 정보를 로드한다 */

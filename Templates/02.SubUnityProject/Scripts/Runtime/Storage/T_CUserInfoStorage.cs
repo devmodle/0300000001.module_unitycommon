@@ -469,9 +469,9 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 #if MSG_PACK_ENABLE
-			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath);
+			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, true);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-			this.UserInfo = CFunc.ReadJSONObj<CUserInfo>(a_oFilePath);
+			this.UserInfo = CFunc.ReadJSONObj<CUserInfo>(a_oFilePath, true);
 #endif			// #if MSG_PACK_ENABLE
 
 			CAccess.Assert(this.UserInfo != null);
@@ -490,9 +490,9 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo(string a_oFilePath) {
 #if MSG_PACK_ENABLE
-		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo);
+		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, true);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteJSONObj(a_oFilePath, this.UserInfo);
+		CFunc.WriteJSONObj(a_oFilePath, this.UserInfo, true);
 #endif			// #if MSG_PACK_ENABLE
 	}
 

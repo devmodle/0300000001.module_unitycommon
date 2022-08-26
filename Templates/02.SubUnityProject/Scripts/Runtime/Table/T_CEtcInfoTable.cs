@@ -27,15 +27,31 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 
 	/** 기타 정보를 로드한다 */
 	public void LoadEtcInfos() {
-		// Do Something
+		CCalcInfoTable.Inst.LoadCalcInfos();
+		CEpisodeInfoTable.Inst.LoadEpisodeInfos();
+		CTutorialInfoTable.Inst.LoadTutorialInfos();
+		CFXInfoTable.Inst.LoadFXInfos();
 	}
 
 	/** 기타 정보를 저장한다 */
-	public void SaveEtcInfos(string a_oJSONStr) {
-		CCalcInfoTable.Inst.SaveCalcInfos(a_oJSONStr);
-		CEpisodeInfoTable.Inst.SaveEpisodeInfos(a_oJSONStr);
-		CTutorialInfoTable.Inst.SaveTutorialInfos(a_oJSONStr);
-		CFXInfoTable.Inst.SaveFXInfos(a_oJSONStr);
+	public void SaveEtcInfos(string a_oJSONStr, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oJSONStr != null);
+
+		// JSON 문자열이 존재 할 경우
+		if(a_oJSONStr != null) {
+			this.ResetEtcInfos(a_oJSONStr);
+
+			CCalcInfoTable.Inst.SaveCalcInfos(a_oJSONStr);
+			CEpisodeInfoTable.Inst.SaveEpisodeInfos(a_oJSONStr);
+			CTutorialInfoTable.Inst.SaveTutorialInfos(a_oJSONStr);
+			CFXInfoTable.Inst.SaveFXInfos(a_oJSONStr);
+
+#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, false);
+#else
+			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, true);
+#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+		}
 	}
 	#endregion			// 함수
 }

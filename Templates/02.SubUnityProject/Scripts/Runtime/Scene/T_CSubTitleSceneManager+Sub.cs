@@ -290,10 +290,7 @@ namespace TitleScene {
 		private void OnLoadEtcInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CCalcInfoTable.Inst.ResetCalcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-				CEpisodeInfoTable.Inst.ResetEpisodeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-				CTutorialInfoTable.Inst.ResetTutorialInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-				CFXInfoTable.Inst.ResetFXInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+				CEtcInfoTable.Inst.SaveEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
@@ -303,7 +300,7 @@ namespace TitleScene {
 		private void OnLoadMissionInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CMissionInfoTable.Inst.ResetMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+				CMissionInfoTable.Inst.SaveMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
@@ -313,7 +310,7 @@ namespace TitleScene {
 		private void OnLoadRewardInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CRewardInfoTable.Inst.ResetRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+				CRewardInfoTable.Inst.SaveRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
@@ -323,7 +320,7 @@ namespace TitleScene {
 		private void OnLoadResInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CResInfoTable.Inst.ResetResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+				CResInfoTable.Inst.SaveResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
@@ -333,7 +330,7 @@ namespace TitleScene {
 		private void OnLoadItemInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CItemInfoTable.Inst.ResetItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+				CItemInfoTable.Inst.SaveItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
@@ -343,7 +340,7 @@ namespace TitleScene {
 		private void OnLoadSkillInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CSkillInfoTable.Inst.ResetSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+				CSkillInfoTable.Inst.SaveSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
@@ -353,7 +350,7 @@ namespace TitleScene {
 		private void OnLoadObjInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+				CObjInfoTable.Inst.SaveObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
@@ -363,7 +360,7 @@ namespace TitleScene {
 		private void OnLoadAbilityInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CAbilityInfoTable.Inst.ResetAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+				CAbilityInfoTable.Inst.SaveAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
@@ -373,7 +370,7 @@ namespace TitleScene {
 		private void OnLoadProductInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CProductTradeInfoTable.Inst.ResetProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+				CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);

@@ -122,8 +122,23 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	}
 
 	/** 상품 교환 정보를 저장한다 */
-	public void SaveProductTradeInfos(string a_oJSONStr) {
-		// Do Something
+	public void SaveProductTradeInfos(string a_oJSONStr, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oJSONStr != null);
+
+		// JSON 문자열이 존재 할 경우
+		if(a_oJSONStr != null) {
+			this.ResetProductTradeInfos(a_oJSONStr);
+
+#if PURCHASE_MODULE_ENABLE
+			CProductInfoTable.Inst.SaveProductInfos(a_oJSONStr);
+#endif			// #if PURCHASE_MODULE_ENABLE
+
+#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+			CFunc.WriteStr(Access.ProductTradeInfoTableSavePath, a_oJSONStr, false);
+#else
+			CFunc.WriteStr(Access.ProductTradeInfoTableSavePath, a_oJSONStr, true);
+#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+		}
 	}
 
 	/** JSON 노드를 설정한다 */
@@ -140,15 +155,11 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	private Dictionary<EProductKinds, STProductTradeInfo> LoadProductTradeInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		return this.DoLoadProductTradeInfos(CFunc.ReadStr(a_oFilePath));
+#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+		return this.DoLoadProductTradeInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
 #else
-		try {
-			return this.DoLoadProductTradeInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
-		} finally {
-			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		return this.DoLoadProductTradeInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, true));
+#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
 	}
 
 	/** 상품 교환 정보를 로드한다 */

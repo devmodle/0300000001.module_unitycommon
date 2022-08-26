@@ -499,7 +499,7 @@ public static partial class CCommonEditorSceneManager {
 		for(int i = 0; i < oSettingsPathList.Count; ++i) {
 			// 설정 파일이 존재 할 경우
 			if(File.Exists(oSettingsPathList[i])) {
-				var oBurstAOTSettingsDatas = JsonConvert.DeserializeObject<JObject>(CFunc.ReadStr(oSettingsPathList[i]));
+				var oBurstAOTSettingsDatas = JsonConvert.DeserializeObject<JObject>(CFunc.ReadStr(oSettingsPathList[i], false));
 
 				// 데이터가 존재 할 경우
 				if(oBurstAOTSettingsDatas != null && oBurstAOTSettingsDatas.TryGetValue(KCEditorDefine.B_KEY_BURST_AS_MONO_BEHAVIOUR, out JToken oMonoBehaviourDatas)) {
@@ -524,7 +524,7 @@ public static partial class CCommonEditorSceneManager {
 						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_USE_PLATFORM_SDK_LINKER] = false;
 
 						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR] = (int)EBurstCompilerOptimization.DEF;
-						CFunc.WriteStr(oSettingsPathList[i], JsonConvert.SerializeObject(oBurstAOTSettingsDatas, Formatting.Indented));
+						CFunc.WriteStr(oSettingsPathList[i], JsonConvert.SerializeObject(oBurstAOTSettingsDatas, Formatting.Indented), false);
 					}
 				}
 			}

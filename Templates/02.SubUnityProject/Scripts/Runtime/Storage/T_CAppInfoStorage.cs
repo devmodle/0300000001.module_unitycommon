@@ -131,9 +131,9 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 #if MSG_PACK_ENABLE
-			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath);
+			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath, true);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-			this.AppInfo = CFunc.ReadJSONObj<CAppInfo>(a_oFilePath);
+			this.AppInfo = CFunc.ReadJSONObj<CAppInfo>(a_oFilePath, true);
 #endif			// #if MSG_PACK_ENABLE
 
 			CAccess.Assert(this.AppInfo != null);
@@ -152,9 +152,9 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	/** 앱 정보를 저장한다 */
 	public void SaveAppInfo(string a_oFilePath) {
 #if MSG_PACK_ENABLE
-		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo);
+		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo, true);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteJSONObj(a_oFilePath, this.AppInfo);
+		CFunc.WriteJSONObj(a_oFilePath, this.AppInfo, true);
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수

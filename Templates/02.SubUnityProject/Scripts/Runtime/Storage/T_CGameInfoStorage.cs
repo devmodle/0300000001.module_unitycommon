@@ -293,9 +293,9 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 #if MSG_PACK_ENABLE
-			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath);
+			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath, true);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-			this.GameInfo = CFunc.ReadJSONObj<CGameInfo>(a_oFilePath);
+			this.GameInfo = CFunc.ReadJSONObj<CGameInfo>(a_oFilePath, true);
 #endif			// #if MSG_PACK_ENABLE
 
 			CAccess.Assert(this.GameInfo != null);
@@ -328,9 +328,9 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 게임 정보를 저장한다 */
 	public void SaveGameInfo(string a_oFilePath) {
 #if MSG_PACK_ENABLE
-		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo);
+		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo, true);
 #elif NEWTON_SOFT_JSON_MODULE_ENABLE
-		CFunc.WriteJSONObj(a_oFilePath, this.GameInfo);
+		CFunc.WriteJSONObj(a_oFilePath, this.GameInfo, true);
 #endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수

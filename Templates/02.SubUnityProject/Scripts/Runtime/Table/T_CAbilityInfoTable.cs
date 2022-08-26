@@ -161,8 +161,19 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	}
 
 	/** 어빌리티 정보를 저장한다 */
-	public void SaveAbilityInfos(string a_oJSONStr) {
-		// Do Something
+	public void SaveAbilityInfos(string a_oJSONStr, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oJSONStr != null);
+
+		// JSON 문자열이 존재 할 경우
+		if(a_oJSONStr != null) {
+			this.ResetAbilityInfos(a_oJSONStr);
+
+#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+			CFunc.WriteStr(Access.AbilityInfoTableSavePath, a_oJSONStr, false);
+#else
+			CFunc.WriteStr(Access.AbilityInfoTableSavePath, a_oJSONStr, true);
+#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+		}
 	}
 
 	/** JSON 노드를 설정한다 */
@@ -184,16 +195,12 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	/** 어빌리티 정보를 로드한다 */
 	private Dictionary<EAbilityKinds, STAbilityInfo> LoadAbilityInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
-		return this.DoLoadAbilityInfos(CFunc.ReadStr(a_oFilePath));
+
+#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+		return this.DoLoadAbilityInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
 #else
-		try {
-			return this.DoLoadAbilityInfos(CResManager.Inst.GetRes<TextAsset>(a_oFilePath).text);
-		} finally {
-			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
-		}
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+		return this.DoLoadAbilityInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, true));
+#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
 	}
 
 	/** 어빌리티 정보를 로드한다 */
