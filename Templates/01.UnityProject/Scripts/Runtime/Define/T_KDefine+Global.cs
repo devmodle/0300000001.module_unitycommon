@@ -81,6 +81,11 @@ public static partial class KDefine {
 	public static readonly System.Version G_VER_CHARACTER_GAME_INFO = new System.Version(1, 0, 0);
 	// 버전 }
 
+	// 경로
+	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
+	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
+	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
+
 	// 정렬 순서
 	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {		
 		m_nOrder = KCDefine.U_SORTING_O_OVERLAY_UIS, m_oLayer = KCDefine.U_SORTING_L_DEF
@@ -98,13 +103,6 @@ public static partial class KDefine {
 	#endregion			// 런타임 상수
 
 	#region 조건부 상수
-#if MSG_PACK_ENABLE
-	// 경로
-	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
-	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
-	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
-#endif			// #if MSG_PACK_ENABLE
-
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	// 테이블
 	public static readonly Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>> G_KEY_TABLE_DICT_CONTAINER = new Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>>() {

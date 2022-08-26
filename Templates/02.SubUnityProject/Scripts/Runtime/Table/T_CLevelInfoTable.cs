@@ -362,9 +362,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
 		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
 		
-#if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, true);
-#endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
 

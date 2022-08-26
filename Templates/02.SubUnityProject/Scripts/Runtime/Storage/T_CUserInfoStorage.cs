@@ -456,38 +456,28 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 유저 정보를 로드한다 */
 	public CUserInfo LoadUserInfo() {
-#if MSG_PACK_ENABLE
 		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
-#else
-		return null;
-#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 유저 정보를 로드한다 */
 	public CUserInfo LoadUserInfo(string a_oFilePath) {
-#if MSG_PACK_ENABLE
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, true);
 			CAccess.Assert(this.UserInfo != null);
 		}
-#endif			// #if MSG_PACK_ENABLE
 
 		return this.UserInfo;
 	}
 
 	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo() {
-#if MSG_PACK_ENABLE
 		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
-#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 유저 정보를 저장한다 */
 	public void SaveUserInfo(string a_oFilePath) {
-#if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, true);
-#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 타겟 정보를 반환한다 */

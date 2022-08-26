@@ -280,16 +280,11 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	
 	/** 게임 정보를 로드한다 */
 	public CGameInfo LoadGameInfo() {
-#if MSG_PACK_ENABLE
 		return this.LoadGameInfo(KDefine.G_DATA_P_GAME_INFO);
-#else
-		return null;
-#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 게임 정보를 로드한다 */
 	public CGameInfo LoadGameInfo(string a_oFilePath) {
-#if MSG_PACK_ENABLE
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath, true);
@@ -309,23 +304,18 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 				}
 			}
 		}
-#endif			// #if MSG_PACK_ENABLE
 
 		return this.GameInfo;
 	}
 
 	/** 게임 정보를 저장한다 */
 	public void SaveGameInfo() {
-#if MSG_PACK_ENABLE
 		this.SaveGameInfo(KDefine.G_DATA_P_GAME_INFO);
-#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 게임 정보를 저장한다 */
 	public void SaveGameInfo(string a_oFilePath) {
-#if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo, true);
-#endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
 }

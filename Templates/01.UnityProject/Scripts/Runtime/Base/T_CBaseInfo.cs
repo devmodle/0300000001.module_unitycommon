@@ -5,9 +5,10 @@ using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using MessagePack;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using MessagePack;
+
 /** 기본 정보 */
 [Union(0, typeof(CAppInfo))]
 [Union(1, typeof(CUserInfo))]

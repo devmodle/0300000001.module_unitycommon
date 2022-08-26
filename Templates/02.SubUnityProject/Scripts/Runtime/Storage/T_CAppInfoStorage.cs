@@ -118,38 +118,28 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 함수
 	/** 앱 정보를 로드한다 */
 	public CAppInfo LoadAppInfo() {
-#if MSG_PACK_ENABLE
 		return this.LoadAppInfo(KDefine.G_DATA_P_APP_INFO);
-#else
-		return null;
-#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 앱 정보를 로드한다 */
 	public CAppInfo LoadAppInfo(string a_oFilePath) {
-#if MSG_PACK_ENABLE
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath, true);
 			CAccess.Assert(this.AppInfo != null);
 		}
-#endif			// #if MSG_PACK_ENABLE
 
 		return this.AppInfo;
 	}
 
 	/** 앱 정보를 저장한다 */
 	public void SaveAppInfo() {
-#if MSG_PACK_ENABLE
 		this.SaveAppInfo(KDefine.G_DATA_P_APP_INFO);
-#endif			// #if MSG_PACK_ENABLE
 	}
 
 	/** 앱 정보를 저장한다 */
 	public void SaveAppInfo(string a_oFilePath) {
-#if MSG_PACK_ENABLE
 		CFunc.WriteMsgPackObj(a_oFilePath, this.AppInfo, true);
-#endif			// #if MSG_PACK_ENABLE
 	}
 	#endregion			// 함수
 }

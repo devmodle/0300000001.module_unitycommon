@@ -162,7 +162,7 @@ public static partial class KEditorDefine {
 		["com.unity.mobile.android-logcat"] = "1.3.2",
 		["com.unity.editorcoroutines"] = "1.0.0",
 		["com.unity.formats.fbx"] = "4.1.2",
-		["com.unity.inputsystem"] = "1.4.1",
+		["com.unity.inputsystem"] = "1.4.2",
 		["com.unity.localization"] = "1.3.2",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
 		["com.unity.remote-config"] = "3.1.3",

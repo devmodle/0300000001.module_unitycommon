@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: T_DefineSymbolInfoTable
   m_EditorClassIdentifier: 
   m_oCommonDefineSymbolList:
-  - MSG_PACK_ENABLE
   - UNIVERSAL_RENDERING_PIPELINE_ENABLE
   - ADDRESSABLES_ENABLE
   - BURST_COMPILER_ENABLE
