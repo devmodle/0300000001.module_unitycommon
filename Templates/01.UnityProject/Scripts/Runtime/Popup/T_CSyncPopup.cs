@@ -139,7 +139,7 @@ public partial class CSyncPopup : CSubPopup {
 		Func.OnSaveUserInfo(a_oSender, a_bIsSuccess, null);
 	}
 
-	/** 로드 성공 팝업 결과를 수신했을 경우 */
+	/** 로드 팝업 결과를 수신했을 경우 */
 	private void OnReceiveLoadSuccessPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 유저 정보를 로드했을 경우
 		if(a_bIsOK && m_oBoolDict.GetValueOrDefault(EKey.IS_LOAD_USER_INFO)) {

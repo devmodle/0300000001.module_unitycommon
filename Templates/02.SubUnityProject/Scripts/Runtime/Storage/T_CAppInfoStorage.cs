@@ -101,17 +101,7 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 #endif			// #if ADS_MODULE_ENABLE
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	public Dictionary<string, STGoogleSheetInfo> GoogleSheetInfoDict { get; } = new Dictionary<string, STGoogleSheetInfo>() {
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = new STGoogleSheetInfo(KDefine.G_ID_ETC_INFO_GOOGLE_SHEET),
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = new STGoogleSheetInfo(KDefine.G_ID_MISSION_INFO_GOOGLE_SHEET),
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = new STGoogleSheetInfo(KDefine.G_ID_REWARD_INFO_GOOGLE_SHEET),
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = new STGoogleSheetInfo(KDefine.G_ID_RES_INFO_GOOGLE_SHEET),
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = new STGoogleSheetInfo(KDefine.G_ID_ITEM_INFO_GOOGLE_SHEET),
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = new STGoogleSheetInfo(KDefine.G_ID_SKILL_INFO_GOOGLE_SHEET),
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = new STGoogleSheetInfo(KDefine.G_ID_OBJ_INFO_GOOGLE_SHEET),
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = new STGoogleSheetInfo(KDefine.G_ID_ABILITY_INFO_GOOGLE_SHEET),
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = new STGoogleSheetInfo(KDefine.G_ID_PRODUCT_INFO_GOOGLE_SHEET)
-	};
+	public Dictionary<string, STGoogleSheetInfo> GoogleSheetInfoDict { get; } = new Dictionary<string, STGoogleSheetInfo>();
 #endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 프로퍼티
 

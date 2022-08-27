@@ -234,23 +234,6 @@ namespace TitleScene {
 		}
 
 #if GOOGLE_SHEET_ENABLE
-		/** 구글 시트 정보를 설정한다 */
-		private void SetupGoogleSheetInfos(string a_oName, Dictionary<string, List<string>> a_oGoogleSheetInfoDictContainer, bool a_bIsEnableAssert = true) {
-			CAccess.Assert(!a_bIsEnableAssert || (a_oName.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid() && CAppInfoStorage.Inst.GoogleSheetInfoDict.ContainsKey(a_oName)));
-
-			// 구글 시트 정보 설정이 가능 할 경우
-			if(a_oName.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid() && CAppInfoStorage.Inst.GoogleSheetInfoDict.TryGetValue(a_oName, out STGoogleSheetInfo stGoogleSheetInfo)) {
-				foreach(var stKeyVal in a_oGoogleSheetInfoDictContainer) {
-					for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-						stGoogleSheetInfo.m_oSheetInfoList.ExAddVal((stKeyVal.Value[i], KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS));
-					}
-				}
-
-				stGoogleSheetInfo.m_oCallback = m_oGoogleSheetHandlerDict.GetValueOrDefault(a_oName);
-				CAppInfoStorage.Inst.GoogleSheetInfoDict.ExReplaceVal(a_oName, stGoogleSheetInfo);
-			}
-		}
-
 		/** 구글 시트가 로드 되었을 경우 */
 		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
 			// 로드 되었을 경우
@@ -259,6 +242,7 @@ namespace TitleScene {
 					CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.ExReplaceVal(m_oVerInfos[i][KCDefine.U_KEY_NAME], System.Version.Parse(m_oVerInfos[i][KCDefine.U_KEY_VER]));
 				}
 
+				CAppInfoStorage.Inst.GoogleSheetInfoDict.Clear();
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 			}
 
@@ -280,16 +264,20 @@ namespace TitleScene {
 					
 					// 버전이 다를 경우
 					if(oVer.CompareTo(System.Version.Parse(m_oVerInfos[i][KCDefine.U_KEY_VER])) < KCDefine.B_COMPARE_EQUALS) {
-						foreach(var stKeyVal in KDefine.G_KEY_TABLE_DICT_CONTAINER[m_oVerInfos[i][KCDefine.U_KEY_NAME]]) {
-							this.SetupGoogleSheetInfos(m_oVerInfos[i][KCDefine.U_KEY_NAME], stKeyVal.Value);
+						string oGoogleSheetID = KDefine.G_TABLE_INFO_DICT_CONTAINER[m_oVerInfos[i][KCDefine.U_KEY_NAME]].Item1;
+
+						foreach(var stKeyVal in KDefine.G_TABLE_INFO_DICT_CONTAINER[m_oVerInfos[i][KCDefine.U_KEY_NAME]].Item2) {
+							Func.SetupGoogleSheetInfos(m_oVerInfos[i][KCDefine.U_KEY_NAME], oGoogleSheetID, stKeyVal.Value, m_oGoogleSheetHandlerDict, CAppInfoStorage.Inst.GoogleSheetInfoDict);
 						}
 					}
 				}
+
+				Func.LoadGoogleSheets(CAppInfoStorage.Inst.GoogleSheetInfoDict.ExToList(), this.OnLoadGoogleSheets);
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
 		}
-
+		
 		/** 기타 정보 구글 시트를 로드했을 경우 */
 		private void OnLoadEtcInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우

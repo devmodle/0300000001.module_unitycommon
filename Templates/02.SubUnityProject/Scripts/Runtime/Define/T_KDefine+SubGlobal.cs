@@ -66,22 +66,6 @@ public static partial class KDefine {
 		// Do Something
 	};
 	#endregion			// 런타임 상수
-
-	#region 조건부 상수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	// 식별자
-	public const string G_ID_VER_INFO_GOOGLE_SHEET = "1iZ4BmPSlmeSSYuEgunzjFYZYXjco0TNZRvdzs9KhCR0";
-	public const string G_ID_ETC_INFO_GOOGLE_SHEET = "1g-mjTYHZ6nH1F5KRChgvX8nxoYh9qERdl4xEgEYmSm8";
-	public const string G_ID_MISSION_INFO_GOOGLE_SHEET = "1hjD_76YkbNTWUXALjvH2g2P5X0m4fRq0giKCiDkfN6U";
-	public const string G_ID_REWARD_INFO_GOOGLE_SHEET = "1ja3glbQdaNO7uL_xNbLIozu8KKxAjBZn59BfKLnKAWg";
-	public const string G_ID_RES_INFO_GOOGLE_SHEET = "1HKak3yoptv5FcD-RwefGFnjKSGfUk7GO9htH22O_gPA";
-	public const string G_ID_ITEM_INFO_GOOGLE_SHEET = "1WU4K0uEnqWYW5egbIf3JJnSkIKF7zqLsh2_WuCqzcJI";
-	public const string G_ID_SKILL_INFO_GOOGLE_SHEET = "1mZQ-G92iBKJEo74RfJ-wx-nGGtOTJNAeNspKaQIZmgw";
-	public const string G_ID_OBJ_INFO_GOOGLE_SHEET = "17SADyLxjV82T2PImZPTutdhvwLbkaYklboNQhOjIZPo";
-	public const string G_ID_ABILITY_INFO_GOOGLE_SHEET = "15YV8CBGiRi5aUIJYk_pu_EA8nJt_7-3MmT2b-v3vRD4";
-	public const string G_ID_PRODUCT_INFO_GOOGLE_SHEET = "18OBRLyR88iEFLYoZatnXr-zwsiEAUCSxoFOykjA5xiY";
-#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion			// 조건부 상수
 }
 
 /** 서브 타이틀 씬 상수 */

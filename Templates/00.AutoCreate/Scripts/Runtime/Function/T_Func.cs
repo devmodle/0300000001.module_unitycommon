@@ -213,107 +213,6 @@ public static partial class Func {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
 		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
 	}
-
-	/** 경고 팝업을 출력한다 */
-	public static void ShowAlertPopup(CAlertPopup.STParams a_stParams) {
-		// 경고 팝업이 없을 경우
-		if(CSceneManager.ScreenPopupUIs.ExFindChild(KCDefine.U_OBJ_N_ALERT_POPUP) == null) {
-			var oAlertPopup = CAlertPopup.Create<CAlertPopup>(KCDefine.U_OBJ_N_ALERT_POPUP, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_ALERT_POPUP), CSceneManager.ScreenPopupUIs, a_stParams);
-			oAlertPopup.Show(null, null);
-		}
-	}
-
-	/** 경고 팝업을 출력한다 */
-	public static void ShowAlertPopup(string a_oMsg, System.Action<CAlertPopup, bool> a_oCallback, bool a_bIsEnableCancelBtn = true) {
-		Func.ShowAlertPopup(CAlertPopup.MakeParams(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_NOTI_TEXT), a_oMsg, CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_OK_TEXT), a_bIsEnableCancelBtn ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_CANCEL_TEXT) : string.Empty, new Dictionary<CAlertPopup.ECallback, System.Action<CAlertPopup, bool>>() {
-			[CAlertPopup.ECallback.OK_CANCEL] = a_oCallback
-		}));
-	}
-	
-	/** 종료 팝업을 출력한다 */
-	public static void ShowQuitPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_QUIT_P_MSG), a_oCallback);
-	}
-	
-	/** 업데이트 팝업을 출력한다 */
-	public static void ShowUpdatePopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG), a_oCallback);
-	}
-
-	/** 그만두기 팝업을 출력한다 */
-	public static void ShowLeavePopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LEAVE_P_MSG), a_oCallback);
-	}
-
-	/** 로드 팝업을 출력한다 */
-	public static void ShowLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LOAD_P_MSG), a_oCallback);
-	}
-
-	/** 저장 팝업을 출력한다 */
-	public static void ShowSavePopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_SAVE_P_MSG), a_oCallback);
-	}
-
-	/** 로그인 성공 팝업을 출력한다 */
-	public static void ShowLoginSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LOGIN_SUCCESS_MSG), a_oCallback, false);
-	}
-
-	/** 로그인 실패 팝업을 출력한다 */
-	public static void ShowLoginFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LOGIN_SUCCESS_MSG), a_oCallback, false);
-	}
-
-	/** 로그아웃 성공 팝업을 출력한다 */
-	public static void ShowLogoutSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LOGOUT_SUCCESS_MSG), a_oCallback, false);
-	}
-
-	/** 로그아웃 실패 팝업을 출력한다 */
-	public static void ShowLogoutFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LOGOUT_SUCCESS_MSG), a_oCallback, false);
-	}
-
-	/** 로드 성공 팝업을 출력한다 */
-	public static void ShowLoadSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LOAD_SUCCESS_MSG), a_oCallback, false);
-	}
-
-	/** 로드 실패 팝업을 출력한다 */
-	public static void ShowLoadFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LOAD_FAIL_MSG), a_oCallback, false);
-	}
-
-	/** 저장 성공 팝업을 출력한다 */
-	public static void ShowSaveSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_SAVE_SUCCESS_MSG), a_oCallback, false);
-	}
-
-	/** 저장 실패 팝업을 출력한다 */
-	public static void ShowSaveFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_SAVE_FAIL_MSG), a_oCallback, false);
-	}
-
-	/** 결제 성공 팝업을 출력한다 */
-	public static void ShowPurchaseSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_PURCHASE_SUCCESS_MSG), a_oCallback, false);
-	}
-
-	/** 결제 실패 팝업을 출력한다 */
-	public static void ShowPurchaseFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_PURCHASE_FAIL_MSG), a_oCallback, false);
-	}
-
-	/** 복원 성공 팝업을 출력한다 */
-	public static void ShowRestoreSuccessPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_RESTORE_SUCCESS_MSG), a_oCallback, false);
-	}
-
-	/** 복원 실패 팝업을 출력한다 */
-	public static void ShowRestoreFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_RESTORE_FAIL_MSG), a_oCallback, false);
-	}
 	#endregion			// 클래스 함수
 
 	#region 제네릭 클래스 함수
@@ -362,17 +261,6 @@ public static partial class Func {
 				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetMoveCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
 				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetEndCallback(a_oKeyInfoList[i].Item7, a_bIsEnableAssert);
 			}
-		}
-	}
-
-	/** 팝업을 출력한다 */
-	public static void ShowPopup<T>(string a_oName, string a_oObjPath, GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) where T : CPopup {
-		// 팝업이 없을 경우
-		if(a_oParent.ExFindChild(a_oName) == null) {
-			var oPopup = CPopup.Create<T>(a_oName, a_oObjPath, a_oParent);
-			CFunc.Invoke(ref a_oInitCallback, oPopup);
-
-			oPopup.Show(a_oShowCallback, a_oCloseCallback);
 		}
 	}
 	#endregion			// 제네릭 클래스 함수
@@ -966,6 +854,25 @@ public static partial class Func {
 #endif			// #if PLAYFAB_MODULE_ENABLE
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 구글 시트 정보를 설정한다 */
+	public static void SetupGoogleSheetInfos(string a_oKey, string a_oGoogleSheetID, Dictionary<string, List<string>> a_oGoogleSheetInfoDictContainer, Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> a_oHandlerDict, Dictionary<string, STGoogleSheetInfo> a_oOutGoogleSheetInfoDict, int a_nMaxNumCells = KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKey.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid()));
+
+		// 구글 시트 정보 설정이 가능 할 경우
+		if(a_oKey.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid()) {
+			var stGoogleSheetInfo = a_oOutGoogleSheetInfoDict.ContainsKey(a_oKey) ? a_oOutGoogleSheetInfoDict[a_oKey] : new STGoogleSheetInfo(a_oGoogleSheetID);
+			stGoogleSheetInfo.m_oCallback = a_oHandlerDict?.GetValueOrDefault(a_oKey);
+
+			foreach(var stKeyVal in a_oGoogleSheetInfoDictContainer) {
+				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
+					stGoogleSheetInfo.m_oSheetInfoList.ExAddVal((stKeyVal.Value[i], a_nMaxNumCells));
+				}
+			}
+
+			a_oOutGoogleSheetInfoDict.ExReplaceVal(a_oGoogleSheetID, stGoogleSheetInfo);
+		}
+	}
+
 	/** 구글 시트를 로드한다 */
 	public static void LoadGoogleSheet(string a_oID, List<(string, int)> a_oInfoList, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
@@ -1057,7 +964,7 @@ public static partial class Func {
 	private static void OnLoadGoogleSheets(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 		Func.m_oGoogleSheetInfoList[KCDefine.B_VAL_0_INT].m_oCallback?.Invoke(a_oSender, a_stGoogleSheetLoadInfo, a_oJSONNodeInfoDict, a_bIsSuccess);
 		Func.m_oGoogleSheetInfoList.ExRemoveValAt(KCDefine.B_VAL_0_INT);
-
+		
 		// 구글 시트 로드가 완료 되었을 경우 */
 		if(!a_bIsSuccess || !Func.m_oGoogleSheetInfoList.ExIsValid()) {
 			Func.m_oGoogleSheetCallbackDict01.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEETS)?.Invoke(a_oSender, a_bIsSuccess && !Func.m_oGoogleSheetInfoList.ExIsValid());

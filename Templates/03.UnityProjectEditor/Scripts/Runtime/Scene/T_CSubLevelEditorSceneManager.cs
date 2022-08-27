@@ -16,10 +16,6 @@ using DanielLochner.Assets.SimpleScrollSnap;
 using UnityEngine.InputSystem;
 #endif			// #if INPUT_SYSTEM_MODULE_ENABLE
 
-#if GOOGLE_SHEET_ENABLE
-using GoogleSheetsToUnity;
-#endif			// #if GOOGLE_SHEET_ENABLE
-
 namespace LevelEditorScene {
 	/** 서브 레벨 에디터 씬 관리자 */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
@@ -116,6 +112,10 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, CLevelInfo> m_oLevelInfoDict = new Dictionary<EKey, CLevelInfo>();
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+
 		/** =====> UI <===== */
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
@@ -127,11 +127,6 @@ namespace LevelEditorScene {
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion			// 변수
-
-		#region 상수
-		private const string ID_ETC_INFO_TABLE_GOOGLE_SHEET = "1YKF5m1_8zvZe5ZEJ-A_nqQq7qQq5nW8vX2OW5iMp9AA";
-		private const string ID_OBJ_INFO_TABLE_GOOGLE_SHEET = "12pVPEnja4xIzCa-Bffl72HpJPZTDA4wlZOCdWgR9NhQ";
-		#endregion			// 상수
 		
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
@@ -394,13 +389,13 @@ namespace LevelEditorScene {
 					} break;
 					case ETableSrc.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
-						Func.LoadGoogleSheet(ID_OBJ_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
-							(KCDefine.U_KEY_BG, KCDefine.B_VAL_2_INT),
-							(KCDefine.U_KEY_NORM, KCDefine.B_VAL_2_INT),
-							(KCDefine.U_KEY_OVERLAY, KCDefine.B_VAL_2_INT),
-							(KCDefine.U_KEY_PLAYABLE, KCDefine.B_VAL_2_INT),
-							(KCDefine.U_KEY_NON_PLAYABLE, KCDefine.B_VAL_2_INT)
-						}, this.OnLoadObjInfosGoogleSheet);
+						foreach(var stKeyVal in KDefine.G_TABLE_INFO_DICT_CONTAINER) {
+							foreach(var stTableInfoKeyVal in stKeyVal.Value.Item2) {
+								Func.SetupGoogleSheetInfos(stKeyVal.Key, stKeyVal.Value.Item1, stTableInfoKeyVal.Value, m_oGoogleSheetHandlerDict, CAppInfoStorage.Inst.GoogleSheetInfoDict);
+							}
+						}
+
+						Func.LoadGoogleSheets(CAppInfoStorage.Inst.GoogleSheetInfoDict.ExToList(), this.OnLoadGoogleSheets);
 #endif			// #if GOOGLE_SHEET_ENABLE
 					} break;
 				}
@@ -636,30 +631,86 @@ namespace LevelEditorScene {
 		}
 
 #if GOOGLE_SHEET_ENABLE
-		/** 객체 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadObjInfosGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		/** 구글 시트를 로드했을 경우 */
+		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-
-				Func.LoadGoogleSheet(ID_ETC_INFO_TABLE_GOOGLE_SHEET, new List<(string, int)>() {
-					(KCDefine.U_KEY_LEVEL_EPISODE, CLevelInfoTable.Inst.TotalNumLevelInfos + KCDefine.B_VAL_1_INT),
-					(KCDefine.U_KEY_STAGE_EPISODE, CLevelInfoTable.Inst.TotalNumStageInfos + KCDefine.B_VAL_1_INT),
-					(KCDefine.U_KEY_CHAPTER_EPISODE, CLevelInfoTable.Inst.NumChapterInfos + KCDefine.B_VAL_1_INT)
-				}, this.OnLoadEpisodeInfosGoogleSheet);
+				this.UpdateUIsState();
+				Func.ShowOnEditorGoogleSheetLoadPopup(null);
 			} else {
-				Func.ShowEditorGoogleSheetLoadPopup(null);
+				Func.ShowOnEditorGoogleSheetLoadFailPopup(null);
 			}
 		}
 
-		/** 에피소드 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadEpisodeInfosGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		/** 기타 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadEtcInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				CEpisodeInfoTable.Inst.ResetEpisodeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-				this.UpdateUIsState();
-			} else {
-				Func.ShowEditorGoogleSheetLoadPopup(null);
+				CEtcInfoTable.Inst.ResetEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+			}
+		}
+
+		/** 미션 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadMissionInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				CMissionInfoTable.Inst.ResetMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+			}
+		}
+
+		/** 보상 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadRewardInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				CRewardInfoTable.Inst.ResetRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+			}
+		}
+
+		/** 리소스 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadResInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				CResInfoTable.Inst.ResetResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+			}
+		}
+
+		/** 아이템 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadItemInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				CItemInfoTable.Inst.ResetItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+			}
+		}
+
+		/** 스킬 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadSkillInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				CSkillInfoTable.Inst.ResetSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+			}
+		}
+
+		/** 객체 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadObjInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+			}
+		}
+
+		/** 어빌리티 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadAbilityInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				CAbilityInfoTable.Inst.ResetAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
+			}
+		}
+
+		/** 상품 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadProductInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				CProductTradeInfoTable.Inst.ResetProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
 			}
 		}
 #endif			// #if GOOGLE_SHEET_ENABLE

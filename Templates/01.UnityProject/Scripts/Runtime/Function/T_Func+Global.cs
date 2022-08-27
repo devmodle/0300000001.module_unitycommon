@@ -99,6 +99,16 @@ public static partial class Func {
 		}
 	}
 
+	/** 무료 보상 획득 횟수를 증가시킨다 */
+	public static void IncrFreeRewardAcquireTimes(int a_nCharacterID, int a_nRewardTimes, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo));
+
+		// 캐릭터 게임 정보가 존재 할 경우
+		if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out oCharacterGameInfo)) {
+			oCharacterGameInfo.FreeRewardAcquireTimes = Mathf.Clamp(oCharacterGameInfo.FreeRewardAcquireTimes + a_nRewardTimes, KCDefine.B_VAL_0_INT, KDefine.G_MAX_TIMES_ACQUIRE_FREE_REWARDS);
+		}
+	}
+
 	/** 지불한다 */
 	public static void Pay(int a_nCharacterID, STTargetInfo a_stTargetInfo, bool a_bIsEnableAssert = true) {
 		switch(a_stTargetInfo.TargetType) {
@@ -222,96 +232,6 @@ public static partial class Func {
 	/** 판매한다 */
 	public static void Sale(int a_nCharacterID, STObjTradeInfo a_stObjTradeInfo, bool a_bIsEnableAssert = true) {
 		Func.Buy(a_nCharacterID, a_stObjTradeInfo, false, a_bIsEnableAssert);
-	}
-
-	/** 무료 보상 획득 횟수를 증가시킨다 */
-	public static void IncrFreeRewardAcquireTimes(int a_nCharacterID, int a_nRewardTimes, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo));
-
-		// 캐릭터 게임 정보가 존재 할 경우
-		if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out oCharacterGameInfo)) {
-			oCharacterGameInfo.FreeRewardAcquireTimes = Mathf.Clamp(oCharacterGameInfo.FreeRewardAcquireTimes + a_nRewardTimes, KCDefine.B_VAL_0_INT, KDefine.G_MAX_TIMES_ACQUIRE_FREE_REWARDS);
-		}
-	}
-
-	/** 상점 팝업을 출력한다 */
-	public static void ShowStorePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CStorePopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 설정 팝업을 출력한다 */
-	public static void ShowSettingsPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CSettingsPopup>(KDefine.G_OBJ_N_SETTINGS_POPUP, KCDefine.U_OBJ_P_G_SETTINGS_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 동기화 팝업을 출력한다 */
-	public static void ShowSyncPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CSyncPopup>(KDefine.G_OBJ_N_SYNC_POPUP, KCDefine.U_OBJ_P_G_SYNC_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 일일 미션 팝업을 출력한다 */
-	public static void ShowDailyMissionPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CDailyMissionPopup>(KDefine.G_OBJ_N_DAILY_MISSION_POPUP, KCDefine.U_OBJ_P_G_DAILY_MISSION_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 무료 보상 팝업을 출력한다 */
-	public static void ShowFreeRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CFreeRewardPopup>(KDefine.G_OBJ_N_FREE_REWARD_POPUP, KCDefine.U_OBJ_P_G_FREE_REWARD_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 일일 보상 팝업을 출력한다 */
-	public static void ShowDailyRewardPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CDailyRewardPopup>(KDefine.G_OBJ_N_DAILY_REWARD_POPUP, KCDefine.U_OBJ_P_G_DAILY_REWARD_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 코인 상자 팝업을 출력한다 */
-	public static void ShowCoinsBoxPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CCoinsBoxPopup>(KDefine.G_OBJ_N_COINS_BOX_POPUP, KCDefine.U_OBJ_P_G_COINS_BOX_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 보상 획득 팝업을 출력한다 */
-	public static void ShowRewardAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CRewardAcquirePopup>(KDefine.G_OBJ_N_REWARD_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_REWARD_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 코인 상자 획득 팝업을 출력한다 */
-	public static void ShowCoinsBoxAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CCoinsBoxAcquirePopup>(KDefine.G_OBJ_N_COINS_BOX_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_COINS_BOX_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 이어하기 팝업을 출력한다 */
-	public static void ShowContinuePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CContinuePopup>(KDefine.G_OBJ_N_CONTINUE_POPUP, KCDefine.U_OBJ_P_G_CONTINUE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 결과 팝업을 출력한다 */
-	public static void ShowResultPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CResultPopup>(KDefine.G_OBJ_N_RESULT_POPUP, KCDefine.U_OBJ_P_G_RESULT_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 재개 팝업을 출력한다 */
-	public static void ShowResumePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CResumePopup>(KDefine.G_OBJ_N_RESUME_POPUP, KCDefine.U_OBJ_P_G_RESUME_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 정지 팝업을 출력한다 */
-	public static void ShowPausePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CPausePopup>(KDefine.G_OBJ_N_PAUSE_POPUP, KCDefine.U_OBJ_P_G_PAUSE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 상품 교환 팝업을 출력한다 */
-	public static void ShowProductTradePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CProductTradePopup>(KDefine.G_OBJ_N_PRODUCT_TRADE_POPUP, KCDefine.U_OBJ_P_G_PRODUCT_TRADE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 포커스 팝업을 출력한다 */
-	public static void ShowFocusPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CFocusPopup>(KDefine.G_OBJ_N_FOCUS_POPUP, KCDefine.U_OBJ_P_G_FOCUS_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
-	}
-
-	/** 튜토리얼 팝업을 출력한다 */
-	public static void ShowTutorialPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
-		Func.ShowPopup<CTutorialPopup>(KDefine.G_OBJ_N_TUTORIAL_POPUP, KCDefine.U_OBJ_P_G_TUTORIAL_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
 	/** 어빌리티 값을 설정한다 */
@@ -514,9 +434,9 @@ public static partial class Func {
 	public static void OnLogin(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 로그아웃 되었을 경우
 		if(a_bIsSuccess) {
-			Func.ShowLoginSuccessPopup(a_oCallback);
+			Func.ShowOnLoginPopup(a_oCallback);
 		} else {
-			Func.ShowLoginFailPopup(a_oCallback);
+			Func.ShowOnLoginFailPopup(a_oCallback);
 		}
 	}
 
@@ -524,9 +444,9 @@ public static partial class Func {
 	public static void OnLogout(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 로그아웃 되었을 경우
 		if(a_bIsSuccess) {
-			Func.ShowLogoutSuccessPopup(a_oCallback);
+			Func.ShowOnLogoutPopup(a_oCallback);
 		} else {
-			Func.ShowLogoutFailPopup(a_oCallback);
+			Func.ShowOnLogoutFailPopup(a_oCallback);
 		}
 	}
 
@@ -534,9 +454,9 @@ public static partial class Func {
 	public static void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 로드 되었을 경우
 		if(a_bIsSuccess) {
-			Func.ShowLoadSuccessPopup(a_oCallback);
+			Func.ShowOnLoadPopup(a_oCallback);
 		} else {
-			Func.ShowLoadFailPopup(a_oCallback);
+			Func.ShowOnLoadFailPopup(a_oCallback);
 		}
 	}
 
@@ -544,9 +464,9 @@ public static partial class Func {
 	public static void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 저장 되었을 경우
 		if(a_bIsSuccess) {
-			Func.ShowSaveSuccessPopup(a_oCallback);
+			Func.ShowOnSavePopup(a_oCallback);
 		} else {
-			Func.ShowSaveFailPopup(a_oCallback);
+			Func.ShowOnSaveFailPopup(a_oCallback);
 		}
 	}
 #endif			// #if FIREBASE_MODULE_ENABLE
@@ -556,9 +476,9 @@ public static partial class Func {
 	public static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			Func.ShowPurchaseSuccessPopup(a_oCallback);
+			Func.ShowOnPurchasePopup(a_oCallback);
 		} else {
-			Func.ShowPurchaseFailPopup(a_oCallback);
+			Func.ShowOnPurchaseFailPopup(a_oCallback);
 		}
 	}
 
@@ -566,9 +486,9 @@ public static partial class Func {
 	public static void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 복원 되었을 경우
 		if(a_bIsSuccess) {
-			Func.ShowRestoreSuccessPopup(a_oCallback);
+			Func.ShowOnRestorePopup(a_oCallback);
 		} else {
-			Func.ShowRestoreFailPopup(a_oCallback);
+			Func.ShowOnRestoreFailPopup(a_oCallback);
 		}
 	}
 

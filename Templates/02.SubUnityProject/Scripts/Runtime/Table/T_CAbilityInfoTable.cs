@@ -181,14 +181,14 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 		a_oOutAbilityInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutAbilityEnhanceInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.AbilityInfoTableLoadPath)];
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.AbilityInfoTableLoadPath)];
 
-		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-			a_oOutAbilityInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
+		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+			a_oOutAbilityInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
 		}
 
-		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
-			a_oOutAbilityEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
+		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
+			a_oOutAbilityEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
 		}
 	}
 

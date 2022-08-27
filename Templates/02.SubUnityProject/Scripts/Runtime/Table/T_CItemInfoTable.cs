@@ -280,22 +280,22 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		a_oOutBuyItemTradeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutSaleItemTradeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_KEY_TABLE_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.ItemInfoTableLoadPath)];
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.ItemInfoTableLoadPath)];
 
-		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-			a_oOutItemInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
+		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+			a_oOutItemInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
 		}
 
-		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
-			a_oOutItemEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
+		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
+			a_oOutItemEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
 		}
 
-		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_BUY_TRADE].Count; ++i) {
-			a_oOutBuyItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_BUY_TRADE][i]]);
+		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE].Count; ++i) {
+			a_oOutBuyItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE][i]]);
 		}
 		
-		for(int i = 0; i < oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_SALE_TRADE].Count; ++i) {
-			a_oOutSaleItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_SALE_TRADE][i]]);
+		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE].Count; ++i) {
+			a_oOutSaleItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE][i]]);
 		}
 	}
 

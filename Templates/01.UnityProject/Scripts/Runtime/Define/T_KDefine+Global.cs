@@ -58,8 +58,20 @@ public static partial class KDefine {
 	public const float G_DURATION_SCALE_09 = 1.0f;
 	// 시간 }
 
-	// 식별자
+	// 식별자 {
 	public const int G_ID_COMMON_CHARACTER = byte.MaxValue;
+
+	public const string G_ID_VER_INFO_GOOGLE_SHEET = "1iZ4BmPSlmeSSYuEgunzjFYZYXjco0TNZRvdzs9KhCR0";
+	public const string G_ID_ETC_INFO_GOOGLE_SHEET = "1g-mjTYHZ6nH1F5KRChgvX8nxoYh9qERdl4xEgEYmSm8";
+	public const string G_ID_MISSION_INFO_GOOGLE_SHEET = "1hjD_76YkbNTWUXALjvH2g2P5X0m4fRq0giKCiDkfN6U";
+	public const string G_ID_REWARD_INFO_GOOGLE_SHEET = "1ja3glbQdaNO7uL_xNbLIozu8KKxAjBZn59BfKLnKAWg";
+	public const string G_ID_RES_INFO_GOOGLE_SHEET = "1HKak3yoptv5FcD-RwefGFnjKSGfUk7GO9htH22O_gPA";
+	public const string G_ID_ITEM_INFO_GOOGLE_SHEET = "1WU4K0uEnqWYW5egbIf3JJnSkIKF7zqLsh2_WuCqzcJI";
+	public const string G_ID_SKILL_INFO_GOOGLE_SHEET = "1mZQ-G92iBKJEo74RfJ-wx-nGGtOTJNAeNspKaQIZmgw";
+	public const string G_ID_OBJ_INFO_GOOGLE_SHEET = "17SADyLxjV82T2PImZPTutdhvwLbkaYklboNQhOjIZPo";
+	public const string G_ID_ABILITY_INFO_GOOGLE_SHEET = "15YV8CBGiRi5aUIJYk_pu_EA8nJt_7-3MmT2b-v3vRD4";
+	public const string G_ID_PRODUCT_INFO_GOOGLE_SHEET = "18OBRLyR88iEFLYoZatnXr-zwsiEAUCSxoFOykjA5xiY";
+	// 식별자 }
 	#endregion			// 기본
 
 	#region 런타임 상수
@@ -100,13 +112,10 @@ public static partial class KDefine {
 		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER
 	};
 	// 분석 }
-	#endregion			// 런타임 상수
 
-	#region 조건부 상수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	// 테이블
-	public static readonly Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>> G_KEY_TABLE_DICT_CONTAINER = new Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>>() {
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+	// 테이블 정보
+	public static readonly Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, List<string>>>)> G_TABLE_INFO_DICT_CONTAINER = new Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, List<string>>>)>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = (KDefine.G_ID_ETC_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CCalcInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.U_KEY_ABILITY_CALC
@@ -138,33 +147,33 @@ public static partial class KDefine {
 					KCDefine.U_KEY_HIT_FX, KCDefine.U_KEY_BUFF_FX, KCDefine.U_KEY_DEBUFF_FX
 				}
 			}
-		},
+		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = (KDefine.G_ID_MISSION_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CMissionInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.U_KEY_MAIN, KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT
 				}
 			}
-		},
+		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = (KDefine.G_ID_REWARD_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CRewardInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.U_KEY_FREE, KCDefine.U_KEY_DAILY, KCDefine.U_KEY_EVENT, KCDefine.U_KEY_CLEAR, KCDefine.U_KEY_MISSION, KCDefine.U_KEY_TUTORIAL
 				}
 			}
-		},
+		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = (KDefine.G_ID_RES_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CResInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.U_KEY_SND, KCDefine.U_KEY_FONT, KCDefine.U_KEY_IMG, KCDefine.U_KEY_SPRITE, KCDefine.U_KEY_TEXTURE
 				}
 			}
-		},
+		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = (KDefine.G_ID_ITEM_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CItemInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.U_KEY_GOODS, KCDefine.U_KEY_CONSUMABLE, KCDefine.U_KEY_NON_CONSUMABLE, KCDefine.U_KEY_WEAPON, KCDefine.U_KEY_ARMOR, KCDefine.U_KEY_ACCESSORY, KCDefine.U_KEY_ATTACH
@@ -182,9 +191,9 @@ public static partial class KDefine {
 					KCDefine.U_KEY_GOODS_SALE_TRADE, KCDefine.U_KEY_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_NON_CONSUMABLE_SALE_TRADE, KCDefine.U_KEY_WEAPON_SALE_TRADE, KCDefine.U_KEY_ARMOR_SALE_TRADE, KCDefine.U_KEY_ACCESSORY_SALE_TRADE, KCDefine.U_KEY_ATTACH_SALE_TRADE
 				}
 			}
-		},
+		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = (KDefine.G_ID_SKILL_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CSkillInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.U_KEY_ACTION, KCDefine.U_KEY_ACTIVE, KCDefine.U_KEY_PASSIVE
@@ -202,9 +211,9 @@ public static partial class KDefine {
 					KCDefine.U_KEY_ACTION_SALE_TRADE, KCDefine.U_KEY_ACTIVE_SALE_TRADE, KCDefine.U_KEY_PASSIVE_SALE_TRADE
 				}
 			}
-		},
+		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = (KDefine.G_ID_OBJ_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CObjInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.U_KEY_BG, KCDefine.U_KEY_NORM, KCDefine.U_KEY_OVERLAY, KCDefine.U_KEY_PLAYABLE, KCDefine.U_KEY_NON_PLAYABLE, KCDefine.U_KEY_ENEMY
@@ -222,9 +231,9 @@ public static partial class KDefine {
 					KCDefine.U_KEY_BG_SALE_TRADE, KCDefine.U_KEY_NORM_SALE_TRADE, KCDefine.U_KEY_OVERLAY_SALE_TRADE, KCDefine.U_KEY_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_NON_PLAYABLE_SALE_TRADE, KCDefine.U_KEY_ENEMY_SALE_TRADE
 				}
 			}
-		},
+		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = (KDefine.G_ID_ABILITY_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CAbilityInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.U_KEY_STAT, KCDefine.U_KEY_BUFF, KCDefine.U_KEY_DEBUFF, KCDefine.U_KEY_UPGRADE
@@ -234,18 +243,17 @@ public static partial class KDefine {
 					KCDefine.U_KEY_STAT_ENHANCE, KCDefine.U_KEY_BUFF_ENHANCE, KCDefine.U_KEY_DEBUFF_ENHANCE, KCDefine.U_KEY_UPGRADE_ENHANCE
 				}
 			}
-		},
+		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = (KDefine.G_ID_PRODUCT_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CProductTradeInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
 				}
 			}
-		}
+		})
 	};
-#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion			// 조건부 상수
+	#endregion			// 런타임 상수
 }
 
 /** 초기화 씬 상수 */
