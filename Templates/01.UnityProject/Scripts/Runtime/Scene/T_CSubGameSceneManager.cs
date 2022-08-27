@@ -188,11 +188,10 @@ namespace GameScene {
 			}
 
 			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
-				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
+				var stValInfo = new STValInfo(KCDefine.B_VAL_1_INT, EValType.INT);
 
-				Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeTargetInfo(ETargetKinds.ITEM_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], new STValInfo() {
-					m_dmVal = KCDefine.B_VAL_1_INT, m_eValType = EValType.INT
-				}));
+				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
+				Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], stValInfo));
 			}
 		}
 

@@ -121,71 +121,7 @@ public struct STEpisodeInfo {
 			m_nID03 = a_oEpisodeInfo[oID03Key].ExIsValid() ? a_oEpisodeInfo[oID03Key].AsInt : KCDefine.B_IDX_INVALID
 		};
 	}
-
-	/** 식별자 정보를 생성한다 */
-	private static void MakeIDInfo(string a_oIDFmt, STIDInfo a_stIDInfo, SimpleJSON.JSONNode a_oOutEpisodeInfo) {
-		a_oOutEpisodeInfo.Add(string.Format(a_oIDFmt, KCDefine.B_VAL_1_INT), $"{a_stIDInfo.m_nID01}");
-		a_oOutEpisodeInfo.Add(string.Format(a_oIDFmt, KCDefine.B_VAL_2_INT), $"{a_stIDInfo.m_nID02}");
-		a_oOutEpisodeInfo.Add(string.Format(a_oIDFmt, KCDefine.B_VAL_3_INT), $"{a_stIDInfo.m_nID03}");
-	}
 	#endregion			// 함수
-
-	#region 조건부 함수
-#if UNITY_EDITOR || UNITY_STANDALONE
-	/** 에피소드 정보를 생성한다 */
-	public SimpleJSON.JSONClass MakeEpisodeInfo() {
-		var oSizeInfo = new SimpleJSON.JSONArray();
-		oSizeInfo.Add($"{m_stSize.x}");
-		oSizeInfo.Add($"{m_stSize.y}");
-		oSizeInfo.Add($"{m_stSize.z}");
-
-		var oEpisodeInfo = new SimpleJSON.JSONClass();
-		var oClearTargetInfoKeyList = m_oClearTargetInfoDict.Keys.ToList();
-		var oUnlockTargetInfoKeyList = m_oUnlockTargetInfoDict.Keys.ToList();
-		var oDropItemTargetInfoKeyList = m_oDropItemTargetInfoDict.Keys.ToList();
-		var oEnemyObjTargetInfoKeyList = m_oEnemyObjTargetInfoDict.Keys.ToList();
-
-		m_stCommonInfo.MakeCommonInfo(oEpisodeInfo);
-
-		STEpisodeInfo.MakeIDInfo(KCDefine.U_KEY_FMT_ID, m_stIDInfo, oEpisodeInfo);
-		STEpisodeInfo.MakeIDInfo(KCDefine.U_KEY_FMT_PREV_ID, m_stPrevIDInfo, oEpisodeInfo);
-		STEpisodeInfo.MakeIDInfo(KCDefine.U_KEY_FMT_NEXT_ID, m_stNextIDInfo, oEpisodeInfo);
-
-		oEpisodeInfo.Add(KCDefine.U_KEY_DIFFICULTY, $"{(int)m_eDifficulty}");
-		oEpisodeInfo.Add(KCDefine.U_KEY_EPISODE_KINDS, $"{(int)m_eEpisodeKinds}");
-		oEpisodeInfo.Add(KCDefine.U_KEY_TUTORIAL_KINDS, $"{(int)m_eTutorialKinds}");
-		oEpisodeInfo.Add(KCDefine.U_KEY_NUM_SUB_EPISODES, $"{m_nNumSubEpisodes}");
-		oEpisodeInfo.Add(KCDefine.U_KEY_MAX_NUM_ENEMY_OBJS, $"{m_nMaxNumEnemyObjs}");
-		oEpisodeInfo.Add(KCDefine.U_KEY_SIZE, oSizeInfo);
-
-		for(int i = 0; i < m_oRewardKindsList.Count; ++i) {
-			oEpisodeInfo.Add(string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT), $"{(int)m_oRewardKindsList.ExGetVal(i, ERewardKinds.NONE)}");
-		}
-
-		for(int i = 0; i < m_oRecordValInfoList.Count; ++i) {
-			m_oRecordValInfoList[i].MakeValInfo(string.Format(KCDefine.U_KEY_FMT_RECORD_VAL_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
-		}
-
-		for(int i = 0; i < oClearTargetInfoKeyList.Count; ++i) {
-			m_oClearTargetInfoDict.GetValueOrDefault(oClearTargetInfoKeyList[i]).MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_CLEAR_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
-		}
-
-		for(int i = 0; i < oUnlockTargetInfoKeyList.Count; ++i) {
-			m_oUnlockTargetInfoDict.GetValueOrDefault(oUnlockTargetInfoKeyList[i]).MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_UNLOCK_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
-		}
-
-		for(int i = 0; i < oDropItemTargetInfoKeyList.Count; ++i) {
-			m_oDropItemTargetInfoDict.GetValueOrDefault(oDropItemTargetInfoKeyList[i]).MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
-		}
-
-		for(int i = 0; i < oEnemyObjTargetInfoKeyList.Count; ++i) {
-			m_oEnemyObjTargetInfoDict.GetValueOrDefault(oEnemyObjTargetInfoKeyList[i]).MakeTargetInfo(string.Format(KCDefine.U_KEY_FMT_ENEMY_OBJ_TARGET_INFO, i + KCDefine.B_VAL_1_INT), oEpisodeInfo);
-		}
-		
-		return oEpisodeInfo;
-	}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
-	#endregion			// 조건부 함수
 }
 
 /** 에피소드 정보 테이블 */

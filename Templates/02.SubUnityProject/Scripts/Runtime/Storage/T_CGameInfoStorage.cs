@@ -292,15 +292,15 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 			foreach(var stKeyVal in this.GameInfo.m_oCharacterGameInfoDict) {
 				foreach(var stLevelKeyVal in stKeyVal.Value.m_oLevelClearInfoDict) {
-					stLevelKeyVal.Value.m_stIDInfo = CFactory.MakeIDInfo(stLevelKeyVal.Key.ExULevelIDToLevelID(), stLevelKeyVal.Key.ExULevelIDToStageID(), stLevelKeyVal.Key.ExULevelIDToChapterID());
+					stLevelKeyVal.Value.m_stIDInfo = new STIDInfo(stLevelKeyVal.Key.ExULevelIDToLevelID(), stLevelKeyVal.Key.ExULevelIDToStageID(), stLevelKeyVal.Key.ExULevelIDToChapterID());
 				}
 
 				foreach(var stStageKeyVal in stKeyVal.Value.m_oStageClearInfoDict) {
-					stStageKeyVal.Value.m_stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, stStageKeyVal.Key.ExULevelIDToStageID(), stStageKeyVal.Key.ExULevelIDToChapterID());
+					stStageKeyVal.Value.m_stIDInfo = new STIDInfo(KCDefine.B_VAL_0_INT, stStageKeyVal.Key.ExULevelIDToStageID(), stStageKeyVal.Key.ExULevelIDToChapterID());
 				}
 
 				foreach(var stChapterKeyVal in stKeyVal.Value.m_oChapterClearInfoDict) {
-					stChapterKeyVal.Value.m_stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, stChapterKeyVal.Key.ExULevelIDToChapterID());
+					stChapterKeyVal.Value.m_stIDInfo = new STIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, stChapterKeyVal.Key.ExULevelIDToChapterID());
 				}
 			}
 		}

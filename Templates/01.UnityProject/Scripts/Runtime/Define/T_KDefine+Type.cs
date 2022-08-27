@@ -54,40 +54,55 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		m_stValInfo02 = new STValInfo(a_oTargetInfo, a_nSrcIdx + KCDefine.B_VAL_5_INT);
 		m_stValInfo03 = new STValInfo(a_oTargetInfo, a_nSrcIdx + KCDefine.B_VAL_7_INT);
 	}
-	#endregion			// 함수
 
-	#region 조건부 함수
-#if UNITY_EDITOR || UNITY_STANDALONE
-	/** 타겟 정보를 생성한다 */
-	public void MakeTargetInfo(string a_oKey, SimpleJSON.JSONClass a_oOutTargetInfo) {
-		var oJSONArray = new SimpleJSON.JSONArray();
-		oJSONArray.Add($"{(int)m_eTargetKinds}");
-		oJSONArray.Add($"{(int)m_eKindsGroupType}");
-		oJSONArray.Add($"{m_nKinds}");
-
-		oJSONArray.Add($"{(int)m_stValInfo01.m_eValType}");
-		oJSONArray.Add($"{m_stValInfo01.m_dmVal}");
-
-		oJSONArray.Add($"{(int)m_stValInfo02.m_eValType}");
-		oJSONArray.Add($"{m_stValInfo02.m_dmVal}");
-
-		oJSONArray.Add($"{(int)m_stValInfo03.m_eValType}");
-		oJSONArray.Add($"{m_stValInfo03.m_dmVal}");
-
-		a_oOutTargetInfo.Add(a_oKey, oJSONArray);
+	/** 생성자 */
+	public STTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) : this(a_eTargetKinds, a_nKinds, a_stValInfo, STValInfo.INVALID, a_eKindsGroupType) {
+		// Do Something
 	}
-#endif			// #if UNITY_EDITOR || UNITY_STANDALONE
-	#endregion			// 조건부 함수
+
+	public STTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo01, STValInfo a_stValInfo02, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) : this(a_eTargetKinds, a_nKinds, a_stValInfo01, a_stValInfo02, STValInfo.INVALID, a_eKindsGroupType) {
+		// Do Something
+	}
+
+	/** 생성자 */
+	public STTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo01, STValInfo a_stValInfo02, STValInfo a_stValInfo03, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) : this() {
+		m_nKinds = a_nKinds;
+		m_eTargetKinds = a_eTargetKinds;
+		m_eKindsGroupType = a_eKindsGroupType;
+
+		m_stValInfo01 = a_stValInfo01;
+		m_stValInfo02 = a_stValInfo02;
+		m_stValInfo03 = a_stValInfo03;
+	}
+	#endregion			// 함수
 }
 
 /** 타입 랩퍼 */
 [MessagePackObject]
 public struct STTypeWrapper {
 	[Key(51)] public List<ulong> m_oULevelIDList;
-
 	[Key(161)] public Dictionary<int, Dictionary<int, int>> m_oNumLevelInfosDictContainer;
 	[Key(162)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;
 }
 #endregion			// 기본
+
+#region 조건부 타입
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+/** 구글 시트 정보 */
+public struct STGoogleSheetInfo {
+	public string m_oID;
+	public List<(string, int)> m_oSheetInfoList;
+	public System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool> m_oCallback;
+
+	#region 함수
+	/** 생성자 */
+	public STGoogleSheetInfo(string a_oID) : this() {
+		m_oID = a_oID;
+		m_oSheetInfoList = new List<(string, int)>();
+	}
+	#endregion			// 함수
+}
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endregion			// 조건부 타입
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

@@ -214,6 +214,8 @@ namespace TitleScene {
 				};
 
 				Func.LoadGoogleSheet(KDefine.G_ID_VER_INFO_GOOGLE_SHEET, oGoogleSheetInfoList, this.OnLoadVerInfoGoogleSheet);
+#else
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 #endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
@@ -233,11 +235,19 @@ namespace TitleScene {
 
 #if GOOGLE_SHEET_ENABLE
 		/** 구글 시트 정보를 설정한다 */
-		private void SetupGoogleSheetInfos(string a_oName, Dictionary<string, List<string>> a_oGoogleSheetInfoDictContainer, List<(string, int, System.Action<CServicesManager, GstuSpreadSheet, string, Dictionary<string, SimpleJSON.JSONNode>, bool>)> a_oOutGoogleSheetInfoList) {
-			foreach(var stKeyVal in a_oGoogleSheetInfoDictContainer) {
-				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					a_oOutGoogleSheetInfoList.ExAddVal((stKeyVal.Value[i], KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS, m_oGoogleSheetHandlerDict.GetValueOrDefault(a_oName)));
+		private void SetupGoogleSheetInfos(string a_oName, Dictionary<string, List<string>> a_oGoogleSheetInfoDictContainer, bool a_bIsEnableAssert = true) {
+			CAccess.Assert(!a_bIsEnableAssert || (a_oName.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid() && CAppInfoStorage.Inst.GoogleSheetInfoDict.ContainsKey(a_oName)));
+
+			// 구글 시트 정보 설정이 가능 할 경우
+			if(a_oName.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid() && CAppInfoStorage.Inst.GoogleSheetInfoDict.TryGetValue(a_oName, out STGoogleSheetInfo stGoogleSheetInfo)) {
+				foreach(var stKeyVal in a_oGoogleSheetInfoDictContainer) {
+					for(int i = 0; i < stKeyVal.Value.Count; ++i) {
+						stGoogleSheetInfo.m_oSheetInfoList.ExAddVal((stKeyVal.Value[i], KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS));
+					}
 				}
+
+				stGoogleSheetInfo.m_oCallback = m_oGoogleSheetHandlerDict.GetValueOrDefault(a_oName);
+				CAppInfoStorage.Inst.GoogleSheetInfoDict.ExReplaceVal(a_oName, stGoogleSheetInfo);
 			}
 		}
 
@@ -256,7 +266,7 @@ namespace TitleScene {
 		}
 
 		/** 버전 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 #if AB_TEST_ENABLE
@@ -271,7 +281,7 @@ namespace TitleScene {
 					// 버전이 다를 경우
 					if(oVer.CompareTo(System.Version.Parse(m_oVerInfos[i][KCDefine.U_KEY_VER])) < KCDefine.B_COMPARE_EQUALS) {
 						foreach(var stKeyVal in KDefine.G_KEY_TABLE_DICT_CONTAINER[m_oVerInfos[i][KCDefine.U_KEY_NAME]]) {
-							this.SetupGoogleSheetInfos(m_oVerInfos[i][KCDefine.U_KEY_NAME], stKeyVal.Value, CAppInfoStorage.Inst.GoogleSheetInfoDictContainer.GetValueOrDefault(m_oVerInfos[i][KCDefine.U_KEY_NAME]).Item2);
+							this.SetupGoogleSheetInfos(m_oVerInfos[i][KCDefine.U_KEY_NAME], stKeyVal.Value);
 						}
 					}
 				}
@@ -281,7 +291,7 @@ namespace TitleScene {
 		}
 
 		/** 기타 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadEtcInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadEtcInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				CEtcInfoTable.Inst.SaveEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
@@ -291,7 +301,7 @@ namespace TitleScene {
 		}
 
 		/** 미션 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadMissionInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadMissionInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				CMissionInfoTable.Inst.SaveMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
@@ -301,7 +311,7 @@ namespace TitleScene {
 		}
 
 		/** 보상 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadRewardInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadRewardInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				CRewardInfoTable.Inst.SaveRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
@@ -311,7 +321,7 @@ namespace TitleScene {
 		}
 
 		/** 리소스 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadResInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadResInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				CResInfoTable.Inst.SaveResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
@@ -321,7 +331,7 @@ namespace TitleScene {
 		}
 
 		/** 아이템 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadItemInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadItemInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				CItemInfoTable.Inst.SaveItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
@@ -331,7 +341,7 @@ namespace TitleScene {
 		}
 
 		/** 스킬 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadSkillInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadSkillInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				CSkillInfoTable.Inst.SaveSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
@@ -341,7 +351,7 @@ namespace TitleScene {
 		}
 
 		/** 객체 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadObjInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadObjInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				CObjInfoTable.Inst.SaveObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
@@ -351,7 +361,7 @@ namespace TitleScene {
 		}
 
 		/** 어빌리티 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadAbilityInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadAbilityInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				CAbilityInfoTable.Inst.SaveAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
@@ -361,7 +371,7 @@ namespace TitleScene {
 		}
 
 		/** 상품 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadProductInfoGoogleSheet(CServicesManager a_oSender, GstuSpreadSheet a_oGoogleSheet, string a_oID, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadProductInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());

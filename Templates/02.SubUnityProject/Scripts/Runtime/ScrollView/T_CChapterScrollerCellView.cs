@@ -34,7 +34,7 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 		this.Params = a_stParams;
 
 		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
-			var stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, i + base.Params.m_nID.ExULevelIDToChapterID());
+			var stIDInfo = new STIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, i + base.Params.m_nID.ExULevelIDToChapterID());
 
 			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
 			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID03 < CLevelInfoTable.Inst.NumChapterInfos);

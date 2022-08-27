@@ -285,7 +285,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
 				for(int k = 0; k < this.LevelInfoDictContainer[i][j].Count; ++k) {
-					this.LevelInfoDictContainer[i][j][k].m_stIDInfo = CFactory.MakeIDInfo(k, j, i);
+					this.LevelInfoDictContainer[i][j][k].m_stIDInfo = new STIDInfo(k, j, i);
 					this.SaveLevelInfo(this.LevelInfoDictContainer[i][j][k], oLevelIDList);
 				}
 			}
@@ -310,7 +310,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
 
 		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, true) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, true);
-		oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(a_nLevelID, a_nStageID, a_nChapterID);
+		oLevelInfo.m_stIDInfo = new STIDInfo(a_nLevelID, a_nStageID, a_nChapterID);
 
 		return oLevelInfo;
 	}
@@ -348,7 +348,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 			var oLevelInfo = this.LoadLevelInfo(nLevelID, nStageID, nChapterID);
-			oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(nLevelID, nStageID, nChapterID);
+			oLevelInfo.m_stIDInfo = new STIDInfo(nLevelID, nStageID, nChapterID);
 
 			this.AddLevelInfo(oLevelInfo);
 #endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -439,7 +439,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		for(int i = 0; i < oStageLevelInfoList.Count; ++i) {
 			int nNumLevelInfos = this.GetNumLevelInfos(oStageLevelInfoList[i].Value.m_stIDInfo.m_nID02, oStageLevelInfoList[i].Value.m_stIDInfo.m_nID03);
-			oStageLevelInfoList[i].Value.m_stIDInfo = CFactory.MakeIDInfo(nNumLevelInfos, oStageLevelInfoList[i].Value.m_stIDInfo.m_nID02, oStageLevelInfoList[i].Value.m_stIDInfo.m_nID03);
+			oStageLevelInfoList[i].Value.m_stIDInfo = new STIDInfo(nNumLevelInfos, oStageLevelInfoList[i].Value.m_stIDInfo.m_nID02, oStageLevelInfoList[i].Value.m_stIDInfo.m_nID03);
 
 			this.AddLevelInfo(oStageLevelInfoList[i].Value, a_bIsReplace);
 		}
@@ -453,7 +453,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		for(int i = 0; i < oChapterLevelInfoList.Count; ++i) {
 			for(int j = 0; j < oChapterLevelInfoList[i].Value.Count; ++i) {
 				int nNumStageInfos = this.GetNumStageInfos(oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID03);
-				oChapterLevelInfoList[i].Value[j].m_stIDInfo = CFactory.MakeIDInfo(oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID01, nNumStageInfos, oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID03);
+				oChapterLevelInfoList[i].Value[j].m_stIDInfo = new STIDInfo(oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID01, nNumStageInfos, oChapterLevelInfoList[i].Value[j].m_stIDInfo.m_nID03);
 			}
 
 			this.AddStageLevelInfos(oChapterLevelInfoList[i].Value, a_bIsReplace);

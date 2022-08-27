@@ -29,11 +29,10 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		base.Init();
 		this.Params = a_stParams;
 
-		m_oIntDict.ExReplaceVal(EKey.PREV_NUM_COINS_BOX_COINS, (long)Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS_BOX_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS));
+		var stValInfo = new STValInfo(a_stParams.m_nNumCoinsBoxCoins, EValType.INT);
 
-		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS_BOX_COINS, new STValInfo() {
-			m_dmVal = a_stParams.m_nNumCoinsBoxCoins, m_eValType = EValType.INT
-		}), true);
+		m_oIntDict.ExReplaceVal(EKey.PREV_NUM_COINS_BOX_COINS, (long)Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS_BOX_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS));
+		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS_BOX_COINS, stValInfo), true);
 
 		#region 추가
 		this.SubInit();

@@ -34,7 +34,7 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 		this.Params = a_stParams;
 
 		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
-			var stIDInfo = CFactory.MakeIDInfo(KCDefine.B_VAL_0_INT, i + base.Params.m_nID.ExULevelIDToStageID(), base.Params.m_nID.ExULevelIDToChapterID());
+			var stIDInfo = new STIDInfo(KCDefine.B_VAL_0_INT, i + base.Params.m_nID.ExULevelIDToStageID(), base.Params.m_nID.ExULevelIDToChapterID());
 
 			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
 			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID02 < CLevelInfoTable.Inst.GetNumStageInfos(stIDInfo.m_nID03));

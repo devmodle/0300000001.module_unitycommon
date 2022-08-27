@@ -70,6 +70,7 @@ public static partial class KDefine {
 	#region 조건부 상수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	// 식별자
+	public const string G_ID_VER_INFO_GOOGLE_SHEET = "1iZ4BmPSlmeSSYuEgunzjFYZYXjco0TNZRvdzs9KhCR0";
 	public const string G_ID_ETC_INFO_GOOGLE_SHEET = "1g-mjTYHZ6nH1F5KRChgvX8nxoYh9qERdl4xEgEYmSm8";
 	public const string G_ID_MISSION_INFO_GOOGLE_SHEET = "1hjD_76YkbNTWUXALjvH2g2P5X0m4fRq0giKCiDkfN6U";
 	public const string G_ID_REWARD_INFO_GOOGLE_SHEET = "1ja3glbQdaNO7uL_xNbLIozu8KKxAjBZn59BfKLnKAWg";
@@ -86,8 +87,7 @@ public static partial class KDefine {
 /** 서브 타이틀 씬 상수 */
 public static partial class KDefine {
 	#region 기본
-	// 식별자
-	public const string G_ID_VER_INFO_GOOGLE_SHEET = "1iZ4BmPSlmeSSYuEgunzjFYZYXjco0TNZRvdzs9KhCR0";
+
 	#endregion			// 기본
 }
 

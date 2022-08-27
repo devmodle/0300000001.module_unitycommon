@@ -13,28 +13,11 @@ public static partial class Factory {
 	public static ulong MakeUTargetInfoID(ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.B_UNIT_BITS_PER_BYTE)) | (uint)a_nKinds;
 	}
-
-	/** 타겟 정보를 생성한다 */
-	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) {
-		return Factory.MakeTargetInfo(a_eTargetKinds, a_nKinds, a_stValInfo, STValInfo.INVALID, a_eKindsGroupType);
-	}
-
-	/** 타겟 정보를 생성한다 */
-	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo01, STValInfo a_stValInfo02, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) {
-		return Factory.MakeTargetInfo(a_eTargetKinds, a_nKinds, a_stValInfo01, a_stValInfo02, STValInfo.INVALID, a_eKindsGroupType);
-	}
-
-	/** 타겟 정보를 생성한다 */
-	public static STTargetInfo MakeTargetInfo(ETargetKinds a_eTargetKinds, int a_nKinds, STValInfo a_stValInfo01, STValInfo a_stValInfo02, STValInfo a_stValInfo03, EKindsGroupType a_eKindsGroupType = EKindsGroupType.NONE) {
-		return new STTargetInfo() {
-			m_nKinds = a_nKinds, m_eTargetKinds = a_eTargetKinds, m_eKindsGroupType = a_eKindsGroupType, m_stValInfo01 = a_stValInfo01, m_stValInfo02 = a_stValInfo02, m_stValInfo03 = a_stValInfo03
-		};
-	}
-
+	
 	/** 클리어 정보를 생성한다 */
 	public static CClearInfo MakeClearInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		var oClearInfo = new CClearInfo() {
-			m_stIDInfo = CFactory.MakeIDInfo(a_nLevelID, a_nStageID, a_nChapterID)
+			m_stIDInfo = new STIDInfo(a_nLevelID, a_nStageID, a_nChapterID)
 		};
 
 		oClearInfo.OnAfterDeserialize();
@@ -96,10 +79,10 @@ public static partial class Factory {
 	/** 기본 어빌리티 타겟 정보를 생성한다 */
 	private static Dictionary<ulong, STTargetInfo> MakeDefAbilityTargetInfos() {
 		return new Dictionary<ulong, STTargetInfo>() {
-			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo() { m_dmVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
-			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo() { m_dmVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
-			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo() { m_dmVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT }),
-			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = Factory.MakeTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo() { m_dmVal = KCDefine.B_VAL_0_INT, m_eValType = EValType.INT })
+			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT)),
+			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT)),
+			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT)),
+			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT))
 		};
 	}
 	#endregion			// 클래스 함수
