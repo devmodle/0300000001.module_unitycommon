@@ -207,13 +207,7 @@ namespace TitleScene {
 				m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, true);
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-				var oGoogleSheetInfoList = new List<(string, int)>() {
-					($"{EUserType.A}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-					($"{EUserType.B}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-					(KCDefine.B_KEY_COMMON, KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS)
-				};
-
-				Func.LoadGoogleSheet(KDefine.G_ID_VER_INFO_GOOGLE_SHEET, oGoogleSheetInfoList, this.OnLoadVerInfoGoogleSheet);
+				Func.LoadVerInfoGoogleSheet(KDefine.G_ID_VER_INFO_GOOGLE_SHEET, m_oGoogleSheetHandlerDict, this.OnLoadVerInfoGoogleSheet);
 #else
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 #endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -238,41 +232,23 @@ namespace TitleScene {
 		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-				for(int i = 0; i < m_oVerInfos.Count; ++i) {
-					CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.ExReplaceVal(m_oVerInfos[i][KCDefine.U_KEY_NAME], System.Version.Parse(m_oVerInfos[i][KCDefine.U_KEY_VER]));
-				}
-
-				CAppInfoStorage.Inst.GoogleSheetInfoDict.Clear();
+				Func.OnLoadGoogleSheets(m_oVerInfos);
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
+			} else {
+				Func.ShowOnTableLoadFailPopup(null);
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
 		}
 
 		/** 버전 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, SimpleJSON.JSONNode a_oVerInfos, Dictionary<string, STGoogleSheetInfo> a_oGoogleSheetInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
-#if AB_TEST_ENABLE
-				m_oVerInfos = a_oJSONNodeInfoDict.ExToJSONNode()[(CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? $"{EUserType.B}" : $"{EUserType.A}"];
-#else
-				m_oVerInfos = a_oJSONNodeInfoDict.ExToJSONNode()[KCDefine.B_KEY_COMMON];
-#endif			// #if AB_TEST_ENABLE
-
-				for(int i = 0; i < m_oVerInfos.Count; ++i) {
-					var oVer = CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.GetValueOrDefault(m_oVerInfos[i][KCDefine.U_KEY_NAME], KCDefine.U_VER_DEF);
-					
-					// 버전이 다를 경우
-					if(oVer.CompareTo(System.Version.Parse(m_oVerInfos[i][KCDefine.U_KEY_VER])) < KCDefine.B_COMPARE_EQUALS) {
-						string oGoogleSheetID = KDefine.G_TABLE_INFO_DICT_CONTAINER[m_oVerInfos[i][KCDefine.U_KEY_NAME]].Item1;
-
-						foreach(var stKeyVal in KDefine.G_TABLE_INFO_DICT_CONTAINER[m_oVerInfos[i][KCDefine.U_KEY_NAME]].Item2) {
-							Func.SetupGoogleSheetInfos(m_oVerInfos[i][KCDefine.U_KEY_NAME], oGoogleSheetID, stKeyVal.Value, m_oGoogleSheetHandlerDict, CAppInfoStorage.Inst.GoogleSheetInfoDict);
-						}
-					}
-				}
-
-				Func.LoadGoogleSheets(CAppInfoStorage.Inst.GoogleSheetInfoDict.ExToList(), this.OnLoadGoogleSheets);
+				m_oVerInfos = a_oVerInfos;
+				Func.LoadGoogleSheets(a_oGoogleSheetInfoDict.ExToList(), this.OnLoadGoogleSheets);
+			} else {
+				Func.ShowOnTableLoadFailPopup(null);
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);

@@ -42,20 +42,6 @@ public static partial class Func {
 	public static void ShowEditorTableLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_TABLE_LP_MSG), a_oCallback);
 	}
-
-	#region 조건부 클래스 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	/** 에디터 구글 시트 로드 팝업을 출력한다 */
-	public static void ShowOnEditorGoogleSheetLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_ON_EDITOR_GOOGLE_SHEET_LOAD_MSG), a_oCallback, false);
-	}
-
-	/** 에디터 구글 시트 로드 실패 팝업을 출력한다 */
-	public static void ShowOnEditorGoogleSheetLoadFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_ON_EDITOR_GOOGLE_SHEET_LOAD_FAIL_MSG), a_oCallback, false);
-	}
-#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion			// 조건부 클래스 함수
 }
 
 /** 레벨 에디터 씬 함수 */

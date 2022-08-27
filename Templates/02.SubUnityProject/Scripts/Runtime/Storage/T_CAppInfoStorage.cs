@@ -99,10 +99,6 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	
 	public bool IsEnableUpdateAdsSkipTimes => true;
 #endif			// #if ADS_MODULE_ENABLE
-
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	public Dictionary<string, STGoogleSheetInfo> GoogleSheetInfoDict { get; } = new Dictionary<string, STGoogleSheetInfo>();
-#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 프로퍼티
 
 	#region 함수

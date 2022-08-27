@@ -187,7 +187,6 @@ namespace MainScene {
 				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
 				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
 				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
-				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).anchoredPosition = Vector3.zero;
 
 				var oContentsSizeFitter = oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).gameObject.ExAddComponent<ContentSizeFitter>();
 				oContentsSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;

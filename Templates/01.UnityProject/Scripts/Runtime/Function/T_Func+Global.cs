@@ -533,6 +533,17 @@ public static partial class Func {
 		}
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
+
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 구글 시트를 로드했을 경우 */
+	public static void OnLoadGoogleSheets(SimpleJSON.JSONNode a_oVerInfos) {
+		for(int i = 0; i < a_oVerInfos.Count; ++i) {
+			CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.ExReplaceVal(a_oVerInfos[i][KCDefine.U_KEY_NAME], System.Version.Parse(a_oVerInfos[i][KCDefine.U_KEY_VER]));
+		}
+
+		CAppInfoStorage.Inst.SaveAppInfo();
+	}
+#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 클래스 함수
 }
 

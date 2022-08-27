@@ -49,7 +49,6 @@ namespace TitleScene {
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchoredPosition = KCDefine.U_POS_INFO_TEXT;
 				// 텍스트를 설정한다 }
 			}
 		}

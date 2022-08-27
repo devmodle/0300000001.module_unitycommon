@@ -207,6 +207,16 @@ public static partial class Func {
 	public static void ShowOnRestoreFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_RESTORE_FAIL_MSG), a_oCallback, false);
 	}
+
+	/** 테이블 로드 팝업을 출력한다 */
+	public static void ShowOnTableLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_MSG), a_oCallback, false);
+	}
+
+	/** 테이블 로드 실패 팝업을 출력한다 */
+	public static void ShowOnTableLoadFailPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), a_oCallback, false);
+	}
 	#endregion			// 클래스 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

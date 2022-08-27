@@ -265,9 +265,6 @@ public static partial class KDefine {
 	#region 런타임 상수
 	// 색상
 	public static readonly Color IS_COLOR_BG_IMG = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
-
-	// 위치
-	public static readonly Vector3 IS_POS_SPLASH_IMG = new Vector3(0.0f, 25.0f, 0.0f);
 	#endregion			// 런타임 상수
 }
 

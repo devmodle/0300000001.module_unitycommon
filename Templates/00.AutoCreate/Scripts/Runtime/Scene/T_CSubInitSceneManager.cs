@@ -23,10 +23,11 @@ namespace InitScene {
 		#endregion			// 변수
 		
 		#region 함수
-		/** 씬을 설정한다 */
-		protected override void Setup() {
-			base.Setup();
-			
+		/** 초기화 */
+		public override void Awake() {
+			base.Awake();
+
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 이미지를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.BG_IMG, $"{EKey.BG_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG)),
@@ -37,10 +38,14 @@ namespace InitScene {
 			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).rectTransform.sizeDelta = CSceneManager.CanvasSize;
 			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
-			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
-			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).transform.localPosition = KDefine.IS_POS_SPLASH_IMG;
 			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(false);
 			// 이미지를 설정한다 }
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		}
+
+		/** 씬을 설정한다 */
+		protected override void Setup() {
+			base.Setup();
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 테이블을 생성한다 {
@@ -66,6 +71,9 @@ namespace InitScene {
 			CAppInfoStorage.Create();
 			CUserInfoStorage.Create();
 			CGameInfoStorage.Create();
+
+			// 이미지를 설정한다
+			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).sprite = CResManager.Inst.GetRes<Sprite>(KCDefine.U_IMG_P_SPLASH);
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 

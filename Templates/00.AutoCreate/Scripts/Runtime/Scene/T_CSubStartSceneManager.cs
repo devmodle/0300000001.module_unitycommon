@@ -97,6 +97,7 @@ namespace StartScene {
 
 		/** 씬을 설정한다 */
 		private void AwakeSetup() {
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 객체를 설정한다 {
 			CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
@@ -127,12 +128,12 @@ namespace StartScene {
 			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchoredPosition = KCDefine.B_ANCHOR_UP_LEFT;
 			// 텍스트를 설정한다 }
 
 			m_oStopwatch.Start();
 			this.OnReceiveStartSceneEvent(EStartSceneEvent.LOAD_START_SCENE);
 #endif			// #if DEBUG || DEVELOPMENT
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 텍스트 상태를 갱신한다 */

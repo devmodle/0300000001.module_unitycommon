@@ -113,6 +113,7 @@ namespace LevelEditorScene {
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+		private SimpleJSON.JSONNode m_oVerInfos = null;
 		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 #endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 
@@ -389,13 +390,7 @@ namespace LevelEditorScene {
 					} break;
 					case ETableSrc.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
-						foreach(var stKeyVal in KDefine.G_TABLE_INFO_DICT_CONTAINER) {
-							foreach(var stTableInfoKeyVal in stKeyVal.Value.Item2) {
-								Func.SetupGoogleSheetInfos(stKeyVal.Key, stKeyVal.Value.Item1, stTableInfoKeyVal.Value, m_oGoogleSheetHandlerDict, CAppInfoStorage.Inst.GoogleSheetInfoDict);
-							}
-						}
-
-						Func.LoadGoogleSheets(CAppInfoStorage.Inst.GoogleSheetInfoDict.ExToList(), this.OnLoadGoogleSheets);
+						Func.LoadVerInfoGoogleSheet(KDefine.G_ID_VER_INFO_GOOGLE_SHEET, m_oGoogleSheetHandlerDict, this.OnLoadVerInfoGoogleSheet);
 #endif			// #if GOOGLE_SHEET_ENABLE
 					} break;
 				}
@@ -631,14 +626,25 @@ namespace LevelEditorScene {
 		}
 
 #if GOOGLE_SHEET_ENABLE
+		/** 버전 정보 구글 시트를 로드했을 경우 */
+		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, SimpleJSON.JSONNode a_oVerInfos, Dictionary<string, STGoogleSheetInfo> a_oGoogleSheetInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				m_oVerInfos = a_oVerInfos;
+				Func.LoadGoogleSheets(a_oGoogleSheetInfoDict.ExToList(), this.OnLoadGoogleSheets);
+			} else {
+				Func.ShowOnTableLoadFailPopup(null);
+			}
+		}		
+
 		/** 구글 시트를 로드했을 경우 */
 		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				this.UpdateUIsState();
-				Func.ShowOnEditorGoogleSheetLoadPopup(null);
+				Func.OnLoadGoogleSheets(m_oVerInfos);
 			} else {
-				Func.ShowOnEditorGoogleSheetLoadFailPopup(null);
+				Func.ShowOnTableLoadFailPopup(null);
 			}
 		}
 
