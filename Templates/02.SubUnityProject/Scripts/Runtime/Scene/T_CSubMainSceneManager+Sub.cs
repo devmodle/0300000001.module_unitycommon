@@ -19,9 +19,9 @@ namespace MainScene {
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 #if CREATIVE_DIST_BUILD
-				for(int i = 0; i < CLevelInfoTable.Inst.NumLevelInfosDictContainer.Count; ++i) {
-					for(int j = 0; j < CLevelInfoTable.Inst.NumLevelInfosDictContainer[i].Count; ++j) {
-						for(int k = 0; k < CLevelInfoTable.Inst.NumLevelInfosDictContainer[i][j]; ++k) {
+				for(int i = 0; i < Access.NumChapterEpisodes; ++i) {
+					for(int j = 0; j < Access.GetNumStageEpisodes(i); ++i) {
+						for(int k = 0; k < Access.GetNumLevelEpisodes(j, i); ++k) {
 							// 클리어 정보가 없을 경우
 							if(Access.IsClearLevel(CGameInfoStorage.Inst.PlayCharacterID, k, j, i)) {
 								CGameInfoStorage.Inst.AddLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeClearInfo(k, j, i));
@@ -33,7 +33,7 @@ namespace MainScene {
 					}
 				}
 
-				Access.SetItemTargetAbilityTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS, EAbilityKinds.STAT_NUMS, KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND);
+				Access.SetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND);
 				CGameInfoStorage.Inst.SaveGameInfo();
 #endif			// #if CREATIVE_DIST_BUILD
 

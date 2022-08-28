@@ -81,8 +81,7 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 [MessagePackObject]
 public struct STTypeWrapper {
 	[Key(51)] public List<ulong> m_oULevelIDList;
-	[Key(161)] public Dictionary<int, Dictionary<int, int>> m_oNumLevelInfosDictContainer;
-	[Key(162)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;
+	[Key(161)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;
 }
 #endregion			// 기본
 

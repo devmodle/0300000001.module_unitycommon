@@ -34,18 +34,18 @@ namespace MainScene {
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
 		public int GetNumberOfCells(EnhancedScroller a_oSender) {
-			int nNumCells = (CLevelInfoTable.Inst.GetNumLevelInfos(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW);
-			int nNumExtraCells = (CLevelInfoTable.Inst.GetNumLevelInfos(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) % KDefine.MS_MAX_NUM_LEVELS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			int nNumCells = (Access.GetNumLevelEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW);
+			int nNumExtraCells = (Access.GetNumLevelEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) % KDefine.MS_MAX_NUM_LEVELS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
 
 			// 스테이지 스크롤러 일 경우
 			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item1 == a_oSender) {
-				nNumCells = (CLevelInfoTable.Inst.GetNumStageInfos(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW);
-				nNumExtraCells = (CLevelInfoTable.Inst.GetNumStageInfos(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) % KDefine.MS_MAX_NUM_STAGES_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+				nNumCells = (Access.GetNumStageEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW);
+				nNumExtraCells = (Access.GetNumStageEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) % KDefine.MS_MAX_NUM_STAGES_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
 			}
 			// 챕터 스크롤러 일 경우
 			else if(m_oScrollerInfoDict.GetValueOrDefault(EKey.CHAPTER_SCROLLER_INFO).Item1 == a_oSender) {
-				nNumCells = (CLevelInfoTable.Inst.NumChapterInfos / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW);
-				nNumExtraCells = (CLevelInfoTable.Inst.NumChapterInfos % KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+				nNumCells = (Access.NumChapterEpisodes / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW);
+				nNumExtraCells = (Access.NumChapterEpisodes % KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
 			}
 			
 			return nNumCells + nNumExtraCells;

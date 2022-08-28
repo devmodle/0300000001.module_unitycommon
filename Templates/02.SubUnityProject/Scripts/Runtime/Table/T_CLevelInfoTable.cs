@@ -178,95 +178,14 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 /** 레벨 정보 테이블 */
 public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 프로퍼티
-	public Dictionary<int, Dictionary<int, int>> NumLevelInfosDictContainer = new Dictionary<int, Dictionary<int, int>>();
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LevelInfoDictContainer = new Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>>();
 	
 #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-	public int TotalNumLevelInfos {
-		get {
-			int nNumLevelInfos = KCDefine.B_VAL_0_INT;
-
-			for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
-				for(int j = 0; j < this.LevelInfoDictContainer[i].Count; ++j) {
-					nNumLevelInfos += this.GetNumLevelInfos(j, i);
-				}
-			}
-			
-			return nNumLevelInfos;
-		}
-	}
-
-	public int TotalNumStageInfos {
-		get {
-			int nNumStageInfos = KCDefine.B_VAL_0_INT;
-
-			for(int i = 0; i < this.LevelInfoDictContainer.Count; ++i) {
-				nNumStageInfos += this.GetNumStageInfos(i);
-			}
-
-			return nNumStageInfos;
-		}
-	}
-
 	public int NumChapterInfos => this.LevelInfoDictContainer.Count;
-#else
-	public int TotalNumLevelInfos {
-		get {
-			int nNumLevelInfos = KCDefine.B_VAL_0_INT;
-
-			for(int i = 0; i < this.NumLevelInfosDictContainer.Count; ++i) {
-				for(int j = 0; j < this.NumLevelInfosDictContainer[i].Count; ++j) {
-					nNumLevelInfos += this.NumLevelInfosDictContainer[i][j];
-				}
-			}
-
-			return nNumLevelInfos;
-		}
-	}
-
-	public int TotalNumStageInfos {
-		get {
-			int nNumStageInfos = KCDefine.B_VAL_0_INT;
-
-			for(int i = 0; i < this.NumLevelInfosDictContainer.Count; ++i) {
-				nNumStageInfos += this.NumLevelInfosDictContainer[i].Count;
-			}
-
-			return nNumStageInfos;
-		}
-	}
-
-	public int NumChapterInfos => this.NumLevelInfosDictContainer.Count;
 #endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 프로퍼티
 
 	#region 함수
-	/** 레벨 정보 개수를 반환한다 */
-	public int GetNumLevelInfos(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nChapterID) && this.LevelInfoDictContainer[a_nChapterID].ContainsKey(a_nStageID));
-		return this.LevelInfoDictContainer[a_nChapterID][a_nStageID].Count;
-#else
-		CAccess.Assert(this.NumLevelInfosDictContainer.ContainsKey(a_nChapterID) && this.NumLevelInfosDictContainer[a_nChapterID].ContainsKey(a_nStageID));
-		return this.NumLevelInfosDictContainer[a_nChapterID][a_nStageID];
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-	}
-
-	/** 스테이지 정보 개수를 반화한다 */
-	public int GetNumStageInfos(int a_nChapterID) {
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		bool bIsValid = this.LevelInfoDictContainer.TryGetValue(a_nChapterID, out Dictionary<int, Dictionary<int, CLevelInfo>> oChapterLevelInfoDictContainer);
-		CAccess.Assert(bIsValid);
-
-		return oChapterLevelInfoDictContainer.Count;
-#else
-		bool bIsValid = this.NumLevelInfosDictContainer.TryGetValue(a_nChapterID, out Dictionary<int, int> oNumChapterLevelInfosDict);
-		CAccess.Assert(bIsValid);
-		
-		return oNumChapterLevelInfosDict.Count;
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-	}
-	
 	/** 레벨 정보를 로드한다 */
 	public CLevelInfo LoadLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		return this.LoadLevelInfo(this.GetLevelInfoPath(a_nLevelID, a_nStageID, a_nChapterID), a_nLevelID, a_nStageID, a_nChapterID);
@@ -320,21 +239,11 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath}");
 
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		var oLevelIDList = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath, false) : CFunc.ReadMsgPackJSONObjFromRes<List<ulong>>(a_oFilePath, false);
-		this.NumLevelInfosDictContainer.Clear();
 
 		for(int i = 0; i < oLevelIDList.Count; ++i) {
-			int nLevelID = oLevelIDList[i].ExULevelIDToLevelID();
-			int nStageID = oLevelIDList[i].ExULevelIDToStageID();
-			int nChapterID = oLevelIDList[i].ExULevelIDToChapterID();
-
-			var oNumChapterLevelInfosDict = this.NumLevelInfosDictContainer.GetValueOrDefault(nChapterID) ?? new Dictionary<int, int>();
-			oNumChapterLevelInfosDict.ExReplaceVal(nStageID, oNumChapterLevelInfosDict.GetValueOrDefault(nStageID, KCDefine.B_VAL_0_INT) + KCDefine.B_VAL_1_INT);
-			
-			this.NumLevelInfosDictContainer.ExReplaceVal(nChapterID, oNumChapterLevelInfosDict);
-
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			this.AddLevelInfo(this.LoadLevelInfo(nLevelID, nStageID, nChapterID));
+			this.AddLevelInfo(this.LoadLevelInfo(oLevelIDList[i].ExULevelIDToLevelID(), oLevelIDList[i].ExULevelIDToStageID(), oLevelIDList[i].ExULevelIDToChapterID()));
 #endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		}
 
@@ -352,6 +261,20 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	#region 조건부 함수
 #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+	/** 레벨 정보 개수를 반환한다 */
+	public int GetNumLevelInfos(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nChapterID) && this.LevelInfoDictContainer[a_nChapterID].ContainsKey(a_nStageID));
+		return this.LevelInfoDictContainer[a_nChapterID][a_nStageID].Count;
+	}
+
+	/** 스테이지 정보 개수를 반화한다 */
+	public int GetNumStageInfos(int a_nChapterID) {
+		bool bIsValid = this.LevelInfoDictContainer.TryGetValue(a_nChapterID, out Dictionary<int, Dictionary<int, CLevelInfo>> oChapterLevelInfoDictContainer);
+		CAccess.Assert(bIsValid);
+
+		return oChapterLevelInfoDictContainer.Count;
+	}
+
 	/** 레벨 정보를 반환한다 */
 	public CLevelInfo GetLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetLevelInfo(a_nLevelID, out CLevelInfo oLevelInfo, a_nStageID, a_nChapterID);

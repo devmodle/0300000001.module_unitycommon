@@ -37,7 +37,7 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 			var stIDInfo = new STIDInfo(i + base.Params.m_nID.ExULevelIDToLevelID(), base.Params.m_nID.ExULevelIDToStageID(), base.Params.m_nID.ExULevelIDToChapterID());
 
 			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
-			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID01 < CLevelInfoTable.Inst.GetNumLevelInfos(stIDInfo.m_nID02, stIDInfo.m_nID03));
+			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID01 < Access.GetNumLevelEpisodes(stIDInfo.m_nID02, stIDInfo.m_nID03));
 		}
 	}
 
@@ -55,7 +55,7 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 		// 버튼을 갱신한다 }
 
 		// 레벨 정보가 존재 할 경우
-		if(a_stIDInfo.m_nID01 < CLevelInfoTable.Inst.GetNumLevelInfos(a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)) {
+		if(a_stIDInfo.m_nID01 < Access.GetNumLevelEpisodes(a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)) {
 			CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_stIDInfo.m_nID01, out STEpisodeInfo stLevelEpisodeInfo, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03);
 
 			// 텍스트를 갱신한다

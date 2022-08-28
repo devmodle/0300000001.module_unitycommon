@@ -37,7 +37,7 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 			var stIDInfo = new STIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, i + base.Params.m_nID.ExULevelIDToChapterID());
 
 			this.UpdateScrollerCellState(this.ScrollerCellList[i], stIDInfo);
-			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID03 < CLevelInfoTable.Inst.NumChapterInfos);
+			this.ScrollerCellList[i]?.SetActive(stIDInfo.m_nID03 < Access.NumChapterEpisodes);
 		}
 	}
 
@@ -55,7 +55,7 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 		// 버튼을 갱신한다 }
 		
 		// 챕터 정보가 존재 할 경우
-		if(a_stIDInfo.m_nID03 < CLevelInfoTable.Inst.NumChapterInfos) {
+		if(a_stIDInfo.m_nID03 < Access.NumChapterEpisodes) {
 			CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_stIDInfo.m_nID03, out STEpisodeInfo stChapterEpisodeInfo);
 
 			// 텍스트를 갱신한다
