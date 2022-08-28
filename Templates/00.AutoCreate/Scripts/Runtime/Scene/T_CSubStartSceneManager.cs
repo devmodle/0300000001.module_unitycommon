@@ -128,6 +128,7 @@ namespace StartScene {
 			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchoredPosition = Vector3.zero;
 			// 텍스트를 설정한다 }
 
 			m_oStopwatch.Start();

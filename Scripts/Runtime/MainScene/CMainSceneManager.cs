@@ -47,6 +47,7 @@ namespace MainScene {
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchoredPosition = Vector3.zero;
 				// 텍스트를 설정한다 }
 			}
 		}
