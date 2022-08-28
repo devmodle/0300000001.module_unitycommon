@@ -46,11 +46,11 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 			CTutorialInfoTable.Inst.SaveTutorialInfos(a_oJSONStr);
 			CFXInfoTable.Inst.SaveFXInfos(a_oJSONStr);
 
-#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, true);
-#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		}
 	}
 	#endregion			// 함수

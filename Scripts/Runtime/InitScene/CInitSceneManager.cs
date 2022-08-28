@@ -100,7 +100,7 @@ namespace InitScene {
 			Screen.SetResolution((int)CAccess.CorrectDesktopScreenSize.x, (int)CAccess.CorrectDesktopScreenSize.y, FullScreenMode.Windowed);
 #else
 			Screen.SetResolution(Screen.width, Screen.height, FullScreenMode.FullScreenWindow);
-#endif           // #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif           // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 			// 디바이스 정보를 설정한다 {
 			var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (long, long)>() {

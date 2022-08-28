@@ -51,6 +51,12 @@ public struct STEpisodeInfo {
 	public ulong UniqueChapterID => CFactory.MakeUniqueChapterID(m_stIDInfo.m_nID03);
 	public ulong PrevUniqueChapterID => CFactory.MakeUniqueChapterID(m_stPrevIDInfo.m_nID03);
 	public ulong NextUniqueChapterID => CFactory.MakeUniqueChapterID(m_stNextIDInfo.m_nID03);
+
+	public EEpisodeType EpisodeType => (EEpisodeType)((int)m_eEpisodeKinds).ExKindsToType();
+	public EEpisodeKinds BaseEpisodeKinds => (EEpisodeKinds)((int)m_eEpisodeKinds).ExKindsToSubKindsType();
+
+	public ETutorialType TutorialType => (ETutorialType)((int)m_eTutorialKinds).ExKindsToType();
+	public ETutorialKinds BaseTutorialKinds => (ETutorialKinds)((int)m_eTutorialKinds).ExKindsToSubKindsType(); 
 	#endregion			// 프로퍼티
 
 	#region 함수
@@ -245,11 +251,11 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		CFunc.ShowLog($"CEpisodeInfoTable.LoadEpisodeInfos: {a_oFilePath}");
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
-#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadEpisodeInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
 #else
 		return this.DoLoadEpisodeInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false));
-#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 에피소드 정보를 로드한다 */

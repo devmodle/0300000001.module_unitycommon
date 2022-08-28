@@ -133,11 +133,11 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 			CProductInfoTable.Inst.SaveProductInfos(a_oJSONStr);
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.ProductTradeInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.ProductTradeInfoTableSavePath, a_oJSONStr, true);
-#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		}
 	}
 
@@ -158,11 +158,11 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	private Dictionary<EProductKinds, STProductTradeInfo> LoadProductTradeInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadProductTradeInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
 #else
 		return this.DoLoadProductTradeInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false));
-#endif			// #if UNITY_EDITOR || (UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD))
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 상품 교환 정보를 로드한다 */

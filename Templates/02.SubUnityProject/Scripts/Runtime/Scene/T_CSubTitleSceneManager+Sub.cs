@@ -9,10 +9,6 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-using GoogleSheetsToUnity;
-#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-
 namespace TitleScene {
 	/** 서브 타이틀 씬 관리자 */
 	public partial class CSubTitleSceneManager : CTitleSceneManager {
@@ -124,7 +120,7 @@ namespace TitleScene {
 			}
 			// 버튼을 갱신한다 }
 
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO), this.OnLoadEtcInfoGoogleSheet);
 			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO), this.OnLoadMissionInfoGoogleSheet);
 			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO), this.OnLoadRewardInfoGoogleSheet);
@@ -134,7 +130,7 @@ namespace TitleScene {
 			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO), this.OnLoadObjInfoGoogleSheet);
 			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO), this.OnLoadAbilityInfoGoogleSheet);
 			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO), this.OnLoadProductInfoGoogleSheet);
-#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 			#region 추가
 			this.SubUpdateUIsState();
@@ -206,11 +202,11 @@ namespace TitleScene {
 			if(!m_oBoolDict.GetValueOrDefault(EKey.IS_TOUCH) && CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
 				m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, true);
 
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 				Func.LoadVerInfoGoogleSheet(KDefine.G_ID_VER_INFO_GOOGLE_SHEET, m_oGoogleSheetHandlerDict, this.OnLoadVerInfoGoogleSheet);
 #else
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
 		#endregion			// 함수

@@ -76,11 +76,11 @@ public static partial class Func {
 		CGameInfoStorage.Inst.PlayEpisodeInfo = Access.GetEpisodeInfo(a_nLevelID, a_nStageID, a_nChapterID);
 		
 #if NEVER_USE_THIS
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		CGameInfoStorage.Inst.PlayLevelInfo = CLevelInfoTable.Inst.GetLevelInfo(a_nLevelID, a_nStageID, a_nChapterID);
 #else
 		CGameInfoStorage.Inst.PlayLevelInfo = CLevelInfoTable.Inst.LoadLevelInfo(a_nLevelID, a_nStageID, a_nChapterID);
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #endif			// #if NEVER_USE_THIS
 	}
 
@@ -534,7 +534,7 @@ public static partial class Func {
 	}
 #endif			// #if PURCHASE_MODULE_ENABLE
 
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드했을 경우 */
 	public static void OnLoadGoogleSheets(SimpleJSON.JSONNode a_oVerInfos) {
 		for(int i = 0; i < a_oVerInfos.Count; ++i) {
@@ -543,7 +543,7 @@ public static partial class Func {
 
 		CAppInfoStorage.Inst.SaveAppInfo();
 	}
-#endif			// #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion			// 조건부 클래스 함수
 }
 

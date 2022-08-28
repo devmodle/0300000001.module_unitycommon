@@ -257,8 +257,65 @@ public static partial class Access {
 		if(CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_nLevelID, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID)) {
 			return stLevelEpisodeInfo;
 		}
-		
-		return CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID) ? stStageEpisodeInfo : CEpisodeInfoTable.Inst.GetChapterEpisodeInfo(a_nChapterID);
+
+		bool bIsValid = CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID);
+		return bIsValid ? stStageEpisodeInfo : CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_nChapterID, out STEpisodeInfo stChapterEpisodeInfo) ? stChapterEpisodeInfo : STEpisodeInfo.INVALID;
+	}
+
+	/** 이전 에피소드 정보를 반환한다 */
+	public static STEpisodeInfo GetPrevEpisodeInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		// 레벨 에피소드 정보가 존재 할 경우
+		if(CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_nLevelID - KCDefine.B_VAL_1_INT, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID)) {
+			return stLevelEpisodeInfo;
+		}
+
+		bool bIsValid = CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_nStageID - KCDefine.B_VAL_1_INT, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID);
+		return bIsValid ? stStageEpisodeInfo : CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_nChapterID - KCDefine.B_VAL_1_INT, out STEpisodeInfo stChapterEpisodeInfo) ? stChapterEpisodeInfo : STEpisodeInfo.INVALID;
+	}
+
+	/** 이전 레벨 에피소드 정보를 반환한다 */
+	public static STEpisodeInfo GetPrevLevelEpisodeInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		var stEpisodeInfo = Access.GetPrevEpisodeInfo(a_nLevelID, a_nStageID, a_nChapterID);
+
+		// 레벨 에피소드 정보 일 경우
+		if(stEpisodeInfo.EpisodeType == EEpisodeType.LEVEL) {
+			return stEpisodeInfo;
+		}
+		// 스테이지 에피소드 정보 일 경우
+		else if(stEpisodeInfo.EpisodeType == EEpisodeType.STAGE && CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(stEpisodeInfo.m_nNumSubEpisodes - KCDefine.B_VAL_1_INT, out STEpisodeInfo stStageLevelEpisodeInfo, a_nStageID - KCDefine.B_VAL_1_INT, a_nChapterID)) {
+			return stStageLevelEpisodeInfo;
+		}
+
+		bool bIsValid = CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(stEpisodeInfo.m_nNumSubEpisodes - KCDefine.B_VAL_1_INT, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID - KCDefine.B_VAL_1_INT);
+		return (bIsValid && stEpisodeInfo.EpisodeType == EEpisodeType.CHAPTER && CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(stStageEpisodeInfo.m_nNumSubEpisodes - KCDefine.B_VAL_1_INT, out STEpisodeInfo stChapterLevelEpisodeInfo, stEpisodeInfo.m_nNumSubEpisodes - KCDefine.B_VAL_1_INT, a_nChapterID - KCDefine.B_VAL_1_INT)) ? stChapterLevelEpisodeInfo : STEpisodeInfo.INVALID;
+	}
+
+	/** 다음 에피소드 정보를 반환한다 */
+	public static STEpisodeInfo GetNextEpisodeInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		// 레벨 에피소드 정보가 존재 할 경우
+		if(CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_nLevelID + KCDefine.B_VAL_1_INT, out STEpisodeInfo stLevelEpisodeInfo, a_nStageID, a_nChapterID)) {
+			return stLevelEpisodeInfo;
+		}
+
+		bool bIsValid = CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_nStageID + KCDefine.B_VAL_1_INT, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID);
+		return bIsValid ? stStageEpisodeInfo : CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_nChapterID + KCDefine.B_VAL_1_INT, out STEpisodeInfo stChapterEpisodeInfo) ? stChapterEpisodeInfo : STEpisodeInfo.INVALID;
+	}
+
+	/** 다음 레벨 에피소드 정보를 반환한다 */
+	public static STEpisodeInfo GetNextLevelEpisodeInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		var stEpisodeInfo = Access.GetNextEpisodeInfo(a_nLevelID, a_nStageID, a_nChapterID);
+
+		// 레펠 에피소드 정보 일 경우
+		if(stEpisodeInfo.EpisodeType == EEpisodeType.LEVEL) {
+			return stEpisodeInfo;
+		}
+		// 스테이지 에피소드 정보 일 경우
+		if(stEpisodeInfo.EpisodeType == EEpisodeType.STAGE && CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(KCDefine.B_VAL_0_INT, out STEpisodeInfo stStageLevelEpisodeInfo, a_nStageID + KCDefine.B_VAL_1_INT, a_nChapterID)) {
+			return stStageLevelEpisodeInfo;
+		}
+
+		bool bIsValid = CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(KCDefine.B_VAL_0_INT, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID + KCDefine.B_VAL_1_INT);
+		return (bIsValid && stEpisodeInfo.EpisodeType == EEpisodeType.CHAPTER && CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(KCDefine.B_VAL_0_INT, out STEpisodeInfo stChapterLevelEpisodeInfo, KCDefine.B_VAL_0_INT, a_nChapterID + KCDefine.B_VAL_1_INT)) ? stChapterLevelEpisodeInfo : STEpisodeInfo.INVALID;
 	}
 	
 	/** 레벨 클리어 정보를 반환한다 */

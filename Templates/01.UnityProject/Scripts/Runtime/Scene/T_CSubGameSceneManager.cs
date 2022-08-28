@@ -195,15 +195,13 @@ namespace GameScene {
 			}
 		}
 
-		/** 다음 레벨을 로드한다 */
-		private void LoadNextLevel(CPopup a_oPopup) {
-			var stNextEpisodeInfo = Access.GetEpisodeInfo(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03);
-
+		/** 레벨을 로드한다 */
+		private void LoadLevel(CPopup a_oPopup, STEpisodeInfo a_stEpisodeInfo) {
 			switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
-					// 다음 레벨이 존재 할 경우
-					if(stNextEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID && stNextEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03)) {
-						Func.SetupPlayEpisodeInfo(stNextEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, stNextEpisodeInfo.m_stIDInfo.m_nID02, stNextEpisodeInfo.m_stIDInfo.m_nID03);
+					// 레벨 로드가 가능 할 경우
+					if(a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID && a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03)) {
+						Func.SetupPlayEpisodeInfo(a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
 						
 #if ADS_MODULE_ENABLE
 						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
@@ -221,6 +219,16 @@ namespace GameScene {
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 				} break;
 			}
+		}
+
+		/** 이전 레벨을 로드한다 */
+		private void LoadPrevLevel(CPopup a_oPopup) {
+			this.LoadLevel(a_oPopup, Access.GetPrevLevelEpisodeInfo(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
+		}
+
+		/** 다음 레벨을 로드한다 */
+		private void LoadNextLevel(CPopup a_oPopup) {
+			this.LoadLevel(a_oPopup, Access.GetNextLevelEpisodeInfo(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
 		}
 
 		/** 플레이 레벨을 재시도한다 */

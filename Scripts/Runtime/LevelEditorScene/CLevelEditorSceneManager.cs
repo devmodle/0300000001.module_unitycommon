@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 namespace LevelEditorScene {
 	/** 레벨 에디터 씬 관리자 */
 	public partial class CLevelEditorSceneManager : CSceneManager {
@@ -78,4 +78,4 @@ namespace LevelEditorScene {
 		#endregion			// 함수
 	}
 }
-#endif			// #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
