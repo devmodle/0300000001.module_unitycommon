@@ -16,7 +16,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn)
-		}, m_oBtnDict, false);
+		}, m_oBtnDict);
 
 		#region 추가
 		this.SubAwakeSetup();

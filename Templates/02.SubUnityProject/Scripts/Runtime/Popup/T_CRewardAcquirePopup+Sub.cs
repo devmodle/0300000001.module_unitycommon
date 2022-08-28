@@ -22,7 +22,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
 			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
-		}, m_oBtnDict, false);
+		}, m_oBtnDict);
 
 		#region 추가
 		this.SubAwakeSetup();

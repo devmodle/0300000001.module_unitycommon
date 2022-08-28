@@ -18,7 +18,7 @@ namespace NSEngine {
 			// 스프라이트를 설정한다
 			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
 				(EKey.OBJ_SPRITE, $"{EKey.OBJ_SPRITE}", this.gameObject)
-			}, m_oSpriteDict, false);
+			}, m_oSpriteDict);
 
 			#region 추가
 			this.SubAwakeSetup();

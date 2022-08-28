@@ -873,7 +873,7 @@ public static partial class Func {
 				}
 			}
 
-			a_oOutGoogleSheetInfoDict.ExReplaceVal(a_oGoogleSheetID, stGoogleSheetInfo);
+			a_oOutGoogleSheetInfoDict.ExReplaceVal(a_oKey, stGoogleSheetInfo);
 		}
 	}
 
@@ -948,9 +948,9 @@ public static partial class Func {
 				
 				// 구글 시트 로드가 가능 할 경우
 				if(oVerInfos[i][oIsTrue01Key].AsInt != KCDefine.B_VAL_0_INT || oVer.CompareTo(System.Version.Parse(oVerInfos[i][KCDefine.U_KEY_VER])) < KCDefine.B_COMPARE_EQUALS) {
-					string oGoogleSheetID = KDefine.G_TABLE_INFO_DICT_CONTAINER[oVerInfos[i][KCDefine.U_KEY_NAME]].Item1;
+					string oGoogleSheetID = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME]).Item1;
 
-					foreach(var stKeyVal in KDefine.G_TABLE_INFO_DICT_CONTAINER[oVerInfos[i][KCDefine.U_KEY_NAME]].Item2) {
+					foreach(var stKeyVal in KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME]).Item2) {
 						Func.SetupGoogleSheetInfos(oVerInfos[i][KCDefine.U_KEY_NAME], oGoogleSheetID, stKeyVal.Value, Func.m_oGoogleSheetHandlerDict, oGoogleSheetInfoDict);
 					}
 				}

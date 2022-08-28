@@ -76,7 +76,7 @@ namespace TitleScene {
 			// 텍스트를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 				(EKey.TOUCH_TEXT, $"{EKey.TOUCH_TEXT}", this.UIsBase)
-			}, m_oTextDict, false);
+			}, m_oTextDict);
 
 			m_oTextDict.GetValueOrDefault(EKey.TOUCH_TEXT)?.gameObject.SetActive(false);
 			// 텍스트를 설정한다 }
@@ -87,7 +87,7 @@ namespace TitleScene {
 				(EKey.GUEST_LOGIN_BTN, $"{EKey.GUEST_LOGIN_BTN}", this.UIsBase, this.OnTouchGuestLoginBtn),
 				(EKey.APPLE_LOGIN_BTN, $"{EKey.APPLE_LOGIN_BTN}", this.UIsBase, this.OnTouchAppleLoginBtn),
 				(EKey.FACEBOOK_LOGIN_BTN, $"{EKey.FACEBOOK_LOGIN_BTN}", this.UIsBase, this.OnTouchFacebookLoginBtn)
-			}, m_oBtnDict, false);
+			}, m_oBtnDict);
 
 			#region 추가
 			this.SubAwakeSetup();

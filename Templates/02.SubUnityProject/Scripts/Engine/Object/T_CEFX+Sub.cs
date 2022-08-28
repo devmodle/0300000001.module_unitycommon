@@ -17,7 +17,7 @@ namespace NSEngine {
 			// 파티클을 설정한다
 			CFunc.SetupParticles(new List<(EKey, string, GameObject)>() {
 				(EKey.FX_PARTICLE, $"{EKey.FX_PARTICLE}", this.gameObject)
-			}, m_oParticleDict, false);
+			}, m_oParticleDict);
 
 			#region 추가
 			this.SubAwakeSetup();

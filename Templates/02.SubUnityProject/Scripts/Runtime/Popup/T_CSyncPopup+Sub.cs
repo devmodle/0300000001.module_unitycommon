@@ -17,7 +17,7 @@ public partial class CSyncPopup : CSubPopup {
 		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
 			(EKey.LOGIN_UIS, $"{EKey.LOGIN_UIS}", this.Contents),
 			(EKey.LOGOUT_UIS, $"{EKey.LOGIN_UIS}", this.Contents)
-		}, m_oUIsDict, false);
+		}, m_oUIsDict);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {

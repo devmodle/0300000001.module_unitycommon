@@ -19,13 +19,13 @@ public partial class CResultPopup : CSubPopup {
 		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
 			(EKey.CLEAR_UIS, $"{EKey.CLEAR_UIS}", this.Contents),
 			(EKey.CLEAR_FAIL_UIS, $"{EKey.CLEAR_FAIL_UIS}", this.Contents)
-		}, m_oUIsDict, false);
+		}, m_oUIsDict);
 
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 			(EKey.RECORD_TEXT, $"{EKey.RECORD_TEXT}", this.Contents),
 			(EKey.BEST_RECORD_TEXT, $"{EKey.BEST_RECORD_TEXT}", this.Contents)
-		}, m_oTextDict, false);
+		}, m_oTextDict);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {

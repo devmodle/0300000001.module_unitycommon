@@ -280,22 +280,34 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		a_oOutBuyItemTradeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutSaleItemTradeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.ItemInfoTableLoadPath)];
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Path.GetFileNameWithoutExtension(Access.ItemInfoTableLoadPath));
 
-		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-			a_oOutItemInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
+		// 공용 정보가 존재 할 경우
+		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {
+			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
+				a_oOutItemInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
+			}
 		}
 
-		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
-			a_oOutItemEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
+		// 강화 정보가 존재 할 경우
+		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_ENHANCE)) {
+			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
+				a_oOutItemEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
+			}
 		}
 
-		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE].Count; ++i) {
-			a_oOutBuyItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE][i]]);
+		// 구입 교환 정보가 존재 할 경우
+		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_BUY_TRADE)) {
+			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE].Count; ++i) {
+				a_oOutBuyItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE][i]]);
+			}
 		}
-		
-		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE].Count; ++i) {
-			a_oOutSaleItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE][i]]);
+
+		// 판매 교환 정보가 존재 할 경우
+		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_SALE_TRADE)) {
+			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE].Count; ++i) {
+				a_oOutSaleItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE][i]]);
+			}
 		}
 	}
 

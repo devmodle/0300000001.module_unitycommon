@@ -19,7 +19,7 @@ public partial class CSettingsPopup : CSubPopup {
 			(EKey.FX_SNDS_BTN, $"{EKey.FX_SNDS_BTN}", this.Contents, this.OnTouchFXSndsBtn),
 			(EKey.VIBRATE_BTN, $"{EKey.VIBRATE_BTN}", this.Contents, this.OnTouchVibrateBtn),
 			(EKey.NOTI_BTN, $"{EKey.NOTI_BTN}", this.Contents, this.OnTouchNotiBtn)
-		}, m_oBtnDict, false);
+		}, m_oBtnDict);
 
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_REVIEW_BTN, this.Contents, this.OnTouchReviewBtn),

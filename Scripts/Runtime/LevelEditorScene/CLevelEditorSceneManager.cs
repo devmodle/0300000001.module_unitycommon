@@ -59,16 +59,16 @@ namespace LevelEditorScene {
 					(EKey.MID_EDITOR_UIS, $"{EKey.MID_EDITOR_UIS}", this.UIsBase),
 					(EKey.LEFT_EDITOR_UIS, $"{EKey.LEFT_EDITOR_UIS}", this.UIsBase),
 					(EKey.RIGHT_EDITOR_UIS, $"{EKey.RIGHT_EDITOR_UIS}", this.UIsBase)
-				}, m_oUIsDict, false);
+				}, m_oUIsDict);
 
 				CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
 					(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIsDict.GetValueOrDefault(EKey.MID_EDITOR_UIS)),
 					(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIsDict.GetValueOrDefault(EKey.LEFT_EDITOR_UIS))
-				}, m_oUIsDict, false);
+				}, m_oUIsDict);
 
 				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null)
-				}, m_oObjDict, false);
+				}, m_oObjDict);
 
 				CSceneManager.ScreenDebugUIs?.SetActive(false);
 				m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS)?.SetActive(false);

@@ -248,7 +248,7 @@ public static partial class KDefine {
 		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = (KDefine.G_ID_PRODUCT_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CProductTradeInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
-					KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
+					KCDefine.B_KEY_COMMON, KCDefine.B_PLATFORM_N_IOS_APPLE, KCDefine.B_PLATFORM_N_ANDROID_GOOGLE, KCDefine.B_PLATFORM_N_ANDROID_AMAZON, KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
 				}
 			}
 		})

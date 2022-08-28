@@ -101,7 +101,7 @@ namespace StartScene {
 			// 객체를 설정한다 {
 			CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
-			}, m_oUIsDict, false);
+			}, m_oUIsDict);
 
 			m_oUIsDict.GetValueOrDefault(EKey.LOADING_GAUGE).transform.localPosition = KDefine.SS_POS_LOADING_GAUGE;
 			// 객체를 설정한다 }
@@ -109,7 +109,7 @@ namespace StartScene {
 			// 텍스트를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
-			}, m_oTextDict, false);
+			}, m_oTextDict);
 
 			m_oTextDict.GetValueOrDefault(EKey.LOADING_TEXT).transform.localPosition = KDefine.SS_POS_LOADING_TEXT;
 			// 텍스트를 설정한다 }
@@ -117,13 +117,13 @@ namespace StartScene {
 			// 게이지 처리자를 설정한다
 			CFunc.SetupComponents(new List<(EKey, GameObject)>() {
 				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict.GetValueOrDefault(EKey.LOADING_GAUGE))
-			}, m_oGaugeHandlerDict, false);
+			}, m_oGaugeHandlerDict);
 
 #if DEBUG || DEVELOPMENT
 			// 텍스트를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.SCENE_INFO_TEXT, $"{EKey.SCENE_INFO_TEXT}", this.UpLeftUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
-			}, m_oTextDict, false);
+			}, m_oTextDict);
 
 			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 			m_oTextDict.GetValueOrDefault(EKey.SCENE_INFO_TEXT).rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;

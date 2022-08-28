@@ -85,7 +85,7 @@ namespace GameScene {
 				(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
 				(EKey.TOP_BG_SPRITE, $"{EKey.TOP_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
 				(EKey.BOTTOM_BG_SPRITE, $"{EKey.BOTTOM_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
-			}, m_oSpriteDict, false);
+			}, m_oSpriteDict);
 
 			foreach(var stKeyVal in m_oSpriteDict) {
 				stKeyVal.Value.drawMode = SpriteDrawMode.Tiled;

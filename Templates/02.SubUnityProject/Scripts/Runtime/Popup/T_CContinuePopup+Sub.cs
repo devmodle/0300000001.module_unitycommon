@@ -17,7 +17,7 @@ public partial class CContinuePopup : CSubPopup {
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 			(EKey.PRICE_TEXT, $"{EKey.PRICE_TEXT}", this.Contents)
-		}, m_oTextDict, false);
+		}, m_oTextDict);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {

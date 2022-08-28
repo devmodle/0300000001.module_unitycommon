@@ -216,18 +216,27 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		a_oOutStageEpisodeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutChapterEpisodeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER[Path.GetFileNameWithoutExtension(Access.EpisodeInfoTableLoadPath)];
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Path.GetFileNameWithoutExtension(Access.EpisodeInfoTableLoadPath));
 
-		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_LEVEL].Count; ++i) {
-			a_oOutLevelEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_LEVEL][i]]);
+		// 레벨 정보가 존재 할 경우
+		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_LEVEL)) {
+			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_LEVEL].Count; ++i) {
+				a_oOutLevelEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_LEVEL][i]]);
+			}
 		}
 
-		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_STAGE].Count; ++i) {
-			a_oOutStageEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_STAGE][i]]);
+		// 스테이지 정보가 존재 할 경우
+		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_STAGE)) {
+			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_STAGE].Count; ++i) {
+				a_oOutStageEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_STAGE][i]]);
+			}
 		}
 
-		for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_CHAPTER].Count; ++i) {
-			a_oOutChapterEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_CHAPTER][i]]);
+		// 챕터 정보가 존재 할 경우
+		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_CHAPTER)) {
+			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_CHAPTER].Count; ++i) {
+				a_oOutChapterEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_CHAPTER][i]]);
+			}
 		}
 	}
 

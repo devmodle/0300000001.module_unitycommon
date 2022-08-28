@@ -180,7 +180,7 @@ namespace MainScene {
 				// 레이아웃을 설정한다 {
 				CFunc.SetupLayoutGroups(new List<(string, string, GameObject, GameObject)>() {
 					(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, this.UpUIs, null)
-				}, oHLayoutGroupDict, false);
+				}, oHLayoutGroupDict);
 
 				oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).spacing = KCDefine.B_VAL_4_REAL * KCDefine.B_VAL_5_REAL;
 
@@ -197,7 +197,7 @@ namespace MainScene {
 				CFunc.SetupComponents(new List<(string, string, GameObject, GameObject)>() {
 					(KCDefine.U_OBJ_N_A_SET_BTN, KCDefine.U_OBJ_N_A_SET_BTN, oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN)),
 					(KCDefine.U_OBJ_N_B_SET_BTN, KCDefine.U_OBJ_N_B_SET_BTN, oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN))
-				}, oTextDict, false);
+				}, oTextDict);
 
 				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_A_SET_BTN).fontSize = KCDefine.U_DEF_SIZE_FONT;
 				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_A_SET_BTN).ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_A_SET_TEXT));

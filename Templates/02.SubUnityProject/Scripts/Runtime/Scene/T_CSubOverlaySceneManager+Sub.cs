@@ -36,12 +36,12 @@ namespace OverlayScene {
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 				(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.UIsBase)
-			}, m_oTextDict, false);
+			}, m_oTextDict);
 
 			// 버튼을 설정한다
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 				(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
-			}, m_oBtnDict, false);
+			}, m_oBtnDict);
 
 			#region 추가
 			this.SubAwakeSetup();

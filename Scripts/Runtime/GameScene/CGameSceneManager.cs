@@ -48,7 +48,7 @@ namespace GameScene {
 					(EKey.SKILL_ROOT, $"{EKey.SKILL_ROOT}", this.Objs, null),
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null),
 					(EKey.FX_ROOT, $"{EKey.FX_ROOT}", this.Objs, null)
-				}, m_oObjDict, false);
+				}, m_oObjDict);
 			}
 		}
 		#endregion			// 함수

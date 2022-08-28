@@ -18,7 +18,7 @@ public partial class CFocusPopup : CSubPopup {
 		// 이미지를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 			(EKey.FOCUS_BLIND_IMG, $"{EKey.FOCUS_BLIND_IMG}", this.Contents)
-		}, m_oImgDict, false);
+		}, m_oImgDict);
 
 		#region 추가
 		this.SubAwakeSetup();

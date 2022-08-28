@@ -44,7 +44,7 @@ namespace TitleScene {
 				// 텍스트를 설정한다 {
 				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.VER_TEXT, $"{EKey.VER_TEXT}", this.UpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
-				}, m_oTextDict, false);
+				}, m_oTextDict);
 
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT).rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
