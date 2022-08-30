@@ -15,10 +15,10 @@ namespace GameScene {
 			NONE = -1,
 			IS_UPDATE_UIS_STATE,
 			CONTINUE_TIMES,
-			SEL_REWARD_ADS_UIS,
 			BG_SPRITE,
-			TOP_BG_SPRITE,
-			BOTTOM_BG_SPRITE,
+			UP_BG_SPRITE,
+			DOWN_BG_SPRITE,
+			SEL_REWARD_ADS_UIS,
 			[HideInInspector] MAX_VAL
 		}
 

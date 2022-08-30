@@ -77,14 +77,14 @@ namespace GameScene {
 			// 스프라이트를 설정한다 {
 			var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
 				[EKey.BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BG),
-				[EKey.TOP_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_TOP_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_TOP_BG),
-				[EKey.BOTTOM_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_BOTTOM_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BOTTOM_BG)
+				[EKey.UP_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_TOP_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_TOP_BG),
+				[EKey.DOWN_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_BOTTOM_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BOTTOM_BG)
 			};
 
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-				(EKey.TOP_BG_SPRITE, $"{EKey.TOP_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-				(EKey.BOTTOM_BG_SPRITE, $"{EKey.BOTTOM_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+				(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+				(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 			}, m_oSpriteDict);
 
 			foreach(var stKeyVal in m_oSpriteDict) {
@@ -98,13 +98,13 @@ namespace GameScene {
 			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localScale = Vector3.one;
 			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localPosition = Vector3.zero;
 
-			m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).size = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
-			m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).transform.localScale = Vector3.one;
-			m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, Mathf.Max(this.ScreenHeight / KCDefine.B_VAL_2_REAL, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.TOP_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).size = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).transform.localScale = Vector3.one;
+			m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, Mathf.Max(this.ScreenHeight / KCDefine.B_VAL_2_REAL, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
 
-			m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).size = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
-			m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).transform.localScale = Vector3.one;
-			m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -(Mathf.Max((this.ScreenHeight / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM, (CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM) + (m_oSpriteDict.GetValueOrDefault(EKey.BOTTOM_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).size = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
+			m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localScale = Vector3.one;
+			m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -(Mathf.Max((this.ScreenHeight / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM, (CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM) + (m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL);
 			// 스프라이트를 설정한다 }
 
 			#region 추가

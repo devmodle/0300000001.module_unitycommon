@@ -40,12 +40,11 @@ namespace NSEngine {
 		}
 
 		#region 변수
-		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>();
+
+		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
-		
-		/** =====> 객체 <===== */
 		private Dictionary<EObjType, List<CEObj>>[,] m_oCellObjDictContainers = null;
 		#endregion			// 변수
 
