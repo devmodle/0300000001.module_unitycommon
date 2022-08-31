@@ -1,13 +1,14 @@
 ﻿#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using System.IO;
+using System.Linq;
+
 /** 전역 접근자 */
 public static partial class Access {
 	#region 클래스 프로퍼티

@@ -1,13 +1,14 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using TMPro;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using System.Linq;
+using TMPro;
+
 /** 보상 획득 팝업 */
 public partial class CRewardAcquirePopup : CSubPopup {
 	#region 함수

@@ -76,6 +76,14 @@ public static partial class Factory {
 		return oCharacterUserInfo;
 	}
 
+	/** 상품 교환 정보를 생성한다 */
+	public static Dictionary<EProductKinds, STProductTradeInfo> MakeProductTradeInfos(List<EProductKinds> a_oProductKindsList) {
+		var oBuyProductTradeInfoDict = new Dictionary<EProductKinds, STProductTradeInfo>();
+		a_oProductKindsList.ForEach((a_eProductKinds) => oBuyProductTradeInfoDict.TryAdd(a_eProductKinds, CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(a_eProductKinds)));
+
+		return oBuyProductTradeInfoDict;
+	}
+
 	/** 기본 어빌리티 타겟 정보를 생성한다 */
 	private static Dictionary<ulong, STTargetInfo> MakeDefAbilityTargetInfos() {
 		return new Dictionary<ulong, STTargetInfo>() {

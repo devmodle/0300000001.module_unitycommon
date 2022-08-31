@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using TMPro;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using TMPro;
+
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
@@ -50,32 +51,18 @@ namespace OverlayScene {
 		/** 상점 팝업을 출력한다 */
 		public void ShowStorePopup() {
 			Func.ShowStorePopup(CSceneManager.ActiveScenePopupUIs, (a_oSender) => {
-				var oBuyProductTradeInfoDict = new Dictionary<EProductKinds, STProductTradeInfo>();
-
-				for(int i = 0; i < KDefine.G_PRODUCT_KINDS_STORE_LIST.Count; ++i) {
-					var eProductKinds = KDefine.G_PRODUCT_KINDS_STORE_LIST[i];
-					oBuyProductTradeInfoDict.TryAdd(eProductKinds, CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(eProductKinds));
-				}
-
-				(a_oSender as CStorePopup).Init(new CStorePopup.STParams() {
-					m_oProductTradeInfoList = oBuyProductTradeInfoDict.ExToList(),
+				var stParams = CStorePopup.MakeParams(Factory.MakeProductTradeInfos(KDefine.G_PRODUCT_KINDS_STORE_LIST).ExToList());
 
 #if ADS_MODULE_ENABLE
-					m_oAdsCallbackDict = new Dictionary<CStorePopup.ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>() {
-						[CStorePopup.ECallback.ADS] = (a_oAdsSender, a_stAdsRewardInfo, a_bIsSuccess) => this.UpdateUIsState()
-					},
+				stParams.m_oAdsCallbackDict.TryAdd(CStorePopup.ECallback.ADS, (a_oAdsSender, a_stAdsRewardInfo, a_bIsSuccess) => this.UpdateUIsState());
 #endif			// #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-					m_oPurchaseCallbackDict01 = new Dictionary<CStorePopup.ECallback, System.Action<CPurchaseManager, string, bool>>() {
-						[CStorePopup.ECallback.PURCHASE] = (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState()
-					},
-
-					m_oPurchaseCallbackDict02 = new Dictionary<CStorePopup.ECallback, System.Action<CPurchaseManager, List<Product>, bool>>() {
-						[CStorePopup.ECallback.RESTORE] = (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState()
-					}
+				stParams.m_oPurchaseCallbackDict01.TryAdd(CStorePopup.ECallback.PURCHASE, (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState());
+				stParams.m_oPurchaseCallbackDict02.TryAdd(CStorePopup.ECallback.RESTORE, (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState());
 #endif			// #if PURCHASE_MODULE_ENABLE
-				});
+
+				(a_oSender as CStorePopup).Init(stParams);
 			});
 		}
 

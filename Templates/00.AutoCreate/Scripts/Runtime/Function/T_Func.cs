@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using UnityEngine.EventSystems;
+
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
 #endif			// #if PURCHASE_MODULE_ENABLE
@@ -1023,14 +1024,8 @@ public static partial class Func {
 		if(!a_bIsSuccess || !Func.m_oGoogleSheetInfoList.ExIsValid()) {
 			Func.m_oGoogleSheetCallbackDict01.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEETS)?.Invoke(a_oSender, a_bIsSuccess && !Func.m_oGoogleSheetInfoList.ExIsValid());
 		} else {
-			var oGoogleSheetInfoList = CCollectionManager.Inst.SpawnList<STGoogleSheetInfo>();
-
-			try {
-				oGoogleSheetInfoList.ExAddVals(Func.m_oGoogleSheetInfoList);
-				Func.LoadGoogleSheets(oGoogleSheetInfoList, Func.m_oGoogleSheetCallbackDict01.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEETS));
-			} finally {
-				CCollectionManager.Inst.DespawnList(oGoogleSheetInfoList);
-			}
+			var oGoogleSheetInfoList = new List<STGoogleSheetInfo>(Func.m_oGoogleSheetInfoList);
+			Func.LoadGoogleSheets(oGoogleSheetInfoList, Func.m_oGoogleSheetCallbackDict01.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEETS));
 		}
 	}
 

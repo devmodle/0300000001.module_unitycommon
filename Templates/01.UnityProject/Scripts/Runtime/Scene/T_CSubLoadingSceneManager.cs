@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using TMPro;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using TMPro;
+
 namespace LoadingScene {
 	/** 서브 로딩 씬 관리자 */
 	public partial class CSubLoadingSceneManager : CLoadingSceneManager {

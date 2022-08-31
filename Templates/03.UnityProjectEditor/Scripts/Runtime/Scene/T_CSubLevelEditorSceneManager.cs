@@ -1,14 +1,14 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+using System.Linq;
+using System.Globalization;
+using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 using DanielLochner.Assets.SimpleScrollSnap;
 
@@ -187,30 +187,21 @@ namespace LevelEditorScene {
 				oOriginScrollerCellView = m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_CHAPTER_SCROLLER_INFO).Item2;
 			}
 
-			var stParams = new CEditorScrollerCellView.STParams() {
-				m_stBaseParams = new CScrollerCellView.STParams() {
-					m_nID = CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03),
-					m_oScroller = a_oSender,
-
-					m_oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
-						[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
-					}
-				},
-
-				m_oCallbackDict = new Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>>() {
-					[CEditorScrollerCellView.ECallback.COPY] = this.OnTouchSCVCopyBtn,
-					[CEditorScrollerCellView.ECallback.MOVE] = this.OnTouchSCVMoveBtn,
-					[CEditorScrollerCellView.ECallback.REMOVE] = this.OnTouchSCVRemoveBtn
-				}
-			};
-
 			string oName = string.Format(oNameFmt, a_nDataIdx + KCDefine.B_VAL_1_INT);
 			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, oName, oNumInfosStr);
 
-			var oScrollerCellView = a_oSender.GetCellView(oOriginScrollerCellView) as CEditorScrollerCellView;
-			oScrollerCellView.Init(stParams);
-			oScrollerCellView.transform.localScale = Vector3.one;
+			var oCallback = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
+				[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
+			};
 
+			var oScrollerCellView = a_oSender.GetCellView(oOriginScrollerCellView) as CEditorScrollerCellView;
+			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03), a_oSender, oCallback, new Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>>() {
+				[CEditorScrollerCellView.ECallback.COPY] = this.OnTouchSCVCopyBtn,
+				[CEditorScrollerCellView.ECallback.MOVE] = this.OnTouchSCVMoveBtn,
+				[CEditorScrollerCellView.ECallback.REMOVE] = this.OnTouchSCVRemoveBtn
+			}));
+
+			oScrollerCellView.transform.localScale = Vector3.one;
 			oScrollerCellView.MoveBtn?.ExSetInteractable(nNumInfos > KCDefine.B_VAL_1_INT, false);
 			oScrollerCellView.RemoveBtn?.ExSetInteractable(nNumInfos > KCDefine.B_VAL_1_INT, false);
 
@@ -777,13 +768,9 @@ namespace LevelEditorScene {
 			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item1);
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
-				var stParams = new CEditorInputPopup.STParams() {
-					m_oCallbackDict = new Dictionary<CEditorInputPopup.ECallback, System.Action<CEditorInputPopup, string, bool>>() {
-						[CEditorInputPopup.ECallback.OK_CANCEL] = this.OnReceiveEditorInputPopupResult
-					}
-				};
-
-				(a_oSender as CEditorInputPopup).Init(stParams);
+				(a_oSender as CEditorInputPopup).Init(CEditorInputPopup.MakeParams(new Dictionary<CEditorInputPopup.ECallback, System.Action<CEditorInputPopup, string, bool>>() {
+					[CEditorInputPopup.ECallback.OK_CANCEL] = this.OnReceiveEditorInputPopupResult
+				}));
 			});
 		}
 
@@ -803,13 +790,9 @@ namespace LevelEditorScene {
 		/** 왼쪽 에디터 UI 레벨 추가 버튼을 눌렀을 경우 */
 		private void OnTouchLEUIsAddLevelBtn() {
 			Func.ShowEditorLevelCreatePopup(this.PopupUIs, (a_oSender) => {
-				var stParams = new CEditorLevelCreatePopup.STParams() {
-					m_oCallbackDict = new Dictionary<CEditorLevelCreatePopup.ECallback, System.Action<CEditorLevelCreatePopup, CEditorLevelCreateInfo, bool>>() {
-						[CEditorLevelCreatePopup.ECallback.OK_CANCEL] = this.OnReceiveEditorLevelCreatePopupResult
-					}
-				};
-
-				(a_oSender as CEditorLevelCreatePopup).Init(stParams);
+				(a_oSender as CEditorLevelCreatePopup).Init(CEditorLevelCreatePopup.MakeParams(new Dictionary<CEditorLevelCreatePopup.ECallback, System.Action<CEditorLevelCreatePopup, CEditorLevelCreateInfo, bool>>() {
+					[CEditorLevelCreatePopup.ECallback.OK_CANCEL] = this.OnReceiveEditorLevelCreatePopupResult
+				}));
 			});
 		}
 
@@ -894,13 +877,9 @@ namespace LevelEditorScene {
 			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item1);
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
-				var stParams = new CEditorInputPopup.STParams() {
-					m_oCallbackDict = new Dictionary<CEditorInputPopup.ECallback, System.Action<CEditorInputPopup, string, bool>>() {
-						[CEditorInputPopup.ECallback.OK_CANCEL] = this.OnReceiveEditorInputPopupResult
-					}
-				};
-
-				(a_oSender as CEditorInputPopup).Init(stParams);
+				(a_oSender as CEditorInputPopup).Init(CEditorInputPopup.MakeParams(new Dictionary<CEditorInputPopup.ECallback, System.Action<CEditorInputPopup, string, bool>>() {
+					[CEditorInputPopup.ECallback.OK_CANCEL] = this.OnReceiveEditorInputPopupResult
+				}));
 			});
 		}
 
@@ -946,13 +925,9 @@ namespace LevelEditorScene {
 			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, a_oSender.Params.m_oScroller);
 
 			Func.ShowEditorInputPopup(this.PopupUIs, (a_oSender) => {
-				var stParams = new CEditorInputPopup.STParams() {
-					m_oCallbackDict = new Dictionary<CEditorInputPopup.ECallback, System.Action<CEditorInputPopup, string, bool>>() {
-						[CEditorInputPopup.ECallback.OK_CANCEL] = this.OnReceiveEditorInputPopupResult
-					}
-				};
-				
-				(a_oSender as CEditorInputPopup).Init(stParams);
+				(a_oSender as CEditorInputPopup).Init(CEditorInputPopup.MakeParams(new Dictionary<CEditorInputPopup.ECallback, System.Action<CEditorInputPopup, string, bool>>() {
+					[CEditorInputPopup.ECallback.OK_CANCEL] = this.OnReceiveEditorInputPopupResult
+				}));
 			});
 		}
 

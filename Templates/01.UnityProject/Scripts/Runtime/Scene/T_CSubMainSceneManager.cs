@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using TMPro;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using TMPro;
 using EnhancedUI.EnhancedScroller;
 
 namespace MainScene {
@@ -72,31 +72,23 @@ namespace MainScene {
 				oOriginScrollerCellView = (m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item1 == a_oSender) ? m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item2 : m_oScrollerInfoDict.GetValueOrDefault(EKey.CHAPTER_SCROLLER_INFO).Item2;
 			}
 
-			var stParams = new CScrollerCellView.STParams() {
-				m_nID = CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03),
-
-				m_oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
-					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
-				}
-			};
-
 			var oScrollerCellView = a_oSender.GetCellView(oOriginScrollerCellView) as CScrollerCellView;
 
 			// 레벨 스크롤러 일 경우
 			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LEVEL_SCROLLER_INFO).Item1 == a_oSender) {
-				(oScrollerCellView as CLevelScrollerCellView)?.Init(new CLevelScrollerCellView.STParams() {
-					m_stBaseParams = stParams
-				});
+				(oScrollerCellView as CLevelScrollerCellView)?.Init(CLevelScrollerCellView.MakeParams(CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03), a_oSender, new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
+					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
+				}));
 			}
 			// 스테이지 스크롤러 일 경우
 			else if(m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item1 == a_oSender) {
-				(oScrollerCellView as CStageScrollerCellView)?.Init(new CStageScrollerCellView.STParams() {
-					m_stBaseParams = stParams
-				});
+				(oScrollerCellView as CStageScrollerCellView)?.Init(CStageScrollerCellView.MakeParams(CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03), a_oSender, new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
+					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
+				}));
 			} else {
-				(oScrollerCellView as CChapterScrollerCellView)?.Init(new CChapterScrollerCellView.STParams() {
-					m_stBaseParams = stParams
-				});
+				(oScrollerCellView as CChapterScrollerCellView)?.Init(CChapterScrollerCellView.MakeParams(CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03), a_oSender, new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
+					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
+				}));
 			}
 
 			return oScrollerCellView;

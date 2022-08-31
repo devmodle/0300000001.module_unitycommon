@@ -1,13 +1,14 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using TMPro;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using System.Linq;
+using TMPro;
+
 /** 보상 획득 팝업 */
 public partial class CRewardAcquirePopup : CSubPopup {
 	/** 식별자 */
@@ -67,19 +68,15 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		m_oBtnDict.GetValueOrDefault(EKey.ADS_BTN)?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
 #endif			// #if ADS_MODULE_ENABLE
 
-		var oRewardTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+		var oRewardTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
-		try {
-			foreach(var stKeyVal in this.Params.m_oRewardTargetInfoDict) {
-				var stValInfo = new STValInfo(a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo01.m_dmVal * KCDefine.B_VAL_2_INT : stKeyVal.Value.m_stValInfo01.m_dmVal, stKeyVal.Value.m_stValInfo01.m_eValType);
-				oRewardTargetInfoDict.TryAdd(stKeyVal.Key, new STTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, stValInfo));
-			}
-			
-			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, this.Params.m_oRewardTargetInfoDict, true);
-			this.OnTouchCloseBtn();
-		} finally {
-			CCollectionManager.Inst.DespawnDict(oRewardTargetInfoDict);
+		foreach(var stKeyVal in this.Params.m_oRewardTargetInfoDict) {
+			var stValInfo = new STValInfo(a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo01.m_dmVal * KCDefine.B_VAL_2_INT : stKeyVal.Value.m_stValInfo01.m_dmVal, stKeyVal.Value.m_stValInfo01.m_eValType);
+			oRewardTargetInfoDict.TryAdd(stKeyVal.Key, new STTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, stValInfo));
 		}
+		
+		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, this.Params.m_oRewardTargetInfoDict, true);
+		this.OnTouchCloseBtn();
 	}
 	#endregion			// 함수
 

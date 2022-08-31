@@ -1,14 +1,15 @@
 ﻿#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+
+#if SCENE_TEMPLATES_MODULE_ENABLE
+using System.Diagnostics;
 using TMPro;
 using DG.Tweening;
 
-#if SCENE_TEMPLATES_MODULE_ENABLE
 namespace StartScene {
 	/** 서브 시작 씬 관리자 */
 	public partial class CSubStartSceneManager : CStartSceneManager {

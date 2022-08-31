@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using UnityEngine.EventSystems;
+
 namespace GameScene {
 	/** 서브 게임 씬 관리자 */
 	public partial class CSubGameSceneManager : CGameSceneManager {
@@ -65,12 +66,10 @@ namespace GameScene {
 #endif			// #if ADS_MODULE_ENABLE
 
 				Func.ShowResumePopup(this.PopupUIs, (a_oSender) => {
-					(a_oSender as CResumePopup).Init(new CResumePopup.STParams() {
-						m_oCallbackDict = new Dictionary<CResumePopup.ECallback, System.Action<CResumePopup>>() {
-							[CResumePopup.ECallback.RESUME] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RESUME),
-							[CResumePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
-						}
-					});
+					(a_oSender as CResumePopup).Init(CResumePopup.MakeParams(new Dictionary<CResumePopup.ECallback, System.Action<CResumePopup>>() {
+						[CResumePopup.ECallback.RESUME] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RESUME),
+						[CResumePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+					}));
 				});
 			}
 		}
@@ -156,11 +155,9 @@ namespace GameScene {
 		/** 정지 버튼을 눌렀을 경우 */
 		private void OnTouchPauseBtn() {
 			Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CPausePopup).Init(new CPausePopup.STParams() {
-					m_oCallbackDict = new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
-						[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
-					}
-				});
+				(a_oSender as CPausePopup).Init(CPausePopup.MakeParams(new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
+					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+				}));
 			});
 		}
 
@@ -263,32 +260,26 @@ namespace GameScene {
 		/** 이어하기 팝업을 출력한다 */
 		private void ShowContinuePopup() {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CContinuePopup).Init(new CContinuePopup.STParams() {
-					m_nContinueTimes = m_oIntDict.GetValueOrDefault(EKey.CONTINUE_TIMES),
-
-					m_oCallbackDict = new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
-						[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
-						[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE),
-						[CContinuePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
-					}
-				});
+				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_oIntDict.GetValueOrDefault(EKey.CONTINUE_TIMES), new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
+					[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
+					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE),
+					[CContinuePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+				}));
 			});
 		}
 
 		/** 결과 팝업을 출력한다 */
 		private void ShowResultPopup(bool a_bIsClear) {
 			Func.ShowResultPopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CResultPopup).Init(new CResultPopup.STParams() {
-					m_stRecordInfo = new STRecordInfo {
-						m_bIsSuccess = a_bIsClear, m_nIntRecord = m_oEngine.RecordInfo.m_nIntRecord, m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord
-					},
-					
-					m_oCallbackDict = new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
-						[CResultPopup.ECallback.NEXT] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.NEXT),
-						[CResultPopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
-						[CResultPopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
-					}
-				});
+				var stRecordInfo = new STRecordInfo {
+					m_bIsSuccess = a_bIsClear, m_nIntRecord = m_oEngine.RecordInfo.m_nIntRecord, m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord
+				};
+
+				(a_oSender as CResultPopup).Init(CResultPopup.MakeParams(stRecordInfo, new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
+					[CResultPopup.ECallback.NEXT] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.NEXT),
+					[CResultPopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
+					[CResultPopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+				}));
 			});
 		}
 		#endregion			// 함수

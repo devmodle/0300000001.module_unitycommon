@@ -121,114 +121,83 @@ namespace LateSetupScene {
 
 			// 관리자 자동 초기화 모드 일 경우
 			if(this.IsAutoInitManager) {
-				CServicesManager.Inst.Init(new CServicesManager.STParams() {
-					m_oCallbackDict = new Dictionary<CServicesManager.ECallback, System.Action<CServicesManager, bool>>() {
-						[CServicesManager.ECallback.INIT] = CLateSetupSceneManager.OnInitServicesManager
-					}
+				CServicesManager.Inst.Init(CServicesManager.MakeParams(new Dictionary<CServicesManager.ECallback, System.Action<CServicesManager, bool>>() {
+					[CServicesManager.ECallback.INIT] = CLateSetupSceneManager.OnInitServicesManager
+				}));
+
+#if ADS_MODULE_ENABLE
+				var stAdsParams = CAdsManager.MakeParams(CPluginInfoTable.Inst.AdsPlatform, CPluginInfoTable.Inst.BannerAdsPos, new Dictionary<CAdsManager.ECallback, System.Action<CAdsManager, EAdsPlatform, bool>>() {
+					[CAdsManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAdsManager
 				});
 				
-#if ADS_MODULE_ENABLE
-				var oAdmobTestDeviceIDList = new List<string>();
-				oAdmobTestDeviceIDList.AddRange(CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobTestDeviceIDList);
-				oAdmobTestDeviceIDList.AddRange(CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobTestDeviceIDList);
-
 				CUnityMsgSender.Inst.SendSetEnableAdsTrackingMsg(true);
 
-				CAdsManager.Inst.Init(new CAdsManager.STParams() {
-					m_eAdsPlatform = CPluginInfoTable.Inst.AdsPlatform,
-					m_eBannerAdsPos = CPluginInfoTable.Inst.BannerAdsPos,
-
 #if ADMOB_ADS_ENABLE
-					m_oAdmobTestDeviceIDList = oAdmobTestDeviceIDList,
+				stAdsParams.m_oAdmobTestDeviceIDList.ExAddVals(CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobTestDeviceIDList);
+				stAdsParams.m_oAdmobTestDeviceIDList.ExAddVals(CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobTestDeviceIDList);
 
-					m_oAdmobAdsIDDict = new Dictionary<string, string>() {
-						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.ADMOB), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.ADMOB), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.ADMOB)
-					},
+				stAdsParams.m_oAdmobAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_BANNER_ADS_ID, CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.ADMOB));
+				stAdsParams.m_oAdmobAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_REWARD_ADS_ID, CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.ADMOB));
+				stAdsParams.m_oAdmobAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.ADMOB));
 #endif			// #if ADMOB_ADS_ENABLE
 
 #if IRON_SRC_ADS_ENABLE
-					m_oIronSrcAppKey = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oAppKey,
+				stAdsParams.m_oIronSrcAppKey = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oAppKey;
 
-					m_oIronSrcAdsIDDict = new Dictionary<string, string>() {
-						[KCDefine.U_KEY_ADS_M_BANNER_ADS_ID] = CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC), [KCDefine.U_KEY_ADS_M_REWARD_ADS_ID] = CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.IRON_SRC), [KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID] = CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.IRON_SRC)
-					},
+				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_BANNER_ADS_ID, CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC));
+				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_REWARD_ADS_ID, CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.IRON_SRC));
+				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.IRON_SRC));
 #endif			// #if IRON_SRC_ADS_ENABLE
 
-					m_oCallbackDict = new Dictionary<CAdsManager.ECallback, System.Action<CAdsManager, EAdsPlatform, bool>>() {
-						[CAdsManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAdsManager
-					}
-				});
+				CAdsManager.Inst.Init(stAdsParams);
 #endif			// #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-				CFlurryManager.Inst.Init(new CFlurryManager.STParams() {
-					m_oAPIKey = CPluginInfoTable.Inst.FlurryAPIKey,
-
-					m_oCallbackDict = new Dictionary<CFlurryManager.ECallback, System.Action<CFlurryManager, bool>>() {
-						[CFlurryManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFlurryManager
-					}
-				});
+				CFlurryManager.Inst.Init(CFlurryManager.MakeParams(CPluginInfoTable.Inst.FlurryAPIKey, new Dictionary<CFlurryManager.ECallback, System.Action<CFlurryManager, bool>>() {
+					[CFlurryManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFlurryManager
+				}));
 #endif			// #if FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-				CFacebookManager.Inst.Init(new CFacebookManager.STParams() {
-					m_oCallbackDict = new Dictionary<CFacebookManager.ECallback, System.Action<CFacebookManager, bool>>() {
-						[CFacebookManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFacebookManager
-					}
-				});
+				CFacebookManager.Inst.Init(CFacebookManager.MakeParams(new Dictionary<CFacebookManager.ECallback, System.Action<CFacebookManager, bool>>() {
+					[CFacebookManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFacebookManager
+				}));
 #endif			// #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-				CFirebaseManager.Inst.Init(new CFirebaseManager.STParams() {
-					m_oCallbackDict = new Dictionary<CFirebaseManager.ECallback, System.Action<CFirebaseManager, bool>>() {
-						[CFirebaseManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFirebaseManager
-					}
-				});
+				CFirebaseManager.Inst.Init(CFirebaseManager.MakeParams(new Dictionary<CFirebaseManager.ECallback, System.Action<CFirebaseManager, bool>>() {
+					[CFirebaseManager.ECallback.INIT] = CLateSetupSceneManager.OnInitFirebaseManager
+				}));
 #endif			// #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
-				CAppsFlyerManager.Inst.Init(new CAppsFlyerManager.STParams() {
-					m_oAppID = CProjInfoTable.Inst.ProjInfo.m_oStoreAppID,
-					m_oDevKey = CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey,
-
-					m_oCallbackDict = new Dictionary<CAppsFlyerManager.ECallback, System.Action<CAppsFlyerManager, bool>>() {
-						[CAppsFlyerManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAppsFlyerManager
-					}
-				});
+				CAppsFlyerManager.Inst.Init(CAppsFlyerManager.MakeParams(CProjInfoTable.Inst.ProjInfo.m_oStoreAppID, CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey, new Dictionary<CAppsFlyerManager.ECallback, System.Action<CAppsFlyerManager, bool>>() {
+					[CAppsFlyerManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAppsFlyerManager
+				}));
 #endif			// #if APPS_FLYER_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-				CGameCenterManager.Inst.Init(new CGameCenterManager.STParams() {
-					m_oCallbackDict = new Dictionary<CGameCenterManager.ECallback, System.Action<CGameCenterManager, bool>>() {
-						[CGameCenterManager.ECallback.INIT] = CLateSetupSceneManager.OnInitGameCenterManager
-					}
-				});
+				CGameCenterManager.Inst.Init(CGameCenterManager.MakeParams(Dictionary<CGameCenterManager.ECallback, System.Action<CGameCenterManager, bool>>() {
+					[CGameCenterManager.ECallback.INIT] = CLateSetupSceneManager.OnInitGameCenterManager
+				}));
 #endif			// #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-				CPurchaseManager.Inst.Init(new CPurchaseManager.STParams() {
-					m_oProductInfoList = CProductInfoTable.Inst.ProductInfoList,
-
-					m_oCallbackDict = new Dictionary<CPurchaseManager.ECallback, System.Action<CPurchaseManager, bool>>() {
-						[CPurchaseManager.ECallback.INIT] = CLateSetupSceneManager.OnInitPurchaseManager
-					}
-				});
+				CPurchaseManager.Inst.Init(CPurchaseManager.MakeParams(CProductInfoTable.Inst.ProductInfoList, new Dictionary<CPurchaseManager.ECallback, System.Action<CPurchaseManager, bool>>() {
+					[CPurchaseManager.ECallback.INIT] = CLateSetupSceneManager.OnInitPurchaseManager
+				}));
 #endif			// #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
-				CNotiManager.Inst.Init(new CNotiManager.STParams() {
-					m_oCallbackDict = new Dictionary<CNotiManager.ECallback, System.Action<CNotiManager, bool>>() {
-						[CNotiManager.ECallback.INIT] = CLateSetupSceneManager.OnInitNotiManager
-					}
-				});
+				CNotiManager.Inst.Init(CNotiManager.MakeParams(new Dictionary<CNotiManager.ECallback, System.Action<CNotiManager, bool>>() {
+					[CNotiManager.ECallback.INIT] = CLateSetupSceneManager.OnInitNotiManager
+				}));
 #endif			// #if NOTI_MODULE_ENABLE
 
 #if PLAYFAB_MODULE_ENABLE
-				CPlayfabManager.Inst.Init(new CPlayfabManager.STParams() {
-					m_oCallbackDict = new Dictionary<CPlayfabManager.ECallback, System.Action<CPlayfabManager, bool>>() {
-						[CPlayfabManager.ECallback.INIT] = CLateSetupSceneManager.OnInitPlayfabManager
-					}
-				});
+				CPlayfabManager.Inst.Init(CPlayfabManager.MakeParams(new Dictionary<CPlayfabManager.ECallback, System.Action<CPlayfabManager, bool>>() {
+					[CPlayfabManager.ECallback.INIT] = CLateSetupSceneManager.OnInitPlayfabManager
+				}));
 #endif			// #if PLAYFAB_MODULE_ENABLE
 			}
 

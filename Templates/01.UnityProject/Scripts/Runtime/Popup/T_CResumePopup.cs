@@ -46,6 +46,15 @@ public partial class CResumePopup : CSubPopup {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
 	#endregion			// 함수
+
+	#region 클래스 함수
+	/** 매개 변수를 생성한다 */
+	public static STParams MakeParams(Dictionary<ECallback, System.Action<CResumePopup>> a_oCallbackDict) {
+		return new STParams() {
+			m_oCallbackDict = a_oCallbackDict
+		};
+	}
+	#endregion			// 클래스 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY
