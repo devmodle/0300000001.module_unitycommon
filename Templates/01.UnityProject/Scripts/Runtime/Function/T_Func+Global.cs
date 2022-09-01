@@ -414,7 +414,7 @@ public static partial class Func {
 	public static void IncrAdsSkipTimes(int a_nSkipTimes) {
 		// 광고 누적 횟수 갱신이 가능 할 경우
 		if(CAppInfoStorage.Inst.IsEnableUpdateAdsSkipTimes) {
-			CAppInfoStorage.Inst.AdsSkipTimes = Mathf.Clamp(CAppInfoStorage.Inst.AdsSkipTimes + a_nSkipTimes, KCDefine.B_VAL_0_INT, int.MaxValue);
+			CAppInfoStorage.Inst.SetAdsSkipTimes(Mathf.Clamp(CAppInfoStorage.Inst.AdsSkipTimes + a_nSkipTimes, KCDefine.B_VAL_0_INT, int.MaxValue));
 		}
 	}
 

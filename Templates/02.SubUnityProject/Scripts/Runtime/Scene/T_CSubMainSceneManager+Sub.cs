@@ -105,7 +105,7 @@ namespace MainScene {
 
 			// 업데이트가 가능 할 경우
 			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
-				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
+				CAppInfoStorage.Inst.SetIgnoreUpdate(true);
 				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 			}
 			

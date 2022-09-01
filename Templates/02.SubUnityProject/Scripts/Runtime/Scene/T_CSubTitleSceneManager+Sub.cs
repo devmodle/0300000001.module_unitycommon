@@ -95,7 +95,7 @@ namespace TitleScene {
 		private void StartSetup() {
 			// 업데이트가 가능 할 경우
 			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
-				CAppInfoStorage.Inst.IsIgnoreUpdate = true;
+				CAppInfoStorage.Inst.SetIgnoreUpdate(true);
 				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 			}
 

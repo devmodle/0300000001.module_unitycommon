@@ -370,7 +370,7 @@ public static partial class Func {
 	/** 보상 광고가 닫혔을 경우 */
 	private static void OnCloseRewardAds(CAdsManager a_oSender) {
 		CIndicatorManager.Inst.Close();
-		CAppInfoStorage.Inst.PrevRewardAdsTime = System.DateTime.Now;
+		CAppInfoStorage.Inst.SetPrevRewardAdsTime(System.DateTime.Now);
 
 		Func.IncrRewardAdsWatchTimes(KCDefine.B_VAL_1_INT);
 		CAppInfoStorage.Inst.SaveAppInfo();
@@ -386,8 +386,8 @@ public static partial class Func {
 
 	/** 전면 광고가 닫혔을 경우 */
 	private static void OnCloseFullscreenAds(CAdsManager a_oSender) {
-		CAppInfoStorage.Inst.AdsSkipTimes = KCDefine.B_VAL_0_INT;
-		CAppInfoStorage.Inst.PrevAdsTime = System.DateTime.Now;
+		CAppInfoStorage.Inst.SetAdsSkipTimes(KCDefine.B_VAL_0_INT);
+		CAppInfoStorage.Inst.SetPrevFullscreenAdsTime(System.DateTime.Now);
 
 		Func.IncrFullscreenAdsWatchTimes(KCDefine.B_VAL_1_INT);
 
