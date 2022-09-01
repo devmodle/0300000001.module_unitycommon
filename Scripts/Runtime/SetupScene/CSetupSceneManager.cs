@@ -93,7 +93,7 @@ namespace SetupScene {
 			CCommonAppInfoStorage.Inst.CountryCode = a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_AMERICA_COUNTRY_CODE;
 #endif			// #if UNITY_EDITOR
 
-			CSceneManager.IsSetup = true;
+			CSceneManager.SetSetup(true);
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
 			
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_AGREE);

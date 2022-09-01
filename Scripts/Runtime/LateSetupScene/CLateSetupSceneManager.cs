@@ -24,17 +24,14 @@ namespace LateSetupScene {
 #if UNITY_ANDROID
 		public List<string> UserPermissionList { get; } = new List<string>();
 #endif			// #if UNITY_ANDROID
-
-#if ADS_MODULE_ENABLE
-		public static bool IsPurchaseRemoveAds { get; protected set; } = false;
-#endif			// #if ADS_MODULE_ENABLE
 		#endregion			// 프로퍼티
 
 		#region 클래스 프로퍼티
 #if ADS_MODULE_ENABLE
-		public static bool IsAutoLoadBannerAds { get; protected set; } = false;
-		public static bool IsAutoLoadRewardAds { get; protected set; } = false;
-		public static bool IsAutoLoadFullscreenAds { get; protected set; } = false;
+		public static bool IsPurchaseRemoveAds { get; private set; } = false;
+		public static bool IsAutoLoadBannerAds { get; private set; } = false;
+		public static bool IsAutoLoadRewardAds { get; private set; } = false;
+		public static bool IsAutoLoadFullscreenAds { get; private set; } = false;
 #endif			// #if ADS_MODULE_ENABLE
 		#endregion			// 클래스 프로퍼티
 
@@ -221,7 +218,7 @@ namespace LateSetupScene {
 
 		/** 다음 씬을 로드한다 */
 		private void LoadNextScene() {
-			CSceneManager.IsLateSetup = true;
+			CSceneManager.SetLateSetup(true);
 			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_NEXT_SCENE, false);
 
 			CCommonAppInfoStorage.Inst.SetupStoreVer();
@@ -375,5 +372,29 @@ namespace LateSetupScene {
 		}
 #endif			// #if PLAYFAB_MODULE_ENABLE
 		#endregion			// 조건부 클래스 함수
+
+		#region 조건부 접근자 클래스 함수
+#if ADS_MODULE_ENABLE
+		/** 광고 제거 결제 여부를 변경한다 */
+		public static void SetPurchaseRemoveAds(bool a_bIsPurchase) {
+			CLateSetupSceneManager.IsPurchaseRemoveAds = a_bIsPurchase;
+		}
+
+		/** 배너 광고 자동 로드 여부를 변경한다 */
+		public static void SetAutoLoadBannerAds(bool a_bIsAutoLoad) {
+			CLateSetupSceneManager.IsAutoLoadBannerAds = a_bIsAutoLoad;
+		}
+
+		/** 보상 광고 자동 로드 여부를 변경한다 */
+		public static void SetAutoLoadRewardAds(bool a_bIsAutoLoad) {
+			CLateSetupSceneManager.IsAutoLoadRewardAds = a_bIsAutoLoad;
+		}
+
+		/** 전면 광고 자동 로드 여부를 변경한다 */
+		public static void SetAutoLoadFullscreenAds(bool a_bIsAutoLoad) {
+			CLateSetupSceneManager.IsAutoLoadFullscreenAds = a_bIsAutoLoad;
+		}
+#endif			// #if ADS_MODULE_ENABLE
+		#endregion			// 조건부 접근자 클래스 함수
 	}
 }

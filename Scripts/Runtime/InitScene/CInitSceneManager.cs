@@ -236,7 +236,7 @@ namespace InitScene {
 
 			this.ShowSplash();
 
-			CSceneManager.IsInit = true;
+			CSceneManager.SetInit(true);
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		}
 
@@ -247,7 +247,7 @@ namespace InitScene {
 				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
 
 				try {
-					CSceneManager.ScreenBlindUIs = CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS);
+					CSceneManager.SetScreenBlindUIs(CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS));
 
 					// 블라인드 이미지를 설정한다 {
 					var oImgList = new List<Image>() {

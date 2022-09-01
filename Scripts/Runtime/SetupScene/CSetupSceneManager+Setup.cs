@@ -16,7 +16,7 @@ namespace SetupScene {
 				CSetupSceneManager.m_oPopupUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_POPUP_UIS), null);
 
 				try {
-					CSceneManager.ScreenPopupUIs = CSetupSceneManager.m_oPopupUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS, false);
+					CSceneManager.SetScreenPopupUIs(CSetupSceneManager.m_oPopupUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS, false));
 				} finally {
 					DontDestroyOnLoad(CSetupSceneManager.m_oPopupUIs);
 					CFunc.SetupScreenUIs(CSetupSceneManager.m_oPopupUIs, KCDefine.U_SORTING_O_SCREEN_POPUP_UIS);
@@ -31,7 +31,7 @@ namespace SetupScene {
 				CSetupSceneManager.m_oTopmostUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_TOPMOST_UIS), null);
 
 				try {
-					CSceneManager.ScreenTopmostUIs = CSetupSceneManager.m_oTopmostUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS, false);
+					CSceneManager.SetScreenTopmostUIs(CSetupSceneManager.m_oTopmostUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS, false));
 				} finally {
 					DontDestroyOnLoad(CSetupSceneManager.m_oTopmostUIs);
 					CFunc.SetupScreenUIs(CSetupSceneManager.m_oTopmostUIs, KCDefine.U_SORTING_O_SCREEN_TOPMOST_UIS);
@@ -46,7 +46,7 @@ namespace SetupScene {
 				CSetupSceneManager.m_oAbsUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_ABS_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_ABS_UIS), null);
 
 				try {
-					CSceneManager.ScreenAbsUIs = CSetupSceneManager.m_oAbsUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UIS, false);
+					CSceneManager.SetScreenAbsUIs(CSetupSceneManager.m_oAbsUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UIS, false));
 				} finally {
 					DontDestroyOnLoad(CSetupSceneManager.m_oAbsUIs);
 					CFunc.SetupScreenUIs(CSetupSceneManager.m_oAbsUIs, KCDefine.U_SORTING_O_SCREEN_ABS_UIS);
@@ -72,46 +72,13 @@ namespace SetupScene {
 				CSetupSceneManager.m_oDebugUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS), null);
 
 				try {
-					CSceneManager.ScreenDebugUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS, false);
+					CSceneManager.SetScreenDebugUIs(CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS, false));
+					CSceneManager.SetScreenFPSInfoUIs(CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_FPS_INFO_UIS));
+					CSceneManager.SetScreenDebugInfoUIs(CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_INFO_UIS));
 
-					// 객체를 설정한다 {
-					CSceneManager.ScreenFPSInfoUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_FPS_INFO_UIS);
+					// 객체를 설정한다
 					CSceneManager.ScreenFPSInfoUIs.SetActive(false);
-
-					CSceneManager.ScreenDebugInfoUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_INFO_UIS);
 					CSceneManager.ScreenDebugInfoUIs.SetActive(false);
-					// 객체를 설정한다 }
-
-					// 텍스트를 설정한다 {
-					CSceneManager.ScreenFPSText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_FPS_TEXT);
-					CSceneManager.ScreenFPSText.raycastTarget = false;
-
-					CSceneManager.ScreenFrameTimeText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_FRAME_TIME_TEXT);
-					CSceneManager.ScreenFrameTimeText.raycastTarget = false;
-
-					CSceneManager.ScreenDeviceInfoText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_DEVICE_INFO_TEXT);
-					CSceneManager.ScreenDeviceInfoText.raycastTarget = false;
-
-					CSceneManager.ScreenStaticDebugText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_STATIC_DEBUG_TEXT);
-					CSceneManager.ScreenStaticDebugText.raycastTarget = false;
-
-					CSceneManager.ScreenDynamicDebugText = CSetupSceneManager.m_oDebugUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_SCREEN_DYNAMIC_DEBUG_TEXT);
-					CSceneManager.ScreenDynamicDebugText.raycastTarget = false;
-					// 텍스트를 설정한다 }
-
-					// 버튼을 설정한다 {
-					CSceneManager.ScreenFPSInfoBtn = CSetupSceneManager.m_oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_FPS_INFO_BTN);
-					CSceneManager.ScreenFPSInfoBtn.gameObject.SetActive(false);
-
-					CSceneManager.ScreenDebugInfoBtn = CSetupSceneManager.m_oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_DEBUG_INFO_BTN);
-					CSceneManager.ScreenDebugInfoBtn.gameObject.SetActive(false);
-
-					CSceneManager.ScreenTimeScaleUpBtn = CSetupSceneManager.m_oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_TIME_SCALE_UP_BTN);
-					CSceneManager.ScreenTimeScaleUpBtn.gameObject.SetActive(false);
-
-					CSceneManager.ScreenTimeScaleDownBtn = CSetupSceneManager.m_oDebugUIs.ExFindComponent<Button>(KCDefine.U_OBJ_N_SCREEN_TIME_SCALE_DOWN_BTN);
-					CSceneManager.ScreenTimeScaleDownBtn.gameObject.SetActive(false);
-					// 버튼을 설정한다 }
 				} finally {
 					DontDestroyOnLoad(CSetupSceneManager.m_oDebugUIs);
 					CFunc.SetupScreenUIs(CSetupSceneManager.m_oDebugUIs, KCDefine.U_SORTING_O_SCREEN_DEBUG_UIS);

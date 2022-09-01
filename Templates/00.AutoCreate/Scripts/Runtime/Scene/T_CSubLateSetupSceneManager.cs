@@ -32,7 +32,7 @@ namespace LateSetupScene {
 				this.AwakeSetup();
 
 #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
-				CLateSetupSceneManager.IsPurchaseRemoveAds = CUserInfoStorage.Inst.IsPurchaseRemoveAds;
+				CLateSetupSceneManager.SetPurchaseRemoveAds(CUserInfoStorage.Inst.IsPurchaseRemoveAds);
 #endif			// #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 			}
 		}
@@ -90,9 +90,9 @@ namespace LateSetupScene {
 #endif			// #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
 
 #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
-			CLateSetupSceneManager.IsAutoLoadBannerAds = true;
-			CLateSetupSceneManager.IsAutoLoadRewardAds = true;
-			CLateSetupSceneManager.IsAutoLoadFullscreenAds = true;
+			CLateSetupSceneManager.SetAutoLoadBannerAds(true);
+			CLateSetupSceneManager.SetAutoLoadRewardAds(true);
+			CLateSetupSceneManager.SetAutoLoadFullscreenAds(true);
 #endif			// #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 		}
 
