@@ -74,7 +74,7 @@ namespace SetupScene {
 
 		/** 디바이스 식별자 반환 메세지를 수신했을 경우 */
 		private void OnReceiveGetDeviceIDMsg(string a_oMsg) {
-			CCommonAppInfoStorage.Inst.DeviceType = CAccess.DeviceType;
+			CCommonAppInfoStorage.Inst.SetDeviceType(CAccess.DeviceType);
 
 			// 디바이스 식별자 설정이 필요 할 경우
 			if(!CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid() || CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Equals(KCDefine.B_TEXT_UNKNOWN)) {
@@ -88,9 +88,9 @@ namespace SetupScene {
 		/** 국가 코드 반환 메세지를 수신했을 경우 */
 		private void OnReceiveGetCountryCodeMsg(string a_oMsg) {
 #if UNITY_EDITOR
-			CCommonAppInfoStorage.Inst.CountryCode = a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_KOREA_COUNTRY_CODE;
+			CCommonAppInfoStorage.Inst.SetCountryCode(a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_KOREA_COUNTRY_CODE);
 #else
-			CCommonAppInfoStorage.Inst.CountryCode = a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_AMERICA_COUNTRY_CODE;
+			CCommonAppInfoStorage.Inst.SetCountryCode(a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_AMERICA_COUNTRY_CODE);
 #endif			// #if UNITY_EDITOR
 
 			CSceneManager.SetSetup(true);

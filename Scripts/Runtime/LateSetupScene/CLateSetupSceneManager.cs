@@ -232,7 +232,7 @@ namespace LateSetupScene {
 					CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : KCDefine.B_SCENE_N_MAIN);
 #endif			// #if STUDY_MODULE_ENABLE
 				} else {
-					CCommonAppInfoStorage.Inst.IsFirstStart = false;
+					CCommonAppInfoStorage.Inst.SetFirstStart(false);
 					CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) ? KCDefine.B_SCENE_N_MAIN : CSceneLoader.Inst.AwakeActiveSceneName);
 				}
 			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);

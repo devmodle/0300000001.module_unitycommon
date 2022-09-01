@@ -344,6 +344,64 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	/** 아이템 타겟 정보를 반환한다 */
+	public bool TryGetItemTargetInfo(int a_nCharacterID, EItemKinds a_eItemKinds, out CItemTargetInfo a_oOutItemTargetInfo) {
+		a_oOutItemTargetInfo = this.TryGetTargetInfo(a_nCharacterID, ETargetType.ITEM, (int)a_eItemKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CItemTargetInfo : null;
+		return a_oOutItemTargetInfo != null;
+	}
+
+	/** 스킬 타겟 정보를 반환한다 */
+	public bool TryGetSkillTargetInfo(int a_nCharacterID, ESkillKinds a_eSkillKinds, out CSkillTargetInfo a_oOutSkillTargetInfo) {
+		a_oOutSkillTargetInfo = this.TryGetTargetInfo(a_nCharacterID, ETargetType.SKILL, (int)a_eSkillKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CSkillTargetInfo : null;
+		return a_oOutSkillTargetInfo != null;
+	}
+
+	/** 객체 타겟 정보를 반환한다 */
+	public bool TryGetObjTargetInfo(int a_nCharacterID, EObjKinds a_eObjKinds, out CObjTargetInfo a_oOutObjTargetInfo) {
+		a_oOutObjTargetInfo = this.TryGetTargetInfo(a_nCharacterID, ETargetType.OBJ, (int)a_eObjKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CObjTargetInfo : null;
+		return a_oOutObjTargetInfo != null;
+	}
+
+	/** 캐릭터 유저 정보를 반환한다 */
+	public bool TryGetCharacterUserInfo(int a_nCharacterID, out CCharacterUserInfo a_oOutCharacterUserInfo) {
+		this.UserInfo.m_oCharacterUserInfoDict.TryGetValue(a_nCharacterID, out a_oOutCharacterUserInfo);
+		return this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID);
+	}
+
+	/** 유저 정보를 로드한다 */
+	public CUserInfo LoadUserInfo() {
+		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
+	}
+
+	/** 유저 정보를 로드한다 */
+	public CUserInfo LoadUserInfo(string a_oFilePath) {
+		// 파일이 존재 할 경우
+		if(File.Exists(a_oFilePath)) {
+			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, true);
+			CAccess.Assert(this.UserInfo != null);
+		}
+
+		return this.UserInfo;
+	}
+
+	/** 유저 정보를 저장한다 */
+	public void SaveUserInfo() {
+		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
+	}
+
+	/** 유저 정보를 저장한다 */
+	public void SaveUserInfo(string a_oFilePath) {
+		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, true);
+	}
+
+	/** 타겟 정보를 반환한다 */
+	private bool TryGetTargetInfo(int a_nCharacterID, ETargetType a_eTargetType, int a_nKinds, out CTargetInfo a_oOutTargetInfo) {
+		a_oOutTargetInfo = (this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.m_oTargetInfoDictContainer.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
+		return a_oOutTargetInfo != null;
+	}
+	#endregion			// 함수
+
+	#region 접근자 함수
+	/** 아이템 타겟 정보를 반환한다 */
 	public CItemTargetInfo GetItemTargetInfo(int a_nCharacterID, EItemKinds a_eItemKinds) {
 		bool bIsValid = this.TryGetItemTargetInfo(a_nCharacterID, a_eItemKinds, out CItemTargetInfo oItemTargetInfo);
 		CAccess.Assert(bIsValid);
@@ -373,30 +431,6 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		CAccess.Assert(bIsValid);
 
 		return oCharacterUserInfo;
-	}
-
-	/** 아이템 타겟 정보를 반환한다 */
-	public bool TryGetItemTargetInfo(int a_nCharacterID, EItemKinds a_eItemKinds, out CItemTargetInfo a_oOutItemTargetInfo) {
-		a_oOutItemTargetInfo = this.TryGetTargetInfo(a_nCharacterID, ETargetType.ITEM, (int)a_eItemKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CItemTargetInfo : null;
-		return a_oOutItemTargetInfo != null;
-	}
-
-	/** 스킬 타겟 정보를 반환한다 */
-	public bool TryGetSkillTargetInfo(int a_nCharacterID, ESkillKinds a_eSkillKinds, out CSkillTargetInfo a_oOutSkillTargetInfo) {
-		a_oOutSkillTargetInfo = this.TryGetTargetInfo(a_nCharacterID, ETargetType.SKILL, (int)a_eSkillKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CSkillTargetInfo : null;
-		return a_oOutSkillTargetInfo != null;
-	}
-
-	/** 객체 타겟 정보를 반환한다 */
-	public bool TryGetObjTargetInfo(int a_nCharacterID, EObjKinds a_eObjKinds, out CObjTargetInfo a_oOutObjTargetInfo) {
-		a_oOutObjTargetInfo = this.TryGetTargetInfo(a_nCharacterID, ETargetType.OBJ, (int)a_eObjKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CObjTargetInfo : null;
-		return a_oOutObjTargetInfo != null;
-	}
-
-	/** 캐릭터 유저 정보를 반환한다 */
-	public bool TryGetCharacterUserInfo(int a_nCharacterID, out CCharacterUserInfo a_oOutCharacterUserInfo) {
-		this.UserInfo.m_oCharacterUserInfoDict.TryGetValue(a_nCharacterID, out a_oOutCharacterUserInfo);
-		return this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID);
 	}
 
 	/** 타겟 정보를 추가한다 */
@@ -453,39 +487,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 		this.UserInfo.m_oCharacterUserInfoDict.ExRemoveVal(this.UserInfo.m_oCharacterUserInfoDict.Count - KCDefine.B_VAL_2_INT);
 	}
-
-	/** 유저 정보를 로드한다 */
-	public CUserInfo LoadUserInfo() {
-		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
-	}
-
-	/** 유저 정보를 로드한다 */
-	public CUserInfo LoadUserInfo(string a_oFilePath) {
-		// 파일이 존재 할 경우
-		if(File.Exists(a_oFilePath)) {
-			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, true);
-			CAccess.Assert(this.UserInfo != null);
-		}
-
-		return this.UserInfo;
-	}
-
-	/** 유저 정보를 저장한다 */
-	public void SaveUserInfo() {
-		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
-	}
-
-	/** 유저 정보를 저장한다 */
-	public void SaveUserInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, true);
-	}
-
-	/** 타겟 정보를 반환한다 */
-	private bool TryGetTargetInfo(int a_nCharacterID, ETargetType a_eTargetType, int a_nKinds, out CTargetInfo a_oOutTargetInfo) {
-		a_oOutTargetInfo = (this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.m_oTargetInfoDictContainer.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
-		return a_oOutTargetInfo != null;
-	}
-	#endregion			// 함수
+	#endregion			// 접근자 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

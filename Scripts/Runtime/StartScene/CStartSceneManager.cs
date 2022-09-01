@@ -26,7 +26,7 @@ namespace StartScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				CCommonAppInfoStorage.Inst.AddAppRunningTimes(KCDefine.B_VAL_1_INT);
+				CCommonAppInfoStorage.Inst.IncrAppRunningTimes(KCDefine.B_VAL_1_INT);
 				CCommonAppInfoStorage.Inst.SaveAppInfo();
 			}
 		}

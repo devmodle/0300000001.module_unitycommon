@@ -52,12 +52,12 @@ namespace SetupScene {
 			}
 
 			// 공용 앱 정보를 설정한다 {
-			CCommonAppInfoStorage.Inst.StoreURL = Access.StoreURL;
+			CCommonAppInfoStorage.Inst.SetStoreURL(Access.StoreURL);
 			
 #if LOCALIZE_TEST_ENABLE
-			CCommonAppInfoStorage.Inst.SystemLanguage = m_eSystemLanguage;
+			CCommonAppInfoStorage.Inst.SetSystemLanguage(m_eSystemLanguage);
 #else
-			CCommonAppInfoStorage.Inst.SystemLanguage = Application.systemLanguage;
+			CCommonAppInfoStorage.Inst.SetSystemLanguage(Application.systemLanguage);
 #endif			// #if LOCALIZE_TEST_ENABLE
 			// 공용 앱 정보를 설정한다 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

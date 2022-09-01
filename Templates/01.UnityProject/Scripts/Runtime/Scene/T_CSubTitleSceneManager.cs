@@ -79,7 +79,7 @@ namespace TitleScene {
 			LogFunc.SendLaunchLog();
 			LogFunc.SendSplashLog();
 
-			CCommonAppInfoStorage.Inst.IsFirstStart = false;
+			CCommonAppInfoStorage.Inst.SetFirstStart(false);
 			
 #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
