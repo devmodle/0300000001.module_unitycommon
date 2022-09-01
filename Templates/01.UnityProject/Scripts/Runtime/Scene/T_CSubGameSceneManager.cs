@@ -122,7 +122,7 @@ namespace GameScene {
 		private void OnReceivePopupResult(CPopup a_oSender, EPopupResult a_eResult) {
 			// 팝업이 존재 할 경우
 			if(a_oSender != null) {
-				a_oSender.IsIgnoreAni = a_eResult != EPopupResult.CONTINUE;
+				a_oSender.SetIgnoreAni(a_eResult != EPopupResult.CONTINUE);
 				a_oSender.Close();
 			}
 
