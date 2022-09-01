@@ -59,36 +59,6 @@ public static partial class AccessExtension {
 			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
 		}
 	}
-
-	/** 시작 콜백을 변경한다 */
-	public static void ExSetBeginCallback(this CTouchDispatcher a_oSender, System.Action<CTouchDispatcher, PointerEventData> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
-
-		// 터치 전달자가 존재 할 경우
-		if(a_oSender != null) {
-			a_oSender.BeginCallback = a_oCallback;
-		}
-	}
-
-	/** 이동 콜백을 변경한다 */
-	public static void ExSetMoveCallback(this CTouchDispatcher a_oSender, System.Action<CTouchDispatcher, PointerEventData> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
-
-		// 터치 전달자가 존재 할 경우
-		if(a_oSender != null) {
-			a_oSender.MoveCallback = a_oCallback;
-		}
-	}
-
-	/** 종료 콜백을 변경한다 */
-	public static void ExSetEndCallback(this CTouchDispatcher a_oSender, System.Action<CTouchDispatcher, PointerEventData> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
-
-		// 터치 전달자가 존재 할 경우
-		if(a_oSender != null) {
-			a_oSender.EndCallback = a_oCallback;
-		}
-	}
 	#endregion			// 클래스 함수
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

@@ -171,9 +171,9 @@ public static partial class Func {
 		// 키 정보가 존재 할 경우
 		if(a_oKeyInfoList.ExIsValid()) {
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.ExSetBeginCallback(a_oKeyInfoList[i].Item2, a_bIsEnableAssert);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.ExSetMoveCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.ExSetEndCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.SetBeginCallback(a_oKeyInfoList[i].Item2);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.SetMoveCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.SetEndCallback(a_oKeyInfoList[i].Item4);
 			}
 		}
 	}
@@ -185,9 +185,9 @@ public static partial class Func {
 		// 키 정보가 존재 할 경우
 		if(a_oKeyInfoList.ExIsValid()) {
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.ExSetBeginCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.ExSetMoveCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.ExSetEndCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item4);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item5);
 			}
 		}
 	}
@@ -241,9 +241,9 @@ public static partial class Func {
 			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetBeginCallback(a_oKeyInfoList[i].Item3, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetMoveCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetEndCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item3);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item4);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item5);
 			}
 		}
 	}
@@ -257,9 +257,9 @@ public static partial class Func {
 			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetBeginCallback(a_oKeyInfoList[i].Item4, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetMoveCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetEndCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item4);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item5);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item6);
 			}
 		}
 	}
@@ -273,9 +273,9 @@ public static partial class Func {
 			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetBeginCallback(a_oKeyInfoList[i].Item5, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetMoveCallback(a_oKeyInfoList[i].Item6, a_bIsEnableAssert);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.ExSetEndCallback(a_oKeyInfoList[i].Item7, a_bIsEnableAssert);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item5);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item6);
+				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item7);
 			}
 		}
 	}
