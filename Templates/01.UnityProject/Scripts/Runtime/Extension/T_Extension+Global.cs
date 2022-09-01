@@ -97,14 +97,9 @@ public static partial class Extension {
 	/** 효과를 재생한다 */
 	public static void ExPlay(this ParticleSystem a_oSender, System.Action<CEventDispatcher> a_oCallback, bool a_bIsPlayChildren = true, bool a_bIsStopChildren = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
-		var oEventDispatcher = a_oSender?.GetComponentInChildren<CEventDispatcher>();
-
-		// 이벤트 전달자가 존재 할 경우
-		if(oEventDispatcher != null) {
-			oEventDispatcher.ParticleEventCallback = a_oCallback;
-		}
 
 		a_oSender?.ExPlay(a_bIsPlayChildren, a_bIsStopChildren, a_bIsEnableAssert);
+		a_oSender?.GetComponentInChildren<CEventDispatcher>()?.SetParticleCallback(a_oCallback);
 	}
 
 	/** 타겟 정보를 탐색한다 */
