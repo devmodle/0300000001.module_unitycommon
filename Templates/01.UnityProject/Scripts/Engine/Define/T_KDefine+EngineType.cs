@@ -19,7 +19,7 @@ namespace NSEngine {
 
 		#region 상수
 		public static STGridInfo INVALID = new STGridInfo() {
-			m_stBounds = new Bounds(Vector3.zero, Vector3.one), m_stScale = Vector3.one
+			m_stScale = Vector3.one
 		};
 		#endregion			// 상수
 	}

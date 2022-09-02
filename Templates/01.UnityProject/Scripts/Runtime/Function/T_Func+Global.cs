@@ -71,9 +71,12 @@ public static partial class Func {
 	}
 
 	/** 플레이 에피소드 정보를 설정한다 */
-	public static void SetupPlayEpisodeInfo(int a_nLevelID, EPlayMode a_ePlayMode, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public static void SetupPlayEpisodeInfo(int a_nCharacterID, int a_nLevelID, EPlayMode a_ePlayMode, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CGameInfoStorage.Inst.SetPlayMode(a_ePlayMode);
 		CGameInfoStorage.Inst.SetPlayEpisodeInfo(Access.GetEpisodeInfo(a_nLevelID, a_nStageID, a_nChapterID));
+
+		CUserInfoStorage.Inst.GetCharacterUserInfo(a_nCharacterID).m_stPlayEpisodeIDInfo = Access.GetEpisodeInfo(a_nLevelID, a_nStageID, a_nChapterID).m_stIDInfo;
+		CUserInfoStorage.Inst.SaveUserInfo();
 		
 #if NEVER_USE_THIS
 #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

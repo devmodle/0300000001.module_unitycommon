@@ -21,21 +21,7 @@ namespace GameScene {
 #if DEBUG || DEVELOPMENT_BUILD
 				// 플레이 레벨 정보가 없을 경우
 				if(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 <= KCDefine.B_IDX_INVALID) {
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
-					// 레벨 정보가 없을 경우
-					if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
-						var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
-
-						Func.SetupEditorLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
-							m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
-						});
-						
-						CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
-						CLevelInfoTable.Inst.SaveLevelInfos();
-					}
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
-
-					Func.SetupPlayEpisodeInfo(KCDefine.B_VAL_0_INT, EPlayMode.NORM);
+					Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, KCDefine.B_VAL_0_INT, EPlayMode.NORM);
 				}
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 

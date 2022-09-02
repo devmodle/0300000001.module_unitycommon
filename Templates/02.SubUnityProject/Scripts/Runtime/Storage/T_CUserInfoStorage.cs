@@ -215,6 +215,7 @@ public partial class CObjTargetInfo : CTargetInfo {
 public partial class CCharacterUserInfo : CObjTargetInfo {
 	#region 변수
 	[Key(21)] public STIDInfo m_stIDInfo;
+	[Key(22)] public STIDInfo m_stPlayEpisodeIDInfo;
 	[Key(161)] public Dictionary<ETargetType, List<CTargetInfo>> m_oTargetInfoDictContainer = new Dictionary<ETargetType, List<CTargetInfo>>();
 	#endregion			// 변수
 
