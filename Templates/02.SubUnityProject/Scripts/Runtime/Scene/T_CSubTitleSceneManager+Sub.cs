@@ -230,7 +230,7 @@ namespace TitleScene {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				Func.OnLoadGoogleSheets(m_oVerInfos);
-				this.ExLateCallFunc((a_oCallFuncSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 			} else {
 				Func.ShowOnTableLoadFailPopup(null);
 			}

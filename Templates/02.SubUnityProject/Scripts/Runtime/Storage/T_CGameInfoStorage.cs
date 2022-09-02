@@ -310,7 +310,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 플레이 모드를 변경한다 */
 	public void SetPlayMode(EPlayMode a_ePlayMode) {
-		this.SetPlayMode(a_ePlayMode);
+		this.PlayMode = a_ePlayMode;
 	}
 
 	/** 플레이 에피소드 정보를 변경한다 */
