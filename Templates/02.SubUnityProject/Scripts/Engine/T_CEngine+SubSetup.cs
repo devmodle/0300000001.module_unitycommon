@@ -12,8 +12,10 @@ namespace NSEngine {
 		#region 함수
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
+			m_oGridInfoList.Clear();
+			m_oGridInfoList.ExAddVal(Factory.MakeGridInfo(CGameInfoStorage.Inst.PlayLevelInfo, Vector3.zero));
+
 			m_oCellObjDictContainers = new Dictionary<EObjType, List<CEObj>>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
-			m_oGridInfoDict.ExReplaceVal(EKey.SEL_GRID_INFO, Factory.MakeGridInfo(CGameInfoStorage.Inst.PlayLevelInfo, Vector3.zero));
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 			// 객체 풀을 설정한다

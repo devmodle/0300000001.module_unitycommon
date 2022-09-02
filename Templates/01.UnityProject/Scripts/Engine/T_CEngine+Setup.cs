@@ -16,7 +16,7 @@ namespace NSEngine {
 			if(CGameInfoStorage.Inst.PlayLevelInfo != null) {
 				for(int i = 0; i < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-						this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i][j], m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO));
+						this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i][j], m_oGridInfoList[this.SelGridInfoIdx]);
 					}
 				}
 			}

@@ -22,7 +22,7 @@ namespace LevelEditorScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			SEL_GRID_INFO,
+			SEL_GRID_IDX,
 			SEL_USER_TYPE,
 			SEL_TABLE_SRC,
 			SEL_INPUT_POPUP,
@@ -97,6 +97,7 @@ namespace LevelEditorScene {
 		}
 
 		#region 변수
+		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 		private Dictionary<EKey, EUserType> m_oUserTypeDict = new Dictionary<EKey, EUserType>();
 		private Dictionary<EKey, ETableSrc> m_oTableSrcDict = new Dictionary<EKey, ETableSrc>();
 		private Dictionary<EKey, EInputPopup> m_oInputPopupDict = new Dictionary<EKey, EInputPopup>();
@@ -109,12 +110,9 @@ namespace LevelEditorScene {
 #endif			// #if GOOGLE_SHEET_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		private Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>[,] m_oObjSpriteInfoDictContainers = null;
-		private Dictionary<EKey, NSEngine.STGridInfo> m_oGridInfoDict = new Dictionary<EKey, NSEngine.STGridInfo>();
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-
-#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		private List<NSEngine.STGridInfo> m_oGridInfoList = new List<NSEngine.STGridInfo>();
 		private Dictionary<EKey, CLevelInfo> m_oLevelInfoDict = new Dictionary<EKey, CLevelInfo>();
+		private Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>[,] m_oObjSpriteInfoDictContainers = null;
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 		/** =====> UI <===== */
@@ -128,6 +126,12 @@ namespace LevelEditorScene {
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion			// 변수
+
+		#region 프로퍼티
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		public int SelGridInfoIdx => m_oIntDict.GetValueOrDefault(EKey.SEL_GRID_IDX);
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		#endregion			// 프로퍼티
 		
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
@@ -315,9 +319,9 @@ namespace LevelEditorScene {
 		protected override void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
 			base.HandleTouchEvent(a_oSender, a_oEventData, a_eTouchEvent);
 			var stTouchPos = a_oEventData.ExGetLocalPos(this.ObjRoot);
-			
+						
 			// 배경 터치 전달자 일 경우
-			if(this.BGTouchDispatcher == a_oSender && m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stBounds.Contains(stTouchPos)) {
+			if(this.BGTouchDispatcher == a_oSender && m_oGridInfoList[this.SelGridInfoIdx].m_stBounds.Contains(stTouchPos)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;

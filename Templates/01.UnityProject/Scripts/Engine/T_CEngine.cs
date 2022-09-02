@@ -16,7 +16,7 @@ namespace NSEngine {
 			NONE = -1,
 			IS_RUNNING,
 			IS_SAVE_USER_INFO,
-			SEL_GRID_INFO,
+			SEL_GRID_IDX,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -42,8 +42,9 @@ namespace NSEngine {
 
 		#region 변수
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
-		private Dictionary<EKey, STGridInfo> m_oGridInfoDict = new Dictionary<EKey, STGridInfo>();
+		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 
+		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		private Dictionary<EObjType, List<CEObj>>[,] m_oCellObjDictContainers = null;
@@ -59,9 +60,10 @@ namespace NSEngine {
 		public List<CEFX> FXList { get; } = new List<CEFX>();
 
 		public bool IsRunning => m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING);
+		public int SelGridInfoIdx => m_oIntDict.GetValueOrDefault(EKey.SEL_GRID_IDX);
 		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
-		public STGridInfo SelGridInfo => m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO);
+		public STGridInfo SelGridInfo => m_oGridInfoList[this.SelGridInfoIdx];
 		#endregion			// 프로퍼티
 		
 		#region 함수
@@ -75,7 +77,7 @@ namespace NSEngine {
 			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot);
 
 			// 그리드 영역 일 경우
-			if(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stBounds.Contains(stTouchPos)) {
+			if(m_oGridInfoList[this.SelGridInfoIdx].m_stBounds.Contains(stTouchPos)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;

@@ -52,6 +52,7 @@ namespace NSEngine {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
+			SEL_PLAYER_OBJ_IDX,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -64,6 +65,7 @@ namespace NSEngine {
 		}
 
 		#region 변수
+		private Dictionary<ESubKey, int> m_oSubIntDict = new Dictionary<ESubKey, int>();
 		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
 		#endregion			// 변수
 
@@ -72,7 +74,8 @@ namespace NSEngine {
 		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
 
-		public CEObj SelPlayerObj => this.PlayerObjList[KCDefine.B_VAL_0_INT];
+		public int SelPlayerObjIdx => m_oSubIntDict.GetValueOrDefault(ESubKey.SEL_PLAYER_OBJ_IDX);
+		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
 		#endregion			// 프로퍼티
 		
 		#region 함수
@@ -92,7 +95,7 @@ namespace NSEngine {
 					// 플레이어 객체가 존재 할 경우
 					if(this.PlayerObjList.ExIsValid()) {
 						var stEpisodeSize = this.CameraEpisodeSize * CAccess.ResolutionUnitScale;
-						var stMainCameraPos = new Vector3(Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), (stEpisodeSize.y / -KCDefine.B_VAL_2_REAL) - ((CSceneManager.ActiveSceneManager.ScreenHeight / KCDefine.B_VAL_3_REAL) * CAccess.ResolutionUnitScale), stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+						var stMainCameraPos = new Vector3(Mathf.Clamp(this.PlayerObjList[this.SelPlayerObjIdx].transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.PlayerObjList[this.SelPlayerObjIdx].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), (stEpisodeSize.y / -KCDefine.B_VAL_2_REAL) - ((CSceneManager.ActiveSceneManager.ScreenHeight / KCDefine.B_VAL_3_REAL) * CAccess.ResolutionUnitScale), stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 
 						CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
 					}
@@ -122,18 +125,18 @@ namespace NSEngine {
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
 		public void SetIsPlayerObjAutoControl(bool a_bIsAutoControl) {
-			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().SetIsAutoControl(a_bIsAutoControl);
+			this.PlayerObjList[this.SelPlayerObjIdx].GetController<CEPlayerObjController>().SetIsAutoControl(a_bIsAutoControl);
 		}
 
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stVal, EVecType a_eVecType = EVecType.DIRECTION) {
-			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().Move(a_stVal, a_eVecType);
+			this.PlayerObjList[this.SelPlayerObjIdx].GetController<CEPlayerObjController>().Move(a_stVal, a_eVecType);
 		}
 		
 		/** 플레이어 객체 스킬을 적용한다 */
 		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
 			var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds);
-			this.PlayerObjList[KCDefine.B_VAL_0_INT].GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
+			this.PlayerObjList[this.SelPlayerObjIdx].GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
 		}
 
 		/** 초기화한다 */
@@ -141,7 +144,7 @@ namespace NSEngine {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
 			this.PlayerObjList.ExAddVal(this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
 
-			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.x, this.PlayerObjList[KCDefine.B_VAL_0_INT].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.PlayerObjList[this.SelPlayerObjIdx].transform.position.x, this.PlayerObjList[this.SelPlayerObjIdx].transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 		}
 
 		/** 상태를 리셋한다 */
@@ -180,10 +183,10 @@ namespace NSEngine {
 					try {
 						this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
 						this.Params.m_oCallbackDict02.GetValueOrDefault(ECallback.ACQUIRE)?.Invoke(this, oAcquireTargetInfoDict);
-						global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo, true);
+						global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo, true);
 
-						var stObjEnhanceInfo = CObjInfoTable.Inst.GetObjEnhanceInfo(this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_stObjInfo.m_eObjKinds);
-						var stEXPTargetValInfo = this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetEXPTargetValInfo(stObjEnhanceInfo.m_oPayTargetInfoDict);
+						var stObjEnhanceInfo = CObjInfoTable.Inst.GetObjEnhanceInfo(this.PlayerObjList[this.SelPlayerObjIdx].Params.m_stObjInfo.m_eObjKinds);
+						var stEXPTargetValInfo = this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetEXPTargetValInfo(stObjEnhanceInfo.m_oPayTargetInfoDict);
 						
 						foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict) {
 							bool bIsValid = stKeyVal.Value.TargetType == ETargetType.ITEM && (a_oSender as CEItem != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEItem).Params.m_stItemInfo.m_eItemKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType);
@@ -196,10 +199,10 @@ namespace NSEngine {
 						
 						// 플레이어 객체 레벨 강화가 가능 할 경우
 						if(stEXPTargetValInfo.Item1 >= stEXPTargetValInfo.Item3) {
-							global::Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stObjEnhanceInfo.m_oPayTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
-							global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stObjEnhanceInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo, true);
+							global::Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stObjEnhanceInfo.m_oPayTargetInfoDict, this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo);
+							global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stObjEnhanceInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo, true);
 
-							this.PlayerObjList[KCDefine.B_VAL_0_INT].SetupAbilityVals();
+							this.PlayerObjList[this.SelPlayerObjIdx].SetupAbilityVals();
 						}
 
 						bool bIsSaveUserInfo = m_oBoolDict.GetValueOrDefault(EKey.IS_SAVE_USER_INFO);
@@ -264,7 +267,7 @@ namespace NSEngine {
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 
@@ -272,7 +275,7 @@ namespace NSEngine {
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 
@@ -280,7 +283,7 @@ namespace NSEngine {
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoDict.GetValueOrDefault(EKey.SEL_GRID_INFO).m_stPivotPos, KDefine.E_SIZE_CELL);
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
 		#endregion			// 함수
