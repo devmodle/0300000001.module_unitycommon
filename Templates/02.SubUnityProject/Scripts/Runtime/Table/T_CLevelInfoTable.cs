@@ -244,8 +244,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		for(int i = 0; i < oLevelIDList.Count; ++i) {
 			this.AddLevelInfo(this.LoadLevelInfo(oLevelIDList[i].ExULevelIDToLevelID(), oLevelIDList[i].ExULevelIDToStageID(), oLevelIDList[i].ExULevelIDToChapterID()));
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		}
+#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 		return this.LevelInfoDictContainer;
 	}
