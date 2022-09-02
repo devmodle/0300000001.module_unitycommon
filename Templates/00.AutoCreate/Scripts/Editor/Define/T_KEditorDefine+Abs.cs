@@ -181,7 +181,7 @@ public static partial class KEditorDefine {
 #endif			// #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
-		["com.unity.cinemachine"] = "2.8.6",
+		["com.unity.cinemachine"] = "2.9.1",
 #endif			// #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
@@ -213,7 +213,7 @@ public static partial class KEditorDefine {
 #endif			// #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.3.0",
+		["com.unity.purchasing"] = "4.4.1",
 		["module.unitycommonpurchase"] = "https://9tap:glpat-LxsZyPNZ5cNEPyxUPNaC@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase_client.git#2.7.7",
 #endif			// #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
