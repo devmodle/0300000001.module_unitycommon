@@ -13,7 +13,7 @@ namespace NSEngine {
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 			m_oGridInfoList.Clear();
-			m_oGridInfoList.ExAddVal(Factory.MakeGridInfo(CGameInfoStorage.Inst.PlayLevelInfo, Vector3.zero));
+			m_oGridInfoList.ExAddVal((CGameInfoStorage.Inst.PlayLevelInfo != null) ? Factory.MakeGridInfo(CGameInfoStorage.Inst.PlayLevelInfo, Vector3.zero) : STGridInfo.INVALID);
 
 			m_oCellObjDictContainers = new Dictionary<EObjType, List<CEObj>>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);

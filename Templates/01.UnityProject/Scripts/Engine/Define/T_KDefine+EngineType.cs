@@ -16,6 +16,12 @@ namespace NSEngine {
 		public Vector3 m_stSize;
 		public Vector3 m_stScale;
 		public Vector3 m_stPivotPos;
+
+		#region 상수
+		public static STGridInfo INVALID = new STGridInfo() {
+			m_stBounds = new Bounds(Vector3.zero, Vector3.one), m_stScale = Vector3.one
+		};
+		#endregion			// 상수
 	}
 
 	/** 엔진 타입 랩퍼 */
