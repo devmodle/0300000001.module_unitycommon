@@ -49,9 +49,9 @@ public partial class CResumePopup : CSubPopup {
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(Dictionary<ECallback, System.Action<CResumePopup>> a_oCallbackDict) {
+	public static STParams MakeParams(Dictionary<ECallback, System.Action<CResumePopup>> a_oCallbackDict = null) {
 		return new STParams() {
-			m_oCallbackDict = a_oCallbackDict
+			m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CResumePopup>>()
 		};
 	}
 	#endregion			// 클래스 함수

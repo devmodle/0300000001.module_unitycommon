@@ -69,9 +69,9 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public new static STParams MakeParams(ulong a_nID, EnhancedScroller a_oScroller, Dictionary<ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict) {
+	public new static STParams MakeParams(ulong a_nID, EnhancedScroller a_oScroller, Dictionary<ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict = null) {
 		return new STParams() {
-			m_stBaseParams = CScrollerCellView.MakeParams(a_nID, a_oScroller, a_oCallbackDict)
+			m_stBaseParams = CScrollerCellView.MakeParams(a_nID, a_oScroller, a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CScrollerCellView, ulong>>())
 		};
 	}
 	#endregion			// 클래스 함수

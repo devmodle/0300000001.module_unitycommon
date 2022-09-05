@@ -19,7 +19,7 @@ namespace NSEngine {
 		/** 매개 변수 */
 		public new struct STParams {
 			public CEObjComponent.STParams m_stBaseParams;
-			public STFXInfo m_stTableFXInfo;
+			public STFXInfo m_stFXInfo;
 		}
 
 		#region 변수
@@ -39,9 +39,9 @@ namespace NSEngine {
 
 		#region 클래스 함수
 		/** 효과 매개 변수를 생성한다 */
-		public static STParams MakeParams(CEngine a_oEngine, STFXInfo a_stTableFXInfo, CEObjComponent a_oOwner = null, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static STParams MakeParams(CEngine a_oEngine, STFXInfo a_stFXInfo, CEObjComponent a_oOwner = null, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new STParams() {
-				m_stBaseParams = CEObjComponent.MakeParams(a_oEngine, a_oOwner, a_oController, a_oObjsPoolKey), m_stTableFXInfo = a_stTableFXInfo
+				m_stBaseParams = CEObjComponent.MakeParams(a_oEngine, a_oOwner, a_oController, a_oObjsPoolKey), m_stFXInfo = a_stFXInfo
 			};
 		}
 		#endregion			// 클래스 함수

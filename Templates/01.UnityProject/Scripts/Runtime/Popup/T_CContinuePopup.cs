@@ -82,9 +82,9 @@ public partial class CContinuePopup : CSubPopup {
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(int a_nContinueTimes, Dictionary<ECallback, System.Action<CContinuePopup>> a_oCallbackDict) {
+	public static STParams MakeParams(int a_nContinueTimes, Dictionary<ECallback, System.Action<CContinuePopup>> a_oCallbackDict = null) {
 		return new STParams() {
-			m_nContinueTimes = a_nContinueTimes, m_oCallbackDict = a_oCallbackDict
+			m_nContinueTimes = a_nContinueTimes, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CContinuePopup>>()
 		};
 	}
 	#endregion			// 클래스 함수
