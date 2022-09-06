@@ -42,8 +42,7 @@ public partial class CSettingsPopup : CSubPopup {
 	}
 
 	/** UI 상태를 갱신한다 */
-	private new void UpdateUIsState() {
-		base.UpdateUIsState();
+	private void UpdateUIsState() {
 		var oBtnKeyInfoList = CCollectionManager.Inst.SpawnList<(EKey, string, string, string, bool)>();
 
 		try {

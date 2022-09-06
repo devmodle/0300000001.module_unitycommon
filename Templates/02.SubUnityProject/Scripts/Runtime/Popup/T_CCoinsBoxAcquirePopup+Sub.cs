@@ -41,9 +41,8 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	}
 	
 	/** UI 상태를 변경한다 */
-	private new void UpdateUIsState() {
-		base.UpdateUIsState();
-
+	private void UpdateUIsState() {
+		// 객체를 갱신한다
 		m_oSaveUIs?.SetActive(m_oIntDict.GetValueOrDefault(EKey.PREV_NUM_COINS_BOX_COINS) < KDefine.G_MAX_NUM_COINS_BOX_COINS);
 		m_oFullUIs?.SetActive(m_oIntDict.GetValueOrDefault(EKey.PREV_NUM_COINS_BOX_COINS) >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
 		

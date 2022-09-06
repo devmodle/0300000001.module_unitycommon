@@ -29,9 +29,7 @@ public partial class CPausePopup : CSubPopup {
 	}
 
 	/** UI 상태를 갱신한다 */
-	private new void UpdateUIsState() {
-		base.UpdateUIsState();
-
+	private void UpdateUIsState() {
 		#region 추가
 		this.SubUpdateUIsState();
 		#endregion			// 추가

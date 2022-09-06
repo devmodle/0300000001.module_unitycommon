@@ -36,9 +36,7 @@ public partial class CProductTradePopup : CSubPopup {
 	}
 
 	/** UI 상태를 갱신한다 */
-	private new void UpdateUIsState() {
-		base.UpdateUIsState();
-
+	private void UpdateUIsState() {
 		// 상품 구입 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
 			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));

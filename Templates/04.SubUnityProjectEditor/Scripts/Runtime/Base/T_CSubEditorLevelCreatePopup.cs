@@ -40,8 +40,8 @@ public partial class CSubEditorLevelCreatePopup : CEditorLevelCreatePopup {
 	}
 
 	/** UI 상태를 갱신한다 */
-	protected new void UpdateUIsState() {
-		base.UpdateUIsState();
+	private void UpdateUIsState() {
+		// Do Something
 	}
 
 	/** 에디터 레벨 생성 정보를 생성한다 */

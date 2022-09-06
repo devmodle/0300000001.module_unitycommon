@@ -42,9 +42,7 @@ public partial class CSyncPopup : CSubPopup {
 	}
 
 	/** UI 상태를 갱신한다 */
-	private new void UpdateUIsState() {
-		base.UpdateUIsState();
-
+	private void UpdateUIsState() {
 		// 객체를 갱신한다 {
 #if FIREBASE_MODULE_ENABLE
 		m_oUIsDict.GetValueOrDefault(EKey.LOGIN_UIS)?.SetActive(CFirebaseManager.Inst.IsLogin);

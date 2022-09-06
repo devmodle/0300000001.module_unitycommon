@@ -36,8 +36,8 @@ public partial class CSubAlertPopup : CAlertPopup {
 	}
 
 	/** UI 상태를 갱신한다 */
-	protected new void UpdateUIsState() {
-		base.UpdateUIsState();
+	private void UpdateUIsState() {
+		// Do Something
 	}
 	#endregion			// 함수
 }

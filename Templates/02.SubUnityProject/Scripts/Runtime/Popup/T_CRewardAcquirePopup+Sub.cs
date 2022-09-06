@@ -41,7 +41,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	}
 
 	/** UI 상태를 갱신한다 */
-	private new void UpdateUIsState() {
+	private void UpdateUIsState() {
 		var oRewardTargetInfoKeyList = this.Params.m_oRewardTargetInfoDict.Keys.ToList();
 
 		// 보상 아이템 UI 상태를 갱신한다

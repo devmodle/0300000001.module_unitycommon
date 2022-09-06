@@ -29,9 +29,7 @@ public abstract partial class CMissionPopup : CSubPopup {
 	}
 
 	/** UI 상태를 갱신한다 */
-	protected new void UpdateUIsState() {
-		base.UpdateUIsState();
-
+	private void UpdateUIsState() {
 		// 미션 UI 상태를 갱신한다
 		for(int i = 0; i < m_oMissionUIsList.Count; ++i) {
 			this.UpdateMissionUIsState(m_oMissionUIsList[i], this.Params.m_oMissionInfoList[i]);

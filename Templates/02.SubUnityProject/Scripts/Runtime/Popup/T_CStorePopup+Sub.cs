@@ -43,7 +43,7 @@ public partial class CStorePopup : CSubPopup {
 	}
 
 	/** UI 상태를 갱신한다 */
-	private new void UpdateUIsState() {
+	private void UpdateUIsState() {
 		// 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
 			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], this.Params.m_oProductTradeInfoList[i]);
