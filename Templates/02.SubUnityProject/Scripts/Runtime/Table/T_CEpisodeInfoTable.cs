@@ -45,13 +45,13 @@ public struct STEpisodeInfo {
 	public ulong PrevULevelID => CFactory.MakeULevelID(m_stPrevIDInfo.m_nID01, m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
 	public ulong NextULevelID => CFactory.MakeULevelID(m_stNextIDInfo.m_nID01, m_stNextIDInfo.m_nID02, m_stNextIDInfo.m_nID03);
 
-	public ulong UniqueStagelID => CFactory.MakeUniqueStageID(m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
-	public ulong PrevUniqueStageID => CFactory.MakeUniqueStageID(m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
-	public ulong NextUniqueStageID => CFactory.MakeUniqueStageID(m_stNextIDInfo.m_nID02, m_stNextIDInfo.m_nID03);
+	public ulong UniqueStagelID => CFactory.MakeUStageID(m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
+	public ulong PrevUniqueStageID => CFactory.MakeUStageID(m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
+	public ulong NextUniqueStageID => CFactory.MakeUStageID(m_stNextIDInfo.m_nID02, m_stNextIDInfo.m_nID03);
 
-	public ulong UniqueChapterID => CFactory.MakeUniqueChapterID(m_stIDInfo.m_nID03);
-	public ulong PrevUniqueChapterID => CFactory.MakeUniqueChapterID(m_stPrevIDInfo.m_nID03);
-	public ulong NextUniqueChapterID => CFactory.MakeUniqueChapterID(m_stNextIDInfo.m_nID03);
+	public ulong UniqueChapterID => CFactory.MakeUChapterID(m_stIDInfo.m_nID03);
+	public ulong PrevUniqueChapterID => CFactory.MakeUChapterID(m_stPrevIDInfo.m_nID03);
+	public ulong NextUniqueChapterID => CFactory.MakeUChapterID(m_stNextIDInfo.m_nID03);
 
 	public EEpisodeType EpisodeType => (EEpisodeType)((int)m_eEpisodeKinds).ExKindsToType();
 	public EEpisodeKinds BaseEpisodeKinds => (EEpisodeKinds)((int)m_eEpisodeKinds).ExKindsToSubKindsType();
@@ -191,14 +191,14 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 	/** 스테이지 에피소드 정보를 반환한다 */
 	public bool TryGetStageEpisodeInfo(int a_nStageID, out STEpisodeInfo a_stOutStageEpisodeInfo, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		a_stOutStageEpisodeInfo = this.StageEpisodeInfoDict.GetValueOrDefault(CFactory.MakeUniqueStageID(a_nStageID, a_nChapterID), STEpisodeInfo.INVALID);
-		return this.StageEpisodeInfoDict.ContainsKey(CFactory.MakeUniqueStageID(a_nStageID, a_nChapterID));
+		a_stOutStageEpisodeInfo = this.StageEpisodeInfoDict.GetValueOrDefault(CFactory.MakeUStageID(a_nStageID, a_nChapterID), STEpisodeInfo.INVALID);
+		return this.StageEpisodeInfoDict.ContainsKey(CFactory.MakeUStageID(a_nStageID, a_nChapterID));
 	}
 
 	/** 챕터 에피소드 정보를 반환한다 */
 	public bool TryGetChapterEpisodeInfo(int a_nChapterID, out STEpisodeInfo a_stOutChapterEpisodeInfo) {
-		a_stOutChapterEpisodeInfo = this.ChapterEpisodeInfoDict.GetValueOrDefault(CFactory.MakeUniqueChapterID(a_nChapterID), STEpisodeInfo.INVALID);
-		return this.ChapterEpisodeInfoDict.ContainsKey(CFactory.MakeUniqueChapterID(a_nChapterID));
+		a_stOutChapterEpisodeInfo = this.ChapterEpisodeInfoDict.GetValueOrDefault(CFactory.MakeUChapterID(a_nChapterID), STEpisodeInfo.INVALID);
+		return this.ChapterEpisodeInfoDict.ContainsKey(CFactory.MakeUChapterID(a_nChapterID));
 	}
 
 	/** 에피소드 정보를 로드한다 */

@@ -135,7 +135,7 @@ namespace LevelEditorScene {
 		
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
-		public virtual int GetNumberOfCells(EnhancedScroller a_oSender) {
+		public int GetNumberOfCells(EnhancedScroller a_oSender) {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 레벨 스크롤러 일 경우
 			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item1 == a_oSender) {
@@ -149,74 +149,97 @@ namespace LevelEditorScene {
 		}
 
 		/** 셀 뷰 크기를 반환한다 */
-		public virtual float GetCellViewSize(EnhancedScroller a_oSender, int a_nDataIdx) {
+		public float GetCellViewSize(EnhancedScroller a_oSender, int a_nDataIdx) {
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 레벨 스크롤러 일 경우
 			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item1 == a_oSender) {
 				return (m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item2.transform as RectTransform).sizeDelta.y;
 			}
 
 			return (m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_STAGE_SCROLLER_INFO).Item1 == a_oSender) ? (m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_STAGE_SCROLLER_INFO).Item2.transform as RectTransform).sizeDelta.y : (m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_CHAPTER_SCROLLER_INFO).Item2.transform as RectTransform).sizeDelta.y;
+#else
+			return KCDefine.B_VAL_0_REAL;
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 셀 뷰를 반환한다 */
-		public virtual EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
+		public EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			var stColor = (m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID01 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE;
-			var stIDInfo = new STIDInfo(a_nDataIdx, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID02, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03);
-			var oOriginScrollerCellView = m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item2;
-
-			int nNumInfos = CLevelInfoTable.Inst.GetNumLevelInfos(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID02, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03);
-
-			string oNameFmt = KCDefine.LES_TEXT_FMT_LEVEL;
-			string oNumInfosStr = string.Empty;
-
-			// 스테이지 스크롤러 일 경우
-			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_STAGE_SCROLLER_INFO).Item1 == a_oSender) {
-				nNumInfos = CLevelInfoTable.Inst.GetNumStageInfos(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03);
-				oNameFmt = KCDefine.LES_TEXT_FMT_STAGE;
-				oNumInfosStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, CLevelInfoTable.Inst.GetNumLevelInfos(a_nDataIdx, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03));
-
-				stColor = (m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID02 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE;
-				stIDInfo = new STIDInfo(KCDefine.B_VAL_0_INT, a_nDataIdx, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03);
-				oOriginScrollerCellView = m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_STAGE_SCROLLER_INFO).Item2;
-			}
-			// 챕터 스크롤러 일 경우
-			else if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_CHAPTER_SCROLLER_INFO).Item1 == a_oSender) {
-				nNumInfos = CLevelInfoTable.Inst.NumChapterInfos;
-				oNameFmt = KCDefine.LES_TEXT_FMT_CHAPTER;
-				oNumInfosStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, CLevelInfoTable.Inst.GetNumStageInfos(a_nDataIdx));
-
-				stColor = (m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE;
-				stIDInfo = new STIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nDataIdx);
-				oOriginScrollerCellView = m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_CHAPTER_SCROLLER_INFO).Item2;
-			}
-
-			string oName = string.Format(oNameFmt, a_nDataIdx + KCDefine.B_VAL_1_INT);
-			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, oName, oNumInfosStr);
-
-			var oCallback = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
+			var oCallbackDict01 = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
 				[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
 			};
 
-			var oScrollerCellView = a_oSender.GetCellView(oOriginScrollerCellView) as CEditorScrollerCellView;
-			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03), a_oSender, oCallback, new Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>>() {
+			var oCallbackDict02 = new Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>>() {
 				[CEditorScrollerCellView.ECallback.COPY] = this.OnTouchSCVCopyBtn,
 				[CEditorScrollerCellView.ECallback.MOVE] = this.OnTouchSCVMoveBtn,
 				[CEditorScrollerCellView.ECallback.REMOVE] = this.OnTouchSCVRemoveBtn
-			}));
+			};
 
-			oScrollerCellView.transform.localScale = Vector3.one;
-			oScrollerCellView.MoveBtn?.ExSetInteractable(nNumInfos > KCDefine.B_VAL_1_INT, false);
-			oScrollerCellView.RemoveBtn?.ExSetInteractable(nNumInfos > KCDefine.B_VAL_1_INT, false);
+			// 레벨 스크롤러 일 경우
+			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item1 == a_oSender) {
+				return this.CreateLevelScrollerCellView(a_oSender, a_nDataIdx, a_nCellIdx, oCallbackDict01, oCallbackDict02);
+			}
 
-			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
-			oScrollerCellView.SelBtn?.image.ExSetColor<Image>(stColor, false);
-
-			return oScrollerCellView;
+			return (m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_STAGE_SCROLLER_INFO).Item1 == a_oSender) ? this.CreateStageScrollerCellView(a_oSender, a_nDataIdx, a_nCellIdx, oCallbackDict01, oCallbackDict02) : this.CreateChapterScrollerCellView(a_oSender, a_nDataIdx, a_nCellIdx, oCallbackDict01, oCallbackDict02);
 #else
 			return null;
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
+
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		/** 레벨 스크롤러 셀 뷰를 생성한다 */
+		private EnhancedScrollerCellView CreateLevelScrollerCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict01, Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>> a_oCallbackDict02) {
+			string oName = string.Format(KCDefine.LES_TEXT_FMT_LEVEL, a_nDataIdx + KCDefine.B_VAL_1_INT);
+			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, oName, string.Empty);
+
+			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item2) as CEditorScrollerCellView;
+			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(CFactory.MakeULevelID(a_nDataIdx, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID02, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));			
+			
+			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
+			oScrollerCellView.SelBtn?.image.ExSetColor<Image>((m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID01 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, false);
+
+			oScrollerCellView.MoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumLevelInfos(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID02, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
+			oScrollerCellView.RemoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumLevelInfos(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID02, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
+
+			return oScrollerCellView;
+		}
+
+		/** 스테이지 스크롤러 셀 뷰를 생성한다 */
+		private EnhancedScrollerCellView CreateStageScrollerCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict01, Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>> a_oCallbackDict02) {
+			string oName = string.Format(KCDefine.LES_TEXT_FMT_STAGE, a_nDataIdx + KCDefine.B_VAL_1_INT);
+			string oExtraName = string.Format(KCDefine.B_TEXT_FMT_BRACKET, CLevelInfoTable.Inst.GetNumLevelInfos(a_nDataIdx, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03));
+			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, oName, oExtraName);
+
+			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_STAGE_SCROLLER_INFO).Item2) as CEditorScrollerCellView;
+			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(CFactory.MakeUStageID(a_nDataIdx, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
+
+			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
+			oScrollerCellView.SelBtn?.image.ExSetColor<Image>((m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID02 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, false);
+
+			oScrollerCellView.MoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumStageInfos(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
+			oScrollerCellView.RemoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumStageInfos(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
+
+			return oScrollerCellView;
+		}
+
+		/** 챕터 스크롤러 셀 뷰를 생성한다 */
+		private EnhancedScrollerCellView CreateChapterScrollerCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict01, Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>> a_oCallbackDict02) {
+			string oName = string.Format(KCDefine.LES_TEXT_FMT_CHAPTER, a_nDataIdx + KCDefine.B_VAL_1_INT);
+			string oExtraName = string.Format(KCDefine.B_TEXT_FMT_BRACKET, CLevelInfoTable.Inst.GetNumStageInfos(a_nDataIdx));
+			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, oName, oExtraName);
+
+			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_CHAPTER_SCROLLER_INFO).Item2) as CEditorScrollerCellView;
+			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(CFactory.MakeUChapterID(a_nDataIdx), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
+
+			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
+			oScrollerCellView.SelBtn?.image.ExSetColor<Image>((m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, false);
+
+			oScrollerCellView.MoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.NumChapterInfos > KCDefine.B_VAL_1_INT, false);
+			oScrollerCellView.RemoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.NumChapterInfos > KCDefine.B_VAL_1_INT, false);
+
+			return oScrollerCellView;
+		}
+#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		#endregion			// IEnhancedScrollerDelegate
 
 		#region 함수

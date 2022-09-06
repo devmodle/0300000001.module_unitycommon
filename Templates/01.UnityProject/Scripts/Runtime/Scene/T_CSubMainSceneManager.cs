@@ -34,21 +34,12 @@ namespace MainScene {
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
 		public int GetNumberOfCells(EnhancedScroller a_oSender) {
-			int nNumCells = (Access.GetNumLevelEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW);
-			int nNumExtraCells = (Access.GetNumLevelEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) % KDefine.MS_MAX_NUM_LEVELS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			// 레벨 스크롤러 일 경우
+			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LEVEL_SCROLLER_INFO).Item1 == a_oSender) {
+				return this.GetNumLevelScrollerCells(a_oSender);
+			}
 
-			// 스테이지 스크롤러 일 경우
-			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item1 == a_oSender) {
-				nNumCells = (Access.GetNumStageEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW);
-				nNumExtraCells = (Access.GetNumStageEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) % KDefine.MS_MAX_NUM_STAGES_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
-			}
-			// 챕터 스크롤러 일 경우
-			else if(m_oScrollerInfoDict.GetValueOrDefault(EKey.CHAPTER_SCROLLER_INFO).Item1 == a_oSender) {
-				nNumCells = (Access.NumChapterEpisodes / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW);
-				nNumExtraCells = (Access.NumChapterEpisodes % KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
-			}
-			
-			return nNumCells + nNumExtraCells;
+			return (m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item1 == a_oSender) ? this.GetNumStageScrollerCells(a_oSender) : this.GetNumChapterScrollerCells(a_oSender);
 		}
 
 		/** 셀 뷰 크기를 반환한다 */
@@ -63,33 +54,56 @@ namespace MainScene {
 
 		/** 셀 뷰를 반환한다 */
 		public EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
-			var stIDInfo = new STIDInfo(a_nDataIdx * KDefine.MS_MAX_NUM_LEVELS_IN_ROW, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03);
-			var oOriginScrollerCellView = m_oScrollerInfoDict.GetValueOrDefault(EKey.LEVEL_SCROLLER_INFO).Item2;
+			var oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
+				[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
+			};
 
-			// 레벨 스크롤러가 아닐 경우
-			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LEVEL_SCROLLER_INFO).Item1 != a_oSender) {
-				stIDInfo = (m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item1 == a_oSender) ? new STIDInfo(KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.MS_MAX_NUM_STAGES_IN_ROW, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) : new STIDInfo(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nDataIdx * KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW);
-				oOriginScrollerCellView = (m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item1 == a_oSender) ? m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item2 : m_oScrollerInfoDict.GetValueOrDefault(EKey.CHAPTER_SCROLLER_INFO).Item2;
-			}
-
-			var oScrollerCellView = a_oSender.GetCellView(oOriginScrollerCellView) as CScrollerCellView;
-
-			// 레벨 스크롤러 일 경우
+			/** 레벨 스크롤러 일 경우 */
 			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LEVEL_SCROLLER_INFO).Item1 == a_oSender) {
-				(oScrollerCellView as CLevelScrollerCellView)?.Init(CLevelScrollerCellView.MakeParams(CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03), a_oSender, new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
-					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
-				}));
+				return this.CreateLevelScrollerCellView(a_oSender, a_nDataIdx, a_nCellIdx, oCallbackDict);
 			}
-			// 스테이지 스크롤러 일 경우
-			else if(m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item1 == a_oSender) {
-				(oScrollerCellView as CStageScrollerCellView)?.Init(CStageScrollerCellView.MakeParams(CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03), a_oSender, new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
-					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
-				}));
-			} else {
-				(oScrollerCellView as CChapterScrollerCellView)?.Init(CChapterScrollerCellView.MakeParams(CFactory.MakeULevelID(stIDInfo.m_nID01, stIDInfo.m_nID02, stIDInfo.m_nID03), a_oSender, new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
-					[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
-				}));
-			}
+
+			return (m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item1 == a_oSender) ? this.CreateStageScrollerCellView(a_oSender, a_nDataIdx, a_nCellIdx, oCallbackDict) : this.CreateChapterScrollerCellView(a_oSender, a_nDataIdx, a_nCellIdx, oCallbackDict);
+		}
+
+		/** 레벨 스크롤러 셀 개수를 반환한다 */
+		private int GetNumLevelScrollerCells(EnhancedScroller a_oSender) {
+			int nNumExtraCells = (Access.GetNumLevelEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) % KDefine.MS_MAX_NUM_LEVELS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (Access.GetNumLevelEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW) + nNumExtraCells;
+		}
+
+		/** 스테이지 스크롤러 셀 개수를 반환한다 */
+		private int GetNumStageScrollerCells(EnhancedScroller a_oSender) {
+			int nNumExtraCells = (Access.GetNumStageEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) % KDefine.MS_MAX_NUM_STAGES_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (Access.GetNumStageEpisodes(m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW) + nNumExtraCells;
+		}
+
+		/** 챕터 스크롤러 셀 개수를 반환한다 */
+		private int GetNumChapterScrollerCells(EnhancedScroller a_oSender) {
+			int nNumExtraCells = (Access.NumChapterEpisodes % KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW != KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (Access.NumChapterEpisodes / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW) + nNumExtraCells;
+		}
+
+		/** 레벨 스크롤러 셀 뷰를 생성한다 */
+		private EnhancedScrollerCellView CreateLevelScrollerCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict) {
+			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict.GetValueOrDefault(EKey.LEVEL_SCROLLER_INFO).Item2) as CLevelScrollerCellView;
+			oScrollerCellView.Init(CLevelScrollerCellView.MakeParams(CFactory.MakeULevelID(a_nDataIdx * KDefine.MS_MAX_NUM_LEVELS_IN_ROW, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID02, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03), a_oSender, a_oCallbackDict));
+
+			return oScrollerCellView;
+		}
+
+		/** 스테이지 스크롤러 셀 뷰를 생성한다 */
+		private EnhancedScrollerCellView CreateStageScrollerCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict) {
+			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict.GetValueOrDefault(EKey.STAGE_SCROLLER_INFO).Item2) as CStageScrollerCellView;
+			oScrollerCellView.Init(CStageScrollerCellView.MakeParams(CFactory.MakeUStageID(a_nDataIdx * KDefine.MS_MAX_NUM_STAGES_IN_ROW, m_oIDInfoDict.GetValueOrDefault(EKey.SEL_ID_INFO).m_nID03), a_oSender, a_oCallbackDict));
+
+			return oScrollerCellView;
+		}
+
+		/** 챕터 스크롤러 셀 뷰를 생성한다 */
+		private EnhancedScrollerCellView CreateChapterScrollerCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict) {
+			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict.GetValueOrDefault(EKey.CHAPTER_SCROLLER_INFO).Item2) as CChapterScrollerCellView;
+			oScrollerCellView.Init(CChapterScrollerCellView.MakeParams(CFactory.MakeUChapterID(a_nDataIdx * KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW), a_oSender, a_oCallbackDict));
 
 			return oScrollerCellView;
 		}

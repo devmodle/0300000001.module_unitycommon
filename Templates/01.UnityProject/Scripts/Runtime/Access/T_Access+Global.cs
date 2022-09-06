@@ -123,13 +123,13 @@ public static partial class Access {
 	/** 스테이지 클리어 여부를 검사한다 */
 	public static bool IsClearStage(int a_nCharacterID, int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
-		return oCharacterGameInfo != null && oCharacterGameInfo.m_oStageClearInfoDict.ContainsKey(CFactory.MakeUniqueStageID(a_nStageID, a_nChapterID));
+		return oCharacterGameInfo != null && oCharacterGameInfo.m_oStageClearInfoDict.ContainsKey(CFactory.MakeUStageID(a_nStageID, a_nChapterID));
 	}
 
 	/** 챕터 클리어 여부를 검사한다 */
 	public static bool IsClearChapter(int a_nCharacterID, int a_nChapterID) {
 		CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
-		return oCharacterGameInfo != null && oCharacterGameInfo.m_oChapterClearInfoDict.ContainsKey(CFactory.MakeUniqueChapterID(a_nChapterID));
+		return oCharacterGameInfo != null && oCharacterGameInfo.m_oChapterClearInfoDict.ContainsKey(CFactory.MakeUChapterID(a_nChapterID));
 	}
 
 	/** 레벨 잠금 해제 여부를 검사한다 */
@@ -141,13 +141,13 @@ public static partial class Access {
 	/** 스테이지 잠금 해제 여부를 검사한다 */
 	public static bool IsUnlockStage(int a_nCharacterID, int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
-		return oCharacterGameInfo != null && oCharacterGameInfo.m_oUnlockUniqueStageIDList.Contains(CFactory.MakeUniqueStageID(a_nStageID, a_nChapterID));
+		return oCharacterGameInfo != null && oCharacterGameInfo.m_oUnlockUniqueStageIDList.Contains(CFactory.MakeUStageID(a_nStageID, a_nChapterID));
 	}
 
 	/** 챕터 잠금 해제 여부를 검사한다 */
 	public static bool IsUnlockChapter(int a_nCharacterID, int a_nChapterID) {
 		CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
-		return oCharacterGameInfo != null && oCharacterGameInfo.m_oUnlockUniqueChapterIDList.Contains(CFactory.MakeUniqueChapterID(a_nChapterID));
+		return oCharacterGameInfo != null && oCharacterGameInfo.m_oUnlockUniqueChapterIDList.Contains(CFactory.MakeUChapterID(a_nChapterID));
 	}
 
 	/** 무료 보상 획득 가능 여부를 검사한다 */
