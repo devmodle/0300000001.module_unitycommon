@@ -74,9 +74,9 @@ namespace NSEngine {
 
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public new static STParams MakeParams(CEngine a_oEngine, CEObjComponent a_oOwner) {
+		public new static STParams MakeParams(CEngine a_oEngine) {
 			return new STParams() {
-				m_stBaseParams = CEController.MakeParams(a_oEngine, a_oOwner)
+				m_stBaseParams = CEController.MakeParams(a_oEngine)
 			};
 		}
 		#endregion			// 클래스 함수

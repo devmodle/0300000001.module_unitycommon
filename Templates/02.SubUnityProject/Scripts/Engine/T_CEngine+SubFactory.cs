@@ -22,10 +22,10 @@ namespace NSEngine {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_CELL_OBJ, KDefine.E_KEY_CELL_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CECellObjController>() : null;
 
-			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
-			oController?.Init(CECellObjController.MakeParams(this, oObj));
+			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
+			oController?.Init(CECellObjController.MakeParams(this));
 
-			this.SetupEObjComponent(oObj);
+			this.SetupEObjComponent(oObj, a_oOwner);
 			return oObj;
 		}
 
@@ -34,10 +34,10 @@ namespace NSEngine {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_PLAYER_OBJ, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEPlayerObjController>() : null;
 
-			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
-			oController?.Init(CEPlayerObjController.MakeParams(this, oObj));
+			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
+			oController?.Init(CEPlayerObjController.MakeParams(this));
 
-			this.SetupEObjComponent(oObj);
+			this.SetupEObjComponent(oObj, a_oOwner);
 			return oObj;
 		}
 
@@ -46,10 +46,10 @@ namespace NSEngine {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_ENEMY_OBJ, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEEnemyObjController>() : null;
 
-			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, a_oOwner, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
-			oController?.Init(CEEnemyObjController.MakeParams(this, oObj));
+			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
+			oController?.Init(CEEnemyObjController.MakeParams(this));
 
-			this.SetupEObjComponent(oObj);
+			this.SetupEObjComponent(oObj, a_oOwner);
 			return oObj;
 		}
 

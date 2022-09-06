@@ -19,7 +19,6 @@ namespace NSEngine {
 		/** 매개 변수 */
 		public new struct STParams {
 			public CEComponent.STParams m_stBaseParams;
-			public CEObjComponent m_oOwner;
 			public CEController m_oController;
 			
 			public Dictionary<ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> m_oCallbackDict;
@@ -68,23 +67,18 @@ namespace NSEngine {
 		}
 		#endregion			// 함수
 
-		#region 제네릭 함수
-		/** 소유자를 반환한다 */
-		public T GetOwner<T>() where T : CEObjComponent {
-			return this.Params.m_oOwner as T;
-		}
-		
+		#region 제네릭 접근자 함수
 		/** 제어자를 반환한다 */
 		public T GetController<T>() where T : CEController {
 			return this.Params.m_oController as T;
 		}
-		#endregion			// 제네릭 함수
+		#endregion			// 제네릭 접근자 함수
 
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(CEngine a_oEngine, CEObjComponent a_oOwner, CEController a_oController, string a_oObjsPoolKey, Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict = null) {
+		public static STParams MakeParams(CEngine a_oEngine, CEController a_oController, string a_oObjsPoolKey, Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict = null) {
 			return new STParams() {
-				m_stBaseParams = CEComponent.MakeParams(a_oEngine, a_oObjsPoolKey), m_oOwner = a_oOwner, m_oController = a_oController, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
+				m_stBaseParams = CEComponent.MakeParams(a_oEngine, a_oObjsPoolKey), m_oController = a_oController, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
 			};
 		}
 		#endregion			// 클래스 함수

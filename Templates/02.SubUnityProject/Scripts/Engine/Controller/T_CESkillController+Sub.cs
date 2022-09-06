@@ -66,7 +66,7 @@ namespace NSEngine {
 		/** 스킬을 적용한다 */
 		public void Apply() {
 			this.SetState(EState.IDLE);
-			base.Params.m_oOwner.GetOwner<CEObj>().GetController<CEObjController>().ApplySkillTimeDict.ExReplaceVal(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillKinds, System.DateTime.Now);
+			this.Owner.GetOwner<CEObj>().GetController<CEObjController>().ApplySkillTimeDict.ExReplaceVal(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillKinds, System.DateTime.Now);
 		}
 
 		/** 대기 상태를 처리한다 */
@@ -115,7 +115,7 @@ namespace NSEngine {
 
 			// 적용 시간이 지났을 경우
 			if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
-				base.Params.m_oOwner.GetOwner<CEObj>().GetController<CEObjController>().SetState(EState.IDLE);
+				this.Owner.GetOwner<CEObj>().GetController<CEObjController>().SetState(EState.IDLE);
 				base.Params.m_stBaseParams.m_oEngine.RemoveSkill(this.GetOwner<CESkill>());
 			}
 		}
@@ -128,7 +128,7 @@ namespace NSEngine {
 		/** 타겟 스킬을 적용한다 */
 		private void ApplyTargetSkill() {
 			for(int i = 0; i < this.TargetObjList.Count; ++i) {
-				base.Params.m_oOwner.GetOwner<CEObj>().GetController<CEObjController>().Attack(this.TargetObjList[i] as CEObj, this.GetOwner<CESkill>());
+				this.Owner.GetOwner<CEObj>().GetController<CEObjController>().Attack(this.TargetObjList[i] as CEObj, this.GetOwner<CESkill>());
 			}
 		}
 		#endregion			// 함수

@@ -35,9 +35,9 @@ namespace NSEngine {
 
 		#region 클래스 함수
 		/** 스킬 매개 변수를 생성한다 */
-		public static STParams MakeParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEObjComponent a_oOwner = null, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static STParams MakeParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new STParams() {
-				m_stBaseParams = CEObjComponent.MakeParams(a_oEngine, a_oOwner, a_oController, a_oObjsPoolKey), m_stSkillInfo = a_stSkillInfo, m_oSkillTargetInfo = a_oSkillTargetInfo
+				m_stBaseParams = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oObjsPoolKey), m_stSkillInfo = a_stSkillInfo, m_oSkillTargetInfo = a_oSkillTargetInfo
 			};
 		}
 		#endregion			// 클래스 함수
