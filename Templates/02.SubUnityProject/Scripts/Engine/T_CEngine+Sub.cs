@@ -186,7 +186,7 @@ namespace NSEngine {
 						global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo, true);
 
 						var stObjEnhanceInfo = CObjInfoTable.Inst.GetObjEnhanceInfo(this.PlayerObjList[this.SelPlayerObjIdx].Params.m_stObjInfo.m_eObjKinds);
-						var stTradeTargetValInfo = this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetTradeTargetValInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), stObjEnhanceInfo.m_oPayTargetInfoDict);
+						var stSkipTargetValInfo = this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetSkipTargetValInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, (int)this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), stObjEnhanceInfo.m_oPayTargetInfoDict);
 						
 						foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict) {
 							bool bIsValid = stKeyVal.Value.TargetType == ETargetType.ITEM && (a_oSender as CEItem != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEItem).Params.m_stItemInfo.m_eItemKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType);
@@ -198,7 +198,7 @@ namespace NSEngine {
 						}
 						
 						// 플레이어 객체 레벨 강화가 가능 할 경우
-						if(stTradeTargetValInfo.Item1 >= stTradeTargetValInfo.Item3) {
+						if(stSkipTargetValInfo.Item1 >= stSkipTargetValInfo.Item3) {
 							global::Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stObjEnhanceInfo.m_oPayTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
 							global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stObjEnhanceInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo, true);
 
