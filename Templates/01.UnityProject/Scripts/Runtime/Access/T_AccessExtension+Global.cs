@@ -47,19 +47,19 @@ public static partial class AccessExtension {
 		return a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo) ? stTargetInfo.m_stValInfo01.m_dmVal : KCDefine.B_VAL_0_INT;
 	}
 
-	/** 경험치 타겟 값 정보를 반환한다 */
-	public static (decimal, decimal, decimal) ExGetEXPTargetValInfo(this Dictionary<ulong, STTargetInfo> a_oSender, Dictionary<ulong, STTargetInfo> a_oPayTargetInfoDict) {
-		a_oPayTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, out STTargetInfo stTargetInfo);
-		
-		decimal dmMaxHP = KCDefine.B_VAL_0_INT;
-		decimal dmPrevMaxHP = KCDefine.B_VAL_0_INT;
+	/** 교환 타겟 정보 값을 반환한다 */
+	public static (decimal, decimal, decimal) ExGetTradeTargetValInfo(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmTradeTimes, Dictionary<ulong, STTargetInfo> a_oTradeTargetInfoDict) {
+		a_oTradeTargetInfoDict.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTradeTargetInfo);
 
-		for(int i = 0; i <= a_oSender.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV); ++i) {
-			dmPrevMaxHP = dmMaxHP;
-			dmMaxHP = (i * stTargetInfo.m_stValInfo01.m_dmVal) + ((dmPrevMaxHP * stTargetInfo.m_stValInfo02.m_dmVal) / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
+		decimal dmMaxTargetVal = KCDefine.B_VAL_0_INT;
+		decimal dmPrevMaxTargetVal = KCDefine.B_VAL_0_INT;
+
+		for(int i = 0; i < a_dmTradeTimes; ++i) {
+			dmPrevMaxTargetVal = dmMaxTargetVal;
+			dmMaxTargetVal = (i * stTradeTargetInfo.m_stValInfo01.m_dmVal) + ((dmPrevMaxTargetVal * stTradeTargetInfo.m_stValInfo02.m_dmVal) / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
 		}
-
-		return (a_oSender.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), dmPrevMaxHP, dmMaxHP);
+		
+		return (a_oSender.ExGetTargetVal(a_eTargetKinds, a_nKinds), dmPrevMaxTargetVal, dmMaxTargetVal);
 	}
 
 	/** 타겟 정보를 반환한다 */

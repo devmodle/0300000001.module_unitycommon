@@ -50,7 +50,7 @@ public partial class CProductTradePopup : CSubPopup {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
-
+	
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STProductTradeInfo a_stProductTradeInfo) {
 #if PURCHASE_MODULE_ENABLE

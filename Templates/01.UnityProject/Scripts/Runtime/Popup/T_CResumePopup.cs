@@ -35,7 +35,7 @@ public partial class CResumePopup : CSubPopup {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
-
+	
 	/** 재개 버튼을 눌렀을 경우 */
 	private void OnTouchResumeBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RESUME)?.Invoke(this);

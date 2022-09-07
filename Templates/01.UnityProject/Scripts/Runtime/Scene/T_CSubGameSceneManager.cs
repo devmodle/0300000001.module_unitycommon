@@ -135,8 +135,8 @@ namespace GameScene {
 			}
 		}
 
-		/** 레벨을 클리어했을 경우 */
-		private void OnClearLevel(NSEngine.CEngine a_oSender) {			
+		/** 클리어 콜백을 수신했을 경우 */
+		private void OnReceiveClearCallback(NSEngine.CEngine a_oSender) {			
 			var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, true);
 			oLevelClearInfo.m_stRecordInfo.m_nIntRecord = a_oSender.RecordInfo.m_nIntRecord;
 			oLevelClearInfo.m_stRecordInfo.m_dblRealRecord = a_oSender.RecordInfo.m_dblRealRecord;
@@ -147,8 +147,8 @@ namespace GameScene {
 			this.ShowResultPopup(true);
 		}
 
-		/** 레벨 클리어에 실패했을 경우 */
-		private void OnClearFailLevel(NSEngine.CEngine a_oSender) {
+		/** 클리어 실패 콜백을 수신했을 경우 */
+		private void OnReceiveClearFailCallback(NSEngine.CEngine a_oSender) {
 			this.ShowResultPopup(false);
 		}
 		

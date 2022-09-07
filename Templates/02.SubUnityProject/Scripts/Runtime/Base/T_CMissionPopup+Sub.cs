@@ -27,7 +27,7 @@ public abstract partial class CMissionPopup : CSubPopup {
 		this.SubInit();
 		#endregion			// 추가
 	}
-
+	
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		// 미션 UI 상태를 갱신한다

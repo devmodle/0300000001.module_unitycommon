@@ -112,12 +112,12 @@ namespace GameScene {
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 			var oCallbackDict01 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine>>() {
-				[NSEngine.CEngine.ECallback.CLEAR] = this.OnClearLevel,
-				[NSEngine.CEngine.ECallback.CLEAR_FAIL] = this.OnClearFailLevel
+				[NSEngine.CEngine.ECallback.CLEAR] = this.OnReceiveClearCallback,
+				[NSEngine.CEngine.ECallback.CLEAR_FAIL] = this.OnReceiveClearFailCallback
 			};
 
 			var oCallbackDict02 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine, Dictionary<ulong, STTargetInfo>>>() {
-				[NSEngine.CEngine.ECallback.ACQUIRE] = this.OnAcquire
+				[NSEngine.CEngine.ECallback.ACQUIRE] = this.OnReceiveAcquireCallback
 			};
 
 			m_oEngine = CFactory.CreateObj<NSEngine.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
@@ -226,8 +226,8 @@ namespace GameScene {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 
-		/** 획득했을 경우 */
-		private void OnAcquire(NSEngine.CEngine a_oSender, Dictionary<ulong, STTargetInfo> a_oAcquireTargetInfoDict) {
+		/** 획득 콜백을 수신했을 경우 */
+		private void OnReceiveAcquireCallback(NSEngine.CEngine a_oSender, Dictionary<ulong, STTargetInfo> a_oAcquireTargetInfoDict) {
 			// Do Something
 		}
 		
