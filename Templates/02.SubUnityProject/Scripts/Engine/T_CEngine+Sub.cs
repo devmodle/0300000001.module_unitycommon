@@ -184,7 +184,7 @@ namespace NSEngine {
 						this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
 						this.Params.m_oCallbackDict02.GetValueOrDefault(ECallback.ACQUIRE)?.Invoke(this, oAcquireTargetInfoDict);
 						global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo, true);
-
+						
 						var stObjEnhanceInfo = CObjInfoTable.Inst.GetObjEnhanceInfo(this.PlayerObjList[this.SelPlayerObjIdx].Params.m_stObjInfo.m_eObjKinds);
 						var stSkipTargetValInfo = this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetSkipTargetValInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, (int)this.PlayerObjList[this.SelPlayerObjIdx].Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), stObjEnhanceInfo.m_oPayTargetInfoDict);
 						
