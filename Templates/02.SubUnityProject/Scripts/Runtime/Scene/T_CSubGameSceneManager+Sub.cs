@@ -226,7 +226,7 @@ namespace GameScene {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
 
-		/** 획득 콜백을 수신했을 경우 */
+		/** 획득했을 경우 */
 		private void OnReceiveAcquireCallback(NSEngine.CEngine a_oSender, Dictionary<ulong, STTargetInfo> a_oAcquireTargetInfoDict) {
 			// Do Something
 		}

@@ -266,12 +266,10 @@ public static partial class Func {
 		if(a_oTargetInfo != null && a_oOutAbilityValDict != null) {
 			Func.SetupAbilityVals(a_oTargetInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict, a_bIsEnableAssert);
 
-			foreach(var stKeyVal in a_oTargetInfo.m_oOwnedTargetInfoDictContainer) {
-				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					// 어빌리티 값 설정이 가능 할 경우
-					if(stKeyVal.Key != ETargetType.SKILL || (ESkillType)stKeyVal.Value[i].Kinds.ExKindsToType() == ESkillType.PASSIVE) {
-						Func.SetupAbilityVals(stKeyVal.Value[i], a_oOutAbilityValDict, a_bIsEnableAssert);
-					}
+			for(int i = 0; i < a_oTargetInfo.m_oOwnedTargetInfoList.Count; ++i) {
+				// 어빌리티 값 설정이 가능 할 경우
+				if(a_oTargetInfo.m_oOwnedTargetInfoList[i].TargetType != ETargetType.SKILL || (ESkillType)a_oTargetInfo.m_oOwnedTargetInfoList[i].Kinds.ExKindsToType() == ESkillType.PASSIVE) {
+					Func.SetupAbilityVals(a_oTargetInfo.m_oOwnedTargetInfoList[i], a_oOutAbilityValDict, a_bIsEnableAssert);
 				}
 			}
 		}

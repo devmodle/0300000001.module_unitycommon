@@ -166,13 +166,13 @@ namespace LevelEditorScene {
 		public EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			var oCallbackDict01 = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
-				[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
+				[CScrollerCellView.ECallback.SEL] = this.OnReceiveSelCallback
 			};
 
 			var oCallbackDict02 = new Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>>() {
-				[CEditorScrollerCellView.ECallback.COPY] = this.OnTouchSCVCopyBtn,
-				[CEditorScrollerCellView.ECallback.MOVE] = this.OnTouchSCVMoveBtn,
-				[CEditorScrollerCellView.ECallback.REMOVE] = this.OnTouchSCVRemoveBtn
+				[CEditorScrollerCellView.ECallback.COPY] = this.OnReceiveCopyCallback,
+				[CEditorScrollerCellView.ECallback.MOVE] = this.OnReceiveMoveCallback,
+				[CEditorScrollerCellView.ECallback.REMOVE] = this.OnReceiveRemoveCallback
 			};
 
 			// 레벨 스크롤러 일 경우
@@ -923,14 +923,14 @@ namespace LevelEditorScene {
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
 		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
-		private void OnTouchSCVSelBtn(CScrollerCellView a_oSender, ulong a_nID) {
+		/** 선택 콜백을 수신했을 경우 */
+		private void OnReceiveSelCallback(CScrollerCellView a_oSender, ulong a_nID) {
 			m_oLevelInfoDict.ExReplaceVal(EKey.SEL_LEVEL_INFO, CLevelInfoTable.Inst.GetLevelInfo(a_nID.ExULevelIDToLevelID(), a_nID.ExULevelIDToStageID(), a_nID.ExULevelIDToChapterID()));
 			this.UpdateUIsState();
 		}
 
-		/** 스크롤러 셀 뷰 복사 버튼을 눌렀을 경우 */
-		private void OnTouchSCVCopyBtn(CScrollerCellView a_oSender, ulong a_nID) {
+		/** 복사 콜백을 수신했을 경우 */
+		private void OnReceiveCopyCallback(CScrollerCellView a_oSender, ulong a_nID) {
 			int nNumInfos = CLevelInfoTable.Inst.GetNumLevelInfos(a_nID.ExULevelIDToStageID(), a_nID.ExULevelIDToChapterID());
 			int nMaxNumInfos = KCDefine.U_MAX_NUM_LEVEL_INFOS;
 
@@ -946,8 +946,8 @@ namespace LevelEditorScene {
 			}
 		}
 
-		/** 스크롤러 셀 뷰 이동 버튼을 눌렀을 경우 */
-		private void OnTouchSCVMoveBtn(CScrollerCellView a_oSender, ulong a_nID) {
+		/** 이동 콜백을 수신했을 경우 */
+		private void OnReceiveMoveCallback(CScrollerCellView a_oSender, ulong a_nID) {
 			m_oInputPopupDict.ExReplaceVal(EKey.SEL_INPUT_POPUP, EInputPopup.MOVE_LEVEL);
 			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, a_oSender.Params.m_oScroller);
 
@@ -958,8 +958,8 @@ namespace LevelEditorScene {
 			});
 		}
 
-		/** 스크롤러 셀 뷰 제거 버튼을 눌렀을 경우 */
-		private void OnTouchSCVRemoveBtn(CScrollerCellView a_oSender, ulong a_nID) {
+		/** 제거 콜백을 수신했을 경우 */
+		private void OnReceiveRemoveCallback(CScrollerCellView a_oSender, ulong a_nID) {
 			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, a_oSender.Params.m_oScroller);
 
 			// 레벨 스크롤러 일 경우

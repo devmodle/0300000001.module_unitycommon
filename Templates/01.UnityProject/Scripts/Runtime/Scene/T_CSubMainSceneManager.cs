@@ -55,7 +55,7 @@ namespace MainScene {
 		/** 셀 뷰를 반환한다 */
 		public EnhancedScrollerCellView GetCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx) {
 			var oCallbackDict = new Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>>() {
-				[CScrollerCellView.ECallback.SEL] = this.OnTouchSCVSelBtn
+				[CScrollerCellView.ECallback.SEL] = this.OnReceiveSelCallback
 			};
 
 			/** 레벨 스크롤러 일 경우 */

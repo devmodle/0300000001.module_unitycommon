@@ -20,7 +20,7 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	[Key(131)] public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 	[IgnoreMember][System.NonSerialized] public CTargetInfo m_oOwnerTargetInfo = null;
-	[IgnoreMember][System.NonSerialized] public Dictionary<ETargetType, List<CTargetInfo>> m_oOwnedTargetInfoDictContainer = new Dictionary<ETargetType, List<CTargetInfo>>();
+	[IgnoreMember][System.NonSerialized] public List<CTargetInfo> m_oOwnedTargetInfoList = new List<CTargetInfo>();
 	#endregion			// 변수
 
 	#region 상수
@@ -49,10 +49,10 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+		this.SetupGUID();
 		
-		this.GUID = this.GUID.ExIsValid() ? this.GUID : System.Guid.NewGuid().ToString();
+		m_oOwnedTargetInfoList = m_oOwnedTargetInfoList ?? new List<CTargetInfo>();
 		m_oAbilityTargetInfoDict = m_oAbilityTargetInfoDict ?? new Dictionary<ulong, STTargetInfo>();
-		m_oOwnedTargetInfoDictContainer = m_oOwnedTargetInfoDictContainer ?? new Dictionary<ETargetType, List<CTargetInfo>>();
 	}
 	#endregion			// IMessagePackSerializationCallbackReceiver
 
@@ -70,6 +70,11 @@ public abstract partial class CTargetInfo : CBaseInfo {
 				// Do Something
 			}
 		}
+	}
+
+	/** 고유 식별자를 설정한다 */
+	private void SetupGUID() {
+		this.GUID = this.GUID.ExIsValid() ? this.GUID : System.Guid.NewGuid().ToString();
 	}
 	#endregion			// 함수
 }
@@ -216,7 +221,7 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	#region 변수
 	[Key(21)] public STIDInfo m_stIDInfo;
 	[Key(22)] public STIDInfo m_stPlayEpisodeIDInfo;
-	[Key(161)] public Dictionary<ETargetType, List<CTargetInfo>> m_oTargetInfoDictContainer = new Dictionary<ETargetType, List<CTargetInfo>>();
+	[Key(91)] public List<CTargetInfo> m_oTargetInfoList = new List<CTargetInfo>();
 	#endregion			// 변수
 
 	#region 상수
@@ -238,10 +243,15 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		m_oTargetInfoDictContainer = m_oTargetInfoDictContainer ?? new Dictionary<ETargetType, List<CTargetInfo>>();
+		m_oTargetInfoList = m_oTargetInfoList ?? new List<CTargetInfo>();
 
-		foreach(var stKeyVal in m_oTargetInfoDictContainer) {
-			this.SetupTargetInfos(stKeyVal.Value);
+		for(int i = 0; i < m_oTargetInfoList.Count; ++i) {
+			// 소유자 고유 식별자가 존재 할 경우
+			if(m_oTargetInfoList[i].OwnerGUID.ExIsValid() && m_oTargetInfoList[i].OwnerTargetType != ETargetType.NONE) {
+				m_oTargetInfoList.ExFindTargetInfo(m_oTargetInfoList[i].OwnerTargetType, m_oTargetInfoList[i].OwnerGUID)?.ExAddOwnedTargetInfo(m_oTargetInfoList[i], false);
+			} else {
+				m_oTargetInfoList[i].ExSetOwnerTargetInfo(null);
+			}
 		}
 
 		// 버전이 다를 경우
@@ -260,18 +270,6 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	/** 생성자 */
 	public CCharacterUserInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
-	}
-
-	/** 타겟 정보를 설정한다 */
-	private void SetupTargetInfos(List<CTargetInfo> a_oTargetInfoList) {
-		for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
-			// 소유자 고유 식별자가 존재 할 경우
-			if(a_oTargetInfoList[i].OwnerGUID.ExIsValid() && a_oTargetInfoList[i].OwnerTargetType != ETargetType.NONE) {
-				m_oTargetInfoDictContainer.ExFindTargetInfo(a_oTargetInfoList[i].OwnerTargetType, a_oTargetInfoList[i].OwnerGUID)?.ExAddOwnedTargetInfo(a_oTargetInfoList[i], false);
-			} else {
-				a_oTargetInfoList[i].ExSetOwnerTargetInfo(null);
-			}
-		}
 	}
 	#endregion			// 함수
 }
@@ -396,7 +394,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 타겟 정보를 반환한다 */
 	private bool TryGetTargetInfo(int a_nCharacterID, ETargetType a_eTargetType, int a_nKinds, out CTargetInfo a_oOutTargetInfo) {
-		a_oOutTargetInfo = (this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.m_oTargetInfoDictContainer.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
+		a_oOutTargetInfo = (this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.m_oTargetInfoList.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
 		return a_oOutTargetInfo != null;
 	}
 	#endregion			// 함수
@@ -440,7 +438,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
-			oCharacterUserInfo.m_oTargetInfoDictContainer.ExAddTargetInfo(a_oTargetInfo, a_bIsCounting, a_bIsEnableAssert);
+			oCharacterUserInfo.m_oTargetInfoList.ExAddTargetInfo(a_oTargetInfo, a_bIsCounting, a_bIsEnableAssert);
 		}
 	}
 
@@ -465,7 +463,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
-			oCharacterUserInfo.m_oTargetInfoDictContainer.ExRemoveTargetInfo(a_oTargetInfo, a_bIsEnableAssert);
+			oCharacterUserInfo.m_oTargetInfoList.ExRemoveTargetInfo(a_oTargetInfo, a_bIsEnableAssert);
 		}
 	}
 

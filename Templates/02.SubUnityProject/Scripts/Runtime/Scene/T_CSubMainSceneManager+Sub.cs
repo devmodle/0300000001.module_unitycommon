@@ -190,11 +190,6 @@ namespace MainScene {
 			this.UpdateSubTestUIsState();
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		}
-
-		/** 스크롤러 셀 뷰 선택 버튼을 눌렀을 경우 */
-		private void OnTouchSCVSelBtn(CScrollerCellView a_oSender, ulong a_nID) {
-			// Do Something
-		}
 		#endregion			// 함수
 
 		#region 조건부 함수
@@ -211,6 +206,16 @@ namespace MainScene {
 #endif			// #if DEBUG || DEVELOPMENT_BUILD
 		#endregion			// 조건부 함수
 	}
+
+	/** 서브 메인 씬 관리자 - 스크롤러 셀 뷰 */
+	public partial class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate {
+		#region 함수
+		/** 선택 콜백을 수신했을 경우 */
+		private void OnReceiveSelCallback(CScrollerCellView a_oSender, ulong a_nID) {
+			// Do Something
+		}
+		#endregion			// 함수
+	}	
 }
 #endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif			// #if SCRIPT_TEMPLATE_ONLY

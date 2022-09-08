@@ -463,7 +463,7 @@ public static partial class Access {
 
 	/** 타겟 정보를 반환한다 */
 	private static CTargetInfo GetTargetInfo(int a_nCharacterID, ETargetType a_eTargetType, STIdxInfo a_stIdxInfo) {
-		return (CUserInfoStorage.Inst.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.m_oTargetInfoDictContainer.TryGetValue(a_eTargetType, out List<CTargetInfo> oTargetInfoList)) ? oTargetInfoList.ExGetVal((a_oTargetInfo) => a_oTargetInfo.m_stIdxInfo.Equals(a_stIdxInfo), null) : null;
+		return CUserInfoStorage.Inst.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) ? oCharacterUserInfo.m_oTargetInfoList.ExGetVal((a_oTargetInfo) => a_oTargetInfo.m_stIdxInfo.Equals(a_stIdxInfo), null) : null;
 	}
 
 	/** 교환 가능 여부를 검사한다 */

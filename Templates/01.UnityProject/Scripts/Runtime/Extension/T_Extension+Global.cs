@@ -12,20 +12,17 @@ using DG.Tweening;
 public static partial class Extension {
 	#region 클래스 함수
 	/** 타겟 정보를 추가한다 */
-	public static void ExAddTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsEnableAssert = true) {
+	public static void ExAddTargetInfo(this List<CTargetInfo> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null) {
-			var oTargetInfoList = a_oSender.GetValueOrDefault(a_oTargetInfo.TargetType) ?? new List<CTargetInfo>();
-			int nIdx = oTargetInfoList.FindIndex((a_oCompareTargetInfo) => a_oCompareTargetInfo.TargetType == a_oTargetInfo.TargetType && a_oCompareTargetInfo.Kinds == a_oTargetInfo.Kinds);
+			int nIdx = a_oSender.FindIndex((a_oCompareTargetInfo) => a_oCompareTargetInfo.TargetType == a_oTargetInfo.TargetType && a_oCompareTargetInfo.Kinds == a_oTargetInfo.Kinds);
 
 			// 타겟 정보 추가가 가능 할 경우
-			if(!a_bIsCounting || !oTargetInfoList.ExIsValidIdx(nIdx)) {
-				oTargetInfoList.ExAddVal(a_oTargetInfo);
+			if(!a_bIsCounting || !a_oSender.ExIsValidIdx(nIdx)) {
+				a_oSender.ExAddVal(a_oTargetInfo);
 			}
-
-			a_oSender.ExReplaceVal(a_oTargetInfo.TargetType, oTargetInfoList);
 		}
 	}
 
@@ -35,18 +32,18 @@ public static partial class Extension {
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null) {
-			a_oSender.m_oOwnedTargetInfoDictContainer.ExAddTargetInfo(a_oTargetInfo, true, a_bIsEnableAssert);
+			a_oSender.m_oOwnedTargetInfoList.ExAddTargetInfo(a_oTargetInfo, true, a_bIsEnableAssert);
 			a_oTargetInfo.ExSetOwnerTargetInfo(a_oSender, a_bIsEnableAssert);
 		}
 	}
 
 	/** 타겟 정보를 제거한다 */
-	public static void ExRemoveTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null && a_oSender.ContainsKey(a_oTargetInfo.TargetType)));
+	public static void ExRemoveTargetInfo(this List<CTargetInfo> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null && a_oSender.Contains(a_oTargetInfo)));
 
 		// 타겟 정보가 존재 할 경우
-		if(a_oSender != null && a_oTargetInfo != null && a_oSender.TryGetValue(a_oTargetInfo.TargetType, out List<CTargetInfo> oTargetInfoList)) {
-			oTargetInfoList.ExRemoveVal(a_oTargetInfo);
+		if((a_oSender != null && a_oTargetInfo != null && a_oSender.Contains(a_oTargetInfo))) {
+			a_oSender.ExRemoveVal(a_oTargetInfo);
 		}
 	}
 
@@ -56,7 +53,7 @@ public static partial class Extension {
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null) {
-			a_oSender.m_oOwnedTargetInfoDictContainer.ExRemoveTargetInfo(a_oTargetInfo, a_bIsEnableAssert);
+			a_oSender.m_oOwnedTargetInfoList.ExRemoveTargetInfo(a_oTargetInfo, a_bIsEnableAssert);
 			a_oTargetInfo.ExSetOwnerTargetInfo(null, a_bIsEnableAssert);
 		}
 	}
@@ -106,12 +103,7 @@ public static partial class Extension {
 	public static CTargetInfo ExFindTargetInfo(this List<CTargetInfo> a_oSender, ETargetType a_eTargetType, string a_oGUID) {
 		return a_oSender.ExTryGetTargetInfo(a_eTargetType, a_oGUID, out CTargetInfo oTargetInfo) ? oTargetInfo : null;
 	}
-
-	/** 타겟 정보를 탐색한다 */
-	public static CTargetInfo ExFindTargetInfo(this Dictionary<ETargetType, List<CTargetInfo>> a_oSender, ETargetType a_eTargetType, string a_oGUID) {
-		return a_oSender.ExTryGetTargetInfo(a_eTargetType, a_oGUID, out CTargetInfo oTargetInfo) ? oTargetInfo : null;
-	}
-
+	
 	/** 게이지 애니메이션을 시작한다 */
 	public static Sequence ExStartGaugeAni(this CGaugeHandler a_oSender, System.Action<float> a_oCallback, System.Action<CGaugeHandler, Sequence> a_oCompleteCallback, float a_fStartVal, float a_fEndVal, float a_fDuration, Ease a_eEase = KCDefine.U_EASE_DEF, bool a_bIsRealtime = false, float a_fDelay = KCDefine.B_VAL_0_REAL) {
 		CAccess.Assert(a_oSender != null);

@@ -20,7 +20,7 @@ public static partial class KDefine {
 	public const int G_MAX_NUM_FX_KINDS = 10;
 	public const int G_MAX_NUM_RES_KINDS = 10;
 	public const int G_MAX_NUM_REWARD_KINDS = 10;
-	public const int G_MAX_NUM_TARGET_INFOS = 20;
+	public const int G_MAX_NUM_TARGET_INFOS = 30;
 	// 개수 }
 
 	// 횟수
