@@ -124,7 +124,7 @@ public static partial class Func {
 	/** 지불한다 */
 	public static void Pay(int a_nCharacterID, STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
 		// 어빌리티 타겟 정보가 아닐 경우
-		if(a_stTargetInfo.TargetType != ETargetType.ABILITY) {
+		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.ABILITY) {
 			Func.Pay(a_nCharacterID, a_stTargetInfo, a_bIsEnableAssert);
 		} else {
 			Func.PayAbilityTarget(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, a_bIsEnableAssert);
@@ -167,7 +167,7 @@ public static partial class Func {
 	/** 획득한다 */
 	public static void Acquire(int a_nCharacterID, STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
 		// 어빌리티 타겟 정보가 아닐 경우
-		if(a_stTargetInfo.TargetType != ETargetType.ABILITY) {
+		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.ABILITY) {
 			Func.Acquire(a_nCharacterID, a_stTargetInfo, a_bIsAutoCreate, a_bIsEnableAssert);
 		} else {
 			Func.AcquireAbilityTarget(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, a_bIsEnableAssert);

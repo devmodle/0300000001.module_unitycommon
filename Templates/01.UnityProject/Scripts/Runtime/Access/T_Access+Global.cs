@@ -184,7 +184,7 @@ public static partial class Access {
 	/** 교환 가능 여부를 검사한다 */
 	public static bool IsEnableTrade(int a_nCharacterID, STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
 		// 어빌리티 타겟 정보가 아닐 경우
-		if(a_stTargetInfo.TargetType != ETargetType.ABILITY) {
+		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.ABILITY) {
 			return Access.IsEnableTrade(a_nCharacterID, a_stTargetInfo);
 		} else {
 			return Access.IsEnableAbilityTargetTrade(a_stTargetInfo, a_oTargetInfo);
