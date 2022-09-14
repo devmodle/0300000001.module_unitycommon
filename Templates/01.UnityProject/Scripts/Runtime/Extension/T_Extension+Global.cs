@@ -81,13 +81,13 @@ public static partial class Extension {
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_eTargetKinds.ExIsValid()) {
-			a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stAbilityTargetInfo);
-			stAbilityTargetInfo.m_nKinds = a_nKinds;
-			stAbilityTargetInfo.m_eTargetKinds = ETargetKinds.ABILITY;
-			stAbilityTargetInfo.m_stValInfo01.m_dmVal = System.Math.Clamp(a_dmVal, decimal.MinValue, decimal.MaxValue);
-			stAbilityTargetInfo.m_stValInfo01.m_eValType = EValType.INT;
+			a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo);
+			stTargetInfo.m_nKinds = a_nKinds;
+			stTargetInfo.m_eTargetKinds = a_eTargetKinds;
+			stTargetInfo.m_stValInfo01.m_dmVal = System.Math.Clamp(a_dmVal, decimal.MinValue, decimal.MaxValue);
+			stTargetInfo.m_stValInfo01.m_eValType = (stTargetInfo.m_stValInfo01.m_eValType == EValType.NONE) ? stTargetInfo.m_stValInfo01.m_dmVal.ExIsInt() ? EValType.INT : EValType.REAL : stTargetInfo.m_stValInfo01.m_eValType;
 
-			a_oSender.ExReplaceVal(Factory.MakeUTargetInfoID(a_eTargetKinds, a_nKinds), stAbilityTargetInfo);
+			a_oSender.ExReplaceVal(Factory.MakeUTargetInfoID(a_eTargetKinds, a_nKinds), stTargetInfo);
 		}
 	}
 
