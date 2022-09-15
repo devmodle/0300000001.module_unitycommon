@@ -249,8 +249,8 @@ public enum EResType {
 	SND,
 	FONT,
 	IMG,
+	TEX,
 	SPRITE,
-	TEXTURE,
 	[HideInInspector] MAX_VAL
 }
 
@@ -286,17 +286,17 @@ public enum EResKinds {
 	IMG_INDICATOR,
 	#endregion			// 이미지
 
-	#region 스프라이트
+	#region 텍스처
 	// 300,000,000
-	SPRITE_WHITE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	TEX_RES_SAMPLE = (EEnumVal.TYPE * 3) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	#endregion			// 텍스처
+
+	#region 스프라이트
+	// 400,000,000
+	SPRITE_WHITE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	SPRITE_SPLASH,
 	SPRITE_INDICATOR,
 	#endregion         // 스프라이트
-
-	#region 텍스처
-	// 400,000,000
-	TEXTURE_RES_SAMPLE = (EEnumVal.TYPE * 4) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 텍스처
 
 	[HideInInspector] MAX_VAL
 }

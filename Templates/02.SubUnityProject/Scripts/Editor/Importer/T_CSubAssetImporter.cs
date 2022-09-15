@@ -33,7 +33,7 @@ public partial class CSubAssetImporter : CAssetImporter {
 	}
 
 	/** 텍스처 임포터를 설정한다 */
-	protected override void SetupTextureImporter(AssetImporter a_oImporter) {
+	protected override void SetupTexImporter(AssetImporter a_oImporter) {
 		// Do Something
 	}
 	#endregion			// 함수
