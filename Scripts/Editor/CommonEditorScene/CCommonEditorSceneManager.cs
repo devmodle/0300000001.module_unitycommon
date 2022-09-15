@@ -12,12 +12,12 @@ using UnityEditor.SceneManagement;
 
 #if EDITOR_COROUTINE_ENABLE
 using Unity.EditorCoroutines.Editor;
-#endif			// #if EDITOR_COROUTINE_ENABLE
+#endif         // #if EDITOR_COROUTINE_ENABLE                                        
 
 /** 공용 에디터 씬 관리자 */
 [InitializeOnLoad]
 public static partial class CCommonEditorSceneManager {
-	#region 클래스 변수
+#region 클래스 변수
 	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsEnableBuild = false;
 
@@ -60,9 +60,9 @@ public static partial class CCommonEditorSceneManager {
 		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO",
 		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
 	};
-	#endregion			// 클래스 변수
+#endregion         // 클래스 변수                   
 
-	#region 클래스 함수
+#region 클래스 함수
 	/** 생성자 */
 	static CCommonEditorSceneManager() {
 		// 플레이 모드가 아닐 경우
@@ -94,7 +94,7 @@ public static partial class CCommonEditorSceneManager {
 #else
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;
-#endif			// #if EDITOR_COROUTINE_ENABLE
+#endif         // #if EDITOR_COROUTINE_ENABLE                                        
 	}
 	
 	/** 상태를 갱신한다 */
@@ -126,23 +126,23 @@ public static partial class CCommonEditorSceneManager {
 
 #if LOCALIZE_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupLocalize();
-#endif			// #if LOCALIZE_MODULE_ENABLE
+#endif         // #if LOCALIZE_MODULE_ENABLE                                       
 
 #if ML_AGENTS_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupMLAgents();
-#endif			// #if ML_AGENTS_MODULE_ENABLE
+#endif         // #if ML_AGENTS_MODULE_ENABLE                                        
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupInputSystem();
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+#endif         // #if INPUT_SYSTEM_MODULE_ENABLE                                           
 
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupRenderingPipeline();
-#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
+#endif         // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE                                                           
 
 #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupBurstCompiler();
-#endif			// #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif         // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE                                                                               
 
 				CFunc.EnumerateRootObjs((a_oObj) => {
 					// 최상단 UI 일 경우
@@ -166,7 +166,8 @@ public static partial class CCommonEditorSceneManager {
 					for(int i = 0; i < a_oFileList.Count; ++i) {
 						// DS Store 파일이 아닐 경우
 						if(!a_oFileList[i].EndsWith(KCDefine.B_FILE_EXTENSION_DS_STORE)) {
-							CCommonEditorSceneManager.m_oStrBuilder.AppendLine(Path.GetRelativePath(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, a_oFileList[i]));
+							string oDirPath = Path.GetRelativePath(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, a_oFileList[i]);
+							CCommonEditorSceneManager.m_oStrBuilder.AppendLine(oDirPath.Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH));
 						}
 					}
 
@@ -244,7 +245,7 @@ public static partial class CCommonEditorSceneManager {
 			EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.CoUpdateEditorModeState());
 #else
 			Time.timeScale = KCDefine.B_VAL_1_REAL;
-#endif			// #if EDITOR_COROUTINE_ENABLE
+#endif         // #if EDITOR_COROUTINE_ENABLE                                        
 		}
 	}
 
@@ -254,16 +255,16 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.SetupSpriteAtlases();
 		CCommonEditorSceneManager.SetupSceneTemplates();
 	}
-	#endregion			// 클래스 함수
+#endregion         // 클래스 함수                   
 
-	#region 조건부 클래스 함수
+#region 조건부 클래스 함수
 #if EDITOR_COROUTINE_ENABLE
 	/** 에디터 모드 상태를 갱신한다 */
 	private static IEnumerator CoUpdateEditorModeState() {
 		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_VAL_1_REAL, true);
 		Time.timeScale = KCDefine.B_VAL_1_REAL;
 	}
-#endif			// #if EDITOR_COROUTINE_ENABLE
-	#endregion			// 조건부 클래스 함수
+#endif         // #if EDITOR_COROUTINE_ENABLE                                        
+#endregion         // 조건부 클래스 함수                       
 }
-#endif			// #if UNITY_EDITOR
+#endif         // #if UNITY_EDITOR                             
