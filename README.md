@@ -1,7 +1,7 @@
 # 0300000001.Module_UnityCommon_Client
 1. **필수 에셋 리스트**
 	- *TextMesh Pro*
-	- *DOTween Pro (1.0.310 - Aug 4, 2021)*
+	- *DOTween Pro (1.0.330 - Sep 13, 2022)*
 2. **에셋 스토어 리스트**
 	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
 	- *Advance Object Pool (1.1.0 - May 6, 2019)*
