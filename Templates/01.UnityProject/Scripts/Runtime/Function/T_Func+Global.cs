@@ -118,6 +118,7 @@ public static partial class Func {
 			case ETargetType.ITEM: Func.PayItemTarget(a_nCharacterID, a_stTargetInfo, Access.GetItemTargetInfo(a_nCharacterID, (EItemKinds)a_stTargetInfo.Kinds), a_bIsEnableAssert); break;
 			case ETargetType.SKILL: Func.PaySkillTarget(a_nCharacterID, a_stTargetInfo, Access.GetSkillTargetInfo(a_nCharacterID, (ESkillKinds)a_stTargetInfo.Kinds), a_bIsEnableAssert); break;
 			case ETargetType.OBJ: Func.PayObjTarget(a_nCharacterID, a_stTargetInfo, Access.GetObjTargetInfo(a_nCharacterID, (EObjKinds)a_stTargetInfo.Kinds), a_bIsEnableAssert); break;
+			case ETargetType.ABILITY: Func.PayAbilityTarget(a_nCharacterID, a_stTargetInfo, Access.GetAbilityTargetInfo(a_nCharacterID, (EAbilityKinds)a_stTargetInfo.Kinds), a_bIsEnableAssert); break;
 		}
 	}
 
@@ -127,7 +128,13 @@ public static partial class Func {
 		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.ABILITY) {
 			Func.Pay(a_nCharacterID, a_stTargetInfo, a_bIsEnableAssert);
 		} else {
-			Func.PayAbilityTarget(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, a_bIsEnableAssert);
+			bool bIsValid = CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo);
+			CAccess.Assert(!a_bIsEnableAssert || (bIsValid && a_oTargetInfo != null));
+
+			// 타겟 정보가 존재 할 경우
+			if(bIsValid && a_oTargetInfo != null && (a_stTargetInfo.Kinds != (int)EAbilityKinds.STAT_EXP && a_stTargetInfo.Kinds != (int)EAbilityKinds.STAT_NUMS))  {
+				a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert);
+			}
 		}
 	}
 
@@ -161,6 +168,7 @@ public static partial class Func {
 			case ETargetType.ITEM: Func.AcquireItemTarget(a_nCharacterID, a_stTargetInfo, Access.GetItemTargetInfo(a_nCharacterID, (EItemKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_bIsEnableAssert); break;
 			case ETargetType.SKILL: Func.AcquireSkillTarget(a_nCharacterID, a_stTargetInfo, Access.GetSkillTargetInfo(a_nCharacterID, (ESkillKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_bIsEnableAssert); break;
 			case ETargetType.OBJ: Func.AcquireObjTarget(a_nCharacterID, a_stTargetInfo, Access.GetObjTargetInfo(a_nCharacterID, (EObjKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_bIsEnableAssert); break;
+			case ETargetType.ABILITY: Func.AcquireAbilityTarget(a_nCharacterID, a_stTargetInfo, Access.GetAbilityTargetInfo(a_nCharacterID, (EAbilityKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_bIsEnableAssert); break;
 		}
 	}
 
@@ -170,7 +178,13 @@ public static partial class Func {
 		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.ABILITY) {
 			Func.Acquire(a_nCharacterID, a_stTargetInfo, a_bIsAutoCreate, a_bIsEnableAssert);
 		} else {
-			Func.AcquireAbilityTarget(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, a_bIsEnableAssert);
+			bool bIsValid = CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo);
+			CAccess.Assert(!a_bIsEnableAssert || (bIsValid && a_oTargetInfo != null));
+
+			// 타겟 정보가 존재 할 경우
+			if(bIsValid && a_oTargetInfo != null && a_stTargetInfo.Kinds != (int)EAbilityKinds.STAT_NUMS) {
+				a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert);
+			}
 		}
 	}
 
@@ -314,8 +328,8 @@ public static partial class Func {
 		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
-		if(bIsValid && a_oTargetInfo != null && (a_stTargetInfo.Kinds != (int)EAbilityKinds.STAT_EXP && a_stTargetInfo.Kinds != (int)EAbilityKinds.STAT_NUMS))  {
-			a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert);
+		if(bIsValid && a_oTargetInfo != null) {
+			Func.DoPay(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, false, a_bIsEnableAssert);
 		}
 	}
 
@@ -367,8 +381,8 @@ public static partial class Func {
 		CAccess.Assert(!a_bIsEnableAssert || (bIsValid && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
-		if(bIsValid && a_oTargetInfo != null && a_stTargetInfo.Kinds != (int)EAbilityKinds.STAT_NUMS) {
-			a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert);
+		if(bIsValid && a_oTargetInfo != null) {
+			Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, false, a_bIsEnableAssert);
 		}
 	}
 

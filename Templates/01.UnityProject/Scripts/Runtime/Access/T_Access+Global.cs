@@ -176,6 +176,7 @@ public static partial class Access {
 			case ETargetType.ITEM: return Access.IsEnableItemTargetTrade(a_stTargetInfo, Access.GetItemTargetInfo(a_nCharacterID, (EItemKinds)a_stTargetInfo.Kinds));
 			case ETargetType.SKILL: return Access.IsEnableSkillTargetTrade(a_stTargetInfo, Access.GetSkillTargetInfo(a_nCharacterID, (ESkillKinds)a_stTargetInfo.Kinds));
 			case ETargetType.OBJ: return Access.IsEnableObjTargetTrade(a_stTargetInfo, Access.GetObjTargetInfo(a_nCharacterID, (EObjKinds)a_stTargetInfo.Kinds));
+			case ETargetType.ABILITY: return Access.IsEnableAbilityTargetTrade(a_stTargetInfo, Access.GetAbilityTargetInfo(a_nCharacterID, (EAbilityKinds)a_stTargetInfo.Kinds));
 		}
 
 		return false;
@@ -187,7 +188,8 @@ public static partial class Access {
 		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.ABILITY) {
 			return Access.IsEnableTrade(a_nCharacterID, a_stTargetInfo);
 		} else {
-			return Access.IsEnableAbilityTargetTrade(a_stTargetInfo, a_oTargetInfo);
+			CAccess.Assert(CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo));
+			return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
 		}
 	}
 
@@ -412,6 +414,16 @@ public static partial class Access {
 		return CUserInfoStorage.Inst.TryGetObjTargetInfo(a_nCharacterID, a_eObjKinds, out oObjTargetInfo) ? oObjTargetInfo : null;
 	}
 
+	/** 어빌리티 타겟 정보를 반환한다 */
+	public static CAbilityTargetInfo GetAbilityTargetInfo(int a_nCharacterID, EAbilityKinds a_eAbilityKinds, bool a_bIsAutoCreate = false) {
+		// 자동 생성 모드 일 경우
+		if(a_bIsAutoCreate && !CUserInfoStorage.Inst.TryGetAbilityTargetInfo(a_nCharacterID, a_eAbilityKinds, out CAbilityTargetInfo oAbilityTargetInfo)) {
+			CUserInfoStorage.Inst.AddTargetInfo(a_nCharacterID, Factory.MakeAbilityTargetInfo(a_eAbilityKinds), false);
+		}
+
+		return CUserInfoStorage.Inst.TryGetAbilityTargetInfo(a_nCharacterID, a_eAbilityKinds, out oAbilityTargetInfo) ? oAbilityTargetInfo : null;
+	}
+
 	/** 일일 보상 종류를 변경한다 */
 	public static void SetDailyRewardID(int a_nCharacterID, int a_nID, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST.ExIsValidIdx(a_nID) && CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo)));
@@ -458,7 +470,7 @@ public static partial class Access {
 	/** 어빌리티 타겟 교환 가능 여부를 검사한다 */
 	private static bool IsEnableAbilityTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
 		CAccess.Assert(CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo));
-		return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+		return Access.DoIsEnableTrade(a_stTargetInfo, a_oTargetInfo);
 	}
 
 	/** 타겟 정보를 반환한다 */

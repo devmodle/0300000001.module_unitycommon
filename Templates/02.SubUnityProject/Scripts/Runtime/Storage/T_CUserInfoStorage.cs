@@ -14,6 +14,7 @@ using MessagePack;
 [Union(0, typeof(CItemTargetInfo))]
 [Union(1, typeof(CSkillTargetInfo))]
 [Union(2, typeof(CObjTargetInfo))]
+[Union(3, typeof(CAbilityTargetInfo))]
 public abstract partial class CTargetInfo : CBaseInfo {
 	#region 변수
 	[Key(1)] public STIdxInfo m_stIdxInfo = STIdxInfo.INVALID;
@@ -89,7 +90,6 @@ public partial class CItemTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember] public EItemKinds ItemKinds { get { return (EItemKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); } }
 	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
-
 	[IgnoreMember] public override int Kinds => (int)this.ItemKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.ITEM;
 	#endregion			// 프로퍼티
@@ -134,7 +134,6 @@ public partial class CSkillTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember] public ESkillKinds SkillKinds { get { return (ESkillKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); } }
 	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
-
 	[IgnoreMember] public override int Kinds => (int)this.SkillKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.SKILL;
 	#endregion			// 프로퍼티
@@ -180,7 +179,6 @@ public partial class CObjTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember] public EObjKinds ObjKinds { get { return (EObjKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); } }
 	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
-
 	[IgnoreMember] public override int Kinds => (int)this.ObjKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.OBJ;
 	#endregion			// 프로퍼티
@@ -210,6 +208,50 @@ public partial class CObjTargetInfo : CTargetInfo {
 
 	/** 생성자 */
 	public CObjTargetInfo(System.Version a_stVer) : base(a_stVer) {
+		// Do Something
+	}
+	#endregion			// 함수
+}
+
+/** 어빌리티 타겟 정보 */
+[MessagePackObject][System.Serializable]
+public partial class CAbilityTargetInfo : CTargetInfo {
+	#region 상수
+	private const string KEY_ABILITY_KINDS = "AbilityKinds";
+	#endregion			// 상수
+
+	#region 프로퍼티
+	[IgnoreMember] public EAbilityKinds AbilityKinds { get { return (EAbilityKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_KINDS, $"{(int)EAbilityKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ABILITY_KINDS, $"{(int)value}"); } }
+	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
+	[IgnoreMember] public override int Kinds => (int)this.AbilityKinds;
+	[IgnoreMember] public override ETargetType TargetType => ETargetType.ABILITY;
+	#endregion			// 프로퍼티
+
+	#region IMessagePackSerializationCallbackReceiver
+	/** 직렬화 될 경우 */
+	public override void OnBeforeSerialize() {
+		base.OnBeforeSerialize();
+	}
+
+	/** 역직렬화 되었을 경우 */
+	public override void OnAfterDeserialize() {
+		base.OnAfterDeserialize();
+
+		// 버전이 다를 경우
+		if(this.Ver.CompareTo(KDefine.G_VER_ABILITY_TARGET_INFO) < KCDefine.B_COMPARE_EQUALS) {
+			// Do Something
+		}
+	}
+	#endregion			// IMessagePackSerializationCallbackReceiver
+
+	#region 함수
+	/** 생성자 */
+	public CAbilityTargetInfo() : this(KDefine.G_VER_ABILITY_TARGET_INFO) {
+		// Do Something
+	}
+
+	/** 생성자 */
+	public CAbilityTargetInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
 	#endregion			// 함수
@@ -360,6 +402,12 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		return a_oOutObjTargetInfo != null;
 	}
 
+	/** 어빌리티 타겟 정보를 반환한다 */
+	public bool TryGetAbilityTargetInfo(int a_nCharacterID, EAbilityKinds a_eAbilityKinds, out CAbilityTargetInfo a_oOutAbilityTargetInfo) {
+		a_oOutAbilityTargetInfo = this.TryGetTargetInfo(a_nCharacterID, ETargetType.ABILITY, (int)a_eAbilityKinds, out CTargetInfo oTargetInfo) ? oTargetInfo as CAbilityTargetInfo : null;
+		return a_oOutAbilityTargetInfo != null;
+	}
+
 	/** 캐릭터 유저 정보를 반환한다 */
 	public bool TryGetCharacterUserInfo(int a_nCharacterID, out CCharacterUserInfo a_oOutCharacterUserInfo) {
 		this.UserInfo.m_oCharacterUserInfoDict.TryGetValue(a_nCharacterID, out a_oOutCharacterUserInfo);
@@ -422,6 +470,14 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		CAccess.Assert(bIsValid);
 
 		return oObjTargetInfo;
+	}
+
+	/** 어빌리티 타겟 정보를 반환한다 */
+	public CAbilityTargetInfo GetAbilityTargetInfo(int a_nCharacterID, EAbilityKinds a_eAbilityKinds) {
+		bool bIsValid = this.TryGetAbilityTargetInfo(a_nCharacterID, a_eAbilityKinds, out CAbilityTargetInfo oAbilityTargetInfo);
+		CAccess.Assert(bIsValid);
+
+		return oAbilityTargetInfo;
 	}
 
 	/** 캐릭터 유저 정보를 반환한다 */

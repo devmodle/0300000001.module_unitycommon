@@ -63,6 +63,19 @@ public static partial class Factory {
 		return oObjTargetInfo;
 	}
 
+	/** 어빌리티 타겟 정보를 생성한다 */
+	public static CAbilityTargetInfo MakeAbilityTargetInfo(EAbilityKinds a_eAbilityKinds, CTargetInfo a_oOwnerTargetInfo = null) {
+		var oAbilityTargetInfo = new CAbilityTargetInfo() {
+			AbilityKinds = a_eAbilityKinds, m_stIdxInfo = STIdxInfo.INVALID
+		};
+
+		a_oOwnerTargetInfo?.ExAddOwnedTargetInfo(oAbilityTargetInfo, false);
+		Factory.MakeDefAbilityTargetInfos().ExCopyTo(oAbilityTargetInfo.m_oAbilityTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo, false);
+
+		oAbilityTargetInfo.OnAfterDeserialize();
+		return oAbilityTargetInfo;
+	}
+
 	/** 캐릭터 유저 정보를 생성한다 */
 	public static CCharacterUserInfo MakeCharacterUserInfo(EObjKinds a_eObjKinds, STIDInfo a_stIDInfo, STIdxInfo a_stIdxInfo) {
 		var oCharacterUserInfo = new CCharacterUserInfo() {
