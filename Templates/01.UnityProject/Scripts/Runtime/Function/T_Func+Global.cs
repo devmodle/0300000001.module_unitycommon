@@ -163,7 +163,7 @@ public static partial class Func {
 	}
 
 	/** 획득한다 */
-	public static void Acquire(int a_nCharacterID, STTargetInfo a_stTargetInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
+	public static void Acquire(int a_nCharacterID, STTargetInfo a_stTargetInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
 		switch(a_stTargetInfo.TargetType) {
 			case ETargetType.ITEM: Func.AcquireItemTarget(a_nCharacterID, a_stTargetInfo, Access.GetItemTargetInfo(a_nCharacterID, (EItemKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_bIsEnableAssert); break;
 			case ETargetType.SKILL: Func.AcquireSkillTarget(a_nCharacterID, a_stTargetInfo, Access.GetSkillTargetInfo(a_nCharacterID, (ESkillKinds)a_stTargetInfo.Kinds, a_bIsAutoCreate), a_bIsEnableAssert); break;
@@ -173,7 +173,7 @@ public static partial class Func {
 	}
 
 	/** 획득한다 */
-	public static void Acquire(int a_nCharacterID, STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
+	public static void Acquire(int a_nCharacterID, STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
 		// 어빌리티 타겟 정보가 아닐 경우
 		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.ABILITY) {
 			Func.Acquire(a_nCharacterID, a_stTargetInfo, a_bIsAutoCreate, a_bIsEnableAssert);
@@ -189,7 +189,7 @@ public static partial class Func {
 	}
 
 	/** 획득한다 */
-	public static void Acquire(int a_nCharacterID, Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
+	public static void Acquire(int a_nCharacterID, Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoDict != null);
 
 		// 타겟 정보가 존재 할 경우
@@ -201,7 +201,7 @@ public static partial class Func {
 	}
 
 	/** 획득한다 */
-	public static void Acquire(int a_nCharacterID, Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
+	public static void Acquire(int a_nCharacterID, Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoDict != null);
 
 		// 타겟 정보가 존재 할 경우
@@ -212,43 +212,92 @@ public static partial class Func {
 		}
 	}
 
-	/** 구입한다 */
-	public static void Buy(int a_nCharacterID, STItemTradeInfo a_stItemTradeInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_nCharacterID, a_stItemTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
-		Func.Acquire(a_nCharacterID, a_stItemTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+	/** 교환한다 */
+	public static void Trade(int a_nCharacterID, STItemTradeInfo a_stItemTradeInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || Access.IsEnableTrade(a_nCharacterID, a_stItemTradeInfo.m_oPayTargetInfoDict));
+
+		// 교환 가능 할 경우
+		if(Access.IsEnableTrade(a_nCharacterID, a_stItemTradeInfo.m_oPayTargetInfoDict)) {
+			Func.Pay(a_nCharacterID, a_stItemTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+			Func.Acquire(a_nCharacterID, a_stItemTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+		}
 	}
 
-	/** 구입한다 */
-	public static void Buy(int a_nCharacterID, STSkillTradeInfo a_stSkillTradeInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_nCharacterID, a_stSkillTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
-		Func.Acquire(a_nCharacterID, a_stSkillTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+	/** 교환한다 */
+	public static void Trade(int a_nCharacterID, STItemTradeInfo a_stItemTradeInfo, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || Access.IsEnableTrade(a_nCharacterID, a_stItemTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo));
+
+		// 교환 가능 할 경우
+		if(Access.IsEnableTrade(a_nCharacterID, a_stItemTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo)) {
+			Func.Pay(a_nCharacterID, a_stItemTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo, a_bIsEnableAssert);
+			Func.Acquire(a_nCharacterID, a_stItemTradeInfo.m_oAcquireTargetInfoDict, a_oTargetInfo, a_bIsAutoCreate, a_bIsEnableAssert);
+		}
 	}
 
-	/** 구입한다 */
-	public static void Buy(int a_nCharacterID, STObjTradeInfo a_stObjTradeInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_nCharacterID, a_stObjTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
-		Func.Acquire(a_nCharacterID, a_stObjTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+	/** 교환한다 */
+	public static void Trade(int a_nCharacterID, STSkillTradeInfo a_stSkillTradeInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || Access.IsEnableTrade(a_nCharacterID, a_stSkillTradeInfo.m_oPayTargetInfoDict));
+
+		// 교환 가능 할 경우
+		if(Access.IsEnableTrade(a_nCharacterID, a_stSkillTradeInfo.m_oPayTargetInfoDict)) {
+			Func.Pay(a_nCharacterID, a_stSkillTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+			Func.Acquire(a_nCharacterID, a_stSkillTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+		}
 	}
 
-	/** 구입한다 */
-	public static void Buy(int a_nCharacterID, STProductTradeInfo a_stProductTradeInfo, bool a_bIsAutoCreate = false, bool a_bIsEnableAssert = true) {
-		Func.Pay(a_nCharacterID, a_stProductTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
-		Func.Acquire(a_nCharacterID, a_stProductTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+	/** 교환한다 */
+	public static void Trade(int a_nCharacterID, STSkillTradeInfo a_stSkillTradeInfo, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || Access.IsEnableTrade(a_nCharacterID, a_stSkillTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo));
+
+		// 교환 가능 할 경우
+		if(Access.IsEnableTrade(a_nCharacterID, a_stSkillTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo)) {
+			Func.Pay(a_nCharacterID, a_stSkillTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo, a_bIsEnableAssert);
+			Func.Acquire(a_nCharacterID, a_stSkillTradeInfo.m_oAcquireTargetInfoDict, a_oTargetInfo, a_bIsAutoCreate, a_bIsEnableAssert);
+		}
 	}
 
-	/** 판매한다 */
-	public static void Sale(int a_nCharacterID, STItemTradeInfo a_stItemTradeInfo, bool a_bIsEnableAssert = true) {
-		Func.Buy(a_nCharacterID, a_stItemTradeInfo, false, a_bIsEnableAssert);
+	/** 교환한다 */
+	public static void Trade(int a_nCharacterID, STObjTradeInfo a_stObjTradeInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || Access.IsEnableTrade(a_nCharacterID, a_stObjTradeInfo.m_oPayTargetInfoDict));
+
+		// 교환 가능 할 경우
+		if(Access.IsEnableTrade(a_nCharacterID, a_stObjTradeInfo.m_oPayTargetInfoDict)) {
+			Func.Pay(a_nCharacterID, a_stObjTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+			Func.Acquire(a_nCharacterID, a_stObjTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+		}
 	}
 
-	/** 판매한다 */
-	public static void Sale(int a_nCharacterID, STSkillTradeInfo a_stSkillTradeInfo, bool a_bIsEnableAssert = true) {
-		Func.Buy(a_nCharacterID, a_stSkillTradeInfo, false, a_bIsEnableAssert);
+	/** 교환한다 */
+	public static void Trade(int a_nCharacterID, STObjTradeInfo a_stObjTradeInfo, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || Access.IsEnableTrade(a_nCharacterID, a_stObjTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo));
+
+		// 교환 가능 할 경우
+		if(Access.IsEnableTrade(a_nCharacterID, a_stObjTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo)) {
+			Func.Pay(a_nCharacterID, a_stObjTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo, a_bIsEnableAssert);
+			Func.Acquire(a_nCharacterID, a_stObjTradeInfo.m_oAcquireTargetInfoDict, a_oTargetInfo, a_bIsAutoCreate, a_bIsEnableAssert);
+		}
 	}
 
-	/** 판매한다 */
-	public static void Sale(int a_nCharacterID, STObjTradeInfo a_stObjTradeInfo, bool a_bIsEnableAssert = true) {
-		Func.Buy(a_nCharacterID, a_stObjTradeInfo, false, a_bIsEnableAssert);
+	/** 교환한다 */
+	public static void Trade(int a_nCharacterID, STProductTradeInfo a_stProductTradeInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || Access.IsEnableTrade(a_nCharacterID, a_stProductTradeInfo.m_oPayTargetInfoDict));
+
+		// 교환 가능 할 경우
+		if(Access.IsEnableTrade(a_nCharacterID, a_stProductTradeInfo.m_oPayTargetInfoDict)) {
+			Func.Pay(a_nCharacterID, a_stProductTradeInfo.m_oPayTargetInfoDict, a_bIsEnableAssert);
+			Func.Acquire(a_nCharacterID, a_stProductTradeInfo.m_oAcquireTargetInfoDict, a_bIsAutoCreate, a_bIsEnableAssert);
+		}
+	}
+
+	/** 교환한다 */
+	public static void Trade(int a_nCharacterID, STProductTradeInfo a_stProductTradeInfo, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || Access.IsEnableTrade(a_nCharacterID, a_stProductTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo));
+
+		// 교환 가능 할 경우
+		if(Access.IsEnableTrade(a_nCharacterID, a_stProductTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo)) {
+			Func.Pay(a_nCharacterID, a_stProductTradeInfo.m_oPayTargetInfoDict, a_oTargetInfo, a_bIsEnableAssert);
+			Func.Acquire(a_nCharacterID, a_stProductTradeInfo.m_oAcquireTargetInfoDict, a_oTargetInfo, a_bIsAutoCreate, a_bIsEnableAssert);
+		}
 	}
 
 	/** 어빌리티 값을 설정한다 */

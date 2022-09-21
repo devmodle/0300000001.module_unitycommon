@@ -18,7 +18,7 @@ namespace NSEngine {
 			oItem.Init(CEItem.MakeParams(this, a_stItemInfo, a_oItemTargetInfo, oController, KDefine.E_KEY_ITEM_OBJS_POOL));
 			oController?.Init(CEItemController.MakeParams(this));
 
-			this.SetupEObjComponent(oItem, a_oOwner);
+			this.SetupEObjComponent(oItem, a_oOwner, oController);
 			return oItem;
 		}
 
@@ -30,7 +30,7 @@ namespace NSEngine {
 			oSkill.Init(CESkill.MakeParams(this, a_stSkillInfo, a_oSkillTargetInfo, oController, KDefine.E_KEY_SKILL_OBJS_POOL));
 			oController?.Init(CESkillController.MakeParams(this));
 
-			this.SetupEObjComponent(oSkill, a_oOwner);
+			this.SetupEObjComponent(oSkill, a_oOwner, oController);
 			return oSkill;
 		}
 
@@ -42,7 +42,7 @@ namespace NSEngine {
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_OBJ_OBJS_POOL));
 			oController?.Init(CEObjController.MakeParams(this));
 
-			this.SetupEObjComponent(oObj, a_oOwner);
+			this.SetupEObjComponent(oObj, a_oOwner, oController);
 			return oObj;
 		}
 
@@ -54,7 +54,7 @@ namespace NSEngine {
 			oFX.Init(CEFX.MakeParams(this, a_stFXInfo, oController, KDefine.E_KEY_FX_OBJS_POOL));
 			oController?.Init(CEFXController.MakeParams(this));
 
-			this.SetupEObjComponent(oFX, a_oOwner);
+			this.SetupEObjComponent(oFX, a_oOwner, oController);
 			return oFX;
 		}
 
@@ -107,9 +107,11 @@ namespace NSEngine {
 		}
 
 		/** 엔진 객체 컴포넌트를 설정한다 */
-		private void SetupEObjComponent(CEObjComponent a_oEObjComponent, CComponent a_oOwner) {
+		private void SetupEObjComponent(CEObjComponent a_oEObjComponent, CComponent a_oOwner, CEController a_oController) {
 			a_oEObjComponent.SetOwner(a_oOwner);
 			a_oEObjComponent.Params.m_oCallbackDict.TryAdd(CEObjComponent.ECallback.ENGINE_OBJ_EVENT, this.OnReceiveEObjEvent);
+
+			a_oController?.SetOwner(a_oEObjComponent);
 		}
 
 		/** 엔진 객체 컴포넌트를 제거한다 */

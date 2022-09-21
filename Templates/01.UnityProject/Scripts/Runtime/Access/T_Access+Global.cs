@@ -266,6 +266,11 @@ public static partial class Access {
 		return Access.GetObjTargetInfo(a_nCharacterID, a_eObjKinds, true).m_oAbilityTargetInfoDict.ExGetTargetVal(a_eTargetKinds, a_nKinds);
 	}
 
+	/** 어빌리티 타겟 값을 반환한다 */
+	public static decimal GetAbilityTargetVal(int a_nCharacterID, EAbilityKinds a_eAbilityKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
+		return Access.GetAbilityTargetInfo(a_nCharacterID, a_eAbilityKinds, true).m_oAbilityTargetInfoDict.ExGetTargetVal(a_eTargetKinds, a_nKinds);
+	}
+
 	/** 일일 보상 종류를 반환한다 */
 	public static ERewardKinds GetDailyRewardKinds(int a_nCharacterID) {
 		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID);
@@ -447,6 +452,11 @@ public static partial class Access {
 	/** 객체 타겟 값을 변경한다 */
 	public static void SetObjTargetVal(int a_nCharacterID, EObjKinds a_eObjKinds, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal) {
 		Access.GetObjTargetInfo(a_nCharacterID, a_eObjKinds, true).m_oAbilityTargetInfoDict.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_dmVal);
+	}
+
+	/** 어빌리티 타겟 값을 변경한다 */
+	public static void SetAbilityTargetVal(int a_nCharacterID, EAbilityKinds a_eAbilityKinds, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal) {
+		Access.GetAbilityTargetInfo(a_nCharacterID, a_eAbilityKinds, true).m_oAbilityTargetInfoDict.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_dmVal);
 	}
 
 	/** 아이템 타겟 교환 가능 여부를 검사한다 */

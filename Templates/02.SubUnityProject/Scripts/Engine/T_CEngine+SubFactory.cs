@@ -25,7 +25,7 @@ namespace NSEngine {
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
 			oController?.Init(CECellObjController.MakeParams(this));
 
-			this.SetupEObjComponent(oObj, a_oOwner);
+			this.SetupEObjComponent(oObj, a_oOwner, oController);
 			return oObj;
 		}
 
@@ -37,7 +37,7 @@ namespace NSEngine {
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
 			oController?.Init(CEPlayerObjController.MakeParams(this));
 
-			this.SetupEObjComponent(oObj, a_oOwner);
+			this.SetupEObjComponent(oObj, a_oOwner, oController);
 			return oObj;
 		}
 
@@ -49,7 +49,7 @@ namespace NSEngine {
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
 			oController?.Init(CEEnemyObjController.MakeParams(this));
 
-			this.SetupEObjComponent(oObj, a_oOwner);
+			this.SetupEObjComponent(oObj, a_oOwner, oController);
 			return oObj;
 		}
 

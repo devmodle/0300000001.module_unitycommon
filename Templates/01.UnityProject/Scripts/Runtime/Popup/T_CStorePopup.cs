@@ -121,7 +121,7 @@ public partial class CStorePopup : CSubPopup {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
 			var eSelProductKinds = m_oProductKindsDict.GetValueOrDefault(EKey.SEL_PRODUCT_KINDS, EProductKinds.NONE);
-			Func.Buy(CGameInfoStorage.Inst.PlayCharacterID, CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(eSelProductKinds));
+			Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(eSelProductKinds));
 		}
 
 		this.UpdateUIsState();
