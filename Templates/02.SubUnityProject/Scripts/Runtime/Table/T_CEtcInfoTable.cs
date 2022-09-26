@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 기타 정보 테이블 */
 public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
-	#region 함수
+#region 함수
 	/** 기타 정보를 리셋한다 */
 	public virtual void ResetEtcInfos() {
 		CCalcInfoTable.Inst.ResetCalcInfos();
@@ -46,14 +46,14 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 			CTutorialInfoTable.Inst.SaveTutorialInfos(a_oJSONStr);
 			CFXInfoTable.Inst.SaveFXInfos(a_oJSONStr);
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, true);
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 		}
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

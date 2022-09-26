@@ -17,13 +17,13 @@ using Unity.EditorCoroutines.Editor;
 /** 공용 에디터 씬 관리자 */
 [InitializeOnLoad]
 public static partial class CCommonEditorSceneManager {
-#region 클래스 변수
+	#region 클래스 변수
 	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsEnableBuild = false;
 
 	private static float m_fUpdateSkipTime = 0.0f;
 	private static System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
-	
+
 	private static GUIStyle m_oTextGUIStyle = new GUIStyle() {
 		alignment = TextAnchor.MiddleRight, fontStyle = FontStyle.Bold
 	};
@@ -38,31 +38,31 @@ public static partial class CCommonEditorSceneManager {
 	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>() {
 		[KCDefine.U_SORTING_L_ABS] = "A",
 		[KCDefine.U_SORTING_L_DEF] = "D",
-		
+
 		[KCDefine.U_SORTING_L_TOP] = "T",
 		[KCDefine.U_SORTING_L_TOPMOST] = "TM",
-		
+
 		[KCDefine.U_SORTING_L_FOREGROUND] = "F",
 		[KCDefine.U_SORTING_L_BACKGROUND] = "B",
-		
+
 		[KCDefine.U_SORTING_L_OVERGROUND] = "O",
 		[KCDefine.U_SORTING_L_UNDERGROUND] = "U",
 
 		[KCDefine.U_SORTING_L_OVERLAY_ABS] = "OA",
 		[KCDefine.U_SORTING_L_OVERLAY_DEF] = "OD",
-		
+
 		[KCDefine.U_SORTING_L_OVERLAY_TOP] = "OT",
 		[KCDefine.U_SORTING_L_OVERLAY_TOPMOST] = "OTM",
-		
+
 		[KCDefine.U_SORTING_L_OVERLAY_FOREGROUND] = "OF",
 		[KCDefine.U_SORTING_L_OVERLAY_BACKGROUND] = "OB",
-		
+
 		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO",
 		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
 	};
-#endregion         // 클래스 변수                   
+	#endregion         // 클래스 변수                   
 
-#region 클래스 함수
+	#region 클래스 함수
 	/** 생성자 */
 	static CCommonEditorSceneManager() {
 		// 플레이 모드가 아닐 경우
@@ -96,7 +96,7 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;
 #endif         // #if EDITOR_COROUTINE_ENABLE                                        
 	}
-	
+
 	/** 상태를 갱신한다 */
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
@@ -107,7 +107,7 @@ public static partial class CCommonEditorSceneManager {
 			if(CCommonEditorSceneManager.m_bIsEnableSetup) {
 				CCommonEditorSceneManager.m_bIsEnableSetup = false;
 				CAutoSceneImporter.ImportAllScenes();
-				
+
 				CPlatformOptsSetter.SetupPlayerOpts();
 				CPlatformOptsSetter.SetupEditorOpts();
 				CPlatformOptsSetter.SetupProjOpts();
@@ -154,7 +154,7 @@ public static partial class CCommonEditorSceneManager {
 					if(KCEditorDefine.B_OBJ_N_ROOT_OBJ_LIST.Contains(a_oObj.name)) {
 						CCommonEditorSceneManager.SetupStaticObjs(a_oObj);
 					}
-					
+
 					CCommonEditorSceneManager.UpdateMissingScriptState(a_oObj);
 					return true;
 				});
@@ -213,7 +213,7 @@ public static partial class CCommonEditorSceneManager {
 
 					string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
 					oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerDict.GetValueOrDefault(oSortingLayer, string.Empty) : string.Empty;
-					
+
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid()) {
 						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VAL_0_REAL);
@@ -255,9 +255,9 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.SetupSpriteAtlases();
 		CCommonEditorSceneManager.SetupSceneTemplates();
 	}
-#endregion         // 클래스 함수                   
+	#endregion         // 클래스 함수                   
 
-#region 조건부 클래스 함수
+	#region 조건부 클래스 함수
 #if EDITOR_COROUTINE_ENABLE
 	/** 에디터 모드 상태를 갱신한다 */
 	private static IEnumerator CoUpdateEditorModeState() {
@@ -265,6 +265,6 @@ public static partial class CCommonEditorSceneManager {
 		Time.timeScale = KCDefine.B_VAL_1_REAL;
 	}
 #endif         // #if EDITOR_COROUTINE_ENABLE                                        
-#endregion         // 조건부 클래스 함수                       
+	#endregion         // 조건부 클래스 함수                       
 }
 #endif         // #if UNITY_EDITOR                             

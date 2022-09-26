@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 - 팩토리 */
 	public partial class CEngine : CComponent {
-		#region 함수
+#region 함수
 		/** 아이템을 생성한다 */
 		public CEItem CreateItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oItem = CSceneManager.ActiveSceneManager.SpawnObj<CEItem>(KDefine.E_OBJ_N_ITEM, KDefine.E_KEY_ITEM_OBJS_POOL);
@@ -126,8 +126,8 @@ namespace NSEngine {
 				case KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL: this.RemoveEnemyObj(a_oEObjComponent as CEObj); break;
 			}
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

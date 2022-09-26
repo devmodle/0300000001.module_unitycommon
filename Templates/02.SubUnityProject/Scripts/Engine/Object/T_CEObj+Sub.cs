@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 객체 */
 	public partial class CEObj : CEObjComponent {
-		#region 함수
+#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
@@ -20,9 +20,9 @@ namespace NSEngine {
 				(EKey.OBJ_SPRITE, $"{EKey.OBJ_SPRITE}", this.gameObject)
 			}, m_oSpriteDict);
 
-			#region 추가
+#region 추가
 			this.SubAwakeSetup();
-			#endregion			// 추가
+#endregion          // 추가               
 		}
 
 		/** 초기화 */
@@ -36,11 +36,11 @@ namespace NSEngine {
 				m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
 			}
 
-			#region 추가
+#region 추가
 			this.SubInit();
-			#endregion			// 추가
+#endregion          // 추가               
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 
 	/** 서브 객체 */
@@ -51,15 +51,15 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 
-		#endregion			// 변수
+#endregion          // 변수               
 
-		#region 프로퍼티
+#region 프로퍼티
 
-		#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-		#region 함수
+#region 함수
 		/** 컴포넌트를 설정한다 */
 		private void SubAwakeSetup() {
 			// Do Something
@@ -69,8 +69,8 @@ namespace NSEngine {
 		private void SubInit() {
 			this.SetupAbilityVals();
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

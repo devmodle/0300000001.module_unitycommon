@@ -40,7 +40,7 @@ namespace GameScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 		private NSEngine.CEngine m_oEngine = null;
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
@@ -49,9 +49,9 @@ namespace GameScene {
 
 		/** =====> 객체 <===== */
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
-		#endregion			// 변수
+#endregion          // 변수               
 		
-		#region 함수
+#region 함수
 		/** 앱이 정지 되었을 경우 */
 		public override void OnApplicationPause(bool a_bIsPause) {
 			base.OnApplicationPause(a_bIsPause);
@@ -63,7 +63,7 @@ namespace GameScene {
 				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.AdsPlatform)) {
 					Func.ShowFullscreenAds(null);
 				}
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 
 				Func.ShowResumePopup(this.PopupUIs, (a_oSender) => {
 					(a_oSender as CResumePopup).Init(CResumePopup.MakeParams(new Dictionary<CResumePopup.ECallback, System.Action<CResumePopup>>() {
@@ -174,7 +174,7 @@ namespace GameScene {
 
 #if ADS_MODULE_ENABLE
 			Func.ShowRewardAds(this.OnCloseRewardAds);
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 		}
 
 		/** 선택 아이템을 적용한다 */
@@ -204,7 +204,7 @@ namespace GameScene {
 						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
 #else
 						CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 					} else {
 						this.LeavePlayLevel(a_oPopup);
 					}
@@ -234,7 +234,7 @@ namespace GameScene {
 			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
 #else
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 		}
 
 		/** 플레이 레벨을 제개한다 */
@@ -254,7 +254,7 @@ namespace GameScene {
 			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
 #else
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 		}
 
 		/** 이어하기 팝업을 출력한다 */
@@ -282,8 +282,8 @@ namespace GameScene {
 				}));
 			});
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

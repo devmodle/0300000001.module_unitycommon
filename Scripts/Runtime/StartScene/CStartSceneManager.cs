@@ -9,15 +9,15 @@ namespace StartScene {
 	public abstract partial class CStartSceneManager : CSceneManager {
 		#region 변수
 		protected Dictionary<string, int> m_oMaxNumFXSndsDict = new Dictionary<string, int>();
-		#endregion			// 변수
+		#endregion            // 변수               
 
 		#region 프로퍼티
 		public override string SceneName => KCDefine.B_SCENE_N_START;
 
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.U_SCRIPT_O_START_SCENE_MANAGER;
-#endif			// #if UNITY_EDITOR
-		#endregion			// 프로퍼티
+#endif           // #if UNITY_EDITOR                             
+		#endregion           // 프로퍼티                 
 
 		#region 함수
 		/** 초기화 */
@@ -47,7 +47,7 @@ namespace StartScene {
 				CSndManager.Inst.SetMaxNumFXSnds(stKeyVal.Key, stKeyVal.Value);
 			}
 		}
-		
+
 		/** 시작 씬 이벤트를 수신했을 경우 */
 		protected abstract void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent);
 
@@ -55,9 +55,9 @@ namespace StartScene {
 		private IEnumerator CoStart() {
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 			this.Setup();
-			
+
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_SETUP);
 		}
-		#endregion			// 함수
+		#endregion         // 함수               
 	}
 }

@@ -8,11 +8,11 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 
 /** 전역 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 	/** 어빌리티 값을 설정한다 */
 	public static void SetupAbilityVals(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_stItemInfo.m_eItemKinds != EItemKinds.NONE && a_oOutAbilityValDict != null));
@@ -79,12 +79,12 @@ public static partial class Func {
 		CUserInfoStorage.Inst.SaveUserInfo();
 		
 #if NEVER_USE_THIS
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		CGameInfoStorage.Inst.SetPlayLevelInfo(CLevelInfoTable.Inst.GetLevelInfo(a_nLevelID, a_nStageID, a_nChapterID));
 #else
 		CGameInfoStorage.Inst.SetPlayLevelInfo(CLevelInfoTable.Inst.LoadLevelInfo(a_nLevelID, a_nStageID, a_nChapterID));
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-#endif			// #if NEVER_USE_THIS
+#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif          // #if NEVER_USE_THIS                               
 	}
 
 	/** 다음 일일 보상 식별자를 설정한다 */
@@ -397,7 +397,7 @@ public static partial class Func {
 				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 			}
 		}
 	}
@@ -470,9 +470,9 @@ public static partial class Func {
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, System.Math.Clamp(stNumsAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
 		}
 	}
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 
-	#region 조건부 클래스 함수
+#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	/** 광고 누적 횟수를 증가시킨다 */
 	public static void IncrAdsSkipTimes(int a_nSkipTimes) {
@@ -491,7 +491,7 @@ public static partial class Func {
 	public static void IncrFullscreenAdsWatchTimes(int a_nWatchTimes) {
 		CAppInfoStorage.Inst.AppInfo.FullscreenAdsWatchTimes = Mathf.Clamp(CAppInfoStorage.Inst.AppInfo.FullscreenAdsWatchTimes + a_nWatchTimes, KCDefine.B_VAL_0_INT, int.MaxValue);
 	}
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 
 #if FIREBASE_MODULE_ENABLE
 	/** 로그인 되었을 경우 */
@@ -533,7 +533,7 @@ public static partial class Func {
 			Func.ShowOnSaveFailPopup(a_oCallback);
 		}
 	}
-#endif			// #if FIREBASE_MODULE_ENABLE
+#endif          // #if FIREBASE_MODULE_ENABLE                                       
 
 #if PURCHASE_MODULE_ENABLE
 	/** 상품이 결제 되었을 경우 */
@@ -596,7 +596,7 @@ public static partial class Func {
 			CCommonUserInfoStorage.Inst.SaveUserInfo();
 		}
 	}
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 
 #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드했을 경우 */
@@ -607,78 +607,78 @@ public static partial class Func {
 
 		CAppInfoStorage.Inst.SaveAppInfo();
 	}
-#endif			// #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion			// 조건부 클래스 함수
+#endif          // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endregion          // 조건부 클래스 함수                       
 }
 
 /** 초기화 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 	
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
 
 /** 시작 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
 
 /** 설정 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
 
 /** 약관 동의 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
 
 /** 지연 설정 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
 
 /** 타이틀 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 	
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
 
 /** 메인 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
 
 /** 게임 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
 
 /** 로딩 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
 
 /** 중첩 씬 함수 */
 public static partial class Func {
-	#region 클래스 함수
+#region 클래스 함수
 	
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

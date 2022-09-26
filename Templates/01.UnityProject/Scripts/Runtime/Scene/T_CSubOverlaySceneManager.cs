@@ -10,7 +10,7 @@ using TMPro;
 
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 
 namespace OverlayScene {
 	/** 서브 중첩 씬 관리자 */
@@ -31,7 +31,7 @@ namespace OverlayScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>();
 		
 		/** =====> UI <===== */
@@ -40,14 +40,14 @@ namespace OverlayScene {
 
 #if PURCHASE_MODULE_ENABLE
 		private Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
-#endif			// #if PURCHASE_MODULE_ENABLE
-		#endregion			// 변수
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endregion          // 변수               
 
-		#region 프로퍼티
+#region 프로퍼티
 		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS;
-		#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-		#region 함수
+#region 함수
 		/** 상점 팝업을 출력한다 */
 		public void ShowStorePopup() {
 			Func.ShowStorePopup(CSceneManager.ActiveScenePopupUIs, (a_oSender) => {
@@ -55,12 +55,12 @@ namespace OverlayScene {
 
 #if ADS_MODULE_ENABLE
 				stParams.m_oAdsCallbackDict.TryAdd(CStorePopup.ECallback.ADS, (a_oAdsSender, a_stAdsRewardInfo, a_bIsSuccess) => this.UpdateUIsState());
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 
 #if PURCHASE_MODULE_ENABLE
 				stParams.m_oPurchaseCallbackDict01.TryAdd(CStorePopup.ECallback.PURCHASE, (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState());
 				stParams.m_oPurchaseCallbackDict02.TryAdd(CStorePopup.ECallback.RESTORE, (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState());
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 
 				(a_oSender as CStorePopup).Init(stParams);
 			});
@@ -70,9 +70,9 @@ namespace OverlayScene {
 		private void OnTouchStoreBtn() {
 			this.ShowStorePopup();
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 
-		#region 조건부 함수
+#region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
 		/** 상품을 결제한다 */
 		public void PurchaseProduct(int a_nProductIdx, System.Action<CPurchaseManager, string, bool> a_oCallback) {
@@ -96,7 +96,7 @@ namespace OverlayScene {
 				this.ExLateCallFunc((a_oCallFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
 #else
 				Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
-#endif			// #if FIREBASE_MODULE_ENABLE
+#endif          // #if FIREBASE_MODULE_ENABLE                                       
 			} else {
 				Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
 			}
@@ -110,10 +110,10 @@ namespace OverlayScene {
 		private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 			Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oStrDict.GetValueOrDefault(EKey.PURCHASE_PRODUCT_ID, string.Empty), true, null);
 		}
-#endif			// #if FIREBASE_MODULE_ENABLE
-#endif			// #if PURCHASE_MODULE_ENABLE
-		#endregion			// 조건부 함수
+#endif          // #if FIREBASE_MODULE_ENABLE                                       
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endregion          // 조건부 함수                   
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

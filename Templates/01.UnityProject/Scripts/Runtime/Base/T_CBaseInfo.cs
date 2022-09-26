@@ -17,16 +17,16 @@ using MessagePack;
 [Union(4, typeof(CTargetInfo))]
 [MessagePackObject][System.Serializable]
 public abstract partial class CBaseInfo : IMessagePackSerializationCallbackReceiver {
-	#region 변수
+#region 변수
 	[Key(0)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
-	#endregion			// 변수
+#endregion          // 변수               
 
-	#region 상수
+#region 상수
 	private const string KEY_VER = "Ver";
 	private const string KEY_SAVE_TIME = "SaveTime";
-	#endregion			// 상수
+#endregion          // 상수               
 
-	#region 프로퍼티
+#region 프로퍼티
 	[IgnoreMember] public System.Version Ver { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	[IgnoreMember] public System.DateTime SaveTime { get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; } set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); } }
 
@@ -35,9 +35,9 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 
 	[IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(KEY_SAVE_TIME, string.Empty);
 	[IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 	
-	#region IMessagePackSerializationCallbackReceiver
+#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public virtual void OnBeforeSerialize() {
 		// 버전 무시 모드 일 경우
@@ -57,9 +57,9 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	public virtual void OnAfterDeserialize() {
 		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 	}
-	#endregion			// IMessagePackSerializationCallbackReceiver
+#endregion          // IMessagePackSerializationCallbackReceiver                                                      
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public CBaseInfo(System.Version a_stVer) {
 		this.Ver = a_stVer;
@@ -76,7 +76,7 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	private void OnDeserializedMethod(StreamingContext a_oContext) {
 		this.OnAfterDeserialize();
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

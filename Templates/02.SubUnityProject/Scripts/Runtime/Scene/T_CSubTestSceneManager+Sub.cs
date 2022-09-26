@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 namespace TestScene {
 	/** 서브 테스트 씬 관리자 */
 	public partial class CSubTestSceneManager : CTestSceneManager {
-		#region 함수
+#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
@@ -32,7 +32,7 @@ namespace TestScene {
 				this.UpdateUIsState();
 			}
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 
 	/** 서브 테스트 씬 관리자 - 서브 */
@@ -43,15 +43,15 @@ namespace TestScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 
-		#endregion			// 변수
+#endregion          // 변수               
 
-		#region 프로퍼티
+#region 프로퍼티
 
-		#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-		#region 함수
+#region 함수
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// Do Something
@@ -81,8 +81,8 @@ namespace TestScene {
 		private void UpdateUIsState() {
 			// Do Something
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

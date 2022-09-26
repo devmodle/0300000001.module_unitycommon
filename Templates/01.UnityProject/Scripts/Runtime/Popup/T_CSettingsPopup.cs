@@ -18,12 +18,12 @@ public partial class CSettingsPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-	#region 변수
+#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-	#endregion			// 변수
+#endregion          // 변수               
 
-	#region 함수
+#region 함수
 	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
@@ -72,7 +72,7 @@ public partial class CSettingsPopup : CSubPopup {
 	private void OnTouchSupportsBtn() {
 		CUnityMsgSender.Inst.SendMailMsg(CProjInfoTable.Inst.CompanyInfo.m_oSupportsMail, string.Empty, string.Empty);
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

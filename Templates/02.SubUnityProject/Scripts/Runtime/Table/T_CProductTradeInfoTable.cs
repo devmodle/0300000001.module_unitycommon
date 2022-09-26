@@ -10,7 +10,7 @@ using System.IO;
 
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 
 /** 상품 교환 정보 */
 [System.Serializable]
@@ -26,18 +26,18 @@ public struct STProductTradeInfo {
 	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
-	#region 상수
+#region 상수
 	public static STProductTradeInfo INVALID = new STProductTradeInfo() {
 		m_eProductKinds = EProductKinds.NONE, m_ePrevProductKinds = EProductKinds.NONE, m_eNextProductKinds = EProductKinds.NONE, m_ePurchaseType = EPurchaseType.NONE
 	};
-	#endregion			// 상수
+#endregion          // 상수               
 
-	#region 프로퍼티
+#region 프로퍼티
 	public EProductType ProductType => (EProductType)((int)m_eProductKinds).ExKindsToType();
 	public EProductKinds BaseProductKinds => (EProductKinds)((int)m_eProductKinds).ExKindsToSubKindsType();
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STProductTradeInfo(SimpleJSON.JSONNode a_oProductTradeInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oProductTradeInfo);
@@ -61,16 +61,16 @@ public struct STProductTradeInfo {
 			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
 
 /** 상품 교환 정보 테이블 */
 public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable> {
-	#region 프로퍼티
+#region 프로퍼티
 	public Dictionary<EProductKinds, STProductTradeInfo> BuyProductTradeInfoDict { get; } = new Dictionary<EProductKinds, STProductTradeInfo>();
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -132,13 +132,13 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 
 #if PURCHASE_MODULE_ENABLE
 			CProductInfoTable.Inst.SaveProductInfos(a_oJSONStr);
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.ProductTradeInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.ProductTradeInfoTableSavePath, a_oJSONStr, true);
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 		}
 	}
 
@@ -159,11 +159,11 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	private Dictionary<EProductKinds, STProductTradeInfo> LoadProductTradeInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadProductTradeInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
 #else
 		return this.DoLoadProductTradeInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false));
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 상품 교환 정보를 로드한다 */
@@ -184,7 +184,7 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 
 		return this.BuyProductTradeInfoDict;
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

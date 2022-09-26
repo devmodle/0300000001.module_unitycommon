@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 namespace LevelEditorScene {
 	/** 레벨 에디터 씬 관리자 */
 	public partial class CLevelEditorSceneManager : CSceneManager {
@@ -26,7 +26,7 @@ namespace LevelEditorScene {
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
-		#endregion			// 변수
+		#endregion         // 변수               
 
 		#region 프로퍼티
 		public override bool IsIgnoreBlindV => true;
@@ -35,7 +35,7 @@ namespace LevelEditorScene {
 
 		public override float ScreenWidth => KCDefine.B_PORTRAIT_SCREEN_WIDTH;
 		public override float ScreenHeight => KCDefine.B_PORTRAIT_SCREEN_HEIGHT;
-		
+
 		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
 
 		protected GameObject MidEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.MID_EDITOR_UIS);
@@ -45,13 +45,13 @@ namespace LevelEditorScene {
 		protected GameObject MEUIsMsgUIs => m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS);
 		protected GameObject LEUIsABSetUIs => m_oUIsDict.GetValueOrDefault(EKey.LE_UIS_AB_SET_UIS);
 		protected GameObject ObjRoot => m_oObjDict.GetValueOrDefault(EKey.OBJ_ROOT);
-		#endregion			// 프로퍼티
+		#endregion          // 프로퍼티                 
 
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			
+
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 				// 객체를 설정한다 {
@@ -75,7 +75,7 @@ namespace LevelEditorScene {
 				// 객체를 설정한다 }
 			}
 		}
-		#endregion			// 함수
+		#endregion         // 함수               
 	}
 }
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif         // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   

@@ -20,18 +20,18 @@ public struct STTutorialInfo {
 	public List<string> m_oStrList;
 	public List<ERewardKinds> m_oRewardKindsList;
 
-	#region 상수
+#region 상수
 	public static STTutorialInfo INVALID = new STTutorialInfo() {
 		m_eTutorialKinds = ETutorialKinds.NONE, m_ePrevTutorialKinds = ETutorialKinds.NONE, m_eNextTutorialKinds = ETutorialKinds.NONE
 	};
-	#endregion			// 상수
+#endregion          // 상수               
 
-	#region 프로퍼티
+#region 프로퍼티
 	public ETutorialType TutorialType => (ETutorialType)((int)m_eTutorialKinds).ExKindsToType();
 	public ETutorialKinds BaseTutorialKinds => (ETutorialKinds)((int)m_eTutorialKinds).ExKindsToSubKindsType();
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STTutorialInfo(SimpleJSON.JSONNode a_oTutorialInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oTutorialInfo);
@@ -53,16 +53,16 @@ public struct STTutorialInfo {
 			if(a_oTutorialInfo[oKey].ExIsValid()) { m_oRewardKindsList.ExAddVal((ERewardKinds)a_oTutorialInfo[oKey].AsInt); }
 		}
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
 
 /** 튜토리얼 정보 테이블 */
 public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
-	#region 프로퍼티
+#region 프로퍼티
 	public Dictionary<ETutorialKinds, STTutorialInfo> TutorialInfoDict { get; } = new Dictionary<ETutorialKinds, STTutorialInfo>();
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -127,11 +127,11 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	private Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadTutorialInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
 #else
 		return this.DoLoadTutorialInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false));
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 튜토리얼 정보를 로드한다 */
@@ -152,7 +152,7 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 		
 		return this.TutorialInfoDict;
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

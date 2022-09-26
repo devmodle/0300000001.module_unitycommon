@@ -9,14 +9,14 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 객체 컴포넌트 */
 	public partial class CEObjComponent : CEComponent {
-		#region 함수
+#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
 
-			#region 추가
+#region 추가
 			this.SubAwakeSetup();
-			#endregion			// 추가
+#endregion          // 추가               
 		}
 
 		/** 초기화 */
@@ -24,11 +24,11 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-			#region 추가
+#region 추가
 			this.SubInit();
-			#endregion			// 추가
+#endregion          // 추가               
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 
 	/** 서브 엔진 객체 컴포넌트 */
@@ -39,15 +39,15 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 
-		#endregion			// 변수
+#endregion          // 변수               
 
-		#region 프로퍼티
+#region 프로퍼티
 
-		#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-		#region 함수
+#region 함수
 		/** 컴포넌트를 설정한다 */
 		private void SubAwakeSetup() {
 			// Do Something
@@ -57,8 +57,8 @@ namespace NSEngine {
 		private void SubInit() {
 			// Do Something
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

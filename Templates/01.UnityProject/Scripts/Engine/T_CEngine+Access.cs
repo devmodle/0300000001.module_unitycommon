@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 - 접근 */
 	public partial class CEngine : CComponent {
-		#region 함수
+#region 함수
 		/** 셀 객체를 탐색한다 */
 		public CEObj FindCellObj(EObjType a_eObjType, EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
 			var oCellObjList = m_oCellObjDictContainers.ExGetVal(a_stIdx, null)?.GetValueOrDefault(a_eObjType);
@@ -48,8 +48,8 @@ namespace NSEngine {
 
 			return null;
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

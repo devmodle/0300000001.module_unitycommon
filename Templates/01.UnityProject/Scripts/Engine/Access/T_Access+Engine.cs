@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 접근자 */
 	public static partial class Access {
-		#region 클래스 함수
+#region 클래스 함수
 		/** 객체 스프라이트를 반환한다 */
 		public static Sprite GetObjSprite(EObjKinds a_eObjKinds) {
 			string oImgPath = KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), KCDefine.U_IMG_P_WHITE);
@@ -20,8 +20,8 @@ namespace NSEngine {
 		public static STSortingOrderInfo GetSortingOrderInfo(EObjKinds a_eObjKinds) {
 			return KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), KDefine.E_SORTING_OI_DEF);
 		}
-		#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

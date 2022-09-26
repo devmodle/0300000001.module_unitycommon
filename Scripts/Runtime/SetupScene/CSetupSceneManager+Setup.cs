@@ -61,7 +61,7 @@ namespace SetupScene {
 				CSetupSceneManager.m_oTimerManager = CFactory.CreateCloneObj(KCDefine.SS_OBJ_N_TIMER_MANAGER, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TIMER_MANAGER), null);
 			}
 		}
-		#endregion			// 함수
+		#endregion         // 함수               
 
 		#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
@@ -85,7 +85,7 @@ namespace SetupScene {
 				}
 			}
 		}
-#endif			// #if DEBUG || DEVELOPMENT_BUILD
-		#endregion			// 조건부 함수
+#endif         // #if DEBUG || DEVELOPMENT_BUILD                                           
+		#endregion         // 조건부 함수                   
 	}
 }

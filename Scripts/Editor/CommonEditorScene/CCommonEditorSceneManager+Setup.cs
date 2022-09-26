@@ -19,20 +19,20 @@ using UnityEditor.SceneManagement;
 #if LOCALIZE_MODULE_ENABLE
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-#endif			// #if LOCALIZE_MODULE_ENABLE
+#endif          // #if LOCALIZE_MODULE_ENABLE                                       
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
 
 #if UNITY_IOS
 using UnityEngine.InputSystem.iOS;
-#endif			// #if UNITY_IOS
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+#endif            // #if UNITY_IOS                          
+#endif            // #if INPUT_SYSTEM_MODULE_ENABLE                                           
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-#endif			// #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif           // #if NEWTON_SOFT_JSON_MODULE_ENABLE                                               
 
 /** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
@@ -42,7 +42,7 @@ public static partial class CCommonEditorSceneManager {
 		do {
 			yield return null;
 		} while(!CEditorAccess.IsEnableUpdateState);
-		
+
 		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_VAL_1_REAL);
 
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
@@ -100,7 +100,7 @@ public static partial class CCommonEditorSceneManager {
 		EditorApplication.projectChanged -= CCommonEditorSceneManager.OnUpdateProjectState;
 		EditorApplication.projectChanged += CCommonEditorSceneManager.OnUpdateProjectState;
 	}
-	
+
 	/** 광선 추적자를 설정한다 */
 	private static void SetupRaycasters() {
 		CFunc.EnumerateComponents<GraphicRaycaster>((a_oRaycaster) => {
@@ -108,13 +108,13 @@ public static partial class CCommonEditorSceneManager {
 			a_oRaycaster.blockingMask = a_oRaycaster.blockingMask.ExGetLayerVal(KCDefine.B_VAL_0_INT);
 			a_oRaycaster.blockingObjects = GraphicRaycaster.BlockingObjects.None;
 
-			return true; 
+			return true;
 		});
 
 		CFunc.EnumerateComponents<PhysicsRaycaster>((a_oRaycaster) => {
 			a_oRaycaster.eventMask = a_oRaycaster.eventMask.ExGetLayerVal(int.MaxValue);
 			a_oRaycaster.maxRayIntersections = KCDefine.B_VAL_0_INT;
-			
+
 			return true;
 		});
 	}
@@ -172,7 +172,7 @@ public static partial class CCommonEditorSceneManager {
 
 		for(int i = 0; i < SceneManager.sceneCountInBuildSettings; ++i) {
 			string oScenePath = SceneUtility.GetScenePathByBuildIndex(i);
-			
+
 			// 씬 추가가 가능 할 경우
 			if(!oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_01) && !oScenePath.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_02)) {
 				var oAsset = CEditorFunc.FindAsset<SceneAsset>(oScenePath);
@@ -223,7 +223,7 @@ public static partial class CCommonEditorSceneManager {
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE)) {
 			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));
 		}
-#endif			// #if STUDY_MODULE_ENABLE
+#endif         // #if STUDY_MODULE_ENABLE                                    
 	}
 
 	/** 레이어를 설정한다 */
@@ -245,7 +245,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-	
+
 	/** 광원 옵션을 설정한다 */
 	private static void DoSetupLightOpts(EQualityLevel a_eQualityLevel, LightingSettings a_oSettings, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSettings != null);
@@ -347,7 +347,7 @@ public static partial class CCommonEditorSceneManager {
 	/** 분실 된 스크립트 상태를 갱신한다 */
 	private static void UpdateMissingScriptState(GameObject a_oObj) {
 		CCommonEditorSceneManager.m_oPrefabMissingObjList.Clear();
-		
+
 		foreach(var oObj in a_oObj.DescendantsAndSelf()) {
 			// 객체 제거가 필요 할 경우
 			if(PrefabUtility.IsPrefabAssetMissing(oObj)) {
@@ -373,7 +373,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-	#endregion			// 클래스 함수
+	#endregion         // 클래스 함수                   
 
 	#region 클래스 조건부 함수
 #if LOCALIZE_MODULE_ENABLE
@@ -398,7 +398,7 @@ public static partial class CCommonEditorSceneManager {
 			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY, (a_oProperty) => a_oProperty.boolValue = true);
 		}
 	}
-#endif			// #if LOCALIZE_MODULE_ENABLE
+#endif         // #if LOCALIZE_MODULE_ENABLE                                       
 
 #if ML_AGENTS_MODULE_ENABLE
 	/** 머신 러닝 에이전트를 설정한다 */
@@ -410,7 +410,7 @@ public static partial class CCommonEditorSceneManager {
 
 			oMLAgentsSettings = AssetDatabase.LoadAssetAtPath<ScriptableObject>(KCEditorDefine.B_ASSET_P_ML_AGENTS_SETTINGS);
 			oMLAgentsSettings = oMLAgentsSettings ?? CEditorFactory.CreateScriptableObj(oObj.GetType(), KCEditorDefine.B_ASSET_P_ML_AGENTS_SETTINGS);
-			
+
 			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_ML_AGENTS_SETTINGS, oMLAgentsSettings, true);
 		}
 
@@ -425,7 +425,7 @@ public static partial class CCommonEditorSceneManager {
 			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_ML_AGENTS_CONNECT_TRAINER, (a_oProperty) => a_oProperty.boolValue = true);
 		}
 	}
-#endif			// #if ML_AGENTS_MODULE_ENABLE
+#endif         // #if ML_AGENTS_MODULE_ENABLE                                        
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 	/** 입력 시스템을 설정한다 */
@@ -450,21 +450,21 @@ public static partial class CCommonEditorSceneManager {
 			oInputSettings.iOS.motionUsage.usageDescription.Equals((CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_oInputSystemMotionDesc : string.Empty)
 #endif			// #if UNITY_IOS
 		};
-		
+
 		// 설정 갱신이 필요 할 경우
 		if(oIsSetupOptsList.Contains(false)) {
 			oInputSettings.compensateForScreenOrientation = true;
-			
+
 			oInputSettings.updateMode = InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;
 			oInputSettings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus;
 
 #if UNITY_IOS
 			oInputSettings.iOS.motionUsage.enabled = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion;
 			oInputSettings.iOS.motionUsage.usageDescription = (CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_oInputSystemMotionDesc : string.Empty;
-#endif			// #if UNITY_IOS
+#endif          // #if UNITY_IOS                          
 		}
 	}
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+#endif         // #if INPUT_SYSTEM_MODULE_ENABLE                                           
 
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 	/** 렌더링 파이프라인을 설정한다 */
@@ -487,7 +487,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
+#endif         // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE                                                           
 
 #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 	/** 버스트 컴파일러를 설정한다 */
@@ -530,7 +530,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-#endif			// #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
-	#endregion			// 클래스 조건부 함수
+#endif         // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE                                                                               
+	#endregion         // 클래스 조건부 함수                       
 }
-#endif			// #if UNITY_EDITOR
+#endif         // #if UNITY_EDITOR                             

@@ -9,14 +9,14 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 스킬 제어자 */
 	public partial class CESkillController : CEController {
-		#region 함수
+#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
 
-			#region 추가
+#region 추가
 			this.SubAwakeSetup();
-			#endregion			// 추가
+#endregion          // 추가               
 		}
 
 		/** 초기화 */
@@ -24,11 +24,11 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-			#region 추가
+#region 추가
 			this.SubInit();
-			#endregion			// 추가
+#endregion          // 추가               
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 
 	/** 서브 스킬 제어자 */
@@ -41,16 +41,16 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 		private Dictionary<ESubKey, int> m_oIntDict = new Dictionary<ESubKey, int>();
 		private Dictionary<ESubKey, float> m_oRealDict= new Dictionary<ESubKey, float>();
-		#endregion			// 변수
+#endregion          // 변수               
 
-		#region 프로퍼티
+#region 프로퍼티
 		
-		#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-		#region 함수
+#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -131,8 +131,8 @@ namespace NSEngine {
 				this.Owner.GetOwner<CEObj>().GetController<CEObjController>().Attack(this.TargetObjList[i] as CEObj, this.GetOwner<CESkill>());
 			}
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

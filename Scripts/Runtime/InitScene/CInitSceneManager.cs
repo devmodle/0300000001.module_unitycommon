@@ -7,11 +7,11 @@ using DG.Tweening;
 
 #if UNITY_IOS
 using UnityEngine.iOS;
-#endif			// #if UNITY_IOS
+#endif            // #if UNITY_IOS                          
 
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 using UnityEngine.Rendering.Universal;
-#endif			// #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
+#endif            // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE                                                           
 
 namespace InitScene {
 	/** 초기화 씬 관리자 */
@@ -29,8 +29,8 @@ namespace InitScene {
 
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER;
-#endif			// #if UNITY_EDITOR
-		#endregion			// 프로퍼티
+#endif            // #if UNITY_EDITOR                             
+		#endregion            // 프로퍼티                 
 
 		#region 함수
 		/** 초기화 */
@@ -66,7 +66,7 @@ namespace InitScene {
 			CCommonAppInfoStorage.Inst.LoadAppInfo();
 			CCommonUserInfoStorage.Inst.LoadUserInfo();
 			CCommonGameInfoStorage.Inst.LoadGameInfo();
-			
+
 			// 사운드 관리자를 설정한다 {
 #if MODE_2D_ENABLE
 			CSndManager.Inst.SetIsIgnoreBGSndEffects(true);
@@ -86,7 +86,7 @@ namespace InitScene {
 
 			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(false);
 			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(false);
-#endif			// #if MODE_2D_ENABLE
+#endif         // #if MODE_2D_ENABLE                               
 
 			CSndManager.Inst.SetBGSndVolume(CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume);
 			CSndManager.Inst.SetFXSndsVolume(CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume);
@@ -96,7 +96,7 @@ namespace InitScene {
 			CSndManager.Inst.SetIsDisableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate);
 			// 사운드 관리자를 설정한다 }
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			Screen.SetResolution((int)CAccess.CorrectDesktopScreenSize.x, (int)CAccess.CorrectDesktopScreenSize.y, FullScreenMode.Windowed);
 #else
 			Screen.SetResolution(Screen.width, Screen.height, FullScreenMode.FullScreenWindow);
@@ -125,13 +125,13 @@ namespace InitScene {
 			Input.multiTouchEnabled = true;
 #else
 			Input.multiTouchEnabled = false;
-#endif			// #if MULTI_TOUCH_ENABLE
+#endif          // #if MULTI_TOUCH_ENABLE                                   
 
 #if UNITY_EDITOR
 			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eQualityLevel, true);
 #else
 			CSceneManager.SetupQuality(oTargetFrameInfoDict.ContainsKey(Application.platform) ? (EQualityLevel)oTargetFrameInfoDict[Application.platform].Item1 : (EQualityLevel)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
-#endif			// #if UNITY_EDITOR
+#endif            // #if UNITY_EDITOR                             
 			// 디바이스 정보를 설정한다 }
 		}
 
@@ -144,7 +144,7 @@ namespace InitScene {
 		protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
 			return CFactory.CreateCloneObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
 		}
-		
+
 		/** 스플래시를 출력한다 */
 		protected abstract void ShowSplash();
 
@@ -158,7 +158,7 @@ namespace InitScene {
 
 			Device.SetNoBackupFlag(KCDefine.B_DIR_P_WRITABLE);
 			Device.SetNoBackupFlag(KCDefine.U_IMG_P_SCREENSHOT);
-#endif			// #if UNITY_IOS
+#endif         // #if UNITY_IOS                          
 			// iOS 를 설정한다 }
 
 			// 관리자를 생성한다 {
@@ -169,34 +169,34 @@ namespace InitScene {
 			CNavStackManager.Create();
 			CIndicatorManager.Create();
 			CCollectionManager.Create();
-			
+
 #if ADS_MODULE_ENABLE
 			CAdsManager.Create();
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 
 #if FLURRY_MODULE_ENABLE
 			CFlurryManager.Create();
-#endif			// #if FLURRY_MODULE_ENABLE
+#endif          // #if FLURRY_MODULE_ENABLE                                     
 
 #if FACEBOOK_MODULE_ENABLE
 			CFacebookManager.Create();
-#endif			// #if FACEBOOK_MODULE_ENABLE
+#endif          // #if FACEBOOK_MODULE_ENABLE                                       
 
 #if FIREBASE_MODULE_ENABLE
 			CFirebaseManager.Create();
-#endif			// #if FIREBASE_MODULE_ENABLE
+#endif          // #if FIREBASE_MODULE_ENABLE                                       
 
 #if GAME_CENTER_MODULE_ENABLE
 			CGameCenterManager.Create();
-#endif			// #if GAME_CENTER_MODULE_ENABLE
+#endif          // #if GAME_CENTER_MODULE_ENABLE                                          
 
 #if PURCHASE_MODULE_ENABLE
 			CPurchaseManager.Create();
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 
 #if NOTI_MODULE_ENABLE
 			CNotiManager.Create();
-#endif			// #if NOTI_MODULE_ENABLE
+#endif            // #if NOTI_MODULE_ENABLE                                   
 			// 관리자를 생성한다 }
 
 			// 로더를 생성한다
@@ -219,11 +219,11 @@ namespace InitScene {
 
 #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE
 			CPluginInfoTable.Create(KCDefine.U_ASSET_P_G_PLUGIN_INFO_TABLE);
-#endif			// #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE                                                                                      
 
 #if PURCHASE_MODULE_ENABLE
 			CProductInfoTable.Create(KCDefine.U_ASSET_P_G_PRODUCT_INFO_TABLE);
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 			// 테이블을 생성한다 }
 
 			// 저장소를 생성한다
@@ -253,7 +253,7 @@ namespace InitScene {
 					var oImgList = new List<Image>() {
 						this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
 					};
-					
+
 					for(int i = 0; i < oImgList.Count; ++i) {
 						oImgList[i].color = KCDefine.U_COLOR_TRANSPARENT;
 						oImgList[i].raycastTarget = false;
@@ -265,6 +265,6 @@ namespace InitScene {
 				}
 			}
 		}
-		#endregion			// 함수
+		#endregion         // 함수               
 	}
 }

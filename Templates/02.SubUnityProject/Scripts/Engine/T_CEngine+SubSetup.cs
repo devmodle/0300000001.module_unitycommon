@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 - 설정 */
 	public partial class CEngine : CComponent {
-		#region 함수
+#region 함수
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 			m_oGridInfoList.Clear();
@@ -24,16 +24,16 @@ namespace NSEngine {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), this.Params.m_oFXRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 
-			#region 추가
+#region 추가
 			this.SubSetupEngine();
-			#endregion			// 추가
+#endregion          // 추가               
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 
 	/** 서브 엔진 - 설정 */
 	public partial class CEngine : CComponent {
-		#region 함수
+#region 함수
 		/** 엔진을 설정한다 */
 		private void SubAwakeSetup() {
 			// Do Something
@@ -68,8 +68,8 @@ namespace NSEngine {
 		private void SetupGridLine() {
 			// Do Something
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

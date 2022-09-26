@@ -17,15 +17,15 @@ namespace TestScene {
 		#region 변수
 		/** =====> UI <===== */
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-		#endregion			// 변수
+		#endregion         // 변수               
 
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;
 		public override bool IsIgnoreBGTouchResponder => false;
-		
+
 		public override string SceneName => KCDefine.B_SCENE_N_TEST;
-		#endregion			// 프로퍼티
+		#endregion          // 프로퍼티                 
 
 		#region 함수
 		/** 초기화 */
@@ -52,7 +52,7 @@ namespace TestScene {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
-#endif			// #if STUDY_MODULE_ENABLE
+#endif         // #if STUDY_MODULE_ENABLE                                    
 		}
 
 		/** 씬을 설정한다 */
@@ -67,6 +67,6 @@ namespace TestScene {
 			(m_oBtnDict.GetValueOrDefault(EKey.BACK_BTN).transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
 			// 버튼을 설정한다 }
 		}
-		#endregion			// 함수
+		#endregion         // 함수               
 	}
 }

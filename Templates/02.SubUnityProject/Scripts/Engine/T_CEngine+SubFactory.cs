@@ -9,14 +9,14 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 - 팩토리 */
 	public partial class CEngine : CComponent {
-		#region 함수
+#region 함수
 		
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 
 	/** 서브 엔진 - 팩토리 */
 	public partial class CEngine : CComponent {
-		#region 함수
+#region 함수
 		/** 셀 객체를 생성한다 */
 		public CEObj CreateCellObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_CELL_OBJ, KDefine.E_KEY_CELL_OBJ_OBJS_POOL);
@@ -89,8 +89,8 @@ namespace NSEngine {
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

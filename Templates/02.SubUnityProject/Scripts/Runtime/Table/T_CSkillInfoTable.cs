@@ -24,21 +24,21 @@ public struct STSkillInfo {
 	public List<EResKinds> m_oResKindsList;
 	public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict;
 
-	#region 상수
+#region 상수
 	public static STSkillInfo INVALID = new STSkillInfo() {
 		m_eSkillKinds = ESkillKinds.NONE, m_ePrevSkillKinds = ESkillKinds.NONE, m_eNextSkillKinds = ESkillKinds.NONE
 	};
-	#endregion			// 상수
+#endregion          // 상수               
 
-	#region 프로퍼티
+#region 프로퍼티
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
 	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();
 	
 	public ESkillApplyType SkillApplyType => (ESkillApplyType)((int)m_eSkillApplyKinds).ExKindsToType();
 	public ESkillApplyKinds BaseSkillApplyKinds => (ESkillApplyKinds)((int)m_eSkillApplyKinds).ExKindsToSubKindsType();
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STSkillInfo(SimpleJSON.JSONNode a_oSkillInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oSkillInfo);
@@ -69,7 +69,7 @@ public struct STSkillInfo {
 			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAbilityTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
 
 /** 스킬 강화 정보 */
@@ -84,18 +84,18 @@ public struct STSkillEnhanceInfo {
 	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
-	#region 상수
+#region 상수
 	public static STSkillEnhanceInfo INVALID = new STSkillEnhanceInfo() {
 		m_eSkillKinds = ESkillKinds.NONE, m_ePrevSkillKinds = ESkillKinds.NONE, m_eNextSkillKinds = ESkillKinds.NONE
 	};
-	#endregion			// 상수
+#endregion          // 상수               
 
-	#region 프로퍼티
+#region 프로퍼티
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
 	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STSkillEnhanceInfo(SimpleJSON.JSONNode a_oSkillEnhanceInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oSkillEnhanceInfo);
@@ -117,7 +117,7 @@ public struct STSkillEnhanceInfo {
 			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
 
 /** 구입 스킬 교환 정보 */
@@ -132,18 +132,18 @@ public struct STSkillTradeInfo {
 	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
-	#region 상수
+#region 상수
 	public static STSkillTradeInfo INVALID = new STSkillTradeInfo() {
 		m_eSkillKinds = ESkillKinds.NONE, m_ePrevSkillKinds = ESkillKinds.NONE, m_eNextSkillKinds = ESkillKinds.NONE
 	};
-	#endregion			// 상수
+#endregion          // 상수               
 
-	#region 프로퍼티
+#region 프로퍼티
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
 	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STSkillTradeInfo(SimpleJSON.JSONNode a_oSkillTradeInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oSkillTradeInfo);
@@ -165,19 +165,19 @@ public struct STSkillTradeInfo {
 			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
 		}
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
 
 /** 스킬 정보 테이블 */
 public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
-	#region 프로퍼티
+#region 프로퍼티
 	public Dictionary<ESkillKinds, STSkillInfo> SkillInfoDict { get; } = new Dictionary<ESkillKinds, STSkillInfo>();
 	public Dictionary<ESkillKinds, STSkillEnhanceInfo> SkillEnhanceInfoDict { get; } = new Dictionary<ESkillKinds, STSkillEnhanceInfo>();
 	public Dictionary<ESkillKinds, STSkillTradeInfo> BuySkillTradeInfoDict { get; } = new Dictionary<ESkillKinds, STSkillTradeInfo>();
 	public Dictionary<ESkillKinds, STSkillTradeInfo> SaleSkillTradeInfoDict { get; } = new Dictionary<ESkillKinds, STSkillTradeInfo>();
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -268,11 +268,11 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		if(a_oJSONStr != null) {
 			this.ResetSkillInfos(a_oJSONStr);
 			
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oJSONStr, true);
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 		}
 	}
 
@@ -318,11 +318,11 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillEnhanceInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>) LoadSkillInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return this.DoLoadSkillInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
 #else
 		return this.DoLoadSkillInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false));
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 스킬 정보를 로드한다 */
@@ -376,7 +376,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 
 		return (this.SkillInfoDict, this.SkillEnhanceInfoDict, this.BuySkillTradeInfoDict, this.SaleSkillTradeInfoDict);
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

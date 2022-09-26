@@ -12,8 +12,8 @@ namespace AgreeScene {
 
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.U_SCRIPT_O_AGREE_SCENE_MANAGER;
-#endif			// #if UNITY_EDITOR
-		#endregion			// 프로퍼티
+#endif           // #if UNITY_EDITOR                             
+		#endregion           // 프로퍼티                 
 
 		#region 함수
 		/** 초기화 */
@@ -59,7 +59,7 @@ namespace AgreeScene {
 			this.LoadNextScene();
 #else
 			bool bIsAgree = CCommonAppInfoStorage.Inst.AppInfo.IsAgree;
-				
+
 			// 약관 동의 상태 일 경우
 			if(bIsAgree || !CCommonAppInfoStorage.Inst.IsNeedsAgree(CCommonAppInfoStorage.Inst.CountryCode)) {
 				this.LoadNextScene();
@@ -68,17 +68,17 @@ namespace AgreeScene {
 				if(CCommonAppInfoStorage.Inst.CountryCode.Equals(KCDefine.B_KOREA_COUNTRY_CODE)) {
 					var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_P_PRIVACY);
 					var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.AS_DATA_P_SERVICES);
-					
+
 					this.ShowKRAgreePopup(oPrivacy.text, oServices.text);
 
 					CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_P_PRIVACY, true);
 					CResManager.Inst.RemoveRes<TextAsset>(KCDefine.AS_DATA_P_SERVICES, true);
 				} else {
 					this.ShowEUAgreePopup(CProjInfoTable.Inst.CompanyInfo.m_oPrivacyURL, CProjInfoTable.Inst.CompanyInfo.m_oServicesURL);
-				}			
+				}
 			}
-#endif			// #if ROBO_TEST_ENABLE
+#endif         // #if ROBO_TEST_ENABLE                                 
 		}
-		#endregion			// 함수
+		#endregion         // 함수               
 	}
 }

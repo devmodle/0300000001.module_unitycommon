@@ -7,7 +7,7 @@ using TMPro;
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+#endif            // #if INPUT_SYSTEM_MODULE_ENABLE                                           
 
 namespace MainScene {
 	/** 메인 씬 관리자 */
@@ -22,15 +22,15 @@ namespace MainScene {
 		#region 변수
 		/** =====> UI <===== */
 		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
-		#endregion			// 변수
+		#endregion            // 변수               
 
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;
 		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
-		
+
 		public TMP_Text VerText => m_oTextDict.GetValueOrDefault(EKey.VER_TEXT);
-		#endregion			// 프로퍼티
+		#endregion          // 프로퍼티                 
 
 		#region 함수
 		/** 초기화 */
@@ -62,27 +62,27 @@ namespace MainScene {
 				m_oTextDict.GetValueOrDefault(EKey.VER_TEXT)?.transform.SetAsLastSibling();
 			}
 		}
-		
+
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #if INPUT_SYSTEM_MODULE_ENABLE
 				bool bIsEditorKeyDown = Keyboard.current.leftShiftKey.isPressed && Keyboard.current.eKey.wasPressedThisFrame;
 #else
 				bool bIsEditorKeyDown = Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.E);
-#endif			// #if INPUT_SYSTEM_MODULE_ENABLE
+#endif         // #if INPUT_SYSTEM_MODULE_ENABLE                                           
 
 				// 에디터 키를 눌렀을 경우
 				if(bIsEditorKeyDown) {
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 				}
-#endif			// #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif         // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 			}
 		}
-		#endregion			// 함수
+		#endregion         // 함수               
 	}
 }

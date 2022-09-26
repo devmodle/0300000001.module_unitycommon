@@ -11,18 +11,18 @@ using TMPro;
 
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 
 /** 상품 교환 팝업 */
 public partial class CProductTradePopup : CSubPopup {
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
 
-		#region 추가
+#region 추가
 		this.SubAwakeSetup();
-		#endregion			// 추가
+#endregion          // 추가               
 	}
 
 	/** 초기화 */
@@ -30,9 +30,9 @@ public partial class CProductTradePopup : CSubPopup {
 		base.Init();
 		this.Params = a_stParams;
 
-		#region 추가
+#region 추가
 		this.SubInit();
-		#endregion			// 추가
+#endregion          // 추가               
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -42,9 +42,9 @@ public partial class CProductTradePopup : CSubPopup {
 			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));
 		}
 
-		#region 추가
+#region 추가
 		this.SubUpdateUIsState();
-		#endregion			// 추가
+#endregion          // 추가               
 	}
 
 	/** 상품 구입 UI 상태를 갱신한다 */
@@ -61,7 +61,7 @@ public partial class CProductTradePopup : CSubPopup {
 		if(Access.GetProduct(a_stProductTradeInfo.m_nProductIdx) != null) {
 			oPriceText?.ExSetText(Access.GetPriceStr(a_stProductTradeInfo.m_nProductIdx), EFontSet._1, false);
 		}
-#endif			// #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
+#endif          // #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE                                                        
 		// 텍스트를 설정한다 }
 
 		// 버튼을 설정한다 {
@@ -75,10 +75,10 @@ public partial class CProductTradePopup : CSubPopup {
 		if(stProductInfo.m_eProductType == ProductType.NonConsumable) {
 			oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID));
 		}
-#endif			// #if PURCHASE_MODULE_ENABLE
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
 		// 버튼을 설정한다 }
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
 
 /** 서브 상품 교환 팝업 */
@@ -89,15 +89,15 @@ public partial class CProductTradePopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-	#region 변수
+#region 변수
 
-	#endregion			// 변수
+#endregion          // 변수               
 
-	#region 프로퍼티
+#region 프로퍼티
 
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 팝업을 설정한다 */
 	private void SubAwakeSetup() {
 		// Do Something
@@ -112,9 +112,9 @@ public partial class CProductTradePopup : CSubPopup {
 	private void SubUpdateUIsState() {
 		// Do Something
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 
-	#region 조건부 함수
+#region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
 	/** 상품이 결제 되었을 경우 */
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
@@ -126,8 +126,8 @@ public partial class CProductTradePopup : CSubPopup {
 		this.UpdateUIsState();
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
-#endif			// #if PURCHASE_MODULE_ENABLE
-	#endregion			// 조건부 함수
+#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endregion          // 조건부 함수                   
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

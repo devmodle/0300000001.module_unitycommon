@@ -23,15 +23,15 @@ namespace MainScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 		private Dictionary<EKey, STIDInfo> m_oIDInfoDict = new Dictionary<EKey, STIDInfo>();
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>();
 		private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>();
-		#endregion			// 변수
+#endregion          // 변수               
 		
-		#region IEnhancedScrollerDelegate
+#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
 		public int GetNumberOfCells(EnhancedScroller a_oSender) {
 			// 레벨 스크롤러 일 경우
@@ -107,9 +107,9 @@ namespace MainScene {
 
 			return oScrollerCellView;
 		}
-		#endregion			// IEnhancedScrollerDelegate
+#endregion          // IEnhancedScrollerDelegate                                      
 		
-		#region 함수
+#region 함수
 		/** 앱이 정지 되었을 경우 */
 		public override void OnApplicationPause(bool a_bIsPause) {
 			base.OnApplicationPause(a_bIsPause);
@@ -121,7 +121,7 @@ namespace MainScene {
 				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.AdsPlatform)) {
 					Func.ShowFullscreenAds(null);
 				}
-#endif			// #if ADS_MODULE_ENABLE
+#endif          // #if ADS_MODULE_ENABLE                                  
 			}
 		}
 
@@ -173,9 +173,9 @@ namespace MainScene {
 				(a_oSender as CSettingsPopup).Init();
 			});
 		}
-		#endregion			// 함수
+#endregion          // 함수               
 
-		#region 조건부 함수
+#region 조건부 함수
 #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
 		/** AB 테스트 UI 를 설정한다 */
 		private void SetupABTestUIs() {
@@ -253,9 +253,9 @@ namespace MainScene {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 			}
 		}
-#endif			// #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
-		#endregion			// 조건부 함수
+#endif          // #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)                                                                                   
+#endregion          // 조건부 함수                   
 	}
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     

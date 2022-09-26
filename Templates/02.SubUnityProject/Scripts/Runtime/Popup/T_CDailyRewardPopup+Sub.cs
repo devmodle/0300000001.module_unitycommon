@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 일일 보상 팝업 */
 public partial class CDailyRewardPopup : CSubPopup {
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -19,18 +19,18 @@ public partial class CDailyRewardPopup : CSubPopup {
 			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
 		}, m_oBtnDict);
 
-		#region 추가
+#region 추가
 		this.SubAwakeSetup();
-		#endregion			// 추가
+#endregion          // 추가               
 	}
 	
 	/** 초기화 */
 	public override void Init() {
 		base.Init();
 
-		#region 추가
+#region 추가
 		this.SubInit();
-		#endregion			// 추가
+#endregion          // 추가               
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -47,11 +47,11 @@ public partial class CDailyRewardPopup : CSubPopup {
 			this.UpdateRewardUIsState(oRewardUIs, stDailyRewardInfo);
 		}
 
-		#region 추가
+#region 추가
 		this.SubUpdateUIsState();
-		#endregion			// 추가
+#endregion          // 추가               
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
 
 /** 서브 일일 보상 팝업 */
@@ -62,15 +62,15 @@ public partial class CDailyRewardPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-	#region 변수
+#region 변수
 
-	#endregion			// 변수
+#endregion          // 변수               
 
-	#region 프로퍼티
+#region 프로퍼티
 
-	#endregion			// 프로퍼티
+#endregion          // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 팝업을 설정한다 */
 	private void SubAwakeSetup() {
 		// Do Something
@@ -90,7 +90,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 	private void UpdateRewardUIsState(GameObject a_oRewardUIs, STRewardInfo a_stRewardInfo) {
 		// Do Something
 	}
-	#endregion			// 함수
+#endregion          // 함수               
 }
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
