@@ -25,7 +25,7 @@
 3. **추가 에셋 스토어 리스트**
 	- *Apple Auth (1.4.2 - Jul 18, 2021)*
 4. **외부 에셋 및 플러그인 리스트**
-	- *Msg Pack (2.3.85)*
+	- *Msg Pack (2.4.35)*
 	- *UI Effect (3.2.0 - Jul 17, 2019)*
 	- *Particle For GUI (3.3.10 - Feb 18, 2022)*
 	- *Soft Mask For GUI (1.0.0 - Feb 24, 2021)*

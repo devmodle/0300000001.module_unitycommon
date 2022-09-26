@@ -13,15 +13,16 @@ using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using UnityEditor.SceneManagement;
 using EnhancedHierarchy;
+using SimpleFolderIcon.Editor;
 
 #if EDITOR_COROUTINE_ENABLE
 using Unity.EditorCoroutines.Editor;
-#endif			// #if EDITOR_COROUTINE_ENABLE
+#endif          // #if EDITOR_COROUTINE_ENABLE                                        
 
 /** 에디터 씬 관리자 */
 [InitializeOnLoad]
 public static partial class CEditorSceneManager {
-	#region 클래스 변수
+#region 클래스 변수
 	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsEnableSetupDependencies = false;
 
@@ -32,9 +33,9 @@ public static partial class CEditorSceneManager {
 	private static ListRequest m_oListRequest = null;
 	private static List<string> m_oSampleSceneNameList = new List<string>();
 	private static List<AddRequest> m_oAddRequestList = new List<AddRequest>();
-	#endregion			// 클래스 변수
+#endregion          // 클래스 변수                   
 	
-	#region 클래스 함수
+#region 클래스 함수
 	/** 생성자 */
 	static CEditorSceneManager() {
 		// 플레이 모드가 아닐 경우
@@ -55,7 +56,7 @@ public static partial class CEditorSceneManager {
 		EditorCoroutineUtility.StartCoroutineOwnerless(CEditorSceneManager.CoSetupEditorSceneManager());
 #else
 		CEditorSceneManager.m_bIsEnableSetup = true;
-#endif			// #if EDITOR_COROUTINE_ENABLE
+#endif          // #if EDITOR_COROUTINE_ENABLE                                        
 	}
 	
 	/** 상태를 갱신한다 */
@@ -74,6 +75,7 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_oListRequest = Client.List(true, true);
 
 				CEditorSceneManager.SetupCallbacks();
+				IconDictionaryCreator.BuildDictionary();
 
 				EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
 				EditorApplication.update += CEditorSceneManager.UpdateDependencyState;
@@ -97,7 +99,7 @@ public static partial class CEditorSceneManager {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
 				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.G_EXTRA_SCENE_MANAGER_TYPE_DICT); return true; });
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE                                           
 
 				var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
@@ -116,7 +118,7 @@ public static partial class CEditorSceneManager {
 						if(oType != null && KEditorDefine.G_EXTRA_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nExtraOrder)) {
 							CAccess.SetScriptOrder(oMonoScripts[i], nExtraOrder);
 						}
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE                                           
 					}
 				}
 			}
@@ -236,7 +238,7 @@ public static partial class CEditorSceneManager {
 				} else {
 #if !SAMPLE_PROJ
 					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));
-#endif			// #if !SAMPLE_PROJ
+#endif          // #if !SAMPLE_PROJ                             
 				}
 			}
 		}
@@ -267,7 +269,7 @@ public static partial class CEditorSceneManager {
 		}
 
 		PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
-#endif			// #if EXTRA_SCRIPT_MODULE_ENABLE
+#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE                                           
 	}
 
 	/** 프리팹 객체를 설정한다 */
@@ -296,7 +298,7 @@ public static partial class CEditorSceneManager {
 			}
 		}
 	}
-	#endregion			// 클래스 함수
+#endregion          // 클래스 함수                   
 }
-#endif			// #if UNITY_EDITOR
-#endif			// #if SCRIPT_TEMPLATE_ONLY
+#endif          // #if UNITY_EDITOR                             
+#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
