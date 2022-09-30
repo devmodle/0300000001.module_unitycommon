@@ -10,7 +10,7 @@ using UnityEditor;
 
 #if UNITY_IOS
 using UnityEditor.iOS.Xcode;
-#endif          // #if UNITY_IOS                          
+#endif            // #if UNITY_IOS                          
 
 /** 에디터 상수 */
 public static partial class KEditorDefine {
@@ -18,7 +18,7 @@ public static partial class KEditorDefine {
 	// 유니티 패키지
 	public const string B_UNITY_PKGS_ID_FMT = "{0}@{1}";
 #endregion          // 기본               
-	
+
 #region 런타임 상수
 	// 스크립트 순서
 	public static readonly Dictionary<System.Type, int> B_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>() {
@@ -49,8 +49,8 @@ public static partial class KEditorDefine {
 
 #if STUDY_MODULE_ENABLE
 		[typeof(MenuScene.CSSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-#endif          // #if STUDY_MODULE_ENABLE                                    
-#endif          // #if SCENE_TEMPLATES_MODULE_ENABLE                                              
+#endif            // #if STUDY_MODULE_ENABLE                                    
+#endif            // #if SCENE_TEMPLATES_MODULE_ENABLE                                              
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		[typeof(CEtcInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
@@ -73,57 +73,57 @@ public static partial class KEditorDefine {
 		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		
+
 		[typeof(TitleScene.CSubTitleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(MainScene.CSubMainSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(GameScene.CSubGameSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(LoadingScene.CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
 		[typeof(OverlayScene.CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_OVERLAY_SCENE_MANAGER,
 		[typeof(TestScene.CSubTestSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		[typeof(LevelEditorScene.CSubLevelEditorSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE                                                                                           
+#endif           // #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE                                                                                           
 
 #if ADS_MODULE_ENABLE
 		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_O_ADS_CORRECTOR,
 		[typeof(CBannerAdsSizeCorrector)] = KCDefine.U_SCRIPT_O_ADS_CORRECTOR,
 		[typeof(CRewardAdsTouchInteractable)] = KCDefine.U_SCRIPT_O_ADS_INTERACTABLE,
-#endif          // #if ADS_MODULE_ENABLE                                  
+#endif           // #if ADS_MODULE_ENABLE                                  
 
 #if FLURRY_MODULE_ENABLE
 		[typeof(CFlurryManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif          // #if FLURRY_MODULE_ENABLE                                     
+#endif           // #if FLURRY_MODULE_ENABLE                                     
 
 #if FACEBOOK_MODULE_ENABLE
 		[typeof(CFacebookManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif          // #if FACEBOOK_MODULE_ENABLE                                       
+#endif           // #if FACEBOOK_MODULE_ENABLE                                       
 
 #if FIREBASE_MODULE_ENABLE
 		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif          // #if FIREBASE_MODULE_ENABLE                                       
+#endif           // #if FIREBASE_MODULE_ENABLE                                       
 
 #if APPS_FLYER_MODULE_ENABLE
 		[typeof(CAppsFlyerManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif          // #if APPS_FLYER_MODULE_ENABLE                                         
+#endif           // #if APPS_FLYER_MODULE_ENABLE                                         
 
 #if GAME_CENTER_MODULE_ENABLE
 		[typeof(CGameCenterManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif          // #if GAME_CENTER_MODULE_ENABLE                                          
+#endif           // #if GAME_CENTER_MODULE_ENABLE                                          
 
 #if PURCHASE_MODULE_ENABLE
 		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif           // #if PURCHASE_MODULE_ENABLE                                       
 
 #if NOTI_MODULE_ENABLE
 		[typeof(CNotiManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-#endif          // #if NOTI_MODULE_ENABLE                                   
+#endif           // #if NOTI_MODULE_ENABLE                                   
 
 #if PLAYFAB_MODULE_ENABLE
 		[typeof(CPlayfabManager)] = KCDefine.U_SCRIPT_O_SINGLETON
-#endif          // #if PLAYFAB_MODULE_ENABLE                                      
+#endif           // #if PLAYFAB_MODULE_ENABLE                                      
 	};
 
 	// 클래스 타입
@@ -139,7 +139,7 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_MENU] = typeof(MenuScene.CSSubMenuSceneManager),
 #endif          // #if STUDY_MODULE_ENABLE                                    
 #endif          // #if SCENE_TEMPLATES_MODULE_ENABLE                                              
-		
+
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_TITLE] = typeof(TitleScene.CSubTitleSceneManager),
 		[KCDefine.B_SCENE_N_MAIN] = typeof(MainScene.CSubMainSceneManager),
@@ -147,7 +147,7 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_LOADING] = typeof(LoadingScene.CSubLoadingSceneManager),
 		[KCDefine.B_SCENE_N_OVERLAY] = typeof(OverlayScene.CSubOverlaySceneManager),
 		[KCDefine.B_SCENE_N_TEST] = typeof(TestScene.CSubTestSceneManager),
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif           // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_LEVEL_EDITOR] = typeof(LevelEditorScene.CSubLevelEditorSceneManager)
@@ -162,7 +162,7 @@ public static partial class KEditorDefine {
 		["com.unity.mobile.android-logcat"] = "1.3.2",
 		["com.unity.editorcoroutines"] = "1.0.0",
 		["com.unity.formats.fbx"] = "4.1.2",
-		["com.unity.inputsystem"] = "1.4.2",
+		["com.unity.inputsystem"] = "1.4.3",
 		["com.unity.localization"] = "1.3.2",
 		["com.unity.performance.profile-analyzer"] = "1.1.1",
 		["com.unity.remote-config"] = "3.1.3",
@@ -178,64 +178,64 @@ public static partial class KEditorDefine {
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",
-#endif          // #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE                                                            
+#endif            // #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE                                                            
 
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 		["com.unity.cinemachine"] = "2.9.1",
 #endif          // #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE                                                                
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
-    	["com.unity.postprocessing"] = "3.2.2",
-#endif          // #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE                                                                        
+		["com.unity.postprocessing"] = "3.2.2",
+#endif           // #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE                                                                        
 
 #if ADS_ENABLE || ADS_MODULE_ENABLE
 		["module.unitycommonads"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads_client.git#2.8.0",
-#endif          // #if ADS_ENABLE || ADS_MODULE_ENABLE                                                
+#endif           // #if ADS_ENABLE || ADS_MODULE_ENABLE                                                
 
 #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
 		["module.unitycommonflurry"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonflurry_client.git#2.8.0",
-#endif          // #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE                                                      
+#endif           // #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE                                                      
 
 #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 		["module.unitycommonfacebook"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfacebook_client.git#2.8.0",
-#endif          // #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE                                                          
+#endif           // #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE                                                          
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 		["module.unitycommonfirebase"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfirebase_client.git#2.8.0",
-#endif          // #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE                                                          
+#endif           // #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE                                                          
 
 #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
 		["module.unitycommonappsflyer"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonappsflyer_client.git#2.8.0",
-#endif          // #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE                                                              
+#endif           // #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE                                                              
 
 #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 		["module.unitycommongamecenter"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommongamecenter_client.git#2.8.0",
-#endif          // #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE                                                                
+#endif           // #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE                                                                
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "4.4.1",
 		["module.unitycommonpurchase"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase_client.git#2.8.0",
-#endif          // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE                                                          
+#endif           // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE                                                          
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 		["com.unity.mobile.notifications"] = "2.0.2",
 		["module.unitycommonnoti"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnoti_client.git#2.8.0",
-#endif          // #if NOTI_ENABLE || NOTI_MODULE_ENABLE                                                  
+#endif           // #if NOTI_ENABLE || NOTI_MODULE_ENABLE                                                  
 
 #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
 		["module.unitycommonplayfab"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonplayfab_client.git#2.8.0"
-#endif          // #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE                                                        
-#endif          // #if SAMPLE_PROJ || DEVELOPMENT_PROJ                                                
+#endif           // #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE                                                        
+#endif           // #if SAMPLE_PROJ || DEVELOPMENT_PROJ                                                
 	};
 	// 유니티 패키지 }
-#endregion          // 런타임 상수                   
+#endregion            // 런타임 상수                   
 
 #region 조건부 상수
 #if UNITY_IOS
 	// 프로퍼티 속성
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
-#endif          // #if UNITY_IOS                          
-#endregion          // 조건부 상수                   
+#endif            // #if UNITY_IOS                          
+#endregion            // 조건부 상수                   
 
 #region 조건부 런타임 상수
 #if UNITY_IOS
@@ -384,22 +384,23 @@ public static partial class KEditorDefine {
 	public static readonly List<PBXCapabilityType> B_IOS_EXTRA_CAPABILITY_TYPE_LIST = new List<PBXCapabilityType>() {
 #if APPLE_LOGIN_ENABLE
 		PBXCapabilityType.SignInWithApple,
-#endif          // #if APPLE_LOGIN_ENABLE                                   
+#endif            // #if APPLE_LOGIN_ENABLE                                   
 
 #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
 		PBXCapabilityType.BackgroundModes, PBXCapabilityType.PushNotifications,
-#endif          // #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE                                                                    
+#endif            // #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE                                                                    
 
 #if GAME_CENTER_MODULE_ENABLE
 		PBXCapabilityType.GameCenter,
-#endif          // #if GAME_CENTER_MODULE_ENABLE                                          
+#endif            // #if GAME_CENTER_MODULE_ENABLE                                          
 
 #if PURCHASE_MODULE_ENABLE
 		PBXCapabilityType.InAppPurchase
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif            // #if PURCHASE_MODULE_ENABLE                                       
 	};
-#endif          // #if UNITY_IOS                          
-#endregion          // 조건부 런타임 상수                       
+#endif            // #if UNITY_IOS                          
+#endregion            // 조건부 런타임 상수                       
 }
-#endif          // #if UNITY_EDITOR                             
+#endif         // #if UNITY_EDITOR                             
+
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     
