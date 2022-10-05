@@ -12,7 +12,6 @@ namespace InitScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			BG_IMG,
 			SPLASH_IMG,
 			[HideInInspector] MAX_VAL
 		}
@@ -22,6 +21,10 @@ namespace InitScene {
 		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
 #endregion           // 변수               
 
+#region 프로퍼티
+		public override Color ClearColor => KDefine.IS_COLOR_CLEAR;
+#endregion           // 프로퍼티                 
+
 #region 함수
 		/** 초기화 */
 		public override void Awake() {
@@ -30,13 +33,8 @@ namespace InitScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 이미지를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-				(EKey.BG_IMG, $"{EKey.BG_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG)),
 				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
 			}, m_oImgDict);
-
-			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).color = KDefine.IS_COLOR_BG_IMG;
-			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).rectTransform.sizeDelta = CSceneManager.CanvasSize;
-			m_oImgDict.GetValueOrDefault(EKey.BG_IMG).gameObject.ExAddComponent<CSizeCorrector>().SetSizeRate(Vector3.one);
 
 			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).sprite = Resources.Load<Sprite>(KCDefine.U_TEX_P_SPLASH);
 			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, (this.ScreenHeight / KCDefine.B_VAL_2_REAL) / (KCDefine.B_VAL_2_REAL * KCDefine.B_UNIT_DIGITS_PER_TEN), KCDefine.B_VAL_0_REAL);
@@ -48,6 +46,7 @@ namespace InitScene {
 		/** 씬을 설정한다 */
 		protected override void Setup() {
 			base.Setup();
+			this.MainCamera.clearFlags = CameraClearFlags.SolidColor;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 테이블을 생성한다 {

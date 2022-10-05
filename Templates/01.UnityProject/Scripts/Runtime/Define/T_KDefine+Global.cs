@@ -261,12 +261,12 @@ public static partial class KDefine {
 public static partial class KDefine {
 #region 기본
 
-#endregion          // 기본               
+#endregion         // 기본               
 
 #region 런타임 상수
 	// 색상
-	public static readonly Color IS_COLOR_BG_IMG = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
-#endregion          // 런타임 상수                   
+	public static readonly Color IS_COLOR_CLEAR = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
+#endregion           // 런타임 상수                   
 }
 
 /** 시작 씬 상수 */
