@@ -441,26 +441,24 @@ public static partial class CCommonEditorSceneManager {
 
 		var oIsSetupOptsList = new List<bool>() {
 			oInputSettings.compensateForScreenOrientation,
-
 			oInputSettings.updateMode == InputSettings.UpdateMode.ProcessEventsInDynamicUpdate,
 			oInputSettings.editorInputBehaviorInPlayMode == InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus,
 
 #if UNITY_IOS
 			oInputSettings.iOS.motionUsage.enabled == CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion,
-			oInputSettings.iOS.motionUsage.usageDescription.Equals((CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_oInputSystemMotionDesc : string.Empty)
+			oInputSettings.iOS.motionUsage.usageDescription.Equals((CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc : string.Empty)
 #endif			// #if UNITY_IOS
 		};
 
 		// 설정 갱신이 필요 할 경우
 		if(oIsSetupOptsList.Contains(false)) {
 			oInputSettings.compensateForScreenOrientation = true;
-
 			oInputSettings.updateMode = InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;
 			oInputSettings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus;
 
 #if UNITY_IOS
 			oInputSettings.iOS.motionUsage.enabled = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion;
-			oInputSettings.iOS.motionUsage.usageDescription = (CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_oInputSystemMotionDesc : string.Empty;
+			oInputSettings.iOS.motionUsage.usageDescription = (CPlatformOptsSetter.OptsInfoTable != null) ? CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc : string.Empty;
 #endif          // #if UNITY_IOS                          
 		}
 	}
