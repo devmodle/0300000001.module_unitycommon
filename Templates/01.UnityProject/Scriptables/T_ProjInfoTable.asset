@@ -18,7 +18,7 @@ MonoBehaviour:
     m_oServicesURL: https://www.ninetap.com/terms_of_service.html
     m_oSupportsMail: cs@ninetap.com
   m_stCommonProjInfo:
-    m_oAppID: dante.distribution.sample
+    m_oAppID: lkstudio.dante.sample
     m_oProjName: 0300010101.Sample_Unity
     m_oProductName: Sample_Unity
     m_oShortProductName: Sample_Unity
