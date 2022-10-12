@@ -119,7 +119,7 @@ namespace InitScene {
 			};
 
 			long nTargetFrameRate = oTargetFrameInfoDict.ContainsKey(Application.platform) ? oTargetFrameInfoDict[Application.platform].Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
-			Application.targetFrameRate = (int)Mathf.Max(KCDefine.B_TARGET_FRAME_RATE, Mathf.Min(Screen.currentResolution.refreshRate, nTargetFrameRate));
+			Application.targetFrameRate = (int)System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, System.Math.Min(Screen.currentResolution.refreshRate, nTargetFrameRate));
 
 #if MULTI_TOUCH_ENABLE
 			Input.multiTouchEnabled = true;
