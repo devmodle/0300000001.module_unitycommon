@@ -76,7 +76,7 @@ public static partial class CBuildProcessor {
 			if(File.Exists(oPodsPath)) {
 				CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath), false);
 				
-				oPBXProj.SetBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
+				oPBXProj.SetBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_FALSE);
 				oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
 			}
 
@@ -124,8 +124,8 @@ public static partial class CBuildProcessor {
 			string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
 			string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
 
-			oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
-			oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_TRUE);
+			oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_FALSE);
+			oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_FALSE);
 
 			for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST.Count; ++i) {
 				oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
