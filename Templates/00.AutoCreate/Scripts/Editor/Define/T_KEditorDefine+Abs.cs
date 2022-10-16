@@ -157,25 +157,23 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본 {
+		["com.unity.2d.psdimporter"] = "6.0.6",
 		["com.unity.2d.sprite"] = "1.0.0",
 		["com.unity.2d.tilemap.extras"] = "3.0.2",
 		["com.unity.mobile.android-logcat"] = "1.3.2",
-		["com.unity.editorcoroutines"] = "1.0.0",
 		["com.unity.formats.fbx"] = "4.1.2",
 		["com.unity.inputsystem"] = "1.4.3",
+		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.localization"] = "1.3.2",
-		["com.unity.performance.profile-analyzer"] = "1.1.1",
+		["com.unity.polybrush"] = "1.1.3",
+		["com.unity.probuilder"] = "5.0.6",
 		["com.unity.remote-config"] = "3.1.3",
+		["com.unity.sequences"] = "1.1.0",
 		["com.unity.terrain-tools"] = "4.0.3",
 		["com.unity.render-pipelines.universal"] = "12.1.7",
 		["com.unity.visualeffectgraph"] = "12.1.7",
 
 #if SAMPLE_PROJ || DEVELOPMENT_PROJ
-		["com.unity.ads.ios-support"] = "1.0.0",
-		["com.unity.polybrush"] = "1.1.3",
-		["com.unity.probuilder"] = "5.0.6",
-		["com.unity.sequences"] = "1.1.0",
-
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",
 #endif            // #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE                                                            
@@ -402,5 +400,4 @@ public static partial class KEditorDefine {
 #endregion            // 조건부 런타임 상수                       
 }
 #endif         // #if UNITY_EDITOR                             
-
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     
