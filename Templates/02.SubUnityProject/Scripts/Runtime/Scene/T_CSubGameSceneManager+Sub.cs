@@ -216,7 +216,11 @@ namespace GameScene {
 
 		/** 씬을 설정한다 */
 		private void SubStartSetup() {
-			this.ExLateCallFunc((a_oSender) => { m_oEngine.SetEnableRunning(true); m_oEngine.SetState(NSEngine.CEngine.EState.PLAY); }, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
+			this.ExLateCallFunc((a_oSender) => {
+				m_oEngine.SetEnableRunning(true);
+				m_oEngine.SetState(NSEngine.CEngine.EState.PLAY);
+				m_oEngine.SelPlayerObj.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
+			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
 		}
 
 		/** UI 상태를 갱신한다 */
