@@ -12,7 +12,7 @@ using UnityEditor.SceneManagement;
 
 #if EDITOR_COROUTINE_ENABLE
 using Unity.EditorCoroutines.Editor;
-#endif         // #if EDITOR_COROUTINE_ENABLE                                        
+#endif         // #if EDITOR_COROUTINE_ENABLE
 
 /** 공용 에디터 씬 관리자 */
 [InitializeOnLoad]
