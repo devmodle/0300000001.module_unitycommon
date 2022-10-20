@@ -16,6 +16,11 @@ using UnityEditor.U2D;
 using UnityEditor.SceneTemplate;
 using UnityEditor.SceneManagement;
 
+#if ADAPTIVE_PERFORMANCE_ENABLE
+using UnityEditor.AdaptivePerformance.Editor;
+using UnityEditor.AdaptivePerformance.Simulator.Editor;
+#endif            // #if ADAPTIVE_PERFORMANCE_ENABLE                                            
+
 #if LOCALIZE_MODULE_ENABLE
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -376,6 +381,41 @@ public static partial class CCommonEditorSceneManager {
 	#endregion         // 클래스 함수                   
 
 	#region 클래스 조건부 함수
+#if ADAPTIVE_PERFORMANCE_ENABLE
+	/** 적응형 퍼포먼스를 설정한다 */
+	private static void SetupAdaptivePerformance() {
+		// 적응형 퍼포먼스 설정이 존재 할 경우
+		if(EditorBuildSettings.TryGetConfigObject<AdaptivePerformanceGeneralSettingsPerBuildTarget>(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_SETTINGS, out AdaptivePerformanceGeneralSettingsPerBuildTarget oPerformanceSettings)) {
+			var oIsSetupOptsList = new List<bool>() {
+				oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.iOS).InitManagerOnStart,
+				oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.Android).InitManagerOnStart,
+				oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.Standalone).InitManagerOnStart
+			};
+
+			// 설정 갱신이 필요 할 경우
+			if(oIsSetupOptsList.Contains(false)) {
+				oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.iOS).InitManagerOnStart = true;
+				oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.Android).InitManagerOnStart = true;
+				oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.Standalone).InitManagerOnStart = true;
+			}
+		}
+
+		// 적응형 퍼포먼스 제공자 설정이 존재 할 경우
+		if(EditorBuildSettings.TryGetConfigObject<SimulatorProviderSettings>(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_PROVIDER_SETTINGS, out SimulatorProviderSettings oProviderSettings)) {
+			var oIsSetupOptsList = new List<bool>() {
+				oProviderSettings.enableBoostOnStartup,
+				oProviderSettings.automaticPerformanceMode
+			};
+
+			// 설정 갱신이 필요 할 경우
+			if(oIsSetupOptsList.Contains(false)) {
+				oProviderSettings.enableBoostOnStartup = true;
+				oProviderSettings.automaticPerformanceMode = true;
+			}
+		}
+	}
+#endif         // ADAPTIVE_PERFORMANCE_ENABLE                                        
+
 #if LOCALIZE_MODULE_ENABLE
 	/** 지역화를 설정한다 */
 	private static void SetupLocalize() {
@@ -449,7 +489,7 @@ public static partial class CCommonEditorSceneManager {
 #if UNITY_IOS
 				oInputSettings.iOS.motionUsage.enabled == CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion,
 				oInputSettings.iOS.motionUsage.usageDescription.Equals(CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc)
-#endif			// #if UNITY_IOS
+#endif          // #if UNITY_IOS                          
 			};
 
 			// 설정 갱신이 필요 할 경우

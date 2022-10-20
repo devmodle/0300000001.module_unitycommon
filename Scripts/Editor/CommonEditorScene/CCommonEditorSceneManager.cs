@@ -124,6 +124,10 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupLightOpts();
 				CCommonEditorSceneManager.SetupLocalizeInfos();
 
+#if ADAPTIVE_PERFORMANCE_ENABLE
+				CCommonEditorSceneManager.SetupAdaptivePerformance();
+#endif           // #if ADAPTIVE_PERFORMANCE_ENABLE                                            
+
 #if LOCALIZE_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupLocalize();
 #endif         // #if LOCALIZE_MODULE_ENABLE                                       
