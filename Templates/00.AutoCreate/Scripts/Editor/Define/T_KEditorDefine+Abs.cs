@@ -157,21 +157,20 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본 {
-		["com.unity.2d.psdimporter"] = "6.0.6",
-		["com.unity.2d.sprite"] = "1.0.0",
-		["com.unity.2d.tilemap.extras"] = "3.0.2",
-		["com.unity.mobile.android-logcat"] = "1.3.2",
-		["com.unity.formats.fbx"] = "4.1.2",
+		["com.unity.feature.2d"] = "1.0.0",
+		["com.unity.feature.characters-animation"] = "1.0.0",
+		["com.unity.feature.cinematic"] = "1.0.0",
+		["com.unity.feature.development"] = "1.0.1",
+		["com.unity.feature.mobile"] = "1.0.0",
+		["com.unity.feature.worldbuilding"] = "1.0.1",
+
 		["com.unity.inputsystem"] = "1.4.3",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.localization"] = "1.3.2",
-		["com.unity.polybrush"] = "1.1.3",
-		["com.unity.probuilder"] = "5.0.6",
 		["com.unity.remote-config"] = "3.1.3",
-		["com.unity.sequences"] = "1.1.0",
-		["com.unity.terrain-tools"] = "4.0.3",
 		["com.unity.render-pipelines.universal"] = "12.1.7",
 		["com.unity.visualeffectgraph"] = "12.1.7",
+		["com.unity.adaptiveperformance.samsung.android"] = "4.0.1",
 
 #if SAMPLE_PROJ || DEVELOPMENT_PROJ
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
@@ -179,7 +178,7 @@ public static partial class KEditorDefine {
 #endif            // #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE                                                            
 
 #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
-		["com.unity.cinemachine"] = "2.9.1",
+		// Do Something
 #endif          // #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE                                                                
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
@@ -216,7 +215,6 @@ public static partial class KEditorDefine {
 #endif           // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE                                                          
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["com.unity.mobile.notifications"] = "2.0.2",
 		["module.unitycommonnoti"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnoti_client.git#2.8.2",
 #endif           // #if NOTI_ENABLE || NOTI_MODULE_ENABLE                                                  
 
