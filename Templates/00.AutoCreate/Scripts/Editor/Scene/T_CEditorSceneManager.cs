@@ -39,6 +39,10 @@ public static partial class CEditorSceneManager {
 	static CEditorSceneManager() {
 		// 플레이 모드가 아닐 경우
 		if(!EditorApplication.isPlaying) {
+			CEditorSceneManager.m_fUpdateSkipTime = Time.realtimeSinceStartup;
+			CEditorSceneManager.m_fDependencySkipTime = Time.realtimeSinceStartup;
+			CEditorSceneManager.m_fDefineSymbolSkipTime = Time.realtimeSinceStartup;
+
 			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
 			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_MENU_SAMPLE);
 			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
@@ -62,8 +66,6 @@ public static partial class CEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			CEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
-
 			// 상태 갱신이 가능 할 경우
 			if(CEditorSceneManager.m_bIsEnableSetup) {
 				Preferences.Tooltips.Value = false;
@@ -77,8 +79,8 @@ public static partial class CEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if(CEditorSceneManager.m_fUpdateSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
-				CEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
+			if((Time.realtimeSinceStartup - CEditorSceneManager.m_fUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+				CEditorSceneManager.m_fUpdateSkipTime = Time.realtimeSinceStartup;
 				CEditorSceneManager.SetupExtraPreloadAssets();
 
 				CFunc.EnumerateRootObjs((a_oObj) => {
@@ -123,7 +125,7 @@ public static partial class CEditorSceneManager {
 	/** 상태를 갱신한다 */
 	private static void LateUpdate() {
 		bool bIsEnableUpdate = CEditorAccess.IsEnableUpdateState && !CEditorSceneManager.m_oAddRequestList.ExIsValid();
-		CEditorSceneManager.m_fDefineSymbolSkipTime = bIsEnableUpdate ? CEditorSceneManager.m_fDefineSymbolSkipTime + Time.unscaledDeltaTime : KCDefine.B_VAL_0_REAL;
+		CEditorSceneManager.m_fDefineSymbolSkipTime = bIsEnableUpdate ? CEditorSceneManager.m_fDefineSymbolSkipTime : Time.realtimeSinceStartup;
 
 		for(int i = 0; i < CEditorSceneManager.m_oAddRequestList.Count; ++i) {
 			// 에러가 존재 할 경우
@@ -136,12 +138,12 @@ public static partial class CEditorSceneManager {
 		}
 
 		// 상태 갱신이 가능 할 경우
-		if(bIsEnableUpdate && CEditorSceneManager.m_fDefineSymbolSkipTime.ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+		if(bIsEnableUpdate && (Time.realtimeSinceStartup - CEditorSceneManager.m_fDefineSymbolSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
 			var oDefineSymbolInfoTable = CEditorFunc.FindAsset<CDefineSymbolInfoTable>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_INFO_TABLE);
 
 			// 전처리기 심볼 정보 테이블이 존재 할 경우
 			if(oDefineSymbolInfoTable != null) {
-				CEditorSceneManager.m_fDefineSymbolSkipTime = KCDefine.B_VAL_0_REAL;
+				CEditorSceneManager.m_fDefineSymbolSkipTime = Time.realtimeSinceStartup;
 
 				foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
 					var oDefineSymbolLists = new List<List<string>>() {
@@ -181,11 +183,10 @@ public static partial class CEditorSceneManager {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
 			bool bIsEnableSetup = CEditorSceneManager.m_bIsEnableSetupDependencies && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.Result != null && CEditorSceneManager.m_oListRequest.IsCompleted);
-			CEditorSceneManager.m_fDependencySkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
 
 			// 갱신 주기가 지났을 경우
-			if(bIsEnableSetup && CEditorSceneManager.m_fDependencySkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_SCENE_M_SCRIPT_UPDATE)) {
-				CEditorSceneManager.m_fDependencySkipTime = KCDefine.B_VAL_0_REAL;
+			if(bIsEnableSetup && (Time.realtimeSinceStartup - CEditorSceneManager.m_fDependencySkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+				CEditorSceneManager.m_fDependencySkipTime = Time.realtimeSinceStartup;
 				CEditorSceneManager.m_bIsEnableSetupDependencies = false;
 
 				try {

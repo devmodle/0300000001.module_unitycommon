@@ -77,6 +77,8 @@ public static partial class CCommonEditorSceneManager {
 			};
 			// GUI 스타일을 설정한다 }
 
+			CCommonEditorSceneManager.m_fUpdateSkipTime = Time.realtimeSinceStartup;
+
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_MENU_SAMPLE);
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
@@ -101,8 +103,6 @@ public static partial class CCommonEditorSceneManager {
 	private static void Update() {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			CCommonEditorSceneManager.m_fUpdateSkipTime += Mathf.Clamp01(Time.unscaledDeltaTime);
-
 			// 설정 가능 할 경우
 			if(CCommonEditorSceneManager.m_bIsEnableSetup) {
 				CCommonEditorSceneManager.m_bIsEnableSetup = false;
@@ -115,8 +115,8 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if(CCommonEditorSceneManager.m_fUpdateSkipTime.ExIsGreateEquals(KCEditorDefine.B_DELTA_T_EDITOR_SM_SCENE_UPDATE)) {
-				CCommonEditorSceneManager.m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
+			if((Time.realtimeSinceStartup - CCommonEditorSceneManager.m_fUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+				CCommonEditorSceneManager.m_fUpdateSkipTime = Time.realtimeSinceStartup;
 				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupTags();
