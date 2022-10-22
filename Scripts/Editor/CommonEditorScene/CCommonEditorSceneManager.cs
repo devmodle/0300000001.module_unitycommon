@@ -21,7 +21,7 @@ public static partial class CCommonEditorSceneManager {
 	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsEnableBuild = false;
 
-	private static float m_fUpdateSkipTime = 0.0f;
+	private static double m_dblUpdateSkipTime = 0.0;
 	private static System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
 
 	private static GUIStyle m_oTextGUIStyle = new GUIStyle() {
@@ -67,7 +67,6 @@ public static partial class CCommonEditorSceneManager {
 	static CCommonEditorSceneManager() {
 		// 플레이 모드가 아닐 경우
 		if(!EditorApplication.isPlaying) {
-			// GUI 스타일을 설정한다 {
 			CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState() {
 				textColor = KCEditorDefine.B_COLOR_HIERARCHY_TEXT
 			};
@@ -75,9 +74,8 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.m_oOutlineGUIStyle.normal = new GUIStyleState() {
 				textColor = KCEditorDefine.B_COLOR_HIERARCHY_OUTLINE
 			};
-			// GUI 스타일을 설정한다 }
 
-			CCommonEditorSceneManager.m_fUpdateSkipTime = Time.realtimeSinceStartup;
+			CCommonEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
 
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_MENU_SAMPLE);
@@ -115,8 +113,8 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if((Time.realtimeSinceStartup - CCommonEditorSceneManager.m_fUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
-				CCommonEditorSceneManager.m_fUpdateSkipTime = Time.realtimeSinceStartup;
+			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+				CCommonEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
 				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupTags();
