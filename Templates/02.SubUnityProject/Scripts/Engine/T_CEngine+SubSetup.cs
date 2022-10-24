@@ -35,7 +35,7 @@ namespace NSEngine {
 	public partial class CEngine : CComponent {
 #region 함수
 		/** 엔진을 설정한다 */
-		private void SubAwakeSetup() {
+		private void SubSetupAwake() {
 			// Do Something
 		}
 

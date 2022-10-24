@@ -18,7 +18,7 @@ namespace TestScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.AwakeSetup();
+				this.SetupAwake();
 			}
 		}
 
@@ -28,7 +28,7 @@ namespace TestScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.StartSetup();
+				this.SetupStart();
 				this.UpdateUIsState();
 			}
 		}
@@ -68,12 +68,12 @@ namespace TestScene {
 		}
 
 		/** 씬을 설정한다 */
-		private void AwakeSetup() {
+		private void SetupAwake() {
 			// Do Something
 		}
 
 		/** 씬을 설정한다 */
-		private void StartSetup() {
+		private void SetupStart() {
 			// Do Something
 		}
 		

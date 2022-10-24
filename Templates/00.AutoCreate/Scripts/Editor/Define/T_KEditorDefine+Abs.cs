@@ -172,7 +172,6 @@ public static partial class KEditorDefine {
 		["com.unity.visualeffectgraph"] = "12.1.7",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.1",
 
-#if SAMPLE_PROJ || DEVELOPMENT_PROJ || (STUDY_ENABLE || STUDY_MODULE_ENABLE)
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",
 #endif            // #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE                                                            
@@ -185,7 +184,11 @@ public static partial class KEditorDefine {
 		["com.unity.postprocessing"] = "3.2.2",
 #endif           // #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE                                                                        
 
-#if SAMPLE_PROJ || DEVELOPMENT_PROJ
+#if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
+		["com.unity.purchasing"] = "4.4.1",
+#endif           // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE                                                          
+
+#if DEVELOPMENT_PROJ
 #if ADS_ENABLE || ADS_MODULE_ENABLE
 		["module.unitycommonads"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads_client.git#2.8.2",
 #endif           // #if ADS_ENABLE || ADS_MODULE_ENABLE                                                
@@ -211,7 +214,6 @@ public static partial class KEditorDefine {
 #endif           // #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE                                                                
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.4.1",
 		["module.unitycommonpurchase"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase_client.git#2.8.2",
 #endif           // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE                                                          
 
@@ -222,8 +224,7 @@ public static partial class KEditorDefine {
 #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
 		["module.unitycommonplayfab"] = "https://studio%40ninetap.com:glpat-MVgJsJw488eXxUf3xMsa@gitlab.com/9tapmodule.repository/0300000001.module_unitycommonplayfab_client.git#2.8.2"
 #endif           // #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE                                                        
-#endif           // #if SAMPLE_PROJ || DEVELOPMENT_PROJ                                                
-#endif           // #if SAMPLE_PROJ || DEVELOPMENT_PROJ || (STUDY_ENABLE || STUDY_MODULE_ENABLE)
+#endif           // #if DEVELOPMENT_PROJ
 	};
 	// 유니티 패키지 }
 #endregion            // 런타임 상수                   

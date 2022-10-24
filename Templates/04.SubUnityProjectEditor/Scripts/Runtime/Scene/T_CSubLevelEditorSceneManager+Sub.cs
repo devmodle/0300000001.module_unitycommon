@@ -33,7 +33,7 @@ namespace LevelEditorScene {
 				}
 #endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 
-				this.AwakeSetup();
+				this.SetupAwake();
 			}
 		}
 		
@@ -47,13 +47,13 @@ namespace LevelEditorScene {
 				this.ExLateCallFunc((a_oSender) => this.UpdateUIsState(), KCDefine.U_DELAY_INIT);
 #endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 
-				this.StartSetup();
+				this.SetupStart();
 				CSndManager.Inst.StopBGSnd();
 			}
 		}
 
 		/** 씬을 설정한다 */
-		private void AwakeSetup() {
+		private void SetupAwake() {
 			this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
 
 			// 스프라이트를 설정한다
@@ -71,17 +71,17 @@ namespace LevelEditorScene {
 #endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 
 #region 추가
-			this.SubAwakeSetup();
+			this.SubSetupAwake();
 #endregion          // 추가               
 		}
 
 		/** 씬을 설정한다 */
-		private void StartSetup() {
+		private void SetupStart() {
 			// 스크롤 뷰를 설정한다
 			m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.gameObject.SetActive(true);
 
 #region 추가
-			this.SubStartSetup();
+			this.SubSetupStart();
 #endregion          // 추가               
 		}
 #endregion          // 함수               
@@ -426,12 +426,12 @@ namespace LevelEditorScene {
 
 #region 함수
 		/** 씬을 설정한다 */
-		private void SubAwakeSetup() {
+		private void SubSetupAwake() {
 			// Do Something
 		}
 
 		/** 씬을 설정한다 */
-		private void SubStartSetup() {
+		private void SubSetupStart() {
 			// Do Something
 		}
 #endregion          // 함수               

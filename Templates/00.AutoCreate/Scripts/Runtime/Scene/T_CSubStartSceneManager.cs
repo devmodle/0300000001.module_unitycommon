@@ -53,7 +53,7 @@ namespace StartScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				this.AwakeSetup();
+				this.SetupAwake();
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace StartScene {
 		}
 
 		/** 씬을 설정한다 */
-		private void AwakeSetup() {
+		private void SetupAwake() {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 객체를 설정한다 {
 			CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {

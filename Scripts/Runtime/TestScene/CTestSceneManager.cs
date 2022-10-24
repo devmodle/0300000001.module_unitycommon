@@ -34,7 +34,7 @@ namespace TestScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.AwakeSetup();
+				this.SetupAwake();
 			}
 		}
 
@@ -56,7 +56,7 @@ namespace TestScene {
 		}
 
 		/** 씬을 설정한다 */
-		private void AwakeSetup() {
+		private void SetupAwake() {
 			// 버튼을 설정한다 {
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>() {
 				(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.UpLeftUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)

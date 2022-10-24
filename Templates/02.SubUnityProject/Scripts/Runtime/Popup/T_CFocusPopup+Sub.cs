@@ -22,7 +22,7 @@ public partial class CFocusPopup : CSubPopup {
 		}, m_oImgDict);
 
 #region 추가
-		this.SubAwakeSetup();
+		this.SubSetupAwake();
 #endregion          // 추가               
 	}
 
@@ -71,7 +71,7 @@ public partial class CFocusPopup : CSubPopup {
 
 #region 함수
 	/** 팝업을 설정한다 */
-	private void SubAwakeSetup() {
+	private void SubSetupAwake() {
 		// Do Something
 	}
 

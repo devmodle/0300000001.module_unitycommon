@@ -22,7 +22,9 @@ namespace InitScene {
 #endregion           // 변수               
 
 #region 프로퍼티
+#if EXTRA_SCRIPT_MODULE_ENABLE
 		public override Color ClearColor => KDefine.IS_COLOR_CLEAR;
+#endif           // #if EXTRA_SCRIPT_MODULE_ENABLE                                           
 #endregion           // 프로퍼티                 
 
 #region 함수
@@ -80,7 +82,7 @@ namespace InitScene {
 			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).SetNativeSize();
 			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(true);
 
-			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.IS_DELAY_NEXT_SCENE_LOAD);
+			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.B_VAL_2_REAL);
 		}
 #endregion         // 함수               
 	}

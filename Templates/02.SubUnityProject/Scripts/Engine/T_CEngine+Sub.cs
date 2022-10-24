@@ -18,7 +18,7 @@ namespace NSEngine {
 			base.Awake();
 
 #region 추가
-			this.SubAwakeSetup();
+			this.SubSetupAwake();
 #endregion          // 추가               
 		}
 

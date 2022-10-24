@@ -28,7 +28,7 @@ public partial class CSettingsPopup : CSubPopup {
 		// 버튼을 설정한다 }
 
 #region 추가
-		this.SubAwakeSetup();
+		this.SubSetupAwake();
 #endregion          // 추가               
 	}
 	
@@ -89,7 +89,7 @@ public partial class CSettingsPopup : CSubPopup {
 
 #region 함수
 	/** 팝업을 설정한다 */
-	private void SubAwakeSetup() {
+	private void SubSetupAwake() {
 		// Do Something
 	}
 

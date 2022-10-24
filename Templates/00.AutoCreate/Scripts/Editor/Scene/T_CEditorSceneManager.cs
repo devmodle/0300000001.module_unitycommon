@@ -234,9 +234,9 @@ public static partial class CEditorSceneManager {
 				if(stKeyVal.Value.ExIsValidBuildVer()) {
 					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value)));
 				} else {
-#if !SAMPLE_PROJ && !STUDY_ENABLE && !STUDY_MODULE_ENABLE
+#if DEVELOPMENT_PROJ
 					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));
-#endif          // #if !SAMPLE_PROJ && !STUDY_ENABLE && !STUDY_MODULE_ENABLE
+#endif          // #if DEVELOPMENT_PROJ
 				}
 			}
 		}

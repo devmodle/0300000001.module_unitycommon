@@ -16,7 +16,7 @@ namespace OverlayScene {
 			
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.AwakeSetup();
+				this.SetupAwake();
 			}
 		}
 
@@ -26,13 +26,13 @@ namespace OverlayScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.StartSetup();
+				this.SetupStart();
 				this.UpdateUIsState();
 			}
 		}
 
 		/** 씬을 설정한다 */
-		private void AwakeSetup() {
+		private void SetupAwake() {
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 				(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.UIsBase)
@@ -44,14 +44,14 @@ namespace OverlayScene {
 			}, m_oBtnDict);
 
 #region 추가
-			this.SubAwakeSetup();
+			this.SubSetupAwake();
 #endregion          // 추가               
 		}
 
 		/** 씬을 설정한다 */
-		private void StartSetup() {
+		private void SetupStart() {
 #region 추가
-			this.SubStartSetup();
+			this.SubSetupStart();
 #endregion          // 추가               
 		}
 
@@ -90,12 +90,12 @@ namespace OverlayScene {
 
 #region 함수
 		/** 씬을 설정한다 */
-		private void SubAwakeSetup() {
+		private void SubSetupAwake() {
 			// Do Something
 		}
 
 		/** 씬을 설정한다 */
-		private void SubStartSetup() {
+		private void SubSetupStart() {
 			// Do Something
 		}
 

@@ -29,7 +29,7 @@ namespace LateSetupScene {
 			
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				this.AwakeSetup();
+				this.SetupAwake();
 
 #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 				CLateSetupSceneManager.SetPurchaseRemoveAds(CUserInfoStorage.Inst.IsPurchaseRemoveAds);
@@ -64,7 +64,7 @@ namespace LateSetupScene {
 		}
 
 		/** 씬을 설정한다 */
-		private void AwakeSetup() {
+		private void SetupAwake() {
 #if UNITY_EDITOR
 			// 유저 타입이 유효 할 경우
 			if(m_eUserType.ExIsValid()) {

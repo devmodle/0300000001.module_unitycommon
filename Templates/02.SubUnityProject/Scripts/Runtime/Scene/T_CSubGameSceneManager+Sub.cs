@@ -25,7 +25,7 @@ namespace GameScene {
 				}
 #endif          // #if DEBUG || DEVELOPMENT_BUILD                                           
 
-				this.AwakeSetup();
+				this.SetupAwake();
 			}
 		}
 		
@@ -35,7 +35,7 @@ namespace GameScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.StartSetup();
+				this.SetupStart();
 				this.UpdateUIsState();
 
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_GAME_01);
@@ -43,7 +43,7 @@ namespace GameScene {
 		}
 
 		/** 씬을 설정한다 */
-		private void AwakeSetup() {
+		private void SetupAwake() {
 			this.SetupEngine();
 			this.SetupRewardAdsUIs();
 
@@ -95,17 +95,17 @@ namespace GameScene {
 			// 스프라이트를 설정한다 }
 
 #region 추가
-			this.SubAwakeSetup();
+			this.SubSetupAwake();
 #endregion          // 추가               
 		}
 
 		/** 씬을 설정한다 */
-		private void StartSetup() {
+		private void SetupStart() {
 			this.ApplySelItems();
 			CGameInfoStorage.Inst.ResetSelItems();
 
 #region 추가
-			this.SubStartSetup();
+			this.SubSetupStart();
 #endregion          // 추가               
 		}
 
@@ -208,14 +208,14 @@ namespace GameScene {
 		}
 
 		/** 씬을 설정한다 */
-		private void SubAwakeSetup() {
+		private void SubSetupAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
-			this.SetupSubTestUIs();
+			this.SubSetupTestUIs();
 #endif          // #if DEBUG || DEVELOPMENT_BUILD                                           
 		}
 
 		/** 씬을 설정한다 */
-		private void SubStartSetup() {
+		private void SubSetupStart() {
 			this.ExLateCallFunc((a_oSender) => {
 				m_oEngine.SetEnableRunning(true);
 				m_oEngine.SetState(NSEngine.CEngine.EState.PLAY);
@@ -226,7 +226,7 @@ namespace GameScene {
 		/** UI 상태를 갱신한다 */
 		private void SubUpdateUIsState() {
 #if DEBUG || DEVELOPMENT_BUILD
-			this.UpdateSubTestUIsState();
+			this.SubUpdateTestUIsState();
 #endif          // #if DEBUG || DEVELOPMENT_BUILD                                           
 		}
 
@@ -270,13 +270,13 @@ namespace GameScene {
 #endif          // #if UNITY_EDITOR                             
 
 #if DEBUG || DEVELOPMENT_BUILD
-		/** 서브 테스트 UI 를 설정한다 */
-		private void SetupSubTestUIs() {
+		/** 테스트 UI 를 설정한다 */
+		private void SubSetupTestUIs() {
 			// Do Something
 		}
 
-		/** 서브 테스트 UI 상태를 갱신한다 */
-		private void UpdateSubTestUIsState() {
+		/** 테스트 UI 상태를 갱신한다 */
+		private void SubUpdateTestUIsState() {
 			// Do Something
 		}
 #endif          // #if DEBUG || DEVELOPMENT_BUILD                                           
