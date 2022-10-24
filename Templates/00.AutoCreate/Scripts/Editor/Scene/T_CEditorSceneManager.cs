@@ -232,12 +232,11 @@ public static partial class CEditorSceneManager {
 			if(!oPkgsInfoList.ExIsValidIdx(nIdx)) {
 				// 버전이 유효 할 경우
 				if(stKeyVal.Value.ExIsValidBuildVer()) {
-					string oID = string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value);
-					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(oID));
+					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value)));
 				} else {
-#if !SAMPLE_PROJ
+#if !SAMPLE_PROJ && !STUDY_ENABLE && !STUDY_MODULE_ENABLE
 					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));
-#endif          // #if !SAMPLE_PROJ                             
+#endif          // #if !SAMPLE_PROJ && !STUDY_ENABLE && !STUDY_MODULE_ENABLE
 				}
 			}
 		}
