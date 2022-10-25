@@ -88,7 +88,7 @@ namespace TitleScene {
 
 #region 추가
 			this.SubSetupAwake();
-#endregion          // 추가               
+#endregion         // 추가               
 		}
 
 		/** 씬을 설정한다 */
@@ -101,7 +101,7 @@ namespace TitleScene {
 
 #region 추가
 			this.SubSetupStart();
-#endregion          // 추가               
+#endregion         // 추가               
 		}
 
 		/** UI 상태를 갱신한다 */
@@ -122,22 +122,22 @@ namespace TitleScene {
 			// 버튼을 갱신한다 }
 
 #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO), this.OnLoadEtcInfoGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO), this.OnLoadMissionInfoGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO), this.OnLoadRewardInfoGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO), this.OnLoadResInfoGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO), this.OnLoadItemInfoGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO), this.OnLoadSkillInfoGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO), this.OnLoadObjInfoGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO), this.OnLoadAbilityInfoGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO), this.OnLoadProductInfoGoogleSheet);
-#endif          // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO), this.OnLoadGoogleSheet);
+#endif         // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 
 #region 추가
 			this.SubUpdateUIsState();
-#endregion          // 추가               
+#endregion         // 추가               
 		}
-#endregion          // 함수               
+#endregion         // 함수               
 	}
 
 	/** 서브 타이틀 씬 관리자 - 서브 */
@@ -154,25 +154,25 @@ namespace TitleScene {
 		private struct STSubTestUIs {
 			// Do Something
 		}
-#endif          // #if DEBUG || DEVELOPMENT_BUILD                                           
+#endif         // #if DEBUG || DEVELOPMENT_BUILD                                           
 
 #region 변수
 		/** =====> UI <===== */
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
-#endif          // #if DEBUG || DEVELOPMENT_BUILD                                           
-#endregion          // 변수               
+#endif         // #if DEBUG || DEVELOPMENT_BUILD                                           
+#endregion         // 변수               
 
 #region 프로퍼티
 
-#endregion          // 프로퍼티                 
+#endregion         // 프로퍼티                 
 
 #region 함수
 		/** 씬을 설정한다 */
 		private void SubSetupAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SubSetupTestUIs();
-#endif          // #if DEBUG || DEVELOPMENT_BUILD                                           
+#endif           // #if DEBUG || DEVELOPMENT_BUILD                                           
 		}
 
 		/** 씬을 설정한다 */
@@ -184,7 +184,7 @@ namespace TitleScene {
 		private void SubUpdateUIsState() {
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SubUpdateTestUIsState();
-#endif          // #if DEBUG || DEVELOPMENT_BUILD                                           
+#endif         // #if DEBUG || DEVELOPMENT_BUILD                                           
 		}
 
 		/** 터치 시작 이벤트를 처리한다 */
@@ -204,13 +204,14 @@ namespace TitleScene {
 				m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, true);
 
 #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-				Func.LoadVerInfoGoogleSheet(KDefine.G_ID_VER_INFO_GOOGLE_SHEET, m_oGoogleSheetHandlerDict, this.OnLoadVerInfoGoogleSheet);
+				string oKey = Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_VER_INFO);
+				Func.LoadVerInfoGoogleSheet(KDefine.G_ID_GOOGLE_SHEET_DICT.GetValueOrDefault(oKey), m_oGoogleSheetHandlerDict, this.OnLoadVerInfoGoogleSheet);
 #else
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-#endif          // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif            // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 			}
 		}
-#endregion          // 함수               
+#endregion         // 함수               
 
 #region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
@@ -225,6 +226,28 @@ namespace TitleScene {
 		}
 
 #if GOOGLE_SHEET_ENABLE
+		/** 구글 시트가 로드 되었을 경우 */
+		private void OnLoadGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				var oHandlerDict = new Dictionary<string, System.Action>() {
+					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = () => CEtcInfoTable.Inst.SaveEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = () => CMissionInfoTable.Inst.SaveMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = () => CRewardInfoTable.Inst.SaveRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = () => CResInfoTable.Inst.SaveResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = () => CItemInfoTable.Inst.SaveItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = () => CSkillInfoTable.Inst.SaveSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = () => CObjInfoTable.Inst.SaveObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = () => CAbilityInfoTable.Inst.SaveAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = () => CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString())
+				};
+
+				oHandlerDict.GetValueOrDefault(a_stGoogleSheetLoadInfo.m_oName)?.Invoke();
+			}
+
+			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
+		}
+
 		/** 구글 시트가 로드 되었을 경우 */
 		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
 			// 로드 되었을 경우
@@ -250,100 +273,10 @@ namespace TitleScene {
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
 		}
-		
-		/** 기타 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadEtcInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CEtcInfoTable.Inst.SaveEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 미션 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadMissionInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CMissionInfoTable.Inst.SaveMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 보상 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadRewardInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CRewardInfoTable.Inst.SaveRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 리소스 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadResInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CResInfoTable.Inst.SaveResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 아이템 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadItemInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CItemInfoTable.Inst.SaveItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 스킬 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadSkillInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CSkillInfoTable.Inst.SaveSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 객체 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadObjInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CObjInfoTable.Inst.SaveObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 어빌리티 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadAbilityInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CAbilityInfoTable.Inst.SaveAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 상품 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadProductInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-#endif          // #if GOOGLE_SHEET_ENABLE                                    
-#endif          // #if DEBUG || DEVELOPMENT_BUILD                                           
-#endregion          // 조건부 함수                   
+#endif         // #if GOOGLE_SHEET_ENABLE                                    
+#endif         // #if DEBUG || DEVELOPMENT_BUILD                                           
+#endregion         // 조건부 함수                   
 	}
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     

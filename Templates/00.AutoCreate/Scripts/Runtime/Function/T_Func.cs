@@ -1021,9 +1021,10 @@ public static partial class Func {
 				CServicesManager.Inst.LoadGoogleSheet(a_stGoogleSheetLoadInfo.m_oID, Func.m_oLoadGoogleSheetInfoList[KCDefine.B_VAL_0_INT].Item1, Func.OnLoadGoogleSheet, KCDefine.B_VAL_0_INT, Func.m_oLoadGoogleSheetInfoList[KCDefine.B_VAL_0_INT].Item2);
 			} else {
 				CIndicatorManager.Inst.Close();
+				var stResult = KDefine.G_ID_GOOGLE_SHEET_DICT.ExFindVal((a_oID) => a_stGoogleSheetLoadInfo.m_oID.Equals(a_oID));
 
 				Func.m_oGoogleSheetCallbackDict03.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEET)?.Invoke(a_oSender, new STGoogleSheetLoadInfo() {
-					m_nSrcIdx = KCDefine.B_VAL_0_INT, m_nNumCells = nOriginNumCells, m_oID = a_stGoogleSheetLoadInfo.m_oID, m_oName = string.Empty, m_oGoogleSheet = a_stGoogleSheetLoadInfo.m_oGoogleSheet
+					m_nSrcIdx = KCDefine.B_VAL_0_INT, m_nNumCells = nOriginNumCells, m_oID = a_stGoogleSheetLoadInfo.m_oID, m_oName = stResult.Item1 ? stResult.Item2 : string.Empty, m_oGoogleSheet = a_stGoogleSheetLoadInfo.m_oGoogleSheet
 				}, Func.m_oGoogleSheetJSONNodeDict, !SpreadsheetManager.IsError);
 			}
 		}

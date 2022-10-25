@@ -1,4 +1,4 @@
-﻿#if SCRIPT_TEMPLATE_ONLY
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,20 +59,8 @@ public static partial class KDefine {
 	public const float G_DURATION_SCALE_09 = 1.0f;
 	// 시간 }
 
-	// 식별자 {
+	// 식별자
 	public const int G_ID_COMMON_CHARACTER = byte.MaxValue;
-
-	public const string G_ID_VER_INFO_GOOGLE_SHEET = "1iZ4BmPSlmeSSYuEgunzjFYZYXjco0TNZRvdzs9KhCR0";
-	public const string G_ID_ETC_INFO_GOOGLE_SHEET = "1g-mjTYHZ6nH1F5KRChgvX8nxoYh9qERdl4xEgEYmSm8";
-	public const string G_ID_MISSION_INFO_GOOGLE_SHEET = "1hjD_76YkbNTWUXALjvH2g2P5X0m4fRq0giKCiDkfN6U";
-	public const string G_ID_REWARD_INFO_GOOGLE_SHEET = "1ja3glbQdaNO7uL_xNbLIozu8KKxAjBZn59BfKLnKAWg";
-	public const string G_ID_RES_INFO_GOOGLE_SHEET = "1HKak3yoptv5FcD-RwefGFnjKSGfUk7GO9htH22O_gPA";
-	public const string G_ID_ITEM_INFO_GOOGLE_SHEET = "1WU4K0uEnqWYW5egbIf3JJnSkIKF7zqLsh2_WuCqzcJI";
-	public const string G_ID_SKILL_INFO_GOOGLE_SHEET = "1mZQ-G92iBKJEo74RfJ-wx-nGGtOTJNAeNspKaQIZmgw";
-	public const string G_ID_OBJ_INFO_GOOGLE_SHEET = "17SADyLxjV82T2PImZPTutdhvwLbkaYklboNQhOjIZPo";
-	public const string G_ID_ABILITY_INFO_GOOGLE_SHEET = "15YV8CBGiRi5aUIJYk_pu_EA8nJt_7-3MmT2b-v3vRD4";
-	public const string G_ID_PRODUCT_INFO_GOOGLE_SHEET = "18OBRLyR88iEFLYoZatnXr-zwsiEAUCSxoFOykjA5xiY";
-	// 식별자 }
 #endregion          // 기본               
 
 #region 런타임 상수
@@ -100,7 +88,7 @@ public static partial class KDefine {
 	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
 
 	// 정렬 순서
-	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {		
+	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
 		m_nOrder = KCDefine.U_SORTING_O_OVERLAY_UIS, m_oLayer = KCDefine.U_SORTING_L_DEF
 	};
 
@@ -114,9 +102,24 @@ public static partial class KDefine {
 	};
 	// 분석 }
 
+	// 식별자
+	public static readonly Dictionary<string, string> G_ID_GOOGLE_SHEET_DICT = new Dictionary<string, string>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_VER_INFO)] = "11lBz0haEcQDRfOcxW-V-CbtD15Go_7Z22CA3qOTtGps",
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = "18LvXIUoIet_NT1m5SGyu-fAOoG0UAYVFjlE6rk7rULs",
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = "1dxG0mEGey9eBLC_uR-mu49FWfIXbLCKv3u7L_M0AESM",
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = "1Mp7yIcihpAHvALtGW394NyNF455YF4s41Mo0ZqBi8Ig",
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = "1OjqxK699MWTcQ0PqQ81EE3HA70aXVMjEJXzhL1ZacJM",
+
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = "18Fzoyyu6yg_FQY8nOi-DaCGqes37oxYuBLabYKOjpnI",
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = "1m00Mfx_KuxYYHnwYYerSakn3_dszKZHbMCdpVtAzPos",
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = "1qnJkf80sIwdJaTteymNrUDHSJ-p4162LT6_qvUYGYTY",
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = "1cxc5dC57Go_AMUD0crtHMWxDw5GjEASRrCU7ERKQxQE",
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = "1uqeDN-ZaAs3_UxWp93Ub_nEX5r1z7MNDHfwXE-IKB_w",
+	};
+
 	// 테이블 정보
 	public static readonly Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, List<string>>>)> G_TABLE_INFO_DICT_CONTAINER = new Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, List<string>>>)>() {
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = (KDefine.G_ID_ETC_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = (KDefine.G_ID_GOOGLE_SHEET_DICT[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)], new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CCalcInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.U_KEY_CALC }
 			},
@@ -136,25 +139,25 @@ public static partial class KDefine {
 			}
 		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = (KDefine.G_ID_MISSION_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = (KDefine.G_ID_GOOGLE_SHEET_DICT[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)], new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CMissionInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON }
 			}
 		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = (KDefine.G_ID_REWARD_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = (KDefine.G_ID_GOOGLE_SHEET_DICT[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)], new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CRewardInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON }
 			}
 		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = (KDefine.G_ID_RES_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = (KDefine.G_ID_GOOGLE_SHEET_DICT[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)], new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CResInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON }
 			}
 		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = (KDefine.G_ID_ITEM_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = (KDefine.G_ID_GOOGLE_SHEET_DICT[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)], new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CItemInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON },
 				[KCDefine.B_KEY_ENHANCE] = new List<string>() { KCDefine.B_KEY_ENHANCE },
@@ -163,7 +166,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = (KDefine.G_ID_SKILL_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = (KDefine.G_ID_GOOGLE_SHEET_DICT[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)], new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CSkillInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON },
 				[KCDefine.B_KEY_ENHANCE] = new List<string>() { KCDefine.B_KEY_ENHANCE },
@@ -172,7 +175,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = (KDefine.G_ID_OBJ_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = (KDefine.G_ID_GOOGLE_SHEET_DICT[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)], new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CObjInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON },
 				[KCDefine.B_KEY_ENHANCE] = new List<string>() { KCDefine.B_KEY_ENHANCE },
@@ -181,14 +184,14 @@ public static partial class KDefine {
 			}
 		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = (KDefine.G_ID_ABILITY_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = (KDefine.G_ID_GOOGLE_SHEET_DICT[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)], new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CAbilityInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON },
 				[KCDefine.B_KEY_ENHANCE] = new List<string>() { KCDefine.B_KEY_ENHANCE }
 			}
 		}),
 
-		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = (KDefine.G_ID_PRODUCT_INFO_GOOGLE_SHEET, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
+		[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = (KDefine.G_ID_GOOGLE_SHEET_DICT[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)], new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CProductTradeInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
 					KCDefine.B_KEY_COMMON, KCDefine.B_PLATFORM_N_IOS_APPLE, KCDefine.B_PLATFORM_N_ANDROID_GOOGLE, KCDefine.B_PLATFORM_N_ANDROID_AMAZON, KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
@@ -214,7 +217,7 @@ public static partial class KDefine {
 /** 시작 씬 상수 */
 public static partial class KDefine {
 #region 기본
-	
+
 #endregion          // 기본               
 
 #region 런타임 상수
@@ -248,14 +251,14 @@ public static partial class KDefine {
 /** 타이틀 씬 상수 */
 public static partial class KDefine {
 #region 기본
-	
+
 #endregion          // 기본               
 }
 
 /** 메인 씬 상수 */
 public static partial class KDefine {
 #region 기본
-	
+
 #endregion          // 기본               
 }
 
@@ -283,7 +286,7 @@ public static partial class KDefine {
 /** 중첩 씬 상수 */
 public static partial class KDefine {
 #region 기본
-	
+
 #endregion          // 기본               
 }
 #endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
