@@ -1,4 +1,4 @@
-﻿#if SCRIPT_TEMPLATE_ONLY
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,15 +10,15 @@ using UnityEngine.EventSystems;
 
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif           // #if PURCHASE_MODULE_ENABLE                                       
 
 #if PLAYFAB_MODULE_ENABLE
 using PlayFab.SharedModels;
-#endif          // #if PLAYFAB_MODULE_ENABLE                                      
+#endif           // #if PLAYFAB_MODULE_ENABLE                                      
 
 #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 using GoogleSheetsToUnity;
-#endif          // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif            // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 
 /** 기본 함수 */
 public static partial class Func {
@@ -29,7 +29,7 @@ public static partial class Func {
 #if ADS_MODULE_ENABLE
 		IS_WATCH_REWARD_ADS,
 		IS_WATCH_FULLSCREEN_ADS,
-#endif          // #if ADS_MODULE_ENABLE                                  
+#endif            // #if ADS_MODULE_ENABLE                                  
 
 		[HideInInspector] MAX_VAL
 	}
@@ -42,17 +42,17 @@ public static partial class Func {
 		SHOW_BANNER_ADS,
 		SHOW_REWARD_ADS,
 		SHOW_FULLSCREEN_ADS,
-#endif          // #if ADS_MODULE_ENABLE                                  
+#endif            // #if ADS_MODULE_ENABLE                                  
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 		APPLE_LOGIN,
 		APPLE_LOGOUT,
-#endif          // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif            // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
 
 #if FACEBOOK_MODULE_ENABLE
 		FACEBOOK_LOGIN,
 		FACEBOOK_LOGOUT,
-#endif          // #if FACEBOOK_MODULE_ENABLE                                       
+#endif            // #if FACEBOOK_MODULE_ENABLE                                       
 
 #if FIREBASE_MODULE_ENABLE
 		FIREBASE_LOGIN,
@@ -65,7 +65,7 @@ public static partial class Func {
 		SAVE_USER_INFO,
 		SAVE_TARGET_INFOS,
 		SAVE_PURCHASE_INFOS,
-#endif          // #if FIREBASE_MODULE_ENABLE                                       
+#endif            // #if FIREBASE_MODULE_ENABLE                                       
 
 #if GAME_CENTER_MODULE_ENABLE
 		GAME_CENTER_LOGIN,
@@ -73,23 +73,23 @@ public static partial class Func {
 
 		UPDATE_RECORD,
 		UPDATE_ACHIEVEMENT,
-#endif          // #if GAME_CENTER_MODULE_ENABLE                                          
+#endif            // #if GAME_CENTER_MODULE_ENABLE                                          
 
 #if PURCHASE_MODULE_ENABLE
 		PURCHASE,
 		RESTORE,
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif            // #if PURCHASE_MODULE_ENABLE                                       
 
 #if PLAYFAB_MODULE_ENABLE
 		PLAYFAB_LOGIN,
 		PLAYFAB_LOGOUT,
-#endif          // #if PLAYFAB_MODULE_ENABLE                                      
+#endif            // #if PLAYFAB_MODULE_ENABLE                                      
 
 #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		LOAD_GOOGLE_SHEET,
 		LOAD_GOOGLE_SHEETS,
 		LOAD_VER_INFO_GOOGLE_SHEET,
-#endif          // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif           // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 
 		[HideInInspector] MAX_VAL
 	}
@@ -101,39 +101,39 @@ public static partial class Func {
 	private static STAdsRewardInfo m_stAdsRewardInfo;
 	private static Dictionary<ECallback, System.Action<CAdsManager, bool>> m_oAdsCallbackDict01 = new Dictionary<ECallback, System.Action<CAdsManager, bool>>();
 	private static Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>> m_oAdsCallbackDict02 = new Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>();
-#endif          // #if ADS_MODULE_ENABLE                                  
+#endif         // #if ADS_MODULE_ENABLE                                  
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	private static Dictionary<ECallback, System.Action<CServicesManager>> m_oServicesCallbackDict01 = new Dictionary<ECallback, System.Action<CServicesManager>>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, bool>> m_oServicesCallbackDict02 = new Dictionary<ECallback, System.Action<CServicesManager, bool>>();
-#endif          // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif         // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
 
 #if FACEBOOK_MODULE_ENABLE
 	private static Dictionary<ECallback, System.Action<CFacebookManager>> m_oFacebookCallbackDict01 = new Dictionary<ECallback, System.Action<CFacebookManager>>();
 	private static Dictionary<ECallback, System.Action<CFacebookManager, bool>> m_oFacebookCallbackDict02 = new Dictionary<ECallback, System.Action<CFacebookManager, bool>>();
-#endif          // #if FACEBOOK_MODULE_ENABLE                                       
+#endif         // #if FACEBOOK_MODULE_ENABLE                                       
 
 #if FIREBASE_MODULE_ENABLE
 	private static Dictionary<ECallback, System.Action<CFirebaseManager>> m_oFirebaseCallbackDict01 = new Dictionary<ECallback, System.Action<CFirebaseManager>>();
 	private static Dictionary<ECallback, System.Action<CFirebaseManager, bool>> m_oFirebaseCallbackDict02 = new Dictionary<ECallback, System.Action<CFirebaseManager, bool>>();
 	private static Dictionary<ECallback, System.Action<CFirebaseManager, string, bool>> m_oFirebaseCallbackDict03 = new Dictionary<ECallback, System.Action<CFirebaseManager, string, bool>>();
-#endif          // #if FIREBASE_MODULE_ENABLE                                       
+#endif         // #if FIREBASE_MODULE_ENABLE                                       
 
 #if GAME_CENTER_MODULE_ENABLE
 	private static Dictionary<ECallback, System.Action<CGameCenterManager>> m_oGameCenterCallbackDict01 = new Dictionary<ECallback, System.Action<CGameCenterManager>>();
 	private static Dictionary<ECallback, System.Action<CGameCenterManager, bool>> m_oGameCenterCallbackDict02 = new Dictionary<ECallback, System.Action<CGameCenterManager, bool>>();
-#endif          // #if GAME_CENTER_MODULE_ENABLE                                          
+#endif         // #if GAME_CENTER_MODULE_ENABLE                                          
 
 #if PURCHASE_MODULE_ENABLE
 	private static Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDict01 = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
 	private static Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDict02 = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>();
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif         // #if PURCHASE_MODULE_ENABLE                                       
 
 #if PLAYFAB_MODULE_ENABLE
 	private static Dictionary<ECallback, System.Action<CPlayfabManager>> m_oPlayfabCallbackDict01 = new Dictionary<ECallback, System.Action<CPlayfabManager>>();
 	private static Dictionary<ECallback, System.Action<CPlayfabManager, bool>> m_oPlayfabCallbackDict02 = new Dictionary<ECallback, System.Action<CPlayfabManager, bool>>();
 	private static Dictionary<ECallback, System.Action<CPlayfabManager, PlayFabResultCommon, bool>> m_oPlayfabCallbackDict03 = new Dictionary<ECallback, System.Action<CPlayfabManager, PlayFabResultCommon, bool>>();
-#endif          // #if PLAYFAB_MODULE_ENABLE                                      
+#endif         // #if PLAYFAB_MODULE_ENABLE                                      
 
 #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	private static List<STGoogleSheetInfo> m_oGoogleSheetInfoList = new List<STGoogleSheetInfo>();
@@ -145,8 +145,8 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CServicesManager, bool>> m_oGoogleSheetCallbackDict01 = new Dictionary<ECallback, System.Action<CServicesManager, bool>>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, SimpleJSON.JSONNode, Dictionary<string, STGoogleSheetInfo>, bool>> m_oGoogleSheetCallbackDict02 = new Dictionary<ECallback, System.Action<CServicesManager, SimpleJSON.JSONNode, Dictionary<string, STGoogleSheetInfo>, bool>>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetCallbackDict03 = new Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
-#endif          // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
-#endregion          // 클래스 변수                   
+#endif            // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endregion            // 클래스 변수                   
 
 #region 클래스 함수
 	/** 문자열 테이블을 설정한다 */
@@ -157,7 +157,7 @@ public static partial class Func {
 	/** 문자열 테이블을 설정한다 */
 	public static void SetupStrTable(string a_oCountryCode, SystemLanguage a_eSystemLanguage, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oCountryCode.ExIsValid());
-		
+
 		// 국가 코드가 존재 할 경우
 		if(a_oCountryCode.ExIsValid()) {
 			CStrTable.Inst.LoadStrsFromRes(CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STR, a_oCountryCode, a_eSystemLanguage.ToString()));
@@ -229,7 +229,7 @@ public static partial class Func {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
 		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
 	}
-#endregion          // 클래스 함수                   
+#endregion         // 클래스 함수                   
 
 #region 제네릭 클래스 함수
 	/** 터치 전달자를 설정한다 */
@@ -279,7 +279,7 @@ public static partial class Func {
 			}
 		}
 	}
-#endregion          // 제네릭 클래스 함수                       
+#endregion         // 제네릭 클래스 함수                       
 
 #region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
@@ -394,7 +394,7 @@ public static partial class Func {
 		CAppInfoStorage.Inst.SaveAppInfo();
 		Func.m_oAdsCallbackDict01.GetValueOrDefault(ECallback.SHOW_FULLSCREEN_ADS)?.Invoke(a_oSender, Func.m_oBoolDict.GetValueOrDefault(EKey.IS_WATCH_FULLSCREEN_ADS));
 	}
-#endif          // #if ADS_MODULE_ENABLE                                  
+#endif         // #if ADS_MODULE_ENABLE                                  
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	/** 애플 로그인을 처리한다 */
@@ -424,7 +424,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Close();
 		Func.m_oServicesCallbackDict01.GetValueOrDefault(ECallback.APPLE_LOGOUT)?.Invoke(a_oSender);
 	}
-#endif          // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif         // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
 
 #if FACEBOOK_MODULE_ENABLE
 	/** 페이스 북 로그인을 처리한다 */
@@ -454,7 +454,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFacebookCallbackDict01.GetValueOrDefault(ECallback.FACEBOOK_LOGOUT)?.Invoke(a_oSender);
 	}
-#endif          // #if FACEBOOK_MODULE_ENABLE                                       
+#endif         // #if FACEBOOK_MODULE_ENABLE                                       
 
 #if FIREBASE_MODULE_ENABLE
 	/** 파이어 베이스 로그인을 처리한다 */
@@ -468,7 +468,7 @@ public static partial class Func {
 		Func.FacebookLogin(Func.OnFirebaseFacebookLogin);
 #else
 		CFirebaseManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnFirebaseLogin);
-#endif          // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif         // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
 	}
 
 	/** 파이어 베이스 로그아웃을 처리한다 */
@@ -482,7 +482,7 @@ public static partial class Func {
 		Func.FacebookLogout(Func.OnFirebaseFacebookLogout);
 #else
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
-#endif          // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif         // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
 	}
 
 	/** 유저 정보를 로드한다 */
@@ -558,7 +558,7 @@ public static partial class Func {
 				CFirebaseManager.Inst.SaveDatas(Factory.MakeTargetInfoNodes(), a_oTargetInfoDict.ExToJSONStr(true), Func.OnSaveTargetInfos);
 #else
 				Func.OnSaveTargetInfos(CFirebaseManager.Inst, false);
-#endif          // #if NEWTON_SOFT_JSON_MODULE_ENABLE                                               
+#endif         // #if NEWTON_SOFT_JSON_MODULE_ENABLE                                               
 			} else {
 				Func.OnSaveTargetInfos(CFirebaseManager.Inst, false);
 			}
@@ -580,7 +580,7 @@ public static partial class Func {
 				CFirebaseManager.Inst.SaveDatas(Factory.MakePurchaseInfoNodes(), a_oPurchaseInfoList.ExToJSONStr(true), Func.OnSavePurchaseInfos);
 #else
 				Func.OnSavePurchaseInfos(CFirebaseManager.Inst, false);
-#endif          // #if NEWTON_SOFT_JSON_MODULE_ENABLE                                               
+#endif         // #if NEWTON_SOFT_JSON_MODULE_ENABLE                                               
 			} else {
 				Func.OnSavePurchaseInfos(CFirebaseManager.Inst, false);
 			}
@@ -653,7 +653,7 @@ public static partial class Func {
 	private static void OnFirebaseAppleLogout(CServicesManager a_oSender) {
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 	}
-#endif          // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif         // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
 
 #if(UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
 	/** 페이스 북에 로그인 되었을 경우 */
@@ -673,8 +673,8 @@ public static partial class Func {
 	private static void OnFirebaseFacebookLogout(CFacebookManager a_oSender) {
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 	}
-#endif          // #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE                                                                       
-#endif          // #if FIREBASE_MODULE_ENABLE                                       
+#endif         // #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE                                                                       
+#endif         // #if FIREBASE_MODULE_ENABLE                                       
 
 #if GAME_CENTER_MODULE_ENABLE
 	/** 게임 센터 로그인을 처리한다 */
@@ -732,7 +732,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Close();
 		Func.m_oGameCenterCallbackDict02.GetValueOrDefault(ECallback.UPDATE_ACHIEVEMENT)?.Invoke(a_oSender, a_bIsSuccess);
 	}
-#endif          // #if GAME_CENTER_MODULE_ENABLE                                          
+#endif         // #if GAME_CENTER_MODULE_ENABLE                                          
 
 #if PURCHASE_MODULE_ENABLE
 	/** 상품을 결제한다 */
@@ -785,7 +785,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Close();
 		Func.m_oPurchaseCallbackDict02.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif         // #if PURCHASE_MODULE_ENABLE                                       
 
 #if PLAYFAB_MODULE_ENABLE
 	/** 플레이 팹 로그인을 처리한다 */
@@ -799,7 +799,7 @@ public static partial class Func {
 		Func.FacebookLogin(Func.OnPlayfabFacebookLogin);
 #else
 		CPlayfabManager.Inst.Login(CCommonAppInfoStorage.Inst.AppInfo.DeviceID, Func.OnPlayfabLogin);
-#endif          // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif         // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
 	}
 
 	/** 플레이 팹 로그아웃을 처리한다 */
@@ -813,7 +813,7 @@ public static partial class Func {
 		Func.FacebookLogout(Func.OnPlayfabFacebookLogout);
 #else
 		CPlayfabManager.Inst.Logout(Func.OnPlayfabLogout);
-#endif          // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif         // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
 	}
 
 	/** 플레이 팹에 로그인 되었을 경우 */
@@ -846,7 +846,7 @@ public static partial class Func {
 	private static void OnPlayfabAppleLogout(CServicesManager a_oSender) {
 		CPlayfabManager.Inst.Logout(Func.OnPlayfabLogout);
 	}
-#endif          // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif         // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
 
 #if(UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
 	/** 페이스 북에 로그인 되었을 경우 */
@@ -866,27 +866,14 @@ public static partial class Func {
 	private static void OnPlayfabFacebookLogout(CFacebookManager a_oSender) {
 		CPlayfabManager.Inst.Logout(Func.OnPlayfabLogout);
 	}
-#endif          // #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE                                                                       
-#endif          // #if PLAYFAB_MODULE_ENABLE                                      
+#endif         // #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE                                                                       
+#endif         // #if PLAYFAB_MODULE_ENABLE                                      
 
 #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-	/** 구글 시트 정보를 설정한다 */
-	public static void SetupGoogleSheetInfos(string a_oKey, string a_oGoogleSheetID, Dictionary<string, List<string>> a_oGoogleSheetInfoDictContainer, Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> a_oHandlerDict, Dictionary<string, STGoogleSheetInfo> a_oOutGoogleSheetInfoDict, int a_nMaxNumCells = KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKey.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid()));
-
-		// 구글 시트 정보 설정이 가능 할 경우
-		if(a_oKey.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid()) {
-			var stGoogleSheetInfo = a_oOutGoogleSheetInfoDict.ContainsKey(a_oKey) ? a_oOutGoogleSheetInfoDict[a_oKey] : new STGoogleSheetInfo(a_oGoogleSheetID);
-			stGoogleSheetInfo.m_oCallback = a_oHandlerDict?.GetValueOrDefault(a_oKey);
-
-			foreach(var stKeyVal in a_oGoogleSheetInfoDictContainer) {
-				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					stGoogleSheetInfo.m_oSheetInfoList.ExAddVal((stKeyVal.Value[i], a_nMaxNumCells));
-				}
-			}
-
-			a_oOutGoogleSheetInfoDict.ExReplaceVal(a_oKey, stGoogleSheetInfo);
-		}
+	/** 구글 시트 처리자를 설정한다 */
+	public static void SetupGoogleSheetHandlers(Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> a_oHandlerDict) {
+		Func.m_oGoogleSheetHandlerDict.Clear();
+		Func.m_oGoogleSheetHandlerDict.ExAddVals(a_oHandlerDict);
 	}
 
 	/** 구글 시트를 로드한다 */
@@ -925,17 +912,14 @@ public static partial class Func {
 
 	/** 버전 정보 구글 시트를 로드한다 */
 	public static void LoadVerInfoGoogleSheet(string a_oID, Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> a_oHandlerDict, System.Action<CServicesManager, SimpleJSON.JSONNode, Dictionary<string, STGoogleSheetInfo>, bool> a_oCallback) {
-		var oGoogleSheetInfoList = new List<(string, int)>() {
+		Func.SetupGoogleSheetHandlers(a_oHandlerDict);
+		Func.m_oGoogleSheetCallbackDict02.ExReplaceVal(ECallback.LOAD_VER_INFO_GOOGLE_SHEET, a_oCallback);
+
+		Func.LoadGoogleSheet(a_oID, new List<(string, int)>() {
 			($"{EUserType.A}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
 			($"{EUserType.B}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
 			(KCDefine.B_KEY_COMMON, KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS)
-		};
-
-		Func.m_oGoogleSheetHandlerDict.Clear();
-		Func.m_oGoogleSheetHandlerDict.ExAddVals(a_oHandlerDict);
-		Func.m_oGoogleSheetCallbackDict02.ExReplaceVal(ECallback.LOAD_VER_INFO_GOOGLE_SHEET, a_oCallback);
-
-		Func.LoadGoogleSheet(a_oID, oGoogleSheetInfoList, Func.OnLoadVerInfoGoogleSheet);
+		}, Func.OnLoadVerInfoGoogleSheet);
 	}
 
 	/** 버전 정보 구글 시트를 로드했을 경우 */
@@ -949,7 +933,7 @@ public static partial class Func {
 			oVerInfos = a_oJSONNodeInfoDict.ExToJSONNode()[(CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? $"{EUserType.B}" : $"{EUserType.A}"];
 #else
 			oVerInfos = a_oJSONNodeInfoDict.ExToJSONNode()[KCDefine.B_KEY_COMMON];
-#endif          // #if AB_TEST_ENABLE                               
+#endif         // #if AB_TEST_ENABLE                               
 
 			for(int i = 0; i < oVerInfos.Count; ++i) {
 				var oVer = CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME], KCDefine.U_VER_DEF);
@@ -957,13 +941,13 @@ public static partial class Func {
 				string oIsTrue01Key = string.Format(KCDefine.U_KEY_FMT_TRUE, KCDefine.B_VAL_1_INT);
 				string oIsTrue02Key = string.Format(KCDefine.U_KEY_FMT_TRUE, KCDefine.B_VAL_2_INT);
 				string oIsTrue03Key = string.Format(KCDefine.U_KEY_FMT_TRUE, KCDefine.B_VAL_3_INT);
-				
+
 				// 구글 시트 로드가 가능 할 경우
 				if(oVerInfos[i][oIsTrue01Key].AsInt != KCDefine.B_VAL_0_INT || oVer.CompareTo(System.Version.Parse(oVerInfos[i][KCDefine.U_KEY_VER])) < KCDefine.B_COMPARE_EQUALS) {
-					string oGoogleSheetID = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME]).Item1;
+					string oID = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME]).Item1;
 
 					foreach(var stKeyVal in KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME]).Item2) {
-						Func.SetupGoogleSheetInfos(oVerInfos[i][KCDefine.U_KEY_NAME], oGoogleSheetID, stKeyVal.Value, Func.m_oGoogleSheetHandlerDict, oGoogleSheetInfoDict);
+						Func.SetupGoogleSheetInfos(oID, oVerInfos[i][KCDefine.U_KEY_NAME], stKeyVal.Value, Func.m_oGoogleSheetHandlerDict, oGoogleSheetInfoDict);
 					}
 				}
 			}
@@ -986,6 +970,25 @@ public static partial class Func {
 		}
 
 		a_oOutJSONNode.Add(oJSONNode);
+	}
+
+	/** 구글 시트 정보를 설정한다 */
+	private static void SetupGoogleSheetInfos(string a_oID, string a_oName, Dictionary<string, List<string>> a_oGoogleSheetInfoDictContainer, Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> a_oHandlerDict, Dictionary<string, STGoogleSheetInfo> a_oOutGoogleSheetInfoDict, int a_nMaxNumCells = KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oName.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid()));
+
+		// 구글 시트 정보 설정이 가능 할 경우
+		if(a_oName.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid()) {
+			var stGoogleSheetInfo = a_oOutGoogleSheetInfoDict.ContainsKey(a_oName) ? a_oOutGoogleSheetInfoDict[a_oName] : new STGoogleSheetInfo(a_oID, a_oName);
+			stGoogleSheetInfo.m_oCallback = a_oHandlerDict?.GetValueOrDefault(a_oName);
+
+			foreach(var stKeyVal in a_oGoogleSheetInfoDictContainer) {
+				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
+					stGoogleSheetInfo.m_oSheetInfoList.ExAddVal((stKeyVal.Value[i], a_nMaxNumCells));
+				}
+			}
+
+			a_oOutGoogleSheetInfoDict.ExReplaceVal(a_oName, stGoogleSheetInfo);
+		}
 	}
 
 	/** 구글 시트를 로드했을 경우 */
@@ -1030,7 +1033,7 @@ public static partial class Func {
 	private static void OnLoadGoogleSheets(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 		Func.m_oGoogleSheetInfoList[KCDefine.B_VAL_0_INT].m_oCallback?.Invoke(a_oSender, a_stGoogleSheetLoadInfo, a_oJSONNodeInfoDict, a_bIsSuccess);
 		Func.m_oGoogleSheetInfoList.ExRemoveValAt(KCDefine.B_VAL_0_INT);
-		
+
 		// 구글 시트 로드가 완료 되었을 경우 */
 		if(!a_bIsSuccess || !Func.m_oGoogleSheetInfoList.ExIsValid()) {
 			Func.m_oGoogleSheetCallbackDict01.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEETS)?.Invoke(a_oSender, a_bIsSuccess && !Func.m_oGoogleSheetInfoList.ExIsValid());
@@ -1051,8 +1054,8 @@ public static partial class Func {
 
 		return oJSONArray;
 	}
-#endif          // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
-#endregion          // 조건부 클래스 함수                       
+#endif         // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endregion         // 조건부 클래스 함수                       
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     
