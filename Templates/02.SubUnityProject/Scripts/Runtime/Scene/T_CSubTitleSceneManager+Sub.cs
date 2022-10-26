@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.IO;
+using System.Linq;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
@@ -266,7 +267,7 @@ namespace TitleScene {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				m_oVerInfos = a_oVerInfos;
-				Func.LoadGoogleSheets(a_oGoogleSheetInfoDict.ExToList(), this.OnLoadGoogleSheets);
+				Func.LoadGoogleSheets(a_oGoogleSheetInfoDict.Values.ToList(), this.OnLoadGoogleSheets);
 			} else {
 				Func.ShowOnTableLoadFailPopup(null);
 			}

@@ -167,7 +167,6 @@ public static partial class KEditorDefine {
 		["com.unity.inputsystem"] = "1.4.3",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.localization"] = "1.3.2",
-		["com.unity.remote-config"] = "3.1.3",
 		["com.unity.render-pipelines.universal"] = "12.1.7",
 		["com.unity.visualeffectgraph"] = "12.1.7",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.1",
@@ -231,7 +230,7 @@ public static partial class KEditorDefine {
 
 #region 조건부 상수
 #if UNITY_IOS
-	// 프로퍼티 속성
+	// 텍스트
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif            // #if UNITY_IOS                          
 #endregion            // 조건부 상수                   
@@ -385,9 +384,9 @@ public static partial class KEditorDefine {
 		PBXCapabilityType.SignInWithApple,
 #endif            // #if APPLE_LOGIN_ENABLE                                   
 
-#if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE
+#if FIREBASE_MODULE_ENABLE && FIREBASE_MSG_ENABLE
 		PBXCapabilityType.BackgroundModes, PBXCapabilityType.PushNotifications,
-#endif            // #if FIREBASE_MODULE_ENABLE && FIREBASE_CLOUD_MSG_ENABLE                                                                    
+#endif            // #if FIREBASE_MODULE_ENABLE && FIREBASE_MSG_ENABLE                                                                    
 
 #if GAME_CENTER_MODULE_ENABLE
 		PBXCapabilityType.GameCenter,

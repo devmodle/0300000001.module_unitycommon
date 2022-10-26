@@ -394,7 +394,8 @@ public static partial class Func {
 			// 광고 제거 아이템 일 경우
 			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_NUMS && (EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
 #if ADS_MODULE_ENABLE
-				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
+				Func.CloseBannerAds(null);
+
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
 #endif         // #if ADS_MODULE_ENABLE                                  
@@ -587,10 +588,10 @@ public static partial class Func {
 				if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
 					int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
 					var stProductTradeInfo = CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(nIdx);
-					
+
 					Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stProductTradeInfo.m_oAcquireTargetInfoDict);
 					CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductList[i].definition.id);
-				}				
+				}
 			}
 
 			CCommonUserInfoStorage.Inst.SaveUserInfo();

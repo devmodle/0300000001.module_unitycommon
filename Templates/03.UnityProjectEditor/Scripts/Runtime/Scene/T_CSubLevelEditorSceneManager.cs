@@ -651,7 +651,7 @@ namespace LevelEditorScene {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				m_oVerInfos = a_oVerInfos;
-				Func.LoadGoogleSheets(a_oGoogleSheetInfoDict.ExToList(), this.OnLoadGoogleSheets);
+				Func.LoadGoogleSheets(a_oGoogleSheetInfoDict.Value.ToList(), this.OnLoadGoogleSheets);
 			} else {
 				Func.ShowOnTableLoadFailPopup(null);
 			}

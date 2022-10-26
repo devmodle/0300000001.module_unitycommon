@@ -300,13 +300,13 @@ public static partial class Func {
 	}
 
 	/** 배너 광고를 닫는다 */
-	public static void CloseBannerAds() {
-		Func.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
+	public static void CloseBannerAds(System.Action<CAdsManager, bool> a_oCallback) {
+		Func.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
 	}
 
 	/** 배너 광고를 닫는다 */
-	public static void CloseBannerAds(EAdsPlatform a_eAdsPlatform) {
-		CAdsManager.Inst.CloseBannerAds(a_eAdsPlatform);
+	public static void CloseBannerAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback) {
+		CAdsManager.Inst.CloseBannerAds(a_eAdsPlatform, a_oCallback);
 	}
 
 	/** 보상 광고를 출력한다 */
@@ -325,7 +325,7 @@ public static partial class Func {
 				Func.m_oBoolDict.ExReplaceVal(EKey.IS_WATCH_REWARD_ADS, false);
 				Func.m_oAdsCallbackDict02.ExReplaceVal(ECallback.SHOW_REWARD_ADS, a_oCallback);
 				
-				CAdsManager.Inst.ShowRewardAds(a_eAdsPlatform, Func.OnReceiveAdsReward, Func.OnCloseRewardAds);
+				CAdsManager.Inst.ShowRewardAds(a_eAdsPlatform, Func.OnReceiveAdsReward, null, Func.OnCloseRewardAds);
 			});
 		} else {
 			CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, STAdsRewardInfo.INVALID, false);
@@ -634,7 +634,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDict02.GetValueOrDefault(ECallback.SAVE_PURCHASE_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
 	}
-	
+
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	/** 애플에 로그인 되었을 경우 */
 	private static void OnFirebaseAppleLogin(CServicesManager a_oSender, bool a_bIsSuccess) {
@@ -744,13 +744,13 @@ public static partial class Func {
 	public static void PurchaseProduct(EProductKinds a_eProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
 		bool bIsValid = CProductTradeInfoTable.Inst.TryGetBuyProductTradeInfo(a_eProductKinds, out STProductTradeInfo stProductTradeInfo);
 		CAccess.Assert(!a_bIsEnableAssert || bIsValid);
-		
+
 		// 상품이 존재 할 경우
 		if(bIsValid) {
 			Func.PurchaseProduct(stProductTradeInfo.m_nProductIdx, a_oCallback, a_bIsEnableAssert);
 		}
 	}
-	
+
 	/** 상품을 결제한다 */
 	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oID.ExIsValid());
@@ -759,7 +759,7 @@ public static partial class Func {
 		if(a_oID.ExIsValid()) {
 			CIndicatorManager.Inst.Show();
 			Func.m_oPurchaseCallbackDict01.ExReplaceVal(ECallback.PURCHASE, a_oCallback);
-			
+
 			CPurchaseManager.Inst.PurchaseProduct(a_oID, Func.OnPurchaseProduct);
 		}
 	}
@@ -768,7 +768,7 @@ public static partial class Func {
 	public static void RestoreProducts(System.Action<CPurchaseManager, List<Product>, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
 		Func.m_oPurchaseCallbackDict02.ExReplaceVal(ECallback.RESTORE, a_oCallback);
-		
+
 		CPurchaseManager.Inst.RestoreProducts(Func.OnRestoreProducts);
 	}
 
@@ -872,8 +872,7 @@ public static partial class Func {
 #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트 처리자를 설정한다 */
 	public static void SetupGoogleSheetHandlers(Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> a_oHandlerDict) {
-		Func.m_oGoogleSheetHandlerDict.Clear();
-		Func.m_oGoogleSheetHandlerDict.ExAddVals(a_oHandlerDict);
+		a_oHandlerDict.ExCopyTo(Func.m_oGoogleSheetHandlerDict, (a_oHandler) => a_oHandler);
 	}
 
 	/** 구글 시트를 로드한다 */

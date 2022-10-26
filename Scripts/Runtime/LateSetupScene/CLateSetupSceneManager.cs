@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -329,6 +329,11 @@ namespace LateSetupScene {
 		/** 파이어 베이스 메세지 토큰을 수신했을 경우 */
 		private static void OnLoadFirebaseMsgToken(CFirebaseManager a_oSender, string a_oMsgToken, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnLoadFirebaseMsgToken: {a_oMsgToken}, {a_bIsSuccess}");
+		}
+
+		/** 파이어 베이스 기본 속성을 설정했을 경우 */
+		private static void OnSetupFirebaseDefConfigs(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+			CFunc.ShowLog($"CLateSetupSceneManager.OnSetupFirebaseDefConfigs: {a_bIsSuccess}");
 		}
 #endif         // #if FIREBASE_MODULE_ENABLE                                       
 

@@ -22,7 +22,7 @@ public partial class CSyncPopup : CSubPopup {
 
 	/** =====> 객체 <===== */
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-#endregion          // 변수               
+#endregion         // 변수               
 
 #region 함수
 	/** 팝업 컨텐츠를 설정한다 */
@@ -30,7 +30,7 @@ public partial class CSyncPopup : CSubPopup {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
-	
+
 	/** 로그인 버튼을 눌렀을 경우 */
 	private void OnTouchLoginBtn() {
 #if FIREBASE_MODULE_ENABLE
@@ -42,7 +42,7 @@ public partial class CSyncPopup : CSubPopup {
 	private void OnTouchLogoutBtn() {
 #if FIREBASE_MODULE_ENABLE
 		Func.FirebaseLogout(this.OnLogout);
-#endif          // #if FIREBASE_MODULE_ENABLE                                       
+#endif         // #if FIREBASE_MODULE_ENABLE                                       
 	}
 
 	/** 로드 버튼을 눌렀을 경우 */
@@ -70,7 +70,7 @@ public partial class CSyncPopup : CSubPopup {
 #endif          // #if FIREBASE_MODULE_ENABLE                                       
 		});
 	}
-#endregion          // 함수               
+#endregion         // 함수               
 
 #region 조건부 함수
 #if FIREBASE_MODULE_ENABLE
@@ -115,15 +115,16 @@ public partial class CSyncPopup : CSubPopup {
 #if ADS_MODULE_ENABLE
 			// 광고 제거 상품을 결제했을 경우
 			if(CUserInfoStorage.Inst.IsPurchaseRemoveAds) {
-				CAdsManager.Inst.CloseBannerAds(CPluginInfoTable.Inst.AdsPlatform);
+				Func.CloseBannerAds(null);
+
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
 			}
-#endif          // #if ADS_MODULE_ENABLE                                  
+#endif         // #if ADS_MODULE_ENABLE                                  
 		}
 
 		m_oBoolDict.ExReplaceVal(EKey.IS_LOAD_USER_INFO, a_bIsSuccess && a_oJSONStr.ExIsValid());
-		
+
 		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_oBoolDict.GetValueOrDefault(EKey.IS_LOAD_USER_INFO), this.OnReceiveLoadSuccessPopupResult);
 		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { a_oPopupSender.SetIgnoreNavStackEvent(m_oBoolDict.GetValueOrDefault(EKey.IS_LOAD_USER_INFO)); return true; });
 	}
@@ -146,13 +147,13 @@ public partial class CSyncPopup : CSubPopup {
 			this.ExLateCallFunc((a_oSender) => {
 				CScheduleManager.Inst.Reset();
 				CNavStackManager.Inst.Reset();
-				
+
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 			});
 		}
 	}
-#endif          // #if FIREBASE_MODULE_ENABLE                                       
-#endregion          // 조건부 함수                   
+#endif         // #if FIREBASE_MODULE_ENABLE                                       
+#endregion         // 조건부 함수                   
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     
