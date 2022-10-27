@@ -93,7 +93,6 @@ public struct STGoogleSheetInfo {
 	public string m_oID;
 	public string m_oName;
 	public List<(string, int)> m_oSheetInfoList;
-	public System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool> m_oCallback;
 
 #region 함수
 	/** 생성자 */
