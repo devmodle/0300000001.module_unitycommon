@@ -1,25 +1,24 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+
+#if UNITY_EDITOR
+using System.IO;
+using System.Linq;
 using UnityEngine.U2D;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using Unity.Linq;
-
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.U2D;
 using UnityEditor.SceneTemplate;
 using UnityEditor.SceneManagement;
+using Unity.Linq;
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
 using UnityEngine.AdaptivePerformance;
 using UnityEditor.AdaptivePerformance.Editor;
-using UnityEditor.AdaptivePerformance.Simulator.Editor;
 #endif            // #if ADAPTIVE_PERFORMANCE_ENABLE                                            
 
 #if LOCALIZE_MODULE_ENABLE
@@ -141,9 +140,9 @@ public static partial class CCommonEditorSceneManager {
 		if(stScene.IsValid() && !CCommonEditorSceneManager.m_oSampleSceneNameList.Contains(stScene.name) && CPlatformOptsSetter.OptsInfoTable != null) {
 			bool bIsValid01 = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			bool bIsValid02 = oLightingSettings != null && oLightingSettings.name.Equals(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);
-			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(Path.GetFileNameWithoutExtension(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty)));
+			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty).ExGetFileName(false));
 
-			var oResult = oLightingSettingsPathDict.ExFindVal((a_oLightingSettingsPath) => oLightingSettings != null && Path.GetFileNameWithoutExtension(a_oLightingSettingsPath).Equals(oLightingSettings.name));
+			var oResult = oLightingSettingsPathDict.ExFindVal((a_oLightingSettingsPath) => oLightingSettings != null && a_oLightingSettingsPath.ExGetFileName(false).Equals(oLightingSettings.name));
 
 			// 광원 설정이 없을 경우
 			if((!bIsValid01 || bIsValid02 || (bIsValid03 && oResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty), true)) {
@@ -189,7 +188,7 @@ public static partial class CCommonEditorSceneManager {
 		for(int i = 0; i < oPreloadAssetInfoListContainer.Count; ++i) {
 			for(int j = 0; j < oPreloadAssetInfoListContainer[i].Count; ++j) {
 				var oAsset = CEditorFunc.FindAsset<Object>(oPreloadAssetInfoListContainer[i][j].Item2);
-				oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && Path.GetFileNameWithoutExtension(oPreloadAssetInfoListContainer[i][j].Item2).Equals(a_oAsset.name));
+				oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oPreloadAssetInfoListContainer[i][j].Item2.ExGetFileName(false).Equals(a_oAsset.name));
 			}
 		}
 
@@ -316,7 +315,7 @@ public static partial class CCommonEditorSceneManager {
 	/** 스프라이트 아틀라스를 설정한다 */
 	private static void DoSetupSpriteAtlases(List<string> a_oDirPathList) {
 		for(int i = 0; i < a_oDirPathList.Count; ++i) {
-			int nIdx = KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(Path.GetFileNameWithoutExtension(a_oDirPathList[i])));
+			int nIdx = KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(a_oDirPathList[i].ExGetFileName(false)));
 
 			// 스프라이트 아틀라스 경로가 존재 할 경우
 			if(KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx)) {

@@ -283,7 +283,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		a_oOutBuySkillTradeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutSaleSkillTradeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Path.GetFileNameWithoutExtension(Access.SkillInfoTableLoadPath));
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Access.SkillInfoTableLoadPath.ExGetFileName(false));
 
 		// 공용 정보가 존재 할 경우
 		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {

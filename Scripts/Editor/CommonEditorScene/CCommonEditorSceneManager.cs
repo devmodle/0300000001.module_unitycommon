@@ -1,14 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using Unity.Linq;
 
 #if UNITY_EDITOR
+using System.IO;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 
 #if EDITOR_COROUTINE_ENABLE
 using Unity.EditorCoroutines.Editor;

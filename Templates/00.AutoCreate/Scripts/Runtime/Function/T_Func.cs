@@ -1,6 +1,7 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -16,9 +17,9 @@ using UnityEngine.Purchasing;
 using PlayFab.SharedModels;
 #endif           // #if PLAYFAB_MODULE_ENABLE                                      
 
-#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 using GoogleSheetsToUnity;
-#endif            // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif            // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 
 /** 기본 함수 */
 public static partial class Func {
@@ -85,11 +86,11 @@ public static partial class Func {
 		PLAYFAB_LOGOUT,
 #endif            // #if PLAYFAB_MODULE_ENABLE                                      
 
-#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 		LOAD_GOOGLE_SHEET,
 		LOAD_GOOGLE_SHEETS,
 		LOAD_VER_INFO_GOOGLE_SHEET,
-#endif           // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif           // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 
 		[HideInInspector] MAX_VAL
 	}
@@ -135,7 +136,7 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CPlayfabManager, PlayFabResultCommon, bool>> m_oPlayfabCallbackDict03 = new Dictionary<ECallback, System.Action<CPlayfabManager, PlayFabResultCommon, bool>>();
 #endif         // #if PLAYFAB_MODULE_ENABLE                                      
 
-#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	private static List<STGoogleSheetInfo> m_oGoogleSheetInfoList = new List<STGoogleSheetInfo>();
 	private static List<(string, int, int)> m_oLoadGoogleSheetInfoList = new List<(string, int, int)>();
 
@@ -145,7 +146,7 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CServicesManager, bool>> m_oGoogleSheetCallbackDict01 = new Dictionary<ECallback, System.Action<CServicesManager, bool>>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, SimpleJSON.JSONNode, Dictionary<string, STGoogleSheetInfo>, bool>> m_oGoogleSheetCallbackDict02 = new Dictionary<ECallback, System.Action<CServicesManager, SimpleJSON.JSONNode, Dictionary<string, STGoogleSheetInfo>, bool>>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetCallbackDict03 = new Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
-#endif            // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif            // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 #endregion            // 클래스 변수                   
 
 #region 클래스 함수
@@ -869,18 +870,14 @@ public static partial class Func {
 #endif         // #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE                                                                       
 #endif         // #if PLAYFAB_MODULE_ENABLE                                      
 
-#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드한다 */
 	public static void LoadGoogleSheet(string a_oID, List<(string, int)> a_oInfoList, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
+		a_oInfoList.ExCopyTo(Func.m_oLoadGoogleSheetInfoList, (a_stInfo) => (a_stInfo.Item1, a_stInfo.Item2, a_stInfo.Item2));
 
-		Func.m_oLoadGoogleSheetInfoList.Clear();
 		Func.m_oGoogleSheetJSONNodeDict.Clear();
 		Func.m_oGoogleSheetCallbackDict03.ExReplaceVal(ECallback.LOAD_GOOGLE_SHEET, a_oCallback);
-
-		for(int i = 0; i < a_oInfoList.Count; ++i) {
-			Func.m_oLoadGoogleSheetInfoList.ExAddVal((a_oInfoList[i].Item1, a_oInfoList[i].Item2, a_oInfoList[i].Item2));
-		}
 
 		// 정보가 존재 할 경우
 		if(a_oInfoList.ExIsValid()) {
@@ -910,9 +907,7 @@ public static partial class Func {
 		Func.m_oGoogleSheetCallbackDict02.ExReplaceVal(ECallback.LOAD_VER_INFO_GOOGLE_SHEET, a_oCallback);
 
 		Func.LoadGoogleSheet(a_oID, new List<(string, int)>() {
-			($"{EUserType.A}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS_AT_ONCE),
-			($"{EUserType.B}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS_AT_ONCE),
-			(KCDefine.B_KEY_COMMON, KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS_AT_ONCE)
+			($"{EUserType.A}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS), ($"{EUserType.B}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS), (KCDefine.B_KEY_COMMON, KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS)
 		}, Func.OnLoadVerInfoGoogleSheet);
 	}
 
@@ -933,7 +928,7 @@ public static partial class Func {
 	}
 
 	/** 구글 시트 정보를 설정한다 */
-	private static void SetupGoogleSheetInfos(string a_oID, string a_oName, Dictionary<string, List<string>> a_oGoogleSheetInfoDictContainer, Dictionary<string, STGoogleSheetInfo> a_oOutGoogleSheetInfoDict, int a_nMaxNumCells = KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS_AT_ONCE, bool a_bIsEnableAssert = true) {
+	private static void SetupGoogleSheetInfos(string a_oID, string a_oName, Dictionary<string, List<string>> a_oGoogleSheetInfoDictContainer, Dictionary<string, STGoogleSheetInfo> a_oOutGoogleSheetInfoDict, int a_nMaxNumCells = KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oName.ExIsValid() && a_oGoogleSheetInfoDictContainer.ExIsValid()));
 
 		// 구글 시트 정보 설정이 가능 할 경우
@@ -1048,7 +1043,7 @@ public static partial class Func {
 
 	/** JSON 배열을 생성한다 */
 	private static SimpleJSON.JSONNode MakeJSONArray(string a_oJSONStr) {
-		var oTokens = a_oJSONStr.Replace(KCDefine.B_TOKEN_SPACE, string.Empty).Split(KCDefine.B_TOKEN_COMMA);
+		var oTokens = Regex.Replace(a_oJSONStr, KCDefine.B_PATTERN_SPACE, string.Empty).Split(KCDefine.B_TOKEN_COMMA);
 		var oJSONArray = new SimpleJSON.JSONArray();
 
 		for(int i = 0; i < oTokens.Length; ++i) {
@@ -1057,7 +1052,7 @@ public static partial class Func {
 
 		return oJSONArray;
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 #endregion         // 조건부 클래스 함수                       
 }
 #endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     

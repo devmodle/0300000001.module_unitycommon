@@ -1,12 +1,12 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if UNITY_EDITOR && EXTRA_SCRIPT_MODULE_ENABLE
+using System.IO;
 using UnityEditor;
 
 /** 에디터 서브 전역 상수 */

@@ -281,7 +281,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		a_oOutBuyItemTradeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutSaleItemTradeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Path.GetFileNameWithoutExtension(Access.ItemInfoTableLoadPath));
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Access.ItemInfoTableLoadPath.ExGetFileName(false));
 
 		// 공용 정보가 존재 할 경우
 		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {

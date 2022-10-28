@@ -599,7 +599,7 @@ public static partial class Func {
 	}
 #endif         // #if PURCHASE_MODULE_ENABLE                                       
 
-#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드했을 경우 */
 	public static void OnLoadGoogleSheets(SimpleJSON.JSONNode a_oVerInfos) {
 		for(int i = 0; i < a_oVerInfos.Count; ++i) {
@@ -608,7 +608,7 @@ public static partial class Func {
 
 		CAppInfoStorage.Inst.SaveAppInfo();
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 #endregion         // 조건부 클래스 함수                       
 }
 

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-using System.IO;
 using System.Linq;
 using System.Globalization;
 using UnityEngine.EventSystems;
@@ -408,7 +407,7 @@ namespace LevelEditorScene {
 					break;
 					case ETableSrc.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
-						string oKey = Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_VER_INFO);
+						string oKey = KCDefine.U_TABLE_P_G_VER_INFO.ExGetFileName(false);
 						Func.LoadVerInfoGoogleSheet(KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(oKey).Item1, this.OnLoadVerInfoGoogleSheet);
 #endif            // #if GOOGLE_SHEET_ENABLE                                    
 					}

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-using System.IO;
 using System.Linq;
 using UnityEngine.EventSystems;
 using DG.Tweening;
@@ -122,17 +121,17 @@ namespace TitleScene {
 			}
 			// 버튼을 갱신한다 }
 
-#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO), this.OnLoadGoogleSheet);
-#endif         // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 
 #region 추가
 			this.SubUpdateUIsState();
@@ -204,12 +203,12 @@ namespace TitleScene {
 			if(!m_oBoolDict.GetValueOrDefault(EKey.IS_TOUCH) && CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
 				m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, true);
 
-#if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-				string oKey = Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_VER_INFO);
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+				string oKey = KCDefine.U_TABLE_P_G_VER_INFO.ExGetFileName(false);
 				Func.LoadVerInfoGoogleSheet(KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(oKey).Item1, this.OnLoadVerInfoGoogleSheet);
 #else
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-#endif            // #if GOOGLE_SHEET_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif            // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 			}
 		}
 #endregion         // 함수               
@@ -232,15 +231,15 @@ namespace TitleScene {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				var oHandlerDict = new Dictionary<string, System.Action>() {
-					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ETC_INFO)] = () => CEtcInfoTable.Inst.SaveEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_MISSION_INFO)] = () => CMissionInfoTable.Inst.SaveMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_REWARD_INFO)] = () => CRewardInfoTable.Inst.SaveRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_RES_INFO)] = () => CResInfoTable.Inst.SaveResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ITEM_INFO)] = () => CItemInfoTable.Inst.SaveItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_SKILL_INFO)] = () => CSkillInfoTable.Inst.SaveSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_OBJ_INFO)] = () => CObjInfoTable.Inst.SaveObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_ABILITY_INFO)] = () => CAbilityInfoTable.Inst.SaveAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[Path.GetFileNameWithoutExtension(KCDefine.U_TABLE_P_G_PRODUCT_INFO)] = () => CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString())
+					[KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false)] = () => CEtcInfoTable.Inst.SaveEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false)] = () => CMissionInfoTable.Inst.SaveMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false)] = () => CRewardInfoTable.Inst.SaveRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false)] = () => CResInfoTable.Inst.SaveResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false)] = () => CItemInfoTable.Inst.SaveItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false)] = () => CSkillInfoTable.Inst.SaveSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false)] = () => CObjInfoTable.Inst.SaveObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false)] = () => CAbilityInfoTable.Inst.SaveAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
+					[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)] = () => CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString())
 				};
 
 				oHandlerDict.GetValueOrDefault(a_stGoogleSheetLoadInfo.m_oName)?.Invoke();

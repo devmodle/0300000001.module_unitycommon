@@ -223,7 +223,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		a_oOutStageEpisodeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutChapterEpisodeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Path.GetFileNameWithoutExtension(Access.EpisodeInfoTableLoadPath));
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Access.EpisodeInfoTableLoadPath.ExGetFileName(false));
 
 		// 레벨 정보가 존재 할 경우
 		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.U_KEY_LEVEL_EPISODE)) {

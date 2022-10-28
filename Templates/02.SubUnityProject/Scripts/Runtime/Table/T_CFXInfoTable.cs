@@ -108,7 +108,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutFXInfosList) {
 		a_oOutFXInfosList = new List<SimpleJSON.JSONNode>();
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Path.GetFileNameWithoutExtension(Access.FXInfoTableLoadPath));
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Access.FXInfoTableLoadPath.ExGetFileName(false));
 
 		// 공용 정보가 존재 할 경우
 		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {

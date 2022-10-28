@@ -299,7 +299,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 		a_oOutBuyObjTradeInfosList = new List<SimpleJSON.JSONNode>();
 		a_oOutSaleObjTradeInfosList = new List<SimpleJSON.JSONNode>();
 
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Path.GetFileNameWithoutExtension(Access.ObjInfoTableLoadPath));
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(Access.ObjInfoTableLoadPath.ExGetFileName(false));
 
 		// 공용 정보가 존재 할 경우
 		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {
