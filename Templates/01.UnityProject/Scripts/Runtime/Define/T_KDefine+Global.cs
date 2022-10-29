@@ -159,34 +159,34 @@ public static partial class KDefine {
 		[KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false)] = (KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT[KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false)].Item1, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CItemInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON },
-				[KCDefine.B_KEY_ENHANCE] = new List<string>() { KCDefine.B_KEY_ENHANCE },
 				[KCDefine.B_KEY_BUY_TRADE] = new List<string>() { KCDefine.B_KEY_BUY_TRADE },
-				[KCDefine.B_KEY_SALE_TRADE] = new List<string>() { KCDefine.B_KEY_SALE_TRADE }
+				[KCDefine.B_KEY_SALE_TRADE] = new List<string>() { KCDefine.B_KEY_SALE_TRADE },
+				[KCDefine.B_KEY_ENHANCE_TRADE] = new List<string>() { KCDefine.B_KEY_ENHANCE_TRADE }
 			}
 		}),
 
 		[KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false)] = (KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT[KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false)].Item1, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CSkillInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON },
-				[KCDefine.B_KEY_ENHANCE] = new List<string>() { KCDefine.B_KEY_ENHANCE },
 				[KCDefine.B_KEY_BUY_TRADE] = new List<string>() { KCDefine.B_KEY_BUY_TRADE },
-				[KCDefine.B_KEY_SALE_TRADE] = new List<string>() { KCDefine.B_KEY_SALE_TRADE }
+				[KCDefine.B_KEY_SALE_TRADE] = new List<string>() { KCDefine.B_KEY_SALE_TRADE },
+				[KCDefine.B_KEY_ENHANCE_TRADE] = new List<string>() { KCDefine.B_KEY_ENHANCE_TRADE }
 			}
 		}),
 
 		[KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false)] = (KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT[KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false)].Item1, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CObjInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON },
-				[KCDefine.B_KEY_ENHANCE] = new List<string>() { KCDefine.B_KEY_ENHANCE },
 				[KCDefine.B_KEY_BUY_TRADE] = new List<string>() { KCDefine.B_KEY_BUY_TRADE },
-				[KCDefine.B_KEY_SALE_TRADE] = new List<string>() { KCDefine.B_KEY_SALE_TRADE }
+				[KCDefine.B_KEY_SALE_TRADE] = new List<string>() { KCDefine.B_KEY_SALE_TRADE },
+				[KCDefine.B_KEY_ENHANCE_TRADE] = new List<string>() { KCDefine.B_KEY_ENHANCE_TRADE }
 			}
 		}),
 
 		[KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false)] = (KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT[KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false)].Item1, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CAbilityInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.B_KEY_COMMON },
-				[KCDefine.B_KEY_ENHANCE] = new List<string>() { KCDefine.B_KEY_ENHANCE }
+				[KCDefine.B_KEY_ENHANCE_TRADE] = new List<string>() { KCDefine.B_KEY_ENHANCE_TRADE }
 			}
 		}),
 

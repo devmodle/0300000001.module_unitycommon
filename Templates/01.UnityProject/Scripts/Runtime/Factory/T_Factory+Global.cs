@@ -1,4 +1,4 @@
-﻿#if SCRIPT_TEMPLATE_ONLY
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +13,7 @@ public static partial class Factory {
 	public static ulong MakeUTargetInfoID(ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.B_UNIT_BITS_PER_BYTE)) | (uint)a_nKinds;
 	}
-	
+
 	/** 클리어 정보를 생성한다 */
 	public static CClearInfo MakeClearInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		var oClearInfo = new CClearInfo() {
@@ -89,6 +89,38 @@ public static partial class Factory {
 		return oCharacterUserInfo;
 	}
 
+	/** 값 정보를 생성한다 */
+	public static List<STValInfo> MakeValInfos(SimpleJSON.JSONNode a_oValInfos, string a_oFmt, int a_nNumValInfos = KDefine.G_MAX_NUM_VAL_INFOS) {
+		var oValInfoList = new List<STValInfo>();
+
+		for(int i = 0; i < a_nNumValInfos; ++i) {
+			var stValInfo = new STValInfo(a_oValInfos[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)]);
+
+			// 값 정보가 존재 할 경우
+			if(stValInfo.m_eValType.ExIsValid()) {
+				oValInfoList.ExAddVal(stValInfo);
+			}
+		}
+
+		return oValInfoList;
+	}
+
+	/** 타겟 정보를 생성한다 */
+	public static Dictionary<ulong, STTargetInfo> MakeTargetInfos(SimpleJSON.JSONNode a_oTargetInfos, string a_oFmt, int a_nNumTargetInfos = KDefine.G_MAX_NUM_TARGET_INFOS) {
+		var oTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
+
+		for(int i = 0; i < a_nNumTargetInfos; ++i) {
+			var stTargetInfo = new STTargetInfo(a_oTargetInfos[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)]);
+
+			// 타겟 정보가 존재 할 경우
+			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) {
+				oTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
+			}
+		}
+
+		return oTargetInfoDict;
+	}
+
 	/** 상품 교환 정보를 생성한다 */
 	public static Dictionary<EProductKinds, STProductTradeInfo> MakeProductTradeInfos(List<EProductKinds> a_oProductKindsList) {
 		var oBuyProductTradeInfoDict = new Dictionary<EProductKinds, STProductTradeInfo>();
@@ -106,77 +138,77 @@ public static partial class Factory {
 			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT))
 		};
 	}
-#endregion          // 클래스 함수                   
+#endregion         // 클래스 함수                   
 }
 
 /** 초기화 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
-	
-#endregion          // 클래스 함수                   
+
+#endregion         // 클래스 함수                   
 }
 
 /** 시작 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
 
-#endregion          // 클래스 함수                   
+#endregion         // 클래스 함수                   
 }
 
 /** 설정 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
 
-#endregion          // 클래스 함수                   
+#endregion         // 클래스 함수                   
 }
 
 /** 약관 동의 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
 
-#endregion          // 클래스 함수                   
+#endregion         // 클래스 함수                   
 }
 
 /** 지연 설정 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
 
-#endregion          // 클래스 함수                   
+#endregion         // 클래스 함수                   
 }
 
 /** 타이틀 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
-	
-#endregion          // 클래스 함수                   
+
+#endregion         // 클래스 함수                   
 }
 
 /** 메인 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
 
-#endregion          // 클래스 함수                   
+#endregion         // 클래스 함수                   
 }
 
 /** 게임 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
 
-#endregion          // 클래스 함수                   
+#endregion         // 클래스 함수                   
 }
 
 /** 로딩 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
 
-#endregion          // 클래스 함수                   
+#endregion         // 클래스 함수                   
 }
 
 /** 중첩 씬 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
-	
-#endregion          // 클래스 함수                   
+
+#endregion         // 클래스 함수                   
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     

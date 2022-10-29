@@ -345,7 +345,7 @@ public static partial class Func {
 
 		// 타겟 정보가 존재 할 경우
 		if(bIsValid && a_oTargetInfo != null) {
-			Func.DoPay(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stItemInfo.m_stCommonInfo.m_bIsTrue01, a_bIsEnableAssert);
+			Func.DoPay(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stItemInfo.m_stCommonInfo.m_bIsFlags01, a_bIsEnableAssert);
 		}
 	}
 
@@ -356,7 +356,7 @@ public static partial class Func {
 
 		// 타겟 정보가 존재 할 경우
 		if(bIsValid && a_oTargetInfo != null) {
-			Func.DoPay(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stSkillInfo.m_stCommonInfo.m_bIsTrue01, a_bIsEnableAssert);
+			Func.DoPay(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stSkillInfo.m_stCommonInfo.m_bIsFlags01, a_bIsEnableAssert);
 		}
 	}
 
@@ -367,7 +367,7 @@ public static partial class Func {
 
 		// 타겟 정보가 존재 할 경우
 		if(bIsValid && a_oTargetInfo != null) {
-			Func.DoPay(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stObjInfo.m_stCommonInfo.m_bIsTrue01, a_bIsEnableAssert);
+			Func.DoPay(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stObjInfo.m_stCommonInfo.m_bIsFlags01, a_bIsEnableAssert);
 		}
 	}
 
@@ -389,7 +389,7 @@ public static partial class Func {
 
 		// 타겟 정보가 존재 할 경우
 		if(bIsValid && a_oTargetInfo != null) {
-			Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stItemInfo.m_stCommonInfo.m_bIsTrue01, a_bIsEnableAssert);
+			Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stItemInfo.m_stCommonInfo.m_bIsFlags01, a_bIsEnableAssert);
 
 			// 광고 제거 아이템 일 경우
 			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_NUMS && (EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
@@ -410,7 +410,7 @@ public static partial class Func {
 
 		// 타겟 정보가 존재 할 경우
 		if(bIsValid && a_oTargetInfo != null) {
-			Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stSkikllInfo.m_stCommonInfo.m_bIsTrue01, a_bIsEnableAssert);
+			Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stSkikllInfo.m_stCommonInfo.m_bIsFlags01, a_bIsEnableAssert);
 		}
 	}
 
@@ -421,7 +421,7 @@ public static partial class Func {
 
 		// 타겟 정보가 존재 할 경우
 		if(bIsValid && a_oTargetInfo != null) {
-			Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stObjInfo.m_stCommonInfo.m_bIsTrue01, a_bIsEnableAssert);
+			Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stObjInfo.m_stCommonInfo.m_bIsFlags01, a_bIsEnableAssert);
 		}
 	}
 
@@ -607,6 +607,22 @@ public static partial class Func {
 		}
 
 		CAppInfoStorage.Inst.SaveAppInfo();
+	}
+
+	/** 값 정보를 설정한다 */
+	public static void SetupValInfos(List<STValInfo> a_oValInfoList, string a_oFmt, SimpleJSON.JSONNode a_oOutValInfos, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
+		for(int i = 0; i < a_oValInfoList.Count; ++i) {
+			a_oValInfoList[i].SetupValInfo(a_oOutValInfos[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)], a_nSrcIdx);
+		}
+	}
+
+	/** 타겟 정보를 설정한다 */
+	public static void SetupTargetInfos(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, string a_oFmt, SimpleJSON.JSONNode a_oOutTargetInfos, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
+		int nIdx = KCDefine.B_VAL_0_INT;
+
+		foreach(var stKeyVal in a_oTargetInfoDict) {
+			stKeyVal.Value.SetupTargetInfo(a_oOutTargetInfos[string.Format(a_oFmt, ++nIdx)], a_nSrcIdx);
+		}
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 #endregion         // 조건부 클래스 함수                       

@@ -309,9 +309,9 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 		}
 
 		// 강화 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_ENHANCE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE].Count; ++i) {
-				a_oOutObjEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE][i]]);
+		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_ENHANCE_TRADE)) {
+			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE].Count; ++i) {
+				a_oOutObjEnhanceInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE][i]]);
 			}
 		}
 

@@ -1023,12 +1023,12 @@ public static partial class Func {
 			for(int i = 0; i < oVerInfos.Count; ++i) {
 				var oVer = CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME], KCDefine.U_VER_DEF);
 
-				string oIsTrue01Key = string.Format(KCDefine.U_KEY_FMT_TRUE, KCDefine.B_VAL_1_INT);
-				string oIsTrue02Key = string.Format(KCDefine.U_KEY_FMT_TRUE, KCDefine.B_VAL_2_INT);
-				string oIsTrue03Key = string.Format(KCDefine.U_KEY_FMT_TRUE, KCDefine.B_VAL_3_INT);
+				string oFlags01Key = string.Format(KCDefine.U_KEY_FMT_FLAGS, KCDefine.B_VAL_1_INT);
+				string oFlags02Key = string.Format(KCDefine.U_KEY_FMT_FLAGS, KCDefine.B_VAL_2_INT);
+				string oFlags03Key = string.Format(KCDefine.U_KEY_FMT_FLAGS, KCDefine.B_VAL_3_INT);
 
 				// 구글 시트 로드가 가능 할 경우
-				if(oVerInfos[i][oIsTrue01Key].AsInt != KCDefine.B_VAL_0_INT || oVer.CompareTo(System.Version.Parse(oVerInfos[i][KCDefine.U_KEY_VER])) < KCDefine.B_COMPARE_EQUALS) {
+				if(oVerInfos[i][oFlags01Key].AsInt != KCDefine.B_VAL_0_INT || oVer.CompareTo(System.Version.Parse(oVerInfos[i][KCDefine.U_KEY_VER])) < KCDefine.B_COMPARE_EQUALS) {
 					string oID = KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME]).Item1;
 
 					foreach(var stKeyVal in KDefine.G_TABLE_INFO_DICT_CONTAINER.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME]).Item2) {

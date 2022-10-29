@@ -1,4 +1,4 @@
-﻿#if SCRIPT_TEMPLATE_ONLY
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace SetupScene {
 	public partial class CSubSetupSceneManager : CSetupSceneManager {
 #region 변수
 		[SerializeField] private SystemLanguage m_eSystemLanguage = SystemLanguage.Unknown;
-#endregion          // 변수               
+#endregion           // 변수               
 
 #region 함수
 		/** 씬을 설정한다 */
@@ -23,22 +23,18 @@ namespace SetupScene {
 			CAppInfoStorage.Inst.LoadAppInfo();
 			CUserInfoStorage.Inst.LoadUserInfo();
 			CGameInfoStorage.Inst.LoadGameInfo();
-			
+
 			// 테이블을 로드한다
 			CEtcInfoTable.Inst.LoadEtcInfos();
 			CLevelInfoTable.Inst.LoadLevelInfos();
 
-			CCalcInfoTable.Inst.LoadCalcInfos();
 			CMissionInfoTable.Inst.LoadMissionInfos();
 			CRewardInfoTable.Inst.LoadRewardInfos();
-			CEpisodeInfoTable.Inst.LoadEpisodeInfos();
-			CTutorialInfoTable.Inst.LoadTutorialInfos();
 			CResInfoTable.Inst.LoadResInfos();
 
 			CItemInfoTable.Inst.LoadItemInfos();
 			CSkillInfoTable.Inst.LoadSkillInfos();
 			CObjInfoTable.Inst.LoadObjInfos();
-			CFXInfoTable.Inst.LoadFXInfos();
 			CAbilityInfoTable.Inst.LoadAbilityInfos();
 			CProductTradeInfoTable.Inst.LoadProductTradeInfos();
 
@@ -53,17 +49,17 @@ namespace SetupScene {
 
 			// 공용 앱 정보를 설정한다 {
 			CCommonAppInfoStorage.Inst.SetStoreURL(Access.StoreURL);
-			
+
 #if LOCALIZE_TEST_ENABLE
 			CCommonAppInfoStorage.Inst.SetSystemLanguage(m_eSystemLanguage);
 #else
 			CCommonAppInfoStorage.Inst.SetSystemLanguage(Application.systemLanguage);
-#endif          // #if LOCALIZE_TEST_ENABLE                                     
+#endif         // #if LOCALIZE_TEST_ENABLE                                     
 			// 공용 앱 정보를 설정한다 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 		}
-#endregion          // 함수               
+#endregion         // 함수               
 	}
 }
-#endif          // #if SCENE_TEMPLATES_MODULE_ENABLE                                              
+#endif         // #if SCENE_TEMPLATES_MODULE_ENABLE                                              
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     

@@ -51,7 +51,7 @@ namespace NSEngine {
 			} else {
 				foreach(var stKeyVal in this.AbilityValDictWrapper.m_oDict02) {
 					decimal dmAbilityVal = this.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(stKeyVal.Key);
-					this.AbilityValDictWrapper.m_oDict01.ExReplaceVal(stKeyVal.Key, CAbilityInfoTable.Inst.GetAbilityInfo(stKeyVal.Key).m_stCommonInfo.m_bIsTrue01 ? System.Math.Min(dmAbilityVal, stKeyVal.Value) : stKeyVal.Value);
+					this.AbilityValDictWrapper.m_oDict01.ExReplaceVal(stKeyVal.Key, CAbilityInfoTable.Inst.GetAbilityInfo(stKeyVal.Key).m_stCommonInfo.m_bIsFlags01 ? System.Math.Min(dmAbilityVal, stKeyVal.Value) : stKeyVal.Value);
 				}
 			}
 		}
