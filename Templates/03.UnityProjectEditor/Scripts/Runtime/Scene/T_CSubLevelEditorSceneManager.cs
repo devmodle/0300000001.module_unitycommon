@@ -403,15 +403,16 @@ namespace LevelEditorScene {
 						CEpisodeInfoTable.Inst.LoadEpisodeInfos();
 
 						this.UpdateUIsState();
+						break;
 					}
-					break;
 					case ETableSrc.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
 						string oKey = KCDefine.U_TABLE_P_G_VER_INFO.ExGetFileName(false);
 						Func.LoadVerInfoGoogleSheet(KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(oKey).Item1, this.OnLoadVerInfoGoogleSheet);
 #endif            // #if GOOGLE_SHEET_ENABLE                                    
+
+						break;
 					}
-					break;
 				}
 			}
 		}

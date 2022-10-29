@@ -19,7 +19,7 @@ namespace NSEngine {
 
 #region 추가
 			this.SubSetupAwake();
-#endregion          // 추가               
+#endregion         // 추가               
 		}
 
 		/** 초기화 */
@@ -29,10 +29,10 @@ namespace NSEngine {
 			this.SetupEngine();
 			this.SetupLevel();
 			this.SetupGridLine();
-			
+
 #region 추가
 			this.SubInit();
-#endregion          // 추가               
+#endregion           // 추가               
 		}
 
 		/** 상태를 리셋한다 */
@@ -44,7 +44,7 @@ namespace NSEngine {
 			this.SubReset();
 #endregion          // 추가               
 		}
-#endregion          // 함수               
+#endregion         // 함수               
 	}
 
 	/** 서브 엔진 */
@@ -76,8 +76,8 @@ namespace NSEngine {
 
 		public int SelPlayerObjIdx => m_oSubIntDict.GetValueOrDefault(ESubKey.SEL_PLAYER_OBJ_IDX);
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
-#endregion          // 프로퍼티                 
-		
+#endregion            // 프로퍼티                 
+
 #region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
@@ -132,7 +132,7 @@ namespace NSEngine {
 		public void MovePlayerObj(Vector3 a_stVal, EVecType a_eVecType = EVecType.DIRECTION) {
 			this.SelPlayerObj.GetController<CEPlayerObjController>().Move(a_stVal, a_eVecType);
 		}
-		
+
 		/** 플레이어 객체 스킬을 적용한다 */
 		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
 			var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds);
@@ -167,9 +167,11 @@ namespace NSEngine {
 		/** 엔진 객체 이벤트를 수신했을 경우 */
 		private void OnReceiveEObjEvent(CEObjComponent a_oSender, EEngineObjEvent a_eEvent, string a_oParams) {
 			switch(a_eEvent) {
-				case EEngineObjEvent.AVOID: case EEngineObjEvent.DAMAGE: case EEngineObjEvent.CRITICAL_DAMAGE: {
-					// Do Something
-				} break;
+				case EEngineObjEvent.AVOID:
+				case EEngineObjEvent.DAMAGE:
+				case EEngineObjEvent.CRITICAL_DAMAGE: {
+					break;
+				}
 			}
 
 			// 체력이 없을 경우
@@ -179,15 +181,15 @@ namespace NSEngine {
 					this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
 				} else {
 					var oAcquireTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
-					
+
 					try {
 						this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
 						this.Params.m_oCallbackDict02.GetValueOrDefault(ECallback.ACQUIRE)?.Invoke(this, oAcquireTargetInfoDict);
 						global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, this.SelPlayerObj.Params.m_oObjTargetInfo, true);
-						
+
 						var stObjEnhanceInfo = CObjInfoTable.Inst.GetObjEnhanceInfo(this.SelPlayerObj.Params.m_stObjInfo.m_eObjKinds);
 						var stSkipTargetValInfo = this.SelPlayerObj.Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetSkipTargetValInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, (int)this.SelPlayerObj.Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), stObjEnhanceInfo.m_oPayTargetInfoDict);
-						
+
 						foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict) {
 							bool bIsValid = stKeyVal.Value.TargetType == ETargetType.ITEM && (a_oSender as CEItem != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEItem).Params.m_stItemInfo.m_eItemKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType);
 
@@ -196,7 +198,7 @@ namespace NSEngine {
 								m_oClearTargetInfoDict.ExIncrTargetVal(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, -KCDefine.B_VAL_1_INT);
 							}
 						}
-						
+
 						// 플레이어 객체 레벨 강화가 가능 할 경우
 						if(stSkipTargetValInfo.Item1 >= stSkipTargetValInfo.Item3) {
 							global::Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stObjEnhanceInfo.m_oPayTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
@@ -231,7 +233,7 @@ namespace NSEngine {
 			CFunc.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
 
 			// 실행 중 일 경우
-			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {			
+			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
 				var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
 				try {
@@ -286,7 +288,7 @@ namespace NSEngine {
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
-#endregion          // 함수               
+#endregion         // 함수               
 
 #region 조건부 함수
 #if UNITY_EDITOR
@@ -297,9 +299,9 @@ namespace NSEngine {
 				// Do Something
 			}
 		}
-#endif          // #if UNITY_EDITOR                             
-#endregion          // 조건부 함수                   
+#endif         // #if UNITY_EDITOR                             
+#endregion         // 조건부 함수                   
 	}
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     
