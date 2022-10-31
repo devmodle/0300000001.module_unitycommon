@@ -146,12 +146,15 @@ public static partial class Factory {
 		var oValList = new List<T>();
 
 		for(int i = 0; i < a_nNumVals; ++i) {
-			oValList.ExAddVal(a_oCallback(a_oVals[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)]));
+			// 값이 존재 할 경우
+			if(a_oVals[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)].ExIsValid()) {
+				oValList.ExAddVal(a_oCallback(a_oVals[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)]));
+			}
 		}
 
 		return oValList;
 	}
-#endregion          // 제네릭 클래스 함수                       
+#endregion         // 제네릭 클래스 함수                       
 }
 
 /** 초기화 씬 팩토리 */
