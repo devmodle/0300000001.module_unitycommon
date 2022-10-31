@@ -24,12 +24,12 @@ public struct STTutorialInfo {
 	public static STTutorialInfo INVALID = new STTutorialInfo() {
 		m_eTutorialKinds = ETutorialKinds.NONE, m_ePrevTutorialKinds = ETutorialKinds.NONE, m_eNextTutorialKinds = ETutorialKinds.NONE
 	};
-#endregion          // 상수               
+#endregion            // 상수               
 
 #region 프로퍼티
 	public ETutorialType TutorialType => (ETutorialType)((int)m_eTutorialKinds).ExKindsToType();
 	public ETutorialKinds BaseTutorialKinds => (ETutorialKinds)((int)m_eTutorialKinds).ExKindsToSubKindsType();
-#endregion          // 프로퍼티                 
+#endregion           // 프로퍼티                 
 
 #region 함수
 	/** 생성자 */
@@ -40,27 +40,33 @@ public struct STTutorialInfo {
 		m_ePrevTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
 		m_eNextTutorialKinds = a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)a_oTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
 
-		m_oStrList = new List<string>();
-		m_oRewardKindsList = new List<ERewardKinds>();
-
-		for(int i = 0; i < KDefine.G_MAX_NUM_TUTORIAL_STRS; ++i) {
-			string oKey = string.Format(KCDefine.U_KEY_FMT_STRS, i + KCDefine.B_VAL_1_INT);
-			if(a_oTutorialInfo[oKey].ExIsValid()) { m_oStrList.Add(a_oTutorialInfo[oKey]); }
-		}
-
-		for(int i = 0; i < KDefine.G_MAX_NUM_REWARD_KINDS; ++i) {
-			string oKey = string.Format(KCDefine.U_KEY_FMT_REWARD_KINDS, i + KCDefine.B_VAL_1_INT);
-			if(a_oTutorialInfo[oKey].ExIsValid()) { m_oRewardKindsList.ExAddVal((ERewardKinds)a_oTutorialInfo[oKey].AsInt); }
-		}
+		m_oStrList = Factory.MakeVals(a_oTutorialInfo, KCDefine.U_KEY_FMT_STRS, (a_oJSONNode) => a_oJSONNode.Value);
+		m_oRewardKindsList = Factory.MakeVals(a_oTutorialInfo, KCDefine.U_KEY_FMT_REWARD_KINDS, (a_oJSONNode) => (ERewardKinds)a_oJSONNode.AsInt);
 	}
-#endregion          // 함수               
+#endregion         // 함수               
+
+#region 조건부 함수
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 튜토리얼 정보를 저장한다 */
+	public void SaveTutorialInfo(SimpleJSON.JSONNode a_oOutTutorialInfo) {
+		m_stCommonInfo.SaveCommonInfo(a_oOutTutorialInfo);
+
+		a_oOutTutorialInfo[KCDefine.U_KEY_TUTORIAL_KINDS] = $"{(int)m_eTutorialKinds}";
+		a_oOutTutorialInfo[KCDefine.U_KEY_PREV_TUTORIAL_KINDS] = $"{(int)m_ePrevTutorialKinds}";
+		a_oOutTutorialInfo[KCDefine.U_KEY_NEXT_TUTORIAL_KINDS] = $"{(int)m_eNextTutorialKinds}";
+
+		Func.SaveVals(m_oStrList, KCDefine.U_KEY_FMT_STRS, (a_oStr) => a_oStr, a_oOutTutorialInfo);
+		Func.SaveVals(m_oRewardKindsList, KCDefine.U_KEY_FMT_REWARD_KINDS, (a_eRewardKinds) => $"{(int)a_eRewardKinds}", a_oOutTutorialInfo);
+	}
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion         // 조건부 함수                   
 }
 
 /** 튜토리얼 정보 테이블 */
 public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 #region 프로퍼티
 	public Dictionary<ETutorialKinds, STTutorialInfo> TutorialInfoDict { get; } = new Dictionary<ETutorialKinds, STTutorialInfo>();
-#endregion          // 프로퍼티                 
+#endregion           // 프로퍼티                 
 
 #region 함수
 	/** 초기화 */
@@ -126,19 +132,25 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	/** 튜토리얼 정보를 로드한다 */
 	private Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		
+		return this.DoLoadTutorialInfos(this.LoadTutorialInfosJSONStr(a_oFilePath));
+	}
+
+	/** 튜토리얼 정보 JSON 문자열을 로드한다 */
+	private string LoadTutorialInfosJSONStr(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return this.DoLoadTutorialInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
+		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
-		return this.DoLoadTutorialInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false));
-#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+#endif         // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 튜토리얼 정보를 로드한다 */
 	private Dictionary<ETutorialKinds, STTutorialInfo> DoLoadTutorialInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
 		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oTutorialInfosList);
-		
+
 		for(int i = 0; i < oTutorialInfosList.Count; ++i) {
 			for(int j = 0; j < oTutorialInfosList[i].Count; ++j) {
 				var stTutorialInfo = new STTutorialInfo(oTutorialInfosList[i][j]);
@@ -149,10 +161,28 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 				}
 			}
 		}
-		
+
 		return this.TutorialInfoDict;
 	}
-#endregion          // 함수               
+#endregion         // 함수               
+
+#region 조건부 함수
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 튜토리얼 정보를 저장한다 */
+	public void SaveTutorialInfos(SimpleJSON.JSONNode a_oOutTutorialInfos) {
+		var oTutorialInfos = a_oOutTutorialInfos[KCDefine.U_KEY_TUTORIAL];
+
+		for(int i = 0; i < oTutorialInfos.Count; ++i) {
+			var eTutorialKinds = oTutorialInfos[i][KCDefine.U_KEY_TUTORIAL_KINDS].ExIsValid() ? (ETutorialKinds)oTutorialInfos[i][KCDefine.U_KEY_TUTORIAL_KINDS].AsInt : ETutorialKinds.NONE;
+
+			// 튜토리얼 정보가 존재 할 경우
+			if(this.TutorialInfoDict.ContainsKey(eTutorialKinds)) {
+				this.TutorialInfoDict[eTutorialKinds].SaveTutorialInfo(oTutorialInfos[i]);
+			}
+		}
+	}
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion         // 조건부 함수                   
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     

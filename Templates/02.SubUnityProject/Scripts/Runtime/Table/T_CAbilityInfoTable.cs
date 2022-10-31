@@ -51,15 +51,15 @@ public struct STAbilityInfo {
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 어빌리티 정보를 설정한다 */
 	public void SetupAbilityInfo(SimpleJSON.JSONNode a_oOutAbilityInfo) {
-		m_stCommonInfo.SetupCommonInfo(a_oOutAbilityInfo);
-		m_stValInfo.SetupValInfo(a_oOutAbilityInfo[KCDefine.U_KEY_VAL_INFO]);
+		m_stCommonInfo.SaveCommonInfo(a_oOutAbilityInfo);
+		m_stValInfo.SaveValInfo(a_oOutAbilityInfo[KCDefine.U_KEY_VAL_INFO]);
 
 		a_oOutAbilityInfo[KCDefine.U_KEY_ABILITY_KINDS] = $"{(int)m_eAbilityKinds}";
 		a_oOutAbilityInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS] = $"{(int)m_ePrevAbilityKinds}";
 		a_oOutAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS] = $"{(int)m_eNextAbilityKinds}";
 		a_oOutAbilityInfo[KCDefine.U_KEY_ABILITY_VAL_TYPE] = $"{(int)m_eAbilityValType}";
 
-		Func.SetupTargetInfos(m_oExtraAbilityTargetInfoDict, KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, a_oOutAbilityInfo);
+		Func.SaveTargetInfos(m_oExtraAbilityTargetInfoDict, KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, a_oOutAbilityInfo);
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
 #endregion         // 조건부 함수                   
@@ -106,14 +106,14 @@ public struct STAbilityTradeInfo {
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 어빌리티 교환 정보를 설정한다 */
 	public void SetupAbilityTradeInfo(SimpleJSON.JSONNode a_oOutAbilityTradeInfo) {
-		m_stCommonInfo.SetupCommonInfo(a_oOutAbilityTradeInfo);
+		m_stCommonInfo.SaveCommonInfo(a_oOutAbilityTradeInfo);
 
 		a_oOutAbilityTradeInfo[KCDefine.U_KEY_ABILITY_KINDS] = $"{(int)m_eAbilityKinds}";
 		a_oOutAbilityTradeInfo[KCDefine.U_KEY_PREV_ABILITY_KINDS] = $"{(int)m_ePrevAbilityKinds}";
 		a_oOutAbilityTradeInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS] = $"{(int)m_eNextAbilityKinds}";
 
-		Func.SetupTargetInfos(m_oPayTargetInfoDict, KCDefine.U_KEY_FMT_PAY_TARGET_INFO, a_oOutAbilityTradeInfo);
-		Func.SetupTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutAbilityTradeInfo);
+		Func.SaveTargetInfos(m_oPayTargetInfoDict, KCDefine.U_KEY_FMT_PAY_TARGET_INFO, a_oOutAbilityTradeInfo);
+		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutAbilityTradeInfo);
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
 #endregion         // 조건부 함수                   
@@ -155,10 +155,10 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 
 	/** 강화 어빌리티 교환 정보를 반환한다 */
 	public STAbilityTradeInfo GetEnhanceAbilityTradeInfo(EAbilityKinds a_eAbilityKinds) {
-		bool bIsValid = this.TryGetEnhanceAbilityTradeInfo(a_eAbilityKinds, out STAbilityTradeInfo stEnhanceAbilityTradeInfo);
+		bool bIsValid = this.TryGetEnhanceAbilityTradeInfo(a_eAbilityKinds, out STAbilityTradeInfo stAbilityTradeInfo);
 		CAccess.Assert(bIsValid);
 
-		return stEnhanceAbilityTradeInfo;
+		return stAbilityTradeInfo;
 	}
 
 	/** 어빌리티 정보를 반환한다 */
@@ -168,8 +168,8 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	}
 
 	/** 강화 어빌리티 교환 정보를 반환한다 */
-	public bool TryGetEnhanceAbilityTradeInfo(EAbilityKinds a_eAbilityKinds, out STAbilityTradeInfo a_stOutEnhanceAbilityTradeInfo) {
-		a_stOutEnhanceAbilityTradeInfo = this.EnhanceAbilityTradeInfoDict.GetValueOrDefault(a_eAbilityKinds, STAbilityTradeInfo.INVALID);
+	public bool TryGetEnhanceAbilityTradeInfo(EAbilityKinds a_eAbilityKinds, out STAbilityTradeInfo a_stOuttAbilityTradeInfo) {
+		a_stOuttAbilityTradeInfo = this.EnhanceAbilityTradeInfoDict.GetValueOrDefault(a_eAbilityKinds, STAbilityTradeInfo.INVALID);
 		return this.EnhanceAbilityTradeInfoDict.ContainsKey(a_eAbilityKinds);
 	}
 
@@ -256,11 +256,11 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 
 		for(int i = 0; i < oEnhanceTradeInfosList.Count; ++i) {
 			for(int j = 0; j < oEnhanceTradeInfosList[i].Count; ++j) {
-				var stEnhanceAbilityTradeInfo = new STAbilityTradeInfo(oEnhanceTradeInfosList[i][j]);
+				var stAbilityTradeInfo = new STAbilityTradeInfo(oEnhanceTradeInfosList[i][j]);
 
 				// 강화 어빌리티 교환 정보 추가 가능 할 경우
-				if(stEnhanceAbilityTradeInfo.m_eAbilityKinds.ExIsValid() && (!this.EnhanceAbilityTradeInfoDict.ContainsKey(stEnhanceAbilityTradeInfo.m_eAbilityKinds) || oEnhanceTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.EnhanceAbilityTradeInfoDict.ExReplaceVal(stEnhanceAbilityTradeInfo.m_eAbilityKinds, stEnhanceAbilityTradeInfo);
+				if(stAbilityTradeInfo.m_eAbilityKinds.ExIsValid() && (!this.EnhanceAbilityTradeInfoDict.ContainsKey(stAbilityTradeInfo.m_eAbilityKinds) || oEnhanceTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+					this.EnhanceAbilityTradeInfoDict.ExReplaceVal(stAbilityTradeInfo.m_eAbilityKinds, stAbilityTradeInfo);
 				}
 			}
 		}

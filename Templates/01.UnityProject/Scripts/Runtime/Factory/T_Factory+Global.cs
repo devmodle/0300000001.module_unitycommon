@@ -139,6 +139,19 @@ public static partial class Factory {
 		};
 	}
 #endregion         // 클래스 함수                   
+
+#region 제네릭 클래스 함수
+	/** 값을 생성한다 */
+	public static List<T> MakeVals<T>(SimpleJSON.JSONNode a_oVals, string a_oFmt, System.Func<SimpleJSON.JSONNode, T> a_oCallback, int a_nNumVals = KDefine.G_MAX_NUM_VALS) {
+		var oValList = new List<T>();
+
+		for(int i = 0; i < a_nNumVals; ++i) {
+			oValList.ExAddVal(a_oCallback(a_oVals[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)]));
+		}
+
+		return oValList;
+	}
+#endregion          // 제네릭 클래스 함수                       
 }
 
 /** 초기화 씬 팩토리 */

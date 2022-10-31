@@ -79,15 +79,15 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	/** 타겟 정보를 설정한다 */
-	public void SetupTargetInfo(SimpleJSON.JSONNode a_oOutTargetInfo, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
+	/** 타겟 정보를 저장한다 */
+	public void SaveTargetInfo(SimpleJSON.JSONNode a_oOutTargetInfo, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
 		a_oOutTargetInfo[a_nSrcIdx + KCDefine.B_VAL_2_INT] = $"{(int)m_nKinds}";
 		a_oOutTargetInfo[a_nSrcIdx + KCDefine.B_VAL_0_INT] = $"{(int)m_eTargetKinds}";
 		a_oOutTargetInfo[a_nSrcIdx + KCDefine.B_VAL_1_INT] = $"{(int)m_eKindsGroupType}";
 
-		m_stValInfo01.SetupValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_3_INT);
-		m_stValInfo02.SetupValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_5_INT);
-		m_stValInfo03.SetupValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_7_INT);
+		m_stValInfo01.SaveValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_3_INT);
+		m_stValInfo02.SaveValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_5_INT);
+		m_stValInfo03.SaveValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_7_INT);
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
 #endregion         // 조건부 함수                   

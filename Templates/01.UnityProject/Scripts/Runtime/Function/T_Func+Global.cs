@@ -609,23 +609,34 @@ public static partial class Func {
 		CAppInfoStorage.Inst.SaveAppInfo();
 	}
 
-	/** 값 정보를 설정한다 */
-	public static void SetupValInfos(List<STValInfo> a_oValInfoList, string a_oFmt, SimpleJSON.JSONNode a_oOutValInfos, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
+	/** 값 정보를 저장한다 */
+	public static void SaveValInfos(List<STValInfo> a_oValInfoList, string a_oFmt, SimpleJSON.JSONNode a_oOutValInfos, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
 		for(int i = 0; i < a_oValInfoList.Count; ++i) {
-			a_oValInfoList[i].SetupValInfo(a_oOutValInfos[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)], a_nSrcIdx);
+			a_oValInfoList[i].SaveValInfo(a_oOutValInfos[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)], a_nSrcIdx);
 		}
 	}
 
-	/** 타겟 정보를 설정한다 */
-	public static void SetupTargetInfos(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, string a_oFmt, SimpleJSON.JSONNode a_oOutTargetInfos, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
+	/** 타겟 정보를 저장한다 */
+	public static void SaveTargetInfos(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, string a_oFmt, SimpleJSON.JSONNode a_oOutTargetInfos, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
 		int nIdx = KCDefine.B_VAL_0_INT;
 
 		foreach(var stKeyVal in a_oTargetInfoDict) {
-			stKeyVal.Value.SetupTargetInfo(a_oOutTargetInfos[string.Format(a_oFmt, ++nIdx)], a_nSrcIdx);
+			stKeyVal.Value.SaveTargetInfo(a_oOutTargetInfos[string.Format(a_oFmt, ++nIdx)], a_nSrcIdx);
 		}
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 #endregion         // 조건부 클래스 함수                       
+
+#region 조건부 제네릭 클래스 함수
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 값을 저장한다 */
+	public static void SaveVals<T>(List<T> a_oValList, string a_oFmt, System.Func<T, string> a_oCallback, SimpleJSON.JSONNode a_oOutVals) {
+		for(int i = 0; i < a_oValList.Count; ++i) {
+			a_oOutVals[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)] = a_oCallback(a_oValList[i]);
+		}
+	}
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion         // 조건부 제네릭 클래스 함수                           
 }
 
 /** 초기화 씬 함수 */

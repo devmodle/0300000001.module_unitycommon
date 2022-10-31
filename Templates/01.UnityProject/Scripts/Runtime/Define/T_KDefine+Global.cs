@@ -12,15 +12,12 @@ using System.IO;
 public static partial class KDefine {
 #region 기본
 	// 개수 {
-	public const int G_MAX_NUM_RECORDS = 10;
-	public const int G_MAX_NUM_TUTORIAL_STRS = 10;
+	public const int G_MAX_NUM_VALS = 10;
+	public const int G_MAX_NUM_VAL_INFOS = 10;
+	public const int G_MAX_NUM_TARGET_INFOS = 25;
+
 	public const int G_MAX_NUM_COINS_BOX_COINS = 0;
 	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
-
-	public const int G_MAX_NUM_FX_KINDS = 10;
-	public const int G_MAX_NUM_RES_KINDS = 10;
-	public const int G_MAX_NUM_REWARD_KINDS = 10;
-	public const int G_MAX_NUM_TARGET_INFOS = 30;
 	// 개수 }
 
 	// 횟수
@@ -193,7 +190,7 @@ public static partial class KDefine {
 		[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)] = (KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)].Item1, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CProductTradeInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
-					KCDefine.B_KEY_COMMON, KCDefine.B_PLATFORM_N_IOS_APPLE, KCDefine.B_PLATFORM_N_ANDROID_GOOGLE, KCDefine.B_PLATFORM_N_ANDROID_AMAZON, KCDefine.U_KEY_PKGS_BUY_TRADE, KCDefine.U_KEY_SINGLE_BUY_TRADE
+					KCDefine.B_KEY_COMMON, KCDefine.B_PLATFORM_N_IOS_APPLE, KCDefine.B_PLATFORM_N_ANDROID_GOOGLE, KCDefine.B_PLATFORM_N_ANDROID_AMAZON, KCDefine.B_KEY_BUY_TRADE
 				}
 			}
 		})

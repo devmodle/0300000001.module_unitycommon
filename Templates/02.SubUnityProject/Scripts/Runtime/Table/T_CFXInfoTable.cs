@@ -24,12 +24,12 @@ public struct STFXInfo {
 	public static STFXInfo INVALID = new STFXInfo() {
 		m_eFXKinds = EFXKinds.NONE, m_ePrevFXKinds = EFXKinds.NONE, m_eNextFXKinds = EFXKinds.NONE
 	};
-#endregion          // 상수               
+#endregion            // 상수               
 
 #region 프로퍼티
 	public EFXType FXType => (EFXType)((int)m_eFXKinds).ExKindsToType();
 	public EFXKinds BaseFXKinds => (EFXKinds)((int)m_eFXKinds).ExKindsToSubKindsType();
-#endregion          // 프로퍼티                 
+#endregion           // 프로퍼티                 
 
 #region 함수
 	/** 생성자 */
@@ -41,21 +41,32 @@ public struct STFXInfo {
 		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_eNextFXKinds = a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt : EFXKinds.NONE;
 
-		m_oResKindsList = new List<EResKinds>();
-
-		for(int i = 0; i < KDefine.G_MAX_NUM_RES_KINDS; ++i) {
-			string oKey = string.Format(KCDefine.U_KEY_FMT_RES_KINDS, i + KCDefine.B_VAL_1_INT);
-			if(a_oFXInfo[oKey].ExIsValid()) { m_oResKindsList.ExAddVal((EResKinds)a_oFXInfo[oKey].AsInt); }
-		}
+		m_oResKindsList = Factory.MakeVals(a_oFXInfo, KCDefine.U_KEY_FMT_RES_KINDS, (a_oJSONNode) => (EResKinds)a_oJSONNode.AsInt);
 	}
-#endregion          // 함수               
+#endregion         // 함수               
+
+#region 조건부 함수
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 효과 정보를 저장한다 */
+	public void SaveFXInfo(SimpleJSON.JSONNode a_oOutFXInfo) {
+		m_stCommonInfo.SaveCommonInfo(a_oOutFXInfo);
+		m_stTimeInfo.SaveTimeInfo(a_oOutFXInfo);
+
+		a_oOutFXInfo[KCDefine.U_KEY_FX_KINDS] = $"{(int)m_eFXKinds}";
+		a_oOutFXInfo[KCDefine.U_KEY_PREV_FX_KINDS] = $"{(int)m_ePrevFXKinds}";
+		a_oOutFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS] = $"{(int)m_eNextFXKinds}";
+
+		Func.SaveVals(m_oResKindsList, KCDefine.U_KEY_FMT_RES_KINDS, (a_eResKinds) => $"{(int)a_eResKinds}", a_oOutFXInfo);
+	}
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion         // 조건부 함수                   
 }
 
 /** 효과 정보 테이블 */
 public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 #region 프로퍼티
 	public Dictionary<EFXKinds, STFXInfo> FXInfoDict { get; } = new Dictionary<EFXKinds, STFXInfo>();
-#endregion          // 프로퍼티                 
+#endregion         // 프로퍼티                 
 
 #region 함수
 	/** 초기화 */
@@ -121,12 +132,18 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	/** 효과 정보를 로드한다 */
 	private Dictionary<EFXKinds, STFXInfo> LoadFXInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		
+		return this.DoLoadFXInfos(this.LoadFXInfosJSONStr(a_oFilePath));
+	}
+
+	/** 효과 정보 JSON 문자열을 로드한다 */
+	private string LoadFXInfosJSONStr(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return this.DoLoadFXInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
+		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
-		return this.DoLoadFXInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false));
-#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+#endif           // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 효과 정보를 로드한다 */
@@ -147,7 +164,25 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 
 		return this.FXInfoDict;
 	}
-#endregion          // 함수               
+#endregion         // 함수               
+
+#region 조건부 함수
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 효과 정보를 저장한다 */
+	public void SaveFXInfos(SimpleJSON.JSONNode a_oOutFXInfos) {
+		var oFXInfos = a_oOutFXInfos[KCDefine.U_KEY_FX];
+
+		for(int i = 0; i < oFXInfos.Count; ++i) {
+			var eFXKinds = oFXInfos[i][KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)oFXInfos[i][KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
+
+			// 효과 정보가 존재 할 경우
+			if(this.FXInfoDict.ContainsKey(eFXKinds)) {
+				this.FXInfoDict[eFXKinds].SaveFXInfo(oFXInfos[i]);
+			}
+		}
+	}
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion         // 조건부 함수                   
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     
