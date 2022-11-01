@@ -45,10 +45,8 @@ public static partial class CCommonEditorSceneManager {
 	/** 에디터 씬 관리자를 설정한다 */
 	private static IEnumerator CoSetupEditorSceneManager() {
 		do {
-			yield return null;
+			yield return CFactory.CoCreateWaitForSecs(KCDefine.B_DELTA_T_ASYNC_TASK, true);
 		} while(!CEditorAccess.IsEnableUpdateState);
-
-		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_VAL_1_REAL);
 
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;

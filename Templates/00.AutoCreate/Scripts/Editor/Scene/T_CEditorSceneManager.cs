@@ -47,9 +47,9 @@ public static partial class CEditorSceneManager {
 			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_MENU_SAMPLE);
 			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
 			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
-
-			CEditorSceneManager.SetupCallbacks();
 		}
+
+		CEditorSceneManager.SetupCallbacks();
 	}
 
 	/** 스크립트가 로드 되었을 경우 */
@@ -74,8 +74,6 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.m_bIsEnableSetup = false;
 				CEditorSceneManager.m_bIsEnableSetupDependencies = true;
 				CEditorSceneManager.m_oListRequest = Client.List(true, true);
-
-				CEditorSceneManager.SetupCallbacks();
 			}
 
 			// 갱신 주기가 지났을 경우
@@ -202,10 +200,9 @@ public static partial class CEditorSceneManager {
 	/** 에디터 씬 관리자를 설정한다 */
 	private static IEnumerator CoSetupEditorSceneManager() {
 		do {
-			yield return null;
+			yield return CFactory.CoCreateWaitForSecs(KCDefine.B_DELTA_T_ASYNC_TASK, true);
 		} while(!CEditorAccess.IsEnableUpdateState);
 
-		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_VAL_1_REAL);
 		CEditorSceneManager.m_bIsEnableSetup = true;
 	}
 

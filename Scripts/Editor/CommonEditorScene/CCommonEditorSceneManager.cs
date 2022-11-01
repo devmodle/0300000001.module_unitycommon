@@ -79,9 +79,9 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_MENU_SAMPLE);
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_STUDY_SAMPLE);
 			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
-
-			CCommonEditorSceneManager.SetupCallbacks();
 		}
+
+		CCommonEditorSceneManager.SetupCallbacks();
 	}
 
 	/** 스크립트가 로드 되었을 경우 */
@@ -255,16 +255,12 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.SetupSpriteAtlases();
 		CCommonEditorSceneManager.SetupSceneTemplates();
 	}
-	#endregion         // 클래스 함수                   
 
-	#region 조건부 클래스 함수
-#if EDITOR_COROUTINE_ENABLE
 	/** 에디터 모드 상태를 갱신한다 */
 	private static IEnumerator CoUpdateEditorModeState() {
-		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_VAL_1_REAL, true);
+		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_DELTA_T_ASYNC_TASK, true);
 		Time.timeScale = KCDefine.B_VAL_1_REAL;
 	}
-#endif         // #if EDITOR_COROUTINE_ENABLE                                        
-	#endregion         // 조건부 클래스 함수                       
+	#endregion         // 클래스 함수                   
 }
 #endif         // #if UNITY_EDITOR                             
