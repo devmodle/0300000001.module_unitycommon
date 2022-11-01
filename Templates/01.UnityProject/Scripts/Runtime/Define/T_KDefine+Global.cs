@@ -6,55 +6,13 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-using System.IO;
-
 /** 전역 상수 */
 public static partial class KDefine {
 #region 기본
-	// 개수 {
+	// 개수
 	public const int G_MAX_NUM_VALS = 10;
 	public const int G_MAX_NUM_VAL_INFOS = 10;
 	public const int G_MAX_NUM_TARGET_INFOS = 25;
-
-	public const int G_MAX_NUM_COINS_BOX_COINS = 0;
-	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
-	// 개수 }
-
-	// 횟수
-	public const int G_MAX_TIMES_ADS_SKIP = 0;
-	public const int G_MAX_TIMES_ACQUIRE_FREE_REWARDS = 0;
-
-	// 시간 {
-	public const float G_DELAY_SCALE_01 = 1.0f;
-	public const float G_DELAY_SCALE_02 = 1.0f;
-	public const float G_DELAY_SCALE_03 = 1.0f;
-	public const float G_DELAY_SCALE_04 = 1.0f;
-	public const float G_DELAY_SCALE_05 = 1.0f;
-	public const float G_DELAY_SCALE_06 = 1.0f;
-	public const float G_DELAY_SCALE_07 = 1.0f;
-	public const float G_DELAY_SCALE_08 = 1.0f;
-	public const float G_DELAY_SCALE_09 = 1.0f;
-
-	public const float G_DELTA_T_SCALE_01 = 1.0f;
-	public const float G_DELTA_T_SCALE_02 = 1.0f;
-	public const float G_DELTA_T_SCALE_03 = 1.0f;
-	public const float G_DELTA_T_SCALE_04 = 1.0f;
-	public const float G_DELTA_T_SCALE_05 = 1.0f;
-	public const float G_DELTA_T_SCALE_06 = 1.0f;
-	public const float G_DELTA_T_SCALE_07 = 1.0f;
-	public const float G_DELTA_T_SCALE_08 = 1.0f;
-	public const float G_DELTA_T_SCALE_09 = 1.0f;
-
-	public const float G_DURATION_SCALE_01 = 1.0f;
-	public const float G_DURATION_SCALE_02 = 1.0f;
-	public const float G_DURATION_SCALE_03 = 1.0f;
-	public const float G_DURATION_SCALE_04 = 1.0f;
-	public const float G_DURATION_SCALE_05 = 1.0f;
-	public const float G_DURATION_SCALE_06 = 1.0f;
-	public const float G_DURATION_SCALE_07 = 1.0f;
-	public const float G_DURATION_SCALE_08 = 1.0f;
-	public const float G_DURATION_SCALE_09 = 1.0f;
-	// 시간 }
 
 	// 식별자
 	public const int G_ID_COMMON_CHARACTER = byte.MaxValue;
@@ -114,7 +72,7 @@ public static partial class KDefine {
 		[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)] = ("1uqeDN-ZaAs3_UxWp93Ub_nEX5r1z7MNDHfwXE-IKB_w", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS)
 	};
 
-	public static readonly Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, List<string>>>)> G_TABLE_INFO_DICT_CONTAINER = new Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, List<string>>>)>() {
+	public static readonly Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, List<string>>>)> G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER = new Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, List<string>>>)>() {
 		[KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false)] = (KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT[KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false)].Item1, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CCalcInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() { KCDefine.U_KEY_CALC }
