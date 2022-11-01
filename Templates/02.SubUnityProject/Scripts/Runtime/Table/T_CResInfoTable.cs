@@ -131,16 +131,9 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	}
 
 	/** JSON 노드를 설정한다 */
-	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutResInfosList) {
-		a_oOutResInfosList = new List<SimpleJSON.JSONNode>();
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
 		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.ResInfoTableLoadPath.ExGetFileName(false));
-
-		// 공용 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-				a_oOutResInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
-			}
-		}
+		a_oOutCommonInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
 	}
 
 	/** 리소스 정보를 로드한다 */
@@ -163,16 +156,14 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	/** 리소스 정보를 로드한다 */
 	private Dictionary<EResKinds, STResInfo> DoLoadResInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oResInfosList);
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
 
-		for(int i = 0; i < oResInfosList.Count; ++i) {
-			for(int j = 0; j < oResInfosList[i].Count; ++j) {
-				var stResInfo = new STResInfo(oResInfosList[i][j]);
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var stResInfo = new STResInfo(oCommonInfos[i]);
 
-				// 리소스 정보 추가 가능 할 경우
-				if(stResInfo.m_eResKinds.ExIsValid() && (!this.ResInfoDict.ContainsKey(stResInfo.m_eResKinds) || oResInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.ResInfoDict.ExReplaceVal(stResInfo.m_eResKinds, stResInfo);
-				}
+			// 리소스 정보 추가 가능 할 경우
+			if(stResInfo.m_eResKinds.ExIsValid() && (!this.ResInfoDict.ContainsKey(stResInfo.m_eResKinds) || oCommonInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.ResInfoDict.ExReplaceVal(stResInfo.m_eResKinds, stResInfo);
 			}
 		}
 
@@ -185,7 +176,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	/** 리소스 정보를 저장한다 */
 	public void SaveResInfos() {
 		var oResInfos = SimpleJSON.JSONNode.Parse(this.LoadResInfosJSONStr(Access.ResInfoTableLoadPath));
-		var oCommonInfos = oResInfos[KCDefine.B_KEY_COMMON];
+		this.SetupJSONNodes(oResInfos, out SimpleJSON.JSONNode oCommonInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var eResKinds = oCommonInfos[i][KCDefine.U_KEY_RES_KINDS].ExIsValid() ? (EResKinds)oCommonInfos[i][KCDefine.U_KEY_RES_KINDS].AsInt : EResKinds.NONE;

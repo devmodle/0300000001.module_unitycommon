@@ -206,33 +206,11 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	}
 
 	/** JSON 노드를 설정한다 */
-	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutLevelEpisodeInfosList, out List<SimpleJSON.JSONNode> a_oOutStageEpisodeInfosList, out List<SimpleJSON.JSONNode> a_oOutChapterEpisodeInfosList) {
-		a_oOutLevelEpisodeInfosList = new List<SimpleJSON.JSONNode>();
-		a_oOutStageEpisodeInfosList = new List<SimpleJSON.JSONNode>();
-		a_oOutChapterEpisodeInfosList = new List<SimpleJSON.JSONNode>();
-
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutLevelEpisodeInfos, out SimpleJSON.JSONNode a_oOutStageEpisodeInfos, out SimpleJSON.JSONNode a_oOutChapterEpisodeInfos) {
 		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.EpisodeInfoTableLoadPath.ExGetFileName(false));
-
-		// 레벨 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.U_KEY_LEVEL_EPISODE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.U_KEY_LEVEL_EPISODE].Count; ++i) {
-				a_oOutLevelEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.U_KEY_LEVEL_EPISODE][i]]);
-			}
-		}
-
-		// 스테이지 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.U_KEY_STAGE_EPISODE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.U_KEY_STAGE_EPISODE].Count; ++i) {
-				a_oOutStageEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.U_KEY_STAGE_EPISODE][i]]);
-			}
-		}
-
-		// 챕터 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.U_KEY_CHAPTER_EPISODE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.U_KEY_CHAPTER_EPISODE].Count; ++i) {
-				a_oOutChapterEpisodeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.U_KEY_CHAPTER_EPISODE][i]]);
-			}
-		}
+		a_oOutLevelEpisodeInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.U_KEY_LEVEL_EPISODE) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.U_KEY_LEVEL_EPISODE]] : null;
+		a_oOutStageEpisodeInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.U_KEY_STAGE_EPISODE) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.U_KEY_STAGE_EPISODE]] : null;
+		a_oOutChapterEpisodeInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.U_KEY_CHAPTER_EPISODE) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.U_KEY_CHAPTER_EPISODE]] : null;
 	}
 
 	/** 에피소드 정보를 로드한다 */
@@ -255,38 +233,32 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	/** 에피소드 정보를 로드한다 */
 	private (Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>) DoLoadEpisodeInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oLevelEpisodeInfosList, out List<SimpleJSON.JSONNode> oStageEpisodeInfosList, out List<SimpleJSON.JSONNode> oChapterEpisodeInfosList);
+		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out SimpleJSON.JSONNode oLevelEpisodeInfos, out SimpleJSON.JSONNode oStageEpisodeInfos, out SimpleJSON.JSONNode oChapterEpisodeInfos);
 
-		for(int i = 0; i < oLevelEpisodeInfosList.Count; ++i) {
-			for(int j = 0; j < oLevelEpisodeInfosList[i].Count; ++j) {
-				var stEpisodeInfo = new STEpisodeInfo(oLevelEpisodeInfosList[i][j]);
+		for(int i = 0; i < oLevelEpisodeInfos.Count; ++i) {
+			var stEpisodeInfo = new STEpisodeInfo(oLevelEpisodeInfos[i]);
 
-				// 레벨 에피소드 정보 추가 가능 할 경우
-				if(stEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.LevelEpisodeInfoDict.ContainsKey(stEpisodeInfo.m_stIDInfo.UniqueID01) || oLevelEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.LevelEpisodeInfoDict.ExReplaceVal(stEpisodeInfo.m_stIDInfo.UniqueID01, stEpisodeInfo);
-				}
+			// 레벨 에피소드 정보 추가 가능 할 경우
+			if(stEpisodeInfo.m_stIDInfo.m_nID01.ExIsValidIdx() && (!this.LevelEpisodeInfoDict.ContainsKey(stEpisodeInfo.m_stIDInfo.UniqueID01) || oLevelEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.LevelEpisodeInfoDict.ExReplaceVal(stEpisodeInfo.m_stIDInfo.UniqueID01, stEpisodeInfo);
 			}
 		}
 
-		for(int i = 0; i < oStageEpisodeInfosList.Count; ++i) {
-			for(int j = 0; j < oStageEpisodeInfosList[i].Count; ++j) {
-				var stEpisodeInfo = new STEpisodeInfo(oStageEpisodeInfosList[i][j]);
+		for(int i = 0; i < oStageEpisodeInfos.Count; ++i) {
+			var stEpisodeInfo = new STEpisodeInfo(oStageEpisodeInfos[i]);
 
-				// 스테이지 에피소드 정보 추가 가능 할 경우
-				if(stEpisodeInfo.m_stIDInfo.m_nID02.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stEpisodeInfo.m_stIDInfo.UniqueID02) || oStageEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.StageEpisodeInfoDict.ExReplaceVal(stEpisodeInfo.m_stIDInfo.UniqueID02, stEpisodeInfo);
-				}
+			// 스테이지 에피소드 정보 추가 가능 할 경우
+			if(stEpisodeInfo.m_stIDInfo.m_nID02.ExIsValidIdx() && (!this.StageEpisodeInfoDict.ContainsKey(stEpisodeInfo.m_stIDInfo.UniqueID02) || oStageEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.StageEpisodeInfoDict.ExReplaceVal(stEpisodeInfo.m_stIDInfo.UniqueID02, stEpisodeInfo);
 			}
 		}
 
-		for(int i = 0; i < oChapterEpisodeInfosList.Count; ++i) {
-			for(int j = 0; j < oChapterEpisodeInfosList[i].Count; ++j) {
-				var stEpisodeInfo = new STEpisodeInfo(oChapterEpisodeInfosList[i][j]);
+		for(int i = 0; i < oChapterEpisodeInfos.Count; ++i) {
+			var stEpisodeInfo = new STEpisodeInfo(oChapterEpisodeInfos[i]);
 
-				// 챕터 에피소드 정보 추가 가능 할 경우
-				if(stEpisodeInfo.m_stIDInfo.m_nID03.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stEpisodeInfo.m_stIDInfo.UniqueID03) || oChapterEpisodeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.ChapterEpisodeInfoDict.ExReplaceVal(stEpisodeInfo.m_stIDInfo.UniqueID03, stEpisodeInfo);
-				}
+			// 챕터 에피소드 정보 추가 가능 할 경우
+			if(stEpisodeInfo.m_stIDInfo.m_nID03.ExIsValidIdx() && (!this.ChapterEpisodeInfoDict.ContainsKey(stEpisodeInfo.m_stIDInfo.UniqueID03) || oChapterEpisodeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.ChapterEpisodeInfoDict.ExReplaceVal(stEpisodeInfo.m_stIDInfo.UniqueID03, stEpisodeInfo);
 			}
 		}
 
@@ -298,9 +270,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 에피소드 정보를 저장한다 */
 	public void SaveEpisodeInfos(SimpleJSON.JSONNode a_oOutEpisodeInfos) {
-		var oLevelEpisodeInfos = a_oOutEpisodeInfos[KCDefine.U_KEY_LEVEL_EPISODE];
-		var oStageEpisodeInfos = a_oOutEpisodeInfos[KCDefine.U_KEY_STAGE_EPISODE];
-		var oChapterEpisodeInfos = a_oOutEpisodeInfos[KCDefine.U_KEY_CHAPTER_EPISODE];
+		this.SetupJSONNodes(a_oOutEpisodeInfos, out SimpleJSON.JSONNode oLevelEpisodeInfos, out SimpleJSON.JSONNode oStageEpisodeInfos, out SimpleJSON.JSONNode oChapterEpisodeInfos);
 
 		for(int i = 0; i < oLevelEpisodeInfos.Count; ++i) {
 			var stIDInfo = new STIDInfo(oLevelEpisodeInfos[i], KCDefine.U_KEY_FMT_ID);

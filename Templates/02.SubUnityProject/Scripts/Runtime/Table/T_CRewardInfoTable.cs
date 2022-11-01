@@ -24,38 +24,49 @@ public struct STRewardInfo {
 	public static STRewardInfo INVALID = new STRewardInfo() {
 		m_eRewardKinds = ERewardKinds.NONE, m_ePrevRewardKinds = ERewardKinds.NONE, m_eNextRewardKinds = ERewardKinds.NONE
 	};
-#endregion          // 상수               
+#endregion            // 상수               
 
 #region 프로퍼티
 	public ERewardType RewardType => (ERewardType)((int)m_eRewardKinds).ExKindsToType();
 	public ERewardKinds BaseRewardKinds => (ERewardKinds)((int)m_eRewardKinds).ExKindsToSubKindsType();
-#endregion          // 프로퍼티                 
+#endregion           // 프로퍼티                 
 
 #region 함수
 	/** 생성자 */
 	public STRewardInfo(SimpleJSON.JSONNode a_oRewardInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oRewardInfo);
-		
+
 		m_eRewardKinds = a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_ePrevRewardKinds = a_oRewardInfo[KCDefine.U_KEY_PREV_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_PREV_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_eNextRewardKinds = a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].ExIsValid() ? (ERewardKinds)a_oRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS].AsInt : ERewardKinds.NONE;
 		m_eRewardQuality = a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].ExIsValid() ? (ERewardQuality)a_oRewardInfo[KCDefine.U_KEY_REWARD_QUALITY].AsInt : ERewardQuality.NONE;
 
-		m_oAcquireTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
-
-		for(int i = 0; i < KDefine.G_MAX_NUM_TARGET_INFOS; ++i) {
-			var stTargetInfo = new STTargetInfo(a_oRewardInfo[string.Format(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, i + KCDefine.B_VAL_1_INT)]);
-			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) { m_oAcquireTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo); }
-		}
+		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oRewardInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-#endregion          // 함수               
+#endregion         // 함수               
+
+#region 조건부 함수
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 보상 정보를 저장한다 */
+	public void SaveRewardInfo(SimpleJSON.JSONNode a_oOutRewardInfo) {
+		m_stCommonInfo.SaveCommonInfo(a_oOutRewardInfo);
+
+		a_oOutRewardInfo[KCDefine.U_KEY_REWARD_KINDS] = $"{(int)m_eRewardKinds}";
+		a_oOutRewardInfo[KCDefine.U_KEY_PREV_REWARD_KINDS] = $"{(int)m_ePrevRewardKinds}";
+		a_oOutRewardInfo[KCDefine.U_KEY_NEXT_REWARD_KINDS] = $"{(int)m_eNextRewardKinds}";
+		a_oOutRewardInfo[KCDefine.U_KEY_REWARD_QUALITY] = $"{(int)m_eRewardQuality}";
+
+		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutRewardInfo);
+	}
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion         // 조건부 함수                   
 }
 
 /** 보상 정보 테이블 */
 public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 #region 프로퍼티
 	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoDict { get; } = new Dictionary<ERewardKinds, STRewardInfo>();
-#endregion          // 프로퍼티                 
+#endregion         // 프로퍼티                 
 
 #region 함수
 	/** 초기화 */
@@ -116,58 +127,80 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {
 			this.ResetRewardInfos(a_oJSONStr);
-			
+
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oJSONStr, true);
-#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif            // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+
+#if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
+			CUnityMsgSender.Inst.SendShowToastMsg($"CRewardInfoTable.SaveRewardInfos: {File.Exists(Access.RewardInfoTableSavePath)}");
+#endif         // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
 		}
 	}
 
 	/** JSON 노드를 설정한다 */
-	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutRewardInfosList) {
-		a_oOutRewardInfosList = new List<SimpleJSON.JSONNode>();
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
 		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.RewardInfoTableLoadPath.ExGetFileName(false));
-
-		// 공용 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-				a_oOutRewardInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
-			}
-		}
+		a_oOutCommonInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
 	}
 
 	/** 보상 정보를 로드한다 */
 	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		
+		return this.DoLoadRewardInfos(this.LoadRewardInfosJSONStr(a_oFilePath));
+	}
+
+	/** 보상 정보 JSON 문자열을 로드한다 */
+	private string LoadRewardInfosJSONStr(string a_oFilePath) {
+		CAccess.Assert(a_oFilePath.ExIsValid());
+
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return this.DoLoadRewardInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false));
+		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
-		return this.DoLoadRewardInfos(File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false));
-#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+#endif           // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 보상 정보를 로드한다 */
 	private Dictionary<ERewardKinds, STRewardInfo> DoLoadRewardInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oRewardInfosList);
+		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
 
-		for(int i = 0; i < oRewardInfosList.Count; ++i) {
-			for(int j = 0; j < oRewardInfosList[i].Count; ++j) {
-				var stRewardInfo = new STRewardInfo(oRewardInfosList[i][j]);
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var stRewardInfo = new STRewardInfo(oCommonInfos[i]);
 
-				// 보상 정보 추가 가능 할 경우
-				if(stRewardInfo.m_eRewardKinds.ExIsValid() && (!this.RewardInfoDict.ContainsKey(stRewardInfo.m_eRewardKinds) || oRewardInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.RewardInfoDict.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
-				}
+			// 보상 정보 추가 가능 할 경우
+			if(stRewardInfo.m_eRewardKinds.ExIsValid() && (!this.RewardInfoDict.ContainsKey(stRewardInfo.m_eRewardKinds) || oCommonInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.RewardInfoDict.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);
 			}
 		}
-		
+
 		return this.RewardInfoDict;
 	}
-#endregion          // 함수               
+#endregion         // 함수               
+
+#region 조건부 함수
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 보상 정보를 저장한다 */
+	public void SaveRewardInfos() {
+		var oRewardInfos = SimpleJSON.JSONNode.Parse(this.LoadRewardInfosJSONStr(Access.RewardInfoTableLoadPath));
+		this.SetupJSONNodes(oRewardInfos, out SimpleJSON.JSONNode oCommonInfos);
+
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var eRewardKinds = oCommonInfos[i][KCDefine.U_KEY_REWARD_KINDS].ExIsValid() ? (ERewardKinds)oCommonInfos[i][KCDefine.U_KEY_REWARD_KINDS].AsInt : ERewardKinds.NONE;
+
+			// 보상 정보가 존재 할 경우
+			if(this.RewardInfoDict.ContainsKey(eRewardKinds)) {
+				this.RewardInfoDict[eRewardKinds].SaveRewardInfo(oCommonInfos[i]);
+			}
+		}
+
+		this.SaveRewardInfos(oRewardInfos.ToString());
+	}
+#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion         // 조건부 함수                   
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     

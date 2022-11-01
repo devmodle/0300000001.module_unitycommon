@@ -117,16 +117,9 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	}
 
 	/** JSON 노드를 설정한다 */
-	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutFXInfosList) {
-		a_oOutFXInfosList = new List<SimpleJSON.JSONNode>();
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
 		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.FXInfoTableLoadPath.ExGetFileName(false));
-
-		// 공용 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-				a_oOutFXInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
-			}
-		}
+		a_oOutCommonInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON]] : null;
 	}
 
 	/** 효과 정보를 로드한다 */
@@ -149,16 +142,14 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	/** 효과 정보를 로드한다 */
 	private Dictionary<EFXKinds, STFXInfo> DoLoadFXInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oFXInfosList);
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
 
-		for(int i = 0; i < oFXInfosList.Count; ++i) {
-			for(int j = 0; j < oFXInfosList[i].Count; ++j) {
-				var stFXInfo = new STFXInfo(oFXInfosList[i][j]);
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var stFXInfo = new STFXInfo(oCommonInfos[i]);
 
-				// 효과 정보 추가 가능 할 경우
-				if(stFXInfo.m_eFXKinds.ExIsValid() && (!this.FXInfoDict.ContainsKey(stFXInfo.m_eFXKinds) || oFXInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.FXInfoDict.ExReplaceVal(stFXInfo.m_eFXKinds, stFXInfo);
-				}
+			// 효과 정보 추가 가능 할 경우
+			if(stFXInfo.m_eFXKinds.ExIsValid() && (!this.FXInfoDict.ContainsKey(stFXInfo.m_eFXKinds) || oCommonInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.FXInfoDict.ExReplaceVal(stFXInfo.m_eFXKinds, stFXInfo);
 			}
 		}
 
@@ -170,14 +161,14 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 효과 정보를 저장한다 */
 	public void SaveFXInfos(SimpleJSON.JSONNode a_oOutFXInfos) {
-		var oFXInfos = a_oOutFXInfos[KCDefine.U_KEY_FX];
+		this.SetupJSONNodes(a_oOutFXInfos, out SimpleJSON.JSONNode oCommonInfos);
 
-		for(int i = 0; i < oFXInfos.Count; ++i) {
-			var eFXKinds = oFXInfos[i][KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)oFXInfos[i][KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var eFXKinds = oCommonInfos[i][KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)oCommonInfos[i][KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
 
 			// 효과 정보가 존재 할 경우
 			if(this.FXInfoDict.ContainsKey(eFXKinds)) {
-				this.FXInfoDict[eFXKinds].SaveFXInfo(oFXInfos[i]);
+				this.FXInfoDict[eFXKinds].SaveFXInfo(oCommonInfos[i]);
 			}
 		}
 	}

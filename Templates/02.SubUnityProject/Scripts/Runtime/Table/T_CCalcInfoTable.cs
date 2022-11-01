@@ -111,16 +111,9 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	}
 
 	/** JSON 노드를 설정한다 */
-	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutCalcInfosList) {
-		a_oOutCalcInfosList = new List<SimpleJSON.JSONNode>();
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
 		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.CalcInfoTableLoadPath.ExGetFileName(false));
-
-		// 공용 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-				a_oOutCalcInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
-			}
-		}
+		a_oOutCommonInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON]] : null;
 	}
 
 	/** 수식 정보를 로드한다 */
@@ -143,16 +136,14 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	/** 수식 정보를 로드한다 */
 	private Dictionary<ECalcKinds, STCalcInfo> DoLoadCalcInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oCalcInfosList);
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
 
-		for(int i = 0; i < oCalcInfosList.Count; ++i) {
-			for(int j = 0; j < oCalcInfosList[i].Count; ++j) {
-				var stCalcInfo = new STCalcInfo(oCalcInfosList[i][j]);
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var stCalcInfo = new STCalcInfo(oCommonInfos[i]);
 
-				// 수식 정보 추가 가능 할 경우
-				if(stCalcInfo.m_eCalcKinds.ExIsValid() && (!this.CalcInfoDict.ContainsKey(stCalcInfo.m_eCalcKinds) || oCalcInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.CalcInfoDict.ExReplaceVal(stCalcInfo.m_eCalcKinds, stCalcInfo);
-				}
+			// 수식 정보 추가 가능 할 경우
+			if(stCalcInfo.m_eCalcKinds.ExIsValid() && (!this.CalcInfoDict.ContainsKey(stCalcInfo.m_eCalcKinds) || oCommonInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.CalcInfoDict.ExReplaceVal(stCalcInfo.m_eCalcKinds, stCalcInfo);
 			}
 		}
 
@@ -164,14 +155,14 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 수식 정보를 저장한다 */
 	public void SaveCalcInfos(SimpleJSON.JSONNode a_oOutCalcInfos) {
-		var oCalcInfos = a_oOutCalcInfos[KCDefine.U_KEY_CALC];
+		this.SetupJSONNodes(a_oOutCalcInfos, out SimpleJSON.JSONNode oCommonInfos);
 
-		for(int i = 0; i < oCalcInfos.Count; ++i) {
-			var eCalcKinds = oCalcInfos[i][KCDefine.U_KEY_CALC_KINDS].ExIsValid() ? (ECalcKinds)oCalcInfos[i][KCDefine.U_KEY_CALC_KINDS].AsInt : ECalcKinds.NONE;
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var eCalcKinds = oCommonInfos[i][KCDefine.U_KEY_CALC_KINDS].ExIsValid() ? (ECalcKinds)oCommonInfos[i][KCDefine.U_KEY_CALC_KINDS].AsInt : ECalcKinds.NONE;
 
 			// 수식 정보가 존재 할 경우
 			if(this.CalcInfoDict.ContainsKey(eCalcKinds)) {
-				this.CalcInfoDict[eCalcKinds].SaveCalcInfo(oCalcInfos[i]);
+				this.CalcInfoDict[eCalcKinds].SaveCalcInfo(oCommonInfos[i]);
 			}
 		}
 	}

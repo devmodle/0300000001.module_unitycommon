@@ -253,41 +253,12 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	}
 
 	/** JSON 노드를 설정한다 */
-	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutObjInfosList, out List<SimpleJSON.JSONNode> a_oOutEnhanceObjTradeInfosList, out List<SimpleJSON.JSONNode> a_oOutBuyObjTradeInfosList, out List<SimpleJSON.JSONNode> a_oOutSaleObjTradeInfosList) {
-		a_oOutObjInfosList = new List<SimpleJSON.JSONNode>();
-		a_oOutBuyObjTradeInfosList = new List<SimpleJSON.JSONNode>();
-		a_oOutSaleObjTradeInfosList = new List<SimpleJSON.JSONNode>();
-		a_oOutEnhanceObjTradeInfosList = new List<SimpleJSON.JSONNode>();
-
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos, out SimpleJSON.JSONNode a_oOutBuyTradeInfos, out SimpleJSON.JSONNode a_oOutSaleTradeInfos, out SimpleJSON.JSONNode a_oOutEnhanceTradeInfos) {
 		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.ObjInfoTableLoadPath.ExGetFileName(false));
-
-		// 공용 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-				a_oOutObjInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
-			}
-		}
-
-		// 구입 교환 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_BUY_TRADE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE].Count; ++i) {
-				a_oOutBuyObjTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE][i]]);
-			}
-		}
-
-		// 판매 교환 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_SALE_TRADE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE].Count; ++i) {
-				a_oOutSaleObjTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE][i]]);
-			}
-		}
-
-		// 강화 교환 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_ENHANCE_TRADE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE].Count; ++i) {
-				a_oOutEnhanceObjTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE][i]]);
-			}
-		}
+		a_oOutCommonInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutBuyTradeInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_BUY_TRADE) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutSaleTradeInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_SALE_TRADE) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutEnhanceTradeInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_ENHANCE_TRADE) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
 	}
 
 	/** 객체 정보를 로드한다 */
@@ -310,49 +281,41 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	/** 객체 정보를 로드한다 */
 	private (Dictionary<EObjKinds, STObjInfo>, Dictionary<EObjKinds, STObjTradeInfo>, Dictionary<EObjKinds, STObjTradeInfo>, Dictionary<EObjKinds, STObjTradeInfo>) DoLoadObjInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oObjInfosList, out List<SimpleJSON.JSONNode> oEnhanceObjTradeInfosList, out List<SimpleJSON.JSONNode> oBuyObjTradeInfosList, out List<SimpleJSON.JSONNode> oSaleObjTradeInfosList);
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyTradeInfos, out SimpleJSON.JSONNode oSaleTradeInfos, out SimpleJSON.JSONNode oEnhanceTradeInfos);
 
-		for(int i = 0; i < oObjInfosList.Count; ++i) {
-			for(int j = 0; j < oObjInfosList[i].Count; ++j) {
-				var stObjInfo = new STObjInfo(oObjInfosList[i][j]);
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var stObjInfo = new STObjInfo(oCommonInfos[i]);
 
-				// 객체 정보 추가 가능 할 경우
-				if(stObjInfo.m_eObjKinds.ExIsValid() && (!this.ObjInfoDict.ContainsKey(stObjInfo.m_eObjKinds) || oObjInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.ObjInfoDict.ExReplaceVal(stObjInfo.m_eObjKinds, stObjInfo);
-				}
+			// 객체 정보 추가 가능 할 경우
+			if(stObjInfo.m_eObjKinds.ExIsValid() && (!this.ObjInfoDict.ContainsKey(stObjInfo.m_eObjKinds) || oCommonInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.ObjInfoDict.ExReplaceVal(stObjInfo.m_eObjKinds, stObjInfo);
 			}
 		}
 
-		for(int i = 0; i < oBuyObjTradeInfosList.Count; ++i) {
-			for(int j = 0; j < oBuyObjTradeInfosList[i].Count; ++j) {
-				var stObjTradeInfo = new STObjTradeInfo(oBuyObjTradeInfosList[i][j]);
+		for(int i = 0; i < oBuyTradeInfos.Count; ++i) {
+			var stObjTradeInfo = new STObjTradeInfo(oBuyTradeInfos[i]);
 
-				// 구입 객체 교환 정보 추가 가능 할 경우
-				if(stObjTradeInfo.m_eObjKinds.ExIsValid() && (!this.BuyObjTradeInfoDict.ContainsKey(stObjTradeInfo.m_eObjKinds) || oBuyObjTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.BuyObjTradeInfoDict.ExReplaceVal(stObjTradeInfo.m_eObjKinds, stObjTradeInfo);
-				}
+			// 구입 객체 교환 정보 추가 가능 할 경우
+			if(stObjTradeInfo.m_eObjKinds.ExIsValid() && (!this.BuyObjTradeInfoDict.ContainsKey(stObjTradeInfo.m_eObjKinds) || oBuyTradeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.BuyObjTradeInfoDict.ExReplaceVal(stObjTradeInfo.m_eObjKinds, stObjTradeInfo);
 			}
 		}
 
-		for(int i = 0; i < oSaleObjTradeInfosList.Count; ++i) {
-			for(int j = 0; j < oSaleObjTradeInfosList[i].Count; ++j) {
-				var stObjTradeInfo = new STObjTradeInfo(oSaleObjTradeInfosList[i][j]);
+		for(int i = 0; i < oSaleTradeInfos.Count; ++i) {
+			var stObjTradeInfo = new STObjTradeInfo(oSaleTradeInfos[i]);
 
-				// 판매 객체 교환 정보 추가 가능 할 경우
-				if(stObjTradeInfo.m_eObjKinds.ExIsValid() && (!this.SaleObjTradeInfoDict.ContainsKey(stObjTradeInfo.m_eObjKinds) || oSaleObjTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.SaleObjTradeInfoDict.ExReplaceVal(stObjTradeInfo.m_eObjKinds, stObjTradeInfo);
-				}
+			// 판매 객체 교환 정보 추가 가능 할 경우
+			if(stObjTradeInfo.m_eObjKinds.ExIsValid() && (!this.SaleObjTradeInfoDict.ContainsKey(stObjTradeInfo.m_eObjKinds) || oSaleTradeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.SaleObjTradeInfoDict.ExReplaceVal(stObjTradeInfo.m_eObjKinds, stObjTradeInfo);
 			}
 		}
 
-		for(int i = 0; i < oEnhanceObjTradeInfosList.Count; ++i) {
-			for(int j = 0; j < oEnhanceObjTradeInfosList[i].Count; ++j) {
-				var stObjTradeInfo = new STObjTradeInfo(oEnhanceObjTradeInfosList[i][j]);
+		for(int i = 0; i < oEnhanceTradeInfos.Count; ++i) {
+			var stObjTradeInfo = new STObjTradeInfo(oEnhanceTradeInfos[i]);
 
-				// 강화 객체 교환 정보 추가 가능 할 경우
-				if(stObjTradeInfo.m_eObjKinds.ExIsValid() && (!this.BuyObjTradeInfoDict.ContainsKey(stObjTradeInfo.m_eObjKinds) || oEnhanceObjTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.EnhanceObjTradeInfoDict.ExReplaceVal(stObjTradeInfo.m_eObjKinds, stObjTradeInfo);
-				}
+			// 강화 객체 교환 정보 추가 가능 할 경우
+			if(stObjTradeInfo.m_eObjKinds.ExIsValid() && (!this.BuyObjTradeInfoDict.ContainsKey(stObjTradeInfo.m_eObjKinds) || oEnhanceTradeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.EnhanceObjTradeInfoDict.ExReplaceVal(stObjTradeInfo.m_eObjKinds, stObjTradeInfo);
 			}
 		}
 
@@ -365,10 +328,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	/** 객체 정보를 저장한다 */
 	public void SaveObjInfos() {
 		var oObjInfos = SimpleJSON.JSONNode.Parse(this.LoadObjInfosJSONStr(Access.ObjInfoTableLoadPath));
-		var oCommonInfos = oObjInfos[KCDefine.B_KEY_COMMON];
-		var oBuyTradeInfos = oObjInfos[KCDefine.B_KEY_BUY_TRADE];
-		var oSaleTradeInfos = oObjInfos[KCDefine.B_KEY_SALE_TRADE];
-		var oEnhanceTradeInfos = oObjInfos[KCDefine.B_KEY_ENHANCE_TRADE];
+		this.SetupJSONNodes(oObjInfos, out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyTradeInfos, out SimpleJSON.JSONNode oSaleTradeInfos, out SimpleJSON.JSONNode oEnhanceTradeInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var eObjKinds = oCommonInfos[i][KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)oCommonInfos[i][KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;

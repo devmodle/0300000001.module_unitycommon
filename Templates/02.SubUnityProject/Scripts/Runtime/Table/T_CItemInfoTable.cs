@@ -235,41 +235,12 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	}
 
 	/** JSON 노드를 설정한다 */
-	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutItemInfosList, out List<SimpleJSON.JSONNode> a_oOutEnhanceItemTradeInfosList, out List<SimpleJSON.JSONNode> a_oOutBuyItemTradeInfosList, out List<SimpleJSON.JSONNode> a_oOutSaleItemTradeInfosList) {
-		a_oOutItemInfosList = new List<SimpleJSON.JSONNode>();
-		a_oOutBuyItemTradeInfosList = new List<SimpleJSON.JSONNode>();
-		a_oOutSaleItemTradeInfosList = new List<SimpleJSON.JSONNode>();
-		a_oOutEnhanceItemTradeInfosList = new List<SimpleJSON.JSONNode>();
-
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos, out SimpleJSON.JSONNode a_oOutBuyItemTradeInfos, out SimpleJSON.JSONNode a_oOutSaleItemTradeInfos, out SimpleJSON.JSONNode a_oOutEnhanceItemTradeInfos) {
 		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.ItemInfoTableLoadPath.ExGetFileName(false));
-
-		// 공용 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-				a_oOutItemInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
-			}
-		}
-
-		// 구입 교환 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_BUY_TRADE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE].Count; ++i) {
-				a_oOutBuyItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE][i]]);
-			}
-		}
-
-		// 판매 교환 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_SALE_TRADE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE].Count; ++i) {
-				a_oOutSaleItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE][i]]);
-			}
-		}
-
-		// 강화 교환 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_ENHANCE_TRADE)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE].Count; ++i) {
-				a_oOutEnhanceItemTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE][i]]);
-			}
-		}
+		a_oOutCommonInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutBuyItemTradeInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_BUY_TRADE) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_BUY_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutSaleItemTradeInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_SALE_TRADE) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_SALE_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutEnhanceItemTradeInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_ENHANCE_TRADE) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
 	}
 
 	/** 아이템 정보를 로드한다 */
@@ -292,49 +263,41 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** 아이템 정보를 로드한다 */
 	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) DoLoadItemInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oItemInfosList, out List<SimpleJSON.JSONNode> oEnhanceItemTradeInfosList, out List<SimpleJSON.JSONNode> oBuyItemTradeInfosList, out List<SimpleJSON.JSONNode> oSaleItemTradeInfosList);
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyItemTradeInfos, out SimpleJSON.JSONNode oSaleItemTradeInfos, out SimpleJSON.JSONNode oEnhanceItemTradeInfos);
 
-		for(int i = 0; i < oItemInfosList.Count; ++i) {
-			for(int j = 0; j < oItemInfosList[i].Count; ++j) {
-				var stItemInfo = new STItemInfo(oItemInfosList[i][j]);
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var stItemInfo = new STItemInfo(oCommonInfos[i]);
 
-				// 아이템 정보 추가 가능 할 경우
-				if(stItemInfo.m_eItemKinds.ExIsValid() && (!this.ItemInfoDict.ContainsKey(stItemInfo.m_eItemKinds) || oItemInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.ItemInfoDict.ExReplaceVal(stItemInfo.m_eItemKinds, stItemInfo);
-				}
+			// 아이템 정보 추가 가능 할 경우
+			if(stItemInfo.m_eItemKinds.ExIsValid() && (!this.ItemInfoDict.ContainsKey(stItemInfo.m_eItemKinds) || oCommonInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.ItemInfoDict.ExReplaceVal(stItemInfo.m_eItemKinds, stItemInfo);
 			}
 		}
 
-		for(int i = 0; i < oBuyItemTradeInfosList.Count; ++i) {
-			for(int j = 0; j < oBuyItemTradeInfosList[i].Count; ++j) {
-				var stItemTradeInfo = new STItemTradeInfo(oBuyItemTradeInfosList[i][j]);
+		for(int i = 0; i < oBuyItemTradeInfos.Count; ++i) {
+			var stItemTradeInfo = new STItemTradeInfo(oBuyItemTradeInfos[i]);
 
-				// 구입 아이템 교환 정보 추가 가능 할 경우
-				if(stItemTradeInfo.m_eItemKinds.ExIsValid() && (!this.BuyItemTradeInfoDict.ContainsKey(stItemTradeInfo.m_eItemKinds) || oBuyItemTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.BuyItemTradeInfoDict.ExReplaceVal(stItemTradeInfo.m_eItemKinds, stItemTradeInfo);
-				}
+			// 구입 아이템 교환 정보 추가 가능 할 경우
+			if(stItemTradeInfo.m_eItemKinds.ExIsValid() && (!this.BuyItemTradeInfoDict.ContainsKey(stItemTradeInfo.m_eItemKinds) || oBuyItemTradeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.BuyItemTradeInfoDict.ExReplaceVal(stItemTradeInfo.m_eItemKinds, stItemTradeInfo);
 			}
 		}
 
-		for(int i = 0; i < oSaleItemTradeInfosList.Count; ++i) {
-			for(int j = 0; j < oSaleItemTradeInfosList[i].Count; ++j) {
-				var stItemTradeInfo = new STItemTradeInfo(oSaleItemTradeInfosList[i][j]);
+		for(int i = 0; i < oSaleItemTradeInfos.Count; ++i) {
+			var stItemTradeInfo = new STItemTradeInfo(oSaleItemTradeInfos[i]);
 
-				// 판매 아이템 교환 정보 추가 가능 할 경우
-				if(stItemTradeInfo.m_eItemKinds.ExIsValid() && (!this.SaleItemTradeInfoDict.ContainsKey(stItemTradeInfo.m_eItemKinds) || oSaleItemTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.BuyItemTradeInfoDict.ExReplaceVal(stItemTradeInfo.m_eItemKinds, stItemTradeInfo);
-				}
+			// 판매 아이템 교환 정보 추가 가능 할 경우
+			if(stItemTradeInfo.m_eItemKinds.ExIsValid() && (!this.SaleItemTradeInfoDict.ContainsKey(stItemTradeInfo.m_eItemKinds) || oSaleItemTradeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.BuyItemTradeInfoDict.ExReplaceVal(stItemTradeInfo.m_eItemKinds, stItemTradeInfo);
 			}
 		}
 
-		for(int i = 0; i < oEnhanceItemTradeInfosList.Count; ++i) {
-			for(int j = 0; j < oEnhanceItemTradeInfosList[i].Count; ++j) {
-				var stItemTradeInfo = new STItemTradeInfo(oEnhanceItemTradeInfosList[i][j]);
+		for(int i = 0; i < oEnhanceItemTradeInfos.Count; ++i) {
+			var stItemTradeInfo = new STItemTradeInfo(oEnhanceItemTradeInfos[i]);
 
-				// 강화 아이템 교환 정보 추가 가능 할 경우
-				if(stItemTradeInfo.m_eItemKinds.ExIsValid() && (!this.EnhanceItemTradeInfoDict.ContainsKey(stItemTradeInfo.m_eItemKinds) || oEnhanceItemTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.EnhanceItemTradeInfoDict.ExReplaceVal(stItemTradeInfo.m_eItemKinds, stItemTradeInfo);
-				}
+			// 강화 아이템 교환 정보 추가 가능 할 경우
+			if(stItemTradeInfo.m_eItemKinds.ExIsValid() && (!this.EnhanceItemTradeInfoDict.ContainsKey(stItemTradeInfo.m_eItemKinds) || oEnhanceItemTradeInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.EnhanceItemTradeInfoDict.ExReplaceVal(stItemTradeInfo.m_eItemKinds, stItemTradeInfo);
 			}
 		}
 
@@ -347,10 +310,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** 아이템 정보를 저장한다 */
 	public void SaveItemInfos() {
 		var oItemInfos = SimpleJSON.JSONNode.Parse(this.LoadItemInfosJSONStr(Access.ItemInfoTableLoadPath));
-		var oCommonInfos = oItemInfos[KCDefine.B_KEY_COMMON];
-		var oBuyTradeInfos = oItemInfos[KCDefine.B_KEY_BUY_TRADE];
-		var oSaleTradeInfos = oItemInfos[KCDefine.B_KEY_SALE_TRADE];
-		var oEnhanceTradeInfos = oItemInfos[KCDefine.B_KEY_ENHANCE_TRADE];
+		this.SetupJSONNodes(oItemInfos, out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyTradeInfos, out SimpleJSON.JSONNode oSaleTradeInfos, out SimpleJSON.JSONNode oEnhanceTradeInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var eItemKinds = oCommonInfos[i][KCDefine.U_KEY_ITEM_KINDS].ExIsValid() ? (EItemKinds)oCommonInfos[i][KCDefine.U_KEY_ITEM_KINDS].AsInt : EItemKinds.NONE;

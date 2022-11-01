@@ -151,16 +151,9 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	}
 
 	/** JSON 노드를 설정한다 */
-	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out List<SimpleJSON.JSONNode> a_oOutBuyProductTradeInfosList) {
-		a_oOutBuyProductTradeInfosList = new List<SimpleJSON.JSONNode>();
+	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
 		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.ProductTradeInfoTableLoadPath.ExGetFileName(false));
-
-		// 공용 정보가 존재 할 경우
-		if(oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON)) {
-			for(int i = 0; i < oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON].Count; ++i) {
-				a_oOutBuyProductTradeInfosList.ExAddVal(a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON][i]]);
-			}
-		}
+		a_oOutCommonInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
 	}
 
 	/** 상품 교환 정보를 로드한다 */
@@ -183,16 +176,14 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	/** 상품 교환 정보를 로드한다 */
 	private Dictionary<EProductKinds, STProductTradeInfo> DoLoadProductTradeInfos(string a_oJSONStr) {
 		CAccess.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out List<SimpleJSON.JSONNode> oBuyProductTradeInfosList);
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
 
-		for(int i = 0; i < oBuyProductTradeInfosList.Count; ++i) {
-			for(int j = 0; j < oBuyProductTradeInfosList[i].Count; ++j) {
-				var stProductTradeInfo = new STProductTradeInfo(oBuyProductTradeInfosList[i][j]);
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var stProductTradeInfo = new STProductTradeInfo(oCommonInfos[i]);
 
-				// 구입 상품 교환 정보 추가 가능 할 경우
-				if(stProductTradeInfo.m_eProductKinds.ExIsValid() && (!this.BuyProductTradeInfoDict.ContainsKey(stProductTradeInfo.m_eProductKinds) || oBuyProductTradeInfosList[i][j][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
-					this.BuyProductTradeInfoDict.ExReplaceVal(stProductTradeInfo.m_eProductKinds, stProductTradeInfo);
-				}
+			// 구입 상품 교환 정보 추가 가능 할 경우
+			if(stProductTradeInfo.m_eProductKinds.ExIsValid() && (!this.BuyProductTradeInfoDict.ContainsKey(stProductTradeInfo.m_eProductKinds) || oCommonInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
+				this.BuyProductTradeInfoDict.ExReplaceVal(stProductTradeInfo.m_eProductKinds, stProductTradeInfo);
 			}
 		}
 
@@ -205,14 +196,14 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	/** 상품 교환 정보를 저장한다 */
 	public void SaveProductTradeInfos() {
 		var oProductTradeInfos = SimpleJSON.JSONNode.Parse(this.LoadProductTradeInfosJSONStr(Access.ProductTradeInfoTableLoadPath));
-		var oBuyTradeInfos = oProductTradeInfos[KCDefine.B_KEY_BUY_TRADE];
+		this.SetupJSONNodes(oProductTradeInfos, out SimpleJSON.JSONNode oCommonInfos);
 
-		for(int i = 0; i < oBuyTradeInfos.Count; ++i) {
-			var oProductTradeKinds = oBuyTradeInfos[i][KCDefine.U_KEY_PRODUCT_KINDS].ExIsValid() ? (EProductKinds)oBuyTradeInfos[i][KCDefine.U_KEY_PRODUCT_KINDS].AsInt : EProductKinds.NONE;
+		for(int i = 0; i < oCommonInfos.Count; ++i) {
+			var oProductTradeKinds = oCommonInfos[i][KCDefine.U_KEY_PRODUCT_KINDS].ExIsValid() ? (EProductKinds)oCommonInfos[i][KCDefine.U_KEY_PRODUCT_KINDS].AsInt : EProductKinds.NONE;
 
 			// 구입 상품 교환 정보가 존재 할 경우
 			if(this.BuyProductTradeInfoDict.ContainsKey(oProductTradeKinds)) {
-				this.BuyProductTradeInfoDict[oProductTradeKinds].SaveProductTradeInfo(oBuyTradeInfos[i]);
+				this.BuyProductTradeInfoDict[oProductTradeKinds].SaveProductTradeInfo(oCommonInfos[i]);
 			}
 		}
 
