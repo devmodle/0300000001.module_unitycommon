@@ -63,9 +63,9 @@ namespace GameScene {
 
 			// 스프라이트를 설정한다 {
 			var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
-				[EKey.BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BG),
-				[EKey.UP_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_TOP_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_TOP_BG),
-				[EKey.DOWN_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_IMG_P_FMT_BOTTOM_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BOTTOM_BG)
+				[EKey.BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BG),
+				[EKey.UP_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_TOP_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_TOP_BG),
+				[EKey.DOWN_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_BOTTOM_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BOTTOM_BG)
 			};
 
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
