@@ -138,7 +138,7 @@ public static partial class Func {
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	private static List<STGoogleSheetInfo> m_oGoogleSheetInfoList = new List<STGoogleSheetInfo>();
-	private static List<(string, int, int)> m_oLoadGoogleSheetInfoList = new List<(string, int, int)>();
+	private static List<(string, int, int)> m_oGoogleSheetLoadInfoList = new List<(string, int, int)>();
 
 	private static Dictionary<string, SimpleJSON.JSONNode> m_oGoogleSheetJSONNodeDict = new Dictionary<string, SimpleJSON.JSONNode>();
 	private static Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
@@ -874,7 +874,7 @@ public static partial class Func {
 	/** 구글 시트를 로드한다 */
 	public static void LoadGoogleSheet(string a_oID, List<(string, int)> a_oInfoList, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool> a_oCallback) {
 		CIndicatorManager.Inst.Show();
-		a_oInfoList.ExCopyTo(Func.m_oLoadGoogleSheetInfoList, (a_stInfo) => (a_stInfo.Item1, a_stInfo.Item2, a_stInfo.Item2));
+		a_oInfoList.ExCopyTo(Func.m_oGoogleSheetLoadInfoList, (a_stInfo) => (a_stInfo.Item1, a_stInfo.Item2, a_stInfo.Item2));
 
 		Func.m_oGoogleSheetJSONNodeDict.Clear();
 		Func.m_oGoogleSheetCallbackDict03.ExReplaceVal(ECallback.LOAD_GOOGLE_SHEET, a_oCallback);
@@ -962,11 +962,11 @@ public static partial class Func {
 
 	/** 구글 시트를 로드했을 경우 */
 	private static void OnLoadGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, bool a_bIsSuccess) {
-		int nIdx = Func.m_oLoadGoogleSheetInfoList.FindIndex((a_oGoogleSheetInfo) => a_oGoogleSheetInfo.Item1.Equals(a_stGoogleSheetLoadInfo.m_oName));
-		CAccess.Assert(Func.m_oLoadGoogleSheetInfoList.ExIsValidIdx(nIdx));
+		int nIdx = Func.m_oGoogleSheetLoadInfoList.FindIndex((a_oGoogleSheetInfo) => a_oGoogleSheetInfo.Item1.Equals(a_stGoogleSheetLoadInfo.m_oName));
+		CAccess.Assert(Func.m_oGoogleSheetLoadInfoList.ExIsValidIdx(nIdx));
 
 		var oJSONNode = Func.m_oGoogleSheetJSONNodeDict.ContainsKey(a_stGoogleSheetLoadInfo.m_oName) ? Func.m_oGoogleSheetJSONNodeDict[a_stGoogleSheetLoadInfo.m_oName] : new SimpleJSON.JSONArray();
-		Func.m_oLoadGoogleSheetInfoList[nIdx] = (Func.m_oLoadGoogleSheetInfoList[nIdx].Item1, Func.m_oLoadGoogleSheetInfoList[nIdx].Item2 - a_stGoogleSheetLoadInfo.m_nNumCells, Func.m_oLoadGoogleSheetInfoList[nIdx].Item3);
+		Func.m_oGoogleSheetLoadInfoList[nIdx] = (Func.m_oGoogleSheetLoadInfoList[nIdx].Item1, Func.m_oGoogleSheetLoadInfoList[nIdx].Item2 - a_stGoogleSheetLoadInfo.m_nNumCells, Func.m_oGoogleSheetLoadInfoList[nIdx].Item3);
 
 		// 데이터를 로드했을 경우
 		if(a_bIsSuccess && !SpreadsheetManager.IsError && a_stGoogleSheetLoadInfo.m_oGoogleSheet.rows.primaryDictionary.Count > KCDefine.B_VAL_0_INT) {
@@ -975,19 +975,19 @@ public static partial class Func {
 			}
 		}
 
-		int nOriginNumCells = Func.m_oLoadGoogleSheetInfoList[nIdx].Item3;
+		int nOriginNumCells = Func.m_oGoogleSheetLoadInfoList[nIdx].Item3;
 		Func.m_oGoogleSheetJSONNodeDict.ExReplaceVal(a_stGoogleSheetLoadInfo.m_oName, oJSONNode);
 
 		// 로드 할 데이터가 존재 할 경우
-		if(a_bIsSuccess && !SpreadsheetManager.IsError && Func.m_oLoadGoogleSheetInfoList[nIdx].Item2 > KCDefine.B_VAL_0_INT) {
-			CServicesManager.Inst.LoadGoogleSheet(a_stGoogleSheetLoadInfo.m_oID, Func.m_oLoadGoogleSheetInfoList[nIdx].Item1, Func.OnLoadGoogleSheet, Func.m_oLoadGoogleSheetInfoList[nIdx].Item3 - Func.m_oLoadGoogleSheetInfoList[nIdx].Item2, Func.m_oLoadGoogleSheetInfoList[nIdx].Item2);
+		if(a_bIsSuccess && !SpreadsheetManager.IsError && Func.m_oGoogleSheetLoadInfoList[nIdx].Item2 > KCDefine.B_VAL_0_INT) {
+			CServicesManager.Inst.LoadGoogleSheet(a_stGoogleSheetLoadInfo.m_oID, Func.m_oGoogleSheetLoadInfoList[nIdx].Item1, Func.OnLoadGoogleSheet, Func.m_oGoogleSheetLoadInfoList[nIdx].Item3 - Func.m_oGoogleSheetLoadInfoList[nIdx].Item2, Func.m_oGoogleSheetLoadInfoList[nIdx].Item2);
 		} else {
-			Func.m_oLoadGoogleSheetInfoList.ExRemoveValAt(nIdx);
+			Func.m_oGoogleSheetLoadInfoList.ExRemoveValAt(nIdx);
 			Func.m_oGoogleSheetJSONNodeDict.GetValueOrDefault(a_stGoogleSheetLoadInfo.m_oName).Remove(KCDefine.B_VAL_0_INT);
 
 			// 구글 시트 정보가 존재 할 경우
-			if(!SpreadsheetManager.IsError && Func.m_oLoadGoogleSheetInfoList.ExIsValid()) {
-				CServicesManager.Inst.LoadGoogleSheet(a_stGoogleSheetLoadInfo.m_oID, Func.m_oLoadGoogleSheetInfoList[KCDefine.B_VAL_0_INT].Item1, Func.OnLoadGoogleSheet, KCDefine.B_VAL_0_INT, Func.m_oLoadGoogleSheetInfoList[KCDefine.B_VAL_0_INT].Item2);
+			if(!SpreadsheetManager.IsError && Func.m_oGoogleSheetLoadInfoList.ExIsValid()) {
+				CServicesManager.Inst.LoadGoogleSheet(a_stGoogleSheetLoadInfo.m_oID, Func.m_oGoogleSheetLoadInfoList[KCDefine.B_VAL_0_INT].Item1, Func.OnLoadGoogleSheet, KCDefine.B_VAL_0_INT, Func.m_oGoogleSheetLoadInfoList[KCDefine.B_VAL_0_INT].Item2);
 			} else {
 				CIndicatorManager.Inst.Close();
 				var stResult = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.ExFindVal((a_stTableInfo) => a_stGoogleSheetLoadInfo.m_oID.Equals(a_stTableInfo.Item1));
