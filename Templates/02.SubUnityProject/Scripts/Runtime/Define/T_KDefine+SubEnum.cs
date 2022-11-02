@@ -227,7 +227,6 @@ public enum EResType {
 	NONE = -1,
 	FONT,
 	SND,
-	IMG,
 	TEX,
 	SPRITE,
 	[HideInInspector] MAX_VAL
@@ -258,16 +257,11 @@ public enum EResKinds {
 	SND_FX_POPUP_CLOSE_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
 #endregion          // 사운드                
 
-#region 이미지
-	// 200,000,000
-	IMG_WHITE = (EEnumVal.TYPE * EResType.IMG) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	IMG_SPLASH,
-	IMG_INDICATOR,
-#endregion          // 이미지                
-
 #region 텍스처
 	// 300,000,000
-	TEX_RES_SAMPLE = (EEnumVal.TYPE * EResType.TEX) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	TEX_WHITE = (EEnumVal.TYPE * EResType.TEX) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	TEX_SPLASH,
+	TEX_INDICATOR,
 #endregion          // 텍스처                
 
 #region 스프라이트
