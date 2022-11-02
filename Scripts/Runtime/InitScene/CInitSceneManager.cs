@@ -96,7 +96,7 @@ namespace InitScene {
 			CSndManager.Inst.SetIsDisableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate);
 			// 사운드 관리자를 설정한다 }
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			Screen.SetResolution((int)CAccess.CorrectDesktopScreenSize.x, (int)CAccess.CorrectDesktopScreenSize.y, FullScreenMode.Windowed);
 #else
 			Screen.SetResolution(Screen.width, Screen.height, FullScreenMode.FullScreenWindow);

@@ -100,25 +100,5 @@ public struct STTypeWrapper {
 	[Key(161)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;
 }
 #endregion         // 기본               
-
-#region 조건부 타입
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-/** 구글 시트 정보 */
-public struct STGoogleSheetInfo {
-	public string m_oID;
-	public string m_oName;
-	public List<(string, int)> m_oSheetInfoList;
-
-#region 함수
-	/** 생성자 */
-	public STGoogleSheetInfo(string a_oID, string a_oName) : this() {
-		m_oID = a_oID;
-		m_oName = a_oName;
-		m_oSheetInfoList = new List<(string, int)>();
-	}
-#endregion         // 함수               
-}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
-#endregion         // 조건부 타입                   
 #endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     

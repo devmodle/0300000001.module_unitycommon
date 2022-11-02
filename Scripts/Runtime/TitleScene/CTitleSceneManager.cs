@@ -71,7 +71,7 @@ namespace TitleScene {
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #if INPUT_SYSTEM_MODULE_ENABLE
 				bool bIsEditorKeyDown = Keyboard.current.leftShiftKey.isPressed && Keyboard.current.eKey.wasPressedThisFrame;
 #else

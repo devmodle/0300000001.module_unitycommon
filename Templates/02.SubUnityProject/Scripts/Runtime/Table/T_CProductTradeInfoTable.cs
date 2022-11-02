@@ -138,7 +138,7 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 			CProductInfoTable.Inst.SaveProductInfos(a_oJSONStr);
 #endif          // #if PURCHASE_MODULE_ENABLE                                       
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.ProductTradeInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.ProductTradeInfoTableSavePath, a_oJSONStr, true);
@@ -166,7 +166,7 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	private string LoadProductTradeInfosJSONStr(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);

@@ -118,7 +118,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 		if(a_oJSONStr != null) {
 			this.ResetResInfos(a_oJSONStr);
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.ResInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.ResInfoTableSavePath, a_oJSONStr, true);
@@ -146,7 +146,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	private string LoadResInfosJSONStr(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);

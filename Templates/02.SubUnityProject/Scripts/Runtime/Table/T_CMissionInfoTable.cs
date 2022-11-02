@@ -111,7 +111,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 		if(a_oJSONStr != null) {
 			this.ResetMissionInfos(a_oJSONStr);
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.MissionInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.MissionInfoTableSavePath, a_oJSONStr, true);
@@ -139,7 +139,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	private string LoadMissionInfosJSONStr(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);

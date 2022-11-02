@@ -234,7 +234,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		if(a_oJSONStr != null) {
 			this.ResetSkillInfos(a_oJSONStr);
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oJSONStr, true);
@@ -265,7 +265,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	private string LoadSkillInfosJSONStr(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);

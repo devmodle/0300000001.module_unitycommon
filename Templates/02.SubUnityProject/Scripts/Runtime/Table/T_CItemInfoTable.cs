@@ -222,7 +222,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		if(a_oJSONStr != null) {
 			this.ResetItemInfos(a_oJSONStr);
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, true);
@@ -253,7 +253,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	private string LoadItemInfosJSONStr(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);

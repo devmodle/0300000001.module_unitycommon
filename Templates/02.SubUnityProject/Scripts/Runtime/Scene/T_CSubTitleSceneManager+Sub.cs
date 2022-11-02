@@ -122,15 +122,15 @@ namespace TitleScene {
 			// 버튼을 갱신한다 }
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
 
 #region 추가
@@ -262,11 +262,11 @@ namespace TitleScene {
 		}
 
 		/** 버전 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, SimpleJSON.JSONNode a_oVerInfos, Dictionary<string, STGoogleSheetInfo> a_oGoogleSheetInfoDict, bool a_bIsSuccess) {
+		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, SimpleJSON.JSONNode a_oVerInfos, Dictionary<string, STLoadGoogleSheetInfo> a_oLoadGoogleSheetInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				m_oVerInfos = a_oVerInfos;
-				Func.LoadGoogleSheets(a_oGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetHandlerDict, this.OnLoadGoogleSheets);
+				Func.LoadGoogleSheets(a_oLoadGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetLoadHandlerDict, this.OnLoadGoogleSheets);
 			} else {
 				Func.ShowOnTableLoadFailPopup(null);
 			}

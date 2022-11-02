@@ -128,7 +128,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 		if(a_oJSONStr != null) {
 			this.ResetRewardInfos(a_oJSONStr);
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oJSONStr, true);
@@ -156,7 +156,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	private string LoadRewardInfosJSONStr(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);

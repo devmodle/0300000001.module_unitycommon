@@ -106,7 +106,7 @@ namespace LevelEditorScene {
 
 #if GOOGLE_SHEET_ENABLE
 		private SimpleJSON.JSONNode m_oVerInfos = null;
-		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
+		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetLoadHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 #endif            // #if GOOGLE_SHEET_ENABLE                                    
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -647,11 +647,11 @@ namespace LevelEditorScene {
 
 #if GOOGLE_SHEET_ENABLE
 		/** 버전 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, SimpleJSON.JSONNode a_oVerInfos, Dictionary<string, STGoogleSheetInfo> a_oGoogleSheetInfoDict, bool a_bIsSuccess) {
+		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, SimpleJSON.JSONNode a_oVerInfos, Dictionary<string, STLoadGoogleSheetInfo> a_oLoadGoogleSheetInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				m_oVerInfos = a_oVerInfos;
-				Func.LoadGoogleSheets(a_oGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetHandlerDict, this.OnLoadGoogleSheets);
+				Func.LoadGoogleSheets(a_oLoadGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetLoadHandlerDict, this.OnLoadGoogleSheets);
 			} else {
 				Func.ShowOnTableLoadFailPopup(null);
 			}
