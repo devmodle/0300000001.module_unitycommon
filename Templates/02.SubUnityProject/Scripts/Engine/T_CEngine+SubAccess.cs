@@ -27,20 +27,20 @@ namespace NSEngine {
 			}
 		}
 
-		/** 가까운 적 객체를 탐색한다 */
-		public CEObj FindNearEnemyObj(Vector3 a_stPos) {
+		/** 적 객체를 탐색한다 */
+		public CEObj FindEnemyObj(Vector3 a_stPos, float a_fDistance = float.MaxValue) {
 			var oEnemyObj = this.EnemyObjList.ExGetVal(KCDefine.B_VAL_0_INT, null);
 
 			for(int i = 1; i < this.EnemyObjList.Count; ++i) {
 				float fDistance = (a_stPos - oEnemyObj.transform.localPosition).sqrMagnitude;
 				oEnemyObj = fDistance.ExIsLessEquals((a_stPos - this.EnemyObjList[i].transform.localPosition).sqrMagnitude) ? oEnemyObj : this.EnemyObjList[i];
 			}
-
-			return oEnemyObj;
+			
+			return (oEnemyObj != null && (a_stPos - oEnemyObj.transform.localPosition).sqrMagnitude.ExIsLessEquals(Mathf.Pow(a_fDistance, KCDefine.B_VAL_2_REAL))) ? oEnemyObj : null;
 		}
 
-		/** 가까운 적 객체를 탐색한다 */
-		public List<CEObj> FindNearEnemyObjs(Vector3 a_stPos, float a_fDistance, List<CEObj> a_oOutEnemyObjList) {
+		/** 적 객체를 탐색한다 */
+		public List<CEObj> FindEnemyObjs(Vector3 a_stPos, List<CEObj> a_oOutEnemyObjList, float a_fDistance = float.MaxValue) {
 			a_oOutEnemyObjList = a_oOutEnemyObjList ?? new List<CEObj>();
 			
 			for(int i = 0; i < this.EnemyObjList.Count; ++i) {

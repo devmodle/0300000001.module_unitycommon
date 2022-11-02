@@ -106,10 +106,10 @@ namespace NSEngine {
 			// 적용 간격이 지났을 경우
 			if(nApplyTimes < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (nApplyTimes - KCDefine.B_VAL_1_INT))) {
 				switch((ESkillApplyType)((int)this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillApplyKinds).ExKindsToType()) {
-					case ESkillApplyType.RANGE: this.ApplyRangeSkill(); break;
-					case ESkillApplyType.TARGET: this.ApplyTargetSkill(); break;
+					case ESkillApplyType.MULTI: this.ApplyMultiSkill(); break;
+					case ESkillApplyType.SINGLE: this.ApplySingleSkill(); break;
 				}
-
+				
 				m_oIntDict.ExReplaceVal(ESubKey.APPLY_TIMES, nApplyTimes + KCDefine.B_VAL_1_INT);
 			}
 
@@ -120,16 +120,14 @@ namespace NSEngine {
 			}
 		}
 
-		/** 범위 스킬을 적용한다 */
-		private void ApplyRangeSkill() {
+		/** 다중 스킬을 적용한다 */
+		private void ApplyMultiSkill() {
 			// Do Something
 		}
 
-		/** 타겟 스킬을 적용한다 */
-		private void ApplyTargetSkill() {
-			for(int i = 0; i < this.TargetObjList.Count; ++i) {
-				this.Owner.GetOwner<CEObj>().GetController<CEObjController>().Attack(this.TargetObjList[i] as CEObj, this.GetOwner<CESkill>());
-			}
+		/** 단일 스킬을 적용한다 */
+		private void ApplySingleSkill() {
+			// Do Something
 		}
 #endregion          // 함수               
 	}

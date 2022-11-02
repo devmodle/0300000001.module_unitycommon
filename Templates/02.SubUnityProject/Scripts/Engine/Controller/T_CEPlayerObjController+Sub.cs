@@ -80,7 +80,7 @@ namespace NSEngine {
 
 			// 자동 제어 모드 일 경우
 			if(this.IsAutoControl) {
-				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindNearEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
+				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
 
 				// 적 객체 공격이 가능 할 경우
 				if(this.IsEnableAttackEnemyObj(oEnemyObj)) {
@@ -97,7 +97,7 @@ namespace NSEngine {
 
 			// 자동 제어 모드 일 경우
 			if(this.IsAutoControl) {
-				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindNearEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
+				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
 
 				// 적 객체 공격이 가능 할 경우
 				if(this.IsEnableAttackEnemyObj(oEnemyObj)) {
@@ -121,8 +121,8 @@ namespace NSEngine {
 
 			try {
 				switch(a_stSkillInfo.SkillApplyType) {
-					case ESkillApplyType.RANGE: this.SetupRangeSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
-					case ESkillApplyType.TARGET: this.SetupTargetSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
+					case ESkillApplyType.MULTI: this.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
+					case ESkillApplyType.SINGLE: this.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
 				}
 
 				var oSkill = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
@@ -146,16 +146,14 @@ namespace NSEngine {
 			this.SetState(EState.IDLE, true);
 		}
 
-		/** 범위 스킬 타겟을 설정한다 */
-		private void SetupRangeSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+		/** 다중 스킬 타겟을 설정한다 */
+		private void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
 			// Do Something
 		}
 
-		/** 타겟 스킬 타겟을 설정한다 */
-		private void SetupTargetSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
-			switch(a_stSkillInfo.m_eSkillApplyKinds) {
-				case ESkillApplyKinds.TARGET_SINGLE: a_oOutTargetObjList.ExAddVal(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindNearEnemyObj(this.GetOwner<CEObj>().transform.localPosition)); break;
-			}
+		/** 단일 스킬 타겟을 설정한다 */
+		private void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+			// Do Something
 		}
 
 		/** 적 객체 공격 가능 여부를 검사한다 */
