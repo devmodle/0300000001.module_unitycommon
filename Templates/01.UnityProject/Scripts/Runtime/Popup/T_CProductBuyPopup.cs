@@ -6,15 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-using System.Linq;
-using TMPro;
-
-#if PURCHASE_MODULE_ENABLE
-using UnityEngine.Purchasing;
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
-
-/** 상품 교환 팝업 */
-public partial class CProductTradePopup : CSubPopup {
+/** 상품 구입 팝업 */
+public partial class CProductBuyPopup : CSubPopup {
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,

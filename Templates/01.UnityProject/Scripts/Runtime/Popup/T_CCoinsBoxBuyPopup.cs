@@ -8,8 +8,8 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using TMPro;
 
-/** 코인 상자 팝업 */
-public partial class CCoinsBoxPopup : CSubPopup {
+/** 코인 상자 구입 팝업 */
+public partial class CCoinsBoxBuyPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,

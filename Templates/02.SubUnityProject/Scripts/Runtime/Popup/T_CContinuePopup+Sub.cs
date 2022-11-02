@@ -48,7 +48,7 @@ public partial class CContinuePopup : CSubPopup {
 
 		// 텍스트를 갱신한다 {
 		var oTextKeyInfoList = new List<(EKey, ETargetKinds, EItemKinds)>() {
-			(EKey.PRICE_TEXT, ETargetKinds.ITEM_NUMS, EItemKinds.GOODS_COINS)
+			(EKey.PRICE_TEXT, ETargetKinds.ITEM_NUMS, EItemKinds.GOODS_NORM_COINS)
 		};
 
 		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
