@@ -63,17 +63,17 @@ public static partial class KDefine {
 	};
 
 	public static readonly Dictionary<string, (string, int)> G_TABLE_INFO_GOOGLE_SHEET_DICT = new Dictionary<string, (string, int)>() {
-		[KCDefine.U_TABLE_P_G_VER_INFO.ExGetFileName(false)] = ("11lBz0haEcQDRfOcxW-V-CbtD15Go_7Z22CA3qOTtGps", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-		[KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false)] = ("18LvXIUoIet_NT1m5SGyu-fAOoG0UAYVFjlE6rk7rULs", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-		[KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false)] = ("1dxG0mEGey9eBLC_uR-mu49FWfIXbLCKv3u7L_M0AESM", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-		[KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false)] = ("1Mp7yIcihpAHvALtGW394NyNF455YF4s41Mo0ZqBi8Ig", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-		[KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false)] = ("1OjqxK699MWTcQ0PqQ81EE3HA70aXVMjEJXzhL1ZacJM", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
+		[KCDefine.U_TABLE_P_G_VER_INFO.ExGetFileName(false)] = ("11lBz0haEcQDRfOcxW-V-CbtD15Go_7Z22CA3qOTtGps", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS),
+		[KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false)] = ("18LvXIUoIet_NT1m5SGyu-fAOoG0UAYVFjlE6rk7rULs", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS),
+		[KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false)] = ("1dxG0mEGey9eBLC_uR-mu49FWfIXbLCKv3u7L_M0AESM", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS),
+		[KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false)] = ("1Mp7yIcihpAHvALtGW394NyNF455YF4s41Mo0ZqBi8Ig", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS),
+		[KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false)] = ("1OjqxK699MWTcQ0PqQ81EE3HA70aXVMjEJXzhL1ZacJM", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS),
 
-		[KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false)] = ("18Fzoyyu6yg_FQY8nOi-DaCGqes37oxYuBLabYKOjpnI", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-		[KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false)] = ("1m00Mfx_KuxYYHnwYYerSakn3_dszKZHbMCdpVtAzPos", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-		[KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false)] = ("1qnJkf80sIwdJaTteymNrUDHSJ-p4162LT6_qvUYGYTY", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-		[KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false)] = ("1cxc5dC57Go_AMUD0crtHMWxDw5GjEASRrCU7ERKQxQE", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS),
-		[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)] = ("1uqeDN-ZaAs3_UxWp93Ub_nEX5r1z7MNDHfwXE-IKB_w", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS)
+		[KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false)] = ("18Fzoyyu6yg_FQY8nOi-DaCGqes37oxYuBLabYKOjpnI", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS),
+		[KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false)] = ("1m00Mfx_KuxYYHnwYYerSakn3_dszKZHbMCdpVtAzPos", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS),
+		[KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false)] = ("1qnJkf80sIwdJaTteymNrUDHSJ-p4162LT6_qvUYGYTY", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS),
+		[KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false)] = ("1cxc5dC57Go_AMUD0crtHMWxDw5GjEASRrCU7ERKQxQE", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS),
+		[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)] = ("1uqeDN-ZaAs3_UxWp93Ub_nEX5r1z7MNDHfwXE-IKB_w", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS)
 	};
 
 	public static readonly Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, string>>)> G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER = new Dictionary<string, (string, Dictionary<System.Type, Dictionary<string, string>>)>() {

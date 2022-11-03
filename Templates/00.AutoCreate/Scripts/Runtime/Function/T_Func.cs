@@ -907,7 +907,7 @@ public static partial class Func {
 		Func.m_oGoogleSheetCallbackDict02.ExReplaceVal(ECallback.LOAD_VER_INFO_GOOGLE_SHEET, a_oCallback);
 
 		Func.LoadGoogleSheet(a_oID, new List<(string, int)>() {
-			($"{EUserType.A}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS), ($"{EUserType.B}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS), (KCDefine.B_KEY_COMMON, KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS)
+			($"{EUserType.A}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS), ($"{EUserType.B}", KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS), (KCDefine.B_KEY_COMMON, KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS)
 		}, Func.OnLoadVerInfoGoogleSheet);
 	}
 
@@ -928,7 +928,7 @@ public static partial class Func {
 	}
 
 	/** 구글 시트 정보를 설정한다 */
-	private static void SetupLoadGoogleSheetInfos(string a_oID, string a_oName, Dictionary<string, string> a_oGoogleSheetNameDict, Dictionary<string, List<string>> a_oExtraGoogleSheetNameDictContainer, Dictionary<string, STLoadGoogleSheetInfo> a_oOutLoadGoogleSheetInfoDict, int a_nMaxNumCells = KCDefine.U_MAX_NUM_GOOGLE_SHEET_CELLS, bool a_bIsEnableAssert = true) {
+	private static void SetupLoadGoogleSheetInfos(string a_oID, string a_oName, Dictionary<string, string> a_oGoogleSheetNameDict, Dictionary<string, List<string>> a_oExtraGoogleSheetNameDictContainer, Dictionary<string, STLoadGoogleSheetInfo> a_oOutLoadGoogleSheetInfoDict, int a_nMaxNumRows = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oName.ExIsValid() && a_oGoogleSheetNameDict.ExIsValid()));
 
 		// 구글 시트 정보 설정이 가능 할 경우
@@ -936,12 +936,12 @@ public static partial class Func {
 			var stLoadGoogleSheetInfo = a_oOutLoadGoogleSheetInfoDict.ContainsKey(a_oName) ? a_oOutLoadGoogleSheetInfoDict[a_oName] : new STLoadGoogleSheetInfo(a_oID, a_oName);
 
 			foreach(var stKeyVal in a_oGoogleSheetNameDict) {
-				stLoadGoogleSheetInfo.m_oSheetInfoList.ExAddVal((stKeyVal.Value, a_nMaxNumCells));
+				stLoadGoogleSheetInfo.m_oSheetInfoList.ExAddVal((stKeyVal.Value, a_nMaxNumRows));
 
 				// 추가 구글 시트 정보가 존재 할 경우
 				if(a_oExtraGoogleSheetNameDictContainer != null && a_oExtraGoogleSheetNameDictContainer.ContainsKey(stKeyVal.Key)) {
 					for(int i = 0; i < a_oExtraGoogleSheetNameDictContainer[stKeyVal.Key].Count; ++i) {
-						stLoadGoogleSheetInfo.m_oSheetInfoList.ExAddVal((a_oExtraGoogleSheetNameDictContainer[stKeyVal.Key][i], a_nMaxNumCells));
+						stLoadGoogleSheetInfo.m_oSheetInfoList.ExAddVal((a_oExtraGoogleSheetNameDictContainer[stKeyVal.Key][i], a_nMaxNumRows));
 					}
 				}
 			}
@@ -966,7 +966,7 @@ public static partial class Func {
 		CAccess.Assert(Func.m_oGoogleSheetLoadInfoList.ExIsValidIdx(nIdx));
 
 		var oJSONNode = Func.m_oGoogleSheetJSONNodeDict.ContainsKey(a_stGoogleSheetLoadInfo.m_oName) ? Func.m_oGoogleSheetJSONNodeDict[a_stGoogleSheetLoadInfo.m_oName] : new SimpleJSON.JSONArray();
-		Func.m_oGoogleSheetLoadInfoList[nIdx] = (Func.m_oGoogleSheetLoadInfoList[nIdx].Item1, Func.m_oGoogleSheetLoadInfoList[nIdx].Item2 - a_stGoogleSheetLoadInfo.m_nNumCells, Func.m_oGoogleSheetLoadInfoList[nIdx].Item3);
+		Func.m_oGoogleSheetLoadInfoList[nIdx] = (Func.m_oGoogleSheetLoadInfoList[nIdx].Item1, Func.m_oGoogleSheetLoadInfoList[nIdx].Item2 - a_stGoogleSheetLoadInfo.m_nNumRows, Func.m_oGoogleSheetLoadInfoList[nIdx].Item3);
 
 		// 데이터를 로드했을 경우
 		if(a_bIsSuccess && !SpreadsheetManager.IsError && a_stGoogleSheetLoadInfo.m_oGoogleSheet.rows.primaryDictionary.Count > KCDefine.B_VAL_0_INT) {
@@ -975,7 +975,7 @@ public static partial class Func {
 			}
 		}
 
-		int nOriginNumCells = Func.m_oGoogleSheetLoadInfoList[nIdx].Item3;
+		int nOriginNumRows = Func.m_oGoogleSheetLoadInfoList[nIdx].Item3;
 		Func.m_oGoogleSheetJSONNodeDict.ExReplaceVal(a_stGoogleSheetLoadInfo.m_oName, oJSONNode);
 
 		// 로드 할 데이터가 존재 할 경우
@@ -993,7 +993,7 @@ public static partial class Func {
 				var stResult = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.ExFindVal((a_stTableInfo) => a_stGoogleSheetLoadInfo.m_oID.Equals(a_stTableInfo.Item1));
 
 				Func.m_oGoogleSheetCallbackDict03.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEET)?.Invoke(a_oSender, new STGoogleSheetLoadInfo() {
-					m_nSrcIdx = KCDefine.B_VAL_0_INT, m_nNumCells = nOriginNumCells, m_oID = a_stGoogleSheetLoadInfo.m_oID, m_oName = stResult.Item1 ? stResult.Item2 : string.Empty, m_oGoogleSheet = a_stGoogleSheetLoadInfo.m_oGoogleSheet
+					m_nSrcIdx = KCDefine.B_VAL_0_INT, m_nNumRows = nOriginNumRows, m_oID = a_stGoogleSheetLoadInfo.m_oID, m_oName = stResult.Item1 ? stResult.Item2 : string.Empty, m_oGoogleSheet = a_stGoogleSheetLoadInfo.m_oGoogleSheet
 				}, Func.m_oGoogleSheetJSONNodeDict, !SpreadsheetManager.IsError);
 			}
 		}
