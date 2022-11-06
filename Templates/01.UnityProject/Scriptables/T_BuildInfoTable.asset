@@ -16,6 +16,7 @@ MonoBehaviour:
     m_oUserID: 9tap
     m_oBranch: main
     m_oSrc: 0000000000.Common/0300010101.Sample_Unity
+    m_oProjRoot: 
     m_oWorkspace: /Volumes/LaCie/Workspace/Jenkins/workspace
     m_oBuildToken: JenkinsBuild
     m_oAccessToken: 111e9bf7eda996ab2ad9620e0dd0e15220
@@ -31,7 +32,7 @@ MonoBehaviour:
     m_oKeystorePassword: NT9studio!
     m_oKeyaliasPassword: NT9studio!
     m_eMinSDKVer: 22
-    m_eTargetSDKVer: 30
+    m_eTargetSDKVer: 0
   m_stStandaloneBuildInfo:
     m_oCategory: public.app-category.games
     m_oTargetOSVer: 10.13.0
