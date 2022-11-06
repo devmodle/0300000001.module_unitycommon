@@ -164,7 +164,7 @@ public static partial class KEditorDefine {
 		["com.unity.feature.mobile"] = "1.0.0",
 		["com.unity.feature.worldbuilding"] = "1.0.1",
 
-		["com.unity.inputsystem"] = "1.4.3",
+		["com.unity.inputsystem"] = "1.4.4",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.localization"] = "1.3.2",
 		["com.unity.render-pipelines.universal"] = "12.1.7",
