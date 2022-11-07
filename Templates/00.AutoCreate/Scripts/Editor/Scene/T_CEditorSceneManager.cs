@@ -73,7 +73,7 @@ public static partial class CEditorSceneManager {
 
 				CEditorSceneManager.m_bIsEnableSetup = false;
 				CEditorSceneManager.m_bIsEnableSetupDependencies = true;
-				CEditorSceneManager.m_oListRequest = Client.List(true, true);
+				CEditorSceneManager.m_oListRequest = Client.List(false, false);
 			}
 
 			// 갱신 주기가 지났을 경우
@@ -82,15 +82,27 @@ public static partial class CEditorSceneManager {
 				CEditorSceneManager.SetupExtraPreloadAssets();
 
 				CFunc.EnumerateRootObjs((a_oObj) => {
-					// 프리팹 최상단 객체 일 경우
-					if(KCEditorDefine.B_OBJ_N_PREFAB_ROOT_OBJ_LIST.Contains(a_oObj.name) && !CEditorSceneManager.m_oSampleSceneNameList.Contains(a_oObj.scene.name)) {
+					// 최상단 프리팹 객체 일 경우
+					if(KCEditorDefine.B_OBJ_N_ROOT_PREFAB_OBJ_LIST.Contains(a_oObj.name) && !CEditorSceneManager.m_oSampleSceneNameList.Contains(a_oObj.scene.name)) {
 						CEditorSceneManager.SetupPrefabObjs(a_oObj);
 					}
 
 					return true;
 				});
 
-				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT); return true; });
+				CFunc.EnumerateScenes((a_stScene) => {
+					var oUIsRoot = a_stScene.ExFindChild(KCDefine.U_OBJ_N_SCENE_UIS_ROOT);
+					string oPrefabPath = (oUIsRoot == null) ? CEditorAccess.GetRootObjPrefabPath(a_stScene, KCDefine.U_OBJ_N_SCENE_UIS_ROOT) : string.Empty;
+
+					// 최상단 UI 가 없을 경우
+					if(oUIsRoot == null && CEditorAccess.IsExistsAsset(oPrefabPath)) {
+						EditorSceneManager.MarkSceneDirty(a_stScene);
+						CEditorFactory.CreatePrefabInstance(KCDefine.U_OBJ_N_SCENE_UIS_ROOT, CEditorFunc.FindAsset<GameObject>(oPrefabPath), null);
+					}
+
+					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT);
+					return true;
+				});
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
 				CFunc.EnumerateScenes((a_stScene) => { CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.G_EXTRA_SCENE_MANAGER_TYPE_DICT); return true; });
@@ -128,7 +140,7 @@ public static partial class CEditorSceneManager {
 		for(int i = 0; i < CEditorSceneManager.m_oAddRequestList.Count; ++i) {
 			// 에러가 존재 할 경우
 			if(CEditorSceneManager.m_oAddRequestList[i].Error != null) {
-				CFunc.ShowLog($"CEditorSceneManager.LateUpdate: {CEditorSceneManager.m_oAddRequestList[i].Error.message}");
+				CFunc.ShowLogWarning($"CEditorSceneManager.LateUpdate: {CEditorSceneManager.m_oAddRequestList[i].Error.message}");
 				CEditorSceneManager.m_oAddRequestList.ExRemoveValAt(i, false);
 
 				break;
@@ -181,6 +193,11 @@ public static partial class CEditorSceneManager {
 		// 상태 갱신이 가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
 			bool bIsEnableSetup = CEditorSceneManager.m_bIsEnableSetupDependencies && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.Result != null && CEditorSceneManager.m_oListRequest.IsCompleted);
+
+			// 독립 패키지 갱신이 가능 할 경우
+			if(CEditorSceneManager.m_bIsEnableSetupDependencies && CEditorSceneManager.m_oListRequest != null) {
+				CFunc.ShowLog($"CEditorSceneManager.UpdateDependencyState: {CEditorSceneManager.m_oListRequest.IsCompleted}");
+			}
 
 			// 갱신 주기가 지났을 경우
 			if(bIsEnableSetup && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDependencySkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
@@ -271,17 +288,14 @@ public static partial class CEditorSceneManager {
 	private static void SetupPrefabObjs(GameObject a_oObj) {
 		// 프리팹 설정이 가능 할 경우
 		if(!PrefabUtility.IsPrefabAssetMissing(a_oObj) && CFunc.FindComponent<CSampleSceneManager>(a_oObj.scene) == null) {
-			string oDirPath = (!a_oObj.scene.name.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_01) && !a_oObj.scene.name.Contains(KCDefine.B_EDITOR_SCENE_N_PATTERN_02)) ? KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_PREFABS : KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_EDITOR_PREFABS;
-			string oRootPath = (Directory.GetParent(a_oObj.scene.path) != null) ? Directory.GetParent(a_oObj.scene.path).Name.ExGetFileName(false) : string.Empty;
-			string oPrefabPath = (oRootPath.ExIsValid() && !oRootPath.Equals(KCDefine.B_DIR_N_SCENES)) ? string.Format(KCDefine.B_TEXT_FMT_4_SLASH_COMBINE, Path.GetDirectoryName(oDirPath).Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH), CEditorAccess.GetSceneDirName(a_oObj.scene), oRootPath, string.Format(KCDefine.B_TEXT_FMT_2_UNDER_SCORE_COMBINE, a_oObj.scene.name, a_oObj.name)) : string.Format(KCDefine.B_TEXT_FMT_3_SLASH_COMBINE, Path.GetDirectoryName(oDirPath).Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH), CEditorAccess.GetSceneDirName(a_oObj.scene), string.Format(KCDefine.B_TEXT_FMT_2_UNDER_SCORE_COMBINE, a_oObj.scene.name, a_oObj.name));
-			string oFinalPrefabPath = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oPrefabPath, KCDefine.B_FILE_EXTENSION_PREFAB);
+			string oPrefabPath = CEditorAccess.GetRootObjPrefabPath(a_oObj.scene, a_oObj.name);
 
 			// 프리팹이 없을 경우
-			if(!CEditorAccess.IsExistsAsset(oFinalPrefabPath)) {
-				EditorSceneManager.MarkSceneDirty(a_oObj.scene);
+			if(!CEditorAccess.IsExistsAsset(oPrefabPath)) {
 				CEditorFactory.MakeDirectories(Path.GetDirectoryName(oPrefabPath).Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH));
+				PrefabUtility.SaveAsPrefabAssetAndConnect(a_oObj, oPrefabPath, InteractionMode.AutomatedAction);
 
-				PrefabUtility.SaveAsPrefabAssetAndConnect(a_oObj, oFinalPrefabPath, InteractionMode.AutomatedAction);
+				EditorSceneManager.MarkSceneDirty(a_oObj.scene);
 			}
 
 			// 베리언트 프리팹 일 경우
@@ -290,7 +304,7 @@ public static partial class CEditorSceneManager {
 					PrefabUtility.UnpackPrefabInstance(a_oObj, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
 				} while(PrefabUtility.GetPrefabAssetType(a_oObj) != PrefabAssetType.NotAPrefab);
 
-				CEditorFactory.RemoveAsset(oFinalPrefabPath);
+				CEditorFactory.RemoveAsset(oPrefabPath);
 			}
 		}
 	}
