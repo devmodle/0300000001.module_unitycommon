@@ -194,11 +194,6 @@ public static partial class CEditorSceneManager {
 		if(CEditorAccess.IsEnableUpdateState) {
 			bool bIsEnableSetup = CEditorSceneManager.m_bIsEnableSetupDependencies && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.Result != null && CEditorSceneManager.m_oListRequest.IsCompleted);
 
-			// 독립 패키지 갱신이 가능 할 경우
-			if(CEditorSceneManager.m_bIsEnableSetupDependencies && CEditorSceneManager.m_oListRequest != null) {
-				CFunc.ShowLog($"CEditorSceneManager.UpdateDependencyState: {CEditorSceneManager.m_oListRequest.IsCompleted}");
-			}
-
 			// 갱신 주기가 지났을 경우
 			if(bIsEnableSetup && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDependencySkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
 				CEditorSceneManager.m_dblDependencySkipTime = EditorApplication.timeSinceStartup;
