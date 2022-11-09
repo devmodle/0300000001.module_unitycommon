@@ -242,7 +242,7 @@ namespace TitleScene {
 					[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)] = () => CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString())
 				};
 
-				oHandlerDict.GetValueOrDefault(a_stGoogleSheetLoadInfo.m_oName)?.Invoke();
+				oHandlerDict.GetValueOrDefault(a_stGoogleSheetLoadInfo.m_oSheetName)?.Invoke();
 			}
 
 			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
