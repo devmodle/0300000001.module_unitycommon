@@ -20,18 +20,18 @@ public struct STFXInfo {
 
 	List<EResKinds> m_oResKindsList;
 
-#region 상수
+	#region 상수
 	public static STFXInfo INVALID = new STFXInfo() {
 		m_eFXKinds = EFXKinds.NONE, m_ePrevFXKinds = EFXKinds.NONE, m_eNextFXKinds = EFXKinds.NONE
 	};
-#endregion            // 상수               
+	#endregion            // 상수               
 
-#region 프로퍼티
+	#region 프로퍼티
 	public EFXType FXType => (EFXType)((int)m_eFXKinds).ExKindsToType();
 	public EFXKinds BaseFXKinds => (EFXKinds)((int)m_eFXKinds).ExKindsToSubKindsType();
-#endregion           // 프로퍼티                 
+	#endregion           // 프로퍼티                 
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public STFXInfo(SimpleJSON.JSONNode a_oFXInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oFXInfo);
@@ -43,9 +43,9 @@ public struct STFXInfo {
 
 		m_oResKindsList = Factory.MakeVals(a_oFXInfo, KCDefine.U_KEY_FMT_RES_KINDS, (a_oJSONNode) => (EResKinds)a_oJSONNode.AsInt);
 	}
-#endregion         // 함수               
+	#endregion         // 함수               
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 효과 정보를 저장한다 */
 	public void SaveFXInfo(SimpleJSON.JSONNode a_oOutFXInfo) {
@@ -59,16 +59,16 @@ public struct STFXInfo {
 		Func.SaveVals(m_oResKindsList, KCDefine.U_KEY_FMT_RES_KINDS, (a_eResKinds) => $"{(int)a_eResKinds}", a_oOutFXInfo);
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+	#endregion         // 조건부 함수                   
 }
 
 /** 효과 정보 테이블 */
 public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
-#region 프로퍼티
+	#region 프로퍼티
 	public Dictionary<EFXKinds, STFXInfo> FXInfoDict { get; } = new Dictionary<EFXKinds, STFXInfo>();
-#endregion         // 프로퍼티                 
+	#endregion         // 프로퍼티                 
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -118,8 +118,8 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.FXInfoTableLoadPath.ExGetFileName(false));
-		a_oOutCommonInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON]] : null;
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.FXInfoTableLoadPath.ExGetFileName(false));
+		a_oOutCommonInfos = oTableInfoDictContainer.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.m_oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON]] : null;
 	}
 
 	/** 효과 정보를 로드한다 */
@@ -132,7 +132,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	private string LoadFXInfosJSONStr(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
@@ -155,9 +155,9 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 
 		return this.FXInfoDict;
 	}
-#endregion         // 함수               
+	#endregion         // 함수               
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 효과 정보를 저장한다 */
 	public void SaveFXInfos(SimpleJSON.JSONNode a_oOutFXInfos) {
@@ -173,7 +173,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 		}
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+	#endregion         // 조건부 함수                   
 }
 #endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     

@@ -18,18 +18,18 @@ public struct STCalcInfo {
 	public ECalcKinds m_ePrevCalcKinds;
 	public ECalcKinds m_eNextCalcKinds;
 
-#region 상수
+	#region 상수
 	public static STCalcInfo INVALID = new STCalcInfo() {
 		m_eCalcKinds = ECalcKinds.NONE, m_ePrevCalcKinds = ECalcKinds.NONE, m_eNextCalcKinds = ECalcKinds.NONE
 	};
-#endregion            // 상수               
+	#endregion            // 상수               
 
-#region 프로퍼티
+	#region 프로퍼티
 	public ECalcType CalcType => (ECalcType)((int)m_eCalcKinds).ExKindsToType();
 	public ECalcKinds BaseCalcKinds => (ECalcKinds)((int)m_eCalcKinds).ExKindsToSubKindsType();
-#endregion           // 프로퍼티                 
+	#endregion           // 프로퍼티                 
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public STCalcInfo(SimpleJSON.JSONNode a_oCalcInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oCalcInfo);
@@ -39,9 +39,9 @@ public struct STCalcInfo {
 		m_ePrevCalcKinds = a_oCalcInfo[KCDefine.U_KEY_PREV_CALC_KINDS].ExIsValid() ? (ECalcKinds)a_oCalcInfo[KCDefine.U_KEY_PREV_CALC_KINDS].AsInt : ECalcKinds.NONE;
 		m_eNextCalcKinds = a_oCalcInfo[KCDefine.U_KEY_NEXT_CALC_KINDS].ExIsValid() ? (ECalcKinds)a_oCalcInfo[KCDefine.U_KEY_NEXT_CALC_KINDS].AsInt : ECalcKinds.NONE;
 	}
-#endregion         // 함수               
+	#endregion         // 함수               
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 수식 정보를 저장한다 */
 	public void SaveCalcInfo(SimpleJSON.JSONNode a_oOutCalcInfo) {
@@ -53,16 +53,16 @@ public struct STCalcInfo {
 		a_oOutCalcInfo[KCDefine.U_KEY_NEXT_CALC_KINDS] = $"{(int)m_eNextCalcKinds}";
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+	#endregion         // 조건부 함수                   
 }
 
 /** 수식 정보 테이블 */
 public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
-#region 프로퍼티
+	#region 프로퍼티
 	public Dictionary<ECalcKinds, STCalcInfo> CalcInfoDict { get; } = new Dictionary<ECalcKinds, STCalcInfo>();
-#endregion           // 프로퍼티                 
+	#endregion           // 프로퍼티                 
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -112,8 +112,8 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_NAME_DICT_CONTAINER.GetValueOrDefault(Access.CalcInfoTableLoadPath.ExGetFileName(false));
-		a_oOutCommonInfos = oTableInfoDictContainer.Item2[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.Item2[this.GetType()][KCDefine.B_KEY_COMMON]] : null;
+		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.CalcInfoTableLoadPath.ExGetFileName(false));
+		a_oOutCommonInfos = oTableInfoDictContainer.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.m_oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON]] : null;
 	}
 
 	/** 수식 정보를 로드한다 */
@@ -126,7 +126,7 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	private string LoadCalcInfosJSONStr(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
@@ -149,9 +149,9 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 
 		return this.CalcInfoDict;
 	}
-#endregion         // 함수               
+	#endregion         // 함수               
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 수식 정보를 저장한다 */
 	public void SaveCalcInfos(SimpleJSON.JSONNode a_oOutCalcInfos) {
@@ -167,7 +167,7 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 		}
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
-#endregion         // 조건부 함수                   
+	#endregion         // 조건부 함수                   
 }
 #endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     
