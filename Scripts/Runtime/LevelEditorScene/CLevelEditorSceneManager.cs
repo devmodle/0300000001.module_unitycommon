@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-namespace LevelEditorScene {
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+namespace LevelEditorScene
+{
 	/** 레벨 에디터 씬 관리자 */
-	public partial class CLevelEditorSceneManager : CSceneManager {
+	public partial class CLevelEditorSceneManager : CSceneManager
+	{
 		/** 식별자 */
-		private enum EKey {
+		private enum EKey
+		{
 			NONE = -1,
 			MID_EDITOR_UIS,
 			LEFT_EDITOR_UIS,
@@ -49,11 +52,13 @@ namespace LevelEditorScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 
 			// 앱이 초기화 되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsAppInit)
+			{
 				// 객체를 설정한다 {
 				CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
 					(EKey.MID_EDITOR_UIS, $"{EKey.MID_EDITOR_UIS}", this.UIsBase),

@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 전역 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 	// 개수
 	public const int G_MAX_NUM_VALS = 10;
 	public const int G_MAX_NUM_VAL_INFOS = 10;
@@ -16,9 +16,9 @@ public static partial class KDefine {
 
 	// 식별자
 	public const int G_ID_COMMON_CHARACTER = byte.MaxValue;
-	#endregion          // 기본               
+#endregion          // 기본               
 
-	#region 런타임 상수
+#region 런타임 상수
 	// 버전 {
 	public static readonly System.Version G_VER_APP_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_GAME_INFO = new System.Version(1, 0, 0);
@@ -326,95 +326,95 @@ public static partial class KDefine {
 		}
 	};
 	// 테이블 정보 }
-	#endregion          // 런타임 상수                   
+#endregion          // 런타임 상수                   
 }
 
 /** 초기화 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion         // 기본               
+#endregion         // 기본               
 
-	#region 런타임 상수
+#region 런타임 상수
 	// 색상
 	public static readonly Color IS_COLOR_CLEAR = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
-	#endregion           // 런타임 상수                   
+#endregion           // 런타임 상수                   
 }
 
 /** 시작 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion          // 기본               
+#endregion          // 기본               
 
-	#region 런타임 상수
+#region 런타임 상수
 	// 위치
 	public static readonly Vector3 SS_POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
 	public static readonly Vector3 SS_POS_LOADING_GAUGE = KDefine.SS_POS_LOADING_TEXT + new Vector3(0.0f, -70.0f, 0.0f);
-	#endregion          // 런타임 상수                   
+#endregion          // 런타임 상수                   
 }
 
 /** 설정 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion          // 기본               
+#endregion          // 기본               
 }
 
 /** 약관 동의 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion          // 기본               
+#endregion          // 기본               
 }
 
 /** 지연 설정 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion          // 기본               
+#endregion          // 기본               
 }
 
 /** 타이틀 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion          // 기본               
+#endregion          // 기본               
 }
 
 /** 메인 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion          // 기본               
+#endregion          // 기본               
 }
 
 /** 게임 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 	// 이름
 	public const string GS_OBJ_N_ENGINE = "Engine";
-	#endregion          // 기본               
+#endregion          // 기본               
 }
 
 /** 로딩 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion          // 기본               
+#endregion          // 기본               
 
-	#region 런타임 상수
+#region 런타임 상수
 	// 위치
 	public static readonly Vector3 LS_POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
 	public static readonly Vector3 LS_POS_LOADING_GAUGE = KDefine.LS_POS_LOADING_TEXT + new Vector3(0.0f, -70.0f, 0.0f);
-	#endregion          // 런타임 상수                   
+#endregion          // 런타임 상수                   
 }
 
 /** 중첩 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion          // 기본               
+#endregion          // 기본               
 }
 #endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     

@@ -33,13 +33,13 @@ public struct STEpisodeInfo {
 	public Dictionary<ulong, STTargetInfo> m_oDropItemTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oEnemyObjTargetInfoDict;
 
-	#region 상수
+#region 상수
 	public static STEpisodeInfo INVALID = new STEpisodeInfo() {
 		m_stIDInfo = STIDInfo.INVALID, m_stPrevIDInfo = STIDInfo.INVALID, m_stNextIDInfo = STIDInfo.INVALID
 	};
-	#endregion            // 상수               
+#endregion            // 상수               
 
-	#region 프로퍼티
+#region 프로퍼티
 	public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	public ulong PrevULevelID => CFactory.MakeULevelID(m_stPrevIDInfo.m_nID01, m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
 	public ulong NextULevelID => CFactory.MakeULevelID(m_stNextIDInfo.m_nID01, m_stNextIDInfo.m_nID02, m_stNextIDInfo.m_nID03);
@@ -57,9 +57,9 @@ public struct STEpisodeInfo {
 
 	public ETutorialType TutorialType => (ETutorialType)((int)m_eTutorialKinds).ExKindsToType();
 	public ETutorialKinds BaseTutorialKinds => (ETutorialKinds)((int)m_eTutorialKinds).ExKindsToSubKindsType();
-	#endregion           // 프로퍼티                 
+#endregion           // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STEpisodeInfo(SimpleJSON.JSONNode a_oEpisodeInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oEpisodeInfo);
@@ -84,9 +84,9 @@ public struct STEpisodeInfo {
 		m_oDropItemTargetInfoDict = Factory.MakeTargetInfos(a_oEpisodeInfo, KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO);
 		m_oEnemyObjTargetInfoDict = Factory.MakeTargetInfos(a_oEpisodeInfo, KCDefine.U_KEY_FMT_ENEMY_OBJ_TARGET_INFO);
 	}
-	#endregion         // 함수               
+#endregion         // 함수               
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 에피소드 정보를 저장한다 */
 	public void SaveEpisodeInfo(SimpleJSON.JSONNode a_oOutEpisodeInfo) {
@@ -116,18 +116,18 @@ public struct STEpisodeInfo {
 		Func.SaveTargetInfos(m_oEnemyObjTargetInfoDict, KCDefine.U_KEY_FMT_ENEMY_OBJ_TARGET_INFO, a_oOutEpisodeInfo);
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-	#endregion         // 조건부 함수                   
+#endregion         // 조건부 함수                   
 }
 
 /** 에피소드 정보 테이블 */
 public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
-	#region 프로퍼티
+#region 프로퍼티
 	public Dictionary<ulong, STEpisodeInfo> LevelEpisodeInfoDict { get; } = new Dictionary<ulong, STEpisodeInfo>();
 	public Dictionary<ulong, STEpisodeInfo> StageEpisodeInfoDict { get; } = new Dictionary<ulong, STEpisodeInfo>();
 	public Dictionary<ulong, STEpisodeInfo> ChapterEpisodeInfoDict { get; } = new Dictionary<ulong, STEpisodeInfo>();
-	#endregion         // 프로퍼티                 
+#endregion         // 프로퍼티                 
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -264,9 +264,9 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 		return (this.LevelEpisodeInfoDict, this.StageEpisodeInfoDict, this.ChapterEpisodeInfoDict);
 	}
-	#endregion         // 함수               
+#endregion         // 함수               
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 에피소드 정보를 저장한다 */
 	public void SaveEpisodeInfos(SimpleJSON.JSONNode a_oOutEpisodeInfos) {
@@ -300,7 +300,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 		}
 	}
 #endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-	#endregion         // 조건부 함수                   
+#endregion         // 조건부 함수                   
 }
 #endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 #endif          // #if SCRIPT_TEMPLATE_ONLY                                     

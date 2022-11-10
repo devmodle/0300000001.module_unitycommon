@@ -82,7 +82,7 @@ public static partial class KEditorDefine {
 		[typeof(TestScene.CSubTestSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 #endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+#if(UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		[typeof(LevelEditorScene.CSubLevelEditorSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 #endif           // #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE                                                                                           
 
@@ -149,7 +149,7 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_TEST] = typeof(TestScene.CSubTestSceneManager),
 #endif           // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+#if(UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_LEVEL_EDITOR] = typeof(LevelEditorScene.CSubLevelEditorSceneManager)
 #endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE                                                                                           
 	};

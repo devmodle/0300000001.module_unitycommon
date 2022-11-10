@@ -81,7 +81,7 @@ namespace TitleScene {
 
 			CCommonAppInfoStorage.Inst.SetFirstStart(false);
 			
-#if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 #endif          // #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                    
 		}

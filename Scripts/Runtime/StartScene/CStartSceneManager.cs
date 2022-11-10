@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace StartScene {
+namespace StartScene
+{
 	/** 시작 씬 관리자 */
-	public abstract partial class CStartSceneManager : CSceneManager {
+	public abstract partial class CStartSceneManager : CSceneManager
+	{
 		#region 변수
 		protected Dictionary<string, int> m_oMaxNumFXSndsDict = new Dictionary<string, int>();
 		#endregion            // 변수               
@@ -21,29 +23,35 @@ namespace StartScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 
 			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
+			if(CSceneManager.IsInit)
+			{
 				CCommonAppInfoStorage.Inst.IncrAppRunningTimes(KCDefine.B_VAL_1_INT);
 				CCommonAppInfoStorage.Inst.SaveAppInfo();
 			}
 		}
 
 		/** 초기화 */
-		public sealed override void Start() {
+		public sealed override void Start()
+		{
 			base.Start();
 
 			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
+			if(CSceneManager.IsInit)
+			{
 				StartCoroutine(this.CoStart());
 			}
 		}
 
 		/** 씬을 설정한다 */
-		protected virtual void Setup() {
-			foreach(var stKeyVal in this.m_oMaxNumFXSndsDict) {
+		protected virtual void Setup()
+		{
+			foreach(var stKeyVal in this.m_oMaxNumFXSndsDict)
+			{
 				CSndManager.Inst.SetMaxNumFXSnds(stKeyVal.Key, stKeyVal.Value);
 			}
 		}
@@ -52,7 +60,8 @@ namespace StartScene {
 		protected abstract void OnReceiveStartSceneEvent(EStartSceneEvent a_eEvent);
 
 		/** 초기화 */
-		private IEnumerator CoStart() {
+		private IEnumerator CoStart()
+		{
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 			this.Setup();
 

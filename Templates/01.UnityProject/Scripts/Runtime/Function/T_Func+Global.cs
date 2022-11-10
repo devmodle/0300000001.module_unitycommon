@@ -79,7 +79,7 @@ public static partial class Func {
 		CUserInfoStorage.Inst.SaveUserInfo();
 
 #if NEVER_USE_THIS
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		CGameInfoStorage.Inst.SetPlayLevelInfo(CLevelInfoTable.Inst.GetLevelInfo(a_nLevelID, a_nStageID, a_nChapterID));
 #else
 		CGameInfoStorage.Inst.SetPlayLevelInfo(CLevelInfoTable.Inst.LoadLevelInfo(a_nLevelID, a_nStageID, a_nChapterID));

@@ -695,15 +695,15 @@ public enum ESkillApplyType {
 public enum ESkillApplyKinds {
 	NONE = -1,
 
-	#region 다중
+#region 다중
 	// 0
 	MULTI_SKILL_APPLY_SAMPLE = (EEnumVal.TYPE * ESkillApplyType.MULTI) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 다중
+#endregion          // 다중               
 
-	#region 단일
+#region 단일
 	// 100,000,000
 	SINGLE_SKILL_APPLY_SAMPLE = (EEnumVal.TYPE * ESkillApplyType.SINGLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	#endregion			// 단일
+#endregion          // 단일               
 
 	[HideInInspector] MAX_VAL
 }

@@ -182,7 +182,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #region 프로퍼티
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LevelInfoDictContainer = new Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>>();
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	public int NumChapterInfos => this.LevelInfoDictContainer.Count;
 #endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 #endregion          // 프로퍼티                 
@@ -241,7 +241,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oFilePath.ExIsValid());
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath}");
 
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		var oLevelIDList = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath, false) : CFunc.ReadMsgPackJSONObjFromRes<List<ulong>>(a_oFilePath, false);
 
 		for(int i = 0; i < oLevelIDList.Count; ++i) {
@@ -262,7 +262,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #endregion         // 함수               
 
 #region 조건부 함수
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	/** 레벨 정보 개수를 반환한다 */
 	public int GetNumLevelInfos(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nChapterID) && this.LevelInfoDictContainer[a_nChapterID].ContainsKey(a_nStageID));

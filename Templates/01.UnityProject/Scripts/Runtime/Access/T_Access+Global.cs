@@ -14,7 +14,7 @@ public static partial class Access {
 #region 클래스 프로퍼티
 	public static int NumChapterEpisodes {
 		get {
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			return CLevelInfoTable.Inst.NumChapterInfos;
 #else
 			return CEpisodeInfoTable.Inst.ChapterEpisodeInfoDict.Count;
@@ -212,7 +212,7 @@ public static partial class Access {
 
 	/** 레벨 에피소드 개수를 반환한다 */
 	public static int GetNumLevelEpisodes(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return CLevelInfoTable.Inst.GetNumLevelInfos(a_nStageID, a_nChapterID);
 #else
 		return CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID) ? stStageEpisodeInfo.m_nNumSubEpisodes : KCDefine.B_VAL_0_INT;
@@ -221,7 +221,7 @@ public static partial class Access {
 
 	/** 스테이지 에피소드 개수를 반환한다 */
 	public static int GetNumStageEpisodes(int a_nChapterID) {
-#if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return CLevelInfoTable.Inst.GetNumStageInfos(a_nChapterID);
 #else
 		return CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_nChapterID, out STEpisodeInfo stChapterEpisodeInfo) ? stChapterEpisodeInfo.m_nNumSubEpisodes : KCDefine.B_VAL_0_INT;
