@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace OverlayScene
-{
+namespace OverlayScene {
 	/** 중첩 씬 관리자 */
-	public partial class COverlaySceneManager : CSceneManager
-	{
+	public partial class COverlaySceneManager : CSceneManager {
 		#region 프로퍼티
 		public override string SceneName => KCDefine.B_SCENE_N_OVERLAY;
 
