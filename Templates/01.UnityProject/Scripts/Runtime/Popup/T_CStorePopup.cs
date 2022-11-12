@@ -86,6 +86,7 @@ public partial class CStorePopup : CSubPopup {
 				break;
 			}
 			case EPurchaseType.TARGET: {
+				Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, a_stProductTradeInfo);
 				break;
 			}
 		}

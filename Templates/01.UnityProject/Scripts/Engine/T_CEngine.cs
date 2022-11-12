@@ -65,7 +65,7 @@ namespace NSEngine {
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public STGridInfo SelGridInfo => m_oGridInfoList[this.SelGridInfoIdx];
 #endregion          // 프로퍼티                 
-		
+
 #region 함수
 		/** 구동 여부를 변경한다 */
 		public void SetEnableRunning(bool a_bIsRunning) {
@@ -91,7 +91,12 @@ namespace NSEngine {
 		/** 매개 변수를 생성한다 */
 		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null) {
 			return new STParams() {
-				m_oItemRoot = a_oItemRoot, m_oSkillRoot = a_oSkillRoot, m_oObjRoot = a_oObjRoot, m_oFXRoot = a_oFXRoot, m_oCallbackDict01 = a_oCallbackDict01 ?? new Dictionary<ECallback, System.Action<CEngine>>(), m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>()
+				m_oItemRoot = a_oItemRoot,
+				m_oSkillRoot = a_oSkillRoot,
+				m_oObjRoot = a_oObjRoot,
+				m_oFXRoot = a_oFXRoot,
+				m_oCallbackDict01 = a_oCallbackDict01 ?? new Dictionary<ECallback, System.Action<CEngine>>(),
+				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>()
 			};
 		}
 #endregion          // 클래스 함수                   

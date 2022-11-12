@@ -63,7 +63,7 @@ namespace TitleScene {
 		protected override void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
 			base.HandleTouchEvent(a_oSender, a_oEventData, a_eTouchEvent);
 			double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CSceneManager.ActiveSceneAwakeTime);
-			
+
 			// 배경 터치 전달자 일 경우
 			if(this.BGTouchDispatcher == a_oSender && dblDeltaTime.ExIsGreate(KCDefine.B_VAL_1_REAL)) {
 				switch(a_eTouchEvent) {
@@ -80,7 +80,7 @@ namespace TitleScene {
 			LogFunc.SendSplashLog();
 
 			CCommonAppInfoStorage.Inst.SetFirstStart(false);
-			
+
 #if(!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 #endif          // #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                    

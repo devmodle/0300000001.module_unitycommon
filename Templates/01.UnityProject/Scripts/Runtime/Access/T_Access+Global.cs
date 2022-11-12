@@ -31,7 +31,7 @@ public static partial class Access {
 #endif          // #if UNITY_IOS                          
 		}
 	}
-	
+
 	public static string EtcInfoTableLoadPath {
 		get {
 #if AB_TEST_ENABLE
@@ -56,8 +56,8 @@ public static partial class Access {
 	public static string LevelInfoTableLoadPath {
 		get {
 #if AB_TEST_ENABLE
-		string oTablePath = (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A;
-		return File.Exists(oTablePath) ? oTablePath : (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_A;
+			string oTablePath = (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A;
+			return File.Exists(oTablePath) ? oTablePath : (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_A;
 #else
 		return File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO : KCDefine.U_TABLE_P_G_LEVEL_INFO;
 #endif          // #if AB_TEST_ENABLE                               
@@ -67,7 +67,7 @@ public static partial class Access {
 	public static string LevelInfoTableSavePath {
 		get {
 #if AB_TEST_ENABLE
-		return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A;
+			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A;
 #else
 		return KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO;
 #endif          // #if AB_TEST_ENABLE                               
@@ -102,7 +102,7 @@ public static partial class Access {
 
 	public static string ObjInfoTableLoadPath => File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_OBJ_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_OBJ_INFO : KCDefine.U_TABLE_P_G_OBJ_INFO;
 	public static string ObjInfoTableSavePath => KCDefine.U_RUNTIME_TABLE_P_G_OBJ_INFO;
-	
+
 	public static string FXInfoTableLoadPath => Access.EtcInfoTableLoadPath;
 	public static string FXInfoTableSavePath => Access.EtcInfoTableSavePath;
 
@@ -343,7 +343,7 @@ public static partial class Access {
 		bool bIsValid = CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(KCDefine.B_VAL_0_INT, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID + KCDefine.B_VAL_1_INT);
 		return (bIsValid && stEpisodeInfo.EpisodeType == EEpisodeType.CHAPTER && CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(KCDefine.B_VAL_0_INT, out STEpisodeInfo stChapterLevelEpisodeInfo, KCDefine.B_VAL_0_INT, a_nChapterID + KCDefine.B_VAL_1_INT)) ? stChapterLevelEpisodeInfo : STEpisodeInfo.INVALID;
 	}
-	
+
 	/** 레벨 클리어 정보를 반환한다 */
 	public static CClearInfo GetLevelClearInfo(int a_nCharacterID, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT, bool a_bIsAutoCreate = false) {
 		// 자동 생성 모드 일 경우
@@ -493,10 +493,14 @@ public static partial class Access {
 		// 타겟 정보가 존재 할 경우
 		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.NONE && a_oTargetInfo != null) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
-				case KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
-				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
-				case KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL:
+					return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL:
+					return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL:
+					return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL:
+					return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
 			}
 		}
 
@@ -508,7 +512,7 @@ public static partial class Access {
 /** 초기화 씬 접근자 */
 public static partial class Access {
 #region 클래스 함수
-	
+
 #endregion          // 클래스 함수                   
 }
 
@@ -543,7 +547,7 @@ public static partial class Access {
 /** 타이틀 씬 접근자 */
 public static partial class Access {
 #region 클래스 함수
-	
+
 #endregion          // 클래스 함수                   
 }
 
@@ -571,7 +575,7 @@ public static partial class Access {
 /** 중첩 씬 접근자 */
 public static partial class Access {
 #region 클래스 함수
-	
+
 #endregion          // 클래스 함수                   
 }
 #endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     

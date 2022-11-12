@@ -275,7 +275,9 @@ namespace GameScene {
 		private void ShowResultPopup(bool a_bIsClear) {
 			Func.ShowResultPopup(this.PopupUIs, (a_oSender) => {
 				var stRecordInfo = new STRecordInfo {
-					m_bIsSuccess = a_bIsClear, m_nIntRecord = m_oEngine.RecordInfo.m_nIntRecord, m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord
+					m_bIsSuccess = a_bIsClear,
+					m_nIntRecord = m_oEngine.RecordInfo.m_nIntRecord,
+					m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord
 				};
 
 				(a_oSender as CResultPopup).Init(CResultPopup.MakeParams(stRecordInfo, new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {

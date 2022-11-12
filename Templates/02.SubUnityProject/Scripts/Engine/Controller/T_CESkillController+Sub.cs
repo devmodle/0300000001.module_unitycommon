@@ -43,11 +43,11 @@ namespace NSEngine {
 
 #region 변수
 		private Dictionary<ESubKey, int> m_oIntDict = new Dictionary<ESubKey, int>();
-		private Dictionary<ESubKey, float> m_oRealDict= new Dictionary<ESubKey, float>();
+		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
 #endregion          // 변수               
 
 #region 프로퍼티
-		
+
 #endregion          // 프로퍼티                 
 
 #region 함수
@@ -84,7 +84,7 @@ namespace NSEngine {
 				m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
 			}
 		}
-		
+
 		/** 효과를 설정한다 */
 		private void SubSetupAwake() {
 			// Do Something
@@ -109,7 +109,7 @@ namespace NSEngine {
 					case ESkillApplyType.MULTI: this.ApplyMultiSkill(); break;
 					case ESkillApplyType.SINGLE: this.ApplySingleSkill(); break;
 				}
-				
+
 				m_oIntDict.ExReplaceVal(ESubKey.APPLY_TIMES, nApplyTimes + KCDefine.B_VAL_1_INT);
 			}
 

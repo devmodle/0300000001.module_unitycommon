@@ -366,7 +366,9 @@ namespace LevelEditorScene {
 					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
 
 					Func.SetupEditorLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
-						m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
+						m_nNumLevels = KCDefine.B_VAL_0_INT,
+						m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS,
+						m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
 					});
 				}
 
@@ -473,7 +475,9 @@ namespace LevelEditorScene {
 			CLevelInfoTable.Inst.AddLevelInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO));
 
 			Func.SetupEditorLevelInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO), new CSubEditorLevelCreateInfo() {
-				m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
+				m_nNumLevels = KCDefine.B_VAL_0_INT,
+				m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS,
+				m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
 			});
 
 			this.UpdateUIsState();
@@ -502,7 +506,9 @@ namespace LevelEditorScene {
 				CLevelInfoTable.Inst.AddLevelInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO));
 
 				Func.SetupEditorLevelInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO), new CSubEditorLevelCreateInfo() {
-					m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
+					m_nNumLevels = KCDefine.B_VAL_0_INT,
+					m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS,
+					m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
 				});
 			} else {
 				CLevelInfo oSelLevelInfo = null;
@@ -884,7 +890,9 @@ namespace LevelEditorScene {
 			// 셀 개수가 유효 할 경우
 			if(bIsValid01 && bIsValid02 && (bIsValidNumCellsX || bIsValidNumCellsY)) {
 				Func.SetupEditorLevelInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO), new CSubEditorLevelCreateInfo() {
-					m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT), m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT)
+					m_nNumLevels = KCDefine.B_VAL_0_INT,
+					m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT),
+					m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT)
 				});
 
 				this.UpdateUIsState();
