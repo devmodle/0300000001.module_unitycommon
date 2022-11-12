@@ -10,9 +10,11 @@ using Unity.Advertisement.IosSupport;
 using UnityEngine.Android;
 #endif         // #if UNITY_IOS                          
 
-namespace LateSetupScene {
+namespace LateSetupScene
+{
 	/** 지연 설정 씬 관리자 */
-	public abstract partial class CLateSetupSceneManager : CSceneManager {
+	public abstract partial class CLateSetupSceneManager : CSceneManager
+	{
 		#region 프로퍼티
 		public virtual bool IsAutoInitManager => false;
 		public override string SceneName => KCDefine.B_SCENE_N_LATE_SETUP;
@@ -37,32 +39,38 @@ namespace LateSetupScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 
 			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
+			if(CSceneManager.IsInit)
+			{
 				CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_LATE_SETUP_SCENE, false);
 			}
 		}
 
 		/** 초기화 */
-		public sealed override void Start() {
+		public sealed override void Start()
+		{
 			base.Start();
 
 			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
+			if(CSceneManager.IsInit)
+			{
 				StartCoroutine(this.CoStart());
 			}
 		}
 
 		/** 씬을 설정한다 */
-		protected virtual void Setup() {
+		protected virtual void Setup()
+		{
 			// Do Something
 		}
 
 		/** 추적 동의 뷰를 출력한다 */
-		protected void ShowTrackingConsentView() {
+		protected void ShowTrackingConsentView()
+		{
 #if UNITY_IOS
 			ATTrackingStatusBinding.RequestAuthorizationTracking();
 
@@ -84,23 +92,29 @@ namespace LateSetupScene {
 		protected abstract void ShowTrackingDescPopup();
 
 		/** 초기화 */
-		private IEnumerator CoStart() {
+		private IEnumerator CoStart()
+		{
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 			// 추적 동의가 필요 할 경우
-			if(CAccess.IsNeedsTrackingConsent) {
+			if(CAccess.IsNeedsTrackingConsent)
+			{
 				this.ShowTrackingDescPopup();
-			} else {
+			}
+			else
+			{
 				this.OnCloseTrackingConsentView(true);
 			}
 		}
 
 		/** 서비스 관리자가 초기화 되었을 경우 */
-		private static void OnInitServicesManager(CServicesManager a_oSender, bool a_bIsSuccess) {
+		private static void OnInitServicesManager(CServicesManager a_oSender, bool a_bIsSuccess)
+		{
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitServicesManager: {a_bIsSuccess}");
 
 			// 초기화 되었을 경우
-			if(a_bIsSuccess) {
+			if(a_bIsSuccess)
+			{
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 				CServicesManager.Inst.UpdateAppleLoginState(CLateSetupSceneManager.OnUpdateAppleLoginState);
 #endif            // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
@@ -108,7 +122,8 @@ namespace LateSetupScene {
 		}
 
 		/** 추적 동의 뷰가 닫혔을 경우 */
-		private void OnCloseTrackingConsentView(bool a_bIsSuccess) {
+		private void OnCloseTrackingConsentView(bool a_bIsSuccess)
+		{
 			CFunc.ShowLog($"CLateSetupSceneManager.OnCloseTrackingConsentView: {a_bIsSuccess}");
 
 			CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = a_bIsSuccess;
@@ -117,13 +132,16 @@ namespace LateSetupScene {
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
 
 			// 관리자 자동 초기화 모드 일 경우
-			if(this.IsAutoInitManager) {
-				CServicesManager.Inst.Init(CServicesManager.MakeParams(new Dictionary<CServicesManager.ECallback, System.Action<CServicesManager, bool>>() {
+			if(this.IsAutoInitManager)
+			{
+				CServicesManager.Inst.Init(CServicesManager.MakeParams(new Dictionary<CServicesManager.ECallback, System.Action<CServicesManager, bool>>()
+				{
 					[CServicesManager.ECallback.INIT] = CLateSetupSceneManager.OnInitServicesManager
 				}));
 
 #if ADS_MODULE_ENABLE
-				var stAdsParams = CAdsManager.MakeParams(CPluginInfoTable.Inst.AdsPlatform, CPluginInfoTable.Inst.BannerAdsPos, new Dictionary<CAdsManager.ECallback, System.Action<CAdsManager, EAdsPlatform, bool>>() {
+				var stAdsParams = CAdsManager.MakeParams(CPluginInfoTable.Inst.AdsPlatform, CPluginInfoTable.Inst.BannerAdsPos, new Dictionary<CAdsManager.ECallback, System.Action<CAdsManager, EAdsPlatform, bool>>()
+				{
 					[CAdsManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAdsManager
 				});
 
@@ -180,13 +198,15 @@ namespace LateSetupScene {
 #endif          // #if GAME_CENTER_MODULE_ENABLE                                          
 
 #if PURCHASE_MODULE_ENABLE
-				CPurchaseManager.Inst.Init(CPurchaseManager.MakeParams(CProductInfoTable.Inst.ProductInfoList, new Dictionary<CPurchaseManager.ECallback, System.Action<CPurchaseManager, bool>>() {
+				CPurchaseManager.Inst.Init(CPurchaseManager.MakeParams(CProductInfoTable.Inst.ProductInfoList, new Dictionary<CPurchaseManager.ECallback, System.Action<CPurchaseManager, bool>>()
+				{
 					[CPurchaseManager.ECallback.INIT] = CLateSetupSceneManager.OnInitPurchaseManager
 				}));
 #endif          // #if PURCHASE_MODULE_ENABLE                                       
 
 #if NOTI_MODULE_ENABLE
-				CNotiManager.Inst.Init(CNotiManager.MakeParams(new Dictionary<CNotiManager.ECallback, System.Action<CNotiManager, bool>>() {
+				CNotiManager.Inst.Init(CNotiManager.MakeParams(new Dictionary<CNotiManager.ECallback, System.Action<CNotiManager, bool>>()
+				{
 					[CNotiManager.ECallback.INIT] = CLateSetupSceneManager.OnInitNotiManager
 				}));
 #endif          // #if NOTI_MODULE_ENABLE                                   
@@ -203,7 +223,8 @@ namespace LateSetupScene {
 		}
 
 		/** 유저 권한을 적용한다 */
-		private void ApplyUserPermissions() {
+		private void ApplyUserPermissions()
+		{
 #if UNITY_ANDROID
 			// 유저 권한이 필요 할 경우
 			if(this.UserPermissionList.ExIsValid()) {
@@ -217,21 +238,26 @@ namespace LateSetupScene {
 		}
 
 		/** 다음 씬을 로드한다 */
-		private void LoadNextScene() {
+		private void LoadNextScene()
+		{
 			CSceneManager.SetLateSetup(true);
 			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_NEXT_SCENE, false);
 
 			CCommonAppInfoStorage.Inst.SetupStoreVer();
 
-			this.ExLateCallFunc((a_oSender) => {
+			this.ExLateCallFunc((a_oSender) =>
+			{
 				// 기본 씬 일 경우
-				if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene || KCDefine.B_DEF_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
+				if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene || KCDefine.B_DEF_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName))
+				{
 #if STUDY_MODULE_ENABLE
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
 					CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : KCDefine.B_SCENE_N_MAIN);
 #endif         // #if STUDY_MODULE_ENABLE                                    
-				} else {
+				}
+				else
+				{
 					CCommonAppInfoStorage.Inst.SetFirstStart(false);
 					CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) ? KCDefine.B_SCENE_N_MAIN : CSceneLoader.Inst.AwakeActiveSceneName);
 				}
@@ -262,27 +288,32 @@ namespace LateSetupScene {
 
 #if ADS_MODULE_ENABLE
 		/** 광고 관리자가 초기화 되었을 경우 */
-		private static void OnInitAdsManager(CAdsManager a_oSender, EAdsPlatform a_eAdsPlatform, bool a_bIsSuccess) {
+		private static void OnInitAdsManager(CAdsManager a_oSender, EAdsPlatform a_eAdsPlatform, bool a_bIsSuccess)
+		{
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitAdsManager: {a_eAdsPlatform}, {a_bIsSuccess}");
 
 			// 초기화 되었을 경우
-			if(a_bIsSuccess) {
+			if(a_bIsSuccess)
+			{
 				bool bIsEnableLoadBannerAds = !CLateSetupSceneManager.IsPurchaseRemoveAds && CPluginInfoTable.Inst.GetBannerAdsID(a_eAdsPlatform).ExIsValid() && CPluginInfoTable.Inst.AdsPlatform == a_eAdsPlatform;
 				bool bIsEnableLoadRewardAds = CPluginInfoTable.Inst.GetRewardAdsID(a_eAdsPlatform).ExIsValid();
 				bool bIsEnableLoadFullscreenAds = !CLateSetupSceneManager.IsPurchaseRemoveAds && CPluginInfoTable.Inst.GetFullscreenAdsID(a_eAdsPlatform).ExIsValid();
 
 				// 배너 광고 로드가 가능 할 경우
-				if(bIsEnableLoadBannerAds && CLateSetupSceneManager.IsAutoLoadBannerAds) {
+				if(bIsEnableLoadBannerAds && CLateSetupSceneManager.IsAutoLoadBannerAds)
+				{
 					CAdsManager.Inst.LoadBannerAds(a_eAdsPlatform);
 				}
 
 				// 보상 광고 로드가 가능 할 경우
-				if(bIsEnableLoadRewardAds && CLateSetupSceneManager.IsAutoLoadRewardAds) {
+				if(bIsEnableLoadRewardAds && CLateSetupSceneManager.IsAutoLoadRewardAds)
+				{
 					CAdsManager.Inst.LoadRewardAds(a_eAdsPlatform);
 				}
 
 				// 전면 광고 로드가 가능 할 경우
-				if(bIsEnableLoadFullscreenAds && CLateSetupSceneManager.IsAutoLoadFullscreenAds) {
+				if(bIsEnableLoadFullscreenAds && CLateSetupSceneManager.IsAutoLoadFullscreenAds)
+				{
 					CAdsManager.Inst.LoadFullscreenAds(a_eAdsPlatform);
 				}
 			}
@@ -358,14 +389,16 @@ namespace LateSetupScene {
 
 #if PURCHASE_MODULE_ENABLE
 		/** 결제 관리자가 초기화 되었을 경우 */
-		private static void OnInitPurchaseManager(CPurchaseManager a_oSender, bool a_bIsSuccess) {
+		private static void OnInitPurchaseManager(CPurchaseManager a_oSender, bool a_bIsSuccess)
+		{
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitPurchaseManager: {a_bIsSuccess}");
 		}
 #endif         // #if PURCHASE_MODULE_ENABLE                                       
 
 #if NOTI_MODULE_ENABLE
 		/** 알림 관리자가 초기화 되었을 경우 */
-		private static void OnInitNotiManager(CNotiManager a_oSender, bool a_bIsSuccess) {
+		private static void OnInitNotiManager(CNotiManager a_oSender, bool a_bIsSuccess)
+		{
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitNotiManager: {a_bIsSuccess}");
 		}
 #endif         // #if NOTI_MODULE_ENABLE                                   
@@ -381,22 +414,26 @@ namespace LateSetupScene {
 		#region 조건부 접근자 클래스 함수
 #if ADS_MODULE_ENABLE
 		/** 광고 제거 결제 여부를 변경한다 */
-		public static void SetPurchaseRemoveAds(bool a_bIsPurchase) {
+		public static void SetPurchaseRemoveAds(bool a_bIsPurchase)
+		{
 			CLateSetupSceneManager.IsPurchaseRemoveAds = a_bIsPurchase;
 		}
 
 		/** 배너 광고 자동 로드 여부를 변경한다 */
-		public static void SetAutoLoadBannerAds(bool a_bIsAutoLoad) {
+		public static void SetAutoLoadBannerAds(bool a_bIsAutoLoad)
+		{
 			CLateSetupSceneManager.IsAutoLoadBannerAds = a_bIsAutoLoad;
 		}
 
 		/** 보상 광고 자동 로드 여부를 변경한다 */
-		public static void SetAutoLoadRewardAds(bool a_bIsAutoLoad) {
+		public static void SetAutoLoadRewardAds(bool a_bIsAutoLoad)
+		{
 			CLateSetupSceneManager.IsAutoLoadRewardAds = a_bIsAutoLoad;
 		}
 
 		/** 전면 광고 자동 로드 여부를 변경한다 */
-		public static void SetAutoLoadFullscreenAds(bool a_bIsAutoLoad) {
+		public static void SetAutoLoadFullscreenAds(bool a_bIsAutoLoad)
+		{
 			CLateSetupSceneManager.IsAutoLoadFullscreenAds = a_bIsAutoLoad;
 		}
 #endif         // #if ADS_MODULE_ENABLE                                  

@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace SetupScene {
+namespace SetupScene
+{
 	/** 설정 씬 관리자 */
-	public abstract partial class CSetupSceneManager : CSceneManager {
+	public abstract partial class CSetupSceneManager : CSceneManager
+	{
 		#region 클래스 변수
 		/** =====> 객체 <===== */
 		private static GameObject m_oPopupUIs = null;
@@ -29,11 +31,13 @@ namespace SetupScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 
 			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
+			if(CSceneManager.IsInit)
+			{
 				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.OnReceiveGetDeviceIDMsg);
 				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.OnReceiveGetCountryCodeMsg);
 
@@ -42,22 +46,26 @@ namespace SetupScene {
 		}
 
 		/** 초기화 */
-		public sealed override void Start() {
+		public sealed override void Start()
+		{
 			base.Start();
 
 			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
+			if(CSceneManager.IsInit)
+			{
 				StartCoroutine(this.CoStart());
 			}
 		}
 
 		/** 디바이스 메세지를 수신했을 경우 */
-		private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
+		private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg)
+		{
 			this.DeviceMsgHandlerDict.GetValueOrDefault(a_oCmd)?.Invoke(a_oMsg);
 		}
 
 		/** 씬을 설정한다 */
-		protected virtual void Setup() {
+		protected virtual void Setup()
+		{
 			this.SetupPopupUIs();
 			this.SetupTopmostUIs();
 			this.SetupAbsUIs();
@@ -73,11 +81,13 @@ namespace SetupScene {
 		}
 
 		/** 디바이스 식별자 반환 메세지를 수신했을 경우 */
-		private void OnReceiveGetDeviceIDMsg(string a_oMsg) {
+		private void OnReceiveGetDeviceIDMsg(string a_oMsg)
+		{
 			CCommonAppInfoStorage.Inst.SetDeviceType(CAccess.DeviceType);
 
 			// 디바이스 식별자 설정이 필요 할 경우
-			if(!CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid() || CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Equals(KCDefine.B_TEXT_UNKNOWN)) {
+			if(!CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid() || CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Equals(KCDefine.B_TEXT_UNKNOWN))
+			{
 				CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_TEXT_UNKNOWN;
 			}
 
@@ -86,7 +96,8 @@ namespace SetupScene {
 		}
 
 		/** 국가 코드 반환 메세지를 수신했을 경우 */
-		private void OnReceiveGetCountryCodeMsg(string a_oMsg) {
+		private void OnReceiveGetCountryCodeMsg(string a_oMsg)
+		{
 #if UNITY_EDITOR
 			CCommonAppInfoStorage.Inst.SetCountryCode(a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_KOREA_COUNTRY_CODE);
 #else
@@ -100,7 +111,8 @@ namespace SetupScene {
 		}
 
 		/** 초기화 */
-		private IEnumerator CoStart() {
+		private IEnumerator CoStart()
+		{
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 			this.Setup();
 
