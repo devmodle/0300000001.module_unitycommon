@@ -13,11 +13,9 @@ using UnityEngine.iOS;
 using UnityEngine.Rendering.Universal;
 #endif            // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE                                                           
 
-namespace InitScene
-{
+namespace InitScene {
 	/** 초기화 씬 관리자 */
-	public abstract partial class CInitSceneManager : CSceneManager
-	{
+	public abstract partial class CInitSceneManager : CSceneManager {
 		#region 클래스 변수
 		/** =====> 객체 <===== */
 		private static GameObject m_oBlindUIs = null;
@@ -36,23 +34,19 @@ namespace InitScene
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake()
-		{
+		public override void Awake() {
 			base.Awake();
 
-			for(int i = 0; i < KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST.Count; ++i)
-			{
+			for(int i = 0; i < KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST.Count; ++i) {
 				this.SpriteAtlasPathList.ExAddVal(KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST[i]);
 			}
 		}
 
 		/** 초기화 */
-		public sealed override void Start()
-		{
+		public sealed override void Start() {
 			base.Start();
 
-			for(int i = 0; i < this.SpriteAtlasPathList.Count; ++i)
-			{
+			for(int i = 0; i < this.SpriteAtlasPathList.Count; ++i) {
 				CResManager.Inst.LoadSpriteAtlas(this.SpriteAtlasPathList[i]);
 			}
 
@@ -60,8 +54,7 @@ namespace InitScene
 		}
 
 		/** 씬을 설정한다 */
-		protected virtual void Setup()
-		{
+		protected virtual void Setup() {
 			this.SetupBlindUIs();
 			DOTween.SetTweensCapacity(KCDefine.U_SIZE_DOTWEEN_ANI, KCDefine.U_SIZE_DOTWEEN_SEQUENCE_ANI);
 
@@ -110,8 +103,7 @@ namespace InitScene
 #endif           // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 			// 디바이스 정보를 설정한다 {
-			var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (long, long)>()
-			{
+			var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (long, long)>() {
 				// 모바일
 				[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
 				[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
@@ -139,14 +131,12 @@ namespace InitScene
 		}
 
 		/** 다음 씬을 로드한다 */
-		protected void LoadNextScene()
-		{
+		protected void LoadNextScene() {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_START, false);
 		}
 
 		/** 블라인드 이미지를 생성한다 */
-		protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent)
-		{
+		protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
 			return CFactory.CreateCloneObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
 		}
 
@@ -154,8 +144,7 @@ namespace InitScene
 		protected abstract void ShowSplash();
 
 		/** 초기화 */
-		private IEnumerator CoStart()
-		{
+		private IEnumerator CoStart() {
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 			// iOS 를 설정한다 {
@@ -247,15 +236,12 @@ namespace InitScene
 		}
 
 		/** 블라인드 UI 를 설정한다 */
-		private void SetupBlindUIs()
-		{
+		private void SetupBlindUIs() {
 			// 블라인드 UI 가 없을 경우
-			if(CInitSceneManager.m_oBlindUIs == null)
-			{
+			if(CInitSceneManager.m_oBlindUIs == null) {
 				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
 
-				try
-				{
+				try {
 					CSceneManager.SetScreenBlindUIs(CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS));
 
 					// 블라인드 이미지를 설정한다 {
@@ -263,15 +249,12 @@ namespace InitScene
 						this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
 					};
 
-					for(int i = 0; i < oImgList.Count; ++i)
-					{
+					for(int i = 0; i < oImgList.Count; ++i) {
 						oImgList[i].color = KCDefine.U_COLOR_TRANSPARENT;
 						oImgList[i].raycastTarget = false;
 					}
 					// 블라인드 이미지를 설정한다 }
-				}
-				finally
-				{
+				} finally {
 					DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
 					CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.U_SORTING_O_SCREEN_BLIND_UIS);
 				}
