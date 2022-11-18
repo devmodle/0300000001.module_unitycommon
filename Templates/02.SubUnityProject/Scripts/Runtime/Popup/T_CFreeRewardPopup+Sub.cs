@@ -20,7 +20,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 
 #region 추가
 		this.SubSetupAwake();
-#endregion          // 추가               
+#endregion // 추가               
 	}
 	
 	/** 초기화 */
@@ -29,7 +29,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 
 #region 추가
 		this.SubInit();
-#endregion          // 추가               
+#endregion // 추가               
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -39,9 +39,9 @@ public partial class CFreeRewardPopup : CSubPopup {
 
 #region 추가
 		this.SubUpdateUIsState();
-#endregion          // 추가               
+#endregion // 추가               
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
 
 /** 서브 무료 보상 팝업 */
@@ -54,11 +54,11 @@ public partial class CFreeRewardPopup : CSubPopup {
 
 #region 변수
 
-#endregion          // 변수               
+#endregion // 변수               
 	
 #region 프로퍼티
 
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 팝업을 설정한다 */
@@ -75,7 +75,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 	private void SubUpdateUIsState() {
 		// Do Something
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

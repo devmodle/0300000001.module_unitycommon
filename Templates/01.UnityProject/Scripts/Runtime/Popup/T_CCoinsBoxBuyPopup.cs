@@ -24,7 +24,7 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 함수
 	/** 팝업 컨텐츠를 설정한다 */
@@ -42,9 +42,9 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 	private void OnTouchPurchaseBtn() {
 #if PURCHASE_MODULE_ENABLE
 		Func.PurchaseProduct(EProductKinds.SINGLE_COINS_BOX, this.OnPurchaseProduct);
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE                                       
 	}
-#endregion          // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
@@ -58,8 +58,8 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 
 		this.UpdateUIsState();
 	}
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
-#endregion          // 조건부 함수                   
+#endif // #if PURCHASE_MODULE_ENABLE                                       
+#endregion // 조건부 함수                   
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

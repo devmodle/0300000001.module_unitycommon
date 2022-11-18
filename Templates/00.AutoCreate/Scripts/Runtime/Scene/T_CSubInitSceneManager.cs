@@ -19,13 +19,13 @@ namespace InitScene {
 #region 변수
 		/** =====> UI <===== */
 		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
-#endregion           // 변수               
+#endregion // 변수               
 
 #region 프로퍼티
 #if EXTRA_SCRIPT_MODULE_ENABLE
 		public override Color ClearColor => KDefine.IS_COLOR_CLEAR;
-#endif           // #if EXTRA_SCRIPT_MODULE_ENABLE                                           
-#endregion           // 프로퍼티                 
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE                                           
+#endregion // 프로퍼티                 
 
 #region 함수
 		/** 초기화 */
@@ -42,7 +42,7 @@ namespace InitScene {
 			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, this.ScreenHeight * (KCDefine.B_VAL_1_REAL / (KCDefine.B_VAL_5_REAL * KCDefine.B_VAL_8_REAL)), KCDefine.B_VAL_0_REAL);
 			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(false);
 			// 이미지를 설정한다 }
-#endif            // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 		}
 
 		/** 씬을 설정한다 */
@@ -74,7 +74,7 @@ namespace InitScene {
 			CAppInfoStorage.Create();
 			CUserInfoStorage.Create();
 			CGameInfoStorage.Create();
-#endif            // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
 		}
 
 		/** 스플래시를 출력한다 */
@@ -84,8 +84,8 @@ namespace InitScene {
 
 			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.B_VAL_2_REAL);
 		}
-#endregion         // 함수               
+#endregion // 함수               
 	}
 }
-#endif         // #if SCENE_TEMPLATES_MODULE_ENABLE                                              
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if SCENE_TEMPLATES_MODULE_ENABLE                                              
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

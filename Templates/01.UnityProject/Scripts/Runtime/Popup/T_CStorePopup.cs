@@ -11,7 +11,7 @@ using TMPro;
 
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE                                       
 
 /** 상점 팝업 */
 public partial class CStorePopup : CSubPopup {
@@ -37,12 +37,12 @@ public partial class CStorePopup : CSubPopup {
 
 #if ADS_MODULE_ENABLE
 		public Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>> m_oAdsCallbackDict;
-#endif          // #if ADS_MODULE_ENABLE                                  
+#endif // #if ADS_MODULE_ENABLE                                  
 
 #if PURCHASE_MODULE_ENABLE
 		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDict01;
 		public Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDict02;
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE                                       
 	}
 
 #region 변수
@@ -50,15 +50,15 @@ public partial class CStorePopup : CSubPopup {
 
 #if PURCHASE_MODULE_ENABLE
 	private List<Product> m_oRestoreProductList = new List<Product>();
-#endif          // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE                                       
 
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oProductBuyUIsList = new List<GameObject>();
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 프로퍼티
 	public STParams Params { get; private set; }
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 팝업 컨텐츠를 설정한다 */
@@ -74,14 +74,14 @@ public partial class CStorePopup : CSubPopup {
 #if ADS_MODULE_ENABLE
 				m_oProductKindsDict.ExReplaceVal(EKey.SEL_PRODUCT_KINDS, a_stProductTradeInfo.m_eProductKinds);
 				Func.ShowRewardAds(this.OnCloseRewardAds);
-#endif         // #if ADS_MODULE_ENABLE                                  
+#endif // #if ADS_MODULE_ENABLE                                  
 
 				break;
 			}
 			case EPurchaseType.IN_APP_PURCHASE: {
 #if PURCHASE_MODULE_ENABLE
 				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
-#endif         // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE                                       
 
 				break;
 			}
@@ -97,9 +97,9 @@ public partial class CStorePopup : CSubPopup {
 #if PURCHASE_MODULE_ENABLE
 		m_oRestoreProductList.Clear();
 		Func.RestoreProducts(this.OnRestoreProducts);
-#endif            // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE                                       
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 클래스 함수
 	/** 매개 변수를 생성한다 */
@@ -109,15 +109,15 @@ public partial class CStorePopup : CSubPopup {
 
 #if ADS_MODULE_ENABLE
 			m_oAdsCallbackDict = new Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>(),
-#endif            // #if ADS_MODULE_ENABLE                                  
+#endif // #if ADS_MODULE_ENABLE                                  
 
 #if PURCHASE_MODULE_ENABLE
 			m_oPurchaseCallbackDict01 = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>(),
 			m_oPurchaseCallbackDict02 = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>()
-#endif            // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE                                       
 		};
 	}
-#endregion         // 클래스 함수                   
+#endregion // 클래스 함수                   
 
 #region 조건부 함수
 #if ADS_MODULE_ENABLE
@@ -132,7 +132,7 @@ public partial class CStorePopup : CSubPopup {
 		this.UpdateUIsState();
 		this.Params.m_oAdsCallbackDict?.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
 	}
-#endif         // #if ADS_MODULE_ENABLE                                  
+#endif // #if ADS_MODULE_ENABLE                                  
 
 #if PURCHASE_MODULE_ENABLE
 	/** 상품이 결제 되었을 경우 */
@@ -158,7 +158,7 @@ public partial class CStorePopup : CSubPopup {
 		this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadTargetInfos(this.OnLoadTargetInfos));
 #else
 		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
-#endif         // #if FIREBASE_MODULE_ENABLE                                       
+#endif // #if FIREBASE_MODULE_ENABLE                                       
 
 		this.UpdateUIsState();
 		this.Params.m_oPurchaseCallbackDict02?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
@@ -184,9 +184,9 @@ public partial class CStorePopup : CSubPopup {
 	private void OnSaveTargetInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 	}
-#endif         // #if FIREBASE_MODULE_ENABLE                                       
-#endif         // #if PURCHASE_MODULE_ENABLE                                       
-#endregion         // 조건부 함수                   
+#endif // #if FIREBASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE                                       
+#endregion // 조건부 함수                   
 }
-#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

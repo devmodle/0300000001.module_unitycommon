@@ -12,7 +12,7 @@ using UnityEditor;
 public static partial class EditorFactory {
 #region 클래스 함수
 
-#endregion          // 클래스 함수                   
+#endregion // 클래스 함수                   
 }
-#endif          // #if UNITY_EDITOR                             
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if UNITY_EDITOR                             
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

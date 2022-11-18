@@ -20,7 +20,7 @@ namespace GameScene {
 		#region 변수
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
-		#endregion         // 변수               
+		#endregion // 변수               
 
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
@@ -33,7 +33,7 @@ namespace GameScene {
 		protected GameObject SkillRoot => m_oObjDict.GetValueOrDefault(EKey.SKILL_ROOT);
 		protected GameObject ObjRoot => m_oObjDict.GetValueOrDefault(EKey.OBJ_ROOT);
 		protected GameObject FXRoot => m_oObjDict.GetValueOrDefault(EKey.FX_ROOT);
-		#endregion            // 프로퍼티                 
+		#endregion // 프로퍼티                 
 
 		#region 함수
 		/** 초기화 */
@@ -51,6 +51,6 @@ namespace GameScene {
 				}, m_oObjDict);
 			}
 		}
-		#endregion         // 함수               
+		#endregion // 함수               
 	}
 }

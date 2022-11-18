@@ -14,7 +14,7 @@ public static partial class KEnumVal {
 	public const int TK_EXP_SUB_KINDS_TYPE_VAL = 2;
 	public const int TK_NUMS_SUB_KINDS_TYPE_VAL = 3;
 	public const int TK_ENHANCE_SUB_KINDS_TYPE_VAL = 4;
-#endregion          // 기본               
+#endregion // 기본               
 }
 
 #region 기본
@@ -60,7 +60,7 @@ public enum ECalcKinds {
 #region 어빌리티
 	// 0
 	ABILITY_CALC_SAMPLE = (EEnumVal.TYPE * ECalcType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 어빌리티                 
+#endregion // 어빌리티                 
 
 	[HideInInspector] MAX_VAL
 }
@@ -82,22 +82,22 @@ public enum EMissionKinds {
 #region 메인
 	// 0
 	MAIN_MISSION_SAMPLE = (EEnumVal.TYPE * EMissionType.MAIN) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 메인               
+#endregion // 메인               
 
 #region 자유
 	// 100,000,000
 	FREE_MISSION_SAMPLE = (EEnumVal.TYPE * EMissionType.FREE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 자유               
+#endregion // 자유               
 
 #region 일일
 	// 200,000,000
 	DAILY_MISSION_SAMPLE = (EEnumVal.TYPE * EMissionType.DAILY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 일일               
+#endregion // 일일               
 
 #region 이벤트
 	// 300,000,000
 	EVENT_MISSION_SAMPLE = (EEnumVal.TYPE * EMissionType.EVENT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 이벤트                
+#endregion // 이벤트                
 
 	[HideInInspector] MAX_VAL
 }
@@ -121,32 +121,32 @@ public enum ERewardKinds {
 #region 무료
 	// 0
 	FREE_COINS = (EEnumVal.TYPE * ERewardType.FREE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 무료               
+#endregion // 무료               
 
 #region 일일
 	// 100,000,000
 	DAILY_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.DAILY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 일일               
+#endregion // 일일               
 
 #region 이벤트
 	// 200,000,000
 	EVENT_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.EVENT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 이벤트                
+#endregion // 이벤트                
 
 #region 클리어
 	// 300,000,000
 	CLEAR_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.CLEAR) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 클리어                
+#endregion // 클리어                
 
 #region 미션
 	// 400,000,000
 	MISSION_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.MISSION) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 미션               
+#endregion // 미션               
 
 #region 튜토리얼
 	// 50,000,000
 	TUTORIAL_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.TUTORIAL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 튜토리얼                 
+#endregion // 튜토리얼                 
 
 	[HideInInspector] MAX_VAL
 }
@@ -170,7 +170,7 @@ public enum EEpisodeKinds {
 
 	// 10,000,000
 	LEVEL_BOSS = (EEnumVal.TYPE * EEpisodeType.LEVEL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
-#endregion          // 레벨               
+#endregion // 레벨               
 
 #region 스테이지
 	// 100,000,000
@@ -178,7 +178,7 @@ public enum EEpisodeKinds {
 
 	// 110,000,000
 	STAGE_BOSS = (EEnumVal.TYPE * EEpisodeType.STAGE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
-#endregion          // 스테이지                 
+#endregion // 스테이지                 
 
 #region 챕터
 	// 200,000,000
@@ -186,7 +186,7 @@ public enum EEpisodeKinds {
 
 	// 210,000,000
 	CHAPTER_BOSS = (EEnumVal.TYPE * EEpisodeType.CHAPTER) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
-#endregion          // 챕터               
+#endregion // 챕터               
 
 	[HideInInspector] MAX_VAL
 }
@@ -206,12 +206,12 @@ public enum ETutorialKinds {
 #region 플레이
 	// 0
 	PLAY_TUTORIAL_SAMPLE = (EEnumVal.TYPE * ETutorialType.PLAY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 플레이                
+#endregion // 플레이                
 
 #region 도움말
 	// 100,000,000
 	HELP_TUTORIAL_SAMPLE = (EEnumVal.TYPE * ETutorialType.HELP) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 도움말                
+#endregion // 도움말                
 
 	[HideInInspector] MAX_VAL
 }
@@ -234,7 +234,7 @@ public enum EResKinds {
 	// 0
 	FONT_KOREAN_01 = (EEnumVal.TYPE * EResType.FONT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	FONT_ENGLISH_01 = (EEnumVal.TYPE * EResType.FONT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-#endregion           // 폰트
+#endregion // 폰트
 
 #region 사운드
 	// 100,000,000
@@ -249,21 +249,21 @@ public enum EResKinds {
 	// 100,200,000
 	SND_FX_POPUP_SHOW_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	SND_FX_POPUP_CLOSE_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
-#endregion          // 사운드                
+#endregion // 사운드                
 
 #region 이미지
 	// 200,000,000
 	IMG_WHITE = (EEnumVal.TYPE * EResType.IMG) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	IMG_SPLASH,
 	IMG_INDICATOR,
-#endregion         // 이미지
+#endregion // 이미지
 
 #region 텍스처
 	// 300,000,000
 	TEX_WHITE = (EEnumVal.TYPE * EResType.TEX) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	TEX_SPLASH,
 	TEX_INDICATOR,
-#endregion          // 텍스처                
+#endregion // 텍스처                
 
 	[HideInInspector] MAX_VAL
 }
@@ -290,7 +290,7 @@ public enum EItemKinds {
 
 	// 100,000
 	GOODS_COINS_BOX_COINS = (EEnumVal.TYPE * EItemType.GOODS) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 재화               
+#endregion // 재화               
 
 #region 소모
 	// 100,000,000
@@ -300,27 +300,27 @@ public enum EItemKinds {
 	CONSUMABLE_GAME_ITEM_HINT = (EEnumVal.TYPE * EItemType.CONSUMABLE) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.TYPE * EItemType.CONSUMABLE) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	CONSUMABLE_GAME_ITEM_SHUFFLE = (EEnumVal.TYPE * EItemType.CONSUMABLE) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 2),
-#endregion          // 소모               
+#endregion // 소모               
 
 #region 비소모
 	// 200,000,000
 	NON_CONSUMABLE_REMOVE_ADS = (EEnumVal.TYPE * EItemType.NON_CONSUMABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 비소모                
+#endregion // 비소모                
 
 #region 무기
 	// 300,000,000
 	WEAPON_ITEM_SAMPLE = (EEnumVal.TYPE * EItemType.WEAPON) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 무기               
+#endregion // 무기               
 
 #region 방어구
 	// 400,000,000
 	ARMOR_ITEM_SAMPLE = (EEnumVal.TYPE * EItemType.ARMOR) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 방어구                
+#endregion // 방어구                
 
 #region 악세서리
 	// 50,000,000
 	ACCESSORY_ITEM_SAMPLE = (EEnumVal.TYPE * EItemType.ACCESSORY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 악세서리                 
+#endregion // 악세서리                 
 
 	[HideInInspector] MAX_VAL
 }
@@ -347,17 +347,17 @@ public enum ESkillKinds {
 
 	// 20,000,000
 	ACTION_BOSS_ENEMY_ATK_01_01 = (EEnumVal.TYPE * ESkillType.ACTION) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 2),
-#endregion          // 액션               
+#endregion // 액션               
 
 #region 액티브
 	// 100,000,000
 	ACTIVE_SKILL_SAMPLE = (EEnumVal.TYPE * ESkillType.ACTIVE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 액티브                
+#endregion // 액티브                
 
 #region 패시브
 	// 200,000,000
 	PASSIVE_SKILL_SAMPLE = (EEnumVal.TYPE * ESkillType.PASSIVE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 패시브                
+#endregion // 패시브                
 
 	[HideInInspector] MAX_VAL
 }
@@ -381,27 +381,27 @@ public enum EObjKinds {
 #region 배경
 	// 0
 	BG_EMPTY_01 = (EEnumVal.TYPE * EObjType.BG) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 배경               
+#endregion // 배경               
 
 #region 일반
 	// 100,000,000
 	NORM_OBJ_SAMPLE = (EEnumVal.TYPE * EObjType.NORM) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 일반               
+#endregion // 일반               
 
 #region 중첩
 	// 200,000,000
 	OVERLAY_OBJ_SAMPLE = (EEnumVal.TYPE * EObjType.OVERLAY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 중첩               
+#endregion // 중첩               
 
 #region 플레이 가능
 	// 300,000,000
 	PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.TYPE * EObjType.PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 플레이 가능                   
+#endregion // 플레이 가능                   
 
 #region 플레이 불가능
 	// 400,000,000
 	NON_PLAYABLE_OBJ_SAMPLE = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 플레이 불가능                    
+#endregion // 플레이 불가능                    
 
 #region 적
 	// 500,000,000
@@ -409,7 +409,7 @@ public enum EObjKinds {
 
 	// 510,000,000
 	ENEMY_BOSS_01_01 = (EEnumVal.TYPE * EObjType.ENEMY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
-#endregion          // 적              
+#endregion // 적              
 
 	[HideInInspector] MAX_VAL
 }
@@ -430,17 +430,17 @@ public enum EFXKinds {
 #region 타격
 	// 0
 	HIT_FX_SAMPLE = (EEnumVal.TYPE * EFXType.HIT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 타격               
+#endregion // 타격               
 
 #region 버프
 	// 100,000,000
 	BUFF_FX_SAMPLE = (EEnumVal.TYPE * EFXType.BUFF) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 버프               
+#endregion // 버프               
 
 #region 디버프
 	// 200,000,000
 	DEBUFF_FX_SAMPLE = (EEnumVal.TYPE * EFXType.DEBUFF) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 디버프                
+#endregion // 디버프                
 
 	[HideInInspector] MAX_VAL
 }
@@ -582,22 +582,22 @@ public enum EAbilityKinds {
 	STAT_AVOID_RATE_DECR_01 = EAbilityKinds.STAT_AVOID_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
 	STAT_CRITICAL_RATE_DECR_01 = EAbilityKinds.STAT_CRITICAL_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
 	// 10,000,000 }
-#endregion          // 스탯               
+#endregion // 스탯               
 
 #region 버프
 	// 100,000,000
 	BUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * EAbilityType.BUFF) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 버프               
+#endregion // 버프               
 
 #region 디버프
 	// 200,000,000
 	DEBUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * EAbilityType.DEBUFF) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 디버프                
+#endregion // 디버프                
 
 #region 업그레이드
 	// 300,000,000
 	UPGRADE_ABILITY_SAMPLE = (EEnumVal.TYPE * EAbilityType.UPGRADE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 업그레이드                  
+#endregion // 업그레이드                  
 
 	[HideInInspector] MAX_VAL
 }
@@ -619,13 +619,13 @@ public enum EProductKinds {
 	PKGS_SPECIAL_BEGINNER = (EEnumVal.TYPE * EProductType.PKGS) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	PKGS_SPECIAL_EXPERT = (EEnumVal.TYPE * EProductType.PKGS) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
 	PKGS_SPECIAL_PRO = (EEnumVal.TYPE * EProductType.PKGS) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
-#endregion          // 패키지                
+#endregion // 패키지                
 
 #region 단일
 	// 100,000,000
 	SINGLE_COINS_BOX = (EEnumVal.TYPE * EProductType.SINGLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
 	SINGLE_REMOVE_ADS = (EEnumVal.TYPE * EProductType.SINGLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-#endregion          // 단일               
+#endregion // 단일               
 
 	[HideInInspector] MAX_VAL
 }
@@ -651,7 +651,7 @@ public enum ETargetKinds {
 	ITEM_EXP = (EEnumVal.TYPE * ETargetType.ITEM) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 	ITEM_NUMS = (EEnumVal.TYPE * ETargetType.ITEM) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
 	ITEM_ENHANCE = (EEnumVal.TYPE * ETargetType.ITEM) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
-#endregion          // 아이템                
+#endregion // 아이템                
 
 #region 스킬
 	// 100,000,000
@@ -660,7 +660,7 @@ public enum ETargetKinds {
 	SKILL_EXP = (EEnumVal.TYPE * ETargetType.SKILL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 	SKILL_NUMS = (EEnumVal.TYPE * ETargetType.SKILL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
 	SKILL_ENHANCE = (EEnumVal.TYPE * ETargetType.SKILL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
-#endregion          // 스킬               
+#endregion // 스킬               
 
 #region 객체
 	// 200,000,000
@@ -669,7 +669,7 @@ public enum ETargetKinds {
 	OBJ_EXP = (EEnumVal.TYPE * ETargetType.OBJ) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 	OBJ_NUMS = (EEnumVal.TYPE * ETargetType.OBJ) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
 	OBJ_ENHANCE = (EEnumVal.TYPE * ETargetType.OBJ) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
-#endregion          // 객체               
+#endregion // 객체               
 
 #region 어빌리티
 	// 300,000,000
@@ -678,7 +678,7 @@ public enum ETargetKinds {
 	[System.Obsolete] ABILITY_EXP = (EEnumVal.TYPE * ETargetType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
 	[System.Obsolete] ABILITY_NUMS = (EEnumVal.TYPE * ETargetType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
 	[System.Obsolete] ABILITY_ENHANCE = (EEnumVal.TYPE * ETargetType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
-#endregion          // 어빌리티                 
+#endregion // 어빌리티                 
 
 	[HideInInspector] MAX_VAL
 }
@@ -698,16 +698,16 @@ public enum ESkillApplyKinds {
 #region 다중
 	// 0
 	MULTI_SKILL_APPLY_SAMPLE = (EEnumVal.TYPE * ESkillApplyType.MULTI) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 다중               
+#endregion // 다중               
 
 #region 단일
 	// 100,000,000
 	SINGLE_SKILL_APPLY_SAMPLE = (EEnumVal.TYPE * ESkillApplyType.SINGLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-#endregion          // 단일               
+#endregion // 단일               
 
 	[HideInInspector] MAX_VAL
 }
-#endregion          // 기본               
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE                                           
+#endregion // 기본               
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE                                           
 
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

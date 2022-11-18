@@ -32,11 +32,11 @@ public static partial class Extension {
 			var stTargetInfo = oTargetInfos[i].ToString().ExJSONStrToObj<STTargetInfo>();
 			oTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
-#endif          // #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE                                                                         
+#endif // #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE                                                                         
 
 		return oTargetInfoDict;
 	}
-#endregion          // 클래스 함수                   
+#endregion // 클래스 함수                   
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

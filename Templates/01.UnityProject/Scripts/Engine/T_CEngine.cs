@@ -48,7 +48,7 @@ namespace NSEngine {
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		private Dictionary<EObjType, List<CEObj>>[,] m_oCellObjDictContainers = null;
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 프로퍼티
 		public STParams Params { get; private set; }
@@ -64,7 +64,7 @@ namespace NSEngine {
 		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public STGridInfo SelGridInfo => m_oGridInfoList[this.SelGridInfoIdx];
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 		/** 구동 여부를 변경한다 */
@@ -85,7 +85,7 @@ namespace NSEngine {
 				}
 			}
 		}
-#endregion          // 함수               
+#endregion // 함수               
 
 #region 클래스 함수
 		/** 매개 변수를 생성한다 */
@@ -99,8 +99,8 @@ namespace NSEngine {
 				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>()
 			};
 		}
-#endregion          // 클래스 함수                   
+#endregion // 클래스 함수                   
 	}
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

@@ -17,7 +17,7 @@ public partial class CDifficultyCorrector : CComponent {
 #region 변수
 	[SerializeField] private string m_oBasePath = string.Empty;
 	[SerializeField] private EDifficulty m_eDifficulty = EDifficulty.NONE;
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 함수
 	/** 초기화 */
@@ -52,7 +52,7 @@ public partial class CDifficultyCorrector : CComponent {
 	private void SetupDifficulty() {
 		// Do Something
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

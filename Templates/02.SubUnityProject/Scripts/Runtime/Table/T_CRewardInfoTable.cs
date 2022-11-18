@@ -24,12 +24,12 @@ public struct STRewardInfo {
 	public static STRewardInfo INVALID = new STRewardInfo() {
 		m_eRewardKinds = ERewardKinds.NONE, m_ePrevRewardKinds = ERewardKinds.NONE, m_eNextRewardKinds = ERewardKinds.NONE
 	};
-#endregion            // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	public ERewardType RewardType => (ERewardType)((int)m_eRewardKinds).ExKindsToType();
 	public ERewardKinds BaseRewardKinds => (ERewardKinds)((int)m_eRewardKinds).ExKindsToSubKindsType();
-#endregion           // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 생성자 */
@@ -43,7 +43,7 @@ public struct STRewardInfo {
 
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oRewardInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -58,15 +58,15 @@ public struct STRewardInfo {
 
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutRewardInfo);
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
 
 /** 보상 정보 테이블 */
 public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 #region 프로퍼티
 	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoDict { get; } = new Dictionary<ERewardKinds, STRewardInfo>();
-#endregion         // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 초기화 */
@@ -132,11 +132,11 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oJSONStr, true);
-#endif            // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 			CUnityMsgSender.Inst.SendShowToastMsg($"CRewardInfoTable.SaveRewardInfos: {File.Exists(Access.RewardInfoTableSavePath)}");
-#endif         // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
+#endif // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
 		}
 	}
 
@@ -160,7 +160,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif           // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 보상 정보를 로드한다 */
@@ -179,7 +179,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 
 		return this.RewardInfoDict;
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -199,8 +199,8 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 
 		this.SaveRewardInfos(oRewardInfos.ToString());
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
-#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

@@ -29,7 +29,7 @@ public struct STSkillInfo {
 	public static STSkillInfo INVALID = new STSkillInfo() {
 		m_eSkillKinds = ESkillKinds.NONE, m_ePrevSkillKinds = ESkillKinds.NONE, m_eNextSkillKinds = ESkillKinds.NONE
 	};
-#endregion            // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
@@ -37,7 +37,7 @@ public struct STSkillInfo {
 
 	public ESkillApplyType SkillApplyType => (ESkillApplyType)((int)m_eSkillApplyKinds).ExKindsToType();
 	public ESkillApplyKinds BaseSkillApplyKinds => (ESkillApplyKinds)((int)m_eSkillApplyKinds).ExKindsToSubKindsType();
-#endregion           // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 생성자 */
@@ -56,7 +56,7 @@ public struct STSkillInfo {
 
 		m_oAbilityTargetInfoDict = Factory.MakeTargetInfos(a_oSkillInfo, KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO);
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -76,8 +76,8 @@ public struct STSkillInfo {
 
 		Func.SaveTargetInfos(m_oAbilityTargetInfoDict, KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, a_oOutSkillInfo);
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
 
 /** 스킬 교환 정보 */
@@ -96,12 +96,12 @@ public struct STSkillTradeInfo {
 	public static STSkillTradeInfo INVALID = new STSkillTradeInfo() {
 		m_eSkillKinds = ESkillKinds.NONE, m_ePrevSkillKinds = ESkillKinds.NONE, m_eNextSkillKinds = ESkillKinds.NONE
 	};
-#endregion            // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	public ESkillType SkillType => (ESkillType)((int)m_eSkillKinds).ExKindsToType();
 	public ESkillKinds BaseSkillKinds => (ESkillKinds)((int)m_eSkillKinds).ExKindsToSubKindsType();
-#endregion           // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 생성자 */
@@ -115,7 +115,7 @@ public struct STSkillTradeInfo {
 		m_oPayTargetInfoDict = Factory.MakeTargetInfos(a_oSkillTradeInfo, KCDefine.U_KEY_FMT_PAY_TARGET_INFO);
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oSkillTradeInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -130,8 +130,8 @@ public struct STSkillTradeInfo {
 		Func.SaveTargetInfos(m_oPayTargetInfoDict, KCDefine.U_KEY_FMT_PAY_TARGET_INFO, a_oOutSkillTradeInfo);
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutSkillTradeInfo);
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
 
 /** 스킬 정보 테이블 */
@@ -141,7 +141,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	public Dictionary<ESkillKinds, STSkillTradeInfo> BuySkillTradeInfoDict { get; } = new Dictionary<ESkillKinds, STSkillTradeInfo>();
 	public Dictionary<ESkillKinds, STSkillTradeInfo> SaleSkillTradeInfoDict { get; } = new Dictionary<ESkillKinds, STSkillTradeInfo>();
 	public Dictionary<ESkillKinds, STSkillTradeInfo> EnhanceSkillTradeInfoDict { get; } = new Dictionary<ESkillKinds, STSkillTradeInfo>();
-#endregion           // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 초기화 */
@@ -238,11 +238,11 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oJSONStr, true);
-#endif         // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 			CUnityMsgSender.Inst.SendShowToastMsg($"CSkillInfoTable.SaveSkillInfos: {File.Exists(Access.SkillInfoTableSavePath)}");
-#endif         // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
+#endif // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
 		}
 	}
 
@@ -269,7 +269,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif            // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 스킬 정보를 로드한다 */
@@ -315,7 +315,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 
 		return (this.SkillInfoDict, this.BuySkillTradeInfoDict, this.SaleSkillTradeInfoDict, this.EnhanceSkillTradeInfoDict);
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -362,8 +362,8 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 
 		this.SaveSkillInfos(oSkillInfos.ToString());
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
-#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

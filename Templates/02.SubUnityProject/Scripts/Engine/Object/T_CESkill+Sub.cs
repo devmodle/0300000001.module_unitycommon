@@ -16,7 +16,7 @@ namespace NSEngine {
 
 #region 추가
 			this.SubSetupAwake();
-#endregion          // 추가               
+#endregion // 추가               
 		}
 
 		/** 초기화 */
@@ -26,9 +26,9 @@ namespace NSEngine {
 
 #region 추가
 			this.SubInit();
-#endregion          // 추가               
+#endregion // 추가               
 		}
-#endregion          // 함수               
+#endregion // 함수               
 	}
 
 	/** 서브 스킬 */
@@ -41,11 +41,11 @@ namespace NSEngine {
 
 #region 변수
 
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 프로퍼티
 
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 		/** 컴포넌트를 설정한다 */
@@ -57,8 +57,8 @@ namespace NSEngine {
 		private void SubInit() {
 			this.SetupAbilityVals();
 		}
-#endregion          // 함수               
+#endregion // 함수               
 	}
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

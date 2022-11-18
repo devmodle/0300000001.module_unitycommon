@@ -7,7 +7,7 @@ using TMPro;
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
-#endif            // #if INPUT_SYSTEM_MODULE_ENABLE                                           
+#endif // #if INPUT_SYSTEM_MODULE_ENABLE                                           
 
 namespace TitleScene {
 	/** 타이틀 씬 관리자 */
@@ -22,7 +22,7 @@ namespace TitleScene {
 		#region 변수
 		/** =====> UI <===== */
 		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
-		#endregion            // 변수               
+		#endregion // 변수               
 
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
@@ -32,7 +32,7 @@ namespace TitleScene {
 		public override string SceneName => KCDefine.B_SCENE_N_TITLE;
 
 		public TMP_Text VerText => m_oTextDict.GetValueOrDefault(EKey.VER_TEXT);
-		#endregion          // 프로퍼티                 
+		#endregion // 프로퍼티                 
 
 		#region 함수
 		/** 초기화 */
@@ -76,15 +76,15 @@ namespace TitleScene {
 				bool bIsEditorKeyDown = Keyboard.current.leftShiftKey.isPressed && Keyboard.current.eKey.wasPressedThisFrame;
 #else
 				bool bIsEditorKeyDown = Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.E);
-#endif         // #if INPUT_SYSTEM_MODULE_ENABLE                                           
+#endif // #if INPUT_SYSTEM_MODULE_ENABLE                                           
 
 				// 에디터 키를 눌렀을 경우
 				if(bIsEditorKeyDown) {
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 				}
-#endif         // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 			}
 		}
-		#endregion         // 함수               
+		#endregion // 함수               
 	}
 }

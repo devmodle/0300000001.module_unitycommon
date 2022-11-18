@@ -22,14 +22,14 @@ public abstract partial class CTargetInfo : CBaseInfo {
 
 	[IgnoreMember][System.NonSerialized] public CTargetInfo m_oOwnerTargetInfo = null;
 	[IgnoreMember][System.NonSerialized] public List<CTargetInfo> m_oOwnedTargetInfoList = new List<CTargetInfo>();
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 상수
 	private const string KEY_NAME = "Name";
 	private const string KEY_GUID = "GUID";
 	private const string KEY_OWNER_GUID = "OwnerGUID";
 	private const string KEY_OWNER_TARGET_TYPE = "OwnerTargetType";
-#endregion          // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	[IgnoreMember] public string Name { get { return m_oStrDict.GetValueOrDefault(KEY_NAME, string.Empty); } set { m_oStrDict.ExReplaceVal(KEY_NAME, value); } }
@@ -39,7 +39,7 @@ public abstract partial class CTargetInfo : CBaseInfo {
 
 	[IgnoreMember] public abstract int Kinds { get; }
 	[IgnoreMember] public abstract ETargetType TargetType { get; }
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -55,7 +55,7 @@ public abstract partial class CTargetInfo : CBaseInfo {
 		m_oOwnedTargetInfoList = m_oOwnedTargetInfoList ?? new List<CTargetInfo>();
 		m_oAbilityTargetInfoDict = m_oAbilityTargetInfoDict ?? new Dictionary<ulong, STTargetInfo>();
 	}
-#endregion          // IMessagePackSerializationCallbackReceiver                                                      
+#endregion // IMessagePackSerializationCallbackReceiver                                                      
 
 #region 함수
 	/** 생성자 */
@@ -77,7 +77,7 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	private void SetupGUID() {
 		this.GUID = this.GUID.ExIsValid() ? this.GUID : System.Guid.NewGuid().ToString();
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
 
 /** 아이템 타겟 정보 */
@@ -85,14 +85,14 @@ public abstract partial class CTargetInfo : CBaseInfo {
 public partial class CItemTargetInfo : CTargetInfo {
 #region 상수
 	private const string KEY_ITEM_KINDS = "ItemKinds";
-#endregion          // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	[IgnoreMember] public EItemKinds ItemKinds { get { return (EItemKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); } }
 	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	[IgnoreMember] public override int Kinds => (int)this.ItemKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.ITEM;
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -109,7 +109,7 @@ public partial class CItemTargetInfo : CTargetInfo {
 			// Do Something
 		}
 	}
-#endregion          // IMessagePackSerializationCallbackReceiver                                                      
+#endregion // IMessagePackSerializationCallbackReceiver                                                      
 
 #region 함수
 	/** 생성자 */
@@ -121,7 +121,7 @@ public partial class CItemTargetInfo : CTargetInfo {
 	public CItemTargetInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
 
 /** 스킬 타겟 정보 */
@@ -129,14 +129,14 @@ public partial class CItemTargetInfo : CTargetInfo {
 public partial class CSkillTargetInfo : CTargetInfo {
 #region 상수
 	private const string KEY_SKILL_KINDS = "SkillKinds";
-#endregion          // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	[IgnoreMember] public ESkillKinds SkillKinds { get { return (ESkillKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); } }
 	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	[IgnoreMember] public override int Kinds => (int)this.SkillKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.SKILL;
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -153,7 +153,7 @@ public partial class CSkillTargetInfo : CTargetInfo {
 			// Do Something
 		}
 	}
-#endregion          // IMessagePackSerializationCallbackReceiver                                                      
+#endregion // IMessagePackSerializationCallbackReceiver                                                      
 
 #region 함수
 	/** 생성자 */
@@ -165,7 +165,7 @@ public partial class CSkillTargetInfo : CTargetInfo {
 	public CSkillTargetInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
 
 /** 객체 타겟 정보 */
@@ -174,14 +174,14 @@ public partial class CSkillTargetInfo : CTargetInfo {
 public partial class CObjTargetInfo : CTargetInfo {
 #region 상수
 	private const string KEY_OBJ_KINDS = "ObjKinds";
-#endregion          // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	[IgnoreMember] public EObjKinds ObjKinds { get { return (EObjKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); } }
 	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	[IgnoreMember] public override int Kinds => (int)this.ObjKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.OBJ;
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -198,7 +198,7 @@ public partial class CObjTargetInfo : CTargetInfo {
 			// Do Something
 		}
 	}
-#endregion          // IMessagePackSerializationCallbackReceiver                                                      
+#endregion // IMessagePackSerializationCallbackReceiver                                                      
 
 #region 함수
 	/** 생성자 */
@@ -210,7 +210,7 @@ public partial class CObjTargetInfo : CTargetInfo {
 	public CObjTargetInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
 
 /** 어빌리티 타겟 정보 */
@@ -218,14 +218,14 @@ public partial class CObjTargetInfo : CTargetInfo {
 public partial class CAbilityTargetInfo : CTargetInfo {
 #region 상수
 	private const string KEY_ABILITY_KINDS = "AbilityKinds";
-#endregion          // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	[IgnoreMember] public EAbilityKinds AbilityKinds { get { return (EAbilityKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_KINDS, $"{(int)EAbilityKinds.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_ABILITY_KINDS, $"{(int)value}"); } }
 	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	[IgnoreMember] public override int Kinds => (int)this.AbilityKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.ABILITY;
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -242,7 +242,7 @@ public partial class CAbilityTargetInfo : CTargetInfo {
 			// Do Something
 		}
 	}
-#endregion          // IMessagePackSerializationCallbackReceiver                                                      
+#endregion // IMessagePackSerializationCallbackReceiver                                                      
 
 #region 함수
 	/** 생성자 */
@@ -254,7 +254,7 @@ public partial class CAbilityTargetInfo : CTargetInfo {
 	public CAbilityTargetInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
 
 /** 캐릭터 유저 정보 */
@@ -264,17 +264,17 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	[Key(21)] public STIDInfo m_stIDInfo;
 	[Key(22)] public STIDInfo m_stPlayEpisodeIDInfo;
 	[Key(91)] public List<CTargetInfo> m_oTargetInfoList = new List<CTargetInfo>();
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 상수
 	private const string KEY_SEL_ITEM_SET_IDX = "SelItemSetIdx";
 	private const string KEY_SEL_SKILL_SET_IDX = "SelSkillSetIdx";
-#endregion          // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	[IgnoreMember] public int SelItemSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_ITEM_SET_IDX, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_SEL_ITEM_SET_IDX, $"{value}"); } }
 	[IgnoreMember] public int SelSkillSetIdx { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_SKILL_SET_IDX, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_SEL_SKILL_SET_IDX, $"{value}"); } }
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -301,7 +301,7 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 			// Do Something
 		}
 	}
-#endregion          // IMessagePackSerializationCallbackReceiver                                                      
+#endregion // IMessagePackSerializationCallbackReceiver                                                      
 
 #region 함수
 	/** 생성자 */
@@ -313,7 +313,7 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	public CCharacterUserInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
 
 /** 유저 정보 */
@@ -321,17 +321,17 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 public partial class CUserInfo : CBaseInfo {
 #region 변수
 	[Key(151)] public Dictionary<int, CCharacterUserInfo> m_oCharacterUserInfoDict = new Dictionary<int, CCharacterUserInfo>();
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 상수
 	private const string KEY_LOGIN_TYPE = "LoginType";
 	private const string KEY_ABILITY_TARGET_INFO_VER = "AbilityTargetInfoVer";
-#endregion          // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	[IgnoreMember] public ELoginType LoginType { get { return (ELoginType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_LOGIN_TYPE, $"{(int)ELoginType.NONE}")); } set { m_oStrDict.ExReplaceVal(KEY_LOGIN_TYPE, $"{(int)value}"); } }
 	[IgnoreMember] public System.Version AbilityTargetInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_TARGET_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_ABILITY_TARGET_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
-#endregion          // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -353,7 +353,7 @@ public partial class CUserInfo : CBaseInfo {
 			// Do Something
 		}
 	}
-#endregion          // IMessagePackSerializationCallbackReceiver                                                      
+#endregion // IMessagePackSerializationCallbackReceiver                                                      
 
 #region 함수
 	/** 생성자 */
@@ -365,7 +365,7 @@ public partial class CUserInfo : CBaseInfo {
 	public CUserInfo(System.Version a_stVer) : base(a_stVer) {
 		// Do Something
 	}
-#endregion          // 함수               
+#endregion // 함수               
 }
 
 /** 유저 정보 저장소 */
@@ -373,7 +373,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 #region 프로퍼티
 	public CUserInfo UserInfo { get; private set; } = new CUserInfo();
 	public bool IsPurchaseRemoveAds => Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.NON_CONSUMABLE_REMOVE_ADS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS) > KCDefine.B_VAL_0_INT;
-#endregion            // 프로퍼티
+#endregion // 프로퍼티
 
 #region 함수
 	/** 유저 정보를 리셋한다 */
@@ -445,7 +445,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		a_oOutTargetInfo = (this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.m_oTargetInfoList.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
 		return a_oOutTargetInfo != null;
 	}
-#endregion          // 함수               
+#endregion // 함수               
 
 #region 접근자 함수
 	/** 아이템 타겟 정보를 반환한다 */
@@ -542,7 +542,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 		this.UserInfo.m_oCharacterUserInfoDict.ExRemoveVal(this.UserInfo.m_oCharacterUserInfoDict.Count - KCDefine.B_VAL_2_INT);
 	}
-#endregion          // 접근자 함수                   
+#endregion // 접근자 함수                   
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

@@ -19,7 +19,7 @@ namespace NSEngine {
 
 #region 추가
 			this.SubSetupAwake();
-#endregion         // 추가               
+#endregion // 추가               
 		}
 
 		/** 초기화 */
@@ -32,7 +32,7 @@ namespace NSEngine {
 
 #region 추가
 			this.SubInit();
-#endregion           // 추가               
+#endregion // 추가               
 		}
 
 		/** 상태를 리셋한다 */
@@ -42,9 +42,9 @@ namespace NSEngine {
 
 #region 추가
 			this.SubReset();
-#endregion          // 추가               
+#endregion // 추가               
 		}
-#endregion         // 함수               
+#endregion // 함수               
 	}
 
 	/** 서브 엔진 */
@@ -67,7 +67,7 @@ namespace NSEngine {
 #region 변수
 		private Dictionary<ESubKey, int> m_oSubIntDict = new Dictionary<ESubKey, int>();
 		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
@@ -76,7 +76,7 @@ namespace NSEngine {
 
 		public int SelPlayerObjIdx => m_oSubIntDict.GetValueOrDefault(ESubKey.SEL_PLAYER_OBJ_IDX);
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
-#endregion            // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 		/** 상태를 갱신한다 */
@@ -288,7 +288,7 @@ namespace NSEngine {
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if UNITY_EDITOR
@@ -299,9 +299,9 @@ namespace NSEngine {
 				// Do Something
 			}
 		}
-#endif         // #if UNITY_EDITOR                             
-#endregion         // 조건부 함수                   
+#endif // #if UNITY_EDITOR                             
+#endregion // 조건부 함수                   
 	}
 }
-#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

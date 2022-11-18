@@ -10,7 +10,7 @@ using UnityEditor;
 
 #if EDITOR_COROUTINE_ENABLE
 using Unity.EditorCoroutines.Editor;
-#endif         // #if EDITOR_COROUTINE_ENABLE
+#endif // #if EDITOR_COROUTINE_ENABLE
 
 /** 공용 에디터 씬 관리자 */
 [InitializeOnLoad]
@@ -60,7 +60,7 @@ public static partial class CCommonEditorSceneManager {
 		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO",
 		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
 	};
-	#endregion         // 클래스 변수                   
+	#endregion // 클래스 변수                   
 
 	#region 클래스 함수
 	/** 생성자 */
@@ -94,7 +94,7 @@ public static partial class CCommonEditorSceneManager {
 #else
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;
-#endif         // #if EDITOR_COROUTINE_ENABLE                                        
+#endif // #if EDITOR_COROUTINE_ENABLE                                        
 	}
 
 	/** 상태를 갱신한다 */
@@ -124,27 +124,27 @@ public static partial class CCommonEditorSceneManager {
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
 				CCommonEditorSceneManager.SetupAdaptivePerformance();
-#endif           // #if ADAPTIVE_PERFORMANCE_ENABLE                                            
+#endif // #if ADAPTIVE_PERFORMANCE_ENABLE                                            
 
 #if LOCALIZE_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupLocalize();
-#endif         // #if LOCALIZE_MODULE_ENABLE                                       
+#endif // #if LOCALIZE_MODULE_ENABLE                                       
 
 #if ML_AGENTS_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupMLAgents();
-#endif         // #if ML_AGENTS_MODULE_ENABLE                                        
+#endif // #if ML_AGENTS_MODULE_ENABLE                                        
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupInputSystem();
-#endif         // #if INPUT_SYSTEM_MODULE_ENABLE                                           
+#endif // #if INPUT_SYSTEM_MODULE_ENABLE                                           
 
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupRenderingPipeline();
-#endif         // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE                                                           
+#endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE                                                           
 
 #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupBurstCompiler();
-#endif         // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE                                                                               
+#endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE                                                                               
 
 				CFunc.EnumerateRootObjs((a_oObj) => {
 					// 최상단 UI 일 경우
@@ -247,7 +247,7 @@ public static partial class CCommonEditorSceneManager {
 			EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.CoUpdateEditorModeState());
 #else
 			Time.timeScale = KCDefine.B_VAL_1_REAL;
-#endif         // #if EDITOR_COROUTINE_ENABLE                                        
+#endif // #if EDITOR_COROUTINE_ENABLE                                        
 		}
 	}
 
@@ -263,6 +263,6 @@ public static partial class CCommonEditorSceneManager {
 		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_DELTA_T_ASYNC_TASK, true);
 		Time.timeScale = KCDefine.B_VAL_1_REAL;
 	}
-	#endregion         // 클래스 함수                   
+	#endregion // 클래스 함수                   
 }
-#endif         // #if UNITY_EDITOR                             
+#endif // #if UNITY_EDITOR                             

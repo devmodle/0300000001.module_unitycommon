@@ -26,12 +26,12 @@ public struct STItemInfo {
 	public static STItemInfo INVALID = new STItemInfo() {
 		m_eItemKinds = EItemKinds.NONE, m_ePrevItemKinds = EItemKinds.NONE, m_eNextItemKinds = EItemKinds.NONE
 	};
-#endregion            // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	public EItemType ItemType => (EItemType)((int)m_eItemKinds).ExKindsToType();
 	public EItemKinds BaseItemKinds => (EItemKinds)((int)m_eItemKinds).ExKindsToSubKindsType();
-#endregion           // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 생성자 */
@@ -47,7 +47,7 @@ public struct STItemInfo {
 		m_oAbilityTargetInfoDict = Factory.MakeTargetInfos(a_oItemInfo, KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO);
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oItemInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -64,8 +64,8 @@ public struct STItemInfo {
 		Func.SaveTargetInfos(m_oAbilityTargetInfoDict, KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, a_oOutItemInfo);
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutItemInfo);
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
 
 /** 아이템 교환 정보 */
@@ -84,12 +84,12 @@ public struct STItemTradeInfo {
 	public static STItemTradeInfo INVALID = new STItemTradeInfo() {
 		m_eItemKinds = EItemKinds.NONE, m_ePrevItemKinds = EItemKinds.NONE, m_eNextItemKinds = EItemKinds.NONE
 	};
-#endregion            // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	public EItemType ItemType => (EItemType)((int)m_eItemKinds).ExKindsToType();
 	public EItemKinds BaseItemKinds => (EItemKinds)((int)m_eItemKinds).ExKindsToSubKindsType();
-#endregion           // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 생성자 */
@@ -103,7 +103,7 @@ public struct STItemTradeInfo {
 		m_oPayTargetInfoDict = Factory.MakeTargetInfos(a_oItemTradeInfo, KCDefine.U_KEY_FMT_PAY_TARGET_INFO);
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oItemTradeInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -118,8 +118,8 @@ public struct STItemTradeInfo {
 		Func.SaveTargetInfos(m_oPayTargetInfoDict, KCDefine.U_KEY_FMT_PAY_TARGET_INFO, a_oOutItemTradeInfo);
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutItemTradeInfo);
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
 
 /** 아이템 정보 테이블 */
@@ -129,7 +129,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	public Dictionary<EItemKinds, STItemTradeInfo> BuyItemTradeInfoDict { get; } = new Dictionary<EItemKinds, STItemTradeInfo>();
 	public Dictionary<EItemKinds, STItemTradeInfo> SaleItemTradeInfoDict { get; } = new Dictionary<EItemKinds, STItemTradeInfo>();
 	public Dictionary<EItemKinds, STItemTradeInfo> EnhanceItemTradeInfoDict { get; } = new Dictionary<EItemKinds, STItemTradeInfo>();
-#endregion            // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 초기화 */
@@ -226,11 +226,11 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, true);
-#endif          // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 			CUnityMsgSender.Inst.SendShowToastMsg($"CItemInfoTable.SaveItemInfos: {File.Exists(Access.ItemInfoTableSavePath)}");
-#endif         // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
+#endif // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
 		}
 	}
 
@@ -257,7 +257,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif         // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 아이템 정보를 로드한다 */
@@ -303,7 +303,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 
 		return (this.ItemInfoDict, this.BuyItemTradeInfoDict, this.SaleItemTradeInfoDict, this.EnhanceItemTradeInfoDict);
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -350,8 +350,8 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 
 		this.SaveItemInfos(oItemInfos.ToString());
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
-#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

@@ -14,7 +14,7 @@ namespace SetupScene {
 		private static GameObject m_oAbsUIs = null;
 		private static GameObject m_oTimerManager = null;
 		private static GameObject m_oDebugUIs = null;
-		#endregion         // 클래스 변수                   
+		#endregion // 클래스 변수                   
 
 		#region 프로퍼티
 		public override string SceneName => KCDefine.B_SCENE_N_SETUP;
@@ -24,8 +24,8 @@ namespace SetupScene {
 
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER;
-#endif           // #if UNITY_EDITOR                             
-		#endregion           // 프로퍼티                 
+#endif // #if UNITY_EDITOR                             
+		#endregion // 프로퍼티                 
 
 		#region 함수
 		/** 초기화 */
@@ -65,11 +65,11 @@ namespace SetupScene {
 
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SetupDebugUIs();
-#endif         // #if DEBUG || DEVELOPMENT_BUILD                                           
+#endif // #if DEBUG || DEVELOPMENT_BUILD                                           
 
 #if PURCHASE_MODULE_ENABLE
 			CProductInfoTable.Inst.LoadProductInfos();
-#endif         // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE                                       
 		}
 
 		/** 디바이스 식별자 반환 메세지를 수신했을 경우 */
@@ -91,7 +91,7 @@ namespace SetupScene {
 			CCommonAppInfoStorage.Inst.SetCountryCode(a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_KOREA_COUNTRY_CODE);
 #else
 			CCommonAppInfoStorage.Inst.SetCountryCode(a_oMsg.ExIsValid() ? a_oMsg.ToUpper() : KCDefine.B_AMERICA_COUNTRY_CODE);
-#endif         // #if UNITY_EDITOR                             
+#endif // #if UNITY_EDITOR                             
 
 			CSceneManager.SetSetup(true);
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
@@ -106,6 +106,6 @@ namespace SetupScene {
 
 			CUnityMsgSender.Inst.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);
 		}
-		#endregion         // 함수               
+		#endregion // 함수               
 	}
 }

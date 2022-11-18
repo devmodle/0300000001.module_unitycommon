@@ -22,7 +22,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
-#endregion          // 변수               
+#endregion // 변수               
 
 #region 함수
 	/** 팝업 컨텐츠를 설정한다 */
@@ -35,7 +35,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
-#endif          // #if ADS_MODULE_ENABLE                                  
+#endif // #if ADS_MODULE_ENABLE                                  
 	}
 
 	/** 획득 버튼을 눌렀을 경우 */
@@ -70,7 +70,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 			(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(stRewardInfo.m_eRewardQuality, ERewardAcquirePopupType.DAILY, stRewardInfo.m_oAcquireTargetInfoDict));
 		}, null, this.OnCloseRewardAcquirePopup);
 	}
-#endregion          // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if ADS_MODULE_ENABLE
@@ -81,8 +81,8 @@ public partial class CDailyRewardPopup : CSubPopup {
 			this.ShowRewardAcquirePopup(true);
 		}
 	}
-#endif          // #if ADS_MODULE_ENABLE                                  
-#endregion          // 조건부 함수                   
+#endif // #if ADS_MODULE_ENABLE                                  
+#endregion // 조건부 함수                   
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

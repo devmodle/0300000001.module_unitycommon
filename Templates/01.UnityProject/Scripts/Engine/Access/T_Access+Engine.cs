@@ -20,8 +20,8 @@ namespace NSEngine {
 		public static STSortingOrderInfo GetSortingOrderInfo(EObjKinds a_eObjKinds) {
 			return KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), KDefine.E_SORTING_OI_DEF);
 		}
-#endregion          // 클래스 함수                   
+#endregion // 클래스 함수                   
 	}
 }
-#endif          // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     

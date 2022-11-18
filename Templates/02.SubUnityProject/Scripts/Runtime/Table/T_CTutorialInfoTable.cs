@@ -24,12 +24,12 @@ public struct STTutorialInfo {
 	public static STTutorialInfo INVALID = new STTutorialInfo() {
 		m_eTutorialKinds = ETutorialKinds.NONE, m_ePrevTutorialKinds = ETutorialKinds.NONE, m_eNextTutorialKinds = ETutorialKinds.NONE
 	};
-#endregion            // 상수               
+#endregion // 상수               
 
 #region 프로퍼티
 	public ETutorialType TutorialType => (ETutorialType)((int)m_eTutorialKinds).ExKindsToType();
 	public ETutorialKinds BaseTutorialKinds => (ETutorialKinds)((int)m_eTutorialKinds).ExKindsToSubKindsType();
-#endregion           // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 생성자 */
@@ -43,7 +43,7 @@ public struct STTutorialInfo {
 		m_oStrList = Factory.MakeVals(a_oTutorialInfo, KCDefine.U_KEY_FMT_STRS, (a_oJSONNode) => a_oJSONNode.Value);
 		m_oRewardKindsList = Factory.MakeVals(a_oTutorialInfo, KCDefine.U_KEY_FMT_REWARD_KINDS, (a_oJSONNode) => (ERewardKinds)a_oJSONNode.AsInt);
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -58,15 +58,15 @@ public struct STTutorialInfo {
 		Func.SaveVals(m_oStrList, KCDefine.U_KEY_FMT_STRS, (a_oStr) => a_oStr, a_oOutTutorialInfo);
 		Func.SaveVals(m_oRewardKindsList, KCDefine.U_KEY_FMT_REWARD_KINDS, (a_eRewardKinds) => $"{(int)a_eRewardKinds}", a_oOutTutorialInfo);
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
 
 /** 튜토리얼 정보 테이블 */
 public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 #region 프로퍼티
 	public Dictionary<ETutorialKinds, STTutorialInfo> TutorialInfoDict { get; } = new Dictionary<ETutorialKinds, STTutorialInfo>();
-#endregion           // 프로퍼티                 
+#endregion // 프로퍼티                 
 
 #region 함수
 	/** 초기화 */
@@ -136,7 +136,7 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif         // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
 	}
 
 	/** 튜토리얼 정보를 로드한다 */
@@ -155,7 +155,7 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 
 		return this.TutorialInfoDict;
 	}
-#endregion         // 함수               
+#endregion // 함수               
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -172,8 +172,8 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 			}
 		}
 	}
-#endif         // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion         // 조건부 함수                   
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endregion // 조건부 함수                   
 }
-#endif         // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif          // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if SCRIPT_TEMPLATE_ONLY                                     
