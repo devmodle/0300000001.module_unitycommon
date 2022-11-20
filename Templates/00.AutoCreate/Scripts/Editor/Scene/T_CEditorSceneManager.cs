@@ -73,6 +73,7 @@ public static partial class CEditorSceneManager {
 
 				CEditorSceneManager.m_bIsEnableSetup = false;
 				CEditorSceneManager.m_bIsEnableSetupDependencies = true;
+
 				CEditorSceneManager.m_oListRequest = Client.List(false, false);
 			}
 
