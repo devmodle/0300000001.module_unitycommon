@@ -70,7 +70,7 @@ public partial class CSettingsPopup : CSubPopup {
 
 	/** 지원 버튼을 눌렀을 경우 */
 	private void OnTouchSupportsBtn() {
-		CUnityMsgSender.Inst.SendMailMsg(CProjInfoTable.Inst.CompanyInfo.m_oSupportsMail, string.Empty, string.Empty);
+		CUnityMsgSender.Inst.SendMailMsg(string.Empty, string.Empty, CProjInfoTable.Inst.CompanyInfo.m_oSupportsMail);
 	}
 #endregion // 함수               
 }
