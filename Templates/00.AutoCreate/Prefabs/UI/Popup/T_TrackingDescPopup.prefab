@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bIsIgnoreFontSetup: 0
+  m_bIsIgnoreSetupFont: 0
   m_oKey: TRACKING_DP_TITLE
   m_eFontSet: 0
 --- !u!1 &578354993321091302
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bIsIgnoreFontSetup: 0
+  m_bIsIgnoreSetupFont: 0
   m_oKey: TRACKING_DP_DESC_MSG_02
   m_eFontSet: 0
 --- !u!1 &705121152854865900
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bIsIgnoreFontSetup: 0
+  m_bIsIgnoreSetupFont: 0
   m_oKey: TRACKING_DP_MSG
   m_eFontSet: 0
 --- !u!1 &6254197967698364461
@@ -946,7 +946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bIsIgnoreFontSetup: 0
+  m_bIsIgnoreSetupFont: 0
   m_oKey: C_NEXT_TEXT
   m_eFontSet: 0
 --- !u!1 &6347232789698440002
@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bIsIgnoreFontSetup: 0
+  m_bIsIgnoreSetupFont: 0
   m_oKey: TRACKING_DP_DESC_MSG_03
   m_eFontSet: 0
 --- !u!1 &7400857477525605579
@@ -1267,7 +1267,7 @@ RectTransform:
   m_Children:
   - {fileID: 1599981695}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1528,6 +1528,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe0d1be6c904dc7bc390ba43be0cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bIsIgnoreFontSetup: 0
+  m_bIsIgnoreSetupFont: 0
   m_oKey: TRACKING_DP_DESC_MSG_01
   m_eFontSet: 0
