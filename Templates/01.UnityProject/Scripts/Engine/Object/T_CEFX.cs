@@ -24,18 +24,18 @@ namespace NSEngine {
 
 #region 변수
 		private Dictionary<EKey, ParticleSystem> m_oParticleDict = new Dictionary<EKey, ParticleSystem>();
-#endregion // 변수               
+#endregion // 변수
 
 #region 프로퍼티
 		public new STParams Params { get; private set; }
-#endregion // 프로퍼티                 
+#endregion // 프로퍼티
 
 #region 함수
 		/** 어빌리티 값을 설정한다 */
 		protected override void DoSetupAbilityVals(bool a_bIsReset = true) {
 			base.DoSetupAbilityVals(a_bIsReset);
 		}
-#endregion // 함수               
+#endregion // 함수
 
 #region 클래스 함수
 		/** 효과 매개 변수를 생성한다 */
@@ -44,8 +44,8 @@ namespace NSEngine {
 				m_stBaseParams = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oObjsPoolKey), m_stFXInfo = a_stFXInfo
 			};
 		}
-#endregion // 클래스 함수                   
+#endregion // 클래스 함수
 	}
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

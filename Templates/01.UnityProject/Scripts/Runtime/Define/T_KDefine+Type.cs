@@ -27,7 +27,7 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 	public static readonly STTargetInfo INVALID = new STTargetInfo() {
 		m_nKinds = KCDefine.B_IDX_INVALID, m_eTargetKinds = ETargetKinds.NONE, m_eKindsGroupType = EKindsGroupType.NONE, m_stValInfo01 = STValInfo.INVALID, m_stValInfo02 = STValInfo.INVALID, m_stValInfo03 = STValInfo.INVALID
 	};
-#endregion // 상수               
+#endregion // 상수
 
 #region 프로퍼티
 	[JsonIgnore] [IgnoreMember] public int Kinds => m_nKinds.ExKindsToCorrectKinds(m_eKindsGroupType);
@@ -35,14 +35,14 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 
 	[JsonIgnore] [IgnoreMember] public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
 	[JsonIgnore] [IgnoreMember] public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
-#endregion // 프로퍼티                 
+#endregion // 프로퍼티
 
 #region IEquatable
 	/** 동일 여부를 검사한다 */
 	public bool Equals(STTargetInfo a_stTargetInfo) {
 		return m_nKinds == a_stTargetInfo.m_nKinds && m_eTargetKinds == a_stTargetInfo.m_eTargetKinds && m_eKindsGroupType == a_stTargetInfo.m_eKindsGroupType && m_stValInfo01.Equals(a_stTargetInfo.m_stValInfo01) && m_stValInfo02.Equals(a_stTargetInfo.m_stValInfo02) && m_stValInfo03.Equals(a_stTargetInfo.m_stValInfo03);
 	}
-#endregion // IEquatable                       
+#endregion // IEquatable
 
 #region 함수
 	/** 생성자 */
@@ -75,7 +75,7 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		m_stValInfo02 = a_stValInfo02;
 		m_stValInfo03 = a_stValInfo03;
 	}
-#endregion // 함수               
+#endregion // 함수
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -90,7 +90,7 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		m_stValInfo03.SaveValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_7_INT);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion // 조건부 함수                   
+#endregion // 조건부 함수
 }
 
 /** 타입 랩퍼 */
@@ -99,6 +99,6 @@ public struct STTypeWrapper {
 	[Key(51)] public List<ulong> m_oULevelIDList;
 	[Key(161)] public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> m_oLevelInfoDictContainer;
 }
-#endregion // 기본               
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endregion // 기본
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

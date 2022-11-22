@@ -9,18 +9,18 @@ using UnityEngine.Events;
 #if SCENE_TEMPLATES_MODULE_ENABLE
 #if UNITY_ANDROID
 using UnityEngine.Android;
-#endif // #if UNITY_ANDROID                              
+#endif // #if UNITY_ANDROID
 
 namespace LateSetupScene {
 	/** 서브 지연 설정 씬 관리자 */
 	public partial class CSubLateSetupSceneManager : CLateSetupSceneManager {
 #region 변수
 		[SerializeField] private EUserType m_eUserType = EUserType.NONE;
-#endregion // 변수               
+#endregion // 변수
 
 #region 프로퍼티
 		public override bool IsAutoInitManager => true;
-#endregion // 프로퍼티                 
+#endregion // 프로퍼티
 
 #region 함수
 		/** 초기화 */
@@ -80,14 +80,14 @@ namespace LateSetupScene {
 				CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT <= KCDefine.B_VAL_0_INT) ? EUserType.A : EUserType.B;
 #else
 				CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.A;
-#endif // #if AB_TEST_ENABLE                               
+#endif // #if AB_TEST_ENABLE
 			}
-#endif // #if UNITY_EDITOR                             
+#endif // #if UNITY_EDITOR
 
 #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
 			this.UserPermissionList.ExAddVal(Permission.ExternalStorageRead);
 			this.UserPermissionList.ExAddVal(Permission.ExternalStorageWrite);
-#endif // #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE                                                         
+#endif // #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
 
 #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 			CLateSetupSceneManager.SetAutoLoadBannerAds(true);
@@ -101,7 +101,7 @@ namespace LateSetupScene {
 			a_oSender?.Close();
 			this.ExLateCallFunc((a_oSender) => this.ShowTrackingConsentView(), KCDefine.U_DELAY_INIT);
 		}
-#endregion // 함수               
+#endregion // 함수
 
 #region 조건부 함수
 #if UNITY_ANDROID
@@ -109,9 +109,9 @@ namespace LateSetupScene {
 		protected override void RequestUserPermission(string a_oPermission, System.Action<string, bool> a_oCallback) {
 			this.ExRequestUserPermission(a_oPermission, a_oCallback, true);
 		}
-#endif // #if UNITY_ANDROID                              
-#endregion // 조건부 함수                   
+#endif // #if UNITY_ANDROID
+#endregion // 조건부 함수
 	}
 }
-#endif // #if SCENE_TEMPLATES_MODULE_ENABLE                                              
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if SCENE_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

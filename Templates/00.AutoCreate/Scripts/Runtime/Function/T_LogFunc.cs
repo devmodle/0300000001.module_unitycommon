@@ -8,13 +8,13 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
-#endif // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE
 
 /** 기본 로그 함수 */
 public static partial class LogFunc {
 #region 클래스 변수
 	private static Dictionary<string, string> m_oLogTimeDict = new Dictionary<string, string>();
-#endregion // 클래스 변수                   
+#endregion // 클래스 변수
 
 #region 클래스 함수
 	/** 로그를 전송한다 */
@@ -30,22 +30,22 @@ public static partial class LogFunc {
 			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FLURRY)) {
 				CFlurryManager.Inst.SendLog(a_oName, oDataDict.ExToTypes<string, object, string, string>());
 			}
-#endif // #if FLURRY_MODULE_ENABLE                                     
+#endif // #if FLURRY_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 			// 파이어 베이스 분석이 가능 할 경우
 			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.FIREBASE)) {
 				CFirebaseManager.Inst.SendLog(a_oName, oDataDict.ExToTypes<string, object, string, string>());
 			}
-#endif // #if FIREBASE_MODULE_ENABLE                                       
+#endif // #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
 			// 앱스 플라이어 분석이 가능 할 경우
 			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.APPS_FLYER)) {
 				CAppsFlyerManager.Inst.SendLog(a_oName, oDataDict.ExToTypes<string, object, string, string>());
 			}
-#endif // #if APPS_FLYER_MODULE_ENABLE                                         
-#endif // #if ANALYTICS_TEST_ENABLE                                      
+#endif // #if APPS_FLYER_MODULE_ENABLE
+#endif // #if ANALYTICS_TEST_ENABLE
 
 			LogFunc.m_oLogTimeDict.ExReplaceVal(a_oName, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 		}
@@ -82,7 +82,7 @@ public static partial class LogFunc {
 			LogFunc.SendLog(a_oName, a_oDataDict);
 		}
 	}
-#endregion // 클래스 함수                   
+#endregion // 클래스 함수
 
 #region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
@@ -98,28 +98,28 @@ public static partial class LogFunc {
 			if(KDefine.G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalytics.FLURRY)) {
 				CFlurryManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataDict.ExToTypes<string, object, string, string>());
 			}
-#endif // #if FLURRY_MODULE_ENABLE                                     
+#endif // #if FLURRY_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 			// 파이어 베이스 분석이 가능 할 경우
 			if(KDefine.G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalytics.FIREBASE)) {
 				CFirebaseManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataDict.ExToTypes<string, object, string, string>());
 			}
-#endif // #if FIREBASE_MODULE_ENABLE                                       
+#endif // #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
 			// 앱스 플라이어 분석이 가능 할 경우
 			if(KDefine.G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST.Contains(EAnalytics.APPS_FLYER)) {
 				CAppsFlyerManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataDict.ExToTypes<string, object, string, string>());
 			}
-#endif // #if APPS_FLYER_MODULE_ENABLE                                         
-#endif // #if ANALYTICS_TEST_ENABLE                                      
+#endif // #if APPS_FLYER_MODULE_ENABLE
+#endif // #if ANALYTICS_TEST_ENABLE
 
 			LogFunc.m_oLogTimeDict.ExReplaceVal(KDefine.L_LOG_N_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 		}
 	}
-#endif // #if PURCHASE_MODULE_ENABLE                                       
-#endregion // 조건부 클래스 함수                       
+#endif // #if PURCHASE_MODULE_ENABLE
+#endregion // 조건부 클래스 함수
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

@@ -12,8 +12,8 @@ namespace AgreeScene {
 
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.U_SCRIPT_O_AGREE_SCENE_MANAGER;
-#endif // #if UNITY_EDITOR                             
-		#endregion // 프로퍼티                 
+#endif // #if UNITY_EDITOR
+		#endregion // 프로퍼티
 
 		#region 함수
 		/** 초기화 */
@@ -77,8 +77,8 @@ namespace AgreeScene {
 					this.ShowEUAgreePopup(CProjInfoTable.Inst.CompanyInfo.m_oPrivacyURL, CProjInfoTable.Inst.CompanyInfo.m_oServicesURL);
 				}
 			}
-#endif // #if ROBO_TEST_ENABLE                                 
+#endif // #if ROBO_TEST_ENABLE
 		}
-		#endregion // 함수               
+		#endregion // 함수
 	}
 }

@@ -25,8 +25,8 @@ namespace TestScene {
 				}
 			}
 		}
-#endregion // 함수               
+#endregion // 함수
 	}
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

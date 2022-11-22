@@ -22,7 +22,7 @@ public partial class CSyncPopup : CSubPopup {
 
 	/** =====> 객체 <===== */
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-#endregion // 변수               
+#endregion // 변수
 
 #region 함수
 	/** 팝업 컨텐츠를 설정한다 */
@@ -35,14 +35,14 @@ public partial class CSyncPopup : CSubPopup {
 	private void OnTouchLoginBtn() {
 #if FIREBASE_MODULE_ENABLE
 		Func.FirebaseLogin(this.OnLogin);
-#endif // #if FIREBASE_MODULE_ENABLE                                       
+#endif // #if FIREBASE_MODULE_ENABLE
 	}
 
 	/** 로그아웃 버튼을 눌렀을 경우 */
 	private void OnTouchLogoutBtn() {
 #if FIREBASE_MODULE_ENABLE
 		Func.FirebaseLogout(this.OnLogout);
-#endif // #if FIREBASE_MODULE_ENABLE                                       
+#endif // #if FIREBASE_MODULE_ENABLE
 	}
 
 	/** 로드 버튼을 눌렀을 경우 */
@@ -54,7 +54,7 @@ public partial class CSyncPopup : CSubPopup {
 				a_oSender.SetIgnoreAni(true);
 				Func.LoadUserInfo(this.OnLoadUserInfo);
 			}
-#endif // #if FIREBASE_MODULE_ENABLE                                       
+#endif // #if FIREBASE_MODULE_ENABLE
 		});
 	}
 
@@ -67,10 +67,10 @@ public partial class CSyncPopup : CSubPopup {
 				a_oSender.SetIgnoreAni(true);
 				Func.SaveUserInfo(this.OnSaveUserInfo);
 			}
-#endif // #if FIREBASE_MODULE_ENABLE                                       
+#endif // #if FIREBASE_MODULE_ENABLE
 		});
 	}
-#endregion // 함수               
+#endregion // 함수
 
 #region 조건부 함수
 #if FIREBASE_MODULE_ENABLE
@@ -120,7 +120,7 @@ public partial class CSyncPopup : CSubPopup {
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
 			}
-#endif // #if ADS_MODULE_ENABLE                                  
+#endif // #if ADS_MODULE_ENABLE
 		}
 
 		m_oBoolDict.ExReplaceVal(EKey.IS_LOAD_USER_INFO, a_bIsSuccess && a_oJSONStr.ExIsValid());
@@ -152,8 +152,8 @@ public partial class CSyncPopup : CSubPopup {
 			});
 		}
 	}
-#endif // #if FIREBASE_MODULE_ENABLE                                       
-#endregion // 조건부 함수                   
+#endif // #if FIREBASE_MODULE_ENABLE
+#endregion // 조건부 함수
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

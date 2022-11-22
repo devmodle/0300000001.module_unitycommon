@@ -26,7 +26,7 @@ namespace LevelEditorScene {
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
-		#endregion // 변수               
+		#endregion // 변수
 
 		#region 프로퍼티
 		public override bool IsIgnoreBlindV => true;
@@ -45,7 +45,7 @@ namespace LevelEditorScene {
 		protected GameObject MEUIsMsgUIs => m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS);
 		protected GameObject LEUIsABSetUIs => m_oUIsDict.GetValueOrDefault(EKey.LE_UIS_AB_SET_UIS);
 		protected GameObject ObjRoot => m_oObjDict.GetValueOrDefault(EKey.OBJ_ROOT);
-		#endregion // 프로퍼티                 
+		#endregion // 프로퍼티
 
 		#region 함수
 		/** 초기화 */
@@ -75,7 +75,7 @@ namespace LevelEditorScene {
 				// 객체를 설정한다 }
 			}
 		}
-		#endregion // 함수               
+		#endregion // 함수
 	}
 }
 #endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   

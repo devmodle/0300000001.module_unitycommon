@@ -23,12 +23,12 @@ public struct STMissionInfo {
 	public static STMissionInfo INVALID = new STMissionInfo() {
 		m_eMissionKinds = EMissionKinds.NONE, m_ePrevMissionKinds = EMissionKinds.NONE, m_eNextMissionKinds = EMissionKinds.NONE
 	};
-#endregion // 상수               
+#endregion // 상수
 
 #region 프로퍼티
 	public EMissionType MissionType => (EMissionType)((int)m_eMissionKinds).ExKindsToType();
 	public EMissionKinds BaseMissionKinds => (EMissionKinds)((int)m_eMissionKinds).ExKindsToSubKindsType();
-#endregion // 프로퍼티                 
+#endregion // 프로퍼티
 
 #region 함수
 	/** 생성자 */
@@ -41,7 +41,7 @@ public struct STMissionInfo {
 
 		m_oRewardKindsList = Factory.MakeVals(a_oMissionInfo, KCDefine.U_KEY_FMT_REWARD_KINDS, (a_oJSONNode) => (ERewardKinds)a_oJSONNode.AsInt);
 	}
-#endregion // 함수               
+#endregion // 함수
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -56,14 +56,14 @@ public struct STMissionInfo {
 		Func.SaveVals(m_oRewardKindsList, KCDefine.U_KEY_FMT_REWARD_KINDS, (a_eRewardKinds) => $"{(int)a_eRewardKinds}", a_oOutMissionInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion // 조건부 함수                   
+#endregion // 조건부 함수
 }
 
 /** 미션 정보 테이블 */
 public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 #region 프로퍼티
 	public Dictionary<EMissionKinds, STMissionInfo> MissionInfoDict { get; } = new Dictionary<EMissionKinds, STMissionInfo>();
-#endregion // 프로퍼티                 
+#endregion // 프로퍼티
 
 #region 함수
 	/** 초기화 */
@@ -162,7 +162,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 
 		return this.MissionInfoDict;
 	}
-#endregion // 함수               
+#endregion // 함수
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -183,7 +183,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 		this.SaveMissionInfos(oMissionInfos.ToString());
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion // 조건부 함수                   
+#endregion // 조건부 함수
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

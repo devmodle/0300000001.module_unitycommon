@@ -19,7 +19,7 @@ public abstract partial class CSubPopup : CPopup {
 	public override float CloseTimeScale => KCDefine.B_VAL_1_REAL;
 
 	public override EAniType AniType => EAniType.DROPDOWN;
-#endregion // 프로퍼티                 
+#endregion // 프로퍼티
 
 #region 함수
 	/** 초기화 */
@@ -42,7 +42,7 @@ public abstract partial class CSubPopup : CPopup {
 	private void UpdateUIsState() {
 		// Do Something
 	}
-#endregion // 함수               
+#endregion // 함수
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

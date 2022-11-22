@@ -11,7 +11,7 @@ namespace NSEngine {
 	public partial class CEngine : CComponent {
 #region 함수
 		
-#endregion // 함수               
+#endregion // 함수
 	}
 
 	/** 서브 엔진 - 팩토리 */
@@ -89,8 +89,8 @@ namespace NSEngine {
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}
-#endregion // 함수               
+#endregion // 함수
 	}
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

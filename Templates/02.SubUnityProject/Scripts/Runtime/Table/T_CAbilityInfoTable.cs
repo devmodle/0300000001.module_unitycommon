@@ -25,12 +25,12 @@ public struct STAbilityInfo {
 	public static STAbilityInfo INVALID = new STAbilityInfo() {
 		m_eAbilityKinds = EAbilityKinds.NONE, m_ePrevAbilityKinds = EAbilityKinds.NONE, m_eNextAbilityKinds = EAbilityKinds.NONE
 	};
-#endregion // 상수               
+#endregion // 상수
 
 #region 프로퍼티
 	public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
 	public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
-#endregion // 프로퍼티                 
+#endregion // 프로퍼티
 
 #region 함수
 	/** 생성자 */
@@ -45,7 +45,7 @@ public struct STAbilityInfo {
 
 		m_oExtraAbilityTargetInfoDict = Factory.MakeTargetInfos(a_oAbilityInfo, KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO);
 	}
-#endregion // 함수               
+#endregion // 함수
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -62,7 +62,7 @@ public struct STAbilityInfo {
 		Func.SaveTargetInfos(m_oExtraAbilityTargetInfoDict, KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, a_oOutAbilityInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion // 조건부 함수                   
+#endregion // 조건부 함수
 }
 
 /** 어빌리티 교환 정보 */
@@ -81,12 +81,12 @@ public struct STAbilityTradeInfo {
 	public static STAbilityTradeInfo INVALID = new STAbilityTradeInfo() {
 		m_eAbilityKinds = EAbilityKinds.NONE, m_ePrevAbilityKinds = EAbilityKinds.NONE, m_eNextAbilityKinds = EAbilityKinds.NONE
 	};
-#endregion // 상수               
+#endregion // 상수
 
 #region 프로퍼티
 	public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
 	public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
-#endregion // 프로퍼티                 
+#endregion // 프로퍼티
 
 #region 함수
 	/** 생성자 */
@@ -100,7 +100,7 @@ public struct STAbilityTradeInfo {
 		m_oPayTargetInfoDict = Factory.MakeTargetInfos(a_oAbilityInfo, KCDefine.U_KEY_FMT_PAY_TARGET_INFO);
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oAbilityInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-#endregion // 함수               
+#endregion // 함수
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -116,7 +116,7 @@ public struct STAbilityTradeInfo {
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutAbilityTradeInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion // 조건부 함수                   
+#endregion // 조건부 함수
 }
 
 /** 어빌리티 정보 테이블 */
@@ -124,7 +124,7 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 #region 프로퍼티
 	public Dictionary<EAbilityKinds, STAbilityInfo> AbilityInfoDict { get; } = new Dictionary<EAbilityKinds, STAbilityInfo>();
 	public Dictionary<EAbilityKinds, STAbilityTradeInfo> EnhanceAbilityTradeInfoDict { get; } = new Dictionary<EAbilityKinds, STAbilityTradeInfo>();
-#endregion // 프로퍼티                 
+#endregion // 프로퍼티
 
 #region 함수
 	/** 초기화 */
@@ -248,7 +248,7 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 
 		return this.AbilityInfoDict;
 	}
-#endregion // 함수               
+#endregion // 함수
 
 #region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -278,7 +278,7 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 		this.SaveAbilityInfos(oAbilityInfos.ToString());
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
-#endregion // 조건부 함수                   
+#endregion // 조건부 함수
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

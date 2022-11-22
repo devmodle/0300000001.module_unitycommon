@@ -46,7 +46,7 @@ namespace TitleScene {
 		private SimpleJSON.JSONNode m_oVerInfos = null;
 		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetLoadHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
-#endregion // 변수               
+#endregion // 변수
 
 #region 함수
 		/** 내비게이션 스택 이벤트를 수신했을 경우 */
@@ -128,14 +128,14 @@ namespace TitleScene {
 		private void OnTouchAppleLoginBtn() {
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 			Func.AppleLogin((a_oSender, a_bIsSuccess) => this.OnLogin(ELoginType.APPLE, a_bIsSuccess));
-#endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE                                                
+#endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
 		}
 
 		/** 페이스 북 로그인 버튼을 눌렀을 경우 */
 		private void OnTouchFacebookLoginBtn() {
 #if FACEBOOK_MODULE_ENABLE
 			Func.FacebookLogin((a_oSender, a_bIsSuccess) => this.OnLogin(ELoginType.FACEBOOK, a_bIsSuccess));
-#endif // #if FACEBOOK_MODULE_ENABLE                                       
+#endif // #if FACEBOOK_MODULE_ENABLE
 		}
 
 		/** 로그인 되었을 경우 */
@@ -151,8 +151,8 @@ namespace TitleScene {
 				m_oAniDict.ExAssignVal(EKey.TOUCH_ANI, m_oTextDict.GetValueOrDefault(EKey.TOUCH_TEXT)?.DOFaceFade(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_1_REAL).SetAutoKill().SetEase(KCDefine.U_EASE_DEF).SetLoops(KCDefine.B_TIMES_INT_INFINITE, LoopType.Yoyo).SetUpdate(true));
 			}
 		}
-#endregion // 함수               
+#endregion // 함수
 	}
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

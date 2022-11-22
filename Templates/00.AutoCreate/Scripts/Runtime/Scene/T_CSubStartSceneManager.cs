@@ -44,7 +44,7 @@ namespace StartScene {
 
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-#endregion // 변수               
+#endregion // 변수
 
 #region 함수
 		/** 초기화 */
@@ -88,12 +88,12 @@ namespace StartScene {
 			} finally {
 				m_oStopwatch.Restart();
 			}
-#endif // #if DEBUG || DEVELOPMENT                                     
+#endif // #if DEBUG || DEVELOPMENT
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			float fPercent = Mathf.Clamp01((int)(a_eEvent + KCDefine.B_VAL_1_INT) / (float)EStartSceneEvent.MAX_VAL);
 			m_oAniDict.ExAssignVal(EKey.LOADING_GAUGE_ANI, m_oGaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).ExStartGaugeAni((a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict.GetValueOrDefault(EKey.LOADING_GAUGE_HANDLER).Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 씬을 설정한다 */
@@ -134,8 +134,8 @@ namespace StartScene {
 
 			m_oStopwatch.Start();
 			this.OnReceiveStartSceneEvent(EStartSceneEvent.LOAD_START_SCENE);
-#endif // #if DEBUG || DEVELOPMENT                                     
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
+#endif // #if DEBUG || DEVELOPMENT
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 텍스트 상태를 갱신한다 */
@@ -149,8 +149,8 @@ namespace StartScene {
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);
 			m_oTextDict.GetValueOrDefault(EKey.LOADING_TEXT).ExSetText(string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, m_oStrBuilderDict.GetValueOrDefault(EKey.STR_BUILDER_01).ToString(), oPercentStr), stFontSetInfo);
 		}
-#endregion // 함수               
+#endregion // 함수
 	}
 }
-#endif // #if SCENE_TEMPLATES_MODULE_ENABLE                                              
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if SCENE_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

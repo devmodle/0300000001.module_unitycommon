@@ -39,7 +39,7 @@ public static partial class KEditorDefine {
 	public static readonly Dictionary<string, System.Type> G_EXTRA_SCENE_MANAGER_TYPE_DICT = new Dictionary<string, System.Type>() {
 		// Do Something
 	};
-#endregion // 런타임 상수                   
+#endregion // 런타임 상수
 }
-#endif // #if UNITY_EDITOR && EXTRA_SCRIPT_MODULE_ENABLE                                                           
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if UNITY_EDITOR && EXTRA_SCRIPT_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

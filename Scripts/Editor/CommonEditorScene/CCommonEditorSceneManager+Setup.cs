@@ -19,25 +19,25 @@ using Unity.Linq;
 #if ADAPTIVE_PERFORMANCE_ENABLE
 using UnityEngine.AdaptivePerformance;
 using UnityEditor.AdaptivePerformance.Editor;
-#endif // #if ADAPTIVE_PERFORMANCE_ENABLE                                            
+#endif // #if ADAPTIVE_PERFORMANCE_ENABLE
 
 #if LOCALIZE_MODULE_ENABLE
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-#endif // #if LOCALIZE_MODULE_ENABLE                                       
+#endif // #if LOCALIZE_MODULE_ENABLE
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
 
 #if UNITY_IOS
 using UnityEngine.InputSystem.iOS;
-#endif // #if UNITY_IOS                          
-#endif // #if INPUT_SYSTEM_MODULE_ENABLE                                           
+#endif // #if UNITY_IOS
+#endif // #if INPUT_SYSTEM_MODULE_ENABLE
 
 #if NEWTON_SOFT_JSON_MODULE_ENABLE
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE                                               
+#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE
 
 /** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
@@ -228,7 +228,7 @@ public static partial class CCommonEditorSceneManager {
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE)) {
 			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));
 		}
-#endif // #if STUDY_MODULE_ENABLE                                    
+#endif // #if STUDY_MODULE_ENABLE
 	}
 
 	/** 레이어를 설정한다 */
@@ -378,7 +378,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-	#endregion // 클래스 함수                   
+	#endregion // 클래스 함수
 
 	#region 클래스 조건부 함수
 #if ADAPTIVE_PERFORMANCE_ENABLE
@@ -435,7 +435,7 @@ public static partial class CCommonEditorSceneManager {
 			a_oProviderSettings.indexerSettings.active = false;
 		}
 	}
-#endif // #if ADAPTIVE_PERFORMANCE_ENABLE                                        
+#endif // #if ADAPTIVE_PERFORMANCE_ENABLE
 
 #if LOCALIZE_MODULE_ENABLE
 	/** 지역화를 설정한다 */
@@ -459,7 +459,7 @@ public static partial class CCommonEditorSceneManager {
 			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY, (a_oProperty) => a_oProperty.boolValue = true);
 		}
 	}
-#endif // #if LOCALIZE_MODULE_ENABLE                                       
+#endif // #if LOCALIZE_MODULE_ENABLE
 
 #if ML_AGENTS_MODULE_ENABLE
 	/** 머신 러닝 에이전트를 설정한다 */
@@ -488,7 +488,7 @@ public static partial class CCommonEditorSceneManager {
 			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_ML_AGENTS_EDITOR_PORT, (a_oProperty) => a_oProperty.intValue = KCEditorDefine.B_PORT_NUMBER_ML_AGENTS_EDITOR);
 		}
 	}
-#endif // #if ML_AGENTS_MODULE_ENABLE                                        
+#endif // #if ML_AGENTS_MODULE_ENABLE
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 	/** 입력 시스템을 설정한다 */
@@ -512,7 +512,7 @@ public static partial class CCommonEditorSceneManager {
 #if UNITY_IOS
 				oInputSettings.iOS.motionUsage.enabled == CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion,
 				oInputSettings.iOS.motionUsage.usageDescription.Equals(CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc)
-#endif // #if UNITY_IOS                          
+#endif // #if UNITY_IOS
 			};
 
 			// 설정 갱신이 필요 할 경우
@@ -524,11 +524,11 @@ public static partial class CCommonEditorSceneManager {
 #if UNITY_IOS
 				oInputSettings.iOS.motionUsage.enabled = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion;
 				oInputSettings.iOS.motionUsage.usageDescription = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc;
-#endif // #if UNITY_IOS                          
+#endif // #if UNITY_IOS
 			}
 		}
 	}
-#endif // #if INPUT_SYSTEM_MODULE_ENABLE                                           
+#endif // #if INPUT_SYSTEM_MODULE_ENABLE
 
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 	/** 렌더링 파이프라인을 설정한다 */
@@ -551,7 +551,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-#endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE                                                           
+#endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
 	/** 버스트 컴파일러를 설정한다 */
@@ -594,7 +594,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-#endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE                                                                               
-	#endregion // 클래스 조건부 함수                       
+#endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+	#endregion // 클래스 조건부 함수
 }
-#endif // #if UNITY_EDITOR                             
+#endif // #if UNITY_EDITOR

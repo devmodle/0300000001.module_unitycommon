@@ -11,7 +11,7 @@ namespace NSEngine {
 	public partial class CEngine : CComponent {
 #region 함수
 		
-#endregion // 함수               
+#endregion // 함수
 	}
 
 	/** 서브 엔진 - 접근 */
@@ -54,8 +54,8 @@ namespace NSEngine {
 
 			return a_oOutEnemyObjList;
 		}
-#endregion // 함수               
+#endregion // 함수
 	}
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

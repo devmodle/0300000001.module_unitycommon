@@ -21,7 +21,7 @@ namespace NSEngine {
 		public const string E_OBJ_N_SKILL = "SKILL";
 		public const string E_OBJ_N_OBJ = "OBJ";
 		public const string E_OBJ_N_FX = "FX";
-#endregion // 기본               
+#endregion // 기본
 
 #region 런타임 상수
 		// 경로
@@ -29,8 +29,8 @@ namespace NSEngine {
 		public static readonly string E_OBJ_P_SKILL = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_Skill";
 		public static readonly string E_OBJ_P_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_Obj";
 		public static readonly string E_OBJ_P_FX = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_FX";
-#endregion // 런타임 상수                   
+#endregion // 런타임 상수
 	}
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

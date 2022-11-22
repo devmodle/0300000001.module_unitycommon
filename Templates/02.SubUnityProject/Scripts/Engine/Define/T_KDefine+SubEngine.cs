@@ -23,7 +23,7 @@ namespace NSEngine {
 		public const string E_OBJ_N_CELL_OBJ = "CELL_OBJ";
 		public const string E_OBJ_N_PLAYER_OBJ = "PLAYER_OBJ";
 		public const string E_OBJ_N_ENEMY_OBJ = "ENEMY_OBJ";
-#endregion // 기본               
+#endregion // 기본
 
 #region 런타임 상수
 		// 크기
@@ -56,8 +56,8 @@ namespace NSEngine {
 			[EObjKinds.BG_EMPTY_01] = EObjKinds.BG_EMPTY_01.ToString()
 		};
 		// 경로 }
-#endregion // 런타임 상수                   
+#endregion // 런타임 상수
 	}
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

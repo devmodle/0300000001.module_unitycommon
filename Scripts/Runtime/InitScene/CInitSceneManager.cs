@@ -7,11 +7,11 @@ using DG.Tweening;
 
 #if UNITY_IOS
 using UnityEngine.iOS;
-#endif // #if UNITY_IOS                          
+#endif // #if UNITY_IOS
 
 #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 using UnityEngine.Rendering.Universal;
-#endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE                                                           
+#endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
 namespace InitScene {
 	/** 초기화 씬 관리자 */
@@ -29,8 +29,8 @@ namespace InitScene {
 
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER;
-#endif // #if UNITY_EDITOR                             
-		#endregion // 프로퍼티                 
+#endif // #if UNITY_EDITOR
+		#endregion // 프로퍼티
 
 		#region 함수
 		/** 초기화 */
@@ -86,7 +86,7 @@ namespace InitScene {
 
 			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(false);
 			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(false);
-#endif // #if MODE_2D_ENABLE                               
+#endif // #if MODE_2D_ENABLE
 
 			CSndManager.Inst.SetBGSndVolume(CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume);
 			CSndManager.Inst.SetFXSndsVolume(CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume);
@@ -120,13 +120,13 @@ namespace InitScene {
 			Input.multiTouchEnabled = true;
 #else
 			Input.multiTouchEnabled = false;
-#endif // #if MULTI_TOUCH_ENABLE                                   
+#endif // #if MULTI_TOUCH_ENABLE
 
 #if UNITY_EDITOR
 			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eQualityLevel, true);
 #else
 			CSceneManager.SetupQuality(oTargetFrameInfoDict.ContainsKey(Application.platform) ? (EQualityLevel)oTargetFrameInfoDict[Application.platform].Item1 : (EQualityLevel)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
-#endif // #if UNITY_EDITOR                             
+#endif // #if UNITY_EDITOR
 			// 디바이스 정보를 설정한다 }
 		}
 
@@ -153,7 +153,7 @@ namespace InitScene {
 
 			Device.SetNoBackupFlag(KCDefine.B_DIR_P_WRITABLE);
 			Device.SetNoBackupFlag(KCDefine.U_IMG_P_SCREENSHOT);
-#endif // #if UNITY_IOS                          
+#endif // #if UNITY_IOS
 			// iOS 를 설정한다 }
 
 			// 관리자를 생성한다 {
@@ -167,31 +167,31 @@ namespace InitScene {
 
 #if ADS_MODULE_ENABLE
 			CAdsManager.Create();
-#endif // #if ADS_MODULE_ENABLE                                  
+#endif // #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
 			CFlurryManager.Create();
-#endif // #if FLURRY_MODULE_ENABLE                                     
+#endif // #if FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
 			CFacebookManager.Create();
-#endif // #if FACEBOOK_MODULE_ENABLE                                       
+#endif // #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
 			CFirebaseManager.Create();
-#endif // #if FIREBASE_MODULE_ENABLE                                       
+#endif // #if FIREBASE_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
 			CGameCenterManager.Create();
-#endif // #if GAME_CENTER_MODULE_ENABLE                                          
+#endif // #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 			CPurchaseManager.Create();
-#endif // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
 			CNotiManager.Create();
-#endif // #if NOTI_MODULE_ENABLE                                   
+#endif // #if NOTI_MODULE_ENABLE
 			// 관리자를 생성한다 }
 
 			// 로더를 생성한다
@@ -214,11 +214,11 @@ namespace InitScene {
 
 #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE
 			CPluginInfoTable.Create(KCDefine.U_ASSET_P_G_PLUGIN_INFO_TABLE);
-#endif // #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE                                                                                      
+#endif // #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 			CProductInfoTable.Create(KCDefine.U_ASSET_P_G_PRODUCT_INFO_TABLE);
-#endif // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE
 			// 테이블을 생성한다 }
 
 			// 저장소를 생성한다
@@ -260,6 +260,6 @@ namespace InitScene {
 				}
 			}
 		}
-		#endregion // 함수               
+		#endregion // 함수
 	}
 }

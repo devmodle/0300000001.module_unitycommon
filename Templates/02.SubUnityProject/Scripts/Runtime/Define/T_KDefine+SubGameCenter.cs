@@ -14,9 +14,9 @@ public static partial class KDefine {
 
 #else
 
-#endif // #if UNITY_IOS                          
+#endif // #if UNITY_IOS
 	// 식별자 }
-#endregion // 기본               
+#endregion // 기본
 }
-#endif // #if GAME_CENTER_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                    
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if GAME_CENTER_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY

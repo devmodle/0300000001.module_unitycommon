@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
-#endif // #if UNITY_EDITOR                             
+#endif // #if UNITY_EDITOR
 
 /** 샘플 씬 관리자 */
 public partial class CSampleSceneManager : CSceneManager {
@@ -16,7 +16,7 @@ public partial class CSampleSceneManager : CSceneManager {
 	public override float ScreenHeight => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ? KCDefine.B_PORTRAIT_SCREEN_HEIGHT : base.ScreenHeight;
 
 	public override string SceneName => KCDefine.B_SCENE_N_SAMPLE;
-	#endregion // 프로퍼티                 
+	#endregion // 프로퍼티
 
 	#region 조건부 클래스 함수
 #if UNITY_EDITOR
@@ -48,9 +48,9 @@ public partial class CSampleSceneManager : CSceneManager {
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
-#endif // #if STUDY_MODULE_ENABLE                                    
+#endif // #if STUDY_MODULE_ENABLE
 		}
 	}
-#endif // #if UNITY_EDITOR                             
-	#endregion // 조건부 클래스 함수                       
+#endif // #if UNITY_EDITOR
+	#endregion // 조건부 클래스 함수
 }

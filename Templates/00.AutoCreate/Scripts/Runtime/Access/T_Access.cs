@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #if PURCHASE_MODULE_ENABLE
 using UnityEngine.Purchasing;
-#endif // #if PURCHASE_MODULE_ENABLE                                       
+#endif // #if PURCHASE_MODULE_ENABLE
 
 /** 기본 접근자 */
 public static partial class Access {
@@ -19,10 +19,10 @@ public static partial class Access {
 			return CAccess.GetBannerAdsHeight(KCDefine.U_SIZE_BANNER_ADS.y);
 #else
 			return KCDefine.B_VAL_0_REAL;
-#endif // #if ADS_MODULE_ENABLE                                  
+#endif // #if ADS_MODULE_ENABLE
 		}
 	}
-#endregion // 클래스 프로퍼티                     
+#endregion // 클래스 프로퍼티
 	
 #region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
@@ -39,8 +39,8 @@ public static partial class Access {
 		
 		return CPurchaseManager.Inst.GetProduct(stProductInfo.m_oID);
 	}
-#endif // #if PURCHASE_MODULE_ENABLE                                       
-#endregion // 조건부 클래스 함수                       
+#endif // #if PURCHASE_MODULE_ENABLE
+#endregion // 조건부 클래스 함수
 }
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE                                                                                     
-#endif // #if SCRIPT_TEMPLATE_ONLY                                     
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+#endif // #if SCRIPT_TEMPLATE_ONLY
