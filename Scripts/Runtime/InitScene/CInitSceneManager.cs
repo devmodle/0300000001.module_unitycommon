@@ -9,10 +9,6 @@ using DG.Tweening;
 using UnityEngine.iOS;
 #endif // #if UNITY_IOS
 
-#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-using UnityEngine.Rendering.Universal;
-#endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-
 namespace InitScene {
 	/** 초기화 씬 관리자 */
 	public abstract partial class CInitSceneManager : CSceneManager {
@@ -246,7 +242,10 @@ namespace InitScene {
 
 					// 블라인드 이미지를 설정한다 {
 					var oImgList = new List<Image>() {
-						this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs), this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
+						this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs),
+						this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs),
+						this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs),
+						this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
 					};
 
 					for(int i = 0; i < oImgList.Count; ++i) {
