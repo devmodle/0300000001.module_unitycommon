@@ -184,7 +184,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	public int NumChapterInfos => this.LevelInfoDictContainer.Count;
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 프로퍼티
 
 #region 함수
@@ -247,7 +247,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		for(int i = 0; i < oLevelIDList.Count; ++i) {
 			this.AddLevelInfo(this.LoadLevelInfo(oLevelIDList[i].ExULevelIDToLevelID(), oLevelIDList[i].ExULevelIDToStageID(), oLevelIDList[i].ExULevelIDToChapterID()));
 		}
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 		return this.LevelInfoDictContainer;
 	}
@@ -498,7 +498,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		this.LevelInfoDictContainer.ExReplaceVal(a_nDestID, oSrcChapterLevelInfoDict);
 	}
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

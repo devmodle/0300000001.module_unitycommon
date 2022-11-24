@@ -70,7 +70,7 @@ public static partial class LogFunc {
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_USER_TYPE, KCDefine.B_TEXT_UNKNOWN);
 #else
 		oDataDict.TryAdd(KCDefine.L_LOG_KEY_USER_TYPE, CCommonUserInfoStorage.Inst.UserInfo.UserType.ToString());
-#endif // #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)                                                                      
+#endif // #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
 		return oDataDict;
 	}

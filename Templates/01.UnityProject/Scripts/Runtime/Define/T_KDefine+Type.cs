@@ -89,7 +89,7 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		m_stValInfo02.SaveValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_5_INT);
 		m_stValInfo03.SaveValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_7_INT);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 

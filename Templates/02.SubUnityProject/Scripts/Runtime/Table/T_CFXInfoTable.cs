@@ -58,7 +58,7 @@ public struct STFXInfo {
 
 		Func.SaveVals(m_oResKindsList, KCDefine.U_KEY_FMT_RES_KINDS, (a_eResKinds) => $"{(int)a_eResKinds}", a_oOutFXInfo);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 
@@ -136,7 +136,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 효과 정보를 로드한다 */
@@ -172,7 +172,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 			}
 		}
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

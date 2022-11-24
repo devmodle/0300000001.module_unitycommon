@@ -52,7 +52,7 @@ public struct STCalcInfo {
 		a_oOutCalcInfo[KCDefine.U_KEY_PREV_CALC_KINDS] = $"{(int)m_ePrevCalcKinds}";
 		a_oOutCalcInfo[KCDefine.U_KEY_NEXT_CALC_KINDS] = $"{(int)m_eNextCalcKinds}";
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 
@@ -130,7 +130,7 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 수식 정보를 로드한다 */
@@ -166,7 +166,7 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 			}
 		}
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

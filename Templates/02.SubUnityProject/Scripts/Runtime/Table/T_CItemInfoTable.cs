@@ -64,7 +64,7 @@ public struct STItemInfo {
 		Func.SaveTargetInfos(m_oAbilityTargetInfoDict, KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, a_oOutItemInfo);
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutItemInfo);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 
@@ -118,7 +118,7 @@ public struct STItemTradeInfo {
 		Func.SaveTargetInfos(m_oPayTargetInfoDict, KCDefine.U_KEY_FMT_PAY_TARGET_INFO, a_oOutItemTradeInfo);
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutItemTradeInfo);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 
@@ -226,11 +226,11 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, true);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 			CUnityMsgSender.Inst.SendShowToastMsg($"CItemInfoTable.SaveItemInfos: {File.Exists(Access.ItemInfoTableSavePath)}");
-#endif // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
+#endif // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 		}
 	}
 
@@ -257,7 +257,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 아이템 정보를 로드한다 */
@@ -350,7 +350,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 
 		this.SaveItemInfos(oItemInfos.ToString());
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

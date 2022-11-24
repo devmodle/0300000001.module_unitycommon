@@ -49,11 +49,11 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, true);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 			CUnityMsgSender.Inst.SendShowToastMsg($"CEtcInfoTable.SaveEtcInfos: {File.Exists(Access.EtcInfoTableSavePath)}");
-#endif // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
+#endif // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 		}
 	}
 
@@ -65,7 +65,7 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 #endregion // 함수
 
@@ -81,7 +81,7 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 
 		this.SaveEtcInfos(oEtcInfos.ToString());
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

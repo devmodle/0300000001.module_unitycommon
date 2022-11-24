@@ -77,7 +77,7 @@ namespace MainScene {
 
 #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
 			this.SetupABTestUIs();
-#endif // #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)                                                                                   
+#endif // #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
 
 #region 추가
 			this.SubSetupAwake();

@@ -62,7 +62,7 @@ public struct STResInfo {
 		a_oOutResInfo[KCDefine.U_KEY_PREV_RES_KINDS] = $"{(int)m_ePrevResKinds}";
 		a_oOutResInfo[KCDefine.U_KEY_NEXT_RES_KINDS] = $"{(int)m_eNextResKinds}";
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 
@@ -122,11 +122,11 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 			CFunc.WriteStr(Access.ResInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.ResInfoTableSavePath, a_oJSONStr, true);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 			CUnityMsgSender.Inst.SendShowToastMsg($"CResInfoTable.SaveResInfos: {File.Exists(Access.ResInfoTableSavePath)}");
-#endif // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)                                                        
+#endif // #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 		}
 	}
 
@@ -150,7 +150,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                   
+#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 리소스 정보를 로드한다 */
@@ -189,7 +189,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 
 		this.SaveResInfos(oResInfos.ToString());
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                    
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

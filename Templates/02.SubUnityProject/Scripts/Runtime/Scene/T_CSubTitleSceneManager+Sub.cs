@@ -131,7 +131,7 @@ namespace TitleScene {
 			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 
 #region 추가
 			this.SubUpdateUIsState();
@@ -208,7 +208,7 @@ namespace TitleScene {
 				Func.LoadVerInfoGoogleSheet(KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(oKey).m_oID, this.OnLoadVerInfoGoogleSheet);
 #else
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)                                                                                                          
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
 #endregion // 함수

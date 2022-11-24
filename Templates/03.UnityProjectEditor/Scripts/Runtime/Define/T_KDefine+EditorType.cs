@@ -15,5 +15,5 @@ public struct STEditorTypeWrapper {
 	// Do Something
 }
 #endregion // 기본
-#endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                                           
+#endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #endif // #if SCRIPT_TEMPLATE_ONLY

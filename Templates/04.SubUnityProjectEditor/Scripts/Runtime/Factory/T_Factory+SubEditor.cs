@@ -19,5 +19,5 @@ public static partial class Factory {
 	
 #endregion // 클래스 함수
 }
-#endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)                                                                                                                           
+#endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #endif // #if SCRIPT_TEMPLATE_ONLY
