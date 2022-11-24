@@ -112,8 +112,8 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
-		var oTableInfoDictContainer = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.CalcInfoTableLoadPath.ExGetFileName(false));
-		a_oOutCommonInfos = oTableInfoDictContainer.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[oTableInfoDictContainer.m_oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON]] : null;
+		var stTableInfo = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.CalcInfoTableLoadPath.ExGetFileName(false));
+		a_oOutCommonInfos = stTableInfo.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[stTableInfo.m_oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON]] : null;
 	}
 
 	/** 수식 정보를 로드한다 */

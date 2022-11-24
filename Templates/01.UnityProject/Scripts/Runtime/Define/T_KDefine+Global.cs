@@ -71,116 +71,19 @@ public static partial class KDefine {
 	// 분석 }
 
 	// 테이블 정보 {
-	public static readonly List<STKeyInfo> G_KEY_INFO_GOOGLE_SHEET_LIST = new List<STKeyInfo>() {
-		new STKeyInfo("NOEX_T", EKeyType.SINGLE),
-		new STKeyInfo("NOEX_ST", EKeyType.SINGLE),
-		new STKeyInfo("NOEX_KT", EKeyType.SINGLE),
-		new STKeyInfo("NOEX_SKT", EKeyType.SINGLE),
-		new STKeyInfo("NOEX_DSKT", EKeyType.SINGLE),
+	public static readonly List<STKeyInfo> G_KEY_INFO_GOOGLE_SHEET_COMMON_LIST = new List<STKeyInfo>() {
+		new STKeyInfo(KCDefine.U_KEY_NOEX_T, EKeyType.SINGLE),
+		new STKeyInfo(KCDefine.U_KEY_NOEX_ST, EKeyType.SINGLE),
+		new STKeyInfo(KCDefine.U_KEY_NOEX_KT, EKeyType.SINGLE),
+		new STKeyInfo(KCDefine.U_KEY_NOEX_SKT, EKeyType.SINGLE),
+		new STKeyInfo(KCDefine.U_KEY_NOEX_DSKT, EKeyType.SINGLE),
 		new STKeyInfo(KCDefine.U_KEY_REPLACE, EKeyType.SINGLE),
 		new STKeyInfo(KCDefine.U_KEY_FMT_FLAGS, EKeyType.MULTI),
 		new STKeyInfo(KCDefine.U_KEY_NAME, EKeyType.SINGLE),
 		new STKeyInfo(KCDefine.U_KEY_DESC, EKeyType.SINGLE)
 	};
 
-	public static readonly Dictionary<string, int> G_TABLE_INFO_NUM_ROWS_DICT = new Dictionary<string, int>() {
-		[KDefine.G_TABLE_N_VER_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
-		[KDefine.G_TABLE_N_ETC_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
-		[KDefine.G_TABLE_N_MISSION_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
-		[KDefine.G_TABLE_N_REWARD_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
-		[KDefine.G_TABLE_N_RES_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
-		[KDefine.G_TABLE_N_ITEM_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
-		[KDefine.G_TABLE_N_SKILL_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
-		[KDefine.G_TABLE_N_OBJ_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
-		[KDefine.G_TABLE_N_ABILITY_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
-		[KDefine.G_TABLE_N_PRODUCT_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS
-	};
-
-	public static readonly Dictionary<string, STGoogleSheetTableInfo> G_TABLE_INFO_GOOGLE_SHEET_DICT = new Dictionary<string, STGoogleSheetTableInfo>() {
-		[KDefine.G_TABLE_N_VER_INFO] = new STGoogleSheetTableInfo("11lBz0haEcQDRfOcxW-V-CbtD15Go_7Z22CA3qOTtGps", KDefine.G_TABLE_N_VER_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			// Do Something
-		}),
-
-		[KDefine.G_TABLE_N_ETC_INFO] = new STGoogleSheetTableInfo("18LvXIUoIet_NT1m5SGyu-fAOoG0UAYVFjlE6rk7rULs", KDefine.G_TABLE_N_ETC_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			[typeof(CCalcInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.U_KEY_CALC
-			},
-
-			[typeof(CEpisodeInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.U_KEY_LEVEL_EPISODE] = KCDefine.U_KEY_LEVEL_EPISODE,
-				[KCDefine.U_KEY_STAGE_EPISODE] = KCDefine.U_KEY_STAGE_EPISODE,
-				[KCDefine.U_KEY_CHAPTER_EPISODE] = KCDefine.U_KEY_CHAPTER_EPISODE
-			},
-
-			[typeof(CTutorialInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.U_KEY_TUTORIAL
-			},
-
-			[typeof(CFXInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.U_KEY_FX
-			}
-		}),
-
-		[KDefine.G_TABLE_N_MISSION_INFO] = new STGoogleSheetTableInfo("1dxG0mEGey9eBLC_uR-mu49FWfIXbLCKv3u7L_M0AESM", KDefine.G_TABLE_N_MISSION_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			[typeof(CMissionInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
-			}
-		}),
-
-		[KDefine.G_TABLE_N_REWARD_INFO] = new STGoogleSheetTableInfo("1Mp7yIcihpAHvALtGW394NyNF455YF4s41Mo0ZqBi8Ig", KDefine.G_TABLE_N_REWARD_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			[typeof(CRewardInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
-			}
-		}),
-
-		[KDefine.G_TABLE_N_RES_INFO] = new STGoogleSheetTableInfo("1OjqxK699MWTcQ0PqQ81EE3HA70aXVMjEJXzhL1ZacJM", KDefine.G_TABLE_N_RES_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			[typeof(CResInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
-			}
-		}),
-
-		[KDefine.G_TABLE_N_ITEM_INFO] = new STGoogleSheetTableInfo("18Fzoyyu6yg_FQY8nOi-DaCGqes37oxYuBLabYKOjpnI", KDefine.G_TABLE_N_ITEM_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			[typeof(CItemInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
-				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
-				[KCDefine.B_KEY_SALE_TRADE] = KCDefine.B_KEY_SALE_TRADE,
-				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
-			}
-		}),
-
-		[KDefine.G_TABLE_N_SKILL_INFO] = new STGoogleSheetTableInfo("1m00Mfx_KuxYYHnwYYerSakn3_dszKZHbMCdpVtAzPos", KDefine.G_TABLE_N_SKILL_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			[typeof(CSkillInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
-				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
-				[KCDefine.B_KEY_SALE_TRADE] = KCDefine.B_KEY_SALE_TRADE,
-				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
-			}
-		}),
-
-		[KDefine.G_TABLE_N_OBJ_INFO] = new STGoogleSheetTableInfo("1qnJkf80sIwdJaTteymNrUDHSJ-p4162LT6_qvUYGYTY", KDefine.G_TABLE_N_OBJ_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			[typeof(CObjInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
-				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
-				[KCDefine.B_KEY_SALE_TRADE] = KCDefine.B_KEY_SALE_TRADE,
-				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
-			}
-		}),
-
-		[KDefine.G_TABLE_N_ABILITY_INFO] = new STGoogleSheetTableInfo("1cxc5dC57Go_AMUD0crtHMWxDw5GjEASRrCU7ERKQxQE", KDefine.G_TABLE_N_ABILITY_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			[typeof(CAbilityInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
-				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
-			}
-		}),
-
-		[KDefine.G_TABLE_N_PRODUCT_INFO] = new STGoogleSheetTableInfo("1uqeDN-ZaAs3_UxWp93Ub_nEX5r1z7MNDHfwXE-IKB_w", KDefine.G_TABLE_N_PRODUCT_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
-			[typeof(CProductTradeInfoTable)] = new Dictionary<string, string>() {
-				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_BUY_TRADE
-			}
-		})
-	};
-
-	public static readonly Dictionary<string, Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>> G_TABLE_INFO_GOOGLE_SHEET_KEY_DICT_CONTAINER = new Dictionary<string, Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>>() {
+	public static readonly Dictionary<string, Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>> G_KEY_INFO_GOOGLE_SHEET_KEY_DICT_CONTAINER = new Dictionary<string, Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>>() {
 		[KDefine.G_TABLE_N_VER_INFO] = new Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>() {
 			// Do Something
 		},
@@ -359,6 +262,7 @@ public static partial class KDefine {
 					new STKeyInfo(KCDefine.U_KEY_SKILL_APPLY_KINDS, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_MAX_APPLY_TIMES, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_TIME_INFO, EKeyType.SINGLE),
+
 					new STKeyInfo(KCDefine.U_KEY_FMT_FX_KINDS, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_RES_KINDS, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, EKeyType.MULTI)
@@ -466,6 +370,103 @@ public static partial class KDefine {
 				}
 			}
 		}
+	};
+
+	public static readonly Dictionary<string, int> G_TABLE_INFO_NUM_ROWS_DICT = new Dictionary<string, int>() {
+		[KDefine.G_TABLE_N_VER_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
+		[KDefine.G_TABLE_N_ETC_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
+		[KDefine.G_TABLE_N_MISSION_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
+		[KDefine.G_TABLE_N_REWARD_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
+		[KDefine.G_TABLE_N_RES_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
+		[KDefine.G_TABLE_N_ITEM_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
+		[KDefine.G_TABLE_N_SKILL_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
+		[KDefine.G_TABLE_N_OBJ_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
+		[KDefine.G_TABLE_N_ABILITY_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS,
+		[KDefine.G_TABLE_N_PRODUCT_INFO] = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS
+	};
+
+	public static readonly Dictionary<string, STGoogleSheetTableInfo> G_TABLE_INFO_GOOGLE_SHEET_DICT = new Dictionary<string, STGoogleSheetTableInfo>() {
+		[KDefine.G_TABLE_N_VER_INFO] = new STGoogleSheetTableInfo("11lBz0haEcQDRfOcxW-V-CbtD15Go_7Z22CA3qOTtGps", KDefine.G_TABLE_N_VER_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			// Do Something
+		}),
+
+		[KDefine.G_TABLE_N_ETC_INFO] = new STGoogleSheetTableInfo("18LvXIUoIet_NT1m5SGyu-fAOoG0UAYVFjlE6rk7rULs", KDefine.G_TABLE_N_ETC_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			[typeof(CCalcInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.U_KEY_CALC
+			},
+
+			[typeof(CEpisodeInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.U_KEY_LEVEL_EPISODE] = KCDefine.U_KEY_LEVEL_EPISODE,
+				[KCDefine.U_KEY_STAGE_EPISODE] = KCDefine.U_KEY_STAGE_EPISODE,
+				[KCDefine.U_KEY_CHAPTER_EPISODE] = KCDefine.U_KEY_CHAPTER_EPISODE
+			},
+
+			[typeof(CTutorialInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.U_KEY_TUTORIAL
+			},
+
+			[typeof(CFXInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.U_KEY_FX
+			}
+		}),
+
+		[KDefine.G_TABLE_N_MISSION_INFO] = new STGoogleSheetTableInfo("1dxG0mEGey9eBLC_uR-mu49FWfIXbLCKv3u7L_M0AESM", KDefine.G_TABLE_N_MISSION_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			[typeof(CMissionInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
+			}
+		}),
+
+		[KDefine.G_TABLE_N_REWARD_INFO] = new STGoogleSheetTableInfo("1Mp7yIcihpAHvALtGW394NyNF455YF4s41Mo0ZqBi8Ig", KDefine.G_TABLE_N_REWARD_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			[typeof(CRewardInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
+			}
+		}),
+
+		[KDefine.G_TABLE_N_RES_INFO] = new STGoogleSheetTableInfo("1OjqxK699MWTcQ0PqQ81EE3HA70aXVMjEJXzhL1ZacJM", KDefine.G_TABLE_N_RES_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			[typeof(CResInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
+			}
+		}),
+
+		[KDefine.G_TABLE_N_ITEM_INFO] = new STGoogleSheetTableInfo("18Fzoyyu6yg_FQY8nOi-DaCGqes37oxYuBLabYKOjpnI", KDefine.G_TABLE_N_ITEM_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			[typeof(CItemInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
+				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
+				[KCDefine.B_KEY_SALE_TRADE] = KCDefine.B_KEY_SALE_TRADE,
+				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
+			}
+		}),
+
+		[KDefine.G_TABLE_N_SKILL_INFO] = new STGoogleSheetTableInfo("1m00Mfx_KuxYYHnwYYerSakn3_dszKZHbMCdpVtAzPos", KDefine.G_TABLE_N_SKILL_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			[typeof(CSkillInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
+				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
+				[KCDefine.B_KEY_SALE_TRADE] = KCDefine.B_KEY_SALE_TRADE,
+				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
+			}
+		}),
+
+		[KDefine.G_TABLE_N_OBJ_INFO] = new STGoogleSheetTableInfo("1qnJkf80sIwdJaTteymNrUDHSJ-p4162LT6_qvUYGYTY", KDefine.G_TABLE_N_OBJ_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			[typeof(CObjInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
+				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
+				[KCDefine.B_KEY_SALE_TRADE] = KCDefine.B_KEY_SALE_TRADE,
+				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
+			}
+		}),
+
+		[KDefine.G_TABLE_N_ABILITY_INFO] = new STGoogleSheetTableInfo("1cxc5dC57Go_AMUD0crtHMWxDw5GjEASRrCU7ERKQxQE", KDefine.G_TABLE_N_ABILITY_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			[typeof(CAbilityInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
+				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
+			}
+		}),
+
+		[KDefine.G_TABLE_N_PRODUCT_INFO] = new STGoogleSheetTableInfo("1uqeDN-ZaAs3_UxWp93Ub_nEX5r1z7MNDHfwXE-IKB_w", KDefine.G_TABLE_N_PRODUCT_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+			[typeof(CProductTradeInfoTable)] = new Dictionary<string, string>() {
+				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_BUY_TRADE
+			}
+		})
 	};
 
 	public static readonly Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>> G_TABLE_INFO_EXTRA_GOOGLE_SHEET_NAME_DICT_CONTAINER = new Dictionary<string, Dictionary<System.Type, Dictionary<string, List<string>>>>() {
