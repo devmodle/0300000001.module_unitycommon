@@ -83,7 +83,7 @@ public static partial class KDefine {
 		new STKeyInfo(KCDefine.U_KEY_DESC, EKeyType.SINGLE)
 	};
 
-	public static readonly Dictionary<string, Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>> G_KEY_INFO_GOOGLE_SHEET_KEY_DICT_CONTAINER = new Dictionary<string, Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>>() {
+	public static readonly Dictionary<string, Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>> G_KEY_INFO_GOOGLE_SHEET__DICT_CONTAINER = new Dictionary<string, Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>>() {
 		[KDefine.G_TABLE_N_VER_INFO] = new Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>() {
 			// Do Something
 		},

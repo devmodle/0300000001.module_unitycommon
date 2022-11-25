@@ -237,10 +237,10 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos, out SimpleJSON.JSONNode a_oOutBuyItemTradeInfos, out SimpleJSON.JSONNode a_oOutSaleItemTradeInfos, out SimpleJSON.JSONNode a_oOutEnhanceItemTradeInfos) {
 		var stTableInfo = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ItemInfoTableLoadPath.ExGetFileName(false));
-		a_oOutCommonInfos = stTableInfo.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[stTableInfo.m_oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
-		a_oOutBuyItemTradeInfos = stTableInfo.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_BUY_TRADE) ? a_oJSONNode[stTableInfo.m_oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_BUY_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
-		a_oOutSaleItemTradeInfos = stTableInfo.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_SALE_TRADE) ? a_oJSONNode[stTableInfo.m_oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_SALE_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
-		a_oOutEnhanceItemTradeInfos = stTableInfo.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_ENHANCE_TRADE) ? a_oJSONNode[stTableInfo.m_oTableInfoDictContainer[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutCommonInfos = stTableInfo.m_oSheetNameDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[stTableInfo.m_oSheetNameDictContainer[this.GetType()][KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutBuyItemTradeInfos = stTableInfo.m_oSheetNameDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_BUY_TRADE) ? a_oJSONNode[stTableInfo.m_oSheetNameDictContainer[this.GetType()][KCDefine.B_KEY_BUY_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutSaleItemTradeInfos = stTableInfo.m_oSheetNameDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_SALE_TRADE) ? a_oJSONNode[stTableInfo.m_oSheetNameDictContainer[this.GetType()][KCDefine.B_KEY_SALE_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutEnhanceItemTradeInfos = stTableInfo.m_oSheetNameDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_ENHANCE_TRADE) ? a_oJSONNode[stTableInfo.m_oSheetNameDictContainer[this.GetType()][KCDefine.B_KEY_ENHANCE_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
 	}
 
 	/** 아이템 정보를 로드한다 */

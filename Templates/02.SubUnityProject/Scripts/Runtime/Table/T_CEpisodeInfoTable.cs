@@ -208,9 +208,9 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutLevelEpisodeInfos, out SimpleJSON.JSONNode a_oOutStageEpisodeInfos, out SimpleJSON.JSONNode a_oOutChapterEpisodeInfos) {
 		var stTableInfo = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.EpisodeInfoTableLoadPath.ExGetFileName(false));
-		a_oOutLevelEpisodeInfos = stTableInfo.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.U_KEY_LEVEL_EPISODE) ? a_oJSONNode[stTableInfo.m_oTableInfoDictContainer[this.GetType()][KCDefine.U_KEY_LEVEL_EPISODE]] : null;
-		a_oOutStageEpisodeInfos = stTableInfo.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.U_KEY_STAGE_EPISODE) ? a_oJSONNode[stTableInfo.m_oTableInfoDictContainer[this.GetType()][KCDefine.U_KEY_STAGE_EPISODE]] : null;
-		a_oOutChapterEpisodeInfos = stTableInfo.m_oTableInfoDictContainer[this.GetType()].ContainsKey(KCDefine.U_KEY_CHAPTER_EPISODE) ? a_oJSONNode[stTableInfo.m_oTableInfoDictContainer[this.GetType()][KCDefine.U_KEY_CHAPTER_EPISODE]] : null;
+		a_oOutLevelEpisodeInfos = stTableInfo.m_oSheetNameDictContainer[this.GetType()].ContainsKey(KCDefine.U_KEY_LEVEL_EPISODE) ? a_oJSONNode[stTableInfo.m_oSheetNameDictContainer[this.GetType()][KCDefine.U_KEY_LEVEL_EPISODE]] : null;
+		a_oOutStageEpisodeInfos = stTableInfo.m_oSheetNameDictContainer[this.GetType()].ContainsKey(KCDefine.U_KEY_STAGE_EPISODE) ? a_oJSONNode[stTableInfo.m_oSheetNameDictContainer[this.GetType()][KCDefine.U_KEY_STAGE_EPISODE]] : null;
+		a_oOutChapterEpisodeInfos = stTableInfo.m_oSheetNameDictContainer[this.GetType()].ContainsKey(KCDefine.U_KEY_CHAPTER_EPISODE) ? a_oJSONNode[stTableInfo.m_oSheetNameDictContainer[this.GetType()][KCDefine.U_KEY_CHAPTER_EPISODE]] : null;
 	}
 
 	/** 에피소드 정보를 로드한다 */
