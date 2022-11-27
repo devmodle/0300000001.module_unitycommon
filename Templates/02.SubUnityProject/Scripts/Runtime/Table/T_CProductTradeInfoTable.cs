@@ -22,18 +22,18 @@ public struct STProductTradeInfo {
 	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
-	#region 상수
+#region 상수
 	public static STProductTradeInfo INVALID = new STProductTradeInfo() {
 		m_eProductKinds = EProductKinds.NONE, m_ePrevProductKinds = EProductKinds.NONE, m_eNextProductKinds = EProductKinds.NONE, m_ePurchaseType = EPurchaseType.NONE
 	};
-	#endregion // 상수
+#endregion // 상수
 
-	#region 프로퍼티
+#region 프로퍼티
 	public EProductType ProductType => (EProductType)((int)m_eProductKinds).ExKindsToType();
 	public EProductKinds BaseProductKinds => (EProductKinds)((int)m_eProductKinds).ExKindsToSubKindsType();
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STProductTradeInfo(SimpleJSON.JSONNode a_oProductTradeInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oProductTradeInfo);
@@ -47,9 +47,9 @@ public struct STProductTradeInfo {
 		m_oPayTargetInfoDict = Factory.MakeTargetInfos(a_oProductTradeInfo, KCDefine.U_KEY_FMT_PAY_TARGET_INFO);
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oProductTradeInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-	#endregion // 함수
+#endregion // 함수
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 객체 정보를 저장한다 */
 	public void SaveProductTradeInfo(SimpleJSON.JSONNode a_oOutProductTradeInfo) {
@@ -65,16 +65,16 @@ public struct STProductTradeInfo {
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutProductTradeInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 상품 교환 정보 테이블 */
 public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable> {
-	#region 프로퍼티
+#region 프로퍼티
 	public Dictionary<EProductKinds, STProductTradeInfo> BuyProductTradeInfoDict { get; } = new Dictionary<EProductKinds, STProductTradeInfo>();
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -152,8 +152,8 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
-		var stTableInfo = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ProductTradeInfoTableLoadPath.ExGetFileName(false));
-		a_oOutCommonInfos = stTableInfo.m_oSheetNameDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[stTableInfo.m_oSheetNameDictContainer[this.GetType()][KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		var oSheetNameDictContainer = Access.GetSheetNames(this.GetType(), Access.ProductTradeTableInfo);
+		a_oOutCommonInfos = a_oJSONNode[oSheetNameDictContainer[KCDefine.B_KEY_COMMON]].ExIsValid() ? a_oJSONNode[oSheetNameDictContainer[KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
 	}
 
 	/** 상품 교환 정보를 로드한다 */
@@ -189,9 +189,9 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 
 		return this.BuyProductTradeInfoDict;
 	}
-	#endregion // 함수
+#endregion // 함수
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 상품 교환 정보를 저장한다 */
 	public void SaveProductTradeInfos() {
@@ -218,6 +218,8 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 		try {
 			this.SetupKeyInfos(oCommonKeyInfoList);
 			this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(this.LoadProductTradeInfosJSONStr(Access.ProductTradeInfoTableSavePath)), out SimpleJSON.JSONNode oCommonInfos);
+
+			oProductTradeInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.ProductTradeTableInfo)[KCDefine.B_KEY_COMMON], oCommonInfos.AsArray.ExToInfoVals(oCommonKeyInfoList));
 		} finally {
 			CCollectionManager.Inst.DespawnList(oCommonKeyInfoList);
 		}
@@ -228,12 +230,10 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 	/** 키 정보를 설정한다 */
 	private void SetupKeyInfos(List<STKeyInfo> a_oOutCommonKeyInfoList) {
 		KDefine.G_KEY_INFO_GOOGLE_SHEET_COMMON_LIST.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo);
-
-		var stTableInfo = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ProductTradeInfoTableSavePath.ExGetFileName(false));
-		stTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
+		Access.ProductTradeTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

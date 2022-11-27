@@ -21,18 +21,18 @@ public struct STAbilityInfo {
 
 	public Dictionary<ulong, STTargetInfo> m_oExtraAbilityTargetInfoDict;
 
-	#region 상수
+#region 상수
 	public static STAbilityInfo INVALID = new STAbilityInfo() {
 		m_eAbilityKinds = EAbilityKinds.NONE, m_ePrevAbilityKinds = EAbilityKinds.NONE, m_eNextAbilityKinds = EAbilityKinds.NONE
 	};
-	#endregion // 상수
+#endregion // 상수
 
-	#region 프로퍼티
+#region 프로퍼티
 	public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
 	public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STAbilityInfo(SimpleJSON.JSONNode a_oAbilityInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oAbilityInfo);
@@ -45,9 +45,9 @@ public struct STAbilityInfo {
 
 		m_oExtraAbilityTargetInfoDict = Factory.MakeTargetInfos(a_oAbilityInfo, KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO);
 	}
-	#endregion // 함수
+#endregion // 함수
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 어빌리티 정보를 설정한다 */
 	public void SetupAbilityInfo(SimpleJSON.JSONNode a_oOutAbilityInfo) {
@@ -62,7 +62,7 @@ public struct STAbilityInfo {
 		Func.SaveTargetInfos(m_oExtraAbilityTargetInfoDict, KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, a_oOutAbilityInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 어빌리티 교환 정보 */
@@ -77,18 +77,18 @@ public struct STAbilityTradeInfo {
 	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
-	#region 상수
+#region 상수
 	public static STAbilityTradeInfo INVALID = new STAbilityTradeInfo() {
 		m_eAbilityKinds = EAbilityKinds.NONE, m_ePrevAbilityKinds = EAbilityKinds.NONE, m_eNextAbilityKinds = EAbilityKinds.NONE
 	};
-	#endregion // 상수
+#endregion // 상수
 
-	#region 프로퍼티
+#region 프로퍼티
 	public EAbilityType AbilityType => (EAbilityType)((int)m_eAbilityKinds).ExKindsToType();
 	public EAbilityKinds BaseAbilityKinds => (EAbilityKinds)((int)m_eAbilityKinds).ExKindsToSubKindsType();
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STAbilityTradeInfo(SimpleJSON.JSONNode a_oAbilityInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oAbilityInfo);
@@ -100,9 +100,9 @@ public struct STAbilityTradeInfo {
 		m_oPayTargetInfoDict = Factory.MakeTargetInfos(a_oAbilityInfo, KCDefine.U_KEY_FMT_PAY_TARGET_INFO);
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oAbilityInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-	#endregion // 함수
+#endregion // 함수
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 어빌리티 교환 정보를 설정한다 */
 	public void SetupAbilityTradeInfo(SimpleJSON.JSONNode a_oOutAbilityTradeInfo) {
@@ -116,17 +116,17 @@ public struct STAbilityTradeInfo {
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutAbilityTradeInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 어빌리티 정보 테이블 */
 public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
-	#region 프로퍼티
+#region 프로퍼티
 	public Dictionary<EAbilityKinds, STAbilityInfo> AbilityInfoDict { get; } = new Dictionary<EAbilityKinds, STAbilityInfo>();
 	public Dictionary<EAbilityKinds, STAbilityTradeInfo> EnhanceAbilityTradeInfoDict { get; } = new Dictionary<EAbilityKinds, STAbilityTradeInfo>();
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -199,20 +199,11 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 		}
 	}
 
-	/** 키를 설정한다 */
-	private void SetupKeys(out string a_oOutCommonKey, out string a_oOutEnhanceTradeKey) {
-		var stTableInfo = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.AbilityInfoTableLoadPath.ExGetFileName(false));
-
-		a_oOutCommonKey = stTableInfo.m_oSheetNameDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON, string.Empty);
-		a_oOutEnhanceTradeKey = stTableInfo.m_oSheetNameDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_ENHANCE_TRADE, string.Empty);
-	}
-
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos, out SimpleJSON.JSONNode a_oOutEnhanceTradeInfos) {
-		this.SetupKeys(out string oCommonKey, out string oEnhanceTradeKey);
-
-		a_oOutCommonInfos = oCommonKey.Equals(string.Empty) ? null : a_oJSONNode[oCommonKey];
-		a_oOutEnhanceTradeInfos = oEnhanceTradeKey.Equals(string.Empty) ? null : a_oJSONNode[oEnhanceTradeKey];
+		var oSheetNameDictContainer = Access.GetSheetNames(this.GetType(), Access.AbilityTableInfo);
+		a_oOutCommonInfos = a_oJSONNode[oSheetNameDictContainer[KCDefine.B_KEY_COMMON]].ExIsValid() ? a_oJSONNode[oSheetNameDictContainer[KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		a_oOutEnhanceTradeInfos = a_oJSONNode[oSheetNameDictContainer[KCDefine.B_KEY_ENHANCE_TRADE]].ExIsValid() ? a_oJSONNode[oSheetNameDictContainer[KCDefine.B_KEY_ENHANCE_TRADE]] : KCDefine.B_EMPTY_JSON_ARRAY;
 	}
 
 	/** 어빌리티 정보를 로드한다 */
@@ -257,9 +248,9 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 
 		return this.AbilityInfoDict;
 	}
-	#endregion // 함수
+#endregion // 함수
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 어빌리티 정보를 저장한다 */
 	public void SaveAbilityInfos() {
@@ -291,12 +282,15 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	public Dictionary<string, List<List<string>>> MakeAbilityInfoVals() {
 		var oCommonKeyInfoList = CCollectionManager.Inst.SpawnList<STKeyInfo>();
 		var oEnhanceTradeKeyInfoList = CCollectionManager.Inst.SpawnList<STKeyInfo>();
-		
+
 		var oAbilityInfoValDictContainer = new Dictionary<string, List<List<string>>>();
 
 		try {
 			this.SetupKeyInfos(oCommonKeyInfoList, oEnhanceTradeKeyInfoList);
 			this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(this.LoadAbilityInfosJSONStr(Access.AbilityInfoTableSavePath)), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oEnhanceTradeInfos);
+
+			oAbilityInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.AbilityTableInfo)[KCDefine.B_KEY_COMMON], oCommonInfos.AsArray.ExToInfoVals(oCommonKeyInfoList));
+			oAbilityInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.AbilityTableInfo)[KCDefine.B_KEY_ENHANCE_TRADE], oEnhanceTradeInfos.AsArray.ExToInfoVals(oEnhanceTradeKeyInfoList));
 		} finally {
 			CCollectionManager.Inst.DespawnList(oCommonKeyInfoList);
 			CCollectionManager.Inst.DespawnList(oEnhanceTradeKeyInfoList);
@@ -310,12 +304,11 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 		KDefine.G_KEY_INFO_GOOGLE_SHEET_COMMON_LIST.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo);
 		KDefine.G_KEY_INFO_GOOGLE_SHEET_COMMON_LIST.ExCopyTo(a_oOutEnhanceTradeKeyInfoList, (a_stKeyInfo) => a_stKeyInfo);
 
-		var stTableInfo = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.AbilityInfoTableSavePath.ExGetFileName(false));
-		stTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
-		stTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_ENHANCE_TRADE)?.ExCopyTo(a_oOutEnhanceTradeKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
+		Access.AbilityTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
+		Access.AbilityTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_ENHANCE_TRADE)?.ExCopyTo(a_oOutEnhanceTradeKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

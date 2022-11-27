@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Google.Protobuf.WellKnownTypes;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.IO;
@@ -111,6 +112,19 @@ public static partial class Access {
 
 	public static string ProductTradeInfoTableLoadPath => CAccess.ProductInfoTableLoadPath;
 	public static string ProductTradeInfoTableSavePath => CAccess.ProductInfoTableSavePath;
+
+	public static STTableInfo CalcTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.CalcInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo MissionTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.MissionInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo RewardTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.RewardInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo EpisodeTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.EpisodeInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo TutorialTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.TutorialInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo ResTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ResInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo ItemTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ItemInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo SkillTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.SkillInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo ObjTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ObjInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo FXTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.FXInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo AbilityTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.AbilityInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo ProductTradeTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ProductTradeInfoTableLoadPath.ExGetFileName(false));
 #endregion // 클래스 프로퍼티
 
 #region 클래스 함수
@@ -429,6 +443,21 @@ public static partial class Access {
 		return CUserInfoStorage.Inst.TryGetAbilityTargetInfo(a_nCharacterID, a_eAbilityKinds, out oAbilityTargetInfo) ? oAbilityTargetInfo : null;
 	}
 
+	/** 시트 이름을 반환한다 */
+	public static Dictionary<string, string> GetSheetNames(System.Type a_oType, STTableInfo a_stTableInfo) {
+		CAccess.Assert(a_stTableInfo.m_oSheetNameDictContainer.ContainsKey(a_oType));
+
+		return new Dictionary<string, string>() {
+			[KCDefine.B_KEY_COMMON] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.B_KEY_COMMON, string.Empty),
+			[KCDefine.B_KEY_BUY_TRADE] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.B_KEY_BUY_TRADE, string.Empty),
+			[KCDefine.B_KEY_SALE_TRADE] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.B_KEY_SALE_TRADE, string.Empty),
+			[KCDefine.B_KEY_ENHANCE_TRADE] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.B_KEY_ENHANCE_TRADE, string.Empty),
+			[KCDefine.U_KEY_LEVEL_EPISODE] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.U_KEY_LEVEL_EPISODE, string.Empty),
+			[KCDefine.U_KEY_STAGE_EPISODE] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.U_KEY_STAGE_EPISODE, string.Empty),
+			[KCDefine.U_KEY_CHAPTER_EPISODE] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.U_KEY_CHAPTER_EPISODE, string.Empty)
+		};
+	}
+
 	/** 일일 보상 종류를 변경한다 */
 	public static void SetDailyRewardID(int a_nCharacterID, int a_nID, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST.ExIsValidIdx(a_nID) && CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo)));
@@ -493,14 +522,10 @@ public static partial class Access {
 		// 타겟 정보가 존재 할 경우
 		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.NONE && a_oTargetInfo != null) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL:
-					return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
-				case KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL:
-					return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
-				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL:
-					return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
-				case KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL:
-					return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
 			}
 		}
 

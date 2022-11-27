@@ -20,18 +20,18 @@ public struct STRewardInfo {
 
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
-	#region 상수
+#region 상수
 	public static STRewardInfo INVALID = new STRewardInfo() {
 		m_eRewardKinds = ERewardKinds.NONE, m_ePrevRewardKinds = ERewardKinds.NONE, m_eNextRewardKinds = ERewardKinds.NONE
 	};
-	#endregion // 상수
+#endregion // 상수
 
-	#region 프로퍼티
+#region 프로퍼티
 	public ERewardType RewardType => (ERewardType)((int)m_eRewardKinds).ExKindsToType();
 	public ERewardKinds BaseRewardKinds => (ERewardKinds)((int)m_eRewardKinds).ExKindsToSubKindsType();
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 생성자 */
 	public STRewardInfo(SimpleJSON.JSONNode a_oRewardInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oRewardInfo);
@@ -43,9 +43,9 @@ public struct STRewardInfo {
 
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oRewardInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-	#endregion // 함수
+#endregion // 함수
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 보상 정보를 저장한다 */
 	public void SaveRewardInfo(SimpleJSON.JSONNode a_oOutRewardInfo) {
@@ -59,16 +59,16 @@ public struct STRewardInfo {
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutRewardInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 보상 정보 테이블 */
 public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
-	#region 프로퍼티
+#region 프로퍼티
 	public Dictionary<ERewardKinds, STRewardInfo> RewardInfoDict { get; } = new Dictionary<ERewardKinds, STRewardInfo>();
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -142,8 +142,8 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 
 	/** JSON 노드를 설정한다 */
 	private void SetupJSONNodes(SimpleJSON.JSONNode a_oJSONNode, out SimpleJSON.JSONNode a_oOutCommonInfos) {
-		var stTableInfo = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.RewardInfoTableLoadPath.ExGetFileName(false));
-		a_oOutCommonInfos = stTableInfo.m_oSheetNameDictContainer[this.GetType()].ContainsKey(KCDefine.B_KEY_COMMON) ? a_oJSONNode[stTableInfo.m_oSheetNameDictContainer[this.GetType()][KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
+		var oSheetNameDictContainer = Access.GetSheetNames(this.GetType(), Access.RewardTableInfo);
+		a_oOutCommonInfos = a_oJSONNode[oSheetNameDictContainer[KCDefine.B_KEY_COMMON]].ExIsValid() ? a_oJSONNode[oSheetNameDictContainer[KCDefine.B_KEY_COMMON]] : KCDefine.B_EMPTY_JSON_ARRAY;
 	}
 
 	/** 보상 정보를 로드한다 */
@@ -179,9 +179,9 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 
 		return this.RewardInfoDict;
 	}
-	#endregion // 함수
+#endregion // 함수
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 보상 정보를 저장한다 */
 	public void SaveRewardInfos() {
@@ -208,6 +208,8 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 		try {
 			this.SetupKeyInfos(oCommonKeyInfoList);
 			this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(this.LoadRewardInfosJSONStr(Access.RewardInfoTableSavePath)), out SimpleJSON.JSONNode oCommonInfos);
+
+			oRewardInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.RewardTableInfo)[KCDefine.B_KEY_COMMON], oCommonInfos.AsArray.ExToInfoVals(oCommonKeyInfoList));
 		} finally {
 			CCollectionManager.Inst.DespawnList(oCommonKeyInfoList);
 		}
@@ -218,12 +220,10 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	/** 키 정보를 설정한다 */
 	private void SetupKeyInfos(List<STKeyInfo> a_oOutCommonKeyInfoList) {
 		KDefine.G_KEY_INFO_GOOGLE_SHEET_COMMON_LIST.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo);
-
-		var stTableInfo = KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.RewardInfoTableSavePath.ExGetFileName(false));
-		stTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
+		Access.RewardTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY
