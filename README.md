@@ -26,7 +26,7 @@
 3. **추가 에셋 스토어 리스트**
 	- *Apple Sign In (1.4.2 - Jul 18, 2021)*
 	- *Build Report Tool (3.9.6 - Nov 7, 2022)*
-	- *Odin Inspector (3.1.7 - Nov 11, 2022)*
+	- *Odin Inspector (3.1.8 - Nov 22, 2022)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (2.4.35)*
 	- *UI Effect (3.2.0 - Jul 17, 2019)*
