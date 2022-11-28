@@ -14,12 +14,12 @@ using UnityEditor.iOS.Xcode;
 
 /** 에디터 상수 */
 public static partial class KEditorDefine {
-#region 기본
+	#region 기본
 	// 유니티 패키지
 	public const string B_UNITY_PKGS_ID_FMT = "{0}@{1}";
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 스크립트 순서
 	public static readonly Dictionary<System.Type, int> B_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>() {
 		[typeof(CValTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
@@ -185,6 +185,7 @@ public static partial class KEditorDefine {
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 		["com.unity.purchasing"] = "4.5.1",
+		["com.unity.purchasing.udp"] = "2.2.5",
 #endif // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if DEVELOPMENT_PROJ
@@ -226,16 +227,16 @@ public static partial class KEditorDefine {
 #endif // #if DEVELOPMENT_PROJ
 	};
 	// 유니티 패키지 }
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 
-#region 조건부 상수
+	#region 조건부 상수
 #if UNITY_IOS
 	// 텍스트
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif // #if UNITY_IOS
-#endregion // 조건부 상수
+	#endregion // 조건부 상수
 
-#region 조건부 런타임 상수
+	#region 조건부 런타임 상수
 #if UNITY_IOS
 	// 광고 네트워크 식별자
 	public static readonly List<string> B_IOS_ADS_NETWORK_ID_LIST = new List<string>() {
@@ -397,7 +398,7 @@ public static partial class KEditorDefine {
 #endif // #if PURCHASE_MODULE_ENABLE
 	};
 #endif // #if UNITY_IOS
-#endregion // 조건부 런타임 상수
+	#endregion // 조건부 런타임 상수
 }
 #endif // #if UNITY_EDITOR
 #endif // #if SCRIPT_TEMPLATE_ONLY
