@@ -288,7 +288,7 @@ public static partial class CEditorSceneManager {
 
 			// 프리팹이 없을 경우
 			if(!CEditorAccess.IsExistsAsset(oPrefabPath)) {
-				CEditorFactory.MakeDirectories(Path.GetDirectoryName(oPrefabPath).Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH));
+				CEditorFactory.MakeDirectories(Path.GetDirectoryName(oPrefabPath).Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH));
 				PrefabUtility.SaveAsPrefabAssetAndConnect(a_oObj, oPrefabPath, InteractionMode.AutomatedAction);
 
 				EditorSceneManager.MarkSceneDirty(a_oObj.scene);

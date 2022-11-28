@@ -881,6 +881,19 @@ public static partial class Func {
 #endif // #if PLAYFAB_MODULE_ENABLE
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+	/** 구글 시트 정보 값 생성자를 설정한다 */
+	public static void SetupGoogleSheetInfoValCreators() {
+		m_oGoogleSheetInfoValCreatorDict.TryAdd(KDefine.G_TABLE_N_ETC_INFO, CEtcInfoTable.Inst.MakeEtcInfoVals);
+		m_oGoogleSheetInfoValCreatorDict.TryAdd(KDefine.G_TABLE_N_MISSION_INFO, CMissionInfoTable.Inst.MakeMissionInfoVals);
+		m_oGoogleSheetInfoValCreatorDict.TryAdd(KDefine.G_TABLE_N_REWARD_INFO, CRewardInfoTable.Inst.MakeRewardInfoVals);
+		m_oGoogleSheetInfoValCreatorDict.TryAdd(KDefine.G_TABLE_N_RES_INFO, CResInfoTable.Inst.MakeResInfoVals);
+		m_oGoogleSheetInfoValCreatorDict.TryAdd(KDefine.G_TABLE_N_ITEM_INFO, CItemInfoTable.Inst.MakeItemInfoVals);
+		m_oGoogleSheetInfoValCreatorDict.TryAdd(KDefine.G_TABLE_N_SKILL_INFO, CSkillInfoTable.Inst.MakeSkillInfoVals);
+		m_oGoogleSheetInfoValCreatorDict.TryAdd(KDefine.G_TABLE_N_OBJ_INFO, CObjInfoTable.Inst.MakeObjInfoVals);
+		m_oGoogleSheetInfoValCreatorDict.TryAdd(KDefine.G_TABLE_N_ABILITY_INFO, CAbilityInfoTable.Inst.MakeAbilityInfoVals);
+		m_oGoogleSheetInfoValCreatorDict.TryAdd(KDefine.G_TABLE_N_PRODUCT_INFO, CProductTradeInfoTable.Inst.MakeProductTradeInfoVals);
+	}
+
 	/** 로드 구글 시트 정보를 설정한다 */
 	public static void SetupLoadGoogleSheetInfos(Dictionary<string, STLoadGoogleSheetInfo> a_oOutLoadGoogleSheetInfoDict, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oOutLoadGoogleSheetInfoDict != null);
@@ -888,7 +901,10 @@ public static partial class Func {
 		// 로드 구글 시트 정보 설정이 가능 할 경우
 		if(a_oOutLoadGoogleSheetInfoDict != null) {
 			foreach(var stKeyVal in KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT) {
-				Func.DoSetupLoadGoogleSheetInfos(stKeyVal.Value, a_oOutLoadGoogleSheetInfoDict, KDefine.G_TABLE_INFO_NUM_ROWS_DICT.GetValueOrDefault(stKeyVal.Key), a_bIsEnableAssert);
+				// 버전 정보 테이블이 아닐 경우
+				if(!stKeyVal.Key.Equals(KDefine.G_TABLE_N_VER_INFO)) {
+					Func.DoSetupLoadGoogleSheetInfos(stKeyVal.Value, a_oOutLoadGoogleSheetInfoDict, KDefine.G_TABLE_INFO_NUM_ROWS_DICT.GetValueOrDefault(stKeyVal.Key), a_bIsEnableAssert);
+				}
 			}
 		}
 	}
@@ -900,7 +916,10 @@ public static partial class Func {
 		// 저장 구글 시트 정보 설정이 가능 할 경우
 		if(a_oOutSaveGoogleSheetInfoDict != null) {
 			foreach(var stKeyVal in KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT) {
-				Func.DoSetupSaveGoogleSheetInfos(stKeyVal.Value, a_oOutSaveGoogleSheetInfoDict, a_bIsEnableAssert);
+				// 버전 정보 테이블이 아닐 경우
+				if(!stKeyVal.Key.Equals(KDefine.G_TABLE_N_VER_INFO)) {
+					Func.DoSetupSaveGoogleSheetInfos(stKeyVal.Value, a_oOutSaveGoogleSheetInfoDict, a_bIsEnableAssert);
+				}
 			}
 		}
 	}
@@ -927,7 +946,7 @@ public static partial class Func {
 	/** 구글 시트를 로드한다 */
 	public static void LoadGoogleSheets(Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> a_oHandlerDict, System.Action<CServicesManager, bool> a_oCallback) {
 		var oLoadGoogleSheetInfoDict = new Dictionary<string, STLoadGoogleSheetInfo>();
-		
+
 		Func.SetupLoadGoogleSheetInfos(oLoadGoogleSheetInfoDict);
 		Func.LoadGoogleSheets(oLoadGoogleSheetInfoDict.Values.ToList(), a_oHandlerDict, a_oCallback);
 	}
@@ -1105,7 +1124,7 @@ public static partial class Func {
 		int nIdx = Func.m_oGoogleSheetSaveInfoListContainer.FindIndex((a_oLoadGoogleSheetInfo) => a_oLoadGoogleSheetInfo.Item1.Equals(a_stGoogleSheetSaveInfo.m_oSheetName));
 		CAccess.Assert(Func.m_oGoogleSheetSaveInfoListContainer.ExIsValidIdx(nIdx));
 
-		int nOriginNumRows = Func.m_oGoogleSheetLoadInfoList[nIdx].Item2;
+		int nOriginNumRows = Func.m_oGoogleSheetSaveInfoListContainer[nIdx].Item2;
 		Func.m_oGoogleSheetSaveInfoListContainer[nIdx].Item3.RemoveRange(KCDefine.B_VAL_0_INT, a_stGoogleSheetSaveInfo.m_nNumRows);
 
 		// 저장 할 데이터가 존재 할 경우
@@ -1178,10 +1197,14 @@ public static partial class Func {
 
 		// 구글 시트 정보 설정이 가능 할 경우
 		if(a_stTableInfo.m_oSheetNameDictContainer.ExIsValid()) {
-			var stLoadGoogleSheetInfo = a_oOutSaveGoogleSheetInfoDict.ContainsKey(a_stTableInfo.m_oTableName) ? a_oOutSaveGoogleSheetInfoDict[a_stTableInfo.m_oTableName] : new STSaveGoogleSheetInfo(a_stTableInfo.m_oID, a_stTableInfo.m_oTableName);
+			var oInfoValDictContainer = m_oGoogleSheetInfoValCreatorDict.GetValueOrDefault(a_stTableInfo.m_oTableName)?.Invoke();
+			var stSaveGoogleSheetInfo = a_oOutSaveGoogleSheetInfoDict.ContainsKey(a_stTableInfo.m_oTableName) ? a_oOutSaveGoogleSheetInfoDict[a_stTableInfo.m_oTableName] : new STSaveGoogleSheetInfo(a_stTableInfo.m_oID, a_stTableInfo.m_oTableName);
 
+			foreach(var stKeyVal in oInfoValDictContainer) {
+				stSaveGoogleSheetInfo.m_oSheetInfoListContainer.ExAddVal((stKeyVal.Key, stKeyVal.Value));
+			}
 
-			a_oOutSaveGoogleSheetInfoDict.ExReplaceVal(a_stTableInfo.m_oTableName, stLoadGoogleSheetInfo);
+			a_oOutSaveGoogleSheetInfoDict.ExReplaceVal(a_stTableInfo.m_oTableName, stSaveGoogleSheetInfo);
 		}
 	}
 
@@ -1189,7 +1212,7 @@ public static partial class Func {
 	private static SimpleJSON.JSONNode MakeJSONArray(string a_oJSONStr) {
 		var oTokens = Regex.Replace(a_oJSONStr, KCDefine.B_PATTERN_SPACE, string.Empty).Split(KCDefine.B_TOKEN_COMMA);
 		var oJSONArray = new SimpleJSON.JSONArray();
-		
+
 		for(int i = 0; i < oTokens.Length; ++i) {
 			oJSONArray.Add(oTokens[i]);
 		}

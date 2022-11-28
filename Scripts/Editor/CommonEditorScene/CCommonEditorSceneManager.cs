@@ -169,7 +169,7 @@ public static partial class CCommonEditorSceneManager {
 						// DS Store 파일이 아닐 경우
 						if(!a_oFileList[i].EndsWith(KCDefine.B_FILE_EXTENSION_DS_STORE)) {
 							string oDirPath = Path.GetRelativePath(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, a_oFileList[i]);
-							CCommonEditorSceneManager.m_oStrBuilder.AppendLine(oDirPath.Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH));
+							CCommonEditorSceneManager.m_oStrBuilder.AppendLine(oDirPath.Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH));
 						}
 					}
 
@@ -179,7 +179,7 @@ public static partial class CCommonEditorSceneManager {
 
 				// 디렉토리가 존재 할 경우
 				if(Directory.Exists(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES)) {
-					string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES).Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH);
+					string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES).Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH);
 					CFunc.WriteStr(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oDirPath, KCDefine.B_FILE_EXTENSION_TXT), CCommonEditorSceneManager.m_oStrBuilder.ToString(), false);
 				}
 

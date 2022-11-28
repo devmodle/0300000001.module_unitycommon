@@ -21,35 +21,35 @@ public struct STResInfo {
 	public EResKinds m_ePrevResKinds;
 	public EResKinds m_eNextResKinds;
 
-#region 상수
+	#region 상수
 	public static STResInfo INVALID = new STResInfo() {
 		m_eResKinds = EResKinds.NONE, m_ePrevResKinds = EResKinds.NONE, m_eNextResKinds = EResKinds.NONE
 	};
-#endregion // 상수
+	#endregion // 상수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public int IntRate => int.TryParse(m_oRate, NumberStyles.Any, null, out int nRate) ? nRate : KCDefine.B_VAL_0_INT;
 	public float RealRate => float.TryParse(m_oRate, NumberStyles.Any, null, out float fRate) ? fRate : KCDefine.B_VAL_0_INT;
 
 	public EResType ResType => (EResType)((int)m_eResKinds).ExKindsToType();
 	public EResKinds BaseResKinds => (EResKinds)((int)m_eResKinds).ExKindsToSubKindsType();
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public STResInfo(SimpleJSON.JSONNode a_oResInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oResInfo);
 
 		m_oRate = a_oResInfo[KCDefine.U_KEY_RATE].ExIsValid() ? a_oResInfo[KCDefine.U_KEY_RATE] : KCDefine.B_STR_0_INT;
-		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH].ExIsValid() ? a_oResInfo[KCDefine.U_KEY_RES_PATH].Value.Replace(KCDefine.B_TOKEN_REV_SLASH, KCDefine.B_TOKEN_SLASH) : string.Empty;
+		m_oResPath = a_oResInfo[KCDefine.U_KEY_RES_PATH].ExIsValid() ? a_oResInfo[KCDefine.U_KEY_RES_PATH].Value.Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH) : string.Empty;
 
 		m_eResKinds = a_oResInfo[KCDefine.U_KEY_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_RES_KINDS].AsInt : EResKinds.NONE;
 		m_ePrevResKinds = a_oResInfo[KCDefine.U_KEY_PREV_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_PREV_RES_KINDS].AsInt : EResKinds.NONE;
 		m_eNextResKinds = a_oResInfo[KCDefine.U_KEY_NEXT_RES_KINDS].ExIsValid() ? (EResKinds)a_oResInfo[KCDefine.U_KEY_NEXT_RES_KINDS].AsInt : EResKinds.NONE;
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 리소스 정보를 저장한다 */
 	public void SaveResInfo(SimpleJSON.JSONNode a_oOutResInfo) {
@@ -63,16 +63,16 @@ public struct STResInfo {
 		a_oOutResInfo[KCDefine.U_KEY_NEXT_RES_KINDS] = $"{(int)m_eNextResKinds}";
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 
 /** 리소스 정보 테이블 */
 public partial class CResInfoTable : CSingleton<CResInfoTable> {
-#region 프로퍼티
+	#region 프로퍼티
 	public Dictionary<EResKinds, STResInfo> ResInfoDict { get; } = new Dictionary<EResKinds, STResInfo>();
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -169,9 +169,9 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 
 		return this.ResInfoDict;
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 리소스 정보를 저장한다 */
 	public void SaveResInfos() {
@@ -213,7 +213,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 		Access.ResTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

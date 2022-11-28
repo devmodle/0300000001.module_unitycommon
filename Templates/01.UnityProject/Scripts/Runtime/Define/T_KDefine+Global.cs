@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 전역 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 	// 개수
 	public const int G_MAX_NUM_VALS = 10;
 	public const int G_MAX_NUM_VAL_INFOS = 10;
@@ -16,9 +16,9 @@ public static partial class KDefine {
 
 	// 식별자
 	public const int G_ID_COMMON_CHARACTER = byte.MaxValue;
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 버전 {
 	public static readonly System.Version G_VER_APP_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_GAME_INFO = new System.Version(1, 0, 0);
@@ -96,7 +96,7 @@ public static partial class KDefine {
 	};
 
 	public static readonly Dictionary<string, STTableInfo> G_TABLE_INFO_GOOGLE_SHEET_DICT = new Dictionary<string, STTableInfo>() {
-		[KDefine.G_TABLE_N_VER_INFO] = new STTableInfo("11lBz0haEcQDRfOcxW-V-CbtD15Go_7Z22CA3qOTtGps", KDefine.G_TABLE_N_VER_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_VER_INFO] = new STTableInfo("1FdkMOVbkGuPhXs_F8oK4B2UH-s8_zw0BfQURFAn8U3w", KDefine.G_TABLE_N_VER_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			// Do Something
 		}, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			// Do Something
@@ -104,7 +104,7 @@ public static partial class KDefine {
 			// Do Something
 		}),
 
-		[KDefine.G_TABLE_N_ETC_INFO] = new STTableInfo("18LvXIUoIet_NT1m5SGyu-fAOoG0UAYVFjlE6rk7rULs", KDefine.G_TABLE_N_ETC_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_ETC_INFO] = new STTableInfo("1Oxr2nGDNamrWWmsFfJXvW7zmZYUcxCeQw7D5nZuiimw", KDefine.G_TABLE_N_ETC_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CCalcInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.U_KEY_CALC
 			},
@@ -217,7 +217,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_MISSION_INFO] = new STTableInfo("1dxG0mEGey9eBLC_uR-mu49FWfIXbLCKv3u7L_M0AESM", KDefine.G_TABLE_N_MISSION_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_MISSION_INFO] = new STTableInfo("13q2VwXNZmPG63odDQNtyrHe76t2iXI1zpqSGYP02qvw", KDefine.G_TABLE_N_MISSION_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CMissionInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
 			}
@@ -234,7 +234,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_REWARD_INFO] = new STTableInfo("1Mp7yIcihpAHvALtGW394NyNF455YF4s41Mo0ZqBi8Ig", KDefine.G_TABLE_N_REWARD_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_REWARD_INFO] = new STTableInfo("147NCbP00S_Iw9jgToDI_DkFGMfbg-hrQlGrBp88MVcc", KDefine.G_TABLE_N_REWARD_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CRewardInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
 			}
@@ -252,7 +252,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_RES_INFO] = new STTableInfo("1OjqxK699MWTcQ0PqQ81EE3HA70aXVMjEJXzhL1ZacJM", KDefine.G_TABLE_N_RES_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_RES_INFO] = new STTableInfo("1e5yu4ZHy27El6QFgPWn6BeKWtzWXpju1qVm7OBfktnc", KDefine.G_TABLE_N_RES_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CResInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
 			}
@@ -270,7 +270,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_ITEM_INFO] = new STTableInfo("18Fzoyyu6yg_FQY8nOi-DaCGqes37oxYuBLabYKOjpnI", KDefine.G_TABLE_N_ITEM_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_ITEM_INFO] = new STTableInfo("1D5CAqCLsCvYWU-fmXcyLgqMFkg1-ziKwrdU2_rPDs8E", KDefine.G_TABLE_N_ITEM_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CItemInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
@@ -316,7 +316,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_SKILL_INFO] = new STTableInfo("1m00Mfx_KuxYYHnwYYerSakn3_dszKZHbMCdpVtAzPos", KDefine.G_TABLE_N_SKILL_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_SKILL_INFO] = new STTableInfo("1QrHVdd17tCpmtLtz2KnpUD7qcGJdicptxd5wIZJsaR0", KDefine.G_TABLE_N_SKILL_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CSkillInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
@@ -366,7 +366,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_OBJ_INFO] = new STTableInfo("1qnJkf80sIwdJaTteymNrUDHSJ-p4162LT6_qvUYGYTY", KDefine.G_TABLE_N_OBJ_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_OBJ_INFO] = new STTableInfo("1NMRCEv2COqpzEt8f3Qgm_tDkwKuMKKGcUAVIX-ScdmI", KDefine.G_TABLE_N_OBJ_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CObjInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
@@ -418,7 +418,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_ABILITY_INFO] = new STTableInfo("1cxc5dC57Go_AMUD0crtHMWxDw5GjEASRrCU7ERKQxQE", KDefine.G_TABLE_N_ABILITY_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_ABILITY_INFO] = new STTableInfo("1oUamQunYO9HPokLeFUm5dCXahEvnJ0HlLBivTdccdm4", KDefine.G_TABLE_N_ABILITY_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CAbilityInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
@@ -446,7 +446,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_PRODUCT_INFO] = new STTableInfo("1uqeDN-ZaAs3_UxWp93Ub_nEX5r1z7MNDHfwXE-IKB_w", KDefine.G_TABLE_N_PRODUCT_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_PRODUCT_INFO] = new STTableInfo("1wWDr91o4kQPTdSFUY6U3KglPC2T7oL_AUiwopYTGE7M", KDefine.G_TABLE_N_PRODUCT_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CProductTradeInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_BUY_TRADE
 			}
@@ -470,95 +470,95 @@ public static partial class KDefine {
 		})
 	};
 	// 테이블 정보 }
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 초기화 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 색상
 	public static readonly Color IS_COLOR_CLEAR = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 시작 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 위치
 	public static readonly Vector3 SS_POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
 	public static readonly Vector3 SS_POS_LOADING_GAUGE = KDefine.SS_POS_LOADING_TEXT + new Vector3(0.0f, -70.0f, 0.0f);
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 설정 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 약관 동의 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 지연 설정 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 타이틀 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 메인 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 게임 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 	// 이름
 	public const string GS_OBJ_N_ENGINE = "Engine";
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 로딩 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 위치
 	public static readonly Vector3 LS_POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
 	public static readonly Vector3 LS_POS_LOADING_GAUGE = KDefine.LS_POS_LOADING_TEXT + new Vector3(0.0f, -70.0f, 0.0f);
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 중첩 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY
