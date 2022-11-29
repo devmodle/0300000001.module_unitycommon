@@ -12,16 +12,16 @@ using UnityEngine.Purchasing;
 
 /** 기본 로그 함수 */
 public static partial class LogFunc {
-#region 클래스 변수
+	#region 클래스 변수
 	private static Dictionary<string, string> m_oLogTimeDict = new Dictionary<string, string>();
-#endregion // 클래스 변수
+	#endregion // 클래스 변수
 
-#region 클래스 함수
+	#region 클래스 함수
 	/** 로그를 전송한다 */
 	public static void SendLog(string a_oName, Dictionary<string, object> a_oDataDict) {
 		// 로그 전송이 가능 할 경우
 		if(LogFunc.IsEnableSendLog(a_oName)) {
-#if ANALYTICS_TEST_ENABLE
+#if ANALYTICS_TEST_ENABLE || STORE_DIST_BUILD
 			var oDataDict = LogFunc.MakeLogDatas(a_oDataDict);
 			CCommonAppInfoStorage.Inst.AppInfo.m_oSendLogList.ExAddVal(a_oName);
 
@@ -45,7 +45,14 @@ public static partial class LogFunc {
 				CAppsFlyerManager.Inst.SendLog(a_oName, oDataDict.ExToTypes<string, object, string, string>());
 			}
 #endif // #if APPS_FLYER_MODULE_ENABLE
-#endif // #if ANALYTICS_TEST_ENABLE
+
+#if PLAYFAB_MODULE_ENABLE
+			// 플레이 팹 분석이 가능 할 경우
+			if(KDefine.G_ANALYTICS_LOG_ENABLE_LIST.Contains(EAnalytics.PLAYFAB)) {
+				CPlayfabManager.Inst.SendLog(a_oName, a_oDataDict);
+			}
+#endif // #if PLAYFAB_MODULE_ENABLE
+#endif // #if ANALYTICS_TEST_ENABLE || STORE_DIST_BUILD
 
 			LogFunc.m_oLogTimeDict.ExReplaceVal(a_oName, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 		}
@@ -82,15 +89,15 @@ public static partial class LogFunc {
 			LogFunc.SendLog(a_oName, a_oDataDict);
 		}
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 
-#region 조건부 클래스 함수
+	#region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	/** 결제 로그를 전송한다 */
 	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VAL_1_INT) {
 		// 로그 전송이 가능 할 경우
 		if(LogFunc.IsEnableSendLog(KDefine.L_LOG_N_PURCHASE)) {
-#if ANALYTICS_TEST_ENABLE
+#if ANALYTICS_TEST_ENABLE || STORE_DIST_BUILD
 			var oDataDict = LogFunc.MakeLogDatas(null);
 
 #if FLURRY_MODULE_ENABLE
@@ -113,13 +120,13 @@ public static partial class LogFunc {
 				CAppsFlyerManager.Inst.SendPurchaseLog(a_oProduct, a_nNumProducts, oDataDict.ExToTypes<string, object, string, string>());
 			}
 #endif // #if APPS_FLYER_MODULE_ENABLE
-#endif // #if ANALYTICS_TEST_ENABLE
+#endif // #if ANALYTICS_TEST_ENABLE || STORE_DIST_BUILD
 
 			LogFunc.m_oLogTimeDict.ExReplaceVal(KDefine.L_LOG_N_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 		}
 	}
 #endif // #if PURCHASE_MODULE_ENABLE
-#endregion // 조건부 클래스 함수
+	#endregion // 조건부 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

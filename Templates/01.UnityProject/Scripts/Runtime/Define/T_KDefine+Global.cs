@@ -61,7 +61,7 @@ public static partial class KDefine {
 
 	// 분석 {
 	public static readonly List<EAnalytics> G_ANALYTICS_LOG_ENABLE_LIST = new List<EAnalytics>() {
-		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER
+		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER, EAnalytics.PLAYFAB
 	};
 
 	public static readonly List<EAnalytics> G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST = new List<EAnalytics>() {

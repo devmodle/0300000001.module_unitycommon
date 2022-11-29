@@ -174,7 +174,7 @@ namespace LateSetupScene {
 #endif // #if APPS_FLYER_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-				CGameCenterManager.Inst.Init(CGameCenterManager.MakeParams(Dictionary<CGameCenterManager.ECallback, System.Action<CGameCenterManager, bool>>() {
+				CGameCenterManager.Inst.Init(CGameCenterManager.MakeParams(new Dictionary<CGameCenterManager.ECallback, System.Action<CGameCenterManager, bool>>() {
 					[CGameCenterManager.ECallback.INIT] = CLateSetupSceneManager.OnInitGameCenterManager
 				}));
 #endif // #if GAME_CENTER_MODULE_ENABLE
