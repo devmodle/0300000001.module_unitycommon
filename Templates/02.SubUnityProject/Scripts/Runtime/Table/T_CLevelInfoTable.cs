@@ -11,9 +11,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using MessagePack;
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 using Newtonsoft.Json;
-#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
 /** 셀 정보 */
 [MessagePackObject]
@@ -22,11 +22,11 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 #region 변수
 	[Key(161)] public Dictionary<EObjType, List<EObjKinds>> m_oObjKindsDictContainer;
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 #else
 	[IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
-#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 #endregion // 변수
 
 #region 상수
@@ -72,7 +72,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 #endregion // 함수
 
 #region 조건부 함수
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	/** 직렬화 될 경우 */
 	[OnSerializing]
 	private void OnSerializingMethod(StreamingContext a_oContext) {
@@ -84,7 +84,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 	private void OnDeserializedMethod(StreamingContext a_oContext) {
 		this.OnAfterDeserialize();
 	}
-#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 #endregion // 조건부 함수
 }
 
@@ -99,15 +99,15 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 #region 변수
 	[Key(165)] public Dictionary<int, Dictionary<int, STCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, STCellInfo>>();
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 #else
 	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
-#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 #endregion // 변수
 
 #region 프로퍼티
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore][IgnoreMember] public System.Version CellInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
@@ -121,7 +121,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 
 	[IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	[IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
-#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 #endregion // 프로퍼티
 
 #region ICloneable
@@ -270,12 +270,12 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	private CLevelInfo LoadLevelInfo(string a_oFilePath, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
 
-#if MSG_PACK_SERIALIZER_ENABLE
+#if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, true) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, true);
-#elif NEWTON_SOFT_JSON_MODULE_ENABLE
+#elif NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 		a_oFilePath = a_oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
 		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, true) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, true);
-#endif // #if MSG_PACK_SERIALIZER_ENABLE
+#endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 
 		oLevelInfo.m_stIDInfo = new STIDInfo(a_nLevelID, a_nStageID, a_nChapterID);
 		return oLevelInfo;
@@ -302,12 +302,12 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CAccess.Assert(a_oLevelInfo != null && a_oOutLevelIDList != null);
 		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
 
-#if MSG_PACK_SERIALIZER_ENABLE
+#if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, true);
-#elif NEWTON_SOFT_JSON_MODULE_ENABLE
+#elif NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 		string oFilePath = this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03);
 		CFunc.WriteJSONObj(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), a_oLevelInfo, true);
-#endif // #if MSG_PACK_SERIALIZER_ENABLE
+#endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 	}
 #endregion // 함수
 

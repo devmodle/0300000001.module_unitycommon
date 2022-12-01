@@ -142,9 +142,9 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupRenderingPipeline();
 #endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
-#if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 				CCommonEditorSceneManager.SetupBurstCompiler();
-#endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
 				CFunc.EnumerateRootObjs((a_oObj) => {
 					// 최상단 UI 일 경우

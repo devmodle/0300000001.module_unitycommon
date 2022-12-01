@@ -34,10 +34,10 @@ using UnityEngine.InputSystem.iOS;
 #endif // #if UNITY_IOS
 #endif // #if INPUT_SYSTEM_MODULE_ENABLE
 
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
 /** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
@@ -553,7 +553,7 @@ public static partial class CCommonEditorSceneManager {
 	}
 #endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
 
-#if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	/** 버스트 컴파일러를 설정한다 */
 	private static void SetupBurstCompiler() {
 		var oSettingsPathList = new List<string>() {
@@ -594,7 +594,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 		}
 	}
-#endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 클래스 조건부 함수
 }
 #endif // #if UNITY_EDITOR

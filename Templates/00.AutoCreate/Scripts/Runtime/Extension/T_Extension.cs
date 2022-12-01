@@ -24,7 +24,7 @@ public static partial class Extension {
 		CAccess.Assert(a_oSender.ExIsValid());
 		var oTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
-#if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 		var oJSONNode = SimpleJSON.JSON.Parse(a_oSender);
 		var oTargetInfos = oJSONNode[KCDefine.B_KEY_ROOT];
 
@@ -32,7 +32,7 @@ public static partial class Extension {
 			var stTargetInfo = oTargetInfos[i].ToString().ExJSONStrToObj<STTargetInfo>();
 			oTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 		}
-#endif // #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
 		return oTargetInfoDict;
 	}

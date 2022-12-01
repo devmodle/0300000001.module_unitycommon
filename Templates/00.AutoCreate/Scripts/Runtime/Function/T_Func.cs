@@ -565,11 +565,11 @@ public static partial class Func {
 
 			// 로그인 되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 				CFirebaseManager.Inst.SaveDatas(Factory.MakeTargetInfoNodes(), a_oTargetInfoDict.ExToJSONStr(true), Func.OnSaveTargetInfos);
 #else
 				Func.OnSaveTargetInfos(CFirebaseManager.Inst, false);
-#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 			} else {
 				Func.OnSaveTargetInfos(CFirebaseManager.Inst, false);
 			}
@@ -587,11 +587,11 @@ public static partial class Func {
 
 			// 로그인 되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
-#if NEWTON_SOFT_JSON_MODULE_ENABLE
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 				CFirebaseManager.Inst.SaveDatas(Factory.MakePurchaseInfoNodes(), a_oPurchaseInfoList.ExToJSONStr(true), Func.OnSavePurchaseInfos);
 #else
 				Func.OnSavePurchaseInfos(CFirebaseManager.Inst, false);
-#endif // #if NEWTON_SOFT_JSON_MODULE_ENABLE
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 			} else {
 				Func.OnSavePurchaseInfos(CFirebaseManager.Inst, false);
 			}
