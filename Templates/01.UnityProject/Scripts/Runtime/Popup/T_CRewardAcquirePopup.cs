@@ -7,7 +7,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.Linq;
-using TMPro;
 
 /** 보상 획득 팝업 */
 public partial class CRewardAcquirePopup : CSubPopup {
@@ -27,24 +26,66 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		public Dictionary<ulong, STTargetInfo> m_oRewardTargetInfoDict;
 	}
 
-#region 변수
+	#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oRewardUIs = null;
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public STParams Params { get; private set; }
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
+	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+
+		this.SetIgnoreAni(true);
+		this.SetIgnoreNavStackEvent(true);
+
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
+			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
+		}, m_oBtnDict);
+
+		this.SubSetupAwake();
+	}
+
+	/** 초기화 */
+	public virtual void Init(STParams a_stParams) {
+		base.Init();
+		this.Params = a_stParams;
+
+		this.SubInit();
+	}
+
 	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void UpdateUIsState() {
+		var oRewardTargetInfoKeyList = this.Params.m_oRewardTargetInfoDict.Keys.ToList();
+
+		// 보상 아이템 UI 상태를 갱신한다
+		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
+			m_oItemUIsList[i].SetActive(i < oRewardTargetInfoKeyList.Count);
+
+			// 보상 정보가 존재 할 경우
+			if(i < oRewardTargetInfoKeyList.Count) {
+				ulong nUniqueTargetInfoID = oRewardTargetInfoKeyList[i];
+				this.UpdateItemUIsState(m_oItemUIsList[i], this.Params.m_oRewardTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID));
+			}
+		}
+
+		this.SubUpdateUIsState();
 	}
 
 	/** 광고 버튼을 눌렀을 경우 */
@@ -78,18 +119,18 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, this.Params.m_oRewardTargetInfoDict, true);
 		this.OnTouchCloseBtn();
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 클래스 함수
+	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
 	public static STParams MakeParams(ERewardQuality a_eQuality, ERewardAcquirePopupType a_eAgreePopup, Dictionary<ulong, STTargetInfo> a_oRewardTargetInfoDict) {
 		return new STParams() {
 			m_eQuality = a_eQuality, m_eAgreePopup = a_eAgreePopup, m_oRewardTargetInfoDict = a_oRewardTargetInfoDict
 		};
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
@@ -99,7 +140,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		}
 	}
 #endif // #if ADS_MODULE_ENABLE
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

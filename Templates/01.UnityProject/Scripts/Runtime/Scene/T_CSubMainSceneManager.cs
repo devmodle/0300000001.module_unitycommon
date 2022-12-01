@@ -23,15 +23,15 @@ namespace MainScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 		private Dictionary<EKey, STIDInfo> m_oIDInfoDict = new Dictionary<EKey, STIDInfo>();
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, EnhancedScroller> m_oScrollerDict = new Dictionary<EKey, EnhancedScroller>();
 		private Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)> m_oScrollerInfoDict = new Dictionary<EKey, (EnhancedScroller, EnhancedScrollerCellView)>();
-#endregion // 변수
-		
-#region IEnhancedScrollerDelegate
+		#endregion // 변수
+
+		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
 		public int GetNumberOfCells(EnhancedScroller a_oSender) {
 			// 레벨 스크롤러 일 경우
@@ -107,9 +107,52 @@ namespace MainScene {
 
 			return oScrollerCellView;
 		}
-#endregion // IEnhancedScrollerDelegate
-		
-#region 함수
+		#endregion // IEnhancedScrollerDelegate
+
+		#region 함수
+		/** 초기화 */
+		public override void Awake() {
+			base.Awake();
+
+			// 앱이 초기화 되었을 경우
+			if(CSceneManager.IsAppInit) {
+#if CREATIVE_DIST_BUILD
+				for(int i = 0; i < Access.NumChapterEpisodes; ++i) {
+					for(int j = 0; j < Access.GetNumStageEpisodes(i); ++i) {
+						for(int k = 0; k < Access.GetNumLevelEpisodes(j, i); ++k) {
+							// 클리어 정보가 없을 경우
+							if(Access.IsClearLevel(CGameInfoStorage.Inst.PlayCharacterID, k, j, i)) {
+								CGameInfoStorage.Inst.AddLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeClearInfo(k, j, i));
+							}
+
+							var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(k, j, i);
+							oLevelClearInfo.NumSymbols = KCDefine.B_VAL_1_INT;
+						}
+					}
+				}
+
+				Access.SetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_NORM_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND);
+				CGameInfoStorage.Inst.SaveGameInfo();
+#endif // #if CREATIVE_DIST_BUILD
+
+				this.SetupAwake();
+				CGameInfoStorage.Inst.ResetSelItems();
+			}
+		}
+
+		/** 초기화 */
+		public override void Start() {
+			base.Start();
+
+			// 앱이 초기화 되었을 경우
+			if(CSceneManager.IsAppInit) {
+				this.SetupStart();
+				this.UpdateUIsState();
+
+				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_MAIN_01);
+			}
+		}
+
 		/** 앱이 정지 되었을 경우 */
 		public override void OnApplicationPause(bool a_bIsPause) {
 			base.OnApplicationPause(a_bIsPause);
@@ -133,6 +176,73 @@ namespace MainScene {
 			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
 				Func.ShowQuitPopup(this.OnReceiveQuitPopupResult);
 			}
+		}
+
+		/** 씬을 설정한다 */
+		private void SetupAwake() {
+			var ePlayMode = CGameInfoStorage.Inst.PlayMode;
+			m_oIDInfoDict.ExReplaceVal(EKey.SEL_ID_INFO, (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) ? CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo : new STIDInfo(KCDefine.B_VAL_0_INT));
+
+			// 버튼을 설정한다
+			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+				(KCDefine.U_OBJ_N_PLAY_BTN, this.UIsBase, this.OnTouchPlayBtn),
+				(KCDefine.U_OBJ_N_STORE_BTN, this.UIsBase, this.OnTouchStoreBtn),
+				(KCDefine.U_OBJ_N_REVIEW_BTN, this.UIsBase, this.OnTouchReviewBtn),
+				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
+			}, false);
+
+			// 스크롤 뷰를 설정한다
+			CFunc.SetupScrollerInfos(new List<(EKey, string, GameObject, EnhancedScrollerCellView, IEnhancedScrollerDelegate)>() {
+				(EKey.LEVEL_SCROLLER_INFO, KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+				(EKey.STAGE_SCROLLER_INFO, KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+				(EKey.CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
+			}, m_oScrollerInfoDict);
+
+#if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
+			this.SetupABTestUIs();
+#endif // #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
+
+			this.SubSetupAwake();
+		}
+
+		/** 씬을 설정한다 */
+		private void SetupStart() {
+			// 캐릭터 게임 정보가 존재 할 경우
+			if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID, out CCharacterGameInfo oCharacterGameInfo)) {
+				// 일일 미션 리셋이 가능 할 경우
+				if(Access.IsEnableResetDailyMission(CGameInfoStorage.Inst.PlayCharacterID)) {
+					oCharacterGameInfo.PrevDailyMissionTime = System.DateTime.Today;
+					oCharacterGameInfo.m_oCompleteDailyMissionKindsList.Clear();
+				}
+
+				// 무료 보상 획득이 가능 할 경우
+				if(Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID)) {
+					oCharacterGameInfo.FreeRewardAcquireTimes = KCDefine.B_VAL_0_INT;
+					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
+				}
+
+				CGameInfoStorage.Inst.SaveGameInfo();
+			}
+
+			// 업데이트가 가능 할 경우
+			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+				CAppInfoStorage.Inst.SetIgnoreUpdate(true);
+				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
+			}
+
+#if DAILY_REWARD_ENABLE
+			// 일일 보상 획득이 가능 할 경우
+			if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
+				Func.ShowDailyRewardPopup(this.PopupUIs, (a_oSender) => (a_oSender as CDailyRewardPopup).Init());
+			}
+#endif // #if DAILY_REWARD_ENABLE
+
+			this.SubSetupStart();
+		}
+
+		/** UI 상태를 갱신한다 */
+		private void UpdateUIsState() {
+			this.SubUpdateUIsState();
 		}
 
 		/** 종료 팝업 결과를 수신했을 경우 */
@@ -173,9 +283,9 @@ namespace MainScene {
 				(a_oSender as CSettingsPopup).Init();
 			});
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 조건부 함수
+		#region 조건부 함수
 #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
 		/** AB 테스트 UI 를 설정한다 */
 		private void SetupABTestUIs() {
@@ -254,7 +364,7 @@ namespace MainScene {
 			}
 		}
 #endif // #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

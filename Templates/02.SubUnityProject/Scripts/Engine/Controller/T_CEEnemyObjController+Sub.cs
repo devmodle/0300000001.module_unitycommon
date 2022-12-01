@@ -9,28 +9,9 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 적 객체 제어자 */
 	public partial class CEEnemyObjController : CEObjController {
-#region 함수
-		/** 초기화 */
-		public override void Awake() {
-			base.Awake();
-
-#region 추가
-			this.SubSetupAwake();
-#endregion // 추가
-		}
-
-		/** 초기화 */
-		public virtual void Init(STParams a_stParams) {
-			base.Init(a_stParams.m_stBaseParams);
-			this.Params = a_stParams;
-			
-			this.SetIsAutoControl(true);
-
-#region 추가
-			this.SubInit();
-#endregion // 추가
-		}
-#endregion // 함수
+		#region 함수
+		
+		#endregion // 함수
 	}
 
 	/** 서브 적 객체 제어자 */
@@ -42,15 +23,15 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
-		
-#endregion // 프로퍼티
+		#region 프로퍼티
 
-#region 함수
+		#endregion // 프로퍼티
+
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -60,7 +41,7 @@ namespace NSEngine {
 				// Do Something
 			}
 		}
-		
+
 		/** 대기 상태를 처리한다 */
 		protected override void HandleIdleState(float a_fDeltaTime) {
 			base.HandleIdleState(a_fDeltaTime);
@@ -116,7 +97,7 @@ namespace NSEngine {
 			base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SkillList.ExAddVal(oSkill);
 			oSkill.GetController<CESkillController>().Apply();
 		}
-		
+
 		/** 제어자를 설정한다 */
 		private void SubSetupAwake() {
 			// Do Something
@@ -132,7 +113,7 @@ namespace NSEngine {
 			var stDelta = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;
 			return stDelta.sqrMagnitude.ExIsLessEquals(Mathf.Pow((float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ATK_RANGE_01), KCDefine.B_VAL_2_REAL));
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

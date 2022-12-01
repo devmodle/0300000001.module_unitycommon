@@ -9,27 +9,9 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 아이템 제어자 */
 	public partial class CEObjController : CEController {
-#region 함수
-		/** 초기화 */
-		public override void Awake() {
-			base.Awake();
-			m_oVec3Dict.ExReplaceVal(EKey.MOVE_POS, KCDefine.B_POS_INVALID);
-
-#region 추가
-			this.SubSetupAwake();
-#endregion // 추가
-		}
-
-		/** 초기화 */
-		public virtual void Init(STParams a_stParams) {
-			base.Init(a_stParams.m_stBaseParams);
-			this.Params = a_stParams;
-
-#region 추가
-			this.SubInit();
-#endregion // 추가
-		}
-#endregion // 함수
+		#region 함수
+		
+		#endregion // 함수
 	}
 
 	/** 서브 객체 제어자 */
@@ -41,15 +23,15 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
-		
-#endregion // 프로퍼티
+		#region 프로퍼티
 
-#region 함수
+		#endregion // 프로퍼티
+
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -169,7 +151,7 @@ namespace NSEngine {
 			m_oSkillInfoDict.ExReplaceVal(EKey.APPLY_SKILL_INFO, a_stSkillInfo);
 			m_oSkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, a_oSkillTargetInfo);
 		}
-		
+
 		/** 제어자를 설정한다 */
 		private void SubSetupAwake() {
 			// Do Something
@@ -180,7 +162,7 @@ namespace NSEngine {
 			this.SetState(EState.APPEAR);
 			this.SetMovePos(KCDefine.B_POS_INVALID);
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

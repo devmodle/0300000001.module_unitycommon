@@ -17,18 +17,57 @@ public partial class CSyncPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 변수
+	#region 변수
 	private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 
 	/** =====> 객체 <===== */
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 함수
+	#region 함수
+	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+
+		// 객체를 설정한다
+		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+			(EKey.LOGIN_UIS, $"{EKey.LOGIN_UIS}", this.Contents),
+			(EKey.LOGOUT_UIS, $"{EKey.LOGIN_UIS}", this.Contents)
+		}, m_oUIsDict);
+
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+			(KCDefine.U_OBJ_N_LOGIN_BTN, this.Contents, this.OnTouchLoginBtn),
+			(KCDefine.U_OBJ_N_LOGOUT_BTN, this.Contents, this.OnTouchLogoutBtn),
+			(KCDefine.U_OBJ_N_LOAD_BTN, this.Contents, this.OnTouchLoadBtn),
+			(KCDefine.U_OBJ_N_SAVE_BTN, this.Contents, this.OnTouchSaveBtn)
+		}, false);
+
+		this.SubSetupAwake();
+	}
+
+	/** 초기화 */
+	public override void Init() {
+		base.Init();
+		this.SubInit();
+	}
+
 	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
+	}
+
+	/** UI 상태를 갱신한다 */
+	private void UpdateUIsState() {
+		// 객체를 갱신한다 {
+#if FIREBASE_MODULE_ENABLE
+		m_oUIsDict.GetValueOrDefault(EKey.LOGIN_UIS)?.SetActive(CFirebaseManager.Inst.IsLogin);
+		m_oUIsDict.GetValueOrDefault(EKey.LOGOUT_UIS)?.SetActive(!CFirebaseManager.Inst.IsLogin);
+#endif // #if FIREBASE_MODULE_ENABLE
+		// 객체를 갱신한다 }
+
+		this.SubUpdateUIsState();
 	}
 
 	/** 로그인 버튼을 눌렀을 경우 */
@@ -70,9 +109,9 @@ public partial class CSyncPopup : CSubPopup {
 #endif // #if FIREBASE_MODULE_ENABLE
 		});
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if FIREBASE_MODULE_ENABLE
 	/** 로그인 되었을 경우 */
 	private void OnLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
@@ -153,7 +192,7 @@ public partial class CSyncPopup : CSubPopup {
 		}
 	}
 #endif // #if FIREBASE_MODULE_ENABLE
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

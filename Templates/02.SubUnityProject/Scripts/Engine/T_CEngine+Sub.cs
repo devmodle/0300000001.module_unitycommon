@@ -12,39 +12,9 @@ using UnityEngine.EventSystems;
 namespace NSEngine {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
-#region 함수
-		/** 초기화 */
-		public override void Awake() {
-			base.Awake();
-
-#region 추가
-			this.SubSetupAwake();
-#endregion // 추가
-		}
-
-		/** 초기화 */
-		public virtual void Init(STParams a_stParams) {
-			this.Params = a_stParams;
-
-			this.SetupEngine();
-			this.SetupLevel();
-			this.SetupGridLine();
-
-#region 추가
-			this.SubInit();
-#endregion // 추가
-		}
-
-		/** 상태를 리셋한다 */
-		public override void Reset() {
-			base.Reset();
-			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, false);
-
-#region 추가
-			this.SubReset();
-#endregion // 추가
-		}
-#endregion // 함수
+		#region 함수
+		
+		#endregion // 함수
 	}
 
 	/** 서브 엔진 */
@@ -64,21 +34,21 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 		private Dictionary<ESubKey, int> m_oSubIntDict = new Dictionary<ESubKey, int>();
 		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
 		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
 
 		public int SelPlayerObjIdx => m_oSubIntDict.GetValueOrDefault(ESubKey.SEL_PLAYER_OBJ_IDX);
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -288,9 +258,9 @@ namespace NSEngine {
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, KDefine.E_SIZE_CELL);
 			}
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 조건부 함수
+		#region 조건부 함수
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public virtual void OnDrawGizmos() {
@@ -300,7 +270,7 @@ namespace NSEngine {
 			}
 		}
 #endif // #if UNITY_EDITOR
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

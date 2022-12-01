@@ -12,165 +12,20 @@ using EnhancedUI.EnhancedScroller;
 namespace LevelEditorScene {
 	/** 서브 레벨 에디터 씬 관리자 */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-#region 함수
-		/** 초기화 */
-		public override void Awake() {
-			base.Awake();
-			
-			// 앱이 초기화 되었을 경우
-			if(CSceneManager.IsAppInit) {
-#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-				// 레벨 정보가 없을 경우
-				if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
-					var oLevelInfo = Factory.MakeLevelInfo(KCDefine.B_VAL_0_INT);
-
-					Func.SetupEditorLevelInfo(oLevelInfo, new CSubEditorLevelCreateInfo() {
-						m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
-					});
-
-					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
-					CLevelInfoTable.Inst.SaveLevelInfos();
-				}
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-
-				this.SetupAwake();
-			}
-		}
+		#region 함수
 		
-		/** 초기화 */
-		public override void Start() {
-			base.Start();
+		#endregion // 함수
 
-			// 앱이 초기화 되었을 경우
-			if(CSceneManager.IsAppInit) {
+		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-				this.ExLateCallFunc((a_oSender) => this.UpdateUIsState(), KCDefine.U_DELAY_INIT);
+
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-
-				this.SetupStart();
-				CSndManager.Inst.StopBGSnd();
-			}
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
-
-			// 스프라이트를 설정한다
-			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
-				(EKey.SEL_OBJ_SPRITE, $"{EKey.SEL_OBJ_SPRITE}", this.Objs)
-			}, m_oSpriteDict);
-
-#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			this.SetupMidEditorUIs();
-			this.SetupLeftEditorUIs();
-			this.SetupRightEditorUIs();
-
-			// 레벨 정보를 설정한다
-			m_oLevelInfoDict.ExReplaceVal(EKey.SEL_LEVEL_INFO, CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-
-#region 추가
-			this.SubSetupAwake();
-#endregion // 추가
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupStart() {
-			// 스크롤 뷰를 설정한다
-			m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.gameObject.SetActive(true);
-
-#region 추가
-			this.SubSetupStart();
-#endregion // 추가
-		}
-#endregion // 함수
-
-#region 조건부 함수
-#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		/** UI 상태를 갱신한다 */
-		private void UpdateUIsState() {
-			this.ResetObjSprites();
-
-			this.UpdateMidEditorUIsState();
-			this.UpdateLeftEditorUIsState();
-			this.UpdateRightEditorUIsState();
-
-#region 추가
-			this.SubUpdateUIsState();
-#endregion // 추가
-		}
-
-		/** 객체 스프라이트를 리셋한다 */
-		private void ResetObjSprites() {
-			// 객체 스프라이트가 존재 할 경우
-			if(m_oObjSpriteInfoDictContainers.ExIsValid()) {
-				for(int i = 0; i < m_oObjSpriteInfoDictContainers.GetLength(KCDefine.B_VAL_0_INT); ++i) {
-					for(int j = 0; j < m_oObjSpriteInfoDictContainers.GetLength(KCDefine.B_VAL_1_INT); ++j) {
-						this.ResetObjSprites(m_oObjSpriteInfoDictContainers[i, j]);
-					}
-				}
-			}
-
-			m_oGridInfoList.Clear();
-			m_oGridInfoList.ExAddVal(NSEngine.Factory.MakeGridInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO), Vector3.zero));
-
-			// 비율을 설정한다 {
-			bool bIsValid01 = !float.IsNaN(m_oGridInfoList[this.SelGridInfoIdx].m_stScale.x) && !float.IsInfinity(m_oGridInfoList[this.SelGridInfoIdx].m_stScale.x);
-			bool bIsValid02 = !float.IsNaN(m_oGridInfoList[this.SelGridInfoIdx].m_stScale.y) && !float.IsInfinity(m_oGridInfoList[this.SelGridInfoIdx].m_stScale.y);
-			bool bIsValid03 = !float.IsNaN(m_oGridInfoList[this.SelGridInfoIdx].m_stScale.z) && !float.IsInfinity(m_oGridInfoList[this.SelGridInfoIdx].m_stScale.z);
-
-			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oGridInfoList[this.SelGridInfoIdx].m_stScale : Vector3.one;
-			this.ObjRoot.transform.localPosition = Vector3.zero.ExToWorld(this.MidEditorUIs).ExToLocal(this.UIs);
-			// 비율을 설정한다 }
-
-			// 객체 스프라이트를 설정한다 {
-			m_oObjSpriteInfoDictContainers = new Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>[m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.y, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.x];
-
-			for(int i = 0; i < m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer.Count; ++i) {
-				for(int j = 0; j < m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer[i].Count; ++j) {
-					this.SetupObjSprites(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer[i][j], out Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>> oObjSpriteInfoDictContainer);
-					m_oObjSpriteInfoDictContainers[m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer[i][j].m_stIdx.y, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer[i][j].m_stIdx.x] = oObjSpriteInfoDictContainer;
-				}
-			}
-			// 객체 스프라이트를 설정한다 }
-		}
-
-		/** 객체 스프라이트를 리셋한다 */
-		private void ResetObjSprites(Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>> a_oObjSpriteInfoDictContainer) {
-			foreach(var stKeyVal in a_oObjSpriteInfoDictContainer) {
-				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					this.DespawnObj(KDefine.LES_KEY_SPRITE_OBJS_POOL, stKeyVal.Value[i].Item2.gameObject);
-				}
-			}
-		}
-
-		/** 객체 스프라이트를 설정한다 */
-		private void SetupObjSprites(STCellInfo a_stCellInfo, out Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>> a_oOutObjSpriteInfoDictContainer) {
-			a_oOutObjSpriteInfoDictContainer = new Dictionary<EObjType, List<(EObjKinds, SpriteRenderer)>>();
-
-			foreach(var stKeyVal in a_stCellInfo.m_oObjKindsDictContainer) {
-				var oObjSpriteInfoList = new List<(EObjKinds, SpriteRenderer)>();
-
-				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_OBJS_POOL);
-					oObjSprite.sprite = NSEngine.Access.GetObjSprite(stKeyVal.Value[i]);
-					oObjSprite.transform.localPosition = m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.KDefine.E_OFFSET_CELL, NSEngine.KDefine.E_SIZE_CELL);
-
-					oObjSprite.ExSetSortingOrder(NSEngine.Access.GetSortingOrderInfo(stKeyVal.Value[i]));
-					oObjSpriteInfoList.ExAddVal((stKeyVal.Value[i], oObjSprite));
-				}
-
-				a_oOutObjSpriteInfoDictContainer.TryAdd(stKeyVal.Key, oObjSpriteInfoList);
-			}
-		}
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 중앙 에디터 UI */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-#region 조건부 함수
+		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 중앙 에디터 UI 를 설정한다 */
 		private void SetupMidEditorUIs() {
@@ -213,12 +68,12 @@ namespace LevelEditorScene {
 			// 버튼을 갱신한다 }
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 왼쪽 에디터 UI */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-#region 조건부 함수
+		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 왼쪽 에디터 UI 를 설정한다 */
 		private void SetupLeftEditorUIs() {
@@ -241,7 +96,7 @@ namespace LevelEditorScene {
 				foreach(var stKeyVal in oScrollViewDict) {
 					stKeyVal.Value?.gameObject.SetActive(false);
 				}
-				
+
 				m_oScrollerInfoDict.ExReplaceVal(EKey.LE_UIS_STAGE_SCROLLER_INFO, m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_STAGE_SCROLLER_INFO_01));
 
 				m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item1?.gameObject.SetActive(true);
@@ -294,12 +149,12 @@ namespace LevelEditorScene {
 			m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_CHAPTER_SCROLLER_INFO).Item1?.ExReloadData(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID03 - KCDefine.B_VAL_1_INT, false);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 오른쪽 에디터 UI */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-#region 조건부 함수
+		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 오른족 에디터 UI 를 설정한다 */
 		private void SetupRightEditorUIs() {
@@ -405,7 +260,7 @@ namespace LevelEditorScene {
 			// 입력 필드를 갱신한다 }
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 서브 */
@@ -416,15 +271,15 @@ namespace LevelEditorScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 씬을 설정한다 */
 		private void SubSetupAwake() {
 			// Do Something
@@ -434,9 +289,9 @@ namespace LevelEditorScene {
 		private void SubSetupStart() {
 			// Do Something
 		}
-#endregion // 함수
-		
-#region 조건부 함수
+		#endregion // 함수
+
+		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** UI 상태를 갱신한다 */
 		private void SubUpdateUIsState() {
@@ -458,7 +313,7 @@ namespace LevelEditorScene {
 			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, NSEngine.KDefine.E_SIZE_CELL);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

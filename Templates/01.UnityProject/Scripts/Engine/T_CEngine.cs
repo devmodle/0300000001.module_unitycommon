@@ -40,7 +40,7 @@ namespace NSEngine {
 			public Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> m_oCallbackDict02;
 		}
 
-#region 변수
+		#region 변수
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 
@@ -48,9 +48,9 @@ namespace NSEngine {
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		private Dictionary<EObjType, List<CEObj>>[,] m_oCellObjDictContainers = null;
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public STParams Params { get; private set; }
 		public STRecordInfo RecordInfo { get; private set; }
 
@@ -64,9 +64,34 @@ namespace NSEngine {
 		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public STGridInfo SelGridInfo => m_oGridInfoList[this.SelGridInfoIdx];
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
+		/** 초기화 */
+		public override void Awake() {
+			base.Awake();
+			this.SubSetupAwake();
+		}
+
+		/** 초기화 */
+		public virtual void Init(STParams a_stParams) {
+			this.Params = a_stParams;
+
+			this.SetupEngine();
+			this.SetupLevel();
+			this.SetupGridLine();
+
+			this.SubInit();
+		}
+
+		/** 상태를 리셋한다 */
+		public override void Reset() {
+			base.Reset();
+			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, false);
+
+			this.SubReset();
+		}
+
 		/** 구동 여부를 변경한다 */
 		public void SetEnableRunning(bool a_bIsRunning) {
 			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, a_bIsRunning);
@@ -85,9 +110,9 @@ namespace NSEngine {
 				}
 			}
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 클래스 함수
+		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
 		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null) {
 			return new STParams() {
@@ -99,7 +124,7 @@ namespace NSEngine {
 				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>()
 			};
 		}
-#endregion // 클래스 함수
+		#endregion // 클래스 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

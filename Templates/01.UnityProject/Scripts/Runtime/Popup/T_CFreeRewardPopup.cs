@@ -15,18 +15,44 @@ public partial class CFreeRewardPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 변수
+	#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 함수
+	#region 함수
+	/** 초기화 */
+	public override void Awake() {
+		base.Awake();
+
+		// 버튼을 설정한다
+		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn)
+		}, m_oBtnDict);
+
+		this.SubSetupAwake();
+	}
+
+	/** 초기화 */
+	public override void Init() {
+		base.Init();
+		this.SubInit();
+	}
+
 	/** 팝업 컨텐츠를 설정한다 */
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
-	
+
+	/** UI 상태를 갱신한다 */
+	private void UpdateUIsState() {
+		// 버튼을 갱신한다
+		m_oBtnDict.GetValueOrDefault(EKey.ADS_BTN)?.ExSetInteractable(Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID));
+
+		this.SubUpdateUIsState();
+	}
+
 	/** 광고 버튼을 눌렀을 경우 */
 	private void OnTouchAdsBtn() {
 #if ADS_MODULE_ENABLE
@@ -43,7 +69,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 		if(oCharacterGameInfo.FreeRewardAcquireTimes >= KDefine.G_MAX_TIMES_ACQUIRE_FREE_REWARDS) {
 			oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
 		}
-		
+
 		CGameInfoStorage.Inst.SaveGameInfo();
 	}
 
@@ -56,9 +82,9 @@ public partial class CFreeRewardPopup : CSubPopup {
 			(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(stRewardInfo.m_eRewardQuality, ERewardAcquirePopupType.FREE, stRewardInfo.m_oAcquireTargetInfoDict));
 		}, null, this.OnCloseRewardAcquirePopup);
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
@@ -68,7 +94,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 		}
 	}
 #endif // #if ADS_MODULE_ENABLE
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY
