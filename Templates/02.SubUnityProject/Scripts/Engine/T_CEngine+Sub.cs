@@ -13,7 +13,7 @@ namespace NSEngine {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		
+
 		#endregion // 함수
 	}
 
@@ -111,10 +111,14 @@ namespace NSEngine {
 
 		/** 초기화한다 */
 		private void SubInit() {
+#if NEVER_USE_THIS
+			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
 			this.PlayerObjList.ExAddVal(this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
 
 			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.SelPlayerObj.transform.position.x, this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) }
+#endif // #if NEVER_USE_THIS
 		}
 
 		/** 상태를 리셋한다 */

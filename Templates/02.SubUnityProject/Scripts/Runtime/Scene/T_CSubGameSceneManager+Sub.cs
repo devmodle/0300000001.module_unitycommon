@@ -12,7 +12,7 @@ namespace GameScene {
 	/** 서브 게임 씬 관리자 */
 	public partial class CSubGameSceneManager : CGameSceneManager {
 		#region 함수
-		
+
 		#endregion // 함수
 	}
 
@@ -85,7 +85,11 @@ namespace GameScene {
 			this.ExLateCallFunc((a_oSender) => {
 				m_oEngine.SetEnableRunning(true);
 				m_oEngine.SetState(NSEngine.CEngine.EState.PLAY);
+
+#if NEVER_USE_THIS
+				// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능)
 				m_oEngine.SelPlayerObj.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
+#endif // #if NEVER_USE_THIS
 			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
 		}
 

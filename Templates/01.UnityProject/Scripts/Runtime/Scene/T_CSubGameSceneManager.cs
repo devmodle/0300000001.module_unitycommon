@@ -179,6 +179,8 @@ namespace GameScene {
 				stKeyVal.Value.ExSetSortingOrder(oSpriteInfoDict.GetValueOrDefault(stKeyVal.Key).Item2);
 			}
 
+#if NEVER_USE_THIS
+			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) {
 			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).size = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.CanvasSize.y, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
 			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localScale = Vector3.one;
 			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localPosition = Vector3.zero;
@@ -190,6 +192,8 @@ namespace GameScene {
 			m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).size = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
 			m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localScale = Vector3.one;
 			m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -(Mathf.Max((this.ScreenHeight / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM, (CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM) + (m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL);
+			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) }
+#endif // #if NEVER_USE_THIS
 			// 스프라이트를 설정한다 }
 
 			this.SubSetupAwake();
