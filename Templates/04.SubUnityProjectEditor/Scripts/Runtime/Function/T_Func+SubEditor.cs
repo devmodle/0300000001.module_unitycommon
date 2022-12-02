@@ -8,24 +8,19 @@ using UnityEngine.Events;
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 /** 서브 에디터 함수 */
 public static partial class Func {
-#region 클래스 함수
-	
-#endregion // 클래스 함수
+	#region 클래스 함수
+
+	#endregion // 클래스 함수
 }
 
 /** 서브 레벨 에디터 씬 함수 */
 public static partial class Func {
-#region 클래스 함수
-	
-#endregion // 클래스 함수
+	#region 클래스 함수
 
-#region 조건부 클래스 함수
+	#endregion // 클래스 함수
+
+	#region 조건부 클래스 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-	/** 에디터 셀 정보 설정 완료 여부를 검사한다 */
-	private static bool IsSetupEditorCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
-		return true;
-	}
-
 	/** 에디터 레벨 정보를 설정한다 */
 	public static void SetupEditorLevelInfo(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
 		int nNumCellsX = Random.Range(a_oCreateInfo.m_stMinNumCells.x, a_oCreateInfo.m_stMaxNumCells.x + KCDefine.B_VAL_1_INT);
@@ -46,7 +41,7 @@ public static partial class Func {
 		a_oLevelInfo.OnAfterDeserialize();
 		Func.SetupEditorCellInfos(a_oLevelInfo, a_oCreateInfo);
 	}
-	
+
 	/** 에디터 셀 정보를 설정한다 */
 	private static void SetupEditorCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
 		int nTryTimes = KCDefine.B_VAL_0_INT;
@@ -62,7 +57,7 @@ public static partial class Func {
 
 					oIdxVDictContainer.TryAdd(j, oIdxVList);
 					oIdxHDictContainer.TryAdd(i, oIdxHList);
-					
+
 					oIdxVList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
 					oIdxHList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
 
@@ -70,15 +65,10 @@ public static partial class Func {
 					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oObjKindsDictContainer.TryAdd(EObjType.BG, new List<EObjKinds>() { EObjKinds.BG_EMPTY_01 });
 				}
 			}
-			
-			try {
-				for(int i = 0; i < oIdxVDictContainer.Count; ++i) {
-					oIdxVDictContainer.ExSwap(i, Random.Range(KCDefine.B_VAL_0_INT, oIdxVDictContainer.Count));
-				}
 
-				for(int i = 0; i < oIdxHDictContainer.Count; ++i) {
-					oIdxHDictContainer.ExSwap(i, Random.Range(KCDefine.B_VAL_0_INT, oIdxHDictContainer.Count));
-				}
+			try {
+				oIdxVDictContainer.ExShuffle();
+				oIdxHDictContainer.ExShuffle();
 
 				Func.SetupEditorCellInfos(a_oLevelInfo, a_oCreateInfo, oIdxVDictContainer, oIdxHDictContainer);
 			} finally {
@@ -86,7 +76,7 @@ public static partial class Func {
 				CCollectionManager.Inst.DespawnDict(oIdxHDictContainer);
 			}
 		} while(nTryTimes++ < KDefine.LES_MAX_TRY_TIMES_SETUP_CELL_INFOS && !Func.IsSetupEditorCellInfos(a_oLevelInfo, a_oCreateInfo));
-		
+
 		a_oLevelInfo.OnAfterDeserialize();
 	}
 
@@ -94,8 +84,13 @@ public static partial class Func {
 	private static void SetupEditorCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo, Dictionary<int, List<Vector3Int>> a_oIdxVDictContainer, Dictionary<int, List<Vector3Int>> a_oIdxHDictContainer) {
 		// Do Something
 	}
+
+	/** 에디터 셀 정보 설정 완료 여부를 검사한다 */
+	private static bool IsSetupEditorCellInfos(CLevelInfo a_oLevelInfo, CEditorLevelCreateInfo a_oCreateInfo) {
+		return true;
+	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 클래스 함수
+	#endregion // 조건부 클래스 함수
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #endif // #if SCRIPT_TEMPLATE_ONLY
