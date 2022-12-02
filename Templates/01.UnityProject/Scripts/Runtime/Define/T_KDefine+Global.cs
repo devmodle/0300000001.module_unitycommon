@@ -96,7 +96,7 @@ public static partial class KDefine {
 	};
 
 	public static readonly Dictionary<string, STTableInfo> G_TABLE_INFO_GOOGLE_SHEET_DICT = new Dictionary<string, STTableInfo>() {
-		[KDefine.G_TABLE_N_VER_INFO] = new STTableInfo("1FdkMOVbkGuPhXs_F8oK4B2UH-s8_zw0BfQURFAn8U3w", KDefine.G_TABLE_N_VER_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_VER_INFO] = new STTableInfo("1-KGAbcXMnLHXgHpcOtMtvu0FcJT6M7GzB8twHjqpaQQ", KDefine.G_TABLE_N_VER_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			// Do Something
 		}, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			// Do Something
@@ -104,7 +104,7 @@ public static partial class KDefine {
 			// Do Something
 		}),
 
-		[KDefine.G_TABLE_N_ETC_INFO] = new STTableInfo("1Oxr2nGDNamrWWmsFfJXvW7zmZYUcxCeQw7D5nZuiimw", KDefine.G_TABLE_N_ETC_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_ETC_INFO] = new STTableInfo("17c7ZK3-kisMhhWhFuHfYmBFpg5cFDqvmw05Q5eVOxxI", KDefine.G_TABLE_N_ETC_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CCalcInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.U_KEY_CALC
 			},
@@ -217,7 +217,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_MISSION_INFO] = new STTableInfo("13q2VwXNZmPG63odDQNtyrHe76t2iXI1zpqSGYP02qvw", KDefine.G_TABLE_N_MISSION_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_MISSION_INFO] = new STTableInfo("1llcFijdEnBx9E5dyf8hqF9sIySwvvx93xGeMQSNBUUg", KDefine.G_TABLE_N_MISSION_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CMissionInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
 			}
@@ -234,7 +234,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_REWARD_INFO] = new STTableInfo("147NCbP00S_Iw9jgToDI_DkFGMfbg-hrQlGrBp88MVcc", KDefine.G_TABLE_N_REWARD_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_REWARD_INFO] = new STTableInfo("18vYxpl_0Y6VurogDMNHHDEDE_5uoQu388i9HiaNPfm4", KDefine.G_TABLE_N_REWARD_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CRewardInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
 			}
@@ -252,7 +252,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_RES_INFO] = new STTableInfo("1e5yu4ZHy27El6QFgPWn6BeKWtzWXpju1qVm7OBfktnc", KDefine.G_TABLE_N_RES_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_RES_INFO] = new STTableInfo("19DoxxxlPdVOfOu7J6e-Q_lYgj701wj8DkARVMiEQwEI", KDefine.G_TABLE_N_RES_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CResInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
 			}
@@ -270,7 +270,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_ITEM_INFO] = new STTableInfo("1D5CAqCLsCvYWU-fmXcyLgqMFkg1-ziKwrdU2_rPDs8E", KDefine.G_TABLE_N_ITEM_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_ITEM_INFO] = new STTableInfo("1g6hG_nrgRq2gc5sK7iKfA5nOK94BPNqVMSniI5XJOw8", KDefine.G_TABLE_N_ITEM_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CItemInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
@@ -316,7 +316,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_SKILL_INFO] = new STTableInfo("1QrHVdd17tCpmtLtz2KnpUD7qcGJdicptxd5wIZJsaR0", KDefine.G_TABLE_N_SKILL_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_SKILL_INFO] = new STTableInfo("1v1QYGLNVUQ7j5p4FB6ww_Q1XyilGGiHBFNznJTVu2oc", KDefine.G_TABLE_N_SKILL_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CSkillInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
@@ -366,7 +366,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_OBJ_INFO] = new STTableInfo("1NMRCEv2COqpzEt8f3Qgm_tDkwKuMKKGcUAVIX-ScdmI", KDefine.G_TABLE_N_OBJ_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_OBJ_INFO] = new STTableInfo("1T9xrG7mZjnKWTWBAHIv7mzZS4EJ2ofU7fb-ElQr16LI", KDefine.G_TABLE_N_OBJ_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CObjInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
@@ -418,7 +418,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_ABILITY_INFO] = new STTableInfo("1oUamQunYO9HPokLeFUm5dCXahEvnJ0HlLBivTdccdm4", KDefine.G_TABLE_N_ABILITY_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_ABILITY_INFO] = new STTableInfo("1XjmdApQzIfJ6VP9-eLd0gZkw8wkN2ipdWlvEArP8hpU", KDefine.G_TABLE_N_ABILITY_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CAbilityInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
@@ -446,7 +446,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_PRODUCT_INFO] = new STTableInfo("1wWDr91o4kQPTdSFUY6U3KglPC2T7oL_AUiwopYTGE7M", KDefine.G_TABLE_N_PRODUCT_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_PRODUCT_INFO] = new STTableInfo("1Obdm2KjgzWXkKk1Z93Hy2I5KK0jyUHdgqQMpANbnHZQ", KDefine.G_TABLE_N_PRODUCT_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CProductTradeInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_BUY_TRADE
 			}
