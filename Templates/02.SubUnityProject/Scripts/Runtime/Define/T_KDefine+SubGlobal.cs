@@ -150,19 +150,29 @@ public static partial class KDefine {
 #region 런타임 상수
 	// 경로
 	public static readonly string GS_TEX_P_FMT_BG = $"{KCDefine.B_DIR_P_TEXTURES}{KCDefine.B_DIR_P_GAME_SCENE}BG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
-	public static readonly string GS_TEX_P_FMT_TOP_BG = $"{KCDefine.B_DIR_P_TEXTURES}{KCDefine.B_DIR_P_GAME_SCENE}TopBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
-	public static readonly string GS_TEX_P_FMT_BOTTOM_BG = $"{KCDefine.B_DIR_P_TEXTURES}{KCDefine.B_DIR_P_GAME_SCENE}BottomBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
+	public static readonly string GS_TEX_P_FMT_UP_BG = $"{KCDefine.B_DIR_P_TEXTURES}{KCDefine.B_DIR_P_GAME_SCENE}UpBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
+	public static readonly string GS_TEX_P_FMT_DOWN_BG = $"{KCDefine.B_DIR_P_TEXTURES}{KCDefine.B_DIR_P_GAME_SCENE}DownBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
+	public static readonly string GS_TEX_P_FMT_LEFT_BG = $"{KCDefine.B_DIR_P_TEXTURES}{KCDefine.B_DIR_P_GAME_SCENE}LeftBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
+	public static readonly string GS_TEX_P_FMT_RIGHT_BG = $"{KCDefine.B_DIR_P_TEXTURES}{KCDefine.B_DIR_P_GAME_SCENE}RightBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
 
 	// 정렬 순서 {
 	public static readonly STSortingOrderInfo GS_SORTING_OI_BG = new STSortingOrderInfo() {
 		m_nOrder = sbyte.MaxValue * 0, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
 	};
 
-	public static readonly STSortingOrderInfo GS_SORTING_OI_TOP_BG = new STSortingOrderInfo() {
+	public static readonly STSortingOrderInfo GS_SORTING_OI_UP_BG = new STSortingOrderInfo() {
+		m_nOrder = sbyte.MaxValue * 2, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+	};
+
+	public static readonly STSortingOrderInfo GS_SORTING_OI_DOWN_BG = new STSortingOrderInfo() {
+		m_nOrder = sbyte.MaxValue * 2, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+	};
+
+	public static readonly STSortingOrderInfo GS_SORTING_OI_LEFT_BG = new STSortingOrderInfo() {
 		m_nOrder = sbyte.MaxValue * 1, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
 	};
 
-	public static readonly STSortingOrderInfo GS_SORTING_OI_BOTTOM_BG = new STSortingOrderInfo() {
+	public static readonly STSortingOrderInfo GS_SORTING_OI_RIGHT_BG = new STSortingOrderInfo() {
 		m_nOrder = sbyte.MaxValue * 1, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
 	};
 	// 정렬 순서 }
