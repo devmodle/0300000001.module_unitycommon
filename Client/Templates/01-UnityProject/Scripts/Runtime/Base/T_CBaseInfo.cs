@@ -24,7 +24,7 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 #region ICloneable
 	/** 사본 객체를 생성한다 */
 	public object Clone() {
-		var stBaseInfo = new STBaseInfo();
+		var stBaseInfo = new STBaseInfo(null);
 		this.SetupCloneInst(ref stBaseInfo);
 
 		stBaseInfo.OnAfterDeserialize();
@@ -45,10 +45,14 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 #endregion // IMessagePackSerializationCallbackReceiver
 
 #region 함수
+	/** 생성자 */
+	public STBaseInfo(Dictionary<string, string> a_oStrDict) {
+		m_oStrDict = a_oStrDict ?? new Dictionary<string, string>();
+	}
+
 	/** 사본 객체를 설정한다 */
-	private void SetupCloneInst(ref STBaseInfo a_stBaseInfo) {
-		a_stBaseInfo.m_oStrDict = a_stBaseInfo.m_oStrDict ?? new Dictionary<string, string>();
-		m_oStrDict.ExCopyTo(a_stBaseInfo.m_oStrDict, (a_oStr) => a_oStr);
+	private void SetupCloneInst(ref STBaseInfo a_stOutBaseInfo) {
+		m_oStrDict.ExCopyTo(a_stOutBaseInfo.m_oStrDict, (a_oStr) => a_oStr);
 	}
 #endregion // 함수
 
@@ -156,7 +160,10 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	public CBaseInfo(System.Version a_stVer) {
 		this.Ver = a_stVer;
 	}
+#endregion // 함수
 
+#region 조건부 함수
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	/** 직렬화 될 경우 */
 	[OnSerializing]
 	private void OnSerializingMethod(StreamingContext a_oContext) {
@@ -168,7 +175,8 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	private void OnDeserializedMethod(StreamingContext a_oContext) {
 		this.OnAfterDeserialize();
 	}
-#endregion // 함수
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

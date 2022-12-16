@@ -9,14 +9,14 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 - 설정 */
 	public partial class CEngine : CComponent {
-		#region 함수
-		
-		#endregion // 함수
+#region 함수
+
+#endregion // 함수
 	}
 
 	/** 서브 엔진 - 설정 */
 	public partial class CEngine : CComponent {
-		#region 함수
+#region 함수
 		/** 엔진을 설정한다 */
 		private void SubSetupAwake() {
 			// Do Something
@@ -32,26 +32,20 @@ namespace NSEngine {
 
 		/** 셀을 설정한다 */
 		private void SetupCell(STCellInfo a_stCellInfo, STGridInfo a_stGridInfo) {
-			var oCellObjDictContainer = new Dictionary<EObjType, List<CEObj>>();
+			var oCellObjList = new List<CEObj>();
 
-			foreach(var stKeyVal in a_stCellInfo.m_oObjKindsDictContainer) {
-				var oCellObjList = new List<CEObj>();
-
-				for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-					// Do Something
-				}
-
-				oCellObjDictContainer.TryAdd(stKeyVal.Key, oCellObjList);
+			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
+				// Do Something
 			}
 
-			m_oCellObjDictContainers[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjDictContainer;
+			m_oCellObjLists[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
 		}
 
 		/** 그리드 라인을 설정한다 */
 		private void SetupGridLine() {
 			// Do Something
 		}
-		#endregion // 함수
+#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

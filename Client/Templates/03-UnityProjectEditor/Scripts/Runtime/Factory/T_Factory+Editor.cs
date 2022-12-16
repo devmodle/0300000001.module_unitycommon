@@ -1,4 +1,4 @@
-﻿#if SCRIPT_TEMPLATE_ONLY
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,15 +9,25 @@ using UnityEngine.Events;
 /** 에디터 팩토리 */
 public static partial class Factory {
 #region 클래스 함수
-	
+
 #endregion // 클래스 함수
 
 #region 조건부 클래스 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+	/** 셀 객체 정보를 생성한다 */
+	public static STCellObjInfo MakeCellObjInfo(EObjKinds a_eObjKinds) {
+		var stCellObjInfo = new STCellObjInfo(null) {
+			ObjKinds = a_eObjKinds
+		};
+
+		stCellObjInfo.OnAfterDeserialize();
+		return stCellObjInfo;
+	}
+
 	/** 셀 정보를 생성한다 */
 	public static STCellInfo MakeCellInfo(Vector3Int a_stIdx) {
-		var stCellInfo = new STCellInfo() {
-			m_stIdx = a_stIdx, m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
+		var stCellInfo = new STCellInfo(null) {
+			m_stIdx = a_stIdx, m_oCellObjInfoList = new List<STCellObjInfo>()
 		};
 
 		stCellInfo.OnAfterDeserialize();

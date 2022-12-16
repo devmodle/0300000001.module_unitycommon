@@ -9,13 +9,13 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 - 설정 */
 	public partial class CEngine : CComponent {
-		#region 함수
+#region 함수
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 			m_oGridInfoList.Clear();
 			m_oGridInfoList.ExAddVal((CGameInfoStorage.Inst.PlayLevelInfo != null) ? Factory.MakeGridInfo(CGameInfoStorage.Inst.PlayLevelInfo, Vector3.zero) : STGridInfo.INVALID);
 
-			m_oCellObjDictContainers = new Dictionary<EObjType, List<CEObj>>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
+			m_oCellObjLists = new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 			// 객체 풀을 설정한다
@@ -38,7 +38,7 @@ namespace NSEngine {
 				}
 			}
 		}
-		#endregion // 함수
+#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

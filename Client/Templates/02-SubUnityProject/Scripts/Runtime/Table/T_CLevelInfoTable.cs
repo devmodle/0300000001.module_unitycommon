@@ -68,9 +68,14 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 #endregion // IMessagePackSerializationCallbackReceiver
 
 #region 함수
+	/** 생성자 */
+	public STCellObjInfo(Dictionary<string, string> a_oStrDict) : this() {
+		m_stBaseInfo = new STBaseInfo(a_oStrDict);
+	}
+
 	/** 사본 객체를 설정한다 */
-	private void SetupCloneInst(ref STCellObjInfo a_stCellObjInfo) {
-		a_stCellObjInfo.m_stBaseInfo = (STBaseInfo)m_stBaseInfo.Clone();
+	private void SetupCloneInst(ref STCellObjInfo a_stOutCellObjInfo) {
+		a_stOutCellObjInfo.m_stBaseInfo = (STBaseInfo)m_stBaseInfo.Clone();
 	}
 #endregion // 함수
 
@@ -98,7 +103,6 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 #region 변수
 	[Key(0)] public STBaseInfo m_stBaseInfo;
 	[Key(71)] public List<STCellObjInfo> m_oCellObjInfoList;
-	[Key(161)] public Dictionary<EObjType, List<EObjKinds>> m_oObjKindsDictContainer;
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
@@ -133,20 +137,22 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
 		m_oCellObjInfoList = m_oCellObjInfoList ?? new List<STCellObjInfo>();
-		m_oObjKindsDictContainer = m_oObjKindsDictContainer ?? new Dictionary<EObjType, List<EObjKinds>>();
 	}
 #endregion // IMessagePackSerializationCallbackReceiver
 
 #region 함수
-	/** 사본 객체를 설정한다 */
-	private void SetupCloneInst(ref STCellInfo a_stCellInfo) {
-		a_stCellInfo.m_stIdx = m_stIdx;
-		a_stCellInfo.m_stBaseInfo = (STBaseInfo)m_stBaseInfo.Clone();
-		a_stCellInfo.m_oCellObjInfoList = new List<STCellObjInfo>();
-		a_stCellInfo.m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>();
+	/** 생성자 */
+	public STCellInfo(Dictionary<string, string> a_oStrDict) : this() {
+		m_stBaseInfo = new STBaseInfo(a_oStrDict);
+	}
 
-		m_oCellObjInfoList.ExCopyTo(a_stCellInfo.m_oCellObjInfoList, this.MakeCloneCellObjInfo);
-		m_oObjKindsDictContainer.ExCopyTo(a_stCellInfo.m_oObjKindsDictContainer, this.MakeCloneObjKinds);
+	/** 사본 객체를 설정한다 */
+	private void SetupCloneInst(ref STCellInfo a_stOutCellInfo) {
+		a_stOutCellInfo.m_stIdx = m_stIdx;
+		a_stOutCellInfo.m_stBaseInfo = (STBaseInfo)m_stBaseInfo.Clone();
+		a_stOutCellInfo.m_oCellObjInfoList = new List<STCellObjInfo>();
+
+		m_oCellObjInfoList.ExCopyTo(a_stOutCellInfo.m_oCellObjInfoList, this.MakeCloneCellObjInfo);
 	}
 
 	/** 사본 셀 객체 정보를 생성한다 */
@@ -265,22 +271,20 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		}
 	}
 
+	/** 셀 객체 정보를 설정한다 */
+	protected virtual void SetupCellObjInfo(ref STCellObjInfo a_stOutCellObjInfo) {
+		// Do Something
+	}
+
 	/** 셀 정보를 설정한다 */
 	protected virtual void SetupCellInfo(Vector3Int a_stIdx, ref STCellInfo a_stOutCellInfo) {
 		a_stOutCellInfo.m_stIdx = a_stIdx;
-		a_stOutCellInfo.m_stBaseInfo.m_oStrDict = a_stOutCellInfo.m_stBaseInfo.m_oStrDict ?? new Dictionary<string, string>();
 
 		for(int i = 0; i < a_stOutCellInfo.m_oCellObjInfoList.Count; ++i) {
 			var stCellObjInfo = a_stOutCellInfo.m_oCellObjInfoList[i];
-			stCellObjInfo.m_stBaseInfo.m_oStrDict = stCellObjInfo.m_stBaseInfo.m_oStrDict ?? new Dictionary<string, string>();
+			this.SetupCellObjInfo(ref stCellObjInfo);
 
 			a_stOutCellInfo.m_oCellObjInfoList[i] = stCellObjInfo;
-		}
-
-		foreach(var stKeyVal in a_stOutCellInfo.m_oObjKindsDictContainer) {
-			for(int i = 0; i < stKeyVal.Value.Count; ++i) {
-				// Do Something
-			}
 		}
 
 		// 버전이 다를 경우

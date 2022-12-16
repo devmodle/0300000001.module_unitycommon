@@ -10,7 +10,7 @@ namespace NSEngine {
 	/** 엔진 - 팩토리 */
 	public partial class CEngine : CComponent {
 #region 함수
-		
+
 #endregion // 함수
 	}
 
@@ -55,7 +55,7 @@ namespace NSEngine {
 
 		/** 셀 객체를 제거한다 */
 		public void RemoveCellObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
-			var oCellObjList = (a_oObj != null) ? this.FindCellObjs(a_oObj.Params.m_stObjInfo.ObjType, a_oObj.CellIdx) : null;
+			var oCellObjList = (a_oObj != null) ? m_oCellObjLists.ExGetVal(a_oObj.CellIdx, null) : null;
 			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && oCellObjList != null && a_oObj.CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
 
 			// 셀 객체가 존재 할 경우
