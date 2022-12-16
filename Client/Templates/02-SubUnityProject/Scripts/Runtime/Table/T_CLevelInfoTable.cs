@@ -15,11 +15,89 @@ using MessagePack;
 using Newtonsoft.Json;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
+/** 셀 객체 정보 */
+[MessagePackObject]
+[System.Serializable]
+public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
+#region 변수
+	[Key(0)] public STBaseInfo m_stBaseInfo;
+#endregion // 변수
+
+#region 상수
+	private const string KEY_OBJ_KINDS = "ObjKinds";
+#endregion // 상수
+
+#region 프로퍼티
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+	[JsonIgnore]
+	[IgnoreMember]
+	public EObjKinds ObjKinds {
+		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
+	}
+#else
+	[IgnoreMember]
+	public EObjKinds ObjKinds {
+		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
+	}
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+#endregion // 프로퍼티
+
+#region ICloneable
+	/** 사본 객체를 생성한다 */
+	public object Clone() {
+		var stCellObjInfo = new STCellObjInfo();
+		this.SetupCloneInst(ref stCellObjInfo);
+
+		stCellObjInfo.OnAfterDeserialize();
+		return stCellObjInfo;
+	}
+#endregion // ICloneable
+
+#region IMessagePackSerializationCallbackReceiver
+	/** 직렬화 될 경우 */
+	public void OnBeforeSerialize() {
+		// Do Something
+	}
+
+	/** 역직렬화 되었을 경우 */
+	public void OnAfterDeserialize() {
+		// Do Something
+	}
+#endregion // IMessagePackSerializationCallbackReceiver
+
+#region 함수
+	/** 사본 객체를 설정한다 */
+	private void SetupCloneInst(ref STCellObjInfo a_stCellObjInfo) {
+		a_stCellObjInfo.m_stBaseInfo = (STBaseInfo)m_stBaseInfo.Clone();
+	}
+#endregion // 함수
+
+#region 조건부 함수
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+	/** 직렬화 될 경우 */
+	[OnSerializing]
+	private void OnSerializingMethod(StreamingContext a_oContext) {
+		this.OnBeforeSerialize();
+	}
+
+	/** 역직렬화 되었을 경우 */
+	[OnDeserialized]
+	private void OnDeserializedMethod(StreamingContext a_oContext) {
+		this.OnAfterDeserialize();
+	}
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+#endregion // 조건부 함수
+}
+
 /** 셀 정보 */
 [MessagePackObject]
 [System.Serializable]
 public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
 #region 변수
+	[Key(0)] public STBaseInfo m_stBaseInfo;
+	[Key(71)] public List<STCellObjInfo> m_oCellObjInfoList;
 	[Key(161)] public Dictionary<EObjType, List<EObjKinds>> m_oObjKindsDictContainer;
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
@@ -38,11 +116,8 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 #region ICloneable
 	/** 사본 객체를 생성한다 */
 	public object Clone() {
-		var stCellInfo = new STCellInfo() {
-			m_stIdx = this.m_stIdx, m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>()
-		};
-
-		m_oObjKindsDictContainer.ExCopyTo(stCellInfo.m_oObjKindsDictContainer, this.MakeCloneObjKinds);
+		var stCellInfo = new STCellInfo();
+		this.SetupCloneInst(ref stCellInfo);
 
 		stCellInfo.OnAfterDeserialize();
 		return stCellInfo;
@@ -57,11 +132,28 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
+		m_oCellObjInfoList = m_oCellObjInfoList ?? new List<STCellObjInfo>();
 		m_oObjKindsDictContainer = m_oObjKindsDictContainer ?? new Dictionary<EObjType, List<EObjKinds>>();
 	}
 #endregion // IMessagePackSerializationCallbackReceiver
 
 #region 함수
+	/** 사본 객체를 설정한다 */
+	private void SetupCloneInst(ref STCellInfo a_stCellInfo) {
+		a_stCellInfo.m_stIdx = m_stIdx;
+		a_stCellInfo.m_stBaseInfo = (STBaseInfo)m_stBaseInfo.Clone();
+		a_stCellInfo.m_oCellObjInfoList = new List<STCellObjInfo>();
+		a_stCellInfo.m_oObjKindsDictContainer = new Dictionary<EObjType, List<EObjKinds>>();
+
+		m_oCellObjInfoList.ExCopyTo(a_stCellInfo.m_oCellObjInfoList, this.MakeCloneCellObjInfo);
+		m_oObjKindsDictContainer.ExCopyTo(a_stCellInfo.m_oObjKindsDictContainer, this.MakeCloneObjKinds);
+	}
+
+	/** 사본 셀 객체 정보를 생성한다 */
+	private STCellObjInfo MakeCloneCellObjInfo(STCellObjInfo a_stCellObjInfo) {
+		return (STCellObjInfo)a_stCellObjInfo.Clone();
+	}
+
 	/** 사본 객체 종류를 생성한다 */
 	private List<EObjKinds> MakeCloneObjKinds(List<EObjKinds> a_oObjKindsList) {
 		var oObjKindsList = new List<EObjKinds>();
@@ -108,14 +200,25 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 
 #region 프로퍼티
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	[JsonIgnore][IgnoreMember] public System.Version CellInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	[JsonIgnore]
+	[IgnoreMember]
+	public System.Version CellInfoVer {
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); }
+		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+	}
+
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 
 	[JsonIgnore][IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	[JsonIgnore][IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
 #else
-	[IgnoreMember] public System.Version CellInfoVer { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
+	[IgnoreMember]
+	public System.Version CellInfoVer {
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); }
+		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+	}
+
 	[IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 	[IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 
@@ -165,6 +268,14 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	/** 셀 정보를 설정한다 */
 	protected virtual void SetupCellInfo(Vector3Int a_stIdx, ref STCellInfo a_stOutCellInfo) {
 		a_stOutCellInfo.m_stIdx = a_stIdx;
+		a_stOutCellInfo.m_stBaseInfo.m_oStrDict = a_stOutCellInfo.m_stBaseInfo.m_oStrDict ?? new Dictionary<string, string>();
+
+		for(int i = 0; i < a_stOutCellInfo.m_oCellObjInfoList.Count; ++i) {
+			var stCellObjInfo = a_stOutCellInfo.m_oCellObjInfoList[i];
+			stCellObjInfo.m_stBaseInfo.m_oStrDict = stCellObjInfo.m_stBaseInfo.m_oStrDict ?? new Dictionary<string, string>();
+
+			a_stOutCellInfo.m_oCellObjInfoList[i] = stCellObjInfo;
+		}
 
 		foreach(var stKeyVal in a_stOutCellInfo.m_oObjKindsDictContainer) {
 			for(int i = 0; i < stKeyVal.Value.Count; ++i) {

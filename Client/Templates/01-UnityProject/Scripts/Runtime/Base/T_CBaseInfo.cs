@@ -14,6 +14,62 @@ using Newtonsoft.Json;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
 /** 기본 정보 */
+[MessagePackObject]
+[System.Serializable]
+public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
+#region 변수
+	[Key(0)] public Dictionary<string, string> m_oStrDict;
+#endregion // 변수
+
+#region ICloneable
+	/** 사본 객체를 생성한다 */
+	public object Clone() {
+		var stBaseInfo = new STBaseInfo();
+		this.SetupCloneInst(ref stBaseInfo);
+
+		stBaseInfo.OnAfterDeserialize();
+		return stBaseInfo;
+	}
+#endregion // ICloneable
+
+#region IMessagePackSerializationCallbackReceiver
+	/** 직렬화 될 경우 */
+	public void OnBeforeSerialize() {
+		// Do Something
+	}
+
+	/** 역직렬화 되었을 경우 */
+	public void OnAfterDeserialize() {
+		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
+	}
+#endregion // IMessagePackSerializationCallbackReceiver
+
+#region 함수
+	/** 사본 객체를 설정한다 */
+	private void SetupCloneInst(ref STBaseInfo a_stBaseInfo) {
+		a_stBaseInfo.m_oStrDict = a_stBaseInfo.m_oStrDict ?? new Dictionary<string, string>();
+		m_oStrDict.ExCopyTo(a_stBaseInfo.m_oStrDict, (a_oStr) => a_oStr);
+	}
+#endregion // 함수
+
+#region 조건부 함수
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+	/** 직렬화 될 경우 */
+	[OnSerializing]
+	private void OnSerializingMethod(StreamingContext a_oContext) {
+		this.OnBeforeSerialize();
+	}
+
+	/** 역직렬화 되었을 경우 */
+	[OnDeserialized]
+	private void OnDeserializedMethod(StreamingContext a_oContext) {
+		this.OnAfterDeserialize();
+	}
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+#endregion // 조건부 함수
+}
+
+/** 기본 정보 */
 [Union(0, typeof(CAppInfo))]
 [Union(1, typeof(CUserInfo))]
 [Union(2, typeof(CGameInfo))]
@@ -33,8 +89,19 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 
 #region 프로퍼티
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	[JsonIgnore][IgnoreMember] public System.Version Ver { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
-	[JsonIgnore][IgnoreMember] public System.DateTime SaveTime { get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; } set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); } }
+	[JsonIgnore]
+	[IgnoreMember]
+	public System.Version Ver {
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER)); }
+		set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+	}
+
+	[JsonIgnore]
+	[IgnoreMember]
+	public System.DateTime SaveTime {
+		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
+		set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); }
+	}
 
 	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreVer => false;
 	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
@@ -42,8 +109,17 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	[JsonIgnore][IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(KEY_SAVE_TIME, string.Empty);
 	[JsonIgnore][IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 #else
-	[IgnoreMember] public System.Version Ver { get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER)); } set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); } }
-	[IgnoreMember] public System.DateTime SaveTime { get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; } set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); } }
+	[IgnoreMember]
+	public System.Version Ver {
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER)); }
+		set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+	}
+
+	[IgnoreMember]
+	public System.DateTime SaveTime {
+		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
+		set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); }
+	}
 
 	[IgnoreMember] public virtual bool IsIgnoreVer => false;
 	[IgnoreMember] public virtual bool IsIgnoreSaveTime => false;

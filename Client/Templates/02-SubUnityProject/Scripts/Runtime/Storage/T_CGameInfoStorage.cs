@@ -12,7 +12,8 @@ using System.Globalization;
 using MessagePack;
 
 /** 클리어 정보 */
-[MessagePackObject][System.Serializable]
+[MessagePackObject]
+[System.Serializable]
 public partial class CClearInfo : CBaseInfo {
 #region 변수
 	[Key(1)] public STRecordInfo m_stRecordInfo;
@@ -25,7 +26,12 @@ public partial class CClearInfo : CBaseInfo {
 #endregion // 상수
 
 #region 프로퍼티
-	[IgnoreMember] public int NumSymbols { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_SYMBOLS, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_NUM_SYMBOLS, $"{value}"); } }
+	[IgnoreMember]
+	public int NumSymbols {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_SYMBOLS, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_SYMBOLS, $"{value}"); }
+	}
+
 	[IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 #endregion // 프로퍼티
 
@@ -55,7 +61,8 @@ public partial class CClearInfo : CBaseInfo {
 }
 
 /** 캐릭터 게임 정보 */
-[MessagePackObject][System.Serializable]
+[MessagePackObject]
+[System.Serializable]
 public partial class CCharacterGameInfo : CBaseInfo {
 #region 상수
 	private const string KEY_IS_AUTO_CONTROL = "IsAutoControl";
@@ -83,14 +90,41 @@ public partial class CCharacterGameInfo : CBaseInfo {
 #endregion // 변수
 
 #region 프로퍼티
-	[IgnoreMember] public bool IsAutoControl { get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_IS_AUTO_CONTROL, KCDefine.B_TEXT_FALSE)); } set { m_oStrDict.ExReplaceVal(KEY_IS_AUTO_CONTROL, $"{value}"); } }
-	
-	[IgnoreMember] public int DailyRewardID { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_DAILY_REWARD_ID, $"{value}"); } }
-	[IgnoreMember] public int FreeRewardAcquireTimes { get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); } set { m_oStrDict.ExReplaceVal(KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); } }
-	
-	[IgnoreMember] public System.DateTime PrevDailyMissionTime { get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.CorrectPrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); } set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); } }
-	[IgnoreMember] public System.DateTime PrevDailyRewardTime { get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.CorrectPrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); } set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); } }
-	[IgnoreMember] public System.DateTime PrevFreeRewardTime { get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.CorrectPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); } set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); } }
+	[IgnoreMember]
+	public bool IsAutoControl {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_IS_AUTO_CONTROL, KCDefine.B_TEXT_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_IS_AUTO_CONTROL, $"{value}"); }
+	}
+
+	[IgnoreMember]
+	public int DailyRewardID {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_DAILY_REWARD_ID, $"{value}"); }
+	}
+
+	[IgnoreMember]
+	public int FreeRewardAcquireTimes {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); }
+	}
+
+	[IgnoreMember]
+	public System.DateTime PrevDailyMissionTime {
+		get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.CorrectPrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); }
+	}
+
+	[IgnoreMember]
+	public System.DateTime PrevDailyRewardTime {
+		get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.CorrectPrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); }
+	}
+
+	[IgnoreMember]
+	public System.DateTime PrevFreeRewardTime {
+		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.CorrectPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
+	}
 
 	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
 	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
@@ -110,7 +144,7 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
-		
+
 		m_oUnlockULevelIDList = m_oUnlockULevelIDList ?? new List<ulong>();
 		m_oUnlockUStageIDList = m_oUnlockUStageIDList ?? new List<ulong>();
 		m_oUnlockUChapterIDList = m_oUnlockUChapterIDList ?? new List<ulong>();
@@ -118,7 +152,7 @@ public partial class CCharacterGameInfo : CBaseInfo {
 		m_oCompleteMissionKindsList = m_oCompleteMissionKindsList ?? new List<EMissionKinds>();
 		m_oCompleteDailyMissionKindsList = m_oCompleteDailyMissionKindsList ?? new List<EMissionKinds>();
 		m_oCompleteTutorialKindsList = m_oCompleteTutorialKindsList ?? new List<ETutorialKinds>();
-		
+
 		m_oLevelClearInfoDict = m_oLevelClearInfoDict ?? new Dictionary<ulong, CClearInfo>();
 		m_oStageClearInfoDict = m_oStageClearInfoDict ?? new Dictionary<ulong, CClearInfo>();
 		m_oChapterClearInfoDict = m_oChapterClearInfoDict ?? new Dictionary<ulong, CClearInfo>();
@@ -139,12 +173,13 @@ public partial class CCharacterGameInfo : CBaseInfo {
 }
 
 /** 게임 정보 */
-[MessagePackObject][System.Serializable]
+[MessagePackObject]
+[System.Serializable]
 public partial class CGameInfo : CBaseInfo {
 #region 변수
 	[Key(91)] public Dictionary<int, CCharacterGameInfo> m_oCharacterGameInfoDict = new Dictionary<int, CCharacterGameInfo>();
 #endregion // 변수
-	
+
 #region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public override void OnBeforeSerialize() {
@@ -178,7 +213,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
 	public STEpisodeInfo PlayEpisodeInfo { get; private set; } = STEpisodeInfo.INVALID;
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
-	
+
 	public List<EItemKinds> SelItemKindsList { get; } = new List<EItemKinds>();
 	public List<EItemKinds> FreeSelItemKindsList { get; } = new List<EItemKinds>();
 
