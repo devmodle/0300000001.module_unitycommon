@@ -21,10 +21,6 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 	[Key(0)] public Dictionary<string, string> m_oStrDict;
 #endregion // 변수
 
-#region 상수
-	public static STBaseInfo INVALID = new STBaseInfo();
-#endregion // 상수
-
 #region ICloneable
 	/** 사본 객체를 생성한다 */
 	public object Clone() {

@@ -24,6 +24,10 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 #endregion // 변수
 
 #region 상수
+	public static readonly STCellObjInfo INVALID = new STCellObjInfo(null) {
+		ObjKinds = EObjKinds.NONE
+	};
+
 	private const string KEY_OBJ_KINDS = "ObjKinds";
 #endregion // 상수
 
