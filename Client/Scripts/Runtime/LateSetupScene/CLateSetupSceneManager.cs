@@ -222,17 +222,17 @@ namespace LateSetupScene {
 			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_NEXT_SCENE, false);
 
 			CCommonAppInfoStorage.Inst.SetupStoreVer();
+			CCommonAppInfoStorage.Inst.SetFirstStart(true);
 
 			this.ExLateCallFunc((a_oSender) => {
 #if STUDY_MODULE_ENABLE
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #else
 				// 기본 씬 일 경우
-				if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene || KCDefine.B_DEF_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
-					CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : KCDefine.B_SCENE_N_MAIN);
+				if(KCDefine.B_DEF_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 				} else {
-					CCommonAppInfoStorage.Inst.SetFirstStart(false);
-					CSceneLoader.Inst.LoadScene(CSceneLoader.Inst.AwakeActiveSceneName.Contains(KCDefine.B_TOKEN_TITLE) ? KCDefine.B_SCENE_N_MAIN : CSceneLoader.Inst.AwakeActiveSceneName);
+					CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : CSceneLoader.Inst.AwakeActiveSceneName);
 				}
 #endif // #if STUDY_MODULE_ENABLE
 			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);

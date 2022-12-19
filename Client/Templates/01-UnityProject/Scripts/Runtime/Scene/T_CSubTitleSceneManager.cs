@@ -26,7 +26,7 @@ namespace TitleScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 		private static List<EKey> m_oLoginBtnKeyList = new List<EKey>() {
 			EKey.PLAY_BTN, EKey.GUEST_LOGIN_BTN, EKey.APPLE_LOGIN_BTN, EKey.FACEBOOK_LOGIN_BTN,
 		};
@@ -42,9 +42,9 @@ namespace TitleScene {
 		private SimpleJSON.JSONNode m_oVerInfos = null;
 		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetLoadHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-		#endregion // 변수
+#endregion // 변수
 
-		#region 함수
+#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
@@ -64,21 +64,26 @@ namespace TitleScene {
 				this.SetupStart();
 				this.UpdateUIsState();
 
-				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_TITLE_01);
-
 				// 최초 시작 일 경우
 				if(CCommonAppInfoStorage.Inst.IsFirstStart) {
 					this.UpdateFirstStartState();
 				}
 
-				// 최초 플레이 일 경우
-				if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay) {
-					this.UpdateFirstPlayState();
+				// 최초 실행 일 경우
+				if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstRunning) {
+					this.UpdateFirstRunningState();
 				}
 
-				// 로그인 되었을 경우
-				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
-					this.OnLogin(CUserInfoStorage.Inst.UserInfo.LoginType, true);
+				// 타이틀 씬이 유효 할 경우
+				if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
+					Func.PlayBGSnd(EResKinds.SND_BG_SCENE_TITLE_01);
+
+					// 로그인 되었을 경우
+					if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
+						this.OnLogin(CUserInfoStorage.Inst.UserInfo.LoginType, true);
+					}
+				} else {
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 				}
 			}
 		}
@@ -148,7 +153,7 @@ namespace TitleScene {
 		/** 씬을 설정한다 */
 		private void SetupStart() {
 			// 업데이트가 가능 할 경우
-			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
 				CAppInfoStorage.Inst.SetIgnoreUpdate(true);
 				this.ExLateCallFunc((a_oSender) => Func.ShowUpdatePopup(this.OnReceiveUpdatePopupResult));
 			}
@@ -194,15 +199,11 @@ namespace TitleScene {
 			LogFunc.SendSplashLog();
 
 			CCommonAppInfoStorage.Inst.SetFirstStart(false);
-
-#if(!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
-#endif // #if (!UNITY_EDITOR && UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		}
 
-		/** 최초 플레이 상태를 갱신한다 */
-		private void UpdateFirstPlayState() {
-			CCommonAppInfoStorage.Inst.AppInfo.IsFirstPlay = false;
+		/** 최초 실행 상태를 갱신한다 */
+		private void UpdateFirstRunningState() {
+			CCommonAppInfoStorage.Inst.AppInfo.IsFirstRunning = false;
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
 
 			// 약관 동의 팝업이 닫혔을 경우
@@ -265,7 +266,7 @@ namespace TitleScene {
 				m_oAniDict.ExAssignVal(EKey.TOUCH_ANI, m_oTextDict.GetValueOrDefault(EKey.TOUCH_TEXT)?.DOFaceFade(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_1_REAL).SetAutoKill().SetEase(KCDefine.U_EASE_DEF).SetLoops(KCDefine.B_TIMES_INT_INFINITE, LoopType.Yoyo).SetUpdate(true));
 			}
 		}
-		#endregion // 함수
+#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
