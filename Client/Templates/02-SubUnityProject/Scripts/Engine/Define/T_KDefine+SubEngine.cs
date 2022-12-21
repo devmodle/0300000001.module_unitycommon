@@ -26,16 +26,17 @@ namespace NSEngine {
 #endregion // 기본
 
 #region 런타임 상수
-		// 크기
-		public static readonly Vector3 E_SIZE_CELL = new Vector3(0.0f, 0.0f, 0.0f);
-		public static readonly Vector3 E_MAX_SIZE_GRID = new Vector3(KCDefine.B_SCREEN_WIDTH - 20.0f, KCDefine.B_SCREEN_WIDTH - 20.0f, 0.0f);
-
-		// 간격
-		public static readonly Vector3 E_OFFSET_CELL = new Vector3(KDefine.E_SIZE_CELL.x / 2.0f, KDefine.E_SIZE_CELL.y / -2.0f, 0.0f);
-
 		// 개수
 		public static readonly Vector3Int E_MIN_NUM_CELLS = new Vector3Int(1, 1, 1);
-		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(15, 15, 15);
+		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(25, 25, 25);
+		public static readonly Vector3Int E_DEF_NUM_CELLS = new Vector3Int(10, 10, 10);
+
+		// 크기
+		public static readonly Vector3 E_MAX_SIZE_GRID = new Vector3(KCDefine.B_SCREEN_WIDTH - 20.0f, KCDefine.B_SCREEN_WIDTH - 20.0f, 0.0f);
+		public static readonly Vector3 E_SIZE_CELL = new Vector3(KDefine.E_MAX_SIZE_GRID.x / (float)KDefine.E_DEF_NUM_CELLS.x, KDefine.E_MAX_SIZE_GRID.y / (float)KDefine.E_DEF_NUM_CELLS.y, 0.0f);
+
+		// 간격
+		public static readonly Vector3 E_OFFSET_CENTER_CELL = new Vector3(KDefine.E_SIZE_CELL.x / 2.0f, KDefine.E_SIZE_CELL.y / -2.0f, 0.0f);
 
 		// 정렬 순서 {
 		public static readonly STSortingOrderInfo E_SORTING_OI_DEF = new STSortingOrderInfo() {

@@ -481,7 +481,7 @@ namespace LevelEditorScene {
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
 				var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_OBJS_POOL);
 				oObjSprite.sprite = NSEngine.Access.GetObjSprite(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds);
-				oObjSprite.transform.localPosition = m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.KDefine.E_OFFSET_CELL, NSEngine.KDefine.E_SIZE_CELL);
+				oObjSprite.transform.localPosition = m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.KDefine.E_OFFSET_CENTER_CELL, NSEngine.KDefine.E_SIZE_CELL);
 
 				oObjSprite.ExSetSortingOrder(NSEngine.Access.GetSortingOrderInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds));
 				a_oOutObjSpriteInfoList.ExAddVal((a_stCellInfo.m_oCellObjInfoList[i].ObjKinds, oObjSprite));
