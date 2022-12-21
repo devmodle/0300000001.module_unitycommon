@@ -94,7 +94,7 @@ public static partial class Func {
 	/** 팝업을 출력한다 */
 	public static void ShowPopup<T>(string a_oName, string a_oObjPath, GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) where T : CPopup {
 		// 팝업이 없을 경우
-		if(a_oParent.ExFindChild(a_oName) == null) {
+		if(a_oParent.ExFindChild(a_oName) == null && CAccess.IsExistsRes<GameObject>(a_oObjPath)) {
 			var oPopup = CPopup.Create<T>(a_oName, a_oObjPath, a_oParent);
 			CFunc.Invoke(ref a_oInitCallback, oPopup);
 
