@@ -11,9 +11,9 @@ using UnityEngine.EventSystems;
 namespace GameScene {
 	/** 서브 게임 씬 관리자 */
 	public partial class CSubGameSceneManager : CGameSceneManager {
-		#region 함수
+#region 함수
 
-		#endregion // 함수
+#endregion // 함수
 	}
 
 	/** 서브 게임 씬 관리자 - 서브 */
@@ -32,18 +32,18 @@ namespace GameScene {
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 
-		#region 변수
+#region 변수
 		/** =====> UI <===== */
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 변수
+#endregion // 변수
 
-		#region 프로퍼티
+#region 프로퍼티
 
-		#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-		#region 함수
+#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -124,9 +124,9 @@ namespace GameScene {
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// Do Something
 		}
-		#endregion // 함수
+#endregion // 함수
 
-		#region 조건부 함수
+#region 조건부 함수
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public override void OnDrawGizmos() {
@@ -134,7 +134,28 @@ namespace GameScene {
 
 			// 메인 카메라가 존재 할 경우
 			if(CSceneManager.IsExistsMainCamera) {
-				// Do Something
+				var stPrevColor = Gizmos.color;
+				var stMainCameraPos = CSceneManager.ActiveSceneMainCamera.transform.position;
+				var stPivotPos = stMainCameraPos + new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, this.PlaneDistance);
+
+				try {
+					var oGridPosList = new List<Vector3>() {
+						stPivotPos + this.ObjRootPivotPos + new Vector3(NSEngine.Access.MaxGridSize.x / -KCDefine.B_VAL_2_REAL, NSEngine.Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL, 0.0f) * CAccess.ResolutionUnitScale,
+						stPivotPos + this.ObjRootPivotPos + new Vector3(NSEngine.Access.MaxGridSize.x / -KCDefine.B_VAL_2_REAL, NSEngine.Access.MaxGridSize.y / KCDefine.B_VAL_2_REAL, 0.0f) * CAccess.ResolutionUnitScale,
+						stPivotPos + this.ObjRootPivotPos + new Vector3(NSEngine.Access.MaxGridSize.x / KCDefine.B_VAL_2_REAL, NSEngine.Access.MaxGridSize.y / KCDefine.B_VAL_2_REAL, 0.0f) * CAccess.ResolutionUnitScale,
+						stPivotPos + this.ObjRootPivotPos + new Vector3(NSEngine.Access.MaxGridSize.x / KCDefine.B_VAL_2_REAL, NSEngine.Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL, 0.0f) * CAccess.ResolutionUnitScale
+					};
+
+					for(int i = 0; i < oGridPosList.Count; ++i) {
+						int nIdx01 = (i + KCDefine.B_VAL_0_INT) % oGridPosList.Count;
+						int nIdx02 = (i + KCDefine.B_VAL_1_INT) % oGridPosList.Count;
+
+						Gizmos.color = Color.magenta;
+						Gizmos.DrawLine(oGridPosList[nIdx01], oGridPosList[nIdx02]);
+					}
+				} finally {
+					Gizmos.color = stPrevColor;
+				}
 			}
 		}
 #endif // #if UNITY_EDITOR
@@ -160,7 +181,7 @@ namespace GameScene {
 			}
 		}
 #endif // #if ADS_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

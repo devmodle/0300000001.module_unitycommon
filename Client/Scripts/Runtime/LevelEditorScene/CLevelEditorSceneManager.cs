@@ -37,6 +37,7 @@ namespace LevelEditorScene {
 		public override float ScreenHeight => KCDefine.B_PORTRAIT_SCREEN_HEIGHT;
 
 		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
+		public override Vector3 ObjRootPivotPos => (this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS) != null) ? Vector3.zero.ExToWorld(this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS)).ExToLocal(this.UIs) : Vector3.zero;
 
 		protected GameObject MidEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.MID_EDITOR_UIS);
 		protected GameObject LeftEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.LEFT_EDITOR_UIS);
