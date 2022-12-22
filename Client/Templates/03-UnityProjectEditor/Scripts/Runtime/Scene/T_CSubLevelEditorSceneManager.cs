@@ -1277,7 +1277,11 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 테이블 로드 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsLoadTableBtn(ETableSrc a_eTableSrc) {
 			m_oTableSrcDict.ExReplaceVal(EKey.SEL_TABLE_SRC, a_eTableSrc);
-			Func.ShowEditorTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult);
+
+			switch(a_eTableSrc) {
+				case ETableSrc.LOCAL: Func.ShowEditorLocalTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult); break;
+				case ETableSrc.REMOTE: Func.ShowEditorRemoteTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult); break;
+			}
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수

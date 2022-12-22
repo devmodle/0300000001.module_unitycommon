@@ -1,4 +1,4 @@
-﻿#if SCRIPT_TEMPLATE_ONLY
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,9 +50,14 @@ public static partial class Func {
 		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_B_SET_P_MSG), a_oCallback);
 	}
 
-	/** 에디터 테이블 로드 팝업을 출력한다 */
-	public static void ShowEditorTableLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
-		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_TABLE_LP_MSG), a_oCallback);
+	/** 에디터 로컬 테이블 로드 팝업을 출력한다 */
+	public static void ShowEditorLocalTableLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_LOCAL_TLP_MSG), a_oCallback);
+	}
+
+	/** 에디터 원격 테이블 로드 팝업을 출력한다 */
+	public static void ShowEditorRemoteTableLoadPopup(System.Action<CAlertPopup, bool> a_oCallback) {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_EDITOR_REMOTE_TLP_MSG), a_oCallback);
 	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 클래스 함수
@@ -61,7 +66,7 @@ public static partial class Func {
 /** 레벨 에디터 씬 함수 */
 public static partial class Func {
 #region 클래스 함수
-	
+
 #endregion // 클래스 함수
 
 #region 조건부 클래스 함수
@@ -77,7 +82,7 @@ public static partial class Func {
 /** 레벨 에디터 씬 함수 - 알림 */
 public static partial class Func {
 #region 클래스 함수
-	
+
 #endregion // 클래스 함수
 
 #region 조건부 클래스 함수

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-using TMPro;
 using EnhancedUI.EnhancedScroller;
 
 namespace MainScene {
@@ -198,10 +197,6 @@ namespace MainScene {
 				(EKey.CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
 			}, m_oScrollerInfoDict);
 
-#if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
-			this.SetupABTestUIs();
-#endif // #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
-
 			this.SubSetupAwake();
 		}
 
@@ -287,54 +282,10 @@ namespace MainScene {
 
 #region 조건부 함수
 #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
-		/** AB 테스트 UI 를 설정한다 */
-		private void SetupABTestUIs() {
-			var oTextDict = CCollectionManager.Inst.SpawnDict<string, TMP_Text>();
-			var oHLayoutGroupDict = CCollectionManager.Inst.SpawnDict<string, HorizontalLayoutGroup>();
-
-			try {
-				// 레이아웃을 설정한다 {
-				CFunc.SetupLayoutGroups(new List<(string, string, GameObject, GameObject)>() {
-					(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS, this.UpUIs, null)
-				}, oHLayoutGroupDict);
-
-				oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).spacing = KCDefine.B_VAL_4_REAL * KCDefine.B_VAL_5_REAL;
-
-				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
-				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_CENTER;
-				(oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_CENTER;
-
-				var oContentsSizeFitter = oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).gameObject.ExAddComponent<ContentSizeFitter>();
-				oContentsSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-				oContentsSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-				// 레이아웃을 설정한다 }
-
-				// 텍스트를 설정한다 {
-				CFunc.SetupComponents(new List<(string, string, GameObject, GameObject)>() {
-					(KCDefine.U_OBJ_N_A_SET_BTN, KCDefine.U_OBJ_N_A_SET_BTN, oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN)),
-					(KCDefine.U_OBJ_N_B_SET_BTN, KCDefine.U_OBJ_N_B_SET_BTN, oHLayoutGroupDict.GetValueOrDefault(KCDefine.MS_OBJ_N_AB_T_UIS_SET_UIS).gameObject, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TMP_TEXT_BTN))
-				}, oTextDict);
-
-				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_A_SET_BTN).fontSize = KCDefine.U_DEF_SIZE_FONT;
-				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_A_SET_BTN).ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_A_SET_TEXT));
-
-				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_B_SET_BTN).fontSize = KCDefine.U_DEF_SIZE_FONT;
-				oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_B_SET_BTN).ExSetText(CStrTable.Inst.GetStr(KCDefine.ST_KEY_MAIN_SM_B_SET_TEXT));
-				// 텍스트를 설정한다 }
-
-				// 버튼을 설정한다
-				CFunc.SetupButtons(new List<(GameObject, UnityAction)>() {
-					(oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_A_SET_BTN).gameObject, () => this.OnTouchABTUIsSetBtn(EUserType.A)),
-					(oTextDict.GetValueOrDefault(KCDefine.U_OBJ_N_B_SET_BTN).gameObject, () => this.OnTouchABTUIsSetBtn(EUserType.B))
-				}, false);
-			} finally {
-				CCollectionManager.Inst.DespawnDict(oTextDict);
-				CCollectionManager.Inst.DespawnDict(oHLayoutGroupDict);
-			}
-		}
-
 		/** AB 테스트 UI 세트 버튼을 눌렀을 경우 */
-		private void OnTouchABTUIsSetBtn(EUserType a_eUserType) {
+		protected override void OnTouchABTUIsSetBtn(EUserType a_eUserType) {
+			base.OnTouchABTUIsSetBtn(a_eUserType);
+
 			// 유저 타입이 다를 경우
 			if(CCommonUserInfoStorage.Inst.UserInfo.UserType != a_eUserType) {
 				Func.ShowAlertPopup(CStrTable.Inst.GetStr((a_eUserType == EUserType.A) ? KCDefine.ST_KEY_EDITOR_A_SET_P_MSG : KCDefine.ST_KEY_EDITOR_B_SET_P_MSG), (a_oSender, a_bIsOK) => this.OnReceiveABSetPopupResult(a_oSender, a_bIsOK, a_eUserType));
@@ -342,12 +293,11 @@ namespace MainScene {
 		}
 
 		/** AB 세트 팝업 결과를 수신했을 경우 */
-		private void OnReceiveABSetPopupResult(CAlertPopup a_oSender, bool a_bIsOK, EUserType a_eUserType) {
+		protected override void OnReceiveABSetPopupResult(CAlertPopup a_oSender, bool a_bIsOK, EUserType a_eUserType) {
+			base.OnReceiveABSetPopupResult(a_oSender, a_bIsOK, a_eUserType);
+
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = a_eUserType;
-				CCommonUserInfoStorage.Inst.SaveUserInfo();
-
 				// 에피소드 정보 테이블을 리셋한다 {
 				CEpisodeInfoTable.Inst.LevelEpisodeInfoDict.Clear();
 				CEpisodeInfoTable.Inst.StageEpisodeInfoDict.Clear();

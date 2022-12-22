@@ -390,10 +390,10 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
 
 #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
-		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, true) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, true);
+		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, false);
 #elif NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 		a_oFilePath = a_oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
-		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, true) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, true);
+		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, false);
 #endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 
 		oLevelInfo.m_stIDInfo = new STIDInfo(a_nLevelID, a_nStageID, a_nChapterID);
@@ -422,10 +422,10 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
 
 #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
-		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, true);
+		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, false);
 #elif NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 		string oFilePath = this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03);
-		CFunc.WriteJSONObj(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), a_oLevelInfo, true);
+		CFunc.WriteJSONObj(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), a_oLevelInfo, false);
 #endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 	}
 #endregion // 함수
