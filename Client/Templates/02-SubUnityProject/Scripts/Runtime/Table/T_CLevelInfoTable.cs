@@ -79,6 +79,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 
 	/** 사본 객체를 설정한다 */
 	private void SetupCloneInst(ref STCellObjInfo a_stOutCellObjInfo) {
+		a_stOutCellObjInfo = this;
 		a_stOutCellObjInfo.m_stBaseInfo = (STBaseInfo)m_stBaseInfo.Clone();
 	}
 #endregion // 함수
@@ -152,7 +153,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 
 	/** 사본 객체를 설정한다 */
 	private void SetupCloneInst(ref STCellInfo a_stOutCellInfo) {
-		a_stOutCellInfo.m_stIdx = m_stIdx;
+		a_stOutCellInfo = this;
 		a_stOutCellInfo.m_stBaseInfo = (STBaseInfo)m_stBaseInfo.Clone();
 		a_stOutCellInfo.m_oCellObjInfoList = new List<STCellObjInfo>();
 
@@ -162,14 +163,6 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 	/** 사본 셀 객체 정보를 생성한다 */
 	private STCellObjInfo MakeCloneCellObjInfo(STCellObjInfo a_stCellObjInfo) {
 		return (STCellObjInfo)a_stCellObjInfo.Clone();
-	}
-
-	/** 사본 객체 종류를 생성한다 */
-	private List<EObjKinds> MakeCloneObjKinds(List<EObjKinds> a_oObjKindsList) {
-		var oObjKindsList = new List<EObjKinds>();
-		a_oObjKindsList.ExCopyTo(oObjKindsList, (a_eObjKinds) => a_eObjKinds);
-
-		return oObjKindsList;
 	}
 #endregion // 함수
 
