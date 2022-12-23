@@ -8,17 +8,29 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 전역 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 	// 개수
 	public const int G_MAX_NUM_VALS = 10;
 	public const int G_MAX_NUM_VAL_INFOS = 10;
 	public const int G_MAX_NUM_TARGET_INFOS = 25;
 
-	// 식별자
-	public const int G_ID_COMMON_CHARACTER = byte.MaxValue;
-	#endregion // 기본
+	// 식별자 {
+	public const int G_CHARACTER_ID_COMMON = byte.MaxValue;
 
-	#region 런타임 상수
+	public const string G_GOOGLE_SHEET_ID_VER_INFO = "1-KGAbcXMnLHXgHpcOtMtvu0FcJT6M7GzB8twHjqpaQQ";
+	public const string G_GOOGLE_SHEET_ID_ETC_INFO = "17c7ZK3-kisMhhWhFuHfYmBFpg5cFDqvmw05Q5eVOxxI";
+	public const string G_GOOGLE_SHEET_ID_MISSION_INFO = "1llcFijdEnBx9E5dyf8hqF9sIySwvvx93xGeMQSNBUUg";
+	public const string G_GOOGLE_SHEET_ID_REWARD_INFO = "18vYxpl_0Y6VurogDMNHHDEDE_5uoQu388i9HiaNPfm4";
+	public const string G_GOOGLE_SHEET_ID_RES_INFO = "19DoxxxlPdVOfOu7J6e-Q_lYgj701wj8DkARVMiEQwEI";
+	public const string G_GOOGLE_SHEET_ID_ITEM_INFO = "1g6hG_nrgRq2gc5sK7iKfA5nOK94BPNqVMSniI5XJOw8";
+	public const string G_GOOGLE_SHEET_ID_SKILL_INFO = "1v1QYGLNVUQ7j5p4FB6ww_Q1XyilGGiHBFNznJTVu2oc";
+	public const string G_GOOGLE_SHEET_ID_OBJ_INFO = "1T9xrG7mZjnKWTWBAHIv7mzZS4EJ2ofU7fb-ElQr16LI";
+	public const string G_GOOGLE_SHEET_ID_ABILITY_INFO = "1XjmdApQzIfJ6VP9-eLd0gZkw8wkN2ipdWlvEArP8hpU";
+	public const string G_GOOGLE_SHEET_ID_PRODUCT_INFO = "1Obdm2KjgzWXkKk1Z93Hy2I5KK0jyUHdgqQMpANbnHZQ";
+	// 식별자 }
+#endregion // 기본
+
+#region 런타임 상수
 	// 버전 {
 	public static readonly System.Version G_VER_APP_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_GAME_INFO = new System.Version(1, 0, 0);
@@ -96,7 +108,7 @@ public static partial class KDefine {
 	};
 
 	public static readonly Dictionary<string, STTableInfo> G_TABLE_INFO_GOOGLE_SHEET_DICT = new Dictionary<string, STTableInfo>() {
-		[KDefine.G_TABLE_N_VER_INFO] = new STTableInfo("1-KGAbcXMnLHXgHpcOtMtvu0FcJT6M7GzB8twHjqpaQQ", KDefine.G_TABLE_N_VER_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_VER_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_VER_INFO, KDefine.G_TABLE_N_VER_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			// Do Something
 		}, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			// Do Something
@@ -104,7 +116,7 @@ public static partial class KDefine {
 			// Do Something
 		}),
 
-		[KDefine.G_TABLE_N_ETC_INFO] = new STTableInfo("17c7ZK3-kisMhhWhFuHfYmBFpg5cFDqvmw05Q5eVOxxI", KDefine.G_TABLE_N_ETC_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_ETC_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_ETC_INFO, KDefine.G_TABLE_N_ETC_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CCalcInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.U_KEY_CALC
 			},
@@ -217,7 +229,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_MISSION_INFO] = new STTableInfo("1llcFijdEnBx9E5dyf8hqF9sIySwvvx93xGeMQSNBUUg", KDefine.G_TABLE_N_MISSION_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_MISSION_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_MISSION_INFO, KDefine.G_TABLE_N_MISSION_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CMissionInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
 			}
@@ -234,7 +246,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_REWARD_INFO] = new STTableInfo("18vYxpl_0Y6VurogDMNHHDEDE_5uoQu388i9HiaNPfm4", KDefine.G_TABLE_N_REWARD_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_REWARD_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_REWARD_INFO, KDefine.G_TABLE_N_REWARD_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CRewardInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
 			}
@@ -252,7 +264,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_RES_INFO] = new STTableInfo("19DoxxxlPdVOfOu7J6e-Q_lYgj701wj8DkARVMiEQwEI", KDefine.G_TABLE_N_RES_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_RES_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_RES_INFO, KDefine.G_TABLE_N_RES_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CResInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON
 			}
@@ -270,7 +282,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_ITEM_INFO] = new STTableInfo("1g6hG_nrgRq2gc5sK7iKfA5nOK94BPNqVMSniI5XJOw8", KDefine.G_TABLE_N_ITEM_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_ITEM_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_ITEM_INFO, KDefine.G_TABLE_N_ITEM_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CItemInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
@@ -316,7 +328,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_SKILL_INFO] = new STTableInfo("1v1QYGLNVUQ7j5p4FB6ww_Q1XyilGGiHBFNznJTVu2oc", KDefine.G_TABLE_N_SKILL_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_SKILL_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_SKILL_INFO, KDefine.G_TABLE_N_SKILL_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CSkillInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
@@ -366,7 +378,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_OBJ_INFO] = new STTableInfo("1T9xrG7mZjnKWTWBAHIv7mzZS4EJ2ofU7fb-ElQr16LI", KDefine.G_TABLE_N_OBJ_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_OBJ_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_OBJ_INFO, KDefine.G_TABLE_N_OBJ_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CObjInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
@@ -418,7 +430,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_ABILITY_INFO] = new STTableInfo("1XjmdApQzIfJ6VP9-eLd0gZkw8wkN2ipdWlvEArP8hpU", KDefine.G_TABLE_N_ABILITY_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_ABILITY_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_ABILITY_INFO, KDefine.G_TABLE_N_ABILITY_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CAbilityInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
 				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
@@ -446,7 +458,7 @@ public static partial class KDefine {
 			}
 		}),
 
-		[KDefine.G_TABLE_N_PRODUCT_INFO] = new STTableInfo("1Obdm2KjgzWXkKk1Z93Hy2I5KK0jyUHdgqQMpANbnHZQ", KDefine.G_TABLE_N_PRODUCT_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
+		[KDefine.G_TABLE_N_PRODUCT_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_PRODUCT_INFO, KDefine.G_TABLE_N_PRODUCT_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CProductTradeInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_BUY_TRADE
 			}
@@ -470,95 +482,95 @@ public static partial class KDefine {
 		})
 	};
 	// 테이블 정보 }
-	#endregion // 런타임 상수
+#endregion // 런타임 상수
 }
 
 /** 초기화 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion // 기본
+#endregion // 기본
 
-	#region 런타임 상수
+#region 런타임 상수
 	// 색상
 	public static readonly Color IS_COLOR_CLEAR = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
-	#endregion // 런타임 상수
+#endregion // 런타임 상수
 }
 
 /** 시작 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion // 기본
+#endregion // 기본
 
-	#region 런타임 상수
+#region 런타임 상수
 	// 위치
-	public static readonly Vector3 SS_POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
-	public static readonly Vector3 SS_POS_LOADING_GAUGE = KDefine.SS_POS_LOADING_TEXT + new Vector3(0.0f, -70.0f, 0.0f);
-	#endregion // 런타임 상수
+	public static readonly Vector3 SS_POS_LOADING_TEXT = new Vector3(0.0f, 70.0f, 0.0f);
+	public static readonly Vector3 SS_POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
+#endregion // 런타임 상수
 }
 
 /** 설정 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion // 기본
+#endregion // 기본
 }
 
 /** 약관 동의 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion // 기본
+#endregion // 기본
 }
 
 /** 지연 설정 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion // 기본
+#endregion // 기본
 }
 
 /** 타이틀 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion // 기본
+#endregion // 기본
 }
 
 /** 메인 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion // 기본
+#endregion // 기본
 }
 
 /** 게임 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 	// 이름
 	public const string GS_OBJ_N_ENGINE = "Engine";
-	#endregion // 기본
+#endregion // 기본
 }
 
 /** 로딩 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion // 기본
+#endregion // 기본
 
-	#region 런타임 상수
+#region 런타임 상수
 	// 위치
-	public static readonly Vector3 LS_POS_LOADING_TEXT = new Vector3(0.0f, 35.0f, 0.0f);
-	public static readonly Vector3 LS_POS_LOADING_GAUGE = KDefine.LS_POS_LOADING_TEXT + new Vector3(0.0f, -70.0f, 0.0f);
-	#endregion // 런타임 상수
+	public static readonly Vector3 LS_POS_LOADING_TEXT = new Vector3(0.0f, 70.0f, 0.0f);
+	public static readonly Vector3 LS_POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
+#endregion // 런타임 상수
 }
 
 /** 중첩 씬 상수 */
 public static partial class KDefine {
-	#region 기본
+#region 기본
 
-	#endregion // 기본
+#endregion // 기본
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

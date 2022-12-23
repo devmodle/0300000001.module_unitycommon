@@ -209,7 +209,7 @@ public partial class CGameInfo : CBaseInfo {
 /** 게임 정보 저장소 */
 public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 #region 프로퍼티
-	public int PlayCharacterID { get; private set; } = KDefine.G_ID_COMMON_CHARACTER;
+	public int PlayCharacterID { get; private set; } = KDefine.G_CHARACTER_ID_COMMON;
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
 	public STEpisodeInfo PlayEpisodeInfo { get; private set; } = STEpisodeInfo.INVALID;
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
@@ -219,7 +219,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
 		m_oCharacterGameInfoDict = new Dictionary<int, CCharacterGameInfo>() {
-			[KDefine.G_ID_COMMON_CHARACTER] = new CCharacterGameInfo() {
+			[KDefine.G_CHARACTER_ID_COMMON] = new CCharacterGameInfo() {
 				PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL)
 			}
 		}
