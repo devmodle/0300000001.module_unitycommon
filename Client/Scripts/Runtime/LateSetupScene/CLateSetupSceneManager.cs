@@ -226,16 +226,16 @@ namespace LateSetupScene {
 
 			this.ExLateCallFunc((a_oSender) => {
 #if STUDY_MODULE_ENABLE
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
+				CSceneLoader.Inst.LoadSceneAsyncByLoadingScene(KCDefine.B_SCENE_N_MENU);
 #else
 				// 기본 씬 일 경우
 				if(KCDefine.B_DEF_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+					CSceneLoader.Inst.LoadSceneAsyncByLoadingScene(KCDefine.B_SCENE_N_TITLE);
 				} else {
-					CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : CSceneLoader.Inst.AwakeActiveSceneName);
+					CSceneLoader.Inst.LoadSceneAsyncByLoadingScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : CSceneLoader.Inst.AwakeActiveSceneName);
 				}
 #endif // #if STUDY_MODULE_ENABLE
-			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
+			}, KCDefine.B_VAL_1_REAL);
 		}
 		#endregion // 함수
 

@@ -13,16 +13,16 @@ public abstract partial class CMissionPopup : CSubPopup {
 		public List<STMissionInfo> m_oMissionInfoList;
 	}
 
-	#region 변수
+#region 변수
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oMissionUIsList = new List<GameObject>();
-	#endregion // 변수
+#endregion // 변수
 
-	#region 프로퍼티
+#region 프로퍼티
 	public STParams Params { get; private set; }
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -52,7 +52,7 @@ public abstract partial class CMissionPopup : CSubPopup {
 
 		this.SubUpdateUIsState();
 	}
-	#endregion // 함수
+#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

@@ -39,6 +39,7 @@ namespace LevelEditorScene {
 		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
 		public override Vector3 ObjRootPivotPos => (this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS) != null) ? Vector3.zero.ExToWorld(this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS)).ExToLocal(this.UIs) : Vector3.zero;
 
+		/** =====> 객체 <===== */
 		protected GameObject MidEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.MID_EDITOR_UIS);
 		protected GameObject LeftEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.LEFT_EDITOR_UIS);
 		protected GameObject RightEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.RIGHT_EDITOR_UIS);

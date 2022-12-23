@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,8 +18,6 @@ namespace SetupScene {
 
 		#region 프로퍼티
 		public override string SceneName => KCDefine.B_SCENE_N_SETUP;
-
-		/** =====> 기타 <===== */
 		private Dictionary<string, System.Action<string>> DeviceMsgHandlerDict { get; } = new Dictionary<string, System.Action<string>>();
 
 #if UNITY_EDITOR

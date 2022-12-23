@@ -19,8 +19,6 @@ namespace InitScene {
 
 		#region 프로퍼티
 		public override string SceneName => KCDefine.B_SCENE_N_INIT;
-
-		/** =====> 기타 <===== */
 		protected List<string> SpriteAtlasPathList { get; } = new List<string>();
 
 #if UNITY_EDITOR

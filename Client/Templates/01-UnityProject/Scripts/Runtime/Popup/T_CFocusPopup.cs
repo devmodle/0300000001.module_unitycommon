@@ -32,19 +32,19 @@ public partial class CFocusPopup : CSubPopup {
 		public Dictionary<ECallback, System.Action<CFocusPopup, PointerEventData>> m_oCallbackDict;
 	}
 
-	#region 변수
+#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
-	#endregion // 변수
+#endregion // 변수
 
-	#region 프로퍼티
+#region 프로퍼티
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreBlindAni => true;
 	public override EAniType AniType => EAniType.NONE;
 	public override Color BlindColor => KCDefine.U_COLOR_TRANSPARENT;
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -93,7 +93,7 @@ public partial class CFocusPopup : CSubPopup {
 
 		this.SubUpdateUIsState();
 	}
-	#endregion // 함수
+#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

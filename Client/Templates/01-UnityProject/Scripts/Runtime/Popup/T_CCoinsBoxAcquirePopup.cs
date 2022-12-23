@@ -23,7 +23,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		public long m_nNumCoinsBoxCoins;
 	}
 
-	#region 변수
+#region 변수
 	private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>();
 
 	/** =====> UI <===== */
@@ -32,13 +32,13 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
-	#endregion // 변수
+#endregion // 변수
 
-	#region 프로퍼티
+#region 프로퍼티
 	public STParams Params { get; private set; }
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -81,7 +81,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 
 		this.SubUpdateUIsState();
 	}
-	#endregion // 함수
+#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

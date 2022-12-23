@@ -30,6 +30,7 @@ namespace MainScene {
 		public override bool IsIgnoreOverlayScene => false;
 		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
 
+		/** =====> UI <===== */
 		public TMP_Text VerText => m_oTextDict.GetValueOrDefault(EKey.VER_TEXT);
 		#endregion // 프로퍼티
 

@@ -28,7 +28,7 @@ namespace OverlayScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>();
 
 		/** =====> UI <===== */
@@ -38,13 +38,13 @@ namespace OverlayScene {
 #if PURCHASE_MODULE_ENABLE
 		private Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
 #endif // #if PURCHASE_MODULE_ENABLE
-		#endregion // 변수
+#endregion // 변수
 
-		#region 프로퍼티
+#region 프로퍼티
 		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KDefine.G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS;
-		#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-		#region 함수
+#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
@@ -121,9 +121,9 @@ namespace OverlayScene {
 		private void OnTouchStoreBtn() {
 			this.ShowStorePopup();
 		}
-		#endregion // 함수
+#endregion // 함수
 
-		#region 조건부 함수
+#region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
 		/** 상품을 결제한다 */
 		public void PurchaseProduct(int a_nProductIdx, System.Action<CPurchaseManager, string, bool> a_oCallback) {
@@ -163,7 +163,7 @@ namespace OverlayScene {
 		}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

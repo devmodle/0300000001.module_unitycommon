@@ -31,6 +31,7 @@ namespace TitleScene {
 
 		public override string SceneName => KCDefine.B_SCENE_N_TITLE;
 
+		/** =====> UI <===== */
 		public TMP_Text VerText => m_oTextDict.GetValueOrDefault(EKey.VER_TEXT);
 		#endregion // 프로퍼티
 

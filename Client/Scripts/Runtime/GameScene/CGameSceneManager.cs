@@ -29,6 +29,7 @@ namespace GameScene {
 
 		public override string SceneName => KCDefine.B_SCENE_N_GAME;
 
+		/** =====> 객체 <===== */
 		protected GameObject ItemRoot => m_oObjDict.GetValueOrDefault(EKey.ITEM_ROOT);
 		protected GameObject SkillRoot => m_oObjDict.GetValueOrDefault(EKey.SKILL_ROOT);
 		protected GameObject ObjRoot => m_oObjDict.GetValueOrDefault(EKey.OBJ_ROOT);
