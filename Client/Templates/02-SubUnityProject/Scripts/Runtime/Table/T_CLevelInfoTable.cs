@@ -157,12 +157,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 		a_stOutCellInfo.m_stBaseInfo = (STBaseInfo)m_stBaseInfo.Clone();
 		a_stOutCellInfo.m_oCellObjInfoList = new List<STCellObjInfo>();
 
-		m_oCellObjInfoList.ExCopyTo(a_stOutCellInfo.m_oCellObjInfoList, this.MakeCloneCellObjInfo);
-	}
-
-	/** 사본 셀 객체 정보를 생성한다 */
-	private STCellObjInfo MakeCloneCellObjInfo(STCellObjInfo a_stCellObjInfo) {
-		return (STCellObjInfo)a_stCellObjInfo.Clone();
+		m_oCellObjInfoList.ExCopyTo(a_stOutCellInfo.m_oCellObjInfoList, (a_stCellObjInfo) => (STCellObjInfo)a_stCellObjInfo.Clone());
 	}
 #endregion // 함수
 

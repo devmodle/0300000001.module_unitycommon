@@ -33,6 +33,7 @@ MonoBehaviour:
   m_oAndroidDefineSymbolList: []
   m_oAndroidGoogleDefineSymbolList: []
   m_oAndroidAmazonDefineSymbolList: []
-  m_oStandaloneDefineSymbolList: []
+  m_oStandaloneDefineSymbolList:
+  - GOOGLE_SHEET_ENABLE
   m_oStandaloneMacSteamDefineSymbolList: []
   m_oStandaloneWndsSteamDefineSymbolList: []
