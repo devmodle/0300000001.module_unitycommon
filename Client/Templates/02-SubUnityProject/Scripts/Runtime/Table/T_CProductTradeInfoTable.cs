@@ -202,8 +202,8 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 			var oProductTradeKinds = oCommonInfos[i][KCDefine.U_KEY_PRODUCT_KINDS].ExIsValid() ? (EProductKinds)oCommonInfos[i][KCDefine.U_KEY_PRODUCT_KINDS].AsInt : EProductKinds.NONE;
 
 			// 구입 상품 교환 정보가 존재 할 경우
-			if(this.BuyProductTradeInfoDict.ContainsKey(oProductTradeKinds)) {
-				this.BuyProductTradeInfoDict[oProductTradeKinds].SaveProductTradeInfo(oCommonInfos[i]);
+			if(this.BuyProductTradeInfoDict.TryGetValue(oProductTradeKinds, out STProductTradeInfo stBuyProductTradeInfo)) {
+				stBuyProductTradeInfo.SaveProductTradeInfo(oCommonInfos[i]);
 			}
 		}
 

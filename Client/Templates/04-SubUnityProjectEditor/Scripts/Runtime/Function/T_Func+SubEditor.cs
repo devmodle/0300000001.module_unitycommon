@@ -52,8 +52,8 @@ public static partial class Func {
 
 			for(int i = 0; i < a_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 				for(int j = 0; j < a_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-					var oIdxVList = oIdxVDictContainer.ContainsKey(j) ? oIdxVDictContainer[j] : new List<Vector3Int>();
-					var oIdxHList = oIdxHDictContainer.ContainsKey(i) ? oIdxHDictContainer[i] : new List<Vector3Int>();
+					var oIdxVList = oIdxVDictContainer.GetValueOrDefault(j) ?? new List<Vector3Int>();
+					var oIdxHList = oIdxHDictContainer.GetValueOrDefault(i) ?? new List<Vector3Int>();
 
 					oIdxVDictContainer.TryAdd(j, oIdxVList);
 					oIdxHDictContainer.TryAdd(i, oIdxHList);
