@@ -8,8 +8,8 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 난이도 보정자 */
 public partial class CDifficultyCorrector : CComponent {
-	/** 서브 식별자 */
-	private enum ESubKey {
+	/** 식별자 */
+	private enum EKey {
 		NONE = -1,
 		[HideInInspector] MAX_VAL
 	}

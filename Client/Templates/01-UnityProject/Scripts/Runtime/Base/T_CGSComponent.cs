@@ -8,7 +8,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace GameScene {
 	/** 게임 씬 컴포넌트 */
-	public partial class CGSComponent : CComponent {
+	public abstract partial class CGSComponent : CComponent {
 		/** 매개 변수 */
 		public struct STParams {
 			public NSEngine.CEngine m_oEngine;

@@ -8,14 +8,14 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
 	/** 엔진 컴포넌트 */
-	public partial class CEComponent : CComponent {
+	public abstract partial class CEComponent : CComponent {
 		#region 함수
 		
 		#endregion // 함수
 	}
 
 	/** 서브 엔진 컴포넌트 */
-	public partial class CEComponent : CComponent {
+	public abstract partial class CEComponent : CComponent {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,

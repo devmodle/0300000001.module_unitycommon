@@ -8,14 +8,14 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace GameScene {
 	/** 게임 씬 컴포넌트 */
-	public partial class CGSComponent : CComponent {
+	public abstract partial class CGSComponent : CComponent {
 		#region 함수
 		
 		#endregion // 함수
 	}
 
 	/** 서브 게임 씬 컴포넌트 */
-	public partial class CGSComponent : CComponent {
+	public abstract partial class CGSComponent : CComponent {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
