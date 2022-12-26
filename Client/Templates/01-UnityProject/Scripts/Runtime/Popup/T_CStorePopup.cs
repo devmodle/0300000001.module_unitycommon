@@ -68,7 +68,7 @@ public partial class CStorePopup : CSubPopup {
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_RESTORE_BTN, this.Contents, this.OnTouchRestoreBtn)
-		}, false);
+		});
 
 		this.SubSetupAwake();
 	}

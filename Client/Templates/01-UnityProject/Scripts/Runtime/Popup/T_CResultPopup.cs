@@ -71,7 +71,7 @@ public partial class CResultPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_NEXT_BTN, this.Contents, this.OnTouchNextBtn),
 			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
 			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
-		}, false);
+		});
 
 		this.SubSetupAwake();
 	}

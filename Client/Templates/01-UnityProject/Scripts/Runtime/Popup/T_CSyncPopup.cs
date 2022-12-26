@@ -41,7 +41,7 @@ public partial class CSyncPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_LOGOUT_BTN, this.Contents, this.OnTouchLogoutBtn),
 			(KCDefine.U_OBJ_N_LOAD_BTN, this.Contents, this.OnTouchLoadBtn),
 			(KCDefine.U_OBJ_N_SAVE_BTN, this.Contents, this.OnTouchSaveBtn)
-		}, false);
+		});
 
 		this.SubSetupAwake();
 	}

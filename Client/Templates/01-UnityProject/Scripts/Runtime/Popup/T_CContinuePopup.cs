@@ -57,7 +57,7 @@ public partial class CContinuePopup : CSubPopup {
 			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
 			(KCDefine.U_OBJ_N_CONTINUE_BTN, this.Contents, this.OnTouchContinueBtn),
 			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
-		}, false);
+		});
 
 		this.SubSetupAwake();
 	}
