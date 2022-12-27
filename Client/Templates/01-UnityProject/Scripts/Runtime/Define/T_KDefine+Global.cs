@@ -448,6 +448,22 @@ public static partial class KDefine {
 					new STKeyInfo(KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, EKeyType.MULTI)
 				},
 
+				[KCDefine.B_KEY_BUY_TRADE] = new List<STKeyInfo>() {
+					new STKeyInfo(KCDefine.U_KEY_ABILITY_KINDS, EKeyType.SINGLE),
+					new STKeyInfo(KCDefine.U_KEY_PREV_ABILITY_KINDS, EKeyType.SINGLE),
+					new STKeyInfo(KCDefine.U_KEY_NEXT_ABILITY_KINDS, EKeyType.SINGLE),
+					new STKeyInfo(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, EKeyType.MULTI),
+					new STKeyInfo(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, EKeyType.MULTI)
+				},
+
+				[KCDefine.B_KEY_SALE_TRADE] = new List<STKeyInfo>() {
+					new STKeyInfo(KCDefine.U_KEY_ABILITY_KINDS, EKeyType.SINGLE),
+					new STKeyInfo(KCDefine.U_KEY_PREV_ABILITY_KINDS, EKeyType.SINGLE),
+					new STKeyInfo(KCDefine.U_KEY_NEXT_ABILITY_KINDS, EKeyType.SINGLE),
+					new STKeyInfo(KCDefine.U_KEY_FMT_PAY_TARGET_INFO, EKeyType.MULTI),
+					new STKeyInfo(KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, EKeyType.MULTI)
+				},
+
 				[KCDefine.B_KEY_ENHANCE_TRADE] = new List<STKeyInfo>() {
 					new STKeyInfo(KCDefine.U_KEY_ABILITY_KINDS, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_PREV_ABILITY_KINDS, EKeyType.SINGLE),

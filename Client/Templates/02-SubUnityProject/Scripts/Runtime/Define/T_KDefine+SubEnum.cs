@@ -354,6 +354,9 @@ public enum ESkillKinds {
 
 	// 20,000,000
 	ACTION_BOSS_ENEMY_ATK_01_01 = (EEnumVal.TYPE * ESkillType.ACTION) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 2),
+
+	// 30,000,000
+	ACTION_NAMED_ENEMY_ATK_01_01 = (EEnumVal.TYPE * ESkillType.ACTION) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 3),
 #endregion // 액션
 
 #region 액티브
@@ -410,6 +413,9 @@ public enum EObjKinds {
 
 	// 410,000,000
 	NON_PLAYABLE_BOSS_ENEMY_01_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
+
+	// 420,000,000
+	NON_PLAYABLE_NAMED_ENEMY_01_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 2),
 #endregion // 플레이 불가능
 
 	[HideInInspector] MAX_VAL
