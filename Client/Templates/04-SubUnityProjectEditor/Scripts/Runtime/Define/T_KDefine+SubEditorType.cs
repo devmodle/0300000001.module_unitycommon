@@ -10,7 +10,7 @@ using MessagePack;
 
 #region 기본
 /** 서브 에디터 레벨 생성 정보 */
-public partial class CSubEditorLevelCreateInfo : CEditorLevelCreateInfo {
+public partial class CSubEditorCreateInfo : CEditorCreateInfo {
 	// Do Something
 }
 

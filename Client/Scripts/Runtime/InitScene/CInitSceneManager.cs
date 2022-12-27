@@ -34,6 +34,12 @@ namespace InitScene {
 			for(int i = 0; i < KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST.Count; ++i) {
 				this.SpriteAtlasPathList.ExAddVal(KCDefine.U_ASSET_P_SPRITE_ATLAS_LIST[i]);
 			}
+
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+			for(int i = 0; i < KCDefine.U_ASSET_P_ES_SPRITE_ATLAS_LIST.Count; ++i) {
+				this.SpriteAtlasPathList.ExAddVal(KCDefine.U_ASSET_P_ES_SPRITE_ATLAS_LIST[i]);
+			}
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		}
 
 		/** 초기화 */
