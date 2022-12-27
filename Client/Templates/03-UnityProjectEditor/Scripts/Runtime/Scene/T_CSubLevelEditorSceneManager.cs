@@ -357,7 +357,7 @@ namespace LevelEditorScene {
 			// 백 키 눌림 이벤트 일 경우
 			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-				Func.ShowEditorQuitPopup(this.OnReceiveEditorQuitPopupResult);
+				Func.ShowAlertPopup(KDefine.ES_MSG_ALERT_P_QUIT, this.OnReceiveEditorQuitPopupResult);
 #else
 				this.OnReceiveEditorQuitPopupResult(null, true);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -753,11 +753,27 @@ namespace LevelEditorScene {
 
 		/** 알림을 출력한다 */
 		private void ShowNoti(string a_oMsg) {
+			this.CloseNoti();
 			this.MEUIsMsgUIs?.SetActive(true);
-			m_oTextDict.GetValueOrDefault(EKey.ME_UIS_MSG_TEXT)?.ExSetText<Text>(a_oMsg, false);
 
+			m_oTextDict.GetValueOrDefault(EKey.ME_UIS_MSG_TEXT)?.ExSetText<Text>(a_oMsg, false);
+			CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_1_INT, () => this.CloseNoti());
+		}
+
+		/** 알림을 닫는다 */
+		private void CloseNoti() {
+			this.MEUIsMsgUIs?.SetActive(false);
 			CScheduleManager.Inst.RemoveTimer(this);
-			CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_1_INT, () => this.MEUIsMsgUIs?.SetActive(false));
+		}
+
+		/** 레벨 정보를 저장한다 */
+		private void SaveLevelInfos() {
+			this.ShowNoti(KDefine.LES_MSG_NOTI_SAVE);
+
+			this.ExLateCallFunc((a_oSender) => {
+				this.CloseNoti();
+				CLevelInfoTable.Inst.SaveLevelInfos();
+			}, KCDefine.B_VAL_0_REAL);
 		}
 
 		/** 에디터 레벨 이동 입력 팝업 결과를 처리한다 */
@@ -954,12 +970,12 @@ namespace LevelEditorScene {
 
 		/** 중앙 에디터 UI 저장 버튼을 눌렀을 경우 */
 		private void OnTouchMEUIsSaveBtn() {
-			CLevelInfoTable.Inst.SaveLevelInfos();
+			this.SaveLevelInfos();
 		}
 
 		/** 중앙 에디터 UI 리셋 버튼을 눌렀을 경우 */
 		private void OnTouchMEUIsResetBtn() {
-			Func.ShowEditorResetPopup(this.OnReceiveEditorResetPopupResult);
+			Func.ShowAlertPopup(KDefine.ES_MSG_ALERT_P_RESET, this.OnReceiveEditorResetPopupResult);
 		}
 
 		/** 중앙 에디터 UI 테스트 버튼을 눌렀을 경우 */
@@ -994,7 +1010,7 @@ namespace LevelEditorScene {
 		/** 중앙 에디터 UI 레벨 제거 버튼을 눌렀을 경우 */
 		private void OnTouchMEUIsRemoveLevelBtn() {
 			m_oScrollerDict.ExReplaceVal(EKey.SEL_SCROLLER, m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item1);
-			Func.ShowEditorLevelRemovePopup(this.OnReceiveEditorRemovePopupResult);
+			Func.ShowAlertPopup(KDefine.LES_MSG_ALERT_P_REMOVE_LEVEL, this.OnReceiveEditorRemovePopupResult);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수
@@ -1114,14 +1130,10 @@ namespace LevelEditorScene {
 
 			// 유저 타입이 다를 경우
 			if(CCommonUserInfoStorage.Inst.UserInfo.UserType != eUserType) {
+				string oKey = (a_oSender == m_oBtnDict.GetValueOrDefault(EKey.LE_UIS_A_SET_BTN)) ? KCDefine.ST_KEY_C_SETUP_A_SET_MSG : KCDefine.ST_KEY_C_SETUP_B_SET_MSG;
 				m_oUserTypeDict.ExReplaceVal(EKey.SEL_USER_TYPE, eUserType);
 
-				// A 세트 버튼 일 경우
-				if(a_oSender == m_oBtnDict.GetValueOrDefault(EKey.LE_UIS_A_SET_BTN)) {
-					Func.ShowEditorASetPopup(this.OnReceiveEditorSetPopupResult);
-				} else {
-					Func.ShowEditorBSetPopup(this.OnReceiveEditorSetPopupResult);
-				}
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(oKey), this.OnReceiveEditorSetPopupResult);
 			}
 		}
 #endif // #if AB_TEST_ENABLE
@@ -1177,6 +1189,13 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 를 설정한다 */
 		private void SetupREUIsPageUIs01(GameObject a_oPageUIs) {
+			// 입력 필드를 설정한다
+			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+				(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}", a_oPageUIs),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}", a_oPageUIs),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs)
+			}, m_oInputDict);
+
 			// 버튼을 설정한다 {
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 				(KCDefine.LES_OBJ_N_RE_UIS_PAGE_01_APPLY_BTN, a_oPageUIs, this.OnTouchREUIsPageUIs01ApplyBtn)
@@ -1239,10 +1258,10 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 1 상태를 갱신한다 */
 		private void UpdateREUIsPageUIs01(GameObject a_oPageUIs) {
 			// 입력 필드를 갱신한다 {
-			a_oPageUIs.ExFindComponent<InputField>($"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}")?.ExSetText<InputField>($"{m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT}", false);
+			m_oInputDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT)?.ExSetText<InputField>($"{m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT}", false);
 
-			a_oPageUIs.ExFindComponent<InputField>($"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}")?.ExSetText<InputField>((m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.x}", false);
-			a_oPageUIs.ExFindComponent<InputField>($"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}")?.ExSetText<InputField>((m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.y}", false);
+			m_oInputDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT)?.ExSetText<InputField>((m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.x}", false);
+			m_oInputDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT)?.ExSetText<InputField>((m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.y}", false);
 			// 입력 필드를 갱신한다 }
 		}
 
@@ -1308,11 +1327,7 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 1 테이블 로드 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc a_eTableSrc) {
 			m_oTableSrcDict.ExReplaceVal(EKey.SEL_TABLE_SRC, a_eTableSrc);
-
-			switch(a_eTableSrc) {
-				case ETableSrc.LOCAL: Func.ShowEditorLocalTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult); break;
-				case ETableSrc.REMOTE: Func.ShowEditorRemoteTableLoadPopup(this.OnReceiveEditorTableLoadPopupResult); break;
-			}
+			Func.ShowAlertPopup((a_eTableSrc == ETableSrc.LOCAL) ? KDefine.LES_MSG_ALERT_P_LOAD_LOCAL_TABLE : KDefine.LES_MSG_ALERT_P_LOAD_REMOTE_TABLE, this.OnReceiveEditorTableLoadPopupResult);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수
@@ -1363,15 +1378,15 @@ namespace LevelEditorScene {
 
 			// 레벨 스크롤러 일 경우
 			if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_LEVEL_SCROLLER_INFO).Item1 == a_oSender.Params.m_oScroller) {
-				Func.ShowEditorLevelRemovePopup(this.OnReceiveEditorRemovePopupResult);
+				Func.ShowAlertPopup(KDefine.LES_MSG_ALERT_P_REMOVE_LEVEL, this.OnReceiveEditorRemovePopupResult);
 			}
 			// 스테이지 스크롤러 일 경우
 			else if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_STAGE_SCROLLER_INFO).Item1 == a_oSender.Params.m_oScroller) {
-				Func.ShowEditorStageRemovePopup(this.OnReceiveEditorRemovePopupResult);
+				Func.ShowAlertPopup(KDefine.LES_MSG_ALERT_P_REMOVE_STAGE, this.OnReceiveEditorRemovePopupResult);
 			}
 			// 챕터 스크롤러 일 경우
 			else if(m_oScrollerInfoDict.GetValueOrDefault(EKey.LE_UIS_CHAPTER_SCROLLER_INFO).Item1 == a_oSender.Params.m_oScroller) {
-				Func.ShowEditorChapterRemovePopup(this.OnReceiveEditorRemovePopupResult);
+				Func.ShowAlertPopup(KDefine.LES_MSG_ALERT_P_REMOVE_CHAPTER, this.OnReceiveEditorRemovePopupResult);
 			}
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
