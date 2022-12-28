@@ -90,7 +90,9 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** UI 상태를 갱신한다 */
 		private void SubUpdateUIsState() {
-			// Do Something
+			this.SubUpdateMidEditorUIsState();
+			this.SubUpdateLeftEditorUIsState();
+			this.SubUpdateRightEditorUIsState();
 		}
 
 		/** 터치 시작 이벤트를 처리한다 */
@@ -119,6 +121,11 @@ namespace LevelEditorScene {
 		private void SubSetupMidEditorUIs() {
 			// Do Something
 		}
+
+		/** 중앙 에디터 UI 상태를 갱신한다 */
+		private void SubUpdateMidEditorUIsState() {
+			// Do Something
+		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수
 	}
@@ -131,6 +138,11 @@ namespace LevelEditorScene {
 		private void SubSetupLeftEditorUIs() {
 			// Do Something
 		}
+
+		/** 왼쪽 에디터 UI 상태를 갱신한다 */
+		private void SubUpdateLeftEditorUIsState() {
+			// Do Something
+		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수
 	}
@@ -141,6 +153,54 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 오른쪽 에디터 UI 를 설정한다 */
 		private void SubSetupRightEditorUIs() {
+			// 페이지 스크롤 스냅이 존재 할 경우
+			if(m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP) != null) {
+				for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
+					string oSetupFuncName = string.Format(KDefine.LES_FUNC_N_FMT_SUB_SETUP_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
+					string oUpdateFuncName = string.Format(KDefine.LES_FUNC_N_FMT_SUB_UPDATE_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
+
+					m_oSubMethodInfoDict.TryAdd(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i, this.GetType().GetMethod(oSetupFuncName, KCDefine.B_BINDING_F_NON_PUBLIC_INSTANCE));
+					m_oSubMethodInfoDict.TryAdd(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i, this.GetType().GetMethod(oUpdateFuncName, KCDefine.B_BINDING_F_NON_PUBLIC_INSTANCE));
+				}
+
+				for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
+					m_oSubMethodInfoDict.GetValueOrDefault(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
+						m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
+					});
+				}
+			}
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 1 를 설정한다 */
+		private void SubSetupREUIsPageUIs01(GameObject a_oPageUIs) {
+			// Do Something
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 2 를 설정한다 */
+		private void SubSetupREUIsPageUIs02(GameObject a_oPageUIs) {
+			// Do Something
+		}
+
+		/** 오른쪽 에디터 UI 상태를 갱신한다 */
+		private void SubUpdateRightEditorUIsState() {
+			// 스크롤 스냅이 존재 할 경우
+			if(m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP) != null) {
+				// 페이지 UI 상태를 갱신한다
+				for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
+					m_oSubMethodInfoDict.GetValueOrDefault(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
+						m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
+					});
+				}
+			}
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 1 상태를 갱신한다 */
+		private void SubUpdateREUIsPageUIs01(GameObject a_oPageUIs) {
+			// Do Something
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 2 상태를 갱신한다 */
+		private void SubUpdateREUIsPageUIs02(GameObject a_oPageUIs) {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

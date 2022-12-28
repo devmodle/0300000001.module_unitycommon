@@ -102,6 +102,12 @@ namespace LevelEditorScene {
 			[HideInInspector] MAX_VAL
 		}
 
+		/** 객체 스프라이트 정보 */
+		private struct STObjSpriteInfo {
+			public EObjKinds m_eObjKinds;
+			public SpriteRenderer m_oSprite;
+		}
+
 #region 변수
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 		private Dictionary<EKey, EUserType> m_oUserTypeDict = new Dictionary<EKey, EUserType>();
@@ -109,6 +115,7 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, EInputPopup> m_oInputPopupDict = new Dictionary<EKey, EInputPopup>();
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
+		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oSubMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 
 #if GOOGLE_SHEET_ENABLE
 		private SimpleJSON.JSONNode m_oVerInfos = null;
@@ -118,7 +125,7 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		private List<NSEngine.STGridInfo> m_oGridInfoList = new List<NSEngine.STGridInfo>();
 		private Dictionary<EKey, CLevelInfo> m_oLevelInfoDict = new Dictionary<EKey, CLevelInfo>();
-		private List<(EObjKinds, SpriteRenderer)>[,] m_oObjSpriteInfoLists = null;
+		private List<STObjSpriteInfo>[,] m_oObjSpriteInfoLists = null;
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 		/** =====> UI <===== */
@@ -462,11 +469,11 @@ namespace LevelEditorScene {
 			// 비율을 설정한다 }
 
 			// 객체 스프라이트를 설정한다 {
-			m_oObjSpriteInfoLists = new List<(EObjKinds, SpriteRenderer)>[m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.y, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.x];
+			m_oObjSpriteInfoLists = new List<STObjSpriteInfo>[m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.y, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.x];
 
 			for(int i = 0; i < m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer.Count; ++i) {
 				for(int j = 0; j < m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer[i].Count; ++j) {
-					this.SetupObjSprites(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer[i][j], out List<(EObjKinds, SpriteRenderer)> oObjSpriteInfoList);
+					this.SetupObjSprites(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer[i][j], out List<STObjSpriteInfo> oObjSpriteInfoList);
 					m_oObjSpriteInfoLists[m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer[i][j].m_stIdx.y, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).m_oCellInfoDictContainer[i][j].m_stIdx.x] = oObjSpriteInfoList;
 				}
 			}
@@ -474,23 +481,25 @@ namespace LevelEditorScene {
 		}
 
 		/** 객체 스프라이트를 리셋한다 */
-		private void ResetObjSprites(List<(EObjKinds, SpriteRenderer)> a_oObjSpriteInfoList) {
+		private void ResetObjSprites(List<STObjSpriteInfo> a_oObjSpriteInfoList) {
 			for(int i = 0; i < a_oObjSpriteInfoList.Count; ++i) {
-				this.DespawnObj(KDefine.LES_KEY_SPRITE_OBJS_POOL, a_oObjSpriteInfoList[i].Item2.gameObject);
+				this.DespawnObj(KDefine.LES_KEY_SPRITE_OBJS_POOL, a_oObjSpriteInfoList[i].m_oSprite.gameObject);
 			}
 		}
 
 		/** 객체 스프라이트를 설정한다 */
-		private void SetupObjSprites(STCellInfo a_stCellInfo, out List<(EObjKinds, SpriteRenderer)> a_oOutObjSpriteInfoList) {
-			a_oOutObjSpriteInfoList = new List<(EObjKinds, SpriteRenderer)>();
+		private void SetupObjSprites(STCellInfo a_stCellInfo, out List<STObjSpriteInfo> a_oOutObjSpriteInfoList) {
+			a_oOutObjSpriteInfoList = new List<STObjSpriteInfo>();
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
 				var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_OBJS_POOL);
 				oObjSprite.sprite = NSEngine.Access.GetObjSprite(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds);
 				oObjSprite.transform.localPosition = m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize);
-
 				oObjSprite.ExSetSortingOrder(NSEngine.Access.GetSortingOrderInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds));
-				a_oOutObjSpriteInfoList.ExAddVal((a_stCellInfo.m_oCellObjInfoList[i].ObjKinds, oObjSprite));
+
+				a_oOutObjSpriteInfoList.ExAddVal(new STObjSpriteInfo() {
+					m_eObjKinds = a_stCellInfo.m_oCellObjInfoList[i].ObjKinds, m_oSprite = oObjSprite
+				});
 			}
 		}
 
@@ -773,7 +782,7 @@ namespace LevelEditorScene {
 			this.ExLateCallFunc((a_oSender) => {
 				this.CloseNoti();
 				CLevelInfoTable.Inst.SaveLevelInfos();
-			}, KCDefine.B_VAL_0_REAL);
+			}, KCDefine.B_VAL_0_REAL, true);
 		}
 
 		/** 에디터 레벨 이동 입력 팝업 결과를 처리한다 */
@@ -1166,23 +1175,26 @@ namespace LevelEditorScene {
 
 			m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.gameObject.SetActive(false);
 
-			for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
-				string oSetupFuncName = string.Format(KDefine.LES_FUNC_N_FMT_SETUP_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
-				string oUpdateFuncName = string.Format(KDefine.LES_FUNC_N_FMT_UPDATE_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
+			// 페이지 스크롤 스냅이 존재 할 경우
+			if(m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP) != null) {
+				for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
+					string oSetupFuncName = string.Format(KDefine.LES_FUNC_N_FMT_SETUP_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
+					string oUpdateFuncName = string.Format(KDefine.LES_FUNC_N_FMT_UPDATE_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
 
-				m_oMethodInfoDict.TryAdd(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i, this.GetType().GetMethod(oSetupFuncName, KCDefine.B_BINDING_F_NON_PUBLIC_INSTANCE));
-				m_oMethodInfoDict.TryAdd(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i, this.GetType().GetMethod(oUpdateFuncName, KCDefine.B_BINDING_F_NON_PUBLIC_INSTANCE));
-			}
+					m_oMethodInfoDict.TryAdd(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i, this.GetType().GetMethod(oSetupFuncName, KCDefine.B_BINDING_F_NON_PUBLIC_INSTANCE));
+					m_oMethodInfoDict.TryAdd(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i, this.GetType().GetMethod(oUpdateFuncName, KCDefine.B_BINDING_F_NON_PUBLIC_INSTANCE));
+				}
 
-			for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
-				string oPageUIsName = string.Format(KDefine.LES_OBJ_N_FMT_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
-				m_oUIsDict.TryAdd(EKey.RE_UIS_PAGE_UIS_01 + i, m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).gameObject.ExFindChild(oPageUIsName));
-			}
+				for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
+					string oPageUIsName = string.Format(KDefine.LES_OBJ_N_FMT_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
+					m_oUIsDict.TryAdd(EKey.RE_UIS_PAGE_UIS_01 + i, m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).gameObject.ExFindChild(oPageUIsName));
+				}
 
-			for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
-				m_oMethodInfoDict.GetValueOrDefault(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-					m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
-				});
+				for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
+					m_oMethodInfoDict.GetValueOrDefault(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
+						m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
+					});
+				}
 			}
 			// 스크롤 뷰를 설정한다 }
 		}
@@ -1245,13 +1257,13 @@ namespace LevelEditorScene {
 				// 버튼 상태를 갱신한다
 				m_oBtnDict.GetValueOrDefault(EKey.RE_UIS_PREV_BTN)?.ExSetInteractable(m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).CenteredPanel > KCDefine.B_VAL_0_INT, false);
 				m_oBtnDict.GetValueOrDefault(EKey.RE_UIS_NEXT_BTN)?.ExSetInteractable(m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).CenteredPanel < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels - KCDefine.B_VAL_1_INT, false);
-			}
 
-			// 페이지 UI 상태를 갱신한다
-			for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
-				m_oMethodInfoDict.GetValueOrDefault(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-					m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
-				});
+				// 페이지 UI 상태를 갱신한다
+				for(int i = 0; i < m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels; ++i) {
+					m_oMethodInfoDict.GetValueOrDefault(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
+						m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
+					});
+				}
 			}
 		}
 
