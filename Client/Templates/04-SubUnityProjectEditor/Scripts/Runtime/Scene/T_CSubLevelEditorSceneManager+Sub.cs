@@ -74,6 +74,11 @@ namespace LevelEditorScene {
 #endregion // 프로퍼티
 
 #region 함수
+
+#endregion // 함수
+
+#region 조건부 함수
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 씬을 설정한다 */
 		private void SubSetupAwake() {
 			this.SubSetupMidEditorUIs();
@@ -85,10 +90,21 @@ namespace LevelEditorScene {
 		private void SubSetupStart() {
 			// Do Something
 		}
-#endregion // 함수
 
-#region 조건부 함수
-#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		/** 상태를 갱신한다 */
+		private void SubOnUpdate(float a_fDeltaTime) {
+			// 메인 카메라가 존재 할 경우
+			if(CSceneManager.IsExistsMainCamera) {
+				var stMousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, this.PlaneDistance);
+				var stCursorPos = CSceneManager.ActiveSceneMainCamera.ScreenToWorldPoint(stMousePos).ExToLocal(this.ObjRoot);
+
+				// 그리드 영역 일 경우
+				if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && m_oGridInfoList[this.SelGridInfoIdx].m_stBounds.Contains(stCursorPos)) {
+					// Do Something
+				}
+			}
+		}
+
 		/** UI 상태를 갱신한다 */
 		private void SubUpdateUIsState() {
 			this.SubUpdateMidEditorUIsState();
@@ -253,7 +269,7 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 스크롤러 셀 뷰 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs02ScrollerCellViewBtn(EObjKinds a_eObjKinds) {
-			// Do Something
+			m_oObjKindsDict.ExReplaceVal(EKey.SEL_OBJ_KINDS, a_eObjKinds);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수

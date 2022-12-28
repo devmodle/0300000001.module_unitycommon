@@ -66,11 +66,6 @@ public static partial class KDefine {
 	public static readonly string G_TABLE_N_ABILITY_INFO = KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false);
 	public static readonly string G_TABLE_N_PRODUCT_INFO = KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false);
 
-	// 정렬 순서
-	public static readonly STSortingOrderInfo G_SORTING_OI_OVERLAY_SCENE_UIS_CANVAS = new STSortingOrderInfo() {
-		m_nOrder = KCDefine.U_SORTING_O_OVERLAY_UIS, m_oLayer = KCDefine.U_SORTING_L_DEF
-	};
-
 	// 분석 {
 	public static readonly List<EAnalytics> G_ANALYTICS_LOG_ENABLE_LIST = new List<EAnalytics>() {
 		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER, EAnalytics.PLAYFAB

@@ -143,23 +143,23 @@ public static partial class KDefine {
 
 	// 정렬 순서 {
 	public static readonly STSortingOrderInfo GS_SORTING_OI_BG = new STSortingOrderInfo() {
-		m_nOrder = sbyte.MaxValue * 0, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
 	};
 
 	public static readonly STSortingOrderInfo GS_SORTING_OI_UP_BG = new STSortingOrderInfo() {
-		m_nOrder = sbyte.MaxValue * 2, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND + 20, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
 	};
 
 	public static readonly STSortingOrderInfo GS_SORTING_OI_DOWN_BG = new STSortingOrderInfo() {
-		m_nOrder = sbyte.MaxValue * 2, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND + 20, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
 	};
 
 	public static readonly STSortingOrderInfo GS_SORTING_OI_LEFT_BG = new STSortingOrderInfo() {
-		m_nOrder = sbyte.MaxValue * 1, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND + 10, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
 	};
 
 	public static readonly STSortingOrderInfo GS_SORTING_OI_RIGHT_BG = new STSortingOrderInfo() {
-		m_nOrder = sbyte.MaxValue * 1, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND + 10, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
 	};
 	// 정렬 순서 }
 #endregion // 런타임 상수

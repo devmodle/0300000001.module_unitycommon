@@ -12,11 +12,6 @@ using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 using DanielLochner.Assets.SimpleScrollSnap;
 
-#if INPUT_SYSTEM_MODULE_ENABLE
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-#endif // #if INPUT_SYSTEM_MODULE_ENABLE
-
 namespace LevelEditorScene {
 	/** 서브 레벨 에디터 씬 관리자 */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
@@ -26,6 +21,7 @@ namespace LevelEditorScene {
 			SEL_GRID_IDX,
 			SEL_USER_TYPE,
 			SEL_TABLE_SRC,
+			SEL_OBJ_KINDS,
 			SEL_INPUT_POPUP,
 
 			SEL_SCROLLER,
@@ -113,6 +109,7 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 		private Dictionary<EKey, EUserType> m_oUserTypeDict = new Dictionary<EKey, EUserType>();
 		private Dictionary<EKey, ETableSrc> m_oTableSrcDict = new Dictionary<EKey, ETableSrc>();
+		private Dictionary<EKey, EObjKinds> m_oObjKindsDict = new Dictionary<EKey, EObjKinds>();
 		private Dictionary<EKey, EInputPopup> m_oInputPopupDict = new Dictionary<EKey, EInputPopup>();
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
@@ -248,40 +245,6 @@ namespace LevelEditorScene {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#if INPUT_SYSTEM_MODULE_ENABLE
-				var oDigitKeyControlList = new List<KeyControl>() {
-					Keyboard.current.digit1Key, Keyboard.current.digit2Key, Keyboard.current.digit3Key, Keyboard.current.digit4Key, Keyboard.current.digit5Key, Keyboard.current.digit6Key, Keyboard.current.digit7Key, Keyboard.current.digit8Key, Keyboard.current.digit9Key
-				};
-
-				// 이전 레벨 키를 눌렀을 경우
-				if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.upArrowKey.wasPressedThisFrame) {
-					this.OnTouchMEUIsPrevBtn();
-				}
-				// 다음 레벨 키를 눌렀을 경우
-				else if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.downArrowKey.wasPressedThisFrame) {
-					this.OnTouchMEUIsNextBtn();
-				}
-
-				// 이전 페이지 키를 눌렀을 경우
-				if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.leftArrowKey.wasPressedThisFrame) {
-					m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.GoToPreviousPanel();
-				}
-				// 다음 페이지 키를 눌렀을 경우
-				else if(Keyboard.current.leftShiftKey.isPressed && Keyboard.current.rightArrowKey.wasPressedThisFrame) {
-					m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.GoToNextPanel();
-				}
-
-				// 페이지 스크롤 스냅이 존재 할 경우
-				if(m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP) != null) {
-					for(int i = 0; i < oDigitKeyControlList.Count; ++i) {
-						// 숫자 키를 눌렀을 경우
-						if(Keyboard.current.leftShiftKey.isPressed && oDigitKeyControlList[i].wasPressedThisFrame) {
-							int nNumPanels = m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels;
-							m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).GoToPanel(Mathf.Clamp(i, KCDefine.B_VAL_0_INT, nNumPanels - KCDefine.B_VAL_1_INT));
-						}
-					}
-				}
-#else
 				var oDigitKeyCodeList = new List<KeyCode>() {
 					KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9
 				};
@@ -314,7 +277,8 @@ namespace LevelEditorScene {
 						}
 					}
 				}
-#endif // #if INPUT_SYSTEM_MODULE_ENABLE
+
+				this.SubOnUpdate(a_fDeltaTime);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			}
 		}

@@ -34,18 +34,12 @@ namespace NSEngine {
 		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(25, 25, 25);
 		public static readonly Vector3Int E_DEF_NUM_CELLS = new Vector3Int(10, 10, 10);
 
-		// 정렬 순서 {
-		public static readonly STSortingOrderInfo E_SORTING_OI_DEF = new STSortingOrderInfo() {
-			m_nOrder = sbyte.MaxValue * 0, m_oLayer = KCDefine.U_SORTING_L_DEF
-		};
-
+		// 정렬 순서
 		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
 			[EObjKinds.BG_EMPTY_01] = new STSortingOrderInfo() {
-				m_nOrder = sbyte.MaxValue * -1,
-				m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = KCDefine.U_SORTING_O_BACKGROUND, m_oLayer = KCDefine.U_SORTING_L_BACKGROUND
 			}
 		};
-		// 정렬 순서 }
 
 		// 경로 {
 		public static readonly string E_OBJ_P_CELL_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_CellObj";
