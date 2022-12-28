@@ -32,7 +32,7 @@ public static partial class Func {
 			var oCellInfoDict = new Dictionary<int, STCellInfo>();
 
 			for(int j = 0; j < Mathf.Clamp(nNumCellsX, NSEngine.KDefine.E_MIN_NUM_CELLS.x, NSEngine.KDefine.E_MAX_NUM_CELLS.x); ++j) {
-				oCellInfoDict.TryAdd(j, Factory.MakeCellInfo(new Vector3Int(j, i, KCDefine.B_VAL_0_INT)));
+				oCellInfoDict.TryAdd(j, Factory.MakeEditorCellInfo(new Vector3Int(j, i, KCDefine.B_VAL_0_INT)));
 			}
 
 			a_oLevelInfo.m_oCellInfoDictContainer.TryAdd(i, oCellInfoDict);
@@ -62,7 +62,7 @@ public static partial class Func {
 					oIdxHList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
 
 					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oCellObjInfoList.Clear();
-					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oCellObjInfoList.ExAddVal(Factory.MakeCellObjInfo(EObjKinds.BG_EMPTY_01));
+					a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oCellObjInfoList.ExAddVal(Factory.MakeEditorCellObjInfo(EObjKinds.BG_EMPTY_01));
 				}
 			}
 

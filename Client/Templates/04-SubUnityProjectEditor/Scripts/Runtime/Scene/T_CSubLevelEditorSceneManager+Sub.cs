@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UniRx.Triggers;
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 using UnityEngine.EventSystems;
@@ -178,7 +179,53 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 를 설정한다 */
 		private void SubSetupREUIsPageUIs02(GameObject a_oPageUIs) {
-			// Do Something
+			// 탭 UI 를 갱신한다 {
+			var oTapUIsHandler = a_oPageUIs.GetComponentInChildren<CTapUIsHandler>();
+
+			// 탭 UI 가 존재 할 경우
+			if(oTapUIsHandler != null) {
+				for(int i = 0; i < oTapUIsHandler.ContentsUIsList.Count; ++i) {
+					this.SetupREUIsPageUIs02Contents(oTapUIsHandler.ContentsUIsList[i], i);
+				}
+			}
+			// 탭 UI 를 갱신한다 }
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 2 컨텐츠를 설정한다 */
+		private void SetupREUIsPageUIs02Contents(GameObject a_oContents, int a_nIdx) {
+			var oScrollRect = a_oContents?.GetComponentInChildren<ScrollRect>();
+			var oScrollViewContents = a_oContents?.ExFindChild(KCDefine.U_OBJ_N_CONTENTS);
+
+			// 스크롤 영역이 존재 할 경우
+			if(oScrollRect != null && oScrollViewContents != null) {
+				// 스크롤러 셀 뷰가 존재 할 경우
+				if(KDefine.LES_OBJ_KINDS_DICT_CONTAINER.TryGetValue(a_nIdx, out List<EObjKinds> oObjKindsList)) {
+					int nMaxNumCells = oObjKindsList.Count / KDefine.LES_MAX_NUM_OBJ_KINDS_IN_ROW;
+					int nNumExtraCells = (oObjKindsList.Count % KDefine.LES_MAX_NUM_OBJ_KINDS_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+
+					for(int i = 0; i < nMaxNumCells + nNumExtraCells; ++i) {
+						var oScrollerCellView = CFactory.CreateCloneObj(KCDefine.LES_OBJ_N_RE_UIS_PAGE_UIS_02_SCROLLER_CELL_VIEW, CResManager.Inst.GetRes<GameObject>(KCDefine.LES_OBJ_P_RE_UIS_PAGE_UIS_02_SCROLLER_CELL_VIEW), oScrollViewContents);
+						this.SetupREUIsPageUIs02ScrollerCellView(oScrollerCellView, oObjKindsList, i * KDefine.LES_MAX_NUM_OBJ_KINDS_IN_ROW);
+					}
+				}
+			}
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 2 스크롤러 셀 뷰를 설정한다 */
+		private void SetupREUIsPageUIs02ScrollerCellView(GameObject oScrollerCellView, List<EObjKinds> a_oObjKindsList, int a_nIdx) {
+			for(int i = 0; i < KDefine.LES_MAX_NUM_OBJ_KINDS_IN_ROW; ++i) {
+				var oBtn = oScrollerCellView.transform.GetChild(i).GetComponentInChildren<Button>();
+				var eObjKinds = a_oObjKindsList.ExGetVal(i + a_nIdx, EObjKinds.NONE);
+
+				oBtn?.ExSetInteractable(eObjKinds != EObjKinds.NONE);
+				oBtn?.onClick.AddListener(() => this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(eObjKinds));
+
+				// 버튼이 존재 할 경우
+				if(oBtn != null) {
+					oBtn.image.sprite = Access.GetEditorObjSprite(eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+					oBtn.image.ExSetEnable(eObjKinds != EObjKinds.NONE);
+				}
+			}
 		}
 
 		/** 오른쪽 에디터 UI 상태를 갱신한다 */
@@ -201,6 +248,11 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 상태를 갱신한다 */
 		private void SubUpdateREUIsPageUIs02(GameObject a_oPageUIs) {
+			// Do Something
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 2 스크롤러 셀 뷰 버튼을 눌렀을 경우 */
+		private void OnTouchREUIsPageUIs02ScrollerCellViewBtn(EObjKinds a_eObjKinds) {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

@@ -40,7 +40,10 @@ namespace NSEngine {
 		};
 
 		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
-			[EObjKinds.BG_EMPTY_01] = new STSortingOrderInfo() { m_nOrder = sbyte.MaxValue * -1, m_oLayer = KCDefine.U_SORTING_L_DEF }
+			[EObjKinds.BG_EMPTY_01] = new STSortingOrderInfo() {
+				m_nOrder = sbyte.MaxValue * -1,
+				m_oLayer = KCDefine.U_SORTING_L_DEF
+			}
 		};
 		// 정렬 순서 }
 

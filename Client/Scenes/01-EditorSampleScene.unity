@@ -209,7 +209,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD0ED \uBC84\uD2BC 2"
+  m_Text: "\uD0ED 2"
 --- !u!222 &6167942
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2076,7 +2076,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD0ED \uBC84\uD2BC 4"
+  m_Text: "\uD0ED 4"
 --- !u!222 &306543911
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2452,7 +2452,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD0ED \uBC84\uD2BC 3"
+  m_Text: "\uD0ED 3"
 --- !u!222 &355010135
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7077,7 +7077,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 254
+  m_SortingOrder: 3810
   m_TargetDisplay: 0
 --- !u!114 &917510970
 MonoBehaviour:
@@ -8625,7 +8625,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD0ED \uBC84\uD2BC 5"
+  m_Text: "\uD0ED 5"
 --- !u!222 &1078403124
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13960,7 +13960,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD0ED \uBC84\uD2BC 1"
+  m_Text: "\uD0ED 1"
 --- !u!222 &1934119075
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14978,7 +14978,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 127
+  m_SortingOrder: 2540
   m_TargetDisplay: 0
 --- !u!114 &2118464254
 MonoBehaviour:

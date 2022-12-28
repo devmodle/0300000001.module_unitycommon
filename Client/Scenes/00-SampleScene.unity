@@ -1107,7 +1107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: a8715ab360a5ee24cb383bdc54d0b8fa, type: 2}
+  sharedProfile: {fileID: 11400000, guid: ddaa309f8a694a04184c95c5b841d3fa, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -1216,7 +1216,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 254
+  m_SortingOrder: 3810
   m_TargetDisplay: 0
 --- !u!114 &917510970
 MonoBehaviour:
@@ -2587,7 +2587,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 127
+  m_SortingOrder: 2540
   m_TargetDisplay: 0
 --- !u!114 &2118464254
 MonoBehaviour:
