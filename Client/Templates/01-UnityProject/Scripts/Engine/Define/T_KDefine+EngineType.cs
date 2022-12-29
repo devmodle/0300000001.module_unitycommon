@@ -1,4 +1,4 @@
-﻿#if SCRIPT_TEMPLATE_ONLY
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +13,8 @@ namespace NSEngine {
 	/** 그리드 정보 */
 	public struct STGridInfo {
 		public Bounds m_stBounds;
+		public Bounds m_stViewBounds;
+
 		public Vector3 m_stSize;
 		public Vector3 m_stScale;
 		public Vector3 m_stPivotPos;

@@ -19,6 +19,7 @@ namespace LevelEditorScene {
 			LE_UIS_AB_SET_UIS,
 
 			OBJ_ROOT,
+			MASK_OBJ_ROOT,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -46,7 +47,9 @@ namespace LevelEditorScene {
 
 		protected GameObject MEUIsMsgUIs => m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS);
 		protected GameObject LEUIsABSetUIs => m_oUIsDict.GetValueOrDefault(EKey.LE_UIS_AB_SET_UIS);
+		
 		protected GameObject ObjRoot => m_oObjDict.GetValueOrDefault(EKey.OBJ_ROOT);
+		protected GameObject MaskObjRoot => m_oObjDict.GetValueOrDefault(EKey.MASK_OBJ_ROOT);
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -69,11 +72,18 @@ namespace LevelEditorScene {
 				}, m_oUIsDict);
 
 				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null)
+					(EKey.MASK_OBJ_ROOT, $"{EKey.MASK_OBJ_ROOT}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+				}, m_oObjDict);
+
+				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", m_oObjDict.GetValueOrDefault(EKey.MASK_OBJ_ROOT), null)
 				}, m_oObjDict);
 
 				CSceneManager.ScreenDebugUIs?.SetActive(false);
 				m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS)?.SetActive(false);
+
+				m_oObjDict.GetValueOrDefault(EKey.MASK_OBJ_ROOT)?.ExAddComponent<SpriteMask>();
+				m_oObjDict.GetValueOrDefault(EKey.MASK_OBJ_ROOT)?.ExAddComponent<SpriteRenderer>();
 				// 객체를 설정한다 }
 			}
 		}

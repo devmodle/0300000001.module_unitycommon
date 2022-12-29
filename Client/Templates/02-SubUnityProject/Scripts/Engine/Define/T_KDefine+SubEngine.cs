@@ -31,8 +31,8 @@ namespace NSEngine {
 
 		// 개수
 		public static readonly Vector3Int E_MIN_NUM_CELLS = new Vector3Int(1, 1, 1);
-		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(25, 25, 25);
-		public static readonly Vector3Int E_DEF_NUM_CELLS = new Vector3Int(10, 10, 10);
+		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(25, 25, 1);
+		public static readonly Vector3Int E_DEF_NUM_CELLS = new Vector3Int(10, 10, 1);
 
 		// 정렬 순서
 		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
