@@ -401,11 +401,12 @@ namespace LevelEditorScene {
 			// 그리드 정보를 설정한다 {
 			m_oGridInfoList.Clear();
 
-			// FIXME: 테스트
-			// TODO: 다중 그리드 구현 예정
+			// TODO: 다중 그리드 처리 구현 필요
 			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
 				var stGridInfo = NSEngine.Factory.MakeGridInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO), Vector3.zero, KCDefine.B_ANCHOR_DOWN_CENTER, false);
-				m_oGridInfoList.ExAddVal(NSEngine.Factory.MakeGridInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO), Vector3.zero, KCDefine.B_ANCHOR_DOWN_CENTER, false));
+				var stPos = new Vector3(KCDefine.B_VAL_0_REAL, (stGridInfo.m_stViewBounds.size.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridInfo.m_stScale.y), KCDefine.B_VAL_0_REAL);
+
+				m_oGridInfoList.ExAddVal(NSEngine.Factory.MakeGridInfo(m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO), stPos, KCDefine.B_ANCHOR_DOWN_CENTER, false));
 			}
 			// 그리드 정보를 설정한다 }
 
@@ -454,7 +455,7 @@ namespace LevelEditorScene {
 				var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_OBJS_POOL);
 				oObjSprite.sprite = NSEngine.Access.GetObjSprite(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds);
 				oObjSprite.transform.localPosition = m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize);
-				//oObjSprite.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+				oObjSprite.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
 				oObjSprite.ExSetSortingOrder(NSEngine.Access.GetSortingOrderInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds));
 
 				a_oOutObjSpriteInfoList.ExAddVal(new STObjSpriteInfo() {
