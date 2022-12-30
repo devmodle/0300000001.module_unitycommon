@@ -11,7 +11,7 @@ namespace NSEngine {
 	public static partial class Access {
 #region 프로퍼티
 		public static Vector3 MaxGridSize => CSceneManager.ActiveSceneManager.IsPortrait ? new Vector3(CSceneManager.ActiveSceneManager.ScreenWidth - KDefine.E_PADDING_GRID.x, CSceneManager.ActiveSceneManager.ScreenWidth - KDefine.E_PADDING_GRID.y, KCDefine.B_VAL_0_REAL) : new Vector3(CSceneManager.ActiveSceneManager.ScreenHeight - KDefine.E_PADDING_GRID.x, CSceneManager.ActiveSceneManager.ScreenHeight - KDefine.E_PADDING_GRID.y, KCDefine.B_VAL_0_REAL);
-		public static Vector3 CellSize => CSceneManager.ActiveSceneManager.IsPortrait ? new Vector3(Access.MaxGridSize.x / (float)KDefine.E_DEF_NUM_CELLS.x, Access.MaxGridSize.x / (float)KDefine.E_DEF_NUM_CELLS.x, KCDefine.B_VAL_0_REAL) : new Vector3(Access.MaxGridSize.y / (float)KDefine.E_DEF_NUM_CELLS.y, Access.MaxGridSize.y / (float)KDefine.E_DEF_NUM_CELLS.y, KCDefine.B_VAL_0_REAL);
+		public static Vector3 CellSize => CSceneManager.ActiveSceneManager.IsPortrait ? new Vector3(Access.MaxGridSize.x / (float)KDefine.E_DEF_NUM_CELLS.x, Access.MaxGridSize.x / (float)KDefine.E_DEF_NUM_CELLS.y, KCDefine.B_VAL_0_REAL) : new Vector3(Access.MaxGridSize.y / (float)KDefine.E_DEF_NUM_CELLS.x, Access.MaxGridSize.y / (float)KDefine.E_DEF_NUM_CELLS.y, KCDefine.B_VAL_0_REAL);
 		public static Vector3 CellCenterOffset => new Vector3(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
 #endregion // 프로퍼티
 

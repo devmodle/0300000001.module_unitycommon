@@ -12,9 +12,9 @@ using UnityEngine.EventSystems;
 namespace NSEngine {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
-		#region 함수
+#region 함수
 
-		#endregion // 함수
+#endregion // 함수
 	}
 
 	/** 서브 엔진 */
@@ -34,21 +34,21 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 		private Dictionary<ESubKey, int> m_oSubIntDict = new Dictionary<ESubKey, int>();
 		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
-		#endregion // 변수
+#endregion // 변수
 
-		#region 프로퍼티
+#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
 		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
 
 		public int SelPlayerObjIdx => m_oSubIntDict.GetValueOrDefault(ESubKey.SEL_PLAYER_OBJ_IDX);
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
-		#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-		#region 함수
+#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -112,12 +112,12 @@ namespace NSEngine {
 		/** 초기화한다 */
 		private void SubInit() {
 #if NEVER_USE_THIS
-			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) {
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
 			this.PlayerObjList.ExAddVal(this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
 
 			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.SelPlayerObj.transform.position.x, this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
-			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) }
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 		}
 
@@ -243,7 +243,12 @@ namespace NSEngine {
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, Access.CellSize);
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+
+				// 인덱스가 유효 할 경우
+				if(m_oCellObjLists.ExIsValidIdx(stIdx)) {
+					// Do Something
+				}
 			}
 		}
 
@@ -251,7 +256,12 @@ namespace NSEngine {
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, Access.CellSize);
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+
+				// 인덱스가 유효 할 경우
+				if(m_oCellObjLists.ExIsValidIdx(stIdx)) {
+					// Do Something
+				}
 			}
 		}
 
@@ -259,12 +269,17 @@ namespace NSEngine {
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, Access.CellSize);
+				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+
+				// 인덱스가 유효 할 경우
+				if(m_oCellObjLists.ExIsValidIdx(stIdx)) {
+					// Do Something
+				}
 			}
 		}
-		#endregion // 함수
+#endregion // 함수
 
-		#region 조건부 함수
+#region 조건부 함수
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public virtual void OnDrawGizmos() {
@@ -274,7 +289,7 @@ namespace NSEngine {
 			}
 		}
 #endif // #if UNITY_EDITOR
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

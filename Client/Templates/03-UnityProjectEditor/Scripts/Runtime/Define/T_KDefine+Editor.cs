@@ -46,6 +46,11 @@ public static partial class KDefine {
 	public const string LES_FUNC_N_FMT_SUB_UPDATE_RE_UIS_PAGE_UIS = "SubUpdateREUIsPageUIs{0:00}";
 	// 이름 }
 #endregion // 기본
+
+#region 런타임 상수
+	// 비율
+	public static readonly Vector3 LES_SCALE_MASK_OBJ_ROOT = new Vector3(1.15f, 1.15f, 1.15f);
+#endregion // 런타임 상수
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #endif // #if SCRIPT_TEMPLATE_ONLY

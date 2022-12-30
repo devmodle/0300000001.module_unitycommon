@@ -186,7 +186,7 @@ namespace GameScene {
 			}
 
 #if NEVER_USE_THIS
-			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) {
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 			var stSize = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
 
 			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).size = stSize;
@@ -208,7 +208,7 @@ namespace GameScene {
 			m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).size = m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).size;
 			m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).transform.localScale = Vector3.one;
 			m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).transform.localPosition = new Vector3((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
-			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) }
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 			// 스프라이트를 설정한다 }
 

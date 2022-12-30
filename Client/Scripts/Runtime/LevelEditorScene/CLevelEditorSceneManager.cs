@@ -30,8 +30,8 @@ namespace LevelEditorScene {
 		#endregion // 변수
 
 		#region 프로퍼티
-		public override bool IsIgnoreBlindV => true;
 		public override bool IsIgnoreBlindH => true;
+		public override bool IsIgnoreBlindV => true;
 		public override bool IsIgnoreBGTouchResponder => false;
 
 		public override float ScreenWidth => KCDefine.B_PORTRAIT_SCREEN_WIDTH;

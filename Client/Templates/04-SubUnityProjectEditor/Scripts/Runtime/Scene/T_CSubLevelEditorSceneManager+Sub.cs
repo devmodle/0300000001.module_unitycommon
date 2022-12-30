@@ -99,8 +99,26 @@ namespace LevelEditorScene {
 				var stCursorPos = CSceneManager.ActiveSceneMainCamera.ScreenToWorldPoint(stMousePos).ExToLocal(this.ObjRoot);
 
 				// 그리드 영역 일 경우
-				if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && m_oGridInfoList[this.SelGridInfoIdx].m_stBounds.Contains(stCursorPos)) {
-					// Do Something
+				if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos)) {
+					var stIdx = stCursorPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+					// 인덱스가 유효 할 경우
+					if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+						// Do Something
+					}
+
+					// 스크롤이 가능 할 경우
+					if(!Input.mouseScrollDelta.ExIsEquals(Vector3.zero)) {
+						float fDeltaY = Mathf.Max(KCDefine.B_VAL_0_REAL, this.SelGridInfo.m_stSize.y - this.SelGridInfo.m_stViewBounds.size.y);
+						float fScrollDelta = m_oRealDict.GetValueOrDefault(EKey.SCROLL_DELTA_Y);
+
+						m_oRealDict.ExReplaceVal(EKey.SCROLL_DELTA_Y, Mathf.Clamp(fScrollDelta - (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y), -fDeltaY, KCDefine.B_VAL_0_REAL));
+
+						// 수직 그리드 스크롤 바가 존재 할 경우
+						if(fDeltaY.ExIsGreate(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.TryGetValue(EKey.ME_UIS_GRID_SCROLL_BAR_V, out Scrollbar oScrollbar)) {
+							oScrollbar.value = Mathf.Abs(m_oRealDict.GetValueOrDefault(EKey.SCROLL_DELTA_Y) / fDeltaY);
+						}
+					}
 				}
 			}
 		}
@@ -114,17 +132,32 @@ namespace LevelEditorScene {
 
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, NSEngine.Access.CellSize);
+			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+			// 인덱스가 유효 할 경우
+			if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+				// Do Something
+			}
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, NSEngine.Access.CellSize);
+			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+			// 인덱스가 유효 할 경우
+			if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+				// Do Something
+			}
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(m_oGridInfoList[this.SelGridInfoIdx].m_stPivotPos, NSEngine.Access.CellSize);
+			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+			// 인덱스가 유효 할 경우
+			if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+				// Do Something
+			}
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수

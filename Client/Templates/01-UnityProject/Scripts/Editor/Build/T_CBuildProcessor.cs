@@ -137,7 +137,7 @@ public static partial class CBuildProcessor {
 			}
 
 #if NEVER_USE_THIS
-			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능)
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
 			for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
 				oPBXProj.AddCapability(oMainGUID, KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST[i]);
 			}
@@ -154,7 +154,7 @@ public static partial class CBuildProcessor {
 			oPBXProj.WriteToFile(oPBXProjPath);
 
 #if NEVER_USE_THIS
-			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) {
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 			var oCapability = new ProjectCapabilityManager(oPBXProjPath, KCEditorDefine.B_ENTITLEMENTS_P_CAPABILITY_IOS, null, oMainGUID);
 			
 			for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_CAPABILITY_TYPE_LIST.Count; ++i) {
@@ -179,7 +179,7 @@ public static partial class CBuildProcessor {
 			}
 
 			oCapability.WriteToFile();
-			// FIXME: 비활성 처리 (필요 시 활성 및 사용 가능) }
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 		}
 #endif // #if UNITY_IOS

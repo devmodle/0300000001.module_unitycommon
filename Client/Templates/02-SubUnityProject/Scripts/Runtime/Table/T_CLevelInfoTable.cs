@@ -182,10 +182,6 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 [MessagePackObject]
 [System.Serializable]
 public partial class CLevelInfo : CBaseInfo, System.ICloneable {
-#region 상수
-	private const string KEY_CELL_INFO_VER = "CellInfoVer";
-#endregion // 상수
-
 #region 변수
 	[Key(165)] public Dictionary<int, Dictionary<int, STCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, STCellInfo>>();
 
@@ -196,8 +192,20 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 #endregion // 변수
 
+#region 상수
+	private const string KEY_GRID_PIVOT = "GridPivot";
+	private const string KEY_CELL_INFO_VER = "CellInfoVer";
+#endregion // 상수
+
 #region 프로퍼티
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+	[JsonIgnore]
+	[IgnoreMember]
+	public EGridPivot GridPivot {
+		get { return (EGridPivot)int.Parse(m_oStrDict.GetValueOrDefault(KEY_GRID_PIVOT, $"{(int)EGridPivot.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_GRID_PIVOT, $"{(int)value}"); }
+	}
+
 	[JsonIgnore]
 	[IgnoreMember]
 	public System.Version CellInfoVer {
@@ -211,6 +219,12 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore][IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	[JsonIgnore][IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
 #else
+	[IgnoreMember]
+	public EGridPivot GridPivot {
+		get { return (EGridPivot)int.Parse(m_oStrDict.GetValueOrDefault(KEY_GRID_PIVOT, $"{(int)EGridPivot.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_GRID_PIVOT, $"{(int)value}"); }
+	}
+
 	[IgnoreMember]
 	public System.Version CellInfoVer {
 		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); }

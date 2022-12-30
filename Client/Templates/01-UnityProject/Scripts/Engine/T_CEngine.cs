@@ -44,10 +44,10 @@ namespace NSEngine {
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 
+		private List<CEObj>[,] m_oCellObjLists = null;
 		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
 		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
-		private List<CEObj>[,] m_oCellObjLists = null;
 #endregion // 변수
 
 #region 프로퍼티
@@ -102,7 +102,7 @@ namespace NSEngine {
 			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot);
 
 			// 그리드 영역 일 경우
-			if(m_oGridInfoList[this.SelGridInfoIdx].m_stBounds.Contains(stTouchPos)) {
+			if(this.SelGridInfo.m_stBounds.Contains(stTouchPos)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;

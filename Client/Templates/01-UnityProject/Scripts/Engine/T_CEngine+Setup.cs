@@ -13,7 +13,7 @@ namespace NSEngine {
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 			m_oGridInfoList.Clear();
-			m_oGridInfoList.ExAddVal((CGameInfoStorage.Inst.PlayLevelInfo != null) ? Factory.MakeGridInfo(CGameInfoStorage.Inst.PlayLevelInfo, KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero) : STGridInfo.INVALID);
+			m_oGridInfoList.ExAddVal((CGameInfoStorage.Inst.PlayLevelInfo != null) ? Factory.MakeGridInfo(CGameInfoStorage.Inst.PlayLevelInfo, KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero) : STGridInfo.INVALID);
 
 			m_oCellObjLists = new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
@@ -33,7 +33,7 @@ namespace NSEngine {
 			if(CGameInfoStorage.Inst.PlayLevelInfo != null) {
 				for(int i = 0; i < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-						this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i][j], m_oGridInfoList[this.SelGridInfoIdx]);
+						this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i][j], this.SelGridInfo);
 					}
 				}
 			}

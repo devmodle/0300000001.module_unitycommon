@@ -15,14 +15,7 @@ namespace NSEngine {
 	}
 
 #region 기본
-	/** 그리드 기준점 */
-	public enum EGridPivot {
-		NONE = -1,
-		UP,
-		MID,
-		DOWN,
-		[HideInInspector] MAX_VAL
-	}
+
 #endregion // 기본
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

@@ -11,24 +11,25 @@ namespace NSEngine {
 	public static partial class Factory {
 #region 클래스 함수
 		/** 그리드 정보를 생성한다 */
-		public static STGridInfo MakeGridInfo(CLevelInfo a_oLevelInfo, Vector3 a_stPos, Vector3 a_stPivot, bool a_bIsEnableExpand = true) {
+		public static STGridInfo MakeGridInfo(CLevelInfo a_oLevelInfo, Vector3 a_stPos, Vector3 a_stOffset, Vector3 a_stPivot, bool a_bIsEnableOverflow = false) {
 			var stGridInfo = new STGridInfo() {
 				m_stSize = new Vector3(a_oLevelInfo.NumCells.x * Access.CellSize.x, a_oLevelInfo.NumCells.y * Access.CellSize.y, KCDefine.B_VAL_0_REAL)
 			};
 
-			var stBoundsPos = a_stPos.ExGetCorrectPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, stGridInfo.m_stSize);
-			var stViewBoundsPos = a_stPos.ExGetCorrectPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, Access.MaxGridSize);
+			var stBoundsPos = (a_stPos + a_stOffset).ExGetPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, stGridInfo.m_stSize);
+			var stViewBoundsPos = a_stPos.ExGetPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, a_bIsEnableOverflow ? new Vector3(stGridInfo.m_stSize.x, stGridInfo.m_stSize.x, KCDefine.B_VAL_0_REAL) : new Vector3(Mathf.Max(stGridInfo.m_stSize.x, stGridInfo.m_stSize.y), Mathf.Max(stGridInfo.m_stSize.x, stGridInfo.m_stSize.y), KCDefine.B_VAL_0_REAL));
 
 			try {
 				stGridInfo.m_stBounds = new Bounds(stBoundsPos, stGridInfo.m_stSize);
-				stGridInfo.m_stViewBounds = new Bounds(stViewBoundsPos, Access.MaxGridSize);
+				stGridInfo.m_stViewBounds = new Bounds(stViewBoundsPos, a_bIsEnableOverflow ? new Vector3(stGridInfo.m_stSize.x, stGridInfo.m_stSize.x, KCDefine.B_VAL_0_REAL) : new Vector3(Mathf.Max(stGridInfo.m_stSize.x, stGridInfo.m_stSize.y), Mathf.Max(stGridInfo.m_stSize.x, stGridInfo.m_stSize.y), KCDefine.B_VAL_0_REAL));
+
 				stGridInfo.m_stPivotPos = new Vector3(stGridInfo.m_stBounds.min.x, stGridInfo.m_stBounds.max.y, KCDefine.B_VAL_0_REAL);
 
-				// 확장 모드 일 경우
-				if(a_bIsEnableExpand) {
-					stGridInfo.m_stScale = Vector3.one * Mathf.Min(Access.MaxGridSize.x / stGridInfo.m_stBounds.size.x, Access.MaxGridSize.y / stGridInfo.m_stBounds.size.y);
-				} else {
+				// 오버 플로우 모드 일 경우
+				if(a_bIsEnableOverflow) {
 					stGridInfo.m_stScale = Vector3.one * (Access.MaxGridSize.x / stGridInfo.m_stBounds.size.x);
+				} else {
+					stGridInfo.m_stScale = Vector3.one * Mathf.Min(Access.MaxGridSize.x / stGridInfo.m_stBounds.size.x, Access.MaxGridSize.y / stGridInfo.m_stBounds.size.y);
 				}
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"Factory.MakeGridInfo Exception: {oException.Message}");
