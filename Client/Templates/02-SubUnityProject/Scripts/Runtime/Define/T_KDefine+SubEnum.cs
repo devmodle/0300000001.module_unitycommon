@@ -403,19 +403,22 @@ public enum EObjKinds {
 #endregion // 중첩
 
 #region 플레이 가능
-	// 300,000,000
-	PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.TYPE * EObjType.PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	// 390,000,000
+	PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.TYPE * EObjType.PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 9),
 #endregion // 플레이 가능
 
 #region 플레이 불가능
-	// 400,000,000
+	// 410,000,000
 	NON_PLAYABLE_NORM_ENEMY_01_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 0),
 
-	// 410,000,000
+	// 420,000,000
 	NON_PLAYABLE_BOSS_ENEMY_01_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
 
-	// 420,000,000
+	// 430,000,000
 	NON_PLAYABLE_NAMED_ENEMY_01_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 2),
+
+	// 490,000,000
+	NON_PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 9),
 #endregion // 플레이 불가능
 
 	[HideInInspector] MAX_VAL

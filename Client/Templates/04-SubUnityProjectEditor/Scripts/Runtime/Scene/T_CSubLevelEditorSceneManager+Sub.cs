@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UniRx.Triggers;
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 using UnityEngine.EventSystems;
@@ -109,7 +108,7 @@ namespace LevelEditorScene {
 
 					// 스크롤이 가능 할 경우
 					if(!Input.mouseScrollDelta.ExIsEquals(Vector3.zero)) {
-						float fDeltaY = Mathf.Max(KCDefine.B_VAL_0_REAL, this.SelGridInfo.m_stSize.y - this.SelGridInfo.m_stViewBounds.size.y);
+						float fDeltaY = Mathf.Max(KCDefine.B_VAL_0_REAL, this.SelGridInfo.m_stBounds.size.y - this.SelGridInfo.m_stViewBounds.size.y);
 						float fScrollDelta = m_oRealDict.GetValueOrDefault(EKey.SCROLL_DELTA_Y);
 
 						m_oRealDict.ExReplaceVal(EKey.SCROLL_DELTA_Y, Mathf.Clamp(fScrollDelta - (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y), -fDeltaY, KCDefine.B_VAL_0_REAL));

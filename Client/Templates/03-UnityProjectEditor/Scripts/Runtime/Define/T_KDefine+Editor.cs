@@ -34,9 +34,11 @@ public static partial class KDefine {
 
 	// 식별자
 	public const string LES_KEY_SPRITE_OBJS_POOL = "SpriteObjsPool";
+	public const string LES_KEY_LINE_FX_OBJS_POOL = "LineFXObjsPool";
 
 	// 이름 {
 	public const string LES_OBJ_N_OBJ_SPRITE = "OBJ_SPRITE";
+	public const string LES_OBJ_N_GRID_LINE_FX = "GRID_LINE_FX";
 	public const string LES_OBJ_N_FMT_RE_UIS_PAGE_UIS = "RE_UIS_PAGE_UIS_{0:00}";
 
 	public const string LES_FUNC_N_FMT_SETUP_RE_UIS_PAGE_UIS = "SetupREUIsPageUIs{0:00}";

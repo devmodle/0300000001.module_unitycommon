@@ -119,7 +119,7 @@ namespace GameScene {
 			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
 				// 이전 씬이 레벨 에디터 씬 일 경우
 				if(CSceneLoader.Inst.PrevActiveSceneName.Equals(KCDefine.B_SCENE_N_LEVEL_EDITOR)) {
-					Func.ShowLeavePopup(this.OnReceiveLeavePopupResult);
+					Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LEAVE_P_MSG), this.OnReceiveLeavePopupResult);
 				} else {
 					this.OnTouchPauseBtn();
 				}
@@ -335,9 +335,10 @@ namespace GameScene {
 
 			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
 				var stValInfo = new STValInfo(KCDefine.B_VAL_1_INT, EValType.INT);
+				var stTargetInfo = new STTargetInfo(ETargetKinds.ITEM_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], stValInfo);
 
 				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
-				Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], stValInfo));
+				Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stTargetInfo);
 			}
 		}
 

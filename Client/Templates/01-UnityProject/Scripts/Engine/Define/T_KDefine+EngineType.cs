@@ -15,7 +15,6 @@ namespace NSEngine {
 		public Bounds m_stBounds;
 		public Bounds m_stViewBounds;
 
-		public Vector3 m_stSize;
 		public Vector3 m_stScale;
 		public Vector3 m_stPivotPos;
 

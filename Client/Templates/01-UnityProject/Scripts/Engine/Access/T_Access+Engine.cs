@@ -18,13 +18,16 @@ namespace NSEngine {
 #region 클래스 함수
 		/** 객체 스프라이트를 반환한다 */
 		public static Sprite GetObjSprite(EObjKinds a_eObjKinds) {
-			string oImgPath = KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), KCDefine.U_IMG_P_WHITE);
+			string oImgPath = KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), string.Empty);
 			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 
 		/** 정렬 순서 정보를 반환한다 */
-		public static STSortingOrderInfo GetSortingOrderInfo(EObjKinds a_eObjKinds) {
-			return KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), KCDefine.U_SORTING_OI_DEF);
+		public static STSortingOrderInfo GetSortingOrderInfo(EObjKinds a_eObjKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT) {
+			var stSortingOrderInfo = KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), STSortingOrderInfo.INVALID);
+			stSortingOrderInfo.m_nOrder += a_nExtraOrder;
+
+			return stSortingOrderInfo;
 		}
 #endregion // 클래스 함수
 	}

@@ -86,7 +86,7 @@ public partial class CSyncPopup : CSubPopup {
 
 	/** 로드 버튼을 눌렀을 경우 */
 	private void OnTouchLoadBtn() {
-		Func.ShowLoadPopup((a_oSender, a_bIsOK) => {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LOAD_P_MSG), (a_oSender, a_bIsOK) => {
 #if FIREBASE_MODULE_ENABLE
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
@@ -99,7 +99,7 @@ public partial class CSyncPopup : CSubPopup {
 
 	/** 저장 버튼을 눌렀을 경우 */
 	private void OnTouchSaveBtn() {
-		Func.ShowSavePopup((a_oSender, a_bIsOK) => {
+		Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_SAVE_P_MSG), (a_oSender, a_bIsOK) => {
 #if FIREBASE_MODULE_ENABLE
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {

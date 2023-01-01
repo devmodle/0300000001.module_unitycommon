@@ -121,7 +121,7 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, Texture2D> m_oTex2DDict = new Dictionary<EKey, Texture2D>();
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
-		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
+		private List<LineRenderer> m_oGridLineFXList = new List<LineRenderer>();
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oSubMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 
@@ -323,9 +323,10 @@ namespace LevelEditorScene {
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
 			this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
+			this.AddObjsPool(KDefine.LES_KEY_LINE_FX_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_LINE_FX, this.ObjRoot));
 
 			// 텍스처를 설정한다
-			m_oTex2DDict.ExReplaceVal(EKey.GRID_BOUNDS_TEX_2D, CFactory.MakeTex2D(KCDefine.U_IMG_N_TEX, new Vector3Int((int)this.ScreenWidth, (int)this.ScreenHeight, KCDefine.B_VAL_0_INT)));
+			m_oTex2DDict.ExReplaceVal(EKey.GRID_BOUNDS_TEX_2D, CFactory.MakeTex2D(KCDefine.U_IMG_N_TEX, new Vector3Int((int)(this.ScreenWidth * KCDefine.B_VAL_2_REAL), (int)(this.ScreenHeight * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_INT)));
 
 			// 스프라이트를 설정한다 {
 			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
@@ -404,6 +405,10 @@ namespace LevelEditorScene {
 		private void ResetObjSprites() {
 			// 객체 스프라이트가 존재 할 경우
 			if(m_oObjSpriteInfoLists.ExIsValid()) {
+				for(int i = 0; i < m_oGridLineFXList.Count; ++i) {
+					this.DespawnObj(KDefine.LES_KEY_LINE_FX_OBJS_POOL, m_oGridLineFXList[i].gameObject);
+				}
+
 				for(int i = 0; i < m_oObjSpriteInfoLists.GetLength(KCDefine.B_VAL_0_INT); ++i) {
 					for(int j = 0; j < m_oObjSpriteInfoLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
 						this.ResetObjSprites(m_oObjSpriteInfoLists[i, j]);
@@ -440,6 +445,38 @@ namespace LevelEditorScene {
 			this.MaskObjRoot.transform.localPosition = this.ObjRootPivotPos;
 			// 객체를 설정한다 }
 
+			// 그리드 라인 효과를 설정한다 {
+			m_oGridLineFXList.Clear();
+
+			for(int i = 0; i <= m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.x; ++i) {
+				var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
+				oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_5_REAL);
+				oLineFX.ExSetColor(Color.black, Color.black);
+				oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
+
+				oLineFX.ExSetPositions(new List<Vector3>() {
+					this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL),
+					this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_REAL)
+				});
+
+				m_oGridLineFXList.ExAddVal(oLineFX);
+			}
+
+			for(int i = 0; i <= m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.y; ++i) {
+				var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
+				oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_5_REAL);
+				oLineFX.ExSetColor(Color.black, Color.black);
+				oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
+
+				oLineFX.ExSetPositions(new List<Vector3>() {
+					this.SelGridInfo.m_stPivotPos + new Vector3(KCDefine.B_VAL_0_REAL, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+					this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL)
+				});
+
+				m_oGridLineFXList.ExAddVal(oLineFX);
+			}
+			// 그리드 라인 효과를 설정한다 }
+
 			// 객체 스프라이트를 설정한다 {
 			m_oObjSpriteInfoLists = new List<STObjSpriteInfo>[m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.y, m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).NumCells.x];
 
@@ -452,7 +489,8 @@ namespace LevelEditorScene {
 			// 객체 스프라이트를 설정한다 }
 
 			// 마스크 스프라이트를 설정한다 {
-			var oSprite = CFactory.MakeSprite(KCDefine.U_IMG_N_SPRITE, m_oTex2DDict.GetValueOrDefault(EKey.GRID_BOUNDS_TEX_2D), new Rect(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, NSEngine.Access.MaxGridSize.x, NSEngine.Access.MaxGridSize.y), KCDefine.B_ANCHOR_MID_CENTER);
+			var stRect = new Rect(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, NSEngine.Access.MaxGridSize.x, NSEngine.Access.MaxGridSize.y);
+			var oSprite = CFactory.MakeSprite(KCDefine.U_IMG_N_SPRITE, m_oTex2DDict.GetValueOrDefault(EKey.GRID_BOUNDS_TEX_2D), stRect, KCDefine.B_ANCHOR_MID_CENTER);
 
 			var oMask = this.MaskObjRoot.GetComponentInChildren<SpriteMask>();
 			oMask.sprite = oSprite;
@@ -461,7 +499,9 @@ namespace LevelEditorScene {
 			oSpriteRenderer.color = Color.white.ExGetAlphaColor(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_9_REAL);
 			oSpriteRenderer.sprite = oSprite;
 
-			oSpriteRenderer.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
+			oSpriteRenderer.ExSetSortingOrder(new STSortingOrderInfo() {
+				m_nOrder = KCDefine.U_SORTING_OI_UNDERGROUND.m_nOrder - KCDefine.B_VAL_1_INT, m_oLayer = KCDefine.U_SORTING_OI_UNDERGROUND.m_oLayer
+			});
 			// 마스크 스프라이트를 설정한다 }
 
 			// 그리드 스크롤 바를 설정한다 {
@@ -491,6 +531,7 @@ namespace LevelEditorScene {
 		/** 객체 스프라이트를 리셋한다 */
 		private void ResetObjSprites(List<STObjSpriteInfo> a_oObjSpriteInfoList) {
 			for(int i = 0; i < a_oObjSpriteInfoList.Count; ++i) {
+				a_oObjSpriteInfoList[i].m_oSprite.sprite = null;
 				this.DespawnObj(KDefine.LES_KEY_SPRITE_OBJS_POOL, a_oObjSpriteInfoList[i].m_oSprite.gameObject);
 			}
 		}
@@ -832,7 +873,7 @@ namespace LevelEditorScene {
 				m_oVerInfos = a_oVerInfos;
 				Func.LoadGoogleSheets(a_oLoadGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetLoadHandlerDict, this.OnLoadGoogleSheets);
 			} else {
-				Func.ShowOnTableLoadFailPopup(null);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, false);
 			}
 		}
 
@@ -843,7 +884,7 @@ namespace LevelEditorScene {
 				this.UpdateUIsState();
 				Func.OnLoadGoogleSheets(m_oVerInfos);
 			} else {
-				Func.ShowOnTableLoadFailPopup(null);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, false);
 			}
 		}
 
@@ -1066,8 +1107,8 @@ namespace LevelEditorScene {
 
 		/** 중앙 에디터 UI 그리드 스크롤 바 값이 변경 되었을 경우 */
 		private void OnChangeMEUIsGridScrollBarVal(Scrollbar a_oSender, float a_fVal) {
-			float fDeltaX = Mathf.Max(KCDefine.B_VAL_0_INT, this.SelGridInfo.m_stSize.x - this.SelGridInfo.m_stViewBounds.size.x);
-			float fDeltaY = Mathf.Max(KCDefine.B_VAL_0_INT, this.SelGridInfo.m_stSize.y - this.SelGridInfo.m_stViewBounds.size.y);
+			float fDeltaX = Mathf.Max(KCDefine.B_VAL_0_INT, this.SelGridInfo.m_stBounds.size.x - this.SelGridInfo.m_stViewBounds.size.x);
+			float fDeltaY = Mathf.Max(KCDefine.B_VAL_0_INT, this.SelGridInfo.m_stBounds.size.y - this.SelGridInfo.m_stViewBounds.size.y);
 
 			// 수평 그리드 스크롤 바 일 경우
 			if(fDeltaX.ExIsGreate(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.GetValueOrDefault(EKey.ME_UIS_GRID_SCROLL_BAR_H) == a_oSender) {

@@ -13,15 +13,16 @@ namespace NSEngine {
 		/** 그리드 정보를 생성한다 */
 		public static STGridInfo MakeGridInfo(CLevelInfo a_oLevelInfo, Vector3 a_stPos, Vector3 a_stOffset, Vector3 a_stPivot, bool a_bIsEnableOverflow = false) {
 			var stGridInfo = new STGridInfo() {
-				m_stSize = new Vector3(a_oLevelInfo.NumCells.x * Access.CellSize.x, a_oLevelInfo.NumCells.y * Access.CellSize.y, KCDefine.B_VAL_0_REAL)
+				m_stBounds = new Bounds(Vector3.zero, new Vector3(a_oLevelInfo.NumCells.x * Access.CellSize.x, a_oLevelInfo.NumCells.y * Access.CellSize.y, KCDefine.B_VAL_0_REAL))
 			};
 
-			var stBoundsPos = (a_stPos + a_stOffset).ExGetPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, stGridInfo.m_stSize);
-			var stViewBoundsPos = a_stPos.ExGetPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, a_bIsEnableOverflow ? new Vector3(stGridInfo.m_stSize.x, stGridInfo.m_stSize.x, KCDefine.B_VAL_0_REAL) : new Vector3(Mathf.Max(stGridInfo.m_stSize.x, stGridInfo.m_stSize.y), Mathf.Max(stGridInfo.m_stSize.x, stGridInfo.m_stSize.y), KCDefine.B_VAL_0_REAL));
+			var stPos = a_stPos + a_stOffset;
+			var stBoundsPos = stPos.ExGetPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, stGridInfo.m_stBounds.size);
+			var stViewBoundsPos = a_stPos.ExGetPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, a_bIsEnableOverflow ? new Vector3(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.x, KCDefine.B_VAL_0_REAL) : new Vector3(Mathf.Max(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.y), Mathf.Max(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.y), KCDefine.B_VAL_0_REAL));
 
 			try {
-				stGridInfo.m_stBounds = new Bounds(stBoundsPos, stGridInfo.m_stSize);
-				stGridInfo.m_stViewBounds = new Bounds(stViewBoundsPos, a_bIsEnableOverflow ? new Vector3(stGridInfo.m_stSize.x, stGridInfo.m_stSize.x, KCDefine.B_VAL_0_REAL) : new Vector3(Mathf.Max(stGridInfo.m_stSize.x, stGridInfo.m_stSize.y), Mathf.Max(stGridInfo.m_stSize.x, stGridInfo.m_stSize.y), KCDefine.B_VAL_0_REAL));
+				stGridInfo.m_stBounds = new Bounds(stBoundsPos, stGridInfo.m_stBounds.size);
+				stGridInfo.m_stViewBounds = new Bounds(stViewBoundsPos, a_bIsEnableOverflow ? new Vector3(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.x, KCDefine.B_VAL_0_REAL) : new Vector3(Mathf.Max(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.y), Mathf.Max(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.y), KCDefine.B_VAL_0_REAL));
 
 				stGridInfo.m_stPivotPos = new Vector3(stGridInfo.m_stBounds.min.x, stGridInfo.m_stBounds.max.y, KCDefine.B_VAL_0_REAL);
 

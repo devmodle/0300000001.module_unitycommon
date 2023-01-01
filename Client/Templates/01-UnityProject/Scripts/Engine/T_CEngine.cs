@@ -46,7 +46,7 @@ namespace NSEngine {
 
 		private List<CEObj>[,] m_oCellObjLists = null;
 		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
-		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
+		private List<LineRenderer> m_oGridLineFXList = new List<LineRenderer>();
 		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 #endregion // 변수
 

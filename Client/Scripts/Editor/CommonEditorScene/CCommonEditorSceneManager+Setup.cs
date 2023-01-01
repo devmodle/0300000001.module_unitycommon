@@ -108,14 +108,14 @@ public static partial class CCommonEditorSceneManager {
 	private static void SetupRaycasters() {
 		CFunc.EnumerateComponents<GraphicRaycaster>((a_oRaycaster) => {
 			a_oRaycaster.ignoreReversedGraphics = true;
-			a_oRaycaster.blockingMask = a_oRaycaster.blockingMask.ExGetLayerVal(KCDefine.B_VAL_0_INT);
+			a_oRaycaster.blockingMask = a_oRaycaster.blockingMask.ExGetLayerMask(KCDefine.B_VAL_0_INT);
 			a_oRaycaster.blockingObjects = GraphicRaycaster.BlockingObjects.None;
 
 			return true;
 		});
 
 		CFunc.EnumerateComponents<PhysicsRaycaster>((a_oRaycaster) => {
-			a_oRaycaster.eventMask = a_oRaycaster.eventMask.ExGetLayerVal(int.MaxValue);
+			a_oRaycaster.eventMask = a_oRaycaster.eventMask.ExGetLayerMask(int.MaxValue);
 			a_oRaycaster.maxRayIntersections = KCDefine.B_VAL_0_INT;
 
 			return true;
