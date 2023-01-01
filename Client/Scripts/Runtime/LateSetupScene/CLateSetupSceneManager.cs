@@ -226,10 +226,15 @@ namespace LateSetupScene {
 
 			this.ExLateCallFunc((a_oSender) => {
 #if STUDY_MODULE_ENABLE
-				CSceneLoader.Inst.LoadSceneAsyncByLoadingScene(KCDefine.B_SCENE_N_MENU);
+				// 기본 씬 일 경우
+				if(KCDefine.B_DEF_SCENE_NAME_LIST_02.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
+					CSceneLoader.Inst.LoadSceneAsyncByLoadingScene(KCDefine.B_SCENE_N_MENU);
+				} else {
+					CSceneLoader.Inst.LoadSceneAsyncByLoadingScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_MENU : CSceneLoader.Inst.AwakeActiveSceneName);
+				}
 #else
 				// 기본 씬 일 경우
-				if(KCDefine.B_DEF_SCENE_NAME_LIST.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
+				if(KCDefine.B_DEF_SCENE_NAME_LIST_01.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
 					CSceneLoader.Inst.LoadSceneAsyncByLoadingScene(KCDefine.B_SCENE_N_TITLE);
 				} else {
 					CSceneLoader.Inst.LoadSceneAsyncByLoadingScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : CSceneLoader.Inst.AwakeActiveSceneName);
@@ -237,9 +242,9 @@ namespace LateSetupScene {
 #endif // #if STUDY_MODULE_ENABLE
 			}, KCDefine.B_VAL_1_REAL);
 		}
-		#endregion // 함수
+#endregion // 함수
 
-		#region 조건부 함수
+#region 조건부 함수
 #if UNITY_ANDROID
 		/** 유저 권한을 요청한다 */
 		protected abstract void RequestUserPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
@@ -250,9 +255,9 @@ namespace LateSetupScene {
 			this.ExLateCallFunc((a_oSender) => this.ApplyUserPermissions());
 		}
 #endif // #if UNITY_ANDROID
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 
-		#region 조건부 클래스 함수
+#region 조건부 클래스 함수
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 		/** 애플 로그인 상태가 갱신 되었을 경우 */
 		private static void OnUpdateAppleLoginState(CServicesManager a_oSender, bool a_bIsSuccess) {
@@ -376,9 +381,9 @@ namespace LateSetupScene {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitPlayfabManager: {a_bIsSuccess}");
 		}
 #endif // #if PLAYFAB_MODULE_ENABLE
-		#endregion // 조건부 클래스 함수
+#endregion // 조건부 클래스 함수
 
-		#region 조건부 접근자 클래스 함수
+#region 조건부 접근자 클래스 함수
 #if ADS_MODULE_ENABLE
 		/** 광고 제거 결제 여부를 변경한다 */
 		public static void SetPurchaseRemoveAds(bool a_bIsPurchase) {
@@ -400,6 +405,6 @@ namespace LateSetupScene {
 			CLateSetupSceneManager.IsAutoLoadFullscreenAds = a_bIsAutoLoad;
 		}
 #endif // #if ADS_MODULE_ENABLE
-		#endregion // 조건부 접근자 클래스 함수
+#endregion // 조건부 접근자 클래스 함수
 	}
 }
