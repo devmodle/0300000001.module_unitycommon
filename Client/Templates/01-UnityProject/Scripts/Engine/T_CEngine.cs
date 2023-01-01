@@ -41,8 +41,8 @@ namespace NSEngine {
 		}
 
 #region 변수
-		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 
 		private List<CEObj>[,] m_oCellObjLists = null;
 		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
