@@ -5,10 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-#if INPUT_SYSTEM_MODULE_ENABLE
-using UnityEngine.InputSystem;
-#endif // #if INPUT_SYSTEM_MODULE_ENABLE
-
 namespace TitleScene {
 	/** 타이틀 씬 관리자 */
 	public partial class CTitleSceneManager : CSceneManager {
@@ -73,19 +69,25 @@ namespace TitleScene {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-#if INPUT_SYSTEM_MODULE_ENABLE
-				bool bIsEditorKeyDown = Keyboard.current.leftShiftKey.isPressed && Keyboard.current.eKey.wasPressedThisFrame;
-#else
-				bool bIsEditorKeyDown = Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.E);
-#endif // #if INPUT_SYSTEM_MODULE_ENABLE
-
-				// 에디터 키를 눌렀을 경우
-				if(bIsEditorKeyDown) {
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+				// 단축키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.LeftShift)) {
+					this.HandleHotKeys();
 				}
 #endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
 		#endregion // 함수
+
+		#region 조건부 함수
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+		/** 단축키를 처리한다 */
+		private void HandleHotKeys() {
+			// 에디터 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.E)) {
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+			}
+		}
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+		#endregion // 조건부 함수
 	}
 }

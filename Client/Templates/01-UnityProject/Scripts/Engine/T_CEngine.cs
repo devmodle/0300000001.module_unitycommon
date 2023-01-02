@@ -99,10 +99,10 @@ namespace NSEngine {
 
 		/** 터치 이벤트를 처리한다 */
 		public void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
-			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot);
+			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 
 			// 그리드 영역 일 경우
-			if(this.SelGridInfo.m_stBounds.Contains(stTouchPos)) {
+			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stTouchPos)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;

@@ -51,7 +51,7 @@ public static partial class KDefine {
 
 #region 런타임 상수
 	// 비율
-	public static readonly Vector3 LES_SCALE_MASK_OBJ_ROOT = new Vector3(1.15f, 1.15f, 1.15f);
+	public static readonly Vector3 LES_SCALE_MASK_OBJ_ROOT = new Vector3(1.0f, 1.0f, 1.0f);
 #endregion // 런타임 상수
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

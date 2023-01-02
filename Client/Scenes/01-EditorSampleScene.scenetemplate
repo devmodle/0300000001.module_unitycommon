@@ -23,13 +23,13 @@ MonoBehaviour:
     instantiationMode: 1
   - dependency: {fileID: 2800000, guid: 5f51e0b22aa8cb84b9f422576ce87ff9, type: 3}
     instantiationMode: 1
-  - dependency: {fileID: 11400000, guid: ddaa309f8a694a04184c95c5b841d3fa, type: 2}
-    instantiationMode: 0
   - dependency: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
     instantiationMode: 1
   - dependency: {fileID: 2100000, guid: adf081a10fab0475d992a46dbffd953e, type: 2}
     instantiationMode: 1
   - dependency: {fileID: 2800000, guid: 5b759601371a84914a44029794b608e6, type: 3}
     instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: fa92fb197757b6143bcf2bc69a78574a, type: 2}
+    instantiationMode: 0
   templatePipeline: {fileID: 0}
   addToDefaults: 0
