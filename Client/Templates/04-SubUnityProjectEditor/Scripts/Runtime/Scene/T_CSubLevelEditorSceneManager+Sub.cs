@@ -131,31 +131,46 @@ namespace LevelEditorScene {
 
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot);
 
-			// 인덱스가 유효 할 경우
-			if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
-				// Do Something
+			// 그리드 영역 일 경우
+			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stPos)) {
+				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+				// 인덱스가 유효 할 경우
+				if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+					// Do Something
+				}
 			}
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot);
 
-			// 인덱스가 유효 할 경우
-			if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
-				// Do Something
+			// 그리드 영역 일 경우
+			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stPos)) {
+				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+				// 인덱스가 유효 할 경우
+				if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+					// Do Something
+				}
 			}
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stIdx = a_oEventData.ExGetLocalPos(this.ObjRoot).ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot);
 
-			// 인덱스가 유효 할 경우
-			if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
-				// Do Something
+			// 그리드 영역 일 경우
+			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stPos)) {
+				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+				// 인덱스가 유효 할 경우
+				if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+					// Do Something
+				}
 			}
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -302,6 +317,8 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 2 스크롤러 셀 뷰 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs02ScrollerCellViewBtn(EObjKinds a_eObjKinds) {
 			m_oObjKindsDict.ExReplaceVal(EKey.SEL_OBJ_KINDS, a_eObjKinds);
+
+
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수
