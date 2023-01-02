@@ -11,9 +11,9 @@ namespace NSEngine {
 	public static partial class Factory {
 #region 클래스 함수
 		/** 그리드 정보를 생성한다 */
-		public static STGridInfo MakeGridInfo(CLevelInfo a_oLevelInfo, Vector3 a_stPos, Vector3 a_stOffset, Vector3 a_stPivot, bool a_bIsEnableOverflow = false) {
+		public static STGridInfo MakeGridInfo(Vector3 a_stPivot, Vector3 a_stPos, Vector3 a_stOffset, Vector3Int a_stNumCells, bool a_bIsEnableOverflow = false) {
 			var stGridInfo = new STGridInfo() {
-				m_stBounds = new Bounds(Vector3.zero, new Vector3(a_oLevelInfo.NumCells.x * Access.CellSize.x, a_oLevelInfo.NumCells.y * Access.CellSize.y, KCDefine.B_VAL_0_REAL))
+				m_stBounds = new Bounds(Vector3.zero, new Vector3(a_stNumCells.x * Access.CellSize.x, a_stNumCells.y * Access.CellSize.y, KCDefine.B_VAL_0_REAL))
 			};
 
 			var stPos = a_stPos + a_stOffset;
