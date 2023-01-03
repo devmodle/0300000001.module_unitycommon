@@ -6,9 +6,11 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-using System.Globalization;
 using MessagePack;
+
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 using Newtonsoft.Json;
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
 #region 기본
 /** 타겟 정보 */
@@ -30,11 +32,19 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 #endregion // 상수
 
 #region 프로퍼티
-	[JsonIgnore] [IgnoreMember] public int Kinds => m_nKinds.ExKindsToCorrectKinds(m_eKindsGroupType);
-	[JsonIgnore] [IgnoreMember] public ulong UniqueTargetInfoID => Factory.MakeUTargetInfoID(m_eTargetKinds, m_nKinds);
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+	[JsonIgnore][IgnoreMember] public int Kinds => m_nKinds.ExKindsToCorrectKinds(m_eKindsGroupType);
+	[JsonIgnore][IgnoreMember] public ulong UniqueTargetInfoID => Factory.MakeUTargetInfoID(m_eTargetKinds, m_nKinds);
 
-	[JsonIgnore] [IgnoreMember] public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
-	[JsonIgnore] [IgnoreMember] public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
+	[JsonIgnore][IgnoreMember] public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
+	[JsonIgnore][IgnoreMember] public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
+#else
+	[IgnoreMember] public int Kinds => m_nKinds.ExKindsToCorrectKinds(m_eKindsGroupType);
+	[IgnoreMember] public ulong UniqueTargetInfoID => Factory.MakeUTargetInfoID(m_eTargetKinds, m_nKinds);
+	
+	[IgnoreMember] public ETargetType TargetType => (ETargetType)((int)m_eTargetKinds).ExKindsToType();
+	[IgnoreMember] public ETargetKinds BaseTargetKinds => (ETargetKinds)((int)m_eTargetKinds).ExKindsToSubKindsType();
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 #endregion // 프로퍼티
 
 #region IEquatable
