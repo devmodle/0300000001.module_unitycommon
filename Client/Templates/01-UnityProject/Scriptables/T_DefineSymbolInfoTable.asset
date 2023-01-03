@@ -22,13 +22,13 @@ MonoBehaviour:
   - ADDRESSABLES_ENABLE
   - BURST_COMPILER_ENABLE
   - LOCALIZE_ENABLE
+  m_oSubCommonDefineSymbolList:
+  - DEVELOPMENT_PROJ
+  - NINETAP_BUILD_PIPELINE_ENABLE
   - SCENE_TEMPLATES_ENABLE
   - EDITOR_SCENE_TEMPLATES_ENABLE
   - PREFAB_TEMPLATES_ENABLE
   - UTILITY_SCRIPT_TEMPLATES_ENABLE
-  m_oSubCommonDefineSymbolList:
-  - DEVELOPMENT_PROJ
-  - NINETAP_BUILD_PIPELINE_ENABLE
   m_oiOSAppleDefineSymbolList: []
   m_oAndroidDefineSymbolList: []
   m_oAndroidGoogleDefineSymbolList: []

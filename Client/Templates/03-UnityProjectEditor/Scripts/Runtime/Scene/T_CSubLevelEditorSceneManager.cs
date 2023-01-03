@@ -267,12 +267,12 @@ namespace LevelEditorScene {
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
-#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				// 단축키를 눌렀을 경우
 				if(Input.GetKey(KeyCode.LeftShift)) {
 					this.HandleHotKeys();
 				}
 
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				this.SubOnUpdate(a_fDeltaTime);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			}
@@ -331,9 +331,9 @@ namespace LevelEditorScene {
 
 			// 레벨 정보를 설정한다
 			m_oLevelInfoDict.ExReplaceVal(EKey.SEL_LEVEL_INFO, CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 			this.SubSetupAwake();
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 씬을 설정한다 */
@@ -341,7 +341,9 @@ namespace LevelEditorScene {
 			// 스크롤 뷰를 설정한다
 			m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.gameObject.SetActive(true);
 
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			this.SubSetupStart();
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 에디터 종료 팝업 결과를 수신했을 경우 */
@@ -352,16 +354,37 @@ namespace LevelEditorScene {
 				CLevelInfoTable.Inst.SaveLevelInfos();
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
-#if STUDY_MODULE_ENABLE
+#if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
-#else
+#elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : KCDefine.B_SCENE_N_MAIN);
-#endif // #if STUDY_MODULE_ENABLE
+#endif // #if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 			}
 		}
 
 		/** 단축키를 처리한다 */
 		private void HandleHotKeys() {
+			// 이전 페이지 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.LeftArrow)) {
+				m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.GoToPreviousPanel();
+			}
+			// 다음 페이지 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.RightArrow)) {
+				m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.GoToNextPanel();
+			}
+
+			// 페이지 스크롤 스냅이 존재 할 경우
+			if(m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP) != null) {
+				for(int i = 0; i <= (int)(KeyCode.Alpha9 - KeyCode.Alpha1); ++i) {
+					// 숫자 키를 눌렀을 경우
+					if(Input.GetKeyDown(KeyCode.Alpha1 + i)) {
+						int nNumPanels = m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels;
+						m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).GoToPanel(Mathf.Clamp(i, KCDefine.B_VAL_0_INT, nNumPanels - KCDefine.B_VAL_1_INT));
+					}
+				}
+			}
+
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 이전 레벨 키를 눌렀을 경우
 			if(Input.GetKeyDown(KeyCode.UpArrow)) {
 				this.OnTouchMEUIsPrevLevelBtn();
@@ -383,26 +406,7 @@ namespace LevelEditorScene {
 			else if(Input.GetKeyDown(KeyCode.Q)) {
 				this.OnTouchREUIsPageUIs01ClearSelCellsBtn();
 			}
-
-			// 이전 페이지 키를 눌렀을 경우
-			if(Input.GetKeyDown(KeyCode.LeftArrow)) {
-				m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.GoToPreviousPanel();
-			}
-			// 다음 페이지 키를 눌렀을 경우
-			else if(Input.GetKeyDown(KeyCode.RightArrow)) {
-				m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.GoToNextPanel();
-			}
-
-			// 페이지 스크롤 스냅이 존재 할 경우
-			if(m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP) != null) {
-				for(int i = 0; i <= (int)(KeyCode.Alpha9 - KeyCode.Alpha1); ++i) {
-					// 숫자 키를 눌렀을 경우
-					if(Input.GetKeyDown(KeyCode.Alpha1 + i)) {
-						int nNumPanels = m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).NumberOfPanels;
-						m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP).GoToPanel(Mathf.Clamp(i, KCDefine.B_VAL_0_INT, nNumPanels - KCDefine.B_VAL_1_INT));
-					}
-				}
-			}
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 #endregion // 함수
 
@@ -1074,8 +1078,10 @@ namespace LevelEditorScene {
 
 		/** 중앙 에디터 UI 테스트 버튼을 눌렀을 경우 */
 		private void OnTouchMEUIsTestBtn() {
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, this.SelLevelInfo.m_stIDInfo.m_nID01, EPlayMode.TEST, this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03);
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 중앙 에디터 UI 레벨 복사 버튼을 눌렀을 경우 */

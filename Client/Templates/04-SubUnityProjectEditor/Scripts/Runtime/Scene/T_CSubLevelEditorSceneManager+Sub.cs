@@ -28,6 +28,7 @@ namespace LevelEditorScene {
 				var stMainCameraPos = CSceneManager.ActiveSceneMainCamera.transform.position;
 				var stPivotPos = stMainCameraPos + new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, this.PlaneDistance);
 
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				try {
 					var oGridPosList = new List<Vector3>() {
 						stPivotPos + this.ObjRootPivotPos + new Vector3(NSEngine.Access.MaxGridSize.x / -KCDefine.B_VAL_2_REAL, NSEngine.Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL, 0.0f) * CAccess.ResolutionUnitScale,
@@ -46,6 +47,7 @@ namespace LevelEditorScene {
 				} finally {
 					Gizmos.color = stPrevColor;
 				}
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			}
 		}
 #endif // #if UNITY_EDITOR

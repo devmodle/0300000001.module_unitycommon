@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,7 +41,9 @@ namespace AgreeScene {
 			CCommonAppInfoStorage.Inst.AppInfo.IsAgree = true;
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
 
+#if SCENE_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
+#endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 한국 약관 동의 팝업을 출력한다 */

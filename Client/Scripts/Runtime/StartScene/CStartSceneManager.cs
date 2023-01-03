@@ -178,7 +178,9 @@ namespace StartScene {
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 			this.Setup();
 
+#if SCENE_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_SETUP);
+#endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 		}
 		#endregion // 함수
 	}

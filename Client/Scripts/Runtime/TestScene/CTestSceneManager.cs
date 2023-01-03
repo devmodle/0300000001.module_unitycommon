@@ -48,11 +48,11 @@ namespace TestScene {
 
 		/** 백 버튼을 눌렀을 경우 */
 		protected virtual void OnTouchBackBtn() {
-#if STUDY_MODULE_ENABLE
+#if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
-#else
+#elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
-#endif // #if STUDY_MODULE_ENABLE
+#endif // #if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 씬을 설정한다 */

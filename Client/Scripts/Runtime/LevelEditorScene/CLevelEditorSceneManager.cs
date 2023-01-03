@@ -47,7 +47,7 @@ namespace LevelEditorScene {
 
 		protected GameObject MEUIsMsgUIs => m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS);
 		protected GameObject LEUIsABSetUIs => m_oUIsDict.GetValueOrDefault(EKey.LE_UIS_AB_SET_UIS);
-		
+
 		protected GameObject ObjRoot => m_oObjDict.GetValueOrDefault(EKey.OBJ_ROOT);
 		protected GameObject MaskObjRoot => m_oObjDict.GetValueOrDefault(EKey.MASK_OBJ_ROOT);
 		#endregion // 프로퍼티

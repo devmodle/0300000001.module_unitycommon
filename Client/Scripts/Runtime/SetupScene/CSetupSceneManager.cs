@@ -94,7 +94,9 @@ namespace SetupScene {
 			CSceneManager.SetSetup(true);
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
 
+#if SCENE_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_AGREE);
+#endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 초기화 */

@@ -81,10 +81,12 @@ namespace MainScene {
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		/** 단축키를 처리한다 */
 		private void HandleHotKeys() {
+#if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 			// 에디터 키를 눌렀을 경우
 			if(Input.GetKeyDown(KeyCode.E)) {
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 			}
+#endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		}
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		#endregion // 조건부 함수

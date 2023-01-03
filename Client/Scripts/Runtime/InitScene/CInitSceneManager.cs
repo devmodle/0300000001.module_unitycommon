@@ -141,7 +141,9 @@ namespace InitScene {
 
 		/** 다음 씬을 로드한다 */
 		protected void LoadNextScene() {
+#if SCENE_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_START, false);
+#endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 블라인드 이미지를 생성한다 */

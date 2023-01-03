@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,11 +44,11 @@ public partial class CSampleSceneManager : CSceneManager {
 
 		// 백 키 눌림 이벤트 일 경우
 		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
-#if STUDY_MODULE_ENABLE
+#if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
-#else
+#elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
-#endif // #if STUDY_MODULE_ENABLE
+#endif // #if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 		}
 	}
 #endif // #if UNITY_EDITOR

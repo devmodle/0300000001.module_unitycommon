@@ -1,4 +1,4 @@
-﻿#if SCRIPT_TEMPLATE_ONLY
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace AgreeScene {
 	/** 서브 약관 동의 씬 관리자 */
 	public partial class CSubAgreeSceneManager : CAgreeSceneManager {
-		#region 함수
+#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
@@ -37,11 +37,11 @@ namespace AgreeScene {
 		private void SetupAwake() {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			Func.SetupStrTable();
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 			Func.SetupGoogleSheetInfoValCreators();
-#endif           // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 약관 동의 팝업을 출력한다 */
@@ -65,7 +65,7 @@ namespace AgreeScene {
 
 			this.LoadNextScene();
 		}
-		#endregion // 함수
+#endregion // 함수
 	}
 }
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE
