@@ -471,12 +471,9 @@ namespace LevelEditorScene {
 			}
 			// 그리드 정보를 설정한다 }
 
-			// 객체를 설정한다 {
+			// 객체를 설정한다
 			this.ObjRoot.transform.localScale = this.SelGridInfo.m_stScale.ExIsValid() ? this.SelGridInfo.m_stScale : Vector3.one;
-
-			this.MaskObjRoot.transform.localScale = KDefine.LES_SCALE_MASK_OBJ_ROOT;
 			this.MaskObjRoot.transform.localPosition = this.ObjRootPivotPos;
-			// 객체를 설정한다 }
 
 			// 그리드 라인 효과를 설정한다 {
 			m_oGridLineFXList.Clear();
@@ -1454,7 +1451,7 @@ namespace LevelEditorScene {
 					m_nNumLevels = KCDefine.B_VAL_0_INT,
 					m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT),
 					m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, KCDefine.B_VAL_0_INT)
-				});
+				}, false);
 
 				this.UpdateUIsState();
 			}
