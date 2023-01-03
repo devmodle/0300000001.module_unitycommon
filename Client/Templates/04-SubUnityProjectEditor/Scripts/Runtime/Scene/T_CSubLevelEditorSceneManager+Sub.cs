@@ -116,15 +116,10 @@ namespace LevelEditorScene {
 
 					// 스크롤이 가능 할 경우
 					if(!Input.mouseScrollDelta.ExIsEquals(Vector3.zero)) {
-						float fDeltaY = Mathf.Max(KCDefine.B_VAL_0_REAL, this.SelGridInfo.m_stBounds.size.y - this.SelGridInfo.m_stViewBounds.size.y);
-						float fScrollDelta = m_oRealDict.GetValueOrDefault(EKey.SCROLL_DELTA_Y);
+						float fScrollDeltaX = m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_X);
+						float fScrollDeltaY = m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_Y);
 
-						m_oRealDict.ExReplaceVal(EKey.SCROLL_DELTA_Y, Mathf.Clamp(fScrollDelta - (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y), -fDeltaY, KCDefine.B_VAL_0_REAL));
-
-						// 수직 그리드 스크롤 바가 존재 할 경우
-						if(fDeltaY.ExIsGreate(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.TryGetValue(EKey.ME_UIS_GRID_SCROLL_BAR_V, out Scrollbar oScrollbar)) {
-							oScrollbar.value = Mathf.Abs(m_oRealDict.GetValueOrDefault(EKey.SCROLL_DELTA_Y) / fDeltaY);
-						}
+						this.SetMEUIsGridScrollDelta(fScrollDeltaX - (Input.mouseScrollDelta.x * NSEngine.Access.CellSize.x), fScrollDeltaY - (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y));
 					}
 				} else {
 					m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.gameObject.SetActive(false);

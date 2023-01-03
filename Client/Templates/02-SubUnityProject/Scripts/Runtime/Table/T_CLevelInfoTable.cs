@@ -323,6 +323,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	/** 사본 객체를 설정한다 */
 	protected virtual void SetupCloneInst(CLevelInfo a_oLevelInfo) {
 		a_oLevelInfo.m_stIDInfo = m_stIDInfo;
+		m_oStrDict.ExCopyTo(a_oLevelInfo.m_oStrDict, (a_oStr) => a_oStr);
 
 		// 셀 정보를 설정한다
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {

@@ -19,8 +19,8 @@ namespace LevelEditorScene {
 		private enum EKey {
 			NONE = -1,
 			PREV_CELL_IDX,
-			SCROLL_DELTA_X,
-			SCROLL_DELTA_Y,
+			GRID_SCROLL_DELTA_X,
+			GRID_SCROLL_DELTA_Y,
 			GRID_BOUNDS_TEX_2D,
 
 			SEL_GRID_IDX,
@@ -461,7 +461,7 @@ namespace LevelEditorScene {
 				switch(this.SelLevelInfo.GridPivot) {
 					case EGridPivot.DOWN: {
 						var stGridInfo = NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, this.SelLevelInfo.NumCells, true);
-						var stOffset = new Vector3(KCDefine.B_VAL_0_REAL, m_oRealDict.GetValueOrDefault(EKey.SCROLL_DELTA_Y), KCDefine.B_VAL_0_REAL);
+						var stOffset = new Vector3(KCDefine.B_VAL_0_REAL, m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_Y), KCDefine.B_VAL_0_REAL);
 						var stPos = new Vector3(KCDefine.B_VAL_0_REAL, (NSEngine.Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridInfo.m_stScale.y), KCDefine.B_VAL_0_REAL);
 
 						m_oGridInfoList.ExAddVal(NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, stPos, stOffset, this.SelLevelInfo.NumCells, true));
@@ -475,9 +475,12 @@ namespace LevelEditorScene {
 			}
 			// 그리드 정보를 설정한다 }
 
-			// 객체를 설정한다
+			// 객체를 설정한다 {
 			this.ObjRoot.transform.localScale = this.SelGridInfo.m_stScale.ExIsValid() ? this.SelGridInfo.m_stScale : Vector3.one;
+
+			this.MaskObjRoot.transform.localScale = KDefine.LES_SCALE_MASK_OBJ_ROOT;
 			this.MaskObjRoot.transform.localPosition = this.ObjRootPivotPos;
+			// 객체를 설정한다 }
 
 			// 그리드 라인 효과를 설정한다 {
 			m_oGridLineFXList.Clear();
@@ -485,7 +488,7 @@ namespace LevelEditorScene {
 			for(int i = 0; i <= this.SelLevelInfo.NumCells.x; ++i) {
 				var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
 				oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_5_REAL);
-				oLineFX.ExSetColor(Color.cyan, Color.cyan);
+				oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
 				oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
 
 				oLineFX.ExSetPositions(new List<Vector3>() {
@@ -499,7 +502,7 @@ namespace LevelEditorScene {
 			for(int i = 0; i <= this.SelLevelInfo.NumCells.y; ++i) {
 				var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
 				oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_5_REAL);
-				oLineFX.ExSetColor(Color.cyan, Color.cyan);
+				oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
 				oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
 
 				oLineFX.ExSetPositions(new List<Vector3>() {
@@ -547,8 +550,8 @@ namespace LevelEditorScene {
 				oGridScrollBarH.size = this.SelGridInfo.m_stViewBounds.size.x / this.SelGridInfo.m_stBounds.size.x;
 
 				(oGridScrollBarH.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
-				(oGridScrollBarH.transform as RectTransform).sizeDelta = new Vector3(oSprite.bounds.size.x * this.MaskObjRoot.transform.localScale.x, (oGridScrollBarH.transform as RectTransform).sizeDelta.y, KCDefine.B_VAL_0_REAL);
-				(oGridScrollBarH.transform as RectTransform).anchoredPosition = new Vector3(KCDefine.B_VAL_0_REAL, ((oSprite.bounds.size.y / -KCDefine.B_VAL_2_REAL) * this.MaskObjRoot.transform.localScale.y) - (oGridScrollBarH.transform as RectTransform).sizeDelta.y, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarH.transform as RectTransform).sizeDelta = new Vector3(oSprite.bounds.size.x, (oGridScrollBarH.transform as RectTransform).sizeDelta.y, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarH.transform as RectTransform).anchoredPosition = new Vector3(KCDefine.B_VAL_0_REAL, ((oSprite.bounds.size.y / -KCDefine.B_VAL_2_REAL) * this.MaskObjRoot.transform.localScale.y) - ((oGridScrollBarH.transform as RectTransform).sizeDelta.y * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
 			}
 
 			// 수직 그리드 스크롤 바가 존재 할 경우
@@ -556,8 +559,8 @@ namespace LevelEditorScene {
 				oGridScrollBarV.size = this.SelGridInfo.m_stViewBounds.size.y / this.SelGridInfo.m_stBounds.size.y;
 
 				(oGridScrollBarV.transform as RectTransform).pivot = KCDefine.B_ANCHOR_MID_LEFT;
-				(oGridScrollBarV.transform as RectTransform).sizeDelta = new Vector3((oGridScrollBarV.transform as RectTransform).sizeDelta.x, oSprite.bounds.size.y * this.MaskObjRoot.transform.localScale.y, KCDefine.B_VAL_0_REAL);
-				(oGridScrollBarV.transform as RectTransform).anchoredPosition = new Vector3(((oSprite.bounds.size.x / KCDefine.B_VAL_2_REAL) * this.MaskObjRoot.transform.localScale.x) + (oGridScrollBarV.transform as RectTransform).sizeDelta.x, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarV.transform as RectTransform).sizeDelta = new Vector3((oGridScrollBarV.transform as RectTransform).sizeDelta.x, oSprite.bounds.size.y, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarV.transform as RectTransform).anchoredPosition = new Vector3(((oSprite.bounds.size.x / KCDefine.B_VAL_2_REAL) * this.MaskObjRoot.transform.localScale.x) + ((oGridScrollBarV.transform as RectTransform).sizeDelta.x * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
 			}
 			// 그리드 스크롤 바를 설정한다 }
 		}
@@ -1156,14 +1159,33 @@ namespace LevelEditorScene {
 
 			// 수평 그리드 스크롤 바 일 경우
 			if(fDeltaX.ExIsGreate(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.GetValueOrDefault(EKey.ME_UIS_GRID_SCROLL_BAR_H) == a_oSender) {
-				m_oRealDict.ExReplaceVal(EKey.SCROLL_DELTA_X, -(a_fVal * fDeltaX));
+				m_oRealDict.ExReplaceVal(EKey.GRID_SCROLL_DELTA_X, -(a_fVal * fDeltaX));
 			}
 			// 수직 그리드 스크롤 바 일 경우
 			else if(fDeltaY.ExIsGreate(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.GetValueOrDefault(EKey.ME_UIS_GRID_SCROLL_BAR_V) == a_oSender) {
-				m_oRealDict.ExReplaceVal(EKey.SCROLL_DELTA_Y, -(a_fVal * fDeltaY));
+				m_oRealDict.ExReplaceVal(EKey.GRID_SCROLL_DELTA_Y, -(a_fVal * fDeltaY));
 			}
 
 			this.UpdateUIsState();
+		}
+
+		/** 중앙 에디터 UI 그리드 스크롤 간격을 변경한다 */
+		private void SetMEUIsGridScrollDelta(float a_fDeltaX, float a_fDeltaY) {
+			float fWidth = Mathf.Max(KCDefine.B_VAL_0_REAL, this.SelGridInfo.m_stBounds.size.x - this.SelGridInfo.m_stViewBounds.size.x);
+			float fHeight = Mathf.Max(KCDefine.B_VAL_0_REAL, this.SelGridInfo.m_stBounds.size.y - this.SelGridInfo.m_stViewBounds.size.y);
+
+			m_oRealDict.ExReplaceVal(EKey.GRID_SCROLL_DELTA_X, Mathf.Clamp(a_fDeltaX, -fWidth, KCDefine.B_VAL_0_REAL));
+			m_oRealDict.ExReplaceVal(EKey.GRID_SCROLL_DELTA_Y, Mathf.Clamp(a_fDeltaY, -fHeight, KCDefine.B_VAL_0_REAL));
+
+			// 수평 그리드 스크롤 바가 존재 할 경우
+			if(fWidth.ExIsGreate(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.TryGetValue(EKey.ME_UIS_GRID_SCROLL_BAR_H, out Scrollbar oScrollbarH)) {
+				oScrollbarH.value = Mathf.Abs(m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_X) / fWidth);
+			}
+
+			// 수직 그리드 스크롤 바가 존재 할 경우
+			if(fHeight.ExIsGreate(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.TryGetValue(EKey.ME_UIS_GRID_SCROLL_BAR_V, out Scrollbar oScrollbarV)) {
+				oScrollbarV.value = Mathf.Abs(m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_Y) / fHeight);
+			}
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수
@@ -1548,7 +1570,9 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 선택 콜백을 수신했을 경우 */
 		private void OnReceiveSelCallback(CScrollerCellView a_oSender, ulong a_nID) {
+			m_oRealDict.ExReplaceVal(EKey.GRID_SCROLL_DELTA_Y, KCDefine.B_VAL_0_REAL);
 			m_oLevelInfoDict.ExReplaceVal(EKey.SEL_LEVEL_INFO, CLevelInfoTable.Inst.GetLevelInfo(a_nID.ExULevelIDToLevelID(), a_nID.ExULevelIDToStageID(), a_nID.ExULevelIDToChapterID()));
+
 			this.UpdateUIsState();
 		}
 

@@ -17,10 +17,16 @@ public static partial class KDefine {
 public static partial class KDefine {
 #region 기본
 	// 개수
-	public const int LES_MAX_NUM_OBJ_KINDS_IN_ROW = 5;
+	public const int LES_MAX_NUM_OBJ_KINDS_IN_ROW = 4;
 #endregion // 기본
 
 #region 런타임 상수
+	// 색상
+	public static readonly Color LES_COLOR_GRID_LINE = new Color(0.25f, 0.25f, 0.0f, 1.0f);
+
+	// 비율
+	public static readonly Vector3 LES_SCALE_MASK_OBJ_ROOT = new Vector3(1.25f, 1.25f, 1.25f);
+
 	// 객체 종류
 	public static readonly Dictionary<int, List<EObjKinds>> LES_OBJ_KINDS_DICT_CONTAINER = new Dictionary<int, List<EObjKinds>>() {
 		[KCDefine.B_VAL_0_INT] = new List<EObjKinds>() {
