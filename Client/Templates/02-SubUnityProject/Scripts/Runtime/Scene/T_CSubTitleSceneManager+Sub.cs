@@ -12,9 +12,9 @@ using UnityEngine.EventSystems;
 namespace TitleScene {
 	/** 서브 타이틀 씬 관리자 */
 	public partial class CSubTitleSceneManager : CTitleSceneManager {
-		#region 함수
+#region 함수
 		
-		#endregion // 함수
+#endregion // 함수
 	}
 
 	/** 서브 타이틀 씬 관리자 - 서브 */
@@ -33,18 +33,18 @@ namespace TitleScene {
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 
-		#region 변수
+#region 변수
 		/** =====> UI <===== */
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 변수
+#endregion // 변수
 
-		#region 프로퍼티
+#region 프로퍼티
 
-		#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-		#region 함수
+#region 함수
 		/** 씬을 설정한다 */
 		private void SubSetupAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
@@ -88,9 +88,9 @@ namespace TitleScene {
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
-		#endregion // 함수
+#endregion // 함수
 
-		#region 조건부 함수
+#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
 		/** 테스트 UI 를 설정한다 */
 		private void SubSetupTestUIs() {
@@ -152,7 +152,7 @@ namespace TitleScene {
 		}
 #endif // #if GOOGLE_SHEET_ENABLE
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

@@ -8,9 +8,9 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 상점 팝업 */
 public partial class CStorePopup : CSubPopup {
-	#region 함수
+#region 함수
 	
-	#endregion // 함수
+#endregion // 함수
 }
 
 /** 서브 상점 팝업 */
@@ -21,15 +21,15 @@ public partial class CStorePopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-	#region 변수
+#region 변수
 
-	#endregion // 변수
+#endregion // 변수
 
-	#region 프로퍼티
+#region 프로퍼티
 
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 팝업을 설정한다 */
 	private void SubSetupAwake() {
 		// Do Something
@@ -54,7 +54,7 @@ public partial class CStorePopup : CSubPopup {
 	private void UpdateSingleProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
 		// Do Something
 	}
-	#endregion // 함수
+#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

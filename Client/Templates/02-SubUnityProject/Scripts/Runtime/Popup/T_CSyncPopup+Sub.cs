@@ -8,9 +8,9 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 동기화 팝업 */
 public partial class CSyncPopup : CSubPopup {
-	#region 함수
+#region 함수
 	
-	#endregion // 함수
+#endregion // 함수
 }
 
 /** 서브 동기화 팝업 */
@@ -21,15 +21,15 @@ public partial class CSyncPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-	#region 변수
+#region 변수
 
-	#endregion // 변수
+#endregion // 변수
 
-	#region 프로퍼티
+#region 프로퍼티
 
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-	#region 함수
+#region 함수
 	/** 팝업을 설정한다 */
 	private void SubSetupAwake() {
 		// Do Something
@@ -44,7 +44,7 @@ public partial class CSyncPopup : CSubPopup {
 	private void SubUpdateUIsState() {
 		// Do Something
 	}
-	#endregion // 함수
+#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

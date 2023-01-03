@@ -10,7 +10,7 @@ using System.IO;
 
 /** 기타 정보 테이블 */
 public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
-	#region 함수
+#region 함수
 	/** 기타 정보를 리셋한다 */
 	public virtual void ResetEtcInfos() {
 		CCalcInfoTable.Inst.ResetCalcInfos();
@@ -67,9 +67,9 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
-	#endregion // 함수
+#endregion // 함수
 
-	#region 조건부 함수
+#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 기타 정보를 저장한다 */
 	public void SaveEtcInfos() {
@@ -95,7 +95,7 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 		return oEtcInfoValDictContainer;
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY
