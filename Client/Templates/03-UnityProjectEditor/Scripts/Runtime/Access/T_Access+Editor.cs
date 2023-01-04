@@ -16,15 +16,11 @@ public static partial class Access {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 	/** 객체 스프라이트를 반환한다 */
 	public static Sprite GetEditorObjSprite(EObjKinds a_eObjKinds, string a_oPrefix) {
-		string oImgPath = NSEngine.KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), string.Empty);
-		string oEditorImgPath = string.Format(KCDefine.B_TEXT_FMT_2_COLON_COMBINE, a_oPrefix, oImgPath);
+		string oImgPath = NSEngine.KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), string.Empty);
+		string oEditorImgPath = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, oImgPath);
 
-		// 이미지가 존재 할 경우
-		if(CAccess.IsExistsRes<Sprite>(oEditorImgPath)) {
-			return CResManager.Inst.GetRes<Sprite>(oEditorImgPath);
-		}
-
-		return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
+		var oSprite = CResManager.Inst.GetRes<Sprite>(oEditorImgPath);
+		return (oSprite != null) ? oSprite : oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 클래스 함수
