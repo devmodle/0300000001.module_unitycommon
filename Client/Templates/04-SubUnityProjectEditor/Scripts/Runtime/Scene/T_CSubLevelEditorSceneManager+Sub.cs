@@ -116,10 +116,10 @@ namespace LevelEditorScene {
 
 					// 스크롤이 가능 할 경우
 					if(!Input.mouseScrollDelta.ExIsEquals(Vector3.zero)) {
-						float fScrollDeltaX = m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_X);
-						float fScrollDeltaY = m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_Y);
-
-						this.SetMEUIsGridScrollDelta(fScrollDeltaX - (Input.mouseScrollDelta.x * NSEngine.Access.CellSize.x), fScrollDeltaY - (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y));
+						float fScrollDeltaX = (Input.mouseScrollDelta.x * NSEngine.Access.CellSize.x) * this.MaskObjRoot.transform.localScale.x;
+						float fScrollDeltaY = (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y) * this.MaskObjRoot.transform.localScale.y;
+						
+						this.SetMEUIsGridScrollDelta(m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_X) + fScrollDeltaX, m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_Y) - fScrollDeltaY);
 					}
 				} else {
 					m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.gameObject.SetActive(false);
@@ -259,14 +259,14 @@ namespace LevelEditorScene {
 			// 탭 UI 가 존재 할 경우
 			if(oTapUIsHandler != null) {
 				for(int i = 0; i < oTapUIsHandler.ContentsUIsList.Count; ++i) {
-					this.SetupREUIsPageUIs02Contents(oTapUIsHandler.ContentsUIsList[i], i);
+					this.SetupREUIsPageUIs02TapContentsUIs(oTapUIsHandler.ContentsUIsList[i], i);
 				}
 			}
 			// 탭 UI 를 갱신한다 }
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 2 컨텐츠를 설정한다 */
-		private void SetupREUIsPageUIs02Contents(GameObject a_oContents, int a_nIdx) {
+		/** 오른쪽 에디터 UI 페이지 UI 2 탭 컨텐츠 UI 를 설정한다 */
+		private void SetupREUIsPageUIs02TapContentsUIs(GameObject a_oContents, int a_nIdx) {
 			var oScrollRect = a_oContents?.GetComponentInChildren<ScrollRect>();
 			var oScrollViewContents = a_oContents?.ExFindChild(KCDefine.U_OBJ_N_CONTENTS);
 
