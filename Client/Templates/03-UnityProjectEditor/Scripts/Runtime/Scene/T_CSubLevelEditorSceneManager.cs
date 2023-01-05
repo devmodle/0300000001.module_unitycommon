@@ -564,9 +564,7 @@ namespace LevelEditorScene {
 			oSpriteRenderer.color = Color.white.ExGetAlphaColor(KCDefine.B_VAL_1_REAL / (KCDefine.B_VAL_2_REAL * KCDefine.B_VAL_5_REAL));
 			oSpriteRenderer.sprite = m_oGridBoundsImg;
 
-			oSpriteRenderer.ExSetSortingOrder(new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_OI_UNDERGROUND.m_nOrder - KCDefine.B_VAL_1_INT, m_oLayer = KCDefine.U_SORTING_OI_UNDERGROUND.m_oLayer
-			});
+			oSpriteRenderer.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND.ExGetExtraOrder(-KCDefine.B_VAL_1_INT));
 			// 에디터 객체 스프라이트를 설정한다 }
 
 			// 그리드 스크롤 바를 설정한다 {

@@ -25,9 +25,7 @@ namespace NSEngine {
 		/** 정렬 순서 정보를 반환한다 */
 		public static STSortingOrderInfo GetSortingOrderInfo(EObjKinds a_eObjKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT) {
 			var stSortingOrderInfo = KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), STSortingOrderInfo.INVALID);
-			stSortingOrderInfo.m_nOrder += a_nExtraOrder;
-
-			return stSortingOrderInfo;
+			return stSortingOrderInfo.ExGetExtraOrder(a_nExtraOrder);
 		}
 #endregion // 클래스 함수
 	}

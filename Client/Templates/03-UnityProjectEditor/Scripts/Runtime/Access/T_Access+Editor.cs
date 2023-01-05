@@ -19,8 +19,7 @@ public static partial class Access {
 		string oImgPath = NSEngine.KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), string.Empty);
 		string oEditorImgPath = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, oImgPath);
 
-		var oSprite = CResManager.Inst.GetRes<Sprite>(oEditorImgPath);
-		return (oSprite != null) ? oSprite : oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
+		return CResManager.Inst.GetRes<Sprite>(oEditorImgPath) ?? NSEngine.Access.GetObjSprite(a_eObjKinds);
 	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 클래스 함수
