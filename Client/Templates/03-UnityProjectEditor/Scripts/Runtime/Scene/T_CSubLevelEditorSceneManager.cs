@@ -348,7 +348,6 @@ namespace LevelEditorScene {
 			m_oLevelInfoDict.ExReplaceVal(EKey.SEL_LEVEL_INFO, CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
 
 			this.SubSetupAwake();
-			this.RebuildLayout(this.MEUIsInfoUIs);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
@@ -452,6 +451,7 @@ namespace LevelEditorScene {
 			this.UpdateRightEditorUIsState();
 
 			this.SubUpdateUIsState();
+			this.RebuildLayout(this.MEUIsInfoUIs);
 		}
 
 		/** 객체 스프라이트를 리셋한다 */

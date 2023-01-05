@@ -64,10 +64,20 @@ public static partial class Func {
 						oIdxHList.Add(a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_stIdx);
 
 						a_oLevelInfo.m_oCellInfoDictContainer[i][j].m_oCellObjInfoList.Clear();
+					}
+				}
 
-						// 사본 레벨 정보가 존재 할 경우
-						if(a_oCloneLevelInfo != null && a_oCloneLevelInfo.m_oCellInfoDictContainer.TryGetValue(i, out Dictionary<int, STCellInfo> oCellInfoDict) && oCellInfoDict.TryGetValue(j, out STCellInfo stCellInfo)) {
-							a_oLevelInfo.m_oCellInfoDictContainer[i][j] = (STCellInfo)stCellInfo.Clone();
+				// 사본 레벨 정보가 존재 할 경우
+				if(a_oCloneLevelInfo != null) {
+					for(int i = a_oLevelInfo.m_oCellInfoDictContainer.Count - KCDefine.B_VAL_1_INT; i >= KCDefine.B_VAL_0_INT; --i) {
+						for(int j = 0; j < a_oLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
+							int nIdxX = j;
+							int nIdxY = a_oCloneLevelInfo.m_oCellInfoDictContainer.Count - (((a_oLevelInfo.m_oCellInfoDictContainer.Count - KCDefine.B_VAL_1_INT) - i) + KCDefine.B_VAL_1_INT);
+
+							// 셀 정보가 존재 할 경우
+							if(a_oCloneLevelInfo.m_oCellInfoDictContainer.TryGetValue(nIdxY, out Dictionary<int, STCellInfo> oCellInfoDict) && oCellInfoDict.TryGetValue(nIdxX, out STCellInfo stCellInfo)) {
+								a_oLevelInfo.m_oCellInfoDictContainer[i][j] = (STCellInfo)stCellInfo.Clone();
+							}
 						}
 					}
 				}
