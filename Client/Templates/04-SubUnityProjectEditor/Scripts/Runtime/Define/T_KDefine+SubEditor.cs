@@ -22,10 +22,10 @@ public static partial class KDefine {
 
 #region 런타임 상수
 	// 색상
-	public static readonly Color LES_COLOR_GRID_LINE = new Color(0.25f, 0.25f, 0.0f, 1.0f);
+	public static readonly Color LES_COLOR_GRID_LINE = new Color(0.0f, 0.35f, 0.35f, 1.0f);
 
 	// 비율
-	public static readonly Vector3 LES_SCALE_MASK_OBJ_ROOT = new Vector3(1.25f, 1.25f, 1.25f);
+	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(1.15f, 1.15f, 1.15f);
 
 	// 객체 종류
 	public static readonly Dictionary<int, List<EObjKinds>> LES_OBJ_KINDS_DICT_CONTAINER = new Dictionary<int, List<EObjKinds>>() {

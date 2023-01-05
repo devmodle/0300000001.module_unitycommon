@@ -12,11 +12,11 @@ using EnhancedUI.EnhancedScroller;
 namespace LevelEditorScene {
 	/** 서브 레벨 에디터 씬 관리자 */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-		#region 함수
+#region 함수
 
-		#endregion // 함수
+#endregion // 함수
 
-		#region 조건부 함수
+#region 조건부 함수
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public override void OnDrawGizmos() {
@@ -55,7 +55,7 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 서브 */
@@ -66,19 +66,19 @@ namespace LevelEditorScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		#region 변수
+#region 변수
 
-		#endregion // 변수
+#endregion // 변수
 
-		#region 프로퍼티
+#region 프로퍼티
 
-		#endregion // 프로퍼티
+#endregion // 프로퍼티
 
-		#region 함수
+#region 함수
 
-		#endregion // 함수
+#endregion // 함수
 
-		#region 조건부 함수
+#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 씬을 설정한다 */
 		private void SubSetupAwake() {
@@ -116,9 +116,9 @@ namespace LevelEditorScene {
 
 					// 스크롤이 가능 할 경우
 					if(!Input.mouseScrollDelta.ExIsEquals(Vector3.zero)) {
-						float fScrollDeltaX = (Input.mouseScrollDelta.x * NSEngine.Access.CellSize.x) * this.MaskObjRoot.transform.localScale.x;
-						float fScrollDeltaY = (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y) * this.MaskObjRoot.transform.localScale.y;
-						
+						float fScrollDeltaX = (Input.mouseScrollDelta.x * NSEngine.Access.CellSize.x) * this.EditorObjRoot.transform.localScale.x;
+						float fScrollDeltaY = (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y) * this.EditorObjRoot.transform.localScale.y;
+
 						this.SetMEUIsGridScrollDelta(m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_X) + fScrollDeltaX, m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_Y) - fScrollDeltaY);
 					}
 				} else {
@@ -185,12 +185,12 @@ namespace LevelEditorScene {
 			m_oVec3IntDict.ExReplaceVal(EKey.PREV_CELL_IDX, KCDefine.B_IDX_INVALID_3D);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 중앙 에디터 UI */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-		#region 조건부 함수
+#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 중앙 에디터 UI 를 설정한다 */
 		private void SubSetupMidEditorUIs() {
@@ -202,12 +202,12 @@ namespace LevelEditorScene {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 왼쪽 에디터 UI */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-		#region 조건부 함수
+#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 왼쪽 에디터 UI 를 설정한다 */
 		private void SubSetupLeftEditorUIs() {
@@ -219,12 +219,12 @@ namespace LevelEditorScene {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 오른쪽 에디터 UI */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-		#region 조건부 함수
+#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 오른쪽 에디터 UI 를 설정한다 */
 		private void SubSetupRightEditorUIs() {
@@ -328,15 +328,13 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 2 스크롤러 셀 뷰 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs02ScrollerCellViewBtn(EObjKinds a_eObjKinds) {
 			m_oImgDict.GetValueOrDefault(EKey.ME_UIS_SEL_OBJ_IMG)?.ExSetSprite<Image>(Access.GetEditorObjSprite(a_eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
-			m_oImgDict.GetValueOrDefault(EKey.ME_UIS_SEL_OBJ_IMG)?.SetNativeSize();
-
 			m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.ExSetSprite<SpriteRenderer>(Access.GetEditorObjSprite(a_eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
-			m_oObjKindsDict.ExReplaceVal(EKey.SEL_OBJ_KINDS, a_eObjKinds);
 
+			m_oObjKindsDict.ExReplaceVal(EKey.SEL_OBJ_KINDS, a_eObjKinds);
 			this.UpdateUIsState();
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
