@@ -103,12 +103,6 @@ namespace LevelEditorScene {
 				if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos)) {
 					var stIdx = stCursorPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
 
-					bool bIsValid01 = m_oObjSpriteInfoLists.ExIsValidIdx(stIdx) && m_oObjKindsDict.GetValueOrDefault(EKey.SEL_OBJ_KINDS) != EObjKinds.NONE;
-					bool bIsValid02 = m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos);
-
-					m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.gameObject.SetActive(bIsValid01 && bIsValid02);
-					m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.gameObject.ExSetLocalPos(this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize));
-
 					// 인덱스가 유효 할 경우
 					if(m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
 						// Do Something
@@ -121,6 +115,12 @@ namespace LevelEditorScene {
 
 						this.SetMEUIsGridScrollDelta(m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_X) + fScrollDeltaX, m_oRealDict.GetValueOrDefault(EKey.GRID_SCROLL_DELTA_Y) - fScrollDeltaY);
 					}
+
+					bool bIsValid01 = m_oObjSpriteInfoLists.ExIsValidIdx(stIdx) && m_oObjKindsDict.GetValueOrDefault(EKey.SEL_OBJ_KINDS) != EObjKinds.NONE;
+					bool bIsValid02 = m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos);
+
+					m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.gameObject.SetActive(bIsValid01 && bIsValid02);
+					m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.gameObject.ExSetLocalPos(this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize));
 				} else {
 					m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.gameObject.SetActive(false);
 				}
@@ -132,6 +132,11 @@ namespace LevelEditorScene {
 			this.SubUpdateMidEditorUIsState();
 			this.SubUpdateLeftEditorUIsState();
 			this.SubUpdateRightEditorUIsState();
+		}
+
+		/** 객체 스프라이트를 설정한다 */
+		private void SubSetupObjSprite(STCellInfo a_stCellInfo, STCellObjInfo a_stCellObjInfo, SpriteRenderer a_oOutObjSprite) {
+			// Do Something
 		}
 
 		/** 터치 시작 이벤트를 처리한다 */
