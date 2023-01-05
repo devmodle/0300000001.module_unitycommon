@@ -273,6 +273,18 @@ namespace LevelEditorScene {
 					this.HandleHotKeys();
 				}
 
+#if UNITY_STANDALONE_WIN
+				// 저장 키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S)) {
+					this.OnTouchMEUIsSaveBtn();
+				}
+#else
+				// 저장 키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.LeftCommand) && Input.GetKeyDown(KeyCode.S)) {
+					this.OnTouchMEUIsSaveBtn();
+				}
+#endif // UNITY_STANDALONE_WIN
+
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				this.SubOnUpdate(a_fDeltaTime);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -336,6 +348,7 @@ namespace LevelEditorScene {
 			m_oLevelInfoDict.ExReplaceVal(EKey.SEL_LEVEL_INFO, CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
 
 			this.SubSetupAwake();
+			this.RebuildLayout(this.MEUIsInfoUIs);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 

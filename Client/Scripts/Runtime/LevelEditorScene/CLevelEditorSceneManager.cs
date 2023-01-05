@@ -16,6 +16,7 @@ namespace LevelEditorScene {
 			RIGHT_EDITOR_UIS,
 
 			ME_UIS_MSG_UIS,
+			ME_UIS_INFO_UIS,
 			LE_UIS_AB_SET_UIS,
 
 			OBJ_ROOT,
@@ -46,6 +47,7 @@ namespace LevelEditorScene {
 		protected GameObject RightEditorUIs => m_oUIsDict.GetValueOrDefault(EKey.RIGHT_EDITOR_UIS);
 
 		protected GameObject MEUIsMsgUIs => m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS);
+		protected GameObject MEUIsInfoUIs => m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_INFO_UIS);
 		protected GameObject LEUIsABSetUIs => m_oUIsDict.GetValueOrDefault(EKey.LE_UIS_AB_SET_UIS);
 
 		protected GameObject ObjRoot => m_oObjDict.GetValueOrDefault(EKey.OBJ_ROOT);
@@ -68,11 +70,12 @@ namespace LevelEditorScene {
 
 				CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
 					(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIsDict.GetValueOrDefault(EKey.MID_EDITOR_UIS)),
+					(EKey.ME_UIS_INFO_UIS, $"{EKey.ME_UIS_INFO_UIS}", m_oUIsDict.GetValueOrDefault(EKey.MID_EDITOR_UIS)),
 					(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIsDict.GetValueOrDefault(EKey.LEFT_EDITOR_UIS))
 				}, m_oUIsDict);
 
 				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.EDITOR_OBJ_ROOT, $"{EKey.EDITOR_OBJ_ROOT}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.EDITOR_OBJ_ROOT, $"{EKey.EDITOR_OBJ_ROOT}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 				}, m_oObjDict);
 
 				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
@@ -81,7 +84,6 @@ namespace LevelEditorScene {
 
 				CSceneManager.ScreenDebugUIs?.SetActive(false);
 				m_oUIsDict.GetValueOrDefault(EKey.ME_UIS_MSG_UIS)?.SetActive(false);
-
 				m_oObjDict.GetValueOrDefault(EKey.EDITOR_OBJ_ROOT)?.ExAddComponent<SpriteRenderer>();
 				// 객체를 설정한다 }
 			}
