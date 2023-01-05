@@ -13,7 +13,7 @@ namespace TitleScene {
 	/** 서브 타이틀 씬 관리자 */
 	public partial class CSubTitleSceneManager : CTitleSceneManager {
 #region 함수
-		
+
 #endregion // 함수
 	}
 

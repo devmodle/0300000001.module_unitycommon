@@ -25,7 +25,10 @@ namespace NSEngine {
 		}
 
 #region 변수
-		private Dictionary<EKey, Vector3Int> m_oVec3IntDict = new Dictionary<EKey, Vector3Int>();
+		private Dictionary<EKey, Vector3Int> m_oVec3IntDict = new Dictionary<EKey, Vector3Int>() {
+			[EKey.CELL_IDX] = new Vector3Int(KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID)
+		};
+
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 #endregion // 변수
 
@@ -38,7 +41,6 @@ namespace NSEngine {
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			m_oVec3IntDict.ExReplaceVal(EKey.CELL_IDX, KCDefine.B_IDX_INVALID_3D);
 
 			// 스프라이트를 설정한다
 			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
@@ -53,11 +55,9 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-			// 객체 스프라이트가 존재 할 경우
-			if(m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE) != null) {
-				m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).sprite = Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds);
-				m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE).ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
-			}
+			// 스프라이트를 설정한다
+			m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE)?.ExSetSprite<SpriteRenderer>(Access.GetObjSprite(a_stParams.m_stObjInfo.m_eObjKinds));
+			m_oSpriteDict.GetValueOrDefault(EKey.OBJ_SPRITE)?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
 
 			this.SubInit();
 		}

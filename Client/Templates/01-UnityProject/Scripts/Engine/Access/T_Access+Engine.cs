@@ -18,7 +18,7 @@ namespace NSEngine {
 #region 클래스 함수
 		/** 객체 스프라이트를 반환한다 */
 		public static Sprite GetObjSprite(EObjKinds a_eObjKinds) {
-			string oImgPath = KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), string.Empty);
+			string oImgPath = KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), string.Empty);
 			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 

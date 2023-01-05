@@ -35,7 +35,17 @@ namespace NSEngine {
 			var oCellObjList = new List<CEObj>();
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
-				// Do Something
+#if NEVER_USE_THIS
+				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
+				var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds), null);
+				oCellObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);				
+				
+				oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
+				oCellObj.SetCellObjInfo(a_stCellInfo.m_oCellObjInfoList[i]);
+
+				oCellObjList.ExAddVal(oCellObj);
+				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
+#endif // #if NEVER_USE_THIS
 			}
 
 			m_oCellObjLists[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;

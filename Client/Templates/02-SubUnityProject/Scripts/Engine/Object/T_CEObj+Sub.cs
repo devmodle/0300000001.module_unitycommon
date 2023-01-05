@@ -10,7 +10,7 @@ namespace NSEngine {
 	/** 객체 */
 	public partial class CEObj : CEObjComponent {
 #region 함수
-		
+
 #endregion // 함수
 	}
 
@@ -27,18 +27,23 @@ namespace NSEngine {
 #endregion // 변수
 
 #region 프로퍼티
-
+		public STCellObjInfo CellObjInfo { get; private set; }
 #endregion // 프로퍼티
 
 #region 함수
 		/** 컴포넌트를 설정한다 */
 		private void SubSetupAwake() {
-			// Do Something
+			this.SetCellObjInfo(STCellObjInfo.INVALID);
 		}
 
 		/** 초기화한다 */
 		private void SubInit() {
 			this.SetupAbilityVals();
+		}
+
+		/** 셀 객체 정보를 변경한다 */
+		public void SetCellObjInfo(STCellObjInfo a_stCellObjInfo) {
+			this.CellObjInfo = a_stCellObjInfo;
 		}
 #endregion // 함수
 	}

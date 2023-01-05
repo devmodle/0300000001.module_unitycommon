@@ -339,6 +339,19 @@ namespace LevelEditorScene {
 			m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.ExSetSortingOrder(KCDefine.U_SORTING_OI_OVERGROUND);
 			// 스프라이트를 설정한다 }
 
+#if GOOGLE_SHEET_ENABLE
+			// 구글 시트 로드 처리자를 설정한다
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+#endif // #if GOOGLE_SHEET_ENABLE
+
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			this.SetupMidEditorUIs();
 			this.SetupLeftEditorUIs();
@@ -922,102 +935,6 @@ namespace LevelEditorScene {
 				}
 			}
 		}
-
-#if GOOGLE_SHEET_ENABLE
-		/** 버전 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, SimpleJSON.JSONNode a_oVerInfos, Dictionary<string, STLoadGoogleSheetInfo> a_oLoadGoogleSheetInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				m_oVerInfos = a_oVerInfos;
-				Func.LoadGoogleSheets(a_oLoadGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetLoadHandlerDict, this.OnLoadGoogleSheets);
-			} else {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, false);
-			}
-		}
-
-		/** 구글 시트를 로드했을 경우 */
-		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				this.UpdateUIsState();
-				Func.OnLoadGoogleSheets(m_oVerInfos);
-			} else {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, false);
-			}
-		}
-
-		/** 기타 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadEtcInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CEtcInfoTable.Inst.ResetEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-		}
-
-		/** 미션 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadMissionInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CMissionInfoTable.Inst.ResetMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-		}
-
-		/** 보상 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadRewardInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CRewardInfoTable.Inst.ResetRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-		}
-
-		/** 리소스 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadResInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CResInfoTable.Inst.ResetResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-		}
-
-		/** 아이템 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadItemInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CItemInfoTable.Inst.ResetItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-		}
-
-		/** 스킬 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadSkillInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CSkillInfoTable.Inst.ResetSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-		}
-
-		/** 객체 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadObjInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CObjInfoTable.Inst.ResetObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-		}
-
-		/** 어빌리티 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadAbilityInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CAbilityInfoTable.Inst.ResetAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-		}
-
-		/** 상품 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadProductInfoGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				CProductTradeInfoTable.Inst.ResetProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString());
-			}
-		}
-#endif // #if GOOGLE_SHEET_ENABLE
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 함수
 	}
