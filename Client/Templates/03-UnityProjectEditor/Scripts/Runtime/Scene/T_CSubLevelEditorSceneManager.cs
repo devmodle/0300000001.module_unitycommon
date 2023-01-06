@@ -320,6 +320,12 @@ namespace LevelEditorScene {
 			}
 		}
 
+		/** 화면 크기가 갱신 되었을 경우 */
+		protected override void OnUpdateScreenSize(Vector3 a_stScreenSize) {
+			base.OnUpdateScreenSize(a_stScreenSize);
+			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR), KCDefine.B_VAL_0_1_REAL);
+		}
+
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
 			this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
@@ -464,7 +470,7 @@ namespace LevelEditorScene {
 			this.UpdateRightEditorUIsState();
 
 			this.SubUpdateUIsState();
-			this.RebuildLayout(this.MEUIsInfoUIs);
+			this.RebuildLayouts(this.MEUIsInfoUIs);
 		}
 
 		/** 객체 스프라이트를 리셋한다 */
