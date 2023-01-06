@@ -34,17 +34,38 @@ namespace NSEngine {
 		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(25, 25, 1);
 		public static readonly Vector3Int E_DEF_NUM_CELLS = new Vector3Int(10, 10, 1);
 
-		// 정렬 순서
+		// 정렬 순서 {
+		public static readonly Dictionary<EItemKinds, STSortingOrderInfo> E_SORTING_OI_ITEM_DICT = new Dictionary<EItemKinds, STSortingOrderInfo>() {
+			// Do Something
+		};
+
+		public static readonly Dictionary<ESkillKinds, STSortingOrderInfo> E_SORTING_OI_SKILL_DICT = new Dictionary<ESkillKinds, STSortingOrderInfo>() {
+			// Do Something
+		};
+
 		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
 			[EObjKinds.BG_EMPTY_01] = new STSortingOrderInfo() {
 				m_nOrder = KCDefine.U_SORTING_O_BACKGROUND, m_oLayer = KCDefine.U_SORTING_L_BACKGROUND
 			}
 		};
 
+		public static readonly Dictionary<EFXKinds, STSortingOrderInfo> E_SORTING_OI_FX_DICT = new Dictionary<EFXKinds, STSortingOrderInfo>() {
+			// Do Something
+		};
+		// 정렬 순서 }
+
 		// 경로 {
 		public static readonly string E_OBJ_P_CELL_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_CellObj";
 		public static readonly string E_OBJ_P_PLAYER_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_PlayerObj";
 		public static readonly string E_OBJ_P_ENEMY_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_EnemyObj";
+
+		public static readonly Dictionary<EItemKinds, string> E_IMG_P_ITEM_DICT = new Dictionary<EItemKinds, string>() {
+			// Do Something
+		};
+
+		public static readonly Dictionary<ESkillKinds, string> E_IMG_P_SKILL_DICT = new Dictionary<ESkillKinds, string>() {
+			// Do Something
+		};
 
 		public static readonly Dictionary<EObjKinds, string> E_IMG_P_OBJ_DICT = new Dictionary<EObjKinds, string>() {
 			[EObjKinds.BG_EMPTY_01] = EObjKinds.BG_EMPTY_01.ToString()

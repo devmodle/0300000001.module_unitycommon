@@ -16,15 +16,45 @@ namespace NSEngine {
 #endregion // 프로퍼티
 
 #region 클래스 함수
-		/** 객체 스프라이트를 반환한다 */
-		public static Sprite GetObjSprite(EObjKinds a_eObjKinds) {
+		/** 스프라이트를 반환한다 */
+		public static Sprite GetSprite(EItemKinds a_eItemKinds) {
+			string oImgPath = KDefine.E_IMG_P_ITEM_DICT.GetValueOrDefault((EItemKinds)((int)a_eItemKinds).ExKindsToDetailSubKindsType(), string.Empty);
+			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
+		}
+
+		/** 스프라이트를 반환한다 */
+		public static Sprite GetSprite(ESkillKinds a_eSkillKinds) {
+			string oImgPath = KDefine.E_IMG_P_SKILL_DICT.GetValueOrDefault((ESkillKinds)((int)a_eSkillKinds).ExKindsToDetailSubKindsType(), string.Empty);
+			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
+		}
+
+		/** 스프라이트를 반환한다 */
+		public static Sprite GetSprite(EObjKinds a_eObjKinds) {
 			string oImgPath = KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), string.Empty);
 			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 
 		/** 정렬 순서 정보를 반환한다 */
+		public static STSortingOrderInfo GetSortingOrderInfo(EItemKinds a_eItemKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT) {
+			var stSortingOrderInfo = KDefine.E_SORTING_OI_ITEM_DICT.GetValueOrDefault((EItemKinds)((int)a_eItemKinds).ExKindsToSubKindsType(), STSortingOrderInfo.INVALID);
+			return stSortingOrderInfo.ExGetExtraOrder(a_nExtraOrder);
+		}
+
+		/** 정렬 순서 정보를 반환한다 */
+		public static STSortingOrderInfo GetSortingOrderInfo(ESkillKinds a_eSkillKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT) {
+			var stSortingOrderInfo = KDefine.E_SORTING_OI_SKILL_DICT.GetValueOrDefault((ESkillKinds)((int)a_eSkillKinds).ExKindsToSubKindsType(), STSortingOrderInfo.INVALID);
+			return stSortingOrderInfo.ExGetExtraOrder(a_nExtraOrder);
+		}
+
+		/** 정렬 순서 정보를 반환한다 */
 		public static STSortingOrderInfo GetSortingOrderInfo(EObjKinds a_eObjKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT) {
 			var stSortingOrderInfo = KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToSubKindsType(), STSortingOrderInfo.INVALID);
+			return stSortingOrderInfo.ExGetExtraOrder(a_nExtraOrder);
+		}
+
+		/** 정렬 순서 정보를 반환한다 */
+		public static STSortingOrderInfo GetSortingOrderInfo(EFXKinds a_eFXKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT) {
+			var stSortingOrderInfo = KDefine.E_SORTING_OI_FX_DICT.GetValueOrDefault((EFXKinds)((int)a_eFXKinds).ExKindsToSubKindsType(), STSortingOrderInfo.INVALID);
 			return stSortingOrderInfo.ExGetExtraOrder(a_nExtraOrder);
 		}
 #endregion // 클래스 함수
