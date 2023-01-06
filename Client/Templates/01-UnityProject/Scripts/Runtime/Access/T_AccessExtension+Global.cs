@@ -36,8 +36,8 @@ public static partial class AccessExtension {
 
 	/** 어빌리티 값을 반환한다 */
 	public static decimal ExGetAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds, decimal a_dmVal) {
-		decimal dmAddMultiplyVal = a_oSender.GetValueOrDefault(a_eAbilityKinds + ((int)EEnumVal.SUB_TYPE * (int)EAbilityValType.INCR));
-		decimal dmSubMultiplyVal = a_oSender.GetValueOrDefault(a_eAbilityKinds + ((int)EEnumVal.SUB_TYPE * (int)EAbilityValType.DECR));
+		decimal dmAddMultiplyVal = a_oSender.GetValueOrDefault(a_eAbilityKinds + ((int)EEnumVal.ST * (int)EAbilityValType.INCR));
+		decimal dmSubMultiplyVal = a_oSender.GetValueOrDefault(a_eAbilityKinds + ((int)EEnumVal.ST * (int)EAbilityValType.DECR));
 
 		return System.Math.Clamp(a_dmVal + (a_dmVal * dmAddMultiplyVal) - (a_dmVal * dmSubMultiplyVal), KCDefine.B_VAL_0_INT, decimal.MaxValue);
 	}

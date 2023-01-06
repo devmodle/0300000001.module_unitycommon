@@ -19,7 +19,7 @@ public static partial class KEnumVal {
 #region 클래스 함수
 	/** 열거형 값을 생성한다 */
 	public static int MakeEnumVal(int a_nType, int a_nSubType, int a_nKindsType, int a_nSubKindsType) {
-		return ((int)EEnumVal.TYPE * a_nType) + ((int)EEnumVal.SUB_TYPE * a_nSubType) + ((int)EEnumVal.KINDS_TYPE * a_nKindsType) + ((int)EEnumVal.SUB_KINDS_TYPE * a_nSubKindsType);
+		return ((int)EEnumVal.T * a_nType) + ((int)EEnumVal.ST * a_nSubType) + ((int)EEnumVal.KT * a_nKindsType) + ((int)EEnumVal.SKT * a_nSubKindsType);
 	}
 #endregion // 클래스 함수
 }
@@ -66,7 +66,7 @@ public enum ECalcKinds {
 
 #region 어빌리티
 	// 0
-	ABILITY_CALC_SAMPLE = (EEnumVal.TYPE * ECalcType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ABILITY_CALC_SAMPLE = (EEnumVal.T * ECalcType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 어빌리티
 
 	[HideInInspector] MAX_VAL
@@ -88,22 +88,22 @@ public enum EMissionKinds {
 
 #region 메인
 	// 0
-	MAIN_MISSION_SAMPLE = (EEnumVal.TYPE * EMissionType.MAIN) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	MAIN_MISSION_SAMPLE = (EEnumVal.T * EMissionType.MAIN) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 메인
 
 #region 자유
 	// 100,000,000
-	FREE_MISSION_SAMPLE = (EEnumVal.TYPE * EMissionType.FREE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	FREE_MISSION_SAMPLE = (EEnumVal.T * EMissionType.FREE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 자유
 
 #region 일일
 	// 200,000,000
-	DAILY_MISSION_SAMPLE = (EEnumVal.TYPE * EMissionType.DAILY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	DAILY_MISSION_SAMPLE = (EEnumVal.T * EMissionType.DAILY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 일일
 
 #region 이벤트
 	// 300,000,000
-	EVENT_MISSION_SAMPLE = (EEnumVal.TYPE * EMissionType.EVENT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	EVENT_MISSION_SAMPLE = (EEnumVal.T * EMissionType.EVENT) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 이벤트
 
 	[HideInInspector] MAX_VAL
@@ -127,32 +127,32 @@ public enum ERewardKinds {
 
 #region 무료
 	// 0
-	FREE_COINS = (EEnumVal.TYPE * ERewardType.FREE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	FREE_COINS = (EEnumVal.T * ERewardType.FREE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 무료
 
 #region 일일
 	// 100,000,000
-	DAILY_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.DAILY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	DAILY_REWARD_SAMPLE = (EEnumVal.T * ERewardType.DAILY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 일일
 
 #region 이벤트
 	// 200,000,000
-	EVENT_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.EVENT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	EVENT_REWARD_SAMPLE = (EEnumVal.T * ERewardType.EVENT) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 이벤트
 
 #region 클리어
 	// 300,000,000
-	CLEAR_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.CLEAR) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	CLEAR_REWARD_SAMPLE = (EEnumVal.T * ERewardType.CLEAR) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 클리어
 
 #region 미션
 	// 400,000,000
-	MISSION_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.MISSION) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	MISSION_REWARD_SAMPLE = (EEnumVal.T * ERewardType.MISSION) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 미션
 
 #region 튜토리얼
 	// 50,000,000
-	TUTORIAL_REWARD_SAMPLE = (EEnumVal.TYPE * ERewardType.TUTORIAL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	TUTORIAL_REWARD_SAMPLE = (EEnumVal.T * ERewardType.TUTORIAL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 튜토리얼
 
 	[HideInInspector] MAX_VAL
@@ -173,26 +173,26 @@ public enum EEpisodeKinds {
 
 #region 레벨
 	// 0
-	LEVEL_NORM = (EEnumVal.TYPE * EEpisodeType.LEVEL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 0),
+	LEVEL_NORM = (EEnumVal.T * EEpisodeType.LEVEL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 10,000,000
-	LEVEL_BOSS = (EEnumVal.TYPE * EEpisodeType.LEVEL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
+	LEVEL_BOSS = (EEnumVal.T * EEpisodeType.LEVEL) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 레벨
 
 #region 스테이지
 	// 100,000,000
-	STAGE_NORM = (EEnumVal.TYPE * EEpisodeType.STAGE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 0),
+	STAGE_NORM = (EEnumVal.T * EEpisodeType.STAGE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 110,000,000
-	STAGE_BOSS = (EEnumVal.TYPE * EEpisodeType.STAGE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
+	STAGE_BOSS = (EEnumVal.T * EEpisodeType.STAGE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 스테이지
 
 #region 챕터
 	// 200,000,000
-	CHAPTER_NORM = (EEnumVal.TYPE * EEpisodeType.CHAPTER) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 0),
+	CHAPTER_NORM = (EEnumVal.T * EEpisodeType.CHAPTER) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 210,000,000
-	CHAPTER_BOSS = (EEnumVal.TYPE * EEpisodeType.CHAPTER) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
+	CHAPTER_BOSS = (EEnumVal.T * EEpisodeType.CHAPTER) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 챕터
 
 	[HideInInspector] MAX_VAL
@@ -212,12 +212,12 @@ public enum ETutorialKinds {
 
 #region 플레이
 	// 0
-	PLAY_TUTORIAL_SAMPLE = (EEnumVal.TYPE * ETutorialType.PLAY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	PLAY_TUTORIAL_SAMPLE = (EEnumVal.T * ETutorialType.PLAY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 플레이
 
 #region 도움말
 	// 100,000,000
-	HELP_TUTORIAL_SAMPLE = (EEnumVal.TYPE * ETutorialType.HELP) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	HELP_TUTORIAL_SAMPLE = (EEnumVal.T * ETutorialType.HELP) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 도움말
 
 	[HideInInspector] MAX_VAL
@@ -239,35 +239,35 @@ public enum EResKinds {
 
 #region 폰트
 	// 0
-	FONT_KOREAN_01 = (EEnumVal.TYPE * EResType.FONT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	FONT_ENGLISH_01 = (EEnumVal.TYPE * EResType.FONT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	FONT_KOREAN_01 = (EEnumVal.T * EResType.FONT) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	FONT_ENGLISH_01 = (EEnumVal.T * EResType.FONT) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
 #endregion // 폰트
 
 #region 사운드
 	// 100,000,000
-	SND_BG_SCENE_TITLE_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SND_BG_SCENE_MAIN_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	SND_BG_SCENE_GAME_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	SND_BG_SCENE_TITLE_01 = (EEnumVal.T * EResType.SND) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SND_BG_SCENE_MAIN_01 = (EEnumVal.T * EResType.SND) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	SND_BG_SCENE_GAME_01 = (EEnumVal.T * EResType.SND) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
 
 	// 100,100,000
-	SND_FX_TOUCH_BEGIN_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SND_FX_TOUCH_END_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	SND_FX_TOUCH_BEGIN_01 = (EEnumVal.T * EResType.SND) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
+	SND_FX_TOUCH_END_01 = (EEnumVal.T * EResType.SND) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 1),
 
 	// 100,200,000
-	SND_FX_POPUP_SHOW_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SND_FX_POPUP_CLOSE_01 = (EEnumVal.TYPE * EResType.SND) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	SND_FX_POPUP_SHOW_01 = (EEnumVal.T * EResType.SND) + (EEnumVal.ST * 0) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 0),
+	SND_FX_POPUP_CLOSE_01 = (EEnumVal.T * EResType.SND) + (EEnumVal.ST * 0) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 1),
 #endregion // 사운드
 
 #region 이미지
 	// 200,000,000
-	IMG_WHITE = (EEnumVal.TYPE * EResType.IMG) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	IMG_WHITE = (EEnumVal.T * EResType.IMG) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	IMG_SPLASH,
 	IMG_INDICATOR,
 #endregion // 이미지
 
 #region 텍스처
 	// 300,000,000
-	TEX_WHITE = (EEnumVal.TYPE * EResType.TEX) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	TEX_WHITE = (EEnumVal.T * EResType.TEX) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	TEX_SPLASH,
 	TEX_INDICATOR,
 #endregion // 텍스처
@@ -293,40 +293,40 @@ public enum EItemKinds {
 
 #region 재화
 	// 0
-	GOODS_NORM_COINS = (EEnumVal.TYPE * EItemType.GOODS) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	GOODS_NORM_COINS = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 100,000
-	GOODS_COINS_BOX_COINS = (EEnumVal.TYPE * EItemType.GOODS) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	GOODS_COINS_BOX_COINS = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
 #endregion // 재화
 
 #region 소모
 	// 100,000,000
-	CONSUMABLE_BOOSTER_SAMPLE = (EEnumVal.TYPE * EItemType.CONSUMABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	CONSUMABLE_BOOSTER_SAMPLE = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 100,100,000
-	CONSUMABLE_GAME_ITEM_HINT = (EEnumVal.TYPE * EItemType.CONSUMABLE) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.TYPE * EItemType.CONSUMABLE) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	CONSUMABLE_GAME_ITEM_SHUFFLE = (EEnumVal.TYPE * EItemType.CONSUMABLE) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	CONSUMABLE_GAME_ITEM_HINT = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
+	CONSUMABLE_GAME_ITEM_CONTINUE = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 1),
+	CONSUMABLE_GAME_ITEM_SHUFFLE = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 2),
 #endregion // 소모
 
 #region 비소모
 	// 200,000,000
-	NON_CONSUMABLE_REMOVE_ADS = (EEnumVal.TYPE * EItemType.NON_CONSUMABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	NON_CONSUMABLE_REMOVE_ADS = (EEnumVal.T * EItemType.NON_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 비소모
 
 #region 무기
 	// 300,000,000
-	WEAPON_ITEM_SAMPLE = (EEnumVal.TYPE * EItemType.WEAPON) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	WEAPON_ITEM_SAMPLE = (EEnumVal.T * EItemType.WEAPON) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 무기
 
 #region 방어구
 	// 400,000,000
-	ARMOR_ITEM_SAMPLE = (EEnumVal.TYPE * EItemType.ARMOR) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ARMOR_ITEM_SAMPLE = (EEnumVal.T * EItemType.ARMOR) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 방어구
 
 #region 악세서리
 	// 50,000,000
-	ACCESSORY_ITEM_SAMPLE = (EEnumVal.TYPE * EItemType.ACCESSORY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACCESSORY_ITEM_SAMPLE = (EEnumVal.T * EItemType.ACCESSORY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 악세서리
 
 	[HideInInspector] MAX_VAL
@@ -347,26 +347,26 @@ public enum ESkillKinds {
 
 #region 액션
 	// 0
-	ACTION_PLAYER_ATK_01_01 = (EEnumVal.TYPE * ESkillType.ACTION) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 0),
+	ACTION_PLAYER_ATK_01_01 = (EEnumVal.T * ESkillType.ACTION) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 10,000,000
-	ACTION_NORM_ENEMY_ATK_01_01 = (EEnumVal.TYPE * ESkillType.ACTION) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
+	ACTION_NORM_ENEMY_ATK_01_01 = (EEnumVal.T * ESkillType.ACTION) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 20,000,000
-	ACTION_BOSS_ENEMY_ATK_01_01 = (EEnumVal.TYPE * ESkillType.ACTION) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 2),
+	ACTION_BOSS_ENEMY_ATK_01_01 = (EEnumVal.T * ESkillType.ACTION) + (EEnumVal.ST * 2) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 30,000,000
-	ACTION_NAMED_ENEMY_ATK_01_01 = (EEnumVal.TYPE * ESkillType.ACTION) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 3),
+	ACTION_NAMED_ENEMY_ATK_01_01 = (EEnumVal.T * ESkillType.ACTION) + (EEnumVal.ST * 3) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 액션
 
 #region 액티브
 	// 100,000,000
-	ACTIVE_SKILL_SAMPLE = (EEnumVal.TYPE * ESkillType.ACTIVE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	ACTIVE_SKILL_SAMPLE = (EEnumVal.T * ESkillType.ACTIVE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 액티브
 
 #region 패시브
 	// 200,000,000
-	PASSIVE_SKILL_SAMPLE = (EEnumVal.TYPE * ESkillType.PASSIVE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	PASSIVE_SKILL_SAMPLE = (EEnumVal.T * ESkillType.PASSIVE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 패시브
 
 	[HideInInspector] MAX_VAL
@@ -389,36 +389,36 @@ public enum EObjKinds {
 
 #region 배경
 	// 0
-	BG_EMPTY_01 = (EEnumVal.TYPE * EObjType.BG) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	BG_EMPTY_01 = (EEnumVal.T * EObjType.BG) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 배경
 
 #region 바닥
 	// 100,000,000
-	NORM_OBJ_SAMPLE = (EEnumVal.TYPE * EObjType.GROUND) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	NORM_OBJ_SAMPLE = (EEnumVal.T * EObjType.GROUND) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 바닥
 
 #region 중첩
 	// 200,000,000
-	OVERLAY_OBJ_SAMPLE = (EEnumVal.TYPE * EObjType.OVERLAY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	OVERLAY_OBJ_SAMPLE = (EEnumVal.T * EObjType.OVERLAY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 중첩
 
 #region 플레이 가능
 	// 390,000,000
-	PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.TYPE * EObjType.PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 9),
+	PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.T * EObjType.PLAYABLE) + (EEnumVal.ST * 9) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 플레이 가능
 
 #region 플레이 불가능
 	// 410,000,000
-	NON_PLAYABLE_NORM_ENEMY_01_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 0),
+	NON_PLAYABLE_NORM_ENEMY_01_01 = (EEnumVal.T * EObjType.NON_PLAYABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 420,000,000
-	NON_PLAYABLE_BOSS_ENEMY_01_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 1),
+	NON_PLAYABLE_BOSS_ENEMY_01_01 = (EEnumVal.T * EObjType.NON_PLAYABLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 430,000,000
-	NON_PLAYABLE_NAMED_ENEMY_01_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 2),
+	NON_PLAYABLE_NAMED_ENEMY_01_01 = (EEnumVal.T * EObjType.NON_PLAYABLE) + (EEnumVal.ST * 2) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 490,000,000
-	NON_PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.TYPE * EObjType.NON_PLAYABLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * 9),
+	NON_PLAYABLE_COMMON_CHARACTER_01 = (EEnumVal.T * EObjType.NON_PLAYABLE) + (EEnumVal.ST * 9) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 플레이 불가능
 
 	[HideInInspector] MAX_VAL
@@ -439,17 +439,17 @@ public enum EFXKinds {
 
 #region 타격
 	// 0
-	HIT_FX_SAMPLE = (EEnumVal.TYPE * EFXType.HIT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	HIT_FX_SAMPLE = (EEnumVal.T * EFXType.HIT) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 타격
 
 #region 버프
 	// 100,000,000
-	BUFF_FX_SAMPLE = (EEnumVal.TYPE * EFXType.BUFF) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	BUFF_FX_SAMPLE = (EEnumVal.T * EFXType.BUFF) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 버프
 
 #region 디버프
 	// 200,000,000
-	DEBUFF_FX_SAMPLE = (EEnumVal.TYPE * EFXType.DEBUFF) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	DEBUFF_FX_SAMPLE = (EEnumVal.T * EFXType.DEBUFF) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 디버프
 
 	[HideInInspector] MAX_VAL
@@ -471,142 +471,142 @@ public enum EAbilityKinds {
 
 #region 스탯
 	// 0 {
-	STAT_LV = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM),
-	STAT_EXP = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM),
-	STAT_NUMS = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM),
-	STAT_ENHANCE = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM),
+	STAT_LV = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	STAT_EXP = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	STAT_NUMS = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	STAT_ENHANCE = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
 
-	STAT_HP_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_HP_02,
-	STAT_MP_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 1) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_MP_02,
-	STAT_SP_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 1) + (EEnumVal.SUB_KINDS_TYPE * 2) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_SP_02,
+	STAT_HP_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0), STAT_HP_02,
+	STAT_MP_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 1), STAT_MP_02,
+	STAT_SP_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 2), STAT_SP_02,
 
-	STAT_RECOVERY_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_RECOVERY_02,
-	STAT_HP_RECOVERY_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 1) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_HP_RECOVERY_02,
-	STAT_MP_RECOVERY_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 2) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_MP_RECOVERY_02,
-	STAT_SP_RECOVERY_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 2) + (EEnumVal.SUB_KINDS_TYPE * 3) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_SP_RECOVERY_02,
+	STAT_RECOVERY_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 0), STAT_RECOVERY_02,
+	STAT_HP_RECOVERY_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 1), STAT_HP_RECOVERY_02,
+	STAT_MP_RECOVERY_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 2), STAT_MP_RECOVERY_02,
+	STAT_SP_RECOVERY_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 3), STAT_SP_RECOVERY_02,
 
-	STAT_ATK_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_ATK_02,
-	STAT_P_ATK_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 1) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_P_ATK_02,
-	STAT_M_ATK_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 3) + (EEnumVal.SUB_KINDS_TYPE * 2) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_M_ATK_02,
+	STAT_ATK_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 3) + (EEnumVal.SKT * 0), STAT_ATK_02,
+	STAT_P_ATK_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 3) + (EEnumVal.SKT * 1), STAT_P_ATK_02,
+	STAT_M_ATK_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 3) + (EEnumVal.SKT * 2), STAT_M_ATK_02,
 
-	STAT_DEF_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 4) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_DEF_02,
-	STAT_P_DEF_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 4) + (EEnumVal.SUB_KINDS_TYPE * 1) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_P_DEF_02,
-	STAT_M_DEF_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 4) + (EEnumVal.SUB_KINDS_TYPE * 2) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_M_DEF_02,
+	STAT_DEF_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 4) + (EEnumVal.SKT * 0), STAT_DEF_02,
+	STAT_P_DEF_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 4) + (EEnumVal.SKT * 1), STAT_P_DEF_02,
+	STAT_M_DEF_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 4) + (EEnumVal.SKT * 2), STAT_M_DEF_02,
 
-	STAT_RANGE_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 5) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_RANGE_02,
-	STAT_ATK_RANGE_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 5) + (EEnumVal.SUB_KINDS_TYPE * 1) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_ATK_RANGE_02,
-	STAT_VIEW_RANGE_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 5) + (EEnumVal.SUB_KINDS_TYPE * 2) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_VIEW_RANGE_02,
+	STAT_RANGE_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 5) + (EEnumVal.SKT * 0), STAT_RANGE_02,
+	STAT_ATK_RANGE_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 5) + (EEnumVal.SKT * 1), STAT_ATK_RANGE_02,
+	STAT_VIEW_RANGE_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 5) + (EEnumVal.SKT * 2), STAT_VIEW_RANGE_02,
 
-	STAT_SPEED_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 6) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_SPEED_02,
-	STAT_ATK_SPEED_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 6) + (EEnumVal.SUB_KINDS_TYPE * 1) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_ATK_SPEED_02,
-	STAT_MOVE_SPEED_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 6) + (EEnumVal.SUB_KINDS_TYPE * 2) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_MOVE_SPEED_02,
+	STAT_SPEED_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 6) + (EEnumVal.SKT * 0), STAT_SPEED_02,
+	STAT_ATK_SPEED_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 6) + (EEnumVal.SKT * 1), STAT_ATK_SPEED_02,
+	STAT_MOVE_SPEED_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 6) + (EEnumVal.SKT * 2), STAT_MOVE_SPEED_02,
 
-	STAT_DELAY_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 7) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_DELAY_02,
-	STAT_ATK_DELAY_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 7) + (EEnumVal.SUB_KINDS_TYPE * 1) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_ATK_DELAY_02,
-	STAT_SKILL_DELAY_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 7) + (EEnumVal.SUB_KINDS_TYPE * 2) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_SKILL_DELAY_02,
+	STAT_DELAY_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 7) + (EEnumVal.SKT * 0), STAT_DELAY_02,
+	STAT_ATK_DELAY_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 7) + (EEnumVal.SKT * 1), STAT_ATK_DELAY_02,
+	STAT_SKILL_DELAY_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 7) + (EEnumVal.SKT * 2), STAT_SKILL_DELAY_02,
 
-	STAT_RATE_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 8) + (EEnumVal.SUB_KINDS_TYPE * 0) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_RATE_02,
-	STAT_HIT_RATE_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 8) + (EEnumVal.SUB_KINDS_TYPE * 1) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_HIT_RATE_02,
-	STAT_AVOID_RATE_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 8) + (EEnumVal.SUB_KINDS_TYPE * 2) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_AVOID_RATE_02,
-	STAT_CRITICAL_RATE_01 = (EEnumVal.TYPE * EAbilityType.STAT) + (EEnumVal.KINDS_TYPE * 8) + (EEnumVal.SUB_KINDS_TYPE * 3) + (EEnumVal.SUB_TYPE * EAbilityValType.NORM), STAT_CRITICAL_RATE_02,
+	STAT_RATE_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 8) + (EEnumVal.SKT * 0), STAT_RATE_02,
+	STAT_HIT_RATE_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 8) + (EEnumVal.SKT * 1), STAT_HIT_RATE_02,
+	STAT_AVOID_RATE_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 8) + (EEnumVal.SKT * 2), STAT_AVOID_RATE_02,
+	STAT_CRITICAL_RATE_01 = (EEnumVal.T * EAbilityType.STAT) + (EEnumVal.ST * EAbilityValType.NORM) + (EEnumVal.KT * 8) + (EEnumVal.SKT * 3), STAT_CRITICAL_RATE_02,
 	// 0 }
 
 	// 10,000,000 {
-	[System.Obsolete] STAT_LV_INCR = EAbilityKinds.STAT_LV + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_EXP_INCR = EAbilityKinds.STAT_EXP + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	[System.Obsolete] STAT_NUMS_INCR = EAbilityKinds.STAT_NUMS + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	[System.Obsolete] STAT_ENHANCE_INCR = EAbilityKinds.STAT_ENHANCE + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	[System.Obsolete] STAT_LV_INCR = EAbilityKinds.STAT_LV + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_EXP_INCR = EAbilityKinds.STAT_EXP + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	[System.Obsolete] STAT_NUMS_INCR = EAbilityKinds.STAT_NUMS + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	[System.Obsolete] STAT_ENHANCE_INCR = EAbilityKinds.STAT_ENHANCE + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 
-	STAT_HP_INCR_01 = EAbilityKinds.STAT_HP_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_MP_INCR_01 = EAbilityKinds.STAT_MP_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_SP_INCR_01 = EAbilityKinds.STAT_SP_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_HP_INCR_01 = EAbilityKinds.STAT_HP_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_MP_INCR_01 = EAbilityKinds.STAT_MP_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_SP_INCR_01 = EAbilityKinds.STAT_SP_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 
-	STAT_RECOVERY_INCR_01 = EAbilityKinds.STAT_RECOVERY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_HP_RECOVERY_INCR_01 = EAbilityKinds.STAT_HP_RECOVERY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_MP_RECOVERY_INCR_01 = EAbilityKinds.STAT_MP_RECOVERY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_SP_RECOVERY_INCR_01 = EAbilityKinds.STAT_SP_RECOVERY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_RECOVERY_INCR_01 = EAbilityKinds.STAT_RECOVERY_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_HP_RECOVERY_INCR_01 = EAbilityKinds.STAT_HP_RECOVERY_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_MP_RECOVERY_INCR_01 = EAbilityKinds.STAT_MP_RECOVERY_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_SP_RECOVERY_INCR_01 = EAbilityKinds.STAT_SP_RECOVERY_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 
-	STAT_ATK_INCR_01 = EAbilityKinds.STAT_ATK_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_P_ATK_INCR_01 = EAbilityKinds.STAT_P_ATK_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_M_ATK_INCR_01 = EAbilityKinds.STAT_M_ATK_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_ATK_INCR_01 = EAbilityKinds.STAT_ATK_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_P_ATK_INCR_01 = EAbilityKinds.STAT_P_ATK_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_M_ATK_INCR_01 = EAbilityKinds.STAT_M_ATK_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 
-	STAT_DEF_INCR_01 = EAbilityKinds.STAT_DEF_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_P_DEF_INCR_01 = EAbilityKinds.STAT_P_DEF_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_M_DEF_INCR_01 = EAbilityKinds.STAT_M_DEF_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_DEF_INCR_01 = EAbilityKinds.STAT_DEF_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_P_DEF_INCR_01 = EAbilityKinds.STAT_P_DEF_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_M_DEF_INCR_01 = EAbilityKinds.STAT_M_DEF_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 
-	STAT_RANGE_INCR_01 = EAbilityKinds.STAT_RANGE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_ATK_RANGE_INCR_01 = EAbilityKinds.STAT_ATK_RANGE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_VIEW_RANGE_INCR_01 = EAbilityKinds.STAT_VIEW_RANGE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_RANGE_INCR_01 = EAbilityKinds.STAT_RANGE_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_ATK_RANGE_INCR_01 = EAbilityKinds.STAT_ATK_RANGE_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_VIEW_RANGE_INCR_01 = EAbilityKinds.STAT_VIEW_RANGE_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 
-	STAT_SPEED_INCR_01 = EAbilityKinds.STAT_SPEED_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_ATK_SPEED_INCR_01 = EAbilityKinds.STAT_ATK_SPEED_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_MOVE_SPEED_INCR_01 = EAbilityKinds.STAT_MOVE_SPEED_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_SPEED_INCR_01 = EAbilityKinds.STAT_SPEED_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_ATK_SPEED_INCR_01 = EAbilityKinds.STAT_ATK_SPEED_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_MOVE_SPEED_INCR_01 = EAbilityKinds.STAT_MOVE_SPEED_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 
-	STAT_DELAY_INCR_01 = EAbilityKinds.STAT_DELAY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_ATK_DELAY_INCR_01 = EAbilityKinds.STAT_ATK_DELAY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_SKILL_DELAY_INCR_01 = EAbilityKinds.STAT_SKILL_DELAY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_DELAY_INCR_01 = EAbilityKinds.STAT_DELAY_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_ATK_DELAY_INCR_01 = EAbilityKinds.STAT_ATK_DELAY_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_SKILL_DELAY_INCR_01 = EAbilityKinds.STAT_SKILL_DELAY_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 
-	STAT_RATE_INCR_01 = EAbilityKinds.STAT_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_HIT_RATE_INCR_01 = EAbilityKinds.STAT_HIT_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_AVOID_RATE_INCR_01 = EAbilityKinds.STAT_AVOID_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
-	STAT_CRITICAL_RATE_INCR_01 = EAbilityKinds.STAT_CRITICAL_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_RATE_INCR_01 = EAbilityKinds.STAT_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_HIT_RATE_INCR_01 = EAbilityKinds.STAT_HIT_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_AVOID_RATE_INCR_01 = EAbilityKinds.STAT_AVOID_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
+	STAT_CRITICAL_RATE_INCR_01 = EAbilityKinds.STAT_CRITICAL_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 	// 10,000,000 }
 
 	// 10,000,000 {
-	[System.Obsolete] STAT_LV_DECR = EAbilityKinds.STAT_LV + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_EXP_DECR = EAbilityKinds.STAT_EXP + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	[System.Obsolete] STAT_NUMS_DECR = EAbilityKinds.STAT_NUMS + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	[System.Obsolete] STAT_ENHANCE_DECR = EAbilityKinds.STAT_ENHANCE + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	[System.Obsolete] STAT_LV_DECR = EAbilityKinds.STAT_LV + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_EXP_DECR = EAbilityKinds.STAT_EXP + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	[System.Obsolete] STAT_NUMS_DECR = EAbilityKinds.STAT_NUMS + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	[System.Obsolete] STAT_ENHANCE_DECR = EAbilityKinds.STAT_ENHANCE + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 
-	STAT_HP_DECR_01 = EAbilityKinds.STAT_HP_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_MP_DECR_01 = EAbilityKinds.STAT_MP_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_SP_DECR_01 = EAbilityKinds.STAT_SP_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_HP_DECR_01 = EAbilityKinds.STAT_HP_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_MP_DECR_01 = EAbilityKinds.STAT_MP_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_SP_DECR_01 = EAbilityKinds.STAT_SP_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 
-	STAT_RECOVERY_DECR_01 = EAbilityKinds.STAT_RECOVERY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_HP_RECOVERY_DECR_01 = EAbilityKinds.STAT_HP_RECOVERY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_MP_RECOVERY_DECR_01 = EAbilityKinds.STAT_MP_RECOVERY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_SP_RECOVERY_DECR_01 = EAbilityKinds.STAT_SP_RECOVERY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_RECOVERY_DECR_01 = EAbilityKinds.STAT_RECOVERY_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_HP_RECOVERY_DECR_01 = EAbilityKinds.STAT_HP_RECOVERY_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_MP_RECOVERY_DECR_01 = EAbilityKinds.STAT_MP_RECOVERY_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_SP_RECOVERY_DECR_01 = EAbilityKinds.STAT_SP_RECOVERY_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 
-	STAT_ATK_DECR_01 = EAbilityKinds.STAT_ATK_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_P_ATK_DECR_01 = EAbilityKinds.STAT_P_ATK_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_M_ATK_DECR_01 = EAbilityKinds.STAT_M_ATK_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_ATK_DECR_01 = EAbilityKinds.STAT_ATK_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_P_ATK_DECR_01 = EAbilityKinds.STAT_P_ATK_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_M_ATK_DECR_01 = EAbilityKinds.STAT_M_ATK_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 
-	STAT_DEF_DECR_01 = EAbilityKinds.STAT_DEF_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_P_DEF_DECR_01 = EAbilityKinds.STAT_P_DEF_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_M_DEF_DECR_01 = EAbilityKinds.STAT_M_DEF_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_DEF_DECR_01 = EAbilityKinds.STAT_DEF_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_P_DEF_DECR_01 = EAbilityKinds.STAT_P_DEF_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_M_DEF_DECR_01 = EAbilityKinds.STAT_M_DEF_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 
-	STAT_RANGE_DECR_01 = EAbilityKinds.STAT_RANGE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_ATK_RANGE_DECR_01 = EAbilityKinds.STAT_ATK_RANGE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_VIEW_RANGE_DECR_01 = EAbilityKinds.STAT_VIEW_RANGE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_RANGE_DECR_01 = EAbilityKinds.STAT_RANGE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_ATK_RANGE_DECR_01 = EAbilityKinds.STAT_ATK_RANGE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_VIEW_RANGE_DECR_01 = EAbilityKinds.STAT_VIEW_RANGE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 
-	STAT_SPEED_DECR_01 = EAbilityKinds.STAT_SPEED_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_ATK_SPEED_DECR_01 = EAbilityKinds.STAT_ATK_SPEED_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_MOVE_SPEED_DECR_01 = EAbilityKinds.STAT_MOVE_SPEED_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_SPEED_DECR_01 = EAbilityKinds.STAT_SPEED_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_ATK_SPEED_DECR_01 = EAbilityKinds.STAT_ATK_SPEED_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_MOVE_SPEED_DECR_01 = EAbilityKinds.STAT_MOVE_SPEED_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 
-	STAT_DELAY_DECR_01 = EAbilityKinds.STAT_DELAY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_ATK_DELAY_DECR_01 = EAbilityKinds.STAT_ATK_DELAY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_SKILL_DELAY_DECR_01 = EAbilityKinds.STAT_SKILL_DELAY_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_DELAY_DECR_01 = EAbilityKinds.STAT_DELAY_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_ATK_DELAY_DECR_01 = EAbilityKinds.STAT_ATK_DELAY_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_SKILL_DELAY_DECR_01 = EAbilityKinds.STAT_SKILL_DELAY_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 
-	STAT_RATE_DECR_01 = EAbilityKinds.STAT_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_HIT_RATE_DECR_01 = EAbilityKinds.STAT_HIT_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_AVOID_RATE_DECR_01 = EAbilityKinds.STAT_AVOID_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	STAT_CRITICAL_RATE_DECR_01 = EAbilityKinds.STAT_CRITICAL_RATE_01 + (int)(EEnumVal.SUB_TYPE * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_RATE_DECR_01 = EAbilityKinds.STAT_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_HIT_RATE_DECR_01 = EAbilityKinds.STAT_HIT_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_AVOID_RATE_DECR_01 = EAbilityKinds.STAT_AVOID_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
+	STAT_CRITICAL_RATE_DECR_01 = EAbilityKinds.STAT_CRITICAL_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 	// 10,000,000 }
 #endregion // 스탯
 
 #region 버프
 	// 100,000,000
-	BUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * EAbilityType.BUFF) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	BUFF_ABILITY_SAMPLE = (EEnumVal.T * EAbilityType.BUFF) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 버프
 
 #region 디버프
 	// 200,000,000
-	DEBUFF_ABILITY_SAMPLE = (EEnumVal.TYPE * EAbilityType.DEBUFF) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	DEBUFF_ABILITY_SAMPLE = (EEnumVal.T * EAbilityType.DEBUFF) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 디버프
 
 #region 업그레이드
 	// 300,000,000
-	UPGRADE_ABILITY_SAMPLE = (EEnumVal.TYPE * EAbilityType.UPGRADE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	UPGRADE_ABILITY_SAMPLE = (EEnumVal.T * EAbilityType.UPGRADE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 업그레이드
 
 	[HideInInspector] MAX_VAL
@@ -626,15 +626,15 @@ public enum EProductKinds {
 
 #region 패키지
 	// 0
-	PKGS_SPECIAL_BEGINNER = (EEnumVal.TYPE * EProductType.PKGS) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	PKGS_SPECIAL_EXPERT = (EEnumVal.TYPE * EProductType.PKGS) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	PKGS_SPECIAL_PRO = (EEnumVal.TYPE * EProductType.PKGS) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
+	PKGS_SPECIAL_BEGINNER = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	PKGS_SPECIAL_EXPERT = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	PKGS_SPECIAL_PRO = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
 #endregion // 패키지
 
 #region 단일
 	// 100,000,000
-	SINGLE_COINS_BOX = (EEnumVal.TYPE * EProductType.SINGLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SINGLE_REMOVE_ADS = (EEnumVal.TYPE * EProductType.SINGLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
+	SINGLE_COINS_BOX = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_REMOVE_ADS = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
 #endregion // 단일
 
 	[HideInInspector] MAX_VAL
@@ -656,38 +656,38 @@ public enum ETargetKinds {
 
 #region 아이템
 	// 0
-	[System.Obsolete] ITEM = (EEnumVal.TYPE * ETargetType.ITEM) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	ITEM_LV = (EEnumVal.TYPE * ETargetType.ITEM) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	ITEM_EXP = (EEnumVal.TYPE * ETargetType.ITEM) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
-	ITEM_NUMS = (EEnumVal.TYPE * ETargetType.ITEM) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
-	ITEM_ENHANCE = (EEnumVal.TYPE * ETargetType.ITEM) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
+	[System.Obsolete] ITEM = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	ITEM_LV = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	ITEM_EXP = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	ITEM_NUMS = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
+	ITEM_ENHANCE = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
 #endregion // 아이템
 
 #region 스킬
 	// 100,000,000
-	[System.Obsolete] SKILL = (EEnumVal.TYPE * ETargetType.SKILL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	SKILL_LV = (EEnumVal.TYPE * ETargetType.SKILL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	SKILL_EXP = (EEnumVal.TYPE * ETargetType.SKILL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
-	SKILL_NUMS = (EEnumVal.TYPE * ETargetType.SKILL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
-	SKILL_ENHANCE = (EEnumVal.TYPE * ETargetType.SKILL) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
+	[System.Obsolete] SKILL = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SKILL_LV = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	SKILL_EXP = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	SKILL_NUMS = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
+	SKILL_ENHANCE = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
 #endregion // 스킬
 
 #region 객체
 	// 200,000,000
-	[System.Obsolete] OBJ = (EEnumVal.TYPE * ETargetType.OBJ) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	OBJ_LV = (EEnumVal.TYPE * ETargetType.OBJ) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	OBJ_EXP = (EEnumVal.TYPE * ETargetType.OBJ) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
-	OBJ_NUMS = (EEnumVal.TYPE * ETargetType.OBJ) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
-	OBJ_ENHANCE = (EEnumVal.TYPE * ETargetType.OBJ) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
+	[System.Obsolete] OBJ = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	OBJ_LV = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	OBJ_EXP = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	OBJ_NUMS = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
+	OBJ_ENHANCE = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
 #endregion // 객체
 
 #region 어빌리티
 	// 300,000,000
-	ABILITY = (EEnumVal.TYPE * ETargetType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
-	ABILITY_LV = (EEnumVal.TYPE * ETargetType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 1),
-	[System.Obsolete] ABILITY_EXP = (EEnumVal.TYPE * ETargetType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 2),
-	[System.Obsolete] ABILITY_NUMS = (EEnumVal.TYPE * ETargetType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 3),
-	[System.Obsolete] ABILITY_ENHANCE = (EEnumVal.TYPE * ETargetType.ABILITY) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 4),
+	ABILITY = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	ABILITY_LV = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	[System.Obsolete] ABILITY_EXP = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	[System.Obsolete] ABILITY_NUMS = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
+	[System.Obsolete] ABILITY_ENHANCE = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
 #endregion // 어빌리티
 
 	[HideInInspector] MAX_VAL
@@ -707,12 +707,12 @@ public enum ESkillApplyKinds {
 
 #region 다중
 	// 0
-	MULTI_SKILL_APPLY_SAMPLE = (EEnumVal.TYPE * ESkillApplyType.MULTI) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	MULTI_SKILL_APPLY_SAMPLE = (EEnumVal.T * ESkillApplyType.MULTI) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 다중
 
 #region 단일
 	// 100,000,000
-	SINGLE_SKILL_APPLY_SAMPLE = (EEnumVal.TYPE * ESkillApplyType.SINGLE) + (EEnumVal.KINDS_TYPE * 0) + (EEnumVal.SUB_KINDS_TYPE * 0),
+	SINGLE_SKILL_APPLY_SAMPLE = (EEnumVal.T * ESkillApplyType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 #endregion // 단일
 
 	[HideInInspector] MAX_VAL
