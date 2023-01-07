@@ -100,7 +100,12 @@ public static partial class Func {
 	}
 
 #region 클래스 변수
-	private static Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
+	private static Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+#if ADS_MODULE_ENABLE
+		[EKey.IS_WATCH_REWARD_ADS] = false,
+		[EKey.IS_WATCH_FULLSCREEN_ADS] = false
+#endif // #if ADS_MODULE_ENABLE
+	};
 
 #if ADS_MODULE_ENABLE
 	private static STAdsRewardInfo m_stAdsRewardInfo;
@@ -333,7 +338,7 @@ public static partial class Func {
 
 			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => {
 				Func.m_stAdsRewardInfo = STAdsRewardInfo.INVALID;
-				Func.m_oBoolDict.ExReplaceVal(EKey.IS_WATCH_REWARD_ADS, false);
+				Func.m_oBoolDict[EKey.IS_WATCH_REWARD_ADS] = false;
 				Func.m_oAdsCallbackDict02.ExReplaceVal(ECallback.SHOW_REWARD_ADS, a_oCallback);
 
 				CAdsManager.Inst.ShowRewardAds(a_eAdsPlatform, Func.OnReceiveAdsReward, null, Func.OnCloseRewardAds);
@@ -359,7 +364,7 @@ public static partial class Func {
 
 				// 전면 광고 출력이 가능 할 경우
 				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds) {
-					Func.m_oBoolDict.ExReplaceVal(EKey.IS_WATCH_FULLSCREEN_ADS, true);
+					Func.m_oBoolDict[EKey.IS_WATCH_FULLSCREEN_ADS] = true;
 					Func.m_oAdsCallbackDict01.ExReplaceVal(ECallback.SHOW_FULLSCREEN_ADS, a_oCallback);
 
 					CAdsManager.Inst.ShowFullscreenAds(a_eAdsPlatform, null, Func.OnCloseFullscreenAds);
@@ -386,13 +391,13 @@ public static partial class Func {
 		Func.IncrRewardAdsWatchTimes(KCDefine.B_VAL_1_INT);
 		CAppInfoStorage.Inst.SaveAppInfo();
 
-		Func.m_oAdsCallbackDict02.GetValueOrDefault(ECallback.SHOW_REWARD_ADS)?.Invoke(a_oSender, Func.m_stAdsRewardInfo, Func.m_oBoolDict.GetValueOrDefault(EKey.IS_WATCH_REWARD_ADS));
+		Func.m_oAdsCallbackDict02.GetValueOrDefault(ECallback.SHOW_REWARD_ADS)?.Invoke(a_oSender, Func.m_stAdsRewardInfo, Func.m_oBoolDict[EKey.IS_WATCH_REWARD_ADS]);
 	}
 
 	/** 광고 보상을 수신했을 경우 */
 	private static void OnReceiveAdsReward(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		Func.m_stAdsRewardInfo = a_stAdsRewardInfo;
-		Func.m_oBoolDict.ExReplaceVal(EKey.IS_WATCH_REWARD_ADS, a_bIsSuccess);
+		Func.m_oBoolDict[EKey.IS_WATCH_REWARD_ADS] = a_bIsSuccess;
 	}
 
 	/** 전면 광고가 닫혔을 경우 */
@@ -403,7 +408,7 @@ public static partial class Func {
 		Func.IncrFullscreenAdsWatchTimes(KCDefine.B_VAL_1_INT);
 
 		CAppInfoStorage.Inst.SaveAppInfo();
-		Func.m_oAdsCallbackDict01.GetValueOrDefault(ECallback.SHOW_FULLSCREEN_ADS)?.Invoke(a_oSender, Func.m_oBoolDict.GetValueOrDefault(EKey.IS_WATCH_FULLSCREEN_ADS));
+		Func.m_oAdsCallbackDict01.GetValueOrDefault(ECallback.SHOW_FULLSCREEN_ADS)?.Invoke(a_oSender, Func.m_oBoolDict[EKey.IS_WATCH_FULLSCREEN_ADS]);
 	}
 #endif // #if ADS_MODULE_ENABLE
 

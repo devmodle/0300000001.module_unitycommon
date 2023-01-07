@@ -38,9 +38,9 @@ namespace InitScene {
 				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
 			}, m_oImgDict);
 
-			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).sprite = Resources.Load<Sprite>(KCDefine.U_TEX_P_SPLASH);
-			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, this.ScreenHeight * (KCDefine.B_VAL_1_REAL / (KCDefine.B_VAL_5_REAL * KCDefine.B_VAL_8_REAL)), KCDefine.B_VAL_0_REAL);
-			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(false);
+			m_oImgDict[EKey.SPLASH_IMG].sprite = Resources.Load<Sprite>(KCDefine.U_TEX_P_SPLASH);
+			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, this.ScreenHeight * (KCDefine.B_VAL_1_REAL / (KCDefine.B_VAL_5_REAL * KCDefine.B_VAL_8_REAL)), KCDefine.B_VAL_0_REAL);
+			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
 			// 이미지를 설정한다 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
@@ -79,8 +79,8 @@ namespace InitScene {
 
 		/** 스플래시를 출력한다 */
 		protected override void ShowSplash() {
-			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).SetNativeSize();
-			m_oImgDict.GetValueOrDefault(EKey.SPLASH_IMG).gameObject.SetActive(true);
+			m_oImgDict[EKey.SPLASH_IMG].SetNativeSize();
+			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(true);
 
 			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.B_VAL_2_REAL);
 		}

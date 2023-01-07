@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 namespace NSEngine {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
-		/** 식별자 */
+		///** 식별자 */
 		private enum EKey {
 			NONE = -1,
 			IS_RUNNING,
@@ -41,12 +41,17 @@ namespace NSEngine {
 		}
 
 #region 변수
-		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
-		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
+		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
+			[EKey.SEL_GRID_IDX] = KCDefine.B_VAL_0_INT
+		};
+
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+			[EKey.IS_RUNNING] = false,
+			[EKey.IS_SAVE_USER_INFO] = false
+		};
 
 		private List<CEObj>[,] m_oCellObjLists = null;
 		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
-		private List<LineRenderer> m_oGridLineFXList = new List<LineRenderer>();
 		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 #endregion // 변수
 
@@ -59,7 +64,7 @@ namespace NSEngine {
 		public List<CEObj> ObjList { get; } = new List<CEObj>();
 		public List<CEFX> FXList { get; } = new List<CEFX>();
 
-		public bool IsRunning => m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING);
+		public bool IsRunning => m_oBoolDict[EKey.IS_RUNNING];
 		public int SelGridInfoIdx => m_oIntDict.GetValueOrDefault(EKey.SEL_GRID_IDX);
 		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
@@ -77,7 +82,7 @@ namespace NSEngine {
 		public virtual void Init(STParams a_stParams) {
 			this.Params = a_stParams;
 
-			this.SetupEngine();
+			this.Setup();
 			this.SetupLevel();
 			this.SetupGridLine();
 
@@ -87,14 +92,14 @@ namespace NSEngine {
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
-			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, false);
+			m_oBoolDict[EKey.IS_RUNNING] = false;
 
 			this.SubReset();
 		}
 
 		/** 구동 여부를 변경한다 */
 		public void SetEnableRunning(bool a_bIsRunning) {
-			m_oBoolDict.ExReplaceVal(EKey.IS_RUNNING, a_bIsRunning);
+			m_oBoolDict[EKey.IS_RUNNING] = a_bIsRunning;
 		}
 
 		/** 터치 이벤트를 처리한다 */

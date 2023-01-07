@@ -17,6 +17,7 @@ namespace NSEngine {
 
 		public Vector3 m_stScale;
 		public Vector3 m_stPivotPos;
+		public Vector3 m_stViewPivotPos;
 
 #region 상수
 		public static STGridInfo INVALID = new STGridInfo() {

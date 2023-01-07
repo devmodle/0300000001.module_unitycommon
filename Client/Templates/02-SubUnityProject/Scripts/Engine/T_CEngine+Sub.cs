@@ -56,7 +56,7 @@ namespace NSEngine {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
 				// 실행 중 일 경우
-				if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+				if(m_oBoolDict[EKey.IS_RUNNING]) {
 					switch(this.State) {
 						case EState.PLAY: this.HandlePlayState(a_fDeltaTime); break;
 						case EState.PAUSE: this.HandlePauseState(a_fDeltaTime); break;
@@ -207,7 +207,7 @@ namespace NSEngine {
 			CFunc.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
 
 			// 실행 중 일 경우
-			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+			if(m_oBoolDict[EKey.IS_RUNNING]) {
 				var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
 				try {
@@ -242,7 +242,7 @@ namespace NSEngine {
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+			if(m_oBoolDict[EKey.IS_RUNNING]) {
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
 				// 인덱스가 유효 할 경우
@@ -255,7 +255,7 @@ namespace NSEngine {
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+			if(m_oBoolDict[EKey.IS_RUNNING]) {
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
 				// 인덱스가 유효 할 경우
@@ -268,7 +268,7 @@ namespace NSEngine {
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+			if(m_oBoolDict[EKey.IS_RUNNING]) {
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
 				// 인덱스가 유효 할 경우
