@@ -110,7 +110,7 @@ namespace MainScene {
 					(EKey.CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
 				}, m_oScrollerInfoDict);
 
-				this.SubSetupAwake();
+				this.SubAwake();
 				CGameInfoStorage.Inst.ResetSelItems();
 			}
 		}
@@ -151,7 +151,7 @@ namespace MainScene {
 				}
 #endif // #if DAILY_REWARD_ENABLE
 
-				this.SubSetupStart();
+				this.SubStart();
 				this.UpdateUIsState();
 
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_MAIN_01);

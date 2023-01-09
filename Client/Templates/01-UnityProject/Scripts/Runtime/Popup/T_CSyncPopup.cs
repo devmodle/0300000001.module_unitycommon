@@ -43,7 +43,7 @@ public partial class CSyncPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_SAVE_BTN, this.Contents, this.OnTouchSaveBtn)
 		});
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */

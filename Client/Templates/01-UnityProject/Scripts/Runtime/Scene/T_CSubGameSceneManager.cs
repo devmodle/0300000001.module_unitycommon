@@ -137,7 +137,7 @@ namespace GameScene {
 #endif // #if NEVER_USE_THIS
 				// 스프라이트를 설정한다 }
 
-				this.SubSetupAwake();
+				this.SubAwake();
 			}
 		}
 
@@ -147,8 +147,8 @@ namespace GameScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
+				this.SubStart();
 				this.ApplySelItems();
-				this.SubSetupStart();
 				this.UpdateUIsState();
 
 				CGameInfoStorage.Inst.ResetSelItems();

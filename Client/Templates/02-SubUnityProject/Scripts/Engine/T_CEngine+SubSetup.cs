@@ -11,7 +11,7 @@ namespace NSEngine {
 	public partial class CEngine : CComponent {
 #region 함수
 		/** 초기화 */
-		private void SubSetupAwake() {
+		private void SubAwake() {
 			// Do Something
 		}
 

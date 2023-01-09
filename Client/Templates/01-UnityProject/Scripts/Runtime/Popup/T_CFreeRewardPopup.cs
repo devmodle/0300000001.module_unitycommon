@@ -30,7 +30,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn)
 		}, m_oBtnDict);
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */

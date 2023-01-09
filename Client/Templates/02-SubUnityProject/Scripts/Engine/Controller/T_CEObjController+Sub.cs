@@ -145,8 +145,8 @@ namespace NSEngine {
 			m_oSkillTargetInfoDict.ExReplaceVal(EKey.APPLY_SKILL_TARGET_INFO, a_oSkillTargetInfo);
 		}
 
-		/** 제어자를 설정한다 */
-		private void SubSetupAwake() {
+		/** 초기화 */
+		private void SubAwake() {
 			// Do Something
 		}
 

@@ -40,7 +40,7 @@ namespace NSEngine {
 				(EKey.PARTICLE_FX, $"{EKey.PARTICLE_FX}", this.gameObject)
 			}, m_oParticleDict);
 
-			this.SubSetupAwake();
+			this.SubAwake();
 		}
 
 		/** 초기화 */

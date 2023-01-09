@@ -80,7 +80,7 @@ namespace TitleScene {
 				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 
-				this.SubSetupAwake();
+				this.SubAwake();
 			}
 		}
 
@@ -96,7 +96,7 @@ namespace TitleScene {
 					this.ExLateCallFunc((a_oSender) => Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG), this.OnReceiveUpdatePopupResult));
 				}
 
-				this.SubSetupStart();
+				this.SubStart();
 				this.UpdateUIsState();
 
 				// 최초 시작 일 경우

@@ -42,7 +42,7 @@ public partial class CSettingsPopup : CSubPopup {
 		}, m_oBtnDict);
 		// 버튼을 설정한다 }
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */

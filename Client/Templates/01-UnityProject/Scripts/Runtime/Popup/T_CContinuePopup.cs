@@ -59,7 +59,7 @@ public partial class CContinuePopup : CSubPopup {
 			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
 		});
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */

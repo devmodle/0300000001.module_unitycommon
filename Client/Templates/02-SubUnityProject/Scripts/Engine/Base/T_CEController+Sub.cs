@@ -118,8 +118,8 @@ namespace NSEngine {
 			// Do Something
 		}
 
-		/** 제어자를 설정한다 */
-		private void SubSetupAwake() {
+		/** 초기화 */
+		private void SubAwake() {
 			this.StateCheckerDict.TryAdd(EState.MOVE, this.IsEnableMoveState);
 			this.StateCheckerDict.TryAdd(EState.SKILL, this.IsEnableSkillState);
 		}

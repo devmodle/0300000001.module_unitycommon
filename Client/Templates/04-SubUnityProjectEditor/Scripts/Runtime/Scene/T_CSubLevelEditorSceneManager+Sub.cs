@@ -66,15 +66,15 @@ namespace LevelEditorScene {
 #endif // #if UNITY_EDITOR
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		/** 씬을 설정한다 */
-		private void SubSetupAwake() {
+		/** 초기화 */
+		private void SubAwake() {
 			this.SubSetupMidEditorUIs();
 			this.SubSetupLeftEditorUIs();
 			this.SubSetupRightEditorUIs();
 		}
 
-		/** 씬을 설정한다 */
-		private void SubSetupStart() {
+		/** 초기화 */
+		private void SubStart() {
 			// Do Something
 		}
 

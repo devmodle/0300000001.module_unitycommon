@@ -53,7 +53,7 @@ namespace NSEngine {
 				(EKey.TARGET_SPRITE, $"{EKey.TARGET_SPRITE}", this.gameObject)
 			}, m_oSpriteDict);
 
-			this.SubSetupAwake();
+			this.SubAwake();
 		}
 
 		/** 초기화 */

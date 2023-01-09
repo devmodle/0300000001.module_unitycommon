@@ -70,7 +70,7 @@ public partial class CStorePopup : CSubPopup {
 			(KCDefine.U_OBJ_N_RESTORE_BTN, this.Contents, this.OnTouchRestoreBtn)
 		});
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */

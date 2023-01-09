@@ -38,15 +38,15 @@ namespace TitleScene {
 #endregion // 프로퍼티
 
 #region 함수
-		/** 씬을 설정한다 */
-		private void SubSetupAwake() {
+		/** 초기화 */
+		private void SubAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SubSetupTestUIs();
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 		}
 
-		/** 씬을 설정한다 */
-		private void SubSetupStart() {
+		/** 초기화 */
+		private void SubStart() {
 			// Do Something
 		}
 

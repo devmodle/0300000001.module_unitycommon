@@ -23,8 +23,8 @@ public partial class CSyncPopup : CSubPopup {
 #endregion // 프로퍼티
 
 #region 함수
-	/** 팝업을 설정한다 */
-	private void SubSetupAwake() {
+	/** 초기화 */
+	private void SubAwake() {
 		// Do Something
 	}
 

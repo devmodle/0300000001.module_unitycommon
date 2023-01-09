@@ -61,8 +61,8 @@ namespace NSEngine {
 			}
 		}
 
-		/** 효과를 설정한다 */
-		private void SubSetupAwake() {
+		/** 초기화 */
+		private void SubAwake() {
 			// Do Something
 		}
 

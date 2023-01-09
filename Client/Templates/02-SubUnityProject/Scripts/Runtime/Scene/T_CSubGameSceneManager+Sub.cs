@@ -66,15 +66,15 @@ namespace GameScene {
 			}
 		}
 
-		/** 씬을 설정한다 */
-		private void SubSetupAwake() {
+		/** 초기화 */
+		private void SubAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SubSetupTestUIs();
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 		}
 
-		/** 씬을 설정한다 */
-		private void SubSetupStart() {
+		/** 초기화 */
+		private void SubStart() {
 			this.ExLateCallFunc((a_oSender) => {
 				m_oEngine.SetEnableRunning(true);
 				m_oEngine.SetState(NSEngine.CEngine.EState.PLAY);
@@ -93,7 +93,7 @@ namespace GameScene {
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 		}
 
-		/** 획득했을 경우 */
+		/** 획득 콜백을 수신했을 경우 */
 		private void OnReceiveAcquireCallback(NSEngine.CEngine a_oSender, Dictionary<ulong, STTargetInfo> a_oAcquireTargetInfoDict) {
 			// Do Something
 		}

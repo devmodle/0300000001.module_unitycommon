@@ -42,7 +42,7 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_PURCHASE_BTN, this.Contents, this.OnTouchPurchaseBtn)
 		});
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */

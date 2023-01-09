@@ -48,7 +48,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.Contents)
 		}, m_oTextDict);
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */

@@ -24,8 +24,8 @@ namespace GameScene {
 #endregion // 프로퍼티
 
 #region 함수
-		/** 컴포넌트를 설정한다 */
-		private void SubSetupAwake() {
+		/** 초기화 */
+		private void SubAwake() {
 			// Do Something
 		}
 

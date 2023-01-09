@@ -51,7 +51,7 @@ namespace NSEngine {
 			base.Awake();
 			m_oVec3Dict.ExReplaceVal(EKey.MOVE_POS, KCDefine.B_POS_INVALID);
 
-			this.SubSetupAwake();
+			this.SubAwake();
 		}
 
 		/** 초기화 */

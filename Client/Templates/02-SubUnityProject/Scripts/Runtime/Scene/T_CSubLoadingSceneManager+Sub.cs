@@ -24,13 +24,13 @@ namespace LoadingScene {
 #endregion // 프로퍼티
 
 #region 함수
-		/** 씬을 설정한다 */
-		private void SubSetupAwake() {
+		/** 초기화 */
+		private void SubAwake() {
 			// Do Something
 		}
 
-		/** 씬을 설정한다 */
-		private void SubSetupStart() {
+		/** 초기화 */
+		private void SubStart() {
 			// Do Something
 		}
 
