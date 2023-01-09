@@ -6,13 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-/** 미션 팝업 */
-public abstract partial class CMissionPopup : CSubPopup {
-#region 함수
-	
-#endregion // 함수
-}
-
 /** 서브 미션 팝업 */
 public abstract partial class CMissionPopup : CSubPopup {
 	/** 서브 식별자 */

@@ -9,13 +9,6 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace GameScene {
-	/** 서브 게임 씬 관리자 */
-	public partial class CSubGameSceneManager : CGameSceneManager {
-#region 함수
-
-#endregion // 함수
-	}
-
 	/** 서브 게임 씬 관리자 - 서브 */
 	public partial class CSubGameSceneManager : CGameSceneManager {
 		/** 서브 식별자 */

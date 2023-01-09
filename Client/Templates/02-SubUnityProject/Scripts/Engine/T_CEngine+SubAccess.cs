@@ -7,13 +7,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 엔진 - 접근 */
-	public partial class CEngine : CComponent {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 #region 함수
@@ -35,14 +28,14 @@ namespace NSEngine {
 				float fDistance = (a_stPos - oEnemyObj.transform.localPosition).sqrMagnitude;
 				oEnemyObj = fDistance.ExIsLessEquals((a_stPos - this.EnemyObjList[i].transform.localPosition).sqrMagnitude) ? oEnemyObj : this.EnemyObjList[i];
 			}
-			
+
 			return (oEnemyObj != null && (a_stPos - oEnemyObj.transform.localPosition).sqrMagnitude.ExIsLessEquals(Mathf.Pow(a_fDistance, KCDefine.B_VAL_2_REAL))) ? oEnemyObj : null;
 		}
 
 		/** 적 객체를 탐색한다 */
 		public List<CEObj> FindEnemyObjs(Vector3 a_stPos, List<CEObj> a_oOutEnemyObjList, float a_fDistance = float.MaxValue) {
 			a_oOutEnemyObjList = a_oOutEnemyObjList ?? new List<CEObj>();
-			
+
 			for(int i = 0; i < this.EnemyObjList.Count; ++i) {
 				float fDistance = (a_stPos - this.EnemyObjList[i].transform.localPosition).sqrMagnitude;
 

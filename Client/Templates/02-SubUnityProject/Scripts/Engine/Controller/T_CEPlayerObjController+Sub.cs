@@ -7,13 +7,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 플레이어 객체 제어자 */
-	public partial class CEPlayerObjController : CEObjController {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 플레이어 객체 제어자 */
 	public partial class CEPlayerObjController : CEObjController {
 		/** 서브 식별자 */

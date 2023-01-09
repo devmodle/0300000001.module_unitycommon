@@ -6,13 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-/** 상품 구입 팝업 */
-public partial class CProductBuyPopup : CSubPopup {
-#region 함수
-
-#endregion // 함수
-}
-
 /** 서브 상품 구입 팝업 */
 public partial class CProductBuyPopup : CSubPopup {
 	/** 서브 식별자 */

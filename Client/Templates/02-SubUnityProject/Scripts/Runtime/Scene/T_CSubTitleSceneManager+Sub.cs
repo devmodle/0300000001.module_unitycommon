@@ -10,13 +10,6 @@ using System.Linq;
 using UnityEngine.EventSystems;
 
 namespace TitleScene {
-	/** 서브 타이틀 씬 관리자 */
-	public partial class CSubTitleSceneManager : CTitleSceneManager {
-#region 함수
-
-#endregion // 함수
-	}
-
 	/** 서브 타이틀 씬 관리자 - 서브 */
 	public partial class CSubTitleSceneManager : CTitleSceneManager {
 		/** 서브 식별자 */

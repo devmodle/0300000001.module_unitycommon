@@ -7,13 +7,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace LoadingScene {
-	/** 서브 로딩 씬 관리자 */
-	public partial class CSubLoadingSceneManager : CLoadingSceneManager {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 로딩 씬 관리자 - 서브 */
 	public partial class CSubLoadingSceneManager : CLoadingSceneManager {
 		/** 서브 식별자 */

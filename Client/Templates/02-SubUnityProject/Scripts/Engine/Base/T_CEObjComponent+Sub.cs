@@ -7,13 +7,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 엔진 객체 컴포넌트 */
-	public partial class CEObjComponent : CEComponent {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 엔진 객체 컴포넌트 */
 	public partial class CEObjComponent : CEComponent {
 		/** 서브 식별자 */

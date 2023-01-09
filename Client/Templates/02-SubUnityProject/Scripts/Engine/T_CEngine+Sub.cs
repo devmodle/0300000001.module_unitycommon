@@ -10,13 +10,6 @@ using System.Linq;
 using UnityEngine.EventSystems;
 
 namespace NSEngine {
-	/** 엔진 */
-	public partial class CEngine : CComponent {
-#region 함수
-
-#endregion // 함수
-	}
-
 	/** 서브 엔진 */
 	public partial class CEngine : CComponent {
 		/** 서브 식별자 */

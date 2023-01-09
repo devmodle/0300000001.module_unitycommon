@@ -8,13 +8,6 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using TMPro;
 
-/** 보상 획득 팝업 */
-public partial class CRewardAcquirePopup : CSubPopup {
-#region 함수
-	
-#endregion // 함수
-}
-
 /** 서브 보상 획득 팝업 */
 public partial class CRewardAcquirePopup : CSubPopup {
 	/** 서브 식별자 */

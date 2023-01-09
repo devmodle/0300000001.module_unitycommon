@@ -7,13 +7,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace OverlayScene {
-	/** 서브 중첩 씬 관리자 */
-	public partial class CSubOverlaySceneManager : COverlaySceneManager {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 중첩 씬 관리자 - 서브 */
 	public partial class CSubOverlaySceneManager : COverlaySceneManager {
 		/** 서브 식별자 */

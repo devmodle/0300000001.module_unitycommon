@@ -7,13 +7,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 제어자 */
-	public abstract partial class CEController : CEComponent {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 제어자 */
 	public abstract partial class CEController : CEComponent {
 		/** 서브 식별자 */

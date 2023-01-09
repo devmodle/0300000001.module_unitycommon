@@ -6,13 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-/** 튜토리얼 팝업 */
-public partial class CTutorialPopup : CFocusPopup {
-#region 함수
-	
-#endregion // 함수
-}
-
 /** 서브 튜토리얼 팝업 */
 public partial class CTutorialPopup : CFocusPopup {
 	/** 서브 식별자 */

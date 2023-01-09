@@ -6,13 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-/** 재개 팝업 */
-public partial class CResumePopup : CSubPopup {
-#region 함수
-	
-#endregion // 함수
-}
-
 /** 서브 재개 팝업 */
 public partial class CResumePopup : CSubPopup {
 	/** 서브 식별자 */

@@ -6,13 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-/** 무료 보상 팝업 */
-public partial class CFreeRewardPopup : CSubPopup {
-#region 함수
-	
-#endregion // 함수
-}
-
 /** 서브 무료 보상 팝업 */
 public partial class CFreeRewardPopup : CSubPopup {
 	/** 서브 식별자 */

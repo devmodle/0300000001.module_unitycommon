@@ -7,13 +7,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 스킬 */
-	public partial class CESkill : CEObjComponent {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 스킬 */
 	public partial class CESkill : CEObjComponent {
 		/** 서브 식별자 */
