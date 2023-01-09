@@ -92,7 +92,25 @@ namespace MainScene {
 				CGameInfoStorage.Inst.SaveGameInfo();
 #endif // #if CREATIVE_DIST_BUILD
 
-				this.SetupAwake();
+				var ePlayMode = CGameInfoStorage.Inst.PlayMode;
+				m_oIDInfoDict.ExReplaceVal(EKey.SEL_ID_INFO, (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) ? CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo : new STIDInfo(KCDefine.B_VAL_0_INT));
+
+				// 버튼을 설정한다
+				CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+					(KCDefine.U_OBJ_N_PLAY_BTN, this.UIsBase, this.OnTouchPlayBtn),
+					(KCDefine.U_OBJ_N_STORE_BTN, this.UIsBase, this.OnTouchStoreBtn),
+					(KCDefine.U_OBJ_N_REVIEW_BTN, this.UIsBase, this.OnTouchReviewBtn),
+					(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
+				});
+
+				// 스크롤 뷰를 설정한다
+				CFunc.SetupScrollerInfos(new List<(EKey, string, GameObject, EnhancedScrollerCellView, IEnhancedScrollerDelegate)>() {
+					(EKey.LEVEL_SCROLLER_INFO, KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+					(EKey.STAGE_SCROLLER_INFO, KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+					(EKey.CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
+				}, m_oScrollerInfoDict);
+
+				this.SubSetupAwake();
 				CGameInfoStorage.Inst.ResetSelItems();
 			}
 		}
@@ -103,7 +121,37 @@ namespace MainScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupStart();
+				// 캐릭터 게임 정보가 존재 할 경우
+				if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID, out CCharacterGameInfo oCharacterGameInfo)) {
+					// 일일 미션 리셋이 가능 할 경우
+					if(Access.IsEnableResetDailyMission(CGameInfoStorage.Inst.PlayCharacterID)) {
+						oCharacterGameInfo.PrevDailyMissionTime = System.DateTime.Today;
+						oCharacterGameInfo.m_oCompleteDailyMissionKindsList.Clear();
+					}
+
+					// 무료 보상 획득이 가능 할 경우
+					if(Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID)) {
+						oCharacterGameInfo.FreeRewardAcquireTimes = KCDefine.B_VAL_0_INT;
+						oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
+					}
+
+					CGameInfoStorage.Inst.SaveGameInfo();
+				}
+
+				// 업데이트가 가능 할 경우
+				if(!CAppInfoStorage.Inst.IsIgnoreUpdate && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+					CAppInfoStorage.Inst.SetIgnoreUpdate(true);
+					this.ExLateCallFunc((a_oSender) => Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG), this.OnReceiveUpdatePopupResult));
+				}
+
+#if DAILY_REWARD_ENABLE
+				// 일일 보상 획득이 가능 할 경우
+				if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
+					Func.ShowDailyRewardPopup(this.PopupUIs, (a_oSender) => (a_oSender as CDailyRewardPopup).Init());
+				}
+#endif // #if DAILY_REWARD_ENABLE
+
+				this.SubSetupStart();
 				this.UpdateUIsState();
 
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_MAIN_01);
@@ -133,64 +181,6 @@ namespace MainScene {
 			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
 				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_QUIT_P_MSG), this.OnReceiveQuitPopupResult);
 			}
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			var ePlayMode = CGameInfoStorage.Inst.PlayMode;
-			m_oIDInfoDict.ExReplaceVal(EKey.SEL_ID_INFO, (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) ? CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo : new STIDInfo(KCDefine.B_VAL_0_INT));
-
-			// 버튼을 설정한다
-			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-				(KCDefine.U_OBJ_N_PLAY_BTN, this.UIsBase, this.OnTouchPlayBtn),
-				(KCDefine.U_OBJ_N_STORE_BTN, this.UIsBase, this.OnTouchStoreBtn),
-				(KCDefine.U_OBJ_N_REVIEW_BTN, this.UIsBase, this.OnTouchReviewBtn),
-				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
-			});
-
-			// 스크롤 뷰를 설정한다
-			CFunc.SetupScrollerInfos(new List<(EKey, string, GameObject, EnhancedScrollerCellView, IEnhancedScrollerDelegate)>() {
-				(EKey.LEVEL_SCROLLER_INFO, KCDefine.U_OBJ_N_LEVEL_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_LEVEL_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
-				(EKey.STAGE_SCROLLER_INFO, KCDefine.U_OBJ_N_STAGE_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_STAGE_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
-				(EKey.CHAPTER_SCROLLER_INFO, KCDefine.U_OBJ_N_CHAPTER_SCROLL_VIEW, this.UIsBase, CResManager.Inst.GetRes<GameObject>(KCDefine.MS_OBJ_P_CHAPTER_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
-			}, m_oScrollerInfoDict);
-
-			this.SubSetupAwake();
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupStart() {
-			// 캐릭터 게임 정보가 존재 할 경우
-			if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID, out CCharacterGameInfo oCharacterGameInfo)) {
-				// 일일 미션 리셋이 가능 할 경우
-				if(Access.IsEnableResetDailyMission(CGameInfoStorage.Inst.PlayCharacterID)) {
-					oCharacterGameInfo.PrevDailyMissionTime = System.DateTime.Today;
-					oCharacterGameInfo.m_oCompleteDailyMissionKindsList.Clear();
-				}
-
-				// 무료 보상 획득이 가능 할 경우
-				if(Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID)) {
-					oCharacterGameInfo.FreeRewardAcquireTimes = KCDefine.B_VAL_0_INT;
-					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
-				}
-
-				CGameInfoStorage.Inst.SaveGameInfo();
-			}
-
-			// 업데이트가 가능 할 경우
-			if(!CAppInfoStorage.Inst.IsIgnoreUpdate && !COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
-				CAppInfoStorage.Inst.SetIgnoreUpdate(true);
-				this.ExLateCallFunc((a_oSender) => Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG), this.OnReceiveUpdatePopupResult));
-			}
-
-#if DAILY_REWARD_ENABLE
-			// 일일 보상 획득이 가능 할 경우
-			if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
-				Func.ShowDailyRewardPopup(this.PopupUIs, (a_oSender) => (a_oSender as CDailyRewardPopup).Init());
-			}
-#endif // #if DAILY_REWARD_ENABLE
-
-			this.SubSetupStart();
 		}
 
 		/** UI 상태를 갱신한다 */

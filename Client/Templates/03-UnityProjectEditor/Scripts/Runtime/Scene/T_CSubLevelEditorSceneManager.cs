@@ -243,7 +243,46 @@ namespace LevelEditorScene {
 				}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
-				this.SetupAwake();
+				this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
+				this.AddObjsPool(KDefine.LES_KEY_LINE_FX_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_LINE_FX, this.ObjRoot));
+
+				// 텍스처를 설정한다
+				m_oGridBoundsTex2D = CFactory.MakeTex2D(KCDefine.U_IMG_N_TEX, new Vector3Int((int)(this.ScreenWidth * KCDefine.B_VAL_2_REAL), (int)(this.ScreenHeight * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_INT));
+				m_oGridBoundsTex2D?.ExSetPixels(Color.white);
+
+				// 스프라이트를 설정한다 {
+				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.SEL_OBJ_SPRITE, $"{EKey.SEL_OBJ_SPRITE}", this.ObjRoot, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+				}, m_oSpriteDict);
+
+				m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.SetActive(false);
+				m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetColor<SpriteRenderer>(Color.white.ExGetAlphaColor(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL));
+				m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetSortingOrder(KCDefine.U_SORTING_OI_OVERGROUND);
+				// 스프라이트를 설정한다 }
+
+#if GOOGLE_SHEET_ENABLE
+				// 구글 시트 로드 처리자를 설정한다
+				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+#endif // #if GOOGLE_SHEET_ENABLE
+
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+				this.SetupMidEditorUIs();
+				this.SetupLeftEditorUIs();
+				this.SetupRightEditorUIs();
+
+				// 레벨 정보를 설정한다
+				m_oLevelInfoDict.ExReplaceVal(EKey.SEL_LEVEL_INFO, CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
+
+				this.SubSetupAwake();
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			}
 		}
 
@@ -253,11 +292,14 @@ namespace LevelEditorScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
+				// 스크롤 뷰를 설정한다
+				m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.gameObject.SetActive(true);
+
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+				this.SubSetupStart();
 				this.ExLateCallFunc((a_oSender) => this.UpdateUIsState(), KCDefine.U_DELAY_INIT);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
-				this.SetupStart();
 				CSndManager.Inst.StopBGSnd();
 			}
 		}
@@ -356,60 +398,6 @@ namespace LevelEditorScene {
 		protected override void OnUpdateScreenSize(Vector3 a_stScreenSize) {
 			base.OnUpdateScreenSize(a_stScreenSize);
 			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR), KCDefine.B_VAL_0_1_REAL);
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
-			this.AddObjsPool(KDefine.LES_KEY_LINE_FX_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_LINE_FX, this.ObjRoot));
-
-			// 텍스처를 설정한다
-			m_oGridBoundsTex2D = CFactory.MakeTex2D(KCDefine.U_IMG_N_TEX, new Vector3Int((int)(this.ScreenWidth * KCDefine.B_VAL_2_REAL), (int)(this.ScreenHeight * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_INT));
-			m_oGridBoundsTex2D?.ExSetPixels(Color.white);
-
-			// 스프라이트를 설정한다 {
-			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-				(EKey.SEL_OBJ_SPRITE, $"{EKey.SEL_OBJ_SPRITE}", this.ObjRoot, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
-			}, m_oSpriteDict);
-
-			m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.gameObject.SetActive(false);
-			m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.ExSetColor<SpriteRenderer>(Color.white.ExGetAlphaColor(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL));
-			m_oSpriteDict.GetValueOrDefault(EKey.SEL_OBJ_SPRITE)?.ExSetSortingOrder(KCDefine.U_SORTING_OI_OVERGROUND);
-			// 스프라이트를 설정한다 }
-
-#if GOOGLE_SHEET_ENABLE
-			// 구글 시트 로드 처리자를 설정한다
-			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-#endif // #if GOOGLE_SHEET_ENABLE
-
-#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			this.SetupMidEditorUIs();
-			this.SetupLeftEditorUIs();
-			this.SetupRightEditorUIs();
-
-			// 레벨 정보를 설정한다
-			m_oLevelInfoDict.ExReplaceVal(EKey.SEL_LEVEL_INFO, CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
-
-			this.SubSetupAwake();
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupStart() {
-			// 스크롤 뷰를 설정한다
-			m_oScrollSnapDict.GetValueOrDefault(EKey.RE_UIS_PAGE_SCROLL_SNAP)?.gameObject.SetActive(true);
-
-#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			this.SubSetupStart();
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 에디터 종료 팝업 결과를 수신했을 경우 */

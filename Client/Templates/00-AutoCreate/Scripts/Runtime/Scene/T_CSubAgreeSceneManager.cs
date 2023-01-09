@@ -19,7 +19,13 @@ namespace AgreeScene {
 				CFunc.ShowLog($"Country Code: {CCommonAppInfoStorage.Inst.CountryCode}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
 				CFunc.ShowLog($"System Language: {CCommonAppInfoStorage.Inst.SystemLanguage}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
 
-				this.SetupAwake();
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+				Func.SetupStrTable();
+
+#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+				Func.SetupGoogleSheetInfoValCreators();
+#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			}
 		}
 
@@ -31,17 +37,6 @@ namespace AgreeScene {
 		/** 유럽 연합 약관 동의 팝업을 출력한다 */
 		protected override void ShowEUAgreePopup(string a_oPrivacyURL, string a_oServicesURL) {
 			this.ShowAgreePopup(a_oPrivacyURL, a_oServicesURL, EAgreePopup.EU);
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			Func.SetupStrTable();
-
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-			Func.SetupGoogleSheetInfoValCreators();
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 약관 동의 팝업을 출력한다 */

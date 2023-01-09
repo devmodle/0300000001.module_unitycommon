@@ -12,7 +12,7 @@ namespace TestScene {
 	/** 서브 테스트 씬 관리자 */
 	public partial class CSubTestSceneManager : CTestSceneManager {
 #region 함수
-		
+
 #endregion // 함수
 	}
 
@@ -33,6 +33,31 @@ namespace TestScene {
 #endregion // 프로퍼티
 
 #region 함수
+		/** 초기화 */
+		public override void Awake() {
+			base.Awake();
+
+			// 앱이 초기화 되었을 경우
+			if(CSceneManager.IsAppInit) {
+				// Do Something
+			}
+		}
+
+		/** 초기화 */
+		public override void Start() {
+			base.Start();
+
+			// 앱이 초기화 되었을 경우
+			if(CSceneManager.IsAppInit) {
+				this.UpdateUIsState();
+			}
+		}
+
+		/** UI 상태를 갱신한다 */
+		private void UpdateUIsState() {
+			// Do Something
+		}
+
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// Do Something
@@ -45,21 +70,6 @@ namespace TestScene {
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// Do Something
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			// Do Something
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupStart() {
-			// Do Something
-		}
-
-		/** UI 상태를 갱신한다 */
-		private void UpdateUIsState() {
 			// Do Something
 		}
 #endregion // 함수

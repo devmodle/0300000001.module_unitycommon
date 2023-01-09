@@ -69,7 +69,75 @@ namespace GameScene {
 				}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 
-				this.SetupAwake();
+				this.SetupEngine();
+				this.SetupRewardAdsUIs();
+
+				// 버튼을 설정한다
+				CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+					(KCDefine.U_OBJ_N_PAUSE_BTN, this.UIsBase, this.OnTouchPauseBtn),
+					(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
+				});
+
+				// 비율을 설정한다 {
+				bool bIsValid01 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.x) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.x);
+				bool bIsValid02 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.y) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.y);
+				bool bIsValid03 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.z) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.z);
+
+				this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
+				// 비율을 설정한다 }
+
+				// 스프라이트를 설정한다 {
+				var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
+					[EKey.BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BG),
+					[EKey.UP_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_UP_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_UP_BG),
+					[EKey.DOWN_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_DOWN_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_DOWN_BG),
+					[EKey.LEFT_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_LEFT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_LEFT_BG),
+					[EKey.RIGHT_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_RIGHT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_RIGHT_BG)
+				};
+
+				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+				}, m_oSpriteDict);
+
+				foreach(var stKeyVal in m_oSpriteDict) {
+					stKeyVal.Value.drawMode = SpriteDrawMode.Tiled;
+					stKeyVal.Value.tileMode = SpriteTileMode.Continuous;
+					stKeyVal.Value.sprite = oSpriteInfoDict.GetValueOrDefault(stKeyVal.Key).Item1;
+					stKeyVal.Value.ExSetSortingOrder(oSpriteInfoDict.GetValueOrDefault(stKeyVal.Key).Item2);
+				}
+
+#if NEVER_USE_THIS
+				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
+				var stSize = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
+
+				m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).size = stSize;
+				m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localScale = Vector3.one;
+				m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localPosition = Vector3.zero;
+
+				m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).size = new Vector3(stSize.x + (this.ScreenWidth * KCDefine.B_VAL_2_REAL), m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
+				m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).transform.localScale = Vector3.one;
+				m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, (stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+
+				m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).size = m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).size;
+				m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localScale = Vector3.one;
+				m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM), KCDefine.B_VAL_0_REAL);
+
+				m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).size = new Vector3(m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).sprite.rect.width, Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
+				m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).transform.localScale = Vector3.one;
+				m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).transform.localPosition = new Vector3(-((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
+
+				m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).size = m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).size;
+				m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).transform.localScale = Vector3.one;
+				m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).transform.localPosition = new Vector3((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
+				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
+#endif // #if NEVER_USE_THIS
+				// 스프라이트를 설정한다 }
+
+				this.SubSetupAwake();
 			}
 		}
 
@@ -79,9 +147,11 @@ namespace GameScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupStart();
+				this.ApplySelItems();
+				this.SubSetupStart();
 				this.UpdateUIsState();
 
+				CGameInfoStorage.Inst.ResetSelItems();
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_GAME_01);
 			}
 		}
@@ -142,87 +212,6 @@ namespace GameScene {
 
 				m_oEngine.HandleTouchEvent(a_oSender, a_oEventData, a_eTouchEvent);
 			}
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			this.SetupEngine();
-			this.SetupRewardAdsUIs();
-
-			// 버튼을 설정한다
-			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-				(KCDefine.U_OBJ_N_PAUSE_BTN, this.UIsBase, this.OnTouchPauseBtn),
-				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
-			});
-
-			// 비율을 설정한다 {
-			bool bIsValid01 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.x) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.x);
-			bool bIsValid02 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.y) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.y);
-			bool bIsValid03 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.z) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.z);
-
-			this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
-			// 비율을 설정한다 }
-
-			// 스프라이트를 설정한다 {
-			var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
-				[EKey.BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_BG),
-				[EKey.UP_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_UP_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_UP_BG),
-				[EKey.DOWN_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_DOWN_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_DOWN_BG),
-				[EKey.LEFT_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_LEFT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_LEFT_BG),
-				[EKey.RIGHT_BG_SPRITE] = (Access.GetBGSprite(KDefine.GS_TEX_P_FMT_RIGHT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.GS_SORTING_OI_RIGHT_BG)
-			};
-
-			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-				(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-				(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-				(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-				(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-				(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
-			}, m_oSpriteDict);
-
-			foreach(var stKeyVal in m_oSpriteDict) {
-				stKeyVal.Value.drawMode = SpriteDrawMode.Tiled;
-				stKeyVal.Value.tileMode = SpriteTileMode.Continuous;
-				stKeyVal.Value.sprite = oSpriteInfoDict.GetValueOrDefault(stKeyVal.Key).Item1;
-				stKeyVal.Value.ExSetSortingOrder(oSpriteInfoDict.GetValueOrDefault(stKeyVal.Key).Item2);
-			}
-
-#if NEVER_USE_THIS
-			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
-			var stSize = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
-
-			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).size = stSize;
-			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localScale = Vector3.one;
-			m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localPosition = Vector3.zero;
-
-			m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).size = new Vector3(stSize.x + (this.ScreenWidth * KCDefine.B_VAL_2_REAL), m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
-			m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).transform.localScale = Vector3.one;
-			m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, (stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
-
-			m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).size = m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).size;
-			m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localScale = Vector3.one;
-			m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM), KCDefine.B_VAL_0_REAL);
-
-			m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).size = new Vector3(m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).sprite.rect.width, Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
-			m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).transform.localScale = Vector3.one;
-			m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).transform.localPosition = new Vector3(-((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
-
-			m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).size = m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).size;
-			m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).transform.localScale = Vector3.one;
-			m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).transform.localPosition = new Vector3((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
-			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
-#endif // #if NEVER_USE_THIS
-			// 스프라이트를 설정한다 }
-
-			this.SubSetupAwake();
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupStart() {
-			this.ApplySelItems();
-			CGameInfoStorage.Inst.ResetSelItems();
-
-			this.SubSetupStart();
 		}
 
 		/** 엔진을 설정한다 */

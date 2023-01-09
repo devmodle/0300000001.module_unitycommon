@@ -31,7 +31,7 @@ namespace LoadingScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupAwake();
+				this.SubSetupAwake();
 			}
 		}
 
@@ -41,19 +41,9 @@ namespace LoadingScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupStart();
+				this.SubSetupStart();
 				this.UpdateUIsState();
 			}
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			this.SubSetupAwake();
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupStart() {
-			this.SubSetupStart();
 		}
 
 		/** UI 상태를 갱신한다 */

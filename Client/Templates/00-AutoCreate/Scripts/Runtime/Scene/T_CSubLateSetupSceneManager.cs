@@ -29,11 +29,41 @@ namespace LateSetupScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				this.SetupAwake();
+#if UNITY_EDITOR
+				// 유저 타입이 유효 할 경우
+				if(m_eUserType.ExIsValid()) {
+					CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType;
+				} else {
+					CCommonUserInfoStorage.Inst.UserInfo.UserType = CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid() ? CCommonUserInfoStorage.Inst.UserInfo.UserType : EUserType.A;
+				}
+#else
+				// 유저 타입이 유효하지 않을 경우
+				if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
+#if AB_TEST_ENABLE
+					int nSumVal = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Sum((a_chLetter) => a_chLetter);
+					CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT <= KCDefine.B_VAL_0_INT) ? EUserType.A : EUserType.B;
+#else
+					CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.A;
+#endif // #if AB_TEST_ENABLE
+				}
+#endif // #if UNITY_EDITOR
 
-#if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
+#if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
+				this.UserPermissionList.ExAddVal(Permission.ExternalStorageRead);
+				this.UserPermissionList.ExAddVal(Permission.ExternalStorageWrite);
+#endif // #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
+
+#if ADS_MODULE_ENABLE
+#if(EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 				CLateSetupSceneManager.SetPurchaseRemoveAds(CUserInfoStorage.Inst.IsPurchaseRemoveAds);
-#endif // #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
+#endif // #if(EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
+
+#if(!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
+				CLateSetupSceneManager.SetAutoLoadBannerAds(true);
+				CLateSetupSceneManager.SetAutoLoadRewardAds(true);
+				CLateSetupSceneManager.SetAutoLoadFullscreenAds(true);
+#endif // #if(!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
+#endif // #if ADS_MODULE_ENABLE
 			}
 		}
 
@@ -61,39 +91,6 @@ namespace LateSetupScene {
 			} else {
 				this.OnReceiveTrackingDescPopupResult(null);
 			}
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-#if UNITY_EDITOR
-			// 유저 타입이 유효 할 경우
-			if(m_eUserType.ExIsValid()) {
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType;
-			} else {
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid() ? CCommonUserInfoStorage.Inst.UserInfo.UserType : EUserType.A;
-			}
-#else
-			// 유저 타입이 유효하지 않을 경우
-			if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
-#if AB_TEST_ENABLE
-				int nSumVal = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Sum((a_chLetter) => a_chLetter);
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT <= KCDefine.B_VAL_0_INT) ? EUserType.A : EUserType.B;
-#else
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.A;
-#endif // #if AB_TEST_ENABLE
-			}
-#endif // #if UNITY_EDITOR
-
-#if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
-			this.UserPermissionList.ExAddVal(Permission.ExternalStorageRead);
-			this.UserPermissionList.ExAddVal(Permission.ExternalStorageWrite);
-#endif // #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
-
-#if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
-			CLateSetupSceneManager.SetAutoLoadBannerAds(true);
-			CLateSetupSceneManager.SetAutoLoadRewardAds(true);
-			CLateSetupSceneManager.SetAutoLoadFullscreenAds(true);
-#endif // #if ADS_MODULE_ENABLE && (!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 		}
 
 		/** 추적 설명 팝업 결과를 수신했을 경우 */

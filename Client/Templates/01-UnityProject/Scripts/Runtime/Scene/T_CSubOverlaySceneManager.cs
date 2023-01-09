@@ -51,7 +51,17 @@ namespace OverlayScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupAwake();
+				// 텍스트를 설정한다
+				CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+					(EKey.NUM_NORM_COINS_TEXT, $"{EKey.NUM_NORM_COINS_TEXT}", this.UIsBase)
+				}, m_oTextDict);
+
+				// 버튼을 설정한다
+				CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+					(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
+				}, m_oBtnDict);
+
+				this.SubSetupAwake();
 			}
 		}
 
@@ -61,7 +71,7 @@ namespace OverlayScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupStart();
+				this.SubSetupStart();
 				this.UpdateUIsState();
 			}
 		}
@@ -82,26 +92,6 @@ namespace OverlayScene {
 
 				(a_oSender as CStorePopup).Init(stParams);
 			});
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			// 텍스트를 설정한다
-			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
-				(EKey.NUM_NORM_COINS_TEXT, $"{EKey.NUM_NORM_COINS_TEXT}", this.UIsBase)
-			}, m_oTextDict);
-
-			// 버튼을 설정한다
-			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
-				(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
-			}, m_oBtnDict);
-
-			this.SubSetupAwake();
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupStart() {
-			this.SubSetupStart();
 		}
 
 		/** UI 상태를 갱신한다 */

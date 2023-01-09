@@ -34,7 +34,15 @@ namespace TestScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupAwake();
+				// 버튼을 설정한다 {
+				CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>() {
+					(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.UpLeftUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
+				}, m_oBtnDict);
+
+				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_LEFT;
+				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+				// 버튼을 설정한다 }
 			}
 		}
 
@@ -53,19 +61,6 @@ namespace TestScene {
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 #endif // #if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			// 버튼을 설정한다 {
-			CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>() {
-				(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.UpLeftUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
-			}, m_oBtnDict);
-
-			(m_oBtnDict.GetValueOrDefault(EKey.BACK_BTN).transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_LEFT;
-			(m_oBtnDict.GetValueOrDefault(EKey.BACK_BTN).transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-			(m_oBtnDict.GetValueOrDefault(EKey.BACK_BTN).transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-			// 버튼을 설정한다 }
 		}
 		#endregion // 함수
 	}
