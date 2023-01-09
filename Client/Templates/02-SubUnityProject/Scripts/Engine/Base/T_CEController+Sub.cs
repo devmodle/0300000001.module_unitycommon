@@ -131,7 +131,7 @@ namespace NSEngine {
 			this.StateCheckerDict.TryAdd(EState.SKILL, this.IsEnableSkillState);
 		}
 
-		/** 초기화한다 */
+		/** 초기화 */
 		private void SubInit() {
 			this.TargetObjList.Clear();
 

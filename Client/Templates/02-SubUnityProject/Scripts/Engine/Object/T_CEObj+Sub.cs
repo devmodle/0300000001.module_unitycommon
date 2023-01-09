@@ -36,7 +36,7 @@ namespace NSEngine {
 			this.SetCellObjInfo(STCellObjInfo.INVALID);
 		}
 
-		/** 초기화한다 */
+		/** 초기화 */
 		private void SubInit() {
 			this.SetupAbilityVals();
 		}

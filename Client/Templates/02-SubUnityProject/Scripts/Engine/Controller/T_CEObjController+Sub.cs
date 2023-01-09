@@ -157,7 +157,7 @@ namespace NSEngine {
 			// Do Something
 		}
 
-		/** 초기화한다 */
+		/** 초기화 */
 		private void SubInit() {
 			this.SetState(EState.APPEAR);
 			this.SetMovePos(KCDefine.B_POS_INVALID);

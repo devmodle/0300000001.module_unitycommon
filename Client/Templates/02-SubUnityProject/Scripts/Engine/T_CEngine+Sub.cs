@@ -109,7 +109,7 @@ namespace NSEngine {
 			this.SelPlayerObj.GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
 		}
 
-		/** 초기화한다 */
+		/** 초기화 */
 		private void SubInit() {
 #if NEVER_USE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {

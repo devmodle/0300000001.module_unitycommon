@@ -17,7 +17,7 @@ namespace NSEngine {
 	/** 서브 엔진 - 설정 */
 	public partial class CEngine : CComponent {
 #region 함수
-		/** 엔진을 설정한다 */
+		/** 초기화 */
 		private void SubSetupAwake() {
 			// Do Something
 		}
