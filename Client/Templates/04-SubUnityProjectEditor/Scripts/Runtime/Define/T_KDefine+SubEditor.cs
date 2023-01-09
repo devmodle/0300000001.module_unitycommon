@@ -16,21 +16,14 @@ public static partial class KDefine {
 /** 서브 레벨 에디터 씬 상수 */
 public static partial class KDefine {
 #region 기본
-	// 개수
-	public const int LES_MAX_NUM_OBJ_KINDS_IN_ROW = 4;
+
 #endregion // 기본
 
 #region 런타임 상수
-	// 색상
-	public static readonly Color LES_COLOR_GRID_LINE = new Color(0.0f, 0.35f, 0.35f, 1.0f);
-
-	// 비율
-	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(1.15f, 1.15f, 1.15f);
-
 	// 객체 종류
 	public static readonly Dictionary<int, List<EObjKinds>> LES_OBJ_KINDS_DICT_CONTAINER = new Dictionary<int, List<EObjKinds>>() {
 		[KCDefine.B_VAL_0_INT] = new List<EObjKinds>() {
-			EObjKinds.BG_EMPTY_01
+			// Do Something
 		},
 
 		[KCDefine.B_VAL_1_INT] = new List<EObjKinds>() {

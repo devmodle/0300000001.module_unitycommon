@@ -29,6 +29,9 @@ public static partial class KDefine {
 /** 레벨 에디터 씬 상수 */
 public static partial class KDefine {
 #region 기본
+	// 개수
+	public const int LES_MAX_NUM_OBJ_KINDS_IN_ROW = 4;
+
 	// 횟수
 	public const int LES_MAX_TIMES_TRY_SETUP_CELL_INFOS = byte.MaxValue;
 
@@ -50,7 +53,11 @@ public static partial class KDefine {
 #endregion // 기본
 
 #region 런타임 상수
+	// 색상
+	public static readonly Color LES_COLOR_GRID_LINE = new Color(0.0f, 0.35f, 0.35f, 1.0f);
 
+	// 비율
+	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(1.15f, 1.15f, 1.15f);
 #endregion // 런타임 상수
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
