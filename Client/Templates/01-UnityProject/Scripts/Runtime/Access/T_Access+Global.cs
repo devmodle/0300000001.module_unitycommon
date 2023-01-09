@@ -59,7 +59,7 @@ public static partial class Access {
 			string oTablePath = (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A;
 			return File.Exists(oTablePath) ? oTablePath : (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_TABLE_P_G_LEVEL_INFO_SET_A;
 #else
-		return File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO : KCDefine.U_TABLE_P_G_LEVEL_INFO;
+			return File.Exists(KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO : KCDefine.U_TABLE_P_G_LEVEL_INFO;
 #endif // #if AB_TEST_ENABLE
 		}
 	}
@@ -69,7 +69,7 @@ public static partial class Access {
 #if AB_TEST_ENABLE
 			return (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO_SET_A;
 #else
-		return KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO;
+			return KCDefine.U_RUNTIME_TABLE_P_G_LEVEL_INFO;
 #endif // #if AB_TEST_ENABLE
 		}
 	}
