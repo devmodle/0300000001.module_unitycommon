@@ -21,6 +21,7 @@ namespace NSEngine {
 
 #region 프로퍼티
 		public STParams Params { get; private set; }
+		public CEngine Engine => this.Params.m_oEngine;
 #endregion // 프로퍼티
 
 #region 함수

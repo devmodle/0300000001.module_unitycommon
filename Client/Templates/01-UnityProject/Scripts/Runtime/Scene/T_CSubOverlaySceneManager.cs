@@ -144,7 +144,7 @@ namespace OverlayScene {
 				m_oStrDict.ExReplaceVal(EKey.PURCHASE_PRODUCT_ID, a_oProductID);
 
 #if FIREBASE_MODULE_ENABLE
-				this.ExLateCallFunc((a_oCallFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
+				this.ExLateCallFunc((a_oFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
 #else
 				Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
 #endif // #if FIREBASE_MODULE_ENABLE

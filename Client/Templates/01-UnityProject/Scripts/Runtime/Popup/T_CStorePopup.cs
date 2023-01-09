@@ -257,7 +257,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 #if FIREBASE_MODULE_ENABLE
-		this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadTargetInfos(this.OnLoadTargetInfos));
+		this.ExLateCallFunc((a_oFuncSender) => Func.LoadTargetInfos(this.OnLoadTargetInfos));
 #else
 		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 #endif // #if FIREBASE_MODULE_ENABLE
@@ -274,7 +274,7 @@ public partial class CStorePopup : CSubPopup {
 			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oTargetInfoDict, true);
 
-			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
+			this.ExLateCallFunc((a_oFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
 		} else {
 			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 		}

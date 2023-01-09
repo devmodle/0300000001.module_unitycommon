@@ -63,7 +63,7 @@ namespace NSEngine {
 
 			// 자동 제어 모드 일 경우
 			if(this.IsAutoControl) {
-				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
+				var oEnemyObj = this.Engine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
 
 				// 적 객체 공격이 가능 할 경우
 				if(this.IsEnableAttackEnemyObj(oEnemyObj)) {
@@ -80,7 +80,7 @@ namespace NSEngine {
 
 			// 자동 제어 모드 일 경우
 			if(this.IsAutoControl) {
-				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
+				var oEnemyObj = this.Engine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
 
 				// 적 객체 공격이 가능 할 경우
 				if(this.IsEnableAttackEnemyObj(oEnemyObj)) {
@@ -108,12 +108,12 @@ namespace NSEngine {
 					case ESkillApplyType.SINGLE: this.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
 				}
 
-				var oSkill = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
+				var oSkill = this.Engine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
 				oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
 				oTargetObjList.ExCopyTo(oSkill.GetController<CESkillController>().TargetObjList, (a_oTargetObj) => a_oTargetObj);
 
 				oSkill.GetController<CESkillController>().Apply();
-				base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SkillList.ExAddVal(oSkill);
+				this.Engine.SkillList.ExAddVal(oSkill);
 			} finally {
 				CCollectionManager.Inst.DespawnList(oTargetObjList);
 			}

@@ -20,6 +20,7 @@ namespace GameScene {
 
 #region 프로퍼티
 		public STParams Params { get; private set; }
+		public NSEngine.CEngine Engine => this.Params.m_oEngine;
 #endregion // 프로퍼티
 
 #region 함수

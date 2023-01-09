@@ -99,7 +99,7 @@ namespace NSEngine {
 			// 적용 시간이 지났을 경우
 			if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
 				this.Owner.GetOwner<CEObj>().GetController<CEObjController>().SetState(EState.IDLE);
-				base.Params.m_stBaseParams.m_oEngine.RemoveSkill(this.GetOwner<CESkill>());
+				this.Engine.RemoveSkill(this.GetOwner<CESkill>());
 			}
 		}
 

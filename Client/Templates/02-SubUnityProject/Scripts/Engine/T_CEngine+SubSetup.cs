@@ -48,7 +48,7 @@ namespace NSEngine {
 #endif // #if NEVER_USE_THIS
 			}
 
-			m_oCellObjLists[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
+			this.CellObjLists[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
 		}
 
 		/** 그리드 라인을 설정한다 */

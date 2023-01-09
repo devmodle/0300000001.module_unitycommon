@@ -135,10 +135,10 @@ namespace NSEngine {
 			base.HandleMoveState(a_fDeltaTime);
 
 			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((m_oVec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION) * (float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
-			stNextPos.x = Mathf.Clamp(stNextPos.x, base.Params.m_stBaseParams.m_oEngine.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, base.Params.m_stBaseParams.m_oEngine.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
-			stNextPos.y = Mathf.Clamp(stNextPos.y, (base.Params.m_stBaseParams.m_oEngine.EpisodeSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, base.Params.m_stBaseParams.m_oEngine.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
+			stNextPos.x = Mathf.Clamp(stNextPos.x, this.Engine.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, this.Engine.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
+			stNextPos.y = Mathf.Clamp(stNextPos.y, (this.Engine.EpisodeSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, this.Engine.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
 
-			this.GetOwner<CEObj>().transform.localPosition = new Vector3(stNextPos.x, stNextPos.y, stNextPos.y / base.Params.m_stBaseParams.m_oEngine.EpisodeSize.y);
+			this.GetOwner<CEObj>().transform.localPosition = new Vector3(stNextPos.x, stNextPos.y, stNextPos.y / this.Engine.EpisodeSize.y);
 		}
 
 		/** 스킬 상태를 처리한다 */
