@@ -46,6 +46,30 @@ namespace TestScene {
 			}
 		}
 
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					// Do Something
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CTitleGameSceneManager.OnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Something
+			}
+		}
+
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
 			// Do Something

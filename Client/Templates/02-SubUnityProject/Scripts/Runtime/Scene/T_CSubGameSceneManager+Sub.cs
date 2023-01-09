@@ -37,35 +37,6 @@ namespace GameScene {
 #endregion // 프로퍼티
 
 #region 함수
-		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
-
-			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
-				m_oEngine.OnUpdate(a_fDeltaTime);
-
-				// UI 갱신이 필요 할 경우
-				if(m_oBoolDict.GetValueOrDefault(EKey.IS_UPDATE_UIS_STATE)) {
-					m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, false);
-				}
-			}
-		}
-
-		/** 제거 되었을 경우 */
-		public override void OnDestroy() {
-			base.OnDestroy();
-
-			try {
-				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
-					// Do Something
-				}
-			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CSubGameSceneManager.OnDestroy Exception: {oException.Message}");
-			}
-		}
-
 		/** 초기화 */
 		private void SubAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
@@ -75,15 +46,27 @@ namespace GameScene {
 
 		/** 초기화 */
 		private void SubStart() {
-			this.ExLateCallFunc((a_oSender) => {
-				m_oEngine.SetEnableRunning(true);
-				m_oEngine.SetState(NSEngine.CEngine.EState.PLAY);
+			// Do Something
+		}
 
-#if NEVER_USE_THIS
-				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
-				m_oEngine.SelPlayerObj.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
-#endif // #if NEVER_USE_THIS
-			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
+		/** 제거 되었을 경우 */
+		private void SubOnDestroy() {
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					// Do Something
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubGameSceneManager.SubOnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		private void SubOnUpdate(float a_fDeltaTime) {
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Something
+			}
 		}
 
 		/** UI 상태를 갱신한다 */

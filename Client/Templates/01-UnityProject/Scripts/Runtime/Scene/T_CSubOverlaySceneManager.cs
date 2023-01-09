@@ -76,6 +76,30 @@ namespace OverlayScene {
 			}
 		}
 
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					this.SubOnDestroy();
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubOverlaySceneManager.OnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				this.SubOnUpdate(a_fDeltaTime);
+			}
+		}
+
 		/** 상점 팝업을 출력한다 */
 		public void ShowStorePopup() {
 			Func.ShowStorePopup(CSceneManager.ActiveScenePopupUIs, (a_oSender) => {
@@ -96,13 +120,13 @@ namespace OverlayScene {
 
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
+			// 텍스트를 갱신한다
+			m_oTextDict.GetValueOrDefault(EKey.NUM_NORM_COINS_TEXT)?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_NORM_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
+
 			// UI 상태를 갱신한다
 			CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 			CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 			CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
-
-			// 텍스트를 갱신한다
-			m_oTextDict.GetValueOrDefault(EKey.NUM_NORM_COINS_TEXT)?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_NORM_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
 
 			this.SubUpdateUIsState();
 		}

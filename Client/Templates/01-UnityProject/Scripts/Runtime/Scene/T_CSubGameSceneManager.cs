@@ -151,8 +151,32 @@ namespace GameScene {
 				this.ApplySelItems();
 				this.UpdateUIsState();
 
+				this.ExLateCallFunc((a_oSender) => {
+					m_oEngine.SetEnableRunning(true);
+					m_oEngine.SetState(NSEngine.CEngine.EState.PLAY);
+
+#if NEVER_USE_THIS
+					// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
+					m_oEngine.SelPlayerObj.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
+#endif // #if NEVER_USE_THIS
+				}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
+
 				CGameInfoStorage.Inst.ResetSelItems();
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_GAME_01);
+			}
+		}
+
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					this.SubOnDestroy();
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubGameSceneManager.OnDestroy Exception: {oException.Message}");
 			}
 		}
 
@@ -178,9 +202,21 @@ namespace GameScene {
 			}
 		}
 
-		/** UI 상태 갱신 여부를 변경한다 */
-		public void SetEnableUpdateUIsState(bool a_bIsEnable) {
-			m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, a_bIsEnable);
+		/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				m_oEngine.OnUpdate(a_fDeltaTime);
+
+				// UI 갱신이 필요 할 경우
+				if(m_oBoolDict.GetValueOrDefault(EKey.IS_UPDATE_UIS_STATE)) {
+					m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, false);
+				}
+
+				this.SubOnUpdate(a_fDeltaTime);
+			}
 		}
 
 		/** 내비게이션 스택 이벤트를 수신했을 경우 */
@@ -433,6 +469,13 @@ namespace GameScene {
 			});
 		}
 #endregion // 함수
+
+#region 접근자 함수
+		/** UI 상태 갱신 여부를 변경한다 */
+		public void SetEnableUpdateUIsState(bool a_bIsEnable) {
+			m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, a_bIsEnable);
+		}
+#endregion // 접근자 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

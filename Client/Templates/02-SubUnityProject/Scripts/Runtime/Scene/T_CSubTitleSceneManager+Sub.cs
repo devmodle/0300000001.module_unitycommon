@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-using System.Linq;
 using UnityEngine.EventSystems;
 
 namespace TitleScene {
@@ -48,6 +47,26 @@ namespace TitleScene {
 		/** 초기화 */
 		private void SubStart() {
 			// Do Something
+		}
+
+		/** 제거 되었을 경우 */
+		private void SubOnDestroy() {
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					// Do Something
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CTitleGameSceneManager.SubOnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		private void SubOnUpdate(float a_fDeltaTime) {
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Something
+			}
 		}
 
 		/** UI 상태를 갱신한다 */
@@ -94,56 +113,6 @@ namespace TitleScene {
 		private void SubUpdateTestUIsState() {
 			// Do Something
 		}
-
-#if GOOGLE_SHEET_ENABLE
-		/** 구글 시트가 로드 되었을 경우 */
-		private void OnLoadGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				var oHandlerDict = new Dictionary<string, System.Action>() {
-					[KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false)] = () => CEtcInfoTable.Inst.SaveEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false)] = () => CMissionInfoTable.Inst.SaveMissionInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false)] = () => CRewardInfoTable.Inst.SaveRewardInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false)] = () => CResInfoTable.Inst.SaveResInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false)] = () => CItemInfoTable.Inst.SaveItemInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false)] = () => CSkillInfoTable.Inst.SaveSkillInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false)] = () => CObjInfoTable.Inst.SaveObjInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false)] = () => CAbilityInfoTable.Inst.SaveAbilityInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
-					[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)] = () => CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString())
-				};
-
-				oHandlerDict.GetValueOrDefault(a_stGoogleSheetLoadInfo.m_oSheetName)?.Invoke();
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 구글 시트가 로드 되었을 경우 */
-		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				Func.OnLoadGoogleSheets(m_oVerInfos);
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-			} else {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, false);
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-
-		/** 버전 정보 구글 시트를 로드했을 경우 */
-		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, SimpleJSON.JSONNode a_oVerInfos, Dictionary<string, STLoadGoogleSheetInfo> a_oLoadGoogleSheetInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
-			if(a_bIsSuccess) {
-				m_oVerInfos = a_oVerInfos;
-				Func.LoadGoogleSheets(a_oLoadGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetLoadHandlerDict, this.OnLoadGoogleSheets);
-			} else {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, false);
-			}
-
-			m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, a_bIsSuccess);
-		}
-#endif // #if GOOGLE_SHEET_ENABLE
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 #endregion // 조건부 함수
 	}

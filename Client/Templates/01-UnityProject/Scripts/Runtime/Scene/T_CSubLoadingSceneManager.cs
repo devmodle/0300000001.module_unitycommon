@@ -46,6 +46,30 @@ namespace LoadingScene {
 			}
 		}
 
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					this.SubOnDestroy();
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubLoadingSceneManager.OnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				this.SubOnUpdate(a_fDeltaTime);
+			}
+		}
+
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
 			this.SubUpdateUIsState();

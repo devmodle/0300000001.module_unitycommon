@@ -481,18 +481,6 @@ namespace LevelEditorScene {
 			}
 		}
 
-		/** UI 상태를 갱신한다 */
-		private void UpdateUIsState() {
-			this.ResetObjSprites();
-
-			this.UpdateMidEditorUIsState();
-			this.UpdateLeftEditorUIsState();
-			this.UpdateRightEditorUIsState();
-
-			this.SubUpdateUIsState();
-			this.RebuildLayouts(this.MEUIsInfoUIs);
-		}
-
 		/** 객체 스프라이트를 리셋한다 */
 		private void ResetObjSprites() {
 			// 객체 스프라이트가 존재 할 경우
@@ -646,6 +634,18 @@ namespace LevelEditorScene {
 
 			a_oOutObjSprite.ExSetSortingOrder(NSEngine.Access.GetSortingOrderInfo(a_stCellObjInfo.ObjKinds));
 			this.SubSetupObjSprite(a_stCellInfo, a_stCellObjInfo, a_oOutObjSprite);
+		}
+
+		/** UI 상태를 갱신한다 */
+		private void UpdateUIsState() {
+			this.ResetObjSprites();
+
+			this.UpdateMidEditorUIsState();
+			this.UpdateLeftEditorUIsState();
+			this.UpdateRightEditorUIsState();
+
+			this.SubUpdateUIsState();
+			this.RebuildLayouts(this.MEUIsInfoUIs);
 		}
 
 		/** 에디터 리셋 팝업 결과를 수신했을 경우 */

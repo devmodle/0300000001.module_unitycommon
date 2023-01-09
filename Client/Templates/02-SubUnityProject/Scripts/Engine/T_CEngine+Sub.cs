@@ -42,6 +42,20 @@ namespace NSEngine {
 #endregion // 프로퍼티
 
 #region 함수
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					// Do Something
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CEngine.OnDestroy Exception: {oException.Message}");
+			}
+		}
+
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -69,20 +83,6 @@ namespace NSEngine {
 					CUserInfoStorage.Inst.SaveUserInfo();
 					m_oBoolDict.ExReplaceVal(EKey.IS_SAVE_USER_INFO, false);
 				}
-			}
-		}
-
-		/** 제거 되었을 경우 */
-		public override void OnDestroy() {
-			base.OnDestroy();
-
-			try {
-				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
-					// Do Something
-				}
-			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CEngine.OnDestroy Exception: {oException.Message}");
 			}
 		}
 
