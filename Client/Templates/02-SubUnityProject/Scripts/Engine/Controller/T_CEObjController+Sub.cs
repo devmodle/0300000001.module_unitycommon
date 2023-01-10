@@ -16,15 +16,15 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -91,7 +91,7 @@ namespace NSEngine {
 		/** 이동을 처리한다 */
 		public virtual void Move(Vector3 a_stVal, EVecType a_eVecType = EVecType.DIRECTION) {
 			this.SetState(EState.MOVE);
-			this.SetMovePos((a_eVecType == EVecType.POS) ? a_stVal : KCDefine.B_POS_INVALID);
+			this.SetMovePos((a_eVecType == EVecType.POS) ? a_stVal : Vector3.zero);
 			this.SetMoveDirection((a_eVecType == EVecType.DIRECTION) ? a_stVal : Vector3.zero);
 		}
 
@@ -127,7 +127,7 @@ namespace NSEngine {
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
 
-			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((m_oVec3Dict.GetValueOrDefault(EKey.MOVE_DIRECTION) * (float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
+			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((m_oVec3Dict[EKey.MOVE_DIRECTION] * (float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
 			stNextPos.x = Mathf.Clamp(stNextPos.x, this.Engine.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, this.Engine.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
 			stNextPos.y = Mathf.Clamp(stNextPos.y, (this.Engine.EpisodeSize.y / -KCDefine.B_VAL_2_REAL) + KDefine.E_OFFSET_BOTTOM, this.Engine.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
 
@@ -153,9 +153,21 @@ namespace NSEngine {
 		/** 초기화 */
 		private void SubInit() {
 			this.SetState(EState.APPEAR);
-			this.SetMovePos(KCDefine.B_POS_INVALID);
+			this.SetMovePos(Vector3.zero);
 		}
-#endregion // 함수
+
+		/** 제거 되었을 경우 */
+		private void SubOnDestroy() {
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					// Do Something
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CEObjController.SubOnDestroy Exception: {oException.Message}");
+			}
+		}
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

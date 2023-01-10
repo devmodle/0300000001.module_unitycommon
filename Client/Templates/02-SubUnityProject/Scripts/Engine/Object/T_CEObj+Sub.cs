@@ -33,19 +33,7 @@ namespace NSEngine {
 		private void SubInit() {
 			this.SetupAbilityVals();
 		}
-
-		/** 제거 되었을 경우 */
-		private void SubOnDestroy() {
-			try {
-				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
-					// Do Something
-				}
-			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CEObj.SubOnDestroy Exception: {oException.Message}");
-			}
-		}
-
+		
 		/** 셀 객체 정보를 변경한다 */
 		public void SetCellObjInfo(STCellObjInfo a_stCellObjInfo) {
 			this.CellObjInfo = a_stCellObjInfo;
