@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 
 namespace MainScene {
@@ -132,6 +133,20 @@ namespace MainScene {
 			// 백 키 눌림 이벤트 일 경우
 			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
 				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_QUIT_P_MSG), this.OnReceiveQuitPopupResult);
+			}
+		}
+
+		/** 터치 이벤트를 처리한다 */
+		protected override void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
+			base.HandleTouchEvent(a_oSender, a_oEventData, a_eTouchEvent);
+
+			// 배경 터치 전달자 일 경우
+			if(this.BGTouchDispatcher == a_oSender) {
+				switch(a_eTouchEvent) {
+					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;
+					case ETouchEvent.END: this.HandleTouchEndEvent(a_oSender, a_oEventData); break;
+				}
 			}
 		}
 

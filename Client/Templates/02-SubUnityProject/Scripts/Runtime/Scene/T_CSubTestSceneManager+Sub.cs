@@ -17,15 +17,15 @@ namespace TestScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
@@ -77,19 +77,19 @@ namespace TestScene {
 
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// Do Something
+			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// Do Something
+			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// Do Something
+			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

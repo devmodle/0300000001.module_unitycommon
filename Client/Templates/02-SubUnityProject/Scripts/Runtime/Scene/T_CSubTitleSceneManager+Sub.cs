@@ -25,18 +25,18 @@ namespace TitleScene {
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 
-#region 변수
+		#region 변수
 		/** =====> UI <===== */
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		private void SubAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
@@ -78,16 +78,18 @@ namespace TitleScene {
 
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// Do Something
+			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// Do Something
+			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
+			
 			// 터치 모드가 아닐 경우
 			if(!m_oBoolDict.GetValueOrDefault(EKey.IS_TOUCH) && CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
 				m_oBoolDict.ExReplaceVal(EKey.IS_TOUCH, true);
@@ -100,9 +102,9 @@ namespace TitleScene {
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 조건부 함수
+		#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
 		/** 테스트 UI 를 설정한다 */
 		private void SubSetupTestUIs() {
@@ -114,7 +116,7 @@ namespace TitleScene {
 			// Do Something
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

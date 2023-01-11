@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 
 namespace MainScene {
@@ -66,6 +67,21 @@ namespace MainScene {
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SubUpdateTestUIsState();
 #endif // #if DEBUG || DEVELOPMENT_BUILD
+		}
+
+		/** 터치 시작 이벤트를 처리한다 */
+		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
+		}
+
+		/** 터치 이동 이벤트를 처리한다 */
+		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
+		}
+
+		/** 터치 종료 이벤트를 처리한다 */
+		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
 		}
 		#endregion // 함수
 
