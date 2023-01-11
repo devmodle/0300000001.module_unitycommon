@@ -28,10 +28,6 @@ namespace TitleScene {
 		}
 
 		#region 변수
-		private static List<EKey> m_oLoginBtnKeyList = new List<EKey>() {
-			EKey.PLAY_BTN, EKey.GUEST_LOGIN_BTN, EKey.APPLE_LOGIN_BTN, EKey.FACEBOOK_LOGIN_BTN,
-		};
-
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
 			[EKey.IS_TOUCH] = false
 		};
@@ -189,10 +185,14 @@ namespace TitleScene {
 			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(false);
 #endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
-			for(int i = 0; i < m_oLoginBtnKeyList.Count; ++i) {
+			var oLoginBtnKeyList = new List<EKey>() {
+				EKey.PLAY_BTN, EKey.GUEST_LOGIN_BTN, EKey.APPLE_LOGIN_BTN, EKey.FACEBOOK_LOGIN_BTN,
+			};
+
+			for(int i = 0; i < oLoginBtnKeyList.Count; ++i) {
 				// 로그인 되었을 경우
 				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
-					m_oBtnDict.GetValueOrDefault(m_oLoginBtnKeyList[i])?.gameObject.SetActive(false);
+					m_oBtnDict.GetValueOrDefault(oLoginBtnKeyList[i])?.gameObject.SetActive(false);
 				}
 			}
 			// 버튼을 갱신한다 }

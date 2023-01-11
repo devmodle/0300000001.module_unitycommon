@@ -32,19 +32,19 @@ public partial class CFocusPopup : CSubPopup {
 		public Dictionary<ECallback, System.Action<CFocusPopup, PointerEventData>> m_oCallbackDict;
 	}
 
-#region 변수
+	#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreBlindAni => true;
 	public override EAniType AniType => EAniType.NONE;
 	public override Color BlindColor => KCDefine.U_COLOR_TRANSPARENT;
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -65,7 +65,7 @@ public partial class CFocusPopup : CSubPopup {
 
 		// 터치 전달자를 설정한다
 		Func.SetupTouchDispatchers(new List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
-			(m_oImgDict.GetValueOrDefault(EKey.FOCUS_BLIND_IMG)?.gameObject, (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.BEGIN)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.MOVE)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.END)?.Invoke(this, a_oEventData))
+			(m_oImgDict[EKey.FOCUS_BLIND_IMG]?.gameObject, (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.BEGIN)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.MOVE)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.END)?.Invoke(this, a_oEventData))
 		});
 
 		this.SubInit();
@@ -89,11 +89,11 @@ public partial class CFocusPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		// 이미지를 갱신한다
-		m_oImgDict.GetValueOrDefault(EKey.FOCUS_BLIND_IMG)?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BLIND, false);
+		m_oImgDict[EKey.FOCUS_BLIND_IMG]?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BLIND, false);
 
 		this.SubUpdateUIsState();
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

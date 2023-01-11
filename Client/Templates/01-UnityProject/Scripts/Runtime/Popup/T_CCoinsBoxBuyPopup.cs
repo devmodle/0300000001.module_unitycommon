@@ -17,16 +17,16 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 변수
+	#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
-#endregion // 변수
+	#endregion // 변수
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -66,7 +66,7 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 		m_oFullUIs?.SetActive(nNumCoinsBoxCoins >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
 
 		// 텍스트를 갱신한다
-		m_oTextDict.GetValueOrDefault(EKey.NUM_COINS_TEXT)?.ExSetText($"{nNumCoinsBoxCoins}", EFontSet._1, false);
+		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{nNumCoinsBoxCoins}", EFontSet._1, false);
 
 		this.SubUpdateUIsState();
 	}
@@ -82,9 +82,9 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 		Func.PurchaseProduct(EProductKinds.SINGLE_COINS_BOX, this.OnPurchaseProduct);
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
 	/** 상품이 결제 되었을 경우 */
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
@@ -97,7 +97,7 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 #endif // #if PURCHASE_MODULE_ENABLE
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

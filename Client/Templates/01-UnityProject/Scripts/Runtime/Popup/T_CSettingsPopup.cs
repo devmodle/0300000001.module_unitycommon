@@ -18,12 +18,12 @@ public partial class CSettingsPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 변수
+	#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -59,26 +59,22 @@ public partial class CSettingsPopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		var oBtnKeyInfoList = CCollectionManager.Inst.SpawnList<(EKey, string, string, string, bool)>();
+		CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
+		CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
 
-		try {
-			CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
-			CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
+		// 버튼을 갱신한다 {
+		var oBtnKeyInfoList = new List<(EKey, string, string, string, bool)>() {
+			(EKey.BG_SND_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_BG_SND_ON, KDefine.G_IMG_P_SETTINGS_P_BG_SND_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd),
+			(EKey.FX_SNDS_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_ON, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds),
+			(EKey.VIBRATE_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_ON, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate),
+			(EKey.NOTI_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_NOTI_ON, KDefine.G_IMG_P_SETTINGS_P_NOTI_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti)
+		};
 
-			// 버튼을 갱신한다 {
-			oBtnKeyInfoList.ExAddVal((EKey.BG_SND_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_BG_SND_ON, KDefine.G_IMG_P_SETTINGS_P_BG_SND_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd));
-			oBtnKeyInfoList.ExAddVal((EKey.FX_SNDS_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_ON, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds));
-			oBtnKeyInfoList.ExAddVal((EKey.VIBRATE_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_ON, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate));
-			oBtnKeyInfoList.ExAddVal((EKey.NOTI_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_NOTI_ON, KDefine.G_IMG_P_SETTINGS_P_NOTI_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti));
-
-			for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
-				string oImgPath = oBtnKeyInfoList[i].Item5 ? oBtnKeyInfoList[i].Item3 : oBtnKeyInfoList[i].Item4;
-				m_oBtnDict.GetValueOrDefault(oBtnKeyInfoList[i].Item1)?.gameObject.ExFindComponent<Image>(oBtnKeyInfoList[i].Item2)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oImgPath));
-			}
-			// 버튼을 갱신한다 }
-		} finally {
-			CCollectionManager.Inst.DespawnList(oBtnKeyInfoList);
+		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+			string oImgPath = oBtnKeyInfoList[i].Item5 ? oBtnKeyInfoList[i].Item3 : oBtnKeyInfoList[i].Item4;
+			m_oBtnDict.GetValueOrDefault(oBtnKeyInfoList[i].Item1)?.gameObject.ExFindComponent<Image>(oBtnKeyInfoList[i].Item2)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oImgPath));
 		}
+		// 버튼을 갱신한다 }
 
 		this.SubUpdateUIsState();
 	}
@@ -125,7 +121,7 @@ public partial class CSettingsPopup : CSubPopup {
 	private void OnTouchSupportsBtn() {
 		CUnityMsgSender.Inst.SendMailMsg(string.Empty, string.Empty, CProjInfoTable.Inst.CompanyInfo.m_oSupportsMail);
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

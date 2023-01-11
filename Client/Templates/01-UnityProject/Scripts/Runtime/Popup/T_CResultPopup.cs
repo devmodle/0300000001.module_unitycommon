@@ -35,20 +35,20 @@ public partial class CResultPopup : CSubPopup {
 		public Dictionary<ECallback, System.Action<CResultPopup>> m_oCallbackDict;
 	}
 
-#region 변수
+	#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
 
 	/** =====> 객체 <===== */
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreCloseBtn => true;
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -101,12 +101,12 @@ public partial class CResultPopup : CSubPopup {
 		var oClearLevelInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);
 
 		// 객체를 갱신한다
-		m_oUIsDict.GetValueOrDefault(EKey.CLEAR_UIS)?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess);
-		m_oUIsDict.GetValueOrDefault(EKey.CLEAR_FAIL_UIS)?.SetActive(!this.Params.m_stRecordInfo.m_bIsSuccess);
+		m_oUIsDict[EKey.CLEAR_UIS]?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess);
+		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!this.Params.m_stRecordInfo.m_bIsSuccess);
 
 		// 텍스트를 갱신한다
-		m_oTextDict.GetValueOrDefault(EKey.RECORD_TEXT)?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
-		m_oTextDict.GetValueOrDefault(EKey.BEST_RECORD_TEXT)?.ExSetText((oClearLevelInfo != null) ? $"{oClearLevelInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, EFontSet._1, false);
+		m_oTextDict[EKey.RECORD_TEXT]?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
+		m_oTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((oClearLevelInfo != null) ? $"{oClearLevelInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, EFontSet._1, false);
 
 		this.SubUpdateUIsState();
 	}
@@ -125,16 +125,16 @@ public partial class CResultPopup : CSubPopup {
 	private void OnTouchLeaveBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 클래스 함수
+	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
 	public static STParams MakeParams(STRecordInfo a_stRecordInfo, Dictionary<ECallback, System.Action<CResultPopup>> a_oCallbackDict = null) {
 		return new STParams() {
 			m_stRecordInfo = a_stRecordInfo, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CResultPopup>>()
 		};
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY
