@@ -71,25 +71,6 @@ namespace NSEngine {
 			}
 		}
 
-		/** 스킬 적용 가능 여부를 검사한다 */
-		protected virtual bool IsEnableApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
-			// 적용 스킬 타겟 정보가 없을 경우
-			if(m_oSkillInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_INFO).m_eSkillKinds == ESkillKinds.NONE) {
-				return true;
-			}
-
-			var oAbilityValDict = CCollectionManager.Inst.SpawnDict<EAbilityKinds, decimal>();
-
-			try {
-				global::Func.SetupAbilityVals(a_stSkillInfo, a_oSkillTargetInfo, oAbilityValDict);
-				double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(this.ApplySkillTimeDict.GetValueOrDefault(a_stSkillInfo.m_eSkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)));
-
-				return (decimal)dblDeltaTime >= this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal((a_stSkillInfo.SkillType == ESkillType.ACTION) ? EAbilityKinds.STAT_ATK_DELAY_01 : EAbilityKinds.STAT_SKILL_DELAY_01, (a_stSkillInfo.SkillType == ESkillType.ACTION) ? this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_ATK_DELAY_01) : oAbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_SKILL_DELAY_01));
-			} finally {
-				CCollectionManager.Inst.DespawnDict(oAbilityValDict);
-			}
-		}
-
 		/** 이동 상태를 처리한다 */
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
@@ -140,6 +121,30 @@ namespace NSEngine {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
 				// Do Something
+			}
+		}
+		#endregion // 함수
+	}
+
+	/** 서브 객체 제어자 - 접근 */
+	public partial class CEObjController : CEController {
+		#region 함수
+		/** 스킬 적용 가능 여부를 검사한다 */
+		protected virtual bool IsEnableApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
+			// 적용 스킬 타겟 정보가 없을 경우
+			if(m_oSkillInfoDict.GetValueOrDefault(EKey.APPLY_SKILL_INFO).m_eSkillKinds == ESkillKinds.NONE) {
+				return true;
+			}
+
+			var oAbilityValDict = CCollectionManager.Inst.SpawnDict<EAbilityKinds, decimal>();
+
+			try {
+				global::Func.SetupAbilityVals(a_stSkillInfo, a_oSkillTargetInfo, oAbilityValDict);
+				double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(this.ApplySkillTimeDict.GetValueOrDefault(a_stSkillInfo.m_eSkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)));
+
+				return (decimal)dblDeltaTime >= this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal((a_stSkillInfo.SkillType == ESkillType.ACTION) ? EAbilityKinds.STAT_ATK_DELAY_01 : EAbilityKinds.STAT_SKILL_DELAY_01, (a_stSkillInfo.SkillType == ESkillType.ACTION) ? this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_ATK_DELAY_01) : oAbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_SKILL_DELAY_01));
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oAbilityValDict);
 			}
 		}
 		#endregion // 함수

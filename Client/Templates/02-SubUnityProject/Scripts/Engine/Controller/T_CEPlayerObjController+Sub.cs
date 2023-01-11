@@ -141,7 +141,12 @@ namespace NSEngine {
 		private void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
 			// Do Something
 		}
+		#endregion // 함수
+	}
 
+	/** 서브 플레이어 객체 제어자 - 접근 */
+	public partial class CEPlayerObjController : CEObjController {
+		#region 함수
 		/** 적 객체 공격 가능 여부를 검사한다 */
 		private bool IsEnableAttackEnemyObj(CEObj a_oEnemyObj) {
 			// 적 객체가 존재 할 경우

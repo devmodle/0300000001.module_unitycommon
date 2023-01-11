@@ -110,7 +110,12 @@ namespace NSEngine {
 				// Do Something
 			}
 		}
+		#endregion // 함수
+	}
 
+	/** 서브 적 객체 제어자 - 접근 */
+	public partial class CEEnemyObjController : CEObjController {
+		#region 함수
 		/** 플레이어 객체 공격 가능 여부를 검사한다 */
 		private bool IsEnableAttackPlayerObj() {
 			var stDelta = this.Engine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;

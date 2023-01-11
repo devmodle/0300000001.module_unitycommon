@@ -300,7 +300,7 @@ public static partial class CEditorSceneManager {
 					PrefabUtility.UnpackPrefabInstance(a_oObj, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
 				} while(PrefabUtility.GetPrefabAssetType(a_oObj) != PrefabAssetType.NotAPrefab);
 
-				CEditorFactory.RemoveAsset(oPrefabPath);
+				CEditorFunc.RemoveAsset(oPrefabPath);
 			}
 		}
 	}

@@ -33,20 +33,20 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
 		protected Dictionary<EState, System.Func<bool>> StateCheckerDict { get; } = new Dictionary<EState, System.Func<bool>>();
 		protected Dictionary<ESubState, System.Func<bool>> SubStateCheckerDict { get; } = new Dictionary<ESubState, System.Func<bool>>();
 
 		public virtual bool IsActive => this.State != EState.NONE && this.State != EState.DISAPPEAR;
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -81,16 +81,6 @@ namespace NSEngine {
 			} else {
 				this.SubState = (!this.SubStateCheckerDict.TryGetValue(a_eSubState, out System.Func<bool> oSubStateChecker) || oSubStateChecker()) ? a_eSubState : this.SubState;
 			}
-		}
-
-		/** 이동 상태 가능 여부를 검사한다 */
-		protected virtual bool IsEnableMoveState() {
-			return this.State == EState.NONE || this.State == EState.IDLE || this.State == EState.MOVE;
-		}
-
-		/** 스킬 상태 가능 여부를 검사한다 */
-		protected virtual bool IsEnableSkillState() {
-			return this.State == EState.NONE || this.State == EState.IDLE || this.State == EState.MOVE;
 		}
 
 		/** 대기 상태를 처리한다 */
@@ -131,7 +121,22 @@ namespace NSEngine {
 			this.SetState(EState.NONE);
 			this.SetSubState(ESubState.NONE);
 		}
-#endregion // 함수
+		#endregion // 함수
+	}
+
+	/** 서브 제어자 - 접근 */
+	public abstract partial class CEController : CEComponent {
+		#region 함수
+		/** 이동 상태 가능 여부를 검사한다 */
+		protected virtual bool IsEnableMoveState() {
+			return this.State == EState.NONE || this.State == EState.IDLE || this.State == EState.MOVE;
+		}
+
+		/** 스킬 상태 가능 여부를 검사한다 */
+		protected virtual bool IsEnableSkillState() {
+			return this.State == EState.NONE || this.State == EState.IDLE || this.State == EState.MOVE;
+		}
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
