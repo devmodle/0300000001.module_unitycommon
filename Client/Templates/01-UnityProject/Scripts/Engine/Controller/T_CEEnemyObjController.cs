@@ -34,7 +34,7 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-			this.SetIsAutoControl(true);
+			this.SetEnableAutoControl(true);
 			this.SubInit();
 		}
 

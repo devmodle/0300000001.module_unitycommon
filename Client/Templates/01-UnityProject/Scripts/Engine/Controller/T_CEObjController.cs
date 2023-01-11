@@ -123,7 +123,7 @@ namespace NSEngine {
 		}
 
 		/** 자동 제어 여부를 변경한다 */
-		public void SetIsAutoControl(bool a_bIsAutoControl) {
+		public void SetEnableAutoControl(bool a_bIsAutoControl) {
 			// 수동 제어 모드 일 경우
 			if(!a_bIsAutoControl && this.State == EState.MOVE) {
 				this.SetState(EState.IDLE);

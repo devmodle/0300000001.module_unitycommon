@@ -10,16 +10,6 @@ namespace NSEngine {
 	/** 서브 엔진 - 설정 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		/** 초기화 */
-		private void SubAwake() {
-			// Do Something
-		}
-
-		/** 엔진을 설정한다 */
-		private void SubSetup() {
-			// Do Something
-		}
-
 		/** 셀을 설정한다 */
 		private void SubSetupCell(STCellInfo a_stCellInfo, STGridInfo a_stGridInfo) {
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {

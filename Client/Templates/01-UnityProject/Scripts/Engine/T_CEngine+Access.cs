@@ -12,6 +12,16 @@ namespace NSEngine {
 	/** 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 		#region 함수
+		/** 구동 여부를 변경한다 */
+		public void SetEnableRunning(bool a_bIsRunning) {
+			m_oBoolDict[EKey.IS_RUNNING] = a_bIsRunning;
+		}
+
+		/** 플레이어 객체 자동 제어 여부를 변경한다 */
+		public void SetEnablePlayerObjAutoControl(bool a_bIsAutoControl) {
+			this.SelPlayerObj.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsAutoControl);
+		}
+
 		/** 상태를 변경한다 */
 		public void SetState(EState a_eState, bool a_bIsForce = false) {
 			// 강제 변경 모드 일 경우

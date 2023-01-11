@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 
 namespace LevelEditorScene {
@@ -17,19 +18,19 @@ namespace LevelEditorScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 
-#endregion // 함수
+		#endregion // 함수
 
-#region 조건부 함수
+		#region 조건부 함수
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public override void OnDrawGizmos() {
@@ -94,13 +95,67 @@ namespace LevelEditorScene {
 		private void SubSetupObjSprite(STCellInfo a_stCellInfo, STCellObjInfo a_stCellObjInfo, SpriteRenderer a_oOutObjSprite) {
 			// Do Something
 		}
+
+		/** 터치 시작 이벤트를 처리한다 */
+		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot, this.ScreenSize);
+			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+			var stPrevIdx = m_oVec3IntDict.GetValueOrDefault(EKey.PREV_CELL_IDX);
+
+			// 인덱스가 유효 할 경우
+			if(!stIdx.Equals(stPrevIdx) && m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+				// Do Something
+			}
+
+			this.HandleTouchMoveEvent(a_oSender, a_oEventData);
+		}
+
+		/** 터치 이동 이벤트를 처리한다 */
+		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot, this.ScreenSize);
+			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+			var stPrevIdx = m_oVec3IntDict.GetValueOrDefault(EKey.PREV_CELL_IDX);
+
+			// 인덱스가 유효 할 경우
+			if(!stIdx.Equals(stPrevIdx) && m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+				var oCellInfo = m_oLevelInfoDict.GetValueOrDefault(EKey.SEL_LEVEL_INFO).GetCellInfo(stIdx);
+				var eSelObjKinds = m_oObjKindsDict.GetValueOrDefault(EKey.SEL_OBJ_KINDS);
+
+				// 객체 추가가 가능 할 경우
+				if(Input.GetMouseButton((int)EMouseBtn.LEFT) && eSelObjKinds != EObjKinds.NONE) {
+					var stCellObjInfo = Factory.MakeEditorCellObjInfo(eSelObjKinds);
+					oCellInfo.m_oCellObjInfoList.ExAddVal(stCellObjInfo, (a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == eSelObjKinds);
+				}
+				// 객체 제거가 가능 할 경우
+				else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && oCellInfo.m_oCellObjInfoList.ExIsValid()) {
+					oCellInfo.m_oCellObjInfoList.ExRemoveValAt(oCellInfo.m_oCellObjInfoList.Count - KCDefine.B_VAL_1_INT);
+				}
+
+				this.UpdateUIsState();
+				m_oVec3IntDict.ExReplaceVal(EKey.PREV_CELL_IDX, stIdx);
+			}
+		}
+
+		/** 터치 종료 이벤트를 처리한다 */
+		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot, this.ScreenSize);
+			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+			var stPrevIdx = m_oVec3IntDict.GetValueOrDefault(EKey.PREV_CELL_IDX);
+
+			// 인덱스가 유효 할 경우
+			if(!stIdx.Equals(stPrevIdx) && m_oObjSpriteInfoLists.ExIsValidIdx(stIdx)) {
+				// Do Something
+			}
+
+			m_oVec3IntDict.ExReplaceVal(EKey.PREV_CELL_IDX, KCDefine.B_IDX_INVALID_3D);
+		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 중앙 에디터 UI */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-#region 조건부 함수
+		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 중앙 에디터 UI 를 설정한다 */
 		private void SubSetupMidEditorUIs() {
@@ -112,12 +167,12 @@ namespace LevelEditorScene {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 왼쪽 에디터 UI */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-#region 조건부 함수
+		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 왼쪽 에디터 UI 를 설정한다 */
 		private void SubSetupLeftEditorUIs() {
@@ -129,12 +184,12 @@ namespace LevelEditorScene {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 오른쪽 에디터 UI */
 	public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate {
-#region 조건부 함수
+		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 오른쪽 에디터 UI 를 설정한다 */
 		private void SubSetupRightEditorUIs() {
@@ -188,7 +243,7 @@ namespace LevelEditorScene {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
