@@ -447,32 +447,6 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		CAccess.Assert(this.UserInfo != null);
 	}
 
-	/** 유저 정보를 로드한다 */
-	public CUserInfo LoadUserInfo() {
-		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
-	}
-
-	/** 유저 정보를 로드한다 */
-	public CUserInfo LoadUserInfo(string a_oFilePath) {
-		// 파일이 존재 할 경우
-		if(File.Exists(a_oFilePath)) {
-			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, true);
-			CAccess.Assert(this.UserInfo != null);
-		}
-
-		return this.UserInfo;
-	}
-
-	/** 유저 정보를 저장한다 */
-	public void SaveUserInfo() {
-		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
-	}
-
-	/** 유저 정보를 저장한다 */
-	public void SaveUserInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, true);
-	}
-
 	/** 타겟 정보를 추가한다 */
 	public void AddTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
@@ -526,6 +500,32 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		}
 
 		this.UserInfo.m_oCharacterUserInfoDict.ExRemoveVal(this.UserInfo.m_oCharacterUserInfoDict.Count - KCDefine.B_VAL_2_INT);
+	}
+
+	/** 유저 정보를 로드한다 */
+	public CUserInfo LoadUserInfo() {
+		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
+	}
+
+	/** 유저 정보를 로드한다 */
+	public CUserInfo LoadUserInfo(string a_oFilePath) {
+		// 파일이 존재 할 경우
+		if(File.Exists(a_oFilePath)) {
+			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, true);
+			CAccess.Assert(this.UserInfo != null);
+		}
+
+		return this.UserInfo;
+	}
+
+	/** 유저 정보를 저장한다 */
+	public void SaveUserInfo() {
+		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
+	}
+
+	/** 유저 정보를 저장한다 */
+	public void SaveUserInfo(string a_oFilePath) {
+		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, true);
 	}
 	#endregion // 함수
 }
