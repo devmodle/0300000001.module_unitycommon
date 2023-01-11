@@ -17,28 +17,16 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 		private Dictionary<ESubKey, int> m_oIntDict = new Dictionary<ESubKey, int>();
 		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
-		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
-
-			// 앱이 실행 중 일 경우
-			if(this.SubState != ESubState.NONE && CSceneManager.IsAppRunning) {
-				switch(this.SubState) {
-					case ESubState.APPLY: this.HandleApplySubState(a_fDeltaTime); break;
-				}
-			}
-		}
-
+		#region 함수
 		/** 스킬을 적용한다 */
 		public void Apply() {
 			this.SetState(EState.IDLE);
@@ -70,6 +58,26 @@ namespace NSEngine {
 		private void SubInit() {
 			m_oIntDict.Clear();
 			m_oRealDict.Clear();
+		}
+
+		/** 제거 되었을 경우 */
+		private void SubOnDestroy() {
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					// Do Something
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CESkillController.SubOnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		private void SubOnUpdate(float a_fDeltaTime) {
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Something
+			}
 		}
 
 		/** 적용 서브 상태를 처리한다 */
@@ -105,7 +113,7 @@ namespace NSEngine {
 		private void ApplySingleSkill() {
 			// Do Something
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

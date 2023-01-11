@@ -42,21 +42,7 @@ namespace NSEngine {
 
 			this.SubInit();
 		}
-
-		/** 제거 되었을 경우 */
-		public override void OnDestroy() {
-			base.OnDestroy();
-
-			try {
-				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
-					this.SubOnDestroy();
-				}
-			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CEItem.OnDestroy Exception: {oException.Message}");
-			}
-		}
-
+		
 		/** 어빌리티 값을 설정한다 */
 		protected override void DoSetupAbilityVals(bool a_bIsReset = true) {
 			base.DoSetupAbilityVals(a_bIsReset);

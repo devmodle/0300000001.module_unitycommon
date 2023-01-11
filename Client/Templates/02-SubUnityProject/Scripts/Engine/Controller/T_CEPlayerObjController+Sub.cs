@@ -15,25 +15,15 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
-		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
-
-			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
-				// Do Something
-			}
-		}
-
+		#region 함수
 		/** 이동을 처리한다 */
 		public override void Move(Vector3 a_stDirection, EVecType a_eVecType = EVecType.DIRECTION) {
 			base.Move(a_stDirection);
@@ -122,6 +112,26 @@ namespace NSEngine {
 			this.SetState(EState.IDLE, true);
 		}
 
+		/** 제거 되었을 경우 */
+		private void SubOnDestroy() {
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					// Do Something
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CEPlayerObjController.SubOnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		private void SubOnUpdate(float a_fDeltaTime) {
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Something
+			}
+		}
+
 		/** 다중 스킬 타겟을 설정한다 */
 		private void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
 			// Do Something
@@ -142,7 +152,7 @@ namespace NSEngine {
 
 			return false;
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

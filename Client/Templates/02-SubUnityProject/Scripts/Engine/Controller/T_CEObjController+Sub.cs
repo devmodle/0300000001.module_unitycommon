@@ -25,39 +25,6 @@ namespace NSEngine {
 		#endregion // 프로퍼티
 
 		#region 함수
-		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
-
-			// 앱이 실행 중 일 경우
-			if(this.IsActive && CSceneManager.IsAppRunning) {
-				float fUpdateSkipTime = m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME);
-				m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
-
-				// 일정 시간이 지났을 경우
-				if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(KCDefine.U_DELAY_DEF)) {
-					var oAbilityKindsInfoList = CCollectionManager.Inst.SpawnList<(EAbilityKinds, EAbilityKinds)>();
-
-					try {
-						oAbilityKindsInfoList.ExAddVal((EAbilityKinds.STAT_HP_01, EAbilityKinds.STAT_HP_RECOVERY_01));
-						oAbilityKindsInfoList.ExAddVal((EAbilityKinds.STAT_MP_01, EAbilityKinds.STAT_MP_RECOVERY_01));
-						oAbilityKindsInfoList.ExAddVal((EAbilityKinds.STAT_SP_01, EAbilityKinds.STAT_SP_RECOVERY_01));
-
-						for(int i = 0; i < oAbilityKindsInfoList.Count; ++i) {
-							decimal dmVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
-							decimal dmMaxVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict02.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
-							decimal dmRecoveryVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(oAbilityKindsInfoList[i].Item2);
-
-							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, System.Math.Clamp(dmVal + (dmRecoveryVal * (decimal)m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME)), KCDefine.B_VAL_0_INT, dmMaxVal));
-						}
-					} finally {
-						CCollectionManager.Inst.DespawnList(oAbilityKindsInfoList);
-						m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
-					}
-				}
-			}
-		}
-
 		/** 공격을 처리한다 */
 		public virtual void Attack(CEObj a_oTargetObj, CESkill a_oSkill) {
 			var oAbilityValDict = CCollectionManager.Inst.SpawnDict<EAbilityKinds, decimal>();
@@ -165,6 +132,14 @@ namespace NSEngine {
 				}
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"CEObjController.SubOnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		private void SubOnUpdate(float a_fDeltaTime) {
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Something
 			}
 		}
 		#endregion // 함수

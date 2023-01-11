@@ -33,18 +33,6 @@ namespace NSEngine {
 		private void SubInit() {
 			// Do Something
 		}
-
-		/** 제거 되었을 경우 */
-		private void SubOnDestroy() {
-			try {
-				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
-					// Do Something
-				}
-			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CEFX.SubOnDestroy Exception: {oException.Message}");
-			}
-		}
 		#endregion // 함수
 	}
 }
