@@ -27,15 +27,7 @@ namespace NSEngine {
 		/** 이동 상태를 처리한다 */
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
-
-			var stSize = this.Engine.EpisodeSize.ExToLocal(this.Engine.Params.m_oObjRoot, false);
-			var stOffset = KDefine.E_OFFSET_BOTTOM.ExToLocal(this.Engine.Params.m_oObjRoot, false);
-
-			var stNextPos = this.GetOwner<CEObj>().transform.localPosition + ((m_oVec3Dict[EKey.MOVE_DIRECTION] * (float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
-			stNextPos.x = Mathf.Clamp(stNextPos.x, stSize.x / -KCDefine.B_VAL_2_REAL, stSize.x / KCDefine.B_VAL_2_REAL);
-			stNextPos.y = Mathf.Clamp(stNextPos.y, (stSize.y / -KCDefine.B_VAL_2_REAL) + stOffset.y, stSize.y / KCDefine.B_VAL_2_REAL);
-
-			this.GetOwner<CEObj>().transform.localPosition = new Vector3(stNextPos.x, stNextPos.y, stNextPos.y / stSize.y);
+			this.GetOwner<CEObj>().transform.localPosition = this.GetNextPos((m_oVec3Dict[EKey.MOVE_DIRECTION] * (float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
 		}
 
 		/** 스킬 상태를 처리한다 */
@@ -71,6 +63,21 @@ namespace NSEngine {
 			if(CSceneManager.IsAppRunning) {
 				// Do Something
 			}
+		}
+		#endregion // 함수
+	}
+
+	/** 서브 객체 제어자 - 접근 */
+	public partial class CEObjController : CEController {
+		#region 함수
+		/** 다음 위치를 반환한다 */
+		protected virtual Vector3 GetNextPos(Vector3 a_stVelocity) {
+			var stPos = this.GetOwner<CEObj>().transform.localPosition + a_stVelocity;
+			var stSize = this.Engine.EpisodeSize.ExToLocal(this.Engine.Params.m_oObjRoot, false);
+			var stOffset = KDefine.E_OFFSET_BOTTOM.ExToLocal(this.Engine.Params.m_oObjRoot, false);
+
+			float fPosY = Mathf.Clamp(stPos.y, (stSize.y / -KCDefine.B_VAL_2_REAL) + stOffset.y, stSize.y / KCDefine.B_VAL_2_REAL);
+			return new Vector3(Mathf.Clamp(stPos.x, stSize.x / -KCDefine.B_VAL_2_REAL, stSize.x / KCDefine.B_VAL_2_REAL), fPosY, fPosY / stSize.y);
 		}
 		#endregion // 함수
 	}
