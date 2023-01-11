@@ -18,8 +18,13 @@ namespace NSEngine {
 		}
 
 		#region 변수
-		private Dictionary<ESubKey, int> m_oIntDict = new Dictionary<ESubKey, int>();
-		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
+		private Dictionary<ESubKey, int> m_oSubIntDict = new Dictionary<ESubKey, int>() {
+			[ESubKey.APPLY_TIMES] = KCDefine.B_VAL_0_INT
+		};
+
+		private Dictionary<ESubKey, float> m_oSubRealDict = new Dictionary<ESubKey, float>() {
+			[ESubKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL
+		};
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -36,16 +41,14 @@ namespace NSEngine {
 		/** 대기 상태를 처리한다 */
 		protected override void HandleIdleState(float a_fDeltaTime) {
 			base.HandleIdleState(a_fDeltaTime);
-			float fUpdateSkipTime = m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME);
-
-			m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
+			m_oSubRealDict[ESubKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
 
 			// 딜레이 시간이 지났을 경우
-			if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDelay)) {
+			if(m_oSubRealDict[ESubKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDelay)) {
+				m_oSubRealDict[ESubKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
+
 				this.SetState(EState.SKILL);
 				this.SetSubState(ESubState.APPLY);
-
-				m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
 			}
 		}
 
@@ -56,8 +59,7 @@ namespace NSEngine {
 
 		/** 초기화 */
 		private void SubInit() {
-			m_oIntDict.Clear();
-			m_oRealDict.Clear();
+			// Do Something
 		}
 
 		/** 제거 되었을 경우 */
@@ -82,23 +84,20 @@ namespace NSEngine {
 
 		/** 적용 서브 상태를 처리한다 */
 		private void HandleApplySubState(float a_fDeltaTime) {
-			int nApplyTimes = m_oIntDict.GetValueOrDefault(ESubKey.APPLY_TIMES);
-			float fUpdateSkipTime = m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME);
-
-			m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
+			m_oSubRealDict[ESubKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
 
 			// 적용 간격이 지났을 경우
-			if(nApplyTimes < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (nApplyTimes - KCDefine.B_VAL_1_INT))) {
+			if(m_oSubIntDict[ESubKey.APPLY_TIMES] < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_oSubRealDict[ESubKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (m_oSubIntDict[ESubKey.APPLY_TIMES] - KCDefine.B_VAL_1_INT))) {
 				switch((ESkillApplyType)((int)this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillApplyKinds).ExKindsToType()) {
 					case ESkillApplyType.MULTI: this.ApplyMultiSkill(); break;
 					case ESkillApplyType.SINGLE: this.ApplySingleSkill(); break;
 				}
 
-				m_oIntDict.ExReplaceVal(ESubKey.APPLY_TIMES, nApplyTimes + KCDefine.B_VAL_1_INT);
+				m_oSubIntDict[ESubKey.APPLY_TIMES] += KCDefine.B_VAL_1_INT;
 			}
 
 			// 적용 시간이 지났을 경우
-			if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
+			if(m_oSubRealDict[ESubKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
 				this.Owner.GetOwner<CEObj>().GetController<CEObjController>().SetState(EState.IDLE);
 				this.Engine.RemoveSkill(this.GetOwner<CESkill>());
 			}

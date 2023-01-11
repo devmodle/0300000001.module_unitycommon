@@ -12,12 +12,11 @@ namespace NSEngine {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
-			UPDATE_SKIP_TIME,
 			[HideInInspector] MAX_VAL
 		}
 
 		#region 변수
-		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
+
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -58,27 +57,13 @@ namespace NSEngine {
 		/** 등장 상태를 처리한다 */
 		protected override void HandleAppearState(float a_fDeltaTime) {
 			base.HandleAppearState(a_fDeltaTime);
-			float fUpdateSkipTime = m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME);
-
-			m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, fUpdateSkipTime + a_fDeltaTime);
+			m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
 
 			// 일정 시간이 지났을 경우
-			if(m_oRealDict.GetValueOrDefault(ESubKey.UPDATE_SKIP_TIME).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+				m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
 				this.SetState(EState.IDLE);
-				m_oRealDict.ExReplaceVal(ESubKey.UPDATE_SKIP_TIME, KCDefine.B_VAL_0_REAL);
 			}
-		}
-
-		/** 스킬을 적용시킨다 */
-		protected override void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
-			base.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
-
-			var oSkill = this.Engine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
-			oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
-			oSkill.GetController<CESkillController>().TargetObjList.ExAddVal(this.Engine.SelPlayerObj);
-
-			this.Engine.SkillList.ExAddVal(oSkill);
-			oSkill.GetController<CESkillController>().Apply();
 		}
 
 		/** 초기화 */
@@ -109,17 +94,6 @@ namespace NSEngine {
 			if(CSceneManager.IsAppRunning) {
 				// Do Something
 			}
-		}
-		#endregion // 함수
-	}
-
-	/** 서브 적 객체 제어자 - 접근 */
-	public partial class CEEnemyObjController : CEObjController {
-		#region 함수
-		/** 플레이어 객체 공격 가능 여부를 검사한다 */
-		private bool IsEnableAttackPlayerObj() {
-			var stDelta = this.Engine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;
-			return stDelta.sqrMagnitude.ExIsLessEquals(Mathf.Pow((float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ATK_RANGE_01), KCDefine.B_VAL_2_REAL));
 		}
 		#endregion // 함수
 	}

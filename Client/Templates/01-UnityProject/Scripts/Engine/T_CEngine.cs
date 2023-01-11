@@ -155,10 +155,8 @@ namespace NSEngine {
 
 					// 플레이어 객체가 존재 할 경우
 					if(this.PlayerObjList.ExIsValid()) {
-						var stEpisodeSize = this.CameraEpisodeSize * CAccess.ResolutionUnitScale;
-						var stMainCameraPos = new Vector3(Mathf.Clamp(this.SelPlayerObj.transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), (stEpisodeSize.y / -KCDefine.B_VAL_2_REAL) - ((CSceneManager.ActiveSceneManager.ScreenHeight / KCDefine.B_VAL_3_REAL) * CAccess.ResolutionUnitScale), stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
-
-						CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
+						var stMainCameraPos = this.GetMainCameraPos();
+						CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos.ExToWorld(this.Params.m_oObjRoot), a_fDeltaTime * KCDefine.B_VAL_9_REAL);
 					}
 				}
 
@@ -240,6 +238,7 @@ namespace NSEngine {
 			switch(a_eEvent) {
 				case EEngineObjEvent.AVOID: this.HandleAvoidEObjEvent(a_oSender, a_oParams); break;
 				case EEngineObjEvent.DAMAGE: this.HandleDamageEObjEvent(a_oSender, a_oParams); break;
+				case EEngineObjEvent.CRITICAL_DAMAGE: this.HandleCriticalDamageEObjEvent(a_oSender, a_oParams); break;
 			}
 
 			// 체력이 없을 경우

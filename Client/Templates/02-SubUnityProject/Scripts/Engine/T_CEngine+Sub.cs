@@ -112,6 +112,11 @@ namespace NSEngine {
 			// Do Something
 		}
 
+		/** 치명 피해 엔진 객체 이벤트를 처리한다 */
+		private void HandleCriticalDamageEObjEvent(CEObjComponent a_oSender, string a_oParams) {
+			// Do Something
+		}
+
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우

@@ -26,6 +26,7 @@ namespace NSEngine {
 		NONE,
 		AVOID,
 		DAMAGE,
+		CRITICAL_DAMAGE,
 		[HideInInspector] MAX_VAL
 	}
 #endregion // 기본

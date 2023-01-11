@@ -12,6 +12,19 @@ namespace NSEngine {
 	/** 엔진 - 접근 */
 	public partial class CEngine : CComponent {
 		#region 함수
+		/** 메인 카메라 위치를 반환한다 */
+		public Vector3 GetMainCameraPos() {
+			var stPos = this.SelPlayerObj.transform.localPosition;
+			var stSize = this.CameraEpisodeSize.ExToLocal(this.Params.m_oObjRoot, false);
+			var stOffset = KDefine.E_OFFSET_MAIN_CAMERA.ExToLocal(this.Params.m_oObjRoot, false);
+			var stScreenSize = CSceneManager.ActiveSceneManager.ScreenSize.ExToLocal(this.Params.m_oObjRoot, false);
+
+			float fMainCameraPosX = Mathf.Clamp(stPos.x, stSize.x / -KCDefine.B_VAL_2_REAL, stSize.x / KCDefine.B_VAL_2_REAL);
+			float fMainCameraPosY = Mathf.Clamp(stPos.y + stOffset.y, (stSize.y / -KCDefine.B_VAL_2_REAL) - (stScreenSize.y / KCDefine.B_VAL_3_REAL), stSize.y / KCDefine.B_VAL_2_REAL);
+
+			return new Vector3(fMainCameraPosX, fMainCameraPosY, CSceneManager.ActiveSceneMainCamera.transform.position.ExToLocal(this.Params.m_oObjRoot).z);
+		}
+
 		/** 구동 여부를 변경한다 */
 		public void SetEnableRunning(bool a_bIsRunning) {
 			m_oBoolDict[EKey.IS_RUNNING] = a_bIsRunning;
