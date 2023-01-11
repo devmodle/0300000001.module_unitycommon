@@ -23,8 +23,10 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		public long m_nNumCoinsBoxCoins;
 	}
 
-#region 변수
-	private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>();
+	#region 변수
+	private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>() {
+		[EKey.PREV_NUM_COINS_BOX_COINS] = KCDefine.B_VAL_0_INT
+	};
 
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
@@ -32,13 +34,13 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public STParams Params { get; private set; }
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -57,10 +59,9 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		this.Params = a_stParams;
 
 		var stValInfo = new STValInfo(a_stParams.m_nNumCoinsBoxCoins, EValType.INT);
+		m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] = (long)Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS_BOX_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS);
 
-		m_oIntDict.ExReplaceVal(EKey.PREV_NUM_COINS_BOX_COINS, (long)Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_COINS_BOX_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS));
 		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_COINS_BOX_COINS, stValInfo), true);
-
 		this.SubInit();
 	}
 
@@ -73,15 +74,15 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	/** UI 상태를 변경한다 */
 	private void UpdateUIsState() {
 		// 객체를 갱신한다
-		m_oSaveUIs?.SetActive(m_oIntDict.GetValueOrDefault(EKey.PREV_NUM_COINS_BOX_COINS) < KDefine.G_MAX_NUM_COINS_BOX_COINS);
-		m_oFullUIs?.SetActive(m_oIntDict.GetValueOrDefault(EKey.PREV_NUM_COINS_BOX_COINS) >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
+		m_oSaveUIs?.SetActive(m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] < KDefine.G_MAX_NUM_COINS_BOX_COINS);
+		m_oFullUIs?.SetActive(m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
 
 		// 텍스트를 갱신한다
-		m_oTextDict.GetValueOrDefault(EKey.NUM_COINS_TEXT)?.ExSetText($"{m_oIntDict.GetValueOrDefault(EKey.PREV_NUM_COINS_BOX_COINS)}", EFontSet._1, false);
+		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS]}", EFontSet._1, false);
 
 		this.SubUpdateUIsState();
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

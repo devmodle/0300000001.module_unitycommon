@@ -52,11 +52,13 @@ namespace NSEngine {
 
 		#region 변수
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
-			[EKey.SEL_GRID_IDX] = KCDefine.B_VAL_0_INT, [EKey.SEL_PLAYER_OBJ_IDX] = KCDefine.B_VAL_0_INT
+			[EKey.SEL_GRID_IDX] = KCDefine.B_VAL_0_INT,
+			[EKey.SEL_PLAYER_OBJ_IDX] = KCDefine.B_VAL_0_INT
 		};
 
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
-			[EKey.IS_RUNNING] = false, [EKey.IS_SAVE_USER_INFO] = false
+			[EKey.IS_RUNNING] = false,
+			[EKey.IS_SAVE_USER_INFO] = false
 		};
 
 		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
@@ -161,9 +163,9 @@ namespace NSEngine {
 				}
 
 				// 유저 정보 저장이 필요 할 경우
-				if(m_oBoolDict.GetValueOrDefault(EKey.IS_SAVE_USER_INFO)) {
+				if(m_oBoolDict[EKey.IS_SAVE_USER_INFO]) {
 					CUserInfoStorage.Inst.SaveUserInfo();
-					m_oBoolDict.ExReplaceVal(EKey.IS_SAVE_USER_INFO, false);
+					m_oBoolDict[EKey.IS_SAVE_USER_INFO] = false;
 				}
 
 				this.SubOnUpdate(a_fDeltaTime);
@@ -273,9 +275,8 @@ namespace NSEngine {
 
 							this.SelPlayerObj.SetupAbilityVals();
 						}
-
-						bool bIsSaveUserInfo = m_oBoolDict.GetValueOrDefault(EKey.IS_SAVE_USER_INFO);
-						m_oBoolDict.ExReplaceVal(EKey.IS_SAVE_USER_INFO, oAcquireTargetInfoDict.ExIsValid() ? true : bIsSaveUserInfo);
+						
+						m_oBoolDict[EKey.IS_SAVE_USER_INFO] = oAcquireTargetInfoDict.ExIsValid() ? true : m_oBoolDict[EKey.IS_SAVE_USER_INFO];
 					} finally {
 						this.RemoveEObjComponent(a_oSender);
 						CCollectionManager.Inst.DespawnDict(oAcquireTargetInfoDict);

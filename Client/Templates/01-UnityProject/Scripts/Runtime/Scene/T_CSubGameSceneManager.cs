@@ -45,11 +45,20 @@ namespace GameScene {
 		}
 
 		#region 변수
-		private NSEngine.CEngine m_oEngine = null;
-		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
-		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
-		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>();
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+			[EKey.IS_UPDATE_UIS_STATE] = false
+		};
+
+		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
+			[EKey.CONTINUE_TIMES] = KCDefine.B_VAL_0_INT
+		};
+
+		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>() {
+			[EKey.SEL_REWARD_ADS_UIS] = ERewardAdsUIs.NONE
+		};
+
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
+		private NSEngine.CEngine m_oEngine = null;
 
 		/** =====> 객체 <===== */
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
@@ -114,25 +123,25 @@ namespace GameScene {
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 				var stSize = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
 
-				m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).size = stSize;
-				m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localScale = Vector3.one;
-				m_oSpriteDict.GetValueOrDefault(EKey.BG_SPRITE).transform.localPosition = Vector3.zero;
+				m_oSpriteDict[EKey.BG_SPRITE].size = stSize;
+				m_oSpriteDict[EKey.BG_SPRITE].transform.localScale = Vector3.one;
+				m_oSpriteDict[EKey.BG_SPRITE].transform.localPosition = Vector3.zero;
 
-				m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).size = new Vector3(stSize.x + (this.ScreenWidth * KCDefine.B_VAL_2_REAL), m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).sprite.rect.height, KCDefine.B_VAL_0_REAL);
-				m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).transform.localScale = Vector3.one;
-				m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, (stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+				m_oSpriteDict[EKey.UP_BG_SPRITE].size = new Vector3(stSize.x + (this.ScreenWidth * KCDefine.B_VAL_2_REAL), m_oSpriteDict[EKey.UP_BG_SPRITE].sprite.rect.height, KCDefine.B_VAL_0_REAL);
+				m_oSpriteDict[EKey.UP_BG_SPRITE].transform.localScale = Vector3.one;
+				m_oSpriteDict[EKey.UP_BG_SPRITE].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, (stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.UP_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
 
-				m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).size = m_oSpriteDict.GetValueOrDefault(EKey.UP_BG_SPRITE).size;
-				m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localScale = Vector3.one;
-				m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.DOWN_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM), KCDefine.B_VAL_0_REAL);
+				m_oSpriteDict[EKey.DOWN_BG_SPRITE].size = m_oSpriteDict[EKey.UP_BG_SPRITE].size;
+				m_oSpriteDict[EKey.DOWN_BG_SPRITE].transform.localScale = Vector3.one;
+				m_oSpriteDict[EKey.DOWN_BG_SPRITE].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.DOWN_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM), KCDefine.B_VAL_0_REAL);
 
-				m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).size = new Vector3(m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).sprite.rect.width, Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
-				m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).transform.localScale = Vector3.one;
-				m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).transform.localPosition = new Vector3(-((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
+				m_oSpriteDict[EKey.LEFT_BG_SPRITE].size = new Vector3(m_oSpriteDict[EKey.LEFT_BG_SPRITE].sprite.rect.width, Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
+				m_oSpriteDict[EKey.LEFT_BG_SPRITE].transform.localScale = Vector3.one;
+				m_oSpriteDict[EKey.LEFT_BG_SPRITE].transform.localPosition = new Vector3(-((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.LEFT_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
 
-				m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).size = m_oSpriteDict.GetValueOrDefault(EKey.LEFT_BG_SPRITE).size;
-				m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).transform.localScale = Vector3.one;
-				m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).transform.localPosition = new Vector3((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict.GetValueOrDefault(EKey.RIGHT_BG_SPRITE).sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
+				m_oSpriteDict[EKey.RIGHT_BG_SPRITE].size = m_oSpriteDict[EKey.LEFT_BG_SPRITE].size;
+				m_oSpriteDict[EKey.RIGHT_BG_SPRITE].transform.localScale = Vector3.one;
+				m_oSpriteDict[EKey.RIGHT_BG_SPRITE].transform.localPosition = new Vector3((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.RIGHT_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 				// 스프라이트를 설정한다 }
@@ -211,8 +220,8 @@ namespace GameScene {
 				m_oEngine.OnUpdate(a_fDeltaTime);
 
 				// UI 갱신이 필요 할 경우
-				if(m_oBoolDict.GetValueOrDefault(EKey.IS_UPDATE_UIS_STATE)) {
-					m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, false);
+				if(m_oBoolDict[EKey.IS_UPDATE_UIS_STATE]) {
+					m_oBoolDict[EKey.IS_UPDATE_UIS_STATE] = false;
 				}
 
 				this.SubOnUpdate(a_fDeltaTime);
@@ -348,7 +357,7 @@ namespace GameScene {
 
 		/** 광고 버튼을 눌렀을 경우 */
 		private void OnTouchAdsBtn(ERewardAdsUIs a_eRewardAdsUIs) {
-			m_oRewardAdsUIsDict.ExReplaceVal(EKey.SEL_REWARD_ADS_UIS, a_eRewardAdsUIs);
+			m_oRewardAdsUIsDict[EKey.SEL_REWARD_ADS_UIS] = a_eRewardAdsUIs;
 
 #if ADS_MODULE_ENABLE
 			Func.ShowRewardAds(this.OnCloseRewardAds);
@@ -428,8 +437,7 @@ namespace GameScene {
 
 		/** 플레이 레벨을 이어한다 */
 		private void ContinuePlayLevel(CPopup a_oPopup) {
-			int nContinueTimes = m_oIntDict.GetValueOrDefault(EKey.CONTINUE_TIMES);
-			m_oIntDict.ExReplaceVal(EKey.CONTINUE_TIMES, nContinueTimes + KCDefine.B_VAL_1_INT);
+			m_oIntDict[EKey.CONTINUE_TIMES] += KCDefine.B_VAL_1_INT;
 		}
 
 		/** 플레이 레벨을 떠난다 */
@@ -444,7 +452,7 @@ namespace GameScene {
 		/** 이어하기 팝업을 출력한다 */
 		private void ShowContinuePopup() {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_oIntDict.GetValueOrDefault(EKey.CONTINUE_TIMES), new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
+				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_oIntDict[EKey.CONTINUE_TIMES], new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
 					[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
 					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE),
 					[CContinuePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
@@ -476,7 +484,7 @@ namespace GameScene {
 		#region 함수
 		/** UI 상태 갱신 여부를 변경한다 */
 		public void SetEnableUpdateUIsState(bool a_bIsEnable) {
-			m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, a_bIsEnable);
+			m_oBoolDict[EKey.IS_UPDATE_UIS_STATE] = a_bIsEnable;
 		}
 		#endregion // 함수
 	}
