@@ -31,7 +31,7 @@ namespace NSEngine {
 
 		/** 초기화 */
 		private void SubInit() {
-			this.SetupAbilityVals();
+			// Do Something
 		}
 		#endregion // 함수
 	}

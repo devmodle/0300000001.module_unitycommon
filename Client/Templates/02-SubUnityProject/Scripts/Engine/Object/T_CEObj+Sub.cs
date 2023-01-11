@@ -20,23 +20,18 @@ namespace NSEngine {
 		#endregion // 변수
 
 		#region 프로퍼티
-		public STCellObjInfo CellObjInfo { get; private set; }
+
 		#endregion // 프로퍼티
 
 		#region 함수
 		/** 초기화 */
 		private void SubAwake() {
-			this.SetCellObjInfo(STCellObjInfo.INVALID);
+			// Do Something
 		}
 
 		/** 초기화 */
 		private void SubInit() {
-			this.SetupAbilityVals();
-		}
-		
-		/** 셀 객체 정보를 변경한다 */
-		public void SetCellObjInfo(STCellObjInfo a_stCellObjInfo) {
-			this.CellObjInfo = a_stCellObjInfo;
+			// Do Something
 		}
 		#endregion // 함수
 	}
