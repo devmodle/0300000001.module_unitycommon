@@ -25,18 +25,18 @@ namespace MainScene {
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 
-#region 변수
+		#region 변수
 		/** =====> UI <===== */
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		private void SubAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
@@ -67,9 +67,9 @@ namespace MainScene {
 			this.SubUpdateTestUIsState();
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 조건부 함수
+		#region 조건부 함수
 #if DEBUG || DEVELOPMENT_BUILD
 		/** 테스트 UI 를 설정한다 */
 		private void SubSetupTestUIs() {
@@ -81,17 +81,17 @@ namespace MainScene {
 			// Do Something
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 메인 씬 관리자 - 스크롤러 셀 뷰 */
 	public partial class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate {
-#region 함수
+		#region 함수
 		/** 선택 콜백을 수신했을 경우 */
 		private void OnReceiveSelCallback(CScrollerCellView a_oSender, ulong a_nID) {
 			// Do Something
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
