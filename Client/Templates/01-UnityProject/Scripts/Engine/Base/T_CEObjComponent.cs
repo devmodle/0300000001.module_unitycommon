@@ -97,13 +97,6 @@ namespace NSEngine {
 		}
 		#endregion // 함수
 
-		#region 제네릭 접근자 함수
-		/** 제어자를 반환한다 */
-		public T GetController<T>() where T : CEController {
-			return this.Params.m_oController as T;
-		}
-		#endregion // 제네릭 접근자 함수
-
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, CEController a_oController, string a_oObjsPoolKey, Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict = null) {
@@ -112,6 +105,16 @@ namespace NSEngine {
 			};
 		}
 		#endregion // 클래스 함수
+	}
+
+	/** 엔진 객체 컴포넌트 - 접근 */
+	public abstract partial class CEObjComponent : CEComponent {
+		#region 제네릭 함수
+		/** 제어자를 반환한다 */
+		public T GetController<T>() where T : CEController {
+			return this.Params.m_oController as T;
+		}
+		#endregion // 제네릭 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

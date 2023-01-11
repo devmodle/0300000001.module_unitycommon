@@ -44,7 +44,7 @@ namespace GameScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 		private NSEngine.CEngine m_oEngine = null;
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
@@ -53,9 +53,9 @@ namespace GameScene {
 
 		/** =====> 객체 <===== */
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
-#endregion // 변수
+		#endregion // 변수
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
@@ -468,14 +468,17 @@ namespace GameScene {
 				}));
 			});
 		}
-#endregion // 함수
+		#endregion // 함수
+	}
 
-#region 접근자 함수
+	/** 서브 게임 씬 관리자 - 접근 */
+	public partial class CSubGameSceneManager : CGameSceneManager {
+		#region 함수
 		/** UI 상태 갱신 여부를 변경한다 */
 		public void SetEnableUpdateUIsState(bool a_bIsEnable) {
 			m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, a_bIsEnable);
 		}
-#endregion // 접근자 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
