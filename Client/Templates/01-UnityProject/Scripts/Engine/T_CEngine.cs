@@ -121,9 +121,9 @@ namespace NSEngine {
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
-			m_oBoolDict[EKey.IS_RUNNING] = false;
+			this.SetState(EState.NONE, true);
 
-			this.SubReset();
+			m_oBoolDict[EKey.IS_RUNNING] = false;
 		}
 
 		/** 제거 되었을 경우 */

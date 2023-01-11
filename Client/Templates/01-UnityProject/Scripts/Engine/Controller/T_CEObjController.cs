@@ -70,9 +70,14 @@ namespace NSEngine {
 		public virtual void Init(STParams a_stParams) {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
-
-			this.SetState(EState.APPEAR);
+			
 			this.SubInit();
+		}
+
+		/** 상태를 리셋한다 */
+		public override void Reset() {
+			base.Reset();
+			this.ResetApplySkillInfo();
 		}
 
 		/** 적용 스킬 정보를 리셋한다 */

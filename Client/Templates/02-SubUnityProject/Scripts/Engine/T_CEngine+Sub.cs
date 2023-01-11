@@ -35,12 +35,7 @@ namespace NSEngine {
 		private void SubInit() {
 			// Do Something
 		}
-
-		/** 상태를 리셋한다 */
-		private void SubReset() {
-			this.SetState(EState.NONE);
-		}
-
+		
 		/** 제거 되었을 경우 */
 		private void SubOnDestroy() {
 			try {

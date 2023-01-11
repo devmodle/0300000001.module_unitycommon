@@ -71,7 +71,7 @@ namespace NSEngine {
 
 		/** 초기화 */
 		private void SubInit() {
-			this.SetState(EState.IDLE, true);
+			// Do Something
 		}
 
 		/** 제거 되었을 경우 */

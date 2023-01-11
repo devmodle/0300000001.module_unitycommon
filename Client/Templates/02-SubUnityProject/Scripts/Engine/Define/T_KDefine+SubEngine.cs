@@ -10,30 +10,10 @@ namespace NSEngine {
 	/** 서브 엔진 상수 */
 	public static partial class KDefine {
 		#region 기본
-		// 식별자
-		public const string E_KEY_CELL_OBJ_OBJS_POOL = "CellObjObjsPool";
-		public const string E_KEY_PLAYER_OBJ_OBJS_POOL = "PlayerObjObjsPool";
-		public const string E_KEY_ENEMY_OBJ_OBJS_POOL = "EnemyObjObjsPool";
 
-		// 이름
-		public const string E_OBJ_N_CELL_OBJ = "CELL_OBJ";
-		public const string E_OBJ_N_PLAYER_OBJ = "PLAYER_OBJ";
-		public const string E_OBJ_N_ENEMY_OBJ = "ENEMY_OBJ";
 		#endregion // 기본
 
 		#region 런타임 상수
-		// 간격 {
-		public static readonly Vector3 E_OFFSET_BOTTOM = new Vector3(0.0f, 150.0f, 0.0f);
-		public static readonly Vector3 E_OFFSET_MAIN_CAMERA = new Vector3(0.0f, -50.0f, 0.0f);
-
-		public static readonly Vector3 E_PADDING_GRID = new Vector3(0.0f, 0.0f, 0.0f);
-		// 간격 }
-
-		// 개수
-		public static readonly Vector3Int E_MIN_NUM_CELLS = new Vector3Int(1, 1, 1);
-		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(25, 25, 1);
-		public static readonly Vector3Int E_DEF_NUM_CELLS = new Vector3Int(10, 10, 1);
-
 		// 정렬 순서 {
 		public static readonly Dictionary<EItemKinds, STSortingOrderInfo> E_SORTING_OI_ITEM_DICT = new Dictionary<EItemKinds, STSortingOrderInfo>() {
 			// Do Something
@@ -55,10 +35,6 @@ namespace NSEngine {
 		// 정렬 순서 }
 
 		// 경로 {
-		public static readonly string E_OBJ_P_CELL_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_CellObj";
-		public static readonly string E_OBJ_P_PLAYER_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_PlayerObj";
-		public static readonly string E_OBJ_P_ENEMY_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_EnemyObj";
-
 		public static readonly Dictionary<EItemKinds, string> E_IMG_P_ITEM_DICT = new Dictionary<EItemKinds, string>() {
 			// Do Something
 		};
