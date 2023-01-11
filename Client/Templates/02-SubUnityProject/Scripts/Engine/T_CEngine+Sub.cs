@@ -31,11 +31,6 @@ namespace NSEngine {
 			// Do Something
 		}
 
-		/** 엔진을 설정한다 */
-		private void SubSetup() {
-			// Do Something
-		}
-
 		/** 초기화 */
 		private void SubInit() {
 			// Do Something
@@ -104,6 +99,16 @@ namespace NSEngine {
 
 		/** 정지 상태를 처리한다 */
 		private void HandlePauseState(float a_fDeltaTime) {
+			// Do Something
+		}
+
+		/** 회피 엔진 객체 이벤트를 처리한다 */
+		private void HandleAvoidEObjEvent(CEObjComponent a_oSender, string a_oParams) {
+			// Do Something
+		}
+
+		/** 피해 엔진 객체 이벤트를 처리한다 */
+		private void HandleDamageEObjEvent(CEObjComponent a_oSender, string a_oParams) {
 			// Do Something
 		}
 

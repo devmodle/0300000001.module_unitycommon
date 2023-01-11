@@ -233,18 +233,13 @@ namespace NSEngine {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), this.Params.m_oObjRoot, KCDefine.B_VAL_1_INT, false);
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 			// 객체 풀을 설정한다 }
-
-			this.SubSetup();
 		}
 
 		/** 엔진 객체 이벤트를 수신했을 경우 */
 		private void OnReceiveEObjEvent(CEObjComponent a_oSender, EEngineObjEvent a_eEvent, string a_oParams) {
 			switch(a_eEvent) {
-				case EEngineObjEvent.AVOID:
-				case EEngineObjEvent.DAMAGE:
-				case EEngineObjEvent.CRITICAL_DAMAGE: {
-					break;
-				}
+				case EEngineObjEvent.AVOID: this.HandleAvoidEObjEvent(a_oSender, a_oParams); break;
+				case EEngineObjEvent.DAMAGE: this.HandleDamageEObjEvent(a_oSender, a_oParams); break;
 			}
 
 			// 체력이 없을 경우
