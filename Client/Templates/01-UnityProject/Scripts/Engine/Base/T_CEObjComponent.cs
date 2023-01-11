@@ -109,6 +109,13 @@ namespace NSEngine {
 
 	/** 엔진 객체 컴포넌트 - 접근 */
 	public abstract partial class CEObjComponent : CEComponent {
+		#region 함수
+		/** 어빌리티 값을 반환한다 */
+		public decimal GetAbilityVal(EAbilityKinds a_eAbilityKinds) {
+			return this.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(a_eAbilityKinds);
+		}
+		#endregion // 함수
+
 		#region 제네릭 함수
 		/** 제어자를 반환한다 */
 		public T GetController<T>() where T : CEController {
