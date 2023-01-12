@@ -87,13 +87,8 @@ namespace GameScene {
 					(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
 				});
 
-				// 비율을 설정한다 {
-				bool bIsValid01 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.x) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.x);
-				bool bIsValid02 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.y) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.y);
-				bool bIsValid03 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.z) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.z);
-
-				this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
-				// 비율을 설정한다 }
+				// 비율을 설정한다
+				this.ObjRoot.transform.localScale = m_oEngine.SelGridInfo.m_stScale.ExIsValid() ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
 
 				// 스프라이트를 설정한다 {
 				var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
