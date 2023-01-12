@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+using System.Linq;
 using UnityEngine.EventSystems;
 using EnhancedUI.EnhancedScroller;
 
@@ -125,7 +126,12 @@ namespace LevelEditorScene {
 				}
 				// 객체 제거가 가능 할 경우
 				else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && oCellInfo.m_oCellObjInfoList.ExIsValid()) {
-					oCellInfo.m_oCellObjInfoList.ExRemoveValAt(oCellInfo.m_oCellObjInfoList.Count - KCDefine.B_VAL_1_INT);
+					var stCellObjInfo = oCellInfo.m_oCellObjInfoList.Last();
+
+					// 자리 표시 객체가 아닐 경
+					if(stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
+						oCellInfo.m_oCellObjInfoList.ExRemoveValAt(oCellInfo.m_oCellObjInfoList.Count - KCDefine.B_VAL_1_INT);
+					}
 				}
 
 				this.UpdateUIsState();

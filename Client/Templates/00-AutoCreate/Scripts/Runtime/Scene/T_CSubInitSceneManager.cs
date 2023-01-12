@@ -48,7 +48,7 @@ namespace InitScene {
 		/** 씬을 설정한다 */
 		protected override void Setup() {
 			base.Setup();
-			this.MainCamera.clearFlags = CameraClearFlags.SolidColor;
+			CSceneManager.ActiveSceneMainCamera.clearFlags = CameraClearFlags.SolidColor;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 테이블을 생성한다 {
