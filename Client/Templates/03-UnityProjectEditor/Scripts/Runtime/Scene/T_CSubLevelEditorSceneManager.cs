@@ -35,7 +35,7 @@ namespace LevelEditorScene {
 
 			ME_UIS_MSG_TEXT,
 			ME_UIS_LEVEL_TEXT,
-			ME_UIS_OBJ_SIZE_TEXT,
+			ME_UIS_CELL_OBJ_SIZE_TEXT,
 			ME_UIS_SEL_OBJ_IMG,
 
 			ME_UIS_PREV_GRID_BTN,
@@ -79,8 +79,8 @@ namespace LevelEditorScene {
 			RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT,
 			RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT,
 
-			RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT,
-			RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT,
+			RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_X_INPUT,
+			RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_Y_INPUT,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -1206,8 +1206,8 @@ namespace LevelEditorScene {
 
 		/** 에디터 셀 객체 크기를 반환한다 */
 		private Vector3Int GetEditorCellObjSize() {
-			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.text, NumberStyles.Any, null, out int nSizeX);
-			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.text, NumberStyles.Any, null, out int nSizeY);
+			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_X_INPUT]?.text, NumberStyles.Any, null, out int nSizeX);
+			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_Y_INPUT]?.text, NumberStyles.Any, null, out int nSizeY);
 
 			return new Vector3Int(bIsValid01 ? nSizeX : KCDefine.B_VAL_1_INT, bIsValid02 ? nSizeY : KCDefine.B_VAL_1_INT, KCDefine.B_VAL_1_INT);
 		}
@@ -1248,7 +1248,7 @@ namespace LevelEditorScene {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 				(EKey.ME_UIS_MSG_TEXT, $"{EKey.ME_UIS_MSG_TEXT}", this.MidEditorUIs),
 				(EKey.ME_UIS_LEVEL_TEXT, $"{EKey.ME_UIS_LEVEL_TEXT}", this.MidEditorUIs),
-				(EKey.ME_UIS_OBJ_SIZE_TEXT, $"{EKey.ME_UIS_OBJ_SIZE_TEXT}", this.MidEditorUIs)
+				(EKey.ME_UIS_CELL_OBJ_SIZE_TEXT, $"{EKey.ME_UIS_CELL_OBJ_SIZE_TEXT}", this.MidEditorUIs)
 			}, m_oTextDict);
 
 			// 이미지를 설정한다
@@ -1287,7 +1287,7 @@ namespace LevelEditorScene {
 
 			// 텍스트를 갱신한다
 			m_oTextDict[EKey.ME_UIS_LEVEL_TEXT]?.ExSetText<Text>(string.Format(KCDefine.LES_TEXT_FMT_LEVEL, this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT), false);
-			m_oTextDict[EKey.ME_UIS_OBJ_SIZE_TEXT]?.ExSetText<Text>(string.Format(KCDefine.LES_TEXT_FMT_SIZE, m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.text, m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.text), false);
+			m_oTextDict[EKey.ME_UIS_CELL_OBJ_SIZE_TEXT]?.ExSetText<Text>(string.Format(KCDefine.LES_TEXT_FMT_SIZE, m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_X_INPUT]?.text, m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_Y_INPUT]?.text), false);
 
 			// 이미지를 갱신한다
 			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.gameObject.SetActive(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid());
@@ -1673,12 +1673,12 @@ namespace LevelEditorScene {
 		private void SetupREUIsPageUIs02(GameObject a_oPageUIs) {
 			// 입력 필드를 설정한다 {
 			CFunc.SetupInputs(new List<(EKey, string, GameObject, UnityAction<string>)>() {
-				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02ObjSizeInputStr),
-				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02ObjSizeInputStr)
+				(EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjSizeInputStr),
+				(EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjSizeInputStr)
 			}, m_oInputDict);
 
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_1_INT);
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_1_INT);
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_X_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_1_INT);
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_Y_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_1_INT);
 			// 입력 필드를 설정한다 }
 
 			// 탭 UI 를 설정한다 {
@@ -1896,7 +1896,7 @@ namespace LevelEditorScene {
 
 			// 객체 정보가 존재 할 경우
 			if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && CObjInfoTable.Inst.TryGetObjInfo(a_eObjKinds, out STObjInfo stObjInfo)) {
-				this.SetREUIsPageUIs02ObjSize((int)stObjInfo.m_stSize.x, (int)stObjInfo.m_stSize.y);
+				this.SetREUIsPageUIs02CellObjSize((int)stObjInfo.m_stSize.x, (int)stObjInfo.m_stSize.y);
 			}
 
 			this.UpdateUIsState();
@@ -1916,12 +1916,12 @@ namespace LevelEditorScene {
 			this.SetREUIsPageUIs01NumCells(bIsValid01 ? nNumCellsX : KCDefine.B_VAL_1_INT, bIsValid02 ? nNumCellsY : KCDefine.B_VAL_1_INT);
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기 입력 문자열을 변경했을 경우 */
-		private void OnChangeREUIsPageUIs02ObjSizeInputStr(string a_oStr) {
-			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.text, NumberStyles.Any, null, out int nSizeX);
-			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.text, NumberStyles.Any, null, out int nSizeY);
+		/** 오른쪽 에디터 UI 페이지 UI 2 셀 객체 크기 입력 문자열을 변경했을 경우 */
+		private void OnChangeREUIsPageUIs02CellObjSizeInputStr(string a_oStr) {
+			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_X_INPUT]?.text, NumberStyles.Any, null, out int nSizeX);
+			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_Y_INPUT]?.text, NumberStyles.Any, null, out int nSizeY);
 
-			this.SetREUIsPageUIs02ObjSize(bIsValid01 ? nSizeX : KCDefine.B_VAL_1_INT, bIsValid02 ? nSizeY : KCDefine.B_VAL_1_INT);
+			this.SetREUIsPageUIs02CellObjSize(bIsValid01 ? nSizeX : KCDefine.B_VAL_1_INT, bIsValid02 ? nSizeY : KCDefine.B_VAL_1_INT);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		#endregion // 조건부 함수
@@ -1934,10 +1934,10 @@ namespace LevelEditorScene {
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.y, NSEngine.KDefine.E_MAX_NUM_CELLS.y)}");
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기를 변경한다 */
-		private void SetREUIsPageUIs02ObjSize(int a_nSizeX, int a_nSizeY) {
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nSizeX, KCDefine.B_VAL_1_INT, this.SelLevelInfo.NumCells.x)}");
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nSizeY, KCDefine.B_VAL_1_INT, this.SelLevelInfo.NumCells.y)}");
+		/** 오른쪽 에디터 UI 페이지 UI 2 셀 객체 크기를 변경한다 */
+		private void SetREUIsPageUIs02CellObjSize(int a_nSizeX, int a_nSizeY) {
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_X_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nSizeX, KCDefine.B_VAL_1_INT, this.SelLevelInfo.NumCells.x)}");
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SIZE_Y_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nSizeY, KCDefine.B_VAL_1_INT, this.SelLevelInfo.NumCells.y)}");
 
 			this.UpdateUIsState();
 		}
