@@ -29,13 +29,16 @@ namespace NSEngine {
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
 #if NEVER_USE_THIS
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
-				var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds), null);
-				oCellObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);				
-				
-				oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
-				oCellObj.SetCellObjInfo(a_stCellInfo.m_oCellObjInfoList[i]);
+				// 객체 종류가 유효 할 경우
+				if(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds.ExIsValid() && a_stCellInfo.m_oCellObjInfoList[i].ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
+					var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds), null);
+					oCellObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);				
+					
+					oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
+					oCellObj.SetCellObjInfo(a_stCellInfo.m_oCellObjInfoList[i]);
 
-				oCellObjList.ExAddVal(oCellObj);
+					oCellObjList.ExAddVal(oCellObj);
+				}
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 			}

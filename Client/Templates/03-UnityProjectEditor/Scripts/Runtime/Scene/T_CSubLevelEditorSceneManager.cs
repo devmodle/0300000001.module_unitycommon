@@ -369,7 +369,7 @@ namespace LevelEditorScene {
 							this.SetMEUIsGridScrollDelta(m_oRealDict[EKey.GRID_SCROLL_DELTA_X] + fScrollDeltaX, m_oRealDict[EKey.GRID_SCROLL_DELTA_Y] - fScrollDeltaY);
 						}
 
-						bool bIsValid01 = this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS] != EObjKinds.NONE;
+						bool bIsValid01 = m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid() && this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx);
 						bool bIsValid02 = m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos);
 
 						Color stColor = this.IsEnableAddCellObjInfo(stIdx, this.GetEditorCellObjSize(), m_oObjKindsDict[EKey.SEL_OBJ_KINDS]) ? Color.white : Color.red;
@@ -1275,7 +1275,7 @@ namespace LevelEditorScene {
 			m_oTextDict[EKey.ME_UIS_LEVEL_TEXT]?.ExSetText<Text>(string.Format(KCDefine.LES_TEXT_FMT_LEVEL, this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT), false);
 
 			// 이미지를 갱신한다
-			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.gameObject.SetActive(m_oObjKindsDict[EKey.SEL_OBJ_KINDS] != EObjKinds.NONE);
+			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.gameObject.SetActive(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid());
 			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetSprite<Image>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
 
 			// 버튼을 갱신한다 {
@@ -1381,7 +1381,7 @@ namespace LevelEditorScene {
 					var stIdx = new Vector3Int(a_nIdx, i, KCDefine.B_VAL_0_INT);
 
 					// 객체 추가가 가능 할 경우
-					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS] != EObjKinds.NONE) {
+					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
 						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorCellObjSize()), stIdx);
 					}
 					// 객체 제거가 가능 할 경우
@@ -1402,7 +1402,7 @@ namespace LevelEditorScene {
 					var stIdx = new Vector3Int(i, a_nIdx, KCDefine.B_VAL_0_INT);
 
 					// 객체 추가가 가능 할 경우
-					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS] != EObjKinds.NONE) {
+					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
 						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorCellObjSize()), stIdx);
 					}
 					// 객체 제거가 가능 할 경우
@@ -1828,7 +1828,7 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 1 모든 셀 채우기 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs01FillAllCellsBtn() {
 			// 그리드 정보가 존재 할 경우
-			if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS] != EObjKinds.NONE && m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
+			if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid() && m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				for(int i = 0; i < this.SelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < this.SelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
 						var stIdx = new Vector3Int(j, i, KCDefine.B_VAL_0_INT);
@@ -1857,7 +1857,7 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 1 선택 셀 지우기 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs01ClearSelCellsBtn() {
 			// 그리드 정보가 존재 할 경우
-			if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS] != EObjKinds.NONE && m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
+			if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid() && m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				for(int i = 0; i < this.SelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < this.SelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
 						this.RemoveCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], new Vector3Int(j, i, KCDefine.B_VAL_0_INT));

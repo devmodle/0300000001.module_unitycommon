@@ -119,7 +119,7 @@ namespace LevelEditorScene {
 				var stCellInfo = this.SelLevelInfo.GetCellInfo(stIdx);
 
 				// 객체 추가가 가능 할 경우
-				if(Input.GetMouseButton((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS] != EObjKinds.NONE) {
+				if(Input.GetMouseButton((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
 					this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorCellObjSize()), stIdx);
 				}
 				// 객체 제거가 가능 할 경우
