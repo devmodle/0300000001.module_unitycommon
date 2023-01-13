@@ -168,7 +168,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 	#endregion // 변수
 
 	#region 상수
-	public static readonly STCellInfo INVALID = new STCellInfo() {
+	public static readonly STCellInfo INVALID = new STCellInfo(null) {
 		m_stIdx = KCDefine.B_IDX_INVALID_3D
 	};
 	#endregion // 상수
@@ -200,6 +200,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 	/** 생성자 */
 	public STCellInfo(Dictionary<string, string> a_oStrDict) : this() {
 		m_stBaseInfo = new STBaseInfo(a_oStrDict);
+		m_oCellObjInfoList = m_oCellObjInfoList ?? new List<STCellObjInfo>();
 	}
 
 	/** 사본 객체를 설정한다 */
@@ -403,7 +404,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 함수
 	/** 레벨 정보를 로드한다 */
 	public CLevelInfo LoadLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return this.LoadLevelInfo(this.GetLevelInfoPath(a_nLevelID, a_nStageID, a_nChapterID), a_nLevelID, a_nStageID, a_nChapterID);
+		return this.LoadLevelInfo(this.GetLevelInfoLoadPath(a_nLevelID, a_nStageID, a_nChapterID), a_nLevelID, a_nStageID, a_nChapterID);
 	}
 
 	/** 레벨 정보를 로드한다 */
@@ -465,9 +466,9 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		a_oOutLevelIDList.Add(a_oLevelInfo.m_stIDInfo.UniqueID01);
 
 #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
-		CFunc.WriteMsgPackObj(this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, false);
+		CFunc.WriteMsgPackObj(this.GetLevelInfoSavePath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03), a_oLevelInfo, false);
 #elif NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-		string oFilePath = this.GetLevelInfoPath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03);
+		string oFilePath = this.GetLevelInfoSavePath(a_oLevelInfo.m_stIDInfo.m_nID01, a_oLevelInfo.m_stIDInfo.m_nID02, a_oLevelInfo.m_stIDInfo.m_nID03);
 		CFunc.WriteJSONObj(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), a_oLevelInfo, false);
 #endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 	}
@@ -657,8 +658,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 /** 레벨 정보 테이블 - 접근 */
 public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 함수
-	/** 레벨 정보 경로를 반환한다 */
-	private string GetLevelInfoPath(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	/** 레벨 정보 로드 경로를 반환한다 */
+	private string GetLevelInfoLoadPath(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		ulong nULevelID = CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID);
 
 #if AB_TEST_ENABLE
@@ -667,6 +668,17 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #else
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
 		return File.Exists(oFilePath) ? oFilePath : string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
+#endif // #if AB_TEST_ENABLE
+	}
+
+	/** 레벨 정보 저장 경로를 반환한다 */
+	private string GetLevelInfoSavePath(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		ulong nULevelID = CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID);
+
+#if AB_TEST_ENABLE
+		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
+#else
+		return string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
 #endif // #if AB_TEST_ENABLE
 	}
 	#endregion // 함수
