@@ -15,7 +15,7 @@ using MessagePack;
 public partial class CAppInfo : CBaseInfo {
 	#region 변수
 	[Key(141)] public Dictionary<string, string> m_oTableVerDict = new Dictionary<string, string>();
-	[IgnoreMember][System.NonSerialized] public Dictionary<string, System.Version> m_oTableSysVerDict = new Dictionary<string, System.Version>();
+	[IgnoreMember] [System.NonSerialized] public Dictionary<string, System.Version> m_oTableSysVerDict = new Dictionary<string, System.Version>();
 	#endregion // 변수
 
 	#region 상수

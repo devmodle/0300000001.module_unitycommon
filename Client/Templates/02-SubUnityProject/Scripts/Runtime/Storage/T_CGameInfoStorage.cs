@@ -18,7 +18,7 @@ public partial class CClearInfo : CBaseInfo {
 	#region 변수
 	[Key(1)] public STRecordInfo m_stRecordInfo;
 	[Key(2)] public STRecordInfo m_stBestRecordInfo;
-	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
+	[IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
 	#endregion // 변수
 
 	#region 상수

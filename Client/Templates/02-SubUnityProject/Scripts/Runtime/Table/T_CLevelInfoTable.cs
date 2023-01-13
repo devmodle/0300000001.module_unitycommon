@@ -21,12 +21,22 @@ using Newtonsoft.Json;
 public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
 	#region 변수
 	[Key(0)] public STBaseInfo m_stBaseInfo;
+
+#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stSize;
+#else
+	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stSize;
+#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 변수
 
 	#region 상수
 	public static readonly STCellObjInfo INVALID = new STCellObjInfo(null) {
 		ObjKinds = EObjKinds.NONE
 	};
+
+	private const string KEY_SIZE_X = "SizeX";
+	private const string KEY_SIZE_Y = "SizeY";
+	private const string KEY_SIZE_Z = "SizeZ";
 
 	private const string KEY_OBJ_KINDS = "ObjKinds";
 	#endregion // 상수
@@ -35,11 +45,50 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore]
 	[IgnoreMember]
+	public int SizeX {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_X, $"{value}"); }
+	}
+
+	[JsonIgnore]
+	[IgnoreMember]
+	public int SizeY {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Y, $"{value}"); }
+	}
+
+	[JsonIgnore]
+	[IgnoreMember]
+	public int SizeZ {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Z, $"{value}"); }
+	}
+
+	[JsonIgnore]
+	[IgnoreMember]
 	public EObjKinds ObjKinds {
 		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
 	}
 #else
+	[IgnoreMember]
+	public int SizeX {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_X, $"{value}"); }
+	}
+
+	[IgnoreMember]
+	public int SizeY {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Y, $"{value}"); }
+	}
+	
+	[IgnoreMember]
+	public int SizeZ {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Z, $"{value}"); }
+	}
+
 	[IgnoreMember]
 	public EObjKinds ObjKinds {
 		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
@@ -62,12 +111,14 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public void OnBeforeSerialize() {
-		// Do Something
+		this.SizeX = m_stSize.x;
+		this.SizeY = m_stSize.y;
+		this.SizeZ = m_stSize.z;
 	}
 
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
-		// Do Something
+		m_stSize = new Vector3Int(this.SizeX, this.SizeY, this.SizeZ);
 	}
 	#endregion // IMessagePackSerializationCallbackReceiver
 
@@ -110,9 +161,9 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 	[Key(71)] public List<STCellObjInfo> m_oCellObjInfoList;
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
+	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stIdx;
 #else
-	[IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
+	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stIdx;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 변수
 
@@ -186,9 +237,9 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[Key(165)] public Dictionary<int, Dictionary<int, STCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, STCellInfo>>();
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
+	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
 #else
-	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
+	[IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 변수
 
@@ -213,11 +264,11 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
-	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
-	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
+	[JsonIgnore] [IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
+	[JsonIgnore] [IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 
-	[JsonIgnore][IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
-	[JsonIgnore][IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
+	[JsonIgnore] [IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
+	[JsonIgnore] [IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_1_INT);
 #else
 	[IgnoreMember]
 	public EGridPivot GridPivot {
@@ -235,7 +286,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 
 	[IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
-	[IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_0_INT);
+	[IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_1_INT);
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 프로퍼티
 

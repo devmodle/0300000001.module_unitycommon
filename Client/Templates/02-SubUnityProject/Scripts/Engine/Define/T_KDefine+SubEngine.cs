@@ -44,7 +44,8 @@ namespace NSEngine {
 		};
 
 		public static readonly Dictionary<EObjKinds, string> E_IMG_P_OBJ_DICT = new Dictionary<EObjKinds, string>() {
-			[EObjKinds.BG_EMPTY_01] = EObjKinds.BG_EMPTY_01.ToString()
+			[EObjKinds.BG_EMPTY_01] = EObjKinds.BG_EMPTY_01.ToString(),
+			[EObjKinds.BG_PLACEHOLDER_01] = EObjKinds.BG_PLACEHOLDER_01.ToString()
 		};
 		// 경로 }
 		#endregion // 런타임 상수
