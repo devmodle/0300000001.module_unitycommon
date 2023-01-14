@@ -9,11 +9,11 @@ using UnityEngine.Events;
 namespace SetupScene {
 	/** 서브 설정 씬 관리자 */
 	public partial class CSubSetupSceneManager : CSetupSceneManager {
-#region 변수
+		#region 변수
 		[SerializeField] private SystemLanguage m_eSystemLanguage = SystemLanguage.Unknown;
-#endregion // 변수
+		#endregion // 변수
 
-#region 함수
+		#region 함수
 		/** 씬을 설정한다 */
 		protected override void Setup() {
 			base.Setup();
@@ -50,6 +50,10 @@ namespace SetupScene {
 			// 공용 앱 정보를 설정한다 {
 			CCommonAppInfoStorage.Inst.SetStoreURL(Access.StoreURL);
 
+#if ADS_MODULE_ENABLE
+			CCommonAppInfoStorage.Inst.SetAdsPlatform(CPluginInfoTable.Inst.AdsPlatform);
+#endif // #if ADS_MODULE_ENABLE
+
 #if LOCALIZE_TEST_ENABLE
 			CCommonAppInfoStorage.Inst.SetSystemLanguage(m_eSystemLanguage);
 #else
@@ -58,7 +62,7 @@ namespace SetupScene {
 			// 공용 앱 정보를 설정한다 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE

@@ -141,15 +141,7 @@ public partial class CStorePopup : CSubPopup {
 			// 버튼을 갱신한다 {
 			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
 			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
-
-#if ADS_MODULE_ENABLE
-			// 보상 광고 상품 일 경우
-			if(a_stProductTradeInfo.m_ePurchaseType == EPurchaseType.ADS) {
-				var oTouchInteractable = oPurchaseBtn?.gameObject.ExAddComponent<CRewardAdsTouchInteractable>();
-				oTouchInteractable?.SetAdsPlatform(CPluginInfoTable.Inst.AdsPlatform);
-			}
-#endif // #if ADS_MODULE_ENABLE
-
+			
 #if PURCHASE_MODULE_ENABLE
 			var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductTradeInfo.m_nProductIdx);
 

@@ -57,8 +57,8 @@ namespace GameScene {
 			[EKey.SEL_REWARD_ADS_UIS] = ERewardAdsUIs.NONE
 		};
 
-		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 		private NSEngine.CEngine m_oEngine = null;
+		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
 		/** =====> 객체 <===== */
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();

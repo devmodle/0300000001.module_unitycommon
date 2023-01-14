@@ -147,12 +147,11 @@ namespace LevelEditorScene {
 			[EKey.PREV_CELL_IDX] = new Vector3Int(KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID)
 		};
 
-		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
-
 		private Sprite m_oGridBoundsImg = null;
 		private Texture2D m_oGridBoundsTex2D = null;
 		private List<LineRenderer> m_oGridLineFXList = new List<LineRenderer>();
 
+		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oSubMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 
@@ -175,6 +174,9 @@ namespace LevelEditorScene {
 			[EKey.SEL_SCROLLER] = null
 		};
 
+		private List<Button> m_oGridLineBtnHList = new List<Button>();
+		private List<Button> m_oGridLineBtnVList = new List<Button>();
+
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
 		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
@@ -182,9 +184,6 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, Scrollbar> m_oScrollBarDict = new Dictionary<EKey, Scrollbar>();
 		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
 		private Dictionary<EKey, STScrollerInfo> m_oScrollerInfoDict = new Dictionary<EKey, STScrollerInfo>();
-
-		private List<Button> m_oGridLineBtnHList = new List<Button>();
-		private List<Button> m_oGridLineBtnVList = new List<Button>();
 
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
@@ -1158,7 +1157,7 @@ namespace LevelEditorScene {
 		private bool IsContainsCellInfo(Vector3Int a_stIdx, Vector3Int a_stSize) {
 			for(int i = 0; i < a_stSize.y; ++i) {
 				for(int j = 0; j < a_stSize.x; ++j) {
-					var stIdx = new Vector3Int(a_stIdx.x + i, a_stIdx.y + j, a_stIdx.z);
+					var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
 
 					// 인덱스가 유효 할 경우
 					if(!this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx)) {
@@ -1179,7 +1178,7 @@ namespace LevelEditorScene {
 
 			for(int i = 0; i < a_stSize.y; ++i) {
 				for(int j = 0; j < a_stSize.x; ++j) {
-					var stIdx = new Vector3Int(a_stIdx.x + i, a_stIdx.y + j, a_stIdx.z);
+					var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
 					this.SelLevelInfo.TryGetCellInfo(stIdx, out STCellInfo stCellInfo);
 
 					int nIdx01 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == a_eObjKinds);
@@ -1862,7 +1861,7 @@ namespace LevelEditorScene {
 			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				for(int i = 0; i < this.SelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < this.SelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-						this.RemoveCellObjInfo(EObjKinds.NONE, new Vector3Int(j, i, KCDefine.B_VAL_0_INT));
+						this.SelLevelInfo.m_oCellInfoDictContainer[i][j].m_oCellObjInfoList.Clear();
 					}
 				}
 
