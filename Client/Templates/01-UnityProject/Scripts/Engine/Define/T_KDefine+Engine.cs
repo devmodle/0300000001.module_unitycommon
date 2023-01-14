@@ -46,6 +46,10 @@ namespace NSEngine {
 		public static readonly Vector3 E_PADDING_GRID = new Vector3(0.0f, 0.0f, 0.0f);
 		// 간격 }
 
+		// 크기
+		public static readonly Vector3 E_MAX_GRID_SIZE_PORTRAIT = new Vector3(KCDefine.B_PORTRAIT_SCREEN_WIDTH - KDefine.E_PADDING_GRID.x, KCDefine.B_PORTRAIT_SCREEN_WIDTH - KDefine.E_PADDING_GRID.y, 0.0f);
+		public static readonly Vector3 E_MAX_GRID_SIZE_LANDSCAPE = new Vector3(KCDefine.B_LANDSCAPE_SCREEN_HEIGHT - KDefine.E_PADDING_GRID.x, KCDefine.B_LANDSCAPE_SCREEN_HEIGHT - KDefine.E_PADDING_GRID.y, 0.0f);
+
 		// 경로 {
 		public static readonly string E_OBJ_P_ITEM = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_Item";
 		public static readonly string E_OBJ_P_SKILL = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_Skill";
