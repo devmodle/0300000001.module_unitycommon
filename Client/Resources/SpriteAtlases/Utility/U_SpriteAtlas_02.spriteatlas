@@ -91,13 +91,18 @@ SpriteAtlas:
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
-    packables: []
+    packables:
+    - {fileID: 102900000, guid: 35217750daaf543e78156686544690e5, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 83e627413c91e416ebb3a2af4dd79bea, type: 3}
+  - {fileID: 21300000, guid: 3a16346fbc53648d783129646ab534e6, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - LES_BG_EMPTY_01
+  - LES_BG_PLACEHOLDER_01
   m_RenderDataMap: {}
   m_Tag: U_SpriteAtlas_02
   m_IsVariant: 0

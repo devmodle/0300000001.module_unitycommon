@@ -879,8 +879,8 @@ namespace LevelEditorScene {
 							int nIdx = stCellInfo.m_oCellObjInfoList.FindIndex((a_stFindCellObjInfo) => a_stFindCellObjInfo.ObjKinds == a_stCellObjInfo.ObjKinds);
 
 							// 셀 객체 정보가 존재 할 경우
-							if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx)) {
-								this.RemoveCellObjInfo(a_stCellObjInfo.ObjKinds, a_stIdx);
+							if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) || (!a_bIsEnableOverlay && Input.GetKey(KeyCode.LeftShift))) {
+								this.RemoveCellObjInfo(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) ? a_stCellObjInfo.ObjKinds : EObjKinds.NONE, a_stIdx);
 							}
 
 							stCellInfo.m_oCellObjInfoList.ExAddVal(a_stCellObjInfo);
@@ -1183,7 +1183,7 @@ namespace LevelEditorScene {
 					this.SelLevelInfo.TryGetCellInfo(stIdx, out STCellInfo stCellInfo);
 
 					int nIdx01 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == a_eObjKinds);
-					int nIdx02 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds != a_eObjKinds);
+					int nIdx02 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => Input.GetKey(KeyCode.LeftShift) ? a_stCellObjInfo.ObjKinds == EObjKinds.BG_PLACEHOLDER_01 : a_stCellObjInfo.ObjKinds != a_eObjKinds);
 
 					bool bIsValid01 = stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx01) && !stIdx.Equals(a_stIdx);
 					bool bIsValid02 = stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx02);
