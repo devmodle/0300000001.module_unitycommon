@@ -36,7 +36,7 @@ namespace LevelEditorScene {
 		public override bool IsIgnoreBGTouchResponder => false;
 
 		public override float ScreenWidth => KCDefine.B_PORTRAIT_SCREEN_WIDTH;
-		public override float ScreenHeight => KCDefine.B_PORTRAIT_SCREEN_HEIGHT;
+		public override float ScreenHeight => KCDefine.B_PORTRAIT_SCREEN_HEIGHT * KCDefine.LES_SCALE_SCREEN_SIZE;
 
 		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
 		public override EProjection MainCameraProjection => EProjection._3D;
