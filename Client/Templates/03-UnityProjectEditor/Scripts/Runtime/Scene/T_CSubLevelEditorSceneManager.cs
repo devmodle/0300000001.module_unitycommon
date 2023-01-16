@@ -345,6 +345,7 @@ namespace LevelEditorScene {
 				// 단축키를 눌렀을 경우
 				if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
 					this.HandleHotKeys();
+					CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(null);
 				}
 
 				// 메인 카메라가 존재 할 경우
@@ -381,9 +382,9 @@ namespace LevelEditorScene {
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.SetActive(false);
 					}
 				}
-
+				
 				// 일정 시간이 지났을 경우
-				if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(KCDefine.B_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_1_REAL)) {
+				if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(KCDefine.B_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL)) {
 					m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
 					this.OnTouchMEUIsSaveBtn();
 				}
@@ -487,6 +488,15 @@ namespace LevelEditorScene {
 			// 다음 레벨 키를 눌렀을 경우
 			else if(Input.GetKeyDown(KeyCode.S)) {
 				this.OnTouchMEUIsNextLevelBtn();
+			}
+
+			// 로컬 테이블 로드 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.L)) {
+				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.LOCAL);
+			}
+			// 원격 테이블 로드 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.R)) {
+				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
 			}
 
 			// 모든 셀 채우기 키를 눌렀을 경우
