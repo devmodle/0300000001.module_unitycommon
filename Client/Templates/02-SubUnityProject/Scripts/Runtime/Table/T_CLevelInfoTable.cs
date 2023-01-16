@@ -24,8 +24,10 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stSize;
+	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stBaseIdx;
 #else
 	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stSize;
+	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stBaseIdx;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 변수
 
@@ -193,6 +195,17 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
 		m_oCellObjInfoList = m_oCellObjInfoList ?? new List<STCellObjInfo>();
+
+		for(int i = 0; i < m_oCellObjInfoList.Count; ++i) {
+			for(int j = 0; j < m_oCellObjInfoList[i].m_stSize.y; ++j) {
+				for(int k = 0; k < m_oCellObjInfoList[i].m_stSize.x; ++k) {
+					var stCellObjInfo = m_oCellObjInfoList[i];
+					stCellObjInfo.m_stBaseIdx = new Vector3Int(m_stIdx.x + k, m_stIdx.y + j, m_stIdx.z);
+
+					m_oCellObjInfoList[i] = stCellObjInfo;
+				}
+			}
+		}
 	}
 	#endregion // IMessagePackSerializationCallbackReceiver
 
@@ -404,9 +417,12 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 함수
 	/** 레벨 정보를 로드한다 */
 	public CLevelInfo LoadLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return this.LoadLevelInfo(this.GetLevelInfoLoadPath(a_nLevelID, a_nStageID, a_nChapterID), a_nLevelID, a_nStageID, a_nChapterID);
+#if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
+		return this.LoadLevelInfo(this.GetLevelInfoLoadPath(a_nLevelID, KCDefine.B_FILE_EXTENSION_BYTES, a_nStageID, a_nChapterID), a_nLevelID, a_nStageID, a_nChapterID);
+#else
+		return this.LoadLevelInfo(this.GetLevelInfoLoadPath(a_nLevelID, KCDefine.B_FILE_EXTENSION_JSON, a_nStageID, a_nChapterID), a_nLevelID, a_nStageID, a_nChapterID);
+#endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 	}
-
 	/** 레벨 정보를 로드한다 */
 	public Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos() {
 		return this.LoadLevelInfos(Access.LevelInfoTableLoadPath);
@@ -659,15 +675,15 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#region 함수
 	/** 레벨 정보 로드 경로를 반환한다 */
-	private string GetLevelInfoLoadPath(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	private string GetLevelInfoLoadPath(int a_nLevelID, string a_oFileExtension, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		ulong nULevelID = CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID);
 
 #if AB_TEST_ENABLE
 		string oFilePath = string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
-		return File.Exists(oFilePath) ? oFilePath : string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
+		return File.Exists(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, a_oFileExtension)) ? oFilePath : string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
 #else
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
-		return File.Exists(oFilePath) ? oFilePath : string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
+		return File.Exists(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, a_oFileExtension)) ? oFilePath : string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
 #endif // #if AB_TEST_ENABLE
 	}
 

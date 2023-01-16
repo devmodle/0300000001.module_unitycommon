@@ -222,7 +222,6 @@ namespace LateSetupScene {
 			CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_NEXT_SCENE, false);
 
 			CCommonAppInfoStorage.Inst.SetupStoreVer();
-			CCommonAppInfoStorage.Inst.SetFirstStart(true);
 
 			this.ExLateCallFunc((a_oSender) => {
 #if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE

@@ -884,7 +884,7 @@ namespace LevelEditorScene {
 
 							stCellInfo.m_oCellObjInfoList.ExAddVal(a_stCellObjInfo);
 						} else {
-							stCellInfo.m_oCellObjInfoList.ExAddVal(Factory.MakeEditorCellObjInfo(EObjKinds.BG_PLACEHOLDER_01, Vector3Int.one));
+							stCellInfo.m_oCellObjInfoList.ExAddVal(Factory.MakeEditorCellObjInfo(EObjKinds.BG_PLACEHOLDER_01, Vector3Int.one, a_stIdx));
 						}
 					}
 				}
@@ -1171,27 +1171,32 @@ namespace LevelEditorScene {
 
 		/** 셀 객체 추가 가능 여부를 검사한다 */
 		private bool IsEnableAddCellObjInfo(Vector3Int a_stIdx, Vector3Int a_stSize, EObjKinds a_eObjKinds, bool a_bIsReplace = true, bool a_bIsEnableOverlay = false) {
-			// 셀 정보가 없을 경우
-			if(!this.IsContainsCellInfo(a_stIdx, a_stSize)) {
-				return false;
-			}
+			// 셀 정보가 존재 할 경우
+			if(this.IsContainsCellInfo(a_stIdx, a_stSize)) {
+				for(int i = 0; i < a_stSize.y; ++i) {
+					for(int j = 0; j < a_stSize.x; ++j) {
+						var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
+						this.SelLevelInfo.TryGetCellInfo(stIdx, out STCellInfo stExtraCellInfo);
 
-			for(int i = 0; i < a_stSize.y; ++i) {
-				for(int j = 0; j < a_stSize.x; ++j) {
-					var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
-					this.SelLevelInfo.TryGetCellInfo(stIdx, out STCellInfo stCellInfo);
+						int nIdx = stExtraCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => !stIdx.Equals(a_stIdx) && !a_stCellObjInfo.m_stBaseIdx.Equals(a_stIdx));
 
-					int nIdx01 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == a_eObjKinds && (!a_bIsReplace || !a_stIdx.Equals(stIdx)));
-					int nIdx02 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => Input.GetKey(KeyCode.LeftShift) ? a_stCellObjInfo.ObjKinds == EObjKinds.BG_PLACEHOLDER_01 : a_stCellObjInfo.ObjKinds != a_eObjKinds);
-
-					// 셀 객체 추가가 불가능 할 경우
-					if(!a_bIsEnableOverlay && (stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx01) || stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx02))) {
-						return false;
+						// 셀 객체 추가가 불가능 할 경우
+						if(!a_bIsEnableOverlay && stExtraCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx)) {
+							return false;
+						}
 					}
 				}
+
+				this.SelLevelInfo.TryGetCellInfo(a_stIdx, out STCellInfo stCellInfo);
+
+				int nIdx01 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_PLACEHOLDER_01);
+				int nIdx02 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == a_eObjKinds && !a_bIsReplace);
+				int nIdx03 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds != a_eObjKinds && !Input.GetKey(KeyCode.LeftShift));
+
+				return a_bIsEnableOverlay || (!stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx01) && !stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx02) && !stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx03));
 			}
 
-			return true;
+			return false;
 		}
 
 		/** 셀 객체 제거 가능 여부를 검사한다 */
@@ -1393,7 +1398,7 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize()), stIdx, false);
+						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, false);
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
@@ -1414,7 +1419,7 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize()), stIdx, false);
+						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, false);
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && oCellInfoDict[i].m_oCellObjInfoList.ExIsValid()) {
@@ -1846,7 +1851,7 @@ namespace LevelEditorScene {
 						// 객체 추가가 가능 할 경우
 						if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
 							var stIdx = new Vector3Int(j, i, KCDefine.B_VAL_0_INT);
-							this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize()), stIdx, false);
+							this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, false);
 						}
 					}
 				}
