@@ -500,6 +500,24 @@ namespace LevelEditorScene {
 				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
 			}
 
+			// 위쪽 셀 이동 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.UpArrow)) {
+				this.OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection.UP);
+			}
+			// 아래쪽 셀 이동 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.DownArrow)) {
+				this.OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection.DOWN);
+			}
+
+			// 왼쪽 셀 이동 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.LeftArrow)) {
+				this.OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection.LEFT);
+			}
+			// 오른쪽 셀 이동 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.RightArrow)) {
+				this.OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection.RIGHT);
+			}
+
 			// 모든 셀 채우기 키를 눌렀을 경우
 			if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.F)) {
 				this.OnTouchREUIsPageUIs01FillAllCellsBtn();
@@ -876,7 +894,7 @@ namespace LevelEditorScene {
 						var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
 						var stCellInfo = this.SelLevelInfo.GetCellInfo(stIdx);
 
-						// 시작 인덱스 일 경우
+						// 기본 인덱스 일 경우
 						if(stIdx.Equals(a_stIdx)) {
 							int nIdx = stCellInfo.m_oCellObjInfoList.FindIndex((a_stFindCellObjInfo) => a_stFindCellObjInfo.ObjKinds == a_stCellObjInfo.ObjKinds);
 
@@ -916,7 +934,7 @@ namespace LevelEditorScene {
 					for(int j = 0; j < stCellObjInfo.m_stSize.x; ++j) {
 						var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
 
-						// 시작 인덱스 일 경우
+						// 기본 인덱스 일 경우
 						if(stIdx.Equals(a_stIdx)) {
 							this.SelLevelInfo.GetCellInfo(stIdx).m_oCellObjInfoList.ExRemoveVal((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == stCellObjInfo.ObjKinds);
 						} else {
@@ -1891,6 +1909,13 @@ namespace LevelEditorScene {
 			}
 		}
 
+		/** 오른쪽 에디터 UI 페이지 UI 1 모든 셀 이동 버튼을 눌렀을 경우 */
+		private void OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection a_eDirection) {
+			var stBaseIdx = this.GetGridBaseIdx(a_eDirection);
+
+			// TODO: 셀 이동 처리 구현 예정
+		}
+
 		/** 오른쪽 에디터 UI 페이지 UI 1 테이블 로드 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc a_eTableSrc) {
 			m_oTableSrcDict[EKey.SEL_TABLE_SRC] = a_eTableSrc;
@@ -1935,6 +1960,18 @@ namespace LevelEditorScene {
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		/** 그리드 기본 인덱스를 반환한다 */
+		private Vector3Int GetGridBaseIdx(EDirection a_eDirection) {
+			switch(a_eDirection) {
+				case EDirection.UP: return new Vector3Int(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT);
+				case EDirection.DOWN: return new Vector3Int(KCDefine.B_VAL_0_INT, this.SelLevelInfo.NumCells.y - KCDefine.B_VAL_1_INT, KCDefine.B_VAL_0_INT);
+				case EDirection.LEFT: return new Vector3Int(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT);
+				case EDirection.RIGHT: return new Vector3Int(this.SelLevelInfo.NumCells.x - KCDefine.B_VAL_1_INT, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT);
+			}
+
+			return KCDefine.B_IDX_INVALID_3D;
+		}
+
 		/** 오른쪽 에디터 UI 페이지 UI 1 셀 개수를 변경한다 */
 		private void SetREUIsPageUIs01NumCells(int a_nNumCellsX, int a_nNumCellsY) {
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nNumCellsX, NSEngine.KDefine.E_MIN_NUM_CELLS.x, NSEngine.KDefine.E_MAX_NUM_CELLS.x)}");
