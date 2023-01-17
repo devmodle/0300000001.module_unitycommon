@@ -578,42 +578,34 @@ namespace LevelEditorScene {
 			// 객체를 설정한다 {
 			this.ObjRoot.transform.localScale = this.SelGridInfo.m_stScale.ExIsValid() ? this.SelGridInfo.m_stScale : Vector3.one;
 
-			this.EditorObjRoot.transform.localScale = KDefine.LES_SCALE_EDITOR_OBJ_ROOT * KCDefine.LES_SCALE_SCREEN_SIZE;
+			this.EditorObjRoot.transform.localScale = KDefine.LES_SCALE_EDITOR_OBJ_ROOT;
 			this.EditorObjRoot.transform.localPosition = this.ObjRootPivotPos;
 			// 객체를 설정한다 }
 
 			// 그리드 라인 효과를 설정한다 {
 			m_oGridLineFXList.Clear();
 
-			for(int i = 0; i <= this.SelLevelInfo.NumCells.x; ++i) {
-				var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
-				oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
-				oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
-				oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
+			for(int i = 0; i < this.SelLevelInfo.NumCells.y; ++i) {
+				for(int j = 0; j < this.SelLevelInfo.NumCells.x; ++j) {
+					var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
+					oLineFX.loop = true;
 
-				oLineFX.ExSetPositions(new List<Vector3>() {
-					this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL),
-					this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_REAL)
-				});
+					oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
+					oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
+					oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
 
-				m_oGridLineFXList.ExAddVal(oLineFX);
-			}
+					oLineFX.ExSetPositions(new List<Vector3>() {
+						this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, (j + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+						this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, j * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+						this.SelGridInfo.m_stPivotPos + new Vector3((i + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, j * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+						this.SelGridInfo.m_stPivotPos + new Vector3((i + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, (j + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL)
+					});
 
-			for(int i = 0; i <= this.SelLevelInfo.NumCells.y; ++i) {
-				var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
-				oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
-				oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
-				oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
-
-				oLineFX.ExSetPositions(new List<Vector3>() {
-					this.SelGridInfo.m_stPivotPos + new Vector3(KCDefine.B_VAL_0_REAL, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
-					this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL)
-				});
-
-				m_oGridLineFXList.ExAddVal(oLineFX);
+					m_oGridLineFXList.ExAddVal(oLineFX);	
+				}
 			}
 			// 그리드 라인 효과를 설정한다 }
-
+			
 			// 객체 스프라이트를 설정한다 {
 			m_oObjSpriteInfoLists = new List<STObjSpriteInfo>[this.SelLevelInfo.NumCells.y, this.SelLevelInfo.NumCells.x];
 
@@ -710,7 +702,7 @@ namespace LevelEditorScene {
 				oGridScrollBarH.size = this.SelGridInfo.m_stViewBounds.size.x / this.SelGridInfo.m_stBounds.size.x;
 
 				(oGridScrollBarH.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
-				(oGridScrollBarH.transform as RectTransform).sizeDelta = new Vector3(m_oGridBoundsImg.bounds.size.x * KCDefine.LES_SCALE_SCREEN_SIZE, (oGridScrollBarH.transform as RectTransform).sizeDelta.y, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarH.transform as RectTransform).sizeDelta = new Vector3(m_oGridBoundsImg.bounds.size.x * this.EditorObjRoot.transform.localScale.x, (oGridScrollBarH.transform as RectTransform).sizeDelta.y, KCDefine.B_VAL_0_REAL);
 				(oGridScrollBarH.transform as RectTransform).anchoredPosition = new Vector3(KCDefine.B_VAL_0_REAL, ((m_oGridBoundsImg.bounds.size.y / -KCDefine.B_VAL_2_REAL) * this.EditorObjRoot.transform.localScale.y) - ((oGridScrollBarH.transform as RectTransform).sizeDelta.y * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
 			}
 
@@ -719,7 +711,7 @@ namespace LevelEditorScene {
 				oGridScrollBarV.size = this.SelGridInfo.m_stViewBounds.size.y / this.SelGridInfo.m_stBounds.size.y;
 
 				(oGridScrollBarV.transform as RectTransform).pivot = KCDefine.B_ANCHOR_MID_LEFT;
-				(oGridScrollBarV.transform as RectTransform).sizeDelta = new Vector3((oGridScrollBarV.transform as RectTransform).sizeDelta.x, m_oGridBoundsImg.bounds.size.y * KCDefine.LES_SCALE_SCREEN_SIZE, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarV.transform as RectTransform).sizeDelta = new Vector3((oGridScrollBarV.transform as RectTransform).sizeDelta.x, m_oGridBoundsImg.bounds.size.y * this.EditorObjRoot.transform.localScale.y, KCDefine.B_VAL_0_REAL);
 				(oGridScrollBarV.transform as RectTransform).anchoredPosition = new Vector3(((m_oGridBoundsImg.bounds.size.x / KCDefine.B_VAL_2_REAL) * this.EditorObjRoot.transform.localScale.x) + ((oGridScrollBarV.transform as RectTransform).sizeDelta.x * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
 			}
 			// 그리드 스크롤 바를 설정한다 }
