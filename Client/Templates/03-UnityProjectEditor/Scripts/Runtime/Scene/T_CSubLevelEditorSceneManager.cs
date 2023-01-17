@@ -595,10 +595,10 @@ namespace LevelEditorScene {
 					oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
 
 					oLineFX.ExSetPositions(new List<Vector3>() {
-						this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, (j + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
-						this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, j * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
-						this.SelGridInfo.m_stPivotPos + new Vector3((i + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, j * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
-						this.SelGridInfo.m_stPivotPos + new Vector3((i + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, (j + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL)
+						this.SelGridInfo.m_stPivotPos + new Vector3(j * NSEngine.Access.CellSize.x, (i + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+						this.SelGridInfo.m_stPivotPos + new Vector3(j * NSEngine.Access.CellSize.x, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+						this.SelGridInfo.m_stPivotPos + new Vector3((j + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+						this.SelGridInfo.m_stPivotPos + new Vector3((j + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, (i + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL)
 					});
 
 					m_oGridLineFXList.ExAddVal(oLineFX);	
