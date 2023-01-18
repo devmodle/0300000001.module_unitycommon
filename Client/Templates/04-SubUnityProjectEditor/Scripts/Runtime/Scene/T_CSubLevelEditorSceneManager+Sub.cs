@@ -103,7 +103,13 @@ namespace LevelEditorScene {
 
 			// 인덱스가 유효 할 경우
 			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
-				// Do Something
+				bool bIsValid = this.TryGetCellObjInfo(stIdx, EObjKinds.NONE, out STCellObjInfo stCellObjInfo);
+
+				// 셀 객체 정보가 존재 할 경우
+				if(bIsValid && Input.GetKey(CAccess.CmdKeyCode) && stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
+					this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(stCellObjInfo.ObjKinds);
+					this.SetREUIsPageUIs02ObjSize(stCellObjInfo.m_stSize.x, stCellObjInfo.m_stSize.y);
+				}
 			}
 
 			this.HandleTouchMoveEvent(a_oSender, a_oEventData);

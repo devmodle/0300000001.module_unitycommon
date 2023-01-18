@@ -36,6 +36,7 @@ namespace LevelEditorScene {
 			ME_UIS_MSG_TEXT,
 			ME_UIS_LEVEL_TEXT,
 			ME_UIS_OBJ_SIZE_TEXT,
+
 			ME_UIS_SEL_OBJ_IMG,
 
 			ME_UIS_PREV_GRID_BTN,
