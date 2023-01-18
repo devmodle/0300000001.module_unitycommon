@@ -975,6 +975,13 @@ namespace LevelEditorScene {
 			}
 		}
 
+		/** 셀 객체 정보를 제거한다 */
+		private void RemoveCellObjInfos(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+			while(this.IsEnableRemoveCellObjInfo(a_eObjKinds, a_stIdx)) {
+				this.RemoveCellObjInfo(a_eObjKinds, a_stIdx);
+			}
+		}
+
 		/** 레벨 정보를 제거한다 */
 		private void RemoveLevelInfos(EnhancedScroller a_oScroller, STIDInfo a_stIDInfo) {
 			// 레벨 스크롤러 일 경우
@@ -1214,6 +1221,23 @@ namespace LevelEditorScene {
 					if(!this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx)) {
 						return false;
 					}
+				}
+			}
+
+			return true;
+		}
+
+		/** 모든 셀 이동 가능 여부를 검사한다 */
+		private bool IsEnableMoveAllCells(EDirection a_eDirection) {
+			var stIdx = this.GetGridBaseIdx(a_eDirection);
+			int nNumCells = a_eDirection.ExIsVertical() ? this.SelLevelInfo.NumCells.x : this.SelLevelInfo.NumCells.y;
+
+			for(int i = 0; i < nNumCells; ++i) {
+				var stCellIdx = a_eDirection.ExIsVertical() ? new Vector3Int(stIdx.x + i, stIdx.y, KCDefine.B_VAL_0_INT) : new Vector3Int(stIdx.x, stIdx.y + i, KCDefine.B_VAL_0_INT);
+
+				// 셀 객체 정보가 존재 할 경우
+				if(this.SelLevelInfo.m_oCellInfoDictContainer[stCellIdx.y][stCellIdx.x].m_oCellObjInfoList.ExIsValid()) {
+					return false;
 				}
 			}
 
@@ -1949,7 +1973,28 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 모든 셀 이동 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection a_eDirection) {
-			var stBaseIdx = this.GetGridBaseIdx(a_eDirection);
+			// 모든 셀 이동이 가능 할 경우
+			if(this.IsEnableMoveAllCells(a_eDirection)) {
+				var stIdx = this.GetGridBaseIdx(a_eDirection);
+				var stOffset = stIdx.ExGetNextIdx(a_eDirection) - stIdx;
+
+				for(int i = 0; i < this.SelLevelInfo.NumCells.y; ++i) {
+					for(int j = 0; j < this.SelLevelInfo.NumCells.x; ++j) {
+						var stCellIdx = a_eDirection.ExIsVertical() ? new Vector3Int(stIdx.x + j, stIdx.y + (i * stOffset.y), KCDefine.B_VAL_0_INT) : new Vector3Int(stIdx.x + (j * -stOffset.x), stIdx.y + i, KCDefine.B_VAL_0_INT);
+						var stNextCellIdx = a_eDirection.ExIsVertical() ? new Vector3Int(stIdx.x + j, (stIdx.y + stOffset.y) + (i * stOffset.y), KCDefine.B_VAL_0_INT) : new Vector3Int((stIdx.x - stOffset.x) - (j * stOffset.x), stIdx.y + i, KCDefine.B_VAL_0_INT);
+
+						this.SelLevelInfo.m_oCellInfoDictContainer[stCellIdx.y][stCellIdx.x].m_oCellObjInfoList.Clear();
+
+						// 셀 정보가 존재 할 경우
+						if((a_eDirection.ExIsVertical() && i < this.SelLevelInfo.NumCells.y - KCDefine.B_VAL_1_INT) || (a_eDirection.ExIsHorizontal() && j < this.SelLevelInfo.NumCells.x - KCDefine.B_VAL_1_INT)) {
+							this.SelLevelInfo.m_oCellInfoDictContainer[stNextCellIdx.y][stNextCellIdx.x].m_oCellObjInfoList.ExCopyTo(this.SelLevelInfo.m_oCellInfoDictContainer[stCellIdx.y][stCellIdx.x].m_oCellObjInfoList, (a_stCellObjInfo) => a_stCellObjInfo);
+							this.SelLevelInfo.m_oCellInfoDictContainer[stCellIdx.y][stCellIdx.x].OnAfterDeserialize();
+						}
+					}
+				}
+			}
+
+			this.UpdateUIsState();
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 테이블 로드 버튼을 눌렀을 경우 */
