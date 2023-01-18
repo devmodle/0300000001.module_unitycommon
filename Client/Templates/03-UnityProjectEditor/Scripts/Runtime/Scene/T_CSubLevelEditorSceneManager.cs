@@ -351,12 +351,7 @@ namespace LevelEditorScene {
 					this.HandleHotKeys();
 					CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(null);
 				}
-
-				// 저장 키를 눌렀을 경우
-				if(Input.GetKey(CAccess.CmdKeyCode) && Input.GetKeyDown(KeyCode.S)) {
-					this.OnTouchMEUIsSaveBtn();
-				}
-
+				
 				// 메인 카메라가 존재 할 경우
 				if(CSceneManager.IsExistsMainCamera) {
 					var stMousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, this.PlaneDistance);
@@ -504,6 +499,19 @@ namespace LevelEditorScene {
 			}
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+			// 저장 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.S)) {
+				this.OnTouchMEUIsSaveBtn();
+			}
+			// 리셋 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.R)) {
+				this.OnTouchMEUIsResetBtn();
+			}
+			// 테스트 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.T)) {
+				this.OnTouchMEUIsTestBtn();
+			}
+
 			// 이전 레벨 키를 눌렀을 경우
 			if(Input.GetKeyDown(KeyCode.W)) {
 				this.OnTouchMEUIsPrevLevelBtn();
@@ -511,15 +519,6 @@ namespace LevelEditorScene {
 			// 다음 레벨 키를 눌렀을 경우
 			else if(Input.GetKeyDown(KeyCode.S)) {
 				this.OnTouchMEUIsNextLevelBtn();
-			}
-
-			// 로컬 테이블 로드 키를 눌렀을 경우
-			if(Input.GetKeyDown(KeyCode.L)) {
-				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.LOCAL);
-			}
-			// 원격 테이블 로드 키를 눌렀을 경우
-			else if(Input.GetKeyDown(KeyCode.R)) {
-				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
 			}
 
 			// 위쪽 셀 이동 키를 눌렀을 경우
@@ -551,6 +550,15 @@ namespace LevelEditorScene {
 			// 선택 셀 지우기 키를 눌렀을 경우
 			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.Q)) {
 				this.OnTouchREUIsPageUIs01ClearSelCellsBtn();
+			}
+
+			// 로컬 테이블 로드 키를 눌렀을 경우
+			if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.L)) {
+				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.LOCAL);
+			}
+			// 원격 테이블 로드 키를 눌렀을 경우
+			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.R)) {
+				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
 			}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
@@ -1942,8 +1950,6 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 1 모든 셀 이동 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection a_eDirection) {
 			var stBaseIdx = this.GetGridBaseIdx(a_eDirection);
-
-			// TODO: 셀 이동 처리 구현 예정
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 테이블 로드 버튼을 눌렀을 경우 */

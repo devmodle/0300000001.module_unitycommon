@@ -12,8 +12,8 @@ namespace SetupScene {
 		private static GameObject m_oPopupUIs = null;
 		private static GameObject m_oTopmostUIs = null;
 		private static GameObject m_oAbsUIs = null;
-		private static GameObject m_oTimerManager = null;
 		private static GameObject m_oDebugUIs = null;
+		private static GameObject m_oTimerManager = null;
 		#endregion // 클래스 변수
 
 		#region 프로퍼티
@@ -86,7 +86,7 @@ namespace SetupScene {
 		private void OnReceiveGetDeviceTypeMsg(string a_oMsg) {
 			bool bIsValid = System.Enum.TryParse<EDeviceType>(a_oMsg, out EDeviceType a_eDeviceType);
 			CCommonAppInfoStorage.Inst.SetDeviceType((bIsValid && a_eDeviceType.ExIsValid()) ? a_eDeviceType : EDeviceType.UNKNOWN);
-			
+
 			CUnityMsgSender.Inst.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 		}
 
