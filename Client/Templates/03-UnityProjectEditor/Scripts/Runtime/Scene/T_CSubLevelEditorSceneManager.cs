@@ -348,7 +348,7 @@ namespace LevelEditorScene {
 				m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
 
 				// 단축키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
+				if(Input.GetKey(KeyCode.LeftShift)) {
 					this.HandleHotKeys();
 					CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(null);
 				}
@@ -395,6 +395,20 @@ namespace LevelEditorScene {
 				}
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+				// 저장 키를 눌렀을 경우
+				if(Input.GetKey(CAccess.CmdKeyCode) && Input.GetKeyDown(KeyCode.S)) {
+					this.OnTouchMEUIsSaveBtn();
+				}
+
+				// 로컬 테이블 로드 키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.L)) {
+					this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.LOCAL);
+				}
+				// 원격 테이블 로드 키를 눌렀을 경우
+				else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.R)) {
+					this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
+				}
+
 				this.SubOnUpdate(a_fDeltaTime);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			}
@@ -500,12 +514,8 @@ namespace LevelEditorScene {
 			}
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			// 저장 키를 눌렀을 경우
-			if(Input.GetKeyDown(KeyCode.S)) {
-				this.OnTouchMEUIsSaveBtn();
-			}
 			// 리셋 키를 눌렀을 경우
-			else if(Input.GetKeyDown(KeyCode.R)) {
+			if(Input.GetKeyDown(KeyCode.R)) {
 				this.OnTouchMEUIsResetBtn();
 			}
 			// 테스트 키를 눌렀을 경우
@@ -520,6 +530,19 @@ namespace LevelEditorScene {
 			// 다음 레벨 키를 눌렀을 경우
 			else if(Input.GetKeyDown(KeyCode.S)) {
 				this.OnTouchMEUIsNextLevelBtn();
+			}
+
+			// 모든 셀 채우기 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.F)) {
+				this.OnTouchREUIsPageUIs01FillAllCellsBtn();
+			}
+			// 모든 셀 지우기 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.C)) {
+				this.OnTouchREUIsPageUIs01ClearAllCellsBtn();
+			}
+			// 선택 셀 지우기 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.Q)) {
+				this.OnTouchREUIsPageUIs01ClearSelCellsBtn();
 			}
 
 			// 위쪽 셀 이동 키를 눌렀을 경우
@@ -538,28 +561,6 @@ namespace LevelEditorScene {
 			// 오른쪽 셀 이동 키를 눌렀을 경우
 			else if(Input.GetKeyDown(KeyCode.RightArrow)) {
 				this.OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection.RIGHT);
-			}
-
-			// 모든 셀 채우기 키를 눌렀을 경우
-			if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.F)) {
-				this.OnTouchREUIsPageUIs01FillAllCellsBtn();
-			}
-			// 모든 셀 지우기 키를 눌렀을 경우
-			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.C)) {
-				this.OnTouchREUIsPageUIs01ClearAllCellsBtn();
-			}
-			// 선택 셀 지우기 키를 눌렀을 경우
-			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.Q)) {
-				this.OnTouchREUIsPageUIs01ClearSelCellsBtn();
-			}
-
-			// 로컬 테이블 로드 키를 눌렀을 경우
-			if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.L)) {
-				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.LOCAL);
-			}
-			// 원격 테이블 로드 키를 눌렀을 경우
-			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.R)) {
-				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
 			}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
@@ -931,7 +932,7 @@ namespace LevelEditorScene {
 
 							// 셀 객체 정보가 존재 할 경우
 							if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) || (!a_bIsEnableOverlay && Input.GetKey(KeyCode.LeftShift))) {
-								this.RemoveCellObjInfo(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) ? a_stCellObjInfo.ObjKinds : EObjKinds.NONE, a_stIdx);
+								this.RemoveAllCellObjInfos(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) ? a_stCellObjInfo.ObjKinds : EObjKinds.NONE, a_stIdx);
 							}
 
 							stCellInfo.m_oCellObjInfoList.ExAddVal(a_stCellObjInfo);
@@ -976,8 +977,8 @@ namespace LevelEditorScene {
 			}
 		}
 
-		/** 셀 객체 정보를 제거한다 */
-		private void RemoveCellObjInfos(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+		/** 모든 셀 객체 정보를 제거한다 */
+		private void RemoveAllCellObjInfos(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
 			while(this.IsEnableRemoveCellObjInfo(a_eObjKinds, a_stIdx)) {
 				this.RemoveCellObjInfo(a_eObjKinds, a_stIdx);
 			}
@@ -1478,7 +1479,7 @@ namespace LevelEditorScene {
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
-						this.RemoveCellObjInfo(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
+						this.RemoveAllCellObjInfos(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
 					}
 				}
 			}
@@ -1499,7 +1500,7 @@ namespace LevelEditorScene {
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && oCellInfoDict[i].m_oCellObjInfoList.ExIsValid()) {
-						this.RemoveCellObjInfo(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
+						this.RemoveAllCellObjInfos(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
 					}
 				}
 			}
@@ -1950,7 +1951,7 @@ namespace LevelEditorScene {
 			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				for(int i = 0; i < this.SelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < this.SelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-						this.SelLevelInfo.m_oCellInfoDictContainer[i][j].m_oCellObjInfoList.Clear();
+						this.RemoveAllCellObjInfos(EObjKinds.NONE, new Vector3Int(j, i, KCDefine.B_VAL_0_INT));
 					}
 				}
 
@@ -1964,7 +1965,7 @@ namespace LevelEditorScene {
 			if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid() && m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				for(int i = 0; i < this.SelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < this.SelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-						this.RemoveCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], new Vector3Int(j, i, KCDefine.B_VAL_0_INT));
+						this.RemoveAllCellObjInfos(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], new Vector3Int(j, i, KCDefine.B_VAL_0_INT));
 					}
 				}
 
