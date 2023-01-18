@@ -1995,9 +1995,9 @@ namespace LevelEditorScene {
 						}
 					}
 				}
-			}
 
-			this.SetMEUIsGridScrollDelta(m_oRealDict[EKey.GRID_SCROLL_DELTA_X] + (stOffset.x * -NSEngine.Access.CellSize.x), m_oRealDict[EKey.GRID_SCROLL_DELTA_Y] + (stOffset.y * -NSEngine.Access.CellSize.y));
+				this.SetMEUIsGridScrollDelta(m_oRealDict[EKey.GRID_SCROLL_DELTA_X] + (stOffset.x * -NSEngine.Access.CellSize.x), m_oRealDict[EKey.GRID_SCROLL_DELTA_Y] + (stOffset.y * -NSEngine.Access.CellSize.y));
+			}
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 테이블 로드 버튼을 눌렀을 경우 */
