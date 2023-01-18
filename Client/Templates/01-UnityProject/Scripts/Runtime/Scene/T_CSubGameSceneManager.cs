@@ -27,8 +27,8 @@ namespace GameScene {
 			[HideInInspector] MAX_VAL
 		}
 
-		/** 팝업 결과 */
-		private enum EPopupResult {
+		/** 팝업 콜백 */
+		private enum EPopupCallback {
 			NONE = -1,
 			NEXT,
 			RETRY,
@@ -199,8 +199,8 @@ namespace GameScene {
 
 				Func.ShowResumePopup(this.PopupUIs, (a_oSender) => {
 					(a_oSender as CResumePopup).Init(CResumePopup.MakeParams(new Dictionary<CResumePopup.ECallback, System.Action<CResumePopup>>() {
-						[CResumePopup.ECallback.RESUME] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RESUME),
-						[CResumePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+						[CResumePopup.ECallback.RESUME] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.RESUME),
+						[CResumePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.LEAVE)
 					}));
 				});
 			}
@@ -300,20 +300,20 @@ namespace GameScene {
 			}
 		}
 
-		/** 팝업 결과를 수신했을 경우 */
-		private void OnReceivePopupResult(CPopup a_oSender, EPopupResult a_eResult) {
+		/** 팝업 콜백을 수신했을 경우 */
+		private void OnReceivePopupCallback(CPopup a_oSender, EPopupCallback a_eCallback) {
 			// 팝업이 존재 할 경우
 			if(a_oSender != null) {
-				a_oSender.SetIgnoreAni(a_eResult != EPopupResult.CONTINUE);
+				a_oSender.SetIgnoreAni(a_eCallback != EPopupCallback.RESUME && a_eCallback != EPopupCallback.CONTINUE);
 				a_oSender.Close();
 			}
 
-			switch(a_eResult) {
-				case EPopupResult.NEXT: this.LoadNextLevel(a_oSender); break;
-				case EPopupResult.RETRY: this.RetryPlayLevel(a_oSender); break;
-				case EPopupResult.RESUME: this.ResumePlayLevel(a_oSender); break;
-				case EPopupResult.CONTINUE: this.ContinuePlayLevel(a_oSender); break;
-				case EPopupResult.LEAVE: this.LeavePlayLevel(a_oSender); break;
+			switch(a_eCallback) {
+				case EPopupCallback.NEXT: this.HandleNextPopupCallback(a_oSender); break;
+				case EPopupCallback.RETRY: this.HandleRetryPopupCallback(a_oSender); break;
+				case EPopupCallback.RESUME: this.HandleResumePopupCallback(a_oSender); break;
+				case EPopupCallback.CONTINUE: this.HandleContinuePopupCallback(a_oSender); break;
+				case EPopupCallback.LEAVE: this.HandleLeavePopupCallback(a_oSender); break;
 			}
 		}
 
@@ -338,7 +338,7 @@ namespace GameScene {
 		private void OnTouchPauseBtn() {
 			Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CPausePopup).Init(CPausePopup.MakeParams(new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
-					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.LEAVE)
 				}));
 			});
 		}
@@ -389,7 +389,7 @@ namespace GameScene {
 						CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 #endif // #if ADS_MODULE_ENABLE
 					} else {
-						this.LeavePlayLevel(a_oPopup);
+						this.HandleLeavePopupCallback(a_oPopup);
 					}
 
 					break;
@@ -406,51 +406,13 @@ namespace GameScene {
 			}
 		}
 
-		/** 이전 레벨을 로드한다 */
-		private void LoadPrevLevel(CPopup a_oPopup) {
-			this.LoadLevel(a_oPopup, Access.GetPrevLevelEpisodeInfo(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
-		}
-
-		/** 다음 레벨을 로드한다 */
-		private void LoadNextLevel(CPopup a_oPopup) {
-			this.LoadLevel(a_oPopup, Access.GetNextLevelEpisodeInfo(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
-		}
-
-		/** 플레이 레벨을 재시도한다 */
-		private void RetryPlayLevel(CPopup a_oPopup) {
-#if ADS_MODULE_ENABLE
-			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
-#else
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
-#endif // #if ADS_MODULE_ENABLE
-		}
-
-		/** 플레이 레벨을 제개한다 */
-		private void ResumePlayLevel(CPopup a_oPopup) {
-			a_oPopup?.Close();
-		}
-
-		/** 플레이 레벨을 이어한다 */
-		private void ContinuePlayLevel(CPopup a_oPopup) {
-			m_oIntDict[EKey.CONTINUE_TIMES] += KCDefine.B_VAL_1_INT;
-		}
-
-		/** 플레이 레벨을 떠난다 */
-		private void LeavePlayLevel(CPopup a_oPopup) {
-#if ADS_MODULE_ENABLE
-			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
-#else
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-#endif // #if ADS_MODULE_ENABLE
-		}
-
 		/** 이어하기 팝업을 출력한다 */
 		private void ShowContinuePopup() {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_oIntDict[EKey.CONTINUE_TIMES], new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
-					[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
-					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE),
-					[CContinuePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+					[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.RETRY),
+					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.CONTINUE),
+					[CContinuePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.LEAVE)
 				}));
 			});
 		}
@@ -465,11 +427,49 @@ namespace GameScene {
 				};
 
 				(a_oSender as CResultPopup).Init(CResultPopup.MakeParams(stRecordInfo, new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
-					[CResultPopup.ECallback.NEXT] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.NEXT),
-					[CResultPopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
-					[CResultPopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+					[CResultPopup.ECallback.NEXT] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.NEXT),
+					[CResultPopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.RETRY),
+					[CResultPopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.LEAVE)
 				}));
 			});
+		}
+
+		/** 이전 팝업 콜백을 처리한다 */
+		private void HandlePrevPopupCallback(CPopup a_oPopup) {
+			this.LoadLevel(a_oPopup, Access.GetPrevLevelEpisodeInfo(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
+		}
+
+		/** 다음 팝업 콜백을 처리한다 */
+		private void HandleNextPopupCallback(CPopup a_oPopup) {
+			this.LoadLevel(a_oPopup, Access.GetNextLevelEpisodeInfo(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
+		}
+
+		/** 재시도 팝업 콜백을 처리한다 */
+		private void HandleRetryPopupCallback(CPopup a_oPopup) {
+#if ADS_MODULE_ENABLE
+			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
+#else
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+#endif // #if ADS_MODULE_ENABLE
+		}
+
+		/** 재개 팝업 콜백을 처리한다 */
+		private void HandleResumePopupCallback(CPopup a_oPopup) {
+			a_oPopup?.Close();
+		}
+
+		/** 이어하기 팝업 콜백을 처리한다 */
+		private void HandleContinuePopupCallback(CPopup a_oPopup) {
+			m_oIntDict[EKey.CONTINUE_TIMES] += KCDefine.B_VAL_1_INT;
+		}
+
+		/** 떠나기 팝업 콜백을 처리한다 */
+		private void HandleLeavePopupCallback(CPopup a_oPopup) {
+#if ADS_MODULE_ENABLE
+			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
+#else
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
+#endif // #if ADS_MODULE_ENABLE
 		}
 		#endregion // 함수
 	}
