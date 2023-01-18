@@ -33,6 +33,7 @@ namespace SetupScene {
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
 				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.OnReceiveGetDeviceIDMsg);
+				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_TYPE, this.OnReceiveGetDeviceTypeMsg);
 				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.OnReceiveGetCountryCodeMsg);
 
 				CSceneManager.GetSceneManager<StartScene.CStartSceneManager>(KCDefine.B_SCENE_N_START)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_START_SCENE_EVENT, EStartSceneEvent.LOAD_SETUP_SCENE, false);
@@ -72,14 +73,20 @@ namespace SetupScene {
 
 		/** 디바이스 식별자 반환 메세지를 수신했을 경우 */
 		private void OnReceiveGetDeviceIDMsg(string a_oMsg) {
-			CCommonAppInfoStorage.Inst.SetDeviceType(CAccess.DeviceType);
-
 			// 디바이스 식별자 설정이 필요 할 경우
 			if(!CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid() || CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Equals(KCDefine.B_TEXT_UNKNOWN)) {
 				CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_TEXT_UNKNOWN;
 			}
 
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
+			CUnityMsgSender.Inst.SendGetDeviceTypeMsg(this.OnReceiveDeviceMsg);
+		}
+
+		/** 디바이스 타입 반환 메세지를 수신했을 경우 */
+		private void OnReceiveGetDeviceTypeMsg(string a_oMsg) {
+			bool bIsValid = System.Enum.TryParse<EDeviceType>(a_oMsg, out EDeviceType a_eDeviceType);
+			CCommonAppInfoStorage.Inst.SetDeviceType((bIsValid && a_eDeviceType.ExIsValid()) ? a_eDeviceType : EDeviceType.UNKNOWN);
+			
 			CUnityMsgSender.Inst.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
 		}
 
