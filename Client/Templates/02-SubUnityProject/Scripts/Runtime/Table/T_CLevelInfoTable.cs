@@ -120,7 +120,13 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
+		this.OnAfterDeserialize(KCDefine.B_IDX_INVALID_3D);
+	}
+
+	/** 역직렬화 되었을 경우 */
+	public void OnAfterDeserialize(Vector3Int a_stIdx) {
 		m_stSize = new Vector3Int(this.SizeX, this.SizeY, this.SizeZ);
+		m_stBaseIdx = a_stIdx;
 	}
 	#endregion // IMessagePackSerializationCallbackReceiver
 
@@ -194,18 +200,13 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
+		this.OnAfterDeserialize(KCDefine.B_IDX_INVALID_3D);
+	}
+
+	/** 역직렬화 되었을 경우 */
+	public void OnAfterDeserialize(Vector3Int a_stIdx) {
+		m_stIdx = a_stIdx;
 		m_oCellObjInfoList = m_oCellObjInfoList ?? new List<STCellObjInfo>();
-
-		for(int i = 0; i < m_oCellObjInfoList.Count; ++i) {
-			for(int j = 0; j < m_oCellObjInfoList[i].m_stSize.y; ++j) {
-				for(int k = 0; k < m_oCellObjInfoList[i].m_stSize.x; ++k) {
-					var stCellObjInfo = m_oCellObjInfoList[i];
-					stCellObjInfo.m_stBaseIdx = new Vector3Int(m_stIdx.x + k, m_stIdx.y + j, m_stIdx.z);
-
-					m_oCellObjInfoList[i] = stCellObjInfo;
-				}
-			}
-		}
 	}
 	#endregion // IMessagePackSerializationCallbackReceiver
 
@@ -326,7 +327,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		base.OnAfterDeserialize();
 		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, STCellInfo>>();
 
-		// 셀을 설정한다
+		// 셀 정보를 설정한다
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
 			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
 				var stCellInfo = m_oCellInfoDictContainer[i][j];
@@ -336,15 +337,20 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 			}
 		}
 
+		// 셀 객체 정보를 설정한다
+		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
+			for(int j = 0; j < m_oCellInfoDictContainer[i].Count; ++j) {
+				for(int k = 0; k < m_oCellInfoDictContainer[i][j].m_oCellObjInfoList.Count; ++k) {
+					var stCellObjInfo = m_oCellInfoDictContainer[i][j].m_oCellObjInfoList[k];
+					this.SetupCellObjInfoBaseIdx(new Vector3Int(j, i, KCDefine.B_VAL_0_INT), ref stCellObjInfo);
+				}
+			}
+		}
+
 		// 버전이 다를 경우
 		if(this.Ver.CompareTo(KDefine.G_VER_LEVEL_INFO) < KCDefine.B_COMPARE_EQUALS) {
 			// Do Something
 		}
-	}
-
-	/** 셀 객체 정보를 설정한다 */
-	protected virtual void SetupCellObjInfo(ref STCellObjInfo a_stOutCellObjInfo) {
-		// Do Something
 	}
 
 	/** 셀 정보를 설정한다 */
@@ -361,6 +367,36 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		// 버전이 다를 경우
 		if(this.CellInfoVer.CompareTo(KDefine.G_VER_CELL_INFO) < KCDefine.B_COMPARE_EQUALS) {
 			// Do Something
+		}
+	}
+
+	/** 셀 객체 정보를 설정한다 */
+	protected virtual void SetupCellObjInfo(ref STCellObjInfo a_stOutCellObjInfo) {
+		// Do Something
+	}
+
+	/** 셀 객체 정보 기본 인덱스를 설정한다 */
+	protected virtual void SetupCellObjInfoBaseIdx(Vector3Int a_stIdx, ref STCellObjInfo a_stOutCellObjInfo) {
+		for(int i = 0; i < a_stOutCellObjInfo.m_stSize.y; ++i) {
+			for(int j = 0; j < a_stOutCellObjInfo.m_stSize.x; ++j) {
+				var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
+				var stCellInfo = m_oCellInfoDictContainer.ExGetVal(stIdx, STCellInfo.INVALID);
+
+				// 기본 인덱스 일 경우
+				if(stIdx.Equals(a_stIdx)) {
+					a_stOutCellObjInfo.m_stBaseIdx = a_stOutCellObjInfo.m_stBaseIdx.Equals(KCDefine.B_IDX_INVALID_3D) ? a_stIdx : a_stOutCellObjInfo.m_stBaseIdx;
+				} else {
+					int nIdx = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_PLACEHOLDER_01 && a_stCellObjInfo.m_stBaseIdx.Equals(KCDefine.B_IDX_INVALID_3D));
+
+					// 자리 표시 객체가 존재 할 경우
+					if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx)) {
+						var stCellObjInfo = stCellInfo.m_oCellObjInfoList[nIdx];
+						stCellObjInfo.m_stBaseIdx = a_stIdx;
+
+						stCellInfo.m_oCellObjInfoList[nIdx] = stCellObjInfo;
+					}
+				}
+			}
 		}
 	}
 	#endregion // IMessagePackSerializationCallbackReceiver

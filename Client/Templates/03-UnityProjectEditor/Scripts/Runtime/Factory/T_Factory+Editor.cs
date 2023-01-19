@@ -17,20 +17,20 @@ public static partial class Factory {
 	/** 에디터 셀 객체 정보를 생성한다 */
 	public static STCellObjInfo MakeEditorCellObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stSize, Vector3Int a_stBaseIdx) {
 		var stCellObjInfo = new STCellObjInfo(null) {
-			ObjKinds = a_eObjKinds, SizeX = a_stSize.x, SizeY = a_stSize.y, SizeZ = a_stSize.z, m_stBaseIdx = a_stBaseIdx
+			ObjKinds = a_eObjKinds, SizeX = a_stSize.x, SizeY = a_stSize.y, SizeZ = a_stSize.z
 		};
 
-		stCellObjInfo.OnAfterDeserialize();
+		stCellObjInfo.OnAfterDeserialize(a_stBaseIdx);
 		return stCellObjInfo;
 	}
 
 	/** 에디터 셀 정보를 생성한다 */
 	public static STCellInfo MakeEditorCellInfo(Vector3Int a_stIdx) {
 		var stCellInfo = new STCellInfo(null) {
-			m_stIdx = a_stIdx, m_oCellObjInfoList = new List<STCellObjInfo>()
+			m_oCellObjInfoList = new List<STCellObjInfo>()
 		};
 
-		stCellInfo.OnAfterDeserialize();
+		stCellInfo.OnAfterDeserialize(a_stIdx);
 		return stCellInfo;
 	}
 
