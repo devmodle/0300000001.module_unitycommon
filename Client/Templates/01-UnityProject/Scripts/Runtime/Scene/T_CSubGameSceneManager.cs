@@ -165,8 +165,8 @@ namespace GameScene {
 #endif // #if NEVER_USE_THIS
 				}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
 
-				CGameInfoStorage.Inst.ResetSelItems();
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_GAME_01);
+				CCommonAppInfoStorage.Inst.SetEnableEditor(false);
 			}
 		}
 
@@ -373,6 +373,8 @@ namespace GameScene {
 				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
 				Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stTargetInfo);
 			}
+
+			CGameInfoStorage.Inst.ResetSelItems();
 		}
 
 		/** 레벨을 로드한다 */

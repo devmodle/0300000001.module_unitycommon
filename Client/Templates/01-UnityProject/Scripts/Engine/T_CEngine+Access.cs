@@ -45,6 +45,16 @@ namespace NSEngine {
 			}
 		}
 
+		/** 서브 상태를 변경한다 */
+		public void SetSubState(ESubState a_eState, bool a_bIsForce = false) {
+			// 강제 변경 모드 일 경우
+			if(a_bIsForce) {
+				this.SubState = a_eState;
+			} else {
+				this.SubState = (!m_oSubStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) || oStateChecker()) ? a_eState : this.SubState;
+			}
+		}
+
 		/** 셀 객체를 탐색한다 */
 		public CEObj FindCellObj(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
 			return this.CellObjLists.ExGetVal(a_stIdx, null)?.ExGetVal((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds, null);

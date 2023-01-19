@@ -30,6 +30,12 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
+		/** 서브 상태 */
+		public enum ESubState {
+			NONE = -1,
+			[HideInInspector] MAX_VAL
+		}
+
 		/** 콜백 */
 		public enum ECallback {
 			NONE = -1,
@@ -64,6 +70,7 @@ namespace NSEngine {
 		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
 		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
+		private Dictionary<ESubState, System.Func<bool>> m_oSubStateCheckerDict = new Dictionary<ESubState, System.Func<bool>>();
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -71,6 +78,7 @@ namespace NSEngine {
 		public STRecordInfo RecordInfo { get; private set; }
 
 		public EState State { get; private set; } = EState.NONE;
+		public ESubState SubState { get; private set; } = ESubState.NONE;
 		public List<CEObj>[,] CellObjLists { get; private set; } = null;
 
 		public List<CEItem> ItemList { get; } = new List<CEItem>();
@@ -275,7 +283,7 @@ namespace NSEngine {
 
 							this.SelPlayerObj.SetupAbilityVals();
 						}
-						
+
 						m_oBoolDict[EKey.IS_SAVE_USER_INFO] = oAcquireTargetInfoDict.ExIsValid() ? true : m_oBoolDict[EKey.IS_SAVE_USER_INFO];
 					} finally {
 						this.RemoveEObjComponent(a_oSender);
