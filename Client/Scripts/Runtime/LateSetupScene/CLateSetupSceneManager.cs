@@ -146,6 +146,14 @@ namespace LateSetupScene {
 				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.IRON_SRC));
 #endif // #if IRON_SRC_ADS_ENABLE
 
+#if APP_LOVIN_ADS_ENABLE
+				stAdsParams.m_oAppLovinSDKKey = CPluginInfoTable.Inst.AppLovinSDKKey;
+
+				stAdsParams.m_oAppLovinAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_BANNER_ADS_ID, CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN));
+				stAdsParams.m_oAppLovinAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_REWARD_ADS_ID, CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.APP_LOVIN));
+				stAdsParams.m_oAppLovinAdsIDDict.TryAdd(KCDefine.U_KEY_ADS_M_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.APP_LOVIN));
+#endif // #if APP_LOVIN_ADS_ENABLE
+
 				CAdsManager.Inst.Init(stAdsParams);
 #endif // #if ADS_MODULE_ENABLE
 

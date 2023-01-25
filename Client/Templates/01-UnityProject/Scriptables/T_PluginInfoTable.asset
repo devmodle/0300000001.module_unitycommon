@@ -15,24 +15,32 @@ MonoBehaviour:
   m_eAdsPlatform: -1
   m_eBannerAdsPos: 1
   m_stiOSAdmobPluginInfo:
-    m_oAppID: 
     m_oBannerAdsID: 
     m_oRewardAdsID: 
     m_oFullscreenAdsID: 
   m_stAndroidAdmobPluginInfo:
-    m_oAppID: 
     m_oBannerAdsID: 
     m_oRewardAdsID: 
     m_oFullscreenAdsID: 
+  m_bIsEnableIronSrcBannerAds: 0
+  m_bIsEnableIronSrcRewardAds: 0
+  m_bIsEnableIronSrcFullscreenAds: 0
   m_stiOSIronSrcPluginInfo:
-    m_bIsEnableBannerAds: 0
-    m_bIsEnableRewardAds: 0
-    m_bIsEnableFullscreenAds: 0
     m_oAppKey: 
+    m_oBannerAdsID: 
+    m_oRewardAdsID: 
+    m_oFullscreenAdsID: 
   m_stAndroidIronSrcPluginInfo:
-    m_bIsEnableBannerAds: 0
-    m_bIsEnableRewardAds: 0
-    m_bIsEnableFullscreenAds: 0
     m_oAppKey: 
-  m_oiOSFlurryAPIKey: 
-  m_oAndroidFlurryAPIKey: 
+    m_oBannerAdsID: 
+    m_oRewardAdsID: 
+    m_oFullscreenAdsID: 
+  m_oAppLovinSDKKey: 
+  m_stiOSAppLovinPluginInfo:
+    m_oBannerAdsID: 
+    m_oRewardAdsID: 
+    m_oFullscreenAdsID: 
+  m_stAndroidAppLovinPluginInfo:
+    m_oBannerAdsID: 
+    m_oRewardAdsID: 
+    m_oFullscreenAdsID: 
