@@ -1,4 +1,11 @@
 # 0300000001.Module_UnityCommon
+0. **수정 에셋 리스트**
+	- *Lean GUI (에셋 스토어)*
+	- *Lean Touch (에셋 스토어)*
+	- *Advance Object Pool (에셋 스토어)*
+	- *Smart Timers Manager (에셋 스토어)*
+	- *Google Sheets to Unity (에셋 스토어)*
+	- *UI Effect (외부 에셋 및 플러그인)*
 1. **필수 에셋 리스트**
 	- *TextMesh Pro*
 	- *DOTween Pro (1.0.335 - Oct 10, 2022)*
@@ -9,13 +16,13 @@
 	- *Asset Usage Detector (2.2.3 - Sep 26, 2022)*
 	- *Bezier Solution (2.3.2 - Jul 26, 2022)*
 	- *Enhanced Hierarchy (2.4.5 - May 5, 2020)*
-	- *Enhanced Scroller (2.33.0 - Apr 6, 2022)*
+	- *Enhanced Scroller (2.34.0 - Jan 20, 2023)*
 	- *Google Sheets to Unity (1.0.0 - Mar 18, 2019)*
 	- *iTween (2.0.0 - Apr 17, 2019)*
 	- *Lean GUI (2.0.1 - Nov 11, 2022)*
 	- *Lean Touch (3.0.1 - Nov 11, 2022)*
 	- *LINQ to GameObject (2.3.1 - Jan 9, 2018)*
-	- *Native Share (1.4.7 - May 2, 2022)*
+	- *Native Share (1.4.9 - Dec 20, 2022)*
 	- *NGUI (2022.06.08 - Jun 9, 2022)*
 	- *Rest Client (2.6.2 - Dec 27, 2021)*
 	- *Simple Scroll Snap (2.0.0 - Mar 3, 2022)*
@@ -26,7 +33,7 @@
 3. **추가 에셋 스토어 리스트**
 	- *Apple Sign In (1.4.2 - Jul 18, 2021)*
 	- *Build Report Tool (3.9.6 - Nov 7, 2022)*
-	- *Odin Inspector (3.1.8 - Nov 22, 2022)*
+	- *Odin Inspector (3.1.10 - Jan 12, 2023)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (2.4.35)*
 	- *UI Effect (3.2.0 - Jul 17, 2019)*
