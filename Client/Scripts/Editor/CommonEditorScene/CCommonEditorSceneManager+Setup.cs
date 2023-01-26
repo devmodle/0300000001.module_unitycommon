@@ -106,7 +106,7 @@ public static partial class CCommonEditorSceneManager {
 
 	/** 광선 추적자를 설정한다 */
 	private static void SetupRaycasters() {
-		CFunc.EnumerateComponents<GraphicRaycaster>((a_oRaycaster) => {
+		CAccess.EnumerateComponents<GraphicRaycaster>((a_oRaycaster) => {
 			a_oRaycaster.ignoreReversedGraphics = true;
 			a_oRaycaster.blockingMask = a_oRaycaster.blockingMask.ExGetLayerMask(KCDefine.B_VAL_0_INT);
 			a_oRaycaster.blockingObjects = GraphicRaycaster.BlockingObjects.None;
@@ -114,7 +114,7 @@ public static partial class CCommonEditorSceneManager {
 			return true;
 		});
 
-		CFunc.EnumerateComponents<PhysicsRaycaster>((a_oRaycaster) => {
+		CAccess.EnumerateComponents<PhysicsRaycaster>((a_oRaycaster) => {
 			a_oRaycaster.eventMask = a_oRaycaster.eventMask.ExGetLayerMask(int.MaxValue);
 			a_oRaycaster.maxRayIntersections = KCDefine.B_VAL_0_INT;
 
@@ -182,14 +182,14 @@ public static partial class CCommonEditorSceneManager {
 
 			// 씬 추가가 가능 할 경우
 			if(!oScenePath.Contains(KCEditorDefine.B_EDITOR_SCENE_N_PATTERN_01) && !oScenePath.Contains(KCEditorDefine.B_EDITOR_SCENE_N_PATTERN_02)) {
-				var oAsset = CEditorFunc.FindAsset<SceneAsset>(oScenePath);
+				var oAsset = CEditorAccess.FindAsset<SceneAsset>(oScenePath);
 				oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oScenePath.Contains(a_oAsset.name));
 			}
 		}
 
 		for(int i = 0; i < oPreloadAssetInfoListContainer.Count; ++i) {
 			for(int j = 0; j < oPreloadAssetInfoListContainer[i].Count; ++j) {
-				var oAsset = CEditorFunc.FindAsset<Object>(oPreloadAssetInfoListContainer[i][j].Item2);
+				var oAsset = CEditorAccess.FindAsset<Object>(oPreloadAssetInfoListContainer[i][j].Item2);
 				oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oPreloadAssetInfoListContainer[i][j].Item2.ExGetFileName(false).Equals(a_oAsset.name));
 			}
 		}
@@ -212,23 +212,23 @@ public static partial class CCommonEditorSceneManager {
 	private static void SetupSceneTemplates() {
 		// 샘플 씬 템플릿이 존재 할 경우
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_SAMPLE_SCENE_TEMPLATE)) {
-			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_SAMPLE_SCENE_TEMPLATE));
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_SAMPLE_SCENE_TEMPLATE));
 		}
 
 		// 에디터 샘플 씬 템플릿이 존재 할 경우
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_EDITOR_SAMPLE_SCENE_TEMPLATE)) {
-			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_EDITOR_SAMPLE_SCENE_TEMPLATE));
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_EDITOR_SAMPLE_SCENE_TEMPLATE));
 		}
 
 #if STUDY_MODULE_ENABLE
 		// 메뉴 샘플 씬 템플릿이 존재 할 경우
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_MENU_SAMPLE_SCENE_TEMPLATE)) {
-			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_MENU_SAMPLE_SCENE_TEMPLATE));
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_MENU_SAMPLE_SCENE_TEMPLATE));
 		}
 
 		// 스터디 샘플 씬 템플릿이 존재 할 경우
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE)) {
-			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorFunc.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));
 		}
 #endif // #if STUDY_MODULE_ENABLE
 	}
@@ -324,8 +324,8 @@ public static partial class CCommonEditorSceneManager {
 				string oSpriteAtlasPath01 = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_RESOURCES, KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST[nIdx]);
 				string oSpriteAtlasPath02 = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_EDITOR_RESOURCES, KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST[nIdx]);
 
-				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorFunc.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPath01, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), a_oDirPathList[i]);
-				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorFunc.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPath02, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), a_oDirPathList[i]);
+				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorAccess.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPath01, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), a_oDirPathList[i]);
+				CCommonEditorSceneManager.DoSetupSpriteAtlas(CEditorAccess.FindAsset<SpriteAtlas>(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oSpriteAtlasPath02, KCDefine.B_FILE_EXTENSION_SPRITE_ATLAS)), a_oDirPathList[i]);
 			}
 		}
 	}
@@ -334,7 +334,7 @@ public static partial class CCommonEditorSceneManager {
 	private static void DoSetupSpriteAtlas(SpriteAtlas a_oSpriteAtlas, string a_oDirPath) {
 		// 스프라이트 아틀라스가 존재 할 경우
 		if(a_oSpriteAtlas != null) {
-			var oDirAsset = CEditorFunc.FindAsset<Object>(a_oDirPath);
+			var oDirAsset = CEditorAccess.FindAsset<Object>(a_oDirPath);
 			var oPackables = a_oSpriteAtlas.GetPackables();
 
 			// 디렉토리가 없을 경우

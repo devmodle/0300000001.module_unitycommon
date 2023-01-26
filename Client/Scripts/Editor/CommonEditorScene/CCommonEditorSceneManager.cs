@@ -115,7 +115,7 @@ public static partial class CCommonEditorSceneManager {
 			// 갱신 주기가 지났을 경우
 			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
 				CCommonEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
-				CFunc.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
+				CAccess.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupTags();
 				CCommonEditorSceneManager.SetupRaycasters();
@@ -146,7 +146,7 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupBurstCompiler();
 #endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
-				CFunc.EnumerateRootObjs((a_oObj) => {
+				CAccess.EnumerateRootObjs((a_oObj) => {
 					// 최상단 UI 일 경우
 					if(a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_ROOT)) {
 						CCommonEditorSceneManager.SetupLayers(a_oObj);
@@ -164,7 +164,7 @@ public static partial class CCommonEditorSceneManager {
 				// 유니티 패키지 정보를 설정한다 {
 				CCommonEditorSceneManager.m_oStrBuilder.Clear();
 
-				CFunc.EnumerateDirectories(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, (a_oDirList, a_oFileList) => {
+				CAccess.EnumerateDirectories(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, (a_oDirList, a_oFileList) => {
 					for(int i = 0; i < a_oFileList.Count; ++i) {
 						// DS Store 파일이 아닐 경우
 						if(!a_oFileList[i].EndsWith(KCDefine.B_FILE_EXTENSION_DS_STORE)) {
@@ -192,7 +192,7 @@ public static partial class CCommonEditorSceneManager {
 					if(oBuildMethod.ExIsValid()) {
 						typeof(CPlatformBuilder).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC)?.Invoke(null, null);
 					} else {
-						CFunc.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
+						CFactory.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
 					}
 				}
 			}
