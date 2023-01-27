@@ -143,7 +143,7 @@ public static partial class KEditorDefine {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_TITLE] = typeof(TitleScene.CSubTitleSceneManager),
 		[KCDefine.B_SCENE_N_MAIN] = typeof(MainScene.CSubMainSceneManager),
-		[KCDefine.B_SCENE_N_GAME] = typeof(GameScene.CSubGameSceneManager),
+		[KCDefine.B_SCENE_N_PLAY] = typeof(GameScene.CSubGameSceneManager),
 		[KCDefine.B_SCENE_N_LOADING] = typeof(LoadingScene.CSubLoadingSceneManager),
 		[KCDefine.B_SCENE_N_OVERLAY] = typeof(OverlayScene.CSubOverlaySceneManager),
 		[KCDefine.B_SCENE_N_TEST] = typeof(TestScene.CSubTestSceneManager),

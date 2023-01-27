@@ -1439,7 +1439,7 @@ namespace LevelEditorScene {
 		private void OnTouchMEUIsTestBtn() {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, this.SelLevelInfo.m_stIDInfo.m_nID01, EPlayMode.TEST, this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03);
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 

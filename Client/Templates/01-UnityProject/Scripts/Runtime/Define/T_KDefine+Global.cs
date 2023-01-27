@@ -560,7 +560,7 @@ public static partial class KDefine {
 public static partial class KDefine {
 	#region 기본
 	// 이름
-	public const string GS_OBJ_N_ENGINE = "Engine";
+	public const string PS_OBJ_N_ENGINE = "Engine";
 	#endregion // 기본
 }
 

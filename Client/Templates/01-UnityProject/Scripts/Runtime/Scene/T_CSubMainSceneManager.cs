@@ -240,7 +240,7 @@ namespace MainScene {
 
 		/** 플레이 버튼을 눌렀을 경우 */
 		private void OnTouchPlayBtn() {
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
 		}
 
 		/** 상점 버튼을 눌렀을 경우 */
