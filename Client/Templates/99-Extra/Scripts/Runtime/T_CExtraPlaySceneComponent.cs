@@ -6,9 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
-namespace GameScene {
+namespace PlayScene {
 	/** 플레이 씬 추가 컴포넌트 */
-	public partial class CExtraGameSceneComponent : CGSComponent {
+	public partial class CExtraPlaySceneComponent : CPSComponent {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
@@ -17,7 +17,7 @@ namespace GameScene {
 
 		/** 매개 변수 */
 		public new struct STParams {
-			public CGSComponent.STParams m_stBaseParams;
+			public CPSComponent.STParams m_stBaseParams;
 		}
 
 		#region 변수
@@ -45,7 +45,7 @@ namespace GameScene {
 		/** 매개 변수를 생성한다 */
 		public new static STParams MakeParams(NSEngine.CEngine a_oEngine) {
 			return new STParams() {
-				m_stBaseParams = CGSComponent.MakeParams(a_oEngine)
+				m_stBaseParams = CPSComponent.MakeParams(a_oEngine)
 			};
 		}
 		#endregion // 클래스 함수

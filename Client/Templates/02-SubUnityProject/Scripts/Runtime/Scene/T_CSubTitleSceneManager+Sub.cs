@@ -57,7 +57,7 @@ namespace TitleScene {
 					// Do Something
 				}
 			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CTitleGameSceneManager.SubOnDestroy Exception: {oException.Message}");
+				CFunc.ShowLogWarning($"CSubTitleSceneManager.SubOnDestroy Exception: {oException.Message}");
 			}
 		}
 

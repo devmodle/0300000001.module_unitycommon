@@ -297,7 +297,7 @@ namespace NSEngine {
 				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
 			}
 
-			CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateUIsState(true);
+			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateUIsState(true);
 		}
 		#endregion // 함수
 

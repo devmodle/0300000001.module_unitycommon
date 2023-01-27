@@ -76,7 +76,9 @@ public static partial class KEditorDefine {
 
 		[typeof(TitleScene.CSubTitleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(MainScene.CSubMainSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(GameScene.CSubGameSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(PlayScene.CSubPlaySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(ResultScene.CSubResultSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		
 		[typeof(LoadingScene.CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
 		[typeof(OverlayScene.CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_OVERLAY_SCENE_MANAGER,
 		[typeof(TestScene.CSubTestSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
@@ -143,7 +145,9 @@ public static partial class KEditorDefine {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_TITLE] = typeof(TitleScene.CSubTitleSceneManager),
 		[KCDefine.B_SCENE_N_MAIN] = typeof(MainScene.CSubMainSceneManager),
-		[KCDefine.B_SCENE_N_PLAY] = typeof(GameScene.CSubGameSceneManager),
+		[KCDefine.B_SCENE_N_PLAY] = typeof(PlayScene.CSubPlaySceneManager),
+		
+		[KCDefine.B_SCENE_N_RESULT] = typeof(ResultScene.CSubResultSceneManager),
 		[KCDefine.B_SCENE_N_LOADING] = typeof(LoadingScene.CSubLoadingSceneManager),
 		[KCDefine.B_SCENE_N_OVERLAY] = typeof(OverlayScene.CSubOverlaySceneManager),
 		[KCDefine.B_SCENE_N_TEST] = typeof(TestScene.CSubTestSceneManager),

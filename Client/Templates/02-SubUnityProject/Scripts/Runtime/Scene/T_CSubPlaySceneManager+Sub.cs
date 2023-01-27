@@ -8,9 +8,9 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using UnityEngine.EventSystems;
 
-namespace GameScene {
+namespace PlayScene {
 	/** 서브 플레이 씬 관리자 - 서브 */
-	public partial class CSubGameSceneManager : CGameSceneManager {
+	public partial class CSubPlaySceneManager : CPlaySceneManager {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
@@ -57,7 +57,7 @@ namespace GameScene {
 					// Do Something
 				}
 			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CSubGameSceneManager.SubOnDestroy Exception: {oException.Message}");
+				CFunc.ShowLogWarning($"CSubPlaySceneManager.SubOnDestroy Exception: {oException.Message}");
 			}
 		}
 

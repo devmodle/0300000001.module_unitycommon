@@ -6,9 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-namespace GameScene {
+namespace PlayScene {
 	/** 서브 플레이 씬 컴포넌트 */
-	public abstract partial class CGSComponent : CComponent {
+	public abstract partial class CPSComponent : CComponent {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,

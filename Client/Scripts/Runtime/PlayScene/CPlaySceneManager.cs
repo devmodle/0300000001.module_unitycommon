@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace GameScene {
+namespace PlayScene {
 	/** 플레이 씬 관리자 */
-	public partial class CGameSceneManager : CSceneManager {
+	public partial class CPlaySceneManager : CSceneManager {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,

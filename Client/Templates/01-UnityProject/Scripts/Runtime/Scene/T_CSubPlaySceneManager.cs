@@ -8,9 +8,9 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using UnityEngine.EventSystems;
 
-namespace GameScene {
+namespace PlayScene {
 	/** 서브 플레이 씬 관리자 */
-	public partial class CSubGameSceneManager : CGameSceneManager {
+	public partial class CSubPlaySceneManager : CPlaySceneManager {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
@@ -180,7 +180,7 @@ namespace GameScene {
 					this.SubOnDestroy();
 				}
 			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CSubGameSceneManager.OnDestroy Exception: {oException.Message}");
+				CFunc.ShowLogWarning($"CSubPlaySceneManager.OnDestroy Exception: {oException.Message}");
 			}
 		}
 
@@ -434,6 +434,8 @@ namespace GameScene {
 					[CResultPopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.LEAVE)
 				}));
 			});
+
+			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_RESULT);
 		}
 
 		/** 이전 팝업 콜백을 처리한다 */
@@ -477,7 +479,7 @@ namespace GameScene {
 	}
 
 	/** 서브 플레이 씬 관리자 - 접근 */
-	public partial class CSubGameSceneManager : CGameSceneManager {
+	public partial class CSubPlaySceneManager : CPlaySceneManager {
 		#region 함수
 		/** UI 상태 갱신 여부를 변경한다 */
 		public void SetEnableUpdateUIsState(bool a_bIsEnable) {

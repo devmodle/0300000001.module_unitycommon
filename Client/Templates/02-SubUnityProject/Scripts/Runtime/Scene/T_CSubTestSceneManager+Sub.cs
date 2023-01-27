@@ -56,7 +56,7 @@ namespace TestScene {
 					// Do Something
 				}
 			} catch(System.Exception oException) {
-				CFunc.ShowLogWarning($"CTitleGameSceneManager.OnDestroy Exception: {oException.Message}");
+				CFunc.ShowLogWarning($"CSubTestSceneManager.OnDestroy Exception: {oException.Message}");
 			}
 		}
 
