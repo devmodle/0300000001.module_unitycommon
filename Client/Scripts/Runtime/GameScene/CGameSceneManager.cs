@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 namespace GameScene {
-	/** 게임 씬 관리자 */
+	/** 플레이 씬 관리자 */
 	public partial class CGameSceneManager : CSceneManager {
 		/** 식별자 */
 		private enum EKey {

@@ -8,9 +8,9 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE
 /** 추가 열거형 값 */
 public static partial class KExtraEnumVal {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 #region 기본

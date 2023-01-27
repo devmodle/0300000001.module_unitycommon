@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace GameScene {
-	/** 서브 게임 씬 컴포넌트 */
+	/** 서브 플레이 씬 컴포넌트 */
 	public abstract partial class CGSComponent : CComponent {
 		/** 서브 식별자 */
 		private enum ESubKey {

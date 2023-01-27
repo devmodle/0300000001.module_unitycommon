@@ -19,15 +19,15 @@ public partial class CExtraPopup : CSubPopup {
 		// Do Something
 	}
 
-#region 변수
+	#region 변수
 
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public STParams Params { get; private set; }
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -49,16 +49,16 @@ public partial class CExtraPopup : CSubPopup {
 	private void UpdateUIsState() {
 		// Do Something
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 클래스 함수
+	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
 	public static STParams MakeParams() {
 		return new STParams() {
 			// Do Something
 		};
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

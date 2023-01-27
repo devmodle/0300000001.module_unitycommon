@@ -587,7 +587,14 @@ public static partial class Access {
 	#endregion // 클래스 함수
 }
 
-/** 게임 씬 접근자 */
+/** 플레이 씬 접근자 */
+public static partial class Access {
+	#region 클래스 함수
+
+	#endregion // 클래스 함수
+}
+
+/** 결과 씬 접근자 */
 public static partial class Access {
 	#region 클래스 함수
 
