@@ -7,8 +7,7 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.IO;
-using System.Linq;
-using System.Globalization;
+
 using MessagePack;
 
 /** 클리어 정보 */
@@ -335,7 +334,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 		return oChapterClearInfo;
 	}
-	
+
 	/** 캐릭터 게임 정보를 반환한다 */
 	public bool TryGetCharacterGameInfo(int a_nCharacterID, out CCharacterGameInfo a_oOutCharacterGameInfo) {
 		return this.GameInfo.m_oCharacterGameInfoDict.TryGetValue(a_nCharacterID, out a_oOutCharacterGameInfo);

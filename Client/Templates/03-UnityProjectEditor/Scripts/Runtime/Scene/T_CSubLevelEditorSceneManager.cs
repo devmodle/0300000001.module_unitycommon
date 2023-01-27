@@ -9,6 +9,7 @@ using UnityEngine.Events;
 using System.Linq;
 using System.Globalization;
 using UnityEngine.EventSystems;
+
 using EnhancedUI.EnhancedScroller;
 using DanielLochner.Assets.SimpleScrollSnap;
 
@@ -375,7 +376,7 @@ namespace LevelEditorScene {
 					this.HandleHotKeys();
 					CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(null);
 				}
-				
+
 				// 메인 카메라가 존재 할 경우
 				if(CSceneManager.IsExistsMainCamera) {
 					var stMousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, this.PlaneDistance);
@@ -402,7 +403,7 @@ namespace LevelEditorScene {
 						bool bIsValid02 = m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos);
 
 						Color stColor = this.IsEnableAddCellObjInfo(stIdx, this.GetEditorObjSize(), m_oObjKindsDict[EKey.SEL_OBJ_KINDS]) ? Color.white : Color.red;
-						
+
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.SetActive(bIsValid01 && bIsValid02);
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.ExSetLocalPos(this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize));
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetColor<SpriteRenderer>(stColor.ExGetAlphaColor(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL));
@@ -1287,7 +1288,7 @@ namespace LevelEditorScene {
 						this.SelLevelInfo.TryGetCellInfo(stIdx, out STCellInfo stExtraCellInfo);
 
 						int nIdx = stExtraCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => !stIdx.Equals(a_stIdx) && !a_stCellObjInfo.m_stBaseIdx.Equals(a_stIdx));
-						
+
 						// 셀 객체 추가가 불가능 할 경우
 						if(!a_bIsEnableOverlay && stExtraCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx)) {
 							return false;
@@ -1578,7 +1579,7 @@ namespace LevelEditorScene {
 
 			this.UpdateUIsState();
 		}
-		
+
 		/** 중앙 에디터 UI 그리드 스크롤 간격을 변경한다 */
 		private void SetMEUIsGridScrollDelta(float a_fDeltaX, float a_fDeltaY) {
 			float fWidth = Mathf.Max(KCDefine.B_VAL_0_REAL, this.SelGridInfo.m_stBounds.size.x - this.SelGridInfo.m_stViewBounds.size.x);

@@ -9,6 +9,7 @@ using UnityEngine.Events;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using MessagePack;
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE

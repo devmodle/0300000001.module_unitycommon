@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 using UnityEngine.EventSystems;
+
 using EnhancedUI.EnhancedScroller;
 
 namespace LevelEditorScene {

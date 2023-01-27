@@ -1,12 +1,13 @@
 #if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
+using System.Linq;
+
 #if UNITY_ANDROID
 using UnityEngine.Android;
 #endif // #if UNITY_ANDROID

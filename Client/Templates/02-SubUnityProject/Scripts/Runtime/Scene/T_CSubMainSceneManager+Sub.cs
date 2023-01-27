@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using UnityEngine.EventSystems;
+
 using EnhancedUI.EnhancedScroller;
 
 namespace MainScene {
