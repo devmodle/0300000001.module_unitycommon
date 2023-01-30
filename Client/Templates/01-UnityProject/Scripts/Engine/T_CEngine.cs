@@ -25,8 +25,7 @@ namespace NSEngine {
 		/** 상태 */
 		public enum EState {
 			NONE = -1,
-			PLAY,
-			PAUSE,
+			IDLE,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -116,11 +115,15 @@ namespace NSEngine {
 			this.SetupLevel();
 			this.SetupGridLine();
 
-			// 선택 플레이어가 존재 할 경우
-			if(this.SelPlayerObj != null && CObjInfoTable.Inst.TryGetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01, out STObjInfo stObjInfo)) {
+#if NEVER_USE_THIS
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
+			// 캐릭터 정보가 존재 할 경우
+			if(CObjInfoTable.Inst.TryGetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01, out STObjInfo stObjInfo)) {
 				this.PlayerObjList.ExAddVal(this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
 				CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.SelPlayerObj.transform.position.x + (KDefine.E_OFFSET_MAIN_CAMERA.x * CAccess.ResolutionUnitScale), this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA.y * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 			}
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
+#endif // #if NEVER_USE_THIS
 
 			this.SubInit();
 		}
@@ -156,8 +159,7 @@ namespace NSEngine {
 				// 실행 중 일 경우
 				if(m_oBoolDict[EKey.IS_RUNNING]) {
 					switch(this.State) {
-						case EState.PLAY: this.HandlePlayState(a_fDeltaTime); break;
-						case EState.PAUSE: this.HandlePauseState(a_fDeltaTime); break;
+						case EState.IDLE: this.HandleIdleState(a_fDeltaTime); break;
 					}
 
 					// 플레이어 객체가 존재 할 경우
@@ -179,13 +181,13 @@ namespace NSEngine {
 
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stVal, EVecType a_eVecType = EVecType.DIRECTION) {
-			this.SelPlayerObj?.GetController<CEPlayerObjController>().Move(a_stVal, a_eVecType);
+			this.SelPlayerObj.GetController<CEPlayerObjController>().Move(a_stVal, a_eVecType);
 		}
 
 		/** 플레이어 객체 스킬을 적용한다 */
 		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
 			var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds);
-			this.SelPlayerObj?.GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
+			this.SelPlayerObj.GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
 		}
 
 		/** 터치 이벤트를 처리한다 */
@@ -411,7 +413,7 @@ namespace NSEngine {
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
 		public void SetEnablePlayerObjAutoControl(bool a_bIsAutoControl) {
-			this.SelPlayerObj?.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsAutoControl);
+			this.SelPlayerObj.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsAutoControl);
 		}
 
 		/** 상태를 변경한다 */

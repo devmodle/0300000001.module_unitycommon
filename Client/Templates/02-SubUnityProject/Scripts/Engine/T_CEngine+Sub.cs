@@ -56,8 +56,8 @@ namespace NSEngine {
 			}
 		}
 
-		/** 플레이 상태를 처리한다 */
-		private void HandlePlayState(float a_fDeltaTime) {
+		/** 대기 상태를 처리한다 */
+		private void HandleIdleState(float a_fDeltaTime) {
 			CFunc.UpdateComponents(this.ItemList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.SkillList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.FXList, a_fDeltaTime);
@@ -90,11 +90,6 @@ namespace NSEngine {
 					CCollectionManager.Inst.DespawnDict(oNumEnemyObjsDict);
 				}
 			}
-		}
-
-		/** 정지 상태를 처리한다 */
-		private void HandlePauseState(float a_fDeltaTime) {
-			// Do Something
 		}
 
 		/** 회피 엔진 객체 이벤트를 처리한다 */
