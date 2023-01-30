@@ -88,17 +88,10 @@ namespace PlayScene {
 				});
 
 				// 비율을 설정한다
+				var stSize = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
 				this.ObjRoot.transform.localScale = m_oEngine.SelGridInfo.m_stScale.ExIsValid() ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
 
 				// 스프라이트를 설정한다 {
-				var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
-					[EKey.BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_BG),
-					[EKey.UP_BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_UP_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_UP_BG),
-					[EKey.DOWN_BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_DOWN_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_DOWN_BG),
-					[EKey.LEFT_BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_LEFT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_LEFT_BG),
-					[EKey.RIGHT_BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_RIGHT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_RIGHT_BG)
-				};
-
 				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
 					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
@@ -107,38 +100,41 @@ namespace PlayScene {
 					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 				}, m_oSpriteDict);
 
+				var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
+					[EKey.BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_BG),
+					[EKey.UP_BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_UP_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_UP_BG),
+					[EKey.DOWN_BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_DOWN_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_DOWN_BG),
+					[EKey.LEFT_BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_LEFT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_LEFT_BG),
+					[EKey.RIGHT_BG_SPRITE] = (Access.GetBGSprite(KDefine.PS_TEX_P_FMT_RIGHT_BG, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03), KDefine.PS_SORTING_OI_RIGHT_BG)
+				};
+
 				foreach(var stKeyVal in m_oSpriteDict) {
-					stKeyVal.Value.drawMode = SpriteDrawMode.Tiled;
-					stKeyVal.Value.tileMode = SpriteTileMode.Continuous;
-					stKeyVal.Value.sprite = oSpriteInfoDict.GetValueOrDefault(stKeyVal.Key).Item1;
-					stKeyVal.Value.ExSetSortingOrder(oSpriteInfoDict.GetValueOrDefault(stKeyVal.Key).Item2);
+					stKeyVal.Value.sprite = oSpriteInfoDict[stKeyVal.Key].Item1;
+					stKeyVal.Value.ExSetSortingOrder(oSpriteInfoDict[stKeyVal.Key].Item2);
 				}
 
-#if NEVER_USE_THIS
-				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
-				var stSize = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
+				bool bIsValid01 = m_oSpriteDict[EKey.BG_SPRITE] != null && m_oSpriteDict[EKey.BG_SPRITE].sprite != null;
+				bool bIsValid02 = m_oSpriteDict[EKey.UP_BG_SPRITE] != null && m_oSpriteDict[EKey.UP_BG_SPRITE].sprite != null;
+				bool bIsValid03 = m_oSpriteDict[EKey.DOWN_BG_SPRITE] != null && m_oSpriteDict[EKey.DOWN_BG_SPRITE].sprite != null;
+				bool bIsValid04 = m_oSpriteDict[EKey.LEFT_BG_SPRITE] != null && m_oSpriteDict[EKey.LEFT_BG_SPRITE].sprite != null;
+				bool bIsValid05 = m_oSpriteDict[EKey.RIGHT_BG_SPRITE] != null && m_oSpriteDict[EKey.RIGHT_BG_SPRITE].sprite != null;
 
-				m_oSpriteDict[EKey.BG_SPRITE].size = stSize;
-				m_oSpriteDict[EKey.BG_SPRITE].transform.localScale = Vector3.one;
-				m_oSpriteDict[EKey.BG_SPRITE].transform.localPosition = Vector3.zero;
+				var oTransInfoDict = new Dictionary<EKey, (Vector3, Vector3)>() {
+					[EKey.BG_SPRITE] = bIsValid01 ? (stSize, Vector3.zero) : (Vector3.one, Vector3.zero),
+					[EKey.UP_BG_SPRITE] = bIsValid02 ? (new Vector3(stSize.x + (this.ScreenWidth * KCDefine.B_VAL_2_REAL), m_oSpriteDict[EKey.UP_BG_SPRITE].sprite.rect.height, KCDefine.B_VAL_0_REAL), new Vector3(KCDefine.B_VAL_0_REAL, (stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.UP_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL)) : (Vector3.one, Vector3.zero),
+					[EKey.DOWN_BG_SPRITE] = bIsValid03 ? (new Vector3(stSize.x + (this.ScreenWidth * KCDefine.B_VAL_2_REAL), m_oSpriteDict[EKey.DOWN_BG_SPRITE].sprite.rect.height, KCDefine.B_VAL_0_REAL), new Vector3(KCDefine.B_VAL_0_REAL, -((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.DOWN_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM.y), KCDefine.B_VAL_0_REAL)) : (Vector3.one, Vector3.zero),
+					[EKey.LEFT_BG_SPRITE] = bIsValid04 ? (new Vector3(m_oSpriteDict[EKey.LEFT_BG_SPRITE].sprite.rect.width, Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL), new Vector3(-((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.LEFT_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL)) : (Vector3.one, Vector3.zero),
+					[EKey.RIGHT_BG_SPRITE] = bIsValid05 ? (new Vector3(m_oSpriteDict[EKey.RIGHT_BG_SPRITE].sprite.rect.width, Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL), new Vector3((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.RIGHT_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL)) : (Vector3.one, Vector3.zero)
+				};
 
-				m_oSpriteDict[EKey.UP_BG_SPRITE].size = new Vector3(stSize.x + (this.ScreenWidth * KCDefine.B_VAL_2_REAL), m_oSpriteDict[EKey.UP_BG_SPRITE].sprite.rect.height, KCDefine.B_VAL_0_REAL);
-				m_oSpriteDict[EKey.UP_BG_SPRITE].transform.localScale = Vector3.one;
-				m_oSpriteDict[EKey.UP_BG_SPRITE].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, (stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.UP_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+				foreach(var stKeyVal in m_oSpriteDict) {
+					stKeyVal.Value.size = oTransInfoDict[stKeyVal.Key].Item1;
+					stKeyVal.Value.drawMode = SpriteDrawMode.Tiled;
+					stKeyVal.Value.tileMode = SpriteTileMode.Continuous;
 
-				m_oSpriteDict[EKey.DOWN_BG_SPRITE].size = m_oSpriteDict[EKey.UP_BG_SPRITE].size;
-				m_oSpriteDict[EKey.DOWN_BG_SPRITE].transform.localScale = Vector3.one;
-				m_oSpriteDict[EKey.DOWN_BG_SPRITE].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, -((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.DOWN_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL) - NSEngine.KDefine.E_OFFSET_BOTTOM), KCDefine.B_VAL_0_REAL);
-
-				m_oSpriteDict[EKey.LEFT_BG_SPRITE].size = new Vector3(m_oSpriteDict[EKey.LEFT_BG_SPRITE].sprite.rect.width, Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
-				m_oSpriteDict[EKey.LEFT_BG_SPRITE].transform.localScale = Vector3.one;
-				m_oSpriteDict[EKey.LEFT_BG_SPRITE].transform.localPosition = new Vector3(-((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.LEFT_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL)), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
-
-				m_oSpriteDict[EKey.RIGHT_BG_SPRITE].size = m_oSpriteDict[EKey.LEFT_BG_SPRITE].size;
-				m_oSpriteDict[EKey.RIGHT_BG_SPRITE].transform.localScale = Vector3.one;
-				m_oSpriteDict[EKey.RIGHT_BG_SPRITE].transform.localPosition = new Vector3((stSize.y / KCDefine.B_VAL_2_REAL) + (m_oSpriteDict[EKey.RIGHT_BG_SPRITE].sprite.rect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
-				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
-#endif // #if NEVER_USE_THIS
+					stKeyVal.Value.transform.localScale = Vector3.one;
+					stKeyVal.Value.transform.localPosition = oTransInfoDict[stKeyVal.Key].Item2;
+				}
 				// 스프라이트를 설정한다 }
 
 				this.SubAwake();
@@ -159,10 +155,7 @@ namespace PlayScene {
 					m_oEngine.SetEnableRunning(true);
 					m_oEngine.SetState(NSEngine.CEngine.EState.PLAY);
 
-#if NEVER_USE_THIS
-					// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
-					m_oEngine.SelPlayerObj.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
-#endif // #if NEVER_USE_THIS
+					m_oEngine.SelPlayerObj?.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
 				}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
 
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_GAME_01);

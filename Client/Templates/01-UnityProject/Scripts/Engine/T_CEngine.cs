@@ -96,9 +96,9 @@ namespace NSEngine {
 
 		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
-		public STGridInfo SelGridInfo => m_oGridInfoList[this.SelGridInfoIdx];
+		public STGridInfo SelGridInfo => m_oGridInfoList.ExGetVal(this.SelGridInfoIdx, STGridInfo.INVALID);
 
-		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
+		public CEObj SelPlayerObj => this.PlayerObjList.ExGetVal(this.SelPlayerObjIdx, null);
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -116,14 +116,11 @@ namespace NSEngine {
 			this.SetupLevel();
 			this.SetupGridLine();
 
-#if NEVER_USE_THIS
-			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
-			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
-			this.PlayerObjList.ExAddVal(this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
-
-			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.SelPlayerObj.transform.position.x, this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
-			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
-#endif // #if NEVER_USE_THIS
+			// 선택 플레이어가 존재 할 경우
+			if(this.SelPlayerObj != null && CObjInfoTable.Inst.TryGetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01, out STObjInfo stObjInfo)) {
+				this.PlayerObjList.ExAddVal(this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
+				CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.SelPlayerObj.transform.position.x + (KDefine.E_OFFSET_MAIN_CAMERA.x * CAccess.ResolutionUnitScale), this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA.y * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+			}
 
 			this.SubInit();
 		}
@@ -182,13 +179,13 @@ namespace NSEngine {
 
 		/** 플레이어 객체 이동을 처리한다 */
 		public void MovePlayerObj(Vector3 a_stVal, EVecType a_eVecType = EVecType.DIRECTION) {
-			this.SelPlayerObj.GetController<CEPlayerObjController>().Move(a_stVal, a_eVecType);
+			this.SelPlayerObj?.GetController<CEPlayerObjController>().Move(a_stVal, a_eVecType);
 		}
 
 		/** 플레이어 객체 스킬을 적용한다 */
 		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
 			var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds);
-			this.SelPlayerObj.GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
+			this.SelPlayerObj?.GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
 		}
 
 		/** 터치 이벤트를 처리한다 */
@@ -257,37 +254,41 @@ namespace NSEngine {
 				if(a_oSender.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL)) {
 					this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
 				} else {
-					var oAcquireTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+					foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict) {
+						bool bIsValid = stKeyVal.Value.TargetType == ETargetType.ITEM && (a_oSender as CEItem != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEItem).Params.m_stItemInfo.m_eItemKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType);
 
-					try {
-						this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
-						this.Params.m_oCallbackDict02.GetValueOrDefault(ECallback.ACQUIRE)?.Invoke(this, oAcquireTargetInfoDict);
-						global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, this.SelPlayerObj.Params.m_oObjTargetInfo, true);
+						// 클리어 타겟 정보가 존재 할 경우
+						if(bIsValid || (stKeyVal.Value.TargetType == ETargetType.OBJ && (a_oSender as CEObj != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEObj).Params.m_stObjInfo.m_eObjKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType))) {
+							m_oClearTargetInfoDict.ExIncrTargetVal(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, -KCDefine.B_VAL_1_INT);
+						}
+					}
 
-						var stObjTradeInfo = CObjInfoTable.Inst.GetEnhanceObjTradeInfo(this.SelPlayerObj.Params.m_stObjInfo.m_eObjKinds);
-						var stSkipTargetValInfo = this.SelPlayerObj.Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetSkipTargetValInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, (int)this.SelPlayerObj.Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), stObjTradeInfo.m_oPayTargetInfoDict);
+					// 선택 플레이어가 존재 할 경우
+					if(this.SelPlayerObj != null) {
+						var oAcquireTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
 
-						foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict) {
-							bool bIsValid = stKeyVal.Value.TargetType == ETargetType.ITEM && (a_oSender as CEItem != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEItem).Params.m_stItemInfo.m_eItemKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType);
+						try {
+							this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
+							this.Params.m_oCallbackDict02.GetValueOrDefault(ECallback.ACQUIRE)?.Invoke(this, oAcquireTargetInfoDict);
 
-							// 클리어 타겟 정보가 존재 할 경우
-							if(bIsValid || (stKeyVal.Value.TargetType == ETargetType.OBJ && (a_oSender as CEObj != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEObj).Params.m_stObjInfo.m_eObjKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType))) {
-								m_oClearTargetInfoDict.ExIncrTargetVal(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, -KCDefine.B_VAL_1_INT);
+							global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, this.SelPlayerObj.Params.m_oObjTargetInfo, true);
+
+							var stObjTradeInfo = CObjInfoTable.Inst.GetEnhanceObjTradeInfo(this.SelPlayerObj.Params.m_stObjInfo.m_eObjKinds);
+							var stSkipTargetValInfo = this.SelPlayerObj.Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetSkipTargetValInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, (int)this.SelPlayerObj.Params.m_oObjTargetInfo.m_oAbilityTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV), stObjTradeInfo.m_oPayTargetInfoDict);
+
+							// 플레이어 객체 레벨 강화가 가능 할 경우
+							if(stSkipTargetValInfo.Item1 >= stSkipTargetValInfo.Item3) {
+								global::Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stObjTradeInfo.m_oPayTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
+								global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stObjTradeInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo, true);
+
+								this.SelPlayerObj.SetupAbilityVals();
 							}
+
+							m_oBoolDict[EKey.IS_SAVE_USER_INFO] = oAcquireTargetInfoDict.ExIsValid() ? true : m_oBoolDict[EKey.IS_SAVE_USER_INFO];
+						} finally {
+							this.RemoveEObjComponent(a_oSender);
+							CCollectionManager.Inst.DespawnDict(oAcquireTargetInfoDict);
 						}
-
-						// 플레이어 객체 레벨 강화가 가능 할 경우
-						if(stSkipTargetValInfo.Item1 >= stSkipTargetValInfo.Item3) {
-							global::Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stObjTradeInfo.m_oPayTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
-							global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stObjTradeInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo, true);
-
-							this.SelPlayerObj.SetupAbilityVals();
-						}
-
-						m_oBoolDict[EKey.IS_SAVE_USER_INFO] = oAcquireTargetInfoDict.ExIsValid() ? true : m_oBoolDict[EKey.IS_SAVE_USER_INFO];
-					} finally {
-						this.RemoveEObjComponent(a_oSender);
-						CCollectionManager.Inst.DespawnDict(oAcquireTargetInfoDict);
 					}
 				}
 			}
@@ -388,15 +389,19 @@ namespace NSEngine {
 		#region 함수
 		/** 메인 카메라 위치를 반환한다 */
 		public Vector3 GetMainCameraPos() {
-			var stPos = this.SelPlayerObj.transform.localPosition;
-			var stSize = this.CameraEpisodeSize.ExToLocal(this.Params.m_oObjRoot, false);
-			var stOffset = KDefine.E_OFFSET_MAIN_CAMERA.ExToLocal(this.Params.m_oObjRoot, false);
-			var stScreenSize = CSceneManager.ActiveSceneManager.ScreenSize.ExToLocal(this.Params.m_oObjRoot, false);
+			// 선택 플레이어가 존재 할 경우
+			if(this.SelPlayerObj != null) {
+				var stSize = this.CameraEpisodeSize.ExToLocal(this.Params.m_oObjRoot, false);
+				var stOffset = KDefine.E_OFFSET_MAIN_CAMERA.ExToLocal(this.Params.m_oObjRoot, false);
+				var stScreenSize = CSceneManager.ActiveSceneManager.ScreenSize.ExToLocal(this.Params.m_oObjRoot, false);
 
-			float fMainCameraPosX = Mathf.Clamp(stPos.x, stSize.x / -KCDefine.B_VAL_2_REAL, stSize.x / KCDefine.B_VAL_2_REAL);
-			float fMainCameraPosY = Mathf.Clamp(stPos.y + stOffset.y, (stSize.y / -KCDefine.B_VAL_2_REAL) - (stScreenSize.y / KCDefine.B_VAL_3_REAL), stSize.y / KCDefine.B_VAL_2_REAL);
+				float fPosX = Mathf.Clamp(this.SelPlayerObj.transform.localPosition.x, stSize.x / -KCDefine.B_VAL_2_REAL, stSize.x / KCDefine.B_VAL_2_REAL);
+				float fPosY = Mathf.Clamp(this.SelPlayerObj.transform.localPosition.y + stOffset.y, (stSize.y / -KCDefine.B_VAL_2_REAL) - (stScreenSize.y / KCDefine.B_VAL_3_REAL), stSize.y / KCDefine.B_VAL_2_REAL);
 
-			return new Vector3(fMainCameraPosX, fMainCameraPosY, CSceneManager.ActiveSceneMainCamera.transform.position.ExToLocal(this.Params.m_oObjRoot).z);
+				return new Vector3(fPosX, fPosY, CSceneManager.ActiveSceneMainCamera.transform.position.ExToLocal(this.Params.m_oObjRoot).z);
+			}
+
+			return CSceneManager.ActiveSceneMainCamera.transform.localPosition;
 		}
 
 		/** 구동 여부를 변경한다 */
@@ -406,7 +411,7 @@ namespace NSEngine {
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
 		public void SetEnablePlayerObjAutoControl(bool a_bIsAutoControl) {
-			this.SelPlayerObj.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsAutoControl);
+			this.SelPlayerObj?.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsAutoControl);
 		}
 
 		/** 상태를 변경한다 */
