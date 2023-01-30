@@ -726,14 +726,9 @@ namespace LevelEditorScene {
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnH(stIdx.x));
 
 				(oBtn.transform as RectTransform).pivot = KCDefine.B_ANCHOR_DOWN_CENTER;
-				(oBtn.transform as RectTransform).SetAsFirstSibling();
+				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExToCanvas(this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_H_GRID_LINE_BTN;
 
-				// 2 차원 투영 일 경우
-				if(this.MainCameraProjection == EProjection._2D) {
-					(oBtn.transform as RectTransform).anchoredPosition = stWorldPos.ExToCanvas(CSceneManager.ActiveSceneMainCamera, this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_H_GRID_LINE_BTN;
-				} else {
-					(oBtn.transform as RectTransform).anchoredPosition = stWorldPos.ExToCanvas(CSceneManager.ActiveSceneMainCamera, this.UIsCanvas) + KDefine.LES_OFFSET_H_GRID_LINE_BTN;
-				}
+				(oBtn.transform as RectTransform).SetAsFirstSibling();
 
 				// 텍스트가 존재 할 경우
 				if(oBtn.TryGetComponent<Text>(out Text oText)) {
@@ -754,15 +749,10 @@ namespace LevelEditorScene {
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnV(stIdx.y));
 
 				(oBtn.transform as RectTransform).pivot = KCDefine.B_ANCHOR_MID_RIGHT;
+				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExToCanvas(this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_V_GRID_LINE_BTN;
+
 				(oBtn.transform as RectTransform).SetAsFirstSibling();
-
-				// 2 차원 투영 일 경우
-				if(this.MainCameraProjection == EProjection._2D) {
-					(oBtn.transform as RectTransform).anchoredPosition = stWorldPos.ExToCanvas(CSceneManager.ActiveSceneMainCamera, this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_V_GRID_LINE_BTN;
-				} else {
-					(oBtn.transform as RectTransform).anchoredPosition = stWorldPos.ExToCanvas(CSceneManager.ActiveSceneMainCamera, this.UIsCanvas) + KDefine.LES_OFFSET_V_GRID_LINE_BTN;
-				}
-
+				
 				// 텍스트가 존재 할 경우
 				if(oBtn.TryGetComponent<Text>(out Text oText)) {
 					oText.text = $"{i + KCDefine.B_VAL_1_INT}";
