@@ -154,6 +154,7 @@ namespace PlayScene {
 				this.ExLateCallFunc((a_oSender) => {
 					m_oEngine.SetEnableRunning(true);
 					m_oEngine.SetState(NSEngine.CEngine.EState.IDLE);
+					m_oEngine.SetSubState(NSEngine.CEngine.ESubState.PLAY);
 
 					m_oEngine.SelPlayerObj?.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
 				}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);

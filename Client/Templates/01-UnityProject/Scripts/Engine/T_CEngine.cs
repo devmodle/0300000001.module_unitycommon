@@ -32,6 +32,8 @@ namespace NSEngine {
 		/** 서브 상태 */
 		public enum ESubState {
 			NONE = -1,
+			PLAY,
+			PAUSE,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -158,8 +160,9 @@ namespace NSEngine {
 			if(CSceneManager.IsAppRunning) {
 				// 실행 중 일 경우
 				if(m_oBoolDict[EKey.IS_RUNNING]) {
-					switch(this.State) {
-						case EState.IDLE: this.HandleIdleState(a_fDeltaTime); break;
+					switch(this.SubState) {
+						case ESubState.PLAY: this.HandlePlaySubState(a_fDeltaTime); break;
+						case ESubState.PAUSE: this.HandlePauseSubState(a_fDeltaTime); break;
 					}
 
 					// 플레이어 객체가 존재 할 경우
