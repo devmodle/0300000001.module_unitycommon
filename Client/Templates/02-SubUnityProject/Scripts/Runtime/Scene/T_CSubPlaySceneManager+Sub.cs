@@ -69,6 +69,14 @@ namespace PlayScene {
 			}
 		}
 
+		/** 상태를 갱신한다 */
+		private void SubOnLateUpdate(float a_fDeltaTime) {
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Something
+			}
+		}
+
 		/** UI 상태를 갱신한다 */
 		private void SubUpdateUIsState() {
 #if DEBUG || DEVELOPMENT_BUILD

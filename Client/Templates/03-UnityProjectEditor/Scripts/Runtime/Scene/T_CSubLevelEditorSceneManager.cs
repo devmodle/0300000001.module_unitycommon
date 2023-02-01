@@ -19,6 +19,7 @@ namespace LevelEditorScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			IS_RESET_NUM_VIEW_CELLS,
 			PREV_CELL_IDX,
 			UPDATE_SKIP_TIME,
 			GRID_SCROLL_DELTA_X,
@@ -83,10 +84,13 @@ namespace LevelEditorScene {
 			RE_UIS_PAGE_UIS_01_SAVE_REMOTE_TABLE_BTN,
 
 			RE_UIS_PAGE_UIS_01_REMOVE_ALL_LEVELS_BTN,
-
 			RE_UIS_PAGE_UIS_01_LEVEL_INPUT,
+			
 			RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT,
 			RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT,
+
+			RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT,
+			RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT,
 
 			RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT,
 			RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT,
@@ -134,6 +138,10 @@ namespace LevelEditorScene {
 		}
 
 		#region 변수
+		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+			[EKey.IS_RESET_NUM_VIEW_CELLS] = false
+		};
+
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
 			[EKey.SEL_GRID_IDX] = KCDefine.B_VAL_0_INT
 		};
@@ -286,13 +294,7 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				// 레벨 정보가 없을 경우
 				if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
-					var oLevelInfo = Factory.MakeEditorLevelInfo(KCDefine.B_VAL_0_INT);
-					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
-
-					Func.SetupEditorLevelInfo(oLevelInfo, new CSubEditorCreateInfo() {
-						m_nNumLevels = KCDefine.B_VAL_0_INT, m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS, m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
-					});
-
+					this.AddLevelInfo(KCDefine.B_VAL_0_INT, Factory.MakeDefEditorCreateInfo());
 					CLevelInfoTable.Inst.SaveLevelInfos();
 				}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -636,37 +638,18 @@ namespace LevelEditorScene {
 			});
 			// 객체를 제거한다 }
 
-			// 그리드 정보를 설정한다 {
-			m_oGridInfoList.Clear();
-
-			// TODO: 다중 그리드 처리 구현 예정
-			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
-				switch(this.SelLevelInfo.GridType) {
-					case EGridType.SCROLL_H: {
-						break;
-					}
-					case EGridType.SCROLL_V: {
-						var stGridInfo = NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, this.SelLevelInfo.NumCells, true);
-						var stGridScale = stGridInfo.m_stScale.ExIsValid() ? stGridInfo.m_stScale : Vector3.one;
-						
-						m_oGridInfoList.ExAddVal(NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER,
-							new Vector3(KCDefine.B_VAL_0_REAL, (NSEngine.Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridScale.y), KCDefine.B_VAL_0_REAL),
-							new Vector3(KCDefine.B_VAL_0_REAL, m_oRealDict[EKey.GRID_SCROLL_DELTA_Y], KCDefine.B_VAL_0_REAL),
-							this.SelLevelInfo.NumCells,
-							true));
-
-						break;
-					}
-					default: {
-						var stGridInfo = NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, this.SelLevelInfo.NumCells);
-						stGridInfo.m_stScale = (this.SelLevelInfo.GridType == EGridType.NONE) ? Vector3.one : stGridInfo.m_stScale;
-
-						m_oGridInfoList.ExAddVal(stGridInfo);
-						break;
-					}
-				}
+			// 시야 셀 개수 리셋 모드 일 경우
+			if(m_oBoolDict[EKey.IS_RESET_NUM_VIEW_CELLS]) {
+				m_oBoolDict[EKey.IS_RESET_NUM_VIEW_CELLS] = false;
+				this.SelLevelInfo.m_stNumViewCells = Vector3Int.zero;
 			}
-			// 그리드 정보를 설정한다 }
+
+			// 그리드 정보를 설정한다
+			NSEngine.Factory.MakeGridInfos(this.SelLevelInfo, m_oGridInfoList, m_oRealDict[EKey.GRID_SCROLL_DELTA_X], m_oRealDict[EKey.GRID_SCROLL_DELTA_Y]);
+			m_oIntDict[EKey.SEL_GRID_IDX] = Mathf.Clamp(m_oIntDict[EKey.SEL_GRID_IDX], KCDefine.B_VAL_0_INT, m_oGridInfoList.Count - KCDefine.B_VAL_1_INT);
+
+			// 레벨 정보를 설정한다
+			this.SelLevelInfo.m_stNumViewCells = this.GetNumViewCells(this.SelLevelInfo, m_oIntDict[EKey.SEL_GRID_IDX], m_oRealDict[EKey.GRID_SCROLL_DELTA_X], m_oRealDict[EKey.GRID_SCROLL_DELTA_Y]);
 
 			// 객체를 설정한다 {
 			this.ObjRoot.transform.localScale = this.SelGridInfo.m_stScale.ExIsValid() ? this.SelGridInfo.m_stScale : Vector3.one;
@@ -855,14 +838,7 @@ namespace LevelEditorScene {
 
 				// 레벨 정보가 없을 경우
 				if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
-					var oLevelInfo = Factory.MakeEditorLevelInfo(KCDefine.B_VAL_0_INT);
-					CLevelInfoTable.Inst.AddLevelInfo(oLevelInfo);
-
-					Func.SetupEditorLevelInfo(oLevelInfo, new CSubEditorCreateInfo() {
-						m_nNumLevels = KCDefine.B_VAL_0_INT,
-						m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS,
-						m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
-					});
+					this.AddLevelInfo(KCDefine.B_VAL_0_INT, Factory.MakeDefEditorCreateInfo());
 				}
 
 				this.SetSelLevelInfo(CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT)); ;
@@ -961,10 +937,7 @@ namespace LevelEditorScene {
 				int nNumCreateLevelInfos = (nNumLevelInfos + a_oCreateInfo.m_nNumLevels < KCDefine.U_MAX_NUM_LEVEL_INFOS) ? a_oCreateInfo.m_nNumLevels : KCDefine.U_MAX_NUM_LEVEL_INFOS - nNumLevelInfos;
 
 				for(int i = 0; i < nNumCreateLevelInfos; ++i) {
-					this.SetSelLevelInfo(Factory.MakeEditorLevelInfo(i + nNumLevelInfos, this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03));
-					CLevelInfoTable.Inst.AddLevelInfo(this.SelLevelInfo);
-
-					Func.SetupEditorLevelInfo(this.SelLevelInfo, a_oCreateInfo);
+					this.AddLevelInfo(i + nNumLevelInfos, a_oCreateInfo, this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03);
 				}
 
 				this.UpdateUIsState();
@@ -1000,14 +973,19 @@ namespace LevelEditorScene {
 
 		/** 레벨 정보를 추가한다 */
 		private void AddLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+			this.AddLevelInfo(a_nLevelID, Factory.MakeDefEditorCreateInfo(), a_nStageID, a_nChapterID);
+		}
+
+		/** 레벨 정보를 추가한다 */
+		private void AddLevelInfo(int a_nLevelID, CEditorCreateInfo a_oCreateInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 			this.SetSelLevelInfo(Factory.MakeEditorLevelInfo(a_nLevelID, a_nStageID, a_nChapterID));
 			CLevelInfoTable.Inst.AddLevelInfo(this.SelLevelInfo);
 
-			Func.SetupEditorLevelInfo(this.SelLevelInfo, new CSubEditorCreateInfo() {
-				m_nNumLevels = KCDefine.B_VAL_0_INT,
-				m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS,
-				m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
-			});
+			Func.SetupEditorLevelInfo(this.SelLevelInfo, a_oCreateInfo);
+
+			for(int j = 0; j < KCDefine.B_VAL_1_INT; ++j) {
+				this.SelLevelInfo.m_stNumViewCells = this.GetNumViewCells(this.SelLevelInfo, j);
+			}
 
 			this.UpdateUIsState();
 		}
@@ -1055,14 +1033,7 @@ namespace LevelEditorScene {
 
 			// 레벨 정보가 없을 경우
 			if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
-				this.SetSelLevelInfo(Factory.MakeEditorLevelInfo(KCDefine.B_VAL_0_INT));
-				CLevelInfoTable.Inst.AddLevelInfo(this.SelLevelInfo);
-
-				Func.SetupEditorLevelInfo(this.SelLevelInfo, new CSubEditorCreateInfo() {
-					m_nNumLevels = KCDefine.B_VAL_0_INT,
-					m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS,
-					m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
-				});
+				this.AddLevelInfo(KCDefine.B_VAL_0_INT, Factory.MakeDefEditorCreateInfo());
 			} else {
 				CLevelInfo oLevelInfo = null;
 
@@ -1808,13 +1779,21 @@ namespace LevelEditorScene {
 			// 입력 필드를 설정한다 {
 			CFunc.SetupInputs(new List<(EKey, string, GameObject, UnityAction<string>)>() {
 				(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01LevelInputStr),
+
 				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr),
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr)
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr),
+				
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumViewCellsInputStr),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumViewCellsInputStr)
 			}, m_oInputDict);
 
 			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]);
+
 			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]);
 			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]);
+
+			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]);
+			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]);
 			// 입력 필드를 설정한다 }
 
 			// 버튼을 설정한다 {
@@ -1943,10 +1922,13 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 1 상태를 갱신한다 */
 		private void UpdateREUIsPageUIs01(GameObject a_oPageUIs) {
 			// 입력 필드를 갱신한다 {
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.ExSetText<InputField>($"{this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT}", false);
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.SetTextWithoutNotify($"{this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT}");
 
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.NumCells.x}", false);
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.NumCells.y}", false);
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.SetTextWithoutNotify((this.SelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.NumCells.x}");
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.SetTextWithoutNotify((this.SelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.NumCells.y}");
+
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]?.SetTextWithoutNotify((this.SelLevelInfo.m_stNumViewCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.m_stNumViewCells.x}");
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]?.SetTextWithoutNotify((this.SelLevelInfo.m_stNumViewCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.m_stNumViewCells.y}");
 			// 입력 필드를 갱신한다 }
 		}
 
@@ -1979,6 +1961,8 @@ namespace LevelEditorScene {
 
 			// 셀 개수가 유효 할 경우
 			if(bIsValid01 && bIsValid02 && (bIsValidNumCellsX || bIsValidNumCellsY)) {
+				m_oBoolDict[EKey.IS_RESET_NUM_VIEW_CELLS] = true;
+
 				Func.SetupEditorLevelInfo(this.SelLevelInfo, new CSubEditorCreateInfo() {
 					m_nNumLevels = KCDefine.B_VAL_0_INT,
 					m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.z),
@@ -2123,6 +2107,14 @@ namespace LevelEditorScene {
 			this.SetREUIsPageUIs01NumCells(bIsValid01 ? nNumCellsX : KCDefine.B_VAL_1_INT, bIsValid02 ? nNumCellsY : KCDefine.B_VAL_1_INT);
 		}
 
+		/** 오른쪽 에디터 UI 페이지 UI 1 시야 셀 개수 입력 문자열을 변경했을 경우 */
+		private void OnChangeREUIsPageUIs01NumViewCellsInputStr(string a_oStr) {
+			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsX);
+			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsY);
+
+			this.SetREUIsPageUIs01NumViewCells(bIsValid01 ? nNumCellsX : KCDefine.B_VAL_1_INT, bIsValid02 ? nNumCellsY : KCDefine.B_VAL_1_INT);
+		}
+
 		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기 입력 문자열을 변경했을 경우 */
 		private void OnChangeREUIsPageUIs02ObjSizeInputStr(string a_oStr) {
 			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.text, NumberStyles.Any, null, out int nSizeX);
@@ -2135,6 +2127,29 @@ namespace LevelEditorScene {
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		/** 시야 셀 개수를 반환한다 */
+		private Vector3Int GetNumViewCells(CLevelInfo a_oLevelInfo, int a_nIdx, float a_fDeltaX = KCDefine.B_VAL_0_REAL, float a_fDeltaY = KCDefine.B_VAL_0_REAL) {
+			var oGridInfoList = CCollectionManager.Inst.SpawnList<NSEngine.STGridInfo>();
+			var stNumViewCells = Vector3Int.zero;
+
+			try {
+				NSEngine.Factory.MakeGridInfos(a_oLevelInfo, oGridInfoList, a_fDeltaX, a_fDeltaY);
+				CAccess.Assert(oGridInfoList.ExIsValidIdx(a_nIdx));
+
+				stNumViewCells.x = Mathf.Clamp((int)(oGridInfoList[a_nIdx].m_stViewBounds.size.x / NSEngine.Access.CellSize.x), NSEngine.KDefine.E_MIN_NUM_CELLS.x, a_oLevelInfo.NumCells.x);
+				stNumViewCells.y = Mathf.Clamp((int)(oGridInfoList[a_nIdx].m_stViewBounds.size.y / NSEngine.Access.CellSize.y), NSEngine.KDefine.E_MIN_NUM_CELLS.y, a_oLevelInfo.NumCells.y);
+				stNumViewCells.z = KCDefine.B_VAL_1_INT;
+			} finally {
+				CCollectionManager.Inst.DespawnList(oGridInfoList);
+			}
+
+			int nNumViewCellsX = (this.SelLevelInfo.m_stNumViewCells.x <= KCDefine.B_VAL_1_INT) ? stNumViewCells.x : this.SelLevelInfo.m_stNumViewCells.x;
+			int nNumViewCellsY = (this.SelLevelInfo.m_stNumViewCells.y <= KCDefine.B_VAL_1_INT) ? stNumViewCells.y : this.SelLevelInfo.m_stNumViewCells.y;
+			int nNumViewCellsZ = (this.SelLevelInfo.m_stNumViewCells.z <= KCDefine.B_VAL_1_INT) ? stNumViewCells.z : this.SelLevelInfo.m_stNumViewCells.z;
+
+			return new Vector3Int(Mathf.Min(nNumViewCellsX, stNumViewCells.x), Mathf.Min(nNumViewCellsY, stNumViewCells.y), Mathf.Min(nNumViewCellsZ, stNumViewCells.z));
+		}
+
 		/** 그리드 기본 인덱스를 반환한다 */
 		private Vector3Int GetGridBaseIdx(EDirection a_eDirection) {
 			switch(a_eDirection) {
@@ -2151,6 +2166,17 @@ namespace LevelEditorScene {
 		private void SetREUIsPageUIs01NumCells(int a_nNumCellsX, int a_nNumCellsY) {
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nNumCellsX, NSEngine.KDefine.E_MIN_NUM_CELLS.x, NSEngine.KDefine.E_MAX_NUM_CELLS.x)}");
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.y, NSEngine.KDefine.E_MAX_NUM_CELLS.y)}");
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 1 시야 셀 개수를 변경한다 */
+		private void SetREUIsPageUIs01NumViewCells(int a_nNumCellsX, int a_nNumCellsY) {
+			int nNumViewCellsX = Mathf.Clamp(a_nNumCellsX, NSEngine.KDefine.E_MIN_NUM_CELLS.x, (int)(this.SelGridInfo.m_stViewBounds.size.x / NSEngine.Access.CellSize.x));
+			int nNumViewCellsY = Mathf.Clamp(a_nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.y, (int)(this.SelGridInfo.m_stViewBounds.size.y / NSEngine.Access.CellSize.y));
+
+			this.SelLevelInfo.m_stNumViewCells = new Vector3Int(Mathf.Min(nNumViewCellsX, this.SelLevelInfo.NumCells.x), Mathf.Min(nNumViewCellsY, this.SelLevelInfo.NumCells.y), KCDefine.B_VAL_1_INT);
+
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]?.SetTextWithoutNotify($"{this.SelLevelInfo.m_stNumViewCells.x}");
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]?.SetTextWithoutNotify($"{this.SelLevelInfo.m_stNumViewCells.y}");
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기를 변경한다 */

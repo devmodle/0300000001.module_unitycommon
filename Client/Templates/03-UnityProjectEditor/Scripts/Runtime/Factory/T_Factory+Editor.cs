@@ -43,6 +43,15 @@ public static partial class Factory {
 		stLevelInfo.OnAfterDeserialize();
 		return stLevelInfo;
 	}
+
+	/** 에디터 생성 정보를 생성한다 */
+	public static CSubEditorCreateInfo MakeDefEditorCreateInfo() {
+		return new CSubEditorCreateInfo() {
+			m_nNumLevels = KCDefine.B_VAL_0_INT,
+			m_stMinNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS,
+			m_stMaxNumCells = NSEngine.KDefine.E_MIN_NUM_CELLS
+		};
+	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 	#endregion // 조건부 클래스 함수
 }

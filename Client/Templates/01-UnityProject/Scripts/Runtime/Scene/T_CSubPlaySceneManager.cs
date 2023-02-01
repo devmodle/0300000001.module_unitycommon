@@ -206,14 +206,23 @@ namespace PlayScene {
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
+				this.SubOnUpdate(a_fDeltaTime);
 				m_oEngine.OnUpdate(a_fDeltaTime);
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		public override void OnLateUpdate(float a_fDeltaTime) {
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				this.SubOnLateUpdate(a_fDeltaTime);
+				m_oEngine.OnLateUpdate(a_fDeltaTime);
 
 				// UI 갱신이 필요 할 경우
 				if(m_oBoolDict[EKey.IS_UPDATE_UIS_STATE]) {
+					this.UpdateUIsState();
 					m_oBoolDict[EKey.IS_UPDATE_UIS_STATE] = false;
 				}
-
-				this.SubOnUpdate(a_fDeltaTime);
 			}
 		}
 

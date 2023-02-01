@@ -209,39 +209,12 @@ namespace NSEngine {
 
 		/** 엔진을 설정한다 */
 		private void Setup() {
-			// 그리드 정보를 설정한다 {
-			m_oGridInfoList.Clear();
-
-			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
-				switch(CGameInfoStorage.Inst.PlayLevelInfo.GridType) {
-					case EGridType.SCROLL_H: {
-						break;
-					}
-					case EGridType.SCROLL_V: {
-						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, CGameInfoStorage.Inst.PlayLevelInfo.NumCells, true);
-						var stGridScale = stGridInfo.m_stScale.ExIsValid() ? stGridInfo.m_stScale : Vector3.one;
-
-						m_oGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER,
-							new Vector3(KCDefine.B_VAL_0_REAL, (Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridScale.y), KCDefine.B_VAL_0_REAL),
-							new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL),
-							CGameInfoStorage.Inst.PlayLevelInfo.NumCells,
-							true));
-
-						break;
-					}
-					default: {
-						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, CGameInfoStorage.Inst.PlayLevelInfo.NumCells);
-						stGridInfo.m_stScale = (CGameInfoStorage.Inst.PlayLevelInfo.GridType == EGridType.NONE) ? Vector3.one : stGridInfo.m_stScale;
-
-						m_oGridInfoList.ExAddVal(stGridInfo);
-						break;
-					}
-				}
-			}
-			// 그리드 정보를 설정한다 }
-
 			this.CellObjLists = new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+
+			// 그리드 정보를 설정한다
+			m_oGridInfoList.Clear();
+			Factory.MakeGridInfos(CGameInfoStorage.Inst.PlayLevelInfo, m_oGridInfoList);
 
 			// 객체 풀을 설정한다 {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), this.Params.m_oItemRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);

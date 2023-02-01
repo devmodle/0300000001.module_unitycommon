@@ -11,7 +11,40 @@ namespace NSEngine {
 	public static partial class Factory {
 		#region 클래스 함수
 		/** 그리드 정보를 생성한다 */
-		public static STGridInfo MakeGridInfo(Vector3 a_stPivot, Vector3 a_stPos, Vector3 a_stOffset, Vector3Int a_stNumCells, bool a_bIsEnableOverflow = false) {
+		public static void MakeGridInfos(CLevelInfo a_oLevelInfo, List<STGridInfo> a_oOutGridInfoList, float a_fDeltaX = KCDefine.B_VAL_0_REAL, float a_fDeltaY = KCDefine.B_VAL_0_REAL) {
+			a_oOutGridInfoList.Clear();
+
+			// TODO: 다중 그리드 처리 구현 예정
+			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
+				switch(a_oLevelInfo.GridType) {
+					case EGridType.SCROLL_H: {
+						break;
+					}
+					case EGridType.SCROLL_V: {
+						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, a_oLevelInfo.NumCells, true);
+						var stGridScale = stGridInfo.m_stScale.ExIsValid() ? stGridInfo.m_stScale : Vector3.one;
+
+						a_oOutGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER,
+							new Vector3(KCDefine.B_VAL_0_REAL, (Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridScale.y), KCDefine.B_VAL_0_REAL),
+							new Vector3(KCDefine.B_VAL_0_REAL, a_fDeltaY, KCDefine.B_VAL_0_REAL),
+							a_oLevelInfo.NumCells,
+							true));
+
+						break;
+					}
+					default: {
+						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, a_oLevelInfo.NumCells);
+						stGridInfo.m_stScale = (a_oLevelInfo.GridType == EGridType.NONE) ? Vector3.one : stGridInfo.m_stScale;
+
+						a_oOutGridInfoList.ExAddVal(stGridInfo);
+						break;
+					}
+				}
+			}
+		}
+
+		/** 그리드 정보를 생성한다 */
+		private static STGridInfo MakeGridInfo(Vector3 a_stPivot, Vector3 a_stPos, Vector3 a_stOffset, Vector3Int a_stNumCells, bool a_bIsEnableOverflow = false) {
 			var stGridInfo = new STGridInfo() {
 				m_stBounds = new Bounds(Vector3.zero, new Vector3(a_stNumCells.x * Access.CellSize.x, a_stNumCells.y * Access.CellSize.y, KCDefine.B_VAL_0_REAL))
 			};
