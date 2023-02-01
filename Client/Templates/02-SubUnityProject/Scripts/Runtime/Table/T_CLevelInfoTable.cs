@@ -254,18 +254,45 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
+	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stNumViewCells;
 #else
 	[IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
+	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stNumViewCells;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 변수
 
 	#region 상수
+	private const string KEY_NUM_VIEW_CELLS_X = "NumViewCellsX";
+	private const string KEY_NUM_VIEW_CELLS_Y = "NumViewCellsY";
+	private const string KEY_NUM_VIEW_CELLS_Z = "NumViewCellsZ";
+
 	private const string KEY_GRID_TYPE = "GridType";
 	private const string KEY_CELL_INFO_VER = "CellInfoVer";
 	#endregion // 상수
 
 	#region 프로퍼티
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+	[JsonIgnore]
+	[IgnoreMember]
+	public int NumViewCellsX {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_X, $"{value}"); }
+	}
+
+	[JsonIgnore]
+	[IgnoreMember]
+	public int NumViewCellsY {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Y, $"{value}"); }
+	}
+
+	[JsonIgnore]
+	[IgnoreMember]
+	public int NumViewCellsZ {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Z, $"{value}"); }
+	}
+
 	[JsonIgnore]
 	[IgnoreMember]
 	public EGridType GridType {
@@ -286,6 +313,24 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore] [IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	[JsonIgnore] [IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_1_INT);
 #else
+	[IgnoreMember]
+	public int NumViewCellsX {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_X, $"{value}"); }
+	}
+
+	[IgnoreMember]
+	public int NumViewCellsY {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Y, $"{value}"); }
+	}
+
+	[IgnoreMember]
+	public int NumViewCellsZ {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Z, $"{value}"); }
+	}
+	
 	[IgnoreMember]
 	public EGridType GridType {
 		get { return (EGridType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
@@ -321,11 +366,17 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	/** 직렬화 될 경우 */
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
+
+		this.NumViewCellsX = m_stNumViewCells.x;
+		this.NumViewCellsY = m_stNumViewCells.y;
+		this.NumViewCellsZ = m_stNumViewCells.z;
 	}
 
 	/** 역직렬화 되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
+
+		m_stNumViewCells = new Vector3Int(this.NumViewCellsX, this.NumViewCellsY, this.NumViewCellsZ);
 		m_oCellInfoDictContainer = m_oCellInfoDictContainer ?? new Dictionary<int, Dictionary<int, STCellInfo>>();
 
 		// 셀 정보를 설정한다
