@@ -35,9 +35,9 @@ public static partial class Factory {
 	}
 
 	/** 에디터 레벨 정보를 생성한다 */
-	public static CLevelInfo MakeEditorLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+	public static CLevelInfo MakeEditorLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT, EGridType a_eGridType = EGridType.SCALE) {
 		var stLevelInfo = new CLevelInfo() {
-			m_stIDInfo = new STIDInfo(a_nLevelID, a_nStageID, a_nChapterID)
+			m_stIDInfo = new STIDInfo(a_nLevelID, a_nStageID, a_nChapterID), GridType = a_eGridType
 		};
 
 		stLevelInfo.OnAfterDeserialize();

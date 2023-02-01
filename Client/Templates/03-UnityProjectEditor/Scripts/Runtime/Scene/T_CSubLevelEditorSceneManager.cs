@@ -638,17 +638,27 @@ namespace LevelEditorScene {
 
 			// TODO: 다중 그리드 처리 구현 예정
 			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
-				switch(this.SelLevelInfo.GridPivot) {
-					case EGridPivot.DOWN: {
+				switch(this.SelLevelInfo.GridType) {
+					case EGridType.SCROLL_H: {
+						break;
+					}
+					case EGridType.SCROLL_V: {
 						var stGridInfo = NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, this.SelLevelInfo.NumCells, true);
 						var stGridScale = stGridInfo.m_stScale.ExIsValid() ? stGridInfo.m_stScale : Vector3.one;
-						var stGridOffset = new Vector3(KCDefine.B_VAL_0_REAL, m_oRealDict[EKey.GRID_SCROLL_DELTA_Y], KCDefine.B_VAL_0_REAL);
+						
+						m_oGridInfoList.ExAddVal(NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER,
+							new Vector3(KCDefine.B_VAL_0_REAL, (NSEngine.Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridScale.y), KCDefine.B_VAL_0_REAL),
+							new Vector3(KCDefine.B_VAL_0_REAL, m_oRealDict[EKey.GRID_SCROLL_DELTA_Y], KCDefine.B_VAL_0_REAL),
+							this.SelLevelInfo.NumCells,
+							true));
 
-						m_oGridInfoList.ExAddVal(NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, new Vector3(KCDefine.B_VAL_0_REAL, (NSEngine.Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridScale.y), KCDefine.B_VAL_0_REAL), stGridOffset, this.SelLevelInfo.NumCells, true));
 						break;
 					}
 					default: {
-						m_oGridInfoList.ExAddVal(NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, this.SelLevelInfo.NumCells));
+						var stGridInfo = NSEngine.Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, this.SelLevelInfo.NumCells);
+						stGridInfo.m_stScale = (this.SelLevelInfo.GridType == EGridType.NONE) ? Vector3.one : stGridInfo.m_stScale;
+
+						m_oGridInfoList.ExAddVal(stGridInfo);
 						break;
 					}
 				}
@@ -752,7 +762,7 @@ namespace LevelEditorScene {
 				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExToCanvas(this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_V_GRID_LINE_BTN;
 
 				(oBtn.transform as RectTransform).SetAsFirstSibling();
-				
+
 				// 텍스트가 존재 할 경우
 				if(oBtn.TryGetComponent<Text>(out Text oText)) {
 					oText.text = $"{i + KCDefine.B_VAL_1_INT}";
@@ -764,8 +774,8 @@ namespace LevelEditorScene {
 			// 그리드 라인 버튼을 설정한다 }
 
 			// 그리드 스크롤 바를 설정한다 {
-			m_oScrollBarDict[EKey.ME_UIS_GRID_SCROLL_BAR_H]?.gameObject.SetActive(false);
-			m_oScrollBarDict[EKey.ME_UIS_GRID_SCROLL_BAR_V]?.gameObject.SetActive(this.SelLevelInfo.GridPivot == EGridPivot.DOWN);
+			m_oScrollBarDict[EKey.ME_UIS_GRID_SCROLL_BAR_H]?.gameObject.SetActive(this.SelLevelInfo.GridType == EGridType.SCROLL_H);
+			m_oScrollBarDict[EKey.ME_UIS_GRID_SCROLL_BAR_V]?.gameObject.SetActive(this.SelLevelInfo.GridType == EGridType.SCROLL_V);
 
 			// 수평 그리드 스크롤 바가 존재 할 경우
 			if(m_oScrollBarDict.TryGetValue(EKey.ME_UIS_GRID_SCROLL_BAR_H, out Scrollbar oGridScrollBarH)) {

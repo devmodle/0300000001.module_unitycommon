@@ -260,7 +260,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	#endregion // 변수
 
 	#region 상수
-	private const string KEY_GRID_PIVOT = "GridPivot";
+	private const string KEY_GRID_TYPE = "GridType";
 	private const string KEY_CELL_INFO_VER = "CellInfoVer";
 	#endregion // 상수
 
@@ -268,9 +268,9 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore]
 	[IgnoreMember]
-	public EGridPivot GridPivot {
-		get { return (EGridPivot)int.Parse(m_oStrDict.GetValueOrDefault(KEY_GRID_PIVOT, $"{(int)EGridPivot.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_GRID_PIVOT, $"{(int)value}"); }
+	public EGridType GridType {
+		get { return (EGridType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_GRID_TYPE, $"{(int)value}"); }
 	}
 
 	[JsonIgnore]
@@ -287,9 +287,9 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore] [IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_1_INT);
 #else
 	[IgnoreMember]
-	public EGridPivot GridPivot {
-		get { return (EGridPivot)int.Parse(m_oStrDict.GetValueOrDefault(KEY_GRID_PIVOT, $"{(int)EGridPivot.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_GRID_PIVOT, $"{(int)value}"); }
+	public EGridType GridType {
+		get { return (EGridType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_GRID_TYPE, $"{(int)value}"); }
 	}
 
 	[IgnoreMember]

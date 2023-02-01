@@ -213,17 +213,27 @@ namespace NSEngine {
 			m_oGridInfoList.Clear();
 
 			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
-				switch(CGameInfoStorage.Inst.PlayLevelInfo.GridPivot) {
-					case EGridPivot.DOWN: {
+				switch(CGameInfoStorage.Inst.PlayLevelInfo.GridType) {
+					case EGridType.SCROLL_H: {
+						break;
+					}
+					case EGridType.SCROLL_V: {
 						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, CGameInfoStorage.Inst.PlayLevelInfo.NumCells, true);
-						var stOffset = new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
-						var stPos = new Vector3(KCDefine.B_VAL_0_REAL, (Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridInfo.m_stScale.y), KCDefine.B_VAL_0_REAL);
+						var stGridScale = stGridInfo.m_stScale.ExIsValid() ? stGridInfo.m_stScale : Vector3.one;
 
-						m_oGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, stPos, stOffset, CGameInfoStorage.Inst.PlayLevelInfo.NumCells, true));
+						m_oGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER,
+							new Vector3(KCDefine.B_VAL_0_REAL, (Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridScale.y), KCDefine.B_VAL_0_REAL),
+							new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL),
+							CGameInfoStorage.Inst.PlayLevelInfo.NumCells,
+							true));
+
 						break;
 					}
 					default: {
-						m_oGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, CGameInfoStorage.Inst.PlayLevelInfo.NumCells));
+						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, CGameInfoStorage.Inst.PlayLevelInfo.NumCells);
+						stGridInfo.m_stScale = (CGameInfoStorage.Inst.PlayLevelInfo.GridType == EGridType.NONE) ? Vector3.one : stGridInfo.m_stScale;
+
+						m_oGridInfoList.ExAddVal(stGridInfo);
 						break;
 					}
 				}
