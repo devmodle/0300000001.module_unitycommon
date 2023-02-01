@@ -78,7 +78,10 @@ namespace LevelEditorScene {
 
 			RE_UIS_PAGE_UIS_01_LOAD_LEVEL_BTN,
 			RE_UIS_PAGE_UIS_01_LOAD_LOCAL_TABLE_BTN,
+
 			RE_UIS_PAGE_UIS_01_LOAD_REMOTE_TABLE_BTN,
+			RE_UIS_PAGE_UIS_01_SAVE_REMOTE_TABLE_BTN,
+
 			RE_UIS_PAGE_UIS_01_REMOVE_ALL_LEVELS_BTN,
 
 			RE_UIS_PAGE_UIS_01_LEVEL_INPUT,
@@ -885,7 +888,7 @@ namespace LevelEditorScene {
 			}
 		}
 
-		/** 에디터 세트 테이블 로드 팝업 결과를 수신했을 경우 */
+		/** 에디터 테이블 로드 팝업 결과를 수신했을 경우 */
 		private void OnReceiveEditorTableLoadPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
@@ -901,6 +904,25 @@ namespace LevelEditorScene {
 #if GOOGLE_SHEET_ENABLE
 						string oKey = KCDefine.U_TABLE_P_G_VER_INFO.ExGetFileName(false);
 						Func.LoadVerInfoGoogleSheet(KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(oKey).m_oID, this.OnLoadVerInfoGoogleSheet);
+#endif // #if GOOGLE_SHEET_ENABLE
+
+						break;
+					}
+				}
+			}
+		}
+
+		/** 에디터 테이블 저장 팝업 결과를 수신했을 경우 */
+		private void OnReceiveEditorTableSavePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
+			// 확인 버튼을 눌렀을 경우
+			if(a_bIsOK) {
+				switch(m_oTableSrcDict[EKey.SEL_TABLE_SRC]) {
+					case ETableSrc.LOCAL: {
+						break;
+					}
+					case ETableSrc.REMOTE: {
+#if GOOGLE_SHEET_ENABLE
+						// Do Something
 #endif // #if GOOGLE_SHEET_ENABLE
 
 						break;
@@ -1807,6 +1829,7 @@ namespace LevelEditorScene {
 				(EKey.RE_UIS_PAGE_UIS_01_LOAD_LEVEL_BTN, $"{EKey.RE_UIS_PAGE_UIS_01_LOAD_LEVEL_BTN}", a_oPageUIs, this.OnTouchREUIsPageUIs01LoadLevelBtn),
 				(EKey.RE_UIS_PAGE_UIS_01_LOAD_LOCAL_TABLE_BTN, $"{EKey.RE_UIS_PAGE_UIS_01_LOAD_LOCAL_TABLE_BTN}", a_oPageUIs, () => this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.LOCAL)),
 				(EKey.RE_UIS_PAGE_UIS_01_LOAD_REMOTE_TABLE_BTN, $"{EKey.RE_UIS_PAGE_UIS_01_LOAD_REMOTE_TABLE_BTN}", a_oPageUIs, () => this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE)),
+				(EKey.RE_UIS_PAGE_UIS_01_SAVE_REMOTE_TABLE_BTN, $"{EKey.RE_UIS_PAGE_UIS_01_SAVE_REMOTE_TABLE_BTN}", a_oPageUIs, () => this.OnTouchREUIsPageUIs01SaveTableBtn(ETableSrc.REMOTE)),
 				(EKey.RE_UIS_PAGE_UIS_01_REMOVE_ALL_LEVELS_BTN, $"{EKey.RE_UIS_PAGE_UIS_01_REMOVE_ALL_LEVELS_BTN}", a_oPageUIs, this.OnTouchREUIsPageUIs01RemoveAllLevelsBtn)
 			}, m_oBtnDict);
 			// 버튼을 설정한다 }
@@ -1892,8 +1915,10 @@ namespace LevelEditorScene {
 
 #if GOOGLE_SHEET_ENABLE
 			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_LOAD_REMOTE_TABLE_BTN]?.ExSetInteractable(true, false);
+			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_SAVE_REMOTE_TABLE_BTN]?.ExSetInteractable(true, false);
 #else
 			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_LOAD_REMOTE_TABLE_BTN]?.ExSetInteractable(false, false);
+			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_SAVE_REMOTE_TABLE_BTN]?.ExSetInteractable(false, false);
 #endif // #if GOOGLE_SHEET_ENABLE
 			// 버튼을 설정한다 }
 
@@ -2064,6 +2089,12 @@ namespace LevelEditorScene {
 		private void OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc a_eTableSrc) {
 			m_oTableSrcDict[EKey.SEL_TABLE_SRC] = a_eTableSrc;
 			Func.ShowAlertPopup((a_eTableSrc == ETableSrc.LOCAL) ? KDefine.ES_MSG_ALERT_P_LOAD_LOCAL_TABLE : KDefine.ES_MSG_ALERT_P_LOAD_REMOTE_TABLE, this.OnReceiveEditorTableLoadPopupResult);
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 1 테이블 저장 버튼을 눌렀을 경우 */
+		private void OnTouchREUIsPageUIs01SaveTableBtn(ETableSrc a_eTableSrc) {
+			m_oTableSrcDict[EKey.SEL_TABLE_SRC] = a_eTableSrc;
+			Func.ShowAlertPopup((a_eTableSrc == ETableSrc.LOCAL) ? KDefine.ES_MSG_ALERT_P_SAVE_LOCAL_TABLE : KDefine.ES_MSG_ALERT_P_SAVE_REMOTE_TABLE, this.OnReceiveEditorTableSavePopupResult);
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 스크롤러 셀 뷰 버튼을 눌렀을 경우 */

@@ -22,6 +22,9 @@ public static partial class KDefine {
 
 	public const string ES_MSG_ALERT_P_LOAD_LOCAL_TABLE = "로컬 테이블을 로드하시겠습니까?";
 	public const string ES_MSG_ALERT_P_LOAD_REMOTE_TABLE = "원격 테이블을 로드하시겠습니까?";
+
+	public const string ES_MSG_ALERT_P_SAVE_LOCAL_TABLE = "테이블을 업로드하시겠습니까?";
+	public const string ES_MSG_ALERT_P_SAVE_REMOTE_TABLE = "테이블을 업로드하시겠습니까?";
 	// 알림 팝업 }
 	#endregion // 기본
 }
