@@ -171,8 +171,8 @@ public static partial class KEditorDefine {
 		["com.unity.inputsystem"] = "1.4.4",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.localization"] = "1.3.2",
-		["com.unity.render-pipelines.universal"] = "12.1.9",
-		["com.unity.visualeffectgraph"] = "12.1.9",
+		["com.unity.render-pipelines.universal"] = "12.1.10",
+		["com.unity.visualeffectgraph"] = "12.1.10",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.2",
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
