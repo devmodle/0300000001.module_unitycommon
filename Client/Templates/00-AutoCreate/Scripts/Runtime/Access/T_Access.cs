@@ -1,4 +1,4 @@
-﻿#if SCRIPT_TEMPLATE_ONLY
+#if SCRIPT_TEMPLATE_ONLY
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,8 +22,22 @@ public static partial class Access {
 #endif // #if ADS_MODULE_ENABLE
 		}
 	}
+
+	public static Dictionary<string, STTableInfo> GoogleSheetTableInfo {
+		get {
+#if AB_TEST_ENABLE
+			// 기타 테이블 정보가 존재 할 경우
+			if(KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.TryGetValue(KDefine.G_TABLE_N_ETC_INFO, out STTableInfo stEtcTableInfo)) {
+				stEtcTableInfo.m_oID = (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KDefine.G_GOOGLE_SHEET_ID_ETC_INFO_B : KDefine.G_GOOGLE_SHEET_ID_ETC_INFO_A;
+				KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.ExReplaceVal(KDefine.G_TABLE_N_ETC_INFO, stEtcTableInfo);
+			}
+#endif // #if AB_TEST_ENABLE
+
+			return KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT;
+		}
+	}
 #endregion // 클래스 프로퍼티
-	
+
 #region 조건부 클래스 함수
 #if PURCHASE_MODULE_ENABLE
 	/** 가격 문자열을 반환한다 */
@@ -36,7 +50,7 @@ public static partial class Access {
 	public static Product GetProduct(int a_nProductIdx) {
 		bool bIsValid = CProductInfoTable.Inst.TryGetProductInfo(a_nProductIdx, out STProductInfo stProductInfo);
 		CAccess.Assert(bIsValid);
-		
+
 		return CPurchaseManager.Inst.GetProduct(stProductInfo.m_oID);
 	}
 #endif // #if PURCHASE_MODULE_ENABLE

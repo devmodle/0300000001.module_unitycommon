@@ -112,18 +112,18 @@ public static partial class Access {
 	public static string ProductTradeInfoTableLoadPath => CAccess.ProductInfoTableLoadPath;
 	public static string ProductTradeInfoTableSavePath => CAccess.ProductInfoTableSavePath;
 
-	public static STTableInfo CalcTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.CalcInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo MissionTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.MissionInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo RewardTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.RewardInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo EpisodeTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.EpisodeInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo TutorialTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.TutorialInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo ResTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ResInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo ItemTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ItemInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo SkillTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.SkillInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo ObjTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ObjInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo FXTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.FXInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo AbilityTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.AbilityInfoTableLoadPath.ExGetFileName(false));
-	public static STTableInfo ProductTradeTableInfo => KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.GetValueOrDefault(Access.ProductTradeInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo CalcTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.CalcInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo MissionTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.MissionInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo RewardTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.RewardInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo EpisodeTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.EpisodeInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo TutorialTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.TutorialInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo ResTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.ResInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo ItemTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.ItemInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo SkillTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.SkillInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo ObjTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.ObjInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo FXTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.FXInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo AbilityTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.AbilityInfoTableLoadPath.ExGetFileName(false));
+	public static STTableInfo ProductTradeTableInfo => Access.GoogleSheetTableInfo.GetValueOrDefault(Access.ProductTradeInfoTableLoadPath.ExGetFileName(false));
 	#endregion // 클래스 프로퍼티
 
 	#region 클래스 함수
