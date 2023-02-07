@@ -20,8 +20,10 @@ namespace LevelEditorScene {
 		private enum EKey {
 			NONE = -1,
 			IS_RESET_NUM_VIEW_CELLS,
+
 			PREV_CELL_IDX,
 			UPDATE_SKIP_TIME,
+
 			GRID_SCROLL_DELTA_X,
 			GRID_SCROLL_DELTA_Y,
 
@@ -469,6 +471,15 @@ namespace LevelEditorScene {
 					try {
 						oInputListContainer.ExAddVal(m_oInputList01);
 						oInputListContainer.ExAddVal(m_oInputList02);
+
+						m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]);
+						m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]);
+
+						switch(this.SelLevelInfo.GridType) {
+							case EGridType.SCROLL_H: m_oInputList01.ExRemoveVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]); break;
+							case EGridType.SCROLL_V: m_oInputList01.ExRemoveVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]); break;
+							default: m_oInputList01.ExRemoveVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]); m_oInputList01.ExRemoveVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]); break;
+						}
 
 						// 페이지 스크롤 스냅이 존재 할 경우
 						if(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] != null) {
@@ -1929,6 +1940,9 @@ namespace LevelEditorScene {
 
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]?.SetTextWithoutNotify((this.SelLevelInfo.m_stNumViewCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.m_stNumViewCells.x}");
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]?.SetTextWithoutNotify((this.SelLevelInfo.m_stNumViewCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.m_stNumViewCells.y}");
+
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]?.ExSetInteractable(this.SelLevelInfo.GridType == EGridType.SCROLL_H, false);
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]?.ExSetInteractable(this.SelLevelInfo.GridType == EGridType.SCROLL_V, false);
 			// 입력 필드를 갱신한다 }
 		}
 
