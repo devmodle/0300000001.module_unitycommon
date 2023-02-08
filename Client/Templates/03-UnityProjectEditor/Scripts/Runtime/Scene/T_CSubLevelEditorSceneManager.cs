@@ -864,7 +864,7 @@ namespace LevelEditorScene {
 					this.AddLevelInfo(KCDefine.B_VAL_0_INT, Factory.MakeDefEditorCreateInfo());
 				}
 
-				this.SetSelLevelInfo(CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT)); ;
+				this.SetSelLevelInfo(CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
 				this.UpdateUIsState();
 			}
 		}
