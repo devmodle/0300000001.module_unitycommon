@@ -41,7 +41,7 @@ public static partial class KDefine {
 	// 식별자 {
 	public const string LES_KEY_SPRITE_OBJS_POOL = "SpriteObjsPool";
 	public const string LES_KEY_LINE_FX_OBJS_POOL = "LineFXObjsPool";
-	
+
 	public const string LES_KEY_BTN_OBJS_POOL = "BtnObjsPool";
 	// 식별자 }
 
@@ -62,7 +62,8 @@ public static partial class KDefine {
 
 	#region 런타임 상수
 	// 색상
-	public static readonly Color LES_COLOR_GRID_LINE = new Color(0.0f, 0.35f, 0.35f, 1.0f);
+	public static readonly Color LES_COLOR_GRID_LINE_FX = new Color(0.0f, 0.35f, 0.35f, 1.0f);
+	public static readonly Color LES_COLOR_VIEW_GRID_LINE_FX = new Color(0.35f, 0.35f, 0.0f, 1.0f);
 
 	// 비율
 	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(1.5f, 1.5f, 1.5f);

@@ -171,6 +171,11 @@ namespace NSEngine {
 	/** 서브 엔진 - 설정 */
 	public partial class CEngine : CComponent {
 		#region 함수
+		/** 엔진을 설정한다 */
+		private void SubSetup() {
+			// Do Something
+		}
+		
 		/** 셀을 설정한다 */
 		private void SubSetupCell(STCellInfo a_stCellInfo, STGridInfo a_stGridInfo) {
 			int nIdx = KCDefine.B_VAL_0_INT;

@@ -180,6 +180,7 @@ namespace LevelEditorScene {
 
 		private Sprite m_oGridBoundsImg = null;
 		private Texture2D m_oGridBoundsTex2D = null;
+		private LineRenderer m_oViewGridLineFX = null;
 		private List<LineRenderer> m_oGridLineFXList = new List<LineRenderer>();
 
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
@@ -684,13 +685,18 @@ namespace LevelEditorScene {
 			// 그리드 라인 효과를 설정한다 {
 			m_oGridLineFXList.Clear();
 
+			m_oViewGridLineFX.ExSetPositions(new List<Vector3>() {
+				new Vector3(this.SelGridInfo.m_stViewBounds.min.x, this.SelGridInfo.m_stViewBounds.min.y + (NSEngine.Access.CellSize.y * this.SelLevelInfo.m_stNumViewCells.y), this.SelGridInfo.m_stPivotPos.z),
+				new Vector3(this.SelGridInfo.m_stViewBounds.max.x, this.SelGridInfo.m_stViewBounds.min.y + (NSEngine.Access.CellSize.y * this.SelLevelInfo.m_stNumViewCells.y), this.SelGridInfo.m_stPivotPos.z)
+			});
+
 			for(int i = 0; i < this.SelLevelInfo.NumCells.y; ++i) {
 				for(int j = 0; j < this.SelLevelInfo.NumCells.x; ++j) {
 					var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
 					oLineFX.loop = true;
 
 					oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
-					oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
+					oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE_FX, KDefine.LES_COLOR_GRID_LINE_FX);
 					oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
 
 					oLineFX.ExSetPositions(new List<Vector3>() {
@@ -1393,6 +1399,15 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 중앙 에디터 UI 를 설정한다 */
 		private void SetupMidEditorUIs() {
+			// 라인 효과를 설정한다 {
+			m_oViewGridLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
+			m_oViewGridLineFX.loop = false;
+
+			m_oViewGridLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
+			m_oViewGridLineFX.ExSetColor(KDefine.LES_COLOR_VIEW_GRID_LINE_FX, KDefine.LES_COLOR_VIEW_GRID_LINE_FX);
+			m_oViewGridLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND.ExGetExtraOrder(KCDefine.B_VAL_1_INT));
+			// 라인 효과를 설정한다 }
+
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 				(EKey.ME_UIS_MSG_TEXT, $"{EKey.ME_UIS_MSG_TEXT}", this.MidEditorUIs),
@@ -1824,13 +1839,13 @@ namespace LevelEditorScene {
 		private void SetupREUIsPageUIs01(GameObject a_oPageUIs) {
 			// 입력 필드를 설정한다 {
 			CFunc.SetupInputs(new List<(EKey, string, GameObject, UnityAction<string>)>() {
-				(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01LevelInputStr),
+				(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01LevelInputStr),
 
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr),
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumCellsInputStr),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumCellsInputStr),
 				
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumViewCellsInputStr),
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumViewCellsInputStr)
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumViewCellsInputStr),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumViewCellsInputStr)
 			}, m_oInputDict);
 
 			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]);
@@ -1864,8 +1879,8 @@ namespace LevelEditorScene {
 		private void SetupREUIsPageUIs02(GameObject a_oPageUIs) {
 			// 입력 필드를 설정한다 {
 			CFunc.SetupInputs(new List<(EKey, string, GameObject, UnityAction<string>)>() {
-				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02ObjSizeInputStr),
-				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02ObjSizeInputStr)
+				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs02ObjSizeInputStr),
+				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs02ObjSizeInputStr)
 			}, m_oInputDict);
 
 			m_oInputList02.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]);
@@ -2142,30 +2157,30 @@ namespace LevelEditorScene {
 			this.UpdateUIsState();
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 1 레벨 입력 문자열을 변경했을 경우 */
-		private void OnChangeREUIsPageUIs01LevelInputStr(string a_oStr) {
+		/** 오른쪽 에디터 UI 페이지 UI 1 레벨 입력 문자열을 입력했을 경우 */
+		private void OnInputREUIsPageUIs01LevelInputStr(string a_oStr) {
 			bool bIsValid = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.text, NumberStyles.Any, null, out int nID);
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.SetTextWithoutNotify($"{Mathf.Max(nID, KCDefine.B_VAL_1_INT)}");
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 1 셀 개수 입력 문자열을 변경했을 경우 */
-		private void OnChangeREUIsPageUIs01NumCellsInputStr(string a_oStr) {
+		/** 오른쪽 에디터 UI 페이지 UI 1 셀 개수 입력 문자열을 입력했을 경우 */
+		private void OnInputREUIsPageUIs01NumCellsInputStr(string a_oStr) {
 			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsX);
 			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsY);
 
 			this.SetREUIsPageUIs01NumCells(bIsValid01 ? nNumCellsX : KCDefine.B_VAL_1_INT, bIsValid02 ? nNumCellsY : KCDefine.B_VAL_1_INT);
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 1 시야 셀 개수 입력 문자열을 변경했을 경우 */
-		private void OnChangeREUIsPageUIs01NumViewCellsInputStr(string a_oStr) {
+		/** 오른쪽 에디터 UI 페이지 UI 1 시야 셀 개수 입력 문자열을 입력했을 경우 */
+		private void OnInputREUIsPageUIs01NumViewCellsInputStr(string a_oStr) {
 			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsX);
 			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsY);
 
 			this.SetREUIsPageUIs01NumViewCells(bIsValid01 ? nNumCellsX : KCDefine.B_VAL_1_INT, bIsValid02 ? nNumCellsY : KCDefine.B_VAL_1_INT);
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기 입력 문자열을 변경했을 경우 */
-		private void OnChangeREUIsPageUIs02ObjSizeInputStr(string a_oStr) {
+		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기 입력 문자열을 입력했을 경우 */
+		private void OnInputREUIsPageUIs02ObjSizeInputStr(string a_oStr) {
 			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.text, NumberStyles.Any, null, out int nSizeX);
 			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.text, NumberStyles.Any, null, out int nSizeY);
 
@@ -2223,9 +2238,7 @@ namespace LevelEditorScene {
 			int nNumViewCellsY = Mathf.Clamp(a_nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.y, (int)(this.SelGridInfo.m_stViewBounds.size.y / NSEngine.Access.CellSize.y));
 
 			this.SelLevelInfo.m_stNumViewCells = new Vector3Int(Mathf.Min(nNumViewCellsX, this.SelLevelInfo.NumCells.x), Mathf.Min(nNumViewCellsY, this.SelLevelInfo.NumCells.y), KCDefine.B_VAL_1_INT);
-
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]?.SetTextWithoutNotify($"{this.SelLevelInfo.m_stNumViewCells.x}");
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]?.SetTextWithoutNotify($"{this.SelLevelInfo.m_stNumViewCells.y}");
+			this.UpdateUIsState();
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기를 변경한다 */
