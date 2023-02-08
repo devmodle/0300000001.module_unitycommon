@@ -189,6 +189,7 @@ namespace LevelEditorScene {
 #if GOOGLE_SHEET_ENABLE
 		private SimpleJSON.JSONNode m_oVerInfos = null;
 		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetLoadHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
+		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>> m_oGoogleSheetSaveHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>>();
 #endif // #if GOOGLE_SHEET_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -322,7 +323,7 @@ namespace LevelEditorScene {
 				// 스프라이트를 설정한다 }
 
 #if GOOGLE_SHEET_ENABLE
-				// 구글 시트 로드 처리자를 설정한다
+				// 구글 시트 처리자를 설정한다 {
 				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
@@ -332,6 +333,17 @@ namespace LevelEditorScene {
 				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+
+				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+				// 구글 시트 처리자를 설정한다 }
 #endif // #if GOOGLE_SHEET_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -909,7 +921,7 @@ namespace LevelEditorScene {
 					}
 					case ETableSrc.REMOTE: {
 #if GOOGLE_SHEET_ENABLE
-						// Do Something
+						Func.SaveGoogleSheets(m_oGoogleSheetSaveHandlerDict, this.OnSaveGoogleSheets);
 #endif // #if GOOGLE_SHEET_ENABLE
 
 						break;
@@ -1200,7 +1212,7 @@ namespace LevelEditorScene {
 		}
 
 #if GOOGLE_SHEET_ENABLE
-		/** 구글 시트가 로드 되었을 경우 */
+		/** 구글 시트를 로드했을 경우 */
 		private void OnLoadGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
@@ -1241,6 +1253,29 @@ namespace LevelEditorScene {
 				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_MSG), null, false);
 			} else {
 				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, false);
+			}
+		}
+
+		/** 구글 시트를 저장했을 경우 */
+		private void OnSaveGoogleSheet(CServicesManager a_oSender, STGoogleSheetSaveInfo a_stGoogleSheetSaveInfo, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				var oHandlerDict = new Dictionary<string, System.Action>() {
+					// Do Something
+				};
+				
+				oHandlerDict.GetValueOrDefault(a_stGoogleSheetSaveInfo.m_oSheetName)?.Invoke();
+			}
+		}
+
+		/** 구글 시트를 저장했을 경우 */
+		private void OnSaveGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
+			// 로드 되었을 경우
+			if(a_bIsSuccess) {
+				this.UpdateUIsState();
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_SAVE_MSG), null, false);
+			} else {
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_SAVE_FAIL_MSG), null, false);
 			}
 		}
 #endif // #if GOOGLE_SHEET_ENABLE
