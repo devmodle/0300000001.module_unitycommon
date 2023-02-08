@@ -433,6 +433,8 @@ public static partial class KDefine {
 		[KDefine.G_TABLE_N_ABILITY_INFO] = new STTableInfo(KDefine.G_GOOGLE_SHEET_ID_ABILITY_INFO, KDefine.G_TABLE_N_ABILITY_INFO, new Dictionary<System.Type, Dictionary<string, string>>() {
 			[typeof(CAbilityInfoTable)] = new Dictionary<string, string>() {
 				[KCDefine.B_KEY_COMMON] = KCDefine.B_KEY_COMMON,
+				[KCDefine.B_KEY_BUY_TRADE] = KCDefine.B_KEY_BUY_TRADE,
+				[KCDefine.B_KEY_SALE_TRADE] = KCDefine.B_KEY_SALE_TRADE,
 				[KCDefine.B_KEY_ENHANCE_TRADE] = KCDefine.B_KEY_ENHANCE_TRADE
 			}
 		}, new Dictionary<System.Type, Dictionary<string, List<string>>>() {

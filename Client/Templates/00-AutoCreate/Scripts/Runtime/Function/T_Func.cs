@@ -905,10 +905,12 @@ public static partial class Func {
 
 		// 로드 구글 시트 정보 설정이 가능 할 경우
 		if(a_oOutLoadGoogleSheetInfoDict != null) {
-			foreach(var stKeyVal in Access.GoogleSheetTableInfo) {
+			var oKeyList = Access.GoogleSheetTableInfo.Keys.ToList();
+
+			for(int i = 0; i < oKeyList.Count; ++i) {
 				// 버전 정보 테이블이 아닐 경우
-				if(!stKeyVal.Key.Equals(KDefine.G_TABLE_N_VER_INFO)) {
-					Func.DoSetupLoadGoogleSheetInfos(stKeyVal.Value, a_oOutLoadGoogleSheetInfoDict, KDefine.G_TABLE_INFO_NUM_ROWS_DICT.GetValueOrDefault(stKeyVal.Key), a_bIsEnableAssert);
+				if(!oKeyList[i].Equals(KDefine.G_TABLE_N_VER_INFO)) {
+					Func.DoSetupLoadGoogleSheetInfos(Access.GoogleSheetTableInfo[oKeyList[i]], a_oOutLoadGoogleSheetInfoDict, KDefine.G_TABLE_INFO_NUM_ROWS_DICT.GetValueOrDefault(oKeyList[i]), a_bIsEnableAssert);
 				}
 			}
 		}
@@ -920,10 +922,12 @@ public static partial class Func {
 
 		// 저장 구글 시트 정보 설정이 가능 할 경우
 		if(a_oOutSaveGoogleSheetInfoDict != null) {
-			foreach(var stKeyVal in Access.GoogleSheetTableInfo) {
+			var oKeyList = Access.GoogleSheetTableInfo.Keys.ToList();
+
+			for(int i = 0; i < oKeyList.Count; ++i) {
 				// 버전 정보 테이블이 아닐 경우
-				if(!stKeyVal.Key.Equals(KDefine.G_TABLE_N_VER_INFO)) {
-					Func.DoSetupSaveGoogleSheetInfos(stKeyVal.Value, a_oOutSaveGoogleSheetInfoDict, a_bIsEnableAssert);
+				if(!oKeyList[i].Equals(KDefine.G_TABLE_N_VER_INFO)) {
+					Func.DoSetupSaveGoogleSheetInfos(Access.GoogleSheetTableInfo[oKeyList[i]], a_oOutSaveGoogleSheetInfoDict, a_bIsEnableAssert);
 				}
 			}
 		}
@@ -983,11 +987,11 @@ public static partial class Func {
 
 	/** 구글 시트를 저장한다 */
 	public static void SaveGoogleSheet(string a_oID, List<(string, List<List<string>>)> a_oInfoListContainer, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool> a_oCallback) {
-		var stResult = Access.GoogleSheetTableInfo.ExFindVal((a_stKeyVal) => a_stKeyVal.Value.m_oID.Equals(a_oID)); ;
+		var stResult = Access.GoogleSheetTableInfo.ExFindVal((a_stKeyVal) => a_stKeyVal.Value.m_oID.Equals(a_oID));
 		a_oInfoListContainer.ExCopyTo(Func.m_oGoogleSheetSaveInfoListContainer, (a_stInfo) => (a_stInfo.Item1, a_stInfo.Item2.Count, a_stInfo.Item2));
 
 		Func.m_oGoogleSheetCallbackDict04.ExReplaceVal(ECallback.SAVE_GOOGLE_SHEET, a_oCallback);
-
+		
 		// 정보가 존재 할 경우
 		if(a_oInfoListContainer.ExIsValid()) {
 			CIndicatorManager.Inst.Show();
@@ -1126,7 +1130,7 @@ public static partial class Func {
 
 	/** 구글 시트를 저장했을 경우 */
 	private static void OnSaveGoogleSheet(CServicesManager a_oSender, STGoogleSheetSaveInfo a_stGoogleSheetSaveInfo, bool a_bIsSuccess) {
-		int nIdx = Func.m_oGoogleSheetSaveInfoListContainer.FindIndex((a_oLoadGoogleSheetInfo) => a_oLoadGoogleSheetInfo.Item1.Equals(a_stGoogleSheetSaveInfo.m_oSheetName));
+		int nIdx = Func.m_oGoogleSheetSaveInfoListContainer.FindIndex((a_oSaveGoogleSheetInfo) => a_oSaveGoogleSheetInfo.Item1.Equals(a_stGoogleSheetSaveInfo.m_oSheetName));
 		CAccess.Assert(Func.m_oGoogleSheetSaveInfoListContainer.ExIsValidIdx(nIdx));
 
 		int nOriginNumRows = Func.m_oGoogleSheetSaveInfoListContainer[nIdx].Item2;
