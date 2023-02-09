@@ -15,6 +15,7 @@ namespace PlayScene {
 		private enum EKey {
 			NONE = -1,
 			IS_UPDATE_UIS_STATE,
+			SEL_REWARD_ADS_UIS,
 			CONTINUE_TIMES,
 
 			BG_SPRITE,
@@ -23,7 +24,7 @@ namespace PlayScene {
 			LEFT_BG_SPRITE,
 			RIGHT_BG_SPRITE,
 
-			SEL_REWARD_ADS_UIS,
+			BG_SPRITE_ROOT,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -61,6 +62,7 @@ namespace PlayScene {
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
 		/** =====> 객체 <===== */
+		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
 		#endregion // 변수
 
@@ -81,23 +83,28 @@ namespace PlayScene {
 				this.SetupEngine();
 				this.SetupRewardAdsUIs();
 
+				// 객체를 설정한다
+				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+					(EKey.BG_SPRITE_ROOT, $"{EKey.BG_SPRITE_ROOT}", this.Objs, null)
+				}, m_oObjDict);
+
 				// 버튼을 설정한다
 				CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 					(KCDefine.U_OBJ_N_PAUSE_BTN, this.UIsBase, this.OnTouchPauseBtn),
 					(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
 				});
-
+				
 				// 비율을 설정한다
 				var stSize = new Vector3(Mathf.Max(this.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(this.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), KCDefine.B_VAL_0_REAL);
 				this.ObjRoot.transform.localScale = m_oEngine.SelGridInfo.m_stScale.ExIsValid() ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
 
 				// 스프라이트를 설정한다 {
 				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 				}, m_oSpriteDict);
 
 				var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {

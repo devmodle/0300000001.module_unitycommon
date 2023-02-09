@@ -63,14 +63,14 @@ namespace NSEngine {
 		}
 
 		#region 변수
-		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
-			[EKey.SEL_GRID_IDX] = KCDefine.B_VAL_0_INT,
-			[EKey.SEL_PLAYER_OBJ_IDX] = KCDefine.B_VAL_0_INT
-		};
-
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
 			[EKey.IS_RUNNING] = false,
 			[EKey.IS_SAVE_USER_INFO] = false
+		};
+
+		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
+			[EKey.SEL_GRID_IDX] = KCDefine.B_VAL_0_INT,
+			[EKey.SEL_PLAYER_OBJ_IDX] = KCDefine.B_VAL_0_INT
 		};
 
 		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
@@ -89,7 +89,7 @@ namespace NSEngine {
 
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
-		public List<CEObj>[,] CellObjLists { get; private set; } = null;
+		public List<CEObj>[,,] CellObjLists { get; private set; } = null;
 
 		public List<CEItem> ItemList { get; } = new List<CEItem>();
 		public List<CESkill> SkillList { get; } = new List<CESkill>();
@@ -298,7 +298,7 @@ namespace NSEngine {
 		#region 함수
 		/** 엔진을 설정한다 */
 		private void Setup() {
-			this.CellObjLists = new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
+			this.CellObjLists = new List<CEObj>[KCDefine.B_VAL_1_INT, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 			// 그리드 정보를 설정한다
@@ -338,7 +338,7 @@ namespace NSEngine {
 			if(CGameInfoStorage.Inst.PlayLevelInfo != null) {
 				for(int i = 0; i < m_oGridInfoList.Count; ++i) {
 					for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer.Count; ++j) {
-						for(int k = 0; k < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[k].Count; ++k) {
+						for(int k = 0; k < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[j].Count; ++k) {
 							this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[j][k], m_oGridInfoList[i]);
 						}
 					}
@@ -366,8 +366,8 @@ namespace NSEngine {
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 			}
-
-			this.CellObjLists[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
+			
+			this.CellObjLists[a_stCellInfo.m_stIdx.z, a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
 			this.SubSetupCell(a_stCellInfo, a_stGridInfo);
 		}
 
