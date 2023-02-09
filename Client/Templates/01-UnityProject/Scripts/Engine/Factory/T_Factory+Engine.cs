@@ -11,9 +11,9 @@ namespace NSEngine {
 	public static partial class Factory {
 		#region 클래스 함수
 		/** 그리드 정보를 생성한다 */
-		public static STGridInfo MakeGridInfo(Vector3 a_stPivot, Vector3 a_stPos, Vector3 a_stOffset, Vector3Int a_stNumCells, bool a_bIsEnableOverflow = false) {
+		public static STGridInfo MakeGridInfo(Vector3 a_stPivot, Vector3 a_stPos, Vector3 a_stOffset, Vector3Int a_stNumCells, int a_nIdx = KCDefine.B_VAL_0_INT, bool a_bIsEnableOverflow = false) {
 			var stGridInfo = new STGridInfo() {
-				m_stBounds = new Bounds(Vector3.zero, new Vector3(a_stNumCells.x * Access.CellSize.x, a_stNumCells.y * Access.CellSize.y, KCDefine.B_VAL_0_REAL))
+				m_nIdx = a_nIdx, m_stBounds = new Bounds(Vector3.zero, new Vector3(a_stNumCells.x * Access.CellSize.x, a_stNumCells.y * Access.CellSize.y, KCDefine.B_VAL_0_REAL))
 			};
 
 			var stPos = a_stPos + a_stOffset;
@@ -52,13 +52,14 @@ namespace NSEngine {
 						break;
 					}
 					case EGridType.SCROLL_V: {
-						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, a_oLevelInfo.NumCells, true);
+						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, a_oLevelInfo.NumCells, i, true);
 						stGridInfo.m_stScale = stGridInfo.m_stScale.ExIsValid() ? stGridInfo.m_stScale : Vector3.one;
 
 						a_oOutGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER,
 							new Vector3(KCDefine.B_VAL_0_REAL, (Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridInfo.m_stScale.y), KCDefine.B_VAL_0_REAL),
 							new Vector3(KCDefine.B_VAL_0_REAL, a_fDeltaY, KCDefine.B_VAL_0_REAL),
 							a_oLevelInfo.NumCells,
+							i,
 							true));
 
 						break;

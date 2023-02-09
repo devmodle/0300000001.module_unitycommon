@@ -9,9 +9,11 @@ using UnityEngine.Events;
 using MessagePack;
 
 namespace NSEngine {
-#region 기본
+	#region 기본
 	/** 그리드 정보 */
 	public struct STGridInfo {
+		public int m_nIdx;
+		
 		public Bounds m_stBounds;
 		public Bounds m_stViewBounds;
 
@@ -19,11 +21,11 @@ namespace NSEngine {
 		public Vector3 m_stPivotPos;
 		public Vector3 m_stViewPivotPos;
 
-#region 상수
+		#region 상수
 		public static STGridInfo INVALID = new STGridInfo() {
-			m_stScale = Vector3.one
+			m_nIdx = KCDefine.B_IDX_INVALID
 		};
-#endregion // 상수
+		#endregion // 상수
 	}
 
 	/** 엔진 타입 랩퍼 */
@@ -31,7 +33,7 @@ namespace NSEngine {
 	public struct STEngineTypeWrapper {
 		// Do Something
 	}
-#endregion // 기본
+	#endregion // 기본
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

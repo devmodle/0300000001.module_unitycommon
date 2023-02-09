@@ -17,8 +17,13 @@ namespace NSEngine {
 			NONE = -1,
 			IS_RUNNING,
 			IS_SAVE_USER_INFO,
+			
 			SEL_GRID_IDX,
 			SEL_PLAYER_OBJ_IDX,
+
+			CELL_OBJ_ROOT,
+			PLAYER_OBJ_ROOT,
+			ENEMY_OBJ_ROOT,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -75,6 +80,7 @@ namespace NSEngine {
 
 		/** =====> 객체 <===== */
 		private List<GameObject> m_oCellObjRootList = new List<GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -299,11 +305,18 @@ namespace NSEngine {
 			m_oGridInfoList.Clear();
 			Factory.MakeGridInfos(CGameInfoStorage.Inst.PlayLevelInfo, m_oGridInfoList);
 
-			// 객체를 설정한다
+			// 객체를 설정한다 {
+			CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.CELL_OBJ_ROOT, $"{EKey.CELL_OBJ_ROOT}", this.Params.m_oObjRoot, null),
+				(EKey.PLAYER_OBJ_ROOT, $"{EKey.PLAYER_OBJ_ROOT}", this.Params.m_oObjRoot, null),
+				(EKey.ENEMY_OBJ_ROOT, $"{EKey.ENEMY_OBJ_ROOT}", this.Params.m_oObjRoot, null)
+			}, m_oObjDict);
+
 			for(int i = 0; i < m_oGridInfoList.Count; ++i) {
 				string oName = string.Format(KCDefine.PS_OBJ_N_FMT_CELL_OBJ_ROOT, i + KCDefine.B_VAL_1_INT);
-				m_oCellObjRootList.ExAddVal(CFactory.CreateObj(oName, this.Params.m_oObjRoot));
+				m_oCellObjRootList.ExAddVal(CFactory.CreateObj(oName, m_oObjDict[EKey.CELL_OBJ_ROOT]));
 			}
+			// 객체를 설정한다 }
 
 			// 객체 풀을 설정한다 {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), this.Params.m_oItemRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
@@ -311,9 +324,9 @@ namespace NSEngine {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), this.Params.m_oFXRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_CELL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_CELL_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), this.Params.m_oObjRoot, KCDefine.B_VAL_1_INT, false);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_CELL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_CELL_OBJ), m_oObjDict[EKey.CELL_OBJ_ROOT], KCDefine.U_SIZE_OBJS_POOL_01, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), m_oObjDict[EKey.PLAYER_OBJ_ROOT], KCDefine.B_VAL_1_INT, false);
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_oObjDict[EKey.ENEMY_OBJ_ROOT], KCDefine.U_SIZE_OBJS_POOL_01, false);
 			// 객체 풀을 설정한다 }
 
 			this.SubSetup();
@@ -342,7 +355,7 @@ namespace NSEngine {
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 				// 객체 종류가 유효 할 경우
 				if(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds.ExIsValid() && a_stCellInfo.m_oCellObjInfoList[i].ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
-					var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds), null);
+					var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds), a_stGridInfo, null);
 					oCellObj.transform.localPosition = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);				
 					
 					oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
@@ -533,9 +546,11 @@ namespace NSEngine {
 		}
 
 		/** 셀 객체를 생성한다 */
-		public CEObj CreateCellObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
+		public CEObj CreateCellObj(STObjInfo a_stObjInfo, STGridInfo a_stGridInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_CELL_OBJ, KDefine.E_KEY_CELL_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CECellObjController>() : null;
+
+			oObj.gameObject.ExSetParent(m_oCellObjRootList.ExGetVal(a_stGridInfo.m_nIdx, null));
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
 			oController?.Init(CECellObjController.MakeParams(this));
