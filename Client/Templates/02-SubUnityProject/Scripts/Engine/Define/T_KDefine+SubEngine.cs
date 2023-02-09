@@ -26,6 +26,10 @@ namespace NSEngine {
 		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
 			[EObjKinds.BG_EMPTY_01] = new STSortingOrderInfo() {
 				m_nOrder = KCDefine.U_SORTING_O_BACKGROUND, m_oLayer = KCDefine.U_SORTING_L_BACKGROUND
+			},
+
+			[EObjKinds.BG_PLACEHOLDER_01] = new STSortingOrderInfo() {
+				m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
 			}
 		};
 
