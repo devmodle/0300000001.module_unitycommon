@@ -684,10 +684,11 @@ namespace LevelEditorScene {
 
 			// 그리드 라인 효과를 설정한다 {
 			m_oGridLineFXList.Clear();
+			m_oViewGridLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
 
 			m_oViewGridLineFX.ExSetPositions(new List<Vector3>() {
-				new Vector3(this.SelGridInfo.m_stViewBounds.min.x, this.SelGridInfo.m_stViewBounds.min.y + (NSEngine.Access.CellSize.y * this.SelLevelInfo.m_stNumViewCells.y), this.SelGridInfo.m_stPivotPos.z),
-				new Vector3(this.SelGridInfo.m_stViewBounds.max.x, this.SelGridInfo.m_stViewBounds.min.y + (NSEngine.Access.CellSize.y * this.SelLevelInfo.m_stNumViewCells.y), this.SelGridInfo.m_stPivotPos.z)
+				new Vector3(this.SelGridInfo.m_stBounds.min.x, this.SelGridInfo.m_stBounds.min.y + (NSEngine.Access.CellSize.y * this.SelLevelInfo.m_stNumViewCells.y), this.SelGridInfo.m_stPivotPos.z),
+				new Vector3(this.SelGridInfo.m_stBounds.max.x, this.SelGridInfo.m_stBounds.min.y + (NSEngine.Access.CellSize.y * this.SelLevelInfo.m_stNumViewCells.y), this.SelGridInfo.m_stPivotPos.z)
 			});
 
 			for(int i = 0; i < this.SelLevelInfo.NumCells.y; ++i) {
@@ -1403,9 +1404,8 @@ namespace LevelEditorScene {
 			m_oViewGridLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
 			m_oViewGridLineFX.loop = false;
 
-			m_oViewGridLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
 			m_oViewGridLineFX.ExSetColor(KDefine.LES_COLOR_VIEW_GRID_LINE_FX, KDefine.LES_COLOR_VIEW_GRID_LINE_FX);
-			m_oViewGridLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND.ExGetExtraOrder(KCDefine.B_VAL_1_INT));
+			m_oViewGridLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_TOPMOST);
 			// 라인 효과를 설정한다 }
 
 			// 텍스트를 설정한다
