@@ -274,9 +274,13 @@ namespace PlayScene {
 			var oCallbackDict02 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine, Dictionary<ulong, STTargetInfo>>>() {
 				[NSEngine.CEngine.ECallback.ACQUIRE] = this.OnReceiveAcquireCallback
 			};
+			
+			var oCallbackDict03 = new Dictionary<NSEngine.CEngine.ECallback, System.Action<NSEngine.CEngine, NSEngine.CEObjComponent, NSEngine.EEngineObjEvent, string>>() {
+				[NSEngine.CEngine.ECallback.E_OBJ_EVENT] = this.OnReceiveEObjEventCallback
+			};
 
 			m_oEngine = CFactory.CreateObj<NSEngine.CEngine>(KDefine.PS_OBJ_N_ENGINE, this.gameObject);
-			m_oEngine.Init(NSEngine.CEngine.MakeParams(this.ItemRoot, this.SkillRoot, this.ObjRoot, this.FXRoot, oCallbackDict01, oCallbackDict02));
+			m_oEngine.Init(NSEngine.CEngine.MakeParams(this.ItemRoot, this.SkillRoot, this.ObjRoot, this.FXRoot, oCallbackDict01, oCallbackDict02, oCallbackDict03));
 		}
 
 		/** 보상 광고 UI 를 설정한다 */

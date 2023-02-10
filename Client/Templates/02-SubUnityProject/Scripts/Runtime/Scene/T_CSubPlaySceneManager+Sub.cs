@@ -89,6 +89,11 @@ namespace PlayScene {
 			// Do Something
 		}
 
+		/** 엔진 객체 이벤트 콜백을 수신했을 경우 */
+		private void OnReceiveEObjEventCallback(NSEngine.CEngine a_oSender, NSEngine.CEObjComponent a_oEObjComponent, NSEngine.EEngineObjEvent a_eEvent, string a_oParams) {
+			// Do Something
+		}
+
 		/** 선택 아이템을 적용한다 */
 		private void ApplySelItem(EItemKinds a_eItemKinds) {
 			// Do Something

@@ -15,6 +15,7 @@ namespace NSEngine {
 		///** 식별자 */
 		private enum EKey {
 			NONE = -1,
+			IS_FINISH,
 			IS_RUNNING,
 			IS_SAVE_USER_INFO,
 			
@@ -48,6 +49,7 @@ namespace NSEngine {
 			CLEAR,
 			CLEAR_FAIL,
 			ACQUIRE,
+			E_OBJ_EVENT,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -60,10 +62,12 @@ namespace NSEngine {
 
 			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict01;
 			public Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> m_oCallbackDict02;
+			public Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>> m_oCallbackDict03;
 		}
 
 		#region 변수
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+			[EKey.IS_FINISH] = false,
 			[EKey.IS_RUNNING] = false,
 			[EKey.IS_SAVE_USER_INFO] = false
 		};
@@ -270,24 +274,27 @@ namespace NSEngine {
 			}
 
 			// 클리어 타겟을 완료했을 경우
-			if(m_oClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT)) {
-				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
+			if(!m_oBoolDict[EKey.IS_FINISH] && m_oClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT)) {
+				this.HandleClearState();
+				m_oBoolDict[EKey.IS_FINISH] = true;
 			}
 
+			this.Params.m_oCallbackDict03.GetValueOrDefault(ECallback.E_OBJ_EVENT)?.Invoke(this, a_oSender, a_eEvent, a_oParams);
 			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateUIsState(true);
 		}
 		#endregion // 함수
 
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null) {
+		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null, Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict03 = null) {
 			return new STParams() {
 				m_oItemRoot = a_oItemRoot,
 				m_oSkillRoot = a_oSkillRoot,
 				m_oObjRoot = a_oObjRoot,
 				m_oFXRoot = a_oFXRoot,
 				m_oCallbackDict01 = a_oCallbackDict01 ?? new Dictionary<ECallback, System.Action<CEngine>>(),
-				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>()
+				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>(),
+				m_oCallbackDict03 = a_oCallbackDict03 ?? new Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>>()
 			};
 		}
 		#endregion // 클래스 함수

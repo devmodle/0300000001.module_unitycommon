@@ -56,6 +56,14 @@ namespace NSEngine {
 			}
 		}
 
+		/** 클리어 상태를 처리한다 */
+		private void HandleClearState() {
+#if NEVER_USE_THIS
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
+			this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
+#endif // #if NEVER_USE_THIS
+		}
+
 		/** 플레이 서브 상태를 처리한다 */
 		private void HandlePlaySubState(float a_fDeltaTime) {
 			CFunc.UpdateComponents(this.ItemList, a_fDeltaTime);
