@@ -10,11 +10,10 @@
 	- *TextMesh Pro*
 	- *DOTween Pro (1.0.335 - Oct 10, 2022)*
 2. **에셋 스토어 리스트**
-	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
 	- *Advance Object Pool (1.1.0 - May 6, 2019)*
 	- *Anti Cheat Free (3.1.3 - Jun 22, 2022)*
 	- *Asset Usage Detector (2.2.3 - Sep 26, 2022)*
-	- *Bezier Solution (2.3.2 - Jul 26, 2022)*
+	- *Bezier Solution (2.3.3 - Feb 2, 2023)*
 	- *Enhanced Hierarchy (2.4.5 - May 5, 2020)*
 	- *Enhanced Scroller (2.34.0 - Jan 20, 2023)*
 	- *Google Sheets to Unity (1.0.0 - Mar 18, 2019)*
@@ -23,17 +22,20 @@
 	- *Lean Touch (3.0.1 - Nov 11, 2022)*
 	- *LINQ to GameObject (2.3.1 - Jan 9, 2018)*
 	- *Native Share (1.4.9 - Dec 20, 2022)*
-	- *NGUI (2022.06.08 - Jun 9, 2022)*
 	- *Rest Client (2.6.2 - Dec 27, 2021)*
 	- *Simple Scroll Snap (2.0.0 - Mar 3, 2022)*
 	- *Smart Timers Manager (1.0.0 - Jul 6, 2016)*
-	- *Sound Manater Pro (3.7.0 - Mar 29, 2015)*
 	- *Text to TextMesh Pro (1.1.0 - Sep 26, 2022)*
 	- *UniRx (7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
 	- *Apple Sign In (1.4.2 - Jul 18, 2021)*
-	- *Build Report Tool (3.9.6 - Nov 7, 2022)*
+	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
+	- *Build Report Tool (3.10.0 - Feb 7, 2023)*
 	- *Odin Inspector (3.1.10 - Jan 12, 2023)*
+	- *NGUI (2022.06.08 - Jun 9, 2022)*
+	- *Sound Manater Pro (3.7.0 - Mar 29, 2015)*
+	- *Sprite Trail (1.4.0 - Aug 2, 2019)*
+	- *Ultimate Status Bar (2.6.0 - Jun 3, 2020)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (2.4.35)*
 	- *UI Effect (3.2.0 - Jul 17, 2019)*

@@ -7,6 +7,8 @@ using UnityEngine.Events;
 /** 에디터 샘플 씬 관리자 */
 public partial class CEditorSampleSceneManager : CSampleSceneManager {
 	#region 프로퍼티
-	public override float ScreenHeight => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ? base.ScreenHeight * KCDefine.LES_SCALE_SCREEN_SIZE : base.ScreenHeight;
+#if UNITY_EDITOR || UNITY_STANDALONE
+	public override float ScreenHeight => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ? base.ScreenHeight * KCDefine.ES_SCALE_SCREEN_HEIGHT : base.ScreenHeight;
+#endif // #if UNITY_EDITOR || UNITY_STANDALONE
 	#endregion // 프로퍼티
 }
