@@ -577,7 +577,7 @@ public static partial class CCommonEditorSceneManager {
 						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_ENABLE_DEBUG_IN_ALL_BUILDS) ? (bool)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_DEBUG_IN_ALL_BUILDS] == false : false,
 						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_USE_PLATFORM_SDK_LINKER) ? (bool)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_USE_PLATFORM_SDK_LINKER] == false : false,
 
-						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR) ? (int)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR] == (int)EBurstCompilerOptimization.DEF : false
+						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR) ? (int)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR] == (int)EBurstCompilerOptimization.SIZE : false
 					};
 
 					// 설정 갱신이 필요 할 경우
@@ -589,7 +589,7 @@ public static partial class CCommonEditorSceneManager {
 						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_DEBUG_IN_ALL_BUILDS] = false;
 						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_USE_PLATFORM_SDK_LINKER] = false;
 
-						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR] = (int)EBurstCompilerOptimization.DEF;
+						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR] = (int)EBurstCompilerOptimization.SIZE;
 						CFunc.WriteStr(oSettingsPathList[i], JsonConvert.SerializeObject(oBurstAOTSettingsDatas, Formatting.Indented), false);
 					}
 				}
