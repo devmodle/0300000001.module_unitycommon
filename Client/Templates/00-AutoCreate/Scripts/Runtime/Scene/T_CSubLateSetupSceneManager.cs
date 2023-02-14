@@ -61,6 +61,10 @@ namespace LateSetupScene {
 				this.UserPermissionList.ExAddVal(Permission.ExternalStorageWrite);
 #endif // #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
 
+#if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+				CLateSetupSceneManager.SetLogDataDict(LogFunc.MakeDefDatas());
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+
 #if ADS_MODULE_ENABLE
 #if(EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 				CLateSetupSceneManager.SetPurchaseRemoveAds(CUserInfoStorage.Inst.IsPurchaseRemoveAds);

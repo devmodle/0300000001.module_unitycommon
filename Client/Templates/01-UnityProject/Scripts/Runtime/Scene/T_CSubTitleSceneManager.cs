@@ -213,11 +213,6 @@ namespace TitleScene {
 		private void UpdateFirstRunningState() {
 			CCommonAppInfoStorage.Inst.AppInfo.IsFirstRunning = false;
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
-
-			// 약관 동의 팝업이 닫혔을 경우
-			if(CAppInfoStorage.Inst.IsCloseAgreePopup) {
-				LogFunc.SendAgreeLog();
-			}
 		}
 
 		/** 종료 팝업 결과를 수신했을 경우 */

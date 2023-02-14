@@ -27,6 +27,8 @@ namespace LateSetupScene {
 		#endregion // 프로퍼티
 
 		#region 클래스 프로퍼티
+		public static Dictionary<string, object> LogDataDict { get; private set; } = new Dictionary<string, object>();
+
 #if ADS_MODULE_ENABLE
 		public static bool IsPurchaseRemoveAds { get; private set; } = false;
 		public static bool IsAutoLoadBannerAds { get; private set; } = false;
@@ -251,6 +253,13 @@ namespace LateSetupScene {
 		}
 		#endregion // 함수
 
+		#region 접근자 클래스 함수
+		/** 로그 데이터를 변경한다 */
+		public static void SetLogDataDict(Dictionary<string, object> a_oDataDict) {
+			CLateSetupSceneManager.LogDataDict = a_oDataDict;
+		}
+		#endregion         // 접근자 클래스 함수
+
 		#region 조건부 함수
 #if UNITY_ANDROID
 		/** 유저 권한을 요청한다 */
@@ -309,6 +318,11 @@ namespace LateSetupScene {
 			// 초기화 되었을 경우
 			if(a_bIsSuccess) {
 				CFlurryManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+
+				// 약관 동의 팝업이 닫혔을 경우
+				if(CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
+					CFlurryManager.Inst.SendLog(KCDefine.L_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
+				}
 			}
 		}
 #endif // #if FLURRY_MODULE_ENABLE
@@ -335,6 +349,11 @@ namespace LateSetupScene {
 				});
 
 				CFirebaseManager.Inst.LoadMsgToken(CLateSetupSceneManager.OnLoadFirebaseMsgToken);
+
+				// 약관 동의 팝업이 닫혔을 경우
+				if(CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
+					CFirebaseManager.Inst.SendLog(KCDefine.L_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
+				}
 			}
 		}
 
@@ -353,10 +372,15 @@ namespace LateSetupScene {
 		/** 앱스 플라이어 관리자가 초기화 되었을 경우 */
 		private static void OnInitAppsFlyerManager(CAppsFlyerManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitAppsFlyerManager: {a_bIsSuccess}");
-
+			
 			// 초기화 되었을 경우
 			if(a_bIsSuccess) {
 				CAppsFlyerManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+
+				// 약관 동의 팝업이 닫혔을 경우
+				if(CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
+					CAppsFlyerManager.Inst.SendLog(KCDefine.L_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
+				}
 			}
 		}
 #endif // #if APPS_FLYER_MODULE_ENABLE
@@ -386,6 +410,11 @@ namespace LateSetupScene {
 		/** 플레이 팹 관리자가 초기화 되었을 경우 */
 		private static void OnInitPlayfabManager(CPlayfabManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitPlayfabManager: {a_bIsSuccess}");
+
+			// 초기화 되었을 경우
+			if(a_bIsSuccess && CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
+				CPlayfabManager.Inst.SendLog(KCDefine.L_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict);
+			}
 		}
 #endif // #if PLAYFAB_MODULE_ENABLE
 		#endregion // 조건부 클래스 함수

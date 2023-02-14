@@ -93,7 +93,11 @@ namespace NSEngine {
 
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
-		public List<CEObj>[,,] CellObjLists { get; private set; } = null;
+
+		public List<List<CEObj>[,]> CellObjListsContainer { get; private set; } = new List<List<CEObj>[,]>();
+		
+		public List<Stack<List<CEObj>>[]> CellObjStacksContainerH { get; private set; } = new List<Stack<List<CEObj>>[]>();
+		public List<Stack<List<CEObj>>[]> CellObjStacksContainerV { get; private set; } = new List<Stack<List<CEObj>>[]>();
 
 		public List<CEItem> ItemList { get; } = new List<CEItem>();
 		public List<CESkill> SkillList { get; } = new List<CESkill>();
@@ -305,7 +309,21 @@ namespace NSEngine {
 		#region 함수
 		/** 엔진을 설정한다 */
 		private void Setup() {
-			this.CellObjLists = new List<CEObj>[KCDefine.B_VAL_1_INT, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
+			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
+				this.CellObjStacksContainerH.ExAddVal(new Stack<List<CEObj>>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x]);
+				this.CellObjStacksContainerV.ExAddVal(new Stack<List<CEObj>>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y]);
+
+				this.CellObjListsContainer.ExAddVal(new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x]);
+
+				for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x; ++j) {
+					this.CellObjStacksContainerH[i][j] = new Stack<List<CEObj>>();
+				}
+
+				for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y; ++j) {
+					this.CellObjStacksContainerV[i][j] = new Stack<List<CEObj>>();
+				}
+			}
+
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 			// 그리드 정보를 설정한다
@@ -373,8 +391,11 @@ namespace NSEngine {
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 			}
-			
-			this.CellObjLists[a_stCellInfo.m_stIdx.z, a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
+
+			this.CellObjStacksContainerH[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.x].Push(new List<CEObj>(oCellObjList));
+			this.CellObjStacksContainerV[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y].Push(new List<CEObj>(oCellObjList));
+
+			this.CellObjListsContainer[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
 			this.SubSetupCell(a_stCellInfo, a_stGridInfo);
 		}
 
@@ -457,7 +478,7 @@ namespace NSEngine {
 
 		/** 셀 객체를 탐색한다 */
 		public CEObj FindCellObj(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
-			return this.CellObjLists.ExGetVal(a_stIdx, null)?.ExGetVal((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds, null);
+			return this.CellObjListsContainer.ExGetVal(a_stIdx, null)?.ExGetVal((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds, null);
 		}
 
 		/** 적 객체를 탐색한다 */
@@ -474,7 +495,7 @@ namespace NSEngine {
 
 		/** 셀 객체를 탐색한다 */
 		public List<CEObj> FindCellObjs(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
-			return this.CellObjLists.ExGetVal(a_stIdx, null)?.ExGetVals((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds);
+			return this.CellObjListsContainer.ExGetVal(a_stIdx, null)?.ExGetVals((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds);
 		}
 
 		/** 적 객체를 탐색한다 */
@@ -653,7 +674,7 @@ namespace NSEngine {
 
 		/** 셀 객체를 제거한다 */
 		private void RemoveCellObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
-			var oCellObjList = (a_oObj != null) ? this.CellObjLists.ExGetVal(a_oObj.CellIdx, null) : null;
+			var oCellObjList = (a_oObj != null) ? this.CellObjListsContainer.ExGetVal(a_oObj.CellIdx, null) : null;
 			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && oCellObjList != null && a_oObj.CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
 
 			// 셀 객체가 존재 할 경우
