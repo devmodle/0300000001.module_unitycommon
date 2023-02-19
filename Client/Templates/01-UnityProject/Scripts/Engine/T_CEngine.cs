@@ -93,9 +93,8 @@ namespace NSEngine {
 
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
-
-		public List<List<CEObj>[,]> CellObjListsContainer { get; private set; } = new List<List<CEObj>[,]>();
 		
+		public List<List<CEObj>[,]> CellObjListsContainer { get; private set; } = new List<List<CEObj>[,]>();
 		public List<Stack<List<CEObj>>[]> CellObjStacksContainerH { get; private set; } = new List<Stack<List<CEObj>>[]>();
 		public List<Stack<List<CEObj>>[]> CellObjStacksContainerV { get; private set; } = new List<Stack<List<CEObj>>[]>();
 
