@@ -186,7 +186,10 @@ namespace NSEngine {
 
 		/** 레벨을 설정한다 */
 		private void SubSetupLevel() {
-			// Do Something
+			// 레벨 정보가 존재 할 경우
+			if(CGameInfoStorage.Inst.PlayLevelInfo != null) {
+				// Do Something
+			}
 		}
 		
 		/** 셀을 설정한다 */
