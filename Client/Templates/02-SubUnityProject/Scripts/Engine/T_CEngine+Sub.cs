@@ -183,6 +183,11 @@ namespace NSEngine {
 		private void SubSetup() {
 			// Do Something
 		}
+
+		/** 레벨을 설정한다 */
+		private void SubSetupLevel() {
+			// Do Something
+		}
 		
 		/** 셀을 설정한다 */
 		private void SubSetupCell(STCellInfo a_stCellInfo, STGridInfo a_stGridInfo) {
@@ -193,6 +198,11 @@ namespace NSEngine {
 				if(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds.ExIsValid() && a_stCellInfo.m_oCellObjInfoList[i].ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
 					var stPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Vector3.zero, Access.CellSize);
 					var stCenterPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
+
+					// 셀 객체가 존재 할 경우
+					if(this.CellObjListsContainer[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x].ExIsValidIdx(nIdx)) {
+						// Do Something
+					}
 
 					nIdx += KCDefine.B_VAL_1_INT;
 				}
