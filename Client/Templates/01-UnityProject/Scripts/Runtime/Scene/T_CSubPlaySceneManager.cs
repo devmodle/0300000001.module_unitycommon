@@ -164,7 +164,7 @@ namespace PlayScene {
 					m_oEngine.SetSubState(NSEngine.CEngine.ESubState.PLAY);
 
 					m_oEngine.SelPlayerObj?.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
-				}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
+				}, KCDefine.B_VAL_0_5_REAL);
 
 				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_GAME_01);
 				CCommonAppInfoStorage.Inst.SetEnableEditor(false);

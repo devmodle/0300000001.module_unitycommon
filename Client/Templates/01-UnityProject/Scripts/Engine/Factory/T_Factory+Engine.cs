@@ -56,7 +56,7 @@ namespace NSEngine {
 						stGridInfo.m_stScale = stGridInfo.m_stScale.ExIsValid() ? stGridInfo.m_stScale : Vector3.one;
 
 						a_oOutGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER,
-							new Vector3(KCDefine.B_VAL_0_REAL, (Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridInfo.m_stScale.y), KCDefine.B_VAL_0_REAL),
+							new Vector3(KCDefine.B_VAL_0_REAL, (Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) / stGridInfo.m_stScale.y, KCDefine.B_VAL_0_REAL),
 							new Vector3(KCDefine.B_VAL_0_REAL, a_fDeltaY, KCDefine.B_VAL_0_REAL),
 							a_oLevelInfo.NumCells,
 							i,

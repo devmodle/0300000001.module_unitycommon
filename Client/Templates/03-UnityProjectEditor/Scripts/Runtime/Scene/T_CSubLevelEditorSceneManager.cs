@@ -426,7 +426,7 @@ namespace LevelEditorScene {
 
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.SetActive(bIsValid01 && bIsValid02);
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.ExSetLocalPos(this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize));
-						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetColor<SpriteRenderer>(stColor.ExGetAlphaColor(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL));
+						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetColor<SpriteRenderer>(stColor.ExGetAlphaColor(KCDefine.B_VAL_0_5_REAL));
 					} else {
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.SetActive(false);
 					}
@@ -676,7 +676,7 @@ namespace LevelEditorScene {
 			this.SelLevelInfo.m_stNumViewCells = this.GetNumViewCells(this.SelLevelInfo, m_oIntDict[EKey.SEL_GRID_IDX], m_oRealDict[EKey.GRID_SCROLL_DELTA_X], m_oRealDict[EKey.GRID_SCROLL_DELTA_Y]);
 
 			// 객체를 설정한다 {
-			this.ObjRoot.transform.localScale = this.SelGridInfo.m_stScale.ExIsValid() ? this.SelGridInfo.m_stScale : Vector3.one;
+			this.ObjRoot.transform.localScale = this.SelGridInfo.m_stScale;
 
 			this.EditorObjRoot.transform.localScale = KDefine.LES_SCALE_EDITOR_OBJ_ROOT;
 			this.EditorObjRoot.transform.localPosition = this.ObjRootPivotPos;
