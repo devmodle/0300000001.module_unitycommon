@@ -373,6 +373,8 @@ namespace NSEngine {
 		/** 셀을 설정한다 */
 		private void SetupCell(STCellInfo a_stCellInfo, STGridInfo a_stGridInfo) {
 			var oCellObjList = new List<CEObj>();
+			var oCellObjListH = new List<CEObj>();
+			var oCellObjListV = new List<CEObj>();
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
 #if NEVER_USE_THIS
@@ -386,13 +388,15 @@ namespace NSEngine {
 					oCellObj.SetCellObjInfo(a_stCellInfo.m_oCellObjInfoList[i]);
 
 					oCellObjList.ExAddVal(oCellObj);
+					oCellObjListH.ExAddVal(oCellObj);
+					oCellObjListV.ExAddVal(oCellObj);
 				}
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 			}
 
-			this.CellObjStacksContainerH[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.x].Push(new List<CEObj>(oCellObjList));
-			this.CellObjStacksContainerV[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y].Push(new List<CEObj>(oCellObjList));
+			this.CellObjStacksContainerH[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.x].Push(oCellObjListH);
+			this.CellObjStacksContainerV[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y].Push(oCellObjListV);
 
 			this.CellObjListsContainer[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
 			this.SubSetupCell(a_stCellInfo, a_stGridInfo);
