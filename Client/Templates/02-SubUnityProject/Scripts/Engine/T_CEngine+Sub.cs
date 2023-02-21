@@ -188,7 +188,13 @@ namespace NSEngine {
 		private void SubSetupLevel() {
 			// 레벨 정보가 존재 할 경우
 			if(CGameInfoStorage.Inst.PlayLevelInfo != null) {
-				// Do Something
+				for(int i = 0; i < m_oGridInfoList.Count; ++i) {
+					for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer.Count; ++j) {
+						for(int k = 0; k < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[j].Count; ++k) {
+							// Do Something
+						}
+					}
+				}
 			}
 		}
 		

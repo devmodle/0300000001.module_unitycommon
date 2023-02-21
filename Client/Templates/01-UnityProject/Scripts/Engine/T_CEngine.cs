@@ -12,7 +12,7 @@ using UnityEngine.EventSystems;
 namespace NSEngine {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
-		///** 식별자 */
+		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
 			IS_FINISH,
@@ -309,10 +309,9 @@ namespace NSEngine {
 		/** 엔진을 설정한다 */
 		private void Setup() {
 			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
+				this.CellObjListsContainer.ExAddVal(new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x]);
 				this.CellObjStacksContainerH.ExAddVal(new Stack<List<CEObj>>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x]);
 				this.CellObjStacksContainerV.ExAddVal(new Stack<List<CEObj>>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y]);
-
-				this.CellObjListsContainer.ExAddVal(new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x]);
 
 				for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x; ++j) {
 					this.CellObjStacksContainerH[i][j] = new Stack<List<CEObj>>();
@@ -393,10 +392,10 @@ namespace NSEngine {
 #endif // #if NEVER_USE_THIS
 			}
 
+			this.CellObjListsContainer[a_stCellInfo.m_stIdx.z].ExSetVal(a_stCellInfo.m_stIdx, oCellObjList);
 			this.CellObjStacksContainerH[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.x].Push(new List<CEObj>(oCellObjList));
 			this.CellObjStacksContainerV[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y].Push(new List<CEObj>(oCellObjList));
 
-			this.CellObjListsContainer[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
 			this.SubSetupCell(a_stCellInfo, a_stGridInfo);
 		}
 
