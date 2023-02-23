@@ -203,7 +203,7 @@ namespace NSEngine {
 					var stCenterPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
 
 					// 셀 객체가 존재 할 경우
-					if(this.CellObjListsContainer[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x].ExIsValidIdx(nIdx)) {
+					if(this.CellObjListsContainer.ExIsValidIdx(a_stCellInfo.m_stIdx) && this.CellObjListsContainer[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x].ExIsValidIdx(nIdx)) {
 						// Do Something
 					}
 
