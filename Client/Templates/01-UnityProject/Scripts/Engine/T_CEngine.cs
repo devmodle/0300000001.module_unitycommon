@@ -9,6 +9,8 @@ using UnityEngine.Events;
 using System.Linq;
 using UnityEngine.EventSystems;
 
+using DG.Tweening;
+
 namespace NSEngine {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
@@ -93,10 +95,11 @@ namespace NSEngine {
 
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
-		
-		public List<List<CEObj>[,]> CellObjListsContainer { get; private set; } = new List<List<CEObj>[,]>();
-		public List<Stack<List<CEObj>>[]> CellObjStacksContainerH { get; private set; } = new List<Stack<List<CEObj>>[]>();
-		public List<Stack<List<CEObj>>[]> CellObjStacksContainerV { get; private set; } = new List<Stack<List<CEObj>>[]>();
+
+		public List<Tween> AniList { get; } = new List<Tween>();
+		public List<List<CEObj>[,]> CellObjListsContainer { get; } = new List<List<CEObj>[,]>();
+		public List<Stack<List<CEObj>>[]> CellObjStacksContainerH { get; } = new List<Stack<List<CEObj>>[]>();
+		public List<Stack<List<CEObj>>[]> CellObjStacksContainerV { get; } = new List<Stack<List<CEObj>>[]>();
 
 		public List<CEItem> ItemList { get; } = new List<CEItem>();
 		public List<CESkill> SkillList { get; } = new List<CESkill>();
@@ -116,6 +119,9 @@ namespace NSEngine {
 		public STGridInfo SelGridInfo => m_oGridInfoList.ExGetVal(this.SelGridInfoIdx, STGridInfo.INVALID);
 
 		public CEObj SelPlayerObj => this.PlayerObjList.ExGetVal(this.SelPlayerObjIdx, null);
+		public List<CEObj>[,] SelCellObjLists=> this.CellObjListsContainer.ExGetVal(this.SelGridInfoIdx, null);
+		public Stack<List<CEObj>>[] SelCellObjStacksH => this.CellObjStacksContainerH.ExGetVal(this.SelGridInfoIdx, null);
+		public Stack<List<CEObj>>[] SelCellObjStacksV => this.CellObjStacksContainerV.ExGetVal(this.SelGridInfoIdx, null);
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -161,6 +167,10 @@ namespace NSEngine {
 			try {
 				// 앱이 실행 중 일 경우
 				if(CSceneManager.IsAppRunning) {
+					for(int i = 0; i < this.AniList.Count; ++i) {
+						this.AniList[i]?.Kill();
+					}
+
 					this.SubOnDestroy();
 				}
 			} catch(System.Exception oException) {
