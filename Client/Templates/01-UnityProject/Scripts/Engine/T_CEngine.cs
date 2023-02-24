@@ -20,7 +20,7 @@ namespace NSEngine {
 			IS_FINISH,
 			IS_RUNNING,
 			IS_SAVE_USER_INFO,
-			
+
 			SEL_GRID_IDX,
 			SEL_PLAYER_OBJ_IDX,
 
@@ -119,7 +119,7 @@ namespace NSEngine {
 		public STGridInfo SelGridInfo => m_oGridInfoList.ExGetVal(this.SelGridInfoIdx, STGridInfo.INVALID);
 
 		public CEObj SelPlayerObj => this.PlayerObjList.ExGetVal(this.SelPlayerObjIdx, null);
-		public List<CEObj>[,] SelCellObjLists=> this.CellObjListsContainer.ExGetVal(this.SelGridInfoIdx, null);
+		public List<CEObj>[,] SelCellObjLists => this.CellObjListsContainer.ExGetVal(this.SelGridInfoIdx, null);
 		public Stack<List<CEObj>>[] SelCellObjStacksH => this.CellObjStacksContainerH.ExGetVal(this.SelGridInfoIdx, null);
 		public Stack<List<CEObj>>[] SelCellObjStacksV => this.CellObjStacksContainerV.ExGetVal(this.SelGridInfoIdx, null);
 		#endregion // 프로퍼티
@@ -245,7 +245,7 @@ namespace NSEngine {
 			if(a_oSender.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT) {
 				// 플레이어 객체 일 경우
 				if(this.IsClearFail() || a_oSender.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL)) {
-					this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
+					this.HandleClearFailState();
 				} else {
 					foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict) {
 						bool bIsValid = stKeyVal.Value.TargetType == ETargetType.ITEM && (a_oSender as CEItem != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEItem).Params.m_stItemInfo.m_eItemKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType);
@@ -286,10 +286,9 @@ namespace NSEngine {
 				}
 			}
 
-			// 클리어 타겟을 완료했을 경우
-			if(this.IsClear() && !m_oBoolDict[EKey.IS_FINISH]) {
+			// 클리어 상태 일 경우
+			if(this.IsClear()) {
 				this.HandleClearState();
-				m_oBoolDict[EKey.IS_FINISH] = true;
 			}
 
 			this.Params.m_oCallbackDict03.GetValueOrDefault(ECallback.E_OBJ_EVENT)?.Invoke(this, a_oSender, a_eEvent, a_oParams);

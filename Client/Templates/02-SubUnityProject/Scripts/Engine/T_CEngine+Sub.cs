@@ -59,10 +59,28 @@ namespace NSEngine {
 
 		/** 클리어 상태를 처리한다 */
 		private void HandleClearState() {
+			// 종료 상태가 아닐 경우
+			if(!m_oBoolDict[EKey.IS_FINISH]) {
+				m_oBoolDict[EKey.IS_FINISH] = true;
+
 #if NEVER_USE_THIS
-			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
-			this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
+				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
+				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
 #endif // #if NEVER_USE_THIS
+			}
+		}
+
+		/** 클리어 실패 상태를 처리한다 */
+		private void HandleClearFailState() {
+			// 종료 상태가 아닐 경우
+			if(!m_oBoolDict[EKey.IS_FINISH]) {
+				m_oBoolDict[EKey.IS_FINISH] = true;
+
+#if NEVER_USE_THIS
+				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
+				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
+#endif // #if NEVER_USE_THIS
+			}
 		}
 
 		/** 플레이 서브 상태를 처리한다 */
@@ -192,7 +210,7 @@ namespace NSEngine {
 				// Do Something
 			}
 		}
-		
+
 		/** 셀을 설정한다 */
 		private void SubSetupCell(STCellInfo a_stCellInfo, STGridInfo a_stGridInfo) {
 			int nIdx = KCDefine.B_VAL_0_INT;
@@ -225,12 +243,22 @@ namespace NSEngine {
 		#region 함수
 		/** 클리어 여부를 검사한다 */
 		public bool IsClear() {
-			return m_oClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT);
+#if NEVER_USE_THIS
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
+			bool bIsClear01 = m_oClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT);
+#endif // #if NEVER_USE_THIS
+
+			return false;
 		}
 
 		/** 클리어 실패 여부를 검사한다 */
 		public bool IsClearFail() {
-			return this.SelPlayerObj != null && this.SelPlayerObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT;
+#if NEVER_USE_THIS
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
+			bool bIsClearFail01 = this.SelPlayerObj != null && this.SelPlayerObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT;
+#endif // #if NEVER_USE_THIS
+
+			return false;
 		}
 		#endregion // 함수
 	}
