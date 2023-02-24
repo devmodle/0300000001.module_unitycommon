@@ -88,8 +88,8 @@ namespace NSEngine {
 	public partial class CEObj : CEObjComponent {
 		#region 함수
 		/** 셀 인덱스를 변경한다 */
-		public void SetCellIdx(Vector3Int a_stCellIdx) {
-			m_oVec3IntDict[EKey.CELL_IDX] = a_stCellIdx;
+		public void SetCellIdx(Vector3Int a_stIdx) {
+			m_oVec3IntDict[EKey.CELL_IDX] = a_stIdx;
 		}
 
 		/** 셀 객체 정보를 변경한다 */

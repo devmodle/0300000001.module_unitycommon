@@ -244,7 +244,7 @@ namespace NSEngine {
 			// 체력이 없을 경우
 			if(a_oSender.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT) {
 				// 플레이어 객체 일 경우
-				if(a_oSender.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL)) {
+				if(this.IsClearFail() || a_oSender.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL)) {
 					this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
 				} else {
 					foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict) {
@@ -287,7 +287,7 @@ namespace NSEngine {
 			}
 
 			// 클리어 타겟을 완료했을 경우
-			if(!m_oBoolDict[EKey.IS_FINISH] && m_oClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT)) {
+			if(this.IsClear() && !m_oBoolDict[EKey.IS_FINISH]) {
 				this.HandleClearState();
 				m_oBoolDict[EKey.IS_FINISH] = true;
 			}
