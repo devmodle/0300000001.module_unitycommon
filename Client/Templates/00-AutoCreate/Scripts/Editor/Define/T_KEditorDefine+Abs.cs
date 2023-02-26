@@ -222,7 +222,7 @@ public static partial class KEditorDefine {
 #endif // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["module.unitycommonnoti"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnoti.git#3.0.3",
+		["module.unitycommonnotification"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnotification.git#3.0.3",
 #endif // #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 
 #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
