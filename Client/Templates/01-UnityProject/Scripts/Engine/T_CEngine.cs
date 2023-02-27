@@ -486,7 +486,7 @@ namespace NSEngine {
 		}
 
 		/** 셀 객체를 탐색한다 */
-		public CEObj FindCellObj(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+		public CEObj FindCellObj(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
 			return this.CellObjListsContainer.ExGetVal(a_stIdx, null)?.ExGetVal((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds, null);
 		}
 
@@ -503,8 +503,28 @@ namespace NSEngine {
 		}
 
 		/** 셀 객체를 탐색한다 */
-		public List<CEObj> FindCellObjs(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+		public List<CEObj> FindCellObjs(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
 			return this.CellObjListsContainer.ExGetVal(a_stIdx, null)?.ExGetVals((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds);
+		}
+
+		/** 셀 객체를 탐색한다 */
+		public List<CEObj> FindCellObjs(Vector3Int a_stIdx, Vector3Int a_stOffset, out Vector3Int a_stOutCellIdx) {
+			// 인덱스가 유효 할 경우
+			if(this.SelCellObjLists.ExIsValidIdx(a_stIdx)) {
+				a_stOutCellIdx = a_stIdx;
+
+				while(this.SelCellObjLists.ExIsValidIdx(a_stOutCellIdx)) {
+					// 셀 객체가 존재 할 경우
+					if(this.SelCellObjLists[a_stIdx.y, a_stIdx.x].ExIsValid()) {
+						return this.SelCellObjLists[a_stIdx.y, a_stIdx.x];
+					}
+
+					a_stOutCellIdx += a_stOffset;
+				}
+			}
+
+			a_stOutCellIdx = KCDefine.B_IDX_INVALID_3D;
+			return KDefine.E_EMPTY_OBJ_LIST;
 		}
 
 		/** 적 객체를 탐색한다 */
@@ -524,8 +544,8 @@ namespace NSEngine {
 		}
 
 		/** 최상단 셀 객체를 탐색한다 */
-		public CEObj FindTopCellObj(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
-			var oCellObjList = this.FindCellObjs(a_eObjKinds, a_stIdx);
+		public CEObj FindTopCellObj(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
+			var oCellObjList = this.FindCellObjs(a_stIdx, a_eObjKinds);
 			return oCellObjList.ExIsValid() ? oCellObjList.Last() : null;
 		}
 		#endregion // 함수

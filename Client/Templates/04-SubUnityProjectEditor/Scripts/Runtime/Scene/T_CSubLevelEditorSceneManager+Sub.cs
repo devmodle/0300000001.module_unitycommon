@@ -160,7 +160,7 @@ namespace LevelEditorScene {
 			}
 			// 객체 제거가 가능 할 경우
 			else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
-				this.RemoveCellObjInfo(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
+				this.RemoveCellObjInfo(stIdx, Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE);
 			}
 		}
 
@@ -183,7 +183,7 @@ namespace LevelEditorScene {
 					var eObjKinds = Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : stCellObjInfo.ObjKinds;
 
 					bool bIsValid01 = this.IsEnableAddCellObjInfo(stIdx, stSize, m_oObjKindsDict[EKey.SEL_OBJ_KINDS], false);
-					bool bIsValid02 = this.IsEnableRemoveCellObjInfo(eObjKinds, stIdx);
+					bool bIsValid02 = this.IsEnableRemoveCellObjInfo(stIdx, eObjKinds);
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButton((int)EMouseBtn.LEFT) && bIsValid01 && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
@@ -196,7 +196,7 @@ namespace LevelEditorScene {
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && bIsValid02 && this.TryGetCellObjInfo(stIdx, eObjKinds, out stCellObjInfo)) {
-						this.RemoveCellObjInfo(eObjKinds, stIdx);
+						this.RemoveCellObjInfo(stIdx, eObjKinds);
 
 						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y - stCellObjInfo.m_stSize.y, stIdx.z));
 						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y + stCellObjInfo.m_stSize.y, stIdx.z));

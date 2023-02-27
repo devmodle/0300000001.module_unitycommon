@@ -989,7 +989,7 @@ namespace LevelEditorScene {
 
 							// 셀 객체 정보가 존재 할 경우
 							if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) || (!a_bIsEnableOverlay && Input.GetKey(KeyCode.LeftShift))) {
-								this.RemoveAllCellObjInfos(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) ? a_stCellObjInfo.ObjKinds : EObjKinds.NONE, a_stIdx);
+								this.RemoveAllCellObjInfos(a_stIdx, stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) ? a_stCellObjInfo.ObjKinds : EObjKinds.NONE);
 							}
 
 							stCellInfo.m_oCellObjInfoList.ExAddVal(a_stCellObjInfo);
@@ -1021,9 +1021,9 @@ namespace LevelEditorScene {
 		}
 
 		/** 셀 객체 정보를 제거한다 */
-		private void RemoveCellObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+		private void RemoveCellObjInfo(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
 			// 셀 객체 정보 제거가 가능 할 경우
-			if(this.IsEnableRemoveCellObjInfo(a_eObjKinds, a_stIdx) && this.TryGetCellObjInfo(a_stIdx, a_eObjKinds, out STCellObjInfo stCellObjInfo)) {
+			if(this.IsEnableRemoveCellObjInfo(a_stIdx, a_eObjKinds) && this.TryGetCellObjInfo(a_stIdx, a_eObjKinds, out STCellObjInfo stCellObjInfo)) {
 				for(int i = 0; i < stCellObjInfo.m_stSize.y; ++i) {
 					for(int j = 0; j < stCellObjInfo.m_stSize.x; ++j) {
 						var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
@@ -1040,9 +1040,9 @@ namespace LevelEditorScene {
 		}
 
 		/** 모든 셀 객체 정보를 제거한다 */
-		private void RemoveAllCellObjInfos(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
-			while(this.IsEnableRemoveCellObjInfo(a_eObjKinds, a_stIdx)) {
-				this.RemoveCellObjInfo(a_eObjKinds, a_stIdx);
+		private void RemoveAllCellObjInfos(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
+			while(this.IsEnableRemoveCellObjInfo(a_stIdx, a_eObjKinds)) {
+				this.RemoveCellObjInfo(a_stIdx, a_eObjKinds);
 			}
 		}
 
@@ -1355,7 +1355,7 @@ namespace LevelEditorScene {
 		}
 
 		/** 셀 객체 제거 가능 여부를 검사한다 */
-		private bool IsEnableRemoveCellObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+		private bool IsEnableRemoveCellObjInfo(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
 			bool bIsValid = this.TryGetCellObjInfo(a_stIdx, a_eObjKinds, out STCellObjInfo stCellObjInfo);
 			return this.IsContainsCellInfo(a_stIdx, stCellObjInfo.m_stSize) && (stCellObjInfo.ObjKinds != EObjKinds.NONE && stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01);
 		}
@@ -1575,7 +1575,7 @@ namespace LevelEditorScene {
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
-						this.RemoveAllCellObjInfos(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
+						this.RemoveAllCellObjInfos(stIdx, Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE);
 					}
 				}
 			}
@@ -1596,7 +1596,7 @@ namespace LevelEditorScene {
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && oCellInfoDict[i].m_oCellObjInfoList.ExIsValid()) {
-						this.RemoveAllCellObjInfos(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
+						this.RemoveAllCellObjInfos(stIdx, Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE);
 					}
 				}
 			}
@@ -2085,7 +2085,7 @@ namespace LevelEditorScene {
 			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				for(int i = 0; i < this.SelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < this.SelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-						this.RemoveAllCellObjInfos(EObjKinds.NONE, new Vector3Int(j, i, KCDefine.B_VAL_0_INT));
+						this.RemoveAllCellObjInfos(new Vector3Int(j, i, KCDefine.B_VAL_0_INT), EObjKinds.NONE);
 					}
 				}
 
@@ -2099,7 +2099,7 @@ namespace LevelEditorScene {
 			if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid() && m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				for(int i = 0; i < this.SelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < this.SelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-						this.RemoveAllCellObjInfos(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], new Vector3Int(j, i, KCDefine.B_VAL_0_INT));
+						this.RemoveAllCellObjInfos(new Vector3Int(j, i, KCDefine.B_VAL_0_INT), m_oObjKindsDict[EKey.SEL_OBJ_KINDS]);
 					}
 				}
 
