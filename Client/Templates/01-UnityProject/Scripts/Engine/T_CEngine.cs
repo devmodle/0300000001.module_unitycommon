@@ -515,8 +515,8 @@ namespace NSEngine {
 
 				while(this.SelCellObjLists.ExIsValidIdx(a_stOutCellIdx)) {
 					// 셀 객체가 존재 할 경우
-					if(this.SelCellObjLists[a_stIdx.y, a_stIdx.x].ExIsValid()) {
-						return this.SelCellObjLists[a_stIdx.y, a_stIdx.x];
+					if(this.SelCellObjLists[a_stOutCellIdx.y, a_stOutCellIdx.x].ExIsValid()) {
+						return this.SelCellObjLists[a_stOutCellIdx.y, a_stOutCellIdx.x];
 					}
 
 					a_stOutCellIdx += a_stOffset;
