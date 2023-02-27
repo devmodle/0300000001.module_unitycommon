@@ -757,7 +757,7 @@ namespace LevelEditorScene {
 				(oBtn.transform as RectTransform).SetAsFirstSibling();
 
 				// 텍스트가 존재 할 경우
-				if(oBtn.TryGetComponent<Text>(out Text oText)) {
+				if(oBtn.TryGetComponent(out Text oText)) {
 					oText.text = $"{i + KCDefine.B_VAL_1_INT}";
 					oText.fontSize = KCDefine.B_VAL_4_INT * KCDefine.B_VAL_7_INT;
 				}
@@ -780,7 +780,7 @@ namespace LevelEditorScene {
 				(oBtn.transform as RectTransform).SetAsFirstSibling();
 
 				// 텍스트가 존재 할 경우
-				if(oBtn.TryGetComponent<Text>(out Text oText)) {
+				if(oBtn.TryGetComponent(out Text oText)) {
 					oText.text = $"{i + KCDefine.B_VAL_1_INT}";
 					oText.fontSize = KCDefine.B_VAL_4_INT * KCDefine.B_VAL_7_INT;
 				}
@@ -1930,7 +1930,7 @@ namespace LevelEditorScene {
 		private void SetupREUIsPageUIs02ScrollerCellView(GameObject oScrollerCellView, List<EObjKinds> a_oObjKindsList, int a_nIdx) {
 			for(int i = 0; i < KDefine.LES_MAX_NUM_OBJ_KINDS_IN_ROW; ++i) {
 				// 버튼이 존재 할 경우
-				if(oScrollerCellView.transform.GetChild(i).TryGetComponent<Button>(out Button oBtn)) {
+				if(oScrollerCellView.transform.GetChild(i).TryGetComponent(out Button oBtn)) {
 					var eObjKinds = a_oObjKindsList.ExGetVal(i + a_nIdx, EObjKinds.NONE);
 
 					oBtn.gameObject.ExAddComponent<CBtnHandler>();
