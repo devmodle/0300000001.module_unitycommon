@@ -34,6 +34,12 @@ namespace NSEngine {
 		#endregion // 기본
 
 		#region 런타임 상수
+		// 기타
+		public static readonly List<CEItem> E_EMPTY_ITEM_LIST = new List<CEItem>();
+		public static readonly List<CESkill> E_EMPTY_SKILL_LIST = new List<CESkill>();
+		public static readonly List<CEObj> E_EMPTY_OBJ_LIST = new List<CEObj>();
+		public static readonly List<CEFX> E_EMPTY_FX_LIST = new List<CEFX>();
+
 		// 개수
 		public static readonly Vector3Int E_MIN_NUM_CELLS = new Vector3Int(1, 1, 1);
 		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(20, 20, 1);
