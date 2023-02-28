@@ -201,13 +201,13 @@ namespace NSEngine {
 	public partial class CEObjController : CEController {
 		#region 함수
 		/** 자동 제어 여부를 변경한다 */
-		public void SetEnableAutoControl(bool a_bIsAutoControl) {
+		public void SetEnableAutoControl(bool a_bIsEnable) {
 			// 수동 제어 모드 일 경우
-			if(!a_bIsAutoControl && this.State == EState.MOVE) {
+			if(!a_bIsEnable && this.State == EState.MOVE) {
 				this.SetState(EState.IDLE);
 			}
 
-			m_oBoolDict[EKey.IS_AUTO_CONTROL] = a_bIsAutoControl;
+			m_oBoolDict[EKey.IS_AUTO_CONTROL] = a_bIsEnable;
 		}
 
 		/** 이동 위치를 변경한다 */

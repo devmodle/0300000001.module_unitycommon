@@ -59,8 +59,8 @@ public partial class CSettingsPopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
-		CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
+		CSndManager.Inst.SetMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
+		CSndManager.Inst.SetMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
 
 		// 버튼을 갱신한다 {
 		var oBtnKeyInfoList = new List<(EKey, string, string, string, bool)>() {

@@ -456,13 +456,13 @@ namespace NSEngine {
 		}
 
 		/** 구동 여부를 변경한다 */
-		public void SetEnableRunning(bool a_bIsRunning) {
-			m_oBoolDict[EKey.IS_RUNNING] = a_bIsRunning;
+		public void SetEnableRunning(bool a_bIsEnable) {
+			m_oBoolDict[EKey.IS_RUNNING] = a_bIsEnable;
 		}
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
-		public void SetEnablePlayerObjAutoControl(bool a_bIsAutoControl) {
-			this.SelPlayerObj.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsAutoControl);
+		public void SetEnablePlayerObjAutoControl(bool a_bIsEnable) {
+			this.SelPlayerObj.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsEnable);
 		}
 
 		/** 상태를 변경한다 */

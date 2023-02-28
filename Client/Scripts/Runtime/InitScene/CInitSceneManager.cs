@@ -69,31 +69,31 @@ namespace InitScene {
 
 			// 사운드 관리자를 설정한다 {
 #if MODE_2D_ENABLE
-			CSndManager.Inst.SetIsIgnoreBGSndEffects(true);
-			CSndManager.Inst.SetIsIgnoreFXSndsEffects(true);
+			CSndManager.Inst.SetIgnoreBGSndEffects(true);
+			CSndManager.Inst.SetIgnoreFXSndsEffects(true);
 
-			CSndManager.Inst.SetIsIgnoreBGSndReverbZones(true);
-			CSndManager.Inst.SetIsIgnoreFXSndsReverbZones(true);
+			CSndManager.Inst.SetIgnoreBGSndReverbZones(true);
+			CSndManager.Inst.SetIgnoreFXSndsReverbZones(true);
 
-			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(true);
-			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(true);
+			CSndManager.Inst.SetIgnoreBGSndListenerEffects(true);
+			CSndManager.Inst.SetIgnoreFXSndsListenerEffects(true);
 #else
-			CSndManager.Inst.SetIsIgnoreBGSndEffects(false);
-			CSndManager.Inst.SetIsIgnoreFXSndsEffects(false);
+			CSndManager.Inst.SetIgnoreBGSndEffects(false);
+			CSndManager.Inst.SetIgnoreFXSndsEffects(false);
 
-			CSndManager.Inst.SetIsIgnoreBGSndReverbZones(false);
-			CSndManager.Inst.SetIsIgnoreFXSndsReverbZones(false);
+			CSndManager.Inst.SetIgnoreBGSndReverbZones(false);
+			CSndManager.Inst.SetIgnoreFXSndsReverbZones(false);
 
-			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(false);
-			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(false);
+			CSndManager.Inst.SetIgnoreBGSndListenerEffects(false);
+			CSndManager.Inst.SetIgnoreFXSndsListenerEffects(false);
 #endif // #if MODE_2D_ENABLE
 
 			CSndManager.Inst.SetBGSndVolume(CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume);
 			CSndManager.Inst.SetFXSndsVolume(CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume);
 
-			CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
-			CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
-			CSndManager.Inst.SetIsDisableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate);
+			CSndManager.Inst.SetMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
+			CSndManager.Inst.SetMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
+			CSndManager.Inst.SetDisableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate);
 			// 사운드 관리자를 설정한다 }
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
