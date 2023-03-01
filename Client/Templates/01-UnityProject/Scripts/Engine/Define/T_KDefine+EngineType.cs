@@ -13,7 +13,7 @@ namespace NSEngine {
 	/** 그리드 정보 */
 	public struct STGridInfo {
 		public int m_nIdx;
-		
+
 		public Bounds m_stBounds;
 		public Bounds m_stViewBounds;
 

@@ -6,6 +6,7 @@
 	- *Smart Timers Manager (에셋 스토어)*
 	- *Google Sheets to Unity (에셋 스토어)*
 	- *UI Effect (외부 에셋 및 플러그인)*
+	- *Soft Mask for GUI (외부 에셋 및 플러그인)*
 1. **필수 에셋 리스트**
 	- *TextMesh Pro*
 	- *DOTween Pro (1.0.335 - Oct 10, 2022)*
@@ -39,9 +40,9 @@
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (2.4.35)*
 	- *UI Effect (3.2.0 - Jul 17, 2019)*
-	- *Particle For GUI (3.3.10 - Feb 18, 2022)*
-	- *Soft Mask For GUI (1.0.0 - Feb 24, 2021)*
-	- *Unmask For GUI (1.4.0 - Feb 18, 2022)*
+	- *Particle for GUI (4.1.7 - Aug 30, 2022)*
+	- *Soft Mask for GUI (1.0.2 - May 15, 2022)*
+	- *Unmask for GUI (1.4.0 - Feb 18, 2022)*
 5. **기타 추가 에셋 및 플러그인 리스트**
 	- *Firebase (8.9.0 - Auth, Analytics, Crashlytics, Database, Cloud Messaging)*
 	- *Admob (7.0.0)*

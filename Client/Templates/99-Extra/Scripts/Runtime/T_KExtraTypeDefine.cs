@@ -19,5 +19,15 @@ public struct STExtraTypeWrapper {
 	// Do Something
 }
 #endregion // 기본
+
+namespace NSEngine {
+	#region 기본
+	/** 엔진 추가 타입 랩퍼 */
+	[MessagePackObject]
+	public struct STEngineExtraTypeWrapper {
+		// Do Something
+	}
+	#endregion // 기본
+}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

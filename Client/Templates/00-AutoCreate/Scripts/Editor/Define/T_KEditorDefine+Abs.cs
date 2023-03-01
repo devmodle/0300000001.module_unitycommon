@@ -14,12 +14,12 @@ using UnityEditor.iOS.Xcode;
 
 /** 에디터 상수 */
 public static partial class KEditorDefine {
-#region 기본
+	#region 기본
 	// 유니티 패키지
 	public const string B_UNITY_PKGS_ID_FMT = "{0}@{1}";
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 스크립트 순서
 	public static readonly Dictionary<System.Type, int> B_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>() {
 		[typeof(CValTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
@@ -78,7 +78,7 @@ public static partial class KEditorDefine {
 		[typeof(MainScene.CSubMainSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(PlayScene.CSubPlaySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(ResultScene.CSubResultSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		
+
 		[typeof(LoadingScene.CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
 		[typeof(OverlayScene.CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_OVERLAY_SCENE_MANAGER,
 		[typeof(TestScene.CSubTestSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
@@ -146,7 +146,7 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_TITLE] = typeof(TitleScene.CSubTitleSceneManager),
 		[KCDefine.B_SCENE_N_MAIN] = typeof(MainScene.CSubMainSceneManager),
 		[KCDefine.B_SCENE_N_PLAY] = typeof(PlayScene.CSubPlaySceneManager),
-		
+
 		[KCDefine.B_SCENE_N_RESULT] = typeof(ResultScene.CSubResultSceneManager),
 		[KCDefine.B_SCENE_N_LOADING] = typeof(LoadingScene.CSubLoadingSceneManager),
 		[KCDefine.B_SCENE_N_OVERLAY] = typeof(OverlayScene.CSubOverlaySceneManager),
@@ -168,7 +168,7 @@ public static partial class KEditorDefine {
 		["com.unity.feature.mobile"] = "1.0.0",
 		["com.unity.feature.worldbuilding"] = "1.0.1",
 
-		["com.unity.inputsystem"] = "1.4.4",
+		["com.unity.inputsystem"] = "1.5.0",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.localization"] = "1.3.2",
 		["com.unity.render-pipelines.universal"] = "12.1.10",
@@ -178,10 +178,6 @@ public static partial class KEditorDefine {
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
 		["com.unity.ml-agents"] = "2.0.1",
 #endif // #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
-
-#if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
-		// Do Something
-#endif // #if CINEMACHINE_ENABLE || CINEMACHINE_MODULE_ENABLE
 
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 		["com.unity.postprocessing"] = "3.2.2",
@@ -231,16 +227,16 @@ public static partial class KEditorDefine {
 #endif // #if DEVELOPMENT_PROJ
 	};
 	// 유니티 패키지 }
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 
-#region 조건부 상수
+	#region 조건부 상수
 #if UNITY_IOS
 	// 텍스트
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif // #if UNITY_IOS
 #endregion // 조건부 상수
 
-#region 조건부 런타임 상수
+	#region 조건부 런타임 상수
 #if UNITY_IOS
 	// 광고 네트워크 식별자
 	public static readonly List<string> B_IOS_ADS_NETWORK_ID_LIST = new List<string>() {

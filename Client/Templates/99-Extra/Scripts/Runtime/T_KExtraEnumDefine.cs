@@ -16,5 +16,18 @@ public static partial class KExtraEnumVal {
 #region 기본
 
 #endregion // 기본
+
+namespace NSEngine {
+	/** 엔진 추가 열거형 값 */
+	public static partial class KExtraEnumVal {
+		#region 기본
+
+		#endregion // 기본
+	}
+
+	#region 기본
+
+	#endregion // 기본
+}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY
