@@ -24,6 +24,9 @@ namespace NSEngine {
 			SEL_GRID_IDX,
 			SEL_PLAYER_OBJ_IDX,
 
+			SKIP_TIME,
+			TIME_SCALE,
+
 			CELL_OBJ_ROOT,
 			PLAYER_OBJ_ROOT,
 			ENEMY_OBJ_ROOT,
@@ -77,6 +80,11 @@ namespace NSEngine {
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
 			[EKey.SEL_GRID_IDX] = KCDefine.B_VAL_0_INT,
 			[EKey.SEL_PLAYER_OBJ_IDX] = KCDefine.B_VAL_0_INT
+		};
+
+		private Dictionary<EKey, float> m_oRealDict = new Dictionary<EKey, float>() {
+			[EKey.SKIP_TIME] = KCDefine.B_VAL_0_REAL,
+			[EKey.TIME_SCALE] = KCDefine.B_VAL_1_REAL
 		};
 
 		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
@@ -187,8 +195,8 @@ namespace NSEngine {
 				// 실행 중 일 경우
 				if(m_oBoolDict[EKey.IS_RUNNING]) {
 					switch(this.SubState) {
-						case ESubState.PLAY: this.HandlePlaySubState(a_fDeltaTime); break;
-						case ESubState.PAUSE: this.HandlePauseSubState(a_fDeltaTime); break;
+						case ESubState.PLAY: this.HandlePlaySubState(a_fDeltaTime * m_oRealDict[EKey.TIME_SCALE]); break;
+						case ESubState.PAUSE: this.HandlePauseSubState(a_fDeltaTime * m_oRealDict[EKey.TIME_SCALE]); break;
 					}
 
 					// 플레이어 객체가 존재 할 경우
@@ -204,7 +212,7 @@ namespace NSEngine {
 					m_oBoolDict[EKey.IS_SAVE_USER_INFO] = false;
 				}
 
-				this.SubOnUpdate(a_fDeltaTime);
+				this.SubOnUpdate(a_fDeltaTime * m_oRealDict[EKey.TIME_SCALE]);
 			}
 		}
 
