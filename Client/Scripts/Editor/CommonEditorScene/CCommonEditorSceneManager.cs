@@ -148,7 +148,7 @@ public static partial class CCommonEditorSceneManager {
 
 				CAccess.EnumerateRootObjs((a_oObj) => {
 					// 최상단 UI 일 경우
-					if(a_oObj.name.Equals(KCDefine.U_OBJ_N_SCENE_UIS_ROOT)) {
+					if(KCEditorDefine.B_OBJ_N_ROOT_UIS_LIST.Contains(a_oObj.name)) {
 						CCommonEditorSceneManager.SetupLayers(a_oObj);
 					}
 

@@ -238,17 +238,17 @@ public static partial class CCommonEditorSceneManager {
 		foreach(var oObj in a_oObj.DescendantsAndSelf()) {
 			// 레이어 설정이 필요 할 경우
 			if(oObj.layer != KCDefine.U_LAYER_UIS) {
-				oObj.ExSetLayer(KCDefine.U_LAYER_UIS, false);
+				oObj.ExSetLayer(KCDefine.U_LAYER_UIS, false, false);
 			}
 		}
 	}
 
 	/** 정적 객체를 설정한다 */
 	private static void SetupStaticObjs(GameObject a_oObj) {
-		foreach(var oObj in a_oObj.ChildrenAndSelf()) {
-			// 정적 객체 일 경우
-			if(KCEditorDefine.B_OBJ_N_STATIC_OBJ_LIST.Contains(oObj.name)) {
-				oObj.ExSetStaticEditorFlags((StaticEditorFlags)int.MaxValue);
+		foreach(var oObj in a_oObj.DescendantsAndSelf()) {
+			// 정적 플래그 설정이 필요 할 경우
+			if(KCEditorDefine.B_OBJ_N_STATIC_OBJ_LIST.Contains(oObj.name) && GameObjectUtility.GetStaticEditorFlags(oObj) != (StaticEditorFlags)int.MaxValue) {
+				oObj.ExSetStaticEditorFlags((StaticEditorFlags)int.MaxValue, false, false);
 			}
 		}
 	}
