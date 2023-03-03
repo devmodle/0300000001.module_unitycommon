@@ -553,7 +553,7 @@ public enum EAbilityKinds {
 	STAT_CRITICAL_RATE_INCR_01 = EAbilityKinds.STAT_CRITICAL_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.INCR - EAbilityValType.NORM)),
 	// 10,000,000 }
 
-	// 10,000,000 {
+	// 20,000,000 {
 	[System.Obsolete] STAT_LV_DECR = EAbilityKinds.STAT_LV + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 	STAT_EXP_DECR = EAbilityKinds.STAT_EXP + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 	[System.Obsolete] STAT_NUMS_DECR = EAbilityKinds.STAT_NUMS + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
@@ -592,7 +592,7 @@ public enum EAbilityKinds {
 	STAT_HIT_RATE_DECR_01 = EAbilityKinds.STAT_HIT_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 	STAT_AVOID_RATE_DECR_01 = EAbilityKinds.STAT_AVOID_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
 	STAT_CRITICAL_RATE_DECR_01 = EAbilityKinds.STAT_CRITICAL_RATE_01 + (int)(EEnumVal.ST * (EAbilityValType.DECR - EAbilityValType.NORM)),
-	// 10,000,000 }
+	// 20,000,000 }
 	#endregion // 스탯
 
 	#region 버프
