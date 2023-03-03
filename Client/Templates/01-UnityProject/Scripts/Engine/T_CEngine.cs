@@ -568,6 +568,8 @@ namespace NSEngine {
 			var oController = a_bIsEnableController ? oItem.gameObject.ExAddComponent<CEItemController>() : null;
 
 			oItem.Init(CEItem.MakeParams(this, a_stItemInfo, a_oItemTargetInfo, oController, KDefine.E_KEY_ITEM_OBJS_POOL));
+			oItem.ExSetTag(KCDefine.U_TAG_ITEM);
+
 			oController?.Init(CEItemController.MakeParams(this));
 
 			this.SetupEObjComponent(oItem, a_oOwner, oController);
@@ -580,6 +582,8 @@ namespace NSEngine {
 			var oController = a_bIsEnableController ? oSkill.gameObject.ExAddComponent<CESkillController>() : null;
 
 			oSkill.Init(CESkill.MakeParams(this, a_stSkillInfo, a_oSkillTargetInfo, oController, KDefine.E_KEY_SKILL_OBJS_POOL));
+			oSkill.ExSetTag(KCDefine.U_TAG_SKILL);
+			
 			oController?.Init(CESkillController.MakeParams(this));
 
 			this.SetupEObjComponent(oSkill, a_oOwner, oController);
@@ -592,6 +596,8 @@ namespace NSEngine {
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_OBJ_OBJS_POOL));
+			oObj.ExSetTag(KCDefine.U_TAG_OBJ);
+			
 			oController?.Init(CEObjController.MakeParams(this));
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
@@ -604,6 +610,8 @@ namespace NSEngine {
 			var oController = a_bIsEnableController ? oFX.gameObject.ExAddComponent<CEFXController>() : null;
 
 			oFX.Init(CEFX.MakeParams(this, a_stFXInfo, oController, KDefine.E_KEY_FX_OBJS_POOL));
+			oFX.ExSetTag(KCDefine.U_TAG_FX);
+
 			oController?.Init(CEFXController.MakeParams(this));
 
 			this.SetupEObjComponent(oFX, a_oOwner, oController);
@@ -615,9 +623,10 @@ namespace NSEngine {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_CELL_OBJ, KDefine.E_KEY_CELL_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CECellObjController>() : null;
 
+			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
+			oObj.ExSetTag(KCDefine.U_TAG_CELL);
 			oObj.gameObject.ExSetParent(m_oCellObjRootList.ExGetVal(a_stGridInfo.m_nIdx, null));
 
-			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
 			oController?.Init(CECellObjController.MakeParams(this));
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
@@ -630,6 +639,8 @@ namespace NSEngine {
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEPlayerObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
+			oObj.ExSetTag(KCDefine.U_TAG_PLAYER);
+
 			oController?.Init(CEPlayerObjController.MakeParams(this));
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
@@ -642,6 +653,8 @@ namespace NSEngine {
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEEnemyObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
+			oObj.ExSetTag(KCDefine.U_TAG_ENEMY);
+			
 			oController?.Init(CEEnemyObjController.MakeParams(this));
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);

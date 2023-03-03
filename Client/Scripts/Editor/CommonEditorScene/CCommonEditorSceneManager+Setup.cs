@@ -236,8 +236,8 @@ public static partial class CCommonEditorSceneManager {
 	/** 레이어를 설정한다 */
 	private static void SetupLayers(GameObject a_oObj) {
 		foreach(var oObj in a_oObj.DescendantsAndSelf()) {
-			// 레이어 설정이 필요 할 경우
-			if(oObj.layer != KCDefine.U_LAYER_UIS) {
+			// 레이어 설정이 가능 할 경우
+			if(oObj.layer != KCDefine.U_LAYER_UIS && !oObj.name.Contains(KCDefine.B_NAME_PATTERN_IGNORE_SETUP_LAYER)) {
 				oObj.ExSetLayer(KCDefine.U_LAYER_UIS, false, false);
 			}
 		}
@@ -246,8 +246,10 @@ public static partial class CCommonEditorSceneManager {
 	/** 정적 객체를 설정한다 */
 	private static void SetupStaticObjs(GameObject a_oObj) {
 		foreach(var oObj in a_oObj.DescendantsAndSelf()) {
-			// 정적 플래그 설정이 필요 할 경우
-			if(KCEditorDefine.B_OBJ_N_STATIC_OBJ_LIST.Contains(oObj.name) && GameObjectUtility.GetStaticEditorFlags(oObj) != (StaticEditorFlags)int.MaxValue) {
+			bool bIsValid = KCEditorDefine.B_OBJ_N_STATIC_OBJ_LIST.Contains(oObj.name) && GameObjectUtility.GetStaticEditorFlags(oObj) != (StaticEditorFlags)int.MaxValue;
+
+			// 정적 플래그 설정이 가능 할 경우
+			if(bIsValid && !oObj.name.Contains(KCDefine.B_NAME_PATTERN_IGNORE_SETUP_STATIC_FLAGS)) {
 				oObj.ExSetStaticEditorFlags((StaticEditorFlags)int.MaxValue, false, false);
 			}
 		}
