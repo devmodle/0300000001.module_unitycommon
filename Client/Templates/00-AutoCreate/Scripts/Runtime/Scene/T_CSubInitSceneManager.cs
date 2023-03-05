@@ -16,18 +16,18 @@ namespace InitScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 		/** =====> UI <===== */
 		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		public override Color ClearColor => KDefine.IS_COLOR_CLEAR;
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
@@ -49,6 +49,13 @@ namespace InitScene {
 		protected override void Setup() {
 			base.Setup();
 			CSceneManager.ActiveSceneMainCamera.clearFlags = CameraClearFlags.SolidColor;
+
+			// 테이블을 로드한다
+			CStrTable.Inst.LoadEnumStrs(typeof(EItemKinds));
+			CStrTable.Inst.LoadEnumStrs(typeof(ESkillKinds));
+			CStrTable.Inst.LoadEnumStrs(typeof(EObjKinds));
+			CStrTable.Inst.LoadEnumStrs(typeof(EFXKinds));
+			CStrTable.Inst.LoadEnumStrs(typeof(EAbilityKinds));
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 테이블을 생성한다 {
@@ -84,7 +91,7 @@ namespace InitScene {
 
 			this.ExLateCallFunc((a_oSender) => this.LoadNextScene(), KCDefine.B_VAL_2_REAL);
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE
