@@ -77,28 +77,6 @@ namespace NSEngine {
 			base.ApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
 			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateUIsState(true);
 		}
-
-		/** 스킬을 적용시킨다 */
-		protected override void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
-			base.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
-			var oTargetObjList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
-
-			try {
-				switch(a_stSkillInfo.SkillApplyType) {
-					case EApplyType.MULTI: this.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
-					case EApplyType.SINGLE: this.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
-				}
-
-				var oSkill = this.Engine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
-				oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
-				oTargetObjList.ExCopyTo(oSkill.GetController<CESkillController>().TargetObjList, (a_oTargetObj) => a_oTargetObj);
-
-				this.Engine.SkillList.ExAddVal(oSkill);
-				oSkill.GetController<CESkillController>().Apply();
-			} finally {
-				CCollectionManager.Inst.DespawnList(oTargetObjList);
-			}
-		}
 		#endregion // 함수
 
 		#region 클래스 함수

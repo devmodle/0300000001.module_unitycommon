@@ -70,18 +70,6 @@ namespace NSEngine {
 				this.SubOnUpdate(a_fDeltaTime);
 			}
 		}
-
-		/** 스킬을 적용시킨다 */
-		protected override void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
-			base.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
-
-			var oSkill = this.Engine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
-			oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
-			oSkill.GetController<CESkillController>().TargetObjList.ExAddVal(this.Engine.SelPlayerObj);
-
-			this.Engine.SkillList.ExAddVal(oSkill);
-			oSkill.GetController<CESkillController>().Apply();
-		}
 		#endregion // 함수
 
 		#region 클래스 함수

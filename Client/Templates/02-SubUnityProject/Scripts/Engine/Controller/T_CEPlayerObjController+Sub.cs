@@ -24,6 +24,16 @@ namespace NSEngine {
 		#endregion // 프로퍼티
 
 		#region 함수
+		/** 다중 스킬 타겟을 설정한다 */
+		protected override void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+			base.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, a_oOutTargetObjList);
+		}
+
+		/** 단일 스킬 타겟을 설정한다 */
+		protected override void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+			base.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, a_oOutTargetObjList);
+		}
+
 		/** 대기 상태를 처리한다 */
 		protected override void HandleIdleState(float a_fDeltaTime) {
 			base.HandleIdleState(a_fDeltaTime);
@@ -92,16 +102,6 @@ namespace NSEngine {
 			if(CSceneManager.IsAppRunning) {
 				// Do Something
 			}
-		}
-
-		/** 다중 스킬 타겟을 설정한다 */
-		private void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
-			// Do Something
-		}
-
-		/** 단일 스킬 타겟을 설정한다 */
-		private void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
-			// Do Something
 		}
 		#endregion // 함수
 	}
