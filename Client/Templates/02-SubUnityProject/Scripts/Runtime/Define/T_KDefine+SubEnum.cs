@@ -641,6 +641,35 @@ public enum EProductKinds {
 	[HideInInspector] MAX_VAL
 }
 
+/** 적용 타입 */
+public enum EApplyType {
+	NONE = -1,
+	MULTI,
+	SINGLE,
+	[HideInInspector] MAX_VAL
+}
+
+/** 적용 종류 */
+public enum EApplyKinds {
+	NONE = -1,
+
+	#region 다중
+	// 0
+	MULTI_APPLY_RANGE = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	MULTI_APPLY_TARGET = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	MULTI_APPLY_PROJECTILE = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * 2) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	#endregion // 다중
+
+	#region 단일
+	// 100,000,000
+	SINGLE_APPLY_RANGE = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_APPLY_TARGET = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_APPLY_PROJECTILE = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * 2) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	#endregion // 단일
+
+	[HideInInspector] MAX_VAL
+}
+
 /** 타겟 타입 */
 public enum ETargetType {
 	NONE = -1,
@@ -690,31 +719,6 @@ public enum ETargetKinds {
 	[System.Obsolete] ABILITY_NUMS = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
 	[System.Obsolete] ABILITY_ENHANCE = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
 	#endregion // 어빌리티
-
-	[HideInInspector] MAX_VAL
-}
-
-/** 스킬 적용 타입 */
-public enum ESkillApplyType {
-	NONE = -1,
-	MULTI,
-	SINGLE,
-	[HideInInspector] MAX_VAL
-}
-
-/** 스킬 적용 종류 */
-public enum ESkillApplyKinds {
-	NONE = -1,
-
-	#region 다중
-	// 0
-	MULTI_SKILL_APPLY_SAMPLE = (EEnumVal.T * ESkillApplyType.MULTI) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	#endregion // 다중
-
-	#region 단일
-	// 100,000,000
-	SINGLE_SKILL_APPLY_SAMPLE = (EEnumVal.T * ESkillApplyType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	#endregion // 단일
 
 	[HideInInspector] MAX_VAL
 }

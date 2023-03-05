@@ -463,6 +463,20 @@ namespace NSEngine {
 			return CSceneManager.ActiveSceneMainCamera.transform.localPosition;
 		}
 
+		/** 최상단 셀 객체를 반환한다 */
+		public CEObj GetTopCellObj(Vector3Int a_stIdx) {
+			bool bIsValid = this.TryGetTopCellObj(a_stIdx, out CEObj oCellObj);
+			CAccess.Assert(bIsValid);
+
+			return oCellObj;
+		}
+
+		/** 최상단 셀 객체를 반환한다 */
+		public bool TryGetTopCellObj(Vector3Int a_stIdx, out CEObj a_oOutCellObj) {
+			a_oOutCellObj = this.CellObjListsContainer.ExIsValidIdx(a_stIdx) ? this.CellObjListsContainer[a_stIdx.z][a_stIdx.y, a_stIdx.x].LastOrDefault() : null;
+			return a_oOutCellObj != null;
+		}
+
 		/** 구동 여부를 변경한다 */
 		public void SetEnableRunning(bool a_bIsEnable) {
 			m_oBoolDict[EKey.IS_RUNNING] = a_bIsEnable;

@@ -150,13 +150,13 @@ public static partial class AccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this ESkillApplyType a_eSender) {
-		return a_eSender > ESkillApplyType.NONE && a_eSender < ESkillApplyType.MAX_VAL;
+	public static bool ExIsValid(this EApplyType a_eSender) {
+		return a_eSender > EApplyType.NONE && a_eSender < EApplyType.MAX_VAL;
 	}
 
 	/** 유효 여부를 검사한다 */
-	public static bool ExIsValid(this ESkillApplyKinds a_eSender) {
-		return a_eSender > ESkillApplyKinds.NONE && a_eSender < ESkillApplyKinds.MAX_VAL;
+	public static bool ExIsValid(this EApplyKinds a_eSender) {
+		return a_eSender > EApplyKinds.NONE && a_eSender < EApplyKinds.MAX_VAL;
 	}
 	#endregion // 클래스 함수
 }

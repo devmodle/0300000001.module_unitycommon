@@ -85,16 +85,16 @@ namespace NSEngine {
 
 			try {
 				switch(a_stSkillInfo.SkillApplyType) {
-					case ESkillApplyType.MULTI: this.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
-					case ESkillApplyType.SINGLE: this.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
+					case EApplyType.MULTI: this.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
+					case EApplyType.SINGLE: this.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
 				}
 
 				var oSkill = this.Engine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
 				oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
 				oTargetObjList.ExCopyTo(oSkill.GetController<CESkillController>().TargetObjList, (a_oTargetObj) => a_oTargetObj);
 
-				oSkill.GetController<CESkillController>().Apply();
 				this.Engine.SkillList.ExAddVal(oSkill);
+				oSkill.GetController<CESkillController>().Apply();
 			} finally {
 				CCollectionManager.Inst.DespawnList(oTargetObjList);
 			}

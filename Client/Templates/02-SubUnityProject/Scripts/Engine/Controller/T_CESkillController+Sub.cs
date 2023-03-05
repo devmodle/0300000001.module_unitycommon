@@ -35,7 +35,7 @@ namespace NSEngine {
 		/** 스킬을 적용한다 */
 		public void Apply() {
 			this.SetState(EState.IDLE);
-			this.Owner.GetOwner<CEObj>().GetController<CEObjController>().ApplySkillTimeDict.ExReplaceVal(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillKinds, System.DateTime.Now);
+			this.Owner.GetOwner<CEObj>()?.GetController<CEObjController>().ApplySkillTimeDict.ExReplaceVal(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillKinds, System.DateTime.Now);
 		}
 
 		/** 대기 상태를 처리한다 */
@@ -88,9 +88,9 @@ namespace NSEngine {
 
 			// 적용 간격이 지났을 경우
 			if(m_oSubIntDict[ESubKey.APPLY_TIMES] < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_oSubRealDict[ESubKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (m_oSubIntDict[ESubKey.APPLY_TIMES] - KCDefine.B_VAL_1_INT))) {
-				switch((ESkillApplyType)((int)this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillApplyKinds).ExKindsToType()) {
-					case ESkillApplyType.MULTI: this.ApplyMultiSkill(); break;
-					case ESkillApplyType.SINGLE: this.ApplySingleSkill(); break;
+				switch((EApplyType)((int)this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillApplyKinds).ExKindsToType()) {
+					case EApplyType.MULTI: this.ApplyMultiSkill(); break;
+					case EApplyType.SINGLE: this.ApplySingleSkill(); break;
 				}
 
 				m_oSubIntDict[ESubKey.APPLY_TIMES] += KCDefine.B_VAL_1_INT;
@@ -98,7 +98,7 @@ namespace NSEngine {
 
 			// 적용 시간이 지났을 경우
 			if(m_oSubRealDict[ESubKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
-				this.Owner.GetOwner<CEObj>().GetController<CEObjController>().SetState(EState.IDLE);
+				this.Owner.GetOwner<CEObj>()?.GetController<CEObjController>().SetState(EState.IDLE);
 				this.Engine.RemoveEObjComponent(this.GetOwner<CESkill>());
 			}
 		}
