@@ -196,16 +196,6 @@ namespace NSEngine {
 			}
 		}
 
-		/** 다중 스킬 타겟을 설정한다 */
-		protected virtual void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
-			// Do Something
-		}
-
-		/** 단일 스킬 타겟을 설정한다 */
-		protected virtual void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
-			// Do Something
-		}
-
 		/** 스킬을 적용시킨다 */
 		private void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oTargetObjList) {
 			var oSkill = this.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo);
@@ -224,6 +214,21 @@ namespace NSEngine {
 			};
 		}
 		#endregion // 클래스 함수
+	}
+
+	/** 객체 제어자 - 설정 */
+	public partial class CEObjController : CEController {
+		#region 함수
+		/** 다중 스킬 타겟을 설정한다 */
+		protected virtual void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+			// Do Something
+		}
+
+		/** 단일 스킬 타겟을 설정한다 */
+		protected virtual void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+			// Do Something
+		}
+		#endregion // 함수
 	}
 
 	/** 객체 제어자 - 접근 */

@@ -70,6 +70,12 @@ namespace NSEngine {
 				this.SubOnUpdate(a_fDeltaTime);
 			}
 		}
+
+		/** 스킬을 적용한다 */
+		public override void ApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
+			base.ApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
+			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateUIsState(true);
+		}
 		#endregion // 함수
 
 		#region 클래스 함수
