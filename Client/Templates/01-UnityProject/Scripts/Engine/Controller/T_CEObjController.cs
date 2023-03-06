@@ -14,8 +14,10 @@ namespace NSEngine {
 			NONE = -1,
 			IS_AUTO_CONTROL,
 			UPDATE_SKIP_TIME,
+
 			MOVE_POS,
 			MOVE_DIRECTION,
+
 			APPLY_SKILL_INFO,
 			APPLY_SKILL_TARGET_INFO,
 			[HideInInspector] MAX_VAL

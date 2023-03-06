@@ -47,13 +47,13 @@ public static partial class Func {
 	}
 
 	/** 어빌리티 값을 설정한다 */
-	public static void SetupAbilityVals(Dictionary<EAbilityKinds, decimal> a_oAbilityValDict, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oAbilityValDict != null && a_oOutAbilityValDict != null));
+	public static void SetupAbilityVals(List<STTargetInfo> a_oTargetInfoList, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oTargetInfoList != null && a_oOutAbilityValDict != null));
 
 		// 어빌리티 값 설정이 가능 할 경우
-		if(a_oAbilityValDict != null && a_oOutAbilityValDict != null) {
-			foreach(var stKeyVal in a_oAbilityValDict) {
-				a_oOutAbilityValDict.ExIncrAbilityVal(stKeyVal.Key, stKeyVal.Value);
+		if(a_oTargetInfoList != null && a_oOutAbilityValDict != null) {
+			for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
+				Func.SetupAbilityVals(a_oTargetInfoList[i], a_oOutAbilityValDict);
 			}
 		}
 	}
@@ -66,6 +66,18 @@ public static partial class Func {
 		if(a_oAbilityTargetInfoDict != null && a_oOutAbilityValDict != null) {
 			foreach(var stKeyVal in a_oAbilityTargetInfoDict) {
 				Func.SetupAbilityVals(stKeyVal.Value, a_oOutAbilityValDict);
+			}
+		}
+	}
+
+	/** 어빌리티 값을 설정한다 */
+	public static void SetupAbilityVals(Dictionary<EAbilityKinds, decimal> a_oAbilityValDict, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oAbilityValDict != null && a_oOutAbilityValDict != null));
+
+		// 어빌리티 값 설정이 가능 할 경우
+		if(a_oAbilityValDict != null && a_oOutAbilityValDict != null) {
+			foreach(var stKeyVal in a_oAbilityValDict) {
+				a_oOutAbilityValDict.ExIncrAbilityVal(stKeyVal.Key, stKeyVal.Value);
 			}
 		}
 	}
@@ -623,7 +635,7 @@ public static partial class Func {
 		}
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 클래스 함수
+#endregion // 조건부 클래스 함수
 
 	#region 조건부 제네릭 클래스 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -634,7 +646,7 @@ public static partial class Func {
 		}
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 제네릭 클래스 함수
+#endregion // 조건부 제네릭 클래스 함수
 }
 
 /** 초기화 씬 함수 */
