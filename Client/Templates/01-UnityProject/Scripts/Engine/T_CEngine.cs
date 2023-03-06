@@ -104,7 +104,6 @@ namespace NSEngine {
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
 
-		public List<Tween> AniList { get; } = new List<Tween>();
 		public List<List<CEObj>[,]> CellObjListsContainer { get; } = new List<List<CEObj>[,]>();
 		public List<Stack<List<CEObj>>[]> CellObjStacksContainerH { get; } = new List<Stack<List<CEObj>>[]>();
 		public List<Stack<List<CEObj>>[]> CellObjStacksContainerV { get; } = new List<Stack<List<CEObj>>[]>();
@@ -175,10 +174,6 @@ namespace NSEngine {
 			try {
 				// 앱이 실행 중 일 경우
 				if(CSceneManager.IsAppRunning) {
-					for(int i = 0; i < this.AniList.Count; ++i) {
-						this.AniList[i]?.Kill();
-					}
-
 					this.SubOnDestroy();
 				}
 			} catch(System.Exception oException) {
@@ -597,7 +592,7 @@ namespace NSEngine {
 
 			oSkill.Init(CESkill.MakeParams(this, a_stSkillInfo, a_oSkillTargetInfo, oController, KDefine.E_KEY_SKILL_OBJS_POOL));
 			oSkill.ExSetTag(KCDefine.U_TAG_SKILL);
-			
+
 			oController?.Init(CESkillController.MakeParams(this));
 
 			this.SetupEObjComponent(oSkill, a_oOwner, oController);
@@ -611,7 +606,7 @@ namespace NSEngine {
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_OBJ_OBJS_POOL));
 			oObj.ExSetTag(KCDefine.U_TAG_OBJ);
-			
+
 			oController?.Init(CEObjController.MakeParams(this));
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
@@ -668,7 +663,7 @@ namespace NSEngine {
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
 			oObj.ExSetTag(KCDefine.U_TAG_ENEMY);
-			
+
 			oController?.Init(CEEnemyObjController.MakeParams(this));
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
