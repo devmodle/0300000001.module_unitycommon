@@ -396,7 +396,7 @@ namespace NSEngine {
 					oCellObj.transform.localPosition = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);				
 					
 					oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
-					oCellObj.SetCellObjInfo(a_stCellInfo.m_oCellObjInfoList[i]);
+					oCellObj.SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
 
 					oCellObjList.ExAddVal(oCellObj);
 				}
