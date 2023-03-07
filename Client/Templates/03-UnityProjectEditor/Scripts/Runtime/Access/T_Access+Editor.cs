@@ -8,18 +8,19 @@ using UnityEngine.Events;
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 /** 에디터 씬 접근자 */
 public static partial class Access {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 
-#region 조건부 클래스 함수
+	#region 조건부 클래스 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 	/** 스프라이트를 반환한다 */
-	public static Sprite GetEditorObjSprite(EObjKinds a_eObjKinds, string a_oPrefix) {
-		string oImgPath = NSEngine.KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), string.Empty);
+	public static Sprite GetEditorObjSprite(EObjKinds a_eObjKinds, string a_oPrefix, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
+		string oStr = CStrTable.Inst.GetEnumStr(typeof(EObjKinds), ((int)a_eObjKinds).ExKindsToDetailSubKindsType());
+		string oImgPath = NSEngine.KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), oStr);
 		string oEditorImgPath = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, oImgPath);
 
-		return CResManager.Inst.GetRes<Sprite>(oEditorImgPath) ?? NSEngine.Access.GetSprite(a_eObjKinds);
+		return CResManager.Inst.GetRes<Sprite>(oEditorImgPath) ?? NSEngine.Access.GetSprite(a_eObjKinds, a_eGroupType);
 	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endregion // 조건부 클래스 함수
@@ -27,9 +28,9 @@ public static partial class Access {
 
 /** 레벨 에디터 씬 접근자 */
 public static partial class Access {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 #endif // #if SCRIPT_TEMPLATE_ONLY
