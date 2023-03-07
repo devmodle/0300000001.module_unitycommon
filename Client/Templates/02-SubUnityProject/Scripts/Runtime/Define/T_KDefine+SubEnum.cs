@@ -40,6 +40,17 @@ public enum ERewardQuality {
 	[HideInInspector] MAX_VAL
 }
 
+/** 충돌체 타입 */
+public enum EColliderType {
+	NONE = -1,
+	BOX,
+	SPHERE,
+	POLYGON,
+	TRIANGLE,
+	RIGHT_TRIANGLE,
+	[HideInInspector] MAX_VAL
+}
+
 /** 어빌리티 값 타입 */
 public enum EAbilityValType {
 	NONE = -1,
