@@ -101,25 +101,26 @@ namespace NSEngine {
 	/** 서브 적 객체 제어자 - 설정 */
 	public partial class CEEnemyObjController : CEObjController {
 		#region 함수
+		/** 엔진 객체 컴포넌트를 설정한다 */
+		protected override void SetupEObjComponent(CEObjComponent a_oEObjComponent) {
+			base.SetupEObjComponent(a_oEObjComponent);
+
+			// 소유자가 존재 할 경우
+			if(a_oEObjComponent.GetOwner<CEObjComponent>() != null) {
+				switch(a_oEObjComponent.Params.m_stBaseParams.m_oObjsPoolKey) {
+					// Do Something
+				}
+			}
+		}
+
 		/** 다중 스킬 타겟을 설정한다 */
-		protected override void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
-			base.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, a_oOutTargetObjList);
+		protected override void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetList) {
+			base.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, a_oOutTargetList);
 		}
 
 		/** 단일 스킬 타겟을 설정한다 */
-		protected override void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
-			base.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, a_oOutTargetObjList);
-		}
-		#endregion // 함수
-	}
-
-	/** 서브 적 객체 제어자 */
-	public partial class CEEnemyObjController : CEObjController {
-		#region 함수
-		/** 스킬을 생성한다 */
-		protected override CESkill CreateSkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
-			var oSkill = base.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo);
-			return oSkill;
+		protected override void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetList) {
+			base.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, a_oOutTargetList);
 		}
 		#endregion // 함수
 	}

@@ -177,29 +177,29 @@ namespace NSEngine {
 		public virtual void ApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 스킬 적용이 가능 할 경우
 			if(this.IsEnableSkillState() && this.IsEnableApplySkill(a_stSkillInfo, a_oSkillTargetInfo)) {
-				var oTargetObjList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
+				var oTargetList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
 
 				try {
 					m_oSkillInfoDict[EKey.APPLY_SKILL_INFO] = a_stSkillInfo;
 					m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] = a_oSkillTargetInfo;
 
 					switch(a_stSkillInfo.SkillApplyType) {
-						case EApplyType.MULTI: this.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
-						case EApplyType.SINGLE: this.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
+						case EApplyType.MULTI: this.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetList); break;
+						case EApplyType.SINGLE: this.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetList); break;
 					}
 
 					this.SetState(EState.SKILL);
-					this.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList);
+					this.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo, oTargetList);
 				} finally {
-					CCollectionManager.Inst.DespawnList(oTargetObjList);
+					CCollectionManager.Inst.DespawnList(oTargetList);
 				}
 			}
 		}
 
 		/** 스킬을 적용시킨다 */
-		private void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oTargetObjList) {
+		private void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oTargetList) {
 			var oSkill = this.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo);
-			a_oTargetObjList.ExCopyTo(oSkill.GetController<CESkillController>().TargetObjList, (a_oTargetObj) => a_oTargetObj);
+			a_oTargetList.ExCopyTo(oSkill.GetController<CESkillController>().TargetList, (a_oTargetObj) => a_oTargetObj);
 
 			this.Engine.SkillList.ExAddVal(oSkill);
 			oSkill.GetController<CESkillController>().Apply();
@@ -220,12 +220,12 @@ namespace NSEngine {
 	public partial class CEObjController : CEController {
 		#region 함수
 		/** 다중 스킬 타겟을 설정한다 */
-		protected virtual void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+		protected virtual void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetList) {
 			// Do Something
 		}
 
 		/** 단일 스킬 타겟을 설정한다 */
-		protected virtual void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetObjList) {
+		protected virtual void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetList) {
 			// Do Something
 		}
 		#endregion // 함수
@@ -271,19 +271,6 @@ namespace NSEngine {
 			} finally {
 				CCollectionManager.Inst.DespawnDict(oAbilityValDict);
 			}
-		}
-		#endregion // 함수
-	}
-
-	/** 객체 제어자 - 팩토리 */
-	public partial class CEObjController : CEController {
-		#region 함수
-		/** 스킬을 생성한다 */
-		protected virtual CESkill CreateSkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
-			var oSkill = this.Engine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
-			oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
-
-			return oSkill;
 		}
 		#endregion // 함수
 	}

@@ -39,8 +39,7 @@ namespace NSEngine {
 		}
 
 		#region 변수
-		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
-		private Dictionary<ESubState, System.Func<bool>> m_oSubStateCheckerDict = new Dictionary<ESubState, System.Func<bool>>();
+
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -49,7 +48,10 @@ namespace NSEngine {
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
 
-		public List<CEObjComponent> TargetObjList { get; } = new List<CEObjComponent>();
+		public List<CEObjComponent> TargetList { get; } = new List<CEObjComponent>();
+		protected Dictionary<EState, System.Func<bool>> StateCheckerDict { get; } = new Dictionary<EState, System.Func<bool>>();
+		protected Dictionary<ESubState, System.Func<bool>> SubStateCheckerDict { get; } = new Dictionary<ESubState, System.Func<bool>>();
+
 		public virtual bool IsActive => this.State != EState.NONE && this.State != EState.DISAPPEAR;
 		#endregion // 프로퍼티
 
@@ -59,8 +61,8 @@ namespace NSEngine {
 			base.Awake();
 
 			// 상태 검사자를 설정한다
-			m_oStateCheckerDict.TryAdd(EState.MOVE, this.IsEnableMoveState);
-			m_oStateCheckerDict.TryAdd(EState.SKILL, this.IsEnableSkillState);
+			this.StateCheckerDict.TryAdd(EState.MOVE, this.IsEnableMoveState);
+			this.StateCheckerDict.TryAdd(EState.SKILL, this.IsEnableSkillState);
 
 			this.SubAwake();
 		}
@@ -77,7 +79,7 @@ namespace NSEngine {
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
-			this.TargetObjList.Clear();
+			this.TargetList.Clear();
 
 			this.SetState(EState.NONE, true);
 			this.SetSubState(ESubState.NONE, true);
@@ -112,6 +114,19 @@ namespace NSEngine {
 		#endregion // 클래스 함수
 	}
 
+	/** 제어자 - 설정 */
+	public abstract partial class CEController : CEComponent {
+		#region 함수
+		/** 엔진 객체 컴포넌트를 설정한다 */
+		protected virtual void SetupEObjComponent(CEObjComponent a_oEObjComponent) {
+			// 소유자가 존재 할 경우
+			if(a_oEObjComponent.GetOwner<CEObjComponent>() != null) {
+				a_oEObjComponent.transform.localPosition = a_oEObjComponent.GetOwner<CEObjComponent>().transform.localPosition;
+			}
+		}
+		#endregion // 함수
+	}
+
 	/** 제어자 - 접근 */
 	public abstract partial class CEController : CEComponent {
 		#region 함수
@@ -131,7 +146,7 @@ namespace NSEngine {
 			if(a_bIsForce) {
 				this.State = a_eState;
 			} else {
-				this.State = (!m_oStateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) || oStateChecker()) ? a_eState : this.State;
+				this.State = (!this.StateCheckerDict.TryGetValue(a_eState, out System.Func<bool> oStateChecker) || oStateChecker()) ? a_eState : this.State;
 			}
 		}
 
@@ -141,7 +156,7 @@ namespace NSEngine {
 			if(a_bIsForce) {
 				this.SubState = a_eSubState;
 			} else {
-				this.SubState = (!m_oSubStateCheckerDict.TryGetValue(a_eSubState, out System.Func<bool> oSubStateChecker) || oSubStateChecker()) ? a_eSubState : this.SubState;
+				this.SubState = (!this.SubStateCheckerDict.TryGetValue(a_eSubState, out System.Func<bool> oSubStateChecker) || oSubStateChecker()) ? a_eSubState : this.SubState;
 			}
 		}
 		#endregion // 함수
@@ -149,9 +164,70 @@ namespace NSEngine {
 		#region 제네릭 함수
 		/** 타겟을 반환한다 */
 		public T GetTarget<T>(int a_nIdx) where T : CEObjComponent {
-			return this.TargetObjList.ExGetVal(a_nIdx, null) as T;
+			return this.TargetList.ExGetVal(a_nIdx, null) as T;
 		}
 		#endregion // 제네릭 함수
+	}
+
+	/** 제어자 - 팩토리 */
+	public abstract partial class CEController : CEComponent {
+		#region 함수
+		/** 아이템을 생성한다 */
+		protected virtual CEItem CreateItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEObjComponent a_oOwner = null) {
+			var oItem = this.Engine.CreateItem(a_stItemInfo, a_oItemTargetInfo, a_oOwner ?? this.GetOwner<CEObjComponent>());
+			this.SetupEObjComponent(oItem);
+
+			return oItem;
+		}
+
+		/** 스킬을 생성한다 */
+		protected virtual CESkill CreateSkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEObjComponent a_oOwner = null) {
+			var oSkill = this.Engine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, a_oOwner ?? this.GetOwner<CEObjComponent>());
+			this.SetupEObjComponent(oSkill);
+
+			return oSkill;
+		}
+
+		/** 객체를 생성한다 */
+		protected CEObj CreateObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null) {
+			var oObj = this.Engine.CreateObj(a_stObjInfo, a_oObjTargetInfo, a_oOwner ?? this.GetOwner<CEObjComponent>());
+			this.SetupEObjComponent(oObj);
+
+			return oObj;
+		}
+
+		/** 효과를 생성한다 */
+		protected CEFX CreateFX(STFXInfo a_stFXInfo, CEObjComponent a_oOwner = null) {
+			var oFX = this.Engine.CreateFX(a_stFXInfo, a_oOwner ?? this.GetOwner<CEObjComponent>());
+			this.SetupEObjComponent(oFX);
+
+			return oFX;
+		}
+
+		/** 셀 객체를 생성한다 */
+		protected CEObj CreateCellObj(STObjInfo a_stObjInfo, STGridInfo a_stGridInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
+			var oObj = this.Engine.CreateCellObj(a_stObjInfo, a_stGridInfo, a_oObjTargetInfo, a_oOwner ?? this.GetOwner<CEObjComponent>());
+			this.SetupEObjComponent(oObj);
+			
+			return oObj;
+		}
+
+		/** 플레이어 객체를 생성한다 */
+		protected CEObj CreatePlayerObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
+			var oObj = this.Engine.CreatePlayerObj(a_stObjInfo, a_oObjTargetInfo, a_oOwner ?? this.GetOwner<CEObjComponent>());
+			this.SetupEObjComponent(oObj);
+
+			return oObj;
+		}
+
+		/** 적 객체를 생성한다 */
+		protected CEObj CreateEnemyObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
+			var oObj = this.Engine.CreateEnemyObj(a_stObjInfo, a_oObjTargetInfo, a_oOwner ?? this.GetOwner<CEObjComponent>());
+			this.SetupEObjComponent(oObj);
+
+			return oObj;
+		}
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

@@ -55,6 +55,23 @@ namespace NSEngine {
 		}
 		#endregion // 함수
 	}
+
+	/** 서브 셀 객체 제어자 - 설정 */
+	public partial class CECellObjController : CEObjController {
+		#region 함수
+		/** 엔진 객체 컴포넌트를 설정한다 */
+		protected override void SetupEObjComponent(CEObjComponent a_oEObjComponent) {
+			base.SetupEObjComponent(a_oEObjComponent);
+
+			// 소유자가 존재 할 경우
+			if(a_oEObjComponent.GetOwner<CEObjComponent>() != null) {
+				switch(a_oEObjComponent.Params.m_stBaseParams.m_oObjsPoolKey) {
+					// Do Something
+				}
+			}
+		}
+		#endregion // 함수
+	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY
