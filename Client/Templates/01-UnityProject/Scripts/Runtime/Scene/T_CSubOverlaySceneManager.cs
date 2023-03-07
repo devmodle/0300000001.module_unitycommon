@@ -40,7 +40,7 @@ namespace OverlayScene {
 #if PURCHASE_MODULE_ENABLE
 		private Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
 #endif // #if PURCHASE_MODULE_ENABLE
-		#endregion // 변수
+#endregion // 변수
 
 		#region 프로퍼티
 		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.U_SORTING_OI_OVERLAY_UIS_CANVAS;
@@ -126,9 +126,9 @@ namespace OverlayScene {
 			m_oTextDict[EKey.NUM_NORM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_NORM_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
 
 			// UI 상태를 갱신한다
-			CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
-			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
-			CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
+			CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+			CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 
 			this.SubUpdateUIsState();
 		}
@@ -179,7 +179,7 @@ namespace OverlayScene {
 		}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

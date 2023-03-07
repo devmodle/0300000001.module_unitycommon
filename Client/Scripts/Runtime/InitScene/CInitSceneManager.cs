@@ -242,7 +242,7 @@ namespace InitScene {
 
 			this.ShowSplash();
 
-			CSceneManager.SetInit(true);
+			CSceneManager.SetEnableInit(true);
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		}
 
