@@ -19,7 +19,6 @@ namespace NSEngine {
 		/** 콜백 */
 		public enum ECallback {
 			NONE = -1,
-			TARGET_SPRITE,
 			ENGINE_OBJ_EVENT,
 			[HideInInspector] MAX_VAL
 		}
@@ -61,6 +60,7 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
+			m_oSpriteDict[EKey.TARGET_SPRITE]?.gameObject.ExSetLocalPos(Vector3.zero, false);
 			this.SubInit();
 		}
 
