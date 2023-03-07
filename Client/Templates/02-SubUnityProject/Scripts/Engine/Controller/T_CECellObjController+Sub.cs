@@ -70,6 +70,16 @@ namespace NSEngine {
 				}
 			}
 		}
+
+		/** 다중 스킬 타겟을 설정한다 */
+		protected override void SetupMultiSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetList) {
+			base.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, a_oOutTargetList);
+		}
+
+		/** 단일 스킬 타겟을 설정한다 */
+		protected override void SetupSingleSkillTargets(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oOutTargetList) {
+			base.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, a_oOutTargetList);
+		}
 		#endregion // 함수
 	}
 }
