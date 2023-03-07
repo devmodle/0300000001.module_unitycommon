@@ -9,7 +9,13 @@ using UnityEngine.Events;
 /** 서브 열거형 값 */
 public static partial class KEnumVal {
 	#region 기본
+	// 적용 종류
+	public const int AK_RANGE_SUB_TYPE_VAL = 0;
+	public const int AK_TARGET_SUB_TYPE_VAL = 1;
+	public const int AK_NON_TARGET_SUB_TYPE_VAL = 2;
+
 	// 타겟 종류
+	public const int TK_SUB_KINDS_TYPE_VAL = 0;
 	public const int TK_LV_SUB_KINDS_TYPE_VAL = 1;
 	public const int TK_EXP_SUB_KINDS_TYPE_VAL = 2;
 	public const int TK_NUMS_SUB_KINDS_TYPE_VAL = 3;
@@ -655,16 +661,16 @@ public enum EApplyKinds {
 
 	#region 다중
 	// 0
-	MULTI_APPLY_RANGE = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	MULTI_APPLY_TARGET = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	MULTI_APPLY_PROJECTILE = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * 2) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	MULTI_APPLY_RANGE = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * KEnumVal.AK_RANGE_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	MULTI_APPLY_TARGET = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * KEnumVal.AK_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	MULTI_APPLY_NON_TARGET = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * KEnumVal.AK_NON_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 다중
 
 	#region 단일
 	// 100,000,000
-	SINGLE_APPLY_RANGE = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	SINGLE_APPLY_TARGET = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	SINGLE_APPLY_PROJECTILE = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * 2) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_APPLY_RANGE = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * KEnumVal.AK_RANGE_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_APPLY_TARGET = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * KEnumVal.AK_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_APPLY_NON_TARGET = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * KEnumVal.AK_NON_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 단일
 
 	[HideInInspector] MAX_VAL
@@ -686,38 +692,38 @@ public enum ETargetKinds {
 
 	#region 아이템
 	// 0
-	[System.Obsolete] ITEM = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	ITEM_LV = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
-	ITEM_EXP = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
-	ITEM_NUMS = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
-	ITEM_ENHANCE = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
+	[System.Obsolete] ITEM = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_SUB_KINDS_TYPE_VAL),
+	ITEM_LV = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL),
+	ITEM_EXP = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL),
+	ITEM_NUMS = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL),
+	ITEM_ENHANCE = (EEnumVal.T * ETargetType.ITEM) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL),
 	#endregion // 아이템
 
 	#region 스킬
 	// 100,000,000
-	[System.Obsolete] SKILL = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	SKILL_LV = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
-	SKILL_EXP = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
-	SKILL_NUMS = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
-	SKILL_ENHANCE = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
+	[System.Obsolete] SKILL = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_SUB_KINDS_TYPE_VAL),
+	SKILL_LV = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL),
+	SKILL_EXP = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL),
+	SKILL_NUMS = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL),
+	SKILL_ENHANCE = (EEnumVal.T * ETargetType.SKILL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL),
 	#endregion // 스킬
 
 	#region 객체
 	// 200,000,000
-	[System.Obsolete] OBJ = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	OBJ_LV = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
-	OBJ_EXP = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
-	OBJ_NUMS = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
-	OBJ_ENHANCE = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
+	[System.Obsolete] OBJ = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_SUB_KINDS_TYPE_VAL),
+	OBJ_LV = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL),
+	OBJ_EXP = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL),
+	OBJ_NUMS = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL),
+	OBJ_ENHANCE = (EEnumVal.T * ETargetType.OBJ) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL),
 	#endregion // 객체
 
 	#region 어빌리티
 	// 300,000,000
-	ABILITY = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	ABILITY_LV = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
-	[System.Obsolete] ABILITY_EXP = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
-	[System.Obsolete] ABILITY_NUMS = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
-	[System.Obsolete] ABILITY_ENHANCE = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
+	ABILITY = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_SUB_KINDS_TYPE_VAL),
+	ABILITY_LV = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL),
+	[System.Obsolete] ABILITY_EXP = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL),
+	[System.Obsolete] ABILITY_NUMS = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL),
+	[System.Obsolete] ABILITY_ENHANCE = (EEnumVal.T * ETargetType.ABILITY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL),
 	#endregion // 어빌리티
 
 	[HideInInspector] MAX_VAL
