@@ -22,6 +22,7 @@ public struct STSkillInfo {
 
 	public List<EFXKinds> m_oFXKindsList;
 	public List<EResKinds> m_oResKindsList;
+	public List<ESkillKinds> m_oExtraSkillKindsList;
 
 	public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict;
 
@@ -53,6 +54,7 @@ public struct STSkillInfo {
 
 		m_oFXKindsList = Factory.MakeVals(a_oSkillInfo, KCDefine.U_KEY_FMT_FX_KINDS, (a_oJSONNode) => (EFXKinds)a_oJSONNode.AsInt);
 		m_oResKindsList = Factory.MakeVals(a_oSkillInfo, KCDefine.U_KEY_FMT_RES_KINDS, (a_oJSONNode) => (EResKinds)a_oJSONNode.AsInt);
+		m_oExtraSkillKindsList = Factory.MakeVals(a_oSkillInfo, KCDefine.U_KEY_FMT_EXTRA_SKILL_KINDS, (a_oJSONNode) => (ESkillKinds)a_oJSONNode.AsInt);
 
 		m_oAbilityTargetInfoDict = Factory.MakeTargetInfos(a_oSkillInfo, KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO);
 	}
