@@ -59,6 +59,7 @@ namespace NSEngine {
 			if(CSceneManager.IsAppRunning && this.SubState != ESubState.NONE) {
 				switch(this.SubState) {
 					case ESubState.APPLY: this.HandleApplySubState(a_fDeltaTime); break;
+					case ESubState.COMPLETE: this.HandleCompleteSubState(a_fDeltaTime); break;
 				}
 
 				this.SubOnUpdate(a_fDeltaTime);

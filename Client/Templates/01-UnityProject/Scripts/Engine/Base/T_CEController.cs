@@ -30,6 +30,7 @@ namespace NSEngine {
 		public enum ESubState {
 			NONE = -1,
 			APPLY,
+			COMPLETE,
 			[HideInInspector] MAX_VAL
 		}
 
