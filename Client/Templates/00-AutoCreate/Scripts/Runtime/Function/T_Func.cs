@@ -180,6 +180,62 @@ public static partial class Func {
 		}
 	}
 
+	/** 드래그 전달자를 설정한다 */
+	public static void SetupDragDispatchers(List<(GameObject, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetBeginCallback(a_oKeyInfoList[i].Item2);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetDragCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetEndCallback(a_oKeyInfoList[i].Item4);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetScrollCallback(a_oKeyInfoList[i].Item5);
+			}
+		}
+	}
+
+	/** 드래그 전달자를 설정한다 */
+	public static void SetupDragDispatchers(List<(string, GameObject, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetDragCallback(a_oKeyInfoList[i].Item4);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item5);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetScrollCallback(a_oKeyInfoList[i].Item6);
+			}
+		}
+	}
+
+	/** 이벤트 전달자를 설정한다 */
+	public static void SetupEventDispatchers(List<(GameObject, System.Action<CEventDispatcher, string>, System.Action<CEventDispatcher, string>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CEventDispatcher>()?.SetAniCallback(a_oKeyInfoList[i].Item2);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CEventDispatcher>()?.SetParticleFXCallback(a_oKeyInfoList[i].Item3);
+			}
+		}
+	}
+
+	/** 이벤트 전달자를 설정한다 */
+	public static void SetupEventDispatchers(List<(string, GameObject, System.Action<CEventDispatcher, string>, System.Action<CEventDispatcher, string>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CEventDispatcher>(a_oKeyInfoList[i].Item1)?.SetAniCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CEventDispatcher>(a_oKeyInfoList[i].Item1)?.SetParticleFXCallback(a_oKeyInfoList[i].Item4);
+			}
+		}
+	}
+
 	/** 터치 전달자를 설정한다 */
 	public static void SetupTouchDispatchers(List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
@@ -204,6 +260,118 @@ public static partial class Func {
 				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item3);
 				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item4);
 				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item5);
+			}
+		}
+	}
+
+	/** 접촉 전달자를 설정한다 */
+	public static void SetupTriggerDispatchers(List<(GameObject, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
+			}
+		}
+	}
+
+	/** 접촉 전달자를 설정한다 */
+	public static void SetupTriggerDispatchers(List<(GameObject, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
+			}
+		}
+	}
+
+	/** 접촉 전달자를 설정한다 */
+	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
+			}
+		}
+	}
+
+	/** 접촉 전달자를 설정한다 */
+	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
+			}
+		}
+	}
+
+	/** 충돌 전달자를 설정한다 */
+	public static void SetupCollisionDispatchers(List<(GameObject, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
+			}
+		}
+	}
+
+	/** 충돌 전달자를 설정한다 */
+	public static void SetupCollisionDispatchers(List<(GameObject, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
+			}
+		}
+	}
+
+	/** 충돌 전달자를 설정한다 */
+	public static void SetupCollisionDispatchers(List<(string, GameObject, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
+			}
+		}
+	}
+
+	/** 충돌 전달자를 설정한다 */
+	public static void SetupCollisionDispatchers(List<(string, GameObject, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
+				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
 			}
 		}
 	}
@@ -246,56 +414,6 @@ public static partial class Func {
 		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
 	}
 	#endregion // 클래스 함수
-
-	#region 제네릭 클래스 함수
-	/** 터치 전달자를 설정한다 */
-	public static void SetupTouchDispatchers<K>(List<(K, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutTouchDispatcherDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null));
-
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null) {
-			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
-
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item3);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item4);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item5);
-			}
-		}
-	}
-
-	/** 터치 전달자를 설정한다 */
-	public static void SetupTouchDispatchers<K>(List<(K, string, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutTouchDispatcherDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null));
-
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null) {
-			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
-
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item4);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item5);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item6);
-			}
-		}
-	}
-
-	/** 터치 전달자를 설정한다 */
-	public static void SetupTouchDispatchers<K>(List<(K, string, GameObject, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutTouchDispatcherDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null));
-
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null) {
-			CFunc.SetupComponents(Factory.MakeKeyInfos(a_oKeyInfoList), a_oOutTouchDispatcherDict, a_bIsEnableAssert);
-
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item5);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item6);
-				a_oOutTouchDispatcherDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item7);
-			}
-		}
-	}
-	#endregion // 제네릭 클래스 함수
 
 	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
@@ -991,7 +1109,7 @@ public static partial class Func {
 		a_oInfoListContainer.ExCopyTo(Func.m_oGoogleSheetSaveInfoListContainer, (a_stInfo) => (a_stInfo.Item1, a_stInfo.Item2.Count, a_stInfo.Item2));
 
 		Func.m_oGoogleSheetCallbackDict04.ExReplaceVal(ECallback.SAVE_GOOGLE_SHEET, a_oCallback);
-		
+
 		// 정보가 존재 할 경우
 		if(a_oInfoListContainer.ExIsValid()) {
 			CIndicatorManager.Inst.Show();
