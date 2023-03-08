@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+
+using System.Diagnostics;
 using TMPro;
+
 using DG.Tweening;
 
 namespace StartScene {
