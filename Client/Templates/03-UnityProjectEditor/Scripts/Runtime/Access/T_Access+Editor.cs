@@ -16,14 +16,22 @@ public static partial class Access {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 	/** 스프라이트를 반환한다 */
 	public static Sprite GetEditorObjSprite(EObjKinds a_eObjKinds, string a_oPrefix, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
-		string oStr = CStrTable.Inst.GetEnumStr(typeof(EObjKinds), ((int)a_eObjKinds).ExKindsToDetailSubKindsType());
-		string oImgPath = NSEngine.KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), oStr);
-		string oEditorImgPath = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, oImgPath);
+		var oImgPathDict = CCollectionManager.Inst.SpawnDict<EObjKinds, string>();
 
-		return CResManager.Inst.GetRes<Sprite>(oEditorImgPath) ?? NSEngine.Access.GetSprite(a_eObjKinds, a_eGroupType);
+		try {
+			NSEngine.KDefine.E_IMG_P_OBJ_DICT.ExCopyTo(oImgPathDict, (a_oImgPath) => a_oImgPath);
+
+			string oStr = CStrTable.Inst.GetEnumStr(typeof(EObjKinds), ((int)a_eObjKinds).ExKindsToDetailSubKindsType());
+			string oImgPath = oImgPathDict.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), oStr);
+			string oEditorImgPath = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, oImgPath);
+
+			return CResManager.Inst.GetRes<Sprite>(oEditorImgPath) ?? NSEngine.Access.GetSprite(a_eObjKinds, a_eGroupType);
+		} finally {
+			CCollectionManager.Inst.DespawnDict(oImgPathDict);
+		}
 	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 클래스 함수
+	#endregion // 조건부 클래스 함수
 }
 
 /** 레벨 에디터 씬 접근자 */
