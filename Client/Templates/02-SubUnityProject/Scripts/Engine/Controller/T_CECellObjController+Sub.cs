@@ -34,6 +34,11 @@ namespace NSEngine {
 			// Do Something
 		}
 
+		/** 객체 정보를 리셋한다 */
+		private void SubResetObjInfo(STObjInfo a_stObjInfo, STCellObjInfo a_stCellObjInfo) {
+			// Do Something
+		}
+
 		/** 제거 되었을 경우 */
 		private void SubOnDestroy() {
 			try {

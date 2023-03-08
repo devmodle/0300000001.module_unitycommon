@@ -37,6 +37,19 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
+		/** 스킬 정보를 리셋한다 */
+		public virtual void ResetSkillInfo(STSkillInfo a_stSkillInfo) {
+			// 리셋 가능 할 경우
+			if(a_stSkillInfo.m_eSkillKinds != this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillKinds) {
+				var stParams = this.GetOwner<CESkill>().Params;
+				stParams.m_stSkillInfo = a_stSkillInfo;
+
+				this.GetOwner<CESkill>().Init(stParams);
+			}
+
+			this.SubResetSkillInfo(a_stSkillInfo);
+		}
+
 		/** 제거 되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();

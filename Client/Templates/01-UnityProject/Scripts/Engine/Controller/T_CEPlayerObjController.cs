@@ -38,6 +38,12 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
+		/** 객체 정보를 리셋한다 */
+		public override void ResetObjInfo(STObjInfo a_stObjInfo) {
+			base.ResetObjInfo(a_stObjInfo);
+			this.SubResetObjInfo(a_stObjInfo);
+		}
+
 		/** 제거 되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();

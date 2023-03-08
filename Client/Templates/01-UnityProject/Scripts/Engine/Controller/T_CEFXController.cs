@@ -37,6 +37,19 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
+		/** 효과 정보를 리셋한다 */
+		public virtual void ResetFXInfo(STFXInfo a_stFXInfo) {
+			// 리셋 가능 할 경우
+			if(a_stFXInfo.m_eFXKinds != this.GetOwner<CEFX>().Params.m_stFXInfo.m_eFXKinds) {
+				var stParams = this.GetOwner<CEFX>().Params;
+				stParams.m_stFXInfo = a_stFXInfo;
+
+				this.GetOwner<CEFX>().Init(stParams);
+			}
+
+			this.SubResetFXInfo(a_stFXInfo);
+		}
+
 		/** 제거 되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();

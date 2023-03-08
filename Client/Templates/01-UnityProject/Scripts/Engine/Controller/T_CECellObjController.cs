@@ -54,6 +54,14 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
+		/** 객체 정보를 리셋한다 */
+		public virtual void ResetObjInfo(STObjInfo a_stObjInfo, STCellObjInfo a_stCellObjInfo) {
+			base.ResetObjInfo(a_stObjInfo);
+			this.SetCellObjInfo(a_stCellObjInfo);
+
+			this.SubResetObjInfo(a_stObjInfo, a_stCellObjInfo);
+		}
+
 		/** 제거 되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
@@ -99,6 +107,7 @@ namespace NSEngine {
 
 		/** 셀 객체 정보를 변경한다 */
 		public void SetCellObjInfo(STCellObjInfo a_stCellObjInfo) {
+			a_stCellObjInfo.ObjKinds = this.GetOwner<CEObj>().Params.m_stObjInfo.m_eObjKinds;
 			m_oCellObjInfoDict[EKey.CELL_OBJ_INFO] = a_stCellObjInfo;
 		}
 		#endregion // 함수
