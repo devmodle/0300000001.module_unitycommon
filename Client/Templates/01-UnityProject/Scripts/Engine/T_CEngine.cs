@@ -385,8 +385,8 @@ namespace NSEngine {
 					var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds), a_stGridInfo, null);
 					oCellObj.transform.localPosition = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);				
 					
-					oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
-					oCellObj.SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
+					oCellObj.GetController<CECellObjController>().SetIdx(a_stCellInfo.m_stIdx);
+					oCellObj.GetController<CECellObjController>().SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
 
 					oCellObjList.ExAddVal(oCellObj);
 				}
@@ -515,22 +515,22 @@ namespace NSEngine {
 		}
 
 		/** 셀 객체를 탐색한다 */
-		public List<CEObj> FindCellObjs(Vector3Int a_stIdx, Vector3Int a_stOffset, out Vector3Int a_stOutCellIdx) {
+		public List<CEObj> FindCellObjs(Vector3Int a_stIdx, Vector3Int a_stOffset, out Vector3Int a_stOutIdx) {
 			// 인덱스가 유효 할 경우
 			if(this.SelCellObjLists.ExIsValidIdx(a_stIdx)) {
-				a_stOutCellIdx = a_stIdx;
+				a_stOutIdx = a_stIdx;
 
-				while(this.SelCellObjLists.ExIsValidIdx(a_stOutCellIdx)) {
+				while(this.SelCellObjLists.ExIsValidIdx(a_stOutIdx)) {
 					// 셀 객체가 존재 할 경우
-					if(this.SelCellObjLists[a_stOutCellIdx.y, a_stOutCellIdx.x].ExIsValid()) {
-						return this.SelCellObjLists[a_stOutCellIdx.y, a_stOutCellIdx.x];
+					if(this.SelCellObjLists[a_stOutIdx.y, a_stOutIdx.x].ExIsValid()) {
+						return this.SelCellObjLists[a_stOutIdx.y, a_stOutIdx.x];
 					}
 
-					a_stOutCellIdx += a_stOffset;
+					a_stOutIdx += a_stOffset;
 				}
 			}
 
-			a_stOutCellIdx = KCDefine.B_IDX_INVALID_3D;
+			a_stOutIdx = KCDefine.B_IDX_INVALID_3D;
 			return KDefine.E_EMPTY_OBJ_LIST;
 		}
 
@@ -569,9 +569,9 @@ namespace NSEngine {
 			oItem.Init(CEItem.MakeParams(this, a_stItemInfo, a_oItemTargetInfo, oController, KDefine.E_KEY_ITEM_OBJS_POOL));
 			oItem.ExSetTag(KCDefine.U_TAG_ITEM);
 
-			oController?.Init(CEItemController.MakeParams(this));
-
 			this.SetupEObjComponent(oItem, a_oOwner, oController);
+
+			oController?.Init(CEItemController.MakeParams(this));
 			return oItem;
 		}
 
@@ -583,9 +583,9 @@ namespace NSEngine {
 			oSkill.Init(CESkill.MakeParams(this, a_stSkillInfo, a_oSkillTargetInfo, oController, KDefine.E_KEY_SKILL_OBJS_POOL));
 			oSkill.ExSetTag(KCDefine.U_TAG_SKILL);
 
-			oController?.Init(CESkillController.MakeParams(this));
-
 			this.SetupEObjComponent(oSkill, a_oOwner, oController);
+
+			oController?.Init(CESkillController.MakeParams(this));
 			return oSkill;
 		}
 
@@ -597,9 +597,9 @@ namespace NSEngine {
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_OBJ_OBJS_POOL));
 			oObj.ExSetTag(KCDefine.U_TAG_OBJ);
 
-			oController?.Init(CEObjController.MakeParams(this));
-
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
+
+			oController?.Init(CEObjController.MakeParams(this));
 			return oObj;
 		}
 
@@ -611,9 +611,9 @@ namespace NSEngine {
 			oFX.Init(CEFX.MakeParams(this, a_stFXInfo, oController, KDefine.E_KEY_FX_OBJS_POOL));
 			oFX.ExSetTag(KCDefine.U_TAG_FX);
 
-			oController?.Init(CEFXController.MakeParams(this));
-
 			this.SetupEObjComponent(oFX, a_oOwner, oController);
+
+			oController?.Init(CEFXController.MakeParams(this));
 			return oFX;
 		}
 
@@ -626,9 +626,9 @@ namespace NSEngine {
 			oObj.ExSetTag(KCDefine.U_TAG_CELL);
 			oObj.gameObject.ExSetParent(m_oCellObjRootList.ExGetVal(a_stGridInfo.m_nIdx, null));
 
-			oController?.Init(CECellObjController.MakeParams(this));
-
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
+
+			oController?.Init(CECellObjController.MakeParams(this));
 			return oObj;
 		}
 
@@ -640,9 +640,9 @@ namespace NSEngine {
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
 			oObj.ExSetTag(KCDefine.U_TAG_PLAYER);
 
-			oController?.Init(CEPlayerObjController.MakeParams(this));
-
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
+
+			oController?.Init(CEPlayerObjController.MakeParams(this));
 			return oObj;
 		}
 
@@ -654,9 +654,9 @@ namespace NSEngine {
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
 			oObj.ExSetTag(KCDefine.U_TAG_ENEMY);
 
-			oController?.Init(CEEnemyObjController.MakeParams(this));
-
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
+
+			oController?.Init(CEEnemyObjController.MakeParams(this));
 			return oObj;
 		}
 
@@ -723,11 +723,11 @@ namespace NSEngine {
 
 		/** 셀 객체를 제거한다 */
 		private void RemoveCellObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
-			var oCellObjList = (a_oObj != null) ? this.CellObjListsContainer.ExGetVal(a_oObj.CellIdx, null) : null;
-			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && oCellObjList != null && a_oObj.CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+			var oCellObjList = (a_oObj != null) ? this.CellObjListsContainer.ExGetVal(a_oObj.GetController<CECellObjController>().Idx, null) : null;
+			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().Idx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
 
 			// 셀 객체가 존재 할 경우
-			if(a_oObj != null && oCellObjList != null && a_oObj.CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+			if(a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().Idx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				oCellObjList.ExRemoveVal(a_oObj);
 				CFactory.RemoveObj(a_oObj.Params.m_stBaseParams.m_oController, a_bIsEnableAssert: false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
