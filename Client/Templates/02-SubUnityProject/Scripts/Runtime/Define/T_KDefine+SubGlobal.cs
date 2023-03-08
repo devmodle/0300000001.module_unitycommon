@@ -92,6 +92,11 @@ public static partial class KDefine {
 	#endregion // 기본
 
 	#region 런타임 상수
+	// 색상
+	public static readonly List<Color> G_COLOR_LIST = new List<Color>() {
+		// Do Something
+	};
+
 	// 일일 보상
 	public static readonly List<ERewardKinds> G_REWARDS_KINDS_DAILY_REWARD_LIST = new List<ERewardKinds>() {
 		// Do Something

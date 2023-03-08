@@ -24,8 +24,8 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	[Key(0)] public STBaseInfo m_stBaseInfo;
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stSize;
-	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stBaseIdx;
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stSize;
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stBaseIdx;
 #else
 	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stSize;
 	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stBaseIdx;
@@ -34,13 +34,14 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 
 	#region 상수
 	public static readonly STCellObjInfo INVALID = new STCellObjInfo(null) {
-		ObjKinds = EObjKinds.NONE
+		ColorID = KCDefine.B_IDX_INVALID, ObjKinds = EObjKinds.NONE
 	};
 
 	private const string KEY_SIZE_X = "SizeX";
 	private const string KEY_SIZE_Y = "SizeY";
 	private const string KEY_SIZE_Z = "SizeZ";
 
+	private const string KEY_COLOR_ID = "ColorID";
 	private const string KEY_OBJ_KINDS = "ObjKinds";
 	#endregion // 상수
 
@@ -69,6 +70,13 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 
 	[JsonIgnore]
 	[IgnoreMember]
+	public int ColorID {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
+	}
+
+	[JsonIgnore]
+	[IgnoreMember]
 	public EObjKinds ObjKinds {
 		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
@@ -90,6 +98,12 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	public int SizeZ {
 		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Z, $"{value}"); }
+	}
+	
+	[IgnoreMember]
+	public int ColorID {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
 	}
 
 	[IgnoreMember]
@@ -170,7 +184,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 	[Key(71)] public List<STCellObjInfo> m_oCellObjInfoList;
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stIdx;
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 #else
 	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stIdx;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
@@ -253,8 +267,8 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[Key(165)] public Dictionary<int, Dictionary<int, STCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, STCellInfo>>();
 
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
-	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stNumViewCells;
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
+	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stNumViewCells;
 #else
 	[IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
 	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stNumViewCells;
@@ -307,11 +321,11 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
-	[JsonIgnore] [IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
-	[JsonIgnore] [IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
+	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
+	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 
-	[JsonIgnore] [IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
-	[JsonIgnore] [IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_1_INT);
+	[JsonIgnore][IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
+	[JsonIgnore][IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_1_INT);
 #else
 	[IgnoreMember]
 	public int NumViewCellsX {

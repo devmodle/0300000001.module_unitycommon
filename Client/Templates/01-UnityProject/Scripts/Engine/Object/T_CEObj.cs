@@ -84,7 +84,7 @@ namespace NSEngine {
 		#endregion // 클래스 함수
 	}
 
-	/** 객체 */
+	/** 객체 - 접근 */
 	public partial class CEObj : CEObjComponent {
 		#region 함수
 		/** 셀 인덱스를 변경한다 */

@@ -61,6 +61,8 @@ namespace NSEngine {
 			this.Params = a_stParams;
 
 			m_oSpriteDict[EKey.TARGET_SPRITE]?.gameObject.ExSetLocalPos(Vector3.zero, false);
+			m_oSpriteDict[EKey.TARGET_SPRITE]?.ExSetColor<SpriteRenderer>(Color.white, false);
+			
 			this.SubInit();
 		}
 
