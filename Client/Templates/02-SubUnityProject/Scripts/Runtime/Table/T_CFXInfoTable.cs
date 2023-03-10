@@ -59,6 +59,7 @@ public struct STFXInfo {
 		a_oOutFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS] = $"{(int)m_eNextFXKinds}";
 
 		Func.SaveVals(m_oResKindsList, KCDefine.U_KEY_FMT_RES_KINDS, (a_eResKinds) => $"{(int)a_eResKinds}", a_oOutFXInfo);
+		Func.SaveVals(m_oExtraFXKindsList, KCDefine.U_KEY_FMT_EXTRA_FX_KINDS, (a_eFXKinds) => $"{(int)a_eFXKinds}", a_oOutFXInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수

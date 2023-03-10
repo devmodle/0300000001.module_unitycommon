@@ -81,6 +81,7 @@ public struct STObjInfo {
 		a_oOutObjInfo[KCDefine.U_KEY_ACTION_SKILL_KINDS] = $"{(int)m_eActionSkillKinds}";
 
 		Func.SaveVals(m_oResKindsList, KCDefine.U_KEY_FMT_RES_KINDS, (a_eResKinds) => $"{(int)a_eResKinds}", a_oOutObjInfo);
+		Func.SaveVals(m_oExtraObjKindsList, KCDefine.U_KEY_FMT_EXTRA_OBJ_KINDS, (a_eObjKinds) => $"{(int)a_eObjKinds}", a_oOutObjInfo);
 
 		Func.SaveTargetInfos(m_oDropItemTargetInfoDict, KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO, a_oOutObjInfo);
 		Func.SaveTargetInfos(m_oEquipItemTargetInfoDict, KCDefine.U_KEY_FMT_EQUIP_ITEM_TARGET_INFO, a_oOutObjInfo);

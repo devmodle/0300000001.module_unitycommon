@@ -75,6 +75,7 @@ public struct STSkillInfo {
 
 		Func.SaveVals(m_oFXKindsList, KCDefine.U_KEY_FMT_FX_KINDS, (a_eFXKinds) => $"{(int)a_eFXKinds}", a_oOutSkillInfo);
 		Func.SaveVals(m_oResKindsList, KCDefine.U_KEY_FMT_RES_KINDS, (a_eResKinds) => $"{(int)a_eResKinds}", a_oOutSkillInfo);
+		Func.SaveVals(m_oExtraSkillKindsList, KCDefine.U_KEY_FMT_EXTRA_SKILL_KINDS, (a_eSkillKinds) => $"{(int)a_eSkillKinds}", a_oOutSkillInfo);
 
 		Func.SaveTargetInfos(m_oAbilityTargetInfoDict, KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, a_oOutSkillInfo);
 	}

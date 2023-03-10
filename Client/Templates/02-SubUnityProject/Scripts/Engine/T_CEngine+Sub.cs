@@ -245,7 +245,7 @@ namespace NSEngine {
 		public bool IsClear() {
 #if NEVER_USE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
-			bool bIsClear01 = m_oClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT);
+			bool bIsClear01 = this.ClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT);
 #endif // #if NEVER_USE_THIS
 
 			return false;

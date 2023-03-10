@@ -9,8 +9,6 @@ using UnityEngine.Events;
 using System.Linq;
 using UnityEngine.EventSystems;
 
-using DG.Tweening;
-
 namespace NSEngine {
 	/** 엔진 */
 	public partial class CEngine : CComponent {
@@ -85,8 +83,6 @@ namespace NSEngine {
 			[EKey.TIME_SCALE] = KCDefine.B_VAL_1_REAL
 		};
 
-		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
-		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
 		private Dictionary<ESubState, System.Func<bool>> m_oSubStateCheckerDict = new Dictionary<ESubState, System.Func<bool>>();
 
@@ -101,6 +97,7 @@ namespace NSEngine {
 
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
+		public List<STGridInfo> GridInfoList { get; } = new List<STGridInfo>();
 
 		public List<List<CEObj>[,]> CellObjListsContainer { get; } = new List<List<CEObj>[,]>();
 		public List<Stack<List<CEObj>>[]> CellObjStacksContainerH { get; } = new List<Stack<List<CEObj>>[]>();
@@ -114,6 +111,7 @@ namespace NSEngine {
 		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
 
+		public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 		public bool IsRunning => m_oBoolDict[EKey.IS_RUNNING];
 
 		public int SelGridInfoIdx => m_oIntDict[EKey.SEL_GRID_IDX];
@@ -121,7 +119,7 @@ namespace NSEngine {
 
 		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
-		public STGridInfo SelGridInfo => m_oGridInfoList.ExGetVal(this.SelGridInfoIdx, STGridInfo.INVALID);
+		public STGridInfo SelGridInfo => this.GridInfoList.ExGetVal(this.SelGridInfoIdx, STGridInfo.INVALID);
 
 		public CEObj SelPlayerObj => this.PlayerObjList.ExGetVal(this.SelPlayerObjIdx, null);
 		public List<CEObj>[,] SelCellObjLists => this.CellObjListsContainer.ExGetVal(this.SelGridInfoIdx, null);
@@ -219,7 +217,7 @@ namespace NSEngine {
 			var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 
 			// 그리드 영역 일 경우
-			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stPos)) {
+			if(this.GridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stPos)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;
@@ -236,6 +234,8 @@ namespace NSEngine {
 				case EEngineObjEvent.CRITICAL_DAMAGE: this.HandleCriticalDamageEObjEvent(a_oSender, a_oParams); break;
 			}
 
+#if NEVER_USE_THIS
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 			// 체력이 없을 경우
 			if(a_oSender.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT) {
 				// 플레이어 객체 일 경우
@@ -247,7 +247,7 @@ namespace NSEngine {
 
 						// 클리어 타겟 정보가 존재 할 경우
 						if(bIsValid || (stKeyVal.Value.TargetType == ETargetType.OBJ && (a_oSender as CEObj != null) && stKeyVal.Value.Kinds == ((int)(a_oSender as CEObj).Params.m_stObjInfo.m_eObjKinds).ExKindsToCorrectKinds(stKeyVal.Value.m_eKindsGroupType))) {
-							m_oClearTargetInfoDict.ExIncrTargetVal(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, -KCDefine.B_VAL_1_INT);
+							this.ClearTargetInfoDict.ExIncrTargetVal(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, -KCDefine.B_VAL_1_INT);
 						}
 					}
 
@@ -283,6 +283,8 @@ namespace NSEngine {
 			if(this.IsClear()) {
 				this.HandleClearState();
 			}
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
+#endif // #if NEVER_USE_THIS
 
 			this.Params.m_oCallbackDict03.GetValueOrDefault(ECallback.E_OBJ_EVENT)?.Invoke(this, a_oSender, a_eEvent, a_oParams);
 			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateUIsState(true);
@@ -324,11 +326,11 @@ namespace NSEngine {
 				}
 			}
 
-			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(this.ClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 			// 그리드 정보를 설정한다
-			m_oGridInfoList.Clear();
-			Factory.MakeGridInfos(CGameInfoStorage.Inst.PlayLevelInfo, m_oGridInfoList);
+			this.GridInfoList.Clear();
+			Factory.MakeGridInfos(CGameInfoStorage.Inst.PlayLevelInfo, this.GridInfoList);
 
 			// 객체를 설정한다 {
 			CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
@@ -337,7 +339,7 @@ namespace NSEngine {
 				(EKey.ENEMY_OBJ_ROOT, $"{EKey.ENEMY_OBJ_ROOT}", this.Params.m_oObjRoot, null)
 			}, m_oObjDict);
 
-			for(int i = 0; i < m_oGridInfoList.Count; ++i) {
+			for(int i = 0; i < this.GridInfoList.Count; ++i) {
 				string oName = string.Format(KCDefine.PS_OBJ_N_FMT_CELL_OBJ_ROOT, i + KCDefine.B_VAL_1_INT);
 				m_oCellObjRootList.ExAddVal(CFactory.CreateObj(oName, m_oObjDict[EKey.CELL_OBJ_ROOT]));
 			}
@@ -361,10 +363,10 @@ namespace NSEngine {
 		private void SetupLevel() {
 			// 레벨 정보가 존재 할 경우
 			if(CGameInfoStorage.Inst.PlayLevelInfo != null) {
-				for(int i = 0; i < m_oGridInfoList.Count; ++i) {
+				for(int i = 0; i < this.GridInfoList.Count; ++i) {
 					for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer.Count; ++j) {
 						for(int k = 0; k < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[j].Count; ++k) {
-							this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[j][k], m_oGridInfoList[i]);
+							this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[j][k], this.GridInfoList[i]);
 						}
 					}
 				}
