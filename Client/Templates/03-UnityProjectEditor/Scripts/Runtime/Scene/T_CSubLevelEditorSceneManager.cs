@@ -722,7 +722,7 @@ namespace LevelEditorScene {
 				}
 			}
 
-			m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetSprite<SpriteRenderer>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+			m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetSprite<SpriteRenderer>(Access.GetEditorSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
 			// 객체 스프라이트를 설정한다 }
 
 			// 에디터 객체 스프라이트를 설정한다 {
@@ -837,7 +837,7 @@ namespace LevelEditorScene {
 
 		/** 객체 스프라이트를 설정한다 */
 		private void SetupObjSprite(STCellInfo a_stCellInfo, STCellObjInfo a_stCellObjInfo, SpriteRenderer a_oOutObjSprite) {
-			a_oOutObjSprite.sprite = Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+			a_oOutObjSprite.sprite = Access.GetEditorSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
 			a_oOutObjSprite.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize);
 
 			a_oOutObjSprite.ExSetSortingOrder(NSEngine.Access.GetSortingOrderInfo(a_stCellObjInfo.ObjKinds));
@@ -1465,7 +1465,7 @@ namespace LevelEditorScene {
 
 			// 이미지를 갱신한다
 			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.gameObject.SetActive(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid());
-			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetSprite<Image>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetSprite<Image>(Access.GetEditorSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
 
 			// 버튼을 갱신한다 {
 			m_oBtnDict[EKey.ME_UIS_PREV_GRID_BTN]?.ExSetInteractable(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx - KCDefine.B_VAL_1_INT));
@@ -1937,7 +1937,7 @@ namespace LevelEditorScene {
 					oBtn.ExSetInteractable(eObjKinds != EObjKinds.NONE);
 
 					oBtn.image.ExSetEnable(eObjKinds != EObjKinds.NONE);
-					oBtn.image.sprite = Access.GetEditorObjSprite(eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+					oBtn.image.sprite = Access.GetEditorSprite(eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
 
 					oBtn.onClick.AddListener(() => this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(eObjKinds));
 				}
