@@ -15,11 +15,14 @@ public static partial class Access {
 	#region 조건부 클래스 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 	/** 스프라이트를 반환한다 */
-	public static Sprite GetEditorObjSprite(EObjKinds a_eObjKinds, string a_oPrefix, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
+	public static Sprite GetEditorObjSprite(EObjKinds a_eObjKinds, string a_oPrefix, bool a_bIsIgnoreEditor = false, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
 		var oImgPathDict = CCollectionManager.Inst.SpawnDict<EObjKinds, string>();
 
 		try {
-			NSEngine.KDefine.E_IMG_P_OBJ_DICT.ExCopyTo(oImgPathDict, (a_oImgPath) => a_oImgPath);
+			// 에디터 무시 모드가 아닐 경우
+			if(!a_bIsIgnoreEditor) {
+				NSEngine.KDefine.E_IMG_P_OBJ_DICT.ExCopyTo(oImgPathDict, (a_oImgPath) => a_oImgPath);
+			}
 
 			string oStr = CStrTable.Inst.GetEnumStr(typeof(EObjKinds), ((int)a_eObjKinds).ExKindsToDetailSubKindsType());
 			string oImgPath = oImgPathDict.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), oStr);
@@ -31,7 +34,7 @@ public static partial class Access {
 		}
 	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-	#endregion // 조건부 클래스 함수
+#endregion // 조건부 클래스 함수
 }
 
 /** 레벨 에디터 씬 접근자 */
