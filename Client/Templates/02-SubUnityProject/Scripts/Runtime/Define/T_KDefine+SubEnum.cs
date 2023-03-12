@@ -9,6 +9,10 @@ using UnityEngine.Events;
 /** 서브 열거형 값 */
 public static partial class KEnumVal {
 	#region 기본
+	// 어빌리티 종류
+	public const int AK_INT_DETAIL_SUB_KINDS_TYPE_VAL = 0;
+	public const int AK_REAL_DETAIL_SUB_KINDS_TYPE_VAL = 1;
+
 	// 적용 종류
 	public const int AK_RANGE_SUB_TYPE_VAL = 0;
 	public const int AK_TARGET_SUB_TYPE_VAL = 1;

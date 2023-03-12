@@ -18,19 +18,20 @@ public struct STMissionInfo {
 	public EMissionKinds m_eNextMissionKinds;
 
 	public List<ERewardKinds> m_oRewardKindsList;
+	public List<EMissionKinds> m_oExtraMissionKindsList;
 
-#region 상수
+	#region 상수
 	public static STMissionInfo INVALID = new STMissionInfo() {
 		m_eMissionKinds = EMissionKinds.NONE, m_ePrevMissionKinds = EMissionKinds.NONE, m_eNextMissionKinds = EMissionKinds.NONE
 	};
-#endregion // 상수
+	#endregion // 상수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public EMissionType MissionType => (EMissionType)((int)m_eMissionKinds).ExKindsToType();
 	public EMissionKinds BaseMissionKinds => (EMissionKinds)((int)m_eMissionKinds).ExKindsToSubKindsType();
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public STMissionInfo(SimpleJSON.JSONNode a_oMissionInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oMissionInfo);
@@ -40,10 +41,11 @@ public struct STMissionInfo {
 		m_eNextMissionKinds = a_oMissionInfo[KCDefine.U_KEY_NEXT_MISSION_KINDS].ExIsValid() ? (EMissionKinds)a_oMissionInfo[KCDefine.U_KEY_NEXT_MISSION_KINDS].AsInt : EMissionKinds.NONE;
 
 		m_oRewardKindsList = Factory.MakeVals(a_oMissionInfo, KCDefine.U_KEY_FMT_REWARD_KINDS, (a_oJSONNode) => (ERewardKinds)a_oJSONNode.AsInt);
+		m_oExtraMissionKindsList = Factory.MakeVals(a_oMissionInfo, KCDefine.U_KEY_FMT_EXTRA_MISSION_KINDS, (a_oJSONNode) => (EMissionKinds)a_oJSONNode.AsInt);
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 미션 정보를 저장한다 */
 	public void SaveMissionInfo(SimpleJSON.JSONNode a_oOutMissionInfo) {
@@ -54,6 +56,7 @@ public struct STMissionInfo {
 		a_oOutMissionInfo[KCDefine.U_KEY_NEXT_MISSION_KINDS] = $"{(int)m_eNextMissionKinds}";
 
 		Func.SaveVals(m_oRewardKindsList, KCDefine.U_KEY_FMT_REWARD_KINDS, (a_eRewardKinds) => $"{(int)a_eRewardKinds}", a_oOutMissionInfo);
+		Func.SaveVals(m_oExtraMissionKindsList, KCDefine.U_KEY_FMT_EXTRA_MISSION_KINDS, (a_eMissionKinds) => $"{(int)a_eMissionKinds}", a_oOutMissionInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
@@ -61,11 +64,11 @@ public struct STMissionInfo {
 
 /** 미션 정보 테이블 */
 public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
-#region 프로퍼티
+	#region 프로퍼티
 	public Dictionary<EMissionKinds, STMissionInfo> MissionInfoDict { get; } = new Dictionary<EMissionKinds, STMissionInfo>();
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -162,9 +165,9 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 
 		return this.MissionInfoDict;
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 미션 정보를 저장한다 */
 	public void SaveMissionInfos() {

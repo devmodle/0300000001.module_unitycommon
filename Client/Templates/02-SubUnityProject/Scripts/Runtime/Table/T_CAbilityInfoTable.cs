@@ -19,6 +19,7 @@ public struct STAbilityInfo {
 	public EAbilityKinds m_eNextAbilityKinds;
 	public EAbilityValType m_eAbilityValType;
 
+	public List<EAbilityKinds> m_oExtraAbilityKindsList;
 	public Dictionary<ulong, STTargetInfo> m_oExtraAbilityTargetInfoDict;
 
 	#region 상수
@@ -43,6 +44,7 @@ public struct STAbilityInfo {
 		m_eNextAbilityKinds = a_oAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS].ExIsValid() ? (EAbilityKinds)a_oAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS].AsInt : EAbilityKinds.NONE;
 		m_eAbilityValType = a_oAbilityInfo[KCDefine.U_KEY_ABILITY_VAL_TYPE].ExIsValid() ? (EAbilityValType)a_oAbilityInfo[KCDefine.U_KEY_ABILITY_VAL_TYPE].AsInt : EAbilityValType.NONE;
 
+		m_oExtraAbilityKindsList = Factory.MakeVals(a_oAbilityInfo, KCDefine.U_KEY_FMT_EXTRA_ABILITY_KINDS, (a_oJSONNode) => (EAbilityKinds)a_oJSONNode.AsInt);
 		m_oExtraAbilityTargetInfoDict = Factory.MakeTargetInfos(a_oAbilityInfo, KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO);
 	}
 	#endregion // 함수
@@ -59,10 +61,11 @@ public struct STAbilityInfo {
 		a_oOutAbilityInfo[KCDefine.U_KEY_NEXT_ABILITY_KINDS] = $"{(int)m_eNextAbilityKinds}";
 		a_oOutAbilityInfo[KCDefine.U_KEY_ABILITY_VAL_TYPE] = $"{(int)m_eAbilityValType}";
 
+		Func.SaveVals(m_oExtraAbilityKindsList, KCDefine.U_KEY_FMT_EXTRA_ABILITY_KINDS, (a_eAbilityKinds) => $"{(int)a_eAbilityKinds}", a_oOutAbilityInfo);
 		Func.SaveTargetInfos(m_oExtraAbilityTargetInfoDict, KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, a_oOutAbilityInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 어빌리티 교환 정보 */
@@ -116,7 +119,7 @@ public struct STAbilityTradeInfo {
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutAbilityTradeInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 어빌리티 정보 테이블 */
@@ -388,7 +391,7 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 		Access.AbilityTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_ENHANCE_TRADE)?.ExCopyTo(a_oOutEnhanceTradeKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY
