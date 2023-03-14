@@ -319,10 +319,13 @@ public static partial class CCommonEditorSceneManager {
 	/** 스프라이트 아틀라스를 설정한다 */
 	private static void DoSetupSpriteAtlases(List<string> a_oDirPathList) {
 		for(int i = 0; i < a_oDirPathList.Count; ++i) {
-			int nIdx = KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(a_oDirPathList[i].ExGetFileName(false).Replace(KCDefine.B_NAME_PATTERN_IGNORE_TEX_COMPRESS, string.Empty)));
+			int nIdx01 = KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(a_oDirPathList[i].ExGetFileName(false).Replace(KCDefine.B_NAME_PATTERN_TEX_FIX_REPEAT_WRAP, string.Empty)));
+			int nIdx02 = KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(a_oDirPathList[i].ExGetFileName(false).Replace(KCDefine.B_NAME_PATTERN_TEX_FIX_POINT_FILTER, string.Empty)));
+			int nIdx03 = KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(a_oDirPathList[i].ExGetFileName(false).Replace(KCDefine.B_NAME_PATTERN_IGNORE_TEX_COMPRESS, string.Empty)));
 
 			// 스프라이트 아틀라스 경로가 존재 할 경우
-			if(KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx)) {
+			if(KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx01) || KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx02) || KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx03)) {
+				int nIdx = KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx01) ? nIdx01 : KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx02) ? nIdx02 : nIdx03;
 				string oSpriteAtlasPath01 = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_RESOURCES, KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST[nIdx]);
 				string oSpriteAtlasPath02 = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_EDITOR_RESOURCES, KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST[nIdx]);
 
