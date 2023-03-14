@@ -1,4 +1,5 @@
 #if SCRIPT_TEMPLATE_ONLY
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 전역 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 	// 개수
 	public const int G_MAX_NUM_VALS = 10;
 	public const int G_MAX_NUM_VAL_INFOS = 10;
@@ -33,9 +34,9 @@ public static partial class KDefine {
 	public const string G_GOOGLE_SHEET_ID_ETC_INFO_B = "1CFQ6eD3B6AASyXFnd30wRGTYs2mvPLdonPiWKaMvCTA";
 #endif // #if AB_TEST_ENABLE
 	// 식별자 }
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 버전 {
 	public static readonly System.Version G_VER_APP_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_GAME_INFO = new System.Version(1, 0, 0);
@@ -224,7 +225,8 @@ public static partial class KDefine {
 					new STKeyInfo(KCDefine.U_KEY_PREV_FX_KINDS, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_NEXT_FX_KINDS, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_TIME_INFO, EKeyType.SINGLE),
-					new STKeyInfo(KCDefine.U_KEY_FMT_RES_KINDS, EKeyType.MULTI)
+					new STKeyInfo(KCDefine.U_KEY_FMT_RES_KINDS, EKeyType.MULTI),
+					new STKeyInfo(KCDefine.U_KEY_FMT_EXTRA_FX_KINDS, EKeyType.MULTI)
 				}
 			}
 		}),
@@ -241,7 +243,8 @@ public static partial class KDefine {
 					new STKeyInfo(KCDefine.U_KEY_MISSION_KINDS, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_PREV_MISSION_KINDS, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_NEXT_MISSION_KINDS, EKeyType.SINGLE),
-					new STKeyInfo(KCDefine.U_KEY_FMT_REWARD_KINDS, EKeyType.MULTI)
+					new STKeyInfo(KCDefine.U_KEY_FMT_REWARD_KINDS, EKeyType.MULTI),
+					new STKeyInfo(KCDefine.U_KEY_FMT_EXTRA_MISSION_KINDS, EKeyType.MULTI)
 				}
 			}
 		}),
@@ -297,6 +300,7 @@ public static partial class KDefine {
 					new STKeyInfo(KCDefine.U_KEY_ITEM_KINDS, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_PREV_ITEM_KINDS, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_NEXT_ITEM_KINDS, EKeyType.SINGLE),
+					new STKeyInfo(KCDefine.U_KEY_FMT_EXTRA_ITEM_KINDS, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_ATTACH_ITEM_TARGET_INFO, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_SKILL_TARGET_INFO, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, EKeyType.MULTI)
@@ -349,6 +353,7 @@ public static partial class KDefine {
 
 					new STKeyInfo(KCDefine.U_KEY_FMT_FX_KINDS, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_RES_KINDS, EKeyType.MULTI),
+					new STKeyInfo(KCDefine.U_KEY_FMT_EXTRA_SKILL_KINDS, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO, EKeyType.MULTI)
 				},
 
@@ -397,6 +402,7 @@ public static partial class KDefine {
 					new STKeyInfo(KCDefine.U_KEY_SIZE, EKeyType.SINGLE),
 
 					new STKeyInfo(KCDefine.U_KEY_FMT_RES_KINDS, EKeyType.MULTI),
+					new STKeyInfo(KCDefine.U_KEY_FMT_EXTRA_OBJ_KINDS, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_EQUIP_ITEM_TARGET_INFO, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_SKILL_TARGET_INFO, EKeyType.MULTI),
@@ -447,6 +453,7 @@ public static partial class KDefine {
 					new STKeyInfo(KCDefine.U_KEY_NEXT_ABILITY_KINDS, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_ABILITY_VAL_TYPE, EKeyType.SINGLE),
 					new STKeyInfo(KCDefine.U_KEY_VAL_INFO, EKeyType.SINGLE),
+					new STKeyInfo(KCDefine.U_KEY_FMT_EXTRA_ABILITY_KINDS, EKeyType.MULTI),
 					new STKeyInfo(KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, EKeyType.MULTI)
 				},
 
@@ -500,102 +507,102 @@ public static partial class KDefine {
 		})
 	};
 	// 테이블 정보 }
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 초기화 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 색상
 	public static readonly Color IS_COLOR_CLEAR = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 시작 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 위치
 	public static readonly Vector3 SS_POS_LOADING_TEXT = new Vector3(0.0f, 70.0f, 0.0f);
 	public static readonly Vector3 SS_POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 설정 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 약관 동의 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 지연 설정 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 타이틀 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 메인 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 플레이 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 	// 이름
 	public const string PS_OBJ_N_ENGINE = "Engine";
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 결과 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 로딩 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 위치
 	public static readonly Vector3 LS_POS_LOADING_TEXT = new Vector3(0.0f, 70.0f, 0.0f);
 	public static readonly Vector3 LS_POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 중첩 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

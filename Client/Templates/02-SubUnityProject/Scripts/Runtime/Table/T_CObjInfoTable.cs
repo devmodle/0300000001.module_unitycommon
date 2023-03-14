@@ -12,10 +12,13 @@ using System.IO;
 [System.Serializable]
 public struct STObjInfo {
 	public STCommonInfo m_stCommonInfo;
-
-	public int m_nOrder;
 	public Vector3 m_stSize;
 
+	public bool m_bIsRand;
+	public bool m_bIsOverlay;
+	public bool m_bIsClearTarget;
+
+	public int m_nOrder;
 	public EObjKinds m_eObjKinds;
 	public EObjKinds m_ePrevObjKinds;
 	public EObjKinds m_eNextObjKinds;
@@ -45,10 +48,13 @@ public struct STObjInfo {
 	/** 생성자 */
 	public STObjInfo(SimpleJSON.JSONNode a_oObjInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oObjInfo);
-
-		m_nOrder = a_oObjInfo[KCDefine.U_KEY_ORDER].ExIsValid() ? a_oObjInfo[KCDefine.U_KEY_ORDER].AsInt : KCDefine.B_VAL_0_INT;
 		m_stSize = a_oObjInfo[KCDefine.U_KEY_SIZE].ExIsValid() ? new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat) : Vector3.zero;
 
+		m_bIsRand = a_oObjInfo[KCDefine.U_KEY_IS_RANDOM].ExIsValid() ? a_oObjInfo[KCDefine.U_KEY_IS_RANDOM].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsOverlay = a_oObjInfo[KCDefine.U_KEY_IS_OVERLAY].ExIsValid() ? a_oObjInfo[KCDefine.U_KEY_IS_OVERLAY].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsClearTarget = a_oObjInfo[KCDefine.U_KEY_IS_CLEAR_TARGET].ExIsValid() ? a_oObjInfo[KCDefine.U_KEY_IS_CLEAR_TARGET].AsInt != KCDefine.B_VAL_0_INT : false;
+
+		m_nOrder = a_oObjInfo[KCDefine.U_KEY_ORDER].ExIsValid() ? a_oObjInfo[KCDefine.U_KEY_ORDER].AsInt : KCDefine.B_VAL_0_INT;
 		m_eObjKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_ePrevObjKinds = a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
@@ -75,6 +81,11 @@ public struct STObjInfo {
 		a_oOutObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT] = $"{m_stSize.y:0.0}";
 		a_oOutObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT] = $"{m_stSize.z:0.0}";
 
+		a_oOutObjInfo[KCDefine.U_KEY_IS_RANDOM] = m_bIsRand ? KCDefine.B_STR_1_INT : KCDefine.B_STR_0_INT;
+		a_oOutObjInfo[KCDefine.U_KEY_IS_OVERLAY] = m_bIsOverlay ? KCDefine.B_STR_1_INT : KCDefine.B_STR_0_INT;
+		a_oOutObjInfo[KCDefine.U_KEY_IS_CLEAR_TARGET] = m_bIsClearTarget ? KCDefine.B_STR_1_INT : KCDefine.B_STR_0_INT;
+
+		a_oOutObjInfo[KCDefine.U_KEY_ORDER] = $"{m_nOrder}";
 		a_oOutObjInfo[KCDefine.U_KEY_OBJ_KINDS] = $"{(int)m_eObjKinds}";
 		a_oOutObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS] = $"{(int)m_ePrevObjKinds}";
 		a_oOutObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS] = $"{(int)m_eNextObjKinds}";
