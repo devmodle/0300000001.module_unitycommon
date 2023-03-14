@@ -45,9 +45,12 @@ namespace NSEngine {
 			// 어빌리티 값을 설정한다
 			this.SetupAbilityVals();
 
-			// 스프라이트를 설정한다
+			// 스프라이트를 설정한다 {
 			this.TargetSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(a_stParams.m_stObjInfo.m_eObjKinds));
 			this.TargetSprite?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
+
+			this.TargetSprite?.gameObject.SetActive(a_stParams.m_stObjInfo.m_eObjKinds != EObjKinds.BG_PLACEHOLDER_01);
+			// 스프라이트를 설정한다 }
 
 			this.SubInit();
 		}

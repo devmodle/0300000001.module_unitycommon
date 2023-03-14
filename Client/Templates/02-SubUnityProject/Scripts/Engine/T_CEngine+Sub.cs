@@ -217,7 +217,7 @@ namespace NSEngine {
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
 				// 객체 종류가 유효 할 경우
-				if(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds.ExIsValid() && a_stCellInfo.m_oCellObjInfoList[i].ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
+				if(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds.ExIsValid()) {
 					var stPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Vector3.zero, Access.CellSize);
 					var stCenterPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
 
