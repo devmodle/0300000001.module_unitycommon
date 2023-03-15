@@ -12,7 +12,6 @@ namespace NSEngine {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			PARTICLE_FX,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -23,7 +22,7 @@ namespace NSEngine {
 		}
 
 		#region 변수
-		private Dictionary<EKey, ParticleSystem> m_oParticleDict = new Dictionary<EKey, ParticleSystem>();
+
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -34,12 +33,6 @@ namespace NSEngine {
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-
-			// 파티클 효과를 설정한다
-			CFunc.SetupParticleFXs(new List<(EKey, string, GameObject)>() {
-				(EKey.PARTICLE_FX, $"{EKey.PARTICLE_FX}", this.gameObject)
-			}, m_oParticleDict);
-
 			this.SubAwake();
 		}
 
@@ -48,7 +41,7 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-			m_oParticleDict[EKey.PARTICLE_FX]?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stFXInfo.m_eFXKinds));
+			this.TargetParticleFX?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stFXInfo.m_eFXKinds));
 			this.SubInit();
 		}
 

@@ -24,6 +24,11 @@ namespace NSEngine {
 		#endregion // 프로퍼티
 
 		#region 함수
+		/** 효과 상태를 처리한다 */
+		protected virtual void HandleFXState(float a_fDeltaTime) {
+			// Do Something
+		}
+
 		/** 대기 상태를 처리한다 */
 		protected virtual void HandleIdleState(float a_fDeltaTime) {
 			// Do Something

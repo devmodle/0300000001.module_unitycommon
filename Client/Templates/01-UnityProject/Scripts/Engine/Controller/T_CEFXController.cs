@@ -9,13 +9,27 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 효과 제어자 */
 	public partial class CEFXController : CEController {
+		/** 식별자 */
+		private enum EKey {
+			NONE = -1,
+			APPLY_TIMES,
+			UPDATE_SKIP_TIME,
+			[HideInInspector] MAX_VAL
+		}
+
 		/** 매개 변수 */
 		public new struct STParams {
 			public CEController.STParams m_stBaseParams;
 		}
 
 		#region 변수
+		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
+			[EKey.APPLY_TIMES] = KCDefine.B_VAL_0_INT
+		};
 
+		private Dictionary<EKey, float> m_oRealDict = new Dictionary<EKey, float>() {
+			[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL
+		};
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -69,7 +83,12 @@ namespace NSEngine {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsAppRunning && this.SubState != ESubState.NONE) {
+				switch(this.SubState) {
+					case ESubState.APPLY: this.HandleApplySubState(a_fDeltaTime); break;
+					case ESubState.COMPLETE: this.HandleCompleteSubState(a_fDeltaTime); break;
+				}
+
 				this.SubOnUpdate(a_fDeltaTime);
 			}
 		}

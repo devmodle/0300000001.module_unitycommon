@@ -20,10 +20,29 @@ namespace NSEngine {
 		#endregion // 변수
 
 		#region 프로퍼티
-
+		
 		#endregion // 프로퍼티
 
 		#region 함수
+		/** 스킬을 적용한다 */
+		public void Apply() {
+			this.SetState(EState.IDLE);
+		}
+
+		/** 대기 상태를 처리한다 */
+		protected override void HandleIdleState(float a_fDeltaTime) {
+			base.HandleIdleState(a_fDeltaTime);			
+			m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
+
+			// 딜레이 시간이 지났을 경우
+			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDelay)) {
+				m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
+
+				this.SetState(EState.FX);
+				this.SetSubState(ESubState.APPLY);
+			}
+		}
+
 		/** 초기화 */
 		private void SubAwake() {
 			// Do Something
@@ -57,6 +76,26 @@ namespace NSEngine {
 			if(CSceneManager.IsAppRunning) {
 				// Do Something
 			}
+		}
+
+		/** 적용 서브 상태를 처리한다 */
+		private void HandleApplySubState(float a_fDeltaTime) {
+			m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
+
+			// 적용 간격이 지났을 경우
+			if(m_oIntDict[EKey.APPLY_TIMES] < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (m_oIntDict[EKey.APPLY_TIMES] - KCDefine.B_VAL_1_INT))) {
+				m_oIntDict[EKey.APPLY_TIMES] += KCDefine.B_VAL_1_INT;
+			}
+			
+			// 적용 시간이 지났을 경우
+			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDuration)) {
+				this.Engine.RemoveEObjComponent(this.GetOwner<CEFX>());
+			}
+		}
+
+		/** 완료 서브 상태를 처리한다 */
+		private void HandleCompleteSubState(float a_fDeltaTime) {
+			// Do Something
 		}
 		#endregion // 함수
 	}

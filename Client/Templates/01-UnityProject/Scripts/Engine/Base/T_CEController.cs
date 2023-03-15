@@ -18,6 +18,7 @@ namespace NSEngine {
 		/** 상태 */
 		public enum EState {
 			NONE = -1,
+			FX,
 			IDLE,
 			MOVE,
 			SKILL,
@@ -93,6 +94,7 @@ namespace NSEngine {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
 				switch(this.State) {
+					case EState.FX: this.HandleFXState(a_fDeltaTime); break;
 					case EState.IDLE: this.HandleIdleState(a_fDeltaTime); break;
 					case EState.MOVE: this.HandleMoveState(a_fDeltaTime); break;
 					case EState.SKILL: this.HandleSkillState(a_fDeltaTime); break;

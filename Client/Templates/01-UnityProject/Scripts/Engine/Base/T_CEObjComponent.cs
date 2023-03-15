@@ -13,6 +13,7 @@ namespace NSEngine {
 		private enum EKey {
 			NONE = -1,
 			TARGET_SPRITE,
+			TARGET_PARTICLE_FX,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -33,6 +34,10 @@ namespace NSEngine {
 
 		#region 변수
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
+		private Dictionary<EKey, ParticleSystem> m_oParticleFXDict = new Dictionary<EKey, ParticleSystem>();
+
+		/** =====> 객체 <===== */
+		[SerializeField] private List<GameObject> m_oExtraTargetList = new List<GameObject>();
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -40,6 +45,8 @@ namespace NSEngine {
 		public CDictWrapper<EAbilityKinds, decimal> AbilityValDictWrapper { get; } = new CDictWrapper<EAbilityKinds, decimal>();
 
 		public SpriteRenderer TargetSprite => m_oSpriteDict[EKey.TARGET_SPRITE];
+		public ParticleSystem TargetParticleFX => m_oParticleFXDict[EKey.TARGET_PARTICLE_FX];
+		public List<GameObject> ExtraTargetList => m_oExtraTargetList;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -52,6 +59,11 @@ namespace NSEngine {
 				(EKey.TARGET_SPRITE, $"{EKey.TARGET_SPRITE}", this.gameObject)
 			}, m_oSpriteDict);
 
+			// 파티클 효과를 설정한다
+			CFunc.SetupParticleFXs(new List<(EKey, string, GameObject)>() {
+				(EKey.TARGET_PARTICLE_FX, $"{EKey.TARGET_PARTICLE_FX}", this.gameObject)
+			}, m_oParticleFXDict);
+
 			this.SubAwake();
 		}
 
@@ -60,8 +72,13 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
+			// 스프라이트를 설정한다
 			m_oSpriteDict[EKey.TARGET_SPRITE]?.gameObject.ExSetLocalPos(Vector3.zero, false);
 			m_oSpriteDict[EKey.TARGET_SPRITE]?.ExSetColor<SpriteRenderer>(Color.white, false);
+
+			// 파티클 효과를 설정한다
+			m_oParticleFXDict[EKey.TARGET_PARTICLE_FX]?.gameObject.ExSetLocalPos(Vector3.zero, false);
+			m_oParticleFXDict[EKey.TARGET_PARTICLE_FX]?.Stop(true);
 			
 			this.SubInit();
 		}
