@@ -47,7 +47,9 @@ namespace StartScene {
 
 		#region 프로퍼티
 		public override string SceneName => KCDefine.B_SCENE_N_START;
-		public virtual bool IsIgnoreLoadingGauge => true;
+		
+		public virtual bool IsIgnoreLoadingText => false;
+		public virtual bool IsIgnoreLoadingGauge => false;
 
 		public virtual Vector3 LoadingTextPos => Vector3.zero;
 		public virtual Vector3 LoadingGaugePos => Vector3.zero;
@@ -66,6 +68,9 @@ namespace StartScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
+				var oLoadingText = this.UIs.ExFindChild($"{EKey.LOADING_TEXT}");
+				var oLoadingGauge = this.UIs.ExFindChild($"{EKey.LOADING_GAUGE}");
+				
 				CCommonAppInfoStorage.Inst.IncrAppRunningTimes(KCDefine.B_VAL_1_INT);
 				CCommonAppInfoStorage.Inst.SaveAppInfo();
 
@@ -74,8 +79,8 @@ namespace StartScene {
 					(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
 				}, m_oUIsDict);
 
+				m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = (oLoadingGauge != null) ? m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition : this.LoadingGaugePos;
 				m_oUIsDict[EKey.LOADING_GAUGE].SetActive(!this.IsIgnoreLoadingGauge);
-				m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = this.LoadingGaugePos;
 				// 객체를 설정한다 }
 
 				// 텍스트를 설정한다 {
@@ -83,7 +88,8 @@ namespace StartScene {
 					(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", m_oUIsDict[EKey.LOADING_GAUGE], CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
 				}, m_oTextDict);
 
-				m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = this.LoadingTextPos;
+				m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = (oLoadingText != null) ? m_oTextDict[EKey.LOADING_TEXT].transform.localPosition : this.LoadingTextPos;
+				m_oTextDict[EKey.LOADING_TEXT].gameObject.SetActive(!this.IsIgnoreLoadingText);
 				// 텍스트를 설정한다 }
 
 				// 게이지 처리자를 설정한다
