@@ -20,18 +20,25 @@ namespace NSEngine {
 		#endregion // 변수
 
 		#region 프로퍼티
-		
+
 		#endregion // 프로퍼티
 
 		#region 함수
-		/** 스킬을 적용한다 */
+		/** 효과를 적용한다 */
 		public void Apply() {
 			this.SetState(EState.IDLE);
+
+			switch(this.GetOwner<CEFX>().Params.m_stFXInfo.m_eFXApplyType) {
+				case EFXApplyType.ANI: this.ApplyAni(); break;
+				case EFXApplyType.TWEEN: this.ApplyTween(); break;
+				case EFXApplyType.ANIMATOR: this.ApplyAnimator(); break;
+				case EFXApplyType.PARTICLE_FX: this.ApplyParticleFX(); break;
+			}
 		}
 
 		/** 대기 상태를 처리한다 */
 		protected override void HandleIdleState(float a_fDeltaTime) {
-			base.HandleIdleState(a_fDeltaTime);			
+			base.HandleIdleState(a_fDeltaTime);
 			m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
 
 			// 딜레이 시간이 지났을 경우
@@ -78,6 +85,26 @@ namespace NSEngine {
 			}
 		}
 
+		/** 애니메이션을 적용한다 */
+		private void ApplyAni() {
+			// Do Something
+		}
+
+		/** 애니메이션을 적용한다 */
+		private void ApplyTween() {
+			// Do Something
+		}
+
+		/** 애니메이터를 적용한다 */
+		private void ApplyAnimator() {
+			// Do Something
+		}
+
+		/** 파티클 효과를 적용한다 */
+		private void ApplyParticleFX() {
+			// Do Something
+		}
+
 		/** 적용 서브 상태를 처리한다 */
 		private void HandleApplySubState(float a_fDeltaTime) {
 			m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
@@ -86,7 +113,7 @@ namespace NSEngine {
 			if(m_oIntDict[EKey.APPLY_TIMES] < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (m_oIntDict[EKey.APPLY_TIMES] - KCDefine.B_VAL_1_INT))) {
 				m_oIntDict[EKey.APPLY_TIMES] += KCDefine.B_VAL_1_INT;
 			}
-			
+
 			// 적용 시간이 지났을 경우
 			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDuration)) {
 				this.Engine.RemoveEObjComponent(this.GetOwner<CEFX>());
