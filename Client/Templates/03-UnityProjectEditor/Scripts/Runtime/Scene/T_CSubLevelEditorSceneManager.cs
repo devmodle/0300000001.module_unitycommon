@@ -86,8 +86,9 @@ namespace LevelEditorScene {
 			RE_UIS_PAGE_UIS_01_SAVE_REMOTE_TABLE_BTN,
 
 			RE_UIS_PAGE_UIS_01_REMOVE_ALL_LEVELS_BTN,
+			RE_UIS_PAGE_UIS_01_GRID_TYPE_DROP,
 			RE_UIS_PAGE_UIS_01_LEVEL_INPUT,
-			
+
 			RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT,
 			RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT,
 
@@ -214,6 +215,7 @@ namespace LevelEditorScene {
 		private List<Button> m_oGridLineBtnVList = new List<Button>();
 
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
+		private Dictionary<EKey, Dropdown> m_oDropDict = new Dictionary<EKey, Dropdown>();
 		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
 		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
@@ -232,7 +234,7 @@ namespace LevelEditorScene {
 		public CLevelInfo SelLevelInfo => m_oLevelInfoDict[EKey.SEL_LEVEL_INFO];
 		public NSEngine.STGridInfo SelGridInfo => m_oGridInfoList[this.SelGridInfoIdx];
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 프로퍼티
+#endregion // 프로퍼티
 
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
@@ -1270,7 +1272,7 @@ namespace LevelEditorScene {
 				var oHandlerDict = new Dictionary<string, System.Action>() {
 					// Do Something
 				};
-				
+
 				oHandlerDict.GetValueOrDefault(a_stGoogleSheetSaveInfo.m_oSheetName)?.Invoke();
 			}
 		}
@@ -1287,7 +1289,7 @@ namespace LevelEditorScene {
 		}
 #endif // #if GOOGLE_SHEET_ENABLE
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -1391,7 +1393,7 @@ namespace LevelEditorScene {
 			CGameInfoStorage.Inst.SetPlayLevelInfo(a_oLevelInfo);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 접근자 함수
+#endregion // 조건부 접근자 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 중앙 에디터 UI */
@@ -1620,7 +1622,7 @@ namespace LevelEditorScene {
 			this.SetMEUIsGridScrollDelta(a_fVal * -fWidth, a_fVal * -fHeight);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -1655,7 +1657,7 @@ namespace LevelEditorScene {
 			this.UpdateUIsState();
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 접근자 함수
+#endregion // 조건부 접근자 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 왼쪽 에디터 UI */
@@ -1783,7 +1785,7 @@ namespace LevelEditorScene {
 		}
 #endif // #if AB_TEST_ENABLE
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 오른쪽 에디터 UI */
@@ -1837,15 +1839,20 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 를 설정한다 */
 		private void SetupREUIsPageUIs01(GameObject a_oPageUIs) {
+			// 드롭을 설정한다
+			CFunc.SetupDrops(new List<(EKey, string, GameObject, UnityAction<int>)>() {
+				(EKey.RE_UIS_PAGE_UIS_01_GRID_TYPE_DROP, $"{EKey.RE_UIS_PAGE_UIS_01_GRID_TYPE_DROP}", a_oPageUIs, this.OnInputREUIsPageUIs01GridTypeDrop)
+			}, m_oDropDict);
+
 			// 입력 필드를 설정한다 {
 			CFunc.SetupInputs(new List<(EKey, string, GameObject, UnityAction<string>)>() {
-				(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01LevelInputStr),
+				(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01LevelInput),
 
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumCellsInputStr),
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumCellsInputStr),
-				
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumViewCellsInputStr),
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumViewCellsInputStr)
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumCellsInput),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumCellsInput),
+
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumViewCellsInput),
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs01NumViewCellsInput)
 			}, m_oInputDict);
 
 			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]);
@@ -1879,8 +1886,8 @@ namespace LevelEditorScene {
 		private void SetupREUIsPageUIs02(GameObject a_oPageUIs) {
 			// 입력 필드를 설정한다 {
 			CFunc.SetupInputs(new List<(EKey, string, GameObject, UnityAction<string>)>() {
-				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs02ObjSizeInputStr),
-				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs02ObjSizeInputStr)
+				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs02ObjSizeInput),
+				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT}", a_oPageUIs, this.OnInputREUIsPageUIs02ObjSizeInput)
 			}, m_oInputDict);
 
 			m_oInputList02.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]);
@@ -1982,6 +1989,9 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 상태를 갱신한다 */
 		private void UpdateREUIsPageUIs01(GameObject a_oPageUIs) {
+			// 드롭을 갱신한다
+			m_oDropDict[EKey.RE_UIS_PAGE_UIS_01_GRID_TYPE_DROP].SetValueWithoutNotify((int)this.SelLevelInfo.GridType + KCDefine.B_VAL_1_INT);
+
 			// 입력 필드를 갱신한다 {
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.SetTextWithoutNotify($"{this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT}");
 
@@ -2157,37 +2167,43 @@ namespace LevelEditorScene {
 			this.UpdateUIsState();
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 1 레벨 입력 문자열을 입력했을 경우 */
-		private void OnInputREUIsPageUIs01LevelInputStr(string a_oStr) {
-			bool bIsValid = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.text, NumberStyles.Any, null, out int nID);
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.SetTextWithoutNotify($"{Mathf.Max(nID, KCDefine.B_VAL_1_INT)}");
+		/** 오른쪽 에디터 UI 페이지 UI 1 그리드 타입을 입력했을 경우 */
+		private void OnInputREUIsPageUIs01GridTypeDrop(int a_nIdx) {
+			bool bIsValid = a_nIdx >= KCDefine.B_VAL_0_INT && a_nIdx <= (int)EGridType.MAX_VAL;
+			this.SetREUIsPageUIs01GridType(bIsValid ? a_nIdx : KCDefine.B_VAL_0_INT);
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 1 셀 개수 입력 문자열을 입력했을 경우 */
-		private void OnInputREUIsPageUIs01NumCellsInputStr(string a_oStr) {
+		/** 오른쪽 에디터 UI 페이지 UI 1 레벨을 입력했을 경우 */
+		private void OnInputREUIsPageUIs01LevelInput(string a_oStr) {
+			bool bIsValid = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.text, NumberStyles.Any, null, out int nID);
+			this.SetREUIsPageUIs01Level(bIsValid ? nID : KCDefine.B_VAL_1_INT);
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 1 셀 개수를 입력했을 경우 */
+		private void OnInputREUIsPageUIs01NumCellsInput(string a_oStr) {
 			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsX);
 			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsY);
 
 			this.SetREUIsPageUIs01NumCells(bIsValid01 ? nNumCellsX : KCDefine.B_VAL_1_INT, bIsValid02 ? nNumCellsY : KCDefine.B_VAL_1_INT);
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 1 시야 셀 개수 입력 문자열을 입력했을 경우 */
-		private void OnInputREUIsPageUIs01NumViewCellsInputStr(string a_oStr) {
+		/** 오른쪽 에디터 UI 페이지 UI 1 시야 셀 개수를 입력했을 경우 */
+		private void OnInputREUIsPageUIs01NumViewCellsInput(string a_oStr) {
 			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsX);
 			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]?.text, NumberStyles.Any, null, out int nNumCellsY);
 
 			this.SetREUIsPageUIs01NumViewCells(bIsValid01 ? nNumCellsX : KCDefine.B_VAL_1_INT, bIsValid02 ? nNumCellsY : KCDefine.B_VAL_1_INT);
 		}
 
-		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기 입력 문자열을 입력했을 경우 */
-		private void OnInputREUIsPageUIs02ObjSizeInputStr(string a_oStr) {
+		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기를 입력했을 경우 */
+		private void OnInputREUIsPageUIs02ObjSizeInput(string a_oStr) {
 			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.text, NumberStyles.Any, null, out int nSizeX);
 			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.text, NumberStyles.Any, null, out int nSizeY);
 
 			this.SetREUIsPageUIs02ObjSize(bIsValid01 ? nSizeX : KCDefine.B_VAL_1_INT, bIsValid02 ? nSizeY : KCDefine.B_VAL_1_INT);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -2226,6 +2242,19 @@ namespace LevelEditorScene {
 			return KCDefine.B_IDX_INVALID_3D;
 		}
 
+		/** 오른쪽 에디터 UI 페이지 UI 1 레벨을 변경한다 */
+		private void SetREUIsPageUIs01Level(int a_nLevel) {
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nLevel, KCDefine.B_VAL_1_INT, KCDefine.U_MAX_NUM_LEVEL_INFOS)}");
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 1 그리드 타입을 변경한다 */
+		private void SetREUIsPageUIs01GridType(int a_nGridType) {
+			int nGridType = Mathf.Clamp(a_nGridType, KCDefine.B_VAL_0_INT, (int)EGridType.MAX_VAL);
+			this.SelLevelInfo.GridType = (EGridType)(nGridType - KCDefine.B_VAL_1_INT);
+
+			this.UpdateUIsState();
+		}
+
 		/** 오른쪽 에디터 UI 페이지 UI 1 셀 개수를 변경한다 */
 		private void SetREUIsPageUIs01NumCells(int a_nNumCellsX, int a_nNumCellsY) {
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nNumCellsX, NSEngine.KDefine.E_MIN_NUM_CELLS.x, NSEngine.KDefine.E_MAX_NUM_CELLS.x)}");
@@ -2249,7 +2278,7 @@ namespace LevelEditorScene {
 			this.UpdateUIsState();
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 접근자 함수
+#endregion // 조건부 접근자 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 스크롤러 셀 뷰 */
