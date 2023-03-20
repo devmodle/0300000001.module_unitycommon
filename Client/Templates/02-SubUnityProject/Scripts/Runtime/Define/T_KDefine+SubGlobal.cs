@@ -17,6 +17,16 @@ public static partial class KDefine {
 	public const int G_MAX_TIMES_ADS_SKIP = 0;
 	public const int G_MAX_TIMES_ACQUIRE_FREE_REWARDS = 0;
 
+	// 식별자 {
+	public const int G_ID_HIT_FX = 0;
+	public const int G_ID_DAMAGE_FX = 1;
+	public const int G_ID_DESTROY_FX = 2;
+
+	public const int G_ID_HIT_SKILL = 0;
+	public const int G_ID_DAMAGE_SKILL = 1;
+	public const int G_ID_DESTROY_SKILL = 2;
+	// 식별자 }
+
 	// 시간 {
 	public const float G_DELAY_SCALE_01 = 1.0f;
 	public const float G_DELAY_SCALE_02 = 1.0f;
