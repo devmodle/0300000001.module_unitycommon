@@ -100,7 +100,7 @@ namespace NSEngine {
 		/** 플레이어 객체 공격 가능 여부를 검사한다 */
 		private bool IsEnableAttackPlayerObj() {
 			var stDelta = this.Engine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;
-			return stDelta.sqrMagnitude.ExIsLessEquals(Mathf.Pow((float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ATK_RANGE_01), KCDefine.B_VAL_2_REAL));
+			return stDelta.sqrMagnitude.ExIsLessEquals(Mathf.Pow((float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_ATK_RANGE_01), KCDefine.B_VAL_2_REAL));
 		}
 		#endregion // 함수
 	}

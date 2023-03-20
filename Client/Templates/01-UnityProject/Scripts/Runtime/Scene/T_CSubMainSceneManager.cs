@@ -90,7 +90,7 @@ namespace MainScene {
 					}
 				}
 
-				Access.SetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_NORM_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND);
+				Access.SetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_NORM_COINS, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, KCDefine.B_UNIT_DIGITS_PER_HUNDRED_THOUSAND);
 				CGameInfoStorage.Inst.SaveGameInfo();
 #endif // #if CREATIVE_DIST_BUILD
 
@@ -108,7 +108,7 @@ namespace MainScene {
 				this.SetupStart();
 				this.UpdateUIsState();
 
-				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_MAIN_01);
+				Func.PlayBGSnd(EResKinds.SND_RES_BG_SCENE_MAIN_01);
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 				// 에디터가 유효 할 경우

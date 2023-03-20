@@ -112,7 +112,7 @@ namespace TitleScene {
 
 				// 타이틀 씬이 유효 할 경우
 				if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
-					Func.PlayBGSnd(EResKinds.SND_BG_SCENE_TITLE_01);
+					Func.PlayBGSnd(EResKinds.SND_RES_BG_SCENE_TITLE_01);
 
 					// 로그인 되었을 경우
 					if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {

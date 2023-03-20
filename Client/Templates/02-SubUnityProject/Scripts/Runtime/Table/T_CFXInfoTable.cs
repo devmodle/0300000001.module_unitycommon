@@ -17,7 +17,7 @@ public struct STFXInfo {
 	public EFXKinds m_eFXKinds;
 	public EFXKinds m_ePrevFXKinds;
 	public EFXKinds m_eNextFXKinds;
-	public EFXApplyType m_eFXApplyType;
+	public EFXApplyKinds m_eFXApplyKinds;
 
 	public List<EResKinds> m_oResKindsList;
 	public List<EFXKinds> m_oExtraFXKindsList;
@@ -31,6 +31,9 @@ public struct STFXInfo {
 	#region 프로퍼티
 	public EFXType FXType => (EFXType)((int)m_eFXKinds).ExKindsToType();
 	public EFXKinds BaseFXKinds => (EFXKinds)((int)m_eFXKinds).ExKindsToSubKindsType();
+
+	public EFXApplyType FXApplyType => (EFXApplyType)((int)m_eFXApplyKinds).ExKindsToType();
+	public EFXApplyKinds BaseFXApplyKinds => (EFXApplyKinds)((int)m_eFXApplyKinds).ExKindsToSubKindsType();
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -42,7 +45,7 @@ public struct STFXInfo {
 		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_eNextFXKinds = a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt : EFXKinds.NONE;
-		m_eFXApplyType = a_oFXInfo[KCDefine.U_KEY_FX_APPLY_TYPE].ExIsValid() ? (EFXApplyType)a_oFXInfo[KCDefine.U_KEY_FX_APPLY_TYPE].AsInt : EFXApplyType.NONE;
+		m_eFXApplyKinds = a_oFXInfo[KCDefine.U_KEY_FX_APPLY_KINDS].ExIsValid() ? (EFXApplyKinds)a_oFXInfo[KCDefine.U_KEY_FX_APPLY_KINDS].AsInt : EFXApplyKinds.NONE;
 
 		m_oResKindsList = Factory.MakeVals(a_oFXInfo, KCDefine.U_KEY_FMT_RES_KINDS, (a_oJSONNode) => (EResKinds)a_oJSONNode.AsInt);
 		m_oExtraFXKindsList = Factory.MakeVals(a_oFXInfo, KCDefine.U_KEY_FMT_EXTRA_FX_KINDS, (a_oJSONNode) => (EFXKinds)a_oJSONNode.AsInt);
@@ -59,7 +62,7 @@ public struct STFXInfo {
 		a_oOutFXInfo[KCDefine.U_KEY_FX_KINDS] = $"{(int)m_eFXKinds}";
 		a_oOutFXInfo[KCDefine.U_KEY_PREV_FX_KINDS] = $"{(int)m_ePrevFXKinds}";
 		a_oOutFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS] = $"{(int)m_eNextFXKinds}";
-		a_oOutFXInfo[KCDefine.U_KEY_FX_APPLY_TYPE] = $"{(int)m_eFXApplyType}";
+		a_oOutFXInfo[KCDefine.U_KEY_FX_APPLY_KINDS] = $"{(int)m_eFXApplyKinds}";
 
 		Func.SaveVals(m_oResKindsList, KCDefine.U_KEY_FMT_RES_KINDS, (a_eResKinds) => $"{(int)a_eResKinds}", a_oOutFXInfo);
 		Func.SaveVals(m_oExtraFXKindsList, KCDefine.U_KEY_FMT_EXTRA_FX_KINDS, (a_eFXKinds) => $"{(int)a_eFXKinds}", a_oOutFXInfo);
@@ -199,7 +202,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 		Access.FXTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

@@ -40,8 +40,8 @@ namespace SetupScene {
 
 			// 공용 캐릭터 유저 정보가 없을 경우
 			if(!CUserInfoStorage.Inst.TryGetCharacterUserInfo(KDefine.G_CHARACTER_ID_COMMON, out CCharacterUserInfo oCharacterUserInfo)) {
-				oCharacterUserInfo = Factory.MakeCharacterUserInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01, new STIDInfo(KDefine.G_CHARACTER_ID_COMMON), STIdxInfo.INVALID);
-				oCharacterUserInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, KCDefine.B_VAL_1_INT);
+				oCharacterUserInfo = Factory.MakeCharacterUserInfo(EObjKinds.PLAYABLE_OBJ_COMMON_CHARACTER_01, new STIDInfo(KDefine.G_CHARACTER_ID_COMMON), STIdxInfo.INVALID);
+				oCharacterUserInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_LV, KCDefine.B_VAL_1_INT);
 
 				CUserInfoStorage.Inst.AddCharacterUserInfo(oCharacterUserInfo);
 				CUserInfoStorage.Inst.SaveUserInfo();

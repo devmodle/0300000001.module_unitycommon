@@ -996,7 +996,7 @@ namespace LevelEditorScene {
 
 							stCellInfo.m_oCellObjInfoList.ExAddVal(a_stCellObjInfo);
 						} else {
-							stCellInfo.m_oCellObjInfoList.ExAddVal(Factory.MakeEditorCellObjInfo(EObjKinds.BG_PLACEHOLDER_01, Vector3Int.one, a_stIdx));
+							stCellInfo.m_oCellObjInfoList.ExAddVal(Factory.MakeEditorCellObjInfo(EObjKinds.BG_OBJ_PLACEHOLDER_01, Vector3Int.one, a_stIdx));
 						}
 					}
 				}
@@ -1034,7 +1034,7 @@ namespace LevelEditorScene {
 						if(stIdx.Equals(a_stIdx)) {
 							this.SelLevelInfo.GetCellInfo(stIdx).m_oCellObjInfoList.ExRemoveVal((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == stCellObjInfo.ObjKinds);
 						} else {
-							this.SelLevelInfo.GetCellInfo(stIdx).m_oCellObjInfoList.ExRemoveVal((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_PLACEHOLDER_01);
+							this.SelLevelInfo.GetCellInfo(stIdx).m_oCellObjInfoList.ExRemoveVal((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_OBJ_PLACEHOLDER_01);
 						}
 					}
 				}
@@ -1346,7 +1346,7 @@ namespace LevelEditorScene {
 
 				this.SelLevelInfo.TryGetCellInfo(a_stIdx, out STCellInfo stCellInfo);
 
-				int nIdx01 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_PLACEHOLDER_01);
+				int nIdx01 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_OBJ_PLACEHOLDER_01);
 				int nIdx02 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == a_eObjKinds && !a_bIsReplace);
 				int nIdx03 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds != a_eObjKinds && !Input.GetKey(KeyCode.LeftShift));
 
@@ -1359,7 +1359,7 @@ namespace LevelEditorScene {
 		/** 셀 객체 제거 가능 여부를 검사한다 */
 		private bool IsEnableRemoveCellObjInfo(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
 			bool bIsValid = this.TryGetCellObjInfo(a_stIdx, a_eObjKinds, out STCellObjInfo stCellObjInfo);
-			return this.IsContainsCellInfo(a_stIdx, stCellObjInfo.m_stSize) && (stCellObjInfo.ObjKinds != EObjKinds.NONE && stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01);
+			return this.IsContainsCellInfo(a_stIdx, stCellObjInfo.m_stSize) && (stCellObjInfo.ObjKinds != EObjKinds.NONE && stCellObjInfo.ObjKinds != EObjKinds.BG_OBJ_PLACEHOLDER_01);
 		}
 
 		/** 에디터 객체 크기를 반환한다 */

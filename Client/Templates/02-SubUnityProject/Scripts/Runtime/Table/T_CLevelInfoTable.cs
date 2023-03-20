@@ -452,7 +452,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 				if(stIdx.Equals(a_stIdx)) {
 					a_stOutCellObjInfo.m_stBaseIdx = a_stOutCellObjInfo.m_stBaseIdx.Equals(KCDefine.B_IDX_INVALID_3D) ? a_stIdx : a_stOutCellObjInfo.m_stBaseIdx;
 				} else {
-					int nIdx = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_PLACEHOLDER_01 && a_stCellObjInfo.m_stBaseIdx.Equals(KCDefine.B_IDX_INVALID_3D));
+					int nIdx = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_OBJ_PLACEHOLDER_01 && a_stCellObjInfo.m_stBaseIdx.Equals(KCDefine.B_IDX_INVALID_3D));
 
 					// 자리 표시 객체가 존재 할 경우
 					if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx)) {

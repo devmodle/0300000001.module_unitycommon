@@ -103,7 +103,7 @@ namespace NSEngine {
 			// 적 객체가 존재 할 경우
 			if(a_oEnemyObj != null) {
 				var stDelta = a_oEnemyObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;
-				return stDelta.sqrMagnitude.ExIsLessEquals(Mathf.Pow((float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ATK_RANGE_01), KCDefine.B_VAL_2_REAL));
+				return stDelta.sqrMagnitude.ExIsLessEquals(Mathf.Pow((float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_ATK_RANGE_01), KCDefine.B_VAL_2_REAL));
 			}
 
 			return false;

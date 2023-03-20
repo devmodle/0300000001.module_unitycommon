@@ -166,7 +166,7 @@ namespace PlayScene {
 					m_oEngine.SelPlayerObj?.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
 				}, KCDefine.B_VAL_0_5_REAL);
 
-				Func.PlayBGSnd(EResKinds.SND_BG_SCENE_GAME_01);
+				Func.PlayBGSnd(EResKinds.SND_RES_BG_SCENE_GAME_01);
 				CCommonAppInfoStorage.Inst.SetEnableEditor(false);
 			}
 		}
@@ -384,7 +384,7 @@ namespace PlayScene {
 
 			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
 				var stValInfo = new STValInfo(EValType.INT, KCDefine.B_VAL_1_INT);
-				var stTargetInfo = new STTargetInfo(ETargetKinds.ITEM_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], stValInfo);
+				var stTargetInfo = new STTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], stValInfo);
 
 				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
 				Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stTargetInfo);

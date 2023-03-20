@@ -108,7 +108,7 @@ namespace LevelEditorScene {
 				bool bIsValid02 = Input.GetKey(CAccess.CmdKeyCode) && Input.GetMouseButtonDown((int)EMouseBtn.LEFT);
 
 				// 셀 객체 정보가 존재 할 경우
-				if(bIsValid01 && bIsValid02 && stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
+				if(bIsValid01 && bIsValid02 && stCellObjInfo.ObjKinds != EObjKinds.BG_OBJ_PLACEHOLDER_01) {
 					this.SetREUIsPageUIs02ObjSize(stCellObjInfo.m_stSize.x, stCellObjInfo.m_stSize.y);
 					this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(stCellObjInfo.ObjKinds);
 				}

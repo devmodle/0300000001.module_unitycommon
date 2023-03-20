@@ -255,7 +255,7 @@ namespace NSEngine {
 		public bool IsClearFail() {
 #if NEVER_USE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
-			bool bIsClearFail01 = this.SelPlayerObj != null && this.SelPlayerObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT;
+			bool bIsClearFail01 = this.SelPlayerObj != null && this.SelPlayerObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_HP_01) <= KCDefine.B_VAL_0_INT;
 #endif // #if NEVER_USE_THIS
 
 			return false;

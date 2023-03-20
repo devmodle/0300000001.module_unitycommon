@@ -75,7 +75,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 
 	/** 보상 획득 팝업을 출력한다 */
 	private void ShowRewardAcquirePopup() {
-		var eRewardKinds = ERewardKinds.FREE_COINS + (CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID).FreeRewardAcquireTimes + KCDefine.B_VAL_1_INT);
+		var eRewardKinds = ERewardKinds.FREE_REWARD_COINS + (CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID).FreeRewardAcquireTimes + KCDefine.B_VAL_1_INT);
 		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
 
 		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {

@@ -23,7 +23,7 @@ public static partial class KDefine {
 	// 객체 종류
 	public static readonly Dictionary<int, List<EObjKinds>> LES_OBJ_KINDS_DICT_CONTAINER = new Dictionary<int, List<EObjKinds>>() {
 		[KCDefine.B_VAL_0_INT] = new List<EObjKinds>() {
-			EObjKinds.BG_EMPTY_01
+			EObjKinds.BG_OBJ_EMPTY_01
 		},
 
 		[KCDefine.B_VAL_1_INT] = new List<EObjKinds>() {

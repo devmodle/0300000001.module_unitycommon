@@ -78,11 +78,11 @@ public partial class CContinuePopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE);
+		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_ITEM_GAME_ITEM_CONTINUE);
 
 		// 텍스트를 갱신한다 {
 		var oTextKeyInfoList = new List<(EKey, ETargetKinds, EItemKinds)>() {
-			(EKey.PRICE_TEXT, ETargetKinds.ITEM_NUMS, EItemKinds.GOODS_NORM_COINS)
+			(EKey.PRICE_TEXT, ETargetKinds.ITEM_TARGET_NUMS, EItemKinds.GOODS_ITEM_NORM_COINS)
 		};
 
 		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
@@ -106,8 +106,8 @@ public partial class CContinuePopup : CSubPopup {
 
 	/** 이어하기 버튼을 눌렀을 경우 */
 	private void OnTouchContinueBtn() {
-		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE);
-		stItemTradeInfo.m_oPayTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_NORM_COINS, out STTargetInfo stTargetInfo);
+		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_ITEM_GAME_ITEM_CONTINUE);
+		stItemTradeInfo.m_oPayTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)EItemKinds.GOODS_ITEM_NORM_COINS, out STTargetInfo stTargetInfo);
 
 		// 교환이 불가능 할 경우
 		if(Access.IsEnableTrade(CGameInfoStorage.Inst.PlayCharacterID, stTargetInfo)) {

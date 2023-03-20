@@ -28,7 +28,7 @@ namespace NSEngine {
 		public void Apply() {
 			this.SetState(EState.IDLE);
 
-			switch(this.GetOwner<CEFX>().Params.m_stFXInfo.m_eFXApplyType) {
+			switch(this.GetOwner<CEFX>().Params.m_stFXInfo.FXApplyType) {
 				case EFXApplyType.ANI: this.ApplyAni(); break;
 				case EFXApplyType.TWEEN: this.ApplyTween(); break;
 				case EFXApplyType.ANIMATOR: this.ApplyAnimator(); break;
@@ -90,12 +90,12 @@ namespace NSEngine {
 			// Do Something
 		}
 
-		/** 애니메이션을 적용한다 */
+		/** 트윈 애니메이션을 적용한다 */
 		private void ApplyTween() {
 			// Do Something
 		}
 
-		/** 애니메이터를 적용한다 */
+		/** 메카님 애니메이터를 적용한다 */
 		private void ApplyAnimator() {
 			// Do Something
 		}

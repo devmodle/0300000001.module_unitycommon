@@ -27,7 +27,7 @@ namespace NSEngine {
 		/** 이동 상태를 처리한다 */
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
-			this.GetOwner<CEObj>().transform.localPosition = this.GetNextPos((m_oVec3Dict[EKey.MOVE_DIRECTION] * (float)this.GetOwner<CEObj>().GetAbilityVal(EAbilityKinds.STAT_MOVE_SPEED_01)) * a_fDeltaTime);
+			this.GetOwner<CEObj>().transform.localPosition = this.GetNextPos((m_oVec3Dict[EKey.MOVE_DIRECTION] * (float)this.GetOwner<CEObj>().GetAbilityVal(EAbilityKinds.STAT_ABILITY_MOVE_SPEED_01)) * a_fDeltaTime);
 		}
 
 		/** 스킬 상태를 처리한다 */
