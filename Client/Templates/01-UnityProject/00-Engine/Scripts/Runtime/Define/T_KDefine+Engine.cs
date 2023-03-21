@@ -57,14 +57,14 @@ namespace NSEngine {
 		public static readonly Vector3 E_MAX_GRID_SIZE_LANDSCAPE = new Vector3(KCDefine.B_LANDSCAPE_SCREEN_HEIGHT - KDefine.E_PADDING_GRID.x, KCDefine.B_LANDSCAPE_SCREEN_HEIGHT - KDefine.E_PADDING_GRID.y, 0.0f);
 
 		// 경로 {
-		public static readonly string E_OBJ_P_ITEM = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_Item";
-		public static readonly string E_OBJ_P_SKILL = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_Skill";
-		public static readonly string E_OBJ_P_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_Obj";
-		public static readonly string E_OBJ_P_FX = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_FX";
+		public static readonly string E_OBJ_P_ITEM = $"{KCDefine.B_DIR_P_PREFABS}Object/E_Item";
+		public static readonly string E_OBJ_P_SKILL = $"{KCDefine.B_DIR_P_PREFABS}Object/E_Skill";
+		public static readonly string E_OBJ_P_OBJ = $"{KCDefine.B_DIR_P_PREFABS}Object/E_Obj";
+		public static readonly string E_OBJ_P_FX = $"{KCDefine.B_DIR_P_PREFABS}Object/E_FX";
 
-		public static readonly string E_OBJ_P_CELL_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_CellObj";
-		public static readonly string E_OBJ_P_PLAYER_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_PlayerObj";
-		public static readonly string E_OBJ_P_ENEMY_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_EnemyObj";
+		public static readonly string E_OBJ_P_CELL_OBJ = $"{KCDefine.B_DIR_P_PREFABS}Object/E_CellObj";
+		public static readonly string E_OBJ_P_PLAYER_OBJ = $"{KCDefine.B_DIR_P_PREFABS}Object/E_PlayerObj";
+		public static readonly string E_OBJ_P_ENEMY_OBJ = $"{KCDefine.B_DIR_P_PREFABS}Object/E_EnemyObj";
 		// 경로 }
 		#endregion // 런타임 상수
 	}
