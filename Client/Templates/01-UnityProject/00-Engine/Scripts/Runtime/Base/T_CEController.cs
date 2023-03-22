@@ -51,6 +51,8 @@ namespace NSEngine {
 		public ESubState SubState { get; private set; } = ESubState.NONE;
 
 		public List<CEObjComponent> TargetList { get; } = new List<CEObjComponent>();
+		public List<CEObjComponent> ExtraTargetList { get; } = new List<CEObjComponent>();
+		
 		protected Dictionary<EState, System.Func<bool>> StateCheckerDict { get; } = new Dictionary<EState, System.Func<bool>>();
 		protected Dictionary<ESubState, System.Func<bool>> SubStateCheckerDict { get; } = new Dictionary<ESubState, System.Func<bool>>();
 
@@ -81,9 +83,11 @@ namespace NSEngine {
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
-			this.TargetList.Clear();
 
-			this.SetState(EState.NONE, true);
+			this.TargetList.Clear();
+			this.ExtraTargetList.Clear();
+
+			this.SetState(EState.NONE);
 			this.SetSubState(ESubState.NONE, true);
 		}
 
@@ -168,6 +172,11 @@ namespace NSEngine {
 		/** 타겟을 반환한다 */
 		public T GetTarget<T>(int a_nIdx) where T : CEObjComponent {
 			return this.TargetList.ExGetVal(a_nIdx, null) as T;
+		}
+
+		/** 추가 타겟을 반환한다 */
+		public T GetExtraTarget<T>(int a_nIdx) where T : CEObjComponent {
+			return this.ExtraTargetList.ExGetVal(a_nIdx, null) as T;
 		}
 		#endregion // 제네릭 함수
 	}

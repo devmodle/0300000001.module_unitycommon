@@ -30,6 +30,11 @@ namespace NSEngine {
 			this.Owner.GetOwner<CEObj>()?.GetController<CEObjController>().ApplySkillTimeDict.ExReplaceVal(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillKinds, System.DateTime.Now);
 		}
 
+		/** 효과를 취소한다 */
+		public void Cancel() {
+			this.SetSubState(ESubState.COMPLETE);
+		}
+
 		/** 대기 상태를 처리한다 */
 		protected override void HandleIdleState(float a_fDeltaTime) {
 			base.HandleIdleState(a_fDeltaTime);
@@ -105,14 +110,19 @@ namespace NSEngine {
 
 			// 적용 시간이 지났을 경우
 			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
-				this.Owner.GetOwner<CEObj>()?.GetController<CEObjController>().SetState(EState.IDLE);
-				this.Engine.RemoveEObjComponent(this.GetOwner<CESkill>());
+				this.SetSubState(ESubState.COMPLETE);
 			}
 		}
 
 		/** 완료 서브 상태를 처리한다 */
 		private void HandleCompleteSubState(float a_fDeltaTime) {
-			// Do Something
+			// 소유자가 존재 할 경우
+			if(this.GetOwner<CESkill>() != null && this.GetOwner<CESkill>().gameObject.activeSelf) {
+				this.SetState(EState.NONE);
+				this.Owner.GetOwner<CEObj>()?.GetController<CEObjController>()?.SetState(EState.IDLE);
+
+				this.Engine.RemoveEObjComponent(this.GetOwner<CESkill>());
+			}
 		}
 		#endregion // 함수
 	}

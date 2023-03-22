@@ -20,7 +20,7 @@ namespace NSEngine {
 		#endregion // 변수
 
 		#region 프로퍼티
-
+		
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -33,6 +33,18 @@ namespace NSEngine {
 				case EFXApplyType.TWEEN: this.ApplyTween(); break;
 				case EFXApplyType.ANIMATOR: this.ApplyAnimator(); break;
 				case EFXApplyType.PARTICLE_FX: this.ApplyParticleFX(); break;
+			}
+		}
+
+		/** 효과를 취소한다 */
+		public void Cancel() {
+			this.SetSubState(ESubState.COMPLETE);
+
+			switch(this.GetOwner<CEFX>().Params.m_stFXInfo.FXApplyType) {
+				case EFXApplyType.ANI: this.CancelAni(); break;
+				case EFXApplyType.TWEEN: this.CancelTween(); break;
+				case EFXApplyType.ANIMATOR: this.CancelAnimator(); break;
+				case EFXApplyType.PARTICLE_FX: this.CancelParticleFX(); break;
 			}
 		}
 
@@ -105,6 +117,26 @@ namespace NSEngine {
 			// Do Something
 		}
 
+		/** 애니메이션을 취소한다 */
+		private void CancelAni() {
+			// Do Something
+		}
+
+		/** 트윈 애니메이션을 취소한다 */
+		private void CancelTween() {
+			// Do Something
+		}
+
+		/** 메카님 애니메이터를 취소한다 */
+		private void CancelAnimator() {
+			// Do Something
+		}
+
+		/** 파티클 효과를 취소한다 */
+		private void CancelParticleFX() {
+			// Do Something
+		}
+
 		/** 적용 서브 상태를 처리한다 */
 		private void HandleApplySubState(float a_fDeltaTime) {
 			m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
@@ -116,13 +148,17 @@ namespace NSEngine {
 
 			// 적용 시간이 지났을 경우
 			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDuration)) {
-				this.Engine.RemoveEObjComponent(this.GetOwner<CEFX>());
+				this.SetSubState(ESubState.COMPLETE);
 			}
 		}
 
 		/** 완료 서브 상태를 처리한다 */
 		private void HandleCompleteSubState(float a_fDeltaTime) {
-			// Do Something
+			// 소유자가 존재 할 경우
+			if(this.GetOwner<CEFX>() != null && this.GetOwner<CEFX>().gameObject.activeSelf) {
+				this.SetState(EState.NONE);
+				this.Engine.RemoveEObjComponent(this.GetOwner<CEFX>());
+			}
 		}
 		#endregion // 함수
 	}
