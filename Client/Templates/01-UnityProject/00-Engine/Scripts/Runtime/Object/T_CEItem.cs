@@ -28,6 +28,7 @@ namespace NSEngine {
 
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
+		public STItemInfo OriginItemInfo { get; private set; } = STItemInfo.INVALID;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -52,6 +53,19 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
+		/** 아이템 정보를 리셋한다 */
+		public virtual void ResetItemInfo(STItemInfo a_stItemInfo) {
+			// 리셋 가능 할 경우
+			if(a_stItemInfo.m_eItemKinds != this.Params.m_stItemInfo.m_eItemKinds) {
+				var stParams = this.Params;
+				stParams.m_stItemInfo = a_stItemInfo;
+
+				this.Init(stParams);
+			}
+			
+			this.SubResetItemInfo(a_stItemInfo);
+		}
+
 		/** 어빌리티 값을 설정한다 */
 		protected override void DoSetupAbilityVals(bool a_bIsReset = true) {
 			base.DoSetupAbilityVals(a_bIsReset);
@@ -71,6 +85,16 @@ namespace NSEngine {
 			};
 		}
 		#endregion // 클래스 함수
+	}
+
+	/** 아이템 - 설정 */
+	public partial class CEItem : CEObjComponent {
+		#region 함수
+		/** 원본 아이템 정보를 설정한다 */
+		public void SetOriginItemInfo(STItemInfo a_stItemInfo) {
+			this.OriginItemInfo = a_stItemInfo;
+		}
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

@@ -54,11 +54,11 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
-		/** 객체 정보를 리셋한다 */
-		public virtual void ResetObjInfo(STObjInfo a_stObjInfo, STCellObjInfo a_stCellObjInfo) {
-			base.ResetObjInfo(a_stObjInfo);
+		/** 셀 객체 정보를 리셋한다 */
+		public virtual void ResetCellObjInfo(STObjInfo a_stObjInfo, STCellObjInfo a_stCellObjInfo) {
+			this.GetOwner<CEObj>().ResetObjInfo(a_stObjInfo);
 			this.SetCellObjInfo(a_stCellObjInfo);
-
+			
 			this.SubResetObjInfo(a_stObjInfo, a_stCellObjInfo);
 		}
 

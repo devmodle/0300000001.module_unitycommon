@@ -33,6 +33,11 @@ namespace NSEngine {
 		private void SubInit() {
 			// Do Something
 		}
+
+		/** 효과 정보를 리셋한다 */
+		public virtual void SubResetFXInfo(STFXInfo a_stFXInfo) {
+			// Do Something
+		}
 		#endregion // 함수
 	}
 }

@@ -71,12 +71,7 @@ namespace NSEngine {
 		private void SubInit() {
 			// Do Something
 		}
-
-		/** 효과 정보를 리셋한다 */
-		private void SubResetFXInfo(STFXInfo a_stFXInfo) {
-			// Do Something
-		}
-
+		
 		/** 제거 되었을 경우 */
 		private void SubOnDestroy() {
 			try {

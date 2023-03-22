@@ -33,6 +33,11 @@ namespace NSEngine {
 		private void SubInit() {
 			// Do Something
 		}
+
+		/** 아이템 정보를 리셋한다 */
+		private void SubResetItemInfo(STItemInfo a_stItemInfo) {
+			// Do Something
+		}
 		#endregion // 함수
 	}
 }

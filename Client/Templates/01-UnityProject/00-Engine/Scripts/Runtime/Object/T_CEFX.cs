@@ -27,6 +27,7 @@ namespace NSEngine {
 
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
+		public STFXInfo OriginFXInfo { get; private set; } = STFXInfo.INVALID;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -48,6 +49,19 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
+		/** 효과 정보를 리셋한다 */
+		public virtual void ResetFXInfo(STFXInfo a_stFXInfo) {
+			// 리셋 가능 할 경우
+			if(a_stFXInfo.m_eFXKinds != this.Params.m_stFXInfo.m_eFXKinds) {
+				var stParams = this.Params;
+				stParams.m_stFXInfo = a_stFXInfo;
+
+				this.Init(stParams);
+			}
+
+			this.SubResetFXInfo(a_stFXInfo);
+		}
+
 		/** 어빌리티 값을 설정한다 */
 		protected override void DoSetupAbilityVals(bool a_bIsReset = true) {
 			base.DoSetupAbilityVals(a_bIsReset);
@@ -62,6 +76,16 @@ namespace NSEngine {
 			};
 		}
 		#endregion // 클래스 함수
+	}
+
+	/** 효과 - 설정 */
+	public partial class CEFX : CEObjComponent {
+		#region 함수
+		/** 원본 효과 정보를 설정한다 */
+		public void SetOriginFXInfo(STFXInfo a_stFXInfo) {
+			this.OriginFXInfo = a_stFXInfo;
+		}
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

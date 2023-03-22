@@ -37,19 +37,6 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
-		/** 아이템 정보를 리셋한다 */
-		public virtual void ResetItemInfo(STItemInfo a_stItemInfo) {
-			// 리셋 가능 할 경우
-			if(a_stItemInfo.m_eItemKinds != this.GetOwner<CEItem>().Params.m_stItemInfo.m_eItemKinds) {
-				var stParams = this.GetOwner<CEItem>().Params;
-				stParams.m_stItemInfo = a_stItemInfo;
-
-				this.GetOwner<CEItem>().Init(stParams);
-			}
-
-			this.SubResetItemInfo(a_stItemInfo);
-		}
-
 		/** 제거 되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();

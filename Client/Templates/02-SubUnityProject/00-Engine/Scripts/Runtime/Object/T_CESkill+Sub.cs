@@ -33,6 +33,11 @@ namespace NSEngine {
 		private void SubInit() {
 			// Do Something
 		}
+
+		/** 스킬 정보를 리셋한다 */
+		private void SubResetSkillInfo(STSkillInfo a_stSkillInfo) {
+			// Do Something
+		}
 		#endregion // 함수
 	}
 }

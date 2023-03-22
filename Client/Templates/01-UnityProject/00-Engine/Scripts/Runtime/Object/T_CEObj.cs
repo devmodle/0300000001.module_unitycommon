@@ -29,6 +29,7 @@ namespace NSEngine {
 
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
+		public STObjInfo OriginObjInfo { get; private set; } = STObjInfo.INVALID;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -36,6 +37,19 @@ namespace NSEngine {
 		public override void Awake() {
 			base.Awake();
 			this.SubAwake();
+		}
+
+		/** 객체 정보를 리셋한다 */
+		public virtual void ResetObjInfo(STObjInfo a_stObjInfo) {
+			// 리셋 가능 할 경우
+			if(a_stObjInfo.m_eObjKinds != this.Params.m_stObjInfo.m_eObjKinds) {
+				var stParams = this.Params;
+				stParams.m_stObjInfo = a_stObjInfo;
+
+				this.Init(stParams);
+			}
+
+			this.SubResetObjInfo(a_stObjInfo);
 		}
 
 		/** 초기화 */
@@ -81,6 +95,16 @@ namespace NSEngine {
 			};
 		}
 		#endregion // 클래스 함수
+	}
+
+	/** 객체 - 설정 */
+	public partial class CEObj : CEObjComponent {
+		#region 함수
+		/** 원본 객체 정보를 설정한다 */
+		public void SetOriginObjInfo(STObjInfo a_stObjInfo) {
+			this.OriginObjInfo = a_stObjInfo;
+		}
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

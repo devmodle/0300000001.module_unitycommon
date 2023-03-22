@@ -24,7 +24,7 @@ namespace NSEngine {
 
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
-		public List<CEFX> FXList { get; } = new List<CEFX>();
+		public STSkillInfo OriginSkillInfo { get; private set; } = STSkillInfo.INVALID;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -49,6 +49,19 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
+		/** 스킬 정보를 리셋한다 */
+		public virtual void ResetSkillInfo(STSkillInfo a_stSkillInfo) {
+			// 리셋 가능 할 경우
+			if(a_stSkillInfo.m_eSkillKinds != this.Params.m_stSkillInfo.m_eSkillKinds) {
+				var stParams = this.Params;
+				stParams.m_stSkillInfo = a_stSkillInfo;
+
+				this.Init(stParams);
+			}
+
+			this.SubResetSkillInfo(a_stSkillInfo);
+		}
+
 		/** 어빌리티 값을 설정한다 */
 		protected override void DoSetupAbilityVals(bool a_bIsReset = true) {
 			base.DoSetupAbilityVals(a_bIsReset);
@@ -68,6 +81,16 @@ namespace NSEngine {
 			};
 		}
 		#endregion // 클래스 함수
+	}
+
+	/** 스킬 - 설정 */
+	public partial class CESkill : CEObjComponent {
+		#region 함수
+		/** 원본 스킬 정보를 설정한다 */
+		public void SetOriginSkillInfo(STSkillInfo a_stSkillInfo) {
+			this.OriginSkillInfo = a_stSkillInfo;
+		}
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

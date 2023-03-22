@@ -59,11 +59,6 @@ namespace NSEngine {
 			// Do Something
 		}
 
-		/** 스킬 정보를 리셋한다 */
-		private void SubResetSkillInfo(STSkillInfo a_stSkillInfo) {
-			// Do Something
-		}
-
 		/** 제거 되었을 경우 */
 		private void SubOnDestroy() {
 			try {
