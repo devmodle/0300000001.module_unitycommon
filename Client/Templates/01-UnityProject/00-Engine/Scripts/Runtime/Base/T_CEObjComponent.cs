@@ -37,6 +37,7 @@ namespace NSEngine {
 		private Dictionary<EKey, ParticleSystem> m_oParticleFXDict = new Dictionary<EKey, ParticleSystem>();
 
 		/** =====> 객체 <===== */
+		[SerializeField] private List<GameObject> m_oTargetList = new List<GameObject>();
 		[SerializeField] private List<GameObject> m_oExtraTargetList = new List<GameObject>();
 		#endregion // 변수
 
@@ -46,6 +47,8 @@ namespace NSEngine {
 
 		public SpriteRenderer TargetSprite => m_oSpriteDict[EKey.TARGET_SPRITE];
 		public ParticleSystem TargetParticleFX => m_oParticleFXDict[EKey.TARGET_PARTICLE_FX];
+
+		public List<GameObject> TargetList => m_oTargetList;
 		public List<GameObject> ExtraTargetList => m_oExtraTargetList;
 		#endregion // 프로퍼티
 

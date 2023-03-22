@@ -50,8 +50,8 @@ namespace NSEngine {
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
 
-		public List<CEObjComponent> TargetList { get; } = new List<CEObjComponent>();
-		public List<CEObjComponent> ExtraTargetList { get; } = new List<CEObjComponent>();
+		public List<CEObjComponent> EObjComponentList { get; } = new List<CEObjComponent>();
+		public List<CEObjComponent> ExtraEObjComponentList { get; } = new List<CEObjComponent>();
 		
 		protected Dictionary<EState, System.Func<bool>> StateCheckerDict { get; } = new Dictionary<EState, System.Func<bool>>();
 		protected Dictionary<ESubState, System.Func<bool>> SubStateCheckerDict { get; } = new Dictionary<ESubState, System.Func<bool>>();
@@ -84,8 +84,8 @@ namespace NSEngine {
 		public override void Reset() {
 			base.Reset();
 
-			this.TargetList.Clear();
-			this.ExtraTargetList.Clear();
+			this.EObjComponentList.Clear();
+			this.ExtraEObjComponentList.Clear();
 
 			this.SetState(EState.NONE);
 			this.SetSubState(ESubState.NONE, true);
@@ -169,14 +169,14 @@ namespace NSEngine {
 		#endregion // 함수
 
 		#region 제네릭 함수
-		/** 타겟을 반환한다 */
-		public T GetTarget<T>(int a_nIdx) where T : CEObjComponent {
-			return this.TargetList.ExGetVal(a_nIdx, null) as T;
+		/** 엔진 객체 컴포넌트를 반환한다 */
+		public T GetEObjComponent<T>(int a_nIdx) where T : CEObjComponent {
+			return this.EObjComponentList.ExGetVal(a_nIdx, null) as T;
 		}
 
-		/** 추가 타겟을 반환한다 */
-		public T GetExtraTarget<T>(int a_nIdx) where T : CEObjComponent {
-			return this.ExtraTargetList.ExGetVal(a_nIdx, null) as T;
+		/** 추가 엔진 객체 컴포넌트를 반환한다 */
+		public T GetExtraEObjComponent<T>(int a_nIdx) where T : CEObjComponent {
+			return this.ExtraEObjComponentList.ExGetVal(a_nIdx, null) as T;
 		}
 		#endregion // 제네릭 함수
 	}

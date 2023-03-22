@@ -199,7 +199,7 @@ namespace NSEngine {
 		/** 스킬을 적용시킨다 */
 		private void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oTargetList) {
 			var oSkill = this.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo);
-			a_oTargetList.ExCopyTo(oSkill.GetController<CESkillController>().TargetList, (a_oTargetObj) => a_oTargetObj);
+			a_oTargetList.ExCopyTo(oSkill.GetController<CESkillController>().EObjComponentList, (a_oTargetObj) => a_oTargetObj);
 
 			this.Engine.SkillList.ExAddVal(oSkill);
 			oSkill.GetController<CESkillController>().Apply();
