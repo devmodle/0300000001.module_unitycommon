@@ -47,6 +47,7 @@ namespace NSEngine {
 			this.SetupAbilityVals();
 
 			// 스프라이트를 설정한다
+			this.TargetSprite?.ExSetColor<SpriteRenderer>(Access.GetColor(a_stParams.m_stItemInfo.m_eItemKinds));
 			this.TargetSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(a_stParams.m_stItemInfo.m_eItemKinds));
 			this.TargetSprite?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stItemInfo.m_eItemKinds));
 

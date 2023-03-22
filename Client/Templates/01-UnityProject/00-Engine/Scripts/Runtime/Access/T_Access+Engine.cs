@@ -16,6 +16,21 @@ namespace NSEngine {
 		#endregion // 프로퍼티
 
 		#region 클래스 함수
+		/** 색상을 반환한다 */
+		public static Color GetColor(EItemKinds a_eItemKinds, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
+			return KDefine.E_COLOR_ITEM_DICT.GetValueOrDefault((EItemKinds)((int)a_eItemKinds).ExKindsToCorrectKinds(a_eGroupType), Color.white);
+		}
+
+		/** 색상을 반환한다 */
+		public static Color GetColor(ESkillKinds a_eSkillKinds, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
+			return KDefine.E_COLOR_SKILL_DICT.GetValueOrDefault((ESkillKinds)((int)a_eSkillKinds).ExKindsToCorrectKinds(a_eGroupType), Color.white);
+		}
+
+		/** 색상을 반환한다 */
+		public static Color GetColor(EObjKinds a_eObjKinds, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
+			return KDefine.E_COLOR_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToCorrectKinds(a_eGroupType), Color.white);
+		}
+
 		/** 스프라이트를 반환한다 */
 		public static Sprite GetSprite(EItemKinds a_eItemKinds, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
 			string oStr = CStrTable.Inst.GetEnumStr(typeof(EItemKinds), ((int)a_eItemKinds).ExKindsToCorrectKinds(a_eGroupType));

@@ -14,6 +14,20 @@ namespace NSEngine {
 		#endregion // 기본
 
 		#region 런타임 상수
+		// 색상 {
+		public static readonly Dictionary<EItemKinds, Color> E_COLOR_ITEM_DICT = new Dictionary<EItemKinds, Color>() {
+			// Do Something
+		};
+
+		public static readonly Dictionary<ESkillKinds, Color> E_COLOR_SKILL_DICT = new Dictionary<ESkillKinds, Color>() {
+			// Do Something
+		};
+
+		public static readonly Dictionary<EObjKinds, Color> E_COLOR_OBJ_DICT = new Dictionary<EObjKinds, Color>() {
+			// Do Something
+		};
+		// 색상 }
+
 		// 정렬 순서 {
 		public static readonly STSortingOrderInfo E_SORTING_OI_ITEM_DEF = new STSortingOrderInfo() {
 			m_nOrder = KCDefine.U_SORTING_OI_DEF.m_nOrder - (sbyte.MaxValue * 1), m_oLayer = KCDefine.U_SORTING_OI_DEF.m_oLayer
