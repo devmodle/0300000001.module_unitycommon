@@ -15,6 +15,22 @@ namespace NSEngine {
 
 		#region 런타임 상수
 		// 정렬 순서 {
+		public static readonly STSortingOrderInfo E_SORTING_OI_ITEM_DEF = new STSortingOrderInfo() {
+			m_nOrder = KCDefine.U_SORTING_OI_DEF.m_nOrder - (sbyte.MaxValue * 1), m_oLayer = KCDefine.U_SORTING_OI_DEF.m_oLayer
+		};
+
+		public static readonly STSortingOrderInfo E_SORTING_OI_SKILL_DEF = new STSortingOrderInfo() {
+			m_nOrder = KCDefine.U_SORTING_OI_FOREGROUND.m_nOrder - (sbyte.MaxValue * 1), m_oLayer = KCDefine.U_SORTING_OI_FOREGROUND.m_oLayer
+		};
+
+		public static readonly STSortingOrderInfo E_SORTING_OI_OBJ_DEF = new STSortingOrderInfo() {
+			m_nOrder = KCDefine.U_SORTING_OI_DEF.m_nOrder, m_oLayer = KCDefine.U_SORTING_OI_DEF.m_oLayer
+		};
+
+		public static readonly STSortingOrderInfo E_SORTING_OI_FX_DEF = new STSortingOrderInfo() {
+			m_nOrder = KCDefine.U_SORTING_OI_FOREGROUND.m_nOrder, m_oLayer = KCDefine.U_SORTING_OI_FOREGROUND.m_oLayer
+		};
+
 		public static readonly Dictionary<EItemKinds, STSortingOrderInfo> E_SORTING_OI_ITEM_DICT = new Dictionary<EItemKinds, STSortingOrderInfo>() {
 			// Do Something
 		};
@@ -25,11 +41,11 @@ namespace NSEngine {
 
 		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
 			[EObjKinds.BG_OBJ_EMPTY_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_BACKGROUND, m_oLayer = KCDefine.U_SORTING_L_BACKGROUND
+				m_nOrder = KCDefine.U_SORTING_OI_BACKGROUND.m_nOrder, m_oLayer = KCDefine.U_SORTING_OI_BACKGROUND.m_oLayer
 			},
 
 			[EObjKinds.BG_OBJ_PLACEHOLDER_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
+				m_nOrder = KCDefine.U_SORTING_OI_UNDERGROUND.m_nOrder, m_oLayer = KCDefine.U_SORTING_OI_UNDERGROUND.m_oLayer
 			}
 		};
 
