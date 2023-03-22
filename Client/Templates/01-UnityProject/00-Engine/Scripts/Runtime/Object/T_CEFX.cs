@@ -41,7 +41,10 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
+			// 정렬 순서를 설정한다
+			this.TargetSprite?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stFXInfo.m_eFXKinds));
 			this.TargetParticleFX?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stFXInfo.m_eFXKinds));
+
 			this.SubInit();
 		}
 

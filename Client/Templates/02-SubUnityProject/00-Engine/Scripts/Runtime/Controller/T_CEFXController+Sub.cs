@@ -29,10 +29,10 @@ namespace NSEngine {
 			this.SetState(EState.IDLE);
 
 			switch(this.GetOwner<CEFX>().Params.m_stFXInfo.FXApplyType) {
-				case EFXApplyType.ANI: this.ApplyAni(); break;
-				case EFXApplyType.TWEEN: this.ApplyTween(); break;
-				case EFXApplyType.ANIMATOR: this.ApplyAnimator(); break;
-				case EFXApplyType.PARTICLE_FX: this.ApplyParticleFX(); break;
+				case EFXApplyType.ANI: this.SetupAni(); break;
+				case EFXApplyType.TWEEN: this.SetupTween(); break;
+				case EFXApplyType.ANIMATOR: this.SetupAnimator(); break;
+				case EFXApplyType.PARTICLE_FX: this.SetupParticleFX(); break;
 			}
 		}
 
@@ -54,11 +54,11 @@ namespace NSEngine {
 			m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
 
 			// 딜레이 시간이 지났을 경우
-			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDelay)) {
-				m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
-
+			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDelay)) {
 				this.SetState(EState.FX);
 				this.SetSubState(ESubState.APPLY);
+				
+				m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
 			}
 		}
 
@@ -142,8 +142,15 @@ namespace NSEngine {
 			m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
 
 			// 적용 간격이 지났을 경우
-			if(m_oIntDict[EKey.APPLY_TIMES] < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (m_oIntDict[EKey.APPLY_TIMES] - KCDefine.B_VAL_1_INT))) {
+			if(m_oIntDict[EKey.APPLY_TIMES] < this.GetOwner<CEFX>().Params.m_stFXInfo.m_nMaxApplyTimes && m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDeltaTime * (m_oIntDict[EKey.APPLY_TIMES] - KCDefine.B_VAL_1_INT))) {
 				m_oIntDict[EKey.APPLY_TIMES] += KCDefine.B_VAL_1_INT;
+
+				switch(this.GetOwner<CEFX>().Params.m_stFXInfo.FXApplyType) {
+					case EFXApplyType.ANI: this.ApplyAni(); break;
+					case EFXApplyType.TWEEN: this.ApplyTween(); break;
+					case EFXApplyType.ANIMATOR: this.ApplyAnimator(); break;
+					case EFXApplyType.PARTICLE_FX: this.ApplyParticleFX(); break;
+				}
 			}
 
 			// 적용 시간이 지났을 경우
@@ -159,6 +166,31 @@ namespace NSEngine {
 				this.SetState(EState.NONE);
 				this.Engine.RemoveEObjComponent(this.GetOwner<CEFX>());
 			}
+		}
+		#endregion // 함수
+	}
+
+	/** 서브 효과 제어자 - 설정 */
+	public partial class CEFXController : CEController {
+		#region 함수
+		/** 애니메이션을 설정한다 */
+		private void SetupAni() {
+			// Do Something
+		}
+
+		/** 트윈 애니메이션을 설정한다 */
+		private void SetupTween() {
+			// Do Something
+		}
+
+		/** 메카님 애니메이터를 설정한다 */
+		private void SetupAnimator() {
+			// Do Something
+		}
+
+		/** 파티클 효과를 설정한다 */
+		private void SetupParticleFX() {
+			// Do Something
 		}
 		#endregion // 함수
 	}

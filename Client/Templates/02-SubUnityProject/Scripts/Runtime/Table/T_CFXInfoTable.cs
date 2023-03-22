@@ -14,6 +14,8 @@ public struct STFXInfo {
 	public STCommonInfo m_stCommonInfo;
 	public STTimeInfo m_stTimeInfo;
 
+	public int m_nMaxApplyTimes;
+
 	public EFXKinds m_eFXKinds;
 	public EFXKinds m_ePrevFXKinds;
 	public EFXKinds m_eNextFXKinds;
@@ -42,6 +44,8 @@ public struct STFXInfo {
 		m_stCommonInfo = new STCommonInfo(a_oFXInfo);
 		m_stTimeInfo = new STTimeInfo(a_oFXInfo[KCDefine.U_KEY_TIME_INFO]);
 
+		m_nMaxApplyTimes = a_oFXInfo[KCDefine.U_KEY_MAX_APPLY_TIMES].ExIsValid() ? a_oFXInfo[KCDefine.U_KEY_MAX_APPLY_TIMES].AsInt : KCDefine.B_VAL_0_INT;
+
 		m_eFXKinds = a_oFXInfo[KCDefine.U_KEY_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_ePrevFXKinds = a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_PREV_FX_KINDS].AsInt : EFXKinds.NONE;
 		m_eNextFXKinds = a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].ExIsValid() ? (EFXKinds)a_oFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS].AsInt : EFXKinds.NONE;
@@ -59,6 +63,8 @@ public struct STFXInfo {
 		m_stCommonInfo.SaveCommonInfo(a_oOutFXInfo);
 		m_stTimeInfo.SaveTimeInfo(a_oOutFXInfo);
 
+		a_oOutFXInfo[KCDefine.U_KEY_MAX_APPLY_TIMES] = $"{m_nMaxApplyTimes}";
+
 		a_oOutFXInfo[KCDefine.U_KEY_FX_KINDS] = $"{(int)m_eFXKinds}";
 		a_oOutFXInfo[KCDefine.U_KEY_PREV_FX_KINDS] = $"{(int)m_ePrevFXKinds}";
 		a_oOutFXInfo[KCDefine.U_KEY_NEXT_FX_KINDS] = $"{(int)m_eNextFXKinds}";
@@ -68,7 +74,7 @@ public struct STFXInfo {
 		Func.SaveVals(m_oExtraFXKindsList, KCDefine.U_KEY_FMT_EXTRA_FX_KINDS, (a_eFXKinds) => $"{(int)a_eFXKinds}", a_oOutFXInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 
 /** 효과 정보 테이블 */
@@ -202,7 +208,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 		Access.FXTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

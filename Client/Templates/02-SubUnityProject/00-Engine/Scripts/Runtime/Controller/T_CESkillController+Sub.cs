@@ -42,10 +42,10 @@ namespace NSEngine {
 
 			// 딜레이 시간이 지났을 경우
 			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDelay)) {
-				m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
-
 				this.SetState(EState.SKILL);
 				this.SetSubState(ESubState.APPLY);
+				
+				m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
 			}
 		}
 
