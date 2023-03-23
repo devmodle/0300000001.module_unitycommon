@@ -58,25 +58,25 @@ namespace NSEngine {
 		/** 정렬 순서 정보를 반환한다 */
 		public static STSortingOrderInfo GetSortingOrderInfo(EItemKinds a_eItemKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
 			bool bIsValid = KDefine.E_SORTING_OI_ITEM_DICT.TryGetValue((EItemKinds)((int)a_eItemKinds).ExKindsToDetailSubKindsType(), out STSortingOrderInfo stSortingOrderInfo);
-			return bIsValid ? stSortingOrderInfo.ExGetExtraOrder(a_nExtraOrder) : KDefine.E_SORTING_OI_ITEM_DICT.GetValueOrDefault((EItemKinds)((int)a_eItemKinds).ExKindsToCorrectKinds(a_eGroupType), KDefine.E_SORTING_OI_ITEM_DEF).ExGetExtraOrder(a_nExtraOrder);
+			return bIsValid ? stSortingOrderInfo.ExGetExtraOrderInfo(a_nExtraOrder) : KDefine.E_SORTING_OI_ITEM_DICT.GetValueOrDefault((EItemKinds)((int)a_eItemKinds).ExKindsToCorrectKinds(a_eGroupType), KDefine.E_SORTING_OI_ITEM_DEF).ExGetExtraOrderInfo(a_nExtraOrder);
 		}
 
 		/** 정렬 순서 정보를 반환한다 */
 		public static STSortingOrderInfo GetSortingOrderInfo(ESkillKinds a_eSkillKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
 			bool bIsValid = KDefine.E_SORTING_OI_SKILL_DICT.TryGetValue((ESkillKinds)((int)a_eSkillKinds).ExKindsToDetailSubKindsType(), out STSortingOrderInfo stSortingOrderInfo);
-			return bIsValid ? stSortingOrderInfo.ExGetExtraOrder(a_nExtraOrder) : KDefine.E_SORTING_OI_SKILL_DICT.GetValueOrDefault((ESkillKinds)((int)a_eSkillKinds).ExKindsToCorrectKinds(a_eGroupType), KDefine.E_SORTING_OI_SKILL_DEF).ExGetExtraOrder(a_nExtraOrder);
+			return bIsValid ? stSortingOrderInfo.ExGetExtraOrderInfo(a_nExtraOrder) : KDefine.E_SORTING_OI_SKILL_DICT.GetValueOrDefault((ESkillKinds)((int)a_eSkillKinds).ExKindsToCorrectKinds(a_eGroupType), KDefine.E_SORTING_OI_SKILL_DEF).ExGetExtraOrderInfo(a_nExtraOrder);
 		}
 
 		/** 정렬 순서 정보를 반환한다 */
 		public static STSortingOrderInfo GetSortingOrderInfo(EObjKinds a_eObjKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
 			bool bIsValid = KDefine.E_SORTING_OI_OBJ_DICT.TryGetValue((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), out STSortingOrderInfo stSortingOrderInfo);
-			return bIsValid ? stSortingOrderInfo.ExGetExtraOrder(a_nExtraOrder) : KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToCorrectKinds(a_eGroupType), KDefine.E_SORTING_OI_OBJ_DEF).ExGetExtraOrder(a_nExtraOrder);
+			return bIsValid ? stSortingOrderInfo.ExGetExtraOrderInfo(a_nExtraOrder) : KDefine.E_SORTING_OI_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToCorrectKinds(a_eGroupType), KDefine.E_SORTING_OI_OBJ_DEF).ExGetExtraOrderInfo(a_nExtraOrder);
 		}
 
 		/** 정렬 순서 정보를 반환한다 */
 		public static STSortingOrderInfo GetSortingOrderInfo(EFXKinds a_eFXKinds, int a_nExtraOrder = KCDefine.B_VAL_0_INT, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
 			bool bIsValid = KDefine.E_SORTING_OI_FX_DICT.TryGetValue((EFXKinds)((int)a_eFXKinds).ExKindsToDetailSubKindsType(), out STSortingOrderInfo stSortingOrderInfo);
-			return bIsValid ? stSortingOrderInfo.ExGetExtraOrder(a_nExtraOrder) : KDefine.E_SORTING_OI_FX_DICT.GetValueOrDefault((EFXKinds)((int)a_eFXKinds).ExKindsToCorrectKinds(a_eGroupType), KDefine.E_SORTING_OI_FX_DEF).ExGetExtraOrder(a_nExtraOrder);
+			return bIsValid ? stSortingOrderInfo.ExGetExtraOrderInfo(a_nExtraOrder) : KDefine.E_SORTING_OI_FX_DICT.GetValueOrDefault((EFXKinds)((int)a_eFXKinds).ExKindsToCorrectKinds(a_eGroupType), KDefine.E_SORTING_OI_FX_DEF).ExGetExtraOrderInfo(a_nExtraOrder);
 		}
 		#endregion // 클래스 함수
 	}
