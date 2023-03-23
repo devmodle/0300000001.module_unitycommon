@@ -737,7 +737,7 @@ namespace LevelEditorScene {
 			oSpriteRenderer.color = Color.white.ExGetAlphaColor(KCDefine.B_VAL_0_1_REAL);
 			oSpriteRenderer.sprite = m_oGridBoundsImg;
 
-			oSpriteRenderer.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND.ExGetExtraOrderInfo(-KCDefine.B_VAL_1_INT));
+			oSpriteRenderer.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND.ExGetExtraSortingOrderInfo(-KCDefine.B_VAL_1_INT));
 			// 에디터 객체 스프라이트를 설정한다 }
 
 			// 그리드 라인 버튼을 설정한다 {
