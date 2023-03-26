@@ -754,7 +754,7 @@ namespace LevelEditorScene {
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnH(stIdx.x));
 
 				(oBtn.transform as RectTransform).pivot = KCDefine.B_ANCHOR_DOWN_CENTER;
-				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExToCanvas(this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_H_GRID_LINE_BTN;
+				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExWorldToCanvas(this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_H_GRID_LINE_BTN;
 
 				(oBtn.transform as RectTransform).SetAsFirstSibling();
 
@@ -777,7 +777,7 @@ namespace LevelEditorScene {
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnV(stIdx.y));
 
 				(oBtn.transform as RectTransform).pivot = KCDefine.B_ANCHOR_MID_RIGHT;
-				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExToCanvas(this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_V_GRID_LINE_BTN;
+				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExWorldToCanvas(this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_V_GRID_LINE_BTN;
 
 				(oBtn.transform as RectTransform).SetAsFirstSibling();
 
