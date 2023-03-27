@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-using TMPro;
-
 namespace MainScene {
 	/** 메인 씬 관리자 */
 	public partial class CMainSceneManager : CSceneManager {
@@ -18,7 +16,7 @@ namespace MainScene {
 
 		#region 변수
 		/** =====> UI <===== */
-		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
+		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -28,7 +26,7 @@ namespace MainScene {
 		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
 
 		/** =====> UI <===== */
-		public TMP_Text VerText => m_oTextDict[EKey.VER_TEXT];
+		public Text VerText => m_oTextDict[EKey.VER_TEXT];
 		#endregion // 프로퍼티
 
 		#region 함수

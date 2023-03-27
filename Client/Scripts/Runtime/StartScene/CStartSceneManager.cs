@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 using System.Diagnostics;
-using TMPro;
 
 using DG.Tweening;
 
@@ -38,7 +37,7 @@ namespace StartScene {
 		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>();
 
 		/** =====> UI <===== */
-		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
+		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, CGaugeHandler> m_oGaugeHandlerDict = new Dictionary<EKey, CGaugeHandler>();
 
 		/** =====> 객체 <===== */
