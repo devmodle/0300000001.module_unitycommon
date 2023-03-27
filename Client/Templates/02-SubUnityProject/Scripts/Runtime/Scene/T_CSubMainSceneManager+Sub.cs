@@ -32,7 +32,7 @@ namespace MainScene {
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 변수
+#endregion // 변수
 
 		#region 프로퍼티
 
@@ -60,6 +60,14 @@ namespace MainScene {
 				}
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"CSubMainSceneManager.SubOnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		private void SubOnUpdate(float a_fDeltaTime) {
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				// Do Something
 			}
 		}
 
@@ -98,7 +106,7 @@ namespace MainScene {
 			// Do Something
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 메인 씬 관리자 - 스크롤러 셀 뷰 */

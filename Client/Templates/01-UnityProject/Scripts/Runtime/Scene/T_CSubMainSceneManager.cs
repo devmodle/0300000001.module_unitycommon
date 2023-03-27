@@ -112,10 +112,24 @@ namespace MainScene {
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 				// 에디터가 유효 할 경우
-				if(CCommonAppInfoStorage.Inst.IsEnableEditor) {
+				if(CCommonAppInfoStorage.Inst.IsEnableEditor && !CSceneLoader.Inst.AwakeActiveSceneName.Equals(KCDefine.B_SCENE_N_MAIN)) {
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 				}
 #endif // #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
+			}
+		}
+
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					this.SubOnDestroy();
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubMainSceneManager.OnDestroy Exception: {oException.Message}");
 			}
 		}
 
@@ -131,6 +145,16 @@ namespace MainScene {
 					Func.ShowFullscreenAds(null);
 				}
 #endif // #if ADS_MODULE_ENABLE
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				this.SubOnUpdate(a_fDeltaTime);
 			}
 		}
 
@@ -296,7 +320,7 @@ namespace MainScene {
 			}
 		}
 #endif // #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 메인 씬 관리자 - 스크롤러 셀 뷰 */
