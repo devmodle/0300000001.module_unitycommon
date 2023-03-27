@@ -498,8 +498,8 @@ namespace LevelEditorScene {
 
 						// 페이지 스크롤 스냅이 존재 할 경우
 						if(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] != null) {
-							int nIdx = oInputListContainer[m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].SelectedPanel].FindIndex((a_oInput) => a_oInput.gameObject == CSceneManager.ActiveSceneEventSystem.currentSelectedGameObject);
-							CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(oInputListContainer[m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].SelectedPanel].ExGetVal((nIdx + KCDefine.B_VAL_1_INT) % oInputListContainer[m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].SelectedPanel].Count, null)?.gameObject);
+							int nIdx = oInputListContainer[m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].CenteredPanel].FindIndex((a_oInput) => a_oInput.gameObject == CSceneManager.ActiveSceneEventSystem.currentSelectedGameObject);
+							CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(oInputListContainer[m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].CenteredPanel].ExGetVal((nIdx + KCDefine.B_VAL_1_INT) % oInputListContainer[m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].CenteredPanel].Count, null)?.gameObject);
 						}
 					} finally {
 						CCollectionManager.Inst.DespawnList(oInputListContainer);
