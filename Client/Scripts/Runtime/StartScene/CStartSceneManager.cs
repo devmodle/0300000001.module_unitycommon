@@ -84,7 +84,7 @@ namespace StartScene {
 
 				// 텍스트를 설정한다 {
 				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", m_oUIsDict[EKey.LOADING_GAUGE], CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
+					(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
 				}, m_oTextDict);
 
 				m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = (oLoadingText != null) ? m_oTextDict[EKey.LOADING_TEXT].transform.localPosition : this.LoadingTextPos;
