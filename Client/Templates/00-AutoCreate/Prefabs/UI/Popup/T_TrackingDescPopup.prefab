@@ -880,7 +880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bIsIgnoreSetupFont: 0
-  m_oKey: TRACKING_DP_DESC_MSG_01
+  m_oKey: TRACKING_DP_DESC_MSG_02
   m_eFontSet: 0
 --- !u!1 &7400857477525605579
 GameObject:
@@ -1199,5 +1199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bIsIgnoreSetupFont: 0
-  m_oKey: TRACKING_DP_DESC_MSG_01
+  m_oKey: TRACKING_DP_DESC_MSG_03
   m_eFontSet: 0
