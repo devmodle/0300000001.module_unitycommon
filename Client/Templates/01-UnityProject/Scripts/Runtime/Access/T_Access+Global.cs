@@ -259,9 +259,9 @@ public static partial class Access {
 		return oCharacterGameInfo.m_oChapterClearInfoDict.Count;
 	}
 
-	/** 심볼 개수를 반환한다 */
-	public static long GetTotalNumSymbols(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oLevelClearInfoDict.Sum((a_stKeyVal) => a_stKeyVal.Value.NumSymbols) : KCDefine.B_VAL_0_INT;
+	/** 클리어 마크 개수를 반환한다 */
+	public static long GetTotalNumClearMarks(int a_nCharacterID) {
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oLevelClearInfoDict.Sum((a_stKeyVal) => a_stKeyVal.Value.NumMarks) : KCDefine.B_VAL_0_INT;
 	}
 
 	/** 아이템 타겟 값을 반환한다 */

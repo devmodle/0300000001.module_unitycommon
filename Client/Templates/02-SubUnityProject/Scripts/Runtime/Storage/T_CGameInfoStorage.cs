@@ -21,14 +21,14 @@ public partial class CClearInfo : CBaseInfo {
 	#endregion // 변수
 
 	#region 상수
-	private const string KEY_NUM_SYMBOLS = "NumSymbols";
+	private const string KEY_NUM_MARKS = "NumMarks";
 	#endregion // 상수
 
 	#region 프로퍼티
 	[IgnoreMember]
-	public int NumSymbols {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_SYMBOLS, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_SYMBOLS, $"{value}"); }
+	public int NumMarks {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); }
+		set { m_oStrDict.ExReplaceVal(KEY_NUM_MARKS, $"{value}"); }
 	}
 
 	[IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);

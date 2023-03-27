@@ -98,15 +98,26 @@ public partial class CResultPopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		var oClearLevelInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);
+		int nNumMarks = 0;
+		var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);
+
+		// 클리어 정보가 존재 할 경우
+		if(oLevelClearInfo != null) {
+			for(int i = 0; i < CGameInfoStorage.Inst.PlayEpisodeInfo.m_oRecordValInfoList.Count; ++i) {
+				nNumMarks = (CGameInfoStorage.Inst.PlayEpisodeInfo.m_oRecordValInfoList[i].m_eValType.ExIsValid() && this.Params.m_stRecordInfo.m_nIntRecord >= CGameInfoStorage.Inst.PlayEpisodeInfo.m_oRecordValInfoList[i].m_dmVal) ? i + KCDefine.B_VAL_1_INT : nNumMarks;
+			}
+
+			oLevelClearInfo.NumMarks = Mathf.Max(nNumMarks, oLevelClearInfo.NumMarks);
+			CGameInfoStorage.Inst.SaveGameInfo();
+		}
 
 		// 객체를 갱신한다
 		m_oUIsDict[EKey.CLEAR_UIS]?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess);
 		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!this.Params.m_stRecordInfo.m_bIsSuccess);
 
 		// 텍스트를 갱신한다
-		m_oTextDict[EKey.RECORD_TEXT]?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
-		m_oTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((oClearLevelInfo != null) ? $"{oClearLevelInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, EFontSet._1, false);
+		m_oTextDict[EKey.RECORD_TEXT]?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", a_bIsEnableAssert: false);
+		m_oTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((oLevelClearInfo != null) ? $"{oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, a_bIsEnableAssert: false);
 
 		this.SubUpdateUIsState();
 	}
