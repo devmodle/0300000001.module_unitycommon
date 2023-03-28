@@ -442,8 +442,8 @@ namespace PlayScene {
 					m_nIntRecord = m_oEngine.RecordInfo.m_nIntRecord,
 					m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord
 				};
-
-				(a_oSender as CResultPopup).Init(CResultPopup.MakeParams(stRecordInfo, new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
+				
+				(a_oSender as CResultPopup).Init(CResultPopup.MakeParams(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo, stRecordInfo, new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
 					[CResultPopup.ECallback.NEXT] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.NEXT),
 					[CResultPopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.RETRY),
 					[CResultPopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.LEAVE)

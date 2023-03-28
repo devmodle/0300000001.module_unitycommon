@@ -8,6 +8,13 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 준비 팝업 */
 public partial class CReadyPopup : CSubPopup {
+	/** 식별자 */
+	private enum EKey {
+		NONE = -1,
+		TITLE_TEXT,
+		[HideInInspector] MAX_VAL
+	}
+
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,
@@ -17,11 +24,13 @@ public partial class CReadyPopup : CSubPopup {
 
 	/** 매개 변수 */
 	public struct STParams {
+		public STIDInfo m_stIDInfo;
 		public Dictionary<ECallback, System.Action<CReadyPopup>> m_oCallbackDict;
 	}
 
 	#region 변수
-
+	/** =====> UI <===== */
+	private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -32,6 +41,11 @@ public partial class CReadyPopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+
+		// 텍스트를 설정한다
+		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+			(EKey.TITLE_TEXT, $"{EKey.TITLE_TEXT}", this.gameObject)
+		}, m_oTextDict);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -68,9 +82,9 @@ public partial class CReadyPopup : CSubPopup {
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(Dictionary<ECallback, System.Action<CReadyPopup>> a_oCallbackDict = null) {
+	public static STParams MakeParams(STIDInfo a_stIDInfo, Dictionary<ECallback, System.Action<CReadyPopup>> a_oCallbackDict = null) {
 		return new STParams() {
-			m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CReadyPopup>>()
+			m_stIDInfo = a_stIDInfo, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CReadyPopup>>()
 		};
 	}
 	#endregion // 클래스 함수

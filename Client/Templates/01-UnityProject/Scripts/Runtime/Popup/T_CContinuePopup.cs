@@ -34,7 +34,7 @@ public partial class CContinuePopup : CSubPopup {
 
 #region 변수
 	/** =====> UI <===== */
-	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
+	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 #endregion // 변수
 
 #region 프로퍼티
@@ -50,7 +50,7 @@ public partial class CContinuePopup : CSubPopup {
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 			(EKey.PRICE_TEXT, $"{EKey.PRICE_TEXT}", this.Contents)
-		}, m_oTextDict);
+		}, m_oTMPTextDict);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -86,7 +86,7 @@ public partial class CContinuePopup : CSubPopup {
 		};
 
 		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
-			m_oTextDict.GetValueOrDefault(oTextKeyInfoList[i].Item1)?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
+			m_oTMPTextDict.GetValueOrDefault(oTextKeyInfoList[i].Item1)?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
 		}
 		// 텍스트를 갱신한다 }
 

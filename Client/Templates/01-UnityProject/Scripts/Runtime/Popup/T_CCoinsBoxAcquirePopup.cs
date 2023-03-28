@@ -29,7 +29,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	};
 
 	/** =====> UI <===== */
-	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
+	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 
 	/** =====> 객체 <===== */
 	[SerializeField] private GameObject m_oSaveUIs = null;
@@ -48,7 +48,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.Contents)
-		}, m_oTextDict);
+		}, m_oTMPTextDict);
 
 		this.SubAwake();
 	}
@@ -78,7 +78,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		m_oFullUIs?.SetActive(m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
 
 		// 텍스트를 갱신한다
-		m_oTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS]}", EFontSet._1, false);
+		m_oTMPTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS]}", EFontSet._1, false);
 
 		this.SubUpdateUIsState();
 	}

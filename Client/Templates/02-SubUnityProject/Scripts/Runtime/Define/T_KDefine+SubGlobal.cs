@@ -62,17 +62,22 @@ public static partial class KDefine {
 	// 이름
 	public const string G_OBJ_N_STORE_POPUP = "STORE_POPUP";
 	public const string G_OBJ_N_SETTINGS_POPUP = "SETTINGS_POPUP";
+
 	public const string G_OBJ_N_SYNC_POPUP = "SYNC_POPUP";
 	public const string G_OBJ_N_DAILY_MISSION_POPUP = "DAILY_MISSION_POPUP";
 	public const string G_OBJ_N_FREE_REWARD_POPUP = "FREE_REWARD_POPUP";
 	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DAILY_REWARD_POPUP";
+
 	public const string G_OBJ_N_COINS_BOX_POPUP = "COINS_BOX_POPUP";
 	public const string G_OBJ_N_REWARD_ACQUIRE_POPUP = "REWARD_ACQUIRE_POPUP";
 	public const string G_OBJ_N_COINS_BOX_ACQUIRE_POPUP = "COINS_BOX_ACQUIRE_POPUP";
+
 	public const string G_OBJ_N_CONTINUE_POPUP = "CONTINUE_POPUP";
+	public const string G_OBJ_N_READY_POPUP = "READY_POPUP";
 	public const string G_OBJ_N_RESULT_POPUP = "RESULT_POPUP";
-	public const string G_OBJ_N_PAUSE_POPUP = "PAUSE_POPUP";
 	public const string G_OBJ_N_RESUME_POPUP = "RESUME_POPUP";
+	public const string G_OBJ_N_PAUSE_POPUP = "PAUSE_POPUP";
+
 	public const string G_OBJ_N_PRODUCT_BUY_POPUP = "PRODUCT_BUY_POPUP";
 	public const string G_OBJ_N_FOCUS_POPUP = "FOCUS_POPUP";
 	public const string G_OBJ_N_TUTORIAL_POPUP = "TUTORIAL_POPUP";

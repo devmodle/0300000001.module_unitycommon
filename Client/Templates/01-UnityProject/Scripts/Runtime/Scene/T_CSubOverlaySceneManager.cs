@@ -34,7 +34,7 @@ namespace OverlayScene {
 		};
 
 		/** =====> UI <===== */
-		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
+		private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 #if PURCHASE_MODULE_ENABLE
@@ -56,7 +56,7 @@ namespace OverlayScene {
 				// 텍스트를 설정한다
 				CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 					(EKey.NUM_NORM_COINS_TEXT, $"{EKey.NUM_NORM_COINS_TEXT}", this.UIsBase)
-				}, m_oTextDict);
+				}, m_oTMPTextDict);
 
 				// 버튼을 설정한다
 				CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
@@ -123,7 +123,7 @@ namespace OverlayScene {
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
 			// 텍스트를 갱신한다
-			m_oTextDict[EKey.NUM_NORM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_NORM_COINS, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS)}", EFontSet._1, false);
+			m_oTMPTextDict[EKey.NUM_NORM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_NORM_COINS, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS)}", EFontSet._1, false);
 
 			// UI 상태를 갱신한다
 			CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);

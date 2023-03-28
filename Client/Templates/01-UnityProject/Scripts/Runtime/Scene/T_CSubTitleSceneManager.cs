@@ -8,7 +8,6 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.Linq;
 using UnityEngine.EventSystems;
-using TMPro;
 
 using DG.Tweening;
 
@@ -36,7 +35,7 @@ namespace TitleScene {
 		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>();
 
 		/** =====> UI <===== */
-		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
+		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -264,9 +263,9 @@ namespace TitleScene {
 				CUserInfoStorage.Inst.SaveUserInfo();
 
 				this.UpdateUIsState();
-
 				m_oTextDict[EKey.TOUCH_TEXT]?.gameObject.SetActive(true);
-				m_oAniDict.ExAssignVal(EKey.TOUCH_ANI, m_oTextDict[EKey.TOUCH_TEXT]?.DOFaceFade(KCDefine.B_VAL_0_5_REAL, KCDefine.B_VAL_1_REAL).SetAutoKill().SetEase(KCDefine.U_EASE_DEF).SetLoops(KCDefine.B_TIMES_INT_INFINITE, LoopType.Yoyo).SetUpdate(true));
+				
+				m_oAniDict.ExAssignVal(EKey.TOUCH_ANI, m_oTextDict[EKey.TOUCH_TEXT]?.DOFade(KCDefine.B_VAL_0_5_REAL, KCDefine.B_VAL_1_REAL).SetAutoKill().SetEase(KCDefine.U_EASE_DEF).SetLoops(KCDefine.B_TIMES_INT_INFINITE, LoopType.Yoyo).SetUpdate(true));
 			}
 		}
 		#endregion // 함수

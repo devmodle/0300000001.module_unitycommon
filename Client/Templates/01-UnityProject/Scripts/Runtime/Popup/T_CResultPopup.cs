@@ -13,8 +13,10 @@ public partial class CResultPopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
+		TITLE_TEXT,
 		RECORD_TEXT,
 		BEST_RECORD_TEXT,
+
 		CLEAR_UIS,
 		CLEAR_FAIL_UIS,
 		[HideInInspector] MAX_VAL
@@ -31,13 +33,16 @@ public partial class CResultPopup : CSubPopup {
 
 	/** 매개 변수 */
 	public struct STParams {
+		public STIDInfo m_stIDInfo;
 		public STRecordInfo m_stRecordInfo;
+
 		public Dictionary<ECallback, System.Action<CResultPopup>> m_oCallbackDict;
 	}
 
 	#region 변수
 	/** =====> UI <===== */
-	private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
+	private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
+	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 
 	/** =====> 객체 <===== */
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
@@ -60,11 +65,16 @@ public partial class CResultPopup : CSubPopup {
 			(EKey.CLEAR_FAIL_UIS, $"{EKey.CLEAR_FAIL_UIS}", this.Contents)
 		}, m_oUIsDict);
 
-		// 텍스트를 설정한다
+		// 텍스트를 설정한다 {
+		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+			(EKey.TITLE_TEXT, $"{EKey.TITLE_TEXT}", this.Contents),
+		}, m_oTextDict);
+
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 			(EKey.RECORD_TEXT, $"{EKey.RECORD_TEXT}", this.Contents),
 			(EKey.BEST_RECORD_TEXT, $"{EKey.BEST_RECORD_TEXT}", this.Contents)
-		}, m_oTextDict);
+		}, m_oTMPTextDict);
+		// 텍스트를 설정한다 }
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -116,8 +126,8 @@ public partial class CResultPopup : CSubPopup {
 		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!this.Params.m_stRecordInfo.m_bIsSuccess);
 
 		// 텍스트를 갱신한다
-		m_oTextDict[EKey.RECORD_TEXT]?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", a_bIsEnableAssert: false);
-		m_oTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((oLevelClearInfo != null) ? $"{oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, a_bIsEnableAssert: false);
+		m_oTMPTextDict[EKey.RECORD_TEXT]?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", a_bIsEnableAssert: false);
+		m_oTMPTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((oLevelClearInfo != null) ? $"{oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, a_bIsEnableAssert: false);
 
 		this.SubUpdateUIsState();
 	}
@@ -140,9 +150,9 @@ public partial class CResultPopup : CSubPopup {
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(STRecordInfo a_stRecordInfo, Dictionary<ECallback, System.Action<CResultPopup>> a_oCallbackDict = null) {
+	public static STParams MakeParams(STIDInfo a_stIDInfo, STRecordInfo a_stRecordInfo, Dictionary<ECallback, System.Action<CResultPopup>> a_oCallbackDict = null) {
 		return new STParams() {
-			m_stRecordInfo = a_stRecordInfo, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CResultPopup>>()
+			m_stIDInfo = a_stIDInfo, m_stRecordInfo = a_stRecordInfo, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CResultPopup>>()
 		};
 	}
 	#endregion // 클래스 함수
