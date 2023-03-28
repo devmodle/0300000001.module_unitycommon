@@ -71,20 +71,17 @@ public partial class CStoreUIsHandler : CComponent {
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_RESTORE_BTN, this.gameObject, this.OnTouchRestoreBtn)
 		});
-	}
 
-	/** 초기화 */
-	public override void Start() {
-		base.Start();
-		this.UpdateUIsState();
+		this.SubAwake();
 	}
 
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
 		this.Params = a_stParams;
-
-		// 상품 교환 정보를 설정한다
 		a_stParams.m_oProductTradeInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nProductIdx.CompareTo(a_stRhs.m_nProductIdx));
+
+		this.SubInit();
+		this.UpdateUIsState();
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -93,6 +90,8 @@ public partial class CStoreUIsHandler : CComponent {
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
 			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], this.Params.m_oProductTradeInfoList[i]);
 		}
+
+		this.SubUpdateUIsState();
 	}
 
 	/** 상품 구입 UI 상태를 갱신한다 */
@@ -154,16 +153,6 @@ public partial class CStoreUIsHandler : CComponent {
 		} finally {
 			CCollectionManager.Inst.DespawnDict(oPriceUIsDict);
 		}
-	}
-
-	/** 패키지 상품 구입 UI 상태를 갱신한다 */
-	private void UpdatePkgsProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
-		// Do Something
-	}
-
-	/** 단일 상품 구입 UI 상태를 갱신한다 */
-	private void UpdateSingleProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
-		// Do Something
 	}
 
 	/** 결제 버튼을 눌렀을 경우 */

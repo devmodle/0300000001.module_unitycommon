@@ -23,11 +23,14 @@ public partial class CDifficultyUIsHandler : CComponent {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */
 	public override void Start() {
 		base.Start();
+		this.SubStart();
+
 		this.SetupDifficulty();
 	}
 
@@ -47,7 +50,12 @@ public partial class CDifficultyUIsHandler : CComponent {
 		m_eDifficulty = a_eMode;
 		this.SetupDifficulty();
 	}
+	#endregion // 함수
+}
 
+/** 난이도 UI 처리자 - 설정 */
+public partial class CDifficultyUIsHandler : CComponent {
+	#region 함수
 	/** 난이도를 설정한다 */
 	private void SetupDifficulty() {
 		// 이미지가 존재 할 경우
@@ -55,6 +63,8 @@ public partial class CDifficultyUIsHandler : CComponent {
 			oImg.sprite = CResManager.Inst.GetRes<Sprite>(string.Format(KCDefine.B_TEXT_FMT_2_UNDER_SCORE_COMBINE, m_oBasePath, $"{m_eDifficulty}"));
 			oImg.gameObject.SetActive(oImg.sprite != null);
 		}
+
+		this.SubSetupDifficulty();
 	}
 	#endregion // 함수
 }
