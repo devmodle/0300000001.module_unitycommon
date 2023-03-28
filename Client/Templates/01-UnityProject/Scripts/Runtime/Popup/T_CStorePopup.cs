@@ -18,6 +18,7 @@ public partial class CStorePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
+		STORE_UIS_HANDLER,
 		SEL_PRODUCT_KINDS,
 		[HideInInspector] MAX_VAL
 	}
@@ -50,6 +51,8 @@ public partial class CStorePopup : CSubPopup {
 		[EKey.SEL_PRODUCT_KINDS] = EProductKinds.NONE
 	};
 
+	private Dictionary<EKey, CStoreUIsHandler> m_oStoreUIsHandler = new Dictionary<EKey, CStoreUIsHandler>();
+
 #if PURCHASE_MODULE_ENABLE
 	private List<Product> m_oRestoreProductList = new List<Product>();
 #endif // #if PURCHASE_MODULE_ENABLE
@@ -66,6 +69,7 @@ public partial class CStorePopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		m_oStoreUIsHandler.ExReplaceVal(EKey.STORE_UIS_HANDLER, this.gameObject.ExAddComponent<CStoreUIsHandler>());
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -82,6 +86,27 @@ public partial class CStorePopup : CSubPopup {
 
 		// 상품 교환 정보를 설정한다
 		a_stParams.m_oProductTradeInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nProductIdx.CompareTo(a_stRhs.m_nProductIdx));
+
+		// 상점 UI 처리자가 존재 할 경우
+		if(m_oStoreUIsHandler[EKey.STORE_UIS_HANDLER] != null) {
+			var stHandlerParams = CStoreUIsHandler.MakeParams(a_stParams.m_oProductTradeInfoList);
+
+#if ADS_MODULE_ENABLE
+			stHandlerParams.m_oAdsCallbackDict.TryAdd(CStoreUIsHandler.ECallback.ADS, (a_oSender, a_stAdsRewardInfo, a_bIsSuccess) => {
+				a_stParams.m_oAdsCallbackDict?.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
+			});
+#endif // #if ADS_MODULE_ENABLE
+
+#if PURCHASE_MODULE_ENABLE
+			stHandlerParams.m_oPurchaseCallbackDict01.TryAdd(CStoreUIsHandler.ECallback.PURCHASE, (a_oSender, a_oProductID, a_bIsSuccess) => {
+				a_stParams.m_oPurchaseCallbackDict01?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+			});
+
+			stHandlerParams.m_oPurchaseCallbackDict02.TryAdd(CStoreUIsHandler.ECallback.RESTORE, (a_oSender, a_oProductList, a_bIsSuccess) => {
+				a_stParams.m_oPurchaseCallbackDict02?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
+			});
+#endif // #if PURCHASE_MODULE_ENABLE
+		}
 
 		this.SubInit();
 	}
