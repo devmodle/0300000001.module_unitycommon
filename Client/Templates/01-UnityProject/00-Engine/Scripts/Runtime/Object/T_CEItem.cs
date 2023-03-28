@@ -14,7 +14,7 @@ namespace NSEngine {
 			NONE = -1,
 			[HideInInspector] MAX_VAL
 		}
-		
+
 		/** 매개 변수 */
 		public new struct STParams {
 			public CEObjComponent.STParams m_stBaseParams;
@@ -63,7 +63,7 @@ namespace NSEngine {
 
 				this.Init(stParams);
 			}
-			
+
 			this.SubResetItemInfo(a_stItemInfo);
 		}
 
@@ -77,7 +77,20 @@ namespace NSEngine {
 			}
 		}
 		#endregion // 함수
+	}
 
+	/** 아이템 - 접근 */
+	public partial class CEItem : CEObjComponent {
+		#region 함수
+		/** 원본 아이템 정보를 설정한다 */
+		public void SetOriginItemInfo(STItemInfo a_stItemInfo) {
+			this.OriginItemInfo = a_stItemInfo;
+		}
+		#endregion // 함수
+	}
+
+	/** 아이템 - 팩토리 */
+	public partial class CEItem : CEObjComponent {
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
@@ -86,16 +99,6 @@ namespace NSEngine {
 			};
 		}
 		#endregion // 클래스 함수
-	}
-
-	/** 아이템 - 설정 */
-	public partial class CEItem : CEObjComponent {
-		#region 함수
-		/** 원본 아이템 정보를 설정한다 */
-		public void SetOriginItemInfo(STItemInfo a_stItemInfo) {
-			this.OriginItemInfo = a_stItemInfo;
-		}
-		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

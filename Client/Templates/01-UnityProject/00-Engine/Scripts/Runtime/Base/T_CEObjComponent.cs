@@ -82,7 +82,7 @@ namespace NSEngine {
 			// 파티클 효과를 설정한다
 			m_oParticleFXDict[EKey.TARGET_PARTICLE_FX]?.gameObject.ExSetLocalPos(Vector3.zero, false);
 			m_oParticleFXDict[EKey.TARGET_PARTICLE_FX]?.Stop(true);
-			
+
 			this.SubInit();
 		}
 
@@ -118,15 +118,6 @@ namespace NSEngine {
 			this.AbilityValDictWrapper.m_oDict02.Clear();
 		}
 		#endregion // 함수
-
-		#region 클래스 함수
-		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(CEngine a_oEngine, CEController a_oController, string a_oObjsPoolKey, Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict = null) {
-			return new STParams() {
-				m_stBaseParams = CEComponent.MakeParams(a_oEngine, a_oObjsPoolKey), m_oController = a_oController, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
-			};
-		}
-		#endregion // 클래스 함수
 	}
 
 	/** 엔진 객체 컴포넌트 - 접근 */
@@ -144,6 +135,18 @@ namespace NSEngine {
 			return this.Params.m_oController as T;
 		}
 		#endregion // 제네릭 함수
+	}
+
+	/** 엔진 객체 컴포넌트 - 팩토리 */
+	public abstract partial class CEObjComponent : CEComponent {
+		#region 클래스 함수
+		/** 매개 변수를 생성한다 */
+		public static STParams MakeParams(CEngine a_oEngine, CEController a_oController, string a_oObjsPoolKey, Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict = null) {
+			return new STParams() {
+				m_stBaseParams = CEComponent.MakeParams(a_oEngine, a_oObjsPoolKey), m_oController = a_oController, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
+			};
+		}
+		#endregion // 클래스 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

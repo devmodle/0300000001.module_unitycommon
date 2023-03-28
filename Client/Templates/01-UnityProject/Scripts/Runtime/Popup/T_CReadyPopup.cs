@@ -79,7 +79,10 @@ public partial class CReadyPopup : CSubPopup {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.PLAY)?.Invoke(this);
 	}
 	#endregion // 함수
+}
 
+/** 준비 팝업 - 팩토리 */
+public partial class CReadyPopup : CSubPopup {
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
 	public static STParams MakeParams(STIDInfo a_stIDInfo, Dictionary<ECallback, System.Action<CReadyPopup>> a_oCallbackDict = null) {

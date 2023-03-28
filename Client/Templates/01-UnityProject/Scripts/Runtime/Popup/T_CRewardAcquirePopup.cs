@@ -121,15 +121,6 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	}
 	#endregion // 함수
 
-	#region 클래스 함수
-	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(ERewardQuality a_eQuality, ERewardAcquirePopupType a_eAgreePopup, Dictionary<ulong, STTargetInfo> a_oRewardTargetInfoDict) {
-		return new STParams() {
-			m_eQuality = a_eQuality, m_eAgreePopup = a_eAgreePopup, m_oRewardTargetInfoDict = a_oRewardTargetInfoDict
-		};
-	}
-	#endregion // 클래스 함수
-
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
@@ -141,6 +132,18 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	}
 #endif // #if ADS_MODULE_ENABLE
 	#endregion // 조건부 함수
+}
+
+/** 보상 획득 팝업 - 팩토리 */
+public partial class CRewardAcquirePopup : CSubPopup {
+	#region 클래스 함수
+	/** 매개 변수를 생성한다 */
+	public static STParams MakeParams(ERewardQuality a_eQuality, ERewardAcquirePopupType a_eAgreePopup, Dictionary<ulong, STTargetInfo> a_oRewardTargetInfoDict) {
+		return new STParams() {
+			m_eQuality = a_eQuality, m_eAgreePopup = a_eAgreePopup, m_oRewardTargetInfoDict = a_oRewardTargetInfoDict
+		};
+	}
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

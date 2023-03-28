@@ -290,21 +290,6 @@ namespace NSEngine {
 			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateUIsState(true);
 		}
 		#endregion // 함수
-
-		#region 클래스 함수
-		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null, Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict03 = null) {
-			return new STParams() {
-				m_oItemRoot = a_oItemRoot,
-				m_oSkillRoot = a_oSkillRoot,
-				m_oObjRoot = a_oObjRoot,
-				m_oFXRoot = a_oFXRoot,
-				m_oCallbackDict01 = a_oCallbackDict01 ?? new Dictionary<ECallback, System.Action<CEngine>>(),
-				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>(),
-				m_oCallbackDict03 = a_oCallbackDict03 ?? new Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>>()
-			};
-		}
-		#endregion // 클래스 함수
 	}
 
 	/** 엔진 - 설정 */
@@ -760,6 +745,21 @@ namespace NSEngine {
 			}
 		}
 		#endregion // 함수
+
+		#region 클래스 함수
+		/** 매개 변수를 생성한다 */
+		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null, Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict03 = null) {
+			return new STParams() {
+				m_oItemRoot = a_oItemRoot,
+				m_oSkillRoot = a_oSkillRoot,
+				m_oObjRoot = a_oObjRoot,
+				m_oFXRoot = a_oFXRoot,
+				m_oCallbackDict01 = a_oCallbackDict01 ?? new Dictionary<ECallback, System.Action<CEngine>>(),
+				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>(),
+				m_oCallbackDict03 = a_oCallbackDict03 ?? new Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>>()
+			};
+		}
+		#endregion // 클래스 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

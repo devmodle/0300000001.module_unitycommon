@@ -14,7 +14,7 @@ namespace NSEngine {
 			NONE = -1,
 			[HideInInspector] MAX_VAL
 		}
-		
+
 		/** 매개 변수 */
 		public new struct STParams {
 			public CEObjComponent.STParams m_stBaseParams;
@@ -73,7 +73,20 @@ namespace NSEngine {
 			}
 		}
 		#endregion // 함수
+	}
 
+	/** 스킬 - 접근 */
+	public partial class CESkill : CEObjComponent {
+		#region 함수
+		/** 원본 스킬 정보를 설정한다 */
+		public void SetOriginSkillInfo(STSkillInfo a_stSkillInfo) {
+			this.OriginSkillInfo = a_stSkillInfo;
+		}
+		#endregion // 함수
+	}
+
+	/** 스킬 - 팩토리 */
+	public partial class CESkill : CEObjComponent {
 		#region 클래스 함수
 		/** 스킬 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
@@ -82,16 +95,6 @@ namespace NSEngine {
 			};
 		}
 		#endregion // 클래스 함수
-	}
-
-	/** 스킬 - 설정 */
-	public partial class CESkill : CEObjComponent {
-		#region 함수
-		/** 원본 스킬 정보를 설정한다 */
-		public void SetOriginSkillInfo(STSkillInfo a_stSkillInfo) {
-			this.OriginSkillInfo = a_stSkillInfo;
-		}
-		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

@@ -61,7 +61,10 @@ namespace NSEngine {
 			}
 		}
 		#endregion // 함수
+	}
 
+	/** 아이템 제어자 - 팩토리 */
+	public partial class CEItemController : CEObjController {
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
 		public new static STParams MakeParams(CEngine a_oEngine) {

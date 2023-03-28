@@ -205,15 +205,6 @@ namespace NSEngine {
 			oSkill.GetController<CESkillController>().Apply();
 		}
 		#endregion // 함수
-
-		#region 클래스 함수
-		/** 매개 변수를 생성한다 */
-		public new static STParams MakeParams(CEngine a_oEngine) {
-			return new STParams() {
-				m_stBaseParams = CEController.MakeParams(a_oEngine)
-			};
-		}
-		#endregion // 클래스 함수
 	}
 
 	/** 객체 제어자 - 설정 */
@@ -273,6 +264,18 @@ namespace NSEngine {
 			}
 		}
 		#endregion // 함수
+	}
+
+	/** 객체 제어자 - 팩토리 */
+	public partial class CEObjController : CEController {
+		#region 클래스 함수
+		/** 매개 변수를 생성한다 */
+		public new static STParams MakeParams(CEngine a_oEngine) {
+			return new STParams() {
+				m_stBaseParams = CEController.MakeParams(a_oEngine)
+			};
+		}
+		#endregion // 클래스 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

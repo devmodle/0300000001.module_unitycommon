@@ -67,7 +67,10 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 		}
 	}
 	#endregion // 함수
+}
 
+/** 스테이지 스크롤러 셀 뷰 - 팩토리 */
+public partial class CStageScrollerCellView : CScrollerCellView {
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
 	public new static STParams MakeParams(ulong a_nID, EnhancedScroller a_oScroller, Dictionary<ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict = null) {

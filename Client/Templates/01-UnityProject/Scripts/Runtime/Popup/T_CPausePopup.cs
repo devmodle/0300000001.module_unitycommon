@@ -65,7 +65,10 @@ public partial class CPausePopup : CSubPopup {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
 	#endregion // 함수
+}
 
+/** 정지 팝업 - 팩토리 */
+public partial class CPausePopup : CSubPopup {
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
 	public static STParams MakeParams(Dictionary<ECallback, System.Action<CPausePopup>> a_oCallbackDict = null) {

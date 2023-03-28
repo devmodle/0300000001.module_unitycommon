@@ -141,7 +141,7 @@ public partial class CStorePopup : CSubPopup {
 			// 버튼을 갱신한다 {
 			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
 			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
-			
+
 #if PURCHASE_MODULE_ENABLE
 			var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductTradeInfo.m_nProductIdx);
 
@@ -196,24 +196,6 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion // 함수
-
-	#region 클래스 함수
-	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(List<STProductTradeInfo> a_oProductTradeInfoList) {
-		return new STParams() {
-			m_oProductTradeInfoList = a_oProductTradeInfoList,
-
-#if ADS_MODULE_ENABLE
-			m_oAdsCallbackDict = new Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>(),
-#endif // #if ADS_MODULE_ENABLE
-
-#if PURCHASE_MODULE_ENABLE
-			m_oPurchaseCallbackDict01 = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>(),
-			m_oPurchaseCallbackDict02 = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>()
-#endif // #if PURCHASE_MODULE_ENABLE
-		};
-	}
-	#endregion // 클래스 함수
 
 	#region 조건부 함수
 #if ADS_MODULE_ENABLE
@@ -283,6 +265,27 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE
 	#endregion // 조건부 함수
+}
+
+/** 상점 팝업 - 팩토리 */
+public partial class CStorePopup : CSubPopup {
+	#region 클래스 함수
+	/** 매개 변수를 생성한다 */
+	public static STParams MakeParams(List<STProductTradeInfo> a_oProductTradeInfoList) {
+		return new STParams() {
+			m_oProductTradeInfoList = a_oProductTradeInfoList,
+
+#if ADS_MODULE_ENABLE
+			m_oAdsCallbackDict = new Dictionary<ECallback, System.Action<CAdsManager, STAdsRewardInfo, bool>>(),
+#endif // #if ADS_MODULE_ENABLE
+
+#if PURCHASE_MODULE_ENABLE
+			m_oPurchaseCallbackDict01 = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>(),
+			m_oPurchaseCallbackDict02 = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>()
+#endif // #if PURCHASE_MODULE_ENABLE
+		};
+	}
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

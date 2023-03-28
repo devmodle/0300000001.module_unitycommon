@@ -67,7 +67,20 @@ namespace NSEngine {
 			base.DoSetupAbilityVals(a_bIsReset);
 		}
 		#endregion // 함수
+	}
 
+	/** 효과 - 접근 */
+	public partial class CEFX : CEObjComponent {
+		#region 함수
+		/** 원본 효과 정보를 설정한다 */
+		public void SetOriginFXInfo(STFXInfo a_stFXInfo) {
+			this.OriginFXInfo = a_stFXInfo;
+		}
+		#endregion // 함수
+	}
+
+	/** 효과 - 팩토리 */
+	public partial class CEFX : CEObjComponent {
 		#region 클래스 함수
 		/** 효과 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, STFXInfo a_stFXInfo, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
@@ -76,16 +89,6 @@ namespace NSEngine {
 			};
 		}
 		#endregion // 클래스 함수
-	}
-
-	/** 효과 - 설정 */
-	public partial class CEFX : CEObjComponent {
-		#region 함수
-		/** 원본 효과 정보를 설정한다 */
-		public void SetOriginFXInfo(STFXInfo a_stFXInfo) {
-			this.OriginFXInfo = a_stFXInfo;
-		}
-		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
