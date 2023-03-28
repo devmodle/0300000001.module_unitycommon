@@ -50,7 +50,11 @@ public partial class CDifficultyUIsHandler : CComponent {
 
 	/** 난이도를 설정한다 */
 	private void SetupDifficulty() {
-		// Do Something
+		// 이미지가 존재 할 경우
+		if(m_eDifficulty != EDifficulty.NONE && this.TryGetComponent(out Image oImg)) {
+			oImg.sprite = CResManager.Inst.GetRes<Sprite>(string.Format(KCDefine.B_TEXT_FMT_2_UNDER_SCORE_COMBINE, m_oBasePath, $"{m_eDifficulty}"));
+			oImg.gameObject.SetActive(oImg.sprite != null);
+		}
 	}
 	#endregion // 함수
 }
