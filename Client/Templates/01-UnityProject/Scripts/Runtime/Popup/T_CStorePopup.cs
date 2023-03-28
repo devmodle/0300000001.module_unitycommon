@@ -69,7 +69,7 @@ public partial class CStorePopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		m_oStoreUIsHandler.ExReplaceVal(EKey.STORE_UIS_HANDLER, this.gameObject.ExAddComponent<CStoreUIsHandler>());
+		m_oStoreUIsHandler.ExReplaceVal(EKey.STORE_UIS_HANDLER, this.GetComponentInChildren<CStoreUIsHandler>());
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -106,6 +106,8 @@ public partial class CStorePopup : CSubPopup {
 				a_stParams.m_oPurchaseCallbackDict02?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 			});
 #endif // #if PURCHASE_MODULE_ENABLE
+
+			m_oStoreUIsHandler[EKey.STORE_UIS_HANDLER].Init(stHandlerParams);
 		}
 
 		this.SubInit();
