@@ -284,10 +284,14 @@ public static partial class Access {
 		return Access.GetAbilityTargetInfo(a_nCharacterID, a_eAbilityKinds, true).m_oAbilityTargetInfoDict.ExGetTargetVal(a_eTargetKinds, a_nKinds);
 	}
 
+	/** 일일 보상 식별자를 반환한다 */
+	public static int GetDailyRewardID(int a_nCharacterID) {
+		return CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID).DailyRewardID;
+	}
+
 	/** 일일 보상 종류를 반환한다 */
 	public static ERewardKinds GetDailyRewardKinds(int a_nCharacterID) {
-		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID);
-		return KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[oCharacterGameInfo.DailyRewardID];
+		return KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[Access.GetDailyRewardID(a_nCharacterID)];
 	}
 
 	/** 에피소드 정보를 반환한다 */
@@ -455,16 +459,6 @@ public static partial class Access {
 			[KCDefine.U_KEY_STAGE_EPISODE] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.U_KEY_STAGE_EPISODE, string.Empty),
 			[KCDefine.U_KEY_CHAPTER_EPISODE] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.U_KEY_CHAPTER_EPISODE, string.Empty)
 		};
-	}
-
-	/** 일일 보상 종류를 변경한다 */
-	public static void SetDailyRewardID(int a_nCharacterID, int a_nID, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST.ExIsValidIdx(a_nID) && CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo)));
-
-		// 캐릭터 게임 정보가 존재 할 경우
-		if(KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST.ExIsValidIdx(a_nID) && CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out oCharacterGameInfo)) {
-			oCharacterGameInfo.DailyRewardID = a_nID;
-		}
 	}
 
 	/** 아이템 타겟 값을 변경한다 */

@@ -20,6 +20,8 @@ namespace NSEngine {
 
 			APPLY_SKILL_INFO,
 			APPLY_SKILL_TARGET_INFO,
+
+			APPLY_FX_INFO,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -44,6 +46,10 @@ namespace NSEngine {
 
 		private Dictionary<EKey, STSkillInfo> m_oSkillInfoDict = new Dictionary<EKey, STSkillInfo>() {
 			[EKey.APPLY_SKILL_INFO] = STSkillInfo.INVALID
+		};
+
+		private Dictionary<EKey, STFXInfo> m_oFXInfoDict = new Dictionary<EKey, STFXInfo>() {
+			[EKey.APPLY_FX_INFO] = STFXInfo.INVALID
 		};
 
 		private Dictionary<EKey, CSkillTargetInfo> m_oSkillTargetInfoDict = new Dictionary<EKey, CSkillTargetInfo>() {
@@ -173,7 +179,7 @@ namespace NSEngine {
 			this.SetMoveDirection((a_eVecType == EVecType.DIRECTION) ? a_stVal : Vector3.zero);
 		}
 
-		/** 스킬을 적용시킨다 */
+		/** 스킬을 적용한다 */
 		public virtual void ApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 스킬 적용이 가능 할 경우
 			if(this.IsEnableSkillState() && this.IsEnableApplySkill(a_stSkillInfo, a_oSkillTargetInfo)) {
@@ -196,13 +202,39 @@ namespace NSEngine {
 			}
 		}
 
-		/** 스킬을 적용시킨다 */
+		/** 효과를 적용한다 */
+		public virtual void ApplyFX(STFXInfo a_stFXInfo) {
+			var oTargetList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
+
+			try {
+				m_oFXInfoDict[EKey.APPLY_FX_INFO] = a_stFXInfo;
+
+				switch(a_stFXInfo.FXApplyType) {
+					// Do Something
+				}
+
+				this.DoApplyFX(a_stFXInfo, oTargetList);
+			} finally {
+				CCollectionManager.Inst.DespawnList(oTargetList);
+			}
+		}
+
+		/** 스킬을 적용한다 */
 		private void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, List<CEObjComponent> a_oTargetList) {
 			var oSkill = this.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo);
 			a_oTargetList.ExCopyTo(oSkill.GetController<CESkillController>().EObjComponentList, (a_oTargetObj) => a_oTargetObj);
 
 			this.Engine.SkillList.ExAddVal(oSkill);
 			oSkill.GetController<CESkillController>().Apply();
+		}
+
+		/** 효과를 적용한다 */
+		private void DoApplyFX(STFXInfo a_stFXInfo, List<CEObjComponent> a_oTargetList) {
+			var oFX = this.CreateFX(a_stFXInfo);
+			a_oTargetList.ExCopyTo(oFX.GetController<CEFXController>().EObjComponentList, (a_oTargetObj) => a_oTargetObj);
+			
+			this.Engine.FXList.ExAddVal(oFX);
+			oFX.GetController<CEFXController>().Apply();
 		}
 		#endregion // 함수
 	}
