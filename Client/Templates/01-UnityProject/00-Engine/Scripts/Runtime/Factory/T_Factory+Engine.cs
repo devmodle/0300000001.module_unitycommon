@@ -62,7 +62,7 @@ namespace NSEngine {
 						break;
 					}
 					case EGridType.SCROLL_V: {
-						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, a_oLevelInfo.NumCells, i, true);
+						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, a_stCellSize, a_stMaxGridSize, a_oLevelInfo.NumCells, i, true);
 						stGridInfo.m_stScale = stGridInfo.m_stScale.ExIsValid() ? stGridInfo.m_stScale : Vector3.one;
 
 						a_oOutGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER,

@@ -232,7 +232,7 @@ namespace MainScene {
 
 #if DAILY_REWARD_ENABLE
 			// 일일 보상 획득이 가능 할 경우
-			if(CGameInfoStorage.Inst.IsEnableGetDailyReward) {
+			if(Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID)) {
 				Func.ShowDailyRewardPopup(this.PopupUIs, (a_oSender) => (a_oSender as CDailyRewardPopup).Init());
 			}
 #endif // #if DAILY_REWARD_ENABLE
