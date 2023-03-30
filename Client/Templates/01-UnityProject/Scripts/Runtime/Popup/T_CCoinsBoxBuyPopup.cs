@@ -59,7 +59,7 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 
 	/** UI 상태를 변경한다 */
 	private void UpdateUIsState() {
-		long nNumCoinsBoxCoins = (long)Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_BOX_COINS, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS);
+		long nNumCoinsBoxCoins = (long)Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_BOX_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS);
 
 		// 객체를 갱신한다
 		m_oSaveUIs?.SetActive(nNumCoinsBoxCoins < KDefine.G_MAX_NUM_COINS_BOX_COINS);
@@ -79,7 +79,7 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn() {
 #if PURCHASE_MODULE_ENABLE
-		Func.PurchaseProduct(EProductKinds.SINGLE_PRODUCT_COINS_BOX, this.OnPurchaseProduct);
+		Func.PurchaseProduct(EProductKinds.SINGLE_PRODUCT_COINS_BOX_01, this.OnPurchaseProduct);
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion // 함수

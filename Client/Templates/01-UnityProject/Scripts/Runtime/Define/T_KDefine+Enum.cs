@@ -36,8 +36,8 @@ public enum ELoginType {
 public enum EPurchaseType {
 	NONE = -1,
 	ADS,
-	IN_APP_PURCHASE,
 	TARGET,
+	IN_APP_PURCHASE,
 	[HideInInspector] MAX_VAL
 }
 #endregion // 기본

@@ -419,7 +419,7 @@ public static partial class Func {
 			Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stItemInfo.m_stCommonInfo.m_bIsFlags01, a_bIsEnableAssert);
 
 			// 광고 제거 아이템 일 경우
-			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_TARGET_NUMS && (EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_ITEM_REMOVE_ADS) {
+			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_TARGET_NUMS && (EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_ITEM_REMOVE_ADS_01) {
 #if ADS_MODULE_ENABLE
 				Func.CloseBannerAds(null);
 

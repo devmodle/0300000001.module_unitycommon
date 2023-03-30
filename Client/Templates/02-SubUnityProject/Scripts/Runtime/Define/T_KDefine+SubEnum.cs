@@ -88,16 +88,16 @@ public enum EApplyKinds {
 
 	#region 다중
 	// 0
-	MULTI_APPLY_RANGE = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * KEnumVal.AK_RANGE_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	MULTI_APPLY_TARGET = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * KEnumVal.AK_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	MULTI_APPLY_NON_TARGET = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * KEnumVal.AK_NON_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	MULTI_APPLY_RANGE_01 = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * KEnumVal.AK_RANGE_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	MULTI_APPLY_TARGET_01 = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * KEnumVal.AK_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	MULTI_APPLY_NON_TARGET_01 = (EEnumVal.T * EApplyType.MULTI) + (EEnumVal.ST * KEnumVal.AK_NON_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 다중
 
 	#region 단일
 	// 100,000,000
-	SINGLE_APPLY_RANGE = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * KEnumVal.AK_RANGE_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	SINGLE_APPLY_TARGET = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * KEnumVal.AK_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	SINGLE_APPLY_NON_TARGET = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * KEnumVal.AK_NON_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_APPLY_RANGE_01 = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * KEnumVal.AK_RANGE_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_APPLY_TARGET_01 = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * KEnumVal.AK_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_APPLY_NON_TARGET_01 = (EEnumVal.T * EApplyType.SINGLE) + (EEnumVal.ST * KEnumVal.AK_NON_TARGET_SUB_TYPE_VAL) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 단일
 
 	[HideInInspector] MAX_VAL
@@ -119,22 +119,22 @@ public enum EFXApplyKinds {
 
 	#region 애니메이션
 	// 0
-	ANI_FX_APPLY = (EEnumVal.T * EFXApplyType.ANI) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	ANI_FX_APPLY_01 = (EEnumVal.T * EFXApplyType.ANI) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 애니메이션
 
 	#region 트윈 애니메이션
 	// 100,000,000
-	TWEEN_FX_APPLY = (EEnumVal.T * EFXApplyType.TWEEN) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	TWEEN_FX_APPLY_01 = (EEnumVal.T * EFXApplyType.TWEEN) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 트윈 애니메이션
 
 	#region 메카님 애니메이션
 	// 200,000,000
-	ANIMATOR_FX_APPLY = (EEnumVal.T * EFXApplyType.ANIMATOR) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	ANIMATOR_FX_APPLY_01 = (EEnumVal.T * EFXApplyType.ANIMATOR) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 메카님 애니메이션
 
 	#region 파티클 효과
 	// 300,000,000
-	PARTICLE_FX_APPLY = (EEnumVal.T * EFXApplyType.PARTICLE_FX) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	PARTICLE_FX_APPLY_01 = (EEnumVal.T * EFXApplyType.PARTICLE_FX) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 파티클 효과
 
 	[HideInInspector] MAX_VAL
@@ -267,7 +267,7 @@ public enum ERewardKinds {
 
 	#region 무료
 	// 0
-	FREE_REWARD_COINS = (EEnumVal.T * ERewardType.FREE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	FREE_REWARD_COINS_01 = (EEnumVal.T * ERewardType.FREE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 무료
 
 	#region 일일
@@ -313,26 +313,26 @@ public enum EEpisodeKinds {
 
 	#region 레벨
 	// 0
-	LEVEL_EPISODE_NORM = (EEnumVal.T * EEpisodeType.LEVEL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	LEVEL_EPISODE_NORM_01 = (EEnumVal.T * EEpisodeType.LEVEL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 10,000,000
-	LEVEL_EPISODE_BOSS = (EEnumVal.T * EEpisodeType.LEVEL) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	LEVEL_EPISODE_BOSS_01 = (EEnumVal.T * EEpisodeType.LEVEL) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 레벨
 
 	#region 스테이지
 	// 100,000,000
-	STAGE_EPISODE_NORM = (EEnumVal.T * EEpisodeType.STAGE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	STAGE_EPISODE_NORM_01 = (EEnumVal.T * EEpisodeType.STAGE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 110,000,000
-	STAGE_EPISODE_BOSS = (EEnumVal.T * EEpisodeType.STAGE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	STAGE_EPISODE_BOSS_01 = (EEnumVal.T * EEpisodeType.STAGE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 스테이지
 
 	#region 챕터
 	// 200,000,000
-	CHAPTER_EPISODE_NORM = (EEnumVal.T * EEpisodeType.CHAPTER) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	CHAPTER_EPISODE_NORM_01 = (EEnumVal.T * EEpisodeType.CHAPTER) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 210,000,000
-	CHAPTER_EPISODE_BOSS = (EEnumVal.T * EEpisodeType.CHAPTER) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	CHAPTER_EPISODE_BOSS_01 = (EEnumVal.T * EEpisodeType.CHAPTER) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 챕터
 
 	[HideInInspector] MAX_VAL
@@ -433,10 +433,10 @@ public enum EItemKinds {
 
 	#region 재화
 	// 0
-	GOODS_ITEM_NORM_COINS = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	GOODS_ITEM_COINS_01 = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 100,000
-	GOODS_ITEM_COINS_BOX_COINS = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
+	GOODS_ITEM_COINS_BOX_COINS_01 = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
 	#endregion // 재화
 
 	#region 소모
@@ -444,15 +444,15 @@ public enum EItemKinds {
 	CONSUMABLE_ITEM_BOOSTER_SAMPLE = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 100,100,000
-	CONSUMABLE_ITEM_GAME_ITEM_HINT = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
-	CONSUMABLE_ITEM_GAME_ITEM_CONTINUE = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 1),
-	CONSUMABLE_ITEM_GAME_ITEM_SHUFFLE = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 2),
+	CONSUMABLE_ITEM_GAME_ITEM_HINT_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
+	CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 1),
+	CONSUMABLE_ITEM_GAME_ITEM_SHUFFLE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 2),
 	#endregion // 소모
 
 	#region 비소모
 	// 200,000,000
-	NON_CONSUMABLE_ITEM_WATCH_ADS = (EEnumVal.T * EItemType.NON_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	NON_CONSUMABLE_ITEM_REMOVE_ADS,
+	NON_CONSUMABLE_ITEM_WATCH_ADS_01 = (EEnumVal.T * EItemType.NON_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	NON_CONSUMABLE_ITEM_REMOVE_ADS_01,
 	#endregion // 비소모
 
 	#region 무기
@@ -768,15 +768,15 @@ public enum EProductKinds {
 
 	#region 패키지
 	// 0
-	PKGS_PRODUCT_SPECIAL_BEGINNER = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	PKGS_PRODUCT_SPECIAL_EXPERT = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
-	PKGS_PRODUCT_SPECIAL_PRO = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	PKGS_PRODUCT_SPECIAL_BEGINNER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	PKGS_PRODUCT_SPECIAL_EXPERT_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	PKGS_PRODUCT_SPECIAL_PRO_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
 	#endregion // 패키지
 
 	#region 단일
 	// 100,000,000
-	SINGLE_PRODUCT_COINS_BOX = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	SINGLE_PRODUCT_REMOVE_ADS = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	SINGLE_PRODUCT_COINS_BOX_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_PRODUCT_REMOVE_ADS_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
 	#endregion // 단일
 
 	[HideInInspector] MAX_VAL
