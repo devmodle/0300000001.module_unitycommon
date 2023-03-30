@@ -24,10 +24,15 @@ public partial class CDailyRewardPopup : CSubPopup {
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
 	#endregion // 변수
 
+	#region 프로퍼티
+	public override bool IsIgnoreCloseBtn => true;
+	#endregion // 프로퍼티
+
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.SetIgnoreNavStackEvent(true);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
@@ -83,6 +88,8 @@ public partial class CDailyRewardPopup : CSubPopup {
 	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
 		Func.SetupNextDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
 		CGameInfoStorage.Inst.SaveGameInfo();
+
+		this.Close();
 	}
 
 	/** 보상 획득 팝업을 출력한다 */

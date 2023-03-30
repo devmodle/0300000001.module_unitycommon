@@ -291,7 +291,7 @@ public enum ERewardKinds {
 	#endregion // 미션
 
 	#region 튜토리얼
-	// 50,000,000
+	// 500,000,000
 	TUTORIAL_REWARD_SAMPLE = (EEnumVal.T * ERewardType.TUTORIAL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 튜토리얼
 
@@ -451,7 +451,8 @@ public enum EItemKinds {
 
 	#region 비소모
 	// 200,000,000
-	NON_CONSUMABLE_ITEM_REMOVE_ADS = (EEnumVal.T * EItemType.NON_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	NON_CONSUMABLE_ITEM_WATCH_ADS = (EEnumVal.T * EItemType.NON_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	NON_CONSUMABLE_ITEM_REMOVE_ADS,
 	#endregion // 비소모
 
 	#region 무기
@@ -465,7 +466,7 @@ public enum EItemKinds {
 	#endregion // 방어구
 
 	#region 악세서리
-	// 50,000,000
+	// 500,000,000
 	ACCESSORY_ITEM_SAMPLE = (EEnumVal.T * EItemType.ACCESSORY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 악세서리
 

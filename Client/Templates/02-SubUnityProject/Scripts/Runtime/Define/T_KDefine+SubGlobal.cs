@@ -112,6 +112,16 @@ public static partial class KDefine {
 		// Do Something
 	};
 
+	// 부스터
+	public static readonly List<EItemKinds> G_ITEM_KINDS_BOOSTER_LIST = new List<EItemKinds>() {
+		// Do Something
+	};
+
+	// 게임 아이템
+	public static readonly List<EItemKinds> G_ITEM_KINDS_GAME_ITEM_LIST = new List<EItemKinds>() {
+		// Do Something	
+	};
+
 	// 일일 보상
 	public static readonly List<ERewardKinds> G_REWARDS_KINDS_DAILY_REWARD_LIST = new List<ERewardKinds>() {
 		// Do Something
