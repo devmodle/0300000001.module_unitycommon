@@ -221,6 +221,12 @@ namespace MainScene {
 					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
 				}
 
+				// 광고 시청 아이템이 없을 경우
+				if(Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.NON_CONSUMABLE_ITEM_WATCH_ADS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS) <= KCDefine.B_VAL_0_INT) {
+					var stValInfo = new STValInfo(EValType.INT, KCDefine.B_VAL_1_INT);
+					Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)EItemKinds.NON_CONSUMABLE_ITEM_WATCH_ADS_01, stValInfo));
+				}
+
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}
 
