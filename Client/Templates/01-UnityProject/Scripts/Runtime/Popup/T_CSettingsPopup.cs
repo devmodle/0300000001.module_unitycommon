@@ -31,7 +31,8 @@ public partial class CSettingsPopup : CSubPopup {
 		// 버튼을 설정한다 {
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_REVIEW_BTN, this.Contents, this.OnTouchReviewBtn),
-			(KCDefine.U_OBJ_N_SUPPORTS_BTN, this.Contents, this.OnTouchSupportsBtn)
+			(KCDefine.U_OBJ_N_SUPPORTS_BTN, this.Contents, this.OnTouchSupportsBtn),
+			(KCDefine.U_OBJ_N_MORE_APPS_BTN, this.Contents, this.OnTouchMoreAppsBtn)
 		});
 
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
@@ -120,6 +121,11 @@ public partial class CSettingsPopup : CSubPopup {
 	/** 지원 버튼을 눌렀을 경우 */
 	private void OnTouchSupportsBtn() {
 		CUnityMsgSender.Inst.SendMailMsg(string.Empty, string.Empty, CProjInfoTable.Inst.CompanyInfo.m_oSupportsMail);
+	}
+
+	/** 앱 더보기 버튼을 눌렀을 경우 */
+	private void OnTouchMoreAppsBtn() {
+		Application.OpenURL(Access.MoreAppsURL);
 	}
 	#endregion // 함수
 }

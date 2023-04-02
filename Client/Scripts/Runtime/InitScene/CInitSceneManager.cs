@@ -59,9 +59,14 @@ namespace InitScene {
 			this.SetupBlindUIs();
 			DOTween.SetTweensCapacity(KCDefine.U_SIZE_DOTWEEN_ANI, KCDefine.U_SIZE_DOTWEEN_SEQUENCE_ANI);
 
-			// 테이블을 로드한다
+			// 테이블을 로드한다 {
+			CStrTable.Inst.LoadEnumStrs(typeof(EGridType));
+			CStrTable.Inst.LoadEnumStrs(typeof(EDifficulty));
+			CStrTable.Inst.LoadEnumStrs(typeof(EAgreePopup));
+
 			CValTable.Inst.LoadValsFromRes(KCDefine.U_TABLE_P_G_COMMON_VAL);
 			CStrTable.Inst.LoadStrsFromRes(KCDefine.U_TABLE_P_G_COMMON_STR);
+			// 테이블을 로드한다 }
 
 			// 저장소를 로드한다
 			CCommonAppInfoStorage.Inst.LoadAppInfo();
