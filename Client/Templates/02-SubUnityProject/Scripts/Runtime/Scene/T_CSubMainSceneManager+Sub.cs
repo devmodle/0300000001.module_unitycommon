@@ -114,7 +114,18 @@ namespace MainScene {
 		#region 함수
 		/** 선택 콜백을 수신했을 경우 */
 		private void OnReceiveSelCallback(CScrollerCellView a_oSender, ulong a_nID) {
-			// Do Something
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
+#if NEVER_USE_THIS
+			// 레벨 스크롤러 일 경우
+			if(a_oSender.Params.m_oScroller == m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].m_oScroller) {
+				Func.ShowReadyPopup(this.PopupUIs, (a_oSender) => {
+					(a_oSender as CReadyPopup).Init(CReadyPopup.MakeParams(a_nID.ExULevelIDToIDInfo(), new Dictionary<CReadyPopup.ECallback, System.Action<CReadyPopup>>() {
+						[CReadyPopup.ECallback.PLAY] = this.OnReceiveReadyPopupCallback
+					}));
+				});
+			}
+#endif // #if NEVER_USE_THIS
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 		}
 		#endregion // 함수
 	}

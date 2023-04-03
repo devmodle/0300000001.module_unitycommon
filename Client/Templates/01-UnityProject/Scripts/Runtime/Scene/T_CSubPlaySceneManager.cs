@@ -215,6 +215,13 @@ namespace PlayScene {
 			if(CSceneManager.IsAppRunning) {
 				this.SubOnUpdate(a_fDeltaTime);
 				m_oEngine.OnUpdate(a_fDeltaTime);
+
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+				// 단축키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.LeftShift)) {
+					this.HandleHotKeys();
+				}
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
 
@@ -331,6 +338,8 @@ namespace PlayScene {
 				case EPopupCallback.CONTINUE: this.HandleContinuePopupCallback(a_oSender); break;
 				case EPopupCallback.LEAVE: this.HandleLeavePopupCallback(a_oSender); break;
 			}
+
+			m_oEngine.SetEnableRunning(a_eCallback == EPopupCallback.RESUME || a_eCallback == EPopupCallback.CONTINUE);
 		}
 
 		/** 클리어 콜백을 수신했을 경우 */
@@ -346,7 +355,12 @@ namespace PlayScene {
 
 		/** 클리어 실패 콜백을 수신했을 경우 */
 		private void OnReceiveClearFailCallback(NSEngine.CEngine a_oSender) {
-			this.ShowResultPopup(false);
+			// 이어하기가 가능 할 경우
+			if(m_oIntDict[EKey.CONTINUE_TIMES] < KDefine.PS_MAX_TIMES_CONTINUE) {
+				this.ShowContinuePopup();
+			} else {
+				this.ShowResultPopup(false);
+			}
 		}
 
 		/** 정지 버튼을 눌렀을 경우 */
@@ -442,7 +456,7 @@ namespace PlayScene {
 					m_nIntRecord = m_oEngine.RecordInfo.m_nIntRecord,
 					m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord
 				};
-				
+
 				(a_oSender as CResultPopup).Init(CResultPopup.MakeParams(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo, stRecordInfo, new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
 					[CResultPopup.ECallback.NEXT] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.NEXT),
 					[CResultPopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.RETRY),
@@ -450,6 +464,7 @@ namespace PlayScene {
 				}));
 			});
 
+			m_oEngine.SetEnableRunning(false);
 			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_RESULT);
 		}
 
@@ -491,6 +506,22 @@ namespace PlayScene {
 #endif // #if ADS_MODULE_ENABLE
 		}
 		#endregion // 함수
+
+		#region 조건부 함수
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+		/** 단축키를 처리한다 */
+		private void HandleHotKeys() {
+			// 클리어 버튼을 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.C)) {
+				this.OnReceiveClearCallback(m_oEngine);
+			}
+			// 클리어 실패 버튼을 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.F)) {
+				this.OnReceiveClearFailCallback(m_oEngine);
+			}
+		}
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endregion // 조건부 함수
 	}
 
 	/** 서브 플레이 씬 관리자 - 접근 */

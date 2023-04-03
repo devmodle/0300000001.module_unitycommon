@@ -160,6 +160,7 @@ public static partial class KDefine {
 public static partial class KDefine {
 	#region 기본
 	// 단위
+	public const int PS_MAX_TIMES_CONTINUE = 0;
 	public const int PS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH = 0;
 	#endregion // 기본
 

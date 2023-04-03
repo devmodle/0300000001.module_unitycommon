@@ -18,6 +18,7 @@ public partial class CResultPopup : CSubPopup {
 		BEST_RECORD_TEXT,
 
 		CLEAR_UIS,
+		REWARD_UIS,
 		CLEAR_FAIL_UIS,
 		[HideInInspector] MAX_VAL
 	}
@@ -62,6 +63,7 @@ public partial class CResultPopup : CSubPopup {
 		// 객체를 설정한다
 		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
 			(EKey.CLEAR_UIS, $"{EKey.CLEAR_UIS}", this.Contents),
+			(EKey.REWARD_UIS, $"{EKey.REWARD_UIS}", this.Contents),
 			(EKey.CLEAR_FAIL_UIS, $"{EKey.CLEAR_FAIL_UIS}", this.Contents)
 		}, m_oUIsDict);
 
@@ -123,6 +125,7 @@ public partial class CResultPopup : CSubPopup {
 
 		// 객체를 갱신한다
 		m_oUIsDict[EKey.CLEAR_UIS]?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess);
+		m_oUIsDict[EKey.REWARD_UIS]?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess && CGameInfoStorage.Inst.PlayEpisodeInfo.m_oRewardKindsList.Any((a_eRewardKinds) => a_eRewardKinds != ERewardKinds.NONE));
 		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!this.Params.m_stRecordInfo.m_bIsSuccess);
 
 		// 텍스트를 갱신한다

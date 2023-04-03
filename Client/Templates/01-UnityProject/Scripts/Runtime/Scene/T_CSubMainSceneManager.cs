@@ -155,6 +155,13 @@ namespace MainScene {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
 				this.SubOnUpdate(a_fDeltaTime);
+
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+				// 단축키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.LeftShift)) {
+					this.HandleHotKeys();
+				}
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
 
@@ -270,7 +277,20 @@ namespace MainScene {
 
 		/** 플레이 버튼을 눌렀을 경우 */
 		private void OnTouchPlayBtn() {
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
+#if NEVER_USE_THIS
+			Func.ShowReadyPopup(this.PopupUIs, (a_oSender) => {
+				// 에피소드 정보가 없을 경우
+				if(!CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, KCDefine.B_VAL_0_INT), out STEpisodeInfo stEpisodeInfo)) {
+					stEpisodeInfo = CEpisodeInfoTable.Inst.GetLevelEpisodeInfo(Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, KCDefine.B_VAL_0_INT) - KCDefine.B_VAL_1_INT);
+				}
+
+				(a_oSender as CReadyPopup).Init(CReadyPopup.MakeParams(stEpisodeInfo.m_stIDInfo, new Dictionary<CReadyPopup.ECallback, System.Action<CReadyPopup>>() {
+					[CReadyPopup.ECallback.PLAY] = this.OnReceiveReadyPopupCallback
+				}));
+			});
+#endif // #if NEVER_USE_THIS
+			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 		}
 
 		/** 상점 버튼을 눌렀을 경우 */
@@ -289,9 +309,22 @@ namespace MainScene {
 				(a_oSender as CSettingsPopup).Init();
 			});
 		}
+
+		/** 준비 팝업 콜백을 수신했을 경우 */
+		private void OnReceiveReadyPopupCallback(CPopup a_oSender) {
+			Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, (a_oSender as CReadyPopup).Params.m_stIDInfo.m_nID01, EPlayMode.NORM);
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
+		}
 		#endregion // 함수
 
 		#region 조건부 함수
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+		/** 단축키를 처리한다 */
+		private void HandleHotKeys() {
+			// Do Something
+		}
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+
 #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
 		/** AB 테스트 UI 세트 버튼을 눌렀을 경우 */
 		protected override void OnTouchABTUIsSetBtn(EUserType a_eUserType) {
