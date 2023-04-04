@@ -17,7 +17,7 @@ public partial class CClearInfo : CBaseInfo {
 	#region 변수
 	[Key(1)] public STRecordInfo m_stRecordInfo;
 	[Key(2)] public STRecordInfo m_stBestRecordInfo;
-	[IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
+	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 	#endregion // 변수
 
 	#region 상수
@@ -78,6 +78,10 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	[Key(51)] public List<ulong> m_oUnlockULevelIDList = new List<ulong>();
 	[Key(52)] public List<ulong> m_oUnlockUStageIDList = new List<ulong>();
 	[Key(53)] public List<ulong> m_oUnlockUChapterIDList = new List<ulong>();
+
+	[Key(54)] public List<ulong> m_oAcquireRewardULevelIDList = new List<ulong>();
+	[Key(55)] public List<ulong> m_oAcquireRewardUStageIDList = new List<ulong>();
+	[Key(56)] public List<ulong> m_oAcquireRewardUChapterIDList = new List<ulong>();
 
 	[Key(61)] public List<EMissionKinds> m_oCompleteMissionKindsList = new List<EMissionKinds>();
 	[Key(62)] public List<EMissionKinds> m_oCompleteDailyMissionKindsList = new List<EMissionKinds>();
@@ -147,6 +151,10 @@ public partial class CCharacterGameInfo : CBaseInfo {
 		m_oUnlockULevelIDList = m_oUnlockULevelIDList ?? new List<ulong>();
 		m_oUnlockUStageIDList = m_oUnlockUStageIDList ?? new List<ulong>();
 		m_oUnlockUChapterIDList = m_oUnlockUChapterIDList ?? new List<ulong>();
+
+		m_oAcquireRewardULevelIDList = m_oAcquireRewardULevelIDList ?? new List<ulong>();
+		m_oAcquireRewardUStageIDList = m_oAcquireRewardUStageIDList ?? new List<ulong>();
+		m_oAcquireRewardUChapterIDList = m_oAcquireRewardUChapterIDList ?? new List<ulong>();
 
 		m_oCompleteMissionKindsList = m_oCompleteMissionKindsList ?? new List<EMissionKinds>();
 		m_oCompleteDailyMissionKindsList = m_oCompleteDailyMissionKindsList ?? new List<EMissionKinds>();

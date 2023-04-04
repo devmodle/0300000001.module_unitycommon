@@ -33,8 +33,8 @@ public partial class CSyncPopup : CSubPopup {
 
 		// 객체를 설정한다
 		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
-			(EKey.LOGIN_UIS, $"{EKey.LOGIN_UIS}", this.Contents),
-			(EKey.LOGOUT_UIS, $"{EKey.LOGIN_UIS}", this.Contents)
+			(EKey.LOGIN_UIS, $"{EKey.LOGIN_UIS}", this.ContentsUIs),
+			(EKey.LOGOUT_UIS, $"{EKey.LOGIN_UIS}", this.ContentsUIs)
 		}, m_oUIsDict);
 
 		// 버튼을 설정한다

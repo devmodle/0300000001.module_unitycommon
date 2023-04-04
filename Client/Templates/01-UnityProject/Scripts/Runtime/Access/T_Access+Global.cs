@@ -163,6 +163,29 @@ public static partial class Access {
 		return oCharacterGameInfo != null && oCharacterGameInfo.m_oUnlockUChapterIDList.Contains(CFactory.MakeUChapterID(a_nChapterID));
 	}
 
+	/** 레벨 보상 획득 여부를 검사한다 */
+	public static bool IsAcquireLevelReward(int a_nCharacterID, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
+		return oCharacterGameInfo != null && oCharacterGameInfo.m_oAcquireRewardULevelIDList.Contains(CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID));
+	}
+
+	/** 스테이지 보상 획득 여부를 검사한다 */
+	public static bool IsAcquireStageReward(int a_nCharacterID, int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
+		return oCharacterGameInfo != null && oCharacterGameInfo.m_oAcquireRewardUStageIDList.Contains(CFactory.MakeUStageID(a_nStageID, a_nChapterID));
+	}
+
+	/** 챕터 보상 획득 여부를 검사한다 */
+	public static bool IsAcquireChapterReward(int a_nCharacterID, int a_nChapterID) {
+		CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
+		return oCharacterGameInfo != null && oCharacterGameInfo.m_oAcquireRewardUChapterIDList.Contains(CFactory.MakeUChapterID(a_nChapterID));
+	}
+
+	/** 일일 보상 지속 획득 여부를 검사한다 */
+	public static bool IsContinueGetDailyReward(int a_nCharacterID) {
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_REAL) : false;
+	}
+
 	/** 무료 보상 획득 가능 여부를 검사한다 */
 	public static bool IsEnableGetFreeReward(int a_nCharacterID) {
 		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevFreeRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
@@ -176,11 +199,6 @@ public static partial class Access {
 	/** 일일 미션 리셋 가능 여부를 검사한다 */
 	public static bool IsEnableResetDailyMission(int a_nCharacterID) {
 		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
-	}
-
-	/** 일일 보상 지속 가능 여부를 검사한다 */
-	public static bool IsContinueGetDailyReward(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_REAL) : false;
 	}
 
 	/** 교환 가능 여부를 검사한다 */

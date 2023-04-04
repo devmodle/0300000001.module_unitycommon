@@ -47,7 +47,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
-			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.Contents)
+			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.ContentsUIs)
 		}, m_oTMPTextDict);
 
 		this.SubAwake();

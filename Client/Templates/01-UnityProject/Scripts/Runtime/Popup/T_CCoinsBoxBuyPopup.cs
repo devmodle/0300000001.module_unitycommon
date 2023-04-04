@@ -33,7 +33,7 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
-			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.Contents)
+			(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.ContentsUIs)
 		}, m_oTMPTextDict);
 
 		// 버튼을 설정한다

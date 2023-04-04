@@ -49,7 +49,7 @@ public partial class CContinuePopup : CSubPopup {
 
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
-			(EKey.PRICE_TEXT, $"{EKey.PRICE_TEXT}", this.Contents)
+			(EKey.PRICE_TEXT, $"{EKey.PRICE_TEXT}", this.ContentsUIs)
 		}, m_oTMPTextDict);
 
 		// 버튼을 설정한다
