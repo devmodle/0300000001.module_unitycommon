@@ -17,8 +17,15 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 		public CScrollerCellView.STParams m_stBaseParams;
 	}
 
-	#region 변수
+	/** 스크롤러 셀 UI */
+	[System.Serializable]
+	private struct STScrollerCellUIs {
+		// Do Something
+	}
 
+	#region 변수
+	/** =====> UI <===== */
+	private List<STScrollerCellUIs> m_oScrollerCellUIsList = new List<STScrollerCellUIs>();
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -59,6 +66,7 @@ public partial class CLevelScrollerCellView : CScrollerCellView {
 
 		// 레벨 정보가 존재 할 경우
 		if(a_stIDInfo.m_nID01 < Access.GetNumLevelEpisodes(a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)) {
+			var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stIDInfo.m_nID01, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03);
 			CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_stIDInfo.m_nID01, out STEpisodeInfo stEpisodeInfo, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03);
 
 			// 텍스트를 갱신한다

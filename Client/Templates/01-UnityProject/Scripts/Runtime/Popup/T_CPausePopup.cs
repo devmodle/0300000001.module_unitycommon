@@ -7,10 +7,11 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 정지 팝업 */
-public partial class CPausePopup : CSubPopup {
+public partial class CPausePopup : CSettingsPopup {
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,
+		RETRY,
 		LEAVE,
 		[HideInInspector] MAX_VAL
 	}
@@ -35,6 +36,7 @@ public partial class CPausePopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+			(KCDefine.U_OBJ_N_RETRY_BTN, this.gameObject, this.OnTouchRetryBtn),
 			(KCDefine.U_OBJ_N_LEAVE_BTN, this.gameObject, this.OnTouchLeaveBtn)
 		});
 
@@ -60,6 +62,11 @@ public partial class CPausePopup : CSubPopup {
 		this.SubUpdateUIsState();
 	}
 
+	/** 재시도 버튼을 눌렀을 경우 */
+	private void OnTouchRetryBtn() {
+		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
+	}
+
 	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
@@ -68,7 +75,7 @@ public partial class CPausePopup : CSubPopup {
 }
 
 /** 정지 팝업 - 팩토리 */
-public partial class CPausePopup : CSubPopup {
+public partial class CPausePopup : CSettingsPopup {
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
 	public static STParams MakeParams(Dictionary<ECallback, System.Action<CPausePopup>> a_oCallbackDict = null) {

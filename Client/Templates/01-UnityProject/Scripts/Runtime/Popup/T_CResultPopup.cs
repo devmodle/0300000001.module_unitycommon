@@ -111,7 +111,7 @@ public partial class CResultPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		int nNumMarks = 0;
-		var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);
+		var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03);
 
 		// 클리어 정보가 존재 할 경우
 		if(oLevelClearInfo != null) {
@@ -124,9 +124,9 @@ public partial class CResultPopup : CSubPopup {
 		}
 
 		// 객체를 갱신한다
-		m_oUIsDict[EKey.CLEAR_UIS]?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess);
-		m_oUIsDict[EKey.REWARD_UIS]?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess && CGameInfoStorage.Inst.PlayEpisodeInfo.m_oRewardKindsList.Any((a_eRewardKinds) => a_eRewardKinds != ERewardKinds.NONE));
-		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!this.Params.m_stRecordInfo.m_bIsSuccess);
+		m_oUIsDict[EKey.CLEAR_UIS]?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess && !CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward);
+		m_oUIsDict[EKey.REWARD_UIS]?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess && CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward);
+		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!this.Params.m_stRecordInfo.m_bIsSuccess && !CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward);
 
 		// 텍스트를 갱신한다
 		m_oTMPTextDict[EKey.RECORD_TEXT]?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", a_bIsEnableAssert: false);

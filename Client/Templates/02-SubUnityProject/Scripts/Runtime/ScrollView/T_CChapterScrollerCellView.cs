@@ -17,8 +17,15 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 		public CScrollerCellView.STParams m_stBaseParams;
 	}
 
-	#region 변수
+	/** 스크롤러 셀 UI */
+	[System.Serializable]
+	private struct STScrollerCellUIs {
+		// Do Something
+	}
 
+	#region 변수
+	/** =====> UI <===== */
+	private List<STScrollerCellUIs> m_oScrollerCellUIsList = new List<STScrollerCellUIs>();
 	#endregion // 변수
 
 	#region 프로퍼티

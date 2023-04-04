@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.IO;
+using System.Linq;
 
 /** 에피소드 정보 */
 [System.Serializable]
@@ -43,6 +44,11 @@ public struct STEpisodeInfo {
 	#endregion // 상수
 
 	#region 프로퍼티
+	public bool IsExistsGameItem => m_oGameItemKindsList.ExIsValid() && !m_oGameItemKindsList.All((a_eItemKinds) => a_eItemKinds == EItemKinds.NONE);
+	public bool IsExistsBoosterItem => m_oBoosterItemKindsList.ExIsValid() && !m_oBoosterItemKindsList.All((a_eItemKinds) => a_eItemKinds == EItemKinds.NONE);
+
+	public bool IsExistsReward => m_oRewardKindsList.ExIsValid() && !m_oRewardKindsList.All((a_eRewardKinds) => a_eRewardKinds == ERewardKinds.NONE);
+
 	public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	public ulong PrevULevelID => CFactory.MakeULevelID(m_stPrevIDInfo.m_nID01, m_stPrevIDInfo.m_nID02, m_stPrevIDInfo.m_nID03);
 	public ulong NextULevelID => CFactory.MakeULevelID(m_stNextIDInfo.m_nID01, m_stNextIDInfo.m_nID02, m_stNextIDInfo.m_nID03);
@@ -78,7 +84,7 @@ public struct STEpisodeInfo {
 		m_stIDInfo = new STIDInfo(a_oEpisodeInfo, KCDefine.U_KEY_FMT_ID);
 		m_stPrevIDInfo = new STIDInfo(a_oEpisodeInfo, KCDefine.U_KEY_FMT_PREV_ID);
 		m_stNextIDInfo = new STIDInfo(a_oEpisodeInfo, KCDefine.U_KEY_FMT_NEXT_ID);
-		
+
 		m_oGameItemKindsList = Factory.MakeVals(a_oEpisodeInfo, KCDefine.U_KEY_FMT_GAME_ITEM_KINDS, (a_oJSONNode) => (EItemKinds)a_oJSONNode.AsInt);
 		m_oBoosterItemKindsList = Factory.MakeVals(a_oEpisodeInfo, KCDefine.U_KEY_FMT_BOOSTER_ITEM_KINDS, (a_oJSONNode) => (EItemKinds)a_oJSONNode.AsInt);
 
@@ -125,7 +131,7 @@ public struct STEpisodeInfo {
 		Func.SaveTargetInfos(m_oEnemyObjTargetInfoDict, KCDefine.U_KEY_FMT_ENEMY_OBJ_TARGET_INFO, a_oOutEpisodeInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 에피소드 정보 테이블 */

@@ -391,6 +391,34 @@ public static partial class Access {
 		return CGameInfoStorage.Inst.TryGetChapterClearInfo(a_nCharacterID, a_nChapterID, out oChapterClearInfo) ? oChapterClearInfo : null;
 	}
 
+	/** 레벨 클리어 보상 식별자 정보를 반환한다 */
+	public static (STIDInfo, STIDInfo) GetLevelClearRewardIDInfo(int a_nCharacterID, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		STIDInfo stMinIDInfo = new STIDInfo(a_nLevelID - KCDefine.B_VAL_1_INT, a_nStageID, a_nChapterID);
+		STIDInfo stMaxIDInfo = new STIDInfo(a_nLevelID + KCDefine.B_VAL_0_INT, a_nStageID, a_nChapterID);
+
+		for(int i = 1; i < KCDefine.U_MAX_NUM_LEVEL_INFOS; ++i) {
+			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_nLevelID - i, out STEpisodeInfo stEpisodeInfo);
+
+			// 보상 정보가 존재 할 경우
+			if(!bIsValid || stEpisodeInfo.IsExistsReward) {
+				stMinIDInfo.m_nID01 = a_nLevelID - i;
+				break;
+			}
+		}
+
+		for(int i = 0; i < KCDefine.U_MAX_NUM_LEVEL_INFOS; ++i) {
+			bool bIsValid = CEpisodeInfoTable.Inst.TryGetLevelEpisodeInfo(a_nLevelID + i, out STEpisodeInfo stEpisodeInfo);
+
+			// 보상 정보가 존재 할 경우
+			if(!bIsValid || stEpisodeInfo.IsExistsReward) {
+				stMaxIDInfo.m_nID01 = a_nLevelID + i;
+				break;
+			}
+		}
+
+		return (stMinIDInfo, stMaxIDInfo);
+	}
+
 	/** 아이템 타겟 정보를 반환한다 */
 	public static CItemTargetInfo GetItemTargetInfo(int a_nCharacterID, STIdxInfo a_stIdxInfo) {
 		return Access.GetTargetInfo(a_nCharacterID, ETargetType.ITEM, a_stIdxInfo) as CItemTargetInfo;

@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 서브 정지 팝업 */
-public partial class CPausePopup : CSubPopup {
+public partial class CPausePopup : CSettingsPopup {
 	/** 서브 식별자 */
 	private enum ESubKey {
 		NONE = -1,

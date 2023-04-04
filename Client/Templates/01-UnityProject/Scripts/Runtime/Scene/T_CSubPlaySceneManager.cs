@@ -31,6 +31,7 @@ namespace PlayScene {
 		/** 팝업 콜백 */
 		private enum EPopupCallback {
 			NONE = -1,
+			PREV,
 			NEXT,
 			RETRY,
 			RESUME,
@@ -332,6 +333,7 @@ namespace PlayScene {
 			}
 
 			switch(a_eCallback) {
+				case EPopupCallback.PREV: this.HandlePrevPopupCallback(a_oSender); break;
 				case EPopupCallback.NEXT: this.HandleNextPopupCallback(a_oSender); break;
 				case EPopupCallback.RETRY: this.HandleRetryPopupCallback(a_oSender); break;
 				case EPopupCallback.RESUME: this.HandleResumePopupCallback(a_oSender); break;
@@ -367,6 +369,7 @@ namespace PlayScene {
 		private void OnTouchPauseBtn() {
 			Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CPausePopup).Init(CPausePopup.MakeParams(new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
+					[CPausePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.RETRY),
 					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.LEAVE)
 				}));
 			});
@@ -410,8 +413,11 @@ namespace PlayScene {
 		private void LoadLevel(CPopup a_oPopup, STEpisodeInfo a_stEpisodeInfo) {
 			switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
-					// 레벨 로드가 가능 할 경우
-					if(a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID && a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03)) {
+					bool bIsValid01 = a_stEpisodeInfo.m_stIDInfo.m_nID01 < CLevelInfoTable.Inst.GetNumLevelInfos(a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
+					bool bIsValid02 = a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03);
+
+					// 레벨 에피소드 정보가 존재 할 경우
+					if(bIsValid01 && bIsValid02 && a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) {
 						Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
 
 #if ADS_MODULE_ENABLE
