@@ -14,19 +14,6 @@ using UnityEngine.Purchasing;
 public static partial class Func {
 	#region 클래스 함수
 	/** 어빌리티 값을 설정한다 */
-	public static void SetupAbilityVals(EAbilityKinds a_eAbilityKinds, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_eAbilityKinds != EAbilityKinds.NONE && a_oOutAbilityValDict != null));
-
-		// 어빌리티 값 설정이 가능 할 경우
-		if(a_oOutAbilityValDict != null && CAbilityInfoTable.Inst.TryGetAbilityInfo(a_eAbilityKinds, out STAbilityInfo stAbilityInfo)) {
-			var eValType = (((int)a_eAbilityKinds).ExKindsToDetailSubKindsTypeVal() == KEnumVal.AK_INT_DETAIL_SUB_KINDS_TYPE_VAL) ? EValType.INT : EValType.REAL;
-			var stValInfo = new STValInfo(eValType, (eValType == EValType.INT) ? (decimal)KCDefine.B_VAL_1_INT : (decimal)KCDefine.B_VAL_0_1_REAL);
-
-			Func.DoSetupAbilityVals(new STTargetInfo(ETargetKinds.ABILITY_TARGET, (int)a_eAbilityKinds, stValInfo), a_oOutAbilityValDict, a_bIsEnableAssert);
-		}
-	}
-
-	/** 어빌리티 값을 설정한다 */
 	public static void SetupAbilityVals(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_stItemInfo.m_eItemKinds != EItemKinds.NONE && a_oOutAbilityValDict != null));
 
@@ -66,7 +53,7 @@ public static partial class Func {
 		// 어빌리티 값 설정이 가능 할 경우
 		if(a_oTargetInfoList != null && a_oOutAbilityValDict != null) {
 			for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
-				Func.DoSetupAbilityVals(a_oTargetInfoList[i], a_oOutAbilityValDict);
+				Func.SetupAbilityVals(a_oTargetInfoList[i], a_oOutAbilityValDict);
 			}
 		}
 	}
@@ -78,7 +65,7 @@ public static partial class Func {
 		// 어빌리티 값 설정이 가능 할 경우
 		if(a_oAbilityTargetInfoDict != null && a_oOutAbilityValDict != null) {
 			foreach(var stKeyVal in a_oAbilityTargetInfoDict) {
-				Func.DoSetupAbilityVals(stKeyVal.Value, a_oOutAbilityValDict);
+				Func.SetupAbilityVals(stKeyVal.Value, a_oOutAbilityValDict);
 			}
 		}
 	}
@@ -323,25 +310,48 @@ public static partial class Func {
 		}
 	}
 
-	/** 어빌리티 값을 설정한다 */
-	private static void SetupAbilityVals(CTargetInfo a_oTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oTargetInfo != null && a_oOutAbilityValDict != null));
+	/** 컴포넌트를 갱신한다 */
+	public static void UpdateComponents<T>(List<T> a_oComponentList, float a_fDeltaTime) where T : CComponent {
+		for(int i = 0; i < a_oComponentList.Count; ++i) {
+			// 상태 갱신이 가능 할 경우
+			if(a_oComponentList[i] != null && (a_oComponentList[i].IsActive && !a_oComponentList[i].IsDestroy && a_oComponentList[i].gameObject.activeInHierarchy)) {
+				a_oComponentList[i].OnUpdate(a_fDeltaTime);
+			}
+		}
+	}
 
-		// 어빌리티 값 설정이 가능 할 경우
-		if(a_oTargetInfo != null && a_oOutAbilityValDict != null) {
-			Func.SetupAbilityVals(a_oTargetInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict, a_bIsEnableAssert);
+	/** 컴포넌트를 갱신한다 */
+	public static void UpdateComponents<K, V>(Dictionary<K, V> a_oComponentDict, float a_fDeltaTime) where V : CComponent {
+		foreach(var stKeyVal in a_oComponentDict) {
+			// 상태 갱신이 가능 할 경우
+			if(stKeyVal.Value != null && (stKeyVal.Value.IsActive && !stKeyVal.Value.IsDestroy && stKeyVal.Value.gameObject.activeInHierarchy)) {
+				stKeyVal.Value.OnUpdate(a_fDeltaTime);
+			}
+		}
+	}
 
-			for(int i = 0; i < a_oTargetInfo.m_oOwnedTargetInfoList.Count; ++i) {
-				// 어빌리티 값 설정이 가능 할 경우
-				if(a_oTargetInfo.m_oOwnedTargetInfoList[i].TargetType != ETargetType.SKILL || (ESkillType)a_oTargetInfo.m_oOwnedTargetInfoList[i].Kinds.ExKindsToType() == ESkillType.PASSIVE) {
-					Func.SetupAbilityVals(a_oTargetInfo.m_oOwnedTargetInfoList[i], a_oOutAbilityValDict, a_bIsEnableAssert);
-				}
+	/** 컴포넌트를 갱신한다 */
+	public static void LateUpdateComponents<T>(List<T> a_oComponentList, float a_fDeltaTime) where T : CComponent {
+		for(int i = 0; i < a_oComponentList.Count; ++i) {
+			// 상태 갱신이 가능 할 경우
+			if(a_oComponentList[i] != null && (a_oComponentList[i].IsActive && !a_oComponentList[i].IsDestroy && a_oComponentList[i].gameObject.activeInHierarchy)) {
+				a_oComponentList[i].OnLateUpdate(a_fDeltaTime);
+			}
+		}
+	}
+
+	/** 컴포넌트를 갱신한다 */
+	public static void LageUpdateComponents<K, V>(Dictionary<K, V> a_oComponentDict, float a_fDeltaTime) where V : CComponent {
+		foreach(var stKeyVal in a_oComponentDict) {
+			// 상태 갱신이 가능 할 경우
+			if(stKeyVal.Value != null && (stKeyVal.Value.IsActive && !stKeyVal.Value.IsDestroy && stKeyVal.Value.gameObject.activeInHierarchy)) {
+				stKeyVal.Value.OnLateUpdate(a_fDeltaTime);
 			}
 		}
 	}
 
 	/** 어빌리티 값을 설정한다 */
-	private static void DoSetupAbilityVals(STTargetInfo a_stTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
+	private static void SetupAbilityVals(STTargetInfo a_stTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oOutAbilityValDict != null);
 
 		// 어빌리티 값 설정이 가능 할 경우
@@ -355,12 +365,25 @@ public static partial class Func {
 				a_oOutAbilityValDict.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutAbilityValDict.GetValueOrDefault(eAbilityKinds) + (dmAbilityVal * a_stTargetInfo.m_stValInfo01.m_dmVal), decimal.MinValue, decimal.MaxValue), a_bIsEnableAssert);
 			}
 
-			for(int i = 0; i < stAbilityInfo.m_oExtraAbilityKindsList.Count; ++i) {
-				Func.SetupAbilityVals(stAbilityInfo.m_oExtraAbilityKindsList[i], a_oOutAbilityValDict, a_bIsEnableAssert);
-			}
-
 			foreach(var stKeyVal in stAbilityInfo.m_oExtraAbilityTargetInfoDict) {
-				Func.DoSetupAbilityVals(stKeyVal.Value, a_oOutAbilityValDict, a_bIsEnableAssert);
+				Func.SetupAbilityVals(stKeyVal.Value, a_oOutAbilityValDict, a_bIsEnableAssert);
+			}
+		}
+	}
+
+	/** 어빌리티 값을 설정한다 */
+	private static void SetupAbilityVals(CTargetInfo a_oTargetInfo, Dictionary<EAbilityKinds, decimal> a_oOutAbilityValDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oTargetInfo != null && a_oOutAbilityValDict != null));
+
+		// 어빌리티 값 설정이 가능 할 경우
+		if(a_oTargetInfo != null && a_oOutAbilityValDict != null) {
+			Func.SetupAbilityVals(a_oTargetInfo.m_oAbilityTargetInfoDict, a_oOutAbilityValDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oTargetInfo.m_oOwnedTargetInfoList.Count; ++i) {
+				// 어빌리티 값 설정이 가능 할 경우
+				if(a_oTargetInfo.m_oOwnedTargetInfoList[i].TargetType != ETargetType.SKILL || (ESkillType)a_oTargetInfo.m_oOwnedTargetInfoList[i].Kinds.ExKindsToType() == ESkillType.PASSIVE) {
+					Func.SetupAbilityVals(a_oTargetInfo.m_oOwnedTargetInfoList[i], a_oOutAbilityValDict, a_bIsEnableAssert);
+				}
 			}
 		}
 	}

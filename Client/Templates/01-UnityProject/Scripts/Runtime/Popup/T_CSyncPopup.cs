@@ -39,10 +39,10 @@ public partial class CSyncPopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-			(KCDefine.U_OBJ_N_LOGIN_BTN, this.Contents, this.OnTouchLoginBtn),
-			(KCDefine.U_OBJ_N_LOGOUT_BTN, this.Contents, this.OnTouchLogoutBtn),
-			(KCDefine.U_OBJ_N_LOAD_BTN, this.Contents, this.OnTouchLoadBtn),
-			(KCDefine.U_OBJ_N_SAVE_BTN, this.Contents, this.OnTouchSaveBtn)
+			(KCDefine.U_OBJ_N_LOGIN_BTN, this.ContentsUIs, this.OnTouchLoginBtn),
+			(KCDefine.U_OBJ_N_LOGOUT_BTN, this.ContentsUIs, this.OnTouchLogoutBtn),
+			(KCDefine.U_OBJ_N_LOAD_BTN, this.ContentsUIs, this.OnTouchLoadBtn),
+			(KCDefine.U_OBJ_N_SAVE_BTN, this.ContentsUIs, this.OnTouchSaveBtn)
 		});
 
 		this.SubAwake();

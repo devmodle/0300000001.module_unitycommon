@@ -49,8 +49,8 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
-			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
-			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
+			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.ContentsUIs, this.OnTouchAdsBtn),
+			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.ContentsUIs, this.OnTouchAcquireBtn)
 		}, m_oBtnDict);
 
 		this.SubAwake();

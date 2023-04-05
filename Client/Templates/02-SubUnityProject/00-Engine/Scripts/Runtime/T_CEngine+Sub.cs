@@ -87,11 +87,13 @@ namespace NSEngine {
 
 		/** 플레이 서브 상태를 처리한다 */
 		private void HandlePlaySubState(float a_fDeltaTime) {
-			CFunc.UpdateComponents(this.ItemList, a_fDeltaTime);
-			CFunc.UpdateComponents(this.SkillList, a_fDeltaTime);
-			CFunc.UpdateComponents(this.FXList, a_fDeltaTime);
-			CFunc.UpdateComponents(this.PlayerObjList, a_fDeltaTime);
-			CFunc.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
+			global::Func.UpdateComponents(this.ItemList, a_fDeltaTime);
+			global::Func.UpdateComponents(this.SkillList, a_fDeltaTime);
+			global::Func.UpdateComponents(this.FXList, a_fDeltaTime);
+
+			global::Func.UpdateComponents(this.ObjList, a_fDeltaTime);
+			global::Func.UpdateComponents(this.PlayerObjList, a_fDeltaTime);
+			global::Func.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
 
 			// 실행 중 일 경우
 			if(m_oBoolDict[EKey.IS_RUNNING]) {
@@ -194,7 +196,7 @@ namespace NSEngine {
 			}
 		}
 #endif // #if UNITY_EDITOR
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 엔진 - 설정 */

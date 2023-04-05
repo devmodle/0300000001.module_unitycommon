@@ -162,7 +162,7 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetCallbackDict03 = new Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>> m_oGoogleSheetCallbackDict04 = new Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>>();
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 클래스 변수
+	#endregion // 클래스 변수
 
 	#region 클래스 함수
 	/** 문자열 테이블을 설정한다 */
@@ -412,6 +412,20 @@ public static partial class Func {
 	public static CSnd PlayFXSnds(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
 		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
+	}
+
+	/** 저장소를 저장한다 */
+	public static void SaveInfoStorages(bool a_bIsSaveCommonInfoStorages = false) {
+		CAppInfoStorage.Inst.SaveAppInfo();
+		CUserInfoStorage.Inst.SaveUserInfo();
+		CGameInfoStorage.Inst.SaveGameInfo();
+
+		// 공용 저장소 저장 모드 일 경우
+		if(a_bIsSaveCommonInfoStorages) {
+			CCommonAppInfoStorage.Inst.SaveAppInfo();
+			CCommonUserInfoStorage.Inst.SaveUserInfo();
+			CCommonGameInfoStorage.Inst.SaveGameInfo();
+		}
 	}
 	#endregion // 클래스 함수
 
@@ -1365,7 +1379,7 @@ public static partial class Func {
 		}
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 조건부 클래스 함수
+	#endregion // 조건부 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

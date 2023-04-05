@@ -30,7 +30,7 @@ namespace PlayScene {
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-#endregion // 변수
+		#endregion // 변수
 
 		#region 프로퍼티
 
@@ -86,7 +86,8 @@ namespace PlayScene {
 
 		/** 획득 콜백을 수신했을 경우 */
 		private void OnReceiveAcquireCallback(NSEngine.CEngine a_oSender, Dictionary<ulong, STTargetInfo> a_oAcquireTargetInfoDict) {
-			m_oBoolDict[EKey.IS_UPDATE_UIS_STATE] = true;
+			this.SetEnableSaveInfo(true);
+			this.SetEnableUpdateState(true);
 		}
 
 		/** 엔진 객체 이벤트 콜백을 수신했을 경우 */
@@ -97,6 +98,50 @@ namespace PlayScene {
 		/** 선택 아이템을 적용한다 */
 		private void ApplySelItem(EItemKinds a_eItemKinds) {
 			// Do Something
+		}
+
+		/** 이전 팝업 콜백을 처리한다 */
+		private void HandlePrevPopupCallback(CPopup a_oPopup) {
+			this.LoadLevel(a_oPopup, Access.GetPrevLevelEpisodeInfo(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
+		}
+
+		/** 다음 팝업 콜백을 처리한다 */
+		private void HandleNextPopupCallback(CPopup a_oPopup) {
+			this.LoadLevel(a_oPopup, Access.GetNextLevelEpisodeInfo(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
+		}
+
+		/** 재시도 팝업 콜백을 처리한다 */
+		private void HandleRetryPopupCallback(CPopup a_oPopup) {
+#if ADS_MODULE_ENABLE
+			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY));
+#else
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
+#endif // #if ADS_MODULE_ENABLE
+		}
+
+		/** 재개 팝업 콜백을 처리한다 */
+		private void HandleResumePopupCallback(CPopup a_oPopup) {
+			a_oPopup?.Close();
+		}
+
+		/** 이어하기 팝업 콜백을 처리한다 */
+		private void HandleContinuePopupCallback(CPopup a_oPopup) {
+			var oContinuePopup = a_oPopup as CContinuePopup;
+			m_oIntDict[EKey.CONTINUE_TIMES] += (oContinuePopup != null && oContinuePopup.IsWatchAds) ? KCDefine.B_VAL_0_INT : KCDefine.B_VAL_1_INT;
+		}
+
+		/** 그만두기 팝업 콜백을 처리한다 */
+		private void HandleFinishPopupCallback(CPopup a_oPopup) {
+			this.ShowResultPopup(false);
+		}
+
+		/** 떠나기 팝업 콜백을 처리한다 */
+		private void HandleLeavePopupCallback(CPopup a_oPopup) {
+#if ADS_MODULE_ENABLE
+			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
+#else
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
+#endif // #if ADS_MODULE_ENABLE
 		}
 
 		/** 터치 시작 이벤트를 처리한다 */
@@ -170,7 +215,7 @@ namespace PlayScene {
 			}
 		}
 #endif // #if ADS_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

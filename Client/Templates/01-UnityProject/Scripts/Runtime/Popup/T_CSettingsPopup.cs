@@ -30,16 +30,16 @@ public partial class CSettingsPopup : CSubPopup {
 
 		// 버튼을 설정한다 {
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-			(KCDefine.U_OBJ_N_REVIEW_BTN, this.Contents, this.OnTouchReviewBtn),
-			(KCDefine.U_OBJ_N_SUPPORTS_BTN, this.Contents, this.OnTouchSupportsBtn),
-			(KCDefine.U_OBJ_N_MORE_APPS_BTN, this.Contents, this.OnTouchMoreAppsBtn)
+			(KCDefine.U_OBJ_N_REVIEW_BTN, this.ContentsUIs, this.OnTouchReviewBtn),
+			(KCDefine.U_OBJ_N_SUPPORTS_BTN, this.ContentsUIs, this.OnTouchSupportsBtn),
+			(KCDefine.U_OBJ_N_MORE_APPS_BTN, this.ContentsUIs, this.OnTouchMoreAppsBtn)
 		});
 
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
-			(EKey.BG_SND_BTN, $"{EKey.BG_SND_BTN}", this.Contents, this.OnTouchBGSndBtn),
-			(EKey.FX_SNDS_BTN, $"{EKey.FX_SNDS_BTN}", this.Contents, this.OnTouchFXSndsBtn),
-			(EKey.VIBRATE_BTN, $"{EKey.VIBRATE_BTN}", this.Contents, this.OnTouchVibrateBtn),
-			(EKey.NOTI_BTN, $"{EKey.NOTI_BTN}", this.Contents, this.OnTouchNotiBtn)
+			(EKey.BG_SND_BTN, $"{EKey.BG_SND_BTN}", this.ContentsUIs, this.OnTouchBGSndBtn),
+			(EKey.FX_SNDS_BTN, $"{EKey.FX_SNDS_BTN}", this.ContentsUIs, this.OnTouchFXSndsBtn),
+			(EKey.VIBRATE_BTN, $"{EKey.VIBRATE_BTN}", this.ContentsUIs, this.OnTouchVibrateBtn),
+			(EKey.NOTI_BTN, $"{EKey.NOTI_BTN}", this.ContentsUIs, this.OnTouchNotiBtn)
 		}, m_oBtnDict);
 		// 버튼을 설정한다 }
 

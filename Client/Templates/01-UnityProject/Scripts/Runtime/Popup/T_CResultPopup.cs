@@ -85,9 +85,9 @@ public partial class CResultPopup : CSubPopup {
 
 		// 버튼을 설정한다 {
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-			(KCDefine.U_OBJ_N_NEXT_BTN, this.Contents, this.OnTouchNextBtn),
-			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
-			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
+			(KCDefine.U_OBJ_N_NEXT_BTN, this.ContentsUIs, this.OnTouchNextBtn),
+			(KCDefine.U_OBJ_N_RETRY_BTN, this.ContentsUIs, this.OnTouchRetryBtn),
+			(KCDefine.U_OBJ_N_LEAVE_BTN, this.ContentsUIs, this.OnTouchLeaveBtn)
 		});
 
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
@@ -140,7 +140,7 @@ public partial class CResultPopup : CSubPopup {
 
 		m_oUIsDict[EKey.CLEAR_UIS]?.SetActive(bIsSuccess && (bIsAcquireReward || !CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward));
 		m_oUIsDict[EKey.REWARD_UIS]?.SetActive(bIsSuccess && (!bIsAcquireReward && CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward));
-		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!bIsSuccess && (bIsAcquireReward || !CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward));
+		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!bIsSuccess);
 		// 객체를 갱신한다 }
 
 		// 텍스트를 갱신한다

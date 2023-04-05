@@ -38,8 +38,8 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-			(KCDefine.U_OBJ_N_OK_BTN, this.Contents, this.OnTouchOKBtn),
-			(KCDefine.U_OBJ_N_PURCHASE_BTN, this.Contents, this.OnTouchPurchaseBtn)
+			(KCDefine.U_OBJ_N_OK_BTN, this.ContentsUIs, this.OnTouchOKBtn),
+			(KCDefine.U_OBJ_N_PURCHASE_BTN, this.ContentsUIs, this.OnTouchPurchaseBtn)
 		});
 
 		this.SubAwake();

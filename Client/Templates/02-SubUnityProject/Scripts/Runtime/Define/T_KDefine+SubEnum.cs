@@ -272,7 +272,8 @@ public enum ERewardKinds {
 
 	#region 일일
 	// 100,000,000
-	DAILY_REWARD_SAMPLE = (EEnumVal.T * ERewardType.DAILY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	DAILY_REWARD_ATTENDANCE_01 = (EEnumVal.T * ERewardType.DAILY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	DAILY_REWARD_MAX_VAL,
 	#endregion // 일일
 
 	#region 이벤트
@@ -443,10 +444,13 @@ public enum EItemKinds {
 	// 100,000,000
 	CONSUMABLE_ITEM_BOOSTER_SAMPLE = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
-	// 100,100,000
+	// 100,100,000 {
 	CONSUMABLE_ITEM_GAME_ITEM_HINT_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
-	CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 1),
-	CONSUMABLE_ITEM_GAME_ITEM_SHUFFLE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 2),
+	CONSUMABLE_ITEM_GAME_ITEM_SHUFFLE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 1),
+
+	CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 2),
+	CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_MAX_VAL,
+	// 100,100,000 }
 	#endregion // 소모
 
 	#region 비소모

@@ -105,9 +105,9 @@ namespace NSEngine {
 
 		public List<CEItem> ItemList { get; } = new List<CEItem>();
 		public List<CESkill> SkillList { get; } = new List<CESkill>();
-		public List<CEObj> ObjList { get; } = new List<CEObj>();
 		public List<CEFX> FXList { get; } = new List<CEFX>();
 
+		public List<CEObj> ObjList { get; } = new List<CEObj>();
 		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
 
@@ -266,9 +266,7 @@ namespace NSEngine {
 
 							// 플레이어 객체 레벨 강화가 가능 할 경우
 							if(stSkipTargetValInfo.Item1 >= stSkipTargetValInfo.Item3) {
-								global::Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stObjTradeInfo.m_oPayTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
-								global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stObjTradeInfo.m_oAcquireTargetInfoDict, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo, true);
-
+								global::Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, stObjTradeInfo, this.PlayerObjList[KCDefine.B_VAL_0_INT].Params.m_oObjTargetInfo);
 								this.SelPlayerObj.SetupAbilityVals();
 							}
 						} finally {
@@ -287,7 +285,7 @@ namespace NSEngine {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 
 			this.Params.m_oCallbackDict03.GetValueOrDefault(ECallback.E_OBJ_EVENT)?.Invoke(this, a_oSender, a_eEvent, a_oParams);
-			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateUIsState(true);
+			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateState(true);
 		}
 		#endregion // 함수
 	}

@@ -14,6 +14,7 @@ public partial class CContinuePopup : CSubPopup {
 	private enum EKey {
 		NONE = -1,
 		PRICE_TEXT,
+		IS_WATCH_ADS,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -22,7 +23,7 @@ public partial class CContinuePopup : CSubPopup {
 		NONE = -1,
 		RETRY,
 		CONTINUE,
-		LEAVE,
+		FINISH,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -33,6 +34,10 @@ public partial class CContinuePopup : CSubPopup {
 	}
 
 	#region 변수
+	private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+		[EKey.IS_WATCH_ADS] = false
+	};
+
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 	#endregion // 변수
@@ -40,12 +45,16 @@ public partial class CContinuePopup : CSubPopup {
 	#region 프로퍼티
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreCloseBtn => true;
+
+	public bool IsWatchAds => m_oBoolDict[EKey.IS_WATCH_ADS];
+	public EItemKinds ContinueItemKinds => (EItemKinds)Mathf.Min((int)EItemKinds.CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_MAX_VAL - KCDefine.B_VAL_1_INT, (int)EItemKinds.CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_01 + this.Params.m_nContinueTimes);
 	#endregion // 프로퍼티
 
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+		this.SetIgnoreNavStackEvent(true);
 
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
@@ -54,9 +63,10 @@ public partial class CContinuePopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
-			(KCDefine.U_OBJ_N_CONTINUE_BTN, this.Contents, this.OnTouchContinueBtn),
-			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
+			(KCDefine.U_OBJ_N_ADS_BTN, this.ContentsUIs, this.OnTouchAdsBtn),
+			(KCDefine.U_OBJ_N_RETRY_BTN, this.ContentsUIs, this.OnTouchRetryBtn),
+			(KCDefine.U_OBJ_N_CONTINUE_BTN, this.ContentsUIs, this.OnTouchContinueBtn),
+			(KCDefine.U_OBJ_N_FINISH_BTN, this.ContentsUIs, this.OnTouchFinishBtn)
 		});
 
 		this.SubAwake();
@@ -78,7 +88,7 @@ public partial class CContinuePopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_01);
+		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(this.ContinueItemKinds);
 
 		// 텍스트를 갱신한다 {
 		var oTextKeyInfoList = new List<(EKey, ETargetKinds, EItemKinds)>() {
@@ -96,7 +106,14 @@ public partial class CContinuePopup : CSubPopup {
 	/** 닫기 버튼을 눌렀을 경우 */
 	protected override void OnTouchCloseBtn() {
 		base.OnTouchCloseBtn();
-		this.OnTouchLeaveBtn();
+		this.OnTouchFinishBtn();
+	}
+
+	/** 광고 버튼을 눌렀을 경우 */
+	private void OnTouchAdsBtn() {
+#if ADS_MODULE_ENABLE
+		Func.ShowRewardAds(this.OnCloseRewardAds);
+#endif // #if ADS_MODULE_ENABLE
 	}
 
 	/** 재시도 버튼을 눌렀을 경우 */
@@ -106,23 +123,37 @@ public partial class CContinuePopup : CSubPopup {
 
 	/** 이어하기 버튼을 눌렀을 경우 */
 	private void OnTouchContinueBtn() {
-		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_01);
-		stItemTradeInfo.m_oPayTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)EItemKinds.GOODS_ITEM_COINS_01, out STTargetInfo stTargetInfo);
+		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(this.ContinueItemKinds);
 
 		// 교환이 불가능 할 경우
-		if(Access.IsEnableTrade(CGameInfoStorage.Inst.PlayCharacterID, stTargetInfo)) {
+		if(!Access.IsEnableTrade(CGameInfoStorage.Inst.PlayCharacterID, stItemTradeInfo.m_oPayTargetInfoDict)) {
 			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
 		} else {
-			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stItemTradeInfo.m_oAcquireTargetInfoDict, true);
+			Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, stItemTradeInfo);
+			Func.SaveInfoStorages();
+			
 			this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
 		}
 	}
 
-	/** 나가기 버튼을 눌렀을 경우 */
-	private void OnTouchLeaveBtn() {
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
+	/** 그만두기 버튼을 눌렀을 경우 */
+	private void OnTouchFinishBtn() {
+		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.FINISH)?.Invoke(this);
 	}
 	#endregion // 함수
+
+	#region 조건부 함수
+#if ADS_MODULE_ENABLE
+	/** 보상 광고가 닫혔을 경우 */
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			m_oBoolDict[EKey.IS_WATCH_ADS] = true;
+			this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
+		}
+	}
+#endif // #if ADS_MODULE_ENABLE
+	#endregion // 조건부 함수
 }
 
 /** 이어하기 팝업 - 팩토리 */
