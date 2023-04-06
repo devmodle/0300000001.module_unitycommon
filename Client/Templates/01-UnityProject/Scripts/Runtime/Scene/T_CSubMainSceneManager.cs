@@ -83,9 +83,9 @@ namespace MainScene {
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 #if CREATIVE_DIST_BUILD
-				for(int i = 0; i < Access.NumChapterEpisodes; ++i) {
-					for(int j = 0; j < Access.GetNumStageEpisodes(i); ++i) {
-						for(int k = 0; k < Access.GetNumLevelEpisodes(j, i); ++k) {
+				for(int i = 0; i < CLevelInfoTable.Inst.NumChapterInfos; ++i) {
+					for(int j = 0; j < CLevelInfoTable.Inst.GetNumStageInfos(i); ++i) {
+						for(int k = 0; k < CLevelInfoTable.Inst.GetNumLevelInfos(j, i); ++k) {
 							// 클리어 정보가 없을 경우
 							if(Access.IsClearLevel(CGameInfoStorage.Inst.PlayCharacterID, k, j, i)) {
 								CGameInfoStorage.Inst.AddLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeClearInfo(k, j, i));
@@ -247,13 +247,7 @@ namespace MainScene {
 					oCharacterGameInfo.FreeRewardAcquireTimes = KCDefine.B_VAL_0_INT;
 					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
 				}
-
-				// 광고 시청 아이템이 없을 경우
-				if(Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.NON_CONSUMABLE_ITEM_WATCH_ADS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS) <= KCDefine.B_VAL_0_INT) {
-					var stValInfo = new STValInfo(EValType.INT, KCDefine.B_VAL_1_INT);
-					Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)EItemKinds.NON_CONSUMABLE_ITEM_WATCH_ADS_01, stValInfo));
-				}
-
+				
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}
 
@@ -401,7 +395,7 @@ namespace MainScene {
 			}
 		}
 #endif // #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 메인 씬 관리자 - 스크롤러 셀 뷰 */
@@ -409,20 +403,20 @@ namespace MainScene {
 		#region 함수
 		/** 레벨 스크롤러 셀 개수를 반환한다 */
 		private int GetNumLevelScrollerCells(EnhancedScroller a_oSender) {
-			int nNumExtraCells = (Access.GetNumLevelEpisodes(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID02, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) % KDefine.MS_MAX_NUM_LEVELS_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
-			return (Access.GetNumLevelEpisodes(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID02, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW) + nNumExtraCells;
+			int nNumExtraCells = (CLevelInfoTable.Inst.GetNumLevelInfos(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID02, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) % KDefine.MS_MAX_NUM_LEVELS_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (CLevelInfoTable.Inst.GetNumLevelInfos(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID02, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW) + nNumExtraCells;
 		}
 
 		/** 스테이지 스크롤러 셀 개수를 반환한다 */
 		private int GetNumStageScrollerCells(EnhancedScroller a_oSender) {
-			int nNumExtraCells = (Access.GetNumStageEpisodes(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) % KDefine.MS_MAX_NUM_STAGES_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
-			return (Access.GetNumStageEpisodes(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW) + nNumExtraCells;
+			int nNumExtraCells = (CLevelInfoTable.Inst.GetNumStageInfos(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) % KDefine.MS_MAX_NUM_STAGES_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (CLevelInfoTable.Inst.GetNumStageInfos(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW) + nNumExtraCells;
 		}
 
 		/** 챕터 스크롤러 셀 개수를 반환한다 */
 		private int GetNumChapterScrollerCells(EnhancedScroller a_oSender) {
-			int nNumExtraCells = (Access.NumChapterEpisodes % KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
-			return (Access.NumChapterEpisodes / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW) + nNumExtraCells;
+			int nNumExtraCells = (CLevelInfoTable.Inst.NumChapterInfos % KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (CLevelInfoTable.Inst.NumChapterInfos / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW) + nNumExtraCells;
 		}
 
 		/** 레벨 스크롤러 셀 뷰를 생성한다 */

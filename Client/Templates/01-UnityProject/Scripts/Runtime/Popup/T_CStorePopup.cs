@@ -69,12 +69,16 @@ public partial class CStorePopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		m_oStoreUIsHandler.ExReplaceVal(EKey.STORE_UIS_HANDLER, this.GetComponentInChildren<CStoreUIsHandler>());
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_RESTORE_BTN, this.ContentsUIs, this.OnTouchRestoreBtn)
 		});
+
+		// UI 처리자를 설정한다
+		CFunc.SetupComponents(new List<(EKey, GameObject)>() {
+			(EKey.STORE_UIS_HANDLER, this.ContentsUIs)
+		}, m_oStoreUIsHandler);
 
 		this.SubAwake();
 	}
@@ -154,7 +158,14 @@ public partial class CStorePopup : CSubPopup {
 
 			for(int i = 0; i < oAcquireTargetInfoKeyList.Count; ++i) {
 				var nUniqueTargetInfoID = oAcquireTargetInfoKeyList[i];
-				a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT))?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal}", EFontSet._1, false);
+				var oNumText = a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
+
+				// 코인 일 경우
+				if(a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).Kinds == (int)EItemKinds.GOODS_ITEM_COINS_01) {
+					oNumText?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal:0}", EFontSet._1, false);
+				} else {
+					oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, $"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal:0}"), EFontSet._1, false);
+				}
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
@@ -166,7 +177,7 @@ public partial class CStorePopup : CSubPopup {
 			// 텍스트를 갱신한다 }
 
 			// 버튼을 갱신한다 {
-			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
+			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
 			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
 
 #if PURCHASE_MODULE_ENABLE

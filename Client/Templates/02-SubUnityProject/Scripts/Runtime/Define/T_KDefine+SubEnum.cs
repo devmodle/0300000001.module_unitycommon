@@ -455,7 +455,8 @@ public enum EItemKinds {
 
 	#region 비소모
 	// 200,000,000
-	NON_CONSUMABLE_ITEM_WATCH_ADS_01 = (EEnumVal.T * EItemType.NON_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	NON_CONSUMABLE_ITEM_PURCHASE_01 = (EEnumVal.T * EItemType.NON_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	NON_CONSUMABLE_ITEM_WATCH_ADS_01,
 	NON_CONSUMABLE_ITEM_REMOVE_ADS_01,
 	#endregion // 비소모
 

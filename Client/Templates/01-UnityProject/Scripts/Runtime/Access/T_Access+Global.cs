@@ -12,16 +12,6 @@ using System.Linq;
 /** 전역 접근자 */
 public static partial class Access {
 	#region 클래스 프로퍼티
-	public static int NumChapterEpisodes {
-		get {
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			return CLevelInfoTable.Inst.NumChapterInfos;
-#else
-			return CEpisodeInfoTable.Inst.ChapterEpisodeInfoDict.Count;
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		}
-	}
-
 	public static string StoreURL {
 		get {
 #if UNITY_IOS
@@ -239,24 +229,6 @@ public static partial class Access {
 	/** 튜토리얼 메세지를 반환한다 */
 	public static string GetTutorialMsg(ETutorialKinds a_eTutorialKinds, int a_nIdx = KCDefine.B_VAL_0_INT) {
 		return CStrTable.Inst.GetStr(string.Format(KCDefine.U_KEY_FMT_TUTORIAL_MSG, a_eTutorialKinds, a_nIdx + KCDefine.B_VAL_1_INT));
-	}
-
-	/** 레벨 에피소드 개수를 반환한다 */
-	public static int GetNumLevelEpisodes(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return CLevelInfoTable.Inst.GetNumLevelInfos(a_nStageID, a_nChapterID);
-#else
-		return CEpisodeInfoTable.Inst.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stStageEpisodeInfo, a_nChapterID) ? stStageEpisodeInfo.m_nNumSubEpisodes : KCDefine.B_VAL_0_INT;
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-	}
-
-	/** 스테이지 에피소드 개수를 반환한다 */
-	public static int GetNumStageEpisodes(int a_nChapterID) {
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return CLevelInfoTable.Inst.GetNumStageInfos(a_nChapterID);
-#else
-		return CEpisodeInfoTable.Inst.TryGetChapterEpisodeInfo(a_nChapterID, out STEpisodeInfo stChapterEpisodeInfo) ? stChapterEpisodeInfo.m_nNumSubEpisodes : KCDefine.B_VAL_0_INT;
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 레벨 클리어 정보 개수를 반환한다 */

@@ -40,7 +40,7 @@ namespace OverlayScene {
 #if PURCHASE_MODULE_ENABLE
 		private Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
 #endif // #if PURCHASE_MODULE_ENABLE
-#endregion // 변수
+		#endregion // 변수
 
 		#region 프로퍼티
 		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.U_SORTING_OI_OVERLAY_UIS_CANVAS;
@@ -169,6 +169,8 @@ namespace OverlayScene {
 			}
 
 			this.UpdateUIsState();
+			Func.SaveInfoStorages();
+			
 			m_oCallbackDict.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 		}
 
@@ -179,7 +181,7 @@ namespace OverlayScene {
 		}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

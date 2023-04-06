@@ -51,34 +51,53 @@ namespace TitleScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				// 텍스트를 설정한다 {
-				CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
-					(EKey.TOUCH_TEXT, $"{EKey.TOUCH_TEXT}", this.UIsBase)
-				}, m_oTextDict);
+				var oItemKindsList = CCollectionManager.Inst.SpawnList<EItemKinds>();
 
-				m_oTextDict[EKey.TOUCH_TEXT]?.gameObject.SetActive(false);
-				// 텍스트를 설정한다 }
+				try {
+					// 텍스트를 설정한다 {
+					CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+						(EKey.TOUCH_TEXT, $"{EKey.TOUCH_TEXT}", this.UIsBase)
+					}, m_oTextDict);
 
-				// 버튼을 설정한다
-				CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
-					(EKey.PLAY_BTN, $"{EKey.PLAY_BTN}", this.UIsBase, this.OnTouchPlayBtn),
-					(EKey.GUEST_LOGIN_BTN, $"{EKey.GUEST_LOGIN_BTN}", this.UIsBase, this.OnTouchGuestLoginBtn),
-					(EKey.APPLE_LOGIN_BTN, $"{EKey.APPLE_LOGIN_BTN}", this.UIsBase, this.OnTouchAppleLoginBtn),
-					(EKey.FACEBOOK_LOGIN_BTN, $"{EKey.FACEBOOK_LOGIN_BTN}", this.UIsBase, this.OnTouchFacebookLoginBtn)
-				}, m_oBtnDict);
+					m_oTextDict[EKey.TOUCH_TEXT]?.gameObject.SetActive(false);
+					// 텍스트를 설정한다 }
+
+					// 버튼을 설정한다
+					CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+						(EKey.PLAY_BTN, $"{EKey.PLAY_BTN}", this.UIsBase, this.OnTouchPlayBtn),
+						(EKey.GUEST_LOGIN_BTN, $"{EKey.GUEST_LOGIN_BTN}", this.UIsBase, this.OnTouchGuestLoginBtn),
+						(EKey.APPLE_LOGIN_BTN, $"{EKey.APPLE_LOGIN_BTN}", this.UIsBase, this.OnTouchAppleLoginBtn),
+						(EKey.FACEBOOK_LOGIN_BTN, $"{EKey.FACEBOOK_LOGIN_BTN}", this.UIsBase, this.OnTouchFacebookLoginBtn)
+					}, m_oBtnDict);
+
+					// 아이템을 설정한다 {
+					oItemKindsList.ExAddVal(EItemKinds.NON_CONSUMABLE_ITEM_PURCHASE_01);
+					oItemKindsList.ExAddVal(EItemKinds.NON_CONSUMABLE_ITEM_WATCH_ADS_01);
+
+					for(int i = 0; i < oItemKindsList.Count; ++i) {
+						// 아이템이 없을 경우
+						if(Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, oItemKindsList[i], ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS) <= KCDefine.B_VAL_0_INT) {
+							var stValInfo = new STValInfo(EValType.INT, int.MaxValue);
+							Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)oItemKindsList[i], stValInfo));
+						}
+					}
+					// 아이템을 설정한다 }
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-				// 구글 시트 처리자를 설정한다
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+					// 구글 시트 처리자를 설정한다
+					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+				} finally {
+					CCollectionManager.Inst.DespawnList(oItemKindsList);
+				}
 
 				this.SubAwake();
 			}
