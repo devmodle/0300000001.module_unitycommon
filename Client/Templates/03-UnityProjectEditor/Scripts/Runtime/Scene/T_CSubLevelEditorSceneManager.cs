@@ -2347,7 +2347,7 @@ namespace LevelEditorScene {
 			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, oName, string.Empty);
 
 			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].m_oScrollerCellView) as CEditorScrollerCellView;
-			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(CFactory.MakeULevelID(a_nDataIdx, this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
+			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeULevelID(a_nDataIdx, this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
 
 			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
 			oScrollerCellView.SelBtn?.image.ExSetColor<Image>((this.SelLevelInfo.m_stIDInfo.m_nID01 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, false);
@@ -2365,7 +2365,7 @@ namespace LevelEditorScene {
 			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oName, KCDefine.B_TEXT_NEW_LINE, oExtraName.ExGetColorFmtStr(Color.red));
 
 			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].m_oScrollerCellView) as CEditorScrollerCellView;
-			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(CFactory.MakeUStageID(a_nDataIdx, this.SelLevelInfo.m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
+			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeUStageID(a_nDataIdx, this.SelLevelInfo.m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
 
 			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
 			oScrollerCellView.SelBtn?.image.ExSetColor<Image>((this.SelLevelInfo.m_stIDInfo.m_nID02 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, false);
@@ -2383,7 +2383,7 @@ namespace LevelEditorScene {
 			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oName, KCDefine.B_TEXT_NEW_LINE, oExtraName.ExGetColorFmtStr(Color.red));
 
 			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].m_oScrollerCellView) as CEditorScrollerCellView;
-			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(CFactory.MakeUChapterID(a_nDataIdx), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
+			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeUChapterID(a_nDataIdx), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
 
 			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
 			oScrollerCellView.SelBtn?.image.ExSetColor<Image>((this.SelLevelInfo.m_stIDInfo.m_nID03 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, false);
