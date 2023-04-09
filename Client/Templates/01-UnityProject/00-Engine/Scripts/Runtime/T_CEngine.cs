@@ -457,6 +457,11 @@ namespace NSEngine {
 			this.SelPlayerObj.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsEnable);
 		}
 
+		/** 시간 비율을 변경한다 */
+		public void SetTimeScale(float a_fTimeScale) {
+			m_oRealDict[EKey.TIME_SCALE] = a_fTimeScale.ExGetClampVal(KDefine.E_MIN_TIME_SCALE, KDefine.E_MAX_TIME_SCALE);
+		}
+
 		/** 상태를 변경한다 */
 		public void SetState(EState a_eState, bool a_bIsForce = false) {
 			// 강제 변경 모드 일 경우

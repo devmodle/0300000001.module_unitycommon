@@ -10,7 +10,9 @@ namespace NSEngine {
 	/** 서브 엔진 상수 */
 	public static partial class KDefine {
 		#region 기본
-
+		// 단위
+		public const float E_MIN_TIME_SCALE = 1.0f;
+		public const float E_MAX_TIME_SCALE = 1.0f;
 		#endregion // 기본
 
 		#region 런타임 상수
