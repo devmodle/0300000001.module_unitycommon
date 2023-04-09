@@ -320,9 +320,7 @@ namespace PlayScene {
 		private void OnReceiveLeavePopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-#if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
-#endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+				this.HandleLeavePopupCallback(a_oSender);
 			}
 		}
 
@@ -340,25 +338,25 @@ namespace PlayScene {
 				case EPopupCallback.LEAVE: this.HandleLeavePopupCallback(a_oSender); break;
 			}
 
-			// 팝업이 존재 할 경우
-			if(a_oSender != null) {
-				a_oSender.SetIgnoreAni(a_eCallback != EPopupCallback.RESUME && a_eCallback != EPopupCallback.CONTINUE);
-				a_oSender.Close();
-			}
-
 			this.SetEnableSaveInfo(true);
 			this.SetEnableUpdateState(true);
 
 			m_oEngine.SetEnableRunning(a_eCallback == EPopupCallback.RESUME || a_eCallback == EPopupCallback.CONTINUE);
+
+			a_oSender?.SetIgnoreAni(a_eCallback != EPopupCallback.RESUME && a_eCallback != EPopupCallback.CONTINUE);
+			a_oSender?.Close();
 		}
 
 		/** 클리어 콜백을 수신했을 경우 */
 		private void OnReceiveClearCallback(NSEngine.CEngine a_oSender) {
-			var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, true);
-			oLevelClearInfo.m_stRecordInfo.m_nIntRecord = a_oSender.RecordInfo.m_nIntRecord;
-			oLevelClearInfo.m_stRecordInfo.m_dblRealRecord = a_oSender.RecordInfo.m_dblRealRecord;
-			oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord = System.Math.Max(a_oSender.RecordInfo.m_nIntRecord, oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord);
-			oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord = a_oSender.RecordInfo.m_dblRealRecord.ExIsGreate(oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord) ? a_oSender.RecordInfo.m_dblRealRecord : oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord;
+			// 테스트 모드가 아닐 경우
+			if(CGameInfoStorage.Inst.PlayMode != EPlayMode.TEST) {
+				var oLevelClearInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, true);
+				oLevelClearInfo.m_stRecordInfo.m_nIntRecord = a_oSender.RecordInfo.m_nIntRecord;
+				oLevelClearInfo.m_stRecordInfo.m_dblRealRecord = a_oSender.RecordInfo.m_dblRealRecord;
+				oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord = System.Math.Max(a_oSender.RecordInfo.m_nIntRecord, oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord);
+				oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord = a_oSender.RecordInfo.m_dblRealRecord.ExIsGreate(oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord) ? a_oSender.RecordInfo.m_dblRealRecord : oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord;
+			}
 
 			this.ShowResultPopup(true);
 		}
@@ -419,35 +417,25 @@ namespace PlayScene {
 
 		/** 레벨을 로드한다 */
 		private void LoadLevel(CPopup a_oPopup, STEpisodeInfo a_stEpisodeInfo) {
-			switch(CGameInfoStorage.Inst.PlayMode) {
-				case EPlayMode.NORM: {
-					bool bIsValid01 = a_stEpisodeInfo.m_stIDInfo.m_nID01 < CLevelInfoTable.Inst.GetNumLevelInfos(a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
-					bool bIsValid02 = a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03);
+			// 일반 모드 일 경우
+			if(CGameInfoStorage.Inst.PlayMode == EPlayMode.NORM) {
+				bool bIsValid01 = a_stEpisodeInfo.m_stIDInfo.m_nID01 < CLevelInfoTable.Inst.GetNumLevelInfos(a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
+				bool bIsValid02 = a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03);
 
-					// 레벨 에피소드 정보가 존재 할 경우
-					if(bIsValid01 && bIsValid02 && a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) {
-						Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
+				// 레벨 에피소드 정보가 존재 할 경우
+				if(bIsValid01 && bIsValid02 && a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) {
+					Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
 
 #if ADS_MODULE_ENABLE
-						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY));
+					Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY));
 #else
-						CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
 #endif // #if ADS_MODULE_ENABLE
-					} else {
-						this.HandleLeavePopupCallback(a_oPopup);
-					}
-
-					break;
+				} else {
+					this.HandleLeavePopupCallback(a_oPopup);
 				}
-				case EPlayMode.TUTORIAL: {
-					break;
-				}
-				case EPlayMode.TEST: {
-#if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
-#endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
-					break;
-				}
+			} else {
+				this.HandleLeavePopupCallback(a_oPopup);
 			}
 		}
 

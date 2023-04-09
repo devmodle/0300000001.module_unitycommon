@@ -30,7 +30,7 @@ namespace PlayScene {
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 변수
+#endregion // 변수
 
 		#region 프로퍼티
 
@@ -137,11 +137,18 @@ namespace PlayScene {
 
 		/** 떠나기 팝업 콜백을 처리한다 */
 		private void HandleLeavePopupCallback(CPopup a_oPopup) {
+			// 테스트 모드 일 경우
+			if(CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) {
+#if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+#endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+			} else {
 #if ADS_MODULE_ENABLE
-			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
+				Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
 #else
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 #endif // #if ADS_MODULE_ENABLE
+			}
 		}
 
 		/** 터치 시작 이벤트를 처리한다 */
