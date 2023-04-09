@@ -27,6 +27,11 @@ namespace NSEngine {
 		#endregion // 프로퍼티
 
 		#region 함수
+		/** 아이템을 적용한다 */
+		public void ApplyItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo) {
+			// Do Something
+		}
+
 		/** 초기화 */
 		private void SubAwake() {
 			// Do Something

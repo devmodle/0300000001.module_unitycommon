@@ -398,20 +398,22 @@ namespace PlayScene {
 		}
 
 		/** 선택 아이템을 적용한다 */
+		private void ApplySelItem(EItemKinds a_eItemKinds) {
+			m_oEngine.ApplyItem(CItemInfoTable.Inst.GetItemInfo(a_eItemKinds), Access.GetItemTargetInfo(CGameInfoStorage.Inst.PlayCharacterID, a_eItemKinds));
+			global::Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)a_eItemKinds, new STValInfo(EValType.INT, KCDefine.B_VAL_1_INT)));
+		}
+
+		/** 선택 아이템을 적용한다 */
 		private void ApplySelItems() {
+			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
+				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
+			}
+
 			for(int i = 0; i < CGameInfoStorage.Inst.FreeSelItemKindsList.Count; ++i) {
 				this.ApplySelItem(CGameInfoStorage.Inst.FreeSelItemKindsList[i]);
-				CGameInfoStorage.Inst.FreeSelItemKindsList.ExRemoveVal(CGameInfoStorage.Inst.FreeSelItemKindsList[i]);
 			}
 
-			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
-				var stValInfo = new STValInfo(EValType.INT, KCDefine.B_VAL_1_INT);
-				var stTargetInfo = new STTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], stValInfo);
-
-				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);
-				Func.Pay(CGameInfoStorage.Inst.PlayCharacterID, stTargetInfo);
-			}
-
+			Func.SaveInfoStorages();
 			CGameInfoStorage.Inst.ResetSelItems();
 		}
 

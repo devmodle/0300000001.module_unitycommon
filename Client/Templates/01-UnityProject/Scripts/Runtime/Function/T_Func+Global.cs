@@ -613,9 +613,8 @@ public static partial class Func {
 
 		// 상품이 존재 할 경우
 		if(a_oProductID.ExIsValid()) {
-			int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID);
 			var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
-			var stProductTradeInfo = CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(nIdx);
+			var stProductTradeInfo = CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID));
 
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stProductTradeInfo.m_oAcquireTargetInfoDict);
 

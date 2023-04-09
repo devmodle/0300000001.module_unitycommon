@@ -207,9 +207,8 @@ namespace NSEngine {
 		}
 
 		/** 플레이어 객체 스킬을 적용한다 */
-		public void ApplyPlayerObjSkill(CSkillTargetInfo a_oSkillTargetInfo) {
-			var stSkillInfo = CSkillInfoTable.Inst.GetSkillInfo(a_oSkillTargetInfo.SkillKinds);
-			this.SelPlayerObj.GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
+		public void ApplyPlayerObjSkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
+			this.SelPlayerObj.GetController<CEPlayerObjController>().ApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
 		}
 
 		/** 터치 이벤트를 처리한다 */

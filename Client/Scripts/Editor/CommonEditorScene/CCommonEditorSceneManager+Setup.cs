@@ -346,6 +346,13 @@ public static partial class CCommonEditorSceneManager {
 			if(!oPackables.ExFindVal((a_oPackable) => a_oPackable != null && a_oPackable.name.Equals(oDirAsset.name)).ExIsValidIdx()) {
 				a_oSpriteAtlas.Add(new Object[] { oDirAsset });
 			}
+
+			for(int i = 0; i < oPackables.Length; ++i) {
+				// 에셋이 유효하지 않을 경우
+				if(!oPackables[i].name.Contains(a_oSpriteAtlas.name)) {
+					a_oSpriteAtlas.Remove(new Object[] { oPackables[i] });
+				}
+			}
 		}
 	}
 
