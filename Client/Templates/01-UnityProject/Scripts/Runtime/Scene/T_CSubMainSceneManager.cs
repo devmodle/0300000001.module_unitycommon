@@ -234,6 +234,11 @@ namespace MainScene {
 
 		/** 씬을 설정한다 */
 		private void SetupStart() {
+			// 스크롤 뷰를 갱신한다
+			m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].m_oScroller?.ExReloadData(Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID02, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW);
+			m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].m_oScroller?.ExReloadData(Access.GetNumStageClearInfos(CGameInfoStorage.Inst.PlayCharacterID, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW);
+			m_oScrollerInfoDict[EKey.CHAPTER_SCROLLER_INFO].m_oScroller?.ExReloadData(Access.GetNumChapterClearInfos(CGameInfoStorage.Inst.PlayCharacterID) / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW);
+
 			// 캐릭터 게임 정보가 존재 할 경우
 			if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID, out CCharacterGameInfo oCharacterGameInfo)) {
 				// 일일 미션 리셋이 가능 할 경우
@@ -247,7 +252,7 @@ namespace MainScene {
 					oCharacterGameInfo.FreeRewardAcquireTimes = KCDefine.B_VAL_0_INT;
 					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
 				}
-				
+
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}
 
