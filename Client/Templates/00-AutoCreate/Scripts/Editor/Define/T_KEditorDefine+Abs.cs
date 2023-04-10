@@ -74,14 +74,14 @@ public static partial class KEditorDefine {
 		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
 
-		[typeof(TitleScene.CSubTitleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(MainScene.CSubMainSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(PlayScene.CSubPlaySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(ResultScene.CSubResultSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(TestScene.CSubTestSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(TitleScene.CSubTitleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 
+		[typeof(ResultScene.CSubResultSceneManager)] = KCDefine.U_SCRIPT_O_RESULT_SCENE_MANAGER,
 		[typeof(LoadingScene.CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
 		[typeof(OverlayScene.CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_OVERLAY_SCENE_MANAGER,
-		[typeof(TestScene.CSubTestSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
@@ -234,7 +234,7 @@ public static partial class KEditorDefine {
 	// 텍스트
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif // #if UNITY_IOS
-#endregion // 조건부 상수
+	#endregion // 조건부 상수
 
 	#region 조건부 런타임 상수
 #if UNITY_IOS
@@ -398,7 +398,7 @@ public static partial class KEditorDefine {
 #endif // #if PURCHASE_MODULE_ENABLE
 	};
 #endif // #if UNITY_IOS
-#endregion // 조건부 런타임 상수
+	#endregion // 조건부 런타임 상수
 }
 #endif // #if UNITY_EDITOR
 #endif // #if SCRIPT_TEMPLATE_ONLY
