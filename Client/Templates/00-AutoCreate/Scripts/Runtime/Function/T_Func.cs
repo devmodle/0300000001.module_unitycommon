@@ -952,16 +952,24 @@ public static partial class Func {
 
 	/** 상품이 결제 되었을 경우 */
 	private static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
-		CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, (a_oSender, a_oConfirmProductID, a_bIsConfirmSuccess) => {
-			CIndicatorManager.Inst.Close();
-			Func.m_oPurchaseCallbackDict01.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oConfirmProductID, a_bIsConfirmSuccess);
-		});
+		// 결제 되었을 경우
+		if(a_bIsSuccess) {
+			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, Func.OnConfirmProduct);
+		} else {
+			Func.OnConfirmProduct(a_oSender, a_oProductID, a_bIsSuccess);
+		}
 	}
 
 	/** 상품이 복원 되었을 경우 */
 	private static void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oPurchaseCallbackDict02.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
+	}
+
+	/** 상품이 결제 되었을 경우 */
+	private static void OnConfirmProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+		CIndicatorManager.Inst.Close();
+		Func.m_oPurchaseCallbackDict01.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 #endif // #if PURCHASE_MODULE_ENABLE
 
