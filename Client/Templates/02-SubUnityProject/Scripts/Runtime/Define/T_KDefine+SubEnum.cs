@@ -9,10 +9,6 @@ using UnityEngine.Events;
 /** 서브 열거형 값 */
 public static partial class KEnumVal {
 	#region 기본
-	// 어빌리티 종류
-	public const int AK_INT_DETAIL_SUB_KINDS_TYPE_VAL = 0;
-	public const int AK_REAL_DETAIL_SUB_KINDS_TYPE_VAL = 1;
-
 	// 적용 종류
 	public const int AK_RANGE_SUB_TYPE_VAL = 0;
 	public const int AK_TARGET_SUB_TYPE_VAL = 1;
@@ -24,6 +20,14 @@ public static partial class KEnumVal {
 	public const int TK_EXP_SUB_KINDS_TYPE_VAL = 2;
 	public const int TK_NUMS_SUB_KINDS_TYPE_VAL = 3;
 	public const int TK_ENHANCE_SUB_KINDS_TYPE_VAL = 4;
+
+	// 아이템 종류
+	public const int IK_GAME_ITEM_SUB_TYPE_VAL = 0;
+	public const int IK_BOOSTER_ITEM_SUB_TYPE_VAL = 1;
+
+	// 어빌리티 종류
+	public const int AK_INT_DETAIL_SUB_KINDS_TYPE_VAL = 0;
+	public const int AK_REAL_DETAIL_SUB_KINDS_TYPE_VAL = 1;
 	#endregion // 기본
 
 	#region 클래스 함수
@@ -441,16 +445,16 @@ public enum EItemKinds {
 	#endregion // 재화
 
 	#region 소모
-	// 100,000,000
-	CONSUMABLE_ITEM_BOOSTER_SAMPLE = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	// 100,000,000 {
+	CONSUMABLE_ITEM_GAME_HINT_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	CONSUMABLE_ITEM_GAME_SHUFFLE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
 
-	// 100,100,000 {
-	CONSUMABLE_ITEM_GAME_ITEM_HINT_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
-	CONSUMABLE_ITEM_GAME_ITEM_SHUFFLE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 1),
+	CONSUMABLE_ITEM_GAME_CONTINUE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	CONSUMABLE_ITEM_GAME_CONTINUE_MAX_VAL,
+	// 100,000,000 }
 
-	CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_01 = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 2),
-	CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_MAX_VAL,
-	// 100,100,000 }
+	// 110,000,000
+	CONSUMABLE_ITEM_BOOSTER_SAMPLE = (EEnumVal.T * EItemType.CONSUMABLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 소모
 
 	#region 비소모

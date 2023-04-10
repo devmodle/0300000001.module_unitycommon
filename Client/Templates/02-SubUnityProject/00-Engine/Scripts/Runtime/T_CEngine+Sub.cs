@@ -29,7 +29,10 @@ namespace NSEngine {
 		#region 함수
 		/** 아이템을 적용한다 */
 		public void ApplyItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo) {
-			// Do Something
+			switch(((int)a_stItemInfo.m_eItemKinds).ExKindsToSubTypeVal()) {
+				case KEnumVal.IK_GAME_ITEM_SUB_TYPE_VAL: this.ApplyGameItem(a_stItemInfo, a_oItemTargetInfo); break;
+				case KEnumVal.IK_BOOSTER_ITEM_SUB_TYPE_VAL: this.ApplyBoosterItem(a_stItemInfo, a_oItemTargetInfo); break;
+			}
 		}
 
 		/** 초기화 */
@@ -60,6 +63,16 @@ namespace NSEngine {
 			if(CSceneManager.IsAppRunning) {
 				// Do Something
 			}
+		}
+
+		/** 게임 아이템을 적용한다 */
+		private void ApplyGameItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo) {
+			// Do Something
+		}
+
+		/** 부스터 아이템을 적용한다 */
+		private void ApplyBoosterItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo) {
+			// Do Something
 		}
 
 		/** 클리어 상태를 처리한다 */

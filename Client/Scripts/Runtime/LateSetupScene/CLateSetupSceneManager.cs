@@ -241,6 +241,7 @@ namespace LateSetupScene {
 				} else {
 					CSceneLoader.Inst.LoadSceneAsync(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_MENU : CSceneLoader.Inst.AwakeActiveSceneName, this.OnUpdateAsyncSceneLoadingState);
 				}
+				
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				// 기본 씬 일 경우
 				if(KCDefine.B_DEF_SCENE_NAME_LIST_01.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {

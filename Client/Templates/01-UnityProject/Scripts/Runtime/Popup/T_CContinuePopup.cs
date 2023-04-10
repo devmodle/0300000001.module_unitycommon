@@ -47,7 +47,7 @@ public partial class CContinuePopup : CSubPopup {
 	public override bool IsIgnoreCloseBtn => true;
 
 	public bool IsWatchAds => m_oBoolDict[EKey.IS_WATCH_ADS];
-	public EItemKinds ContinueItemKinds => (EItemKinds)Mathf.Min((int)EItemKinds.CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_MAX_VAL - KCDefine.B_VAL_1_INT, (int)EItemKinds.CONSUMABLE_ITEM_GAME_ITEM_CONTINUE_01 + this.Params.m_nContinueTimes);
+	public EItemKinds ContinueItemKinds => (EItemKinds)Mathf.Min((int)EItemKinds.CONSUMABLE_ITEM_GAME_CONTINUE_MAX_VAL - KCDefine.B_VAL_1_INT, (int)EItemKinds.CONSUMABLE_ITEM_GAME_CONTINUE_01 + this.Params.m_nContinueTimes);
 	#endregion // 프로퍼티
 
 	#region 함수
