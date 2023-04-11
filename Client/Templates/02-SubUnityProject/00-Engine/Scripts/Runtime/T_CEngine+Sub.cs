@@ -27,14 +27,6 @@ namespace NSEngine {
 		#endregion // 프로퍼티
 
 		#region 함수
-		/** 아이템을 적용한다 */
-		public void ApplyItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo) {
-			switch(((int)a_stItemInfo.m_eItemKinds).ExKindsToSubTypeVal()) {
-				case KEnumVal.IK_GAME_ITEM_SUB_TYPE_VAL: this.ApplyGameItem(a_stItemInfo, a_oItemTargetInfo); break;
-				case KEnumVal.IK_BOOSTER_ITEM_SUB_TYPE_VAL: this.ApplyBoosterItem(a_stItemInfo, a_oItemTargetInfo); break;
-			}
-		}
-
 		/** 초기화 */
 		private void SubAwake() {
 			// Do Something
@@ -105,34 +97,34 @@ namespace NSEngine {
 
 		/** 플레이 서브 상태를 처리한다 */
 		private void HandlePlaySubState(float a_fDeltaTime) {
-			global::Func.UpdateComponents(this.ItemList, a_fDeltaTime);
-			global::Func.UpdateComponents(this.SkillList, a_fDeltaTime);
-			global::Func.UpdateComponents(this.FXList, a_fDeltaTime);
+			global::Func.UpdateComponents(this.ItemListWrapper, a_fDeltaTime);
+			global::Func.UpdateComponents(this.SkillListWrapper, a_fDeltaTime);
+			global::Func.UpdateComponents(this.FXListWrapper, a_fDeltaTime);
 
-			global::Func.UpdateComponents(this.ObjList, a_fDeltaTime);
-			global::Func.UpdateComponents(this.PlayerObjList, a_fDeltaTime);
-			global::Func.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
+			global::Func.UpdateComponents(this.ObjListWrapper, a_fDeltaTime);
+			global::Func.UpdateComponents(this.PlayerObjListWrapper, a_fDeltaTime);
+			global::Func.UpdateComponents(this.EnemyObjListWrapper, a_fDeltaTime);
 
 			// 실행 중 일 경우
 			if(m_oBoolDict[EKey.IS_RUNNING]) {
 				var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
 				try {
-					for(int i = 0; i < this.EnemyObjList.Count; ++i) {
-						int nNumEnemyObjs = oNumEnemyObjsDict.GetValueOrDefault(this.EnemyObjList[i].Params.m_stObjInfo.m_eObjKinds);
-						oNumEnemyObjsDict.ExReplaceVal(this.EnemyObjList[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
+					for(int i = 0; i < this.EnemyObjListWrapper.Count; ++i) {
+						int nNumEnemyObjs = oNumEnemyObjsDict.GetValueOrDefault(this.EnemyObjListWrapper[i].Params.m_stObjInfo.m_eObjKinds);
+						oNumEnemyObjsDict.ExReplaceVal(this.EnemyObjListWrapper[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
 					}
 
 					foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oEnemyObjTargetInfoDict) {
 						// 적 객체 생성이 가능 할 경우
-						if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.Kinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjList.Count < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nMaxNumEnemyObjs) {
+						if(oNumEnemyObjsDict.GetValueOrDefault((EObjKinds)stKeyVal.Value.Kinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjListWrapper.Count < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nMaxNumEnemyObjs) {
 							float fPosX = Random.Range(this.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
 							float fPosY = Random.Range(this.EpisodeSize.y / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
 
 							var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.Kinds), null);
 							oEnemyObj.transform.localPosition = new Vector3(fPosX, fPosY, fPosY / this.EpisodeSize.y);
 
-							this.EnemyObjList.ExAddVal(oEnemyObj);
+							this.EnemyObjListWrapper.ExAddVal(oEnemyObj);
 						}
 					}
 				} finally {

@@ -20,8 +20,8 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	[Key(1)] public STIdxInfo m_stIdxInfo = STIdxInfo.INVALID;
 	[Key(131)] public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
-	[IgnoreMember] [System.NonSerialized] public CTargetInfo m_oOwnerTargetInfo = null;
-	[IgnoreMember] [System.NonSerialized] public List<CTargetInfo> m_oOwnedTargetInfoList = new List<CTargetInfo>();
+	[IgnoreMember][System.NonSerialized] public CTargetInfo m_oOwnerTargetInfo = null;
+	[IgnoreMember][System.NonSerialized] public List<CTargetInfo> m_oOwnedTargetInfoList = new List<CTargetInfo>();
 	#endregion // 변수
 
 	#region 상수

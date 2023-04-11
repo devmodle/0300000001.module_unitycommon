@@ -19,8 +19,6 @@ namespace NSEngine {
 			MOVE_DIRECTION,
 
 			APPLY_SKILL_INFO,
-			APPLY_SKILL_TARGET_INFO,
-
 			APPLY_FX_INFO,
 			[HideInInspector] MAX_VAL
 		}
@@ -44,16 +42,12 @@ namespace NSEngine {
 			[EKey.MOVE_DIRECTION] = Vector3.zero
 		};
 
-		private Dictionary<EKey, STSkillInfo> m_oSkillInfoDict = new Dictionary<EKey, STSkillInfo>() {
-			[EKey.APPLY_SKILL_INFO] = STSkillInfo.INVALID
-		};
-
 		private Dictionary<EKey, STFXInfo> m_oFXInfoDict = new Dictionary<EKey, STFXInfo>() {
 			[EKey.APPLY_FX_INFO] = STFXInfo.INVALID
 		};
 
-		private Dictionary<EKey, CSkillTargetInfo> m_oSkillTargetInfoDict = new Dictionary<EKey, CSkillTargetInfo>() {
-			[EKey.APPLY_SKILL_TARGET_INFO] = null
+		private Dictionary<EKey, (STSkillInfo, CSkillTargetInfo)> m_oSkillInfoDict = new Dictionary<EKey, (STSkillInfo, CSkillTargetInfo)>() {
+			[EKey.APPLY_SKILL_INFO] = (STSkillInfo.INVALID, null)
 		};
 		#endregion // 변수
 
@@ -65,7 +59,10 @@ namespace NSEngine {
 
 		public Vector3 MovePos => m_oVec3Dict[EKey.MOVE_POS];
 		public Vector3 MoveDirection => m_oVec3Dict[EKey.MOVE_DIRECTION];
-		public CSkillTargetInfo ApplySkillTargetInfo => m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO];
+
+		public STFXInfo ApplyFXInfo => m_oFXInfoDict[EKey.APPLY_FX_INFO];
+		public STSkillInfo ApplySkillInfo => m_oSkillInfoDict[EKey.APPLY_SKILL_INFO].Item1;
+		public CSkillTargetInfo ApplySkillTargetInfo => m_oSkillInfoDict[EKey.APPLY_SKILL_INFO].Item2;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -91,7 +88,7 @@ namespace NSEngine {
 
 		/** 적용 스킬 정보를 리셋한다 */
 		public virtual void ResetApplySkillInfo() {
-			m_oSkillInfoDict[EKey.APPLY_SKILL_INFO] = STSkillInfo.INVALID;
+			m_oSkillInfoDict[EKey.APPLY_SKILL_INFO] = (STSkillInfo.INVALID, null);
 		}
 
 		/** 제거 되었을 경우 */
@@ -186,8 +183,7 @@ namespace NSEngine {
 				var oTargetList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
 
 				try {
-					m_oSkillInfoDict[EKey.APPLY_SKILL_INFO] = a_stSkillInfo;
-					m_oSkillTargetInfoDict[EKey.APPLY_SKILL_TARGET_INFO] = a_oSkillTargetInfo;
+					m_oSkillInfoDict[EKey.APPLY_SKILL_INFO] = (a_stSkillInfo, a_oSkillTargetInfo);
 
 					switch(a_stSkillInfo.SkillApplyType) {
 						case EApplyType.MULTI: this.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetList); break;
@@ -224,7 +220,7 @@ namespace NSEngine {
 			var oSkill = this.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo);
 			a_oTargetList.ExCopyTo(oSkill.GetController<CESkillController>().EObjComponentList, (a_oTargetObj) => a_oTargetObj);
 
-			this.Engine.SkillList.ExAddVal(oSkill);
+			this.Engine.SkillListWrapper.ExAddVal(oSkill);
 			oSkill.GetController<CESkillController>().Apply();
 		}
 
@@ -233,7 +229,7 @@ namespace NSEngine {
 			var oFX = this.CreateFX(a_stFXInfo);
 			a_oTargetList.ExCopyTo(oFX.GetController<CEFXController>().EObjComponentList, (a_oTargetObj) => a_oTargetObj);
 			
-			this.Engine.FXList.ExAddVal(oFX);
+			this.Engine.FXListWrapper.ExAddVal(oFX);
 			oFX.GetController<CEFXController>().Apply();
 		}
 		#endregion // 함수
@@ -280,7 +276,7 @@ namespace NSEngine {
 		/** 스킬 적용 가능 여부를 검사한다 */
 		protected virtual bool IsEnableApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 적용 스킬 타겟 정보가 없을 경우
-			if(m_oSkillInfoDict[EKey.APPLY_SKILL_INFO].m_eSkillKinds == ESkillKinds.NONE) {
+			if(m_oSkillInfoDict[EKey.APPLY_SKILL_INFO].Item1.m_eSkillKinds == ESkillKinds.NONE) {
 				return true;
 			}
 

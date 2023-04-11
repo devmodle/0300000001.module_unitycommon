@@ -27,14 +27,14 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stSize;
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stBaseIdx;
 #else
-	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stSize;
-	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stBaseIdx;
+	[IgnoreMember][System.NonSerialized] public Vector3Int m_stSize;
+	[IgnoreMember][System.NonSerialized] public Vector3Int m_stBaseIdx;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 변수
 
 	#region 상수
 	public static readonly STCellObjInfo INVALID = new STCellObjInfo(null) {
-		ColorID = KCDefine.B_IDX_INVALID, ObjKinds = EObjKinds.NONE
+		ColorID = KCDefine.B_IDX_INVALID, ObjKinds = EObjKinds.NONE, m_stBaseIdx = KCDefine.B_IDX_INVALID_3D
 	};
 
 	private const string KEY_SIZE_X = "SizeX";
@@ -120,7 +120,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 		var stCellObjInfo = new STCellObjInfo();
 		this.SetupCloneInst(ref stCellObjInfo);
 
-		stCellObjInfo.OnAfterDeserialize();
+		stCellObjInfo.OnAfterDeserialize(m_stBaseIdx);
 		return stCellObjInfo;
 	}
 	#endregion // ICloneable
@@ -139,9 +139,9 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	}
 
 	/** 역직렬화 되었을 경우 */
-	public void OnAfterDeserialize(Vector3Int a_stIdx) {
+	public void OnAfterDeserialize(Vector3Int a_stBaseIdx) {
 		m_stSize = new Vector3Int(this.SizeX, this.SizeY, this.SizeZ);
-		m_stBaseIdx = a_stIdx;
+		m_stBaseIdx = a_stBaseIdx;
 	}
 	#endregion // IMessagePackSerializationCallbackReceiver
 
@@ -186,7 +186,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 #else
-	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stIdx;
+	[IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 변수
 
@@ -202,7 +202,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 		var stCellInfo = new STCellInfo();
 		this.SetupCloneInst(ref stCellInfo);
 
-		stCellInfo.OnAfterDeserialize();
+		stCellInfo.OnAfterDeserialize(m_stIdx);
 		return stCellInfo;
 	}
 	#endregion // ICloneable
@@ -270,8 +270,8 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 	[JsonIgnore][IgnoreMember][System.NonSerialized] public Vector3Int m_stNumViewCells;
 #else
-	[IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
-	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stNumViewCells;
+	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
+	[IgnoreMember][System.NonSerialized] public Vector3Int m_stNumViewCells;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 변수
 
