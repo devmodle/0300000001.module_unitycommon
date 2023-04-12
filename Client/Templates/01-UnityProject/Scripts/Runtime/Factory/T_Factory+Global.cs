@@ -124,7 +124,10 @@ public static partial class Factory {
 	/** 상품 교환 정보를 생성한다 */
 	public static Dictionary<EProductKinds, STProductTradeInfo> MakeProductTradeInfos(List<EProductKinds> a_oProductKindsList) {
 		var oBuyProductTradeInfoDict = new Dictionary<EProductKinds, STProductTradeInfo>();
-		a_oProductKindsList.ForEach((a_eProductKinds) => oBuyProductTradeInfoDict.TryAdd(a_eProductKinds, CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(a_eProductKinds)));
+		
+		for(int i = 0; i < a_oProductKindsList.Count; ++i) {
+			oBuyProductTradeInfoDict.TryAdd(a_oProductKindsList[i], CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(a_oProductKindsList[i]));
+		}
 
 		return oBuyProductTradeInfoDict;
 	}

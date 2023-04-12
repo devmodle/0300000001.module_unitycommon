@@ -296,7 +296,9 @@ namespace MainScene {
 
 		/** 준비 팝업 콜백을 수신했을 경우 */
 		private void OnReceiveReadyPopupCallback(CPopup a_oSender) {
+			CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
 			Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, (a_oSender as CReadyPopup).Params.m_stIDInfo.m_nID01, EPlayMode.NORM);
+
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
 		}
 

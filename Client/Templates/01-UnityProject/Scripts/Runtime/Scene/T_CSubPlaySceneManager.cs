@@ -73,12 +73,17 @@ namespace PlayScene {
 #if DEBUG || DEVELOPMENT_BUILD
 				// 플레이 레벨 정보가 없을 경우
 				if(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 <= KCDefine.B_IDX_INVALID) {
+					CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
 					Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, KCDefine.B_VAL_0_INT, EPlayMode.NORM);
 				}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 
 				this.SetupEngine();
 				this.SetupRewardAdsUIs();
+
+				// 아이템 종류를 설정한다
+				CGameInfoStorage.Inst.SelItemKindsList.Sort((a_eLhs, a_eRhs) => a_eLhs.CompareTo(a_eRhs));
+				CGameInfoStorage.Inst.FreeSelItemKindsList.Sort((a_eLhs, a_eRhs) => a_eLhs.CompareTo(a_eRhs));
 
 				// 객체를 설정한다
 				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
@@ -152,7 +157,6 @@ namespace PlayScene {
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 				this.SubStart();
-				this.ApplySelItems();
 				this.UpdateUIsState();
 
 				this.ExLateCallFunc((a_oSender) => {
@@ -160,6 +164,7 @@ namespace PlayScene {
 					m_oEngine.SetState(NSEngine.CEngine.EState.IDLE);
 					m_oEngine.SetSubState(NSEngine.CEngine.ESubState.PLAY);
 
+					this.ApplySelItems();
 					m_oEngine.SelPlayerObj?.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
 				}, KCDefine.B_VAL_0_5_REAL);
 
@@ -426,6 +431,7 @@ namespace PlayScene {
 
 				// 레벨 에피소드 정보가 존재 할 경우
 				if(bIsValid01 && bIsValid02 && a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) {
+					CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
 					Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
 
 #if ADS_MODULE_ENABLE

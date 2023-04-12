@@ -498,6 +498,18 @@ public static partial class Func {
 				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
 				case KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_ENHANCE, -a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
 			}
+
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_LV, out STTargetInfo stLVAbilityTargetInfo);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_LV, System.Math.Clamp(stLVAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_0_INT, long.MaxValue), a_bIsEnableAssert);
+
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_EXP, out STTargetInfo stEXPAbilityTargetInfo);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_EXP, System.Math.Clamp(stEXPAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_0_INT, long.MaxValue), a_bIsEnableAssert);
+
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, out STTargetInfo stNumsAbilityTargetInfo);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, System.Math.Clamp(stNumsAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_0_INT, long.MaxValue), a_bIsEnableAssert);
+
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_ENHANCE, out STTargetInfo stEnhanceAbilityTargetInfo);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_ENHANCE, System.Math.Clamp(stEnhanceAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_0_INT, long.MaxValue), a_bIsEnableAssert);
 		}
 	}
 
@@ -517,8 +529,14 @@ public static partial class Func {
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_LV, out STTargetInfo stLVAbilityTargetInfo);
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_LV, System.Math.Clamp(stLVAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
 
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_EXP, out STTargetInfo stEXPAbilityTargetInfo);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_EXP, System.Math.Clamp(stEXPAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_0_INT, long.MaxValue), a_bIsEnableAssert);
+
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, out STTargetInfo stNumsAbilityTargetInfo);
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, System.Math.Clamp(stNumsAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
+
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_ENHANCE, out STTargetInfo stEnhanceAbilityTargetInfo);
+			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_ENHANCE, System.Math.Clamp(stEnhanceAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_0_INT, long.MaxValue), a_bIsEnableAssert);
 		}
 	}
 	#endregion // 클래스 함수

@@ -13,6 +13,8 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
+		IS_WATCH_ADS,
+
 		ADS_BTN,
 		ACQUIRE_BTN,
 		[HideInInspector] MAX_VAL
@@ -27,6 +29,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	}
 
 	#region 변수
+	private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+		[EKey.IS_WATCH_ADS] = false
+	};
+
 	/** =====> UI <===== */
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
@@ -37,6 +43,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 	#region 프로퍼티
 	public STParams Params { get; private set; }
+	public bool IsWatchAds => m_oBoolDict[EKey.IS_WATCH_ADS];
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -104,6 +111,8 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	private void AcquireRewards(bool a_bIsWatchRewardAds) {
 		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(false);
 		m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(false);
+
+		m_oBoolDict[EKey.IS_WATCH_ADS] = a_bIsWatchRewardAds;
 
 #if ADS_MODULE_ENABLE
 		m_oBtnDict[EKey.ADS_BTN]?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();

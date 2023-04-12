@@ -524,8 +524,8 @@ namespace NSEngine {
 		}
 
 		/** 셀 객체를 탐색한다 */
-		public List<CEObj> FindCellObjs(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
-			return this.CellObjListsContainer.ExGetVal(a_stIdx, null)?.ExGetVals((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds);
+		public List<CEObj> FindCellObjs(Vector3Int a_stIdx, EObjKinds a_eObjKinds, List<CEObj> a_oOutCellObjList) {
+			return this.CellObjListsContainer.ExGetVal(a_stIdx, null)?.ExGetVals((a_oCellObj) => a_oCellObj.Params.m_stObjInfo.m_eObjKinds == a_eObjKinds, a_oOutCellObjList);
 		}
 
 		/** 셀 객체를 탐색한다 */
@@ -565,9 +565,74 @@ namespace NSEngine {
 		}
 
 		/** 최상단 셀 객체를 탐색한다 */
+		public CEObj FindTopCellObj(Vector3Int a_stIdx) {
+			return this.FindTopCellObj(a_stIdx, EObjKinds.NONE);
+		}
+
+		/** 최상단 셀 객체를 탐색한다 */
 		public CEObj FindTopCellObj(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
-			var oCellObjList = this.FindCellObjs(a_stIdx, a_eObjKinds);
-			return oCellObjList.ExIsValid() ? oCellObjList.Last() : null;
+			var oCellObjList = CCollectionManager.Inst.SpawnList<CEObj>();
+
+			try {
+				return (a_eObjKinds != EObjKinds.NONE) ? this.FindCellObjs(a_stIdx, a_eObjKinds, oCellObjList)?.LastOrDefault() : this.SelCellObjLists.ExGetVal(a_stIdx, null)?.LastOrDefault();
+			} finally {
+				CCollectionManager.Inst.DespawnList(oCellObjList);
+			}
+		}
+
+		/** 주변 셀 객체를 탐색한다 */
+		public List<CEObj> FindAroundCellObjs(Vector3Int a_stIdx, Vector3Int a_stRange, EObjKinds a_eObjKinds, List<CEObj> a_oOutCellObjList) {
+			a_oOutCellObjList = a_oOutCellObjList ?? new List<CEObj>();
+
+			for(int i = 0; i < this.SelCellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) {
+				for(int j = 0; j < this.SelCellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
+					var oCellObjList = CCollectionManager.Inst.SpawnList<CEObj>();
+
+					try {
+						var stIdx = new Vector3Int(j, i, this.SelGridInfoIdx);
+						var oFindCellObjList = (a_eObjKinds != EObjKinds.NONE) ? this.FindCellObjs(stIdx, a_eObjKinds, oCellObjList) : this.CellObjListsContainer.ExGetVal(stIdx, null);
+
+						bool bIsValid01 = stIdx.x >= a_stIdx.x - a_stRange.x && stIdx.x <= a_stIdx.x + a_stRange.x;
+						bool bIsValid02 = stIdx.y >= a_stIdx.y - a_stRange.y && stIdx.y <= a_stIdx.y + a_stRange.y;
+
+						// 셀 객체가 존재 할 경우
+						if(bIsValid01 && bIsValid02 && oFindCellObjList.ExIsValid()) {
+							a_oOutCellObjList.ExAddVals(oFindCellObjList);
+						}
+					} finally {
+						CCollectionManager.Inst.DespawnList(oCellObjList);
+					}
+				}
+			}
+
+			return a_oOutCellObjList;
+		}
+
+		/** 주변 최상단 셀 객체를 탐색한다 */
+		public List<CEObj> FindAroundTopCellObjs(Vector3Int a_stIdx, Vector3Int a_stRange, List<CEObj> a_oOutCellObjList) {
+			return this.FindAroundTopCellObjs(a_stIdx, a_stRange, EObjKinds.NONE, a_oOutCellObjList);
+		}
+
+		/** 주변 최상단 셀 객체를 탐색한다 */
+		public List<CEObj> FindAroundTopCellObjs(Vector3Int a_stIdx, Vector3Int a_stRange, EObjKinds a_eObjKinds, List<CEObj> a_oOutCellObjList) {
+			a_oOutCellObjList = a_oOutCellObjList ?? new List<CEObj>();
+
+			for(int i = 0; i < this.SelCellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) {
+				for(int j = 0; j < this.SelCellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
+					var stIdx = new Vector3Int(j, i, this.SelGridInfoIdx);
+					var oCellObj = (a_eObjKinds != EObjKinds.NONE) ? this.FindTopCellObj(stIdx, a_eObjKinds) : this.FindTopCellObj(stIdx);
+
+					bool bIsValid01 = stIdx.x >= a_stIdx.x - a_stRange.x && stIdx.x <= a_stIdx.x + a_stRange.x;
+					bool bIsValid02 = stIdx.y >= a_stIdx.y - a_stRange.y && stIdx.y <= a_stIdx.y + a_stRange.y;
+
+					// 셀 객체가 존재 할 경우
+					if(bIsValid01 && bIsValid02 && oCellObj != null) {
+						a_oOutCellObjList.ExAddVal(oCellObj);
+					}
+				}
+			}
+
+			return a_oOutCellObjList;
 		}
 		#endregion // 함수
 	}
