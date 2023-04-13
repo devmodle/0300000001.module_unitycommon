@@ -435,7 +435,7 @@ namespace PlayScene {
 					Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
 
 #if ADS_MODULE_ENABLE
-					Func.ShowFullscreenAds(null, KCDefine.B_VAL_0_REAL);
+					Func.ShowFullscreenAds(null, KCDefine.B_VAL_0_1_REAL);
 #endif // #if ADS_MODULE_ENABLE
 
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
