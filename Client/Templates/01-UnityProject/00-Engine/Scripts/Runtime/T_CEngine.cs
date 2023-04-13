@@ -420,6 +420,7 @@ namespace NSEngine {
 			a_oEObjComponent.SetOwner(a_oOwner);
 			a_oEObjComponent.Params.m_oCallbackDict.TryAdd(CEObjComponent.ECallback.ENGINE_OBJ_EVENT, this.OnReceiveEObjEvent);
 
+			a_oController?.ExSetEnable(true, false);
 			a_oController?.SetOwner(a_oEObjComponent);
 		}
 

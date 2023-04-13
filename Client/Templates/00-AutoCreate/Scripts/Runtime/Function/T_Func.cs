@@ -511,12 +511,12 @@ public static partial class Func {
 	}
 
 	/** 전면 광고를 출력한다 */
-	public static void ShowFullscreenAds(System.Action<CAdsManager, bool> a_oCallback) {
-		Func.ShowFullscreenAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
+	public static void ShowFullscreenAds(System.Action<CAdsManager, bool> a_oCallback, float a_fDelay = KCDefine.B_VAL_2_REAL) {
+		Func.ShowFullscreenAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback, a_fDelay);
 	}
 
 	/** 전면 광고를 출력한다 */
-	public static void ShowFullscreenAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback) {
+	public static void ShowFullscreenAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback, float a_fDelay = KCDefine.B_VAL_2_REAL) {
 		// 전면 광고 출력이 가능 할 경우
 		if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsPlatform)) {
 			CIndicatorManager.Inst.Show();
@@ -533,7 +533,7 @@ public static partial class Func {
 				} else {
 					CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, false);
 				}
-			}, KCDefine.B_VAL_2_REAL, true);
+			}, a_fDelay, true);
 		} else {
 			Func.IncrAdsSkipTimes(KCDefine.B_VAL_1_INT);
 			CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, false);
