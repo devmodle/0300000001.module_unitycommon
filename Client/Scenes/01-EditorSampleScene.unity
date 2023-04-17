@@ -514,6 +514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &47162491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,7 +717,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98515741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1609.6638, y: 0, z: 0}
+  m_LocalPosition: {x: -2171.6997, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -761,8 +763,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &117954229
 MonoBehaviour:
@@ -1212,6 +1214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &179721070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1588,6 +1592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &194742499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1771,6 +1777,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &208056908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2017,8 +2025,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &252967414
 MonoBehaviour:
@@ -2286,8 +2294,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &287706021
 MonoBehaviour:
@@ -2445,7 +2453,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305572985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 799.99994, z: 0}
+  m_LocalPosition: {x: 0, y: 1280, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3475,8 +3483,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 953.79834, y: 0}
-  m_SizeDelta: {x: 1907.5967, y: 0}
+  m_AnchoredPosition: {x: 1291.0198, y: 0}
+  m_SizeDelta: {x: 2582.0396, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &378940644
 MonoBehaviour:
@@ -3687,8 +3695,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &395598573
 MonoBehaviour:
@@ -3812,6 +3820,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &427903653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4036,6 +4046,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &436739882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4142,7 +4154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447852263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -799.99994, z: 0}
+  m_LocalPosition: {x: 0, y: -1280, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4348,6 +4360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &523255424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5473,8 +5487,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &610562964
 MonoBehaviour:
@@ -6083,6 +6097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &672199644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6231,6 +6247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &675373056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6630,7 +6648,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -800}
+  m_AnchoredPosition: {x: 0, y: -1280}
   m_SizeDelta: {x: 720, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &709717773
@@ -7040,7 +7058,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 1
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 720, y: 1600}
+  m_ReferenceResolution: {x: 720, y: 2560}
   m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -7059,7 +7077,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 846633049}
-  m_PlaneDistance: 19.313707
+  m_PlaneDistance: 30.901934
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -7173,6 +7191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &749592972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7493,6 +7513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &772718743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7612,8 +7634,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &781124567
 MonoBehaviour:
@@ -8167,7 +8189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846633046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -19.313707}
+  m_LocalPosition: {x: 0, y: 0, z: -30.901934}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8207,7 +8229,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 250
-  field of view: 45.000004
+  field of view: 45
   orthographic: 0
   orthographic size: 360
   m_Depth: 0
@@ -8396,7 +8418,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846901626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1609.6638, y: 0, z: 0}
+  m_LocalPosition: {x: 2171.6997, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8615,8 +8637,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &866959004
 MonoBehaviour:
@@ -9187,7 +9209,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3219.3276, y: 0}
+  m_SizeDelta: {x: 4343.3994, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &909390233
 GameObject:
@@ -9223,7 +9245,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3219.3276, y: 0}
+  m_SizeDelta: {x: 4343.3994, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &913937134
 GameObject:
@@ -9472,7 +9494,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3810
+  m_SortingOrder: 254
   m_TargetDisplay: 0
 --- !u!114 &917510970
 MonoBehaviour:
@@ -9715,7 +9737,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3219.3276, y: 0}
+  m_SizeDelta: {x: 4343.3994, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &941972546
 GameObject:
@@ -10197,8 +10219,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959560769
 MonoBehaviour:
@@ -10724,6 +10746,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1003493531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11175,6 +11199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1032241632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11293,8 +11319,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1042876182
 MonoBehaviour:
@@ -11720,6 +11746,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1064787817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11868,6 +11896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1071941152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12362,7 +12392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 800}
+  m_AnchoredPosition: {x: 0, y: 1280}
   m_SizeDelta: {x: 720, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &1132338928
@@ -12431,6 +12461,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1132338932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12816,6 +12848,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1204507046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12964,6 +12998,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1214773957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13254,8 +13290,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1221932020
 MonoBehaviour:
@@ -13363,6 +13399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1225394156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13915,6 +13953,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1302079558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14138,8 +14178,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1325599371
 MonoBehaviour:
@@ -14424,7 +14464,7 @@ Transform:
   m_GameObject: {fileID: 1376964104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.009543601, y: 0.009543601, z: 0.009543601}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1538062839}
@@ -14578,6 +14618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1394409899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14788,8 +14830,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1609.6638, y: 0}
-  m_SizeDelta: {x: 0, y: 1600}
+  m_AnchoredPosition: {x: 2171.6997, y: 0}
+  m_SizeDelta: {x: 0, y: 2560}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &1421376074
 GameObject:
@@ -14857,6 +14899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1421376078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15131,6 +15175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1447745460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15373,6 +15419,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1474923802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16137,6 +16185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1556318491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16257,8 +16307,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1560360649
 MonoBehaviour:
@@ -17211,7 +17261,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3219.3276, y: 0}
+  m_SizeDelta: {x: 4343.3994, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1633188574
 GameObject:
@@ -17278,6 +17328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1633188578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17502,6 +17554,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1638237412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17623,8 +17677,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1643842311
 MonoBehaviour:
@@ -17732,6 +17786,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1648248581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18116,6 +18172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1687862036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18625,8 +18683,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1808317410
 MonoBehaviour:
@@ -19140,7 +19198,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 720, y: 1600}
+  m_SizeDelta: {x: 720, y: 2560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1872450454
 GameObject:
@@ -19640,7 +19698,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 720, y: 1600}
+  m_SizeDelta: {x: 720, y: 2560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1932059472
 GameObject:
@@ -19834,6 +19892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1937742888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20038,8 +20098,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 953.79834, y: 0}
-  m_SizeDelta: {x: 779.3283, y: 0}
+  m_AnchoredPosition: {x: 1291.0198, y: 0}
+  m_SizeDelta: {x: 995.68567, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1955940701
 MonoBehaviour:
@@ -20163,6 +20223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1965367150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20359,8 +20421,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1998115938
 MonoBehaviour:
@@ -20455,8 +20517,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1998600525
 MonoBehaviour:
@@ -20701,8 +20763,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 953.79834, y: 0}
-  m_SizeDelta: {x: 1907.5967, y: 0}
+  m_AnchoredPosition: {x: 1291.0198, y: 0}
+  m_SizeDelta: {x: 2582.0396, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056451120
 MonoBehaviour:
@@ -20780,8 +20842,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 317.93277, y: 0}
-  m_SizeDelta: {x: 635.86554, y: 0}
+  m_AnchoredPosition: {x: 430.33994, y: 0}
+  m_SizeDelta: {x: 860.6799, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2057934388
 MonoBehaviour:
@@ -21081,8 +21143,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1609.6638, y: 0}
-  m_SizeDelta: {x: 0, y: 1600}
+  m_AnchoredPosition: {x: -2171.6997, y: 0}
+  m_SizeDelta: {x: 0, y: 2560}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &2114483858
 GameObject:
@@ -21366,7 +21428,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2540
+  m_SortingOrder: 127
   m_TargetDisplay: 0
 --- !u!114 &2118464254
 MonoBehaviour:

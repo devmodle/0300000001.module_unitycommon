@@ -378,6 +378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &6698162762040421289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1013,6 +1015,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1539494714283162610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,8 +1224,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 305, y: 0}
-  m_SizeDelta: {x: 610, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8737805652345107109
 MonoBehaviour:

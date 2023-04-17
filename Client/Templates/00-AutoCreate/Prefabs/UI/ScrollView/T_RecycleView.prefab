@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3417879619681582966}
   - component: {fileID: 5988930133663138829}
   - component: {fileID: 815376786746393485}
+  - component: {fileID: 137124060420609355}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -76,6 +77,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &137124060420609355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797726426388913004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Inverse: 0
+  m_MaskInteraction: 85
+  m_UseStencil: 1
+  m_RaycastFilter: 0
 --- !u!1 &1515028129432522447
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +105,7 @@ GameObject:
   - component: {fileID: 1515028129432522435}
   - component: {fileID: 1515028129432522434}
   - component: {fileID: 1515028129432522433}
-  - component: {fileID: 7366296155601491380}
+  - component: {fileID: 5680934288716918422}
   - component: {fileID: 7436185795531083309}
   - component: {fileID: 8037950981793500101}
   m_Layer: 5
@@ -149,7 +166,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -189,7 +206,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7366296155601491380
+--- !u!114 &5680934288716918422
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,10 +215,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1515028129432522447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 385b7d1277b6c4007a84c065696e0f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+  m_DownSamplingRate: 1
+  m_Softness: 1
+  m_Alpha: 1
+  m_IgnoreParent: 0
+  m_PartOfParent: 0
+  m_IgnoreSelfGraphic: 0
+  m_IgnoreSelfStencil: 0
 --- !u!114 &7436185795531083309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +318,7 @@ GameObject:
   - component: {fileID: 6449497196062819691}
   - component: {fileID: 6774911952547231173}
   - component: {fileID: 5498073574510725302}
+  - component: {fileID: 510011354406093470}
   m_Layer: 5
   m_Name: BG_IMG
   m_TagString: Untagged
@@ -359,6 +384,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &510011354406093470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5111563722606500760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Inverse: 0
+  m_MaskInteraction: 85
+  m_UseStencil: 1
+  m_RaycastFilter: 0
 --- !u!1 &5361502883414210085
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +449,7 @@ GameObject:
   - component: {fileID: 5143193498120260474}
   - component: {fileID: 3420572430034361920}
   - component: {fileID: 5282121212027624009}
+  - component: {fileID: 1277403598728743217}
   m_Layer: 5
   m_Name: VScrollbar
   m_TagString: Untagged
@@ -517,9 +559,25 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 815376786746393485}
   m_HandleRect: {fileID: 3417879619681582966}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1277403598728743217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7543963288718894017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Inverse: 0
+  m_MaskInteraction: 85
+  m_UseStencil: 1
+  m_RaycastFilter: 0
