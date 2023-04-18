@@ -165,6 +165,7 @@ public static partial class KEditorDefine {
 		["com.unity.feature.characters-animation"] = "1.0.0",
 		["com.unity.feature.cinematic"] = "1.0.0",
 		["com.unity.feature.development"] = "1.0.1",
+		["com.unity.feature.gameplay-storytelling"] = "1.0.0",
 		["com.unity.feature.mobile"] = "1.0.0",
 		["com.unity.feature.worldbuilding"] = "1.0.1",
 
@@ -234,7 +235,7 @@ public static partial class KEditorDefine {
 	// 텍스트
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif // #if UNITY_IOS
-	#endregion // 조건부 상수
+#endregion // 조건부 상수
 
 	#region 조건부 런타임 상수
 #if UNITY_IOS
@@ -398,7 +399,7 @@ public static partial class KEditorDefine {
 #endif // #if PURCHASE_MODULE_ENABLE
 	};
 #endif // #if UNITY_IOS
-	#endregion // 조건부 런타임 상수
+#endregion // 조건부 런타임 상수
 }
 #endif // #if UNITY_EDITOR
 #endif // #if SCRIPT_TEMPLATE_ONLY
