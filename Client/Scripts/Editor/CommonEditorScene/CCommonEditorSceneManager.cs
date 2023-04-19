@@ -8,9 +8,9 @@ using UnityEngine.Events;
 using System.IO;
 using UnityEditor;
 
-#if EDITOR_COROUTINE_ENABLE
+#if UNITY_EDITOR_WIN && EDITOR_COROUTINE_ENABLE
 using Unity.EditorCoroutines.Editor;
-#endif // #if EDITOR_COROUTINE_ENABLE
+#endif // #if UNITY_EDITOR_WIN && EDITOR_COROUTINE_ENABLE
 
 /** 공용 에디터 씬 관리자 */
 [InitializeOnLoad]
@@ -89,12 +89,12 @@ public static partial class CCommonEditorSceneManager {
 	/** 스크립트가 로드 되었을 경우 */
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
-#if EDITOR_COROUTINE_ENABLE
+#if UNITY_EDITOR_WIN && EDITOR_COROUTINE_ENABLE
 		EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.CoSetupEditorSceneManager());
 #else
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
 		CCommonEditorSceneManager.m_bIsEnableBuild = true;
-#endif // #if EDITOR_COROUTINE_ENABLE
+#endif // #if UNITY_EDITOR_WIN && EDITOR_COROUTINE_ENABLE
 	}
 
 	/** 상태를 갱신한다 */
@@ -243,11 +243,11 @@ public static partial class CCommonEditorSceneManager {
 	private static void OnUpdatePlayModeState(PlayModeStateChange a_ePlayMode) {
 		// 에디터 모드 일 경우
 		if(a_ePlayMode == PlayModeStateChange.EnteredEditMode) {
-#if EDITOR_COROUTINE_ENABLE
+#if UNITY_EDITOR_WIN && EDITOR_COROUTINE_ENABLE
 			EditorCoroutineUtility.StartCoroutineOwnerless(CCommonEditorSceneManager.CoUpdateEditorModeState());
 #else
-			Time.timeScale = KCDefine.B_VAL_1_REAL;
-#endif // #if EDITOR_COROUTINE_ENABLE
+			CAccess.SetTimeScale(KCDefine.B_VAL_1_REAL);
+#endif // #if UNITY_EDITOR_WIN && EDITOR_COROUTINE_ENABLE
 		}
 	}
 
@@ -261,7 +261,7 @@ public static partial class CCommonEditorSceneManager {
 	/** 에디터 모드 상태를 갱신한다 */
 	private static IEnumerator CoUpdateEditorModeState() {
 		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_DELTA_T_ASYNC_TASK, true);
-		Time.timeScale = KCDefine.B_VAL_1_REAL;
+		CAccess.SetTimeScale(KCDefine.B_VAL_1_REAL);
 	}
 	#endregion // 클래스 함수
 }

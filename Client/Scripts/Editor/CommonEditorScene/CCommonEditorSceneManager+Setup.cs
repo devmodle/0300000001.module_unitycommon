@@ -266,52 +266,60 @@ public static partial class CCommonEditorSceneManager {
 			var oIsSetupOptsList = new List<bool>() {
 				a_oSettings.ao,
 				a_oSettings.bakedGI,
-				a_oSettings.finalGather,
-				a_oSettings.finalGatherFiltering,
 
 				a_oSettings.realtimeGI == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeGI,
 				a_oSettings.realtimeEnvironmentLighting == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeEnvironmentLighting,
 
-				a_oSettings.lightmapper == CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_eLightmapper,
+				a_oSettings.lightmapper == (CEditorAccess.IsAppleMSeries ? LightingSettings.Lightmapper.ProgressiveGPU : LightingSettings.Lightmapper.ProgressiveCPU),
 				a_oSettings.filteringMode == LightingSettings.FilterMode.Auto,
 				a_oSettings.mixedBakeMode == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode,
 				a_oSettings.directionalityMode == (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode,
 
 				a_oSettings.lightmapPadding == KCDefine.B_VAL_4_INT,
 				a_oSettings.lightmapMaxSize == (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize,
-				a_oSettings.finalGatherRayCount == (int)EPOT._256,
 				a_oSettings.lightmapCompression == stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression,
 
 				a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_REAL),
 				a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_REAL),
 				a_oSettings.indirectResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION),
-				a_oSettings.lightmapResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION)
+				a_oSettings.lightmapResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION),
+
+#if !UNITY_2022_1_OR_NEWER
+				a_oSettings.finalGather,
+				a_oSettings.finalGatherFiltering,
+
+				a_oSettings.finalGatherRayCount == (int)EPOT._256,
+#endif // #if !UNITY_2022_1_OR_NEWER
 			};
 
 			// 설정 갱신이 필요 할 경우
 			if(oIsSetupOptsList.Contains(false)) {
 				a_oSettings.ao = true;
 				a_oSettings.bakedGI = true;
-				a_oSettings.finalGather = true;
-				a_oSettings.finalGatherFiltering = true;
 
 				a_oSettings.realtimeGI = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeGI;
 				a_oSettings.realtimeEnvironmentLighting = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeEnvironmentLighting;
 
-				a_oSettings.lightmapper = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_eLightmapper;
+				a_oSettings.lightmapper = CEditorAccess.IsAppleMSeries ? LightingSettings.Lightmapper.ProgressiveGPU : LightingSettings.Lightmapper.ProgressiveCPU;
 				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
 				a_oSettings.mixedBakeMode = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode;
 				a_oSettings.directionalityMode = (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode;
 
 				a_oSettings.lightmapPadding = KCDefine.B_VAL_4_INT;
 				a_oSettings.lightmapMaxSize = (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize;
-				a_oSettings.finalGatherRayCount = (int)EPOT._256;
 				a_oSettings.lightmapCompression = stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression;
 
 				a_oSettings.albedoBoost = KCDefine.B_VAL_1_INT;
 				a_oSettings.indirectScale = KCDefine.B_VAL_1_INT;
 				a_oSettings.indirectResolution = KCDefine.B_UNIT_LIGHTMAP_RESOLUTION;
 				a_oSettings.lightmapResolution = KCDefine.B_UNIT_LIGHTMAP_RESOLUTION;
+
+#if !UNITY_2022_1_OR_NEWER
+				a_oSettings.finalGather = true;
+				a_oSettings.finalGatherFiltering = true;
+				
+				a_oSettings.finalGatherRayCount = (int)EPOT._256;
+#endif // #if !UNITY_2022_1_OR_NEWER
 			}
 		}
 	}

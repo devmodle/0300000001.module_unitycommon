@@ -62,7 +62,6 @@ namespace InitScene {
 			// 테이블을 로드한다 {
 			CStrTable.Inst.LoadEnumStrs(typeof(EGridType));
 			CStrTable.Inst.LoadEnumStrs(typeof(EDifficulty));
-			CStrTable.Inst.LoadEnumStrs(typeof(EAgreePopup));
 
 			CValTable.Inst.LoadValsFromRes(KCDefine.U_TABLE_P_G_COMMON_VAL);
 			CStrTable.Inst.LoadStrsFromRes(KCDefine.U_TABLE_P_G_COMMON_STR);
@@ -129,13 +128,18 @@ namespace InitScene {
 
 			bool bIsValid = oTargetFrameInfoDict.TryGetValue(Application.platform, out (long, long) stTargetFrameInfo);
 			long nTargetFrameRate = bIsValid ? stTargetFrameInfo.Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
-			Application.targetFrameRate = (int)System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, System.Math.Min(Screen.currentResolution.refreshRate, nTargetFrameRate));
 
 #if MULTI_TOUCH_ENABLE
 			Input.multiTouchEnabled = true;
 #else
 			Input.multiTouchEnabled = false;
 #endif // #if MULTI_TOUCH_ENABLE
+
+#if UNITY_2022_1_OR_NEWER
+			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, (int)Screen.currentResolution.refreshRateRatio.value.ExGetMinVal((double)nTargetFrameRate));
+#else
+			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, (int)System.Math.Min(Screen.currentResolution.refreshRate, nTargetFrameRate));
+#endif // #if UNITY_2022_1_OR_NEWER
 
 #if UNITY_EDITOR
 			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eQualityLevel, true);
