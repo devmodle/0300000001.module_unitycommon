@@ -13,7 +13,7 @@
 2. **에셋 스토어 리스트**
 	- *Advance Object Pool (1.1.0 - May 6, 2019)*
 	- *Anti Cheat Free (3.1.3 - Jun 22, 2022)*
-	- *Asset Usage Detector (2.2.3 - Sep 26, 2022)*
+	- *Asset Usage Detector (2.3.1 - Mar 21, 2023)*
 	- *Bezier Solution (2.3.3 - Feb 2, 2023)*
 	- *Enhanced Hierarchy (2.4.5 - May 5, 2020)*
 	- *Enhanced Scroller (2.34.0 - Jan 20, 2023)*
@@ -26,12 +26,12 @@
 	- *Rest Client (2.6.2 - Dec 27, 2021)*
 	- *Simple Scroll Snap (2.0.0 - Mar 3, 2022)*
 	- *Smart Timers Manager (1.0.0 - Jul 6, 2016)*
-	- *Text to TextMesh Pro (1.1.0 - Sep 26, 2022)*
+	- *Text to TextMesh Pro (1.1.1 - Mar 21, 2023)*
 	- *UniRx (7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
 	- *Apple Sign In (1.4.2 - Jul 18, 2021)*
 	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
-	- *Build Report Tool (3.10.0 - Feb 7, 2023)*
+	- *Build Report Tool (3.10.1 - Mar 8, 2023)*
 	- *Odin Inspector (3.1.10 - Jan 12, 2023)*
 	- *NGUI (2022.06.08 - Jun 9, 2022)*
 	- *Sound Manater Pro (3.7.0 - Mar 29, 2015)*
