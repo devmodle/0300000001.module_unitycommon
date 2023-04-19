@@ -172,8 +172,8 @@ public static partial class KEditorDefine {
 		["com.unity.inputsystem"] = "1.5.1",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.localization"] = "1.3.2",
-		["com.unity.render-pipelines.universal"] = "12.1.10",
-		["com.unity.visualeffectgraph"] = "12.1.10",
+		["com.unity.render-pipelines.universal"] = "14.0.7",
+		["com.unity.visualeffectgraph"] = "14.0.7",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.2",
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
@@ -235,7 +235,7 @@ public static partial class KEditorDefine {
 	// 텍스트
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif // #if UNITY_IOS
-#endregion // 조건부 상수
+	#endregion // 조건부 상수
 
 	#region 조건부 런타임 상수
 #if UNITY_IOS
@@ -399,7 +399,7 @@ public static partial class KEditorDefine {
 #endif // #if PURCHASE_MODULE_ENABLE
 	};
 #endif // #if UNITY_IOS
-#endregion // 조건부 런타임 상수
+	#endregion // 조건부 런타임 상수
 }
 #endif // #if UNITY_EDITOR
 #endif // #if SCRIPT_TEMPLATE_ONLY
