@@ -149,6 +149,30 @@ public static partial class Func {
 	}
 
 	/** 지불한다 */
+	public static void Pay(int a_nCharacterID, List<STTargetInfo> a_oTargetInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoList != null);
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oTargetInfoList != null) {
+			for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
+				Func.Pay(a_nCharacterID, a_oTargetInfoList[i], a_bIsEnableAssert);
+			}
+		}
+	}
+
+	/** 지불한다 */
+	public static void Pay(int a_nCharacterID, List<STTargetInfo> a_oTargetInfoList, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoList != null);
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oTargetInfoList != null) {
+			for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
+				Func.Pay(a_nCharacterID, a_oTargetInfoList[i], a_oTargetInfo, a_bIsEnableAssert);
+			}
+		}
+	}
+
+	/** 지불한다 */
 	public static void Pay(int a_nCharacterID, Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoDict != null);
 
@@ -194,6 +218,30 @@ public static partial class Func {
 			// 타겟 정보가 존재 할 경우
 			if(bIsValid && a_oTargetInfo != null && a_stTargetInfo.Kinds != (int)EAbilityKinds.STAT_ABILITY_NUMS) {
 				a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert);
+			}
+		}
+	}
+
+	/** 획득한다 */
+	public static void Acquire(int a_nCharacterID, List<STTargetInfo> a_oTargetInfoList, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoList != null);
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oTargetInfoList != null) {
+			for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
+				Func.Acquire(a_nCharacterID, a_oTargetInfoList[i], a_bIsAutoCreate, a_bIsEnableAssert);
+			}
+		}
+	}
+
+	/** 획득한다 */
+	public static void Acquire(int a_nCharacterID, List<STTargetInfo> a_oTargetInfoList, CTargetInfo a_oTargetInfo, bool a_bIsAutoCreate = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoList != null);
+
+		// 타겟 정보가 존재 할 경우
+		if(a_oTargetInfoList != null) {
+			for(int i = 0; i < a_oTargetInfoList.Count; ++i) {
+				Func.Acquire(a_nCharacterID, a_oTargetInfoList[i], a_oTargetInfo, a_bIsAutoCreate, a_bIsEnableAssert);
 			}
 		}
 	}

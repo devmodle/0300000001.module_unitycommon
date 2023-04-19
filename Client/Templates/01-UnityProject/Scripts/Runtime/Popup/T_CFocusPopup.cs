@@ -39,6 +39,7 @@ public partial class CFocusPopup : CSubPopup {
 
 	#region 프로퍼티
 	public STParams Params { get; private set; }
+	
 	public override bool IsIgnoreBlindAni => true;
 	public override EAniType AniType => EAniType.NONE;
 	public override Color BlindColor => KCDefine.U_COLOR_TRANSPARENT;

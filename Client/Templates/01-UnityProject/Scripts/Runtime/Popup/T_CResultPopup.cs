@@ -111,6 +111,8 @@ public partial class CResultPopup : CSubPopup {
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
+		
+		Func.UpdateSingleSceneUIsState();
 	}
 
 	/** 닫기 버튼을 눌렀을 경우 */
