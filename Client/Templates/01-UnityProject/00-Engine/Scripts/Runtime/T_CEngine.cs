@@ -115,7 +115,9 @@ namespace NSEngine {
 		public List<(STSkillInfo, CSkillTargetInfo)> SkillInfoTupleList { get; } = new List<(STSkillInfo, CSkillTargetInfo)>();
 
 		public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
+
 		public bool IsRunning => m_oBoolDict[EKey.IS_RUNNING];
+		public bool IsEnableUpdate => Time.timeScale.ExIsGreate(KCDefine.B_VAL_0_REAL);
 
 		public int SelGridInfoIdx => m_oIntDict[EKey.SEL_GRID_IDX];
 		public int SelPlayerObjIdx => m_oIntDict[EKey.SEL_PLAYER_OBJ_IDX];
@@ -185,7 +187,7 @@ namespace NSEngine {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsAppRunning && this.IsEnableUpdate) {
 				// 실행 중 일 경우
 				if(m_oBoolDict[EKey.IS_RUNNING]) {
 					switch(this.SubState) {
@@ -201,6 +203,16 @@ namespace NSEngine {
 				}
 
 				this.SubOnUpdate(a_fDeltaTime * m_oRealDict[EKey.TIME_SCALE]);
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		public override void OnLateUpdate(float a_fDeltaTime) {
+			base.OnLateUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning && this.IsEnableUpdate) {
+				this.SubOnLateUpdate(a_fDeltaTime * m_oRealDict[EKey.TIME_SCALE]);
 			}
 		}
 

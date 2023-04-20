@@ -9,13 +9,13 @@ using UnityEngine.Events;
 /** 서브 전역 상수 */
 public static partial class KDefine {
 	#region 기본
-	// 개수
+	// 단위 {
 	public const int G_MAX_NUM_COINS_BOX_COINS = 0;
 	public const int G_MAX_NUM_ADS_SKIP_CLEAR_INFOS = 0;
 
-	// 횟수
 	public const int G_MAX_TIMES_ADS_SKIP = 0;
 	public const int G_MAX_TIMES_ACQUIRE_FREE_REWARDS = 0;
+	// 단위 }
 
 	// 식별자 {
 	public const int G_ID_HIT_FX = 0;
@@ -161,7 +161,8 @@ public static partial class KDefine {
 	#region 기본
 	// 단위
 	public const int PS_MAX_TIMES_CONTINUE = 0;
-	public const int PS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH = 0;
+	public const int PS_MAX_TIMES_ADS_CONTINUE = 0;
+	public const int PS_MIN_LEVEL_ENABLE_WATCH_ADS = 0;
 	#endregion // 기본
 
 	#region 런타임 상수

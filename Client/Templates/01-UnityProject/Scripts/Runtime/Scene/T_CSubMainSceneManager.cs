@@ -84,14 +84,14 @@ namespace MainScene {
 			if(CSceneManager.IsAppInit) {
 #if CREATIVE_DIST_BUILD
 				for(int i = 0; i < CLevelInfoTable.Inst.NumChapterInfos; ++i) {
-					for(int j = 0; j < CLevelInfoTable.Inst.GetNumStageInfos(i); ++i) {
+					for(int j = 0; j < CLevelInfoTable.Inst.GetNumStageInfos(i); ++j) {
 						for(int k = 0; k < CLevelInfoTable.Inst.GetNumLevelInfos(j, i); ++k) {
 							// 클리어 정보가 없을 경우
-							if(Access.IsClearLevel(CGameInfoStorage.Inst.PlayCharacterID, k, j, i)) {
+							if(!Access.IsClearLevel(CGameInfoStorage.Inst.PlayCharacterID, k, j, i)) {
 								CGameInfoStorage.Inst.AddLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, Factory.MakeClearInfo(k, j, i));
 							}
 
-							var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(k, j, i);
+							var oLevelClearInfo = CGameInfoStorage.Inst.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, k, j, i);
 							oLevelClearInfo.NumMarks = KCDefine.B_VAL_1_INT;
 						}
 					}

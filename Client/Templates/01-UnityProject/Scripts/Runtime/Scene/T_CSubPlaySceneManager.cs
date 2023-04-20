@@ -15,7 +15,9 @@ namespace PlayScene {
 		private enum EKey {
 			NONE = -1,
 			SEL_REWARD_ADS_UIS,
+
 			CONTINUE_TIMES,
+			ADS_CONTINUE_TIMES,
 
 			BG_SPRITE,
 			UP_BG_SPRITE,
@@ -48,7 +50,8 @@ namespace PlayScene {
 
 		#region 변수
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
-			[EKey.CONTINUE_TIMES] = KCDefine.B_VAL_0_INT
+			[EKey.CONTINUE_TIMES] = KCDefine.B_VAL_0_INT,
+			[EKey.ADS_CONTINUE_TIMES] = KCDefine.B_VAL_0_INT
 		};
 
 		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>() {
@@ -317,7 +320,7 @@ namespace PlayScene {
 		/** 보상 광고 UI 상태를 갱신한다 */
 		private void UpdateRewardAdsUIsState() {
 			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
-				m_oRewardAdsUIsList[i]?.SetActive(CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + KCDefine.B_VAL_1_INT >= KDefine.PS_MIN_LEVEL_ENABLE_REWARD_ADS_WATCH);
+				m_oRewardAdsUIsList[i]?.SetActive(CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + KCDefine.B_VAL_1_INT >= KDefine.PS_MIN_LEVEL_ENABLE_WATCH_ADS);
 			}
 		}
 
@@ -450,7 +453,7 @@ namespace PlayScene {
 		/** 이어하기 팝업을 출력한다 */
 		private void ShowContinuePopup() {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_oIntDict[EKey.CONTINUE_TIMES], new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
+				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_oIntDict[EKey.CONTINUE_TIMES], m_oIntDict[EKey.ADS_CONTINUE_TIMES], new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
 					[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.RETRY),
 					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.CONTINUE),
 					[CContinuePopup.ECallback.FINISH] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.FINISH)

@@ -13,8 +13,9 @@ public partial class CContinuePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
-		PRICE_TEXT,
 		IS_WATCH_ADS,
+		PRICE_TEXT,
+		ADS_BTN,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -30,6 +31,8 @@ public partial class CContinuePopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
 		public int m_nContinueTimes;
+		public int m_nAdsContinueTimes;
+
 		public Dictionary<ECallback, System.Action<CContinuePopup>> m_oCallbackDict;
 	}
 
@@ -40,6 +43,7 @@ public partial class CContinuePopup : CSubPopup {
 
 	/** =====> UI <===== */
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
+	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -61,13 +65,17 @@ public partial class CContinuePopup : CSubPopup {
 			(EKey.PRICE_TEXT, $"{EKey.PRICE_TEXT}", this.ContentsUIs)
 		}, m_oTMPTextDict);
 
-		// 버튼을 설정한다
+		// 버튼을 설정한다 {
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-			(KCDefine.U_OBJ_N_ADS_BTN, this.ContentsUIs, this.OnTouchAdsBtn),
 			(KCDefine.U_OBJ_N_RETRY_BTN, this.ContentsUIs, this.OnTouchRetryBtn),
 			(KCDefine.U_OBJ_N_CONTINUE_BTN, this.ContentsUIs, this.OnTouchContinueBtn),
 			(KCDefine.U_OBJ_N_FINISH_BTN, this.ContentsUIs, this.OnTouchFinishBtn)
 		});
+
+		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.ContentsUIs, this.OnTouchAdsBtn)
+		}, m_oBtnDict);
+		// 버튼을 설정한다 }
 
 		this.SubAwake();
 	}
@@ -99,6 +107,17 @@ public partial class CContinuePopup : CSubPopup {
 			m_oTMPTextDict.GetValueOrDefault(oTextKeyInfoList[i].Item1)?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
 		}
 		// 텍스트를 갱신한다 }
+
+		// 버튼을 갱신한다 {
+		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(this.Params.m_nAdsContinueTimes < KDefine.PS_MAX_TIMES_ADS_CONTINUE);
+
+#if ADS_MODULE_ENABLE
+		// 광고 이어하기가 불가능 할 경우
+		if(this.Params.m_nAdsContinueTimes >= KDefine.PS_MAX_TIMES_ADS_CONTINUE) {
+			m_oBtnDict[EKey.ADS_BTN]?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
+		}
+#endif // #if ADS_MODULE_ENABLE
+		// 버튼을 갱신한다 }
 
 		this.SubUpdateUIsState();
 	}
@@ -160,9 +179,9 @@ public partial class CContinuePopup : CSubPopup {
 public partial class CContinuePopup : CSubPopup {
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(int a_nContinueTimes, Dictionary<ECallback, System.Action<CContinuePopup>> a_oCallbackDict = null) {
+	public static STParams MakeParams(int a_nContinueTimes, int a_nAdsContinueTimes, Dictionary<ECallback, System.Action<CContinuePopup>> a_oCallbackDict = null) {
 		return new STParams() {
-			m_nContinueTimes = a_nContinueTimes, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CContinuePopup>>()
+			m_nContinueTimes = a_nContinueTimes, m_nAdsContinueTimes = a_nAdsContinueTimes, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CContinuePopup>>()
 		};
 	}
 	#endregion // 클래스 함수
