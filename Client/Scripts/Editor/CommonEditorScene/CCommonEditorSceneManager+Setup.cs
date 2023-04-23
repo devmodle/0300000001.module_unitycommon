@@ -562,7 +562,9 @@ public static partial class CCommonEditorSceneManager {
 			var oIsSetupOptsList = new List<bool>() {
 				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_DEBUG_VARIANTS).boolValue,
 				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_UNUSED_VARIANTS).boolValue,
-				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_UNUSED_POST_PROCESSING_VARIANTS).boolValue
+				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_UNUSED_POST_PROCESSING_VARIANTS).boolValue,
+
+				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_SHADER_VARIANT_LOG_LEVEL).intValue == (int)EShaderVariantLogLevel.ALL_SHADERS
 			};
 
 			// 설정 갱신이 필요 할 경우
@@ -570,6 +572,8 @@ public static partial class CCommonEditorSceneManager {
 				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
 				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
 				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
+
+				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_UNIVERSAL_RP_SHADER_VARIANT_LOG_LEVEL, (a_oProperty) => a_oProperty.intValue = (int)EShaderVariantLogLevel.ALL_SHADERS);
 			}
 		}
 	}

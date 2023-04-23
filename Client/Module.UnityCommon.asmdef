@@ -24,7 +24,6 @@
         "Unity.InputSystem",
         "Unity.Advertisement.IosSupport",
         "Unity.RenderPipelines.Universal.Runtime",
-        "Unity.EditorCoroutines.Editor",
         "Unity.Notifications.iOS",
         "Unity.Notifications.Android",
         "Unity.AdaptivePerformance",
