@@ -108,10 +108,10 @@ namespace PlayScene {
 		/** 재시도 팝업 콜백을 처리한다 */
 		private void HandleRetryPopupCallback(CPopup a_oPopup) {
 #if ADS_MODULE_ENABLE
-			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY));
-#else
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
+			Func.ShowFullscreenAds(null, KCDefine.B_VAL_0_1_REAL);
 #endif // #if ADS_MODULE_ENABLE
+
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_PLAY);
 		}
 
 		/** 재개 팝업 콜백을 처리한다 */
@@ -122,7 +122,7 @@ namespace PlayScene {
 		/** 이어하기 팝업 콜백을 처리한다 */
 		private void HandleContinuePopupCallback(CPopup a_oPopup) {
 			var oContinuePopup = a_oPopup as CContinuePopup;
-			
+
 			m_oIntDict[EKey.CONTINUE_TIMES] += (oContinuePopup != null && oContinuePopup.IsWatchAds) ? KCDefine.B_VAL_0_INT : KCDefine.B_VAL_1_INT;
 			m_oIntDict[EKey.ADS_CONTINUE_TIMES] += (oContinuePopup != null && oContinuePopup.IsWatchAds) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
 		}
@@ -141,10 +141,10 @@ namespace PlayScene {
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 			} else {
 #if ADS_MODULE_ENABLE
-				Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
-#else
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
+				Func.ShowFullscreenAds(null, KCDefine.B_VAL_0_1_REAL);
 #endif // #if ADS_MODULE_ENABLE
+
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 			}
 		}
 

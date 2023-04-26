@@ -503,8 +503,8 @@ public static partial class Func {
 			CIndicatorManager.Inst.Show();
 
 			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => {
-				Func.m_stAdsRewardInfo = STAdsRewardInfo.INVALID;
 				Func.m_oBoolDict[EKey.IS_WATCH_REWARD_ADS] = false;
+				Func.m_stAdsRewardInfo = STAdsRewardInfo.INVALID;
 				Func.m_oAdsCallbackDict02.ExReplaceVal(ECallback.SHOW_REWARD_ADS, a_oCallback);
 
 				CAdsManager.Inst.ShowRewardAds(a_eAdsPlatform, Func.OnReceiveAdsReward, null, Func.OnCloseRewardAds);
