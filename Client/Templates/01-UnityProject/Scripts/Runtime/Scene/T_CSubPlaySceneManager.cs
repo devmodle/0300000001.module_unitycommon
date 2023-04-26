@@ -464,13 +464,10 @@ namespace PlayScene {
 		/** 결과 팝업을 출력한다 */
 		private void ShowResultPopup(bool a_bIsClear) {
 			Func.ShowResultPopup(this.PopupUIs, (a_oSender) => {
-				var stRecordInfo = new STRecordInfo {
-					m_bIsSuccess = a_bIsClear,
-					m_nIntRecord = m_oEngine.RecordInfo.m_nIntRecord,
-					m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord
-				};
+				var stIDInfo = CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo;
+				var stRecordInfo = new STRecordInfo(m_oEngine.RecordInfo.m_nIntRecord, m_oEngine.RecordInfo.m_dblRealRecord, a_bIsClear);
 
-				(a_oSender as CResultPopup).Init(CResultPopup.MakeParams(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo, stRecordInfo, new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
+				(a_oSender as CResultPopup).Init(CResultPopup.MakeParams(stIDInfo, stRecordInfo, new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
 					[CResultPopup.ECallback.NEXT] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.NEXT),
 					[CResultPopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.RETRY),
 					[CResultPopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.LEAVE)

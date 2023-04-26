@@ -173,27 +173,12 @@ public static partial class KDefine {
 	public static readonly string PS_TEX_P_FMT_LEFT_BG = $"{KCDefine.B_DIR_P_TEXTURES}{KCDefine.B_DIR_P_PLAY_SCENE}LeftBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
 	public static readonly string PS_TEX_P_FMT_RIGHT_BG = $"{KCDefine.B_DIR_P_TEXTURES}{KCDefine.B_DIR_P_PLAY_SCENE}RightBG_{"{0:00}"}_{"{0:000}"}_{"{0:0000}"}";
 
-	// 정렬 순서 {
-	public static readonly STSortingOrderInfo PS_SORTING_OI_BG = new STSortingOrderInfo() {
-		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
-	};
-
-	public static readonly STSortingOrderInfo PS_SORTING_OI_UP_BG = new STSortingOrderInfo() {
-		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND + 20, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
-	};
-
-	public static readonly STSortingOrderInfo PS_SORTING_OI_DOWN_BG = new STSortingOrderInfo() {
-		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND + 20, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
-	};
-
-	public static readonly STSortingOrderInfo PS_SORTING_OI_LEFT_BG = new STSortingOrderInfo() {
-		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND + 10, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
-	};
-
-	public static readonly STSortingOrderInfo PS_SORTING_OI_RIGHT_BG = new STSortingOrderInfo() {
-		m_nOrder = KCDefine.U_SORTING_O_UNDERGROUND + 10, m_oLayer = KCDefine.U_SORTING_L_UNDERGROUND
-	};
-	// 정렬 순서 }
+	// 정렬 순서
+	public static readonly STSortingOrderInfo PS_SORTING_OI_BG = new STSortingOrderInfo(KCDefine.U_SORTING_O_UNDERGROUND, KCDefine.U_SORTING_L_UNDERGROUND);
+	public static readonly STSortingOrderInfo PS_SORTING_OI_UP_BG = new STSortingOrderInfo(KCDefine.U_SORTING_O_UNDERGROUND + 20, KCDefine.U_SORTING_L_UNDERGROUND);
+	public static readonly STSortingOrderInfo PS_SORTING_OI_DOWN_BG = new STSortingOrderInfo(KCDefine.U_SORTING_O_UNDERGROUND + 20, KCDefine.U_SORTING_L_UNDERGROUND);
+	public static readonly STSortingOrderInfo PS_SORTING_OI_LEFT_BG = new STSortingOrderInfo(KCDefine.U_SORTING_O_UNDERGROUND + 10, KCDefine.U_SORTING_L_UNDERGROUND);
+	public static readonly STSortingOrderInfo PS_SORTING_OI_RIGHT_BG = new STSortingOrderInfo(KCDefine.U_SORTING_O_UNDERGROUND + 10, KCDefine.U_SORTING_L_UNDERGROUND);
 	#endregion // 런타임 상수
 }
 
