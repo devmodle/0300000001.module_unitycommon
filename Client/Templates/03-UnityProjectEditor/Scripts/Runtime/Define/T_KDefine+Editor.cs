@@ -66,7 +66,7 @@ public static partial class KDefine {
 	public static readonly Color LES_COLOR_VIEW_GRID_LINE_FX = new Color(0.35f, 0.0f, 0.0f, 1.0f);
 
 	// 비율
-	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(1.75f, 1.75f, 1.75f);
+	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(2.5f, 2.5f, 2.5f);
 
 	// 간격
 	public static readonly Vector3 LES_OFFSET_H_GRID_LINE_BTN = new Vector3(0.0f, 20.0f, 0.0f);
