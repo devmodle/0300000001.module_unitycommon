@@ -136,6 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &287120286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,9 +222,9 @@ MonoBehaviour:
     m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 12
+    m_MinSize: 14
     m_MaxSize: 36
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -315,7 +317,7 @@ MonoBehaviour:
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 12
+    m_MinSize: 14
     m_MaxSize: 32
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -410,7 +412,7 @@ MonoBehaviour:
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 12
+    m_MinSize: 14
     m_MaxSize: 32
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -505,7 +507,7 @@ MonoBehaviour:
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 12
+    m_MinSize: 14
     m_MaxSize: 32
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -729,6 +731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &4941703658113412941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,6 +881,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &1176749924559633985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1107,6 +1113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &8334246944251894884
 MonoBehaviour:
   m_ObjectHideFlags: 0

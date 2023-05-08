@@ -136,9 +136,9 @@ namespace InitScene {
 #endif // #if MULTI_TOUCH_ENABLE
 
 #if UNITY_2022_1_OR_NEWER
-			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, (int)Screen.currentResolution.refreshRateRatio.value.ExGetMinVal((double)nTargetFrameRate));
+			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.value.ExGetMinVal(nTargetFrameRate)));
 #else
-			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, (int)System.Math.Min(Screen.currentResolution.refreshRate, nTargetFrameRate));
+			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.Min(Screen.currentResolution.refreshRate, (int)nTargetFrameRate));
 #endif // #if UNITY_2022_1_OR_NEWER
 
 #if UNITY_EDITOR

@@ -72,13 +72,13 @@ MonoBehaviour:
     m_FontSize: 42
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 14
     m_MaxSize: 42
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Title
 --- !u!114 &246774052500517754
@@ -322,6 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &8851063560680333366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,13 +408,13 @@ MonoBehaviour:
     m_FontSize: 38
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 3
+    m_MinSize: 14
+    m_MaxSize: 38
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Message
 --- !u!114 &87062094192223720
@@ -507,7 +509,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: OK
 --- !u!114 &651313400634824964
@@ -675,6 +677,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
+  m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
 --- !u!114 &671381659503226676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,7 +799,7 @@ RectTransform:
   m_Children:
   - {fileID: 4152600513838688979}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -892,7 +896,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Cancel
 --- !u!114 &5310546474430565791
