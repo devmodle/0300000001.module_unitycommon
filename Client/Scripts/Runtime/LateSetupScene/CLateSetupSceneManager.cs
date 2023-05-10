@@ -13,6 +13,16 @@ using UnityEngine.Android;
 namespace LateSetupScene {
 	/** 지연 설정 씬 관리자 */
 	public abstract partial class CLateSetupSceneManager : CSceneManager {
+		#region 추상
+		/** 추적 설명 팝업을 출력한다 */
+		protected abstract void ShowTrackingDescPopup();
+
+#if UNITY_ANDROID
+		/** 유저 권한을 요청한다 */
+		protected abstract void RequestUserPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
+#endif // #if UNITY_ANDROID
+		#endregion // 추상
+
 		#region 프로퍼티
 		public virtual bool IsAutoInitManager => false;
 		public override string SceneName => KCDefine.B_SCENE_N_LATE_SETUP;
@@ -81,9 +91,6 @@ namespace LateSetupScene {
 			this.ExLateCallFunc((a_oSender) => this.OnCloseTrackingConsentView(true));
 #endif // #if UNITY_IOS
 		}
-
-		/** 추적 설명 팝업을 출력한다 */
-		protected abstract void ShowTrackingDescPopup();
 
 		/** 초기화 */
 		private IEnumerator CoStart() {
@@ -241,7 +248,6 @@ namespace LateSetupScene {
 				} else {
 					CSceneLoader.Inst.LoadSceneAsync(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_MENU : CSceneLoader.Inst.AwakeActiveSceneName, this.OnUpdateAsyncSceneLoadingState);
 				}
-				
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				// 기본 씬 일 경우
 				if(KCDefine.B_DEF_SCENE_NAME_LIST_01.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
@@ -263,9 +269,6 @@ namespace LateSetupScene {
 
 		#region 조건부 함수
 #if UNITY_ANDROID
-		/** 유저 권한을 요청한다 */
-		protected abstract void RequestUserPermission(string a_oPermission, System.Action<string, bool> a_oCallback);
-
 		/** 유저 권한 요청 결과를 수신했을 경우 */
 		private void OnReceiveRequestUserPermissionResult(string a_oPermission, bool a_bIsSuccess) {
 			this.UserPermissionList.ExRemoveVal(a_oPermission);

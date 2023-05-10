@@ -523,6 +523,7 @@ public static partial class CCommonEditorSceneManager {
 				oInputSettings = oInputSettings ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
 
 				InputSystem.settings = oInputSettings;
+				EditorUtility.SetDirty(oInputSettings);
 				EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, oInputSettings, true);
 			}
 

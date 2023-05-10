@@ -16,6 +16,11 @@ using MessagePack;
 [Union(2, typeof(CObjTargetInfo))]
 [Union(3, typeof(CAbilityTargetInfo))]
 public abstract partial class CTargetInfo : CBaseInfo {
+	#region 추상
+	[IgnoreMember] public abstract int Kinds { get; }
+	[IgnoreMember] public abstract ETargetType TargetType { get; }
+	#endregion // 추상
+
 	#region 변수
 	[Key(1)] public STIdxInfo m_stIdxInfo = STIdxInfo.INVALID;
 	[Key(131)] public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
@@ -55,9 +60,6 @@ public abstract partial class CTargetInfo : CBaseInfo {
 		get { return (ETargetType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TARGET_TYPE, $"{(int)ETargetType.NONE}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_OWNER_TARGET_TYPE, $"{(int)value}"); }
 	}
-
-	[IgnoreMember] public abstract int Kinds { get; }
-	[IgnoreMember] public abstract ETargetType TargetType { get; }
 	#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver

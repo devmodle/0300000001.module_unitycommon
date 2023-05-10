@@ -13,6 +13,11 @@ using UnityEngine.iOS;
 namespace InitScene {
 	/** 초기화 씬 관리자 */
 	public abstract partial class CInitSceneManager : CSceneManager {
+		#region 추상
+		/** 스플래시를 출력한다 */
+		protected abstract void ShowSplash();
+		#endregion // 추상
+
 		#region 클래스 변수
 		/** =====> 객체 <===== */
 		private static GameObject m_oBlindUIs = null;
@@ -161,9 +166,6 @@ namespace InitScene {
 			return CFactory.CreateCloneObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
 		}
 
-		/** 스플래시를 출력한다 */
-		protected abstract void ShowSplash();
-
 		/** 초기화 */
 		private IEnumerator CoStart() {
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
@@ -215,7 +217,8 @@ namespace InitScene {
 #endif // #if NOTI_MODULE_ENABLE
 			// 관리자를 생성한다 }
 
-			// 로더를 생성한다
+			// 씬 객체를 생성한다
+			CUSingleton.Create();
 			CSceneLoader.Create();
 
 			// 디바이스 연동 객체를 생성한다
