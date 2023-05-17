@@ -141,7 +141,8 @@ namespace InitScene {
 #endif // #if MULTI_TOUCH_ENABLE
 
 #if UNITY_2022_1_OR_NEWER
-			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.value.ExGetMinVal(nTargetFrameRate)));
+			int nDefTargetFrameRate = Application.isEditor ? KCDefine.B_EDITOR_TARGET_FRAME_RATE : KCDefine.B_MIN_TARGET_FRAME_RATE;
+			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate)));
 #else
 			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.Min(Screen.currentResolution.refreshRate, (int)nTargetFrameRate));
 #endif // #if UNITY_2022_1_OR_NEWER
@@ -157,7 +158,7 @@ namespace InitScene {
 		/** 다음 씬을 로드한다 */
 		protected void LoadNextScene() {
 #if SCENE_TEMPLATES_MODULE_ENABLE
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_START, false);
+			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_SETUP, false);
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 		}
 
@@ -254,9 +255,7 @@ namespace InitScene {
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
 			this.ShowSplash();
-
 			CSceneManager.SetEnableInit(true);
-			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 		}
 
 		/** 블라인드 UI 를 설정한다 */
