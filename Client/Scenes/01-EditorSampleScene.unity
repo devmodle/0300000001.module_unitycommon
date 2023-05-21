@@ -514,8 +514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &47162491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,7 +717,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98515741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2180.5535, y: 0, z: 0}
+  m_LocalPosition: {x: -2171.9685, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -763,8 +763,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &117954229
 MonoBehaviour:
@@ -1108,7 +1108,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &150500053
 MonoBehaviour:
@@ -1214,8 +1214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &179721070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1592,8 +1592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &194742499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1777,8 +1777,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &208056908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2025,8 +2025,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &252967414
 MonoBehaviour:
@@ -2294,8 +2294,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &287706021
 MonoBehaviour:
@@ -3483,8 +3483,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1296.332, y: 0}
-  m_SizeDelta: {x: 2592.664, y: 0}
+  m_AnchoredPosition: {x: 1291.1812, y: 0}
+  m_SizeDelta: {x: 2582.3623, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &378940644
 MonoBehaviour:
@@ -3695,8 +3695,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &395598573
 MonoBehaviour:
@@ -3820,8 +3820,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &427903653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4046,8 +4046,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &436739882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4360,8 +4360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &523255424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5487,8 +5487,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &610562964
 MonoBehaviour:
@@ -6097,8 +6097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &672199644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6247,8 +6247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &675373056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7193,8 +7193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &749592972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7515,8 +7515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &772718743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7636,8 +7636,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &781124567
 MonoBehaviour:
@@ -8287,6 +8287,7 @@ MonoBehaviour:
   m_Dithering: 0
   m_ClearDepth: 1
   m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
   m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
@@ -8312,7 +8313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 1bbe696dcc5e347f7b18d342f3be5ec0, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 1d6f65a7fd07f451c832fb1784779544, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -8438,7 +8439,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846901626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2180.5535, y: 0, z: 0}
+  m_LocalPosition: {x: 2171.9685, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8657,8 +8658,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &866959004
 MonoBehaviour:
@@ -9229,7 +9230,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4361.107, y: 0}
+  m_SizeDelta: {x: 4343.937, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &909390233
 GameObject:
@@ -9265,7 +9266,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4361.107, y: 0}
+  m_SizeDelta: {x: 4343.937, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &913937134
 GameObject:
@@ -9759,7 +9760,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4361.107, y: 0}
+  m_SizeDelta: {x: 4343.937, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &941972546
 GameObject:
@@ -10241,8 +10242,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959560769
 MonoBehaviour:
@@ -10768,8 +10769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1003493531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11221,8 +11222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1032241632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11341,8 +11342,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1042876182
 MonoBehaviour:
@@ -11768,8 +11769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1064787817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11918,8 +11919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1071941152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12483,8 +12484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1132338932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12870,8 +12871,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1204507046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13020,8 +13021,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1214773957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13312,8 +13313,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1221932020
 MonoBehaviour:
@@ -13421,8 +13422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1225394156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13978,8 +13979,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1302079558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14203,8 +14204,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1325599371
 MonoBehaviour:
@@ -14489,7 +14490,7 @@ Transform:
   m_GameObject: {fileID: 1376964104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.00958251, y: 0.00958251, z: 0.00958251}
+  m_LocalScale: {x: 0.009544783, y: 0.009544783, z: 0.009544783}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1538062839}
@@ -14643,8 +14644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1394409899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14855,7 +14856,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2180.5535, y: 0}
+  m_AnchoredPosition: {x: 2171.9685, y: 0}
   m_SizeDelta: {x: 0, y: 2560}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &1421376074
@@ -14924,8 +14925,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1421376078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15200,8 +15201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1447745460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15444,8 +15445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1474923802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16210,8 +16211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1556318491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16332,8 +16333,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1560360649
 MonoBehaviour:
@@ -17286,7 +17287,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4361.107, y: 0}
+  m_SizeDelta: {x: 4343.937, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1633188574
 GameObject:
@@ -17353,8 +17354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1633188578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17579,8 +17580,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1638237412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17702,8 +17703,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1643842311
 MonoBehaviour:
@@ -17811,8 +17812,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1648248581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18197,8 +18198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1687862036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18708,8 +18709,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1808317410
 MonoBehaviour:
@@ -19917,8 +19918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1937742888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20123,8 +20124,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1296.332, y: 0}
-  m_SizeDelta: {x: 999.2272, y: 0}
+  m_AnchoredPosition: {x: 1291.1812, y: 0}
+  m_SizeDelta: {x: 1008.6473, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1955940701
 MonoBehaviour:
@@ -20248,8 +20249,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
   m_oEndSndPath: Sounds/Global/G_SFX_TouchEnd
+  m_oBeginSndPath: Sounds/Global/G_SFX_TouchBegin
 --- !u!114 &1965367150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20446,8 +20447,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1998115938
 MonoBehaviour:
@@ -20542,8 +20543,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1998600525
 MonoBehaviour:
@@ -20788,8 +20789,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1296.332, y: 0}
-  m_SizeDelta: {x: 2592.664, y: 0}
+  m_AnchoredPosition: {x: 1291.1812, y: 0}
+  m_SizeDelta: {x: 2582.3623, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056451120
 MonoBehaviour:
@@ -20867,8 +20868,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 432.1107, y: 0}
-  m_SizeDelta: {x: 864.2214, y: 0}
+  m_AnchoredPosition: {x: 430.3937, y: 0}
+  m_SizeDelta: {x: 860.7874, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2057934388
 MonoBehaviour:
@@ -21168,7 +21169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2180.5535, y: 0}
+  m_AnchoredPosition: {x: -2171.9685, y: 0}
   m_SizeDelta: {x: 0, y: 2560}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &2114483858
